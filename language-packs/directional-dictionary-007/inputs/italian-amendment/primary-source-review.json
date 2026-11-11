@@ -1,0 +1,30 @@
+{
+  "sources": [
+    {
+      "url": "https://www.treccani.it/vocabolario/musicare/",
+      "finding": "Transitive verb: setting a poetic text to music. Supports a real compositional meaning distinct from the noun."
+    },
+    {
+      "url": "https://dizionario.internazionale.it/parola/musicare",
+      "finding": "Marks this meaning CO (common vocabulary), but no quantitative chat frequency was measured."
+    },
+    {
+      "url": "https://www.treccani.it/vocabolario/cibare/",
+      "finding": "Gives feed/nourish and reflexive eat meanings. Literary examples do not establish present chat frequency."
+    },
+    {
+      "url": "https://dizionario.internazionale.it/parola/cibare",
+      "finding": "Feed/nourish sense marked CO; separate literary eat sense marked BU. This does not imply noun-homograph frequencies are equal."
+    },
+    {
+      "url": "https://en.wiktionary.org/wiki/cibo#Italian",
+      "finding": "Retained entry302844 noun and302845 verb; exact local records preserved."
+    },
+    {
+      "url": "https://en.wiktionary.org/wiki/musica#Italian",
+      "finding": "Retained entry120381 noun and120382 verb; capitalized Musica name8819008 also preserved, no casefold permission."
+    }
+  ],
+  "assessment": "Both are real standard verb forms, not invented homographs. Reflexive mi cibo and setting poetry to music have concrete plausible uses; no claim they are as frequent as food/music nouns. Proposed limited noun contexts avoid the two authored counterexamples without changing morphology or target senses.",
+  "native_actual_wrong_output_captured": false
+}

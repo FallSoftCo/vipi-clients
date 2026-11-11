@@ -1,0 +1,60 @@
+[
+  {
+    "original": "Ogni mattina mi cibo di pane e frutta.",
+    "focus": "cibo",
+    "sense": "first-person reflexive cibarsi: I feed/eat; not the noun food",
+    "authorship": "Original agent-authored natural-style diagnostic; not an attested quote.",
+    "proposed_noun_match": false,
+    "literal_context_matches": [],
+    "native_test_run": false
+  },
+  {
+    "original": "Luca musica le poesie che scrivo.",
+    "focus": "musica",
+    "sense": "third-person musicare: sets poems to music; not the noun music",
+    "authorship": "Original agent-authored natural-style diagnostic; not an attested quote.",
+    "proposed_noun_match": false,
+    "literal_context_matches": [],
+    "native_test_run": false
+  },
+  {
+    "original": "Ho comprato del cibo per il viaggio.",
+    "focus": "cibo",
+    "sense": "food noun",
+    "proposed_noun_match": true,
+    "literal_context_matches": [
+      "del cibo"
+    ],
+    "native_test_run": false
+  },
+  {
+    "original": "Il cibo è ancora caldo.",
+    "focus": "cibo",
+    "sense": "food noun",
+    "proposed_noun_match": true,
+    "literal_context_matches": [
+      "Il cibo"
+    ],
+    "native_test_run": false
+  },
+  {
+    "original": "Ascolto musica mentre cucino.",
+    "focus": "musica",
+    "sense": "music noun",
+    "proposed_noun_match": true,
+    "literal_context_matches": [
+      "Ascolto musica"
+    ],
+    "native_test_run": false
+  },
+  {
+    "original": "C’è musica in cucina.",
+    "focus": "musica",
+    "sense": "music noun",
+    "proposed_noun_match": true,
+    "literal_context_matches": [
+      "C’è musica"
+    ],
+    "native_test_run": false
+  }
+]

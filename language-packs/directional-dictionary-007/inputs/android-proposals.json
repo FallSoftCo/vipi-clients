@@ -1,0 +1,3487 @@
+{
+  "schema": "vipi-private-directional-dictionary-proposal-1",
+  "runtime_promotion": false,
+  "source_hashes": {
+    "review-matrix.json": "948cc4c1480ca1cef4574cb679f9d63bcfb319034d6ff3c7295a08309dce7987",
+    "pilot-enriched.json": "ec47ddd7fd5ff92b10a7ba0eac1e3db7fc85e97ad360d5e5a64b0d9c1555982b",
+    "candidate-evidence.json": "335f65df451a0bb90b7bfacdb616b959a50547d4dc999d010d864a779a678a87",
+    "receipt.json": "6b4c36ba70ec6a375ae7fee3ca4847a0cbcbaca4cf371af30f7ebdf280f6a045"
+  },
+  "assignment": {
+    "first_index": 34,
+    "last_index": 66,
+    "index_basis": "zero-based retained review-matrix order filtered by nonempty selected_target_bindings",
+    "stable_ids": [
+      "pilot-sw-013",
+      "pilot-sw-017",
+      "pilot-sw-019",
+      "pilot-ar-002",
+      "pilot-ar-006",
+      "pilot-zh-000",
+      "pilot-zh-003",
+      "pilot-ko-000",
+      "pilot-ko-001",
+      "pilot-ko-002",
+      "pilot-ko-004",
+      "pilot-ko-005",
+      "pilot-fr-000",
+      "pilot-fr-003",
+      "pilot-fr-007",
+      "pilot-fr-008",
+      "pilot-fr-009",
+      "pilot-de-001",
+      "pilot-de-002",
+      "pilot-de-003",
+      "pilot-de-004",
+      "pilot-de-005",
+      "pilot-de-006",
+      "pilot-de-009",
+      "pilot-it-001",
+      "pilot-it-002",
+      "pilot-it-007",
+      "pilot-it-008",
+      "pilot-it-009",
+      "pilot-pt-002",
+      "pilot-pt-003",
+      "pilot-pt-005",
+      "pilot-pt-006"
+    ]
+  },
+  "summary": {
+    "reviewed_entries": 33,
+    "usable_finite_entries": 33,
+    "rejected_entries": 0,
+    "generic_permission_withheld": 14,
+    "directional_source_languages": [
+      "ar",
+      "de",
+      "fr",
+      "it",
+      "ko",
+      "pt",
+      "sw",
+      "zh"
+    ],
+    "target_languages": [
+      "en"
+    ],
+    "new_cross_language_pivots": 0,
+    "headword_proposals": 33,
+    "additional_supplied_written_variants": 1,
+    "authored_message_examples": 68,
+    "native_tests": 0,
+    "interpretation": "33 finite editorial meanings are usable proposals; this is not33 approved generic bare words, measured production yield, or native-human certification."
+  },
+  "proposals": [
+    {
+      "id": "android-dictionary-r01:pilot-sw-013",
+      "shortlist_index": 34,
+      "pilot_id": "pilot-sw-013",
+      "source_language": "sw",
+      "target_language": "en",
+      "source": "siku",
+      "target": "day",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "One calendar/24-hour day. Exact singular modifiers prevent mapping plural siku to singular day.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "siku moja",
+        "siku nzima"
+      ],
+      "examples": [
+        {
+          "original": "Nitabaki hapa kwa siku moja.",
+          "source_context": "siku moja",
+          "focus": "siku",
+          "focus_utf16": [
+            18,
+            22
+          ],
+          "expected_target": "day",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Nimekusubiri siku nzima.",
+          "source_context": "siku nzima",
+          "focus": "siku",
+          "focus_utf16": [
+            13,
+            17
+          ],
+          "expected_target": "day",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "day",
+        "evidence": [
+          {
+            "headword": "day",
+            "sense": "771e80c5cdfb7ea8a8b27f1198c202091649604fed162ea475dd163ba68cbf5f",
+            "source_url": "https://en.wiktionary.org/wiki/day#English"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 485411,
+            "source_url": "https://en.wiktionary.org/wiki/siku#Swahili",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 485411,
+                "sense_index": 0,
+                "glosses": "[\"day, nycthemeron, a twenty-four-hour period beginning and ending at sunrise (6.00AM)\"]",
+                "tags": "[\"class-ix\"]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": [
+              {
+                "source_line": 485411,
+                "form": "siku",
+                "normalized": "siku",
+                "tags": "[\"class-x\",\"plural\"]"
+              }
+            ]
+          }
+        ],
+        "sense_ids": [
+          "771e80c5cdfb7ea8a8b27f1198c202091649604fed162ea475dd163ba68cbf5f"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English pivot TRAIN frequency proxy; not native source-language frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-sw-017",
+      "shortlist_index": 35,
+      "pilot_id": "pilot-sw-017",
+      "source_language": "sw",
+      "target_language": "en",
+      "source": "matumaini",
+      "target": "hope",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Hope as expectation/belief; finite noun contexts select the retained expectation sense.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "Nina matumaini",
+        "kuna matumaini"
+      ],
+      "examples": [
+        {
+          "original": "Nina matumaini kwamba tutakutana tena.",
+          "source_context": "Nina matumaini",
+          "focus": "matumaini",
+          "focus_utf16": [
+            5,
+            14
+          ],
+          "expected_target": "hope",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Bado kuna matumaini ya kupata kazi.",
+          "source_context": "kuna matumaini",
+          "focus": "matumaini",
+          "focus_utf16": [
+            10,
+            19
+          ],
+          "expected_target": "hope",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "hope",
+        "evidence": [
+          {
+            "headword": "hope",
+            "sense": "2b9eb08822af1d5796dafc6e5a2ee18f8ce374b76db5d03704c50cc8e7592e41",
+            "source_url": "https://en.wiktionary.org/wiki/hope#English"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 2162573,
+            "source_url": "https://en.wiktionary.org/wiki/matumaini#Swahili",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "2b9eb08822af1d5796dafc6e5a2ee18f8ce374b76db5d03704c50cc8e7592e41"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English pivot TRAIN frequency proxy; not native source-language frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-sw-019",
+      "shortlist_index": 36,
+      "pilot_id": "pilot-sw-019",
+      "source_language": "sw",
+      "target_language": "en",
+      "source": "uhitaji",
+      "target": "need",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "A need/requirement, with an explicit required resource. Retain this supplied noun, not the more frequent verb hitaji or plural mahitaji.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "uhitaji wa maji",
+        "uhitaji wa chakula"
+      ],
+      "examples": [
+        {
+          "original": "Kuna uhitaji wa maji safi hapa.",
+          "source_context": "uhitaji wa maji",
+          "focus": "uhitaji",
+          "focus_utf16": [
+            5,
+            12
+          ],
+          "expected_target": "need",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Familia hii ina uhitaji wa chakula.",
+          "source_context": "uhitaji wa chakula",
+          "focus": "uhitaji",
+          "focus_utf16": [
+            16,
+            23
+          ],
+          "expected_target": "need",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "need",
+        "evidence": [
+          {
+            "headword": "need",
+            "sense": "7b2549c43a510b1ca4172b3e3deccc0a241d1c2e81494bcae3d432fdb5d1fbca",
+            "source_url": "https://en.wiktionary.org/wiki/need#English"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 5458323,
+            "source_url": "https://en.wiktionary.org/wiki/uhitaji#Swahili",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "7b2549c43a510b1ca4172b3e3deccc0a241d1c2e81494bcae3d432fdb5d1fbca"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English pivot TRAIN frequency proxy; not native source-language frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-ar-002",
+      "shortlist_index": 37,
+      "pilot_id": "pilot-ar-002",
+      "source_language": "ar",
+      "target_language": "en",
+      "source": "آيس كريم",
+      "target": "ice cream",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "The frozen dessert; retain the whole supplied loan phrase.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "آيس كريم"
+      ],
+      "examples": [
+        {
+          "original": "أريد آيس كريم بالفانيلا.",
+          "source_context": "آيس كريم",
+          "focus": "آيس كريم",
+          "focus_utf16": [
+            5,
+            13
+          ],
+          "expected_target": "ice cream",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "اشترينا آيس كريم بعد الغداء.",
+          "source_context": "آيس كريم",
+          "focus": "آيس كريم",
+          "focus_utf16": [
+            8,
+            16
+          ],
+          "expected_target": "ice cream",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "ice cream",
+        "evidence": [
+          {
+            "headword": "ice cream",
+            "sense": "native-gloss:ar:7510444",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/%D8%A2%D9%8A%D8%B3%20%D9%83%D8%B1%D9%8A%D9%85#Arabic",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 7510444,
+            "source_url": "https://en.wiktionary.org/wiki/%D8%A2%D9%8A%D8%B3%20%D9%83%D8%B1%D9%8A%D9%85#Arabic",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:ar:7510444"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-ar-006",
+      "shortlist_index": 38,
+      "pilot_id": "pilot-ar-006",
+      "source_language": "ar",
+      "target_language": "en",
+      "source": "علم الحاسوب",
+      "target": "computer science",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "The academic discipline computer science; whole supplied phrase.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "علم الحاسوب"
+      ],
+      "examples": [
+        {
+          "original": "أدرس علم الحاسوب في الجامعة.",
+          "source_context": "علم الحاسوب",
+          "focus": "علم الحاسوب",
+          "focus_utf16": [
+            5,
+            16
+          ],
+          "expected_target": "computer science",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "أخي مهتم بدراسة علم الحاسوب.",
+          "source_context": "علم الحاسوب",
+          "focus": "علم الحاسوب",
+          "focus_utf16": [
+            16,
+            27
+          ],
+          "expected_target": "computer science",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "computer science",
+        "evidence": [
+          {
+            "headword": "computer science",
+            "sense": "native-gloss:ar:9363317",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/%D8%B9%D9%84%D9%85%20%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D9%88%D8%A8#Arabic",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 9363317,
+            "source_url": "https://en.wiktionary.org/wiki/%D8%B9%D9%84%D9%85%20%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D9%88%D8%A8#Arabic",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 9363317,
+                "sense_index": 0,
+                "glosses": "[\"computer science\"]",
+                "tags": "[]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": [
+              {
+                "source_line": 9363317,
+                "form": "ar-decl-noun",
+                "normalized": "ar-decl-noun",
+                "tags": "[\"inflection-template\"]"
+              },
+              {
+                "source_line": 9363317,
+                "form": "no-table-tags",
+                "normalized": "no-table-tags",
+                "tags": "[\"table-tags\"]"
+              },
+              {
+                "source_line": 9363317,
+                "form": "ʕilm al-ḥāsūb",
+                "normalized": "ʕilm al-ḥāsūb",
+                "tags": "[\"romanization\"]"
+              },
+              {
+                "source_line": 9363317,
+                "form": "عِلْم الْحَاسُوب",
+                "normalized": "علم الحاسوب",
+                "tags": "[\"canonical\",\"masculine\"]"
+              }
+            ]
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:ar:9363317"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-zh-000",
+      "shortlist_index": 39,
+      "pilot_id": "pilot-zh-000",
+      "source_language": "zh",
+      "target_language": "en",
+      "source": "鄉村音樂",
+      "target": "country music",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Country music as a musical genre, not music in any rural place.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "鄉村音樂"
+      ],
+      "examples": [
+        {
+          "original": "我喜歡聽鄉村音樂。",
+          "source_context": "鄉村音樂",
+          "focus": "鄉村音樂",
+          "focus_utf16": [
+            4,
+            8
+          ],
+          "expected_target": "country music",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "你平時會聽鄉村音樂嗎？",
+          "source_context": "鄉村音樂",
+          "focus": "鄉村音樂",
+          "focus_utf16": [
+            5,
+            9
+          ],
+          "expected_target": "country music",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "country music",
+        "evidence": [
+          {
+            "headword": "country music",
+            "sense": "native-gloss:zh:6911927",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/%E9%84%89%E6%9D%91%E9%9F%B3%E6%A8%82#Chinese",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 6911927,
+            "source_url": "https://en.wiktionary.org/wiki/%E9%84%89%E6%9D%91%E9%9F%B3%E6%A8%82#Chinese",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 6911927,
+                "sense_index": 0,
+                "glosses": "[\"country music\"]",
+                "tags": "[]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": [
+              {
+                "source_line": 6911927,
+                "form": "乡村音乐",
+                "normalized": "乡村音乐",
+                "tags": "[\"Simplified-Chinese\"]"
+              }
+            ]
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:zh:6911927"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": [
+        {
+          "source": "乡村音乐",
+          "target": "country music",
+          "source_line": 6911927,
+          "tags": [
+            "Simplified-Chinese"
+          ],
+          "examples": [
+            "我喜欢听乡村音乐。",
+            "你平时会听乡村音乐吗？"
+          ],
+          "status": "Supplied native script variant; same direct sense, pending native qualification."
+        }
+      ]
+    },
+    {
+      "id": "android-dictionary-r01:pilot-zh-003",
+      "shortlist_index": 40,
+      "pilot_id": "pilot-zh-003",
+      "source_language": "zh",
+      "target_language": "en",
+      "source": "昨夜",
+      "target": "last night",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "The preceding night; supplied temporal expression. More written in register than 昨晚, not a meaning rejection.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "昨夜"
+      ],
+      "examples": [
+        {
+          "original": "昨夜下了一場大雨。",
+          "source_context": "昨夜",
+          "focus": "昨夜",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "expected_target": "last night",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "昨夜我睡得很好。",
+          "source_context": "昨夜",
+          "focus": "昨夜",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "expected_target": "last night",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "last night",
+        "evidence": [
+          {
+            "headword": "last night",
+            "sense": "native-gloss:zh:1449251",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/%E6%98%A8%E5%A4%9C#Chinese",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 1449251,
+            "source_url": "https://en.wiktionary.org/wiki/%E6%98%A8%E5%A4%9C#Chinese",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 1449251,
+                "sense_index": 0,
+                "glosses": "[\"last night\"]",
+                "tags": "[]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:zh:1449251"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-ko-000",
+      "shortlist_index": 41,
+      "pilot_id": "pilot-ko-000",
+      "source_language": "ko",
+      "target_language": "en",
+      "source": "고교",
+      "target": "high school",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "High school, retained abbreviation; school friend/period contexts.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "고교 친구",
+        "고교 시절"
+      ],
+      "examples": [
+        {
+          "original": "고교 친구를 오늘 만났어요.",
+          "source_context": "고교 친구",
+          "focus": "고교",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "expected_target": "high school",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "고교 시절 사진을 찾았어요.",
+          "source_context": "고교 시절",
+          "focus": "고교",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "expected_target": "high school",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "high school",
+        "evidence": [
+          {
+            "headword": "high school",
+            "sense": "native-gloss:ko:9181237",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/%EA%B3%A0%EA%B5%90#Korean",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 9181237,
+            "source_url": "https://en.wiktionary.org/wiki/%EA%B3%A0%EA%B5%90#Korean",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:ko:9181237"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-ko-001",
+      "shortlist_index": 42,
+      "pilot_id": "pilot-ko-001",
+      "source_language": "ko",
+      "target_language": "en",
+      "source": "고등학교",
+      "target": "high school",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "High school; whole Hangul headword before a separate following noun. No stripping attached particles.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "고등학교 친구",
+        "고등학교 시절"
+      ],
+      "examples": [
+        {
+          "original": "고등학교 친구와 점심을 먹었어요.",
+          "source_context": "고등학교 친구",
+          "focus": "고등학교",
+          "focus_utf16": [
+            0,
+            4
+          ],
+          "expected_target": "high school",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "고등학교 시절 사진을 보고 있어요.",
+          "source_context": "고등학교 시절",
+          "focus": "고등학교",
+          "focus_utf16": [
+            0,
+            4
+          ],
+          "expected_target": "high school",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "high school",
+        "evidence": [
+          {
+            "headword": "high school",
+            "sense": "native-gloss:ko:1273583",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90#Korean",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 1273583,
+            "source_url": "https://en.wiktionary.org/wiki/%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90#Korean",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 1273583,
+                "sense_index": 0,
+                "glosses": "[\"high school\"]",
+                "tags": "[]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": [
+              {
+                "source_line": 1273583,
+                "form": "godeunghakgyo",
+                "normalized": "godeunghakgyo",
+                "tags": "[\"romanization\"]"
+              },
+              {
+                "source_line": 1273583,
+                "form": "高等學校",
+                "normalized": "高等學校",
+                "tags": "[\"hanja\"]"
+              }
+            ]
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:ko:1273583"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-ko-002",
+      "shortlist_index": 43,
+      "pilot_id": "pilot-ko-002",
+      "source_language": "ko",
+      "target_language": "en",
+      "source": "간밤",
+      "target": "last night",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Last night, temporal modifier; whole supplied native spelling.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "간밤 비",
+        "간밤 잠"
+      ],
+      "examples": [
+        {
+          "original": "간밤 비가 많이 왔어요.",
+          "source_context": "간밤 비",
+          "focus": "간밤",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "expected_target": "last night",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "간밤 잠을 잘 못 잤어요.",
+          "source_context": "간밤 잠",
+          "focus": "간밤",
+          "focus_utf16": [
+            0,
+            2
+          ],
+          "expected_target": "last night",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "last night",
+        "evidence": [
+          {
+            "headword": "last night",
+            "sense": "native-gloss:ko:8408735",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/%EA%B0%84%EB%B0%A4#Korean",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 8408735,
+            "source_url": "https://en.wiktionary.org/wiki/%EA%B0%84%EB%B0%A4#Korean",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:ko:8408735"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-ko-004",
+      "shortlist_index": 44,
+      "pilot_id": "pilot-ko-004",
+      "source_language": "ko",
+      "target_language": "en",
+      "source": "어젯밤",
+      "target": "last night",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Last night, temporal modifier; retain 어젯밤 exactly.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "어젯밤 잠",
+        "어젯밤 비"
+      ],
+      "examples": [
+        {
+          "original": "어젯밤 잠을 잘 잤어요.",
+          "source_context": "어젯밤 잠",
+          "focus": "어젯밤",
+          "focus_utf16": [
+            0,
+            3
+          ],
+          "expected_target": "last night",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "어젯밤 비가 많이 왔어요.",
+          "source_context": "어젯밤 비",
+          "focus": "어젯밤",
+          "focus_utf16": [
+            0,
+            3
+          ],
+          "expected_target": "last night",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "last night",
+        "evidence": [
+          {
+            "headword": "last night",
+            "sense": "native-gloss:ko:6823929",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/%EC%96%B4%EC%A0%AF%EB%B0%A4#Korean",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 6823929,
+            "source_url": "https://en.wiktionary.org/wiki/%EC%96%B4%EC%A0%AF%EB%B0%A4#Korean",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 6823929,
+                "sense_index": 0,
+                "glosses": "[\"last night\"]",
+                "tags": "[]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": [
+              {
+                "source_line": 6823929,
+                "form": "eojetbam",
+                "normalized": "eojetbam",
+                "tags": "[\"romanization\"]"
+              }
+            ]
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:ko:6823929"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-ko-005",
+      "shortlist_index": 45,
+      "pilot_id": "pilot-ko-005",
+      "source_language": "ko",
+      "target_language": "en",
+      "source": "지난밤",
+      "target": "last night",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "The preceding night, not the adjective 지난 detached from 밤.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "지난밤 잠",
+        "지난밤 비"
+      ],
+      "examples": [
+        {
+          "original": "지난밤 잠을 거의 못 잤어요.",
+          "source_context": "지난밤 잠",
+          "focus": "지난밤",
+          "focus_utf16": [
+            0,
+            3
+          ],
+          "expected_target": "last night",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "지난밤 비가 많이 내렸어요.",
+          "source_context": "지난밤 비",
+          "focus": "지난밤",
+          "focus_utf16": [
+            0,
+            3
+          ],
+          "expected_target": "last night",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "last night",
+        "evidence": [
+          {
+            "headword": "last night",
+            "sense": "native-gloss:ko:7367218",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/%EC%A7%80%EB%82%9C%EB%B0%A4#Korean",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 7367218,
+            "source_url": "https://en.wiktionary.org/wiki/%EC%A7%80%EB%82%9C%EB%B0%A4#Korean",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:ko:7367218"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-fr-000",
+      "shortlist_index": 46,
+      "pilot_id": "pilot-fr-000",
+      "source_language": "fr",
+      "target_language": "en",
+      "source": "temps libre",
+      "target": "free time",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Leisure/free time; whole multiword noun.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "temps libre"
+      ],
+      "examples": [
+        {
+          "original": "J’ai du temps libre cet après-midi.",
+          "source_context": "temps libre",
+          "focus": "temps libre",
+          "focus_utf16": [
+            8,
+            19
+          ],
+          "expected_target": "free time",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Que fais-tu pendant ton temps libre ?",
+          "source_context": "temps libre",
+          "focus": "temps libre",
+          "focus_utf16": [
+            24,
+            35
+          ],
+          "expected_target": "free time",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "free time",
+        "evidence": [
+          {
+            "headword": "free time",
+            "sense": "native-gloss:fr:1519152",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/temps%20libre#French",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 1519152,
+            "source_url": "https://en.wiktionary.org/wiki/temps%20libre#French",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 1519152,
+                "sense_index": 0,
+                "glosses": "[\"free time\"]",
+                "tags": "[\"countable\",\"masculine\",\"uncountable\"]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": [
+              {
+                "source_line": 1519152,
+                "form": "temps libres",
+                "normalized": "temps libres",
+                "tags": "[\"plural\"]"
+              }
+            ]
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:fr:1519152"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-fr-003",
+      "shortlist_index": 47,
+      "pilot_id": "pilot-fr-003",
+      "source_language": "fr",
+      "target_language": "en",
+      "source": "poulet frit",
+      "target": "fried chicken",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Chicken prepared by frying; whole food phrase.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "poulet frit"
+      ],
+      "examples": [
+        {
+          "original": "On mange du poulet frit ce soir.",
+          "source_context": "poulet frit",
+          "focus": "poulet frit",
+          "focus_utf16": [
+            12,
+            23
+          ],
+          "expected_target": "fried chicken",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Tu veux du poulet frit avec du riz ?",
+          "source_context": "poulet frit",
+          "focus": "poulet frit",
+          "focus_utf16": [
+            11,
+            22
+          ],
+          "expected_target": "fried chicken",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "fried chicken",
+        "evidence": [
+          {
+            "headword": "fried chicken",
+            "sense": "native-gloss:fr:8536152",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/poulet%20frit#French",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 8536152,
+            "source_url": "https://en.wiktionary.org/wiki/poulet%20frit#French",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:fr:8536152"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-fr-007",
+      "shortlist_index": 48,
+      "pilot_id": "pilot-fr-007",
+      "source_language": "fr",
+      "target_language": "en",
+      "source": "parc national",
+      "target": "national park",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "A protected national park; whole phrase.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "parc national"
+      ],
+      "examples": [
+        {
+          "original": "Nous allons visiter un parc national demain.",
+          "source_context": "parc national",
+          "focus": "parc national",
+          "focus_utf16": [
+            23,
+            36
+          ],
+          "expected_target": "national park",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Ce parc national est près de chez moi.",
+          "source_context": "parc national",
+          "focus": "parc national",
+          "focus_utf16": [
+            3,
+            16
+          ],
+          "expected_target": "national park",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "national park",
+        "evidence": [
+          {
+            "headword": "national park",
+            "sense": "native-gloss:fr:8349443",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/parc%20national#French",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 8349443,
+            "source_url": "https://en.wiktionary.org/wiki/parc%20national#French",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:fr:8349443"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-fr-008",
+      "shortlist_index": 49,
+      "pilot_id": "pilot-fr-008",
+      "source_language": "fr",
+      "target_language": "en",
+      "source": "changement climatique",
+      "target": "climate change",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Climate change; whole phrase, without inferring a separate political sense.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "changement climatique"
+      ],
+      "examples": [
+        {
+          "original": "On a parlé du changement climatique en cours.",
+          "source_context": "changement climatique",
+          "focus": "changement climatique",
+          "focus_utf16": [
+            14,
+            35
+          ],
+          "expected_target": "climate change",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Ce livre explique le changement climatique.",
+          "source_context": "changement climatique",
+          "focus": "changement climatique",
+          "focus_utf16": [
+            21,
+            42
+          ],
+          "expected_target": "climate change",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "climate change",
+        "evidence": [
+          {
+            "headword": "climate change",
+            "sense": "native-gloss:fr:7669443",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/changement%20climatique#French",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 7669443,
+            "source_url": "https://en.wiktionary.org/wiki/changement%20climatique#French",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:fr:7669443"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-fr-009",
+      "shortlist_index": 50,
+      "pilot_id": "pilot-fr-009",
+      "source_language": "fr",
+      "target_language": "en",
+      "source": "varappe",
+      "target": "rock climbing",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Rock climbing, noun in faire de la varappe; bare varappe also has a verb analysis and is withheld.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "faire de la varappe"
+      ],
+      "examples": [
+        {
+          "original": "J’aime faire de la varappe le week-end.",
+          "source_context": "faire de la varappe",
+          "focus": "varappe",
+          "focus_utf16": [
+            19,
+            26
+          ],
+          "expected_target": "rock climbing",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "On va faire de la varappe demain.",
+          "source_context": "faire de la varappe",
+          "focus": "varappe",
+          "focus_utf16": [
+            18,
+            25
+          ],
+          "expected_target": "rock climbing",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "rock climbing",
+        "evidence": [
+          {
+            "headword": "rock climbing",
+            "sense": "native-gloss:fr:2177755",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/varappe#French",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 2177755,
+            "source_url": "https://en.wiktionary.org/wiki/varappe#French",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          },
+          {
+            "entry_id": 2177756,
+            "source_url": "https://en.wiktionary.org/wiki/varappe#French",
+            "part_of_speech": "verb",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:fr:2177755"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-de-001",
+      "shortlist_index": 51,
+      "pilot_id": "pilot-de-001",
+      "source_language": "de",
+      "target_language": "en",
+      "source": "Eiscreme",
+      "target": "ice cream",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "The frozen dessert, not the broader ambiguous Eis.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "Eiscreme"
+      ],
+      "examples": [
+        {
+          "original": "Möchtest du Eiscreme zum Nachtisch?",
+          "source_context": "Eiscreme",
+          "focus": "Eiscreme",
+          "focus_utf16": [
+            12,
+            20
+          ],
+          "expected_target": "ice cream",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Ich habe Eiscreme für uns gekauft.",
+          "source_context": "Eiscreme",
+          "focus": "Eiscreme",
+          "focus_utf16": [
+            9,
+            17
+          ],
+          "expected_target": "ice cream",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "ice cream",
+        "evidence": [
+          {
+            "headword": "ice cream",
+            "sense": "native-gloss:de:576871",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/Eiscreme#German",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 576871,
+            "source_url": "https://en.wiktionary.org/wiki/Eiscreme#German",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:de:576871"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-de-002",
+      "shortlist_index": 52,
+      "pilot_id": "pilot-de-002",
+      "source_language": "de",
+      "target_language": "en",
+      "source": "Lebensmittelhandlung",
+      "target": "grocery store",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "A grocery retail shop; retain the complete German compound, without replacing it by a frequency-based synonym.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "Lebensmittelhandlung"
+      ],
+      "examples": [
+        {
+          "original": "Die Lebensmittelhandlung an der Ecke ist noch offen.",
+          "source_context": "Lebensmittelhandlung",
+          "focus": "Lebensmittelhandlung",
+          "focus_utf16": [
+            4,
+            24
+          ],
+          "expected_target": "grocery store",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Ich gehe kurz zur Lebensmittelhandlung.",
+          "source_context": "Lebensmittelhandlung",
+          "focus": "Lebensmittelhandlung",
+          "focus_utf16": [
+            18,
+            38
+          ],
+          "expected_target": "grocery store",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "grocery store",
+        "evidence": [
+          {
+            "headword": "grocery store",
+            "sense": "native-gloss:de:5086743",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/Lebensmittelhandlung#German",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 5086743,
+            "source_url": "https://en.wiktionary.org/wiki/Lebensmittelhandlung#German",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:de:5086743"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-de-003",
+      "shortlist_index": 53,
+      "pilot_id": "pilot-de-003",
+      "source_language": "de",
+      "target_language": "en",
+      "source": "Computerwissenschaft",
+      "target": "computer science",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Computer science; supplied discipline name. Less usual than Informatik is not grounds for changing the supplied headword.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "Computerwissenschaft"
+      ],
+      "examples": [
+        {
+          "original": "Ich studiere Computerwissenschaft an der Universität.",
+          "source_context": "Computerwissenschaft",
+          "focus": "Computerwissenschaft",
+          "focus_utf16": [
+            13,
+            33
+          ],
+          "expected_target": "computer science",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Sie interessiert sich für Computerwissenschaft.",
+          "source_context": "Computerwissenschaft",
+          "focus": "Computerwissenschaft",
+          "focus_utf16": [
+            26,
+            46
+          ],
+          "expected_target": "computer science",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "computer science",
+        "evidence": [
+          {
+            "headword": "computer science",
+            "sense": "native-gloss:de:10715818",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/Computerwissenschaft#German",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 10715818,
+            "source_url": "https://en.wiktionary.org/wiki/Computerwissenschaft#German",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:de:10715818"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-de-004",
+      "shortlist_index": 54,
+      "pilot_id": "pilot-de-004",
+      "source_language": "de",
+      "target_language": "en",
+      "source": "Rockmusik",
+      "target": "rock music",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Rock music genre; complete compound.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "Rockmusik"
+      ],
+      "examples": [
+        {
+          "original": "Ich höre gern Rockmusik beim Kochen.",
+          "source_context": "Rockmusik",
+          "focus": "Rockmusik",
+          "focus_utf16": [
+            14,
+            23
+          ],
+          "expected_target": "rock music",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Magst du Rockmusik oder Jazz?",
+          "source_context": "Rockmusik",
+          "focus": "Rockmusik",
+          "focus_utf16": [
+            9,
+            18
+          ],
+          "expected_target": "rock music",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "rock music",
+        "evidence": [
+          {
+            "headword": "rock music",
+            "sense": "native-gloss:de:2986986",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/Rockmusik#German",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 2986986,
+            "source_url": "https://en.wiktionary.org/wiki/Rockmusik#German",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 2986986,
+                "sense_index": 0,
+                "glosses": "[\"rock music\"]",
+                "tags": "[\"feminine\"]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": [
+              {
+                "source_line": 2986986,
+                "form": "Rockmusik",
+                "normalized": "rockmusik",
+                "tags": "[\"accusative\",\"singular\"]"
+              },
+              {
+                "source_line": 2986986,
+                "form": "Rockmusik",
+                "normalized": "rockmusik",
+                "tags": "[\"dative\",\"singular\"]"
+              },
+              {
+                "source_line": 2986986,
+                "form": "Rockmusik",
+                "normalized": "rockmusik",
+                "tags": "[\"genitive\",\"singular\"]"
+              },
+              {
+                "source_line": 2986986,
+                "form": "Rockmusik",
+                "normalized": "rockmusik",
+                "tags": "[\"genitive\"]"
+              }
+            ]
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:de:2986986"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-de-005",
+      "shortlist_index": 55,
+      "pilot_id": "pilot-de-005",
+      "source_language": "de",
+      "target_language": "en",
+      "source": "Klimaveränderung",
+      "target": "climate change",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Climate change; complete compound.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "Klimaveränderung"
+      ],
+      "examples": [
+        {
+          "original": "Wir sprechen heute über die Klimaveränderung.",
+          "source_context": "Klimaveränderung",
+          "focus": "Klimaveränderung",
+          "focus_utf16": [
+            28,
+            44
+          ],
+          "expected_target": "climate change",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Der Film erklärt die Folgen der Klimaveränderung.",
+          "source_context": "Klimaveränderung",
+          "focus": "Klimaveränderung",
+          "focus_utf16": [
+            32,
+            48
+          ],
+          "expected_target": "climate change",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "climate change",
+        "evidence": [
+          {
+            "headword": "climate change",
+            "sense": "native-gloss:de:1132503",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/Klimaver%C3%A4nderung#German",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 1132503,
+            "source_url": "https://en.wiktionary.org/wiki/Klimaver%C3%A4nderung#German",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:de:1132503"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-de-006",
+      "shortlist_index": 56,
+      "pilot_id": "pilot-de-006",
+      "source_language": "de",
+      "target_language": "en",
+      "source": "Popmusik",
+      "target": "pop music",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Pop music genre; complete compound.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "Popmusik"
+      ],
+      "examples": [
+        {
+          "original": "Im Radio läuft heute viel Popmusik.",
+          "source_context": "Popmusik",
+          "focus": "Popmusik",
+          "focus_utf16": [
+            26,
+            34
+          ],
+          "expected_target": "pop music",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Meine Schwester hört gern Popmusik.",
+          "source_context": "Popmusik",
+          "focus": "Popmusik",
+          "focus_utf16": [
+            26,
+            34
+          ],
+          "expected_target": "pop music",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "pop music",
+        "evidence": [
+          {
+            "headword": "pop music",
+            "sense": "native-gloss:de:8671186",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/Popmusik#German",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 8671186,
+            "source_url": "https://en.wiktionary.org/wiki/Popmusik#German",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:de:8671186"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-de-009",
+      "shortlist_index": 57,
+      "pilot_id": "pilot-de-009",
+      "source_language": "de",
+      "target_language": "en",
+      "source": "Nahrung",
+      "target": "food",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Food/nourishment as material sustenance. Use finite literal contexts; no generic permission for abstract nourishment expressions.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "Nahrung für die Reise",
+        "genug Nahrung"
+      ],
+      "examples": [
+        {
+          "original": "Wir brauchen Nahrung für die Reise.",
+          "source_context": "Nahrung für die Reise",
+          "focus": "Nahrung",
+          "focus_utf16": [
+            13,
+            20
+          ],
+          "expected_target": "food",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Die Tiere finden hier genug Nahrung.",
+          "source_context": "genug Nahrung",
+          "focus": "Nahrung",
+          "focus_utf16": [
+            28,
+            35
+          ],
+          "expected_target": "food",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "food",
+        "evidence": [
+          {
+            "headword": "food",
+            "sense": "native-gloss:de:1572747",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/Nahrung#German",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 1572747,
+            "source_url": "https://en.wiktionary.org/wiki/Nahrung#German",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 1572747,
+                "sense_index": 0,
+                "glosses": "[\"nourishment, food\"]",
+                "tags": "[\"feminine\"]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": [
+              {
+                "source_line": 1572747,
+                "form": "Nahrung",
+                "normalized": "nahrung",
+                "tags": "[\"accusative\",\"singular\"]"
+              },
+              {
+                "source_line": 1572747,
+                "form": "Nahrung",
+                "normalized": "nahrung",
+                "tags": "[\"dative\",\"singular\"]"
+              },
+              {
+                "source_line": 1572747,
+                "form": "Nahrung",
+                "normalized": "nahrung",
+                "tags": "[\"genitive\",\"singular\"]"
+              },
+              {
+                "source_line": 1572747,
+                "form": "Nahrung",
+                "normalized": "nahrung",
+                "tags": "[\"genitive\"]"
+              }
+            ]
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:de:1572747"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-it-001",
+      "shortlist_index": 58,
+      "pilot_id": "pilot-it-001",
+      "source_language": "it",
+      "target_language": "en",
+      "source": "tempo libero",
+      "target": "spare time",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Leisure/spare time; supplied direct-English gloss, no free-time pivot into other languages.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "tempo libero"
+      ],
+      "examples": [
+        {
+          "original": "Nel tempo libero leggo romanzi.",
+          "source_context": "tempo libero",
+          "focus": "tempo libero",
+          "focus_utf16": [
+            4,
+            16
+          ],
+          "expected_target": "spare time",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Hai un po’ di tempo libero domani?",
+          "source_context": "tempo libero",
+          "focus": "tempo libero",
+          "focus_utf16": [
+            14,
+            26
+          ],
+          "expected_target": "spare time",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "spare time",
+        "evidence": [
+          {
+            "headword": "spare time",
+            "sense": "native-gloss:it:2987148",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/tempo%20libero#Italian",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 2987148,
+            "source_url": "https://en.wiktionary.org/wiki/tempo%20libero#Italian",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 2987148,
+                "sense_index": 0,
+                "glosses": "[\"free time, spare time, leisure\"]",
+                "tags": "[\"masculine\",\"uncountable\"]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:it:2987148"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-it-002",
+      "shortlist_index": 59,
+      "pilot_id": "pilot-it-002",
+      "source_language": "it",
+      "target_language": "en",
+      "source": "pollo fritto",
+      "target": "fried chicken",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Chicken prepared by frying; singular/mass food phrase.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "pollo fritto"
+      ],
+      "examples": [
+        {
+          "original": "Stasera preparo il pollo fritto.",
+          "source_context": "pollo fritto",
+          "focus": "pollo fritto",
+          "focus_utf16": [
+            19,
+            31
+          ],
+          "expected_target": "fried chicken",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Vuoi del pollo fritto con le patate?",
+          "source_context": "pollo fritto",
+          "focus": "pollo fritto",
+          "focus_utf16": [
+            9,
+            21
+          ],
+          "expected_target": "fried chicken",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "fried chicken",
+        "evidence": [
+          {
+            "headword": "fried chicken",
+            "sense": "native-gloss:it:8536176",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/pollo%20fritto#Italian",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 8536176,
+            "source_url": "https://en.wiktionary.org/wiki/pollo%20fritto#Italian",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 8536176,
+                "sense_index": 0,
+                "glosses": "[\"fried chicken\"]",
+                "tags": "[\"masculine\"]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": [
+              {
+                "source_line": 8536176,
+                "form": "polli fritti",
+                "normalized": "polli fritti",
+                "tags": "[\"plural\"]"
+              }
+            ]
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:it:8536176"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-it-007",
+      "shortlist_index": 60,
+      "pilot_id": "pilot-it-007",
+      "source_language": "it",
+      "target_language": "en",
+      "source": "testamento",
+      "target": "will",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Legal will/testament in fare testamento. Do not activate generic English will→Italian; do not translate a biblical title from this context.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "fare testamento"
+      ],
+      "examples": [
+        {
+          "original": "Mio nonno vuole fare testamento.",
+          "source_context": "fare testamento",
+          "focus": "testamento",
+          "focus_utf16": [
+            21,
+            31
+          ],
+          "expected_target": "will",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Ha deciso di fare testamento dal notaio.",
+          "source_context": "fare testamento",
+          "focus": "testamento",
+          "focus_utf16": [
+            18,
+            28
+          ],
+          "expected_target": "will",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "will",
+        "evidence": [
+          {
+            "headword": "will",
+            "sense": "native-gloss:it:1102685",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/testamento#Italian",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 1102685,
+            "source_url": "https://en.wiktionary.org/wiki/testamento#Italian",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 1102685,
+                "sense_index": 0,
+                "glosses": "[\"will, testament\"]",
+                "tags": "[\"masculine\"]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": [
+              {
+                "source_line": 1102685,
+                "form": "testamenti",
+                "normalized": "testamenti",
+                "tags": "[\"plural\"]"
+              }
+            ]
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:it:1102685"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-it-008",
+      "shortlist_index": 61,
+      "pilot_id": "pilot-it-008",
+      "source_language": "it",
+      "target_language": "en",
+      "source": "musica",
+      "target": "music",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Music as noun object of listen. Bare musica also has verb/name entries; those are not licensed.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "Ascolto musica",
+        "Ascoltiamo musica"
+      ],
+      "examples": [
+        {
+          "original": "Ascolto musica mentre cucino.",
+          "source_context": "Ascolto musica",
+          "focus": "musica",
+          "focus_utf16": [
+            8,
+            14
+          ],
+          "expected_target": "music",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Ascoltiamo musica in macchina.",
+          "source_context": "Ascoltiamo musica",
+          "focus": "musica",
+          "focus_utf16": [
+            11,
+            17
+          ],
+          "expected_target": "music",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "music",
+        "evidence": [
+          {
+            "headword": "music",
+            "sense": "native-gloss:it:120381",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/musica#Italian",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 120381,
+            "source_url": "https://en.wiktionary.org/wiki/musica#Italian",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          },
+          {
+            "entry_id": 120382,
+            "source_url": "https://en.wiktionary.org/wiki/musica#Italian",
+            "part_of_speech": "verb",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          },
+          {
+            "entry_id": 8819008,
+            "source_url": "https://en.wiktionary.org/wiki/Musica#Italian",
+            "part_of_speech": "name",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:it:120381"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-it-009",
+      "shortlist_index": 62,
+      "pilot_id": "pilot-it-009",
+      "source_language": "it",
+      "target_language": "en",
+      "source": "cibo",
+      "target": "food",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Food as noun under del; bare cibo also has a verb entry, withheld.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "del cibo"
+      ],
+      "examples": [
+        {
+          "original": "Ho comprato del cibo per il viaggio.",
+          "source_context": "del cibo",
+          "focus": "cibo",
+          "focus_utf16": [
+            16,
+            20
+          ],
+          "expected_target": "food",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "È rimasto del cibo in frigorifero.",
+          "source_context": "del cibo",
+          "focus": "cibo",
+          "focus_utf16": [
+            14,
+            18
+          ],
+          "expected_target": "food",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "food",
+        "evidence": [
+          {
+            "headword": "food",
+            "sense": "native-gloss:it:302844",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/cibo#Italian",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 302844,
+            "source_url": "https://en.wiktionary.org/wiki/cibo#Italian",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          },
+          {
+            "entry_id": 302845,
+            "source_url": "https://en.wiktionary.org/wiki/cibo#Italian",
+            "part_of_speech": "verb",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:it:302844"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-pt-002",
+      "shortlist_index": 63,
+      "pilot_id": "pilot-pt-002",
+      "source_language": "pt",
+      "target_language": "en",
+      "source": "mercearia",
+      "target": "grocery store",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "A grocery retail shop; finite destination/shop subject contexts.",
+      "scope": "finite_source_contexts",
+      "source_contexts": [
+        "à mercearia",
+        "A mercearia"
+      ],
+      "examples": [
+        {
+          "original": "Vou à mercearia comprar pão.",
+          "source_context": "à mercearia",
+          "focus": "mercearia",
+          "focus_utf16": [
+            6,
+            15
+          ],
+          "expected_target": "grocery store",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "A mercearia da esquina fecha cedo.",
+          "source_context": "A mercearia",
+          "focus": "mercearia",
+          "focus_utf16": [
+            2,
+            11
+          ],
+          "expected_target": "grocery store",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "grocery store",
+        "evidence": [
+          {
+            "headword": "grocery store",
+            "sense": "native-gloss:pt:4551834",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/mercearia#Portuguese",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 4551834,
+            "source_url": "https://en.wiktionary.org/wiki/mercearia#Portuguese",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:pt:4551834"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-pt-003",
+      "shortlist_index": 64,
+      "pilot_id": "pilot-pt-003",
+      "source_language": "pt",
+      "target_language": "en",
+      "source": "frango frito",
+      "target": "fried chicken",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Chicken prepared by frying; whole supplied phrase.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "frango frito"
+      ],
+      "examples": [
+        {
+          "original": "Hoje vamos comer frango frito.",
+          "source_context": "frango frito",
+          "focus": "frango frito",
+          "focus_utf16": [
+            17,
+            29
+          ],
+          "expected_target": "fried chicken",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Queres frango frito com arroz?",
+          "source_context": "frango frito",
+          "focus": "frango frito",
+          "focus_utf16": [
+            7,
+            19
+          ],
+          "expected_target": "fried chicken",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "fried chicken",
+        "evidence": [
+          {
+            "headword": "fried chicken",
+            "sense": "native-gloss:pt:8537173",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/frango%20frito#Portuguese",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 8537173,
+            "source_url": "https://en.wiktionary.org/wiki/frango%20frito#Portuguese",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:pt:8537173"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-pt-005",
+      "shortlist_index": 65,
+      "pilot_id": "pilot-pt-005",
+      "source_language": "pt",
+      "target_language": "en",
+      "source": "ciência da computação",
+      "target": "computer science",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Computer science as academic discipline; whole phrase.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "ciência da computação"
+      ],
+      "examples": [
+        {
+          "original": "Ela estuda ciência da computação.",
+          "source_context": "ciência da computação",
+          "focus": "ciência da computação",
+          "focus_utf16": [
+            11,
+            32
+          ],
+          "expected_target": "computer science",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Tenho interesse em ciência da computação.",
+          "source_context": "ciência da computação",
+          "focus": "ciência da computação",
+          "focus_utf16": [
+            19,
+            40
+          ],
+          "expected_target": "computer science",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "computer science",
+        "evidence": [
+          {
+            "headword": "computer science",
+            "sense": "native-gloss:pt:4032691",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/ci%C3%AAncia%20da%20computa%C3%A7%C3%A3o#Portuguese",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 4032691,
+            "source_url": "https://en.wiktionary.org/wiki/ci%C3%AAncia%20da%20computa%C3%A7%C3%A3o#Portuguese",
+            "part_of_speech": "noun",
+            "sampled_glosses": [],
+            "sampled_forms": []
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:pt:4032691"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    },
+    {
+      "id": "android-dictionary-r01:pilot-pt-006",
+      "shortlist_index": 66,
+      "pilot_id": "pilot-pt-006",
+      "source_language": "pt",
+      "target_language": "en",
+      "source": "leite com chocolate",
+      "target": "chocolate milk",
+      "target_latin_reading": null,
+      "reading_reason": "English target is already in Latin script; no romanization invented.",
+      "sense": "Milk with chocolate as a drink; the explicit milk phrase distinguishes powder-only achocolatado.",
+      "scope": "complete_supplied_headword_candidate",
+      "source_contexts": [
+        "leite com chocolate"
+      ],
+      "examples": [
+        {
+          "original": "Quero um copo de leite com chocolate.",
+          "source_context": "leite com chocolate",
+          "focus": "leite com chocolate",
+          "focus_utf16": [
+            17,
+            36
+          ],
+          "expected_target": "chocolate milk",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        },
+        {
+          "original": "Bebi leite com chocolate ao pequeno-almoço.",
+          "source_context": "leite com chocolate",
+          "focus": "leite com chocolate",
+          "focus_utf16": [
+            5,
+            24
+          ],
+          "expected_target": "chocolate milk",
+          "authorship": "New agent-authored natural-style example; not held-out corpus evidence."
+        }
+      ],
+      "selected_binding": {
+        "target_language": "en",
+        "face": "chocolate milk",
+        "evidence": [
+          {
+            "headword": "chocolate milk",
+            "sense": "native-gloss:pt:10005509",
+            "reading": "",
+            "eligible": 1,
+            "source_url": "https://en.wiktionary.org/wiki/leite%20com%20chocolate#Portuguese",
+            "link_kind": "direct_native_gloss_to_English_only"
+          }
+        ],
+        "new_approval": false
+      },
+      "provenance": {
+        "license_id": "CC-BY-SA-4.0",
+        "dataset_id": "retained-kaikki-wiktionary-all-native-003",
+        "source_file": "dictionary-expansion-pilot-r01/pilot-enriched.json",
+        "source_entry_records": [
+          {
+            "entry_id": 10005509,
+            "source_url": "https://en.wiktionary.org/wiki/leite%20com%20chocolate#Portuguese",
+            "part_of_speech": "noun",
+            "sampled_glosses": [
+              {
+                "source_line": 10005509,
+                "sense_index": 0,
+                "glosses": "[\"chocolate milk\"]",
+                "tags": "[\"masculine\"]",
+                "form_of": "[]",
+                "alt_of": "[]"
+              }
+            ],
+            "sampled_forms": [
+              {
+                "source_line": 10005509,
+                "form": "leites com chocolate",
+                "normalized": "leites com chocolate",
+                "tags": "[\"plural\"]"
+              }
+            ]
+          }
+        ],
+        "sense_ids": [
+          "native-gloss:pt:10005509"
+        ],
+        "example_license_id": "original-agent-authored-for-Vipi",
+        "ranking_artifact_license_id": "CC-BY-4.0",
+        "ranking_scope": "English definition TRAIN occurrence proxy; not native frequency",
+        "ranking_is_native_frequency": false
+      },
+      "review": "independent_finite_editorial_proposal_pending_root_review",
+      "runtime_permission": false,
+      "source_only_permission": false,
+      "reverse_permission": false,
+      "cross_language_pivot_permission": false,
+      "native_boundary_density_detector_qualification": "Not run; no slicing of particles, punctuation or compound suffixes is authorized.",
+      "supplied_written_variants": []
+    }
+  ],
+  "decisions": [
+    {
+      "shortlist_index": 34,
+      "pilot_id": "pilot-sw-013",
+      "source": "siku",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "One calendar/24-hour day. Exact singular modifiers prevent mapping plural siku to singular day.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 35,
+      "pilot_id": "pilot-sw-017",
+      "source": "matumaini",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Hope as expectation/belief; finite noun contexts select the retained expectation sense.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 36,
+      "pilot_id": "pilot-sw-019",
+      "source": "uhitaji",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "A need/requirement, with an explicit required resource. Retain this supplied noun, not the more frequent verb hitaji or plural mahitaji.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 37,
+      "pilot_id": "pilot-ar-002",
+      "source": "آيس كريم",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "The frozen dessert; retain the whole supplied loan phrase.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 38,
+      "pilot_id": "pilot-ar-006",
+      "source": "علم الحاسوب",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "The academic discipline computer science; whole supplied phrase.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 39,
+      "pilot_id": "pilot-zh-000",
+      "source": "鄉村音樂",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Country music as a musical genre, not music in any rural place.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 40,
+      "pilot_id": "pilot-zh-003",
+      "source": "昨夜",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "The preceding night; supplied temporal expression. More written in register than 昨晚, not a meaning rejection.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 41,
+      "pilot_id": "pilot-ko-000",
+      "source": "고교",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "High school, retained abbreviation; school friend/period contexts.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 42,
+      "pilot_id": "pilot-ko-001",
+      "source": "고등학교",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "High school; whole Hangul headword before a separate following noun. No stripping attached particles.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 43,
+      "pilot_id": "pilot-ko-002",
+      "source": "간밤",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Last night, temporal modifier; whole supplied native spelling.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 44,
+      "pilot_id": "pilot-ko-004",
+      "source": "어젯밤",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Last night, temporal modifier; retain 어젯밤 exactly.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 45,
+      "pilot_id": "pilot-ko-005",
+      "source": "지난밤",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "The preceding night, not the adjective 지난 detached from 밤.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 46,
+      "pilot_id": "pilot-fr-000",
+      "source": "temps libre",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Leisure/free time; whole multiword noun.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 47,
+      "pilot_id": "pilot-fr-003",
+      "source": "poulet frit",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Chicken prepared by frying; whole food phrase.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 48,
+      "pilot_id": "pilot-fr-007",
+      "source": "parc national",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "A protected national park; whole phrase.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 49,
+      "pilot_id": "pilot-fr-008",
+      "source": "changement climatique",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Climate change; whole phrase, without inferring a separate political sense.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 50,
+      "pilot_id": "pilot-fr-009",
+      "source": "varappe",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Rock climbing, noun in faire de la varappe; bare varappe also has a verb analysis and is withheld.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 51,
+      "pilot_id": "pilot-de-001",
+      "source": "Eiscreme",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "The frozen dessert, not the broader ambiguous Eis.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 52,
+      "pilot_id": "pilot-de-002",
+      "source": "Lebensmittelhandlung",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "A grocery retail shop; retain the complete German compound, without replacing it by a frequency-based synonym.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 53,
+      "pilot_id": "pilot-de-003",
+      "source": "Computerwissenschaft",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Computer science; supplied discipline name. Less usual than Informatik is not grounds for changing the supplied headword.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 54,
+      "pilot_id": "pilot-de-004",
+      "source": "Rockmusik",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Rock music genre; complete compound.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 55,
+      "pilot_id": "pilot-de-005",
+      "source": "Klimaveränderung",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Climate change; complete compound.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 56,
+      "pilot_id": "pilot-de-006",
+      "source": "Popmusik",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Pop music genre; complete compound.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 57,
+      "pilot_id": "pilot-de-009",
+      "source": "Nahrung",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Food/nourishment as material sustenance. Use finite literal contexts; no generic permission for abstract nourishment expressions.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 58,
+      "pilot_id": "pilot-it-001",
+      "source": "tempo libero",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Leisure/spare time; supplied direct-English gloss, no free-time pivot into other languages.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 59,
+      "pilot_id": "pilot-it-002",
+      "source": "pollo fritto",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Chicken prepared by frying; singular/mass food phrase.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 60,
+      "pilot_id": "pilot-it-007",
+      "source": "testamento",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Legal will/testament in fare testamento. Do not activate generic English will→Italian; do not translate a biblical title from this context.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 61,
+      "pilot_id": "pilot-it-008",
+      "source": "musica",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Music as noun object of listen. Bare musica also has verb/name entries; those are not licensed.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 62,
+      "pilot_id": "pilot-it-009",
+      "source": "cibo",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Food as noun under del; bare cibo also has a verb entry, withheld.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 63,
+      "pilot_id": "pilot-pt-002",
+      "source": "mercearia",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "A grocery retail shop; finite destination/shop subject contexts.",
+      "scope": "finite_source_contexts"
+    },
+    {
+      "shortlist_index": 64,
+      "pilot_id": "pilot-pt-003",
+      "source": "frango frito",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Chicken prepared by frying; whole supplied phrase.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 65,
+      "pilot_id": "pilot-pt-005",
+      "source": "ciência da computação",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Computer science as academic discipline; whole phrase.",
+      "scope": "complete_supplied_headword_candidate"
+    },
+    {
+      "shortlist_index": 66,
+      "pilot_id": "pilot-pt-006",
+      "source": "leite com chocolate",
+      "decision": "usable_finite_directional_proposal",
+      "reason": "Milk with chocolate as a drink; the explicit milk phrase distinguishes powder-only achocolatado.",
+      "scope": "complete_supplied_headword_candidate"
+    }
+  ],
+  "surface_expansion_holds_and_rejections": [
+    {
+      "pilot_id": "pilot-ar-006",
+      "form": "ar-decl-noun",
+      "tags": [
+        "inflection-template"
+      ],
+      "reason": "Reject as a source surface: dictionary template/table metadata, not a native word."
+    },
+    {
+      "pilot_id": "pilot-ar-006",
+      "form": "no-table-tags",
+      "tags": [
+        "table-tags"
+      ],
+      "reason": "Reject as a source surface: dictionary template/table metadata, not a native word."
+    },
+    {
+      "pilot_id": "pilot-ar-006",
+      "form": "ʕilm al-ḥāsūb",
+      "tags": [
+        "romanization"
+      ],
+      "reason": "Reject as a native-script source surface: romanization metadata, not the supplied native spelling."
+    },
+    {
+      "pilot_id": "pilot-ar-006",
+      "form": "عِلْم الْحَاسُوب",
+      "tags": [
+        "canonical",
+        "masculine"
+      ],
+      "reason": "Hold vocalized canonical variant: valid supplied native spelling, but not needed for the two unvocalized message proposals; do not silently normalize diacritics."
+    },
+    {
+      "pilot_id": "pilot-ko-001",
+      "form": "godeunghakgyo",
+      "tags": [
+        "romanization"
+      ],
+      "reason": "Reject as a native-script source surface: romanization metadata, not the supplied native spelling."
+    },
+    {
+      "pilot_id": "pilot-ko-001",
+      "form": "高等學校",
+      "tags": [
+        "hanja"
+      ],
+      "reason": "Hold historical Hanja surface: supplied but no everyday-use/context qualification in this finite Hangul proposal."
+    },
+    {
+      "pilot_id": "pilot-ko-004",
+      "form": "eojetbam",
+      "tags": [
+        "romanization"
+      ],
+      "reason": "Reject as a native-script source surface: romanization metadata, not the supplied native spelling."
+    },
+    {
+      "pilot_id": "pilot-fr-000",
+      "form": "temps libres",
+      "tags": [
+        "plural"
+      ],
+      "reason": "Not added: needs a separately evidenced target-number/form binding and two reviewed examples."
+    },
+    {
+      "pilot_id": "pilot-it-002",
+      "form": "polli fritti",
+      "tags": [
+        "plural"
+      ],
+      "reason": "Not added: needs a separately evidenced target-number/form binding and two reviewed examples."
+    },
+    {
+      "pilot_id": "pilot-it-007",
+      "form": "testamenti",
+      "tags": [
+        "plural"
+      ],
+      "reason": "Not added: needs a separately evidenced target-number/form binding and two reviewed examples."
+    },
+    {
+      "pilot_id": "pilot-pt-006",
+      "form": "leites com chocolate",
+      "tags": [
+        "plural"
+      ],
+      "reason": "Not added: needs a separately evidenced target-number/form binding and two reviewed examples."
+    },
+    {
+      "pilot_id": "pilot-sw-019",
+      "form": "mahitaji",
+      "tags": [
+        "plural"
+      ],
+      "reason": "Hold plural needs: existing selected target face is singular need. Do not map plural supplied source to singular target without a separate reviewed target binding."
+    },
+    {
+      "pilot_id": "pilot-sw-013",
+      "form": "siku",
+      "tags": [
+        "plural"
+      ],
+      "reason": "Reject generic singular-day mapping for plural contexts such as siku mbili. Only the two explicit singular contexts above are proposed."
+    }
+  ]
+}

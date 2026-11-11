@@ -1,0 +1,2039 @@
+{
+  "runtime_promotion": false,
+  "rows": [
+    {
+      "id": "dictionary-006:pilot-en-091:es",
+      "pair": "en-es",
+      "source": "wife",
+      "target": "esposa",
+      "reading": "",
+      "meaning": "female partner in a marriage",
+      "concept_id": "dictionary-sense:pilot-en-091",
+      "variants": [
+        {
+          "context": "my wife",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-091:es",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-091:ja",
+      "pair": "en-ja",
+      "source": "wife",
+      "target": "妻",
+      "reading": "tsuma",
+      "meaning": "female partner in a marriage",
+      "concept_id": "dictionary-sense:pilot-en-091",
+      "variants": [
+        {
+          "context": "my wife",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-091:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-101:es",
+      "pair": "en-es",
+      "source": "free time",
+      "target": "tiempo libre",
+      "reading": "",
+      "meaning": "time when one is not working",
+      "concept_id": "dictionary-sense:pilot-en-101",
+      "variants": [
+        {
+          "context": "free time",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-101:es",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-101:ja",
+      "pair": "en-ja",
+      "source": "free time",
+      "target": "余暇",
+      "reading": "yoka",
+      "meaning": "time when one is not working",
+      "concept_id": "dictionary-sense:pilot-en-101",
+      "variants": [
+        {
+          "context": "free time",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-101:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-102:ja",
+      "pair": "en-ja",
+      "source": "country music",
+      "target": "カントリー",
+      "reading": "kantorī",
+      "meaning": "style of music",
+      "concept_id": "dictionary-sense:pilot-en-102",
+      "variants": [
+        {
+          "context": "country music",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-102:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-104:es",
+      "pair": "en-es",
+      "source": "last night",
+      "target": "anoche",
+      "reading": "",
+      "meaning": "previous evening or night",
+      "concept_id": "dictionary-sense:pilot-en-104",
+      "variants": [
+        {
+          "context": "slept badly last night",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            12,
+            22
+          ]
+        },
+        {
+          "context": "watched a film last night",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            25
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-104:es",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-104:ja",
+      "pair": "en-ja",
+      "source": "last night",
+      "target": "昨夜",
+      "reading": "sakuya",
+      "meaning": "previous evening or night",
+      "concept_id": "dictionary-sense:pilot-en-104",
+      "variants": [
+        {
+          "context": "slept badly last night",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            12,
+            22
+          ]
+        },
+        {
+          "context": "watched a film last night",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            25
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-104:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-112:ja",
+      "pair": "en-ja",
+      "source": "grocery store",
+      "target": "食料品店",
+      "reading": "shokuryōhinten",
+      "meaning": "a store where groceries can be purchased, especially a supermarket",
+      "concept_id": "dictionary-sense:pilot-en-112",
+      "variants": [
+        {
+          "context": "grocery store",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-112:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:ja",
+      "pair": "en-ja",
+      "source": "ice cream",
+      "target": "アイスクリーム",
+      "reading": "aisukurīmu",
+      "meaning": "dessert",
+      "concept_id": "dictionary-sense:pilot-en-113",
+      "variants": [
+        {
+          "context": "ice cream",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-113:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-115:es",
+      "pair": "en-es",
+      "source": "fried chicken",
+      "target": "pollo frito",
+      "reading": "",
+      "meaning": "meat of chicken cut into pieces and deep-fried",
+      "concept_id": "dictionary-sense:pilot-en-115",
+      "variants": [
+        {
+          "context": "fried chicken",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-115:es",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-115:ja",
+      "pair": "en-ja",
+      "source": "fried chicken",
+      "target": "フライドチキン",
+      "reading": "furaidochikin",
+      "meaning": "meat of chicken cut into pieces and deep-fried",
+      "concept_id": "dictionary-sense:pilot-en-115",
+      "variants": [
+        {
+          "context": "fried chicken",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-115:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-118:es",
+      "pair": "en-es",
+      "source": "computer science",
+      "target": "informática",
+      "reading": "",
+      "meaning": "study of computers and their architecture",
+      "concept_id": "dictionary-sense:pilot-en-118",
+      "variants": [
+        {
+          "context": "computer science",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            16
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-118:es",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-118:ja",
+      "pair": "en-ja",
+      "source": "computer science",
+      "target": "計算機科学",
+      "reading": "keisanki kagaku",
+      "meaning": "study of computers and their architecture",
+      "concept_id": "dictionary-sense:pilot-en-118",
+      "variants": [
+        {
+          "context": "computer science",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            16
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-118:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-120:ja",
+      "pair": "en-ja",
+      "source": "only child",
+      "target": "一人っ子",
+      "reading": "hitorikko",
+      "meaning": "person who has no siblings",
+      "concept_id": "dictionary-sense:pilot-en-120",
+      "variants": [
+        {
+          "context": "grew up as an only child",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            24
+          ]
+        },
+        {
+          "context": "is an only child",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            16
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-120:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-121:es",
+      "pair": "en-es",
+      "source": "social media",
+      "target": "redes sociales",
+      "reading": "",
+      "meaning": "applications or websites allowing users to communicate",
+      "concept_id": "dictionary-sense:pilot-en-121",
+      "variants": [
+        {
+          "context": "social media",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-121:es",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-121:ja",
+      "pair": "en-ja",
+      "source": "social media",
+      "target": "ソーシャルメディア",
+      "reading": "sōsharu media",
+      "meaning": "applications or websites allowing users to communicate",
+      "concept_id": "dictionary-sense:pilot-en-121",
+      "variants": [
+        {
+          "context": "social media",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-121:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-125:es",
+      "pair": "en-es",
+      "source": "chocolate chip",
+      "target": "chispa de chocolate",
+      "reading": "",
+      "meaning": "small piece of chocolate",
+      "concept_id": "dictionary-sense:pilot-en-125",
+      "variants": [
+        {
+          "context": "chocolate chip",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            14
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-125:es",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-125:ja",
+      "pair": "en-ja",
+      "source": "chocolate chip",
+      "target": "チョコチップ",
+      "reading": "choko chippu",
+      "meaning": "small piece of chocolate",
+      "concept_id": "dictionary-sense:pilot-en-125",
+      "variants": [
+        {
+          "context": "chocolate chip",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            14
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-125:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-128:es",
+      "pair": "en-es",
+      "source": "national park",
+      "target": "parque nacional",
+      "reading": "",
+      "meaning": "national park",
+      "concept_id": "dictionary-sense:pilot-en-128",
+      "variants": [
+        {
+          "context": "national park",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-128:es",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-128:ja",
+      "pair": "en-ja",
+      "source": "national park",
+      "target": "国立公園",
+      "reading": "kokuritsu kōen",
+      "meaning": "national park",
+      "concept_id": "dictionary-sense:pilot-en-128",
+      "variants": [
+        {
+          "context": "national park",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-128:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-130:ja",
+      "pair": "en-ja",
+      "source": "rock music",
+      "target": "ロック",
+      "reading": "rokku",
+      "meaning": "popular music genre",
+      "concept_id": "dictionary-sense:pilot-en-130",
+      "variants": [
+        {
+          "context": "rock music",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            10
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-130:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:es",
+      "pair": "en-es",
+      "source": "climate change",
+      "target": "cambio climático",
+      "reading": "",
+      "meaning": "changes in the Earth's climate",
+      "concept_id": "dictionary-sense:pilot-en-132",
+      "variants": [
+        {
+          "context": "climate change",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            14
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-132:es",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:ja",
+      "pair": "en-ja",
+      "source": "climate change",
+      "target": "気候変動",
+      "reading": "kikō hendō",
+      "meaning": "changes in the Earth's climate",
+      "concept_id": "dictionary-sense:pilot-en-132",
+      "variants": [
+        {
+          "context": "climate change",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            14
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-132:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:sw",
+      "pair": "en-sw",
+      "source": "climate change",
+      "target": "mabadiliko ya tabia nchi",
+      "reading": "",
+      "meaning": "changes in the Earth's climate",
+      "concept_id": "dictionary-sense:pilot-en-132",
+      "variants": [
+        {
+          "context": "climate change",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            14
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-132:sw",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-137:es",
+      "pair": "en-es",
+      "source": "pop music",
+      "target": "música pop",
+      "reading": "",
+      "meaning": "music intended for or accepted by a wide audience — see also popular music",
+      "concept_id": "dictionary-sense:pilot-en-137",
+      "variants": [
+        {
+          "context": "pop music",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-137:es",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-137:ja",
+      "pair": "en-ja",
+      "source": "pop music",
+      "target": "ポップ",
+      "reading": "poppu",
+      "meaning": "music intended for or accepted by a wide audience — see also popular music",
+      "concept_id": "dictionary-sense:pilot-en-137",
+      "variants": [
+        {
+          "context": "pop music",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-137:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-en-138:ja",
+      "pair": "en-ja",
+      "source": "rock climbing",
+      "target": "ロッククライミング",
+      "reading": "rokku kuraimingu",
+      "meaning": "sport of scaling rock faces",
+      "concept_id": "dictionary-sense:pilot-en-138",
+      "variants": [
+        {
+          "context": "rock climbing",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-en-138:ja",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-es-002:en",
+      "pair": "es-en",
+      "source": "tiempo libre",
+      "target": "free time",
+      "reading": "",
+      "meaning": "time when one is not working",
+      "concept_id": "dictionary-sense:pilot-es-002",
+      "variants": [
+        {
+          "context": "tiempo libre",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-es-002:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ja-000:en",
+      "pair": "ja-en",
+      "source": "高校",
+      "target": "high school",
+      "reading": "",
+      "meaning": "secondary school",
+      "concept_id": "dictionary-sense:pilot-ja-000",
+      "variants": [
+        {
+          "context": "高校に通っています",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "高校があります",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-ja-000:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ja-001:en",
+      "pair": "ja-en",
+      "source": "高等学校",
+      "target": "high school",
+      "reading": "",
+      "meaning": "secondary school",
+      "concept_id": "dictionary-sense:pilot-ja-001",
+      "variants": [
+        {
+          "context": "高等学校に通っています",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        },
+        {
+          "context": "高等学校には図書館",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-ja-001:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ja-002:en",
+      "pair": "ja-en",
+      "source": "余暇",
+      "target": "free time",
+      "reading": "",
+      "meaning": "time when one is not working",
+      "concept_id": "dictionary-sense:pilot-ja-002",
+      "variants": [
+        {
+          "context": "余暇は読書",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "余暇を楽しんでいます",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-ja-002:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ja-005:en",
+      "pair": "ja-en",
+      "source": "閑暇",
+      "target": "free time",
+      "reading": "",
+      "meaning": "time when one is not working",
+      "concept_id": "dictionary-sense:pilot-ja-005",
+      "variants": [
+        {
+          "context": "閑暇を楽しんでいます",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "閑暇を利用して",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-ja-005:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ja-007:en",
+      "pair": "ja-en",
+      "source": "昨夜",
+      "target": "last night",
+      "reading": "",
+      "meaning": "previous evening or night",
+      "concept_id": "dictionary-sense:pilot-ja-007",
+      "variants": [
+        {
+          "context": "昨夜は",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-ja-007:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ja-009:en",
+      "pair": "ja-en",
+      "source": "昨晩",
+      "target": "last night",
+      "reading": "",
+      "meaning": "previous evening or night",
+      "concept_id": "dictionary-sense:pilot-ja-009",
+      "variants": [
+        {
+          "context": "昨晩は",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-ja-009:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ja-012:en",
+      "pair": "ja-en",
+      "source": "来年",
+      "target": "next year",
+      "reading": "",
+      "meaning": "the year after the present year",
+      "concept_id": "dictionary-sense:pilot-ja-012",
+      "variants": [
+        {
+          "context": "来年は",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "来年から大学に通います",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-ja-012:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ja-016:en",
+      "pair": "ja-en",
+      "source": "食料品店",
+      "target": "grocery store",
+      "reading": "",
+      "meaning": "a store where groceries can be purchased, especially a supermarket",
+      "concept_id": "dictionary-sense:pilot-ja-016",
+      "variants": [
+        {
+          "context": "食料品店があります",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        },
+        {
+          "context": "食料品店へ寄ります",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-ja-016:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ja-017:en",
+      "pair": "ja-en",
+      "source": "フライドチキン",
+      "target": "fried chicken",
+      "reading": "",
+      "meaning": "meat of chicken cut into pieces and deep-fried",
+      "concept_id": "dictionary-sense:pilot-ja-017",
+      "variants": [
+        {
+          "context": "フライドチキンを注文しました",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        },
+        {
+          "context": "フライドチキンを一緒に食べませんか",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-ja-017:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ja-018:en",
+      "pair": "ja-en",
+      "source": "コンピュータサイエンス",
+      "target": "computer science",
+      "reading": "",
+      "meaning": "study of computers and their architecture",
+      "concept_id": "dictionary-sense:pilot-ja-018",
+      "variants": [
+        {
+          "context": "コンピュータサイエンスを学んでいます",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        },
+        {
+          "context": "コンピュータサイエンスの本",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-ja-018:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ja-019:en",
+      "pair": "ja-en",
+      "source": "ソーシャルメディア",
+      "target": "social media",
+      "reading": "",
+      "meaning": "applications or websites allowing users to communicate",
+      "concept_id": "dictionary-sense:pilot-ja-019",
+      "variants": [
+        {
+          "context": "ソーシャルメディアでその写真",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        },
+        {
+          "context": "ソーシャルメディアを見る",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-ja-019:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-sw-001:en",
+      "pair": "sw-en",
+      "source": "mabadiliko ya tabia nchi",
+      "target": "climate change",
+      "reading": "",
+      "meaning": "changes in the Earth's climate",
+      "concept_id": "dictionary-sense:pilot-sw-001",
+      "variants": [
+        {
+          "context": "mabadiliko ya tabia nchi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            24
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-sw-001:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-sw-004:en",
+      "pair": "sw-en",
+      "source": "upendo",
+      "target": "love",
+      "reading": "",
+      "meaning": "strong affection",
+      "concept_id": "dictionary-sense:pilot-sw-004",
+      "variants": [
+        {
+          "context": "upendo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "dictionary-phrase-review-r01:pilot-sw-004:en",
+      "owner_proposal_file": "apple-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-sw-013:en",
+      "pair": "sw-en",
+      "source": "siku",
+      "target": "day",
+      "reading": "",
+      "meaning": "One calendar/24-hour day. Exact singular modifiers prevent mapping plural siku to singular day.",
+      "concept_id": "dictionary-sense:pilot-sw-013",
+      "variants": [
+        {
+          "context": "siku moja",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        },
+        {
+          "context": "siku nzima",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-sw-013",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-sw-017:en",
+      "pair": "sw-en",
+      "source": "matumaini",
+      "target": "hope",
+      "reading": "",
+      "meaning": "Hope as expectation/belief; finite noun contexts select the retained expectation sense.",
+      "concept_id": "dictionary-sense:pilot-sw-017",
+      "variants": [
+        {
+          "context": "Nina matumaini",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            14
+          ]
+        },
+        {
+          "context": "kuna matumaini",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            14
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-sw-017",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-sw-019:en",
+      "pair": "sw-en",
+      "source": "uhitaji",
+      "target": "need",
+      "reading": "",
+      "meaning": "A need/requirement, with an explicit required resource. Retain this supplied noun, not the more frequent verb hitaji or plural mahitaji.",
+      "concept_id": "dictionary-sense:pilot-sw-019",
+      "variants": [
+        {
+          "context": "uhitaji wa maji",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        },
+        {
+          "context": "uhitaji wa chakula",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-sw-019",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ar-006:en",
+      "pair": "ar-en",
+      "source": "علم الحاسوب",
+      "target": "computer science",
+      "reading": "",
+      "meaning": "The academic discipline computer science; whole supplied phrase.",
+      "concept_id": "dictionary-sense:pilot-ar-006",
+      "variants": [
+        {
+          "context": "علم الحاسوب",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-ar-006",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-zh-000:en",
+      "pair": "zh-en",
+      "source": "鄉村音樂",
+      "target": "country music",
+      "reading": "",
+      "meaning": "Country music as a musical genre, not music in any rural place.",
+      "concept_id": "dictionary-sense:pilot-zh-000",
+      "variants": [
+        {
+          "context": "鄉村音樂",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-zh-000",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-zh-000:en:simplified",
+      "pair": "zh-en",
+      "source": "乡村音乐",
+      "target": "country music",
+      "reading": "",
+      "meaning": "Country music as a musical genre, not music in any rural place.",
+      "concept_id": "dictionary-sense:pilot-zh-000",
+      "variants": [
+        {
+          "context": "乡村音乐",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-zh-000",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-zh-003:en",
+      "pair": "zh-en",
+      "source": "昨夜",
+      "target": "last night",
+      "reading": "",
+      "meaning": "The preceding night; supplied temporal expression. More written in register than 昨晚, not a meaning rejection.",
+      "concept_id": "dictionary-sense:pilot-zh-003",
+      "variants": [
+        {
+          "context": "昨夜",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-zh-003",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ko-000:en",
+      "pair": "ko-en",
+      "source": "고교",
+      "target": "high school",
+      "reading": "",
+      "meaning": "High school, retained abbreviation; school friend/period contexts.",
+      "concept_id": "dictionary-sense:pilot-ko-000",
+      "variants": [
+        {
+          "context": "고교 친구",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "고교 시절",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-ko-000",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ko-001:en",
+      "pair": "ko-en",
+      "source": "고등학교",
+      "target": "high school",
+      "reading": "",
+      "meaning": "High school; whole Hangul headword before a separate following noun. No stripping attached particles.",
+      "concept_id": "dictionary-sense:pilot-ko-001",
+      "variants": [
+        {
+          "context": "고등학교 친구",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        },
+        {
+          "context": "고등학교 시절",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-ko-001",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ko-002:en",
+      "pair": "ko-en",
+      "source": "간밤",
+      "target": "last night",
+      "reading": "",
+      "meaning": "Last night, temporal modifier; whole supplied native spelling.",
+      "concept_id": "dictionary-sense:pilot-ko-002",
+      "variants": [
+        {
+          "context": "간밤 비",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "간밤 잠",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-ko-002",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ko-004:en",
+      "pair": "ko-en",
+      "source": "어젯밤",
+      "target": "last night",
+      "reading": "",
+      "meaning": "Last night, temporal modifier; retain 어젯밤 exactly.",
+      "concept_id": "dictionary-sense:pilot-ko-004",
+      "variants": [
+        {
+          "context": "어젯밤 잠",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        },
+        {
+          "context": "어젯밤 비",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-ko-004",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-ko-005:en",
+      "pair": "ko-en",
+      "source": "지난밤",
+      "target": "last night",
+      "reading": "",
+      "meaning": "The preceding night, not the adjective 지난 detached from 밤.",
+      "concept_id": "dictionary-sense:pilot-ko-005",
+      "variants": [
+        {
+          "context": "지난밤 잠",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        },
+        {
+          "context": "지난밤 비",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-ko-005",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-fr-000:en",
+      "pair": "fr-en",
+      "source": "temps libre",
+      "target": "free time",
+      "reading": "",
+      "meaning": "Leisure/free time; whole multiword noun.",
+      "concept_id": "dictionary-sense:pilot-fr-000",
+      "variants": [
+        {
+          "context": "temps libre",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-fr-000",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-fr-003:en",
+      "pair": "fr-en",
+      "source": "poulet frit",
+      "target": "fried chicken",
+      "reading": "",
+      "meaning": "Chicken prepared by frying; whole food phrase.",
+      "concept_id": "dictionary-sense:pilot-fr-003",
+      "variants": [
+        {
+          "context": "poulet frit",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-fr-003",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-fr-007:en",
+      "pair": "fr-en",
+      "source": "parc national",
+      "target": "national park",
+      "reading": "",
+      "meaning": "A protected national park; whole phrase.",
+      "concept_id": "dictionary-sense:pilot-fr-007",
+      "variants": [
+        {
+          "context": "parc national",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-fr-007",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-fr-008:en",
+      "pair": "fr-en",
+      "source": "changement climatique",
+      "target": "climate change",
+      "reading": "",
+      "meaning": "Climate change; whole phrase, without inferring a separate political sense.",
+      "concept_id": "dictionary-sense:pilot-fr-008",
+      "variants": [
+        {
+          "context": "changement climatique",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            21
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-fr-008",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-fr-009:en",
+      "pair": "fr-en",
+      "source": "varappe",
+      "target": "rock climbing",
+      "reading": "",
+      "meaning": "Rock climbing, noun in faire de la varappe; bare varappe also has a verb analysis and is withheld.",
+      "concept_id": "dictionary-sense:pilot-fr-009",
+      "variants": [
+        {
+          "context": "faire de la varappe",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            12,
+            19
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-fr-009",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-de-002:en",
+      "pair": "de-en",
+      "source": "Lebensmittelhandlung",
+      "target": "grocery store",
+      "reading": "",
+      "meaning": "A grocery retail shop; retain the complete German compound, without replacing it by a frequency-based synonym.",
+      "concept_id": "dictionary-sense:pilot-de-002",
+      "variants": [
+        {
+          "context": "Lebensmittelhandlung",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            20
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-de-002",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-de-003:en",
+      "pair": "de-en",
+      "source": "Computerwissenschaft",
+      "target": "computer science",
+      "reading": "",
+      "meaning": "Computer science; supplied discipline name. Less usual than Informatik is not grounds for changing the supplied headword.",
+      "concept_id": "dictionary-sense:pilot-de-003",
+      "variants": [
+        {
+          "context": "Computerwissenschaft",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            20
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-de-003",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-de-004:en",
+      "pair": "de-en",
+      "source": "Rockmusik",
+      "target": "rock music",
+      "reading": "",
+      "meaning": "Rock music genre; complete compound.",
+      "concept_id": "dictionary-sense:pilot-de-004",
+      "variants": [
+        {
+          "context": "Rockmusik",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-de-004",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-de-005:en",
+      "pair": "de-en",
+      "source": "Klimaveränderung",
+      "target": "climate change",
+      "reading": "",
+      "meaning": "Climate change; complete compound.",
+      "concept_id": "dictionary-sense:pilot-de-005",
+      "variants": [
+        {
+          "context": "Klimaveränderung",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            16
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-de-005",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-de-006:en",
+      "pair": "de-en",
+      "source": "Popmusik",
+      "target": "pop music",
+      "reading": "",
+      "meaning": "Pop music genre; complete compound.",
+      "concept_id": "dictionary-sense:pilot-de-006",
+      "variants": [
+        {
+          "context": "Popmusik",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            8
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-de-006",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-de-009:en",
+      "pair": "de-en",
+      "source": "Nahrung",
+      "target": "food",
+      "reading": "",
+      "meaning": "Food/nourishment as material sustenance. Use finite literal contexts; no generic permission for abstract nourishment expressions.",
+      "concept_id": "dictionary-sense:pilot-de-009",
+      "variants": [
+        {
+          "context": "Nahrung für die Reise",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        },
+        {
+          "context": "genug Nahrung",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            13
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-de-009",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-it-001:en",
+      "pair": "it-en",
+      "source": "tempo libero",
+      "target": "spare time",
+      "reading": "",
+      "meaning": "Leisure/spare time; supplied direct-English gloss, no free-time pivot into other languages.",
+      "concept_id": "dictionary-sense:pilot-it-001",
+      "variants": [
+        {
+          "context": "tempo libero",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-it-001",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-it-002:en",
+      "pair": "it-en",
+      "source": "pollo fritto",
+      "target": "fried chicken",
+      "reading": "",
+      "meaning": "Chicken prepared by frying; singular/mass food phrase.",
+      "concept_id": "dictionary-sense:pilot-it-002",
+      "variants": [
+        {
+          "context": "pollo fritto",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-it-002",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-it-007:en",
+      "pair": "it-en",
+      "source": "testamento",
+      "target": "will",
+      "reading": "",
+      "meaning": "Legal will/testament in fare testamento. Do not activate generic English will→Italian; do not translate a biblical title from this context.",
+      "concept_id": "dictionary-sense:pilot-it-007",
+      "variants": [
+        {
+          "context": "fare testamento",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            15
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-it-007",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-pt-002:en",
+      "pair": "pt-en",
+      "source": "mercearia",
+      "target": "grocery store",
+      "reading": "",
+      "meaning": "A grocery retail shop; finite destination/shop subject contexts.",
+      "concept_id": "dictionary-sense:pilot-pt-002",
+      "variants": [
+        {
+          "context": "à mercearia",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            2,
+            11
+          ]
+        },
+        {
+          "context": "A mercearia",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            2,
+            11
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-pt-002",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-pt-003:en",
+      "pair": "pt-en",
+      "source": "frango frito",
+      "target": "fried chicken",
+      "reading": "",
+      "meaning": "Chicken prepared by frying; whole supplied phrase.",
+      "concept_id": "dictionary-sense:pilot-pt-003",
+      "variants": [
+        {
+          "context": "frango frito",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-pt-003",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-pt-005:en",
+      "pair": "pt-en",
+      "source": "ciência da computação",
+      "target": "computer science",
+      "reading": "",
+      "meaning": "Computer science as academic discipline; whole phrase.",
+      "concept_id": "dictionary-sense:pilot-pt-005",
+      "variants": [
+        {
+          "context": "ciência da computação",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            21
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-pt-005",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    },
+    {
+      "id": "dictionary-006:pilot-pt-006:en",
+      "pair": "pt-en",
+      "source": "leite com chocolate",
+      "target": "chocolate milk",
+      "reading": "",
+      "meaning": "Milk with chocolate as a drink; the explicit milk phrase distinguishes powder-only achocolatado.",
+      "concept_id": "dictionary-sense:pilot-pt-006",
+      "variants": [
+        {
+          "context": "leite com chocolate",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            19
+          ]
+        }
+      ],
+      "source_review": "accept",
+      "target_review": "accept",
+      "owner_proposal_id": "android-dictionary-r01:pilot-pt-006",
+      "owner_proposal_file": "android-proposals.json",
+      "license_id": "CC-BY-SA-4.0",
+      "runtime_permission": false
+    }
+  ],
+  "deduplicated": [
+    {
+      "id": "dictionary-006:pilot-en-113:es",
+      "source": "ice cream",
+      "pair": "en-es",
+      "already_covered_pattern_ids": [
+        "editorial-003:en-es:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:sw",
+      "source": "ice cream",
+      "pair": "en-sw",
+      "already_covered_pattern_ids": [
+        "editorial-003:en-sw:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-014:en",
+      "source": "アイスクリーム",
+      "pair": "ja-en",
+      "already_covered_pattern_ids": [
+        "editorial-003:ja-en:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-000:en",
+      "source": "aiskrimu",
+      "pair": "sw-en",
+      "already_covered_pattern_ids": [
+        "editorial-003:sw-en:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-008:en",
+      "source": "muziki",
+      "pair": "sw-en",
+      "already_covered_pattern_ids": [
+        "bare-noun-r01:sw-en:phrase_frame_liking_music"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-011:en",
+      "source": "chakula",
+      "pair": "sw-en",
+      "already_covered_pattern_ids": [
+        "bare-noun-r01:sw-en:needs_food"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ar-002:en",
+      "source": "آيس كريم",
+      "pair": "ar-en",
+      "already_covered_pattern_ids": [
+        "editorial-003:ar-en:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-de-001:en",
+      "source": "Eiscreme",
+      "pair": "de-en",
+      "already_covered_pattern_ids": [
+        "editorial-003:de-en:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-it-008:en",
+      "source": "musica",
+      "pair": "it-en",
+      "already_covered_pattern_ids": [
+        "bare-noun-r01:it-en:phrase_frame_liking_music"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-it-009:en",
+      "source": "cibo",
+      "pair": "it-en",
+      "already_covered_pattern_ids": [
+        "bare-noun-r01:it-en:needs_food"
+      ]
+    }
+  ],
+  "review": "Independent semantic/source-scope/target-reading and example review; no native-human certification. Exact original owner proposals retained."
+}

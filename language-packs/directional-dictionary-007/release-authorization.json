@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-11T01:34:49.793332+00:00",
+  "owner": "root",
+  "decision": "Authorize this exact directional content increment and Italian noun-context amendment for canonical packaging and native default-route verification",
+  "proposal_manifest_sha256": "23b1afecf750ca7142b73666b70258b254a8fa05f3a3be3f447836849623e4fc",
+  "additional_patterns": 71,
+  "directional_pairs_added_to": 13,
+  "italian_pattern_contexts_restricted": 20,
+  "baseline_targets_and_readings_unchanged": true,
+  "basis": "Two native-owner directional reviews, independent diction consolidation and root inspection of all concise source/target/reading/context mappings. Italian counterexamples retain concrete standard verb senses; actual native wrong-output claim not made before measurement.",
+  "limitations": [
+    "Final native sample for -007 pending",
+    "Authored samples are not population coverage",
+    "No new model, stemming, casing, carrier or inference",
+    "Stored source grammar remains mixed; this is vocabulary exposure"
+  ]
+}

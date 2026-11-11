@@ -1,0 +1,1740 @@
+{
+  "runtime_promotion": false,
+  "rows": [
+    {
+      "id": "dictionary-006:pilot-en-091:es",
+      "decision": "accept_finite_direction",
+      "source": "wife",
+      "target": "esposa",
+      "pair": "en-es",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "my wife",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-091:ja",
+      "decision": "accept_finite_direction",
+      "source": "wife",
+      "target": "妻",
+      "pair": "en-ja",
+      "reading": "tsuma",
+      "contexts": [
+        {
+          "context": "my wife",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-101:es",
+      "decision": "accept_finite_direction",
+      "source": "free time",
+      "target": "tiempo libre",
+      "pair": "en-es",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "free time",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-101:ja",
+      "decision": "accept_finite_direction",
+      "source": "free time",
+      "target": "余暇",
+      "pair": "en-ja",
+      "reading": "yoka",
+      "contexts": [
+        {
+          "context": "free time",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-102:ja",
+      "decision": "accept_finite_direction",
+      "source": "country music",
+      "target": "カントリー",
+      "pair": "en-ja",
+      "reading": "kantorī",
+      "contexts": [
+        {
+          "context": "country music",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-104:es",
+      "decision": "accept_finite_direction",
+      "source": "last night",
+      "target": "anoche",
+      "pair": "en-es",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "slept badly last night",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            12,
+            22
+          ]
+        },
+        {
+          "context": "watched a film last night",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-104:ja",
+      "decision": "accept_finite_direction",
+      "source": "last night",
+      "target": "昨夜",
+      "pair": "en-ja",
+      "reading": "sakuya",
+      "contexts": [
+        {
+          "context": "slept badly last night",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            12,
+            22
+          ]
+        },
+        {
+          "context": "watched a film last night",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            15,
+            25
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-112:ja",
+      "decision": "accept_finite_direction",
+      "source": "grocery store",
+      "target": "食料品店",
+      "pair": "en-ja",
+      "reading": "shokuryōhinten",
+      "contexts": [
+        {
+          "context": "grocery store",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:es",
+      "decision": "already_covered",
+      "source": "ice cream",
+      "target": "helado",
+      "pair": "en-es",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "ice cream",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:ja",
+      "decision": "accept_finite_direction",
+      "source": "ice cream",
+      "target": "アイスクリーム",
+      "pair": "en-ja",
+      "reading": "aisukurīmu",
+      "contexts": [
+        {
+          "context": "ice cream",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:sw",
+      "decision": "already_covered",
+      "source": "ice cream",
+      "target": "aiskrimu",
+      "pair": "en-sw",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "ice cream",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-115:es",
+      "decision": "accept_finite_direction",
+      "source": "fried chicken",
+      "target": "pollo frito",
+      "pair": "en-es",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "fried chicken",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-115:ja",
+      "decision": "accept_finite_direction",
+      "source": "fried chicken",
+      "target": "フライドチキン",
+      "pair": "en-ja",
+      "reading": "furaidochikin",
+      "contexts": [
+        {
+          "context": "fried chicken",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-118:es",
+      "decision": "accept_finite_direction",
+      "source": "computer science",
+      "target": "informática",
+      "pair": "en-es",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "computer science",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-118:ja",
+      "decision": "accept_finite_direction",
+      "source": "computer science",
+      "target": "計算機科学",
+      "pair": "en-ja",
+      "reading": "keisanki kagaku",
+      "contexts": [
+        {
+          "context": "computer science",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-120:ja",
+      "decision": "accept_finite_direction",
+      "source": "only child",
+      "target": "一人っ子",
+      "pair": "en-ja",
+      "reading": "hitorikko",
+      "contexts": [
+        {
+          "context": "grew up as an only child",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            14,
+            24
+          ]
+        },
+        {
+          "context": "is an only child",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-121:es",
+      "decision": "accept_finite_direction",
+      "source": "social media",
+      "target": "redes sociales",
+      "pair": "en-es",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "social media",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-121:ja",
+      "decision": "accept_finite_direction",
+      "source": "social media",
+      "target": "ソーシャルメディア",
+      "pair": "en-ja",
+      "reading": "sōsharu media",
+      "contexts": [
+        {
+          "context": "social media",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-125:es",
+      "decision": "accept_finite_direction",
+      "source": "chocolate chip",
+      "target": "chispa de chocolate",
+      "pair": "en-es",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "chocolate chip",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-125:ja",
+      "decision": "accept_finite_direction",
+      "source": "chocolate chip",
+      "target": "チョコチップ",
+      "pair": "en-ja",
+      "reading": "choko chippu",
+      "contexts": [
+        {
+          "context": "chocolate chip",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-128:es",
+      "decision": "accept_finite_direction",
+      "source": "national park",
+      "target": "parque nacional",
+      "pair": "en-es",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "national park",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-128:ja",
+      "decision": "accept_finite_direction",
+      "source": "national park",
+      "target": "国立公園",
+      "pair": "en-ja",
+      "reading": "kokuritsu kōen",
+      "contexts": [
+        {
+          "context": "national park",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-130:ja",
+      "decision": "accept_finite_direction",
+      "source": "rock music",
+      "target": "ロック",
+      "pair": "en-ja",
+      "reading": "rokku",
+      "contexts": [
+        {
+          "context": "rock music",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:es",
+      "decision": "accept_finite_direction",
+      "source": "climate change",
+      "target": "cambio climático",
+      "pair": "en-es",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "climate change",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:ja",
+      "decision": "accept_finite_direction",
+      "source": "climate change",
+      "target": "気候変動",
+      "pair": "en-ja",
+      "reading": "kikō hendō",
+      "contexts": [
+        {
+          "context": "climate change",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:sw",
+      "decision": "accept_finite_direction",
+      "source": "climate change",
+      "target": "mabadiliko ya tabia nchi",
+      "pair": "en-sw",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "climate change",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-137:es",
+      "decision": "accept_finite_direction",
+      "source": "pop music",
+      "target": "música pop",
+      "pair": "en-es",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "pop music",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-137:ja",
+      "decision": "accept_finite_direction",
+      "source": "pop music",
+      "target": "ポップ",
+      "pair": "en-ja",
+      "reading": "poppu",
+      "contexts": [
+        {
+          "context": "pop music",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-138:ja",
+      "decision": "accept_finite_direction",
+      "source": "rock climbing",
+      "target": "ロッククライミング",
+      "pair": "en-ja",
+      "reading": "rokku kuraimingu",
+      "contexts": [
+        {
+          "context": "rock climbing",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-es-002:en",
+      "decision": "accept_finite_direction",
+      "source": "tiempo libre",
+      "target": "free time",
+      "pair": "es-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "tiempo libre",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-000:en",
+      "decision": "accept_finite_direction",
+      "source": "高校",
+      "target": "high school",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "高校に通っています",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "高校があります",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-001:en",
+      "decision": "accept_finite_direction",
+      "source": "高等学校",
+      "target": "high school",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "高等学校に通っています",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        },
+        {
+          "context": "高等学校には図書館",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-002:en",
+      "decision": "accept_finite_direction",
+      "source": "余暇",
+      "target": "free time",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "余暇は読書",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "余暇を楽しんでいます",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-005:en",
+      "decision": "accept_finite_direction",
+      "source": "閑暇",
+      "target": "free time",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "閑暇を楽しんでいます",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "閑暇を利用して",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-007:en",
+      "decision": "accept_finite_direction",
+      "source": "昨夜",
+      "target": "last night",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "昨夜は",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-009:en",
+      "decision": "accept_finite_direction",
+      "source": "昨晩",
+      "target": "last night",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "昨晩は",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-012:en",
+      "decision": "accept_finite_direction",
+      "source": "来年",
+      "target": "next year",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "来年は",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "来年から大学に通います",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-014:en",
+      "decision": "already_covered",
+      "source": "アイスクリーム",
+      "target": "ice cream",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "アイスクリームを一つ",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-016:en",
+      "decision": "accept_finite_direction",
+      "source": "食料品店",
+      "target": "grocery store",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "食料品店があります",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        },
+        {
+          "context": "食料品店へ寄ります",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-017:en",
+      "decision": "accept_finite_direction",
+      "source": "フライドチキン",
+      "target": "fried chicken",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "フライドチキンを注文しました",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        },
+        {
+          "context": "フライドチキンを一緒に食べませんか",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-018:en",
+      "decision": "accept_finite_direction",
+      "source": "コンピュータサイエンス",
+      "target": "computer science",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "コンピュータサイエンスを学んでいます",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        },
+        {
+          "context": "コンピュータサイエンスの本",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-019:en",
+      "decision": "accept_finite_direction",
+      "source": "ソーシャルメディア",
+      "target": "social media",
+      "pair": "ja-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "ソーシャルメディアでその写真",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        },
+        {
+          "context": "ソーシャルメディアを見る",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-000:en",
+      "decision": "already_covered",
+      "source": "aiskrimu",
+      "target": "ice cream",
+      "pair": "sw-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "aiskrimu",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-001:en",
+      "decision": "accept_finite_direction",
+      "source": "mabadiliko ya tabia nchi",
+      "target": "climate change",
+      "pair": "sw-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "mabadiliko ya tabia nchi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            24
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-004:en",
+      "decision": "accept_finite_direction",
+      "source": "upendo",
+      "target": "love",
+      "pair": "sw-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "upendo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-008:en",
+      "decision": "already_covered",
+      "source": "muziki",
+      "target": "music",
+      "pair": "sw-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "muziki",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-011:en",
+      "decision": "already_covered",
+      "source": "chakula",
+      "target": "food",
+      "pair": "sw-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "chakula mezani",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        },
+        {
+          "context": "chakula kimepoa",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-013:en",
+      "decision": "accept_finite_direction",
+      "source": "siku",
+      "target": "day",
+      "pair": "sw-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "siku moja",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        },
+        {
+          "context": "siku nzima",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-017:en",
+      "decision": "accept_finite_direction",
+      "source": "matumaini",
+      "target": "hope",
+      "pair": "sw-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "Nina matumaini",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            14
+          ]
+        },
+        {
+          "context": "kuna matumaini",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            14
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-019:en",
+      "decision": "accept_finite_direction",
+      "source": "uhitaji",
+      "target": "need",
+      "pair": "sw-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "uhitaji wa maji",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        },
+        {
+          "context": "uhitaji wa chakula",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ar-002:en",
+      "decision": "already_covered",
+      "source": "آيس كريم",
+      "target": "ice cream",
+      "pair": "ar-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "آيس كريم",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ar-006:en",
+      "decision": "accept_finite_direction",
+      "source": "علم الحاسوب",
+      "target": "computer science",
+      "pair": "ar-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "علم الحاسوب",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-zh-000:en",
+      "decision": "accept_finite_direction",
+      "source": "鄉村音樂",
+      "target": "country music",
+      "pair": "zh-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "鄉村音樂",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-zh-000:en:simplified",
+      "decision": "accept_finite_direction",
+      "source": "乡村音乐",
+      "target": "country music",
+      "pair": "zh-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "乡村音乐",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-zh-003:en",
+      "decision": "accept_finite_direction",
+      "source": "昨夜",
+      "target": "last night",
+      "pair": "zh-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "昨夜",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ko-000:en",
+      "decision": "accept_finite_direction",
+      "source": "고교",
+      "target": "high school",
+      "pair": "ko-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "고교 친구",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "고교 시절",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ko-001:en",
+      "decision": "accept_finite_direction",
+      "source": "고등학교",
+      "target": "high school",
+      "pair": "ko-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "고등학교 친구",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        },
+        {
+          "context": "고등학교 시절",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ko-002:en",
+      "decision": "accept_finite_direction",
+      "source": "간밤",
+      "target": "last night",
+      "pair": "ko-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "간밤 비",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        },
+        {
+          "context": "간밤 잠",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            2
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ko-004:en",
+      "decision": "accept_finite_direction",
+      "source": "어젯밤",
+      "target": "last night",
+      "pair": "ko-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "어젯밤 잠",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        },
+        {
+          "context": "어젯밤 비",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ko-005:en",
+      "decision": "accept_finite_direction",
+      "source": "지난밤",
+      "target": "last night",
+      "pair": "ko-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "지난밤 잠",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        },
+        {
+          "context": "지난밤 비",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-fr-000:en",
+      "decision": "accept_finite_direction",
+      "source": "temps libre",
+      "target": "free time",
+      "pair": "fr-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "temps libre",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-fr-003:en",
+      "decision": "accept_finite_direction",
+      "source": "poulet frit",
+      "target": "fried chicken",
+      "pair": "fr-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "poulet frit",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-fr-007:en",
+      "decision": "accept_finite_direction",
+      "source": "parc national",
+      "target": "national park",
+      "pair": "fr-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "parc national",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-fr-008:en",
+      "decision": "accept_finite_direction",
+      "source": "changement climatique",
+      "target": "climate change",
+      "pair": "fr-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "changement climatique",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-fr-009:en",
+      "decision": "accept_finite_direction",
+      "source": "varappe",
+      "target": "rock climbing",
+      "pair": "fr-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "faire de la varappe",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            12,
+            19
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-de-001:en",
+      "decision": "already_covered",
+      "source": "Eiscreme",
+      "target": "ice cream",
+      "pair": "de-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "Eiscreme",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-de-002:en",
+      "decision": "accept_finite_direction",
+      "source": "Lebensmittelhandlung",
+      "target": "grocery store",
+      "pair": "de-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "Lebensmittelhandlung",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-de-003:en",
+      "decision": "accept_finite_direction",
+      "source": "Computerwissenschaft",
+      "target": "computer science",
+      "pair": "de-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "Computerwissenschaft",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-de-004:en",
+      "decision": "accept_finite_direction",
+      "source": "Rockmusik",
+      "target": "rock music",
+      "pair": "de-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "Rockmusik",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-de-005:en",
+      "decision": "accept_finite_direction",
+      "source": "Klimaveränderung",
+      "target": "climate change",
+      "pair": "de-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "Klimaveränderung",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-de-006:en",
+      "decision": "accept_finite_direction",
+      "source": "Popmusik",
+      "target": "pop music",
+      "pair": "de-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "Popmusik",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-de-009:en",
+      "decision": "accept_finite_direction",
+      "source": "Nahrung",
+      "target": "food",
+      "pair": "de-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "Nahrung für die Reise",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            7
+          ]
+        },
+        {
+          "context": "genug Nahrung",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            13
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-it-001:en",
+      "decision": "accept_finite_direction",
+      "source": "tempo libero",
+      "target": "spare time",
+      "pair": "it-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "tempo libero",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-it-002:en",
+      "decision": "accept_finite_direction",
+      "source": "pollo fritto",
+      "target": "fried chicken",
+      "pair": "it-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "pollo fritto",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-it-007:en",
+      "decision": "accept_finite_direction",
+      "source": "testamento",
+      "target": "will",
+      "pair": "it-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "fare testamento",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-it-008:en",
+      "decision": "already_covered",
+      "source": "musica",
+      "target": "music",
+      "pair": "it-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "Ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "Ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-it-009:en",
+      "decision": "already_covered",
+      "source": "cibo",
+      "target": "food",
+      "pair": "it-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-pt-002:en",
+      "decision": "accept_finite_direction",
+      "source": "mercearia",
+      "target": "grocery store",
+      "pair": "pt-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "à mercearia",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            2,
+            11
+          ]
+        },
+        {
+          "context": "A mercearia",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            2,
+            11
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-pt-003:en",
+      "decision": "accept_finite_direction",
+      "source": "frango frito",
+      "target": "fried chicken",
+      "pair": "pt-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "frango frito",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-pt-005:en",
+      "decision": "accept_finite_direction",
+      "source": "ciência da computação",
+      "target": "computer science",
+      "pair": "pt-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "ciência da computação",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            21
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-pt-006:en",
+      "decision": "accept_finite_direction",
+      "source": "leite com chocolate",
+      "target": "chocolate milk",
+      "pair": "pt-en",
+      "reading": "",
+      "contexts": [
+        {
+          "context": "leite com chocolate",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            19
+          ]
+        }
+      ]
+    }
+  ],
+  "source_entries": 67,
+  "directional_bindings": 80,
+  "supplied_script_variants": 1,
+  "duplicate_rows_omitted": [
+    {
+      "id": "dictionary-006:pilot-en-113:es",
+      "source": "ice cream",
+      "pair": "en-es",
+      "already_covered_pattern_ids": [
+        "editorial-003:en-es:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:sw",
+      "source": "ice cream",
+      "pair": "en-sw",
+      "already_covered_pattern_ids": [
+        "editorial-003:en-sw:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ja-014:en",
+      "source": "アイスクリーム",
+      "pair": "ja-en",
+      "already_covered_pattern_ids": [
+        "editorial-003:ja-en:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-000:en",
+      "source": "aiskrimu",
+      "pair": "sw-en",
+      "already_covered_pattern_ids": [
+        "editorial-003:sw-en:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-008:en",
+      "source": "muziki",
+      "pair": "sw-en",
+      "already_covered_pattern_ids": [
+        "bare-noun-r01:sw-en:phrase_frame_liking_music"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-sw-011:en",
+      "source": "chakula",
+      "pair": "sw-en",
+      "already_covered_pattern_ids": [
+        "bare-noun-r01:sw-en:needs_food"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-ar-002:en",
+      "source": "آيس كريم",
+      "pair": "ar-en",
+      "already_covered_pattern_ids": [
+        "editorial-003:ar-en:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-de-001:en",
+      "source": "Eiscreme",
+      "pair": "de-en",
+      "already_covered_pattern_ids": [
+        "editorial-003:de-en:ice_cream"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-it-008:en",
+      "source": "musica",
+      "pair": "it-en",
+      "already_covered_pattern_ids": [
+        "bare-noun-r01:it-en:phrase_frame_liking_music"
+      ]
+    },
+    {
+      "id": "dictionary-006:pilot-it-009:en",
+      "source": "cibo",
+      "pair": "it-en",
+      "already_covered_pattern_ids": [
+        "bare-noun-r01:it-en:needs_food"
+      ]
+    }
+  ]
+}

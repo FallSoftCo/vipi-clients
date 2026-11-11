@@ -1,0 +1,7 @@
+Dictionary-derived mappings and retained evidence: Wiktionary contributors, via retained Kaikki/Wiktionary inventory003, CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Original entry URLs and sense/entry identifiers are preserved per row in inputs/apple-proposals.json and inputs/android-proposals.json. The normalized mappings, finite source restrictions and candidate pack additions are adaptations for Vipi and retain CC BY-SA 4.0 attribution/share-alike. Original author-agent chat examples are identified separately and are not quoted training-corpus text.
+
+Historical inventory SHA256: 8c97e9de2ce8e94ce9754475a85eb27cd956ee0ba69491fe270376e3177ceb17; retained prior receipt, not rehashed during this task. Source URLs: https://kaikki.org/dictionary/ and exact https://en.wiktionary.org/wiki/ entry URLs in the inputs.
+
+Ranking used retained BlendedSkillTalk TRAIN counts (CC BY 4.0 metadata), only as an English frequency proxy. No training dialogue corpus is packaged; ranking is neither native-language frequency nor unseen evaluation or semantic approval. No new remote dictionary download was performed.
+
+Existing base rows retain their original provenance. No blanket relicensing claim is made for the complete application or unrelated assets.

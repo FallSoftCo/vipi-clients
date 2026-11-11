@@ -1,0 +1,509 @@
+{
+  "schema": "vipi-editorial-extension-native-fixtures-1",
+  "runtime_promotion": false,
+  "cases": [
+    {
+      "id": "dictionary-006:pilot-en-091:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-091:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "I am having dinner with my wife tonight.",
+      "expected_source": "wife",
+      "expected_target": "esposa",
+      "reading": "",
+      "focus_utf16": [
+        27,
+        31
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-091:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-091:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I am having dinner with my wife tonight.",
+      "expected_source": "wife",
+      "expected_target": "妻",
+      "reading": "tsuma",
+      "focus_utf16": [
+        27,
+        31
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:sw:example1",
+      "pattern_id": "dictionary-006:pilot-en-132:sw",
+      "pair": "en-sw",
+      "source_language": "en",
+      "target_language": "sw",
+      "original": "We talked about climate change in class.",
+      "expected_source": "climate change",
+      "expected_target": "mabadiliko ya tabia nchi",
+      "reading": "",
+      "focus_utf16": [
+        16,
+        30
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-es-002:en:example1",
+      "pattern_id": "dictionary-006:pilot-es-002:en",
+      "pair": "es-en",
+      "source_language": "es",
+      "target_language": "en",
+      "original": "Leo novelas en mi tiempo libre.",
+      "expected_source": "tiempo libre",
+      "expected_target": "free time",
+      "reading": "",
+      "focus_utf16": [
+        18,
+        30
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-000:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-000:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "弟は高校に通っています。",
+      "expected_source": "高校",
+      "expected_target": "high school",
+      "reading": "",
+      "focus_utf16": [
+        2,
+        4
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-001:en:example1",
+      "pattern_id": "dictionary-006:pilot-sw-001:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Tumezungumza kuhusu mabadiliko ya tabia nchi shuleni.",
+      "expected_source": "mabadiliko ya tabia nchi",
+      "expected_target": "climate change",
+      "reading": "",
+      "focus_utf16": [
+        20,
+        44
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ar-006:en:example1",
+      "pattern_id": "dictionary-006:pilot-ar-006:en",
+      "pair": "ar-en",
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "أدرس علم الحاسوب في الجامعة.",
+      "expected_source": "علم الحاسوب",
+      "expected_target": "computer science",
+      "reading": "",
+      "focus_utf16": [
+        5,
+        16
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-zh-000:en:example1",
+      "pattern_id": "dictionary-006:pilot-zh-000:en",
+      "pair": "zh-en",
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "我喜歡聽鄉村音樂。",
+      "expected_source": "鄉村音樂",
+      "expected_target": "country music",
+      "reading": "",
+      "focus_utf16": [
+        4,
+        8
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ko-000:en:example1",
+      "pattern_id": "dictionary-006:pilot-ko-000:en",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "고교 친구를 오늘 만났어요.",
+      "expected_source": "고교",
+      "expected_target": "high school",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-fr-000:en:example1",
+      "pattern_id": "dictionary-006:pilot-fr-000:en",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "J’ai du temps libre cet après-midi.",
+      "expected_source": "temps libre",
+      "expected_target": "free time",
+      "reading": "",
+      "focus_utf16": [
+        8,
+        19
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-002:en:example1",
+      "pattern_id": "dictionary-006:pilot-de-002:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Die Lebensmittelhandlung an der Ecke ist noch offen.",
+      "expected_source": "Lebensmittelhandlung",
+      "expected_target": "grocery store",
+      "reading": "",
+      "focus_utf16": [
+        4,
+        24
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-it-001:en:example1",
+      "pattern_id": "dictionary-006:pilot-it-001:en",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Nel tempo libero leggo romanzi.",
+      "expected_source": "tempo libero",
+      "expected_target": "spare time",
+      "reading": "",
+      "focus_utf16": [
+        4,
+        16
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-pt-002:en:example1",
+      "pattern_id": "dictionary-006:pilot-pt-002:en",
+      "pair": "pt-en",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "Vou à mercearia comprar pão.",
+      "expected_source": "mercearia",
+      "expected_target": "grocery store",
+      "reading": "",
+      "focus_utf16": [
+        6,
+        15
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-102:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-102:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I listen to country music on the drive home.",
+      "expected_source": "country music",
+      "expected_target": "カントリー",
+      "reading": "kantorī",
+      "focus_utf16": [
+        12,
+        25
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-118:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-118:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "My sister studies computer science.",
+      "expected_source": "computer science",
+      "expected_target": "計算機科学",
+      "reading": "keisanki kagaku",
+      "focus_utf16": [
+        18,
+        34
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "italian-positive:bare-noun-r01:it-en:needs_food",
+      "pattern_id": "bare-noun-r01:it-en:needs_food",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Ho comprato del cibo per il viaggio.",
+      "expected_source": "cibo",
+      "expected_target": "food",
+      "reading": "",
+      "focus_utf16": [
+        16,
+        20
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "authorship": "Original agent-authored finite diagnostic."
+    },
+    {
+      "id": "italian-positive:bare-noun-r01:it-en:phrase_frame_liking_music",
+      "pattern_id": "bare-noun-r01:it-en:phrase_frame_liking_music",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Ascolto musica mentre cucino.",
+      "expected_source": "musica",
+      "expected_target": "music",
+      "reading": "",
+      "focus_utf16": [
+        8,
+        14
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "authorship": "Original agent-authored finite diagnostic."
+    },
+    {
+      "id": "italian-positive:bare-noun-r01:it-ja:needs_food",
+      "pattern_id": "bare-noun-r01:it-ja:needs_food",
+      "pair": "it-ja",
+      "source_language": "it",
+      "target_language": "ja",
+      "original": "Ho comprato del cibo per il viaggio.",
+      "expected_source": "cibo",
+      "expected_target": "食べ物",
+      "reading": "tabemono",
+      "focus_utf16": [
+        16,
+        20
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "authorship": "Original agent-authored finite diagnostic."
+    },
+    {
+      "id": "italian-positive:bare-noun-r01:it-ja:phrase_frame_liking_music",
+      "pattern_id": "bare-noun-r01:it-ja:phrase_frame_liking_music",
+      "pair": "it-ja",
+      "source_language": "it",
+      "target_language": "ja",
+      "original": "Ascolto musica mentre cucino.",
+      "expected_source": "musica",
+      "expected_target": "音楽",
+      "reading": "ongaku",
+      "focus_utf16": [
+        8,
+        14
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "authorship": "Original agent-authored finite diagnostic."
+    }
+  ],
+  "controls": [
+    {
+      "id": "dictionary-negative-0",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "She was the only child in the room.",
+      "forbidden_focus": "only child",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Only present child does not imply no siblings."
+    },
+    {
+      "id": "dictionary-negative-1",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "It was the last night of our trip.",
+      "forbidden_focus": "last night",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Final night differs from previous night."
+    },
+    {
+      "id": "dictionary-negative-2",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Tutasafiri kwa siku tatu.",
+      "forbidden_focus": "siku",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Plural days must not receive singular day."
+    },
+    {
+      "id": "dictionary-negative-3",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Cibo la mia famiglia.",
+      "forbidden_focus": "cibo",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "First-person verb is not noun food."
+    },
+    {
+      "id": "dictionary-negative-4",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Leggo il Nuovo Testamento.",
+      "forbidden_focus": "Testamento",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Biblical title is not legal will; casing remains exact."
+    },
+    {
+      "id": "dictionary-negative-5",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "There were chocolate chips on the table.",
+      "forbidden_focus": "chocolate chip",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Plural source must not receive singular target."
+    },
+    {
+      "id": "dictionary-negative-6",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "Nous visitons deux parcs nationaux.",
+      "forbidden_focus": "parc national",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Unlisted plural not licensed."
+    },
+    {
+      "id": "dictionary-negative-7",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "고등학교에서 친구를 만났어요.",
+      "forbidden_focus": "고등학교",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Unreviewed attached form remains native-boundary abstention; no carrier permission."
+    },
+    {
+      "id": "dictionary-negative-8",
+      "pair": "ar-en",
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "أحب الآيس كريم.",
+      "forbidden_focus": "آيس كريم",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Attached Arabic article not licensed by this increment."
+    },
+    {
+      "id": "italian-verb:it-en:cibo",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Ogni mattina mi cibo di pane e frutta.",
+      "forbidden_focus": "cibo",
+      "forbidden_pattern_prefix": "bare-noun-r01:",
+      "expected_no_spans": false,
+      "reason": "Approved noun scope restriction must reject this real verb use; unrelated outputs may survive."
+    },
+    {
+      "id": "italian-verb:it-en:musica",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Luca musica le poesie che scrivo.",
+      "forbidden_focus": "musica",
+      "forbidden_pattern_prefix": "bare-noun-r01:",
+      "expected_no_spans": false,
+      "reason": "Approved noun scope restriction must reject this real verb use; unrelated outputs may survive."
+    },
+    {
+      "id": "italian-verb:it-ja:cibo",
+      "pair": "it-ja",
+      "source_language": "it",
+      "target_language": "ja",
+      "original": "Ogni mattina mi cibo di pane e frutta.",
+      "forbidden_focus": "cibo",
+      "forbidden_pattern_prefix": "bare-noun-r01:",
+      "expected_no_spans": false,
+      "reason": "Approved noun scope restriction must reject this real verb use; unrelated outputs may survive."
+    },
+    {
+      "id": "italian-verb:it-ja:musica",
+      "pair": "it-ja",
+      "source_language": "it",
+      "target_language": "ja",
+      "original": "Luca musica le poesie che scrivo.",
+      "forbidden_focus": "musica",
+      "forbidden_pattern_prefix": "bare-noun-r01:",
+      "expected_no_spans": false,
+      "reason": "Approved noun scope restriction must reject this real verb use; unrelated outputs may survive."
+    }
+  ],
+  "sample_rule": "First retained example per added direction plus two distinct Japanese readings and Italian noun/verb cases. Not held-out evaluation. Full original162 messages retained in fixtures.json."
+}

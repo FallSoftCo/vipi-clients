@@ -1,0 +1,3187 @@
+{
+  "schema": "vipi-editorial-extension-native-fixtures-1",
+  "runtime_promotion": false,
+  "cases": [
+    {
+      "id": "dictionary-006:pilot-en-091:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-091:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "I am having dinner with my wife tonight.",
+      "expected_source": "wife",
+      "expected_target": "esposa",
+      "reading": "",
+      "focus_utf16": [
+        27,
+        31
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-091:es:example2",
+      "pattern_id": "dictionary-006:pilot-en-091:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "I bought flowers for my wife today.",
+      "expected_source": "wife",
+      "expected_target": "esposa",
+      "reading": "",
+      "focus_utf16": [
+        24,
+        28
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-091:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-091:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I am having dinner with my wife tonight.",
+      "expected_source": "wife",
+      "expected_target": "妻",
+      "reading": "tsuma",
+      "focus_utf16": [
+        27,
+        31
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-091:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-091:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I bought flowers for my wife today.",
+      "expected_source": "wife",
+      "expected_target": "妻",
+      "reading": "tsuma",
+      "focus_utf16": [
+        24,
+        28
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-101:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-101:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "I read novels in my free time.",
+      "expected_source": "free time",
+      "expected_target": "tiempo libre",
+      "reading": "",
+      "focus_utf16": [
+        20,
+        29
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-101:es:example2",
+      "pattern_id": "dictionary-006:pilot-en-101:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "Do you have any free time this weekend?",
+      "expected_source": "free time",
+      "expected_target": "tiempo libre",
+      "reading": "",
+      "focus_utf16": [
+        16,
+        25
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-101:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-101:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I read novels in my free time.",
+      "expected_source": "free time",
+      "expected_target": "余暇",
+      "reading": "yoka",
+      "focus_utf16": [
+        20,
+        29
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-101:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-101:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "Do you have any free time this weekend?",
+      "expected_source": "free time",
+      "expected_target": "余暇",
+      "reading": "yoka",
+      "focus_utf16": [
+        16,
+        25
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-102:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-102:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I listen to country music on the drive home.",
+      "expected_source": "country music",
+      "expected_target": "カントリー",
+      "reading": "kantorī",
+      "focus_utf16": [
+        12,
+        25
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-102:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-102:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "Do you like country music?",
+      "expected_source": "country music",
+      "expected_target": "カントリー",
+      "reading": "kantorī",
+      "focus_utf16": [
+        12,
+        25
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-104:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-104:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "I slept badly last night.",
+      "expected_source": "last night",
+      "expected_target": "anoche",
+      "reading": "",
+      "focus_utf16": [
+        14,
+        24
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-104:es:example2",
+      "pattern_id": "dictionary-006:pilot-en-104:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "We watched a film last night.",
+      "expected_source": "last night",
+      "expected_target": "anoche",
+      "reading": "",
+      "focus_utf16": [
+        18,
+        28
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-104:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-104:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I slept badly last night.",
+      "expected_source": "last night",
+      "expected_target": "昨夜",
+      "reading": "sakuya",
+      "focus_utf16": [
+        14,
+        24
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-104:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-104:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "We watched a film last night.",
+      "expected_source": "last night",
+      "expected_target": "昨夜",
+      "reading": "sakuya",
+      "focus_utf16": [
+        18,
+        28
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-112:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-112:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I need to stop at the grocery store.",
+      "expected_source": "grocery store",
+      "expected_target": "食料品店",
+      "reading": "shokuryōhinten",
+      "focus_utf16": [
+        22,
+        35
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-112:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-112:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "The grocery store closes at nine.",
+      "expected_source": "grocery store",
+      "expected_target": "食料品店",
+      "reading": "shokuryōhinten",
+      "focus_utf16": [
+        4,
+        17
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-113:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "Would you like some ice cream?",
+      "expected_source": "ice cream",
+      "expected_target": "helado",
+      "reading": "",
+      "focus_utf16": [
+        20,
+        29
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:es:example2",
+      "pattern_id": "dictionary-006:pilot-en-113:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "The ice cream is melting.",
+      "expected_source": "ice cream",
+      "expected_target": "helado",
+      "reading": "",
+      "focus_utf16": [
+        4,
+        13
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-113:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "Would you like some ice cream?",
+      "expected_source": "ice cream",
+      "expected_target": "アイスクリーム",
+      "reading": "aisukurīmu",
+      "focus_utf16": [
+        20,
+        29
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-113:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "The ice cream is melting.",
+      "expected_source": "ice cream",
+      "expected_target": "アイスクリーム",
+      "reading": "aisukurīmu",
+      "focus_utf16": [
+        4,
+        13
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:sw:example1",
+      "pattern_id": "dictionary-006:pilot-en-113:sw",
+      "pair": "en-sw",
+      "source_language": "en",
+      "target_language": "sw",
+      "original": "Would you like some ice cream?",
+      "expected_source": "ice cream",
+      "expected_target": "aiskrimu",
+      "reading": "",
+      "focus_utf16": [
+        20,
+        29
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-113:sw:example2",
+      "pattern_id": "dictionary-006:pilot-en-113:sw",
+      "pair": "en-sw",
+      "source_language": "en",
+      "target_language": "sw",
+      "original": "The ice cream is melting.",
+      "expected_source": "ice cream",
+      "expected_target": "aiskrimu",
+      "reading": "",
+      "focus_utf16": [
+        4,
+        13
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-115:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-115:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "We ordered fried chicken for dinner.",
+      "expected_source": "fried chicken",
+      "expected_target": "pollo frito",
+      "reading": "",
+      "focus_utf16": [
+        11,
+        24
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-115:es:example2",
+      "pattern_id": "dictionary-006:pilot-en-115:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "There is some fried chicken in the fridge.",
+      "expected_source": "fried chicken",
+      "expected_target": "pollo frito",
+      "reading": "",
+      "focus_utf16": [
+        14,
+        27
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-115:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-115:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "We ordered fried chicken for dinner.",
+      "expected_source": "fried chicken",
+      "expected_target": "フライドチキン",
+      "reading": "furaidochikin",
+      "focus_utf16": [
+        11,
+        24
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-115:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-115:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "There is some fried chicken in the fridge.",
+      "expected_source": "fried chicken",
+      "expected_target": "フライドチキン",
+      "reading": "furaidochikin",
+      "focus_utf16": [
+        14,
+        27
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-118:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-118:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "My sister studies computer science.",
+      "expected_source": "computer science",
+      "expected_target": "informática",
+      "reading": "",
+      "focus_utf16": [
+        18,
+        34
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-118:es:example2",
+      "pattern_id": "dictionary-006:pilot-en-118:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "I am taking a computer science course.",
+      "expected_source": "computer science",
+      "expected_target": "informática",
+      "reading": "",
+      "focus_utf16": [
+        14,
+        30
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-118:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-118:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "My sister studies computer science.",
+      "expected_source": "computer science",
+      "expected_target": "計算機科学",
+      "reading": "keisanki kagaku",
+      "focus_utf16": [
+        18,
+        34
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-118:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-118:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I am taking a computer science course.",
+      "expected_source": "computer science",
+      "expected_target": "計算機科学",
+      "reading": "keisanki kagaku",
+      "focus_utf16": [
+        14,
+        30
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-120:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-120:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I grew up as an only child.",
+      "expected_source": "only child",
+      "expected_target": "一人っ子",
+      "reading": "hitorikko",
+      "focus_utf16": [
+        16,
+        26
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-120:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-120:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "My cousin is an only child.",
+      "expected_source": "only child",
+      "expected_target": "一人っ子",
+      "reading": "hitorikko",
+      "focus_utf16": [
+        16,
+        26
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-121:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-121:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "I saw the photo on social media.",
+      "expected_source": "social media",
+      "expected_target": "redes sociales",
+      "reading": "",
+      "focus_utf16": [
+        19,
+        31
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-121:es:example2",
+      "pattern_id": "dictionary-006:pilot-en-121:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "I spend too much time on social media.",
+      "expected_source": "social media",
+      "expected_target": "redes sociales",
+      "reading": "",
+      "focus_utf16": [
+        25,
+        37
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-121:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-121:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I saw the photo on social media.",
+      "expected_source": "social media",
+      "expected_target": "ソーシャルメディア",
+      "reading": "sōsharu media",
+      "focus_utf16": [
+        19,
+        31
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-121:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-121:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I spend too much time on social media.",
+      "expected_source": "social media",
+      "expected_target": "ソーシャルメディア",
+      "reading": "sōsharu media",
+      "focus_utf16": [
+        25,
+        37
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-125:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-125:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "There is one chocolate chip left in the bowl.",
+      "expected_source": "chocolate chip",
+      "expected_target": "chispa de chocolate",
+      "reading": "",
+      "focus_utf16": [
+        13,
+        27
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-125:es:example2",
+      "pattern_id": "dictionary-006:pilot-en-125:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "I found a chocolate chip on the kitchen counter.",
+      "expected_source": "chocolate chip",
+      "expected_target": "chispa de chocolate",
+      "reading": "",
+      "focus_utf16": [
+        10,
+        24
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-125:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-125:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "There is one chocolate chip left in the bowl.",
+      "expected_source": "chocolate chip",
+      "expected_target": "チョコチップ",
+      "reading": "choko chippu",
+      "focus_utf16": [
+        13,
+        27
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-125:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-125:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I found a chocolate chip on the kitchen counter.",
+      "expected_source": "chocolate chip",
+      "expected_target": "チョコチップ",
+      "reading": "choko chippu",
+      "focus_utf16": [
+        10,
+        24
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-128:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-128:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "We visited a national park yesterday.",
+      "expected_source": "national park",
+      "expected_target": "parque nacional",
+      "reading": "",
+      "focus_utf16": [
+        13,
+        26
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-128:es:example2",
+      "pattern_id": "dictionary-006:pilot-en-128:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "The national park has several walking trails.",
+      "expected_source": "national park",
+      "expected_target": "parque nacional",
+      "reading": "",
+      "focus_utf16": [
+        4,
+        17
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-128:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-128:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "We visited a national park yesterday.",
+      "expected_source": "national park",
+      "expected_target": "国立公園",
+      "reading": "kokuritsu kōen",
+      "focus_utf16": [
+        13,
+        26
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-128:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-128:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "The national park has several walking trails.",
+      "expected_source": "national park",
+      "expected_target": "国立公園",
+      "reading": "kokuritsu kōen",
+      "focus_utf16": [
+        4,
+        17
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-130:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-130:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I listen to rock music while I cook.",
+      "expected_source": "rock music",
+      "expected_target": "ロック",
+      "reading": "rokku",
+      "focus_utf16": [
+        12,
+        22
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-130:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-130:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "Do you like rock music?",
+      "expected_source": "rock music",
+      "expected_target": "ロック",
+      "reading": "rokku",
+      "focus_utf16": [
+        12,
+        22
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-132:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "We talked about climate change in class.",
+      "expected_source": "climate change",
+      "expected_target": "cambio climático",
+      "reading": "",
+      "focus_utf16": [
+        16,
+        30
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:es:example2",
+      "pattern_id": "dictionary-006:pilot-en-132:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "I am reading a book about climate change.",
+      "expected_source": "climate change",
+      "expected_target": "cambio climático",
+      "reading": "",
+      "focus_utf16": [
+        26,
+        40
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-132:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "We talked about climate change in class.",
+      "expected_source": "climate change",
+      "expected_target": "気候変動",
+      "reading": "kikō hendō",
+      "focus_utf16": [
+        16,
+        30
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-132:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I am reading a book about climate change.",
+      "expected_source": "climate change",
+      "expected_target": "気候変動",
+      "reading": "kikō hendō",
+      "focus_utf16": [
+        26,
+        40
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:sw:example1",
+      "pattern_id": "dictionary-006:pilot-en-132:sw",
+      "pair": "en-sw",
+      "source_language": "en",
+      "target_language": "sw",
+      "original": "We talked about climate change in class.",
+      "expected_source": "climate change",
+      "expected_target": "mabadiliko ya tabia nchi",
+      "reading": "",
+      "focus_utf16": [
+        16,
+        30
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-132:sw:example2",
+      "pattern_id": "dictionary-006:pilot-en-132:sw",
+      "pair": "en-sw",
+      "source_language": "en",
+      "target_language": "sw",
+      "original": "I am reading a book about climate change.",
+      "expected_source": "climate change",
+      "expected_target": "mabadiliko ya tabia nchi",
+      "reading": "",
+      "focus_utf16": [
+        26,
+        40
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-137:es:example1",
+      "pattern_id": "dictionary-006:pilot-en-137:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "She likes listening to pop music.",
+      "expected_source": "pop music",
+      "expected_target": "música pop",
+      "reading": "",
+      "focus_utf16": [
+        23,
+        32
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-137:es:example2",
+      "pattern_id": "dictionary-006:pilot-en-137:es",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "They played pop music at the party.",
+      "expected_source": "pop music",
+      "expected_target": "música pop",
+      "reading": "",
+      "focus_utf16": [
+        12,
+        21
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-137:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-137:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "She likes listening to pop music.",
+      "expected_source": "pop music",
+      "expected_target": "ポップ",
+      "reading": "poppu",
+      "focus_utf16": [
+        23,
+        32
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-137:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-137:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "They played pop music at the party.",
+      "expected_source": "pop music",
+      "expected_target": "ポップ",
+      "reading": "poppu",
+      "focus_utf16": [
+        12,
+        21
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-138:ja:example1",
+      "pattern_id": "dictionary-006:pilot-en-138:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "We tried rock climbing at the weekend.",
+      "expected_source": "rock climbing",
+      "expected_target": "ロッククライミング",
+      "reading": "rokku kuraimingu",
+      "focus_utf16": [
+        9,
+        22
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-en-138:ja:example2",
+      "pattern_id": "dictionary-006:pilot-en-138:ja",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I bought a helmet for rock climbing.",
+      "expected_source": "rock climbing",
+      "expected_target": "ロッククライミング",
+      "reading": "rokku kuraimingu",
+      "focus_utf16": [
+        22,
+        35
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-es-002:en:example1",
+      "pattern_id": "dictionary-006:pilot-es-002:en",
+      "pair": "es-en",
+      "source_language": "es",
+      "target_language": "en",
+      "original": "Leo novelas en mi tiempo libre.",
+      "expected_source": "tiempo libre",
+      "expected_target": "free time",
+      "reading": "",
+      "focus_utf16": [
+        18,
+        30
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-es-002:en:example2",
+      "pattern_id": "dictionary-006:pilot-es-002:en",
+      "pair": "es-en",
+      "source_language": "es",
+      "target_language": "en",
+      "original": "¿Tienes tiempo libre este fin de semana?",
+      "expected_source": "tiempo libre",
+      "expected_target": "free time",
+      "reading": "",
+      "focus_utf16": [
+        8,
+        20
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-000:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-000:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "弟は高校に通っています。",
+      "expected_source": "高校",
+      "expected_target": "high school",
+      "reading": "",
+      "focus_utf16": [
+        2,
+        4
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-000:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-000:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "駅の近くに高校があります。",
+      "expected_source": "高校",
+      "expected_target": "high school",
+      "reading": "",
+      "focus_utf16": [
+        5,
+        7
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-001:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-001:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "妹は高等学校に通っています。",
+      "expected_source": "高等学校",
+      "expected_target": "high school",
+      "reading": "",
+      "focus_utf16": [
+        2,
+        6
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-001:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-001:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "この高等学校には図書館があります。",
+      "expected_source": "高等学校",
+      "expected_target": "high school",
+      "reading": "",
+      "focus_utf16": [
+        2,
+        6
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-002:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-002:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "余暇は読書をして過ごします。",
+      "expected_source": "余暇",
+      "expected_target": "free time",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-002:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-002:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "週末の余暇を楽しんでいます。",
+      "expected_source": "余暇",
+      "expected_target": "free time",
+      "reading": "",
+      "focus_utf16": [
+        3,
+        5
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-005:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-005:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "久しぶりに閑暇を楽しんでいます。",
+      "expected_source": "閑暇",
+      "expected_target": "free time",
+      "reading": "",
+      "focus_utf16": [
+        5,
+        7
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-005:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-005:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "閑暇を利用して本を読みました。",
+      "expected_source": "閑暇",
+      "expected_target": "free time",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-007:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-007:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "昨夜はよく眠れました。",
+      "expected_source": "昨夜",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-007:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-007:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "昨夜は友人と映画を見ました。",
+      "expected_source": "昨夜",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-009:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-009:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "昨晩は早く寝ました。",
+      "expected_source": "昨晩",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-009:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-009:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "昨晩は家で夕食を食べました。",
+      "expected_source": "昨晩",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-012:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-012:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "来年は日本へ旅行したいです。",
+      "expected_source": "来年",
+      "expected_target": "next year",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-012:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-012:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "妹は来年から大学に通います。",
+      "expected_source": "来年",
+      "expected_target": "next year",
+      "reading": "",
+      "focus_utf16": [
+        2,
+        4
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-014:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-014:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "アイスクリームを一つください。",
+      "expected_source": "アイスクリーム",
+      "expected_target": "ice cream",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        7
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-014:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-014:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "アイスクリームを一つ買いました。",
+      "expected_source": "アイスクリーム",
+      "expected_target": "ice cream",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        7
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-016:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-016:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "駅の近くに食料品店があります。",
+      "expected_source": "食料品店",
+      "expected_target": "grocery store",
+      "reading": "",
+      "focus_utf16": [
+        5,
+        9
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-016:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-016:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "帰りに食料品店へ寄ります。",
+      "expected_source": "食料品店",
+      "expected_target": "grocery store",
+      "reading": "",
+      "focus_utf16": [
+        3,
+        7
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-017:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-017:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "夕食にフライドチキンを注文しました。",
+      "expected_source": "フライドチキン",
+      "expected_target": "fried chicken",
+      "reading": "",
+      "focus_utf16": [
+        3,
+        10
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-017:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-017:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "フライドチキンを一緒に食べませんか。",
+      "expected_source": "フライドチキン",
+      "expected_target": "fried chicken",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        7
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-018:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-018:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "大学でコンピュータサイエンスを学んでいます。",
+      "expected_source": "コンピュータサイエンス",
+      "expected_target": "computer science",
+      "reading": "",
+      "focus_utf16": [
+        3,
+        14
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-018:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-018:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "コンピュータサイエンスの本を借りました。",
+      "expected_source": "コンピュータサイエンス",
+      "expected_target": "computer science",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        11
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-019:en:example1",
+      "pattern_id": "dictionary-006:pilot-ja-019:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "ソーシャルメディアでその写真を見ました。",
+      "expected_source": "ソーシャルメディア",
+      "expected_target": "social media",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        9
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ja-019:en:example2",
+      "pattern_id": "dictionary-006:pilot-ja-019:en",
+      "pair": "ja-en",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "ソーシャルメディアを見る時間を減らしたいです。",
+      "expected_source": "ソーシャルメディア",
+      "expected_target": "social media",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        9
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-000:en:example1",
+      "pattern_id": "dictionary-006:pilot-sw-000:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Ninataka kula aiskrimu baada ya chakula.",
+      "expected_source": "aiskrimu",
+      "expected_target": "ice cream",
+      "reading": "",
+      "focus_utf16": [
+        14,
+        22
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-000:en:example2",
+      "pattern_id": "dictionary-006:pilot-sw-000:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Tulinunua aiskrimu dukani.",
+      "expected_source": "aiskrimu",
+      "expected_target": "ice cream",
+      "reading": "",
+      "focus_utf16": [
+        10,
+        18
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-001:en:example1",
+      "pattern_id": "dictionary-006:pilot-sw-001:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Tumezungumza kuhusu mabadiliko ya tabia nchi shuleni.",
+      "expected_source": "mabadiliko ya tabia nchi",
+      "expected_target": "climate change",
+      "reading": "",
+      "focus_utf16": [
+        20,
+        44
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-001:en:example2",
+      "pattern_id": "dictionary-006:pilot-sw-001:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Ninasoma kitabu kuhusu mabadiliko ya tabia nchi.",
+      "expected_source": "mabadiliko ya tabia nchi",
+      "expected_target": "climate change",
+      "reading": "",
+      "focus_utf16": [
+        23,
+        47
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-004:en:example1",
+      "pattern_id": "dictionary-006:pilot-sw-004:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Mama alinilea kwa upendo.",
+      "expected_source": "upendo",
+      "expected_target": "love",
+      "reading": "",
+      "focus_utf16": [
+        18,
+        24
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-004:en:example2",
+      "pattern_id": "dictionary-006:pilot-sw-004:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Ninawapenda wazazi wangu, nao hunionyesha upendo.",
+      "expected_source": "upendo",
+      "expected_target": "love",
+      "reading": "",
+      "focus_utf16": [
+        42,
+        48
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-008:en:example1",
+      "pattern_id": "dictionary-006:pilot-sw-008:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Ninapenda kusikiliza muziki ninapopika.",
+      "expected_source": "muziki",
+      "expected_target": "music",
+      "reading": "",
+      "focus_utf16": [
+        21,
+        27
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-008:en:example2",
+      "pattern_id": "dictionary-006:pilot-sw-008:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Tulisikiliza muziki pamoja jana.",
+      "expected_source": "muziki",
+      "expected_target": "music",
+      "reading": "",
+      "focus_utf16": [
+        13,
+        19
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-011:en:example1",
+      "pattern_id": "dictionary-006:pilot-sw-011:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Nimeweka chakula mezani.",
+      "expected_source": "chakula",
+      "expected_target": "food",
+      "reading": "",
+      "focus_utf16": [
+        9,
+        16
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-011:en:example2",
+      "pattern_id": "dictionary-006:pilot-sw-011:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Nadhani chakula kimepoa, lakini bado kina ladha nzuri.",
+      "expected_source": "chakula",
+      "expected_target": "food",
+      "reading": "",
+      "focus_utf16": [
+        8,
+        15
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-013:en:example1",
+      "pattern_id": "dictionary-006:pilot-sw-013:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Nitabaki hapa kwa siku moja.",
+      "expected_source": "siku",
+      "expected_target": "day",
+      "reading": "",
+      "focus_utf16": [
+        18,
+        22
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-013:en:example2",
+      "pattern_id": "dictionary-006:pilot-sw-013:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Nimekusubiri siku nzima.",
+      "expected_source": "siku",
+      "expected_target": "day",
+      "reading": "",
+      "focus_utf16": [
+        13,
+        17
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-017:en:example1",
+      "pattern_id": "dictionary-006:pilot-sw-017:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Nina matumaini kwamba tutakutana tena.",
+      "expected_source": "matumaini",
+      "expected_target": "hope",
+      "reading": "",
+      "focus_utf16": [
+        5,
+        14
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-017:en:example2",
+      "pattern_id": "dictionary-006:pilot-sw-017:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Bado kuna matumaini ya kupata kazi.",
+      "expected_source": "matumaini",
+      "expected_target": "hope",
+      "reading": "",
+      "focus_utf16": [
+        10,
+        19
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-019:en:example1",
+      "pattern_id": "dictionary-006:pilot-sw-019:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Kuna uhitaji wa maji safi hapa.",
+      "expected_source": "uhitaji",
+      "expected_target": "need",
+      "reading": "",
+      "focus_utf16": [
+        5,
+        12
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-sw-019:en:example2",
+      "pattern_id": "dictionary-006:pilot-sw-019:en",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Familia hii ina uhitaji wa chakula.",
+      "expected_source": "uhitaji",
+      "expected_target": "need",
+      "reading": "",
+      "focus_utf16": [
+        16,
+        23
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ar-002:en:example1",
+      "pattern_id": "dictionary-006:pilot-ar-002:en",
+      "pair": "ar-en",
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "أريد آيس كريم بالفانيلا.",
+      "expected_source": "آيس كريم",
+      "expected_target": "ice cream",
+      "reading": "",
+      "focus_utf16": [
+        5,
+        13
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ar-002:en:example2",
+      "pattern_id": "dictionary-006:pilot-ar-002:en",
+      "pair": "ar-en",
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "اشترينا آيس كريم بعد الغداء.",
+      "expected_source": "آيس كريم",
+      "expected_target": "ice cream",
+      "reading": "",
+      "focus_utf16": [
+        8,
+        16
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ar-006:en:example1",
+      "pattern_id": "dictionary-006:pilot-ar-006:en",
+      "pair": "ar-en",
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "أدرس علم الحاسوب في الجامعة.",
+      "expected_source": "علم الحاسوب",
+      "expected_target": "computer science",
+      "reading": "",
+      "focus_utf16": [
+        5,
+        16
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ar-006:en:example2",
+      "pattern_id": "dictionary-006:pilot-ar-006:en",
+      "pair": "ar-en",
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "أخي مهتم بدراسة علم الحاسوب.",
+      "expected_source": "علم الحاسوب",
+      "expected_target": "computer science",
+      "reading": "",
+      "focus_utf16": [
+        16,
+        27
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-zh-000:en:example1",
+      "pattern_id": "dictionary-006:pilot-zh-000:en",
+      "pair": "zh-en",
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "我喜歡聽鄉村音樂。",
+      "expected_source": "鄉村音樂",
+      "expected_target": "country music",
+      "reading": "",
+      "focus_utf16": [
+        4,
+        8
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-zh-000:en:example2",
+      "pattern_id": "dictionary-006:pilot-zh-000:en",
+      "pair": "zh-en",
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "你平時會聽鄉村音樂嗎？",
+      "expected_source": "鄉村音樂",
+      "expected_target": "country music",
+      "reading": "",
+      "focus_utf16": [
+        5,
+        9
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-zh-000:en:simplified:example1",
+      "pattern_id": "dictionary-006:pilot-zh-000:en:simplified",
+      "pair": "zh-en",
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "我喜欢听乡村音乐。",
+      "expected_source": "乡村音乐",
+      "expected_target": "country music",
+      "reading": "",
+      "focus_utf16": [
+        4,
+        8
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-zh-000:en:simplified:example2",
+      "pattern_id": "dictionary-006:pilot-zh-000:en:simplified",
+      "pair": "zh-en",
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "你平时会听乡村音乐吗？",
+      "expected_source": "乡村音乐",
+      "expected_target": "country music",
+      "reading": "",
+      "focus_utf16": [
+        5,
+        9
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-zh-003:en:example1",
+      "pattern_id": "dictionary-006:pilot-zh-003:en",
+      "pair": "zh-en",
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "昨夜下了一場大雨。",
+      "expected_source": "昨夜",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-zh-003:en:example2",
+      "pattern_id": "dictionary-006:pilot-zh-003:en",
+      "pair": "zh-en",
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "昨夜我睡得很好。",
+      "expected_source": "昨夜",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ko-000:en:example1",
+      "pattern_id": "dictionary-006:pilot-ko-000:en",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "고교 친구를 오늘 만났어요.",
+      "expected_source": "고교",
+      "expected_target": "high school",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ko-000:en:example2",
+      "pattern_id": "dictionary-006:pilot-ko-000:en",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "고교 시절 사진을 찾았어요.",
+      "expected_source": "고교",
+      "expected_target": "high school",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ko-001:en:example1",
+      "pattern_id": "dictionary-006:pilot-ko-001:en",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "고등학교 친구와 점심을 먹었어요.",
+      "expected_source": "고등학교",
+      "expected_target": "high school",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        4
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ko-001:en:example2",
+      "pattern_id": "dictionary-006:pilot-ko-001:en",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "고등학교 시절 사진을 보고 있어요.",
+      "expected_source": "고등학교",
+      "expected_target": "high school",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        4
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ko-002:en:example1",
+      "pattern_id": "dictionary-006:pilot-ko-002:en",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "간밤 비가 많이 왔어요.",
+      "expected_source": "간밤",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ko-002:en:example2",
+      "pattern_id": "dictionary-006:pilot-ko-002:en",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "간밤 잠을 잘 못 잤어요.",
+      "expected_source": "간밤",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ko-004:en:example1",
+      "pattern_id": "dictionary-006:pilot-ko-004:en",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "어젯밤 잠을 잘 잤어요.",
+      "expected_source": "어젯밤",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        3
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ko-004:en:example2",
+      "pattern_id": "dictionary-006:pilot-ko-004:en",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "어젯밤 비가 많이 왔어요.",
+      "expected_source": "어젯밤",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        3
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ko-005:en:example1",
+      "pattern_id": "dictionary-006:pilot-ko-005:en",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "지난밤 잠을 거의 못 잤어요.",
+      "expected_source": "지난밤",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        3
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-ko-005:en:example2",
+      "pattern_id": "dictionary-006:pilot-ko-005:en",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "지난밤 비가 많이 내렸어요.",
+      "expected_source": "지난밤",
+      "expected_target": "last night",
+      "reading": "",
+      "focus_utf16": [
+        0,
+        3
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-fr-000:en:example1",
+      "pattern_id": "dictionary-006:pilot-fr-000:en",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "J’ai du temps libre cet après-midi.",
+      "expected_source": "temps libre",
+      "expected_target": "free time",
+      "reading": "",
+      "focus_utf16": [
+        8,
+        19
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-fr-000:en:example2",
+      "pattern_id": "dictionary-006:pilot-fr-000:en",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "Que fais-tu pendant ton temps libre ?",
+      "expected_source": "temps libre",
+      "expected_target": "free time",
+      "reading": "",
+      "focus_utf16": [
+        24,
+        35
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-fr-003:en:example1",
+      "pattern_id": "dictionary-006:pilot-fr-003:en",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "On mange du poulet frit ce soir.",
+      "expected_source": "poulet frit",
+      "expected_target": "fried chicken",
+      "reading": "",
+      "focus_utf16": [
+        12,
+        23
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-fr-003:en:example2",
+      "pattern_id": "dictionary-006:pilot-fr-003:en",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "Tu veux du poulet frit avec du riz ?",
+      "expected_source": "poulet frit",
+      "expected_target": "fried chicken",
+      "reading": "",
+      "focus_utf16": [
+        11,
+        22
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-fr-007:en:example1",
+      "pattern_id": "dictionary-006:pilot-fr-007:en",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "Nous allons visiter un parc national demain.",
+      "expected_source": "parc national",
+      "expected_target": "national park",
+      "reading": "",
+      "focus_utf16": [
+        23,
+        36
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-fr-007:en:example2",
+      "pattern_id": "dictionary-006:pilot-fr-007:en",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "Ce parc national est près de chez moi.",
+      "expected_source": "parc national",
+      "expected_target": "national park",
+      "reading": "",
+      "focus_utf16": [
+        3,
+        16
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-fr-008:en:example1",
+      "pattern_id": "dictionary-006:pilot-fr-008:en",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "On a parlé du changement climatique en cours.",
+      "expected_source": "changement climatique",
+      "expected_target": "climate change",
+      "reading": "",
+      "focus_utf16": [
+        14,
+        35
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-fr-008:en:example2",
+      "pattern_id": "dictionary-006:pilot-fr-008:en",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "Ce livre explique le changement climatique.",
+      "expected_source": "changement climatique",
+      "expected_target": "climate change",
+      "reading": "",
+      "focus_utf16": [
+        21,
+        42
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-fr-009:en:example1",
+      "pattern_id": "dictionary-006:pilot-fr-009:en",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "J’aime faire de la varappe le week-end.",
+      "expected_source": "varappe",
+      "expected_target": "rock climbing",
+      "reading": "",
+      "focus_utf16": [
+        19,
+        26
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-fr-009:en:example2",
+      "pattern_id": "dictionary-006:pilot-fr-009:en",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "On va faire de la varappe demain.",
+      "expected_source": "varappe",
+      "expected_target": "rock climbing",
+      "reading": "",
+      "focus_utf16": [
+        18,
+        25
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-001:en:example1",
+      "pattern_id": "dictionary-006:pilot-de-001:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Möchtest du Eiscreme zum Nachtisch?",
+      "expected_source": "Eiscreme",
+      "expected_target": "ice cream",
+      "reading": "",
+      "focus_utf16": [
+        12,
+        20
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-001:en:example2",
+      "pattern_id": "dictionary-006:pilot-de-001:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Ich habe Eiscreme für uns gekauft.",
+      "expected_source": "Eiscreme",
+      "expected_target": "ice cream",
+      "reading": "",
+      "focus_utf16": [
+        9,
+        17
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-002:en:example1",
+      "pattern_id": "dictionary-006:pilot-de-002:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Die Lebensmittelhandlung an der Ecke ist noch offen.",
+      "expected_source": "Lebensmittelhandlung",
+      "expected_target": "grocery store",
+      "reading": "",
+      "focus_utf16": [
+        4,
+        24
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-002:en:example2",
+      "pattern_id": "dictionary-006:pilot-de-002:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Ich gehe kurz zur Lebensmittelhandlung.",
+      "expected_source": "Lebensmittelhandlung",
+      "expected_target": "grocery store",
+      "reading": "",
+      "focus_utf16": [
+        18,
+        38
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-003:en:example1",
+      "pattern_id": "dictionary-006:pilot-de-003:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Ich studiere Computerwissenschaft an der Universität.",
+      "expected_source": "Computerwissenschaft",
+      "expected_target": "computer science",
+      "reading": "",
+      "focus_utf16": [
+        13,
+        33
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-003:en:example2",
+      "pattern_id": "dictionary-006:pilot-de-003:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Sie interessiert sich für Computerwissenschaft.",
+      "expected_source": "Computerwissenschaft",
+      "expected_target": "computer science",
+      "reading": "",
+      "focus_utf16": [
+        26,
+        46
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-004:en:example1",
+      "pattern_id": "dictionary-006:pilot-de-004:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Ich höre gern Rockmusik beim Kochen.",
+      "expected_source": "Rockmusik",
+      "expected_target": "rock music",
+      "reading": "",
+      "focus_utf16": [
+        14,
+        23
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-004:en:example2",
+      "pattern_id": "dictionary-006:pilot-de-004:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Magst du Rockmusik oder Jazz?",
+      "expected_source": "Rockmusik",
+      "expected_target": "rock music",
+      "reading": "",
+      "focus_utf16": [
+        9,
+        18
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-005:en:example1",
+      "pattern_id": "dictionary-006:pilot-de-005:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Wir sprechen heute über die Klimaveränderung.",
+      "expected_source": "Klimaveränderung",
+      "expected_target": "climate change",
+      "reading": "",
+      "focus_utf16": [
+        28,
+        44
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-005:en:example2",
+      "pattern_id": "dictionary-006:pilot-de-005:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Der Film erklärt die Folgen der Klimaveränderung.",
+      "expected_source": "Klimaveränderung",
+      "expected_target": "climate change",
+      "reading": "",
+      "focus_utf16": [
+        32,
+        48
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-006:en:example1",
+      "pattern_id": "dictionary-006:pilot-de-006:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Im Radio läuft heute viel Popmusik.",
+      "expected_source": "Popmusik",
+      "expected_target": "pop music",
+      "reading": "",
+      "focus_utf16": [
+        26,
+        34
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-006:en:example2",
+      "pattern_id": "dictionary-006:pilot-de-006:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Meine Schwester hört gern Popmusik.",
+      "expected_source": "Popmusik",
+      "expected_target": "pop music",
+      "reading": "",
+      "focus_utf16": [
+        26,
+        34
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-009:en:example1",
+      "pattern_id": "dictionary-006:pilot-de-009:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Wir brauchen Nahrung für die Reise.",
+      "expected_source": "Nahrung",
+      "expected_target": "food",
+      "reading": "",
+      "focus_utf16": [
+        13,
+        20
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-de-009:en:example2",
+      "pattern_id": "dictionary-006:pilot-de-009:en",
+      "pair": "de-en",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Die Tiere finden hier genug Nahrung.",
+      "expected_source": "Nahrung",
+      "expected_target": "food",
+      "reading": "",
+      "focus_utf16": [
+        28,
+        35
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-it-001:en:example1",
+      "pattern_id": "dictionary-006:pilot-it-001:en",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Nel tempo libero leggo romanzi.",
+      "expected_source": "tempo libero",
+      "expected_target": "spare time",
+      "reading": "",
+      "focus_utf16": [
+        4,
+        16
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-it-001:en:example2",
+      "pattern_id": "dictionary-006:pilot-it-001:en",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Hai un po’ di tempo libero domani?",
+      "expected_source": "tempo libero",
+      "expected_target": "spare time",
+      "reading": "",
+      "focus_utf16": [
+        14,
+        26
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-it-002:en:example1",
+      "pattern_id": "dictionary-006:pilot-it-002:en",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Stasera preparo il pollo fritto.",
+      "expected_source": "pollo fritto",
+      "expected_target": "fried chicken",
+      "reading": "",
+      "focus_utf16": [
+        19,
+        31
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-it-002:en:example2",
+      "pattern_id": "dictionary-006:pilot-it-002:en",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Vuoi del pollo fritto con le patate?",
+      "expected_source": "pollo fritto",
+      "expected_target": "fried chicken",
+      "reading": "",
+      "focus_utf16": [
+        9,
+        21
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-it-007:en:example1",
+      "pattern_id": "dictionary-006:pilot-it-007:en",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Mio nonno vuole fare testamento.",
+      "expected_source": "testamento",
+      "expected_target": "will",
+      "reading": "",
+      "focus_utf16": [
+        21,
+        31
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-it-007:en:example2",
+      "pattern_id": "dictionary-006:pilot-it-007:en",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Ha deciso di fare testamento dal notaio.",
+      "expected_source": "testamento",
+      "expected_target": "will",
+      "reading": "",
+      "focus_utf16": [
+        18,
+        28
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-it-008:en:example1",
+      "pattern_id": "dictionary-006:pilot-it-008:en",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Ascolto musica mentre cucino.",
+      "expected_source": "musica",
+      "expected_target": "music",
+      "reading": "",
+      "focus_utf16": [
+        8,
+        14
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-it-008:en:example2",
+      "pattern_id": "dictionary-006:pilot-it-008:en",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Ascoltiamo musica in macchina.",
+      "expected_source": "musica",
+      "expected_target": "music",
+      "reading": "",
+      "focus_utf16": [
+        11,
+        17
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-it-009:en:example1",
+      "pattern_id": "dictionary-006:pilot-it-009:en",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Ho comprato del cibo per il viaggio.",
+      "expected_source": "cibo",
+      "expected_target": "food",
+      "reading": "",
+      "focus_utf16": [
+        16,
+        20
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-it-009:en:example2",
+      "pattern_id": "dictionary-006:pilot-it-009:en",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "È rimasto del cibo in frigorifero.",
+      "expected_source": "cibo",
+      "expected_target": "food",
+      "reading": "",
+      "focus_utf16": [
+        14,
+        18
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": true,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-pt-002:en:example1",
+      "pattern_id": "dictionary-006:pilot-pt-002:en",
+      "pair": "pt-en",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "Vou à mercearia comprar pão.",
+      "expected_source": "mercearia",
+      "expected_target": "grocery store",
+      "reading": "",
+      "focus_utf16": [
+        6,
+        15
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-pt-002:en:example2",
+      "pattern_id": "dictionary-006:pilot-pt-002:en",
+      "pair": "pt-en",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "A mercearia da esquina fecha cedo.",
+      "expected_source": "mercearia",
+      "expected_target": "grocery store",
+      "reading": "",
+      "focus_utf16": [
+        2,
+        11
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-pt-003:en:example1",
+      "pattern_id": "dictionary-006:pilot-pt-003:en",
+      "pair": "pt-en",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "Hoje vamos comer frango frito.",
+      "expected_source": "frango frito",
+      "expected_target": "fried chicken",
+      "reading": "",
+      "focus_utf16": [
+        17,
+        29
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-pt-003:en:example2",
+      "pattern_id": "dictionary-006:pilot-pt-003:en",
+      "pair": "pt-en",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "Queres frango frito com arroz?",
+      "expected_source": "frango frito",
+      "expected_target": "fried chicken",
+      "reading": "",
+      "focus_utf16": [
+        7,
+        19
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-pt-005:en:example1",
+      "pattern_id": "dictionary-006:pilot-pt-005:en",
+      "pair": "pt-en",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "Ela estuda ciência da computação.",
+      "expected_source": "ciência da computação",
+      "expected_target": "computer science",
+      "reading": "",
+      "focus_utf16": [
+        11,
+        32
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-pt-005:en:example2",
+      "pattern_id": "dictionary-006:pilot-pt-005:en",
+      "pair": "pt-en",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "Tenho interesse em ciência da computação.",
+      "expected_source": "ciência da computação",
+      "expected_target": "computer science",
+      "reading": "",
+      "focus_utf16": [
+        19,
+        40
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-pt-006:en:example1",
+      "pattern_id": "dictionary-006:pilot-pt-006:en",
+      "pair": "pt-en",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "Quero um copo de leite com chocolate.",
+      "expected_source": "leite com chocolate",
+      "expected_target": "chocolate milk",
+      "reading": "",
+      "focus_utf16": [
+        17,
+        36
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    },
+    {
+      "id": "dictionary-006:pilot-pt-006:en:example2",
+      "pattern_id": "dictionary-006:pilot-pt-006:en",
+      "pair": "pt-en",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "Bebi leite com chocolate ao pequeno-almoço.",
+      "expected_source": "leite com chocolate",
+      "expected_target": "chocolate milk",
+      "reading": "",
+      "focus_utf16": [
+        5,
+        24
+      ],
+      "density": 0.5,
+      "composed_density": 0.25,
+      "already_covered": false,
+      "authorship": "Original owner-agent-authored message, retained unchanged; not unseen evaluation."
+    }
+  ],
+  "controls": [
+    {
+      "id": "dictionary-negative-0",
+      "pair": "en-ja",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "She was the only child in the room.",
+      "forbidden_focus": "only child",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Only present child does not imply no siblings."
+    },
+    {
+      "id": "dictionary-negative-1",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "It was the last night of our trip.",
+      "forbidden_focus": "last night",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Final night differs from previous night."
+    },
+    {
+      "id": "dictionary-negative-2",
+      "pair": "sw-en",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Tutasafiri kwa siku tatu.",
+      "forbidden_focus": "siku",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Plural days must not receive singular day."
+    },
+    {
+      "id": "dictionary-negative-3",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Cibo la mia famiglia.",
+      "forbidden_focus": "cibo",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "First-person verb is not noun food."
+    },
+    {
+      "id": "dictionary-negative-4",
+      "pair": "it-en",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Leggo il Nuovo Testamento.",
+      "forbidden_focus": "Testamento",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Biblical title is not legal will; casing remains exact."
+    },
+    {
+      "id": "dictionary-negative-5",
+      "pair": "en-es",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "There were chocolate chips on the table.",
+      "forbidden_focus": "chocolate chip",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Plural source must not receive singular target."
+    },
+    {
+      "id": "dictionary-negative-6",
+      "pair": "fr-en",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "Nous visitons deux parcs nationaux.",
+      "forbidden_focus": "parc national",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Unlisted plural not licensed."
+    },
+    {
+      "id": "dictionary-negative-7",
+      "pair": "ko-en",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "고등학교에서 친구를 만났어요.",
+      "forbidden_focus": "고등학교",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Unreviewed attached form remains native-boundary abstention; no carrier permission."
+    },
+    {
+      "id": "dictionary-negative-8",
+      "pair": "ar-en",
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "أحب الآيس كريم.",
+      "forbidden_focus": "آيس كريم",
+      "forbidden_pattern_prefix": "dictionary-006:",
+      "expected_no_spans": false,
+      "reason": "Attached Arabic article not licensed by this increment."
+    }
+  ],
+  "native_tests_run": false,
+  "existing_independent_patterns_may_emit": true
+}

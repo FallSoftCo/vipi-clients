@@ -1,0 +1,72 @@
+pair	source	target	reading	contexts
+en-es	wife	esposa		my wife
+en-ja	wife	妻	tsuma	my wife
+en-es	free time	tiempo libre		free time
+en-ja	free time	余暇	yoka	free time
+en-ja	country music	カントリー	kantorī	country music
+en-es	last night	anoche		slept badly last night | watched a film last night
+en-ja	last night	昨夜	sakuya	slept badly last night | watched a film last night
+en-ja	grocery store	食料品店	shokuryōhinten	grocery store
+en-ja	ice cream	アイスクリーム	aisukurīmu	ice cream
+en-es	fried chicken	pollo frito		fried chicken
+en-ja	fried chicken	フライドチキン	furaidochikin	fried chicken
+en-es	computer science	informática		computer science
+en-ja	computer science	計算機科学	keisanki kagaku	computer science
+en-ja	only child	一人っ子	hitorikko	grew up as an only child | is an only child
+en-es	social media	redes sociales		social media
+en-ja	social media	ソーシャルメディア	sōsharu media	social media
+en-es	chocolate chip	chispa de chocolate		chocolate chip
+en-ja	chocolate chip	チョコチップ	choko chippu	chocolate chip
+en-es	national park	parque nacional		national park
+en-ja	national park	国立公園	kokuritsu kōen	national park
+en-ja	rock music	ロック	rokku	rock music
+en-es	climate change	cambio climático		climate change
+en-ja	climate change	気候変動	kikō hendō	climate change
+en-sw	climate change	mabadiliko ya tabia nchi		climate change
+en-es	pop music	música pop		pop music
+en-ja	pop music	ポップ	poppu	pop music
+en-ja	rock climbing	ロッククライミング	rokku kuraimingu	rock climbing
+es-en	tiempo libre	free time		tiempo libre
+ja-en	高校	high school		高校に通っています | 高校があります
+ja-en	高等学校	high school		高等学校に通っています | 高等学校には図書館
+ja-en	余暇	free time		余暇は読書 | 余暇を楽しんでいます
+ja-en	閑暇	free time		閑暇を楽しんでいます | 閑暇を利用して
+ja-en	昨夜	last night		昨夜は
+ja-en	昨晩	last night		昨晩は
+ja-en	来年	next year		来年は | 来年から大学に通います
+ja-en	食料品店	grocery store		食料品店があります | 食料品店へ寄ります
+ja-en	フライドチキン	fried chicken		フライドチキンを注文しました | フライドチキンを一緒に食べませんか
+ja-en	コンピュータサイエンス	computer science		コンピュータサイエンスを学んでいます | コンピュータサイエンスの本
+ja-en	ソーシャルメディア	social media		ソーシャルメディアでその写真 | ソーシャルメディアを見る
+sw-en	mabadiliko ya tabia nchi	climate change		mabadiliko ya tabia nchi
+sw-en	upendo	love		upendo
+sw-en	siku	day		siku moja | siku nzima
+sw-en	matumaini	hope		Nina matumaini | kuna matumaini
+sw-en	uhitaji	need		uhitaji wa maji | uhitaji wa chakula
+ar-en	علم الحاسوب	computer science		علم الحاسوب
+zh-en	鄉村音樂	country music		鄉村音樂
+zh-en	乡村音乐	country music		乡村音乐
+zh-en	昨夜	last night		昨夜
+ko-en	고교	high school		고교 친구 | 고교 시절
+ko-en	고등학교	high school		고등학교 친구 | 고등학교 시절
+ko-en	간밤	last night		간밤 비 | 간밤 잠
+ko-en	어젯밤	last night		어젯밤 잠 | 어젯밤 비
+ko-en	지난밤	last night		지난밤 잠 | 지난밤 비
+fr-en	temps libre	free time		temps libre
+fr-en	poulet frit	fried chicken		poulet frit
+fr-en	parc national	national park		parc national
+fr-en	changement climatique	climate change		changement climatique
+fr-en	varappe	rock climbing		faire de la varappe
+de-en	Lebensmittelhandlung	grocery store		Lebensmittelhandlung
+de-en	Computerwissenschaft	computer science		Computerwissenschaft
+de-en	Rockmusik	rock music		Rockmusik
+de-en	Klimaveränderung	climate change		Klimaveränderung
+de-en	Popmusik	pop music		Popmusik
+de-en	Nahrung	food		Nahrung für die Reise | genug Nahrung
+it-en	tempo libero	spare time		tempo libero
+it-en	pollo fritto	fried chicken		pollo fritto
+it-en	testamento	will		fare testamento
+pt-en	mercearia	grocery store		à mercearia | A mercearia
+pt-en	frango frito	fried chicken		frango frito
+pt-en	ciência da computação	computer science		ciência da computação
+pt-en	leite com chocolate	chocolate milk		leite com chocolate

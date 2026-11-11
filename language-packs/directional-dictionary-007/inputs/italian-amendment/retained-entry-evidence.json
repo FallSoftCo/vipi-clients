@@ -1,0 +1,301 @@
+{
+  "source_sha256": "ec47ddd7fd5ff92b10a7ba0eac1e3db7fc85e97ad360d5e5a64b0d9c1555982b",
+  "dictionary_license": "CC-BY-SA-4.0",
+  "rows": [
+    {
+      "source_language": "it",
+      "source": "musica",
+      "ranking": "English definition TRAIN occurrence proxy; not native frequency",
+      "train_occurrences": 215,
+      "english_pivot": "music",
+      "native_analyses": [],
+      "all_noun_sense_links": [
+        {
+          "lexeme": 6798,
+          "sense": "native-gloss:it:120381",
+          "reading": "",
+          "eligible": 1,
+          "qualifiers": "{}",
+          "label": "music",
+          "sense_pos": "noun",
+          "explicit": 0,
+          "sense_url": "https://en.wiktionary.org/wiki/musica#Italian"
+        }
+      ],
+      "eligible_explicit_noun_links": [],
+      "supplied_forms_sample": [],
+      "forms_sample_limit_per_lexeme": 0,
+      "guards": [],
+      "target_alternatives": {
+        "en": {
+          "total": 1,
+          "rows": [
+            {
+              "headword": "music",
+              "sense": "native-gloss:it:120381",
+              "reading": "",
+              "eligible": 1,
+              "source_url": "https://en.wiktionary.org/wiki/musica#Italian",
+              "link_kind": "direct_native_gloss_to_English_only"
+            }
+          ],
+          "truncated": false
+        }
+      },
+      "mechanical_review_flags": [
+        "native_source_all_POS_analyses_unavailable",
+        "source_inflection_and_carrier_evidence_unavailable",
+        "native_gloss_not_eligible_for_non_English_pivot",
+        "English_frequency_proxy_not_native_usage"
+      ],
+      "source_only_permission": false,
+      "runtime_permission": false,
+      "semantic_status": "lead_only_missing_native_analysis",
+      "source_line": 120381,
+      "source_url": "https://en.wiktionary.org/wiki/musica#Italian",
+      "dictionary_label": "music",
+      "parent_english_candidate": "pilot-en-010",
+      "id": "pilot-it-008",
+      "full_inventory_evidence": {
+        "normalized": "musica",
+        "native_word_summary": [
+          {
+            "language": "it",
+            "normalized": "musica",
+            "lexical": 1,
+            "grammatical": 0,
+            "proper": 1,
+            "entries": 3
+          }
+        ],
+        "entries": [
+          {
+            "source_line": 120381,
+            "language": "it",
+            "headword": "musica",
+            "normalized": "musica",
+            "part_of_speech": "noun",
+            "tags": "[]",
+            "source_url": "https://en.wiktionary.org/wiki/musica#Italian",
+            "native_senses": [],
+            "native_forms": [],
+            "sampled": false,
+            "sample_limits": {
+              "senses": 8,
+              "forms": 4
+            },
+            "senses_truncated": null,
+            "forms_truncated": null
+          },
+          {
+            "source_line": 120382,
+            "language": "it",
+            "headword": "musica",
+            "normalized": "musica",
+            "part_of_speech": "verb",
+            "tags": "[]",
+            "source_url": "https://en.wiktionary.org/wiki/musica#Italian",
+            "native_senses": [],
+            "native_forms": [],
+            "sampled": false,
+            "sample_limits": {
+              "senses": 8,
+              "forms": 4
+            },
+            "senses_truncated": null,
+            "forms_truncated": null
+          },
+          {
+            "source_line": 8819008,
+            "language": "it",
+            "headword": "Musica",
+            "normalized": "musica",
+            "part_of_speech": "name",
+            "tags": "[]",
+            "source_url": "https://en.wiktionary.org/wiki/Musica#Italian",
+            "native_senses": [],
+            "native_forms": [],
+            "sampled": false,
+            "sample_limits": {
+              "senses": 8,
+              "forms": 4
+            },
+            "senses_truncated": null,
+            "forms_truncated": null
+          }
+        ],
+        "entries_truncated": false,
+        "source_terms": [
+          {
+            "sense_id": "76964b5fa9782fd5a3ed24e5148b3af9ac10b536495c1478f519620c6bf1f1c6",
+            "language": "it",
+            "form": "musica",
+            "normalized": "musica",
+            "roman": "",
+            "display_reading": "",
+            "tags": "[\"feminine\"]",
+            "origin": "explicit_translation",
+            "qualifiers": "{}"
+          }
+        ],
+        "source_terms_truncated": false,
+        "limitation": "Complete bounded entry/POS lookup for all200spelling keys; native gloss/form samples only selected33representatives. Empty unsampled arrays are unknown, not absence. Dictionary missing meanings remain possible."
+      }
+    },
+    {
+      "source_language": "it",
+      "source": "cibo",
+      "ranking": "English definition TRAIN occurrence proxy; not native frequency",
+      "train_occurrences": 180,
+      "english_pivot": "food",
+      "native_analyses": [],
+      "all_noun_sense_links": [
+        {
+          "lexeme": 7703,
+          "sense": "native-gloss:it:302844",
+          "reading": "",
+          "eligible": 1,
+          "qualifiers": "{}",
+          "label": "food",
+          "sense_pos": "noun",
+          "explicit": 0,
+          "sense_url": "https://en.wiktionary.org/wiki/cibo#Italian"
+        }
+      ],
+      "eligible_explicit_noun_links": [],
+      "supplied_forms_sample": [],
+      "forms_sample_limit_per_lexeme": 0,
+      "guards": [],
+      "target_alternatives": {
+        "en": {
+          "total": 1,
+          "rows": [
+            {
+              "headword": "food",
+              "sense": "native-gloss:it:302844",
+              "reading": "",
+              "eligible": 1,
+              "source_url": "https://en.wiktionary.org/wiki/cibo#Italian",
+              "link_kind": "direct_native_gloss_to_English_only"
+            }
+          ],
+          "truncated": false
+        }
+      },
+      "mechanical_review_flags": [
+        "native_source_all_POS_analyses_unavailable",
+        "source_inflection_and_carrier_evidence_unavailable",
+        "native_gloss_not_eligible_for_non_English_pivot",
+        "English_frequency_proxy_not_native_usage"
+      ],
+      "source_only_permission": false,
+      "runtime_permission": false,
+      "semantic_status": "lead_only_missing_native_analysis",
+      "source_line": 302844,
+      "source_url": "https://en.wiktionary.org/wiki/cibo#Italian",
+      "dictionary_label": "food",
+      "parent_english_candidate": "pilot-en-016",
+      "id": "pilot-it-009",
+      "full_inventory_evidence": {
+        "normalized": "cibo",
+        "native_word_summary": [
+          {
+            "language": "it",
+            "normalized": "cibo",
+            "lexical": 1,
+            "grammatical": 0,
+            "proper": 0,
+            "entries": 2
+          }
+        ],
+        "entries": [
+          {
+            "source_line": 302844,
+            "language": "it",
+            "headword": "cibo",
+            "normalized": "cibo",
+            "part_of_speech": "noun",
+            "tags": "[]",
+            "source_url": "https://en.wiktionary.org/wiki/cibo#Italian",
+            "native_senses": [],
+            "native_forms": [],
+            "sampled": false,
+            "sample_limits": {
+              "senses": 8,
+              "forms": 4
+            },
+            "senses_truncated": null,
+            "forms_truncated": null
+          },
+          {
+            "source_line": 302845,
+            "language": "it",
+            "headword": "cibo",
+            "normalized": "cibo",
+            "part_of_speech": "verb",
+            "tags": "[]",
+            "source_url": "https://en.wiktionary.org/wiki/cibo#Italian",
+            "native_senses": [],
+            "native_forms": [],
+            "sampled": false,
+            "sample_limits": {
+              "senses": 8,
+              "forms": 4
+            },
+            "senses_truncated": null,
+            "forms_truncated": null
+          }
+        ],
+        "entries_truncated": false,
+        "source_terms": [
+          {
+            "sense_id": "286d621de7500d0b7d9ac2ad58d6477bdc7e8c133f80cba54754c4d1ca14f113",
+            "language": "it",
+            "form": "cibo",
+            "normalized": "cibo",
+            "roman": "",
+            "display_reading": "",
+            "tags": "[\"masculine\"]",
+            "origin": "explicit_translation",
+            "qualifiers": "{}"
+          },
+          {
+            "sense_id": "5bc3f66e0d7f2aa5338bb6c6c7055516af96f01ac33b1a08e3997e4196a45078",
+            "language": "it",
+            "form": "cibo",
+            "normalized": "cibo",
+            "roman": "",
+            "display_reading": "",
+            "tags": "[\"masculine\"]",
+            "origin": "explicit_translation",
+            "qualifiers": "{}"
+          },
+          {
+            "sense_id": "ab5f119203ee7db0965c0e590f4fdbd3ff873fe723dfa99028f8c06d2d3f103e",
+            "language": "it",
+            "form": "cibo",
+            "normalized": "cibo",
+            "roman": "",
+            "display_reading": "",
+            "tags": "[\"masculine\"]",
+            "origin": "explicit_translation",
+            "qualifiers": "{}"
+          },
+          {
+            "sense_id": "d9284ad32dd157904ab5ea01d05e481808b38c11954e471e404a781215fbb547",
+            "language": "it",
+            "form": "cibo",
+            "normalized": "cibo",
+            "roman": "",
+            "display_reading": "",
+            "tags": "[\"masculine\"]",
+            "origin": "explicit_translation",
+            "qualifiers": "{}"
+          }
+        ],
+        "source_terms_truncated": false,
+        "limitation": "Complete bounded entry/POS lookup for all200spelling keys; native gloss/form samples only selected33representatives. Empty unsampled arrays are unknown, not absence. Dictionary missing meanings remain possible."
+      }
+    }
+  ]
+}

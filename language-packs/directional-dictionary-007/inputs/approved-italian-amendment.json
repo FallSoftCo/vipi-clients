@@ -1,0 +1,3049 @@
+{
+  "schema": "vipi-proposed-finite-noun-scope-amendment-1",
+  "runtime_promotion": false,
+  "root_approval": true,
+  "changes": [
+    {
+      "pair": "it-ar",
+      "pattern_id": "bare-noun-r01:it-ar:needs_food",
+      "base_pack_file": "source-frames-it-ar-005.json",
+      "base_pack_sha256": "2ac56ce530bbef903f5f7f2e4af4396891629ee56d8502f151107634bc4089cf",
+      "before": {
+        "concept_id": "candidate-common:needs_food",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-ar:needs_food"
+        },
+        "id": "bare-noun-r01:it-ar:needs_food",
+        "meaning": "food as nourishment for eating",
+        "pair": "it-ar",
+        "reading": "ṭa'ām",
+        "source": "cibo",
+        "source_only_permission": true,
+        "target": "طعام",
+        "variants": [
+          {
+            "context": "cibo",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              4
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "Il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        },
+        {
+          "context": "questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "Quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "mangiare cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        },
+        {
+          "context": "compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        },
+        {
+          "context": "Cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "cibo",
+      "proposed_target": "طعام",
+      "proposed_reading": "ṭa'ām",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-ar",
+      "pattern_id": "bare-noun-r01:it-ar:phrase_frame_liking_music",
+      "base_pack_file": "source-frames-it-ar-005.json",
+      "base_pack_sha256": "2ac56ce530bbef903f5f7f2e4af4396891629ee56d8502f151107634bc4089cf",
+      "before": {
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-ar:phrase_frame_liking_music"
+        },
+        "id": "bare-noun-r01:it-ar:phrase_frame_liking_music",
+        "meaning": "music as musical sound or musical art",
+        "pair": "it-ar",
+        "reading": "mūsīqā",
+        "source": "musica",
+        "source_only_permission": true,
+        "target": "موسيقى",
+        "variants": [
+          {
+            "context": "musica",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              6
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "Ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            16
+          ]
+        },
+        {
+          "context": "ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            19
+          ]
+        },
+        {
+          "context": "sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "Sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "della musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "con la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        },
+        {
+          "context": "C’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "C'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "musica",
+      "proposed_target": "موسيقى",
+      "proposed_reading": "mūsīqā",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-de",
+      "pattern_id": "bare-noun-r01:it-de:needs_food",
+      "base_pack_file": "source-frames-it-de-005.json",
+      "base_pack_sha256": "c4dbfa7ecea8b1f184a782e016308db972771b2a417821521fc70385fd007daa",
+      "before": {
+        "concept_id": "candidate-common:needs_food",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-de:needs_food"
+        },
+        "id": "bare-noun-r01:it-de:needs_food",
+        "meaning": "food as nourishment for eating",
+        "pair": "it-de",
+        "reading": "",
+        "source": "cibo",
+        "source_only_permission": true,
+        "target": "Essen",
+        "variants": [
+          {
+            "context": "cibo",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              4
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "Il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        },
+        {
+          "context": "questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "Quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "mangiare cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        },
+        {
+          "context": "compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        },
+        {
+          "context": "Cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "cibo",
+      "proposed_target": "Essen",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-de",
+      "pattern_id": "bare-noun-r01:it-de:phrase_frame_liking_music",
+      "base_pack_file": "source-frames-it-de-005.json",
+      "base_pack_sha256": "c4dbfa7ecea8b1f184a782e016308db972771b2a417821521fc70385fd007daa",
+      "before": {
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-de:phrase_frame_liking_music"
+        },
+        "id": "bare-noun-r01:it-de:phrase_frame_liking_music",
+        "meaning": "music as musical sound or musical art",
+        "pair": "it-de",
+        "reading": "",
+        "source": "musica",
+        "source_only_permission": true,
+        "target": "Musik",
+        "variants": [
+          {
+            "context": "musica",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              6
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "Ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            16
+          ]
+        },
+        {
+          "context": "ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            19
+          ]
+        },
+        {
+          "context": "sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "Sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "della musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "con la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        },
+        {
+          "context": "C’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "C'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "musica",
+      "proposed_target": "Musik",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-en",
+      "pattern_id": "bare-noun-r01:it-en:needs_food",
+      "base_pack_file": "source-frames-it-en-005.json",
+      "base_pack_sha256": "8ebe314219d41e41e1df06ffb318785bc85c7e379d9a245b7444702b988d628c",
+      "before": {
+        "concept_id": "candidate-common:needs_food",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-en:needs_food"
+        },
+        "id": "bare-noun-r01:it-en:needs_food",
+        "meaning": "food as nourishment for eating",
+        "pair": "it-en",
+        "reading": "",
+        "source": "cibo",
+        "source_only_permission": true,
+        "target": "food",
+        "variants": [
+          {
+            "context": "cibo",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              4
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "Il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        },
+        {
+          "context": "questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "Quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "mangiare cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        },
+        {
+          "context": "compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        },
+        {
+          "context": "Cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "cibo",
+      "proposed_target": "food",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-en",
+      "pattern_id": "bare-noun-r01:it-en:phrase_frame_liking_music",
+      "base_pack_file": "source-frames-it-en-005.json",
+      "base_pack_sha256": "8ebe314219d41e41e1df06ffb318785bc85c7e379d9a245b7444702b988d628c",
+      "before": {
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-en:phrase_frame_liking_music"
+        },
+        "id": "bare-noun-r01:it-en:phrase_frame_liking_music",
+        "meaning": "music as musical sound or musical art",
+        "pair": "it-en",
+        "reading": "",
+        "source": "musica",
+        "source_only_permission": true,
+        "target": "music",
+        "variants": [
+          {
+            "context": "musica",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              6
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "Ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            16
+          ]
+        },
+        {
+          "context": "ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            19
+          ]
+        },
+        {
+          "context": "sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "Sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "della musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "con la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        },
+        {
+          "context": "C’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "C'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "musica",
+      "proposed_target": "music",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-es",
+      "pattern_id": "bare-noun-r01:it-es:needs_food",
+      "base_pack_file": "source-frames-it-es-005.json",
+      "base_pack_sha256": "2a9e1cf1e5352af8258b9ebfefbf982e9da29bac677f31bfd55c606d55356637",
+      "before": {
+        "concept_id": "candidate-common:needs_food",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-es:needs_food"
+        },
+        "id": "bare-noun-r01:it-es:needs_food",
+        "meaning": "food as nourishment for eating",
+        "pair": "it-es",
+        "reading": "",
+        "source": "cibo",
+        "source_only_permission": true,
+        "target": "comida",
+        "variants": [
+          {
+            "context": "cibo",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              4
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "Il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        },
+        {
+          "context": "questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "Quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "mangiare cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        },
+        {
+          "context": "compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        },
+        {
+          "context": "Cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "cibo",
+      "proposed_target": "comida",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-es",
+      "pattern_id": "bare-noun-r01:it-es:phrase_frame_liking_music",
+      "base_pack_file": "source-frames-it-es-005.json",
+      "base_pack_sha256": "2a9e1cf1e5352af8258b9ebfefbf982e9da29bac677f31bfd55c606d55356637",
+      "before": {
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-es:phrase_frame_liking_music"
+        },
+        "id": "bare-noun-r01:it-es:phrase_frame_liking_music",
+        "meaning": "music as musical sound or musical art",
+        "pair": "it-es",
+        "reading": "",
+        "source": "musica",
+        "source_only_permission": true,
+        "target": "música",
+        "variants": [
+          {
+            "context": "musica",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              6
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "Ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            16
+          ]
+        },
+        {
+          "context": "ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            19
+          ]
+        },
+        {
+          "context": "sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "Sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "della musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "con la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        },
+        {
+          "context": "C’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "C'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "musica",
+      "proposed_target": "música",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-fr",
+      "pattern_id": "bare-noun-r01:it-fr:needs_food",
+      "base_pack_file": "source-frames-it-fr-005.json",
+      "base_pack_sha256": "953c4ccdba574faf7846654ecd7abc04ca9563f453e1d9c834990f2435ce3302",
+      "before": {
+        "concept_id": "candidate-common:needs_food",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-fr:needs_food"
+        },
+        "id": "bare-noun-r01:it-fr:needs_food",
+        "meaning": "food as nourishment for eating",
+        "pair": "it-fr",
+        "reading": "",
+        "source": "cibo",
+        "source_only_permission": true,
+        "target": "nourriture",
+        "variants": [
+          {
+            "context": "cibo",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              4
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "Il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        },
+        {
+          "context": "questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "Quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "mangiare cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        },
+        {
+          "context": "compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        },
+        {
+          "context": "Cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "cibo",
+      "proposed_target": "nourriture",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-fr",
+      "pattern_id": "bare-noun-r01:it-fr:phrase_frame_liking_music",
+      "base_pack_file": "source-frames-it-fr-005.json",
+      "base_pack_sha256": "953c4ccdba574faf7846654ecd7abc04ca9563f453e1d9c834990f2435ce3302",
+      "before": {
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-fr:phrase_frame_liking_music"
+        },
+        "id": "bare-noun-r01:it-fr:phrase_frame_liking_music",
+        "meaning": "music as musical sound or musical art",
+        "pair": "it-fr",
+        "reading": "",
+        "source": "musica",
+        "source_only_permission": true,
+        "target": "musique",
+        "variants": [
+          {
+            "context": "musica",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              6
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "Ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            16
+          ]
+        },
+        {
+          "context": "ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            19
+          ]
+        },
+        {
+          "context": "sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "Sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "della musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "con la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        },
+        {
+          "context": "C’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "C'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "musica",
+      "proposed_target": "musique",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-ja",
+      "pattern_id": "bare-noun-r01:it-ja:needs_food",
+      "base_pack_file": "source-frames-it-ja-005.json",
+      "base_pack_sha256": "3a9092420332cdd800ea0b65f5fd1477e99ef128e8a3fbdae1758f58580cc439",
+      "before": {
+        "concept_id": "candidate-common:needs_food",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-ja:needs_food"
+        },
+        "id": "bare-noun-r01:it-ja:needs_food",
+        "meaning": "food as nourishment for eating",
+        "pair": "it-ja",
+        "reading": "tabemono",
+        "source": "cibo",
+        "source_only_permission": true,
+        "target": "食べ物",
+        "variants": [
+          {
+            "context": "cibo",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              4
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "Il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        },
+        {
+          "context": "questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "Quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "mangiare cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        },
+        {
+          "context": "compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        },
+        {
+          "context": "Cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "cibo",
+      "proposed_target": "食べ物",
+      "proposed_reading": "tabemono",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-ja",
+      "pattern_id": "bare-noun-r01:it-ja:phrase_frame_liking_music",
+      "base_pack_file": "source-frames-it-ja-005.json",
+      "base_pack_sha256": "3a9092420332cdd800ea0b65f5fd1477e99ef128e8a3fbdae1758f58580cc439",
+      "before": {
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-ja:phrase_frame_liking_music"
+        },
+        "id": "bare-noun-r01:it-ja:phrase_frame_liking_music",
+        "meaning": "music as musical sound or musical art",
+        "pair": "it-ja",
+        "reading": "ongaku",
+        "source": "musica",
+        "source_only_permission": true,
+        "target": "音楽",
+        "variants": [
+          {
+            "context": "musica",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              6
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "Ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            16
+          ]
+        },
+        {
+          "context": "ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            19
+          ]
+        },
+        {
+          "context": "sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "Sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "della musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "con la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        },
+        {
+          "context": "C’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "C'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "musica",
+      "proposed_target": "音楽",
+      "proposed_reading": "ongaku",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-ko",
+      "pattern_id": "bare-noun-r01:it-ko:needs_food",
+      "base_pack_file": "source-frames-it-ko-005.json",
+      "base_pack_sha256": "ccdef98caea2717de1c5cb7d0d3c6c8f3fbf07bca997a4ceb1335c51b3be5677",
+      "before": {
+        "concept_id": "candidate-common:needs_food",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-ko:needs_food"
+        },
+        "id": "bare-noun-r01:it-ko:needs_food",
+        "meaning": "food as nourishment for eating",
+        "pair": "it-ko",
+        "reading": "eumsik",
+        "source": "cibo",
+        "source_only_permission": true,
+        "target": "음식",
+        "variants": [
+          {
+            "context": "cibo",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              4
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "Il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        },
+        {
+          "context": "questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "Quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "mangiare cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        },
+        {
+          "context": "compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        },
+        {
+          "context": "Cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "cibo",
+      "proposed_target": "음식",
+      "proposed_reading": "eumsik",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-ko",
+      "pattern_id": "bare-noun-r01:it-ko:phrase_frame_liking_music",
+      "base_pack_file": "source-frames-it-ko-005.json",
+      "base_pack_sha256": "ccdef98caea2717de1c5cb7d0d3c6c8f3fbf07bca997a4ceb1335c51b3be5677",
+      "before": {
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-ko:phrase_frame_liking_music"
+        },
+        "id": "bare-noun-r01:it-ko:phrase_frame_liking_music",
+        "meaning": "music as musical sound or musical art",
+        "pair": "it-ko",
+        "reading": "eumak",
+        "source": "musica",
+        "source_only_permission": true,
+        "target": "음악",
+        "variants": [
+          {
+            "context": "musica",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              6
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "Ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            16
+          ]
+        },
+        {
+          "context": "ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            19
+          ]
+        },
+        {
+          "context": "sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "Sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "della musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "con la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        },
+        {
+          "context": "C’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "C'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "musica",
+      "proposed_target": "음악",
+      "proposed_reading": "eumak",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-pt",
+      "pattern_id": "bare-noun-r01:it-pt:needs_food",
+      "base_pack_file": "source-frames-it-pt-005.json",
+      "base_pack_sha256": "fa20bb13b1dce68523b843dabb484eea64533c58a91af8478816e89eaccd4570",
+      "before": {
+        "concept_id": "candidate-common:needs_food",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-pt:needs_food"
+        },
+        "id": "bare-noun-r01:it-pt:needs_food",
+        "meaning": "food as nourishment for eating",
+        "pair": "it-pt",
+        "reading": "",
+        "source": "cibo",
+        "source_only_permission": true,
+        "target": "comida",
+        "variants": [
+          {
+            "context": "cibo",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              4
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "Il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        },
+        {
+          "context": "questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "Quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "mangiare cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        },
+        {
+          "context": "compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        },
+        {
+          "context": "Cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "cibo",
+      "proposed_target": "comida",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-pt",
+      "pattern_id": "bare-noun-r01:it-pt:phrase_frame_liking_music",
+      "base_pack_file": "source-frames-it-pt-005.json",
+      "base_pack_sha256": "fa20bb13b1dce68523b843dabb484eea64533c58a91af8478816e89eaccd4570",
+      "before": {
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-pt:phrase_frame_liking_music"
+        },
+        "id": "bare-noun-r01:it-pt:phrase_frame_liking_music",
+        "meaning": "music as musical sound or musical art",
+        "pair": "it-pt",
+        "reading": "",
+        "source": "musica",
+        "source_only_permission": true,
+        "target": "música",
+        "variants": [
+          {
+            "context": "musica",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              6
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "Ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            16
+          ]
+        },
+        {
+          "context": "ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            19
+          ]
+        },
+        {
+          "context": "sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "Sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "della musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "con la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        },
+        {
+          "context": "C’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "C'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "musica",
+      "proposed_target": "música",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-sw",
+      "pattern_id": "bare-noun-r01:it-sw:needs_food",
+      "base_pack_file": "source-frames-it-sw-005.json",
+      "base_pack_sha256": "b9853bc1fbb51f3dbaec0b1adfbf1dd8a7a6d6fde41a847307e02acf344b20a9",
+      "before": {
+        "concept_id": "candidate-common:needs_food",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-sw:needs_food"
+        },
+        "id": "bare-noun-r01:it-sw:needs_food",
+        "meaning": "food as nourishment for eating",
+        "pair": "it-sw",
+        "reading": "",
+        "source": "cibo",
+        "source_only_permission": true,
+        "target": "chakula",
+        "variants": [
+          {
+            "context": "cibo",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              4
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "Il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        },
+        {
+          "context": "questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "Quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "mangiare cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        },
+        {
+          "context": "compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        },
+        {
+          "context": "Cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "cibo",
+      "proposed_target": "chakula",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-sw",
+      "pattern_id": "bare-noun-r01:it-sw:phrase_frame_liking_music",
+      "base_pack_file": "source-frames-it-sw-005.json",
+      "base_pack_sha256": "b9853bc1fbb51f3dbaec0b1adfbf1dd8a7a6d6fde41a847307e02acf344b20a9",
+      "before": {
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-sw:phrase_frame_liking_music"
+        },
+        "id": "bare-noun-r01:it-sw:phrase_frame_liking_music",
+        "meaning": "music as musical sound or musical art",
+        "pair": "it-sw",
+        "reading": "",
+        "source": "musica",
+        "source_only_permission": true,
+        "target": "muziki",
+        "variants": [
+          {
+            "context": "musica",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              6
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "Ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            16
+          ]
+        },
+        {
+          "context": "ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            19
+          ]
+        },
+        {
+          "context": "sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "Sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "della musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "con la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        },
+        {
+          "context": "C’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "C'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "musica",
+      "proposed_target": "muziki",
+      "proposed_reading": "",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-zh",
+      "pattern_id": "bare-noun-r01:it-zh:needs_food",
+      "base_pack_file": "source-frames-it-zh-005.json",
+      "base_pack_sha256": "a52cc060bf9a613c3425e0c6281dbc586b6d6f49ef853eaa036a0cf299c75a36",
+      "before": {
+        "concept_id": "candidate-common:needs_food",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-zh:needs_food"
+        },
+        "id": "bare-noun-r01:it-zh:needs_food",
+        "meaning": "food as nourishment for eating",
+        "pair": "it-zh",
+        "reading": "shíwù",
+        "source": "cibo",
+        "source_only_permission": true,
+        "target": "食物",
+        "variants": [
+          {
+            "context": "cibo",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              4
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "Il cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            3,
+            7
+          ]
+        },
+        {
+          "context": "del cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        },
+        {
+          "context": "questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Questo cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "Quel cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        },
+        {
+          "context": "mangiare cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        },
+        {
+          "context": "compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "Compro cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            11
+          ]
+        },
+        {
+          "context": "cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        },
+        {
+          "context": "Cerco cibo",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "cibo",
+      "proposed_target": "食物",
+      "proposed_reading": "shíwù",
+      "runtime_permission": false
+    },
+    {
+      "pair": "it-zh",
+      "pattern_id": "bare-noun-r01:it-zh:phrase_frame_liking_music",
+      "base_pack_file": "source-frames-it-zh-005.json",
+      "base_pack_sha256": "a52cc060bf9a613c3425e0c6281dbc586b6d6f49ef853eaa036a0cf299c75a36",
+      "before": {
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "editorial_provenance": {
+          "kind": "root_reviewed_finite_bare_noun_packaging_proposal",
+          "parent_export_hash_manifest_sha256": "5ee951598211acd285316b7d045485b9a723747cfb72c48fc2eb5b890ca3f0d1",
+          "review_manifest_sha256": "aa3d3c7fc9fd28f0e0c8982b39efedaae069de420ee9ec61b26339a2d28e67af",
+          "scope_sha256": "d81415d911f214ca0bca8f72c558dd4be79c70ba69ed03dce4a995ac62bb956e",
+          "source_review_only_no_new_target_translation": true,
+          "target_parent_pattern_id": "it-zh:phrase_frame_liking_music"
+        },
+        "id": "bare-noun-r01:it-zh:phrase_frame_liking_music",
+        "meaning": "music as musical sound or musical art",
+        "pair": "it-zh",
+        "reading": "yīnyuè",
+        "source": "musica",
+        "source_only_permission": true,
+        "target": "音乐",
+        "variants": [
+          {
+            "context": "musica",
+            "context_scope": "local_phrase",
+            "focus_utf16": [
+              0,
+              6
+            ]
+          }
+        ]
+      },
+      "proposed_variants": [
+        {
+          "context": "ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "Ascolto musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            8,
+            14
+          ]
+        },
+        {
+          "context": "ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascoltiamo musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            10,
+            16
+          ]
+        },
+        {
+          "context": "ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "Ascolto la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            11,
+            17
+          ]
+        },
+        {
+          "context": "ascoltare la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            13,
+            19
+          ]
+        },
+        {
+          "context": "sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "Sento musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "della musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "con la musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            7,
+            13
+          ]
+        },
+        {
+          "context": "C’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c’è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "C'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        },
+        {
+          "context": "c'è musica",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            10
+          ]
+        }
+      ],
+      "proposed_source": "musica",
+      "proposed_target": "音乐",
+      "proposed_reading": "yīnyuè",
+      "runtime_permission": false
+    }
+  ],
+  "policy": "Replace only the20 bare cibo/musica variants across10 Italian-source directions; keep faces/readings and all other base patterns. No exports generated.",
+  "approval_scope": "Root approved these20 finite source-scope restrictions for next combined private candidate; no runtime promotion."
+}
