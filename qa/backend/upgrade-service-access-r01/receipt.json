@@ -1,0 +1,26 @@
+{
+  "result": "PASS service-user preflight before activation",
+  "helper_sha256": "243b85b333a1703c2f2d16277adf3a2c71fb8eb4ec0ae1a26dd013f689bff4b6",
+  "scope": "New pure access helper invoked by main before any activation or readiness/network phase; existing verify_release unchanged",
+  "checks": [
+    "Candidate cwd as actual OSidentity",
+    "Read/traverse every directory and read all manifest files",
+    "Import vipi/api/config from exact candidate deps with bytecode disabled",
+    "0700 root-hash-valid candidate refused; nested0700 and file0600 refused",
+    "Readable but broken import refused",
+    "Actual existing b144 candidate passed as vipi user; API PID/NRestarts/ActiveState unchanged"
+  ],
+  "local_fixture_identity": "existing nobody, temporary ext4 /var/tmp tree removed",
+  "actual_service_identity": "vipi on existing retained candidate, imports only",
+  "initial_fixture_issue": "First fixture was beneath nontraversable /home/ai (0750), so even corrected candidate remained inaccessible; moved owned fixture to disk-backed /var/tmp without altering home permissions. Corrected run passes.",
+  "deployment_performed": false,
+  "configuration_or_runtime_pointer_changed": false,
+  "service_restarted": false,
+  "network_provider_database_calls": false,
+  "compatibility": "No package format/manifest/schema/app changes; offline verifier does not require root/serviceuser and is unchanged",
+  "artifacts": {
+    "fixture.py": "8addb5869d9a08e663caaa7c3412683989feeaefee0389a9fb1271c2ae98aef6",
+    "fixture-result-r02.json": "978cc2c42f66f9a163ff29ac808cf068ffeb35dc185f17007b1bada9eefe4f36",
+    "upgrade-access-preflight-r01-receipt.json": "655affe7d931d5837fb94299538b7f5db31abb38eeea58571024cc2df8896013"
+  }
+}

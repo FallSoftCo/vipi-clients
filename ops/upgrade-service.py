@@ -38,6 +38,46 @@ def verify_release(release, revision):
     return manifest
 
 
+
+def verify_service_access(release, *, service_user="vipi"):
+    """Probe actual service identity before activation; no settings/DB/providers.
+
+    Kept separate from verify_release, which remains pure and usable offline.
+    No service unit or account is created. The explicit user parameter permits
+    an isolated permission fixture using an existing unprivileged OS identity.
+    """
+    probe = r"""
+import json, os, pathlib, sys
+root = pathlib.Path(sys.argv[1]).resolve()
+os.chdir(root)
+manifest = json.loads((root / 'manifest.json').read_text())
+def inaccessible(error):
+    raise error
+for current, directories, files in os.walk(root, onerror=inaccessible):
+    if not os.access(current, os.R_OK | os.X_OK):
+        raise PermissionError('release directory inaccessible')
+for name in manifest['files']:
+    path = root / name
+    if path.is_symlink() or not path.resolve().is_relative_to(root):
+        raise ValueError('unsafe release member')
+    with path.open('rb') as source:
+        while source.read(1024 * 1024):
+            pass
+import vipi, vipi.api, vipi.config
+for module in (vipi, vipi.api, vipi.config):
+    if not pathlib.Path(module.__file__).resolve().is_relative_to(root / 'deps'):
+        raise ValueError('import escaped candidate dependencies')
+"""
+    result = subprocess.run(['runuser', '-u', service_user, '--', 'env',
+        'PYTHONDONTWRITEBYTECODE=1', 'PYTHONPATH=' + str(release / 'deps'),
+        '/usr/bin/python3', '-B', '-c', probe, str(release)],
+        capture_output=True, text=True, timeout=60)
+    # Do not echo import exceptions/environment values into deployment output.
+    require(result.returncode == 0, "Candidate service-user access/import preflight failed")
+    return {"service_user": service_user, "candidate_access_and_imports_verified": True,
+            "database_or_provider_constructed": False}
+
+
 def fetch(url):
     try:
         with urllib.request.urlopen(url, timeout=4) as response:
@@ -90,6 +130,7 @@ def main():
     require(new != old, "Already on requested release")
     previous = verify_release(old, args.expected_current)
     manifest = verify_release(new, args.revision)
+    service_access = verify_service_access(new)
     migration_files = lambda data: {k: v for k, v in data["files"].items() if k.startswith("migrations/") or k == "alembic.ini"}
     require(migration_files(previous) == migration_files(manifest), "Schema change requires a separate migration plan")
     for unit in ("vipi-api.service", "vipi-expiry.service", "vipi-expiry.timer"):
@@ -100,7 +141,7 @@ def main():
     require(fetch("https://api.mambovipi.app/v1/me")["status"] == 401, "Authentication must remain enforced")
     before = shared_services()
     if args.verify_only:
-        print(json.dumps({"verified": args.revision, "current": args.expected_current, "schema_unchanged": True}))
+        print(json.dumps({"verified": args.revision, "current": args.expected_current, "schema_unchanged": True, "service_access": service_access}))
         return
     record_dir = Path("/opt/vipi/deployments")
     record_dir.mkdir(mode=0o700, exist_ok=True)
@@ -108,7 +149,7 @@ def main():
     require(not record.exists(), "Preserve previous deployment receipt")
     receipt = {"owner": "01a16e0d-ac69-7dd0-872a-8cf087160515", "host": socket.gethostname(),
                "started": datetime.now(timezone.utc).isoformat(), "old": args.expected_current,
-               "new": args.revision, "schema_unchanged": True, "shared_before": before, "state": "prepared"}
+               "new": args.revision, "schema_unchanged": True, "shared_before": before, "service_access": service_access, "state": "prepared"}
     def save():
         temporary = record.with_suffix(".tmp")
         with open(temporary, "w", opener=lambda path, flags: os.open(path, flags, 0o600)) as output:
