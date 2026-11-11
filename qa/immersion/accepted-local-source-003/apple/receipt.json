@@ -1,0 +1,60 @@
+{
+  "schema": "vipi-accepted-local-source-apple-default-1",
+  "status": "PASS",
+  "data_commit": "cb6fdff",
+  "release_authorization_sha256": "6a899d7d86d58aa0c1ff87a5cc9c463c23fac1a9227db69ec772117e8b885a7c",
+  "index_sha256": "c8ae8883785f6b01cce7e847550df2e99705fa89a494aacd37390191c56e5f2f",
+  "index_bytes": 35807,
+  "pin_source_sha256": "641a50f6682a4c47fa75e7dc4c6f2092280c622cd6be5e12e663d6bebceb0c6c",
+  "bundled_asset_hashes_checked": 223,
+  "native_pair_schema_hash_bounds_readings_validated": 110,
+  "positive_default_routes": 12,
+  "source_languages": 11,
+  "extra_english_route_reason": "Both English Japanese and Swahili raw starter compositions exercised alongside appended frames",
+  "two_cheese_controls": "PASS automatic and direct bundled lookup; no bare-noun cheese output; pre-existing narrow patterns preserved",
+  "originals_preserved": true,
+  "translation_calls": 0,
+  "model_readiness_calls": 0,
+  "alignment_calls": 0,
+  "injected_provider": false,
+  "density": 0.25,
+  "native_tests": 2,
+  "native_test_seconds": 27.054,
+  "component": {
+    "pair": "ko-ja",
+    "six_actual_continuous_flips": true,
+    "stable_text_frame": [
+      354,
+      28
+    ],
+    "reading": "기다려 줘서 고마워, 다음엔 내가 kōhī 살게.",
+    "script": "기다려 줘서 고마워, 다음엔 내가 コーヒー 살게.",
+    "images_visually_reviewed": true,
+    "menu_taps_qualified": false,
+    "audio_qualified": false,
+    "initial_test_host_rss_bytes": 310280192,
+    "prepared_test_host_rss_bytes": 332283904,
+    "after_flips_test_host_rss_bytes": 358154240,
+    "memory_limit": "Isolated test-host measurement, not normal account chat RSS"
+  },
+  "runtime_changes": "Exact approved index pin only; source data copied from root commit; no matcher, budget, detector, morphology or baseline priority changes",
+  "scope_limits": [
+    "Bounded integration sample, not a new1320benchmark or population coverage estimate",
+    "All screenshots are actual default-engine components, not normal startup",
+    "No signing/keychain/iPad/store action; unsigned store artifact remains pending final scope",
+    "Machine-dictionary shortlist and carrier pilot excluded"
+  ],
+  "private_receipt_directory": "/home/ai/Development/investigations/vipi-submit-20261110-r01/apple-accepted-content-default-r01",
+  "evidence_sha256": {
+    "accepted-content-default-r01.json": "f153ee6aa8a223474f456b55eb2e4a6c0d1dfc7570677f95bb8ea0da16dde758",
+    "accepted-content-component-ko-ja.json": "216a69bdd23f72d6132735e6fbe328a6778503e00f993bd32a37b686e0d7af99",
+    "receipt.json": "bf98cc06682f319b505928959098e593801bf427508d63b6829ffcff84cf7deb",
+    "test.log": "9418c24413ac6985aa8d97d2adf7c3a0852640ad62aaf46d05e72f84e7428a2c",
+    "fixtures.json": "59f10b867e4a000e577686bc4384268be0ffb21d4b1eff38a28d1713a1ef6370",
+    "source-binding.json": "a61a87e6cafc27efe3208eeea35dc63dbcf2cf33d23f008aff0c28849be55915"
+  },
+  "images_sha256": {
+    "87B5A038-E21D-489A-A274-00951B1031A6.png": "ae2ba121c4d7f8a4966763bd1fa0ed23ed99c8ccf0ff003e5ebe1a832e6e7400",
+    "646E186C-C2E4-46AE-9983-1460B3E91587.png": "29b74124e4cd4e8166823f8d14eaf09732c0bc79c0bd92335133f2e732a2a1a1"
+  }
+}
