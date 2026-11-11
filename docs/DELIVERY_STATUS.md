@@ -71,7 +71,9 @@ must not be confused with restored server credentials.
 
 ## Release artifacts, source and stores
 
-Both native release artifacts now bind to committed app source `6ceaf4b`.
+The retained native release artifacts bind to committed app source `6ceaf4b`.
+They are superseded for submission by the new complimentary reviewer-access
+model and copy; updated native qualification is underway.
 Android's private signed bundle passed signature, production configuration,
 language data, notice and 16 KiB alignment checks. Its device-specific ARM64
 download estimate is 416,946,355 bytes; Play has not measured or accepted it.
@@ -92,9 +94,9 @@ the US, each with its own one-month trial for eligible subscribers. Configuratio
 is not a completed transaction. Google Play private app `4975664610567218322` now exists as **Vipi** under
 Fallible Software, Co. Its text, Communication category, support contact and
 privacy URL are saved. The icon, feature graphic and two actual Android chat
-screenshots are also saved, Latin letters first. Privacy URL and five factual
-content declarations are complete; sign-in details, content ratings, target
-audience and Data Safety remain. No subscription products exist yet: the console requires
+screenshots are also saved, Latin letters first. Privacy URL, five factual
+content declarations and IARC content ratings are complete. Sign-in details,
+target audience and Data Safety remain. No subscription products exist yet: the console requires
 an app bundle upload before allowing their creation. See
 [Apple configuration](../release/apple-store-configuration.json),
 [Android review preparation](../release/ANDROID_STORE_REVIEW.md), and

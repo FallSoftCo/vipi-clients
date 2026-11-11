@@ -1,0 +1,46 @@
+{
+  "complete": true,
+  "source_revision": "0fcf0e21affebd13188483e166fabc3c56c67671",
+  "build": "One debug+androidTest build,156seconds; no release bundle/splits/source archive",
+  "tests": {
+    "native_passed": 3,
+    "device_seconds": 19.445550970965996,
+    "coverage": [
+      "Paid active status and expiry date",
+      "Paid trial date and exact expiry boundary abstention",
+      "Explicit review copy without expiry/trial/renewal",
+      "Inactive review status hidden",
+      "Missing/partial/string/unknown markers fail closed",
+      "Base/Bot per-plan separation, base requirement and Bot provider availability gate"
+    ],
+    "scope": "Production PlanAccessSummary composable invoked by normal SubscriptionScreen, actual native JSON parser and gates; isolated in-memory fixtures. Full live billing/provider screen not exercised."
+  },
+  "apk": {
+    "package_verified": true,
+    "review_copy_in_actual_apk": true,
+    "test_grant_fixture_class_absent_from_main_apk": true,
+    "parked_private_debug_adapter_absent": true,
+    "apk_sha256": "08aa8de7d9ee47e2f4543a0de7759cba30183e09124ed3d1eeed856d135f694c"
+  },
+  "retained_state_byte_identical": true,
+  "private_qa_extras": {
+    "count": 34,
+    "preserved_outside_build": true
+  },
+  "no_review_grant_in_normal_app": {
+    "fixture_class_absent_from_main_dex": true,
+    "no_fixture_written_to_preferences_account_or_history": true,
+    "runtime_access_still_requires_explicit_server_markers": true
+  },
+  "budget": {
+    "starting_free": 19307626496,
+    "minimum_observed_free": 19290255360,
+    "net_additional_bytes": 17371136,
+    "cap": 1073741824,
+    "floor": 4294967296
+  },
+  "device_final_state": "5620running; QA package stopped to avoid live network resume. Alpha production app and5584 untouched. Accounts/history preserved.",
+  "live_grant_auth_send_purchase_upload_provider_calls": false,
+  "old_release_artifacts_preserved": true,
+  "store_followup": "App-access save still requires truthful full-feature access; native compatibility now qualified but live complimentary allowlist/provider readiness belongs to root. Billing products remain gated on authorized bundle upload. Existing draft text/art/URLs need no repeat."
+}

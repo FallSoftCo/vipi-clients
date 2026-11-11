@@ -101,5 +101,7 @@
     "Apple archive is intentionally unsigned and nondeployable; no entitlement/keychain or signed normal startup claim.",
     "Seven inherited Swift experiments were preserved outside actual compile inputs; diagnostic r02 is superseded.",
     "Earlier release/build-artifacts-20261110.json artifacts remain historical and must not be submitted."
-  ]
+  ],
+  "superseded_for_submission": true,
+  "superseded_reason": "Explicit complimentary reviewer access now requires updated native parsing/copy; these6ceaf artifacts retain configuration, language, signature/size and source evidence but must be rebuilt before submission. No scope decision on optional full translation has arrived."
 }

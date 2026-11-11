@@ -12,8 +12,9 @@ Do not use the unrelated personal developer account or qualification build 63.
 Google Play private app `4975664610567218322` now exists as **Vipi** in company
 account `4750854689150545006`, package `co.fallsoft.vipi`. Its reviewed text,
 Communication category, support contact, privacy URL, icon, feature graphic and
-two actual Android chat screenshots are saved. Privacy plus five factual content
-declarations are complete; four content/access questionnaires remain. Creation
+two actual Android chat screenshots are saved. Privacy, five factual content
+declarations and IARC ratings are complete; sign-in details, target audience and
+Data Safety remain. Creation
 preceded content setup and publication in the documented Play workflow; it did
 not upload or distribute an app. The corrected `EXPORT_ASSESSMENT.md` remains
 its technical export basis. Exact linked-binary distribution terms remain a
@@ -54,7 +55,7 @@ dark, large-text and RTL/device-size QA are validation work, not a requirement
 to crowd every listing image with multiple variants. Final sizes and required
 device families come from the current store console.
 
-The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The November 10 production bundle at `4473238` is signed with the retained upload key and estimates 408,542,274 bytes for the verified ARM64 device configuration. Four split APKs pass signer and 16 KiB alignment checks. This is a local estimate; Google Play has not calculated or accepted it. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. See `store-size-constraints.json`.
+The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The retained bundle at `6ceaf4b` is signed with the retained upload key and estimates 416,946,355 bytes for the verified ARM64 device configuration. Four split APKs pass signer and 16 KiB alignment checks. This is a local estimate; Google Play has not calculated or accepted it. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. It is superseded for submission by the new reviewer-access model/copy. See `store-size-constraints.json`.
 
 ## Reviewer access
 
@@ -73,9 +74,11 @@ flow that cannot complete, or a disabled provider.
 
 Review notes should explain the observable behavior:
 
-- Choose the language already known and the immersion language, then complete
-  the explicit store subscription flow. The optional Bot mini subscription is
-  offered when entering vBot; it is not required during base onboarding.
+- Choose the language already known and the language to learn, then sign in
+  using the supplied review account. Verified review accounts receive
+  complimentary access and must not purchase or start a trial. Check that the
+  app shows “Review access is active.” Ordinary customers choose their own
+  subscription; Bot mini remains a separate optional plan.
 - Use the supplied test peer/invitation to inspect human messaging. Vocabulary
   alternates in the same bubble while idle. Composing, scrolling and listening
   pause the changes. Full translation is a separate message action.

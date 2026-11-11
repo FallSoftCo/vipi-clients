@@ -6,7 +6,9 @@ contact and privacy URL are saved. No build upload, purchase, review submission
 or public availability is claimed. The signed `6ceaf4b` bundle passed local
 source, configuration, signature, catalog, notice and ARM64 16 KiB checks;
 its specified-device download estimate is 416,946,355 bytes. Play has not accepted
-or measured it. See `build-artifacts-20261111.json` and
+or measured it. That bundle is superseded for submission by complimentary
+reviewer-access parsing and copy; updated native qualification is underway.
+See `build-artifacts-20261111.json` and
 `android-store-configuration.json` for the current evidence.
 
 ## Product and reviewer access
