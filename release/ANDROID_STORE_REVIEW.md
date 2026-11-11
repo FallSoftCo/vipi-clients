@@ -68,11 +68,17 @@ set of answers:
 
 Automatic CLD2 identification, approved word/phrase lookup, readings and local
 speech do not send message text to a translation service. Automatic misses retain
-the original. Google translation and language-ID artifacts remain linked; the
-language-ID adapter uses CLD2. Optional explicit full translation, model-download
+the original. Google translation remains linked. The unused direct Android ML Kit language-ID
+dependency and its now-unresolved language-ID-common artifact were removed;
+the identification adapter uses CLD2. Optional explicit full translation, model-download
 traffic and retained SDK operational disclosures must still be accounted for.
-Current pinned Android dependencies include ML Kit translate 17.0.3, language-id
-17.0.6, Firebase Messaging 26.0.1, WorkOS 0.4.0 and Billing 9.1.0.
+Current pinned Android dependencies include ML Kit translate 17.0.3, Firebase
+Messaging 26.0.1, WorkOS 0.4.0 and Billing 9.1.0. The generated Android notices
+were refreshed from the offline resolved releaseRuntimeClasspath after the
+language-ID removal. The combined canonical -007 debug build confirms the
+language-ID classes are absent, translate classes and CLD2 remain, and all32
+focused native routes preserve originals with zero automatic translation/readiness
+calls. The final signed release is still pending.
 
 Do not mark every category optional because vBot/reporting is optional: sign-in
 and messaging identifiers are required for their account features. Do not mark

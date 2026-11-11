@@ -769,6 +769,21 @@
       "reviewer_access_limit": "Owned production WorkOS accounts qualified on restricted staging with subscriptions unenforced; not final Google reviewer entitlement or billing proof.",
       "details": "release/ANDROID_STORE_REVIEW.md",
       "store_forms_submitted": false
+    },
+    {
+      "reviewed_at": "2026-11-11",
+      "scope": "Android unused language-ID dependency removal; no change to explicit full translation, Google translate, Firebase or Apple dependencies.",
+      "removed_android_resolved_coordinates": [
+        "com.google.mlkit:language-id:17.0.6",
+        "com.google.mlkit:language-id-common:16.1.0"
+      ],
+      "retained_android_translate": "com.google.mlkit:translate:17.0.3",
+      "runtime_identification": "Existing pinned local CLD2 adapter; source search found no ML Kit language identification API calls.",
+      "resolved_notices": "android/app/src/main/assets/legal/third-party/index.json",
+      "resolved_notice_index_sha256": "673b1255280426f0ae9e408c497352995832a12ddd1cd25e1a29b74d472c469d",
+      "scope_limit": "Resolved notices and combined canonical007 debug APK/native checks passed. Language-ID classes absent; translate classes and CLD2 retained. Final signed release remains pending; other SDK operational-data disclosures still apply.",
+      "store_forms_submitted": false,
+      "qualification_receipt": "qa/immersion/directional-dictionary-007-android/receipt.json"
     }
   ]
 }

@@ -1,0 +1,55 @@
+{
+  "complete": true,
+  "integrity_pairs": 110,
+  "cases": 32,
+  "positives": 19,
+  "controls": 13,
+  "translation_calls": 0,
+  "readiness_calls": 0,
+  "source_languages": [
+    "ar",
+    "de",
+    "en",
+    "es",
+    "fr",
+    "it",
+    "ja",
+    "ko",
+    "pt",
+    "sw",
+    "zh"
+  ],
+  "native_sha256": "b3d5204458c7758266cab91e44b1790d5760ce4ad15c5f0fa2442c65d0425dcb",
+  "spans_intended_focus": 10,
+  "direct_spans_intended_focus": 17,
+  "negative_forbidden_failures": 0,
+  "negative_independent_outputs": 3,
+  "data_commit": "6ad8225",
+  "index_sha256": "a0f6f73172cd747a758d677a8c49383fc25591763045a1b0bb77575ba60114a3",
+  "index_bytes": 35807,
+  "apk": {
+    "apk_sha256": "e93df7648b287e4348a8bcabfa30d6f63a50853f67f94e2136618f761f840513",
+    "apk_bytes": 524520093,
+    "language_id_classes_present": false,
+    "translate_classes_present": true,
+    "cld2_libraries": [
+      "lib/x86_64/libvipi_language.so"
+    ],
+    "actual_index_sha256": "a0f6f73172cd747a758d677a8c49383fc25591763045a1b0bb77575ba60114a3",
+    "actual_index_bytes": 35807,
+    "release_claim": false,
+    "distinct_notice_coordinates": 140,
+    "actual_notice_artifact_rows": 144
+  },
+  "same_signer_verified": true,
+  "encrypted_state_byte_identical": true,
+  "retained_chat_reopened": true,
+  "new_sends": 0,
+  "new_logins": 0,
+  "main_full_translation_untouched": true,
+  "direct_abstentions": [
+    "Tumezungumza kuhusu mabadiliko ya tabia nchi shuleni.",
+    "고교 친구를 오늘 만났어요."
+  ],
+  "limits": "Bounded32-case actual default/native direct proof; no broad benchmark or release-signing claim. Three negative cases emit independent approved concepts; forbidden focus/prefix assertions all pass."
+}
