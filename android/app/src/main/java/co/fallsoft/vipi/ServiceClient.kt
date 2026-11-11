@@ -16,6 +16,13 @@ import java.util.concurrent.TimeUnit
 
 internal data class DeviceCredential(val id: UUID, val secret: String) {
     companion object {
+        fun registered(vault: MessageVault): DeviceCredential? = vault.transaction {
+            vault.get("local", "service-device")?.let {
+                val item = JSONObject(it.toString(Charsets.UTF_8))
+                val device = DeviceCredential(UUID.fromString(item.getString("id")), item.getString("secret"))
+                device.takeIf { vault.get("local", "registered-device")?.toString(Charsets.UTF_8) == device.id.toString() }
+            }
+        }
         fun load(vault: MessageVault): DeviceCredential = vault.transaction {
             vault.get("local", "service-device")?.let {
                 val item = JSONObject(it.toString(Charsets.UTF_8))

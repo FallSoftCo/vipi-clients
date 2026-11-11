@@ -80,10 +80,14 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
         val user = BotMessage("m%019d-%s".format(Locale.ROOT, System.currentTimeMillis(), requestID), "user", draft.trim(), "unconfirmed", requestID)
         var recorded = false
         try {
+            val device = DeviceCredential.registered(vault) ?: run {
+                notice = "This device isn’t ready to send. Return to Chats to reconnect. Your draft is saved."
+                return
+            }
             val context = contextFor(messages, user)
             vault.transaction { vault.put("bot-message", user.id, user.json().toString().toByteArray()); vault.remove("bot-settings", "draft") }
             recorded = true; messages = messages + user; draft = ""
-            val response = api.request("POST", "/v1/bot/messages", JSONObject().put("request_id", requestID).put("consent_version", "deepseek-v1").put("messages", context))
+            val response = api.request("POST", "/v1/bot/messages", JSONObject().put("request_id", requestID).put("consent_version", "deepseek-v1").put("messages", context), device)
             if (closed) return
             require(response.getString("request_id") == requestID)
             val reply = response.getString("reply"); require(reply.isNotBlank() && reply.toByteArray().size <= 65_536)
@@ -98,7 +102,14 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
             allowance = updatedAllowance
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (failure: Exception) {
+            val deviceRejected = recorded && failure is ServiceFailure && failure.code == "device_revoked"
+            if (!closed && deviceRejected) {
+                val rejected = user.copy(status = "rejected")
+                vault.transaction { vault.put("bot-message", user.id, rejected.json().toString().toByteArray()) }
+                messages = messages.map { if (it.id == user.id) rejected else it }
+            }
             if (!closed) notice = when {
+                deviceRejected -> "This device is no longer authorized. Return to Chats to reconnect. This request wasn’t accepted."
                 failure is ServiceFailure && failure.code == "monthly_allowance_reached" -> "You’ve used this month’s Bot mini replies. Refresh your allowance to see when it resets."
                 recorded -> "We couldn’t confirm vBot’s reply. This request won’t be sent again automatically. Refresh your allowance before starting a new request."
                 else -> "Your message couldn’t be saved. It hasn’t been sent."
@@ -112,7 +123,7 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
         require(reason in setOf("harmful", "inaccurate", "other") && selected.isNotBlank() && message.text.contains(selected) && selected.toByteArray(Charsets.UTF_8).size <= 4000)
         reporting = true
         try {
-            val reply = api.request("POST", "/v1/bot/reports", JSONObject().put("request_id", message.requestID).put("reason", reason).put("selected_reply", selected), DeviceCredential.load(vault))
+            val reply = api.request("POST", "/v1/bot/reports", JSONObject().put("request_id", message.requestID).put("reason", reason).put("selected_reply", selected), requireNotNull(DeviceCredential.registered(vault)))
             check(reply.getBoolean("reported"))
             if (closed) return false
             vault.transaction { vault.put("bot-reported", message.requestID, byteArrayOf(1)) }

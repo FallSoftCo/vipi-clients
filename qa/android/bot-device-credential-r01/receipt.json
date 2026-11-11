@@ -1,0 +1,23 @@
+{
+  "result": "PASS",
+  "scope": "Six native BotSession tests; real ServiceClient loopback HTTP validates retained registered device headers and no resend after definite rejection. Missing/mismatch marker preserves draft; uncertain outcome retains existing no-replay behavior.",
+  "apk_sha256": "a4210df6dca7c061a394c0e6e4e4c5257ec0f184b6d4a831bb581e1fcc57c957",
+  "test_apk_sha256": "008ad0f6d5bec7e29ab30f145a00c72283c1a28677b56dda2c91de749840bb38",
+  "source_overlay": {
+    "android/app/src/main/java/co/fallsoft/vipi/BotSession.kt": "bf462fa0ae716c2a6e5ebaa29ea187c0b1e42c9c47a687094e8175c495c8a17f",
+    "android/app/src/main/java/co/fallsoft/vipi/ServiceClient.kt": "cc2e273824a7ff395efff296d6c5e4a2dc2d162b518aedcc1094469a4255af69",
+    "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt": "113c6622296cbec142fbed5930bbbbeadb5dbeed747a6da506d5c2bae7a72537",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/BotSessionDeviceTest.kt": "479008e121a5efd10ad96b18d96b71daf3a9aa1e3c90825ca9b943fa53a54272"
+  },
+  "tests": 6,
+  "same_signer_update": true,
+  "retained_account_history_prefs_byte_identical": true,
+  "beta_package_stopped": true,
+  "alpha_and_other_emulator_untouched": true,
+  "live_provider_calls": 0,
+  "build_seconds": 126.04873329005204,
+  "additional_peak_bytes": 693829632,
+  "absolute_free_min": 18773733376,
+  "prior_stop": "Original build stopped during startup after root added registered-device marker constraint; continuation preserved original budget baseline.",
+  "prior_failed_request_preserved": "1111-r01 remains unconfirmed; never replayed"
+}

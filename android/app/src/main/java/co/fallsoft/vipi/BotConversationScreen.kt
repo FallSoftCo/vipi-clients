@@ -106,7 +106,7 @@ import java.time.format.FormatStyle
                             reportText = message.text
                             while (reportText.toByteArray(Charsets.UTF_8).size > 4000) reportText = reportText.dropLast(Character.charCount(reportText.codePointBefore(reportText.length)))
                         }) else null) {
-                        Text(if (message.role == "assistant") "vBot" else if (message.status == "unconfirmed") "You · reply unconfirmed" else "You", style = MaterialTheme.typography.labelSmall)
+                        Text(if (message.role == "assistant") "vBot" else if (message.status == "unconfirmed") "You · reply unconfirmed" else if (message.status == "rejected") "You · request not accepted" else "You", style = MaterialTheme.typography.labelSmall)
                     }
                 }
             }
