@@ -1,10 +1,13 @@
 # Android store preparation — November 11, 2026
 
-This is a source/evidence reconciliation, not submitted Play declarations. The
-company Play app has not been created. The retained signed November 10 bundle
-predates the current detector, catalog, recovery and chat-header changes; it is
-not the final candidate. No build, signing, purchase or console action was made
-for this documentation review.
+The company Play app now exists as private draft **Vipi**, app ID
+`4975664610567218322`. Reviewed listing text, Communication category, support
+contact and privacy URL are saved. No build upload, purchase, review submission
+or public availability is claimed. The signed `6ceaf4b` bundle passed local
+source, configuration, signature, catalog, notice and ARM64 16 KiB checks;
+its specified-device download estimate is 416,946,355 bytes. Play has not accepted
+or measured it. See `build-artifacts-20261111.json` and
+`android-store-configuration.json` for the current evidence.
 
 ## Product and reviewer access
 
@@ -78,7 +81,8 @@ were refreshed from the offline resolved releaseRuntimeClasspath after the
 language-ID removal. The combined canonical -007 debug build confirms the
 language-ID classes are absent, translate classes and CLD2 remain, and all32
 focused native routes preserve originals with zero automatic translation/readiness
-calls. The final signed release is still pending.
+calls. The current signed `6ceaf4b` bundle also verifies the final catalog and
+notices; store admission and provider qualification remain pending.
 
 Do not mark every category optional because vBot/reporting is optional: sign-in
 and messaging identifiers are required for their account features. Do not mark
@@ -124,10 +128,11 @@ account creation; see its [deletion guidance](https://support.google.com/googlep
 
 ## Remaining external gates
 
-1. Root-owned company Play app creation and export declarations; actual Play
-   products/offers, reviewer access and billing/restore/refund/RTDN qualification.
-2. Final accepted source/assets, corresponding-source/dependency closure and a
-   newly authorized signed bundle, followed by Play's own size/manifest validation.
+1. Actual Play products/offers, reviewer access and billing/restore/refund/RTDN
+   qualification. The new private app requires its first bundle upload before
+   subscription products can be configured.
+2. Corresponding-source publication and exact dependency distribution basis,
+   followed by Play's size/manifest validation of the prepared signed bundle.
 3. Final Data Safety/App access/deletion form entries and release configuration
    reconciliation; the live deletion landing page alone does not close the
    outstanding real provider deletion/recovery evidence.

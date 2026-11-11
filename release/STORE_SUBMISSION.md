@@ -9,15 +9,16 @@ binary or review submission has been uploaded.
 The company is **Fallible Software, Co.**, using its FallSoft.Co accounts.
 Do not use the unrelated personal developer account or qualification build 63.
 
-On November 10, the correct Google Play company account was accessible and
-`co.fallsoft.vipi` was available. The create-app form was populated with Vipi,
-en-US, App and Free; it was not submitted. `EXPORT_ASSESSMENT.md` now records the
-whole-client technical basis and corrects the earlier blanket source-email and
-annual-report assumptions. Final release distribution facts and dependency
-compatibility remain to be reconciled before console declarations. No Google
-app ID or submission receipt exists. Google Cloud separately requires company
-reauthentication; Firebase shows the project's HTTP v1 messaging API disabled.
-Do not treat Firebase page access as active push delivery.
+Google Play private app `4975664610567218322` now exists as **Vipi** in company
+account `4750854689150545006`, package `co.fallsoft.vipi`. Its reviewed text,
+Communication category, support contact and privacy URL are saved. Creation
+preceded content setup and publication in the documented Play workflow; it did
+not upload or distribute an app. The corrected `EXPORT_ASSESSMENT.md` remains
+its technical export basis. Exact linked-binary distribution terms remain a
+separate release prerequisite. No build upload or review submission exists.
+Subscriptions cannot yet be configured: Play requests an app upload first.
+Google Cloud separately requires company reauthentication; Firebase HTTP v1
+messaging remains disabled. Firebase page access is not delivery qualification.
 
 `privacy-data-inventory.json` maps implemented data flows and pinned SDK
 declarations to candidate store categories. It records remaining questions and

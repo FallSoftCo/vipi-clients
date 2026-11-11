@@ -1,0 +1,23 @@
+{
+  "schema": "vipi-restore-admission-deployment-1",
+  "revision": "2796f70d378e1cf5f5d8fd5781fd16707d755796",
+  "previous": "c87fcd76e277609db399c84720c0a1de6c73e5a8",
+  "state": "active_verified",
+  "receipt_sha256": "e13cc1300c4659add2f4d5b44184fcbfc563dc0c0484709db2fbb98ab0869fe8",
+  "scope": "Existing Vipi API and push only; no live restore or marker installation",
+  "database_schema_unchanged": true,
+  "environment_unchanged": true,
+  "shared_services_unchanged": true,
+  "public_registration": false,
+  "subscription_enforcement": false,
+  "api_readiness_after": "ok",
+  "push_restarts_after": 0,
+  "restore_marker_present_on_live_database": false,
+  "pending_accepted_and_push_outbox_at_cutover": 0,
+  "provider_delivery_qualified": false,
+  "limits": [
+    "The external PostgreSQL restore runner still needs marker-before-exposure integration.",
+    "Authoritative post-snapshot billing/spend/request evidence and native reenrollment remain unqualified.",
+    "This deployment does not restore a database or authorize reopening one."
+  ]
+}

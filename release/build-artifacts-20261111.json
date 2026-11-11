@@ -1,0 +1,105 @@
+{
+  "schema": "vipi-native-release-artifacts-1",
+  "recorded_at": "2026-11-11T02:07:33.655943+00:00",
+  "native_revision": "6ceaf4ba6a86918e7fcbfea871f27549da271e7c",
+  "customer_ready": false,
+  "store_uploads": 0,
+  "store_submissions": 0,
+  "android": {
+    "identity": {
+      "package": "co.fallsoft.vipi",
+      "versionName": "1.0",
+      "versionCode": 1,
+      "debuggable": false
+    },
+    "aab_bytes": 541843013,
+    "aab_sha256": "2f34a951369c01a6359a893b17550e5b8ad5858899103bb605ba2104e502a92c",
+    "upload_certificate_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+    "source_manifest_sha256": "5f2d0656a9574bb67b3b200f22d8f52e68b834678fa56e646a4d96f6c6fc6c0a",
+    "source_verified": true,
+    "production_configuration_embedded": true,
+    "arm64_split_count": 4,
+    "arm64_estimated_download_bytes": 416946355,
+    "download_estimate_device": {
+      "supportedAbis": [
+        "arm64-v8a"
+      ],
+      "supportedLocales": [
+        "en"
+      ],
+      "screenDensity": 420,
+      "sdkVersion": 35
+    },
+    "arm64_elf_and_apk_16k_alignment_verified": true,
+    "production_service_runtime_verified_for_this_artifact": false,
+    "play_console_acceptance": false
+  },
+  "apple": {
+    "identity": {
+      "bundle": "co.fallsoft.vipi",
+      "version": "1.0",
+      "build": "1"
+    },
+    "unsigned_device_archive_completed": true,
+    "main_executable_sha256": "5b0932fca62d55d256ad4f3d0afb8c86c5190e4247ff32052eded57567c8ed96",
+    "artifact_manifest_sha256": "1b3334fd9a98af9e8fa7a081159c7961851dbae4fe7e469b836ddd3ab3b71e6a",
+    "source_manifest_sha256": "929429d084d5d4e617334f3325b06550b090f91141297bc6185a0b43d178fbdb",
+    "compile_inputs_sha256": "beca7f11b9ae94badaae57f5054d8fe9f2334922d346d670d1ba0c7a3682f2a8",
+    "committed_files_verified": 1064,
+    "compile_inputs_verified": {
+      "VipiLanguageDetector": 25,
+      "Vipi": 78
+    },
+    "privacy_manifests": 13,
+    "signed": false,
+    "embedded_profile_present": false,
+    "signing_hold_preserved": true,
+    "must_not_upload": true
+  },
+  "language_assets": {
+    "catalog": "directional-dictionary-007",
+    "index_sha256": "a0f6f73172cd747a758d677a8c49383fc25591763045a1b0bb77575ba60114a3",
+    "notice_sha256": "40b375c220742b2c8b95691cbda864e9d9e7cf1fcdda56e61829bae206fd7e62",
+    "apple_catalog_assets_verified": 223
+  },
+  "source_export": {
+    "state": "Private exact native revision, all5840members verified",
+    "revision": "6ceaf4ba6a86918e7fcbfea871f27549da271e7c",
+    "archive_bytes": 587714449,
+    "archive_sha256": "39ef4c85f2be415cd7a69a1b51d4b4740c620c4ad73d832151fc7cefd707126a",
+    "manifest_sha256": "fd4320784dc729a6ef22d2b3e0eae7312cab70b566114ff0da2c6d9da2d845bc",
+    "public_source_published": false,
+    "superseded_r06_archive_retired": true
+  },
+  "receipt_bindings": {
+    "android-production-bundle-r02/final-handoff.json": {
+      "bytes": 1773,
+      "sha256": "5b4448c8f77779bd448e79fe2aca625b3824af0b53fb7d70443fabdf77919afc"
+    },
+    "apple-unsigned-release-r03/closure.json": {
+      "bytes": 23096,
+      "sha256": "8b1ce382e43dec6d36c4bd4c5c9c5f7c1306f24e9815305e1dcd0ca311e2f2e9"
+    },
+    "apple-unsigned-release-r03/receipt.json": {
+      "bytes": 2675,
+      "sha256": "f8b8f51dd62164137889ec18430a5ecf724f8e21cdc59dea9a876014b5e5c16a"
+    },
+    "client-source-final-preparation-r02/final-handoff.json": {
+      "bytes": 1386,
+      "sha256": "5e1199e56f7f14a38053d4d5fbe1ba42a90c8d49ccf8ccdeb14ca46adaeca8ee"
+    }
+  },
+  "remaining": [
+    "Apple company authentication and held signing dependency; signed export and normal signed runtime qualification.",
+    "Actual Google Play app/offers and billing, FCM delivery, Bot mini provider configuration and reviewer access.",
+    "Exact dependency distribution basis and public corresponding-source publication.",
+    "Final store screenshots, privacy/export declarations, upload and review receipts."
+  ],
+  "limits": [
+    "Download is bundletool estimate for stated device, not Play server measurement.",
+    "Android was not installed or newly exercised against production in this release-artifact pass.",
+    "Apple archive is intentionally unsigned and nondeployable; no entitlement/keychain or signed normal startup claim.",
+    "Seven inherited Swift experiments were preserved outside actual compile inputs; diagnostic r02 is superseded.",
+    "Earlier release/build-artifacts-20261110.json artifacts remain historical and must not be submitted."
+  ]
+}

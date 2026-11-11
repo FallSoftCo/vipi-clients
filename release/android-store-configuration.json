@@ -1,0 +1,39 @@
+{
+  "checked_at": "2026-11-11T02:24:21.049606+00:00",
+  "company": "Fallible Software, Co.",
+  "developer_id": "4750854689150545006",
+  "app_id": "4975664610567218322",
+  "name": "Vipi",
+  "package": "co.fallsoft.vipi",
+  "status": "private draft",
+  "locale": "en-US",
+  "free_download": true,
+  "listing_text_saved": true,
+  "category": "Communication",
+  "support_email": "one@fallsoft.co",
+  "website": "https://api.mambovipi.app/help",
+  "privacy_url": "https://api.mambovipi.app/privacy",
+  "subscription_products_created": false,
+  "subscription_gate": "Console requires an app upload before product creation",
+  "intended_products": [
+    {
+      "id": "vipi_base",
+      "annual_usd": 12,
+      "introductory_trial": "one month for eligible subscribers"
+    },
+    {
+      "id": "vipi_bot_mini",
+      "annual_usd": 48,
+      "introductory_trial": "one month for eligible subscribers",
+      "requires_base": true
+    }
+  ],
+  "graphics_uploaded": false,
+  "binary_uploaded": false,
+  "review_submitted": false,
+  "publicly_available": false,
+  "limits": [
+    "Saved metadata is not customer-ready service, offer or purchase qualification.",
+    "Exact linked-dependency terms and other release checks remain before binary distribution."
+  ]
+}

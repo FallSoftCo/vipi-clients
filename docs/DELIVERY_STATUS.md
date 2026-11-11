@@ -47,6 +47,14 @@ messages were exchanged, decrypted to their original text and marked Delivered.
 This is foreground human-chat evidence, not public onboarding, purchases,
 background push or Apple live authentication qualification.
 
+The service now runs `2796f70`; the API and existing push worker were updated
+without changing the database/schema, configuration or shared services. A new
+database-local restore HOLD blocks normal access to marked copies, qualified
+with SQLite and an isolated PostgreSQL/asyncpg instance. The live database is
+unmarked. External restore integration and authoritative financial replay remain
+unfinished; no restored service is authorized to reopen. See the
+[deployment receipt](../qa/backend/service-recovery-r01/deployment-r01.json).
+
 The scoped APNs worker is active with the retained production credential.
 Actual APNs device delivery remains unqualified; a production credential does
 not qualify development-sandbox delivery. FCM and the DeepSeek bot service remain
@@ -63,36 +71,36 @@ must not be confused with restored server credentials.
 
 ## Release artifacts, source and stores
 
-The latest unsigned Apple archive from `56e0120` is **diagnostic**: exact
-committed-source qualification failed because seven inherited Swift files were
-included. They are being preserved outside the build; a corrected archive is
-pending. Successful compilation and verified catalog/notice assets do not turn
-that artifact into a source-qualified or signed release. The signing/keychain
-issue remains unresolved. Earlier signed Android and unsigned Apple release
-artifacts also do not qualify the current complete release inputs.
+Both native release artifacts now bind to committed app source `6ceaf4b`.
+Android's private signed bundle passed signature, production configuration,
+language data, notice and 16 KiB alignment checks. Its device-specific ARM64
+download estimate is 416,946,355 bytes; Play has not measured or accepted it.
+The corrected Apple device archive passed actual compile-input and packaged
+asset verification. Seven inherited Swift experiments were preserved outside
+its inputs. It remains unsigned, nondeployable and subject to the existing
+signing/keychain hold. Earlier diagnostic archives are superseded.
 
-Private corresponding-source candidate **r06** at `56e0120` passed streaming
-manifest/member and committed-input verification. It has not been published and
-predates subsequent source changes. It is not proof that the diagnostic Apple
-archive corresponds exactly to it. Private receipts are retained under
-`investigations/vipi-submit-20261110-r01/apple-unsigned-release-r02/closure.json`
-and `client-source-final-preparation-r01/final-handoff.json` in that same
-investigation root. [CLIENT_SOURCE.md](../CLIENT_SOURCE.md) describes the portable
-source closure; final release changes still need reconciliation.
+Private source package **r07** matches the same app revision; all 5,840 archive
+members were verified. It is not published. Superseded r06 archive bytes were
+retired after replacement verification; its metadata remains. See
+[current artifact records](../release/build-artifacts-20261111.json) and
+[client build instructions](../CLIENT_SOURCE.md).
 
 No store build upload or review submission has occurred. Apple has a private
 app record and separate annual products: Base $12 and optional Bot mini $48 in
 the US, each with its own one-month trial for eligible subscribers. Configuration
-is not a completed transaction. Google Play app creation and its Developer
-Program Policies/export declarations remain unsubmitted. See
+is not a completed transaction. Google Play private app `4975664610567218322` now exists as **Vipi** under
+Fallible Software, Co. Its text, Communication category, support contact and
+privacy URL are saved. No subscription products exist yet: the console requires
+an app bundle upload before allowing their creation. See
 [Apple configuration](../release/apple-store-configuration.json),
 [Android review preparation](../release/ANDROID_STORE_REVIEW.md), and
 [submission checklist](../release/STORE_SUBMISSION.md).
 
 ## Remaining release work
 
-- Finish the corrected source-bound Apple archive, then signing and final
-  artifact/source reconciliation. Retain diagnostic archives as such.
+- Restore Apple company authentication/signing access, then complete signed
+  runtime/export qualification. Current unsigned archive must not be uploaded.
 - Resolve the exact linked-SDK distribution basis or the pending product-scope
   choice. The ML Kit/AGPL question is dependency-specific; Signal's store presence
   is neither blanket permission nor a blanket prohibition. Billing/Play terms
