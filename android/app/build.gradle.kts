@@ -58,7 +58,7 @@ android {
     buildTypes {
         getByName("debug") {
             if (qualifySourceContext) applicationIdSuffix = ".sourcecontextqa"
-            buildConfigField("String", "WORKOS_CLIENT_ID", "\"client_01M5S2CDSQ8F7FEX26G3CY9VS1\"")
+            buildConfigField("String", "WORKOS_CLIENT_ID", "\"${productionClientId.ifBlank { "client_01M5S2CDSQ8F7FEX26G3CY9VS1" }}\"")
             providers.gradleProperty("vipiQaAbi").orNull?.let { require(it in setOf("x86_64", "arm64-v8a")); ndk.abiFilters.add(it) }
         }
         getByName("release") {
