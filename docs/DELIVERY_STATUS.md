@@ -2,14 +2,23 @@
 
 Updated 2026-11-10. Vipi is **not ready for store submission or public customer access**. Restricted staging is live. The remaining work is conversational language quality and progression, complete native integration, release qualification, company provider authentication and real store/push/bot configuration. Historical `VERIFICATION.md` entries retain earlier observations and failures; they do not supersede this status.
 
-The latest direct routing audit distinguishes the language data from usable
-automatic coverage: ordinary source-only vocabulary currently runs only for
-English→Japanese and English→Swahili. The other 108 selectable directions
-primarily use exact authored references. The larger frame, context and lexical
-databases do not supply automatic vocabulary on arbitrary messages because the
-current path reaches those databases only after obtaining a full translation.
-An all-pair source-context increment is being qualified separately; it is not
-enabled in the shipped configuration and no broad coverage claim follows.
+Automatic source-only vocabulary is now enabled for all 110 directions among
+the eleven supported languages. The new pinned catalog adds 108 directions;
+the existing English→Japanese and English→Swahili providers keep priority.
+Both actual default engines reproduce the accepted finite fixture outputs and
+reject the tested unsafe cases. This closes the routing gap, not the vocabulary
+coverage gap. The larger legacy alignment databases still do not authorize
+automatic substitutions without their required evidence.
+
+A separate reviewer froze 132 natural-style synthetic friend messages before
+seeing the active catalog. Both native default engines emitted words in only
+39 of 1,320 directed cases (2.95%); eight source languages emitted none. Much of
+the English output was pronouns. Originals were preserved and no automatic
+translation or model-readiness calls occurred. Review found no clear wrong-sense
+substitution in those emitted spans, but this sparse exposure is insufficient
+for the intended everyday experience. New everyday and high-frequency content
+increments are being independently reviewed; they are not yet shipped. This
+synthetic sample is a usefulness warning, not a population accuracy estimate.
 
 Both native clients now use the pinned local CLD2 detector. Actual Android and
 Apple tests reproduce the same 87 detector cases and preserve originals in the
@@ -20,6 +29,14 @@ preserve the measured outputs and pass the bounded native parser exercise.
 These changes do not remove the optional Google translation SDK or qualify a
 new store release binary. The Mac signing hold and provider-authentication
 dependencies remain unchanged.
+
+The accepted default engine took about 6 ms median in the instrumented Apple
+fixture run and 11 ms on Android. Those warmed measurements exclude complete
+chat presentation. Android's isolated cold row presentation took 1.32–2.34 s;
+do not describe all visible responses as single-digit milliseconds. Native
+continuous-flip/readings checks passed on additional language pairs. Apple
+checks used isolated components because unsigned normal startup encounters a
+keychain read error. No receipt was cleared and no signing retry was made.
 
 ## Source and host authority
 
@@ -75,7 +92,10 @@ coverage or signed account-flow evidence. See `qa/design/plain-language-r01`.
 
 Store reconciliation on November 10 found the company Google Play account
 accessible and the package name available, but no Vipi app was created. The
-form's export certification is unsubmitted. App Store Connect remains signed
+form's export certification is unsubmitted. The updated technical assessment
+in `release/EXPORT_ASSESSMENT.md` removes obsolete blanket source-notification
+and annual-report assumptions; final release facts and dependency terms remain
+separate. App Store Connect remains signed
 out and both Mac signing keychains remained locked at the read-only check;
 no signing attempt followed. Existing Apple sandbox server-notification success
 is preserved and was not replayed. Google Cloud requires company password
@@ -85,6 +105,12 @@ DeepSeek configuration enabled. Public-page copy and the local exposure-record
 privacy addendum are now live at `4473238`. The scoped deployment preserved the
 database/schema, environment configuration and shared nginx/PostgreSQL services;
 public routes return 200, protected routes still reject unauthenticated requests.
+The subsequent Vipi-only identity configuration now uses the production WorkOS
+application, restricted to two owned review accounts. Its activation and account
+readback are verified; public registration remains off. The current Vipi icon
+and light/dark hosted sign-in screens are also verified. Native production PKCE
+is being qualified separately. See `qa/backend/production-auth-staging-r01` and
+`qa/design/hosted-signin-r01`.
 The actual signed Android production bundle also passed local package/version,
 production-configuration, signature and ARM64 split/alignment checks. Its measured
 ARM64 download estimate is 408,542,274 bytes. It has not been installed against
@@ -93,6 +119,14 @@ The matching iOS device Release archive passed with 637 committed inputs and
 13 bundled privacy manifests. It is intentionally unsigned, has no embedded
 profile and must not be uploaded. The signing hold was preserved. Exact binary
 hashes and receipt bindings are in `release/build-artifacts-20261110.json`.
+Those earlier artifacts predate the language-detector and phrase-pack changes
+and are explicitly superseded for submission.
+
+Both clients now expose an ordinary **Sign in again** action when authentication
+expires, bound to the existing account. Device-replacement recovery remains a
+separate action; the change does not sign out, delete history or silently switch
+accounts. Focused native recovery checks pass. Apple's unsigned tests use a
+synthetic session and do not qualify actual keychain persistence or live OAuth.
 
 Before that narrowing, all immersion techniques were evaluated as candidates,
 including immediate local word/phrase flips followed by whole-sentence local or
@@ -149,12 +183,12 @@ round-trip signals are not interchangeable with contextual correctness.
 | Continuous immersion | Stable inline flips; curated English↔Arabic/Japanese/Korean/Chinese interactions; mixed playback; script/reading controls. | Broad conversational meaning, content depth, sustainable progression, pronunciation and accessibility. |
 | Live text size | Android `9a39686` preserves the real conversation across Activity recreation. Apple `70c6af4` preserves latest/older anchors through actual large→maximum→large changes. | Complete accessibility audit; scoped fixes are not blanket acceptance. |
 | Lookup routing | Both native paths accepted. Approved partials make zero automatic readiness/translation/alignment calls. Android explicit full makes one actual translation call; repeat makes zero. Cancellation, independent rows, caching and visible recovery qualified. | Apple full translation remains unsupported in this simulator; injected full success is separate evidence. |
-| Language data | Japanese has 197 starter entries; Swahili has 237 including nine bounded first-person predicates. Both retain 41 reviewed finite source-context patterns per pair. Default native routing is qualified; earlier continuous component UI remains separately scoped. | Broader useful vocabulary, Apple persistence qualification, adaptive vocabulary progression, contextual sense safeguards and remaining directions; these bounded increments are not the 90% coverage target. |
+| Language data | All 110 directions now have pinned finite source contexts. English→Japanese retains 197 starter entries and English→Swahili 237; both retain 41 additional source-context patterns. Both default native engines produce the same sparse output on the fresh conversation sample. | Useful conversational coverage, Apple persistence, progression and contextual safeguards. The 82-concept extension is a private candidate, not shipped coverage. |
 | Full readings | Default Chinese, Japanese and Korean guides have scoped native app/cache/UI qualification on both clients. Original script, immutable copy and original-script speech remain separate from the guide. | Arabic coverage, broader contextual correctness, API28, acoustic verification and final clean-source release qualification. |
-| Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Trust pins, update transport and integration with different live bundled formats. No new language data activated. |
+| Signed packs | Apple ten native cases passed. Android ten cases plus two actual framework silent-failure controls passed. One authoritative record, checked durability, reopen/corruption checks and truthful cleanup state. | Download/update transport and integration with the live bundled formats. The separately pinned bundled source catalogs are active; this does not qualify remote updates. |
 | Private deletion | Android `9bcbb17` verifies removal of encrypted base/new/backup files before claiming completion; isolated failure/retry demonstrated. | No implication of a new live-account deletion or provider recovery qualification. |
 | Backups | Existing daily controller retains three verified encrypted metadata generations. Authenticated 20-table isolated restore and device-credential invalidation demonstrated. | Reconcile post-snapshot deletion/restrictions, billing/spend and explicit native re-enrollment before reopening a restored service. |
-| Store delivery | Correct Apple company browser verified; explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private app `6832624092` was last recorded as **Mambo Vipi: Language Chat**, Prepare for Submission. Desired name and release metadata are now **Vipi**; the exact saved-name change is pending company browser authentication (November 10 redirected to login, no save attempted). Distribution certificate and retained Android upload key exist; release auth guards are qualified. | Real purchases/refunds/push/bot, Google company access, final release qualification and upload/review receipts. Development signing previously passed, but the latest native Mac build stopped at signing after the login keychain locked. Distribution signing also remains held on the separate `pbtv58` keychain. No signing retry until that dependency changes. |
+| Store delivery | Explicit `co.fallsoft.vipi` identifier registered with push and IAP. Private Apple app `6832624092` was last recorded as **Mambo Vipi: Language Chat**, Prepare for Submission. Desired name and release metadata are **Vipi**; saving it awaits renewed company authentication. Google Play company access is verified; its Vipi creation form is unsubmitted. Distribution certificate and retained Android upload key exist; release auth guards are qualified. | Real purchases/refunds/push/bot, Google Cloud authentication, final release qualification and upload/review receipts. Development signing previously passed, but the latest native Mac build stopped at signing after the login keychain locked. Distribution signing also remains held on the separate `pbtv58` keychain. No signing retry until that dependency changes. |
 
 The Mac is registered once with the company team and its development profile is
 installed and hash-verified. The private iOS-on-Mac app compiled, but its signing
