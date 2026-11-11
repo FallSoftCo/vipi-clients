@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-11T02:24:21.049606+00:00",
+  "checked_at": "2026-11-11T02:32:16.588454+00:00",
   "company": "Fallible Software, Co.",
   "developer_id": "4750854689150545006",
   "app_id": "4975664610567218322",
@@ -28,12 +28,37 @@
       "requires_base": true
     }
   ],
-  "graphics_uploaded": false,
+  "graphics_uploaded": true,
   "binary_uploaded": false,
   "review_submitted": false,
   "publicly_available": false,
   "limits": [
     "Saved metadata is not customer-ready service, offer or purchase qualification.",
     "Exact linked-dependency terms and other release checks remain before binary distribution."
+  ],
+  "graphics": {
+    "icon": "512x512 RGB PNG",
+    "feature": "1024x500 RGB PNG",
+    "phone_screenshots": [
+      "Japanese in Latin letters,1080x2160",
+      "Japanese script,1080x2160"
+    ],
+    "count": 4,
+    "saved_and_reloaded": true,
+    "qualification": "Existing007native QA app, actual synthetic owned-account chat; finalsignedartifact notinstalled"
+  },
+  "content_declarations": {
+    "privacy_url": "saved",
+    "ads": false,
+    "advertising_id": false,
+    "government_app": false,
+    "financial_features": "none",
+    "health_features": "none"
+  },
+  "remaining_declarations": [
+    "sign_in_details",
+    "content_ratings",
+    "target_audience",
+    "data_safety"
   ]
 }

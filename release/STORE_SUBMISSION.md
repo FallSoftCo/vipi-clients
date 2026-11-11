@@ -11,7 +11,9 @@ Do not use the unrelated personal developer account or qualification build 63.
 
 Google Play private app `4975664610567218322` now exists as **Vipi** in company
 account `4750854689150545006`, package `co.fallsoft.vipi`. Its reviewed text,
-Communication category, support contact and privacy URL are saved. Creation
+Communication category, support contact, privacy URL, icon, feature graphic and
+two actual Android chat screenshots are saved. Privacy plus five factual content
+declarations are complete; four content/access questionnaires remain. Creation
 preceded content setup and publication in the documented Play workflow; it did
 not upload or distribute an app. The corrected `EXPORT_ASSESSMENT.md` remains
 its technical export basis. Exact linked-binary distribution terms remain a

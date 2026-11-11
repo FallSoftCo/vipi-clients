@@ -91,7 +91,10 @@ app record and separate annual products: Base $12 and optional Bot mini $48 in
 the US, each with its own one-month trial for eligible subscribers. Configuration
 is not a completed transaction. Google Play private app `4975664610567218322` now exists as **Vipi** under
 Fallible Software, Co. Its text, Communication category, support contact and
-privacy URL are saved. No subscription products exist yet: the console requires
+privacy URL are saved. The icon, feature graphic and two actual Android chat
+screenshots are also saved, Latin letters first. Privacy URL and five factual
+content declarations are complete; sign-in details, content ratings, target
+audience and Data Safety remain. No subscription products exist yet: the console requires
 an app bundle upload before allowing their creation. See
 [Apple configuration](../release/apple-store-configuration.json),
 [Android review preparation](../release/ANDROID_STORE_REVIEW.md), and
