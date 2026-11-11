@@ -1,0 +1,1 @@
+{"reservations" : [{"id":"ccb2bd65-b1b4-43a0-aa8a-d0fb4fe66a3c","state":"settled","created_at":"2026-11-11T03:38:33.536424+00:00","reserved_nano_usd":640200,"actual_nano_usd":42900}], "pools" : [{"period":"2026-11","reserved_nano_usd":0,"spent_nano_usd":42900}], "beta_buckets" : [{"period":"2026-11","reserved_nano_usd":0,"spent_nano_usd":42900}]}

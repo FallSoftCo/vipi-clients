@@ -1,0 +1,31 @@
+{
+  "state": "confirmed_reply",
+  "source_commit": "c23f065",
+  "ui_send_count": 1,
+  "request_id": "ccb2bd65-b1b4-43a0-aa8a-d0fb4fe66a3c",
+  "reply": "That sounds like a nice way to unwind \u2014 what kind of tea are you making?",
+  "allowance_before": 150,
+  "allowance_after": 149,
+  "monthly_allowance": 150,
+  "request_to_reply_persistence_ms": 2353,
+  "reservation": {
+    "id": "ccb2bd65-b1b4-43a0-aa8a-d0fb4fe66a3c",
+    "state": "settled",
+    "created_at": "2026-11-11T03:38:33.536424+00:00",
+    "reserved_nano_usd": 640200,
+    "actual_nano_usd": 42900
+  },
+  "provider_accounting_nano_usd": 42900,
+  "accounting_note": "Backend conservative configured-rate accounting, not provider invoice readback",
+  "original_r01_and_friend_records_byte_identical": true,
+  "beta_stopped": true,
+  "alpha_and_5584_untouched": true,
+  "no_login_purchase_or_human_send": true,
+  "prompt": "Vipi review 1111-r02: I am making tea after work. Reply in English with one short friendly question.",
+  "evidence_sha256": {
+    "exact-draft.xml": "5e2b00f3c4e13c41118c584b744d06187cf21b827c5cc20bc5cfa9c06f4b6a48",
+    "outcome.xml": "98b9c1fc2b54b6a533bbcd892dd73e269cdc39e8234635f4e7c402e6377433b4",
+    "outcome.png": "7c83e188c6bc132dea67bebd15808af2f275208b7f7cd1de873c0a3132807764",
+    "backend-readback.json": "a7acb5473427887a0443228e091f4db7912e05bcb496afcf03af0015ac25b318"
+  }
+}
