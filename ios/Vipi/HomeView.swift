@@ -13,6 +13,12 @@ struct HomeView: View {
     @State private var showingInvite = false
     @State private var query = ""
     @State private var path: [UUID] = []
+    private var botDescription: String {
+        guard let access = subscriptions?.snapshot?.bot_mini else { return "Chat with a chatbot." }
+        if access.isReviewAccess { return "Chat with a chatbot. Review access is active." }
+        if access.active { return "Chat with a chatbot. Bot mini access is active." }
+        return "Chat with a chatbot. Requires the separate Bot mini plan."
+    }
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
@@ -49,7 +55,7 @@ struct HomeView: View {
                                 .foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                             PrimaryButton(title: "Start a conversation") { showingInvite = true }
                         }.padding(26).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 28)) }
-                        if let subscriptions, !subscriptions.baseActive {
+                        if let subscriptions, subscriptions.snapshot?.base.active == false {
                             Button("See your Vipi subscription") { offerBase = true }
                                 .font(.subheadline.weight(.semibold))
                         }
@@ -67,7 +73,7 @@ struct HomeView: View {
                                 Image(systemName: "sparkle").font(.title2).frame(width: 50, height: 50).background(VipiDesign.outgoing, in: RoundedRectangle(cornerRadius: 18))
                                 VStack(alignment: .leading, spacing: 5) {
                                     Text("vBot").font(.body.weight(.semibold)).foregroundStyle(.primary)
-                                    Text("Chat with a chatbot. Requires the separate Bot mini plan.").font(.subheadline).foregroundStyle(VipiDesign.secondary).multilineTextAlignment(.leading)
+                                    Text(botDescription).font(.subheadline).foregroundStyle(VipiDesign.secondary).multilineTextAlignment(.leading)
                                 }
                                 Spacer(minLength: 0)
                                 Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(VipiDesign.secondary)
