@@ -1,0 +1,26 @@
+{
+  "checked": "2026-11-11T04:01:37.457149+00:00",
+  "device": "emulator-5620",
+  "sdk": "35",
+  "abi": "x86_64",
+  "abi_list": "x86_64,arm64-v8a",
+  "device_data_free": "Filesystem       1K-blocks    Used Available Use% Mounted on\n/dev/block/dm-46   6082144 3785012   2154920  64% /data/user/0",
+  "host_free_bytes": 17294745600,
+  "production_package": "co.fallsoft.vipi",
+  "production_installed": true,
+  "qa_packages": "package:co.fallsoft.vipi.sourcecontextqa\npackage:co.fallsoft.vipi.test\npackage:co.fallsoft.vipi\npackage:co.fallsoft.vipi.sourcecontextqa.test",
+  "state_changes": false,
+  "install_or_replace_performed": false,
+  "scope": "Read-only preflight; existing package collision stops signed-startup branch",
+  "retained_state": {
+    "encrypted_session_present": true,
+    "message_database_present": true,
+    "encrypted_file_count": 14,
+    "manifest_sha256": "8ebd8a6628296f0051668832d052485e33a03dd7351fce309310322f839679b5"
+  },
+  "android_users": "Users:\n\tUserInfo{0:Owner:4c13} running",
+  "outcome": "blocked_by_existing_retained_production_package",
+  "alternative_plan": "Retain Alpha package/state. Qualify signed exact-package startup on a separately authorized clean Android environment/user only after checking shared package-signature constraints; a secondary user on this same emulator cannot coexist with a different signature for the same package. Do not rename the production package as proof of the exact AAB. No new environment provisioned.",
+  "installed_debuggable": true,
+  "installed_version_code": 1
+}
