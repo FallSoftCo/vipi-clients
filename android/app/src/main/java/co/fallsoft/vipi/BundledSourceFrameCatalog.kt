@@ -14,8 +14,8 @@ internal class BundledSourceFrameCatalog private constructor(
 ) {
     companion object {
         const val INDEX_FILE = "all-pair-source-catalog-001.json"
-        const val INDEX_BYTES = 35_699
-        const val INDEX_SHA256 = "94c1be6b881abdcb69cb18c12653dd505781cc85ac21a6ecb730647cec8df688"
+        const val INDEX_BYTES = 35_807
+        const val INDEX_SHA256 = "c8ae8883785f6b01cce7e847550df2e99705fa89a494aacd37390191c56e5f2f"
         private val languages = setOf("en", "es", "fr", "de", "it", "pt", "ar", "zh", "ja", "ko", "sw")
         private fun pinnedRead(open: (String) -> InputStream, file: String, size: Int, maximum: Int, sha: String): ByteArray {
             require(size in 1..maximum && sha.matches(Regex("[a-f0-9]{64}")))

@@ -1,0 +1,63 @@
+{
+  "integrity_pairs": 110,
+  "cases": 24,
+  "ordinary_messages": 22,
+  "emitting": 16,
+  "negative_failures": 0,
+  "translation_calls": 0,
+  "readiness_calls": 0,
+  "source_languages": [
+    "ar",
+    "de",
+    "en",
+    "es",
+    "fr",
+    "it",
+    "ja",
+    "ko",
+    "pt",
+    "sw",
+    "zh"
+  ],
+  "emitting_by_source": {
+    "es": 1,
+    "de": 1,
+    "it": 3,
+    "pt": 1,
+    "ar": 2,
+    "ja": 2,
+    "ko": 2,
+    "sw": 1,
+    "en": 3
+  },
+  "native_sha256": "d7275c8363c16f8cdd0bb86d472e7eb4d122838b1e5a58a468c10f38f1398fc5",
+  "data_commit": "cb6fdff",
+  "index_sha256": "c8ae8883785f6b01cce7e847550df2e99705fa89a494aacd37390191c56e5f2f",
+  "index_bytes": 35807,
+  "same_signer_verified": true,
+  "encrypted_state_byte_identical_after_install": true,
+  "apk_sha256": "34b940b81d358dbcd888a376157b41d2cab5b427cedbe2b2f75d3eae5eb053f5",
+  "package": "co.fallsoft.vipi.sourcecontextqa",
+  "build_kind": "debug qualification; not store release",
+  "actual_retained_chat": {
+    "messages": 2,
+    "new_sends": 0,
+    "new_logins": 0,
+    "samples": 10,
+    "original_and_target_phases": true,
+    "bubble_bounds_unchanged_across_phases": true,
+    "script_visually_reviewed": [
+      "コーヒー",
+      "後で"
+    ],
+    "latin_restored": true,
+    "banner_absent": true
+  },
+  "runtime_state": {
+    "emulator_5620": "running; Beta chat foreground, Alpha app/session preserved",
+    "emulator_5584": "untouched"
+  },
+  "native_capture_sha256": "d7275c8363c16f8cdd0bb86d472e7eb4d122838b1e5a58a468c10f38f1398fc5",
+  "ui_capture_sha256": "3ef7810592e923c50eba0f74af4ee13b3948981a7acc466a46ffcb367c7539f4",
+  "limits": "22 authored ordinary messages plus2 controls; no1320/12581 sweep. Six abstentions retained; no general coverage or release-signing claim."
+}

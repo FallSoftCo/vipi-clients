@@ -1,0 +1,818 @@
+{
+  "complete": true,
+  "index_sha256": "c8ae8883785f6b01cce7e847550df2e99705fa89a494aacd37390191c56e5f2f",
+  "integrity_pairs": 110,
+  "cases": [
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_eating_bread",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "pan",
+        "expected_target": "bread",
+        "focus_utf16": [
+          6,
+          9
+        ],
+        "id": "bare-chat-00",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "Queda pan para mañana.",
+        "pair": "es-en",
+        "pattern_id": "bare-noun-r01:es-en:phrase_frame_eating_bread",
+        "reading": "",
+        "source_language": "es",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 6,
+          "end": 9,
+          "original": "pan",
+          "target": "bread",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Queda bread para mañana.",
+      "mixed_script": "Queda bread para mañana.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_eating_bread",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "pain",
+        "expected_target": "bread",
+        "focus_utf16": [
+          12,
+          16
+        ],
+        "id": "bare-chat-01",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "Il reste du pain sur la table.",
+        "pair": "fr-en",
+        "pattern_id": "bare-noun-r01:fr-en:phrase_frame_eating_bread",
+        "reading": "",
+        "source_language": "fr",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "NO_LOCAL_MATCH",
+      "original_preserved": true,
+      "spans": [],
+      "mixed_reading": "Il reste du pain sur la table.",
+      "mixed_script": "Il reste du pain sur la table.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_eating_bread",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "Brot",
+        "expected_target": "bread",
+        "focus_utf16": [
+          4,
+          8
+        ],
+        "id": "bare-chat-02",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "Das Brot liegt auf dem Tisch.",
+        "pair": "de-en",
+        "pattern_id": "bare-noun-r01:de-en:phrase_frame_eating_bread",
+        "reading": "",
+        "source_language": "de",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 4,
+          "end": 8,
+          "original": "Brot",
+          "target": "bread",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Das bread liegt auf dem Tisch.",
+      "mixed_script": "Das bread liegt auf dem Tisch.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_eating_bread",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "pane",
+        "expected_target": "bread",
+        "focus_utf16": [
+          15,
+          19
+        ],
+        "id": "bare-chat-03",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "Ho comprato il pane per domani.",
+        "pair": "it-en",
+        "pattern_id": "bare-noun-r01:it-en:phrase_frame_eating_bread",
+        "reading": "",
+        "source_language": "it",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 24,
+          "end": 30,
+          "original": "domani",
+          "target": "tomorrow",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ho comprato il pane per tomorrow.",
+      "mixed_script": "Ho comprato il pane per tomorrow.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:needs_water",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "acqua",
+        "expected_target": "water",
+        "focus_utf16": [
+          6,
+          11
+        ],
+        "id": "bare-chat-04",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "Serve acqua per la pasta.",
+        "pair": "it-en",
+        "pattern_id": "bare-noun-r01:it-en:needs_water",
+        "reading": "",
+        "source_language": "it",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "NO_LOCAL_MATCH",
+      "original_preserved": true,
+      "spans": [],
+      "mixed_reading": "Serve acqua per la pasta.",
+      "mixed_script": "Serve acqua per la pasta.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_eating_cheese",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "formaggio",
+        "expected_target": "cheese",
+        "focus_utf16": [
+          3,
+          12
+        ],
+        "id": "bare-chat-05",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "Il formaggio è nel frigo.",
+        "pair": "it-en",
+        "pattern_id": "bare-noun-r01:it-en:phrase_frame_eating_cheese",
+        "reading": "",
+        "source_language": "it",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 3,
+          "end": 12,
+          "original": "formaggio",
+          "target": "cheese",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Il cheese è nel frigo.",
+      "mixed_script": "Il cheese è nel frigo.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_reading_book",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "libro",
+        "expected_target": "book",
+        "focus_utf16": [
+          18,
+          23
+        ],
+        "id": "bare-chat-06",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "Ho dimenticato il libro sul divano.",
+        "pair": "it-en",
+        "pattern_id": "bare-noun-r01:it-en:phrase_frame_reading_book",
+        "reading": "",
+        "source_language": "it",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 18,
+          "end": 23,
+          "original": "libro",
+          "target": "book",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ho dimenticato il book sul divano.",
+      "mixed_script": "Ho dimenticato il book sul divano.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "musica",
+        "expected_target": "music",
+        "focus_utf16": [
+          4,
+          10
+        ],
+        "id": "bare-chat-07",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "C’è musica in cucina.",
+        "pair": "it-en",
+        "pattern_id": "bare-noun-r01:it-en:phrase_frame_liking_music",
+        "reading": "",
+        "source_language": "it",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "INVALID_LANGUAGE",
+      "original_preserved": true,
+      "spans": [],
+      "mixed_reading": "C’è musica in cucina.",
+      "mixed_script": "C’è musica in cucina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_eating_bread",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "pão",
+        "expected_target": "bread",
+        "focus_utf16": [
+          8,
+          11
+        ],
+        "id": "bare-chat-08",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "Comprei pão para amanhã.",
+        "pair": "pt-en",
+        "pattern_id": "bare-noun-r01:pt-en:phrase_frame_eating_bread",
+        "reading": "",
+        "source_language": "pt",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 17,
+          "end": 23,
+          "original": "amanhã",
+          "target": "tomorrow",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Comprei pão para tomorrow.",
+      "mixed_script": "Comprei pão para tomorrow.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:needs_water",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "ماء",
+        "expected_target": "water",
+        "focus_utf16": [
+          7,
+          10
+        ],
+        "id": "bare-chat-09",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "اشتريت ماء للرحلة.",
+        "pair": "ar-en",
+        "pattern_id": "bare-noun-r01:ar-en:needs_water",
+        "reading": "",
+        "source_language": "ar",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 7,
+          "end": 10,
+          "original": "ماء",
+          "target": "water",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "اشتريت water للرحلة.",
+      "mixed_script": "اشتريت water للرحلة.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_reading_book",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "كتاب",
+        "expected_target": "book",
+        "focus_utf16": [
+          5,
+          9
+        ],
+        "id": "bare-chat-10",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "عندي كتاب للقراءة.",
+        "pair": "ar-en",
+        "pattern_id": "bare-noun-r01:ar-en:phrase_frame_reading_book",
+        "reading": "",
+        "source_language": "ar",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 5,
+          "end": 9,
+          "original": "كتاب",
+          "target": "book",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "عندي book للقراءة.",
+      "mixed_script": "عندي book للقراءة.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_eating_cheese",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "奶酪",
+        "expected_target": "cheese",
+        "focus_utf16": [
+          3,
+          5
+        ],
+        "id": "bare-chat-11",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "我买了奶酪。",
+        "pair": "zh-en",
+        "pattern_id": "bare-noun-r01:zh-en:phrase_frame_eating_cheese",
+        "reading": "",
+        "source_language": "zh",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "NO_LOCAL_MATCH",
+      "original_preserved": true,
+      "spans": [],
+      "mixed_reading": "我买了奶酪。",
+      "mixed_script": "我买了奶酪。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:needs_food",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "食物",
+        "expected_target": "food",
+        "focus_utf16": [
+          4,
+          6
+        ],
+        "id": "bare-chat-12",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "桌上还有食物。",
+        "pair": "zh-en",
+        "pattern_id": "bare-noun-r01:zh-en:needs_food",
+        "reading": "",
+        "source_language": "zh",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "INVALID_LANGUAGE",
+      "original_preserved": true,
+      "spans": [],
+      "mixed_reading": "桌上还有食物。",
+      "mixed_script": "桌上还有食物。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_eating_cheese",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "チーズ",
+        "expected_target": "cheese",
+        "focus_utf16": [
+          0,
+          3
+        ],
+        "id": "bare-chat-13",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "チーズを冷蔵庫に入れた。",
+        "pair": "ja-en",
+        "pattern_id": "bare-noun-r01:ja-en:phrase_frame_eating_cheese",
+        "reading": "",
+        "source_language": "ja",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 0,
+          "end": 3,
+          "original": "チーズ",
+          "target": "cheese",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "cheeseを冷蔵庫に入れた。",
+      "mixed_script": "cheeseを冷蔵庫に入れた。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "音楽",
+        "expected_target": "music",
+        "focus_utf16": [
+          0,
+          2
+        ],
+        "id": "bare-chat-14",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "音楽を少し小さくして。",
+        "pair": "ja-en",
+        "pattern_id": "bare-noun-r01:ja-en:phrase_frame_liking_music",
+        "reading": "",
+        "source_language": "ja",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 0,
+          "end": 2,
+          "original": "音楽",
+          "target": "music",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "musicを少し小さくして。",
+      "mixed_script": "musicを少し小さくして。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_eating_cheese",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "치즈",
+        "expected_target": "cheese",
+        "focus_utf16": [
+          0,
+          2
+        ],
+        "id": "bare-chat-15",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "치즈 좀 사다 줄래?",
+        "pair": "ko-en",
+        "pattern_id": "bare-noun-r01:ko-en:phrase_frame_eating_cheese",
+        "reading": "",
+        "source_language": "ko",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 0,
+          "end": 2,
+          "original": "치즈",
+          "target": "cheese",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "cheese 좀 사다 줄래?",
+      "mixed_script": "cheese 좀 사다 줄래?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_liking_music",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "음악",
+        "expected_target": "music",
+        "focus_utf16": [
+          0,
+          2
+        ],
+        "id": "bare-chat-16",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "음악 소리가 너무 커요.",
+        "pair": "ko-en",
+        "pattern_id": "bare-noun-r01:ko-en:phrase_frame_liking_music",
+        "reading": "",
+        "source_language": "ko",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 0,
+          "end": 2,
+          "original": "음악",
+          "target": "music",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "music 소리가 너무 커요.",
+      "mixed_script": "music 소리가 너무 커요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:needs_water",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "maji",
+        "expected_target": "water",
+        "focus_utf16": [
+          5,
+          9
+        ],
+        "id": "bare-chat-17",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "Tuna maji ya kutosha.",
+        "pair": "sw-en",
+        "pattern_id": "bare-noun-r01:sw-en:needs_water",
+        "reading": "",
+        "source_language": "sw",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 5,
+          "end": 9,
+          "original": "maji",
+          "target": "water",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Tuna water ya kutosha.",
+      "mixed_script": "Tuna water ya kutosha.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "composed_density": 0.25,
+        "concept_id": "candidate-common:phrase_frame_eating_cheese",
+        "density": 0.5,
+        "expectation": "Opportunity only; preserve detector\/native\/density abstentions.",
+        "expected_source": "jibini",
+        "expected_target": "cheese",
+        "focus_utf16": [
+          10,
+          16
+        ],
+        "id": "bare-chat-18",
+        "kind": "new_authored_chat_not_heldout",
+        "original": "Nimenunua jibini leo.",
+        "pair": "sw-en",
+        "pattern_id": "bare-noun-r01:sw-en:phrase_frame_eating_cheese",
+        "reading": "",
+        "source_language": "sw",
+        "target_language": "en"
+      },
+      "negative": false,
+      "status": "INVALID_LANGUAGE",
+      "original_preserved": true,
+      "spans": [],
+      "mixed_reading": "Nimenunua jibini leo.",
+      "mixed_script": "Nimenunua jibini leo.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "id": "retained-chat-en-ja",
+        "source_language": "en",
+        "target_language": "ja",
+        "original": "I drank coffee this morning. We can talk about this later."
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 8,
+          "end": 14,
+          "original": "coffee",
+          "target": "コーヒー",
+          "reading": "kōhī"
+        },
+        {
+          "start": 52,
+          "end": 57,
+          "original": "later",
+          "target": "後で",
+          "reading": "ato de"
+        }
+      ],
+      "mixed_reading": "I drank kōhī this morning. We can talk about this ato de.",
+      "mixed_script": "I drank コーヒー this morning. We can talk about this 後で.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "id": "retained-chat-en-sw",
+        "source_language": "en",
+        "target_language": "sw",
+        "original": "I drank coffee this morning. We can talk about this later."
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 8,
+          "end": 14,
+          "original": "coffee",
+          "target": "kahawa",
+          "reading": null
+        },
+        {
+          "start": 52,
+          "end": 57,
+          "original": "later",
+          "target": "baadaye",
+          "reading": null
+        }
+      ],
+      "mixed_reading": "I drank kahawa this morning. We can talk about this baadaye.",
+      "mixed_script": "I drank kahawa this morning. We can talk about this baadaye.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "id": "retained-chat-en-ar",
+        "source_language": "en",
+        "target_language": "ar",
+        "original": "I drank coffee this morning. We can talk about this later."
+      },
+      "negative": false,
+      "status": "PARTIAL",
+      "original_preserved": true,
+      "spans": [
+        {
+          "start": 8,
+          "end": 14,
+          "original": "coffee",
+          "target": "قهوة",
+          "reading": "qahwa"
+        },
+        {
+          "start": 52,
+          "end": 57,
+          "original": "later",
+          "target": "لاحقًا",
+          "reading": "lāḥiqan"
+        }
+      ],
+      "mixed_reading": "I drank qahwa this morning. We can talk about this lāḥiqan.",
+      "mixed_script": "I drank قهوة this morning. We can talk about this لاحقًا.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "assertion": "No added pilot output for the named focus; independently retained patterns may still emit.",
+        "expected_no_spans": false,
+        "forbidden_focus": "cheese",
+        "forbidden_pattern_prefix": "bare-noun-r01:",
+        "id": "bare-negative-25",
+        "original": "Say cheese!",
+        "pair": "en-es",
+        "reason": "photography instruction",
+        "source_language": "en",
+        "target_language": "es"
+      },
+      "negative": true,
+      "status": "NO_LOCAL_MATCH",
+      "original_preserved": true,
+      "spans": [],
+      "mixed_reading": "Say cheese!",
+      "mixed_script": "Say cheese!",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "fixture": {
+        "assertion": "No added pilot output for the named focus; independently retained patterns may still emit.",
+        "expected_no_spans": false,
+        "forbidden_focus": "cheese",
+        "forbidden_pattern_prefix": "bare-noun-r01:",
+        "id": "bare-negative-26",
+        "original": "He is the big cheese.",
+        "pair": "en-es",
+        "reason": "important person idiom",
+        "source_language": "en",
+        "target_language": "es"
+      },
+      "negative": true,
+      "status": "NO_LOCAL_MATCH",
+      "original_preserved": true,
+      "spans": [],
+      "mixed_reading": "He is the big cheese.",
+      "mixed_script": "He is the big cheese.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    }
+  ]
+}

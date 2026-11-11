@@ -1,0 +1,20 @@
+{
+  "I drank coffee this morning. We can talk about this later.": {
+    "bounds": [
+      "[86,420][894,581]"
+    ],
+    "phases": [
+      "I drank coffee this morning. We can talk about this later.",
+      "I drank kōhī this morning. We can talk about this ato de."
+    ]
+  },
+  "I need water for the walk. We can meet later.": {
+    "bounds": [
+      "[186,798][994,959]"
+    ],
+    "phases": [
+      "I need mizu for the walk. We can meet ato de.",
+      "I need water for the walk. We can meet later."
+    ]
+  }
+}
