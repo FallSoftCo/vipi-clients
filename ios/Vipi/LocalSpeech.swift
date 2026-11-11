@@ -19,7 +19,7 @@ import Foundation
     }
 }
 
-enum LocalSpeechError: Error { case missingVoice(String), invalidAudio, unavailable, formatMismatch, notPrepared }
+enum LocalSpeechError: Error { case missingVoice(String), invalidAudio, unavailable, formatMismatch, notPrepared, timedOut }
 
 struct RenderedSpeech: Sendable {
     let file: URL
@@ -106,6 +106,11 @@ private final class ConverterInput: @unchecked Sendable {
     private let synth = AVSpeechSynthesizer()
     private var active: SpeechFileWriter?
     private var swahiliJob: SwahiliSpeech.Job?
+    private var renderID = UUID()
+    #if DEBUG
+    /// Controlled stalled callback qualification; never enabled by app UI.
+    var qualificationStallTimeout: Duration?
+    #endif
 
     init(language: String) throws {
         self.language = language
@@ -126,6 +131,7 @@ private final class ConverterInput: @unchecked Sendable {
     }
 
     func render(_ text: String, to url: URL) async throws -> RenderedSpeech {
+        try Task.checkCancellation()
         guard active == nil, swahiliJob == nil, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf16.count <= 16_384 else { throw LocalSpeechError.unavailable }
         if language.components(separatedBy: "-")[0] == "sw" {
             let job = SwahiliSpeech.Job(); swahiliJob = job
@@ -137,23 +143,40 @@ private final class ConverterInput: @unchecked Sendable {
         utterance.rate = AVSpeechUtteranceDefaultSpeechRate
         utterance.preUtteranceDelay = 0
         utterance.postUtteranceDelay = 0
+        let request = UUID(); renderID = request
+        var deadline: Duration = .seconds(30)
+        #if DEBUG
+        if let qualificationStallTimeout { deadline = qualificationStallTimeout }
+        #endif
         let timeout = Task { @MainActor [weak self] in
-            do { try await Task.sleep(for: .seconds(30)); self?.stop() } catch { }
+            do {
+                try await Task.sleep(for: deadline)
+                try Task.checkCancellation()
+                self?.finish(request: request, error: LocalSpeechError.timedOut)
+            } catch { }
         }
-        defer { timeout.cancel(); active = nil }
+        defer { timeout.cancel(); if renderID == request { active = nil } }
         return try await withTaskCancellationHandler {
             try await withCheckedThrowingContinuation { continuation in
                 let writer = SpeechFileWriter(url: url, continuation: continuation)
                 active = writer
+                #if DEBUG
+                if qualificationStallTimeout != nil { return }
+                #endif
                 synth.write(utterance, toBufferCallback: { buffer in writer.accept(buffer) },
                     toMarkerCallback: { markers in writer.acceptMarkers(markers) })
             }
-        } onCancel: { Task { @MainActor [weak self] in self?.stop() } }
+        } onCancel: { Task { @MainActor [weak self] in self?.finish(request: request, error: CancellationError()) } }
+    }
+    private func finish(request: UUID, error: Error) {
+        guard renderID == request else { return }
+        renderID = UUID()
+        active?.fail(error); active = nil
+        synth.stopSpeaking(at: .immediate)
     }
     func stop() {
         swahiliJob?.cancel()
-        active?.fail(CancellationError()); active = nil
-        synth.stopSpeaking(at: .immediate)
+        finish(request: renderID, error: CancellationError())
     }
 }
 

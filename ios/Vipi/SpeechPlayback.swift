@@ -22,6 +22,18 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
     private(set) var state: SpeechState = .preparing
     private(set) var error: String?
     private(set) var activeMessage: String?
+    #if DEBUG
+    /// Component-only preparation failure injection; no account or audio state.
+    var qualificationPrepare: (() async throws -> Void)?
+    #endif
+    private func prepareVoices(source: String, target: String, warmups: [String: String]) async throws {
+        #if DEBUG
+        if let qualificationPrepare { try await qualificationPrepare(); return }
+        #endif
+        let next = try LocalSpeechPair(source: source, target: target, root: MessageSpeechCache.directory)
+        pair = next
+        try await next.prepare(warmups: warmups)
+    }
 
     func prepare(source: String, target: String, warmups: [String: String]) {
         guard !ready, preparation == nil else { return }
@@ -40,14 +52,14 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
             guard let self else { return }
             defer { if self.preparationID == preparationID { self.preparation = nil } }
             do {
-                let root = MessageSpeechCache.directory
-                let next = try LocalSpeechPair(source: source, target: target, root: root)
-                self.pair = next
-                try await next.prepare(warmups: warmups)
+                try await self.prepareVoices(source: source, target: target, warmups: warmups)
                 try Task.checkCancellation()
                 guard self.preparationID == preparationID else { return }
                 self.ready = true; self.state = .ready
-            } catch is CancellationError { }
+            } catch is CancellationError {
+                guard self.preparationID == preparationID, !Task.isCancelled else { return }
+                self.error = "Voices couldn’t get ready. Try again."; self.state = .unavailable
+            }
             catch LocalSpeechError.missingVoice(let language) {
                 guard self.preparationID == preparationID else { return }
                 self.error = "Add a \(VipiLanguage.named(language).name) voice in Settings → Accessibility → Spoken Content → Voices, then retry."
