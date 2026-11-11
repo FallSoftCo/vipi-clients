@@ -1,0 +1,120 @@
+{
+  "schema": "vipi-apple-dictionary-default-007-1",
+  "result": "PASS bounded qualification; positive abstentions retained",
+  "data_commit": "6ad8225",
+  "index_sha256": "a0f6f73172cd747a758d677a8c49383fc25591763045a1b0bb77575ba60114a3",
+  "index_bytes": 35807,
+  "actual_packaged_assets_validated": 223,
+  "changed_pair_packs": 22,
+  "retained_pair_packs": 88,
+  "positive_cases": 19,
+  "intended_output_counts": {
+    "automatic": 10,
+    "direct": 17
+  },
+  "negative_cases": 13,
+  "forbidden_outputs": 0,
+  "italian_existing_bare_noun_negative_cases": 4,
+  "raw_en_ja_sw_baseline_equal": true,
+  "all_originals_preserved": true,
+  "automatic_translation_readiness_alignment_calls": 0,
+  "injected_provider": false,
+  "automatic_density": 0.25,
+  "direct_density": 0.5,
+  "abstentions": {
+    "automatic": [
+      {
+        "id": "dictionary-006:pilot-en-132:sw:example1",
+        "original": "We talked about climate change in class.",
+        "expected_source": "climate change",
+        "status": "partial",
+        "detected_language": "en"
+      },
+      {
+        "id": "dictionary-006:pilot-es-002:en:example1",
+        "original": "Leo novelas en mi tiempo libre.",
+        "expected_source": "tiempo libre",
+        "status": "noLocalMatch",
+        "detected_language": "es"
+      },
+      {
+        "id": "dictionary-006:pilot-sw-001:en:example1",
+        "original": "Tumezungumza kuhusu mabadiliko ya tabia nchi shuleni.",
+        "expected_source": "mabadiliko ya tabia nchi",
+        "status": "noLocalMatch",
+        "detected_language": "sw"
+      },
+      {
+        "id": "dictionary-006:pilot-ar-006:en:example1",
+        "original": "أدرس علم الحاسوب في الجامعة.",
+        "expected_source": "علم الحاسوب",
+        "status": "noLocalMatch",
+        "detected_language": "ar"
+      },
+      {
+        "id": "dictionary-006:pilot-zh-000:en:example1",
+        "original": "我喜歡聽鄉村音樂。",
+        "expected_source": "鄉村音樂",
+        "status": "noLocalMatch",
+        "detected_language": "zh"
+      },
+      {
+        "id": "dictionary-006:pilot-ko-000:en:example1",
+        "original": "고교 친구를 오늘 만났어요.",
+        "expected_source": "고교",
+        "status": "partial",
+        "detected_language": "ko"
+      },
+      {
+        "id": "dictionary-006:pilot-fr-000:en:example1",
+        "original": "J’ai du temps libre cet après-midi.",
+        "expected_source": "temps libre",
+        "status": "noLocalMatch",
+        "detected_language": "fr"
+      },
+      {
+        "id": "dictionary-006:pilot-it-001:en:example1",
+        "original": "Nel tempo libero leggo romanzi.",
+        "expected_source": "tempo libero",
+        "status": "noLocalMatch",
+        "detected_language": "it"
+      },
+      {
+        "id": "dictionary-006:pilot-en-118:ja:example1",
+        "original": "My sister studies computer science.",
+        "expected_source": "computer science",
+        "status": "noLocalMatch",
+        "detected_language": "en"
+      }
+    ],
+    "direct": [
+      {
+        "id": "dictionary-006:pilot-sw-001:en:example1",
+        "original": "Tumezungumza kuhusu mabadiliko ya tabia nchi shuleni.",
+        "expected_source": "mabadiliko ya tabia nchi",
+        "status": null,
+        "detected_language": null
+      },
+      {
+        "id": "dictionary-006:pilot-ko-000:en:example1",
+        "original": "고교 친구를 오늘 만났어요.",
+        "expected_source": "고교",
+        "status": null,
+        "detected_language": null
+      }
+    ]
+  },
+  "abstention_cause": "Recorded route/output only; this batch did not collect owner traces or infer tokenizer/density causes. Direct and automatic use different densities.",
+  "tests": {
+    "count": 1,
+    "failures": 0,
+    "seconds": 2.842
+  },
+  "limitations": [
+    "Authored focused examples are not population coverage",
+    "No new UI/speech or normal-account-startup qualification",
+    "Unsigned simulator artifact is not store deployable; signing/keychain/startup holds unchanged"
+  ],
+  "native_receipt": "receipt.json",
+  "result_sha256": "832e3b4fdcb83adc558cc244a6a73ab54484cddcfb021c0dbf413efc75293685"
+}
