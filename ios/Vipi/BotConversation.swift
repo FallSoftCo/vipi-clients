@@ -90,6 +90,12 @@ struct BotMessage: Codable, Identifiable {
         guard canSend, let context = Self.context(history: messages, newText: draft, maximumBytes: allowance?.max_context_bytes ?? 0) else { return }
         busy = true; notice = nil
         defer { busy = false }
+        let device: DeviceCredential
+        do { device = try DeviceCredential.registered(vault: vault) }
+        catch {
+            notice = "Reconnect this account before sending to vBot. Your draft is still here."
+            return
+        }
         var outgoing = BotMessage(id: UUID(), role: "user", text: draft, createdAt: Date(), state: "sending")
         struct Request: Encodable { let request_id: UUID; let consent_version: String; let messages: [Context] }
         struct Reply: Decodable { let request_id: UUID; let reply: String; let allowance: BotAllowance }
@@ -102,7 +108,7 @@ struct BotMessage: Codable, Identifiable {
         } catch { notice = "Your message couldn’t be saved. Please try again."; return }
         do {
             let body = try JSONEncoder().encode(Request(request_id: outgoing.id, consent_version: "deepseek-v1", messages: context))
-            let reply: Reply = try await api.request("POST", "/v1/bot/messages", body: body)
+            let reply: Reply = try await api.request("POST", "/v1/bot/messages", body: body, device: device)
             guard reply.request_id == outgoing.id, !reply.reply.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
                   reply.reply.utf8.count <= 16384 else { throw ServiceFailure(status: 0, code: "invalid_bot_reply") }
             // Complete the local record even if navigation closed the view
@@ -139,7 +145,8 @@ struct BotMessage: Codable, Identifiable {
         struct Report: Encodable { let request_id: UUID; let reason: String; let selected_reply: String }
         struct Result: Decodable { let reported: Bool }
         let body = try JSONEncoder().encode(Report(request_id: request, reason: reason, selected_reply: Self.reportExcerpt(message.text)))
-        let result: Result = try await api.request("POST", "/v1/bot/reports", body: body)
+        let device = try DeviceCredential.registered(vault: vault)
+        let result: Result = try await api.request("POST", "/v1/bot/reports", body: body, device: device)
         guard result.reported else { throw ServiceFailure(status: 0, code: "report_unconfirmed") }
     }
     private static func explanation(_ error: Error) -> String {

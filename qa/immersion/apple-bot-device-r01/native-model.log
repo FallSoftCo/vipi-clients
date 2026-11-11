@@ -1,0 +1,1 @@
+PASS: actual BotSession/DeviceCredential send+report credential, no automatic resend, four pre-send credential failures preserve draft; stub vault+transport only

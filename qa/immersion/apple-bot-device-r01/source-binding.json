@@ -1,0 +1,18 @@
+{
+  "source_files": {
+    "BotConversation.swift": "34036d9c357fcda651dfd4f3732e5e4f5a79694484dcd1900565d2537fe77be8",
+    "ServiceClient.swift": "429f4503065fd05442bc43a01229c081918944cbaba4996d3ed90a3c58e3e6da",
+    "Subscriptions.swift": "13e3aafde8e23b15eba377eeb7c0de41382c8b08b07f026ed4676b23ad411c1f"
+  },
+  "slices": {
+    "BotMessage_and_BotSession": "09d6dcedbb41321f55ef339bcaf85906144d8d0517d88e197747f40b5f31785c",
+    "DeviceCredential_and_ServiceFailure": "91126f505c402d4e98f55bf4ea55f907f82df51df82373df7fc7d0724b275773",
+    "ChatTransport": "33d07310bce93382ebc8d18401dc0e6c785d6d9819676dcd8b1d11dcae610c05",
+    "BotAllowance": "7fad7c2fddcb71b1ff63b22c5a5453ede726f1cc7f6429efab6812afa91a2b40"
+  },
+  "stubs": [
+    "MessageVault in-memory namespace semantics, no encryption/keychain/disk proof",
+    "VocabularyFamiliarityStore unused property construction",
+    "ChatTransport synthetic response/timeout, no network"
+  ]
+}

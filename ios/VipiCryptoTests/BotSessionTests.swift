@@ -6,8 +6,10 @@ import XCTest
     private final class Transport: ChatTransport {
         var requests: [(String, String, Data?)] = []
         var failReply = false
+        var devices: [DeviceCredential?] = []
         func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
             requests.append((method, path, body))
+            if method == "POST" { devices.append(device) }
             let allowance: [String: Any] = ["available": true, "service_ready": true, "remaining_replies": 149, "monthly_replies": 150, "resets_at": "2026-12-01T00:00:00Z", "max_context_bytes": 8192]
             let value: [String: Any]
             if path == "/v1/bot/messages" {
@@ -24,6 +26,11 @@ import XCTest
         let folder = FileManager.default.temporaryDirectory.appendingPathComponent("vipi-bot-test-" + UUID().uuidString)
         let vault = try MessageVault(account: account, directory: folder)
         defer { try? vault.close(); try? FileManager.default.removeItem(at: folder); KeychainStore.delete(account: "messages-" + account.uuidString.lowercased()) }
+        let device = DeviceCredential(id: UUID(), secret: String(repeating: "x", count: 43))
+        try vault.transaction {
+            try vault.put("local", "service-device", JSONEncoder().encode(device))
+            try vault.put("local", "registered-device", Data(device.id.uuidString.lowercased().utf8))
+        }
         try await body(vault)
     }
     func testConsentAndDurableBotOnlyHistory() async throws {
@@ -35,6 +42,9 @@ import XCTest
             XCTAssertFalse(api.requests.contains { $0.1 == "/v1/bot/messages" })
             try session.setConsent(true); await session.send()
             XCTAssertEqual(session.messages.count, 2)
+            let device = try DeviceCredential.registered(vault: vault)
+            XCTAssertEqual(api.devices.compactMap { $0 }.first?.id, device.id)
+            XCTAssertEqual(api.devices.compactMap { $0 }.first?.secret, device.secret)
             XCTAssertTrue(session.messages.allSatisfy { $0.state == "complete" })
             let sent = try XCTUnwrap(api.requests.first { $0.1 == "/v1/bot/messages" }?.2)
             XCTAssertFalse(String(decoding: sent, as: UTF8.self).contains("Friend-only"))
@@ -72,6 +82,7 @@ import XCTest
             var selected = BotMessage(id: UUID(), role: "assistant", text: String(repeating: "猫", count: 2000), createdAt: Date(), state: "complete")
             selected.requestID = UUID()
             try await session.report(selected, reason: "inaccurate")
+            XCTAssertEqual(api.devices.compactMap { $0 }.last?.id, try DeviceCredential.registered(vault: vault).id)
             let sent = try XCTUnwrap(api.requests.last?.2)
             let value = try XCTUnwrap(JSONSerialization.jsonObject(with: sent) as? [String: String])
             XCTAssertEqual(Set(value.keys), ["request_id", "reason", "selected_reply"])
@@ -79,4 +90,18 @@ import XCTest
             XCTAssertFalse(try XCTUnwrap(value["selected_reply"]).contains("�"))
         }
     }
+    func testMissingRegistrationPreservesDraftWithoutSending() async throws {
+        try await withVault { vault in
+            let api = Transport(), session = try BotSession(api: api, vault: vault)
+            await session.refresh(); try session.setConsent(true)
+            session.draft = "Keep this draft"; session.saveDraft()
+            try vault.transaction { try vault.remove("local", "registered-device") }
+            await session.send()
+            XCTAssertEqual(session.draft, "Keep this draft")
+            XCTAssertTrue(session.messages.isEmpty)
+            XCTAssertFalse(api.requests.contains { $0.1 == "/v1/bot/messages" })
+            XCTAssertEqual(try BotSession(api: api, vault: vault).draft, "Keep this draft")
+        }
+    }
+
 }

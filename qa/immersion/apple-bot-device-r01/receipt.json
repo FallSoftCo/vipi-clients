@@ -1,0 +1,10 @@
+{
+  "result": "PASS",
+  "execution": "native macOS /usr/bin/swift",
+  "command": "swift -module-cache-path <existing app-build-r01>/ModuleCache.noindex probe.swift",
+  "provider_calls": 0,
+  "network_calls": 0,
+  "keychain_access": false,
+  "canonical_xctest_executed": false,
+  "probe_sha256": "ac261ae5baa1e1d390281ea16edbb27526277ae5543b6e6c0f372375a0dd0939"
+}
