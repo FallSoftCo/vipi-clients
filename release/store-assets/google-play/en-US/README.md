@@ -6,4 +6,4 @@ The icon is rendered directly from the existing vector brand. The feature graphi
 
 The phone screenshots are actual 1080 × 2160 captures from the existing signed-in 007 QA app. They establish visual parity, not execution of the final signed bundle. The original account title and two existing messages are unchanged. Original RGBA captures are retained for pixel comparison. The emulator returned to 1080 × 2400 at 420 dpi and the first message returned to Latin reading.
 
-The saved phone order is Japanese script, then Latin reading. Server previews are downscaled; the uploaded originals retain their full dimensions. `provenance.json` binds all source and image hashes and records the limits. These release-only files do not change the frozen application inputs.
+The saved phone order is Latin reading, then Japanese script, matching the default reading experience. Server previews are downscaled; the uploaded originals retain their full dimensions. `provenance.json` binds all source and image hashes and records the limits. These release-only files do not change the frozen application inputs.

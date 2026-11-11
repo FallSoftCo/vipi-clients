@@ -88,13 +88,14 @@
     "saved_text_unchanged": true,
     "asset_count": 4,
     "phone_order": [
-      "play-chat-script-1080x2160.png",
-      "play-chat-latin-1080x2160.png"
+      "play-chat-latin-1080x2160.png",
+      "play-chat-script-1080x2160.png"
     ],
     "preview_sizes_are_server_thumbnails": true,
     "binary_upload": false,
     "review_submission": false,
-    "publication": false
+    "publication": false,
+    "order_correction": "Reordered through existing Play drag control, saved once and reloaded; same four asset URLs and exact listing text verified. No delete/reupload."
   },
   "private_evidence_reference": "vipi-submit-20261110-r01/play-private-assets-r01 and store-screenshot-selection-r01",
   "source_export_regeneration_needed": false
