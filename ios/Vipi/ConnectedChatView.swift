@@ -12,9 +12,9 @@ struct ConnectedChatRoot: View {
         Group {
             if let chat {
                 if chat.profile != nil {
-                    HomeView(chat: chat, subscriptions: subscriptions)
+                    HomeView(chat: chat, subscriptions: subscriptions, reauthenticate: { authentication.signIn(expectedUser: chat.userID) }, authenticationBusy: authentication.busy, authenticationError: authentication.errorMessage)
                         .safeAreaInset(edge: .top) {
-                            if !chat.ready {
+                            if !chat.ready && !chat.needsReauthentication {
                                 VStack(alignment: .leading, spacing: 8) {
                                     Text("Chatting is paused").font(.headline)
                                     Text(chat.notice ?? "Your saved conversations are available while this device reconnects.").font(.footnote)
@@ -41,7 +41,7 @@ struct ConnectedChatRoot: View {
                         if chat.busy { ProgressView() }
                         else {
                             Button("Try again") { Task { await chat.start() } }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight)
-                            Button("Sign in again") { authentication.signOutLocally() }
+                            Button("Sign in again") { authentication.signIn(expectedUser: chat.userID) }
                         }
                     }
                 }
@@ -54,7 +54,7 @@ struct ConnectedChatRoot: View {
             if let chat, let replacement { OwnDeviceReplacementView(chat: chat, candidate: replacement) }
         }
         .onChange(of: authentication.session?.accessToken) { _, _ in
-            if let chat, !chat.ready { Task { await chat.start() } }
+            if let chat, !chat.ready || chat.needsReauthentication { Task { await chat.start() } }
         }
         .task(id: authentication.session?.userID) {
             subscriptions?.close(); subscriptions = nil
@@ -74,9 +74,9 @@ struct ConnectedChatRoot: View {
             let store = SubscriptionStore(api: api, accountToken: profile.id)
             subscriptions = store; await store.start()
         }
-        .task(id: chat?.ready) {
+        .task(id: chat?.ready == true && chat?.needsReauthentication == false) {
             chat?.setForeground(scenePhase == .active)
-            if let chat, chat.ready { await PushNotifications.shared.attach(chat) }
+            if let chat, chat.ready && !chat.needsReauthentication { await PushNotifications.shared.attach(chat) }
         }
         .onChange(of: scenePhase) { _, phase in
             chat?.setForeground(phase == .active)

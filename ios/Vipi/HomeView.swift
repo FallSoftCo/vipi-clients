@@ -3,6 +3,9 @@ import SwiftUI
 struct HomeView: View {
     var chat: ChatSession? = nil
     var subscriptions: SubscriptionStore? = nil
+    var reauthenticate: (() -> Void)? = nil
+    var authenticationBusy = false
+    var authenticationError: String? = nil
     @Environment(AppState.self) private var state
     @State private var showingSettings = false
     @State private var offerBase = false
@@ -20,6 +23,9 @@ struct HomeView: View {
                             Text("Chats").font(.system(.largeTitle, design: .serif).weight(.medium))
                             Spacer()
                             Button { showingInvite = true } label: { Image(systemName: "square.and.pencil").font(.title3).frame(width: 44, height: 44) }.accessibilityLabel("New chat")
+                        }
+                        if let chat, chat.needsReauthentication, let reauthenticate {
+                            ReauthenticationNotice(busy: authenticationBusy || chat.busy, error: authenticationError, signIn: reauthenticate)
                         }
                         if let chat, !chat.threads.isEmpty {
                             ForEach(chat.threads) { thread in
@@ -193,5 +199,21 @@ struct SettingsView: View {
                 Section("Account") { NavigationLink("Delete account") { DeleteAccountView(chat: chat) }.foregroundStyle(.red) }
             }
         }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct ReauthenticationNotice: View {
+    let busy: Bool
+    let error: String?
+    let signIn: () -> Void
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Sign in to reconnect").font(.headline)
+            Text("Your saved conversations are still on this device.").font(.footnote)
+            if let error { Text(error).font(.footnote) }
+            Button("Sign in again", action: signIn)
+                .disabled(busy).accessibilityIdentifier("chat-reauthenticate")
+        }.padding(16).frame(maxWidth: .infinity, alignment: .leading)
+            .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
     }
 }

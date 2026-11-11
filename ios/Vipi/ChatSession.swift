@@ -26,6 +26,8 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private(set) var ready = false
     private(set) var needsDeviceReplacement = false
     private(set) var needsRecentSignIn = false
+    private(set) var authenticationRecovery = ChatAuthenticationRecovery()
+    var needsReauthentication: Bool { authenticationRecovery.required }
     private(set) var hasPendingDeviceReplacement = false
     private(set) var changedIdentities = Set<UUID>()
     private(set) var threads: [ChatThread] = []
@@ -53,6 +55,12 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             try open(value)
         }
     }
+    #if DEBUG
+    /// Isolated transport qualification: no account/keychain/vault is opened.
+    init(qualificationAPI: any ChatTransport, userID: String, ready: Bool = false) {
+        self.userID = userID; self.api = qualificationAPI; self.ready = ready
+    }
+    #endif
     private func open(_ value: ChatProfile) throws {
         try ensureOpen()
         if let profile, profile.id != value.id { throw AuthenticationManager.SessionFailure.accountChanged }
@@ -93,7 +101,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         guard !busy, !closed else { return }; busy = true; notice = nil
         do {
             let value: ChatProfile = try await request("GET", "/v1/me")
-            try open(value); try await provision()
+            try open(value); authenticationRecovery.authenticated(); try await provision()
         } catch let error as ServiceFailure where error.code == "profile_required" { needsProfile = true }
         catch is CancellationError {}
         catch { notice = Self.explanation(error) }
@@ -301,7 +309,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         }
     }
     func synchronize() async {
-        guard ready, !closed, let core else { return }
+        guard ready, !needsReauthentication, !closed, let core else { return }
         if historyBusy { syncAgain = true; return }
         if syncing { syncAgain = true; return }
         syncing = true; defer { syncing = false }
@@ -371,7 +379,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     }
     private struct PushResult: Decodable {}
     func setForeground(_ active: Bool) {
-        guard active, ready, !closed, let core, let api = api as? ServiceClient else { events?.stop(); return }
+        guard active, ready, !needsReauthentication, !closed, let core, let api = api as? ServiceClient else { events?.stop(); return }
         if events == nil {
             let device = core.device
             events = ForegroundEvents(connect: { try await api.openEvents(device: device) },
@@ -380,7 +388,10 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                     guard let self, !self.closed, self.ready, self.core === core else { return }
                     do { let _: Inventory = try await self.request("GET", "/v1/keys", device: device) }
                     catch {
-                        if !self.closed { self.ready = false; self.notice = Self.explanation(error) }
+                        if !self.closed {
+                            if !self.needsReauthentication { self.ready = false }
+                            self.notice = Self.explanation(error)
+                        }
                     }
                 }
             })
@@ -455,12 +466,15 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             try ensureOpen(); return value
         } catch {
             try ensureOpen()
+            authenticationRecovery.failed(error, deviceRecovery: needsDeviceReplacement || hasPendingDeviceReplacement)
+            if needsReauthentication { events?.stop(); events = nil }
             if let failure = error as? ServiceFailure,
                ["device_revoked", "device_registration_conflict", "device_replacement_confirmation_required"].contains(failure.code) {
+                authenticationRecovery.authenticated()
                 ready = false; needsDeviceReplacement = true; hasPendingDeviceReplacement = false; needsRecentSignIn = false; events?.stop(); events = nil
                 if let vault { try vault.transaction { try vault.remove("local", "replacement-consent") } }
             }
-            if let failure = error as? ServiceFailure, failure.code == "recent_sign_in_required" {
+            if let failure = error as? ServiceFailure, ["recent_sign_in_required", "sign_in_required"].contains(failure.code), needsDeviceReplacement || hasPendingDeviceReplacement {
                 needsRecentSignIn = true
             }
             throw error
@@ -494,5 +508,18 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         if failure.status == 409 && ["recipient_identity_changed", "message_id_conflict"].contains(failure.code) { return "failed" }
         if failure.status == 400 && ["invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type"].contains(failure.code) { return "failed" }
         return nil
+    }
+}
+
+/// Ordinary expired authentication never changes device ownership or local storage.
+struct ChatAuthenticationRecovery {
+    private(set) var required = false
+    mutating func authenticated() { required = false }
+    mutating func failed(_ error: Error, deviceRecovery: Bool) {
+        guard !deviceRecovery else { required = false; return }
+        if let failure = error as? ServiceFailure,
+           ["sign_in_required", "recent_sign_in_required"].contains(failure.code) { required = true }
+        if let failure = error as? AuthenticationManager.SessionFailure,
+           case .signInRequired = failure { required = true }
     }
 }

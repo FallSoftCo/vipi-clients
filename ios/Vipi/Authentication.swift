@@ -135,7 +135,9 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
         let generation = sessionGeneration, id = UUID()
         refreshID = id
         let task = Task { @MainActor [self] () throws -> String in
-            let result = try await client.authenticateWithRefreshToken(refreshToken: current.refreshToken)
+            let result = try await Self.withRefreshRecovery {
+                try await client.authenticateWithRefreshToken(refreshToken: current.refreshToken)
+            }
             try Task.checkCancellation()
             guard sessionGeneration == generation, session?.refreshToken == current.refreshToken,
                 result.user.id == userID else { throw SessionFailure.accountChanged }
@@ -147,6 +149,25 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
         refreshTask = task
         defer { if refreshID == id { refreshTask = nil } }
         return try await task.value
+    }
+    static func refreshRequiresSignIn(_ error: Error) -> Bool {
+        guard let error = error as? WorkOSError else { return false }
+        switch error {
+        case .authentication: return true
+        case .badRequest(let payload):
+            if payload.code == "invalid_grant" { return true }
+            // WorkOS keeps OAuth's `error` field in raw, separate from `code`.
+            if case .object(let body) = payload.raw { return body["error"] == .string("invalid_grant") }
+            return false
+        default: return false
+        }
+    }
+    private static func withRefreshRecovery<T>(_ operation: () async throws -> T) async throws -> T {
+        do { return try await operation() }
+        catch {
+            if refreshRequiresSignIn(error) { throw SessionFailure.signInRequired }
+            throw error
+        }
     }
     func signOutLocally() {
         sessionGeneration = UUID(); refreshID = UUID(); refreshTask?.cancel(); refreshTask = nil
