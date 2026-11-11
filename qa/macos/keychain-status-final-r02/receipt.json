@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-11T04:02:24.019547+00:00",
+  "state": "status_queries_executed_but_receipt_wrapper_failed",
+  "error": "NameError constructing metadata after helper execution; nested shell quoting stripped Python dict key quotes",
+  "fresh_status_results_retained": false,
+  "last_reliable_receipt": "apple-reviewer-integration-r01/keychain-status-reviewer-r01.json",
+  "last_reliable_status": "both locked at 2026-11-11T02:58:44Z",
+  "queries_repeated": false,
+  "unlock_signing_export_or_mutation_attempted": false,
+  "signing_hold_retained": true
+}

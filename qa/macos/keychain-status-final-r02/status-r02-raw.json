@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-11T04:03:14.992222+00:00",
+  "uid": 501,
+  "context": "bounded SSH native Apple user",
+  "helper_sha256": "7d7929dd5d821b0c84e2f526cd66f0392f4ce40399c9a651f4fabaf1eebe0ba5",
+  "operation": "SecKeychainOpen + SecKeychainGetStatus + CFRelease only",
+  "keychains": [
+    {
+      "name": "login.keychain-db",
+      "open_status": 0,
+      "status_call": 0,
+      "flags": 2,
+      "unlocked": false
+    },
+    {
+      "name": "pbtv58.keychain-db",
+      "open_status": 0,
+      "status_call": 0,
+      "flags": 2,
+      "unlocked": false
+    }
+  ],
+  "unlock_signing_export_or_mutation_attempted": false,
+  "signing_authorized": false
+}
