@@ -17,6 +17,11 @@ async def main():
         return
     db = Database(settings.database_url)
     try:
+        await db.check_admission()
+    except BaseException:
+        await db.close()
+        raise
+    try:
         now = datetime.now(UTC)
         async with db.sessions.begin() as session:
             await expire(session, now=now)

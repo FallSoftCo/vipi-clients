@@ -1,0 +1,53 @@
+{
+  "schema": "vipi-restore-admission-1",
+  "source_parent": "7239932bcfcd6527d7931920295822b6aa092949",
+  "scope": "Committed backend/offline code only; current Apple archive unchanged",
+  "decision": "Persistent restore HOLD enforced; reopening not implemented or authorized",
+  "implemented": [
+    "Database-local marker presence denies ordinary checkout, including malformed/empty marker",
+    "API lifespan admission before serving/events; workers admission before provider construction/dispatch",
+    "Normal unmarked database requires no schema change",
+    "Private durable filesystem intent before copying; marker committed/fsynced before final quarantine filename publication",
+    "Snapshot hash/time/restore UUID binding; explicit five-domain external coverage claims; missing/contradictory interval rejected",
+    "Transactional restrictive reconciliation preserves independent marker across rollback; billing/spend/request artifacts explicitly not applied; no release command"
+  ],
+  "tests": {
+    "affected": "49 passed, 2 skipped in 19.54s",
+    "final_focused": "10 passed in 5.93s",
+    "backend": "Synthetic disk SQLite only; VIPI_TEST_POSTGRES_URL unset",
+    "skips": "Existing real CLI 8 GiB capacity floor unavailable; unchanged production guard",
+    "unit_admission_mock": "Sub-MiB fixture lifecycle tests mock only capacity reading; actual disk copy/fsync/rename/SQL/rollback/startup refusal execute. Not real capacity qualification.",
+    "initial_failures": [
+      "Initial collection imported settings from wrong test module; corrected without runtime change",
+      "39 passed/2 failures: existing capacity guard correctly rejected one CLI subprocess before output; other old CLI test required explicit new coverage envelope. Both preserved in tests-r01.log."
+    ]
+  },
+  "limits": [
+    "No live restore/database/provider/network/deployment/service or native action",
+    "PostgreSQL dialect support is unexecuted; external fleet restore runner requires marker-before-exposure integration and must not overwrite/drop marker",
+    "Operator database administration can remove marker; no adversarial DBA sandbox claimed",
+    "No in-place live-restore drain; target must remain isolated until marker exists",
+    "Referenced external artifacts and claimed completeness do not establish authority; billing/spend/request replay and native reenrollment remain unqualified",
+    "Legacy low-level reconcile_offline remains a conservative internal helper and never authorizes reopening"
+  ],
+  "files": {
+    "backend/vipi/recovery_admission.py": "df21c541afd19a96796509234d9d023ac40d1e88f5e7d4d2c8c04246f2848e95",
+    "backend/vipi/recovery.py": "5cb92b6b42abbafb6164c94602a1f64baf7a42eed0666882d70a164cc3def912",
+    "backend/vipi/db.py": "52668ab45d70150051cb35b48301516c00d4eee1c36196f2298cf1e22f7ad9ce",
+    "backend/vipi/api.py": "46afe7615cfecf55f2c50cbdaf9ff9ee1b68fc5513b7127886d667d2509da473",
+    "backend/vipi/billing_worker.py": "fbd257097e9a98784d36180a979452cfb696abc81b7cdc406baba7c5ec52c95a",
+    "backend/vipi/maintenance.py": "adfb17a40ebc88dbae5de23483cec7706283abd13f37a49aab11074099d32bd1",
+    "backend/vipi/push.py": "0db632bbdf5f55628c584124826449fc794315bd1e3c66d42b6fba835fe60027",
+    "backend/tests/test_restore_admission.py": "b59bb7ad4f3b10ff85de836b4c2346b84241249fd3f314fffe3933053edf3dd6",
+    "backend/tests/test_recovery.py": "1348fd58b4f1bb20edc94a6559013a01d6e3ce99696ce4e66f679bfcb2b75c7c",
+    "ops/reconcile-recovery.py": "2dc921cb9be5cd1a5cc593f7390f99f71afcead2deebbf35aea33d906da01046",
+    "qa/backend/service-recovery-r01/README.md": "d8b4d260a06a09019b7e230c4e22ad4d22b9d27ade0ca219263b245771901fb2"
+  },
+  "logs": {
+    "tests-r01.log": "d9ac999d30249ba8507f3cc53023815fa1b7401d4ed2d7c19f62585f7e2d7cf2",
+    "tests-r02.log": "54b8205da0422ddb4c9e25cdc6fabdbb4e232c8099b8d68f990b2a55b9478333",
+    "tests-r03.log": "8d7da09734b08e54572863b193aebf50a3a92095ae8553f5a300d7690d59b69a",
+    "tests-r04-final.log": "8b8eb302d5722c0d0124fc25fdce749dcd5098adb4109a34472aedd79a11be8a",
+    "tests-r05-final.log": "0bdd8af76f3c33953f5d23dd25805aca5f32268ef516f5e6169df32d0d2f43bf"
+  }
+}

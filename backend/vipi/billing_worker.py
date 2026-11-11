@@ -16,6 +16,11 @@ async def main():
         # Do not construct database/provider clients or dispatch/expire records.
         return
     db = Database(settings.database_url)
+    try:
+        await db.check_admission()
+    except BaseException:
+        await db.close()
+        raise
     providers = providers_for(settings)
     service = Subscriptions(settings, db, providers, lambda: datetime.now(UTC))
     started, attempted = time.monotonic(), 0

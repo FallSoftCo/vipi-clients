@@ -191,7 +191,13 @@ async def main():
     if settings.recovery_hold:
         # Do not construct database/provider clients or dispatch/expire records.
         return
-    db, providers = Database(settings.database_url), PushProviders(settings)
+    db = Database(settings.database_url)
+    try:
+        await db.check_admission()
+    except BaseException:
+        await db.close()
+        raise
+    providers = PushProviders(settings)
     try:
         while True:
             await asyncio.gather(*(process_pushes(db, providers, secret=settings.service_secret,

@@ -127,11 +127,15 @@ async def test_old_device_stays_invalid_and_spend_request_stays_consumed(recover
 
 
 async def test_cli_copies_only_synthetic_snapshot_and_never_reopens(recovery_db, tmp_path):
+    import shutil
+    if shutil.disk_usage(tmp_path).free < 8 * 1024**3 + 16 * 1024**2:
+        pytest.skip("real CLI 8 GiB admission floor unavailable")
     await recovery_db.close()
     source = tmp_path/'synthetic.sqlite'
     before = source.read_bytes()
     ev = evidence(snapshot_sha256=hashlib.sha256(before).hexdigest())
-    supplied = tmp_path/'evidence.json'; supplied.write_text(ev.model_dump_json())
+    from test_restore_admission import bound
+    supplied = tmp_path/'evidence.json'; supplied.write_text(bound(ev).model_dump_json())
     out = tmp_path/'result'
     script = Path(__file__).resolve().parents[2]/'ops/reconcile-recovery.py'
     result = subprocess.run([sys.executable, str(script), '--snapshot', str(source),
@@ -170,12 +174,16 @@ async def test_excluded_transport_rows_cannot_survive_wrong_snapshot_exclusions(
 
 
 async def test_cli_special_path_characters_address_only_exact_output(recovery_db, tmp_path):
+    import shutil
+    if shutil.disk_usage(tmp_path).free < 8 * 1024**3 + 16 * 1024**2:
+        pytest.skip("real CLI 8 GiB admission floor unavailable")
     import sqlite3
     await recovery_db.close()
     source = tmp_path / 'synthetic.sqlite'
     before = source.read_bytes()
     supplied = tmp_path / 'special-evidence.json'
-    supplied.write_text(evidence(snapshot_sha256=hashlib.sha256(before).hexdigest()).model_dump_json())
+    from test_restore_admission import bound
+    supplied.write_text(bound(evidence(snapshot_sha256=hashlib.sha256(before).hexdigest())).model_dump_json())
     out = tmp_path / 'space ? query # fragment'
     before_files = {p.relative_to(tmp_path) for p in tmp_path.rglob('*') if p.is_file()}
     script = Path(__file__).resolve().parents[2] / 'ops/reconcile-recovery.py'
@@ -190,7 +198,7 @@ async def test_cli_special_path_characters_address_only_exact_output(recovery_db
         assert db.execute('SELECT verified_at FROM entitlements WHERE id=?', ('grant',)).fetchone() == (None,)
     after_files = {p.relative_to(tmp_path) for p in tmp_path.rglob('*') if p.is_file()}
     assert after_files - before_files == {
-        (out / name).relative_to(tmp_path) for name in ('quarantined.sqlite', 'report.json', 'receipt.json')}
+        (out / name).relative_to(tmp_path) for name in ('quarantined.sqlite', 'report.json', 'receipt.json', 'HOLD.json')}
     receipt = json.loads((out / 'receipt.json').read_text())
     assert receipt['output_sha256'] == hashlib.sha256(exact.read_bytes()).hexdigest()
     assert receipt['source_unchanged'] and receipt['complete']

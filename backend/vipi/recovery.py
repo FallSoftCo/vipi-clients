@@ -74,8 +74,8 @@ async def reconcile_offline(db, evidence: RecoveryEvidence, *, snapshot_sha256: 
     """Atomically quarantine and apply only restrictive supplied evidence.
 
     Caller must own an isolated database. No live connection guard is claimed by
-    this library; the CLI only creates a new SQLite copy. Existing runtime has no
-    recovery gate: the returned report MUST NOT be used to start API/workers.
+    this library; the CLI only creates a new SQLite copy. The returned report does not release either the startup hold or the
+    database-local restore marker and MUST NOT be used to start API/workers.
     """
     if snapshot_sha256 != evidence.snapshot_sha256 or evidence.cutoff_at > utc(now):
         raise ValueError("snapshot binding or cutoff invalid")
@@ -153,3 +153,48 @@ async def reconcile_offline(db, evidence: RecoveryEvidence, *, snapshot_sha256: 
                 "enforced offline-to-live admission gate", "explicit native device re-enrollment"],
             "spend_policy": "retained counters/request IDs unchanged except required account erasure; global charges retained",
             "services_must_remain_stopped": True}
+
+
+class CoverageRecord(EvidenceRecord):
+    domain: Literal["deletions", "restrictions", "billing", "spend", "requests"]
+    snapshot_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    start_at: AwareDatetime
+    cutoff_at: AwareDatetime
+    artifact_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    claimed_complete: Literal[True]
+
+
+class BoundRecoveryEvidence(EvidenceRecord):
+    """Explicit external coverage claims, not an authority or a release token."""
+    reconciliation: RecoveryEvidence
+    coverage: list[CoverageRecord] = Field(min_length=5, max_length=5)
+
+    @model_validator(mode="after")
+    def coverage_binding(self):
+        e = self.reconciliation
+        if not e.claimed_complete:
+            raise ValueError("contradictory incomplete reconciliation claim")
+        if {r.domain for r in self.coverage} != {"deletions", "restrictions", "billing", "spend", "requests"}:
+            raise ValueError("all recovery domains required exactly once")
+        for row in self.coverage:
+            if row.snapshot_sha256 != e.snapshot_sha256 or row.start_at != e.snapshot_at or row.cutoff_at != e.cutoff_at:
+                raise ValueError("coverage must bind exact snapshot interval")
+        return self
+
+
+async def reconcile_marked_offline(db, supplied: BoundRecoveryEvidence, *, now: datetime):
+    from .recovery_admission import require_restore_binding
+    e = supplied.reconciliation
+    marker = await require_restore_binding(db, e.snapshot_sha256)
+    if datetime.fromisoformat(marker['snapshot_at']) != e.snapshot_at:
+        raise ValueError("marker snapshot time mismatch")
+    result = await reconcile_offline(db, e, snapshot_sha256=e.snapshot_sha256, now=now)
+    # Neither syntactically valid assertions nor retained billing state grant
+    # authority. In particular, referenced spend artifacts are not replayed.
+    result.update(runtime_gate_installed=True, restore_id=marker['restore_id'],
+        restore_state="HOLD", coverage_claims_supplied=True,
+        coverage_claims_sha256=sha256(supplied.model_dump_json().encode()).hexdigest(),
+        reconciled_domains=["deletions", "restrictions"],
+        unapplied_domains=["billing", "spend", "requests"],
+        native_reenrollment_qualified=False)
+    return result

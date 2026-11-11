@@ -56,3 +56,50 @@ offline report never changes it. No live service was changed. The same external
 evidence and explicit re-enrollment gates above remain necessary before release.
 The focused plus affected default-path regression passed 101 tests; four optional
 PostgreSQL-only tests were skipped. Source/log hashes are in the receipt.
+
+## Restore-bound database admission (subsequent isolated implementation)
+
+`Database` now checks for `vipi_restore_hold` on ordinary connection checkout.
+Any marker table presence, including empty or malformed contents, refuses the
+connection. API lifespan checks admission before starting events; billing,
+maintenance/deletion and push workers check before provider construction or
+work. Ordinary unmarked databases require no schema migration and remain
+unchanged. This supplements the existing opt-in startup hold; it is not a hot
+drain and cannot make an already connected, in-place restore safe.
+
+The isolated SQLite CLI now accepts `BoundRecoveryEvidence`: `reconciliation`
+is the original evidence object, and `coverage` supplies exactly one record per
+`deletions`, `restrictions`, `billing`, `spend`, and `requests`. Each record has
+`domain`, `snapshot_sha256`, `start_at`, `cutoff_at`, `artifact_sha256`, and
+`claimed_complete: true`. All intervals must equal the supplied snapshot→cutoff.
+These are explicit external assertions, not verified authority or proof of
+artifact contents/completeness. Referenced billing/spend/request artifacts are
+**not applied** by this adapter. The report identifies these unapplied domains,
+and every result remains HOLD with reopening and native re-enrollment false.
+
+Before copying, the CLI creates/fsyncs a private HOLD intent. It stages into
+`.restoring.sqlite`, commits a snapshot/time/restore-ID-bound database marker,
+then atomically publishes `quarantined.sqlite`. Failed copying cannot publish a
+final target; failed reconciliation rolls back its data transaction but retains
+the separately committed marker and intent. Inputs remain unchanged. The tool
+has no release command. An explicit `offline_recovery=True` library handle is
+required for reconciliation; no runtime environment flag provides that bypass.
+
+The ordinary connection guard and marker/reconciliation library include a
+PostgreSQL dialect, but this change does not implement or qualify the external
+fleet PostgreSQL restore runner. That integration must establish a committed
+HOLD on a disconnected isolated target before restored data is exposed, retain
+it across restore failure, prohibit a dump from replacing/removing the marker,
+and bind the actual snapshot and restore identity. Do not substitute the SQLite
+CLI for this integration. No PostgreSQL execution, live database access, provider
+verification or native disaster re-enrollment was performed in this revision.
+
+Qualification uses a nonzero synthetic disk fixture: later deletion/restriction,
+stale devices/entitlement and retained personal/global spend/uncertain request.
+It checks held startup/workers, unchanged unmarked behavior, failed-copy intent,
+rollback without marker removal, and successful conservative supplied-evidence
+application that still cannot reopen. On this host the real CLI's unchanged
+8 GiB capacity floor is unavailable, so subprocess capacity tests are skipped;
+sub-MiB in-process lifecycle tests explicitly mock only the admission reading.
+This is not real-capacity or production restore qualification. Logs and exact
+source hashes accompany the new receipt; historical receipts remain unchanged.

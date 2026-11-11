@@ -14,12 +14,14 @@ from pathlib import Path
 import shutil
 import sqlite3
 import sys
+from uuid import uuid4
 
 from sqlalchemy.engine import URL
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
 from vipi.db import Database
-from vipi.recovery import RecoveryEvidence, reconcile_offline
+from vipi.recovery import BoundRecoveryEvidence, reconcile_marked_offline
+from vipi.recovery_admission import mark_restore
 
 
 def digest(path):
@@ -39,7 +41,8 @@ async def run(args):
         raise ValueError("input bounds exceeded")
     if any(Path(str(source) + suffix).exists() for suffix in ("-wal", "-shm", "-journal")):
         raise ValueError("uncheckpointed or active SQLite input refused")
-    evidence = RecoveryEvidence.model_validate_json(supplied.read_bytes())
+    bound = BoundRecoveryEvidence.model_validate_json(supplied.read_bytes())
+    evidence = bound.reconciliation
     before = digest(source)
     if before != evidence.snapshot_sha256:
         raise ValueError("snapshot hash mismatch")
@@ -51,16 +54,34 @@ async def run(args):
                "scope": "new offline SQLite copy only; no service/provider calls"}
     db = None
     try:
-        target = output / "quarantined.sqlite"
+        # Durable intent precedes copying; final target name is published only
+        # after a committed database-local HOLD. Failed staging is never served.
+        intent = {"state": "HOLD", "restore_id": str(uuid4()), "snapshot_sha256": before}
+        with (output / "HOLD.json").open("x") as f:
+            json.dump(intent, f); f.flush(); os.fsync(f.fileno())
+        directory = os.open(output, os.O_RDONLY)
+        try: os.fsync(directory)
+        finally: os.close(directory)
+        target = output / ".restoring.sqlite"
         with source.open("rb") as src, target.open("xb") as dst:
             shutil.copyfileobj(src, dst)
+            dst.flush(); os.fsync(dst.fileno())
         if digest(target) != before or digest(source) != before:
             raise ValueError("source changed during copying")
+        db = Database(URL.create("sqlite+aiosqlite", database=str(target.resolve())), offline_recovery=True)
+        await mark_restore(db, snapshot_sha256=before, snapshot_at=evidence.snapshot_at, restore_id=intent["restore_id"])
+        await db.close(); db = None
+        with target.open("rb") as f: os.fsync(f.fileno())
+        final = output / "quarantined.sqlite"
+        target.rename(final); target = final
+        directory = os.open(output, os.O_RDONLY)
+        try: os.fsync(directory)
+        finally: os.close(directory)
         with sqlite3.connect(target.resolve().as_uri() + "?mode=ro", uri=True) as check:
             if check.execute("PRAGMA quick_check").fetchone() != ("ok",):
                 raise ValueError("invalid SQLite snapshot")
-        db = Database(URL.create("sqlite+aiosqlite", database=str(target.resolve())))
-        report = await reconcile_offline(db, evidence, snapshot_sha256=before, now=datetime.now(UTC))
+        db = Database(URL.create("sqlite+aiosqlite", database=str(target.resolve())), offline_recovery=True)
+        report = await reconcile_marked_offline(db, bound, now=datetime.now(UTC))
         await db.close()
         db = None
         (output / "report.json").write_text(json.dumps(report, indent=2) + "\n")
@@ -74,7 +95,7 @@ async def run(args):
         if db is not None:
             await db.close()
         (output / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
-    print(json.dumps({"complete": True, "reopen_authorized": False, "runtime_gate_installed": False}))
+    print(json.dumps({"complete": True, "reopen_authorized": False, "runtime_gate_installed": True}))
 
 
 if __name__ == "__main__":

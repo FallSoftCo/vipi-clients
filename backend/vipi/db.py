@@ -223,9 +223,17 @@ class AccountDeletion(Base):
 
 
 class Database:
-    def __init__(self, url: str, *, connect_args=None):
+    def __init__(self, url: str, *, connect_args=None, offline_recovery=False):
         self.engine = create_async_engine(url, pool_pre_ping=True, connect_args=connect_args or {})
+        self.offline_recovery = offline_recovery
+        if not offline_recovery:
+            from .recovery_admission import install_admission
+            install_admission(self.engine)
         self.sessions = async_sessionmaker(self.engine, expire_on_commit=False)
+
+    async def check_admission(self):
+        async with self.engine.connect():
+            pass
 
     async def create_for_test(self):
         async with self.engine.begin() as connection:

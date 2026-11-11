@@ -180,6 +180,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
     @asynccontextmanager
     async def lifespan(app):
         try:
+            if isinstance(db, Database):
+                await db.check_admission()
             await events.start()
             yield
         finally:
