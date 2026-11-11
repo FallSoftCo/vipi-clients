@@ -167,7 +167,7 @@ struct SettingsView: View {
                 Section("Your profile") {
                     LabeledContent("Name", value: profile.display_name)
                     LabeledContent("Username", value: "@" + profile.username).textSelection(.enabled)
-                    ShareLink(item: "Find me on Vipi: @\(profile.username)\nhttps://mambovipi.app") {
+                    ShareLink(item: "Find me on Vipi: @\(profile.username)\nhttps://api.mambovipi.app/") {
                         Label("Invite a friend", systemImage: "square.and.arrow.up")
                     }
                 }
