@@ -466,7 +466,7 @@
         "android/app/src/main/java/co/fallsoft/vipi/VipiModel.kt"
       ],
       "open": [
-        "Corrected notice is prepared in source, not yet deployed. Reconcile per-installation SDK retention separately from Vipi account-token deletion and qualify actual final delivery behavior.",
+        "Published notice read back November 11. Reconcile per-installation SDK retention separately from Vipi account-token deletion and qualify actual final delivery behavior.",
         "No real production APNs/FCM delivery qualification yet. Analytics flags alone do not prove absence of all SDK identifiers."
       ],
       "registration_choice": "Android data-only background delivery registers when account is ready, independent of visible alert permission. iOS registration follows permission and the Vipi notification setting.",
@@ -677,7 +677,7 @@
   "submission_gates": [
     "Aggregate exact signed-release privacy manifests and inspect Android's final merged manifest/dependency graph.",
     "Reconcile all SDK/provider purposes, linkage, optionality, retention and sharing classification with actual release configuration.",
-    "Deploy the corrected notice distinguishing Android background registration from optional visible alerts, then verify against final behavior.",
+    "Published notice distinguishes Android background registration from optional visible alerts; verify final release behavior against it.",
     "Verify vBot API processing terms and real consent path before offering the optional plan.",
     "Exercise final release network behavior with owned synthetic accounts, including initial setup, model download, background delivery, report, subscription, deletion and backup flows.",
     "Enter and retain actual company-console answers only after reconciliation. No form has been submitted by this inventory."
@@ -723,6 +723,52 @@
       ],
       "store_forms_submitted": false,
       "notice_deployed": false
+    },
+    {
+      "reviewed_at": "2026-11-11",
+      "scope": "Android source/store-document reconciliation; no new release build, form, purchase, login or deletion. Historical source hash inventory remains dated.",
+      "source_commit": "e4e9b26",
+      "files": [
+        {
+          "path": "android/app/src/main/AndroidManifest.xml",
+          "sha256": "fe1e5107424fc911c9436cf867ba8d12a13602f654462673713cf14c9f55fa77"
+        },
+        {
+          "path": "android/app/build.gradle.kts",
+          "sha256": "a5a04ebebdf2492145feb00c876c33386fde39d12b4c401cc3a0e6a3965a80ae"
+        },
+        {
+          "path": "android/app/src/main/java/co/fallsoft/vipi/MessageLanguage.kt",
+          "sha256": "760ec5fc7ccced061cf5d5df59a8fa7508ae8dfa1d70103b3d20dc2e8749a650"
+        },
+        {
+          "path": "android/app/src/main/java/co/fallsoft/vipi/ChatScreens.kt",
+          "sha256": "6cab944c304c461b2b60f0b26db0c0d8ccca4dfcc5c13b51adf7a48758461a8d"
+        },
+        {
+          "path": "android/app/src/main/java/co/fallsoft/vipi/AccountDeletion.kt",
+          "sha256": "b290bc5b32a28eb91fd152a741d32450a53ff7286c62cca26aefa41895575e9d"
+        },
+        {
+          "path": "android/app/src/main/java/co/fallsoft/vipi/AccountDeletionScreen.kt",
+          "sha256": "1ac6797cf508775db6513a0015e331d657b09e2a9dc8987fa9cdcbf492b0d31f"
+        },
+        {
+          "path": "backend/vipi/web_deletion.py",
+          "sha256": "7624b322b920f4a390a14852bdfc52cc6df31c9f001d5b27a7077c1aa2a72365"
+        }
+      ],
+      "automatic_language_processing": "CLD2 and approved bundled source lookup are local; automatic misses preserve originals with zero translation calls in retained tests. Optional full translation and linked Google SDK operational data remain separate.",
+      "public_urls_get_status": {
+        "privacy": 200,
+        "terms": 200,
+        "help": 200,
+        "delete-account": 200
+      },
+      "deletion_end_to_end_retested": false,
+      "reviewer_access_limit": "Owned production WorkOS accounts qualified on restricted staging with subscriptions unenforced; not final Google reviewer entitlement or billing proof.",
+      "details": "release/ANDROID_STORE_REVIEW.md",
+      "store_forms_submitted": false
     }
   ]
 }

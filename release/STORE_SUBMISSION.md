@@ -38,8 +38,9 @@ account email, credentials or private customer content. Use actual UI and
 complete inspectable screenshots for these views:
 
 1. A readable chat with an in-place immersion phrase and its familiar meaning.
-2. The same message's complete translation, with ordinary Latin-letter reading
-   for a non-Roman language and the real Listen control.
+2. The same automatic word/phrase result in original script and Latin letters,
+   with the real Listen control. Add a full-translation screenshot only after
+   that separate optional action is qualified in the submitted build.
 3. The concise immersion-language selection and interactive onboarding preview.
 4. The real friend invitation/conversation flow.
 5. vBot only after the real provider and optional plan work end to end.
@@ -53,6 +54,12 @@ device families come from the current store console.
 The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The November 10 production bundle at `4473238` is signed with the retained upload key and estimates 408,542,274 bytes for the verified ARM64 device configuration. Four split APKs pass signer and 16 KiB alignment checks. This is a local estimate; Google Play has not calculated or accepted it. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. See `store-size-constraints.json`.
 
 ## Reviewer access
+
+Android-specific current labels, Data Safety candidates, merged permissions,
+deletion readback and exact access limits are in `ANDROID_STORE_REVIEW.md`.
+The verified two-account native exchange used restricted staging with production
+WorkOS and subscription enforcement disabled; it is not Play billing or final
+reviewer-entitlement qualification.
 
 Use an owned review account against the real release environment, with a
 separate consenting test peer and synthetic message history. Record credentials
