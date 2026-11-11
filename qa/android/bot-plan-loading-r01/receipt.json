@@ -1,0 +1,38 @@
+{
+  "state": "PASS",
+  "native_tests": 3,
+  "cases": [
+    "Unknown\u2192checking\u2192active composer, concurrent checks share one GET and no Play connection",
+    "Unknown\u2192checking\u2192confirmed inactive plan CTA",
+    "Failed GET shows retry, successful retry opens composer"
+  ],
+  "source_overlay": {
+    "android/app/src/main/java/co/fallsoft/vipi/Subscriptions.kt": "cc6c63111bc7b08acf458141506cbcde3e9890aff7b7064d1cfd1dd7f16b0297",
+    "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt": "04f42df2323785ec8b83f3d9e5d18398ef96ce7e349ba7ca1f4c7ad0eac08a4d",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/BotAccessLoadingDeviceTest.kt": "de19dba0d342ad08cb18f5561b8dbc4e26dda4179b288d842499078e50699939"
+  },
+  "apk_sha256": "28e320beb6122be305df53e084e398082f896f49a295fed07029bea2329ab912",
+  "test_apk_sha256": "8e39364318ab305fd596e532846097dd53b28adff3f0d7119688121194a4025f",
+  "same_signer_and_retained_state_verified": true,
+  "build_seconds": 162.07436667312868,
+  "free_before": 18709065728,
+  "minimum_observed_free": 18551525376,
+  "additional_budget": 1073741824,
+  "live_readback": {
+    "state": "cold_open_active_composer_verified",
+    "normal_navigation": "Cold start \u2192 Chats \u2192 vBot; no plan or restore navigation",
+    "composer_visible": true,
+    "restore_cta_absent": true,
+    "allowance": "149 of 150",
+    "new_provider_calls": 0,
+    "bot_message_rows": 3,
+    "r01_r02_friend_history_consent_and_device_credentials_unchanged": true,
+    "beta_stopped": true,
+    "alpha_and_5584_untouched": true,
+    "evidence_sha256": {
+      "cold-home.xml": "83deb75a2515fa6811dfd11743a641660c1975109865deb4253020a03dde42c9",
+      "cold-bot.xml": "e3c72e603f5dfcf9a30247cdc47a8aa8b9049719303739db42667834cd056867",
+      "cold-bot.png": "119ab814734dbb603a99423a80e42c09841e9d2327f6980160b489c7b1755c1e"
+    }
+  }
+}

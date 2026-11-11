@@ -49,6 +49,8 @@ internal data class SubscriptionAccess(val base: PlanAccess, val bot: PlanAccess
     }
 }
 
+internal enum class AccessCheckState { UNKNOWN, CHECKING, ERROR, LOADED }
+
 internal data class SubscriptionOffer(val details: ProductDetails, val token: String, val annualPrice: String,
     val annualMicros: Long, val currency: String, val oneMonthTrial: Boolean)
 
@@ -56,6 +58,8 @@ internal data class SubscriptionOffer(val details: ProductDetails, val token: St
  * No purchase token, store response, or entitlement is written to an unencrypted log or preferences. */
 internal class Subscriptions(context: Context, private val api: ChatTransport, private val scope: CoroutineScope) : AutoCloseable {
     var access by mutableStateOf<SubscriptionAccess?>(null); private set
+    var accessCheckState by mutableStateOf(AccessCheckState.UNKNOWN); private set
+    private var accessRefresh: Deferred<Boolean>? = null
     var offers by mutableStateOf<Map<SubscriptionPlan, SubscriptionOffer>>(emptyMap()); private set
     var busy by mutableStateOf(false); private set
     var purchasing by mutableStateOf(false); private set
@@ -98,14 +102,41 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
         } }
     }
 
+    /** Account grants load independently of Play offers; concurrent callers share one GET. */
+    suspend fun refreshAccess(ifNeeded: Boolean = false): Boolean {
+        if (closed) return false
+        accessRefresh?.let { return it.await() }
+        if (ifNeeded && accessCheckState == AccessCheckState.LOADED) return true
+        val job = scope.async(start = CoroutineStart.LAZY) {
+            accessCheckState = AccessCheckState.CHECKING
+            try {
+                val snapshot = SubscriptionAccess.parse(api.request("GET", "/v1/entitlements"))
+                if (closed) return@async false
+                access = snapshot; accessCheckState = AccessCheckState.LOADED
+                true
+            } catch (failure: CancellationException) {
+                if (!closed) accessCheckState = AccessCheckState.UNKNOWN
+                throw failure
+            } catch (_: Exception) {
+                if (!closed) accessCheckState = AccessCheckState.ERROR
+                false
+            }
+        }
+        accessRefresh = job
+        job.invokeOnCompletion { if (accessRefresh === job) accessRefresh = null }
+        return job.await()
+    }
+
     suspend fun refresh() {
         if (closed || refreshLock.isLocked) return
         refreshLock.withLock {
             busy = true; notice = null; offers = emptyMap()
             try {
-                val snapshot = SubscriptionAccess.parse(api.request("GET", "/v1/entitlements"))
+                if (!refreshAccess()) {
+                    if (!closed) notice = "Your plan access couldn’t be checked. Try again."
+                    return@withLock
+                }
                 if (closed) return@withLock
-                access = snapshot
                 connect()
                 val products = withTimeout(20_000) { suspendCancellableCoroutine<List<ProductDetails>> { pending ->
                     val query = QueryProductDetailsParams.newBuilder().setProductList(SubscriptionPlan.entries.map {
@@ -160,7 +191,7 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
             if (purchase.purchaseState != Purchase.PurchaseState.PURCHASED) continue
             // Server verifies ownership, lifecycle and product, then acknowledges the verified purchase.
             val verified = SubscriptionAccess.parse(api.request("POST", "/v1/purchases/google", JSONObject().put("purchase_token", purchase.purchaseToken)))
-            if (!closed) access = verified
+            if (!closed) { access = verified; accessCheckState = AccessCheckState.LOADED }
         }
     }
 
@@ -180,5 +211,5 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
         if (result.responseCode != BillingClient.BillingResponseCode.OK) { purchasing = false; notice = "Google Play couldn’t open checkout. Refresh your plans and try again." }
     }
 
-    override fun close() { closed = true; client.endConnection(); access = null; offers = emptyMap() }
+    override fun close() { closed = true; accessRefresh?.cancel(); accessRefresh = null; client.endConnection(); access = null; accessCheckState = AccessCheckState.UNKNOWN; offers = emptyMap() }
 }

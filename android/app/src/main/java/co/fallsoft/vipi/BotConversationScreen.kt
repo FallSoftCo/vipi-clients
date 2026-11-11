@@ -46,7 +46,8 @@ import java.time.format.FormatStyle
     var reportText by remember { mutableStateOf("") }
     var reportReason by remember { mutableStateOf("") }
     val list = rememberLazyListState()
-    val access = model.subscriptions?.access?.active(SubscriptionPlan.BOT_MINI) == true
+    val subscriptions = model.subscriptions
+    LaunchedEffect(subscriptions) { subscriptions?.refreshAccess(ifNeeded = true) }
     LaunchedEffect(bot) { bot.refreshAllowance() }
     LaunchedEffect(immersion) { immersion.checkDownloads() }
     LaunchedEffect(speech) { speech.prepare(warmups) }
@@ -68,8 +69,10 @@ import java.time.format.FormatStyle
             bot.allowance?.let { allowance ->
                 Text("${allowance.remaining} of ${allowance.monthly} replies left · resets ${DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)}", style = MaterialTheme.typography.labelSmall)
             }
-            if (!access) TextButton(onClick = { model.navigate(Screen.BOT_PLAN) }) { Text("View or restore Bot mini") }
-            else if (!bot.consent) {
+            BotPlanAccessGate(subscriptions?.accessCheckState ?: AccessCheckState.UNKNOWN, subscriptions?.access,
+                onRetry = { scope.launch { subscriptions?.refreshAccess() } },
+                onPlan = { model.navigate(Screen.BOT_PLAN) }) {
+            if (!bot.consent) {
                 Text("Messages you send here and recent vBot conversation context go to Vipi and DeepSeek for replies. This is a service chat, not an end-to-end encrypted conversation with a friend. Friend chats are never included.", style = MaterialTheme.typography.bodyMedium)
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(consentChecked, onCheckedChange = { consentChecked = it })
@@ -88,6 +91,7 @@ import java.time.format.FormatStyle
                     }
                 }
                 if (bot.allowance == null || bot.allowance?.remaining == 0) TextButton(onClick = { scope.launch { bot.refreshAllowance() } }) { Text("Refresh allowance") }
+            }
             }
         }
     }) { padding ->
@@ -125,4 +129,17 @@ import java.time.format.FormatStyle
         confirmButton = { TextButton(enabled = !bot.reporting && reportReason.isNotEmpty() && reportText.isNotBlank() && message.text.contains(reportText) && reportText.toByteArray(Charsets.UTF_8).size <= 4000,
             onClick = { scope.launch { if (bot.report(message, reportReason, reportText)) reportedMessage = null } }) { Text(if (bot.reporting) "Sending…" else "Send report") } },
         dismissButton = { TextButton(enabled = !bot.reporting, onClick = { reportedMessage = null }) { Text("Cancel") } }) }
+}
+
+@Composable internal fun BotPlanAccessGate(state: AccessCheckState, access: SubscriptionAccess?,
+    onRetry: () -> Unit, onPlan: () -> Unit, content: @Composable () -> Unit) {
+    when (state) {
+        AccessCheckState.UNKNOWN, AccessCheckState.CHECKING -> Text("Checking your plan…")
+        AccessCheckState.ERROR -> {
+            Text("Your plan access couldn’t be checked.")
+            TextButton(onClick = onRetry) { Text("Try again") }
+        }
+        AccessCheckState.LOADED -> if (access?.active(SubscriptionPlan.BOT_MINI) == true) content()
+            else TextButton(onClick = onPlan) { Text("View or restore Bot mini") }
+    }
 }
