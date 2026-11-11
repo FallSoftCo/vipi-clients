@@ -1,0 +1,54 @@
+{
+  "state": "private_signed_android_production_bundle_verified",
+  "source_revision": "1c72322fc4cf7edd951ca30e611a58919e7fb135",
+  "aab": "Private artifact: android-production-bundle-r03/vipi-production-1c72322.aab",
+  "aab_sha256": "c8807c957a77db7d0a3d3d85dc2fda75d24b84f6bcb13d85f75a9d1643fdb069",
+  "aab_bytes": 541850904,
+  "source_manifest_sha256": "187f0c6e92afcd8e72f20a3f4d7f4799698cf465c7e07cdf442784764bd2c7c5",
+  "upload_certificate_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+  "private_config_hashes": {
+    "VIPI_FIREBASE_CONFIG_FILE": "6d5920b9e71bdd262da9ff166dec21ff170c7d53e165717ce10a5d01c8af412d",
+    "VIPI_UPLOAD_STORE_FILE": "808b38c19879d1f0e2b80cea56eca3243814ef8c72db1a463dd90b11aca1546f"
+  },
+  "package": "co.fallsoft.vipi",
+  "version_code": 1,
+  "version_name": "1.0",
+  "arm64_download_estimate_bytes": 416948474,
+  "device_spec": {
+    "supportedAbis": [
+      "arm64-v8a"
+    ],
+    "supportedLocales": [
+      "en"
+    ],
+    "screenDensity": 420,
+    "sdkVersion": 35
+  },
+  "arm64_split_count": 4,
+  "arm64_splits_signature_and_16k_zip_alignment": true,
+  "arm64_elf_16k_load_alignment": true,
+  "catalog_007_and_notice_exact": true,
+  "dependency_metadata_sha256": "cc821de894ff5aa1ea4ebd44a15e0136ca85eacd4a39cded3e4d3e882723711f",
+  "additional_release_checks": {
+    "debug_qualification_classes_absent": true,
+    "plan_loading_copy_in_optimized_dex": true,
+    "dependency_metadata_sha256": "cc821de894ff5aa1ea4ebd44a15e0136ca85eacd4a39cded3e4d3e882723711f",
+    "dependency_metadata_exactly_matches_prior_verified_inventory": true,
+    "explicit_translation_sdk_retained": true,
+    "language_id_sdk_absent": true,
+    "third_party_inventory_sha256": "f39848e334f86bb6b06a29c2ed2ce8c8cba7aa4e7d8599ae969878a366a9d76c"
+  },
+  "build_peak_additional_bytes": 2548662272,
+  "build_budget_bytes": 2952790016,
+  "split_peak_additional_bytes": 1418125312,
+  "split_budget_bytes": 1610612736,
+  "free_final": 17395638272,
+  "older_verified_artifact_retained": true,
+  "no_install_upload_provider_or_account_activity": true,
+  "source_export": "Earlier6ceaf source export retained; exact1c72322 source manifest available, full source export refresh not performed in this build task.",
+  "limits": [
+    "Local ARM64 compressed download estimate for specified device, not Play server measurement.",
+    "No physical16KiB execution or Play app-signing certificate verification.",
+    "Private signed preparation only; no upload/publication or licensing-clearance claim."
+  ]
+}
