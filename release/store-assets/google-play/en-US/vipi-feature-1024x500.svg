@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+<title>Vipi — Chat with friends. Learn new words.</title>
+<rect width="1024" height="500" fill="#234E3D"/>
+<g transform="translate(52 105) scale(2.65)">
+<path fill="#F9F7F2" d="M 27 29 Q 24 29 25.5 32 L 45 70 Q 47 74 51 74 L 56 74 L 45 52 L 35 32 Q 33.5 29 30 29 Z"/>
+<path fill="#DDF3A6" d="M 68 29 Q 64.5 29 63 32 L 48 62 L 57 80 L 81 32 Q 82.5 29 79 29 Z"/>
+</g>
+<g font-family="DejaVu Sans, sans-serif">
+<text x="385" y="210" font-size="88" font-weight="600" fill="#F9F7F2">Vipi</text>
+<text x="390" y="285" font-size="32" fill="#DDF3A6">Chat with friends.</text>
+<text x="390" y="331" font-size="32" fill="#DDF3A6">Learn new words.</text>
+</g></svg>

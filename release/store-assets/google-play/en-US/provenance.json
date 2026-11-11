@@ -1,0 +1,101 @@
+{
+  "schema": "vipi-google-play-store-assets-1",
+  "status": "saved_private_draft_not_submitted",
+  "app_id": "4975664610567218322",
+  "locale": "en-US",
+  "app_source_freeze": "6ceaf4ba6a86918e7fcbfea871f27549da271e7c",
+  "files": {
+    "play-chat-script-1080x2160.png": {
+      "bytes": 94299,
+      "sha256": "db998d20f34072cf1afacbda41fbda62096dcd5debfb58db0f7ef49be44f07b8"
+    },
+    "vipi-feature-1024x500.svg": {
+      "bytes": 746,
+      "sha256": "9e41a3d58bb04f8f95d0796f2cf86e13464bc7947241a8a9b598e8703a2240bf"
+    },
+    "vipi-icon-512.png": {
+      "bytes": 6668,
+      "sha256": "3be776ca2d180c8d89b1fc7ff3484b969997acf21944416fc7415943654831b7"
+    },
+    "play-chat-latin-1080x2160.png": {
+      "bytes": 93646,
+      "sha256": "4a784c1d7c83504fdf9f5e035c69b18f8d77c335fa66a21aa72159abac65b566"
+    },
+    "vipi-icon.svg": {
+      "bytes": 349,
+      "sha256": "02ded81bf2ae38ad74c68afa5e847362b3eebbb5a7c9f6a537a2b756144a403e"
+    },
+    "vipi-feature-1024x500.png": {
+      "bytes": 20311,
+      "sha256": "2f30abc16e6c55b203cdaa3a0bb97c44e1d4b010f3207100422588cc829d94c8"
+    },
+    "original-captures/latin-rgba.png": {
+      "bytes": 102937,
+      "sha256": "b289c84a910b71916446957c0f88e7ca0ae611a622f1947a1a3f2be65b5c778f"
+    },
+    "original-captures/script-rgba.png": {
+      "bytes": 103933,
+      "sha256": "cbc622503bb03a2a8cbed1f1a6b0ac02eed273c915332e3db9a890ca98239a80"
+    }
+  },
+  "brand": {
+    "icon": "Exact rendering of design/vipi-icon.svg; identical paths/colors",
+    "feature": "Original vector composition using same icon paths/colors and approved plain headline",
+    "renderer": "rsvg-convert version 2.58.0",
+    "font": "DejaVu Sans"
+  },
+  "screenshots": {
+    "installed_apk_sha256": "e93df7648b287e4348a8bcabfa30d6f63a50853f67f94e2136618f761f840513",
+    "qualification": "Actual existing007QA UI with visual parity; final signed artifact was not installed.",
+    "title": "Existing Vipi Review Alpha retained; no profile mutation or image retouching.",
+    "pixel_proof": [
+      {
+        "selected": "play-chat-latin-1080x2160.png",
+        "size": [
+          1080,
+          2160
+        ],
+        "mode": "RGB",
+        "opaque_alpha_range": [
+          255,
+          255
+        ],
+        "rgb_pixels_identical": true,
+        "sha256": "4a784c1d7c83504fdf9f5e035c69b18f8d77c335fa66a21aa72159abac65b566",
+        "bytes": 93646
+      },
+      {
+        "selected": "play-chat-script-1080x2160.png",
+        "size": [
+          1080,
+          2160
+        ],
+        "mode": "RGB",
+        "opaque_alpha_range": [
+          255,
+          255
+        ],
+        "rgb_pixels_identical": true,
+        "sha256": "db998d20f34072cf1afacbda41fbda62096dcd5debfb58db0f7ef49be44f07b8",
+        "bytes": 94299
+      }
+    ],
+    "display_restored": "1080x2400 at420dpi; first bubble Latin reading restored",
+    "new_messages_or_login": false
+  },
+  "console": {
+    "readback_verified": true,
+    "saved_text_unchanged": true,
+    "asset_count": 4,
+    "phone_order": [
+      "play-chat-script-1080x2160.png",
+      "play-chat-latin-1080x2160.png"
+    ],
+    "preview_sizes_are_server_thumbnails": true,
+    "binary_upload": false,
+    "review_submission": false,
+    "publication": false
+  },
+  "private_evidence_reference": "vipi-submit-20261110-r01/play-private-assets-r01 and store-screenshot-selection-r01",
+  "source_export_regeneration_needed": false
+}
