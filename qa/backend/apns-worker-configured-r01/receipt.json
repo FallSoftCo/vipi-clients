@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-11T01:20:55.989991+00:00",
+  "state": "configured_worker_active_not_delivery_qualified",
+  "credential_environment": "production only",
+  "bundle": "co.fallsoft.vipi",
+  "service": "vipi-push.service",
+  "unit_sha256": "f50d6ff954ef0dbe796891e85ed27af0ebda4eb203c38bcc7728a6664881385b",
+  "api_restarted": false,
+  "shared_services_unchanged": true,
+  "live_provider_delivery_qualified": false,
+  "FCM_configured": false,
+  "new_keys_created": 0,
+  "new_message_send_actions": 0,
+  "worker_restart_count": 0,
+  "readback_memory_bytes": 66637824,
+  "retained_prior_outbox_entries": 4,
+  "prior_pending_accepted": 0,
+  "outbox_after_worker_cleanup": 0,
+  "limits": [
+    "Existing older FCM test token retained; no FCM credential loaded",
+    "APNs production-only key cannot qualify development sandbox push",
+    "Real background arrival still requires an entitled signed client and valid device token"
+  ],
+  "private_receipt_sha256": "1d6866d4d968949b2306def33666c22adbfbe1f3fb639db77a428d9f8995f8fc"
+}

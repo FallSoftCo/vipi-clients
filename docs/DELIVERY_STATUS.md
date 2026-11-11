@@ -105,8 +105,12 @@ out and both Mac signing keychains remained locked at the read-only check;
 no signing attempt followed. Existing Apple sandbox server-notification success
 is preserved and was not replayed. Google Cloud requires company password
 verification; Firebase reports HTTP v1 messaging disabled. The live backend
-remains restricted staging with subscriptions unenforced and no APNs, FCM or
-DeepSeek configuration enabled. Public-page copy and the local exposure-record
+remains restricted staging with subscriptions unenforced. The retained
+production APNs credential is now loaded by the scoped Vipi push worker,
+which is active with no restart at readback; the API and shared services were
+not restarted. Real APNs device delivery remains unqualified, and the
+production-only credential does not qualify development sandbox delivery. FCM
+and DeepSeek remain unconfigured. See `qa/backend/apns-worker-configured-r01`. Public-page copy and the local exposure-record
 privacy addendum are now live; the latest help/plan copy is deployed at `c87fcd7`. The scoped deployment preserved the
 database/schema, environment configuration and shared nginx/PostgreSQL services;
 public routes return 200, protected routes still reject unauthenticated requests.
