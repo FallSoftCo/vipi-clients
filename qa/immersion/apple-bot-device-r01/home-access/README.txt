@@ -1,0 +1,3 @@
+Home access state correction, frozen 938c17f. Overlay only committed ios/Vipi/HomeView.swift on verified 8a4e02c native staging; no dirty input. Full 1064-file hash validation before and after build, generated app/detector source membership checked.
+
+Native Swift probe executes the exact extracted botDescription property with minimal snapshot stubs and the actual optional inactive comparison. Five states pass: absent store, nil snapshot, known inactive, active, explicit complimentary. It asserts copy and CTA predicates, not rendered pixels. Full unsigned simulator app build also passes; no install, startup, keychain, signing, archive or live requests.
