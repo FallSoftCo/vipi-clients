@@ -1,0 +1,40 @@
+{
+  "result": "PASS actual PostgreSQL16.15/asyncpg0.32.0 admission and nonzero reconciliation",
+  "source_revision": "a101978f5e78a9dfc60fd1a13de887b7d61158ec",
+  "scope": "One new private Unix-socket-only local instance; no production/other-database connection",
+  "checks": [
+    "unmarked actual API lifespan/listener/readiness and repeated asyncpg checkout",
+    "malformed empty marker denies real asyncpg checkout",
+    "well-shaped empty marker denies real asyncpg checkout",
+    "failed reconciliation rolls back data and retains durable hold",
+    "valid supplied restrictive evidence applies without reopening or erasing uncertain spend",
+    "held actual API lifespan refuses before listener"
+  ],
+  "peak_owned_bytes": 41129315,
+  "budget_bytes": 268435456,
+  "minimum_filesystem_free_bytes": 6476832768,
+  "floor_bytes": 4294967296,
+  "ordinary_unmarked_api": "Actual lifespan/listener/readiness200; repeated asyncpg checkout rollback leaves connection usable",
+  "restored_nonzero_fixture": "3users/devices, entitlement, personal/global spending, uncertain consumed request, conflicting retained deletion. Late deletion conflict rolls back prior deletion; marker survives. Valid supplied deletion/suspension clears freshness/deactivates devices and retains uncertain spend.",
+  "cleanup": "Owned pg_ctl fast stop exit0; PID file absent; regenerabledata removed; all pre-existing PostgreSQL PIDs still alive",
+  "limitations": [
+    "No actual backup decryption/pg_restore or external fleet runner modification",
+    "External production restore marker integration still required before exposing target",
+    "No completeness/authority verification, billing/spend/request artifact replay, native reenrollment or reopening permission",
+    "No dependency installation/runtime deployment/provider calls"
+  ],
+  "source_files": {
+    "backend/vipi/recovery_admission.py": "df21c541afd19a96796509234d9d023ac40d1e88f5e7d4d2c8c04246f2848e95",
+    "backend/vipi/recovery.py": "5cb92b6b42abbafb6164c94602a1f64baf7a42eed0666882d70a164cc3def912",
+    "backend/vipi/db.py": "52668ab45d70150051cb35b48301516c00d4eee1c36196f2298cf1e22f7ad9ce",
+    "backend/vipi/api.py": "46afe7615cfecf55f2c50cbdaf9ff9ee1b68fc5513b7127886d667d2509da473"
+  },
+  "artifacts": {
+    "probe-result.json": "5f8e8265049e7ef456bcf7c054d832d52105d79c27100ce45997cdcc8b28ada7",
+    "probe.py": "a660386b678ee48435bd592f1948f9f5367bd86dbc967dd4169bb7694a93a801",
+    "postgres.log": "a029a2705951cc06e1ba6eb501c9605e3f2efa4cfd2b4e7dec6ab493e364bb7a",
+    "run.py": "bee04304a84059a00c5778fd37e17c3af773e00b2e62be7dd847bb97796f03cf",
+    "stop.log": "ca19178a35ab4153b75b494963b66ce8243e1b94c173107c87b44d09db23652d",
+    "receipt.json": "43c127de187cc614d2a0ef3c186588e5abcdda39ba328ca25bb91312aba41d3c"
+  }
+}

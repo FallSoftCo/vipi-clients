@@ -1,0 +1,11 @@
+2026-11-10 21:08:38.207 EST [2605924] LOG:  starting PostgreSQL 16.15 (Ubuntu 16.15-0ubuntu0.24.04.1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, 64-bit
+2026-11-10 21:08:38.212 EST [2605924] LOG:  listening on Unix socket "/home/ai/Development/.vipi-recovery-pg-20261111-r01/socket/.s.PGSQL.5432"
+2026-11-10 21:08:38.229 EST [2605930] LOG:  database system was shut down at 2026-11-10 21:08:37 EST
+2026-11-10 21:08:38.244 EST [2605924] LOG:  database system is ready to accept connections
+2026-11-10 21:08:40.002 EST [2605924] LOG:  received fast shutdown request
+2026-11-10 21:08:40.008 EST [2605924] LOG:  aborting any active transactions
+2026-11-10 21:08:40.010 EST [2605924] LOG:  background worker "logical replication launcher" (PID 2605935) exited with exit code 1
+2026-11-10 21:08:40.010 EST [2605928] LOG:  shutting down
+2026-11-10 21:08:40.015 EST [2605928] LOG:  checkpoint starting: shutdown immediate
+2026-11-10 21:08:40.119 EST [2605928] LOG:  checkpoint complete: wrote 147 buffers (7.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.013 s, sync=0.070 s, total=0.110 s; sync files=124, longest=0.005 s, average=0.001 s; distance=599 kB, estimate=599 kB; lsn=0/1592480, redo lsn=0/1592480
+2026-11-10 21:08:40.124 EST [2605924] LOG:  database system is shut down

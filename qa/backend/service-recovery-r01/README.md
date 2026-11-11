@@ -103,3 +103,20 @@ application that still cannot reopen. On this host the real CLI's unchanged
 sub-MiB in-process lifecycle tests explicitly mock only the admission reading.
 This is not real-capacity or production restore qualification. Logs and exact
 source hashes accompany the new receipt; historical receipts remain unchanged.
+
+## Actual PostgreSQL admission qualification
+
+`postgresql-admission-r01/qualification.json` supersedes the earlier unexecuted
+PostgreSQL-dialect limitation for the library/connection guard only. One isolated
+PostgreSQL 16.15 instance, using actual asyncpg 0.32.0, passed normal API
+lifespan/listener/readiness, repeated checkout, malformed/empty marker refusal,
+nonzero reconciliation rollback and successful restrictive application while
+HOLD remains enforced. The private Unix-socket-only instance used about 39.3 MiB
+under its 256 MiB budget, stayed above the 4 GiB floor, was stopped using its own
+pg_ctl, and had its regenerable data removed. Pre-existing PostgreSQL processes
+were preserved. No new dependencies were installed.
+
+This does not qualify backup decryption/pg_restore or integrate the external
+fleet restore runner. It does not verify external evidence authority, replay
+billing/spend/request artifacts, authorize reopening, or qualify native disaster
+re-enrollment. No production/provider operation occurred.

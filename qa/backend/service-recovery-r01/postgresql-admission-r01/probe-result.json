@@ -1,0 +1,55 @@
+{
+  "driver": "asyncpg",
+  "socket_only": true,
+  "checks": [
+    "unmarked actual API lifespan/listener/readiness and repeated asyncpg checkout",
+    "malformed empty marker denies real asyncpg checkout",
+    "well-shaped empty marker denies real asyncpg checkout",
+    "failed reconciliation rolls back data and retains durable hold",
+    "valid supplied restrictive evidence applies without reopening or erasing uncertain spend",
+    "held actual API lifespan refuses before listener"
+  ],
+  "reopen_authorized": false,
+  "report": {
+    "schema_version": 1,
+    "snapshot_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "evidence_sha256": "5b65271b15b842692677ac9407b3647494cb241dc9acc3163596911de8e8365f",
+    "counts": {
+      "deleted_accounts_present": 1,
+      "deletion_receipts_added": 1,
+      "suspensions_applied": 1,
+      "unknown_restrictions": 0,
+      "restore_requests_not_applied": 0
+    },
+    "claimed_complete": true,
+    "authority_verified": false,
+    "interval_complete_verified": false,
+    "reopen_authorized": false,
+    "bot_dispatch_authorized": false,
+    "runtime_gate_installed": true,
+    "required_before_reopen": [
+      "independently verified deletion/restriction interval and cutoff",
+      "provider entitlement verification",
+      "personal/global spend and consumed-request reconciliation",
+      "enforced offline-to-live admission gate",
+      "explicit native device re-enrollment"
+    ],
+    "spend_policy": "retained counters/request IDs unchanged except required account erasure; global charges retained",
+    "services_must_remain_stopped": true,
+    "restore_id": "6458bd26-d4cf-4521-859e-1fd6f31136df",
+    "restore_state": "HOLD",
+    "coverage_claims_supplied": true,
+    "coverage_claims_sha256": "6449af585b737d32aaa0bc154a923850503f9bc29da220fa0178ed8da1be36cd",
+    "reconciled_domains": [
+      "deletions",
+      "restrictions"
+    ],
+    "unapplied_domains": [
+      "billing",
+      "spend",
+      "requests"
+    ],
+    "native_reenrollment_qualified": false
+  },
+  "passed": true
+}

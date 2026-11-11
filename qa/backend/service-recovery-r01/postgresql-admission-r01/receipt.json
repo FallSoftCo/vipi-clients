@@ -1,0 +1,81 @@
+{
+  "floor": 4294967296,
+  "budget": 268435456,
+  "free_before": 6518202368,
+  "stages": [
+    {
+      "name": "initdb",
+      "args": [
+        "/usr/lib/postgresql/16/bin/initdb",
+        "-D",
+        "/home/ai/Development/.vipi-recovery-pg-20261111-r01/data",
+        "--auth-local=trust",
+        "--auth-host=reject",
+        "--no-locale",
+        "--encoding=UTF8"
+      ],
+      "exit": 0,
+      "seconds": 1.213543969905004
+    },
+    {
+      "name": "start",
+      "args": [
+        "/usr/lib/postgresql/16/bin/pg_ctl",
+        "-D",
+        "/home/ai/Development/.vipi-recovery-pg-20261111-r01/data",
+        "-l",
+        "/home/ai/Development/.vipi-recovery-pg-20261111-r01/postgres.log",
+        "-w",
+        "start"
+      ],
+      "exit": 0,
+      "seconds": 0.3037976350169629
+    },
+    {
+      "name": "probe",
+      "args": [
+        "/home/ai/Development/investigations/vipi-production-delivery-20261107/backend-env/bin/python",
+        "/home/ai/Development/investigations/vipi-submit-20261110-r01/backend-restore-admission-pg-r01/probe.py"
+      ],
+      "exit": 0,
+      "seconds": 1.5193005648907274
+    }
+  ],
+  "completed": true,
+  "preexisting_postgres_pids": [
+    "1926",
+    "2066",
+    "2067",
+    "2172",
+    "2173",
+    "2174",
+    "4808",
+    "5047",
+    "5048",
+    "5051",
+    "5052",
+    "5053",
+    "2427078",
+    "2431653",
+    "2444367",
+    "2461146",
+    "2507156",
+    "2528685",
+    "2554101",
+    "2565436",
+    "3255713",
+    "3255722",
+    "3255723",
+    "3255727",
+    "3255728",
+    "3255729"
+  ],
+  "peak_owned_bytes": 41129315,
+  "min_free": 6476832768,
+  "owned_postgres_pid": 2605924,
+  "owned_stop_exit": 0,
+  "owned_pid_file_absent": true,
+  "preexisting_pids_alive": true,
+  "regenerable_data_removed": true,
+  "free_after": 6518161408
+}
