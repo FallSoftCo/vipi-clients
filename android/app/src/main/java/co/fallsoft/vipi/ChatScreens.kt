@@ -260,7 +260,6 @@ import java.util.UUID
                 }
             }, contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 item(key = "history-header") {
-                    if (immersion.ready == false && onLanguages != null) TextButton(onClick = onLanguages) { Text("Prepare languages") }
                     if (earlierAvailable) TextButton(onClick = { earlier() }) { Text("Earlier messages") }
                     if (messages.isEmpty()) Column(Modifier.fillMaxWidth().padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Icon(Icons.Outlined.Lock, null)
