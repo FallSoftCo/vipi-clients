@@ -1,0 +1,53 @@
+{
+  "state": "live_review_access_verified_bot_send_pending_provider",
+  "finished": "2026-11-11T03:14:03.982208+00:00",
+  "base_review_copy_visible": true,
+  "bot_review_copy_visible": true,
+  "bot_allowance_visible": "150 of 150 replies left",
+  "bot_consent_accepted": false,
+  "bot_messages_sent": 0,
+  "purchase_or_trial_started": false,
+  "login_or_enrollment_performed": false,
+  "changed_encrypted_paths": [
+    "no_backup/private-records/session",
+    "no_backup/messages/1804cd9d-61f1-4b45-b70d-6c4811299c81/messages.sqlite",
+    "no_backup/private-records/profile-e528e8690c5ca78395998353872f96da8edcf6946ac5c3d4f1ad46d51de40118"
+  ],
+  "history_byte_identical": false,
+  "evidence_sha256": {
+    "plans.xml": "59da014b634d22ade0a45721d315e4ae34576f2226c4f863363850e74c46691c",
+    "plans.png": "9ce82eb80217468bdcc54bdbd3e4ae0b85071cbf6b971f4df6f79fd8a8a7f330",
+    "bot-current.xml": "6939446548f5bf1c6130450554e992c2d4e82549300ef256df39ff25e416d0fe",
+    "bot-plan.xml": "bdb94f85a2d93801130d42a9186962a4f09da40533e549a3ea5a8ef1baf5ba79",
+    "bot-plan.png": "ee5bf22b07a11af9ddf821b84a50aef275539b3360cee4568ef2b4bcc4919c83"
+  },
+  "capture_note": "bot-before.xml retained stale dump after null-root failure; excluded from evidence",
+  "next": "Await provider ready; one unique synthetic message via visible consent and Send, never automatic retry",
+  "prepared_prompt": "Vipi QA bot check 20261111-r01. Reply with one short sentence greeting a friend in English.",
+  "current_screen": "Bot mini plan",
+  "limitations": "QA build 0fcf0e2; not new signed release; provider not configured at readback; no claim of successful bot reply",
+  "sqlite_table_comparison": {
+    "before": {
+      "android_metadata": {
+        "count": 1,
+        "rows_sha256": "82ff0ad8d0d6619bc5e54cd5076b69ee63f92616e61d0d99b449649a009e26b0"
+      },
+      "records": {
+        "count": 6,
+        "rows_sha256": "ab6477be5576066fba795d91d919bed1b7651df4713c14a6ab26c728ce69573d"
+      }
+    },
+    "after-readback": {
+      "android_metadata": {
+        "count": 1,
+        "rows_sha256": "82ff0ad8d0d6619bc5e54cd5076b69ee63f92616e61d0d99b449649a009e26b0"
+      },
+      "records": {
+        "count": 6,
+        "rows_sha256": "ab6477be5576066fba795d91d919bed1b7651df4713c14a6ab26c728ce69573d"
+      }
+    }
+  },
+  "sqlite_logical_rows_identical": true,
+  "state_preservation_note": "Encrypted session/profile files refreshed during normal authenticated resume; SQLite file bytes changed, logical row comparison recorded. No reset, login, enrollment or sends."
+}

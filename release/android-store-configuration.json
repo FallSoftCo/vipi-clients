@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-11T03:02:15.869563+00:00",
+  "checked_at": "2026-11-11T03:58:03.267659+00:00",
   "company": "Fallible Software, Co.",
   "developer_id": "4750854689150545006",
   "app_id": "4975664610567218322",
@@ -67,16 +67,25 @@
         "South Korea": "12+"
       },
       "certificate_id": "Not yet displayed by console"
-    }
+    },
+    "target_audience": [
+      "13-15",
+      "16-17",
+      "18 and over"
+    ],
+    "data_safety": "saved; ten handled types, three Shared SDK metric categories"
   },
-  "remaining_declarations": [
-    "sign_in_details",
-    "target_audience",
-    "data_safety"
-  ],
+  "remaining_declarations": [],
   "reviewer_access": {
-    "declaration_saved": false,
-    "full_premium_access_attested": false,
-    "reason": "Actual form requires all premium features; complimentary-access implementation and Bot provider qualification are unfinished."
+    "declaration_saved": true,
+    "full_premium_access_attested": true,
+    "review_accounts": 2,
+    "reason": "Explicit live complimentary Base/Bot access and one confirmed native provider reply; no purchase/trial/OTP required.",
+    "optional_google_partner_feedback_testing": false
+  },
+  "app_content_readback": {
+    "actioned": 10,
+    "need_attention": 0,
+    "receipt": "qa/release/play-content-20261111/receipt.json"
   }
 }

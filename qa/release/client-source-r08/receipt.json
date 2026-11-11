@@ -1,0 +1,17 @@
+{
+  "state": "private_source_archive_verified",
+  "revision": "1c72322fc4cf7edd951ca30e611a58919e7fb135",
+  "archive_bytes": 587725861,
+  "archive_sha256": "a208f8fb35412ca83205341b0f02fc34bfd65d104b3eb9ec32ca1320d65a1155",
+  "manifest_sha256": "3069baeb3ad5986cff1ea8d1252646ae5c3e2939b30f1d14c2572863519fee13",
+  "exact_members": 5842,
+  "git_blob_verified": 5201,
+  "embedded_manifest_exact": true,
+  "published": false,
+  "generated_lexical_artifacts": 66,
+  "retained_upstream_archives": 575,
+  "retired_old_r07_archive": true,
+  "apple_exported_git_files_bound_to_archive_revision": 408,
+  "complete_distribution_or_clean_rebuild_claim": false,
+  "source_preparation_receipt_sha256": "f3113d615f509d8fb0b3f8cef87559749647550a8a8b7c0fad58c98d43975c80"
+}

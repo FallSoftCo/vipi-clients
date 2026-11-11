@@ -1,0 +1,63 @@
+{
+  "state": "active_verified",
+  "old": "2796f70d378e1cf5f5d8fd5781fd16707d755796",
+  "new": "b144e1bd95b5c8ce9ae5a8d4b54bbd4059822465",
+  "owner": "01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "started": "2026-11-11T03:11:02.652726+00:00",
+  "scope": "API-only reviewer-access code/configuration for two preexisting owned accounts. No purchase, provider, message, database/schema, push-worker or shared-service mutation.",
+  "owner_constraints": "Both native owners acknowledge offline-only work; accepted queue, push queue and account deletion work must be empty.",
+  "rollback": "Restore exact old.env then reactivate exact prior release, API only.",
+  "directory_mode_corrections": [],
+  "member_count": 2572,
+  "bytes_and_no_extra_files_verified_before": true,
+  "directory_modes_match_prior": true,
+  "bytes_and_no_extra_files_verified_after": true,
+  "service_user_import_verified": true,
+  "old_environment_sha256": "a216d91bae629041811cad0279560df3d51b0e5b9324edec21e041df64a24018",
+  "new_environment_sha256": "ad4305743f0d43e18430a556a38ee96e0277ba408b67b04d518c272760f1e5cd",
+  "reviewer_count": 2,
+  "reviewer_ids_sha256": "0c4d1b954d24e1e41e883561b4b5fba702126de0460ac74ae4f453ac09309654",
+  "changed_files": [
+    "deps/vipi/config.py",
+    "deps/vipi/subscriptions.py",
+    "deps/vipi_service-0.1.0.dist-info/RECORD"
+  ],
+  "shared_before": {
+    "nginx.service": "MainPID=1674\nActiveState=active\nActiveEnterTimestampMonotonic=12383202",
+    "postgresql@16-main.service": "MainPID=1199\nActiveState=active\nActiveEnterTimestampMonotonic=13488911"
+  },
+  "database_before": [
+    "154486",
+    "20261107_05",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  "worker_before": "MainPID=1567869\nNRestarts=0\nActiveState=active",
+  "scheduled_workers_before": {
+    "vipi-billing.service": "inactive",
+    "vipi-expiry.service": "inactive"
+  },
+  "continuation_of": "reviewer-access-20261111-r04",
+  "shared_after": {
+    "nginx.service": "MainPID=1674\nActiveState=active\nActiveEnterTimestampMonotonic=12383202",
+    "postgresql@16-main.service": "MainPID=1199\nActiveState=active\nActiveEnterTimestampMonotonic=13488911"
+  },
+  "database_after": [
+    "154486",
+    "20261107_05",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  "worker_after": "MainPID=1567869\nNRestarts=0\nActiveState=active",
+  "finished": "2026-11-11T03:11:12.625296+00:00",
+  "grants_verified_without_provider_call": true,
+  "purchases_written": false,
+  "public_registration": false,
+  "limits": "Native authenticated readback pending; Bot provider still absent, so full-premium-access declaration remains incomplete."
+}

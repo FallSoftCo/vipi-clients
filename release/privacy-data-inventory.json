@@ -784,6 +784,26 @@
       "scope_limit": "Resolved notices and combined canonical007 debug APK/native checks passed. Language-ID classes absent; translate classes and CLD2 retained. Final signed release remains pending; other SDK operational-data disclosures still apply.",
       "store_forms_submitted": false,
       "qualification_receipt": "qa/immersion/directional-dictionary-007-android/receipt.json"
+    },
+    {
+      "reviewed_at": "2026-11-11",
+      "scope": "Current Android Play questionnaire completed from exact source, provider terms and actual live ingress; no whole-app traffic or legal-compliance certification.",
+      "source_revision": "1c72322fc4cf7edd951ca30e611a58919e7fb135",
+      "google_play_data_safety_saved": true,
+      "google_play_app_review_submitted": false,
+      "apple_privacy_form_updated": false,
+      "declared_types": 10,
+      "shared_types": [
+        "App interactions",
+        "Diagnostics",
+        "Device or other IDs"
+      ],
+      "sharing_basis": "ML Kit own operational metrics; WorkOS/FCM specific processor exceptions; optional vBot named user-directed consent exception.",
+      "contacts_scope": "Readable conversation relationships and block graph; no phone address-book permission.",
+      "search_scope": "Optional exact username lookup, ephemeral; actual nginx/uvicorn no-access-log and transient handler verified.",
+      "partial_deletion_optional_field": "blank",
+      "evidence": "qa/release/play-content-20261111/data-safety.json",
+      "actual_bot_qualification": "qa/android/bot-live-r02/receipt.json"
     }
   ]
 }

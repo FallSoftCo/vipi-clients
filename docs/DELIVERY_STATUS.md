@@ -47,9 +47,11 @@ messages were exchanged, decrypted to their original text and marked Delivered.
 This is foreground human-chat evidence, not public onboarding, purchases,
 background push or Apple live authentication qualification.
 
-The service now runs `2796f70`; the API and existing push worker were updated
-without changing the database/schema, configuration or shared services. A new
-database-local restore HOLD blocks normal access to marked copies, qualified
+The service now runs `b97b2c9`, including the public vBot guardian-consent terms. Its two owned reviewer accounts have explicit
+complimentary Base and Bot mini access, with no purchase, expiry or trial invented.
+The Android app verified both review-access labels against the live service.
+The API was updated without changing the database/schema, push or shared services.
+A database-local restore HOLD blocks normal access to marked copies, qualified
 with SQLite and an isolated PostgreSQL/asyncpg instance. The live database is
 unmarked. External restore integration and authoritative financial replay remain
 unfinished; no restored service is authorized to reopen. See the
@@ -57,8 +59,20 @@ unfinished; no restored service is authorized to reopen. See the
 
 The scoped APNs worker is active with the retained production credential.
 Actual APNs device delivery remains unqualified; a production credential does
-not qualify development-sandbox delivery. FCM and the DeepSeek bot service remain
-unconfigured. Public help/privacy/terms routes are live. Relevant evidence:
+not qualify development-sandbox delivery. FCM remains unconfigured. The DeepSeek
+bot provider is configured with a dedicated company credential. One normal
+Android request received a real response in 2.353 seconds, with allowance changing
+from 150 to 149 and its reservation settled. This single result is not typical
+latency or broad response-quality evidence. An earlier request failed before
+provider reservation because both clients omitted device credentials; both
+clients now attach the existing registered credential, preserve drafts when it
+is missing, and never automatically resend an uncertain request. The earlier
+request remains preserved and was not retried. See the
+[actual Bot result](../qa/android/bot-live-r02/receipt.json).
+Public help/privacy/terms routes are live. See
+[reviewer access](../qa/backend/reviewer-access-r01/live-activation/deployment.json)
+and [provider configuration](../qa/backend/bot-provider-configured-r01/receipt.json).
+Relevant evidence:
 [production authentication](../qa/backend/production-auth-staging-r01/receipt.json),
 [native Android authentication](../qa/backend/native-production-auth-android-r01/receipt.json),
 [two-message exchange](../qa/backend/native-peer-chat-android-r01/receipt.json), and
@@ -71,20 +85,26 @@ must not be confused with restored server credentials.
 
 ## Release artifacts, source and stores
 
-The retained native release artifacts bind to committed app source `6ceaf4b`.
-They are superseded for submission by the new complimentary reviewer-access
-model and copy; updated native qualification is underway.
-Android's private signed bundle passed signature, production configuration,
-language data, notice and 16 KiB alignment checks. Its device-specific ARM64
-download estimate is 416,946,355 bytes; Play has not measured or accepted it.
-The corrected Apple device archive passed actual compile-input and packaged
-asset verification. Seven inherited Swift experiments were preserved outside
-its inputs. It remains unsigned, nondeployable and subject to the existing
-signing/keychain hold. Earlier diagnostic archives are superseded.
+Current Android release and client-source artifacts bind to `1c72322`. The
+Apple archive binds to `22f6ba0`; its exported Apple source files match that same
+client-source package. Android's signed bundle passes source, configuration,
+notice, signature and 16 KiB alignment checks. Its specified ARM64 download
+estimate is 416,948,474 bytes; Play has not measured or accepted it.
 
-Private source package **r07** matches the same app revision; all 5,840 archive
-members were verified. It is not published. Superseded r06 archive bytes were
-retired after replacement verification; its metadata remains. See
+The exact signed Android startup check stopped before installation because the
+existing production package contains Alpha’s encrypted account/history under a
+different signer. It was preserved; no package or account was erased.
+
+Apple's updated device archive verifies actual compile inputs, 223 catalog
+assets, 199 notices and 13 privacy manifests. Seven inherited Swift experiments
+remain excluded. The archive is unsigned and nondeployable under the existing
+signing/keychain hold. Both keychains were still locked in the read-only
+04:03 UTC check. The superseded unsigned archive was removed after exact
+replacement checks; its receipts remain.
+
+Private source package **r08** verifies all 5,842 members, including 408 Apple
+Git files bound to the archive revision. It is not published. Superseded r07
+archive bytes were retired after verification; metadata and source remain. See
 [current artifact records](../release/build-artifacts-20261111.json) and
 [client build instructions](../CLIENT_SOURCE.md).
 
@@ -94,9 +114,9 @@ the US, each with its own one-month trial for eligible subscribers. Configuratio
 is not a completed transaction. Google Play private app `4975664610567218322` now exists as **Vipi** under
 Fallible Software, Co. Its text, Communication category, support contact and
 privacy URL are saved. The icon, feature graphic and two actual Android chat
-screenshots are also saved, Latin letters first. Privacy URL, five factual
-content declarations and IARC content ratings are complete. Sign-in details,
-target audience and Data Safety remain. No subscription products exist yet: the console requires
+screenshots are also saved, Latin letters first. All ten app-content declarations
+are complete, including both reviewer accounts, the 13+ audience and Data Safety.
+The console shows none needing attention. No subscription products exist yet: the console requires
 an app bundle upload before allowing their creation. See
 [Apple configuration](../release/apple-store-configuration.json),
 [Android review preparation](../release/ANDROID_STORE_REVIEW.md), and
@@ -110,9 +130,9 @@ an app bundle upload before allowing their creation. See
   choice. The ML Kit/AGPL question is dependency-specific; Signal's store presence
   is neither blanket permission nor a blanket prohibition. Billing/Play terms
   remain separate. Do not remove optional features without approval.
-- Complete provider configuration and actual background delivery, Bot mini
-  responses/allowance, purchases/renewals/restoration and store reviewer access.
-  Existing staging exemptions do not qualify paid customer access.
+- Complete FCM configuration and real background delivery, store purchases,
+  renewals and restoration. One Bot response/allowance and complimentary reviewer
+  access now pass; these do not qualify ordinary paid customer access.
 - Reconcile store metadata, privacy disclosures, current screenshots and actual
   release artifacts before any declarations, upload or submission. Use the
   corrected [export assessment](../release/EXPORT_ASSESSMENT.md); do not reinstate

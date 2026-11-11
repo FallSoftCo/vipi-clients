@@ -1,0 +1,176 @@
+{
+  "recorded_at": "2026-11-11T03:58:03.267659+00:00",
+  "app_id": "4975664610567218322",
+  "state": "saved in private Play app; not app review or publication",
+  "types": [
+    {
+      "type": "Name",
+      "collected": true,
+      "shared": false,
+      "required": true,
+      "ephemeral": false,
+      "collected_purposes": [
+        "App functionality",
+        "Account management"
+      ],
+      "shared_purposes": [],
+      "basis": "api.py61 mandatory nonempty display_name; profile presentation. WorkOS processing exception; intended peer profile disclosure user initiated."
+    },
+    {
+      "type": "Email address",
+      "collected": true,
+      "shared": false,
+      "required": true,
+      "ephemeral": false,
+      "collected_purposes": [
+        "App functionality",
+        "Account management",
+        "Fraud prevention, security, and compliance"
+      ],
+      "shared_purposes": [],
+      "basis": "Hosted password authentication, verification/recovery/security. WorkOS subscriber processing exception."
+    },
+    {
+      "type": "User IDs",
+      "collected": true,
+      "shared": false,
+      "required": true,
+      "ephemeral": false,
+      "collected_purposes": [
+        "App functionality",
+        "Account management",
+        "Fraud prevention, security, and compliance"
+      ],
+      "shared_purposes": [],
+      "basis": "WorkOS subject, Vipi account/routing/entitlement IDs; expected addressed messaging and service-provider processing."
+    },
+    {
+      "type": "Purchase history",
+      "collected": true,
+      "shared": false,
+      "required": true,
+      "ephemeral": false,
+      "collected_purposes": [
+        "App functionality",
+        "Account management",
+        "Fraud prevention, security, and compliance"
+      ],
+      "shared_purposes": [],
+      "basis": "Base subscription entitlement requires purchase/trial verification; no card numbers. Store verification is user-initiated purchase flow."
+    },
+    {
+      "type": "Other in-app messages",
+      "collected": true,
+      "shared": false,
+      "required": false,
+      "ephemeral": false,
+      "collected_purposes": [
+        "App functionality",
+        "Fraud prevention, security, and compliance"
+      ],
+      "shared_purposes": [],
+      "basis": "Optional vBot explicit named consent and selected abuse reports. Human E2EE body excluded; report persistence and API disk cache prevent ephemeral answer."
+    },
+    {
+      "type": "Contacts",
+      "collected": true,
+      "shared": false,
+      "required": true,
+      "ephemeral": false,
+      "collected_purposes": [
+        "App functionality",
+        "Fraud prevention, security, and compliance"
+      ],
+      "shared_purposes": [],
+      "basis": "Google definition includes social graph/contact recency. db.py31-44 readable sender/recipient/time,48-51 blocks. No address-book permission is asserted."
+    },
+    {
+      "type": "In-app search history",
+      "collected": true,
+      "shared": false,
+      "required": false,
+      "ephemeral": true,
+      "collected_purposes": [
+        "App functionality"
+      ],
+      "shared_purposes": [],
+      "basis": "Live production /opt/vipi/current/deps/vipi/api.py find_person performs transient exact username DB lookup; no query write. nginx conf.d/vipi-private-production.conf access_log off and uvicorn --no-access-log confirmed. Critical error log retained but currently0bytes/0people-route entries; no normal query retention observed. Optional lookup; functionality only."
+    },
+    {
+      "type": "App interactions",
+      "collected": true,
+      "shared": true,
+      "required": true,
+      "ephemeral": false,
+      "collected_purposes": [
+        "App functionality",
+        "Fraud prevention, security, and compliance",
+        "Analytics"
+      ],
+      "shared_purposes": [
+        "Analytics",
+        "Fraud prevention, security, and compliance"
+      ],
+      "basis": "Delivery state/account/rate records plus MLKit feature/model lifecycle events. MLKit metrics under Google privacy terms, no user telemetry optout."
+    },
+    {
+      "type": "Diagnostics",
+      "collected": true,
+      "shared": true,
+      "required": true,
+      "ephemeral": false,
+      "collected_purposes": [
+        "Analytics",
+        "App functionality",
+        "Fraud prevention, security, and compliance"
+      ],
+      "shared_purposes": [
+        "Analytics",
+        "Fraud prevention, security, and compliance"
+      ],
+      "basis": "MLKit device/app/OS, latency, errors and operational performance; Google own API maintenance/improvement/abuse purposes. No Crashlytics/crash-log claim."
+    },
+    {
+      "type": "Device or other IDs",
+      "collected": true,
+      "shared": true,
+      "required": true,
+      "ephemeral": false,
+      "collected_purposes": [
+        "App functionality",
+        "Fraud prevention, security, and compliance",
+        "Analytics"
+      ],
+      "shared_purposes": [
+        "Analytics",
+        "Fraud prevention, security, and compliance"
+      ],
+      "basis": "Vipi required device identity plus FCM FIDs and MLKit installation IDs. FCM customer processing exempt; MLKit metric identifiers separately proposed Shared."
+    }
+  ],
+  "provider_classification": {
+    "WorkOS": "AuthKit subscriber identity: service-provider exception supported by DPA incorporation + documented instructions \u00a73(a); \u00a73(i) internal service optimization noted, no blanket statement about WorkOS own business/website visitors.",
+    "Firebase": "FCM named under Firebase Data Processing Terms; customer data processing instructions \u00a75.2 support exception for FIDs/push. User-agent adoption statistics explicitly never linked to user/device identifier. No Analytics or BigQuery optional collection inferred.",
+    "MLKit": "Propose Shared for operational IDs/usage/diagnostics. Terms reserve metrics use under Google Privacy Policy, not established exclusively on Vipi instructions; no onward transfer disclosure is narrower than developer-to-Google transfer. This is a classification inference requiring root review, not a prohibition or new consent requirement.",
+    "DeepSeek": "Root accepted user-initiated/prominent named consent exception for optional vBot. Remains collected/optional/not ephemeral; no provider-exclusive-processing claim."
+  },
+  "official_sources": {
+    "google_definitions": "https://support.google.com/googleplay/android-developer/answer/10787469?hl=en",
+    "firebase_terms_list": "https://firebase.google.com/terms",
+    "firebase_dpa": "https://firebase.google.com/terms/data-processing-terms",
+    "firebase_disclosure": "https://firebase.google.com/docs/android/play-data-disclosure",
+    "workos_dpa": "https://workos.com/legal/data-processing-addendum",
+    "mlkit_terms": "https://developers.google.com/ml-kit/terms",
+    "mlkit_disclosure": "https://developers.google.com/ml-kit/android-data-disclosure"
+  },
+  "live_ingress_evidence": {
+    "host": "fallsoft-production-20261106",
+    "release": "b144e1bd95b5c8ce9ae5a8d4b54bbd4059822465",
+    "nginx": "/etc/nginx/conf.d/vipi-private-production.conf lines30-31 access_log off/error_log crit",
+    "uvicorn": "systemctl cat vipi-api.service ExecStart includes --no-access-log --log-level warning",
+    "query_handler": "/opt/vipi/current/deps/vipi/api.py440+ find_person",
+    "error_log_observation": "0bytes,0 matches /v1/people/; no log contents exposed",
+    "scope": "Read-only SSH; no service/config mutations"
+  },
+  "limits": "Declared production behavior, not proof of provider delivery, billing or final store approval."
+}

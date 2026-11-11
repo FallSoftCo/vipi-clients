@@ -12,9 +12,9 @@ Do not use the unrelated personal developer account or qualification build 63.
 Google Play private app `4975664610567218322` now exists as **Vipi** in company
 account `4750854689150545006`, package `co.fallsoft.vipi`. Its reviewed text,
 Communication category, support contact, privacy URL, icon, feature graphic and
-two actual Android chat screenshots are saved. Privacy, five factual content
-declarations and IARC ratings are complete; sign-in details, target audience and
-Data Safety remain. Creation
+two actual Android chat screenshots are saved. All ten app-content declarations
+are complete, including two reviewer accounts, the 13+ target audience and Data
+Safety. The console shows none needing attention. Creation
 preceded content setup and publication in the documented Play workflow; it did
 not upload or distribute an app. The corrected `EXPORT_ASSESSMENT.md` remains
 its technical export basis. Exact linked-binary distribution terms remain a
@@ -24,9 +24,9 @@ Google Cloud separately requires company reauthentication; Firebase HTTP v1
 messaging remains disabled. Firebase page access is not delivery qualification.
 
 `privacy-data-inventory.json` maps implemented data flows and pinned SDK
-declarations to candidate store categories. It records remaining questions and
-source hashes; it is not a completed questionnaire. Reconcile it with the final
-signed binaries, provider configuration and deployed notice before submission.
+declarations. Its latest incremental review links the saved Google questionnaire;
+earlier source inventories remain dated. Apple privacy entry and final signed
+binary/configuration reconciliation remain separate work.
 
 ## Listing and screenshots
 
@@ -55,15 +55,17 @@ dark, large-text and RTL/device-size QA are validation work, not a requirement
 to crowd every listing image with multiple variants. Final sizes and required
 device families come from the current store console.
 
-The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The retained bundle at `6ceaf4b` is signed with the retained upload key and estimates 416,946,355 bytes for the verified ARM64 device configuration. Four split APKs pass signer and 16 KiB alignment checks. This is a local estimate; Google Play has not calculated or accepted it. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. It is superseded for submission by the new reviewer-access model/copy. See `store-size-constraints.json`.
+The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The retained bundle at `1c72322` is signed with the retained upload key and estimates 416,948,474 bytes for the verified ARM64 device configuration. Four split APKs pass signer and 16 KiB alignment checks. This is a local estimate; Google Play has not calculated or accepted it. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. It includes the current reviewer-access, Bot authentication and plan-loading fixes. See `store-size-constraints.json`.
 
 ## Reviewer access
 
 Android-specific current labels, Data Safety candidates, merged permissions,
 deletion readback and exact access limits are in `ANDROID_STORE_REVIEW.md`.
 The verified two-account native exchange used restricted staging with production
-WorkOS and subscription enforcement disabled; it is not Play billing or final
-reviewer-entitlement qualification.
+WorkOS and subscription enforcement disabled. Explicit complimentary Base and
+Bot mini grants were subsequently verified, including one actual Bot response.
+Play App access now contains both accounts and device-replacement instructions.
+This is reviewer access evidence, not Play billing qualification.
 
 Use an owned review account against the real release environment, with a
 separate consenting test peer and synthetic message history. Record credentials

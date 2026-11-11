@@ -1,0 +1,59 @@
+{
+  "state": "active_verified",
+  "started": "2026-11-11T03:21:29.222637+00:00",
+  "owner": "01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "revision": "b144e1bd95b5c8ce9ae5a8d4b54bbd4059822465",
+  "scope": "DeepSeek API key only; API-only restart. No provider call, purchase/message, DB/schema, push/shared-service action.",
+  "old_environment_sha256": "ad4305743f0d43e18430a556a38ee96e0277ba408b67b04d518c272760f1e5cd",
+  "key_sha256": "84db43d34935f223572ada9aac15459008687a8efcd21364d1314e5d86f4189f",
+  "rollback": "Restore exact old.env and restart API only; runtime pointer unchanged",
+  "owner_window": "Root confirmed completed key SCP and no overlapping API config changes; Android confirmed pause separately",
+  "provider_called": false,
+  "previous_attempt": "r01 held before upload/configuration; original key revoked by root",
+  "new_environment_sha256": "8fe716ec6df005b00456faedf3217c48c3a3352724c0aba658d3ebe251df0f86",
+  "changed_config_fields": [
+    "deepseek_api_key"
+  ],
+  "reviewer_count": 2,
+  "reviewer_ids_sha256": "0c4d1b954d24e1e41e883561b4b5fba702126de0460ac74ae4f453ac09309654",
+  "model": "deepseek-flash",
+  "output_tokens": 384,
+  "personal_budget": 500000000,
+  "global_budget": 20000000000,
+  "monthly_replies": 150,
+  "shared_before": {
+    "nginx.service": "MainPID=1674\nActiveState=active\nActiveEnterTimestampMonotonic=12383202",
+    "postgresql@16-main.service": "MainPID=1199\nActiveState=active\nActiveEnterTimestampMonotonic=13488911"
+  },
+  "push_before": "MainPID=1567869\nNRestarts=0\nActiveState=active",
+  "database_before": [
+    "154486",
+    "20261107_05",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  "environment_mode": "0o640",
+  "shared_after": {
+    "nginx.service": "MainPID=1674\nActiveState=active\nActiveEnterTimestampMonotonic=12383202",
+    "postgresql@16-main.service": "MainPID=1199\nActiveState=active\nActiveEnterTimestampMonotonic=13488911"
+  },
+  "push_after": "MainPID=1567869\nNRestarts=0\nActiveState=active",
+  "database_after": [
+    "154486",
+    "20261107_05",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  "api_pid": 1639621,
+  "running_key_hash_verified": true,
+  "finished": "2026-11-11T03:21:34.031698+00:00",
+  "real_provider_response_qualified": false
+}
