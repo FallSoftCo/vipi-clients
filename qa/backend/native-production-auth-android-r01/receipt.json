@@ -1,0 +1,36 @@
+{
+  "schema": "vipi-native-production-auth-android-1",
+  "at": "2026-11-11T00:32:43.597421+00:00",
+  "identity_provider": "WorkOS production public client",
+  "service_environment": "restricted staging; two owned review accounts",
+  "api_revision": "44732382688619c42028234f4a58163a69044784",
+  "client": "Android Debug on existing emulator; no release-binary qualification",
+  "verified": {
+    "hosted_pkce_callback": true,
+    "encrypted_session_and_token_same_owned_subject": true,
+    "pending_pkce_cleared": true,
+    "native_profile_creation": true,
+    "backend_profile_subject_and_display_name": true,
+    "active_device_count": 1,
+    "public_key_bundle_count": 1,
+    "prekey_count": 20,
+    "normal_home_enabled": true,
+    "competing_owned_callback_restored": true
+  },
+  "reconciliation": "Initial wrong Debug public client and truncated ADB password failures retained. Explicit production client fix qualified; exact hosted field corrected after known rejection. Original observer timed out; later callback established by read-only actual session/token and backend checks. No account recreated.",
+  "not_qualified": [
+    "store purchase or entitlement",
+    "peer exchange with new accounts",
+    "push delivery",
+    "public registration",
+    "Apple signed-in startup",
+    "release signing or store upload"
+  ],
+  "private_evidence_sha256": {
+    "closure.json": "d7f4d56c579eb3cd048b08934cd18e161a9f1130d115b667eadf5301e80dd7b4",
+    "backend-enrollment-readback.json": "405bbea6ce4258845fb57b9bae3374e970269372a7307181409eaf8fb608dffd",
+    "alpha-state-inspection-001.json": "8d05276e77a9341918544629e9fb841a81939722bc78e73453522d47c4bc66f2",
+    "alpha-state-inspection-002.json": "5ad7203eb05f0885bcb027cad95e479fc03cd701bb856c88e686b55a46be0391",
+    "enrollment-ui-observation.json": "f5b8901abf93eeadf1bd1434d047dd238b8e3851bda4e1b94630ec33959d8584"
+  }
+}

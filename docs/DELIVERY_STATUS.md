@@ -108,9 +108,14 @@ public routes return 200, protected routes still reject unauthenticated requests
 The subsequent Vipi-only identity configuration now uses the production WorkOS
 application, restricted to two owned review accounts. Its activation and account
 readback are verified; public registration remains off. The current Vipi icon
-and light/dark hosted sign-in screens are also verified. Native production PKCE
-is being qualified separately. See `qa/backend/production-auth-staging-r01` and
-`qa/design/hosted-signin-r01`.
+and light/dark hosted sign-in screens are also verified. Android production PKCE,
+native profile creation and encryption-key enrollment now pass for one owned
+review account against this restricted service. The original observer timeout
+was reconciled with actual session/token state and read-only backend results:
+one active device, one public bundle and twenty prekeys. No purchase, push or
+peer-exchange qualification follows from this account flow. See
+`qa/backend/native-production-auth-android-r01`,
+`qa/backend/production-auth-staging-r01` and `qa/design/hosted-signin-r01`.
 The actual signed Android production bundle also passed local package/version,
 production-configuration, signature and ARM64 split/alignment checks. Its measured
 ARM64 download estimate is 408,542,274 bytes. It has not been installed against
