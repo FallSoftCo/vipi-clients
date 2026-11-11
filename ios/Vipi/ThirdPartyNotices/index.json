@@ -1373,10 +1373,10 @@
   },
   {
     "id": "immersion-starter-data",
-    "title": "Immersion starter vocabulary — JMdict, Wiktionary and project adaptations",
-    "file": "immersion-starter-notice-2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258.txt",
-    "sha256": "2d9fbb61f481ad999e7851273c95595525d3586d1621125167d912311a3b7258",
-    "origin": "data/immersion/NOTICE.txt; official CC BY-SA 4.0 legalcode.txt"
+    "title": "Immersion language data — JMdict, Wiktionary and project adaptations",
+    "file": "immersion-starter-notice-40b375c220742b2c8b95691cbda864e9d9e7cf1fcdda56e61829bae206fd7e62.txt",
+    "sha256": "40b375c220742b2c8b95691cbda864e9d9e7cf1fcdda56e61829bae206fd7e62",
+    "origin": "data/immersion/NOTICE.txt; official CC BY-SA 4.0 legalcode.txt; directional provenance in language-packs/directional-dictionary-007/inputs"
   },
   {
     "id": "cld2-license",

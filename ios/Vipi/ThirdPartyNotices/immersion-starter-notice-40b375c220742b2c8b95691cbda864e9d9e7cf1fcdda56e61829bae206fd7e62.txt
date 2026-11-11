@@ -1,12 +1,20 @@
 Vipi immersion data — sources and modifications
 
-Vipi's language constructions, source-context conditions, curated mappings and selection metadata are project-authored. Diagnostic agent review is not independent linguistic certification.
+Vipi's original examples, source-context conditions and selection metadata are project-authored; adapted dictionary entries retain the attribution and licenses below. Diagnostic agent review is not independent linguistic certification.
 
 Japanese starter vocabulary includes adapted JMdict data, copyright the Electronic Dictionary Research and Development Group (EDRDG). JMdict is distributed under Creative Commons Attribution-ShareAlike 4.0 International. Source and attribution: https://www.edrdg.org/jmdict/j_jmdict.html and https://www.edrdg.org/edrdg/licence.html . License: https://creativecommons.org/licenses/by-sa/4.0/ . Vipi selected and adapted entries, added English source matching, readings, context conditions and concept grouping; it does not imply EDRDG endorsement.
 
 Swahili starter vocabulary includes adapted English Wiktionary data extracted by Kaikki/Wiktextract, attributed to Wiktionary contributors and the Kaikki project. Source: https://en.wiktionary.org/ and https://kaikki.org/dictionary/ . Retained source records identify the exact entries. This derived vocabulary is distributed under Creative Commons Attribution-ShareAlike 4.0 International: https://creativecommons.org/licenses/by-sa/4.0/ . Vipi curated source/target faces, context conditions and concept grouping. Primary dictionary consultation used for verification is recorded separately; it is not represented as a new bulk licensed dictionary redistribution.
 
-Exact data versions, source hashes, original per-entry provenance and correction history are retained in the Vipi source repository and qualification evidence. Attribution and license obligations remain applicable to adapted dictionary material. No claim of complete language coverage or universal sense correctness is made.
+Additional Japanese short phrases also adapt English Wiktionary/Kaikki data under CC BY-SA 4.0. Exact entry URLs, alternatives, source records and Vipi reading annotations are retained in qa/immersion/local-release-r01/provenance.json.
+
+Additional directional vocabulary and phrases adapt Wiktionary entries for Arabic, Chinese, English, French, German, Italian, Japanese, Korean, Portuguese, Spanish and Swahili, extracted through Kaikki/Wiktextract. Attribution: Wiktionary contributors and the Kaikki project. Sources: https://en.wiktionary.org/ and https://kaikki.org/dictionary/ . These dictionary-derived mappings and adaptations are distributed under CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/ . Vipi selected specific senses and directions, added finite source contexts and Latin readings, and constrained ambiguous noun forms; it does not imply endorsement by the dictionary contributors or extractors.
+
+Exact entry URLs, sense identifiers, source/target bindings, original dictionary evidence and modifications for this directional increment are retained in language-packs/directional-dictionary-007/inputs/apple-proposals.json, android-proposals.json and reviewed-mappings.json. The same directory contains approved-italian-amendment.json and italian-amendment/retained-entry-evidence.json for the noun-context restrictions. Its manifest.json binds the input hashes. language-packs/directional-dictionary-007/LICENSE-NOTICE.txt records the attribution and ownership distinctions. These are paths within the corresponding source archive, not claims that a public repository URL is available.
+
+Original Vipi-authored examples are identified separately from dictionary-derived material. No training dialogue corpus is included in this directional increment. Dictionary licenses do not relicense unrelated app code, vendor SDKs or other components, which retain their own licenses.
+
+Exact data versions, source hashes, original per-entry provenance and correction history are retained with the Vipi source and qualification evidence. Attribution and license obligations remain applicable to adapted dictionary material. No claim of complete language coverage or universal sense correctness is made.
 
 Full license text (unchanged official Creative Commons text):
 
