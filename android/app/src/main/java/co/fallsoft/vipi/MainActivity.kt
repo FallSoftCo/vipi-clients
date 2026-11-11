@@ -220,7 +220,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable private fun PrimaryButton(title: String, enabled: Boolean = true, busy: Boolean = false, onClick: () -> Unit) {
+@Composable internal fun PrimaryButton(title: String, enabled: Boolean = true, busy: Boolean = false, onClick: () -> Unit) {
     Button(onClick = onClick, enabled = enabled && !busy, shape = RoundedCornerShape(18.dp),
         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary),
         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 17.dp), modifier = Modifier.fillMaxWidth()) {
@@ -326,6 +326,7 @@ class MainActivity : ComponentActivity() {
     val chat = model.chat
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    if (chat?.needsReauthentication == true && !chat.needsDeviceRecovery) ReauthenticationCard(chat, model.authentication.busy, model.authentication.error) { expected -> model.authentication.signIn(context, expectedUser = expected) }
     if (chat?.needsDeviceRecovery == true) DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) }
     if (model.authentication.userID != null && chat?.needsDeviceRecovery != true && (chat?.ready != true || model.chatError != null)) {
         Text("Connecting to your chats", fontFamily = FontFamily.Serif, fontSize = 30.sp)

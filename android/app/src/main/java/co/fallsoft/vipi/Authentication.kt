@@ -233,7 +233,11 @@ class Authentication(context: Context) {
             next.getString("accessToken")
         }
     }
+    internal var qualificationExchange: (suspend (JSONObject) -> JSONObject)? = null
+        set(value) { check(BuildConfig.DEBUG); field = value }
+
     private suspend fun exchange(fields: JSONObject): JSONObject = withContext(Dispatchers.IO) {
+        qualificationExchange?.let { check(BuildConfig.DEBUG); return@withContext it(fields) }
         val body = fields.toString().toRequestBody("application/json".toMediaType())
         publicHTTP.newCall(Request.Builder().url("https://api.workos.com/user_management/authenticate").post(body).build()).execute().use { response ->
             if (response.code in setOf(400, 401, 403)) throw SignInRequired()

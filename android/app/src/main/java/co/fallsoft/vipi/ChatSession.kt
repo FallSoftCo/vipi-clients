@@ -38,6 +38,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     var revision by mutableStateOf(0); private set
     var notice by mutableStateOf<String?>(null)
     var needsPlan by mutableStateOf(false); private set
+    var needsReauthentication by mutableStateOf(false); private set
     var needsDeviceRecovery by mutableStateOf(false); private set
     var recoveryNeedsSignIn by mutableStateOf(false); private set
     private var syncAgain = false
@@ -99,7 +100,11 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     suspend fun start() {
         if (busy || closed) return
         busy = true; notice = null; recoveryNeedsSignIn = false
-        try { open(ChatProfile.parse(request("GET", "/v1/me"))); provision() }
+        try {
+            val currentProfile = ChatProfile.parse(request("GET", "/v1/me"))
+            needsReauthentication = false
+            open(currentProfile); provision()
+        }
         catch (error: CancellationException) { throw error }
         catch (error: ServiceFailure) { if (error.code == "profile_required") needsProfile = true else notice = explanation(error) }
         catch (error: Exception) { notice = explanation(error) }
@@ -279,7 +284,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     }
     suspend fun synchronize() {
         val core = core ?: return
-        if (!ready) return
+        if (!ready || needsReauthentication) return
         while (historyBusy) { historyDone?.await(); ensureOpen() }
         if (syncing) { syncAgain = true; syncDone?.await(); return }
         syncing = true
@@ -386,7 +391,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     }
     internal fun noteDeviceRevoked() {
         if (closed) return
-        ready = false; needsDeviceRecovery = true
+        ready = false; needsDeviceRecovery = true; needsReauthentication = false
         notice = "Your account moved to another device. Your saved conversations are still available here."
     }
     override fun close() {
@@ -407,7 +412,10 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         } catch (error: Exception) {
             if (error is ServiceFailure && error.code == "base_subscription_required") needsPlan = true
             if (error is ServiceFailure && error.code in setOf("device_revoked", "device_replacement_confirmation_required")) {
-                needsDeviceRecovery = true; ready = false
+                needsDeviceRecovery = true; needsReauthentication = false; ready = false
+            }
+            if (error is Authentication.SignInRequired || error is ServiceFailure && error.code in setOf("sign_in_required", "recent_sign_in_required")) {
+                if (needsDeviceRecovery) recoveryNeedsSignIn = true else needsReauthentication = true
             }
             ensureOpen(); throw error
         }
