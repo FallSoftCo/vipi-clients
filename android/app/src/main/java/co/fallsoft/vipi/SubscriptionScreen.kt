@@ -55,7 +55,8 @@ import kotlinx.coroutines.launch
     val access = if (plan == SubscriptionPlan.BASE) snapshot?.base else snapshot?.bot
     val offer = subscriptions.offers[plan]
     if (access?.usable() == true) {
-        Text("${plan.title} is active", fontWeight = FontWeight.SemiBold)
+        Text(if (access.reviewAccess) "Review access is active. No subscription is required for this account."
+            else "${plan.title} is active", fontWeight = FontWeight.SemiBold)
         val trial = access.trialEndsAt?.takeIf { it.isAfter(java.time.Instant.now()) }
         val until = trial ?: access.expiresAt
         until?.let { Text("${if (trial != null) "Trial ends" else "Current access ends"} ${DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withZone(ZoneId.systemDefault()).format(it)}.") }

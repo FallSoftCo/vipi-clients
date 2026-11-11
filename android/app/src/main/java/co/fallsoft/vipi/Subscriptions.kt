@@ -18,15 +18,18 @@ internal enum class SubscriptionPlan(val productID: String, val title: String) {
     BASE("vipi_base", "Vipi"), BOT_MINI("vipi_bot_mini", "Bot mini")
 }
 
-internal data class PlanAccess(val active: Boolean, val expiresAt: Instant?, val trialEndsAt: Instant?) {
-    fun usable(now: Instant = Instant.now()) = active && expiresAt?.isAfter(now) == true
+internal data class PlanAccess(val active: Boolean, val expiresAt: Instant?, val trialEndsAt: Instant?, val reviewAccess: Boolean = false) {
+    fun usable(now: Instant = Instant.now()) = active &&
+        (expiresAt?.isAfter(now) == true || (reviewAccess && expiresAt == null && trialEndsAt == null))
     companion object {
         fun parse(value: JSONObject): PlanAccess {
             fun date(key: String) = if (value.isNull(key)) null else Instant.parse(value.getString(key))
             val expires = date("expires_at")
             val trial = date("trial_ends_at")
             require(trial == null || (expires != null && !trial.isAfter(expires)))
-            return PlanAccess(value.getBoolean("active"), expires, trial)
+            val review = value.opt("review_access") == true && value.opt("access_source") == "review_complimentary"
+            require(!review || (expires == null && trial == null))
+            return PlanAccess(value.getBoolean("active"), expires, trial, review)
         }
     }
 }

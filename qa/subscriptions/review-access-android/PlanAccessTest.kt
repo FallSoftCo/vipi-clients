@@ -1,0 +1,41 @@
+package co.fallsoft.vipi
+
+import org.json.JSONObject
+import java.time.Instant
+
+fun main() {
+    val now = Instant.parse("2026-11-11T00:00:00Z")
+    fun ordinary(active: Boolean = true, expiry: String? = "2026-12-11T00:00:00Z") = JSONObject()
+        .put("active", active).put("expires_at", expiry ?: JSONObject.NULL).put("trial_ends_at", JSONObject.NULL)
+    fun review(active: Boolean = true) = ordinary(active, null)
+        .put("access_source", "review_complimentary").put("review_access", true)
+    fun usable(value: JSONObject) = PlanAccess.parse(value).usable(now)
+    check(usable(ordinary()))
+    check(!usable(ordinary(false)))
+    check(!usable(ordinary(expiry = null)))
+    check(!usable(ordinary(expiry = now.toString())))
+    check(!usable(ordinary(expiry = "2026-10-11T00:00:00Z")))
+    check(usable(review()))
+    check(!usable(review(false)))
+    check(!usable(ordinary(expiry = null).put("review_access", true)))
+    check(!usable(ordinary(expiry = null).put("access_source", "review_complimentary")))
+    check(!usable(review().put("review_access", false)))
+    check(!usable(review().put("review_access", "true")))
+    check(!usable(review().put("access_source", "other")))
+    check(runCatching { PlanAccess.parse(review().put("expires_at", "2026-12-11T00:00:00Z")) }.isFailure)
+    check(runCatching { PlanAccess.parse(review().put("trial_ends_at", "2026-12-11T00:00:00Z")) }.isFailure)
+    check(runCatching { PlanAccess.parse(ordinary().put("trial_ends_at", "2027-01-01T00:00:00Z")) }.isFailure)
+    val paidTrial = PlanAccess.parse(ordinary().put("trial_ends_at", "2026-11-20T00:00:00Z"))
+    check(paidTrial.usable(now) && !paidTrial.reviewAccess && paidTrial.trialEndsAt != null)
+    fun snapshot(base: JSONObject, bot: JSONObject, available: Boolean) = SubscriptionAccess.parse(JSONObject()
+        .put("base", base).put("bot_mini", bot.put("available", available))
+        .put("billing_account_id", "a".repeat(64)).put("purchases_ready", JSONObject().put("google", false)))
+    val active = snapshot(review(), review(), true)
+    check(active.active(SubscriptionPlan.BASE) && active.active(SubscriptionPlan.BOT_MINI))
+    check(!snapshot(review(), review(), false).active(SubscriptionPlan.BOT_MINI))
+    check(!snapshot(review(false), review(), true).active(SubscriptionPlan.BOT_MINI))
+    val baseOnly = snapshot(review(), ordinary(false, null), true)
+    check(baseOnly.active(SubscriptionPlan.BASE) && !baseOnly.active(SubscriptionPlan.BOT_MINI))
+    check(!baseOnly.bot.reviewAccess && baseOnly.base.reviewAccess)
+    println("PASS: ordinary expiry/trial, explicit review markers, inactive grants, per-plan isolation and Bot availability/base gates")
+}
