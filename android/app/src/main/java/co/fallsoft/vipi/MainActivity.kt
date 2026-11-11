@@ -134,9 +134,9 @@ class MainActivity : ComponentActivity() {
         } }
         lifecycle.addObserver(observer); onDispose { lifecycle.removeObserver(observer) }
     }
-    DisposableEffect(lifecycle, model.chat, model.chat?.ready, model.authentication.userID) {
+    DisposableEffect(lifecycle, model.chat, model.chat?.ready, model.chat?.needsReauthentication, model.authentication.userID) {
         val chat = model.chat
-        val events = chat?.takeIf { it.ready && it.userID == model.authentication.userID }?.let {
+        val events = chat?.takeIf { it.ready && !it.needsReauthentication && it.userID == model.authentication.userID }?.let {
             ForegroundInboxEvents(syncScope, { rejected -> model.authentication.accessToken(it.userID, rejected) },
                 it::eventDevice, {
                     it.synchronize()
@@ -328,7 +328,7 @@ class MainActivity : ComponentActivity() {
     val context = LocalContext.current
     if (chat?.needsReauthentication == true && !chat.needsDeviceRecovery) ReauthenticationCard(chat, model.authentication.busy, model.authentication.error) { expected -> model.authentication.signIn(context, expectedUser = expected) }
     if (chat?.needsDeviceRecovery == true) DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) }
-    if (model.authentication.userID != null && chat?.needsDeviceRecovery != true && (chat?.ready != true || model.chatError != null)) {
+    if (model.authentication.userID != null && chat?.needsDeviceRecovery != true && chat?.needsReauthentication != true && (chat?.ready != true || model.chatError != null)) {
         Text("Connecting to your chats", fontFamily = FontFamily.Serif, fontSize = 30.sp)
         Text(model.chatError ?: chat?.notice ?: "Your conversations stay on your device.", color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (chat?.busy == true) CircularProgressIndicator()

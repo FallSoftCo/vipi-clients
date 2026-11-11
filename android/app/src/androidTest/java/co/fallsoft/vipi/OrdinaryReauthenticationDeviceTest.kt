@@ -55,7 +55,7 @@ class OrdinaryReauthenticationDeviceTest {
             } } }
             for (error in listOf(ServiceFailure(401, "sign_in_required"), ServiceFailure(401, "recent_sign_in_required"), Authentication.SignInRequired())) {
                 failure = error; main { chat.start() }; compose.waitForIdle()
-                assertTrue(chat.needsReauthentication); assertFalse(chat.needsDeviceRecovery); assertTrue(chat.ready)
+                assertTrue(chat.needsReauthentication); assertFalse(chat.needsDeviceRecovery); assertTrue(chat.ready); assertNull(chat.eventDevice())
                 val beforeRequests = requests; main { chat.synchronize() }; assertEquals(beforeRequests, requests)
                 compose.onNodeWithText("Sign in again").assertIsDisplayed().performClick(); assertEquals(subject, expected)
                 fun pending() { records.write("pending-sign-in", JSONObject().put("state", "synthetic-state").put("verifier", "synthetic-verifier").put("createdAt", System.currentTimeMillis()).put("expectedUser", expected)) }
@@ -70,7 +70,7 @@ class OrdinaryReauthenticationDeviceTest {
                 auth.qualificationExchange = { JSONObject().put("user", JSONObject().put("id", subject)).put("access_token", "synthetic-new-access").put("refresh_token", "synthetic-new-refresh") }
                 pending(); main { auth.complete(Uri.parse("co.fallsoft.vipi://auth/callback?state=synthetic-state&code=synthetic-code")) }
                 assertNull(auth.error); assertEquals(subject, auth.userID)
-                failure = null; main { chat.start() }; compose.waitForIdle(); assertFalse(chat.needsReauthentication)
+                failure = null; main { chat.start() }; compose.waitForIdle(); assertFalse(chat.needsReauthentication); assertNotNull(chat.eventDevice())
                 compose.onNodeWithText("Sign in again").assertDoesNotExist(); assertEquals(1, registrations)
                 MessageVault(context, account).use { v -> v.transaction {
                     assertArrayEquals(deviceBefore, v.get("local", "registered-device"))

@@ -384,7 +384,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (!ready) return
         request("PUT", "/v1/devices/push", JSONObject().put("provider", "fcm").put("token", token).put("environment", "production"), core.device)
     }
-    internal fun eventDevice(): DeviceCredential? = if (ready && !closed) core?.device else null
+    internal fun eventDevice(): DeviceCredential? = if (ready && !closed && !needsReauthentication) core?.device else null
     private fun markPeerRecovery(peer: UUID) {
         vault?.transaction { vault?.put("peer-recovery-needed", peer.toString(), byteArrayOf(1)) }
         peersNeedingRecovery = peersNeedingRecovery + peer
