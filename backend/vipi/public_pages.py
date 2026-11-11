@@ -48,7 +48,7 @@ PAGES = {
     """),
     "/terms": ("Using Vipi", """
         <p class="lead">Real conversations. Respect for the people in them.</p>
-        <p>These product terms supplement the <a href="https://fallsoft.co/terms-of-service">Fallible Software, Co. terms of service</a>. Updated November 7, 2026. The separate license supplied with software and language data governs rights to that software and data.</p>
+        <p>These product terms supplement the <a href="https://fallsoft.co/terms-of-service">Fallible Software, Co. terms of service</a>. Updated November 11, 2026. The separate license supplied with software and language data governs rights to that software and data.</p>
         <h2>Your account and conversations</h2>
         <p>Use your own account, protect your device, and keep any backup password safe. Vipi supports one active messaging device per account. Replacing it changes the device's encryption identity; friends may need to verify the new identity. Vipi does not maintain a cloud copy of your complete chat history.</p>
         <p>Do not use Vipi for threats, harassment, hate, scams, spam, exploitation, sexual content involving minors, nonconsensual intimate material, or other unlawful activity. Do not impersonate others, distribute malware, attack the service, or evade account restrictions. You must have the right to share what you send. Vipi is not for children under 13.</p>
@@ -56,6 +56,7 @@ PAGES = {
         <h2>Immersion and vBot</h2>
         <p>Translations, transliteration, and pronunciation can be incomplete or wrong. The original message remains available. Vipi provides language exposure during conversation; it does not guarantee fluency, translation accuracy, or suitability for a consequential decision.</p>
         <p>vBot is an optional generated conversation partner, not a person. It can make mistakes. Its use requires separate consent to provider processing described in the <a href="/privacy">Vipi privacy notice</a>. Human messages are not sent to vBot automatically.</p>
+        <p>If you are under 18, or under the minimum age required in your country, read these terms and <a href="https://cdn.deepseek.com/policies/en-US/deepseek-terms-of-use.html">DeepSeek's terms</a> with a parent or legal guardian. Use vBot only with their consent. Vipi's minimum age of 13 still applies.</p>
         <h2>Subscriptions and trials</h2>
         <p>Base and Bot mini are separate annual subscriptions. Bot mini is optional and requires active Base access. Each may offer an eligible one-month introductory trial; eligibility and the exact renewal date come from the store. Starting Base does not enroll you in Bot mini.</p>
         <p>Before subscribing, the app and store show the local price, billing period, trial eligibility, and what is included. A subscription renews unless you cancel through the store. Cancel before the store's displayed trial or renewal deadline to avoid the next charge. Manage purchases and refunds through the store that billed you. Deleting Vipi or your account does not cancel a subscription.</p>
