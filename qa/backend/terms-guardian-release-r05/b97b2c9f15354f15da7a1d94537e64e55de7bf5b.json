@@ -1,0 +1,23 @@
+{
+  "owner": "01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "host": "fallsoft-production-20261106",
+  "started": "2026-11-11T03:58:00.936335+00:00",
+  "old": "b144e1bd95b5c8ce9ae5a8d4b54bbd4059822465",
+  "new": "b97b2c9f15354f15da7a1d94537e64e55de7bf5b",
+  "schema_unchanged": true,
+  "shared_before": {
+    "nginx.service": "MainPID=1674\nActiveState=active\nActiveEnterTimestampMonotonic=12383202",
+    "postgresql@16-main.service": "MainPID=1199\nActiveState=active\nActiveEnterTimestampMonotonic=13488911"
+  },
+  "service_access": {
+    "service_user": "vipi",
+    "candidate_access_and_imports_verified": true,
+    "database_or_provider_constructed": false
+  },
+  "state": "active_verified",
+  "shared_after": {
+    "nginx.service": "MainPID=1674\nActiveState=active\nActiveEnterTimestampMonotonic=12383202",
+    "postgresql@16-main.service": "MainPID=1199\nActiveState=active\nActiveEnterTimestampMonotonic=13488911"
+  },
+  "finished": "2026-11-11T03:58:04.202351+00:00"
+}

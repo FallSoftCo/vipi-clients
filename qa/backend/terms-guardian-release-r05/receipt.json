@@ -1,0 +1,14 @@
+{
+  "revision": "b97b2c9f15354f15da7a1d94537e64e55de7bf5b",
+  "previous_runtime": "b144e1bd95b5c8ce9ae5a8d4b54bbd4059822465",
+  "archive_sha256": "10c40807baa19c3bc2180ddff21ea92e1bcbe48c30309656169f31a80476b1db",
+  "manifest_sha256": "77bb60679348e805fc93de1c29ea5053fdd100fb819c4330840b223532471611",
+  "bytes": 19414713,
+  "changed_files": [
+    "deps/vipi/public_pages.py",
+    "deps/vipi_service-0.1.0.dist-info/RECORD"
+  ],
+  "dependencies_unchanged": true,
+  "staged_remotely": false,
+  "activated": false
+}

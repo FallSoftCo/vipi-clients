@@ -1,0 +1,7 @@
+Terms-only production release b97b2c9 activated once over b144 after root candidate review and Android explicit quiet window. Runtime delta ONLY deps/vipi/public_pages.py and wheel RECORD; separate 21ff service-user preflight helper was used, not shipped into runtime. Dependencies, migrations, units and configuration unchanged.
+
+Package SHA10c40807baa19c3bc2180ddff21ea92e1bcbe48c30309656169f31a80476b1db; manifest77bb60679348e805fc93de1c29ea5053fdd100fb819c4330840b223532471611. Verified full archive hashes and active prior manifest; real vipi cwd/read/import; helper --verify-only. Directory0755 and file0644 modes match actual active release.
+
+One API restart, no rollback. Public terms exact committed body/date/guardian paragraph, health/auth and running replacement key hash verified. Exact environment hash retained, covering reviewer IDs/APNs/entitlement/provider settings. DB identity/schema/accepted messages/push/deletions/entitlements/reservation count unchanged. No DB write/migration, provider generation, purchase, push/shared-service restart, Apple or signing action. Prior b144 release retained for rollback.
+
+Package and scripts retained privately in investigations/vipi-submit-20261110-r01/backend-terms-package-r05; immutable intent and helper activation receipt retained on host. Package metadata activated=false denotes original pre-activation preparation state; activation-result/verification are subsequent authority.

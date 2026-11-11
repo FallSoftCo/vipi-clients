@@ -1,0 +1,24 @@
+{
+  "exit": 0,
+  "stdout": "{\"receipt\": \"/opt/vipi/deployments/b97b2c9f15354f15da7a1d94537e64e55de7bf5b.json\", \"state\": \"active_verified\", \"revision\": \"b97b2c9f15354f15da7a1d94537e64e55de7bf5b\"}\n",
+  "stderr": "",
+  "current": "/opt/vipi/releases/b97b2c9f15354f15da7a1d94537e64e55de7bf5b",
+  "environment_sha256": "8fe716ec6df005b00456faedf3217c48c3a3352724c0aba658d3ebe251df0f86",
+  "services": {
+    "vipi-api.service": "MainPID=1680114\nNRestarts=0\nActiveState=active\n",
+    "vipi-push.service": "MainPID=1567869\nNRestarts=0\nActiveState=active\n",
+    "nginx.service": "MainPID=1674\nNRestarts=0\nActiveState=active\n",
+    "postgresql@16-main.service": "MainPID=1199\nNRestarts=0\nActiveState=active\n"
+  },
+  "db": [
+    "154486",
+    "20261107_05",
+    "0",
+    "0",
+    "0",
+    "0",
+    "1"
+  ],
+  "time": "2026-11-11T03:58:04.311877+00:00"
+}
+
