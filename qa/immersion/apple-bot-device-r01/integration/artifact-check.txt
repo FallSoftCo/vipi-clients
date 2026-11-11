@@ -1,0 +1,3 @@
+595c4b3e209a90485853dd27b361fb31de13287a5ceac51de2aa6bea351fd316  /Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/Simulator-iphonesimulator/Vipi.app/Vipi
+157c006637ef2377b56bb5154ace917fe7ba608ce6abe79de93b02186a390afe  /Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/Build/Products/Simulator-iphonesimulator/Vipi.app/Vipi.debug.dylib
+  503 /Users/Apple/Development/vipi/build/VipiTranslationPreparation.app/Contents/MacOS/VipiTranslationPreparation

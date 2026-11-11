@@ -1,0 +1,10 @@
+{
+  "prior_revision": "b144e1bd95b5c8ce9ae5a8d4b54bbd4059822465",
+  "revision": "8a4e02c0e13a4f4530962a52768e6cbc94facb34",
+  "changed": [
+    "ios/Vipi/BotConversation.swift",
+    "ios/Vipi/ServiceClient.swift",
+    "ios/VipiCryptoTests/BotSessionTests.swift"
+  ],
+  "dirty_input": false
+}

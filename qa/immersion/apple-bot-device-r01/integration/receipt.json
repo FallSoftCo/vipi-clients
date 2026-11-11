@@ -1,0 +1,67 @@
+{
+  "started": "2026-11-11T03:37:26.492055+00:00",
+  "revision": "8a4e02c0e13a4f4530962a52768e6cbc94facb34",
+  "state": "unsigned_simulator_app_build_verified",
+  "signed": false,
+  "keychain_modified": false,
+  "signing_hold_preserved": true,
+  "floor_bytes": 1073741824,
+  "additional_budget": 2147483648,
+  "stages": [
+    {
+      "name": "prepare",
+      "command": [
+        "/bin/zsh",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/scripts/prepare-ios-project.sh"
+      ],
+      "pid": 20734,
+      "exit": 0,
+      "seconds": 2.0128030001651496
+    },
+    {
+      "name": "build",
+      "command": [
+        "xcodebuild",
+        "-workspace",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/japanese-starter-promotion-r01/source/ios/Vipi.xcworkspace",
+        "-scheme",
+        "VipiSimulator",
+        "-configuration",
+        "Simulator",
+        "-sdk",
+        "iphonesimulator",
+        "-destination",
+        "platform=iOS Simulator,id=46CB569D-EA59-40E3-82CC-F4A0F36EDB87",
+        "-derivedDataPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01",
+        "-clonedSourcePackagesDirPath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/app-build-r01/SourcePackages",
+        "-disableAutomaticPackageResolution",
+        "-onlyUsePackageVersionsFromResolvedFile",
+        "-skipPackageUpdates",
+        "-jobs",
+        "2",
+        "-resultBundlePath",
+        "/Users/Apple/Development/vipi-native-delivery-20261109-r01/bot-integration-r01/build.xcresult",
+        "CODE_SIGNING_ALLOWED=NO",
+        "ARCHS=arm64",
+        "EXCLUDED_ARCHS=",
+        "build"
+      ],
+      "pid": 20750,
+      "exit": 0,
+      "seconds": 30.15082800015807
+    }
+  ],
+  "free_before": 26006122496,
+  "committed_files_verified": 1064,
+  "min_free": 25999843328,
+  "actual_project_compile_inputs_verified": {
+    "VipiLanguageDetector": 25,
+    "Vipi": 78
+  },
+  "release_archive_created": false,
+  "normal_startup_qualified": false,
+  "provider_calls": 0,
+  "free_after": 25940254720
+}
