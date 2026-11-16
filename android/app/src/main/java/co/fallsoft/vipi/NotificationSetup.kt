@@ -33,15 +33,19 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
         allowed = PushDelivery.allowed(context); PushDelivery.request(context, registration = true)
     }
-    if (!allowed) Column {
+    if (!allowed) NotificationPrompt(asked, unavailable) {
+        if (Build.VERSION.SDK_INT >= 33 && !asked) {
+            prefs.edit().putBoolean("notificationAsked", true).apply(); asked = true
+            permission.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else runCatching { context.startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)) }
+            .onFailure { unavailable = true }
+    }
+}
+
+@Composable internal fun NotificationPrompt(asked: Boolean, unavailable: Boolean, onClick: () -> Unit) {
+    Column {
         Text("Know when friends reply. Notifications hide message text.", style = MaterialTheme.typography.bodySmall)
-        TextButton(onClick = {
-            if (Build.VERSION.SDK_INT >= 33 && !asked) {
-                prefs.edit().putBoolean("notificationAsked", true).apply(); asked = true
-                permission.launch(Manifest.permission.POST_NOTIFICATIONS)
-            } else runCatching { context.startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)) }
-                .onFailure { unavailable = true }
-        }) { Text(if (asked) "Notification settings" else "Enable notifications") }
+        TextButton(onClick = onClick) { Text(if (asked) "Notification settings" else "Enable notifications") }
         if (unavailable) Text("Open Vipi’s notification settings in Android Settings.", style = MaterialTheme.typography.bodySmall)
     }
 }
