@@ -1,0 +1,377 @@
+{
+  "inputs": {
+    "native_tag_file_sha256": "e48c72bcfeac9a9764055202ecc40112f6512aebe76d18b4bc2fcd018c3afa64",
+    "source_fixture_sha256": "7bb7aa2bb45fda9c1ae02c20b2bf721c93eb16e90117638789568c51b64f7dc8"
+  },
+  "preregistered_policy": {
+    "excluded_auxiliary_or_modal_exact_case_insensitive": [
+      "am",
+      "could",
+      "will"
+    ],
+    "excluded_weekdays_exact_case_insensitive": [
+      "friday",
+      "monday",
+      "saturday",
+      "sunday",
+      "thursday",
+      "tuesday",
+      "wednesday"
+    ],
+    "native_word_geometry_and_existing_literal_masks": "required on actual platform; retain all accepted and rejected records",
+    "noun_verb_conflicts": "abstain pending qualified resolver",
+    "output_selection": "freeze all admitted whole-unit attempts before translation; preserve every result and grade every emission",
+    "phrases": "omitted: no actual syntactic-unit boundary evidence in retained NLTagger run",
+    "scope": "All recorded noun/verb tags; no authored winners"
+  },
+  "rows": [
+    {
+      "id": "local-01",
+      "original": "The train leaves from platform three in ten minutes.",
+      "pos_candidates": [
+        {
+          "end_utf16": 9,
+          "id": "local-01-tag-02",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 4,
+          "surface": "train"
+        },
+        {
+          "end_utf16": 16,
+          "id": "local-01-tag-04",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 10,
+          "surface": "leaves"
+        },
+        {
+          "end_utf16": 30,
+          "id": "local-01-tag-08",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 22,
+          "surface": "platform"
+        },
+        {
+          "end_utf16": 51,
+          "id": "local-01-tag-16",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 44,
+          "surface": "minutes"
+        }
+      ],
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "local-02",
+      "original": "I train new volunteers every Saturday morning.",
+      "pos_candidates": [
+        {
+          "end_utf16": 7,
+          "id": "local-02-tag-02",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 2,
+          "surface": "train"
+        },
+        {
+          "end_utf16": 22,
+          "id": "local-02-tag-06",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 12,
+          "surface": "volunteers"
+        },
+        {
+          "end_utf16": 37,
+          "id": "local-02-tag-10",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": "weekday_proper_name",
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 29,
+          "surface": "Saturday"
+        },
+        {
+          "end_utf16": 45,
+          "id": "local-02-tag-12",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 38,
+          "surface": "morning"
+        }
+      ],
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "local-03",
+      "original": "She went to the bank to deposit her paycheck.",
+      "pos_candidates": [
+        {
+          "end_utf16": 8,
+          "id": "local-03-tag-02",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 4,
+          "surface": "went"
+        },
+        {
+          "end_utf16": 20,
+          "id": "local-03-tag-08",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 16,
+          "surface": "bank"
+        },
+        {
+          "end_utf16": 31,
+          "id": "local-03-tag-12",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 24,
+          "surface": "deposit"
+        },
+        {
+          "end_utf16": 44,
+          "id": "local-03-tag-16",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 36,
+          "surface": "paycheck"
+        }
+      ],
+      "source_language": "en",
+      "target_language": "fr"
+    },
+    {
+      "id": "local-04",
+      "original": "We sat on the bank and watched the river flow.",
+      "pos_candidates": [
+        {
+          "end_utf16": 6,
+          "id": "local-04-tag-02",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 3,
+          "surface": "sat"
+        },
+        {
+          "end_utf16": 18,
+          "id": "local-04-tag-08",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 14,
+          "surface": "bank"
+        },
+        {
+          "end_utf16": 30,
+          "id": "local-04-tag-12",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 23,
+          "surface": "watched"
+        },
+        {
+          "end_utf16": 40,
+          "id": "local-04-tag-16",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 35,
+          "surface": "river"
+        },
+        {
+          "end_utf16": 45,
+          "id": "local-04-tag-18",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 41,
+          "surface": "flow"
+        }
+      ],
+      "source_language": "en",
+      "target_language": "fr"
+    },
+    {
+      "id": "local-05",
+      "original": "I am feeling under the weather, so I will stay home.",
+      "pos_candidates": [
+        {
+          "end_utf16": 4,
+          "id": "local-05-tag-02",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": "explicit_auxiliary_or_modal",
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 2,
+          "surface": "am"
+        },
+        {
+          "end_utf16": 12,
+          "id": "local-05-tag-04",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 5,
+          "surface": "feeling"
+        },
+        {
+          "end_utf16": 30,
+          "id": "local-05-tag-10",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 23,
+          "surface": "weather"
+        },
+        {
+          "end_utf16": 41,
+          "id": "local-05-tag-17",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": "explicit_auxiliary_or_modal",
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 37,
+          "surface": "will"
+        },
+        {
+          "end_utf16": 46,
+          "id": "local-05-tag-19",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 42,
+          "surface": "stay"
+        }
+      ],
+      "source_language": "en",
+      "target_language": "de"
+    },
+    {
+      "id": "local-06",
+      "original": "Sounds good, see you after lunch!",
+      "pos_candidates": [
+        {
+          "end_utf16": 6,
+          "id": "local-06-tag-00",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 0,
+          "surface": "Sounds"
+        },
+        {
+          "end_utf16": 16,
+          "id": "local-06-tag-05",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 13,
+          "surface": "see"
+        },
+        {
+          "end_utf16": 32,
+          "id": "local-06-tag-11",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 27,
+          "surface": "lunch"
+        }
+      ],
+      "source_language": "en",
+      "target_language": "ja"
+    },
+    {
+      "id": "local-18",
+      "original": "Could you put the red cup beside the sink?",
+      "pos_candidates": [
+        {
+          "end_utf16": 5,
+          "id": "local-18-tag-00",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": "explicit_auxiliary_or_modal",
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 0,
+          "surface": "Could"
+        },
+        {
+          "end_utf16": 13,
+          "id": "local-18-tag-04",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Verb",
+          "start_utf16": 10,
+          "surface": "put"
+        },
+        {
+          "end_utf16": 25,
+          "id": "local-18-tag-10",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 22,
+          "surface": "cup"
+        },
+        {
+          "end_utf16": 41,
+          "id": "local-18-tag-16",
+          "native_geometry_check": "pending actual consumer",
+          "preregistered_rejection": null,
+          "protected_literal_check": "pending actual consumer",
+          "raw_pos": "Noun",
+          "start_utf16": 37,
+          "surface": "sink"
+        }
+      ],
+      "source_language": "en",
+      "target_language": "ar"
+    }
+  ],
+  "schema": "vipi-actual-pos-candidate-inventory-1",
+  "scope": "Exposed authored messages, actual retained macOS NLTagger lexical-class annotations; no target output used to choose candidates. Apple inventory only; Android must generate independently. Not a holdout, safe-translation or iOS support claim."
+}
