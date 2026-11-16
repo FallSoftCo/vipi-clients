@@ -1,0 +1,222 @@
+{
+  "cases": [
+    {
+      "focus": "train",
+      "focus_utf16": [
+        4,
+        9
+      ],
+      "id": "local-01",
+      "meaning_note": "noun: railway vehicle",
+      "original": "The train leaves from platform three in ten minutes.",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "focus": "train",
+      "focus_utf16": [
+        2,
+        7
+      ],
+      "id": "local-02",
+      "meaning_note": "verb: teach or prepare people",
+      "original": "I train new volunteers every Saturday morning.",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "focus": "bank",
+      "focus_utf16": [
+        16,
+        20
+      ],
+      "id": "local-03",
+      "meaning_note": "financial institution",
+      "original": "She went to the bank to deposit her paycheck.",
+      "source_language": "en",
+      "target_language": "fr"
+    },
+    {
+      "focus": "bank",
+      "focus_utf16": [
+        14,
+        18
+      ],
+      "id": "local-04",
+      "meaning_note": "land beside a river, not financial institution",
+      "original": "We sat on the bank and watched the river flow.",
+      "source_language": "en",
+      "target_language": "fr"
+    },
+    {
+      "focus": "under the weather",
+      "focus_utf16": [
+        13,
+        30
+      ],
+      "id": "local-05",
+      "meaning_note": "idiom: feeling ill; literal weather wording is misleading",
+      "original": "I am feeling under the weather, so I will stay home.",
+      "source_language": "en",
+      "target_language": "de"
+    },
+    {
+      "focus": "Sounds good",
+      "focus_utf16": [
+        0,
+        11
+      ],
+      "id": "local-06",
+      "meaning_note": "short informal acceptance, not a sound recording",
+      "original": "Sounds good, see you after lunch!",
+      "source_language": "en",
+      "target_language": "ja"
+    },
+    {
+      "focus": "llave",
+      "focus_utf16": [
+        3,
+        8
+      ],
+      "id": "local-07",
+      "meaning_note": "key for a lock; do not infer an English sense from string alone",
+      "original": "La llave está junto a la taza azul.",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "focus": "bibliothèque",
+      "focus_utf16": [
+        25,
+        37
+      ],
+      "id": "local-08",
+      "meaning_note": "library as a place; not a bookcase in this context",
+      "original": "On se retrouve devant la bibliothèque après le cours ?",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "focus": "Termin",
+      "focus_utf16": [
+        16,
+        22
+      ],
+      "id": "local-09",
+      "meaning_note": "appointment, not an academic term",
+      "original": "Ich habe meinen Termin auf Freitag verschoben.",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "focus": "luce",
+      "focus_utf16": [
+        17,
+        21
+      ],
+      "id": "local-10",
+      "meaning_note": "light, referring to the lamp or lighting",
+      "original": "Puoi spegnere la luce prima di uscire?",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "focus": "ônibus",
+      "focus_utf16": [
+        2,
+        8
+      ],
+      "id": "local-11",
+      "meaning_note": "bus as passenger vehicle",
+      "original": "O ônibus já saiu; vamos esperar o próximo.",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "focus": "النافذة",
+      "focus_utf16": [
+        15,
+        22
+      ],
+      "id": "local-12",
+      "meaning_note": "the window; full definite noun carrier",
+      "original": "هل يمكنك إغلاق النافذة قبل أن نخرج؟",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "focus": "图书馆",
+      "focus_utf16": [
+        7,
+        10
+      ],
+      "id": "local-13",
+      "meaning_note": "library building, not a bookstore",
+      "original": "明天下午我们在图书馆门口见面吧。",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "focus": "駅",
+      "focus_utf16": [
+        0,
+        1
+      ],
+      "id": "local-14",
+      "meaning_note": "railway station; friend marker is separate",
+      "original": "駅の前で友達を十分待ちました。",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "focus": "회의",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "id": "local-15",
+      "meaning_note": "meeting; Korean particle 가 follows focus",
+      "original": "회의가 끝나면 저에게 메시지를 보내 주세요.",
+      "source_language": "ko",
+      "target_language": "en"
+    },
+    {
+      "focus": "dirisha",
+      "focus_utf16": [
+        16,
+        23
+      ],
+      "id": "local-16",
+      "meaning_note": "window; not the rain",
+      "original": "Tafadhali funga dirisha kabla mvua haijaanza.",
+      "source_language": "sw",
+      "target_language": "en"
+    },
+    {
+      "focus": "kesho",
+      "focus_utf16": [
+        16,
+        21
+      ],
+      "id": "local-17",
+      "meaning_note": "tomorrow, not morning",
+      "original": "Sawa, nitakuona kesho asubuhi.",
+      "source_language": "sw",
+      "target_language": "en"
+    },
+    {
+      "focus": "cup",
+      "focus_utf16": [
+        22,
+        25
+      ],
+      "id": "local-18",
+      "meaning_note": "drinking vessel; Arabic target needs Latin reading",
+      "original": "Could you put the red cup beside the sink?",
+      "source_language": "en",
+      "target_language": "ar"
+    }
+  ],
+  "purpose": "Compare local full-message translation with source-attributed or phrase-only selection and independently review semantic alignment and Latin readings. Authored cases, not statistical accuracy or provider guarantees. No model downloads; record unavailable models.",
+  "schema": "vipi-local-translation-feasibility-1"
+}
