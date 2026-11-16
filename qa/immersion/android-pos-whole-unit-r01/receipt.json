@@ -9,5 +9,28 @@
   "cases": 7,
   "private_state_byte_identical": true,
   "wifi_after": "1",
-  "mobile_after": "1"
+  "mobile_after": "1",
+  "pos_runtime": {
+    "name": "Apache OpenNLP",
+    "version": "2.5.10",
+    "jar_sha256": "123ee5aa02f8d8ab9b554fb927ae5003e0413bf066cc957094d3aeb304fb94ea",
+    "sentence_model_sha256": "4de58d12b09421003c8b1ba13e8b58ec533b28e1f22a65272119dc0993d333e8",
+    "token_model_sha256": "95139111197ba9f1165fc12be8d4cbac05ea3912f995d167efa1a0e04e3e649a",
+    "pos_model_sha256": "510b89087e7ef7ffb8c50c63e3e999122404ac9fa64790dfa93b38d1938c52ce"
+  },
+  "generated_readings": {
+    "policy": "authored-first-ja-kana-ko-cldr-zh-pinyin-v1",
+    "japanese_provenance": "NativeFullReadings local JapaneseReadings/Kuromoji",
+    "japanese": {
+      "音": "oto",
+      "見る": "miru",
+      "ランチ": "ranchi"
+    },
+    "arabic_generated_unavailable": [
+      "ضع",
+      "كوب",
+      "بالوعة"
+    ],
+    "scope": "only these exact observed generated units; null is not all-language availability"
+  }
 }
