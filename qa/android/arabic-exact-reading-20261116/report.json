@@ -1,0 +1,58 @@
+{
+  "complete": true,
+  "active": false,
+  "schema": "qa-arabic-exact-reading-1",
+  "compressed_sha256": "b2c539dc86e85b2706b045cb7efb0f8279d39a8f10322c90732ff5fb17880cc4",
+  "expanded_sha256": "bc5e480b551eb6da067b7dee36833d405cbe01221eca13e65d6a4faebf766eae",
+  "compressed_bytes": 929775,
+  "expanded_bytes": 6008832,
+  "inflate_ms": 91.455824,
+  "sqlite_open_ms": 0.421606,
+  "lookup_median_ms": 0.0928695,
+  "lookup_max_ms": 0.40581,
+  "process_pss_before_kib": 112550,
+  "process_pss_after_kib": 125079,
+  "samples": [
+    {
+      "source_exact": "كوب",
+      "reading": "kūb",
+      "lookup_ms": 0.40581
+    },
+    {
+      "source_exact": "مدينة",
+      "reading": "madīna",
+      "lookup_ms": 0.106727
+    },
+    {
+      "source_exact": "موسيقى",
+      "reading": "mūsīqā",
+      "lookup_ms": 0.099544
+    },
+    {
+      "source_exact": "ضع",
+      "reading": null,
+      "lookup_ms": 0.12264
+    },
+    {
+      "source_exact": "بالوعة",
+      "reading": null,
+      "lookup_ms": 0.082997
+    },
+    {
+      "source_exact": "كوبx",
+      "reading": null,
+      "lookup_ms": 0.049545
+    },
+    {
+      "source_exact": "كُوب",
+      "reading": null,
+      "lookup_ms": 0.086195
+    },
+    {
+      "source_exact": "كتاب",
+      "reading": null,
+      "lookup_ms": 0.075674
+    }
+  ],
+  "limitations": "exact approved headwords only; no semantic or pronunciation acceptance; memory measurements are noisy process snapshots"
+}

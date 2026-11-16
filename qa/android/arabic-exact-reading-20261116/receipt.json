@@ -1,0 +1,8 @@
+{
+  "complete": true,
+  "candidate_active": false,
+  "private_state_before_captured": true,
+  "scope": "QA-only read-only SQLite lookup, no model, account, or network operations",
+  "passed": true,
+  "private_state_byte_identical": true
+}
