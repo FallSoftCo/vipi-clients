@@ -1,0 +1,273 @@
+[
+  {
+    "alignment" : [
+      {
+        "density" : 0.75,
+        "spans" : [
+          {
+            "range" : [
+              7,
+              5
+            ],
+            "reading" : "ongaku",
+            "source" : "music",
+            "target" : "音楽",
+            "targetRange" : [
+              2,
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "density" : 1,
+        "spans" : [
+          {
+            "range" : [
+              7,
+              5
+            ],
+            "reading" : "ongaku",
+            "source" : "music",
+            "target" : "音楽",
+            "targetRange" : [
+              2,
+              2
+            ]
+          }
+        ]
+      }
+    ],
+    "providerPartial" : [
+      {
+        "frame" : "",
+        "id" : "starter-en-ja-007:dc8ed63767d110088afe31d42ab97cdda7502078677843abd4fb8795935fc2f3:word-en-ja-i",
+        "output" : "word-en-ja-i@0:1",
+        "range" : [
+          0,
+          1
+        ],
+        "reading" : "watashi",
+        "source" : "I",
+        "starter" : "word-en-ja-i",
+        "target" : "私"
+      },
+      {
+        "frame" : "frame-ba51de36821ae144d8e1b7ce",
+        "id" : "frame:4644e910c72d2142ed5f5bfbd6f9d1f0822871920cfc7e8cc15f0b5c3f414489:frame-ba51de36821ae144d8e1b7ce",
+        "output" : "frame-ba51de36821ae144d8e1b7ce@2:12:7:12",
+        "range" : [
+          7,
+          5
+        ],
+        "reading" : "ongaku",
+        "source" : "music",
+        "starter" : "",
+        "target" : "音楽"
+      }
+    ],
+    "providerPool" : [
+      {
+        "frame" : "frame-ba51de36821ae144d8e1b7ce",
+        "id" : "frame:4644e910c72d2142ed5f5bfbd6f9d1f0822871920cfc7e8cc15f0b5c3f414489:frame-ba51de36821ae144d8e1b7ce",
+        "output" : "frame-ba51de36821ae144d8e1b7ce@2:12:7:12",
+        "range" : [
+          7,
+          5
+        ],
+        "reading" : "ongaku",
+        "source" : "music",
+        "starter" : "",
+        "target" : "音楽"
+      },
+      {
+        "frame" : "",
+        "id" : "starter-en-ja-007:dc8ed63767d110088afe31d42ab97cdda7502078677843abd4fb8795935fc2f3:word-en-ja-i",
+        "output" : "word-en-ja-i@0:1",
+        "range" : [
+          0,
+          1
+        ],
+        "reading" : "watashi",
+        "source" : "I",
+        "starter" : "word-en-ja-i",
+        "target" : "私"
+      }
+    ],
+    "recognitions" : [
+      {
+        "approved" : [
+          {
+            "id" : "word-en-ja-i@0:1",
+            "range" : [
+              0,
+              1
+            ]
+          }
+        ],
+        "context" : [
+          0,
+          1
+        ],
+        "id" : "merged-0",
+        "mask" : [
+          0,
+          1
+        ],
+        "mode" : "headBackoff"
+      },
+      {
+        "approved" : [
+          {
+            "id" : "frame-ba51de36821ae144d8e1b7ce@2:12:7:12",
+            "range" : [
+              7,
+              5
+            ]
+          }
+        ],
+        "context" : [
+          2,
+          10
+        ],
+        "id" : "merged-1",
+        "mask" : [
+          7,
+          5
+        ],
+        "mode" : "headBackoff"
+      }
+    ],
+    "target" : "ja",
+    "translation" : "私は音楽が好きです。"
+  },
+  {
+    "alignment" : [
+      {
+        "density" : 0.75,
+        "spans" : [
+          {
+            "range" : [
+              7,
+              5
+            ],
+            "reading" : "",
+            "source" : "music",
+            "target" : "muziki",
+            "targetRange" : [
+              10,
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "density" : 1,
+        "spans" : [
+          {
+            "range" : [
+              7,
+              5
+            ],
+            "reading" : "",
+            "source" : "music",
+            "target" : "muziki",
+            "targetRange" : [
+              10,
+              6
+            ]
+          }
+        ]
+      }
+    ],
+    "providerPartial" : [
+      {
+        "frame" : "frame-eeb9ded11f2246c14aff33d6",
+        "id" : "frame:8880b2ed64309c5a288cddadccc25152cdf853cc5bfb779cddb308dc3d7455c5:frame-eeb9ded11f2246c14aff33d6",
+        "output" : "frame-eeb9ded11f2246c14aff33d6@2:12:7:12",
+        "range" : [
+          7,
+          5
+        ],
+        "reading" : "",
+        "source" : "music",
+        "starter" : "",
+        "target" : "muziki"
+      }
+    ],
+    "providerPool" : [
+      {
+        "frame" : "frame-eeb9ded11f2246c14aff33d6",
+        "id" : "frame:8880b2ed64309c5a288cddadccc25152cdf853cc5bfb779cddb308dc3d7455c5:frame-eeb9ded11f2246c14aff33d6",
+        "output" : "frame-eeb9ded11f2246c14aff33d6@2:12:7:12",
+        "range" : [
+          7,
+          5
+        ],
+        "reading" : "",
+        "source" : "music",
+        "starter" : "",
+        "target" : "muziki"
+      },
+      {
+        "frame" : "",
+        "id" : "starter-en-sw-008:37752d18786f69fb361983292ce60da98285c2b2736751675406f4b69426733a:clause-en-sw-i-like",
+        "output" : "clause-en-sw-i-like@0:6",
+        "range" : [
+          0,
+          6
+        ],
+        "reading" : "",
+        "source" : "I like",
+        "starter" : "clause-en-sw-i-like",
+        "target" : "ninapenda"
+      }
+    ],
+    "recognitions" : [
+      {
+        "approved" : [
+          {
+            "id" : "clause-en-sw-i-like@0:6",
+            "range" : [
+              0,
+              6
+            ]
+          }
+        ],
+        "context" : [
+          0,
+          12
+        ],
+        "id" : "merged-0",
+        "mask" : [
+          0,
+          6
+        ],
+        "mode" : "headBackoff"
+      },
+      {
+        "approved" : [
+          {
+            "id" : "frame-eeb9ded11f2246c14aff33d6@2:12:7:12",
+            "range" : [
+              7,
+              5
+            ]
+          }
+        ],
+        "context" : [
+          2,
+          10
+        ],
+        "id" : "merged-1",
+        "mask" : [
+          7,
+          5
+        ],
+        "mode" : "headBackoff"
+      }
+    ],
+    "target" : "sw",
+    "translation" : "Ninapenda muziki."
+  }
+]

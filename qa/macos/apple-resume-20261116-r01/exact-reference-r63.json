@@ -1,0 +1,236 @@
+[
+  {
+    "alignment" : [
+      {
+        "density" : 0.75,
+        "spans" : [
+          {
+            "range" : [
+              7,
+              5
+            ],
+            "reading" : "ongaku",
+            "source" : "music",
+            "target" : "音楽",
+            "targetRange" : [
+              2,
+              2
+            ]
+          }
+        ]
+      },
+      {
+        "density" : 1,
+        "spans" : [
+          {
+            "range" : [
+              7,
+              5
+            ],
+            "reading" : "ongaku",
+            "source" : "music",
+            "target" : "音楽",
+            "targetRange" : [
+              2,
+              2
+            ]
+          }
+        ]
+      }
+    ],
+    "providerPartial" : [
+      {
+        "frame" : "",
+        "id" : "starter-en-ja-007:dc8ed63767d110088afe31d42ab97cdda7502078677843abd4fb8795935fc2f3:word-en-ja-i",
+        "output" : "word-en-ja-i@0:1",
+        "range" : [
+          0,
+          1
+        ],
+        "reading" : "watashi",
+        "source" : "I",
+        "starter" : "word-en-ja-i",
+        "target" : "私"
+      },
+      {
+        "frame" : "",
+        "id" : "starter-en-ja-007:dc8ed63767d110088afe31d42ab97cdda7502078677843abd4fb8795935fc2f3:word-en-ja-music",
+        "output" : "word-en-ja-music@7:12",
+        "range" : [
+          7,
+          5
+        ],
+        "reading" : "ongaku",
+        "source" : "music",
+        "starter" : "word-en-ja-music",
+        "target" : "音楽"
+      }
+    ],
+    "providerPool" : [
+
+    ],
+    "recognitions" : [
+      {
+        "approved" : [
+          {
+            "id" : "word-en-ja-i@0:1",
+            "range" : [
+              0,
+              1
+            ]
+          }
+        ],
+        "context" : [
+          0,
+          1
+        ],
+        "id" : "starter-0",
+        "mask" : [
+          0,
+          1
+        ],
+        "mode" : "headBackoff"
+      },
+      {
+        "approved" : [
+          {
+            "id" : "word-en-ja-music@7:12",
+            "range" : [
+              7,
+              5
+            ]
+          }
+        ],
+        "context" : [
+          7,
+          5
+        ],
+        "id" : "starter-1",
+        "mask" : [
+          7,
+          5
+        ],
+        "mode" : "headBackoff"
+      }
+    ],
+    "target" : "ja",
+    "translation" : "私は音楽が好きです。"
+  },
+  {
+    "alignment" : [
+      {
+        "density" : 0.75,
+        "spans" : [
+          {
+            "range" : [
+              7,
+              5
+            ],
+            "reading" : "",
+            "source" : "music",
+            "target" : "muziki",
+            "targetRange" : [
+              10,
+              6
+            ]
+          }
+        ]
+      },
+      {
+        "density" : 1,
+        "spans" : [
+          {
+            "range" : [
+              7,
+              5
+            ],
+            "reading" : "",
+            "source" : "music",
+            "target" : "muziki",
+            "targetRange" : [
+              10,
+              6
+            ]
+          }
+        ]
+      }
+    ],
+    "providerPartial" : [
+      {
+        "frame" : "",
+        "id" : "starter-en-sw-008:37752d18786f69fb361983292ce60da98285c2b2736751675406f4b69426733a:clause-en-sw-i-like",
+        "output" : "clause-en-sw-i-like@0:6",
+        "range" : [
+          0,
+          6
+        ],
+        "reading" : "",
+        "source" : "I like",
+        "starter" : "clause-en-sw-i-like",
+        "target" : "ninapenda"
+      },
+      {
+        "frame" : "",
+        "id" : "starter-en-sw-008:37752d18786f69fb361983292ce60da98285c2b2736751675406f4b69426733a:word-en-sw-music",
+        "output" : "word-en-sw-music@7:12",
+        "range" : [
+          7,
+          5
+        ],
+        "reading" : "",
+        "source" : "music",
+        "starter" : "word-en-sw-music",
+        "target" : "muziki"
+      }
+    ],
+    "providerPool" : [
+
+    ],
+    "recognitions" : [
+      {
+        "approved" : [
+          {
+            "id" : "clause-en-sw-i-like@0:6",
+            "range" : [
+              0,
+              6
+            ]
+          }
+        ],
+        "context" : [
+          0,
+          12
+        ],
+        "id" : "starter-0",
+        "mask" : [
+          0,
+          6
+        ],
+        "mode" : "headBackoff"
+      },
+      {
+        "approved" : [
+          {
+            "id" : "word-en-sw-music@7:12",
+            "range" : [
+              7,
+              5
+            ]
+          }
+        ],
+        "context" : [
+          7,
+          5
+        ],
+        "id" : "starter-1",
+        "mask" : [
+          7,
+          5
+        ],
+        "mode" : "headBackoff"
+      }
+    ],
+    "target" : "sw",
+    "translation" : "Ninapenda muziki."
+  }
+]

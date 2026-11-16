@@ -9,6 +9,8 @@ import XCTest
     var detected: String? = "en"
     var known: [String: String] = [:]
     var partial: PartialImmersionResult?
+    var evidence: SourceLookupEvidence?
+    var evidenceCalls = 0
     var translated = "Hola. Mensaje desconocido."
     var readinessCalls = 0, inferenceCalls = 0, alignCalls = 0
     var staleDuringReadiness = false, staleDuringTranslation = false, cancelTranslation = false
@@ -35,6 +37,8 @@ import XCTest
                 return .init(original: self.badAlignment ? "wrong source" : source, translation: target, spans: [])
             },
             partialReference: { _, _, _ in self.partial },
+            sourceEvidenceIdentity: evidence?.catalogIdentity,
+            sourceEvidence: evidence.map { _ in { _, _, _ in self.evidenceCalls += 1; return self.evidence! } },
             onPartial: { self.partialEvents.append($0) })
     }
 }
@@ -79,6 +83,31 @@ import XCTest
         XCTAssertEqual(outcome.status, .ready); XCTAssertEqual(outcome.origin, .lookupReference)
         XCTAssertEqual(outcome.result?.translation, "Hola.")
         XCTAssertEqual(h.readinessCalls, 0); XCTAssertEqual(h.inferenceCalls, 0)
+    }
+    func testForwardReferenceUsesQualifiedAutomaticPartialButKeepsFullAndReverse() async throws {
+        let text = "Hello. Unknown message."
+        let candidate = try partial(text)
+        let h = LookupHarness()
+        h.known["en-es:" + text] = "Hola. Mensaje desconocido."
+        h.evidence = .init(original: text, source: "en", target: "es", catalogIdentity: "test-provider",
+                           partial: candidate, recognitions: [])
+        let automatic = try await h.run(text)
+        XCTAssertEqual(automatic.status, .partial)
+        XCTAssertEqual(automatic.result?.spans, candidate.spans)
+        let full = try await h.run(text, intent: .fullTranslation)
+        XCTAssertEqual(full.status, .ready)
+        XCTAssertEqual(full.result?.translation, "Hola. Mensaje desconocido.")
+        XCTAssertEqual(h.inferenceCalls, 0)
+        let beforeReverse = h.evidenceCalls
+        h.known["es-en:Hola."] = "Hello."
+        let reverse = try await h.run("Hola.", input: "es")
+        XCTAssertEqual(reverse.result?.translation, "Hola.")
+        XCTAssertEqual(h.evidenceCalls, beforeReverse)
+        h.evidence = .init(original: text, source: "en", target: "es", catalogIdentity: "test-provider",
+                           partial: nil, recognitions: [])
+        let fallback = try await h.run(text)
+        XCTAssertEqual(fallback.status, .ready)
+        XCTAssertEqual(fallback.result?.translation, "Hola. Mensaje desconocido.")
     }
     func testKnownReverseKeepsCanonicalSourceAndIncomingTarget() async throws {
         let h = LookupHarness(); h.known["es-en:Hola."] = "Hello."

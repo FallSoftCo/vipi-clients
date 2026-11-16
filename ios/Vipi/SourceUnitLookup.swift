@@ -9,6 +9,7 @@ import VipiCore
         let pair: TranslationPair
         let density: Double
         let knownConceptIDs: Set<String>
+        var preserveReferencePriority: Bool = false
     }
     /// Catalog version and content identity belong here. Replacing a provider
     /// requires a new conversation owner; changing its knowledge snapshot uses

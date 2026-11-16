@@ -107,7 +107,7 @@ public enum LookupFirst {
                           let checked = evidence.validated(text: text, sourceLanguage: source,
                               targetLanguage: target, identity: identity) else { return stop(.invalidResult) }
                     constraints = checked
-                    if forward == nil { catalogPartial = evidence.partial }
+                    if forward == nil || request.intent == .automaticImmersion { catalogPartial = evidence.partial }
                 }
                 if let candidate = sourcePartial {
                     guard candidate.original.utf8.elementsEqual(text.utf8),
@@ -117,7 +117,7 @@ public enum LookupFirst {
                 }
                 // A legacy face blocked by recognition must not hide an
                 // independently approved source head or force unnecessary MT.
-                if partial == nil, forward == nil, let catalogPartial {
+                if partial == nil, let catalogPartial {
                     if let constraints { partial = constraints.filterPartial(catalogPartial) }
                 }
                 if let partial { onPartial(partial) }

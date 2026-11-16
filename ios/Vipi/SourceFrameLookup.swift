@@ -135,13 +135,14 @@ struct SourceFrameStarterCandidate {
     func provider(baseline: SourceUnitLookup,
                   raw: @escaping () -> [SourceFrameStarterCandidate],
                   catalog: BundledImmersionCatalog = BundledImmersionCatalog()) -> SourceUnitLookup {
-        let identity = self.identity + ":reference-first-v1"
+        let identity = self.identity + ":reference-source-pool-v2"
         return SourceUnitLookup(identity: identity) { context in
             let original = try await baseline.resolve(context)
             // Snapshot before awaiting the actor: another message may use the same matcher.
             let candidates = raw()
-            let reference = try await catalog.reference(original: context.original, pair: context.pair)
-            let resolved = reference != nil ? original : try self.resolve(
+            let preserveReference = context.preserveReferencePriority
+                ? try await catalog.reference(original: context.original, pair: context.pair) != nil : false
+            let resolved = preserveReference ? original : try self.resolve(
                 original: context.original, density: context.density,
                 known: context.knownConceptIDs, baseline: original, raw: candidates)
             return SourceLookupEvidence(original: resolved.original, source: resolved.source,

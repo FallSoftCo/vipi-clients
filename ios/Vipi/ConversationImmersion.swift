@@ -279,7 +279,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
                     { original, source, target in
                         let requestPair = TranslationPair(source:source,target:target)
                         func existing() async throws -> SourceLookupEvidence {
-                            try await provider.resolve(.init(original:original,pair:requestPair,density:activeDensity,knownConceptIDs:activeKnownConceptIDs))
+                            try await provider.resolve(.init(original:original,pair:requestPair,density:activeDensity,knownConceptIDs:activeKnownConceptIDs,preserveReferencePriority:intent == .fullTranslation))
                         }
                         guard intent == .automaticImmersion, activeDensity > 0, messageID != nil,
                               let familiarity = self.familiarity else { return try await existing() }
