@@ -574,5 +574,67 @@
   ],
   "policy": "Positive density defines novel budget B=max(1,floor(N*density)); absolute combined ceiling C=min(N,max(1,floor(N*.75))). Zero density switches nothing. From eligible, nonoverlapping, complete source units, reserve one fitting novel item, select seen items by due then source order, then add other novel items in source order up to remaining B and C. Return source order. Seen means verified visible dwell, never inferred mastery; cannot manufacture units or exceed bounds. Exact-word cost is explicit. Selection snapshot is stable for the presented message.",
   "schema": "vipi-additive-selection-cases-1",
-  "scope": "Shared policy fixtures; budgets are explicitly supplied. Native source bounds, semantic eligibility and exposure state must be independently validated before this selector is called. These cases do not validate translations or actual visibility."
+  "scope": "Shared policy fixtures; budgets are explicitly supplied. Native source bounds, semantic eligibility and exposure state must be independently validated before this selector is called. These cases do not validate translations or actual visibility.",
+  "snapshot_cases": [
+    {
+      "events": [
+        {
+          "kind": "present",
+          "message_id": "m1",
+          "selection": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "kind": "visible_dwell",
+          "seen": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "expected": [
+            "a",
+            "b"
+          ],
+          "kind": "render_same_message",
+          "message_id": "m1"
+        },
+        {
+          "kind": "present_new_message",
+          "message_id": "m2",
+          "selection": [
+            "a",
+            "b",
+            "c"
+          ]
+        }
+      ],
+      "expectation": "Selection and layout stay fixed for an existing presentation despite exposure writes; history may influence a later new request or message.",
+      "id": "exposure_does_not_reselect_current_message"
+    },
+    {
+      "events": [
+        {
+          "kind": "present",
+          "message_id": "m1",
+          "selection": [
+            "a"
+          ]
+        },
+        {
+          "kind": "density_change",
+          "value": 0
+        },
+        {
+          "kind": "request_new_presentation",
+          "message_id": "m1",
+          "selection": []
+        }
+      ],
+      "expectation": "An explicit setting or language-pair change may replace the current selection.",
+      "id": "settings_change_permits_new_snapshot"
+    }
+  ]
 }
