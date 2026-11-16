@@ -49,12 +49,17 @@ final class SwahiliSpeech: @unchecked Sendable {
     private func synthesize(_ text: String, to url: URL, job: Job) throws -> RenderedSpeech {
         guard !job.isCancelled else { throw CancellationError() }
         if !initialized {
-            var root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-                .appendingPathComponent("speech-" + Self.identifier, isDirectory: true)
-            try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
-            var values = URLResourceValues(); values.isExcludedFromBackup = true
-            try root.setResourceValues(values)
-            try EspeakLib.ensureBundleInstalled(inRoot: root)
+            // This resource is compiled from the exact eSpeak revision linked by
+            // the app and verified during every build. It is read-only in the app
+            // bundle, avoiding stale or incomplete installed-data caches.
+            guard let resources = Bundle.main.resourceURL else { throw LocalSpeechError.unavailable }
+            let root = resources.appendingPathComponent("vipi-speech-699e7969", isDirectory: true)
+            let data = root.appendingPathComponent("espeak-ng-data", isDirectory: true)
+            for path in ["sw_dict", "phondata", "phonindex", "phontab", "intonations", "lang/bnt/sw"] {
+                guard FileManager.default.isReadableFile(atPath: data.appendingPathComponent(path).path) else {
+                    throw LocalSpeechError.unavailable
+                }
+            }
             root.path.withCString { espeak_ng_InitializePath($0) }
             guard espeak_ng_Initialize(nil) == ENS_OK,
                   espeak_ng_InitializeOutput(ENOUTPUT_MODE_SYNCHRONOUS, 0, nil) == ENS_OK else {

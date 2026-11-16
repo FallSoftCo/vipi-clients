@@ -120,6 +120,11 @@ targets:
               exit 1
           fi
     postBuildScripts:
+      - name: Package verified Swahili speech data
+        basedOnDependencyAnalysis: false
+        showEnvVars: false
+        script: |
+          python3 "${SRCROOT}/package-swahili-speech.py"
       - name: Preserve static ML Kit privacy manifests
         basedOnDependencyAnalysis: false
         showEnvVars: false
