@@ -1,0 +1,88 @@
+{
+  "cases": [
+    {
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "听音乐会",
+      "android_diagnostic_emitted": false
+    },
+    {
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "这本书房",
+      "android_diagnostic_emitted": false
+    },
+    {
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "一本书店",
+      "android_diagnostic_emitted": false
+    },
+    {
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "책에서도",
+      "android_diagnostic_emitted": false
+    },
+    {
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "책에서의",
+      "android_diagnostic_emitted": false
+    },
+    {
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "كتابي",
+      "android_diagnostic_emitted": false
+    },
+    {
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "والكتاب",
+      "android_diagnostic_emitted": false
+    },
+    {
+      "source_language": "it",
+      "target_language": "en",
+      "original": "la musica",
+      "android_diagnostic_emitted": false
+    },
+    {
+      "source_language": "it",
+      "target_language": "en",
+      "original": "La musica è",
+      "android_diagnostic_emitted": true
+    },
+    {
+      "source_language": "it",
+      "target_language": "en",
+      "original": "questa musica",
+      "android_diagnostic_emitted": true
+    },
+    {
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "الماء",
+      "android_diagnostic_emitted": true
+    },
+    {
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "책을",
+      "android_diagnostic_emitted": true
+    },
+    {
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "音乐很",
+      "android_diagnostic_emitted": true
+    },
+    {
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "听音乐",
+      "android_diagnostic_emitted": true
+    }
+  ]
+}

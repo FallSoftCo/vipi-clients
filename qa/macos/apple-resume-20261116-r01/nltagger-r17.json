@@ -1,0 +1,2019 @@
+{
+  "cases" : [
+    {
+      "focus" : "train",
+      "id" : "local-01",
+      "lemmas" : [
+        {
+          "end_utf16" : 3,
+          "lemma" : "the",
+          "start_utf16" : 0,
+          "text" : "The"
+        },
+        {
+          "end_utf16" : 4,
+          "lemma" : null,
+          "start_utf16" : 3,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 9,
+          "lemma" : "train",
+          "start_utf16" : 4,
+          "text" : "train"
+        },
+        {
+          "end_utf16" : 10,
+          "lemma" : null,
+          "start_utf16" : 9,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 16,
+          "lemma" : "leave",
+          "start_utf16" : 10,
+          "text" : "leaves"
+        },
+        {
+          "end_utf16" : 17,
+          "lemma" : null,
+          "start_utf16" : 16,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 21,
+          "lemma" : "from",
+          "start_utf16" : 17,
+          "text" : "from"
+        },
+        {
+          "end_utf16" : 22,
+          "lemma" : null,
+          "start_utf16" : 21,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 30,
+          "lemma" : "platform",
+          "start_utf16" : 22,
+          "text" : "platform"
+        },
+        {
+          "end_utf16" : 31,
+          "lemma" : null,
+          "start_utf16" : 30,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 36,
+          "lemma" : "three",
+          "start_utf16" : 31,
+          "text" : "three"
+        },
+        {
+          "end_utf16" : 37,
+          "lemma" : null,
+          "start_utf16" : 36,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 39,
+          "lemma" : "in",
+          "start_utf16" : 37,
+          "text" : "in"
+        },
+        {
+          "end_utf16" : 40,
+          "lemma" : null,
+          "start_utf16" : 39,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 43,
+          "lemma" : "ten",
+          "start_utf16" : 40,
+          "text" : "ten"
+        },
+        {
+          "end_utf16" : 44,
+          "lemma" : null,
+          "start_utf16" : 43,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 51,
+          "lemma" : "minute",
+          "start_utf16" : 44,
+          "text" : "minutes"
+        },
+        {
+          "end_utf16" : 52,
+          "lemma" : null,
+          "start_utf16" : 51,
+          "text" : "."
+        }
+      ],
+      "original" : "The train leaves from platform three in ten minutes.",
+      "source" : "en",
+      "tags" : [
+        {
+          "end_utf16" : 3,
+          "lexical_class" : "Determiner",
+          "start_utf16" : 0,
+          "text" : "The"
+        },
+        {
+          "end_utf16" : 4,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 3,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 9,
+          "lexical_class" : "Noun",
+          "start_utf16" : 4,
+          "text" : "train"
+        },
+        {
+          "end_utf16" : 10,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 9,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 16,
+          "lexical_class" : "Verb",
+          "start_utf16" : 10,
+          "text" : "leaves"
+        },
+        {
+          "end_utf16" : 17,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 16,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 21,
+          "lexical_class" : "Preposition",
+          "start_utf16" : 17,
+          "text" : "from"
+        },
+        {
+          "end_utf16" : 22,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 21,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 30,
+          "lexical_class" : "Noun",
+          "start_utf16" : 22,
+          "text" : "platform"
+        },
+        {
+          "end_utf16" : 31,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 30,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 36,
+          "lexical_class" : "Number",
+          "start_utf16" : 31,
+          "text" : "three"
+        },
+        {
+          "end_utf16" : 37,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 36,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 39,
+          "lexical_class" : "Preposition",
+          "start_utf16" : 37,
+          "text" : "in"
+        },
+        {
+          "end_utf16" : 40,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 39,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 43,
+          "lexical_class" : "Number",
+          "start_utf16" : 40,
+          "text" : "ten"
+        },
+        {
+          "end_utf16" : 44,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 43,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 51,
+          "lexical_class" : "Noun",
+          "start_utf16" : 44,
+          "text" : "minutes"
+        },
+        {
+          "end_utf16" : 52,
+          "lexical_class" : "SentenceTerminator",
+          "start_utf16" : 51,
+          "text" : "."
+        }
+      ]
+    },
+    {
+      "focus" : "train",
+      "id" : "local-02",
+      "lemmas" : [
+        {
+          "end_utf16" : 1,
+          "lemma" : "I",
+          "start_utf16" : 0,
+          "text" : "I"
+        },
+        {
+          "end_utf16" : 2,
+          "lemma" : null,
+          "start_utf16" : 1,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 7,
+          "lemma" : "train",
+          "start_utf16" : 2,
+          "text" : "train"
+        },
+        {
+          "end_utf16" : 8,
+          "lemma" : null,
+          "start_utf16" : 7,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 11,
+          "lemma" : "new",
+          "start_utf16" : 8,
+          "text" : "new"
+        },
+        {
+          "end_utf16" : 12,
+          "lemma" : null,
+          "start_utf16" : 11,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 22,
+          "lemma" : "volunteer",
+          "start_utf16" : 12,
+          "text" : "volunteers"
+        },
+        {
+          "end_utf16" : 23,
+          "lemma" : null,
+          "start_utf16" : 22,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 28,
+          "lemma" : "every",
+          "start_utf16" : 23,
+          "text" : "every"
+        },
+        {
+          "end_utf16" : 29,
+          "lemma" : null,
+          "start_utf16" : 28,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 37,
+          "lemma" : "Saturday",
+          "start_utf16" : 29,
+          "text" : "Saturday"
+        },
+        {
+          "end_utf16" : 38,
+          "lemma" : null,
+          "start_utf16" : 37,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 45,
+          "lemma" : "morning",
+          "start_utf16" : 38,
+          "text" : "morning"
+        },
+        {
+          "end_utf16" : 46,
+          "lemma" : null,
+          "start_utf16" : 45,
+          "text" : "."
+        }
+      ],
+      "original" : "I train new volunteers every Saturday morning.",
+      "source" : "en",
+      "tags" : [
+        {
+          "end_utf16" : 1,
+          "lexical_class" : "Pronoun",
+          "start_utf16" : 0,
+          "text" : "I"
+        },
+        {
+          "end_utf16" : 2,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 1,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 7,
+          "lexical_class" : "Verb",
+          "start_utf16" : 2,
+          "text" : "train"
+        },
+        {
+          "end_utf16" : 8,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 7,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 11,
+          "lexical_class" : "Adjective",
+          "start_utf16" : 8,
+          "text" : "new"
+        },
+        {
+          "end_utf16" : 12,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 11,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 22,
+          "lexical_class" : "Noun",
+          "start_utf16" : 12,
+          "text" : "volunteers"
+        },
+        {
+          "end_utf16" : 23,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 22,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 28,
+          "lexical_class" : "Determiner",
+          "start_utf16" : 23,
+          "text" : "every"
+        },
+        {
+          "end_utf16" : 29,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 28,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 37,
+          "lexical_class" : "Noun",
+          "start_utf16" : 29,
+          "text" : "Saturday"
+        },
+        {
+          "end_utf16" : 38,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 37,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 45,
+          "lexical_class" : "Noun",
+          "start_utf16" : 38,
+          "text" : "morning"
+        },
+        {
+          "end_utf16" : 46,
+          "lexical_class" : "SentenceTerminator",
+          "start_utf16" : 45,
+          "text" : "."
+        }
+      ]
+    },
+    {
+      "focus" : "bank",
+      "id" : "local-03",
+      "lemmas" : [
+        {
+          "end_utf16" : 3,
+          "lemma" : "she",
+          "start_utf16" : 0,
+          "text" : "She"
+        },
+        {
+          "end_utf16" : 4,
+          "lemma" : null,
+          "start_utf16" : 3,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 8,
+          "lemma" : "go",
+          "start_utf16" : 4,
+          "text" : "went"
+        },
+        {
+          "end_utf16" : 9,
+          "lemma" : null,
+          "start_utf16" : 8,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 11,
+          "lemma" : "to",
+          "start_utf16" : 9,
+          "text" : "to"
+        },
+        {
+          "end_utf16" : 12,
+          "lemma" : null,
+          "start_utf16" : 11,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 15,
+          "lemma" : "the",
+          "start_utf16" : 12,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 16,
+          "lemma" : null,
+          "start_utf16" : 15,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 20,
+          "lemma" : "bank",
+          "start_utf16" : 16,
+          "text" : "bank"
+        },
+        {
+          "end_utf16" : 21,
+          "lemma" : null,
+          "start_utf16" : 20,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 23,
+          "lemma" : "to",
+          "start_utf16" : 21,
+          "text" : "to"
+        },
+        {
+          "end_utf16" : 24,
+          "lemma" : null,
+          "start_utf16" : 23,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 31,
+          "lemma" : "deposit",
+          "start_utf16" : 24,
+          "text" : "deposit"
+        },
+        {
+          "end_utf16" : 32,
+          "lemma" : null,
+          "start_utf16" : 31,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 35,
+          "lemma" : "her",
+          "start_utf16" : 32,
+          "text" : "her"
+        },
+        {
+          "end_utf16" : 36,
+          "lemma" : null,
+          "start_utf16" : 35,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 44,
+          "lemma" : "paycheck",
+          "start_utf16" : 36,
+          "text" : "paycheck"
+        },
+        {
+          "end_utf16" : 45,
+          "lemma" : null,
+          "start_utf16" : 44,
+          "text" : "."
+        }
+      ],
+      "original" : "She went to the bank to deposit her paycheck.",
+      "source" : "en",
+      "tags" : [
+        {
+          "end_utf16" : 3,
+          "lexical_class" : "Pronoun",
+          "start_utf16" : 0,
+          "text" : "She"
+        },
+        {
+          "end_utf16" : 4,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 3,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 8,
+          "lexical_class" : "Verb",
+          "start_utf16" : 4,
+          "text" : "went"
+        },
+        {
+          "end_utf16" : 9,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 8,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 11,
+          "lexical_class" : "Preposition",
+          "start_utf16" : 9,
+          "text" : "to"
+        },
+        {
+          "end_utf16" : 12,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 11,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 15,
+          "lexical_class" : "Determiner",
+          "start_utf16" : 12,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 16,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 15,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 20,
+          "lexical_class" : "Noun",
+          "start_utf16" : 16,
+          "text" : "bank"
+        },
+        {
+          "end_utf16" : 21,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 20,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 23,
+          "lexical_class" : "Particle",
+          "start_utf16" : 21,
+          "text" : "to"
+        },
+        {
+          "end_utf16" : 24,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 23,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 31,
+          "lexical_class" : "Verb",
+          "start_utf16" : 24,
+          "text" : "deposit"
+        },
+        {
+          "end_utf16" : 32,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 31,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 35,
+          "lexical_class" : "Determiner",
+          "start_utf16" : 32,
+          "text" : "her"
+        },
+        {
+          "end_utf16" : 36,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 35,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 44,
+          "lexical_class" : "Noun",
+          "start_utf16" : 36,
+          "text" : "paycheck"
+        },
+        {
+          "end_utf16" : 45,
+          "lexical_class" : "SentenceTerminator",
+          "start_utf16" : 44,
+          "text" : "."
+        }
+      ]
+    },
+    {
+      "focus" : "bank",
+      "id" : "local-04",
+      "lemmas" : [
+        {
+          "end_utf16" : 2,
+          "lemma" : "I",
+          "start_utf16" : 0,
+          "text" : "We"
+        },
+        {
+          "end_utf16" : 3,
+          "lemma" : null,
+          "start_utf16" : 2,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 6,
+          "lemma" : "sit",
+          "start_utf16" : 3,
+          "text" : "sat"
+        },
+        {
+          "end_utf16" : 7,
+          "lemma" : null,
+          "start_utf16" : 6,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 9,
+          "lemma" : "on",
+          "start_utf16" : 7,
+          "text" : "on"
+        },
+        {
+          "end_utf16" : 10,
+          "lemma" : null,
+          "start_utf16" : 9,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 13,
+          "lemma" : "the",
+          "start_utf16" : 10,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 14,
+          "lemma" : null,
+          "start_utf16" : 13,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 18,
+          "lemma" : "bank",
+          "start_utf16" : 14,
+          "text" : "bank"
+        },
+        {
+          "end_utf16" : 19,
+          "lemma" : null,
+          "start_utf16" : 18,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 22,
+          "lemma" : "and",
+          "start_utf16" : 19,
+          "text" : "and"
+        },
+        {
+          "end_utf16" : 23,
+          "lemma" : null,
+          "start_utf16" : 22,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 30,
+          "lemma" : "watch",
+          "start_utf16" : 23,
+          "text" : "watched"
+        },
+        {
+          "end_utf16" : 31,
+          "lemma" : null,
+          "start_utf16" : 30,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 34,
+          "lemma" : "the",
+          "start_utf16" : 31,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 35,
+          "lemma" : null,
+          "start_utf16" : 34,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 40,
+          "lemma" : "river",
+          "start_utf16" : 35,
+          "text" : "river"
+        },
+        {
+          "end_utf16" : 41,
+          "lemma" : null,
+          "start_utf16" : 40,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 45,
+          "lemma" : "flow",
+          "start_utf16" : 41,
+          "text" : "flow"
+        },
+        {
+          "end_utf16" : 46,
+          "lemma" : null,
+          "start_utf16" : 45,
+          "text" : "."
+        }
+      ],
+      "original" : "We sat on the bank and watched the river flow.",
+      "source" : "en",
+      "tags" : [
+        {
+          "end_utf16" : 2,
+          "lexical_class" : "Pronoun",
+          "start_utf16" : 0,
+          "text" : "We"
+        },
+        {
+          "end_utf16" : 3,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 2,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 6,
+          "lexical_class" : "Verb",
+          "start_utf16" : 3,
+          "text" : "sat"
+        },
+        {
+          "end_utf16" : 7,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 6,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 9,
+          "lexical_class" : "Preposition",
+          "start_utf16" : 7,
+          "text" : "on"
+        },
+        {
+          "end_utf16" : 10,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 9,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 13,
+          "lexical_class" : "Determiner",
+          "start_utf16" : 10,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 14,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 13,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 18,
+          "lexical_class" : "Noun",
+          "start_utf16" : 14,
+          "text" : "bank"
+        },
+        {
+          "end_utf16" : 19,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 18,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 22,
+          "lexical_class" : "Conjunction",
+          "start_utf16" : 19,
+          "text" : "and"
+        },
+        {
+          "end_utf16" : 23,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 22,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 30,
+          "lexical_class" : "Verb",
+          "start_utf16" : 23,
+          "text" : "watched"
+        },
+        {
+          "end_utf16" : 31,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 30,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 34,
+          "lexical_class" : "Determiner",
+          "start_utf16" : 31,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 35,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 34,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 40,
+          "lexical_class" : "Noun",
+          "start_utf16" : 35,
+          "text" : "river"
+        },
+        {
+          "end_utf16" : 41,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 40,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 45,
+          "lexical_class" : "Noun",
+          "start_utf16" : 41,
+          "text" : "flow"
+        },
+        {
+          "end_utf16" : 46,
+          "lexical_class" : "SentenceTerminator",
+          "start_utf16" : 45,
+          "text" : "."
+        }
+      ]
+    },
+    {
+      "focus" : "under the weather",
+      "id" : "local-05",
+      "lemmas" : [
+        {
+          "end_utf16" : 1,
+          "lemma" : "I",
+          "start_utf16" : 0,
+          "text" : "I"
+        },
+        {
+          "end_utf16" : 2,
+          "lemma" : null,
+          "start_utf16" : 1,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 4,
+          "lemma" : "be",
+          "start_utf16" : 2,
+          "text" : "am"
+        },
+        {
+          "end_utf16" : 5,
+          "lemma" : null,
+          "start_utf16" : 4,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 12,
+          "lemma" : "feel",
+          "start_utf16" : 5,
+          "text" : "feeling"
+        },
+        {
+          "end_utf16" : 13,
+          "lemma" : null,
+          "start_utf16" : 12,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 18,
+          "lemma" : "under",
+          "start_utf16" : 13,
+          "text" : "under"
+        },
+        {
+          "end_utf16" : 19,
+          "lemma" : null,
+          "start_utf16" : 18,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 22,
+          "lemma" : "the",
+          "start_utf16" : 19,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 23,
+          "lemma" : null,
+          "start_utf16" : 22,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 30,
+          "lemma" : "weather",
+          "start_utf16" : 23,
+          "text" : "weather"
+        },
+        {
+          "end_utf16" : 31,
+          "lemma" : null,
+          "start_utf16" : 30,
+          "text" : ","
+        },
+        {
+          "end_utf16" : 32,
+          "lemma" : null,
+          "start_utf16" : 31,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 34,
+          "lemma" : "so",
+          "start_utf16" : 32,
+          "text" : "so"
+        },
+        {
+          "end_utf16" : 35,
+          "lemma" : null,
+          "start_utf16" : 34,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 36,
+          "lemma" : "I",
+          "start_utf16" : 35,
+          "text" : "I"
+        },
+        {
+          "end_utf16" : 37,
+          "lemma" : null,
+          "start_utf16" : 36,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 41,
+          "lemma" : "will",
+          "start_utf16" : 37,
+          "text" : "will"
+        },
+        {
+          "end_utf16" : 42,
+          "lemma" : null,
+          "start_utf16" : 41,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 46,
+          "lemma" : "stay",
+          "start_utf16" : 42,
+          "text" : "stay"
+        },
+        {
+          "end_utf16" : 47,
+          "lemma" : null,
+          "start_utf16" : 46,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 51,
+          "lemma" : "home",
+          "start_utf16" : 47,
+          "text" : "home"
+        },
+        {
+          "end_utf16" : 52,
+          "lemma" : null,
+          "start_utf16" : 51,
+          "text" : "."
+        }
+      ],
+      "original" : "I am feeling under the weather, so I will stay home.",
+      "source" : "en",
+      "tags" : [
+        {
+          "end_utf16" : 1,
+          "lexical_class" : "Pronoun",
+          "start_utf16" : 0,
+          "text" : "I"
+        },
+        {
+          "end_utf16" : 2,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 1,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 4,
+          "lexical_class" : "Verb",
+          "start_utf16" : 2,
+          "text" : "am"
+        },
+        {
+          "end_utf16" : 5,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 4,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 12,
+          "lexical_class" : "Verb",
+          "start_utf16" : 5,
+          "text" : "feeling"
+        },
+        {
+          "end_utf16" : 13,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 12,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 18,
+          "lexical_class" : "Preposition",
+          "start_utf16" : 13,
+          "text" : "under"
+        },
+        {
+          "end_utf16" : 19,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 18,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 22,
+          "lexical_class" : "Determiner",
+          "start_utf16" : 19,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 23,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 22,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 30,
+          "lexical_class" : "Noun",
+          "start_utf16" : 23,
+          "text" : "weather"
+        },
+        {
+          "end_utf16" : 31,
+          "lexical_class" : "Punctuation",
+          "start_utf16" : 30,
+          "text" : ","
+        },
+        {
+          "end_utf16" : 32,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 31,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 34,
+          "lexical_class" : "Adverb",
+          "start_utf16" : 32,
+          "text" : "so"
+        },
+        {
+          "end_utf16" : 35,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 34,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 36,
+          "lexical_class" : "Pronoun",
+          "start_utf16" : 35,
+          "text" : "I"
+        },
+        {
+          "end_utf16" : 37,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 36,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 41,
+          "lexical_class" : "Verb",
+          "start_utf16" : 37,
+          "text" : "will"
+        },
+        {
+          "end_utf16" : 42,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 41,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 46,
+          "lexical_class" : "Verb",
+          "start_utf16" : 42,
+          "text" : "stay"
+        },
+        {
+          "end_utf16" : 47,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 46,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 51,
+          "lexical_class" : "Adverb",
+          "start_utf16" : 47,
+          "text" : "home"
+        },
+        {
+          "end_utf16" : 52,
+          "lexical_class" : "SentenceTerminator",
+          "start_utf16" : 51,
+          "text" : "."
+        }
+      ]
+    },
+    {
+      "focus" : "Sounds good",
+      "id" : "local-06",
+      "lemmas" : [
+        {
+          "end_utf16" : 6,
+          "lemma" : "sound",
+          "start_utf16" : 0,
+          "text" : "Sounds"
+        },
+        {
+          "end_utf16" : 7,
+          "lemma" : null,
+          "start_utf16" : 6,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 11,
+          "lemma" : "good",
+          "start_utf16" : 7,
+          "text" : "good"
+        },
+        {
+          "end_utf16" : 12,
+          "lemma" : null,
+          "start_utf16" : 11,
+          "text" : ","
+        },
+        {
+          "end_utf16" : 13,
+          "lemma" : null,
+          "start_utf16" : 12,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 16,
+          "lemma" : "see",
+          "start_utf16" : 13,
+          "text" : "see"
+        },
+        {
+          "end_utf16" : 17,
+          "lemma" : null,
+          "start_utf16" : 16,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 20,
+          "lemma" : "you",
+          "start_utf16" : 17,
+          "text" : "you"
+        },
+        {
+          "end_utf16" : 21,
+          "lemma" : null,
+          "start_utf16" : 20,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 26,
+          "lemma" : "after",
+          "start_utf16" : 21,
+          "text" : "after"
+        },
+        {
+          "end_utf16" : 27,
+          "lemma" : null,
+          "start_utf16" : 26,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 32,
+          "lemma" : "lunch",
+          "start_utf16" : 27,
+          "text" : "lunch"
+        },
+        {
+          "end_utf16" : 33,
+          "lemma" : null,
+          "start_utf16" : 32,
+          "text" : "!"
+        }
+      ],
+      "original" : "Sounds good, see you after lunch!",
+      "source" : "en",
+      "tags" : [
+        {
+          "end_utf16" : 6,
+          "lexical_class" : "Verb",
+          "start_utf16" : 0,
+          "text" : "Sounds"
+        },
+        {
+          "end_utf16" : 7,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 6,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 11,
+          "lexical_class" : "Adjective",
+          "start_utf16" : 7,
+          "text" : "good"
+        },
+        {
+          "end_utf16" : 12,
+          "lexical_class" : "Punctuation",
+          "start_utf16" : 11,
+          "text" : ","
+        },
+        {
+          "end_utf16" : 13,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 12,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 16,
+          "lexical_class" : "Verb",
+          "start_utf16" : 13,
+          "text" : "see"
+        },
+        {
+          "end_utf16" : 17,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 16,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 20,
+          "lexical_class" : "Pronoun",
+          "start_utf16" : 17,
+          "text" : "you"
+        },
+        {
+          "end_utf16" : 21,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 20,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 26,
+          "lexical_class" : "Preposition",
+          "start_utf16" : 21,
+          "text" : "after"
+        },
+        {
+          "end_utf16" : 27,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 26,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 32,
+          "lexical_class" : "Noun",
+          "start_utf16" : 27,
+          "text" : "lunch"
+        },
+        {
+          "end_utf16" : 33,
+          "lexical_class" : "SentenceTerminator",
+          "start_utf16" : 32,
+          "text" : "!"
+        }
+      ]
+    },
+    {
+      "focus" : "llave",
+      "id" : "local-07",
+      "lemmas" : [
+
+      ],
+      "original" : "La llave está junto a la taza azul.",
+      "source" : "es",
+      "tags" : [
+
+      ]
+    },
+    {
+      "focus" : "bibliothèque",
+      "id" : "local-08",
+      "lemmas" : [
+        {
+          "end_utf16" : 2,
+          "lemma" : "il",
+          "start_utf16" : 0,
+          "text" : "On"
+        },
+        {
+          "end_utf16" : 3,
+          "lemma" : null,
+          "start_utf16" : 2,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 5,
+          "lemma" : "il",
+          "start_utf16" : 3,
+          "text" : "se"
+        },
+        {
+          "end_utf16" : 6,
+          "lemma" : null,
+          "start_utf16" : 5,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 14,
+          "lemma" : "retrouver",
+          "start_utf16" : 6,
+          "text" : "retrouve"
+        },
+        {
+          "end_utf16" : 15,
+          "lemma" : null,
+          "start_utf16" : 14,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 21,
+          "lemma" : "devant",
+          "start_utf16" : 15,
+          "text" : "devant"
+        },
+        {
+          "end_utf16" : 22,
+          "lemma" : null,
+          "start_utf16" : 21,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 24,
+          "lemma" : "le",
+          "start_utf16" : 22,
+          "text" : "la"
+        },
+        {
+          "end_utf16" : 25,
+          "lemma" : null,
+          "start_utf16" : 24,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 37,
+          "lemma" : "bibliothèque",
+          "start_utf16" : 25,
+          "text" : "bibliothèque"
+        },
+        {
+          "end_utf16" : 38,
+          "lemma" : null,
+          "start_utf16" : 37,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 43,
+          "lemma" : "après",
+          "start_utf16" : 38,
+          "text" : "après"
+        },
+        {
+          "end_utf16" : 44,
+          "lemma" : null,
+          "start_utf16" : 43,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 46,
+          "lemma" : "le",
+          "start_utf16" : 44,
+          "text" : "le"
+        },
+        {
+          "end_utf16" : 47,
+          "lemma" : null,
+          "start_utf16" : 46,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 52,
+          "lemma" : "cour",
+          "start_utf16" : 47,
+          "text" : "cours"
+        },
+        {
+          "end_utf16" : 53,
+          "lemma" : null,
+          "start_utf16" : 52,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 54,
+          "lemma" : null,
+          "start_utf16" : 53,
+          "text" : "?"
+        }
+      ],
+      "original" : "On se retrouve devant la bibliothèque après le cours ?",
+      "source" : "fr",
+      "tags" : [
+        {
+          "end_utf16" : 2,
+          "lexical_class" : "Pronoun",
+          "start_utf16" : 0,
+          "text" : "On"
+        },
+        {
+          "end_utf16" : 3,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 2,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 5,
+          "lexical_class" : "Pronoun",
+          "start_utf16" : 3,
+          "text" : "se"
+        },
+        {
+          "end_utf16" : 6,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 5,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 14,
+          "lexical_class" : "Verb",
+          "start_utf16" : 6,
+          "text" : "retrouve"
+        },
+        {
+          "end_utf16" : 15,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 14,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 21,
+          "lexical_class" : "Preposition",
+          "start_utf16" : 15,
+          "text" : "devant"
+        },
+        {
+          "end_utf16" : 22,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 21,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 24,
+          "lexical_class" : "Determiner",
+          "start_utf16" : 22,
+          "text" : "la"
+        },
+        {
+          "end_utf16" : 25,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 24,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 37,
+          "lexical_class" : "Noun",
+          "start_utf16" : 25,
+          "text" : "bibliothèque"
+        },
+        {
+          "end_utf16" : 38,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 37,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 43,
+          "lexical_class" : "Preposition",
+          "start_utf16" : 38,
+          "text" : "après"
+        },
+        {
+          "end_utf16" : 44,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 43,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 46,
+          "lexical_class" : "Determiner",
+          "start_utf16" : 44,
+          "text" : "le"
+        },
+        {
+          "end_utf16" : 47,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 46,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 52,
+          "lexical_class" : "Noun",
+          "start_utf16" : 47,
+          "text" : "cours"
+        },
+        {
+          "end_utf16" : 53,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 52,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 54,
+          "lexical_class" : "SentenceTerminator",
+          "start_utf16" : 53,
+          "text" : "?"
+        }
+      ]
+    },
+    {
+      "focus" : "Termin",
+      "id" : "local-09",
+      "lemmas" : [
+
+      ],
+      "original" : "Ich habe meinen Termin auf Freitag verschoben.",
+      "source" : "de",
+      "tags" : [
+
+      ]
+    },
+    {
+      "focus" : "luce",
+      "id" : "local-10",
+      "lemmas" : [
+
+      ],
+      "original" : "Puoi spegnere la luce prima di uscire?",
+      "source" : "it",
+      "tags" : [
+
+      ]
+    },
+    {
+      "focus" : "ônibus",
+      "id" : "local-11",
+      "lemmas" : [
+
+      ],
+      "original" : "O ônibus já saiu; vamos esperar o próximo.",
+      "source" : "pt",
+      "tags" : [
+
+      ]
+    },
+    {
+      "focus" : "النافذة",
+      "id" : "local-12",
+      "lemmas" : [
+
+      ],
+      "original" : "هل يمكنك إغلاق النافذة قبل أن نخرج؟",
+      "source" : "ar",
+      "tags" : [
+
+      ]
+    },
+    {
+      "focus" : "图书馆",
+      "id" : "local-13",
+      "lemmas" : [
+
+      ],
+      "original" : "明天下午我们在图书馆门口见面吧。",
+      "source" : "zh",
+      "tags" : [
+
+      ]
+    },
+    {
+      "focus" : "駅",
+      "id" : "local-14",
+      "lemmas" : [
+
+      ],
+      "original" : "駅の前で友達を十分待ちました。",
+      "source" : "ja",
+      "tags" : [
+
+      ]
+    },
+    {
+      "focus" : "회의",
+      "id" : "local-15",
+      "lemmas" : [
+
+      ],
+      "original" : "회의가 끝나면 저에게 메시지를 보내 주세요.",
+      "source" : "ko",
+      "tags" : [
+
+      ]
+    },
+    {
+      "focus" : "dirisha",
+      "id" : "local-16",
+      "lemmas" : [
+
+      ],
+      "original" : "Tafadhali funga dirisha kabla mvua haijaanza.",
+      "source" : "sw",
+      "tags" : [
+
+      ]
+    },
+    {
+      "focus" : "kesho",
+      "id" : "local-17",
+      "lemmas" : [
+
+      ],
+      "original" : "Sawa, nitakuona kesho asubuhi.",
+      "source" : "sw",
+      "tags" : [
+
+      ]
+    },
+    {
+      "focus" : "cup",
+      "id" : "local-18",
+      "lemmas" : [
+        {
+          "end_utf16" : 5,
+          "lemma" : "can",
+          "start_utf16" : 0,
+          "text" : "Could"
+        },
+        {
+          "end_utf16" : 6,
+          "lemma" : null,
+          "start_utf16" : 5,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 9,
+          "lemma" : "you",
+          "start_utf16" : 6,
+          "text" : "you"
+        },
+        {
+          "end_utf16" : 10,
+          "lemma" : null,
+          "start_utf16" : 9,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 13,
+          "lemma" : "put",
+          "start_utf16" : 10,
+          "text" : "put"
+        },
+        {
+          "end_utf16" : 14,
+          "lemma" : null,
+          "start_utf16" : 13,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 17,
+          "lemma" : "the",
+          "start_utf16" : 14,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 18,
+          "lemma" : null,
+          "start_utf16" : 17,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 21,
+          "lemma" : "red",
+          "start_utf16" : 18,
+          "text" : "red"
+        },
+        {
+          "end_utf16" : 22,
+          "lemma" : null,
+          "start_utf16" : 21,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 25,
+          "lemma" : "cup",
+          "start_utf16" : 22,
+          "text" : "cup"
+        },
+        {
+          "end_utf16" : 26,
+          "lemma" : null,
+          "start_utf16" : 25,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 32,
+          "lemma" : "beside",
+          "start_utf16" : 26,
+          "text" : "beside"
+        },
+        {
+          "end_utf16" : 33,
+          "lemma" : null,
+          "start_utf16" : 32,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 36,
+          "lemma" : "the",
+          "start_utf16" : 33,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 37,
+          "lemma" : null,
+          "start_utf16" : 36,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 41,
+          "lemma" : "sink",
+          "start_utf16" : 37,
+          "text" : "sink"
+        },
+        {
+          "end_utf16" : 42,
+          "lemma" : null,
+          "start_utf16" : 41,
+          "text" : "?"
+        }
+      ],
+      "original" : "Could you put the red cup beside the sink?",
+      "source" : "en",
+      "tags" : [
+        {
+          "end_utf16" : 5,
+          "lexical_class" : "Verb",
+          "start_utf16" : 0,
+          "text" : "Could"
+        },
+        {
+          "end_utf16" : 6,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 5,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 9,
+          "lexical_class" : "Pronoun",
+          "start_utf16" : 6,
+          "text" : "you"
+        },
+        {
+          "end_utf16" : 10,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 9,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 13,
+          "lexical_class" : "Verb",
+          "start_utf16" : 10,
+          "text" : "put"
+        },
+        {
+          "end_utf16" : 14,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 13,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 17,
+          "lexical_class" : "Determiner",
+          "start_utf16" : 14,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 18,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 17,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 21,
+          "lexical_class" : "Adjective",
+          "start_utf16" : 18,
+          "text" : "red"
+        },
+        {
+          "end_utf16" : 22,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 21,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 25,
+          "lexical_class" : "Noun",
+          "start_utf16" : 22,
+          "text" : "cup"
+        },
+        {
+          "end_utf16" : 26,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 25,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 32,
+          "lexical_class" : "Preposition",
+          "start_utf16" : 26,
+          "text" : "beside"
+        },
+        {
+          "end_utf16" : 33,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 32,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 36,
+          "lexical_class" : "Determiner",
+          "start_utf16" : 33,
+          "text" : "the"
+        },
+        {
+          "end_utf16" : 37,
+          "lexical_class" : "Whitespace",
+          "start_utf16" : 36,
+          "text" : " "
+        },
+        {
+          "end_utf16" : 41,
+          "lexical_class" : "Noun",
+          "start_utf16" : 37,
+          "text" : "sink"
+        },
+        {
+          "end_utf16" : 42,
+          "lexical_class" : "SentenceTerminator",
+          "start_utf16" : 41,
+          "text" : "?"
+        }
+      ]
+    }
+  ],
+  "languages" : [
+    {
+      "language" : "en",
+      "schemes" : [
+        "Language",
+        "Lemma",
+        "LexicalClass",
+        "NameType",
+        "NameTypeOrLexicalClass",
+        "Script",
+        "TokenType"
+      ]
+    },
+    {
+      "language" : "es",
+      "schemes" : [
+        "Language",
+        "Script",
+        "TokenType"
+      ]
+    },
+    {
+      "language" : "fr",
+      "schemes" : [
+        "Language",
+        "Lemma",
+        "LexicalClass",
+        "NameType",
+        "NameTypeOrLexicalClass",
+        "Script",
+        "TokenType"
+      ]
+    },
+    {
+      "language" : "de",
+      "schemes" : [
+        "Language",
+        "Script",
+        "TokenType"
+      ]
+    },
+    {
+      "language" : "it",
+      "schemes" : [
+        "Language",
+        "Script",
+        "TokenType"
+      ]
+    },
+    {
+      "language" : "pt",
+      "schemes" : [
+        "Language",
+        "Script",
+        "TokenType"
+      ]
+    },
+    {
+      "language" : "ar",
+      "schemes" : [
+        "Language",
+        "Script",
+        "TokenType"
+      ]
+    },
+    {
+      "language" : "zh",
+      "schemes" : [
+        "Language",
+        "Script",
+        "TokenType"
+      ]
+    },
+    {
+      "language" : "ja",
+      "schemes" : [
+        "Language",
+        "Script",
+        "TokenType"
+      ]
+    },
+    {
+      "language" : "ko",
+      "schemes" : [
+        "Language",
+        "Script",
+        "TokenType"
+      ]
+    },
+    {
+      "language" : "sw",
+      "schemes" : [
+        "Language",
+        "Script",
+        "TokenType"
+      ]
+    }
+  ],
+  "scope" : "native macOS language-specific system tagger; authored fixture, not iOS or linguistic acceptance"
+}
