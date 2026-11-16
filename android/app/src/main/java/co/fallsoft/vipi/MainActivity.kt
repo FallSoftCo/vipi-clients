@@ -246,13 +246,7 @@ class MainActivity : ComponentActivity() {
     Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = .48f), RoundedCornerShape(28.dp)).padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
         Text("EXAMPLE: ENGLISH AND SPANISH", fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.SemiBold)
         ImmersionBubble(immersionPreview, mode, speech = speech, interactionPaused = scrolling)
-        if (speech.state == SpeechState.UNAVAILABLE) {
-            Text(speech.error ?: "Voices aren’t ready.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Row {
-                TextButton(onClick = { runCatching { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) } }) { Text("Speech settings") }
-                TextButton(onClick = { speech.prepare(warmups) }) { Text("Retry") }
-            }
-        } else speech.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
         Text("Watch the highlighted words switch in place. Tap Pause to stop them or Listen to hear pronunciation.", fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         TextButton(onClick = { mode = if (mode == ReadingMode.ORIGINAL) ReadingMode.IMMERSED else ReadingMode.ORIGINAL }, contentPadding = PaddingValues(0.dp)) {
             Icon(Icons.Outlined.Sync, null, Modifier.size(17.dp)); Spacer(Modifier.width(8.dp))

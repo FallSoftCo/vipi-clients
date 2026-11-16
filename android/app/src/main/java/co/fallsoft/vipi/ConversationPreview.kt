@@ -1,6 +1,7 @@
 package co.fallsoft.vipi
 
 import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -45,6 +46,23 @@ internal object ConversationExamples {
         TextButton(onClick = { mode = if (mode == ReadingMode.TRANSLATION) ReadingMode.IMMERSED else ReadingMode.TRANSLATION }) {
             Text(if (mode == ReadingMode.TRANSLATION) "Resume word switching" else "Show full translation in ${languageName(target)}", fontSize = 13.sp)
         }
-        speech.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(mapOf(source to result.original, target to result.translation)) }
+    }
+}
+
+/** Actionable recovery when a selected pair cannot prepare offline speech. */
+@Composable internal fun SpeechPreparationHelp(state: SpeechState, error: String?, openSettings: (() -> Boolean)? = null, retry: () -> Unit) {
+    val context = LocalContext.current
+    var settingsError by remember { mutableStateOf(false) }
+    error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+    if (state == SpeechState.UNAVAILABLE) {
+        if (error == null) Text("Voices aren’t ready.", fontSize = 13.sp)
+        if (settingsError) Text("Open your phone’s Settings and search for text-to-speech.", fontSize = 13.sp)
+        Row {
+            TextButton(onClick = {
+                settingsError = !(openSettings?.invoke() ?: runCatching { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }.isSuccess)
+            }) { Text("Speech settings") }
+            TextButton(onClick = { settingsError = false; retry() }) { Text("Retry voices") }
+        }
     }
 }
