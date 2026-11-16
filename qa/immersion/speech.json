@@ -1,8 +1,56 @@
 {
-  "version": "2026-10-24-r1",
+  "version": "2026-11-16-r1",
   "purpose": "Voice preparation, alternating-language rendering and boundary timing only. These short word sequences are not grammatical conversation or immersion-quality evidence.",
-  "languages": ["en", "es", "fr", "de", "it", "pt", "ar", "zh", "ja", "ko"],
-  "warmup": {"en":"Hello.","es":"Hola.","fr":"Bonjour.","de":"Hallo.","it":"Ciao.","pt":"Olá.","ar":"مرحبًا.","zh":"你好。","ja":"こんにちは。","ko":"안녕하세요."},
-  "coffee": {"en":"coffee","es":"café","fr":"café","de":"Kaffee","it":"caffè","pt":"café","ar":"قهوة","zh":"咖啡","ja":"コーヒー","ko":"커피"},
-  "tomorrow": {"en":"tomorrow","es":"mañana","fr":"demain","de":"morgen","it":"domani","pt":"amanhã","ar":"غدًا","zh":"明天","ja":"明日","ko":"내일"}
+  "languages": [
+    "en",
+    "es",
+    "fr",
+    "de",
+    "it",
+    "pt",
+    "ar",
+    "zh",
+    "ja",
+    "ko",
+    "sw"
+  ],
+  "warmup": {
+    "en": "Hello.",
+    "es": "Hola.",
+    "fr": "Bonjour.",
+    "de": "Hallo.",
+    "it": "Ciao.",
+    "pt": "Olá.",
+    "ar": "مرحبًا.",
+    "zh": "你好。",
+    "ja": "こんにちは。",
+    "ko": "안녕하세요.",
+    "sw": "Habari."
+  },
+  "coffee": {
+    "en": "coffee",
+    "es": "café",
+    "fr": "café",
+    "de": "Kaffee",
+    "it": "caffè",
+    "pt": "café",
+    "ar": "قهوة",
+    "zh": "咖啡",
+    "ja": "コーヒー",
+    "ko": "커피",
+    "sw": "kahawa"
+  },
+  "tomorrow": {
+    "en": "tomorrow",
+    "es": "mañana",
+    "fr": "demain",
+    "de": "morgen",
+    "it": "domani",
+    "pt": "amanhã",
+    "ar": "غدًا",
+    "zh": "明天",
+    "ja": "明日",
+    "ko": "내일",
+    "sw": "kesho"
+  }
 }

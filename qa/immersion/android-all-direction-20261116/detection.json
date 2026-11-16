@@ -1,0 +1,1847 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "id": "en-es:water",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-es:book",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-es:music",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-fr:water",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-fr:book",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-fr:music",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-de:water",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-de:book",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-de:music",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-it:water",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-it:book",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-it:music",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-pt:water",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-pt:book",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-pt:music",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-ar:water",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-ar:book",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-ar:music",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-zh:water",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-zh:book",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-zh:music",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-ja:water",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-ja:book",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-ja:music",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-ko:water",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-ko:book",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-ko:music",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-sw:water",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-sw:book",
+      "detected_language": "en"
+    },
+    {
+      "id": "en-sw:music",
+      "detected_language": "en"
+    },
+    {
+      "id": "es-en:water",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-en:book",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-en:music",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-fr:water",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-fr:book",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-fr:music",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-de:water",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-de:book",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-de:music",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-it:water",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-it:book",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-it:music",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-pt:water",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-pt:book",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-pt:music",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-ar:water",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-ar:book",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-ar:music",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-zh:water",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-zh:book",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-zh:music",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-ja:water",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-ja:book",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-ja:music",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-ko:water",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-ko:book",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-ko:music",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-sw:water",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-sw:book",
+      "detected_language": "es"
+    },
+    {
+      "id": "es-sw:music",
+      "detected_language": "es"
+    },
+    {
+      "id": "fr-en:water",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-en:book",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-en:music",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-es:water",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-es:book",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-es:music",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-de:water",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-de:book",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-de:music",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-it:water",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-it:book",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-it:music",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-pt:water",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-pt:book",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-pt:music",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-ar:water",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-ar:book",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-ar:music",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-zh:water",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-zh:book",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-zh:music",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-ja:water",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-ja:book",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-ja:music",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-ko:water",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-ko:book",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-ko:music",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-sw:water",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-sw:book",
+      "detected_language": "fr"
+    },
+    {
+      "id": "fr-sw:music",
+      "detected_language": "fr"
+    },
+    {
+      "id": "de-en:water",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-en:book",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-en:music",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-es:water",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-es:book",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-es:music",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-fr:water",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-fr:book",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-fr:music",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-it:water",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-it:book",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-it:music",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-pt:water",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-pt:book",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-pt:music",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-ar:water",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-ar:book",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-ar:music",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-zh:water",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-zh:book",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-zh:music",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-ja:water",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-ja:book",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-ja:music",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-ko:water",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-ko:book",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-ko:music",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-sw:water",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-sw:book",
+      "detected_language": "de"
+    },
+    {
+      "id": "de-sw:music",
+      "detected_language": "de"
+    },
+    {
+      "id": "it-en:water",
+      "detected_language": null
+    },
+    {
+      "id": "it-en:book",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-en:music",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-es:water",
+      "detected_language": null
+    },
+    {
+      "id": "it-es:book",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-es:music",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-fr:water",
+      "detected_language": null
+    },
+    {
+      "id": "it-fr:book",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-fr:music",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-de:water",
+      "detected_language": null
+    },
+    {
+      "id": "it-de:book",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-de:music",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-pt:water",
+      "detected_language": null
+    },
+    {
+      "id": "it-pt:book",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-pt:music",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-ar:water",
+      "detected_language": null
+    },
+    {
+      "id": "it-ar:book",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-ar:music",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-zh:water",
+      "detected_language": null
+    },
+    {
+      "id": "it-zh:book",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-zh:music",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-ja:water",
+      "detected_language": null
+    },
+    {
+      "id": "it-ja:book",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-ja:music",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-ko:water",
+      "detected_language": null
+    },
+    {
+      "id": "it-ko:book",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-ko:music",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-sw:water",
+      "detected_language": null
+    },
+    {
+      "id": "it-sw:book",
+      "detected_language": "it"
+    },
+    {
+      "id": "it-sw:music",
+      "detected_language": "it"
+    },
+    {
+      "id": "pt-en:water",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-en:book",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-en:music",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-es:water",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-es:book",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-es:music",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-fr:water",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-fr:book",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-fr:music",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-de:water",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-de:book",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-de:music",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-it:water",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-it:book",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-it:music",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-ar:water",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-ar:book",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-ar:music",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-zh:water",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-zh:book",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-zh:music",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-ja:water",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-ja:book",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-ja:music",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-ko:water",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-ko:book",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-ko:music",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-sw:water",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-sw:book",
+      "detected_language": "pt"
+    },
+    {
+      "id": "pt-sw:music",
+      "detected_language": "pt"
+    },
+    {
+      "id": "ar-en:water",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-en:book",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-en:music",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-es:water",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-es:book",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-es:music",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-fr:water",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-fr:book",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-fr:music",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-de:water",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-de:book",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-de:music",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-it:water",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-it:book",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-it:music",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-pt:water",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-pt:book",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-pt:music",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-zh:water",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-zh:book",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-zh:music",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-ja:water",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-ja:book",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-ja:music",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-ko:water",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-ko:book",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-ko:music",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-sw:water",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-sw:book",
+      "detected_language": "ar"
+    },
+    {
+      "id": "ar-sw:music",
+      "detected_language": "ar"
+    },
+    {
+      "id": "zh-en:water",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-en:book",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-en:music",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-es:water",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-es:book",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-es:music",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-fr:water",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-fr:book",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-fr:music",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-de:water",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-de:book",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-de:music",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-it:water",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-it:book",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-it:music",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-pt:water",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-pt:book",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-pt:music",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-ar:water",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-ar:book",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-ar:music",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-ja:water",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-ja:book",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-ja:music",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-ko:water",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-ko:book",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-ko:music",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-sw:water",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-sw:book",
+      "detected_language": "zh"
+    },
+    {
+      "id": "zh-sw:music",
+      "detected_language": "zh"
+    },
+    {
+      "id": "ja-en:water",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-en:book",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-en:music",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-es:water",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-es:book",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-es:music",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-fr:water",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-fr:book",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-fr:music",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-de:water",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-de:book",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-de:music",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-it:water",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-it:book",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-it:music",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-pt:water",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-pt:book",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-pt:music",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-ar:water",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-ar:book",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-ar:music",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-zh:water",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-zh:book",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-zh:music",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-ko:water",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-ko:book",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-ko:music",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-sw:water",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-sw:book",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ja-sw:music",
+      "detected_language": "ja"
+    },
+    {
+      "id": "ko-en:water",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-en:book",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-en:music",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-es:water",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-es:book",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-es:music",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-fr:water",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-fr:book",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-fr:music",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-de:water",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-de:book",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-de:music",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-it:water",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-it:book",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-it:music",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-pt:water",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-pt:book",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-pt:music",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-ar:water",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-ar:book",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-ar:music",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-zh:water",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-zh:book",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-zh:music",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-ja:water",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-ja:book",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-ja:music",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-sw:water",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-sw:book",
+      "detected_language": "ko"
+    },
+    {
+      "id": "ko-sw:music",
+      "detected_language": "ko"
+    },
+    {
+      "id": "sw-en:water",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-en:book",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-en:music",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-es:water",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-es:book",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-es:music",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-fr:water",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-fr:book",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-fr:music",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-de:water",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-de:book",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-de:music",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-it:water",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-it:book",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-it:music",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-pt:water",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-pt:book",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-pt:music",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-ar:water",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-ar:book",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-ar:music",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-zh:water",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-zh:book",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-zh:music",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-ja:water",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-ja:book",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-ja:music",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-ko:water",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-ko:book",
+      "detected_language": "sw"
+    },
+    {
+      "id": "sw-ko:music",
+      "detected_language": "sw"
+    }
+  ],
+  "frame_diagnostics": [
+    {
+      "id": "ar-en:water",
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:needs_water",
+          "context": [
+            11,
+            14
+          ],
+          "focus": [
+            11,
+            14
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:needs_water",
+          "output_id": "bare-noun-r01:ar-en:needs_water@11:14:11:14",
+          "context": [
+            11,
+            14
+          ],
+          "focus": [
+            11,
+            14
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "native_words": [
+        {
+          "start": 0,
+          "end": 4,
+          "text": "أحضر"
+        },
+        {
+          "start": 5,
+          "end": 8,
+          "text": "بعض"
+        },
+        {
+          "start": 9,
+          "end": 14,
+          "text": "الماء"
+        },
+        {
+          "start": 15,
+          "end": 20,
+          "text": "عندما"
+        },
+        {
+          "start": 21,
+          "end": 25,
+          "text": "تصعد"
+        },
+        {
+          "start": 27,
+          "end": 29,
+          "text": "من"
+        },
+        {
+          "start": 30,
+          "end": 34,
+          "text": "فضلك"
+        }
+      ]
+    },
+    {
+      "id": "ar-en:book",
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:phrase_frame_reading_book",
+          "context": [
+            5,
+            9
+          ],
+          "focus": [
+            5,
+            9
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:phrase_frame_reading_book",
+          "output_id": "bare-noun-r01:ar-en:phrase_frame_reading_book@5:9:5:9",
+          "context": [
+            5,
+            9
+          ],
+          "focus": [
+            5,
+            9
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "native_words": [
+        {
+          "start": 0,
+          "end": 4,
+          "text": "تركت"
+        },
+        {
+          "start": 5,
+          "end": 10,
+          "text": "كتابي"
+        },
+        {
+          "start": 11,
+          "end": 14,
+          "text": "على"
+        },
+        {
+          "start": 15,
+          "end": 20,
+          "text": "طاولة"
+        },
+        {
+          "start": 21,
+          "end": 27,
+          "text": "المطبخ"
+        }
+      ]
+    },
+    {
+      "id": "ar-en:music",
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:phrase_frame_liking_music",
+          "context": [
+            2,
+            8
+          ],
+          "focus": [
+            2,
+            8
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:phrase_frame_liking_music",
+          "output_id": "bare-noun-r01:ar-en:phrase_frame_liking_music@2:8:2:8",
+          "context": [
+            2,
+            8
+          ],
+          "focus": [
+            2,
+            8
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "native_words": [
+        {
+          "start": 0,
+          "end": 8,
+          "text": "الموسيقى"
+        },
+        {
+          "start": 9,
+          "end": 14,
+          "text": "عالية"
+        },
+        {
+          "start": 15,
+          "end": 18,
+          "text": "جدا"
+        },
+        {
+          "start": 20,
+          "end": 22,
+          "text": "هل"
+        },
+        {
+          "start": 23,
+          "end": 28,
+          "text": "يمكنك"
+        },
+        {
+          "start": 29,
+          "end": 32,
+          "text": "خفض"
+        },
+        {
+          "start": 33,
+          "end": 38,
+          "text": "الصوت"
+        }
+      ]
+    },
+    {
+      "id": "zh-en:water",
+      "geometry": [],
+      "trace": [],
+      "native_words": [
+        {
+          "start": 0,
+          "end": 1,
+          "text": "你"
+        },
+        {
+          "start": 1,
+          "end": 2,
+          "text": "上"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "text": "楼"
+        },
+        {
+          "start": 3,
+          "end": 4,
+          "text": "的"
+        },
+        {
+          "start": 4,
+          "end": 6,
+          "text": "时候"
+        },
+        {
+          "start": 6,
+          "end": 7,
+          "text": "请"
+        },
+        {
+          "start": 7,
+          "end": 9,
+          "text": "带点"
+        },
+        {
+          "start": 9,
+          "end": 10,
+          "text": "水"
+        }
+      ]
+    },
+    {
+      "id": "zh-en:book",
+      "geometry": [],
+      "trace": [],
+      "native_words": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "我把"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "text": "书"
+        },
+        {
+          "start": 3,
+          "end": 4,
+          "text": "忘"
+        },
+        {
+          "start": 4,
+          "end": 5,
+          "text": "在"
+        },
+        {
+          "start": 5,
+          "end": 7,
+          "text": "厨房"
+        },
+        {
+          "start": 7,
+          "end": 8,
+          "text": "的"
+        },
+        {
+          "start": 8,
+          "end": 10,
+          "text": "桌子"
+        },
+        {
+          "start": 10,
+          "end": 12,
+          "text": "上了"
+        }
+      ]
+    },
+    {
+      "id": "zh-en:music",
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:zh-en:phrase_frame_liking_music",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            2
+          ],
+          "reason": "right_boundary"
+        }
+      ],
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:zh-en:phrase_frame_liking_music",
+          "output_id": "bare-noun-r01:zh-en:phrase_frame_liking_music@0:2:0:2",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            2
+          ],
+          "reason": "right_boundary"
+        }
+      ],
+      "native_words": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "音乐"
+        },
+        {
+          "start": 2,
+          "end": 3,
+          "text": "太"
+        },
+        {
+          "start": 3,
+          "end": 5,
+          "text": "响了"
+        },
+        {
+          "start": 6,
+          "end": 8,
+          "text": "可以"
+        },
+        {
+          "start": 8,
+          "end": 9,
+          "text": "调"
+        },
+        {
+          "start": 9,
+          "end": 10,
+          "text": "小"
+        },
+        {
+          "start": 10,
+          "end": 12,
+          "text": "一点"
+        },
+        {
+          "start": 12,
+          "end": 13,
+          "text": "吗"
+        }
+      ]
+    },
+    {
+      "id": "ko-en:water",
+      "geometry": [],
+      "trace": [],
+      "native_words": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "올라올"
+        },
+        {
+          "start": 4,
+          "end": 5,
+          "text": "때"
+        },
+        {
+          "start": 6,
+          "end": 7,
+          "text": "물"
+        },
+        {
+          "start": 8,
+          "end": 9,
+          "text": "좀"
+        },
+        {
+          "start": 10,
+          "end": 16,
+          "text": "가져다주세요"
+        }
+      ]
+    },
+    {
+      "id": "ko-en:book",
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_reading_book",
+          "context": [
+            7,
+            8
+          ],
+          "focus": [
+            7,
+            8
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_reading_book",
+          "output_id": "bare-noun-r01:ko-en:phrase_frame_reading_book@7:8:7:8",
+          "context": [
+            7,
+            8
+          ],
+          "focus": [
+            7,
+            8
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "native_words": [
+        {
+          "start": 0,
+          "end": 2,
+          "text": "부엌"
+        },
+        {
+          "start": 3,
+          "end": 6,
+          "text": "식탁에"
+        },
+        {
+          "start": 7,
+          "end": 9,
+          "text": "책을"
+        },
+        {
+          "start": 10,
+          "end": 12,
+          "text": "두고"
+        },
+        {
+          "start": 13,
+          "end": 16,
+          "text": "왔어요"
+        }
+      ]
+    },
+    {
+      "id": "ko-en:music",
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_liking_music",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            2
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_liking_music",
+          "output_id": "bare-noun-r01:ko-en:phrase_frame_liking_music@0:2:0:2",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            2
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "native_words": [
+        {
+          "start": 0,
+          "end": 3,
+          "text": "음악이"
+        },
+        {
+          "start": 4,
+          "end": 6,
+          "text": "너무"
+        },
+        {
+          "start": 7,
+          "end": 12,
+          "text": "시끄러운데"
+        },
+        {
+          "start": 13,
+          "end": 16,
+          "text": "소리를"
+        },
+        {
+          "start": 17,
+          "end": 19,
+          "text": "줄여"
+        },
+        {
+          "start": 20,
+          "end": 23,
+          "text": "줄래요"
+        }
+      ]
+    }
+  ]
+}

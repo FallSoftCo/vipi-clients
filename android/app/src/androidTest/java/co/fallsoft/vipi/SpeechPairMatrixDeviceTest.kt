@@ -28,7 +28,8 @@ class SpeechPairMatrixDeviceTest {
         val context = instrumentation.targetContext
         val fixture = JSONObject(File(context.filesDir, "immersion-qa/speech.json").readText())
         val languages = fixture.getJSONArray("languages").let { a -> (0 until a.length()).map(a::getString) }
-        val directory = File(context.filesDir, "speech-matrix-001").apply { mkdirs() }
+        assertEquals(initialLanguages.map { it.code }.toSet(), languages.toSet())
+        val directory = File(context.filesDir, "speech-matrix-110-20261116").apply { check(!exists()); mkdirs() }
         val rows = JSONArray()
         val report = JSONObject().put("evidence", "offline_pair_rendering_not_linguistic_or_listening_acceptance").put("directions", rows)
         fun save() { File(directory, "report.json").writeText(report.toString(2)) }
@@ -72,7 +73,7 @@ class SpeechPairMatrixDeviceTest {
                 finally { withContext(Dispatchers.Main) { pair.close() }; rows.put(row); save() }
             }
         } finally { if (wifi) shell("svc wifi enable"); if (mobile) shell("svc data enable") }
-        assertEquals(90, rows.length())
-        assertEquals(90, (0 until rows.length()).count { rows.getJSONObject(it).getString("status") == "rendered" })
+        assertEquals(languages.size * (languages.size - 1), rows.length())
+        assertEquals(languages.size * (languages.size - 1), (0 until rows.length()).count { rows.getJSONObject(it).getString("status") == "rendered" })
     }
 }

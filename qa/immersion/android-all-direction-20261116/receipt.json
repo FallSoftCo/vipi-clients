@@ -1,0 +1,16 @@
+{
+  "complete": true,
+  "wifi_before": "1",
+  "mobile_before": "1",
+  "scope": "offline probes only; no auth/provider/send/purchase",
+  "AllDirectionFloorDeviceTest": {
+    "exit": 0,
+    "passed": true
+  },
+  "SpeechPairMatrixDeviceTest": {
+    "exit": 0,
+    "passed": true
+  },
+  "private_state_byte_identical": true,
+  "free_after": 11202338816
+}

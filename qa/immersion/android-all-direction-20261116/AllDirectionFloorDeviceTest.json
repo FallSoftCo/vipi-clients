@@ -1,0 +1,6744 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "id": "en-es:water",
+      "source": "en",
+      "target": "es",
+      "original": "Please bring some water when you come upstairs.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4e78bbe",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Please bring some water when you come upstairs.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es:book",
+      "source": "en",
+      "target": "es",
+      "original": "I left my book on the kitchen table.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@cec606e",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "I left my book on the kitchen table.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es:music",
+      "source": "en",
+      "target": "es",
+      "original": "The music is too loud; could you turn it down?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9e7c11e",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "música",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "música",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "The música is too loud; could you turn it down?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-fr:water",
+      "source": "en",
+      "target": "fr",
+      "original": "Please bring some water when you come upstairs.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@5c14bfc",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Please bring some water when you come upstairs.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-fr:book",
+      "source": "en",
+      "target": "fr",
+      "original": "I left my book on the kitchen table.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@5edac2c",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "I left my book on the kitchen table.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-fr:music",
+      "source": "en",
+      "target": "fr",
+      "original": "The music is too loud; could you turn it down?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@fca785c",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "musique",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "musique",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "The musique is too loud; could you turn it down?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-de:water",
+      "source": "en",
+      "target": "de",
+      "original": "Please bring some water when you come upstairs.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@74ab7ea",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Please bring some water when you come upstairs.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-de:book",
+      "source": "en",
+      "target": "de",
+      "original": "I left my book on the kitchen table.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c78ef9a",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "I left my book on the kitchen table.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-de:music",
+      "source": "en",
+      "target": "de",
+      "original": "The music is too loud; could you turn it down?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@13c734a",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "Musik",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "Musik",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "The Musik is too loud; could you turn it down?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-it:water",
+      "source": "en",
+      "target": "it",
+      "original": "Please bring some water when you come upstairs.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9f5f308",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Please bring some water when you come upstairs.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-it:book",
+      "source": "en",
+      "target": "it",
+      "original": "I left my book on the kitchen table.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9902e38",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "I left my book on the kitchen table.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-it:music",
+      "source": "en",
+      "target": "it",
+      "original": "The music is too loud; could you turn it down?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3879568",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "musica",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "musica",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "The musica is too loud; could you turn it down?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-pt:water",
+      "source": "en",
+      "target": "pt",
+      "original": "Please bring some water when you come upstairs.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@68a3644",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Please bring some water when you come upstairs.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-pt:book",
+      "source": "en",
+      "target": "pt",
+      "original": "I left my book on the kitchen table.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@89b874",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "I left my book on the kitchen table.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-pt:music",
+      "source": "en",
+      "target": "pt",
+      "original": "The music is too loud; could you turn it down?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@84626a4",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "música",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "música",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "The música is too loud; could you turn it down?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-ar:water",
+      "source": "en",
+      "target": "ar",
+      "original": "Please bring some water when you come upstairs.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@5da7572",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Please bring some water when you come upstairs.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-ar:book",
+      "source": "en",
+      "target": "ar",
+      "original": "I left my book on the kitchen table.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6d71f22",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "I left my book on the kitchen table.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-ar:music",
+      "source": "en",
+      "target": "ar",
+      "original": "The music is too loud; could you turn it down?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8e994d2",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "موسيقى",
+          "start": 4,
+          "end": 9,
+          "reading": "mūsīqā"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "موسيقى",
+          "start": 4,
+          "end": 9,
+          "reading": "mūsīqā"
+        }
+      ],
+      "mixed_reading": "The mūsīqā is too loud; could you turn it down?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-zh:water",
+      "source": "en",
+      "target": "zh",
+      "original": "Please bring some water when you come upstairs.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@5fe45d0",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Please bring some water when you come upstairs.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-zh:book",
+      "source": "en",
+      "target": "zh",
+      "original": "I left my book on the kitchen table.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c56c300",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "I left my book on the kitchen table.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-zh:music",
+      "source": "en",
+      "target": "zh",
+      "original": "The music is too loud; could you turn it down?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@220ec30",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "音乐",
+          "start": 4,
+          "end": 9,
+          "reading": "yīnyuè"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "音乐",
+          "start": 4,
+          "end": 9,
+          "reading": "yīnyuè"
+        }
+      ],
+      "mixed_reading": "The yīnyuè is too loud; could you turn it down?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-ja:water",
+      "source": "en",
+      "target": "ja",
+      "original": "Please bring some water when you come upstairs.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ee21163",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "water",
+          "target": "水",
+          "start": 18,
+          "end": 23,
+          "reading": "mizu"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "water",
+          "target": "水",
+          "start": 18,
+          "end": 23,
+          "reading": "mizu"
+        }
+      ],
+      "mixed_reading": "Please bring some mizu when you come upstairs.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-ja:book",
+      "source": "en",
+      "target": "ja",
+      "original": "I left my book on the kitchen table.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2a25f8d",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "I",
+          "target": "私",
+          "start": 0,
+          "end": 1,
+          "reading": "watashi"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "I",
+          "target": "私",
+          "start": 0,
+          "end": 1,
+          "reading": "watashi"
+        }
+      ],
+      "mixed_reading": "watashi left my book on the kitchen table.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-ja:music",
+      "source": "en",
+      "target": "ja",
+      "original": "The music is too loud; could you turn it down?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b0a12f2",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "音楽",
+          "start": 4,
+          "end": 9,
+          "reading": "ongaku"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "音楽",
+          "start": 4,
+          "end": 9,
+          "reading": "ongaku"
+        }
+      ],
+      "mixed_reading": "The ongaku is too loud; could you turn it down?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-ko:water",
+      "source": "en",
+      "target": "ko",
+      "original": "Please bring some water when you come upstairs.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c3648f0",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Please bring some water when you come upstairs.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-ko:book",
+      "source": "en",
+      "target": "ko",
+      "original": "I left my book on the kitchen table.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ca5ce20",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "I left my book on the kitchen table.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-ko:music",
+      "source": "en",
+      "target": "ko",
+      "original": "The music is too loud; could you turn it down?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@458ff50",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "음악",
+          "start": 4,
+          "end": 9,
+          "reading": "eumak"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "음악",
+          "start": 4,
+          "end": 9,
+          "reading": "eumak"
+        }
+      ],
+      "mixed_reading": "The eumak is too loud; could you turn it down?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-sw:water",
+      "source": "en",
+      "target": "sw",
+      "original": "Please bring some water when you come upstairs.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4522503",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "water",
+          "target": "maji",
+          "start": 18,
+          "end": 23,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "water",
+          "target": "maji",
+          "start": 18,
+          "end": 23,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Please bring some maji when you come upstairs.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-sw:book",
+      "source": "en",
+      "target": "sw",
+      "original": "I left my book on the kitchen table.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8150a2d",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "I",
+          "target": "mimi",
+          "start": 0,
+          "end": 1,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "I",
+          "target": "mimi",
+          "start": 0,
+          "end": 1,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "mimi left my book on the kitchen table.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-sw:music",
+      "source": "en",
+      "target": "sw",
+      "original": "The music is too loud; could you turn it down?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9499747",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "muziki",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "music",
+          "target": "muziki",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "The muziki is too loud; could you turn it down?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en:water",
+      "source": "es",
+      "target": "en",
+      "original": "Por favor, trae agua cuando subas.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ea7230d",
+      "automatic_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "water",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "water",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Por favor, trae water cuando subas.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en:book",
+      "source": "es",
+      "target": "en",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@233e97d",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Dejé mi libro en la mesa de la cocina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en:music",
+      "source": "es",
+      "target": "en",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@772bed",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "music",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "music",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "La music está demasiado alta, ¿puedes bajarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-fr:water",
+      "source": "es",
+      "target": "fr",
+      "original": "Por favor, trae agua cuando subas.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4f128a3",
+      "automatic_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "eau",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "eau",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Por favor, trae eau cuando subas.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-fr:book",
+      "source": "es",
+      "target": "fr",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3cd8093",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Dejé mi libro en la mesa de la cocina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-fr:music",
+      "source": "es",
+      "target": "fr",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@727b483",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "musique",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "musique",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "La musique está demasiado alta, ¿puedes bajarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-de:water",
+      "source": "es",
+      "target": "de",
+      "original": "Por favor, trae agua cuando subas.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7fdd7a9",
+      "automatic_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "Wasser",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "Wasser",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Por favor, trae Wasser cuando subas.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-de:book",
+      "source": "es",
+      "target": "de",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@39efd19",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Dejé mi libro en la mesa de la cocina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-de:music",
+      "source": "es",
+      "target": "de",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@34c5e89",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "Musik",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "Musik",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "La Musik está demasiado alta, ¿puedes bajarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-it:water",
+      "source": "es",
+      "target": "it",
+      "original": "Por favor, trae agua cuando subas.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2d5399f",
+      "automatic_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "acqua",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "acqua",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Por favor, trae acqua cuando subas.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-it:book",
+      "source": "es",
+      "target": "it",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@185c88f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Dejé mi libro en la mesa de la cocina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-it:music",
+      "source": "es",
+      "target": "it",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9aff37f",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "musica",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "musica",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "La musica está demasiado alta, ¿puedes bajarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-pt:water",
+      "source": "es",
+      "target": "pt",
+      "original": "Por favor, trae agua cuando subas.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@dcf5405",
+      "automatic_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "água",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "água",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Por favor, trae água cuando subas.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-pt:book",
+      "source": "es",
+      "target": "pt",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ca64875",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Dejé mi libro en la mesa de la cocina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-pt:music",
+      "source": "es",
+      "target": "pt",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c1b38e5",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "La música está demasiado alta, ¿puedes bajarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-ar:water",
+      "source": "es",
+      "target": "ar",
+      "original": "Por favor, trae agua cuando subas.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ed7885b",
+      "automatic_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "ماء",
+          "start": 16,
+          "end": 20,
+          "reading": "mā'"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "ماء",
+          "start": 16,
+          "end": 20,
+          "reading": "mā'"
+        }
+      ],
+      "mixed_reading": "Por favor, trae mā' cuando subas.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-ar:book",
+      "source": "es",
+      "target": "ar",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b473e4b",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Dejé mi libro en la mesa de la cocina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-ar:music",
+      "source": "es",
+      "target": "ar",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ec8503b",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "موسيقى",
+          "start": 3,
+          "end": 9,
+          "reading": "mūsīqā"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "موسيقى",
+          "start": 3,
+          "end": 9,
+          "reading": "mūsīqā"
+        }
+      ],
+      "mixed_reading": "La mūsīqā está demasiado alta, ¿puedes bajarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-zh:water",
+      "source": "es",
+      "target": "zh",
+      "original": "Por favor, trae agua cuando subas.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6d6f421",
+      "automatic_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "水",
+          "start": 16,
+          "end": 20,
+          "reading": "shuǐ"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "水",
+          "start": 16,
+          "end": 20,
+          "reading": "shuǐ"
+        }
+      ],
+      "mixed_reading": "Por favor, trae shuǐ cuando subas.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-zh:book",
+      "source": "es",
+      "target": "zh",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7942791",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Dejé mi libro en la mesa de la cocina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-zh:music",
+      "source": "es",
+      "target": "zh",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a7d1701",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "音乐",
+          "start": 3,
+          "end": 9,
+          "reading": "yīnyuè"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "音乐",
+          "start": 3,
+          "end": 9,
+          "reading": "yīnyuè"
+        }
+      ],
+      "mixed_reading": "La yīnyuè está demasiado alta, ¿puedes bajarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-ja:water",
+      "source": "es",
+      "target": "ja",
+      "original": "Por favor, trae agua cuando subas.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@35dd0d7",
+      "automatic_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "水",
+          "start": 16,
+          "end": 20,
+          "reading": "mizu"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "水",
+          "start": 16,
+          "end": 20,
+          "reading": "mizu"
+        }
+      ],
+      "mixed_reading": "Por favor, trae mizu cuando subas.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-ja:book",
+      "source": "es",
+      "target": "ja",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e5e9dc7",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Dejé mi libro en la mesa de la cocina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-ja:music",
+      "source": "es",
+      "target": "ja",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e6486b7",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "音楽",
+          "start": 3,
+          "end": 9,
+          "reading": "ongaku"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "音楽",
+          "start": 3,
+          "end": 9,
+          "reading": "ongaku"
+        }
+      ],
+      "mixed_reading": "La ongaku está demasiado alta, ¿puedes bajarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-ko:water",
+      "source": "es",
+      "target": "ko",
+      "original": "Por favor, trae agua cuando subas.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f63d3fd",
+      "automatic_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "물",
+          "start": 16,
+          "end": 20,
+          "reading": "mul"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "물",
+          "start": 16,
+          "end": 20,
+          "reading": "mul"
+        }
+      ],
+      "mixed_reading": "Por favor, trae mul cuando subas.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-ko:book",
+      "source": "es",
+      "target": "ko",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b6b66d",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Dejé mi libro en la mesa de la cocina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-ko:music",
+      "source": "es",
+      "target": "ko",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@87f14dd",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "음악",
+          "start": 3,
+          "end": 9,
+          "reading": "eumak"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "음악",
+          "start": 3,
+          "end": 9,
+          "reading": "eumak"
+        }
+      ],
+      "mixed_reading": "La eumak está demasiado alta, ¿puedes bajarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-sw:water",
+      "source": "es",
+      "target": "sw",
+      "original": "Por favor, trae agua cuando subas.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7b78f13",
+      "automatic_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "maji",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 16,
+          "source": "agua",
+          "target": "maji",
+          "start": 16,
+          "end": 20,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Por favor, trae maji cuando subas.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-sw:book",
+      "source": "es",
+      "target": "sw",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2f26303",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Dejé mi libro en la mesa de la cocina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-sw:music",
+      "source": "es",
+      "target": "sw",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@54212f3",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "muziki",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "música",
+          "target": "muziki",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "La muziki está demasiado alta, ¿puedes bajarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en:water",
+      "source": "fr",
+      "target": "en",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@774cf99",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en:book",
+      "source": "fr",
+      "target": "en",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@37bd109",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "J’ai laissé mon livre sur la table de la cuisine.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en:music",
+      "source": "fr",
+      "target": "en",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6be0e79",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "music",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "music",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "La music est trop forte, tu peux baisser le son ?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-es:water",
+      "source": "fr",
+      "target": "es",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@699ff0f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-es:book",
+      "source": "fr",
+      "target": "es",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@97ec9ff",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "J’ai laissé mon livre sur la table de la cuisine.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-es:music",
+      "source": "fr",
+      "target": "es",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@96430ef",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "música",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "música",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "La música est trop forte, tu peux baisser le son ?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-de:water",
+      "source": "fr",
+      "target": "de",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9482f5",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-de:book",
+      "source": "fr",
+      "target": "de",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@74d1365",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "J’ai laissé mon livre sur la table de la cuisine.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-de:music",
+      "source": "fr",
+      "target": "de",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8429fd5",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "Musik",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "Musik",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "La Musik est trop forte, tu peux baisser le son ?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-it:water",
+      "source": "fr",
+      "target": "it",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a5c1ccb",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-it:book",
+      "source": "fr",
+      "target": "it",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e11cebb",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "J’ai laissé mon livre sur la table de la cuisine.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-it:music",
+      "source": "fr",
+      "target": "it",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@44fdcab",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "musica",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "musica",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "La musica est trop forte, tu peux baisser le son ?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-pt:water",
+      "source": "fr",
+      "target": "pt",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7754a11",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-pt:book",
+      "source": "fr",
+      "target": "pt",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@82bd981",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "J’ai laissé mon livre sur la table de la cuisine.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-pt:music",
+      "source": "fr",
+      "target": "pt",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a1d24f1",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "música",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "música",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "La música est trop forte, tu peux baisser le son ?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-ar:water",
+      "source": "fr",
+      "target": "ar",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@af2a447",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-ar:book",
+      "source": "fr",
+      "target": "ar",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@d472d37",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "J’ai laissé mon livre sur la table de la cuisine.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-ar:music",
+      "source": "fr",
+      "target": "ar",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f07d227",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "موسيقى",
+          "start": 3,
+          "end": 10,
+          "reading": "mūsīqā"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "موسيقى",
+          "start": 3,
+          "end": 10,
+          "reading": "mūsīqā"
+        }
+      ],
+      "mixed_reading": "La mūsīqā est trop forte, tu peux baisser le son ?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-zh:water",
+      "source": "fr",
+      "target": "zh",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@54d40ed",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-zh:book",
+      "source": "fr",
+      "target": "zh",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@70d3f5d",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "J’ai laissé mon livre sur la table de la cuisine.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-zh:music",
+      "source": "fr",
+      "target": "zh",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2c1b9cd",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "音乐",
+          "start": 3,
+          "end": 10,
+          "reading": "yīnyuè"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "音乐",
+          "start": 3,
+          "end": 10,
+          "reading": "yīnyuè"
+        }
+      ],
+      "mixed_reading": "La yīnyuè est trop forte, tu peux baisser le son ?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-ja:water",
+      "source": "fr",
+      "target": "ja",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9ac1183",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-ja:book",
+      "source": "fr",
+      "target": "ja",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7046173",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "J’ai laissé mon livre sur la table de la cuisine.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-ja:music",
+      "source": "fr",
+      "target": "ja",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@bc88d63",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "音楽",
+          "start": 3,
+          "end": 10,
+          "reading": "ongaku"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "音楽",
+          "start": 3,
+          "end": 10,
+          "reading": "ongaku"
+        }
+      ],
+      "mixed_reading": "La ongaku est trop forte, tu peux baisser le son ?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-ko:water",
+      "source": "fr",
+      "target": "ko",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4f24389",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-ko:book",
+      "source": "fr",
+      "target": "ko",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@df620f9",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "J’ai laissé mon livre sur la table de la cuisine.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-ko:music",
+      "source": "fr",
+      "target": "ko",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@5243a69",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "음악",
+          "start": 3,
+          "end": 10,
+          "reading": "eumak"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "음악",
+          "start": 3,
+          "end": 10,
+          "reading": "eumak"
+        }
+      ],
+      "mixed_reading": "La eumak est trop forte, tu peux baisser le son ?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-sw:water",
+      "source": "fr",
+      "target": "sw",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6aca07f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-sw:book",
+      "source": "fr",
+      "target": "sw",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@af4a76f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "J’ai laissé mon livre sur la table de la cuisine.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-sw:music",
+      "source": "fr",
+      "target": "sw",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9844a5f",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "muziki",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "musique",
+          "target": "muziki",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "La muziki est trop forte, tu peux baisser le son ?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en:water",
+      "source": "de",
+      "target": "en",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7b5ede5",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "water",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "water",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Bring bitte etwas water mit, wenn du hochkommst.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en:book",
+      "source": "de",
+      "target": "en",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3d71a55",
+      "automatic_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "book",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "book",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ich habe mein book auf dem Küchentisch liegen lassen.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en:music",
+      "source": "de",
+      "target": "en",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@39442c5",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "music",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "music",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Die music ist zu laut, kannst du sie leiser machen?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-es:water",
+      "source": "de",
+      "target": "es",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c2a4d3b",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "agua",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "agua",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Bring bitte etwas agua mit, wenn du hochkommst.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-es:book",
+      "source": "de",
+      "target": "es",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ac4fb2b",
+      "automatic_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "libro",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "libro",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ich habe mein libro auf dem Küchentisch liegen lassen.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-es:music",
+      "source": "de",
+      "target": "es",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@d1f051b",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "música",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "música",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Die música ist zu laut, kannst du sie leiser machen?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-fr:water",
+      "source": "de",
+      "target": "fr",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6019c01",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "eau",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "eau",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Bring bitte etwas eau mit, wenn du hochkommst.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-fr:book",
+      "source": "de",
+      "target": "fr",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c288771",
+      "automatic_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "livre",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "livre",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ich habe mein livre auf dem Küchentisch liegen lassen.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-fr:music",
+      "source": "de",
+      "target": "fr",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e592ee1",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "musique",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "musique",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Die musique ist zu laut, kannst du sie leiser machen?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-it:water",
+      "source": "de",
+      "target": "it",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b68d3b7",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "acqua",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "acqua",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Bring bitte etwas acqua mit, wenn du hochkommst.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-it:book",
+      "source": "de",
+      "target": "it",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e2018a7",
+      "automatic_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "libro",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "libro",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ich habe mein libro auf dem Küchentisch liegen lassen.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-it:music",
+      "source": "de",
+      "target": "it",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c6a7997",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "musica",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "musica",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Die musica ist zu laut, kannst du sie leiser machen?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-pt:water",
+      "source": "de",
+      "target": "pt",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7b269dd",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "água",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "água",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Bring bitte etwas água mit, wenn du hochkommst.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-pt:book",
+      "source": "de",
+      "target": "pt",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e46844d",
+      "automatic_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "livro",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "livro",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ich habe mein livro auf dem Küchentisch liegen lassen.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-pt:music",
+      "source": "de",
+      "target": "pt",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a0e1abd",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "música",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "música",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Die música ist zu laut, kannst du sie leiser machen?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-ar:water",
+      "source": "de",
+      "target": "ar",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@775aff3",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "ماء",
+          "start": 18,
+          "end": 24,
+          "reading": "mā'"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "ماء",
+          "start": 18,
+          "end": 24,
+          "reading": "mā'"
+        }
+      ],
+      "mixed_reading": "Bring bitte etwas mā' mit, wenn du hochkommst.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-ar:book",
+      "source": "de",
+      "target": "ar",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@46a7be3",
+      "automatic_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "كتاب",
+          "start": 14,
+          "end": 18,
+          "reading": "kitāb"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "كتاب",
+          "start": 14,
+          "end": 18,
+          "reading": "kitāb"
+        }
+      ],
+      "mixed_reading": "Ich habe mein kitāb auf dem Küchentisch liegen lassen.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-ar:music",
+      "source": "de",
+      "target": "ar",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6e223d3",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "موسيقى",
+          "start": 4,
+          "end": 9,
+          "reading": "mūsīqā"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "موسيقى",
+          "start": 4,
+          "end": 9,
+          "reading": "mūsīqā"
+        }
+      ],
+      "mixed_reading": "Die mūsīqā ist zu laut, kannst du sie leiser machen?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-zh:water",
+      "source": "de",
+      "target": "zh",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@353379",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "水",
+          "start": 18,
+          "end": 24,
+          "reading": "shuǐ"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "水",
+          "start": 18,
+          "end": 24,
+          "reading": "shuǐ"
+        }
+      ],
+      "mixed_reading": "Bring bitte etwas shuǐ mit, wenn du hochkommst.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-zh:book",
+      "source": "de",
+      "target": "zh",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8cece9",
+      "automatic_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "书",
+          "start": 14,
+          "end": 18,
+          "reading": "shū"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "书",
+          "start": 14,
+          "end": 18,
+          "reading": "shū"
+        }
+      ],
+      "mixed_reading": "Ich habe mein shū auf dem Küchentisch liegen lassen.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-zh:music",
+      "source": "de",
+      "target": "zh",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9bde259",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "音乐",
+          "start": 4,
+          "end": 9,
+          "reading": "yīnyuè"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "音乐",
+          "start": 4,
+          "end": 9,
+          "reading": "yīnyuè"
+        }
+      ],
+      "mixed_reading": "Die yīnyuè ist zu laut, kannst du sie leiser machen?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-ja:water",
+      "source": "de",
+      "target": "ja",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9a41def",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "水",
+          "start": 18,
+          "end": 24,
+          "reading": "mizu"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "水",
+          "start": 18,
+          "end": 24,
+          "reading": "mizu"
+        }
+      ],
+      "mixed_reading": "Bring bitte etwas mizu mit, wenn du hochkommst.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-ja:book",
+      "source": "de",
+      "target": "ja",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3e60df",
+      "automatic_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "本",
+          "start": 14,
+          "end": 18,
+          "reading": "hon"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "本",
+          "start": 14,
+          "end": 18,
+          "reading": "hon"
+        }
+      ],
+      "mixed_reading": "Ich habe mein hon auf dem Küchentisch liegen lassen.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-ja:music",
+      "source": "de",
+      "target": "ja",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8273fcf",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "音楽",
+          "start": 4,
+          "end": 9,
+          "reading": "ongaku"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "音楽",
+          "start": 4,
+          "end": 9,
+          "reading": "ongaku"
+        }
+      ],
+      "mixed_reading": "Die ongaku ist zu laut, kannst du sie leiser machen?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-ko:water",
+      "source": "de",
+      "target": "ko",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a6294d5",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "물",
+          "start": 18,
+          "end": 24,
+          "reading": "mul"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "물",
+          "start": 18,
+          "end": 24,
+          "reading": "mul"
+        }
+      ],
+      "mixed_reading": "Bring bitte etwas mul mit, wenn du hochkommst.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-ko:book",
+      "source": "de",
+      "target": "ko",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3335d45",
+      "automatic_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "책",
+          "start": 14,
+          "end": 18,
+          "reading": "chaek"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "책",
+          "start": 14,
+          "end": 18,
+          "reading": "chaek"
+        }
+      ],
+      "mixed_reading": "Ich habe mein chaek auf dem Küchentisch liegen lassen.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-ko:music",
+      "source": "de",
+      "target": "ko",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8bf21b5",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "음악",
+          "start": 4,
+          "end": 9,
+          "reading": "eumak"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "음악",
+          "start": 4,
+          "end": 9,
+          "reading": "eumak"
+        }
+      ],
+      "mixed_reading": "Die eumak ist zu laut, kannst du sie leiser machen?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-sw:water",
+      "source": "de",
+      "target": "sw",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@bc919ab",
+      "automatic_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "maji",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 18,
+          "source": "Wasser",
+          "target": "maji",
+          "start": 18,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Bring bitte etwas maji mit, wenn du hochkommst.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-sw:book",
+      "source": "de",
+      "target": "sw",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8a7c39b",
+      "automatic_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "kitabu",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 14,
+          "source": "Buch",
+          "target": "kitabu",
+          "start": 14,
+          "end": 18,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ich habe mein kitabu auf dem Küchentisch liegen lassen.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-sw:music",
+      "source": "de",
+      "target": "sw",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3cc98b",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "muziki",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Musik",
+          "target": "muziki",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Die muziki ist zu laut, kannst du sie leiser machen?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en:water",
+      "source": "it",
+      "target": "en",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Porta un po’ d’acqua quando sali, per favore.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en:book",
+      "source": "it",
+      "target": "en",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@db3bbe5",
+      "automatic_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "book",
+          "start": 19,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "book",
+          "start": 19,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ho lasciato il mio book sul tavolo della cucina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en:music",
+      "source": "it",
+      "target": "en",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3e46855",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "La musica è troppo alta, puoi abbassarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-es:water",
+      "source": "it",
+      "target": "es",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Porta un po’ d’acqua quando sali, per favore.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-es:book",
+      "source": "it",
+      "target": "es",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@1cf0c1f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-es:music",
+      "source": "it",
+      "target": "es",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@dd93b0f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "La musica è troppo alta, puoi abbassarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-fr:water",
+      "source": "it",
+      "target": "fr",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Porta un po’ d’acqua quando sali, per favore.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-fr:book",
+      "source": "it",
+      "target": "fr",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e120ac9",
+      "automatic_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "livre",
+          "start": 19,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "livre",
+          "start": 19,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ho lasciato il mio livre sul tavolo della cucina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-fr:music",
+      "source": "it",
+      "target": "fr",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b363839",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "La musica è troppo alta, puoi abbassarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-de:water",
+      "source": "it",
+      "target": "de",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Porta un po’ d’acqua quando sali, per favore.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-de:book",
+      "source": "it",
+      "target": "de",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f7b6a63",
+      "automatic_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "Buch",
+          "start": 19,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "Buch",
+          "start": 19,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ho lasciato il mio Buch sul tavolo della cucina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-de:music",
+      "source": "it",
+      "target": "de",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@14bb253",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "La musica è troppo alta, puoi abbassarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-pt:water",
+      "source": "it",
+      "target": "pt",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Porta un po’ d’acqua quando sali, per favore.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-pt:book",
+      "source": "it",
+      "target": "pt",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@dfed96d",
+      "automatic_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "livro",
+          "start": 19,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "livro",
+          "start": 19,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ho lasciato il mio livro sul tavolo della cucina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-pt:music",
+      "source": "it",
+      "target": "pt",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@595f7dd",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "La musica è troppo alta, puoi abbassarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-ar:water",
+      "source": "it",
+      "target": "ar",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Porta un po’ d’acqua quando sali, per favore.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-ar:book",
+      "source": "it",
+      "target": "ar",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f02a267",
+      "automatic_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "كتاب",
+          "start": 19,
+          "end": 24,
+          "reading": "kitāb"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "كتاب",
+          "start": 19,
+          "end": 24,
+          "reading": "kitāb"
+        }
+      ],
+      "mixed_reading": "Ho lasciato il mio kitāb sul tavolo della cucina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-ar:music",
+      "source": "it",
+      "target": "ar",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ae2f357",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "La musica è troppo alta, puoi abbassarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-zh:water",
+      "source": "it",
+      "target": "zh",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Porta un po’ d’acqua quando sali, per favore.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-zh:book",
+      "source": "it",
+      "target": "zh",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f344bd1",
+      "automatic_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "书",
+          "start": 19,
+          "end": 24,
+          "reading": "shū"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "书",
+          "start": 19,
+          "end": 24,
+          "reading": "shū"
+        }
+      ],
+      "mixed_reading": "Ho lasciato il mio shū sul tavolo della cucina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-zh:music",
+      "source": "it",
+      "target": "zh",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@98ecb41",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "La musica è troppo alta, puoi abbassarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-ja:water",
+      "source": "it",
+      "target": "ja",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Porta un po’ d’acqua quando sali, per favore.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-ja:book",
+      "source": "it",
+      "target": "ja",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@15c382b",
+      "automatic_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "本",
+          "start": 19,
+          "end": 24,
+          "reading": "hon"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "本",
+          "start": 19,
+          "end": 24,
+          "reading": "hon"
+        }
+      ],
+      "mixed_reading": "Ho lasciato il mio hon sul tavolo della cucina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-ja:music",
+      "source": "it",
+      "target": "ja",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a7f821b",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "La musica è troppo alta, puoi abbassarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-ko:water",
+      "source": "it",
+      "target": "ko",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Porta un po’ d’acqua quando sali, per favore.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-ko:book",
+      "source": "it",
+      "target": "ko",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b9845f5",
+      "automatic_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "책",
+          "start": 19,
+          "end": 24,
+          "reading": "chaek"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "책",
+          "start": 19,
+          "end": 24,
+          "reading": "chaek"
+        }
+      ],
+      "mixed_reading": "Ho lasciato il mio chaek sul tavolo della cucina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-ko:music",
+      "source": "it",
+      "target": "ko",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8479665",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "La musica è troppo alta, puoi abbassarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-sw:water",
+      "source": "it",
+      "target": "sw",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Porta un po’ d’acqua quando sali, per favore.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-sw:book",
+      "source": "it",
+      "target": "sw",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2256faf",
+      "automatic_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "kitabu",
+          "start": 19,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 19,
+          "source": "libro",
+          "target": "kitabu",
+          "start": 19,
+          "end": 24,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Ho lasciato il mio kitabu sul tavolo della cucina.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-sw:music",
+      "source": "it",
+      "target": "sw",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f97a29f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "La musica è troppo alta, puoi abbassarla?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en:water",
+      "source": "pt",
+      "target": "en",
+      "original": "Traz água quando subires, por favor.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c2cb025",
+      "automatic_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "water",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "water",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Traz water quando subires, por favor.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en:book",
+      "source": "pt",
+      "target": "en",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9a2ec95",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Deixei o meu livro na mesa da cozinha.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en:music",
+      "source": "pt",
+      "target": "en",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2192505",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "music",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "music",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "A music está muito alta, podes baixar o volume?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-es:water",
+      "source": "pt",
+      "target": "es",
+      "original": "Traz água quando subires, por favor.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@dd1297b",
+      "automatic_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "agua",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "agua",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Traz agua quando subires, por favor.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-es:book",
+      "source": "pt",
+      "target": "es",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@efb676b",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Deixei o meu livro na mesa da cozinha.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-es:music",
+      "source": "pt",
+      "target": "es",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ee9015b",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "A música está muito alta, podes baixar o volume?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-fr:water",
+      "source": "pt",
+      "target": "fr",
+      "original": "Traz água quando subires, por favor.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7e2a241",
+      "automatic_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "eau",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "eau",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Traz eau quando subires, por favor.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-fr:book",
+      "source": "pt",
+      "target": "fr",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@779db1",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Deixei o meu livro na mesa da cozinha.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-fr:music",
+      "source": "pt",
+      "target": "fr",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4ba5521",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "musique",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "musique",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "A musique está muito alta, podes baixar o volume?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-de:water",
+      "source": "pt",
+      "target": "de",
+      "original": "Traz água quando subires, por favor.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@11093f7",
+      "automatic_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "Wasser",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "Wasser",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Traz Wasser quando subires, por favor.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-de:book",
+      "source": "pt",
+      "target": "de",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a5868e7",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Deixei o meu livro na mesa da cozinha.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-de:music",
+      "source": "pt",
+      "target": "de",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c7759d7",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "Musik",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "Musik",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "A Musik está muito alta, podes baixar o volume?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-it:water",
+      "source": "pt",
+      "target": "it",
+      "original": "Traz água quando subires, por favor.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f13f41d",
+      "automatic_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "acqua",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "acqua",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Traz acqua quando subires, por favor.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-it:book",
+      "source": "pt",
+      "target": "it",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b3f1e8d",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Deixei o meu livro na mesa da cozinha.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-it:music",
+      "source": "pt",
+      "target": "it",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@881c4fd",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "musica",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "musica",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "A musica está muito alta, podes baixar o volume?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-ar:water",
+      "source": "pt",
+      "target": "ar",
+      "original": "Traz água quando subires, por favor.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a6e9433",
+      "automatic_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "ماء",
+          "start": 5,
+          "end": 9,
+          "reading": "mā'"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "ماء",
+          "start": 5,
+          "end": 9,
+          "reading": "mā'"
+        }
+      ],
+      "mixed_reading": "Traz mā' quando subires, por favor.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-ar:book",
+      "source": "pt",
+      "target": "ar",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@684f023",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Deixei o meu livro na mesa da cozinha.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-ar:music",
+      "source": "pt",
+      "target": "ar",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ba22813",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "موسيقى",
+          "start": 2,
+          "end": 8,
+          "reading": "mūsīqā"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "موسيقى",
+          "start": 2,
+          "end": 8,
+          "reading": "mūsīqā"
+        }
+      ],
+      "mixed_reading": "A mūsīqā está muito alta, podes baixar o volume?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-zh:water",
+      "source": "pt",
+      "target": "zh",
+      "original": "Traz água quando subires, por favor.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@eb181b9",
+      "automatic_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "水",
+          "start": 5,
+          "end": 9,
+          "reading": "shuǐ"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "水",
+          "start": 5,
+          "end": 9,
+          "reading": "shuǐ"
+        }
+      ],
+      "mixed_reading": "Traz shuǐ quando subires, por favor.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-zh:book",
+      "source": "pt",
+      "target": "zh",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2d94b29",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Deixei o meu livro na mesa da cozinha.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-zh:music",
+      "source": "pt",
+      "target": "zh",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@bfe5099",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "音乐",
+          "start": 2,
+          "end": 8,
+          "reading": "yīnyuè"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "音乐",
+          "start": 2,
+          "end": 8,
+          "reading": "yīnyuè"
+        }
+      ],
+      "mixed_reading": "A yīnyuè está muito alta, podes baixar o volume?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-ja:water",
+      "source": "pt",
+      "target": "ja",
+      "original": "Traz água quando subires, por favor.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@562662f",
+      "automatic_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "水",
+          "start": 5,
+          "end": 9,
+          "reading": "mizu"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "水",
+          "start": 5,
+          "end": 9,
+          "reading": "mizu"
+        }
+      ],
+      "mixed_reading": "Traz mizu quando subires, por favor.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-ja:book",
+      "source": "pt",
+      "target": "ja",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@93f391f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Deixei o meu livro na mesa da cozinha.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-ja:music",
+      "source": "pt",
+      "target": "ja",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c2ea80f",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "音楽",
+          "start": 2,
+          "end": 8,
+          "reading": "ongaku"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "音楽",
+          "start": 2,
+          "end": 8,
+          "reading": "ongaku"
+        }
+      ],
+      "mixed_reading": "A ongaku está muito alta, podes baixar o volume?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-ko:water",
+      "source": "pt",
+      "target": "ko",
+      "original": "Traz água quando subires, por favor.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@557e715",
+      "automatic_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "물",
+          "start": 5,
+          "end": 9,
+          "reading": "mul"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "물",
+          "start": 5,
+          "end": 9,
+          "reading": "mul"
+        }
+      ],
+      "mixed_reading": "Traz mul quando subires, por favor.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-ko:book",
+      "source": "pt",
+      "target": "ko",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@441bf85",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Deixei o meu livro na mesa da cozinha.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-ko:music",
+      "source": "pt",
+      "target": "ko",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4a93f5",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "음악",
+          "start": 2,
+          "end": 8,
+          "reading": "eumak"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "음악",
+          "start": 2,
+          "end": 8,
+          "reading": "eumak"
+        }
+      ],
+      "mixed_reading": "A eumak está muito alta, podes baixar o volume?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-sw:water",
+      "source": "pt",
+      "target": "sw",
+      "original": "Traz água quando subires, por favor.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@22505eb",
+      "automatic_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "maji",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 5,
+          "source": "água",
+          "target": "maji",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Traz maji quando subires, por favor.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-sw:book",
+      "source": "pt",
+      "target": "sw",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f73fdb",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Deixei o meu livro na mesa da cozinha.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-sw:music",
+      "source": "pt",
+      "target": "sw",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@683d5cb",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "muziki",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "música",
+          "target": "muziki",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "A muziki está muito alta, podes baixar o volume?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en:water",
+      "source": "ar",
+      "target": "en",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@eeb8031",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en:book",
+      "source": "ar",
+      "target": "en",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b2bd7a1",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "تركت كتابي على طاولة المطبخ.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en:music",
+      "source": "ar",
+      "target": "en",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2a8eb11",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-es:water",
+      "source": "ar",
+      "target": "es",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@5ad2f67",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-es:book",
+      "source": "ar",
+      "target": "es",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@bcac057",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "تركت كتابي على طاولة المطبخ.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-es:music",
+      "source": "ar",
+      "target": "es",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9a66d47",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-fr:water",
+      "source": "ar",
+      "target": "fr",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7f4690d",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-fr:book",
+      "source": "ar",
+      "target": "fr",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@45eaf7d",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "تركت كتابي على طاولة المطبخ.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-fr:music",
+      "source": "ar",
+      "target": "fr",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ddf71ed",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-de:water",
+      "source": "ar",
+      "target": "de",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@76b5ea3",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-de:book",
+      "source": "ar",
+      "target": "de",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c413693",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "تركت كتابي على طاولة المطبخ.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-de:music",
+      "source": "ar",
+      "target": "de",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6f4ea83",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-it:water",
+      "source": "ar",
+      "target": "it",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4ba7da9",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-it:book",
+      "source": "ar",
+      "target": "it",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3d12319",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "تركت كتابي على طاولة المطبخ.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-it:music",
+      "source": "ar",
+      "target": "it",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f540489",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-pt:water",
+      "source": "ar",
+      "target": "pt",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8c5cf9f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-pt:book",
+      "source": "ar",
+      "target": "pt",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7c7de8f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "تركت كتابي على طاولة المطبخ.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-pt:music",
+      "source": "ar",
+      "target": "pt",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7a3897f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-zh:water",
+      "source": "ar",
+      "target": "zh",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8215a05",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-zh:book",
+      "source": "ar",
+      "target": "zh",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a85ce75",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "تركت كتابي على طاولة المطبخ.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-zh:music",
+      "source": "ar",
+      "target": "zh",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@be83ee5",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-ja:water",
+      "source": "ar",
+      "target": "ja",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2547e5b",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-ja:book",
+      "source": "ar",
+      "target": "ja",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@aedb44b",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "تركت كتابي على طاولة المطبخ.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-ja:music",
+      "source": "ar",
+      "target": "ja",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7f8463b",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-ko:water",
+      "source": "ar",
+      "target": "ko",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6445a21",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-ko:book",
+      "source": "ar",
+      "target": "ko",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8270d91",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "تركت كتابي على طاولة المطبخ.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-ko:music",
+      "source": "ar",
+      "target": "ko",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@957d01",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-sw:water",
+      "source": "ar",
+      "target": "sw",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2dd26d7",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-sw:book",
+      "source": "ar",
+      "target": "sw",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f5f73c7",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "تركت كتابي على طاولة المطبخ.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-sw:music",
+      "source": "ar",
+      "target": "sw",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@446dcb7",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en:water",
+      "source": "zh",
+      "target": "en",
+      "original": "你上楼的时候请带点水。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ed299fd",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "你上楼的时候请带点水。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en:book",
+      "source": "zh",
+      "target": "en",
+      "original": "我把书忘在厨房的桌子上了。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@462fc6d",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "我把书忘在厨房的桌子上了。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en:music",
+      "source": "zh",
+      "target": "en",
+      "original": "音乐太响了，可以调小一点吗？",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ac8dadd",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "音乐太响了，可以调小一点吗？",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-es:water",
+      "source": "zh",
+      "target": "es",
+      "original": "你上楼的时候请带点水。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c0f4513",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "你上楼的时候请带点水。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-es:book",
+      "source": "zh",
+      "target": "es",
+      "original": "我把书忘在厨房的桌子上了。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@fa39903",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "我把书忘在厨房的桌子上了。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-es:music",
+      "source": "zh",
+      "target": "es",
+      "original": "音乐太响了，可以调小一点吗？",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3acc8f3",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "音乐太响了，可以调小一点吗？",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-fr:water",
+      "source": "zh",
+      "target": "fr",
+      "original": "你上楼的时候请带点水。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b2af599",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "你上楼的时候请带点水。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-fr:book",
+      "source": "zh",
+      "target": "fr",
+      "original": "我把书忘在厨房的桌子上了。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c077709",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "我把书忘在厨房的桌子上了。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-fr:music",
+      "source": "zh",
+      "target": "fr",
+      "original": "音乐太响了，可以调小一点吗？",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@47f3479",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "音乐太响了，可以调小一点吗？",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-de:water",
+      "source": "zh",
+      "target": "de",
+      "original": "你上楼的时候请带点水。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@900150f",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "你上楼的时候请带点水。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-de:book",
+      "source": "zh",
+      "target": "de",
+      "original": "我把书忘在厨房的桌子上了。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4965fff",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "我把书忘在厨房的桌子上了。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-de:music",
+      "source": "zh",
+      "target": "de",
+      "original": "音乐太响了，可以调小一点吗？",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c8d46ef",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "音乐太响了，可以调小一点吗？",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-it:water",
+      "source": "zh",
+      "target": "it",
+      "original": "你上楼的时候请带点水。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c3808f5",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "你上楼的时候请带点水。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-it:book",
+      "source": "zh",
+      "target": "it",
+      "original": "我把书忘在厨房的桌子上了。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@dde1965",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "我把书忘在厨房的桌子上了。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-it:music",
+      "source": "zh",
+      "target": "it",
+      "original": "音乐太响了，可以调小一点吗？",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2125d5",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "音乐太响了，可以调小一点吗？",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-pt:water",
+      "source": "zh",
+      "target": "pt",
+      "original": "你上楼的时候请带点水。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a6692cb",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "你上楼的时候请带点水。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-pt:book",
+      "source": "zh",
+      "target": "pt",
+      "original": "我把书忘在厨房的桌子上了。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8a5c4bb",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "我把书忘在厨房的桌子上了。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-pt:music",
+      "source": "zh",
+      "target": "pt",
+      "original": "音乐太响了，可以调小一点吗？",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ecd52ab",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "音乐太响了，可以调小一点吗？",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-ar:water",
+      "source": "zh",
+      "target": "ar",
+      "original": "你上楼的时候请带点水。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@40c3011",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "你上楼的时候请带点水。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-ar:book",
+      "source": "zh",
+      "target": "ar",
+      "original": "我把书忘在厨房的桌子上了。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3483f81",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "我把书忘在厨房的桌子上了。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-ar:music",
+      "source": "zh",
+      "target": "ar",
+      "original": "音乐太响了，可以调小一点吗？",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@1f0af1",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "音乐太响了，可以调小一点吗？",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-ja:water",
+      "source": "zh",
+      "target": "ja",
+      "original": "你上楼的时候请带点水。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4977a47",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "你上楼的时候请带点水。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-ja:book",
+      "source": "zh",
+      "target": "ja",
+      "original": "我把书忘在厨房的桌子上了。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ccd8337",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "我把书忘在厨房的桌子上了。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-ja:music",
+      "source": "zh",
+      "target": "ja",
+      "original": "音乐太响了，可以调小一点吗？",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@fcfa827",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "音乐太响了，可以调小一点吗？",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-ko:water",
+      "source": "zh",
+      "target": "ko",
+      "original": "你上楼的时候请带点水。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@73d86ed",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "你上楼的时候请带点水。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-ko:book",
+      "source": "zh",
+      "target": "ko",
+      "original": "我把书忘在厨房的桌子上了。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9b055d",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "我把书忘在厨房的桌子上了。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-ko:music",
+      "source": "zh",
+      "target": "ko",
+      "original": "音乐太响了，可以调小一点吗？",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@64cffcd",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "音乐太响了，可以调小一点吗？",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-sw:water",
+      "source": "zh",
+      "target": "sw",
+      "original": "你上楼的时候请带点水。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b414783",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "你上楼的时候请带点水。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-sw:book",
+      "source": "zh",
+      "target": "sw",
+      "original": "我把书忘在厨房的桌子上了。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b531773",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "我把书忘在厨房的桌子上了。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-sw:music",
+      "source": "zh",
+      "target": "sw",
+      "original": "音乐太响了，可以调小一点吗？",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@430c363",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "音乐太响了，可以调小一点吗？",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en:water",
+      "source": "ja",
+      "target": "en",
+      "original": "上に来るとき、水を持ってきてください。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b73463e",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "上に来るとき、水を持ってきてください。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en:book",
+      "source": "ja",
+      "target": "en",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@d1bbaee",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "台所のテーブルに本を置き忘れました。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en:music",
+      "source": "ja",
+      "target": "en",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3e2bb9e",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "music",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "music",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "musicがうるさいので、音量を下げてもらえますか。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-es:water",
+      "source": "ja",
+      "target": "es",
+      "original": "上に来るとき、水を持ってきてください。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a8faa7c",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "上に来るとき、水を持ってきてください。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-es:book",
+      "source": "ja",
+      "target": "es",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c50aaac",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "台所のテーブルに本を置き忘れました。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-es:music",
+      "source": "ja",
+      "target": "es",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@62a16dc",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "música",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "música",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "músicaがうるさいので、音量を下げてもらえますか。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-fr:water",
+      "source": "ja",
+      "target": "fr",
+      "original": "上に来るとき、水を持ってきてください。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@615a6a",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "上に来るとき、水を持ってきてください。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-fr:book",
+      "source": "ja",
+      "target": "fr",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@bbd321a",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "台所のテーブルに本を置き忘れました。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-fr:music",
+      "source": "ja",
+      "target": "fr",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@d5655ca",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "musique",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "musique",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "musiqueがうるさいので、音量を下げてもらえますか。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-de:water",
+      "source": "ja",
+      "target": "de",
+      "original": "上に来るとき、水を持ってきてください。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@29b7988",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "上に来るとき、水を持ってきてください。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-de:book",
+      "source": "ja",
+      "target": "de",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@be454b8",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "台所のテーブルに本を置き忘れました。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-de:music",
+      "source": "ja",
+      "target": "de",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8725be8",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "Musik",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "Musik",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Musikがうるさいので、音量を下げてもらえますか。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-it:water",
+      "source": "ja",
+      "target": "it",
+      "original": "上に来るとき、水を持ってきてください。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7833756",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "上に来るとき、水を持ってきてください。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-it:book",
+      "source": "ja",
+      "target": "it",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c762206",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "台所のテーブルに本を置き忘れました。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-it:music",
+      "source": "ja",
+      "target": "it",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@11118b6",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "musica",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "musica",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "musicaがうるさいので、音量を下げてもらえますか。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-pt:water",
+      "source": "ja",
+      "target": "pt",
+      "original": "上に来るとき、水を持ってきてください。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@775af54",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "上に来るとき、水を持ってきてください。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-pt:book",
+      "source": "ja",
+      "target": "pt",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b0d9584",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "台所のテーブルに本を置き忘れました。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-pt:music",
+      "source": "ja",
+      "target": "pt",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@54367b4",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "música",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "música",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "músicaがうるさいので、音量を下げてもらえますか。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-ar:water",
+      "source": "ja",
+      "target": "ar",
+      "original": "上に来るとき、水を持ってきてください。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@378c902",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "上に来るとき、水を持ってきてください。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-ar:book",
+      "source": "ja",
+      "target": "ar",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@fb976b2",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "台所のテーブルに本を置き忘れました。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-ar:music",
+      "source": "ja",
+      "target": "ar",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@818f062",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "موسيقى",
+          "start": 0,
+          "end": 2,
+          "reading": "mūsīqā"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "موسيقى",
+          "start": 0,
+          "end": 2,
+          "reading": "mūsīqā"
+        }
+      ],
+      "mixed_reading": "mūsīqāがうるさいので、音量を下げてもらえますか。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-zh:water",
+      "source": "ja",
+      "target": "zh",
+      "original": "上に来るとき、水を持ってきてください。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f8f17e0",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "上に来るとき、水を持ってきてください。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-zh:book",
+      "source": "ja",
+      "target": "zh",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4083910",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "台所のテーブルに本を置き忘れました。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-zh:music",
+      "source": "ja",
+      "target": "zh",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3640640",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "音乐",
+          "start": 0,
+          "end": 2,
+          "reading": "yīnyuè"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "音乐",
+          "start": 0,
+          "end": 2,
+          "reading": "yīnyuè"
+        }
+      ],
+      "mixed_reading": "yīnyuèがうるさいので、音量を下げてもらえますか。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-ko:water",
+      "source": "ja",
+      "target": "ko",
+      "original": "上に来るとき、水を持ってきてください。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@446bb6e",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "上に来るとき、水を持ってきてください。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-ko:book",
+      "source": "ja",
+      "target": "ko",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@60edc1e",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "台所のテーブルに本を置き忘れました。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-ko:music",
+      "source": "ja",
+      "target": "ko",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a3888ce",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "음악",
+          "start": 0,
+          "end": 2,
+          "reading": "eumak"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "음악",
+          "start": 0,
+          "end": 2,
+          "reading": "eumak"
+        }
+      ],
+      "mixed_reading": "eumakがうるさいので、音量を下げてもらえますか。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-sw:water",
+      "source": "ja",
+      "target": "sw",
+      "original": "上に来るとき、水を持ってきてください。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@dbb3f2c",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "上に来るとき、水を持ってきてください。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-sw:book",
+      "source": "ja",
+      "target": "sw",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ba2cb5c",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "台所のテーブルに本を置き忘れました。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-sw:music",
+      "source": "ja",
+      "target": "sw",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e5dc38c",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "muziki",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "音楽",
+          "target": "muziki",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "muzikiがうるさいので、音量を下げてもらえますか。",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en:water",
+      "source": "ko",
+      "target": "en",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f027a9a",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "올라올 때 물 좀 가져다주세요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en:book",
+      "source": "ko",
+      "target": "en",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@abebe4a",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "부엌 식탁에 책을 두고 왔어요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en:music",
+      "source": "ko",
+      "target": "en",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@bab4dfa",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-es:water",
+      "source": "ko",
+      "target": "es",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@fbc7138",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "올라올 때 물 좀 가져다주세요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-es:book",
+      "source": "ko",
+      "target": "es",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@aca9868",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "부엌 식탁에 책을 두고 왔어요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-es:music",
+      "source": "ko",
+      "target": "es",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b08eb98",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-fr:water",
+      "source": "ko",
+      "target": "fr",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@63e3286",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "올라올 때 물 좀 가져다주세요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-fr:book",
+      "source": "ko",
+      "target": "fr",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f3e4936",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "부엌 식탁에 책을 두고 왔어요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-fr:music",
+      "source": "ko",
+      "target": "fr",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b896be6",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-de:water",
+      "source": "ko",
+      "target": "de",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b8fba04",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "올라올 때 물 좀 가져다주세요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-de:book",
+      "source": "ko",
+      "target": "de",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6d7ac34",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "부엌 식탁에 책을 두고 왔어요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-de:music",
+      "source": "ko",
+      "target": "de",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ad88a64",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-it:water",
+      "source": "ko",
+      "target": "it",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f34cf32",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "올라올 때 물 좀 가져다주세요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-it:book",
+      "source": "ko",
+      "target": "it",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@35b68e2",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "부엌 식탁에 책을 두고 왔어요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-it:music",
+      "source": "ko",
+      "target": "it",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ef3ce92",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-pt:water",
+      "source": "ko",
+      "target": "pt",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@778e590",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "올라올 때 물 좀 가져다주세요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-pt:book",
+      "source": "ko",
+      "target": "pt",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@498d2c0",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "부엌 식탁에 책을 두고 왔어요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-pt:music",
+      "source": "ko",
+      "target": "pt",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9e66bf0",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-ar:water",
+      "source": "ko",
+      "target": "ar",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@fb5fc9e",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "올라올 때 물 좀 가져다주세요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-ar:book",
+      "source": "ko",
+      "target": "ar",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@628c94e",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "부엌 식탁에 책을 두고 왔어요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-ar:music",
+      "source": "ko",
+      "target": "ar",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@50021fe",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-zh:water",
+      "source": "ko",
+      "target": "zh",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8ce7fdc",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "올라올 때 물 좀 가져다주세요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-zh:book",
+      "source": "ko",
+      "target": "zh",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@21f980c",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "부엌 식탁에 책을 두고 왔어요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-zh:music",
+      "source": "ko",
+      "target": "zh",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3bf1c3c",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-ja:water",
+      "source": "ko",
+      "target": "ja",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@d226ca",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "올라올 때 물 좀 가져다주세요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-ja:book",
+      "source": "ko",
+      "target": "ja",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ba9d67a",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "부엌 식탁에 책을 두고 왔어요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-ja:music",
+      "source": "ko",
+      "target": "ja",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f64d22a",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-sw:water",
+      "source": "ko",
+      "target": "sw",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@585d4e8",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "올라올 때 물 좀 가져다주세요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-sw:book",
+      "source": "ko",
+      "target": "sw",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@34c4818",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "부엌 식탁에 책을 두고 왔어요.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-sw:music",
+      "source": "ko",
+      "target": "sw",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@aede748",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-en:water",
+      "source": "sw",
+      "target": "en",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@24679b6",
+      "automatic_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "water",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "water",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Tafadhali leta water ukipanda juu.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-en:book",
+      "source": "sw",
+      "target": "en",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@33ebc66",
+      "automatic_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "book",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "book",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Niliacha book changu juu ya meza jikoni.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-en:music",
+      "source": "sw",
+      "target": "en",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@be50b16",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-es:water",
+      "source": "sw",
+      "target": "es",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@47ef0b4",
+      "automatic_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "agua",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "agua",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Tafadhali leta agua ukipanda juu.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-es:book",
+      "source": "sw",
+      "target": "es",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@d19eee4",
+      "automatic_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "libro",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "libro",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Niliacha libro changu juu ya meza jikoni.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-es:music",
+      "source": "sw",
+      "target": "es",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f48d914",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-fr:water",
+      "source": "sw",
+      "target": "fr",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@aa8e162",
+      "automatic_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "eau",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "eau",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Tafadhali leta eau ukipanda juu.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-fr:book",
+      "source": "sw",
+      "target": "fr",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ad06712",
+      "automatic_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "livre",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "livre",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Niliacha livre changu juu ya meza jikoni.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-fr:music",
+      "source": "sw",
+      "target": "fr",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a7cb8c2",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-de:water",
+      "source": "sw",
+      "target": "de",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8909f40",
+      "automatic_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "Wasser",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "Wasser",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Tafadhali leta Wasser ukipanda juu.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-de:book",
+      "source": "sw",
+      "target": "de",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@baa5870",
+      "automatic_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "Buch",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "Buch",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Niliacha Buch changu juu ya meza jikoni.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-de:music",
+      "source": "sw",
+      "target": "de",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@efcbda0",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-it:water",
+      "source": "sw",
+      "target": "it",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@5409ce",
+      "automatic_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "acqua",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "acqua",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Tafadhali leta acqua ukipanda juu.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-it:book",
+      "source": "sw",
+      "target": "it",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@abc827e",
+      "automatic_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "libro",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "libro",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Niliacha libro changu juu ya meza jikoni.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-it:music",
+      "source": "sw",
+      "target": "it",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c4c872e",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-pt:water",
+      "source": "sw",
+      "target": "pt",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2546c8c",
+      "automatic_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "água",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "água",
+          "start": 15,
+          "end": 19,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Tafadhali leta água ukipanda juu.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-pt:book",
+      "source": "sw",
+      "target": "pt",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f1210bc",
+      "automatic_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "livro",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "livro",
+          "start": 9,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "Niliacha livro changu juu ya meza jikoni.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-pt:music",
+      "source": "sw",
+      "target": "pt",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e5920ec",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-ar:water",
+      "source": "sw",
+      "target": "ar",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7135efa",
+      "automatic_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "ماء",
+          "start": 15,
+          "end": 19,
+          "reading": "mā'"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "ماء",
+          "start": 15,
+          "end": 19,
+          "reading": "mā'"
+        }
+      ],
+      "mixed_reading": "Tafadhali leta mā' ukipanda juu.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-ar:book",
+      "source": "sw",
+      "target": "ar",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6817aaa",
+      "automatic_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "كتاب",
+          "start": 9,
+          "end": 15,
+          "reading": "kitāb"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "كتاب",
+          "start": 9,
+          "end": 15,
+          "reading": "kitāb"
+        }
+      ],
+      "mixed_reading": "Niliacha kitāb changu juu ya meza jikoni.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-ar:music",
+      "source": "sw",
+      "target": "ar",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@745e25a",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-zh:water",
+      "source": "sw",
+      "target": "zh",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4b2a498",
+      "automatic_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "水",
+          "start": 15,
+          "end": 19,
+          "reading": "shuǐ"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "水",
+          "start": 15,
+          "end": 19,
+          "reading": "shuǐ"
+        }
+      ],
+      "mixed_reading": "Tafadhali leta shuǐ ukipanda juu.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-zh:book",
+      "source": "sw",
+      "target": "zh",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ae463c8",
+      "automatic_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "书",
+          "start": 9,
+          "end": 15,
+          "reading": "shū"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "书",
+          "start": 9,
+          "end": 15,
+          "reading": "shū"
+        }
+      ],
+      "mixed_reading": "Niliacha shū changu juu ya meza jikoni.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-zh:music",
+      "source": "sw",
+      "target": "zh",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@25c4ef8",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-ja:water",
+      "source": "sw",
+      "target": "ja",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e8f0ce6",
+      "automatic_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "水",
+          "start": 15,
+          "end": 19,
+          "reading": "mizu"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "水",
+          "start": 15,
+          "end": 19,
+          "reading": "mizu"
+        }
+      ],
+      "mixed_reading": "Tafadhali leta mizu ukipanda juu.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-ja:book",
+      "source": "sw",
+      "target": "ja",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e2a7b96",
+      "automatic_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "本",
+          "start": 9,
+          "end": 15,
+          "reading": "hon"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "本",
+          "start": 9,
+          "end": 15,
+          "reading": "hon"
+        }
+      ],
+      "mixed_reading": "Niliacha hon changu juu ya meza jikoni.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-ja:music",
+      "source": "sw",
+      "target": "ja",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a96f646",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-ko:water",
+      "source": "sw",
+      "target": "ko",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@82e5364",
+      "automatic_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "물",
+          "start": 15,
+          "end": 19,
+          "reading": "mul"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 15,
+          "source": "maji",
+          "target": "물",
+          "start": 15,
+          "end": 19,
+          "reading": "mul"
+        }
+      ],
+      "mixed_reading": "Tafadhali leta mul ukipanda juu.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-ko:book",
+      "source": "sw",
+      "target": "ko",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@47f5d94",
+      "automatic_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "책",
+          "start": 9,
+          "end": 15,
+          "reading": "chaek"
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 9,
+          "source": "kitabu",
+          "target": "책",
+          "start": 9,
+          "end": 15,
+          "reading": "chaek"
+        }
+      ],
+      "mixed_reading": "Niliacha chaek changu juu ya meza jikoni.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-ko:music",
+      "source": "sw",
+      "target": "ko",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9ff53c4",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    }
+  ],
+  "voices": [
+    {
+      "language": "es",
+      "text": "música",
+      "selected_voice": "espeak-ng-699e7969-es",
+      "duration_ms": 586.7120181405895,
+      "sample_rate": 22050,
+      "status": "rendered"
+    },
+    {
+      "language": "fr",
+      "text": "musique",
+      "selected_voice": "espeak-ng-699e7969-fr",
+      "duration_ms": 485.35147392290247,
+      "sample_rate": 22050,
+      "status": "rendered"
+    },
+    {
+      "language": "de",
+      "text": "Musik",
+      "selected_voice": "espeak-ng-699e7969-de",
+      "duration_ms": 523.8548752834467,
+      "sample_rate": 22050,
+      "status": "rendered"
+    },
+    {
+      "language": "it",
+      "text": "musica",
+      "selected_voice": "espeak-ng-699e7969-it",
+      "duration_ms": 578.3673469387755,
+      "sample_rate": 22050,
+      "status": "rendered"
+    },
+    {
+      "language": "pt",
+      "text": "música",
+      "selected_voice": "espeak-ng-699e7969-pt",
+      "duration_ms": 578.2766439909298,
+      "sample_rate": 22050,
+      "status": "rendered"
+    },
+    {
+      "language": "ar",
+      "text": "موسيقى",
+      "selected_voice": "espeak-ng-699e7969-ar",
+      "duration_ms": 941.6780045351474,
+      "sample_rate": 22050,
+      "status": "rendered"
+    },
+    {
+      "language": "zh",
+      "text": "音乐",
+      "selected_voice": "espeak-ng-699e7969-zh",
+      "duration_ms": 568.6621315192743,
+      "sample_rate": 22050,
+      "status": "rendered"
+    },
+    {
+      "language": "ja",
+      "text": "水",
+      "selected_voice": "espeak-ng-699e7969-ja",
+      "duration_ms": 445.07936507936506,
+      "sample_rate": 22050,
+      "status": "rendered"
+    },
+    {
+      "language": "ko",
+      "text": "음악",
+      "selected_voice": "espeak-ng-699e7969-ko",
+      "duration_ms": 433.2879818594104,
+      "sample_rate": 22050,
+      "status": "rendered"
+    },
+    {
+      "language": "sw",
+      "text": "maji",
+      "selected_voice": "espeak-ng-699e7969-sw",
+      "duration_ms": 531.2471655328798,
+      "sample_rate": 22050,
+      "status": "rendered"
+    },
+    {
+      "language": "en",
+      "text": "water",
+      "selected_voice": "en-US-language",
+      "duration_ms": 493.19727891156464,
+      "sample_rate": 22050,
+      "status": "rendered"
+    }
+  ],
+  "evidence": "concept-informed probes; synthesis is not listening or pronunciation acceptance"
+}

@@ -1,0 +1,2096 @@
+{
+  "evidence": "offline_pair_rendering_not_linguistic_or_listening_acceptance",
+  "directions": [
+    {
+      "source": "en",
+      "target": "es",
+      "prepare_ms": 292.069573,
+      "render_ms": 135.724696,
+      "audio_ms": 1938.3333333333333,
+      "boundary_frames": [
+        10564,
+        22977,
+        35442
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.208333333333334,
+        52,
+        52
+      ],
+      "replay_ms": 1.307536,
+      "status": "rendered"
+    },
+    {
+      "source": "en",
+      "target": "fr",
+      "prepare_ms": 114.6175,
+      "render_ms": 52.218306,
+      "audio_ms": 1800.625,
+      "boundary_frames": [
+        10866,
+        19864,
+        32310
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.166666666666668,
+        51.958333333333336,
+        52
+      ],
+      "replay_ms": 1.143951,
+      "status": "rendered"
+    },
+    {
+      "source": "en",
+      "target": "de",
+      "prepare_ms": 105.922852,
+      "render_ms": 52.215835,
+      "audio_ms": 1766.1666666666667,
+      "boundary_frames": [
+        10553,
+        19772,
+        32227
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        51.958333333333336,
+        62.958333333333336
+      ],
+      "replay_ms": 1.159597,
+      "status": "rendered"
+    },
+    {
+      "source": "en",
+      "target": "it",
+      "prepare_ms": 105.447927,
+      "render_ms": 55.483078,
+      "audio_ms": 1944.125,
+      "boundary_frames": [
+        10872,
+        21123,
+        33581
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.041666666666668,
+        52.125,
+        51.958333333333336
+      ],
+      "replay_ms": 1.116258,
+      "status": "rendered"
+    },
+    {
+      "source": "en",
+      "target": "pt",
+      "prepare_ms": 110.810235,
+      "render_ms": 57.496815,
+      "audio_ms": 2052.9583333333335,
+      "boundary_frames": [
+        10553,
+        25231,
+        37685
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.041666666666666,
+        51.958333333333336,
+        52
+      ],
+      "replay_ms": 1.128671,
+      "status": "rendered"
+    },
+    {
+      "source": "en",
+      "target": "ar",
+      "prepare_ms": 118.224799,
+      "render_ms": 53.502782,
+      "audio_ms": 1845.875,
+      "boundary_frames": [
+        10872,
+        20893,
+        33346
+      ],
+      "join_silence_ms_at_minus60db": [
+        21.916666666666668,
+        51.958333333333336,
+        63.041666666666664
+      ],
+      "replay_ms": 2.983218,
+      "status": "rendered"
+    },
+    {
+      "source": "en",
+      "target": "zh",
+      "prepare_ms": 116.598235,
+      "render_ms": 63.607383,
+      "audio_ms": 2238.0416666666665,
+      "boundary_frames": [
+        10553,
+        27067,
+        39510
+      ],
+      "join_silence_ms_at_minus60db": [
+        9,
+        51.958333333333336,
+        52.125
+      ],
+      "replay_ms": 1.077843,
+      "status": "rendered"
+    },
+    {
+      "source": "en",
+      "target": "ja",
+      "prepare_ms": 864.236637,
+      "render_ms": 61.465095,
+      "audio_ms": 2109.1666666666665,
+      "boundary_frames": [
+        10553,
+        24130,
+        36575
+      ],
+      "join_silence_ms_at_minus60db": [
+        8.958333333333334,
+        51.916666666666664,
+        63.041666666666664
+      ],
+      "replay_ms": 1.600942,
+      "status": "rendered"
+    },
+    {
+      "source": "en",
+      "target": "ko",
+      "prepare_ms": 121.404325,
+      "render_ms": 59.328684,
+      "audio_ms": 1988.4166666666667,
+      "boundary_frames": [
+        10857,
+        22261,
+        34697
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.125,
+        51.958333333333336,
+        63.083333333333336
+      ],
+      "replay_ms": 1.028097,
+      "status": "rendered"
+    },
+    {
+      "source": "en",
+      "target": "sw",
+      "prepare_ms": 101.280525,
+      "render_ms": 62.355398,
+      "audio_ms": 2201.6666666666665,
+      "boundary_frames": [
+        10568,
+        24152,
+        36608
+      ],
+      "join_silence_ms_at_minus60db": [
+        62.958333333333336,
+        51.958333333333336,
+        52.041666666666664
+      ],
+      "replay_ms": 1.175397,
+      "status": "rendered"
+    },
+    {
+      "source": "es",
+      "target": "en",
+      "prepare_ms": 102.147229,
+      "render_ms": 56.430731,
+      "audio_ms": 1938,
+      "boundary_frames": [
+        11072,
+        23518,
+        35941
+      ],
+      "join_silence_ms_at_minus60db": [
+        52.041666666666664,
+        9.125,
+        62.916666666666664
+      ],
+      "replay_ms": 0.973249,
+      "status": "rendered"
+    },
+    {
+      "source": "es",
+      "target": "fr",
+      "prepare_ms": 78.561715,
+      "render_ms": 57.883991,
+      "audio_ms": 1808.2083333333333,
+      "boundary_frames": [
+        11078,
+        20066,
+        32484
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.125,
+        9.125,
+        52
+      ],
+      "replay_ms": 0.933679,
+      "status": "rendered"
+    },
+    {
+      "source": "es",
+      "target": "de",
+      "prepare_ms": 85.103796,
+      "render_ms": 56.515241,
+      "audio_ms": 1786.625,
+      "boundary_frames": [
+        11074,
+        20301,
+        32716
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        9.166666666666666,
+        62.958333333333336
+      ],
+      "replay_ms": 1.200315,
+      "status": "rendered"
+    },
+    {
+      "source": "es",
+      "target": "it",
+      "prepare_ms": 77.240651,
+      "render_ms": 57.490259,
+      "audio_ms": 1952,
+      "boundary_frames": [
+        11082,
+        21346,
+        33769
+      ],
+      "join_silence_ms_at_minus60db": [
+        23,
+        9.208333333333334,
+        51.958333333333336
+      ],
+      "replay_ms": 1.001277,
+      "status": "rendered"
+    },
+    {
+      "source": "es",
+      "target": "pt",
+      "prepare_ms": 86.503942,
+      "render_ms": 61.868979,
+      "audio_ms": 2073.625,
+      "boundary_frames": [
+        11079,
+        25760,
+        38177
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        9.125,
+        51.958333333333336
+      ],
+      "replay_ms": 0.91823,
+      "status": "rendered"
+    },
+    {
+      "source": "es",
+      "target": "ar",
+      "prepare_ms": 79.397693,
+      "render_ms": 56.354552,
+      "audio_ms": 1853.4583333333333,
+      "boundary_frames": [
+        11077,
+        21105,
+        33526
+      ],
+      "join_silence_ms_at_minus60db": [
+        21.958333333333332,
+        9.166666666666666,
+        63
+      ],
+      "replay_ms": 1.016298,
+      "status": "rendered"
+    },
+    {
+      "source": "es",
+      "target": "zh",
+      "prepare_ms": 79.457642,
+      "render_ms": 68.653715,
+      "audio_ms": 2258.4583333333335,
+      "boundary_frames": [
+        11067,
+        27573,
+        40011
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        9.125,
+        52.083333333333336
+      ],
+      "replay_ms": 1.104897,
+      "status": "rendered"
+    },
+    {
+      "source": "es",
+      "target": "ja",
+      "prepare_ms": 73.574009,
+      "render_ms": 61.211384,
+      "audio_ms": 2129.2916666666665,
+      "boundary_frames": [
+        11063,
+        24648,
+        37057
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.041666666666666,
+        9.083333333333334,
+        62.958333333333336
+      ],
+      "replay_ms": 1.005414,
+      "status": "rendered"
+    },
+    {
+      "source": "es",
+      "target": "ko",
+      "prepare_ms": 94.979243,
+      "render_ms": 62.633539,
+      "audio_ms": 1996,
+      "boundary_frames": [
+        11084,
+        22472,
+        34891
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        9.125,
+        63.041666666666664
+      ],
+      "replay_ms": 1.097341,
+      "status": "rendered"
+    },
+    {
+      "source": "es",
+      "target": "sw",
+      "prepare_ms": 88.93775,
+      "render_ms": 62.928648,
+      "audio_ms": 2221.7916666666665,
+      "boundary_frames": [
+        11074,
+        24662,
+        37090
+      ],
+      "join_silence_ms_at_minus60db": [
+        63.041666666666664,
+        9.125,
+        52
+      ],
+      "replay_ms": 0.934047,
+      "status": "rendered"
+    },
+    {
+      "source": "fr",
+      "target": "en",
+      "prepare_ms": 90.573119,
+      "render_ms": 51.883213,
+      "audio_ms": 1788,
+      "boundary_frames": [
+        10902,
+        23359,
+        32344
+      ],
+      "join_silence_ms_at_minus60db": [
+        52.125,
+        23.083333333333332,
+        63
+      ],
+      "replay_ms": 0.947155,
+      "status": "rendered"
+    },
+    {
+      "source": "fr",
+      "target": "es",
+      "prepare_ms": 94.258452,
+      "render_ms": 54.148209,
+      "audio_ms": 1808.25,
+      "boundary_frames": [
+        10907,
+        23333,
+        32319
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        23.083333333333332,
+        51.958333333333336
+      ],
+      "replay_ms": 0.955245,
+      "status": "rendered"
+    },
+    {
+      "source": "fr",
+      "target": "de",
+      "prepare_ms": 94.820445,
+      "render_ms": 48.935881,
+      "audio_ms": 1636.375,
+      "boundary_frames": [
+        10907,
+        20133,
+        29115
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.125,
+        23.083333333333332,
+        62.958333333333336
+      ],
+      "replay_ms": 0.926074,
+      "status": "rendered"
+    },
+    {
+      "source": "fr",
+      "target": "it",
+      "prepare_ms": 80.915782,
+      "render_ms": 52.512103,
+      "audio_ms": 1801.375,
+      "boundary_frames": [
+        10900,
+        21172,
+        30153
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.166666666666668,
+        23.291666666666668,
+        51.958333333333336
+      ],
+      "replay_ms": 0.986515,
+      "status": "rendered"
+    },
+    {
+      "source": "fr",
+      "target": "pt",
+      "prepare_ms": 78.682293,
+      "render_ms": 67.004278,
+      "audio_ms": 1922.875,
+      "boundary_frames": [
+        10902,
+        25585,
+        34566
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        23.083333333333332,
+        52
+      ],
+      "replay_ms": 1.382542,
+      "status": "rendered"
+    },
+    {
+      "source": "fr",
+      "target": "ar",
+      "prepare_ms": 78.982371,
+      "render_ms": 51.549817,
+      "audio_ms": 1702.875,
+      "boundary_frames": [
+        10906,
+        20923,
+        29922
+      ],
+      "join_silence_ms_at_minus60db": [
+        22.041666666666668,
+        23.083333333333332,
+        63.041666666666664
+      ],
+      "replay_ms": 0.91322,
+      "status": "rendered"
+    },
+    {
+      "source": "fr",
+      "target": "zh",
+      "prepare_ms": 102.601608,
+      "render_ms": 60.199102,
+      "audio_ms": 2108.875,
+      "boundary_frames": [
+        10907,
+        27416,
+        36406
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.125,
+        23.125,
+        52.083333333333336
+      ],
+      "replay_ms": 0.954195,
+      "status": "rendered"
+    },
+    {
+      "source": "fr",
+      "target": "ja",
+      "prepare_ms": 86.215464,
+      "render_ms": 57.518919,
+      "audio_ms": 1979.2083333333333,
+      "boundary_frames": [
+        10900,
+        24479,
+        33463
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        23.083333333333332,
+        62.958333333333336
+      ],
+      "replay_ms": 0.849514,
+      "status": "rendered"
+    },
+    {
+      "source": "fr",
+      "target": "ko",
+      "prepare_ms": 71.339001,
+      "render_ms": 52.673752,
+      "audio_ms": 1846.0416666666667,
+      "boundary_frames": [
+        10914,
+        22302,
+        31282
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        23.083333333333332,
+        63.083333333333336
+      ],
+      "replay_ms": 0.956317,
+      "status": "rendered"
+    },
+    {
+      "source": "fr",
+      "target": "sw",
+      "prepare_ms": 82.371238,
+      "render_ms": 59.460141,
+      "audio_ms": 2071.7083333333335,
+      "boundary_frames": [
+        10908,
+        24485,
+        33487
+      ],
+      "join_silence_ms_at_minus60db": [
+        63.041666666666664,
+        23.041666666666668,
+        52
+      ],
+      "replay_ms": 0.888995,
+      "status": "rendered"
+    },
+    {
+      "source": "de",
+      "target": "en",
+      "prepare_ms": 102.048908,
+      "render_ms": 53.969691,
+      "audio_ms": 1778.8333333333333,
+      "boundary_frames": [
+        10143,
+        22595,
+        31823
+      ],
+      "join_silence_ms_at_minus60db": [
+        52.125,
+        9.041666666666666,
+        63
+      ],
+      "replay_ms": 0.928136,
+      "status": "rendered"
+    },
+    {
+      "source": "de",
+      "target": "es",
+      "prepare_ms": 80.63487,
+      "render_ms": 56.701504,
+      "audio_ms": 1786.25,
+      "boundary_frames": [
+        10162,
+        22572,
+        31801
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.25,
+        8.958333333333334,
+        52
+      ],
+      "replay_ms": 0.941675,
+      "status": "rendered"
+    },
+    {
+      "source": "de",
+      "target": "fr",
+      "prepare_ms": 76.617782,
+      "render_ms": 47.650375,
+      "audio_ms": 1636.6666666666667,
+      "boundary_frames": [
+        10155,
+        19144,
+        28370
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.333333333333332,
+        9,
+        52
+      ],
+      "replay_ms": 1.027178,
+      "status": "rendered"
+    },
+    {
+      "source": "de",
+      "target": "it",
+      "prepare_ms": 87.042401,
+      "render_ms": 52.450163,
+      "audio_ms": 1780,
+      "boundary_frames": [
+        10158,
+        20415,
+        29644
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.041666666666668,
+        9.25,
+        52
+      ],
+      "replay_ms": 0.966009,
+      "status": "rendered"
+    },
+    {
+      "source": "de",
+      "target": "pt",
+      "prepare_ms": 96.098536,
+      "render_ms": 57.17196,
+      "audio_ms": 1901.25,
+      "boundary_frames": [
+        10138,
+        24817,
+        34046
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        9,
+        51.958333333333336
+      ],
+      "replay_ms": 1.096811,
+      "status": "rendered"
+    },
+    {
+      "source": "de",
+      "target": "ar",
+      "prepare_ms": 97.439066,
+      "render_ms": 54.284843,
+      "audio_ms": 1681.2083333333333,
+      "boundary_frames": [
+        10134,
+        20173,
+        29394
+      ],
+      "join_silence_ms_at_minus60db": [
+        22,
+        9.041666666666666,
+        63.041666666666664
+      ],
+      "replay_ms": 0.993788,
+      "status": "rendered"
+    },
+    {
+      "source": "de",
+      "target": "zh",
+      "prepare_ms": 92.205702,
+      "render_ms": 117.329226,
+      "audio_ms": 2086.6666666666665,
+      "boundary_frames": [
+        10144,
+        26648,
+        35872
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.208333333333334,
+        9,
+        52.041666666666664
+      ],
+      "replay_ms": 1.092634,
+      "status": "rendered"
+    },
+    {
+      "source": "de",
+      "target": "ja",
+      "prepare_ms": 103.63727,
+      "render_ms": 62.876116,
+      "audio_ms": 1957.5,
+      "boundary_frames": [
+        10146,
+        23720,
+        32949
+      ],
+      "join_silence_ms_at_minus60db": [
+        9,
+        9,
+        63
+      ],
+      "replay_ms": 1.111385,
+      "status": "rendered"
+    },
+    {
+      "source": "de",
+      "target": "ko",
+      "prepare_ms": 115.612598,
+      "render_ms": 65.282773,
+      "audio_ms": 1824.1666666666667,
+      "boundary_frames": [
+        10155,
+        21547,
+        30767
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.125,
+        9,
+        63.083333333333336
+      ],
+      "replay_ms": 1.019523,
+      "status": "rendered"
+    },
+    {
+      "source": "de",
+      "target": "sw",
+      "prepare_ms": 99.833431,
+      "render_ms": 66.737092,
+      "audio_ms": 2049.875,
+      "boundary_frames": [
+        10147,
+        23739,
+        32958
+      ],
+      "join_silence_ms_at_minus60db": [
+        63,
+        8.958333333333334,
+        52
+      ],
+      "replay_ms": 1.045862,
+      "status": "rendered"
+    },
+    {
+      "source": "it",
+      "target": "en",
+      "prepare_ms": 113.909417,
+      "render_ms": 64.506999,
+      "audio_ms": 1943.8333333333333,
+      "boundary_frames": [
+        13072,
+        25517,
+        35783
+      ],
+      "join_silence_ms_at_minus60db": [
+        51.958333333333336,
+        23.083333333333332,
+        63
+      ],
+      "replay_ms": 1.035064,
+      "status": "rendered"
+    },
+    {
+      "source": "it",
+      "target": "es",
+      "prepare_ms": 92.516085,
+      "render_ms": 62.882362,
+      "audio_ms": 1951.875,
+      "boundary_frames": [
+        13080,
+        25495,
+        35770
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.125,
+        23,
+        52.166666666666664
+      ],
+      "replay_ms": 0.99801,
+      "status": "rendered"
+    },
+    {
+      "source": "it",
+      "target": "fr",
+      "prepare_ms": 104.780375,
+      "render_ms": 55.196338,
+      "audio_ms": 1801.75,
+      "boundary_frames": [
+        13075,
+        22060,
+        32326
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.083333333333332,
+        23.041666666666668,
+        52.041666666666664
+      ],
+      "replay_ms": 0.962149,
+      "status": "rendered"
+    },
+    {
+      "source": "it",
+      "target": "de",
+      "prepare_ms": 91.450285,
+      "render_ms": 56.474811,
+      "audio_ms": 1779.7083333333333,
+      "boundary_frames": [
+        13075,
+        22310,
+        32566
+      ],
+      "join_silence_ms_at_minus60db": [
+        8.958333333333334,
+        22.958333333333332,
+        63.083333333333336
+      ],
+      "replay_ms": 1.015202,
+      "status": "rendered"
+    },
+    {
+      "source": "it",
+      "target": "pt",
+      "prepare_ms": 97.040863,
+      "render_ms": 63.230519,
+      "audio_ms": 2067.1666666666665,
+      "boundary_frames": [
+        13073,
+        27758,
+        38028
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.041666666666666,
+        23,
+        52.125
+      ],
+      "replay_ms": 1.010705,
+      "status": "rendered"
+    },
+    {
+      "source": "it",
+      "target": "ar",
+      "prepare_ms": 96.218574,
+      "render_ms": 61.083774,
+      "audio_ms": 1846.5833333333333,
+      "boundary_frames": [
+        13080,
+        23096,
+        33368
+      ],
+      "join_silence_ms_at_minus60db": [
+        21.916666666666668,
+        23,
+        63.166666666666664
+      ],
+      "replay_ms": 1.043686,
+      "status": "rendered"
+    },
+    {
+      "source": "it",
+      "target": "zh",
+      "prepare_ms": 123.740806,
+      "render_ms": 71.201664,
+      "audio_ms": 2252.3333333333335,
+      "boundary_frames": [
+        13080,
+        29590,
+        39849
+      ],
+      "join_silence_ms_at_minus60db": [
+        9,
+        23,
+        52.291666666666664
+      ],
+      "replay_ms": 1.027742,
+      "status": "rendered"
+    },
+    {
+      "source": "it",
+      "target": "ja",
+      "prepare_ms": 97.286569,
+      "render_ms": 64.453846,
+      "audio_ms": 2123.0416666666665,
+      "boundary_frames": [
+        13080,
+        26643,
+        36910
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.041666666666666,
+        22.958333333333332,
+        63.083333333333336
+      ],
+      "replay_ms": 1.05752,
+      "status": "rendered"
+    },
+    {
+      "source": "it",
+      "target": "ko",
+      "prepare_ms": 93.180454,
+      "render_ms": 60.881631,
+      "audio_ms": 1989.6666666666667,
+      "boundary_frames": [
+        13068,
+        24466,
+        34733
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        22.958333333333332,
+        63.25
+      ],
+      "replay_ms": 1.022161,
+      "status": "rendered"
+    },
+    {
+      "source": "it",
+      "target": "sw",
+      "prepare_ms": 92.263656,
+      "render_ms": 65.228895,
+      "audio_ms": 2214.875,
+      "boundary_frames": [
+        13068,
+        26673,
+        36918
+      ],
+      "join_silence_ms_at_minus60db": [
+        62.958333333333336,
+        22.958333333333332,
+        52.166666666666664
+      ],
+      "replay_ms": 0.996109,
+      "status": "rendered"
+    },
+    {
+      "source": "pt",
+      "target": "en",
+      "prepare_ms": 113.844843,
+      "render_ms": 60.116634,
+      "audio_ms": 2053.3333333333335,
+      "boundary_frames": [
+        11586,
+        24025,
+        38709
+      ],
+      "join_silence_ms_at_minus60db": [
+        51.916666666666664,
+        9.083333333333334,
+        62.958333333333336
+      ],
+      "replay_ms": 0.945507,
+      "status": "rendered"
+    },
+    {
+      "source": "pt",
+      "target": "es",
+      "prepare_ms": 89.476095,
+      "render_ms": 60.454269,
+      "audio_ms": 2073.3333333333335,
+      "boundary_frames": [
+        11589,
+        24005,
+        38685
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        9.041666666666666,
+        51.958333333333336
+      ],
+      "replay_ms": 0.934355,
+      "status": "rendered"
+    },
+    {
+      "source": "pt",
+      "target": "fr",
+      "prepare_ms": 91.04422,
+      "render_ms": 56.271837,
+      "audio_ms": 1923.3333333333333,
+      "boundary_frames": [
+        11578,
+        20577,
+        35260
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.083333333333332,
+        9.041666666666666,
+        51.958333333333336
+      ],
+      "replay_ms": 0.999839,
+      "status": "rendered"
+    },
+    {
+      "source": "pt",
+      "target": "de",
+      "prepare_ms": 87.956825,
+      "render_ms": 57.594521,
+      "audio_ms": 1901.75,
+      "boundary_frames": [
+        11579,
+        20814,
+        35495
+      ],
+      "join_silence_ms_at_minus60db": [
+        9,
+        9.041666666666666,
+        62.958333333333336
+      ],
+      "replay_ms": 0.963164,
+      "status": "rendered"
+    },
+    {
+      "source": "pt",
+      "target": "it",
+      "prepare_ms": 96.190832,
+      "render_ms": 60.781249,
+      "audio_ms": 2066.2916666666665,
+      "boundary_frames": [
+        11587,
+        21842,
+        36524
+      ],
+      "join_silence_ms_at_minus60db": [
+        22.958333333333332,
+        9.208333333333334,
+        51.958333333333336
+      ],
+      "replay_ms": 0.977055,
+      "status": "rendered"
+    },
+    {
+      "source": "pt",
+      "target": "ar",
+      "prepare_ms": 84.704606,
+      "render_ms": 55.105699,
+      "audio_ms": 1968.0416666666667,
+      "boundary_frames": [
+        11585,
+        21614,
+        36287
+      ],
+      "join_silence_ms_at_minus60db": [
+        21.875,
+        9.041666666666666,
+        63
+      ],
+      "replay_ms": 0.920278,
+      "status": "rendered"
+    },
+    {
+      "source": "pt",
+      "target": "zh",
+      "prepare_ms": 89.001229,
+      "render_ms": 70.643583,
+      "audio_ms": 2373.7916666666665,
+      "boundary_frames": [
+        11587,
+        28086,
+        42768
+      ],
+      "join_silence_ms_at_minus60db": [
+        8.958333333333334,
+        9.083333333333334,
+        52.083333333333336
+      ],
+      "replay_ms": 0.989054,
+      "status": "rendered"
+    },
+    {
+      "source": "pt",
+      "target": "ja",
+      "prepare_ms": 93.783014,
+      "render_ms": 65.143975,
+      "audio_ms": 2244.625,
+      "boundary_frames": [
+        11586,
+        25148,
+        39833
+      ],
+      "join_silence_ms_at_minus60db": [
+        9,
+        8.958333333333334,
+        62.916666666666664
+      ],
+      "replay_ms": 0.977382,
+      "status": "rendered"
+    },
+    {
+      "source": "pt",
+      "target": "ko",
+      "prepare_ms": 99.451826,
+      "render_ms": 62.23844,
+      "audio_ms": 2111.25,
+      "boundary_frames": [
+        11577,
+        22978,
+        37649
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        9.041666666666666,
+        63.083333333333336
+      ],
+      "replay_ms": 0.929508,
+      "status": "rendered"
+    },
+    {
+      "source": "pt",
+      "target": "sw",
+      "prepare_ms": 92.973239,
+      "render_ms": 66.618521,
+      "audio_ms": 2337.0416666666665,
+      "boundary_frames": [
+        11584,
+        25188,
+        39855
+      ],
+      "join_silence_ms_at_minus60db": [
+        62.916666666666664,
+        9.041666666666666,
+        52
+      ],
+      "replay_ms": 0.968963,
+      "status": "rendered"
+    },
+    {
+      "source": "ar",
+      "target": "en",
+      "prepare_ms": 108.285983,
+      "render_ms": 57.983895,
+      "audio_ms": 1832.9166666666667,
+      "boundary_frames": [
+        10954,
+        23412,
+        33432
+      ],
+      "join_silence_ms_at_minus60db": [
+        51.916666666666664,
+        21.958333333333332,
+        62.958333333333336
+      ],
+      "replay_ms": 1.029966,
+      "status": "rendered"
+    },
+    {
+      "source": "ar",
+      "target": "es",
+      "prepare_ms": 93.961942,
+      "render_ms": 57.595423,
+      "audio_ms": 1853.3333333333333,
+      "boundary_frames": [
+        10945,
+        23377,
+        33403
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        21.875,
+        51.958333333333336
+      ],
+      "replay_ms": 0.990523,
+      "status": "rendered"
+    },
+    {
+      "source": "ar",
+      "target": "fr",
+      "prepare_ms": 100.551154,
+      "render_ms": 51.673171,
+      "audio_ms": 1703.125,
+      "boundary_frames": [
+        10944,
+        19940,
+        29962
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.083333333333332,
+        21.916666666666668,
+        51.958333333333336
+      ],
+      "replay_ms": 0.965158,
+      "status": "rendered"
+    },
+    {
+      "source": "ar",
+      "target": "de",
+      "prepare_ms": 87.181662,
+      "render_ms": 53.127173,
+      "audio_ms": 1681.5416666666667,
+      "boundary_frames": [
+        10945,
+        20175,
+        30195
+      ],
+      "join_silence_ms_at_minus60db": [
+        8.958333333333334,
+        21.916666666666668,
+        62.958333333333336
+      ],
+      "replay_ms": 1.107647,
+      "status": "rendered"
+    },
+    {
+      "source": "ar",
+      "target": "it",
+      "prepare_ms": 90.464619,
+      "render_ms": 54.774573,
+      "audio_ms": 1846.375,
+      "boundary_frames": [
+        10947,
+        21201,
+        31237
+      ],
+      "join_silence_ms_at_minus60db": [
+        22.958333333333332,
+        22.125,
+        51.958333333333336
+      ],
+      "replay_ms": 0.959323,
+      "status": "rendered"
+    },
+    {
+      "source": "ar",
+      "target": "pt",
+      "prepare_ms": 93.107881,
+      "render_ms": 90.513822,
+      "audio_ms": 1968.25,
+      "boundary_frames": [
+        10937,
+        25620,
+        35654
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.041666666666666,
+        21.875,
+        51.958333333333336
+      ],
+      "replay_ms": 1.439702,
+      "status": "rendered"
+    },
+    {
+      "source": "ar",
+      "target": "zh",
+      "prepare_ms": 171.039069,
+      "render_ms": 153.563566,
+      "audio_ms": 2153.4166666666665,
+      "boundary_frames": [
+        10947,
+        27453,
+        37488
+      ],
+      "join_silence_ms_at_minus60db": [
+        8.958333333333334,
+        21.958333333333332,
+        52.083333333333336
+      ],
+      "replay_ms": 4.660293,
+      "status": "rendered"
+    },
+    {
+      "source": "ar",
+      "target": "ja",
+      "prepare_ms": 189.03646,
+      "render_ms": 103.820273,
+      "audio_ms": 2024.8333333333333,
+      "boundary_frames": [
+        10953,
+        24534,
+        34548
+      ],
+      "join_silence_ms_at_minus60db": [
+        8.958333333333334,
+        21.916666666666668,
+        63
+      ],
+      "replay_ms": 1.350009,
+      "status": "rendered"
+    },
+    {
+      "source": "ar",
+      "target": "ko",
+      "prepare_ms": 125.734536,
+      "render_ms": 108.923636,
+      "audio_ms": 1891.25,
+      "boundary_frames": [
+        10950,
+        22343,
+        32366
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        21.916666666666668,
+        63.041666666666664
+      ],
+      "replay_ms": 2.186888,
+      "status": "rendered"
+    },
+    {
+      "source": "ar",
+      "target": "sw",
+      "prepare_ms": 131.934459,
+      "render_ms": 99.615545,
+      "audio_ms": 2116.3333333333335,
+      "boundary_frames": [
+        10947,
+        24534,
+        34563
+      ],
+      "join_silence_ms_at_minus60db": [
+        62.916666666666664,
+        21.916666666666668,
+        52
+      ],
+      "replay_ms": 1.556488,
+      "status": "rendered"
+    },
+    {
+      "source": "zh",
+      "target": "en",
+      "prepare_ms": 216.514515,
+      "render_ms": 105.894076,
+      "audio_ms": 2238.2916666666665,
+      "boundary_frames": [
+        14201,
+        26651,
+        43148
+      ],
+      "join_silence_ms_at_minus60db": [
+        51.958333333333336,
+        9.041666666666666,
+        62.958333333333336
+      ],
+      "replay_ms": 1.284607,
+      "status": "rendered"
+    },
+    {
+      "source": "zh",
+      "target": "es",
+      "prepare_ms": 177.694733,
+      "render_ms": 164.099561,
+      "audio_ms": 2258.5,
+      "boundary_frames": [
+        14193,
+        26627,
+        43130
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.125,
+        8.958333333333334,
+        51.958333333333336
+      ],
+      "replay_ms": 1.268744,
+      "status": "rendered"
+    },
+    {
+      "source": "zh",
+      "target": "fr",
+      "prepare_ms": 169.072924,
+      "render_ms": 141.837269,
+      "audio_ms": 2108.6666666666665,
+      "boundary_frames": [
+        14206,
+        23196,
+        39709
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.166666666666668,
+        9,
+        52.041666666666664
+      ],
+      "replay_ms": 2.644643,
+      "status": "rendered"
+    },
+    {
+      "source": "zh",
+      "target": "de",
+      "prepare_ms": 204.208686,
+      "render_ms": 164.965606,
+      "audio_ms": 2086.6666666666665,
+      "boundary_frames": [
+        14204,
+        23434,
+        39941
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        9,
+        62.958333333333336
+      ],
+      "replay_ms": 6.119135,
+      "status": "rendered"
+    },
+    {
+      "source": "zh",
+      "target": "it",
+      "prepare_ms": 237.584743,
+      "render_ms": 134.698291,
+      "audio_ms": 2251.9583333333335,
+      "boundary_frames": [
+        14194,
+        24461,
+        40971
+      ],
+      "join_silence_ms_at_minus60db": [
+        22.958333333333332,
+        9.125,
+        51.958333333333336
+      ],
+      "replay_ms": 1.363781,
+      "status": "rendered"
+    },
+    {
+      "source": "zh",
+      "target": "pt",
+      "prepare_ms": 155.492478,
+      "render_ms": 136.740682,
+      "audio_ms": 2373.7083333333335,
+      "boundary_frames": [
+        14192,
+        28871,
+        45380
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.041666666666666,
+        9,
+        51.958333333333336
+      ],
+      "replay_ms": 2.172721,
+      "status": "rendered"
+    },
+    {
+      "source": "zh",
+      "target": "ar",
+      "prepare_ms": 139.861252,
+      "render_ms": 97.085465,
+      "audio_ms": 2153.4583333333335,
+      "boundary_frames": [
+        14201,
+        24231,
+        40728
+      ],
+      "join_silence_ms_at_minus60db": [
+        21.916666666666668,
+        9,
+        63.041666666666664
+      ],
+      "replay_ms": 1.663538,
+      "status": "rendered"
+    },
+    {
+      "source": "zh",
+      "target": "ja",
+      "prepare_ms": 144.688572,
+      "render_ms": 115.640565,
+      "audio_ms": 2429.7083333333335,
+      "boundary_frames": [
+        14196,
+        27769,
+        44283
+      ],
+      "join_silence_ms_at_minus60db": [
+        9,
+        8.958333333333334,
+        63
+      ],
+      "replay_ms": 1.295917,
+      "status": "rendered"
+    },
+    {
+      "source": "zh",
+      "target": "ko",
+      "prepare_ms": 217.411403,
+      "render_ms": 116.191852,
+      "audio_ms": 2296.7916666666665,
+      "boundary_frames": [
+        14203,
+        25593,
+        42101
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.208333333333334,
+        8.958333333333334,
+        63.083333333333336
+      ],
+      "replay_ms": 2.44696,
+      "status": "rendered"
+    },
+    {
+      "source": "zh",
+      "target": "sw",
+      "prepare_ms": 241.213269,
+      "render_ms": 136.560375,
+      "audio_ms": 2521.9166666666665,
+      "boundary_frames": [
+        14188,
+        27785,
+        44287
+      ],
+      "join_silence_ms_at_minus60db": [
+        63,
+        9,
+        52
+      ],
+      "replay_ms": 1.23507,
+      "status": "rendered"
+    },
+    {
+      "source": "ja",
+      "target": "en",
+      "prepare_ms": 182.474504,
+      "render_ms": 102.387001,
+      "audio_ms": 2109.2083333333335,
+      "boundary_frames": [
+        14043,
+        26489,
+        40062
+      ],
+      "join_silence_ms_at_minus60db": [
+        51.958333333333336,
+        9.083333333333334,
+        62.916666666666664
+      ],
+      "replay_ms": 8.090942,
+      "status": "rendered"
+    },
+    {
+      "source": "ja",
+      "target": "es",
+      "prepare_ms": 148.130753,
+      "render_ms": 171.694656,
+      "audio_ms": 2129.0833333333335,
+      "boundary_frames": [
+        14033,
+        26463,
+        40026
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        9,
+        51.875
+      ],
+      "replay_ms": 1.542659,
+      "status": "rendered"
+    },
+    {
+      "source": "ja",
+      "target": "fr",
+      "prepare_ms": 229.253428,
+      "render_ms": 207.940628,
+      "audio_ms": 1979.375,
+      "boundary_frames": [
+        14033,
+        23040,
+        36599
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.083333333333332,
+        9,
+        52
+      ],
+      "replay_ms": 2.874284,
+      "status": "rendered"
+    },
+    {
+      "source": "ja",
+      "target": "de",
+      "prepare_ms": 132.64796,
+      "render_ms": 105.393273,
+      "audio_ms": 1957.4166666666667,
+      "boundary_frames": [
+        14038,
+        23272,
+        36844
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.333333333333334,
+        9,
+        62.958333333333336
+      ],
+      "replay_ms": 2.69077,
+      "status": "rendered"
+    },
+    {
+      "source": "ja",
+      "target": "it",
+      "prepare_ms": 194.991469,
+      "render_ms": 269.812096,
+      "audio_ms": 2122.2916666666665,
+      "boundary_frames": [
+        14032,
+        24302,
+        37863
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.166666666666668,
+        9.208333333333334,
+        51.958333333333336
+      ],
+      "replay_ms": 6.419308,
+      "status": "rendered"
+    },
+    {
+      "source": "ja",
+      "target": "pt",
+      "prepare_ms": 273.782555,
+      "render_ms": 167.485927,
+      "audio_ms": 2244.2916666666665,
+      "boundary_frames": [
+        14046,
+        28714,
+        42285
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        9,
+        51.958333333333336
+      ],
+      "replay_ms": 2.076219,
+      "status": "rendered"
+    },
+    {
+      "source": "ja",
+      "target": "ar",
+      "prepare_ms": 203.986836,
+      "render_ms": 140.539117,
+      "audio_ms": 2025.0416666666667,
+      "boundary_frames": [
+        14047,
+        24076,
+        37647
+      ],
+      "join_silence_ms_at_minus60db": [
+        21.916666666666668,
+        9.041666666666666,
+        63
+      ],
+      "replay_ms": 1.968977,
+      "status": "rendered"
+    },
+    {
+      "source": "ja",
+      "target": "zh",
+      "prepare_ms": 178.92934,
+      "render_ms": 159.585857,
+      "audio_ms": 2429.9166666666665,
+      "boundary_frames": [
+        14040,
+        30549,
+        44115
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.041666666666666,
+        9,
+        52.041666666666664
+      ],
+      "replay_ms": 1.598447,
+      "status": "rendered"
+    },
+    {
+      "source": "ja",
+      "target": "ko",
+      "prepare_ms": 164.541713,
+      "render_ms": 109.737496,
+      "audio_ms": 2167.5,
+      "boundary_frames": [
+        14032,
+        25421,
+        38994
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        8.958333333333334,
+        63.041666666666664
+      ],
+      "replay_ms": 1.252299,
+      "status": "rendered"
+    },
+    {
+      "source": "ja",
+      "target": "sw",
+      "prepare_ms": 137.48289,
+      "render_ms": 113.004946,
+      "audio_ms": 2392.7916666666665,
+      "boundary_frames": [
+        14036,
+        27626,
+        41198
+      ],
+      "join_silence_ms_at_minus60db": [
+        62.958333333333336,
+        9,
+        51.958333333333336
+      ],
+      "replay_ms": 1.318834,
+      "status": "rendered"
+    },
+    {
+      "source": "ko",
+      "target": "en",
+      "prepare_ms": 204.553081,
+      "render_ms": 130.457261,
+      "audio_ms": 1989.25,
+      "boundary_frames": [
+        13021,
+        25476,
+        36866
+      ],
+      "join_silence_ms_at_minus60db": [
+        52.041666666666664,
+        9.083333333333334,
+        62.958333333333336
+      ],
+      "replay_ms": 1.533055,
+      "status": "rendered"
+    },
+    {
+      "source": "ko",
+      "target": "es",
+      "prepare_ms": 305.066569,
+      "render_ms": 163.263511,
+      "audio_ms": 1996.0833333333333,
+      "boundary_frames": [
+        13017,
+        25438,
+        36827
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        9.041666666666666,
+        51.916666666666664
+      ],
+      "replay_ms": 1.588318,
+      "status": "rendered"
+    },
+    {
+      "source": "ko",
+      "target": "fr",
+      "prepare_ms": 256.864293,
+      "render_ms": 109.804348,
+      "audio_ms": 1845.9166666666667,
+      "boundary_frames": [
+        13014,
+        22016,
+        33405
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.291666666666668,
+        9.083333333333334,
+        51.958333333333336
+      ],
+      "replay_ms": 1.849378,
+      "status": "rendered"
+    },
+    {
+      "source": "ko",
+      "target": "de",
+      "prepare_ms": 208.053259,
+      "render_ms": 120.142333,
+      "audio_ms": 1824.4583333333333,
+      "boundary_frames": [
+        13017,
+        22246,
+        33642
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        9.083333333333334,
+        62.958333333333336
+      ],
+      "replay_ms": 2.286702,
+      "status": "rendered"
+    },
+    {
+      "source": "ko",
+      "target": "it",
+      "prepare_ms": 213.367348,
+      "render_ms": 137.523215,
+      "audio_ms": 1990.125,
+      "boundary_frames": [
+        13019,
+        23295,
+        34684
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.041666666666668,
+        9.291666666666666,
+        51.916666666666664
+      ],
+      "replay_ms": 4.406534,
+      "status": "rendered"
+    },
+    {
+      "source": "ko",
+      "target": "pt",
+      "prepare_ms": 221.563288,
+      "render_ms": 118.613115,
+      "audio_ms": 2111.3333333333335,
+      "boundary_frames": [
+        13023,
+        27694,
+        39093
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        9.083333333333334,
+        51.958333333333336
+      ],
+      "replay_ms": 1.808581,
+      "status": "rendered"
+    },
+    {
+      "source": "ko",
+      "target": "ar",
+      "prepare_ms": 233.040715,
+      "render_ms": 174.418175,
+      "audio_ms": 1891.25,
+      "boundary_frames": [
+        13013,
+        23049,
+        34450
+      ],
+      "join_silence_ms_at_minus60db": [
+        22.041666666666668,
+        9.083333333333334,
+        63
+      ],
+      "replay_ms": 1.59461,
+      "status": "rendered"
+    },
+    {
+      "source": "ko",
+      "target": "zh",
+      "prepare_ms": 201.524062,
+      "render_ms": 125.523733,
+      "audio_ms": 2296.375,
+      "boundary_frames": [
+        13020,
+        29529,
+        40918
+      ],
+      "join_silence_ms_at_minus60db": [
+        9,
+        9.083333333333334,
+        52.041666666666664
+      ],
+      "replay_ms": 1.562214,
+      "status": "rendered"
+    },
+    {
+      "source": "ko",
+      "target": "ja",
+      "prepare_ms": 252.016825,
+      "render_ms": 128.507683,
+      "audio_ms": 2167.25,
+      "boundary_frames": [
+        13016,
+        26588,
+        37981
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.25,
+        9.083333333333334,
+        62.958333333333336
+      ],
+      "replay_ms": 1.628787,
+      "status": "rendered"
+    },
+    {
+      "source": "ko",
+      "target": "sw",
+      "prepare_ms": 167.532865,
+      "render_ms": 229.53538,
+      "audio_ms": 2259.4583333333335,
+      "boundary_frames": [
+        13023,
+        26613,
+        38000
+      ],
+      "join_silence_ms_at_minus60db": [
+        63.041666666666664,
+        9.083333333333334,
+        51.958333333333336
+      ],
+      "replay_ms": 1.620685,
+      "status": "rendered"
+    },
+    {
+      "source": "sw",
+      "target": "en",
+      "prepare_ms": 234.786072,
+      "render_ms": 129.52228,
+      "audio_ms": 2201.2083333333335,
+      "boundary_frames": [
+        16223,
+        28684,
+        42258
+      ],
+      "join_silence_ms_at_minus60db": [
+        51.958333333333336,
+        62.958333333333336,
+        62.958333333333336
+      ],
+      "replay_ms": 1.568089,
+      "status": "rendered"
+    },
+    {
+      "source": "sw",
+      "target": "es",
+      "prepare_ms": 176.264624,
+      "render_ms": 111.092179,
+      "audio_ms": 2221.875,
+      "boundary_frames": [
+        16229,
+        28656,
+        42247
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.166666666666666,
+        62.958333333333336,
+        51.958333333333336
+      ],
+      "replay_ms": 1.335413,
+      "status": "rendered"
+    },
+    {
+      "source": "sw",
+      "target": "fr",
+      "prepare_ms": 209.56091,
+      "render_ms": 220.518531,
+      "audio_ms": 2071.2083333333335,
+      "boundary_frames": [
+        16233,
+        25215,
+        38816
+      ],
+      "join_silence_ms_at_minus60db": [
+        23.083333333333332,
+        63,
+        52
+      ],
+      "replay_ms": 1.599795,
+      "status": "rendered"
+    },
+    {
+      "source": "sw",
+      "target": "de",
+      "prepare_ms": 220.631227,
+      "render_ms": 101.309802,
+      "audio_ms": 2049.9583333333335,
+      "boundary_frames": [
+        16232,
+        25465,
+        39037
+      ],
+      "join_silence_ms_at_minus60db": [
+        9,
+        62.958333333333336,
+        62.958333333333336
+      ],
+      "replay_ms": 1.244803,
+      "status": "rendered"
+    },
+    {
+      "source": "sw",
+      "target": "it",
+      "prepare_ms": 216.033091,
+      "render_ms": 141.766381,
+      "audio_ms": 2214.8333333333335,
+      "boundary_frames": [
+        16243,
+        26500,
+        40088
+      ],
+      "join_silence_ms_at_minus60db": [
+        23,
+        63.166666666666664,
+        51.916666666666664
+      ],
+      "replay_ms": 1.247122,
+      "status": "rendered"
+    },
+    {
+      "source": "sw",
+      "target": "pt",
+      "prepare_ms": 150.394778,
+      "render_ms": 133.008245,
+      "audio_ms": 2336.2916666666665,
+      "boundary_frames": [
+        16229,
+        30914,
+        44492
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        62.916666666666664,
+        51.916666666666664
+      ],
+      "replay_ms": 1.780587,
+      "status": "rendered"
+    },
+    {
+      "source": "sw",
+      "target": "ar",
+      "prepare_ms": 165.864508,
+      "render_ms": 109.522935,
+      "audio_ms": 2116.5833333333335,
+      "boundary_frames": [
+        16226,
+        26258,
+        39842
+      ],
+      "join_silence_ms_at_minus60db": [
+        21.916666666666668,
+        62.958333333333336,
+        63.041666666666664
+      ],
+      "replay_ms": 1.180368,
+      "status": "rendered"
+    },
+    {
+      "source": "sw",
+      "target": "zh",
+      "prepare_ms": 168.946768,
+      "render_ms": 224.906581,
+      "audio_ms": 2521.7916666666665,
+      "boundary_frames": [
+        16220,
+        32732,
+        46321
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.041666666666666,
+        63,
+        52.041666666666664
+      ],
+      "replay_ms": 1.671159,
+      "status": "rendered"
+    },
+    {
+      "source": "sw",
+      "target": "ja",
+      "prepare_ms": 164.436929,
+      "render_ms": 187.061015,
+      "audio_ms": 2392.2083333333335,
+      "boundary_frames": [
+        16222,
+        29795,
+        43382
+      ],
+      "join_silence_ms_at_minus60db": [
+        9,
+        62.958333333333336,
+        62.916666666666664
+      ],
+      "replay_ms": 1.214336,
+      "status": "rendered"
+    },
+    {
+      "source": "sw",
+      "target": "ko",
+      "prepare_ms": 204.208401,
+      "render_ms": 209.474678,
+      "audio_ms": 2259,
+      "boundary_frames": [
+        16226,
+        27623,
+        41202
+      ],
+      "join_silence_ms_at_minus60db": [
+        9.083333333333334,
+        62.958333333333336,
+        63.041666666666664
+      ],
+      "replay_ms": 4.388194,
+      "status": "rendered"
+    }
+  ],
+  "activeNetwork": "none"
+}
