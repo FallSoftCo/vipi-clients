@@ -3,6 +3,9 @@ from html import escape
 
 from starlette.responses import HTMLResponse
 
+from .accounts import normalize_username
+from .delivery import DeliveryError
+
 VERSION = "2026-11-10"
 COMPANY_PRIVACY = "https://fallsoft.co/privacy-policy"
 COMPANY_TERMS = "https://fallsoft.co/terms-of-service"
@@ -79,7 +82,7 @@ PAGES = {
 
 
 def install(app):
-    def render(title, body):
+    def render(title, body, *, status_code=200, private_link=False):
         html = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
             '<meta name="color-scheme" content="light dark">'
@@ -88,10 +91,35 @@ def install(app):
             f'<h1>{escape(title)}</h1>{body}</main><footer><nav aria-label="Product information">'
             '<a href="/help">Help</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · '
             '<a href="/delete-account">Delete account</a></nav><p>Vipi · Fallible Software, Co.</p></footer></body></html>')
-        return HTMLResponse(html, headers={"Cache-Control":"no-store", "Referrer-Policy":"no-referrer",
+        headers = {"Cache-Control":"no-store", "Referrer-Policy":"no-referrer",
             "X-Content-Type-Options":"nosniff", "X-Frame-Options":"DENY",
             "Content-Security-Policy":"default-src 'none'; style-src 'self'; frame-ancestors 'none'; base-uri 'none'",
-            "Permissions-Policy":"camera=(), microphone=(), geolocation=()"})
+            "Permissions-Policy":"camera=(), microphone=(), geolocation=()"}
+        if private_link:
+            headers["X-Robots-Tag"] = "noindex, nofollow, noarchive"
+        return HTMLResponse(html, status_code=status_code, headers=headers)
+
+    @app.get("/invite/{username}", include_in_schema=False)
+    async def friend_invitation(username: str):
+        # An invitation carries only the name chosen by its sender. Do not turn
+        # this public page into an account-existence or profile lookup endpoint.
+        try:
+            name = normalize_username(username)
+        except DeliveryError:
+            return render("This invitation isn't valid", "<p>Ask your friend to share a new invitation from Vipi.</p>",
+                status_code=404, private_link=True)
+        return render("Chat with me on Vipi", f"""
+            <p class="lead">Find your friend with the username <strong>@{escape(name)}</strong>.</p>
+            <p>Vipi helps you learn words while you chat. Selected words switch between the language you know and the one you want to learn. Tap Listen to hear them.</p>
+            <h2>Already have Vipi?</h2>
+            <ol><li>Open Vipi and tap New chat.</li>
+            <li>Enter <strong>{escape(name)}</strong> in the username field.</li>
+            <li>Find your friend and send a message.</li></ol>
+            <h2>New to Vipi?</h2>
+            <p>Vipi is in testing. App downloads will appear on the <a href="/">Vipi homepage</a> after store approval.</p>
+            <p>When the app is available, choose your languages, create your account, then use the username above to start chatting.</p>
+            <p>Conversations with friends are end-to-end encrypted. You don't need to upload your contacts or use vBot.</p>
+        """, private_link=True)
     for path, (title, body) in PAGES.items():
         # Factory keeps route signatures free of user-overridable default fields.
         def endpoint(title=title, body=body):
