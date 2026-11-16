@@ -1,0 +1,27 @@
+{
+  "policy" : "cf-japanese-guard-sokuon-1",
+  "rows" : [
+    {
+      "issues" : [
+
+      ],
+      "reading" : "oto",
+      "text" : "音"
+    },
+    {
+      "issues" : [
+
+      ],
+      "reading" : "mi te miru",
+      "text" : "見てみる"
+    },
+    {
+      "issues" : [
+
+      ],
+      "reading" : "chuushoku",
+      "text" : "昼食"
+    }
+  ],
+  "scope" : "Mac actual JapaneseFullReading alone; no authored sentence override, pronunciation or Arabic assertion"
+}

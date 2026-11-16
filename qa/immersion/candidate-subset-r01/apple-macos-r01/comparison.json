@@ -1,0 +1,360 @@
+{
+  "scope": "Compare exposed seven-message native English-source candidate runs; exact outputs are not automatic-eligibility or population accuracy. Apple uses installed local models with network state not isolated. Android name detector unavailable. Apple isolated-output readings only separately measured for Japanese; Arabic readings unmeasured.",
+  "rows": [
+    {
+      "message_id": "local-01",
+      "source": "train",
+      "apple_isolated": "Tren",
+      "android_isolated": "tren",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-01-tag-02",
+          "text": "tren "
+        }
+      ]
+    },
+    {
+      "message_id": "local-01",
+      "source": "leaves",
+      "apple_isolated": "Hojas",
+      "android_isolated": "hojas",
+      "android_pos": "NOUN",
+      "apple_pos": "Verb",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-01-tag-04",
+          "text": "sale "
+        }
+      ]
+    },
+    {
+      "message_id": "local-01",
+      "source": "platform",
+      "apple_isolated": "Plataforma",
+      "android_isolated": "plataforma",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-01-tag-08",
+          "text": "andén "
+        }
+      ]
+    },
+    {
+      "message_id": "local-01",
+      "source": "minutes",
+      "apple_isolated": "Minuto",
+      "android_isolated": "minutos",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-01-tag-16",
+          "text": "minutos"
+        }
+      ]
+    },
+    {
+      "message_id": "local-02",
+      "source": "train",
+      "apple_isolated": "Tren",
+      "android_isolated": "tren",
+      "android_pos": "VERB",
+      "apple_pos": "Verb",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-02-tag-02",
+          "text": "Entreno"
+        }
+      ]
+    },
+    {
+      "message_id": "local-02",
+      "source": "volunteers",
+      "apple_isolated": "Voluntarios",
+      "android_isolated": "los voluntarios",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-02-tag-06",
+          "text": "voluntarios "
+        }
+      ]
+    },
+    {
+      "message_id": "local-02",
+      "source": "morning",
+      "apple_isolated": "Mañana",
+      "android_isolated": "mañana",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-02-tag-12",
+          "text": "por la mañana"
+        }
+      ]
+    },
+    {
+      "message_id": "local-03",
+      "source": "went",
+      "apple_isolated": "Est allé",
+      "android_isolated": "est allé",
+      "android_pos": "VERB",
+      "apple_pos": "Verb",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-03-tag-02",
+          "text": "est allée "
+        }
+      ]
+    },
+    {
+      "message_id": "local-03",
+      "source": "bank",
+      "apple_isolated": "Banque",
+      "android_isolated": "banque",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-03-tag-08",
+          "text": "banque "
+        }
+      ]
+    },
+    {
+      "message_id": "local-03",
+      "source": "deposit",
+      "apple_isolated": "Dépôt",
+      "android_isolated": "dépôt",
+      "android_pos": "VERB",
+      "apple_pos": "Verb",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-03-tag-12",
+          "text": "déposer "
+        }
+      ]
+    },
+    {
+      "message_id": "local-03",
+      "source": "paycheck",
+      "apple_isolated": "Chèque de paie",
+      "android_isolated": "salaire",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-03-tag-16",
+          "text": "chèque de paie"
+        }
+      ]
+    },
+    {
+      "message_id": "local-04",
+      "source": "sat",
+      "apple_isolated": "Examen d'admission à l'université",
+      "android_isolated": "Sam",
+      "android_pos": "VERB",
+      "apple_pos": "Verb",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-04-tag-02",
+          "text": "assis "
+        }
+      ]
+    },
+    {
+      "message_id": "local-04",
+      "source": "bank",
+      "apple_isolated": "Banque",
+      "android_isolated": "banque",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-04-tag-08",
+          "text": "rive "
+        }
+      ]
+    },
+    {
+      "message_id": "local-04",
+      "source": "watched",
+      "apple_isolated": "Regardé",
+      "android_isolated": "regardé",
+      "android_pos": "VERB",
+      "apple_pos": "Verb",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-04-tag-12",
+          "text": "avons regardé "
+        }
+      ]
+    },
+    {
+      "message_id": "local-04",
+      "source": "river",
+      "apple_isolated": "Rivière",
+      "android_isolated": "rivière",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-04-tag-16",
+          "text": "rivière "
+        }
+      ]
+    },
+    {
+      "message_id": "local-04",
+      "source": "flow",
+      "apple_isolated": "Flux",
+      "android_isolated": "flux",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-04-tag-18",
+          "text": "couler"
+        }
+      ]
+    },
+    {
+      "message_id": "local-05",
+      "source": "feeling",
+      "apple_isolated": "Gefühl",
+      "android_isolated": "Gefühl",
+      "android_pos": "VERB",
+      "apple_pos": "Verb",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-05-tag-04",
+          "text": "fühle "
+        }
+      ]
+    },
+    {
+      "message_id": "local-05",
+      "source": "weather",
+      "apple_isolated": "Wetter",
+      "android_isolated": "Wetter",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": []
+    },
+    {
+      "message_id": "local-05",
+      "source": "stay",
+      "apple_isolated": "Aufenthalt",
+      "android_isolated": "bleiben",
+      "android_pos": "VERB",
+      "apple_pos": "Verb",
+      "android_reading": null,
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-05-tag-19",
+          "text": "bleibe "
+        }
+      ]
+    },
+    {
+      "message_id": "local-06",
+      "source": "Sounds",
+      "apple_isolated": "音",
+      "android_isolated": "音",
+      "android_pos": "VERB",
+      "apple_pos": "Verb",
+      "android_reading": "oto",
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-06-tag-00",
+          "text": "了解です"
+        }
+      ]
+    },
+    {
+      "message_id": "local-06",
+      "source": "see",
+      "apple_isolated": "見てみる",
+      "android_isolated": "見る",
+      "android_pos": "VERB",
+      "apple_pos": "Verb",
+      "android_reading": "miru",
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-06-tag-05",
+          "text": "お会いしましょう"
+        }
+      ]
+    },
+    {
+      "message_id": "local-06",
+      "source": "lunch",
+      "apple_isolated": "昼食",
+      "android_isolated": "ランチ",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": "ranchi",
+      "apple_context_marked_runs": [
+        {
+          "marker": "local-06-tag-11",
+          "text": "昼食"
+        }
+      ]
+    },
+    {
+      "message_id": "local-18",
+      "source": "put",
+      "apple_isolated": "وَضَعَ",
+      "android_isolated": "ضع",
+      "android_pos": "VERB",
+      "apple_pos": "Verb",
+      "android_reading": null,
+      "apple_context_marked_runs": []
+    },
+    {
+      "message_id": "local-18",
+      "source": "cup",
+      "apple_isolated": "كوب",
+      "android_isolated": "كوب",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": []
+    },
+    {
+      "message_id": "local-18",
+      "source": "sink",
+      "apple_isolated": "حَوْض",
+      "android_isolated": "بالوعة",
+      "android_pos": "NOUN",
+      "apple_pos": "Noun",
+      "android_reading": null,
+      "apple_context_marked_runs": []
+    }
+  ]
+}

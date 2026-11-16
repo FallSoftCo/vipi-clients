@@ -1,0 +1,544 @@
+{
+  "cases" : [
+    {
+      "attributed_full" : "El tren sale del andén tres en diez minutos.",
+      "availability" : "installed",
+      "elapsed_seconds" : 1.0168999433517456,
+      "focus" : "train",
+      "full" : "El tren sale del andén tres en diez minutos.",
+      "id" : "local-01-tag-02",
+      "isolated" : "Tren",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-01-tag-02",
+          "text" : "tren "
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "The  tren  leaves from platform three in ten minutes.",
+      "selective_seconds" : 0.035551905632019043,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "es",
+      "text" : "The train leaves from platform three in ten minutes."
+    },
+    {
+      "attributed_full" : "El tren sale del andén tres en diez minutos.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.12905395030975342,
+      "focus" : "leaves",
+      "full" : "El tren sale del andén tres en diez minutos.",
+      "id" : "local-01-tag-04",
+      "isolated" : "Hojas",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-01-tag-04",
+          "text" : "sale "
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "The train  sale  from platform three in ten minutes.",
+      "selective_seconds" : 0.035398960113525391,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "es",
+      "text" : "The train leaves from platform three in ten minutes."
+    },
+    {
+      "attributed_full" : "El tren sale del andén tres en diez minutos.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.11667799949645996,
+      "focus" : "platform",
+      "full" : "El tren sale del andén tres en diez minutos.",
+      "id" : "local-01-tag-08",
+      "isolated" : "Plataforma",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-01-tag-08",
+          "text" : "andén "
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "The train leaves from  andén  three in ten minutes.",
+      "selective_seconds" : 0.035171031951904297,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "es",
+      "text" : "The train leaves from platform three in ten minutes."
+    },
+    {
+      "attributed_full" : "El tren sale del andén tres en diez minutos.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.11653792858123779,
+      "focus" : "minutes",
+      "full" : "El tren sale del andén tres en diez minutos.",
+      "id" : "local-01-tag-16",
+      "isolated" : "Minuto",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-01-tag-16",
+          "text" : "minutos"
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "The train leaves from platform three in ten  minutos .",
+      "selective_seconds" : 0.035053014755249023,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "es",
+      "text" : "The train leaves from platform three in ten minutes."
+    },
+    {
+      "attributed_full" : "Entreno a nuevos voluntarios todos los sábados por la mañana.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.16402196884155273,
+      "focus" : "train",
+      "full" : "Entreno a nuevos voluntarios todos los sábados por la mañana.",
+      "id" : "local-02-tag-02",
+      "isolated" : "Tren",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-02-tag-02",
+          "text" : "Entreno"
+        }
+      ],
+      "outside_preserved_in_order" : false,
+      "selective_mixed" : "Entreno  I   new volunteers every Saturday morning.",
+      "selective_seconds" : 0.040019035339355469,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "es",
+      "text" : "I train new volunteers every Saturday morning."
+    },
+    {
+      "attributed_full" : "Entreno a nuevos voluntarios todos los sábados por la mañana.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.15215301513671875,
+      "focus" : "volunteers",
+      "full" : "Entreno a nuevos voluntarios todos los sábados por la mañana.",
+      "id" : "local-02-tag-06",
+      "isolated" : "Voluntarios",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-02-tag-06",
+          "text" : "voluntarios "
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "I train new  voluntarios  every Saturday morning.",
+      "selective_seconds" : 0.04151606559753418,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "es",
+      "text" : "I train new volunteers every Saturday morning."
+    },
+    {
+      "attributed_full" : "Entreno a nuevos voluntarios todos los sábados por la mañana.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.13176894187927246,
+      "focus" : "morning",
+      "full" : "Entreno a nuevos voluntarios todos los sábados por la mañana.",
+      "id" : "local-02-tag-12",
+      "isolated" : "Mañana",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-02-tag-12",
+          "text" : "por la mañana"
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "I train new volunteers every Saturday  por la mañana .",
+      "selective_seconds" : 0.039762973785400391,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "es",
+      "text" : "I train new volunteers every Saturday morning."
+    },
+    {
+      "attributed_full" : "Elle est allée à la banque pour déposer son chèque de paie.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.64688897132873535,
+      "focus" : "went",
+      "full" : "Elle est allée à la banque pour déposer son chèque de paie.",
+      "id" : "local-03-tag-02",
+      "isolated" : "Est allé",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-03-tag-02",
+          "text" : "est allée "
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "She  est allée  to the bank to deposit her paycheck.",
+      "selective_seconds" : 0.026813030242919922,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "fr",
+      "text" : "She went to the bank to deposit her paycheck."
+    },
+    {
+      "attributed_full" : "Elle est allée à la banque pour déposer son chèque de paie.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.086079001426696777,
+      "focus" : "bank",
+      "full" : "Elle est allée à la banque pour déposer son chèque de paie.",
+      "id" : "local-03-tag-08",
+      "isolated" : "Banque",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-03-tag-08",
+          "text" : "banque "
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "She went to the  banque  to deposit her paycheck.",
+      "selective_seconds" : 0.02576899528503418,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "fr",
+      "text" : "She went to the bank to deposit her paycheck."
+    },
+    {
+      "attributed_full" : "Elle est allée à la banque pour déposer son chèque de paie.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.08747398853302002,
+      "focus" : "deposit",
+      "full" : "Elle est allée à la banque pour déposer son chèque de paie.",
+      "id" : "local-03-tag-12",
+      "isolated" : "Dépôt",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-03-tag-12",
+          "text" : "déposer "
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "She went to the bank to  déposer  her paycheck.",
+      "selective_seconds" : 0.026246070861816406,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "fr",
+      "text" : "She went to the bank to deposit her paycheck."
+    },
+    {
+      "attributed_full" : "Elle est allée à la banque pour déposer son chèque de paie.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.10052001476287842,
+      "focus" : "paycheck",
+      "full" : "Elle est allée à la banque pour déposer son chèque de paie.",
+      "id" : "local-03-tag-16",
+      "isolated" : "Chèque de paie",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-03-tag-16",
+          "text" : "chèque de paie"
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "She went to the bank to deposit her  chèque de paie .",
+      "selective_seconds" : 0.026170015335083008,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "fr",
+      "text" : "She went to the bank to deposit her paycheck."
+    },
+    {
+      "attributed_full" : "Nous nous sommes assis sur la rive et avons regardé la rivière couler.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.12895798683166504,
+      "focus" : "sat",
+      "full" : "Nous nous sommes assis sur la rive et avons regardé la rivière couler.",
+      "id" : "local-04-tag-02",
+      "isolated" : "Examen d'admission à l'université",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-04-tag-02",
+          "text" : "assis "
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "We  assis  on the bank and watched the river flow.",
+      "selective_seconds" : 0.029853940010070801,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "fr",
+      "text" : "We sat on the bank and watched the river flow."
+    },
+    {
+      "attributed_full" : "Nous nous sommes assis sur la rive et avons regardé la rivière couler.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.096826910972595215,
+      "focus" : "bank",
+      "full" : "Nous nous sommes assis sur la rive et avons regardé la rivière couler.",
+      "id" : "local-04-tag-08",
+      "isolated" : "Banque",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-04-tag-08",
+          "text" : "rive "
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "We sat on the  rive  and watched the river flow.",
+      "selective_seconds" : 0.028479933738708496,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "fr",
+      "text" : "We sat on the bank and watched the river flow."
+    },
+    {
+      "attributed_full" : "Nous nous sommes assis sur la rive et avons regardé la rivière couler.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.10622107982635498,
+      "focus" : "watched",
+      "full" : "Nous nous sommes assis sur la rive et avons regardé la rivière couler.",
+      "id" : "local-04-tag-12",
+      "isolated" : "Regardé",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-04-tag-12",
+          "text" : "avons regardé "
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "We sat on the bank and  avons regardé  the river flow.",
+      "selective_seconds" : 0.028754949569702148,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "fr",
+      "text" : "We sat on the bank and watched the river flow."
+    },
+    {
+      "attributed_full" : "Nous nous sommes assis sur la rive et avons regardé la rivière couler.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.096329927444458008,
+      "focus" : "river",
+      "full" : "Nous nous sommes assis sur la rive et avons regardé la rivière couler.",
+      "id" : "local-04-tag-16",
+      "isolated" : "Rivière",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-04-tag-16",
+          "text" : "rivière "
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "We sat on the bank and watched the  rivière  flow.",
+      "selective_seconds" : 0.02885901927947998,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "fr",
+      "text" : "We sat on the bank and watched the river flow."
+    },
+    {
+      "attributed_full" : "Nous nous sommes assis sur la rive et avons regardé la rivière couler.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.096214056015014648,
+      "focus" : "flow",
+      "full" : "Nous nous sommes assis sur la rive et avons regardé la rivière couler.",
+      "id" : "local-04-tag-18",
+      "isolated" : "Flux",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-04-tag-18",
+          "text" : "couler"
+        }
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "We sat on the bank and watched the river  couler .",
+      "selective_seconds" : 0.029133081436157227,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "fr",
+      "text" : "We sat on the bank and watched the river flow."
+    },
+    {
+      "attributed_full" : "Ich fühle mich unwohl, also bleibe ich zu Hause.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.71480798721313477,
+      "focus" : "feeling",
+      "full" : "Ich fühle mich unwohl, also bleibe ich zu Hause.",
+      "id" : "local-05-tag-04",
+      "isolated" : "Gefühl",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-05-tag-04",
+          "text" : "fühle "
+        }
+      ],
+      "outside_preserved_in_order" : false,
+      "selective_mixed" : "Ich fühle mich  under the weather, so I will stay home.",
+      "selective_seconds" : 0.037828922271728516,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "de",
+      "text" : "I am feeling under the weather, so I will stay home."
+    },
+    {
+      "attributed_full" : "Ich fühle mich unwohl, also bleibe ich zu Hause.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.12397491931915283,
+      "focus" : "weather",
+      "full" : "Ich fühle mich unwohl, also bleibe ich zu Hause.",
+      "id" : "local-05-tag-10",
+      "isolated" : "Wetter",
+      "marked_target_runs" : [
+
+      ],
+      "outside_preserved_in_order" : true,
+      "selective_mixed" : "I am feeling under the , so I will stay home.",
+      "selective_seconds" : 0.038446903228759766,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "de",
+      "text" : "I am feeling under the weather, so I will stay home."
+    },
+    {
+      "attributed_full" : "Ich fühle mich unwohl, also bleibe ich zu Hause.",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.12706303596496582,
+      "focus" : "stay",
+      "full" : "Ich fühle mich unwohl, also bleibe ich zu Hause.",
+      "id" : "local-05-tag-19",
+      "isolated" : "Aufenthalt",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-05-tag-19",
+          "text" : "bleibe "
+        }
+      ],
+      "outside_preserved_in_order" : false,
+      "selective_mixed" : "Ich fühle mich unwohl, also bleibe ich  home.",
+      "selective_seconds" : 0.039188027381896973,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "de",
+      "text" : "I am feeling under the weather, so I will stay home."
+    },
+    {
+      "attributed_full" : "了解です、昼食後にお会いしましょう！",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.87536501884460449,
+      "focus" : "Sounds",
+      "full" : "了解です、昼食後にお会いしましょう！",
+      "id" : "local-06-tag-00",
+      "isolated" : "音",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-06-tag-00",
+          "text" : "了解です"
+        }
+      ],
+      "outside_preserved_in_order" : false,
+      "selective_mixed" : "了解です、昼食後にお会いしましょう！",
+      "selective_seconds" : 0.033210039138793945,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "ja",
+      "text" : "Sounds good, see you after lunch!"
+    },
+    {
+      "attributed_full" : "了解です、昼食後にお会いしましょう！",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.1137620210647583,
+      "focus" : "see",
+      "full" : "了解です、昼食後にお会いしましょう！",
+      "id" : "local-06-tag-05",
+      "isolated" : "見てみる",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-06-tag-05",
+          "text" : "お会いしましょう"
+        }
+      ],
+      "outside_preserved_in_order" : false,
+      "selective_mixed" : "了解です、昼食後にお会いしましょう！",
+      "selective_seconds" : 0.033415913581848145,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "ja",
+      "text" : "Sounds good, see you after lunch!"
+    },
+    {
+      "attributed_full" : "了解です、昼食後にお会いしましょう！",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.11191892623901367,
+      "focus" : "lunch",
+      "full" : "了解です、昼食後にお会いしましょう！",
+      "id" : "local-06-tag-11",
+      "isolated" : "昼食",
+      "marked_target_runs" : [
+        {
+          "marker" : "local-06-tag-11",
+          "text" : "昼食"
+        }
+      ],
+      "outside_preserved_in_order" : false,
+      "selective_mixed" : "了解です、昼食後にお会いしましょう！",
+      "selective_seconds" : 0.033842921257019043,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "ja",
+      "text" : "Sounds good, see you after lunch!"
+    },
+    {
+      "attributed_full" : "هل يمكنك وضع الكأس الأحمر بجانب الحوض؟",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.34920907020568848,
+      "focus" : "put",
+      "full" : "هل يمكنك وضع الكأس الأحمر بجانب الحوض؟",
+      "id" : "local-18-tag-04",
+      "isolated" : "وَضَعَ",
+      "marked_target_runs" : [
+
+      ],
+      "outside_preserved_in_order" : false,
+      "selective_mixed" : "هل يمكنك وضع الكأس الأحمر بجانب الحوض؟",
+      "selective_seconds" : 0.02856600284576416,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "ar",
+      "text" : "Could you put the red cup beside the sink?"
+    },
+    {
+      "attributed_full" : "هل يمكنك وضع الكأس الأحمر بجانب الحوض؟",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.092805027961730957,
+      "focus" : "cup",
+      "full" : "هل يمكنك وضع الكأس الأحمر بجانب الحوض؟",
+      "id" : "local-18-tag-10",
+      "isolated" : "كوب",
+      "marked_target_runs" : [
+
+      ],
+      "outside_preserved_in_order" : false,
+      "selective_mixed" : "هل يمكنك وضع الكأس الأحمر بجانب الحوض؟",
+      "selective_seconds" : 0.027512073516845703,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "ar",
+      "text" : "Could you put the red cup beside the sink?"
+    },
+    {
+      "attributed_full" : "هل يمكنك وضع الكأس الأحمر بجانب الحوض؟",
+      "availability" : "installed",
+      "elapsed_seconds" : 0.099171996116638184,
+      "focus" : "sink",
+      "full" : "هل يمكنك وضع الكأس الأحمر بجانب الحوض؟",
+      "id" : "local-18-tag-16",
+      "isolated" : "حَوْض",
+      "marked_target_runs" : [
+
+      ],
+      "outside_preserved_in_order" : false,
+      "selective_mixed" : "هل يمكنك وضع الكأس الأحمر بجانب الحوض؟",
+      "selective_seconds" : 0.030611038208007812,
+      "source" : "en",
+      "status" : "translated",
+      "target" : "ar",
+      "text" : "Could you put the red cup beside the sink?"
+    }
+  ],
+  "network_disabled" : false,
+  "scope" : "native macOS installed Apple lowLatency models; synthetic authored cases; no linguistic acceptance"
+}

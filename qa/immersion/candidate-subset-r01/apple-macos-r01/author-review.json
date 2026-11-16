@@ -1,0 +1,285 @@
+{
+  "rows": [
+    {
+      "assessment": "railway noun plausible; standalone output capitalized mid-sentence",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-01-tag-02",
+          "text": "tren "
+        }
+      ],
+      "id": "local-01-tag-02",
+      "isolated_target": "Tren",
+      "source": "train"
+    },
+    {
+      "assessment": "hojas is leaves noun, not departure verb",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-01-tag-04",
+          "text": "sale "
+        }
+      ],
+      "id": "local-01-tag-04",
+      "isolated_target": "Hojas",
+      "source": "leaves"
+    },
+    {
+      "assessment": "plataforma may denote a platform but contextual andén is platform at station; meaning nuance and capitalized face",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-01-tag-08",
+          "text": "andén "
+        }
+      ],
+      "id": "local-01-tag-08",
+      "isolated_target": "Plataforma",
+      "source": "platform"
+    },
+    {
+      "assessment": "singular minuto mismatches plural source",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-01-tag-16",
+          "text": "minutos"
+        }
+      ],
+      "id": "local-01-tag-16",
+      "isolated_target": "Minuto",
+      "source": "minutes"
+    },
+    {
+      "assessment": "tren is noun, source verb",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-02-tag-02",
+          "text": "Entreno"
+        }
+      ],
+      "id": "local-02-tag-02",
+      "isolated_target": "Tren",
+      "source": "train"
+    },
+    {
+      "assessment": "voluntarios plausible people noun; grammatical gender and capitalization need care",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-02-tag-06",
+          "text": "voluntarios "
+        }
+      ],
+      "id": "local-02-tag-06",
+      "isolated_target": "Voluntarios",
+      "source": "volunteers"
+    },
+    {
+      "assessment": "mañana is plausible morning, also tomorrow; case and context matter",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-02-tag-12",
+          "text": "por la mañana"
+        }
+      ],
+      "id": "local-02-tag-12",
+      "isolated_target": "Mañana",
+      "source": "morning"
+    },
+    {
+      "assessment": "movement plausible but est allé masculine differs feminine subject; multiword target",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-03-tag-02",
+          "text": "est allée "
+        }
+      ],
+      "id": "local-03-tag-02",
+      "isolated_target": "Est allé",
+      "source": "went"
+    },
+    {
+      "assessment": "banque plausible financial institution, standalone capitalized",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-03-tag-08",
+          "text": "banque "
+        }
+      ],
+      "id": "local-03-tag-08",
+      "isolated_target": "Banque",
+      "source": "bank"
+    },
+    {
+      "assessment": "dépôt is noun, source verb",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-03-tag-12",
+          "text": "déposer "
+        }
+      ],
+      "id": "local-03-tag-12",
+      "isolated_target": "Dépôt",
+      "source": "deposit"
+    },
+    {
+      "assessment": "chèque de paie plausible paycheck; multiword target and uppercase initial",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-03-tag-16",
+          "text": "chèque de paie"
+        }
+      ],
+      "id": "local-03-tag-16",
+      "isolated_target": "Chèque de paie",
+      "source": "paycheck"
+    },
+    {
+      "assessment": "university entrance examination unrelated to past sit",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-04-tag-02",
+          "text": "assis "
+        }
+      ],
+      "id": "local-04-tag-02",
+      "isolated_target": "Examen d'admission à l'université",
+      "source": "sat"
+    },
+    {
+      "assessment": "banque financial institution is wrong riverbank sense",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-04-tag-08",
+          "text": "rive "
+        }
+      ],
+      "id": "local-04-tag-08",
+      "isolated_target": "Banque",
+      "source": "bank"
+    },
+    {
+      "assessment": "regardé has watching sense but isolated participle/case in mixed grammar requires review",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-04-tag-12",
+          "text": "avons regardé "
+        }
+      ],
+      "id": "local-04-tag-12",
+      "isolated_target": "Regardé",
+      "source": "watched"
+    },
+    {
+      "assessment": "rivière plausible river noun, uppercase initial",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-04-tag-16",
+          "text": "rivière "
+        }
+      ],
+      "id": "local-04-tag-16",
+      "isolated_target": "Rivière",
+      "source": "river"
+    },
+    {
+      "assessment": "flux noun whereas source uses verb",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-04-tag-18",
+          "text": "couler"
+        }
+      ],
+      "id": "local-04-tag-18",
+      "isolated_target": "Flux",
+      "source": "flow"
+    },
+    {
+      "assessment": "Gefühl noun rather than source verb",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-05-tag-04",
+          "text": "fühle "
+        }
+      ],
+      "id": "local-05-tag-04",
+      "isolated_target": "Gefühl",
+      "source": "feeling"
+    },
+    {
+      "assessment": "Wetter literal noun disrupts illness idiom",
+      "contextual_marked_runs": [],
+      "id": "local-05-tag-10",
+      "isolated_target": "Wetter",
+      "source": "weather"
+    },
+    {
+      "assessment": "Aufenthalt noun rather than source verb",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-05-tag-19",
+          "text": "bleibe "
+        }
+      ],
+      "id": "local-05-tag-19",
+      "isolated_target": "Aufenthalt",
+      "source": "stay"
+    },
+    {
+      "assessment": "音 literal sound noun, not acceptance idiom; actual local reading oto",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-06-tag-00",
+          "text": "了解です"
+        }
+      ],
+      "id": "local-06-tag-00",
+      "isolated_target": "音",
+      "source": "Sounds"
+    },
+    {
+      "assessment": "見てみる means try looking, not see-you farewell; actual local reading mi te miru",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-06-tag-05",
+          "text": "お会いしましょう"
+        }
+      ],
+      "id": "local-06-tag-05",
+      "isolated_target": "見てみる",
+      "source": "see"
+    },
+    {
+      "assessment": "昼食 plausible lunch; actual local reading chuushoku",
+      "contextual_marked_runs": [
+        {
+          "marker": "local-06-tag-11",
+          "text": "昼食"
+        }
+      ],
+      "id": "local-06-tag-11",
+      "isolated_target": "昼食",
+      "source": "lunch"
+    },
+    {
+      "assessment": "وَضَعَ is past-tense form, not modal request infinitive; Arabic reading not measured",
+      "contextual_marked_runs": [],
+      "id": "local-18-tag-04",
+      "isolated_target": "وَضَعَ",
+      "source": "put"
+    },
+    {
+      "assessment": "كوب plausible drinking vessel; Arabic reading not measured",
+      "contextual_marked_runs": [],
+      "id": "local-18-tag-10",
+      "isolated_target": "كوب",
+      "source": "cup"
+    },
+    {
+      "assessment": "حَوْض plausible basin, but Arabic exact reading not measured",
+      "contextual_marked_runs": [],
+      "id": "local-18-tag-16",
+      "isolated_target": "حَوْض",
+      "source": "sink"
+    }
+  ],
+  "scope": "Author assessment of all 25 isolated whole-unit actual Mac outputs. Not independent bilingual gold, acoustic review, safe automatic admission or population accuracy; native name guard/geometry admission was not executed by this harness. Contextual marked runs are best-effort and may include additional grammar. Arabic readings not measured."
+}

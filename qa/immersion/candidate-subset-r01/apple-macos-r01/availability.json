@@ -1,0 +1,30 @@
+{
+  "pairs" : [
+    {
+      "source" : "en",
+      "status" : "installed",
+      "target" : "es"
+    },
+    {
+      "source" : "en",
+      "status" : "installed",
+      "target" : "fr"
+    },
+    {
+      "source" : "en",
+      "status" : "installed",
+      "target" : "de"
+    },
+    {
+      "source" : "en",
+      "status" : "installed",
+      "target" : "ja"
+    },
+    {
+      "source" : "en",
+      "status" : "installed",
+      "target" : "ar"
+    }
+  ],
+  "scope" : "read-only model status before run; no download"
+}
