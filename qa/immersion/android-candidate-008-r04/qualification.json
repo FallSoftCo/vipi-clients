@@ -1,0 +1,44 @@
+{
+  "complete": true,
+  "candidate": "008-r04 inactive QA-only",
+  "wifi_before": "1",
+  "mobile_before": "1",
+  "holdout_r01_timing": "frozen after r03, before r04 boundary fix",
+  "holdout_r04_timing": "post-r04-freeze",
+  "runs": [
+    {
+      "name": "floor",
+      "fixture_sha256": "5b42f5ee3c44c69ab67f408d291f6bf9b7e490bc252368d1fb5153a38d44409c",
+      "passed": true,
+      "cases": 330,
+      "automatic_emitting": 199,
+      "direct_emitting": 199,
+      "automatic_directions": 110,
+      "complete": true
+    },
+    {
+      "name": "holdout-r01",
+      "fixture_sha256": "09a8ebd1f5e1a8d48d1b516620a50d4749df01e878bc9458474ab5dac3af5e6d",
+      "passed": true,
+      "cases": 330,
+      "automatic_emitting": 191,
+      "direct_emitting": 191,
+      "automatic_directions": 103,
+      "complete": true
+    },
+    {
+      "name": "holdout-r04",
+      "fixture_sha256": "ffdfb55690c5c5f3edcd794b5d21342e24a1a71e20983ebfccefe337556804e8",
+      "passed": true,
+      "cases": 110,
+      "automatic_emitting": 2,
+      "direct_emitting": 2,
+      "automatic_directions": 2,
+      "complete": true
+    }
+  ],
+  "private_state_byte_identical": true,
+  "wifi_after": "1",
+  "mobile_after": "1",
+  "free_after": 11041898496
+}

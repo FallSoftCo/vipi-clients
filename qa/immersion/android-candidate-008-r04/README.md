@@ -1,0 +1,5 @@
+# Inactive 008-r04 candidate: Android offline checks
+
+The candidate was bundled only into an isolated same-signer QA package on emulator-5620. The source assets and pin in the build stage were restored after testing; the installed QA package retains the candidate. No production catalog was promoted. Private profile, device, encrypted history, and preference files were byte-identical before and after; Wi-Fi and mobile settings were restored.
+
+The concept-informed floor yielded automatic and direct emissions in 199 of 330 probes across 110 directions. The 330-case holdout, frozen after r03 but before the r04 boundary correction, yielded 191 emissions across 103 directions. The 110-case train-topic holdout authored after r04 froze yielded only 2 emissions across 2 directions. These are authored test samples, not population accuracy estimates; the narrow-topic holdout exposes a substantial coverage limit. Successful execution does not establish the correctness of every meaning or reading. The tests asserted zero local translation and readiness calls.
