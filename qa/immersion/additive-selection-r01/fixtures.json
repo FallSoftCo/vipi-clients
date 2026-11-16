@@ -1,0 +1,578 @@
+{
+  "budget_cases": [
+    {
+      "density": 0,
+      "hard_ceiling": 0,
+      "id": "off",
+      "native_words": 8,
+      "novel_budget": 0
+    },
+    {
+      "density": 0.25,
+      "hard_ceiling": 6,
+      "id": "normal",
+      "native_words": 8,
+      "novel_budget": 2
+    },
+    {
+      "density": 0.25,
+      "hard_ceiling": 1,
+      "id": "short",
+      "native_words": 1,
+      "novel_budget": 1
+    },
+    {
+      "density": 0.75,
+      "hard_ceiling": 6,
+      "id": "high",
+      "native_words": 8,
+      "novel_budget": 6
+    }
+  ],
+  "cases": [
+    {
+      "candidates": [
+        {
+          "due": false,
+          "eligible": true,
+          "end": 1,
+          "id": "n1",
+          "start": 0,
+          "state": "unseen"
+        },
+        {
+          "due": true,
+          "eligible": true,
+          "end": 3,
+          "id": "s1",
+          "start": 2,
+          "state": "seen"
+        }
+      ],
+      "expected": [],
+      "hard_ceiling": 0,
+      "id": "off",
+      "novel_budget": 0
+    },
+    {
+      "candidates": [
+        {
+          "due": false,
+          "eligible": true,
+          "end": 1,
+          "id": "n1",
+          "start": 0,
+          "state": "unseen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 3,
+          "id": "n2",
+          "start": 2,
+          "state": "unseen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 5,
+          "id": "n3",
+          "start": 4,
+          "state": "unseen"
+        }
+      ],
+      "expected": [
+        "n1",
+        "n2"
+      ],
+      "hard_ceiling": 4,
+      "id": "new_only",
+      "novel_budget": 2
+    },
+    {
+      "candidates": [
+        {
+          "due": true,
+          "eligible": true,
+          "end": 1,
+          "id": "s1",
+          "start": 0,
+          "state": "seen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 3,
+          "id": "n1",
+          "start": 2,
+          "state": "unseen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 5,
+          "id": "s2",
+          "start": 4,
+          "state": "seen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 7,
+          "id": "n2",
+          "start": 6,
+          "state": "unseen"
+        }
+      ],
+      "expected": [
+        "s1",
+        "n1",
+        "s2",
+        "n2"
+      ],
+      "hard_ceiling": 4,
+      "id": "add_seen_without_displacing_novel",
+      "novel_budget": 2
+    },
+    {
+      "candidates": [
+        {
+          "due": false,
+          "eligible": true,
+          "end": 1,
+          "id": "s_later",
+          "start": 0,
+          "state": "seen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 3,
+          "id": "n1",
+          "start": 2,
+          "state": "unseen"
+        },
+        {
+          "due": true,
+          "eligible": true,
+          "end": 5,
+          "id": "s_due",
+          "start": 4,
+          "state": "seen"
+        }
+      ],
+      "expected": [
+        "n1",
+        "s_due"
+      ],
+      "hard_ceiling": 2,
+      "id": "due_orders_only_seen",
+      "novel_budget": 1
+    },
+    {
+      "candidates": [
+        {
+          "due": true,
+          "eligible": true,
+          "end": 1,
+          "id": "s1",
+          "start": 0,
+          "state": "seen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 3,
+          "id": "n1",
+          "start": 2,
+          "state": "unseen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 5,
+          "id": "n2",
+          "start": 4,
+          "state": "unseen"
+        }
+      ],
+      "expected": [
+        "s1",
+        "n1"
+      ],
+      "hard_ceiling": 2,
+      "id": "ceiling_never_exceeded",
+      "novel_budget": 2
+    },
+    {
+      "candidates": [
+        {
+          "due": false,
+          "eligible": true,
+          "end": 1,
+          "id": "s1",
+          "start": 0,
+          "state": "seen"
+        },
+        {
+          "due": true,
+          "eligible": true,
+          "end": 3,
+          "id": "s2",
+          "start": 2,
+          "state": "seen"
+        }
+      ],
+      "expected": [
+        "s1",
+        "s2"
+      ],
+      "hard_ceiling": 3,
+      "id": "seen_only_no_novel_manufacture",
+      "novel_budget": 2
+    },
+    {
+      "candidates": [
+        {
+          "due": false,
+          "eligible": false,
+          "end": 1,
+          "id": "unsafe",
+          "start": 0,
+          "state": "unseen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 3,
+          "id": "n1",
+          "start": 2,
+          "state": "unseen"
+        },
+        {
+          "due": true,
+          "eligible": false,
+          "end": 5,
+          "id": "protected",
+          "start": 4,
+          "state": "seen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 7,
+          "id": "s1",
+          "start": 6,
+          "state": "seen"
+        }
+      ],
+      "expected": [
+        "n1",
+        "s1"
+      ],
+      "hard_ceiling": 2,
+      "id": "unsafe_and_protected_not_admitted",
+      "novel_budget": 1
+    },
+    {
+      "candidates": [
+        {
+          "due": false,
+          "eligible": true,
+          "end": 5,
+          "id": "n2",
+          "start": 4,
+          "state": "unseen"
+        },
+        {
+          "due": true,
+          "eligible": true,
+          "end": 1,
+          "id": "s_overlap",
+          "start": 0,
+          "state": "seen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 1,
+          "id": "n1",
+          "start": 0,
+          "state": "unseen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 3,
+          "id": "s2",
+          "start": 2,
+          "state": "seen"
+        }
+      ],
+      "expected": [
+        "n1",
+        "s2",
+        "n2"
+      ],
+      "hard_ceiling": 3,
+      "id": "overlap_and_stable_order",
+      "novel_budget": 2
+    },
+    {
+      "candidates": [
+        {
+          "due": true,
+          "eligible": true,
+          "end": 1,
+          "id": "s1",
+          "start": 0,
+          "state": "seen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 3,
+          "id": "n1",
+          "start": 2,
+          "state": "unseen"
+        }
+      ],
+      "expected": [
+        "n1"
+      ],
+      "hard_ceiling": 1,
+      "id": "one_slot_no_overrun",
+      "novel_budget": 1
+    },
+    {
+      "candidates": [
+        {
+          "cost": 2,
+          "due": false,
+          "eligible": true,
+          "end": 2,
+          "id": "novel_large",
+          "start": 0,
+          "state": "unseen"
+        },
+        {
+          "cost": 1,
+          "due": true,
+          "eligible": true,
+          "end": 4,
+          "id": "seen",
+          "start": 3,
+          "state": "seen"
+        },
+        {
+          "cost": 1,
+          "due": false,
+          "eligible": true,
+          "end": 6,
+          "id": "novel_extra",
+          "start": 5,
+          "state": "unseen"
+        }
+      ],
+      "expected": [
+        "novel_large",
+        "seen"
+      ],
+      "hard_ceiling": 3,
+      "id": "complete_cost_and_reservation",
+      "novel_budget": 2
+    },
+    {
+      "candidates": [
+        {
+          "cost": 1,
+          "due": false,
+          "eligible": true,
+          "end": 1,
+          "id": "novel_first",
+          "start": 0,
+          "state": "unseen"
+        },
+        {
+          "cost": 2,
+          "due": true,
+          "eligible": true,
+          "end": 4,
+          "id": "seen_large",
+          "start": 2,
+          "state": "seen"
+        },
+        {
+          "cost": 1,
+          "due": false,
+          "eligible": true,
+          "end": 6,
+          "id": "novel_next",
+          "start": 5,
+          "state": "unseen"
+        }
+      ],
+      "expected": [
+        "novel_first",
+        "seen_large"
+      ],
+      "hard_ceiling": 3,
+      "id": "reserve_fit_seen_and_novel",
+      "novel_budget": 2
+    },
+    {
+      "candidates": [
+        {
+          "cost": 2,
+          "due": false,
+          "eligible": true,
+          "end": 2,
+          "id": "oversize",
+          "start": 0,
+          "state": "unseen"
+        },
+        {
+          "cost": 1,
+          "due": false,
+          "eligible": true,
+          "end": 4,
+          "id": "n1",
+          "start": 3,
+          "state": "unseen"
+        },
+        {
+          "cost": 1,
+          "due": true,
+          "eligible": true,
+          "end": 6,
+          "id": "s1",
+          "start": 5,
+          "state": "seen"
+        }
+      ],
+      "expected": [
+        "n1",
+        "s1"
+      ],
+      "hard_ceiling": 2,
+      "id": "oversize_novel_skipped_for_fit",
+      "novel_budget": 1
+    }
+  ],
+  "day_progression": {
+    "density": 0.25,
+    "messages": [
+      {
+        "candidates": [
+          {
+            "id": "a",
+            "state": "unseen"
+          },
+          {
+            "id": "b",
+            "state": "unseen"
+          },
+          {
+            "id": "c",
+            "state": "unseen"
+          }
+        ],
+        "expected": [
+          "a",
+          "b"
+        ],
+        "id": "before_exposure"
+      },
+      {
+        "candidates": [
+          {
+            "id": "a",
+            "state": "seen"
+          },
+          {
+            "id": "b",
+            "state": "unseen"
+          },
+          {
+            "id": "c",
+            "state": "unseen"
+          }
+        ],
+        "expected": [
+          "a",
+          "b",
+          "c"
+        ],
+        "id": "after_exposure"
+      }
+    ],
+    "native_words": 8
+  },
+  "exposure_cases": [
+    {
+      "events": [
+        {
+          "day": 100,
+          "identity": "bank:river",
+          "kind": "lookup"
+        }
+      ],
+      "expected_last_day": null,
+      "id": "lookup_not_seen"
+    },
+    {
+      "events": [
+        {
+          "day": 100,
+          "identity": "bank:river",
+          "kind": "hidden_dwell"
+        }
+      ],
+      "expected_last_day": null,
+      "id": "hidden_not_seen"
+    },
+    {
+      "events": [
+        {
+          "day": 100,
+          "identity": "bank:river",
+          "kind": "interrupted_dwell"
+        }
+      ],
+      "expected_last_day": null,
+      "id": "interrupted_not_seen"
+    },
+    {
+      "events": [
+        {
+          "day": 100,
+          "identity": "bank:river",
+          "kind": "visible_dwell"
+        },
+        {
+          "day": 100,
+          "identity": "bank:river",
+          "kind": "visible_dwell"
+        }
+      ],
+      "expected_exposure_days": 1,
+      "expected_last_day": 100,
+      "id": "visible_dwell_idempotent"
+    },
+    {
+      "events": [
+        {
+          "day": 100,
+          "identity": "bank:financial",
+          "kind": "visible_dwell"
+        }
+      ],
+      "expected_last_day": null,
+      "id": "separate_senses",
+      "query_identity": "bank:river"
+    }
+  ],
+  "policy": "Positive density defines novel budget B=max(1,floor(N*density)); absolute combined ceiling C=min(N,max(1,floor(N*.75))). Zero density switches nothing. From eligible, nonoverlapping, complete source units, reserve one fitting novel item, select seen items by due then source order, then add other novel items in source order up to remaining B and C. Return source order. Seen means verified visible dwell, never inferred mastery; cannot manufacture units or exceed bounds. Exact-word cost is explicit. Selection snapshot is stable for the presented message.",
+  "schema": "vipi-additive-selection-cases-1",
+  "scope": "Shared policy fixtures; budgets are explicitly supplied. Native source bounds, semantic eligibility and exposure state must be independently validated before this selector is called. These cases do not validate translations or actual visibility."
+}
