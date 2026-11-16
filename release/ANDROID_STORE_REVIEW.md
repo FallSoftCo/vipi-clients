@@ -3,17 +3,16 @@
 The company Play app now exists as private draft **Vipi**, app ID
 `4975664610567218322`. Reviewed listing text, Communication category, support
 contact and privacy URL are saved. No build upload, purchase, review submission
-or public availability is claimed. The signed `a53ff86` bundle passed local source, configuration, signature, 007
+or public availability is claimed. The signed `0fda43f` bundle passed local source, configuration, signature, 007
 catalog, asset and ARM64 16 KiB alignment checks. Its specified-device
-bundletool download estimate is 416,959,214 bytes; four generated splits passed
+bundletool download estimate is 416,960,679 bytes; four generated splits passed
 signer and 16 KiB alignment checks. This is a local estimate, not Play's
-calculation or acceptance. The prior `1c72322` estimate was 416,948,474 bytes.
+calculation or acceptance. The prior `a53ff86` estimate was 416,959,214 bytes.
 See `build-artifacts-20261116.json` and `android-store-configuration.json`.
 The existing r08 client-source archive predates this build and is not the final
-corresponding source. No Play upload or review submission has occurred. Additive
-seen-plus-new selection is not universal: the exact-reference “I like music.”
-uses the JA/SW baseline route with no exported candidate pool. The actual-row
-lifecycle test exercised a slim QA build, not this signed release APK.
+corresponding source. No Play upload or review submission has occurred. Exact-reference
+selection and concurrency corrections passed controlled QA; the signed release
+APK has not been installed for device testing.
 
 ## Product and reviewer access
 
@@ -91,7 +90,7 @@ were refreshed from the offline resolved releaseRuntimeClasspath after the
 language-ID removal. The combined canonical -007 debug build confirms the
 language-ID classes are absent, translate classes and CLD2 remain, and all32
 focused native routes preserve originals with zero automatic translation/readiness
-calls. The signed `a53ff86` bundle verifies the 007 catalog and included assets;
+calls. The signed `0fda43f` bundle verifies the 007 catalog and included assets;
 store admission, final notice reconciliation and provider qualification remain pending.
 
 Do not mark every category optional because vBot/reporting is optional: sign-in

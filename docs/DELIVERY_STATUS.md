@@ -31,11 +31,10 @@ mixed English/Swahili speech have retained receipts. These are simulator/emulato
 checks with synthetic messages, not human acoustic acceptance or a claim that
 every real conversation has a suitable mapping.
 
-An ordinary exact-reference route is currently being corrected: a saved
-whole-message translation selected the older fixed-quota alignment path instead
-of the new familiar-plus-new path. The correction must preserve explicit Full
-translation, input direction, protected text and indivisible phrases. Its
-working changes are not part of the signed Android artifact below.
+The exact-reference route now permits independently guarded candidates for
+automatic immersion. Controlled Android QA exercised Japanese and Swahili,
+including atomic phrases, full-reference output and concurrent source lookups.
+The signed release APK itself has not been installed for device testing.
 
 Automatic immersion still uses accepted local mappings. Newly measured Apple
 and Android local translations of independently selected words include wrong
@@ -45,11 +44,11 @@ an isolated Android lookup probe; it remains an inactive candidate, with no
 reading for conflicting or unknown forms. Neither experiment establishes a
 conversational coverage percentage.
 
-The full Android APK and AAB at `a53ff86` are signed and verified, including all
+The full Android APK and AAB at `0fda43f` are signed and verified, including all
 1,077 packaged assets and the accepted 007 catalog. The specified ARM64 device
-download estimate is **416,959,214 bytes**; this is a local bundletool estimate,
+download estimate is **416,960,679 bytes**; this is a local bundletool estimate,
 not Play acceptance. See [November 16 artifacts](../release/build-artifacts-20261116.json).
-Later exact-reference changes require a new artifact after qualification.
+The earlier `a53ff86` signed artifacts remain historical.
 Apple's `f359610` starter/history integration passed an unsigned arm64 Simulator
 build with the production app bootstrap source. No signing attempt was made.
 The older device archive and r08 client-source package described below remain

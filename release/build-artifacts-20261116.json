@@ -1,7 +1,7 @@
 {
   "schema": "vipi-android-release-artifacts-1",
   "recorded_date": "2026-11-16",
-  "android_source_revision": "a53ff867f474030645253028b1bd69c93a88a2e3",
+  "android_source_revision": "0fda43f5067e4bb3e339eacfb68d3b7f3bc4bce1",
   "customer_ready": false,
   "store_uploaded": false,
   "store_submitted": false,
@@ -13,18 +13,18 @@
   },
   "artifacts": {
     "aab": {
-      "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/vipi-a53ff867-release.aab",
-      "bytes": 541876071,
-      "sha256": "2b28b39cf01e21f124892670f58220a86ca6d06f33e440ca279e582ca0c49129"
+      "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r02/vipi-0fda43f-release.aab",
+      "bytes": 541876565,
+      "sha256": "72eaecf6820b10cf52a10589f72799de495301406a207c97f4315f522701fd8a"
     },
     "apk": {
-      "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/vipi-a53ff867-release.apk",
+      "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r02/vipi-0fda43f-release.apk",
       "bytes": 533633985,
-      "sha256": "e9067717d94b5cbda5dbe6488851f134f6d8c0eaf9130c34b5b3a31b8888af07"
+      "sha256": "161fd44d43de64e94701a0850ec02b259a606d038b377312dfa4ef2fdc5f66ba"
     }
   },
   "upload_certificate_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
-  "source_manifest_sha256": "fcfb10a01cde88d20fb98aded97bb13ad32fdf5f78da6a6f29cf676d710ca7e4",
+  "source_manifest_sha256": "375243b93c288e5160ef482ad1f27540287f8cfb79e81edd9ef69314bfb824e4",
   "catalog": "directional-dictionary-007",
   "catalog_index_sha256": "a0f6f73172cd747a758d677a8c49383fc25591763045a1b0bb77575ba60114a3",
   "complete_assets_verified": 1077,
@@ -32,7 +32,7 @@
   "arm64_elf_16k": true,
   "split_measurement": {
     "tool": "bundletool 1.18.3",
-    "estimated_compressed_download_bytes": 416959214,
+    "estimated_compressed_download_bytes": 416960679,
     "device_spec": {
       "supportedAbis": [
         "arm64-v8a"
@@ -45,20 +45,41 @@
     },
     "split_count": 4,
     "each_upload_signed_and_zipaligned_16k": true,
-    "previous_estimate_bytes": 416948474,
-    "estimate_change_bytes": 10740,
+    "previous_estimate_bytes": 416959214,
+    "estimate_change_bytes": 1465,
     "play_measurement": false
   },
   "evidence": {
-    "artifact_handoff": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/final-handoff.json",
-    "artifact_verification": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/verification.json",
-    "split_verification": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/split-verification-r01/verification.json"
+    "artifact_handoff": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r02/final-handoff.json",
+    "artifact_verification": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r02/verification.json",
+    "split_verification": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r02/split-verification-r01/verification.json"
   },
   "limitations": [
     "Local artifact qualification only; no Play upload, submission or acceptance.",
     "One-device bundletool estimate is not Play Console measurement.",
     "No physical 16 KiB runtime, billing/provider delivery or distribution-clearance claim.",
     "Existing r08 client-source archive predates this Android revision and is not the final corresponding source.",
-    "Additive seen-plus-new selection is not universal: exact-reference I like music. uses the JA/SW baseline route with an empty exported candidate pool. Actual row lifecycle evidence is from slim QA, not this release APK."
-  ]
+    "Exact-reference additive route and provider concurrency were tested on QA builds; release APK has not been installed for device testing."
+  ],
+  "previous_android_a53": {
+    "revision": "a53ff867f474030645253028b1bd69c93a88a2e3",
+    "artifacts": {
+      "aab": {
+        "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/vipi-a53ff867-release.aab",
+        "bytes": 541876071,
+        "sha256": "2b28b39cf01e21f124892670f58220a86ca6d06f33e440ca279e582ca0c49129"
+      },
+      "apk": {
+        "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/vipi-a53ff867-release.apk",
+        "bytes": 533633985,
+        "sha256": "e9067717d94b5cbda5dbe6488851f134f6d8c0eaf9130c34b5b3a31b8888af07"
+      }
+    },
+    "estimated_compressed_download_bytes": 416959214,
+    "evidence": {
+      "artifact_handoff": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/final-handoff.json",
+      "artifact_verification": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/verification.json",
+      "split_verification": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/split-verification-r01/verification.json"
+    }
+  }
 }
