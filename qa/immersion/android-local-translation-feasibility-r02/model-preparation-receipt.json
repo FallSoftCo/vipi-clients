@@ -1,0 +1,19 @@
+{
+  "complete": true,
+  "scope": "explicitly authorized QA-only official ML Kit model downloads; no translation input",
+  "device_free_before": 1125892096,
+  "host_free_before": 10918203392,
+  "device_floor": 536870912,
+  "host_floor": 4294967296,
+  "min_device_free": 647729152,
+  "min_host_free": 10899587072,
+  "exit": 0,
+  "device_free_after": 647729152,
+  "host_free_after": 10911657984,
+  "seconds": 72.62977135926485,
+  "private_state_byte_identical": false,
+  "languages": 10,
+  "ready": 10,
+  "private_state_explanation": "Only shared_prefs/com.google.mlkit.internal.xml and shared_prefs/com.google.mlkit.translate.download_manager.xml changed; expected official model bookkeeping. All other previously snapshotted prefs, encrypted private records and messages matched.",
+  "other_private_files_byte_identical": true
+}

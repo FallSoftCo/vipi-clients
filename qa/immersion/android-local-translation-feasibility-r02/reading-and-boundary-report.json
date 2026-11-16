@@ -1,0 +1,1000 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "id": "local-01",
+      "source": "en",
+      "target": "es",
+      "original": "The train leaves from platform three in ten minutes.",
+      "focus": "train",
+      "focus_utf16": [
+        4,
+        9
+      ],
+      "model_installed": {
+        "es": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "The train leaves from platform three in ten minutes.",
+          "translation": "El tren sale de la plataforma tres en diez minutos.",
+          "elapsed_ms": 287.027982
+        },
+        {
+          "kind": "full_warm",
+          "input": "The train leaves from platform three in ten minutes.",
+          "translation": "El tren sale de la plataforma tres en diez minutos.",
+          "elapsed_ms": 58.513854
+        },
+        {
+          "kind": "focus_cold",
+          "input": "train",
+          "translation": "tren",
+          "elapsed_ms": 0.74621
+        },
+        {
+          "kind": "focus_warm",
+          "input": "train",
+          "translation": "tren",
+          "elapsed_ms": 0.395296
+        },
+        {
+          "kind": "window_1",
+          "input": "The train leaves",
+          "translation": "El tren parte",
+          "elapsed_ms": 2.075675
+        },
+        {
+          "kind": "window_2",
+          "input": "The train leaves from",
+          "translation": "El tren sale de",
+          "elapsed_ms": 35.960898
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-02",
+      "source": "en",
+      "target": "es",
+      "original": "I train new volunteers every Saturday morning.",
+      "focus": "train",
+      "focus_utf16": [
+        2,
+        7
+      ],
+      "model_installed": {
+        "es": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "I train new volunteers every Saturday morning.",
+          "translation": "Entrengo a nuevos voluntarios todos los sábados por la mañana.",
+          "elapsed_ms": 149.350908
+        },
+        {
+          "kind": "full_warm",
+          "input": "I train new volunteers every Saturday morning.",
+          "translation": "Entrengo a nuevos voluntarios todos los sábados por la mañana.",
+          "elapsed_ms": 42.04226
+        },
+        {
+          "kind": "focus_cold",
+          "input": "train",
+          "translation": "tren",
+          "elapsed_ms": 0.812063
+        },
+        {
+          "kind": "focus_warm",
+          "input": "train",
+          "translation": "tren",
+          "elapsed_ms": 0.534068
+        },
+        {
+          "kind": "window_1",
+          "input": "I train new",
+          "translation": "Me entreno nuevo",
+          "elapsed_ms": 15.516924
+        },
+        {
+          "kind": "window_2",
+          "input": "I train new volunteers",
+          "translation": "Entrengo nuevos voluntarios",
+          "elapsed_ms": 25.570805
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 0,
+      "status": "translated"
+    },
+    {
+      "id": "local-03",
+      "source": "en",
+      "target": "fr",
+      "original": "She went to the bank to deposit her paycheck.",
+      "focus": "bank",
+      "focus_utf16": [
+        16,
+        20
+      ],
+      "model_installed": {
+        "fr": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "She went to the bank to deposit her paycheck.",
+          "translation": "Elle est allé à la banque pour déposer sa chèque de paie.",
+          "elapsed_ms": 95.873928
+        },
+        {
+          "kind": "full_warm",
+          "input": "She went to the bank to deposit her paycheck.",
+          "translation": "Elle est allé à la banque pour déposer sa chèque de paie.",
+          "elapsed_ms": 41.632678
+        },
+        {
+          "kind": "focus_cold",
+          "input": "bank",
+          "translation": "banque",
+          "elapsed_ms": 1.015205
+        },
+        {
+          "kind": "focus_warm",
+          "input": "bank",
+          "translation": "banque",
+          "elapsed_ms": 0.768214
+        },
+        {
+          "kind": "window_1",
+          "input": "the bank to",
+          "translation": "la banque à",
+          "elapsed_ms": 16.394792
+        },
+        {
+          "kind": "window_2",
+          "input": "to the bank to deposit",
+          "translation": "à la banque pour déposer",
+          "elapsed_ms": 22.427279
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-04",
+      "source": "en",
+      "target": "fr",
+      "original": "We sat on the bank and watched the river flow.",
+      "focus": "bank",
+      "focus_utf16": [
+        14,
+        18
+      ],
+      "model_installed": {
+        "fr": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "We sat on the bank and watched the river flow.",
+          "translation": "Nous nous sommes assis sur la banque et avons regardé le flux de la rivière.",
+          "elapsed_ms": 106.999705
+        },
+        {
+          "kind": "full_warm",
+          "input": "We sat on the bank and watched the river flow.",
+          "translation": "Nous nous sommes assis sur la banque et avons regardé le flux de la rivière.",
+          "elapsed_ms": 47.512235
+        },
+        {
+          "kind": "focus_cold",
+          "input": "bank",
+          "translation": "banque",
+          "elapsed_ms": 1.072761
+        },
+        {
+          "kind": "focus_warm",
+          "input": "bank",
+          "translation": "banque",
+          "elapsed_ms": 1.009605
+        },
+        {
+          "kind": "window_1",
+          "input": "the bank and",
+          "translation": "la banque et",
+          "elapsed_ms": 16.909629
+        },
+        {
+          "kind": "window_2",
+          "input": "on the bank and watched",
+          "translation": "sur la banque et regardé",
+          "elapsed_ms": 22.524236
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-05",
+      "source": "en",
+      "target": "de",
+      "original": "I am feeling under the weather, so I will stay home.",
+      "focus": "under the weather",
+      "focus_utf16": [
+        13,
+        30
+      ],
+      "model_installed": {
+        "de": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "I am feeling under the weather, so I will stay home.",
+          "translation": "Ich fühle mich unter dem Wetter, also bleibe ich zu Hause.",
+          "elapsed_ms": 148.101226
+        },
+        {
+          "kind": "full_warm",
+          "input": "I am feeling under the weather, so I will stay home.",
+          "translation": "Ich fühle mich unter dem Wetter, also bleibe ich zu Hause.",
+          "elapsed_ms": 42.967124
+        },
+        {
+          "kind": "focus_cold",
+          "input": "under the weather",
+          "translation": "unter dem Wetter",
+          "elapsed_ms": 0.72815
+        },
+        {
+          "kind": "focus_warm",
+          "input": "under the weather",
+          "translation": "unter dem Wetter",
+          "elapsed_ms": 0.482342
+        },
+        {
+          "kind": "window_1",
+          "input": "feeling under the weather, so",
+          "translation": "Gefühl unter dem Wetter, so",
+          "elapsed_ms": 25.962907
+        },
+        {
+          "kind": "window_2",
+          "input": "am feeling under the weather, so I",
+          "translation": "fühle mich unter dem Wetter, also ich",
+          "elapsed_ms": 30.166717
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-06",
+      "source": "en",
+      "target": "ja",
+      "original": "Sounds good, see you after lunch!",
+      "focus": "Sounds good",
+      "focus_utf16": [
+        0,
+        11
+      ],
+      "model_installed": {
+        "ja": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "Sounds good, see you after lunch!",
+          "translation": "昼食後にお会いしましょう！",
+          "elapsed_ms": 170.192994
+        },
+        {
+          "kind": "full_warm",
+          "input": "Sounds good, see you after lunch!",
+          "translation": "昼食後にお会いしましょう！",
+          "elapsed_ms": 51.813743
+        },
+        {
+          "kind": "focus_cold",
+          "input": "Sounds good",
+          "translation": "よく聞こえます",
+          "elapsed_ms": 23.717884
+        },
+        {
+          "kind": "focus_warm",
+          "input": "Sounds good",
+          "translation": "よく聞こえます",
+          "elapsed_ms": 22.319792
+        },
+        {
+          "kind": "window_1",
+          "input": "Sounds good, see",
+          "translation": "よく聞こえます、見てください",
+          "elapsed_ms": 35.973263
+        },
+        {
+          "kind": "window_2",
+          "input": "Sounds good, see you",
+          "translation": "よく聞こえます、お会いしましょう",
+          "elapsed_ms": 45.995398
+        }
+      ],
+      "focus_literal_occurrences_in_full": 0,
+      "focus_complete_word_occurrences_in_full": 0,
+      "focus_reading": "yoku kikoemasu",
+      "reading_provenance": "LOCAL_TRANSLITERATION",
+      "status": "translated"
+    },
+    {
+      "id": "local-07",
+      "source": "es",
+      "target": "en",
+      "original": "La llave está junto a la taza azul.",
+      "focus": "llave",
+      "focus_utf16": [
+        3,
+        8
+      ],
+      "model_installed": {
+        "es": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "La llave está junto a la taza azul.",
+          "translation": "The key is next to the blue cup.",
+          "elapsed_ms": 109.366993
+        },
+        {
+          "kind": "full_warm",
+          "input": "La llave está junto a la taza azul.",
+          "translation": "The key is next to the blue cup.",
+          "elapsed_ms": 28.981883
+        },
+        {
+          "kind": "focus_cold",
+          "input": "llave",
+          "translation": "key",
+          "elapsed_ms": 0.784011
+        },
+        {
+          "kind": "focus_warm",
+          "input": "llave",
+          "translation": "key",
+          "elapsed_ms": 0.5925
+        },
+        {
+          "kind": "window_1",
+          "input": "La llave está",
+          "translation": "The key is",
+          "elapsed_ms": 16.2232
+        },
+        {
+          "kind": "window_2",
+          "input": "La llave está junto",
+          "translation": "The key is together",
+          "elapsed_ms": 16.80207
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-08",
+      "source": "fr",
+      "target": "en",
+      "original": "On se retrouve devant la bibliothèque après le cours ?",
+      "focus": "bibliothèque",
+      "focus_utf16": [
+        25,
+        37
+      ],
+      "model_installed": {
+        "fr": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "On se retrouve devant la bibliothèque après le cours ?",
+          "translation": "We find ourselves in front of the library after the course?",
+          "elapsed_ms": 129.64633
+        },
+        {
+          "kind": "full_warm",
+          "input": "On se retrouve devant la bibliothèque après le cours ?",
+          "translation": "We find ourselves in front of the library after the course?",
+          "elapsed_ms": 54.554314
+        },
+        {
+          "kind": "focus_cold",
+          "input": "bibliothèque",
+          "translation": "library",
+          "elapsed_ms": 0.886785
+        },
+        {
+          "kind": "focus_warm",
+          "input": "bibliothèque",
+          "translation": "library",
+          "elapsed_ms": 0.667293
+        },
+        {
+          "kind": "window_1",
+          "input": "la bibliothèque après",
+          "translation": "The library after",
+          "elapsed_ms": 26.277959
+        },
+        {
+          "kind": "window_2",
+          "input": "devant la bibliothèque après le",
+          "translation": "in front of the library after the",
+          "elapsed_ms": 28.641642
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-09",
+      "source": "de",
+      "target": "en",
+      "original": "Ich habe meinen Termin auf Freitag verschoben.",
+      "focus": "Termin",
+      "focus_utf16": [
+        16,
+        22
+      ],
+      "model_installed": {
+        "de": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "Ich habe meinen Termin auf Freitag verschoben.",
+          "translation": "I moved my appointment to Friday.",
+          "elapsed_ms": 124.064938
+        },
+        {
+          "kind": "full_warm",
+          "input": "Ich habe meinen Termin auf Freitag verschoben.",
+          "translation": "I moved my appointment to Friday.",
+          "elapsed_ms": 35.939579
+        },
+        {
+          "kind": "focus_cold",
+          "input": "Termin",
+          "translation": "Appointment",
+          "elapsed_ms": 1.393384
+        },
+        {
+          "kind": "focus_warm",
+          "input": "Termin",
+          "translation": "Appointment",
+          "elapsed_ms": 1.417384
+        },
+        {
+          "kind": "window_1",
+          "input": "meinen Termin auf",
+          "translation": "my appointment",
+          "elapsed_ms": 19.689939
+        },
+        {
+          "kind": "window_2",
+          "input": "habe meinen Termin auf Freitag",
+          "translation": "Have my appointment to Friday",
+          "elapsed_ms": 25.985988
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-10",
+      "source": "it",
+      "target": "en",
+      "original": "Puoi spegnere la luce prima di uscire?",
+      "focus": "luce",
+      "focus_utf16": [
+        17,
+        21
+      ],
+      "model_installed": {
+        "it": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "Puoi spegnere la luce prima di uscire?",
+          "translation": "Can you turn off the light before going out?",
+          "elapsed_ms": 321.087299
+        },
+        {
+          "kind": "full_warm",
+          "input": "Puoi spegnere la luce prima di uscire?",
+          "translation": "Can you turn off the light before going out?",
+          "elapsed_ms": 31.158339
+        },
+        {
+          "kind": "focus_cold",
+          "input": "luce",
+          "translation": "light",
+          "elapsed_ms": 1.145525
+        },
+        {
+          "kind": "focus_warm",
+          "input": "luce",
+          "translation": "light",
+          "elapsed_ms": 0.464882
+        },
+        {
+          "kind": "window_1",
+          "input": "la luce prima",
+          "translation": "The light before",
+          "elapsed_ms": 15.216654
+        },
+        {
+          "kind": "window_2",
+          "input": "spegnere la luce prima di",
+          "translation": "shut off the light before",
+          "elapsed_ms": 21.536406
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-11",
+      "source": "pt",
+      "target": "en",
+      "original": "O ônibus já saiu; vamos esperar o próximo.",
+      "focus": "ônibus",
+      "focus_utf16": [
+        2,
+        8
+      ],
+      "model_installed": {
+        "pt": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "O ônibus já saiu; vamos esperar o próximo.",
+          "translation": "The bus has already left; Let's wait for the next.",
+          "elapsed_ms": 89.401589
+        },
+        {
+          "kind": "full_warm",
+          "input": "O ônibus já saiu; vamos esperar o próximo.",
+          "translation": "The bus has already left; Let's wait for the next.",
+          "elapsed_ms": 24.377931
+        },
+        {
+          "kind": "focus_cold",
+          "input": "ônibus",
+          "translation": "bus",
+          "elapsed_ms": 0.678477
+        },
+        {
+          "kind": "focus_warm",
+          "input": "ônibus",
+          "translation": "bus",
+          "elapsed_ms": 0.56482
+        },
+        {
+          "kind": "window_1",
+          "input": "O ônibus já",
+          "translation": "The bus already",
+          "elapsed_ms": 14.660365
+        },
+        {
+          "kind": "window_2",
+          "input": "O ônibus já saiu",
+          "translation": "The bus has already left",
+          "elapsed_ms": 19.336225
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-12",
+      "source": "ar",
+      "target": "en",
+      "original": "هل يمكنك إغلاق النافذة قبل أن نخرج؟",
+      "focus": "النافذة",
+      "focus_utf16": [
+        15,
+        22
+      ],
+      "model_installed": {
+        "ar": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "هل يمكنك إغلاق النافذة قبل أن نخرج؟",
+          "translation": "Can you close the window before we get out?",
+          "elapsed_ms": 149.338351
+        },
+        {
+          "kind": "full_warm",
+          "input": "هل يمكنك إغلاق النافذة قبل أن نخرج؟",
+          "translation": "Can you close the window before we get out?",
+          "elapsed_ms": 37.481694
+        },
+        {
+          "kind": "focus_cold",
+          "input": "النافذة",
+          "translation": "The window",
+          "elapsed_ms": 0.722316
+        },
+        {
+          "kind": "focus_warm",
+          "input": "النافذة",
+          "translation": "The window",
+          "elapsed_ms": 0.571539
+        },
+        {
+          "kind": "window_1",
+          "input": "إغلاق النافذة قبل",
+          "translation": "Close the window before",
+          "elapsed_ms": 28.853376
+        },
+        {
+          "kind": "window_2",
+          "input": "يمكنك إغلاق النافذة قبل أن",
+          "translation": "You can close the window before",
+          "elapsed_ms": 28.020764
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-13",
+      "source": "zh",
+      "target": "en",
+      "original": "明天下午我们在图书馆门口见面吧。",
+      "focus": "图书馆",
+      "focus_utf16": [
+        7,
+        10
+      ],
+      "model_installed": {
+        "zh": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "明天下午我们在图书馆门口见面吧。",
+          "translation": "I will meet in the library at the opening of the library tomorrow afternoon.",
+          "elapsed_ms": 157.599872
+        },
+        {
+          "kind": "full_warm",
+          "input": "明天下午我们在图书馆门口见面吧。",
+          "translation": "I will meet in the library at the opening of the library tomorrow afternoon.",
+          "elapsed_ms": 53.164129
+        },
+        {
+          "kind": "focus_cold",
+          "input": "图书馆",
+          "translation": "Library",
+          "elapsed_ms": 12.252315
+        },
+        {
+          "kind": "focus_warm",
+          "input": "图书馆",
+          "translation": "Library",
+          "elapsed_ms": 13.225542
+        },
+        {
+          "kind": "window_1",
+          "input": "在图书馆门口",
+          "translation": "At the entrance of the library",
+          "elapsed_ms": 26.030692
+        },
+        {
+          "kind": "window_2",
+          "input": "我们在图书馆门口见面",
+          "translation": "We meet at the entrance of the library",
+          "elapsed_ms": 32.624438
+        }
+      ],
+      "focus_literal_occurrences_in_full": 2,
+      "focus_complete_word_occurrences_in_full": 2,
+      "status": "translated"
+    },
+    {
+      "id": "local-14",
+      "source": "ja",
+      "target": "en",
+      "original": "駅の前で友達を十分待ちました。",
+      "focus": "駅",
+      "focus_utf16": [
+        0,
+        1
+      ],
+      "model_installed": {
+        "ja": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "駅の前で友達を十分待ちました。",
+          "translation": "I waited enough for my friend in front of the station.",
+          "elapsed_ms": 148.634122
+        },
+        {
+          "kind": "full_warm",
+          "input": "駅の前で友達を十分待ちました。",
+          "translation": "I waited enough for my friend in front of the station.",
+          "elapsed_ms": 46.9661
+        },
+        {
+          "kind": "focus_cold",
+          "input": "駅",
+          "translation": "Station",
+          "elapsed_ms": 9.917782
+        },
+        {
+          "kind": "focus_warm",
+          "input": "駅",
+          "translation": "Station",
+          "elapsed_ms": 9.728515
+        },
+        {
+          "kind": "window_1",
+          "input": "駅の",
+          "translation": "Station",
+          "elapsed_ms": 10.107119
+        },
+        {
+          "kind": "window_2",
+          "input": "駅の前",
+          "translation": "In front of the station",
+          "elapsed_ms": 19.264414
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-15",
+      "source": "ko",
+      "target": "en",
+      "original": "회의가 끝나면 저에게 메시지를 보내 주세요.",
+      "focus": "회의",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "model_installed": {
+        "ko": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "회의가 끝나면 저에게 메시지를 보내 주세요.",
+          "translation": "Please send me a message when the meeting is over.",
+          "elapsed_ms": 102.466459
+        },
+        {
+          "kind": "full_warm",
+          "input": "회의가 끝나면 저에게 메시지를 보내 주세요.",
+          "translation": "Please send me a message when the meeting is over.",
+          "elapsed_ms": 40.364528
+        },
+        {
+          "kind": "focus_cold",
+          "input": "회의",
+          "translation": "Meeting",
+          "elapsed_ms": 0.6046
+        },
+        {
+          "kind": "focus_warm",
+          "input": "회의",
+          "translation": "Meeting",
+          "elapsed_ms": 0.427381
+        },
+        {
+          "kind": "window_1",
+          "input": "회의가 끝나면",
+          "translation": "When the meeting is over",
+          "elapsed_ms": 26.380099
+        },
+        {
+          "kind": "window_2",
+          "input": "회의가 끝나면 저에게",
+          "translation": "At the end of the meeting,",
+          "elapsed_ms": 28.235552
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-16",
+      "source": "sw",
+      "target": "en",
+      "original": "Tafadhali funga dirisha kabla mvua haijaanza.",
+      "focus": "dirisha",
+      "focus_utf16": [
+        16,
+        23
+      ],
+      "model_installed": {
+        "sw": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "Tafadhali funga dirisha kabla mvua haijaanza.",
+          "translation": "Please close the window before the rain has not started.",
+          "elapsed_ms": 156.622821
+        },
+        {
+          "kind": "full_warm",
+          "input": "Tafadhali funga dirisha kabla mvua haijaanza.",
+          "translation": "Please close the window before the rain has not started.",
+          "elapsed_ms": 34.505379
+        },
+        {
+          "kind": "focus_cold",
+          "input": "dirisha",
+          "translation": "window",
+          "elapsed_ms": 0.935386
+        },
+        {
+          "kind": "focus_warm",
+          "input": "dirisha",
+          "translation": "window",
+          "elapsed_ms": 0.685433
+        },
+        {
+          "kind": "window_1",
+          "input": "funga dirisha kabla",
+          "translation": "Close the window before",
+          "elapsed_ms": 23.12142
+        },
+        {
+          "kind": "window_2",
+          "input": "Tafadhali funga dirisha kabla mvua",
+          "translation": "Please close the window before the rain",
+          "elapsed_ms": 24.181857
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-17",
+      "source": "sw",
+      "target": "en",
+      "original": "Sawa, nitakuona kesho asubuhi.",
+      "focus": "kesho",
+      "focus_utf16": [
+        16,
+        21
+      ],
+      "model_installed": {
+        "sw": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "Sawa, nitakuona kesho asubuhi.",
+          "translation": "Okay, I'll see you tomorrow morning.",
+          "elapsed_ms": 122.043618
+        },
+        {
+          "kind": "full_warm",
+          "input": "Sawa, nitakuona kesho asubuhi.",
+          "translation": "Okay, I'll see you tomorrow morning.",
+          "elapsed_ms": 34.713528
+        },
+        {
+          "kind": "focus_cold",
+          "input": "kesho",
+          "translation": "tomorrow",
+          "elapsed_ms": 1.20736
+        },
+        {
+          "kind": "focus_warm",
+          "input": "kesho",
+          "translation": "tomorrow",
+          "elapsed_ms": 1.052417
+        },
+        {
+          "kind": "window_1",
+          "input": "nitakuona kesho asubuhi",
+          "translation": "I'll see you tomorrow morning",
+          "elapsed_ms": 25.925693
+        },
+        {
+          "kind": "window_2",
+          "input": "Sawa, nitakuona kesho asubuhi",
+          "translation": "OK, I'll see you tomorrow morning",
+          "elapsed_ms": 31.862714
+        }
+      ],
+      "focus_literal_occurrences_in_full": 1,
+      "focus_complete_word_occurrences_in_full": 1,
+      "status": "translated"
+    },
+    {
+      "id": "local-18",
+      "source": "en",
+      "target": "ar",
+      "original": "Could you put the red cup beside the sink?",
+      "focus": "cup",
+      "focus_utf16": [
+        22,
+        25
+      ],
+      "model_installed": {
+        "ar": true
+      },
+      "outputs": [
+        {
+          "kind": "full_cold",
+          "input": "Could you put the red cup beside the sink?",
+          "translation": "هل يمكن أن تضع كأس حمراء بجانب الحوض؟",
+          "elapsed_ms": 162.767546
+        },
+        {
+          "kind": "full_warm",
+          "input": "Could you put the red cup beside the sink?",
+          "translation": "هل يمكن أن تضع كأس حمراء بجانب الحوض؟",
+          "elapsed_ms": 38.684505
+        },
+        {
+          "kind": "focus_cold",
+          "input": "cup",
+          "translation": "كوب",
+          "elapsed_ms": 0.638632
+        },
+        {
+          "kind": "focus_warm",
+          "input": "cup",
+          "translation": "كوب",
+          "elapsed_ms": 0.466555
+        },
+        {
+          "kind": "window_1",
+          "input": "red cup beside",
+          "translation": "كأس حمراء بجانب",
+          "elapsed_ms": 24.021095
+        },
+        {
+          "kind": "window_2",
+          "input": "the red cup beside the",
+          "translation": "كأس حمراء بجانب",
+          "elapsed_ms": 30.623937
+        }
+      ],
+      "focus_literal_occurrences_in_full": 0,
+      "focus_complete_word_occurrences_in_full": 0,
+      "focus_reading": null,
+      "reading_provenance": null,
+      "status": "translated"
+    }
+  ],
+  "scope": "local model translations only; literal occurrence is not alignment; no download"
+}

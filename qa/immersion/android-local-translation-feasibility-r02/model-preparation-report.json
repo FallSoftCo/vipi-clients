@@ -1,0 +1,76 @@
+{
+  "complete": true,
+  "languages": [
+    {
+      "language": "es",
+      "installed_before": false,
+      "installed_after": true,
+      "status": "checked",
+      "elapsed_ms": 7278.153555
+    },
+    {
+      "language": "fr",
+      "installed_before": false,
+      "installed_after": true,
+      "status": "checked",
+      "elapsed_ms": 6633.885187
+    },
+    {
+      "language": "de",
+      "installed_before": false,
+      "installed_after": true,
+      "status": "checked",
+      "elapsed_ms": 8157.12166
+    },
+    {
+      "language": "it",
+      "installed_before": false,
+      "installed_after": true,
+      "status": "checked",
+      "elapsed_ms": 6009.83196
+    },
+    {
+      "language": "pt",
+      "installed_before": false,
+      "installed_after": true,
+      "status": "checked",
+      "elapsed_ms": 6321.324526
+    },
+    {
+      "language": "ja",
+      "installed_before": false,
+      "installed_after": true,
+      "status": "checked",
+      "elapsed_ms": 7281.756731
+    },
+    {
+      "language": "ko",
+      "installed_before": false,
+      "installed_after": true,
+      "status": "checked",
+      "elapsed_ms": 6243.492793
+    },
+    {
+      "language": "zh",
+      "installed_before": false,
+      "installed_after": true,
+      "status": "checked",
+      "elapsed_ms": 6768.318641
+    },
+    {
+      "language": "ar",
+      "installed_before": false,
+      "installed_after": true,
+      "status": "checked",
+      "elapsed_ms": 7202.65515
+    },
+    {
+      "language": "sw",
+      "installed_before": false,
+      "installed_after": true,
+      "status": "checked",
+      "elapsed_ms": 9495.159394
+    }
+  ],
+  "scope": "official ML Kit models; no translation input"
+}
