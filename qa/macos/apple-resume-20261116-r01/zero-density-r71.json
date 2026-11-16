@@ -1,0 +1,16 @@
+[
+  {
+    "availablePositiveDensityUnits" : 2,
+    "offPartial" : false,
+    "offPool" : false,
+    "target" : "ja",
+    "zeroSeenAndMixedSelections" : 0
+  },
+  {
+    "availablePositiveDensityUnits" : 2,
+    "offPartial" : false,
+    "offPool" : false,
+    "target" : "sw",
+    "zeroSeenAndMixedSelections" : 0
+  }
+]
