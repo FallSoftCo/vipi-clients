@@ -1,0 +1,15 @@
+{
+  "device": "emulator-5620",
+  "package": "co.fallsoft.vipi.sourcecontextqa",
+  "result": "OK (3 tests), 4.811 seconds",
+  "tests": [
+    "sharedProviderSerializesBaselineAndRawSnapshotAcrossMessages",
+    "exactReferenceGuardedPoolAndAtomicBudget",
+    "exactReferenceActualOwnerSeenAndFull"
+  ],
+  "source_sha256": {
+    "android/app/src/main/java/co/fallsoft/vipi/SourceFrameLookup.kt": "f80a88c4011b15fec7d0ad432d32578c58d3536999f019ded8f444a50fc1f0ca",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/AdditiveExposureDeviceTest.kt": "161f4e86e16db23dac473ace1881c8d98decb4d6fc2b64ca97e6da4efd52b732"
+  },
+  "scope": "Nonrelease QA APK omits optional lexical assets; retained source frames and starter catalogs. Test checks controlled concurrent baseline overlap and exact-reference regression."
+}

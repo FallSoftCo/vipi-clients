@@ -160,4 +160,24 @@ class AdditiveExposureDeviceTest {
   } finally {vault.close();vault.file.parentFile!!.deleteRecursively();KeyStore.getInstance("AndroidKeyStore").apply{load(null)}.deleteEntry("co.fallsoft.vipi.messages.$account")}
  }
 
+ @Test fun sharedProviderSerializesBaselineAndRawSnapshotAcrossMessages() = runBlocking {
+  val context=InstrumentationRegistry.getInstrumentation().targetContext
+  val manifest=context.assets.open("immersion/source-frames-en-ja-catalog.json").use{it.readBytes()};val file=JSONObject(manifest.toString(Charsets.UTF_8)).getString("file")
+  val owner=SourceFrameLookup(context.assets.open("immersion/$file").use{it.readBytes()},manifest,"ja","concurrent-baseline")
+  val active=java.util.concurrent.atomic.AtomicInteger();val peak=java.util.concurrent.atomic.AtomicInteger();var last="";val snapshots=java.util.concurrent.ConcurrentLinkedQueue<String>()
+  val baseline=object:SourceLookupProvider {
+   override val cacheIdentity="concurrent-baseline"
+   override suspend fun lookup(original:String,source:String,target:String,density:Double):SourceLookupEvidence {
+    val n=active.incrementAndGet();peak.updateAndGet{maxOf(it,n)};last=original;delay(80);active.decrementAndGet()
+    return SourceLookupEvidence(original,source,target,cacheIdentity,null,emptyList())
+   }
+  }
+  val provider=owner.provider(baseline,emptySet(),{snapshots.add(last);emptyList()},BundledImmersionCatalog(context))
+  val first=async(Dispatchers.Default){provider.lookup("I like music.","en","ja",.75)}
+  val second=async(Dispatchers.Default){provider.lookup("I heard music.","en","ja",.75)}
+  val third=async(Dispatchers.Default){provider.lookupForFull("I like music.","en","ja",.75)}
+  listOf(first,second,third).awaitAll().forEach{assertTrue(it.isValid(it.original,"en","ja",provider.cacheIdentity))}
+  assertEquals(1,peak.get());assertEquals(setOf("I like music.","I heard music."),snapshots.toSet())
+ }
+
 }
