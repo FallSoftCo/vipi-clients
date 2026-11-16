@@ -1,0 +1,18 @@
+{
+  "complete": true,
+  "wifi_before": "1",
+  "mobile_before": "1",
+  "fixture_sha256": "7bb7aa2bb45fda9c1ae02c20b2bf721c93eb16e90117638789568c51b64f7dc8",
+  "downloads_invoked": false,
+  "no_cloud": true,
+  "wifi_off": "0",
+  "mobile_off": "0",
+  "passed": true,
+  "cases": 18,
+  "translated": 0,
+  "unavailable": 18,
+  "errors": 0,
+  "private_state_byte_identical": true,
+  "wifi_after": "1",
+  "mobile_after": "1"
+}

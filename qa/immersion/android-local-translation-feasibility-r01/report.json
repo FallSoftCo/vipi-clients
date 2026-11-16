@@ -1,0 +1,276 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "id": "local-01",
+      "source": "en",
+      "target": "es",
+      "original": "The train leaves from platform three in ten minutes.",
+      "focus": "train",
+      "focus_utf16": [
+        4,
+        9
+      ],
+      "model_installed": {
+        "es": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-02",
+      "source": "en",
+      "target": "es",
+      "original": "I train new volunteers every Saturday morning.",
+      "focus": "train",
+      "focus_utf16": [
+        2,
+        7
+      ],
+      "model_installed": {
+        "es": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-03",
+      "source": "en",
+      "target": "fr",
+      "original": "She went to the bank to deposit her paycheck.",
+      "focus": "bank",
+      "focus_utf16": [
+        16,
+        20
+      ],
+      "model_installed": {
+        "fr": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-04",
+      "source": "en",
+      "target": "fr",
+      "original": "We sat on the bank and watched the river flow.",
+      "focus": "bank",
+      "focus_utf16": [
+        14,
+        18
+      ],
+      "model_installed": {
+        "fr": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-05",
+      "source": "en",
+      "target": "de",
+      "original": "I am feeling under the weather, so I will stay home.",
+      "focus": "under the weather",
+      "focus_utf16": [
+        13,
+        30
+      ],
+      "model_installed": {
+        "de": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-06",
+      "source": "en",
+      "target": "ja",
+      "original": "Sounds good, see you after lunch!",
+      "focus": "Sounds good",
+      "focus_utf16": [
+        0,
+        11
+      ],
+      "model_installed": {
+        "ja": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-07",
+      "source": "es",
+      "target": "en",
+      "original": "La llave está junto a la taza azul.",
+      "focus": "llave",
+      "focus_utf16": [
+        3,
+        8
+      ],
+      "model_installed": {
+        "es": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-08",
+      "source": "fr",
+      "target": "en",
+      "original": "On se retrouve devant la bibliothèque après le cours ?",
+      "focus": "bibliothèque",
+      "focus_utf16": [
+        25,
+        37
+      ],
+      "model_installed": {
+        "fr": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-09",
+      "source": "de",
+      "target": "en",
+      "original": "Ich habe meinen Termin auf Freitag verschoben.",
+      "focus": "Termin",
+      "focus_utf16": [
+        16,
+        22
+      ],
+      "model_installed": {
+        "de": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-10",
+      "source": "it",
+      "target": "en",
+      "original": "Puoi spegnere la luce prima di uscire?",
+      "focus": "luce",
+      "focus_utf16": [
+        17,
+        21
+      ],
+      "model_installed": {
+        "it": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-11",
+      "source": "pt",
+      "target": "en",
+      "original": "O ônibus já saiu; vamos esperar o próximo.",
+      "focus": "ônibus",
+      "focus_utf16": [
+        2,
+        8
+      ],
+      "model_installed": {
+        "pt": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-12",
+      "source": "ar",
+      "target": "en",
+      "original": "هل يمكنك إغلاق النافذة قبل أن نخرج؟",
+      "focus": "النافذة",
+      "focus_utf16": [
+        15,
+        22
+      ],
+      "model_installed": {
+        "ar": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-13",
+      "source": "zh",
+      "target": "en",
+      "original": "明天下午我们在图书馆门口见面吧。",
+      "focus": "图书馆",
+      "focus_utf16": [
+        7,
+        10
+      ],
+      "model_installed": {
+        "zh": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-14",
+      "source": "ja",
+      "target": "en",
+      "original": "駅の前で友達を十分待ちました。",
+      "focus": "駅",
+      "focus_utf16": [
+        0,
+        1
+      ],
+      "model_installed": {
+        "ja": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-15",
+      "source": "ko",
+      "target": "en",
+      "original": "회의가 끝나면 저에게 메시지를 보내 주세요.",
+      "focus": "회의",
+      "focus_utf16": [
+        0,
+        2
+      ],
+      "model_installed": {
+        "ko": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-16",
+      "source": "sw",
+      "target": "en",
+      "original": "Tafadhali funga dirisha kabla mvua haijaanza.",
+      "focus": "dirisha",
+      "focus_utf16": [
+        16,
+        23
+      ],
+      "model_installed": {
+        "sw": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-17",
+      "source": "sw",
+      "target": "en",
+      "original": "Sawa, nitakuona kesho asubuhi.",
+      "focus": "kesho",
+      "focus_utf16": [
+        16,
+        21
+      ],
+      "model_installed": {
+        "sw": false
+      },
+      "status": "model_unavailable"
+    },
+    {
+      "id": "local-18",
+      "source": "en",
+      "target": "ar",
+      "original": "Could you put the red cup beside the sink?",
+      "focus": "cup",
+      "focus_utf16": [
+        22,
+        25
+      ],
+      "model_installed": {
+        "ar": false
+      },
+      "status": "model_unavailable"
+    }
+  ],
+  "scope": "local model translations only; literal occurrence is not alignment; no download"
+}
