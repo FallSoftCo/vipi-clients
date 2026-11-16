@@ -47,6 +47,7 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
     require(text.length in 1..256 && f.length()==2);val a=f.getInt(0);val b=f.getInt(1)
     require(a>=0 && b>a && b<=text.length && (a==0 || !Character.isLowSurrogate(text[a])) && (b==text.length || !Character.isLowSurrogate(text[b])))
     require(text.substring(a,b)==p.getString("source"))
+    carrierRange(v,p.getString("source"))
    }
   }
  }
@@ -62,6 +63,30 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
   }
  }
  private data class Hit(val pattern:JSONObject,val context:SourceLookupRange,val focus:SourceLookupRange,val contextCost:Int,val cost:Int,val id:String,var reason:String?)
+ /** Explicit reviewed noun carrier only; never infer a stem from arbitrary input. */
+ private fun carrierRange(variant:JSONObject,head:String):SourceLookupRange? {
+  require(variant.has("carrier_utf16")==variant.has("carrier_rule"))
+  if(!variant.has("carrier_utf16"))return null
+  val text=variant.getString("context");val bounds=variant.getJSONArray("carrier_utf16");val focus=variant.getJSONArray("focus_utf16")
+  require(bounds.length()==2)
+  val a=bounds.getInt(0);val b=bounds.getInt(1);val start=focus.getInt(0);val end=focus.getInt(1)
+  require(a>=0 && b>a && b<=text.length && a<=start && end<=b)
+  val carrier=text.substring(a,b)
+  when(variant.getString("carrier_rule")) {
+   "supplied-singular-definite-article-1" -> {
+    require(source=="ar" && head.length>=2 && !head.startsWith("ال") && head.all{it in '\u0620'..'\u064a'})
+    require(carrier=="ال"+head && start==a+2 && end==b)
+   }
+   "hangul-noun-particles-1" -> {
+    require(source=="ko" && head.isNotEmpty() && head.all{it in '\uac00'..'\ud7a3'})
+    val consonant=(head.last().code-0xac00)%28!=0
+    val suffixes=setOf(if(consonant)"은" else "는",if(consonant)"이" else "가",if(consonant)"을" else "를",if(consonant)"과" else "와","도","만","에","에서","의")
+    require(start==a && end==a+head.length && carrier.startsWith(head) && carrier.substring(head.length) in suffixes)
+   }
+   else -> throw IllegalArgumentException("Unknown noun carrier rule")
+  }
+  return SourceLookupRange(a,b)
+ }
  private fun overlaps(a:SourceLookupRange,b:SourceLookupRange)=a.overlaps(b)
  private fun union(ranges:List<SourceLookupRange>)=SourceLookupRange(ranges.minOf{it.start},ranges.maxOf{it.end})
  private fun nativeCost(words:List<IntRange>,range:SourceLookupRange):Int? {
@@ -92,7 +117,9 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
      val id=p.getString("id")+"@$a:${context.end}:${focus.start}:${focus.end}"
      if(!seen.add(id))continue
      val wholeSentence=v.optString("context_scope")=="whole_sentence"
-     val cc=if(wholeSentence)sentenceCost(words,context) else nativeCost(words,context);val fc=nativeCost(words,focus)
+     val cc=if(wholeSentence)sentenceCost(words,context) else nativeCost(words,context)
+     val carrier=carrierRange(v,p.getString("source"))?.let{SourceLookupRange(a+it.start,a+it.end)}
+     val fc=if(carrier==null)nativeCost(words,focus) else nativeCost(words,carrier)?.takeIf{it==1}
      val barrierText=if(wholeSentence)needle.trimEnd { it in ".!?。！？" } else needle
      val reason=when {
       wholeSentence && sentences.none{it.first==context.start && it.last+1==context.end}->"whole_sentence_scope"

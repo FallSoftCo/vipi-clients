@@ -1,0 +1,754 @@
+{
+  "candidate": "candidate-008-r04 inactive",
+  "cases": [
+    {
+      "source": "zh",
+      "text": "听音乐会",
+      "emitted": false,
+      "trace": [
+        {
+          "pattern_id": "zh-en:phrase_frame_listening_music",
+          "output_id": "zh-en:phrase_frame_listening_music@0:3:1:3",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": "right_boundary"
+        },
+        {
+          "pattern_id": "bare-noun-r01:zh-en:phrase_frame_liking_music",
+          "output_id": "bare-noun-r01:zh-en:phrase_frame_liking_music@1:3:1:3",
+          "context": [
+            1,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": "right_boundary"
+        },
+        {
+          "pattern_id": "finite-context-008:zh-en:phrase_frame_liking_music",
+          "output_id": "finite-context-008:zh-en:phrase_frame_liking_music@0:3:1:3",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": "right_boundary"
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "zh-en:phrase_frame_listening_music",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": "right_boundary"
+        },
+        {
+          "pattern_id": "bare-noun-r01:zh-en:phrase_frame_liking_music",
+          "context": [
+            1,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": "right_boundary"
+        },
+        {
+          "pattern_id": "finite-context-008:zh-en:phrase_frame_liking_music",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": "right_boundary"
+        }
+      ]
+    },
+    {
+      "source": "zh",
+      "text": "这本书房",
+      "emitted": false,
+      "trace": [
+        {
+          "pattern_id": "finite-context-008:zh-en:phrase_frame_reading_book",
+          "output_id": "finite-context-008:zh-en:phrase_frame_reading_book@0:3:2:3",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            2,
+            3
+          ],
+          "reason": "right_boundary"
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "finite-context-008:zh-en:phrase_frame_reading_book",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            2,
+            3
+          ],
+          "reason": "right_boundary"
+        }
+      ]
+    },
+    {
+      "source": "zh",
+      "text": "一本书店",
+      "emitted": false,
+      "trace": [
+        {
+          "pattern_id": "finite-context-008:zh-en:phrase_frame_reading_book",
+          "output_id": "finite-context-008:zh-en:phrase_frame_reading_book@0:3:2:3",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            2,
+            3
+          ],
+          "reason": "right_boundary"
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "finite-context-008:zh-en:phrase_frame_reading_book",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            2,
+            3
+          ],
+          "reason": "right_boundary"
+        }
+      ]
+    },
+    {
+      "source": "ko",
+      "text": "책에서도",
+      "emitted": false,
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_reading_book",
+          "output_id": "bare-noun-r01:ko-en:phrase_frame_reading_book@0:1:0:1",
+          "context": [
+            0,
+            1
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ko-en:phrase_frame_reading_book",
+          "output_id": "finite-context-008:ko-en:phrase_frame_reading_book@0:2:0:1",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ko-en:phrase_frame_reading_book",
+          "output_id": "finite-context-008:ko-en:phrase_frame_reading_book@0:3:0:1",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_reading_book",
+          "context": [
+            0,
+            1
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ko-en:phrase_frame_reading_book",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ko-en:phrase_frame_reading_book",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        }
+      ]
+    },
+    {
+      "source": "ko",
+      "text": "책에서의",
+      "emitted": false,
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_reading_book",
+          "output_id": "bare-noun-r01:ko-en:phrase_frame_reading_book@0:1:0:1",
+          "context": [
+            0,
+            1
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ko-en:phrase_frame_reading_book",
+          "output_id": "finite-context-008:ko-en:phrase_frame_reading_book@0:2:0:1",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ko-en:phrase_frame_reading_book",
+          "output_id": "finite-context-008:ko-en:phrase_frame_reading_book@0:3:0:1",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_reading_book",
+          "context": [
+            0,
+            1
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ko-en:phrase_frame_reading_book",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ko-en:phrase_frame_reading_book",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        }
+      ]
+    },
+    {
+      "source": "ar",
+      "text": "كتابي",
+      "emitted": false,
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:phrase_frame_reading_book",
+          "output_id": "bare-noun-r01:ar-en:phrase_frame_reading_book@0:4:0:4",
+          "context": [
+            0,
+            4
+          ],
+          "focus": [
+            0,
+            4
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:phrase_frame_reading_book",
+          "context": [
+            0,
+            4
+          ],
+          "focus": [
+            0,
+            4
+          ],
+          "reason": "partial_native_word"
+        }
+      ]
+    },
+    {
+      "source": "ar",
+      "text": "والكتاب",
+      "emitted": false,
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:phrase_frame_reading_book",
+          "output_id": "bare-noun-r01:ar-en:phrase_frame_reading_book@3:7:3:7",
+          "context": [
+            3,
+            7
+          ],
+          "focus": [
+            3,
+            7
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ar-en:phrase_frame_reading_book",
+          "output_id": "finite-context-008:ar-en:phrase_frame_reading_book@1:7:3:7",
+          "context": [
+            1,
+            7
+          ],
+          "focus": [
+            3,
+            7
+          ],
+          "reason": "partial_native_word"
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:phrase_frame_reading_book",
+          "context": [
+            3,
+            7
+          ],
+          "focus": [
+            3,
+            7
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ar-en:phrase_frame_reading_book",
+          "context": [
+            1,
+            7
+          ],
+          "focus": [
+            3,
+            7
+          ],
+          "reason": "partial_native_word"
+        }
+      ]
+    },
+    {
+      "source": "it",
+      "text": "la musica",
+      "emitted": false,
+      "trace": [],
+      "geometry": []
+    },
+    {
+      "source": "it",
+      "text": "La musica è",
+      "emitted": true,
+      "trace": [
+        {
+          "pattern_id": "finite-context-008:it-en:phrase_frame_liking_music",
+          "output_id": "finite-context-008:it-en:phrase_frame_liking_music@0:11:3:9",
+          "context": [
+            0,
+            11
+          ],
+          "focus": [
+            3,
+            9
+          ],
+          "reason": null
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "finite-context-008:it-en:phrase_frame_liking_music",
+          "context": [
+            0,
+            11
+          ],
+          "focus": [
+            3,
+            9
+          ],
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source": "it",
+      "text": "questa musica",
+      "emitted": true,
+      "trace": [
+        {
+          "pattern_id": "finite-context-008:it-en:phrase_frame_liking_music",
+          "output_id": "finite-context-008:it-en:phrase_frame_liking_music@0:13:7:13",
+          "context": [
+            0,
+            13
+          ],
+          "focus": [
+            7,
+            13
+          ],
+          "reason": null
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "finite-context-008:it-en:phrase_frame_liking_music",
+          "context": [
+            0,
+            13
+          ],
+          "focus": [
+            7,
+            13
+          ],
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source": "ar",
+      "text": "الماء",
+      "emitted": true,
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:needs_water",
+          "output_id": "bare-noun-r01:ar-en:needs_water@2:5:2:5",
+          "context": [
+            2,
+            5
+          ],
+          "focus": [
+            2,
+            5
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ar-en:needs_water",
+          "output_id": "finite-context-008:ar-en:needs_water@0:5:2:5",
+          "context": [
+            0,
+            5
+          ],
+          "focus": [
+            2,
+            5
+          ],
+          "reason": null
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:needs_water",
+          "context": [
+            2,
+            5
+          ],
+          "focus": [
+            2,
+            5
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ar-en:needs_water",
+          "context": [
+            0,
+            5
+          ],
+          "focus": [
+            2,
+            5
+          ],
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source": "ko",
+      "text": "책을",
+      "emitted": true,
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_reading_book",
+          "output_id": "bare-noun-r01:ko-en:phrase_frame_reading_book@0:1:0:1",
+          "context": [
+            0,
+            1
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ko-en:phrase_frame_reading_book",
+          "output_id": "finite-context-008:ko-en:phrase_frame_reading_book@0:2:0:1",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": null
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_reading_book",
+          "context": [
+            0,
+            1
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": "partial_native_word"
+        },
+        {
+          "pattern_id": "finite-context-008:ko-en:phrase_frame_reading_book",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            1
+          ],
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source": "zh",
+      "text": "音乐很",
+      "emitted": true,
+      "trace": [
+        {
+          "pattern_id": "bare-noun-r01:zh-en:phrase_frame_liking_music",
+          "output_id": "bare-noun-r01:zh-en:phrase_frame_liking_music@0:2:0:2",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            2
+          ],
+          "reason": "right_boundary"
+        },
+        {
+          "pattern_id": "finite-context-008:zh-en:phrase_frame_liking_music",
+          "output_id": "finite-context-008:zh-en:phrase_frame_liking_music@0:3:0:2",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            0,
+            2
+          ],
+          "reason": null
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "bare-noun-r01:zh-en:phrase_frame_liking_music",
+          "context": [
+            0,
+            2
+          ],
+          "focus": [
+            0,
+            2
+          ],
+          "reason": "right_boundary"
+        },
+        {
+          "pattern_id": "finite-context-008:zh-en:phrase_frame_liking_music",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            0,
+            2
+          ],
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source": "zh",
+      "text": "听音乐",
+      "emitted": true,
+      "trace": [
+        {
+          "pattern_id": "zh-en:phrase_frame_listening_music",
+          "output_id": "zh-en:phrase_frame_listening_music@0:3:1:3",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": null
+        },
+        {
+          "pattern_id": "bare-noun-r01:zh-en:phrase_frame_liking_music",
+          "output_id": "bare-noun-r01:zh-en:phrase_frame_liking_music@1:3:1:3",
+          "context": [
+            1,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": "stronger_context_recognized"
+        },
+        {
+          "pattern_id": "finite-context-008:zh-en:phrase_frame_liking_music",
+          "output_id": "finite-context-008:zh-en:phrase_frame_liking_music@0:3:1:3",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": null
+        }
+      ],
+      "geometry": [
+        {
+          "pattern_id": "zh-en:phrase_frame_listening_music",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": null
+        },
+        {
+          "pattern_id": "bare-noun-r01:zh-en:phrase_frame_liking_music",
+          "context": [
+            1,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": null
+        },
+        {
+          "pattern_id": "finite-context-008:zh-en:phrase_frame_liking_music",
+          "context": [
+            0,
+            3
+          ],
+          "focus": [
+            1,
+            3
+          ],
+          "reason": null
+        }
+      ]
+    }
+  ]
+}
