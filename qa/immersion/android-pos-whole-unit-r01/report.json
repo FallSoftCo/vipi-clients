@@ -1,0 +1,1305 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "id": "local-01",
+      "original": "The train leaves from platform three in ten minutes.",
+      "target": "es",
+      "status": "READY",
+      "name_protection": "UNAVAILABLE",
+      "native_words": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          10,
+          16
+        ],
+        [
+          17,
+          21
+        ],
+        [
+          22,
+          30
+        ],
+        [
+          31,
+          36
+        ],
+        [
+          37,
+          39
+        ],
+        [
+          40,
+          43
+        ],
+        [
+          44,
+          51
+        ]
+      ],
+      "tokens": [
+        {
+          "surface": "The",
+          "range": [
+            0,
+            3
+          ],
+          "tag": "DET",
+          "tag_score": 0.9926309644373614,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "train",
+          "range": [
+            4,
+            9
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.9625072092700401,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "tren",
+          "elapsed_ms": 0.860588,
+          "reconstructed": "The tren leaves from platform three in ten minutes.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 1
+        },
+        {
+          "surface": "leaves",
+          "range": [
+            10,
+            16
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.7278996853654789,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "hojas",
+          "elapsed_ms": 0.684056,
+          "reconstructed": "The train hojas from platform three in ten minutes.",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0
+        },
+        {
+          "surface": "from",
+          "range": [
+            17,
+            21
+          ],
+          "tag": "ADP",
+          "tag_score": 0.9935190635227269,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "platform",
+          "range": [
+            22,
+            30
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.9692596952759268,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "plataforma",
+          "elapsed_ms": 7.092491,
+          "reconstructed": "The train leaves from plataforma three in ten minutes.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 1
+        },
+        {
+          "surface": "three",
+          "range": [
+            31,
+            36
+          ],
+          "tag": "NUM",
+          "tag_score": 0.6854747680862929,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "in",
+          "range": [
+            37,
+            39
+          ],
+          "tag": "ADP",
+          "tag_score": 0.6476851057825749,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "ten",
+          "range": [
+            40,
+            43
+          ],
+          "tag": "NUM",
+          "tag_score": 0.9992647535433975,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "minutes",
+          "range": [
+            44,
+            51
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.9993587262908196,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "minutos",
+          "elapsed_ms": 0.821838,
+          "reconstructed": "The train leaves from platform three in ten minutos.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 1
+        },
+        {
+          "surface": ".",
+          "range": [
+            51,
+            52
+          ],
+          "tag": "PUNCT",
+          "tag_score": 0.9967476786757321,
+          "native_aligned": false,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        }
+      ],
+      "full_translation": "El tren sale de la plataforma tres en diez minutos."
+    },
+    {
+      "id": "local-02",
+      "original": "I train new volunteers every Saturday morning.",
+      "target": "es",
+      "status": "READY",
+      "name_protection": "UNAVAILABLE",
+      "native_words": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          12,
+          22
+        ],
+        [
+          23,
+          28
+        ],
+        [
+          29,
+          37
+        ],
+        [
+          38,
+          45
+        ]
+      ],
+      "tokens": [
+        {
+          "surface": "I",
+          "range": [
+            0,
+            1
+          ],
+          "tag": "PRON",
+          "tag_score": 0.9603874232676674,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "train",
+          "range": [
+            2,
+            7
+          ],
+          "tag": "VERB",
+          "tag_score": 0.9948523752513934,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "tren",
+          "elapsed_ms": 1.04538,
+          "reconstructed": "I tren new volunteers every Saturday morning.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 0
+        },
+        {
+          "surface": "new",
+          "range": [
+            8,
+            11
+          ],
+          "tag": "ADJ",
+          "tag_score": 0.9893897309935504,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "volunteers",
+          "range": [
+            12,
+            22
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.9995986561566014,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "los voluntarios",
+          "elapsed_ms": 1.425583,
+          "reconstructed": "I train new los voluntarios every Saturday morning.",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0
+        },
+        {
+          "surface": "every",
+          "range": [
+            23,
+            28
+          ],
+          "tag": "DET",
+          "tag_score": 0.6256365838181502,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "Saturday",
+          "range": [
+            29,
+            37
+          ],
+          "tag": "PROPN",
+          "tag_score": 0.998475941463939,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "morning",
+          "range": [
+            38,
+            45
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.9978641169441915,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "mañana",
+          "elapsed_ms": 1.311228,
+          "reconstructed": "I train new volunteers every Saturday mañana.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 1
+        },
+        {
+          "surface": ".",
+          "range": [
+            45,
+            46
+          ],
+          "tag": "PUNCT",
+          "tag_score": 0.9981857633519289,
+          "native_aligned": false,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        }
+      ],
+      "full_translation": "Entrengo a nuevos voluntarios todos los sábados por la mañana."
+    },
+    {
+      "id": "local-03",
+      "original": "She went to the bank to deposit her paycheck.",
+      "target": "fr",
+      "status": "READY",
+      "name_protection": "UNAVAILABLE",
+      "native_words": [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          12,
+          15
+        ],
+        [
+          16,
+          20
+        ],
+        [
+          21,
+          23
+        ],
+        [
+          24,
+          31
+        ],
+        [
+          32,
+          35
+        ],
+        [
+          36,
+          44
+        ]
+      ],
+      "tokens": [
+        {
+          "surface": "She",
+          "range": [
+            0,
+            3
+          ],
+          "tag": "PRON",
+          "tag_score": 0.992431327958863,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "went",
+          "range": [
+            4,
+            8
+          ],
+          "tag": "VERB",
+          "tag_score": 0.9983988261928161,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "est allé",
+          "elapsed_ms": 0.75322,
+          "reconstructed": "She est allé to the bank to deposit her paycheck.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 1
+        },
+        {
+          "surface": "to",
+          "range": [
+            9,
+            11
+          ],
+          "tag": "ADP",
+          "tag_score": 0.997135602425492,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "the",
+          "range": [
+            12,
+            15
+          ],
+          "tag": "DET",
+          "tag_score": 0.9979624167065235,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "bank",
+          "range": [
+            16,
+            20
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.96440358093329,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "banque",
+          "elapsed_ms": 1.7986,
+          "reconstructed": "She went to the banque to deposit her paycheck.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 1
+        },
+        {
+          "surface": "to",
+          "range": [
+            21,
+            23
+          ],
+          "tag": "PART",
+          "tag_score": 0.8768144263399419,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "deposit",
+          "range": [
+            24,
+            31
+          ],
+          "tag": "VERB",
+          "tag_score": 0.9987429864699082,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "dépôt",
+          "elapsed_ms": 0.895516,
+          "reconstructed": "She went to the bank to dépôt her paycheck.",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0
+        },
+        {
+          "surface": "her",
+          "range": [
+            32,
+            35
+          ],
+          "tag": "PRON",
+          "tag_score": 0.9768746121642036,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "paycheck",
+          "range": [
+            36,
+            44
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.7451238432422786,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "salaire",
+          "elapsed_ms": 1.260055,
+          "reconstructed": "She went to the bank to deposit her salaire.",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0
+        },
+        {
+          "surface": ".",
+          "range": [
+            44,
+            45
+          ],
+          "tag": "PUNCT",
+          "tag_score": 0.9982019487470335,
+          "native_aligned": false,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        }
+      ],
+      "full_translation": "Elle est allé à la banque pour déposer sa chèque de paie."
+    },
+    {
+      "id": "local-04",
+      "original": "We sat on the bank and watched the river flow.",
+      "target": "fr",
+      "status": "READY",
+      "name_protection": "UNAVAILABLE",
+      "native_words": [
+        [
+          0,
+          2
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          10,
+          13
+        ],
+        [
+          14,
+          18
+        ],
+        [
+          19,
+          22
+        ],
+        [
+          23,
+          30
+        ],
+        [
+          31,
+          34
+        ],
+        [
+          35,
+          40
+        ],
+        [
+          41,
+          45
+        ]
+      ],
+      "tokens": [
+        {
+          "surface": "We",
+          "range": [
+            0,
+            2
+          ],
+          "tag": "PRON",
+          "tag_score": 0.9853014059217775,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "sat",
+          "range": [
+            3,
+            6
+          ],
+          "tag": "VERB",
+          "tag_score": 0.9904069144817093,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "Sam",
+          "elapsed_ms": 1.253738,
+          "reconstructed": "We Sam on the bank and watched the river flow.",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0
+        },
+        {
+          "surface": "on",
+          "range": [
+            7,
+            9
+          ],
+          "tag": "ADP",
+          "tag_score": 0.9935670400027864,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "the",
+          "range": [
+            10,
+            13
+          ],
+          "tag": "DET",
+          "tag_score": 0.9982482990838556,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "bank",
+          "range": [
+            14,
+            18
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.9967092815266207,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "banque",
+          "elapsed_ms": 1.615136,
+          "reconstructed": "We sat on the banque and watched the river flow.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 1
+        },
+        {
+          "surface": "and",
+          "range": [
+            19,
+            22
+          ],
+          "tag": "CCONJ",
+          "tag_score": 0.9911165851293328,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "watched",
+          "range": [
+            23,
+            30
+          ],
+          "tag": "VERB",
+          "tag_score": 0.99963256792832,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "regardé",
+          "elapsed_ms": 0.854772,
+          "reconstructed": "We sat on the bank and regardé the river flow.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 1
+        },
+        {
+          "surface": "the",
+          "range": [
+            31,
+            34
+          ],
+          "tag": "DET",
+          "tag_score": 0.9962982413830053,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "river",
+          "range": [
+            35,
+            40
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.9985014445309752,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "rivière",
+          "elapsed_ms": 0.550969,
+          "reconstructed": "We sat on the bank and watched the rivière flow.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 1
+        },
+        {
+          "surface": "flow",
+          "range": [
+            41,
+            45
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.9064025791894033,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "flux",
+          "elapsed_ms": 1.705023,
+          "reconstructed": "We sat on the bank and watched the river flux.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 1
+        },
+        {
+          "surface": ".",
+          "range": [
+            45,
+            46
+          ],
+          "tag": "PUNCT",
+          "tag_score": 0.9985455447282706,
+          "native_aligned": false,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        }
+      ],
+      "full_translation": "Nous nous sommes assis sur la banque et avons regardé le flux de la rivière."
+    },
+    {
+      "id": "local-05",
+      "original": "I am feeling under the weather, so I will stay home.",
+      "target": "de",
+      "status": "READY",
+      "name_protection": "UNAVAILABLE",
+      "native_words": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          5,
+          12
+        ],
+        [
+          13,
+          18
+        ],
+        [
+          19,
+          22
+        ],
+        [
+          23,
+          30
+        ],
+        [
+          32,
+          34
+        ],
+        [
+          35,
+          36
+        ],
+        [
+          37,
+          41
+        ],
+        [
+          42,
+          46
+        ],
+        [
+          47,
+          51
+        ]
+      ],
+      "tokens": [
+        {
+          "surface": "I",
+          "range": [
+            0,
+            1
+          ],
+          "tag": "PRON",
+          "tag_score": 0.9954679483480141,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "am",
+          "range": [
+            2,
+            4
+          ],
+          "tag": "AUX",
+          "tag_score": 0.9771020027859517,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "feeling",
+          "range": [
+            5,
+            12
+          ],
+          "tag": "VERB",
+          "tag_score": 0.9973316757418348,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "Gefühl",
+          "elapsed_ms": 1.311085,
+          "reconstructed": "I am Gefühl under the weather, so I will stay home.",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0
+        },
+        {
+          "surface": "under",
+          "range": [
+            13,
+            18
+          ],
+          "tag": "ADP",
+          "tag_score": 0.9970963304442946,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "the",
+          "range": [
+            19,
+            22
+          ],
+          "tag": "DET",
+          "tag_score": 0.9973655542215537,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "weather",
+          "range": [
+            23,
+            30
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.9933792421757718,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "Wetter",
+          "elapsed_ms": 0.896556,
+          "reconstructed": "I am feeling under the Wetter, so I will stay home.",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 1
+        },
+        {
+          "surface": ",",
+          "range": [
+            30,
+            31
+          ],
+          "tag": "PUNCT",
+          "tag_score": 0.998197193244532,
+          "native_aligned": false,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "so",
+          "range": [
+            32,
+            34
+          ],
+          "tag": "ADV",
+          "tag_score": 0.7979876076604575,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "I",
+          "range": [
+            35,
+            36
+          ],
+          "tag": "PRON",
+          "tag_score": 0.9955304781995652,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "will",
+          "range": [
+            37,
+            41
+          ],
+          "tag": "AUX",
+          "tag_score": 0.9958839950088282,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "stay",
+          "range": [
+            42,
+            46
+          ],
+          "tag": "VERB",
+          "tag_score": 0.998983459882944,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "bleiben",
+          "elapsed_ms": 0.467413,
+          "reconstructed": "I am feeling under the weather, so I will bleiben home.",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0
+        },
+        {
+          "surface": "home",
+          "range": [
+            47,
+            51
+          ],
+          "tag": "ADV",
+          "tag_score": 0.8851951953154573,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": ".",
+          "range": [
+            51,
+            52
+          ],
+          "tag": "PUNCT",
+          "tag_score": 0.9968997852200084,
+          "native_aligned": false,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        }
+      ],
+      "full_translation": "Ich fühle mich unter dem Wetter, also bleibe ich zu Hause."
+    },
+    {
+      "id": "local-06",
+      "original": "Sounds good, see you after lunch!",
+      "target": "ja",
+      "status": "READY",
+      "name_protection": "UNAVAILABLE",
+      "native_words": [
+        [
+          0,
+          6
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          13,
+          16
+        ],
+        [
+          17,
+          20
+        ],
+        [
+          21,
+          26
+        ],
+        [
+          27,
+          32
+        ]
+      ],
+      "tokens": [
+        {
+          "surface": "Sounds",
+          "range": [
+            0,
+            6
+          ],
+          "tag": "VERB",
+          "tag_score": 0.9867488551810385,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "音",
+          "elapsed_ms": 1.402328,
+          "reconstructed": "音 good, see you after lunch!",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0,
+          "reading": "oto"
+        },
+        {
+          "surface": "good",
+          "range": [
+            7,
+            11
+          ],
+          "tag": "ADJ",
+          "tag_score": 0.9648412480549559,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": ",",
+          "range": [
+            11,
+            12
+          ],
+          "tag": "PUNCT",
+          "tag_score": 0.9680843980817003,
+          "native_aligned": false,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "see",
+          "range": [
+            13,
+            16
+          ],
+          "tag": "VERB",
+          "tag_score": 0.8206038615422507,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "見る",
+          "elapsed_ms": 1.316733,
+          "reconstructed": "Sounds good, 見る you after lunch!",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0,
+          "reading": "miru"
+        },
+        {
+          "surface": "you",
+          "range": [
+            17,
+            20
+          ],
+          "tag": "PRON",
+          "tag_score": 0.9869607265733109,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "after",
+          "range": [
+            21,
+            26
+          ],
+          "tag": "ADP",
+          "tag_score": 0.8938867500987604,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "lunch",
+          "range": [
+            27,
+            32
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.9961178983985033,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "ランチ",
+          "elapsed_ms": 1.737374,
+          "reconstructed": "Sounds good, see you after ランチ!",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0,
+          "reading": "ranchi"
+        },
+        {
+          "surface": "!",
+          "range": [
+            32,
+            33
+          ],
+          "tag": "PUNCT",
+          "tag_score": 0.9914590420461624,
+          "native_aligned": false,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        }
+      ],
+      "full_translation": "昼食後にお会いしましょう！"
+    },
+    {
+      "id": "local-18",
+      "original": "Could you put the red cup beside the sink?",
+      "target": "ar",
+      "status": "READY",
+      "name_protection": "UNAVAILABLE",
+      "native_words": [
+        [
+          0,
+          5
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          10,
+          13
+        ],
+        [
+          14,
+          17
+        ],
+        [
+          18,
+          21
+        ],
+        [
+          22,
+          25
+        ],
+        [
+          26,
+          32
+        ],
+        [
+          33,
+          36
+        ],
+        [
+          37,
+          41
+        ]
+      ],
+      "tokens": [
+        {
+          "surface": "Could",
+          "range": [
+            0,
+            5
+          ],
+          "tag": "AUX",
+          "tag_score": 0.994560752670778,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "you",
+          "range": [
+            6,
+            9
+          ],
+          "tag": "PRON",
+          "tag_score": 0.9795793981760506,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "put",
+          "range": [
+            10,
+            13
+          ],
+          "tag": "VERB",
+          "tag_score": 0.9995198383135948,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "ضع",
+          "elapsed_ms": 2.067201,
+          "reconstructed": "Could you ضع the red cup beside the sink?",
+          "literal_occurrences": 1,
+          "complete_target_word_occurrences": 0,
+          "reading": null
+        },
+        {
+          "surface": "the",
+          "range": [
+            14,
+            17
+          ],
+          "tag": "DET",
+          "tag_score": 0.9951607713627213,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "red",
+          "range": [
+            18,
+            21
+          ],
+          "tag": "ADJ",
+          "tag_score": 0.9811283526907641,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "cup",
+          "range": [
+            22,
+            25
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.8894916165221922,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "كوب",
+          "elapsed_ms": 2.196086,
+          "reconstructed": "Could you put the red كوب beside the sink?",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0,
+          "reading": null
+        },
+        {
+          "surface": "beside",
+          "range": [
+            26,
+            32
+          ],
+          "tag": "ADP",
+          "tag_score": 0.947407094809874,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "the",
+          "range": [
+            33,
+            36
+          ],
+          "tag": "DET",
+          "tag_score": 0.9958582537111325,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        },
+        {
+          "surface": "sink",
+          "range": [
+            37,
+            41
+          ],
+          "tag": "NOUN",
+          "tag_score": 0.9772191769057784,
+          "native_aligned": true,
+          "protected": false,
+          "admitted_for_diagnostic": true,
+          "translation": "بالوعة",
+          "elapsed_ms": 2.160074,
+          "reconstructed": "Could you put the red cup beside the بالوعة?",
+          "literal_occurrences": 0,
+          "complete_target_word_occurrences": 0,
+          "reading": null
+        },
+        {
+          "surface": "?",
+          "range": [
+            41,
+            42
+          ],
+          "tag": "PUNCT",
+          "tag_score": 0.9982741242097312,
+          "native_aligned": false,
+          "protected": false,
+          "admitted_for_diagnostic": false
+        }
+      ],
+      "full_translation": "هل يمكن أن تضع كأس حمراء بجانب الحوض؟"
+    }
+  ],
+  "scope": "POS research only; POS\/isolated translation do not establish sense, alignment or safe display; name detector unavailable"
+}

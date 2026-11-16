@@ -1,0 +1,5 @@
+# Offline Android English POS and complete-unit translation
+
+The seven English examples in the shared 18-message synthetic fixture were processed on emulator-5620 using the pinned OpenNLP English sentence/token/POS models and already installed ML Kit models, with Wi-Fi and mobile data disabled. The report preserves all raw tags, native boundaries, protected-range status, scores, whole-unit translations, complete target-word occurrences and reconstructed messages. Only exact native-aligned NOUN/VERB units were translated for diagnosis; auxiliary/proper-noun tags were excluded. A name detector is unavailable. This is an experiment, not authorization to display the outputs.
+
+Observed errors include “leaves” tagged as a noun and translated as hojas, the verb “train” translated as tren, “sat” translated as Sam, and river bank translated as banque. Full-sentence context itself also contained sense and negation errors. Complete-word coincidence is not proof of sense or alignment; non-Latin reading availability remains separately required. Device account files were byte-identical and connectivity restored.
