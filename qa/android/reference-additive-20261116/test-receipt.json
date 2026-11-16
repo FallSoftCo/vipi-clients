@@ -1,0 +1,25 @@
+{
+  "device": "emulator-5620",
+  "package": "co.fallsoft.vipi.sourcecontextqa",
+  "build": "full-asset debug QA, not release",
+  "instrumentation_tests": [
+    "exactReferenceGuardedPoolAndAtomicBudget",
+    "exactReferenceActualOwnerSeenAndFull"
+  ],
+  "result": "OK (2 tests), 7.071 seconds",
+  "core": "LookupFirstTest passed on offline JVM",
+  "device_state": "same signer update; account preferences messages hashes identical on install",
+  "source_sha256": {
+    "android/app/src/main/java/co/fallsoft/vipi/SourceFrameLookup.kt": "81e66386df7f3e7143f68783ede2f452ac8c2178c049ad7e3031613e669128b8",
+    "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt": "d458bd1b8a20b0025490786dd425c5c7a7341c69b7cd4757d93f5da75455fbad",
+    "android/app/src/main/java/co/fallsoft/vipi/BundledStarterLookup.kt": "8bb51f2312fb3a93098354ff1c13734c55b75810b2356b59d6ca7155cfb209f4",
+    "android/app/src/main/java/co/fallsoft/vipi/BundledSourceFrameCatalog.kt": "14edc3a05885bbc758a4908e7af977244a2868d9a1c5a1011b2a039a17a4651f",
+    "android/core/src/main/kotlin/co/fallsoft/vipi/core/LookupFirst.kt": "8ec735f674cefdccb88046badd01bf44f6ec5d07830050a6ece92e9abe57af82",
+    "android/core/src/test/kotlin/co/fallsoft/vipi/core/LookupFirstTest.kt": "bd4a4b686bf80b03ecb4f43599509b96ded92d86599e46ba285426aad20336e6",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/AdditiveExposureDeviceTest.kt": "7769592b60e62ee8464eb5d9aad4601d13f0dbdd17d55f7aaee08f4383eac6bc"
+  },
+  "limitations": [
+    "No full span-by-span pre/post capture; full exact reference uses prior baseline evidence path.",
+    "No release rebuild or store upload."
+  ]
+}

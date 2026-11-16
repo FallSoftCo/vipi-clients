@@ -90,12 +90,14 @@ internal class BundledSourceFrameCatalog private constructor(
     }
     private fun providers(): Map<Pair<String, String>, SourceLookupProvider> = entries.associate { entry ->
         entry.pair to object : SourceLookupProvider {
-            override val cacheIdentity = "bundled-source-pair-v1:$binding:${entry.source}-${entry.target}"
-            override suspend fun lookup(original: String, source: String, target: String, density: Double): SourceLookupEvidence {
+            override val cacheIdentity = "bundled-source-pair-v2:$binding:${entry.source}-${entry.target}"
+            override suspend fun lookup(original: String, source: String, target: String, density: Double): SourceLookupEvidence = lookupMode(original, source, target, density, false)
+            override suspend fun lookupForFull(original: String, source: String, target: String, density: Double): SourceLookupEvidence = lookupMode(original, source, target, density, true)
+            private suspend fun lookupMode(original: String, source: String, target: String, density: Double, full: Boolean): SourceLookupEvidence {
                 if (source != entry.source || target != entry.target)
                     return SourceLookupEvidence(original, source, target, cacheIdentity, null, emptyList())
                 val provider = load(entry) ?: return SourceLookupEvidence(original, source, target, cacheIdentity, null, emptyList())
-                val evidence = provider.lookup(original, source, target, density)
+                val evidence = if (full) provider.lookupForFull(original, source, target, density) else provider.lookup(original, source, target, density)
                 require(evidence.isValid(original, source, target, provider.cacheIdentity))
                 return SourceLookupEvidence(original, source, target, cacheIdentity, evidence.partial, evidence.recognitions, evidence.candidatePool, evidence.poolNativeSourceTokens)
                     .also { require(it.isValid(original, source, target, cacheIdentity)) }

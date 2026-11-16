@@ -65,7 +65,8 @@ object LookupFirst {
                 if (sourcePartial != null && (sourcePartial.original != text || sourcePartial.translation != null ||
                     !SourceReferencePresentation.isAnchored(sourcePartial, target))) return stop(ImmersionStatus.INVALID_RESULT)
                 partial = sourcePartial?.let { constraints?.filterPartial(it) ?: it.takeIf { constraints == null } }
-                if (partial == null && forward == null) partial = constraints?.partial?.let { constraints?.filterPartial(it) }
+                if (partial == null && (forward == null || request.intent == ImmersionIntent.AUTOMATIC_IMMERSION))
+                    partial = constraints?.partial?.let { constraints?.filterPartial(it) }
             }
             partial?.let { admitted ->
                 onPartial(admitted)

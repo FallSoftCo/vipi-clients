@@ -1,0 +1,59 @@
+[
+  {
+    "target": "ja",
+    "pool": [
+      {
+        "original": "music",
+        "start": 7,
+        "end": 12,
+        "translated": "音楽",
+        "reading": "ongaku",
+        "cost": 1,
+        "id": "frame:4644e910c72d2142ed5f5bfbd6f9d1f0822871920cfc7e8cc15f0b5c3f414489:frame-ba51de36821ae144d8e1b7ce",
+        "priority": 0
+      },
+      {
+        "original": "I",
+        "start": 0,
+        "end": 1,
+        "translated": "私",
+        "reading": "watashi",
+        "cost": 1,
+        "id": "starter-en-ja-007:dc8ed63767d110088afe31d42ab97cdda7502078677843abd4fb8795935fc2f3:word-en-ja-i",
+        "priority": 1
+      }
+    ],
+    "seen_music_low_budget": [
+      "I",
+      "music"
+    ]
+  },
+  {
+    "target": "sw",
+    "pool": [
+      {
+        "original": "music",
+        "start": 7,
+        "end": 12,
+        "translated": "muziki",
+        "reading": null,
+        "cost": 1,
+        "id": "frame:8880b2ed64309c5a288cddadccc25152cdf853cc5bfb779cddb308dc3d7455c5:frame-eeb9ded11f2246c14aff33d6",
+        "priority": 0
+      },
+      {
+        "original": "I like",
+        "start": 0,
+        "end": 6,
+        "translated": "ninapenda",
+        "reading": null,
+        "cost": 2,
+        "id": "starter-en-sw-008:37752d18786f69fb361983292ce60da98285c2b2736751675406f4b69426733a:clause-en-sw-i-like",
+        "priority": 1
+      }
+    ],
+    "seen_music_low_budget": [
+      "music"
+    ]
+  }
+]

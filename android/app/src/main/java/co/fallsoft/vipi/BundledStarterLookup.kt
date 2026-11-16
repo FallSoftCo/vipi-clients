@@ -35,13 +35,15 @@ internal object BundledStarterLookup {
                 }).toByteArray(Charsets.UTF_8))
         return object : SourceLookupProvider {
             override val cacheIdentity = identity
-            override suspend fun lookup(original: String, source: String, target: String, density: Double): SourceLookupEvidence {
+            override suspend fun lookup(original: String, source: String, target: String, density: Double): SourceLookupEvidence = lookupMode(original, source, target, density, false)
+            override suspend fun lookupForFull(original: String, source: String, target: String, density: Double): SourceLookupEvidence = lookupMode(original, source, target, density, true)
+            private suspend fun lookupMode(original: String, source: String, target: String, density: Double, full: Boolean): SourceLookupEvidence {
                 val selected = when {
                     source == "en" && target == "ja" && japanese != null -> japanese
                     source == "en" && target == "sw" && swahili != null -> swahili
                     else -> candidates[source to target]
                 } ?: return SourceLookupEvidence(original, source, target, identity, null, emptyList())
-                val evidence = selected.lookup(original, source, target, density)
+                val evidence = if (full) selected.lookupForFull(original, source, target, density) else selected.lookup(original, source, target, density)
                 require(evidence.isValid(original, source, target, selected.cacheIdentity))
                 return SourceLookupEvidence(evidence.original, evidence.source, evidence.target, identity,
                     evidence.partial, evidence.recognitions, evidence.candidatePool, evidence.poolNativeSourceTokens).also { require(it.isValid(original, source, target, identity)) }

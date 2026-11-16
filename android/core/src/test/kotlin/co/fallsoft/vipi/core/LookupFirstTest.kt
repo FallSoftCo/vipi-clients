@@ -150,4 +150,25 @@ class LookupFirstTest {
         assertTrue("translate:es-en" in w.events);assertTrue("align" in w.events)
     }
 
+    @Test fun exactReferenceUsesApprovedPartialOnlyForAutomatic() = run {
+        val text = "Hello."; val id = "guarded-test-v2"
+        val unit = SourceReferenceUnit(0, 5, "Hello", "Hola", null, "approved", "a".repeat(64), 1)
+        val partial = requireNotNull(SourceReferencePresentation.create(text,"es",listOf(unit),.75,1))
+        var alignments = 0; var evidenceCalls = 0
+        suspend fun resolve(intent: ImmersionIntent, input: String = "en", withPartial: Boolean = true) =
+            LookupFirst.resolve(LookupFirstRequest(text,"en","es",input,intent,false), { true },
+                reference = { _, from, _ -> if (from == "en") "Hola." else "Hello." }, identify = { "en" },
+                modelsReady = { error("unexpected model") }, translate = { _,_,_ -> error("unexpected translation") },
+                align = { a,b,_ -> alignments++; ImmersionResult(a,b,emptyList()) }, sourceEvidenceIdentity = id,
+                sourceEvidence = { a,b,c -> evidenceCalls++; SourceLookupEvidence(a,b,c,id,if(withPartial) partial else null,emptyList()) })
+        val automatic = resolve(ImmersionIntent.AUTOMATIC_IMMERSION)
+        assertEquals(ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, automatic.origin); assertEquals(partial,automatic.result)
+        val full = resolve(ImmersionIntent.FULL_TRANSLATION); assertEquals("Hola.",full.result!!.translation)
+        assertEquals(ImmersionOrigin.LOOKUP_REFERENCE,full.origin); assertEquals(1,alignments)
+        val fallback = resolve(ImmersionIntent.AUTOMATIC_IMMERSION,withPartial=false)
+        assertEquals(ImmersionOrigin.LOOKUP_REFERENCE,fallback.origin); assertEquals(2,alignments)
+        val before = evidenceCalls; resolve(ImmersionIntent.AUTOMATIC_IMMERSION,input="es")
+        assertEquals(before,evidenceCalls)
+    }
+
 }

@@ -1,0 +1,29 @@
+{
+  "free_before": 5822324736,
+  "additional_budget": 1073741824,
+  "absolute_floor": 4294967296,
+  "min_free": 5821517824,
+  "complete": true,
+  "revision": "all-direction-20261116-r01",
+  "started": "2026-11-16T20:15:58.699861+00:00",
+  "command": [
+    "taskset",
+    "-c",
+    "2,3",
+    "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+    "--offline",
+    "--no-daemon",
+    "--max-workers=1",
+    "--console=plain",
+    "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+    "-Pkotlin.compiler.execution.strategy=in-process",
+    "-PvipiQaAbi=x86_64",
+    "-PvipiSourceContextQualification=true",
+    ":app:assembleDebug",
+    ":app:assembleDebugAndroidTest"
+  ],
+  "pid": 1059149,
+  "exit": 0,
+  "free_after": 5837864960,
+  "seconds": 76.01320708263665
+}

@@ -127,4 +127,37 @@ class AdditiveExposureDeviceTest {
    val withheld=provider.lookup("I like winter.","en","sw",.75);assertTrue(withheld.candidatePool.none{it.original.equals("winter",true) && it.starterIdentity!=null})
   } finally {owner.close();vault.close();vault.file.parentFile!!.deleteRecursively();KeyStore.getInstance("AndroidKeyStore").apply{load(null)}.deleteEntry("co.fallsoft.vipi.messages.$account")}
  }
+ @Test fun exactReferenceGuardedPoolAndAtomicBudget() = runBlocking {
+  val context=InstrumentationRegistry.getInstrumentation().targetContext
+  val provider=requireNotNull(BundledStarterLookup.provider(context));val rows=org.json.JSONArray()
+  for(target in listOf("ja","sw")) {
+   val text="I like music.";val evidence=provider.lookup(text,"en",target,.75)
+   assertTrue(evidence.isValid(text,"en",target,provider.cacheIdentity));assertTrue("$target empty pool",evidence.candidatePool.isNotEmpty())
+   val pool=evidence.candidatePool
+   val fullEvidence=provider.lookupForFull(text,"en",target,.75);assertTrue(fullEvidence.isValid(text,"en",target,provider.cacheIdentity));assertTrue(fullEvidence.candidatePool.isEmpty())
+   assertTrue(pool.none{it.original=="like"})
+   val low=AdditiveExposureSelection.select(pool,3,.25){AdditiveExposureSelection.Seen(it.original=="music",true)}
+   assertTrue(low.sumOf{requireNotNull(it.nativeSourceTokens)}<=2);assertTrue(low.none{it.original=="like"})
+   assertTrue(AdditiveExposureSelection.select(pool,3,0.0){AdditiveExposureSelection.Seen(true,true)}.isEmpty())
+   val literal=provider.lookup("https://example.com/music","en",target,.75)
+   assertTrue(literal.candidatePool.none{it.original=="music"})
+   rows.put(JSONObject().put("target",target).put("pool",org.json.JSONArray(pool.map{JSONObject().put("original",it.original).put("start",it.start).put("end",it.end).put("translated",it.translated).put("reading",it.reading?:JSONObject.NULL).put("cost",it.nativeSourceTokens).put("id",it.referenceId).put("priority",it.selectionPriority?:JSONObject.NULL)})).put("seen_music_low_budget",org.json.JSONArray(low.map{it.original})))
+  }
+  File(context.filesDir,"additive-selection-r01/exact-reference-trace.json").writeText(rows.toString(2))
+ }
+
+ @Test fun exactReferenceActualOwnerSeenAndFull() = runBlocking {
+  val context=InstrumentationRegistry.getInstrumentation().targetContext;val provider=requireNotNull(BundledStarterLookup.provider(context));val account=UUID.randomUUID();val vault=MessageVault(context,account);val store=VocabularyFamiliarityStore(vault);val text="I like music."
+  try {
+   for(target in listOf("ja","sw")) {
+    val evidence=provider.lookup(text,"en",target,.75);val music=evidence.candidatePool.first{it.original=="music"};assertTrue(store.observeSourceUnits(listOf(music),"en",target,100))
+    val owner=ConversationImmersion(context,"en",target,.25,sourceLookup=provider,familiarity=store,qaModelsReady=false)
+    try {
+     val result=requireNotNull(owner.presentation(text,"en"));assertEquals(if(target=="ja") listOf("I","music") else listOf("music"),result.spans.map{it.original})
+     val full=owner.fullTranslation(text,"en",null,1);assertEquals(BundledImmersionCatalog(context).reference(text,"en",target),full.result!!.translation);assertEquals(ImmersionOrigin.LOOKUP_REFERENCE,full.origin)
+    } finally {owner.close()}
+   }
+  } finally {vault.close();vault.file.parentFile!!.deleteRecursively();KeyStore.getInstance("AndroidKeyStore").apply{load(null)}.deleteEntry("co.fallsoft.vipi.messages.$account")}
+ }
+
 }

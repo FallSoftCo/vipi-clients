@@ -5,7 +5,7 @@ import co.fallsoft.vipi.core.*
 import org.json.JSONObject
 import org.json.JSONArray
 
-/** Finite approved source contexts; existing full-reference priority remains first. */
+/** Finite approved source contexts; full references remain available independently. */
 internal data class SourceFrameStarterCandidate(val entryID:String,val conceptID:String,val category:String,val rank:Int,val tokenCount:Int,
  val range:SourceLookupRange,val cost:Int,val reason:String?,val unit:SourceReferenceUnit)
 internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private val target:String,private val baselineIdentity:String,private val source:String="en") {
@@ -52,12 +52,17 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
   }
  }
  fun provider(baseline:SourceLookupProvider,known:Set<String>,raw:()->List<SourceFrameStarterCandidate>,catalog:BundledImmersionCatalog):SourceLookupProvider {
-  val snapshot=known.toSet();val owner=this;val combinedIdentity=identity+":reference-first-v1"
+  val snapshot=known.toSet();val owner=this;val combinedIdentity=identity+":guarded-reference-automatic-v2"
   return object:SourceLookupProvider {
    override val cacheIdentity=combinedIdentity
+   override suspend fun lookupForFull(original:String,source:String,target:String,density:Double):SourceLookupEvidence {
+    if(source!=owner.source || target!=owner.target || catalog.reference(original,source,target)==null) return lookup(original,source,target,density)
+    val b=baseline.lookupForFull(original,source,target,density)
+    return SourceLookupEvidence(b.original,b.source,b.target,cacheIdentity,b.partial,b.recognitions,b.candidatePool,b.poolNativeSourceTokens).also{require(it.isValid(original,source,target,cacheIdentity))}
+   }
    override suspend fun lookup(original:String,source:String,target:String,density:Double):SourceLookupEvidence {
     val b=baseline.lookup(original,source,target,density);val candidates=raw()
-    val result=if(source!=owner.source || target!=owner.target || catalog.reference(original,source,target)!=null)b else owner.resolve(original,density,snapshot,b,candidates)
+    val result=if(source!=owner.source || target!=owner.target)b else owner.resolve(original,density,snapshot,b,candidates)
     return SourceLookupEvidence(result.original,result.source,result.target,cacheIdentity,result.partial,result.recognitions,result.candidatePool,result.poolNativeSourceTokens).also{require(it.isValid(original,source,target,cacheIdentity))}
    }
   }

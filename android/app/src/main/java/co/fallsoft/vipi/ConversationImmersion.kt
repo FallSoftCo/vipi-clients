@@ -139,6 +139,7 @@ internal interface SourceUnitQaPolicy {
 internal interface SourceLookupProvider {
     val cacheIdentity: String
     suspend fun lookup(original: String, source: String, target: String, density: Double): SourceLookupEvidence
+    suspend fun lookupForFull(original: String, source: String, target: String, density: Double): SourceLookupEvidence = lookup(original, source, target, density)
 }
 internal data class ImmersionInvocationCounters(val readiness: Int = 0, val heavyAlignment: Int = 0,
     val partialPresentation: Int = 0, val qaSourceLookup: Int = 0, val sourceRecognition: Int = 0)
@@ -343,8 +344,8 @@ internal class ConversationImmersion(context: Context, val source: String, val t
                     recognitionCalls++
                     withContext(Dispatchers.Default) {
                         val useHistory = familiarity != null && density > 0 && from == source && to == target
-                        val evidence = provider.lookup(original, from, to, if (useHistory) .75 else density)
-                        if (!useHistory) evidence else if (evidence.candidatePool.isEmpty()) provider.lookup(original, from, to, density) else {
+                        val evidence = if (intent == ImmersionIntent.FULL_TRANSLATION) provider.lookupForFull(original, from, to, if (useHistory) .75 else density) else provider.lookup(original, from, to, if (useHistory) .75 else density)
+                        if (!useHistory) evidence else if (evidence.candidatePool.isEmpty()) { if (intent == ImmersionIntent.FULL_TRANSLATION) provider.lookupForFull(original, from, to, density) else provider.lookup(original, from, to, density) } else {
                             val nativeCount = requireNotNull(evidence.poolNativeSourceTokens)
                             val history = familiarity!!.sourceSeenBatch(evidence.candidatePool, from, to, exposureDay())
                             val chosen = co.fallsoft.vipi.core.AdditiveExposureSelection.select(evidence.candidatePool, nativeCount, density) {
