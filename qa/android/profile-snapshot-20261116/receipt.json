@@ -1,0 +1,11 @@
+{
+  "instrumentation_exit": 0,
+  "instrumentation_passed": true,
+  "pre_vs_post_private_bytes_identical": {
+    "co.fallsoft.vipi": true,
+    "co.fallsoft.vipi.sourcecontextqa": true
+  },
+  "other_encrypted_private_records_unchanged_between_speech_snapshots": true,
+  "test_apk_sha256": "80c1289847a47c0946bc7265a950af801bc9075987494543ed1990a2c28d8ad0",
+  "scope": "Retained ciphertext snapshots decrypted in memory with existing Android Keystore key; field names and equality only. No network, account writes, restore or key creation."
+}
