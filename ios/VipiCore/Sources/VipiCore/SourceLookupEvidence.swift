@@ -27,10 +27,15 @@ public struct SourceLookupEvidence: Sendable {
     public let original: String, source: String, target: String, catalogIdentity: String
     public let partial: PartialImmersionResult?
     public let recognitions: [SourceRecognition]
+    /// Optional request-bound, pre-packing reviewed pool. Legacy producers omit it.
+    public let eligiblePool: [SourceReferenceUnit]?
+    public let nativeSourceTokenCount: Int?
     public init(original: String, source: String, target: String, catalogIdentity: String,
-                partial: PartialImmersionResult?, recognitions: [SourceRecognition]) {
+                partial: PartialImmersionResult?, recognitions: [SourceRecognition],
+                eligiblePool: [SourceReferenceUnit]? = nil, nativeSourceTokenCount: Int? = nil) {
         self.original = original; self.source = source; self.target = target
         self.catalogIdentity = catalogIdentity; self.partial = partial; self.recognitions = recognitions
+        self.eligiblePool = eligiblePool; self.nativeSourceTokenCount = nativeSourceTokenCount
     }
     public func validated(text: String, sourceLanguage: String, targetLanguage: String,
                           identity: String) -> SourceLookupConstraints? {
@@ -74,7 +79,23 @@ public struct SourceLookupEvidence: Sendable {
             guard partial.original.utf8.elementsEqual(text.utf8),
                   SourceReferencePresentation.validPartial(partial, target: target) else { return nil }
         }
-        return SourceLookupConstraints(evidence: self)
+        let constraints = SourceLookupConstraints(evidence: self)
+        guard (eligiblePool == nil) == (nativeSourceTokenCount == nil) else { return nil }
+        if let pool = eligiblePool, let count = nativeSourceTokenCount {
+            guard pool.count <= 4096, (1...16_384).contains(count) else { return nil }
+            for unit in pool {
+                guard constraints.permits(range:unit.range, outputID:unit.outputID),
+                      SourceReferencePresentation.create(original:original,target:target,units:[unit],density:1,nativeSourceTokenCount:count) != nil else { return nil }
+                if let frame = unit.reviewedFrameIdentity {
+                    guard frame.sourceLanguage == source, frame.targetLanguage == target,
+                          frame.sourceFace.utf8.elementsEqual(unit.original.utf8),
+                          frame.targetFace.utf8.elementsEqual(unit.translated.utf8),
+                          frame.reading.utf8.elementsEqual((unit.reading ?? "").utf8),
+                          unit.referenceID == "frame:" + unit.catalogSHA256 + ":" + frame.patternID else { return nil }
+                }
+            }
+        }
+        return constraints
     }
 }
 

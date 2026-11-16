@@ -59,14 +59,17 @@ public struct SourceReferenceUnit: Sendable, Equatable {
     public let conceptID: String?
     /// Explicit catalog proof only; legacy/aligned text never infers an ID.
     public let outputID: String?
+    /// Only a verified reviewed frame can supply this stable exposure identity.
+    public let reviewedFrameIdentity: ReviewedFrameIdentity?
 
     public init(range: NSRange, original: String, translated: String, reading: String?,
                 referenceID: String, catalogSHA256: String, nativeSourceTokens: Int,
-                conceptID: String? = nil, outputID: String? = nil) {
+                conceptID: String? = nil, outputID: String? = nil,
+                reviewedFrameIdentity: ReviewedFrameIdentity? = nil) {
         self.range = range; self.original = original; self.translated = translated
         self.reading = reading; self.referenceID = referenceID; self.catalogSHA256 = catalogSHA256
         self.nativeSourceTokens = nativeSourceTokens
-        self.conceptID = conceptID; self.outputID = outputID
+        self.conceptID = conceptID; self.outputID = outputID; self.reviewedFrameIdentity = reviewedFrameIdentity
     }
 }
 

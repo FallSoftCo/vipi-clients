@@ -45,7 +45,8 @@ import VipiCore
             }
             let result = SourceLookupEvidence(original: evidence.original, source: evidence.source,
                 target: evidence.target, catalogIdentity: identity, partial: evidence.partial,
-                recognitions: evidence.recognitions)
+                recognitions: evidence.recognitions, eligiblePool: evidence.eligiblePool,
+                nativeSourceTokenCount: evidence.nativeSourceTokenCount)
             guard result.validated(text: context.original, sourceLanguage: context.pair.source,
                 targetLanguage: context.pair.target, identity: identity) != nil else {
                 throw SwahiliStarterLookup.Invalid.input

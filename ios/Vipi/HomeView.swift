@@ -192,9 +192,9 @@ struct SettingsView: View {
                     LabeledContent("Languages", value: VipiLanguage.named(state.targetLanguage).name)
                 }.accessibilityIdentifier("language-settings-link")
                 VStack(alignment: .leading, spacing: 12) {
-                    HStack { Text("How many words change"); Spacer(); Text("\(Int(state.density * 100))%").foregroundStyle(VipiDesign.secondary) }
-                    Slider(value: $state.density, in: 0...0.75, step: 0.05).accessibilityLabel("Amount of words to switch")
-                    Text("Choose how much of each message you want to switch. The amount shown depends on available words and phrases.").font(.footnote).foregroundStyle(VipiDesign.secondary)
+                    HStack { Text("New words"); Spacer(); Text("\(Int(state.density * 100))%").foregroundStyle(VipiDesign.secondary) }
+                    Slider(value: $state.density, in: 0...0.75, step: 0.05).accessibilityLabel("New words")
+                    Text("Choose how many new words appear. Words you’ve seen can keep appearing too, so the total can grow. Set to 0% to turn word switching off.").font(.footnote).foregroundStyle(VipiDesign.secondary)
                 }.padding(.vertical, 8)
             }
             Section("Appearance and notifications") {

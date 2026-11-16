@@ -8,8 +8,10 @@ final class VocabularyFamiliarityStore {
     private let vault: MessageVault
     private var cached: [String: VocabularyFamiliarity] = [:]
     private var idKey: SymmetricKey?
+    private var frameCached: [String: VocabularyFamiliarity] = [:]
+    private(set) var frameHistoryRevision: UInt64 = 0
     init(vault: MessageVault) { self.vault = vault }
-    private func key(_ span: ImmersionSpan, source: String, target: String) throws -> String {
+    private func ensureKey() throws -> SymmetricKey {
         if idKey == nil {
             let bytes = try vault.transaction {
                 if let saved = try vault.get("immersion-metadata", "id-key-v1") {
@@ -21,12 +23,18 @@ final class VocabularyFamiliarityStore {
             }
             idKey = SymmetricKey(data: bytes)
         }
+        return idKey!
+    }
+    private func key(_ span: ImmersionSpan, source: String, target: String) throws -> String {
         // Plain dictionary hashes would reveal vocabulary through offline guessing.
         return HMAC<SHA256>.authenticationCode(for: Data(["v1", source, target, span.original.lowercased(), span.translated]
-            .joined(separator: "\0").utf8), using: idKey!).map { String(format: "%02x", $0) }.joined()
+            .joined(separator: "\0").utf8), using: try ensureKey()).map { String(format: "%02x", $0) }.joined()
     }
-    private func read(_ key: String) throws -> VocabularyFamiliarity {
-        guard let data = try vault.get("immersion-exposure", key) else { return .init() }
+    private func frameKey(_ identity: ReviewedFrameIdentity) throws -> String {
+        HMAC<SHA256>.authenticationCode(for: identity.encoded, using: try ensureKey()).map { String(format: "%02x", $0) }.joined()
+    }
+    private func read(_ key: String, namespace: String = "immersion-exposure") throws -> VocabularyFamiliarity {
+        guard let data = try vault.get(namespace, key) else { return .init() }
         let record = try JSONDecoder().decode(VocabularyFamiliarity.self, from: data)
         guard (0...3650).contains(record.exposureDays), record.lastDay >= -1,
               record.lastDay <= 3_000_000 else { throw MessageVault.Failure.invalidRecord }
@@ -69,4 +77,44 @@ final class VocabularyFamiliarityStore {
             cached.merge(saved) { _, new in new }; return true
         } catch { return false }
     }
+    struct FrameHistory { let seen: Bool, due: Bool }
+    /// Failed reads are explicit: callers must not invent unseen/due history.
+    func frameHistory(_ identities: [ReviewedFrameIdentity], day: Int) throws -> [FrameHistory?] {
+        guard (0...3_000_000).contains(day), identities.count <= 4096 else { throw MessageVault.Failure.invalidRecord }
+        let ids = try identities.map(frameKey)
+        return try vault.transaction {
+            ids.map { id -> FrameHistory? in
+                let value: VocabularyFamiliarity
+                do { value = try frameCached[id] ?? read(id, namespace:"immersion-frame-exposure-next") }
+                catch { return nil } // A corrupt key cannot poison other eligible words.
+                if frameCached.count < 4096 { frameCached[id] = value }
+                let interval = value.exposureDays >= 5 ? 14 : value.exposureDays >= 4 ? 7 : value.exposureDays >= 3 ? 4 : value.exposureDays >= 2 ? 2 : 1
+                return FrameHistory(seen:value.exposureDays > 0, due:value.exposureDays > 0 && day >= value.lastDay && day - value.lastDay >= interval)
+            }
+        }
+    }
+    /// Call only for approved references after a complete visible target dwell.
+    @discardableResult func observeFrames(_ identities: [ReviewedFrameIdentity], day: Int) -> Bool {
+        guard (0...3_000_000).contains(day), !identities.isEmpty, identities.count <= 128 else { return false }
+        do {
+            let ids = Set(try identities.map(frameKey))
+            var changed = false
+            let saved = try vault.transaction {
+                var updates: [String:VocabularyFamiliarity] = [:]
+                for id in ids {
+                    var value = try read(id, namespace:"immersion-frame-exposure-next")
+                    if value.observe(day:day) {
+                        try vault.put("immersion-frame-exposure-next",id,JSONEncoder().encode(value)); changed = true
+                    }
+                    updates[id]=value
+                }
+                return updates
+            }
+            if frameCached.count + saved.count > 4096 { frameCached.removeAll() }
+            frameCached.merge(saved) { _, new in new }
+            if changed { frameHistoryRevision &+= 1 }
+            return true
+        } catch { return false }
+    }
+
 }

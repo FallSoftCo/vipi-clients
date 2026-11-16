@@ -3,6 +3,16 @@ import SwiftUI
 @preconcurrency import Translation
 import VipiCore
 
+private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPresentation) -> Bool {
+    guard a == b, a.original.utf8.elementsEqual(b.original.utf8), a.spans.count == b.spans.count else { return false }
+    return zip(a.spans,b.spans).allSatisfy { x,y in
+        x.range == y.range && x.targetRange == y.targetRange &&
+            x.original.utf8.elementsEqual(y.original.utf8) && x.translated.utf8.elementsEqual(y.translated.utf8) &&
+            (x.romanization == nil) == (y.romanization == nil) &&
+            (x.romanization ?? "").utf8.elementsEqual((y.romanization ?? "").utf8)
+    }
+}
+
 /// Lookup-first native routing. Persisted/encrypted ChatItem text is never rewritten.
 @MainActor @Observable final class ConversationImmersion {
     struct Request: Identifiable {
@@ -21,9 +31,24 @@ import VipiCore
     func targetDwell(_ result: ImmersionPresentation) -> Duration {
         .milliseconds(familiarity?.targetMilliseconds(result.spans, source: pair.source, target: pair.target, day: exposureDay) ?? 4500)
     }
-    func observeExposure(_ spans: [ImmersionSpan]) {
-        guard !closed else { return }
+    func observeExposure(_ spans: [ImmersionSpan], presentation: ImmersionPresentation, identity: ImmersionRequestIdentity) {
+        guard !closed, identity == self.identity(messageID:identity.messageID,text:identity.text),
+              presentation.original.utf8.elementsEqual(identity.text.utf8), !spans.isEmpty else { return }
+        func exact(_ a:ImmersionSpan,_ b:ImmersionSpan) -> Bool {
+            a.range == b.range && a.targetRange == b.targetRange &&
+                a.original.utf8.elementsEqual(b.original.utf8) && a.translated.utf8.elementsEqual(b.translated.utf8) &&
+                (a.romanization ?? "").utf8.elementsEqual((b.romanization ?? "").utf8) &&
+                (a.romanization == nil) == (b.romanization == nil)
+        }
+        guard spans.allSatisfy({ span in presentation.spans.contains(where:{exact(span,$0)}) }) else { return }
         familiarity?.observe(spans, source: pair.source, target: pair.target, day: exposureDay)
+        if case .partial(let partial) = presentation {
+            let approved = zip(partial.spans,partial.references).compactMap { span,reference -> ReviewedFrameIdentity? in
+                guard spans.contains(where:{exact($0,span)}) else { return nil }
+                return reference.reviewedFrameIdentity
+            }
+            if !approved.isEmpty { familiarity?.observeFrames(approved,day:exposureDay) }
+        }
     }
     private var knownConceptIDs = Set<String>()
     private let sourceUnits: SourceUnitLookup?
@@ -34,6 +59,9 @@ import VipiCore
     private var deadlines: [UUID: Task<Void, Never>] = [:]
     private var fullRequests: [ImmersionRequestIdentity: (UUID, Task<LookupFirstOutcome?, Never>)] = [:]
     private var cache = ImmersionPresentationCache()
+    // Visible and in-flight snapshots stay pinned; inactive old messages are
+    // evicted by LRU so a long conversation cannot disable future switching.
+    @ObservationIgnored private var frozenInvocations = PinnedSnapshotCache<LookupFirstOutcome>(capacity:4096)
     private var availabilityRevision: UInt64 = 0
     private let readings: FullReadingCache
     private var readingRevision = 0
@@ -58,8 +86,11 @@ import VipiCore
     }
     #endif
 
-    private func cacheKey(text: String, inputLanguage: String?) -> String {
-        let key = (sourceUnits.map { $0.identity + "\0" } ?? "") + (inputLanguage ?? "auto") + ":" + text
+    private func cacheKey(text: String, inputLanguage: String?, messageID: String?, generation: UUID? = nil) -> String {
+        // Distinct immutable messages keep their selected snapshot after a dwell;
+        // a later message with the same text may use newer exposure history.
+        let message = messageID.map { "\($0.utf8.count):" + $0 } ?? "anonymous"
+        let key = (generation ?? epoch).uuidString + "\0" + (sourceUnits.map { $0.identity + "\0" } ?? "") + message + "\0" + (inputLanguage ?? "auto") + ":" + text
         #if DEBUG
         return (qaSourceUnitVersion.map { $0 + "\0" } ?? "") + key
         #else
@@ -91,8 +122,14 @@ import VipiCore
     }
     func cached(_ text: String, messageID: String? = nil) -> ImmersionPresentation? {
         guard !closed else { return nil }
-        return cache[cacheKey(text: text, inputLanguage: messageID.flatMap { inputLanguages[$0] })]
+        let key=cacheKey(text:text,inputLanguage:messageID.flatMap { inputLanguages[$0] },messageID:messageID)
+        return frozenInvocations.value(for:Data(key.utf8))?.result ?? cache[key]
     }
+    private func snapshotKey(_ identity:ImmersionRequestIdentity) -> Data {
+        Data(cacheKey(text:identity.text,inputLanguage:identity.inputLanguage,messageID:identity.messageID,generation:identity.generation).utf8)
+    }
+    func pinSnapshot(_ identity:ImmersionRequestIdentity) { frozenInvocations.pin(snapshotKey(identity)) }
+    func unpinSnapshot(_ identity:ImmersionRequestIdentity) { frozenInvocations.unpin(snapshotKey(identity)) }
     func fullReading(for result: ImmersionPresentation, identity: ImmersionRequestIdentity) -> FullReading? {
         guard !closed, identity == self.identity(messageID: identity.messageID, text: identity.text),
               let translated = result.translation else { return nil }
@@ -182,7 +219,14 @@ import VipiCore
                 (messageID == nil || inputLanguages[messageID!] == inputLanguage)
         }
         guard valid() else { return nil }
-        let key = cacheKey(text: text, inputLanguage: inputLanguage)
+        let key = cacheKey(text: text, inputLanguage: inputLanguage, messageID: messageID)
+        let frozenKey = Data(key.utf8)
+        let pinForRequest = intent == .automaticImmersion && messageID != nil
+        if pinForRequest {
+            if let frozen = frozenInvocations.value(for:frozenKey) { return frozen.cachedInvocation() }
+            frozenInvocations.pin(frozenKey)
+        }
+        defer { if pinForRequest { frozenInvocations.unpin(frozenKey) } }
         // Automatic re-entry/model readiness cannot silently extend a useful
         // partial. Only the explicit whole-language action requests that work.
         if let saved = cache.cachedInvocation(key: key),
@@ -230,16 +274,49 @@ import VipiCore
                 sourceEvidenceIdentity: sourceUnits?.identity,
                 sourceEvidence: sourceUnits.map { provider in
                     { original, source, target in
-                        try await provider.resolve(.init(original: original,
-                            pair: .init(source: source, target: target), density: activeDensity,
-                            knownConceptIDs: activeKnownConceptIDs))
+                        let requestPair = TranslationPair(source:source,target:target)
+                        func existing() async throws -> SourceLookupEvidence {
+                            try await provider.resolve(.init(original:original,pair:requestPair,density:activeDensity,knownConceptIDs:activeKnownConceptIDs))
+                        }
+                        guard intent == .automaticImmersion, activeDensity > 0, messageID != nil,
+                              let familiarity = self.familiarity else { return try await existing() }
+                        let expanded = try await provider.resolve(.init(original:original,pair:requestPair,density:0.75,knownConceptIDs:activeKnownConceptIDs))
+                        guard expanded.validated(text:original,sourceLanguage:source,targetLanguage:target,identity:provider.identity) != nil,
+                              let pool=expanded.eligiblePool, let count=expanded.nativeSourceTokenCount else { return try await existing() }
+                        let known = pool.compactMap(\.reviewedFrameIdentity)
+                        let states: [VocabularyFamiliarityStore.FrameHistory?]
+                        do { states = try familiarity.frameHistory(known,day:self.exposureDay) }
+                        catch { return try await existing() }
+                        var index = 0
+                        let history:[AdditiveReferenceSelection.History] = pool.map { unit in
+                            guard unit.reviewedFrameIdentity != nil else { return .novel }
+                            defer { index += 1 }
+                            guard let item=states[index] else { return .unavailable }
+                            return item.seen ? .seen(due:item.due) : .novel
+                        }
+                        guard let selected=AdditiveReferenceSelection.select(units:pool,history:history,nativeSourceTokenCount:count,density:activeDensity,preserveProducerPriority:true) else { return try await existing() }
+                        let partial=SourceReferencePresentation.create(original:original,target:target,units:selected,density:1,nativeSourceTokenCount:count)
+                        return SourceLookupEvidence(original:expanded.original,source:expanded.source,target:expanded.target,catalogIdentity:expanded.catalogIdentity,
+                            partial:partial,recognitions:expanded.recognitions,eligiblePool:pool,nativeSourceTokenCount:count)
                     }
                 },
                 onPartial: { partial in
                     guard valid() else { return }
+                    if intent == .automaticImmersion, messageID != nil {
+                        if let frozen = self.frozenInvocations.value(for:frozenKey) {
+                            if case .partial(let saved)? = frozen.result { onPartial(saved) }
+                            return
+                        }
+                        guard self.frozenInvocations.insert(.init(result:.partial(partial),origin:.sourceReferencePartial,
+                            status:.partial,localTranslationCalls:0,fallbackStatus:nil),for:frozenKey) else { return }
+                    }
                     self.remember(.partial(partial), key: key); onPartial(partial)
                 })
             guard valid() else { return nil }
+            if intent == .automaticImmersion, messageID != nil {
+                if let frozen = frozenInvocations.value(for:frozenKey) { lastOutcome = frozen; return frozen }
+                if outcome.result != nil && !frozenInvocations.insert(outcome,for:frozenKey) { return nil }
+            }
             prepareReading(outcome.result, language: activePair.target)
             lastOutcome = outcome
             // A response that began under an older readiness state must not
@@ -317,7 +394,7 @@ import VipiCore
         for reply in outstanding { reply.resume(returning: nil) }
     }
     func close() {
-        closed = true; invalidateOutstanding(); cache.removeAll()
+        closed = true; invalidateOutstanding(); cache.removeAll(); frozenInvocations.removeAll()
         swahili.removeAll(); inputLanguages.removeAll(); knownConceptIDs.removeAll(); lastOutcome = nil; revision += 1
     }
 }
@@ -414,7 +491,11 @@ struct ConversationImmersionText: View {
                     originalMessage: text, inputLanguage: inputLanguage,
                     onInputLanguage: { speech.stop(); immersion.selectInputLanguage($0, for: id) },
                     requestingTranslation: fullRequest != nil, onRequestTranslation: requestTranslation,
-                    onExposure: immersion.observeExposure)
+                    onExposure: { [result, presentedIdentity = identity] spans in
+                        guard presentedIdentity == identity, let current = presentation.value(for:presentedIdentity),
+                              sameExactPresentation(current,result) else { return }
+                        immersion.observeExposure(spans,presentation:result,identity:presentedIdentity)
+                    })
                     .id(identity) // Drop old reveal/selection/full-target action state.
             } else {
                 VStack(alignment: .leading, spacing: 7) {
@@ -468,12 +549,14 @@ struct ConversationImmersionText: View {
             guard !Task.isCancelled else { return }
             presentation.publish(value, for: produced, current: identity, paused: currentlyPaused)
         }
-        .onChange(of: identity) { _, current in
+        .onAppear { immersion.pinSnapshot(identity) }
+        .onChange(of: identity) { old, current in
+            immersion.unpinSnapshot(old); immersion.pinSnapshot(current)
             fullRequest?.cancel(); fullRequest = nil; fullFailure = nil
             presentation.invalidate(for: current); mode = .immersed
             if speech.activeMessage == id { speech.stop() }
         }
-        .onDisappear { fullRequest?.cancel(); fullRequest = nil }
+        .onDisappear { immersion.unpinSnapshot(identity); fullRequest?.cancel(); fullRequest = nil }
         .onChange(of: paused, initial: true) { _, paused in
             currentlyPaused = paused
             if !paused { presentation.resume(for: identity) }

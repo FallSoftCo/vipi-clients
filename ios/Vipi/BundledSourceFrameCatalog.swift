@@ -85,7 +85,8 @@ import VipiCore
                 let provider = try self.load(entry), evidence = try await provider.resolve(context)
                 guard evidence.validated(text: context.original, sourceLanguage: entry.source, targetLanguage: entry.target, identity: provider.identity) != nil else { throw SourceFrameLookup.Invalid.evidence }
                 return SourceLookupEvidence(original: evidence.original, source: evidence.source, target: evidence.target,
-                    catalogIdentity: identity, partial: evidence.partial, recognitions: evidence.recognitions)
+                    catalogIdentity: identity, partial: evidence.partial, recognitions: evidence.recognitions,
+                    eligiblePool: evidence.eligiblePool, nativeSourceTokenCount: evidence.nativeSourceTokenCount)
             })
         })
     }

@@ -146,7 +146,8 @@ struct SourceFrameStarterCandidate {
                 known: context.knownConceptIDs, baseline: original, raw: candidates)
             return SourceLookupEvidence(original: resolved.original, source: resolved.source,
                 target: resolved.target, catalogIdentity: identity, partial: resolved.partial,
-                recognitions: resolved.recognitions)
+                recognitions: resolved.recognitions, eligiblePool: resolved.eligiblePool,
+                nativeSourceTokenCount: resolved.nativeSourceTokenCount)
         }
     }
     private final class Hit {
@@ -253,7 +254,9 @@ struct SourceFrameStarterCandidate {
             for h in g where !top.contains(where:{$0 === h}) && h.reason == nil {h.reason="stronger_context_recognized"}
             if ambiguous {for h in top {h.reason="competing_strongest_contexts"}}
             let approved:[SourceApprovedOutput] = !ambiguous && best.reason == nil ? [.init(outputID:best.id,range:best.focus)] : []
-            if !approved.isEmpty {frameUnits.append((best,.init(range:best.focus,original:text.substring(with:best.focus),translated:best.pattern.target,reading:best.pattern.reading.isEmpty ? nil : best.pattern.reading,referenceID:"frame:"+packSHA+":"+best.pattern.id,catalogSHA256:packSHA,nativeSourceTokens:best.cost,conceptID:best.pattern.concept_id,outputID:best.id)))}
+            if !approved.isEmpty {frameUnits.append((best,.init(range:best.focus,original:text.substring(with:best.focus),translated:best.pattern.target,reading:best.pattern.reading.isEmpty ? nil : best.pattern.reading,referenceID:"frame:"+packSHA+":"+best.pattern.id,catalogSHA256:packSHA,nativeSourceTokens:best.cost,conceptID:best.pattern.concept_id,outputID:best.id,reviewedFrameIdentity:ReviewedFrameIdentity(
+                verifiedReviewedPattern:true,sourceLanguage:source,targetLanguage:target,patternID:best.pattern.id,
+                sourceFace:text.substring(with:best.focus),targetFace:best.pattern.target,meaning:best.pattern.meaning,reading:best.pattern.reading))))}
             frameRecognitions.append(.init(ruleID:"frame-group-\(n)",recordSHA256:JapaneseStarterLookup.digest(Data(g.map(\.id).sorted().joined(separator:"\0").utf8)),context:union(g.map(\.context)),mask:union(g.map(\.focus)),mode:ambiguous ? .ambiguous : .headBackoff,approvedOutputs:approved))
         }
         trace=hits.map{["pattern_id":$0.pattern.id,"output_id":$0.id,"context":[$0.context.location,NSMaxRange($0.context)],"focus":[$0.focus.location,NSMaxRange($0.focus)],"reason":$0.reason as Any? ?? NSNull()]}
@@ -267,6 +270,13 @@ struct SourceFrameStarterCandidate {
         let fixed=baseline.recognitions.filter{$0.mode != .headBackoff}+frameRecognitions.filter{$0.mode != .headBackoff}+literalRanges.enumerated().map{n,r in SourceRecognition(ruleID:"native-literal-\(n)",recordSHA256:packSHA,context:r,mask:r,mode:.ambiguous,approvedOutputs:[])}
         let candidates=(frameUnits.sorted{stronger($0.0,$1.0)}.map{$0.1}+ordinary.map(\.unit)).filter{u in fixed.allSatisfy{n in n.mask.map{overlap($0,u.range)} != true || (n.mode != .ambiguous && n.approvedOutputs.contains{$0.outputID==u.outputID && $0.range==u.range})}}
 
+        // Preserve the established strongest/content/rank precedence before
+        // exporting a pool; remove overlapping weaker alternatives without a
+        // density cap, so later valid words remain available to the packer.
+        var poolCandidates:[SourceReferenceUnit]=[]
+        for unit in candidates where !poolCandidates.contains(where:{overlap($0.range,unit.range)}) {
+            poolCandidates.append(unit)
+        }
         var chosen:[SourceReferenceUnit]=[];var used=0
         for u in candidates {if chosen.count>=128 {break};if used+u.nativeSourceTokens>budget || chosen.contains(where:{overlap($0.range,u.range)}) {continue};chosen.append(u);used+=u.nativeSourceTokens}
         let nodes=(baseline.recognitions+frameRecognitions).filter{$0.mode == .headBackoff}.sorted{(($0.mask ?? $0.context).location,NSMaxRange($0.mask ?? $0.context)) < (($1.mask ?? $1.context).location,NSMaxRange($1.mask ?? $1.context))}
@@ -278,8 +288,15 @@ struct SourceFrameStarterCandidate {
             return .init(ruleID:"merged-\(n)",recordSHA256:JapaneseStarterLookup.digest(Data(g.map(\.recordSHA256).sorted().joined().utf8)),context:context,mask:mask,mode:ambiguous ? .ambiguous : .headBackoff,approvedOutputs:permitted)
         }
         let partial=SourceReferencePresentation.create(original:original,target:target,units:chosen.sorted{$0.range.location<$1.range.location},density:density,nativeSourceTokenCount:native.count)
-        let result=SourceLookupEvidence(original:original,source:source,target:target,catalogIdentity:identity,partial:partial,recognitions:recognitions+fixed)
-        guard let constraints=result.validated(text:original,sourceLanguage:source,targetLanguage:target,identity:identity) else {throw Invalid.evidence}
+        let base=SourceLookupEvidence(original:original,source:source,target:target,catalogIdentity:identity,partial:partial,recognitions:recognitions+fixed)
+        guard let constraints=base.validated(text:original,sourceLanguage:source,targetLanguage:target,identity:identity) else {throw Invalid.evidence}
+        let qualifiedPool=poolCandidates.filter { unit in
+            constraints.permits(range:unit.range,outputID:unit.outputID) &&
+                SourceReferencePresentation.create(original:original,target:target,units:[unit],density:1,nativeSourceTokenCount:native.count) != nil
+        }
+        let result=SourceLookupEvidence(original:original,source:source,target:target,catalogIdentity:identity,partial:partial,recognitions:recognitions+fixed,
+            eligiblePool:density > 0 && !native.isEmpty ? qualifiedPool : nil,nativeSourceTokenCount:density > 0 && !native.isEmpty ? native.count : nil)
+        guard result.validated(text:original,sourceLanguage:source,targetLanguage:target,identity:identity) != nil else {throw Invalid.evidence}
         if let partial {guard constraints.filterPartial(partial)==partial else {throw Invalid.evidence}}
         return result
     }
