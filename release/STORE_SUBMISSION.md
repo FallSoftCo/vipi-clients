@@ -24,9 +24,10 @@ Google Cloud separately requires company reauthentication; Firebase HTTP v1
 messaging remains disabled. Firebase page access is not delivery qualification.
 
 `privacy-data-inventory.json` maps implemented data flows and pinned SDK
-declarations. Its latest incremental review links the saved Google questionnaire;
-earlier source inventories remain dated. Apple privacy entry and final signed
-binary/configuration reconciliation remain separate work.
+declarations. Its November 16 incremental review covers local familiarity
+records and their chat-backup exclusion; the earlier Google questionnaire
+readback remains dated and was not resubmitted. Apple privacy entry and final
+signed binary/configuration reconciliation remain separate work.
 
 ## Listing and screenshots
 
@@ -55,7 +56,7 @@ dark, large-text and RTL/device-size QA are validation work, not a requirement
 to crowd every listing image with multiple variants. Final sizes and required
 device families come from the current store console.
 
-The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The signed `0fda43f` bundle estimates 416,960,679 bytes for the retained ARM64, English, 420 dpi, SDK 35 device configuration. Four generated splits pass upload-signer and 16 KiB alignment checks. The earlier `a53ff86` estimate was 416,959,214 bytes. This is a local bundletool estimate; Google Play has not calculated or accepted it. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. The existing r08 client-source archive predates this build; corresponding-source closure and publication remain outstanding. See `build-artifacts-20261116.json` and `store-size-constraints.json`.
+The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The signed `0fda43f` bundle estimates 416,960,679 bytes for the retained ARM64, English, 420 dpi, SDK 35 device configuration. Four generated splits pass upload-signer and 16 KiB alignment checks. The earlier `a53ff86` estimate was 416,959,214 bytes. This is a local bundletool estimate; Google Play has not calculated or accepted it. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. Published source preview r10 matches the current Android application inputs and unsigned Apple `4908d4e` archive; anonymous public-download hashes are verified. Source publication does not settle the separate linked-dependency distribution question. See `client-source-publication-20261116.json`, `build-artifacts-20261116.json` and `store-size-constraints.json`.
 
 ## Reviewer access
 

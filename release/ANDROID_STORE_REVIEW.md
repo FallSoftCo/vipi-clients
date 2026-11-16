@@ -9,10 +9,15 @@ bundletool download estimate is 416,960,679 bytes; four generated splits passed
 signer and 16 KiB alignment checks. This is a local estimate, not Play's
 calculation or acceptance. The prior `a53ff86` estimate was 416,959,214 bytes.
 See `build-artifacts-20261116.json` and `android-store-configuration.json`.
-The existing r08 client-source archive predates this build and is not the final
-corresponding source. No Play upload or review submission has occurred. Exact-reference
+The published November 16 source preview r10 matches this build's application
+inputs; public download hashes are verified in `client-source-publication-20261116.json`.
+No Play upload or review submission has occurred. Exact-reference
 selection and concurrency corrections passed controlled QA; the signed release
-APK has not been installed for device testing.
+APK also passed isolated API 34 x86_64 emulator startup and offline onboarding
+checks, with its installed hash verified. Japanese script/Latin previews,
+Swahili, language selection and speed controls were exercised. Post-login
+settings, account access and purchases were not attempted; the no-audio emulator
+does not establish acoustic quality. See `qa/android/signed-release-20261116/receipt.json`.
 
 ## Product and reviewer access
 
@@ -140,8 +145,9 @@ account creation; see its [deletion guidance](https://support.google.com/googlep
 1. Actual Play products/offers and billing/restore/refund/RTDN
    qualification. The new private app requires its first bundle upload before
    subscription products can be configured.
-2. Corresponding-source publication and exact dependency distribution basis,
-   followed by Play's size/manifest validation of the prepared signed bundle.
+2. Exact linked-dependency distribution basis, followed by Play's size/manifest
+   validation of the prepared signed bundle. The matching source preview is
+   published; that alone does not settle combined-binary distribution terms.
 3. Final release configuration reconciliation with the saved declarations;
    the live deletion landing page alone does not close the
    outstanding real provider deletion/recovery evidence.

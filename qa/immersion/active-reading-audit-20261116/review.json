@@ -1,0 +1,45 @@
+{
+  "status": "no active-catalog missing-reading emission identified; conservative whole-sentence abstentions found",
+  "release_bindings": {
+    "android": "0fda43f5067e4bb3e339eacfb68d3b7f3bc4bce1",
+    "apple": "4908d4e7c9d98d8a33547f52883961108f457547",
+    "basis": "Compared relevant tracked immersion data and engine/presentation/router sources with both revisions; no differences. R10 source verification binds signed Android and unsigned Apple compile assets."
+  },
+  "active_frame_counts": {
+    "pairs": 110,
+    "patterns": 15126,
+    "ar_zh_ja_ko_target_patterns": 5482,
+    "structurally_valid_readings": 5482
+  },
+  "starter_counts": {
+    "ja": 197,
+    "ja_structural_valid": 197,
+    "sw": 237,
+    "sw_nonlatin_targets": 0
+  },
+  "legacy_counts": {
+    "mapping_rows": 49153,
+    "context_rows": 6633,
+    "ar_zh_ja_ko_target_rows": 16120,
+    "invalid_or_missing_readings": 0,
+    "exact_references": 14529,
+    "nonlatin_written_latin_language_reference_target": 0,
+    "nonlatin_written_latin_language_reference_source": 0
+  },
+  "whole_sentence_partial": {
+    "authored_readings": 423,
+    "punctuation_disallowed_by_span_validation": 35,
+    "nonroman_target_references": 5296,
+    "matching_structurally_valid_exact_readings": 4828,
+    "matching_exact_readings_rejected_by_span_validation": 468,
+    "effect": "Those whole reference units abstain; separately qualified word/frame units may still display. This is an availability limitation, not a no-reading emission.",
+    "future_small_fix": "If desired, adjust both native readableRomanization functions to allow only reviewed sentence punctuation, retaining Latin-script and non-IPA requirements, then validate authored examples; no runtime change made."
+  },
+  "runtime": "Both native partial-source factories invoke ImmersionEngine align, which for ar/zh/ja/ko rejects absent, ambiguous or structurally non-Latin readings before span display. Legacy alignment uses the same gate. Exact reference partial lookup gets only exact authored readings and abstains if unavailable. Automatic local misses do not invoke generated machine translation.",
+  "source_side": "Original non-Roman source text can remain visible and be revealed when the target is Latin; span romanization attaches to non-Roman target only. This review does not assert transliteration of original source text.",
+  "limits": [
+    "Structural script checks are not a human review of transliteration pronunciation or meaning. Python Unicode name/category evaluation approximates native regex; native gate remains authoritative.",
+    "This covers current pinned active catalog and starters, not future mixed-script generated outputs, inactive candidate packs, explicit full-translation reading, or speech acoustics. Target-language guard is not general character-script detection; future mixed-script producers need separate qualification.",
+    "No shipping source, data, artifacts, or catalog changed."
+  ]
+}

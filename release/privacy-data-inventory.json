@@ -382,11 +382,13 @@
         "Complete final release-device network observations, including installed system voices; source review is not proof of every third-party runtime behavior."
       ],
       "familiarity_record": {
-        "purpose": "Adjust target-language dwell time from completed visible displays; no claim of attention or mastery.",
+        "purpose": "Retain previously displayed reviewed words alongside new words and adjust target-language dwell time from completed visible displays; no claim of attention or mastery.",
         "storage": "Encrypted per-account MessageVault records; HMAC-SHA256 identifiers with an independent random per-account 32-byte key. No message text or message identifiers in these records.",
         "network": "No upload path in the two inspected familiarity stores.",
         "retention": "Stored with the local account vault; not part of the explicit human-message history export.",
-        "qualification": "Android persistence and account/pair isolation qualified; Apple encrypted persistence remains unqualified while signing/keychain hold is unchanged."
+        "qualification": "Android native persistence/account/pair checks and Apple real encrypted SQLite persistence with an injected synthetic test key passed. Apple production keychain access remains on hold; the injected-key checks do not establish that path.",
+        "identity": "Reviewed frame identities preserve exact source/target/meaning/reading boundaries. Guarded starter identities preserve catalog entry/concept/POS/guard/canonical source/target/reading. Unrelated catalog edits do not reset those identities.",
+        "backup": "The existing VIPIHST1 chat export contains neither exposure namespaces nor their HMAC identifier key. No learning-history backup/restore claim."
       }
     },
     {
@@ -804,6 +806,31 @@
       "partial_deletion_optional_field": "blank",
       "evidence": "qa/release/play-content-20261111/data-safety.json",
       "actual_bot_qualification": "qa/android/bot-live-r02/receipt.json"
+    },
+    {
+      "date": "2026-11-16",
+      "scope": "Additive reviewed-word exposure/history changes only; earlier provider/SDK disclosures remain dated. No store form update or whole-app network audit claimed.",
+      "android_artifact_revision": "0fda43f5067e4bb3e339eacfb68d3b7f3bc4bce1",
+      "apple_unsigned_revision": "4908d4e7c9d98d8a33547f52883961108f457547",
+      "files": [
+        {
+          "path": "ios/Vipi/VocabularyFamiliarityStore.swift",
+          "sha256": "7551d16f0c0073d5b04e60aec8830afa9ab6d14fda4f22af80930667c568d40a"
+        },
+        {
+          "path": "android/app/src/main/java/co/fallsoft/vipi/VocabularyFamiliarityStore.kt",
+          "sha256": "6467a47ec69b5cb7c27d44dd25532dfc641d7356e1237271eaa7286ebbf0412d"
+        },
+        {
+          "path": "ios/Vipi/ConversationImmersion.swift",
+          "sha256": "d08ad78d7cd931a420efe9dd02ee19b282ecba59d000a7fdaba714cc8ebeb67c"
+        },
+        {
+          "path": "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt",
+          "sha256": "d458bd1b8a20b0025490786dd425c5c7a7341c69b7cd4757d93f5da75455fbad"
+        }
+      ],
+      "result": "New familiarity counters stay in existing encrypted local account vault; no upload code introduced. Automatic word selection still uses accepted local mappings; diagnostic machine translations remain inactive. Existing chat-backup exclusions are explicit."
     }
   ]
 }

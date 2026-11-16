@@ -1,0 +1,45 @@
+{
+  "schema": "vipi-client-source-publication-1",
+  "recorded_date": "2026-11-16",
+  "repository": "https://github.com/FallSoftCo/vipi-clients",
+  "release_url": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-16",
+  "release_id": 447592968,
+  "published_at": "2026-11-16T20:53:08Z",
+  "prerelease": true,
+  "repository_commit": "a5697a81e2538a56d85f6728775389dcc10ec96a",
+  "source_snapshot_revision": "dbe2cfbb91c6064fb0e24a3c01e2e1ef928e536d",
+  "members_verified": 5875,
+  "retained_upstream_archives": 577,
+  "application_input_bindings": {
+    "android": "0fda43f5067e4bb3e339eacfb68d3b7f3bc4bce1",
+    "apple_unsigned": "4908d4e7c9d98d8a33547f52883961108f457547"
+  },
+  "assets": [
+    {
+      "name": "SHA256SUMS.txt",
+      "url": "https://github.com/FallSoftCo/vipi-clients/releases/download/source-preview-2026-11-16/SHA256SUMS.txt",
+      "bytes": 102,
+      "sha256": "8a14bd529a0ed4715ff4bc6b18f2970854ae7aee0ca871734c6f4c22f11e0ec4",
+      "matches": true
+    },
+    {
+      "name": "vipi-client-source-candidate.tar.gz",
+      "url": "https://github.com/FallSoftCo/vipi-clients/releases/download/source-preview-2026-11-16/vipi-client-source-candidate.tar.gz",
+      "bytes": 591012061,
+      "sha256": "b6e34c24befaf58232ff7b78e39f71478e555bbf18c535dbc9810831c3edcead",
+      "matches": true
+    }
+  ],
+  "verification": {
+    "anonymous_public_download": true,
+    "streamed_sha256": true,
+    "retained_duplicate_download": false
+  },
+  "limitations": [
+    "Source preview only; no app binaries, store upload or submission.",
+    "Application-input correspondence is bounded to recorded manifests and Apple compile/resource inputs.",
+    "Text privacy scan exclusions were inventoried; not an exhaustive security or privacy certification.",
+    "Source publication does not determine every linked dependency combined-binary distribution term.",
+    "Apple device archive is unsigned and must not be uploaded."
+  ]
+}

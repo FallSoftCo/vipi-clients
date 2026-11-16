@@ -1,0 +1,63 @@
+{
+  "state": "release_apk_on_fresh_isolated_emulator",
+  "source_commit": "0fda43f5067e4bb3e339eacfb68d3b7f3bc4bce1",
+  "device": "emulator-5622",
+  "api": 34,
+  "abi": "x86_64",
+  "apk_sha256": "161fd44d43de64e94701a0850ec02b259a606d038b377312dfa4ef2fdc5f66ba",
+  "upload_signer_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+  "installed_apk_sha256_matches": true,
+  "release_debuggable": false,
+  "package": "co.fallsoft.vipi",
+  "version_name": "1.0",
+  "version_code": 1,
+  "offline_before_install_and_app_launch": true,
+  "account_created_or_sign_in_attempted": false,
+  "observed": [
+    "Release startup and welcome screen",
+    "Target language menu includes the ten other supported languages for English source",
+    "Japanese prepared preview shows Latin readings and original script on toggle",
+    "Swahili prepared preview shows Kahawa, kesho and mto",
+    "Word switching speed settings dialog",
+    "Offline Swahili preview Listen -> Stop -> Listen UI transition",
+    "Account sign-in gate reached without sign-in",
+    "No entries in emulator crash log"
+  ],
+  "screens": {
+    "startup.png": {
+      "bytes": 216852,
+      "sha256": "28983dc656f11ad50d09c7b095b806b27a62c39e4554c92623cd6d85a33527d6"
+    },
+    "language-menu.png": {
+      "bytes": 164867,
+      "sha256": "885be9e5b5b2171820dc84ec3b3f3d8fe920981fd3de69c39bef4e77bae878e3"
+    },
+    "japanese-latin.png": {
+      "bytes": 159943,
+      "sha256": "65de2d87fea309d4155f395bfa2512a1d9a79dddf8436108ff0bc15f033374bd"
+    },
+    "japanese-script.png": {
+      "bytes": 155685,
+      "sha256": "c28a23049f19b052838a74d75fd8df58cf06b1581b164b6054380af34704dd47"
+    },
+    "swahili-preview.png": {
+      "bytes": 157384,
+      "sha256": "9ffb63f526f2e4e96d613cf6716eca1e957f502e128e71daa24196d323b3295b"
+    },
+    "speed-settings.png": {
+      "bytes": 150564,
+      "sha256": "9c6ce3c6c72d8f0040065763b4b13492169d9e7475e4436825ee114f320f96c8"
+    },
+    "account-gate.png": {
+      "bytes": 158289,
+      "sha256": "ff74e75c54704ca318da79bdd2753340810cab041628050d1e5468542efda6c1"
+    }
+  },
+  "limitations": [
+    "Post-login Settings, messaging, purchases and provider flows untested; sign-in disallowed for this check.",
+    "Emulator used no-audio; Listen UI transition is not acoustic proof.",
+    "Prepared previews do not prove broad conversational coverage, linguistic correctness, physical hardware or store acceptance.",
+    "Network disabled before app installation and launch; system-image first boot preceded disable."
+  ],
+  "cleanup_receipt": "cleanup.json"
+}

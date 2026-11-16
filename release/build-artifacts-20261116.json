@@ -58,8 +58,7 @@
     "Local artifact qualification only; no Play upload, submission or acceptance.",
     "One-device bundletool estimate is not Play Console measurement.",
     "No physical 16 KiB runtime, billing/provider delivery or distribution-clearance claim.",
-    "Existing r08 client-source archive predates this Android revision and is not the final corresponding source.",
-    "Exact-reference additive route and provider concurrency were tested on QA builds; release APK has not been installed for device testing."
+    "Exact-reference additive route and provider concurrency were tested on QA builds. Exact signed release APK passed isolated offline emulator startup/onboarding; post-login runtime and customer purchases remain separate."
   ],
   "previous_android_a53": {
     "revision": "a53ff867f474030645253028b1bd69c93a88a2e3",
@@ -81,5 +80,16 @@
       "artifact_verification": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/verification.json",
       "split_verification": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r01/split-verification-r01/verification.json"
     }
+  },
+  "source_publication": "client-source-publication-20261116.json",
+  "runtime_qualification": {
+    "receipt": "../qa/android/signed-release-20261116/receipt.json",
+    "actual_signed_apk_installed": true,
+    "device_api": 34,
+    "device_abi": "x86_64",
+    "release_debuggable": false,
+    "offline_onboarding_preview": true,
+    "customer_auth_or_billing": false,
+    "acoustic_qualification": false
   }
 }

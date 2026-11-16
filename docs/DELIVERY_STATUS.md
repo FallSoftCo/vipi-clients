@@ -31,10 +31,29 @@ mixed English/Swahili speech have retained receipts. These are simulator/emulato
 checks with synthetic messages, not human acoustic acceptance or a claim that
 every real conversation has a suitable mapping.
 
+Apple's starter progression proof begins with a fresh synthetic vault, displays
+**I → mimi**, and records the exposure from the real visible-dwell callback.
+The subsequent message includes the familiar **I** and new **music → muziki**.
+Encrypted-vault reopen is separately qualified with an injected test key; this
+does not establish production keychain access or learning-history backup.
+
+All 110 supported language directions now have short synthetic playback
+completion evidence on both platforms. Apple Simulator reports no errors or
+underruns. Android's offline foreground run reports no feeding underruns and
+one terminal drain counter per direction. Its initial background test could not
+obtain audio focus and is retained as a failed harness run. These checks prove
+controller completion in the recorded environments, not human pronunciation
+acceptance, physical-device performance or long-message behavior.
+
 The exact-reference route now permits independently guarded candidates for
 automatic immersion. Controlled Android QA exercised Japanese and Swahili,
 including atomic phrases, full-reference output and concurrent source lookups.
-The signed release APK itself has not been installed for device testing.
+The exact signed release APK also passed offline startup and onboarding checks
+on a fresh API 34 x86_64 emulator: language selection, Japanese script/Latin
+previews, Swahili, speed controls and the Listen UI transition. No sign-in was
+attempted. The emulator had no audio output, so this is not acoustic evidence.
+The existing accounts were untouched. See the
+[signed release receipt](../qa/android/signed-release-20261116/receipt.json).
 
 Automatic immersion still uses accepted local mappings. Newly measured Apple
 and Android local translations of independently selected words include wrong
@@ -44,15 +63,31 @@ an isolated Android lookup probe; it remains an inactive candidate, with no
 reading for conflicting or unknown forms. Neither experiment establishes a
 conversational coverage percentage.
 
+The active-catalog reading audit found no emitting path that lacks the required
+Latin reading for a non-Latin target. It covers current frame, starter, legacy
+mapping and context data, with the native display gate remaining authoritative.
+Punctuation in 35 authored sentence readings causes 468 target reference records
+to abstain as whole units; independently qualified word/frame units can still
+appear. This is a conservative availability limit, not missing-reading output.
+The [audit](../qa/immersion/active-reading-audit-20261116/review.json) checks script
+structure, not human pronunciation quality or future generated output.
+
 The full Android APK and AAB at `0fda43f` are signed and verified, including all
 1,077 packaged assets and the accepted 007 catalog. The specified ARM64 device
 download estimate is **416,960,679 bytes**; this is a local bundletool estimate,
 not Play acceptance. See [November 16 artifacts](../release/build-artifacts-20261116.json).
 The earlier `a53ff86` signed artifacts remain historical.
-Apple's `f359610` starter/history integration passed an unsigned arm64 Simulator
-build with the production app bootstrap source. No signing attempt was made.
-The older device archive and r08 client-source package described below remain
-historical artifacts and do not contain these November 16 changes.
+Apple's device Release archive at `4908d4e` is built and verified: 103 actual
+compile inputs, 583 immersion resources, 69 lexical resources, 367 speech
+resources and 13 privacy manifests match the frozen inputs. It is unsigned and
+must not be uploaded. No signing attempt was made.
+
+The reviewed client source is now publicly available as the
+[November 16 source preview](https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-16).
+The 5,875-member archive binds to the current Android and unsigned Apple inputs.
+Both public downloads were fetched anonymously and their hashes verified.
+Source publication does not establish every linked dependency's combined-binary
+distribution terms. See the [publication record](../release/client-source-publication-20261116.json).
 
 The deployed service is now `742e119`, adding the public username invitation
 page. Registration remains restricted to the owned review accounts. No new
@@ -62,9 +97,9 @@ as a Play draft, App Store Connect at sign-in, and Google Cloud requiring
 company reauthentication. The Mac signing/keychain hold remains in force.
 The requested automatic-reset timer and policy remain disabled.
 
-The sections below retain their dated November 11 evidence where the update
-above does not supersede it. Source packages, release artifacts, store forms
-and actual customer access still need final reconciliation before submission.
+The sections below distinguish historical November 11 account evidence from
+the current artifacts. Store forms, signed Apple runtime, billing, background
+delivery and actual customer access still require qualification before submission.
 
 ## Product and active language data
 
@@ -107,7 +142,8 @@ messages were exchanged, decrypted to their original text and marked Delivered.
 This is foreground human-chat evidence, not public onboarding, purchases,
 background push or Apple live authentication qualification.
 
-The service now runs `b97b2c9`, including the public vBot guardian-consent terms. Its two owned reviewer accounts have explicit
+The service runs `742e119`, preserving the earlier `b97b2c9` public vBot
+guardian-consent terms and adding username invitation pages. Its two owned reviewer accounts have explicit
 complimentary Base and Bot mini access, with no purchase, expiry or trial invented.
 The Android app verified both review-access labels against the live service.
 The API was updated without changing the database/schema, push or shared services.
@@ -145,27 +181,33 @@ must not be confused with restored server credentials.
 
 ## Release artifacts, source and stores
 
-Current Android release and client-source artifacts bind to `1c72322`. The
-Apple archive binds to `22f6ba0`; its exported Apple source files match that same
-client-source package. Android's signed bundle passes source, configuration,
-notice, signature and 16 KiB alignment checks. Its specified ARM64 download
-estimate is 416,948,474 bytes; Play has not measured or accepted it.
+Current Android release artifacts bind to `0fda43f`; the unsigned Apple device
+archive binds to `4908d4e`. Published source preview r10 was frozen at `dbe2cfb`
+and its application inputs match both artifacts. Android's signed bundle passes
+source, configuration, notice, signature and 16 KiB alignment checks. Its
+specified ARM64 download estimate is 416,960,679 bytes; Play has not measured or
+accepted it. See [current artifacts](../release/build-artifacts-20261116.json).
 
-The exact signed Android startup check stopped before installation because the
-existing production package contains Alpha’s encrypted account/history under a
-different signer. It was preserved; no package or account was erased.
+The earlier signed Android startup check stopped before installation because
+the existing production package contains Alpha's encrypted account/history under
+a different signer. November 16 qualification instead used a new isolated
+emulator and the exact signed APK. No existing package or account was erased;
+the isolated emulator is now stopped.
 
-Apple's updated device archive verifies actual compile inputs, 223 catalog
-assets, 199 notices and 13 privacy manifests. Seven inherited Swift experiments
-remain excluded. The archive is unsigned and nondeployable under the existing
-signing/keychain hold. Both keychains were still locked in the read-only
-04:03 UTC check. The superseded unsigned archive was removed after exact
-replacement checks; its receipts remain.
+Apple's November 16 device archive verifies the compile inputs and resource
+counts above. Inherited uncommitted experiments remain excluded. The archive is
+unsigned and nondeployable under the existing signing/keychain hold. Both
+keychains were still locked in the November 16 read-only check. No signing,
+export or provisioning attempt was made.
 
-Private source package **r08** verifies all 5,842 members, including 408 Apple
-Git files bound to the archive revision. It is not published. Superseded r07
-archive bytes were retired after verification; metadata and source remain. See
-[current artifact records](../release/build-artifacts-20261111.json) and
+Source preview **r10** contains the native clients, build tools, language data,
+license notices and 577 retained upstream source archives. All 5,875 members
+were independently checked against the recorded file inventory; the public
+archive SHA-256 is
+`b6e34c24befaf58232ff7b78e39f71478e555bbf18c535dbc9810831c3edcead`.
+The source review inventories its binary/text exclusions and is not an exhaustive
+security or license certification. Superseded r08 archive bytes were retired
+after replacement checks; metadata and original inputs remain. See
 [client build instructions](../CLIENT_SOURCE.md).
 
 No store build upload or review submission has occurred. Apple has a private
