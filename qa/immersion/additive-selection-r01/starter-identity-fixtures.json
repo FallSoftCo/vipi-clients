@@ -1,0 +1,353 @@
+{
+  "cases": [
+    {
+      "evidence_pack_for_validation_only": "pack-A",
+      "evidence_proof_batch_for_validation_only": "proof-batch-A",
+      "expected_encoded_hex": "0000001476322d737461727465722d646973706c61792d3100000002656e00000002737700000010776f72642d656e2d73772d6d75736963000000056d75736963000000046e6f756e00000000000000056d75736963000000066d757a696b6900000000",
+      "expected_hmac_sha256": "68e49473e89c67ca28f0b7ab5356c7ed39181332e306a8fe00a301315ee8f317",
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music",
+        "entry_id": "word-en-sw-music",
+        "guard": "",
+        "pos": "noun",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "base",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": true
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-B",
+      "evidence_proof_batch_for_validation_only": "proof-batch-B",
+      "expected_encoded_hex": "0000001476322d737461727465722d646973706c61792d3100000002656e00000002737700000010776f72642d656e2d73772d6d75736963000000056d75736963000000046e6f756e00000000000000056d75736963000000066d757a696b6900000000",
+      "expected_hmac_sha256": "68e49473e89c67ca28f0b7ab5356c7ed39181332e306a8fe00a301315ee8f317",
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music",
+        "entry_id": "word-en-sw-music",
+        "guard": "",
+        "pos": "noun",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "new_pack_proof",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": true
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-A",
+      "evidence_proof_batch_for_validation_only": "proof-batch-A",
+      "expected_encoded_hex": "0000001476322d737461727465722d646973706c61792d3100000002656e00000002737700000010776f72642d656e2d73772d6d75736963000000056d75736963000000046e6f756e00000000000000056d75736963000000066d757a696b6900000000",
+      "expected_hmac_sha256": "68e49473e89c67ca28f0b7ab5356c7ed39181332e306a8fe00a301315ee8f317",
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music",
+        "entry_id": "word-en-sw-music",
+        "guard": "",
+        "pos": "noun",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "new_context",
+      "occurrence_context_for_guard_only": "context two",
+      "verified_current_occurrence": true
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-B",
+      "evidence_proof_batch_for_validation_only": "proof-batch-B",
+      "expected_encoded_hex": "0000001476322d737461727465722d646973706c61792d3100000002656e00000002737700000010776f72642d656e2d73772d6d75736963000000056d75736963000000046e6f756e00000000000000056d75736963000000066e79696d626f00000000",
+      "expected_hmac_sha256": "194c471609224b0899d0e017617bb3aa21b2523ff26772140814eaea7f1a3376",
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music",
+        "entry_id": "word-en-sw-music",
+        "guard": "",
+        "pos": "noun",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "nyimbo",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "changed_target",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": true
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-B",
+      "evidence_proof_batch_for_validation_only": "proof-batch-B",
+      "expected_encoded_hex": "0000001476322d737461727465722d646973706c61792d3100000002656e00000002737700000010776f72642d656e2d73772d6d75736963000000056d75736963000000046e6f756e000000156f7264696e6172795f6e6f756e5f636f6e74657874000000056d75736963000000066d757a696b6900000000",
+      "expected_hmac_sha256": "22c7a6d303ff192905f0e48abf0239e0185d127fa36605e1702d8f4012213ba0",
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music",
+        "entry_id": "word-en-sw-music",
+        "guard": "ordinary_noun_context",
+        "pos": "noun",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "changed_guard",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": true
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-B",
+      "evidence_proof_batch_for_validation_only": "proof-batch-B",
+      "expected_encoded_hex": "0000001476322d737461727465722d646973706c61792d3100000002656e00000002737700000010776f72642d656e2d73772d6d757369630000000b6d757369632d6f74686572000000046e6f756e00000000000000056d75736963000000066d757a696b6900000000",
+      "expected_hmac_sha256": "4fa7efc839c1dda5cba8ceb526a8711c4912811585b6c812c18d327d9e9f9127",
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music-other",
+        "entry_id": "word-en-sw-music",
+        "guard": "",
+        "pos": "noun",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "changed_concept",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": true
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-B",
+      "evidence_proof_batch_for_validation_only": "proof-batch-B",
+      "expected_encoded_hex": "0000001476322d737461727465722d646973706c61792d3100000002656e00000002737700000010776f72642d656e2d73772d6d75736963000000056d75736963000000047665726200000000000000056d75736963000000066d757a696b6900000000",
+      "expected_hmac_sha256": "36c56735e2eb366fbde8f1a40fa0db9982bf5db319d728fed6d83e3c5c27b581",
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music",
+        "entry_id": "word-en-sw-music",
+        "guard": "",
+        "pos": "verb",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "changed_pos",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": true
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-A",
+      "evidence_proof_batch_for_validation_only": "proof-batch-A",
+      "expected_encoded_hex": "0000001476322d737461727465722d646973706c61792d3100000002656e000000027377000000056f74686572000000056d75736963000000046e6f756e00000000000000056d75736963000000066d757a696b6900000000",
+      "expected_hmac_sha256": "d20917a626b0a7011a6cddad08b07a7d8f73a9def09bdbe24e53af9e702f173e",
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music",
+        "entry_id": "other",
+        "guard": "",
+        "pos": "noun",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "changed_entry",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": true
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-A",
+      "evidence_proof_batch_for_validation_only": "proof-batch-A",
+      "expected_hmac_sha256": null,
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music",
+        "entry_id": "word-en-sw-music",
+        "guard": "withheld_contextual_sense",
+        "pos": "noun",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "withheld",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": false
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-A",
+      "evidence_proof_batch_for_validation_only": "proof-batch-A",
+      "expected_hmac_sha256": null,
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music",
+        "entry_id": "word-en-sw-music",
+        "guard": "",
+        "pos": "noun",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "failed_guard",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": false
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-A",
+      "evidence_proof_batch_for_validation_only": "proof-batch-A",
+      "expected_encoded_hex": "0000001476322d737461727465722d646973706c61792d3100000002656e00000002737700000010776f72642d656e2d73772d6d75736963000000056d75736963000000046e6f756e00000000000000056d75736963000000066d757a696b69000000076368616e676564",
+      "expected_hmac_sha256": "90dbc1dc795b390ff4fb4f7a5343962ca371320814a658e3e9cdd90874a6b536",
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music",
+        "entry_id": "word-en-sw-music",
+        "guard": "",
+        "pos": "noun",
+        "reading": "changed",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "changed_reading",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": true
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-A",
+      "evidence_proof_batch_for_validation_only": "proof-batch-A",
+      "expected_encoded_hex": "0000001476322d737461727465722d646973706c61792d3100000002656e00000002737700000010776f72642d656e2d73772d6d75736963000000056d75736963000000046e6f756e00000000000000066d656c6f6479000000066d757a696b6900000000",
+      "expected_hmac_sha256": "cfa841362852fa595a7ba455e68f27e8155ae4ed3126e13d2eb9bc2c1a8c5a16",
+      "fields": {
+        "canonical_source": "melody",
+        "concept_id": "music",
+        "entry_id": "word-en-sw-music",
+        "guard": "",
+        "pos": "noun",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "sw",
+        "version": "v2-starter-display-1"
+      },
+      "id": "changed_source",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": true
+    },
+    {
+      "evidence_pack_for_validation_only": "pack-A",
+      "evidence_proof_batch_for_validation_only": "proof-batch-A",
+      "expected_encoded_hex": "0000001476322d737461727465722d646973706c61792d3100000002656e000000026a6100000010776f72642d656e2d73772d6d75736963000000056d75736963000000046e6f756e00000000000000056d75736963000000066d757a696b6900000000",
+      "expected_hmac_sha256": "0861a172849796214f73be4f4f87e97bdf3f3d9983dd9de07c5edd776ed019a8",
+      "fields": {
+        "canonical_source": "music",
+        "concept_id": "music",
+        "entry_id": "word-en-sw-music",
+        "guard": "",
+        "pos": "noun",
+        "reading": "",
+        "source_language": "en",
+        "target_face": "muziki",
+        "target_language": "ja",
+        "version": "v2-starter-display-1"
+      },
+      "id": "changed_pair",
+      "occurrence_context_for_guard_only": "context one",
+      "verified_current_occurrence": true
+    }
+  ],
+  "encoding": "Ten listed exact UTF-8 fields each prefixed with unsigned 32-bit big-endian byte length, HMAC-SHA256 with account-local 32-byte key. Empty guard/reading mean explicitly absent. Pack and batch-dependent proof SHA are checked as evidence but are not identity fields.",
+  "field_order": [
+    "version",
+    "source_language",
+    "target_language",
+    "entry_id",
+    "concept_id",
+    "pos",
+    "guard",
+    "canonical_source",
+    "target_face",
+    "reading"
+  ],
+  "relations": [
+    {
+      "a": "base",
+      "b": "new_pack_proof",
+      "equal": true
+    },
+    {
+      "a": "base",
+      "b": "new_context",
+      "equal": true
+    },
+    {
+      "a": "base",
+      "b": "changed_target",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "changed_guard",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "changed_concept",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "changed_pos",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "changed_entry",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "withheld",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "failed_guard",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "changed_reading",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "changed_source",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "changed_pair",
+      "equal": false
+    }
+  ],
+  "schema": "vipi-reviewed-starter-display-id-1",
+  "scope": "Synthetic HMAC identity for displayed form, never authorization or mastery. Trusted current entry and current occurrence guard must pass before key use. No v1 migration or cross-entry conflation.",
+  "test_key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+}
