@@ -457,6 +457,36 @@
       "hard_ceiling": 2,
       "id": "oversize_novel_skipped_for_fit",
       "novel_budget": 1
+    },
+    {
+      "candidates": [
+        {
+          "due": false,
+          "eligible": true,
+          "end": 1,
+          "id": "I",
+          "priority": 2,
+          "start": 0,
+          "state": "unseen"
+        },
+        {
+          "due": false,
+          "eligible": true,
+          "end": 13,
+          "id": "music",
+          "priority": 1,
+          "start": 8,
+          "state": "unseen"
+        }
+      ],
+      "expected": [
+        "music"
+      ],
+      "hard_ceiling": 2,
+      "id": "content_priority_over_earlier_function",
+      "novel_budget": 1,
+      "original": "I heard music.",
+      "scope": "Existing en→ja/sw catalogs list I as function and music as content; this synthetic selector example is not an actual native route trace."
     }
   ],
   "day_progression": {
@@ -572,7 +602,7 @@
       "query_identity": "bank:river"
     }
   ],
-  "policy": "Positive density defines novel budget B=max(1,floor(N*density)); absolute combined ceiling C=min(N,max(1,floor(N*.75))). Zero density switches nothing. From eligible, nonoverlapping, complete source units, reserve one fitting novel item, select seen items by due then source order, then add other novel items in source order up to remaining B and C. Return source order. Seen means verified visible dwell, never inferred mastery; cannot manufacture units or exceed bounds. Exact-word cost is explicit. Selection snapshot is stable for the presented message.",
+  "policy": "Positive density defines novel budget B=max(1,floor(N*density)); absolute combined ceiling C=min(N,max(1,floor(N*.75))). Zero density switches nothing. From eligible, nonoverlapping, complete units, reserve one fitting novel item in validated producer priority, select seen items due-first then source order, then add further novel items in producer priority within B and C. Render in source order. Seen means verified visible dwell, never mastery or semantic authorization. Never manufacture units or exceed bounds; cost is explicit. Selection snapshot stays stable for the presented message.",
   "schema": "vipi-additive-selection-cases-1",
   "scope": "Shared policy fixtures; budgets are explicitly supplied. Native source bounds, semantic eligibility and exposure state must be independently validated before this selector is called. These cases do not validate translations or actual visibility.",
   "snapshot_cases": [

@@ -13,7 +13,7 @@ def select(case):
     eligible=[c for c in case['candidates'] if c['eligible']]
     if len({c['id'] for c in eligible})!=len(eligible):raise ValueError('duplicate IDs')
     if any(c['start']<0 or c['end']<=c['start'] or c['state'] not in ('seen','unseen') or not isinstance(c.get('cost',1),int) or c.get('cost',1)<1 for c in eligible):raise ValueError('invalid candidate')
-    unseen=sorted((c for c in eligible if c['state']=='unseen'),key=lambda c:(c['start'],c['end'],c['id']))
+    unseen=sorted((c for c in eligible if c['state']=='unseen'),key=lambda c:(c.get('priority',c['start']),c['start'],c['end'],c['id']))
     seen=sorted((c for c in eligible if c['state']=='seen'),key=lambda c:(not c['due'],c['start'],c['end'],c['id']))
     chosen=[];used=0;new_used=0
     def add(c):
