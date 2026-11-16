@@ -62,6 +62,15 @@ Select a dedicated test device. Instrumented tests can alter local accounts,
 message history and settings; inspect the selected test setup before execution.
 An emulator build is not physical-device, minimum-API or acoustic qualification.
 
+The additive exposure instrumentation expects three synthetic JSON fixtures in
+the test app's private `files/additive-selection-r01/` directory. On a dedicated
+debuggable test installation, stage the retained `qa/immersion/additive-selection-r01/`
+files `fixtures.json`, `identity-fixtures.json`, and
+`starter-identity-fixtures.json` using the selected device's authorized debug
+file-transfer route before running `AdditiveExposureDeviceTest`. The identity
+vectors contain a public test key, not an account credential. Fixture presence
+is not proof of a passed device or visibility test.
+
 eSpeak NG and Sonic sources are in `android/vendor`, with revisions recorded in
 `speech-provenance.json`. JNI/CMake code is in `android/app/src/main/cpp`.
 `scripts/build-android-speech-data.py` regenerates speech data from those pinned

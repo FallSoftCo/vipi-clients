@@ -1,0 +1,31 @@
+{
+  "schema": "vipi-source-context-upstream-source-provenance-1",
+  "scope": "Pinned upstream source availability; no source build, license clearance or complete corresponding-source claim.",
+  "opennlp": {
+    "version": "2.5.10",
+    "binary_sha256": "123ee5aa02f8d8ab9b554fb927ae5003e0413bf066cc957094d3aeb304fb94ea",
+    "source_archive": "additive-source-20261116-r01/apache-opennlp-2.5.10-src.tar.gz",
+    "source_url": "https://archive.apache.org/dist/opennlp/opennlp-2.5.10/apache-opennlp-2.5.10-src.tar.gz",
+    "sha256": "a2402574d689eaf06436c4f55a3fed9b9d598d1f759f3d92fa8221c2bf7a26a6",
+    "publisher_sha512": "3cb35cf9fe41fe210132ffa86c3cb739657c3bbeffdfa743805ccf8bd70d8602c9c1d09ed4dffca3382666bf98b5632213b0fcf93f73c25bd",
+    "publisher_checksum_url": "https://archive.apache.org/dist/opennlp/opennlp-2.5.10/apache-opennlp-2.5.10-src.tar.gz.sha512",
+    "publisher_checksum_verified": true,
+    "signature_url": "https://archive.apache.org/dist/opennlp/opennlp-2.5.10/apache-opennlp-2.5.10-src.tar.gz.asc",
+    "signature_sha256": "058a566c5d0835b4dffef431e6660c74acff7158cfa1b1c93fa2351a3d107ea5",
+    "signature_cryptographically_verified": false,
+    "license": "Apache-2.0; retained release LICENSE and NOTICE"
+  },
+  "slf4j_api": {
+    "version": "2.0.18",
+    "binary_sha256": "44508fd1576500688c790b190acdd16fec4f8c79a3e0b900afd70503cf055f55",
+    "source_archive": "additive-source-20261116-r01/slf4j-2.0.18-58b66c2c.tar.gz",
+    "source_url": "https://codeload.github.com/qos-ch/slf4j/tar.gz/58b66c2c7e840f525c07db4509534ea53ef95b82",
+    "upstream_tag": "v_2.0.18",
+    "peeled_commit": "58b66c2c7e840f525c07db4509534ea53ef95b82",
+    "tag_reference_url": "https://github.com/qos-ch/slf4j/releases/tag/v_2.0.18",
+    "sha256": "ffa44f6abde874c71e7480ad266483028a86782db50c51412966645a97abadcf",
+    "publisher_archive_checksum_verified": false,
+    "license": "MIT; retained slf4j-api/LICENSE.txt"
+  },
+  "model_note": "Retained OpenNLP models are separate data artifacts; their Apache distribution notice and underlying UD EWT attribution are retained in the existing source-context manifest/notices. This source-code retention does not establish model training-source completeness."
+}
