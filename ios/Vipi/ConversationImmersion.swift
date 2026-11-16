@@ -43,11 +43,14 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
         guard spans.allSatisfy({ span in presentation.spans.contains(where:{exact(span,$0)}) }) else { return }
         familiarity?.observe(spans, source: pair.source, target: pair.target, day: exposureDay)
         if case .partial(let partial) = presentation {
-            let approved = zip(partial.spans,partial.references).compactMap { span,reference -> ReviewedFrameIdentity? in
+            let visibleReferences = zip(partial.spans,partial.references).compactMap { span,reference -> SourceReferenceUnit? in
                 guard spans.contains(where:{exact($0,span)}) else { return nil }
-                return reference.reviewedFrameIdentity
+                return reference
             }
-            if !approved.isEmpty { familiarity?.observeFrames(approved,day:exposureDay) }
+            let frames=visibleReferences.compactMap(\.reviewedFrameIdentity)
+            let starters=visibleReferences.compactMap(\.reviewedStarterIdentity)
+            if !frames.isEmpty { familiarity?.observeFrames(frames,day:exposureDay) }
+            if !starters.isEmpty { familiarity?.observeStarters(starters,day:exposureDay) }
         }
     }
     private var knownConceptIDs = Set<String>()
@@ -283,16 +286,25 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
                         let expanded = try await provider.resolve(.init(original:original,pair:requestPair,density:0.75,knownConceptIDs:activeKnownConceptIDs))
                         guard expanded.validated(text:original,sourceLanguage:source,targetLanguage:target,identity:provider.identity) != nil,
                               let pool=expanded.eligiblePool, let count=expanded.nativeSourceTokenCount else { return try await existing() }
-                        let known = pool.compactMap(\.reviewedFrameIdentity)
-                        let states: [VocabularyFamiliarityStore.FrameHistory?]
-                        do { states = try familiarity.frameHistory(known,day:self.exposureDay) }
-                        catch { return try await existing() }
-                        var index = 0
+                        let frames=pool.compactMap(\.reviewedFrameIdentity), starters=pool.compactMap(\.reviewedStarterIdentity)
+                        // One bounded transaction captures only the eligible
+                        // keys; bad counters abstain without poisoning others.
+                        let snapshot = try? familiarity.mixedHistory(frames:frames,starters:starters,day:self.exposureDay)
+                        let frameStates = snapshot?.0 ?? Array(repeating:nil,count:frames.count)
+                        let starterStates = snapshot?.1 ?? Array(repeating:nil,count:starters.count)
+                        var frameIndex=0, starterIndex=0
                         let history:[AdditiveReferenceSelection.History] = pool.map { unit in
-                            guard unit.reviewedFrameIdentity != nil else { return .novel }
-                            defer { index += 1 }
-                            guard let item=states[index] else { return .unavailable }
-                            return item.seen ? .seen(due:item.due) : .novel
+                            if unit.reviewedFrameIdentity != nil {
+                                defer { frameIndex += 1 }
+                                guard let item=frameStates[frameIndex] else { return .unavailable }
+                                return item.seen ? .seen(due:item.due) : .novel
+                            }
+                            if unit.reviewedStarterIdentity != nil {
+                                defer { starterIndex += 1 }
+                                guard let item=starterStates[starterIndex] else { return .unavailable }
+                                return item.seen ? .seen(due:item.due) : .novel
+                            }
+                            return .novel
                         }
                         guard let selected=AdditiveReferenceSelection.select(units:pool,history:history,nativeSourceTokenCount:count,density:activeDensity,preserveProducerPriority:true) else { return try await existing() }
                         let partial=SourceReferencePresentation.create(original:original,target:target,units:selected,density:1,nativeSourceTokenCount:count)

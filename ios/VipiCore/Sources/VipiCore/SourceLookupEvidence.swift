@@ -86,6 +86,14 @@ public struct SourceLookupEvidence: Sendable {
             for unit in pool {
                 guard constraints.permits(range:unit.range, outputID:unit.outputID),
                       SourceReferencePresentation.create(original:original,target:target,units:[unit],density:1,nativeSourceTokenCount:count) != nil else { return nil }
+                guard unit.reviewedFrameIdentity == nil || unit.reviewedStarterIdentity == nil else { return nil }
+                if let starter = unit.reviewedStarterIdentity {
+                    guard starter.sourceLanguage == source, starter.targetLanguage == target,
+                          starter.targetFace.utf8.elementsEqual(unit.translated.utf8),
+                          starter.reading.utf8.elementsEqual((unit.reading ?? "").utf8),
+                          unit.referenceID.hasSuffix(":" + starter.entryID),
+                          unit.conceptID == starter.conceptID else { return nil }
+                }
                 if let frame = unit.reviewedFrameIdentity {
                     guard frame.sourceLanguage == source, frame.targetLanguage == target,
                           frame.sourceFace.utf8.elementsEqual(unit.original.utf8),

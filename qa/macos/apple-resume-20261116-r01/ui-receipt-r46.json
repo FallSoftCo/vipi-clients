@@ -1,0 +1,32 @@
+{
+  "first" : [
+    "seven"
+  ],
+  "history_revision" : 2,
+  "readings" : [
+    {
+      "reading" : "san",
+      "source" : "three",
+      "target" : "三"
+    },
+    {
+      "reading" : "yon",
+      "source" : "four",
+      "target" : "四"
+    },
+    {
+      "reading" : "nana",
+      "source" : "seven",
+      "target" : "七"
+    }
+  ],
+  "scope" : "isolated simulator QA: synthetic hash-bound source frames and injected test-key vault; no auth or keychain",
+  "second" : [
+    "three",
+    "four",
+    "seven"
+  ],
+  "speech" : "rendered actual selected words, 72544 frames",
+  "stable" : true,
+  "stage" : "complete"
+}

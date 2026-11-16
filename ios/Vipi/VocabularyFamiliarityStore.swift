@@ -9,7 +9,9 @@ final class VocabularyFamiliarityStore {
     private var cached: [String: VocabularyFamiliarity] = [:]
     private var idKey: SymmetricKey?
     private var frameCached: [String: VocabularyFamiliarity] = [:]
+    private var starterCached: [String: VocabularyFamiliarity] = [:]
     private(set) var frameHistoryRevision: UInt64 = 0
+    private(set) var starterHistoryRevision: UInt64 = 0
     init(vault: MessageVault) { self.vault = vault }
     private func ensureKey() throws -> SymmetricKey {
         if idKey == nil {
@@ -31,6 +33,9 @@ final class VocabularyFamiliarityStore {
             .joined(separator: "\0").utf8), using: try ensureKey()).map { String(format: "%02x", $0) }.joined()
     }
     private func frameKey(_ identity: ReviewedFrameIdentity) throws -> String {
+        HMAC<SHA256>.authenticationCode(for: identity.encoded, using: try ensureKey()).map { String(format: "%02x", $0) }.joined()
+    }
+    private func starterKey(_ identity: ReviewedStarterIdentity) throws -> String {
         HMAC<SHA256>.authenticationCode(for: identity.encoded, using: try ensureKey()).map { String(format: "%02x", $0) }.joined()
     }
     private func read(_ key: String, namespace: String = "immersion-exposure") throws -> VocabularyFamiliarity {
@@ -113,6 +118,66 @@ final class VocabularyFamiliarityStore {
             if frameCached.count + saved.count > 4096 { frameCached.removeAll() }
             frameCached.merge(saved) { _, new in new }
             if changed { frameHistoryRevision &+= 1 }
+            return true
+        } catch { return false }
+    }
+
+    /// Read only the eligible keys in one transaction so a mixed frame/starter
+    /// selection receives one history snapshot. Bad counters abstain per key.
+    func mixedHistory(frames:[ReviewedFrameIdentity], starters:[ReviewedStarterIdentity], day:Int) throws -> ([FrameHistory?],[FrameHistory?]) {
+        guard (0...3_000_000).contains(day), frames.count + starters.count <= 4096 else { throw MessageVault.Failure.invalidRecord }
+        let frameIDs=try frames.map(frameKey), starterIDs=try starters.map(starterKey)
+        func value(_ record:VocabularyFamiliarity) -> FrameHistory {
+            let interval = record.exposureDays >= 5 ? 14 : record.exposureDays >= 4 ? 7 : record.exposureDays >= 3 ? 4 : record.exposureDays >= 2 ? 2 : 1
+            return .init(seen:record.exposureDays > 0,due:record.exposureDays > 0 && day >= record.lastDay && day - record.lastDay >= interval)
+        }
+        return try vault.transaction {
+            let frameValues:[FrameHistory?] = frameIDs.map { id in
+                let record:VocabularyFamiliarity
+                do { record=try frameCached[id] ?? read(id,namespace:"immersion-frame-exposure-next") } catch { return nil }
+                if frameCached.count < 4096 { frameCached[id]=record };return value(record)
+            }
+            let starterValues:[FrameHistory?] = starterIDs.map { id in
+                let record:VocabularyFamiliarity
+                do { record=try starterCached[id] ?? read(id,namespace:"immersion-starter-exposure-next") } catch { return nil }
+                if starterCached.count < 4096 { starterCached[id]=record };return value(record)
+            }
+            return (frameValues,starterValues)
+        }
+    }
+    func starterHistory(_ identities: [ReviewedStarterIdentity], day: Int) throws -> [FrameHistory?] {
+        guard (0...3_000_000).contains(day), identities.count <= 4096 else { throw MessageVault.Failure.invalidRecord }
+        let ids = try identities.map(starterKey)
+        return try vault.transaction {
+            ids.map { id -> FrameHistory? in
+                let value: VocabularyFamiliarity
+                do { value = try starterCached[id] ?? read(id, namespace:"immersion-starter-exposure-next") }
+                catch { return nil }
+                if starterCached.count < 4096 { starterCached[id] = value }
+                let interval = value.exposureDays >= 5 ? 14 : value.exposureDays >= 4 ? 7 : value.exposureDays >= 3 ? 4 : value.exposureDays >= 2 ? 2 : 1
+                return FrameHistory(seen:value.exposureDays > 0, due:value.exposureDays > 0 && day >= value.lastDay && day - value.lastDay >= interval)
+            }
+        }
+    }
+    /// Only current guard-passing starter references after completed visible dwell.
+    @discardableResult func observeStarters(_ identities: [ReviewedStarterIdentity], day: Int) -> Bool {
+        guard (0...3_000_000).contains(day), !identities.isEmpty, identities.count <= 128 else { return false }
+        do {
+            let ids = Set(try identities.map(starterKey));var changed = false
+            let saved = try vault.transaction {
+                var updates: [String:VocabularyFamiliarity] = [:]
+                for id in ids {
+                    var value = try read(id, namespace:"immersion-starter-exposure-next")
+                    if value.observe(day:day) {
+                        try vault.put("immersion-starter-exposure-next",id,JSONEncoder().encode(value)); changed = true
+                    }
+                    updates[id]=value
+                }
+                return updates
+            }
+            if starterCached.count + saved.count > 4096 { starterCached.removeAll() }
+            starterCached.merge(saved) { _, new in new }
+            if changed { starterHistoryRevision &+= 1 }
             return true
         } catch { return false }
     }

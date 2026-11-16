@@ -180,9 +180,15 @@ import VipiCore
                 trace[i]["reason"] = "stronger_predicate_recognized"
             }
         }
+        func starterIdentity(_ h:Hit) -> ReviewedStarterIdentity? {
+            guard h.reason == nil else { return nil }
+            return .init(verifiedReviewedEntry:true,sourceLanguage:"en",targetLanguage:"sw",entryID:h.entry.id,
+                conceptID:h.entry.concept_id,partOfSpeech:h.entry.pos,guardValue:h.entry.guardValue ?? "",
+                canonicalSource:h.entry.source,targetFace:h.entry.target,reading:(h.entry.reading ?? ""))
+        }
         rawCandidates = hits.map { h in SourceFrameStarterCandidate(entryID:h.entry.id,conceptID:h.entry.concept_id,category:h.entry.category,rank:h.entry.train_rank,tokenCount:h.entry.source_tokens.count,range:h.range,cost:h.cost,reason:h.reason,
             unit:SourceReferenceUnit(range:h.range,original:text.substring(with:h.range),translated:h.entry.target,reading:nil,
-                referenceID:packIdentity+":"+h.entry.id,catalogSHA256:sha,nativeSourceTokens:h.cost,conceptID:h.entry.concept_id,outputID:h.outputID)) }
+                referenceID:packIdentity+":"+h.entry.id,catalogSHA256:sha,nativeSourceTokens:h.cost,conceptID:h.entry.concept_id,outputID:h.outputID,reviewedStarterIdentity:starterIdentity(h))) }
         let found = hits.filter { $0.reason == nil }.sorted {
             if ($0.entry.category == "content") != ($1.entry.category == "content") { return $0.entry.category == "content" }
             // Prefer a complete approved phrase over its contained words.
@@ -197,7 +203,7 @@ import VipiCore
             if used + hit.cost > budget || chosen.contains(where: { NSIntersectionRange($0.range,hit.range).length > 0 }) { continue }
             chosen.append(hit); used += hit.cost
         }
-        let units = chosen.sorted { $0.range.location < $1.range.location }.map { h in SourceReferenceUnit(range:h.range,original:text.substring(with:h.range),translated:h.entry.target,reading:h.entry.reading,referenceID:packIdentity+":"+h.entry.id,catalogSHA256:sha,nativeSourceTokens:h.cost,conceptID:h.entry.concept_id,outputID:h.outputID) }
+        let units = chosen.sorted { $0.range.location < $1.range.location }.map { h in SourceReferenceUnit(range:h.range,original:text.substring(with:h.range),translated:h.entry.target,reading:h.entry.reading,referenceID:packIdentity+":"+h.entry.id,catalogSHA256:sha,nativeSourceTokens:h.cost,conceptID:h.entry.concept_id,outputID:h.outputID,reviewedStarterIdentity:starterIdentity(h)) }
         let partial = SourceReferencePresentation.create(original:original,target:"sw",units:units,density:density,nativeSourceTokenCount:basis.count)
         // Merge overlapping matches so short/long valid alternatives do not
         // veto each other. Recognition survives known/budget/guard abstention.

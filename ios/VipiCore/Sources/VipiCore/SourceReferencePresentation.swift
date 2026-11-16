@@ -61,15 +61,18 @@ public struct SourceReferenceUnit: Sendable, Equatable {
     public let outputID: String?
     /// Only a verified reviewed frame can supply this stable exposure identity.
     public let reviewedFrameIdentity: ReviewedFrameIdentity?
+    /// Present only after a verified starter entry passes current occurrence guards.
+    public let reviewedStarterIdentity: ReviewedStarterIdentity?
 
     public init(range: NSRange, original: String, translated: String, reading: String?,
                 referenceID: String, catalogSHA256: String, nativeSourceTokens: Int,
                 conceptID: String? = nil, outputID: String? = nil,
-                reviewedFrameIdentity: ReviewedFrameIdentity? = nil) {
+                reviewedFrameIdentity: ReviewedFrameIdentity? = nil,
+                reviewedStarterIdentity: ReviewedStarterIdentity? = nil) {
         self.range = range; self.original = original; self.translated = translated
         self.reading = reading; self.referenceID = referenceID; self.catalogSHA256 = catalogSHA256
         self.nativeSourceTokens = nativeSourceTokens
-        self.conceptID = conceptID; self.outputID = outputID; self.reviewedFrameIdentity = reviewedFrameIdentity
+        self.conceptID = conceptID; self.outputID = outputID; self.reviewedFrameIdentity = reviewedFrameIdentity; self.reviewedStarterIdentity = reviewedStarterIdentity
     }
 }
 

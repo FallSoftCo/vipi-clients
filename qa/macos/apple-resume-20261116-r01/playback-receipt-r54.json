@@ -1,0 +1,25 @@
+{
+  "activeMessage" : "",
+  "error" : "",
+  "sawPlaying" : true,
+  "scope" : "independent iOS Simulator UI; actual product ImmersionBubble and SpeechPlayback; synthetic reviewed spans; Swahili stub unused",
+  "spans" : [
+    {
+      "reading" : "san",
+      "source" : "three",
+      "target" : "三"
+    },
+    {
+      "reading" : "yon",
+      "source" : "four",
+      "target" : "四"
+    },
+    {
+      "reading" : "nana",
+      "source" : "seven",
+      "target" : "七"
+    }
+  ],
+  "state" : "ready",
+  "underruns" : 0
+}
