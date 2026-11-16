@@ -1,0 +1,1106 @@
+{
+  "scope": "offline synthetic actual SpeechPlayback; not acoustic or meaning acceptance",
+  "directions": [
+    {
+      "source": "en",
+      "target": "es",
+      "prepare_ms": 545,
+      "playing_ms": 191,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1116,
+      "status": "completed"
+    },
+    {
+      "source": "en",
+      "target": "fr",
+      "prepare_ms": 144,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 913,
+      "status": "completed"
+    },
+    {
+      "source": "en",
+      "target": "de",
+      "prepare_ms": 136,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 900,
+      "status": "completed"
+    },
+    {
+      "source": "en",
+      "target": "it",
+      "prepare_ms": 124,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 951,
+      "status": "completed"
+    },
+    {
+      "source": "en",
+      "target": "pt",
+      "prepare_ms": 141,
+      "playing_ms": 61,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1143,
+      "status": "completed"
+    },
+    {
+      "source": "en",
+      "target": "ar",
+      "prepare_ms": 125,
+      "playing_ms": 49,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 926,
+      "status": "completed"
+    },
+    {
+      "source": "en",
+      "target": "zh",
+      "prepare_ms": 102,
+      "playing_ms": 61,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1221,
+      "status": "completed"
+    },
+    {
+      "source": "en",
+      "target": "ja",
+      "prepare_ms": 1318,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1081,
+      "status": "completed"
+    },
+    {
+      "source": "en",
+      "target": "ko",
+      "prepare_ms": 119,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 981,
+      "status": "completed"
+    },
+    {
+      "source": "en",
+      "target": "sw",
+      "prepare_ms": 129,
+      "playing_ms": 49,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1071,
+      "status": "completed"
+    },
+    {
+      "source": "es",
+      "target": "en",
+      "prepare_ms": 108,
+      "playing_ms": 47,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1054,
+      "status": "completed"
+    },
+    {
+      "source": "es",
+      "target": "fr",
+      "prepare_ms": 103,
+      "playing_ms": 47,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 892,
+      "status": "completed"
+    },
+    {
+      "source": "es",
+      "target": "de",
+      "prepare_ms": 79,
+      "playing_ms": 52,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 926,
+      "status": "completed"
+    },
+    {
+      "source": "es",
+      "target": "it",
+      "prepare_ms": 113,
+      "playing_ms": 45,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 962,
+      "status": "completed"
+    },
+    {
+      "source": "es",
+      "target": "pt",
+      "prepare_ms": 79,
+      "playing_ms": 45,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1139,
+      "status": "completed"
+    },
+    {
+      "source": "es",
+      "target": "ar",
+      "prepare_ms": 79,
+      "playing_ms": 47,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 933,
+      "status": "completed"
+    },
+    {
+      "source": "es",
+      "target": "zh",
+      "prepare_ms": 107,
+      "playing_ms": 59,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1226,
+      "status": "completed"
+    },
+    {
+      "source": "es",
+      "target": "ja",
+      "prepare_ms": 93,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1100,
+      "status": "completed"
+    },
+    {
+      "source": "es",
+      "target": "ko",
+      "prepare_ms": 97,
+      "playing_ms": 48,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1005,
+      "status": "completed"
+    },
+    {
+      "source": "es",
+      "target": "sw",
+      "prepare_ms": 72,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1097,
+      "status": "completed"
+    },
+    {
+      "source": "fr",
+      "target": "en",
+      "prepare_ms": 103,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1044,
+      "status": "completed"
+    },
+    {
+      "source": "fr",
+      "target": "es",
+      "prepare_ms": 99,
+      "playing_ms": 56,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1047,
+      "status": "completed"
+    },
+    {
+      "source": "fr",
+      "target": "de",
+      "prepare_ms": 70,
+      "playing_ms": 36,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 920,
+      "status": "completed"
+    },
+    {
+      "source": "fr",
+      "target": "it",
+      "prepare_ms": 92,
+      "playing_ms": 38,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 945,
+      "status": "completed"
+    },
+    {
+      "source": "fr",
+      "target": "pt",
+      "prepare_ms": 72,
+      "playing_ms": 48,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1142,
+      "status": "completed"
+    },
+    {
+      "source": "fr",
+      "target": "ar",
+      "prepare_ms": 109,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 950,
+      "status": "completed"
+    },
+    {
+      "source": "fr",
+      "target": "zh",
+      "prepare_ms": 75,
+      "playing_ms": 55,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1222,
+      "status": "completed"
+    },
+    {
+      "source": "fr",
+      "target": "ja",
+      "prepare_ms": 101,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1089,
+      "status": "completed"
+    },
+    {
+      "source": "fr",
+      "target": "ko",
+      "prepare_ms": 77,
+      "playing_ms": 52,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1008,
+      "status": "completed"
+    },
+    {
+      "source": "fr",
+      "target": "sw",
+      "prepare_ms": 139,
+      "playing_ms": 68,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1110,
+      "status": "completed"
+    },
+    {
+      "source": "de",
+      "target": "en",
+      "prepare_ms": 121,
+      "playing_ms": 50,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 995,
+      "status": "completed"
+    },
+    {
+      "source": "de",
+      "target": "es",
+      "prepare_ms": 102,
+      "playing_ms": 48,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1005,
+      "status": "completed"
+    },
+    {
+      "source": "de",
+      "target": "fr",
+      "prepare_ms": 73,
+      "playing_ms": 45,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 866,
+      "status": "completed"
+    },
+    {
+      "source": "de",
+      "target": "it",
+      "prepare_ms": 105,
+      "playing_ms": 50,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 947,
+      "status": "completed"
+    },
+    {
+      "source": "de",
+      "target": "pt",
+      "prepare_ms": 79,
+      "playing_ms": 52,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1111,
+      "status": "completed"
+    },
+    {
+      "source": "de",
+      "target": "ar",
+      "prepare_ms": 103,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 922,
+      "status": "completed"
+    },
+    {
+      "source": "de",
+      "target": "zh",
+      "prepare_ms": 72,
+      "playing_ms": 43,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1193,
+      "status": "completed"
+    },
+    {
+      "source": "de",
+      "target": "ja",
+      "prepare_ms": 96,
+      "playing_ms": 55,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1068,
+      "status": "completed"
+    },
+    {
+      "source": "de",
+      "target": "ko",
+      "prepare_ms": 73,
+      "playing_ms": 50,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 958,
+      "status": "completed"
+    },
+    {
+      "source": "de",
+      "target": "sw",
+      "prepare_ms": 103,
+      "playing_ms": 43,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1068,
+      "status": "completed"
+    },
+    {
+      "source": "it",
+      "target": "en",
+      "prepare_ms": 88,
+      "playing_ms": 54,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1131,
+      "status": "completed"
+    },
+    {
+      "source": "it",
+      "target": "es",
+      "prepare_ms": 103,
+      "playing_ms": 67,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1136,
+      "status": "completed"
+    },
+    {
+      "source": "it",
+      "target": "fr",
+      "prepare_ms": 85,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1005,
+      "status": "completed"
+    },
+    {
+      "source": "it",
+      "target": "de",
+      "prepare_ms": 1155,
+      "playing_ms": 422,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1337,
+      "status": "completed"
+    },
+    {
+      "source": "it",
+      "target": "pt",
+      "prepare_ms": 159,
+      "playing_ms": 102,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1274,
+      "status": "completed"
+    },
+    {
+      "source": "it",
+      "target": "ar",
+      "prepare_ms": 127,
+      "playing_ms": 48,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1047,
+      "status": "completed"
+    },
+    {
+      "source": "it",
+      "target": "zh",
+      "prepare_ms": 78,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1317,
+      "status": "completed"
+    },
+    {
+      "source": "it",
+      "target": "ja",
+      "prepare_ms": 106,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1178,
+      "status": "completed"
+    },
+    {
+      "source": "it",
+      "target": "ko",
+      "prepare_ms": 85,
+      "playing_ms": 51,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1079,
+      "status": "completed"
+    },
+    {
+      "source": "it",
+      "target": "sw",
+      "prepare_ms": 121,
+      "playing_ms": 54,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1172,
+      "status": "completed"
+    },
+    {
+      "source": "pt",
+      "target": "en",
+      "prepare_ms": 91,
+      "playing_ms": 49,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1081,
+      "status": "completed"
+    },
+    {
+      "source": "pt",
+      "target": "es",
+      "prepare_ms": 102,
+      "playing_ms": 48,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1070,
+      "status": "completed"
+    },
+    {
+      "source": "pt",
+      "target": "fr",
+      "prepare_ms": 77,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 919,
+      "status": "completed"
+    },
+    {
+      "source": "pt",
+      "target": "de",
+      "prepare_ms": 124,
+      "playing_ms": 48,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 954,
+      "status": "completed"
+    },
+    {
+      "source": "pt",
+      "target": "it",
+      "prepare_ms": 78,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 984,
+      "status": "completed"
+    },
+    {
+      "source": "pt",
+      "target": "ar",
+      "prepare_ms": 116,
+      "playing_ms": 56,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 975,
+      "status": "completed"
+    },
+    {
+      "source": "pt",
+      "target": "zh",
+      "prepare_ms": 83,
+      "playing_ms": 55,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1246,
+      "status": "completed"
+    },
+    {
+      "source": "pt",
+      "target": "ja",
+      "prepare_ms": 123,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1110,
+      "status": "completed"
+    },
+    {
+      "source": "pt",
+      "target": "ko",
+      "prepare_ms": 83,
+      "playing_ms": 49,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1022,
+      "status": "completed"
+    },
+    {
+      "source": "pt",
+      "target": "sw",
+      "prepare_ms": 101,
+      "playing_ms": 52,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1139,
+      "status": "completed"
+    },
+    {
+      "source": "ar",
+      "target": "en",
+      "prepare_ms": 88,
+      "playing_ms": 48,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1058,
+      "status": "completed"
+    },
+    {
+      "source": "ar",
+      "target": "es",
+      "prepare_ms": 120,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1045,
+      "status": "completed"
+    },
+    {
+      "source": "ar",
+      "target": "fr",
+      "prepare_ms": 85,
+      "playing_ms": 47,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 903,
+      "status": "completed"
+    },
+    {
+      "source": "ar",
+      "target": "de",
+      "prepare_ms": 105,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 916,
+      "status": "completed"
+    },
+    {
+      "source": "ar",
+      "target": "it",
+      "prepare_ms": 71,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 939,
+      "status": "completed"
+    },
+    {
+      "source": "ar",
+      "target": "pt",
+      "prepare_ms": 91,
+      "playing_ms": 45,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1151,
+      "status": "completed"
+    },
+    {
+      "source": "ar",
+      "target": "zh",
+      "prepare_ms": 98,
+      "playing_ms": 55,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1227,
+      "status": "completed"
+    },
+    {
+      "source": "ar",
+      "target": "ja",
+      "prepare_ms": 77,
+      "playing_ms": 47,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1111,
+      "status": "completed"
+    },
+    {
+      "source": "ar",
+      "target": "ko",
+      "prepare_ms": 124,
+      "playing_ms": 45,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1029,
+      "status": "completed"
+    },
+    {
+      "source": "ar",
+      "target": "sw",
+      "prepare_ms": 82,
+      "playing_ms": 66,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1141,
+      "status": "completed"
+    },
+    {
+      "source": "zh",
+      "target": "en",
+      "prepare_ms": 125,
+      "playing_ms": 68,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1188,
+      "status": "completed"
+    },
+    {
+      "source": "zh",
+      "target": "es",
+      "prepare_ms": 83,
+      "playing_ms": 71,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1185,
+      "status": "completed"
+    },
+    {
+      "source": "zh",
+      "target": "fr",
+      "prepare_ms": 81,
+      "playing_ms": 55,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1053,
+      "status": "completed"
+    },
+    {
+      "source": "zh",
+      "target": "de",
+      "prepare_ms": 121,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1066,
+      "status": "completed"
+    },
+    {
+      "source": "zh",
+      "target": "it",
+      "prepare_ms": 79,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1089,
+      "status": "completed"
+    },
+    {
+      "source": "zh",
+      "target": "pt",
+      "prepare_ms": 119,
+      "playing_ms": 67,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1300,
+      "status": "completed"
+    },
+    {
+      "source": "zh",
+      "target": "ar",
+      "prepare_ms": 76,
+      "playing_ms": 56,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1086,
+      "status": "completed"
+    },
+    {
+      "source": "zh",
+      "target": "ja",
+      "prepare_ms": 123,
+      "playing_ms": 58,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1243,
+      "status": "completed"
+    },
+    {
+      "source": "zh",
+      "target": "ko",
+      "prepare_ms": 78,
+      "playing_ms": 60,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1171,
+      "status": "completed"
+    },
+    {
+      "source": "zh",
+      "target": "sw",
+      "prepare_ms": 108,
+      "playing_ms": 57,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1243,
+      "status": "completed"
+    },
+    {
+      "source": "ja",
+      "target": "en",
+      "prepare_ms": 95,
+      "playing_ms": 62,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1191,
+      "status": "completed"
+    },
+    {
+      "source": "ja",
+      "target": "es",
+      "prepare_ms": 130,
+      "playing_ms": 55,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1184,
+      "status": "completed"
+    },
+    {
+      "source": "ja",
+      "target": "fr",
+      "prepare_ms": 94,
+      "playing_ms": 57,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1042,
+      "status": "completed"
+    },
+    {
+      "source": "ja",
+      "target": "de",
+      "prepare_ms": 125,
+      "playing_ms": 47,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1035,
+      "status": "completed"
+    },
+    {
+      "source": "ja",
+      "target": "it",
+      "prepare_ms": 91,
+      "playing_ms": 55,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1081,
+      "status": "completed"
+    },
+    {
+      "source": "ja",
+      "target": "pt",
+      "prepare_ms": 129,
+      "playing_ms": 58,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1262,
+      "status": "completed"
+    },
+    {
+      "source": "ja",
+      "target": "ar",
+      "prepare_ms": 80,
+      "playing_ms": 48,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1068,
+      "status": "completed"
+    },
+    {
+      "source": "ja",
+      "target": "zh",
+      "prepare_ms": 107,
+      "playing_ms": 57,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1351,
+      "status": "completed"
+    },
+    {
+      "source": "ja",
+      "target": "ko",
+      "prepare_ms": 81,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1132,
+      "status": "completed"
+    },
+    {
+      "source": "ja",
+      "target": "sw",
+      "prepare_ms": 129,
+      "playing_ms": 46,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1215,
+      "status": "completed"
+    },
+    {
+      "source": "ko",
+      "target": "en",
+      "prepare_ms": 96,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1134,
+      "status": "completed"
+    },
+    {
+      "source": "ko",
+      "target": "es",
+      "prepare_ms": 113,
+      "playing_ms": 50,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1124,
+      "status": "completed"
+    },
+    {
+      "source": "ko",
+      "target": "fr",
+      "prepare_ms": 91,
+      "playing_ms": 52,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 988,
+      "status": "completed"
+    },
+    {
+      "source": "ko",
+      "target": "de",
+      "prepare_ms": 150,
+      "playing_ms": 52,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 999,
+      "status": "completed"
+    },
+    {
+      "source": "ko",
+      "target": "it",
+      "prepare_ms": 91,
+      "playing_ms": 54,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1023,
+      "status": "completed"
+    },
+    {
+      "source": "ko",
+      "target": "pt",
+      "prepare_ms": 124,
+      "playing_ms": 59,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1226,
+      "status": "completed"
+    },
+    {
+      "source": "ko",
+      "target": "ar",
+      "prepare_ms": 77,
+      "playing_ms": 44,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1038,
+      "status": "completed"
+    },
+    {
+      "source": "ko",
+      "target": "zh",
+      "prepare_ms": 131,
+      "playing_ms": 59,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1310,
+      "status": "completed"
+    },
+    {
+      "source": "ko",
+      "target": "ja",
+      "prepare_ms": 74,
+      "playing_ms": 58,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1180,
+      "status": "completed"
+    },
+    {
+      "source": "ko",
+      "target": "sw",
+      "prepare_ms": 111,
+      "playing_ms": 59,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1173,
+      "status": "completed"
+    },
+    {
+      "source": "sw",
+      "target": "en",
+      "prepare_ms": 92,
+      "playing_ms": 55,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1256,
+      "status": "completed"
+    },
+    {
+      "source": "sw",
+      "target": "es",
+      "prepare_ms": 127,
+      "playing_ms": 55,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1272,
+      "status": "completed"
+    },
+    {
+      "source": "sw",
+      "target": "fr",
+      "prepare_ms": 78,
+      "playing_ms": 48,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1134,
+      "status": "completed"
+    },
+    {
+      "source": "sw",
+      "target": "de",
+      "prepare_ms": 106,
+      "playing_ms": 56,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1128,
+      "status": "completed"
+    },
+    {
+      "source": "sw",
+      "target": "it",
+      "prepare_ms": 77,
+      "playing_ms": 45,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1186,
+      "status": "completed"
+    },
+    {
+      "source": "sw",
+      "target": "pt",
+      "prepare_ms": 124,
+      "playing_ms": 69,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1370,
+      "status": "completed"
+    },
+    {
+      "source": "sw",
+      "target": "ar",
+      "prepare_ms": 74,
+      "playing_ms": 54,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1179,
+      "status": "completed"
+    },
+    {
+      "source": "sw",
+      "target": "zh",
+      "prepare_ms": 74,
+      "playing_ms": 67,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1464,
+      "status": "completed"
+    },
+    {
+      "source": "sw",
+      "target": "ja",
+      "prepare_ms": 104,
+      "playing_ms": 51,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1318,
+      "status": "completed"
+    },
+    {
+      "source": "sw",
+      "target": "ko",
+      "prepare_ms": 87,
+      "playing_ms": 55,
+      "feeding_underruns": 0,
+      "terminal_underruns": 1,
+      "completion_ms": 1217,
+      "status": "completed"
+    }
+  ],
+  "activeNetwork": "none"
+}

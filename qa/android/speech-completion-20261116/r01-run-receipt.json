@@ -1,0 +1,24 @@
+{
+  "started": 1794861313.4640532,
+  "network_before": {
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "complete": false,
+  "test_apk_sha256": "6da4d7e95cab21be2f3effa74a914c31ccc84abaf9d10dd3a032b244157b2f22",
+  "pid": 1120563,
+  "exit": 0,
+  "rows": 110,
+  "completed": 0,
+  "activeNetwork": "none",
+  "instrumentation_ok": false,
+  "network_after": {
+    "wifi_on": "1",
+    "mobile_data": "1"
+  },
+  "private_state_byte_identical": {
+    "co.fallsoft.vipi": true,
+    "co.fallsoft.vipi.sourcecontextqa": true
+  },
+  "seconds": 21.559444904327393
+}

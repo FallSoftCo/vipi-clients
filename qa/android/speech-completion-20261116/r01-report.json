@@ -1,0 +1,886 @@
+{
+  "scope": "offline synthetic actual SpeechPlayback; not acoustic or meaning acceptance",
+  "directions": [
+    {
+      "source": "en",
+      "target": "es",
+      "prepare_ms": 584,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "en",
+      "target": "fr",
+      "prepare_ms": 154,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "en",
+      "target": "de",
+      "prepare_ms": 109,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "en",
+      "target": "it",
+      "prepare_ms": 119,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "en",
+      "target": "pt",
+      "prepare_ms": 117,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "en",
+      "target": "ar",
+      "prepare_ms": 128,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "en",
+      "target": "zh",
+      "prepare_ms": 129,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "en",
+      "target": "ja",
+      "prepare_ms": 1353,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "en",
+      "target": "ko",
+      "prepare_ms": 120,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "en",
+      "target": "sw",
+      "prepare_ms": 119,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "es",
+      "target": "en",
+      "prepare_ms": 98,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "es",
+      "target": "fr",
+      "prepare_ms": 96,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "es",
+      "target": "de",
+      "prepare_ms": 92,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "es",
+      "target": "it",
+      "prepare_ms": 100,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "es",
+      "target": "pt",
+      "prepare_ms": 90,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "es",
+      "target": "ar",
+      "prepare_ms": 113,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "es",
+      "target": "zh",
+      "prepare_ms": 99,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "es",
+      "target": "ja",
+      "prepare_ms": 95,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "es",
+      "target": "ko",
+      "prepare_ms": 93,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "es",
+      "target": "sw",
+      "prepare_ms": 103,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "fr",
+      "target": "en",
+      "prepare_ms": 107,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "fr",
+      "target": "es",
+      "prepare_ms": 91,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "fr",
+      "target": "de",
+      "prepare_ms": 97,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "fr",
+      "target": "it",
+      "prepare_ms": 99,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "fr",
+      "target": "pt",
+      "prepare_ms": 109,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "fr",
+      "target": "ar",
+      "prepare_ms": 95,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "fr",
+      "target": "zh",
+      "prepare_ms": 93,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "fr",
+      "target": "ja",
+      "prepare_ms": 99,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "fr",
+      "target": "ko",
+      "prepare_ms": 102,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "fr",
+      "target": "sw",
+      "prepare_ms": 108,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "de",
+      "target": "en",
+      "prepare_ms": 117,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "de",
+      "target": "es",
+      "prepare_ms": 113,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "de",
+      "target": "fr",
+      "prepare_ms": 125,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "de",
+      "target": "it",
+      "prepare_ms": 183,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "de",
+      "target": "pt",
+      "prepare_ms": 111,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "de",
+      "target": "ar",
+      "prepare_ms": 101,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "de",
+      "target": "zh",
+      "prepare_ms": 96,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "de",
+      "target": "ja",
+      "prepare_ms": 107,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "de",
+      "target": "ko",
+      "prepare_ms": 98,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "de",
+      "target": "sw",
+      "prepare_ms": 102,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "it",
+      "target": "en",
+      "prepare_ms": 113,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "it",
+      "target": "es",
+      "prepare_ms": 108,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "it",
+      "target": "fr",
+      "prepare_ms": 101,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "it",
+      "target": "de",
+      "prepare_ms": 98,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "it",
+      "target": "pt",
+      "prepare_ms": 97,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "it",
+      "target": "ar",
+      "prepare_ms": 94,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "it",
+      "target": "zh",
+      "prepare_ms": 111,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "it",
+      "target": "ja",
+      "prepare_ms": 96,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "it",
+      "target": "ko",
+      "prepare_ms": 95,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "it",
+      "target": "sw",
+      "prepare_ms": 151,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "pt",
+      "target": "en",
+      "prepare_ms": 110,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "pt",
+      "target": "es",
+      "prepare_ms": 105,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "pt",
+      "target": "fr",
+      "prepare_ms": 99,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "pt",
+      "target": "de",
+      "prepare_ms": 100,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "pt",
+      "target": "it",
+      "prepare_ms": 97,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "pt",
+      "target": "ar",
+      "prepare_ms": 111,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "pt",
+      "target": "zh",
+      "prepare_ms": 95,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "pt",
+      "target": "ja",
+      "prepare_ms": 96,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "pt",
+      "target": "ko",
+      "prepare_ms": 98,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "pt",
+      "target": "sw",
+      "prepare_ms": 105,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ar",
+      "target": "en",
+      "prepare_ms": 114,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ar",
+      "target": "es",
+      "prepare_ms": 97,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ar",
+      "target": "fr",
+      "prepare_ms": 94,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ar",
+      "target": "de",
+      "prepare_ms": 98,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ar",
+      "target": "it",
+      "prepare_ms": 108,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ar",
+      "target": "pt",
+      "prepare_ms": 94,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ar",
+      "target": "zh",
+      "prepare_ms": 94,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ar",
+      "target": "ja",
+      "prepare_ms": 95,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ar",
+      "target": "ko",
+      "prepare_ms": 109,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ar",
+      "target": "sw",
+      "prepare_ms": 99,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "zh",
+      "target": "en",
+      "prepare_ms": 115,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "zh",
+      "target": "es",
+      "prepare_ms": 98,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "zh",
+      "target": "fr",
+      "prepare_ms": 93,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "zh",
+      "target": "de",
+      "prepare_ms": 85,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "zh",
+      "target": "it",
+      "prepare_ms": 95,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "zh",
+      "target": "pt",
+      "prepare_ms": 99,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "zh",
+      "target": "ar",
+      "prepare_ms": 75,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "zh",
+      "target": "ja",
+      "prepare_ms": 108,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "zh",
+      "target": "ko",
+      "prepare_ms": 75,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "zh",
+      "target": "sw",
+      "prepare_ms": 95,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ja",
+      "target": "en",
+      "prepare_ms": 112,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ja",
+      "target": "es",
+      "prepare_ms": 101,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ja",
+      "target": "fr",
+      "prepare_ms": 93,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ja",
+      "target": "de",
+      "prepare_ms": 74,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ja",
+      "target": "it",
+      "prepare_ms": 92,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ja",
+      "target": "pt",
+      "prepare_ms": 76,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ja",
+      "target": "ar",
+      "prepare_ms": 102,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ja",
+      "target": "zh",
+      "prepare_ms": 77,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ja",
+      "target": "ko",
+      "prepare_ms": 99,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ja",
+      "target": "sw",
+      "prepare_ms": 77,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ko",
+      "target": "en",
+      "prepare_ms": 120,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ko",
+      "target": "es",
+      "prepare_ms": 93,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ko",
+      "target": "fr",
+      "prepare_ms": 74,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ko",
+      "target": "de",
+      "prepare_ms": 114,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ko",
+      "target": "it",
+      "prepare_ms": 77,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ko",
+      "target": "pt",
+      "prepare_ms": 84,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ko",
+      "target": "ar",
+      "prepare_ms": 95,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ko",
+      "target": "zh",
+      "prepare_ms": 75,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ko",
+      "target": "ja",
+      "prepare_ms": 96,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "ko",
+      "target": "sw",
+      "prepare_ms": 104,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "sw",
+      "target": "en",
+      "prepare_ms": 118,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "sw",
+      "target": "es",
+      "prepare_ms": 97,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "sw",
+      "target": "fr",
+      "prepare_ms": 74,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "sw",
+      "target": "de",
+      "prepare_ms": 114,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "sw",
+      "target": "it",
+      "prepare_ms": 72,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "sw",
+      "target": "pt",
+      "prepare_ms": 100,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "sw",
+      "target": "ar",
+      "prepare_ms": 74,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "sw",
+      "target": "zh",
+      "prepare_ms": 99,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "sw",
+      "target": "ja",
+      "prepare_ms": 82,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    },
+    {
+      "source": "sw",
+      "target": "ko",
+      "prepare_ms": 99,
+      "status": "failed",
+      "error": "IllegalStateException",
+      "message": "Audio is busy. Try again when your other audio finishes."
+    }
+  ],
+  "activeNetwork": "none"
+}

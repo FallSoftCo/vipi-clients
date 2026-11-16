@@ -1,0 +1,5 @@
+# Android offline speech controller, November 16
+
+The first run lacked a foreground activity and all 110 audio-focus requests were denied. The corrected r02 harness launched the existing QA activity and observed prepare → ready → playing → ready for all 110 directed pairs, offline, with zero feeding underruns; all 110 recorded one terminal drain underrun. It used the retained short synthetic speech fixtures and the resource-stripped QA app containing the 0fda43f runtime, not the signed release APK. No pronunciation, human acoustic quality, physical-device or general population claim follows. The per-row controller does not expose the individual selected voice identifier; its local voice policy permits only offline system voices or bundled fallback.
+
+Both network settings were restored. Alpha private files were byte-identical. QA private bytes differed: an encrypted profile record changed and SQLite WAL/SHM were checkpointed; independent before/after SQLite logical dumps matched and passed integrity_check. The encrypted profile contents were not semantically compared. No account was cleared, uninstalled, logged out or restored.
