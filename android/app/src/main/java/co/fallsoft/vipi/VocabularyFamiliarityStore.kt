@@ -24,19 +24,31 @@ internal class VocabularyFamiliarityStore(private val vault: MessageVault) {
             .doFinal(listOf("v1", source, target, span.original.lowercase(Locale.ROOT), span.translated)
                 .joinToString("\u0000").toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it) }
     }
-    private fun sourceUnitKey(unit: co.fallsoft.vipi.core.SourceReferenceUnit, source: String, target: String): String? {
-        // Only reviewed frame identity is stable evidence; legacy/ambiguous candidates remain unseen.
-        val identity = unit.learningIdentity ?: return null
-        if (identity.patternId.isBlank() || identity.meaning.isBlank() || identity.reading != (unit.reading ?: "") ||
-            unit.referenceId != "frame:${unit.catalogSha256}:${identity.patternId}") return null
+    private fun sourceUnitKey(unit: co.fallsoft.vipi.core.SourceReferenceUnit, source: String, target: String): Pair<String, String>? {
+        val frame = unit.learningIdentity
+        val starter = unit.starterIdentity
+        val fields: List<String>; val namespace: String
+        if (frame != null && starter == null) {
+            if (frame.patternId.isBlank() || frame.meaning.isBlank() || frame.reading != (unit.reading ?: "") ||
+                unit.referenceId != "frame:${unit.catalogSha256}:${frame.patternId}") return null
+            namespace = "immersion-frame-exposure-next"
+            fields = listOf("v2-frame-sense-1", source, target, frame.patternId, unit.original, unit.translated, frame.meaning, frame.reading)
+        } else if (starter != null && frame == null) {
+            if (source != "en" || target !in setOf("ja", "sw") || starter.entryId.isBlank() || starter.conceptId.isBlank() ||
+                starter.pos.isBlank() || starter.canonicalSource.isBlank() || !starter.recordSha256.matches(Regex("[a-f0-9]{64}")) ||
+                starter.guard == "withheld_contextual_sense" ||
+                !unit.referenceId.matches(Regex("starter-en-$target-[0-9]{3}:${unit.catalogSha256}:${Regex.escape(starter.entryId)}"))) return null
+            namespace = "immersion-starter-exposure-next"
+            fields = listOf("v2-starter-display-1", source, target, starter.entryId, starter.conceptId, starter.pos,
+                starter.guard, starter.canonicalSource, unit.translated, unit.reading ?: "")
+        } else return null
         val secret = idKey ?: vault.transaction {
             vault.get("immersion-metadata", "id-key-v1")?.also { require(it.size == 32) }
                 ?: ByteArray(32).also { SecureRandom().nextBytes(it); vault.put("immersion-metadata", "id-key-v1", it) }
         }.also { idKey = it }
-        val fields = listOf("v2-frame-sense-1", source, target, identity.patternId, unit.original, unit.translated, identity.meaning, identity.reading)
-        val encoded = encodeFrameIdentity(fields)
-        return Mac.getInstance("HmacSHA256").apply { init(SecretKeySpec(secret, "HmacSHA256")) }
-            .doFinal(encoded).joinToString("") { "%02x".format(it) }
+        val hash = Mac.getInstance("HmacSHA256").apply { init(SecretKeySpec(secret, "HmacSHA256")) }
+            .doFinal(encodeFrameIdentity(fields)).joinToString("") { "%02x".format(it) }
+        return namespace to hash
     }
     @Synchronized fun sourceSeenBatch(units: List<co.fallsoft.vipi.core.SourceReferenceUnit>, source: String, target: String, day: Int): Map<co.fallsoft.vipi.core.SourceReferenceUnit, co.fallsoft.vipi.core.AdditiveExposureSelection.Seen> {
         val unknown = co.fallsoft.vipi.core.AdditiveExposureSelection.Seen(false, available = false)
@@ -45,7 +57,7 @@ internal class VocabularyFamiliarityStore(private val vault: MessageVault) {
             val ids = units.associateWith { sourceUnitKey(it, source, target) }
             vault.transaction { ids.mapValues { (_, id) ->
                 if (id == null) unseen else try {
-                    val bytes = vault.get("immersion-frame-exposure-next", id)
+                    val bytes = vault.get(id.first, id.second)
                     if (bytes == null) unseen else {
                         val record = JSONObject(bytes.toString(Charsets.UTF_8)); val last = record.getInt("lastDay"); val days = record.getInt("exposureDays")
                         require(last in 0..3_000_000 && days in 1..3650)
@@ -62,12 +74,12 @@ internal class VocabularyFamiliarityStore(private val vault: MessageVault) {
         if (day !in 0..3_000_000 || units.isEmpty()) return false
         return try {
             val ids = units.mapNotNull { sourceUnitKey(it, source, target) }.toSet()
-            val updates = mutableMapOf<String, Int>()
+            val updates = mutableMapOf<Pair<String, String>, Int>()
             vault.transaction { ids.forEach { id ->
-                val old = vault.get("immersion-frame-exposure-next", id)?.let { JSONObject(it.toString(Charsets.UTF_8)) }
+                val old = vault.get(id.first, id.second)?.let { JSONObject(it.toString(Charsets.UTF_8)) }
                 val last = old?.getInt("lastDay") ?: -1; val count = old?.getInt("exposureDays") ?: 0
                 require(last in -1..3_000_000 && count in 0..3650)
-                if (day > last) { vault.put("immersion-frame-exposure-next", id, JSONObject().put("lastDay",day).put("exposureDays",(count+1).coerceAtMost(3650)).toString().toByteArray(Charsets.UTF_8)); updates[id] = day }
+                if (day > last) { vault.put(id.first, id.second, JSONObject().put("lastDay",day).put("exposureDays",(count+1).coerceAtMost(3650)).toString().toByteArray(Charsets.UTF_8)); updates[id] = day }
             } }
             if (updates.isNotEmpty()) sourceHistoryRevision++
             updates.isNotEmpty()
@@ -113,7 +125,7 @@ internal class VocabularyFamiliarityStore(private val vault: MessageVault) {
 
 /** Shared exact UTF-8 framing; callers establish reviewed provenance separately. */
 internal fun encodeFrameIdentity(fields: List<String>): ByteArray {
-    require(fields.size == 8)
+    require(fields.size == 8 || fields.size == 10)
     val bytes = java.io.ByteArrayOutputStream()
     java.io.DataOutputStream(bytes).use { out -> fields.forEach { field ->
         val utf8 = field.toByteArray(Charsets.UTF_8); out.writeInt(utf8.size); out.write(utf8)

@@ -1,0 +1,14 @@
+{
+  "qa_only": true,
+  "slim_apk_sha256": "6c305f2bc3b05c65235f9850fea9f359ca4cafab6be2245f1b8904f95dfbba37",
+  "starter_identity_fixture_sha256": "819fd9a66a3d107f35176e8a0157d8af3ddb56026b4a3be014a7d2ee340633b2",
+  "focused_tests_passed": 12,
+  "source_sha256": {
+    "android/core/src/main/kotlin/co/fallsoft/vipi/core/SourceReferencePresentation.kt": "7b4de188b34d46de594fc4b8a160fccf6a7416bf4bdfdb025b401f1292905aed",
+    "android/app/src/main/java/co/fallsoft/vipi/JapaneseStarterLookup.kt": "a6a53aabce12d16b7676c092d3f71bb1c8474b755e19fd69ead179d7c16511ad",
+    "android/app/src/main/java/co/fallsoft/vipi/SwahiliStarterLookup.kt": "deb8c0b4de580207eb80df9ed294e44ec1c41d426bf5a2c26dc5266056b2a039",
+    "android/app/src/main/java/co/fallsoft/vipi/VocabularyFamiliarityStore.kt": "6467a47ec69b5cb7c27d44dd25532dfc641d7356e1237271eaa7286ebbf0412d",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/AdditiveExposureDeviceTest.kt": "c4f2fe755fa86152bda74aa65f8492aa033cce55d0ee7df649ddc015b86e7a93"
+  },
+  "release_package_qualified": false
+}

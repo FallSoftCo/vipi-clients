@@ -32,7 +32,7 @@ internal class JapaneseStarterLookup(bytes: ByteArray, manifest: ByteArray, know
         private fun strings(a: JSONArray) = (0 until a.length()).map { a.getString(it) }
     }
     private data class Entry(val id:String,val tokens:List<String>,val target:String,val reading:String,val category:String,
-        val rank:Int,val guard:String?,val following:Set<String>,val concept:String,val record:String)
+        val rank:Int,val guard:String?,val following:Set<String>,val concept:String,val record:String,val pos:String,val canonicalSource:String)
     private val known = knownIDs.toSet()
     private val entries: List<Entry>
     private val lefts: Set<String>
@@ -55,9 +55,9 @@ internal class JapaneseStarterLookup(bytes: ByteArray, manifest: ByteArray, know
             require(e.getString("reading").isNotBlank() && e.getString("reading_kana").isNotBlank() && e.getString("concept_id").isNotBlank())
             require(e.getString("record_sha256").matches(Regex("[a-f0-9]{64}")))
             Entry(e.getString("id"),strings(e.getJSONArray("source_tokens")),e.getString("target"),e.getString("reading"),e.getString("category"),
-                e.getInt("train_rank"),guard,e.optJSONArray("following")?.let(::strings)?.toSet() ?: emptySet(),e.getString("concept_id"),e.getString("record_sha256"))
+                e.getInt("train_rank"),guard,e.optJSONArray("following")?.let(::strings)?.toSet() ?: emptySet(),e.getString("concept_id"),e.getString("record_sha256"),e.getString("pos"),e.getString("source"))
         }
-        require(entries.map { it.id }.distinct().size==entries.size && entries.all { it.id.isNotBlank() && it.tokens.isNotEmpty() && it.target.isNotBlank() && it.category in setOf("content","function") })
+        require(entries.map { it.id }.distinct().size==entries.size && entries.all { it.id.isNotBlank() && it.tokens.isNotEmpty() && it.target.isNotBlank() && it.pos.isNotBlank() && it.canonicalSource.isNotBlank() && it.category in setOf("content","function") })
         val c=p.getJSONObject("source_context_sets");lefts=(strings(c.getJSONArray("determiners"))+strings(c.getJSONArray("prepositions"))+strings(c.getJSONArray("object_verbs"))).toSet();copulas=strings(c.getJSONArray("copulas")).toSet()
         cacheIdentity="$version:$packSHA:"+sha(known.sorted().joinToString("\u0000").toByteArray()) + if(packMultiple) ":packing-2" else ""
     }
@@ -104,7 +104,8 @@ internal class JapaneseStarterLookup(bytes: ByteArray, manifest: ByteArray, know
         }
         rawCandidates=hits.map { h -> SourceFrameStarterCandidate(h.entry.id,h.entry.concept,h.entry.category,h.entry.rank,h.entry.tokens.size,h.range,h.cost,h.reason,
             SourceReferenceUnit(h.range.start,h.range.end,original.substring(h.range.start,h.range.end),h.entry.target,h.entry.reading,
-                "$version:$packSHA:${h.entry.id}",packSHA,h.cost,h.outputID)) }
+                "$version:$packSHA:${h.entry.id}",packSHA,h.cost,h.outputID,
+                starterIdentity=if(h.reason==null) ApprovedStarterIdentity(h.entry.id,h.entry.concept,h.entry.pos,h.entry.guard?:"",h.entry.canonicalSource,h.entry.record) else null)) }
         val ordered=hits.filter{it.reason==null}.sortedWith(compareBy<Hit>{it.entry.category!="content"}.thenByDescending{it.entry.tokens.size}.thenBy{it.entry.rank}.thenBy{it.range.start})
         val chosen=mutableListOf<Hit>();var used=0
         for(hit in ordered) {
@@ -114,7 +115,8 @@ internal class JapaneseStarterLookup(bytes: ByteArray, manifest: ByteArray, know
             chosen+=hit;used+=hit.cost
         }
         val units=chosen.sortedBy{it.range.start}.map{SourceReferenceUnit(it.range.start,it.range.end,original.substring(it.range.start,it.range.end),it.entry.target,it.entry.reading,
-            "$version:$packSHA:${it.entry.id}",packSHA,it.cost,it.outputID)}
+            "$version:$packSHA:${it.entry.id}",packSHA,it.cost,it.outputID,
+            starterIdentity=ApprovedStarterIdentity(it.entry.id,it.entry.concept,it.entry.pos,it.entry.guard?:"",it.entry.canonicalSource,it.entry.record))}
         val partial=SourceReferencePresentation.create(original,target,units,density,native.size)
         val groups=mutableListOf<MutableList<Hit>>()
         for(h in hits.sortedWith(compareBy<Hit>{it.range.start}.thenBy{it.range.end})) {

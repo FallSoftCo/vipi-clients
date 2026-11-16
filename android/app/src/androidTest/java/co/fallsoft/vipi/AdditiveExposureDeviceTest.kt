@@ -103,4 +103,28 @@ class AdditiveExposureDeviceTest {
   }
   File(context.filesDir,"additive-selection-r01/starter-trace.json").writeText(rows.toString(2))
  }
+ @Test fun sharedStarterIdentityVectors() {
+  val context=InstrumentationRegistry.getInstrumentation().targetContext;val root=JSONObject(File(context.filesDir,"additive-selection-r01/starter-identity-fixtures.json").readText());val key=root.getString("test_key_hex").chunked(2).map{it.toInt(16).toByte()}.toByteArray();val cases=root.getJSONArray("cases");fun hex(b:ByteArray)=b.joinToString(""){"%02x".format(it)}
+  for(i in 0 until cases.length()) {val c=cases.getJSONObject(i);if(!c.getBoolean("verified_current_occurrence"))continue;val f=c.getJSONObject("fields");val fields=listOf("version","source_language","target_language","entry_id","concept_id","pos","guard","canonical_source","target_face","reading").map{f.getString(it)};val bytes=encodeFrameIdentity(fields);assertEquals(c.getString("id"),c.getString("expected_encoded_hex"),hex(bytes));val mac=javax.crypto.Mac.getInstance("HmacSHA256").apply{init(javax.crypto.spec.SecretKeySpec(key,"HmacSHA256"))};assertEquals(c.getString("id"),c.getString("expected_hmac_sha256"),hex(mac.doFinal(bytes))) }
+ }
+ @Test fun starterHistoryIsGuardedAndPackIndependent() {
+  val context=InstrumentationRegistry.getInstrumentation().targetContext;val account=UUID.randomUUID();val vault=MessageVault(context,account);val store=VocabularyFamiliarityStore(vault);val hash="a".repeat(64)
+  val identity=ApprovedStarterIdentity("word-en-sw-i","pronoun-i","pron","","i","b".repeat(64));val unit=SourceReferenceUnit(0,1,"I","mimi",null,"starter-en-sw-008:$hash:word-en-sw-i",hash,1,starterIdentity=identity)
+  try {
+   assertTrue(store.observeSourceUnits(listOf(unit),"en","sw",100));val other=unit.copy(original="i",referenceId="starter-en-sw-009:${"c".repeat(64)}:word-en-sw-i",catalogSha256="c".repeat(64),starterIdentity=identity.copy(recordSha256="d".repeat(64)))
+   assertTrue(store.sourceSeen(other,"en","sw",101).observed);assertFalse(store.sourceSeen(unit.copy(starterIdentity=identity.copy(guard="ordinary_noun_context")),"en","sw",101).observed)
+   assertFalse(store.observeSourceUnits(listOf(unit.copy(starterIdentity=identity.copy(guard="withheld_contextual_sense"))),"en","sw",101));assertFalse(store.observeSourceUnits(listOf(unit.copy(starterIdentity=null)),"en","sw",101))
+   vault.transaction {assertEquals(1,vault.ids("immersion-starter-exposure-next").size);assertTrue(vault.ids("immersion-frame-exposure-next").isEmpty())}
+  } finally {vault.close();vault.file.parentFile!!.deleteRecursively();KeyStore.getInstance("AndroidKeyStore").apply{load(null)}.deleteEntry("co.fallsoft.vipi.messages.$account")}
+ }
+ @Test fun actualStarterMetadataRequiresCurrentGuard() = runBlocking {
+  val context=InstrumentationRegistry.getInstrumentation().targetContext;val provider=requireNotNull(BundledStarterLookup.provider(context));val upper=provider.lookup("I heard music.","en","sw",.75);val lower=provider.lookup("i heard music.","en","sw",.75)
+  val a=upper.candidatePool.first{it.original=="I"};val b=lower.candidatePool.first{it.original=="i"};assertNotNull(a.starterIdentity);assertEquals(a.starterIdentity,b.starterIdentity)
+  val account=UUID.randomUUID();val vault=MessageVault(context,account);val store=VocabularyFamiliarityStore(vault);val owner=ConversationImmersion(context,"en","sw",.25,sourceLookup=provider,familiarity=store,qaModelsReady=false)
+  try {
+   assertTrue(store.observeSourceUnits(listOf(a),"en","sw",100));assertTrue(store.sourceSeen(b,"en","sw",100).observed)
+   val result=requireNotNull(owner.presentation("I heard music.","en"));assertEquals(listOf("I","music"),result.spans.map{it.original})
+   val withheld=provider.lookup("I like winter.","en","sw",.75);assertTrue(withheld.candidatePool.none{it.original.equals("winter",true) && it.starterIdentity!=null})
+  } finally {owner.close();vault.close();vault.file.parentFile!!.deleteRecursively();KeyStore.getInstance("AndroidKeyStore").apply{load(null)}.deleteEntry("co.fallsoft.vipi.messages.$account")}
+ }
 }

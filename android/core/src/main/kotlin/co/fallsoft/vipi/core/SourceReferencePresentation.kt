@@ -18,12 +18,15 @@ interface ImmersionPresentation {
 }
 
 data class ApprovedLearningIdentity(val patternId: String, val meaning: String, val reading: String)
+data class ApprovedStarterIdentity(val entryId: String, val conceptId: String, val pos: String, val guard: String,
+                                   val canonicalSource: String, val recordSha256: String)
 data class SourceReferenceUnit(val start: Int, val end: Int, val original: String, val translated: String,
                                val reading: String?, val referenceId: String, val catalogSha256: String,
                                val nativeSourceTokens: Int? = null,
                                val outputID: String? = null,
                                val learningIdentity: ApprovedLearningIdentity? = null,
-                               val selectionPriority: Int? = null)
+                               val selectionPriority: Int? = null,
+                               val starterIdentity: ApprovedStarterIdentity? = null)
 /** targetStart/End refer to the exact corresponding reference's translation, NOT a full message. */
 data class PartialImmersionResult(override val original: String, override val spans: List<ImmersionSpan>,
                                   val references: List<SourceReferenceUnit>,
