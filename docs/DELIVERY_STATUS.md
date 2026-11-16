@@ -1,10 +1,71 @@
 # Current delivery status
 
-Updated 2026-11-11. Vipi remains restricted staging, not a submitted or publicly
+Updated 2026-11-16. Vipi remains restricted staging, not a submitted or publicly
 available store release. This page describes current operational state;
 [VERIFICATION.md](VERIFICATION.md) and the linked receipts retain historical
 experiments, failures and qualification limits. The longer prior status remains
 in Git history before this revision.
+
+## November 16 update
+
+The new progression retains previously displayed words alongside new words.
+The **New words** setting controls the allowance for unfamiliar words; familiar
+words can appear in addition, within the existing total limit. Zero turns word
+switching off. A complete visible target-language dwell records an exposure,
+not a claim that the word has been learned. Selection stays fixed while the
+message is visible or in flight, so its own exposure does not keep changing it.
+
+Both platforms implement account-local encrypted history for reviewed frames
+and guarded English→Japanese/Swahili starter entries. Learning identities survive
+unrelated catalog expansions and retain meaning, reading and entry boundaries.
+History never approves a translation or weakens a source guard. Current chat
+backups do not include this familiarity history or its account-local identifier
+key. Do not promise that learning history restores with a chat backup.
+
+Native controlled tests demonstrate familiar-plus-new selection on both
+platforms. Android's actual conversation row retains its selection through a
+visible dwell and a readiness transition. Apple's isolated Simulator app uses
+the real bundled starter/frame providers and playback controller. The actual
+Listen control reaches playing and then ready; Japanese Latin readings and
+mixed English/Swahili speech have retained receipts. These are simulator/emulator
+checks with synthetic messages, not human acoustic acceptance or a claim that
+every real conversation has a suitable mapping.
+
+An ordinary exact-reference route is currently being corrected: a saved
+whole-message translation selected the older fixed-quota alignment path instead
+of the new familiar-plus-new path. The correction must preserve explicit Full
+translation, input direction, protected text and indivisible phrases. Its
+working changes are not part of the signed Android artifact below.
+
+Automatic immersion still uses accepted local mappings. Newly measured Apple
+and Android local translations of independently selected words include wrong
+senses for ordinary ambiguous words. Those diagnostic outputs are not enabled
+as automatic immersion. A generic exact Arabic reading database has also passed
+an isolated Android lookup probe; it remains an inactive candidate, with no
+reading for conflicting or unknown forms. Neither experiment establishes a
+conversational coverage percentage.
+
+The full Android APK and AAB at `a53ff86` are signed and verified, including all
+1,077 packaged assets and the accepted 007 catalog. The specified ARM64 device
+download estimate is **416,959,214 bytes**; this is a local bundletool estimate,
+not Play acceptance. See [November 16 artifacts](../release/build-artifacts-20261116.json).
+Later exact-reference changes require a new artifact after qualification.
+Apple's `f359610` starter/history integration passed an unsigned arm64 Simulator
+build with the production app bootstrap source. No signing attempt was made.
+The older device archive and r08 client-source package described below remain
+historical artifacts and do not contain these November 16 changes.
+
+The deployed service is now `742e119`, adding the public username invitation
+page. Registration remains restricted to the owned review accounts. No new
+provider generation, store upload, purchase or review submission occurred in
+this continuation. Native browser inspection on November 16 reconfirmed Vipi
+as a Play draft, App Store Connect at sign-in, and Google Cloud requiring
+company reauthentication. The Mac signing/keychain hold remains in force.
+The requested automatic-reset timer and policy remain disabled.
+
+The sections below retain their dated November 11 evidence where the update
+above does not supersede it. Source packages, release artifacts, store forms
+and actual customer access still need final reconciliation before submission.
 
 ## Product and active language data
 
