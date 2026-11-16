@@ -1,0 +1,3553 @@
+{
+  "schema": 1,
+  "languages": [
+    "en",
+    "es",
+    "fr",
+    "de",
+    "it",
+    "pt",
+    "ar",
+    "zh",
+    "ja",
+    "ko",
+    "sw"
+  ],
+  "directions": 110,
+  "cases": [
+    {
+      "id": "en-es:water",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "Please bring some water when you come upstairs.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-es:book",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "I left my book on the kitchen table.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-es:music",
+      "source_language": "en",
+      "target_language": "es",
+      "original": "The music is too loud; could you turn it down?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-fr:water",
+      "source_language": "en",
+      "target_language": "fr",
+      "original": "Please bring some water when you come upstairs.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-fr:book",
+      "source_language": "en",
+      "target_language": "fr",
+      "original": "I left my book on the kitchen table.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-fr:music",
+      "source_language": "en",
+      "target_language": "fr",
+      "original": "The music is too loud; could you turn it down?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-de:water",
+      "source_language": "en",
+      "target_language": "de",
+      "original": "Please bring some water when you come upstairs.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-de:book",
+      "source_language": "en",
+      "target_language": "de",
+      "original": "I left my book on the kitchen table.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-de:music",
+      "source_language": "en",
+      "target_language": "de",
+      "original": "The music is too loud; could you turn it down?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-it:water",
+      "source_language": "en",
+      "target_language": "it",
+      "original": "Please bring some water when you come upstairs.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-it:book",
+      "source_language": "en",
+      "target_language": "it",
+      "original": "I left my book on the kitchen table.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-it:music",
+      "source_language": "en",
+      "target_language": "it",
+      "original": "The music is too loud; could you turn it down?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-pt:water",
+      "source_language": "en",
+      "target_language": "pt",
+      "original": "Please bring some water when you come upstairs.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-pt:book",
+      "source_language": "en",
+      "target_language": "pt",
+      "original": "I left my book on the kitchen table.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-pt:music",
+      "source_language": "en",
+      "target_language": "pt",
+      "original": "The music is too loud; could you turn it down?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-ar:water",
+      "source_language": "en",
+      "target_language": "ar",
+      "original": "Please bring some water when you come upstairs.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-ar:book",
+      "source_language": "en",
+      "target_language": "ar",
+      "original": "I left my book on the kitchen table.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-ar:music",
+      "source_language": "en",
+      "target_language": "ar",
+      "original": "The music is too loud; could you turn it down?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-zh:water",
+      "source_language": "en",
+      "target_language": "zh",
+      "original": "Please bring some water when you come upstairs.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-zh:book",
+      "source_language": "en",
+      "target_language": "zh",
+      "original": "I left my book on the kitchen table.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-zh:music",
+      "source_language": "en",
+      "target_language": "zh",
+      "original": "The music is too loud; could you turn it down?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-ja:water",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "Please bring some water when you come upstairs.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-ja:book",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "I left my book on the kitchen table.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-ja:music",
+      "source_language": "en",
+      "target_language": "ja",
+      "original": "The music is too loud; could you turn it down?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-ko:water",
+      "source_language": "en",
+      "target_language": "ko",
+      "original": "Please bring some water when you come upstairs.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-ko:book",
+      "source_language": "en",
+      "target_language": "ko",
+      "original": "I left my book on the kitchen table.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-ko:music",
+      "source_language": "en",
+      "target_language": "ko",
+      "original": "The music is too loud; could you turn it down?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-sw:water",
+      "source_language": "en",
+      "target_language": "sw",
+      "original": "Please bring some water when you come upstairs.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-sw:book",
+      "source_language": "en",
+      "target_language": "sw",
+      "original": "I left my book on the kitchen table.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "en-sw:music",
+      "source_language": "en",
+      "target_language": "sw",
+      "original": "The music is too loud; could you turn it down?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-en:water",
+      "source_language": "es",
+      "target_language": "en",
+      "original": "Por favor, trae agua cuando subas.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-en:book",
+      "source_language": "es",
+      "target_language": "en",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-en:music",
+      "source_language": "es",
+      "target_language": "en",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-fr:water",
+      "source_language": "es",
+      "target_language": "fr",
+      "original": "Por favor, trae agua cuando subas.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-fr:book",
+      "source_language": "es",
+      "target_language": "fr",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-fr:music",
+      "source_language": "es",
+      "target_language": "fr",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-de:water",
+      "source_language": "es",
+      "target_language": "de",
+      "original": "Por favor, trae agua cuando subas.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-de:book",
+      "source_language": "es",
+      "target_language": "de",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-de:music",
+      "source_language": "es",
+      "target_language": "de",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-it:water",
+      "source_language": "es",
+      "target_language": "it",
+      "original": "Por favor, trae agua cuando subas.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-it:book",
+      "source_language": "es",
+      "target_language": "it",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-it:music",
+      "source_language": "es",
+      "target_language": "it",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-pt:water",
+      "source_language": "es",
+      "target_language": "pt",
+      "original": "Por favor, trae agua cuando subas.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-pt:book",
+      "source_language": "es",
+      "target_language": "pt",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-pt:music",
+      "source_language": "es",
+      "target_language": "pt",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-ar:water",
+      "source_language": "es",
+      "target_language": "ar",
+      "original": "Por favor, trae agua cuando subas.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-ar:book",
+      "source_language": "es",
+      "target_language": "ar",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-ar:music",
+      "source_language": "es",
+      "target_language": "ar",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-zh:water",
+      "source_language": "es",
+      "target_language": "zh",
+      "original": "Por favor, trae agua cuando subas.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-zh:book",
+      "source_language": "es",
+      "target_language": "zh",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-zh:music",
+      "source_language": "es",
+      "target_language": "zh",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-ja:water",
+      "source_language": "es",
+      "target_language": "ja",
+      "original": "Por favor, trae agua cuando subas.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-ja:book",
+      "source_language": "es",
+      "target_language": "ja",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-ja:music",
+      "source_language": "es",
+      "target_language": "ja",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-ko:water",
+      "source_language": "es",
+      "target_language": "ko",
+      "original": "Por favor, trae agua cuando subas.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-ko:book",
+      "source_language": "es",
+      "target_language": "ko",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-ko:music",
+      "source_language": "es",
+      "target_language": "ko",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-sw:water",
+      "source_language": "es",
+      "target_language": "sw",
+      "original": "Por favor, trae agua cuando subas.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-sw:book",
+      "source_language": "es",
+      "target_language": "sw",
+      "original": "Dejé mi libro en la mesa de la cocina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "es-sw:music",
+      "source_language": "es",
+      "target_language": "sw",
+      "original": "La música está demasiado alta, ¿puedes bajarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-en:water",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-en:book",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-en:music",
+      "source_language": "fr",
+      "target_language": "en",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-es:water",
+      "source_language": "fr",
+      "target_language": "es",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-es:book",
+      "source_language": "fr",
+      "target_language": "es",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-es:music",
+      "source_language": "fr",
+      "target_language": "es",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-de:water",
+      "source_language": "fr",
+      "target_language": "de",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-de:book",
+      "source_language": "fr",
+      "target_language": "de",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-de:music",
+      "source_language": "fr",
+      "target_language": "de",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-it:water",
+      "source_language": "fr",
+      "target_language": "it",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-it:book",
+      "source_language": "fr",
+      "target_language": "it",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-it:music",
+      "source_language": "fr",
+      "target_language": "it",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-pt:water",
+      "source_language": "fr",
+      "target_language": "pt",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-pt:book",
+      "source_language": "fr",
+      "target_language": "pt",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-pt:music",
+      "source_language": "fr",
+      "target_language": "pt",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-ar:water",
+      "source_language": "fr",
+      "target_language": "ar",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-ar:book",
+      "source_language": "fr",
+      "target_language": "ar",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-ar:music",
+      "source_language": "fr",
+      "target_language": "ar",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-zh:water",
+      "source_language": "fr",
+      "target_language": "zh",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-zh:book",
+      "source_language": "fr",
+      "target_language": "zh",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-zh:music",
+      "source_language": "fr",
+      "target_language": "zh",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-ja:water",
+      "source_language": "fr",
+      "target_language": "ja",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-ja:book",
+      "source_language": "fr",
+      "target_language": "ja",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-ja:music",
+      "source_language": "fr",
+      "target_language": "ja",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-ko:water",
+      "source_language": "fr",
+      "target_language": "ko",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-ko:book",
+      "source_language": "fr",
+      "target_language": "ko",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-ko:music",
+      "source_language": "fr",
+      "target_language": "ko",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-sw:water",
+      "source_language": "fr",
+      "target_language": "sw",
+      "original": "Apporte de l’eau quand tu montes, s’il te plaît.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-sw:book",
+      "source_language": "fr",
+      "target_language": "sw",
+      "original": "J’ai laissé mon livre sur la table de la cuisine.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "fr-sw:music",
+      "source_language": "fr",
+      "target_language": "sw",
+      "original": "La musique est trop forte, tu peux baisser le son ?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-en:water",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-en:book",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-en:music",
+      "source_language": "de",
+      "target_language": "en",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-es:water",
+      "source_language": "de",
+      "target_language": "es",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-es:book",
+      "source_language": "de",
+      "target_language": "es",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-es:music",
+      "source_language": "de",
+      "target_language": "es",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-fr:water",
+      "source_language": "de",
+      "target_language": "fr",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-fr:book",
+      "source_language": "de",
+      "target_language": "fr",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-fr:music",
+      "source_language": "de",
+      "target_language": "fr",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-it:water",
+      "source_language": "de",
+      "target_language": "it",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-it:book",
+      "source_language": "de",
+      "target_language": "it",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-it:music",
+      "source_language": "de",
+      "target_language": "it",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-pt:water",
+      "source_language": "de",
+      "target_language": "pt",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-pt:book",
+      "source_language": "de",
+      "target_language": "pt",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-pt:music",
+      "source_language": "de",
+      "target_language": "pt",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-ar:water",
+      "source_language": "de",
+      "target_language": "ar",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-ar:book",
+      "source_language": "de",
+      "target_language": "ar",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-ar:music",
+      "source_language": "de",
+      "target_language": "ar",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-zh:water",
+      "source_language": "de",
+      "target_language": "zh",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-zh:book",
+      "source_language": "de",
+      "target_language": "zh",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-zh:music",
+      "source_language": "de",
+      "target_language": "zh",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-ja:water",
+      "source_language": "de",
+      "target_language": "ja",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-ja:book",
+      "source_language": "de",
+      "target_language": "ja",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-ja:music",
+      "source_language": "de",
+      "target_language": "ja",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-ko:water",
+      "source_language": "de",
+      "target_language": "ko",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-ko:book",
+      "source_language": "de",
+      "target_language": "ko",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-ko:music",
+      "source_language": "de",
+      "target_language": "ko",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-sw:water",
+      "source_language": "de",
+      "target_language": "sw",
+      "original": "Bring bitte etwas Wasser mit, wenn du hochkommst.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-sw:book",
+      "source_language": "de",
+      "target_language": "sw",
+      "original": "Ich habe mein Buch auf dem Küchentisch liegen lassen.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "de-sw:music",
+      "source_language": "de",
+      "target_language": "sw",
+      "original": "Die Musik ist zu laut, kannst du sie leiser machen?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-en:water",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-en:book",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-en:music",
+      "source_language": "it",
+      "target_language": "en",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-es:water",
+      "source_language": "it",
+      "target_language": "es",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-es:book",
+      "source_language": "it",
+      "target_language": "es",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-es:music",
+      "source_language": "it",
+      "target_language": "es",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-fr:water",
+      "source_language": "it",
+      "target_language": "fr",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-fr:book",
+      "source_language": "it",
+      "target_language": "fr",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-fr:music",
+      "source_language": "it",
+      "target_language": "fr",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-de:water",
+      "source_language": "it",
+      "target_language": "de",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-de:book",
+      "source_language": "it",
+      "target_language": "de",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-de:music",
+      "source_language": "it",
+      "target_language": "de",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-pt:water",
+      "source_language": "it",
+      "target_language": "pt",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-pt:book",
+      "source_language": "it",
+      "target_language": "pt",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-pt:music",
+      "source_language": "it",
+      "target_language": "pt",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-ar:water",
+      "source_language": "it",
+      "target_language": "ar",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-ar:book",
+      "source_language": "it",
+      "target_language": "ar",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-ar:music",
+      "source_language": "it",
+      "target_language": "ar",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-zh:water",
+      "source_language": "it",
+      "target_language": "zh",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-zh:book",
+      "source_language": "it",
+      "target_language": "zh",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-zh:music",
+      "source_language": "it",
+      "target_language": "zh",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-ja:water",
+      "source_language": "it",
+      "target_language": "ja",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-ja:book",
+      "source_language": "it",
+      "target_language": "ja",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-ja:music",
+      "source_language": "it",
+      "target_language": "ja",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-ko:water",
+      "source_language": "it",
+      "target_language": "ko",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-ko:book",
+      "source_language": "it",
+      "target_language": "ko",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-ko:music",
+      "source_language": "it",
+      "target_language": "ko",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-sw:water",
+      "source_language": "it",
+      "target_language": "sw",
+      "original": "Porta un po’ d’acqua quando sali, per favore.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-sw:book",
+      "source_language": "it",
+      "target_language": "sw",
+      "original": "Ho lasciato il mio libro sul tavolo della cucina.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "it-sw:music",
+      "source_language": "it",
+      "target_language": "sw",
+      "original": "La musica è troppo alta, puoi abbassarla?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-en:water",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "Traz água quando subires, por favor.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-en:book",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-en:music",
+      "source_language": "pt",
+      "target_language": "en",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-es:water",
+      "source_language": "pt",
+      "target_language": "es",
+      "original": "Traz água quando subires, por favor.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-es:book",
+      "source_language": "pt",
+      "target_language": "es",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-es:music",
+      "source_language": "pt",
+      "target_language": "es",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-fr:water",
+      "source_language": "pt",
+      "target_language": "fr",
+      "original": "Traz água quando subires, por favor.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-fr:book",
+      "source_language": "pt",
+      "target_language": "fr",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-fr:music",
+      "source_language": "pt",
+      "target_language": "fr",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-de:water",
+      "source_language": "pt",
+      "target_language": "de",
+      "original": "Traz água quando subires, por favor.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-de:book",
+      "source_language": "pt",
+      "target_language": "de",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-de:music",
+      "source_language": "pt",
+      "target_language": "de",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-it:water",
+      "source_language": "pt",
+      "target_language": "it",
+      "original": "Traz água quando subires, por favor.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-it:book",
+      "source_language": "pt",
+      "target_language": "it",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-it:music",
+      "source_language": "pt",
+      "target_language": "it",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-ar:water",
+      "source_language": "pt",
+      "target_language": "ar",
+      "original": "Traz água quando subires, por favor.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-ar:book",
+      "source_language": "pt",
+      "target_language": "ar",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-ar:music",
+      "source_language": "pt",
+      "target_language": "ar",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-zh:water",
+      "source_language": "pt",
+      "target_language": "zh",
+      "original": "Traz água quando subires, por favor.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-zh:book",
+      "source_language": "pt",
+      "target_language": "zh",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-zh:music",
+      "source_language": "pt",
+      "target_language": "zh",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-ja:water",
+      "source_language": "pt",
+      "target_language": "ja",
+      "original": "Traz água quando subires, por favor.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-ja:book",
+      "source_language": "pt",
+      "target_language": "ja",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-ja:music",
+      "source_language": "pt",
+      "target_language": "ja",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-ko:water",
+      "source_language": "pt",
+      "target_language": "ko",
+      "original": "Traz água quando subires, por favor.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-ko:book",
+      "source_language": "pt",
+      "target_language": "ko",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-ko:music",
+      "source_language": "pt",
+      "target_language": "ko",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-sw:water",
+      "source_language": "pt",
+      "target_language": "sw",
+      "original": "Traz água quando subires, por favor.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-sw:book",
+      "source_language": "pt",
+      "target_language": "sw",
+      "original": "Deixei o meu livro na mesa da cozinha.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "pt-sw:music",
+      "source_language": "pt",
+      "target_language": "sw",
+      "original": "A música está muito alta, podes baixar o volume?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-en:water",
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-en:book",
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-en:music",
+      "source_language": "ar",
+      "target_language": "en",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-es:water",
+      "source_language": "ar",
+      "target_language": "es",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-es:book",
+      "source_language": "ar",
+      "target_language": "es",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-es:music",
+      "source_language": "ar",
+      "target_language": "es",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-fr:water",
+      "source_language": "ar",
+      "target_language": "fr",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-fr:book",
+      "source_language": "ar",
+      "target_language": "fr",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-fr:music",
+      "source_language": "ar",
+      "target_language": "fr",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-de:water",
+      "source_language": "ar",
+      "target_language": "de",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-de:book",
+      "source_language": "ar",
+      "target_language": "de",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-de:music",
+      "source_language": "ar",
+      "target_language": "de",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-it:water",
+      "source_language": "ar",
+      "target_language": "it",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-it:book",
+      "source_language": "ar",
+      "target_language": "it",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-it:music",
+      "source_language": "ar",
+      "target_language": "it",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-pt:water",
+      "source_language": "ar",
+      "target_language": "pt",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-pt:book",
+      "source_language": "ar",
+      "target_language": "pt",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-pt:music",
+      "source_language": "ar",
+      "target_language": "pt",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-zh:water",
+      "source_language": "ar",
+      "target_language": "zh",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-zh:book",
+      "source_language": "ar",
+      "target_language": "zh",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-zh:music",
+      "source_language": "ar",
+      "target_language": "zh",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-ja:water",
+      "source_language": "ar",
+      "target_language": "ja",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-ja:book",
+      "source_language": "ar",
+      "target_language": "ja",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-ja:music",
+      "source_language": "ar",
+      "target_language": "ja",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-ko:water",
+      "source_language": "ar",
+      "target_language": "ko",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-ko:book",
+      "source_language": "ar",
+      "target_language": "ko",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-ko:music",
+      "source_language": "ar",
+      "target_language": "ko",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-sw:water",
+      "source_language": "ar",
+      "target_language": "sw",
+      "original": "أحضر بعض الماء عندما تصعد، من فضلك.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-sw:book",
+      "source_language": "ar",
+      "target_language": "sw",
+      "original": "تركت كتابي على طاولة المطبخ.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ar-sw:music",
+      "source_language": "ar",
+      "target_language": "sw",
+      "original": "الموسيقى عالية جدا، هل يمكنك خفض الصوت؟",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-en:water",
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "你上楼的时候请带点水。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-en:book",
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "我把书忘在厨房的桌子上了。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-en:music",
+      "source_language": "zh",
+      "target_language": "en",
+      "original": "音乐太响了，可以调小一点吗？",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-es:water",
+      "source_language": "zh",
+      "target_language": "es",
+      "original": "你上楼的时候请带点水。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-es:book",
+      "source_language": "zh",
+      "target_language": "es",
+      "original": "我把书忘在厨房的桌子上了。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-es:music",
+      "source_language": "zh",
+      "target_language": "es",
+      "original": "音乐太响了，可以调小一点吗？",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-fr:water",
+      "source_language": "zh",
+      "target_language": "fr",
+      "original": "你上楼的时候请带点水。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-fr:book",
+      "source_language": "zh",
+      "target_language": "fr",
+      "original": "我把书忘在厨房的桌子上了。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-fr:music",
+      "source_language": "zh",
+      "target_language": "fr",
+      "original": "音乐太响了，可以调小一点吗？",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-de:water",
+      "source_language": "zh",
+      "target_language": "de",
+      "original": "你上楼的时候请带点水。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-de:book",
+      "source_language": "zh",
+      "target_language": "de",
+      "original": "我把书忘在厨房的桌子上了。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-de:music",
+      "source_language": "zh",
+      "target_language": "de",
+      "original": "音乐太响了，可以调小一点吗？",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-it:water",
+      "source_language": "zh",
+      "target_language": "it",
+      "original": "你上楼的时候请带点水。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-it:book",
+      "source_language": "zh",
+      "target_language": "it",
+      "original": "我把书忘在厨房的桌子上了。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-it:music",
+      "source_language": "zh",
+      "target_language": "it",
+      "original": "音乐太响了，可以调小一点吗？",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-pt:water",
+      "source_language": "zh",
+      "target_language": "pt",
+      "original": "你上楼的时候请带点水。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-pt:book",
+      "source_language": "zh",
+      "target_language": "pt",
+      "original": "我把书忘在厨房的桌子上了。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-pt:music",
+      "source_language": "zh",
+      "target_language": "pt",
+      "original": "音乐太响了，可以调小一点吗？",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-ar:water",
+      "source_language": "zh",
+      "target_language": "ar",
+      "original": "你上楼的时候请带点水。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-ar:book",
+      "source_language": "zh",
+      "target_language": "ar",
+      "original": "我把书忘在厨房的桌子上了。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-ar:music",
+      "source_language": "zh",
+      "target_language": "ar",
+      "original": "音乐太响了，可以调小一点吗？",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-ja:water",
+      "source_language": "zh",
+      "target_language": "ja",
+      "original": "你上楼的时候请带点水。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-ja:book",
+      "source_language": "zh",
+      "target_language": "ja",
+      "original": "我把书忘在厨房的桌子上了。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-ja:music",
+      "source_language": "zh",
+      "target_language": "ja",
+      "original": "音乐太响了，可以调小一点吗？",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-ko:water",
+      "source_language": "zh",
+      "target_language": "ko",
+      "original": "你上楼的时候请带点水。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-ko:book",
+      "source_language": "zh",
+      "target_language": "ko",
+      "original": "我把书忘在厨房的桌子上了。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-ko:music",
+      "source_language": "zh",
+      "target_language": "ko",
+      "original": "音乐太响了，可以调小一点吗？",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-sw:water",
+      "source_language": "zh",
+      "target_language": "sw",
+      "original": "你上楼的时候请带点水。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-sw:book",
+      "source_language": "zh",
+      "target_language": "sw",
+      "original": "我把书忘在厨房的桌子上了。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "zh-sw:music",
+      "source_language": "zh",
+      "target_language": "sw",
+      "original": "音乐太响了，可以调小一点吗？",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-en:water",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "上に来るとき、水を持ってきてください。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-en:book",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-en:music",
+      "source_language": "ja",
+      "target_language": "en",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-es:water",
+      "source_language": "ja",
+      "target_language": "es",
+      "original": "上に来るとき、水を持ってきてください。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-es:book",
+      "source_language": "ja",
+      "target_language": "es",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-es:music",
+      "source_language": "ja",
+      "target_language": "es",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-fr:water",
+      "source_language": "ja",
+      "target_language": "fr",
+      "original": "上に来るとき、水を持ってきてください。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-fr:book",
+      "source_language": "ja",
+      "target_language": "fr",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-fr:music",
+      "source_language": "ja",
+      "target_language": "fr",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-de:water",
+      "source_language": "ja",
+      "target_language": "de",
+      "original": "上に来るとき、水を持ってきてください。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-de:book",
+      "source_language": "ja",
+      "target_language": "de",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-de:music",
+      "source_language": "ja",
+      "target_language": "de",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-it:water",
+      "source_language": "ja",
+      "target_language": "it",
+      "original": "上に来るとき、水を持ってきてください。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-it:book",
+      "source_language": "ja",
+      "target_language": "it",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-it:music",
+      "source_language": "ja",
+      "target_language": "it",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-pt:water",
+      "source_language": "ja",
+      "target_language": "pt",
+      "original": "上に来るとき、水を持ってきてください。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-pt:book",
+      "source_language": "ja",
+      "target_language": "pt",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-pt:music",
+      "source_language": "ja",
+      "target_language": "pt",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-ar:water",
+      "source_language": "ja",
+      "target_language": "ar",
+      "original": "上に来るとき、水を持ってきてください。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-ar:book",
+      "source_language": "ja",
+      "target_language": "ar",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-ar:music",
+      "source_language": "ja",
+      "target_language": "ar",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-zh:water",
+      "source_language": "ja",
+      "target_language": "zh",
+      "original": "上に来るとき、水を持ってきてください。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-zh:book",
+      "source_language": "ja",
+      "target_language": "zh",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-zh:music",
+      "source_language": "ja",
+      "target_language": "zh",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-ko:water",
+      "source_language": "ja",
+      "target_language": "ko",
+      "original": "上に来るとき、水を持ってきてください。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-ko:book",
+      "source_language": "ja",
+      "target_language": "ko",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-ko:music",
+      "source_language": "ja",
+      "target_language": "ko",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-sw:water",
+      "source_language": "ja",
+      "target_language": "sw",
+      "original": "上に来るとき、水を持ってきてください。",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-sw:book",
+      "source_language": "ja",
+      "target_language": "sw",
+      "original": "台所のテーブルに本を置き忘れました。",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ja-sw:music",
+      "source_language": "ja",
+      "target_language": "sw",
+      "original": "音楽がうるさいので、音量を下げてもらえますか。",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-en:water",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-en:book",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-en:music",
+      "source_language": "ko",
+      "target_language": "en",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-es:water",
+      "source_language": "ko",
+      "target_language": "es",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-es:book",
+      "source_language": "ko",
+      "target_language": "es",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-es:music",
+      "source_language": "ko",
+      "target_language": "es",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-fr:water",
+      "source_language": "ko",
+      "target_language": "fr",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-fr:book",
+      "source_language": "ko",
+      "target_language": "fr",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-fr:music",
+      "source_language": "ko",
+      "target_language": "fr",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-de:water",
+      "source_language": "ko",
+      "target_language": "de",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-de:book",
+      "source_language": "ko",
+      "target_language": "de",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-de:music",
+      "source_language": "ko",
+      "target_language": "de",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-it:water",
+      "source_language": "ko",
+      "target_language": "it",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-it:book",
+      "source_language": "ko",
+      "target_language": "it",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-it:music",
+      "source_language": "ko",
+      "target_language": "it",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-pt:water",
+      "source_language": "ko",
+      "target_language": "pt",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-pt:book",
+      "source_language": "ko",
+      "target_language": "pt",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-pt:music",
+      "source_language": "ko",
+      "target_language": "pt",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-ar:water",
+      "source_language": "ko",
+      "target_language": "ar",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-ar:book",
+      "source_language": "ko",
+      "target_language": "ar",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-ar:music",
+      "source_language": "ko",
+      "target_language": "ar",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-zh:water",
+      "source_language": "ko",
+      "target_language": "zh",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-zh:book",
+      "source_language": "ko",
+      "target_language": "zh",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-zh:music",
+      "source_language": "ko",
+      "target_language": "zh",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-ja:water",
+      "source_language": "ko",
+      "target_language": "ja",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-ja:book",
+      "source_language": "ko",
+      "target_language": "ja",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-ja:music",
+      "source_language": "ko",
+      "target_language": "ja",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-sw:water",
+      "source_language": "ko",
+      "target_language": "sw",
+      "original": "올라올 때 물 좀 가져다주세요.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-sw:book",
+      "source_language": "ko",
+      "target_language": "sw",
+      "original": "부엌 식탁에 책을 두고 왔어요.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "ko-sw:music",
+      "source_language": "ko",
+      "target_language": "sw",
+      "original": "음악이 너무 시끄러운데 소리를 줄여 줄래요?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-en:water",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-en:book",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-en:music",
+      "source_language": "sw",
+      "target_language": "en",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-es:water",
+      "source_language": "sw",
+      "target_language": "es",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-es:book",
+      "source_language": "sw",
+      "target_language": "es",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-es:music",
+      "source_language": "sw",
+      "target_language": "es",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-fr:water",
+      "source_language": "sw",
+      "target_language": "fr",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-fr:book",
+      "source_language": "sw",
+      "target_language": "fr",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-fr:music",
+      "source_language": "sw",
+      "target_language": "fr",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-de:water",
+      "source_language": "sw",
+      "target_language": "de",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-de:book",
+      "source_language": "sw",
+      "target_language": "de",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-de:music",
+      "source_language": "sw",
+      "target_language": "de",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-it:water",
+      "source_language": "sw",
+      "target_language": "it",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-it:book",
+      "source_language": "sw",
+      "target_language": "it",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-it:music",
+      "source_language": "sw",
+      "target_language": "it",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-pt:water",
+      "source_language": "sw",
+      "target_language": "pt",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-pt:book",
+      "source_language": "sw",
+      "target_language": "pt",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-pt:music",
+      "source_language": "sw",
+      "target_language": "pt",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-ar:water",
+      "source_language": "sw",
+      "target_language": "ar",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-ar:book",
+      "source_language": "sw",
+      "target_language": "ar",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-ar:music",
+      "source_language": "sw",
+      "target_language": "ar",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-zh:water",
+      "source_language": "sw",
+      "target_language": "zh",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-zh:book",
+      "source_language": "sw",
+      "target_language": "zh",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-zh:music",
+      "source_language": "sw",
+      "target_language": "zh",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-ja:water",
+      "source_language": "sw",
+      "target_language": "ja",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-ja:book",
+      "source_language": "sw",
+      "target_language": "ja",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-ja:music",
+      "source_language": "sw",
+      "target_language": "ja",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-ko:water",
+      "source_language": "sw",
+      "target_language": "ko",
+      "original": "Tafadhali leta maji ukipanda juu.",
+      "opportunity_concept": "water",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-ko:book",
+      "source_language": "sw",
+      "target_language": "ko",
+      "original": "Niliacha kitabu changu juu ya meza jikoni.",
+      "opportunity_concept": "book",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    },
+    {
+      "id": "sw-ko:music",
+      "source_language": "sw",
+      "target_language": "ko",
+      "original": "Muziki una sauti kubwa sana, unaweza kupunguza sauti?",
+      "opportunity_concept": "music",
+      "expectation": "Observe useful single-word output or explicit abstention; do not force unsafe mapping."
+    }
+  ],
+  "controls": [],
+  "assets": {
+    "source-frames-en-es-catalog.json": {
+      "sha256": "81e425cfbcc9b28b013f72fdf1930c27e1e6cd2601d3e95ec45cdb6712e864d2",
+      "bytes": 293
+    },
+    "source-frames-en-es-007.json": {
+      "sha256": "120cb37e609843632bf01635c4f04a5d689e410f6971f7f8527c6927651c9ad2",
+      "bytes": 182752
+    },
+    "source-frames-en-fr-catalog.json": {
+      "sha256": "26c1e7ce4ab41f73cd5af73989259a7cb21f7c547324a0a7e0b545fa5f15e673",
+      "bytes": 293
+    },
+    "source-frames-en-fr-005.json": {
+      "sha256": "86d64934091322257905202853b3c677cf589217e99ba41643cdcd295d67a9b3",
+      "bytes": 174282
+    },
+    "source-frames-en-de-catalog.json": {
+      "sha256": "6add58b414913d8bf3125942d7de179d1b3a0ed5b339181f0370a66dbdf4f0ce",
+      "bytes": 293
+    },
+    "source-frames-en-de-005.json": {
+      "sha256": "f8f2b12f50b77d3538731083465d49f0e74ab424eddd45e5db31ef5d7f874203",
+      "bytes": 176081
+    },
+    "source-frames-en-it-catalog.json": {
+      "sha256": "7384270a9b54cd1a2eb604933a54c69606309bf4ce75264b1495b5424f6121bc",
+      "bytes": 293
+    },
+    "source-frames-en-it-005.json": {
+      "sha256": "82e182917b21e99ecfa5a678221576bd5468b2e0116a14c024e167397a457c5b",
+      "bytes": 174351
+    },
+    "source-frames-en-pt-catalog.json": {
+      "sha256": "026502eb04690204cab9105ddf005a928d801f9e1b370333aee7c06f22d8ec14",
+      "bytes": 293
+    },
+    "source-frames-en-pt-005.json": {
+      "sha256": "6107e1950bdc3e246b77ceb6a9ec109505a00d03ed7995471b59f113b89cd1c8",
+      "bytes": 175395
+    },
+    "source-frames-en-ar-catalog.json": {
+      "sha256": "69313d5bdc815ce9e8b04ed9af89cc885f6dcb245d72b4a86942746a6566da4e",
+      "bytes": 293
+    },
+    "source-frames-en-ar-005.json": {
+      "sha256": "d159c9ed6036e797b0b60643cb7c8aac8ddee0fe3bdf89b91c609a89c340654d",
+      "bytes": 182539
+    },
+    "source-frames-en-zh-catalog.json": {
+      "sha256": "aac98d42f2debdeb3e0e49f96056b6a05ba86590cd63232887193d779e2459b5",
+      "bytes": 293
+    },
+    "source-frames-en-zh-005.json": {
+      "sha256": "3f851ef970c7d83d6205c21c460e8b8c0d4ec73496544446d4a398f445388710",
+      "bytes": 174440
+    },
+    "source-frames-en-ja-catalog.json": {
+      "sha256": "2e93a5be772660ef7f20106d996c05dd4ca34bac139d86c93a78dc5b0adf00a3",
+      "bytes": 293
+    },
+    "source-frames-en-ja-007.json": {
+      "sha256": "4644e910c72d2142ed5f5bfbd6f9d1f0822871920cfc7e8cc15f0b5c3f414489",
+      "bytes": 193077
+    },
+    "source-frames-en-ko-catalog.json": {
+      "sha256": "0ad81b67e2bf188eff24a509086e2b3a4653dc26c82ec677ae7908645c9e62ba",
+      "bytes": 293
+    },
+    "source-frames-en-ko-005.json": {
+      "sha256": "1f862247865f582a60d7ab6690709aebaef79447dc374a3f7e05a593f5b3aeb5",
+      "bytes": 175255
+    },
+    "source-frames-en-sw-catalog.json": {
+      "sha256": "f3974a23c3941eb025b1818de91d801e6c2c319c299b0da25395732a7a2b4727",
+      "bytes": 293
+    },
+    "source-frames-en-sw-007.json": {
+      "sha256": "8880b2ed64309c5a288cddadccc25152cdf853cc5bfb779cddb308dc3d7455c5",
+      "bytes": 181252
+    },
+    "source-frames-es-en-catalog.json": {
+      "sha256": "f276582fbd28fb0ad978175ace4137336a815fc12ad464f03e602a0558596f21",
+      "bytes": 293
+    },
+    "source-frames-es-en-007.json": {
+      "sha256": "071b5a88882e7fbc27366b84976393db11396d74f422b86f890209804dca9d1d",
+      "bytes": 134737
+    },
+    "source-frames-es-fr-catalog.json": {
+      "sha256": "2242b9c589def6abea355edb0512a23f2aa1fc4c655e416260f35132e5cee5cf",
+      "bytes": 293
+    },
+    "source-frames-es-fr-005.json": {
+      "sha256": "dcb0bb25d542a86841f75dcc021c628a6ed1150ed069018d588a6d2fbf4e06fc",
+      "bytes": 132305
+    },
+    "source-frames-es-de-catalog.json": {
+      "sha256": "139c771ac61dee39b3cc3a533d56e143d92a423d17aa6abca4da545fafe31bbd",
+      "bytes": 293
+    },
+    "source-frames-es-de-005.json": {
+      "sha256": "01226fe213c4a9834b1f53f00ef20da3f491ab104dd8b8049caa670d761022a3",
+      "bytes": 134112
+    },
+    "source-frames-es-it-catalog.json": {
+      "sha256": "10d798d17bdf943c0b68cfd1e7ca5b1046ff9ca3045b9499efaf066bba25d4c2",
+      "bytes": 293
+    },
+    "source-frames-es-it-005.json": {
+      "sha256": "de93f3ea0d9ad9ad85503cafc11b2c3d0a0f6090f8943d9b6c78666ec5db506d",
+      "bytes": 132383
+    },
+    "source-frames-es-pt-catalog.json": {
+      "sha256": "8bdc969836b5c830d57bfae201e37afcc75f845db0e7261c656f28fff52fc2ce",
+      "bytes": 293
+    },
+    "source-frames-es-pt-005.json": {
+      "sha256": "50761ec0488a957156cc51fa853102ee05043e161bdaec473cf7721dfade3d8a",
+      "bytes": 133403
+    },
+    "source-frames-es-ar-catalog.json": {
+      "sha256": "a9eb30e475cb992bdc90f7743e0ed9276790519728affeeab83b90370a58546e",
+      "bytes": 293
+    },
+    "source-frames-es-ar-005.json": {
+      "sha256": "bc546bcd4c571fe49b2ade83aed5b187ab2c68fc938b27ff6bec724cd1dfd018",
+      "bytes": 140810
+    },
+    "source-frames-es-zh-catalog.json": {
+      "sha256": "ca5d0133ed7e7e678c5162169f74f3bb18d58775172284cc35c8d402197e9ae5",
+      "bytes": 293
+    },
+    "source-frames-es-zh-005.json": {
+      "sha256": "877be0655cf2748e490000a55ceca6ca3f1c836eac937ecc25334885a0d5ea92",
+      "bytes": 132562
+    },
+    "source-frames-es-ja-catalog.json": {
+      "sha256": "56e293643af961f67f0a5bc8b8a069ad0eb0a0b245b11479ef4be0b424876b30",
+      "bytes": 293
+    },
+    "source-frames-es-ja-005.json": {
+      "sha256": "0d1c65745b6c074f40eac31913743ea44e74d13f1fbb4bfadb386d830b9d9ff4",
+      "bytes": 133772
+    },
+    "source-frames-es-ko-catalog.json": {
+      "sha256": "15890ddf81e2114aede4b61c521e9b2cdf632181efa96607ae6cd5d2fcc45bb0",
+      "bytes": 293
+    },
+    "source-frames-es-ko-005.json": {
+      "sha256": "28af65fb79ac93325362a4751a575ea5a149b00119753f4a78e9200724e66297",
+      "bytes": 133283
+    },
+    "source-frames-es-sw-catalog.json": {
+      "sha256": "1b060df71c1391178807eae06853764f44d28a9f751007f9c17e574a6f89b510",
+      "bytes": 293
+    },
+    "source-frames-es-sw-005.json": {
+      "sha256": "57550605f563b180c68d53c080269363a0163cb34ab3e2b617b58f314d401ea7",
+      "bytes": 121869
+    },
+    "source-frames-fr-en-catalog.json": {
+      "sha256": "d0ab9bd510bdc5a1e3521be72a12af378999102bd45a5b9575d69adc0605dfc3",
+      "bytes": 293
+    },
+    "source-frames-fr-en-007.json": {
+      "sha256": "a2b40b51cffb65a576555e2bde1847b5f7bdd99fb9695312e87f623b17053e10",
+      "bytes": 135381
+    },
+    "source-frames-fr-es-catalog.json": {
+      "sha256": "438ea9582f9c5812dda5582c2ba66a8693030bf41c6b3dcbece3c6dd10ef5997",
+      "bytes": 293
+    },
+    "source-frames-fr-es-005.json": {
+      "sha256": "cce2c81a0cfc8c770f1d9be7dfaba340f60d126a9ddbe8cad544d9a2a7698249",
+      "bytes": 132497
+    },
+    "source-frames-fr-de-catalog.json": {
+      "sha256": "3a28dc8b17b4aa11fc95e12d77bb27d7eab1a378f084b0091f77d7863cd426f4",
+      "bytes": 293
+    },
+    "source-frames-fr-de-005.json": {
+      "sha256": "188d555962c42375ccb62312fab6debf2da0a028af1d41529ecbd0ffc1ee7bb3",
+      "bytes": 132189
+    },
+    "source-frames-fr-it-catalog.json": {
+      "sha256": "f32f6a2349bd944b9f2528da24ee3b2abe2ad675f21c8f34511ecdd3c4755257",
+      "bytes": 293
+    },
+    "source-frames-fr-it-005.json": {
+      "sha256": "362ec852a9fd7d11ad7f5f5820a2268ffe588e65d90c64b5c8a177ca243dc4ad",
+      "bytes": 131481
+    },
+    "source-frames-fr-pt-catalog.json": {
+      "sha256": "fbde0544748fdfdaad102406bc92c4fc2d3aaa36df91ce7c583682c9e4a6106b",
+      "bytes": 293
+    },
+    "source-frames-fr-pt-005.json": {
+      "sha256": "0e98965ad754f12af6faa9ad05df9957d25e37b015a839a8cdea94199314d1c2",
+      "bytes": 131478
+    },
+    "source-frames-fr-ar-catalog.json": {
+      "sha256": "a49dbd9b73cf087374459104e27d0725695c1b67d2709ac7869c6d8987ab1b0f",
+      "bytes": 293
+    },
+    "source-frames-fr-ar-005.json": {
+      "sha256": "0feb6f18f96df4b05d7969fb2b417d13ad4378cde56fc85bc17acd1c39fc0b28",
+      "bytes": 138404
+    },
+    "source-frames-fr-zh-catalog.json": {
+      "sha256": "79eda409aae155e73a7dbc4cadf36437566190dc366906eec6fcd81e9681a2b4",
+      "bytes": 293
+    },
+    "source-frames-fr-zh-005.json": {
+      "sha256": "3a40c9fd80280f83854fd3a586a423a1b9cb9cbfdbbaf95ce7500f4a850e09ee",
+      "bytes": 130551
+    },
+    "source-frames-fr-ja-catalog.json": {
+      "sha256": "5fc417e97a6997e1eb5351f042c224ffa1fa780425ec8ae3c01e106c42ef323a",
+      "bytes": 293
+    },
+    "source-frames-fr-ja-005.json": {
+      "sha256": "d6288fefd9fc6417403d8c12916527f030f5161a9eb6f5d8a0435740a32dc264",
+      "bytes": 131844
+    },
+    "source-frames-fr-ko-catalog.json": {
+      "sha256": "dcce0a4c59efbf09881fff43b7680b91a8df71488f596cb300e9710df4de61cc",
+      "bytes": 293
+    },
+    "source-frames-fr-ko-005.json": {
+      "sha256": "112975b3fa36e475a6ebcda094fe2f97c1b14163c61556f73c770e635a9d1ef5",
+      "bytes": 131346
+    },
+    "source-frames-fr-sw-catalog.json": {
+      "sha256": "119a59e8d2fa3a9033429fabe723a53ef267b469e6d6200dd4c587313f98a95a",
+      "bytes": 293
+    },
+    "source-frames-fr-sw-005.json": {
+      "sha256": "cc57f14539228ce9bebe0079c31d79828bf9cc0126a7bb2a12bc83f3ea718e1d",
+      "bytes": 119927
+    },
+    "source-frames-de-en-catalog.json": {
+      "sha256": "3206cd2d86a36cbbbe676f50437d3741221884c8c56bb1423426c9c8460d798f",
+      "bytes": 293
+    },
+    "source-frames-de-en-007.json": {
+      "sha256": "e66aa398e201d768c96f597cc474c5de4760d8197cfa522b992269551b03199a",
+      "bytes": 139259
+    },
+    "source-frames-de-es-catalog.json": {
+      "sha256": "ef86fbcaf13647f0a4dca0b00873a93b383095797fcc2eaddf449dda9a820e71",
+      "bytes": 293
+    },
+    "source-frames-de-es-005.json": {
+      "sha256": "74881323ecd56844fea029a2aec952a396fe252fadadab541e71a2e835f87ab4",
+      "bytes": 135558
+    },
+    "source-frames-de-fr-catalog.json": {
+      "sha256": "7d9e2daa12d550fbe3e8a9b86d4926446cdadc23be275dac55ad82657b099b23",
+      "bytes": 293
+    },
+    "source-frames-de-fr-005.json": {
+      "sha256": "6f836dbc040ccdc8c902e12c68173c6fec8b0e3779018f0537964f113a195f89",
+      "bytes": 133449
+    },
+    "source-frames-de-it-catalog.json": {
+      "sha256": "4713fc303304d77b91d48ff89486c3175f893d78bfb424af02178a1f8fd63da1",
+      "bytes": 293
+    },
+    "source-frames-de-it-005.json": {
+      "sha256": "54a1e488620a9f677c3d67e771e51596a1ae46b1657db35453a8d1562a5bc5f5",
+      "bytes": 133522
+    },
+    "source-frames-de-pt-catalog.json": {
+      "sha256": "4bbf3313b59f6931c422fb5188c02325d30b7108247e7101475f41925909881f",
+      "bytes": 293
+    },
+    "source-frames-de-pt-005.json": {
+      "sha256": "c73f3591c4150fe05f76d84bcb254c9d07d8541bcfe2ddb4c98bf025d65ca9f9",
+      "bytes": 134571
+    },
+    "source-frames-de-ar-catalog.json": {
+      "sha256": "5eef6b981d9a9ad6d71c6a99f61091ecb3b8cde138bfd63488048c1d0bebb63a",
+      "bytes": 293
+    },
+    "source-frames-de-ar-005.json": {
+      "sha256": "151db0591e662d7805dcb576a3a9a62be1b652ec87407db8e38b3ec122eaa6f3",
+      "bytes": 141772
+    },
+    "source-frames-de-zh-catalog.json": {
+      "sha256": "8b87654c61f4693ba7d688b01b6f71d80469352e75ba35dd44b9380af105db54",
+      "bytes": 293
+    },
+    "source-frames-de-zh-005.json": {
+      "sha256": "1ea4d4799c205660e54558d723ce1fd5ed77a9954f13c4163d568ee4d98ecb08",
+      "bytes": 133661
+    },
+    "source-frames-de-ja-catalog.json": {
+      "sha256": "b123cd4d691b15ab0c690ecfda90467940d822a186aa836da268259a66cbbbf0",
+      "bytes": 293
+    },
+    "source-frames-de-ja-005.json": {
+      "sha256": "2dfa90cfc83d41addd4fe8651a2056673e644808bbfa96e4229a7d5bee74710e",
+      "bytes": 134934
+    },
+    "source-frames-de-ko-catalog.json": {
+      "sha256": "57a1d159d0ef40fb896c4facb4b6872999957086f75022f98416bf1c8b5ba2c7",
+      "bytes": 293
+    },
+    "source-frames-de-ko-005.json": {
+      "sha256": "f79ff1661420c57185625a27ff74690bbc4039eff673ec01e83055100a666943",
+      "bytes": 134453
+    },
+    "source-frames-de-sw-catalog.json": {
+      "sha256": "0786ca784de1d99b51aa3cf703b30aa973c81b5deb800e8c923a9b1272d3d76b",
+      "bytes": 293
+    },
+    "source-frames-de-sw-005.json": {
+      "sha256": "cdeb38cb265d1ea7e27ec3d824f166ed245cacc9128bc2503a05971646e4c2fa",
+      "bytes": 123033
+    },
+    "source-frames-it-en-catalog.json": {
+      "sha256": "5141d50670c052edbf0a432dbf6fe799bf108cc839d1491dab0a72cdebc2b346",
+      "bytes": 293
+    },
+    "source-frames-it-en-007.json": {
+      "sha256": "f36d842fd606866a01d9c0bc577374e825ad652c4b46ddec7c9c7c5e651f80fd",
+      "bytes": 139369
+    },
+    "source-frames-it-es-catalog.json": {
+      "sha256": "6bdf5870ad22e16ba2d4c0b4a482de5ca80128fbdf57f2d57a695181df317524",
+      "bytes": 293
+    },
+    "source-frames-it-es-007.json": {
+      "sha256": "c1ac51af7b2a3f38c24fa8d4f7acc07441bf9a3ffb9e363e497e0fdd7c100f80",
+      "bytes": 137769
+    },
+    "source-frames-it-fr-catalog.json": {
+      "sha256": "d868a4efc3134f972a8a7b9ff082c66843cae4a91337ffeb5ce3f507148e85e8",
+      "bytes": 293
+    },
+    "source-frames-it-fr-007.json": {
+      "sha256": "ada16ac1c0a8cc304788899dd8fb62671d74400658410b0e3c7541fff0ce8164",
+      "bytes": 136684
+    },
+    "source-frames-it-de-catalog.json": {
+      "sha256": "6c56f8946a3c78462b7748d5a9f4967692098fc60d4d3935048b453859392387",
+      "bytes": 293
+    },
+    "source-frames-it-de-007.json": {
+      "sha256": "064b5b9bdd642e019a3cbb5f1a842b61edc78f9d1b3c240f7bca02c5961451be",
+      "bytes": 137464
+    },
+    "source-frames-it-pt-catalog.json": {
+      "sha256": "7636c597dda6a2bde007a0d2f3918f33d65093a7240a644f2f4626118672eab8",
+      "bytes": 293
+    },
+    "source-frames-it-pt-007.json": {
+      "sha256": "eb722b119272933ebb26815f769780e2cd46233fec7c88ee14e6fba0c2014ac6",
+      "bytes": 136760
+    },
+    "source-frames-it-ar-catalog.json": {
+      "sha256": "8dc4cf1a4af7676152d3f249c1113791c3e071049b7e71b2c775a59d5a9fc5f1",
+      "bytes": 293
+    },
+    "source-frames-it-ar-007.json": {
+      "sha256": "7762cf3499e72454df7a1f22eb4e2cdc656a1cd87da166cb5f5326099f56d4c0",
+      "bytes": 143940
+    },
+    "source-frames-it-zh-catalog.json": {
+      "sha256": "8e9fc5f261bbae2f0164de754efca68a29171a421f992b9f633f3251bde2c0d0",
+      "bytes": 293
+    },
+    "source-frames-it-zh-007.json": {
+      "sha256": "c719148adaf96fa33d96b3768f3b1a4ec8f2e5b0ff80893265ae82fedf8a495a",
+      "bytes": 135827
+    },
+    "source-frames-it-ja-catalog.json": {
+      "sha256": "57e735fd8e1840fbb334e202230798b31985266df9ca7eec57441559710a96ad",
+      "bytes": 293
+    },
+    "source-frames-it-ja-007.json": {
+      "sha256": "f2b1e3b67c279cff9ccc013be30326f250ec55379512156faa8377f6cec1db9b",
+      "bytes": 137131
+    },
+    "source-frames-it-ko-catalog.json": {
+      "sha256": "61d48cd8b9e8114b85de947c5dce286342b3660bd4fabecdb6fd271ab1684772",
+      "bytes": 293
+    },
+    "source-frames-it-ko-007.json": {
+      "sha256": "eedb53b6069947667eeab48e5de2dea78d36b87937048df0673157222f3588ec",
+      "bytes": 136647
+    },
+    "source-frames-it-sw-catalog.json": {
+      "sha256": "c8fdffd264fbde321d5688834e1ebb1128c5c8accddd8f2dc91fd842a486057c",
+      "bytes": 293
+    },
+    "source-frames-it-sw-007.json": {
+      "sha256": "ae0a0004e1504249fcd9f6a0525efd3a600b4dc9120a786ebabbde58c89e5af9",
+      "bytes": 125208
+    },
+    "source-frames-pt-en-catalog.json": {
+      "sha256": "33affee0eb8cc0385f396b8fef8a71fd89910c3e4764f993821b828b715ec4fc",
+      "bytes": 293
+    },
+    "source-frames-pt-en-007.json": {
+      "sha256": "367672668c974356242392551df68c04fae44ca9a3d524db8b179e1f0d92aa16",
+      "bytes": 135559
+    },
+    "source-frames-pt-es-catalog.json": {
+      "sha256": "d2daa46ddaa5fc7446035f0aacbc6e01c4832da85907c12316f65d5261804827",
+      "bytes": 293
+    },
+    "source-frames-pt-es-005.json": {
+      "sha256": "693fb2801785e45de5da8e9d2d8f841f4d819c04999238f97bf684b1e87e6c32",
+      "bytes": 133171
+    },
+    "source-frames-pt-fr-catalog.json": {
+      "sha256": "7d7960c6faf9c82a10894dfdb44815f276b50b12ba9f59825fa954c1095b329d",
+      "bytes": 293
+    },
+    "source-frames-pt-fr-005.json": {
+      "sha256": "c1b5ff4ec390e99523042e357dc70e81b53a1fd6c1a75b3d96dadde61e9afc5a",
+      "bytes": 131049
+    },
+    "source-frames-pt-de-catalog.json": {
+      "sha256": "c13067aace63fae4a2dfc8031084461ac820202795e3aca32b970b4099d8939f",
+      "bytes": 293
+    },
+    "source-frames-pt-de-005.json": {
+      "sha256": "baffab479bfe0f2f5ca0d0f8055db1aabdd5f4b31d3790af10082f418502c839",
+      "bytes": 132873
+    },
+    "source-frames-pt-it-catalog.json": {
+      "sha256": "68997918c1c5a614cc34c079c3a56fdedad6a314a6d440b5a0d061b17ef312d7",
+      "bytes": 293
+    },
+    "source-frames-pt-it-005.json": {
+      "sha256": "8be0c2b3e26f395de881a82e8e9a275c8a2f37409f43447afaffa349c202e2c3",
+      "bytes": 131128
+    },
+    "source-frames-pt-ar-catalog.json": {
+      "sha256": "a8e5e3f4f48f51622bc4238ba91d5ed7bb4569c3c426a190441ad36f48383e4f",
+      "bytes": 293
+    },
+    "source-frames-pt-ar-005.json": {
+      "sha256": "11cc641a644b6278e2f0a419ebf1b24071f2eccef942e99a47a6825949df66dd",
+      "bytes": 139422
+    },
+    "source-frames-pt-zh-catalog.json": {
+      "sha256": "9cac56bd393850c1f6da726620e15e1b4bc279d84d0d5e328197aee539fb128f",
+      "bytes": 293
+    },
+    "source-frames-pt-zh-005.json": {
+      "sha256": "5ab3004d101776f82262e4f7ccbb7e3b54e373ecf3b14c59bf3af727e4209432",
+      "bytes": 131274
+    },
+    "source-frames-pt-ja-catalog.json": {
+      "sha256": "cc21a10c158dd2091d8b2b3ba6cc25e591581d1bdbcb6b87d443d6978cf8657a",
+      "bytes": 293
+    },
+    "source-frames-pt-ja-005.json": {
+      "sha256": "b9441cacc9589bc8c5206226732d042e92690808e5469db07ec8a534f7c97a73",
+      "bytes": 132495
+    },
+    "source-frames-pt-ko-catalog.json": {
+      "sha256": "0e2fdc1d1e26f4aee3d97a2c75410a9e83ba0abfffb4774b9ff802519be1e52a",
+      "bytes": 293
+    },
+    "source-frames-pt-ko-005.json": {
+      "sha256": "1c86308a56a7dcdaf984b5f33266c9aa5644bc10c9b57d68149920c5e43000c9",
+      "bytes": 132013
+    },
+    "source-frames-pt-sw-catalog.json": {
+      "sha256": "1f6a8d7cef44bf6ff11fbdec38f4dc31a094e33ce17cfa2c5c85d3b542f9d3d4",
+      "bytes": 293
+    },
+    "source-frames-pt-sw-005.json": {
+      "sha256": "a1788daf5110a8eff9d4098e897284b60015730fd14e2a1b2c2ff548b01b398e",
+      "bytes": 120577
+    },
+    "source-frames-ar-en-catalog.json": {
+      "sha256": "3b644020d8724ed1f94378ca3b87b18160f280b8b41243c9eb04617e4226e67d",
+      "bytes": 293
+    },
+    "source-frames-ar-en-007.json": {
+      "sha256": "54c95c3226e9e1a9c9071c893197de7eb0dd30d0ef8a5213ab52a27f9102be64",
+      "bytes": 137234
+    },
+    "source-frames-ar-es-catalog.json": {
+      "sha256": "90f117ffefc74922b9d0392beb1506252d26713f302e5e25f9de21b24dbe0212",
+      "bytes": 293
+    },
+    "source-frames-ar-es-005.json": {
+      "sha256": "ca835e1b338b8c4e61574415e3eb42e93254a645e05f5218fb337a596e48bdd7",
+      "bytes": 136879
+    },
+    "source-frames-ar-fr-catalog.json": {
+      "sha256": "32120c5263fb2243e9c031eddc8c81ca2208ef13fa9bc8f36cf34fb24b2cf32b",
+      "bytes": 293
+    },
+    "source-frames-ar-fr-005.json": {
+      "sha256": "405b62e8bacc62a888e4c406c93825f750599513ff545618470b8119e54474f8",
+      "bytes": 134727
+    },
+    "source-frames-ar-de-catalog.json": {
+      "sha256": "a73d584972fff0076b4f0ed0299d4ad2d8036458863b9696ceeb85840edda01e",
+      "bytes": 293
+    },
+    "source-frames-ar-de-005.json": {
+      "sha256": "42bcdbfe29c84957197468487697b96371ca1f72579d1e56bb56cdcaec8576ba",
+      "bytes": 136571
+    },
+    "source-frames-ar-it-catalog.json": {
+      "sha256": "e3652c509fce06bb8011ed33ba9a32635082dfd908d8c4d5edb696e0f74fcb3d",
+      "bytes": 293
+    },
+    "source-frames-ar-it-005.json": {
+      "sha256": "6025217edffd9c6b12a1c64dae0ac3fe129d5ce9d237eb53e635b366c7f1c4e2",
+      "bytes": 134805
+    },
+    "source-frames-ar-pt-catalog.json": {
+      "sha256": "e7ad4d74269aeba2a4e552872b6628ca82fe704fa5ca574568f66ea53f2290f0",
+      "bytes": 293
+    },
+    "source-frames-ar-pt-005.json": {
+      "sha256": "5468d8e6d6adb4452672d1a4be5fc671ce04bd831cf1da687e5a1ef2e1f84e8a",
+      "bytes": 135844
+    },
+    "source-frames-ar-zh-catalog.json": {
+      "sha256": "71acfb2a9925d3d3b995ff3bc97650cbd7581b2eb455c59fafa5bfc95ead1b72",
+      "bytes": 293
+    },
+    "source-frames-ar-zh-005.json": {
+      "sha256": "6b53a50b690d42705fdd90134aa70c6786be701fef09fcc90ec56fc5ed96f938",
+      "bytes": 135112
+    },
+    "source-frames-ar-ja-catalog.json": {
+      "sha256": "5b9b682f4e4de83fad113f100eccf63980fb16f571eb3dd2e137d442fca4c7ee",
+      "bytes": 293
+    },
+    "source-frames-ar-ja-005.json": {
+      "sha256": "3e4cc71ec5864bc9fe859445a0f0ec53decd7a7b47279a39dd712ead1e4b3926",
+      "bytes": 136264
+    },
+    "source-frames-ar-ko-catalog.json": {
+      "sha256": "ce180a8b05c928c2e37a5254d7743f2214feb4f21130ce9e758a868ec70e3bf5",
+      "bytes": 293
+    },
+    "source-frames-ar-ko-005.json": {
+      "sha256": "271e1e1ebd1057ad22ae7312a42556f6a474b82105f3a13f7116d0ff212f4a8a",
+      "bytes": 135712
+    },
+    "source-frames-ar-sw-catalog.json": {
+      "sha256": "c72e43766564d7de1327e97aefac0bc5c06c076a905e7a536dbc6d990034f0a3",
+      "bytes": 293
+    },
+    "source-frames-ar-sw-005.json": {
+      "sha256": "7eb20d316064e17ea91d7c8fc998fb054eed3a62acc831e88e4863e569723f3c",
+      "bytes": 125174
+    },
+    "source-frames-zh-en-catalog.json": {
+      "sha256": "29e7190f4e3b02eb214a913d99d8687ab1dcdbf7ee55b4179c2946ec11459e7f",
+      "bytes": 293
+    },
+    "source-frames-zh-en-007.json": {
+      "sha256": "7d626c6fedbeb5229763133ed0671e582a09f7af6fc66ed65dff0685c5e3b128",
+      "bytes": 132765
+    },
+    "source-frames-zh-es-catalog.json": {
+      "sha256": "3560fecb3c2584c684809d71905b4c467fde9f7918758c9fb0015db3708c01aa",
+      "bytes": 293
+    },
+    "source-frames-zh-es-005.json": {
+      "sha256": "0f1f1cd2848537b2d38a5999613b4ff21520ad8bc89604fe22b9e1f86ca54ee4",
+      "bytes": 131099
+    },
+    "source-frames-zh-fr-catalog.json": {
+      "sha256": "1290331966400151fbc7596ef3ceb328c6a0a614c7109e953117f033316eef88",
+      "bytes": 293
+    },
+    "source-frames-zh-fr-005.json": {
+      "sha256": "caabf4888b00af22c99abe18b0e7e2eb087a97715adb2a7fd725acabd0f5fe11",
+      "bytes": 129011
+    },
+    "source-frames-zh-de-catalog.json": {
+      "sha256": "9b39adf8ca449e492053f64df4e04f701a6ab77e84c2bad10190f1deee3639bf",
+      "bytes": 293
+    },
+    "source-frames-zh-de-005.json": {
+      "sha256": "436e34e475515ddcc2db048f57ebbf47c24738a0dc551f2e91f8b3acd1ce17e2",
+      "bytes": 130804
+    },
+    "source-frames-zh-it-catalog.json": {
+      "sha256": "8536cc68513d10b719e5faad126686e32b81a446b841ef1ee2b1cc1cf771915d",
+      "bytes": 293
+    },
+    "source-frames-zh-it-005.json": {
+      "sha256": "d0a44e11076057c7afd7810091fe4f0d05391b6ea5be5f8cc689d46eb2c36826",
+      "bytes": 129077
+    },
+    "source-frames-zh-pt-catalog.json": {
+      "sha256": "c6ce1ec0e95850c7a442d72c96b0d1df284e6c1547109e4b1e1876bb04777b69",
+      "bytes": 293
+    },
+    "source-frames-zh-pt-005.json": {
+      "sha256": "b237a8649fc6529bd771fd9b85b3b89387794dd61ec9aa310d9417354c59ee62",
+      "bytes": 130082
+    },
+    "source-frames-zh-ar-catalog.json": {
+      "sha256": "71c6f7a8244868f034965f475209f29a610d830aa49170c21cb847128677325b",
+      "bytes": 293
+    },
+    "source-frames-zh-ar-005.json": {
+      "sha256": "c95a765de43c23bcdee9ae027a57a015311b0c6aa930b98ff0169fc9d222b548",
+      "bytes": 137037
+    },
+    "source-frames-zh-ja-catalog.json": {
+      "sha256": "c9baaf99f5b85e7af77bff12f36d22d06e5f4af49019f1c0076d0851c276e02e",
+      "bytes": 293
+    },
+    "source-frames-zh-ja-005.json": {
+      "sha256": "148c03be5680ed26c1e7b5b20927facafacf8fb46227a37401b72164245d2d93",
+      "bytes": 131505
+    },
+    "source-frames-zh-ko-catalog.json": {
+      "sha256": "f8b6a4217e62f3d1331d3128a147d6c0a1a7ff92d7eb9ddfd824b0034d6a0673",
+      "bytes": 293
+    },
+    "source-frames-zh-ko-005.json": {
+      "sha256": "dcb3446080a7343f41e7e01d29361e57d143335b47aefe42bbcdfd446d6587eb",
+      "bytes": 131035
+    },
+    "source-frames-zh-sw-catalog.json": {
+      "sha256": "894bf5cc8c0e52cef032371e46e9a30f2b025c2dc86325b19952fd85fa3c6ddd",
+      "bytes": 293
+    },
+    "source-frames-zh-sw-005.json": {
+      "sha256": "6bb6b46353e527c60aee5a2f66f038dee4f049deace7efc9f4dc325626150f89",
+      "bytes": 118648
+    },
+    "source-frames-ja-en-catalog.json": {
+      "sha256": "4c16bdb795e710ffabcc5e2ff18bd0a50b3d25c522800a8b550199057799c6cf",
+      "bytes": 293
+    },
+    "source-frames-ja-en-007.json": {
+      "sha256": "147efe5b103b7c411233688a8c5d9e8634fc6e1005dda69ae1bb343c40efceab",
+      "bytes": 141106
+    },
+    "source-frames-ja-es-catalog.json": {
+      "sha256": "be15e40586647fd525c9d2864f9f8cc58bc002284f49a0997d0a98b9b40756bc",
+      "bytes": 293
+    },
+    "source-frames-ja-es-005.json": {
+      "sha256": "43ba01121676eb10b58741248d1b4457a934da98ba570b56c0e87260ff015083",
+      "bytes": 133606
+    },
+    "source-frames-ja-fr-catalog.json": {
+      "sha256": "c3e431c037bb14f38ef4a7b225cc0be25278beda092240935a1f82652a48c27d",
+      "bytes": 293
+    },
+    "source-frames-ja-fr-005.json": {
+      "sha256": "4f1fee11a26b56fa396ab19d4f20612b0a2141616a5731fd87a5382ca56fe5c1",
+      "bytes": 131498
+    },
+    "source-frames-ja-de-catalog.json": {
+      "sha256": "2c0d94d213a9977b3ba70a1fe247a90032b3ad632a696e444f0c2535d42e908d",
+      "bytes": 293
+    },
+    "source-frames-ja-de-005.json": {
+      "sha256": "84198d2519a7632ca221df4924f0e83ccdbd471b9d79ef37901bab9580638f0b",
+      "bytes": 133313
+    },
+    "source-frames-ja-it-catalog.json": {
+      "sha256": "b61c5dad9dda00fa985503ec5de148320df42c4a86b075467e901ae546c38ecf",
+      "bytes": 293
+    },
+    "source-frames-ja-it-005.json": {
+      "sha256": "f10dd95920494356d82de4f2a40c68e9dc3302cc693bbb1d194901dcbe6ab773",
+      "bytes": 131562
+    },
+    "source-frames-ja-pt-catalog.json": {
+      "sha256": "829bf9a29c2eaed40452c0520dd49b3557554051efc82b9f68b6fb30faf696a2",
+      "bytes": 293
+    },
+    "source-frames-ja-pt-005.json": {
+      "sha256": "cde949e636afd3834c511adb8e4fe0af2ef9d85786bff8980e854c86cc729339",
+      "bytes": 132577
+    },
+    "source-frames-ja-ar-catalog.json": {
+      "sha256": "37c2503fd518f2bddede56faa17fce4a39a71f92a6425f40c9549c63581bb3d3",
+      "bytes": 293
+    },
+    "source-frames-ja-ar-005.json": {
+      "sha256": "0b9b9022b30b6b37d60b4643425c8dbcc139665770c87ea3ee8ebfa3b92b1242",
+      "bytes": 139610
+    },
+    "source-frames-ja-zh-catalog.json": {
+      "sha256": "c3e10565a1ebd73d51df15c4a0988f1a8549b73624158f78e8bdb18bef2fa030",
+      "bytes": 293
+    },
+    "source-frames-ja-zh-005.json": {
+      "sha256": "ea41352ef5b2f49e7a94070f6fdfc60b52f5edf483aabaed977719cb0b15fb68",
+      "bytes": 132751
+    },
+    "source-frames-ja-ko-catalog.json": {
+      "sha256": "00735e4237dde1ac81c4dfe147be780587642939326ac43ea82f5d3c252e90c2",
+      "bytes": 293
+    },
+    "source-frames-ja-ko-005.json": {
+      "sha256": "72a83087d33f6f01456ad308c40f0fab9e199995b9d9fa9818de78b3e1838d16",
+      "bytes": 132508
+    },
+    "source-frames-ja-sw-catalog.json": {
+      "sha256": "4c325718d64125684dea08565ae615ef586289c6a2af5842f0014753c32f5aba",
+      "bytes": 293
+    },
+    "source-frames-ja-sw-005.json": {
+      "sha256": "302c2af10654cdf74c4321bfab7bc2c2ca4e9d7ab5710717ac88dc6babb28df2",
+      "bytes": 121017
+    },
+    "source-frames-ko-en-catalog.json": {
+      "sha256": "b863522ec4db1b187dd8f2c0c10bf8bd053b88b988110615a73434084a2ed345",
+      "bytes": 293
+    },
+    "source-frames-ko-en-007.json": {
+      "sha256": "83e02e4345574be6353d0ab615940ae13f17515683242da6ce952f9bfeb12a33",
+      "bytes": 133502
+    },
+    "source-frames-ko-es-catalog.json": {
+      "sha256": "c9b4e1afd35bdf150682a6d4b0c15ded688309125032124fb254ebb65d182700",
+      "bytes": 293
+    },
+    "source-frames-ko-es-005.json": {
+      "sha256": "a70dc2d4b2540b7f7e1a6eb2bf85ff82fe897d16a95cf77d9214c16d0f540127",
+      "bytes": 130210
+    },
+    "source-frames-ko-fr-catalog.json": {
+      "sha256": "6eb7f91b073812f379704326463edfb26c8809add7a3d7b786ec8f29f044bf8d",
+      "bytes": 293
+    },
+    "source-frames-ko-fr-005.json": {
+      "sha256": "01b5adaf9441650485a5f86c382b4b22d944d646d3913e9dccf796ad2f49075d",
+      "bytes": 128092
+    },
+    "source-frames-ko-de-catalog.json": {
+      "sha256": "2ee213e7b62da795182459d05401bdddb079ddf6eb32b38973720f4989baa5a0",
+      "bytes": 293
+    },
+    "source-frames-ko-de-005.json": {
+      "sha256": "a3ebb498735a0fd02e1efff98b6ba44a7055d7b62e8e2987939d74693cf1edc1",
+      "bytes": 129900
+    },
+    "source-frames-ko-it-catalog.json": {
+      "sha256": "4ded4efa5237ac6a0baace393109f7887d58c9b8362d0d42b6b71928bec252a0",
+      "bytes": 293
+    },
+    "source-frames-ko-it-005.json": {
+      "sha256": "1159d7876bf1c7d61b27be5abe69f28b376c2ea203bb33c2483f78f5354b36cb",
+      "bytes": 128175
+    },
+    "source-frames-ko-pt-catalog.json": {
+      "sha256": "ca397854c4ce4560393040c05679bfa573a736f39b6b2736a5055a81bb2d0a3a",
+      "bytes": 293
+    },
+    "source-frames-ko-pt-005.json": {
+      "sha256": "8198fb7aaa5f30373734a7e2b7a302be51481de78bf4f51f8bcaf89a4b477816",
+      "bytes": 129197
+    },
+    "source-frames-ko-ar-catalog.json": {
+      "sha256": "e3c58be77d5f22560edb0f5c7fa72542b94b397119fbbb99b6a8fa0b89236094",
+      "bytes": 293
+    },
+    "source-frames-ko-ar-005.json": {
+      "sha256": "6b5101e8e3cdf00f26385d8f99eac02b443d7ce98995781ad241913c19d25b4a",
+      "bytes": 136142
+    },
+    "source-frames-ko-zh-catalog.json": {
+      "sha256": "3b9b6f8128bb12429aa049d9c1964625fbafc7edd8e9c6e083ce376c53a953e0",
+      "bytes": 293
+    },
+    "source-frames-ko-zh-005.json": {
+      "sha256": "73fde1490dbc7ffd62a95feb3464015b608b8c6a1226c4cfab370cccd547b7eb",
+      "bytes": 129334
+    },
+    "source-frames-ko-ja-catalog.json": {
+      "sha256": "304726c3201cca5d8713eb530d7f78dbc69e36a86c837a1c34ff94a56b8aeab7",
+      "bytes": 293
+    },
+    "source-frames-ko-ja-005.json": {
+      "sha256": "aa39c0725af6d4afdbea1fb3daf10dfcf6cd1fb9934550b67240897fe524f83b",
+      "bytes": 129577
+    },
+    "source-frames-ko-sw-catalog.json": {
+      "sha256": "a1a57fb63f2f187d2ec63de58abb83fd5638963d489fc4475ecb220f07231e8d",
+      "bytes": 293
+    },
+    "source-frames-ko-sw-005.json": {
+      "sha256": "d19d63676b0d43a6bf07f18a44a3f43bdda0fc0f058c715a568e55b757bd4d1d",
+      "bytes": 117688
+    },
+    "source-frames-sw-en-catalog.json": {
+      "sha256": "3180a28dd4c48090a44e6fb53f732ddd6054d640e7c7dfa5aa2167baf06ed73e",
+      "bytes": 293
+    },
+    "source-frames-sw-en-007.json": {
+      "sha256": "befbf53712089e74032db82ef0779ef8bd2298c80c1e562b92b358ebd624c92f",
+      "bytes": 124398
+    },
+    "source-frames-sw-es-catalog.json": {
+      "sha256": "232a11093b75aa83c6dd483b52bd88ad4e66047894a46204b826065ec6b7e822",
+      "bytes": 293
+    },
+    "source-frames-sw-es-005.json": {
+      "sha256": "30871585d2596dedc5952bd1f66ab059212f97187a9b10866759424ce7b076b9",
+      "bytes": 121239
+    },
+    "source-frames-sw-fr-catalog.json": {
+      "sha256": "58e72d45d4f25697a2de7df1f0401f316b26a83c6eb79f02e8306c14bca878a8",
+      "bytes": 293
+    },
+    "source-frames-sw-fr-005.json": {
+      "sha256": "3710e12f6be7a31477de00ef7b821322041defa200349c051b341e39802834ad",
+      "bytes": 120151
+    },
+    "source-frames-sw-de-catalog.json": {
+      "sha256": "179ccb8ed92a1225a7002044a3f8626f5c5e90832f26262f1a922a1a74c99f6f",
+      "bytes": 293
+    },
+    "source-frames-sw-de-005.json": {
+      "sha256": "2097394e7b3c0483cfe5a5570fa43a3b5bcfc2e7f25f9f62334b6c429ae131d0",
+      "bytes": 120938
+    },
+    "source-frames-sw-it-catalog.json": {
+      "sha256": "4bf7f121df3680f0a719926ddd6e15bd547a59eaa2704f06e0117a5a52308582",
+      "bytes": 293
+    },
+    "source-frames-sw-it-005.json": {
+      "sha256": "5f68ae4ea30623f700e6e3d1d3bba0cb65afe8c29f387be6c8a333c95c3ca4e1",
+      "bytes": 120228
+    },
+    "source-frames-sw-pt-catalog.json": {
+      "sha256": "974a6a541db07337722426818a7d6fa46af822ddc640c519f847fef6cef24804",
+      "bytes": 293
+    },
+    "source-frames-sw-pt-005.json": {
+      "sha256": "840a173f216fcf43a4dcf7a3605c3c428e0b09c7a6456660bbf0a4c65d5be930",
+      "bytes": 120201
+    },
+    "source-frames-sw-ar-catalog.json": {
+      "sha256": "a4972378d0e65a0e6e1f69ab55ea5826df5f679b01db4a3c8611f7e71f22930b",
+      "bytes": 293
+    },
+    "source-frames-sw-ar-005.json": {
+      "sha256": "bb704153e6b5251c8f7b01cb2345dfe962575257f565bc269bbf01b741c3d28b",
+      "bytes": 128172
+    },
+    "source-frames-sw-zh-catalog.json": {
+      "sha256": "8975dd4358bba3cef9648996c8e66a10e2860d8f4786da1926a85c146bb2f497",
+      "bytes": 293
+    },
+    "source-frames-sw-zh-005.json": {
+      "sha256": "d60b58cc6a178c5efedb6878fa207d2f5141d33eebecede4891602ab2d9c1bd1",
+      "bytes": 119164
+    },
+    "source-frames-sw-ja-catalog.json": {
+      "sha256": "fa6b0aa431b3e572d4d26242519192e8c8bb24afb3e22f6fd6f5649efd1e444b",
+      "bytes": 293
+    },
+    "source-frames-sw-ja-005.json": {
+      "sha256": "944663f87e4de8feb19cfd528768fea8be623e511d5624c9f6942868c0ed30b2",
+      "bytes": 121497
+    },
+    "source-frames-sw-ko-catalog.json": {
+      "sha256": "24daf1fd833dc773d6f9d10cc82ed9e426a6de74acddf767ea09afdc17cfc974",
+      "bytes": 293
+    },
+    "source-frames-sw-ko-005.json": {
+      "sha256": "d603feec3a50c0196906e777e9f3d09a5ddd1e893f2f785f1815bd85300384ee",
+      "bytes": 121004
+    }
+  },
+  "scope": "330 authored observations in 110 directions; sentences frozen before runtime capture. Concept selection informed by existing packs; not blind, human conversation, or population coverage. Three concepts alone cannot establish release quality.",
+  "automatic_density": 0.25,
+  "direct_density": 0.5,
+  "requirements": [
+    "Use actual bundled default without injected lookup.",
+    "Run automatic source detection and direct configured-pair lookup separately.",
+    "Capture source detection, abstention reason, emitted source/target/reading, concept/output ID, and translation/readiness call counts.",
+    "Every emitted non-Latin target needs a usable Latin reading; Latin targets may use their original Latin spelling.",
+    "For each target language, synthesize one actually emitted word with selected engine/voice/locale and output duration; eligibility alone is not acoustic validation.",
+    "Retain same-script and non-Roman source detection abstentions rather than overriding them silently."
+  ]
+}

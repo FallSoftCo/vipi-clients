@@ -1,0 +1,3559 @@
+{
+  "scope": "Static literal substring inventory. Ignores native boundaries, detector, baseline provider, density, masks, and normalized identity. Not emission or linguistic accuracy evidence.",
+  "directions": 110,
+  "pairs": [
+    {
+      "pair": "en-es",
+      "patterns": 148,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "en-fr",
+      "patterns": 136,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "en-de",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "en-it",
+      "patterns": 136,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "en-pt",
+      "patterns": 137,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "en-ar",
+      "patterns": 134,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "en-zh",
+      "patterns": 135,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "en-ja",
+      "patterns": 143,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "en-ko",
+      "patterns": 136,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "en-sw",
+      "patterns": 118,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "es-en",
+      "patterns": 142,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "es-fr",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "es-de",
+      "patterns": 141,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "es-it",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "es-pt",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "es-ar",
+      "patterns": 137,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "es-zh",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "es-ja",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "es-ko",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "es-sw",
+      "patterns": 129,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "fr-en",
+      "patterns": 145,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "fr-es",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "fr-de",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "fr-it",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "fr-pt",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "fr-ar",
+      "patterns": 136,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "fr-zh",
+      "patterns": 137,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "fr-ja",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "fr-ko",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "fr-sw",
+      "patterns": 128,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "de-en",
+      "patterns": 150,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "de-es",
+      "patterns": 144,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "de-fr",
+      "patterns": 142,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "de-it",
+      "patterns": 142,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "de-pt",
+      "patterns": 143,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "de-ar",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "de-zh",
+      "patterns": 141,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "de-ja",
+      "patterns": 142,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "de-ko",
+      "patterns": 142,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "de-sw",
+      "patterns": 132,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "it-en",
+      "patterns": 146,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "it-es",
+      "patterns": 143,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "it-fr",
+      "patterns": 142,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "it-de",
+      "patterns": 143,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "it-pt",
+      "patterns": 142,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "it-ar",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "it-zh",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "it-ja",
+      "patterns": 141,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "it-ko",
+      "patterns": 141,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "it-sw",
+      "patterns": 131,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "pt-en",
+      "patterns": 144,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "pt-es",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "pt-fr",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "pt-de",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "pt-it",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "pt-ar",
+      "patterns": 136,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "pt-zh",
+      "patterns": 137,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "pt-ja",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "pt-ko",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "pt-sw",
+      "patterns": 128,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ar-en",
+      "patterns": 143,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ar-es",
+      "patterns": 142,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ar-fr",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ar-de",
+      "patterns": 142,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ar-it",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ar-pt",
+      "patterns": 141,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ar-zh",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ar-ja",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ar-ko",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ar-sw",
+      "patterns": 131,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "zh-en",
+      "patterns": 141,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "zh-es",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "zh-fr",
+      "patterns": 136,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "zh-de",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "zh-it",
+      "patterns": 136,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "zh-pt",
+      "patterns": 137,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "zh-ar",
+      "patterns": 134,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "zh-ja",
+      "patterns": 137,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "zh-ko",
+      "patterns": 137,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "zh-sw",
+      "patterns": 126,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ja-en",
+      "patterns": 152,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ja-es",
+      "patterns": 141,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ja-fr",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ja-de",
+      "patterns": 141,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ja-it",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ja-pt",
+      "patterns": 140,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ja-ar",
+      "patterns": 137,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ja-zh",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ja-ko",
+      "patterns": 139,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ja-sw",
+      "patterns": 129,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ko-en",
+      "patterns": 143,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ko-es",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ko-fr",
+      "patterns": 136,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ko-de",
+      "patterns": 138,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ko-it",
+      "patterns": 136,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ko-pt",
+      "patterns": 137,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ko-ar",
+      "patterns": 134,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ko-zh",
+      "patterns": 136,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ko-ja",
+      "patterns": 136,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "ko-sw",
+      "patterns": 126,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "sw-en",
+      "patterns": 134,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "sw-es",
+      "patterns": 129,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "sw-fr",
+      "patterns": 128,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "sw-de",
+      "patterns": 129,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "sw-it",
+      "patterns": 128,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "sw-pt",
+      "patterns": 128,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "sw-ar",
+      "patterns": 127,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "sw-zh",
+      "patterns": 126,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "sw-ja",
+      "patterns": 128,
+      "non_latin_reading_issues": []
+    },
+    {
+      "pair": "sw-ko",
+      "patterns": 128,
+      "non_latin_reading_issues": []
+    }
+  ],
+  "rows": [
+    {
+      "id": "en-es:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-es:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-es:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:en-es:phrase_frame_liking_music",
+          "source": "music",
+          "target": "música",
+          "reading": "",
+          "context": "music"
+        }
+      ]
+    },
+    {
+      "id": "en-fr:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-fr:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-fr:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:en-fr:phrase_frame_liking_music",
+          "source": "music",
+          "target": "musique",
+          "reading": "",
+          "context": "music"
+        }
+      ]
+    },
+    {
+      "id": "en-de:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-de:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-de:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:en-de:phrase_frame_liking_music",
+          "source": "music",
+          "target": "Musik",
+          "reading": "",
+          "context": "music"
+        }
+      ]
+    },
+    {
+      "id": "en-it:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-it:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-it:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:en-it:phrase_frame_liking_music",
+          "source": "music",
+          "target": "musica",
+          "reading": "",
+          "context": "music"
+        }
+      ]
+    },
+    {
+      "id": "en-pt:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-pt:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-pt:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:en-pt:phrase_frame_liking_music",
+          "source": "music",
+          "target": "música",
+          "reading": "",
+          "context": "music"
+        }
+      ]
+    },
+    {
+      "id": "en-ar:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-ar:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-ar:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:en-ar:phrase_frame_liking_music",
+          "source": "music",
+          "target": "موسيقى",
+          "reading": "mūsīqā",
+          "context": "music"
+        }
+      ]
+    },
+    {
+      "id": "en-zh:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-zh:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-zh:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:en-zh:phrase_frame_liking_music",
+          "source": "music",
+          "target": "音乐",
+          "reading": "yīnyuè",
+          "context": "music"
+        }
+      ]
+    },
+    {
+      "id": "en-ja:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-ja:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-ja:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:en-ja:phrase_frame_liking_music",
+          "source": "music",
+          "target": "音楽",
+          "reading": "ongaku",
+          "context": "music"
+        }
+      ]
+    },
+    {
+      "id": "en-ko:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-ko:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-ko:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:en-ko:phrase_frame_liking_music",
+          "source": "music",
+          "target": "음악",
+          "reading": "eumak",
+          "context": "music"
+        }
+      ]
+    },
+    {
+      "id": "en-sw:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-sw:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "en-sw:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:en-sw:phrase_frame_liking_music",
+          "source": "music",
+          "target": "muziki",
+          "reading": "",
+          "context": "music"
+        }
+      ]
+    },
+    {
+      "id": "es-en:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-en:needs_water",
+          "source": "agua",
+          "target": "water",
+          "reading": "",
+          "context": "agua"
+        }
+      ]
+    },
+    {
+      "id": "es-en:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "es-en:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-en:phrase_frame_liking_music",
+          "source": "música",
+          "target": "music",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "es-fr:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-fr:needs_water",
+          "source": "agua",
+          "target": "eau",
+          "reading": "",
+          "context": "agua"
+        }
+      ]
+    },
+    {
+      "id": "es-fr:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "es-fr:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-fr:phrase_frame_liking_music",
+          "source": "música",
+          "target": "musique",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "es-de:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-de:needs_water",
+          "source": "agua",
+          "target": "Wasser",
+          "reading": "",
+          "context": "agua"
+        }
+      ]
+    },
+    {
+      "id": "es-de:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "es-de:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-de:phrase_frame_liking_music",
+          "source": "música",
+          "target": "Musik",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "es-it:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-it:needs_water",
+          "source": "agua",
+          "target": "acqua",
+          "reading": "",
+          "context": "agua"
+        }
+      ]
+    },
+    {
+      "id": "es-it:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "es-it:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-it:phrase_frame_liking_music",
+          "source": "música",
+          "target": "musica",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "es-pt:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-pt:needs_water",
+          "source": "agua",
+          "target": "água",
+          "reading": "",
+          "context": "agua"
+        }
+      ]
+    },
+    {
+      "id": "es-pt:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "es-pt:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-pt:phrase_frame_liking_music",
+          "source": "música",
+          "target": "música",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "es-ar:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-ar:needs_water",
+          "source": "agua",
+          "target": "ماء",
+          "reading": "mā'",
+          "context": "agua"
+        }
+      ]
+    },
+    {
+      "id": "es-ar:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "es-ar:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-ar:phrase_frame_liking_music",
+          "source": "música",
+          "target": "موسيقى",
+          "reading": "mūsīqā",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "es-zh:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-zh:needs_water",
+          "source": "agua",
+          "target": "水",
+          "reading": "shuǐ",
+          "context": "agua"
+        }
+      ]
+    },
+    {
+      "id": "es-zh:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "es-zh:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-zh:phrase_frame_liking_music",
+          "source": "música",
+          "target": "音乐",
+          "reading": "yīnyuè",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "es-ja:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-ja:needs_water",
+          "source": "agua",
+          "target": "水",
+          "reading": "mizu",
+          "context": "agua"
+        }
+      ]
+    },
+    {
+      "id": "es-ja:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "es-ja:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-ja:phrase_frame_liking_music",
+          "source": "música",
+          "target": "音楽",
+          "reading": "ongaku",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "es-ko:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-ko:needs_water",
+          "source": "agua",
+          "target": "물",
+          "reading": "mul",
+          "context": "agua"
+        }
+      ]
+    },
+    {
+      "id": "es-ko:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "es-ko:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-ko:phrase_frame_liking_music",
+          "source": "música",
+          "target": "음악",
+          "reading": "eumak",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "es-sw:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-sw:needs_water",
+          "source": "agua",
+          "target": "maji",
+          "reading": "",
+          "context": "agua"
+        }
+      ]
+    },
+    {
+      "id": "es-sw:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "es-sw:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:es-sw:phrase_frame_liking_music",
+          "source": "música",
+          "target": "muziki",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "fr-en:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-en:needs_water",
+          "source": "eau",
+          "target": "water",
+          "reading": "",
+          "context": "eau"
+        }
+      ]
+    },
+    {
+      "id": "fr-en:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "fr-en:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-en:phrase_frame_liking_music",
+          "source": "musique",
+          "target": "music",
+          "reading": "",
+          "context": "musique"
+        }
+      ]
+    },
+    {
+      "id": "fr-es:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-es:needs_water",
+          "source": "eau",
+          "target": "agua",
+          "reading": "",
+          "context": "eau"
+        }
+      ]
+    },
+    {
+      "id": "fr-es:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "fr-es:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-es:phrase_frame_liking_music",
+          "source": "musique",
+          "target": "música",
+          "reading": "",
+          "context": "musique"
+        }
+      ]
+    },
+    {
+      "id": "fr-de:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-de:needs_water",
+          "source": "eau",
+          "target": "Wasser",
+          "reading": "",
+          "context": "eau"
+        }
+      ]
+    },
+    {
+      "id": "fr-de:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "fr-de:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-de:phrase_frame_liking_music",
+          "source": "musique",
+          "target": "Musik",
+          "reading": "",
+          "context": "musique"
+        }
+      ]
+    },
+    {
+      "id": "fr-it:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-it:needs_water",
+          "source": "eau",
+          "target": "acqua",
+          "reading": "",
+          "context": "eau"
+        }
+      ]
+    },
+    {
+      "id": "fr-it:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "fr-it:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-it:phrase_frame_liking_music",
+          "source": "musique",
+          "target": "musica",
+          "reading": "",
+          "context": "musique"
+        }
+      ]
+    },
+    {
+      "id": "fr-pt:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-pt:needs_water",
+          "source": "eau",
+          "target": "água",
+          "reading": "",
+          "context": "eau"
+        }
+      ]
+    },
+    {
+      "id": "fr-pt:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "fr-pt:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-pt:phrase_frame_liking_music",
+          "source": "musique",
+          "target": "música",
+          "reading": "",
+          "context": "musique"
+        }
+      ]
+    },
+    {
+      "id": "fr-ar:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-ar:needs_water",
+          "source": "eau",
+          "target": "ماء",
+          "reading": "mā'",
+          "context": "eau"
+        }
+      ]
+    },
+    {
+      "id": "fr-ar:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "fr-ar:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-ar:phrase_frame_liking_music",
+          "source": "musique",
+          "target": "موسيقى",
+          "reading": "mūsīqā",
+          "context": "musique"
+        }
+      ]
+    },
+    {
+      "id": "fr-zh:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-zh:needs_water",
+          "source": "eau",
+          "target": "水",
+          "reading": "shuǐ",
+          "context": "eau"
+        }
+      ]
+    },
+    {
+      "id": "fr-zh:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "fr-zh:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-zh:phrase_frame_liking_music",
+          "source": "musique",
+          "target": "音乐",
+          "reading": "yīnyuè",
+          "context": "musique"
+        }
+      ]
+    },
+    {
+      "id": "fr-ja:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-ja:needs_water",
+          "source": "eau",
+          "target": "水",
+          "reading": "mizu",
+          "context": "eau"
+        }
+      ]
+    },
+    {
+      "id": "fr-ja:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "fr-ja:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-ja:phrase_frame_liking_music",
+          "source": "musique",
+          "target": "音楽",
+          "reading": "ongaku",
+          "context": "musique"
+        }
+      ]
+    },
+    {
+      "id": "fr-ko:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-ko:needs_water",
+          "source": "eau",
+          "target": "물",
+          "reading": "mul",
+          "context": "eau"
+        }
+      ]
+    },
+    {
+      "id": "fr-ko:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "fr-ko:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-ko:phrase_frame_liking_music",
+          "source": "musique",
+          "target": "음악",
+          "reading": "eumak",
+          "context": "musique"
+        }
+      ]
+    },
+    {
+      "id": "fr-sw:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-sw:needs_water",
+          "source": "eau",
+          "target": "maji",
+          "reading": "",
+          "context": "eau"
+        }
+      ]
+    },
+    {
+      "id": "fr-sw:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "fr-sw:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:fr-sw:phrase_frame_liking_music",
+          "source": "musique",
+          "target": "muziki",
+          "reading": "",
+          "context": "musique"
+        }
+      ]
+    },
+    {
+      "id": "de-en:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-en:needs_water",
+          "source": "Wasser",
+          "target": "water",
+          "reading": "",
+          "context": "Wasser"
+        }
+      ]
+    },
+    {
+      "id": "de-en:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-en:phrase_frame_reading_book",
+          "source": "Buch",
+          "target": "book",
+          "reading": "",
+          "context": "Buch"
+        }
+      ]
+    },
+    {
+      "id": "de-en:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-en:phrase_frame_liking_music",
+          "source": "Musik",
+          "target": "music",
+          "reading": "",
+          "context": "Musik"
+        }
+      ]
+    },
+    {
+      "id": "de-es:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-es:needs_water",
+          "source": "Wasser",
+          "target": "agua",
+          "reading": "",
+          "context": "Wasser"
+        }
+      ]
+    },
+    {
+      "id": "de-es:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-es:phrase_frame_reading_book",
+          "source": "Buch",
+          "target": "libro",
+          "reading": "",
+          "context": "Buch"
+        }
+      ]
+    },
+    {
+      "id": "de-es:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-es:phrase_frame_liking_music",
+          "source": "Musik",
+          "target": "música",
+          "reading": "",
+          "context": "Musik"
+        }
+      ]
+    },
+    {
+      "id": "de-fr:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-fr:needs_water",
+          "source": "Wasser",
+          "target": "eau",
+          "reading": "",
+          "context": "Wasser"
+        }
+      ]
+    },
+    {
+      "id": "de-fr:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-fr:phrase_frame_reading_book",
+          "source": "Buch",
+          "target": "livre",
+          "reading": "",
+          "context": "Buch"
+        }
+      ]
+    },
+    {
+      "id": "de-fr:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-fr:phrase_frame_liking_music",
+          "source": "Musik",
+          "target": "musique",
+          "reading": "",
+          "context": "Musik"
+        }
+      ]
+    },
+    {
+      "id": "de-it:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-it:needs_water",
+          "source": "Wasser",
+          "target": "acqua",
+          "reading": "",
+          "context": "Wasser"
+        }
+      ]
+    },
+    {
+      "id": "de-it:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-it:phrase_frame_reading_book",
+          "source": "Buch",
+          "target": "libro",
+          "reading": "",
+          "context": "Buch"
+        }
+      ]
+    },
+    {
+      "id": "de-it:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-it:phrase_frame_liking_music",
+          "source": "Musik",
+          "target": "musica",
+          "reading": "",
+          "context": "Musik"
+        }
+      ]
+    },
+    {
+      "id": "de-pt:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-pt:needs_water",
+          "source": "Wasser",
+          "target": "água",
+          "reading": "",
+          "context": "Wasser"
+        }
+      ]
+    },
+    {
+      "id": "de-pt:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-pt:phrase_frame_reading_book",
+          "source": "Buch",
+          "target": "livro",
+          "reading": "",
+          "context": "Buch"
+        }
+      ]
+    },
+    {
+      "id": "de-pt:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-pt:phrase_frame_liking_music",
+          "source": "Musik",
+          "target": "música",
+          "reading": "",
+          "context": "Musik"
+        }
+      ]
+    },
+    {
+      "id": "de-ar:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-ar:needs_water",
+          "source": "Wasser",
+          "target": "ماء",
+          "reading": "mā'",
+          "context": "Wasser"
+        }
+      ]
+    },
+    {
+      "id": "de-ar:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-ar:phrase_frame_reading_book",
+          "source": "Buch",
+          "target": "كتاب",
+          "reading": "kitāb",
+          "context": "Buch"
+        }
+      ]
+    },
+    {
+      "id": "de-ar:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-ar:phrase_frame_liking_music",
+          "source": "Musik",
+          "target": "موسيقى",
+          "reading": "mūsīqā",
+          "context": "Musik"
+        }
+      ]
+    },
+    {
+      "id": "de-zh:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-zh:needs_water",
+          "source": "Wasser",
+          "target": "水",
+          "reading": "shuǐ",
+          "context": "Wasser"
+        }
+      ]
+    },
+    {
+      "id": "de-zh:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-zh:phrase_frame_reading_book",
+          "source": "Buch",
+          "target": "书",
+          "reading": "shū",
+          "context": "Buch"
+        }
+      ]
+    },
+    {
+      "id": "de-zh:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-zh:phrase_frame_liking_music",
+          "source": "Musik",
+          "target": "音乐",
+          "reading": "yīnyuè",
+          "context": "Musik"
+        }
+      ]
+    },
+    {
+      "id": "de-ja:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-ja:needs_water",
+          "source": "Wasser",
+          "target": "水",
+          "reading": "mizu",
+          "context": "Wasser"
+        }
+      ]
+    },
+    {
+      "id": "de-ja:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-ja:phrase_frame_reading_book",
+          "source": "Buch",
+          "target": "本",
+          "reading": "hon",
+          "context": "Buch"
+        }
+      ]
+    },
+    {
+      "id": "de-ja:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-ja:phrase_frame_liking_music",
+          "source": "Musik",
+          "target": "音楽",
+          "reading": "ongaku",
+          "context": "Musik"
+        }
+      ]
+    },
+    {
+      "id": "de-ko:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-ko:needs_water",
+          "source": "Wasser",
+          "target": "물",
+          "reading": "mul",
+          "context": "Wasser"
+        }
+      ]
+    },
+    {
+      "id": "de-ko:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-ko:phrase_frame_reading_book",
+          "source": "Buch",
+          "target": "책",
+          "reading": "chaek",
+          "context": "Buch"
+        }
+      ]
+    },
+    {
+      "id": "de-ko:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-ko:phrase_frame_liking_music",
+          "source": "Musik",
+          "target": "음악",
+          "reading": "eumak",
+          "context": "Musik"
+        }
+      ]
+    },
+    {
+      "id": "de-sw:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-sw:needs_water",
+          "source": "Wasser",
+          "target": "maji",
+          "reading": "",
+          "context": "Wasser"
+        }
+      ]
+    },
+    {
+      "id": "de-sw:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-sw:phrase_frame_reading_book",
+          "source": "Buch",
+          "target": "kitabu",
+          "reading": "",
+          "context": "Buch"
+        }
+      ]
+    },
+    {
+      "id": "de-sw:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:de-sw:phrase_frame_liking_music",
+          "source": "Musik",
+          "target": "muziki",
+          "reading": "",
+          "context": "Musik"
+        }
+      ]
+    },
+    {
+      "id": "it-en:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-en:needs_water",
+          "source": "acqua",
+          "target": "water",
+          "reading": "",
+          "context": "acqua"
+        }
+      ]
+    },
+    {
+      "id": "it-en:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-en:phrase_frame_reading_book",
+          "source": "libro",
+          "target": "book",
+          "reading": "",
+          "context": "libro"
+        }
+      ]
+    },
+    {
+      "id": "it-en:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "it-es:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-es:needs_water",
+          "source": "acqua",
+          "target": "agua",
+          "reading": "",
+          "context": "acqua"
+        }
+      ]
+    },
+    {
+      "id": "it-es:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-es:phrase_frame_reading_book",
+          "source": "libro",
+          "target": "libro",
+          "reading": "",
+          "context": "libro"
+        }
+      ]
+    },
+    {
+      "id": "it-es:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "it-fr:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-fr:needs_water",
+          "source": "acqua",
+          "target": "eau",
+          "reading": "",
+          "context": "acqua"
+        }
+      ]
+    },
+    {
+      "id": "it-fr:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-fr:phrase_frame_reading_book",
+          "source": "libro",
+          "target": "livre",
+          "reading": "",
+          "context": "libro"
+        }
+      ]
+    },
+    {
+      "id": "it-fr:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "it-de:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-de:needs_water",
+          "source": "acqua",
+          "target": "Wasser",
+          "reading": "",
+          "context": "acqua"
+        }
+      ]
+    },
+    {
+      "id": "it-de:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-de:phrase_frame_reading_book",
+          "source": "libro",
+          "target": "Buch",
+          "reading": "",
+          "context": "libro"
+        }
+      ]
+    },
+    {
+      "id": "it-de:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "it-pt:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-pt:needs_water",
+          "source": "acqua",
+          "target": "água",
+          "reading": "",
+          "context": "acqua"
+        }
+      ]
+    },
+    {
+      "id": "it-pt:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-pt:phrase_frame_reading_book",
+          "source": "libro",
+          "target": "livro",
+          "reading": "",
+          "context": "libro"
+        }
+      ]
+    },
+    {
+      "id": "it-pt:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "it-ar:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-ar:needs_water",
+          "source": "acqua",
+          "target": "ماء",
+          "reading": "mā'",
+          "context": "acqua"
+        }
+      ]
+    },
+    {
+      "id": "it-ar:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-ar:phrase_frame_reading_book",
+          "source": "libro",
+          "target": "كتاب",
+          "reading": "kitāb",
+          "context": "libro"
+        }
+      ]
+    },
+    {
+      "id": "it-ar:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "it-zh:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-zh:needs_water",
+          "source": "acqua",
+          "target": "水",
+          "reading": "shuǐ",
+          "context": "acqua"
+        }
+      ]
+    },
+    {
+      "id": "it-zh:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-zh:phrase_frame_reading_book",
+          "source": "libro",
+          "target": "书",
+          "reading": "shū",
+          "context": "libro"
+        }
+      ]
+    },
+    {
+      "id": "it-zh:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "it-ja:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-ja:needs_water",
+          "source": "acqua",
+          "target": "水",
+          "reading": "mizu",
+          "context": "acqua"
+        }
+      ]
+    },
+    {
+      "id": "it-ja:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-ja:phrase_frame_reading_book",
+          "source": "libro",
+          "target": "本",
+          "reading": "hon",
+          "context": "libro"
+        }
+      ]
+    },
+    {
+      "id": "it-ja:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "it-ko:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-ko:needs_water",
+          "source": "acqua",
+          "target": "물",
+          "reading": "mul",
+          "context": "acqua"
+        }
+      ]
+    },
+    {
+      "id": "it-ko:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-ko:phrase_frame_reading_book",
+          "source": "libro",
+          "target": "책",
+          "reading": "chaek",
+          "context": "libro"
+        }
+      ]
+    },
+    {
+      "id": "it-ko:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "it-sw:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-sw:needs_water",
+          "source": "acqua",
+          "target": "maji",
+          "reading": "",
+          "context": "acqua"
+        }
+      ]
+    },
+    {
+      "id": "it-sw:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:it-sw:phrase_frame_reading_book",
+          "source": "libro",
+          "target": "kitabu",
+          "reading": "",
+          "context": "libro"
+        }
+      ]
+    },
+    {
+      "id": "it-sw:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "pt-en:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-en:needs_water",
+          "source": "água",
+          "target": "water",
+          "reading": "",
+          "context": "água"
+        }
+      ]
+    },
+    {
+      "id": "pt-en:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "pt-en:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-en:phrase_frame_liking_music",
+          "source": "música",
+          "target": "music",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "pt-es:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-es:needs_water",
+          "source": "água",
+          "target": "agua",
+          "reading": "",
+          "context": "água"
+        }
+      ]
+    },
+    {
+      "id": "pt-es:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "pt-es:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-es:phrase_frame_liking_music",
+          "source": "música",
+          "target": "música",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "pt-fr:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-fr:needs_water",
+          "source": "água",
+          "target": "eau",
+          "reading": "",
+          "context": "água"
+        }
+      ]
+    },
+    {
+      "id": "pt-fr:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "pt-fr:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-fr:phrase_frame_liking_music",
+          "source": "música",
+          "target": "musique",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "pt-de:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-de:needs_water",
+          "source": "água",
+          "target": "Wasser",
+          "reading": "",
+          "context": "água"
+        }
+      ]
+    },
+    {
+      "id": "pt-de:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "pt-de:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-de:phrase_frame_liking_music",
+          "source": "música",
+          "target": "Musik",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "pt-it:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-it:needs_water",
+          "source": "água",
+          "target": "acqua",
+          "reading": "",
+          "context": "água"
+        }
+      ]
+    },
+    {
+      "id": "pt-it:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "pt-it:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-it:phrase_frame_liking_music",
+          "source": "música",
+          "target": "musica",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "pt-ar:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-ar:needs_water",
+          "source": "água",
+          "target": "ماء",
+          "reading": "mā'",
+          "context": "água"
+        }
+      ]
+    },
+    {
+      "id": "pt-ar:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "pt-ar:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-ar:phrase_frame_liking_music",
+          "source": "música",
+          "target": "موسيقى",
+          "reading": "mūsīqā",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "pt-zh:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-zh:needs_water",
+          "source": "água",
+          "target": "水",
+          "reading": "shuǐ",
+          "context": "água"
+        }
+      ]
+    },
+    {
+      "id": "pt-zh:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "pt-zh:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-zh:phrase_frame_liking_music",
+          "source": "música",
+          "target": "音乐",
+          "reading": "yīnyuè",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "pt-ja:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-ja:needs_water",
+          "source": "água",
+          "target": "水",
+          "reading": "mizu",
+          "context": "água"
+        }
+      ]
+    },
+    {
+      "id": "pt-ja:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "pt-ja:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-ja:phrase_frame_liking_music",
+          "source": "música",
+          "target": "音楽",
+          "reading": "ongaku",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "pt-ko:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-ko:needs_water",
+          "source": "água",
+          "target": "물",
+          "reading": "mul",
+          "context": "água"
+        }
+      ]
+    },
+    {
+      "id": "pt-ko:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "pt-ko:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-ko:phrase_frame_liking_music",
+          "source": "música",
+          "target": "음악",
+          "reading": "eumak",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "pt-sw:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-sw:needs_water",
+          "source": "água",
+          "target": "maji",
+          "reading": "",
+          "context": "água"
+        }
+      ]
+    },
+    {
+      "id": "pt-sw:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "pt-sw:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:pt-sw:phrase_frame_liking_music",
+          "source": "música",
+          "target": "muziki",
+          "reading": "",
+          "context": "música"
+        }
+      ]
+    },
+    {
+      "id": "ar-en:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:needs_water",
+          "source": "ماء",
+          "target": "water",
+          "reading": "",
+          "context": "ماء"
+        }
+      ]
+    },
+    {
+      "id": "ar-en:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:phrase_frame_reading_book",
+          "source": "كتاب",
+          "target": "book",
+          "reading": "",
+          "context": "كتاب"
+        }
+      ]
+    },
+    {
+      "id": "ar-en:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-en:phrase_frame_liking_music",
+          "source": "موسيقى",
+          "target": "music",
+          "reading": "",
+          "context": "موسيقى"
+        }
+      ]
+    },
+    {
+      "id": "ar-es:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-es:needs_water",
+          "source": "ماء",
+          "target": "agua",
+          "reading": "",
+          "context": "ماء"
+        }
+      ]
+    },
+    {
+      "id": "ar-es:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-es:phrase_frame_reading_book",
+          "source": "كتاب",
+          "target": "libro",
+          "reading": "",
+          "context": "كتاب"
+        }
+      ]
+    },
+    {
+      "id": "ar-es:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-es:phrase_frame_liking_music",
+          "source": "موسيقى",
+          "target": "música",
+          "reading": "",
+          "context": "موسيقى"
+        }
+      ]
+    },
+    {
+      "id": "ar-fr:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-fr:needs_water",
+          "source": "ماء",
+          "target": "eau",
+          "reading": "",
+          "context": "ماء"
+        }
+      ]
+    },
+    {
+      "id": "ar-fr:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-fr:phrase_frame_reading_book",
+          "source": "كتاب",
+          "target": "livre",
+          "reading": "",
+          "context": "كتاب"
+        }
+      ]
+    },
+    {
+      "id": "ar-fr:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-fr:phrase_frame_liking_music",
+          "source": "موسيقى",
+          "target": "musique",
+          "reading": "",
+          "context": "موسيقى"
+        }
+      ]
+    },
+    {
+      "id": "ar-de:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-de:needs_water",
+          "source": "ماء",
+          "target": "Wasser",
+          "reading": "",
+          "context": "ماء"
+        }
+      ]
+    },
+    {
+      "id": "ar-de:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-de:phrase_frame_reading_book",
+          "source": "كتاب",
+          "target": "Buch",
+          "reading": "",
+          "context": "كتاب"
+        }
+      ]
+    },
+    {
+      "id": "ar-de:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-de:phrase_frame_liking_music",
+          "source": "موسيقى",
+          "target": "Musik",
+          "reading": "",
+          "context": "موسيقى"
+        }
+      ]
+    },
+    {
+      "id": "ar-it:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-it:needs_water",
+          "source": "ماء",
+          "target": "acqua",
+          "reading": "",
+          "context": "ماء"
+        }
+      ]
+    },
+    {
+      "id": "ar-it:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-it:phrase_frame_reading_book",
+          "source": "كتاب",
+          "target": "libro",
+          "reading": "",
+          "context": "كتاب"
+        }
+      ]
+    },
+    {
+      "id": "ar-it:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-it:phrase_frame_liking_music",
+          "source": "موسيقى",
+          "target": "musica",
+          "reading": "",
+          "context": "موسيقى"
+        }
+      ]
+    },
+    {
+      "id": "ar-pt:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-pt:needs_water",
+          "source": "ماء",
+          "target": "água",
+          "reading": "",
+          "context": "ماء"
+        }
+      ]
+    },
+    {
+      "id": "ar-pt:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-pt:phrase_frame_reading_book",
+          "source": "كتاب",
+          "target": "livro",
+          "reading": "",
+          "context": "كتاب"
+        }
+      ]
+    },
+    {
+      "id": "ar-pt:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-pt:phrase_frame_liking_music",
+          "source": "موسيقى",
+          "target": "música",
+          "reading": "",
+          "context": "موسيقى"
+        }
+      ]
+    },
+    {
+      "id": "ar-zh:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-zh:needs_water",
+          "source": "ماء",
+          "target": "水",
+          "reading": "shuǐ",
+          "context": "ماء"
+        }
+      ]
+    },
+    {
+      "id": "ar-zh:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-zh:phrase_frame_reading_book",
+          "source": "كتاب",
+          "target": "书",
+          "reading": "shū",
+          "context": "كتاب"
+        }
+      ]
+    },
+    {
+      "id": "ar-zh:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-zh:phrase_frame_liking_music",
+          "source": "موسيقى",
+          "target": "音乐",
+          "reading": "yīnyuè",
+          "context": "موسيقى"
+        }
+      ]
+    },
+    {
+      "id": "ar-ja:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-ja:needs_water",
+          "source": "ماء",
+          "target": "水",
+          "reading": "mizu",
+          "context": "ماء"
+        }
+      ]
+    },
+    {
+      "id": "ar-ja:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-ja:phrase_frame_reading_book",
+          "source": "كتاب",
+          "target": "本",
+          "reading": "hon",
+          "context": "كتاب"
+        }
+      ]
+    },
+    {
+      "id": "ar-ja:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-ja:phrase_frame_liking_music",
+          "source": "موسيقى",
+          "target": "音楽",
+          "reading": "ongaku",
+          "context": "موسيقى"
+        }
+      ]
+    },
+    {
+      "id": "ar-ko:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-ko:needs_water",
+          "source": "ماء",
+          "target": "물",
+          "reading": "mul",
+          "context": "ماء"
+        }
+      ]
+    },
+    {
+      "id": "ar-ko:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-ko:phrase_frame_reading_book",
+          "source": "كتاب",
+          "target": "책",
+          "reading": "chaek",
+          "context": "كتاب"
+        }
+      ]
+    },
+    {
+      "id": "ar-ko:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-ko:phrase_frame_liking_music",
+          "source": "موسيقى",
+          "target": "음악",
+          "reading": "eumak",
+          "context": "موسيقى"
+        }
+      ]
+    },
+    {
+      "id": "ar-sw:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-sw:needs_water",
+          "source": "ماء",
+          "target": "maji",
+          "reading": "",
+          "context": "ماء"
+        }
+      ]
+    },
+    {
+      "id": "ar-sw:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-sw:phrase_frame_reading_book",
+          "source": "كتاب",
+          "target": "kitabu",
+          "reading": "",
+          "context": "كتاب"
+        }
+      ]
+    },
+    {
+      "id": "ar-sw:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ar-sw:phrase_frame_liking_music",
+          "source": "موسيقى",
+          "target": "muziki",
+          "reading": "",
+          "context": "موسيقى"
+        }
+      ]
+    },
+    {
+      "id": "zh-en:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-en:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-en:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:zh-en:phrase_frame_liking_music",
+          "source": "音乐",
+          "target": "music",
+          "reading": "",
+          "context": "音乐"
+        }
+      ]
+    },
+    {
+      "id": "zh-es:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-es:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-es:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:zh-es:phrase_frame_liking_music",
+          "source": "音乐",
+          "target": "música",
+          "reading": "",
+          "context": "音乐"
+        }
+      ]
+    },
+    {
+      "id": "zh-fr:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-fr:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-fr:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:zh-fr:phrase_frame_liking_music",
+          "source": "音乐",
+          "target": "musique",
+          "reading": "",
+          "context": "音乐"
+        }
+      ]
+    },
+    {
+      "id": "zh-de:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-de:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-de:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:zh-de:phrase_frame_liking_music",
+          "source": "音乐",
+          "target": "Musik",
+          "reading": "",
+          "context": "音乐"
+        }
+      ]
+    },
+    {
+      "id": "zh-it:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-it:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-it:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:zh-it:phrase_frame_liking_music",
+          "source": "音乐",
+          "target": "musica",
+          "reading": "",
+          "context": "音乐"
+        }
+      ]
+    },
+    {
+      "id": "zh-pt:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-pt:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-pt:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:zh-pt:phrase_frame_liking_music",
+          "source": "音乐",
+          "target": "música",
+          "reading": "",
+          "context": "音乐"
+        }
+      ]
+    },
+    {
+      "id": "zh-ar:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-ar:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-ar:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:zh-ar:phrase_frame_liking_music",
+          "source": "音乐",
+          "target": "موسيقى",
+          "reading": "mūsīqā",
+          "context": "音乐"
+        }
+      ]
+    },
+    {
+      "id": "zh-ja:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-ja:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-ja:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:zh-ja:phrase_frame_liking_music",
+          "source": "音乐",
+          "target": "音楽",
+          "reading": "ongaku",
+          "context": "音乐"
+        }
+      ]
+    },
+    {
+      "id": "zh-ko:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-ko:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-ko:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:zh-ko:phrase_frame_liking_music",
+          "source": "音乐",
+          "target": "음악",
+          "reading": "eumak",
+          "context": "音乐"
+        }
+      ]
+    },
+    {
+      "id": "zh-sw:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-sw:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "zh-sw:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:zh-sw:phrase_frame_liking_music",
+          "source": "音乐",
+          "target": "muziki",
+          "reading": "",
+          "context": "音乐"
+        }
+      ]
+    },
+    {
+      "id": "ja-en:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-en:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-en:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ja-en:phrase_frame_liking_music",
+          "source": "音楽",
+          "target": "music",
+          "reading": "",
+          "context": "音楽"
+        }
+      ]
+    },
+    {
+      "id": "ja-es:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-es:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-es:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ja-es:phrase_frame_liking_music",
+          "source": "音楽",
+          "target": "música",
+          "reading": "",
+          "context": "音楽"
+        }
+      ]
+    },
+    {
+      "id": "ja-fr:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-fr:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-fr:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ja-fr:phrase_frame_liking_music",
+          "source": "音楽",
+          "target": "musique",
+          "reading": "",
+          "context": "音楽"
+        }
+      ]
+    },
+    {
+      "id": "ja-de:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-de:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-de:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ja-de:phrase_frame_liking_music",
+          "source": "音楽",
+          "target": "Musik",
+          "reading": "",
+          "context": "音楽"
+        }
+      ]
+    },
+    {
+      "id": "ja-it:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-it:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-it:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ja-it:phrase_frame_liking_music",
+          "source": "音楽",
+          "target": "musica",
+          "reading": "",
+          "context": "音楽"
+        }
+      ]
+    },
+    {
+      "id": "ja-pt:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-pt:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-pt:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ja-pt:phrase_frame_liking_music",
+          "source": "音楽",
+          "target": "música",
+          "reading": "",
+          "context": "音楽"
+        }
+      ]
+    },
+    {
+      "id": "ja-ar:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-ar:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-ar:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ja-ar:phrase_frame_liking_music",
+          "source": "音楽",
+          "target": "موسيقى",
+          "reading": "mūsīqā",
+          "context": "音楽"
+        }
+      ]
+    },
+    {
+      "id": "ja-zh:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-zh:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-zh:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ja-zh:phrase_frame_liking_music",
+          "source": "音楽",
+          "target": "音乐",
+          "reading": "yīnyuè",
+          "context": "音楽"
+        }
+      ]
+    },
+    {
+      "id": "ja-ko:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-ko:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-ko:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ja-ko:phrase_frame_liking_music",
+          "source": "音楽",
+          "target": "음악",
+          "reading": "eumak",
+          "context": "音楽"
+        }
+      ]
+    },
+    {
+      "id": "ja-sw:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-sw:book",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ja-sw:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ja-sw:phrase_frame_liking_music",
+          "source": "音楽",
+          "target": "muziki",
+          "reading": "",
+          "context": "音楽"
+        }
+      ]
+    },
+    {
+      "id": "ko-en:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ko-en:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_reading_book",
+          "source": "책",
+          "target": "book",
+          "reading": "",
+          "context": "책"
+        }
+      ]
+    },
+    {
+      "id": "ko-en:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-en:phrase_frame_liking_music",
+          "source": "음악",
+          "target": "music",
+          "reading": "",
+          "context": "음악"
+        }
+      ]
+    },
+    {
+      "id": "ko-es:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ko-es:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-es:phrase_frame_reading_book",
+          "source": "책",
+          "target": "libro",
+          "reading": "",
+          "context": "책"
+        }
+      ]
+    },
+    {
+      "id": "ko-es:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-es:phrase_frame_liking_music",
+          "source": "음악",
+          "target": "música",
+          "reading": "",
+          "context": "음악"
+        }
+      ]
+    },
+    {
+      "id": "ko-fr:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ko-fr:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-fr:phrase_frame_reading_book",
+          "source": "책",
+          "target": "livre",
+          "reading": "",
+          "context": "책"
+        }
+      ]
+    },
+    {
+      "id": "ko-fr:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-fr:phrase_frame_liking_music",
+          "source": "음악",
+          "target": "musique",
+          "reading": "",
+          "context": "음악"
+        }
+      ]
+    },
+    {
+      "id": "ko-de:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ko-de:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-de:phrase_frame_reading_book",
+          "source": "책",
+          "target": "Buch",
+          "reading": "",
+          "context": "책"
+        }
+      ]
+    },
+    {
+      "id": "ko-de:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-de:phrase_frame_liking_music",
+          "source": "음악",
+          "target": "Musik",
+          "reading": "",
+          "context": "음악"
+        }
+      ]
+    },
+    {
+      "id": "ko-it:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ko-it:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-it:phrase_frame_reading_book",
+          "source": "책",
+          "target": "libro",
+          "reading": "",
+          "context": "책"
+        }
+      ]
+    },
+    {
+      "id": "ko-it:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-it:phrase_frame_liking_music",
+          "source": "음악",
+          "target": "musica",
+          "reading": "",
+          "context": "음악"
+        }
+      ]
+    },
+    {
+      "id": "ko-pt:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ko-pt:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-pt:phrase_frame_reading_book",
+          "source": "책",
+          "target": "livro",
+          "reading": "",
+          "context": "책"
+        }
+      ]
+    },
+    {
+      "id": "ko-pt:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-pt:phrase_frame_liking_music",
+          "source": "음악",
+          "target": "música",
+          "reading": "",
+          "context": "음악"
+        }
+      ]
+    },
+    {
+      "id": "ko-ar:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ko-ar:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-ar:phrase_frame_reading_book",
+          "source": "책",
+          "target": "كتاب",
+          "reading": "kitāb",
+          "context": "책"
+        }
+      ]
+    },
+    {
+      "id": "ko-ar:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-ar:phrase_frame_liking_music",
+          "source": "음악",
+          "target": "موسيقى",
+          "reading": "mūsīqā",
+          "context": "음악"
+        }
+      ]
+    },
+    {
+      "id": "ko-zh:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ko-zh:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-zh:phrase_frame_reading_book",
+          "source": "책",
+          "target": "书",
+          "reading": "shū",
+          "context": "책"
+        }
+      ]
+    },
+    {
+      "id": "ko-zh:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-zh:phrase_frame_liking_music",
+          "source": "음악",
+          "target": "音乐",
+          "reading": "yīnyuè",
+          "context": "음악"
+        }
+      ]
+    },
+    {
+      "id": "ko-ja:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ko-ja:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-ja:phrase_frame_reading_book",
+          "source": "책",
+          "target": "本",
+          "reading": "hon",
+          "context": "책"
+        }
+      ]
+    },
+    {
+      "id": "ko-ja:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-ja:phrase_frame_liking_music",
+          "source": "음악",
+          "target": "音楽",
+          "reading": "ongaku",
+          "context": "음악"
+        }
+      ]
+    },
+    {
+      "id": "ko-sw:water",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "ko-sw:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-sw:phrase_frame_reading_book",
+          "source": "책",
+          "target": "kitabu",
+          "reading": "",
+          "context": "책"
+        }
+      ]
+    },
+    {
+      "id": "ko-sw:music",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:ko-sw:phrase_frame_liking_music",
+          "source": "음악",
+          "target": "muziki",
+          "reading": "",
+          "context": "음악"
+        }
+      ]
+    },
+    {
+      "id": "sw-en:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-en:needs_water",
+          "source": "maji",
+          "target": "water",
+          "reading": "",
+          "context": "maji"
+        }
+      ]
+    },
+    {
+      "id": "sw-en:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-en:phrase_frame_reading_book",
+          "source": "kitabu",
+          "target": "book",
+          "reading": "",
+          "context": "kitabu"
+        }
+      ]
+    },
+    {
+      "id": "sw-en:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "sw-es:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-es:needs_water",
+          "source": "maji",
+          "target": "agua",
+          "reading": "",
+          "context": "maji"
+        }
+      ]
+    },
+    {
+      "id": "sw-es:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-es:phrase_frame_reading_book",
+          "source": "kitabu",
+          "target": "libro",
+          "reading": "",
+          "context": "kitabu"
+        }
+      ]
+    },
+    {
+      "id": "sw-es:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "sw-fr:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-fr:needs_water",
+          "source": "maji",
+          "target": "eau",
+          "reading": "",
+          "context": "maji"
+        }
+      ]
+    },
+    {
+      "id": "sw-fr:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-fr:phrase_frame_reading_book",
+          "source": "kitabu",
+          "target": "livre",
+          "reading": "",
+          "context": "kitabu"
+        }
+      ]
+    },
+    {
+      "id": "sw-fr:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "sw-de:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-de:needs_water",
+          "source": "maji",
+          "target": "Wasser",
+          "reading": "",
+          "context": "maji"
+        }
+      ]
+    },
+    {
+      "id": "sw-de:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-de:phrase_frame_reading_book",
+          "source": "kitabu",
+          "target": "Buch",
+          "reading": "",
+          "context": "kitabu"
+        }
+      ]
+    },
+    {
+      "id": "sw-de:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "sw-it:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-it:needs_water",
+          "source": "maji",
+          "target": "acqua",
+          "reading": "",
+          "context": "maji"
+        }
+      ]
+    },
+    {
+      "id": "sw-it:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-it:phrase_frame_reading_book",
+          "source": "kitabu",
+          "target": "libro",
+          "reading": "",
+          "context": "kitabu"
+        }
+      ]
+    },
+    {
+      "id": "sw-it:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "sw-pt:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-pt:needs_water",
+          "source": "maji",
+          "target": "água",
+          "reading": "",
+          "context": "maji"
+        }
+      ]
+    },
+    {
+      "id": "sw-pt:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-pt:phrase_frame_reading_book",
+          "source": "kitabu",
+          "target": "livro",
+          "reading": "",
+          "context": "kitabu"
+        }
+      ]
+    },
+    {
+      "id": "sw-pt:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "sw-ar:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-ar:needs_water",
+          "source": "maji",
+          "target": "ماء",
+          "reading": "mā'",
+          "context": "maji"
+        }
+      ]
+    },
+    {
+      "id": "sw-ar:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-ar:phrase_frame_reading_book",
+          "source": "kitabu",
+          "target": "كتاب",
+          "reading": "kitāb",
+          "context": "kitabu"
+        }
+      ]
+    },
+    {
+      "id": "sw-ar:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "sw-zh:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-zh:needs_water",
+          "source": "maji",
+          "target": "水",
+          "reading": "shuǐ",
+          "context": "maji"
+        }
+      ]
+    },
+    {
+      "id": "sw-zh:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-zh:phrase_frame_reading_book",
+          "source": "kitabu",
+          "target": "书",
+          "reading": "shū",
+          "context": "kitabu"
+        }
+      ]
+    },
+    {
+      "id": "sw-zh:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "sw-ja:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-ja:needs_water",
+          "source": "maji",
+          "target": "水",
+          "reading": "mizu",
+          "context": "maji"
+        }
+      ]
+    },
+    {
+      "id": "sw-ja:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-ja:phrase_frame_reading_book",
+          "source": "kitabu",
+          "target": "本",
+          "reading": "hon",
+          "context": "kitabu"
+        }
+      ]
+    },
+    {
+      "id": "sw-ja:music",
+      "literal_context_candidates": []
+    },
+    {
+      "id": "sw-ko:water",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-ko:needs_water",
+          "source": "maji",
+          "target": "물",
+          "reading": "mul",
+          "context": "maji"
+        }
+      ]
+    },
+    {
+      "id": "sw-ko:book",
+      "literal_context_candidates": [
+        {
+          "pattern_id": "bare-noun-r01:sw-ko:phrase_frame_reading_book",
+          "source": "kitabu",
+          "target": "책",
+          "reading": "chaek",
+          "context": "kitabu"
+        }
+      ]
+    },
+    {
+      "id": "sw-ko:music",
+      "literal_context_candidates": []
+    }
+  ],
+  "rows_without_literal_context": 120
+}
