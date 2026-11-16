@@ -96,6 +96,10 @@ this continuation. Native browser inspection on November 16 reconfirmed Vipi
 as a Play draft, App Store Connect at sign-in, and Google Cloud requiring
 company reauthentication. The Mac signing/keychain hold remains in force.
 The requested automatic-reset timer and policy remain disabled.
+The existing Google CLI credential also requires reauthentication; the running
+worker has no configured FCM credential. A read-only inspection of the recorded
+Vipi release locations found no documented usable App Store Connect API key.
+No keychain access, credential creation or account mutation was attempted.
 
 The sections below distinguish historical November 11 account evidence from
 the current artifacts. Store forms, signed Apple runtime, billing, background

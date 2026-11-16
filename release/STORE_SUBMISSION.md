@@ -20,8 +20,11 @@ not upload or distribute an app. The corrected `EXPORT_ASSESSMENT.md` remains
 its technical export basis. Exact linked-binary distribution terms remain a
 separate release prerequisite. No build upload or review submission exists.
 Subscriptions cannot yet be configured: Play requests an app upload first.
-Google Cloud separately requires company reauthentication; Firebase HTTP v1
-messaging remains disabled. Firebase page access is not delivery qualification.
+Google Cloud separately requires company reauthentication, including the existing
+CLI credential. The running worker has no FCM project or service-account
+credential configured. The last successful API check recorded it disabled;
+its current enabled state cannot be established until authentication is restored.
+Firebase page access is not delivery qualification.
 
 `privacy-data-inventory.json` maps implemented data flows and pinned SDK
 declarations. Its November 16 incremental review covers local familiarity
