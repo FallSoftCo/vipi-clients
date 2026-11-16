@@ -1,0 +1,3877 @@
+{
+  "scope": "Accepted directional senses/targets/readings retained verbatim; new context permissions are authored hypotheses pending native and linguistic review.",
+  "records": [
+    {
+      "pattern_id": "everyday-noun-008:en-es:needs_breakfast",
+      "base_pattern_id": "en-es:needs_breakfast",
+      "base_file": "source-frames-en-es-007.json",
+      "base_sha256": "120cb37e609843632bf01635c4f04a5d689e410f6971f7f8527c6927651c9ad2",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-es:needs_water",
+      "base_pattern_id": "en-es:needs_water",
+      "base_file": "source-frames-en-es-007.json",
+      "base_sha256": "120cb37e609843632bf01635c4f04a5d689e410f6971f7f8527c6927651c9ad2",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-fr:needs_breakfast",
+      "base_pattern_id": "en-fr:needs_breakfast",
+      "base_file": "source-frames-en-fr-005.json",
+      "base_sha256": "86d64934091322257905202853b3c677cf589217e99ba41643cdcd295d67a9b3",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-fr:needs_water",
+      "base_pattern_id": "en-fr:needs_water",
+      "base_file": "source-frames-en-fr-005.json",
+      "base_sha256": "86d64934091322257905202853b3c677cf589217e99ba41643cdcd295d67a9b3",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-fr",
+          "proof_sha256": "3b8b5f39e15e1817cf634f16d1c581d1ac498131c34ae9441a86eb2b6659e851",
+          "record_sha256": "c4371b1f0cbc7c1a6e87de2957822856beec3773da32de85478f10f59233f3d8"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-de:needs_breakfast",
+      "base_pattern_id": "en-de:needs_breakfast",
+      "base_file": "source-frames-en-de-005.json",
+      "base_sha256": "f8f2b12f50b77d3538731083465d49f0e74ab424eddd45e5db31ef5d7f874203",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-de",
+          "proof_sha256": "fe5b2fa0e94243b6ad52a7efd7d2fe1e638dfe509f0f0e78e4f12b745c683405",
+          "record_sha256": "fe743872fd7b337c2b0130a80d69728e0bfeca88697098177965f363026c604d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-de:needs_water",
+      "base_pattern_id": "en-de:needs_water",
+      "base_file": "source-frames-en-de-005.json",
+      "base_sha256": "f8f2b12f50b77d3538731083465d49f0e74ab424eddd45e5db31ef5d7f874203",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-de",
+          "proof_sha256": "3fcdc41124bbf295e432e7467b20ffa8ebe995088270112b84da2eec1cdee9c2",
+          "record_sha256": "ed0180e8e73048a6e663e1ff9a0fd0acc06e5a6a4fb6dda0e2e727e6e1b75415"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-it:needs_breakfast",
+      "base_pattern_id": "en-it:needs_breakfast",
+      "base_file": "source-frames-en-it-005.json",
+      "base_sha256": "82e182917b21e99ecfa5a678221576bd5468b2e0116a14c024e167397a457c5b",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-it",
+          "proof_sha256": "e0165fb3af5e9b2f5336c2f4272bc1346ad8914ad71b7674c0c30e46a1b6fbca",
+          "record_sha256": "c32afa9f2b5e2f8cb47144e31d924e0ff1a8744a2fe947d8382f75457db8a23b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-it:needs_water",
+      "base_pattern_id": "en-it:needs_water",
+      "base_file": "source-frames-en-it-005.json",
+      "base_sha256": "82e182917b21e99ecfa5a678221576bd5468b2e0116a14c024e167397a457c5b",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-it",
+          "proof_sha256": "d7cd562314f2d2b9c165f827e1fda2dbef45b628f07c8cbf48c179c426e5da0d",
+          "record_sha256": "d278cd9a26a9ae700a3e37c74cfae753eb8f57332074ae04f4ba66b1b68e4593"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-pt:needs_breakfast",
+      "base_pattern_id": "en-pt:needs_breakfast",
+      "base_file": "source-frames-en-pt-005.json",
+      "base_sha256": "6107e1950bdc3e246b77ceb6a9ec109505a00d03ed7995471b59f113b89cd1c8",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-pt:needs_water",
+      "base_pattern_id": "en-pt:needs_water",
+      "base_file": "source-frames-en-pt-005.json",
+      "base_sha256": "6107e1950bdc3e246b77ceb6a9ec109505a00d03ed7995471b59f113b89cd1c8",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-pt",
+          "proof_sha256": "0a775efd79314213b3ef8a19806a4b97cc74adbc40f32c458eac1d9c97d05a94",
+          "record_sha256": "fe027c1da1930a5cdb8fe64942ee67875716d87170c64a7b699c568173ff8cd1"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-ar:needs_breakfast",
+      "base_pattern_id": "en-ar:needs_breakfast",
+      "base_file": "source-frames-en-ar-005.json",
+      "base_sha256": "d159c9ed6036e797b0b60643cb7c8aac8ddee0fe3bdf89b91c609a89c340654d",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-ar:needs_water",
+      "base_pattern_id": "en-ar:needs_water",
+      "base_file": "source-frames-en-ar-005.json",
+      "base_sha256": "d159c9ed6036e797b0b60643cb7c8aac8ddee0fe3bdf89b91c609a89c340654d",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-ar",
+          "proof_sha256": "68e03c59a449c265a47d17ce8647a4c59099ca94ac08433144e1a72124a06708",
+          "record_sha256": "6ec4fff4f403a4851acb71c4563a135b8553a8f9256b15bef7262605bda9b379"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-zh:needs_breakfast",
+      "base_pattern_id": "en-zh:needs_breakfast",
+      "base_file": "source-frames-en-zh-005.json",
+      "base_sha256": "3f851ef970c7d83d6205c21c460e8b8c0d4ec73496544446d4a398f445388710",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-zh:needs_water",
+      "base_pattern_id": "en-zh:needs_water",
+      "base_file": "source-frames-en-zh-005.json",
+      "base_sha256": "3f851ef970c7d83d6205c21c460e8b8c0d4ec73496544446d4a398f445388710",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-ko:needs_breakfast",
+      "base_pattern_id": "en-ko:needs_breakfast",
+      "base_file": "source-frames-en-ko-005.json",
+      "base_sha256": "1f862247865f582a60d7ab6690709aebaef79447dc374a3f7e05a593f5b3aeb5",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:en-ko:needs_water",
+      "base_pattern_id": "en-ko:needs_water",
+      "base_file": "source-frames-en-ko-005.json",
+      "base_sha256": "1f862247865f582a60d7ab6690709aebaef79447dc374a3f7e05a593f5b3aeb5",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-en:needs_breakfast",
+      "base_pattern_id": "es-en:needs_breakfast",
+      "base_file": "source-frames-es-en-007.json",
+      "base_sha256": "071b5a88882e7fbc27366b84976393db11396d74f422b86f890209804dca9d1d",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-en:phrase_frame_drinking_coffee",
+      "base_pattern_id": "es-en:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-es-en-007.json",
+      "base_sha256": "071b5a88882e7fbc27366b84976393db11396d74f422b86f890209804dca9d1d",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-fr:needs_breakfast",
+      "base_pattern_id": "es-fr:needs_breakfast",
+      "base_file": "source-frames-es-fr-005.json",
+      "base_sha256": "dcb0bb25d542a86841f75dcc021c628a6ed1150ed069018d588a6d2fbf4e06fc",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-fr:phrase_frame_drinking_coffee",
+      "base_pattern_id": "es-fr:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-es-fr-005.json",
+      "base_sha256": "dcb0bb25d542a86841f75dcc021c628a6ed1150ed069018d588a6d2fbf4e06fc",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-de:needs_breakfast",
+      "base_pattern_id": "es-de:needs_breakfast",
+      "base_file": "source-frames-es-de-005.json",
+      "base_sha256": "01226fe213c4a9834b1f53f00ef20da3f491ab104dd8b8049caa670d761022a3",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-de",
+          "proof_sha256": "fe5b2fa0e94243b6ad52a7efd7d2fe1e638dfe509f0f0e78e4f12b745c683405",
+          "record_sha256": "fe743872fd7b337c2b0130a80d69728e0bfeca88697098177965f363026c604d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-de:phrase_frame_drinking_coffee",
+      "base_pattern_id": "es-de:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-es-de-005.json",
+      "base_sha256": "01226fe213c4a9834b1f53f00ef20da3f491ab104dd8b8049caa670d761022a3",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-de",
+          "proof_sha256": "dc8f83b35f182d3b1bc072a7a9192f819c9ea7fc863acd3ae4170b7f687eeb66",
+          "record_sha256": "506c289b5e9f5d0352ba87eb246ad823453072a3aeb4e277bed140f4e0cd1090"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-it:needs_breakfast",
+      "base_pattern_id": "es-it:needs_breakfast",
+      "base_file": "source-frames-es-it-005.json",
+      "base_sha256": "de93f3ea0d9ad9ad85503cafc11b2c3d0a0f6090f8943d9b6c78666ec5db506d",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-it",
+          "proof_sha256": "e0165fb3af5e9b2f5336c2f4272bc1346ad8914ad71b7674c0c30e46a1b6fbca",
+          "record_sha256": "c32afa9f2b5e2f8cb47144e31d924e0ff1a8744a2fe947d8382f75457db8a23b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-it:phrase_frame_drinking_coffee",
+      "base_pattern_id": "es-it:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-es-it-005.json",
+      "base_sha256": "de93f3ea0d9ad9ad85503cafc11b2c3d0a0f6090f8943d9b6c78666ec5db506d",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-pt:needs_breakfast",
+      "base_pattern_id": "es-pt:needs_breakfast",
+      "base_file": "source-frames-es-pt-005.json",
+      "base_sha256": "50761ec0488a957156cc51fa853102ee05043e161bdaec473cf7721dfade3d8a",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-pt:phrase_frame_drinking_coffee",
+      "base_pattern_id": "es-pt:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-es-pt-005.json",
+      "base_sha256": "50761ec0488a957156cc51fa853102ee05043e161bdaec473cf7721dfade3d8a",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-ar:needs_breakfast",
+      "base_pattern_id": "es-ar:needs_breakfast",
+      "base_file": "source-frames-es-ar-005.json",
+      "base_sha256": "bc546bcd4c571fe49b2ade83aed5b187ab2c68fc938b27ff6bec724cd1dfd018",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-ar:phrase_frame_drinking_coffee",
+      "base_pattern_id": "es-ar:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-es-ar-005.json",
+      "base_sha256": "bc546bcd4c571fe49b2ade83aed5b187ab2c68fc938b27ff6bec724cd1dfd018",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-zh:needs_breakfast",
+      "base_pattern_id": "es-zh:needs_breakfast",
+      "base_file": "source-frames-es-zh-005.json",
+      "base_sha256": "877be0655cf2748e490000a55ceca6ca3f1c836eac937ecc25334885a0d5ea92",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-zh:phrase_frame_drinking_coffee",
+      "base_pattern_id": "es-zh:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-es-zh-005.json",
+      "base_sha256": "877be0655cf2748e490000a55ceca6ca3f1c836eac937ecc25334885a0d5ea92",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-ja:needs_breakfast",
+      "base_pattern_id": "es-ja:needs_breakfast",
+      "base_file": "source-frames-es-ja-005.json",
+      "base_sha256": "0d1c65745b6c074f40eac31913743ea44e74d13f1fbb4bfadb386d830b9d9ff4",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ja",
+          "proof_sha256": "52ac0dff345e934505bff3e1533d34ba37f3db86e45baa63b703308d2affd31f",
+          "record_sha256": "c09730c434d9803fbf60dae5e84f8982a758f141e1d3a51439073d3dc6ab92a7"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-ja:phrase_frame_drinking_coffee",
+      "base_pattern_id": "es-ja:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-es-ja-005.json",
+      "base_sha256": "0d1c65745b6c074f40eac31913743ea44e74d13f1fbb4bfadb386d830b9d9ff4",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ja",
+          "proof_sha256": "03d111d60d2893b64e0f2d9ad7f0031a201a7281b3d74d39ef49a1fa447bc574",
+          "record_sha256": "191a74bf4ac6bf74cd7a30f5c26bdac4fb1aab05ac297f17d643b811fb0d4c98"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-ko:needs_breakfast",
+      "base_pattern_id": "es-ko:needs_breakfast",
+      "base_file": "source-frames-es-ko-005.json",
+      "base_sha256": "28af65fb79ac93325362a4751a575ea5a149b00119753f4a78e9200724e66297",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-ko:phrase_frame_drinking_coffee",
+      "base_pattern_id": "es-ko:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-es-ko-005.json",
+      "base_sha256": "28af65fb79ac93325362a4751a575ea5a149b00119753f4a78e9200724e66297",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ko",
+          "proof_sha256": "440740a8dde414c0bd1878e1c96bbeaed75bfedc8a9d8f1d1eed51d3b2c96b25",
+          "record_sha256": "932427c0379cd8204c2f39a97e8e94edb681f1ad151f550d3e58d4f0d006c023"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-sw:needs_breakfast",
+      "base_pattern_id": "es-sw:needs_breakfast",
+      "base_file": "source-frames-es-sw-005.json",
+      "base_sha256": "57550605f563b180c68d53c080269363a0163cb34ab3e2b617b58f314d401ea7",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:es-sw:phrase_frame_drinking_coffee",
+      "base_pattern_id": "es-sw:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-es-sw-005.json",
+      "base_sha256": "57550605f563b180c68d53c080269363a0163cb34ab3e2b617b58f314d401ea7",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-sw",
+          "proof_sha256": "0c124ad76021eded844e511c7ca5d75af6ff8e121daf54fdfc4af0cb16ef8ac9",
+          "record_sha256": "997d7530b456cc1f0988698e318b561673f4eb441d5087895871470b5f494025"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-en:needs_breakfast",
+      "base_pattern_id": "fr-en:needs_breakfast",
+      "base_file": "source-frames-fr-en-007.json",
+      "base_sha256": "a2b40b51cffb65a576555e2bde1847b5f7bdd99fb9695312e87f623b17053e10",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-en:phrase_frame_drinking_coffee",
+      "base_pattern_id": "fr-en:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-fr-en-007.json",
+      "base_sha256": "a2b40b51cffb65a576555e2bde1847b5f7bdd99fb9695312e87f623b17053e10",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-es:needs_breakfast",
+      "base_pattern_id": "fr-es:needs_breakfast",
+      "base_file": "source-frames-fr-es-005.json",
+      "base_sha256": "cce2c81a0cfc8c770f1d9be7dfaba340f60d126a9ddbe8cad544d9a2a7698249",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-es:phrase_frame_drinking_coffee",
+      "base_pattern_id": "fr-es:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-fr-es-005.json",
+      "base_sha256": "cce2c81a0cfc8c770f1d9be7dfaba340f60d126a9ddbe8cad544d9a2a7698249",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-de:needs_breakfast",
+      "base_pattern_id": "fr-de:needs_breakfast",
+      "base_file": "source-frames-fr-de-005.json",
+      "base_sha256": "188d555962c42375ccb62312fab6debf2da0a028af1d41529ecbd0ffc1ee7bb3",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-de",
+          "proof_sha256": "fe5b2fa0e94243b6ad52a7efd7d2fe1e638dfe509f0f0e78e4f12b745c683405",
+          "record_sha256": "fe743872fd7b337c2b0130a80d69728e0bfeca88697098177965f363026c604d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-de:phrase_frame_drinking_coffee",
+      "base_pattern_id": "fr-de:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-fr-de-005.json",
+      "base_sha256": "188d555962c42375ccb62312fab6debf2da0a028af1d41529ecbd0ffc1ee7bb3",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-de",
+          "proof_sha256": "dc8f83b35f182d3b1bc072a7a9192f819c9ea7fc863acd3ae4170b7f687eeb66",
+          "record_sha256": "506c289b5e9f5d0352ba87eb246ad823453072a3aeb4e277bed140f4e0cd1090"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-it:needs_breakfast",
+      "base_pattern_id": "fr-it:needs_breakfast",
+      "base_file": "source-frames-fr-it-005.json",
+      "base_sha256": "362ec852a9fd7d11ad7f5f5820a2268ffe588e65d90c64b5c8a177ca243dc4ad",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-it",
+          "proof_sha256": "e0165fb3af5e9b2f5336c2f4272bc1346ad8914ad71b7674c0c30e46a1b6fbca",
+          "record_sha256": "c32afa9f2b5e2f8cb47144e31d924e0ff1a8744a2fe947d8382f75457db8a23b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-it:phrase_frame_drinking_coffee",
+      "base_pattern_id": "fr-it:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-fr-it-005.json",
+      "base_sha256": "362ec852a9fd7d11ad7f5f5820a2268ffe588e65d90c64b5c8a177ca243dc4ad",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-pt:needs_breakfast",
+      "base_pattern_id": "fr-pt:needs_breakfast",
+      "base_file": "source-frames-fr-pt-005.json",
+      "base_sha256": "0e98965ad754f12af6faa9ad05df9957d25e37b015a839a8cdea94199314d1c2",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-pt:phrase_frame_drinking_coffee",
+      "base_pattern_id": "fr-pt:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-fr-pt-005.json",
+      "base_sha256": "0e98965ad754f12af6faa9ad05df9957d25e37b015a839a8cdea94199314d1c2",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-ar:needs_breakfast",
+      "base_pattern_id": "fr-ar:needs_breakfast",
+      "base_file": "source-frames-fr-ar-005.json",
+      "base_sha256": "0feb6f18f96df4b05d7969fb2b417d13ad4378cde56fc85bc17acd1c39fc0b28",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-ar:phrase_frame_drinking_coffee",
+      "base_pattern_id": "fr-ar:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-fr-ar-005.json",
+      "base_sha256": "0feb6f18f96df4b05d7969fb2b417d13ad4378cde56fc85bc17acd1c39fc0b28",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-zh:needs_breakfast",
+      "base_pattern_id": "fr-zh:needs_breakfast",
+      "base_file": "source-frames-fr-zh-005.json",
+      "base_sha256": "3a40c9fd80280f83854fd3a586a423a1b9cb9cbfdbbaf95ce7500f4a850e09ee",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-zh:phrase_frame_drinking_coffee",
+      "base_pattern_id": "fr-zh:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-fr-zh-005.json",
+      "base_sha256": "3a40c9fd80280f83854fd3a586a423a1b9cb9cbfdbbaf95ce7500f4a850e09ee",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-ja:needs_breakfast",
+      "base_pattern_id": "fr-ja:needs_breakfast",
+      "base_file": "source-frames-fr-ja-005.json",
+      "base_sha256": "d6288fefd9fc6417403d8c12916527f030f5161a9eb6f5d8a0435740a32dc264",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ja",
+          "proof_sha256": "52ac0dff345e934505bff3e1533d34ba37f3db86e45baa63b703308d2affd31f",
+          "record_sha256": "c09730c434d9803fbf60dae5e84f8982a758f141e1d3a51439073d3dc6ab92a7"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-ja:phrase_frame_drinking_coffee",
+      "base_pattern_id": "fr-ja:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-fr-ja-005.json",
+      "base_sha256": "d6288fefd9fc6417403d8c12916527f030f5161a9eb6f5d8a0435740a32dc264",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ja",
+          "proof_sha256": "03d111d60d2893b64e0f2d9ad7f0031a201a7281b3d74d39ef49a1fa447bc574",
+          "record_sha256": "191a74bf4ac6bf74cd7a30f5c26bdac4fb1aab05ac297f17d643b811fb0d4c98"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-ko:needs_breakfast",
+      "base_pattern_id": "fr-ko:needs_breakfast",
+      "base_file": "source-frames-fr-ko-005.json",
+      "base_sha256": "112975b3fa36e475a6ebcda094fe2f97c1b14163c61556f73c770e635a9d1ef5",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-ko:phrase_frame_drinking_coffee",
+      "base_pattern_id": "fr-ko:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-fr-ko-005.json",
+      "base_sha256": "112975b3fa36e475a6ebcda094fe2f97c1b14163c61556f73c770e635a9d1ef5",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ko",
+          "proof_sha256": "440740a8dde414c0bd1878e1c96bbeaed75bfedc8a9d8f1d1eed51d3b2c96b25",
+          "record_sha256": "932427c0379cd8204c2f39a97e8e94edb681f1ad151f550d3e58d4f0d006c023"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-sw:needs_breakfast",
+      "base_pattern_id": "fr-sw:needs_breakfast",
+      "base_file": "source-frames-fr-sw-005.json",
+      "base_sha256": "cc57f14539228ce9bebe0079c31d79828bf9cc0126a7bb2a12bc83f3ea718e1d",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:fr-sw:phrase_frame_drinking_coffee",
+      "base_pattern_id": "fr-sw:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-fr-sw-005.json",
+      "base_sha256": "cc57f14539228ce9bebe0079c31d79828bf9cc0126a7bb2a12bc83f3ea718e1d",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-sw",
+          "proof_sha256": "0c124ad76021eded844e511c7ca5d75af6ff8e121daf54fdfc4af0cb16ef8ac9",
+          "record_sha256": "997d7530b456cc1f0988698e318b561673f4eb441d5087895871470b5f494025"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:it-en:phrase_frame_drinking_coffee",
+      "base_pattern_id": "it-en:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-it-en-007.json",
+      "base_sha256": "f36d842fd606866a01d9c0bc577374e825ad652c4b46ddec7c9c7c5e651f80fd",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:it-es:phrase_frame_drinking_coffee",
+      "base_pattern_id": "it-es:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-it-es-007.json",
+      "base_sha256": "c1ac51af7b2a3f38c24fa8d4f7acc07441bf9a3ffb9e363e497e0fdd7c100f80",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:it-fr:phrase_frame_drinking_coffee",
+      "base_pattern_id": "it-fr:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-it-fr-007.json",
+      "base_sha256": "ada16ac1c0a8cc304788899dd8fb62671d74400658410b0e3c7541fff0ce8164",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:it-de:phrase_frame_drinking_coffee",
+      "base_pattern_id": "it-de:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-it-de-007.json",
+      "base_sha256": "064b5b9bdd642e019a3cbb5f1a842b61edc78f9d1b3c240f7bca02c5961451be",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-de",
+          "proof_sha256": "dc8f83b35f182d3b1bc072a7a9192f819c9ea7fc863acd3ae4170b7f687eeb66",
+          "record_sha256": "506c289b5e9f5d0352ba87eb246ad823453072a3aeb4e277bed140f4e0cd1090"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:it-pt:phrase_frame_drinking_coffee",
+      "base_pattern_id": "it-pt:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-it-pt-007.json",
+      "base_sha256": "eb722b119272933ebb26815f769780e2cd46233fec7c88ee14e6fba0c2014ac6",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:it-ar:phrase_frame_drinking_coffee",
+      "base_pattern_id": "it-ar:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-it-ar-007.json",
+      "base_sha256": "7762cf3499e72454df7a1f22eb4e2cdc656a1cd87da166cb5f5326099f56d4c0",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:it-zh:phrase_frame_drinking_coffee",
+      "base_pattern_id": "it-zh:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-it-zh-007.json",
+      "base_sha256": "c719148adaf96fa33d96b3768f3b1a4ec8f2e5b0ff80893265ae82fedf8a495a",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:it-ja:phrase_frame_drinking_coffee",
+      "base_pattern_id": "it-ja:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-it-ja-007.json",
+      "base_sha256": "f2b1e3b67c279cff9ccc013be30326f250ec55379512156faa8377f6cec1db9b",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ja",
+          "proof_sha256": "03d111d60d2893b64e0f2d9ad7f0031a201a7281b3d74d39ef49a1fa447bc574",
+          "record_sha256": "191a74bf4ac6bf74cd7a30f5c26bdac4fb1aab05ac297f17d643b811fb0d4c98"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:it-ko:phrase_frame_drinking_coffee",
+      "base_pattern_id": "it-ko:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-it-ko-007.json",
+      "base_sha256": "eedb53b6069947667eeab48e5de2dea78d36b87937048df0673157222f3588ec",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ko",
+          "proof_sha256": "440740a8dde414c0bd1878e1c96bbeaed75bfedc8a9d8f1d1eed51d3b2c96b25",
+          "record_sha256": "932427c0379cd8204c2f39a97e8e94edb681f1ad151f550d3e58d4f0d006c023"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:it-sw:phrase_frame_drinking_coffee",
+      "base_pattern_id": "it-sw:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-it-sw-007.json",
+      "base_sha256": "ae0a0004e1504249fcd9f6a0525efd3a600b4dc9120a786ebabbde58c89e5af9",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-sw",
+          "proof_sha256": "0c124ad76021eded844e511c7ca5d75af6ff8e121daf54fdfc4af0cb16ef8ac9",
+          "record_sha256": "997d7530b456cc1f0988698e318b561673f4eb441d5087895871470b5f494025"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-en:needs_breakfast",
+      "base_pattern_id": "pt-en:needs_breakfast",
+      "base_file": "source-frames-pt-en-007.json",
+      "base_sha256": "367672668c974356242392551df68c04fae44ca9a3d524db8b179e1f0d92aa16",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-en:phrase_frame_drinking_coffee",
+      "base_pattern_id": "pt-en:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-pt-en-007.json",
+      "base_sha256": "367672668c974356242392551df68c04fae44ca9a3d524db8b179e1f0d92aa16",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-es:needs_breakfast",
+      "base_pattern_id": "pt-es:needs_breakfast",
+      "base_file": "source-frames-pt-es-005.json",
+      "base_sha256": "693fb2801785e45de5da8e9d2d8f841f4d819c04999238f97bf684b1e87e6c32",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-es:phrase_frame_drinking_coffee",
+      "base_pattern_id": "pt-es:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-pt-es-005.json",
+      "base_sha256": "693fb2801785e45de5da8e9d2d8f841f4d819c04999238f97bf684b1e87e6c32",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-fr:needs_breakfast",
+      "base_pattern_id": "pt-fr:needs_breakfast",
+      "base_file": "source-frames-pt-fr-005.json",
+      "base_sha256": "c1b5ff4ec390e99523042e357dc70e81b53a1fd6c1a75b3d96dadde61e9afc5a",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-fr:phrase_frame_drinking_coffee",
+      "base_pattern_id": "pt-fr:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-pt-fr-005.json",
+      "base_sha256": "c1b5ff4ec390e99523042e357dc70e81b53a1fd6c1a75b3d96dadde61e9afc5a",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-de:needs_breakfast",
+      "base_pattern_id": "pt-de:needs_breakfast",
+      "base_file": "source-frames-pt-de-005.json",
+      "base_sha256": "baffab479bfe0f2f5ca0d0f8055db1aabdd5f4b31d3790af10082f418502c839",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-de",
+          "proof_sha256": "fe5b2fa0e94243b6ad52a7efd7d2fe1e638dfe509f0f0e78e4f12b745c683405",
+          "record_sha256": "fe743872fd7b337c2b0130a80d69728e0bfeca88697098177965f363026c604d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-de:phrase_frame_drinking_coffee",
+      "base_pattern_id": "pt-de:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-pt-de-005.json",
+      "base_sha256": "baffab479bfe0f2f5ca0d0f8055db1aabdd5f4b31d3790af10082f418502c839",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-de",
+          "proof_sha256": "dc8f83b35f182d3b1bc072a7a9192f819c9ea7fc863acd3ae4170b7f687eeb66",
+          "record_sha256": "506c289b5e9f5d0352ba87eb246ad823453072a3aeb4e277bed140f4e0cd1090"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-it:needs_breakfast",
+      "base_pattern_id": "pt-it:needs_breakfast",
+      "base_file": "source-frames-pt-it-005.json",
+      "base_sha256": "8be0c2b3e26f395de881a82e8e9a275c8a2f37409f43447afaffa349c202e2c3",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-it",
+          "proof_sha256": "e0165fb3af5e9b2f5336c2f4272bc1346ad8914ad71b7674c0c30e46a1b6fbca",
+          "record_sha256": "c32afa9f2b5e2f8cb47144e31d924e0ff1a8744a2fe947d8382f75457db8a23b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-it:phrase_frame_drinking_coffee",
+      "base_pattern_id": "pt-it:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-pt-it-005.json",
+      "base_sha256": "8be0c2b3e26f395de881a82e8e9a275c8a2f37409f43447afaffa349c202e2c3",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-ar:needs_breakfast",
+      "base_pattern_id": "pt-ar:needs_breakfast",
+      "base_file": "source-frames-pt-ar-005.json",
+      "base_sha256": "11cc641a644b6278e2f0a419ebf1b24071f2eccef942e99a47a6825949df66dd",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-ar:phrase_frame_drinking_coffee",
+      "base_pattern_id": "pt-ar:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-pt-ar-005.json",
+      "base_sha256": "11cc641a644b6278e2f0a419ebf1b24071f2eccef942e99a47a6825949df66dd",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-zh:needs_breakfast",
+      "base_pattern_id": "pt-zh:needs_breakfast",
+      "base_file": "source-frames-pt-zh-005.json",
+      "base_sha256": "5ab3004d101776f82262e4f7ccbb7e3b54e373ecf3b14c59bf3af727e4209432",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-zh:phrase_frame_drinking_coffee",
+      "base_pattern_id": "pt-zh:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-pt-zh-005.json",
+      "base_sha256": "5ab3004d101776f82262e4f7ccbb7e3b54e373ecf3b14c59bf3af727e4209432",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-ja:needs_breakfast",
+      "base_pattern_id": "pt-ja:needs_breakfast",
+      "base_file": "source-frames-pt-ja-005.json",
+      "base_sha256": "b9441cacc9589bc8c5206226732d042e92690808e5469db07ec8a534f7c97a73",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ja",
+          "proof_sha256": "52ac0dff345e934505bff3e1533d34ba37f3db86e45baa63b703308d2affd31f",
+          "record_sha256": "c09730c434d9803fbf60dae5e84f8982a758f141e1d3a51439073d3dc6ab92a7"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-ja:phrase_frame_drinking_coffee",
+      "base_pattern_id": "pt-ja:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-pt-ja-005.json",
+      "base_sha256": "b9441cacc9589bc8c5206226732d042e92690808e5469db07ec8a534f7c97a73",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ja",
+          "proof_sha256": "03d111d60d2893b64e0f2d9ad7f0031a201a7281b3d74d39ef49a1fa447bc574",
+          "record_sha256": "191a74bf4ac6bf74cd7a30f5c26bdac4fb1aab05ac297f17d643b811fb0d4c98"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-ko:needs_breakfast",
+      "base_pattern_id": "pt-ko:needs_breakfast",
+      "base_file": "source-frames-pt-ko-005.json",
+      "base_sha256": "1c86308a56a7dcdaf984b5f33266c9aa5644bc10c9b57d68149920c5e43000c9",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-ko:phrase_frame_drinking_coffee",
+      "base_pattern_id": "pt-ko:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-pt-ko-005.json",
+      "base_sha256": "1c86308a56a7dcdaf984b5f33266c9aa5644bc10c9b57d68149920c5e43000c9",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ko",
+          "proof_sha256": "440740a8dde414c0bd1878e1c96bbeaed75bfedc8a9d8f1d1eed51d3b2c96b25",
+          "record_sha256": "932427c0379cd8204c2f39a97e8e94edb681f1ad151f550d3e58d4f0d006c023"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-sw:needs_breakfast",
+      "base_pattern_id": "pt-sw:needs_breakfast",
+      "base_file": "source-frames-pt-sw-005.json",
+      "base_sha256": "a1788daf5110a8eff9d4098e897284b60015730fd14e2a1b2c2ff548b01b398e",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:pt-sw:phrase_frame_drinking_coffee",
+      "base_pattern_id": "pt-sw:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-pt-sw-005.json",
+      "base_sha256": "a1788daf5110a8eff9d4098e897284b60015730fd14e2a1b2c2ff548b01b398e",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-sw",
+          "proof_sha256": "0c124ad76021eded844e511c7ca5d75af6ff8e121daf54fdfc4af0cb16ef8ac9",
+          "record_sha256": "997d7530b456cc1f0988698e318b561673f4eb441d5087895871470b5f494025"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-en:needs_breakfast",
+      "base_pattern_id": "ar-en:needs_breakfast",
+      "base_file": "source-frames-ar-en-007.json",
+      "base_sha256": "54c95c3226e9e1a9c9071c893197de7eb0dd30d0ef8a5213ab52a27f9102be64",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-en:phrase_frame_drinking_coffee",
+      "base_pattern_id": "ar-en:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-ar-en-007.json",
+      "base_sha256": "54c95c3226e9e1a9c9071c893197de7eb0dd30d0ef8a5213ab52a27f9102be64",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-es:needs_breakfast",
+      "base_pattern_id": "ar-es:needs_breakfast",
+      "base_file": "source-frames-ar-es-005.json",
+      "base_sha256": "ca835e1b338b8c4e61574415e3eb42e93254a645e05f5218fb337a596e48bdd7",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-es:phrase_frame_drinking_coffee",
+      "base_pattern_id": "ar-es:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-ar-es-005.json",
+      "base_sha256": "ca835e1b338b8c4e61574415e3eb42e93254a645e05f5218fb337a596e48bdd7",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-fr:needs_breakfast",
+      "base_pattern_id": "ar-fr:needs_breakfast",
+      "base_file": "source-frames-ar-fr-005.json",
+      "base_sha256": "405b62e8bacc62a888e4c406c93825f750599513ff545618470b8119e54474f8",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-fr:phrase_frame_drinking_coffee",
+      "base_pattern_id": "ar-fr:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-ar-fr-005.json",
+      "base_sha256": "405b62e8bacc62a888e4c406c93825f750599513ff545618470b8119e54474f8",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-de:needs_breakfast",
+      "base_pattern_id": "ar-de:needs_breakfast",
+      "base_file": "source-frames-ar-de-005.json",
+      "base_sha256": "42bcdbfe29c84957197468487697b96371ca1f72579d1e56bb56cdcaec8576ba",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-de",
+          "proof_sha256": "fe5b2fa0e94243b6ad52a7efd7d2fe1e638dfe509f0f0e78e4f12b745c683405",
+          "record_sha256": "fe743872fd7b337c2b0130a80d69728e0bfeca88697098177965f363026c604d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-de:phrase_frame_drinking_coffee",
+      "base_pattern_id": "ar-de:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-ar-de-005.json",
+      "base_sha256": "42bcdbfe29c84957197468487697b96371ca1f72579d1e56bb56cdcaec8576ba",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-de",
+          "proof_sha256": "dc8f83b35f182d3b1bc072a7a9192f819c9ea7fc863acd3ae4170b7f687eeb66",
+          "record_sha256": "506c289b5e9f5d0352ba87eb246ad823453072a3aeb4e277bed140f4e0cd1090"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-it:needs_breakfast",
+      "base_pattern_id": "ar-it:needs_breakfast",
+      "base_file": "source-frames-ar-it-005.json",
+      "base_sha256": "6025217edffd9c6b12a1c64dae0ac3fe129d5ce9d237eb53e635b366c7f1c4e2",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-it",
+          "proof_sha256": "e0165fb3af5e9b2f5336c2f4272bc1346ad8914ad71b7674c0c30e46a1b6fbca",
+          "record_sha256": "c32afa9f2b5e2f8cb47144e31d924e0ff1a8744a2fe947d8382f75457db8a23b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-it:phrase_frame_drinking_coffee",
+      "base_pattern_id": "ar-it:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-ar-it-005.json",
+      "base_sha256": "6025217edffd9c6b12a1c64dae0ac3fe129d5ce9d237eb53e635b366c7f1c4e2",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-pt:needs_breakfast",
+      "base_pattern_id": "ar-pt:needs_breakfast",
+      "base_file": "source-frames-ar-pt-005.json",
+      "base_sha256": "5468d8e6d6adb4452672d1a4be5fc671ce04bd831cf1da687e5a1ef2e1f84e8a",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-pt:phrase_frame_drinking_coffee",
+      "base_pattern_id": "ar-pt:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-ar-pt-005.json",
+      "base_sha256": "5468d8e6d6adb4452672d1a4be5fc671ce04bd831cf1da687e5a1ef2e1f84e8a",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-zh:needs_breakfast",
+      "base_pattern_id": "ar-zh:needs_breakfast",
+      "base_file": "source-frames-ar-zh-005.json",
+      "base_sha256": "6b53a50b690d42705fdd90134aa70c6786be701fef09fcc90ec56fc5ed96f938",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-zh:phrase_frame_drinking_coffee",
+      "base_pattern_id": "ar-zh:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-ar-zh-005.json",
+      "base_sha256": "6b53a50b690d42705fdd90134aa70c6786be701fef09fcc90ec56fc5ed96f938",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-ja:needs_breakfast",
+      "base_pattern_id": "ar-ja:needs_breakfast",
+      "base_file": "source-frames-ar-ja-005.json",
+      "base_sha256": "3e4cc71ec5864bc9fe859445a0f0ec53decd7a7b47279a39dd712ead1e4b3926",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ja",
+          "proof_sha256": "52ac0dff345e934505bff3e1533d34ba37f3db86e45baa63b703308d2affd31f",
+          "record_sha256": "c09730c434d9803fbf60dae5e84f8982a758f141e1d3a51439073d3dc6ab92a7"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-ja:phrase_frame_drinking_coffee",
+      "base_pattern_id": "ar-ja:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-ar-ja-005.json",
+      "base_sha256": "3e4cc71ec5864bc9fe859445a0f0ec53decd7a7b47279a39dd712ead1e4b3926",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ja",
+          "proof_sha256": "03d111d60d2893b64e0f2d9ad7f0031a201a7281b3d74d39ef49a1fa447bc574",
+          "record_sha256": "191a74bf4ac6bf74cd7a30f5c26bdac4fb1aab05ac297f17d643b811fb0d4c98"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-ko:needs_breakfast",
+      "base_pattern_id": "ar-ko:needs_breakfast",
+      "base_file": "source-frames-ar-ko-005.json",
+      "base_sha256": "271e1e1ebd1057ad22ae7312a42556f6a474b82105f3a13f7116d0ff212f4a8a",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-ko:phrase_frame_drinking_coffee",
+      "base_pattern_id": "ar-ko:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-ar-ko-005.json",
+      "base_sha256": "271e1e1ebd1057ad22ae7312a42556f6a474b82105f3a13f7116d0ff212f4a8a",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ko",
+          "proof_sha256": "440740a8dde414c0bd1878e1c96bbeaed75bfedc8a9d8f1d1eed51d3b2c96b25",
+          "record_sha256": "932427c0379cd8204c2f39a97e8e94edb681f1ad151f550d3e58d4f0d006c023"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-sw:needs_breakfast",
+      "base_pattern_id": "ar-sw:needs_breakfast",
+      "base_file": "source-frames-ar-sw-005.json",
+      "base_sha256": "7eb20d316064e17ea91d7c8fc998fb054eed3a62acc831e88e4863e569723f3c",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ar-sw:phrase_frame_drinking_coffee",
+      "base_pattern_id": "ar-sw:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-ar-sw-005.json",
+      "base_sha256": "7eb20d316064e17ea91d7c8fc998fb054eed3a62acc831e88e4863e569723f3c",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-sw",
+          "proof_sha256": "0c124ad76021eded844e511c7ca5d75af6ff8e121daf54fdfc4af0cb16ef8ac9",
+          "record_sha256": "997d7530b456cc1f0988698e318b561673f4eb441d5087895871470b5f494025"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-en:needs_breakfast",
+      "base_pattern_id": "zh-en:needs_breakfast",
+      "base_file": "source-frames-zh-en-007.json",
+      "base_sha256": "7d626c6fedbeb5229763133ed0671e582a09f7af6fc66ed65dff0685c5e3b128",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-en:phrase_frame_drinking_coffee",
+      "base_pattern_id": "zh-en:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-zh-en-007.json",
+      "base_sha256": "7d626c6fedbeb5229763133ed0671e582a09f7af6fc66ed65dff0685c5e3b128",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-en:needs_water",
+      "base_pattern_id": "zh-en:needs_water",
+      "base_file": "source-frames-zh-en-007.json",
+      "base_sha256": "7d626c6fedbeb5229763133ed0671e582a09f7af6fc66ed65dff0685c5e3b128",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-es:needs_breakfast",
+      "base_pattern_id": "zh-es:needs_breakfast",
+      "base_file": "source-frames-zh-es-005.json",
+      "base_sha256": "0f1f1cd2848537b2d38a5999613b4ff21520ad8bc89604fe22b9e1f86ca54ee4",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-es:phrase_frame_drinking_coffee",
+      "base_pattern_id": "zh-es:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-zh-es-005.json",
+      "base_sha256": "0f1f1cd2848537b2d38a5999613b4ff21520ad8bc89604fe22b9e1f86ca54ee4",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-es",
+          "proof_sha256": "58da008ebbe4dbfc8d82b91d72931022469ee882fcf3c805a87e9d43d3fc835e",
+          "record_sha256": "224acce2a29ee204a375e126f87e6de7414b5b467127da749278fde654b2fe67"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-es:needs_water",
+      "base_pattern_id": "zh-es:needs_water",
+      "base_file": "source-frames-zh-es-005.json",
+      "base_sha256": "0f1f1cd2848537b2d38a5999613b4ff21520ad8bc89604fe22b9e1f86ca54ee4",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-fr:needs_breakfast",
+      "base_pattern_id": "zh-fr:needs_breakfast",
+      "base_file": "source-frames-zh-fr-005.json",
+      "base_sha256": "caabf4888b00af22c99abe18b0e7e2eb087a97715adb2a7fd725acabd0f5fe11",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-fr:phrase_frame_drinking_coffee",
+      "base_pattern_id": "zh-fr:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-zh-fr-005.json",
+      "base_sha256": "caabf4888b00af22c99abe18b0e7e2eb087a97715adb2a7fd725acabd0f5fe11",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-fr",
+          "proof_sha256": "207faa22149bcdc7d6d39166f4c4b2d235a4a69fecd9c9f2f188713898c831a7",
+          "record_sha256": "277b5f13552b9f76672207868c6dd083a505baba9f6b7c04ee270ad0b218226d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-fr:needs_water",
+      "base_pattern_id": "zh-fr:needs_water",
+      "base_file": "source-frames-zh-fr-005.json",
+      "base_sha256": "caabf4888b00af22c99abe18b0e7e2eb087a97715adb2a7fd725acabd0f5fe11",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-fr",
+          "proof_sha256": "3b8b5f39e15e1817cf634f16d1c581d1ac498131c34ae9441a86eb2b6659e851",
+          "record_sha256": "c4371b1f0cbc7c1a6e87de2957822856beec3773da32de85478f10f59233f3d8"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-de:needs_breakfast",
+      "base_pattern_id": "zh-de:needs_breakfast",
+      "base_file": "source-frames-zh-de-005.json",
+      "base_sha256": "436e34e475515ddcc2db048f57ebbf47c24738a0dc551f2e91f8b3acd1ce17e2",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-de",
+          "proof_sha256": "fe5b2fa0e94243b6ad52a7efd7d2fe1e638dfe509f0f0e78e4f12b745c683405",
+          "record_sha256": "fe743872fd7b337c2b0130a80d69728e0bfeca88697098177965f363026c604d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-de:phrase_frame_drinking_coffee",
+      "base_pattern_id": "zh-de:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-zh-de-005.json",
+      "base_sha256": "436e34e475515ddcc2db048f57ebbf47c24738a0dc551f2e91f8b3acd1ce17e2",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-de",
+          "proof_sha256": "dc8f83b35f182d3b1bc072a7a9192f819c9ea7fc863acd3ae4170b7f687eeb66",
+          "record_sha256": "506c289b5e9f5d0352ba87eb246ad823453072a3aeb4e277bed140f4e0cd1090"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-de:needs_water",
+      "base_pattern_id": "zh-de:needs_water",
+      "base_file": "source-frames-zh-de-005.json",
+      "base_sha256": "436e34e475515ddcc2db048f57ebbf47c24738a0dc551f2e91f8b3acd1ce17e2",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-de",
+          "proof_sha256": "3fcdc41124bbf295e432e7467b20ffa8ebe995088270112b84da2eec1cdee9c2",
+          "record_sha256": "ed0180e8e73048a6e663e1ff9a0fd0acc06e5a6a4fb6dda0e2e727e6e1b75415"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-it:needs_breakfast",
+      "base_pattern_id": "zh-it:needs_breakfast",
+      "base_file": "source-frames-zh-it-005.json",
+      "base_sha256": "d0a44e11076057c7afd7810091fe4f0d05391b6ea5be5f8cc689d46eb2c36826",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-it",
+          "proof_sha256": "e0165fb3af5e9b2f5336c2f4272bc1346ad8914ad71b7674c0c30e46a1b6fbca",
+          "record_sha256": "c32afa9f2b5e2f8cb47144e31d924e0ff1a8744a2fe947d8382f75457db8a23b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-it:phrase_frame_drinking_coffee",
+      "base_pattern_id": "zh-it:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-zh-it-005.json",
+      "base_sha256": "d0a44e11076057c7afd7810091fe4f0d05391b6ea5be5f8cc689d46eb2c36826",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-it",
+          "proof_sha256": "59216881f3547487c7d291cba49b4e24fb1e32b7dcb65ab937f702f20a58a9dc",
+          "record_sha256": "1715e379a5e920336f8a068476fec4e0c63654d4459df183ed2cdc0a8e8f56f0"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-it:needs_water",
+      "base_pattern_id": "zh-it:needs_water",
+      "base_file": "source-frames-zh-it-005.json",
+      "base_sha256": "d0a44e11076057c7afd7810091fe4f0d05391b6ea5be5f8cc689d46eb2c36826",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-it",
+          "proof_sha256": "d7cd562314f2d2b9c165f827e1fda2dbef45b628f07c8cbf48c179c426e5da0d",
+          "record_sha256": "d278cd9a26a9ae700a3e37c74cfae753eb8f57332074ae04f4ba66b1b68e4593"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-pt:needs_breakfast",
+      "base_pattern_id": "zh-pt:needs_breakfast",
+      "base_file": "source-frames-zh-pt-005.json",
+      "base_sha256": "b237a8649fc6529bd771fd9b85b3b89387794dd61ec9aa310d9417354c59ee62",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-pt:phrase_frame_drinking_coffee",
+      "base_pattern_id": "zh-pt:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-zh-pt-005.json",
+      "base_sha256": "b237a8649fc6529bd771fd9b85b3b89387794dd61ec9aa310d9417354c59ee62",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-pt",
+          "proof_sha256": "a1111bd60be1deb5158d5339002032b78926314326b4a8b5a8075338ba954091",
+          "record_sha256": "6cee07332df04644ae42215ed491c71a3974a7a0afc4a489dac743f89d683a12"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-pt:needs_water",
+      "base_pattern_id": "zh-pt:needs_water",
+      "base_file": "source-frames-zh-pt-005.json",
+      "base_sha256": "b237a8649fc6529bd771fd9b85b3b89387794dd61ec9aa310d9417354c59ee62",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-pt",
+          "proof_sha256": "0a775efd79314213b3ef8a19806a4b97cc74adbc40f32c458eac1d9c97d05a94",
+          "record_sha256": "fe027c1da1930a5cdb8fe64942ee67875716d87170c64a7b699c568173ff8cd1"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-ar:needs_breakfast",
+      "base_pattern_id": "zh-ar:needs_breakfast",
+      "base_file": "source-frames-zh-ar-005.json",
+      "base_sha256": "c95a765de43c23bcdee9ae027a57a015311b0c6aa930b98ff0169fc9d222b548",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-ar:phrase_frame_drinking_coffee",
+      "base_pattern_id": "zh-ar:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-zh-ar-005.json",
+      "base_sha256": "c95a765de43c23bcdee9ae027a57a015311b0c6aa930b98ff0169fc9d222b548",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ar",
+          "proof_sha256": "4f3a78ec9ccba0c76d16fcb657ccee6e57922344ee7ce84288efa21e1b0c7751",
+          "record_sha256": "5eb1c15bb5e9523f9cf78798e50134b1b703a075e4d4188bc41764de8465e4d0"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-ar:needs_water",
+      "base_pattern_id": "zh-ar:needs_water",
+      "base_file": "source-frames-zh-ar-005.json",
+      "base_sha256": "c95a765de43c23bcdee9ae027a57a015311b0c6aa930b98ff0169fc9d222b548",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-ar",
+          "proof_sha256": "68e03c59a449c265a47d17ce8647a4c59099ca94ac08433144e1a72124a06708",
+          "record_sha256": "6ec4fff4f403a4851acb71c4563a135b8553a8f9256b15bef7262605bda9b379"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-ja:needs_breakfast",
+      "base_pattern_id": "zh-ja:needs_breakfast",
+      "base_file": "source-frames-zh-ja-005.json",
+      "base_sha256": "148c03be5680ed26c1e7b5b20927facafacf8fb46227a37401b72164245d2d93",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ja",
+          "proof_sha256": "52ac0dff345e934505bff3e1533d34ba37f3db86e45baa63b703308d2affd31f",
+          "record_sha256": "c09730c434d9803fbf60dae5e84f8982a758f141e1d3a51439073d3dc6ab92a7"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-ja:phrase_frame_drinking_coffee",
+      "base_pattern_id": "zh-ja:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-zh-ja-005.json",
+      "base_sha256": "148c03be5680ed26c1e7b5b20927facafacf8fb46227a37401b72164245d2d93",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ja",
+          "proof_sha256": "03d111d60d2893b64e0f2d9ad7f0031a201a7281b3d74d39ef49a1fa447bc574",
+          "record_sha256": "191a74bf4ac6bf74cd7a30f5c26bdac4fb1aab05ac297f17d643b811fb0d4c98"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-ja:needs_water",
+      "base_pattern_id": "zh-ja:needs_water",
+      "base_file": "source-frames-zh-ja-005.json",
+      "base_sha256": "148c03be5680ed26c1e7b5b20927facafacf8fb46227a37401b72164245d2d93",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-ko:needs_breakfast",
+      "base_pattern_id": "zh-ko:needs_breakfast",
+      "base_file": "source-frames-zh-ko-005.json",
+      "base_sha256": "dcb3446080a7343f41e7e01d29361e57d143335b47aefe42bbcdfd446d6587eb",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-ko:phrase_frame_drinking_coffee",
+      "base_pattern_id": "zh-ko:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-zh-ko-005.json",
+      "base_sha256": "dcb3446080a7343f41e7e01d29361e57d143335b47aefe42bbcdfd446d6587eb",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-ko",
+          "proof_sha256": "440740a8dde414c0bd1878e1c96bbeaed75bfedc8a9d8f1d1eed51d3b2c96b25",
+          "record_sha256": "932427c0379cd8204c2f39a97e8e94edb681f1ad151f550d3e58d4f0d006c023"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-ko:needs_water",
+      "base_pattern_id": "zh-ko:needs_water",
+      "base_file": "source-frames-zh-ko-005.json",
+      "base_sha256": "dcb3446080a7343f41e7e01d29361e57d143335b47aefe42bbcdfd446d6587eb",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-sw:needs_breakfast",
+      "base_pattern_id": "zh-sw:needs_breakfast",
+      "base_file": "source-frames-zh-sw-005.json",
+      "base_sha256": "6bb6b46353e527c60aee5a2f66f038dee4f049deace7efc9f4dc325626150f89",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-sw:phrase_frame_drinking_coffee",
+      "base_pattern_id": "zh-sw:phrase_frame_drinking_coffee",
+      "base_file": "source-frames-zh-sw-005.json",
+      "base_sha256": "6bb6b46353e527c60aee5a2f66f038dee4f049deace7efc9f4dc325626150f89",
+      "meaning": "coffee as a beverage, not a cafe establishment",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-zh",
+          "proof_sha256": "8f4538b7f7d52391c454cad51f6b1af6a8f3ce29f0b9952796d619f3d63fd321",
+          "record_sha256": "00932596d0c2023b1b2d06c57d4725718b57cdf870e1db1e925113e9ccb46095"
+        },
+        {
+          "id": "vipi-authored-r1:phrase_frame_drinking_coffee:en-sw",
+          "proof_sha256": "0c124ad76021eded844e511c7ca5d75af6ff8e121daf54fdfc4af0cb16ef8ac9",
+          "record_sha256": "997d7530b456cc1f0988698e318b561673f4eb441d5087895871470b5f494025"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:zh-sw:needs_water",
+      "base_pattern_id": "zh-sw:needs_water",
+      "base_file": "source-frames-zh-sw-005.json",
+      "base_sha256": "6bb6b46353e527c60aee5a2f66f038dee4f049deace7efc9f4dc325626150f89",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-sw",
+          "proof_sha256": "c7d86f4bd38d34acc6938cd8c8e1291c84d76ab396c838ae8792bd074ea479a3",
+          "record_sha256": "fa99c8ac9b48cd188b9cd3fde605a327d17e0f71868bde1169ceabb4ca7fbfc3"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ja-en:needs_water",
+      "base_pattern_id": "ja-en:needs_water",
+      "base_file": "source-frames-ja-en-007.json",
+      "base_sha256": "147efe5b103b7c411233688a8c5d9e8634fc6e1005dda69ae1bb343c40efceab",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ja-es:needs_water",
+      "base_pattern_id": "ja-es:needs_water",
+      "base_file": "source-frames-ja-es-005.json",
+      "base_sha256": "43ba01121676eb10b58741248d1b4457a934da98ba570b56c0e87260ff015083",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ja-fr:needs_water",
+      "base_pattern_id": "ja-fr:needs_water",
+      "base_file": "source-frames-ja-fr-005.json",
+      "base_sha256": "4f1fee11a26b56fa396ab19d4f20612b0a2141616a5731fd87a5382ca56fe5c1",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-fr",
+          "proof_sha256": "3b8b5f39e15e1817cf634f16d1c581d1ac498131c34ae9441a86eb2b6659e851",
+          "record_sha256": "c4371b1f0cbc7c1a6e87de2957822856beec3773da32de85478f10f59233f3d8"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ja-de:needs_water",
+      "base_pattern_id": "ja-de:needs_water",
+      "base_file": "source-frames-ja-de-005.json",
+      "base_sha256": "84198d2519a7632ca221df4924f0e83ccdbd471b9d79ef37901bab9580638f0b",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-de",
+          "proof_sha256": "3fcdc41124bbf295e432e7467b20ffa8ebe995088270112b84da2eec1cdee9c2",
+          "record_sha256": "ed0180e8e73048a6e663e1ff9a0fd0acc06e5a6a4fb6dda0e2e727e6e1b75415"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ja-it:needs_water",
+      "base_pattern_id": "ja-it:needs_water",
+      "base_file": "source-frames-ja-it-005.json",
+      "base_sha256": "f10dd95920494356d82de4f2a40c68e9dc3302cc693bbb1d194901dcbe6ab773",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-it",
+          "proof_sha256": "d7cd562314f2d2b9c165f827e1fda2dbef45b628f07c8cbf48c179c426e5da0d",
+          "record_sha256": "d278cd9a26a9ae700a3e37c74cfae753eb8f57332074ae04f4ba66b1b68e4593"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ja-pt:needs_water",
+      "base_pattern_id": "ja-pt:needs_water",
+      "base_file": "source-frames-ja-pt-005.json",
+      "base_sha256": "cde949e636afd3834c511adb8e4fe0af2ef9d85786bff8980e854c86cc729339",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-pt",
+          "proof_sha256": "0a775efd79314213b3ef8a19806a4b97cc74adbc40f32c458eac1d9c97d05a94",
+          "record_sha256": "fe027c1da1930a5cdb8fe64942ee67875716d87170c64a7b699c568173ff8cd1"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ja-ar:needs_water",
+      "base_pattern_id": "ja-ar:needs_water",
+      "base_file": "source-frames-ja-ar-005.json",
+      "base_sha256": "0b9b9022b30b6b37d60b4643425c8dbcc139665770c87ea3ee8ebfa3b92b1242",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-ar",
+          "proof_sha256": "68e03c59a449c265a47d17ce8647a4c59099ca94ac08433144e1a72124a06708",
+          "record_sha256": "6ec4fff4f403a4851acb71c4563a135b8553a8f9256b15bef7262605bda9b379"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ja-zh:needs_water",
+      "base_pattern_id": "ja-zh:needs_water",
+      "base_file": "source-frames-ja-zh-005.json",
+      "base_sha256": "ea41352ef5b2f49e7a94070f6fdfc60b52f5edf483aabaed977719cb0b15fb68",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ja-ko:needs_water",
+      "base_pattern_id": "ja-ko:needs_water",
+      "base_file": "source-frames-ja-ko-005.json",
+      "base_sha256": "72a83087d33f6f01456ad308c40f0fab9e199995b9d9fa9818de78b3e1838d16",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ja-sw:needs_water",
+      "base_pattern_id": "ja-sw:needs_water",
+      "base_file": "source-frames-ja-sw-005.json",
+      "base_sha256": "302c2af10654cdf74c4321bfab7bc2c2ca4e9d7ab5710717ac88dc6babb28df2",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-sw",
+          "proof_sha256": "c7d86f4bd38d34acc6938cd8c8e1291c84d76ab396c838ae8792bd074ea479a3",
+          "record_sha256": "fa99c8ac9b48cd188b9cd3fde605a327d17e0f71868bde1169ceabb4ca7fbfc3"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-en:needs_breakfast",
+      "base_pattern_id": "ko-en:needs_breakfast",
+      "base_file": "source-frames-ko-en-007.json",
+      "base_sha256": "83e02e4345574be6353d0ab615940ae13f17515683242da6ce952f9bfeb12a33",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-en:needs_water",
+      "base_pattern_id": "ko-en:needs_water",
+      "base_file": "source-frames-ko-en-007.json",
+      "base_sha256": "83e02e4345574be6353d0ab615940ae13f17515683242da6ce952f9bfeb12a33",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-es:needs_breakfast",
+      "base_pattern_id": "ko-es:needs_breakfast",
+      "base_file": "source-frames-ko-es-005.json",
+      "base_sha256": "a70dc2d4b2540b7f7e1a6eb2bf85ff82fe897d16a95cf77d9214c16d0f540127",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-es:needs_water",
+      "base_pattern_id": "ko-es:needs_water",
+      "base_file": "source-frames-ko-es-005.json",
+      "base_sha256": "a70dc2d4b2540b7f7e1a6eb2bf85ff82fe897d16a95cf77d9214c16d0f540127",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-es",
+          "proof_sha256": "2d987a974a8cab61f07cbaf4de5d432f362b24d4c0cf4060db31cf4aec2bcf7e",
+          "record_sha256": "d98b6fef73432a7791e76608b8494c7b1c9fe75dbbeea68bdda51054321cf036"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-fr:needs_breakfast",
+      "base_pattern_id": "ko-fr:needs_breakfast",
+      "base_file": "source-frames-ko-fr-005.json",
+      "base_sha256": "01b5adaf9441650485a5f86c382b4b22d944d646d3913e9dccf796ad2f49075d",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-fr:needs_water",
+      "base_pattern_id": "ko-fr:needs_water",
+      "base_file": "source-frames-ko-fr-005.json",
+      "base_sha256": "01b5adaf9441650485a5f86c382b4b22d944d646d3913e9dccf796ad2f49075d",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-fr",
+          "proof_sha256": "3b8b5f39e15e1817cf634f16d1c581d1ac498131c34ae9441a86eb2b6659e851",
+          "record_sha256": "c4371b1f0cbc7c1a6e87de2957822856beec3773da32de85478f10f59233f3d8"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-de:needs_breakfast",
+      "base_pattern_id": "ko-de:needs_breakfast",
+      "base_file": "source-frames-ko-de-005.json",
+      "base_sha256": "a3ebb498735a0fd02e1efff98b6ba44a7055d7b62e8e2987939d74693cf1edc1",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-de",
+          "proof_sha256": "fe5b2fa0e94243b6ad52a7efd7d2fe1e638dfe509f0f0e78e4f12b745c683405",
+          "record_sha256": "fe743872fd7b337c2b0130a80d69728e0bfeca88697098177965f363026c604d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-de:needs_water",
+      "base_pattern_id": "ko-de:needs_water",
+      "base_file": "source-frames-ko-de-005.json",
+      "base_sha256": "a3ebb498735a0fd02e1efff98b6ba44a7055d7b62e8e2987939d74693cf1edc1",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-de",
+          "proof_sha256": "3fcdc41124bbf295e432e7467b20ffa8ebe995088270112b84da2eec1cdee9c2",
+          "record_sha256": "ed0180e8e73048a6e663e1ff9a0fd0acc06e5a6a4fb6dda0e2e727e6e1b75415"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-it:needs_breakfast",
+      "base_pattern_id": "ko-it:needs_breakfast",
+      "base_file": "source-frames-ko-it-005.json",
+      "base_sha256": "1159d7876bf1c7d61b27be5abe69f28b376c2ea203bb33c2483f78f5354b36cb",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-it",
+          "proof_sha256": "e0165fb3af5e9b2f5336c2f4272bc1346ad8914ad71b7674c0c30e46a1b6fbca",
+          "record_sha256": "c32afa9f2b5e2f8cb47144e31d924e0ff1a8744a2fe947d8382f75457db8a23b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-it:needs_water",
+      "base_pattern_id": "ko-it:needs_water",
+      "base_file": "source-frames-ko-it-005.json",
+      "base_sha256": "1159d7876bf1c7d61b27be5abe69f28b376c2ea203bb33c2483f78f5354b36cb",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-it",
+          "proof_sha256": "d7cd562314f2d2b9c165f827e1fda2dbef45b628f07c8cbf48c179c426e5da0d",
+          "record_sha256": "d278cd9a26a9ae700a3e37c74cfae753eb8f57332074ae04f4ba66b1b68e4593"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-pt:needs_breakfast",
+      "base_pattern_id": "ko-pt:needs_breakfast",
+      "base_file": "source-frames-ko-pt-005.json",
+      "base_sha256": "8198fb7aaa5f30373734a7e2b7a302be51481de78bf4f51f8bcaf89a4b477816",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-pt:needs_water",
+      "base_pattern_id": "ko-pt:needs_water",
+      "base_file": "source-frames-ko-pt-005.json",
+      "base_sha256": "8198fb7aaa5f30373734a7e2b7a302be51481de78bf4f51f8bcaf89a4b477816",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-pt",
+          "proof_sha256": "0a775efd79314213b3ef8a19806a4b97cc74adbc40f32c458eac1d9c97d05a94",
+          "record_sha256": "fe027c1da1930a5cdb8fe64942ee67875716d87170c64a7b699c568173ff8cd1"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-ar:needs_breakfast",
+      "base_pattern_id": "ko-ar:needs_breakfast",
+      "base_file": "source-frames-ko-ar-005.json",
+      "base_sha256": "6b5101e8e3cdf00f26385d8f99eac02b443d7ce98995781ad241913c19d25b4a",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-ar:needs_water",
+      "base_pattern_id": "ko-ar:needs_water",
+      "base_file": "source-frames-ko-ar-005.json",
+      "base_sha256": "6b5101e8e3cdf00f26385d8f99eac02b443d7ce98995781ad241913c19d25b4a",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-ar",
+          "proof_sha256": "68e03c59a449c265a47d17ce8647a4c59099ca94ac08433144e1a72124a06708",
+          "record_sha256": "6ec4fff4f403a4851acb71c4563a135b8553a8f9256b15bef7262605bda9b379"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-zh:needs_breakfast",
+      "base_pattern_id": "ko-zh:needs_breakfast",
+      "base_file": "source-frames-ko-zh-005.json",
+      "base_sha256": "73fde1490dbc7ffd62a95feb3464015b608b8c6a1226c4cfab370cccd547b7eb",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-zh:needs_water",
+      "base_pattern_id": "ko-zh:needs_water",
+      "base_file": "source-frames-ko-zh-005.json",
+      "base_sha256": "73fde1490dbc7ffd62a95feb3464015b608b8c6a1226c4cfab370cccd547b7eb",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-zh",
+          "proof_sha256": "c01274b52f72059825b5829641feadbc079654c43482011aa911aff8b4383138",
+          "record_sha256": "d79ddec6b6fc3897719906cd79d70df095f9455bb82b9a7446f28f5fc266bec2"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-ja:needs_breakfast",
+      "base_pattern_id": "ko-ja:needs_breakfast",
+      "base_file": "source-frames-ko-ja-005.json",
+      "base_sha256": "aa39c0725af6d4afdbea1fb3daf10dfcf6cd1fb9934550b67240897fe524f83b",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ja",
+          "proof_sha256": "52ac0dff345e934505bff3e1533d34ba37f3db86e45baa63b703308d2affd31f",
+          "record_sha256": "c09730c434d9803fbf60dae5e84f8982a758f141e1d3a51439073d3dc6ab92a7"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-ja:needs_water",
+      "base_pattern_id": "ko-ja:needs_water",
+      "base_file": "source-frames-ko-ja-005.json",
+      "base_sha256": "aa39c0725af6d4afdbea1fb3daf10dfcf6cd1fb9934550b67240897fe524f83b",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-ja",
+          "proof_sha256": "51a95fd64f99abaa7a8cd41ad3b76c6d95f17e1acbc37a3b3b9a01fb1efc637c",
+          "record_sha256": "49375172bd808f47068b501c368eee0c6106444540912e5eff4de52088a327b1"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-sw:needs_breakfast",
+      "base_pattern_id": "ko-sw:needs_breakfast",
+      "base_file": "source-frames-ko-sw-005.json",
+      "base_sha256": "d19d63676b0d43a6bf07f18a44a3f43bdda0fc0f058c715a568e55b757bd4d1d",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:ko-sw:needs_water",
+      "base_pattern_id": "ko-sw:needs_water",
+      "base_file": "source-frames-ko-sw-005.json",
+      "base_sha256": "d19d63676b0d43a6bf07f18a44a3f43bdda0fc0f058c715a568e55b757bd4d1d",
+      "meaning": "water as the liquid substance, not the act of watering",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_water:en-ko",
+          "proof_sha256": "907aeab32470440337f6ac47ca0c4362bba40bc0bb15d06f66560f93de21220d",
+          "record_sha256": "6f3f1d38ca3411e1343b10e5e6198a5460457412b61f76ae1d95999579ffec81"
+        },
+        {
+          "id": "vipi-authored-r1:needs_water:en-sw",
+          "proof_sha256": "c7d86f4bd38d34acc6938cd8c8e1291c84d76ab396c838ae8792bd074ea479a3",
+          "record_sha256": "fa99c8ac9b48cd188b9cd3fde605a327d17e0f71868bde1169ceabb4ca7fbfc3"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:sw-en:needs_breakfast",
+      "base_pattern_id": "sw-en:needs_breakfast",
+      "base_file": "source-frames-sw-en-007.json",
+      "base_sha256": "befbf53712089e74032db82ef0779ef8bd2298c80c1e562b92b358ebd624c92f",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:sw-es:needs_breakfast",
+      "base_pattern_id": "sw-es:needs_breakfast",
+      "base_file": "source-frames-sw-es-005.json",
+      "base_sha256": "30871585d2596dedc5952bd1f66ab059212f97187a9b10866759424ce7b076b9",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-es",
+          "proof_sha256": "dcc768599a5e67bcbbdd4633800e2f5284ece68c22d5ed932cffc9a6cab22d60",
+          "record_sha256": "3c012385243d57397d01e767ab2ba3bf81a8b2899ee7d5403eeb4063fdd0b311"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:sw-fr:needs_breakfast",
+      "base_pattern_id": "sw-fr:needs_breakfast",
+      "base_file": "source-frames-sw-fr-005.json",
+      "base_sha256": "3710e12f6be7a31477de00ef7b821322041defa200349c051b341e39802834ad",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-fr",
+          "proof_sha256": "ea86da314f118851b6b26a7948f6946dbaad54539d3fdccd0859415340a9885f",
+          "record_sha256": "a6c1eea08041b4b19b0702b9d001c304ae046894fa830d79274f506da5c1dcc2"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:sw-de:needs_breakfast",
+      "base_pattern_id": "sw-de:needs_breakfast",
+      "base_file": "source-frames-sw-de-005.json",
+      "base_sha256": "2097394e7b3c0483cfe5a5570fa43a3b5bcfc2e7f25f9f62334b6c429ae131d0",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-de",
+          "proof_sha256": "fe5b2fa0e94243b6ad52a7efd7d2fe1e638dfe509f0f0e78e4f12b745c683405",
+          "record_sha256": "fe743872fd7b337c2b0130a80d69728e0bfeca88697098177965f363026c604d"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:sw-it:needs_breakfast",
+      "base_pattern_id": "sw-it:needs_breakfast",
+      "base_file": "source-frames-sw-it-005.json",
+      "base_sha256": "5f68ae4ea30623f700e6e3d1d3bba0cb65afe8c29f387be6c8a333c95c3ca4e1",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-it",
+          "proof_sha256": "e0165fb3af5e9b2f5336c2f4272bc1346ad8914ad71b7674c0c30e46a1b6fbca",
+          "record_sha256": "c32afa9f2b5e2f8cb47144e31d924e0ff1a8744a2fe947d8382f75457db8a23b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:sw-pt:needs_breakfast",
+      "base_pattern_id": "sw-pt:needs_breakfast",
+      "base_file": "source-frames-sw-pt-005.json",
+      "base_sha256": "840a173f216fcf43a4dcf7a3605c3c428e0b09c7a6456660bbf0a4c65d5be930",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-pt",
+          "proof_sha256": "6bf8895036f78b2094f152e9a1b563c1ab8cbd2470f516425d3dfbc1fafe9bb0",
+          "record_sha256": "cd5e2b55190d8220fcfa16d899249810cf6872a3039fe3cf0326ced372173848"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:sw-ar:needs_breakfast",
+      "base_pattern_id": "sw-ar:needs_breakfast",
+      "base_file": "source-frames-sw-ar-005.json",
+      "base_sha256": "bb704153e6b5251c8f7b01cb2345dfe962575257f565bc269bbf01b741c3d28b",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ar",
+          "proof_sha256": "d62220b9dc7f2d2e6fefc9cba5467c465b9c10a4d387c1e4c151a38bffbcd3c6",
+          "record_sha256": "a9e9c8dc8aa5ea5475e6d9a51b97f8572fa0e92d6e91bdb1d2ae668951da267a"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:sw-zh:needs_breakfast",
+      "base_pattern_id": "sw-zh:needs_breakfast",
+      "base_file": "source-frames-sw-zh-005.json",
+      "base_sha256": "d60b58cc6a178c5efedb6878fa207d2f5141d33eebecede4891602ab2d9c1bd1",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-zh",
+          "proof_sha256": "26284cad21b4bebce448ec4bf344e83c3a31fb2e6f88dca40aa3f55cbe6a30b8",
+          "record_sha256": "95eb66b2091a3dc0bbf2280e5c5208d651e434539b699ae76af08a4d7f7cf2d5"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:sw-ja:needs_breakfast",
+      "base_pattern_id": "sw-ja:needs_breakfast",
+      "base_file": "source-frames-sw-ja-005.json",
+      "base_sha256": "944663f87e4de8feb19cfd528768fea8be623e511d5624c9f6942868c0ed30b2",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ja",
+          "proof_sha256": "52ac0dff345e934505bff3e1533d34ba37f3db86e45baa63b703308d2affd31f",
+          "record_sha256": "c09730c434d9803fbf60dae5e84f8982a758f141e1d3a51439073d3dc6ab92a7"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    },
+    {
+      "pattern_id": "everyday-noun-008:sw-ko:needs_breakfast",
+      "base_pattern_id": "sw-ko:needs_breakfast",
+      "base_file": "source-frames-sw-ko-005.json",
+      "base_sha256": "d603feec3a50c0196906e777e9f3d09a5ddd1e893f2f785f1815bd85300384ee",
+      "meaning": "breakfast as a morning meal",
+      "original_records": [
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-sw",
+          "proof_sha256": "72a2f998aa58586c6a8bc746ec8e23fed385e4e7f1c6d030dba5f17a66783241",
+          "record_sha256": "a20e4a389516170a9131d6a67fdfdfeb7e58cd3aa44294cfc2a425bf0e317baa"
+        },
+        {
+          "id": "vipi-authored-r1:needs_breakfast:en-ko",
+          "proof_sha256": "369e134bad309f177d893abe4893cc97003e57c4df5fd79cc3c73b1799870b5d",
+          "record_sha256": "a91b635db9b98952d12baa301fbd8712d124fa5bdb7e5f2a770619070f45964b"
+        }
+      ],
+      "target_unchanged": true,
+      "reading_unchanged": true,
+      "permission_evidence": "New explicitly authored noun construction; candidate, not independently validated."
+    }
+  ]
+}
