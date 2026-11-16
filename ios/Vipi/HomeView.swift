@@ -126,6 +126,15 @@ struct NewChatView: View {
                     Button(action: findFriend) { if busy { ProgressView("Finding your friend") } else { Text("Find friend") } }
                         .disabled(username.trimmingCharacters(in: .whitespaces).isEmpty || busy)
                 }
+                if let profile = chat?.profile {
+                    Section("Invite someone new") {
+                        Text("Your username is @\(profile.username). Share it so your friend can find you after signing in.")
+                            .font(.subheadline).textSelection(.enabled)
+                        ShareLink(item: FriendInvitation.message(username: profile.username)) {
+                            Label("Invite a friend", systemImage: "square.and.arrow.up")
+                        }.accessibilityIdentifier("new-chat-invite-friend")
+                    }
+                }
                 if let error { Section { Text(error).foregroundStyle(VipiDesign.secondary) } }
             }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("New conversation").navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } } }
@@ -173,7 +182,7 @@ struct SettingsView: View {
                 Section("Your profile") {
                     LabeledContent("Name", value: profile.display_name)
                     LabeledContent("Username", value: "@" + profile.username).textSelection(.enabled)
-                    ShareLink(item: "Find me on Vipi: @\(profile.username)\nhttps://api.mambovipi.app/") {
+                    ShareLink(item: FriendInvitation.message(username: profile.username)) {
                         Label("Invite a friend", systemImage: "square.and.arrow.up")
                     }
                 }
@@ -221,5 +230,13 @@ struct ReauthenticationNotice: View {
                 .disabled(busy).accessibilityIdentifier("chat-reauthenticate")
         }.padding(16).frame(maxWidth: .infinity, alignment: .leading)
             .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
+    }
+}
+
+/// The public invitation contains only the already public username.
+enum FriendInvitation {
+    static func message(username: String) -> String {
+        let url = URL(string: "https://api.mambovipi.app/invite")!.appendingPathComponent(username)
+        return "Chat with me on Vipi and learn words as we talk. My username is @\(username). After signing in, choose New chat and find my username.\n\(url.absoluteString)"
     }
 }

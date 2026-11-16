@@ -16,6 +16,8 @@ struct SourceFrameStarterCandidate {
         let focus_utf16: [Int]
         let context_scope: String?
         let right_boundary: String?
+        let carrier_utf16: [Int]?
+        let carrier_rule: String?
     }
     struct Pattern: Decodable {
         let id, pair, source, target, reading, meaning, concept_id: String
@@ -78,8 +80,43 @@ struct SourceFrameStarterCandidate {
                 let range = NSRange(location: variant.focus_utf16[0], length: variant.focus_utf16[1]-variant.focus_utf16[0])
                 guard Range(range, in: variant.context) != nil,
                       text.substring(with: range) == pattern.source else { throw Invalid.evidence }
+                _ = try Self.reviewedCarrier(variant, head: pattern.source, source: source)
             }
         }
+    }
+
+    /// Only catalog-attested noun attachments may expose a head inside one word.
+    /// This validates exact stored geometry; it never stems an arbitrary message.
+    static func reviewedCarrier(_ variant: Variant, head: String, source: String) throws -> NSRange? {
+        guard variant.carrier_utf16 != nil || variant.carrier_rule != nil else { return nil }
+        guard let offsets = variant.carrier_utf16, let rule = variant.carrier_rule,
+              offsets.count == 2, offsets[0] >= 0, offsets[1] > offsets[0],
+              offsets[1] <= variant.context.utf16.count,
+              variant.focus_utf16.count == 2 else { throw Invalid.evidence }
+        let range = NSRange(location: offsets[0], length: offsets[1] - offsets[0])
+        guard let nativeRange = Range(range, in: variant.context),
+              variant.context.indices.contains(nativeRange.lowerBound),
+              nativeRange.upperBound == variant.context.endIndex || variant.context.indices.contains(nativeRange.upperBound)
+        else { throw Invalid.evidence }
+        let carrier = String(variant.context[nativeRange])
+        switch rule {
+        case "supplied-singular-definite-article-1":
+            guard source == "ar", head.count >= 2, !head.hasPrefix("ال"),
+                  head.unicodeScalars.allSatisfy({ (0x0620...0x064A).contains($0.value) }),
+                  carrier == "ال" + head,
+                  variant.focus_utf16 == [offsets[0] + 2, offsets[1]] else { throw Invalid.evidence }
+        case "hangul-noun-particles-1":
+            guard source == "ko", (1...64).contains(head.count),
+                  head.unicodeScalars.allSatisfy({ (0xAC00...0xD7A3).contains($0.value) }),
+                  let last = head.unicodeScalars.last,
+                  variant.focus_utf16 == [offsets[0], offsets[0] + head.utf16.count] else { throw Invalid.evidence }
+            let consonant = (last.value - 0xAC00) % 28 != 0
+            let suffixes = [consonant ? "은" : "는", consonant ? "이" : "가",
+                            consonant ? "을" : "를", consonant ? "과" : "와", "도", "만", "에", "에서", "의"]
+            guard suffixes.contains(where: { carrier == head + $0 }) else { throw Invalid.evidence }
+        default: throw Invalid.evidence
+        }
+        return range
     }
 
     static func bundled(target: String, baseline: SourceUnitLookup,
@@ -160,7 +197,11 @@ struct SourceFrameStarterCandidate {
                     let id=p.id+"@\(context.location):\(NSMaxRange(context)):\(focus.location):\(NSMaxRange(focus))"
                     if !seen.insert(id).inserted {continue}
                     let cc = v.context_scope == "whole_sentence" ? basis.cost(for: context) : cost(context)
-                    let fc = cost(focus)
+                    let fc: Int?
+                    if let relativeCarrier = try Self.reviewedCarrier(v, head: p.source, source: source) {
+                        let carrier = NSRange(location: context.location + relativeCarrier.location, length: relativeCarrier.length)
+                        fc = cost(carrier) == 1 ? 1 : nil
+                    } else { fc = cost(focus) }
                     let reason: String?
                     if cc == nil || fc == nil { reason = "partial_native_word" }
                     else if v.context_scope == "whole_sentence" && !sentenceRanges.contains(context) { reason = "not_whole_sentence" }
