@@ -55,7 +55,7 @@ dark, large-text and RTL/device-size QA are validation work, not a requirement
 to crowd every listing image with multiple variants. Final sizes and required
 device families come from the current store console.
 
-The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The retained bundle at `1c72322` is signed with the retained upload key and estimates 416,948,474 bytes for the verified ARM64 device configuration. Four split APKs pass signer and 16 KiB alignment checks. This is a local estimate; Google Play has not calculated or accepted it. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. It includes the current reviewer-access, Bot authentication and plan-loading fixes. See `store-size-constraints.json`.
+The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The signed `a53ff86` bundle estimates 416,959,214 bytes for the retained ARM64, English, 420 dpi, SDK 35 device configuration. Four generated splits pass upload-signer and 16 KiB alignment checks. The earlier `1c72322` estimate was 416,948,474 bytes. This is a local bundletool estimate; Google Play has not calculated or accepted it. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. The existing r08 client-source archive predates this build; corresponding-source closure and publication remain outstanding. See `build-artifacts-20261116.json` and `store-size-constraints.json`.
 
 ## Reviewer access
 
