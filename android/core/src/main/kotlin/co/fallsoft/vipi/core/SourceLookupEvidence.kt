@@ -17,7 +17,9 @@ data class SourceRecognition(val ruleID: String, val recordSHA256: String, val c
  * ambiguous; this container does not infer authorization from matching text.
  */
 class SourceLookupEvidence(val original: String, val source: String, val target: String,
-    val catalogIdentity: String, partial: PartialImmersionResult?, recognitions: List<SourceRecognition>) {
+    val catalogIdentity: String, partial: PartialImmersionResult?, recognitions: List<SourceRecognition>,
+    candidatePool: List<SourceReferenceUnit> = emptyList(), val poolNativeSourceTokens: Int? = null) {
+    val candidatePool = candidatePool.toList()
     val partial = partial?.copy(spans = partial.spans.toList(), references = partial.references.toList())
     val recognitions = recognitions.map { it.copy(approvedOutputs = it.approvedOutputs.toList()) }
 
@@ -42,6 +44,15 @@ class SourceLookupEvidence(val original: String, val source: String, val target:
                 SourceAtomicMode.AMBIGUOUS -> if (recognition.approvedOutputs.isNotEmpty()) return false
                 SourceAtomicMode.NONE -> Unit
             }
+        }
+        if (candidatePool.size > 4096 || (candidatePool.isNotEmpty() && (poolNativeSourceTokens == null || poolNativeSourceTokens <= 0))) return false
+        for (u in candidatePool) {
+            val range = SourceLookupRange(u.start, u.end)
+            if (!validRange(range) || original.substring(u.start, u.end) != u.original || u.original.length > 128 ||
+                u.translated.isBlank() || u.translated.length > 128 || u.referenceId.isBlank() ||
+                !u.catalogSha256.matches(Regex("[a-f0-9]{64}")) || u.nativeSourceTokens == null || u.nativeSourceTokens <= 0 ||
+                u.nativeSourceTokens > requireNotNull(poolNativeSourceTokens) || (u.selectionPriority != null && u.selectionPriority !in 0..4095) || !TranslationIntegrity.preservesIdentifiers(u.original, u.translated) ||
+                (targetLanguage.substringBefore('-') in setOf("ar", "zh", "ja", "ko") && u.reading.isNullOrBlank()) || !permits(range, u.outputID)) return false
         }
         return partial == null || (partial.original == text && partial.translation == null &&
             SourceReferencePresentation.isAnchored(partial, targetLanguage))

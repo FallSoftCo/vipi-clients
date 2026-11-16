@@ -58,7 +58,7 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
    override suspend fun lookup(original:String,source:String,target:String,density:Double):SourceLookupEvidence {
     val b=baseline.lookup(original,source,target,density);val candidates=raw()
     val result=if(source!=owner.source || target!=owner.target || catalog.reference(original,source,target)!=null)b else owner.resolve(original,density,snapshot,b,candidates)
-    return SourceLookupEvidence(result.original,result.source,result.target,cacheIdentity,result.partial,result.recognitions).also{require(it.isValid(original,source,target,cacheIdentity))}
+    return SourceLookupEvidence(result.original,result.source,result.target,cacheIdentity,result.partial,result.recognitions,result.candidatePool,result.poolNativeSourceTokens).also{require(it.isValid(original,source,target,cacheIdentity))}
    }
   }
  }
@@ -167,7 +167,7 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
    for(h in g)if(h !in top && h.reason==null)h.reason="stronger_context_recognized"
    if(ambiguous)for(h in top)h.reason="competing_strongest_contexts"
    val approved=if(!ambiguous && best.reason==null)listOf(SourceApprovedOutput(best.id,best.focus))else emptyList()
-   if(approved.isNotEmpty())frameUnits+=best to SourceReferenceUnit(best.focus.start,best.focus.end,original.substring(best.focus.start,best.focus.end),best.pattern.getString("target"),best.pattern.getString("reading").takeIf{it.isNotEmpty()},"frame:$packSHA:${best.pattern.getString("id")}",packSHA,best.cost,best.id)
+   if(approved.isNotEmpty())frameUnits+=best to SourceReferenceUnit(best.focus.start,best.focus.end,original.substring(best.focus.start,best.focus.end),best.pattern.getString("target"),best.pattern.getString("reading").takeIf{it.isNotEmpty()},"frame:$packSHA:${best.pattern.getString("id")}",packSHA,best.cost,best.id, ApprovedLearningIdentity(best.pattern.getString("id"),best.pattern.getString("meaning"),best.pattern.getString("reading")))
    frameRecognitions+=SourceRecognition("frame-group-$n",JapaneseStarterLookup.sha(g.map{it.id}.sorted().joinToString("\u0000").toByteArray()),union(g.map{it.context}),union(g.map{it.focus}),if(ambiguous)SourceAtomicMode.AMBIGUOUS else SourceAtomicMode.HEAD_BACKOFF,approved)
   }
   for(h in hits)trace.put(JSONObject().put("pattern_id",h.pattern.getString("id")).put("output_id",h.id).put("context",JSONArray(listOf(h.context.start,h.context.end))).put("focus",JSONArray(listOf(h.focus.start,h.focus.end))).put("reason",h.reason?:JSONObject.NULL))
@@ -176,6 +176,8 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
   val frames=frameUnits.sortedWith(compareByDescending<Pair<Hit,SourceReferenceUnit>>{it.first.contextCost}.thenByDescending{it.first.context.end-it.first.context.start}.thenByDescending{it.first.cost}.thenBy{it.first.focus.start}.thenBy{it.first.id}).map{it.second}
   val fixed=baseline.recognitions.filter{it.mode!=SourceAtomicMode.HEAD_BACKOFF}+frameRecognitions.filter{it.mode!=SourceAtomicMode.HEAD_BACKOFF}+literalRanges.mapIndexed{n,r->SourceRecognition("native-literal-$n",packSHA,r,r,SourceAtomicMode.AMBIGUOUS,emptyList())}
   val candidates=(frames+ordinary.map{it.unit}).filter{u->val r=SourceLookupRange(u.start,u.end);fixed.all{n->n.mask?.overlaps(r)!=true || (n.mode!=SourceAtomicMode.AMBIGUOUS && n.approvedOutputs.any{it.outputID==u.outputID && it.range==r})}}
+  // Preserve existing frame/strongest-starter priority before exposing the full pool.
+  val safePool=resolveSourceCandidateOverlaps(candidates).mapIndexed { index, unit -> unit.copy(selectionPriority=index) }
   val chosen=mutableListOf<SourceReferenceUnit>();var used=0
   for(u in candidates){if(chosen.size>=128)break;if(used+requireNotNull(u.nativeSourceTokens)>budget || chosen.any{it.start<u.end && u.start<it.end})continue;chosen+=u;used+=requireNotNull(u.nativeSourceTokens)}
   // Merge only overlapping mask intervals. No protected interval is removed or shortened.
@@ -187,6 +189,13 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
    SourceRecognition("merged-$n",JapaneseStarterLookup.sha(g.map{it.recordSHA256}.sorted().joinToString("").toByteArray()),context,mask,if(ambiguous)SourceAtomicMode.AMBIGUOUS else SourceAtomicMode.HEAD_BACKOFF,permitted)
   }
   val partial=SourceReferencePresentation.create(original,target,chosen.sortedBy{it.start},density,native.size)
-  val result=SourceLookupEvidence(original,source,target,identity,partial,recognition+fixed);require(result.isValid(original,source,target,identity));if(partial!=null)require(result.filterPartial(partial)==partial);return result
+  val result=SourceLookupEvidence(original,source,target,identity,partial,recognition+fixed,safePool,native.size);require(result.isValid(original,source,target,identity));if(partial!=null)require(result.filterPartial(partial)==partial);return result
  }
+}
+
+/** Input is already in the source provider's strongest-first order. */
+internal fun resolveSourceCandidateOverlaps(candidates: List<SourceReferenceUnit>): List<SourceReferenceUnit> {
+ val selected=mutableListOf<SourceReferenceUnit>()
+ for (unit in candidates) if (selected.none { it.start < unit.end && unit.start < it.end }) selected += unit
+ return selected
 }

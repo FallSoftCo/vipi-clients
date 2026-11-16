@@ -154,8 +154,16 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     private val familiarity: VocabularyFamiliarityStore? = null) : AutoCloseable {
     private fun exposureDay() = (System.currentTimeMillis() / 86_400_000L).toInt()
     fun targetDwell(value: ImmersionPresentation?) = familiarity?.targetMilliseconds(value?.spans.orEmpty(), source, target, exposureDay()) ?: 4500L
-    fun observeExposure(spans: List<co.fallsoft.vipi.core.ImmersionSpan>) {
-        if (!closed) familiarity?.observe(spans, source, target, exposureDay())
+    fun observeExposure(value: ImmersionPresentation?, spans: List<co.fallsoft.vipi.core.ImmersionSpan>) {
+        if (closed || spans.isEmpty()) return
+        val confirmed = value?.spans.orEmpty().filter { expected -> spans.any { actual -> actual == expected } }
+        if (confirmed.isEmpty()) return
+        familiarity?.observe(confirmed, source, target, exposureDay())
+        val partial = value as? co.fallsoft.vipi.core.PartialImmersionResult ?: return
+        if (partial.targetLanguage != target) return
+        val visible = confirmed.map { it.start to it.end }.toSet()
+        val units = partial.references.filter { (it.start to it.end) in visible }
+        familiarity?.observeSourceUnits(units, source, target, exposureDay())
     }
     private val sourceLookupIdentity = sourceLookup?.cacheIdentity
     init {
@@ -166,9 +174,9 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         require(sourceLookupIdentity == null || sourceLookupIdentity.matches(Regex("[A-Za-z0-9._:-]{1,160}")))
     }
     private fun sourceLookupIsCurrent() = sourceLookup?.cacheIdentity == sourceLookupIdentity
-    private fun cacheKey(text: String, inputLanguage: String?) =
+    private fun cacheKey(text: String, inputLanguage: String?, history: Long = familiarity?.sourceHistoryRevision ?: 0L) =
         (sourceLookupIdentity ?: "no-source-provider") + ":" +
-            (qaSourceUnits?.cacheIdentity ?: "accepted") + ":" + (inputLanguage ?: "auto") + ":" + text
+            (qaSourceUnits?.cacheIdentity ?: "accepted") + ":" + (inputLanguage ?: "auto") + ":" + history + ":" + text
     private val language = MessageLanguage()
     private val catalog = BundledImmersionCatalog(context.applicationContext)
     private val lexical = BundledLexicalCatalog(context.applicationContext)
@@ -181,7 +189,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     private val stateLock = Any()
     private val catalogMutex = Mutex()
     private val providerMutex = Mutex()
-    private data class RequestKey(val generation: Long, val inputLanguage: String?, val text: String)
+    private data class RequestKey(val generation: Long, val history: Long, val inputLanguage: String?, val text: String)
     private class RequestGate(val mutex: Mutex = Mutex(), var users: Int = 0)
     private val requestGates = mutableMapOf<RequestKey, RequestGate>()
     private suspend fun <T> withRequestGate(key: RequestKey, block: suspend (Long) -> T): T {
@@ -275,15 +283,16 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     private suspend fun resolve(text: String, inputLanguage: String?, messageID: String?, intent: ImmersionIntent,
                                 requestEpoch: Long?, onPartial: (PartialImmersionResult) -> Unit): LookupFirstOutcome {
         val submittedRevision = generation
+        val submittedHistory = familiarity?.sourceHistoryRevision ?: 0L
         // A row re-entering the viewport can use its already approved partial
         // even while the same message's explicit reference request is pending.
         val cached = synchronized(stateLock) {
             if (!closed && (messageID == null || inputLanguages[messageID] == inputLanguage))
-                cachedOutcome(cacheKey(text, inputLanguage)) else null
+                cachedOutcome(cacheKey(text, inputLanguage, submittedHistory)) else null
         }
         if (coroutineContext.isActive && sourceLookupIsCurrent() && submittedRevision == generation && cached != null && reusable(cached, intent))
             return cached.cachedInvocation().also { lastOutcome = it; lastInvocation = ImmersionInvocationCounters() }
-        return withRequestGate(RequestKey(submittedRevision, inputLanguage, text)) { revision ->
+        return withRequestGate(RequestKey(submittedRevision, submittedHistory, inputLanguage, text)) { revision ->
         lastOutcome = null
         var readinessCalls = 0; var alignmentCalls = 0; var partialCalls = 0; var qaCalls = 0; var recognitionCalls = 0
         val readinessRevision = synchronized(stateLock) { modelRevision }
@@ -297,7 +306,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         }
         fun stale() = LookupFirstOutcome(null, null, ImmersionStatus.STALE, 0)
         if (!valid()) return@withRequestGate finish(stale())
-        val key = cacheKey(text, inputLanguage)
+        val key = cacheKey(text, inputLanguage, submittedHistory)
         cachedOutcome(key)?.takeIf { reusable(it, intent) }?.let {
             return@withRequestGate finish(it.cachedInvocation())
         }
@@ -332,7 +341,20 @@ internal class ConversationImmersion(context: Context, val source: String, val t
                 sourceEvidenceIdentity = sourceLookupIdentity,
                 sourceEvidence = sourceLookup?.let { provider -> { original, from, to ->
                     recognitionCalls++
-                    withContext(Dispatchers.Default) { provider.lookup(original, from, to, density) }
+                    withContext(Dispatchers.Default) {
+                        val useHistory = familiarity != null && density > 0 && from == source && to == target
+                        val evidence = provider.lookup(original, from, to, if (useHistory) .75 else density)
+                        if (!useHistory) evidence else if (evidence.candidatePool.isEmpty()) provider.lookup(original, from, to, density) else {
+                            val nativeCount = requireNotNull(evidence.poolNativeSourceTokens)
+                            val history = familiarity!!.sourceSeenBatch(evidence.candidatePool, from, to, exposureDay())
+                            val chosen = co.fallsoft.vipi.core.AdditiveExposureSelection.select(evidence.candidatePool, nativeCount, density) {
+                                history.getValue(it)
+                            }
+                            val revised = if (chosen.isEmpty()) null else SourceReferencePresentation.create(original, to, chosen, .75, nativeCount)
+                            co.fallsoft.vipi.core.SourceLookupEvidence(evidence.original, evidence.source, evidence.target, evidence.catalogIdentity, revised, evidence.recognitions)
+                                .also { require(it.isValid(original, from, to, evidence.catalogIdentity)); if (revised != null) require(it.filterPartial(revised) == revised) }
+                        }
+                    }
                 } },
                 onPartial = { partial -> if (valid()) {
                     cacheOutcome(key, LookupFirstOutcome(partial, ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, 0))
@@ -411,7 +433,9 @@ private data class OriginalOnlyPresentation(override val original: String) : Imm
         lifecycle.addObserver(observer)
         onDispose { lifecycle.removeObserver(observer); fullJob?.cancel() }
     }
-    LaunchedEffect(request, immersion.ready) {
+    // Automatic source selection is frozen for this visible request; model readiness
+    // changes affect future requests and explicit full translation, not this row.
+    LaunchedEffect(request) {
         fun accept(value: ImmersionPresentation?) {
             if (latestRequest == request) state = state.accept(request, value, currentlyPaused)
         }
@@ -438,5 +462,5 @@ private data class OriginalOnlyPresentation(override val original: String) : Imm
         onInteractionChange = { interacting = it }, onReport = onReport,
         onFullTranslation = ::requestFull, fullTranslationLoading = fullLoading, fullTranslationError = fullError,
         onCancelFullTranslation = { cancelFull(restoreMode = true) }, onTranslationSetup = onTranslationSetup,
-        contextualActions = contextualActions, onExposure = immersion::observeExposure)
+        contextualActions = contextualActions, onExposure = { spans -> immersion.observeExposure(current, spans) })
 }

@@ -1,0 +1,14 @@
+{
+  "android/core/src/main/kotlin/co/fallsoft/vipi/core/AdditiveExposureSelection.kt": "43a211eecaaee3ac91ef0bf62ad79cfbc3697511dc52e4597f095027a5cd603c",
+  "android/core/src/main/kotlin/co/fallsoft/vipi/core/SourceLookupEvidence.kt": "145324436b70e2ad5b1164377c6539bf5049ae173942f60b7e70ec807ab6e9a5",
+  "android/core/src/main/kotlin/co/fallsoft/vipi/core/SourceReferencePresentation.kt": "17c88d7369072cfba9ee6447574c7b8f5bb9c35aad3afae9cf3beaadc27312fd",
+  "android/app/src/main/java/co/fallsoft/vipi/VocabularyFamiliarityStore.kt": "ce88cad51238d1127f9ef67a29f2d1e612a05ca86ef3411ae53e1bf924c73337",
+  "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt": "6dbd1f020be6fe1d66231d184c156d1540185057ba4b2480eb23f6c79fef40e1",
+  "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt": "a999c3500df815d700bc299f406a196321bfae07a42fbc01ecd8e32e423b68a4",
+  "android/app/src/main/java/co/fallsoft/vipi/SourceFrameLookup.kt": "3468aad28e125bfa0ca433a8e399980a7b92ecdb8b84758dc1e52f9a681c2255",
+  "android/app/src/main/java/co/fallsoft/vipi/BundledStarterLookup.kt": "ec2f94baa4a9e0152e4cad2d0895e684e35e011b1f4aaf80726baf207be4dc3a",
+  "android/app/src/main/java/co/fallsoft/vipi/BundledSourceFrameCatalog.kt": "182c18e95ff01ffbbda264740c0c26be1cca19282beded348ad0553779ba9b79",
+  "android/app/src/androidTest/java/co/fallsoft/vipi/AdditiveExposureDeviceTest.kt": "3a85e086bef8675fa3ea4e88fa36af379bb34ac2ca82d99e7bb60ddccc758da9",
+  "android/app/src/androidTest/java/co/fallsoft/vipi/AdditiveRowDeviceTest.kt": "8c2e63ea3b61e7492f194d9e3cc94ffc2dd2b2e9013e5b28b6402d6899aec8ff",
+  "android/app/src/androidTest/java/co/fallsoft/vipi/AdditiveVisualDeviceTest.kt": "dab816d5cdd537bcd959371fa265e1fbd6685b142b687f93699e3e942034a12e"
+}

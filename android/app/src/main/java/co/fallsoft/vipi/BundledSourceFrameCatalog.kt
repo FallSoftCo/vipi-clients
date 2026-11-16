@@ -97,7 +97,7 @@ internal class BundledSourceFrameCatalog private constructor(
                 val provider = load(entry) ?: return SourceLookupEvidence(original, source, target, cacheIdentity, null, emptyList())
                 val evidence = provider.lookup(original, source, target, density)
                 require(evidence.isValid(original, source, target, provider.cacheIdentity))
-                return SourceLookupEvidence(original, source, target, cacheIdentity, evidence.partial, evidence.recognitions)
+                return SourceLookupEvidence(original, source, target, cacheIdentity, evidence.partial, evidence.recognitions, evidence.candidatePool, evidence.poolNativeSourceTokens)
                     .also { require(it.isValid(original, source, target, cacheIdentity)) }
             }
         }

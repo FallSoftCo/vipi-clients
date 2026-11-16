@@ -394,12 +394,8 @@ class MainActivity : ComponentActivity() {
     Text("Words in your chats", fontWeight = FontWeight.SemiBold)
     TextButton(onClick = { model.navigate(Screen.PLANS) }) { Text("Your plan") }
     if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.BACKUP) }) { Text("Chat backup") }
-    Row(Modifier.fillMaxWidth().clickable { model.navigate(Screen.LANGUAGE_DOWNLOAD) }.padding(vertical = 14.dp)) { Text("Languages & downloads"); Spacer(Modifier.weight(1f)); Text(languageName(model.targetLanguage), color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    Column {
-        Row { Text("How many words change"); Spacer(Modifier.weight(1f)); Text("${(model.density * 100).toInt()}%") }
-        Slider(value = model.density.toFloat(), onValueChange = { model.changeDensity(it.toDouble()) }, valueRange = 0f..0.75f, steps = 14, modifier = Modifier.semantics { contentDescription = "Amount of words to switch" })
-        Text("Choose how much of each message you want to switch. The amount shown depends on available words and phrases.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    }
+    LanguageSettingsLink(languageName(model.targetLanguage)) { model.navigate(Screen.LANGUAGE_DOWNLOAD) }
+    NewWordsControl(model.density, model::changeDensity)
     Text("Appearance", fontWeight = FontWeight.SemiBold)
     Appearance.entries.forEach { appearance ->
         Row(Modifier.fillMaxWidth().clickable { model.changeAppearance(appearance) }.semantics { role = Role.RadioButton; selected = model.appearance == appearance }, verticalAlignment = Alignment.CenterVertically) {
@@ -420,6 +416,23 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable private fun DownloadView(model: VipiModel) { LanguageDownloadsScreen(model) }
+
+@Composable internal fun LanguageSettingsLink(language: String, onClick: () -> Unit) {
+    val modifier = Modifier.fillMaxWidth().clickable(onClick = onClick).padding(vertical = 14.dp)
+    if (androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.3f) {
+        Column(modifier) { Text("Languages & downloads"); Text(language, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+    } else {
+        Row(modifier) { Text("Languages & downloads"); Spacer(Modifier.weight(1f)); Text(language, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+    }
+}
+
+@Composable internal fun NewWordsControl(density: Double, onChange: (Double) -> Unit) {
+    Column {
+        Row { Text("New words"); Spacer(Modifier.weight(1f)); Text("${(density * 100).toInt()}%") }
+        Slider(value = density.toFloat(), onValueChange = { onChange(it.toDouble()) }, valueRange = 0f..0.75f, steps = 14, modifier = Modifier.semantics { contentDescription = "Amount of new words" })
+        Text(if (density == 0.0) "Word switching is off." else "Choose how many new words appear. Words you’ve seen can keep appearing too, so the total can grow.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+}
 
 @Composable private fun InviteFriendButton(model: VipiModel) {
     val username = model.chat?.profile?.username ?: return

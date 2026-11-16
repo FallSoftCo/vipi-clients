@@ -44,7 +44,7 @@ internal object BundledStarterLookup {
                 val evidence = selected.lookup(original, source, target, density)
                 require(evidence.isValid(original, source, target, selected.cacheIdentity))
                 return SourceLookupEvidence(evidence.original, evidence.source, evidence.target, identity,
-                    evidence.partial, evidence.recognitions).also { require(it.isValid(original, source, target, identity)) }
+                    evidence.partial, evidence.recognitions, evidence.candidatePool, evidence.poolNativeSourceTokens).also { require(it.isValid(original, source, target, identity)) }
             }
         }
     }

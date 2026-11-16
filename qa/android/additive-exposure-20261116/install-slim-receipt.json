@@ -1,0 +1,13 @@
+{
+  "complete": true,
+  "qa_only": true,
+  "apk_bytes": 153340531,
+  "device_free_before": 2168438784,
+  "two_apk_allowance": 306681062,
+  "temporary_floor": 268435456,
+  "same_signer_verified": true,
+  "min_device_free": 2012692480,
+  "exit": 0,
+  "device_free_after": 2012741632,
+  "private_state_byte_identical": true
+}

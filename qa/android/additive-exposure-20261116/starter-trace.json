@@ -1,0 +1,71 @@
+[
+  {
+    "target": "ja",
+    "text": "I heard music.",
+    "provider_identity": "starter-pairs-v1:8054c8937302ad29e532f7b837ae0a6ebf174b700c4872e8ffbd42f92c9c6989",
+    "pool": [
+      {
+        "source": "music",
+        "priority": 0,
+        "reference": "frame:4644e910c72d2142ed5f5bfbd6f9d1f0822871920cfc7e8cc15f0b5c3f414489:bare-noun-r01:en-ja:phrase_frame_liking_music"
+      },
+      {
+        "source": "I",
+        "priority": 1,
+        "reference": "starter-en-ja-007:dc8ed63767d110088afe31d42ab97cdda7502078677843abd4fb8795935fc2f3:word-en-ja-i"
+      }
+    ],
+    "selected": [
+      "music"
+    ],
+    "baseline_partial": [
+      "I",
+      "music"
+    ]
+  },
+  {
+    "target": "ja",
+    "text": "I like music.",
+    "provider_identity": "starter-pairs-v1:8054c8937302ad29e532f7b837ae0a6ebf174b700c4872e8ffbd42f92c9c6989",
+    "pool": [],
+    "selected": [],
+    "baseline_partial": [
+      "I",
+      "music"
+    ]
+  },
+  {
+    "target": "sw",
+    "text": "I heard music.",
+    "provider_identity": "starter-pairs-v1:8054c8937302ad29e532f7b837ae0a6ebf174b700c4872e8ffbd42f92c9c6989",
+    "pool": [
+      {
+        "source": "music",
+        "priority": 0,
+        "reference": "frame:8880b2ed64309c5a288cddadccc25152cdf853cc5bfb779cddb308dc3d7455c5:bare-noun-r01:en-sw:phrase_frame_liking_music"
+      },
+      {
+        "source": "I",
+        "priority": 1,
+        "reference": "starter-en-sw-008:37752d18786f69fb361983292ce60da98285c2b2736751675406f4b69426733a:word-en-sw-i"
+      }
+    ],
+    "selected": [
+      "music"
+    ],
+    "baseline_partial": [
+      "I",
+      "music"
+    ]
+  },
+  {
+    "target": "sw",
+    "text": "I like music.",
+    "provider_identity": "starter-pairs-v1:8054c8937302ad29e532f7b837ae0a6ebf174b700c4872e8ffbd42f92c9c6989",
+    "pool": [],
+    "selected": [],
+    "baseline_partial": [
+      "I like"
+    ]
+  }
+]
