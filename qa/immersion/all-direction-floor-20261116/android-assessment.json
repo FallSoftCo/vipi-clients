@@ -1,0 +1,110 @@
+{
+  "scope": "Manual/data assessment of exact Android actual bundled capture; not population coverage, acoustic acceptance, or Apple qualification.",
+  "capture": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-all-direction-20261116-r01/AllDirectionFloorDeviceTest.json",
+  "capture_sha256": "62519599dc1afb048440d0911c25ec8846361a90378b2460d3d096cf8977cbb0",
+  "messages": 330,
+  "automatic_emitting": 131,
+  "direct_emitting": 131,
+  "directions_with_emission": 79,
+  "directions_without_emission": [
+    "it-es",
+    "ar-en",
+    "ar-es",
+    "ar-fr",
+    "ar-de",
+    "ar-it",
+    "ar-pt",
+    "ar-zh",
+    "ar-ja",
+    "ar-ko",
+    "ar-sw",
+    "zh-en",
+    "zh-es",
+    "zh-fr",
+    "zh-de",
+    "zh-it",
+    "zh-pt",
+    "zh-ar",
+    "zh-ja",
+    "zh-ko",
+    "zh-sw",
+    "ko-en",
+    "ko-es",
+    "ko-fr",
+    "ko-de",
+    "ko-it",
+    "ko-pt",
+    "ko-ar",
+    "ko-zh",
+    "ko-ja",
+    "ko-sw"
+  ],
+  "source_statuses": {
+    "ar": {
+      "NO_LOCAL_MATCH": 30
+    },
+    "de": {
+      "PARTIAL": 30
+    },
+    "en": {
+      "NO_LOCAL_MATCH": 16,
+      "PARTIAL": 14
+    },
+    "es": {
+      "PARTIAL": 19,
+      "NO_LOCAL_MATCH": 11
+    },
+    "fr": {
+      "NO_LOCAL_MATCH": 20,
+      "PARTIAL": 10
+    },
+    "it": {
+      "INVALID_LANGUAGE": 10,
+      "PARTIAL": 9,
+      "NO_LOCAL_MATCH": 11
+    },
+    "ja": {
+      "NO_LOCAL_MATCH": 20,
+      "PARTIAL": 10
+    },
+    "ko": {
+      "NO_LOCAL_MATCH": 30
+    },
+    "pt": {
+      "PARTIAL": 19,
+      "NO_LOCAL_MATCH": 11
+    },
+    "sw": {
+      "PARTIAL": 20,
+      "NO_LOCAL_MATCH": 10
+    },
+    "zh": {
+      "NO_LOCAL_MATCH": 30
+    }
+  },
+  "non_latin_emitted_spans": 53,
+  "reading_script_or_missing_issues": [],
+  "translation_calls": 0,
+  "readiness_calls": 0,
+  "voice_languages_rendered": [
+    "es",
+    "fr",
+    "de",
+    "it",
+    "pt",
+    "ar",
+    "zh",
+    "ja",
+    "ko",
+    "sw",
+    "en"
+  ],
+  "notes": [
+    "131 is any emitted output, not successful replacement of each focal noun: en-ja:book emits I → 私 / watashi, not book.",
+    "it-es has zero outputs: water INVALID_LANGUAGE, book libro unchanged-face in Spanish, music lacks approved noun context. Do not force unchanged words.",
+    "Arabic attached forms and Korean particles need native geometry diagnosis. Chinese has literal bare music candidate but zero direct outputs; native segmentation diagnosis pending.",
+    "All non-Latin emitted readings present and Latin-script; sampled music readings mūsīqā/yīnyuè/ongaku/eumak and water mizu match intended lexemes. This is author review, not independent phonetic acceptance.",
+    "Eleven emitted-word voices synthesized. Audio duration establishes output, not naturalness or correct pronunciation.",
+    "Platform detector-specific capture and source-frame geometry remain pending."
+  ]
+}
