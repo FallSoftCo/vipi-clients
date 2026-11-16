@@ -370,6 +370,7 @@ class MainActivity : ComponentActivity() {
     var error by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
+    InviteFriendButton(model)
     Heading("Find a friend", "Start a conversation.", "Enter their exact Vipi username. Your phone contacts stay private.")
     OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text("Friend’s username") }, singleLine = true,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp))
@@ -395,6 +396,7 @@ class MainActivity : ComponentActivity() {
     val uri = androidx.compose.ui.platform.LocalUriHandler.current
     var linkError by remember { mutableStateOf<String?>(null) }
     Text("Settings", fontFamily = FontFamily.Serif, fontSize = 34.sp)
+    InviteFriendButton(model)
     Text("Words in your chats", fontWeight = FontWeight.SemiBold)
     TextButton(onClick = { model.navigate(Screen.PLANS) }) { Text("Your plan") }
     if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.BACKUP) }) { Text("Chat backup") }
@@ -424,3 +426,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable private fun DownloadView(model: VipiModel) { LanguageDownloadsScreen(model) }
+
+@Composable private fun InviteFriendButton(model: VipiModel) {
+    val username = model.chat?.profile?.username ?: return
+    val context = LocalContext.current
+    var error by remember { mutableStateOf(false) }
+    TextButton(onClick = {
+        val invitation = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, "Chat with me on Vipi. My username is @$username. https://api.mambovipi.app/invite/$username")
+        }
+        try { context.startActivity(Intent.createChooser(invitation, "Invite a friend")); error = false }
+        catch (_: android.content.ActivityNotFoundException) { error = true }
+    }) { Text("Invite a friend") }
+    Text("Your public username is @$username.", style = MaterialTheme.typography.bodySmall)
+    if (error) Text("Sharing isn’t available. Tell your friend your username instead.", style = MaterialTheme.typography.bodySmall)
+}

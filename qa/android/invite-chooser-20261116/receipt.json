@@ -1,0 +1,7 @@
+{
+  "scope": "Android native chooser visual check on existing emulator-5620 QA package",
+  "screens": ["Settings", "Find a friend"],
+  "result": "Both buttons opened the Android text-sharing chooser with the QA profile username and matching public /invite/<username> URL.",
+  "delivery": "No sharing destination selected, no invitation sent.",
+  "limits": "Does not establish delivery to a recipient or account onboarding. Screenshots retained privately because they show the review account username."
+}
