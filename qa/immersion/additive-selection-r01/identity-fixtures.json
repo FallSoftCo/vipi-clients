@@ -1,0 +1,285 @@
+{
+  "cases": [
+    {
+      "context_variant_not_part_of_identity": "context one",
+      "evidence_pack_for_validation_only": "pack-A",
+      "expected_encoded_hex": "0000001076322d6672616d652d73656e73652d3100000002656e0000000266720000001772657669657765643a62616e6b3a66696e616e6369616c0000000462616e6b0000000662616e7175650000001566696e616e6369616c20696e737469747574696f6e00000000",
+      "expected_hmac_sha256": "e94e83734567f0a72c7b747d35daa3086cd01b96bb341dbcb50d13e4f6fa0470",
+      "fields": {
+        "meaning": "financial institution",
+        "pattern_id": "reviewed:bank:financial",
+        "reading": "",
+        "source_face": "bank",
+        "source_language": "en",
+        "target_face": "banque",
+        "target_language": "fr",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "base",
+      "verified_reviewed_pattern": true
+    },
+    {
+      "context_variant_not_part_of_identity": "context two",
+      "evidence_pack_for_validation_only": "pack-A",
+      "expected_encoded_hex": "0000001076322d6672616d652d73656e73652d3100000002656e0000000266720000001772657669657765643a62616e6b3a66696e616e6369616c0000000462616e6b0000000662616e7175650000001566696e616e6369616c20696e737469747574696f6e00000000",
+      "expected_hmac_sha256": "e94e83734567f0a72c7b747d35daa3086cd01b96bb341dbcb50d13e4f6fa0470",
+      "fields": {
+        "meaning": "financial institution",
+        "pattern_id": "reviewed:bank:financial",
+        "reading": "",
+        "source_face": "bank",
+        "source_language": "en",
+        "target_face": "banque",
+        "target_language": "fr",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "other_context",
+      "verified_reviewed_pattern": true
+    },
+    {
+      "context_variant_not_part_of_identity": "context one",
+      "evidence_pack_for_validation_only": "pack-B",
+      "expected_encoded_hex": "0000001076322d6672616d652d73656e73652d3100000002656e0000000266720000001772657669657765643a62616e6b3a66696e616e6369616c0000000462616e6b0000000662616e7175650000001566696e616e6369616c20696e737469747574696f6e00000000",
+      "expected_hmac_sha256": "e94e83734567f0a72c7b747d35daa3086cd01b96bb341dbcb50d13e4f6fa0470",
+      "fields": {
+        "meaning": "financial institution",
+        "pattern_id": "reviewed:bank:financial",
+        "reading": "",
+        "source_face": "bank",
+        "source_language": "en",
+        "target_face": "banque",
+        "target_language": "fr",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "other_pack",
+      "verified_reviewed_pattern": true
+    },
+    {
+      "context_variant_not_part_of_identity": "context three",
+      "evidence_pack_for_validation_only": "pack-A",
+      "expected_encoded_hex": "0000001076322d6672616d652d73656e73652d3100000002656e0000000266720000001372657669657765643a62616e6b3a72697665720000000462616e6b0000000472697665000000116c616e642062657369646520726976657200000000",
+      "expected_hmac_sha256": "c26628ae3fa13be8f9d1a5c36401d699b8e3e1369960e71bbbc33678c1f73cfe",
+      "fields": {
+        "meaning": "land beside river",
+        "pattern_id": "reviewed:bank:river",
+        "reading": "",
+        "source_face": "bank",
+        "source_language": "en",
+        "target_face": "rive",
+        "target_language": "fr",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "river",
+      "verified_reviewed_pattern": true
+    },
+    {
+      "context_variant_not_part_of_identity": "context one",
+      "evidence_pack_for_validation_only": "pack-B",
+      "expected_encoded_hex": "0000001076322d6672616d652d73656e73652d3100000002656e0000000266720000001772657669657765643a62616e6b3a66696e616e6369616c0000000462616e6b00000017c3a97461626c697373656d656e742062616e63616972650000001566696e616e6369616c20696e737469747574696f6e00000000",
+      "expected_hmac_sha256": "bb85beb8f0f31236c7eb05b826a8f5aa5c24e9b67a31033445eac6c80f292f68",
+      "fields": {
+        "meaning": "financial institution",
+        "pattern_id": "reviewed:bank:financial",
+        "reading": "",
+        "source_face": "bank",
+        "source_language": "en",
+        "target_face": "établissement bancaire",
+        "target_language": "fr",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "changed_target",
+      "verified_reviewed_pattern": true
+    },
+    {
+      "context_variant_not_part_of_identity": "context one",
+      "evidence_pack_for_validation_only": "pack-B",
+      "expected_encoded_hex": "0000001076322d6672616d652d73656e73652d3100000002656e0000000266720000001772657669657765643a62616e6b3a66696e616e6369616c0000000462616e6b0000000662616e7175650000000b72697665722073686f726500000000",
+      "expected_hmac_sha256": "f3bf283279b0ed4159301fe2040fd49522de45e83961dfd634da1875d87badba",
+      "fields": {
+        "meaning": "river shore",
+        "pattern_id": "reviewed:bank:financial",
+        "reading": "",
+        "source_face": "bank",
+        "source_language": "en",
+        "target_face": "banque",
+        "target_language": "fr",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "changed_meaning",
+      "verified_reviewed_pattern": true
+    },
+    {
+      "context_variant_not_part_of_identity": "context one",
+      "evidence_pack_for_validation_only": "pack-A",
+      "expected_encoded_hex": "0000001076322d6672616d652d73656e73652d3100000002656e0000000266720000001372657669657765643a62616e6b3a6f746865720000000462616e6b0000000662616e7175650000001566696e616e6369616c20696e737469747574696f6e00000000",
+      "expected_hmac_sha256": "2830a7df4c659e67f4eb94309f78ba6b87f11312027f5ffe60a84ca0610f9d4b",
+      "fields": {
+        "meaning": "financial institution",
+        "pattern_id": "reviewed:bank:other",
+        "reading": "",
+        "source_face": "bank",
+        "source_language": "en",
+        "target_face": "banque",
+        "target_language": "fr",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "changed_pattern",
+      "verified_reviewed_pattern": true
+    },
+    {
+      "context_variant_not_part_of_identity": "context one",
+      "evidence_pack_for_validation_only": "pack-A",
+      "expected_encoded_hex": "0000001076322d6672616d652d73656e73652d3100000002656e0000000265730000001772657669657765643a62616e6b3a66696e616e6369616c0000000462616e6b0000000662616e7175650000001566696e616e6369616c20696e737469747574696f6e00000000",
+      "expected_hmac_sha256": "12074acd0d1e985666b9ed64f5884c3702a847dc14b898c679af9e2af1b30720",
+      "fields": {
+        "meaning": "financial institution",
+        "pattern_id": "reviewed:bank:financial",
+        "reading": "",
+        "source_face": "bank",
+        "source_language": "en",
+        "target_face": "banque",
+        "target_language": "es",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "different_pair",
+      "verified_reviewed_pattern": true
+    },
+    {
+      "context_variant_not_part_of_identity": "context one",
+      "evidence_pack_for_validation_only": "pack-A",
+      "expected_hmac_sha256": null,
+      "fields": {
+        "meaning": "financial institution",
+        "pattern_id": "reviewed:bank:financial",
+        "reading": "",
+        "source_face": "bank",
+        "source_language": "en",
+        "target_face": "banque",
+        "target_language": "fr",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "unverified",
+      "verified_reviewed_pattern": false
+    },
+    {
+      "context_variant_not_part_of_identity": "context one",
+      "evidence_pack_for_validation_only": "pack-A",
+      "expected_encoded_hex": "0000001076322d6672616d652d73656e73652d3100000002656e0000000266720000001772657669657765643a62616e6b3a66696e616e6369616c0000000462616e6b0000000662616e7175650000001566696e616e6369616c20696e737469747574696f6e0000000662616e717565",
+      "expected_hmac_sha256": "a672c2024832a112e19e379f36cbb402abc01f224bdc9115d642036706c0d9aa",
+      "fields": {
+        "meaning": "financial institution",
+        "pattern_id": "reviewed:bank:financial",
+        "reading": "banque",
+        "source_face": "bank",
+        "source_language": "en",
+        "target_face": "banque",
+        "target_language": "fr",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "different_reading",
+      "verified_reviewed_pattern": true
+    },
+    {
+      "context_variant_not_part_of_identity": "context one",
+      "evidence_pack_for_validation_only": "pack-A",
+      "expected_encoded_hex": "0000001076322d6672616d652d73656e73652d3100000002656e0000000266720000001772657669657765643a62616e6b3a66696e616e6369616c00000005636166c3a900000005636166c3a90000001566696e616e6369616c20696e737469747574696f6e00000000",
+      "expected_hmac_sha256": "92d8b98a876281026b9e558dcc1dd3eff7070be7940c55d377148cf08ff3c362",
+      "fields": {
+        "meaning": "financial institution",
+        "pattern_id": "reviewed:bank:financial",
+        "reading": "",
+        "source_face": "café",
+        "source_language": "en",
+        "target_face": "café",
+        "target_language": "fr",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "unicode_composed",
+      "verified_reviewed_pattern": true
+    },
+    {
+      "context_variant_not_part_of_identity": "context one",
+      "evidence_pack_for_validation_only": "pack-A",
+      "expected_encoded_hex": "0000001076322d6672616d652d73656e73652d3100000002656e0000000266720000001772657669657765643a62616e6b3a66696e616e6369616c0000000663616665cc8100000005636166c3a90000001566696e616e6369616c20696e737469747574696f6e00000000",
+      "expected_hmac_sha256": "c07d3c6aeb8929b619441c6fe9675eddcf3aaf70454e3b678613abb85b9b4dde",
+      "fields": {
+        "meaning": "financial institution",
+        "pattern_id": "reviewed:bank:financial",
+        "reading": "",
+        "source_face": "café",
+        "source_language": "en",
+        "target_face": "café",
+        "target_language": "fr",
+        "version": "v2-frame-sense-1"
+      },
+      "id": "unicode_decomposed",
+      "verified_reviewed_pattern": true
+    }
+  ],
+  "encoding": "Eight fields in listed order, each encoded as 4-byte unsigned big-endian UTF-8 byte length followed by exact UTF-8 bytes; HMAC-SHA256 with account-local 32-byte vault key. Unverified frame gets no identity.",
+  "field_order": [
+    "version",
+    "source_language",
+    "target_language",
+    "pattern_id",
+    "source_face",
+    "target_face",
+    "meaning",
+    "reading"
+  ],
+  "relations": [
+    {
+      "a": "base",
+      "b": "other_context",
+      "equal": true
+    },
+    {
+      "a": "base",
+      "b": "other_pack",
+      "equal": true
+    },
+    {
+      "a": "base",
+      "b": "river",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "changed_target",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "changed_meaning",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "changed_pattern",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "different_pair",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "different_reading",
+      "equal": false
+    },
+    {
+      "a": "unicode_composed",
+      "b": "unicode_decomposed",
+      "equal": false
+    },
+    {
+      "a": "base",
+      "b": "unverified",
+      "equal": false
+    }
+  ],
+  "schema": "vipi-reviewed-frame-exposure-id-1",
+  "scope": "Synthetic HMAC vectors for verified reviewed frame semantic identity; pack hash and context remain evidence but are not identity fields. No real secrets. Source/target face and meaning remain exact UTF-8 without implicit normalization.",
+  "test_key_hex": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"
+}
