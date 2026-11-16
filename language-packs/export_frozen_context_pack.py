@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Export frozen research evidence; never grants runtime/display authorization."""
 import argparse,collections,hashlib,json,os,pathlib,resource,shutil,signal,socket,sqlite3,time
-R=pathlib.Path('/srv/fallsoft/staging/vipi-native-context-pack-20261109-r01');M=1024**2
+M=1024**2
 SCHEMA='''PRAGMA application_id=1447645257; PRAGMA user_version=1;
 PRAGMA page_size=4096; PRAGMA journal_mode=DELETE; PRAGMA temp_store=FILE;
 PRAGMA foreign_keys=ON;
@@ -71,7 +71,9 @@ def build_rows(p):
  return {t:[v for _,v in sorted(rows.items())] for t,rows in tables.items()},audit
 
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('stage',choices=['measure','export']);args=parser.parse_args();assert socket.gethostname()=='fallsoft-production-20261106';start=time.monotonic();os.sched_setaffinity(0,{min(os.sched_getaffinity(0))});os.nice(10);resource.setrlimit(resource.RLIMIT_AS,(1024**3,)*2);signal.signal(signal.SIGALRM,lambda *_:(_ for _ in ()).throw(TimeoutError('120s')));signal.alarm(120);p=json.loads((R/'protocol.json').read_text());out=R/args.stage;out.mkdir(exist_ok=False);receipt={'complete':False,'protocol_sha256':sha(R/'protocol.json')}
+ parser=argparse.ArgumentParser();parser.add_argument('stage',choices=['measure','export']);parser.add_argument('--protocol-root',type=pathlib.Path,required=True);parser.add_argument('--expected-host',required=True);args=parser.parse_args();
+ if not args.expected_host or socket.gethostname()!=args.expected_host:parser.error('hostname does not match --expected-host')
+ R=args.protocol_root.resolve();start=time.monotonic();os.sched_setaffinity(0,{min(os.sched_getaffinity(0))});os.nice(10);resource.setrlimit(resource.RLIMIT_AS,(1024**3,)*2);signal.signal(signal.SIGALRM,lambda *_:(_ for _ in ()).throw(TimeoutError('120s')));signal.alarm(120);p=json.loads((R/'protocol.json').read_text());out=R/args.stage;out.mkdir(exist_ok=False);receipt={'complete':False,'protocol_sha256':sha(R/'protocol.json')}
  try:
   assert sha(__file__)==p['code_sha256'];assert sha(R/'CONTRACT.md')==p['contract_sha256'];assert shutil.disk_usage(R).free>8*1024**3+64*M
   for k,v in p['inputs'].items():assert sha(v['path'])==v['sha256'],k

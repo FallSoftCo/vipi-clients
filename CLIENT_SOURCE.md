@@ -158,3 +158,16 @@ The generated source manifest records bytes; it is not a blanket relicensing of
 included materials. Keep the final release's source revision, generated-data
 hashes, dependency identities and binary hashes together. Publication and store
 submission require the completed release qualification, not this candidate.
+
+The frozen context-pack exporter is disabled research tooling, not runtime
+permission. To use it with a separately prepared and pinned research protocol,
+provide both the protocol directory and the exact authorized host explicitly:
+
+```sh
+python3 language-packs/export_frozen_context_pack.py measure \
+  --protocol-root /path/to/research-protocol --expected-host your-hostname
+```
+
+The protocol must pin this exact exporter and its contract and inputs. The
+host check and existing resource limits remain in force; historical protocols
+that pin another exporter revision are not interchangeable.
