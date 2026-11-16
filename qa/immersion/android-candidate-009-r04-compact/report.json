@@ -1,0 +1,3205 @@
+{
+  "complete": true,
+  "cases": [
+    {
+      "id": "en-es-0",
+      "source": "en",
+      "target": "es",
+      "original": "the airport",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "airport",
+          "target": "aeropuerto",
+          "start": 4,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "the airport",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es-1",
+      "source": "en",
+      "target": "es",
+      "original": "the bus is late",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@b0c2422",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "bus",
+          "target": "autobús",
+          "start": 4,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "bus",
+          "target": "autobús",
+          "start": 4,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "the autobús is late",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es-2",
+      "source": "en",
+      "target": "es",
+      "original": "dinner is ready",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "dinner",
+          "target": "cena",
+          "start": 0,
+          "end": 6,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "dinner is ready",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es-3",
+      "source": "en",
+      "target": "es",
+      "original": "close the door",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e1cd5f6",
+      "automatic_spans": [
+        {
+          "id": 10,
+          "source": "door",
+          "target": "puerta",
+          "start": 10,
+          "end": 14,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 10,
+          "source": "door",
+          "target": "puerta",
+          "start": 10,
+          "end": 14,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "close the puerta",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es-4",
+      "source": "en",
+      "target": "es",
+      "original": "the house has a garden",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c84a8a6",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "house",
+          "target": "casa",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "house",
+          "target": "casa",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "the casa has a garden",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es-5",
+      "source": "en",
+      "target": "es",
+      "original": "lunch is ready",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@59e8756",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "lunch",
+          "target": "almuerzo",
+          "start": 0,
+          "end": 5,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "lunch",
+          "target": "almuerzo",
+          "start": 0,
+          "end": 5,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "almuerzo is ready",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es-6",
+      "source": "en",
+      "target": "es",
+      "original": "the meeting starts",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@57206",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "meeting",
+          "target": "reunión",
+          "start": 4,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "meeting",
+          "target": "reunión",
+          "start": 4,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "the reunión starts",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es-7",
+      "source": "en",
+      "target": "es",
+      "original": "at the office",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f1468b6",
+      "automatic_spans": [
+        {
+          "id": 7,
+          "source": "office",
+          "target": "oficina",
+          "start": 7,
+          "end": 13,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 7,
+          "source": "office",
+          "target": "oficina",
+          "start": 7,
+          "end": 13,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "at the oficina",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es-8",
+      "source": "en",
+      "target": "es",
+      "original": "the phone is ringing",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2e66b66",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "phone",
+          "target": "teléfono",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "phone",
+          "target": "teléfono",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "the teléfono is ringing",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es-9",
+      "source": "en",
+      "target": "es",
+      "original": "the rain has stopped",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8567a16",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "rain",
+          "target": "lluvia",
+          "start": 4,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "rain",
+          "target": "lluvia",
+          "start": 4,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "the lluvia has stopped",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "en-es-10",
+      "source": "en",
+      "target": "es",
+      "original": "the school is near",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@8ff94c6",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "school",
+          "target": "escuela",
+          "start": 4,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "school",
+          "target": "escuela",
+          "start": 4,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "the escuela is near",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en-11",
+      "source": "es",
+      "target": "en",
+      "original": "el aeropuerto",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "aeropuerto",
+          "target": "airport",
+          "start": 3,
+          "end": 13,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "el aeropuerto",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en-12",
+      "source": "es",
+      "target": "en",
+      "original": "el autobús llega",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3879568",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "autobús",
+          "target": "bus",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "autobús",
+          "target": "bus",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "el bus llega",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en-13",
+      "source": "es",
+      "target": "en",
+      "original": "la cena está lista",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "cena",
+          "target": "dinner",
+          "start": 3,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la cena está lista",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en-14",
+      "source": "es",
+      "target": "en",
+      "original": "cierra la puerta",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ee809dc",
+      "automatic_spans": [
+        {
+          "id": 10,
+          "source": "puerta",
+          "target": "door",
+          "start": 10,
+          "end": 16,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 10,
+          "source": "puerta",
+          "target": "door",
+          "start": 10,
+          "end": 16,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "cierra la door",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en-15",
+      "source": "es",
+      "target": "en",
+      "original": "la casa tiene un jardín",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@eafa20c",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "casa",
+          "target": "house",
+          "start": 3,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "casa",
+          "target": "house",
+          "start": 3,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la house tiene un jardín",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en-16",
+      "source": "es",
+      "target": "en",
+      "original": "el almuerzo está listo",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@165a63c",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "almuerzo",
+          "target": "lunch",
+          "start": 3,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "almuerzo",
+          "target": "lunch",
+          "start": 3,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "el lunch está listo",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en-17",
+      "source": "es",
+      "target": "en",
+      "original": "la reunión empieza",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@57d166c",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "reunión",
+          "target": "meeting",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "reunión",
+          "target": "meeting",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la meeting empieza",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en-18",
+      "source": "es",
+      "target": "en",
+      "original": "en la oficina",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 6,
+          "source": "oficina",
+          "target": "office",
+          "start": 6,
+          "end": 13,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "en la oficina",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en-19",
+      "source": "es",
+      "target": "en",
+      "original": "el teléfono está sonando",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@1474a0",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "teléfono",
+          "target": "phone",
+          "start": 3,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "teléfono",
+          "target": "phone",
+          "start": 3,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "el phone está sonando",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en-20",
+      "source": "es",
+      "target": "en",
+      "original": "la lluvia ha parado",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "lluvia",
+          "target": "rain",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la lluvia ha parado",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "es-en-21",
+      "source": "es",
+      "target": "en",
+      "original": "la escuela está cerca",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4df2194",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "escuela",
+          "target": "school",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "escuela",
+          "target": "school",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la school está cerca",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en-22",
+      "source": "fr",
+      "target": "en",
+      "original": "l’aéroport",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "l’aéroport",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en-23",
+      "source": "fr",
+      "target": "en",
+      "original": "le bus est en retard",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@727d06",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "le bus est en retard",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en-24",
+      "source": "fr",
+      "target": "en",
+      "original": "le dîner est prêt",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@65a33b6",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "dîner",
+          "target": "dinner",
+          "start": 3,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "dîner",
+          "target": "dinner",
+          "start": 3,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "le dinner est prêt",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en-25",
+      "source": "fr",
+      "target": "en",
+      "original": "ferme la porte",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 9,
+          "source": "porte",
+          "target": "door",
+          "start": 9,
+          "end": 14,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "ferme la porte",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en-26",
+      "source": "fr",
+      "target": "en",
+      "original": "la maison a un jardin",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "maison",
+          "target": "house",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la maison a un jardin",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en-27",
+      "source": "fr",
+      "target": "en",
+      "original": "le déjeuner est prêt",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@5e060ee",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "déjeuner",
+          "target": "lunch",
+          "start": 3,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "déjeuner",
+          "target": "lunch",
+          "start": 3,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "le lunch est prêt",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en-28",
+      "source": "fr",
+      "target": "en",
+      "original": "la réunion commence",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@369ac4c",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "réunion",
+          "target": "meeting",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "réunion",
+          "target": "meeting",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la meeting commence",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en-29",
+      "source": "fr",
+      "target": "en",
+      "original": "le téléphone sonne",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2d6c07c",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "téléphone",
+          "target": "phone",
+          "start": 3,
+          "end": 12,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "téléphone",
+          "target": "phone",
+          "start": 3,
+          "end": 12,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "le phone sonne",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en-30",
+      "source": "fr",
+      "target": "en",
+      "original": "la pluie s’est arrêtée",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@78940ac",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "pluie",
+          "target": "rain",
+          "start": 3,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "pluie",
+          "target": "rain",
+          "start": 3,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la rain s’est arrêtée",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "fr-en-31",
+      "source": "fr",
+      "target": "en",
+      "original": "l’école est près",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3b42cdc",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "l’école est près",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en-32",
+      "source": "de",
+      "target": "en",
+      "original": "zum Flughafen",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c0de06a",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Flughafen",
+          "target": "airport",
+          "start": 4,
+          "end": 13,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Flughafen",
+          "target": "airport",
+          "start": 4,
+          "end": 13,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "zum airport",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en-33",
+      "source": "de",
+      "target": "en",
+      "original": "der Bus hat Verspätung",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@697381a",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "der Bus hat Verspätung",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en-34",
+      "source": "de",
+      "target": "en",
+      "original": "das Abendessen ist fertig",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@dbddbca",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Abendessen",
+          "target": "dinner",
+          "start": 4,
+          "end": 14,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Abendessen",
+          "target": "dinner",
+          "start": 4,
+          "end": 14,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "das dinner ist fertig",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en-35",
+      "source": "de",
+      "target": "en",
+      "original": "schließ die Tür",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@96ccb7a",
+      "automatic_spans": [
+        {
+          "id": 12,
+          "source": "Tür",
+          "target": "door",
+          "start": 12,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 12,
+          "source": "Tür",
+          "target": "door",
+          "start": 12,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "schließ die door",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en-36",
+      "source": "de",
+      "target": "en",
+      "original": "das Haus hat einen Garten",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@24f072a",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Haus",
+          "target": "house",
+          "start": 4,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Haus",
+          "target": "house",
+          "start": 4,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "das house hat einen Garten",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en-37",
+      "source": "de",
+      "target": "en",
+      "original": "das Mittagessen ist fertig",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@1cf8eda",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Mittagessen",
+          "target": "lunch",
+          "start": 4,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Mittagessen",
+          "target": "lunch",
+          "start": 4,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "das lunch ist fertig",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en-38",
+      "source": "de",
+      "target": "en",
+      "original": "die Besprechung beginnt",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@219628a",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Besprechung",
+          "target": "meeting",
+          "start": 4,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Besprechung",
+          "target": "meeting",
+          "start": 4,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "die meeting beginnt",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en-39",
+      "source": "de",
+      "target": "en",
+      "original": "im Büro",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "Büro",
+          "target": "office",
+          "start": 3,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "im Büro",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en-40",
+      "source": "de",
+      "target": "en",
+      "original": "das Telefon klingelt",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Telefon",
+          "target": "phone",
+          "start": 4,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "das Telefon klingelt",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en-41",
+      "source": "de",
+      "target": "en",
+      "original": "der Regen hat aufgehört",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@1715042",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Regen",
+          "target": "rain",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Regen",
+          "target": "rain",
+          "start": 4,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "der rain hat aufgehört",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "de-en-42",
+      "source": "de",
+      "target": "en",
+      "original": "die Schule ist in der Nähe",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9824df2",
+      "automatic_spans": [
+        {
+          "id": 4,
+          "source": "Schule",
+          "target": "school",
+          "start": 4,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 4,
+          "source": "Schule",
+          "target": "school",
+          "start": 4,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "die school ist in der Nähe",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en-43",
+      "source": "it",
+      "target": "en",
+      "original": "all’aeroporto",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "all’aeroporto",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en-44",
+      "source": "it",
+      "target": "en",
+      "original": "l’autobus è in ritardo",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "l’autobus è in ritardo",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en-45",
+      "source": "it",
+      "target": "en",
+      "original": "la cena è pronta",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "cena",
+          "target": "dinner",
+          "start": 3,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la cena è pronta",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en-46",
+      "source": "it",
+      "target": "en",
+      "original": "chiudi la porta",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 10,
+          "source": "porta",
+          "target": "door",
+          "start": 10,
+          "end": 15,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "chiudi la porta",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en-47",
+      "source": "it",
+      "target": "en",
+      "original": "la casa ha un giardino",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "casa",
+          "target": "house",
+          "start": 3,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la casa ha un giardino",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en-48",
+      "source": "it",
+      "target": "en",
+      "original": "il pranzo è pronto",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ea3bc44",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "pranzo",
+          "target": "lunch",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "pranzo",
+          "target": "lunch",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "il lunch è pronto",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en-49",
+      "source": "it",
+      "target": "en",
+      "original": "la riunione inizia",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "riunione",
+          "target": "meeting",
+          "start": 3,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la riunione inizia",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en-50",
+      "source": "it",
+      "target": "en",
+      "original": "in ufficio",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@eb2f8f8",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "ufficio",
+          "target": "office",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "ufficio",
+          "target": "office",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "in office",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en-51",
+      "source": "it",
+      "target": "en",
+      "original": "il telefono sta squillando",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "telefono",
+          "target": "phone",
+          "start": 3,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "il telefono sta squillando",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en-52",
+      "source": "it",
+      "target": "en",
+      "original": "la pioggia è finita",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@779dc6c",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "pioggia",
+          "target": "rain",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "pioggia",
+          "target": "rain",
+          "start": 3,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la rain è finita",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "it-en-53",
+      "source": "it",
+      "target": "en",
+      "original": "la scuola è vicino al parco",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@1e3389c",
+      "automatic_spans": [
+        {
+          "id": 3,
+          "source": "scuola",
+          "target": "school",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "scuola",
+          "target": "school",
+          "start": 3,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "la school è vicino al parco",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en-54",
+      "source": "pt",
+      "target": "en",
+      "original": "o aeroporto",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "aeroporto",
+          "target": "airport",
+          "start": 2,
+          "end": 11,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "o aeroporto",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en-55",
+      "source": "pt",
+      "target": "en",
+      "original": "o ônibus está atrasado",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2cc2ece",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "ônibus",
+          "target": "bus",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "ônibus",
+          "target": "bus",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "o bus está atrasado",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en-56",
+      "source": "pt",
+      "target": "en",
+      "original": "o jantar está pronto",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@207e77e",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "jantar",
+          "target": "dinner",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "jantar",
+          "target": "dinner",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "o dinner está pronto",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en-57",
+      "source": "pt",
+      "target": "en",
+      "original": "feche a porta",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3bb2c2e",
+      "automatic_spans": [
+        {
+          "id": 8,
+          "source": "porta",
+          "target": "door",
+          "start": 8,
+          "end": 13,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 8,
+          "source": "porta",
+          "target": "door",
+          "start": 8,
+          "end": 13,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "feche a door",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en-58",
+      "source": "pt",
+      "target": "en",
+      "original": "a casa tem um jardim",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ae0fcde",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "casa",
+          "target": "house",
+          "start": 2,
+          "end": 6,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "casa",
+          "target": "house",
+          "start": 2,
+          "end": 6,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "a house tem um jardim",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en-59",
+      "source": "pt",
+      "target": "en",
+      "original": "o almoço está pronto",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f34598e",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "almoço",
+          "target": "lunch",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "almoço",
+          "target": "lunch",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "o lunch está pronto",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en-60",
+      "source": "pt",
+      "target": "en",
+      "original": "a reunião começa",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@d30423e",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "reunião",
+          "target": "meeting",
+          "start": 2,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "reunião",
+          "target": "meeting",
+          "start": 2,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "a meeting começa",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en-61",
+      "source": "pt",
+      "target": "en",
+      "original": "no escritório",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 3,
+          "source": "escritório",
+          "target": "office",
+          "start": 3,
+          "end": 13,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "no escritório",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en-62",
+      "source": "pt",
+      "target": "en",
+      "original": "o telefone está tocando",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6656852",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "telefone",
+          "target": "phone",
+          "start": 2,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "telefone",
+          "target": "phone",
+          "start": 2,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "o phone está tocando",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en-63",
+      "source": "pt",
+      "target": "en",
+      "original": "a chuva parou",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "chuva",
+          "target": "rain",
+          "start": 2,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "a chuva parou",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "pt-en-64",
+      "source": "pt",
+      "target": "en",
+      "original": "a escola fica perto",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6c18f26",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "escola",
+          "target": "school",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "escola",
+          "target": "school",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "a school fica perto",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-en-65",
+      "source": "sw",
+      "target": "en",
+      "original": "basi limechelewa",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9927f44",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "basi",
+          "target": "bus",
+          "start": 0,
+          "end": 4,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "basi",
+          "target": "bus",
+          "start": 0,
+          "end": 4,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "bus limechelewa",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-en-66",
+      "source": "sw",
+      "target": "en",
+      "original": "funga mlango",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@eb64174",
+      "automatic_spans": [
+        {
+          "id": 6,
+          "source": "mlango",
+          "target": "door",
+          "start": 6,
+          "end": 12,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 6,
+          "source": "mlango",
+          "target": "door",
+          "start": 6,
+          "end": 12,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "funga door",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-en-67",
+      "source": "sw",
+      "target": "en",
+      "original": "nyumba ina bustani",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "nyumba",
+          "target": "house",
+          "start": 0,
+          "end": 6,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "nyumba ina bustani",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-en-68",
+      "source": "sw",
+      "target": "en",
+      "original": "mkutano unaanza",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ebb6328",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "mkutano",
+          "target": "meeting",
+          "start": 0,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "mkutano",
+          "target": "meeting",
+          "start": 0,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "meeting unaanza",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-en-69",
+      "source": "sw",
+      "target": "en",
+      "original": "simu inaita",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "simu",
+          "target": "phone",
+          "start": 0,
+          "end": 4,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "simu inaita",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-en-70",
+      "source": "sw",
+      "target": "en",
+      "original": "mvua imekoma",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@fe25b9c",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "mvua",
+          "target": "rain",
+          "start": 0,
+          "end": 4,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "mvua",
+          "target": "rain",
+          "start": 0,
+          "end": 4,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "rain imekoma",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "sw-en-71",
+      "source": "sw",
+      "target": "en",
+      "original": "shule iko karibu",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6c1e3cc",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "shule",
+          "target": "school",
+          "start": 0,
+          "end": 5,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "shule",
+          "target": "school",
+          "start": 0,
+          "end": 5,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "school iko karibu",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "negative-72",
+      "source": "en",
+      "target": "es",
+      "original": "I train every day.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e6bd7fc",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "I train every day.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "negative-73",
+      "source": "en",
+      "target": "es",
+      "original": "It will rain tomorrow.",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@453382c",
+      "automatic_spans": [
+        {
+          "id": 13,
+          "source": "tomorrow",
+          "target": "mañana",
+          "start": 13,
+          "end": 21,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 13,
+          "source": "tomorrow",
+          "target": "mañana",
+          "start": 13,
+          "end": 21,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "It will rain mañana.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "negative-74",
+      "source": "it",
+      "target": "en",
+      "original": "Lei la porta a casa.",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Lei la porta a casa.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "negative-75",
+      "source": "fr",
+      "target": "en",
+      "original": "Il écrit au bureau en bois.",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@18dda60",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "Il écrit au bureau en bois.",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en-76",
+      "source": "ar",
+      "target": "en",
+      "original": "المطار",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "مطار",
+          "target": "airport",
+          "start": 2,
+          "end": 6,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "المطار",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en-77",
+      "source": "ar",
+      "target": "en",
+      "original": "الحافلة متأخرة",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "حافلة",
+          "target": "bus",
+          "start": 2,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "الحافلة متأخرة",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en-78",
+      "source": "ar",
+      "target": "en",
+      "original": "العشاء جاهز",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "عشاء",
+          "target": "dinner",
+          "start": 2,
+          "end": 6,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "العشاء جاهز",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en-79",
+      "source": "ar",
+      "target": "en",
+      "original": "أغلق الباب",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@11daefa",
+      "automatic_spans": [
+        {
+          "id": 7,
+          "source": "باب",
+          "target": "door",
+          "start": 7,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 7,
+          "source": "باب",
+          "target": "door",
+          "start": 7,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "أغلق الdoor",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en-80",
+      "source": "ar",
+      "target": "en",
+      "original": "الغداء جاهز",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "غداء",
+          "target": "lunch",
+          "start": 2,
+          "end": 6,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "الغداء جاهز",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en-81",
+      "source": "ar",
+      "target": "en",
+      "original": "الاجتماع عند الظهر",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3406f4e",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "اجتماع",
+          "target": "meeting",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "اجتماع",
+          "target": "meeting",
+          "start": 2,
+          "end": 8,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "الmeeting عند الظهر",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en-82",
+      "source": "ar",
+      "target": "en",
+      "original": "في المكتب",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@24d47fe",
+      "automatic_spans": [
+        {
+          "id": 5,
+          "source": "مكتب",
+          "target": "office",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 5,
+          "source": "مكتب",
+          "target": "office",
+          "start": 5,
+          "end": 9,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "في الoffice",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en-83",
+      "source": "ar",
+      "target": "en",
+      "original": "الهاتف يرن",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "هاتف",
+          "target": "phone",
+          "start": 2,
+          "end": 6,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "الهاتف يرن",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en-84",
+      "source": "ar",
+      "target": "en",
+      "original": "توقف المطر",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 7,
+          "source": "مطر",
+          "target": "rain",
+          "start": 7,
+          "end": 10,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "توقف المطر",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ar-en-85",
+      "source": "ar",
+      "target": "en",
+      "original": "المدرسة قريبة",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@eccfa36",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "مدرسة",
+          "target": "school",
+          "start": 2,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "مدرسة",
+          "target": "school",
+          "start": 2,
+          "end": 7,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "الschool قريبة",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en-86",
+      "source": "zh",
+      "target": "en",
+      "original": "去机场",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 1,
+          "source": "机场",
+          "target": "airport",
+          "start": 1,
+          "end": 3,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "去机场",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en-87",
+      "source": "zh",
+      "target": "en",
+      "original": "公交车晚点",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@5117958",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "公交车晚点",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en-88",
+      "source": "zh",
+      "target": "en",
+      "original": "晚饭准备好了",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@201e888",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "晚饭",
+          "target": "dinner",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "晚饭",
+          "target": "dinner",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "dinner准备好了",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en-89",
+      "source": "zh",
+      "target": "en",
+      "original": "关门",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "关门",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en-90",
+      "source": "zh",
+      "target": "en",
+      "original": "这座房子",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@2247afc",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "房子",
+          "target": "house",
+          "start": 2,
+          "end": 4,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "房子",
+          "target": "house",
+          "start": 2,
+          "end": 4,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "这座house",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en-91",
+      "source": "zh",
+      "target": "en",
+      "original": "午饭准备好了",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4fa9b2c",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "午饭",
+          "target": "lunch",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "午饭",
+          "target": "lunch",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "lunch准备好了",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en-92",
+      "source": "zh",
+      "target": "en",
+      "original": "会议中午开始",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f71275c",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "会议",
+          "target": "meeting",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "会议",
+          "target": "meeting",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "meeting中午开始",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en-93",
+      "source": "zh",
+      "target": "en",
+      "original": "在办公室",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7b1f8c",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "在办公室",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en-94",
+      "source": "zh",
+      "target": "en",
+      "original": "电话响了",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9cb83bc",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "电话",
+          "target": "phone",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "电话",
+          "target": "phone",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "phone响了",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en-95",
+      "source": "zh",
+      "target": "en",
+      "original": "雨停了",
+      "status": "INVALID_LANGUAGE",
+      "source_evidence": null,
+      "automatic_spans": [],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "雨",
+          "target": "rain",
+          "start": 0,
+          "end": 1,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "雨停了",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "zh-en-96",
+      "source": "zh",
+      "target": "en",
+      "original": "学校在公园附近",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@94214f0",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "学校",
+          "target": "school",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "学校",
+          "target": "school",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "school在公园附近",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en-97",
+      "source": "ja",
+      "target": "en",
+      "original": "空港に行きます",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@af4a76f",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "空港",
+          "target": "airport",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "空港",
+          "target": "airport",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "airportに行きます",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en-98",
+      "source": "ja",
+      "target": "en",
+      "original": "バスが遅れています",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9844a5f",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "バス",
+          "target": "bus",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "バス",
+          "target": "bus",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "busが遅れています",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en-99",
+      "source": "ja",
+      "target": "en",
+      "original": "夕食ができました",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@17a894f",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "夕食",
+          "target": "dinner",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "夕食",
+          "target": "dinner",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "dinnerができました",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en-100",
+      "source": "ja",
+      "target": "en",
+      "original": "ドアを閉めて",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7b6643f",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "ドア",
+          "target": "door",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "ドア",
+          "target": "door",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "doorを閉めて",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en-101",
+      "source": "ja",
+      "target": "en",
+      "original": "その家には庭",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@6d6db2f",
+      "automatic_spans": [
+        {
+          "id": 2,
+          "source": "家",
+          "target": "house",
+          "start": 2,
+          "end": 3,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 2,
+          "source": "家",
+          "target": "house",
+          "start": 2,
+          "end": 3,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "そのhouseには庭",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en-102",
+      "source": "ja",
+      "target": "en",
+      "original": "昼食ができました",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@f3aee1f",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "昼食",
+          "target": "lunch",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "昼食",
+          "target": "lunch",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "lunchができました",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en-103",
+      "source": "ja",
+      "target": "en",
+      "original": "会議は正午に",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@7019d0f",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "会議",
+          "target": "meeting",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "会議",
+          "target": "meeting",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "meetingは正午に",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en-104",
+      "source": "ja",
+      "target": "en",
+      "original": "事務所にいます",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a09e7ff",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "事務所",
+          "target": "office",
+          "start": 0,
+          "end": 3,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "事務所",
+          "target": "office",
+          "start": 0,
+          "end": 3,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "officeにいます",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en-105",
+      "source": "ja",
+      "target": "en",
+      "original": "電話が鳴っています",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@9f2ceef",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "電話",
+          "target": "phone",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "電話",
+          "target": "phone",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "phoneが鳴っています",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en-106",
+      "source": "ja",
+      "target": "en",
+      "original": "雨がやみました",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@e1b51df",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "雨",
+          "target": "rain",
+          "start": 0,
+          "end": 1,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "雨",
+          "target": "rain",
+          "start": 0,
+          "end": 1,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "rainがやみました",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ja-en-107",
+      "source": "ja",
+      "target": "en",
+      "original": "学校は公園の近く",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3a270cf",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "学校",
+          "target": "school",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "学校",
+          "target": "school",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "schoolは公園の近く",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en-108",
+      "source": "ko",
+      "target": "en",
+      "original": "공항에 가고",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@5bedd5",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "공항",
+          "target": "airport",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "공항",
+          "target": "airport",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "airport에 가고",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en-109",
+      "source": "ko",
+      "target": "en",
+      "original": "버스가 늦어요",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ab4f645",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "버스",
+          "target": "bus",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "버스",
+          "target": "bus",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "bus가 늦어요",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en-110",
+      "source": "ko",
+      "target": "en",
+      "original": "문을 닫아",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@458fab5",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "문",
+          "target": "door",
+          "start": 0,
+          "end": 1,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "문",
+          "target": "door",
+          "start": 0,
+          "end": 1,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "door을 닫아",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en-111",
+      "source": "ko",
+      "target": "en",
+      "original": "점심이 준비됐어요",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@3fefb25",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "점심",
+          "target": "lunch",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "점심",
+          "target": "lunch",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "lunch이 준비됐어요",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en-112",
+      "source": "ko",
+      "target": "en",
+      "original": "회의는 정오에",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@c1df795",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "회의",
+          "target": "meeting",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "회의",
+          "target": "meeting",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "meeting는 정오에",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en-113",
+      "source": "ko",
+      "target": "en",
+      "original": "사무실에 있어요",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@aecf005",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "사무실",
+          "target": "office",
+          "start": 0,
+          "end": 3,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "사무실",
+          "target": "office",
+          "start": 0,
+          "end": 3,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "office에 있어요",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en-114",
+      "source": "ko",
+      "target": "en",
+      "original": "전화가 울리고",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@a62e475",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "전화",
+          "target": "phone",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "전화",
+          "target": "phone",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "phone가 울리고",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en-115",
+      "source": "ko",
+      "target": "en",
+      "original": "비가 그쳤어요",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@36d4e5",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "비",
+          "target": "rain",
+          "start": 0,
+          "end": 1,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "비",
+          "target": "rain",
+          "start": 0,
+          "end": 1,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "rain가 그쳤어요",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "ko-en-116",
+      "source": "ko",
+      "target": "en",
+      "original": "학교는 공원 근처",
+      "status": "PARTIAL",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@ddfc155",
+      "automatic_spans": [
+        {
+          "id": 0,
+          "source": "학교",
+          "target": "school",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "direct_spans": [
+        {
+          "id": 0,
+          "source": "학교",
+          "target": "school",
+          "start": 0,
+          "end": 2,
+          "reading": null
+        }
+      ],
+      "mixed_reading": "school는 공원 근처",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "negative-117",
+      "source": "ar",
+      "target": "en",
+      "original": "والمطار",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@94a9c5",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "والمطار",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "negative-118",
+      "source": "ko",
+      "target": "en",
+      "original": "공항에서도",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@14c8e35",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "공항에서도",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    },
+    {
+      "id": "negative-119",
+      "source": "zh",
+      "target": "en",
+      "original": "听音乐会",
+      "status": "NO_LOCAL_MATCH",
+      "source_evidence": "co.fallsoft.vipi.core.SourceLookupEvidence@4be6ea5",
+      "automatic_spans": [],
+      "direct_spans": [],
+      "mixed_reading": "听音乐会",
+      "translation_calls": 0,
+      "readiness_calls": 0
+    }
+  ],
+  "voices": [],
+  "evidence": "concept-informed probes; synthesis is not listening or pronunciation acceptance"
+}

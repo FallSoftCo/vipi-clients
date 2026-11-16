@@ -1,0 +1,588 @@
+{
+  "en-es-0": {
+    "source": "airport",
+    "target": "aeropuerto",
+    "reading": ""
+  },
+  "en-es-1": {
+    "source": "bus",
+    "target": "autobús",
+    "reading": ""
+  },
+  "en-es-2": {
+    "source": "dinner",
+    "target": "cena",
+    "reading": ""
+  },
+  "en-es-3": {
+    "source": "door",
+    "target": "puerta",
+    "reading": ""
+  },
+  "en-es-4": {
+    "source": "house",
+    "target": "casa",
+    "reading": ""
+  },
+  "en-es-5": {
+    "source": "lunch",
+    "target": "almuerzo",
+    "reading": ""
+  },
+  "en-es-6": {
+    "source": "meeting",
+    "target": "reunión",
+    "reading": ""
+  },
+  "en-es-7": {
+    "source": "office",
+    "target": "oficina",
+    "reading": ""
+  },
+  "en-es-8": {
+    "source": "phone",
+    "target": "teléfono",
+    "reading": ""
+  },
+  "en-es-9": {
+    "source": "rain",
+    "target": "lluvia",
+    "reading": ""
+  },
+  "en-es-10": {
+    "source": "school",
+    "target": "escuela",
+    "reading": ""
+  },
+  "es-en-11": {
+    "source": "aeropuerto",
+    "target": "airport",
+    "reading": ""
+  },
+  "es-en-12": {
+    "source": "autobús",
+    "target": "bus",
+    "reading": ""
+  },
+  "es-en-13": {
+    "source": "cena",
+    "target": "dinner",
+    "reading": ""
+  },
+  "es-en-14": {
+    "source": "puerta",
+    "target": "door",
+    "reading": ""
+  },
+  "es-en-15": {
+    "source": "casa",
+    "target": "house",
+    "reading": ""
+  },
+  "es-en-16": {
+    "source": "almuerzo",
+    "target": "lunch",
+    "reading": ""
+  },
+  "es-en-17": {
+    "source": "reunión",
+    "target": "meeting",
+    "reading": ""
+  },
+  "es-en-18": {
+    "source": "oficina",
+    "target": "office",
+    "reading": ""
+  },
+  "es-en-19": {
+    "source": "teléfono",
+    "target": "phone",
+    "reading": ""
+  },
+  "es-en-20": {
+    "source": "lluvia",
+    "target": "rain",
+    "reading": ""
+  },
+  "es-en-21": {
+    "source": "escuela",
+    "target": "school",
+    "reading": ""
+  },
+  "fr-en-22": {
+    "source": "aéroport",
+    "target": "airport",
+    "reading": ""
+  },
+  "fr-en-23": {
+    "source": "bus",
+    "target": "bus",
+    "reading": ""
+  },
+  "fr-en-24": {
+    "source": "dîner",
+    "target": "dinner",
+    "reading": ""
+  },
+  "fr-en-25": {
+    "source": "porte",
+    "target": "door",
+    "reading": ""
+  },
+  "fr-en-26": {
+    "source": "maison",
+    "target": "house",
+    "reading": ""
+  },
+  "fr-en-27": {
+    "source": "déjeuner",
+    "target": "lunch",
+    "reading": ""
+  },
+  "fr-en-28": {
+    "source": "réunion",
+    "target": "meeting",
+    "reading": ""
+  },
+  "fr-en-29": {
+    "source": "téléphone",
+    "target": "phone",
+    "reading": ""
+  },
+  "fr-en-30": {
+    "source": "pluie",
+    "target": "rain",
+    "reading": ""
+  },
+  "fr-en-31": {
+    "source": "école",
+    "target": "school",
+    "reading": ""
+  },
+  "de-en-32": {
+    "source": "Flughafen",
+    "target": "airport",
+    "reading": ""
+  },
+  "de-en-33": {
+    "source": "Bus",
+    "target": "bus",
+    "reading": ""
+  },
+  "de-en-34": {
+    "source": "Abendessen",
+    "target": "dinner",
+    "reading": ""
+  },
+  "de-en-35": {
+    "source": "Tür",
+    "target": "door",
+    "reading": ""
+  },
+  "de-en-36": {
+    "source": "Haus",
+    "target": "house",
+    "reading": ""
+  },
+  "de-en-37": {
+    "source": "Mittagessen",
+    "target": "lunch",
+    "reading": ""
+  },
+  "de-en-38": {
+    "source": "Besprechung",
+    "target": "meeting",
+    "reading": ""
+  },
+  "de-en-39": {
+    "source": "Büro",
+    "target": "office",
+    "reading": ""
+  },
+  "de-en-40": {
+    "source": "Telefon",
+    "target": "phone",
+    "reading": ""
+  },
+  "de-en-41": {
+    "source": "Regen",
+    "target": "rain",
+    "reading": ""
+  },
+  "de-en-42": {
+    "source": "Schule",
+    "target": "school",
+    "reading": ""
+  },
+  "it-en-43": {
+    "source": "aeroporto",
+    "target": "airport",
+    "reading": ""
+  },
+  "it-en-44": {
+    "source": "autobus",
+    "target": "bus",
+    "reading": ""
+  },
+  "it-en-45": {
+    "source": "cena",
+    "target": "dinner",
+    "reading": ""
+  },
+  "it-en-46": {
+    "source": "porta",
+    "target": "door",
+    "reading": ""
+  },
+  "it-en-47": {
+    "source": "casa",
+    "target": "house",
+    "reading": ""
+  },
+  "it-en-48": {
+    "source": "pranzo",
+    "target": "lunch",
+    "reading": ""
+  },
+  "it-en-49": {
+    "source": "riunione",
+    "target": "meeting",
+    "reading": ""
+  },
+  "it-en-50": {
+    "source": "ufficio",
+    "target": "office",
+    "reading": ""
+  },
+  "it-en-51": {
+    "source": "telefono",
+    "target": "phone",
+    "reading": ""
+  },
+  "it-en-52": {
+    "source": "pioggia",
+    "target": "rain",
+    "reading": ""
+  },
+  "it-en-53": {
+    "source": "scuola",
+    "target": "school",
+    "reading": ""
+  },
+  "pt-en-54": {
+    "source": "aeroporto",
+    "target": "airport",
+    "reading": ""
+  },
+  "pt-en-55": {
+    "source": "ônibus",
+    "target": "bus",
+    "reading": ""
+  },
+  "pt-en-56": {
+    "source": "jantar",
+    "target": "dinner",
+    "reading": ""
+  },
+  "pt-en-57": {
+    "source": "porta",
+    "target": "door",
+    "reading": ""
+  },
+  "pt-en-58": {
+    "source": "casa",
+    "target": "house",
+    "reading": ""
+  },
+  "pt-en-59": {
+    "source": "almoço",
+    "target": "lunch",
+    "reading": ""
+  },
+  "pt-en-60": {
+    "source": "reunião",
+    "target": "meeting",
+    "reading": ""
+  },
+  "pt-en-61": {
+    "source": "escritório",
+    "target": "office",
+    "reading": ""
+  },
+  "pt-en-62": {
+    "source": "telefone",
+    "target": "phone",
+    "reading": ""
+  },
+  "pt-en-63": {
+    "source": "chuva",
+    "target": "rain",
+    "reading": ""
+  },
+  "pt-en-64": {
+    "source": "escola",
+    "target": "school",
+    "reading": ""
+  },
+  "sw-en-65": {
+    "source": "basi",
+    "target": "bus",
+    "reading": ""
+  },
+  "sw-en-66": {
+    "source": "mlango",
+    "target": "door",
+    "reading": ""
+  },
+  "sw-en-67": {
+    "source": "nyumba",
+    "target": "house",
+    "reading": ""
+  },
+  "sw-en-68": {
+    "source": "mkutano",
+    "target": "meeting",
+    "reading": ""
+  },
+  "sw-en-69": {
+    "source": "simu",
+    "target": "phone",
+    "reading": ""
+  },
+  "sw-en-70": {
+    "source": "mvua",
+    "target": "rain",
+    "reading": ""
+  },
+  "sw-en-71": {
+    "source": "shule",
+    "target": "school",
+    "reading": ""
+  },
+  "negative-72": {
+    "negative": true
+  },
+  "negative-73": {
+    "negative": true
+  },
+  "negative-74": {
+    "negative": true
+  },
+  "negative-75": {
+    "negative": true
+  },
+  "ar-en-76": {
+    "source": "مطار",
+    "target": "airport",
+    "reading": ""
+  },
+  "ar-en-77": {
+    "source": "حافلة",
+    "target": "bus",
+    "reading": ""
+  },
+  "ar-en-78": {
+    "source": "عشاء",
+    "target": "dinner",
+    "reading": ""
+  },
+  "ar-en-79": {
+    "source": "باب",
+    "target": "door",
+    "reading": ""
+  },
+  "ar-en-80": {
+    "source": "غداء",
+    "target": "lunch",
+    "reading": ""
+  },
+  "ar-en-81": {
+    "source": "اجتماع",
+    "target": "meeting",
+    "reading": ""
+  },
+  "ar-en-82": {
+    "source": "مكتب",
+    "target": "office",
+    "reading": ""
+  },
+  "ar-en-83": {
+    "source": "هاتف",
+    "target": "phone",
+    "reading": ""
+  },
+  "ar-en-84": {
+    "source": "مطر",
+    "target": "rain",
+    "reading": ""
+  },
+  "ar-en-85": {
+    "source": "مدرسة",
+    "target": "school",
+    "reading": ""
+  },
+  "zh-en-86": {
+    "source": "机场",
+    "target": "airport",
+    "reading": ""
+  },
+  "zh-en-87": {
+    "source": "公交车",
+    "target": "bus",
+    "reading": ""
+  },
+  "zh-en-88": {
+    "source": "晚饭",
+    "target": "dinner",
+    "reading": ""
+  },
+  "zh-en-89": {
+    "source": "门",
+    "target": "door",
+    "reading": ""
+  },
+  "zh-en-90": {
+    "source": "房子",
+    "target": "house",
+    "reading": ""
+  },
+  "zh-en-91": {
+    "source": "午饭",
+    "target": "lunch",
+    "reading": ""
+  },
+  "zh-en-92": {
+    "source": "会议",
+    "target": "meeting",
+    "reading": ""
+  },
+  "zh-en-93": {
+    "source": "办公室",
+    "target": "office",
+    "reading": ""
+  },
+  "zh-en-94": {
+    "source": "电话",
+    "target": "phone",
+    "reading": ""
+  },
+  "zh-en-95": {
+    "source": "雨",
+    "target": "rain",
+    "reading": ""
+  },
+  "zh-en-96": {
+    "source": "学校",
+    "target": "school",
+    "reading": ""
+  },
+  "ja-en-97": {
+    "source": "空港",
+    "target": "airport",
+    "reading": ""
+  },
+  "ja-en-98": {
+    "source": "バス",
+    "target": "bus",
+    "reading": ""
+  },
+  "ja-en-99": {
+    "source": "夕食",
+    "target": "dinner",
+    "reading": ""
+  },
+  "ja-en-100": {
+    "source": "ドア",
+    "target": "door",
+    "reading": ""
+  },
+  "ja-en-101": {
+    "source": "家",
+    "target": "house",
+    "reading": ""
+  },
+  "ja-en-102": {
+    "source": "昼食",
+    "target": "lunch",
+    "reading": ""
+  },
+  "ja-en-103": {
+    "source": "会議",
+    "target": "meeting",
+    "reading": ""
+  },
+  "ja-en-104": {
+    "source": "事務所",
+    "target": "office",
+    "reading": ""
+  },
+  "ja-en-105": {
+    "source": "電話",
+    "target": "phone",
+    "reading": ""
+  },
+  "ja-en-106": {
+    "source": "雨",
+    "target": "rain",
+    "reading": ""
+  },
+  "ja-en-107": {
+    "source": "学校",
+    "target": "school",
+    "reading": ""
+  },
+  "ko-en-108": {
+    "source": "공항",
+    "target": "airport",
+    "reading": ""
+  },
+  "ko-en-109": {
+    "source": "버스",
+    "target": "bus",
+    "reading": ""
+  },
+  "ko-en-110": {
+    "source": "문",
+    "target": "door",
+    "reading": ""
+  },
+  "ko-en-111": {
+    "source": "점심",
+    "target": "lunch",
+    "reading": ""
+  },
+  "ko-en-112": {
+    "source": "회의",
+    "target": "meeting",
+    "reading": ""
+  },
+  "ko-en-113": {
+    "source": "사무실",
+    "target": "office",
+    "reading": ""
+  },
+  "ko-en-114": {
+    "source": "전화",
+    "target": "phone",
+    "reading": ""
+  },
+  "ko-en-115": {
+    "source": "비",
+    "target": "rain",
+    "reading": ""
+  },
+  "ko-en-116": {
+    "source": "학교",
+    "target": "school",
+    "reading": ""
+  },
+  "negative-117": {
+    "negative": true
+  },
+  "negative-118": {
+    "negative": true
+  },
+  "negative-119": {
+    "negative": true
+  }
+}

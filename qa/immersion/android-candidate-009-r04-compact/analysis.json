@@ -1,0 +1,432 @@
+{
+  "counts": {
+    "automatic_spans miss": 37,
+    "direct_spans exact": 104,
+    "automatic_spans exact": 76,
+    "direct_spans miss": 9
+  },
+  "negatives": [
+    [
+      "negative-72",
+      "I train every day.",
+      [],
+      []
+    ],
+    [
+      "negative-73",
+      "It will rain tomorrow.",
+      [
+        [
+          "tomorrow",
+          "mañana"
+        ]
+      ],
+      [
+        [
+          "tomorrow",
+          "mañana"
+        ]
+      ]
+    ],
+    [
+      "negative-74",
+      "Lei la porta a casa.",
+      [],
+      []
+    ],
+    [
+      "negative-75",
+      "Il écrit au bureau en bois.",
+      [],
+      []
+    ],
+    [
+      "negative-117",
+      "والمطار",
+      [],
+      []
+    ],
+    [
+      "negative-118",
+      "공항에서도",
+      [],
+      []
+    ],
+    [
+      "negative-119",
+      "听音乐会",
+      [],
+      []
+    ]
+  ],
+  "misses": [
+    [
+      "en-es-0",
+      "automatic_spans",
+      "the airport",
+      "airport",
+      "aeropuerto",
+      []
+    ],
+    [
+      "en-es-2",
+      "automatic_spans",
+      "dinner is ready",
+      "dinner",
+      "cena",
+      []
+    ],
+    [
+      "es-en-11",
+      "automatic_spans",
+      "el aeropuerto",
+      "aeropuerto",
+      "airport",
+      []
+    ],
+    [
+      "es-en-13",
+      "automatic_spans",
+      "la cena está lista",
+      "cena",
+      "dinner",
+      []
+    ],
+    [
+      "es-en-18",
+      "automatic_spans",
+      "en la oficina",
+      "oficina",
+      "office",
+      []
+    ],
+    [
+      "es-en-20",
+      "automatic_spans",
+      "la lluvia ha parado",
+      "lluvia",
+      "rain",
+      []
+    ],
+    [
+      "fr-en-22",
+      "automatic_spans",
+      "l’aéroport",
+      "aéroport",
+      "airport",
+      []
+    ],
+    [
+      "fr-en-22",
+      "direct_spans",
+      "l’aéroport",
+      "aéroport",
+      "airport",
+      []
+    ],
+    [
+      "fr-en-23",
+      "automatic_spans",
+      "le bus est en retard",
+      "bus",
+      "bus",
+      []
+    ],
+    [
+      "fr-en-23",
+      "direct_spans",
+      "le bus est en retard",
+      "bus",
+      "bus",
+      []
+    ],
+    [
+      "fr-en-25",
+      "automatic_spans",
+      "ferme la porte",
+      "porte",
+      "door",
+      []
+    ],
+    [
+      "fr-en-26",
+      "automatic_spans",
+      "la maison a un jardin",
+      "maison",
+      "house",
+      []
+    ],
+    [
+      "fr-en-31",
+      "automatic_spans",
+      "l’école est près",
+      "école",
+      "school",
+      []
+    ],
+    [
+      "fr-en-31",
+      "direct_spans",
+      "l’école est près",
+      "école",
+      "school",
+      []
+    ],
+    [
+      "de-en-33",
+      "automatic_spans",
+      "der Bus hat Verspätung",
+      "Bus",
+      "bus",
+      []
+    ],
+    [
+      "de-en-33",
+      "direct_spans",
+      "der Bus hat Verspätung",
+      "Bus",
+      "bus",
+      []
+    ],
+    [
+      "de-en-39",
+      "automatic_spans",
+      "im Büro",
+      "Büro",
+      "office",
+      []
+    ],
+    [
+      "de-en-40",
+      "automatic_spans",
+      "das Telefon klingelt",
+      "Telefon",
+      "phone",
+      []
+    ],
+    [
+      "it-en-43",
+      "automatic_spans",
+      "all’aeroporto",
+      "aeroporto",
+      "airport",
+      []
+    ],
+    [
+      "it-en-43",
+      "direct_spans",
+      "all’aeroporto",
+      "aeroporto",
+      "airport",
+      []
+    ],
+    [
+      "it-en-44",
+      "automatic_spans",
+      "l’autobus è in ritardo",
+      "autobus",
+      "bus",
+      []
+    ],
+    [
+      "it-en-44",
+      "direct_spans",
+      "l’autobus è in ritardo",
+      "autobus",
+      "bus",
+      []
+    ],
+    [
+      "it-en-45",
+      "automatic_spans",
+      "la cena è pronta",
+      "cena",
+      "dinner",
+      []
+    ],
+    [
+      "it-en-46",
+      "automatic_spans",
+      "chiudi la porta",
+      "porta",
+      "door",
+      []
+    ],
+    [
+      "it-en-47",
+      "automatic_spans",
+      "la casa ha un giardino",
+      "casa",
+      "house",
+      []
+    ],
+    [
+      "it-en-49",
+      "automatic_spans",
+      "la riunione inizia",
+      "riunione",
+      "meeting",
+      []
+    ],
+    [
+      "it-en-51",
+      "automatic_spans",
+      "il telefono sta squillando",
+      "telefono",
+      "phone",
+      []
+    ],
+    [
+      "pt-en-54",
+      "automatic_spans",
+      "o aeroporto",
+      "aeroporto",
+      "airport",
+      []
+    ],
+    [
+      "pt-en-61",
+      "automatic_spans",
+      "no escritório",
+      "escritório",
+      "office",
+      []
+    ],
+    [
+      "pt-en-63",
+      "automatic_spans",
+      "a chuva parou",
+      "chuva",
+      "rain",
+      []
+    ],
+    [
+      "sw-en-67",
+      "automatic_spans",
+      "nyumba ina bustani",
+      "nyumba",
+      "house",
+      []
+    ],
+    [
+      "sw-en-69",
+      "automatic_spans",
+      "simu inaita",
+      "simu",
+      "phone",
+      []
+    ],
+    [
+      "ar-en-76",
+      "automatic_spans",
+      "المطار",
+      "مطار",
+      "airport",
+      []
+    ],
+    [
+      "ar-en-77",
+      "automatic_spans",
+      "الحافلة متأخرة",
+      "حافلة",
+      "bus",
+      []
+    ],
+    [
+      "ar-en-78",
+      "automatic_spans",
+      "العشاء جاهز",
+      "عشاء",
+      "dinner",
+      []
+    ],
+    [
+      "ar-en-80",
+      "automatic_spans",
+      "الغداء جاهز",
+      "غداء",
+      "lunch",
+      []
+    ],
+    [
+      "ar-en-83",
+      "automatic_spans",
+      "الهاتف يرن",
+      "هاتف",
+      "phone",
+      []
+    ],
+    [
+      "ar-en-84",
+      "automatic_spans",
+      "توقف المطر",
+      "مطر",
+      "rain",
+      []
+    ],
+    [
+      "zh-en-86",
+      "automatic_spans",
+      "去机场",
+      "机场",
+      "airport",
+      []
+    ],
+    [
+      "zh-en-87",
+      "automatic_spans",
+      "公交车晚点",
+      "公交车",
+      "bus",
+      []
+    ],
+    [
+      "zh-en-87",
+      "direct_spans",
+      "公交车晚点",
+      "公交车",
+      "bus",
+      []
+    ],
+    [
+      "zh-en-89",
+      "automatic_spans",
+      "关门",
+      "门",
+      "door",
+      []
+    ],
+    [
+      "zh-en-89",
+      "direct_spans",
+      "关门",
+      "门",
+      "door",
+      []
+    ],
+    [
+      "zh-en-93",
+      "automatic_spans",
+      "在办公室",
+      "办公室",
+      "office",
+      []
+    ],
+    [
+      "zh-en-93",
+      "direct_spans",
+      "在办公室",
+      "办公室",
+      "office",
+      []
+    ],
+    [
+      "zh-en-95",
+      "automatic_spans",
+      "雨停了",
+      "雨",
+      "rain",
+      []
+    ]
+  ]
+}

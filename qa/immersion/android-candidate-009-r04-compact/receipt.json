@@ -1,0 +1,11 @@
+{
+  "candidate": "009-r04 inactive",
+  "complete": true,
+  "wifi_before": "1",
+  "mobile_before": "1",
+  "fixture_sha256": "2cd59eae392d29543de70749b3240f3137031fb7d2907472d454954325c130bf",
+  "passed": true,
+  "private_state_byte_identical": true,
+  "wifi_after": "1",
+  "mobile_after": "1"
+}

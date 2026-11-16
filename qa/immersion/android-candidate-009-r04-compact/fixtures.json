@@ -1,0 +1,726 @@
+{
+  "schema": "vipi-compact-candidate-probes",
+  "limitations": "pattern-derived diagnostic; not holdout or population evidence",
+  "cases": [
+    {
+      "id": "en-es-0",
+      "original": "the airport",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "en-es-1",
+      "original": "the bus is late",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "en-es-2",
+      "original": "dinner is ready",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "en-es-3",
+      "original": "close the door",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "en-es-4",
+      "original": "the house has a garden",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "en-es-5",
+      "original": "lunch is ready",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "en-es-6",
+      "original": "the meeting starts",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "en-es-7",
+      "original": "at the office",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "en-es-8",
+      "original": "the phone is ringing",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "en-es-9",
+      "original": "the rain has stopped",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "en-es-10",
+      "original": "the school is near",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "es-en-11",
+      "original": "el aeropuerto",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "id": "es-en-12",
+      "original": "el autobús llega",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "id": "es-en-13",
+      "original": "la cena está lista",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "id": "es-en-14",
+      "original": "cierra la puerta",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "id": "es-en-15",
+      "original": "la casa tiene un jardín",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "id": "es-en-16",
+      "original": "el almuerzo está listo",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "id": "es-en-17",
+      "original": "la reunión empieza",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "id": "es-en-18",
+      "original": "en la oficina",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "id": "es-en-19",
+      "original": "el teléfono está sonando",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "id": "es-en-20",
+      "original": "la lluvia ha parado",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "id": "es-en-21",
+      "original": "la escuela está cerca",
+      "source_language": "es",
+      "target_language": "en"
+    },
+    {
+      "id": "fr-en-22",
+      "original": "l’aéroport",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "id": "fr-en-23",
+      "original": "le bus est en retard",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "id": "fr-en-24",
+      "original": "le dîner est prêt",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "id": "fr-en-25",
+      "original": "ferme la porte",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "id": "fr-en-26",
+      "original": "la maison a un jardin",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "id": "fr-en-27",
+      "original": "le déjeuner est prêt",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "id": "fr-en-28",
+      "original": "la réunion commence",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "id": "fr-en-29",
+      "original": "le téléphone sonne",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "id": "fr-en-30",
+      "original": "la pluie s’est arrêtée",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "id": "fr-en-31",
+      "original": "l’école est près",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "id": "de-en-32",
+      "original": "zum Flughafen",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "id": "de-en-33",
+      "original": "der Bus hat Verspätung",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "id": "de-en-34",
+      "original": "das Abendessen ist fertig",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "id": "de-en-35",
+      "original": "schließ die Tür",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "id": "de-en-36",
+      "original": "das Haus hat einen Garten",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "id": "de-en-37",
+      "original": "das Mittagessen ist fertig",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "id": "de-en-38",
+      "original": "die Besprechung beginnt",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "id": "de-en-39",
+      "original": "im Büro",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "id": "de-en-40",
+      "original": "das Telefon klingelt",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "id": "de-en-41",
+      "original": "der Regen hat aufgehört",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "id": "de-en-42",
+      "original": "die Schule ist in der Nähe",
+      "source_language": "de",
+      "target_language": "en"
+    },
+    {
+      "id": "it-en-43",
+      "original": "all’aeroporto",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "it-en-44",
+      "original": "l’autobus è in ritardo",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "it-en-45",
+      "original": "la cena è pronta",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "it-en-46",
+      "original": "chiudi la porta",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "it-en-47",
+      "original": "la casa ha un giardino",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "it-en-48",
+      "original": "il pranzo è pronto",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "it-en-49",
+      "original": "la riunione inizia",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "it-en-50",
+      "original": "in ufficio",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "it-en-51",
+      "original": "il telefono sta squillando",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "it-en-52",
+      "original": "la pioggia è finita",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "it-en-53",
+      "original": "la scuola è vicino al parco",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "pt-en-54",
+      "original": "o aeroporto",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "id": "pt-en-55",
+      "original": "o ônibus está atrasado",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "id": "pt-en-56",
+      "original": "o jantar está pronto",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "id": "pt-en-57",
+      "original": "feche a porta",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "id": "pt-en-58",
+      "original": "a casa tem um jardim",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "id": "pt-en-59",
+      "original": "o almoço está pronto",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "id": "pt-en-60",
+      "original": "a reunião começa",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "id": "pt-en-61",
+      "original": "no escritório",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "id": "pt-en-62",
+      "original": "o telefone está tocando",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "id": "pt-en-63",
+      "original": "a chuva parou",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "id": "pt-en-64",
+      "original": "a escola fica perto",
+      "source_language": "pt",
+      "target_language": "en"
+    },
+    {
+      "id": "sw-en-65",
+      "original": "basi limechelewa",
+      "source_language": "sw",
+      "target_language": "en"
+    },
+    {
+      "id": "sw-en-66",
+      "original": "funga mlango",
+      "source_language": "sw",
+      "target_language": "en"
+    },
+    {
+      "id": "sw-en-67",
+      "original": "nyumba ina bustani",
+      "source_language": "sw",
+      "target_language": "en"
+    },
+    {
+      "id": "sw-en-68",
+      "original": "mkutano unaanza",
+      "source_language": "sw",
+      "target_language": "en"
+    },
+    {
+      "id": "sw-en-69",
+      "original": "simu inaita",
+      "source_language": "sw",
+      "target_language": "en"
+    },
+    {
+      "id": "sw-en-70",
+      "original": "mvua imekoma",
+      "source_language": "sw",
+      "target_language": "en"
+    },
+    {
+      "id": "sw-en-71",
+      "original": "shule iko karibu",
+      "source_language": "sw",
+      "target_language": "en"
+    },
+    {
+      "id": "negative-72",
+      "original": "I train every day.",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "negative-73",
+      "original": "It will rain tomorrow.",
+      "source_language": "en",
+      "target_language": "es"
+    },
+    {
+      "id": "negative-74",
+      "original": "Lei la porta a casa.",
+      "source_language": "it",
+      "target_language": "en"
+    },
+    {
+      "id": "negative-75",
+      "original": "Il écrit au bureau en bois.",
+      "source_language": "fr",
+      "target_language": "en"
+    },
+    {
+      "id": "ar-en-76",
+      "original": "المطار",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "id": "ar-en-77",
+      "original": "الحافلة متأخرة",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "id": "ar-en-78",
+      "original": "العشاء جاهز",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "id": "ar-en-79",
+      "original": "أغلق الباب",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "id": "ar-en-80",
+      "original": "الغداء جاهز",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "id": "ar-en-81",
+      "original": "الاجتماع عند الظهر",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "id": "ar-en-82",
+      "original": "في المكتب",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "id": "ar-en-83",
+      "original": "الهاتف يرن",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "id": "ar-en-84",
+      "original": "توقف المطر",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "id": "ar-en-85",
+      "original": "المدرسة قريبة",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "id": "zh-en-86",
+      "original": "去机场",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "id": "zh-en-87",
+      "original": "公交车晚点",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "id": "zh-en-88",
+      "original": "晚饭准备好了",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "id": "zh-en-89",
+      "original": "关门",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "id": "zh-en-90",
+      "original": "这座房子",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "id": "zh-en-91",
+      "original": "午饭准备好了",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "id": "zh-en-92",
+      "original": "会议中午开始",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "id": "zh-en-93",
+      "original": "在办公室",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "id": "zh-en-94",
+      "original": "电话响了",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "id": "zh-en-95",
+      "original": "雨停了",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "id": "zh-en-96",
+      "original": "学校在公园附近",
+      "source_language": "zh",
+      "target_language": "en"
+    },
+    {
+      "id": "ja-en-97",
+      "original": "空港に行きます",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "id": "ja-en-98",
+      "original": "バスが遅れています",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "id": "ja-en-99",
+      "original": "夕食ができました",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "id": "ja-en-100",
+      "original": "ドアを閉めて",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "id": "ja-en-101",
+      "original": "その家には庭",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "id": "ja-en-102",
+      "original": "昼食ができました",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "id": "ja-en-103",
+      "original": "会議は正午に",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "id": "ja-en-104",
+      "original": "事務所にいます",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "id": "ja-en-105",
+      "original": "電話が鳴っています",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "id": "ja-en-106",
+      "original": "雨がやみました",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "id": "ja-en-107",
+      "original": "学校は公園の近く",
+      "source_language": "ja",
+      "target_language": "en"
+    },
+    {
+      "id": "ko-en-108",
+      "original": "공항에 가고",
+      "source_language": "ko",
+      "target_language": "en"
+    },
+    {
+      "id": "ko-en-109",
+      "original": "버스가 늦어요",
+      "source_language": "ko",
+      "target_language": "en"
+    },
+    {
+      "id": "ko-en-110",
+      "original": "문을 닫아",
+      "source_language": "ko",
+      "target_language": "en"
+    },
+    {
+      "id": "ko-en-111",
+      "original": "점심이 준비됐어요",
+      "source_language": "ko",
+      "target_language": "en"
+    },
+    {
+      "id": "ko-en-112",
+      "original": "회의는 정오에",
+      "source_language": "ko",
+      "target_language": "en"
+    },
+    {
+      "id": "ko-en-113",
+      "original": "사무실에 있어요",
+      "source_language": "ko",
+      "target_language": "en"
+    },
+    {
+      "id": "ko-en-114",
+      "original": "전화가 울리고",
+      "source_language": "ko",
+      "target_language": "en"
+    },
+    {
+      "id": "ko-en-115",
+      "original": "비가 그쳤어요",
+      "source_language": "ko",
+      "target_language": "en"
+    },
+    {
+      "id": "ko-en-116",
+      "original": "학교는 공원 근처",
+      "source_language": "ko",
+      "target_language": "en"
+    },
+    {
+      "id": "negative-117",
+      "original": "والمطار",
+      "source_language": "ar",
+      "target_language": "en"
+    },
+    {
+      "id": "negative-118",
+      "original": "공항에서도",
+      "source_language": "ko",
+      "target_language": "en"
+    },
+    {
+      "id": "negative-119",
+      "original": "听音乐会",
+      "source_language": "zh",
+      "target_language": "en"
+    }
+  ]
+}
