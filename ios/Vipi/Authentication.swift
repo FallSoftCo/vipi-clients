@@ -103,7 +103,14 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
         defer { busy = false; KeychainStore.delete(account: "pending-sign-in") }
         do {
             guard let data = try KeychainStore.read(account: "pending-sign-in"),
-                  let pending = try? JSONDecoder().decode(PendingSignIn.self, from: data), (0..<600).contains(Date().timeIntervalSince(pending.createdAt)),
+                  let pending = try? JSONDecoder().decode(PendingSignIn.self, from: data) else {
+                errorMessage = String(localized: "We couldn’t verify this sign-in. Please start again."); return
+            }
+            let age = Date().timeIntervalSince(pending.createdAt)
+            if age >= 600 {
+                errorMessage = String(localized: "This sign-in attempt expired. Please start again."); return
+            }
+            guard age >= 0,
                   let parts = URLComponents(url: url, resolvingAgainstBaseURL: false),
                   let items = parts.queryItems,
                   items.filter({ $0.name == "state" }).count == 1,

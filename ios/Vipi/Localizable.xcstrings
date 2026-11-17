@@ -29251,6 +29251,89 @@
         }
       }
     },
+    "This sign-in attempt expired. Please start again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This sign-in attempt expired. Please start again."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "انتهت صلاحية محاولة تسجيل الدخول. يُرجى البدء من جديد."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dieser Anmeldeversuch ist abgelaufen. Bitte beginne erneut."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Este intento de inicio de sesión ha caducado. Vuelve a empezar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Cette tentative de connexion a expiré. Veuillez recommencer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Questo tentativo di accesso è scaduto. Ricomincia."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このログイン操作の有効期限が切れました。最初からやり直してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "로그인 시도가 만료되었습니다. 다시 시작해 주세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta tentativa de login expirou. Comece novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta tentativa de início de sessão expirou. Comece novamente."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Jaribio hili la kuingia limeisha muda. Tafadhali anza tena."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此次登录尝试已过期。请重新开始。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "這次登入嘗試已過期，請重新開始。"
+          }
+        }
+      }
+    },
     "We couldn’t verify this sign-in. Please start again.": {
       "extractionState": "manual",
       "localizations": {
