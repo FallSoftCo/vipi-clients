@@ -109,3 +109,17 @@ async def test_enforced_message_send_expires_but_inbox_remains_readable(db):
     finally:
         await app.state.bot.close()
         await app.state.pubsub_verifier.close()
+
+
+async def test_trial_keeps_base_available_during_stale_bot_verification(db):
+    await set_trial(db, NOW, NOW + timedelta(days=30))
+    clock = [NOW]
+    service = Subscriptions(settings(purchase_outage_seconds=300), db, {}, lambda: clock[0])
+    await service.apply('alice', purchase(product='bot_mini'), NOW)
+    clock[0] += timedelta(seconds=301)
+    state = await service.snapshot('alice')
+    assert state['base']['active'] and state['base']['access_source'] == 'cardless_trial'
+    assert not state['bot_mini']['active'] and state['bot_mini']['verification_unavailable'] is True
+    assert (await service.require('alice'))['base']['active']
+    with pytest.raises(DeliveryError, match='purchase_verification_unavailable'):
+        await service.require('alice', bot=True)
