@@ -1,0 +1,35 @@
+{
+  "observed_at_utc": "2026-11-17T13:04:37.036092+00:00",
+  "app_id": "6832624092",
+  "owner_decision": "Initial launch excludes France and China mainland",
+  "availability": {
+    "app": "173 available on release; France and China mainland Not Available, after confirmation and readback",
+    "base": "vipi.base.annual: 173 of 175; confirmation named France and China mainland",
+    "bot": "vipi.botmini.annual: 173 of 175; confirmation named France and China mainland",
+    "future_storefronts": "App UI confirmation says automatically available in future countries or regions",
+    "prices_and_offers": "Not edited",
+    "localizations": "Not edited"
+  },
+  "build": {
+    "version": "1.0",
+    "number": "2",
+    "id": "9367242c-b819-4bc7-9ade-6e192a12c43e",
+    "export_compliance": "Standard algorithms beyond or in addition to Apple operating-system encryption selected; France No; saved once",
+    "radio_rechecked": "standard=true, proprietary=false, both=false, none=false",
+    "apple_message_anomaly": "Since your build doesn’t contain encryption, you can specify this in the information property list (Info.plist) in your Xcode project to avoid answering encryption questions with each app submission.",
+    "note": "The application uses encryption; the above contradictory generic Apple UI message is retained as observed, not adopted as a product claim.",
+    "after_reload": "Provide Export Compliance button absent; TestFlight Ready to Submit",
+    "groups": 0,
+    "individual_testers": 0,
+    "associated_version": "1.0 draft displays build 2 after save and reload"
+  },
+  "release": "Manual release selected",
+  "mac_app_store_availability": "Checked, observed read-only",
+  "remaining_review_evidence": "App pricing page displayed Add Pricing; product-review screenshot fields and production purchase qualification remain to be reconciled.",
+  "excluded_actions": [
+    "new build or upload",
+    "TestFlight distribution",
+    "review submission",
+    "price or offer changes"
+  ]
+}
