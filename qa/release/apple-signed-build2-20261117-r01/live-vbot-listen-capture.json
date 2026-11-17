@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-11-17T14:06:21.593876+00:00",
+  "scope": "One Listen on actual vBot reply in TestFlight build 1.0 (2)",
+  "presentation": "Latin reading; reply showed ongaku at initial menu capture",
+  "playback": "In-bubble Stop appeared after Listen; later menu showed Listen again",
+  "recorder": "App-filtered ScreenCaptureKit; one run; READY, exit 0; no microphone capture or video output",
+  "audio_path": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/sck-audio-qa-r01/vipi-listen.wav",
+  "sha256": "06f2d3fe55fcd556b3a68da404257fd29f8af0deef02287930dc35496e43cee8",
+  "recorder_report": {
+    "duration_seconds": 15.56,
+    "sample_rate": 48000,
+    "channels": 2,
+    "rms": 0.022842702991984258,
+    "peak": 0.5798260569572449,
+    "clipped": 0
+  },
+  "warning": "AVAudioFile ignored non-interleaved setting",
+  "permissions": "No new permission dialog observed",
+  "limitation": "Independent content and pronunciation inspection pending; no acoustic correctness claim."
+}
