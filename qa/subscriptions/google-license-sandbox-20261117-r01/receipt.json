@@ -1,0 +1,28 @@
+{
+  "scope": "One owned Google license-tester sandbox purchase on isolated emulator; no real payment.",
+  "package": "co.fallsoft.vipi",
+  "version_code": 1,
+  "distribution": "Play-generated signed universal APK sideloaded; Play Store installation not proven",
+  "apk_sha256": "d955c874eb5441d3c079dcd3ff01124ca26e036db4b214355296568b3eba3a57",
+  "play_signer_sha256": "4258feafd4bfc9ee885da6f1ffceae6abf98c0039304c2291fd3e6230adbef82",
+  "checkout": "Explicit test card, always approves; test subscription, no charge; accelerated three-minute trial then $12 per 30 minutes.",
+  "purchase": "One subscribe tap; Google reported payment successful and app reported active.",
+  "backend": "One verified base/google/Sandbox entitlement, non-revoked and non-superseded.",
+  "same_device_refresh": "Native restore/refresh left active access; verified_at advanced 02:09:47 to 02:10:31 UTC. Not cross-device restore.",
+  "renewal": "Trial expiry 2026-11-17T02:11:50.579Z transitioned to paid test period expiry 2026-11-17T02:41:50.579Z; verified at 02:12:07.141Z.",
+  "cancellation": "One native Play cancellation; Play reported canceled effective at period end, app still reported active until current access end.",
+  "lapse": "Not yet observed; planned readback after 02:41:50.579Z.",
+  "visual_qa": "Signed build plan screen inspected in dark theme and at 2x system text including scrolled actions; original font and theme restored. Not comprehensive accessibility certification.",
+  "private_screenshot_sha256": {
+    "test-checkout.private.png": "9bd76f4f247cff5d63fcc953d9edb9759e4164bfc674d12038366a1f4f54c560",
+    "test-canceled.private.png": "ce87e57c9ba00d2d9050ea877b5ca788740fd35409e9c5404807976b73e5472a",
+    "play-signed-plan-2x.private.png": "ef4ca9dfd49ea6b6261d32eba0f181b6f2b8ddc00c0e6a23eb78e7049d53cf71",
+    "play-signed-plan-2x-scrolled.private.png": "a650501b92fbfbd0e23b6ab14f974bd9e69a3e0fcf47bde7ac5bea64f0a2d5c7",
+    "play-signed-plan-dark.private.png": "69817a939ff13b69b3dce96dc6b92e8a7189d336e775ff118a37b658f100a834"
+  },
+  "limitations": [
+    "Play-delivered install failed twice and is not proven.",
+    "No cross-device familiarity or message restore claim.",
+    "No further purchase or cancellation retry."
+  ]
+}
