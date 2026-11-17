@@ -431,4 +431,5 @@
     <string name="lookup_download">언어 다운로드</string>
     <string name="lookup_translate_play">번역하고 듣기</string>
     <string name="lookup_play_message">메시지 재생</string>
+    <string name="lookup_unsupported">이 기기에서는 이 언어 조합의 번역을 지원하지 않습니다.</string>
 </resources>

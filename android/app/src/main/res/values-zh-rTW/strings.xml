@@ -431,4 +431,5 @@
     <string name="lookup_download">下載語言</string>
     <string name="lookup_translate_play">翻譯並聆聽</string>
     <string name="lookup_play_message">播放訊息</string>
+    <string name="lookup_unsupported">此裝置不支援這兩種語言之間的翻譯。</string>
 </resources>

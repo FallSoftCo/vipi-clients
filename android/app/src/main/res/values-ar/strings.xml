@@ -446,4 +446,5 @@
     <string name="lookup_download">تنزيل اللغات</string>
     <string name="lookup_translate_play">ترجم واستمع</string>
     <string name="lookup_play_message">تشغيل الرسالة</string>
+    <string name="lookup_unsupported">الترجمة بين هاتين اللغتين غير مدعومة على هذا الجهاز.</string>
 </resources>

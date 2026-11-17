@@ -434,4 +434,5 @@
     <string name="lookup_download">Scarica le lingue</string>
     <string name="lookup_translate_play">Traduci e ascolta</string>
     <string name="lookup_play_message">Riproduci il messaggio</string>
+    <string name="lookup_unsupported">La traduzione per questa coppia di lingue non è supportata su questo dispositivo.</string>
 </resources>

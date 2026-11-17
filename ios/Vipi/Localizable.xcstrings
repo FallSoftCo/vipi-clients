@@ -36893,6 +36893,88 @@
           }
         }
       }
+    },
+    "Translation isn’t supported for this language pair on this device.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Translation isn’t supported for this language pair on this device."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "الترجمة بين هاتين اللغتين غير مدعومة على هذا الجهاز."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die Übersetzung für dieses Sprachpaar wird auf diesem Gerät nicht unterstützt."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Este dispositivo no admite la traducción entre estos idiomas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La traduction entre ces langues n’est pas prise en charge sur cet appareil."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La traduzione per questa coppia di lingue non è supportata su questo dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このデバイスでは、この言語の組み合わせでの翻訳に対応していません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 기기에서는 이 언어 조합의 번역을 지원하지 않습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A tradução entre esses idiomas não é compatível com este dispositivo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A tradução entre estes idiomas não é suportada neste dispositivo."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Kifaa hiki hakitumii tafsiri kati ya lugha hizi."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此设备不支持这两种语言之间的翻译。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此裝置不支援這兩種語言之間的翻譯。"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

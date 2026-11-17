@@ -63,4 +63,5 @@
     <string name="lookup_download">Download languages</string>
     <string name="lookup_translate_play">Translate and listen</string>
     <string name="lookup_play_message">Play message</string>
+    <string name="lookup_unsupported">Translation isn’t supported for this language pair on this device.</string>
 </resources>

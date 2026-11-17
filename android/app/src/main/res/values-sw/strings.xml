@@ -434,4 +434,5 @@
     <string name="lookup_download">Pakua lugha</string>
     <string name="lookup_translate_play">Tafsiri na usikilize</string>
     <string name="lookup_play_message">Sikiliza ujumbe</string>
+    <string name="lookup_unsupported">Kifaa hiki hakitumii tafsiri kati ya lugha hizi.</string>
 </resources>

@@ -434,4 +434,5 @@
     <string name="lookup_download">Sprachen herunterladen</string>
     <string name="lookup_translate_play">Übersetzen und anhören</string>
     <string name="lookup_play_message">Nachricht abspielen</string>
+    <string name="lookup_unsupported">Die Übersetzung für dieses Sprachpaar wird auf diesem Gerät nicht unterstützt.</string>
 </resources>
