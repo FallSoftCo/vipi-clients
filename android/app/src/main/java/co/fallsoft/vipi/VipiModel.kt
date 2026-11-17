@@ -148,6 +148,13 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
         Screen.BOT_PLAN -> if (bot != null) Screen.BOT else Screen.HOME
         else -> Screen.HOME
     }) }
+    internal fun beginFallsoftLink(context: android.content.Context) {
+        val current = chat ?: return
+        val account = current.profile?.id ?: return
+        val device = current.eventDevice() ?: return
+        if (current.userID != authentication.userID || !authentication.canLinkFallsoft) return
+        authentication.beginFallsoftLink(context, account, device)
+    }
     fun downloadLanguage(cellularAllowed: Boolean) = viewModelScope.launch {
         if (modelBusy) return@launch
         modelBusy = true; modelMessage = null

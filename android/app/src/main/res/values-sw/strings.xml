@@ -437,4 +437,6 @@
     <string name="lookup_unsupported">Kifaa hiki hakitumii tafsiri kati ya lugha hizi.</string>
     <string name="lookup_translate_message">Tafsiri ujumbe</string>
     <string name="deletion_fallsoft_retained">Akaunti yako ya kuingia kwenye Fallsoft na akaunti zako katika programu nyingine za Fallsoft zitabaki.</string>
+    <string name="fallsoft_link_title">Tumia akaunti yako ya Fallsoft</string>
+    <string name="fallsoft_link_detail">Ingia tena katika Vipi, kisha unganisha akaunti yako ya Fallsoft. Gumzo, wasifu na kipindi chako cha awali cha majaribio vitahifadhiwa.</string>
 </resources>

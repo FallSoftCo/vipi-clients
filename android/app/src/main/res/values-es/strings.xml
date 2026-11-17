@@ -437,4 +437,6 @@
     <string name="lookup_unsupported">Este dispositivo no admite la traducción entre estos idiomas.</string>
     <string name="lookup_translate_message">Traducir mensaje</string>
     <string name="deletion_fallsoft_retained">Tu acceso a Fallsoft y tus cuentas en otras apps de Fallsoft se conservarán.</string>
+    <string name="fallsoft_link_title">Usa tu cuenta de Fallsoft</string>
+    <string name="fallsoft_link_detail">Vuelve a iniciar sesión en Vipi y después conecta tu cuenta de Fallsoft. Conservarás tus chats, tu perfil y tu periodo de prueba original.</string>
 </resources>

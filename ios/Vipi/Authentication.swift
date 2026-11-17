@@ -108,10 +108,11 @@ struct VipiSession: Codable, Sendable {
 struct PendingSignIn: Codable {
     let state: String; let verifier: String; let createdAt: Date; let expectedUser: String?; let authority: IdentityAuthority
     let link: IdentityLinkIntent?
-    init(state: String, verifier: String, createdAt: Date, expectedUser: String?, authority: IdentityAuthority, link: IdentityLinkIntent? = nil) {
-        self.state = state; self.verifier = verifier; self.createdAt = createdAt; self.expectedUser = expectedUser; self.authority = authority; self.link = link
+    let sourceLink: IdentityLinkIntent?
+    init(state: String, verifier: String, createdAt: Date, expectedUser: String?, authority: IdentityAuthority, link: IdentityLinkIntent? = nil, sourceLink: IdentityLinkIntent? = nil) {
+        self.state = state; self.verifier = verifier; self.createdAt = createdAt; self.expectedUser = expectedUser; self.authority = authority; self.link = link; self.sourceLink = sourceLink
     }
-    private enum Keys: String, CodingKey { case state, verifier, createdAt, expectedUser, link }
+    private enum Keys: String, CodingKey { case state, verifier, createdAt, expectedUser, link, sourceLink }
     init(from decoder: any Decoder) throws {
         let record = try decoder.container(keyedBy: Keys.self)
         state = try record.decode(String.self, forKey: .state)
@@ -120,6 +121,12 @@ struct PendingSignIn: Codable {
         expectedUser = try record.decodeIfPresent(String.self, forKey: .expectedUser)
         authority = try IdentityAuthority.read(from: decoder)
         link = try record.decodeIfPresent(IdentityLinkIntent.self, forKey: .link)
+        sourceLink = try record.decodeIfPresent(IdentityLinkIntent.self, forKey: .sourceLink)
+        guard link == nil || sourceLink == nil else { throw URLError(.userAuthenticationRequired) }
+        if let sourceLink {
+            try sourceLink.validate()
+            guard authority == .vipiProduction, expectedUser == sourceLink.oldUserID else { throw URLError(.userAuthenticationRequired) }
+        }
         if let link { try link.validate(); guard authority == .fallsoftVipiProduction else { throw URLError(.userAuthenticationRequired) } }
     }
     func encode(to encoder: any Encoder) throws {
@@ -129,6 +136,7 @@ struct PendingSignIn: Codable {
         try record.encode(createdAt, forKey: .createdAt)
         try record.encodeIfPresent(expectedUser, forKey: .expectedUser)
         try record.encodeIfPresent(link, forKey: .link)
+        try record.encodeIfPresent(sourceLink, forKey: .sourceLink)
         try authority.write(to: encoder)
     }
 }
@@ -207,6 +215,7 @@ private final class NoIdentityLinkRedirects: NSObject, URLSessionTaskDelegate, S
     private(set) var session: VipiSession?
     private(set) var busy = false
     var errorMessage: String?
+    var canLinkFallsoft: Bool { session?.authority == .vipiProduction }
     private var webSession: ASWebAuthenticationSession?
     private var refreshTask: Task<String, Error>?
     private var refreshID = UUID()
@@ -214,6 +223,8 @@ private final class NoIdentityLinkRedirects: NSObject, URLSessionTaskDelegate, S
     private let callback = "co.fallsoft.vipi://auth/callback"
     private let identityHTTP = URLSession(configuration: .ephemeral, delegate: NoIdentityLinkRedirects(), delegateQueue: nil)
     #if DEBUG
+    var qualificationSignInLaunch: ((URL) throws -> Void)?
+    var qualificationCodeExchange: ((String, String, IdentityAuthority) async throws -> VipiSession)?
     var qualificationLinkRequest: ((String, String, Data?, String, IdentityLinkIntent) async throws -> Data)?
     #endif
     private func storedSession() throws -> VipiSession? {
@@ -242,23 +253,24 @@ private final class NoIdentityLinkRedirects: NSObject, URLSessionTaskDelegate, S
         } catch { busy = false; errorMessage = String(localized: "We couldn’t start a secure sign-in. Please try again.") }
     }
 
-    private func launchSignIn(authority: IdentityAuthority, expectedUser: String?, provider: SignInProvider, link: IdentityLinkIntent? = nil) throws {
+    private func launchSignIn(authority: IdentityAuthority, expectedUser: String?, provider: SignInProvider, link: IdentityLinkIntent? = nil, sourceLink: IdentityLinkIntent? = nil) throws {
             let client = PublicClient(clientID: authority.clientID)
             let authorization = try client.getAuthorizationUrlWithPKCE(redirectUri: callback, provider: "authkit")
-            let pending = PendingSignIn(state: authorization.state, verifier: authorization.codeVerifier, createdAt: Date(), expectedUser: expectedUser, authority: authority, link: link)
+            let pending = PendingSignIn(state: authorization.state, verifier: authorization.codeVerifier, createdAt: Date(), expectedUser: expectedUser, authority: authority, link: link, sourceLink: sourceLink)
             try KeychainStore.save(JSONEncoder().encode(pending), account: "pending-sign-in")
             let url = try signInAuthorizationURL(authorization.url, provider: provider, reauthenticate: expectedUser != nil || link != nil)
             busy = true
+            #if DEBUG
+            if let qualificationSignInLaunch { try qualificationSignInLaunch(url); return }
+            #endif
             let auth = ASWebAuthenticationSession(url: url, callbackURLScheme: "co.fallsoft.vipi") { [weak self] callbackURL, error in
                 Task { @MainActor in
                     guard let self else { return }
+                    self.webSession = nil
                     if let callbackURL { await self.complete(callbackURL) }
                     else {
-                        self.busy = false
-                        KeychainStore.delete(account: "pending-sign-in")
-                        if (error as? ASWebAuthenticationSessionError)?.code != .canceledLogin { self.errorMessage = String(localized: "We couldn’t finish signing in. Please try again.") }
+                        self.finishCancelledSignIn(error)
                     }
-                    self.webSession = nil
                 }
             }
             auth.presentationContextProvider = self
@@ -268,6 +280,17 @@ private final class NoIdentityLinkRedirects: NSObject, URLSessionTaskDelegate, S
                 errorMessage = String(localized: "Sign-in couldn’t open. Please try again.")
             }
     }
+    private func finishCancelledSignIn(_ error: Error?) {
+        busy = false; KeychainStore.delete(account: "pending-sign-in")
+        if (error as? ASWebAuthenticationSessionError)?.code != .canceledLogin {
+            errorMessage = String(localized: "We couldn’t finish signing in. Please try again.")
+        }
+    }
+    #if DEBUG
+    func qualificationCancelSignIn() {
+        finishCancelledSignIn(NSError(domain: ASWebAuthenticationSessionError.errorDomain, code: ASWebAuthenticationSessionError.Code.canceledLogin.rawValue))
+    }
+    #endif
     /// Explicit migration; ordinary sign-in never links or replaces accounts.
     func beginFallsoftLink(accountID: UUID, device: DeviceCredential) {
         guard !busy else { return }; errorMessage = nil
@@ -279,21 +302,41 @@ private final class NoIdentityLinkRedirects: NSObject, URLSessionTaskDelegate, S
             if let previous { intent.expectedSharedUser = previous.candidate.userID }
             try intent.validate()
             guard intent.accountID == accountID, intent.oldUserID == current.userID, intent.deviceID == device.id, intent.deviceSecret == device.secret else { throw SessionFailure.accountChanged }
-            try launchSignIn(authority: .fallsoftVipiProduction, expectedUser: nil, provider: .email, link: intent)
-        } catch { errorMessage = String(localized: "We couldn’t start a secure sign-in. Please try again.") }
+            // One explicit action obtains both fresh proofs, never a refresh
+            // token substituted for the recent legacy sign-in requirement.
+            try launchSignIn(authority: .vipiProduction, expectedUser: current.userID, provider: .email, sourceLink: intent)
+        } catch { busy = false; KeychainStore.delete(account: "pending-sign-in"); errorMessage = String(localized: "We couldn’t start a secure sign-in. Please try again.") }
     }
     func complete(_ url: URL) async {
+        guard let intent = await consumeSignIn(url) else { return }
+        do {
+            guard let current = try storedSession(), current.isBound(to: .vipiProduction, subject: intent.oldUserID),
+                  session?.isBound(to: .vipiProduction, subject: intent.oldUserID) == true else { throw SessionFailure.accountChanged }
+            try launchSignIn(authority: .fallsoftVipiProduction, expectedUser: nil, provider: .email, link: intent)
+        } catch {
+            busy = false; KeychainStore.delete(account: "pending-sign-in")
+            errorMessage = String(localized: "We couldn’t start a secure sign-in. Please try again.")
+        }
+    }
+    private func exchangeCode(_ code: String, verifier: String, authority: IdentityAuthority) async throws -> VipiSession {
+        #if DEBUG
+        if let qualificationCodeExchange { return try await qualificationCodeExchange(code, verifier, authority) }
+        #endif
+        let result = try await PublicClient(clientID: authority.clientID).authenticateWithCode(code: code, codeVerifier: verifier)
+        return VipiSession(userID: result.user.id, accessToken: result.accessToken, refreshToken: result.refreshToken, authority: authority)
+    }
+    private func consumeSignIn(_ url: URL) async -> IdentityLinkIntent? {
         guard url.scheme == "co.fallsoft.vipi", url.host == "auth", url.path == "/callback",
-              url.port == nil, url.user == nil, url.password == nil, url.fragment == nil else { return }
+              url.port == nil, url.user == nil, url.password == nil, url.fragment == nil else { return nil }
         defer { busy = false; KeychainStore.delete(account: "pending-sign-in") }
         do {
             guard let data = try KeychainStore.read(account: "pending-sign-in"),
                   let pending = try? JSONDecoder().decode(PendingSignIn.self, from: data) else {
-                errorMessage = String(localized: "We couldn’t verify this sign-in. Please start again."); return
+                errorMessage = String(localized: "We couldn’t verify this sign-in. Please start again."); return nil
             }
             let age = Date().timeIntervalSince(pending.createdAt)
             if age >= 600 {
-                errorMessage = String(localized: "This sign-in attempt expired. Please start again."); return
+                errorMessage = String(localized: "This sign-in attempt expired. Please start again."); return nil
             }
             guard age >= 0,
                   let parts = URLComponents(url: url, resolvingAgainstBaseURL: false),
@@ -302,32 +345,37 @@ private final class NoIdentityLinkRedirects: NSObject, URLSessionTaskDelegate, S
                   items.first(where: { $0.name == "state" })?.value == pending.state,
                   items.filter({ $0.name == "code" }).count == 1,
                   let code = items.first(where: { $0.name == "code" })?.value, !code.isEmpty else {
-                errorMessage = String(localized: "We couldn’t verify this sign-in. Please start again."); return
+                errorMessage = String(localized: "We couldn’t verify this sign-in. Please start again."); return nil
             }
             KeychainStore.delete(account: "pending-sign-in")
             let generation = sessionGeneration
-            let client = PublicClient(clientID: pending.authority.clientID)
-            let result = try await client.authenticateWithCode(code: code, codeVerifier: pending.verifier)
+            let result = try await exchangeCode(code, verifier: pending.verifier, authority: pending.authority)
+            guard result.authority == pending.authority else { throw SessionFailure.accountChanged }
             guard generation == sessionGeneration else { throw SessionFailure.accountChanged }
             if let intent = pending.link {
                 guard session?.isBound(to: .vipiProduction, subject: intent.oldUserID) == true else { throw SessionFailure.accountChanged }
-                let candidate = VipiSession(userID: result.user.id, accessToken: result.accessToken, refreshToken: result.refreshToken, authority: pending.authority)
+                let candidate = VipiSession(userID: result.userID, accessToken: result.accessToken, refreshToken: result.refreshToken, authority: pending.authority)
                 let journal = try IdentityLinkJournal(intent: intent, candidate: candidate)
                 try KeychainStore.save(JSONEncoder().encode(journal), account: "pending-identity-link")
                 try await finishFallsoftLink(journal, generation: generation)
-                return
+                return nil
             }
-            if let expected = pending.expectedUser, result.user.id != expected {
-                errorMessage = String(localized: "Sign in to the same account to continue."); return
+            if let expected = pending.expectedUser, result.userID != expected {
+                errorMessage = String(localized: "Sign in to the same account to continue."); return nil
             }
-            if let session, !session.isBound(to: pending.authority, subject: result.user.id) {
-                errorMessage = String(localized: "Sign in to the same account to continue."); return
+            if let session, !session.isBound(to: pending.authority, subject: result.userID) {
+                errorMessage = String(localized: "Sign in to the same account to continue."); return nil
             }
-            let value = VipiSession(userID: result.user.id, accessToken: result.accessToken, refreshToken: result.refreshToken, authority: pending.authority)
+            let value = VipiSession(userID: result.userID, accessToken: result.accessToken, refreshToken: result.refreshToken, authority: pending.authority)
             try KeychainStore.save(JSONEncoder().encode(value), account: "session")
             sessionGeneration = UUID()
             session = value
+            if let intent = pending.sourceLink {
+                guard pending.authority == .vipiProduction, result.userID == intent.oldUserID else { throw SessionFailure.accountChanged }
+                return intent
+            }
         } catch { errorMessage = String(localized: "We couldn’t finish signing in. Please try again.") }
+        return nil
     }
     func resumeFallsoftLink() async {
         guard !busy else { return }; busy = true; errorMessage = nil
@@ -348,6 +396,7 @@ private final class NoIdentityLinkRedirects: NSObject, URLSessionTaskDelegate, S
                 sessionGeneration = UUID(); refreshID = UUID(); refreshTask?.cancel(); refreshTask = nil
             }
             session = current
+            try removeObsoleteLegacyProfile(journal)
             try KeychainStore.deleteChecked(account: "pending-identity-link")
             return
         }
@@ -374,7 +423,14 @@ private final class NoIdentityLinkRedirects: NSObject, URLSessionTaskDelegate, S
         guard let saved = try storedSession(), saved.isBound(to: .fallsoftVipiProduction, subject: next.userID),
               saved.accessToken == next.accessToken, saved.refreshToken == next.refreshToken else { throw SessionFailure.accountChanged }
         sessionGeneration = UUID(); refreshID = UUID(); refreshTask?.cancel(); refreshTask = nil; session = saved
+        try removeObsoleteLegacyProfile(verified)
         try KeychainStore.deleteChecked(account: "pending-identity-link")
+    }
+    private func removeObsoleteLegacyProfile(_ journal: IdentityLinkJournal) throws {
+        // The stable account UUID owns the vault. Only its obsolete subject
+        // cache is removed after the new profile/session are durable.
+        guard journal.intent.oldUserID != journal.candidate.userID else { return }
+        try KeychainStore.deleteChecked(account: "profile-" + journal.intent.oldUserID)
     }
     private func linkRequest(_ method: String, _ path: String, body: Data?, token: String, intent: IdentityLinkIntent) async throws -> Data {
         #if DEBUG

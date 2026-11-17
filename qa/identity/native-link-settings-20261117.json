@@ -1,0 +1,116 @@
+{
+  "state": "Qualified mocked native implementation; real owned-user linking is separate",
+  "implementation": {
+    "entry": "Single explicit Settings action only for authenticated saved legacy realm",
+    "proofSequence": "Same-user legacy sign-in with max_age0, then shared public PKCE max_age0; immutable old user/account UUID/device/request intent encrypted through both transactions",
+    "activation": "Existing verified link receipt and unchanged account UUID readback before durable shared session activation; no email matching/account creation",
+    "cancellation": "iOS actual ASWeb cancel-handler injection; Android provider cancellation callbacks. Neither stage activates a replacement identity or links on cancellation.",
+    "recovery": "Existing journal pins shared target and request; verified local activation recovery does not replay auth/backend calls",
+    "localProfileCleanup": "After durable shared activation, remove obsolete legacy subject profile cache on both normal success and verified recovery. Equal raw subjects across realms retain the current shared cache. Cancellation/pre-activation failures keep the old cache.",
+    "vaultScope": "iOS MessageVault folder/key messages-UUID and Android messages/UUID + co.fallsoft.vipi.messages.UUID retain the stable account UUID. Existing app-only erasure removes those same UUID storage/key scopes and current profile cache; no deletion code change."
+  },
+  "sourceSHA256": {
+    "ios/Vipi/Authentication.swift": "6bf0f78c74575a3579add83e3d2e6cf559d5860ac58b11d0c8432da4613cce2d",
+    "ios/Vipi/ChatSession.swift": "691ba97778602f11128ec184f9fc764e19f7dc01bdb9c28f5ca22717a3068c8d",
+    "ios/Vipi/HomeView.swift": "1935fb35335a05716b846525764797ad88b53e8a28b806e9b3f36d173b4b81f3",
+    "ios/Vipi/Localizable.xcstrings": "22693d6abbd42d609aceaca92bd30af6788430c43680681b9adc89cf263d41d0",
+    "ios/VipiCryptoTests/IdentityLinkCoordinatorTests.swift": "5b246500f30a4a432228a9413d3214ff9a345ba0dfc2027b449ee8d37289b6ab",
+    "android/app/src/main/java/co/fallsoft/vipi/Authentication.kt": "4040f6924ad3b2f67f9c1b189ec827a8ed26527d3ad0e5a736310ce018f7ae95",
+    "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt": "0143e3bf24abe57c98b865ac57d59f29015933b38897bdf7cea3ea9c1b692a4f",
+    "android/app/src/main/java/co/fallsoft/vipi/VipiModel.kt": "b590107a788eb0dd53f192257fa32d704ebd195568b2f8ac1bbe1444f1861e6f",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SignInProviderDeviceTest.kt": "87ffcfc0fb558b8fe3ebd2db2ba2805c37a6e3032fb71a668a48c6ec37827965",
+    "android/app/src/main/res/values-sw/strings.xml": "b86d513a082831fd1b0f1d342f4f9398d41b9eacd44961fa78edc86a7999ea87",
+    "android/app/src/main/res/values-it/strings.xml": "729234305003204c1c33c7f29dc28fc28349dfefe47acde8040cffa20ce320ab",
+    "android/app/src/main/res/values-ko/strings.xml": "4916cd65f201373e6cab7e126957caec0b659514287722456a0339da106a0f07",
+    "android/app/src/main/res/values-de/strings.xml": "fc9cf350f13218bb68505cfcd45f2c78d37a1c58d32f1b5f7320b35b66b10745",
+    "android/app/src/main/res/values-zh-rTW/strings.xml": "807435394a24e91970e725ec02ef3627888e1fe9a6ed0ccb11ebf551ff228409",
+    "android/app/src/main/res/values-ja/strings.xml": "995db3bacdc4e3444393658ee6aca27e797e4a137060cf1df98c60d33cdf159d",
+    "android/app/src/main/res/values-zh/strings.xml": "eb2e7c50410cb9f5355702f171fc56f6f6d3bb117af2f84bba27807f47e54961",
+    "android/app/src/main/res/values-ar/strings.xml": "23cee4b6e8c490f3ccc2e22d189ac5780b065abf25ae976b2baef5b979265eef",
+    "android/app/src/main/res/values-es/strings.xml": "a8d67895a585641d08469236eaf6e0321be6ef4859872e7c2dcdc5e0ef02f45b",
+    "android/app/src/main/res/values-pt-rPT/strings.xml": "1a2a55dad121ab37758198812addbd0b591dee0d58a38446988bde07cd97bb96",
+    "android/app/src/main/res/values-pt/strings.xml": "6bc937518c6792f98107fa12640674c666a5ecaa4ed04ae498cf743515e3f48c",
+    "android/app/src/main/res/values/strings.xml": "7886af8051dc456d9834337631d881969c100c0739a86274c933030c314156ed",
+    "android/app/src/main/res/values-fr/strings.xml": "4b0e9c6ee5df139f285ed2e2f5ba3b8a17ba1707aceeb17bc81a9a1cdd0bc58b"
+  },
+  "ios": {
+    "initialSuite": {
+      "passed": 19,
+      "failed": 0,
+      "receipt": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-r01/receipt.json",
+      "receiptSHA256": "201179bcdd902ca7fc8af1ea1c7ca3906ba56adf78f890704f1c2ad2dd7255ed"
+    },
+    "cacheRegression": {
+      "tests": 9,
+      "failures": 2,
+      "cause": "Initial edit omitted normal-success cache cleanup; seeded assertions caught both affected success paths",
+      "receipt": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-cache-r02/receipt.json"
+    },
+    "finalFocusedSuite": {
+      "passed": 9,
+      "failed": 0,
+      "seconds": 53.2,
+      "peakAdditionalDiskBytes": 275513344,
+      "receipt": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-cache-r03/receipt.json",
+      "receiptSHA256": "94cc2e239bbcfdfb091f8893ad4cc61efea358bc61076d109bbdb70fb8dc2b72"
+    },
+    "bundle": "co.fallsoft.vipi.uxqa",
+    "keychain": "co.fallsoft.vipi.uxqa.private",
+    "simulator": "E640C5EE-A159-48B7-99D0-E330E8781FAF",
+    "qaOnlyAuthDelta": "Only keychain service string differs from main production Auth source",
+    "nativeViews": [
+      "legacy-settings-explicit-link",
+      "shared-settings-no-link"
+    ],
+    "snapshots": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-r01/attachments",
+    "snapshotReview": "Independently viewed and accepted by root; synthetic profile/transport, no actual account/link"
+  },
+  "android": {
+    "initialSuite": {
+      "passed": 13,
+      "failed": 0,
+      "receipt": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-android-r19/mocked-tests-receipt.json"
+    },
+    "finalFocusedSuite": {
+      "passed": 7,
+      "failed": 0,
+      "receipt": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-cache-android-r20/mocked-tests-receipt.json",
+      "receiptSHA256": "0d666a0bd9aa64a2cf59b6d96eaa55b264eb64ff322886e1ad09d95f3f8023e0"
+    },
+    "emulator": "5624 owned isolated QA only",
+    "appSHA256": "0cad2d3e723503bae67a84ffdb0bc19a1e3b34e70be825e95a13f27b8e6f489c",
+    "testSHA256": "96a95ff9cd9d71884c94118df43ecebf27a9cfbb2f1738233e34667dfa577426",
+    "unchangedAssets": 1082,
+    "privateRecordsUnchangedAndEmptyAfterTests": true
+  },
+  "locales": [
+    "ar",
+    "de",
+    "en",
+    "es",
+    "fr",
+    "it",
+    "ja",
+    "ko",
+    "pt-BR",
+    "pt-PT",
+    "sw",
+    "zh-Hans",
+    "zh-Hant"
+  ],
+  "originalNinePilotFilesUntouched": true,
+  "actualAuthProfileLinkDeletionOrPurchaseActions": false,
+  "backendCallHoldRespected": true,
+  "gallery": {
+    "cardStaged": "vipi-shared-login-native-20261117",
+    "indexPublished": false,
+    "knownUnrelatedColdAssetBuildBlockerPreserved": true,
+    "checkerFailureReconciledNoRemainingProcess": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-r01/gallery-staged-checker-failure.json"
+  },
+  "limits": [
+    "Mocked lifecycle/caller proof is not a completed real account migration",
+    "Final release uses a clean committed-source snapshot; existing QA bundle/keychain/project overrides must not be exported",
+    "Shared reviewer provisioning/linking remains root-owned deliberate qualification; no public legacy population exists",
+    "Fresh install without a saved legacy authority uses configured shared sign-in; no email bridge/internal legacy signup route"
+  ]
+}

@@ -437,4 +437,6 @@
     <string name="lookup_unsupported">A tradução entre estes idiomas não é suportada neste dispositivo.</string>
     <string name="lookup_translate_message">Traduzir mensagem</string>
     <string name="deletion_fallsoft_retained">O seu acesso à Fallsoft e as suas contas noutras apps da Fallsoft serão mantidos.</string>
+    <string name="fallsoft_link_title">Usar a sua conta Fallsoft</string>
+    <string name="fallsoft_link_detail">Inicie sessão novamente no Vipi e depois associe a sua conta Fallsoft. As suas conversas, o perfil e o período de teste original serão mantidos.</string>
 </resources>

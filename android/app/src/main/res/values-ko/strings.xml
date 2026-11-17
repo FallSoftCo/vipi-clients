@@ -434,4 +434,6 @@
     <string name="lookup_unsupported">이 기기에서는 이 언어 조합의 번역을 지원하지 않습니다.</string>
     <string name="lookup_translate_message">메시지 번역</string>
     <string name="deletion_fallsoft_retained">Fallsoft 로그인 계정과 다른 Fallsoft 앱의 계정은 그대로 유지됩니다.</string>
+    <string name="fallsoft_link_title">Fallsoft 계정 사용</string>
+    <string name="fallsoft_link_detail">Vipi에 다시 로그인한 다음 Fallsoft 계정을 연결하세요. 채팅, 프로필 및 기존 체험 기간은 그대로 유지됩니다.</string>
 </resources>

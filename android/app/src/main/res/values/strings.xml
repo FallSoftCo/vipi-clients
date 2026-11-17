@@ -65,4 +65,6 @@
     <string name="lookup_play_message">Play message</string>
     <string name="lookup_unsupported">Translation isn’t supported for this language pair on this device.</string>
     <string name="lookup_translate_message">Translate message</string>
+    <string name="fallsoft_link_title">Use your Fallsoft login</string>
+    <string name="fallsoft_link_detail">Sign in to Vipi again, then connect your Fallsoft login. Your chats, profile and original trial stay with you.</string>
 </resources>

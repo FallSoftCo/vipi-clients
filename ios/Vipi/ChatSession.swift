@@ -57,8 +57,8 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     }
     #if DEBUG
     /// Isolated transport qualification: no account/keychain/vault is opened.
-    init(qualificationAPI: any ChatTransport, userID: String, ready: Bool = false) {
-        self.userID = userID; self.api = qualificationAPI; self.ready = ready
+    init(qualificationAPI: any ChatTransport, userID: String, ready: Bool = false, profile: ChatProfile? = nil) {
+        self.userID = userID; self.api = qualificationAPI; self.ready = ready; self.profile = profile
     }
     #endif
     private func open(_ value: ChatProfile) throws {
@@ -377,6 +377,10 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         catch { notice = String(localized: "Your saved conversations couldn’t be opened. Please try again.") }
     }
     private struct PushResult: Decodable {}
+    func identityLinkTarget(expectedUser: String) throws -> (accountID: UUID, device: DeviceCredential) {
+        guard userID == expectedUser, !closed, ready, !needsReauthentication, let profile, let core else { throw AuthenticationManager.SessionFailure.signInRequired }
+        return (profile.id, core.device)
+    }
     func setForeground(_ active: Bool) {
         guard active, ready, !needsReauthentication, !closed, let core, let api = api as? ServiceClient else { events?.stop(); return }
         if events == nil {

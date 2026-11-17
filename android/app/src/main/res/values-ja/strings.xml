@@ -434,4 +434,6 @@
     <string name="lookup_unsupported">このデバイスでは、この言語の組み合わせでの翻訳に対応していません。</string>
     <string name="lookup_translate_message">メッセージを翻訳</string>
     <string name="deletion_fallsoft_retained">Fallsoftへのログインと、ほかのFallsoftアプリのアカウントは引き続き利用できます。</string>
+    <string name="fallsoft_link_title">Fallsoftのアカウントを使う</string>
+    <string name="fallsoft_link_detail">Vipiにもう一度ログインしてから、Fallsoftのアカウントを連携します。チャット、プロフィール、元の試用期間はそのまま引き継がれます。</string>
 </resources>

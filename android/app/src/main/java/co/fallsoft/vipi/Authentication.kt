@@ -237,6 +237,27 @@ class Authentication(context: Context) {
     var signInRevision by mutableStateOf(0)
         private set
 
+    internal val canLinkFallsoft: Boolean get() {
+        // Observe successful same-user reauthentication/activation as well.
+        signInRevision
+        return runCatching { records.read("session")?.let { IdentityAuthority.read(it) == IdentityAuthority.VIPI_PRODUCTION && it.getString("userID") == userID } == true }.getOrDefault(false)
+    }
+    internal var qualificationSignInLaunch: ((Uri) -> Unit)? = null
+        set(value) { check(BuildConfig.DEBUG); field = value }
+    private fun launchSignIn(context: Context, authority: IdentityAuthority, expectedUser: String?, provider: SignInProvider,
+                             link: IdentityLinkIntent? = null, sourceLink: IdentityLinkIntent? = null) {
+        val start = PublicClient.create(authority.clientID).getAuthorizationUrlWithPkce(callback)
+        val pending = authority.tag(JSONObject().put("state", start.state).put("verifier", start.codeVerifier)
+            .put("createdAt", System.currentTimeMillis()).put("expectedUser", expectedUser))
+        link?.let { pending.put("link", it.json()) }
+        sourceLink?.let { pending.put("sourceLink", it.json()) }
+        records.write("pending-sign-in", pending)
+        val url = signInAuthorizationURL(start.url, provider, reauthenticate = expectedUser != null || link != null)
+        qualificationSignInLaunch?.let { check(BuildConfig.DEBUG); it(url); return }
+        val tab = CustomTabsIntent.Builder().setShowTitle(true).build()
+        if (context !is android.app.Activity) tab.intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+        tab.launchUrl(context, url)
+    }
     fun signIn(context: Context, expectedUser: String? = null, provider: SignInProvider = SignInProvider.EMAIL) {
         if (busy) return
         error = null
@@ -245,12 +266,7 @@ class Authentication(context: Context) {
             val authority = IdentityAuthority.forSignIn(saved?.let { IdentityAuthority.read(it) }, expectedUser != null, BuildConfig.WORKOS_CLIENT_ID)
             if (saved != null) require(saved.getString("userID") == userID)
             val boundUser = expectedUser ?: userID
-            val start = PublicClient.create(authority.clientID).getAuthorizationUrlWithPkce(callback)
-            records.write("pending-sign-in", authority.tag(JSONObject().put("state", start.state).put("verifier", start.codeVerifier).put("createdAt", System.currentTimeMillis()).put("expectedUser", boundUser)))
-            // WorkOS Android 0.4.0's public helper omits the connection selector.
-            // Supply exactly one selector while retaining the SDK's PKCE/state.
-            val url = signInAuthorizationURL(start.url, provider, reauthenticate = boundUser != null)
-            CustomTabsIntent.Builder().setShowTitle(true).build().launchUrl(context, url)
+            launchSignIn(context, authority, boundUser, provider)
         } catch (_: Exception) { records.remove("pending-sign-in"); error = appContext.getString(R.string.ui_79290727c58b) }
     }
     /** Explicit migration only; ordinary sign-in never links or replaces accounts. */
@@ -264,27 +280,35 @@ class Authentication(context: Context) {
             val intent = previous?.intent?.copy(expectedSharedUser = previous.candidate.getString("userID"))
                 ?: IdentityLinkIntent(accountID.toString(), UUID.randomUUID().toString(), current.getString("userID"), device.id.toString(), device.secret)
             require(intent.accountID == accountID.toString() && intent.deviceID == device.id.toString() && intent.deviceSecret == device.secret && intent.oldUserID == userID)
-            val authority = IdentityAuthority.FALLSOFT_VIPI_PRODUCTION
-            val start = PublicClient.create(authority.clientID).getAuthorizationUrlWithPkce(callback)
-            records.write("pending-sign-in", authority.tag(JSONObject().put("state", start.state).put("verifier", start.codeVerifier)
-                .put("createdAt", System.currentTimeMillis()).put("link", intent.json())))
-            CustomTabsIntent.Builder().setShowTitle(true).build().launchUrl(context, signInAuthorizationURL(start.url, SignInProvider.EMAIL, reauthenticate = true))
-        } catch (_: Exception) { error = appContext.getString(R.string.ui_79290727c58b) }
+            // Refresh cannot satisfy the backend's recent legacy auth_time.
+            // The explicit action obtains both fresh proofs in order.
+            launchSignIn(context, IdentityAuthority.VIPI_PRODUCTION, intent.oldUserID, SignInProvider.EMAIL, sourceLink = intent)
+        } catch (_: Exception) { records.remove("pending-sign-in"); error = appContext.getString(R.string.ui_79290727c58b) }
     }
     suspend fun complete(uri: Uri) {
-        if (uri.scheme != "co.fallsoft.vipi" || uri.host != "auth" || uri.path != "/callback" || uri.port != -1 || uri.userInfo != null || uri.fragment != null || busy) return
+        val intent = consumeSignIn(uri) ?: return
+        try {
+            val current = requireNotNull(records.read("session"))
+            require(IdentityAuthority.read(current) == IdentityAuthority.VIPI_PRODUCTION && current.getString("userID") == intent.oldUserID && userID == intent.oldUserID)
+            launchSignIn(appContext, IdentityAuthority.FALLSOFT_VIPI_PRODUCTION, null, SignInProvider.EMAIL, link = intent)
+        } catch (_: Exception) { records.remove("pending-sign-in"); error = appContext.getString(R.string.ui_79290727c58b) }
+    }
+    private suspend fun consumeSignIn(uri: Uri): IdentityLinkIntent? {
+        if (uri.scheme != "co.fallsoft.vipi" || uri.host != "auth" || uri.path != "/callback" || uri.port != -1 || uri.userInfo != null || uri.fragment != null || busy) return null
         busy = true; error = null
         var stage = "pending-state"
         try {
-            val pending = records.read("pending-sign-in") ?: return
+            val pending = records.read("pending-sign-in") ?: return null
             // Consume before any suspension; a second callback cannot exchange the same verifier.
             records.remove("pending-sign-in")
             val authority = IdentityAuthority.read(pending)
+            val sourceLink = pending.optJSONObject("sourceLink")?.let(IdentityLinkIntent::parse)
+            require(sourceLink == null || (!pending.has("link") && authority == IdentityAuthority.VIPI_PRODUCTION && pending.optString("expectedUser") == sourceLink.oldUserID))
             stage = "callback-age"
             val ageMs = System.currentTimeMillis() - pending.getLong("createdAt")
             if (ageMs >= 600_000) {
                 error = appContext.getString(R.string.sign_in_attempt_expired)
-                return
+                return null
             }
             require(ageMs >= 0)
             stage = "callback-state"
@@ -311,14 +335,14 @@ class Authentication(context: Context) {
                 val journal = IdentityLinkJournal(intent, sessionRecord(result, resultUser, authority))
                 records.write("pending-identity-link", journal.json())
                 finishFallsoftLink(journal, started)
-                return
+                return null
             }
             if (pending.has("expectedUser") && pending.getString("expectedUser") != resultUser) {
-                error = appContext.getString(R.string.ui_94455044f130); return
+                error = appContext.getString(R.string.ui_94455044f130); return null
             }
             val existing = records.read("session")
             if (existing != null && (IdentityAuthority.read(existing) != authority || existing.getString("userID") != resultUser)) {
-                error = appContext.getString(R.string.ui_94455044f130); return
+                error = appContext.getString(R.string.ui_94455044f130); return null
             }
             stage = "private-session-save"
             if (userID != resultUser) PrivateSpeechCache.erase(application)
@@ -326,6 +350,7 @@ class Authentication(context: Context) {
             generation = UUID.randomUUID()
             userID = resultUser
             signInRevision++
+            if (sourceLink != null) return sourceLink
         } catch (error: CancellationException) { throw error }
         catch (failure: Exception) {
             // Debug qualification gets a bounded category, never exception text,
@@ -334,6 +359,7 @@ class Authentication(context: Context) {
             error = appContext.getString(R.string.ui_1afc1c2532c4)
         }
         finally { busy = false }
+        return null
     }
     internal suspend fun resumeFallsoftLink() {
         if (busy) return
@@ -351,6 +377,7 @@ class Authentication(context: Context) {
             require(records.read(profileKey(nextUser))?.getString("id") == journal.intent.accountID)
             if (started != generation) throw SignInRequired()
             if (userID != nextUser) { generation = UUID.randomUUID(); userID = nextUser; signInRevision++ }
+            removeObsoleteLegacyProfile(journal)
             records.remove("pending-identity-link")
             return
         }
@@ -379,7 +406,13 @@ class Authentication(context: Context) {
         require(IdentityAuthority.read(saved) == IdentityAuthority.FALLSOFT_VIPI_PRODUCTION && saved.getString("userID") == nextUser
             && saved.getString("accessToken") == journal.candidate.getString("accessToken") && saved.getString("refreshToken") == journal.candidate.getString("refreshToken"))
         generation = UUID.randomUUID(); userID = nextUser; signInRevision++
+        removeObsoleteLegacyProfile(journal)
         records.remove("pending-identity-link")
+    }
+    private fun removeObsoleteLegacyProfile(journal: IdentityLinkJournal) {
+        // Stable UUID vault/storage is unchanged; only the obsolete subject
+        // cache can be discarded after durable shared activation.
+        if (journal.intent.oldUserID != journal.candidate.getString("userID")) records.remove(profileKey(journal.intent.oldUserID))
     }
     private fun profileKey(subject: String) = "profile-" + MessageDigest.getInstance("SHA-256").digest(subject.toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it) }
     internal var qualificationLinkRequest: (suspend (String, String, JSONObject?, String, DeviceCredential) -> JSONObject)? = null

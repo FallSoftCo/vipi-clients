@@ -37317,6 +37317,170 @@
           }
         }
       }
+    },
+    "Use your Fallsoft login": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use your Fallsoft login"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Usa tu cuenta de Fallsoft"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utiliser votre compte Fallsoft"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Fallsoft-Konto verwenden"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Usa il tuo account Fallsoft"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Usar sua conta Fallsoft"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Usar a sua conta Fallsoft"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Fallsoftのアカウントを使う"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Fallsoft 계정 사용"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "使用 Fallsoft 账号登录"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "使用 Fallsoft 帳號登入"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "استخدم حساب Fallsoft"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tumia akaunti yako ya Fallsoft"
+          }
+        }
+      }
+    },
+    "Sign in to Vipi again, then connect your Fallsoft login. Your chats, profile and original trial stay with you.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in to Vipi again, then connect your Fallsoft login. Your chats, profile and original trial stay with you."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vuelve a iniciar sesión en Vipi y después conecta tu cuenta de Fallsoft. Conservarás tus chats, tu perfil y tu periodo de prueba original."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Reconnectez-vous à Vipi, puis associez votre compte Fallsoft. Vos discussions, votre profil et votre période d’essai initiale sont conservés."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Melde dich erneut bei Vipi an und verknüpfe dann dein Fallsoft-Konto. Deine Chats, dein Profil und deine ursprüngliche Testphase bleiben erhalten."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Accedi di nuovo a Vipi, poi collega il tuo account Fallsoft. Le chat, il profilo e il periodo di prova originale resteranno con te."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Entre novamente no Vipi e depois vincule sua conta Fallsoft. Suas conversas, seu perfil e o período de teste original serão mantidos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Inicie sessão novamente no Vipi e depois associe a sua conta Fallsoft. As suas conversas, o perfil e o período de teste original serão mantidos."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipiにもう一度ログインしてから、Fallsoftのアカウントを連携します。チャット、プロフィール、元の試用期間はそのまま引き継がれます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi에 다시 로그인한 다음 Fallsoft 계정을 연결하세요. 채팅, 프로필 및 기존 체험 기간은 그대로 유지됩니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "请先重新登录 Vipi，再关联 Fallsoft 账号。你的聊天、个人资料和原有试用期都会保留。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "請先重新登入 Vipi，再連結 Fallsoft 帳號。你的聊天、個人資料和原有試用期都會保留。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "سجّل دخولك إلى Vipi مجددًا، ثم اربط حساب Fallsoft. ستبقى محادثاتك وملفك الشخصي وفترة التجربة الأصلية كما هي."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ingia tena katika Vipi, kisha unganisha akaunti yako ya Fallsoft. Gumzo, wasifu na kipindi chako cha awali cha majaribio vitahifadhiwa."
+          }
+        }
+      }
     }
   },
   "version": "1.0"

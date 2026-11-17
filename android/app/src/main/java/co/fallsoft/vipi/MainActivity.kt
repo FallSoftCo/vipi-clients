@@ -29,6 +29,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
@@ -424,6 +425,14 @@ class MainActivity : ComponentActivity() {
         }
     }
     linkError?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
+    if (model.chat?.profile != null && model.authentication.canLinkFallsoft) {
+        TextButton(onClick = { model.beginFallsoftLink(context) }, enabled = !model.authentication.busy && model.chat?.eventDevice() != null,
+            modifier = Modifier.testTag("fallsoft-link-start")) {
+            Text(stringResource(R.string.fallsoft_link_title))
+        }
+        Text(stringResource(R.string.fallsoft_link_detail), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        model.authentication.error?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error) }
+    }
     if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.DELETE_ACCOUNT) }) {
         Text(stringResource(R.string.ui_a2e20a335700), color = MaterialTheme.colorScheme.error)
     }

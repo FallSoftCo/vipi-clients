@@ -434,4 +434,6 @@
     <string name="lookup_unsupported">此裝置不支援這兩種語言之間的翻譯。</string>
     <string name="lookup_translate_message">翻譯訊息</string>
     <string name="deletion_fallsoft_retained">您的 Fallsoft 登入帳號與其他 Fallsoft 應用程式中的帳號都會保留。</string>
+    <string name="fallsoft_link_title">使用 Fallsoft 帳號登入</string>
+    <string name="fallsoft_link_detail">請先重新登入 Vipi，再連結 Fallsoft 帳號。你的聊天、個人資料和原有試用期都會保留。</string>
 </resources>

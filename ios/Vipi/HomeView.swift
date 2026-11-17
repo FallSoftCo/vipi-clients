@@ -176,6 +176,7 @@ struct SettingsView: View {
     var chat: ChatSession? = nil
     var subscriptions: SubscriptionStore? = nil
     @Environment(AppState.self) private var state
+    @Environment(AuthenticationManager.self) private var authentication
     var body: some View {
         @Bindable var state = state
         Form {
@@ -212,7 +213,24 @@ struct SettingsView: View {
                 LabeledContent("Made by", value: "FallSoft.Co")
             }
             if let chat {
-                Section("Account") { NavigationLink("Delete Vipi account") { DeleteAccountView(chat: chat) }.foregroundStyle(VipiDesign.destructive) }
+                Section("Account") {
+                    if authentication.canLinkFallsoft {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Button("Use your Fallsoft login") {
+                                do {
+                                    guard let userID = authentication.session?.userID else { throw AuthenticationManager.SessionFailure.signInRequired }
+                                    let target = try chat.identityLinkTarget(expectedUser: userID)
+                                    authentication.beginFallsoftLink(accountID: target.accountID, device: target.device)
+                                } catch { authentication.errorMessage = String(localized: "Sign in to reconnect") }
+                            }.disabled(authentication.busy || !chat.ready || chat.needsReauthentication || chat.userID != authentication.session?.userID)
+                                .accessibilityIdentifier("fallsoft-link-start")
+                            Text("Sign in to Vipi again, then connect your Fallsoft login. Your chats, profile and original trial stay with you.")
+                                .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                            if let error = authentication.errorMessage { Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary) }
+                        }
+                    }
+                    NavigationLink("Delete Vipi account") { DeleteAccountView(chat: chat) }.foregroundStyle(VipiDesign.destructive)
+                }
             }
         }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
     }
