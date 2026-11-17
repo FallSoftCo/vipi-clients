@@ -1,5 +1,5 @@
 {
-  "status": "signed_ipa_verified_source_supplement_unpublished",
+  "status": "signed_ipa_verified_source_supplement",
   "public_base_release": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3",
   "public_base_archive_sha256": "3d3884ea4cc4632fa5f137deba816b386edccf5a6d00edde77b93ca2bcae304c",
   "base_revision": "87d53cd7c001b99383d18a25f7fafe40316c6c63",
