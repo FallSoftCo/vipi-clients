@@ -106,7 +106,7 @@ struct ProfileSetupView: View {
                     HStack { Text("@").foregroundStyle(VipiDesign.secondary); TextField("Username", text: $username)
                         .textInputAutocapitalization(.never).autocorrectionDisabled().textContentType(.username).accessibilityIdentifier("profile-username") }
                 }.padding(20).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 20))
-                Text("3–24 letters, numbers or underscores. Your phone number and contacts stay private.")
+                Text("Use 3–24 English letters, numbers or underscores. Start with a letter. Your phone number and contacts stay private.")
                     .font(.footnote).foregroundStyle(VipiDesign.secondary)
                 Toggle("I agree to the Terms of Service and have read the Privacy Policy.", isOn: $acceptedTerms)
                     .font(.footnote).tint(VipiDesign.accent).accessibilityIdentifier("profile-accept-terms")

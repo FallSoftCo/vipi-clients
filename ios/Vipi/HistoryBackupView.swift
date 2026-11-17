@@ -38,18 +38,18 @@ struct HistoryBackupView: View {
                 if verified != nil {
                     Label("Backup unlocked", systemImage: "lock.open").foregroundStyle(VipiDesign.secondary)
                 } else {
-                    SecureField(restoring ? "Backup password" : "New backup password", text: $password)
+                    SecureField(restoring ? "Backup password" : "New backup password", text: $password, prompt: Text(LocalizedStringKey(restoring ? "Backup password" : "New backup password")).foregroundStyle(VipiDesign.secondary))
                         .textContentType(restoring ? .password : .newPassword)
                         .textInputAutocapitalization(.never).autocorrectionDisabled()
                         .disabled(busy).accessibilityIdentifier("history-password")
                 }
                 if !restoring {
-                    SecureField("Confirm backup password", text: $confirmation)
+                    SecureField("Confirm backup password", text: $confirmation, prompt: Text("Confirm backup password").foregroundStyle(VipiDesign.secondary))
                         .textContentType(.newPassword).textInputAutocapitalization(.never).autocorrectionDisabled()
                         .disabled(busy).accessibilityIdentifier("history-password-confirm")
                 }
             } footer: {
-                Text("Use a long, unique passphrase of at least 12 characters. Keep it somewhere safe. Vipi cannot recover this password.")
+                Text("Use a long, unique passphrase of at least 12 characters. Keep it somewhere safe. Vipi cannot recover this password.").foregroundStyle(VipiDesign.secondary)
             }
             if let verified, restoring {
                 Section("Ready to restore") {

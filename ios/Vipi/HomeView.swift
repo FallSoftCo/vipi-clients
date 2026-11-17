@@ -143,7 +143,7 @@ struct NewChatView: View {
     }
     private func findFriend() {
         guard !busy else { return }
-        guard let chat else { error = "Sign in to find your friends."; return }
+        guard let chat else { error = String(localized: "Sign in to find your friends."); return }
         busy = true; error = nil
         Task {
             defer { busy = false }

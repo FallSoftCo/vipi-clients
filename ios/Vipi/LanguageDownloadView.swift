@@ -70,7 +70,7 @@ enum LocalLanguageAvailability: Equatable { case checking, downloadable, install
             if active == revision { busy = false }
             return
         }
-        catch { failure = "These downloads couldn’t be removed. Please try again." }
+        catch { failure = String(localized: "These downloads couldn’t be removed. Please try again.") }
         guard active == revision, !Task.isCancelled else { return }
         let observed = await status(pair)
         guard active == revision, !Task.isCancelled else { return }
@@ -244,7 +244,7 @@ private struct LanguagePreparationTask: View {
                 } catch {
                     let observed = await LanguagePreparation.nativeStatus(request.pair)
                     preparation.finish(request, availability: observed,
-                        message: observed == .installed ? nil : "The download isn’t ready. Check your connection, then try again.")
+                        message: observed == .installed ? nil : String(localized: "The download isn’t ready. Check your connection, then try again."))
                 }
             }
         } else {
@@ -253,21 +253,21 @@ private struct LanguagePreparationTask: View {
                 guard !submitted else { return }; submitted = true
                 guard session.sourceLanguage?.languageCode?.identifier == request.pair.source,
                       session.targetLanguage?.languageCode?.identifier == request.pair.target else {
-                    preparation.finish(request, availability: .downloadable, message: "The language download couldn’t start. Please try again."); return
+                    preparation.finish(request, availability: .downloadable, message: String(localized: "The language download couldn’t start. Please try again.")); return
                 }
                 do {
                     try await session.prepareTranslation()
                     let observed = await LanguagePreparation.nativeStatus(request.pair)
                     preparation.finish(request, availability: observed,
-                        message: observed == .downloadable ? "The download hasn’t finished yet. You can check again shortly." : nil)
+                        message: observed == .downloadable ? String(localized: "The download hasn’t finished yet. You can check again shortly.") : nil)
                 } catch is CancellationError {
                     preparation.finish(request, availability: .downloadable,
-                        message: "The download isn’t ready. Check downloads to see its current status.")
+                        message: String(localized: "The download isn’t ready. Check downloads to see its current status."))
                 }
                 catch {
                     let observed = await LanguagePreparation.nativeStatus(request.pair)
                     preparation.finish(request, availability: observed,
-                        message: observed == .installed ? nil : "The download isn’t ready. Check your connection, then try again.")
+                        message: observed == .installed ? nil : String(localized: "The download isn’t ready. Check your connection, then try again."))
                 }
             }
         }

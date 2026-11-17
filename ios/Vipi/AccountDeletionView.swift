@@ -28,7 +28,7 @@ struct DeleteAccountView: View {
                         guard chat.profile != nil || chat.needsProfile else { throw ServiceFailure(status: 0, code: "profile_required") }
                         let account = chat.profile?.id ?? UUID()
                         try deletion.begin(account: account, userID: chat.userID) { try chat.close() }
-                    } catch { self.error = "Deletion couldn’t be prepared. Close and reopen Vipi to try again." }
+                    } catch { self.error = String(localized: "Deletion couldn’t be prepared. Close and reopen Vipi to try again.") }
                 }
             } message: { Text("Your account and chats on this device will be permanently deleted. This can’t be undone.") }
     }

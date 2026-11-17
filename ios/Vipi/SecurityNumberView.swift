@@ -17,8 +17,8 @@ struct SecurityNumberView: View {
         Task {
             defer { checking = false }
             do { candidate = try await chat.reviewPeerIdentity(peer) }
-            catch SignalKeys.Failure.unchangedIdentity { reviewNotice = "The current device and encryption key still match this conversation." }
-            catch { reviewNotice = "The current keys couldn’t be checked. Your existing trust and saved messages haven’t changed." }
+            catch SignalKeys.Failure.unchangedIdentity { reviewNotice = String(localized: "The current device and encryption key still match this conversation.") }
+            catch { reviewNotice = String(localized: "The current keys couldn’t be checked. Your existing trust and saved messages haven’t changed.") }
         }
     }
     private func accept() {
@@ -28,10 +28,10 @@ struct SecurityNumberView: View {
             do {
                 try await chat.acceptPeerIdentity(candidate)
                 self.candidate = nil; load()
-                reviewNotice = "New keys accepted. They remain unverified until you compare the security number."
+                reviewNotice = String(localized: "New keys accepted. They remain unverified until you compare the security number.")
             } catch {
                 self.candidate = nil
-                reviewNotice = "The preview expired or the keys changed again. Check the current keys before deciding. Nothing was automatically trusted."
+                reviewNotice = String(localized: "The preview expired or the keys changed again. Check the current keys before deciding. Nothing was automatically trusted.")
             }
         }
     }

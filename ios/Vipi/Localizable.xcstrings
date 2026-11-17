@@ -32471,6 +32471,1602 @@
           }
         }
       }
+    },
+    "Sign in to find your friends.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Inicia sesión para encontrar a tus amigos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Connectez-vous pour retrouver vos amis."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Accedi per trovare i tuoi amici."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Entre para encontrar seus amigos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Inicie sessão para encontrar os seus amigos."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Melden Sie sich an, um Ihre Freunde zu finden."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "サインインして友達を見つけてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "친구를 찾으려면 로그인하십시오."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "登录以找到你的朋友。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "登錄以找到你的朋友。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "سجل الدخول للعثور على أصدقائك."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ingia ili uwapate marafiki zako."
+          }
+        }
+      }
+    },
+    "Deletion couldn’t be prepared. Close and reopen Vipi to try again.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo preparar la eliminación. Cierra y vuelve a abrir Vipi para intentarlo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La suppression n’a pas pu être préparée. Fermez puis rouvrez Vipi pour réessayer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile preparare l’eliminazione. Chiudi e riapri Vipi per riprovare."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível preparar a exclusão. Feche e abra o Vipi novamente para tentar outra vez."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível preparar a eliminação. Feche e volte a abrir o Vipi para tentar novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die Löschung konnte nicht vorbereitet werden. Schließen und öffnen Sie Vipi, um es erneut zu versuchen."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "削除の準備ができませんでした。Vipiを閉じて開き直し、もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "삭제를 준비할 수 없었습니다. Vipi를 닫았다가 다시 열어 다시 시도하십시오."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "无法准备删除请求。请关闭并重新打开 Vipi 后重试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "無法準備刪除請求。請關閉並重新開啟 Vipi 後再試。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لا يمكن إعداد الحذف. أغلق وأعد فتح Vipi للمحاولة مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ufutaji haukuweza kuandaliwa. Funga Vipi kisha uifungue tena ili ujaribu tena."
+          }
+        }
+      }
+    },
+    "Opening your saved conversation…": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Abriendo tu conversación guardada…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ouverture de votre conversation enregistrée…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apertura della conversazione salvata…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Abrindo sua conversa salva…"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A abrir a conversa guardada…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Öffnen Sie Ihre gespeicherte Unterhaltung..."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "保存した会話を開く..."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "저장된 대화를 엽니다..."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "打开您保存的对话..."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "打開您保存的對話..."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "فتح محادثتك المحفوظة..."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tunafungua mazungumzo yako yaliyohifadhiwa…"
+          }
+        }
+      }
+    },
+    "Your saved conversation couldn’t be opened. Please try again.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo abrir tu conversación guardada. Inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Votre conversation enregistrée n’a pas pu être ouverte. Réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile aprire la conversazione salvata. Riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível abrir sua conversa salva. Tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível abrir a conversa guardada. Tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ihre gespeicherte Unterhaltung konnte nicht geöffnet werden. Bitte versuchen Sie es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "保存された会話を開くことができませんでした。 もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "저장된 대화를 열 수 없습니다. 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您保存的对话无法打开。 请再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您保存的對話無法打開。 請再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعذر فتح محادثتك المحفوظة. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mazungumzo yako yaliyohifadhiwa hayakuweza kufunguliwa. Tafadhali jaribu tena."
+          }
+        }
+      }
+    },
+    "Voices are preparing. Please try again shortly.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Se están preparando las voces. Inténtalo de nuevo en breve."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Les voix se préparent. Réessayez dans un instant."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Preparazione delle voci in corso. Riprova tra poco."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As vozes estão sendo preparadas. Tente novamente em instantes."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As vozes estão a ser preparadas. Tente novamente dentro de momentos."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Stimmen bereiten sich vor. Bitte versuchen Sie es in Kürze erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "音声を準備しています。しばらくしてからもう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "목소리가 준비하고 있습니다. 잠시 후에 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "声音正在准备。 请稍后再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "聲音正在準備。 請稍後再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "الأصوات تستعد. يرجى المحاولة مرة أخرى بعد قليل."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sauti zinaandaliwa. Tafadhali jaribu tena baada ya muda mfupi."
+          }
+        }
+      }
+    },
+    "Waiting for vBot": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esperando a vBot"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "En attente de vBot"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "In attesa di vBot"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Aguardando o vBot"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "À espera do vBot"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Warten auf vBot"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotの返答を待っています"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot를 기다리고 있습니다"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "等待vBot"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "等待vBot"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "في انتظار vBot"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tunasubiri vBot"
+          }
+        }
+      }
+    },
+    "Reply unconfirmed": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Respuesta sin confirmar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Réponse non confirmée"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Risposta non confermata"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Resposta não confirmada"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Resposta não confirmada"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Antwort unbestätigt"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "未確認の返信"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "확인되지 않은 회신"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "回复未确认"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "回復未確認"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "الرد غير مؤكد"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Jibu halijathibitishwa"
+          }
+        }
+      }
+    },
+    "Request not accepted": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Solicitud no aceptada"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Demande non acceptée"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Richiesta non accettata"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Solicitação não aceita"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Pedido não aceite"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Anfrage nicht angenommen"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "リクエストが受理されませんでした"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "요청이 수락되지 않았습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "请求未被接受"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "請求未被接受"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لم يتم قبول الطلب"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ombi halijakubaliwa"
+          }
+        }
+      }
+    },
+    "The conversation couldn’t be deleted.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo eliminar la conversación."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La conversation n’a pas pu être supprimée."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile eliminare la conversazione."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível excluir a conversa."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível eliminar a conversa."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die Unterhaltung konnte nicht gelöscht werden."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "会話は削除できませんでした。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "대화를 삭제할 수 없었습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "对话无法删除。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "對話無法刪除。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لا يمكن حذف المحادثة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mazungumzo hayakuweza kufutwa."
+          }
+        }
+      }
+    },
+    "Earlier messages couldn’t be opened.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudieron abrir los mensajes anteriores."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Les messages précédents n’ont pas pu être ouverts."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile aprire i messaggi precedenti."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível abrir as mensagens anteriores."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível abrir as mensagens anteriores."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Frühere Nachrichten konnten nicht geöffnet werden."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "以前のメッセージを開くことができませんでした。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이전 메시지를 열 수 없습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "之前的消息无法打开。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "之前的消息無法打開。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعذر فتح الرسائل السابقة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ujumbe wa awali haukuweza kufunguliwa."
+          }
+        }
+      }
+    },
+    "These downloads couldn’t be removed. Please try again.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudieron eliminar estas descargas. Inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ces téléchargements n’ont pas pu être supprimés. Réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile rimuovere questi download. Riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível remover estes downloads. Tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível remover estas transferências. Tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Diese Downloads konnten nicht entfernt werden. Bitte versuchen Sie es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "これらのダウンロードは削除できませんでした。 もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 다운로드는 제거할 수 없습니다. 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "这些下载无法删除。 请再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "這些下載無法刪除。 請再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعذر إزالة هذه التنزيلات. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipakuliwa hivi havikuweza kuondolewa. Tafadhali jaribu tena."
+          }
+        }
+      }
+    },
+    "The download isn’t ready. Check your connection, then try again.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La descarga no está lista. Comprueba tu conexión e inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le téléchargement n’est pas prêt. Vérifiez votre connexion, puis réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Il download non è pronto. Controlla la connessione e riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O download não está pronto. Verifique sua conexão e tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A transferência não está pronta. Verifique a ligação e tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Der Download ist noch nicht fertig. Überprüfen Sie Ihre Verbindung und versuchen Sie es dann erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ダウンロードの準備ができていません。 接続を確認してから、もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "다운로드가 준비되지 않았습니다. 연결을 확인한 후 다시 시도하십시오."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "下载还没有准备好。 检查您的连接，然后重试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "下載還沒有準備好。 檢查您的連接，然後重試。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "التنزيل غير جاهز. تحقق من اتصالك، ثم حاول مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Kipakuliwa hakiko tayari. Angalia muunganisho wako, kisha ujaribu tena."
+          }
+        }
+      }
+    },
+    "The language download couldn’t start. Please try again.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo iniciar la descarga del idioma. Inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le téléchargement de la langue n’a pas pu démarrer. Réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile avviare il download della lingua. Riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível iniciar o download do idioma. Tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível iniciar a transferência da língua. Tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Der Sprachdownload konnte nicht gestartet werden. Bitte versuchen Sie es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "言語のダウンロードが開始できませんでした。 もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "언어 다운로드를 시작할 수 없습니다. 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "语言下载无法启动。 请再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "語言下載無法啓動。 請再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعذر بدء تنزيل اللغة. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Upakuaji wa lugha haukuweza kuanza. Tafadhali jaribu tena."
+          }
+        }
+      }
+    },
+    "The download hasn’t finished yet. You can check again shortly.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La descarga aún no ha terminado. Puedes comprobarlo de nuevo en breve."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le téléchargement n’est pas encore terminé. Vous pourrez vérifier à nouveau dans un instant."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Il download non è ancora terminato. Puoi controllare di nuovo tra poco."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O download ainda não terminou. Você pode verificar novamente em instantes."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A transferência ainda não terminou. Pode verificar novamente dentro de momentos."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Der Download ist noch nicht abgeschlossen. Sie können in Kürze erneut nachsehen."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ダウンロードはまだ完了していません。 すぐに再度ご確認いただけます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "다운로드가 아직 완료되지 않았습니다. 잠시 후에 다시 확인하실 수 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "下载还没有完成。 您可以很快再次检查。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "下載還沒有完成。 您可以很快再次檢查。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لم ينته التنزيل بعد. يمكنك التحقق مرة أخرى قريبا."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Upakuaji bado haujakamilika. Unaweza kuangalia tena baada ya muda mfupi."
+          }
+        }
+      }
+    },
+    "The download isn’t ready. Check downloads to see its current status.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La descarga no está lista. Consulta las descargas para ver su estado actual."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le téléchargement n’est pas prêt. Vérifiez les téléchargements pour connaître son état actuel."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Il download non è pronto. Controlla i download per vedere lo stato attuale."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O download não está pronto. Confira os downloads para ver o status atual."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A transferência não está pronta. Consulte as transferências para ver o estado atual."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Der Download ist noch nicht fertig. Überprüfen Sie die Downloads, um den aktuellen Status zu sehen."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ダウンロードの準備ができていません。 ダウンロードを確認して、現在のステータスをご確認ください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "다운로드가 준비되지 않았습니다. 다운로드를 확인하여 현재 상태를 확인하십시오."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "下载还没有准备好。 检查下载以查看其当前状态。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "下載還沒有準備好。 檢查下載以查看其當前狀態。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "التنزيل غير جاهز. تحقق من التنزيلات لمعرفة حالتها الحالية."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Kipakuliwa hakiko tayari. Angalia vipakuliwa ili uone hali yake ya sasa."
+          }
+        }
+      }
+    },
+    "The current device and encryption key still match this conversation.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "El dispositivo y la clave de cifrado actuales siguen coincidiendo con esta conversación."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "L’appareil et la clé de chiffrement actuels correspondent toujours à cette conversation."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Il dispositivo e la chiave di crittografia attuali corrispondono ancora a questa conversazione."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O dispositivo e a chave de criptografia atuais ainda correspondem a esta conversa."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O dispositivo e a chave de encriptação atuais continuam a corresponder a esta conversa."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Das aktuelle Gerät und der Verschlüsselungsschlüssel stimmen immer noch mit diesem Gespräch überein."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "現在のデバイスと暗号化キーは依然としてこの会話と一致しています。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "현재 장치와 암호화 키가 여전히 이 대화와 일치합니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "当前设备和加密密钥仍与此对话匹配。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "目前裝置與加密金鑰仍與此對話相符。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لا يزال الجهاز الحالي ومفتاح التشفير يتطابقان مع هذه المحادثة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Kifaa cha sasa na ufunguo wa usimbaji bado vinalingana na mazungumzo haya."
+          }
+        }
+      }
+    },
+    "The current keys couldn’t be checked. Your existing trust and saved messages haven’t changed.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudieron comprobar las claves actuales. Tu verificación y tus mensajes guardados no han cambiado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Les clés actuelles n’ont pas pu être vérifiées. Votre confiance actuelle et vos messages enregistrés n’ont pas changé."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile controllare le chiavi attuali. La fiducia esistente e i messaggi salvati non sono cambiati."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível verificar as chaves atuais. Sua confiança existente e suas mensagens salvas não mudaram."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível verificar as chaves atuais. A confiança existente e as mensagens guardadas não foram alteradas."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die aktuellen Schlüssel konnten nicht geprüft werden. Dein bisheriger Vertrauensstatus und deine gespeicherten Nachrichten bleiben unverändert."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "現在のキーを確認できませんでした。 既存の信頼と保存されたメッセージは変わっていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "현재 키를 확인할 수 없습니다. 귀하의 기존 신뢰와 저장된 메시지는 변함이 없습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "无法检查当前密钥。您现有的信任状态和已保存的消息未发生变化。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "無法檢查目前的金鑰。您現有的信任狀態及已儲存的訊息均未變更。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لا يمكن التحقق من المفاتيح الحالية. لم تتغير ثقتك الحالية ورسائلك المحفوظة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Funguo za sasa hazikuweza kukaguliwa. Hakuna kilichobadilika kwenye funguo ulizokubali au ujumbe uliohifadhiwa."
+          }
+        }
+      }
+    },
+    "New keys accepted. They remain unverified until you compare the security number.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nuevas claves aceptadas. Seguirán sin verificarse hasta que compares el número de seguridad."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nouvelles clés acceptées. Elles restent non vérifiées tant que vous n’avez pas comparé le numéro de sécurité."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nuove chiavi accettate. Rimarranno non verificate finché non confronterai il numero di sicurezza."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Novas chaves aceitas. Elas continuarão não verificadas até você comparar o número de segurança."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Novas chaves aceites. Continuam por verificar até comparar o número de segurança."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Neue Schlüssel akzeptiert. Sie bleiben unbestätigt, bis du die Sicherheitsnummer vergleichst."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "新しいキーが受け付けられました。 セキュリティ番号を比較するまで、未確認のままです。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "새 키가 수락되었습니다. 보안 번호를 비교할 때까지 그들은 확인되지 않은 상태로 남아 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "已接受新密钥。在您比较安全号码之前，这些密钥仍未验证。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "已接受新金鑰。在您比對安全碼之前，這些金鑰仍未驗證。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "مفاتيح جديدة مقبولة. تظل غير متحققة حتى تقارن رقم الأمان."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Funguo mpya zimekubaliwa. Bado hazijathibitishwa hadi ulinganishe nambari ya usalama."
+          }
+        }
+      }
+    },
+    "The preview expired or the keys changed again. Check the current keys before deciding. Nothing was automatically trusted.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La vista previa caducó o las claves volvieron a cambiar. Comprueba las claves actuales antes de decidir. No se ha confiado automáticamente en ninguna."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "L’aperçu a expiré ou les clés ont de nouveau changé. Vérifiez les clés actuelles avant de décider. Aucune confiance n’a été accordée automatiquement."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "L’anteprima è scaduta o le chiavi sono cambiate di nuovo. Controlla le chiavi attuali prima di decidere. Nessuna è stata considerata attendibile automaticamente."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A prévia expirou ou as chaves mudaram novamente. Verifique as chaves atuais antes de decidir. Nenhuma foi considerada confiável automaticamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A pré-visualização expirou ou as chaves voltaram a mudar. Verifique as chaves atuais antes de decidir. Nenhuma foi considerada fiável automaticamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die Vorschau ist abgelaufen oder die Schlüssel haben sich erneut geändert. Prüfe vor deiner Entscheidung die aktuellen Schlüssel. Es wurde nichts automatisch als vertrauenswürdig eingestuft."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "プレビューが期限切れになったか、キーが再度変更されました。 決定する前に、現在のキーを確認してください。 何も自動的に信頼されませんでした。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "미리보기가 만료되었거나 키가 다시 변경되었습니다. 결정하기 전에 현재 키를 확인하십시오. 아무것도 자동으로 신뢰되지 않았습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "预览已过期或密钥再次发生变化。决定前请检查当前密钥。系统没有自动信任任何密钥。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "預覽已過期或金鑰再次變更。決定前請檢查目前的金鑰。系統沒有自動信任任何金鑰。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "انتهت صلاحية المعاينة أو تغيرت المفاتيح مرة أخرى. تحقق من المفاتيح الحالية قبل اتخاذ القرار. لم يتم الوثوق بأي شيء تلقائيا."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Onyesho la awali limeisha muda au funguo zimebadilika tena. Kagua funguo za sasa kabla ya kuamua. Hakuna ufunguo uliokubaliwa kiotomatiki."
+          }
+        }
+      }
+    },
+    "Your choice couldn’t be saved.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo guardar tu elección."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Votre choix n’a pas pu être enregistré."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile salvare la tua scelta."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível salvar sua escolha."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível guardar a sua escolha."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ihre Wahl konnte nicht gerettet werden."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "あなたの選択は保存できませんでした。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "귀하의 선택을 저장할 수 없습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你的选择无法挽救。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你的選擇無法輓救。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لا يمكن حفظ اختيارك."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chaguo lako halikuweza kuhifadhiwa."
+          }
+        }
+      }
+    },
+    "Use 3–24 English letters, numbers or underscores. Start with a letter. Your phone number and contacts stay private.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Usa entre 3 y 24 letras inglesas, números o guiones bajos. Empieza con una letra. Tu número de teléfono y tus contactos permanecen privados."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utilisez 3 à 24 lettres anglaises, chiffres ou caractères de soulignement. Commencez par une lettre. Votre numéro de téléphone et vos contacts restent privés."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Usa da 3 a 24 lettere inglesi, numeri o trattini bassi. Inizia con una lettera. Il numero di telefono e i contatti restano privati."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Use de 3 a 24 letras inglesas, números ou sublinhados. Comece com uma letra. Seu número de telefone e seus contatos permanecem privados."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utilize 3 a 24 letras inglesas, números ou sublinhados. Comece por uma letra. O seu número de telefone e os seus contactos permanecem privados."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Verwenden Sie 3–24 englische Buchstaben, Ziffern oder Unterstriche. Beginnen Sie mit einem Buchstaben. Ihre Telefonnummer und Kontakte bleiben privat."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "英字、数字、アンダースコアを3〜24文字使い、英字から始めてください。電話番号と連絡先は非公開です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "영문자, 숫자 또는 밑줄을 3~24자 사용하고 영문자로 시작하세요. 전화번호와 연락처는 비공개로 유지됩니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "使用3至24个英文字母、数字或下划线，并以英文字母开头。您的电话号码和联系人保持私密。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "使用3至24個英文字母、數字或底線，並以英文字母開頭。您的電話號碼和聯絡人保持私密。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "استخدم من 3 إلى 24 حرفًا إنجليزيًا أو رقمًا أو شرطة سفلية. ابدأ بحرف إنجليزي. يظل رقم هاتفك وجهات اتصالك خاصّين."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tumia vibambo 3–24: herufi za Kiingereza, nambari au alama ya mstari wa chini. Anza kwa herufi ya Kiingereza. Nambari yako ya simu na anwani zako hubaki kuwa za faragha."
+          }
+        }
+      }
     }
   },
   "version": "1.0"
