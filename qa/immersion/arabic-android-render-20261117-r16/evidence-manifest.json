@@ -1,0 +1,58 @@
+{
+  "source-face.png": {
+    "bytes": 126655,
+    "sha256": "7b92198303c9f5408927c3aee45268a4a7cdba4fb98b0bff3da907f91053edaf"
+  },
+  "source-hashes.json": {
+    "bytes": 572,
+    "sha256": "73f7a50ab042f66a1420d65cc3d22d320e6db149997967c1b12eca7384bfd872"
+  },
+  "installed-hashes.json": {
+    "bytes": 198,
+    "sha256": "540b6f3ec58e927833c3cdbb7b63bdc573a30378666f553779f5d404cfc51ae6"
+  },
+  "learning-face.png": {
+    "bytes": 127398,
+    "sha256": "9715979b8dbec3dc7ca7c369b0ec85ae25975dc67d222db7e9f0d8ea1ef80ed9"
+  },
+  "frame-capture-test-build.json": {
+    "bytes": 923,
+    "sha256": "8f88af065547b381dfe768c32ca16fa64102a0df02ddb38c5695ccec1e608338"
+  },
+  "test-install.json": {
+    "bytes": 252,
+    "sha256": "6bc89ed53e3a20fbaf3ea09b4da8da06786f0e5e372aaebce21216160c976c4d"
+  },
+  "instrumentation.log": {
+    "bytes": 952,
+    "sha256": "b1cde759445df9c7d82ab731091c78c18623074a2d6cf2213ed028474d266398"
+  },
+  "app-install.json": {
+    "bytes": 1003,
+    "sha256": "4eb0cd6eb16ff8757608b980f3fa53db5f8056110a2e74dbfe568e370e40b91c"
+  },
+  "README.md": {
+    "bytes": 2899,
+    "sha256": "e61ed4e108d9c9305fcf32557c8258acc89dd322dc19e7ff758c9093df6220c0"
+  },
+  "host-receipt.json": {
+    "bytes": 141,
+    "sha256": "b1adf2939bfdb60464ebe015e9f9be28b531e24976bf6c6233c226c6938d5285"
+  },
+  "report.json": {
+    "bytes": 2562,
+    "sha256": "6c8a24ebb2fa03134bbeafe7a3c6e92ee67d373d08999ab110841de6d3be3ca7"
+  },
+  "app-and-test-build.json": {
+    "bytes": 948,
+    "sha256": "31aa64e71ecb927037909cf8ee98d2ca419b841030776623457b8e29ad6c46f5"
+  },
+  "superseded-fixture-call/instrumentation.log": {
+    "bytes": 3486,
+    "sha256": "1f225469871e53708958a5417d846448fc6a3add2d73c89bdc3e072aa909a76a"
+  },
+  "superseded-fixture-call/report.json": {
+    "bytes": 240,
+    "sha256": "7e48fa199add77536b584a9edcf6eb2213f6d084ccafc87e6b733d9e09602d35"
+  }
+}

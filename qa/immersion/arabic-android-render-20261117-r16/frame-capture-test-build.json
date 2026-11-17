@@ -1,0 +1,35 @@
+{
+  "source_stamp": "8665395+arabic-frame-commit-r16c",
+  "floor_bytes": 4504682496,
+  "workers": 2,
+  "stages": [
+    {
+      "name": "android-test-r16c-build",
+      "command": [
+        "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/scripts/build-android.sh",
+        "--offline",
+        "-PvipiSourceContextQualification=true",
+        "-PvipiQaAbi=x86_64",
+        ":app:assembleDebugAndroidTest",
+        "-x",
+        ":app:stageImmersionAssets",
+        "-x",
+        ":app:mergeDebugAssets",
+        "-x",
+        ":app:compressDebugAssets",
+        "-x",
+        ":app:mergeDebugNativeLibs",
+        "-x",
+        ":app:stripDebugDebugSymbols"
+      ],
+      "free_before": 4862357504,
+      "peak_budget": 104857600,
+      "pid": 2251796,
+      "exit": 0,
+      "seconds": 24.004538271110505,
+      "free_after": 4861407232
+    }
+  ],
+  "complete": true,
+  "free_after": 4861407232
+}

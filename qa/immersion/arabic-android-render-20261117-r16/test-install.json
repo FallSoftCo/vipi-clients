@@ -1,0 +1,6 @@
+{
+  "test_apk_sha256": "e6f1184eadc46aed8c749e571cd6a3989a81f6b3cef39f3cc1fc01dd493489c6",
+  "app_unchanged_sha256": "5594b985531219d409b8f9b35f8cf2efe17159a0f637494c4c16dbad61c3104b",
+  "exit": 0,
+  "output": "Performing Streamed Install\nSuccess\n"
+}

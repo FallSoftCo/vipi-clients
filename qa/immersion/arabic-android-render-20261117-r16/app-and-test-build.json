@@ -1,0 +1,36 @@
+{
+  "source_stamp": "8665395+arabic-render-r16",
+  "floor_bytes": 4504682496,
+  "workers": 2,
+  "stages": [
+    {
+      "name": "android-manual-r16-package",
+      "command": [
+        "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/scripts/build-android.sh",
+        "--offline",
+        "-PvipiSourceContextQualification=true",
+        "-PvipiQaAbi=x86_64",
+        ":app:assembleDebug",
+        ":app:assembleDebugAndroidTest",
+        "-x",
+        ":app:stageImmersionAssets",
+        "-x",
+        ":app:mergeDebugAssets",
+        "-x",
+        ":app:compressDebugAssets",
+        "-x",
+        ":app:mergeDebugNativeLibs",
+        "-x",
+        ":app:stripDebugDebugSymbols"
+      ],
+      "free_before": 5392814080,
+      "peak_budget": 576716800,
+      "pid": 2231636,
+      "exit": 0,
+      "seconds": 50.00935377459973,
+      "free_after": 4842672128
+    }
+  ],
+  "complete": true,
+  "free_after": 4842672128
+}

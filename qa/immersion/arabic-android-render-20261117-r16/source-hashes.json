@@ -1,0 +1,6 @@
+{
+  "android/core/src/main/kotlin/co/fallsoft/vipi/core/Immersion.kt": "934d8a890aeb6b6e261f1353047ea2e850ebfe468f19196037558a27a6f4552f",
+  "android/app/src/main/java/co/fallsoft/vipi/SourceFrameLookup.kt": "27b83ad6036385d17df3c42227de07ddcbf27a2b6bc0fc4063913f00ba6fdd9c",
+  "android/app/src/main/java/co/fallsoft/vipi/StableImmersionText.kt": "2b5cc407dbe9aa301784447a778491ad14bef6545a7b2ebcea4ee3ee75e3f37b",
+  "android/app/src/androidTest/java/co/fallsoft/vipi/ArabicOrthographyUIDeviceTest.kt": "90bacecc0755f5efdfa56dc76e39808bed5ca74d8b3d637b4a98f8b238ea5bce"
+}

@@ -1,0 +1,27 @@
+{
+  "device": "emulator-5624",
+  "package": "co.fallsoft.vipi.uxqa",
+  "floor_bytes": 4504682496,
+  "free_before": 5253292032,
+  "installs": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/debug/app-debug.apk",
+      "bytes": 516832627,
+      "sha256": "5594b985531219d409b8f9b35f8cf2efe17159a0f637494c4c16dbad61c3104b",
+      "exit": 0,
+      "output": "Performing Streamed Install\nSuccess\n",
+      "seconds": 3.0008862111717463
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "bytes": 9834502,
+      "sha256": "6c41cd36ac2b48e708d96ecfbb9e4f335233620623fb4574e844872b1e48d937",
+      "exit": 0,
+      "output": "Performing Streamed Install\nSuccess\n",
+      "seconds": 0.5001909481361508
+    }
+  ],
+  "minimum_free_bytes": 5010010112,
+  "free_after": 5009375232,
+  "complete": true
+}

@@ -1,0 +1,112 @@
+{
+  "complete": true,
+  "provider": "actual bundled catalogs and production owner; translator\/downloads forbidden",
+  "bareWholeTokenProbe": {
+    "source": "شاحن",
+    "mapping": "explicit supplied charger mapping; eligibility only",
+    "start": 0,
+    "end": 4
+  },
+  "results": [
+    {
+      "original": "أنا أشرب الماء الآن.",
+      "spans": [
+        {
+          "start": 15,
+          "end": 19,
+          "source": "الآن",
+          "target": "now"
+        }
+      ]
+    },
+    {
+      "original": "أنا أحب الموسيقى.",
+      "translation": "I like music.",
+      "spans": []
+    },
+    {
+      "original": "أين شاحن الهاتف؟",
+      "spans": [
+        {
+          "start": 4,
+          "end": 8,
+          "source": "شاحن",
+          "target": "charger"
+        }
+      ]
+    }
+  ],
+  "voicePreparationState": "READY",
+  "learningFace": [
+    {
+      "original": "أنا أشرب الماء الآن.",
+      "visible": "أنا أشرب الماء now.",
+      "slots": [
+        {
+          "start": 15,
+          "end": 19,
+          "source": "الآن"
+        }
+      ],
+      "bounds": "[86,253][994,327]",
+      "bodySp": 18
+    },
+    {
+      "original": "أنا أحب الموسيقى.",
+      "visible": "أنا أحب الموسيقى.",
+      "slots": [],
+      "bounds": "[86,554][994,618]",
+      "bodySp": 18
+    },
+    {
+      "original": "أين شاحن الهاتف؟",
+      "visible": "أين charger الهاتف؟",
+      "slots": [
+        {
+          "start": 4,
+          "end": 8,
+          "source": "شاحن"
+        }
+      ],
+      "bounds": "[86,845][994,919]",
+      "bodySp": 18
+    }
+  ],
+  "translationAttempts": 0,
+  "sourceFaceWithNativeSlots": [
+    {
+      "original": "أنا أشرب الماء الآن.",
+      "visible": "أنا أشرب الماء الآن.",
+      "slots": [
+        {
+          "start": 15,
+          "end": 19,
+          "source": "الآن"
+        }
+      ],
+      "bounds": "[86,253][994,327]",
+      "bodySp": 18
+    },
+    {
+      "original": "أنا أحب الموسيقى.",
+      "visible": "أنا أحب الموسيقى.",
+      "slots": [],
+      "bounds": "[86,554][994,618]",
+      "bodySp": 18
+    },
+    {
+      "original": "أين شاحن الهاتف؟",
+      "visible": "أين شاحن الهاتف؟",
+      "slots": [
+        {
+          "start": 4,
+          "end": 8,
+          "source": "شاحن"
+        }
+      ],
+      "bounds": "[86,845][994,919]",
+      "bodySp": 18
+    }
+  ],
+  "passed": true
+}

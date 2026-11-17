@@ -1,0 +1,7 @@
+{
+  "complete": false,
+  "provider": "actual bundled catalogs and production owner; translator\/downloads forbidden",
+  "passed": false,
+  "error": "java.lang.IllegalArgumentException: Required value was null.",
+  "translationAttempts": 0
+}
