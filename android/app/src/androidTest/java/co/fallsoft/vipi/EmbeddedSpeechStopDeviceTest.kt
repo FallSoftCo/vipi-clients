@@ -35,7 +35,7 @@ class EmbeddedSpeechStopDeviceTest {
             check(speech.state == SpeechState.READY) { speech.error.orEmpty() }
             val result = ConversationExamples.result(context, "en", "es")
             compose.setContent { VipiTheme(Appearance.LIGHT) {
-                ImmersionBubble(result, ReadingMode.ORIGINAL, speech, "en", "es", "embedded-test", embedded = true, metadata = { Text("Message") })
+                ImmersionBubble(result, ReadingMode.IMMERSED, speech, "en", "es", "embedded-test", embedded = true, metadata = { Text("Message") })
             } }
             fun paragraphs(view: View): List<StableImmersionText> = when (view) {
                 is StableImmersionText -> listOf(view)
