@@ -11,9 +11,9 @@ COMPANY_PRIVACY = "https://fallsoft.co/privacy-policy"
 COMPANY_TERMS = "https://fallsoft.co/terms-of-service"
 
 PAGES = {
-    "/": ("Chat with friends. Learn new words.", """
-        <p class="lead">Vipi is a messaging app that helps you learn words as you read your chats.</p>
-        <p>Choose the language you know and the one you want to learn. Selected words and short phrases switch in place between the two languages. The rest of the message keeps its original wording, word order and grammar. Available words vary by language; unsupported words stay unchanged.</p>
+    "/": ("Immersive chat with friends.", """
+        <p class="lead">Chat with your friends as usual. Vipi switches selected words in the messages you read into the language you are learning, then back to the original wording.</p>
+        <p>Choose the language you know and the one you want to learn. Your friends do not need to know that language or change how they write. Words and short phrases switch in place; the rest of the message keeps its original wording, word order and grammar. Available words vary by language; unsupported words stay unchanged.</p>
         <p>Pause the changes, show the original message, or tap Listen to hear pronunciation. Words in Latin letters help you read supported non-Latin scripts. Full-message translation is a separate option and may need a language download.</p>
         <p>Chats with friends are end-to-end encrypted. Word switching, translation and speech run on your device. Bot mini is an optional separate subscription for chatting with vBot. Messages you send to vBot go to our response provider.</p>
         <p><strong>Vipi is in testing.</strong> App downloads will appear here after store approval. Translations can be wrong; Vipi does not promise a particular level of fluency.</p>
