@@ -1,0 +1,32 @@
+{
+  "state": "prepared_not_applied",
+  "profile_subject_matches_identity_1": true,
+  "username_and_display_match": true,
+  "trial_start_equals_created": true,
+  "trial_duration_seconds": 2592000,
+  "device_total": 1,
+  "device_active": 1,
+  "entitlement_rows": 0,
+  "reviewer_and_prior_sandbox_tester": false,
+  "candidate_sandbox_tester_count": 2,
+  "only_changed_field": "VIPI_STORE_SANDBOX_USER_IDS",
+  "allowed_subjects_unchanged": true,
+  "reviewers_unchanged": true,
+  "baseline_sha256": "7cbfe7e9196c0282ff94d0a20ec21f543a9932f8ff4b2f47eb581d2c981535b3",
+  "candidate_sha256": "4082efd72eca75e310b7cf57c873338b757796e7761a8a7c318432b97f3cba64",
+  "service_user_validated": true,
+  "live_env_unchanged": true,
+  "no_db_or_env_mutation": true,
+  "created_at_utc": "2026-11-17T13:29:49.529650Z",
+  "trial_start_utc": "2026-11-17T13:29:49.529650Z",
+  "trial_end_utc": "2026-12-17T13:29:49.529650Z",
+  "fixture_proposed_end_utc": "2026-11-17T13:34:50.967780Z",
+  "fixture_state": "exact guarded single-row plan and private original-row snapshot prepared; no mutation",
+  "rollback_policy": "only exact fixture end with zero entitlement rows; never undo after purchase",
+  "diagnostic": "Initial root SQLAlchemy DB connection failed PostgreSQL peer authentication; no stage or mutation resulted. Read-only query then used existing local postgres role.",
+  "limitations": [
+    "Subject and internal UUID retained privately, not in this receipt.",
+    "Admin-marked WorkOS verification is not an email-delivery test.",
+    "No sandbox allowlist change, expiry fixture, purchase, device operation, peer authentication or provider request was performed."
+  ]
+}
