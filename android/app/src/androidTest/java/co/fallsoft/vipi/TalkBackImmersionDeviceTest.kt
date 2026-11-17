@@ -146,7 +146,7 @@ class TalkBackImmersionDeviceTest {
             assertTrue(requireNotNull(menu).performAction(AccessibilityNodeInfo.ACTION_CLICK))
             try {
                 compose.waitUntil(5_000) {
-                    automation.rootInActiveWindow?.let(::nodes).orEmpty().any { it.text?.toString() == "Swahili" }
+                    automation.rootInActiveWindow?.let(::nodes).orEmpty().any { it.text?.toString() == "Full translation" }
                 }
             } finally {
                 val observed = automation.rootInActiveWindow?.let(::nodes).orEmpty()
