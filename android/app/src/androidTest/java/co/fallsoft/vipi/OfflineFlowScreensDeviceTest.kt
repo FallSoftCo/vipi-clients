@@ -65,7 +65,7 @@ class OfflineFlowScreensDeviceTest {
             state.value = value
         }
         val device = UiDevice.getInstance(inst)
-        val out = File(base.filesDir, "offline-flow-plan-r03").apply { mkdirs() }
+        val out = File(base.filesDir, "offline-flow-plan-r04").apply { mkdirs() }
         var scenario: ActivityScenario<MainActivity>? = null
         try {
             withContext(Dispatchers.Main) {
@@ -107,6 +107,12 @@ class OfflineFlowScreensDeviceTest {
             scenario!!.onActivity { model.navigate(Screen.BACKUP) }
             assertTrue(device.wait(Until.hasObject(By.textContains("backup")), 10_000))
             assertTrue(device.takeScreenshot(File(out, "backup-form.png")))
+            device.findObject(By.text("Restore history")).click()
+            assertTrue(device.wait(Until.hasObject(By.text("Choose a backup to restore")), 5_000))
+            assertFalse(device.hasObject(By.text("Confirm password to save a backup")))
+            device.findObject(By.clazz("android.widget.EditText")).text = "synthetic-passphrase"
+            assertTrue(device.findObject(By.text("Choose a backup to restore")).isEnabled)
+            assertTrue(device.takeScreenshot(File(out, "backup-restore.png")))
             scenario!!.onActivity { setState(chat, "needsDeviceRecovery", true); setState(chat, "ready", false); model.navigate(Screen.HOME) }
             assertTrue(device.wait(Until.hasObject(By.textContains("another device")), 10_000))
             assertFalse("New chats require a ready device", device.findObject(By.text("Start a conversation")).isEnabled)
@@ -127,7 +133,7 @@ class OfflineFlowScreensDeviceTest {
             assertTrue(device.wait(Until.hasObject(By.textContains("Your free Vipi access ended")), 10_000))
             assertFalse(device.hasObject(By.textContains("Your plan access couldn’t be checked")))
             assertTrue(device.takeScreenshot(File(out, "plan-expired-no-store-offer.png")))
-            File(out, "receipt.json").writeText(JSONObject().put("synthetic_profile", true).put("fake_transport_only", true).put("share_sent", false).put("message_sent", false).put("store_offer_loaded", false).put("screens", JSONArray(listOf("home-profile", "new-chat-profile", "invite-chooser", "friend-composer-keyboard", "backup-form", "device-recovery", "plan-unknown", "plan-expired-no-store-offer"))).toString(2))
+            File(out, "receipt.json").writeText(JSONObject().put("synthetic_profile", true).put("fake_transport_only", true).put("share_sent", false).put("message_sent", false).put("store_offer_loaded", false).put("screens", JSONArray(listOf("home-profile", "new-chat-profile", "invite-chooser", "friend-composer-keyboard", "backup-form", "backup-restore", "device-recovery", "plan-unknown", "plan-expired-no-store-offer"))).toString(2))
         } finally {
             scenario?.close()
             withContext(Dispatchers.Main) { plans.close(); chat.close(); scope.cancel() }

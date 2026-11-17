@@ -5,6 +5,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -29,6 +32,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 internal class HistoryBackupModel : ViewModel() {
     var password by mutableStateOf("")
     var confirmation by mutableStateOf("")
+    var restoring by mutableStateOf(false)
     var busy by mutableStateOf(false)
     var message by mutableStateOf<String?>(null)
     var summary by mutableStateOf<HistoryBackupCodec.Inspection?>(null)
@@ -49,6 +53,7 @@ internal class HistoryBackupModel : ViewModel() {
     val scope = transfer.viewModelScope
     var password by transfer::password
     var confirmation by transfer::confirmation
+    var restoring by transfer::restoring
     var busy by transfer::busy
     var message by transfer::message
     var summary by transfer::summary
@@ -120,14 +125,22 @@ internal class HistoryBackupModel : ViewModel() {
             Text(stringResource(R.string.ui_0541b2d9f69b), style = MaterialTheme.typography.headlineMedium)
             Text(stringResource(R.string.ui_bb1fe2470e72))
             Text(stringResource(R.string.ui_233a70befbdc), style = MaterialTheme.typography.bodyMedium)
+            listOf(false to stringResource(R.string.ui_6a6965bcf571), true to stringResource(R.string.ui_beb6c51b9bf6)).forEach { (restore, label) ->
+                Row(Modifier.fillMaxWidth().selectable(selected = restoring == restore, enabled = !busy, role = Role.RadioButton, onClick = {
+                    if (restoring != restore) { clearImport(); confirmation = ""; message = null; restoring = restore }
+                }), verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(selected = restoring == restore, onClick = null, enabled = !busy)
+                    Text(label, modifier = Modifier.padding(start = 8.dp))
+                }
+            }
             OutlinedTextField(password, { password = it; clearImport(); message = null }, label = { Text(stringResource(R.string.ui_3e39703b6e87)) },
                 supportingText = { Text(stringResource(R.string.ui_04c8049b72ff)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
                 singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(confirmation, { confirmation = it }, label = { Text(stringResource(R.string.ui_d63cd658184e)) },
+            if (!restoring) OutlinedTextField(confirmation, { confirmation = it }, label = { Text(stringResource(R.string.ui_d63cd658184e)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
                 singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth())
-            Button(onClick = {
+            if (!restoring) Button(onClick = {
                 busy = true; message = null; clearImport()
                 job = scope.launch {
                     var file: File? = null
@@ -140,7 +153,7 @@ internal class HistoryBackupModel : ViewModel() {
                     finally { file?.delete() }
                 }
             }, enabled = !busy && HistoryBackupCodec.validPassword(password) && password == confirmation, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_6a6965bcf571)) }
-            OutlinedButton(onClick = { busy = true; message = null; open.launch(arrayOf("application/octet-stream", "application/*")) },
+            if (restoring) OutlinedButton(onClick = { busy = true; message = null; open.launch(arrayOf("application/octet-stream", "application/*")) },
                 enabled = !busy && HistoryBackupCodec.validPassword(password), modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_a67f154bcb16)) }
             if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
             message?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
