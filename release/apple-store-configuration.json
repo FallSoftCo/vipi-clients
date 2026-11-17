@@ -74,7 +74,8 @@
     "monthly_commitment_configured": false,
     "streamlined_purchasing": "on, unchanged",
     "promoted_purchases_configured": false,
-    "win_back_or_contingent_offers_configured": false
+    "win_back_or_contingent_offers_configured": false,
+    "introductory_offer_scope_note": "Historical common offer settings below apply only to Bot mini after November 17 Base removal; see introductory_offer_current."
   },
   "qualification": {
     "real_sandbox_purchase": false,
@@ -175,5 +176,22 @@
     "verification_receipt": "investigations/vipi-resume-20261116-r01/apple-signed-qualification-r141.json",
     "delivery_record": "release/apple-delivery-20261116-r01.json"
   },
-  "verification_scope_note": "November 16 readback covers listing name/subtitle, uploaded signed build and TestFlight status; older provisioning details retain their original receipt dates."
+  "verification_scope_note": "November 16 readback covers listing name/subtitle, uploaded signed build and TestFlight status; older provisioning details retain their original receipt dates.",
+  "introductory_offer_current": {
+    "verified_date": "2026-11-17",
+    "base": {
+      "product_id": "vipi.base.annual",
+      "offer": null,
+      "standard_usd_annual": "12.00",
+      "price_regions": 175
+    },
+    "bot_mini": {
+      "product_id": "vipi.botmini.annual",
+      "offer": "FREE_TRIAL",
+      "duration": "P1M",
+      "regions": 175,
+      "standard_usd_annual": "48.00"
+    },
+    "receipt": "qa/subscriptions/cardless-trial-20261117-r01/apple-base-offer.json"
+  }
 }

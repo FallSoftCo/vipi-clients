@@ -1,5 +1,5 @@
 {
-  "state": "version2_uploaded_once_to_play_library_verified_no_rollout",
+  "state": "version2_internal_release_and_actual_play_update_verified",
   "source_revision": "195c952",
   "qualified_android_parent": "0065768",
   "package": "co.fallsoft.vipi",
@@ -22,11 +22,11 @@
   "previous_device_estimate_bytes": 416960679,
   "no_upload_or_release_install": false,
   "limitations": [
-    "QA exercised equivalent runtime before version bump; this exact release artifact not installed",
     "One ARM64/en/API35 size estimate is not Play measurement",
     "No physical 16KiB runtime",
     "12 locale translations need broader semantic and screen review",
-    "Store listing, actual submission and regional conditions remain separate"
+    "Store listing, actual submission and regional conditions remain separate",
+    "Actual Play update/account/plan verified; updated-build chat immersion and TTS under new scoped qualification."
   ],
   "first_attempt": "capacity-bound stopped, incomplete intermediate retired, floor restored; successful split packaging thereafter",
   "root_merge": "28804510ebc9eff92a9f702415212f01ce866176",
@@ -62,5 +62,7 @@
     "reviewSubmitted": false,
     "rolledOut": false
   },
-  "release_install_completed": false
+  "release_install_completed": true,
+  "internal_release": "android-internal-release-20261117.json",
+  "play_update_receipt": "investigations/vipi-submit-20261110-r01/android-v2-play-update-20261117-r01/result.json"
 }

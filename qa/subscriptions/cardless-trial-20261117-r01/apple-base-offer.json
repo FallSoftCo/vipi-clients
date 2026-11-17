@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-17T06:46:26.064Z",
+  "product": "vipi.base.annual",
+  "appleId": "6832625761",
+  "prestate": "Nov9 to No End Date, free first month, 175 regions",
+  "scope": "End only obsolete Base introductory offer for approved cardless flow; preserve standard annual prices and separate Bot mini offer",
+  "state": "removed_once_and_independently_reloaded",
+  "confirm_dispatch_at": "2026-11-17T06:46:41.306Z",
+  "confirmation": "Existing subscribers keep currently active offer",
+  "verified_at": "2026-11-17T06:50:45.615658+00:00",
+  "base_offer_count": 0,
+  "base_price_usd": "12.00",
+  "standard_price_regions": 175,
+  "bot_mini": {
+    "offer": "Free for first month",
+    "regions": 175,
+    "end_date": null,
+    "price_usd": "48.00",
+    "changed": false
+  },
+  "evidence": [
+    "apple-base-empty-r20.png",
+    "apple-base-price-details-r22.png",
+    "apple-bot-preserved-r24.png",
+    "apple-bot-price-proof-r26.png"
+  ],
+  "purchase": false,
+  "signing": false,
+  "store_review_submission": false
+}

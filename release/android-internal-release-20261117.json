@@ -1,0 +1,37 @@
+{
+  "at": "2026-11-17T06:35:17.076668+00:00",
+  "package": "co.fallsoft.vipi",
+  "version_code": 2,
+  "version_name": "1.0.1",
+  "scope": "New internal release to existing single company tester, using already uploaded library artifact; no reupload, public release, purchase or message",
+  "previous_release": "1.0 (1) - Internal qualification",
+  "state": "published_once_and_reloaded_available_to_internal_testers",
+  "artifact_id": "4860252237026188999",
+  "release_id": 2,
+  "track_id": "4701302215140856403",
+  "preview": {
+    "status": "Ready to release",
+    "version_code": 2,
+    "previous_version_included": false,
+    "new_install_mb": 417,
+    "update_mb": 1.54,
+    "device_changes": 0,
+    "notes_verified": true
+  },
+  "publish_dispatch_at": "2026-11-17T06:38:12.278494+00:00",
+  "confirm_dispatch_at": "2026-11-17T06:38:23.234Z",
+  "verified_at": "2026-11-17T06:40:12.847505+00:00",
+  "audience": {
+    "selected_list": "Vipi internal qualification",
+    "users": 1,
+    "other_list_selected": false
+  },
+  "screenshots": [
+    "v2-internal-review-r15.png",
+    "v2-internal-status-r18.png",
+    "v2-internal-readback-r20.png",
+    "v2-internal-testers-r21.png"
+  ],
+  "public_rollout": false,
+  "store_review_submission": false
+}
