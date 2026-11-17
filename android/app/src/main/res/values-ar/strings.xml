@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_back">رجوع</string>
+    <string name="nav_settings">ملفك الشخصي والإعدادات</string>
+    <string name="nav_chats">المحادثات</string>
+    <string name="nav_new_chat">محادثة جديدة</string>
+    <string name="nav_plan">خطتك</string>
+    <string name="nav_invite">دعوة صديق</string>
+    <string name="nav_sign_in">تسجيل الدخول</string>
+    <string name="nav_terms">الشروط</string>
+    <string name="nav_privacy">الخصوصية</string>
+    <string name="settings_title">الإعدادات</string>
+    <string name="new_words">كلمات جديدة</string>
+    <string name="try_again">حاول مجددًا</string>
+    <string name="cancel_action">إلغاء</string>
+    <string name="continue_action">متابعة</string>
+    <string name="send_message">إرسال رسالة</string>
+    <string name="message_hint">رسالة</string>
+    <string name="choose_languages">اختيار اللغات</string>
+    <string name="language_settings">إعدادات اللغة</string>
+    <string name="already_speak">أتحدث بالفعل</string>
+    <string name="want_learn">أريد تعلّم</string>
+    <string name="example_message">رسالة مثال</string>
+    <string name="your_account">حسابك</string>
+    <string name="continue_signin">المتابعة لتسجيل الدخول</string>
+    <string name="no_account_preview">لا تحتاج إلى حساب لتجربة هذا المثال.</string>
+    <string name="terms_service">شروط الخدمة</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="continue_with_language">المتابعة مع %1$s</string>
+    <string name="new_words_description">اختر عدد الكلمات الجديدة التي تظهر. قد تستمر الكلمات التي رأيتها في الظهور أيضًا، لذلك قد يزيد العدد الإجمالي.</string>
+    <string name="new_words_off">تبديل الكلمات متوقف.</string>
+    <string name="new_words_amount">عدد الكلمات الجديدة</string>
+    <string name="cardless_ends">تنتهي فترة وصولك المجاني إلى Vipi ومدتها 30 يومًا في %1$s.</string>
+    <string name="cardless_no_payment">لا تحتاج إلى وسيلة دفع لهذه الفترة المجانية.</string>
+    <string name="cardless_intro">ابدأ بفترة مجانية مدتها 30 يومًا دون وسيلة دفع. بعدها اختر ما إذا كنت تريد الاشتراك.</string>
+    <string name="bot_verification_unavailable">يتعذر التحقق من الوصول إلى Bot mini الآن. حاول مجددًا.</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_back">返回</string>
+    <string name="nav_settings">个人资料和设置</string>
+    <string name="nav_chats">聊天</string>
+    <string name="nav_new_chat">新聊天</string>
+    <string name="nav_plan">你的套餐</string>
+    <string name="nav_invite">邀请朋友</string>
+    <string name="nav_sign_in">登录</string>
+    <string name="nav_terms">条款</string>
+    <string name="nav_privacy">隐私</string>
+    <string name="settings_title">设置</string>
+    <string name="new_words">新词</string>
+    <string name="try_again">重试</string>
+    <string name="cancel_action">取消</string>
+    <string name="continue_action">继续</string>
+    <string name="send_message">发送消息</string>
+    <string name="message_hint">消息</string>
+    <string name="choose_languages">选择语言</string>
+    <string name="language_settings">语言设置</string>
+    <string name="already_speak">我会说</string>
+    <string name="want_learn">我想学</string>
+    <string name="example_message">示例消息</string>
+    <string name="your_account">你的账号</string>
+    <string name="continue_signin">继续登录</string>
+    <string name="no_account_preview">无需账号即可体验此示例。</string>
+    <string name="terms_service">服务条款</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="continue_with_language">继续学习%1$s</string>
+    <string name="new_words_description">选择显示多少新词。你见过的词也可能再次出现，因此总数可能增加。</string>
+    <string name="new_words_off">词语切换已关闭。</string>
+    <string name="new_words_amount">新词数量</string>
+    <string name="cardless_ends">你的 30 天 Vipi 免费使用期将于 %1$s 结束。</string>
+    <string name="cardless_no_payment">此免费期间无需付款方式。</string>
+    <string name="cardless_intro">无需付款方式，先免费使用 30 天。之后可自行选择是否订阅。</string>
+    <string name="bot_verification_unavailable">目前无法验证 Bot mini 的使用权限。请重试。</string>
+</resources>

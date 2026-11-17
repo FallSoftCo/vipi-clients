@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_back">Rudi</string>
+    <string name="nav_settings">Wasifu na mipangilio yako</string>
+    <string name="nav_chats">Mazungumzo</string>
+    <string name="nav_new_chat">Mazungumzo mapya</string>
+    <string name="nav_plan">Mpango wako</string>
+    <string name="nav_invite">Alika rafiki</string>
+    <string name="nav_sign_in">Ingia</string>
+    <string name="nav_terms">Masharti</string>
+    <string name="nav_privacy">Faragha</string>
+    <string name="settings_title">Mipangilio</string>
+    <string name="new_words">Maneno mapya</string>
+    <string name="try_again">Jaribu tena</string>
+    <string name="cancel_action">Ghairi</string>
+    <string name="continue_action">Endelea</string>
+    <string name="send_message">Tuma ujumbe</string>
+    <string name="message_hint">Ujumbe</string>
+    <string name="choose_languages">Chagua lugha</string>
+    <string name="language_settings">Mipangilio ya lugha</string>
+    <string name="already_speak">Ninazungumza tayari</string>
+    <string name="want_learn">Ninataka kujifunza</string>
+    <string name="example_message">Ujumbe wa mfano</string>
+    <string name="your_account">Akaunti yako</string>
+    <string name="continue_signin">Endelea kuingia</string>
+    <string name="no_account_preview">Huhitaji akaunti kujaribu mfano huu.</string>
+    <string name="terms_service">Masharti ya Huduma</string>
+    <string name="privacy_policy">Sera ya Faragha</string>
+    <string name="continue_with_language">Endelea na %1$s</string>
+    <string name="new_words_description">Chagua idadi ya maneno mapya yanayoonekana. Maneno uliyoyaona yanaweza kuendelea kuonekana pia, hivyo jumla inaweza kuongezeka.</string>
+    <string name="new_words_off">Kubadilisha maneno kumezimwa.</string>
+    <string name="new_words_amount">Idadi ya maneno mapya</string>
+    <string name="cardless_ends">Siku zako 30 za kutumia Vipi bila malipo zinaisha %1$s.</string>
+    <string name="cardless_no_payment">Huhitaji njia ya malipo kwa kipindi hiki cha bure.</string>
+    <string name="cardless_intro">Anza kwa siku 30 bila malipo na bila njia ya malipo. Baadaye, chagua kama ungependa kujisajili.</string>
+    <string name="bot_verification_unavailable">Haiwezekani kuthibitisha ufikiaji wa Bot mini kwa sasa. Jaribu tena.</string>
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_back">Retour</string>
+    <string name="nav_settings">Votre profil et vos paramètres</string>
+    <string name="nav_chats">Discussions</string>
+    <string name="nav_new_chat">Nouvelle discussion</string>
+    <string name="nav_plan">Votre abonnement</string>
+    <string name="nav_invite">Inviter un ami</string>
+    <string name="nav_sign_in">Se connecter</string>
+    <string name="nav_terms">Conditions</string>
+    <string name="nav_privacy">Confidentialité</string>
+    <string name="settings_title">Paramètres</string>
+    <string name="new_words">Nouveaux mots</string>
+    <string name="try_again">Réessayer</string>
+    <string name="cancel_action">Annuler</string>
+    <string name="continue_action">Continuer</string>
+    <string name="send_message">Envoyer le message</string>
+    <string name="message_hint">Message</string>
+    <string name="choose_languages">Choisir les langues</string>
+    <string name="language_settings">Paramètres de langue</string>
+    <string name="already_speak">Je parle déjà</string>
+    <string name="want_learn">Je veux apprendre</string>
+    <string name="example_message">Message exemple</string>
+    <string name="your_account">Votre compte</string>
+    <string name="continue_signin">Continuer pour se connecter</string>
+    <string name="no_account_preview">Aucun compte nécessaire pour essayer cet exemple.</string>
+    <string name="terms_service">Conditions d’utilisation</string>
+    <string name="privacy_policy">Politique de confidentialité</string>
+    <string name="continue_with_language">Continuer avec %1$s</string>
+    <string name="new_words_description">Choisissez combien de nouveaux mots apparaissent. Les mots déjà vus peuvent aussi réapparaître, donc le total peut augmenter.</string>
+    <string name="new_words_off">Le remplacement des mots est désactivé.</string>
+    <string name="new_words_amount">Nombre de nouveaux mots</string>
+    <string name="cardless_ends">Vos 30 jours d’accès gratuit à Vipi se terminent le %1$s.</string>
+    <string name="cardless_no_payment">Aucun moyen de paiement n’est nécessaire pour cette période gratuite.</string>
+    <string name="cardless_intro">Commencez par 30 jours gratuits, sans moyen de paiement. Ensuite, choisissez si vous souhaitez vous abonner.</string>
+    <string name="bot_verification_unavailable">Impossible de vérifier l’accès à Bot mini pour le moment. Réessayez.</string>
+</resources>

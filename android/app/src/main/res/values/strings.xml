@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_back">Back</string>
+    <string name="nav_settings">Your profile and settings</string>
+    <string name="nav_chats">Chats</string>
+    <string name="nav_new_chat">New chat</string>
+    <string name="nav_plan">Your plan</string>
+    <string name="nav_invite">Invite a friend</string>
+    <string name="nav_sign_in">Sign in</string>
+    <string name="nav_terms">Terms</string>
+    <string name="nav_privacy">Privacy</string>
+    <string name="settings_title">Settings</string>
+    <string name="new_words">New words</string>
+    <string name="try_again">Try again</string>
+    <string name="cancel_action">Cancel</string>
+    <string name="continue_action">Continue</string>
+    <string name="send_message">Send message</string>
+    <string name="message_hint">Message</string>
+    <string name="choose_languages">Choose languages</string>
+    <string name="language_settings">Language settings</string>
+    <string name="already_speak">I already speak</string>
+    <string name="want_learn">I want to learn</string>
+    <string name="example_message">Example message</string>
+    <string name="your_account">Your account</string>
+    <string name="continue_signin">Continue to sign in</string>
+    <string name="no_account_preview">No account needed to try this example.</string>
+    <string name="terms_service">Terms of Service</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="continue_with_language">Continue with %1$s</string>
+    <string name="new_words_description">Choose how many new words appear. Words you’ve seen can keep appearing too, so the total can grow.</string>
+    <string name="new_words_off">Word switching is off.</string>
+    <string name="new_words_amount">Amount of new words</string>
+    <string name="cardless_ends">Your 30 days of free Vipi access end %1$s.</string>
+    <string name="cardless_no_payment">No payment method is needed for this free period.</string>
+    <string name="cardless_intro">Start with 30 days free, with no payment method. After that, choose whether to subscribe.</string>
+    <string name="bot_verification_unavailable">Bot mini access can’t be verified right now. Try again.</string>
+</resources>

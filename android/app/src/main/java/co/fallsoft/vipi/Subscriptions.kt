@@ -18,7 +18,10 @@ internal enum class SubscriptionPlan(val productID: String, val title: String) {
     BASE("vipi_base", "Vipi"), BOT_MINI("vipi_bot_mini", "Bot mini")
 }
 
-internal data class PlanAccess(val active: Boolean, val expiresAt: Instant?, val trialEndsAt: Instant?, val reviewAccess: Boolean = false) {
+internal data class CardlessTrial(val startedAt: Instant, val endsAt: Instant, val active: Boolean)
+
+internal data class PlanAccess(val active: Boolean, val expiresAt: Instant?, val trialEndsAt: Instant?, val reviewAccess: Boolean = false,
+    val accessSource: String? = null, val cardlessTrial: CardlessTrial? = null, val verificationUnavailable: Boolean = false) {
     fun usable(now: Instant = Instant.now()) = active &&
         (expiresAt?.isAfter(now) == true || (reviewAccess && expiresAt == null && trialEndsAt == null))
     companion object {
@@ -29,23 +32,31 @@ internal data class PlanAccess(val active: Boolean, val expiresAt: Instant?, val
             require(trial == null || (expires != null && !trial.isAfter(expires)))
             val review = value.opt("review_access") == true && value.opt("access_source") == "review_complimentary"
             require(!review || (expires == null && trial == null))
-            return PlanAccess(value.getBoolean("active"), expires, trial, review)
+            val cardless = value.optJSONObject("cardless_trial")?.let {
+                CardlessTrial(Instant.parse(it.getString("started_at")), Instant.parse(it.getString("ends_at")), it.getBoolean("active"))
+                    .also { period -> require(period.endsAt.isAfter(period.startedAt)) }
+            }
+            val source = value.optString("access_source").takeUnless { it.isBlank() || it == "null" }
+            return PlanAccess(value.getBoolean("active"), expires, trial, review, source, cardless, value.optBoolean("verification_unavailable", false))
         }
     }
 }
 
-internal data class SubscriptionAccess(val base: PlanAccess, val bot: PlanAccess, val botAvailable: Boolean, val billingAccountID: String, val purchasesReady: Boolean) {
+internal data class SubscriptionAccess(val base: PlanAccess, val bot: PlanAccess, val botAvailable: Boolean, val billingAccountID: String, val purchasesReady: Boolean,
+    val serverTime: Instant? = null, val receivedAtElapsedMillis: Long = 0) {
+    fun serverNow(): Instant = serverTime?.plusMillis((android.os.SystemClock.elapsedRealtime() - receivedAtElapsedMillis).coerceAtLeast(0)) ?: Instant.now()
     companion object {
         fun parse(value: JSONObject): SubscriptionAccess {
             val account = value.getString("billing_account_id")
             require(account.matches(Regex("[a-f0-9]{64}")))
             return SubscriptionAccess(PlanAccess.parse(value.getJSONObject("base")), PlanAccess.parse(value.getJSONObject("bot_mini")),
-                value.getJSONObject("bot_mini").getBoolean("available"), account, value.optJSONObject("purchases_ready")?.optBoolean("google", false) == true)
+                value.getJSONObject("bot_mini").getBoolean("available"), account, value.optJSONObject("purchases_ready")?.optBoolean("google", false) == true,
+                value.optString("server_time").takeUnless { it.isBlank() || it == "null" }?.let(Instant::parse), android.os.SystemClock.elapsedRealtime())
         }
     }
     fun active(plan: SubscriptionPlan) = when (plan) {
-        SubscriptionPlan.BASE -> base.usable()
-        SubscriptionPlan.BOT_MINI -> base.usable() && bot.usable() && botAvailable
+        SubscriptionPlan.BASE -> base.usable(serverNow())
+        SubscriptionPlan.BOT_MINI -> base.usable(serverNow()) && bot.usable(serverNow()) && botAvailable
     }
 }
 
@@ -68,7 +79,8 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
     private var quotesAt = 0L
     private val refreshLock = Mutex()
     private val connectionLock = Mutex()
-    private val client = BillingClient.newBuilder(context.applicationContext)
+    private val appContext = context.applicationContext
+    private val client = BillingClient.newBuilder(appContext)
         .setListener { result, purchases -> scope.launch {
             if (closed) return@launch
             purchasing = false
@@ -77,12 +89,12 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
                     notice = null
                     runCatching { verify(purchases.orEmpty()) }.onFailure { failure ->
                         if (failure is CancellationException) throw failure
-                        notice = "Your purchase is awaiting verification. Restore purchases to try again; don’t buy it again."
+                        notice = appContext.getString(R.string.ui_3ec68bc63f9a)
                     }
                 }
-                BillingClient.BillingResponseCode.USER_CANCELED -> notice = "Purchase canceled. Your plans haven’t changed."
+                BillingClient.BillingResponseCode.USER_CANCELED -> notice = appContext.getString(R.string.ui_e9fa6f9474f3)
                 BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> refresh()
-                else -> notice = "Google Play couldn’t complete the purchase. Please try again."
+                else -> notice = appContext.getString(R.string.ui_d1fc884eb413)
             }
         } }
         .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
@@ -133,7 +145,7 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
             busy = true; notice = null; offers = emptyMap()
             try {
                 if (!refreshAccess()) {
-                    if (!closed) notice = "Your plan access couldn’t be checked. Try again."
+                    if (!closed) notice = appContext.getString(R.string.ui_1f90b03e1d77)
                     return@withLock
                 }
                 if (closed) return@withLock
@@ -159,7 +171,11 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
                         if (!trial && phases.size != 1) return@mapNotNull null
                         SubscriptionOffer(product, offer.offerToken, annual.formattedPrice, annual.priceAmountMicros, annual.priceCurrencyCode, trial)
                     }
-                    eligible.sortedByDescending { it.oneMonthTrial }.firstOrNull()?.let { plan to it }
+                    // Base has a server-provided cardless month, so never stack a
+                    // store trial on top. Bot mini keeps its separate offer.
+                    val selected = if (plan == SubscriptionPlan.BASE) eligible.firstOrNull { !it.oneMonthTrial }
+                        else eligible.sortedByDescending { it.oneMonthTrial }.firstOrNull()
+                    selected?.let { plan to it }
                 } }.toMap()
                 quotesAt = android.os.SystemClock.elapsedRealtime()
                 val purchases = withTimeout(20_000) { suspendCancellableCoroutine<List<Purchase>> { pending ->
@@ -172,10 +188,10 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
                     }
                 } }
                 verify(purchases)
-                if (offers.isEmpty() && !closed) notice = "Plans aren’t available from Google Play yet. Please try again later."
-            } catch (_: TimeoutCancellationException) { if (!closed) notice = "Google Play took too long to respond. Please try again." }
+                if (offers.isEmpty() && !closed) notice = appContext.getString(R.string.ui_8927db75ddd0)
+            } catch (_: TimeoutCancellationException) { if (!closed) notice = appContext.getString(R.string.ui_b4009c7a9f52) }
             catch (failure: CancellationException) { throw failure }
-            catch (_: Exception) { if (!closed) notice = "We couldn’t refresh your plans. Check your connection and try again." }
+            catch (_: Exception) { if (!closed) notice = appContext.getString(R.string.ui_bbd30d6992ff) }
             finally { if (!closed) busy = false }
         }
     }
@@ -185,7 +201,7 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
             if (closed) return
             if (purchase.products.none { id -> SubscriptionPlan.entries.any { it.productID == id } }) continue
             if (purchase.purchaseState == Purchase.PurchaseState.PENDING) {
-                notice = "Your payment is pending in Google Play. Access starts after payment is confirmed."
+                notice = appContext.getString(R.string.ui_1652f9585f6d)
                 continue
             }
             if (purchase.purchaseState != Purchase.PurchaseState.PURCHASED) continue
@@ -198,17 +214,18 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
     fun buy(activity: Activity, plan: SubscriptionPlan) {
         if (closed || busy || purchasing) return
         val snapshot = access ?: return
-        if (!snapshot.purchasesReady) { notice = "Google Play purchases aren’t available yet. Please try again later."; return }
-        if (plan == SubscriptionPlan.BOT_MINI && !snapshot.base.usable()) { notice = "Start or restore your Vipi plan before adding Bot mini."; return }
-        if (if (plan == SubscriptionPlan.BASE) snapshot.base.usable() else snapshot.bot.usable()) return
+        if (!snapshot.purchasesReady) { notice = appContext.getString(R.string.ui_f87b0e3bf7e6); return }
+        if (plan == SubscriptionPlan.BOT_MINI && snapshot.bot.verificationUnavailable) { notice = appContext.getString(R.string.bot_verification_unavailable); return }
+        if (plan == SubscriptionPlan.BOT_MINI && !snapshot.base.usable(snapshot.serverNow())) { notice = appContext.getString(R.string.ui_45787d668c50); return }
+        if (if (plan == SubscriptionPlan.BASE) snapshot.base.usable(snapshot.serverNow()) else snapshot.bot.usable(snapshot.serverNow())) return
         val offer = offers[plan] ?: return
-        if (android.os.SystemClock.elapsedRealtime() - quotesAt > 300_000) { notice = "Refresh the current Google Play price before continuing."; return }
+        if (android.os.SystemClock.elapsedRealtime() - quotesAt > 300_000) { notice = appContext.getString(R.string.ui_c3169261c50e); return }
         val parameters = BillingFlowParams.newBuilder().setObfuscatedAccountId(snapshot.billingAccountID)
             .setProductDetailsParamsList(listOf(BillingFlowParams.ProductDetailsParams.newBuilder()
                 .setProductDetails(offer.details).setOfferToken(offer.token).build())).build()
         purchasing = true; notice = null
         val result = client.launchBillingFlow(activity, parameters)
-        if (result.responseCode != BillingClient.BillingResponseCode.OK) { purchasing = false; notice = "Google Play couldn’t open checkout. Refresh your plans and try again." }
+        if (result.responseCode != BillingClient.BillingResponseCode.OK) { purchasing = false; notice = appContext.getString(R.string.ui_c753f85749ce) }
     }
 
     override fun close() { closed = true; accessRefresh?.cancel(); accessRefresh = null; client.endConnection(); access = null; accessCheckState = AccessCheckState.UNKNOWN; offers = emptyMap() }

@@ -1,6 +1,7 @@
 package co.fallsoft.vipi
 
 import androidx.compose.foundation.background
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -66,8 +67,8 @@ import kotlinx.coroutines.CancellationException
         }
         Column(Modifier.fillMaxWidth().verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(bottom = 24.dp), verticalArrangement = Arrangement.spacedBy(24.dp)) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-                Text("Verify encryption", style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
-                TextButton(onClick = dismiss) { Text("Done") }
+                Text(stringResource(R.string.ui_53b6cd2365c7), style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
+                TextButton(onClick = dismiss) { Text(stringResource(R.string.ui_11a6767d5674)) }
             }
             Icon(Icons.Outlined.Lock, null, tint = MaterialTheme.colorScheme.primary)
             Text(chat.name(peer), style = MaterialTheme.typography.titleMedium)
@@ -75,27 +76,28 @@ import kotlinx.coroutines.CancellationException
             when {
                 loading -> CircularProgressIndicator()
                 failed -> {
-                    Text("Encryption details couldn’t be opened. Your verification hasn’t changed.")
-                    TextButton(onClick = { load() }) { Text("Try again") }
+                    Text(stringResource(R.string.ui_b47e6d6e77c8))
+                    TextButton(onClick = { load() }) { Text(stringResource(R.string.try_again)) }
                 }
-                value == null -> Text("Exchange a message first to create this conversation’s security number.", modifier = Modifier.testTag("identity-not-established"))
+                value == null -> Text(stringResource(R.string.ui_c754691a97ca), modifier = Modifier.testTag("identity-not-established"))
                 else -> {
                     Text("Compare all 12 groups with ${chat.name(peer)} in person or over a trusted call to confirm your encryption keys match.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    val securityNumberDescription = stringResource(R.string.security_number_description, value.digits.toList().joinToString(", "))
                     SelectionContainer {
                         Text(value.groups.joinToString("  "),
                             style = MaterialTheme.typography.titleLarge.copy(fontFamily = FontFamily.Monospace, textDirection = TextDirection.Ltr, textAlign = TextAlign.Center),
                             modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(16.dp)).padding(20.dp)
-                                .testTag("security-number").semantics { contentDescription = "Security number, " + value.digits.toList().joinToString(", ") })
+                                .testTag("security-number").semantics { contentDescription = securityNumberDescription })
                     }
                     if (value.verified) {
-                        Text("You verified these keys", modifier = Modifier.testTag("identity-verified"))
-                        TextButton(onClick = { change(value) }, modifier = Modifier.testTag("identity-clear")) { Text("Clear verification") }
+                        Text(stringResource(R.string.ui_8ffeaed375d8), modifier = Modifier.testTag("identity-verified"))
+                        TextButton(onClick = { change(value) }, modifier = Modifier.testTag("identity-clear")) { Text(stringResource(R.string.ui_3446735cfdee)) }
                     } else {
-                        Text("Not yet compared", color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Button(onClick = { change(value) }, modifier = Modifier.fillMaxWidth().testTag("identity-verify")) { Text("I compared all 12 groups") }
+                        Text(stringResource(R.string.ui_8201f9bbb22b), color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Button(onClick = { change(value) }, modifier = Modifier.fillMaxWidth().testTag("identity-verify")) { Text(stringResource(R.string.ui_b6ec9d55ae3b)) }
                     }
-                    Text("If any group differs, don’t mark it as verified. A new phone or reinstalled app can change these numbers.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    if (changeFailed) Text("The keys may have changed, or your choice couldn’t be saved. Compare the current numbers again.", style = MaterialTheme.typography.bodySmall)
+                    Text(stringResource(R.string.ui_6151d69d167a), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    if (changeFailed) Text(stringResource(R.string.ui_ac6b07b85d0f), style = MaterialTheme.typography.bodySmall)
                     TextButton(enabled = !recoveryBusy, onClick = {
                         recoveryBusy = true; recoveryError = null
                         scope.launch {
@@ -104,7 +106,7 @@ import kotlinx.coroutines.CancellationException
                             catch (_: Exception) { recoveryError = "A changed encryption identity couldn’t be confirmed. Your current keys are unchanged. Ask your friend to open Vipi, then try again." }
                             finally { recoveryBusy = false }
                         }
-                    }) { Text(if (recoveryBusy) "Checking encryption…" else "Friend changed their phone?") }
+                    }) { Text(if (recoveryBusy) stringResource(R.string.ui_8767b4501794) else stringResource(R.string.ui_18714cc5a562)) }
                     recoveryError?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
                 }
             }
@@ -112,11 +114,11 @@ import kotlinx.coroutines.CancellationException
         }
     }
     recovery?.let { candidate -> AlertDialog(onDismissRequest = { if (!recoveryBusy) recovery = null },
-        title = { Text("Update encryption?") },
+        title = { Text(stringResource(R.string.ui_84368a0f0b2d)) },
         text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Text("${chat.name(peer)}’s device or encryption identity changed. Your saved history stays here. Previous waiting messages will stop and will not be resent.")
             Text(candidate.number.groups.joinToString("  "), fontFamily = FontFamily.Monospace)
-            Text("Continuing uses these keys but does not mark them verified. Compare all 12 groups with your friend in person or over a trusted call before marking them verified.")
+            Text(stringResource(R.string.ui_84b61960effd))
             recoveryError?.let { Text(it) }
         } },
         confirmButton = { TextButton(enabled = !recoveryBusy, onClick = {
@@ -127,6 +129,6 @@ import kotlinx.coroutines.CancellationException
                 catch (_: Exception) { recoveryError = "The keys changed again or the confirmation expired. Close this dialog and check again. Your previous keys remain unchanged." }
                 finally { recoveryBusy = false }
             }
-        }) { Text(if (recoveryBusy) "Updating…" else "Use these keys") } },
-        dismissButton = { TextButton(enabled = !recoveryBusy, onClick = { recovery = null }) { Text("Cancel") } }) }
+        }) { Text(if (recoveryBusy) stringResource(R.string.ui_dfe40efe921f) else stringResource(R.string.ui_8a9877b04214)) } },
+        dismissButton = { TextButton(enabled = !recoveryBusy, onClick = { recovery = null }) { Text(stringResource(R.string.cancel_action)) } }) }
 }

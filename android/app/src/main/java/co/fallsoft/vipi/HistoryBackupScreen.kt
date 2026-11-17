@@ -12,6 +12,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -112,18 +113,18 @@ internal class HistoryBackupModel : ViewModel() {
             finally { file?.delete(); busy = false }
         }
     }
-    Scaffold(topBar = { TopAppBar(title = { Text("Chat backup") }, navigationIcon = {
-        IconButton(onClick = { job?.cancel(); back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back") }
+    Scaffold(topBar = { TopAppBar(title = { Text(stringResource(R.string.ui_24f13e3dc8e4)) }, navigationIcon = {
+        IconButton(onClick = { job?.cancel(); back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) }
     }) }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            Text("Keep your conversations.", style = MaterialTheme.typography.headlineMedium)
-            Text("Save your friend chat history in an encrypted file. You choose where to keep it. Your messaging identity, unsent messages and vBot history stay out of the backup.")
-            Text("Keep your backup password. Vipi cannot recover it. Your saved chats and backups remain accessible if your plan ends.", style = MaterialTheme.typography.bodyMedium)
-            OutlinedTextField(password, { password = it; clearImport(); message = null }, label = { Text("Backup password") },
-                supportingText = { Text("Use at least 12 characters. A long, unique passphrase is best.") },
+            Text(stringResource(R.string.ui_0541b2d9f69b), style = MaterialTheme.typography.headlineMedium)
+            Text(stringResource(R.string.ui_bb1fe2470e72))
+            Text(stringResource(R.string.ui_233a70befbdc), style = MaterialTheme.typography.bodyMedium)
+            OutlinedTextField(password, { password = it; clearImport(); message = null }, label = { Text(stringResource(R.string.ui_3e39703b6e87)) },
+                supportingText = { Text(stringResource(R.string.ui_04c8049b72ff)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
                 singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(confirmation, { confirmation = it }, label = { Text("Confirm password to save a backup") },
+            OutlinedTextField(confirmation, { confirmation = it }, label = { Text(stringResource(R.string.ui_d63cd658184e)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
                 singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth())
             Button(onClick = {
@@ -138,16 +139,16 @@ internal class HistoryBackupModel : ViewModel() {
                     catch (error: Exception) { exported?.delete(); exported = null; failure(error); busy = false }
                     finally { file?.delete() }
                 }
-            }, enabled = !busy && HistoryBackupCodec.validPassword(password) && password == confirmation, modifier = Modifier.fillMaxWidth()) { Text("Save encrypted backup") }
+            }, enabled = !busy && HistoryBackupCodec.validPassword(password) && password == confirmation, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_6a6965bcf571)) }
             OutlinedButton(onClick = { busy = true; message = null; open.launch(arrayOf("application/octet-stream", "application/*")) },
-                enabled = !busy && HistoryBackupCodec.validPassword(password), modifier = Modifier.fillMaxWidth()) { Text("Choose a backup to restore") }
+                enabled = !busy && HistoryBackupCodec.validPassword(password), modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_a67f154bcb16)) }
             if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
             message?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
         }
     }
-    summary?.let { counts -> AlertDialog(onDismissRequest = { clearImport() }, title = { Text("Restore chat history?") },
+    summary?.let { counts -> AlertDialog(onDismissRequest = { clearImport() }, title = { Text(stringResource(R.string.ui_d42ff6022f50)) },
         text = { Text("This backup contains ${counts.summary.messages} messages and ${counts.summary.peers} conversations. Matching messages are kept once. Existing conversations and messaging security stay in place.") },
-        dismissButton = { TextButton(onClick = { clearImport() }) { Text("Cancel") } },
+        dismissButton = { TextButton(onClick = { clearImport() }) { Text(stringResource(R.string.cancel_action)) } },
         confirmButton = { TextButton(onClick = {
             val file = staged ?: return@TextButton
             summary = null; busy = true
@@ -159,5 +160,5 @@ internal class HistoryBackupModel : ViewModel() {
                 catch (error: Exception) { failure(error) }
                 finally { clearImport(); password = ""; confirmation = ""; busy = false }
             }
-        }) { Text("Restore history") } }) }
+        }) { Text(stringResource(R.string.ui_beb6c51b9bf6)) } }) }
 }

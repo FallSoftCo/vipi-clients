@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="annual_price">%1$s per year</string>
+    <string name="trial_then_annual">One month free, then %1$s per year</string>
+    <string name="subscribe_annual">Subscribe for %1$s per year</string>
+    <string name="both_plans_total">Both plans: %1$s per year after trials, billed separately.</string>
+    <string name="both_plans_separate">Vipi: %1$s per year. Bot mini: %2$s additional per year. Billed separately.</string>
+    <string name="plan_active">%1$s is active</string>
+    <string name="trial_end_date">Trial ends %1$s.</string>
+    <string name="access_end_date">Current access ends %1$s.</string>
+    <string name="public_username">Your public username is @%1$s.</string>
+    <string name="chat_empty_target">Find a friend by username and send a message. Supported words and phrases will switch into %1$s as you read.</string>
+    <string name="security_number_description">Security number, %1$s</string>
+</resources>

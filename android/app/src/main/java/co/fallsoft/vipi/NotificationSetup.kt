@@ -7,6 +7,7 @@ import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
+import androidx.compose.ui.res.stringResource
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -44,8 +45,8 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 
 @Composable internal fun NotificationPrompt(asked: Boolean, unavailable: Boolean, onClick: () -> Unit) {
     Column {
-        Text("Know when friends reply. Notifications hide message text.", style = MaterialTheme.typography.bodySmall)
-        TextButton(onClick = onClick) { Text(if (asked) "Notification settings" else "Enable notifications") }
-        if (unavailable) Text("Open Vipi’s notification settings in Android Settings.", style = MaterialTheme.typography.bodySmall)
+        Text(stringResource(R.string.ui_71c971aaf02d), style = MaterialTheme.typography.bodySmall)
+        TextButton(onClick = onClick) { Text(if (asked) stringResource(R.string.ui_63568f0582af) else stringResource(R.string.ui_682be64ae780)) }
+        if (unavailable) Text(stringResource(R.string.ui_d75c6cdd950a), style = MaterialTheme.typography.bodySmall)
     }
 }

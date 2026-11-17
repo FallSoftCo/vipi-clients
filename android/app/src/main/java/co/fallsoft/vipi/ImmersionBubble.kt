@@ -3,6 +3,7 @@ package co.fallsoft.vipi
 import android.view.accessibility.AccessibilityManager
 import android.content.Context
 import androidx.compose.foundation.background
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -48,6 +49,8 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     onTranslationSetup: (() -> Unit)? = null, contextualActions: Boolean = false,
     onExposure: ((List<co.fallsoft.vipi.core.ImmersionSpan>) -> Unit)? = null
 ) {
+    val readingOptionsDescription = stringResource(R.string.ui_e52b25aa61b5)
+    val translatingDescription = stringResource(R.string.ui_f1c94d2fa211)
     require(!contextualActions || BuildConfig.DEBUG)
     val nativeActions = contextualActions && embedded
     // A partial result has no full-target text. Do not expose empty/mixed text as translation.
@@ -172,33 +175,33 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
             }
         }
         if (choosingWord) AlertDialog(onDismissRequest = { choosingWord = false },
-            title = { Text("Switch a word") },
+            title = { Text(stringResource(R.string.ui_4a3ddf33db23)) },
             text = { LazyColumn { items(result.spans, key = { it.id }) { word ->
                 TextButton(onClick = { reveal(word.id); choosingWord = false }, modifier = Modifier.fillMaxWidth()) {
                     Text("${word.original} · ${word.displayedTarget}")
                 }
-            } } }, confirmButton = { TextButton(onClick = { choosingWord = false }) { Text("Done") } })
+            } } }, confirmButton = { TextButton(onClick = { choosingWord = false }) { Text(stringResource(R.string.ui_11a6767d5674)) } })
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             if (embedded) { Box(Modifier.weight(1f)) { metadata?.invoke() } }
             if (!embedded && effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) {
                 IconButton(onClick = { paused = !paused; revision++ }, modifier = Modifier.size(44.dp)) {
-                    Icon(if (paused) Icons.Outlined.PlayArrow else Icons.Outlined.Pause, if (paused) "Resume word switching" else "Pause word switching", Modifier.size(18.dp))
+                    Icon(if (paused) Icons.Outlined.PlayArrow else Icons.Outlined.Pause, if (paused) stringResource(R.string.ui_cc245f2e3a71) else stringResource(R.string.ui_37f6135c049a), Modifier.size(18.dp))
                 }
             }
             if (result.spans.isNotEmpty() || fullReading != null || onModeChange != null) {
                 Box {
                     if (!nativeActions) IconButton(onClick = { onInteractionChange?.invoke(true); menu = true }, modifier = Modifier.size(44.dp).semantics {
-                        if (fullTranslationLoading) stateDescription = "Translating full message"
+                        if (fullTranslationLoading) stateDescription = translatingDescription
                     }) {
-                        if (fullTranslationLoading) CircularProgressIndicator(Modifier.size(18.dp).semantics { contentDescription = "Reading options" }, strokeWidth = 2.dp)
-                        else Icon(Icons.Outlined.MoreHoriz, "Reading options", Modifier.size(18.dp))
+                        if (fullTranslationLoading) CircularProgressIndicator(Modifier.size(18.dp).semantics { contentDescription = readingOptionsDescription }, strokeWidth = 2.dp)
+                        else Icon(Icons.Outlined.MoreHoriz, stringResource(R.string.ui_e52b25aa61b5), Modifier.size(18.dp))
                     }
                     DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
                         if (embedded) {
-                            if (speech != null) DropdownMenuItem(text = { Text(if (active) "Stop listening" else if (speech.state == SpeechState.PREPARING) "Preparing voices…" else if (speech.state == SpeechState.UNAVAILABLE) "Set up voices" else "Listen") },
+                            if (speech != null) DropdownMenuItem(text = { Text(if (active) stringResource(R.string.ui_94fa9b236332) else if (speech.state == SpeechState.PREPARING) stringResource(R.string.ui_f4cfeca151e1) else if (speech.state == SpeechState.UNAVAILABLE) stringResource(R.string.ui_f826885bfb23) else stringResource(R.string.ui_225d29f6201e)) },
                                 enabled = speech.state != SpeechState.PREPARING && (speech.state != SpeechState.UNAVAILABLE || onVoiceHelp != null),
                                 onClick = { if (speech.state == SpeechState.UNAVAILABLE) onVoiceHelp?.invoke() else listen(); menu = false })
-                            if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text(if (paused) "Resume word switching" else "Pause word switching") },
+                            if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text(if (paused) stringResource(R.string.ui_cc245f2e3a71) else stringResource(R.string.ui_37f6135c049a)) },
                                 onClick = { paused = !paused; revision++; menu = false })
                         }
                         if (onModeChange != null) ReadingMode.entries.filter { it != ReadingMode.TRANSLATION || completeTranslation != null || onFullTranslation != null }.forEach { value ->
@@ -221,7 +224,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                                 })
                         }
                         if (fullTranslationLoading && onCancelFullTranslation != null)
-                            DropdownMenuItem(text = { Text("Cancel full translation") }, onClick = { onCancelFullTranslation(); menu = false })
+                            DropdownMenuItem(text = { Text(stringResource(R.string.ui_4bc6d965deeb)) }, onClick = { onCancelFullTranslation(); menu = false })
                         if (completeTranslation == null && fullTranslationError != null) Text(when (fullTranslationError) {
                             ImmersionStatus.MODEL_NOT_READY -> "Translation needs a download for this language pair."
                             ImmersionStatus.TIMEOUT -> "That took too long. Word switching is still available."
@@ -230,16 +233,16 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                         }, modifier = Modifier.widthIn(max = 280.dp).padding(horizontal = 16.dp, vertical = 12.dp),
                             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         else if (completeTranslation == null && onFullTranslation == null)
-                            DropdownMenuItem(text = { Text("Full translation isn’t ready") }, enabled = false, onClick = {})
-                        if (canShowScript) DropdownMenuItem(text = { Text(if (script) "Show Latin letters" else "Show original script") }, onClick = { script = !script; menu = false; revision++ })
-                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text("Word switching speed") }, onClick = { choosingPace = true; menu = false })
-                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text("Show original words now") }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
-                        if (onInputLanguage != null) DropdownMenuItem(text = { Text("Message language") }, onClick = { chooseLanguage = true; menu = false })
-                        if (nativeActions) DropdownMenuItem(text = { Text("Select text") }, onClick = { selectText = true; menu = false })
-                        DropdownMenuItem(text = { Text("Copy original message") }, onClick = {
+                            DropdownMenuItem(text = { Text(stringResource(R.string.ui_78ff037cf508)) }, enabled = false, onClick = {})
+                        if (canShowScript) DropdownMenuItem(text = { Text(if (script) stringResource(R.string.ui_93acaeeabd13) else stringResource(R.string.ui_127a78a187bd)) }, onClick = { script = !script; menu = false; revision++ })
+                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text(stringResource(R.string.ui_5de398810247)) }, onClick = { choosingPace = true; menu = false })
+                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text(stringResource(R.string.ui_0c42f5497c0b)) }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
+                        if (onInputLanguage != null) DropdownMenuItem(text = { Text(stringResource(R.string.ui_cbf7e254a8c0)) }, onClick = { chooseLanguage = true; menu = false })
+                        if (nativeActions) DropdownMenuItem(text = { Text(stringResource(R.string.ui_3370146d6d46)) }, onClick = { selectText = true; menu = false })
+                        DropdownMenuItem(text = { Text(stringResource(R.string.ui_b0f88f29b4b2)) }, onClick = {
                             (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager).setPrimaryClip(android.content.ClipData.newPlainText("Message", originalMessage ?: result.original)); menu = false
                         })
-                        if (onReport != null) DropdownMenuItem(text = { Text("Report reply") }, onClick = { menu = false; onReport() })
+                        if (onReport != null) DropdownMenuItem(text = { Text(stringResource(R.string.ui_5480a088185c)) }, onClick = { menu = false; onReport() })
                     }
                 }
             }
@@ -247,13 +250,13 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
             if (!embedded && speech != null) TextButton(onClick = { listen() }, enabled = speech.state !in setOf(SpeechState.PREPARING, SpeechState.UNAVAILABLE)) {
                 if (speech.state == SpeechState.PREPARING || (active && speech.state == SpeechState.RENDERING)) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
                 else Icon(if (active) Icons.Outlined.Stop else Icons.Outlined.VolumeUp, null, Modifier.size(18.dp))
-                Spacer(Modifier.width(7.dp)); Text(if (active) "Stop" else if (speech.state == SpeechState.PREPARING) "Preparing voices" else "Listen", fontSize = 13.sp)
+                Spacer(Modifier.width(7.dp)); Text(if (active) stringResource(R.string.ui_cae7d57bc067) else if (speech.state == SpeechState.PREPARING) stringResource(R.string.ui_58fd7deb0abe) else stringResource(R.string.ui_225d29f6201e), fontSize = 13.sp)
             }
         }
     }
     if (chooseLanguage && onInputLanguage != null) MessageLanguageDialog(source, target, inputLanguage,
         onSelect = { speech?.stop(); onInputLanguage(it); chooseLanguage = false }, dismiss = { chooseLanguage = false })
-    if (choosingPace) AlertDialog(onDismissRequest = { choosingPace = false }, title = { Text("Word switching speed") },
+    if (choosingPace) AlertDialog(onDismissRequest = { choosingPace = false }, title = { Text(stringResource(R.string.ui_5de398810247)) },
         text = { Column {
             listOf("relaxed" to "Slower", "balanced" to "Standard", "brisk" to "Faster").forEach { (key, title) ->
                 TextButton(onClick = { preferences.edit().putString("readingPace", key).apply(); choosingPace = false },
@@ -262,11 +265,11 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                     Text(title)
                 }
             }
-        } }, confirmButton = { TextButton(onClick = { choosingPace = false }) { Text("Cancel") } })
+        } }, confirmButton = { TextButton(onClick = { choosingPace = false }) { Text(stringResource(R.string.cancel_action)) } })
 }
 
 @Composable internal fun MessageLanguageDialog(source: String, target: String, selected: String?, onSelect: (String?) -> Unit, dismiss: () -> Unit) {
-    AlertDialog(onDismissRequest = dismiss, title = { Text("Message language") },
+    AlertDialog(onDismissRequest = dismiss, title = { Text(stringResource(R.string.ui_cbf7e254a8c0)) },
         text = { Column {
             listOf<String?>(null, source, target).forEach { code ->
                 val isSelected = code == selected
@@ -275,7 +278,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                     Text(code?.let(::languageName) ?: "Detect automatically")
                 }
             }
-        } }, confirmButton = { TextButton(onClick = dismiss) { Text("Cancel") } })
+        } }, confirmButton = { TextButton(onClick = dismiss) { Text(stringResource(R.string.cancel_action)) } })
 }
 
 @Composable internal fun UntranslatedMessageActions(text: String, source: String, target: String, selected: String?,
@@ -285,10 +288,10 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
         Box(Modifier.weight(1f)) { metadata() }
         Box {
-            IconButton(onClick = { menu = true }, modifier = Modifier.size(44.dp)) { Icon(Icons.Outlined.MoreHoriz, "Reading options", Modifier.size(18.dp)) }
+            IconButton(onClick = { menu = true }, modifier = Modifier.size(44.dp)) { Icon(Icons.Outlined.MoreHoriz, stringResource(R.string.ui_e52b25aa61b5), Modifier.size(18.dp)) }
             DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
-                DropdownMenuItem(text = { Text("Message language") }, onClick = { choose = true; menu = false })
-                DropdownMenuItem(text = { Text("Copy original message") }, onClick = {
+                DropdownMenuItem(text = { Text(stringResource(R.string.ui_cbf7e254a8c0)) }, onClick = { choose = true; menu = false })
+                DropdownMenuItem(text = { Text(stringResource(R.string.ui_b0f88f29b4b2)) }, onClick = {
                     (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
                         .setPrimaryClip(android.content.ClipData.newPlainText("Message", text)); menu = false
                 })

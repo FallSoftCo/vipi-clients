@@ -22,6 +22,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.focus.onFocusChanged
@@ -48,14 +49,14 @@ import java.util.UUID
     var name by rememberSaveable { mutableStateOf("") }
     var username by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
-    Text("How will friends\nfind you?", fontFamily = FontFamily.Serif, fontSize = 34.sp, lineHeight = 40.sp)
-    Text("Choose a name they’ll recognise and a username to share.", color = MaterialTheme.colorScheme.onSurfaceVariant)
-    OutlinedTextField(name, { name = it }, label = { Text("Your name") }, singleLine = true,
+    Text(stringResource(R.string.ui_73bee38b06e8), fontFamily = FontFamily.Serif, fontSize = 34.sp, lineHeight = 40.sp)
+    Text(stringResource(R.string.ui_956d8b926f8d), color = MaterialTheme.colorScheme.onSurfaceVariant)
+    OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.ui_2c6b2e253c01)) }, singleLine = true,
         modifier = Modifier.fillMaxWidth().testTag("profile-name"), shape = RoundedCornerShape(16.dp))
-    OutlinedTextField(username, { username = it }, label = { Text("Username") }, prefix = { Text("@") }, singleLine = true,
+    OutlinedTextField(username, { username = it }, label = { Text(stringResource(R.string.ui_e3b89e9d33f8)) }, prefix = { Text("@") }, singleLine = true,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false),
         modifier = Modifier.fillMaxWidth().testTag("profile-username"), shape = RoundedCornerShape(16.dp))
-    Text("3–24 letters, numbers or underscores. Your phone number and contacts stay private.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    Text(stringResource(R.string.ui_33875a9b79e5), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     chat.notice?.let { Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     Button(onClick = { scope.launch {
         chat.createProfile(username, name)
@@ -63,9 +64,9 @@ import java.util.UUID
     } }, enabled = !chat.busy && name.isNotBlank() && name.length <= 80 && username.matches(Regex("[a-zA-Z][a-zA-Z0-9_]{2,23}")),
         shape = RoundedCornerShape(18.dp), modifier = Modifier.fillMaxWidth().testTag("profile-submit"), contentPadding = PaddingValues(20.dp)) {
         if (chat.busy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
-        else Text("Continue", fontWeight = FontWeight.SemiBold)
+        else Text(stringResource(R.string.continue_action), fontWeight = FontWeight.SemiBold)
     }
-    TextButton(onClick = { model.navigate(Screen.DELETE_ACCOUNT) }, enabled = !chat.busy) { Text("Delete account", color = MaterialTheme.colorScheme.error) }
+    TextButton(onClick = { model.navigate(Screen.DELETE_ACCOUNT) }, enabled = !chat.busy) { Text(stringResource(R.string.ui_a2e20a335700), color = MaterialTheme.colorScheme.error) }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -196,17 +197,17 @@ import java.util.UUID
         if (followingLatest && messages.isNotEmpty()) list.scrollToItem(messages.size + 1)
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
-        topBar = { TopAppBar(title = { Text(chat.name(peer), maxLines = 1) }, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back") } },
+        topBar = { TopAppBar(title = { Text(chat.name(peer), maxLines = 1) }, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
             actions = {
                 Box {
                     IconButton(onClick = { options = true }, enabled = !blockBusy, modifier = Modifier.testTag("conversation-options")) {
                         if (blockBusy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
-                        else Icon(Icons.Outlined.MoreVert, "Conversation options")
+                        else Icon(Icons.Outlined.MoreVert, stringResource(R.string.ui_af8a897d2feb))
                     }
                     DropdownMenu(options, onDismissRequest = { options = false }) {
-                        if (onLanguages != null) DropdownMenuItem(text = { Text("Languages") }, onClick = { options = false; onLanguages() })
-                        DropdownMenuItem(text = { Text("Verify encryption") }, onClick = { options = false; showSecurityNumber = true })
-                        DropdownMenuItem(text = { Text(if (blocked) "Unblock" else "Block") }, onClick = { options = false; confirmBlock = true })
+                        if (onLanguages != null) DropdownMenuItem(text = { Text(stringResource(R.string.ui_318655cea4bd)) }, onClick = { options = false; onLanguages() })
+                        DropdownMenuItem(text = { Text(stringResource(R.string.ui_53b6cd2365c7)) }, onClick = { options = false; showSecurityNumber = true })
+                        DropdownMenuItem(text = { Text(if (blocked) stringResource(R.string.ui_712da63171e0) else stringResource(R.string.ui_211d0bb8cf4f)) }, onClick = { options = false; confirmBlock = true })
                     }
                 }
             }) },
@@ -216,28 +217,28 @@ import java.util.UUID
                     Text(it, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp))
                 }
                 (error ?: chat.notice)?.let { Text(it, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp)) }
-                if (chat.needsPlan && onPlan != null) TextButton(onClick = onPlan, modifier = Modifier.padding(horizontal = 8.dp)) { Text("View or restore Vipi plan") }
-                if (chat.needsDeviceRecovery) TextButton(onClick = back, modifier = Modifier.padding(horizontal = 8.dp)) { Text("Connect this device") }
-                if (peer in chat.peersNeedingRecovery) TextButton(onClick = { showSecurityNumber = true }, modifier = Modifier.padding(horizontal = 8.dp)) { Text("Review changed encryption") }
+                if (chat.needsPlan && onPlan != null) TextButton(onClick = onPlan, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_b30a48ba0b99)) }
+                if (chat.needsDeviceRecovery) TextButton(onClick = back, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_fa3d530cf72d)) }
+                if (peer in chat.peersNeedingRecovery) TextButton(onClick = { showSecurityNumber = true }, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_38d5b00c27da)) }
                 if (blocked) Row(Modifier.fillMaxWidth().padding(16.dp).testTag("conversation-blocked"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
-                    Text("You blocked this person.", fontSize = 14.sp)
-                    TextButton(onClick = { confirmBlock = true }, enabled = !blockBusy) { Text("Unblock") }
+                    Text(stringResource(R.string.ui_b1fe736c0809), fontSize = 14.sp)
+                    TextButton(onClick = { confirmBlock = true }, enabled = !blockBusy) { Text(stringResource(R.string.ui_712da63171e0)) }
                 } else {
                 Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     OutlinedTextField(text, { value ->
                         text = value
                         try { chat.saveCompose(value, peer) }
                         catch (_: Exception) { error = "This draft couldn’t be saved. Keep this conversation open and try again." }
-                    }, placeholder = { Text("Message") }, maxLines = 6, shape = RoundedCornerShape(24.dp),
+                    }, placeholder = { Text(stringResource(R.string.message_hint)) }, maxLines = 6, shape = RoundedCornerShape(24.dp),
                         modifier = Modifier.weight(1f).onFocusChanged { composing = it.isFocused }.testTag("message-input"))
                     FilledIconButton(onClick = {
                         try {
                             chat.send(text, peer); text = ""; error = null
                             followingLatest = true; jumpRevision++; refresh()
                             scope.launch { chat.synchronize() }
-                        } catch (failure: Exception) { error = ChatSession.explanation(failure) }
+                        } catch (failure: Exception) { error = ChatSession.explanation(context, failure) }
                     }, enabled = chat.ready && peer !in chat.peersNeedingRecovery && text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768,
-                        modifier = Modifier.size(48.dp).testTag("message-send")) { Icon(Icons.Outlined.ArrowUpward, "Send message") }
+                        modifier = Modifier.size(48.dp).testTag("message-send")) { Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.send_message)) }
                 }
                 }
             }
@@ -260,11 +261,11 @@ import java.util.UUID
                 }
             }, contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 item(key = "history-header") {
-                    if (earlierAvailable) TextButton(onClick = { earlier() }) { Text("Earlier messages") }
+                    if (earlierAvailable) TextButton(onClick = { earlier() }) { Text(stringResource(R.string.ui_561a197a2807)) }
                     if (messages.isEmpty()) Column(Modifier.fillMaxWidth().padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         Icon(Icons.Outlined.Lock, null)
-                        Text("Just between you two", fontWeight = FontWeight.SemiBold)
-                        Text("Say hello. Your messages are end-to-end encrypted.", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        Text(stringResource(R.string.ui_9bbf916f3af5), fontWeight = FontWeight.SemiBold)
+                        Text(stringResource(R.string.ui_48e35bc10280), fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
                 items(messages, key = { it.id }) { item ->
@@ -292,14 +293,14 @@ import java.util.UUID
             if (!followingLatest && messages.isNotEmpty()) {
                 FilledTonalIconButton(onClick = { followingLatest = true; jumpRevision++ },
                     modifier = Modifier.align(Alignment.BottomEnd).padding(12.dp).size(48.dp).testTag("conversation-latest")) {
-                    Icon(Icons.Outlined.ArrowDownward, "Jump to latest messages")
+                    Icon(Icons.Outlined.ArrowDownward, stringResource(R.string.ui_ef32661fdda0))
                 }
             }
         }
     }
     if (showSecurityNumber) SecurityNumberSheet(chat, peer, dismiss = { showSecurityNumber = false })
     if (showVoiceHelp) AlertDialog(onDismissRequest = { showVoiceHelp = false },
-        title = { Text("Hear both languages") },
+        title = { Text(stringResource(R.string.ui_b7c32ca74cb0)) },
         text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(speech.error ?: "Prepare the voices for both languages to listen without a connection.")
             voiceSettingsError?.let { Text(it) }
@@ -307,15 +308,15 @@ import java.util.UUID
                 voiceSettingsError = null
                 try { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }
                 catch (_: Exception) { voiceSettingsError = "Open your phone’s Settings and search for text-to-speech." }
-            }) { Text("Speech settings") }
+            }) { Text(stringResource(R.string.ui_8b3f05442c1b)) }
             if (speech.state == SpeechState.PREPARING) CircularProgressIndicator(Modifier.size(24.dp))
         } },
-        confirmButton = { TextButton(onClick = { speech.prepare(warmups) }, enabled = speech.state != SpeechState.PREPARING) { Text("Retry voices") } },
-        dismissButton = { TextButton(onClick = { showVoiceHelp = false }) { Text("Done") } })
+        confirmButton = { TextButton(onClick = { speech.prepare(warmups) }, enabled = speech.state != SpeechState.PREPARING) { Text(stringResource(R.string.ui_ed783fa140ed)) } },
+        dismissButton = { TextButton(onClick = { showVoiceHelp = false }) { Text(stringResource(R.string.ui_11a6767d5674)) } })
     reportedMessage?.let { selected -> AlertDialog(onDismissRequest = { if (!reporting) reportedMessage = null },
-        title = { Text("Report this message") },
+        title = { Text(stringResource(R.string.ui_56dd441b2ba6)) },
         text = { Column(Modifier.heightIn(max = 380.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text("The original message below, its sender and your reason will go to Fallible Software for review. The rest of your conversation stays private. Reports are kept for up to 30 days.")
+            Text(stringResource(R.string.ui_967b3ede020c))
             Text(selected.text, style = MaterialTheme.typography.bodyMedium)
             val savedReason = chat.reportReason(selected)
             listOf("spam" to "Spam", "harassment" to "Harassment", "harmful" to "Harmful content", "other" to "Something else").forEach { (code, title) ->
@@ -324,7 +325,7 @@ import java.util.UUID
                     Text(title)
                 }
             }
-            if (savedReason != null) Text("Retrying keeps the same report, so it is not submitted twice.", style = MaterialTheme.typography.bodySmall)
+            if (savedReason != null) Text(stringResource(R.string.ui_70526d2742fe), style = MaterialTheme.typography.bodySmall)
         } },
         confirmButton = { TextButton(enabled = !reporting && reportReason.isNotEmpty(), onClick = {
             reporting = true
@@ -334,12 +335,12 @@ import java.util.UUID
                 catch (_: Exception) { error = "We couldn’t confirm the report. You can retry this same report." }
                 finally { reporting = false }
             }
-        }) { Text(if (reporting) "Sending…" else "Send report") } },
-        dismissButton = { TextButton(enabled = !reporting, onClick = { reportedMessage = null }) { Text("Cancel") } }) }
+        }) { Text(if (reporting) stringResource(R.string.ui_b8ed5279e897) else stringResource(R.string.ui_a44d35311325)) } },
+        dismissButton = { TextButton(enabled = !reporting, onClick = { reportedMessage = null }) { Text(stringResource(R.string.cancel_action)) } }) }
     if (confirmBlock) AlertDialog(onDismissRequest = { confirmBlock = false },
         title = { Text((if (blocked) "Unblock " else "Block ") + chat.name(peer) + "?") },
-        text = { Text(if (blocked) "You can exchange new messages again. Stopped messages won’t be resent." else "Messages between you will stop. Your chat stays on this device. You can unblock anytime.") },
-        dismissButton = { TextButton(onClick = { confirmBlock = false }) { Text("Cancel") } },
+        text = { Text(if (blocked) stringResource(R.string.ui_25cb0ec8237b) else stringResource(R.string.ui_817b085ae5a9)) },
+        dismissButton = { TextButton(onClick = { confirmBlock = false }) { Text(stringResource(R.string.cancel_action)) } },
         confirmButton = { TextButton(onClick = {
             val desired = !blocked; confirmBlock = false; blockBusy = true
             scope.launch {
@@ -348,7 +349,7 @@ import java.util.UUID
                 catch (_: Exception) { error = "Couldn’t confirm the change. Check your connection and try again." }
                 finally { blockBusy = false }
             }
-        }) { Text(if (blocked) "Unblock" else "Block") } })
+        }) { Text(if (blocked) stringResource(R.string.ui_712da63171e0) else stringResource(R.string.ui_211d0bb8cf4f)) } })
 }
 
 private fun deliveryLabel(state: String) = when (state) {

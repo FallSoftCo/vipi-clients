@@ -139,6 +139,7 @@ internal class PrivateRecords(context: Context) {
 }
 
 class Authentication(context: Context) {
+    private val appContext = context.applicationContext
     private val application = context.applicationContext
     class SignInRequired : Exception("Sign-in required")
     private val records = PrivateRecords(context)
@@ -161,7 +162,7 @@ class Authentication(context: Context) {
     fun signIn(context: Context, expectedUser: String? = null) {
         if (busy) return
         error = null
-        if (!BuildConfig.WORKOS_CLIENT_ID.startsWith("client_")) { error = "Sign-in isn’t available yet. Please try again shortly."; return }
+        if (!BuildConfig.WORKOS_CLIENT_ID.startsWith("client_")) { error = appContext.getString(R.string.ui_7a888f9040e0); return }
         try {
             val start = client.getAuthorizationUrlWithPkce(callback)
             records.write("pending-sign-in", JSONObject().put("state", start.state).put("verifier", start.codeVerifier).put("createdAt", System.currentTimeMillis()).put("expectedUser", expectedUser))
@@ -171,7 +172,7 @@ class Authentication(context: Context) {
                 if (expectedUser != null) { appendQueryParameter("max_age", "0"); appendQueryParameter("screen_hint", "sign-in") }
             }.build()
             CustomTabsIntent.Builder().setShowTitle(true).build().launchUrl(context, url)
-        } catch (_: Exception) { records.remove("pending-sign-in"); error = "We couldn’t open secure sign-in. Please try again." }
+        } catch (_: Exception) { records.remove("pending-sign-in"); error = appContext.getString(R.string.ui_79290727c58b) }
     }
     suspend fun complete(uri: Uri) {
         if (uri.scheme != "co.fallsoft.vipi" || uri.host != "auth" || uri.path != "/callback" || uri.port != -1 || uri.userInfo != null || uri.fragment != null || busy) return
@@ -199,7 +200,7 @@ class Authentication(context: Context) {
             stage = "account-binding"
             if (started != generation) throw SignInRequired()
             if (pending.has("expectedUser") && pending.getString("expectedUser") != resultUser) {
-                error = "Sign in to the same account to continue."; return
+                error = appContext.getString(R.string.ui_94455044f130); return
             }
             stage = "private-session-save"
             if (userID != resultUser) PrivateSpeechCache.erase(application)
@@ -212,7 +213,7 @@ class Authentication(context: Context) {
             // Debug qualification gets a bounded category, never exception text,
             // callback URLs, authorization codes, tokens or provider payloads.
             if (BuildConfig.DEBUG) android.util.Log.w("VipiAuth", "Sign-in failed at $stage (${failure.javaClass.simpleName}, HTTP ${(failure as? ExchangeFailure)?.status ?: 0})")
-            error = "We couldn’t verify this sign-in. Please start again."
+            error = appContext.getString(R.string.ui_1afc1c2532c4)
         }
         finally { busy = false }
     }

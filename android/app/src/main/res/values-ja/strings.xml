@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="nav_back">戻る</string>
+    <string name="nav_settings">プロフィールと設定</string>
+    <string name="nav_chats">チャット</string>
+    <string name="nav_new_chat">新しいチャット</string>
+    <string name="nav_plan">プラン</string>
+    <string name="nav_invite">友達を招待</string>
+    <string name="nav_sign_in">ログイン</string>
+    <string name="nav_terms">利用規約</string>
+    <string name="nav_privacy">プライバシー</string>
+    <string name="settings_title">設定</string>
+    <string name="new_words">新しい単語</string>
+    <string name="try_again">もう一度試す</string>
+    <string name="cancel_action">キャンセル</string>
+    <string name="continue_action">続ける</string>
+    <string name="send_message">メッセージを送信</string>
+    <string name="message_hint">メッセージ</string>
+    <string name="choose_languages">言語を選ぶ</string>
+    <string name="language_settings">言語設定</string>
+    <string name="already_speak">話せる言語</string>
+    <string name="want_learn">学びたい言語</string>
+    <string name="example_message">例文</string>
+    <string name="your_account">アカウント</string>
+    <string name="continue_signin">ログインへ進む</string>
+    <string name="no_account_preview">この例はアカウントなしで試せます。</string>
+    <string name="terms_service">利用規約</string>
+    <string name="privacy_policy">プライバシーポリシー</string>
+    <string name="continue_with_language">%1$sで続ける</string>
+    <string name="new_words_description">新しい単語の表示量を選びます。見たことのある単語も再び表示されるため、合計は増えることがあります。</string>
+    <string name="new_words_off">単語の切り替えはオフです。</string>
+    <string name="new_words_amount">新しい単語の量</string>
+    <string name="cardless_ends">Vipiの30日間の無料アクセスは%1$sに終了します。</string>
+    <string name="cardless_no_payment">この無料期間に支払い方法の登録は不要です。</string>
+    <string name="cardless_intro">支払い方法を登録せずに30日間無料で始められます。その後、登録するか選べます。</string>
+    <string name="bot_verification_unavailable">現在、Bot miniへのアクセスを確認できません。もう一度お試しください。</string>
+</resources>
