@@ -1,0 +1,6 @@
+{
+  "observed_utc": "2026-11-17T17:09:01.042293+00:00",
+  "scope": "One normal company saved-autofill continuation following Vipi selection redirect",
+  "result": "After Sign In, App Store Connect briefly loaded and returned to login; no incorrect-password or MFA prompt shown. No live Apps list or Vipi draft access.",
+  "actions": "No metadata, credential, subscription or review changes; no further login attempted."
+}
