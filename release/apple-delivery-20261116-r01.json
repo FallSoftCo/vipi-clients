@@ -1,0 +1,17 @@
+{
+  "app": "Vipi: Immersive Chat",
+  "app_store_connect_id": "6832624092",
+  "bundle_id": "co.fallsoft.vipi",
+  "version": "1.0",
+  "build": "1",
+  "ipa_sha256": "a7a1108bcc98f303a8696a3fa67943d7e1ff8c42234a33b7c0506d1744b56ece",
+  "ipa_bytes": 430560453,
+  "source_commit": "4908d4e7c9d98d8a33547f52883961108f457547",
+  "delivery": "Transporter delivered Nov 16 2026 7:21 PM Mac local time; original single delivery",
+  "processing": "The app is processing",
+  "app_review_submitted": false,
+  "screenshot_sha256": "bd141f3c59406f3db23aadba5ee53bdb5beef716c82789f08079ba1e2fe20eea",
+  "screenshot": "/home/ai/Development/investigations/vipi-resume-20261116-r01/apple-transporter-delivered-r162.jpg",
+  "verification": "apple-signed-qualification-r141.json",
+  "intent_mac": "signed-qualification-20261116-r01/upload-intent-r143.json"
+}
