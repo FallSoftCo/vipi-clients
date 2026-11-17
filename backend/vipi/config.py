@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     database_url: str
     workos_client_id: str = Field(pattern=r"^client_[A-Za-z0-9]+$")
     workos_issuer: str
+    # Off until reviewed migration/deployment; old and shared audiences stay pinned.
+    shared_identity_transition_enabled: bool = False
     service_secret: str = Field(min_length=43)
     environment: Literal["development", "test", "native-qa", "staging", "production"] = "development"
     # Startup-only hold; never inferred from an offline recovery receipt.
@@ -61,6 +63,15 @@ class Settings(BaseSettings):
     apns_sandbox_private_key_path: str | None = None
     apns_bundle_id: str = "co.fallsoft.vipi"
     foreground_connections_per_worker: int = Field(default=200, ge=1, le=10000)
+
+    @model_validator(mode="after")
+    def shared_identity_configuration(self):
+        if self.shared_identity_transition_enabled:
+            from .identity_authorities import LEGACY_VIPI, FALLSOFT_VIPI
+            authority = next((a for a in (LEGACY_VIPI, FALLSOFT_VIPI) if a.client_id == self.workos_client_id), None)
+            if authority is None or self.workos_issuer != authority.issuer:
+                raise ValueError("Identity transition requires a reviewed pinned authority")
+        return self
 
     @model_validator(mode="after")
     def reviewer_configuration(self):

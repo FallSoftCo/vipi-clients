@@ -11,7 +11,7 @@ class Base(DeclarativeBase):
 class User(Base):
     __tablename__ = "users"
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    subject: Mapped[str] = mapped_column(String(128), unique=True)
+    subject: Mapped[str] = mapped_column(String(256), unique=True)
     minimum_auth_time: Mapped[int] = mapped_column(BigInteger, default=0, server_default="0")
     username: Mapped[str] = mapped_column(String(24), unique=True)
     display_name: Mapped[str] = mapped_column(String(80))
@@ -203,7 +203,7 @@ class PushOutbox(Base):
 
 class RateWindow(Base):
     __tablename__ = "rate_windows"
-    subject: Mapped[str] = mapped_column(String(128), primary_key=True)
+    subject: Mapped[str] = mapped_column(String(256), primary_key=True)
     scope: Mapped[str] = mapped_column(String(32), primary_key=True)
     window: Mapped[int] = mapped_column(BigInteger, primary_key=True)
     count: Mapped[int] = mapped_column(Integer)
@@ -215,6 +215,24 @@ class VipiTrialEligibility(Base):
     subject_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
     started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     ends_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class VipiTrialEligibilityLink(Base):
+    """Only HMAC ledger keys; lets global deletion erase migrated eligibility."""
+    __tablename__ = "vipi_trial_eligibility_links"
+    source_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    target_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+
+
+class IdentityLinkReceipt(Base):
+    """Token-free exact link retry proof, retained only with the Vipi account."""
+    __tablename__ = "identity_link_receipts"
+    request_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    account_id: Mapped[str] = mapped_column(String(36), unique=True)
+    source_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    target_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    device_hash: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
 
 class AccountDeletion(Base):

@@ -6,7 +6,7 @@ from datetime import timedelta
 
 from sqlalchemy import delete, or_, select, text
 
-from .db import AccountDeletion, Block, BotReport, Device, Entitlement, KeyClaim, ModerationAction, PendingMessage, PublicBundle, PublicPreKey, PushOutbox, PushToken, RateWindow, Reservation, UsageBucket, User, UserReport
+from .db import AccountDeletion, Block, BotReport, Device, Entitlement, IdentityLinkReceipt, KeyClaim, ModerationAction, PendingMessage, PublicBundle, PublicPreKey, PushOutbox, PushToken, RateWindow, Reservation, UsageBucket, User, UserReport
 from .delivery import DeliveryError, utc
 from .eligibility import original_trial
 
@@ -76,6 +76,7 @@ async def request_deletion(session, *, subject: str, account_id: str, receipt_se
     for model in (ModerationAction, BotReport, Entitlement, Reservation, UsageBucket, Device):
         await session.execute(delete(model).where(model.user_id == account_id))
     await session.execute(delete(RateWindow).where(RateWindow.subject == subject))
+    await session.execute(delete(IdentityLinkReceipt).where(IdentityLinkReceipt.account_id == account_id))
     if user:
         await session.delete(user)
     job = AccountDeletion(account_id=account_id, subject=None, subject_hash=subject_hash(subject, service_secret), receipt_hash=digest,

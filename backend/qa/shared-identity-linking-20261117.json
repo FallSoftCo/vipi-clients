@@ -1,0 +1,98 @@
+{
+  "date": "2026-11-17",
+  "status": "implemented and isolated tested; not deployed",
+  "migration": "20261117_03 follows20261117_02; apply schema before serving this source",
+  "feature_flag": "VIPI_SHARED_IDENTITY_TRANSITION_ENABLED=false by default; no production settings changed",
+  "authorities": {
+    "legacy": {
+      "client_id": "client_01M6VYVQQ9GWVNS95DFGABXEW9",
+      "namespace": "legacy raw user_id unchanged"
+    },
+    "shared_vipi": {
+      "client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+      "issuer": "https://api.workos.com/user_management/client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+      "jwks": "https://api.workos.com/sso/jwks/client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+      "namespace": "fallsoft-vipi-production:<raw verified WorkOS user_id>"
+    },
+    "ordinary_api": "Company default client audience is rejected even though signing keys/issuer are shared; only exact reviewed Vipi client audiences are accepted"
+  },
+  "link_contract": {
+    "method": "POST",
+    "path": "/v1/identity-links/fallsoft",
+    "headers": [
+      "Authorization: Bearer recent legacy Vipi access token",
+      "X-Vipi-Device-ID: original active device UUID",
+      "X-Vipi-Device-Secret: original device secret"
+    ],
+    "body": {
+      "request_id": "stable client-generated UUID, retained in encrypted recovery journal",
+      "expected_account_id": "existing Vipi UUID",
+      "fallsoft_access_token": "fresh token from exact shared Vipi application, never logged/stored by server"
+    },
+    "response": [
+      "request_id",
+      "account_id unchanged",
+      "authority_id=fallsoft-vipi-production",
+      "authentication_subject=raw shared user_id",
+      "binding_revision=1"
+    ],
+    "proof": "Both proofs authenticated within600seconds, not future; old/shared authorities exact; active device and original account must match; minimum_auth_time applies",
+    "transaction": "Ordered lifecycle locks plus User row lock; reject occupied target/deletion/suspension/collisions; switch only User.subject, retain UUID/device/keys/purchases/messages; preserve earliest original trial eligibility; token-free exact retry receipt",
+    "retry": "Same request/proof target/device/account returns same receipt after subject switch; changed target/request conflicts; no ordinary legacy alias resolution or email-based merging",
+    "native_activation": "Encrypted candidate journal before POST; receipt and independent GET/v1/me must both prove expected original UUID before profile-cache alias and session activation"
+  },
+  "global_deletion_adapter": {
+    "helper": "vipi.identity_authorities.canonical_shared_subject(raw_verified_shared_user_id)",
+    "eligibility_hook": "vipi.eligibility.erase_for_global_fallsoft_deletion(session, subject=canonical, service_secret=...)",
+    "mapping": "One exported helper performs raw shared->canonical namespace. Never duplicate prefix strings or pass email/default-client token as Vipi proof.",
+    "app_only_retention": "Vipi-only delete erases link request/account/device receipt. Only HMAC original-trial dates and HMAC source->shared ledger-key relation persist; this relation blocks legacy re-provision and lets global erasure remove both original/shared eligibility without storing raw old subjects.",
+    "global_dependency": "Central owner must coordinate global rejoin hold/provider-session retirement during bounded legacy transition; this module does not implement global user deletion."
+  },
+  "checks": {
+    "sqlite_full_suite": {
+      "passed": 210,
+      "skipped": 20,
+      "duration_seconds": 119.61
+    },
+    "postgres_final": {
+      "created_at": "2026-11-17T18:14:02.704387+00:00",
+      "cluster": "/home/ai/Development/investigations/vipi-production-delivery-20261107/postgres-qualification-r01/data",
+      "scope": "Owned isolated test schemas; no production",
+      "state": "completed and cluster stopped",
+      "budget_bytes": 104857600,
+      "floor_bytes": 4504682496,
+      "baseline_allocated_bytes": 116330496,
+      "peak_allocated_bytes": 123846656,
+      "peak_additional_bytes": 7516160,
+      "lowest_free_bytes": 4749217792,
+      "guard_triggered": null,
+      "exit_code": 0,
+      "post_test": {
+        "other_clients": "0",
+        "test_schemas": "0"
+      },
+      "postmaster_pid_exists": false
+    },
+    "postgres_test_result": "52 passed in29.22seconds; includes actual concurrent exact retry and migration readiness",
+    "first_postgres_run": "51 passed, readiness expected02 failed; corrected to03 and reran all52successfully; original receipts retained separately",
+    "diff_check": "passed"
+  },
+  "source_sha256": {
+    "backend/vipi/identity_authorities.py": "9882acb82308c0653d3638ae3649a3f8cb07c57dda47a5944e186d85716bedc7",
+    "backend/vipi/identity_linking.py": "d41857a025ea2335af4e1be85bf8077b1aea2c30255cf40b6c3c7d8957a010dd",
+    "backend/vipi/eligibility.py": "5a26b1b9a1bdd79fc5dcf9a10a801a22ae69fa0c398262f1e5538406f63ca222",
+    "backend/vipi/auth.py": "14567839dd52c02b5b7eb860e72fefbf5708d97185ca641bdf3b7a4fab75a937",
+    "backend/vipi/config.py": "48c11549e0303aebfa013fe5c52aec954c664c77df7cd0b00c2c6c4b8e63beb7",
+    "backend/vipi/api.py": "6c55972669265c960d843c2b2fddd03fc37771d14781f1cbd2a9a575f16d3925",
+    "backend/vipi/db.py": "354afdfc116cc6c7fdf764392f6687875a8ad35d96ea9059f8bac74c1be83918",
+    "backend/vipi/deletion.py": "df76e6b30d2528dd647c16bece8b21ada144b648b4bed683f71aa84e7e8020fe",
+    "backend/migrations/versions/20261117_03_shared_identity.py": "7eefed4de7efed6084576e73655e6bfa9fb34bef906621986d2ea94e395b73ba",
+    "backend/tests/test_identity_linking.py": "26ee4bb72e0f2d604f11dd90433de0da805c402c72501d3cd2478d022617ea76"
+  },
+  "not_performed": [
+    "production deployment/config switch",
+    "live customer linking",
+    "provider user/key/session changes",
+    "native real Google/Apple end-to-end OAuth proof"
+  ]
+}

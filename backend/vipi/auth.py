@@ -22,6 +22,7 @@ class Principal:
     subject: str
     session_id: str
     authenticated_at: int
+    authority: str = "vipi-production"
 
 
 class RSAKeyCache:
@@ -77,9 +78,12 @@ class RSAKeyCache:
             return self.keys[kid].key
 
 class WorkOSVerifier(RSAKeyCache):
-    def __init__(self, settings: Settings, *, transport=None):
-        super().__init__(settings.jwks_url, transport=transport)
-        self.settings = settings
+    def __init__(self, settings: Settings, *, transport=None, authority=None):
+        from .identity_authorities import FALLSOFT_VIPI, LEGACY_VIPI
+        super().__init__(authority.jwks_url if authority else settings.jwks_url, transport=transport)
+        self.client_id = authority.client_id if authority else settings.workos_client_id
+        self.issuer = authority.issuer if authority else settings.workos_issuer
+        self.authority = (authority or (FALLSOFT_VIPI if self.client_id == FALLSOFT_VIPI.client_id else LEGACY_VIPI)).id
 
     async def verify(self, token: str) -> Principal:
         try:
@@ -90,10 +94,10 @@ class WorkOSVerifier(RSAKeyCache):
             if header.get("alg") != "RS256" or not isinstance(kid, str) or not 1 <= len(kid) <= 200:
                 raise ValueError("invalid_header")
             claims = jwt.decode(token, await self._key(kid), algorithms=["RS256"],
-                issuer=self.settings.workos_issuer, leeway=15,
+                issuer=self.issuer, leeway=15,
                 options={"require": ["iss", "sub", "sid", "exp", "iat", "client_id", "auth_time"],
                          "verify_aud": False})
-            if claims["client_id"] != self.settings.workos_client_id:
+            if claims["client_id"] != self.client_id:
                 raise ValueError("wrong_application")
             if type(claims["exp"]) is not int or type(claims["iat"]) is not int or not 0 < claims["exp"] - claims["iat"] <= 3600:
                 raise ValueError("invalid_access_token_lifetime")
@@ -103,6 +107,24 @@ class WorkOSVerifier(RSAKeyCache):
                 raise ValueError("invalid_session")
             if type(claims["auth_time"]) is not int or claims["auth_time"] > int(time.time()) + 15:
                 raise ValueError("invalid_authentication_time")
-            return Principal(claims["sub"], claims["sid"], claims["auth_time"])
+            subject = claims["sub"]
+            from .identity_authorities import FALLSOFT_VIPI, canonical_shared_subject
+            if self.authority == FALLSOFT_VIPI.id:
+                subject = canonical_shared_subject(subject)
+            return Principal(subject, claims["sid"], claims["auth_time"], self.authority)
         except (ValueError, KeyError, TypeError, jwt.PyJWTError) as error:
             raise AuthenticationError("sign_in_required") from error
+
+
+class FixedVerifierSet:
+    """Bounded transition across fixed reviewed verifiers, never token URLs."""
+    def __init__(self, *verifiers):
+        self.verifiers = verifiers
+
+    async def verify(self, token: str) -> Principal:
+        for verifier in self.verifiers:
+            try:
+                return await verifier.verify(token)
+            except AuthenticationError:
+                pass
+        raise AuthenticationError("sign_in_required")

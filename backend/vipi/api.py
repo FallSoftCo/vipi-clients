@@ -9,13 +9,13 @@ from uuid import UUID, uuid4
 
 from fastapi import Depends, FastAPI, Header, Query, Request
 from fastapi.exceptions import RequestValidationError
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, field_validator
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, SecretStr, field_validator
 from sqlalchemy import and_, delete, or_, select, text
 from sqlalchemy.exc import IntegrityError
 from starlette.responses import JSONResponse
 
 from .accounts import active_device, normalize_username, register_device, set_block
-from .auth import AuthenticationError, Principal, WorkOSVerifier
+from .auth import AuthenticationError, FixedVerifierSet, Principal, WorkOSVerifier
 from .config import Settings
 from .db import Block, Database, Device, PendingMessage, PushOutbox, PushToken, User
 from .delivery import DeliveryError, Envelope, accept, acknowledge, utc
@@ -73,6 +73,12 @@ class ProfileInput(Input):
 class DeleteAccountInput(Input):
     account_id: UUID
     receipt_secret: str = Field(pattern=r"^[A-Za-z0-9_-]{43}$")
+
+
+class IdentityLinkInput(Input):
+    request_id: UUID
+    expected_account_id: UUID
+    fallsoft_access_token: SecretStr = Field(min_length=1, max_length=16_384, repr=False)
 
 
 class DeviceInput(Input):
@@ -160,14 +166,32 @@ async def principal(request: Request, verified: Annotated[Principal, Depends(ver
 
 
 def create_app(settings: Settings, *, database=None, verifier=None, clock=None, web_provider_transport=None,
-               store_providers=None, bot_transport=None, notification_transport=None):
+               store_providers=None, bot_transport=None, notification_transport=None, shared_verifier=None):
     if settings.recovery_hold:
         from .recovery_gate import held_application
         return held_application()
     if settings.environment == "staging" and not settings.allowed_subjects:
         raise ValueError("Staging requires an explicit verified-subject allowlist")
     db = database or Database(settings.database_url)
-    token_verifier = verifier or WorkOSVerifier(settings)
+    primary_verifier = verifier or WorkOSVerifier(settings)
+    token_verifier = primary_verifier
+    owned_verifiers = [primary_verifier] if verifier is None else []
+    link_verifier = None
+    if settings.shared_identity_transition_enabled:
+        from .identity_authorities import FALLSOFT_VIPI, LEGACY_VIPI
+        if shared_verifier is not None:
+            link_verifier = shared_verifier
+        elif settings.workos_client_id == FALLSOFT_VIPI.client_id:
+            link_verifier = primary_verifier
+        else:
+            link_verifier = WorkOSVerifier(settings, authority=FALLSOFT_VIPI)
+            owned_verifiers.append(link_verifier)
+        if settings.workos_client_id == FALLSOFT_VIPI.client_id:
+            legacy = WorkOSVerifier(settings, authority=LEGACY_VIPI)
+            owned_verifiers.append(legacy)
+            token_verifier = FixedVerifierSet(primary_verifier, legacy)
+        else:
+            token_verifier = FixedVerifierSet(primary_verifier, link_verifier)
     now = clock or (lambda: datetime.now(UTC))
     from .store_providers import providers_for
     from .subscriptions import Subscriptions
@@ -192,8 +216,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             if store_providers is None:
                 for provider in providers.values():
                     await provider.close()
-            if verifier is None:
-                await token_verifier.close()
+            for owned in owned_verifiers:
+                await owned.close()
             if database is None:
                 await db.close()
 
@@ -262,7 +286,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 if not events.ready.is_set():
                     return JSONResponse({"status": "events_unavailable"}, status_code=503)
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261117_02":
+                if revision != "20261117_03":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -343,6 +367,9 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         try:
             async with db.sessions.begin() as session:
                 await lock_account_lifecycle(session, p.subject, settings.service_secret)
+                from .identity_linking import source_was_linked
+                if await source_was_linked(session, p.subject, settings.service_secret):
+                    raise DeliveryError("fallsoft_sign_in_required", 409)
                 user = (await session.execute(select(User).where(User.subject == p.subject).with_for_update())).scalar_one_or_none()
                 deletion = await deletion_for(session, p.subject, settings.service_secret)
                 if deletion and deletion.finished_at is None:
@@ -372,6 +399,24 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 return profile(user)
         except IntegrityError:
             raise DeliveryError("username_unavailable", 409)
+
+    @app.post("/v1/identity-links/fallsoft")
+    async def link_fallsoft_identity(body: IdentityLinkInput, request: Request,
+                                     p: Annotated[Principal, Depends(principal)]):
+        if not settings.shared_identity_transition_enabled or link_verifier is None:
+            raise DeliveryError("identity_link_unavailable", 404)
+        from .identity_linking import link_identity
+        await rate(p, "identity-link", 5)
+        shared = await link_verifier.verify(body.fallsoft_access_token.get_secret_value())
+        try:
+            async with db.sessions.begin() as session:
+                return await link_identity(session, source=p, target=shared,
+                    request_id=str(body.request_id), account_id=str(body.expected_account_id),
+                    device_id=request.headers.get("X-Vipi-Device-ID", ""),
+                    device_secret=request.headers.get("X-Vipi-Device-Secret", ""),
+                    service_secret=settings.service_secret, now=now())
+        except IntegrityError:
+            raise DeliveryError("identity_link_conflict", 409) from None
 
     @app.delete("/v1/me", status_code=202)
     async def delete_account(body: DeleteAccountInput, p: Annotated[Principal, Depends(verified_principal)]):
