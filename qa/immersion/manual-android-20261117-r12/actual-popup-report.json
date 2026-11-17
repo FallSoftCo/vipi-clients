@@ -1,0 +1,65 @@
+{
+  "complete": true,
+  "provider": "actual installed ML Kit Spanish model; no download",
+  "scope": "one actual native gesture\/provider\/SpeechPlayback path; no acoustic acceptance",
+  "sourceContext": "Could you book a table for two tomorrow evening?",
+  "target": "¿Podrías reservar una mesa para dos mañana por la noche?",
+  "actualSpeechInput": "¿Podrías reservar una mesa para dos mañana por la noche?",
+  "actualSpeechLanguage": "es",
+  "tapToPlayingMs": 1191,
+  "actualTargetVisible": true,
+  "providerCalls": [
+    {
+      "source": "Could you book a table for two tomorrow evening?",
+      "from": "en",
+      "to": "es",
+      "target": "¿Podrías reservar una mesa para dos mañana por la noche?",
+      "elapsedMs": 169.751175
+    }
+  ],
+  "acceptedSpeechCount": 4,
+  "speechInputs": [
+    {
+      "message": "manual-actual-native-book-1",
+      "spans": [
+        {
+          "text": "¿Podrías reservar una mesa para dos mañana por la noche?",
+          "language": "es"
+        }
+      ]
+    },
+    {
+      "message": "manual-actual-native-book-3",
+      "spans": [
+        {
+          "text": "¿Podrías reservar una mesa para dos mañana por la noche?",
+          "language": "es"
+        }
+      ]
+    },
+    {
+      "message": "manual-actual-native-book-5",
+      "spans": [
+        {
+          "text": "¿Podrías reservar una mesa para dos mañana por la noche?",
+          "language": "es"
+        }
+      ]
+    },
+    {
+      "message": "manual-actual-native-book-7",
+      "spans": [
+        {
+          "text": "¿Podrías reservar una mesa para dos mañana por la noche?",
+          "language": "es"
+        }
+      ]
+    }
+  ],
+  "sameTapStop": true,
+  "differentWordStartsOnce": true,
+  "footerStopWithoutGenericReplay": true,
+  "cachedWholeMessage": true,
+  "actualSpeechOncePerGesture": true,
+  "passed": true
+}

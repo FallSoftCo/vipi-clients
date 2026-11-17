@@ -1,0 +1,9 @@
+{
+  "scope": "root-reviewed isolated Android popup fix; shared UI source remains uncommitted for complete UX commit",
+  "diff_sha256": "56ded21249b95bf307d82295f1a81b04fea7365e6ecd5c2bcf4a1960fb0ee577",
+  "files": {
+    "android/app/src/main/java/co/fallsoft/vipi/ManualLookupInteraction.kt": "b818ef5058de9f6539522cdf1e3d067286daa8c81db8158ff4840bf758dbc104",
+    "android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt": "e772fd41006cb8835053a1fe5a46c631785e2edc673bc8f359d5799e3cd66078",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ManualLookupActualGestureDeviceTest.kt": "030b10cd7fc55ddc6f114c8f9cd5d4dacd4d81babdca505d9e920796359309c7"
+  }
+}

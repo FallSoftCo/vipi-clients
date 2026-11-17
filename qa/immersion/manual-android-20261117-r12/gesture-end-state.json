@@ -1,0 +1,14 @@
+{
+  "providerCalls": 3,
+  "requestStart": -1,
+  "requestEnd": -1,
+  "status": "pending_or_cancelled",
+  "visible": false,
+  "loading": false,
+  "nativeSelectionStart": 16,
+  "nativeSelectionEnd": 16,
+  "nativeHasSelection": false,
+  "nativeWidth": 908,
+  "nativeHeight": 56,
+  "displayedOriginal": "The marmot hums."
+}

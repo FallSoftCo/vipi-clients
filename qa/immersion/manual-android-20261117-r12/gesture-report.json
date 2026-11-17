@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "provider": "delayed_lifecycle_fixture_not_translation_quality",
+  "word_source_utf16": "4:10",
+  "whole_source_utf16": "0:16",
+  "checks": "one_native_word_tap_once;word_tap_again_stop;whitespace_full_context_once;same_surface_stop;programmatic_select_cancels_without_audio;native_copy_exact_source",
+  "providerCalls": 3
+}

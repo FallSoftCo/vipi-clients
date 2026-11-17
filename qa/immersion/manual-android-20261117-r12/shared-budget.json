@@ -1,0 +1,7 @@
+{
+  "initial_free_bytes": 4932386816,
+  "allowance_bytes": 17825792,
+  "floor_bytes": 4504682496,
+  "prior_focused_runs_reserved_bytes": 3145728,
+  "reason": "separate approved packaging allocation from remaining test/log budget"
+}

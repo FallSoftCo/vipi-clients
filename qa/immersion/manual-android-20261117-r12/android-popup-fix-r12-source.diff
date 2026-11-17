@@ -1,0 +1,124 @@
+--- before/android/app/src/main/java/co/fallsoft/vipi/ManualLookupInteraction.kt
++++ after/android/app/src/main/java/co/fallsoft/vipi/ManualLookupInteraction.kt
+@@ -54,13 +54,28 @@
+     private var stoppedAt = 0L
+     val supportedPair get() = listOf(immersion.source, immersion.target).all { it in com.google.mlkit.nl.translate.TranslateLanguage.getAllLanguages() }
+     private fun haltForTouch() {
++        // Popup dismissal and the pass-through TextView DOWN can describe the
++        // same gesture. The second notification must preserve its Stop token.
++        if (!visible && !loading && !speaking && !preparingAudio) return
+         val interrupted = loading || speaking || preparingAudio
+         val previous = selected
+         cancel()
+         if (interrupted) { stoppedRange = previous; stoppedAt = android.os.SystemClock.uptimeMillis() }
+     }
++    fun dismissForTouch() { haltForTouch() }
++    private fun hasPendingTouchStop(): Boolean {
++        if (stoppedRange == null) return false
++        if (android.os.SystemClock.uptimeMillis() - stoppedAt < 700) return true
++        stoppedRange = null; return false
++    }
++    /** A footer Stop may receive UP after outside dismissal already halted
++     * playback on DOWN. Consume that gesture instead of starting generic audio. */
++    fun consumeTouchStop(): Boolean {
++        if (!hasPendingTouchStop()) return false
++        stoppedRange = null; return true
++    }
+     private fun consumedStop(range: IntRange): Boolean {
+-        if (stoppedRange != range || android.os.SystemClock.uptimeMillis() - stoppedAt >= 700) return false
++        if (!hasPendingTouchStop() || stoppedRange != range) return false
+         stoppedRange = null; return true
+     }
+     val loading get() = request != null && outcome == null
+@@ -166,8 +181,8 @@
+             return IntOffset((windowSize.width - popupContentSize.width) / 2, y)
+         }
+     } }
+-    Popup(popupPositionProvider = position, onDismissRequest = { interaction.cancel() },
+-        properties = PopupProperties(focusable = false, dismissOnBackPress = true, dismissOnClickOutside = true)) {
++    Popup(popupPositionProvider = position, onDismissRequest = { interaction.dismissForTouch() },
++        properties = PopupProperties(focusable = false, dismissOnBackPress = false, dismissOnClickOutside = true)) {
+         Surface(shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp), shadowElevation = 12.dp,
+             tonalElevation = 0.dp, color = MaterialTheme.colorScheme.surface,
+             modifier = Modifier.width((configuration.screenWidthDp - 24).coerceAtMost(460).dp)
+--- before/android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt
++++ after/android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt
+@@ -237,7 +237,7 @@
+             } } }, confirmButton = { TextButton(onClick = { choosingWord = false }) { Text(stringResource(R.string.ui_11a6767d5674)) } })
+         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+             if (embedded) { Box(Modifier.weight(1f)) { metadata?.invoke() } }
+-            if (embedded && speech != null) IconButton(onClick = { if (manual != null && (manual.loading || manual.speaking || manual.preparingAudio)) manual.cancel() else if (rawVoiceUnresolved) chooseLanguage = true else if (speech.state == SpeechState.UNAVAILABLE) onVoiceHelp?.invoke() else listen() },
++            if (embedded && speech != null) IconButton(onClick = { if (manual?.consumeTouchStop() == true) Unit else if (manual != null && (manual.loading || manual.speaking || manual.preparingAudio)) manual.cancel() else if (rawVoiceUnresolved) chooseLanguage = true else if (speech.state == SpeechState.UNAVAILABLE) onVoiceHelp?.invoke() else listen() },
+                 enabled = rawVoiceUnresolved || (manual != null && (manual.loading || manual.speaking || manual.preparingAudio)) || (speech.state != SpeechState.PREPARING && (speech.state != SpeechState.UNAVAILABLE || onVoiceHelp != null))) {
+                 if (!rawVoiceUnresolved && speech.state == SpeechState.PREPARING && manual?.preparingAudio != true && manual?.loading != true) CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
+                 else Icon(if (active || manual?.loading == true || manual?.speaking == true || manual?.preparingAudio == true) Icons.Outlined.Stop else Icons.Outlined.VolumeUp,
+--- before/android/app/src/androidTest/java/co/fallsoft/vipi/ManualLookupActualGestureDeviceTest.kt
++++ after/android/app/src/androidTest/java/co/fallsoft/vipi/ManualLookupActualGestureDeviceTest.kt
+@@ -14,6 +14,7 @@
+ import androidx.compose.ui.unit.dp
+ import androidx.test.platform.app.InstrumentationRegistry
+ import androidx.test.uiautomator.UiDevice
++import androidx.test.uiautomator.By
+ import co.fallsoft.vipi.core.ImmersionPresentation
+ import co.fallsoft.vipi.core.ImmersionSpan
+ import co.fallsoft.vipi.core.SpeechSpan
+@@ -63,7 +64,7 @@
+         lateinit var owner:ConversationImmersion;lateinit var speech:SpeechPlayback;lateinit var manual:ManualLookupInteraction
+         val report=JSONObject().put("complete",false).put("provider","actual installed ML Kit Spanish model; no download")
+             .put("scope","one actual native gesture/provider/SpeechPlayback path; no acoustic acceptance")
+-        fun save(){report.put("providerCalls",JSONArray(calls)).put("acceptedSpeechCount",accepted.size);File(output,"report.json").writeText(report.toString(2))}
++        fun save(){report.put("providerCalls",JSONArray(calls)).put("acceptedSpeechCount",accepted.size).put("speechInputs",JSONArray(accepted.map { (message, spans) -> JSONObject().put("message",message).put("spans",JSONArray(spans.map { JSONObject().put("text",it.text).put("language",it.language) })) }));File(output,"report.json").writeText(report.toString(2))}
+         compose.runOnIdle {
+             owner=ConversationImmersion(context,"en","es",0.0,translator=provider,sourceLookup=null)
+             owner.selectInputLanguage(id,"en")
+@@ -123,14 +124,48 @@
+             SystemClock.sleep(250)
+             compose.runOnIdle {assertEquals(1,accepted.size);assertEquals(1,calls.size);assertNull(speech.activeMessage)}
+             report.put("sameTapStop",true);save()
++
++            // Start the same cached word again, then touch a different word
++            // while its actual popup/audio are active: exactly one new play.
++            assertTrue(device.click(word.centerX(),word.centerY()))
++            compose.waitUntil(10_000){manual.outcome?.status==ManualTranslationStatus.READY&&accepted.size==2}
++            compose.waitUntil(10_000){speech.state==SpeechState.PLAYING}
++            lateinit var other:Rect
++            val otherStart=originalText.indexOf("table");val otherEnd=otherStart+5
++            compose.runOnIdle {other=native().sourceRangeRect(otherStart,otherEnd)}
++            assertTrue(device.click(other.centerX(),other.centerY()))
++            compose.waitUntil(10_000){manual.outcome?.status==ManualTranslationStatus.READY&&accepted.size==3}
++            compose.waitUntil(10_000){speech.state==SpeechState.PLAYING}
++            SystemClock.sleep(100)
++            compose.runOnIdle {
++                assertEquals(3,accepted.size);assertEquals(1,calls.size)
++                assertEquals(otherStart,manual.request?.startUTF16);assertEquals(otherEnd,manual.request?.endUTF16)
++                assertEquals(accepted[0].second,accepted[2].second)
++            }
++            report.put("differentWordStartsOnce",true);save()
++
++            // The actual popup and footer each expose Stop. The footer is
++            // above this below-anchor popup, and receives the outside touch.
++            val stopLabel=context.getString(R.string.ui_cae7d57bc067)
++            val stops=device.findObjects(By.desc(stopLabel))
++            check(stops.size>=2){"Both popup and footer Stop controls must be present"}
++            val footer=stops.minBy{it.visibleBounds.top}
++            assertTrue(device.click(footer.visibleBounds.centerX(),footer.visibleBounds.centerY()))
++            compose.waitUntil(3_000){manual.request==null&&!manual.visible&&speech.activeMessage==null}
++            SystemClock.sleep(250)
++            compose.runOnIdle {
++                assertEquals(3,accepted.size);assertEquals(1,calls.size);assertNull(speech.activeMessage)
++                assertTrue(accepted.all{it.first.startsWith("manual-")})
++            }
++            report.put("footerStopWithoutGenericReplay",true);save()
+             var x=0;var y=0
+             compose.runOnIdle {val view=native();val location=IntArray(2);view.getLocationOnScreen(location);x=location[0]+view.width-4;y=location[1]+view.height/2}
+             assertTrue(device.click(x,y))
+-            compose.waitUntil(10_000){manual.outcome?.status==ManualTranslationStatus.READY&&accepted.size==2}
++            compose.waitUntil(10_000){manual.outcome?.status==ManualTranslationStatus.READY&&accepted.size==4}
+             compose.runOnIdle {
+                 assertEquals(1,calls.size);assertEquals(0,manual.request?.startUTF16);assertEquals(originalText.length,manual.request?.endUTF16)
+                 assertEquals(originalText,manual.outcome?.result?.sourceContextText)
+-                assertEquals(accepted[0].second,accepted[1].second)
++                assertEquals(accepted[0].second,accepted[3].second)
+                 report.put("cachedWholeMessage",true).put("actualSpeechOncePerGesture",true)
+                 manual.cancel()
+             }

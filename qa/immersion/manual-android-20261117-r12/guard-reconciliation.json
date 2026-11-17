@@ -1,0 +1,11 @@
+{
+  "initial_guard_outcome": "stopped after launch because inherited baseline included intervening UX packaging allocation",
+  "prior_remote_start_initially_verified": false,
+  "initial_log_empty": true,
+  "later_audit_suffix_003_directory": "absent",
+  "later_audit_suffix_004": "one observed test run, normal completion",
+  "later_process_state": "QA test process cached/frozen after runner completion; no am instrument command observed",
+  "overlapping_instrumentation_observed": false,
+  "caveat": "Device audit occurred after new suffix-004 dispatch; empty output was not treated as proof that prior remote execution never started. Parent was notified; guarded-stop receipt retained.",
+  "test_budget_reconciliation": "New post-packaging baseline; 17 MiB remaining plus conservative 3 MiB reservation for prior focused runs/receipts; exact floor unchanged."
+}

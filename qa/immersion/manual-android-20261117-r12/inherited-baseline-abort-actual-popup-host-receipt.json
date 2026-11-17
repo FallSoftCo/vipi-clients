@@ -1,0 +1,16 @@
+{
+  "device": "emulator-5624",
+  "package": "co.fallsoft.vipi.uxqa",
+  "floor_bytes": 4504682496,
+  "allowance_bytes": 20971520,
+  "initial_free_bytes": 4975595520,
+  "started_utc": "2026-11-17T20:41:30Z",
+  "class": "co.fallsoft.vipi.ManualLookupActualGestureDeviceTest",
+  "run": "003",
+  "minimum_free_bytes": 4932976640,
+  "final_free_bytes": 4932976640,
+  "max_net_additional_bytes": 42618880,
+  "stop_reason": "20MiB additional allocation allowance",
+  "adb_exit_code": -15,
+  "finished_utc": "2026-11-17T20:41:30Z"
+}

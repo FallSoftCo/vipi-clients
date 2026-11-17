@@ -1,0 +1,10 @@
+{
+  "device": "emulator-5624",
+  "package": "co.fallsoft.vipi.uxqa",
+  "floor_bytes": 4504682496,
+  "allowance_bytes": 17825792,
+  "initial_free_bytes": 4932386816,
+  "started_utc": "2026-11-17T20:42:18Z",
+  "class": "co.fallsoft.vipi.ManualLookupActualGestureDeviceTest",
+  "run": "004"
+}

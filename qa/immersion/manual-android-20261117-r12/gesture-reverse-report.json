@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "provider": "actual_bundled_reverse_reference_no_injected_translator",
+  "sourceSelection": "mismatched_display_word_expands_to_whole_raw_source",
+  "rawSourceLanguage": "es",
+  "actualSpeechInputLanguage": "es",
+  "actualSpeechInputSha256": "898bb28f81316d7f42391494ecfaf70fc3a7732d52d0c2ce152e47c8e56a941e"
+}
