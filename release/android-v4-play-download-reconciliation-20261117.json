@@ -1,0 +1,12 @@
+{
+  "status": "Original download completed; inspected without downloading again or installing",
+  "source": "Existing Google Play artifact 4860252386438561651, version code 4",
+  "path": "/home/ai/Downloads/4.apk",
+  "bytes": 536733238,
+  "sha256": "c33f08ec239885058f27d222bf56a1320075f462ba1a9152508260e97990cf76",
+  "signature_verification": "apksigner verify --print-certs exited 0",
+  "play_signer_sha256": "4258feafd4bfc9ee885da6f1ffceae6abf98c0039304c2291fd3e6230adbef82",
+  "phone_review_signer_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+  "phone_action": "None. Different certificates prevent an ordinary in-place upgrade from the installed local review build. Existing app and user data retained.",
+  "release_disposition": "Superseded by requested UI, Chinese reading and shared identity improvements; not submitted for public review."
+}
