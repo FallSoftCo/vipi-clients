@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-17T13:19:52.891862+00:00",
+  "account": "arjun@fallsoft.co",
+  "invitation": "Owner-provided code redeemed once; code omitted",
+  "testflight": "Vipi: Immersive Chat 1.0 (2) appeared under Currently Testing; automatically downloaded and shows Open",
+  "installed_path": "/Applications/Vipi.app/WrappedBundle",
+  "verified_identifier": "co.fallsoft.vipi",
+  "verified_build": "2",
+  "native_app_running": false,
+  "launched_or_signed_in": false,
+  "prior_state": "No production Vipi app or matching Mac container at standard locations; separate simulator and Immersion Lab retained",
+  "qa_limit": "Installed build awaiting staging admission and explicit coordination before launch"
+}
