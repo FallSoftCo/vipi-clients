@@ -15,7 +15,7 @@ The official [ANSSI declaration procedure](https://demarche.numerique.gouv.fr/co
 ## Information and attachments to obtain or prepare
 
 1. Confirm the company's exact legal name, registered address, jurisdiction, legal representative, contact details and authority to file from primary corporate records.
-2. Obtain a current foreign equivalent of the register extract dated within the procedure's stated three-month window. None identified in the scoped release records reviewed so far.
+2. Obtain a current foreign equivalent of the register extract dated within the procedure's stated three-month window. A Delaware-certified incorporation copy dated 2024 exists in the company records, but it is not a current three-month extract; private paths and SHA-256 hashes are recorded in `investigations/vipi-resume-20261116-r01/apple-submission-inventory-r01/company-documents.json`.
 3. Prepare a company presentation and commercial product brochure from approved product copy, with accurate availability and pricing at filing time.
 4. Prepare and review a technical brochure, user guide and any applicable administrator guide. Verify cryptographic roles, versions, key management, source availability and whether additional attachments are requested by the actual form.
 5. Complete the official portal process and retain the real receipt and any correspondence; upload only the document Apple requests. Do not fabricate registration numbers, signatures, classifications, approval or filing receipts.
