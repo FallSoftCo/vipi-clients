@@ -101,9 +101,9 @@ struct ProfileSetupView: View {
                 VipiMark(size: 50)
                 IntroHeading(eyebrow: "Your profile", title: "How will friends\nfind you?", detail: "Choose a name they’ll recognise and a username to share.")
                 VStack(alignment: .leading, spacing: 14) {
-                    TextField("Your name", text: $name).textContentType(.name).accessibilityIdentifier("profile-name")
+                    TextField("Your name", text: $name, prompt: Text("Your name").foregroundStyle(VipiDesign.secondary)).textContentType(.name).accessibilityIdentifier("profile-name")
                     Divider()
-                    HStack { Text("@").foregroundStyle(VipiDesign.secondary); TextField("Username", text: $username)
+                    HStack { Text("@").foregroundStyle(VipiDesign.secondary); TextField("Username", text: $username, prompt: Text("Username").foregroundStyle(VipiDesign.secondary))
                         .textInputAutocapitalization(.never).autocorrectionDisabled().textContentType(.username).accessibilityIdentifier("profile-username") }
                 }.padding(20).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 20))
                 Text("Use 3–24 English letters, numbers or underscores. Start with a letter. Your phone number and contacts stay private.")
