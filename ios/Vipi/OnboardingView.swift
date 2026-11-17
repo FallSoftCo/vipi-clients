@@ -120,8 +120,8 @@ struct OnboardingView: View {
             Spacer(minLength: 8)
             Image(systemName: "chevron.down").font(.body.weight(.semibold))
         }.font(.body).foregroundStyle(VipiDesign.ink)
-            .frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
             .padding(.horizontal, 16).padding(.vertical, 12)
+            .frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
             .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
     }
 
