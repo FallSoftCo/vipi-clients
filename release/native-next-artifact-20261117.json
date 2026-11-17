@@ -1,0 +1,34 @@
+{
+  "state": "source_and_public_configuration_selected_not_uploaded",
+  "android": {
+    "application_id": "co.fallsoft.vipi",
+    "version_code": 5,
+    "version_name": "1.0.4",
+    "version_inventory": "Fresh native Play full reload shows only version codes 1 through 4; next code 5 is unused.",
+    "public_client_environment": "VIPI_WORKOS_CLIENT_ID",
+    "public_client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "qualification_flags": "Omit QA application suffix, vipiQaAbi, vipiReleaseQualification and vipiSourceContextQualification."
+  },
+  "apple": {
+    "bundle_id": "co.fallsoft.vipi",
+    "version": "1.0",
+    "build": "4",
+    "version_inventory": "Build 3 previously uploaded and attached; identity owner must recheck current ASC inventory before archive/upload.",
+    "public_client_build_setting": "WORKOS_CLIENT_ID",
+    "public_client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "team": "3TNL2455JT",
+    "push_environment": "production",
+    "keychain_service": "co.fallsoft.vipi.private"
+  },
+  "api_origin": "https://api.mambovipi.app",
+  "callback": "co.fallsoft.vipi://auth/callback",
+  "private_inputs": "Use the existing private signing/Firebase loaders. No provider client secret belongs in either app.",
+  "source": "Export the commit containing this selection. Do not package the dirty working directory or the preserved context-008 pilot.",
+  "backend": "Shared identity/schema 20261117_05 and Vipi-only deletion already active; no deployment replay.",
+  "remaining": [
+    "Build and independently verify the signed platform artifacts",
+    "Qualify shared reviewer access on the native client",
+    "Refresh truthful store screenshots and corresponding source",
+    "Inspect current store drafts before any one-time replacement/submission"
+  ]
+}
