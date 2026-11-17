@@ -1,0 +1,60 @@
+{
+  "at": "2026-11-17T06:14:25.422869+00:00",
+  "scope": "Verified retention routes; historical upload receipts remain unchanged. No artifact was republished.",
+  "records": [
+    {
+      "private_receipt": "/home/ai/Development/investigations/vipi-android-localization-20261117-r01/resource-validation/v1-release-relocation.json",
+      "details": {
+        "remote_directory": "fallsoft-production:/root/.local/state/vipi/android-original-release-0fda-20261117",
+        "mode": "0700 directory, 0600 files",
+        "artifacts": {
+          "aab": {
+            "bytes": 541876565,
+            "sha256": "72eaecf6820b10cf52a10589f72799de495301406a207c97f4315f522701fd8a",
+            "original_path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r02/vipi-0fda43f-release.aab"
+          },
+          "apk": {
+            "bytes": 533633985,
+            "sha256": "161fd44d43de64e94701a0850ec02b259a606d038b377312dfa4ef2fdc5f66ba",
+            "original_path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r02/vipi-0fda43f-release.apk"
+          }
+        },
+        "no_consumers": true,
+        "free_before": 7620534272,
+        "free_after": 8696107008,
+        "local_retired": true
+      }
+    },
+    {
+      "private_receipt": "/home/ai/Development/investigations/vipi-android-localization-20261117-r01/resource-validation/split-v1-relocation.json",
+      "details": {
+        "remote": "fallsoft-production:/root/.local/state/vipi/android-proof-artifacts-20261117/arm64-verification.apks",
+        "sha256": "70cb658c956791c577bc347a20668133a7305ed307687488c13133a420fc5696",
+        "bytes": 436776684,
+        "mode": "0600",
+        "no_consumers": true,
+        "free_before": 7184625664,
+        "free_after": 7621414912,
+        "local_retired": true
+      }
+    },
+    {
+      "private_receipt": "/home/ai/Development/investigations/vipi-android-localization-20261117-r01/resource-validation/alpha-firebase-qa-relocation.json",
+      "details": {
+        "remote": "fallsoft-production:/root/.local/state/vipi/android-proof-artifacts-20261117/alpha-firebase-qa-debug.apk",
+        "sha256": "5797ff80ba0a90b50803be60def74b8a1c25e74eaa600a817b727c113bea2287",
+        "bytes": 523007777,
+        "mode": "0600",
+        "local_aliases": [
+          "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-alpha-firebase-qa-20261116-r01/alpha-firebase-qa-debug.apk",
+          "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/outputs/apk/debug/app-debug.apk"
+        ],
+        "no_consumers": true,
+        "preserved_receipts_and_account_snapshots": true,
+        "free_before": 8695656448,
+        "free_after": 9218699264,
+        "local_retired": true
+      }
+    }
+  ]
+}
