@@ -1,0 +1,318 @@
+{
+  "schema": "vipi-vocalized-arabic-renderer-regressions-1",
+  "policy": "conventional Latin; th/dh/kh/sh/gh, ā/ī/ū, ḥ/ṣ/ḍ/ṭ/ẓ, apostrophe for ayn/hamza, explicit case endings, sun-article assimilation. Not a complete ALA-LC implementation or IPA. References test supplied vowels, not model prediction correctness.",
+  "cases": [
+    {
+      "id": "msa_doctor",
+      "text": "ذَهَبَ الطَّبِيبُ إِلَى الْمُسْتَشْفَى.",
+      "expected": "dhahaba aṭ-ṭabību ilā al-mustashfā.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_child_book",
+      "text": "اِشْتَرَى الطِّفْلُ كِتَابًا جَدِيدًا.",
+      "expected": "ishtarā aṭ-ṭiflu kitāban jadīdan.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_clean_water",
+      "text": "نَحْتَاجُ إِلَى مَاءٍ نَظِيفٍ.",
+      "expected": "naḥtāju ilā mā'in naẓīfin.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_room",
+      "text": "أُرِيدُ حَجْزَ غُرْفَةٍ لِلَيْلَةٍ وَاحِدَةٍ.",
+      "expected": "urīdu ḥajza ghurfatin lilaylatin wāḥidatin.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_train",
+      "text": "وَصَلَ الْقِطَارُ قَبْلَ الْمَغْرِبِ.",
+      "expected": "waṣala al-qiṭāru qabla al-maghribi.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_farmer",
+      "text": "زَرَعَ الْفَلَّاحُ الْقَمْحَ.",
+      "expected": "zara'a al-fallāḥu al-qamḥa.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_apartment",
+      "text": "هَذِهِ شَقَّةٌ قَرِيبَةٌ مِنَ النَّهْرِ.",
+      "expected": "hādhihi shaqqatun qarībatun mina an-nahri.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_guard_closed",
+      "text": "أَغْلَقَ الْحَارِسُ الْبَابَ.",
+      "expected": "aghlaqa al-ḥārisu al-bāba.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_sleep",
+      "text": "يَنَامُ الطِّفْلُ فِي الْغُرْفَةِ.",
+      "expected": "yanāmu aṭ-ṭiflu fī al-ghurfati.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_read",
+      "text": "تَقْرَأُ الْمُعَلِّمَةُ رِسَالَةً قَصِيرَةً.",
+      "expected": "taqra'u al-mu'allimatu risālatan qaṣīratan.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "polyphone_flag",
+      "text": "رَفَعَ الْعَامِلُ الْعَلَمَ.",
+      "expected": "rafa'a al-'āmilu al-'alama.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "polyphone_knowledge",
+      "text": "يُحِبُّ الطَّالِبُ الْعِلْمَ.",
+      "expected": "yuḥibbu aṭ-ṭālibu al-'ilma.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_king",
+      "text": "الْمَلِكُ يَعِيشُ فِي الْقَصْرِ.",
+      "expected": "al-maliku ya'īshu fī al-qaṣri.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_queue",
+      "text": "نَنْتَظِرُ فِي طَابُورٍ طَوِيلٍ.",
+      "expected": "nantaẓiru fī ṭābūrin ṭawīlin.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_phone",
+      "text": "هَذَا الْهَاتِفُ مَكْسُورٌ.",
+      "expected": "hādhā al-hātifu maksūrun.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "msa_garden",
+      "text": "الْحَدِيقَةُ جَمِيلَةٌ فِي الرَّبِيعِ.",
+      "expected": "al-ḥadīqatu jamīlatun fī ar-rabī'i.",
+      "scope": "already_vocalized_author_reference"
+    },
+    {
+      "id": "نور",
+      "text": "نُورٌ",
+      "expected": "nūrun",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "في",
+      "text": "فِي",
+      "expected": "fī",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "على",
+      "text": "عَلَى",
+      "expected": "'alā",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "نوم",
+      "text": "نَوْمٌ",
+      "expected": "nawmun",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "بيت",
+      "text": "بَيْتٌ",
+      "expected": "baytun",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "حي",
+      "text": "حَيٌّ",
+      "expected": "ḥayyun",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "قرآن",
+      "text": "قُرْآنٌ",
+      "expected": "qur'ānun",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "أنا",
+      "text": "أَنَا",
+      "expected": "anā",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "آدم",
+      "text": "آدَمُ",
+      "expected": "ādamu",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "هذا",
+      "text": "هَذَا",
+      "expected": "hādhā",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "هذه",
+      "text": "هَذِهِ",
+      "expected": "hādhihi",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "ذلك",
+      "text": "ذَلِكَ",
+      "expected": "dhālika",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "هؤلاء",
+      "text": "هَؤُلَاءِ",
+      "expected": "hā'ulā'i",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "أولئك",
+      "text": "أُولَئِكَ",
+      "expected": "ūlā'ika",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "لكن",
+      "text": "لَكِنَّ",
+      "expected": "lākinna",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "الله",
+      "text": "اللَّهُ",
+      "expected": "allāhu",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "بالله",
+      "text": "بِاللَّهِ",
+      "expected": "bi-llāhi",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "الرحمن",
+      "text": "الرَّحْمَنِ",
+      "expected": "ar-raḥmāni",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "إله",
+      "text": "إِلَهٌ",
+      "expected": "ilāhun",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "sun",
+      "text": "الشَّمْسُ",
+      "expected": "ash-shamsu",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "moon",
+      "text": "الْقَمَرُ",
+      "expected": "al-qamaru",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "sun_prefix",
+      "text": "وَالشَّمْسُ",
+      "expected": "wa-sh-shamsu",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "moon_prefix",
+      "text": "بِالْبَيْتِ",
+      "expected": "bi-l-bayti",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "contracted",
+      "text": "لِلْبَيْتِ",
+      "expected": "li-l-bayti",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "name",
+      "text": "سَلَامٌ، José!",
+      "expected": "salāmun، José!",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "decomposed_name",
+      "text": "مَرْحَبًا café",
+      "expected": "marḥaban café",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "url",
+      "text": "اِفْتَحِ https://example.test/عربي?q=علم الْآنَ.",
+      "expected": "iftaḥi https://example.test/عربي?q=علم al-'āna.",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "code",
+      "text": "اُكْتُبْ `علم_2026` فِي notes.md.",
+      "expected": "uktub `علم_2026` fī notes.md.",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "emoji",
+      "text": "بَيْتٌ 🙂",
+      "expected": "baytun 🙂",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "novel_vocalized",
+      "text": "بُشَتِرٌ",
+      "expected": "bushatirun",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "tatweel",
+      "text": "كَتَــبَ",
+      "expected": "kataba",
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "unvocalized",
+      "text": "كتب",
+      "expected": null,
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "partially_vocalized",
+      "text": "كَتب",
+      "expected": null,
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "unsupported_variant",
+      "text": "کَافِیَةٌ",
+      "expected": null,
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "contradictory_vowels",
+      "text": "بَِتٌ",
+      "expected": null,
+      "scope": "renderer_rule_or_abstention"
+    },
+    {
+      "id": "foreign_script",
+      "text": "بَيْتٌ дом",
+      "expected": null,
+      "scope": "renderer_rule_or_abstention"
+    }
+  ]
+}

@@ -1,0 +1,488 @@
+{
+  "regressions": [
+    {
+      "partition_exact": true,
+      "reading": "dhahaba aṭ-ṭabību ilā al-mustashfā.",
+      "id": "msa_doctor",
+      "source": "ذَهَبَ الطَّبِيبُ إِلَى الْمُسْتَشْفَى."
+    },
+    {
+      "partition_exact": true,
+      "reading": "ishtarā aṭ-ṭiflu kitāban jadīdan.",
+      "id": "msa_child_book",
+      "source": "اِشْتَرَى الطِّفْلُ كِتَابًا جَدِيدًا."
+    },
+    {
+      "partition_exact": true,
+      "reading": "naḥtāju ilā mā'in naẓīfin.",
+      "id": "msa_clean_water",
+      "source": "نَحْتَاجُ إِلَى مَاءٍ نَظِيفٍ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "urīdu ḥajza ghurfatin lilaylatin wāḥidatin.",
+      "id": "msa_room",
+      "source": "أُرِيدُ حَجْزَ غُرْفَةٍ لِلَيْلَةٍ وَاحِدَةٍ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "waṣala al-qiṭāru qabla al-maghribi.",
+      "id": "msa_train",
+      "source": "وَصَلَ الْقِطَارُ قَبْلَ الْمَغْرِبِ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "zara'a al-fallāḥu al-qamḥa.",
+      "id": "msa_farmer",
+      "source": "زَرَعَ الْفَلَّاحُ الْقَمْحَ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "hādhihi shaqqatun qarībatun mina an-nahri.",
+      "id": "msa_apartment",
+      "source": "هَذِهِ شَقَّةٌ قَرِيبَةٌ مِنَ النَّهْرِ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "aghlaqa al-ḥārisu al-bāba.",
+      "id": "msa_guard_closed",
+      "source": "أَغْلَقَ الْحَارِسُ الْبَابَ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "yanāmu aṭ-ṭiflu fī al-ghurfati.",
+      "id": "msa_sleep",
+      "source": "يَنَامُ الطِّفْلُ فِي الْغُرْفَةِ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "taqra'u al-mu'allimatu risālatan qaṣīratan.",
+      "id": "msa_read",
+      "source": "تَقْرَأُ الْمُعَلِّمَةُ رِسَالَةً قَصِيرَةً."
+    },
+    {
+      "partition_exact": true,
+      "reading": "rafa'a al-'āmilu al-'alama.",
+      "id": "polyphone_flag",
+      "source": "رَفَعَ الْعَامِلُ الْعَلَمَ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "yuḥibbu aṭ-ṭālibu al-'ilma.",
+      "id": "polyphone_knowledge",
+      "source": "يُحِبُّ الطَّالِبُ الْعِلْمَ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "al-maliku ya'īshu fī al-qaṣri.",
+      "id": "msa_king",
+      "source": "الْمَلِكُ يَعِيشُ فِي الْقَصْرِ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "nantaẓiru fī ṭābūrin ṭawīlin.",
+      "id": "msa_queue",
+      "source": "نَنْتَظِرُ فِي طَابُورٍ طَوِيلٍ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "hādhā al-hātifu maksūrun.",
+      "id": "msa_phone",
+      "source": "هَذَا الْهَاتِفُ مَكْسُورٌ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "al-ḥadīqatu jamīlatun fī ar-rabī'i.",
+      "id": "msa_garden",
+      "source": "الْحَدِيقَةُ جَمِيلَةٌ فِي الرَّبِيعِ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "nūrun",
+      "id": "نور",
+      "source": "نُورٌ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "fī",
+      "id": "في",
+      "source": "فِي"
+    },
+    {
+      "partition_exact": true,
+      "reading": "'alā",
+      "id": "على",
+      "source": "عَلَى"
+    },
+    {
+      "partition_exact": true,
+      "reading": "nawmun",
+      "id": "نوم",
+      "source": "نَوْمٌ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "baytun",
+      "id": "بيت",
+      "source": "بَيْتٌ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "ḥayyun",
+      "id": "حي",
+      "source": "حَيٌّ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "qur'ānun",
+      "id": "قرآن",
+      "source": "قُرْآنٌ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "anā",
+      "id": "أنا",
+      "source": "أَنَا"
+    },
+    {
+      "partition_exact": true,
+      "reading": "ādamu",
+      "id": "آدم",
+      "source": "آدَمُ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "hādhā",
+      "id": "هذا",
+      "source": "هَذَا"
+    },
+    {
+      "partition_exact": true,
+      "reading": "hādhihi",
+      "id": "هذه",
+      "source": "هَذِهِ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "dhālika",
+      "id": "ذلك",
+      "source": "ذَلِكَ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "hā'ulā'i",
+      "id": "هؤلاء",
+      "source": "هَؤُلَاءِ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "ūlā'ika",
+      "id": "أولئك",
+      "source": "أُولَئِكَ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "lākinna",
+      "id": "لكن",
+      "source": "لَكِنَّ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "allāhu",
+      "id": "الله",
+      "source": "اللَّهُ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "bi-llāhi",
+      "id": "بالله",
+      "source": "بِاللَّهِ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "ar-raḥmāni",
+      "id": "الرحمن",
+      "source": "الرَّحْمَنِ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "ilāhun",
+      "id": "إله",
+      "source": "إِلَهٌ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "ash-shamsu",
+      "id": "sun",
+      "source": "الشَّمْسُ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "al-qamaru",
+      "id": "moon",
+      "source": "الْقَمَرُ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "wa-sh-shamsu",
+      "id": "sun_prefix",
+      "source": "وَالشَّمْسُ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "bi-l-bayti",
+      "id": "moon_prefix",
+      "source": "بِالْبَيْتِ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "li-l-bayti",
+      "id": "contracted",
+      "source": "لِلْبَيْتِ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "salāmun، José!",
+      "id": "name",
+      "source": "سَلَامٌ، José!"
+    },
+    {
+      "partition_exact": true,
+      "reading": "marḥaban café",
+      "id": "decomposed_name",
+      "source": "مَرْحَبًا café"
+    },
+    {
+      "partition_exact": true,
+      "reading": "iftaḥi https://example.test/عربي?q=علم al-'āna.",
+      "id": "url",
+      "source": "اِفْتَحِ https://example.test/عربي?q=علم الْآنَ."
+    },
+    {
+      "partition_exact": true,
+      "reading": "uktub `علم_2026` fī notes.md.",
+      "id": "code",
+      "source": "اُكْتُبْ `علم_2026` فِي notes.md."
+    },
+    {
+      "partition_exact": true,
+      "reading": "baytun 🙂",
+      "id": "emoji",
+      "source": "بَيْتٌ 🙂"
+    },
+    {
+      "partition_exact": true,
+      "reading": "bushatirun",
+      "id": "novel_vocalized",
+      "source": "بُشَتِرٌ"
+    },
+    {
+      "partition_exact": true,
+      "reading": "kataba",
+      "id": "tatweel",
+      "source": "كَتَــبَ"
+    },
+    {
+      "partition_exact": true,
+      "reading": null,
+      "id": "unvocalized",
+      "source": "كتب"
+    },
+    {
+      "partition_exact": true,
+      "reading": null,
+      "id": "partially_vocalized",
+      "source": "كَتب"
+    },
+    {
+      "partition_exact": true,
+      "reading": null,
+      "id": "unsupported_variant",
+      "source": "کَافِیَةٌ"
+    },
+    {
+      "partition_exact": true,
+      "reading": null,
+      "id": "contradictory_vowels",
+      "source": "بَِتٌ"
+    },
+    {
+      "partition_exact": true,
+      "reading": null,
+      "id": "foreign_script",
+      "source": "بَيْتٌ дом"
+    }
+  ],
+  "passed": true,
+  "platform": "Host JVM, dormant native Kotlin renderer component; not Android execution",
+  "unaccepted_model_inference_readings": [
+    {
+      "model_script": "ذَهَبَ الطَّبِيبُ إِلَى الْمُسْتَشْفَى.",
+      "candidate_reading": "dhahaba aṭ-ṭabību ilā al-mustashfā.",
+      "id": "msa_doctor",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "اشْتَرَى الطِّفْلُ كِتَابًا جَدِيدًا.",
+      "candidate_reading": null,
+      "id": "msa_child_book",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "نَحْتَاجُ إِلَى مَاءٍ نَظِيفٍ.",
+      "candidate_reading": "naḥtāju ilā mā'in naẓīfin.",
+      "id": "msa_clean_water",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "أُرِيدَ حَجْزُ غُرْفَةٍ لِلَّيْلَةٍ وَاحِدَةٍ.",
+      "candidate_reading": "urīda ḥajzu ghurfatin lillaylatin wāḥidatin.",
+      "id": "msa_room",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "وَصَلَ الْقِطَارُ قَبْلَ الْمَغْرِبِ.",
+      "candidate_reading": "waṣala al-qiṭāru qabla al-maghribi.",
+      "id": "msa_train",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "زَرْعُ الْفَلَاحِ الْقَمْحَ.",
+      "candidate_reading": "zar'u al-falāḥi al-qamḥa.",
+      "id": "msa_farmer",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "هَذِهِ شِقَّةٌ قَرِيبَةٌ مِنَ النَّهْرِ.",
+      "candidate_reading": "hādhihi shiqqatun qarībatun mina an-nahri.",
+      "id": "msa_apartment",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "أَغْلَقَ الْحَارِسُ الْبَابَ.",
+      "candidate_reading": "aghlaqa al-ḥārisu al-bāba.",
+      "id": "msa_guard_closed",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "يَنَامُ الطِّفْلُ فِي الْغُرْفَةِ.",
+      "candidate_reading": "yanāmu aṭ-ṭiflu fī al-ghurfati.",
+      "id": "msa_sleep",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "تَقْرَأُ الْمُعَلِّمَةُ رِسَالَةً قَصِيرَةً.",
+      "candidate_reading": "taqra'u al-mu'allimatu risālatan qaṣīratan.",
+      "id": "msa_read",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "رَفْعَ الْعَامِلِ الْعِلْمَ.",
+      "candidate_reading": "raf'a al-'āmili al-'ilma.",
+      "id": "polyphone_flag",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "يُحِبُّ الطَّالِبُ الْعِلْمَ.",
+      "candidate_reading": "yuḥibbu aṭ-ṭālibu al-'ilma.",
+      "id": "polyphone_knowledge",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "الْمَلِكُ يَعِيشُ فِي الْقَصْرِ.",
+      "candidate_reading": "al-maliku ya'īshu fī al-qaṣri.",
+      "id": "msa_king",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "نَنْتَظِرُ فِي طَابُورٍ طَوِيلٍ.",
+      "candidate_reading": "nantaẓiru fī ṭābūrin ṭawīlin.",
+      "id": "msa_queue",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "هَذَا الْهَاتِفُ مَكْسُورٌ.",
+      "candidate_reading": "hādhā al-hātifu maksūrun.",
+      "id": "msa_phone",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "الْحَدِيقَةُ جَمِيلَةٌ فِي الرَّبِيعِ.",
+      "candidate_reading": "al-ḥadīqatu jamīlatun fī ar-rabī'i.",
+      "id": "msa_garden",
+      "category": "authored_msa_reference"
+    },
+    {
+      "model_script": "سَافَرَتْ أَمْسِ.",
+      "candidate_reading": "sāfarat amsi.",
+      "id": "ambiguous_person",
+      "category": "source_ambiguity"
+    },
+    {
+      "model_script": "هَلْ يُمْكِنُكَ فَتْحُ النَّافِذَةِ؟",
+      "candidate_reading": "hal yumkinuka fatḥu an-nāfidhati؟",
+      "id": "ambiguous_you",
+      "category": "source_ambiguity"
+    },
+    {
+      "model_script": "أَرْسَلَتْ لَيْلَى رِسَالَةً إِلَى سُلَيْمٍ.",
+      "candidate_reading": "arsalat laylā risālatan ilā sulaymin.",
+      "id": "name_layla",
+      "category": "names"
+    },
+    {
+      "model_script": "نُورَةٌ تَنْتَظِرُ يُوسُفَ قُرْبَ الْجَامِعَةِ.",
+      "candidate_reading": "nūratun tantaẓiru yūsufa qurba al-jāmi'ati.",
+      "id": "name_nura",
+      "category": "names"
+    },
+    {
+      "model_script": "فِينَ أَقْرَبُ مَحَطَّةٍ؟",
+      "candidate_reading": "fīna aqrabu maḥaṭṭatin؟",
+      "id": "dialect_egy",
+      "category": "dialect"
+    },
+    {
+      "model_script": "شُوْ بَدَكَ تَشْرَبُ؟",
+      "candidate_reading": "shuw badaka tashrabu؟",
+      "id": "dialect_levant",
+      "category": "dialect"
+    },
+    {
+      "model_script": "قَابَلَتْ José قُرْبَ café فِي 8:30.",
+      "candidate_reading": "qābalat José qurba café fī 8:30.",
+      "id": "mixed_latin",
+      "category": "mixed"
+    },
+    {
+      "model_script": "عَلِمَ سَامِرِ الْخَبَرَ الْيَوْمَ.",
+      "candidate_reading": "'alima sāmiri al-khabara al-yawma.",
+      "id": "existing_marks",
+      "category": "preservation"
+    },
+    {
+      "model_script": "أُحَبُّ الْقَهْوَةَ\u200d كَثِيرًا.",
+      "candidate_reading": "uḥabbu al-qahwata\u200d kathīran.",
+      "id": "zero_width",
+      "category": "preservation"
+    },
+    {
+      "model_script": "افْتَحِ https://example.test/عربي?q=علم الْآنَ.",
+      "candidate_reading": null,
+      "id": "url",
+      "category": "preservation"
+    },
+    {
+      "model_script": "اُكْتُبْ `علم_2026` فِي notes.md.",
+      "candidate_reading": "uktub `علم_2026` fī notes.md.",
+      "id": "code",
+      "category": "preservation"
+    },
+    {
+      "model_script": "هَذِهِ کَافِیَةٌ.",
+      "candidate_reading": null,
+      "id": "persian_variants",
+      "category": "variant"
+    }
+  ]
+}

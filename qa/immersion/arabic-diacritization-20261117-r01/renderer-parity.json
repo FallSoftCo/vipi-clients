@@ -1,0 +1,11 @@
+{
+  "schema": "vipi-vocalized-arabic-renderer-parity-1",
+  "native_swift_cases": 52,
+  "host_jvm_cases": 52,
+  "exact_reading_and_source_partition_parity": true,
+  "model_output_comparisons": 28,
+  "production_enabled": false,
+  "fixtures_sha256": "96eb0de1e6b11e1688b8830dc0ab3b49b407ef76c3a4e895faae009901420e6f",
+  "swift_source_sha256": "639b2dca753d8fc9cae4b301b02dc11c7e59556b7b67e7bcf5c9622def84b055",
+  "kotlin_source_sha256": "24cf9807013d077cc117241198ce0ccce552279c9a29a97b4a9cd69f96b8b079"
+}
