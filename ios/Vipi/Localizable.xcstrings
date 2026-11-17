@@ -18041,7 +18041,7 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Stimmen erneut versuchen"
+            "value": "Stimmen erneut vorbereiten"
           }
         },
         "ja": {
@@ -24965,7 +24965,7 @@
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "スペイン語の単語を再開"
+            "value": "スペイン語の表示を再開"
           }
         },
         "ar": {
