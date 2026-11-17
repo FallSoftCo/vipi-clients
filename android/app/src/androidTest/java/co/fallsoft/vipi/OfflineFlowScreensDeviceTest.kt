@@ -110,6 +110,7 @@ class OfflineFlowScreensDeviceTest {
             assertTrue(device.wait(Until.hasObject(By.textContains("Hello!")), 10_000))
             device.dumpWindowHierarchy(File(out, "friend-composer-keyboard.xml"))
             assertTrue(device.takeScreenshot(File(out, "friend-composer-keyboard.png")))
+            if (InstrumentationRegistry.getArguments().getString("vipiChatOnly") == "true") return@runBlocking
             device.pressBack()
             scenario!!.onActivity { model.navigate(Screen.BACKUP) }
             assertTrue(device.wait(Until.hasObject(By.textContains("backup")), 10_000))
