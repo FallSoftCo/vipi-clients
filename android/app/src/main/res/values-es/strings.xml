@@ -382,4 +382,22 @@
         <item quantity="one">%1$s respuesta por mes natural. Las respuestas no usadas no se acumulan; no hay cargos automáticos por exceso.</item>
         <item quantity="other">%1$s respuestas por mes natural. Las respuestas no usadas no se acumulan; no hay cargos automáticos por exceso.</item>
     </plurals>
+    <string name="nav_help">Ayuda</string>
+    <string name="cardless_intro_new">Las cuentas nuevas incluyen 30 días gratis, sin método de pago. Después, elige si quieres suscribirte.</string>
+    <string name="cardless_no_autocharge">Este período gratuito no requiere método de pago. Termina sin ningún cargo automático; suscribirse es opcional.</string>
+    <string name="reading_slower">Más lento</string>
+    <string name="reading_standard">Normal</string>
+    <string name="reading_faster">Más rápido</string>
+    <string name="language_detect_automatically">Detectar automáticamente</string>
+    <string name="report_spam">Spam</string>
+    <string name="report_harassment">Acoso</string>
+    <string name="report_harmful_content">Contenido dañino</string>
+    <string name="report_other">Otro motivo</string>
+    <string name="report_harmful_offensive">Dañino u ofensivo</string>
+    <string name="report_inaccurate">Inexacto</string>
+    <string name="block_person_question">¿Bloquear a %1$s?</string>
+    <string name="unblock_person_question">¿Desbloquear a %1$s?</string>
+    <string name="device_recovery_explanation">Tu cuenta está activa en otro dispositivo. Las conversaciones guardadas siguen disponibles aquí.</string>
+    <string name="message_secure_open_failed">No se pudo abrir un mensaje de forma segura. Tus conversaciones existentes están guardadas.</string>
+    <string name="bot_requires_vipi_access">Bot mini necesita acceso activo a Vipi. Consulta tu acceso a Vipi o gestiona Bot mini en Google Play para evitar otra renovación.</string>
 </resources>

@@ -293,7 +293,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable private fun AccountView() {
     Heading(stringResource(R.string.your_account), stringResource(R.string.account_heading), stringResource(R.string.account_description))
-    Text(stringResource(R.string.cardless_intro), color = MaterialTheme.colorScheme.onSurfaceVariant)
+    Text(stringResource(R.string.cardless_intro_new), color = MaterialTheme.colorScheme.onSurfaceVariant)
     Column(Modifier.background(MaterialTheme.colorScheme.surface, RoundedCornerShape(22.dp)).padding(22.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
         Text(stringResource(R.string.ui_3b3139fd3460)); Text(stringResource(R.string.ui_4757eee1005a)); Text(stringResource(R.string.ui_12feaf099b55))
     }
@@ -303,8 +303,6 @@ class MainActivity : ComponentActivity() {
     var accepted by rememberSaveable { mutableStateOf(false) }
     val context = LocalContext.current
     val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f
-    val uiLocale = androidx.compose.ui.platform.LocalConfiguration.current.locales[0]
-    val targetName = java.util.Locale.forLanguageTag(model.targetLanguage).getDisplayLanguage(uiLocale).replaceFirstChar { it.titlecase(uiLocale) }
     Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background).then(if (inScroll) Modifier else Modifier.navigationBarsPadding()).padding(horizontal = if (inScroll) 0.dp else 26.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         if (model.screen == Screen.ACCOUNT) {
             Row(verticalAlignment = Alignment.CenterVertically) { Checkbox(checked = accepted, onCheckedChange = { accepted = it }); Text(stringResource(R.string.ui_9ed65d7add5f), fontSize = 12.sp, lineHeight = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
@@ -316,7 +314,7 @@ class MainActivity : ComponentActivity() {
             else Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) { legalLinks() }
             model.authentication.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.error) }
         }
-        PrimaryButton(when (model.screen) { Screen.WELCOME -> stringResource(R.string.choose_languages); Screen.LANGUAGE -> stringResource(R.string.continue_with_language, targetName); else -> stringResource(R.string.continue_signin) }, enabled = model.screen != Screen.ACCOUNT || accepted, busy = model.authentication.busy) {
+        PrimaryButton(when (model.screen) { Screen.WELCOME -> stringResource(R.string.choose_languages); Screen.LANGUAGE -> stringResource(R.string.continue_action); else -> stringResource(R.string.continue_signin) }, enabled = model.screen != Screen.ACCOUNT || accepted, busy = model.authentication.busy) {
             when (model.screen) { Screen.WELCOME -> model.navigate(Screen.LANGUAGE); Screen.LANGUAGE -> model.navigate(Screen.ACCOUNT); else -> model.authentication.signIn(context) }
         }
         if (model.screen == Screen.WELCOME && !largeText) Text(stringResource(R.string.no_account_preview), fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.align(Alignment.CenterHorizontally))
@@ -414,8 +412,8 @@ class MainActivity : ComponentActivity() {
     Text(stringResource(R.string.ui_380f81884c22), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     TextButton(onClick = { model.navigate(Screen.LICENSES) }) { Text(stringResource(R.string.ui_2a6b4d12ccfb)) }
     Row {
-        listOf("Terms" to "terms", "Privacy" to "privacy", "Help" to "help").forEach { (title, path) ->
-            TextButton(onClick = { runCatching { uri.openUri("https://api.mambovipi.app/$path") }.onFailure { linkError = context.getString(R.string.settings_page_open_failed) } }) { Text(title) }
+        listOf(R.string.nav_terms to "terms", R.string.nav_privacy to "privacy", R.string.nav_help to "help").forEach { (title, path) ->
+            TextButton(onClick = { runCatching { uri.openUri("https://api.mambovipi.app/$path") }.onFailure { linkError = context.getString(R.string.settings_page_open_failed) } }) { Text(stringResource(title)) }
         }
     }
     linkError?.let { Text(it, style = MaterialTheme.typography.bodySmall) }

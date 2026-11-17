@@ -315,7 +315,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                             if (error is CancellationException) throw error
                             if (error is RetiredPeerMessage) return@repeat // Never acknowledge unread ciphertext from an explicitly retired device.
                             if (error is PeerIdentityChanged) markPeerRecovery(error.peer)
-                            completed = false; notice = if (error is PeerIdentityChanged) explanation(context, error) else "A message couldn’t be opened securely. Your existing conversations are saved."
+                            completed = false; notice = if (error is PeerIdentityChanged) explanation(context, error) else context.getString(R.string.message_secure_open_failed)
                         }
                     }
                     if (!result.has("next_cursor") || result.isNull("next_cursor")) break

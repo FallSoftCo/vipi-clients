@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
     val scope = rememberCoroutineScope()
     var confirm by remember { mutableStateOf(false) }
     Text(stringResource(R.string.ui_fa3d530cf72d), style = MaterialTheme.typography.titleLarge)
-    Text(chat.notice ?: "Your account is active on another device. Saved conversations are still available here.")
+    Text(chat.notice ?: stringResource(R.string.device_recovery_explanation))
     if (chat.busy) CircularProgressIndicator()
     else if (chat.recoveryNeedsSignIn) Button(onClick = signIn) { Text(stringResource(R.string.ui_51fbe1dc8a73)) }
     else Button(onClick = { confirm = true }) { Text(stringResource(R.string.ui_e48800c742a6)) }

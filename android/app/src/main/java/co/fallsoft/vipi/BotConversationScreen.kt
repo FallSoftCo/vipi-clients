@@ -122,8 +122,8 @@ import java.time.format.FormatStyle
         text = { Column(Modifier.heightIn(max = 360.dp).verticalScroll(rememberScrollState())) {
             Text(stringResource(R.string.ui_c48de4e830a9))
             OutlinedTextField(reportText, { reportText = it }, label = { Text(stringResource(R.string.ui_6382f38cc7cc)) }, maxLines = 5)
-            listOf("harmful" to "Harmful or offensive", "inaccurate" to "Inaccurate", "other" to "Something else").forEach { (code, title) ->
-                Row(verticalAlignment = Alignment.CenterVertically) { RadioButton(reportReason == code, onClick = { reportReason = code }); TextButton(onClick = { reportReason = code }) { Text(title) } }
+            listOf("harmful" to R.string.report_harmful_offensive, "inaccurate" to R.string.report_inaccurate, "other" to R.string.report_other).forEach { (code, title) ->
+                Row(verticalAlignment = Alignment.CenterVertically) { RadioButton(reportReason == code, onClick = { reportReason = code }); TextButton(onClick = { reportReason = code }) { Text(stringResource(title)) } }
             }
             if (reportText.toByteArray(Charsets.UTF_8).size > 4000 || !message.text.contains(reportText)) Text(stringResource(R.string.ui_e7be3e288153), style = MaterialTheme.typography.bodySmall)
         } },

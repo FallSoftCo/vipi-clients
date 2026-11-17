@@ -319,10 +319,10 @@ import java.util.UUID
             Text(stringResource(R.string.ui_967b3ede020c))
             Text(selected.text, style = MaterialTheme.typography.bodyMedium)
             val savedReason = chat.reportReason(selected)
-            listOf("spam" to "Spam", "harassment" to "Harassment", "harmful" to "Harmful content", "other" to "Something else").forEach { (code, title) ->
+            listOf("spam" to R.string.report_spam, "harassment" to R.string.report_harassment, "harmful" to R.string.report_harmful_content, "other" to R.string.report_other).forEach { (code, title) ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     RadioButton(reportReason == code, onClick = { reportReason = code }, enabled = !reporting && (savedReason == null || savedReason == code))
-                    Text(title)
+                    Text(stringResource(title))
                 }
             }
             if (savedReason != null) Text(stringResource(R.string.ui_70526d2742fe), style = MaterialTheme.typography.bodySmall)
@@ -338,7 +338,7 @@ import java.util.UUID
         }) { Text(if (reporting) stringResource(R.string.ui_b8ed5279e897) else stringResource(R.string.ui_a44d35311325)) } },
         dismissButton = { TextButton(enabled = !reporting, onClick = { reportedMessage = null }) { Text(stringResource(R.string.cancel_action)) } }) }
     if (confirmBlock) AlertDialog(onDismissRequest = { confirmBlock = false },
-        title = { Text((if (blocked) "Unblock " else "Block ") + chat.name(peer) + "?") },
+        title = { Text(stringResource(if (blocked) R.string.unblock_person_question else R.string.block_person_question, chat.name(peer))) },
         text = { Text(if (blocked) stringResource(R.string.ui_25cb0ec8237b) else stringResource(R.string.ui_817b085ae5a9)) },
         dismissButton = { TextButton(onClick = { confirmBlock = false }) { Text(stringResource(R.string.cancel_action)) } },
         confirmButton = { TextButton(onClick = {

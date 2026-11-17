@@ -382,4 +382,22 @@
         <item quantity="one">%1$s réponse par mois civil. Les réponses inutilisées ne sont pas reportées ; aucun dépassement n’est facturé automatiquement.</item>
         <item quantity="other">%1$s réponses par mois civil. Les réponses inutilisées ne sont pas reportées ; aucun dépassement n’est facturé automatiquement.</item>
     </plurals>
+    <string name="nav_help">Aide</string>
+    <string name="cardless_intro_new">Les nouveaux comptes bénéficient de 30 jours gratuits, sans moyen de paiement. Ensuite, vous choisissez de vous abonner ou non.</string>
+    <string name="cardless_no_autocharge">Aucun moyen de paiement n’est nécessaire pour cette période gratuite. Elle se termine sans débit automatique ; l’abonnement est facultatif.</string>
+    <string name="reading_slower">Plus lent</string>
+    <string name="reading_standard">Normal</string>
+    <string name="reading_faster">Plus rapide</string>
+    <string name="language_detect_automatically">Détecter automatiquement</string>
+    <string name="report_spam">Spam</string>
+    <string name="report_harassment">Harcèlement</string>
+    <string name="report_harmful_content">Contenu préjudiciable</string>
+    <string name="report_other">Autre</string>
+    <string name="report_harmful_offensive">Préjudiciable ou offensant</string>
+    <string name="report_inaccurate">Inexact</string>
+    <string name="block_person_question">Bloquer %1$s ?</string>
+    <string name="unblock_person_question">Débloquer %1$s ?</string>
+    <string name="device_recovery_explanation">Votre compte est actif sur un autre appareil. Vos conversations enregistrées restent disponibles ici.</string>
+    <string name="message_secure_open_failed">Un message n’a pas pu être ouvert en toute sécurité. Vos conversations existantes sont enregistrées.</string>
+    <string name="bot_requires_vipi_access">Bot mini nécessite un accès Vipi actif. Vérifiez votre accès Vipi ou gérez Bot mini dans Google Play pour éviter un nouveau renouvellement.</string>
 </resources>

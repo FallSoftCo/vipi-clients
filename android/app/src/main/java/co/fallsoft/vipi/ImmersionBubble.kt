@@ -247,7 +247,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                 }
             }
             if (!embedded) Spacer(Modifier.weight(1f))
-            if (!embedded && speech != null) TextButton(onClick = { listen() }, enabled = speech.state !in setOf(SpeechState.PREPARING, SpeechState.UNAVAILABLE)) {
+            if (!embedded && speech != null) TextButton(onClick = { listen() }, enabled = speech.state !in setOf(SpeechState.PREPARING, SpeechState.UNAVAILABLE), colors = TextButtonDefaults.textButtonColors(disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant)) {
                 if (speech.state == SpeechState.PREPARING || (active && speech.state == SpeechState.RENDERING)) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
                 else Icon(if (active) Icons.Outlined.Stop else Icons.Outlined.VolumeUp, null, Modifier.size(18.dp))
                 Spacer(Modifier.width(7.dp)); Text(if (active) stringResource(R.string.ui_cae7d57bc067) else if (speech.state == SpeechState.PREPARING) stringResource(R.string.ui_58fd7deb0abe) else stringResource(R.string.ui_225d29f6201e), fontSize = 13.sp)
@@ -258,11 +258,11 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
         onSelect = { speech?.stop(); onInputLanguage(it); chooseLanguage = false }, dismiss = { chooseLanguage = false })
     if (choosingPace) AlertDialog(onDismissRequest = { choosingPace = false }, title = { Text(stringResource(R.string.ui_5de398810247)) },
         text = { Column {
-            listOf("relaxed" to "Slower", "balanced" to "Standard", "brisk" to "Faster").forEach { (key, title) ->
+            listOf("relaxed" to R.string.reading_slower, "balanced" to R.string.reading_standard, "brisk" to R.string.reading_faster).forEach { (key, title) ->
                 TextButton(onClick = { preferences.edit().putString("readingPace", key).apply(); choosingPace = false },
                     modifier = Modifier.fillMaxWidth().semantics { selected = pace == key }) {
                     if (pace == key) Icon(Icons.Outlined.Check, null, modifier = Modifier.padding(end = 8.dp))
-                    Text(title)
+                    Text(stringResource(title))
                 }
             }
         } }, confirmButton = { TextButton(onClick = { choosingPace = false }) { Text(stringResource(R.string.cancel_action)) } })
@@ -275,7 +275,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                 val isSelected = code == selected
                 TextButton(onClick = { onSelect(code) }, modifier = Modifier.fillMaxWidth().semantics { this.selected = isSelected }) {
                     if (code == selected) Icon(Icons.Outlined.Check, null, modifier = Modifier.padding(end = 8.dp))
-                    Text(code?.let(::languageName) ?: "Detect automatically")
+                    Text(code?.let(::languageName) ?: stringResource(R.string.language_detect_automatically))
                 }
             }
         } }, confirmButton = { TextButton(onClick = dismiss) { Text(stringResource(R.string.cancel_action)) } })

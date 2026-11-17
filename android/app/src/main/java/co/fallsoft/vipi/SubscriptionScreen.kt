@@ -75,7 +75,7 @@ import kotlinx.coroutines.delay
     val accessUnknown = expiryRefreshPending || subscriptions.accessCheckState != AccessCheckState.LOADED || verificationUnavailable || clockUnavailable
     if (access?.usable(now) == true && !accessUnknown) {
         PlanAccessSummary(plan, access, now)
-        if (plan == SubscriptionPlan.BOT_MINI && snapshot?.base?.usable(now) != true) Text(stringResource(R.string.ui_ef6cbddc4dd7))
+        if (plan == SubscriptionPlan.BOT_MINI && snapshot?.base?.usable(now) != true) Text(stringResource(R.string.bot_requires_vipi_access))
         if (plan == SubscriptionPlan.BASE) Button(onClick = { model.navigate(Screen.HOME) }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_a2a2eed05c81)) }
         else if (snapshot?.active(SubscriptionPlan.BOT_MINI) == true) Button(onClick = { model.openBot() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_c6046d416aaf)) }
     } else if (accessUnknown) {
@@ -126,7 +126,7 @@ import kotlinx.coroutines.delay
     if (plan == SubscriptionPlan.BASE && access.accessSource == "cardless_trial" && access.cardlessTrial?.active == true) {
         val end = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.SHORT).withZone(ZoneId.systemDefault()).format(access.cardlessTrial.endsAt)
         Text(stringResource(R.string.cardless_ends, end), fontWeight = FontWeight.SemiBold)
-        Text(stringResource(R.string.cardless_no_payment), style = MaterialTheme.typography.bodyMedium)
+        Text(stringResource(R.string.cardless_no_autocharge), style = MaterialTheme.typography.bodyMedium)
         return
     }
     Text(if (access.reviewAccess) stringResource(R.string.review_access_description)
