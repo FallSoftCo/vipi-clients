@@ -27,7 +27,7 @@ struct OnboardingView: View {
                                      ? (state.onboarding == .language ? "1 of 2" : "2 of 2")
                                      : (state.onboarding == .language ? "Language · 1 of 2" : "Account · 2 of 2"))
                                     .font(.caption).foregroundStyle(VipiDesign.secondary)
-                                    .accessibilityLabel(state.onboarding == .language ? "Language, step 1 of 2" : "Account, step 2 of 2")
+                                    .accessibilityLabel(LocalizedStringKey(state.onboarding == .language ? "Language, step 1 of 2" : "Account, step 2 of 2"))
                             }
                         }.padding(.top, 18)
                         switch state.onboarding {
@@ -75,7 +75,7 @@ struct OnboardingView: View {
                         previewMode = previewMode == .original ? .immersed : .original
                     }
                 } label: {
-                    Label(previewMode == .original ? "Resume Spanish words" : "Show original message", systemImage: "arrow.triangle.2.circlepath")
+                    Label(LocalizedStringKey(previewMode == .original ? "Resume Spanish words" : "Show original message"), systemImage: "arrow.triangle.2.circlepath")
                         .font(.footnote.weight(.semibold)).frame(minHeight: 44, alignment: .leading)
                 }
             }.padding(20).background(VipiDesign.outgoing.opacity(0.48), in: RoundedRectangle(cornerRadius: 28))

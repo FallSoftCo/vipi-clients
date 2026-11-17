@@ -14,10 +14,10 @@ struct HomeView: View {
     @State private var query = ""
     @State private var path: [UUID] = []
     private var botDescription: String {
-        guard let access = subscriptions?.snapshot?.bot_mini else { return "Chat with a chatbot." }
-        if access.isReviewAccess { return "Chat with a chatbot. Review access is active." }
-        if access.active { return "Chat with a chatbot. Bot mini access is active." }
-        return "Chat with a chatbot. Requires the separate Bot mini plan."
+        guard let access = subscriptions?.snapshot?.bot_mini else { return String(localized: "Chat with a chatbot.") }
+        if access.isReviewAccess { return String(localized: "Chat with a chatbot. Review access is active.") }
+        if access.active { return String(localized: "Chat with a chatbot. Bot mini access is active.") }
+        return String(localized: "Chat with a chatbot. Requires the separate Bot mini plan.")
     }
     var body: some View {
         NavigationStack(path: $path) {
@@ -199,7 +199,7 @@ struct SettingsView: View {
             }
             Section("Appearance and notifications") {
                 if chat != nil { NavigationLink("Notifications") { NotificationSettingsView() } }
-                Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text($0.title).tag($0) } }
+                Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text(LocalizedStringKey($0.title)).tag($0) } }
             }
             if let subscriptions { Section { NavigationLink("Subscriptions") { SubscriptionsView(store: subscriptions) } } }
             if let chat { Section { NavigationLink("Chat backup") { HistoryBackupView(chat: chat) } } }

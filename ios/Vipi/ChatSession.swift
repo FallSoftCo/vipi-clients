@@ -328,9 +328,9 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                         catch DurableSignalStore.Failure.retiredDevice { continue }
                         catch DurableSignalStore.Failure.identityChanged {
                             try recordIdentityChange(item.sender_id)
-                            notice = "A friend’s encryption keys changed. Review their encryption details before continuing."
+                            notice = String(localized: "A friend’s encryption keys changed. Review their encryption details before continuing.")
                         }
-                        catch { notice = "A message couldn’t be opened securely. Your existing conversations are saved." }
+                        catch { notice = String(localized: "A message couldn’t be opened securely. Your existing conversations are saved.") }
                     }
                     guard let next = inbox.next_cursor else { break }
                     guard seenCursors.insert(next).inserted else { throw ServiceFailure(status: 0, code: "invalid_inbox_cursor") }
@@ -375,7 +375,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         } while syncAgain && !Task.isCancelled
         do { try reload(); try await resolveUnknownNames() }
         catch is CancellationError {}
-        catch { notice = "Your saved conversations couldn’t be opened. Please try again." }
+        catch { notice = String(localized: "Your saved conversations couldn’t be opened. Please try again.") }
     }
     private struct PushResult: Decodable {}
     func setForeground(_ active: Bool) {
@@ -483,24 +483,24 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     static func explanation(_ error: Error) -> String {
         if let failure = error as? ServiceFailure {
             switch failure.code {
-            case "username_unavailable": return "That username isn’t available. Try another."
-            case "person_not_found": return "No one was found with that username. Check the spelling with your friend."
-            case "invalid_username": return "Use 3–24 letters, numbers or underscores, starting with a letter."
-            case "own_username": return "That’s your username. Enter your friend’s username to start a conversation."
-            case "service_not_available": return "Vipi is being prepared for launch. This account isn’t in the preview yet."
-            case "base_subscription_required": return "Start or restore your Vipi plan in Settings → Subscriptions to send messages. Your saved chats and drafts remain available."
-            case "device_replacement_confirmation_required": return "This account is already active on another device. Moving your account needs a separate confirmation."
-            case "recent_sign_in_required", "sign_in_required", "device_revoked": return "Please sign in again to reconnect your account. Your saved conversations are still on this device."
-            case "recipient_keys_unavailable": return "Your friend needs to open Vipi before this first message can be sent. Your message is saved."
-            case "peer_identity_review_required": return "Review this friend’s changed encryption keys before sending another message."
-            case "device_not_ready": return "Connect once to finish setting up this device."
-            case "contact_blocked": return "Unblock this person to send a new message."
-            case "message_expired": return "This message expired before delivery. You can send it again."
-            case "recipient_unavailable", "recipient_identity_changed", "message_id_conflict", "invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type": return "A message couldn’t be delivered. Your other conversations can continue."
-            default: if failure.status == 429 { return "Please wait a moment before trying again. Your messages are saved." }
+            case "username_unavailable": return String(localized: "That username isn’t available. Try another.")
+            case "person_not_found": return String(localized: "No one was found with that username. Check the spelling with your friend.")
+            case "invalid_username": return String(localized: "Use 3–24 letters, numbers or underscores, starting with a letter.")
+            case "own_username": return String(localized: "That’s your username. Enter your friend’s username to start a conversation.")
+            case "service_not_available": return String(localized: "Vipi is being prepared for launch. This account isn’t in the preview yet.")
+            case "base_subscription_required": return String(localized: "Start or restore your Vipi plan in Settings → Subscriptions to send messages. Your saved chats and drafts remain available.")
+            case "device_replacement_confirmation_required": return String(localized: "This account is already active on another device. Moving your account needs a separate confirmation.")
+            case "recent_sign_in_required", "sign_in_required", "device_revoked": return String(localized: "Please sign in again to reconnect your account. Your saved conversations are still on this device.")
+            case "recipient_keys_unavailable": return String(localized: "Your friend needs to open Vipi before this first message can be sent. Your message is saved.")
+            case "peer_identity_review_required": return String(localized: "Review this friend’s changed encryption keys before sending another message.")
+            case "device_not_ready": return String(localized: "Connect once to finish setting up this device.")
+            case "contact_blocked": return String(localized: "Unblock this person to send a new message.")
+            case "message_expired": return String(localized: "This message expired before delivery. You can send it again.")
+            case "recipient_unavailable", "recipient_identity_changed", "message_id_conflict", "invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type": return String(localized: "A message couldn’t be delivered. Your other conversations can continue.")
+            default: if failure.status == 429 { return String(localized: "Please wait a moment before trying again. Your messages are saved.") }
             }
         }
-        return "Can’t connect. Messages are saved here."
+        return String(localized: "Can’t connect. Messages are saved here.")
     }
     private static func terminalSendState(_ failure: ServiceFailure) -> String? {
         if failure.status == 410 && failure.code == "message_expired" { return "expired" }

@@ -1,6 +1,54 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    " · Saved history": {},
+    "@": {},
+    "%@": {},
+    "%@ · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "%@ %@ across %@ %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ %2$@ across %3$@ %4$@."
+          }
+        }
+      }
+    },
+    "%@ of %@ replies left this month": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ of %2$@ replies left this month"
+          }
+        }
+      }
+    },
+    "%@ per year": {},
+    "%@%%": {},
+    "3–24 letters, numbers or underscores. Your phone number and contacts stay private.": {},
+    "Accepting lets new messages use these keys. It does not mark them as verified. Saved history remains; waiting messages won’t be redirected or resent.": {},
+    "Account deleted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account deleted"
+          }
+        }
+      }
+    },
     "Appearance": {
       "extractionState": "manual",
       "localizations": {
@@ -23,6 +71,17 @@
         }
       }
     },
+    "At current App Store prices: Vipi %@/year + Bot mini %@/year = %@/year. Each plan renews separately.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "At current App Store prices: Vipi %1$@/year + Bot mini %2$@/year = %3$@/year. Each plan renews separately."
+          }
+        }
+      }
+    },
+    "Available with Bot mini": {},
     "Back": {
       "extractionState": "manual",
       "localizations": {
@@ -30,6 +89,19 @@
           "stringUnit": {
             "state": "translated",
             "value": "Back"
+          }
+        }
+      }
+    },
+    "Before you start": {},
+    "Bot mini also needs an active Vipi subscription. You can manage both subscriptions below.": {},
+    "Bot mini isn’t available to subscribe to yet. You haven’t been enrolled.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bot mini isn’t available to subscribe to yet. You haven’t been enrolled."
           }
         }
       }
@@ -78,6 +150,29 @@
         }
       }
     },
+    "Chatting is paused": {},
+    "Check again": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check again"
+          }
+        }
+      }
+    },
+    "Check downloads": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check downloads"
+          }
+        }
+      }
+    },
     "Choose a name they’ll recognise and a username to share.": {
       "extractionState": "manual",
       "localizations": {
@@ -89,6 +184,7 @@
         }
       }
     },
+    "Choose how many new words appear. Words you’ve seen can keep appearing too, so the total can grow. Set to 0% to turn word switching off.": {},
     "Choose the language you know and the one you want to learn. You can change these later.": {
       "extractionState": "manual",
       "localizations": {
@@ -100,6 +196,8 @@
         }
       }
     },
+    "Compare all 12 groups with %@ in person or over a trusted call to confirm your encryption keys match.": {},
+    "Connect to the App Store to see your price and any free trial. You haven’t been enrolled.": {},
     "Create an account or sign in to an existing one. Friends find you by username, not your email.": {
       "extractionState": "manual",
       "localizations": {
@@ -107,6 +205,20 @@
           "stringUnit": {
             "state": "translated",
             "value": "Create an account or sign in to an existing one. Friends find you by username, not your email."
+          }
+        }
+      }
+    },
+    "Create backup": {},
+    "Current access lasts until %@.": {},
+    "Current speed: %@": {},
+    "Dark": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dark"
           }
         }
       }
@@ -122,6 +234,37 @@
         }
       }
     },
+    "Delete your account": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete your account"
+          }
+        }
+      }
+    },
+    "Deleting your account won’t cancel an App Store subscription. You can cancel it separately to stop future renewals.": {},
+    "Deletion requested": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deletion requested"
+          }
+        }
+      }
+    },
+    "Download for full translation": {},
+    "Encryption details couldn’t be opened. Your verification hasn’t changed.": {},
+    "Encryption keys changed": {},
+    "Enter their exact Vipi username. Your phone contacts stay private.": {},
+    "EXAMPLE MESSAGE": {},
+    "EXAMPLE: ENGLISH AND SPANISH": {},
+    "Exchange a message first to create this conversation’s security number.": {},
+    "Find a friend by username and send a message. Supported words and phrases will switch into %@ as you read.": {},
     "Find friend": {
       "extractionState": "manual",
       "localizations": {
@@ -155,6 +298,32 @@
         }
       }
     },
+    "Full-message translation\n": {},
+    "Future messages will use the displayed new keys. They remain unverified until you compare the security number with your friend.": {},
+    "Harassment": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Harassment"
+          }
+        }
+      }
+    },
+    "Harmful": {},
+    "Harmful content": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Harmful content"
+          }
+        }
+      }
+    },
+    "Hear both languages": {},
     "Help and safety": {
       "extractionState": "manual",
       "localizations": {
@@ -166,6 +335,9 @@
         }
       }
     },
+    "Highlighted words switch between your two languages. This is a prepared example; available words in your chats vary by language. You can also view a prepared full translation.": {},
+    "History will be merged with this Vipi account. Matching messages won’t be duplicated. Restored history does not verify anyone’s messaging identity.": {},
+    "I agree to the Terms of Service and have read the Privacy Policy.": {},
     "I already speak": {
       "extractionState": "manual",
       "localizations": {
@@ -188,6 +360,10 @@
         }
       }
     },
+    "If any group differs, don’t mark it as verified. A new phone or reinstalled app can change these numbers.": {},
+    "If you start today, your first annual charge is on %@. The App Store confirms your exact offer and dates.": {},
+    "Inaccurate": {},
+    "Includes %@ vBot replies each calendar month. Unused replies don’t carry over.": {},
     "Invite a friend": {
       "extractionState": "manual",
       "localizations": {
@@ -199,6 +375,8 @@
         }
       }
     },
+    "Just between you two": {},
+    "Know when a friend replies. Notifications never include message text or a friend’s name.": {},
     "Language learning through chat": {
       "extractionState": "manual",
       "localizations": {
@@ -221,6 +399,28 @@
         }
       }
     },
+    "Light": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Light"
+          }
+        }
+      }
+    },
+    "Listen": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen"
+          }
+        }
+      }
+    },
     "Meet vBot": {
       "extractionState": "manual",
       "localizations": {
@@ -228,6 +428,18 @@
           "stringUnit": {
             "state": "translated",
             "value": "Meet vBot"
+          }
+        }
+      }
+    },
+    "Message": {},
+    "Messages between you will stop. Your chat stays on this device. You can unblock anytime.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Messages between you will stop. Your chat stays on this device. You can unblock anytime."
           }
         }
       }
@@ -265,6 +477,11 @@
         }
       }
     },
+    "No account needed to try this example.": {},
+    "No payment method or subscription is required for this free period.": {},
+    "No subscription is required for this account.": {},
+    "Not yet compared": {},
+    "Notices could not be opened. Please reopen Vipi.": {},
     "Notifications": {
       "extractionState": "manual",
       "localizations": {
@@ -272,6 +489,21 @@
           "stringUnit": {
             "state": "translated",
             "value": "Notifications"
+          }
+        }
+      }
+    },
+    "One month free": {},
+    "Other": {},
+    "Payment is charged to your Apple Account. Cancel in App Store subscriptions before renewal to avoid the next charge. Canceling does not erase your saved conversations.": {},
+    "Powered by DeepSeek · Bot conversations aren’t end-to-end encrypted.": {},
+    "Preparing voices": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparing voices"
           }
         }
       }
@@ -287,6 +519,16 @@
         }
       }
     },
+    "Reading guides show words in Latin letters. Tap Listen to hear pronunciation.": {},
+    "Remove these translation downloads": {},
+    "Removing a language frees storage. You can download it again.": {},
+    "Renews annually until you cancel.": {},
+    "Renews annually until you cancel. Any available introductory offer is confirmed by the App Store.": {},
+    "Reports are stored encrypted for up to 30 days. A report does not automatically block anyone or guarantee a response.": {},
+    "Restore backup": {},
+    "Review access is active. No subscription is required for this account.": {},
+    "Save your friend chat history in an encrypted file, wherever you choose to keep it.": {},
+    "Say hello. Your messages are end-to-end encrypted.": {},
     "Selected words and short phrases switch between your language and the language you choose. Word order and grammar stay the same.": {
       "extractionState": "manual",
       "localizations": {
@@ -298,6 +540,7 @@
         }
       }
     },
+    "Send only the reply shown above and your selected reason to Vipi. Reports are stored encrypted for up to 30 days. Your other messages aren’t included.": {},
     "Settings": {
       "extractionState": "manual",
       "localizations": {
@@ -320,6 +563,43 @@
         }
       }
     },
+    "Sign in again to finish moving your account. The device change you confirmed is saved.": {},
+    "Sign in to reconnect": {},
+    "Something else": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Something else"
+          }
+        }
+      }
+    },
+    "Spam": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spam"
+          }
+        }
+      }
+    },
+    "Start a chat\nwith a friend.": {},
+    "Start chatting": {},
+    "Stop": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop"
+          }
+        }
+      }
+    },
     "Subscriptions": {
       "extractionState": "manual",
       "localizations": {
@@ -327,6 +607,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "Subscriptions"
+          }
+        }
+      }
+    },
+    "Subscriptions are managed separately. Friends’ copies and backups saved elsewhere remain.": {},
+    "Subscriptions aren’t available yet. You haven’t been enrolled.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subscriptions aren’t available yet. You haven’t been enrolled."
+          }
+        }
+      }
+    },
+    "System": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "System"
           }
         }
       }
@@ -342,6 +645,70 @@
         }
       }
     },
+    "The active device changed again. Review this device once more before replacing it.": {},
+    "The currently active device will be signed out. Saved history remains, but pending old messages won’t be resent.": {},
+    "The keys may have changed, or your choice couldn’t be saved. Compare the current numbers again.": {},
+    "Then %@ per year. Renews annually until you cancel.": {},
+    "These downloads are for optional full-message translation. Word switching does not need them. To translate a whole message, choose Full translation in its reading options. Messages stay on this device.": {},
+    "This device will replace whichever other device is currently active and sign it out. A recent sign-in is required.": {},
+    "This is a separate subscription, in addition to Vipi.": {},
+    "This is an example. In your chats, only supported words and phrases switch. The rest stays unchanged.": {},
+    "This is the current new security number. Check with your friend over a trusted call or in person before continuing if you didn’t expect a new device.": {},
+    "This removes the saved vBot messages from this device. It does not cancel your subscription or erase messages already processed by DeepSeek.": {},
+    "This won’t erase friends’ copies or backups you saved elsewhere.": {},
+    "To remove translation languages, open Settings → Apps → Translate → Downloaded Languages. The Translate app needs to be installed.": {},
+    "Translating on this device…": {},
+    "Use a long, unique passphrase of at least 12 characters. Keep it somewhere safe. Vipi cannot recover this password.": {},
+    "Use Vipi on this device": {},
+    "vBot": {},
+    "vBot is powered by DeepSeek. Messages in this conversation are sent to Vipi and DeepSeek to generate replies. Your conversations with friends are never included automatically.": {},
+    "vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.": {},
+    "vBot isn’t available yet.": {},
+    "vipi": {},
+    "Vipi and Bot mini are separate subscriptions. You choose each one explicitly.": {},
+    "Vipi has accepted your request. We’re finishing deletion. You can close the app and check back later.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vipi has accepted your request. We’re finishing deletion. You can close the app and check back later."
+          }
+        }
+      }
+    },
+    "Vipi is made with open-source software and the native services listed here. Each component retains its own license.": {},
+    "Vipi subscriptions aren’t available yet. You haven’t been enrolled.": {},
+    "Watch the highlighted words switch in place. Tap Pause to stop them or Listen to hear pronunciation.": {},
+    "We can’t verify your subscription right now. Please try again later. You won’t be charged.": {},
+    "We’ll confirm the request and remove your saved chats from this device. Vipi saves your progress if the connection drops.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We’ll confirm the request and remove your saved chats from this device. Vipi saves your progress if the connection drops."
+          }
+        }
+      }
+    },
+    "What will be deleted": {},
+    "When the free period ends, you can choose whether to subscribe. You won’t be charged automatically.": {},
+    "You blocked this person.": {},
+    "You can also block this person from the conversation menu.": {},
+    "You can exchange new messages again. Stopped messages won’t be resent.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You can exchange new messages again. Stopped messages won’t be resent."
+          }
+        }
+      }
+    },
+    "You can read, back up and restore your saved history even after a subscription ends.": {},
+    "You’ll need to download these languages again before translating offline. Your conversations stay on this device.": {},
     "Your account": {
       "extractionState": "manual",
       "localizations": {
@@ -353,6 +720,7 @@
         }
       }
     },
+    "Your account and chats on this device will be permanently deleted. This can’t be undone.": {},
     "Your email is not shown to friends.": {
       "extractionState": "manual",
       "localizations": {
@@ -364,6 +732,10 @@
         }
       }
     },
+    "Your free access ends %@.": {},
+    "Your free trial ends %@.": {},
+    "Your message and up to 11 recent messages from this conversation are sent to Vipi and DeepSeek to generate each reply. Friend conversations are never included automatically. You can withdraw consent in this conversation’s menu.": {},
+    "Your messaging identity and unsent messages stay on this device. vBot history is not included.": {},
     "Your profile": {
       "extractionState": "manual",
       "localizations": {
@@ -371,6 +743,1880 @@
           "stringUnit": {
             "state": "translated",
             "value": "Your profile"
+          }
+        }
+      }
+    },
+    "Your profile and messages waiting for delivery will be removed from Vipi. Saved chats on this device will also be erased.": {},
+    "Your saved conversations are still on this device.": {},
+    "Your saved history stays here. Pending messages from the previous device won’t be resent. Friends will see changed encryption keys.": {},
+    "Your username is @%@. Share it so your friend can find you after signing in.": {},
+    "Your Vipi account and chats on this device have been removed.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your Vipi account and chats on this device have been removed."
+          }
+        }
+      }
+    },
+    "Your saved data is still here. Please close and reopen Vipi to try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your saved data is still here. Please close and reopen Vipi to try again."
+          }
+        }
+      }
+    },
+    "Your saved messages couldn’t be opened. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your saved messages couldn’t be opened. Please try again."
+          }
+        }
+      }
+    },
+    "Earlier messages couldn’t be opened. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Earlier messages couldn’t be opened. Please try again."
+          }
+        }
+      }
+    },
+    "Couldn’t confirm the change. Check your connection and try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn’t confirm the change. Check your connection and try again."
+          }
+        }
+      }
+    },
+    "Block status couldn’t be checked. Your last confirmed choice is saved.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Block status couldn’t be checked. Your last confirmed choice is saved."
+          }
+        }
+      }
+    },
+    "This draft couldn’t be saved. Keep this conversation open and try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This draft couldn’t be saved. Keep this conversation open and try again."
+          }
+        }
+      }
+    },
+    "Your deletion receipt couldn’t be opened. Close and reopen Vipi to try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your deletion receipt couldn’t be opened. Close and reopen Vipi to try again."
+          }
+        }
+      }
+    },
+    "The request was interrupted. Check its status to continue.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The request was interrupted. Check its status to continue."
+          }
+        }
+      }
+    },
+    "Sign in to the same account once more to confirm it’s you, then continue.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in to the same account once more to confirm it’s you, then continue."
+          }
+        }
+      }
+    },
+    "Sign in to the same account once more to continue.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in to the same account once more to continue."
+          }
+        }
+      }
+    },
+    "The completion receipt couldn’t be cleared. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The completion receipt couldn’t be cleared. Please try again."
+          }
+        }
+      }
+    },
+    "A friend’s encryption keys changed. Review their encryption details before continuing.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A friend’s encryption keys changed. Review their encryption details before continuing."
+          }
+        }
+      }
+    },
+    "A message couldn’t be opened securely. Your existing conversations are saved.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A message couldn’t be opened securely. Your existing conversations are saved."
+          }
+        }
+      }
+    },
+    "Your saved conversations couldn’t be opened. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your saved conversations couldn’t be opened. Please try again."
+          }
+        }
+      }
+    },
+    "That username isn’t available. Try another.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "That username isn’t available. Try another."
+          }
+        }
+      }
+    },
+    "No one was found with that username. Check the spelling with your friend.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No one was found with that username. Check the spelling with your friend."
+          }
+        }
+      }
+    },
+    "Use 3–24 letters, numbers or underscores, starting with a letter.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use 3–24 letters, numbers or underscores, starting with a letter."
+          }
+        }
+      }
+    },
+    "That’s your username. Enter your friend’s username to start a conversation.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "That’s your username. Enter your friend’s username to start a conversation."
+          }
+        }
+      }
+    },
+    "Vipi is being prepared for launch. This account isn’t in the preview yet.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vipi is being prepared for launch. This account isn’t in the preview yet."
+          }
+        }
+      }
+    },
+    "Start or restore your Vipi plan in Settings → Subscriptions to send messages. Your saved chats and drafts remain available.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start or restore your Vipi plan in Settings → Subscriptions to send messages. Your saved chats and drafts remain available."
+          }
+        }
+      }
+    },
+    "This account is already active on another device. Moving your account needs a separate confirmation.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This account is already active on another device. Moving your account needs a separate confirmation."
+          }
+        }
+      }
+    },
+    "Please sign in again to reconnect your account. Your saved conversations are still on this device.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please sign in again to reconnect your account. Your saved conversations are still on this device."
+          }
+        }
+      }
+    },
+    "Your friend needs to open Vipi before this first message can be sent. Your message is saved.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your friend needs to open Vipi before this first message can be sent. Your message is saved."
+          }
+        }
+      }
+    },
+    "Review this friend’s changed encryption keys before sending another message.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review this friend’s changed encryption keys before sending another message."
+          }
+        }
+      }
+    },
+    "Connect once to finish setting up this device.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connect once to finish setting up this device."
+          }
+        }
+      }
+    },
+    "Unblock this person to send a new message.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unblock this person to send a new message."
+          }
+        }
+      }
+    },
+    "This message expired before delivery. You can send it again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This message expired before delivery. You can send it again."
+          }
+        }
+      }
+    },
+    "A message couldn’t be delivered. Your other conversations can continue.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A message couldn’t be delivered. Your other conversations can continue."
+          }
+        }
+      }
+    },
+    "Please wait a moment before trying again. Your messages are saved.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please wait a moment before trying again. Your messages are saved."
+          }
+        }
+      }
+    },
+    "Can’t connect. Messages are saved here.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Can’t connect. Messages are saved here."
+          }
+        }
+      }
+    },
+    "Notifications are off. You can allow them in iPhone Settings.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications are off. You can allow them in iPhone Settings."
+          }
+        }
+      }
+    },
+    "Notifications couldn’t be enabled. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications couldn’t be enabled. Please try again."
+          }
+        }
+      }
+    },
+    "Notifications are off on this device. Reconnect to finish updating your preference.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications are off on this device. Reconnect to finish updating your preference."
+          }
+        }
+      }
+    },
+    "Notifications couldn’t connect. Open Vipi to check for new messages.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications couldn’t connect. Open Vipi to check for new messages."
+          }
+        }
+      }
+    },
+    "Checking access": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking access"
+          }
+        }
+      }
+    },
+    "Active": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Active"
+          }
+        }
+      }
+    },
+    "See plan": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See plan"
+          }
+        }
+      }
+    },
+    "The App Store couldn’t load prices. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The App Store couldn’t load prices. Please try again."
+          }
+        }
+      }
+    },
+    "Your purchase is waiting for App Store approval. It will appear here when it’s confirmed.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your purchase is waiting for App Store approval. It will appear here when it’s confirmed."
+          }
+        }
+      }
+    },
+    "The purchase couldn’t finish. Check your App Store subscriptions before trying again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The purchase couldn’t finish. Check your App Store subscriptions before trying again."
+          }
+        }
+      }
+    },
+    "Your App Store purchases are up to date.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your App Store purchases are up to date."
+          }
+        }
+      }
+    },
+    "This purchase belongs to another Vipi account. Sign in to that account to restore it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This purchase belongs to another Vipi account. Sign in to that account to restore it."
+          }
+        }
+      }
+    },
+    "The App Store purchase couldn’t be verified. No access has been changed.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The App Store purchase couldn’t be verified. No access has been changed."
+          }
+        }
+      }
+    },
+    "Subscriptions aren’t available yet. Your saved conversations are still here.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Subscriptions aren’t available yet. Your saved conversations are still here."
+          }
+        }
+      }
+    },
+    "We couldn’t confirm your subscription. If you completed a purchase, use Restore purchases to check it before buying again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We couldn’t confirm your subscription. If you completed a purchase, use Restore purchases to check it before buying again."
+          }
+        }
+      }
+    },
+    "Copy original message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy original message"
+          }
+        }
+      }
+    },
+    "Reading options": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reading options"
+          }
+        }
+      }
+    },
+    "Try again": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try again"
+          }
+        }
+      }
+    },
+    "Prepare languages": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prepare languages"
+          }
+        }
+      }
+    },
+    "Dismiss": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dismiss"
+          }
+        }
+      }
+    },
+    "Native messaging qualification": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Native messaging qualification"
+          }
+        }
+      }
+    },
+    "Default source-first chat connection QA": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Default source-first chat connection QA"
+          }
+        }
+      }
+    },
+    "Owned local message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Owned local message"
+          }
+        }
+      }
+    },
+    "Review this device": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review this device"
+          }
+        }
+      }
+    },
+    "Your name": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your name"
+          }
+        }
+      }
+    },
+    "Username": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Username"
+          }
+        }
+      }
+    },
+    "Terms": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Terms"
+          }
+        }
+      }
+    },
+    "Privacy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy"
+          }
+        }
+      }
+    },
+    "Review changed keys": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review changed keys"
+          }
+        }
+      }
+    },
+    "Earlier messages": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Earlier messages"
+          }
+        }
+      }
+    },
+    "Report message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Report message"
+          }
+        }
+      }
+    },
+    "Jump to latest messages": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jump to latest messages"
+          }
+        }
+      }
+    },
+    "Message status": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Message status"
+          }
+        }
+      }
+    },
+    "Done": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Done"
+          }
+        }
+      }
+    },
+    "Retry voices": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retry voices"
+          }
+        }
+      }
+    },
+    "Languages": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Languages"
+          }
+        }
+      }
+    },
+    "Verify encryption": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verify encryption"
+          }
+        }
+      }
+    },
+    "Report person": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Report person"
+          }
+        }
+      }
+    },
+    "Conversation options": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conversation options"
+          }
+        }
+      }
+    },
+    "Unblock": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unblock"
+          }
+        }
+      }
+    },
+    "Send message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send message"
+          }
+        }
+      }
+    },
+    " · ": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": " · "
+          }
+        }
+      }
+    },
+    "Delivered": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delivered"
+          }
+        }
+      }
+    },
+    "Sent": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sent"
+          }
+        }
+      }
+    },
+    "Not delivered · 72 hours passed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not delivered · 72 hours passed"
+          }
+        }
+      }
+    },
+    "Not delivered": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not delivered"
+          }
+        }
+      }
+    },
+    "Stopped": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stopped"
+          }
+        }
+      }
+    },
+    "Waiting to send": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting to send"
+          }
+        }
+      }
+    },
+    "Review again": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review again"
+          }
+        }
+      }
+    },
+    "Use this device": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use this device"
+          }
+        }
+      }
+    },
+    "Move your account": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Move your account"
+          }
+        }
+      }
+    },
+    "Connecting to your chats": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connecting to your chats"
+          }
+        }
+      }
+    },
+    "Reconnect to your chats": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconnect to your chats"
+          }
+        }
+      }
+    },
+    "Block": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Block"
+          }
+        }
+      }
+    },
+    "Your languages": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your languages"
+          }
+        }
+      }
+    },
+    "Remove": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove"
+          }
+        }
+      }
+    },
+    "Keep downloads": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep downloads"
+          }
+        }
+      }
+    },
+    "Chat with a chatbot.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chat with a chatbot."
+          }
+        }
+      }
+    },
+    "Chat with a chatbot. Review access is active.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chat with a chatbot. Review access is active."
+          }
+        }
+      }
+    },
+    "Chat with a chatbot. Bot mini access is active.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chat with a chatbot. Bot mini access is active."
+          }
+        }
+      }
+    },
+    "Chat with a chatbot. Requires the separate Bot mini plan.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chat with a chatbot. Requires the separate Bot mini plan."
+          }
+        }
+      }
+    },
+    "See your Vipi subscription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See your Vipi subscription"
+          }
+        }
+      }
+    },
+    "Notify me when friends reply": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notify me when friends reply"
+          }
+        }
+      }
+    },
+    "Vipi": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vipi"
+          }
+        }
+      }
+    },
+    "Your profile and settings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your profile and settings"
+          }
+        }
+      }
+    },
+    "Not now": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not now"
+          }
+        }
+      }
+    },
+    "Invite someone new": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invite someone new"
+          }
+        }
+      }
+    },
+    "See Bot mini": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See Bot mini"
+          }
+        }
+      }
+    },
+    "Words in your chats": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Words in your chats"
+          }
+        }
+      }
+    },
+    "Appearance and notifications": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Appearance and notifications"
+          }
+        }
+      }
+    },
+    "About Vipi": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About Vipi"
+          }
+        }
+      }
+    },
+    "Licenses and notices": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Licenses and notices"
+          }
+        }
+      }
+    },
+    "Account": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account"
+          }
+        }
+      }
+    },
+    "Owned staging sign-in check": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Owned staging sign-in check"
+          }
+        }
+      }
+    },
+    "Release reading": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Release reading"
+          }
+        }
+      }
+    },
+    "Append QA": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Append QA"
+          }
+        }
+      }
+    },
+    "Finish QA": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finish QA"
+          }
+        }
+      }
+    },
+    "Backup unlocked": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Backup unlocked"
+          }
+        }
+      }
+    },
+    "Confirm backup password": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirm backup password"
+          }
+        }
+      }
+    },
+    "Ready to restore": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ready to restore"
+          }
+        }
+      }
+    },
+    "Restore history": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore history"
+          }
+        }
+      }
+    },
+    "Choose again": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose again"
+          }
+        }
+      }
+    },
+    "Accept these keys to continue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accept these keys to continue"
+          }
+        }
+      }
+    },
+    "Keep current keys": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep current keys"
+          }
+        }
+      }
+    },
+    "Security number": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Security number"
+          }
+        }
+      }
+    },
+    "You verified these keys": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You verified these keys"
+          }
+        }
+      }
+    },
+    "Clear verification": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clear verification"
+          }
+        }
+      }
+    },
+    "I compared all 12 groups": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I compared all 12 groups"
+          }
+        }
+      }
+    },
+    "Check for changed keys": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check for changed keys"
+          }
+        }
+      }
+    },
+    "Accept new keys": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accept new keys"
+          }
+        }
+      }
+    },
+    "Turn off Vipi notifications": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn off Vipi notifications"
+          }
+        }
+      }
+    },
+    "Enable notifications": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enable notifications"
+          }
+        }
+      }
+    },
+    "Open iPhone notification settings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open iPhone notification settings"
+          }
+        }
+      }
+    },
+    "Review access is active": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review access is active"
+          }
+        }
+      }
+    },
+    "Your free Vipi access is active": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your free Vipi access is active"
+          }
+        }
+      }
+    },
+    "Checking subscription access": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Checking subscription access"
+          }
+        }
+      }
+    },
+    "See Vipi subscription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See Vipi subscription"
+          }
+        }
+      }
+    },
+    "Restore purchases": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore purchases"
+          }
+        }
+      }
+    },
+    "Manage App Store subscriptions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manage App Store subscriptions"
+          }
+        }
+      }
+    },
+    "Local translation qualification": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Local translation qualification"
+          }
+        }
+      }
+    },
+    "Prepare language models": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prepare language models"
+          }
+        }
+      }
+    },
+    "Run 90 directions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Run 90 directions"
+          }
+        }
+      }
+    },
+    "Stop qualification": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop qualification"
+          }
+        }
+      }
+    },
+    "Reading QA · supplied target text": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reading QA · supplied target text"
+          }
+        }
+      }
+    },
+    "Fixture": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fixture"
+          }
+        }
+      }
+    },
+    "Word switching speed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Word switching speed"
+          }
+        }
+      }
+    },
+    "Show original words now": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show original words now"
+          }
+        }
+      }
+    },
+    "Slower": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slower"
+          }
+        }
+      }
+    },
+    "Standard": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Standard"
+          }
+        }
+      }
+    },
+    "Faster": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Faster"
+          }
+        }
+      }
+    },
+    "Message language": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Message language"
+          }
+        }
+      }
+    },
+    "Detect automatically": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detect automatically"
+          }
+        }
+      }
+    },
+    "Manage subscriptions": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manage subscriptions"
+          }
+        }
+      }
+    },
+    "Sign in to confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in to confirm"
+          }
+        }
+      }
+    },
+    "Available words and phrases vary by language. Pronunciation may need a voice download.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Available words and phrases vary by language. Pronunciation may need a voice download."
+          }
+        }
+      }
+    },
+    "New accounts include 30 days free. No payment method is required.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New accounts include 30 days free. No payment method is required."
+          }
+        }
+      }
+    },
+    "Language, step 1 of 2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Language, step 1 of 2"
+          }
+        }
+      }
+    },
+    "Account, step 2 of 2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account, step 2 of 2"
+          }
+        }
+      }
+    },
+    "Resume Spanish words": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resume Spanish words"
+          }
+        }
+      }
+    },
+    "Show original message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show original message"
+          }
+        }
+      }
+    },
+    "Delete conversation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete conversation"
+          }
+        }
+      }
+    },
+    "Report reply": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Report reply"
+          }
+        }
+      }
+    },
+    "DeepSeek privacy policy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DeepSeek privacy policy"
+          }
+        }
+      }
+    },
+    "Vipi privacy policy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vipi privacy policy"
+          }
+        }
+      }
+    },
+    "Agree and start chatting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agree and start chatting"
+          }
+        }
+      }
+    },
+    "Check Bot mini": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check Bot mini"
+          }
+        }
+      }
+    },
+    "Message vBot": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Message vBot"
+          }
+        }
+      }
+    },
+    "Send to vBot": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send to vBot"
+          }
+        }
+      }
+    },
+    "Bot mini subscription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bot mini subscription"
+          }
+        }
+      }
+    },
+    "Report latest reply": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Report latest reply"
+          }
+        }
+      }
+    },
+    "Withdraw DeepSeek consent": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Withdraw DeepSeek consent"
+          }
+        }
+      }
+    },
+    "vBot options": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot options"
+          }
+        }
+      }
+    },
+    "Selected reply": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Selected reply"
+          }
+        }
+      }
+    },
+    "Reason": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reason"
+          }
+        }
+      }
+    },
+    "Send report": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send report"
+          }
+        }
+      }
+    },
+    "Report received": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Report received"
+          }
+        }
+      }
+    },
+    "Privacy and reporting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy and reporting"
+          }
+        }
+      }
+    },
+    "Retry this report": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Retry this report"
+          }
+        }
+      }
+    },
+    "Send report to FallSoft": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Send report to FallSoft"
           }
         }
       }

@@ -35,7 +35,7 @@ struct ConnectedChatRoot: View {
                 else if chat.needsProfile { ProfileSetupView(chat: chat) }
                 else {
                     ContentUnavailableView {
-                        Label(chat.busy ? "Connecting to your chats" : "Reconnect to your chats", systemImage: "bubble.left.and.bubble.right")
+                        Label(LocalizedStringKey(chat.busy ? "Connecting to your chats" : "Reconnect to your chats"), systemImage: "bubble.left.and.bubble.right")
                     } description: { Text(chat.notice ?? "Your conversations stay on your device.") }
                     actions: {
                         if chat.busy { ProgressView() }
@@ -64,7 +64,7 @@ struct ConnectedChatRoot: View {
             do {
                 let value = try ChatSession(authentication: authentication, userID: userID)
                 chat = value; await value.start()
-            } catch { self.error = "Your saved data is still here. Please close and reopen Vipi to try again." }
+            } catch { self.error = String(localized: "Your saved data is still here. Please close and reopen Vipi to try again.") }
         }
         .onDisappear { subscriptions?.close(); PushNotifications.shared.detach(); try? chat?.close() }
         .task(id: chat?.profile?.id) {
@@ -179,7 +179,7 @@ struct FriendConversationView: View {
             messages = (current + messages.filter { !ids.contains($0.id) }).sorted { a, b in a.cursor < b.cursor }
             if !loaded { text = try chat.compose(peer); earlierAvailable = current.count == 50; loaded = true }
             try chat.markRead(peer)
-        } catch { self.error = "Your saved messages couldn’t be opened. Please try again." }
+        } catch { self.error = String(localized: "Your saved messages couldn’t be opened. Please try again.") }
     }
     private func earlier() {
         do {
@@ -212,7 +212,7 @@ struct FriendConversationView: View {
                     pageRestore = nil
                 }
             }
-        } catch { self.error = "Earlier messages couldn’t be opened. Please try again." }
+        } catch { self.error = String(localized: "Earlier messages couldn’t be opened. Please try again.") }
     }
     private func send() {
         do {
@@ -229,7 +229,7 @@ struct FriendConversationView: View {
             defer { blockBusy = false }
             do { try await chat.setBlocked(desired, peer: peer); error = nil; refresh() }
             catch is CancellationError {}
-            catch { self.error = "Couldn’t confirm the change. Check your connection and try again." }
+            catch { self.error = String(localized: "Couldn’t confirm the change. Check your connection and try again.") }
         }
     }
     private var timeline: some View {
@@ -418,9 +418,9 @@ struct FriendConversationView: View {
         }
         .alert(blocked ? "Unblock \(chat.name(peer))?" : "Block \(chat.name(peer))?", isPresented: $confirmBlock) {
             Button("Cancel", role: .cancel) {}
-            Button(blocked ? "Unblock" : "Block", role: blocked ? nil : .destructive, action: changeBlock)
+            Button(LocalizedStringKey(blocked ? "Unblock" : "Block"), role: blocked ? nil : .destructive, action: changeBlock)
         } message: {
-            Text(blocked ? "You can exchange new messages again. Stopped messages won’t be resent." : "Messages between you will stop. Your chat stays on this device. You can unblock anytime.")
+            Text(LocalizedStringKey(blocked ? "You can exchange new messages again. Stopped messages won’t be resent." : "Messages between you will stop. Your chat stays on this device. You can unblock anytime."))
         }
         .sheet(isPresented: $showSecurityNumber) { SecurityNumberView(chat: chat, peer: peer) }
         .sheet(item: $reporting) { selection in HumanReportView(chat: chat, peer: peer, message: selection.message) }
@@ -467,14 +467,14 @@ struct FriendConversationView: View {
             refresh(); blockBusy = true
             do { try await chat.refreshBlock(peer) }
             catch is CancellationError { blockBusy = false; return }
-            catch { self.error = "Block status couldn’t be checked. Your last confirmed choice is saved." }
+            catch { self.error = String(localized: "Block status couldn’t be checked. Your last confirmed choice is saved.") }
             blockBusy = false; await chat.synchronize()
         }
         .onChange(of: chat.revision) { _, _ in refresh() }
         .onChange(of: text) { _, value in
             guard loaded else { return }
             do { try chat.saveCompose(value, peer: peer) }
-            catch { self.error = "This draft couldn’t be saved. Keep this conversation open and try again." }
+            catch { self.error = String(localized: "This draft couldn’t be saved. Keep this conversation open and try again.") }
         }
     }
     private var conversationOptions: some ToolbarContent {
@@ -484,7 +484,7 @@ struct FriendConversationView: View {
                     .accessibilityIdentifier("conversation-languages")
                 Button("Verify encryption", systemImage: "lock.shield") { showSecurityNumber = true }
                 Button("Report person", systemImage: "flag") { reporting = HumanReportSelection(message: nil) }
-                Button(blocked ? "Unblock" : "Block", role: blocked ? nil : .destructive) { confirmBlock = true }
+                Button(LocalizedStringKey(blocked ? "Unblock" : "Block"), role: blocked ? nil : .destructive) { confirmBlock = true }
             } label: {
                 if blockBusy { ProgressView() }
                 else { Image(systemName: "ellipsis").frame(width: 44, height: 44) }
@@ -538,12 +538,12 @@ struct FriendConversationView: View {
     }
     private func status(_ value: String) -> String {
         switch value {
-        case "delivered": "Delivered"
-        case "accepted": "Sent"
-        case "expired": "Not delivered · 72 hours passed"
-        case "failed": "Not delivered"
-        case "cancelled": "Stopped"
-        default: "Waiting to send"
+        case "delivered": String(localized: "Delivered")
+        case "accepted": String(localized: "Sent")
+        case "expired": String(localized: "Not delivered · 72 hours passed")
+        case "failed": String(localized: "Not delivered")
+        case "cancelled": String(localized: "Stopped")
+        default: String(localized: "Waiting to send")
         }
     }
 }

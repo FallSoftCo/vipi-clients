@@ -120,7 +120,7 @@ struct LanguageDownloadView: View {
                 }
                 if !preparation.busy && preparation.availability != .checking {
                     Button { Task { await preparation.refresh(pair) } } label: {
-                        Text(preparation.availability == .unsupported ? "Check again" : "Check downloads")
+                        Text(LocalizedStringKey(preparation.availability == .unsupported ? "Check again" : "Check downloads"))
                             .foregroundStyle(VipiDesign.highlight)
                             .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                     }

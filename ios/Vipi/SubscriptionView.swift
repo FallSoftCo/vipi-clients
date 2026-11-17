@@ -48,6 +48,11 @@ struct SubscriptionOfferView: View {
                         Text("Bot mini also needs an active Vipi subscription. You can manage both subscriptions below.")
                             .foregroundStyle(VipiDesign.secondary)
                     }
+                } else if access?.verification_unavailable == true {
+                    Label("Checking subscription access", systemImage: "clock.arrow.circlepath")
+                        .foregroundStyle(VipiDesign.secondary)
+                    Text("We can’t verify your subscription right now. Please try again later. You won’t be charged.")
+                    Button("Try again") { Task { await store.refresh() } }.disabled(store.loading)
                 } else if let product {
                     VStack(alignment: .leading, spacing: 12) {
                         if trial {
@@ -93,7 +98,7 @@ struct SubscriptionOfferView: View {
                             .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                     }
                     if !store.loading && (!store.purchaseReady || (plan == .botMini && !store.botServiceReady)) {
-                        Text(plan == .botMini ? "Bot mini isn’t available to subscribe to yet. You haven’t been enrolled." : "Subscriptions aren’t available yet. You haven’t been enrolled.")
+                        Text(LocalizedStringKey(plan == .botMini ? "Bot mini isn’t available to subscribe to yet. You haven’t been enrolled." : "Subscriptions aren’t available yet. You haven’t been enrolled."))
                             .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                     }
                 } else {
@@ -130,7 +135,11 @@ struct SubscriptionsView: View {
             Section {
                 ForEach(VipiPlan.allCases) { plan in
                     NavigationLink { SubscriptionOfferView(store: store, plan: plan) } label: {
-                        LabeledContent(plan.title, value: store.snapshot?.access(plan).active == true ? "Active" : "See plan")
+                        if store.snapshot?.access(plan).verification_unavailable == true {
+                            LabeledContent(plan.title, value: String(localized: "Checking access"))
+                        } else {
+                            LabeledContent(plan.title, value: store.snapshot?.access(plan).active == true ? String(localized: "Active") : String(localized: "See plan"))
+                        }
                     }
                 }
             } footer: {

@@ -97,17 +97,17 @@ struct HumanReportView: View {
                     }
                     Section("Reason") {
                         Picker("Reason", selection: $reason) {
-                            ForEach(HumanReportReason.allCases) { Text($0.title).tag($0) }
+                            ForEach(HumanReportReason.allCases) { Text(LocalizedStringKey($0.title)).tag($0) }
                         }.disabled(attempted || busy)
                     }
                     Section {
-                        Text(message == nil
+                        Text(LocalizedStringKey(message == nil
                             ? "Send this person’s account identifier and your reason to Fallible Software, Co. (FallSoft) for review. No messages are shared."
-                            : "Send only the original message shown above, the account identifiers and your reason to Fallible Software, Co. (FallSoft) for review. This shares the selected text outside your encrypted chat.")
+                            : "Send only the original message shown above, the account identifiers and your reason to Fallible Software, Co. (FallSoft) for review. This shares the selected text outside your encrypted chat."))
                         Text("Reports are stored encrypted for up to 30 days. A report does not automatically block anyone or guarantee a response.")
                             .font(.footnote).foregroundStyle(VipiDesign.secondary)
                         Link("Privacy and reporting", destination: URL(string: "https://api.mambovipi.app/privacy")!)
-                        Button(attempted ? "Retry this report" : "Send report to FallSoft") { submit() }
+                        Button(LocalizedStringKey(attempted ? "Retry this report" : "Send report to FallSoft")) { submit() }
                             .disabled(busy).accessibilityIdentifier("human-report-submit")
                         if busy { ProgressView("Sending report") }
                     }

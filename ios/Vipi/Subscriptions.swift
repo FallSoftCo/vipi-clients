@@ -21,6 +21,7 @@ struct EntitlementSnapshot: Decodable, Sendable {
         let access_source: String?
         let review_access: Bool?
         let cardless_trial: CardlessTrial?
+        let verification_unavailable: Bool?
         var isReviewAccess: Bool {
             active && access_source == "review_complimentary" && review_access == true &&
                 expires_at == nil && trial_ends_at == nil
@@ -119,7 +120,7 @@ struct BotAllowance: Decodable, Sendable {
             if !closed {
                 // Never initiate a charge from stale offer or price information.
                 products = [:]; introductoryEligible = []
-                notice = "The App Store couldn’t load prices. Please try again."
+                notice = String(localized: "The App Store couldn’t load prices. Please try again.")
             }
         }
     }
@@ -133,6 +134,7 @@ struct BotAllowance: Decodable, Sendable {
     func canPurchase(_ plan: VipiPlan) -> Bool {
         !closed && !busy && !loading && !reconciling && !pending && !awaitingConfirmation.contains(plan) && !accountConflicts.contains(plan) && purchaseReady && snapshot != nil && products[plan] != nil &&
         snapshot?.access(plan).active == false &&
+        snapshot?.access(plan).verification_unavailable != true &&
         !(plan == .base && baseStoreTrialStillOffered) &&
         (plan == .base || (baseActive && botServiceReady))
     }
@@ -148,9 +150,9 @@ struct BotAllowance: Decodable, Sendable {
                 if !closed { await refresh() }
             case .pending:
                 pending = true
-                notice = "Your purchase is waiting for App Store approval. It will appear here when it’s confirmed."
+                notice = String(localized: "Your purchase is waiting for App Store approval. It will appear here when it’s confirmed.")
             case .userCancelled: break
-            @unknown default: notice = "The purchase couldn’t finish. Check your App Store subscriptions before trying again."
+            @unknown default: notice = String(localized: "The purchase couldn’t finish. Check your App Store subscriptions before trying again.")
             }
         } catch { if !closed { notice = Self.explanation(error) } }
     }
@@ -163,7 +165,7 @@ struct BotAllowance: Decodable, Sendable {
             try await AppStore.sync()
             await reconcile()
             await refresh()
-            if !closed && notice == nil { notice = "Your App Store purchases are up to date." }
+            if !closed && notice == nil { notice = String(localized: "Your App Store purchases are up to date.") }
         } catch { if !closed { notice = Self.explanation(error) } }
     }
     private func accept(_ value: EntitlementSnapshot) throws {
@@ -208,10 +210,10 @@ struct BotAllowance: Decodable, Sendable {
     private struct PurchaseBody: Encodable { let signed_transaction_info: String }
     private static func explanation(_ error: Error) -> String {
         if let failure = error as? ServiceFailure {
-            if failure.code == "purchase_account_mismatch" { return "This purchase belongs to another Vipi account. Sign in to that account to restore it." }
-            if failure.code == "purchase_unverified" { return "The App Store purchase couldn’t be verified. No access has been changed." }
-            if failure.code == "billing_unavailable" { return "Subscriptions aren’t available yet. Your saved conversations are still here." }
+            if failure.code == "purchase_account_mismatch" { return String(localized: "This purchase belongs to another Vipi account. Sign in to that account to restore it.") }
+            if failure.code == "purchase_unverified" { return String(localized: "The App Store purchase couldn’t be verified. No access has been changed.") }
+            if failure.code == "billing_unavailable" { return String(localized: "Subscriptions aren’t available yet. Your saved conversations are still here.") }
         }
-        return "We couldn’t confirm your subscription. If you completed a purchase, use Restore purchases to check it before buying again."
+        return String(localized: "We couldn’t confirm your subscription. If you completed a purchase, use Restore purchases to check it before buying again.")
     }
 }
