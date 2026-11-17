@@ -232,5 +232,25 @@
       "Localized screenshot assets, current build association, compliance, and final review submission remain separate.",
       "Translations are reviewed drafts, not a claim of native-speaker or complete device-UX qualification."
     ]
+  },
+  "screenshots": {
+    "state": "approved_pairs_saved_and_reload_verified",
+    "locale": "en-US",
+    "iphone_dynamic_island_large": 2,
+    "iphone_dynamic_island_medium": "Uses existing large assets; no direct uploads",
+    "ipad_13_inch": 2,
+    "receipt": "qa/release/apple-store-screenshot-fixture-20261117-r01/upload-result.json",
+    "limits": "Native production views with explicitly synthetic offline fixture; not live messaging or signed-build runtime proof."
+  },
+  "unsigned_candidate": {
+    "version": "1.0",
+    "build": "2",
+    "source": "09056a69de97a4c775d6f8936a072e58822f1519",
+    "ios_tree": "fa5f5650fd1b4ba9817af4938015dd3b4aa67380",
+    "receipt": "qa/release/apple-unsigned-build2-20261117-r01/receipt.json",
+    "signed": false,
+    "uploaded": false,
+    "signing_hold": "Explicit owner recovery hold; root requested lift for proven normal Xcode signed archive then Organizer automatic export. No answer yet.",
+    "important": "Direct export of unsigned archive is not the demonstrated entitlements-safe route; historical r109 lacked APS. Do not repeat that pattern."
   }
 }

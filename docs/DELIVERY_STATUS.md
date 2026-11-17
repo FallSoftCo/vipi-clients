@@ -43,23 +43,28 @@ See [draft receipt](../release/google-production-v3-draft-20261117.json). Existi
 app screenshots remain. See [localization](../release/google-localized-listing-20261117.json).
 
 Apple's original signed **1.0 (1)**, source `4908d4e`, was delivered once and
-finished processing. It remains **Missing Compliance**. Current localized source
-`7dd2929` has a qualified full unsigned build with dependency/privacy resources.
-The subsequent native detector candidate `a3c77ae` has passed an isolated full
-Simulator build and visible automatic Japanese switching; it is not signed.
-Eight actual Simulator screenshot candidates use production views and synthetic
-messages; these are not live-account or uploaded-store evidence. Privacy,
-reviewer access and manual release are saved. Reviewed text is now saved and
-reload-verified in all 13 Apple-supported locales. Swahili is not an ASC locale;
-new locales retain inherited English keywords and URLs. Required screenshots,
-build association and purchase qualification remain incomplete. The application
-supports iPad; required iPad Simulator screenshots are being prepared without
-using the reserved physical device.
+finished processing. It remains **Missing Compliance**. Current source now has a full unsigned device Release archive **1.0 (2)** from
+`09056a6`, including localization, cardless access and native detection changes.
+Its 419 tracked source inputs matched before and after; 1,032 language, speech
+and privacy resources match the retained signed reference. No new signing or
+build upload occurred. The [archive receipt](../qa/release/apple-unsigned-build2-20261117-r01/receipt.json)
+records exact hashes and evidence boundaries.
+
+Reviewed text is saved and reload-verified in all 13 Apple-supported locales.
+Swahili is not an ASC locale; new locales retain inherited English keywords and
+URLs. The approved English iPhone large and iPad 13-inch screenshot pairs were
+uploaded once and each shows 2/10 after reload. The medium iPhone slot uses those
+existing assets. These captures show real production views with a synthetic
+offline conversation; they do not establish live delivery. Privacy, reviewer
+access and manual release are saved. Build association, compliance and purchase
+qualification remain incomplete. No physical iPad was used.
 See [Apple configuration](../release/apple-store-configuration.json).
 
 **The owner's Mac signing/keychain hold remains. Do not retry signing or upload
-until that dependency changes.** Historical successful signing does not remove
-this later hold.
+until that dependency changes.** The earlier successful route was a normal Xcode signed archive followed by
+Organizer automatic export. Directly exporting an unsigned archive previously
+lost its push entitlement and must not be repeated. The explicit hold remains
+until clarified; an approval question for the proven route is pending.
 
 The [November 17 client source preview](https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17)
 was published once from `a547a4d`. GitHub's archive digest matches the reviewed
@@ -122,7 +127,10 @@ A new company-to-owned-Beta message was submitted **once** on Play version 2
 at approximately 06:58 UTC and remains **Waiting to send**. A read-only database
 check found its key claim but no current matching envelope. The pending table
 is not a historical audit: the subsequent request outcome remains uncertain.
-No duplicate send, changed-key acceptance or account reset occurred. An isolated
+No duplicate send, changed-key acceptance or account reset occurred. Both owned
+Android Vipi app processes were force-stopped at 09:20 UTC, preserving accounts
+and queued data; the emulators and other applications remain running. Do not
+reopen the company app until the original message disposition is resolved. An isolated
 R8-minified synthetic harness reproduced a session-establishment exception
 before encryption. R8 renamed the JNI callback's `NativeHandleGuard$Owner`
 return type; the narrow keep-name rule in `68805f6` fixes that measured failure.
