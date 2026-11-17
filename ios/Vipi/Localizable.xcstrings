@@ -2643,37 +2643,37 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Dunkelheit"
+            "value": "Dunkel"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "暗い"
+            "value": "ダーク"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "مُظْلِم"
+            "value": "داكن"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "어두운"
+            "value": "다크"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "黑暗"
+            "value": "深色"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "黑暗"
+            "value": "深色"
           }
         },
         "fr": {
@@ -2980,13 +2980,13 @@
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "除去が要求されました"
+            "value": "削除を申請しました"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "الحذف المطلوب"
+            "value": "تم طلب الحذف"
           }
         },
         "ko": {
@@ -2998,13 +2998,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "请求取消"
+            "value": "已请求删除"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "請求取消"
+            "value": "已提出刪除請求"
           }
         },
         "fr": {
@@ -5560,37 +5560,37 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Licht"
+            "value": "Hell"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "光"
+            "value": "ライト"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "ضَوْء"
+            "value": "فاتح"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "가벼운"
+            "value": "라이트"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "可见光"
+            "value": "浅色"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "可見光"
+            "value": "淺色"
           }
         },
         "fr": {
@@ -5661,7 +5661,7 @@
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "اسْتَمَعَ"
+            "value": "استمع"
           }
         },
         "ko": {
@@ -7833,7 +7833,7 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Sag Hallo. Ihre Nachrichten sind Ende-zu-Ende verschlüsselt."
+            "value": "Fangen Sie eine Unterhaltung an. Ihre Nachrichten sind Ende-zu-Ende verschlüsselt."
           }
         },
         "ja": {
@@ -8711,37 +8711,37 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Pause"
+            "value": "Stopp"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "止まる"
+            "value": "停止"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "تَوَقُّف"
+            "value": "إيقاف"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "멈추다"
+            "value": "중지"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "阻止"
+            "value": "停止"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "阻止"
+            "value": "停止"
           }
         },
         "fr": {
@@ -8870,7 +8870,7 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Abonnements werden separat verwaltet. Kopien und Backups von Freunden, die an anderer Stelle gespeichert wurden, bleiben bestehen."
+            "value": "Abos werden getrennt verwaltet. Kopien Ihrer Freunde und anderswo gespeicherte Backups bleiben erhalten."
           }
         },
         "ja": {
@@ -8888,7 +8888,7 @@
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "구독은 별도로 관리됩니다. 친구들의 복사본과 백업은 다른 곳에 저장되어 있습니다."
+            "value": "구독은 별도로 관리됩니다. 친구가 가진 사본과 다른 곳에 저장된 백업은 그대로 유지됩니다."
           }
         },
         "zh-Hans": {
@@ -9371,13 +9371,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "钥匙可能已经改变，或者您的选择无法保存。 再次比较当前数字。"
+            "value": "密钥可能已更改，或您的选择未能保存。请再次比对当前号码。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "鑰匙可能已經改變，或者您的選擇無法保存。 再次比較當前數字。"
+            "value": "金鑰可能已變更，或您的選擇未能儲存。請再次比對目前的號碼。"
           }
         },
         "fr": {
@@ -10639,37 +10639,37 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "VIP"
+            "value": "vipi"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "ヴィピ"
+            "value": "vipi"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "فيبي"
+            "value": "vipi"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Vipi"
+            "value": "vipi"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "维皮"
+            "value": "vipi"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "維皮"
+            "value": "vipi"
           }
         },
         "fr": {
@@ -10792,7 +10792,7 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Vipi hat Ihre Anfrage angenommen. Wir beenden die Löschung. Sie können die App schließen und später noch einmachsehen."
+            "value": "Vipi hat Ihre Anfrage angenommen. Wir schließen die Löschung ab. Sie können die App schließen und später erneut nachsehen."
           }
         },
         "ja": {
@@ -13589,7 +13589,7 @@
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "완료 영수증을 결제할 수 없습니다. 다시 시도해 주세요."
+            "value": "완료 확인 기록을 지울 수 없습니다. 다시 시도해 주세요."
           }
         },
         "zh-Hans": {
@@ -15012,13 +15012,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "无法发送消息。 您的其他对话可以继续。"
+            "value": "消息无法送达。您的其他对话可以继续。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "無法發送消息。 您的其他對話可以繼續。"
+            "value": "訊息無法送達。您可以繼續其他對話。"
           }
         },
         "fr": {
@@ -17958,25 +17958,25 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Abgemacht!"
+            "value": "Fertig"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "済んで"
+            "value": "完了"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "مُنْتَهٍ"
+            "value": "تم"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "다 된"
+            "value": "완료"
           }
         },
         "zh-Hans": {
@@ -18041,7 +18041,7 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Wiederholen Sie Stimmen"
+            "value": "Stimmen erneut versuchen"
           }
         },
         "ja": {
@@ -18065,13 +18065,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "重試聲音"
+            "value": "重试语音"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "重試聲音"
+            "value": "重試語音"
           }
         },
         "fr": {
@@ -18699,13 +18699,13 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Geliefert"
+            "value": "Zugestellt"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "配達済み"
+            "value": "配信済み"
           }
         },
         "ar": {
@@ -18717,19 +18717,19 @@
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "배달료 포함의"
+            "value": "전달됨"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "交付"
+            "value": "已送达"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "交付"
+            "value": "已送達"
           }
         },
         "fr": {
@@ -18865,37 +18865,37 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Nicht geliefert · 72 Stunden vergangen"
+            "value": "Nicht zugestellt · 72 Stunden vergangen"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "配信されていません · 72時間が経過しました"
+            "value": "未配信 · 72時間経過"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "لم يتم التسليم · مرت 72 ساعة"
+            "value": "لم يتم التسليم · مرّت 72 ساعة"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "배달되지 않음 · 72시간 경과"
+            "value": "전달되지 않음 · 72시간 경과"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "未交付·72小时已过"
+            "value": "未送达 · 已过72小时"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "未交付·72小時已過"
+            "value": "未送達 · 已過72小時"
           }
         },
         "fr": {
@@ -18948,13 +18948,13 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Nicht geliefert"
+            "value": "Nicht zugestellt"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "配信されていません"
+            "value": "未配信"
           }
         },
         "ar": {
@@ -18966,19 +18966,19 @@
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "배달되지 않았습니다"
+            "value": "전달되지 않음"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "未交付"
+            "value": "未送达"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "未交付"
+            "value": "未送達"
           }
         },
         "fr": {
@@ -22274,13 +22274,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "你验证了这些钥匙"
+            "value": "您已验证这些密钥"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "你驗證了這些鑰匙"
+            "value": "您已驗證這些金鑰"
           }
         },
         "fr": {
@@ -22333,37 +22333,37 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Klare Verifizierung"
+            "value": "Verifizierung zurücksetzen"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "検証をクリア"
+            "value": "検証状態を解除"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "التحقق الواضح"
+            "value": "مسح حالة التحقق"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "명확한 검증"
+            "value": "확인 상태 지우기"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "明确验证"
+            "value": "清除验证状态"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "明確驗證"
+            "value": "清除驗證狀態"
           }
         },
         "fr": {
@@ -24959,13 +24959,13 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Spanische Wörter fortsetzen"
+            "value": "Spanische Wörter wieder anzeigen"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "スペイン語の単語を要約してください"
+            "value": "スペイン語の単語を再開"
           }
         },
         "ar": {
@@ -24977,19 +24977,19 @@
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "스페인어 단어 요약"
+            "value": "스페인어 단어 다시 표시"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "简历西班牙语单词"
+            "value": "恢复显示西班牙语单词"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "簡歷西班牙語單詞"
+            "value": "恢復顯示西班牙語單字"
           }
         },
         "fr": {
