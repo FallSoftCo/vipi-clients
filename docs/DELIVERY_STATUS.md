@@ -19,8 +19,11 @@ to internal testers**, **not reviewed**, and not publicly available. The final
 review screen had no errors or warnings; Play reports a 417 MB new-install
 download. Both annual products and their independent one-month trial offers are
 active: Vipi $12/year and optional Bot mini $48/year in the US. The same owned
-account is configured for license testing. Actual purchase, restoration and
-billing-event tests remain; no transaction or charge has been made.
+account is configured for license testing. One no-charge Google test purchase
+activated Base, refreshed on the same device, renewed into the accelerated paid
+test period, and was canceled effective at period end. Lapse after 02:41:50 UTC
+remains unobserved; cross-device restore and refund/revocation remain unqualified.
+See the [license-test receipt](../qa/subscriptions/google-license-sandbox-20261117-r01/receipt.json).
 
 Apple's corrected company-signed 1.0(1) IPA was delivered once through
 Transporter at 7:21 PM November 16 local time and has **finished processing**.
@@ -55,7 +58,8 @@ typical delivery latency. Separate sandbox APNs credentials are now active while
 the production credential remains unchanged. One real Android-to-Apple message
 produced a simulator APNs arrival about three seconds after send, corroborated by
 apsd and SpringBoard logs. Foregrounding the app showed the decrypted message;
-notification presentation and server acknowledgement are tracked separately.
+the original server row reached `delivered` and the sender showed Delivered. A visible system banner was
+not established.
 
 Live restricted staging now runs backend `9b8cca6`, with schema `20261116_01`
 and account-scoped store sandbox verification enabled. Three owned subjects are
@@ -71,6 +75,12 @@ emulator, with the Play signing certificate and installed artifact hash verified
 This was a sideload; installation through the Play Store is still unproven.
 The original account-bearing QA emulator is preserved. The new emulator uses
 software graphics after two graphics-thread crashes.
+
+Before the company tester moved from Apple to Android, a native encrypted Apple
+chat export was saved and checked in-app for the same account: one message in one
+conversation. The original simulator and vault remain preserved; the export was
+not restored and excludes messaging identity, unsent messages and vBot history.
+Android then completed the explicit device handoff.
 
 The first-month audit found a release gap: dismissing the offer does not start a
 trial. Disabled staging enforcement allows indefinite chat; enabling enforcement
@@ -169,8 +179,9 @@ Source publication does not establish every linked dependency's combined-binary
 distribution terms. See the [publication record](../release/client-source-publication-20261116.json).
 
 The deployed service is now `9b8cca6`, retaining the earlier public username
-invitation page. Registration remains restricted to the owned review accounts. No purchase
-or app-review submission has occurred. The earlier authentication/signing hold
+invitation page. Registration remains restricted to two owned reviewer accounts
+and the separate owned company tester. No app-review submission has occurred.
+The earlier authentication/signing hold
 changed when normal company browser access and Xcode Organizer signing worked;
 that does not establish unrestricted private-key or keychain access.
 The requested automatic-reset timer and policy remain disabled.
@@ -220,8 +231,8 @@ unenforced. Both accounts completed Android native authentication, profile
 creation and separate encryption-key enrollment. The original two synthetic native
 messages were exchanged, decrypted to their original text and marked Delivered.
 Those original exchanges establish foreground human chat. The subsequent FCM
-background result is recorded above; public onboarding, purchases and Apple
-live authentication still need qualification.
+background result is recorded above; public onboarding and broader purchase
+lifecycles remain separate qualification work.
 
 The service runs `9b8cca6`, preserving the earlier `b97b2c9` public vBot
 guardian-consent terms and `742e119` username invitation pages. Its two owned reviewer accounts have explicit
@@ -235,9 +246,10 @@ unmarked. External restore integration and authoritative financial replay remain
 unfinished; no restored service is authorized to reopen. See the
 [deployment receipt](../qa/backend/service-recovery-r01/deployment-r01.json).
 
-The scoped APNs worker is active with the retained production credential.
-Actual APNs device delivery remains unqualified; a production credential does
-not qualify development-sandbox delivery. FCM has actual background delivery and visible notification evidence; prompt
+The scoped APNs worker retains the production credential and has separately
+qualified the sandbox simulator delivery described above; production APNs delivery
+remains unqualified. FCM has actual background delivery and visible notification
+evidence; prompt
 delivery remains under test. The DeepSeek
 bot provider is configured with a dedicated company credential. One normal
 Android request received a real response in 2.353 seconds, with allowance changing
@@ -317,8 +329,9 @@ subscription products, annual plans and one-month offers are now active. See
   choice. The ML Kit/AGPL question is dependency-specific; Signal's store presence
   is neither blanket permission nor a blanket prohibition. Billing/Play terms
   remain separate. Do not remove optional features without approval.
-- Complete real FCM/APNs background delivery, store purchases,
-  renewals and restoration. One Bot response/allowance and complimentary reviewer
+- Complete production APNs delivery, remaining store purchase and restoration
+  lifecycles, and verify the canceled Google test subscription lapses. One Bot
+  response/allowance and complimentary reviewer
   access now pass; these do not qualify ordinary paid customer access.
 - Reconcile store metadata, privacy disclosures, current screenshots and actual
   release artifacts before any declarations, upload or submission. Use the
