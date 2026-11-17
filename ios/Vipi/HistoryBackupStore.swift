@@ -33,9 +33,9 @@ enum HistoryBackupStore {
     static func stage(_ selected: URL, to destination: URL) throws -> URL {
         let authorized = selected.startAccessingSecurityScopedResource()
         defer { if authorized { selected.stopAccessingSecurityScopedResource() } }
-        guard !FileManager.default.fileExists(atPath: destination.path) else { throw HistoryBackupCodec.Failure.damaged }
+        guard !FileManager.default.fileExists(atPath: destination.path) else { throw CocoaError(.fileWriteFileExists) }
         guard FileManager.default.createFile(atPath: destination.path, contents: nil,
-            attributes: [.posixPermissions: 0o600, .protectionKey: FileProtectionType.completeUntilFirstUserAuthentication]) else { throw HistoryBackupCodec.Failure.damaged }
+            attributes: [.posixPermissions: 0o600, .protectionKey: FileProtectionType.completeUntilFirstUserAuthentication]) else { throw CocoaError(.fileWriteUnknown) }
         do {
             let input = try FileHandle(forReadingFrom: selected), output = try FileHandle(forWritingTo: destination)
             defer { try? input.close(); try? output.close() }

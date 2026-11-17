@@ -4,6 +4,11 @@ import Darwin
 @testable import Vipi
 
 final class HistoryBackupTests: XCTestCase {
+    @MainActor func testRestoreErrorExplanationsDoNotGuessUnknownCause() {
+        XCTAssertEqual(HistoryBackupView.explanation(CocoaError(.fileReadNoPermission), restoring: true), String(localized: "The backup couldn’t be opened or restored. Please try again."))
+        XCTAssertEqual(HistoryBackupView.explanation(HistoryBackupCodec.Failure.damaged, restoring: true), String(localized: "The password is incorrect or this backup is damaged. Nothing was changed."))
+        XCTAssertEqual(HistoryBackupView.explanation(HistoryBackupCodec.Failure.conflict, restoring: true), String(localized: "This backup conflicts with saved messages. Nothing was changed."))
+    }
     private let account = UUID(uuidString: "11111111-1111-4111-8111-111111111111")!
     private let peer = UUID(uuidString: "22222222-2222-4222-8222-222222222222")!
     private let password = "correct horse vipi 2026"
