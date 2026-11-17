@@ -25,7 +25,7 @@
     "unsigned_entries": 419,
     "signed_entries": 419,
     "equal": true,
-    "signed_manifest_sha256": "7fc762a424f8396bf8330204ccf2d3475fd5fbaf8f636abf8f47ecc4fb90",
+    "signed_manifest_sha256": "7fc762a424f8396bf8330204ccf2d3475fd5fbaf8f636abf8f47ecc7dae4fb90",
     "public_base_matching_entries": 417,
     "different": [
       "ios/project.yml"
