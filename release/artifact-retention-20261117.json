@@ -67,5 +67,16 @@
     "allocated_bytes": 1709330432,
     "basis": "Unpublished superseded archives only; every member preserved either unchanged in currentr11 or by retained Git blob. Privileged all-process descriptor check found no consumers. Currentr11/publishedr10 archives, metadata and source retained.",
     "receipt": "/home/ai/Development/investigations/vipi-ux-review-20261117-r01/disk-cleanup-20261117-r01/obsolete-source-archives-retirement.json"
+  },
+  "subsequent_build_intermediate_retirement": {
+    "receipts": [
+      "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-v2-crypto-isolated-r01/release-intermediate-retirement.json",
+      "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-frozen-a52-qa-r01/pre-v3-intermediate-retirement.json"
+    ],
+    "allocated_bytes": [
+      1157591040,
+      2782027776
+    ],
+    "scope": "Finished task-owned regenerable build intermediates; exact QA APKs, tests, mappings and receipts retained. Gross deletion, not net disk gain."
   }
 }

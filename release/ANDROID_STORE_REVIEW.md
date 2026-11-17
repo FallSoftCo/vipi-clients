@@ -99,7 +99,7 @@ declarations actioned; this is not an app-review submission.
 | Conversation relationships | Contacts/social graph; functionality and security. |
 | Exact username lookup | Optional, ephemeral in-app search history; functionality. |
 
-Automatic CLD2 identification, approved word/phrase lookup, readings and local
+In the November 11 qualification, CLD2 identification, approved word/phrase lookup, readings and local
 speech do not send message text to a translation service. Automatic misses retain
 the original. Google translation remains linked. The unused direct Android ML Kit language-ID
 dependency and its now-unresolved language-ID-common artifact were removed;
@@ -113,6 +113,26 @@ language-ID classes are absent, translate classes and CLD2 remain, and all32
 focused native routes preserve originals with zero automatic translation/readiness
 calls. The signed `0fda43f` bundle verifies the 007 catalog and included assets;
 store admission, final notice reconciliation and provider qualification remain pending.
+
+The November 17 version 3 candidate replaces runtime language identification with
+bundled ML Kit language-ID 17.0.6; CLD2 remains linked for retained tests. This
+supersedes the earlier removal described above. Automatic immersion masks
+protected text and requires two natural word segments before classification;
+accepted catalog entries still supply the substitutions. The new classifier
+does not translate arbitrary words. The isolated full app automatically selected
+music → 音楽/ongaku and music → muziki without a translation callback. These
+examples establish working routes, not general semantic accuracy.
+
+The exact resolved graph adds only language-ID 17.0.6 and language-ID-common
+16.1.0. Refreshed notices cover 146 artifacts; all 98 text references were hash
+verified. See [notice receipt](../qa/android/language-id-20261117/notice-receipt.json)
+and [full app qualification](../qa/android/android-frozen-a52-route-20261117/qualification-receipt.json).
+Google documents detected-language tags among SDK operational data. The draft
+privacy notice now names these tags; it has not yet been deployed. The saved
+data-safety categories already include shared ML Kit app interactions,
+diagnostics and device IDs. Offline synthetic QA explicitly removes INTERNET;
+that does not disable telemetry in the actual messaging app. Final version 3
+artifact correspondence remains separate from these source checks.
 
 Do not mark every category optional because vBot/reporting is optional: sign-in
 and messaging identifiers are required for their account features. Do not mark

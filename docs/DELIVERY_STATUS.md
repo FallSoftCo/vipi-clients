@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 17, 2026, 07:20 UTC. Vipi remains restricted staging. Neither
+Updated November 17, 2026, 07:50 UTC. Vipi remains restricted staging. Neither
 app has been submitted for public review. Prior revisions and the linked
 receipts retain historical actions; do not replay them.
 
@@ -15,6 +15,12 @@ signer continuity; the version 2 certificate was not separately extracted.
 See [artifacts](../release/android-build-artifacts-20261117.json) and
 [internal release](../release/android-internal-release-20261117.json).
 
+Android **1.0.2 (3)** is being packaged from frozen `87d53cd`, with the measured
+release-encryption fix, short-message language identification and updated
+dependency notices. Its 3,488 tracked Android entries and 655 generated asset
+files were checked against the frozen source and retained version 2 manifest.
+No version 3 upload, publication or retained-account update has occurred.
+
 Google's 14 localized listings were field-checked and saved once. Independent
 reload verified the locale inventory and English, Swahili and Arabic field
 samples. They are ready to send for review, not approved. The production draft
@@ -25,6 +31,8 @@ app screenshots remain. See [localization](../release/google-localized-listing-2
 Apple's original signed **1.0 (1)**, source `4908d4e`, was delivered once and
 finished processing. It remains **Missing Compliance**. Current localized source
 `7dd2929` has a qualified full unsigned build with dependency/privacy resources.
+The subsequent native detector candidate `a3c77ae` has passed an isolated full
+Simulator build and visible automatic Japanese switching; it is not signed.
 Eight actual Simulator screenshot candidates use production views and synthetic
 messages; these are not live-account or uploaded-store evidence. Privacy,
 reviewer access and manual release are saved. Current screenshots, metadata,
@@ -84,8 +92,12 @@ at approximately 06:58 UTC and remains **Waiting to send**. A read-only database
 check found its key claim but no current matching envelope. The pending table
 is not a historical audit: the subsequent request outcome remains uncertain.
 No duplicate send, changed-key acceptance or account reset occurred. An isolated
-R8-minified synthetic harness now reproduces a session-establishment exception
-before encryption; it is not yet proved identical to the original failure.
+R8-minified synthetic harness reproduced a session-establishment exception
+before encryption. R8 renamed the JNI callback's `NativeHandleGuard$Owner`
+return type; the narrow keep-name rule in `68805f6` fixes that measured failure.
+The fixed minified harness passed encryption and peer decryption, with malformed
+controls rejected. This does not prove the original message failed for that
+reason. Do not update its retained app or publish an update that may retry it.
 Private evidence: `investigations/vipi-submit-20261110-r01/android-v2-incoming-20261117-r01/`.
 
 The accepted 007 catalogs support **11 languages and 110 directions**, including
@@ -97,9 +109,17 @@ On actual Play version 2, “I love music.” stayed unchanged under automatic
 language detection. Choosing English explicitly produced music/ongaku and
 Japanese 音楽 with continuous switching. Listen entered active then idle, but
 the emulator had audio disabled. The pinned CLD2 host probe marks that sentence
-and two similar English examples unreliable. Native classifier comparisons and
-the existing approved contextual-frame route are being measured before changing
-production routing; uncertainty is not blanket permission for ambiguous words.
+and two similar English examples unreliable. The new Android classifier and
+Apple native fallback now pass the actual local provider route for the same
+message into Japanese and Swahili, without model translation calls. The Apple
+Simulator visibly shows both ongaku and 音楽 with no language override.
+Android's bundled ML Kit uses its default threshold; Apple retains reliable
+CLD2 first and considers native fallback at 0.70 only when CLD2 abstains.
+Both mask protected text and require two natural words for automatic detection.
+These thresholds concern language identification, not translation confidence.
+Accepted contextual catalog mappings remain the source of substitutions.
+See [Android](../qa/android/android-frozen-a52-route-20261117/qualification-receipt.json)
+and [Apple](../qa/macos/apple-native-detector-20261117-r01/README.md).
 
 Native catalogs contain 12 UI locales and store copy contains 14 variants.
 The [UI review](../qa/ux/review-20261117-r01/REVIEW.md) records Mobbin/Built for Mars
@@ -126,10 +146,11 @@ its allowance; it is not a typical-latency or quality benchmark.
 
 ## Remaining work and constraints
 
-- Diagnose and fix the isolated session failure; preserve the uncertain original
-  send without replay and qualify the eventual release candidate.
-- Improve short-message automatic routing using measured results, preserving
-  ambiguity, protected text, readings and display limits.
+- Finish version 3 artifact checks for the qualified session and short-message
+  routing fixes. Preserve the uncertain original send without replay; resolve its
+  disposition before any retained-account update or automatic retry.
+- Deploy the matching detected-language privacy detail before the new Android
+  candidate becomes publicly available; final SDK/artifact correspondence remains.
 - Complete current Apple qualification when its signing dependency changes,
   actual purchase/restore and production notification evidence.
 - Reconcile store artifacts, regional export requirements and screenshots.
@@ -148,7 +169,9 @@ restart the retired VM or fleet hosts. The iPad remains reserved for other work.
 Preserve the nine original experimental modified files, account-bearing emulators,
 original signed artifacts and external-action receipts. Auto-reset stays disabled.
 
-Requested cleanup recovered approximately 6.63 GB locally plus separately measured
-Mac cleanup. Verified retained artifact routes are in
+Requested cleanup retired approximately 12.28 GB of verified local files across
+the recorded passes, plus separately measured Mac cleanup. This is gross removal;
+ongoing builds consume space and the number is not net free capacity. Verified
+retained artifact routes are in
 [artifact retention](../release/artifact-retention-20261117.json). Current source,
 release artifacts, accounts and unrelated media were preserved.

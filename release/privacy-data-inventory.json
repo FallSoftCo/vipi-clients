@@ -836,7 +836,7 @@
   "candidate_language_detection_20261117": {
     "state": "candidate_not_in_uploaded_v2_or_apple_build1",
     "android": "Bundled com.google.mlkit:language-id:17.0.6; protected text masked before local identification. No model download required. Existing translation SDK remains.",
-    "apple": "Candidate uses native NLLanguageRecognizer fallback after existing reliable CLD2; no added third-party SDK. Qualification pending.",
+    "apple": "Native NLLanguageRecognizer fallback after existing reliable CLD2; no added third-party SDK. Native wrapper, local lookup and full isolated Simulator checks passed; no signed replacement.",
     "data_difference": "Google documents identified language tags in addition to operational installation/app/device/performance metrics. Local classification does not imply zero SDK telemetry.",
     "existing_google_categories": "Saved form already declares required/shared App interactions, Diagnostics, Device or other IDs for ML Kit operational data; candidate adds detected-language event detail within the retained metrics assessment.",
     "policy_source": "backend/vipi/public_pages.py draft now explicitly mentions detected language tags; not yet deployed",
@@ -845,11 +845,19 @@
       "https://developers.google.com/ml-kit/language/identification/android?hl=en",
       "https://developers.google.com/ml-kit/android-data-disclosure"
     ],
-    "reviewed_at_utc": "2026-11-17T07:29:51.489897+00:00",
+    "reviewed_at_utc": "2026-11-17T07:51:32.513440+00:00",
     "remaining": [
-      "Regenerate notices from exact resolved release dependencies",
       "Verify final release model inclusion, dependency graph and network/data inventory",
       "Deploy matching policy before public availability"
-    ]
+    ],
+    "resolved_notices": {
+      "source_commit": "3c918233be2eb77197bd470f4a9c4d30db20a8a0",
+      "path": "android/app/src/main/assets/legal/third-party/index.json",
+      "sha256": "2cf1f0bd10b606eb8e5b7feacecb93d5174a161b82ac97d391f9b0c115bcab79",
+      "receipt": "qa/android/language-id-20261117/notice-receipt.json",
+      "package_count": 146,
+      "text_references_verified": 98,
+      "scope": "Exact resolved release graph; final signed artifact verification separate."
+    }
   }
 }
