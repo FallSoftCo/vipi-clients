@@ -1,0 +1,19 @@
+{
+  "observed_at_utc": "2026-11-17T12:37:15.661383+00:00",
+  "app_id": "6832624092",
+  "version": "1.0",
+  "build": "2",
+  "build_id": "9367242c-b819-4bc7-9ade-6e192a12c43e",
+  "testflight_status": "Missing Compliance",
+  "build_details_requirement": "Provide Export Compliance Information",
+  "groups": 0,
+  "individual_testers": 0,
+  "method": "Read-only existing App Store Connect company browser session; fresh reload and build detail",
+  "actions_not_performed": [
+    "export compliance declaration",
+    "build association",
+    "TestFlight distribution",
+    "review submission",
+    "additional upload"
+  ]
+}
