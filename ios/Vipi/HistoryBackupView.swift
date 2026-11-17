@@ -116,7 +116,7 @@ struct HistoryBackupView: View {
                     try Task.checkCancellation(); picker = HistoryDocumentRequest(export: destination)
                 }
             } catch {
-                if !Task.isCancelled { notice = explanation(error) }
+                if !Task.isCancelled { notice = Self.explanation(error, restoring: restoring) }
                 clearImport(); removeExport()
             }
         }
@@ -136,7 +136,7 @@ struct HistoryBackupView: View {
                     notice = String(localized: "Restore complete. Added: \(result.added). Already saved: \(result.existing).")
                 }
                 self.password = ""
-            } catch { if !Task.isCancelled { notice = explanation(error) } }
+            } catch { if !Task.isCancelled { notice = Self.explanation(error, restoring: true) } }
         }
     }
     private func clearImport() {
@@ -147,17 +147,18 @@ struct HistoryBackupView: View {
         if let exported { HistoryBackupStore.removeExport(exported) }
         exported = nil
     }
-    private func explanation(_ error: Error) -> String {
+    static func explanation(_ error: Error, restoring: Bool) -> String {
         if let failure = error as? HistoryBackupCodec.Failure {
             switch failure {
             case .differentAccount: return String(localized: "This backup belongs to a different Vipi account. Sign in to that account to restore it.")
             case .passwordLength: return String(localized: "Use a passphrase of at least 12 characters.")
             case .conflict: return String(localized: "This backup conflicts with saved messages. Nothing was changed.")
+            case .damaged where restoring: return String(localized: "The password is incorrect or this backup is damaged. Nothing was changed.")
             default: break
             }
         }
         if let failure = error as? ServiceFailure, failure.code == "history_busy" { return String(localized: "Your conversations are updating. Please try again in a moment.") }
-        return restoring ? String(localized: "The password is incorrect or this backup is damaged. Nothing was changed.") : String(localized: "The backup couldn’t be saved. Your conversations are still here. Please try again.")
+        return restoring ? String(localized: "The backup couldn’t be opened or restored. Please try again.") : String(localized: "The backup couldn’t be saved. Your conversations are still here. Please try again.")
     }
 }
 
