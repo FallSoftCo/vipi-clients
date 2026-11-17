@@ -1,5 +1,6 @@
 """Configured complimentary access; no live reviewers or provider calls."""
 from dataclasses import replace
+from datetime import timedelta
 from uuid import uuid4
 
 import httpx
@@ -23,7 +24,7 @@ OTHER='22222222-2222-4222-8222-222222222222'
 async def reviewer_db(db):
     async with db.sessions.begin() as s:
         for uid,name in [(REVIEW,'reviewer'),(OTHER,'ordinary')]:
-            s.add(User(id=uid,subject='subject_'+name,username=name,display_name=name,created_at=NOW))
+            s.add(User(id=uid,subject='subject_'+name,username=name,display_name=name,created_at=NOW,cardless_trial_started_at=NOW-timedelta(days=31),cardless_trial_ends_at=NOW-timedelta(days=1)))
     return db
 
 

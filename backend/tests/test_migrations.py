@@ -19,7 +19,7 @@ async def test_initial_migration_matches_models_and_preserves_data_on_repeat(db)
             command.upgrade(config, "head")
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(upgrade)
-        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261116_01"
+        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261117_01"
     async with db.sessions.begin() as s:
         s.add(User(id="migration-fixture", subject="user_migration", username="migration", display_name="Migration QA", created_at=NOW))
     async with db.engine.begin() as connection:
@@ -49,7 +49,22 @@ async def test_deletion_migration_preserves_existing_user_data(db):
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(upgrade)
     async with db.sessions() as s:
-        assert (await s.get(User, "existing-account")).display_name == "Existing QA"
+        user = await s.get(User, "existing-account")
+        assert user.display_name == "Existing QA"
+        from vipi.delivery import utc
+        from datetime import timedelta
+        assert utc(user.cardless_trial_started_at) == NOW
+        assert utc(user.cardless_trial_ends_at) == NOW + timedelta(days=30)
+    async with db.engine.begin() as connection:
+        def cycle(sync):
+            config.attributes["connection"] = sync
+            command.downgrade(config, "20261116_01")
+            command.upgrade(config, "head")
+        await connection.run_sync(cycle)
+    async with db.sessions() as s:
+        user = await s.get(User, "existing-account")
+        assert utc(user.cardless_trial_started_at) == NOW
+        assert utc(user.cardless_trial_ends_at) == NOW + timedelta(days=30)
 
 
 async def test_environment_migration_rejects_ambiguous_verified_grants(db):

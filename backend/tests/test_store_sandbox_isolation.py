@@ -1,3 +1,4 @@
+from datetime import timedelta
 from types import SimpleNamespace
 from uuid import uuid4
 import httpx
@@ -21,7 +22,7 @@ async def test_google_test_grant_restricted_and_removal_masks(db):
     tester, other = str(uuid4()), str(uuid4())
     async with db.sessions.begin() as s:
         for i, user in enumerate((tester, other)):
-            s.add(User(id=user, subject='sandbox-test-'+str(i), username='sandbox'+str(i), display_name='test', created_at=NOW))
+            s.add(User(id=user, subject='sandbox-test-'+str(i), username='sandbox'+str(i), display_name='test', created_at=NOW-timedelta(days=31)))
     opts=production(store_sandbox_user_ids=frozenset({tester}))
     data={'externalAccountIdentifiers': {'obfuscatedExternalAccountId': billing_account_id(tester)}, 'testPurchase': {},
           'subscriptionState':'SUBSCRIPTION_STATE_ACTIVE','acknowledgementState':'ACKNOWLEDGEMENT_STATE_ACKNOWLEDGED',
@@ -76,7 +77,7 @@ async def test_environment_collision_and_notification_scope(db):
 async def test_sandbox_refresh_uses_stored_environment_and_stops_after_allowlist_removed(db):
     tester=str(uuid4())
     async with db.sessions.begin() as s:
-        s.add(User(id=tester,subject='test-refresh',username='refresh',display_name='Test',created_at=NOW))
+        s.add(User(id=tester,subject='test-refresh',username='refresh',display_name='Test',created_at=NOW-timedelta(days=31)))
     class Refresh:
         def __init__(self): self.calls=[]
         async def verify_for_environment(self, token, user, environment):
@@ -110,7 +111,7 @@ async def test_apple_sandbox_verified_transaction_must_match_authenticated_user(
     from vipi.store_providers import AppleProvider
     tester, other = str(uuid4()), str(uuid4())
     async with db.sessions.begin() as s:
-        s.add(User(id=tester,subject='apple-sandbox',username='applesandbox',display_name='Test',created_at=NOW))
+        s.add(User(id=tester,subject='apple-sandbox',username='applesandbox',display_name='Test',created_at=NOW-timedelta(days=31)))
     transaction=SimpleNamespace(productId='vipi.base.annual',type='Auto-Renewable Subscription',appAccountToken=tester,
         originalTransactionId='12345',expiresDate=1800000000000,revocationDate=None,offerDiscountType='FREE_TRIAL')
     apple=AppleProvider.__new__(AppleProvider);apple.environment='Sandbox'
@@ -147,7 +148,7 @@ async def test_unknown_verified_row_is_masked_and_legacy_tombstone_cannot_revive
     from datetime import timedelta
     tester=str(uuid4())
     async with db.sessions.begin() as s:
-        s.add(User(id=tester,subject='unknown-test',username='unknown',display_name='Test',created_at=NOW))
+        s.add(User(id=tester,subject='unknown-test',username='unknown',display_name='Test',created_at=NOW-timedelta(days=31)))
         await s.flush()
         s.add(Entitlement(id=str(uuid4()),user_id=tester,product='base',store='apple',transaction_id='unknown',
             environment='Unknown',expires_at=NOW+timedelta(days=1),verified_at=NOW,revoked=False,superseded=False))
@@ -163,7 +164,7 @@ async def test_old_apple_event_id_replay_only_schedules_existing_grant(db):
     await service.apply('alice',purchase(store='apple',transaction_id='old-event',environment='Production'),NOW)
     event='00000000-0000-4000-8000-000000000000'
     async with db.sessions.begin() as s:
-        s.add(BillingNotification(store='apple',id=event,fingerprint='a'*64,created_at=NOW))
+        s.add(BillingNotification(store='apple',id=event,fingerprint='a'*64,created_at=NOW-timedelta(days=31)))
     for _ in range(2):
         await retain(db,store='apple',event_id='P_'+event,digest='a'*64,transaction_id='old-event',environment='Production',now=NOW)
     async with db.sessions() as s:
@@ -175,7 +176,7 @@ async def test_restricted_staging_google_test_grants_only_scoped_account_and_emp
     tester, other = str(uuid4()), str(uuid4())
     async with db.sessions.begin() as s:
         for i, user in enumerate((tester, other)):
-            s.add(User(id=user,subject='stage-test-'+str(i),username='stage'+str(i),display_name='Test',created_at=NOW))
+            s.add(User(id=user,subject='stage-test-'+str(i),username='stage'+str(i),display_name='Test',created_at=NOW-timedelta(days=31)))
     def stage(ids):
         return configuration(environment='staging', database_url='postgresql+asyncpg://fixture.invalid/test',
             store_sandbox_restricted=True, store_sandbox_user_ids=frozenset(ids))

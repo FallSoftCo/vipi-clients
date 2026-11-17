@@ -166,16 +166,18 @@ class Subscriptions:
         cutoff = now - timedelta(seconds=self.settings.purchase_outage_seconds)
         reviewer = user_id in self.settings.reviewer_user_ids
         async with self.db.sessions() as session:
-            if reviewer:
-                user = await session.get(User, user_id)
-                if user is None or user.deleted or user.suspended:
-                    raise DeliveryError("account_unavailable", 403)
+            user = await session.get(User, user_id)
+            if user is None or user.deleted or (reviewer and user.suspended):
+                raise DeliveryError("account_unavailable", 403)
+            trial_start, trial_end = utc(user.cardless_trial_started_at), utc(user.cardless_trial_ends_at)
+            trial_active = trial_start <= utc(now) < trial_end
             rows = (await session.execute(select(Entitlement).where(Entitlement.user_id == user_id))).scalars().all()
         if self.settings.sandbox_restricted:
             allowed = {"Production", "Sandbox"} if user_id in self.settings.store_sandbox_user_ids else {"Production"}
             rows = [r for r in rows if r.environment in allowed]
-        if not reviewer and any(not r.revoked and not r.superseded and r.verified_at and utc(r.verified_at) <= cutoff
-               and utc(r.expires_at) > now for r in rows):
+        stale_products = {r.product for r in rows if not r.revoked and not r.superseded and r.verified_at
+                          and utc(r.verified_at) <= cutoff and utc(r.expires_at) > now}
+        if not reviewer and not trial_active and stale_products:
             # Do not turn a store outage into an invitation to buy a second time.
             raise DeliveryError("purchase_verification_unavailable", 503)
         result = {}
@@ -187,9 +189,15 @@ class Subscriptions:
                 result[name] = {"active": True, "expires_at": None, "trial_ends_at": None,
                     "access_source": "review_complimentary", "review_access": True}
                 continue
-            result[name] = {"active": latest is not None,
-                "expires_at": utc(latest.expires_at).isoformat() if latest else None,
-                "trial_ends_at": utc(latest.trial_ends_at).isoformat() if latest and latest.trial_ends_at and utc(latest.trial_ends_at) > now else None}
+            cardless = name == "base" and trial_active and latest is None
+            result[name] = {"active": latest is not None or cardless,
+                "expires_at": utc(latest.expires_at).isoformat() if latest else trial_end.isoformat() if cardless else None,
+                "trial_ends_at": utc(latest.trial_ends_at).isoformat() if latest and latest.trial_ends_at and utc(latest.trial_ends_at) > now else trial_end.isoformat() if cardless else None,
+                "access_source": "store" if latest else "cardless_trial" if cardless else None}
+            if name == "bot_mini" and name in stale_products:
+                result[name]["verification_unavailable"] = True
+        result["base"]["cardless_trial"] = {"started_at": trial_start.isoformat(), "ends_at": trial_end.isoformat(), "active": trial_active}
+        result["server_time"] = utc(now).isoformat()
         result["bot_mini"]["available"] = result["base"]["active"] and result["bot_mini"]["active"]
         result["billing_account_id"] = billing_account_id(user_id)
         result["app_account_token"] = user_id
@@ -201,5 +209,7 @@ class Subscriptions:
         if not state["base"]["active"]:
             raise DeliveryError("base_subscription_required", 402)
         if bot and not state["bot_mini"]["available"]:
+            if state["bot_mini"].get("verification_unavailable"):
+                raise DeliveryError("purchase_verification_unavailable", 503)
             raise DeliveryError("bot_subscription_required", 402)
         return state
