@@ -1,0 +1,27 @@
+{
+  "checks" : [
+    "context fallback with no alignment",
+    "actual marked Chinese reading",
+    "reverse direction",
+    "reverse source pinyin separate from target guide",
+    "stale second reading suppression",
+    "cancelled second reading suppression",
+    "reading deadline",
+    "complete context for ambiguous selection",
+    "explicit input language",
+    "UTF16 surrogate and composed boundaries",
+    "exact UTF8 identity",
+    "selection generation",
+    "missing model without inference",
+    "literal integrity",
+    "late-result suppression",
+    "timeout distinction",
+    "cancellation propagation",
+    "word in valid 30KiB original",
+    "whole-message chunk\/literal preservation"
+  ],
+  "passed" : true,
+  "platform" : "native macOS Swift CLI; component behavior, not app rendering or model quality",
+  "reading_calls" : 6,
+  "translation_calls" : 10
+}

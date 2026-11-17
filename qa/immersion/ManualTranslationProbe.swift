@@ -25,6 +25,22 @@ import VipiCore
         precondition(first.result?.sourceContextStartUTF16 == 0 && first.result?.sourceContextEndUTF16 == selected.originalText.utf16.count)
         let reverse = try await run(request("银行"),output:"bank")
         precondition(reverse.status == .ready && translatedDirection == "zh-en" && reverse.result?.reading == nil)
+        precondition(reverse.result?.sourceReading?.text == "yínháng")
+        var secondReads=0
+        let staleRead=try await ManualTranslationResolver.resolve(request("银行"),valid:{valid},reference:{_,_,_ in nil},identify:{_ in "zh"},modelsReady:{_,_ in true},translate:{_,_,_ in "bank"},reading:{_,_ in secondReads+=1;if secondReads==2 {valid=false};return nil})
+        precondition(secondReads==2 && staleRead.status == .stale && staleRead.result==nil);valid=true
+        secondReads=0
+        let task=Task { @MainActor in
+            try await ManualTranslationResolver.resolve(request("银行"),valid:{true},reference:{_,_,_ in nil},identify:{_ in "zh"},modelsReady:{_,_ in true},translate:{_,_,_ in "bank"},reading:{_,_ in
+                secondReads+=1
+                if secondReads==2 {withUnsafeCurrentTask{$0?.cancel()}}
+                return nil
+            })
+        }
+        do {_=try await task.value;fatalError("cancelled source reading published")}catch is CancellationError{}
+        precondition(secondReads==2)
+        let expired=try await ManualTranslationResolver.resolve(request("银行"),valid:{true},reference:{_,_,_ in nil},identify:{_ in "zh"},modelsReady:{_,_ in true},translate:{_,_,_ in "bank"},reading:{_,_ in nil},deadline:ContinuousClock.now)
+        precondition(expired.status == .timeout && expired.result==nil)
         let context = request("I would like to know what this word means.",2,7,"en","fr")
         _ = try await run(context,output:"voudrais")
         precondition(detectedInput == context.originalText && translatedInput == context.originalText)
@@ -61,7 +77,7 @@ import VipiCore
             precondition(text.utf16.count <= 8192 && !text.contains("https://"));chunks+=1;return text
         },reading:{_,_ in nil})
         precondition(chunked.status == .ready && chunked.result?.targetText == longWhole && chunks>=2)
-        let report:[String:Any] = ["platform":"native macOS Swift CLI; component behavior, not app rendering or model quality","checks":["context fallback with no alignment","actual marked Chinese reading","reverse direction","complete context for ambiguous selection","explicit input language","UTF16 surrogate and composed boundaries","exact UTF8 identity","selection generation","missing model without inference","literal integrity","late-result suppression","timeout distinction","cancellation propagation","word in valid 30KiB original","whole-message chunk/literal preservation"],"passed":true,"translation_calls":calls,"reading_calls":readingCalls]
+        let report:[String:Any] = ["platform":"native macOS Swift CLI; component behavior, not app rendering or model quality","checks":["context fallback with no alignment","actual marked Chinese reading","reverse direction","reverse source pinyin separate from target guide","stale second reading suppression","cancelled second reading suppression","reading deadline","complete context for ambiguous selection","explicit input language","UTF16 surrogate and composed boundaries","exact UTF8 identity","selection generation","missing model without inference","literal integrity","late-result suppression","timeout distinction","cancellation propagation","word in valid 30KiB original","whole-message chunk/literal preservation"],"passed":true,"translation_calls":calls,"reading_calls":readingCalls]
         try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:URL(fileURLWithPath:CommandLine.arguments[2]),options:.withoutOverwriting)
     }
 }

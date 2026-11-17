@@ -18,7 +18,17 @@ fun main(args:Array<String>)=runBlocking {
     check(first.result?.reading?.text=="yīnyuè"&&first.result?.request==selected&&calls==1)
     check(first.result?.sourceContextText==selected.originalText&&first.result?.contextExpanded==true)
     check(first.result?.sourceContextStartUTF16==0&&first.result?.sourceContextEndUTF16==selected.originalText.length)
-    check(run(request("银行"),"bank").status==ManualTranslationStatus.READY&&direction=="zh-en")
+    val reverse=run(request("银行"),"bank")
+    check(reverse.status==ManualTranslationStatus.READY&&direction=="zh-en")
+    check(reverse.result?.sourceReading?.text=="yínháng"&&reverse.result?.reading==null)
+    var secondReads=0
+    val staleRead=ManualTranslationResolver.resolve(request("银行"),{valid},{_,_,_->null},{"zh"},{_,_->true},{_,_,_->"bank"},{_,_->secondReads++;if(secondReads==2)valid=false;null})
+    check(secondReads==2&&staleRead.status==ManualTranslationStatus.STALE&&staleRead.result==null);valid=true
+    secondReads=0
+    try {ManualTranslationResolver.resolve(request("银行"),{true},{_,_,_->null},{"zh"},{_,_->true},{_,_,_->"bank"},{_,_->secondReads++;if(secondReads==2)throw CancellationException();null});error("cancelled source reading published")}
+    catch(_:CancellationException){}
+    check(secondReads==2)
+    check(ManualSourceCoordinates.resolve("a?b","a\uD800b",0,1)==ManualSourceRange(0,3,true))
     val context=request("I would like to know what this word means.",2,7,"en","fr")
     run(context,"voudrais");check(detectedInput==context.originalText&&translatedInput==context.originalText)
     check(run(request("chat",known="en",learning="fr",input="fr"),"cat").status==ManualTranslationStatus.READY&&direction=="fr-en")
@@ -41,6 +51,6 @@ fun main(args:Array<String>)=runBlocking {
     var chunks=0
     val chunked=ManualTranslationResolver.resolve(request(longWhole),{true},{_,_,_->null},{"en"},{_,_->true},{text,_,_->check(text.length<=8192&&!text.contains("https://"));chunks++;text},{_,_->null})
     check(chunked.status==ManualTranslationStatus.READY&&chunked.result?.targetText==longWhole&&chunks>=2)
-    File(args[1]).writeText(JSONObject().put("passed",true).put("checks",15).put("translation_calls",calls).put("reading_calls",reads)
+    File(args[1]).writeText(JSONObject().put("passed",true).put("checks",19).put("translation_calls",calls).put("reading_calls",reads)
         .put("platform","Host JVM component execution, not Android render or model quality").toString(2))
 }

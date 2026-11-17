@@ -199,7 +199,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
                     }
                     return value
                 },
-                reading: { text,language in await self.readings.resolve(text:text,language:language) })
+                reading: { text,language in await self.readings.resolve(text:text,language:language) },deadline:deadline)
         } catch { return .init(valid() ? .error : .stale) }
     }
 

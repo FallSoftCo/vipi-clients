@@ -44,6 +44,7 @@ struct ManualTranslationResult: Sendable {
     let sourceLanguage: String, targetLanguage: String
     let sourceContextText:String, sourceContextStartUTF16:Int, sourceContextEndUTF16:Int
     let contextExpanded:Bool
+    let sourceReading:FullReading?
 }
 enum ManualTranslationStatus: String, Sendable { case ready, invalidInput, invalidLanguage, modelNotReady, invalidResult, stale, timeout, error }
 struct ManualTranslationOutcome: Sendable {
@@ -131,7 +132,7 @@ enum ManualTranslationResolver {
     @MainActor static func resolve(_ request: ManualTranslationRequest, valid: () -> Bool,
         reference: (String,String,String) async throws -> String?, identify: (String) async throws -> String?,
         modelsReady: (String,String) async throws -> Bool, translate: (String,String,String) async throws -> String,
-        reading: (String,String) async -> FullReading?) async throws -> ManualTranslationOutcome {
+        reading: (String,String) async -> FullReading?, deadline:ContinuousClock.Instant? = nil) async throws -> ManualTranslationOutcome {
         func stop(_ status: ManualTranslationStatus) -> ManualTranslationOutcome { .init(valid() ? status : .stale) }
         guard valid() else { return stop(.stale) }
         guard let slice = slice(request),let context=sourceContext(request) else { return stop(.invalidInput) }
@@ -172,9 +173,19 @@ enum ManualTranslationResolver {
             guard valid() else { return stop(.stale) }
             guard !translated.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty, translated.utf16.count <= 65_536,
                   TranslationIntegrity.preservesIdentifiers(original:sourceText,translation:translated) else { return stop(.invalidResult) }
+            try Task.checkCancellation()
+            if let deadline,ContinuousClock.now>=deadline {throw ManualTranslationFailure.timeout}
             let guide = await reading(translated,to)
+            try Task.checkCancellation()
+            if let deadline,ContinuousClock.now>=deadline {throw ManualTranslationFailure.timeout}
             guard valid() else { return stop(.stale) }
-            return .init(.ready,result:.init(request:request,originalSlice:slice,targetText:translated,reading:guide,sourceLanguage:from,targetLanguage:to,sourceContextText:sourceText,sourceContextStartUTF16:context.startUTF16,sourceContextEndUTF16:context.endUTF16,contextExpanded:context.startUTF16 != request.startUTF16 || context.endUTF16 != request.endUTF16))
+            let sourceGuide:FullReading?
+            if from == learning,["ar","zh","ja","ko"].contains(from) { sourceGuide = await reading(sourceText,from) }
+            else { sourceGuide = nil }
+            try Task.checkCancellation()
+            if let deadline,ContinuousClock.now>=deadline {throw ManualTranslationFailure.timeout}
+            guard valid() else { return stop(.stale) }
+            return .init(.ready,result:.init(request:request,originalSlice:slice,targetText:translated,reading:guide,sourceLanguage:from,targetLanguage:to,sourceContextText:sourceText,sourceContextStartUTF16:context.startUTF16,sourceContextEndUTF16:context.endUTF16,contextExpanded:context.startUTF16 != request.startUTF16 || context.endUTF16 != request.endUTF16,sourceReading:sourceGuide))
         } catch is CancellationError { throw CancellationError() }
         catch ManualTranslationFailure.timeout { return stop(.timeout) }
         catch { return stop(.error) }
