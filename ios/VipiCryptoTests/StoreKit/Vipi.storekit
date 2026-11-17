@@ -31,11 +31,7 @@
           "familyShareable": false,
           "groupNumber": 1,
           "internalID": "11111111-0000-4000-8000-000000000001",
-          "introductoryOffer": {
-            "internalID": "11111111-0000-4000-8000-000000000002",
-            "paymentMode": "free",
-            "subscriptionPeriod": "P1M"
-          },
+          "introductoryOffer": null,
           "localizations": [
             {
               "description": "Vipi yearly plan",

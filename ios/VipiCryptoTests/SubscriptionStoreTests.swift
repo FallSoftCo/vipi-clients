@@ -9,13 +9,14 @@ import StoreKitTest
     private final class Service: ChatTransport {
         let account = UUID()
         var ready = true, base = false, bot = false, botService = true
+        var cardlessTrial = false
         var rejectSubmission = false
         var historicalAccount: UUID?
         var responseAccount: UUID?
         var submitted = 0
         func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
             if path == "/v1/bot/allowance" {
-                return try decode(["available": base && bot && botService, "service_ready": botService, "remaining_replies": 150, "monthly_replies": 150, "resets_at": "2026-12-01T00:00:00Z", "max_context_bytes": 8192], as: type)
+                return try decode(["available": (base || cardlessTrial) && bot && botService, "service_ready": botService, "remaining_replies": 150, "monthly_replies": 150, "resets_at": "2026-12-01T00:00:00Z", "max_context_bytes": 8192], as: type)
             }
             if path == "/v1/purchases/apple" {
                 submitted += 1
@@ -37,14 +38,21 @@ import StoreKitTest
             let clock = ISO8601DateFormatter()
             let now = Date()
             let expiry = clock.string(from: now.addingTimeInterval(365 * 24 * 60 * 60))
-            return try decode(["server_time": clock.string(from: now), "base": ["active": base, "expires_at": expiry], "bot_mini": ["active": bot, "available": base && bot, "expires_at": expiry], "billing_account_id": "local-test-only", "app_account_token": (responseAccount ?? account).uuidString, "purchases_ready": ["apple": ready, "google": false]], as: type)
+            let trialEnd = clock.string(from: now.addingTimeInterval(30 * 24 * 60 * 60))
+            return try decode(["server_time": clock.string(from: now), "base": ["active": base || cardlessTrial,
+                "expires_at": cardlessTrial && !base ? trialEnd : expiry,
+                "access_source": base ? "store" : "cardless_trial",
+                "cardless_trial": ["active": cardlessTrial, "started_at": clock.string(from: now), "ends_at": trialEnd]],
+                "bot_mini": ["active": bot, "available": (base || cardlessTrial) && bot, "expires_at": expiry],
+                "billing_account_id": "local-test-only", "app_account_token": (responseAccount ?? account).uuidString,
+                "purchases_ready": ["apple": ready, "google": false]], as: type)
         }
         private func decode<T: Decodable>(_ value: [String: Any], as type: T.Type) throws -> T {
             try JSONDecoder().decode(type, from: JSONSerialization.data(withJSONObject: value))
         }
     }
-    private func environment() async throws -> SKTestSession {
-        let file = try XCTUnwrap(Bundle(for: Self.self).url(forResource: "Vipi", withExtension: "storekit"))
+    private func environment(resource: String = "Vipi") async throws -> SKTestSession {
+        let file = try XCTUnwrap(Bundle(for: Self.self).url(forResource: resource, withExtension: "storekit"))
         let session = try SKTestSession(contentsOf: file)
         // Some iOS simulator versions log configuration failure without
         // throwing from init. Require a working test-only service operation
@@ -53,13 +61,17 @@ import StoreKitTest
         session.resetToDefaultState(); session.disableDialogs = true; session.clearTransactions()
         return session
     }
-    func testSeparateAnnualTrialsAndServiceReadiness() async throws {
+    func testBaseAnnualWithoutExtraTrialAndSeparateBotMiniTrialRespectServiceReadiness() async throws {
         let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
         let api = Service(); api.ready = false
         let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
         await store.start()
         XCTAssertEqual(Set(store.products.keys), Set(VipiPlan.allCases))
-        XCTAssertEqual(store.introductoryEligible, Set(VipiPlan.allCases))
+        XCTAssertEqual(store.introductoryEligible, [.botMini])
+        XCTAssertNil(store.products[.base]?.subscription?.introductoryOffer)
+        XCTAssertEqual(store.products[.base]?.price, Decimal(12))
+        XCTAssertEqual(store.products[.botMini]?.subscription?.introductoryOffer?.period.unit, .month)
+        XCTAssertEqual(store.products[.botMini]?.subscription?.introductoryOffer?.period.value, 1)
         XCTAssertNotEqual(store.products[.base]?.subscription?.subscriptionGroupID, store.products[.botMini]?.subscription?.subscriptionGroupID)
         XCTAssertFalse(store.canPurchase(.base)); XCTAssertFalse(store.canPurchase(.botMini)); XCTAssertTrue(environment.allTransactions().isEmpty)
         api.ready = true; await store.refresh()
@@ -69,6 +81,32 @@ import StoreKitTest
         XCTAssertEqual(environment.allTransactions().count, 1)
         api.botService = false; await store.refresh(); XCTAssertFalse(store.canPurchase(.botMini))
         api.botService = true; await store.refresh(); XCTAssertTrue(store.canPurchase(.botMini))
+    }
+    func testUnexpectedBaseStoreTrialBlocksCheckoutWithoutCreatingTransaction() async throws {
+        let environment = try await environment(resource: "VipiWrongBaseTrial")
+        defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        let api = Service()
+        let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
+        await store.start()
+        XCTAssertTrue(store.purchaseReady)
+        XCTAssertTrue(store.introductoryEligible.contains(.base))
+        XCTAssertTrue(store.baseStoreTrialStillOffered)
+        XCTAssertFalse(store.canPurchase(.base))
+        await store.purchase(.base)
+        XCTAssertTrue(environment.allTransactions().isEmpty)
+        XCTAssertEqual(api.submitted, 0)
+    }
+    func testCardlessBaseTrialPreventsPaidBaseCheckoutAndLeavesBotMiniOptional() async throws {
+        let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        let api = Service(); api.cardlessTrial = true
+        let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
+        await store.start()
+        XCTAssertTrue(store.baseActive); XCTAssertFalse(store.canPurchase(.base))
+        XCTAssertTrue(store.canPurchase(.botMini)); XCTAssertFalse(store.botAvailable)
+        await store.purchase(.base)
+        XCTAssertTrue(environment.allTransactions().isEmpty); XCTAssertEqual(api.submitted, 0)
+        api.cardlessTrial = false; await store.refresh()
+        XCTAssertFalse(store.baseActive); XCTAssertTrue(store.canPurchase(.base)); XCTAssertFalse(store.canPurchase(.botMini))
     }
     func testUnconfirmedChargeStaysUnfinishedAndPreventsAnotherPurchase() async throws {
         let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }

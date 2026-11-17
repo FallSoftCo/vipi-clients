@@ -176,6 +176,8 @@ targets:
         excludes: [StoreKit]
       - path: VipiCryptoTests/StoreKit/Vipi.storekit
         buildPhase: resources
+      - path: VipiCryptoTests/StoreKit/VipiWrongBaseTrial.storekit
+        buildPhase: resources
       - path: ../qa/packs/signed-pack-fixtures
         type: folder
         buildPhase: resources
