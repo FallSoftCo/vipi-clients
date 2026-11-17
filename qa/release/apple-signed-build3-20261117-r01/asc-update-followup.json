@@ -1,0 +1,11 @@
+{
+  "observed_utc": "2026-11-17T16:44:19.629622+00:00",
+  "build_3_draft": "Saved and reloaded, row shows build 3, version 1.0",
+  "qa_group": "Builds 2 and 3 Testing; existing one tester retained",
+  "reviewer_alpha": "Rotated credential saved and reloaded equal; subsequently exposed in private screenshot, requiring coordinated final rotation; no further credential edits",
+  "testflight_install": "Original new attempt downloaded then presented Close This App to Update; Continue caused native Vipi to exit, but picker later returned Install 3/Open 2 and bundle remained build 2; no explicit error in sanitized logs; no replay",
+  "test_information": "Read-only navigation and reload returned ASC generic something went wrong; separate reviewer reference unverified",
+  "review_notes": "General cardless flow append not completed; existing reviewer notes preserved",
+  "subscription_review_attachment": "Not independently established",
+  "no_public_review_or_additional_purchase": true
+}
