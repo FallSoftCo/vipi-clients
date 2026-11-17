@@ -1,0 +1,8 @@
+{
+  "observed_utc": "2026-11-17T17:07:45.822358+00:00",
+  "scope": "One read-only refresh of existing company Apps view",
+  "result": "Apps list loaded and displayed Vipi; selecting Vipi redirected to Apple account sign-in and remained there. No Vipi draft access achieved.",
+  "no_new_signin": true,
+  "metadata_changed": false,
+  "remaining": "General customer review notes, first-review subscription attachments and separate TestFlight reviewer info; final Alpha rotation remains coordinated separately."
+}
