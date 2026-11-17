@@ -1,0 +1,35 @@
+{
+  "state": "password_updated_once",
+  "http_status": 200,
+  "exact_identity_readback_verified": true,
+  "fields": [
+    "password"
+  ],
+  "authentication_not_attempted": true,
+  "at_utc": "2026-11-17T16:15:34.142901+00:00",
+  "canonical_private_credential_updated": true,
+  "store_field_update_pending": true,
+  "google_play": {
+    "state": "saved_once_reloaded_verified",
+    "at_utc": "2026-11-17T16:24:03.991103+00:00",
+    "store": "GooglePlay",
+    "app_id": "4975664610567218322",
+    "scope": "Existing Vipi review Alpha credential password only",
+    "existing_old_value_matched_before_edit": true,
+    "new_value_equal_canonical_after_full_reload": true,
+    "existing_entries_preserved_count": 2,
+    "save_dispatches": 1,
+    "provider_password_updates": 1,
+    "no_public_review_or_release": true,
+    "native_jobs": [
+      "vipi-google-review-credential-fill-r15",
+      "vipi-google-review-credential-apply-r17",
+      "vipi-google-review-credential-save-r18",
+      "vipi-google-review-credential-readback-r20"
+    ],
+    "secrets_printed": false,
+    "clipboard_cleared": true
+  },
+  "apple_app_store": "existing field update pending owner; no repeat provider mutation",
+  "cause": "Reviewer credential appeared in a private QA screenshot; only the exact owned Alpha password was replaced."
+}
