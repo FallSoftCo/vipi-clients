@@ -1,0 +1,57 @@
+{
+  "phase": "complete",
+  "env_switched": true,
+  "fixture_committed": true,
+  "rollback": false,
+  "preflight": {
+    "schema": "20261117_01",
+    "active": 0,
+    "staging": true,
+    "allowed_count": 5,
+    "enforced": false,
+    "apple_sandbox": true,
+    "reviewers": 2,
+    "testers": 1
+  },
+  "shared_pids": {
+    "nginx.service": "2433323",
+    "postgresql@16-main.service": "2433335"
+  },
+  "push_dropin_hashes": {
+    "50-vipi-fcm-20261116.conf": "43178f193472e9bf31a0d9634bdc7dc9fdbae75bd4f71ac2c9853b05d1b83a12",
+    "51-fcm-status-logging.conf": "e00d023454ee09c49758d2fcd4a384f5dace4959e8da1a2facd45862ed3128b5",
+    "52-vipi-apns-sandbox-20261117.conf": "f65d7c71f7290426fdc7adb96315e42acbce1b01fc2cac75ffbe29cf9326ecc6"
+  },
+  "billing_inactive_immediately_before_fixture": true,
+  "check": "http_and_state",
+  "post_observed": {
+    "schema": "20261117_01",
+    "active": 0,
+    "staging": true,
+    "allowed_count": 5,
+    "enforced": false,
+    "apple_sandbox": true,
+    "reviewers": 2,
+    "testers": 2
+  },
+  "ready": 200,
+  "private_unauth": 401,
+  "public_unauth": 401,
+  "api_pid": "3480780",
+  "unit": "vipi-qa-billing-fixture-20261117-r01.service",
+  "script_sha256": "24c9a4510f13d29d1b596183d55c00a8f4b88d1ad0a86063f555ba0ba5846d4e",
+  "env_before_sha256": "7cbfe7e9196c0282ff94d0a20ec21f543a9932f8ff4b2f47eb581d2c981535b3",
+  "env_after_sha256": "4082efd72eca75e310b7cf57c873338b757796e7761a8a7c318432b97f3cba64",
+  "independent_row_check": {
+    "same_user_subject_username_display_and_status": true,
+    "created_and_trial_start_unchanged": true,
+    "trial_end_matches_approved_fixture": true,
+    "entitlement_rows": 0,
+    "device_total": 1,
+    "active_devices": 1,
+    "device_identity_before_not_recorded": true,
+    "timestamp_note": "initial literal comparison failed on trailing-zero formatting; normalized UTC datetime comparison passed"
+  },
+  "scope": "one synthetic QA tester sandbox admission and shortened trial end; not a natural 30-day expiry",
+  "limits": "No purchase, provider request, held account or other client action. Conditional rollback must refuse any later entitlement."
+}
