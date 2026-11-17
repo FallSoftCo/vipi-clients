@@ -1,0 +1,47 @@
+{
+  "at": "2026-11-17T06:22:11.597496+00:00",
+  "repository": "FallSoftCo/vipi-clients",
+  "tag": "source-preview-2026-11-17",
+  "source_revision": "a547a4db1cba696027613543e17cce1e55a119aa",
+  "preflight": "Release list has only Nov16; exact Nov17tag has zero matching refs",
+  "state": "published_once_and_verified",
+  "scope": "New reviewed public source preview; no app binary, purchase or store submission",
+  "release_id": 448234204,
+  "asset_upload_dispatch_at": "2026-11-17T06:22:38.980557+00:00",
+  "asset_upload_exit": 0,
+  "asset_upload_session": 25838,
+  "assets": [
+    {
+      "id": 757901726,
+      "name": "SHA256SUMS.txt",
+      "sha256": "165dcc49030b0448b6d2be8853aa4c8e62a640f537fccbb52b2ab44d5aa27cfd",
+      "bytes": 102
+    },
+    {
+      "id": 757901727,
+      "name": "vipi-client-source-candidate.tar.gz",
+      "sha256": "dc1045360dd1550c9e53bae4ff6809e15cc26a10fd33d6e27f8413bba9b4fef2",
+      "bytes": 591376487
+    }
+  ],
+  "publish_dispatched_at": "2026-11-17T06:26:09.415069+00:00",
+  "published_at": "2026-11-17T06:26:10Z",
+  "release_url": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17",
+  "publish_exit": 0,
+  "anonymous_public_check": {
+    "checksum_http_status": 200,
+    "checksum_sha256_verified": true,
+    "archive_sample": {
+      "status": 206,
+      "content_length": "1024",
+      "content_range": "bytes 0-1023/591376487",
+      "sample_bytes": 1024,
+      "gzip_header": true
+    },
+    "archive_full_integrity": "GitHub-computed SHA256 matches reviewed local archive; anonymous sample only, no duplicate full download"
+  },
+  "verified_at": "2026-11-17T06:27:10.885290+00:00",
+  "repository_commit": "f709b78def1dd334f8da31ad01785310bb1754f9",
+  "readme_blob": "e7329a8d496ff44467139a8b96c122eae1b37f30",
+  "readme_exact_readback": true
+}

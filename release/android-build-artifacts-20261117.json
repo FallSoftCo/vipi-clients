@@ -1,5 +1,5 @@
 {
-  "state": "signed_private_verified_not_uploaded",
+  "state": "version2_uploaded_once_to_play_library_verified_no_rollout",
   "source_revision": "195c952",
   "qualified_android_parent": "0065768",
   "package": "co.fallsoft.vipi",
@@ -20,7 +20,7 @@
   "assets_verified": 1077,
   "download_size_bytes": 416977346,
   "previous_device_estimate_bytes": 416960679,
-  "no_upload_or_release_install": true,
+  "no_upload_or_release_install": false,
   "limitations": [
     "QA exercised equivalent runtime before version bump; this exact release artifact not installed",
     "One ARM64/en/API35 size estimate is not Play measurement",
@@ -31,5 +31,36 @@
   "first_attempt": "capacity-bound stopped, incomplete intermediate retired, floor restored; successful split packaging thereafter",
   "root_merge": "28804510ebc9eff92a9f702415212f01ce866176",
   "verification_receipt": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261117-r01/verification.json",
-  "source_publication": "Nov16 preview corresponds to prior version1; updated source preview pending"
+  "source_publication": "client-source-publication-20261117.json",
+  "play_upload": {
+    "at": "2026-11-17T06:19:33.899Z",
+    "product": "co.fallsoft.vipi",
+    "version_code": 2,
+    "version_name": "1.0.1",
+    "file": "vipi-v2-release.aab",
+    "sha256": "24fb071bf4258db55abd1ab90ab2be9ef1832678307f75df462b82c62f8e67bc",
+    "bytes": 542071678,
+    "prestate": "Native inventory shows onlyversion1; version2absent",
+    "scope": "Upload new version2 to Play library only; no rollout/submission/purchase",
+    "state": "uploaded_once_and_independently_verified_in_play_library",
+    "file_submit_at": "2026-11-17T06:20:01.938Z",
+    "verified_at": "2026-11-17T06:25:27.067Z",
+    "console": {
+      "versionCode": 2,
+      "versionName": "1.0.1",
+      "libraryVersions": 2,
+      "releaseState": "Draft",
+      "releases": 0,
+      "newInstallMB": 417,
+      "updateMB": 1.54,
+      "artifactId": "4860252237026188999"
+    },
+    "evidence": [
+      "v2-upload-inventory-r10.png",
+      "v2-bundle-readback-r11.png"
+    ],
+    "reviewSubmitted": false,
+    "rolledOut": false
+  },
+  "release_install_completed": false
 }
