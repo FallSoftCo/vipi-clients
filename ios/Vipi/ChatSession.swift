@@ -210,7 +210,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         contacts[value.id] = value
         return value
     }
-    func name(_ peer: UUID) -> String { contacts[peer]?.display_name ?? importedPeers[peer]?.displayName ?? "New conversation" }
+    func name(_ peer: UUID) -> String { contacts[peer]?.display_name ?? importedPeers[peer]?.displayName ?? String(localized: "New conversation") }
     /// Display metadata is not a Signal identity assertion. One bounded pass
     /// follows a completed inbox sync; offline and deleted peers retain history.
     private func resolveUnknownNames() async throws {
