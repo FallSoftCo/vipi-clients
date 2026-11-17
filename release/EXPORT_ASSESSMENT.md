@@ -13,6 +13,20 @@ cryptographic toolkit, network-infrastructure product, forensic capability or
 government-specific customization in these clients. Post-quantum key
 encapsulation is distinct from quantum key distribution.
 
+The pinned libsignal 0.105.0 source uses `libcrux_ml_kem::kyber1024`
+from libcrux-ml-kem 0.0.10 for its Kyber-1024 KEM. The library describes
+this as [Kyber 1024, NIST PQC Round 3](https://docs.rs/libcrux-ml-kem/0.0.10/libcrux_ml_kem/),
+which is distinct from the final FIPS 203 ML-KEM-1024 variant. Do not describe
+it as an implementation of, or certified to, FIPS 203 merely because the
+crate name includes ML-KEM. The [Kyber specification](https://pq-crystals.org/kyber/)
+and [Signal PQXDH protocol](https://signal.org/docs/specifications/pqxdh/)
+are published. Publication matters: Apple and BIS describe non-standard
+cryptography in terms of proprietary or unpublished functionality that has
+not been adopted by a recognized standards body and has not otherwise been
+published; lack of final FIPS standardization alone does not establish that
+classification. See [Apple’s export overview](https://developer.apple.com/help/app-store-connect/manage-app-information/overview-of-export-compliance/)
+and [BIS guidance](https://www.bis.gov/learn-support/encryption-controls/license-exception-enc-740.17-b-3).
+
 These facts support the ordinary consumer-software self-classification route
 under [740.17(b)(1)](https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C/part-740/section-740.17).
 For mass-market treatment, retain the final retail facts: public store
