@@ -1,0 +1,160 @@
+{
+  "at_utc": "2026-11-17T17:06:45.822389+00:00",
+  "state": "activated_once_and_independently_verified",
+  "scope": "Vipi configuration only on consolidated production host",
+  "coordination": {
+    "native_blue_team_exception": "user_authorized_vipi_only_coordination_exception",
+    "user_request": "some agent needs to update prod unblock them",
+    "window_utc": {
+      "start": "2026-11-17T17:00:00Z",
+      "end": "2026-11-17T17:15:00Z"
+    },
+    "owner": "01a16e0d-ac69-7dd0-872a-8cf087160515",
+    "three_team_owners_explicitly_idle": true
+  },
+  "reviewed_script_sha256": "52cd2724deeb1d3faf44755a5d836c5f27b92d4df399d228902c2d455e98a7df",
+  "execution_script_sha256": "c2574c2e812d629d76d504e136f875fa88cb8c3f1ae9dbe6b4a0710bc199c410",
+  "execution_diff": "Only inert review sys.exit removed; all runtime assertions retained",
+  "dispatches": 1,
+  "preflight": {
+    "at_utc": "2026-11-17T17:03:04.824272+00:00",
+    "hostname": "fallsoft-production-20261106",
+    "env_old_sha256": "dec21a5fd082daeb98ef3742743cd4c8449576aff3b0f5a0bf8b6be57b48d8d1",
+    "candidate_sha256": "cee1262cae300c1c4eca3aa24424ac23ae42862fa4a88e52747faee3a1696a83",
+    "execute_sha256": "c2574c2e812d629d76d504e136f875fa88cb8c3f1ae9dbe6b4a0710bc199c410",
+    "activation_receipt_absent": true,
+    "loaded_environment_exact": true,
+    "changed_keys": [
+      "VIPI_ALLOWED_SUBJECTS",
+      "VIPI_APPLE_ENVIRONMENT",
+      "VIPI_ENFORCE_SUBSCRIPTIONS",
+      "VIPI_ENVIRONMENT"
+    ],
+    "candidate_settings_validation": true,
+    "idle_provider_work": "0|0|0|0",
+    "database": "20261117_01|0",
+    "units": {
+      "vipi-api.service": {
+        "MainPID": "3572548",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "vipi-push.service": {
+        "MainPID": "2678219",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "nginx.service": {
+        "MainPID": "2433323",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "postgresql@16-main.service": {
+        "MainPID": "2433335",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "vipi-expiry.timer": {
+        "MainPID": "",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      },
+      "vipi-billing.timer": {
+        "MainPID": "",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    "independent_admin_ssh_authenticated": true
+  },
+  "postflight": {
+    "at_utc": "2026-11-17T17:03:45.027649+00:00",
+    "phase": "independent_postflight_passed",
+    "receipt": {
+      "phase": "complete",
+      "env_switched": true,
+      "api_stop_attempted": true,
+      "switch_attempted": true,
+      "rollback": "not_attempted",
+      "snapshot_before": {
+        "users_count": 9,
+        "profile_trial_sha256": "50e272fdd24fbfb21d1d19ba0d396f7e0f33f5a0e2640aef3cc2d84c4ca7840f"
+      },
+      "candidate_start_attempted": true,
+      "api_pid": "3707010",
+      "ready": 200,
+      "unauth_me": 401,
+      "snapshot_after": {
+        "users_count": 9,
+        "profile_trial_sha256": "50e272fdd24fbfb21d1d19ba0d396f7e0f33f5a0e2640aef3cc2d84c4ca7840f"
+      }
+    },
+    "env_sha256": "cee1262cae300c1c4eca3aa24424ac23ae42862fa4a88e52747faee3a1696a83",
+    "loaded_environment_exact": true,
+    "changed_keys": [
+      "VIPI_ALLOWED_SUBJECTS",
+      "VIPI_APPLE_ENVIRONMENT",
+      "VIPI_ENFORCE_SUBSCRIPTIONS",
+      "VIPI_ENVIRONMENT"
+    ],
+    "local_ready": 200,
+    "local_unauthenticated_me": 401,
+    "schema": "20261117_01",
+    "units": {
+      "vipi-api.service": {
+        "MainPID": "3707010",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "vipi-push.service": {
+        "MainPID": "2678219",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "nginx.service": {
+        "MainPID": "2433323",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "postgresql@16-main.service": {
+        "MainPID": "2433335",
+        "ActiveState": "active",
+        "SubState": "running"
+      },
+      "vipi-expiry.timer": {
+        "MainPID": "",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      },
+      "vipi-billing.timer": {
+        "MainPID": "",
+        "ActiveState": "active",
+        "SubState": "waiting"
+      }
+    },
+    "unrelated_services_and_push_preserved": true,
+    "push_dropins_unchanged": true,
+    "private_backup_sha256_matches_old": true,
+    "private_backup_mode": "0600",
+    "rollback_attempted": false,
+    "database_restored_or_altered": false,
+    "configuration_only_activation": true
+  },
+  "public_health": {
+    "at_utc": "2026-11-17T17:04:10.124938+00:00",
+    "host": "api.mambovipi.app",
+    "statuses": {
+      "/privacy": 200,
+      "/help": 200,
+      "/v1/me": 401,
+      "/health/ready": 403
+    },
+    "public_readiness_intentionally_denied": true
+  },
+  "backup": "Private root-owned0600 original service.env retained in activation-r03;hash verified; never publish contents",
+  "rollback": "Not needed; config-only rollback is retained and preserves compatible DB writes",
+  "no_db_restore_schema_code_key_network_change": true,
+  "no_store_submission_or_customer_message_in_activation": true,
+  "ordinary_public_signup_email_verification": "Not established by this configuration activation; owned QA accounts had provider-admin setup",
+  "team_idle_released_after_health": true
+}
