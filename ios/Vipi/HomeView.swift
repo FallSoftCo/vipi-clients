@@ -212,7 +212,7 @@ struct SettingsView: View {
                 LabeledContent("Made by", value: "FallSoft.Co")
             }
             if let chat {
-                Section("Account") { NavigationLink("Delete account") { DeleteAccountView(chat: chat) }.foregroundStyle(.red) }
+                Section("Account") { NavigationLink("Delete account") { DeleteAccountView(chat: chat) }.foregroundStyle(VipiDesign.destructive) }
             }
         }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
     }

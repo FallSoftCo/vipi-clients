@@ -135,7 +135,7 @@ struct OnboardingView: View {
                 Text("I agree to the Terms of Service and have read the Privacy Policy.").font(.footnote).foregroundStyle(VipiDesign.secondary)
             }.tint(VipiDesign.highlight)
             legalLinks
-            if let signInError = authentication.errorMessage { Text(signInError).font(.subheadline).foregroundStyle(.red).accessibilityIdentifier("signInError") }
+            if let signInError = authentication.errorMessage { Text(signInError).font(.subheadline).foregroundStyle(VipiDesign.destructive).accessibilityIdentifier("signInError") }
         }
     }
 
