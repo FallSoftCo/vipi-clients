@@ -1,0 +1,12 @@
+{
+  "scope": "Original canceled owned Google license-test subscription; no repeat purchase",
+  "scheduled_expiry_utc": "2026-11-17T02:41:50.579Z",
+  "backend": "base/google/Sandbox entitlement revoked=true, superseded=false, verified_at 2026-11-17T02:42:01.728413Z",
+  "native_before_refresh": "Previously open plan screen still displayed Vipi is active after expiry",
+  "native_after_one_refresh": "Active label cleared; $12.00 per year and no free trial offered",
+  "limitations": [
+    "Live staging subscription enforcement was disabled; this does not prove message blocking.",
+    "Not cross-device backup or restore.",
+    "No resubscribe or repeat purchase."
+  ]
+}
