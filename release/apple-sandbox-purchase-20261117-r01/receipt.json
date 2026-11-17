@@ -1,0 +1,31 @@
+{
+  "scope": "one owned synthetic QA Base purchase in Apple Sandbox; read-only backend observation",
+  "observed_at_utc": "2026-11-17T13:52:15.040988Z",
+  "ui_evidence": "Apple owner reports original purchase confirmation succeeded and Base Active; no second purchase",
+  "tester_entitlements": [
+    {
+      "store": "apple",
+      "product": "base",
+      "environment": "Sandbox",
+      "expires_at_utc": "2026-11-18T13:51:25Z",
+      "verified_at_utc": "2026-11-17T13:51:33.782068Z",
+      "revoked": false,
+      "superseded": false
+    }
+  ],
+  "apple_notification_count": 2,
+  "apple_latest_notification_utc": "2026-11-17T13:51:27.516150Z",
+  "notification_correlation": "The Apple notification table had one prior historical row; latest new receipt is not yet correlated to this transaction.",
+  "account_binding": "The row belongs to the exact QA account; deployed provider code checks signed transaction appAccountToken against authenticated user before status fetch and again on returned transaction. Raw JWS/token was not independently decoded in this observation.",
+  "service": {
+    "readiness_http": 200,
+    "api_active": true,
+    "push_active": true,
+    "env_sha256": "4082efd72eca75e310b7cf57c873338b757796e7761a8a7c318432b97f3cba64"
+  },
+  "limits": [
+    "No renewal, restore, cancellation, refund or revocation qualification.",
+    "Transaction identifiers and original signed payload excluded.",
+    "No purchase retry, provider TEST request or mutation during this verification."
+  ]
+}
