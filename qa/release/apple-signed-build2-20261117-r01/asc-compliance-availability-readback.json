@@ -1,0 +1,42 @@
+{
+  "observed_at_utc": "2026-11-17T12:39:52.607153+00:00",
+  "app_id": "6832624092",
+  "build_id": "9367242c-b819-4bc7-9ade-6e192a12c43e",
+  "read_only_inspection": {
+    "encryption_form": {
+      "first_question": "What type of encryption algorithms does your app implement?",
+      "choices": [
+        "Proprietary or not accepted as standard by international standard bodies",
+        "Standard algorithms instead of or in addition to Apple operating system encryption",
+        "Both",
+        "None"
+      ],
+      "inspected_branch": "Standard algorithms, France yes, without saving",
+      "france_result": "Upload export compliance documentation in App Encryption Documentation; Apple provides an Xcode key after approval."
+    },
+    "availability": {
+      "current": "Set Up Availability displayed; app availability not yet configured",
+      "setup_choices": [
+        "All 175 countries or regions",
+        "Specific countries or regions",
+        "Pre-order"
+      ],
+      "no_selection_saved": true
+    },
+    "version_draft": {
+      "build": "Add Build displayed; no build associated",
+      "review_sign_in_required": true,
+      "review_username_and_password_populated": true,
+      "review_contact_first_last_phone_email_populated": true,
+      "notes_populated": true,
+      "manual_release_selected": true,
+      "china_banners": [
+        "Security Assessment proof and report required for mainland China distribution",
+        "AIGC services declaration and filing information required for mainland China distribution"
+      ],
+      "qualification": "Populated fields were not checked for correctness or account validity."
+    }
+  },
+  "no_changes_saved": true,
+  "no_distribution_or_review_submission": true
+}
