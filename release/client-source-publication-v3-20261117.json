@@ -1,0 +1,44 @@
+{
+  "state": "published_once_and_verified",
+  "repository": "FallSoftCo/vipi-clients",
+  "tag": "source-preview-2026-11-17-v3",
+  "release_id": 448369261,
+  "release_url": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3",
+  "published_at": "2026-11-17T09:01:58Z",
+  "prerelease": true,
+  "scope": "client source preview; not an app or store release",
+  "source_revision": "87d53cd7c001b99383d18a25f7fafe40316c6c63",
+  "members_verified_in_candidate_review": 5905,
+  "manifest_sha256": "748f04854d0f03264203ff6816457fde9c14f6de808a36bf1cae9cdbde81d17e",
+  "incremental_review": "5892 unchanged from reviewed prior; 6 added and 7 changed; no removals; redacted delta secret scan zero findings",
+  "assets": [
+    {
+      "id": 758337823,
+      "name": "vipi-client-source-candidate.tar.gz",
+      "size": 591637830,
+      "github_sha256": "3d3884ea4cc4632fa5f137deba816b386edccf5a6d00edde77b93ca2bcae304c"
+    },
+    {
+      "id": 758337827,
+      "name": "SHA256SUMS.txt",
+      "size": 102,
+      "github_sha256": "c88dcc33fff0fe6fbc8b1fc5e9fc1a72259fcb3e26679d1ef90ff6ecbbd682ee"
+    }
+  ],
+  "anonymous_check": {
+    "checksum_http": 200,
+    "checksum_file_sha256": "c88dcc33fff0fe6fbc8b1fc5e9fc1a72259fcb3e26679d1ef90ff6ecbbd682ee",
+    "archive_range_status": 206,
+    "archive_range": "bytes 0-1023/591637830",
+    "gzip_header": true,
+    "full_archive_basis": "GitHub asset digest matches independently hashed local reviewed archive; anonymous range is not a full second download"
+  },
+  "prior_releases_preserved": [
+    "source-preview-2026-11-16",
+    "source-preview-2026-11-17"
+  ],
+  "limitations": [
+    "No claim of complete combined-binary dependency license clearance, exhaustive security certification, or app store publication.",
+    "Apple client source does not itself establish signed device release qualification."
+  ]
+}
