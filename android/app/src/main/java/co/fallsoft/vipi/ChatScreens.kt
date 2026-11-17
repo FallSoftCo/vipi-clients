@@ -49,7 +49,7 @@ import java.util.UUID
     var name by rememberSaveable { mutableStateOf("") }
     var username by rememberSaveable { mutableStateOf("") }
     val scope = rememberCoroutineScope()
-    Text(stringResource(R.string.ui_73bee38b06e8), fontFamily = FontFamily.Serif, fontSize = 34.sp, lineHeight = 40.sp)
+    Text(stringResource(R.string.ui_73bee38b06e8), fontSize = 34.sp, lineHeight = 40.sp)
     Text(stringResource(R.string.ui_956d8b926f8d), color = MaterialTheme.colorScheme.onSurfaceVariant)
     OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.ui_2c6b2e253c01)) }, singleLine = true,
         modifier = Modifier.fillMaxWidth().testTag("profile-name"), shape = RoundedCornerShape(16.dp))
@@ -217,9 +217,9 @@ import java.util.UUID
         bottomBar = {
             Column(Modifier.background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
                 if (speech.state != SpeechState.UNAVAILABLE) speech.error?.let {
-                    Text(it, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp))
+                    Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp))
                 }
-                (error ?: chat.notice)?.let { Text(it, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp)) }
+                (error ?: chat.notice)?.let { Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp)) }
                 if (chat.needsPlan && onPlan != null) TextButton(onClick = onPlan, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_b30a48ba0b99)) }
                 if (chat.needsDeviceRecovery) TextButton(onClick = back, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_fa3d530cf72d)) }
                 if (peer in chat.peersNeedingRecovery) TextButton(onClick = { showSecurityNumber = true }, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_38d5b00c27da)) }
@@ -284,7 +284,7 @@ import java.util.UUID
                                 onReport = if (!item.outgoing && item.state != "imported") ({
                                     speech.stop(); reportedMessage = item; reportReason = chat.reportReason(item) ?: ""
                                 }) else null) {
-                            Text(time + if (item.outgoing) " · " + deliveryLabel(item.state) else "", fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            Text(time + if (item.outgoing) " · " + deliveryLabel(item.state) else "", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 modifier = Modifier.testTag("message-meta-${item.id}"))
                             }
                         }

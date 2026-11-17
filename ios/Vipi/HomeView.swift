@@ -27,7 +27,7 @@ struct HomeView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 28) {
                         HStack {
-                            Text("Chats").font(.system(.largeTitle, design: .serif).weight(.medium))
+                            Text("Chats").font(.largeTitle.weight(.bold))
                             Spacer()
                             Button { showingInvite = true } label: { Image(systemName: "square.and.pencil").font(.title3).frame(width: 44, height: 44) }.accessibilityLabel("New chat")
                         }
@@ -42,7 +42,7 @@ struct HomeView: View {
                                             .frame(width: 48, height: 48).background(VipiDesign.outgoing, in: Circle())
                                         VStack(alignment: .leading, spacing: 5) {
                                             Text(chat.name(thread.peer)).fontWeight(thread.unread > 0 ? .semibold : .medium).foregroundStyle(.primary)
-                                            Text(thread.latest.text).lineLimit(1).font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                                            Text(thread.latest.text).lineLimit(1).font(.body).foregroundStyle(VipiDesign.secondary)
                                         }
                                         Spacer(minLength: 4)
                                         if thread.unread > 0 { Text("\(thread.unread)").font(.caption.weight(.semibold)).padding(7).background(VipiDesign.outgoing, in: Circle()) }
@@ -51,7 +51,7 @@ struct HomeView: View {
                             }
                         } else { VStack(alignment: .leading, spacing: 16) {
                             VipiMark(size: 54)
-                            Text("Start a chat\nwith a friend.").font(.system(.title, design: .serif)).fixedSize(horizontal: false, vertical: true)
+                            Text("Start a chat\nwith a friend.").font(.title.weight(.bold)).fixedSize(horizontal: false, vertical: true)
                             Text("Find a friend by username and send a message. Supported words and phrases will switch into \(VipiLanguage.named(state.targetLanguage).localizedName) as you read.")
                                 .foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                             PrimaryButton(title: "Start a conversation") { showingInvite = true }

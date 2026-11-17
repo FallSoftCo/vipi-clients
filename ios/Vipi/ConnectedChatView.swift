@@ -132,7 +132,7 @@ struct FriendConversationView: View {
     @Environment(\.dynamicTypeSize) private var typeSize
     @State private var immersion: ConversationImmersion
     @State private var speech = SpeechPlayback()
-    @ScaledMetric(relativeTo: .body) private var metadataSize = 12
+    @ScaledMetric(relativeTo: .body) private var metadataSize = 14
     let chat: ChatSession
     let peer: UUID
     @State private var messages: [ChatItem] = []

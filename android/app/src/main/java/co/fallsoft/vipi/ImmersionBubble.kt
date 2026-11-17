@@ -171,7 +171,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
             })
         } else {
             androidx.compose.foundation.text.selection.SelectionContainer {
-                Text(if (effectiveMode == ReadingMode.ORIGINAL) result.original else if (script) requireNotNull(completeTranslation) else (fullReading ?: requireNotNull(completeTranslation)), fontSize = 17.sp, lineHeight = 27.sp)
+                Text(if (effectiveMode == ReadingMode.ORIGINAL) result.original else if (script) requireNotNull(completeTranslation) else (fullReading ?: requireNotNull(completeTranslation)), fontSize = 18.sp, lineHeight = 28.sp)
             }
         }
         if (choosingWord) AlertDialog(onDismissRequest = { choosingWord = false },
@@ -257,7 +257,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
             if (!embedded && speech != null) TextButton(onClick = { listen() }, enabled = speech.state !in setOf(SpeechState.PREPARING, SpeechState.UNAVAILABLE), colors = ButtonDefaults.textButtonColors(disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant)) {
                 if (speech.state == SpeechState.PREPARING || (active && speech.state == SpeechState.RENDERING)) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
                 else Icon(if (active) Icons.Outlined.Stop else Icons.Outlined.VolumeUp, null, Modifier.size(18.dp))
-                Spacer(Modifier.width(7.dp)); Text(if (active) stringResource(R.string.ui_cae7d57bc067) else if (speech.state == SpeechState.PREPARING) stringResource(R.string.ui_58fd7deb0abe) else stringResource(R.string.ui_225d29f6201e), fontSize = 13.sp)
+                Spacer(Modifier.width(7.dp)); Text(if (active) stringResource(R.string.ui_cae7d57bc067) else if (speech.state == SpeechState.PREPARING) stringResource(R.string.ui_58fd7deb0abe) else stringResource(R.string.ui_225d29f6201e), fontSize = 16.sp)
             }
         }
     }

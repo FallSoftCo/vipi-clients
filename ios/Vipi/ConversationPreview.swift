@@ -31,15 +31,11 @@ struct ConversationPreview: View {
     var body: some View {
         if let result = ConversationExamples.result(source: source, target: target) {
             VStack(alignment: .leading, spacing: 10) {
-                Text("EXAMPLE MESSAGE").font(.caption2.weight(.semibold)).tracking(1.2).foregroundStyle(VipiDesign.secondary)
+                Text("A glimpse of your chats").font(.body.weight(.semibold))
                 ImmersionBubble(result: .complete(result), mode: mode, speech: speech, sourceLanguage: source, targetLanguage: target,
                     messageID: "language-preview-\(source)-\(target)", interactionPaused: scrolling, fullReading: ConversationExamples.examples?.languages[target]?.reading)
-                Text("Highlighted words switch between your two languages. This is a prepared example; available words in your chats vary by language. You can also view a prepared full translation.").font(.footnote).foregroundStyle(VipiDesign.secondary)
-                Button(mode == .translation ? "Resume word switching" : "Show full translation in \(VipiLanguage.named(target).localizedName)") {
-                    mode = mode == .translation ? .immersed : .translation
-                }.font(.footnote.weight(.semibold)).frame(minHeight: 44)
                 if let error = speech.error { Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary) }
-            }.padding(16).background(VipiDesign.outgoing.opacity(0.48), in: RoundedRectangle(cornerRadius: 28))
+            }
                 .task { speech.prepare(source: source, target: target, warmups: [source: result.original, target: result.translation]) }
                 .onDisappear { speech.close() }
                 .onChange(of: scenePhase) { _, phase in if phase != .active { speech.stop() } }

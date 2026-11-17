@@ -112,7 +112,12 @@ class MainActivity : ComponentActivity() {
         outline = Color(0xFF737E73), outlineVariant = Color(0xFFC3CCBF), inversePrimary = Color(0xFFB0D9A3),
         inverseSurface = Color(0xFF2B322B), inverseOnSurface = Color(0xFFF0F0E7)
     )
-    MaterialTheme(colorScheme = colors, content = content)
+    MaterialTheme(colorScheme = colors, typography = Typography(
+        bodyLarge = androidx.compose.ui.text.TextStyle(fontSize = 18.sp, lineHeight = 27.sp),
+        bodyMedium = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, lineHeight = 24.sp),
+        bodySmall = androidx.compose.ui.text.TextStyle(fontSize = 14.sp, lineHeight = 20.sp),
+        labelLarge = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.SemiBold)
+    ), content = content)
 }
 
 @Composable private fun VipiApp(model: VipiModel) {
@@ -168,7 +173,7 @@ class MainActivity : ComponentActivity() {
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding).widthIn(max = 680.dp).padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(28.dp)) {
+        Column(Modifier.fillMaxSize().padding(padding).widthIn(max = 680.dp).padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(24.dp)) {
             TopBar(model)
             when (model.screen) {
                 Screen.WELCOME -> Welcome(scrollState.isScrollInProgress)
@@ -213,11 +218,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable private fun Heading(eyebrow: String, title: String, detail: String) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        if (androidx.compose.ui.platform.LocalDensity.current.fontScale < 1.5f) {
-            Text(eyebrow.uppercase(), color = MaterialTheme.colorScheme.primary, fontSize = 11.sp, letterSpacing = 1.6.sp, fontWeight = FontWeight.SemiBold)
-        }
-        Text(title, fontSize = 36.sp, lineHeight = 41.sp, fontFamily = FontFamily.Serif, fontWeight = FontWeight.Medium)
-        Text(detail, fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(title, fontSize = 34.sp, lineHeight = 39.sp, fontWeight = FontWeight.Bold)
+        Text(detail, fontSize = 18.sp, lineHeight = 27.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 
@@ -226,7 +228,7 @@ class MainActivity : ComponentActivity() {
         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary, contentColor = MaterialTheme.colorScheme.onPrimary),
         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 17.dp), modifier = Modifier.fillMaxWidth()) {
         if (busy) CircularProgressIndicator(Modifier.size(20.dp), color = MaterialTheme.colorScheme.onPrimary, strokeWidth = 2.dp)
-        else { Text(title, fontSize = 16.sp, fontWeight = FontWeight.SemiBold); Spacer(Modifier.width(10.dp)); Icon(Icons.AutoMirrored.Outlined.ArrowForward, null, Modifier.size(18.dp)) }
+        else { Text(title, fontSize = 17.sp, fontWeight = FontWeight.SemiBold); Spacer(Modifier.width(10.dp)); Icon(Icons.AutoMirrored.Outlined.ArrowForward, null, Modifier.size(18.dp)) }
     }
 }
 
@@ -243,20 +245,16 @@ class MainActivity : ComponentActivity() {
         owner.lifecycle.addObserver(observer)
         onDispose { owner.lifecycle.removeObserver(observer); speech.close() }
     }
-    Heading(stringResource(R.string.ui_89dbe6aad0c8), stringResource(R.string.ui_54c1159d80bf), stringResource(R.string.ui_b42323dd1fd2))
-    Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = .48f), RoundedCornerShape(28.dp)).padding(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        Text(stringResource(R.string.ui_9989062e50f8), fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.SemiBold)
+    Heading("", stringResource(R.string.welcome_title_concise), stringResource(R.string.welcome_detail_concise))
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+        Text(stringResource(R.string.preview_spanish_title), fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
         ImmersionBubble(immersionPreview, mode, speech = speech, interactionPaused = scrolling)
         SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
-        Text(stringResource(R.string.ui_822ebe66fdd6), fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(stringResource(R.string.preview_tap_word), fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         TextButton(onClick = { mode = if (mode == ReadingMode.ORIGINAL) ReadingMode.IMMERSED else ReadingMode.ORIGINAL }, contentPadding = PaddingValues(0.dp)) {
             Icon(Icons.Outlined.Sync, null, Modifier.size(17.dp)); Spacer(Modifier.width(8.dp))
-            Text(if (mode == ReadingMode.ORIGINAL) stringResource(R.string.ui_1e22fb013bb0) else stringResource(R.string.ui_e7e76272a570), fontSize = 13.sp)
+            Text(if (mode == ReadingMode.ORIGINAL) stringResource(R.string.ui_1e22fb013bb0) else stringResource(R.string.ui_e7e76272a570), fontSize = 16.sp)
         }
-    }
-    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        Icon(Icons.Outlined.Spa, null, tint = MaterialTheme.colorScheme.primary)
-        Text(stringResource(R.string.ui_7f5e3877efec), color = MaterialTheme.colorScheme.onSurfaceVariant, fontSize = 14.sp, lineHeight = 21.sp)
     }
 }
 
@@ -266,7 +264,7 @@ class MainActivity : ComponentActivity() {
     val uiLocale = androidx.compose.ui.platform.LocalConfiguration.current.locales[0]
     fun displayLanguage(code: String): String = java.util.Locale.forLanguageTag(code)
         .getDisplayLanguage(uiLocale).replaceFirstChar { it.titlecase(uiLocale) }
-    Heading(stringResource(R.string.language_settings), stringResource(R.string.languages_heading), stringResource(R.string.languages_description))
+    Heading("", stringResource(R.string.languages_title_concise), stringResource(R.string.languages_detail_concise))
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text(stringResource(R.string.already_speak), color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
         Box {
@@ -278,6 +276,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
     Text(stringResource(R.string.want_learn), color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
     Box {
         Row(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp)).clickable { targetMenu = true }.padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -287,15 +286,20 @@ class MainActivity : ComponentActivity() {
             initialLanguages.filter { it.code != model.knownLanguage }.forEach { language -> DropdownMenuItem(text = { Text("${displayLanguage(language.code)} · ${language.localName}") }, onClick = { model.selectTarget(language.code); targetMenu = false }) }
         }
     }
+    }
     key(model.knownLanguage, model.targetLanguage) { ConversationPreview(model.knownLanguage, model.targetLanguage, scrolling) }
-    Text(stringResource(R.string.ui_5aa854326157), fontSize = 13.sp, lineHeight = 19.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    Text(stringResource(R.string.languages_change_later), fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
 
 @Composable private fun AccountView() {
-    Heading(stringResource(R.string.your_account), stringResource(R.string.account_heading), stringResource(R.string.account_description))
-    Text(stringResource(R.string.cardless_intro_new), color = MaterialTheme.colorScheme.onSurfaceVariant)
-    Column(Modifier.background(MaterialTheme.colorScheme.surface, RoundedCornerShape(22.dp)).padding(22.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
-        Text(stringResource(R.string.ui_3b3139fd3460)); Text(stringResource(R.string.ui_4757eee1005a)); Text(stringResource(R.string.ui_12feaf099b55))
+    Heading("", stringResource(R.string.account_title_concise), stringResource(R.string.account_detail_concise))
+    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            Icon(Icons.Outlined.Lock, null, tint = MaterialTheme.colorScheme.primary)
+            Text(stringResource(R.string.account_private_title), fontWeight = FontWeight.SemiBold)
+        }
+        Text(stringResource(R.string.account_private_detail), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(stringResource(R.string.account_trial_concise), fontWeight = FontWeight.Medium)
     }
 }
 
@@ -305,10 +309,10 @@ class MainActivity : ComponentActivity() {
     val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f
     Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background).then(if (inScroll) Modifier else Modifier.navigationBarsPadding()).padding(horizontal = if (inScroll) 0.dp else 26.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         if (model.screen == Screen.ACCOUNT) {
-            Row(verticalAlignment = Alignment.CenterVertically) { Checkbox(checked = accepted, onCheckedChange = { accepted = it }); Text(stringResource(R.string.ui_9ed65d7add5f), fontSize = 12.sp, lineHeight = 18.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+            Row(verticalAlignment = Alignment.CenterVertically) { Checkbox(checked = accepted, onCheckedChange = { accepted = it }); Text(stringResource(R.string.ui_9ed65d7add5f), fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
             val legalLinks: @Composable () -> Unit = {
-                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/terms"))) }) { Text(stringResource(R.string.terms_service), fontSize = 12.sp) }
-                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/privacy"))) }) { Text(stringResource(R.string.privacy_policy), fontSize = 12.sp) }
+                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/terms"))) }) { Text(stringResource(R.string.terms_service), fontSize = 15.sp) }
+                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/privacy"))) }) { Text(stringResource(R.string.privacy_policy), fontSize = 15.sp) }
             }
             if (largeText) Column(verticalArrangement = Arrangement.spacedBy(4.dp)) { legalLinks() }
             else Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) { legalLinks() }
@@ -317,7 +321,6 @@ class MainActivity : ComponentActivity() {
         PrimaryButton(when (model.screen) { Screen.WELCOME -> stringResource(R.string.choose_languages); Screen.LANGUAGE -> stringResource(R.string.continue_action); else -> stringResource(R.string.continue_signin) }, enabled = model.screen != Screen.ACCOUNT || accepted, busy = model.authentication.busy) {
             when (model.screen) { Screen.WELCOME -> model.navigate(Screen.LANGUAGE); Screen.LANGUAGE -> model.navigate(Screen.ACCOUNT); else -> model.authentication.signIn(context) }
         }
-        if (model.screen == Screen.WELCOME && !largeText) Text(stringResource(R.string.no_account_preview), fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.align(Alignment.CenterHorizontally))
     }
 }
 
@@ -328,14 +331,14 @@ class MainActivity : ComponentActivity() {
     if (chat?.needsReauthentication == true && !chat.needsDeviceRecovery) ReauthenticationCard(chat, model.authentication.busy, model.authentication.error) { expected -> model.authentication.signIn(context, expectedUser = expected) }
     if (chat?.needsDeviceRecovery == true) DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) }
     if (model.authentication.userID != null && chat?.needsDeviceRecovery != true && chat?.needsReauthentication != true && (chat?.ready != true || model.chatError != null)) {
-        Text(stringResource(R.string.ui_b68710eee013), fontFamily = FontFamily.Serif, fontSize = 30.sp)
+        Text(stringResource(R.string.ui_b68710eee013), fontSize = 30.sp)
         Text(model.chatError ?: chat?.notice ?: stringResource(R.string.conversations_local), color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (chat?.busy == true) CircularProgressIndicator()
         else PrimaryButton(stringResource(R.string.ui_d8b8392e2c54)) { scope.launch { model.activateChats() } }
         return
     }
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(stringResource(R.string.nav_chats), fontFamily = FontFamily.Serif, fontSize = 34.sp, modifier = Modifier.weight(1f))
+        Text(stringResource(R.string.nav_chats), fontSize = 34.sp, modifier = Modifier.weight(1f))
         IconButton(onClick = { model.navigate(Screen.NEW_CHAT) }, enabled = chat?.ready == true) { Icon(Icons.Outlined.Edit, stringResource(R.string.nav_new_chat)) }
     }
     if (chat != null && chat.threads.isNotEmpty()) {
@@ -344,14 +347,14 @@ class MainActivity : ComponentActivity() {
                 Box(Modifier.size(48.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(24.dp)), contentAlignment = Alignment.Center) { Text(chat.name(thread.peer).take(1), fontSize = 24.sp) }
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                     Text(chat.name(thread.peer), fontWeight = if (thread.unread > 0) FontWeight.SemiBold else FontWeight.Medium)
-                    Text(thread.latest.text, maxLines = 1, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(thread.latest.text, maxLines = 1, fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
                 if (thread.unread > 0) Badge { Text(thread.unread.toString()) }
             }
         }
     } else Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(28.dp)).padding(26.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         VipiMark(54)
-        Text(stringResource(R.string.ui_47b7a66139f1), fontFamily = FontFamily.Serif, fontSize = 28.sp, lineHeight = 35.sp)
+        Text(stringResource(R.string.ui_47b7a66139f1), fontSize = 28.sp, lineHeight = 35.sp)
         Text(stringResource(R.string.chat_empty_target, languageName(model.targetLanguage)), lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         PrimaryButton(stringResource(R.string.ui_258150cb3ee4), enabled = chat?.ready == true) { model.navigate(Screen.NEW_CHAT) }
     }
@@ -359,7 +362,7 @@ class MainActivity : ComponentActivity() {
     if (chat?.ready == true && chat.threads.isNotEmpty()) NotificationSetup()
     Row(Modifier.fillMaxWidth().clickable { model.openBot() }.padding(vertical = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
         Icon(Icons.Outlined.AutoAwesome, null, Modifier.size(50.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(18.dp)).padding(13.dp), tint = MaterialTheme.colorScheme.primary)
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) { Text(stringResource(R.string.ui_f173182378d0), fontWeight = FontWeight.SemiBold); Text(stringResource(R.string.ui_af0bd5582e73), fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) { Text(stringResource(R.string.ui_f173182378d0), fontWeight = FontWeight.SemiBold); Text(stringResource(R.string.ui_af0bd5582e73), fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         Icon(Icons.Outlined.ChevronRight, null)
     }
 }
@@ -396,7 +399,7 @@ class MainActivity : ComponentActivity() {
     val context = LocalContext.current
     val uri = androidx.compose.ui.platform.LocalUriHandler.current
     var linkError by remember { mutableStateOf<String?>(null) }
-    Text(stringResource(R.string.settings_title), fontFamily = FontFamily.Serif, fontSize = 34.sp)
+    Text(stringResource(R.string.settings_title), fontSize = 34.sp)
     InviteFriendButton(model)
     Text(stringResource(R.string.ui_339484dc1f78), fontWeight = FontWeight.SemiBold)
     TextButton(onClick = { model.navigate(Screen.PLANS) }) { Text(stringResource(R.string.nav_plan)) }

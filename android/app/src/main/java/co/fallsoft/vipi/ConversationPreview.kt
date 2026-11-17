@@ -40,13 +40,9 @@ internal object ConversationExamples {
     val speech = remember(source, target) { SpeechPlayback(context, source, target, scope) }
     LaunchedEffect(speech) { speech.prepare(mapOf(source to result.original, target to result.translation)) }
     DisposableEffect(speech) { onDispose { speech.close() } }
-    Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = .48f), RoundedCornerShape(28.dp)).padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text(stringResource(R.string.ui_df0b482c49b2), fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Text(stringResource(R.string.preview_message_title), fontSize = 18.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold)
         ImmersionBubble(result, mode, speech, source, target, "language-preview-$source-$target", scrolling, fullReading = fullReading)
-        Text(stringResource(R.string.ui_821bff5750c3), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        TextButton(onClick = { mode = if (mode == ReadingMode.TRANSLATION) ReadingMode.IMMERSED else ReadingMode.TRANSLATION }) {
-            Text(if (mode == ReadingMode.TRANSLATION) stringResource(R.string.ui_cc245f2e3a71) else stringResource(R.string.show_full_translation_language, languageName(target)), fontSize = 13.sp)
-        }
         SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(mapOf(source to result.original, target to result.translation)) }
     }
 }
@@ -55,10 +51,10 @@ internal object ConversationExamples {
 @Composable internal fun SpeechPreparationHelp(state: SpeechState, error: String?, openSettings: (() -> Boolean)? = null, retry: () -> Unit) {
     val context = LocalContext.current
     var settingsError by remember { mutableStateOf(false) }
-    error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+    error?.let { Text(it, fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     if (state == SpeechState.UNAVAILABLE) {
-        if (error == null) Text(stringResource(R.string.ui_6a8b22232bef), fontSize = 13.sp)
-        if (settingsError) Text(stringResource(R.string.ui_dad92e0774f7), fontSize = 13.sp)
+        if (error == null) Text(stringResource(R.string.ui_6a8b22232bef), fontSize = 16.sp)
+        if (settingsError) Text(stringResource(R.string.ui_dad92e0774f7), fontSize = 16.sp)
         Row {
             TextButton(onClick = {
                 settingsError = !(openSettings?.invoke() ?: runCatching { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }.isSuccess)

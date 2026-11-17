@@ -61,7 +61,7 @@ struct PrimaryButton: View {
             }.frame(maxWidth: .infinity).padding(.vertical, 17)
         }
         .buttonStyle(.plain).foregroundStyle(VipiDesign.onHighlight)
-        .background(VipiDesign.highlight, in: RoundedRectangle(cornerRadius: 18))
+        .background(VipiDesign.highlight, in: RoundedRectangle(cornerRadius: 16))
         .disabled(busy)
     }
 }
@@ -73,11 +73,8 @@ struct IntroHeading: View {
     let title: LocalizedStringKey
     let detail: LocalizedStringKey
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            if !dynamicTypeSize.isAccessibilitySize {
-                Text(eyebrow).textCase(.uppercase).font(.caption.weight(.semibold)).tracking(locale.language.languageCode?.identifier == "ar" ? 0 : 2.1).foregroundStyle(VipiDesign.highlight)
-            }
-            Text(title).font(.system(.largeTitle, design: .serif).weight(.medium)).lineSpacing(1).fixedSize(horizontal: false, vertical: true)
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title).font(.largeTitle.weight(.bold)).lineSpacing(1).fixedSize(horizontal: false, vertical: true)
             Text(detail).font(.body).foregroundStyle(VipiDesign.secondary).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
         }.frame(maxWidth: .infinity, alignment: .leading)
     }

@@ -151,7 +151,7 @@ struct ImmersionBubble: View {
                             if speech.state == .preparing || (active && speech.state == .rendering) { ProgressView().controlSize(.small) }
                             else { Image(systemName: active ? "stop.fill" : "speaker.wave.2") }
                             Text(LocalizedStringKey(active ? "Stop" : speech.state == .preparing ? "Preparing voices" : "Listen"))
-                        }.font(.footnote.weight(.medium)).frame(minWidth: 44, minHeight: 44)
+                        }.font(.subheadline.weight(.medium)).frame(minWidth: 44, minHeight: 44)
                             .frame(maxWidth: stackedControls ? .infinity : nil, alignment: .leading)
                     }.disabled(speech.state == .preparing || speech.state == .unavailable)
                         .accessibilityIdentifier("messageListen")

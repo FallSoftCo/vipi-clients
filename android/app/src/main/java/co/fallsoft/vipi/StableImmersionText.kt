@@ -52,7 +52,7 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     private var pendingSelection = false
     private var nativeSelectionMode: ActionMode? = null
     init {
-        setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 17f)
+        setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 18f)
         setPadding(0, 0, 0, 0); includeFontPadding = false
         setLineSpacing(5 * resources.displayMetrics.density, 1f)
         setTextIsSelectable(true)
