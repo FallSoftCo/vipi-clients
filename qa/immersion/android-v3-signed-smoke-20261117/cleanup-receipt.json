@@ -1,0 +1,9 @@
+{
+  "path": "/home/ai/.android/avd/vipi_v3_smoke_20261117.avd",
+  "reason": "stopped snapshotless accountless task-owned synthetic AVD, smoke receipt retained",
+  "free_before": 6901035008,
+  "free_after": 8385081344,
+  "avd_path_absent": true,
+  "completed_utc": "2026-11-17T08:09:20.888054+00:00",
+  "reclaimed_allocated_bytes": 1484046336
+}

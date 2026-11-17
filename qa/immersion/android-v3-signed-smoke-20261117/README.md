@@ -1,0 +1,1 @@
+Exact upload-signed v3 APK ran on a fresh offline, accountless API 34 x86_64 emulator. Screenshot and detailed local evidence are retained under investigations/vipi-submit-20261110-r01/android-v3-signed-smoke-r01. Prepared examples and controls were observed; no production message, messaging cryptography, audible speech, physical device or store distribution was exercised.

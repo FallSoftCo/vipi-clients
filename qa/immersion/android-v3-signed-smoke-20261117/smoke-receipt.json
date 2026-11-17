@@ -1,0 +1,55 @@
+{
+  "time_utc": "2026-11-17T08:08:40.895880+00:00",
+  "apk_sha256": "6f350e1326ed4c9acf635446142e8637ac5606e05159d291e5a2fdfd5d39bd0a",
+  "package": "co.fallsoft.vipi",
+  "version_code": 3,
+  "version_name": "1.0.2",
+  "device": "task-owned fresh emulator-5624 API34 x86_64",
+  "installed_file_hash_matches": true,
+  "offline": "airplane mode enabled before app install; active default network none at verification",
+  "accounts": 0,
+  "network_account_send_purchase": "none",
+  "observations": [
+    "welcome and account gate; no sign-in",
+    "Japanese prepared example Latin koohii/ashita/kawa and original script コーヒー/明日/川",
+    "Swahili prepared example Kahawa/kesho/mto",
+    "reading menu, switching speed dialog, dark theme"
+  ],
+  "crash_buffer_bytes": 0,
+  "screens": {
+    "welcome.png": {
+      "sha256": "980cdbd003c43d51537f0b21455cd9fccfc60f207ec5f42def7d6e0f8581d5c8",
+      "bytes": 190101
+    },
+    "ja-latin-1.png": {
+      "sha256": "81aa524e40b7b06fd190aab17d63c920a0002a3662b99ae0a15fe4c9c921cc6b",
+      "bytes": 135526
+    },
+    "ja-script.png": {
+      "sha256": "ba799cf06a26450a29c896b73c83bc034b28ef100eb1e14df70ac6c2191267dc",
+      "bytes": 131022
+    },
+    "sw-preview.png": {
+      "sha256": "69d970a4ecc16a13cb314492348116fcd09fdb107cfa20e528fca31a837eeab6",
+      "bytes": 141606
+    },
+    "speed.png": {
+      "sha256": "9350220f740e566df10d2a5e019ad7bb5bd77ac62fd39d963f117aab961936a0",
+      "bytes": 108931
+    },
+    "dark-preview-scrolled.png": {
+      "sha256": "2b82c8e0d2f39e6d50831dfd1bfdda613121caa6d79dd860c4af05079c69e6bd",
+      "bytes": 137618
+    },
+    "account-gate-dark.png": {
+      "sha256": "157fce0f5641b2b9dbc7aed51d9a58ce0f1ab515db7f7432666f991a95b76c14",
+      "bytes": 174315
+    }
+  },
+  "limitations": [
+    "prepared preview, not live message translation",
+    "no actual audio output or playback claim: -no-audio emulator",
+    "no signed production crypto instrumentation or original message replay",
+    "only API34 x86_64 emulator; no 16 KiB physical runtime"
+  ]
+}
