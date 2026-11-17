@@ -5,8 +5,9 @@ name on both stores and **Immersive chat with friends.** as the opening headline
 app `6832624092` belongs to the company account, bundle `co.fallsoft.vipi`.
 The corrected company-signed 1.0(1) IPA was delivered once through Transporter
 and has finished processing. No app-review submission has occurred. Both
-Google's 14 reviewed localized listings are saved; Apple localization is being
-reconciled separately. The original Apple binary does not include the latest fixes.
+Google's 14 and Apple's 13 supported reviewed localized listings are saved and
+reload-verified. Apple's new locales retain inherited English keywords and URLs.
+The original Apple binary does not include the latest fixes.
 `docs/DELIVERY_STATUS.md` records current acceptance and blockers.
 The company is **Fallible Software, Co.**, using its FallSoft.Co accounts.
 Do not use the unrelated personal developer account or qualification build 63.
@@ -35,8 +36,10 @@ Store products and registration alone do not qualify transactions or delivery.
 `privacy-data-inventory.json` maps implemented data flows and pinned SDK
 declarations. Its November 16 incremental review covers local familiarity
 records and their chat-backup exclusion; the earlier Google questionnaire
-readback remains dated and was not resubmitted. Apple privacy entry and final
-signed binary/configuration reconciliation remain separate work.
+readback remains dated and was not resubmitted. Apple's privacy questionnaire
+was published and manual release mode saved, as recorded in
+`apple-privacy-20261117-r01.json`. Final signed binary/configuration reconciliation
+remains separate work.
 
 ## Listing and screenshots
 

@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 17, 2026, 08:04 UTC. Vipi remains restricted staging. Neither
+Updated November 17, 2026, 08:23 UTC. Vipi remains restricted staging. Neither
 app has been submitted for public review. Prior revisions and the linked
 receipts retain historical actions; do not replay them.
 
@@ -22,7 +22,12 @@ files were checked against the frozen source and retained version 2 manifest.
 Signature, bundled model/notices, all 1,082 APK/AAB assets, the JNI keep-name
 rule and 16 KiB alignment checks passed. A representative ARM64 download
 estimate is 417,879,196 bytes; actual Play distribution may differ. Exact APK
-smoke qualification is in progress on a fresh accountless emulator.
+offline smoke passed on a fresh accountless emulator: onboarding, Japanese
+Latin/script preview, Swahili, dark theme and access gate. Follow-up confirmed
+Full-link scroll reachability and Listen/Stop/idle with Japanese and Swahili
+substitutions visible. Audio was disabled: these are UI/controller observations,
+not acoustic approval or exact-binary messaging-crypto qualification. Both fresh
+test emulators were retired after preserving evidence; original accounts remain.
 No version 3 upload, publication or retained-account update has occurred.
 See [candidate](../qa/immersion/android-v3-candidate-20261117/candidate.json).
 
@@ -40,8 +45,12 @@ The subsequent native detector candidate `a3c77ae` has passed an isolated full
 Simulator build and visible automatic Japanese switching; it is not signed.
 Eight actual Simulator screenshot candidates use production views and synthetic
 messages; these are not live-account or uploaded-store evidence. Privacy,
-reviewer access and manual release are saved. Current screenshots, metadata,
-build association and purchase qualification remain incomplete.
+reviewer access and manual release are saved. Reviewed text is now saved and
+reload-verified in all 13 Apple-supported locales. Swahili is not an ASC locale;
+new locales retain inherited English keywords and URLs. Required screenshots,
+build association and purchase qualification remain incomplete. The application
+supports iPad; required iPad Simulator screenshots are being prepared without
+using the reserved physical device.
 See [Apple configuration](../release/apple-store-configuration.json).
 
 **The owner's Mac signing/keychain hold remains. Do not retry signing or upload
@@ -160,7 +169,9 @@ its allowance; it is not a typical-latency or quality benchmark.
   routing fixes. Preserve the uncertain original send without replay; resolve its
   disposition before any retained-account update or automatic retry.
 - Deploy the matching detected-language privacy detail before the new Android
-  candidate becomes publicly available; final SDK/artifact correspondence remains.
+  candidate becomes publicly available. An immutable candidate with only the
+  public-page production change is staged and standalone-tested; it is not active.
+  Activation must reconcile live API connections and the original message hold.
 - Complete current Apple qualification when its signing dependency changes,
   actual purchase/restore and production notification evidence.
 - Reconcile store artifacts, regional export requirements and screenshots.

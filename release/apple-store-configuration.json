@@ -1,6 +1,6 @@
 {
   "schema": "vipi-apple-store-configuration-1",
-  "verified_date": "2026-11-16",
+  "verified_date": "2026-11-17",
   "company": "Fallible Software, Co.",
   "team_id": "3TNL2455JT",
   "app_id": "6832624092",
@@ -112,7 +112,15 @@
     },
     "production_url_reload_verified": true,
     "production_notification_version": "not displayed in current ASC UI; unverified",
-    "production_test_sent": false
+    "production_test_sent": true,
+    "production_test_result": {
+      "at": "2026-11-17T02:25:57Z",
+      "http_status": 401,
+      "request_count": 1,
+      "retry_count": 0,
+      "delivery_qualified": false,
+      "receipt": "qa/backend/apple-production-test-20261117-r01/receipt.json"
+    }
   },
   "listing_draft": {
     "subtitle": "Learn from your everyday chats",
@@ -128,11 +136,13 @@
       "marketing_url",
       "copyright"
     ],
-    "metadata_source_sha256": "1018a42c0e23861898de5ca9bf9c63d35595efb64b1e075345dac0345c11920e",
+    "metadata_source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
     "version_fields_reload_verified": true,
-    "release_type": "AFTER_APPROVAL, unchanged",
+    "release_type": "MANUAL",
     "review_submitted": false,
-    "metadata_source_note": "Hash of canonical copy used for saved promo and description; subsequent source changes require separate comparison."
+    "metadata_source_note": "Reviewed platform-fields source now matches saved name/subtitle/promo/description. Keywords and URLs retain earlier saved values; new locales inherit those English fields.",
+    "release_mode_receipt": "release/apple-privacy-20261117-r01.json",
+    "previous_metadata_source_sha256": "1018a42c0e23861898de5ca9bf9c63d35595efb64b1e075345dac0345c11920e"
   },
   "privacy_policy_url": {
     "url": "https://api.mambovipi.app/privacy",
@@ -140,7 +150,8 @@
     "saved_and_reloaded": true,
     "verified_at": "2026-11-09T19:04:12Z",
     "private_receipt": "apple-store-provisioning-20261109-r01/r190.json",
-    "data_collection_questionnaire_published": false
+    "data_collection_questionnaire_published": true,
+    "questionnaire_receipt": "release/apple-privacy-20261117-r01.json"
   },
   "development_device_profile": {
     "name": "Vipi iPad Development 2026-11-09",
@@ -176,7 +187,7 @@
     "verification_receipt": "investigations/vipi-resume-20261116-r01/apple-signed-qualification-r141.json",
     "delivery_record": "release/apple-delivery-20261116-r01.json"
   },
-  "verification_scope_note": "November 16 readback covers listing name/subtitle, uploaded signed build and TestFlight status; older provisioning details retain their original receipt dates.",
+  "verification_scope_note": "November17 listing fields, published privacy receipt and manual release mode reconciled. Provisioning/build details retain their original dated receipts; no new signing, upload or app-review submission.",
   "introductory_offer_current": {
     "verified_date": "2026-11-17",
     "base": {
@@ -193,5 +204,33 @@
       "standard_usd_annual": "48.00"
     },
     "receipt": "qa/subscriptions/cardless-trial-20261117-r01/apple-base-offer.json"
+  },
+  "localized_listing": {
+    "state": "saved_and_reloaded_exact",
+    "locales": [
+      "ar",
+      "de-DE",
+      "en-US",
+      "es-ES",
+      "es-MX",
+      "fr-FR",
+      "it-IT",
+      "ja-JP",
+      "ko-KR",
+      "pt-BR",
+      "pt-PT",
+      "zh-Hans",
+      "zh-Hant"
+    ],
+    "name_subtitle": "12 non-English saves; existing English inspected and already matched",
+    "promotional_text_description": "13 saves, each once and exact readback",
+    "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+    "receipt": "qa/release/apple-localized-store-20261117-r01.json",
+    "swahili": "Not an available ASC localization; app language support unaffected",
+    "limits": [
+      "Keywords and support/marketing URLs were inherited from English for new localizations and were not translated in this task.",
+      "Localized screenshot assets, current build association, compliance, and final review submission remain separate.",
+      "Translations are reviewed drafts, not a claim of native-speaker or complete device-UX qualification."
+    ]
   }
 }
