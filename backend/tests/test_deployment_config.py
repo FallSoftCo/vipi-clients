@@ -50,3 +50,21 @@ def test_s2_postgresql_url_and_driver_are_not_rewritten(environment, url):
 def test_production_cannot_disable_verified_subscriptions():
     with pytest.raises(ValueError, match="Production requires verified subscriptions"):
         configuration(environment="production", database_url="postgresql+asyncpg://fixture.invalid/test")
+
+
+@pytest.mark.parametrize("store_settings", [
+    {"google_allow_test_purchases": True},
+    {"apple_environment": "Sandbox"},
+], ids=["google-test-purchases", "apple-sandbox"])
+def test_production_rejects_store_test_environments(store_settings):
+    with pytest.raises(ValueError, match="Production cannot accept store sandbox purchases"):
+        configuration(environment="production", database_url="postgresql+asyncpg://fixture.invalid/test",
+            enforce_subscriptions=True, **store_settings)
+
+
+@pytest.mark.parametrize("environment", ["test", "native-qa", "staging"])
+def test_nonproduction_can_explicitly_accept_store_test_purchases(environment):
+    url = "postgresql+asyncpg://fixture.invalid/test" if environment == "staging" else "sqlite+aiosqlite://"
+    settings = configuration(environment=environment, database_url=url, google_allow_test_purchases=True,
+        apple_environment="Sandbox")
+    assert settings.google_allow_test_purchases and settings.apple_environment == "Sandbox"

@@ -83,6 +83,8 @@ class Settings(BaseSettings):
             raise ValueError("Apple production verification requires the numeric app identifier")
         if self.environment == "production" and not self.enforce_subscriptions:
             raise ValueError("Production requires verified subscriptions")
+        if self.environment == "production" and (self.google_allow_test_purchases or self.apple_environment == "Sandbox"):
+            raise ValueError("Production cannot accept store sandbox purchases")
         return self
 
     @model_validator(mode="after")
