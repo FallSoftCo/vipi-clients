@@ -49,7 +49,7 @@ private struct VipiVoiceShape: Shape {
 }
 
 struct PrimaryButton: View {
-    let title: String
+    let title: LocalizedStringKey
     var busy = false
     let action: () -> Void
     var body: some View {
@@ -57,7 +57,7 @@ struct PrimaryButton: View {
             HStack(spacing: 10) {
                 if busy { ProgressView().tint(VipiDesign.onHighlight) }
                 Text(title).font(.body.weight(.semibold))
-                if !busy { Image(systemName: "arrow.right").font(.body.weight(.medium)) }
+                if !busy { Image(systemName: "arrow.right").flipsForRightToLeftLayoutDirection(true).font(.body.weight(.medium)) }
             }.frame(maxWidth: .infinity).padding(.vertical, 17)
         }
         .buttonStyle(.plain).foregroundStyle(VipiDesign.onHighlight)
@@ -68,13 +68,13 @@ struct PrimaryButton: View {
 
 struct IntroHeading: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    let eyebrow: String
-    let title: String
-    let detail: String
+    let eyebrow: LocalizedStringKey
+    let title: LocalizedStringKey
+    let detail: LocalizedStringKey
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             if !dynamicTypeSize.isAccessibilitySize {
-                Text(eyebrow.uppercased()).font(.caption.weight(.semibold)).tracking(2.1).foregroundStyle(VipiDesign.highlight)
+                Text(eyebrow).textCase(.uppercase).font(.caption.weight(.semibold)).tracking(2.1).foregroundStyle(VipiDesign.highlight)
             }
             Text(title).font(.system(.largeTitle, design: .serif).weight(.medium)).lineSpacing(1).fixedSize(horizontal: false, vertical: true)
             Text(detail).font(.body).foregroundStyle(VipiDesign.secondary).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
