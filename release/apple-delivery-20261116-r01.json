@@ -15,5 +15,8 @@
   "verification": "apple-signed-qualification-r141.json",
   "intent_mac": "signed-qualification-20261116-r01/upload-intent-r143.json",
   "processing_screenshot": "/home/ai/Development/investigations/vipi-resume-20261116-r01/apple-transporter-processed-r164.jpg",
-  "processing_screenshot_sha256": "ecb18b8e4f397fd25e2a801ca1a07eece0debd4a0a5182f73e166f6398951a65"
+  "processing_screenshot_sha256": "ecb18b8e4f397fd25e2a801ca1a07eece0debd4a0a5182f73e166f6398951a65",
+  "testflight_status": "Missing Compliance; build 1 visible under iOS version 1.0; no declaration submitted",
+  "testflight_screenshot": "/home/ai/Development/investigations/vipi-resume-20261116-r01/apple-testflight-missing-compliance-r01.jpg",
+  "testflight_screenshot_sha256": "6c6e04f12dbb8ceb3ba0bd75e39b16ebdd7ac9e478aa6adc522c8ffe58384513"
 }
