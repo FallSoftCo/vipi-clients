@@ -406,7 +406,7 @@
     <string name="welcome_title_concise">친구와 채팅하세요.\n새로운 단어를 배우세요.</string>
     <string name="welcome_detail_concise">채팅하는 동안 일부 단어가 다른 언어로 바뀌어요.</string>
     <string name="preview_spanish_title">스페인어를 조금 만나 보세요</string>
-    <string name="preview_tap_word">강조된 단어를 누르면 뜻을 볼 수 있어요.</string>
+    <string name="preview_tap_word">강조된 단어를 누르면 소리를 들을 수 있어요. 채팅에서는 말풍선을 누르면 번역돼요.</string>
     <string name="languages_title_concise">사용할 언어</string>
     <string name="languages_detail_concise">어떤 언어를 배우고 싶으세요?</string>
     <string name="languages_change_later">설정에서 언제든 바꿀 수 있어요.</string>
@@ -432,4 +432,5 @@
     <string name="lookup_translate_play">번역하고 듣기</string>
     <string name="lookup_play_message">메시지 재생</string>
     <string name="lookup_unsupported">이 기기에서는 이 언어 조합의 번역을 지원하지 않습니다.</string>
+    <string name="lookup_translate_message">메시지 번역</string>
 </resources>

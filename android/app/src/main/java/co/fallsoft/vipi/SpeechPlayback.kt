@@ -71,10 +71,13 @@ class SpeechPlayback(context: Context, private val source: String, private val t
         }
     }
 
+    internal var qualificationInput: ((String, List<SpeechSpan>) -> Unit)? = null
+        set(value) { require(BuildConfig.DEBUG); field = value }
     fun toggle(message: String, spans: List<SpeechSpan>) {
         check(Looper.myLooper() == Looper.getMainLooper())
         if (closed || !ready) return
         if (activeMessage == message) { stop(); return }
+        if (BuildConfig.DEBUG) qualificationInput?.invoke(message, spans)
         stop()
         val request = epoch
         activeMessage = message; state = SpeechState.RENDERING; error = null

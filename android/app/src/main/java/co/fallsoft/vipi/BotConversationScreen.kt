@@ -102,7 +102,7 @@ import java.time.format.FormatStyle
                 else Text(stringResource(R.string.ui_cc39ebccb529), style = MaterialTheme.typography.bodySmall)
             }
             items(bot.messages, key = { it.id }) { message ->
-                Column(Modifier.fillMaxWidth().background(if (message.role == "user") MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp)).padding(14.dp)) {
+                Column(Modifier.fillMaxWidth().background(if (message.role == "user") MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp))) {
                     ConversationImmersionText(message.text, message.id, immersion, speech, (composing && bot.draft.isNotEmpty()) || list.isScrollInProgress || reportedMessage != null,
                         onVoiceHelp = { runCatching { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }.onFailure { localError = context.getString(R.string.speech_settings_open_failed) } },
                         onTranslationSetup = { model.navigate(Screen.LANGUAGE_DOWNLOAD) },

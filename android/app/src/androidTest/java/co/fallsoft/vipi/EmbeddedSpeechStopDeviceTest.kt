@@ -7,7 +7,7 @@ import androidx.test.uiautomator.UiDevice
 import java.io.File
 import androidx.compose.material3.Text
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.platform.app.InstrumentationRegistry
@@ -51,10 +51,10 @@ class EmbeddedSpeechStopDeviceTest {
             val dir = File(context.filesDir, "embedded-stop-0ce").apply { mkdirs() }
             compose.runOnIdle { speech.toggle("embedded-test", listOf(co.fallsoft.vipi.core.SpeechSpan("This is a longer message to make the stop control available while it is spoken.", "en"))) }
             compose.waitUntil(10_000) { speech.activeMessage == "embedded-test" }
-            compose.onNodeWithText("Stop").assertIsDisplayed()
+            compose.onNodeWithContentDescription(context.getString(R.string.ui_cae7d57bc067)).assertIsDisplayed()
             assertEquals("Message text width must not change while audio is active", widthBefore, textWidth())
             assertTrue(UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).takeScreenshot(File(dir, "active-stop.png")))
-            compose.onNodeWithText("Stop").performClick()
+            compose.onNodeWithContentDescription(context.getString(R.string.ui_cae7d57bc067)).performClick()
             compose.runOnIdle { assertNull(speech.activeMessage) }
         } finally { compose.runOnIdle { speech.close() }; scope.cancel() }
     }

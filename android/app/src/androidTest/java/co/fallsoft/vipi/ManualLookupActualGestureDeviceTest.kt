@@ -14,6 +14,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.unit.dp
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.By
 import co.fallsoft.vipi.core.ImmersionPresentation
 import co.fallsoft.vipi.core.ImmersionSpan
 import co.fallsoft.vipi.core.SpeechSpan
@@ -63,7 +64,7 @@ class ManualLookupActualGestureDeviceTest {
         lateinit var owner:ConversationImmersion;lateinit var speech:SpeechPlayback;lateinit var manual:ManualLookupInteraction
         val report=JSONObject().put("complete",false).put("provider","actual installed ML Kit Spanish model; no download")
             .put("scope","one actual native gesture/provider/SpeechPlayback path; no acoustic acceptance")
-        fun save(){report.put("providerCalls",JSONArray(calls)).put("acceptedSpeechCount",accepted.size);File(output,"report.json").writeText(report.toString(2))}
+        fun save(){report.put("providerCalls",JSONArray(calls)).put("acceptedSpeechCount",accepted.size).put("speechInputs",JSONArray(accepted.map { (message, spans) -> JSONObject().put("message",message).put("spans",JSONArray(spans.map { JSONObject().put("text",it.text).put("language",it.language) })) }));File(output,"report.json").writeText(report.toString(2))}
         compose.runOnIdle {
             owner=ConversationImmersion(context,"en","es",0.0,translator=provider,sourceLookup=null)
             owner.selectInputLanguage(id,"en")
@@ -123,14 +124,48 @@ class ManualLookupActualGestureDeviceTest {
             SystemClock.sleep(250)
             compose.runOnIdle {assertEquals(1,accepted.size);assertEquals(1,calls.size);assertNull(speech.activeMessage)}
             report.put("sameTapStop",true);save()
+
+            // Start the same cached word again, then touch a different word
+            // while its actual popup/audio are active: exactly one new play.
+            assertTrue(device.click(word.centerX(),word.centerY()))
+            compose.waitUntil(10_000){manual.outcome?.status==ManualTranslationStatus.READY&&accepted.size==2}
+            compose.waitUntil(10_000){speech.state==SpeechState.PLAYING}
+            lateinit var other:Rect
+            val otherStart=originalText.indexOf("table");val otherEnd=otherStart+5
+            compose.runOnIdle {other=native().sourceRangeRect(otherStart,otherEnd)}
+            assertTrue(device.click(other.centerX(),other.centerY()))
+            compose.waitUntil(10_000){manual.outcome?.status==ManualTranslationStatus.READY&&accepted.size==3}
+            compose.waitUntil(10_000){speech.state==SpeechState.PLAYING}
+            SystemClock.sleep(100)
+            compose.runOnIdle {
+                assertEquals(3,accepted.size);assertEquals(1,calls.size)
+                assertEquals(otherStart,manual.request?.startUTF16);assertEquals(otherEnd,manual.request?.endUTF16)
+                assertEquals(accepted[0].second,accepted[2].second)
+            }
+            report.put("differentWordStartsOnce",true);save()
+
+            // The actual popup and footer each expose Stop. The footer is
+            // above this below-anchor popup, and receives the outside touch.
+            val stopLabel=context.getString(R.string.ui_cae7d57bc067)
+            val stops=device.findObjects(By.desc(stopLabel))
+            check(stops.size>=2){"Both popup and footer Stop controls must be present"}
+            val footer=stops.minBy{it.visibleBounds.top}
+            assertTrue(device.click(footer.visibleBounds.centerX(),footer.visibleBounds.centerY()))
+            compose.waitUntil(3_000){manual.request==null&&!manual.visible&&speech.activeMessage==null}
+            SystemClock.sleep(250)
+            compose.runOnIdle {
+                assertEquals(3,accepted.size);assertEquals(1,calls.size);assertNull(speech.activeMessage)
+                assertTrue(accepted.all{it.first.startsWith("manual-")})
+            }
+            report.put("footerStopWithoutGenericReplay",true);save()
             var x=0;var y=0
             compose.runOnIdle {val view=native();val location=IntArray(2);view.getLocationOnScreen(location);x=location[0]+view.width-4;y=location[1]+view.height/2}
             assertTrue(device.click(x,y))
-            compose.waitUntil(10_000){manual.outcome?.status==ManualTranslationStatus.READY&&accepted.size==2}
+            compose.waitUntil(10_000){manual.outcome?.status==ManualTranslationStatus.READY&&accepted.size==4}
             compose.runOnIdle {
                 assertEquals(1,calls.size);assertEquals(0,manual.request?.startUTF16);assertEquals(originalText.length,manual.request?.endUTF16)
                 assertEquals(originalText,manual.outcome?.result?.sourceContextText)
-                assertEquals(accepted[0].second,accepted[1].second)
+                assertEquals(accepted[0].second,accepted[3].second)
                 report.put("cachedWholeMessage",true).put("actualSpeechOncePerGesture",true)
                 manual.cancel()
             }

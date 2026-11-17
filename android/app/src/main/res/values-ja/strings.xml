@@ -406,7 +406,7 @@
     <string name="welcome_title_concise">友達とチャット。\n新しい単語を学ぼう。</string>
     <string name="welcome_detail_concise">チャット中に、一部の単語が別の言語に切り替わります。</string>
     <string name="preview_spanish_title">スペイン語を少し体験</string>
-    <string name="preview_tap_word">ハイライトされた単語をタップすると、意味が分かります。</string>
+    <string name="preview_tap_word">ハイライトされた単語をタップすると音声が流れます。チャットでは、吹き出しをタップすると翻訳されます。</string>
     <string name="languages_title_concise">使う言語</string>
     <string name="languages_detail_concise">どの言語を学びたいですか？</string>
     <string name="languages_change_later">設定でいつでも変更できます。</string>
@@ -432,4 +432,5 @@
     <string name="lookup_translate_play">翻訳して聞く</string>
     <string name="lookup_play_message">メッセージを読み上げる</string>
     <string name="lookup_unsupported">このデバイスでは、この言語の組み合わせでの翻訳に対応していません。</string>
+    <string name="lookup_translate_message">メッセージを翻訳</string>
 </resources>

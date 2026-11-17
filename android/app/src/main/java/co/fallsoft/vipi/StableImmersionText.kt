@@ -5,6 +5,11 @@ import android.graphics.Typeface
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.RectF
+import android.graphics.Rect
+import android.graphics.Path
+import android.view.MenuInflater
+import java.text.BreakIterator
+import java.util.Locale
 import android.text.Layout
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -32,6 +37,66 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     var onWord: ((Int) -> Unit)? = null
     var onChooseWord: (() -> Unit)? = null
     var onSelection: ((Boolean) -> Unit)? = null
+    var onPlainWord: ((Int, Int, StableImmersionText) -> Unit)? = null
+    var onReleasedSelection: ((Int, Int, StableImmersionText) -> Unit)? = null
+    var onSelectionGestureBegan: (() -> Unit)? = null
+    var onCopyRequested: (() -> Unit)? = null
+    var onWhitespace: ((StableImmersionText) -> Unit)? = null
+    var onPlayMessage: (() -> Unit)? = null
+    private var translationCallbacks = false
+    private var selectionGesture = false
+    private var selectionChangedDuringGesture = false
+    private var selectionRevision = 0
+    private var deliveredSelection: Pair<Int, Int>? = null
+    private val releasedSelection = Runnable {
+        if (!selectionGesture && hasSelection()) {
+            val start = minOf(selectionStart, selectionEnd); val end = maxOf(selectionStart, selectionEnd)
+            if (deliveredSelection != (start to end)) {
+                deliveredSelection = start to end
+                onReleasedSelection?.invoke(start, end, this)
+            }
+        }
+    }
+    private fun beginSelectionGesture() {
+        selectionGesture = true; selectionChangedDuringGesture = false; deliveredSelection = null
+        removeCallbacks(releasedSelection); onSelectionGestureBegan?.invoke()
+    }
+    private fun endSelectionGesture(cancelled: Boolean = false) {
+        selectionGesture = false
+        if (!cancelled && selectionChangedDuringGesture && hasSelection()) {
+            removeCallbacks(releasedSelection); postDelayed(releasedSelection, 180)
+        }
+    }
+    /** Android's public floating ActionMode hide/show calls bracket native
+     * handle drags, including their separate PopupWindow touch stream. */
+    override fun startActionMode(callback: ActionMode.Callback, type: Int): ActionMode? {
+        val actual = super.startActionMode(callback, type) ?: return null
+        if (type != ActionMode.TYPE_FLOATING || onReleasedSelection == null || actual is LookupObservedActionMode) return actual
+        return LookupObservedActionMode(actual) { hidden ->
+            if (hidden) beginSelectionGesture() else endSelectionGesture()
+        }
+    }
+    fun sourceRangeRect(start: Int, end: Int): Rect {
+        val paragraph = layout ?: return Rect()
+        val path = Path(); paragraph.getSelectionPath(start.coerceIn(0, text.length), end.coerceIn(0, text.length), path)
+        val bounds = RectF(); path.computeBounds(bounds, true)
+        val location = IntArray(2); getLocationOnScreen(location)
+        bounds.offset(location[0] + totalPaddingLeft - scrollX.toFloat(), location[1] + totalPaddingTop - scrollY.toFloat())
+        return Rect(bounds.left.toInt(), bounds.top.toInt(), kotlin.math.ceil(bounds.right).toInt(), kotlin.math.ceil(bounds.bottom).toInt())
+    }
+    private fun plainWordAt(offset: Int, x: Float, y: Float): Pair<Int, Int>? {
+        val original = result?.original ?: return null
+        val words = BreakIterator.getWordInstance(Locale.getDefault()).apply { setText(original) }
+        val location = IntArray(2); getLocationOnScreen(location)
+        for (position in listOf(offset, offset - 1).filter { it in original.indices }) {
+            val start = if (words.isBoundary(position)) position else words.preceding(position)
+            val end = words.following(position)
+            if (start < 0 || end <= start || !original.substring(start, end).any { it.isLetterOrDigit() }) continue
+            if (sourceRangeRect(start, end).contains((location[0] + x).toInt(), (location[1] + y).toInt())) return start to end
+        }
+        return null
+    }
+    val displayedOriginal: String get() = result?.original.orEmpty()
     private var result: ImmersionPresentation? = null
     private var originals = emptySet<Int>()
     private var script = false
@@ -50,6 +115,7 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     private var selectionFinished: (() -> Unit)? = null
     private var explicitSelection = false
     private var pendingSelection = false
+    private var menuSelectionPending = false
     private var nativeSelectionMode: ActionMode? = null
     init {
         setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 18f)
@@ -62,23 +128,32 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     /** Message gestures leave short word taps intact. Explicit selection gives
      * native TextView its normal handles and copy action mode. */
     fun configureMessageActions(action: (() -> Unit)?, selectText: Boolean, finished: () -> Unit) {
-        val changed = (messageActions == null) != (action == null) || explicitSelection != selectText
-        messageActions = action; selectionFinished = finished
+        val hasTranslation = onPlainWord != null || onReleasedSelection != null
+        val changed = (messageActions == null) != (action == null) || explicitSelection != selectText || translationCallbacks != hasTranslation
+        messageActions = action; selectionFinished = finished; translationCallbacks = hasTranslation
         if (!changed) return
         val enteringSelection = action != null && selectText && !explicitSelection
         explicitSelection = selectText
         if (!selectText) pendingSelection = false
-        customSelectionActionModeCallback = if (action == null) null else object : ActionMode.Callback {
-            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean { nativeSelectionMode = mode; return true }
+        customSelectionActionModeCallback = if (action == null && !hasTranslation) null else object : ActionMode.Callback {
+            override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+                nativeSelectionMode = mode
+                if (action != null) menu.add(Menu.NONE, Menu.FIRST + 281, Menu.NONE, context.getString(R.string.ui_e52b25aa61b5))
+                return true
+            }
             override fun onPrepareActionMode(mode: ActionMode, menu: Menu) = false
-            override fun onActionItemClicked(mode: ActionMode, item: MenuItem) = false
+            override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+                if (item.itemId != Menu.FIRST + 281) return false
+                onCopyRequested?.invoke(); messageActions?.invoke(); return true
+            }
             override fun onDestroyActionMode(mode: ActionMode) {
-                nativeSelectionMode = null
+                nativeSelectionMode = null; removeCallbacks(releasedSelection)
                 post { if (explicitSelection) selectionFinished?.invoke() }
             }
         }
-        setTextIsSelectable(action == null || selectText)
-        setOnLongClickListener(if (action != null && !selectText) OnLongClickListener { messageActions?.invoke(); true } else null)
+        setTextIsSelectable(true)
+        setOnLongClickListener(null)
+        result?.let(::updateAccessibilityActions)
         if (action != null) { isFocusable = true; isFocusableInTouchMode = true; isLongClickable = true }
         // Keep the native long-click action provided by the listener. AndroidX
         // reuses actions by label, so labelling that standard action "Message
@@ -87,13 +162,18 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         result?.let(::updateAccessibilityActions)
         if (enteringSelection) { pendingSelection = true; beginPendingSelection() }
     }
+    fun selectTextFromMenu() {
+        onCopyRequested?.invoke()
+        removeCallbacks(releasedSelection); selectionChangedDuringGesture = false
+        pendingSelection = true; menuSelectionPending = true; beginPendingSelection()
+    }
     private fun beginPendingSelection() {
         // A focused popup is still being dismissed when its action updates this
         // view. Starting ActionMode before window focus returns immediately loses
         // the selection. Resume on the real window-focus event, without polling.
         post {
-            if (pendingSelection && explicitSelection && isAttachedToWindow && hasWindowFocus()) {
-                pendingSelection = false; requestFocus()
+            if (pendingSelection && (explicitSelection || menuSelectionPending) && isAttachedToWindow && hasWindowFocus()) {
+                pendingSelection = false; menuSelectionPending = false; requestFocus()
                 // Public TextView selection action starts its native ActionMode
                 // without requiring stale touch offsets from before selection
                 // was enabled. Handles let the user narrow this initial range.
@@ -110,7 +190,7 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     }
     private fun updateAccessibilityActions(value: ImmersionPresentation) {
         wordActions.forEach { ViewCompat.removeAccessibilityAction(this, it) }
-        val cap = if (messageActions != null) 30 else 31
+        val cap = 27
         val repeated = value.spans.groupingBy { it.original to it.displayedTarget }.eachCount()
         wordActions = value.spans.take(cap).mapIndexed { index, word ->
             val label = if (repeated.getValue(word.original to word.displayedTarget) > 1) {
@@ -120,6 +200,8 @@ internal class StableImmersionText(context: Context) : TextView(context) {
             } else context.getString(R.string.access_switch_word, word.original, word.displayedTarget)
             ViewCompat.addAccessibilityAction(this, label) { _, _ -> onWord?.invoke(word.id); true }
         } + if (value.spans.size > cap) listOf(ViewCompat.addAccessibilityAction(this, context.getString(R.string.access_choose_word)) { _, _ -> onChooseWord?.invoke(); true }) else emptyList()
+        if (onWhitespace != null) wordActions += ViewCompat.addAccessibilityAction(this, context.getString(R.string.lookup_translate_message)) { _, _ -> onWhitespace?.invoke(this); true }
+        if (onPlayMessage != null) wordActions += ViewCompat.addAccessibilityAction(this, context.getString(R.string.lookup_play_message)) { _, _ -> onPlayMessage?.invoke(); true }
         if (messageActions != null) wordActions += ViewCompat.addAccessibilityAction(this, context.getString(R.string.access_message_actions)) { _, _ -> messageActions?.invoke(); true }
     }
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -209,6 +291,10 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     }
 
     override fun onTextContextMenuItem(id: Int): Boolean {
+        if (id == android.R.id.selectAll || id == android.R.id.copy) {
+            removeCallbacks(releasedSelection); selectionChangedDuringGesture = false; deliveredSelection = selectionStart to selectionEnd
+            onCopyRequested?.invoke()
+        }
         if (id == android.R.id.copy && hasSelection()) {
             (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
                 .setPrimaryClip(android.content.ClipData.newPlainText(context.getString(R.string.message_hint), visibleText(minOf(selectionStart, selectionEnd), maxOf(selectionStart, selectionEnd))))
@@ -237,18 +323,67 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     }
     override fun onSelectionChanged(start: Int, end: Int) {
         super.onSelectionChanged(start, end)
+        selectionRevision++
+        removeCallbacks(releasedSelection)
+        if (selectionGesture) selectionChangedDuringGesture = true
         onSelection?.invoke(start >= 0 && end > start)
     }
+    private fun finishManualTap(event: MotionEvent) {
+        // Native selection receives DOWN so long press remains available. A
+        // short tap handled here must also end that native touch sequence.
+        val cancel = MotionEvent.obtain(event).apply { action = MotionEvent.ACTION_CANCEL }
+        try { super.onTouchEvent(cancel) } finally { cancel.recycle() }
+        nativeSelectionMode?.finish()
+        (text as? android.text.Spannable)?.let { android.text.Selection.removeSelection(it) }
+        endSelectionGesture()
+    }
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (event.actionMasked == MotionEvent.ACTION_DOWN) { downX = event.x; downY = event.y; downTime = event.eventTime }
+        if (event.actionMasked == MotionEvent.ACTION_DOWN) { downX = event.x; downY = event.y; downTime = event.eventTime; beginSelectionGesture() }
         if (event.actionMasked == MotionEvent.ACTION_UP && !hasSelection() && event.eventTime - downTime < 400 &&
             kotlin.math.abs(event.x - downX) < 12 * resources.displayMetrics.density &&
             kotlin.math.abs(event.y - downY) < 12 * resources.displayMetrics.density) {
             val offset = getOffsetForPosition(event.x, event.y)
             val link = (text as? Spanned)?.getSpans(offset, offset, WordLink::class.java)?.firstOrNull()
-            if (link != null) { link.onClick(this); performClick(); return true }
+            val spanned = text as? Spanned
+            val location = IntArray(2); getLocationOnScreen(location)
+            if (link != null && spanned != null && sourceRangeRect(spanned.getSpanStart(link), spanned.getSpanEnd(link)).contains((location[0] + event.x).toInt(), (location[1] + event.y).toInt())) {
+                finishManualTap(event); link.onClick(this); performClick(); return true
+            }
+            plainWordAt(offset, event.x, event.y)?.let { (start, end) ->
+                if (onPlainWord != null) { finishManualTap(event); onPlainWord?.invoke(start, end, this); performClick(); return true }
+            }
+            if (onWhitespace != null) { finishManualTap(event); onWhitespace?.invoke(this); performClick(); return true }
         }
-        return super.onTouchEvent(event)
+        val handled = super.onTouchEvent(event)
+        if (event.actionMasked == MotionEvent.ACTION_UP) endSelectionGesture()
+        if (event.actionMasked == MotionEvent.ACTION_CANCEL) endSelectionGesture(cancelled = true)
+        return handled
     }
     override fun performClick(): Boolean { super.performClick(); return true }
+}
+
+
+private class LookupObservedActionMode(private val actual: ActionMode, private val visibility: (Boolean) -> Unit) : ActionMode() {
+    override fun hide(duration: Long) { visibility(duration != 0L); actual.hide(duration) }
+    override fun finish() = actual.finish()
+    override fun invalidate() = actual.invalidate()
+    override fun invalidateContentRect() = actual.invalidateContentRect()
+    override fun onWindowFocusChanged(hasWindowFocus: Boolean) = actual.onWindowFocusChanged(hasWindowFocus)
+    override fun getType() = actual.type
+    override fun setType(type: Int) = actual.setType(type)
+    override fun getTitle() = actual.title
+    override fun setTitle(title: CharSequence?) = actual.setTitle(title)
+    override fun setTitle(resId: Int) = actual.setTitle(resId)
+    override fun getSubtitle() = actual.subtitle
+    override fun setSubtitle(subtitle: CharSequence?) = actual.setSubtitle(subtitle)
+    override fun setSubtitle(resId: Int) = actual.setSubtitle(resId)
+    override fun getCustomView() = actual.customView
+    override fun setCustomView(view: View?) = actual.setCustomView(view)
+    override fun getMenu() = actual.menu
+    override fun getMenuInflater(): MenuInflater = actual.menuInflater
+    override fun getTag() = actual.tag
+    override fun setTag(tag: Any?) = actual.setTag(tag)
+    override fun getTitleOptionalHint() = actual.titleOptionalHint
+    override fun setTitleOptionalHint(titleOptional: Boolean) = actual.setTitleOptionalHint(titleOptional)
+    override fun isTitleOptional() = actual.isTitleOptional
 }

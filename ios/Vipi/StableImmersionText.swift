@@ -4,6 +4,7 @@ import VipiCore
 
 private extension NSAttributedString.Key {
     static let vipiOriginalRange = NSAttributedString.Key("co.fallsoft.vipi.original-range")
+    static let vipiWordID = NSAttributedString.Key("co.fallsoft.vipi.word-id")
 }
 
 /// A native inline attachment reserves the same geometry for every word face.
@@ -49,6 +50,27 @@ final class ImmersionWordAttachment: NSTextAttachment {
     }
 }
 
+@MainActor private final class ImmersionPlainWordTap: UITapGestureRecognizer {
+    override func canPrevent(_ preventedGestureRecognizer: UIGestureRecognizer) -> Bool { false }
+    override func canBePrevented(by preventingGestureRecognizer: UIGestureRecognizer) -> Bool { false }
+}
+
+@MainActor private final class ImmersionTouchObserver: UIGestureRecognizer {
+    weak var owner: ImmersionNativeTextView?
+    var selectionOnly = false
+    private var observing = false
+    override func canPrevent(_ preventedGestureRecognizer: UIGestureRecognizer) -> Bool { false }
+    override func canBePrevented(by preventingGestureRecognizer: UIGestureRecognizer) -> Bool { false }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        observing = !selectionOnly || touches.contains { owner?.isSelectionHandleTouch($0) == true }
+        if observing { owner?.beginSelectionGesture() }
+        if selectionOnly { owner?.recordSelectionGesture("selection_window_began", observed: observing) }
+    }
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) { }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) { if selectionOnly { owner?.recordSelectionGesture("selection_window_ended", observed: observing) }; if observing { owner?.endSelectionGesture(cancelled: false) }; state = .recognized }
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) { if observing { owner?.endSelectionGesture(cancelled: true) }; state = .cancelled }
+}
+
 @MainActor final class ImmersionAccessibilityElement: UIAccessibilityElement {
     var activate: (() -> Void)?
     var frame: (() -> CGRect)?
@@ -60,6 +82,59 @@ final class ImmersionWordAttachment: NSTextAttachment {
 }
 
 @MainActor final class ImmersionNativeTextView: UITextView {
+    var playbackControlRectInWindow = CGRect.null
+    func isSelectionHandleTouch(_ touch: UITouch) -> Bool {
+        guard selectedRange.length > 0, let selectedTextRange, let window,
+              !ManualLookupInteraction.coversActivePanel(touch) else { return false }
+        let point = touch.location(in: window)
+        guard !playbackControlRectInWindow.contains(point) else { return false }
+        for selection in selectionRects(for: selectedTextRange) {
+            let rect = convert(selection.rect, to: window)
+            let rtl = selection.writingDirection == .rightToLeft
+            if selection.containsStart {
+                let start = CGPoint(x: rtl ? rect.maxX : rect.minX, y: rect.minY)
+                if CGRect(x: start.x - 24, y: start.y - 24, width: 48, height: 48).contains(point) { return true }
+            }
+            if selection.containsEnd {
+                let end = CGPoint(x: rtl ? rect.minX : rect.maxX, y: rect.maxY)
+                if CGRect(x: end.x - 24, y: end.y - 24, width: 48, height: 48).contains(point) { return true }
+            }
+        }
+        return false
+    }
+    private var selectionWindowObservers: [ObjectIdentifier: ImmersionTouchObserver] = [:]
+    private func clearSelectionObservers() {
+        for observer in selectionWindowObservers.values { observer.view?.removeGestureRecognizer(observer) }
+        selectionWindowObservers.removeAll()
+    }
+    override func didMoveToWindow() {
+        super.didMoveToWindow(); clearSelectionObservers(); syncSelectionObservers()
+    }
+    private func syncSelectionObservers() {
+        guard selectedRange.length > 0, let window else { clearSelectionObservers(); return }
+        // Native grabbers can live in UIKit's separate selection window. Observe
+        // this scene's windows, restricted to the actual endpoint hit regions.
+        let windows = window.windowScene?.windows ?? [window]
+        let current = Set(windows.map(ObjectIdentifier.init))
+        for (key, observer) in selectionWindowObservers where !current.contains(key) {
+            observer.view?.removeGestureRecognizer(observer); selectionWindowObservers.removeValue(forKey: key)
+        }
+        for candidate in windows where !candidate.isHidden {
+            let key = ObjectIdentifier(candidate)
+            guard selectionWindowObservers[key] == nil else { continue }
+            let observer = ImmersionTouchObserver(); observer.owner = self; observer.selectionOnly = true
+            observer.cancelsTouchesInView = false; observer.delaysTouchesBegan = false; observer.delaysTouchesEnded = false
+            candidate.addGestureRecognizer(observer); selectionWindowObservers[key] = observer
+        }
+    }
+    func recordSelectionGesture(_ event: String, observed: Bool) {
+        #if DEBUG
+        guard ProcessInfo.processInfo.arguments.contains("-vipi-timeline-qa") else { return }
+        LiveImmersionQualification.record(["event": event, "observed": observed, "finger_down": fingerDown,
+            "selection_start": selectedRange.location, "selection_end": NSMaxRange(selectedRange),
+            "first_responder": isFirstResponder, "selection_windows": selectionWindowObservers.count])
+        #endif
+    }
     var variants: [NSAttributedString] = []
     var reserveKey = ""
     var reserveHeight: CGFloat = 0
@@ -85,9 +160,91 @@ final class ImmersionWordAttachment: NSTextAttachment {
     }
     override func copy(_ sender: Any?) {
         guard selectedRange.length > 0 else { return }
+        selectionRevision += 1; selectionTask?.cancel(); selectionChangedDuringTouch = false; releasedUserSelection = false; onCopyRequested?()
         UIPasteboard.general.string = visibleText(in: selectedRange)
     }
     var originalMessage = ""
+    var onPlainWord: ((NSRange, ImmersionNativeTextView) -> Void)?
+    var onReleasedSelection: ((NSRange, ImmersionNativeTextView) -> Void)?
+    var onSelectionGestureBegan: (() -> Void)?
+    var onCopyRequested: (() -> Void)?
+    var onWhitespace: ((ImmersionNativeTextView) -> Void)?
+    var onPlayMessage: (() -> Void)?
+    private var fingerDown = false
+    private var selectionChangedDuringTouch = false
+    private var selectionRevision = 0
+    private var selectionTask: Task<Void, Never>?
+    private var lastRelease = Date.distantPast
+    private var releasedUserSelection = false
+    func beginSelectionGesture() {
+        fingerDown = true; selectionChangedDuringTouch = false; releasedUserSelection = false
+        selectionRevision += 1; selectionTask?.cancel(); onSelectionGestureBegan?()
+    }
+    func endSelectionGesture(cancelled: Bool) {
+        fingerDown = false; lastRelease = Date(); releasedUserSelection = !cancelled
+        syncSelectionObservers()
+        DispatchQueue.main.async { [weak self] in self?.syncSelectionObservers() }
+        if cancelled { selectionTask?.cancel(); return }
+        if selectionChangedDuringTouch { scheduleReleasedSelection() }
+    }
+    func userSelectionChanged() {
+        syncSelectionObservers()
+        DispatchQueue.main.async { [weak self] in self?.syncSelectionObservers() }
+        recordSelectionGesture("native_selection_changed", observed: fingerDown)
+        selectionRevision += 1; selectionTask?.cancel()
+        if fingerDown { selectionChangedDuringTouch = true }
+        else if releasedUserSelection && Date().timeIntervalSince(lastRelease) < 0.3 {
+            // UIKit may publish the final handle range just after touchesEnded.
+            selectionChangedDuringTouch = true; scheduleReleasedSelection()
+        }
+    }
+    private func scheduleReleasedSelection() {
+        guard selectedRange.length > 0, onReleasedSelection != nil else { return }
+        let revision = selectionRevision; let selected = selectedRange
+        selectionTask?.cancel()
+        selectionTask = Task { @MainActor [weak self] in
+            try? await Task.sleep(for: .milliseconds(180))
+            guard let self, !Task.isCancelled, !fingerDown, revision == selectionRevision,
+                  selected == selectedRange, let original = originalRange(for: selected) else { return }
+            releasedUserSelection = false; selectionChangedDuringTouch = false
+            onReleasedSelection?(original, self)
+        }
+    }
+    @objc func plainWordTapped(_ gesture: UITapGestureRecognizer) {
+        guard gesture.state == .ended, selectedRange.length == 0 else { return }
+        let point = gesture.location(in: self)
+        let local = CGPoint(x: point.x - textContainerInset.left, y: point.y - textContainerInset.top)
+        let glyph = layoutManager.glyphIndex(for: local, in: textContainer)
+        guard glyph < layoutManager.numberOfGlyphs,
+              layoutManager.boundingRect(forGlyphRange: NSRange(location: glyph, length: 1), in: textContainer).insetBy(dx: -2, dy: -2).contains(local) else { onWhitespace?(self); return }
+        let offset = layoutManager.characterIndexForGlyph(at: glyph)
+        guard offset < attributedText.length else { return }
+        if let id = attributedText.attribute(.vipiWordID, at: offset, effectiveRange: nil) as? Int {
+            onWordActivation?(id); return
+        }
+        guard let onPlainWord,
+              let source = originalRange(for: NSRange(location: offset, length: 1)),
+              let word = OriginalTextSelection.word(atUTF16: source.location, in: originalMessage) else { onWhitespace?(self); return }
+        onPlainWord(word, self)
+    }
+    func selectTextFromMenu() {
+        onCopyRequested?()
+        selectionRevision += 1; selectionTask?.cancel(); selectionChangedDuringTouch = false; releasedUserSelection = false
+        DispatchQueue.main.async { [weak self] in self?.becomeFirstResponder(); self?.selectAll(nil) }
+    }
+    func windowRect(forOriginalRange selection: NSRange) -> CGRect {
+        var display: NSRange?
+        attributedText.enumerateAttributes(in: NSRange(location: 0, length: attributedText.length)) { attributes, range, _ in
+            guard let original = (attributes[.vipiOriginalRange] as? NSValue)?.rangeValue,
+                  NSIntersectionRange(original, selection).length > 0 else { return }
+            let hit = NSIntersectionRange(original, selection)
+            let part = attributes[.attachment] != nil ? range : NSRange(location: range.location + hit.location - original.location, length: hit.length)
+            display = display.map { NSUnionRange($0, part) } ?? part
+        }
+        let glyph = layoutManager.glyphRange(forCharacterRange: display ?? NSRange(location: 0, length: attributedText.length), actualCharacterRange: nil)
+        let local = layoutManager.boundingRect(forGlyphRange: glyph, in: textContainer).offsetBy(dx: textContainerInset.left, dy: textContainerInset.top)
+        return convert(local, to: window)
+    }
     func originalRange(for selection: NSRange) -> NSRange? {
         var segments: [OriginalTextSegment] = []
         attributedText.enumerateAttributes(in: NSRange(location: 0, length: attributedText.length)) { attributes, displayed, _ in
@@ -101,7 +258,7 @@ final class ImmersionWordAttachment: NSTextAttachment {
         var links: [ImmersionAccessibilityElement] = []
         attributedText.enumerateAttributes(in: NSRange(location: 0, length: attributedText.length)) { attributes, range, _ in
             guard let word = attributes[.attachment] as? ImmersionWordAttachment,
-                  let url = attributes[.link] as? URL, let id = Int(url.lastPathComponent) else { return }
+                  let id = attributes[.vipiWordID] as? Int else { return }
             let element = ImmersionAccessibilityElement(accessibilityContainer: container)
             element.accessibilityLabel = word.displayed
             element.accessibilityIdentifier = "immersion-word-\(id)"
@@ -175,6 +332,13 @@ struct StableImmersionText: UIViewRepresentable {
     let script: Bool
     let onWord: (Int) -> Void
     let onSelection: (Bool) -> Void
+    var onPlainWord: ((NSRange, ImmersionNativeTextView) -> Void)? = nil
+    var onReleasedSelection: ((NSRange, ImmersionNativeTextView) -> Void)? = nil
+    var onSelectionGestureBegan: (() -> Void)? = nil
+    var onCopyRequested: (() -> Void)? = nil
+    var onWhitespace: ((ImmersionNativeTextView) -> Void)? = nil
+    var onPlayMessage: (() -> Void)? = nil
+    var onNativeView: ((ImmersionNativeTextView) -> Void)? = nil
     @Environment(\.dynamicTypeSize) private var typeSize
     @Environment(\.colorScheme) private var scheme
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
@@ -189,12 +353,22 @@ struct StableImmersionText: UIViewRepresentable {
         view.delegate = context.coordinator
         view.accessibilityIdentifier = "immersionText"
         view.linkTextAttributes = [:]
+        let tap = ImmersionPlainWordTap(target: view, action: #selector(ImmersionNativeTextView.plainWordTapped(_:)))
+        tap.cancelsTouchesInView = false; tap.delaysTouchesBegan = false; tap.delaysTouchesEnded = false
+        view.addGestureRecognizer(tap)
+        let observer = ImmersionTouchObserver(); observer.owner = view
+        observer.cancelsTouchesInView = false; observer.delaysTouchesBegan = false; observer.delaysTouchesEnded = false
+        view.addGestureRecognizer(observer)
         return container
     }
     func updateUIView(_ container: ImmersionTextContainer, context: Context) {
         let view = container.textView
         context.coordinator.onWord = onWord; context.coordinator.onSelection = onSelection
         view.onWordActivation = onWord
+        view.onPlainWord = onPlainWord; view.onReleasedSelection = onReleasedSelection
+        view.onSelectionGestureBegan = onSelectionGestureBegan; view.onCopyRequested = onCopyRequested
+        view.onWhitespace = onWhitespace; view.onPlayMessage = onPlayMessage
+        onNativeView?(view)
         context.coordinator.updating = true
         defer { context.coordinator.updating = false }
         let category: UIContentSizeCategory
@@ -236,8 +410,16 @@ struct StableImmersionText: UIViewRepresentable {
             UIAccessibilityCustomAction(name: String(localized: "Switch \(word.original) and \(word.displayedTarget)")) { _ in onWord(word.id); return true }
         }
         view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: String(localized: "Copy displayed message")) { [weak view] _ in
-            guard let view else { return false }; UIPasteboard.general.string = view.visibleText(); return true
+            guard let view else { return false }; view.onCopyRequested?(); UIPasteboard.general.string = view.visibleText(); return true
         })
+        if let onWhitespace {
+            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: String(localized: "Translate message")) { [weak view] _ in
+                guard let view else { return false }; onWhitespace(view); return true
+            })
+        }
+        if let onPlayMessage {
+            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: String(localized: "Play message")) { _ in onPlayMessage(); return true })
+        }
         container.refreshAccessibility()
     }
     func sizeThatFits(_ proposal: ProposedViewSize, uiView container: ImmersionTextContainer, context: Context) -> CGSize? {
@@ -264,7 +446,7 @@ struct StableImmersionText: UIViewRepresentable {
             var style = attributes
             style[.font] = emphasis; style[.foregroundColor] = color
             style[.vipiOriginalRange] = NSValue(range: word.range)
-            style[.link] = URL(string: "vipi-reveal://word/\(word.id)")!
+            style[.vipiWordID] = word.id
             let suffix = original.substring(from: NSMaxRange(word.range)).prefix { ".,!?;:…؟。！？；，、)]}’”\"".contains($0) }.prefix(8)
             let trailing = suffix.isEmpty ? 0 : ceil((String(suffix) as NSString).size(withAttributes: [.font: font]).width) + 1
             let attachment = ImmersionWordAttachment(displayed: value, forms: [word.original, word.displayedTarget, word.translated], font: emphasis, ink: color, trailingWidth: trailing,
@@ -284,6 +466,7 @@ struct StableImmersionText: UIViewRepresentable {
         var onSelection: ((Bool) -> Void)?
         func textViewDidChangeSelection(_ textView: UITextView) {
             guard !updating else { return }
+            (textView as? ImmersionNativeTextView)?.userSelectionChanged()
             let selected = textView.selectedRange.length > 0
             guard selected != selectionActive else { return }
             selectionActive = selected; onSelection?(selected)

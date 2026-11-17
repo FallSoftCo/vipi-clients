@@ -144,6 +144,7 @@ struct FriendConversationView: View {
     @State private var blockBusy = false
     @State private var showSecurityNumber = false
     @State private var showVoiceHelp = false
+    @State private var showTranslationHelp = false
     @State private var showMessageStatus = false
     @State private var reporting: HumanReportSelection?
     @State private var followingLatest = true
@@ -237,7 +238,7 @@ struct FriendConversationView: View {
             // At accessibility sizes, labelled controls expose the same details
             // without pinning several paragraphs above the composer.
             HStack(spacing: 12) {
-                if immersion.availability == .downloadable || immersion.availability == .unsupported {
+                if immersion.availability == .downloadable {
                     NavigationLink { LanguageDownloadView() } label: {
                         statusLabel("Translation downloads", symbol: "arrow.down.circle")
                     }.accessibilityIdentifier("conversation-language-download")
@@ -277,16 +278,10 @@ struct FriendConversationView: View {
                                     speech: speech, paused: scrolling || (composing && !text.isEmpty), metadata: AnyView(
                                 messageMetadata(item).font(.system(size: metadataSize))
                                     .fixedSize(horizontal: false, vertical: true).foregroundStyle(VipiDesign.secondary)
-                                    .accessibilityIdentifier("message-meta-" + item.id.uuidString)), onVoiceHelp: { showVoiceHelp = true })
-                            }.padding(.horizontal, 15).padding(.vertical, 12)
-                                .background(item.outgoing ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
+                                    .accessibilityIdentifier("message-meta-" + item.id.uuidString)), onVoiceHelp: { showVoiceHelp = true }, onTranslationSetup: { showTranslationHelp = true }, onReport: !item.outgoing && item.state != "imported" ? { reporting = HumanReportSelection(message: item) } : nil)
+                            }.background(item.outgoing ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
                             if !item.outgoing { Spacer(minLength: 38) }
                         }.id(item.id)
-                            .contextMenu {
-                                if !item.outgoing && item.state != "imported" {
-                                    Button("Report message", systemImage: "flag") { reporting = HumanReportSelection(message: item) }
-                                }
-                            }
                             .accessibilityActions {
                                 if !item.outgoing && item.state != "imported" {
                                     Button("Report message") { reporting = HumanReportSelection(message: item) }
@@ -410,6 +405,9 @@ struct FriendConversationView: View {
         timeline
         .background(VipiDesign.canvas)
         .background { ConversationTranslationTask(immersion: immersion) }
+        .sheet(isPresented: $showTranslationHelp) {
+            NavigationStack { LanguageDownloadView().toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showTranslationHelp = false } } } }
+        }
         .navigationTitle(chat.name(peer)).navigationBarTitleDisplayMode(.inline)
         .toolbar {
             if #available(iOS 26.0, *) {

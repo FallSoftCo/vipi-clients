@@ -9,6 +9,15 @@ struct OriginalTextSegment {
 }
 
 enum OriginalTextSelection {
+    static func word(atUTF16 offset: Int, in original: String) -> NSRange? {
+        guard offset >= 0, offset < original.utf16.count else { return nil }
+        var found: NSRange?
+        original.enumerateSubstrings(in: original.startIndex..<original.endIndex, options: .byWords) { _, range, _, stop in
+            let candidate = NSRange(range, in: original)
+            if NSLocationInRange(offset, candidate) { found = candidate; stop = true }
+        }
+        return found
+    }
     static func range(for selection: NSRange, segments: [OriginalTextSegment], original: String) -> NSRange? {
         guard selection.location != NSNotFound, selection.location >= 0, selection.length > 0,
               selection.length <= Int.max - selection.location else { return nil }

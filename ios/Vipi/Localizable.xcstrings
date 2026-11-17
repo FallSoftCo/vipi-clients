@@ -34764,82 +34764,6 @@
         }
       }
     },
-    "Tap a highlighted word to see its meaning.": {
-      "localizations": {
-        "es": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Toca una palabra resaltada para ver su significado."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Touchez un mot surligné pour voir sa signification."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Tippe auf ein markiertes Wort, um seine Bedeutung zu sehen."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Tocca una parola evidenziata per vederne il significato."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Toque em uma palavra destacada para ver o significado."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Toca numa palavra destacada para veres o significado."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "ハイライトされた単語をタップすると、意味が分かります。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "강조된 단어를 누르면 뜻을 볼 수 있어요."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "轻点高亮词语，查看它的意思。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "輕點反白詞語，查看它的意思。"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "اضغط على كلمة مميزة لترى معناها."
-          }
-        },
-        "sw": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Gusa neno lililoangaziwa kuona maana yake."
-          }
-        }
-      }
-    },
     "Which language would you like to pick up?": {
       "localizations": {
         "es": {
@@ -37054,6 +36978,170 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "設定語音"
+          }
+        }
+      }
+    },
+    "Translate message": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Translate message"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Traducir mensaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Traduire le message"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nachricht übersetzen"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Traduci messaggio"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Traduzir mensagem"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Traduzir mensagem"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "メッセージを翻訳"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "메시지 번역"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "翻译消息"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "翻譯訊息"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ترجمة الرسالة"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tafsiri ujumbe"
+          }
+        }
+      }
+    },
+    "Tap a highlighted word to hear it. In chats, tap a bubble to translate.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tap a highlighted word to hear it. In chats, tap a bubble to translate."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Toca una palabra resaltada para oírla. En los chats, toca una burbuja para traducir."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Touchez un mot surligné pour l’entendre. Dans les chats, touchez une bulle pour traduire."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tippe auf ein markiertes Wort, um es zu hören. Tippe im Chat auf eine Sprechblase zum Übersetzen."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tocca una parola evidenziata per ascoltarla. Nelle chat, tocca un fumetto per tradurre."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Toque em uma palavra destacada para ouvi-la. Nas conversas, toque em um balão para traduzir."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Toca numa palavra destacada para a ouvires. Nas conversas, toca num balão para traduzir."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ハイライトされた単語をタップすると音声が流れます。チャットでは、吹き出しをタップすると翻訳されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "강조된 단어를 누르면 소리를 들을 수 있어요. 채팅에서는 말풍선을 누르면 번역돼요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "点按高亮单词即可听发音。在聊天中，点按气泡即可翻译。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "點一下反白單字即可聽發音。在聊天中，點一下對話氣泡即可翻譯。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "اضغط على كلمة مميزة لسماعها. في الدردشات، اضغط على فقاعة للترجمة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gusa neno lililoangaziwa ili kulisikia. Kwenye mazungumzo, gusa kiputo ili kutafsiri."
           }
         }
       }

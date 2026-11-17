@@ -74,6 +74,9 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
     func toggle(message: String, spans: [(text: String, language: String)]) {
         guard ready, let pair else { return }
         if activeMessage == message { stop(); return }
+        #if DEBUG
+        LiveImmersionQualification.recordSpeech(message, spans: spans)
+        #endif
         let previous = rendering
         stop()
         let request = epoch

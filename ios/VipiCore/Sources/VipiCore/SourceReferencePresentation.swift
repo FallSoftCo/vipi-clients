@@ -108,6 +108,12 @@ public enum ImmersionPresentation: Sendable, Equatable {
     case complete(ImmersionResult)
     case partial(PartialImmersionResult)
 
+    /// Render-only original text, including zero-coverage messages. This is not
+    /// a catalog proof and must never enter the validated partial-result cache.
+    public static func sourceOnly(original: String, target: String) -> Self {
+        .partial(.init(original: original, spans: [], references: [], nativeSourceTokenCount: 0, targetLanguage: target))
+    }
+
     public var original: String {
         switch self { case .complete(let value): value.original; case .partial(let value): value.original }
     }

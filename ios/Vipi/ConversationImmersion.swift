@@ -72,6 +72,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
     private struct ReadingRequest: Hashable { let utf8: Data, language: String }
     private var readingTasks: [ReadingRequest: (UUID, Task<Void, Never>)] = [:]
     private var inputLanguages: [String: String] = [:]
+    private var resolvedInputs: [ImmersionRequestIdentity: String] = [:]
     private let catalog = BundledImmersionCatalog()
     private let lexical = BundledLexicalCatalog.shared
     private var swahili: [String: SwahiliTranslation] = [:]
@@ -116,6 +117,16 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
     func identity(messageID: String, text: String) -> ImmersionRequestIdentity {
         .init(messageID: messageID, text: text, source: pair.source, target: pair.target,
               inputLanguage: inputLanguages[messageID], generation: epoch)
+    }
+    func resolvedInputLanguage(for identity: ImmersionRequestIdentity) -> String? {
+        guard !closed, identity == self.identity(messageID: identity.messageID, text: identity.text) else { return nil }
+        return identity.inputLanguage ?? resolvedInputs[identity] ?? frozenInvocations.value(for: snapshotKey(identity))?.resolvedInputLanguage
+    }
+    private func rememberInput(_ outcome: LookupFirstOutcome, identity: ImmersionRequestIdentity?) {
+        guard let identity, !closed, identity == self.identity(messageID: identity.messageID, text: identity.text),
+              let language = outcome.resolvedInputLanguage, [pair.source, pair.target].contains(language) else { return }
+        resolvedInputs[identity] = language
+        if resolvedInputs.count > 4096, let old = resolvedInputs.keys.first(where: { $0 != identity }) { resolvedInputs.removeValue(forKey: old) }
     }
     func selectInputLanguage(_ language: String?, for id: String) {
         guard !closed, language == nil || [pair.source, pair.target].contains(language!),
@@ -181,8 +192,11 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
                 reference: { text,from,to in try await self.catalog.reference(original:text,pair:.init(source:from,target:to)) },
                 identify: { try await self.language.identify($0,automatic:false) },
                 modelsReady: { from,to in
-                    if let slice=ManualTranslationResolver.sourceContext(request)?.text, self.manualTranslations[.init(utf8:Data(slice.utf8),source:from,target:to)] != nil {return true}
-                    return await self.modelStatus(.init(source:from,target:to)) == .installed
+                    if let context=ManualTranslationResolver.sourceContext(request)?.text, self.manualTranslations[.init(utf8:Data(context.utf8),source:from,target:to)] != nil {return true}
+                    let observed = await self.modelStatus(.init(source:from,target:to))
+                    guard valid() else { return false }
+                    self.observeAvailability(observed)
+                    return observed == .installed
                 },
                 translate: { text,from,to in
                     let key=ManualProviderKey(utf8:Data(text.utf8),source:from,target:to)
@@ -261,6 +275,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
         lastOutcome = nil // Cancellation/early exit must not reuse prior telemetry.
         guard !closed, !Task.isCancelled, pair.valid else { return nil }
         let activeEpoch = epoch, activePair = pair, activeDensity = density
+        let sourceIdentity = messageID.map { identity(messageID: $0, text: text) }
         let activeKnownConceptIDs = knownConceptIDs
         func valid() -> Bool {
             !closed && activeEpoch == epoch && pair == activePair && !Task.isCancelled &&
@@ -271,7 +286,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
         let frozenKey = Data(key.utf8)
         let pinForRequest = intent == .automaticImmersion && messageID != nil
         if pinForRequest {
-            if let frozen = frozenInvocations.value(for:frozenKey) { return frozen.cachedInvocation() }
+            if let frozen = frozenInvocations.value(for:frozenKey) { rememberInput(frozen, identity: sourceIdentity); return frozen.cachedInvocation() }
             frozenInvocations.pin(frozenKey)
         }
         defer { if pinForRequest { frozenInvocations.unpin(frozenKey) } }
@@ -279,6 +294,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
         // partial. Only the explicit whole-language action requests that work.
         if let saved = cache.cachedInvocation(key: key),
            intent == .automaticImmersion || saved.result?.translation != nil {
+            rememberInput(saved, identity: sourceIdentity)
             prepareReading(saved.result, language: activePair.target)
             lastOutcome = saved; return saved
         }
@@ -359,17 +375,21 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
                 },
                 onPartial: { partial in
                     guard valid() else { return }
+                    // Core emits partials only after validated detected == source.
+                    let envelope = LookupFirstOutcome(result: .partial(partial), origin: .sourceReferencePartial,
+                        status: .partial, localTranslationCalls: 0, fallbackStatus: nil, resolvedInputLanguage: activePair.source)
+                    self.rememberInput(envelope, identity: sourceIdentity)
                     if intent == .automaticImmersion, messageID != nil {
                         if let frozen = self.frozenInvocations.value(for:frozenKey) {
                             if case .partial(let saved)? = frozen.result { onPartial(saved) }
                             return
                         }
-                        guard self.frozenInvocations.insert(.init(result:.partial(partial),origin:.sourceReferencePartial,
-                            status:.partial,localTranslationCalls:0,fallbackStatus:nil),for:frozenKey) else { return }
+                        guard self.frozenInvocations.insert(envelope,for:frozenKey) else { return }
                     }
-                    self.remember(.partial(partial), key: key); onPartial(partial)
+                    self.cache.remember(envelope, key: key); onPartial(partial)
                 })
             guard valid() else { return nil }
+            rememberInput(outcome, identity: sourceIdentity)
             if intent == .automaticImmersion, messageID != nil {
                 if let frozen = frozenInvocations.value(for:frozenKey) { lastOutcome = frozen; return frozen }
                 if outcome.result != nil && !frozenInvocations.insert(outcome,for:frozenKey) { return nil }
@@ -449,7 +469,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
         for (_, task) in fullRequests.values { task.cancel() }; fullRequests.removeAll()
         for task in deadlines.values { task.cancel() }; deadlines.removeAll()
         for (_, task) in readingTasks.values { task.cancel() }; readingTasks.removeAll()
-        manualSelections.removeAll(); manualTranslations.removeAll(); manualTranslationOrder.removeAll(); timedOutRequests.removeAll()
+        resolvedInputs.removeAll(); manualSelections.removeAll(); manualTranslations.removeAll(); manualTranslationOrder.removeAll(); timedOutRequests.removeAll()
         epoch = UUID(); readings.removeAll(); readingRevision += 1; request = nil; pending.removeAll()
         let outstanding = Array(replies.values); replies.removeAll()
         for reply in outstanding { reply.resume(returning: nil) }
@@ -500,35 +520,21 @@ struct ConversationImmersionText: View {
     @State private var presentation = ImmersionPresentationState()
     @State private var currentlyPaused = false
     @State private var mode: ReadingMode = .immersed
-    @State private var fullRequest: Task<Void, Never>?
-    @State private var fullFailure: ImmersionStatus?
-    @State private var fullFailureAvailability = LocalLanguageAvailability.checking
+    @State private var manual: ManualLookupInteraction
+    @State private var choosingInputLanguage = false
+    let onTranslationSetup: (() -> Void)?
+    let onReport: (() -> Void)?
+    @Environment(\.scenePhase) private var scenePhase
     private var inputLanguage: String? { immersion.inputLanguage(for: id) }
     private var identity: ImmersionRequestIdentity { immersion.identity(messageID: id, text: text) }
     private struct RunKey: Hashable { let identity: ImmersionRequestIdentity; let revision: Int }
     private func chooseMode(_ value: ReadingMode) {
-        fullRequest?.cancel(); fullRequest = nil; fullFailure = nil
-        mode = value
-    }
-    private func requestTranslation() {
-        guard fullRequest == nil else { return }
-        let produced = identity
-        fullFailure = nil
-        fullRequest = Task { @MainActor in
-            let outcome = await immersion.fullTranslation(for: produced)
-            guard !Task.isCancelled, produced == identity else { return }
-            fullRequest = nil
-            if let value = outcome?.result, value.translation != nil {
-                presentation.publish(value, for: produced, current: identity, paused: currentlyPaused)
-                mode = .translation
-            } else {
-                fullFailure = outcome?.fallbackStatus ?? outcome?.status ?? .error
-                fullFailureAvailability = immersion.availability
-            }
-        }
+        if value == .translation { manual.beginWhole() }
+        else { manual.cancel(); mode = value }
     }
     init(text: String, id: String, immersion: ConversationImmersion, speech: SpeechPlayback,
-         paused: Bool, metadata: AnyView, onVoiceHelp: @escaping () -> Void) {
+         paused: Bool, metadata: AnyView, onVoiceHelp: @escaping () -> Void, onTranslationSetup: (() -> Void)? = nil, onReport: (() -> Void)? = nil) {
+        self.onTranslationSetup = onTranslationSetup; self.onReport = onReport
         self.text = text; self.id = id; self.immersion = immersion; self.speech = speech
         self.paused = paused; self.metadata = metadata; self.onVoiceHelp = onVoiceHelp
         var initial = ImmersionPresentationState()
@@ -536,71 +542,26 @@ struct ConversationImmersionText: View {
         initial.publish(immersion.cached(text, messageID: id), for: binding, current: binding, paused: false)
         _presentation = State(initialValue: initial)
         _currentlyPaused = State(initialValue: paused)
+        _manual = State(initialValue: ManualLookupInteraction(immersion: immersion, speech: speech, messageID: id, original: text))
     }
     var body: some View {
-        VStack(alignment: .leading, spacing: 7) {
-          Group {
-            // Gate synchronously during rendering, not only in an onChange task:
-            // SwiftUI can render the new message before cancellation is observed.
-            if let result = presentation.value(for: identity) {
-                ImmersionBubble(result: result, mode: mode, speech: speech,
-                    sourceLanguage: identity.source, targetLanguage: identity.target,
-                    messageID: id, interactionPaused: paused,
-                    fullReading: immersion.fullReading(for: result, identity: identity)?.text,
-                    targetDwell: immersion.targetDwell(result),
-                    embedded: true, onModeChange: chooseMode, metadata: metadata, onVoiceHelp: onVoiceHelp,
-                    originalMessage: text, inputLanguage: inputLanguage,
-                    onInputLanguage: { speech.stop(); immersion.selectInputLanguage($0, for: id) },
-                    requestingTranslation: fullRequest != nil, onRequestTranslation: requestTranslation,
-                    onExposure: { [result, presentedIdentity = identity] spans in
-                        guard presentedIdentity == identity, let current = presentation.value(for:presentedIdentity),
-                              sameExactPresentation(current,result) else { return }
-                        immersion.observeExposure(spans,presentation:result,identity:presentedIdentity)
-                    })
-                    .id(identity) // Drop old reveal/selection/full-target action state.
-            } else {
-                VStack(alignment: .leading, spacing: 7) {
-                    Text(text).textSelection(.enabled).fixedSize(horizontal: false, vertical: true)
-                        .accessibilityIdentifier("message-body-" + id)
-                    HStack {
-                        metadata; Spacer(minLength: 8)
-                        Menu {
-                            Button("Show \(VipiLanguage.named(identity.target).localizedName)", action: requestTranslation)
-                                .disabled(fullRequest != nil)
-                            MessageLanguageMenu(source: identity.source, target: identity.target,
-                                selected: inputLanguage, select: { speech.stop(); immersion.selectInputLanguage($0, for: id) })
-                            Button("Copy original message") { UIPasteboard.general.string = text }
-                        } label: { Image(systemName: "ellipsis").font(.footnote).frame(width: 44, height: 44) }
-                            .accessibilityLabel("Reading options")
-                    }
-                }
-            }
-          }
-          if fullRequest != nil {
-              HStack(spacing: 8) {
-                  ProgressView().controlSize(.small)
-                  Text("Translating on this device…").font(.footnote)
-                  Button("Cancel") { fullRequest?.cancel(); fullRequest = nil }
-              }.accessibilityIdentifier("full-translation-loading")
-          } else if let fullFailure {
-              VStack(alignment: .leading, spacing: 6) {
-                  Text(fullFailure == .modelNotReady
-                    ? (fullFailureAvailability == .unsupported
-                       ? "Full translation for this language pair isn’t supported on this device. Your message stays here."
-                       : "The full translation needs a prepared language pair.")
-                    : "The full translation isn’t available yet. Your message stays here.")
-                  HStack(spacing: 16) {
-                      if fullFailure != .modelNotReady || fullFailureAvailability != .unsupported {
-                          Button("Try again", action: requestTranslation)
-                      }
-                      if fullFailure == .modelNotReady && fullFailureAvailability == .downloadable {
-                          NavigationLink("Prepare languages") { LanguageDownloadView() }
-                      }
-                      Button("Dismiss") { self.fullFailure = nil }
-                  }
-              }.font(.footnote).accessibilityIdentifier("full-translation-error")
-          }
-        }.task(id: RunKey(identity: identity, revision: immersion.revision)) {
+        let result = presentation.value(for: identity) ?? .sourceOnly(original: text, target: identity.target)
+        ImmersionBubble(result: result, mode: mode, speech: speech,
+            sourceLanguage: identity.source, targetLanguage: identity.target,
+            messageID: id, interactionPaused: paused,
+            fullReading: immersion.fullReading(for: result, identity: identity)?.text,
+            targetDwell: immersion.targetDwell(result),
+            embedded: true, onModeChange: chooseMode, metadata: metadata, onVoiceHelp: onVoiceHelp,
+            originalMessage: text, inputLanguage: inputLanguage,
+            onInputLanguage: { speech.stop(); manual.cancel(); immersion.selectInputLanguage($0, for: id) },
+            onRequestTranslation: { manual.beginWhole() },
+            onExposure: { [result, presentedIdentity = identity] spans in
+                guard presentedIdentity == identity, let current = presentation.value(for: presentedIdentity),
+                      sameExactPresentation(current, result) else { return }
+                immersion.observeExposure(spans, presentation: result, identity: presentedIdentity)
+            }, manual: manual, onReport: onReport, rawSourceLanguage: immersion.resolvedInputLanguage(for: identity), onLanguageHelp: { choosingInputLanguage = true })
+            .id(identity)
+        .task(id: RunKey(identity: identity, revision: immersion.revision)) {
             let produced = identity
             presentation.invalidate(for: produced)
             let value = await immersion.result(for: produced.text, inputLanguage: produced.inputLanguage, messageID: produced.messageID) { partial in
@@ -610,17 +571,33 @@ struct ConversationImmersionText: View {
             guard !Task.isCancelled else { return }
             presentation.publish(value, for: produced, current: identity, paused: currentlyPaused)
         }
-        .onAppear { immersion.pinSnapshot(identity) }
+        .onAppear {
+            immersion.pinSnapshot(identity)
+            manual.onDownload = onTranslationSetup
+            manual.onVoiceHelp = onVoiceHelp
+            manual.onChooseLanguage = { choosingInputLanguage = true }
+        }
+        .confirmationDialog("Message language", isPresented: $choosingInputLanguage, titleVisibility: .visible) {
+            Button("Detect automatically") { immersion.selectInputLanguage(nil, for: id) }
+            ForEach([identity.source, identity.target], id: \.self) { language in
+                Button(VipiLanguage.named(language).localizedName) { immersion.selectInputLanguage(language, for: id) }
+            }
+            Button("Cancel", role: .cancel) { }
+        }
         .onChange(of: identity) { old, current in
             immersion.unpinSnapshot(old); immersion.pinSnapshot(current)
-            fullRequest?.cancel(); fullRequest = nil; fullFailure = nil
+            manual.reset(original: text)
             presentation.invalidate(for: current); mode = .immersed
             if speech.activeMessage == id { speech.stop() }
         }
-        .onDisappear { immersion.unpinSnapshot(identity); fullRequest?.cancel(); fullRequest = nil }
+        .onDisappear { immersion.unpinSnapshot(identity); manual.cancel() }
         .onChange(of: paused, initial: true) { _, paused in
-            currentlyPaused = paused
-            if !paused { presentation.resume(for: identity) }
+            currentlyPaused = paused; manual.interactionPaused = paused
+            if paused { manual.cancel(); if speech.activeMessage == id { speech.stop() } } else { presentation.resume(for: identity) }
+        }
+        .onChange(of: scenePhase, initial: true) { _, phase in
+            manual.foreground = phase == .active
+            if phase != .active { manual.cancel(); if speech.activeMessage == id { speech.stop() } }
         }
     }
 }

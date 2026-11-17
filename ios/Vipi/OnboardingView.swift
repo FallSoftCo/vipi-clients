@@ -71,7 +71,7 @@ struct OnboardingView: View {
                     Text(error).font(.subheadline).foregroundStyle(VipiDesign.secondary)
                     if speech.state == .unavailable { Button("Retry voices") { preparePreviewVoices() }.font(.footnote) }
                 }
-                Text("Tap a highlighted word to see its meaning.").font(.subheadline).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
+                Text("Tap a highlighted word to hear it. In chats, tap a bubble to translate.").font(.subheadline).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
             }
         }.onAppear { preparePreviewVoices() }
             .onDisappear { speech.close() }

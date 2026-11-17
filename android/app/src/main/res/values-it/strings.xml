@@ -409,7 +409,7 @@
     <string name="welcome_title_concise">Chatta con gli amici.\nImpara nuove parole.</string>
     <string name="welcome_detail_concise">Alcune parole cambiano lingua mentre chatti.</string>
     <string name="preview_spanish_title">Prova un po’ di spagnolo</string>
-    <string name="preview_tap_word">Tocca una parola evidenziata per vederne il significato.</string>
+    <string name="preview_tap_word">Tocca una parola evidenziata per ascoltarla. Nelle chat, tocca un fumetto per tradurre.</string>
     <string name="languages_title_concise">Le tue lingue</string>
     <string name="languages_detail_concise">Quale lingua vorresti imparare?</string>
     <string name="languages_change_later">Puoi cambiarle nelle Impostazioni.</string>
@@ -435,4 +435,5 @@
     <string name="lookup_translate_play">Traduci e ascolta</string>
     <string name="lookup_play_message">Riproduci il messaggio</string>
     <string name="lookup_unsupported">La traduzione per questa coppia di lingue non è supportata su questo dispositivo.</string>
+    <string name="lookup_translate_message">Traduci messaggio</string>
 </resources>

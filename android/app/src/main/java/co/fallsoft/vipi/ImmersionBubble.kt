@@ -3,6 +3,8 @@ package co.fallsoft.vipi
 import android.view.accessibility.AccessibilityManager
 import android.content.Context
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -31,7 +34,11 @@ import co.fallsoft.vipi.core.ImmersionSpan
 import co.fallsoft.vipi.core.ImmersionStatus
 import co.fallsoft.vipi.core.SpeechSpan
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.Job
+import java.lang.ref.WeakReference
 
+private class NativeLookupAnchor { var view = WeakReference<StableImmersionText>(null) }
 private data class InlineReadingIdentity(val original: String, val spans: List<ImmersionSpan>, val source: String, val target: String)
 private data class WholeReadingIdentity(val mode: ReadingMode, val text: String, val language: String)
 
@@ -47,8 +54,12 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     onFullTranslation: (() -> Unit)? = null, fullTranslationLoading: Boolean = false,
     fullTranslationError: ImmersionStatus? = null, onCancelFullTranslation: (() -> Unit)? = null,
     onTranslationSetup: (() -> Unit)? = null, contextualActions: Boolean = false,
-    onExposure: ((List<co.fallsoft.vipi.core.ImmersionSpan>) -> Unit)? = null
+    onExposure: ((List<co.fallsoft.vipi.core.ImmersionSpan>) -> Unit)? = null,
+    manual: ManualLookupInteraction? = null, rawSourceLanguage: String? = null
 ) {
+    val nativeAnchor = remember { NativeLookupAnchor() }
+    val playbackScope = rememberCoroutineScope()
+    var wordAudio by remember { mutableStateOf<Job?>(null) }
     val readingOptionsDescription = stringResource(R.string.ui_e52b25aa61b5)
     val translatingDescription = stringResource(R.string.ui_f1c94d2fa211)
     require(!contextualActions || BuildConfig.DEBUG)
@@ -76,6 +87,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     var exposureVisible by remember { mutableStateOf(false) }
     var resumed by remember { mutableStateOf(false) }
     var menu by remember { mutableStateOf(false) }
+    var readingMenu by remember { mutableStateOf(false) }
     var chooseLanguage by remember { mutableStateOf(false) }
     SideEffect { onInteractionChange?.invoke(menu || chooseLanguage || selecting || selectText || choosingWord || choosingPace) }
     var revision by remember { mutableIntStateOf(0) }
@@ -101,6 +113,8 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
         owner.lifecycle.addObserver(lifecycle); accessibility.addTouchExplorationStateChangeListener(listener)
         onDispose { owner.lifecycle.removeObserver(lifecycle); accessibility.removeTouchExplorationStateChangeListener(listener); if (speech?.activeMessage == messageID) speech.stop() }
     }
+    val rawVoiceUnresolved = originalMessage != null && rawSourceLanguage == null &&
+        (effectiveMode == ReadingMode.ORIGINAL || originalMessage.toByteArray(Charsets.UTF_8).contentEquals(result.original.toByteArray(Charsets.UTF_8)))
     val active = speech?.activeMessage == messageID
     val eligible = visible && resumed && !paused && !selecting && !selectText && !choosingWord && !choosingPace && !menu && !chooseLanguage && !interactionPaused && speech?.activeMessage == null && !screenReader && effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()
     // Opt-in local QA diagnostics contain no message text or account identifiers.
@@ -128,18 +142,44 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
         (effectiveMode == ReadingMode.IMMERSED && result.spans.any { it.romanization != null })
     fun reveal(id: Int) {
         speech?.stop(); overrides = overrides + (id to !(overrides[id] ?: originalPhase)); revision++
+        result.spans.firstOrNull { it.id == id }?.let { word ->
+            if (manual != null) manual.coveredWord(word, target, nativeAnchor.view.get())
+            else if (speech != null) {
+                wordAudio?.cancel(); val produced = revision
+                wordAudio = playbackScope.launch {
+                    for (attempt in 0 until 160) {
+                        if (produced != revision || !resumed || interactionPaused) return@launch
+                        if (speech.state != SpeechState.PREPARING) break
+                        delay(50)
+                    }
+                    if (produced == revision && resumed && !interactionPaused && speech.state !in setOf(SpeechState.PREPARING, SpeechState.UNAVAILABLE))
+                        speech.toggle("word-$messageID-$id", listOf(SpeechSpan(word.translated, target)))
+                }
+            }
+        }
     }
-    fun messageActions() { onInteractionChange?.invoke(true); menu = true }
+    fun messageActions() { ManualLookupInteraction.cancelActive(); if (speech?.activeMessage == messageID) speech.stop(); onInteractionChange?.invoke(true); readingMenu = false; menu = true }
+    fun translateWhole() {
+        if (manual != null) manual.beginWhole()
+        else result.translation?.let { speech?.toggle("translation-$messageID", listOf(SpeechSpan(it, target))) }
+    }
     fun listen() {
+        ManualLookupInteraction.cancelActive()
+        val raw = originalMessage ?: result.original
+        val actual = if (originalMessage == null) source else rawSourceLanguage
+        val sourceIsRaw = raw.toByteArray(Charsets.UTF_8).contentEquals(result.original.toByteArray(Charsets.UTF_8))
+        if ((effectiveMode == ReadingMode.ORIGINAL || sourceIsRaw) && actual == null) { chooseLanguage = true; return }
         val spans = when (effectiveMode) {
-            ReadingMode.ORIGINAL -> listOf(SpeechSpan(result.original, source))
+            ReadingMode.ORIGINAL -> listOf(SpeechSpan(raw, requireNotNull(actual)))
             ReadingMode.TRANSLATION -> listOf(SpeechSpan(requireNotNull(completeTranslation), target))
-            ReadingMode.IMMERSED -> result.speech(source, target, revealed)
+            ReadingMode.IMMERSED -> result.speech(if (sourceIsRaw) requireNotNull(actual) else source, target, revealed)
         }
         speech?.toggle(messageID, spans)
     }
-    Column(Modifier.fillMaxWidth().background(if (embedded) androidx.compose.ui.graphics.Color.Transparent else MaterialTheme.colorScheme.surface, RoundedCornerShape(23.dp))
-        .padding(start = if (embedded) 0.dp else 20.dp, end = if (embedded) 0.dp else 12.dp, top = if (embedded) 0.dp else 20.dp, bottom = if (embedded) 0.dp else 6.dp)
+    Column(Modifier.fillMaxWidth().pointerInput(manual) {
+        detectTapGestures(onTap = { translateWhole() }, onLongPress = { if (embedded) messageActions() })
+    }.background(if (embedded) androidx.compose.ui.graphics.Color.Transparent else MaterialTheme.colorScheme.surface, RoundedCornerShape(23.dp))
+        .padding(start = if (embedded) 15.dp else 20.dp, end = if (embedded) 15.dp else 12.dp, top = if (embedded) 12.dp else 20.dp, bottom = if (embedded) 12.dp else 6.dp)
         .onGloballyPositioned {
             val bounds = it.boundsInWindow()
             visible = bounds.width > 0 && bounds.height > 0 && bounds.bottom > 0 && bounds.top < root.height && bounds.right > 0 && bounds.left < root.width
@@ -151,12 +191,19 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
         if (effectiveMode == ReadingMode.IMMERSED) {
             AndroidView(factory = { StableImmersionText(it) }, modifier = Modifier.fillMaxWidth(), update = {
                 it.onWord = { id -> reveal(id) }; it.onSelection = { value -> selecting = value }
+                nativeAnchor.view = WeakReference(it); manual?.bind(it)
+                it.onPlainWord = manual?.let { lookup -> { start, end, view -> ManualSourceCoordinates.resolve(originalMessage ?: result.original, view.displayedOriginal, start, end)?.let { sourceRange -> lookup.begin(sourceRange.startUTF16, sourceRange.endUTF16, view) } } }
+                it.onReleasedSelection = manual?.let { lookup -> { start, end, view -> ManualSourceCoordinates.resolve(originalMessage ?: result.original, view.displayedOriginal, start, end)?.let { sourceRange -> lookup.begin(sourceRange.startUTF16, sourceRange.endUTF16, view) } } }
+                it.onSelectionGestureBegan = { ManualLookupInteraction.textGestureBegan(); if (speech?.activeMessage == messageID) speech.stop() }
+                it.onCopyRequested = { ManualLookupInteraction.cancelActive(); if (speech?.activeMessage == messageID) speech.stop() }
+                it.onWhitespace = manual?.let { lookup -> { view -> lookup.begin(0, (originalMessage ?: result.original).length, view) } }
+                it.onPlayMessage = if (embedded) ::listen else null
                 it.onChooseWord = { choosingWord = true }
                 it.bind(result, revealed, script, accent, ink)
-                it.configureMessageActions(if (nativeActions) ::messageActions else null, selectText) { selectText = false; selecting = false; revision++ }
+                it.configureMessageActions(if (embedded) ::messageActions else null, selectText) { selectText = false; selecting = false; revision++ }
             })
-        } else if (nativeActions) {
-            val displayed = if (effectiveMode == ReadingMode.ORIGINAL) result.original else if (script) requireNotNull(completeTranslation) else (fullReading ?: requireNotNull(completeTranslation))
+        } else if (nativeActions || (manual != null && effectiveMode == ReadingMode.ORIGINAL)) {
+            val displayed = if (effectiveMode == ReadingMode.ORIGINAL) (originalMessage ?: result.original) else if (script) requireNotNull(completeTranslation) else (fullReading ?: requireNotNull(completeTranslation))
             val plain = remember(displayed) { object : ImmersionPresentation {
                 override val original = displayed
                 override val translation: String? = null
@@ -166,6 +213,13 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                 setLineHeight(android.util.TypedValue.applyDimension(android.util.TypedValue.COMPLEX_UNIT_SP, 27f, resources.displayMetrics).toInt())
             } }, modifier = Modifier.fillMaxWidth(), update = {
                 it.onWord = null; it.onChooseWord = null; it.onSelection = { value -> selecting = value }
+                nativeAnchor.view = WeakReference(it); manual?.bind(it)
+                it.onPlainWord = manual?.takeIf { effectiveMode == ReadingMode.ORIGINAL }?.let { lookup -> { start, end, view -> ManualSourceCoordinates.resolve(originalMessage ?: result.original, view.displayedOriginal, start, end)?.let { sourceRange -> lookup.begin(sourceRange.startUTF16, sourceRange.endUTF16, view) } } }
+                it.onReleasedSelection = it.onPlainWord
+                it.onSelectionGestureBegan = { ManualLookupInteraction.textGestureBegan(); if (speech?.activeMessage == messageID) speech.stop() }
+                it.onCopyRequested = { ManualLookupInteraction.cancelActive(); if (speech?.activeMessage == messageID) speech.stop() }
+                it.onWhitespace = manual?.let { lookup -> { view -> lookup.begin(0, (originalMessage ?: result.original).length, view) } }
+                it.onPlayMessage = if (embedded) ::listen else null
                 it.bind(plain, emptySet(), false, accent, ink)
                 it.configureMessageActions(::messageActions, selectText) { selectText = false; selecting = false; revision++ }
             })
@@ -183,12 +237,11 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
             } } }, confirmButton = { TextButton(onClick = { choosingWord = false }) { Text(stringResource(R.string.ui_11a6767d5674)) } })
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             if (embedded) { Box(Modifier.weight(1f)) { metadata?.invoke() } }
-            if (embedded && active && speech != null) {
-                TextButton(onClick = { speech.stop() }) {
-                    Icon(Icons.Outlined.Stop, null, Modifier.size(18.dp))
-                    Spacer(Modifier.width(6.dp))
-                    Text(stringResource(R.string.ui_cae7d57bc067))
-                }
+            if (embedded && speech != null) IconButton(onClick = { if (manual?.consumeTouchStop() == true) Unit else if (manual != null && (manual.loading || manual.speaking || manual.preparingAudio)) manual.cancel() else if (rawVoiceUnresolved) chooseLanguage = true else if (speech.state == SpeechState.UNAVAILABLE) onVoiceHelp?.invoke() else listen() },
+                enabled = rawVoiceUnresolved || (manual != null && (manual.loading || manual.speaking || manual.preparingAudio)) || (speech.state != SpeechState.PREPARING && (speech.state != SpeechState.UNAVAILABLE || onVoiceHelp != null))) {
+                if (!rawVoiceUnresolved && speech.state == SpeechState.PREPARING && manual?.preparingAudio != true && manual?.loading != true) CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
+                else Icon(if (active || manual?.loading == true || manual?.speaking == true || manual?.preparingAudio == true) Icons.Outlined.Stop else Icons.Outlined.VolumeUp,
+                    stringResource(if (active || manual?.loading == true || manual?.speaking == true || manual?.preparingAudio == true) R.string.ui_cae7d57bc067 else if (rawVoiceUnresolved) R.string.ui_cbf7e254a8c0 else if (speech.state == SpeechState.UNAVAILABLE) R.string.ui_f826885bfb23 else R.string.lookup_play_message), Modifier.size(20.dp))
             }
             if (!embedded && effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) {
                 IconButton(onClick = { paused = !paused; revision++ }, modifier = Modifier.size(44.dp)) {
@@ -197,59 +250,36 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
             }
             if (result.spans.isNotEmpty() || fullReading != null || onModeChange != null) {
                 Box {
-                    if (!nativeActions) IconButton(onClick = { onInteractionChange?.invoke(true); menu = true }, modifier = Modifier.size(44.dp).semantics {
+                    if (!embedded && !nativeActions) IconButton(onClick = { onInteractionChange?.invoke(true); readingMenu = false; menu = true }, modifier = Modifier.size(44.dp).semantics {
                         if (fullTranslationLoading) stateDescription = translatingDescription
                     }) {
                         if (fullTranslationLoading) CircularProgressIndicator(Modifier.size(18.dp).semantics { contentDescription = readingOptionsDescription }, strokeWidth = 2.dp)
                         else Icon(Icons.Outlined.MoreHoriz, stringResource(R.string.ui_e52b25aa61b5), Modifier.size(18.dp))
                     }
                     DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
-                        if (embedded) {
-                            if (speech != null) DropdownMenuItem(text = { Text(if (active) stringResource(R.string.ui_94fa9b236332) else if (speech.state == SpeechState.PREPARING) stringResource(R.string.ui_f4cfeca151e1) else if (speech.state == SpeechState.UNAVAILABLE) stringResource(R.string.ui_f826885bfb23) else stringResource(R.string.ui_225d29f6201e)) },
-                                enabled = speech.state != SpeechState.PREPARING && (speech.state != SpeechState.UNAVAILABLE || onVoiceHelp != null),
-                                onClick = { if (speech.state == SpeechState.UNAVAILABLE) onVoiceHelp?.invoke() else listen(); menu = false })
-                            if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text(if (paused) stringResource(R.string.ui_cc245f2e3a71) else stringResource(R.string.ui_37f6135c049a)) },
-                                onClick = { paused = !paused; revision++; menu = false })
-                        }
-                        if (onModeChange != null) ReadingMode.entries.filter { it != ReadingMode.TRANSLATION || completeTranslation != null || onFullTranslation != null }.forEach { value ->
-                            val missingFull = value == ReadingMode.TRANSLATION && completeTranslation == null
-                            val title = when {
-                                missingFull && fullTranslationLoading -> stringResource(R.string.translating_language, languageName(target))
-                                missingFull && fullTranslationError == ImmersionStatus.MODEL_NOT_READY -> stringResource(R.string.full_translation_download)
-                                missingFull && fullTranslationError != null -> stringResource(R.string.full_translation_retry)
-                                value == ReadingMode.IMMERSED -> stringResource(R.string.reading_word_switching)
-                                value == ReadingMode.ORIGINAL -> stringResource(R.string.reading_original)
-                                else -> stringResource(R.string.reading_full)
+                        if (!readingMenu) {
+                            DropdownMenuItem(text = { Text(stringResource(R.string.ui_b0f88f29b4b2)) }, onClick = {
+                                ManualLookupInteraction.cancelActive()
+                                (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager).setPrimaryClip(android.content.ClipData.newPlainText(context.getString(R.string.message_hint), originalMessage ?: result.original)); menu = false
+                            })
+                            DropdownMenuItem(text = { Text(stringResource(R.string.ui_3370146d6d46)) }, onClick = { menu = false; nativeAnchor.view.get()?.selectTextFromMenu() })
+                            DropdownMenuItem(text = { Text(stringResource(R.string.ui_e52b25aa61b5)) }, trailingIcon = { Icon(Icons.Outlined.ChevronRight, null) }, onClick = { readingMenu = true })
+                            if (onReport != null) DropdownMenuItem(text = { Text(stringResource(R.string.ui_5480a088185c)) }, onClick = { menu = false; onReport() })
+                        } else {
+                            DropdownMenuItem(text = { Text(stringResource(R.string.ui_e52b25aa61b5)) }, leadingIcon = { Icon(Icons.AutoMirrored.Outlined.ArrowBack, null) }, onClick = { readingMenu = false })
+                            if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader)
+                                DropdownMenuItem(text = { Text(if (paused) stringResource(R.string.ui_cc245f2e3a71) else stringResource(R.string.ui_37f6135c049a)) }, onClick = { paused = !paused; revision++; menu = false })
+                            if (onModeChange != null) ReadingMode.entries.filter { it != ReadingMode.TRANSLATION }.forEach { value ->
+                                DropdownMenuItem(text = { Text(stringResource(if (value == ReadingMode.IMMERSED) R.string.reading_word_switching else R.string.reading_original)) },
+                                    leadingIcon = { if (effectiveMode == value) Icon(Icons.Outlined.Check, null) }, onClick = { onModeChange(value); menu = false })
                             }
-                            DropdownMenuItem(text = { Text(title) }, leadingIcon = { if (effectiveMode == value) Icon(Icons.Outlined.Check, null) },
-                                enabled = !missingFull || !fullTranslationLoading,
-                                onClick = {
-                                    if (missingFull && fullTranslationError == ImmersionStatus.MODEL_NOT_READY && onTranslationSetup != null) onTranslationSetup()
-                                    else if (missingFull) onFullTranslation?.invoke()
-                                    else onModeChange(value)
-                                    menu = false
-                                })
+                            if (canShowScript) DropdownMenuItem(text = { Text(if (script) stringResource(R.string.ui_93acaeeabd13) else stringResource(R.string.ui_127a78a187bd)) }, onClick = { script = !script; menu = false; revision++ })
+                            if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader)
+                                DropdownMenuItem(text = { Text(stringResource(R.string.ui_5de398810247)) }, onClick = { choosingPace = true; menu = false })
+                            if (onModeChange == null && effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty())
+                                DropdownMenuItem(text = { Text(stringResource(R.string.ui_0c42f5497c0b)) }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
+                            if (onInputLanguage != null) DropdownMenuItem(text = { Text(stringResource(R.string.ui_cbf7e254a8c0)) }, onClick = { chooseLanguage = true; menu = false })
                         }
-                        if (fullTranslationLoading && onCancelFullTranslation != null)
-                            DropdownMenuItem(text = { Text(stringResource(R.string.ui_4bc6d965deeb)) }, onClick = { onCancelFullTranslation(); menu = false })
-                        if (completeTranslation == null && fullTranslationError != null) Text(when (fullTranslationError) {
-                            ImmersionStatus.MODEL_NOT_READY -> stringResource(R.string.translation_pair_download_needed)
-                            ImmersionStatus.TIMEOUT -> stringResource(R.string.translation_timeout)
-                            ImmersionStatus.INVALID_LANGUAGE -> stringResource(R.string.translation_language_needed)
-                            else -> stringResource(R.string.translation_failed)
-                        }, modifier = Modifier.widthIn(max = 280.dp).padding(horizontal = 16.dp, vertical = 12.dp),
-                            style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        else if (completeTranslation == null && onFullTranslation == null)
-                            DropdownMenuItem(text = { Text(stringResource(R.string.ui_78ff037cf508)) }, enabled = false, onClick = {})
-                        if (canShowScript) DropdownMenuItem(text = { Text(if (script) stringResource(R.string.ui_93acaeeabd13) else stringResource(R.string.ui_127a78a187bd)) }, onClick = { script = !script; menu = false; revision++ })
-                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) DropdownMenuItem(text = { Text(stringResource(R.string.ui_5de398810247)) }, onClick = { choosingPace = true; menu = false })
-                        if (effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty()) DropdownMenuItem(text = { Text(stringResource(R.string.ui_0c42f5497c0b)) }, onClick = { speech?.stop(); originalPhase = true; overrides = emptyMap(); revision++; menu = false })
-                        if (onInputLanguage != null) DropdownMenuItem(text = { Text(stringResource(R.string.ui_cbf7e254a8c0)) }, onClick = { chooseLanguage = true; menu = false })
-                        if (nativeActions) DropdownMenuItem(text = { Text(stringResource(R.string.ui_3370146d6d46)) }, onClick = { selectText = true; menu = false })
-                        DropdownMenuItem(text = { Text(stringResource(R.string.ui_b0f88f29b4b2)) }, onClick = {
-                            (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager).setPrimaryClip(android.content.ClipData.newPlainText(context.getString(R.string.message_hint), originalMessage ?: result.original)); menu = false
-                        })
-                        if (onReport != null) DropdownMenuItem(text = { Text(stringResource(R.string.ui_5480a088185c)) }, onClick = { menu = false; onReport() })
                     }
                 }
             }

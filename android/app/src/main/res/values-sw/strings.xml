@@ -409,7 +409,7 @@
     <string name="welcome_title_concise">Zungumza na marafiki.\nJifunze maneno mapya.</string>
     <string name="welcome_detail_concise">Baadhi ya maneno hubadilika lugha unapozungumza.</string>
     <string name="preview_spanish_title">Jaribu Kihispania kidogo</string>
-    <string name="preview_tap_word">Gusa neno lililoangaziwa kuona maana yake.</string>
+    <string name="preview_tap_word">Gusa neno lililoangaziwa ili kulisikia. Kwenye mazungumzo, gusa kiputo ili kutafsiri.</string>
     <string name="languages_title_concise">Lugha zako</string>
     <string name="languages_detail_concise">Ungependa kujifunza lugha gani?</string>
     <string name="languages_change_later">Unaweza kuzibadilisha kwenye Mipangilio.</string>
@@ -435,4 +435,5 @@
     <string name="lookup_translate_play">Tafsiri na usikilize</string>
     <string name="lookup_play_message">Sikiliza ujumbe</string>
     <string name="lookup_unsupported">Kifaa hiki hakitumii tafsiri kati ya lugha hizi.</string>
+    <string name="lookup_translate_message">Tafsiri ujumbe</string>
 </resources>

@@ -421,7 +421,7 @@
     <string name="welcome_title_concise">تحدث مع الأصدقاء.\nتعلّم كلمات جديدة.</string>
     <string name="welcome_detail_concise">تتحوّل بعض الكلمات إلى لغة أخرى أثناء الدردشة.</string>
     <string name="preview_spanish_title">جرّب قليلًا من الإسبانية</string>
-    <string name="preview_tap_word">اضغط على كلمة مميزة لترى معناها.</string>
+    <string name="preview_tap_word">اضغط على كلمة مميزة لسماعها. في الدردشات، اضغط على فقاعة للترجمة.</string>
     <string name="languages_title_concise">لغاتك</string>
     <string name="languages_detail_concise">ما اللغة التي تود تعلّمها؟</string>
     <string name="languages_change_later">يمكنك تغييرها في الإعدادات.</string>
@@ -447,4 +447,5 @@
     <string name="lookup_translate_play">ترجم واستمع</string>
     <string name="lookup_play_message">تشغيل الرسالة</string>
     <string name="lookup_unsupported">الترجمة بين هاتين اللغتين غير مدعومة على هذا الجهاز.</string>
+    <string name="lookup_translate_message">ترجمة الرسالة</string>
 </resources>

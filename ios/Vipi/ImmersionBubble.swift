@@ -29,6 +29,12 @@ struct ImmersionBubble: View {
     var requestingTranslation = false
     var onRequestTranslation: (() -> Void)? = nil
     var onExposure: (([ImmersionSpan]) -> Void)? = nil
+    var manual: ManualLookupInteraction? = nil
+    var onReport: (() -> Void)? = nil
+    var rawSourceLanguage: String? = nil
+    var onLanguageHelp: (() -> Void)? = nil
+    @State private var nativeAnchor = WeakImmersionAnchor()
+    @State private var wordAudio: Task<Void, Never>?
     @State private var originalPhase = false
     @State private var overrides: [Int: Bool] = [:]
     @State private var paused = false
@@ -53,11 +59,17 @@ struct ImmersionBubble: View {
         switch effectiveMode { case .original: .original; case .immersed: .immersed; case .translation: .fullTarget }
     }
     private var speechSpans: [SpeechSpan]? {
-        result.speech(mode: speechMode, source: sourceLanguage, target: targetLanguage, revealed: revealed)
+        let raw = originalMessage ?? result.original
+        let actual = originalMessage == nil ? sourceLanguage : rawSourceLanguage
+        if effectiveMode == .original { return actual.map { [SpeechSpan(text: raw, language: $0)] } }
+        let sourceIsRaw = raw.utf8.elementsEqual(result.original.utf8)
+        guard !sourceIsRaw || actual != nil else { return nil }
+        return result.speech(mode: speechMode, source: sourceIsRaw ? (actual ?? sourceLanguage) : sourceLanguage, target: targetLanguage, revealed: revealed)
     }
     private var canListen: Bool { speechSpans != nil }
     private var revealed: Set<Int> { Set(result.spans.filter { overrides[$0.id] ?? originalPhase }.map(\.id)) }
     private var active: Bool { speech?.activeMessage == messageID }
+    private var manualActive: Bool { manual?.loading == true || manual?.speaking == true || manual?.preparingAudio == true }
     private var eligible: Bool { visible && scenePhase == .active && !paused && !selecting && !choosingPace && !interactionPaused && speech?.activeMessage == nil && !voiceOver && effectiveMode == .immersed && !result.spans.isEmpty }
     private var clockKey: String { "\(eligible)-\(exposureVisible)-\(revision)-\(pace)" }
     #if DEBUG
@@ -73,32 +85,115 @@ struct ImmersionBubble: View {
     #endif
     private func reveal(_ id: Int) {
         speech?.stop(); overrides[id] = !(overrides[id] ?? originalPhase); revision += 1
+        if let word = result.spans.first(where: { $0.id == id }) {
+            if let manual { manual.coveredWord(word, language: targetLanguage, from: nativeAnchor.value) }
+            else if let speech {
+                wordAudio?.cancel(); let produced = revision
+                wordAudio = Task { @MainActor in
+                    for _ in 0..<160 {
+                        guard !Task.isCancelled, produced == revision, scenePhase == .active, !interactionPaused else { return }
+                        if speech.state != .preparing { break }
+                        try? await Task.sleep(for: .milliseconds(50))
+                    }
+                    guard !Task.isCancelled, produced == revision, scenePhase == .active, !interactionPaused, speech.state != .unavailable, speech.state != .preparing else { return }
+                    speech.toggle(message: "word-\(messageID)-\(id)", spans: [(word.translated, targetLanguage)])
+                }
+            }
+        }
         #if DEBUG
         VoiceOverQualification.record("manual_word", enabled: voiceOver, original: originalPhase)
         #endif
     }
     private func listen() {
+        ManualLookupInteraction.cancelActive()
         guard let spans = speechSpans else { return }
         speech?.toggle(message: messageID, spans: spans.map { ($0.text, $0.language) })
     }
 
-    var body: some View {
+    private func playVisibleMessage() {
+        if manualActive { manual?.cancel() }
+        else if !canListen { onLanguageHelp?() }
+        else if speech?.state == .unavailable { onVoiceHelp?() }
+        else { listen() }
+    }
+    private func translateWhole() {
+        if let manual { manual.beginWhole() }
+        else if let speech, let target = result.translation {
+            speech.toggle(message: "translation-" + messageID, spans: [(target, targetLanguage)])
+        }
+    }
+    @ViewBuilder private var messageActions: some View {
+                        Button("Copy original message") { ManualLookupInteraction.cancelActive(); if active { speech?.stop() }; UIPasteboard.general.string = originalMessage ?? result.original }
+                        Button("Select text") { nativeAnchor.value?.selectTextFromMenu() }
+                        Menu("Reading options") {
+                            if effectiveMode == .immersed && !result.spans.isEmpty && !voiceOver {
+                                Button(paused ? "Resume word switching" : "Pause word switching", systemImage: paused ? "play" : "pause") { paused.toggle(); revision += 1 }
+                                Button("Word switching speed") { choosingPace = true }
+                            }
+                            if let onModeChange {
+                                ForEach(ReadingMode.allCases.filter { $0 != .translation }) { value in
+                                    Button(value.label, systemImage: effectiveMode == value ? "checkmark" : "text.bubble") { onModeChange(value) }
+                                }
+                            }
+                            if (effectiveMode == .translation && fullReading != nil) || (effectiveMode == .immersed && result.spans.contains(where: { $0.romanization != nil })) {
+                                Button(script ? "Show Latin letters" : "Show original script") { script.toggle(); revision += 1 }
+                            }
+                            if onModeChange == nil && effectiveMode == .immersed && !result.spans.isEmpty {
+                                Button("Show original words now") { speech?.stop(); originalPhase = true; overrides = [:]; revision += 1 }
+                            }
+                            if let onInputLanguage {
+                                MessageLanguageMenu(source: sourceLanguage, target: targetLanguage, selected: inputLanguage, select: onInputLanguage)
+                            }
+                        }
+    }
+
+    private var nativeMessage: StableImmersionText {
+        let displayed: ImmersionPresentation = effectiveMode == .original ? .sourceOnly(original: originalMessage ?? result.original, target: targetLanguage) : result
+        var view = StableImmersionText(result: displayed, revealed: revealed, script: script, onWord: reveal, onSelection: { selecting = $0 })
+        if let manual {
+            let lookup: (NSRange, ImmersionNativeTextView) -> Void = { range, native in
+                guard let source = ManualSourceCoordinates.resolve(rawOriginal: originalMessage ?? result.original,
+                    displayedSource: native.originalMessage, startUTF16: range.location, endUTF16: NSMaxRange(range)) else { return }
+                #if DEBUG
+                LiveImmersionQualification.recordSelection(raw: originalMessage ?? result.original, displayed: native.originalMessage, selected: range, mapped: source)
+                #endif
+                manual.begin(NSRange(location: source.startUTF16, length: source.endUTF16 - source.startUTF16), from: native)
+            }
+            view.onPlainWord = lookup
+            view.onReleasedSelection = lookup
+            view.onWhitespace = { native in manual.begin(NSRange(location: 0, length: (originalMessage ?? result.original).utf16.count), from: native) }
+        }
+        view.onSelectionGestureBegan = { ManualLookupInteraction.textGestureBegan(); if active { speech?.stop() } }
+        view.onCopyRequested = { ManualLookupInteraction.cancelActive(); if active { speech?.stop() } }
+        if embedded { view.onPlayMessage = { playVisibleMessage() } }
+        view.onNativeView = { nativeAnchor.value = $0; $0.playbackControlRectInWindow = nativeAnchor.controlRect; manual?.bind($0) }
+        return view
+    }
+    private var messageContent: some View {
         VStack(alignment: .leading, spacing: 4) {
-            if effectiveMode == .immersed {
-                StableImmersionText(result: result, revealed: revealed, script: script, onWord: reveal,
-                    onSelection: { selecting = $0 })
+            if effectiveMode != .translation {
+                nativeMessage
             } else {
                 Text(effectiveMode == .original ? result.original : (script ? (result.translation ?? result.original) : (fullReading ?? result.translation ?? result.original))).font(.body).lineSpacing(5)
                     .textSelection(.enabled).frame(maxWidth: .infinity, alignment: .leading)
             }
+            messageControls
+        }
+    }
+    private var messageControls: some View {
             controlLayout {
                 if embedded { metadata; Spacer(minLength: 8) }
                 HStack(spacing: stackedControls ? 12 : 0) {
-                if embedded, active, let speech {
-                    Button { speech.stop() } label: {
-                        Image(systemName: "stop.fill").font(.footnote).frame(width: 44, height: 44)
-                    }.accessibilityLabel("Stop listening")
-                        .accessibilityIdentifier("messageStop")
+                if embedded, let speech, canListen || onLanguageHelp != nil {
+                    Button(action: playVisibleMessage) {
+                        if speech.state == .preparing && !manualActive { ProgressView().frame(width: 44, height: 44) }
+                        else { Image(systemName: active || manualActive ? "stop.fill" : "speaker.wave.2").font(.body).frame(width: 44, height: 44) }
+                    }.disabled(!manualActive && canListen && (speech.state == .preparing || (speech.state == .unavailable && onVoiceHelp == nil)))
+                        .accessibilityLabel(LocalizedStringKey(active || manualActive ? "Stop listening" : !canListen ? "Message language" : speech.state == .unavailable ? "Set up voices" : "Play message"))
+                        .accessibilityIdentifier("messageListen")
+                        .onGeometryChange(for: CGRect.self) { $0.frame(in: .global) } action: { frame in
+                            nativeAnchor.controlRect = frame; nativeAnchor.value?.playbackControlRectInWindow = frame
+                        }
                 }
                 if !embedded && effectiveMode == .immersed && !result.spans.isEmpty && !voiceOver {
                     Button { paused.toggle(); revision += 1 } label: {
@@ -106,39 +201,8 @@ struct ImmersionBubble: View {
                     }.accessibilityLabel(paused ? "Resume word switching" : "Pause word switching")
                         .accessibilityIdentifier("immersionPause")
                 }
-                if !result.spans.isEmpty || fullReading != nil || onModeChange != nil {
-                    Menu {
-                        if embedded {
-                            if let speech, canListen {
-                                Button(active ? "Stop listening" : (speech.state == .preparing ? "Preparing voices…" : speech.state == .unavailable ? "Set up voices" : "Listen"), systemImage: active ? "stop.fill" : "speaker.wave.2") {
-                                    if speech.state == .unavailable { onVoiceHelp?() } else { listen() }
-                                }.disabled(speech.state == .preparing || (speech.state == .unavailable && onVoiceHelp == nil))
-                            }
-                            if effectiveMode == .immersed && !result.spans.isEmpty && !voiceOver {
-                                Button(paused ? "Resume word switching" : "Pause word switching", systemImage: paused ? "play" : "pause") { paused.toggle(); revision += 1 }
-                            }
-                        }
-                        if effectiveMode == .immersed && !result.spans.isEmpty && !voiceOver {
-                            Button("Word switching speed") { choosingPace = true }
-                        }
-                        if let onModeChange {
-                            ForEach(ReadingMode.allCases.filter { $0 != .translation || result.translation != nil || onRequestTranslation != nil }) { value in
-                                let label = value.label
-                                Button(label, systemImage: effectiveMode == value ? "checkmark" : "text.bubble") {
-                                    if value == .translation, result.translation == nil { onRequestTranslation?() }
-                                    else { onModeChange(value) }
-                                }.disabled(value == .translation && requestingTranslation)
-                            }
-                        }
-                        if (effectiveMode == .translation && fullReading != nil) || (effectiveMode == .immersed && result.spans.contains(where: { $0.romanization != nil })) {
-                            Button(script ? "Show Latin letters" : "Show original script") { script.toggle(); revision += 1 }
-                        }
-                        if effectiveMode == .immersed && !result.spans.isEmpty { Button("Show original words now") { speech?.stop(); originalPhase = true; overrides = [:]; revision += 1 } }
-                        if let onInputLanguage {
-                            MessageLanguageMenu(source: sourceLanguage, target: targetLanguage, selected: inputLanguage, select: onInputLanguage)
-                        }
-                        Button("Copy original message") { UIPasteboard.general.string = originalMessage ?? result.original }
-                    } label: { Image(systemName: "ellipsis").font(.footnote).frame(width: 44, height: 44) }
+                if !embedded && (!result.spans.isEmpty || fullReading != nil || onModeChange != nil) {
+                    Menu { messageActions } label: { Image(systemName: "ellipsis").font(.footnote).frame(width: 44, height: 44) }
                         .accessibilityLabel("Reading options")
                 }
                 }
@@ -157,7 +221,16 @@ struct ImmersionBubble: View {
                         .accessibilityIdentifier("messageListen")
                 }
             }
-        }.padding(.horizontal, embedded ? 0 : 20).padding(.top, embedded ? 0 : 20).padding(.bottom, embedded ? 0 : 6)
+    }
+    var body: some View {
+        messageContent.padding(.horizontal, embedded ? 15 : 20).padding(.top, embedded ? 12 : 20).padding(.bottom, embedded ? 12 : 6)
+            .background {
+                if selecting { Color.clear }
+                else {
+                    Color.clear.contentShape(Rectangle()).onTapGesture { translateWhole() }
+                        .contextMenu { if embedded { messageActions; if let onReport { Button("Report message", systemImage: "flag", action: onReport) } } }
+                }
+            }
             .background(embedded ? Color.clear : (outgoing ? VipiDesign.outgoing : VipiDesign.surface), in: RoundedRectangle(cornerRadius: 23))
             .confirmationDialog("Word switching speed", isPresented: $choosingPace, titleVisibility: .visible) {
                 Button("Slower") { pace = "relaxed" }
@@ -172,7 +245,7 @@ struct ImmersionBubble: View {
             .onChange(of: voiceOver) { VoiceOverQualification.record("voiceover_changed", enabled: voiceOver, original: originalPhase) }
             .onChange(of: originalPhase) { VoiceOverQualification.record("phase_changed", enabled: voiceOver, original: originalPhase) }
             #endif
-            .onDisappear { visible = false; if active { speech?.stop() } }
+            .onDisappear { visible = false; wordAudio?.cancel(); if active || speech?.activeMessage?.hasPrefix("word-" + messageID) == true { speech?.stop() } }
             .onScrollVisibilityChange(threshold: 0.1) { visible = $0 }
             .onScrollVisibilityChange(threshold: 0.95) { exposureVisible = $0 }
             .task(id: clockKey) {
@@ -223,3 +296,5 @@ enum ImmersionPreview {
         entries: [.init(source: "Coffee", targets: ["Café"]), .init(source: "tomorrow", targets: ["mañana"]), .init(source: "river", targets: ["río"])],
         density: 0.3)
 }
+
+@MainActor private final class WeakImmersionAnchor { weak var value: ImmersionNativeTextView?; var controlRect = CGRect.null }

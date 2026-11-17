@@ -406,7 +406,7 @@
     <string name="welcome_title_concise">與朋友聊天。\n學習新詞彙。</string>
     <string name="welcome_detail_concise">聊天時，部分詞語會切換成另一種語言。</string>
     <string name="preview_spanish_title">體驗一點西班牙語</string>
-    <string name="preview_tap_word">輕點反白詞語，查看它的意思。</string>
+    <string name="preview_tap_word">點一下反白單字即可聽發音。在聊天中，點一下對話氣泡即可翻譯。</string>
     <string name="languages_title_concise">你的語言</string>
     <string name="languages_detail_concise">你想學哪種語言？</string>
     <string name="languages_change_later">你可以隨時在設定中更改。</string>
@@ -432,4 +432,5 @@
     <string name="lookup_translate_play">翻譯並聆聽</string>
     <string name="lookup_play_message">播放訊息</string>
     <string name="lookup_unsupported">此裝置不支援這兩種語言之間的翻譯。</string>
+    <string name="lookup_translate_message">翻譯訊息</string>
 </resources>

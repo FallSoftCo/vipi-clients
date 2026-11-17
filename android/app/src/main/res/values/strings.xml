@@ -38,7 +38,7 @@
     <string name="welcome_title_concise">Chat with friends.\nLearn new words.</string>
     <string name="welcome_detail_concise">A few words switch languages as you chat.</string>
     <string name="preview_spanish_title">Try a little Spanish</string>
-    <string name="preview_tap_word">Tap a highlighted word to see its meaning.</string>
+    <string name="preview_tap_word">Tap a highlighted word to hear it. In chats, tap a bubble to translate.</string>
     <string name="languages_title_concise">Your languages</string>
     <string name="languages_detail_concise">Which language would you like to learn?</string>
     <string name="languages_change_later">You can change these in Settings.</string>
@@ -64,4 +64,5 @@
     <string name="lookup_translate_play">Translate and listen</string>
     <string name="lookup_play_message">Play message</string>
     <string name="lookup_unsupported">Translation isn’t supported for this language pair on this device.</string>
+    <string name="lookup_translate_message">Translate message</string>
 </resources>

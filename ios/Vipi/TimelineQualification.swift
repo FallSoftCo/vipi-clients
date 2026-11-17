@@ -1,6 +1,7 @@
 #if DEBUG
 import SwiftUI
 import Security
+import CryptoKit
 
 /// Actual hosted reauthentication using only the already-owned staging account.
 /// Never supplies a token, creates a device, rotates keys, or takes over another
@@ -107,6 +108,36 @@ struct ReauthenticationQualificationView: View {
 /// Explicit debug-only observation of owned live QA sessions. Contains no
 /// message text, keys, tokens or audio; it never changes presentation state.
 @MainActor enum LiveImmersionQualification {
+    private static func digest(_ text: String) -> String {
+        SHA256.hash(data: Data(text.utf8)).map { String(format: "%02x", $0) }.joined()
+    }
+    static func recordResult(_ result: ManualTranslationResult) {
+        guard ProcessInfo.processInfo.arguments.contains("-vipi-timeline-qa") else { return }
+        record(["event": "manual_result", "message_id": result.request.messageID, "generation": result.request.generation,
+            "raw_sha256": digest(result.request.originalText), "raw_utf16": result.request.originalText.utf16.count,
+            "selection_start": result.request.startUTF16, "selection_end": result.request.endUTF16,
+            "source_context_sha256": digest(result.sourceContextText), "source_context_utf16": result.sourceContextText.utf16.count,
+            "context_start": result.sourceContextStartUTF16, "context_end": result.sourceContextEndUTF16,
+            "target_sha256": digest(result.targetText), "target_utf16": result.targetText.utf16.count,
+            "source_language": result.sourceLanguage, "target_language": result.targetLanguage,
+            "source_reading_sha256": result.sourceReading.map { digest($0.text) } ?? "",
+            "target_reading_sha256": result.reading.map { digest($0.text) } ?? ""])
+    }
+    static func recordSelection(raw: String, displayed: String, selected: NSRange, mapped: ManualSourceRange) {
+        guard ProcessInfo.processInfo.arguments.contains("-vipi-timeline-qa") else { return }
+        record(["event": "manual_source_selection", "raw_sha256": digest(raw), "displayed_sha256": digest(displayed),
+            "displayed_start": selected.location, "displayed_end": NSMaxRange(selected),
+            "raw_start": mapped.startUTF16, "raw_end": mapped.endUTF16, "expanded": mapped.expanded])
+    }
+    static func recordSpeech(_ message: String, spans: [(text: String, language: String)]) {
+        let arguments = ProcessInfo.processInfo.arguments
+        let authoredWelcome = arguments.contains("-vipi-welcome") && Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa"
+        guard (arguments.contains("-vipi-timeline-qa") || authoredWelcome), arguments.contains("-vipi-live-immersion-state") else { return }
+        record(["event": "speech_input", "message_id": message, "inputs": spans.map { span in
+            ["language": span.language, "utf8_bytes": span.text.utf8.count,
+             "sha256": SHA256.hash(data: Data(span.text.utf8)).map { String(format: "%02x", $0) }.joined()] as [String: Any]
+        }])
+    }
     static func record(_ fields: [String: Any]) {
         let arguments = ProcessInfo.processInfo.arguments
         guard let index = arguments.firstIndex(of: "-vipi-live-immersion-state"), index + 1 < arguments.count else { return }
@@ -213,7 +244,11 @@ struct TimelineQualificationView: View {
                     })
                 }
                 let immersionQA = ProcessInfo.processInfo.arguments.contains("-vipi-immersion-chat-qa")
-                let immersionMessages = ProcessInfo.processInfo.arguments.contains("-vipi-source-unit-routing-qa")
+                let immersionMessages = ProcessInfo.processInfo.arguments.contains("-vipi-reverse-spanish-qa")
+                    ? ["Estoy leyendo un libro ahora."]
+                    : ProcessInfo.processInfo.arguments.contains("-vipi-reverse-chinese-qa")
+                    ? ["我正在读一本书。"]
+                    : ProcessInfo.processInfo.arguments.contains("-vipi-source-unit-routing-qa")
                     ? ["I need water. Did you finish the report?"]
                     : ProcessInfo.processInfo.arguments.contains("-vipi-learning-language-qa")
                     ? ["Ninapenda muziki."]

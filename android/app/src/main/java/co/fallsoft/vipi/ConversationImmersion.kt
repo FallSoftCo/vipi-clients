@@ -215,6 +215,20 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     }
     private val cache = BoundedImmersionCache<CachedOutcome>(128)
     private val inputLanguages = mutableStateMapOf<String, String>()
+    private data class ResolvedInputIdentity(val generation: Long, val messageID: String, val text: String,
+        val source: String, val target: String, val inputLanguage: String?)
+    private val resolvedInputs = mutableStateMapOf<ResolvedInputIdentity, String>()
+    fun resolvedInputLanguage(text: String, messageID: String): String? = synchronized(stateLock) {
+        if (closed) null else inputLanguages[messageID] ?: resolvedInputs[ResolvedInputIdentity(generation, messageID, text, source, target, inputLanguages[messageID])]
+    }
+    private fun rememberInput(text: String, messageID: String?, input: String?, epoch: Long, outcome: LookupFirstOutcome) = synchronized(stateLock) {
+        val language = outcome.resolvedInputLanguage
+        if (!closed && epoch == generation && messageID != null && inputLanguages[messageID] == input && language in listOf(source, target)) {
+            val key = ResolvedInputIdentity(epoch, messageID, text, source, target, input)
+            resolvedInputs[key] = requireNotNull(language)
+            if (resolvedInputs.size > 128) resolvedInputs.keys.firstOrNull { it != key }?.let { resolvedInputs.remove(it) }
+        }
+    }
     @Volatile private var closed = false
     @Volatile private var generation = 0L
     private var modelRevision = 0L
@@ -244,7 +258,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     fun inputLanguage(id: String): String? = inputLanguages[id]
     fun selectInputLanguage(id: String, language: String?) {
         if (closed || (language != null && language !in listOf(source, target))) return
-        if (inputLanguages[id] != language) synchronized(stateLock) { generation++; fullAttempts.clear() }
+        if (inputLanguages[id] != language) synchronized(stateLock) { generation++; fullAttempts.clear(); resolvedInputs.clear() }
         if (language == null) inputLanguages.remove(id) else inputLanguages[id] = language
     }
     fun cachedPresentation(text: String, messageID: String? = null): ImmersionPresentation? =
@@ -337,7 +351,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
                 cachedOutcome(cacheKey(text, inputLanguage, submittedHistory)) else null
         }
         if (coroutineContext.isActive && sourceLookupIsCurrent() && submittedRevision == generation && cached != null && reusable(cached, intent))
-            return cached.cachedInvocation().also { lastOutcome = it; lastInvocation = ImmersionInvocationCounters() }
+            return cached.cachedInvocation().also { rememberInput(text, messageID, inputLanguage, submittedRevision, it); lastOutcome = it; lastInvocation = ImmersionInvocationCounters() }
         return withRequestGate(RequestKey(submittedRevision, submittedHistory, inputLanguage, text)) { revision ->
         lastOutcome = null
         var readinessCalls = 0; var alignmentCalls = 0; var partialCalls = 0; var qaCalls = 0; var recognitionCalls = 0
@@ -346,6 +360,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         fun valid() = !closed && sourceLookupIsCurrent() && revision == generation && requestContext.isActive &&
             (messageID == null || inputLanguages[messageID] == inputLanguage)
         fun finish(value: LookupFirstOutcome): LookupFirstOutcome {
+            if (valid() && value.status != ImmersionStatus.STALE) rememberInput(text, messageID, inputLanguage, revision, value)
             lastOutcome = value
             lastInvocation = ImmersionInvocationCounters(readinessCalls, alignmentCalls, partialCalls, qaCalls, recognitionCalls)
             return value
@@ -403,7 +418,10 @@ internal class ConversationImmersion(context: Context, val source: String, val t
                     }
                 } },
                 onPartial = { partial -> if (valid()) {
-                    cacheOutcome(key, LookupFirstOutcome(partial, ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, 0))
+                    // Core emits partials only after validated detected == source.
+                    val envelope = LookupFirstOutcome(partial, ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, 0, resolvedInputLanguage = source)
+                    cacheOutcome(key, envelope)
+                    rememberInput(text, messageID, inputLanguage, revision, envelope)
                     onPartial(partial)
                 } })
         } catch (cancelled: CancellationException) {
@@ -421,7 +439,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         }
     }
     override fun close() {
-        synchronized(stateLock) { generation++; closed = true; cache.clear(); fullAttempts.clear(); manualSelections.clear(); manualTranslations.clear() }
+        synchronized(stateLock) { generation++; closed = true; cache.clear(); fullAttempts.clear(); resolvedInputs.clear(); manualSelections.clear(); manualTranslations.clear() }
         fullReadings.close(); inputLanguages.clear(); translator.close(); language.close()
     }
 }
@@ -491,6 +509,23 @@ private data class OriginalOnlyPresentation(override val original: String) : Imm
     LaunchedEffect(paused, interacting, request) {
         if (!paused && !interacting && latestRequest == request) state = state.resume(request)
     }
+    val manual = remember(immersion, id, text, speech) { ManualLookupInteraction(immersion, speech, id, text, scope) }
+    SideEffect { manual.interactionPaused = paused }
+    DisposableEffect(manual, lifecycle) {
+        manual.foreground = lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
+        val observer = LifecycleEventObserver { _, _ ->
+            manual.foreground = lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
+            if (!manual.foreground) { manual.cancel(); if (speech.activeMessage == id) speech.stop() }
+        }
+        lifecycle.addObserver(observer)
+        onDispose { lifecycle.removeObserver(observer); manual.cancel() }
+    }
+    DisposableEffect(manual, request) {
+        manual.cancel()
+        onDispose { manual.cancel(); if (speech.activeMessage == id) speech.stop() }
+    }
+    LaunchedEffect(paused) { if (paused) { manual.cancel(); if (speech.activeMessage == id) speech.stop() } }
+    var choosingManualLanguage by remember(request) { mutableStateOf(false) }
     val current = state.takeIf { it.request == request }?.visible
     val reference = current?.translation
     var fullReading by remember(request, reference) { mutableStateOf(reference?.let(immersion::cachedReading)) }
@@ -503,10 +538,14 @@ private data class OriginalOnlyPresentation(override val original: String) : Imm
     }
     ImmersionBubble(current ?: remember(text) { OriginalOnlyPresentation(text) }, mode, speech, immersion.source, immersion.target, id, paused,
         fullReading = fullReading?.text, targetDwellMs = immersion.targetDwell(current),
-        embedded = true, onModeChange = { value -> cancelFull(); mode = value }, metadata = metadata, onVoiceHelp = onVoiceHelp,
+        embedded = true, onModeChange = { value -> cancelFull(); if (value == ReadingMode.TRANSLATION) manual.beginWhole() else { manual.cancel(); mode = value } }, metadata = metadata, onVoiceHelp = onVoiceHelp,
         originalMessage = text, inputLanguage = inputLanguage, onInputLanguage = { cancelFull(); immersion.selectInputLanguage(id, it) },
         onInteractionChange = { interacting = it }, onReport = onReport,
         onFullTranslation = ::requestFull, fullTranslationLoading = fullLoading, fullTranslationError = fullError,
         onCancelFullTranslation = { cancelFull(restoreMode = true) }, onTranslationSetup = onTranslationSetup,
-        contextualActions = contextualActions, onExposure = { spans -> immersion.observeExposure(current, spans) })
+        contextualActions = contextualActions, onExposure = { spans -> immersion.observeExposure(current, spans) }, manual = manual, rawSourceLanguage = immersion.resolvedInputLanguage(text, id))
+    ManualLookupPopup(manual, onTranslationSetup, onVoiceHelp) { choosingManualLanguage = true }
+    if (choosingManualLanguage) MessageLanguageDialog(immersion.source, immersion.target, inputLanguage,
+        onSelect = { manual.cancel(); immersion.selectInputLanguage(id, it); choosingManualLanguage = false },
+        dismiss = { choosingManualLanguage = false })
 }

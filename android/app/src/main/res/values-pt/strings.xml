@@ -409,7 +409,7 @@
     <string name="welcome_title_concise">Converse com amigos.\nAprenda palavras novas.</string>
     <string name="welcome_detail_concise">Algumas palavras mudam de idioma enquanto você conversa.</string>
     <string name="preview_spanish_title">Experimente um pouco de espanhol</string>
-    <string name="preview_tap_word">Toque em uma palavra destacada para ver o significado.</string>
+    <string name="preview_tap_word">Toque em uma palavra destacada para ouvi-la. Nas conversas, toque em um balão para traduzir.</string>
     <string name="languages_title_concise">Seus idiomas</string>
     <string name="languages_detail_concise">Qual idioma você gostaria de aprender?</string>
     <string name="languages_change_later">Você pode mudar nas Configurações.</string>
@@ -435,4 +435,5 @@
     <string name="lookup_translate_play">Traduzir e ouvir</string>
     <string name="lookup_play_message">Reproduzir mensagem</string>
     <string name="lookup_unsupported">A tradução entre esses idiomas não é compatível com este dispositivo.</string>
+    <string name="lookup_translate_message">Traduzir mensagem</string>
 </resources>

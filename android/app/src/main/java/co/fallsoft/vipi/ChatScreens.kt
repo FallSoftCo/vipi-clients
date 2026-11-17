@@ -274,7 +274,7 @@ import java.util.UUID
                 items(messages, key = { it.id }) { item ->
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = if (item.outgoing) Arrangement.End else Arrangement.Start) {
                         if (item.outgoing) Spacer(Modifier.width(38.dp))
-                        Column(Modifier.weight(1f, fill = false).background(if (item.outgoing) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface, RoundedCornerShape(18.dp)).padding(horizontal = 15.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(7.dp)) {
+                        Column(Modifier.weight(1f, fill = false).background(if (item.outgoing) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface, RoundedCornerShape(18.dp)), verticalArrangement = Arrangement.spacedBy(7.dp)) {
                             val time = remember(item.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(item.createdAt)) }
                             ConversationImmersionText(item.text, item.id.toString(), immersion, speech,
                                 list.isScrollInProgress || (composing && text.isNotEmpty()) || reportedMessage != null,
