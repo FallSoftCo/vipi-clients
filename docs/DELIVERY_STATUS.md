@@ -37,8 +37,12 @@ download. Both annual products and their independent one-month trial offers are
 active: Vipi $12/year and optional Bot mini $48/year in the US. The same owned
 account is configured for license testing. One no-charge Google test purchase
 activated Base, refreshed on the same device, renewed into the accelerated paid
-test period, and was canceled effective at period end. Lapse after 02:41:50 UTC
-remains unobserved; cross-device restore and refund/revocation remain unqualified.
+test period, and was canceled effective at period end. The original subscription
+expired at 02:41:50 UTC and the backend recorded revocation at 02:42:01 UTC.
+The already-open plan screen retained stale active text until one normal refresh;
+the next Android revision is correcting that display. This restricted staging
+test does not prove production message-send enforcement. Cross-device restore
+and refund/revocation remain unqualified.
 See the [license-test receipt](../qa/subscriptions/google-license-sandbox-20261117-r01/receipt.json).
 
 Apple's corrected company-signed 1.0(1) IPA was delivered once through
@@ -86,7 +90,7 @@ apsd and SpringBoard logs. Foregrounding the app showed the decrypted message;
 the original server row reached `delivered` and the sender showed Delivered. A visible system banner was
 not established.
 
-Live restricted staging now runs backend `9b8cca6`, with schema `20261116_01`
+Live restricted staging now runs backend `8da2627`, with schema `20261116_01`
 and account-scoped store sandbox verification enabled. Three owned subjects are
 admitted, with two unchanged complimentary reviewers and one separately verified
 non-reviewer sandbox tester. Subscription enforcement remains disabled in this
@@ -119,6 +123,13 @@ Private receipts are under `vipi-submit-20261110-r01/` in
 `google-billing-preparation-20261116-r01` and
 `billing-rollout-candidate-20261116-r01`. The retained Apple receipt is
 [apple-delivery-20261116-r01.json](../release/apple-delivery-20261116-r01.json).
+
+The November 17 API-only rollout activated the approved homepage wording and
+the committed sandbox APNs support. The existing push worker retained its
+separate overlay, process and credentials. Environment, schema and subscription
+enforcement were unchanged, and billing resumed after the coordinated pause.
+Independent checks verified the public headline, local readiness and protected
+endpoint rejection. See the [rollout receipt](../qa/backend/homepage-apns-release-20261117-r01/receipt.json).
 
 ## November 16 immersion update
 
@@ -203,7 +214,7 @@ Both public downloads were fetched anonymously and their hashes verified.
 Source publication does not establish every linked dependency's combined-binary
 distribution terms. See the [publication record](../release/client-source-publication-20261116.json).
 
-The deployed service is now `9b8cca6`, retaining the earlier public username
+The deployed service is now `8da2627`, retaining the earlier public username
 invitation page. Registration remains restricted to two owned reviewer accounts
 and the separate owned company tester. No app-review submission has occurred.
 The earlier authentication/signing hold
@@ -259,7 +270,7 @@ Those original exchanges establish foreground human chat. The subsequent FCM
 background result is recorded above; public onboarding and broader purchase
 lifecycles remain separate qualification work.
 
-The service runs `9b8cca6`, preserving the earlier `b97b2c9` public vBot
+The service runs `8da2627`, preserving the earlier `b97b2c9` public vBot
 guardian-consent terms and `742e119` username invitation pages. Its two owned reviewer accounts have explicit
 complimentary Base and Bot mini access, with no purchase, expiry or trial invented.
 The Android app verified both review-access labels against the live service.
