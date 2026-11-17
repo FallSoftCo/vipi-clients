@@ -68,7 +68,7 @@ import java.time.format.FormatStyle
         Column(Modifier.background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding().padding(horizontal = 12.dp)) {
             (localError ?: bot.notice)?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
             bot.allowance?.let { allowance ->
-                Text("${allowance.remaining} of ${allowance.monthly} replies left · resets ${DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)}", style = MaterialTheme.typography.labelSmall)
+                Text(stringResource(R.string.bot_allowance_remaining, java.text.NumberFormat.getIntegerInstance().format(allowance.remaining), java.text.NumberFormat.getIntegerInstance().format(allowance.monthly), DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)), style = MaterialTheme.typography.labelSmall)
             }
             BotPlanAccessGate(subscriptions?.accessCheckState ?: AccessCheckState.UNKNOWN, subscriptions?.access,
                 onRetry = { scope.launch { subscriptions?.refreshAccess() } },
@@ -79,13 +79,13 @@ import java.time.format.FormatStyle
                     Checkbox(consentChecked, onCheckedChange = { consentChecked = it })
                     Text(stringResource(R.string.ui_99a6cb8ef035), style = MaterialTheme.typography.bodyMedium)
                 }
-                Button(onClick = { runCatching { bot.acceptConsent() }.onFailure { localError = "Your choice couldn’t be saved. Please try again." } }, enabled = consentChecked) { Text(stringResource(R.string.continue_action)) }
+                Button(onClick = { runCatching { bot.acceptConsent() }.onFailure { localError = context.getString(R.string.bot_consent_save_failed) } }, enabled = consentChecked) { Text(stringResource(R.string.continue_action)) }
             } else {
                 Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     OutlinedTextField(bot.draft, { value ->
                         if (value.toByteArray(Charsets.UTF_8).size <= 8192) runCatching { bot.saveDraft(value); localError = null }
-                            .onFailure { localError = "Your draft couldn’t be saved. Please try again." }
-                        else localError = "This message is too long. Send a shorter message."
+                            .onFailure { localError = context.getString(R.string.bot_draft_save_failed) }
+                        else localError = context.getString(R.string.bot_message_too_long)
                     }, placeholder = { Text(stringResource(R.string.ui_9f60f6c0e9e0)) }, maxLines = 5, modifier = Modifier.weight(1f).onFocusChanged { composing = it.isFocused }.testTag("bot-message-input"), shape = RoundedCornerShape(24.dp))
                     FilledIconButton(onClick = { scope.launch { bot.send() } }, enabled = !bot.busy && bot.draft.isNotBlank() && bot.allowance?.let { it.available && it.remaining > 0 } == true) {
                         if (bot.busy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp) else Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.ui_4b34e1b08868))
@@ -98,13 +98,13 @@ import java.time.format.FormatStyle
     }) { padding ->
         LazyColumn(state = list, modifier = Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
-                if (bot.earlierAvailable) TextButton(onClick = { runCatching { bot.earlier() }.onFailure { localError = "Earlier messages couldn’t be opened." } }) { Text(stringResource(R.string.ui_561a197a2807)) }
+                if (bot.earlierAvailable) TextButton(onClick = { runCatching { bot.earlier() }.onFailure { localError = context.getString(R.string.bot_earlier_open_failed) } }) { Text(stringResource(R.string.ui_561a197a2807)) }
                 else Text(stringResource(R.string.ui_cc39ebccb529), style = MaterialTheme.typography.bodySmall)
             }
             items(bot.messages, key = { it.id }) { message ->
                 Column(Modifier.fillMaxWidth().background(if (message.role == "user") MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp)).padding(14.dp)) {
                     ConversationImmersionText(message.text, message.id, immersion, speech, (composing && bot.draft.isNotEmpty()) || list.isScrollInProgress || reportedMessage != null,
-                        onVoiceHelp = { runCatching { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }.onFailure { localError = "Speech settings couldn’t open." } },
+                        onVoiceHelp = { runCatching { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }.onFailure { localError = context.getString(R.string.speech_settings_open_failed) } },
                         onTranslationSetup = { model.navigate(Screen.LANGUAGE_DOWNLOAD) },
                         onReport = if (message.role == "assistant" && message.requestID != null) ({
                             speech.stop(); reportedMessage = message; reportReason = ""

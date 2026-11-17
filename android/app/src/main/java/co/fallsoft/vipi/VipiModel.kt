@@ -23,7 +23,8 @@ val initialLanguages = listOf(
     VipiLanguage("zh", "Chinese", "中文"), VipiLanguage("ar", "Arabic", "العربية"),
     VipiLanguage("sw", "Swahili", "Kiswahili")
 )
-fun languageName(code: String) = initialLanguages.firstOrNull { it.code == code }?.name ?: code
+fun languageName(code: String): String = if (initialLanguages.any { it.code == code })
+    java.util.Locale.forLanguageTag(code).getDisplayLanguage(java.util.Locale.getDefault()) else code
 enum class Appearance { SYSTEM, LIGHT, DARK }
 enum class Screen { WELCOME, LANGUAGE, ACCOUNT, HOME, SETTINGS, NEW_CHAT, BOT, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE, DELETE_ACCOUNT, PLANS, BOT_PLAN, BACKUP, LICENSES }
 enum class ReadingMode(val label: String) { IMMERSED("Immersed"), ORIGINAL("Original"), TRANSLATION("Translation") }

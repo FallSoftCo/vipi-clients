@@ -169,7 +169,7 @@ import java.util.UUID
             messages = (current + messages.filter { it.id !in ids }).sortedBy { it.cursor }
             if (!loaded) { text = chat.compose(peer); earlierAvailable = current.size == 50; loaded = true }
             chat.markRead(peer)
-        } catch (_: Exception) { error = "Your saved messages couldn’t be opened. Please try again." }
+        } catch (_: Exception) { error = context.getString(R.string.chat_saved_open_failed) }
     }
     fun earlier() {
         try {
@@ -182,13 +182,13 @@ import java.util.UUID
                 val index = messages.indexOfFirst { it.id == anchor.key }
                 if (index >= 0) list.requestScrollToItem(index + 1, -anchor.offset)
             }
-        } catch (_: Exception) { error = "Earlier messages couldn’t be opened. Please try again." }
+        } catch (_: Exception) { error = context.getString(R.string.chat_earlier_open_failed) }
     }
     LaunchedEffect(peer) {
         refresh(); blockBusy = true
         try { chat.refreshBlock(peer) }
         catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { error = "Block status couldn’t be checked. Your last confirmed choice is saved." }
+        catch (_: Exception) { error = context.getString(R.string.chat_block_check_failed) }
         finally { blockBusy = false }
         chat.synchronize()
     }
@@ -228,7 +228,7 @@ import java.util.UUID
                     OutlinedTextField(text, { value ->
                         text = value
                         try { chat.saveCompose(value, peer) }
-                        catch (_: Exception) { error = "This draft couldn’t be saved. Keep this conversation open and try again." }
+                        catch (_: Exception) { error = context.getString(R.string.chat_draft_save_failed) }
                     }, placeholder = { Text(stringResource(R.string.message_hint)) }, maxLines = 6, shape = RoundedCornerShape(24.dp),
                         modifier = Modifier.weight(1f).onFocusChanged { composing = it.isFocused }.testTag("message-input"))
                     FilledIconButton(onClick = {
@@ -302,12 +302,12 @@ import java.util.UUID
     if (showVoiceHelp) AlertDialog(onDismissRequest = { showVoiceHelp = false },
         title = { Text(stringResource(R.string.ui_b7c32ca74cb0)) },
         text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(speech.error ?: "Prepare the voices for both languages to listen without a connection.")
+            Text(speech.error ?: stringResource(R.string.voices_prepare_offline))
             voiceSettingsError?.let { Text(it) }
             TextButton(onClick = {
                 voiceSettingsError = null
                 try { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }
-                catch (_: Exception) { voiceSettingsError = "Open your phone’s Settings and search for text-to-speech." }
+                catch (_: Exception) { voiceSettingsError = context.getString(R.string.speech_settings_help) }
             }) { Text(stringResource(R.string.ui_8b3f05442c1b)) }
             if (speech.state == SpeechState.PREPARING) CircularProgressIndicator(Modifier.size(24.dp))
         } },
@@ -330,9 +330,9 @@ import java.util.UUID
         confirmButton = { TextButton(enabled = !reporting && reportReason.isNotEmpty(), onClick = {
             reporting = true
             scope.launch {
-                try { chat.report(selected, reportReason); reportedMessage = null; error = "Report received. You can also block this person from Conversation options." }
+                try { chat.report(selected, reportReason); reportedMessage = null; error = context.getString(R.string.chat_report_received) }
                 catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { error = "We couldn’t confirm the report. You can retry this same report." }
+                catch (_: Exception) { error = context.getString(R.string.chat_report_unconfirmed) }
                 finally { reporting = false }
             }
         }) { Text(if (reporting) stringResource(R.string.ui_b8ed5279e897) else stringResource(R.string.ui_a44d35311325)) } },
@@ -346,18 +346,18 @@ import java.util.UUID
             scope.launch {
                 try { chat.setBlocked(desired, peer); error = null; refresh() }
                 catch (cancelled: CancellationException) { throw cancelled }
-                catch (_: Exception) { error = "Couldn’t confirm the change. Check your connection and try again." }
+                catch (_: Exception) { error = context.getString(R.string.chat_change_unconfirmed) }
                 finally { blockBusy = false }
             }
         }) { Text(if (blocked) stringResource(R.string.ui_712da63171e0) else stringResource(R.string.ui_211d0bb8cf4f)) } })
 }
 
-private fun deliveryLabel(state: String) = when (state) {
-    "delivered" -> "Delivered"
-    "accepted" -> "Sent"
-    "expired" -> "Not delivered · 72 hours passed"
-    "failed" -> "Not delivered"
-    "cancelled" -> "Stopped"
-    "imported" -> "Imported"
-    else -> "Waiting to send"
-}
+@Composable private fun deliveryLabel(state: String) = stringResource(when (state) {
+    "delivered" -> R.string.delivery_delivered
+    "accepted" -> R.string.delivery_sent
+    "expired" -> R.string.delivery_expired
+    "failed" -> R.string.delivery_failed
+    "cancelled" -> R.string.delivery_stopped
+    "imported" -> R.string.delivery_imported
+    else -> R.string.delivery_waiting
+})

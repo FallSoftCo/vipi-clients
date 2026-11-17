@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 
 @Composable internal fun DeleteAccountScreen(onDelete: () -> Unit) {
+    val context = LocalContext.current
     var confirm by rememberSaveable { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
     Text(stringResource(R.string.ui_a2e20a335700), fontFamily = FontFamily.Serif, fontSize = 32.sp, modifier = Modifier.semantics { heading() })
@@ -34,7 +35,7 @@ import kotlinx.coroutines.launch
         confirmButton = { TextButton(modifier = Modifier.testTag("delete-confirm"), onClick = {
             confirm = false
             try { onDelete() }
-            catch (_: Exception) { error = "Deletion couldn’t be prepared. Close and reopen Vipi to try again." }
+            catch (_: Exception) { error = context.getString(R.string.deletion_prepare_failed) }
         }) { Text(stringResource(R.string.ui_a2e20a335700), color = MaterialTheme.colorScheme.error) } })
 }
 
@@ -49,10 +50,10 @@ import kotlinx.coroutines.launch
             verticalArrangement = Arrangement.spacedBy(24.dp)) {
             Text(if (finished) stringResource(R.string.ui_5d670c14e5b1) else if (accepted) stringResource(R.string.ui_33a2ae335a6b) else stringResource(R.string.ui_7ab60595358e),
                 fontFamily = FontFamily.Serif, fontSize = 32.sp, modifier = Modifier.semantics { heading() })
-            Text(if (finished) "Your Vipi account and chats on this device have been removed."
-                else if (accepted) "Vipi has accepted your request. We’re finishing deletion. You can close the app and check back later."
-                else "We’ll confirm the request and remove your saved chats from this device. Vipi saves your progress if the connection drops.")
-            deletion.notice?.let { Text(it) }
+            Text(if (finished) stringResource(R.string.deletion_completed)
+                else if (accepted) stringResource(R.string.deletion_accepted)
+                else stringResource(R.string.deletion_pending))
+            deletion.notice?.let { Text(stringResource(it)) }
             if (deletion.needsSignIn) authentication.error?.let { Text(it) }
             if (deletion.busy) { CircularProgressIndicator(); Text(stringResource(R.string.ui_6416c5a47450)) }
             else if (finished) Button(onClick = { deletion.finish(); if (!deletion.active) onFinished() }) { Text(stringResource(R.string.ui_11a6767d5674)) }

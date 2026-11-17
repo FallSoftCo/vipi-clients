@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalDensity
@@ -29,6 +30,7 @@ import kotlinx.coroutines.CancellationException
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable internal fun SecurityNumberSheet(chat: ChatSession, peer: java.util.UUID, dismiss: () -> Unit) {
+    val context = LocalContext.current
     var number by remember(peer) { mutableStateOf<SecurityNumber?>(null) }
     var loading by remember(peer) { mutableStateOf(true) }
     var failed by remember(peer) { mutableStateOf(false) }
@@ -81,7 +83,7 @@ import kotlinx.coroutines.CancellationException
                 }
                 value == null -> Text(stringResource(R.string.ui_c754691a97ca), modifier = Modifier.testTag("identity-not-established"))
                 else -> {
-                    Text("Compare all 12 groups with ${chat.name(peer)} in person or over a trusted call to confirm your encryption keys match.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(stringResource(R.string.security_compare_with_friend, chat.name(peer)), color = MaterialTheme.colorScheme.onSurfaceVariant)
                     val securityNumberDescription = stringResource(R.string.security_number_description, value.digits.toList().joinToString(", "))
                     SelectionContainer {
                         Text(value.groups.joinToString("  "),
@@ -103,7 +105,7 @@ import kotlinx.coroutines.CancellationException
                         scope.launch {
                             try { recovery = chat.previewPeerRecovery(peer) }
                             catch (error: CancellationException) { throw error }
-                            catch (_: Exception) { recoveryError = "A changed encryption identity couldn’t be confirmed. Your current keys are unchanged. Ask your friend to open Vipi, then try again." }
+                            catch (_: Exception) { recoveryError = context.getString(R.string.security_identity_check_failed) }
                             finally { recoveryBusy = false }
                         }
                     }) { Text(if (recoveryBusy) stringResource(R.string.ui_8767b4501794) else stringResource(R.string.ui_18714cc5a562)) }
@@ -116,7 +118,7 @@ import kotlinx.coroutines.CancellationException
     recovery?.let { candidate -> AlertDialog(onDismissRequest = { if (!recoveryBusy) recovery = null },
         title = { Text(stringResource(R.string.ui_84368a0f0b2d)) },
         text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-            Text("${chat.name(peer)}’s device or encryption identity changed. Your saved history stays here. Previous waiting messages will stop and will not be resent.")
+            Text(stringResource(R.string.security_identity_changed, chat.name(peer)))
             Text(candidate.number.groups.joinToString("  "), fontFamily = FontFamily.Monospace)
             Text(stringResource(R.string.ui_84b61960effd))
             recoveryError?.let { Text(it) }
@@ -126,7 +128,7 @@ import kotlinx.coroutines.CancellationException
             scope.launch {
                 try { chat.confirmPeerRecovery(candidate); recovery = null; load() }
                 catch (error: CancellationException) { throw error }
-                catch (_: Exception) { recoveryError = "The keys changed again or the confirmation expired. Close this dialog and check again. Your previous keys remain unchanged." }
+                catch (_: Exception) { recoveryError = context.getString(R.string.security_confirmation_expired) }
                 finally { recoveryBusy = false }
             }
         }) { Text(if (recoveryBusy) stringResource(R.string.ui_dfe40efe921f) else stringResource(R.string.ui_8a9877b04214)) } },

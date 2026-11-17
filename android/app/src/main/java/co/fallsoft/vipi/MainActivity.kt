@@ -266,7 +266,7 @@ class MainActivity : ComponentActivity() {
     val uiLocale = androidx.compose.ui.platform.LocalConfiguration.current.locales[0]
     fun displayLanguage(code: String): String = java.util.Locale.forLanguageTag(code)
         .getDisplayLanguage(uiLocale).replaceFirstChar { it.titlecase(uiLocale) }
-    Heading(stringResource(R.string.language_settings), "Choose your\nlanguages.", "Choose the language you know and the one you want to learn. You can change these later.")
+    Heading(stringResource(R.string.language_settings), stringResource(R.string.languages_heading), stringResource(R.string.languages_description))
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text(stringResource(R.string.already_speak), color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
         Box {
@@ -292,7 +292,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable private fun AccountView() {
-    Heading(stringResource(R.string.your_account), "Sign in to\nchat with friends.", "Create an account or sign in to an existing one. Friends find you by username, not your email.")
+    Heading(stringResource(R.string.your_account), stringResource(R.string.account_heading), stringResource(R.string.account_description))
     Text(stringResource(R.string.cardless_intro), color = MaterialTheme.colorScheme.onSurfaceVariant)
     Column(Modifier.background(MaterialTheme.colorScheme.surface, RoundedCornerShape(22.dp)).padding(22.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
         Text(stringResource(R.string.ui_3b3139fd3460)); Text(stringResource(R.string.ui_4757eee1005a)); Text(stringResource(R.string.ui_12feaf099b55))
@@ -331,7 +331,7 @@ class MainActivity : ComponentActivity() {
     if (chat?.needsDeviceRecovery == true) DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) }
     if (model.authentication.userID != null && chat?.needsDeviceRecovery != true && chat?.needsReauthentication != true && (chat?.ready != true || model.chatError != null)) {
         Text(stringResource(R.string.ui_b68710eee013), fontFamily = FontFamily.Serif, fontSize = 30.sp)
-        Text(model.chatError ?: chat?.notice ?: "Your conversations stay on your device.", color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(model.chatError ?: chat?.notice ?: stringResource(R.string.conversations_local), color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (chat?.busy == true) CircularProgressIndicator()
         else PrimaryButton(stringResource(R.string.ui_d8b8392e2c54)) { scope.launch { model.activateChats() } }
         return
@@ -378,7 +378,7 @@ class MainActivity : ComponentActivity() {
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp))
     PrimaryButton(stringResource(R.string.ui_ba6e8c9b0c3e), enabled = username.isNotBlank(), busy = busy) {
         val chat = model.chat
-        if (chat == null) error = "Sign in to find your friends."
+        if (chat == null) error = context.getString(R.string.friends_sign_in_required)
         else scope.launch {
             busy = true; error = null
             try { model.openConversation(chat.find(username).id) }
@@ -395,6 +395,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable private fun SettingsView(model: VipiModel) {
+    val context = LocalContext.current
     val uri = androidx.compose.ui.platform.LocalUriHandler.current
     var linkError by remember { mutableStateOf<String?>(null) }
     Text(stringResource(R.string.settings_title), fontFamily = FontFamily.Serif, fontSize = 34.sp)
@@ -407,14 +408,14 @@ class MainActivity : ComponentActivity() {
     Text(stringResource(R.string.ui_3907fa7f8072), fontWeight = FontWeight.SemiBold)
     Appearance.entries.forEach { appearance ->
         Row(Modifier.fillMaxWidth().clickable { model.changeAppearance(appearance) }.semantics { role = Role.RadioButton; selected = model.appearance == appearance }, verticalAlignment = Alignment.CenterVertically) {
-            RadioButton(selected = model.appearance == appearance, onClick = { model.changeAppearance(appearance) }); Text(appearance.name.lowercase().replaceFirstChar { it.uppercase() })
+            RadioButton(selected = model.appearance == appearance, onClick = { model.changeAppearance(appearance) }); Text(stringResource(when (appearance) { Appearance.SYSTEM -> R.string.appearance_system; Appearance.LIGHT -> R.string.appearance_light; Appearance.DARK -> R.string.appearance_dark }))
         }
     }
     Text(stringResource(R.string.ui_380f81884c22), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     TextButton(onClick = { model.navigate(Screen.LICENSES) }) { Text(stringResource(R.string.ui_2a6b4d12ccfb)) }
     Row {
         listOf("Terms" to "terms", "Privacy" to "privacy", "Help" to "help").forEach { (title, path) ->
-            TextButton(onClick = { runCatching { uri.openUri("https://api.mambovipi.app/$path") }.onFailure { linkError = "This page couldn’t open. Please try again." } }) { Text(title) }
+            TextButton(onClick = { runCatching { uri.openUri("https://api.mambovipi.app/$path") }.onFailure { linkError = context.getString(R.string.settings_page_open_failed) } }) { Text(title) }
         }
     }
     linkError?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
@@ -451,7 +452,7 @@ class MainActivity : ComponentActivity() {
     TextButton(onClick = {
         val invitation = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, "Chat with me on Vipi. My username is @$username. https://api.mambovipi.app/invite/$username")
+            putExtra(Intent.EXTRA_TEXT, context.getString(R.string.invite_share_text, username, "https://api.mambovipi.app/invite/$username"))
         }
         try { context.startActivity(Intent.createChooser(invitation, inviteTitle)); error = false }
         catch (_: android.content.ActivityNotFoundException) { error = true }

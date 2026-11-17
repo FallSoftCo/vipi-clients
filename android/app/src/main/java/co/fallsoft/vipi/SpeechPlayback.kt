@@ -65,9 +65,9 @@ class SpeechPlayback(context: Context, private val source: String, private val t
             try { pair.prepare(warmups); ready = true; state = SpeechState.READY }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (missing: OfflineVoiceUnavailable) {
-                error = "Download a ${languageName(missing.language)} voice in your phone’s speech settings, then retry."
+                error = context.getString(R.string.voice_download_needed, languageName(missing.language))
                 state = SpeechState.UNAVAILABLE
-            } catch (_: Exception) { error = "Voices couldn’t get ready. Try again."; state = SpeechState.UNAVAILABLE }
+            } catch (_: Exception) { error = context.getString(R.string.voices_not_ready); state = SpeechState.UNAVAILABLE }
         }
     }
 
@@ -86,7 +86,7 @@ class SpeechPlayback(context: Context, private val source: String, private val t
                 val first = withContext(Dispatchers.IO) { PcmWave.read(rendered.file) }
                 if (closed || request != epoch) return@launch
                 if (audio.requestAudioFocus(focus) != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    stop(); error = "Audio is busy. Try again when your other audio finishes."; return@launch
+                    stop(); error = context.getString(R.string.audio_busy); return@launch
                 }
                 val next = PcmSpeechPlayer(first.sampleRate, first.channels, attributes)
                 player = next
@@ -111,7 +111,7 @@ class SpeechPlayback(context: Context, private val source: String, private val t
                 if (request == epoch) { endOfStreamUnderruns = next.underruns - outputUnderruns; stop() }
             } catch (cancelled: CancellationException) { throw cancelled }
             catch (_: Exception) {
-                if (request == epoch) { stop(); error = "This message couldn’t play. Try again." }
+                if (request == epoch) { stop(); error = context.getString(R.string.audio_play_failed) }
             }
         }
     }

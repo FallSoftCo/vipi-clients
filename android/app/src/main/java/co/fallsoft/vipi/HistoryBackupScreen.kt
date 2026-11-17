@@ -59,8 +59,8 @@ internal class HistoryBackupModel : ViewModel() {
         .resolve("${UUID.randomUUID()}.vipihistory")
     fun clearImport() { staged?.delete(); staged = null; summary = null }
     fun failure(error: Exception) {
-        message = if (error is HistoryBackupCodec.DifferentAccount) "This backup belongs to a different Vipi account. Sign in to that account to restore it."
-        else "The backup couldn’t be opened or saved. Check the password and file, then try again."
+        message = if (error is HistoryBackupCodec.DifferentAccount) context.getString(R.string.backup_wrong_account)
+        else context.getString(R.string.backup_open_failed)
     }
     DisposableEffect(context) { onDispose {
         var owner = context
@@ -82,7 +82,7 @@ internal class HistoryBackupModel : ViewModel() {
                         output.flush()
                     }
                 }
-                message = "Your encrypted chat backup is saved. Keep its password somewhere safe."
+                message = context.getString(R.string.backup_saved)
             } catch (error: CancellationException) { throw error }
             catch (error: Exception) { failure(error) }
             finally { file.delete(); exported = null; password = ""; confirmation = ""; busy = false }
@@ -147,7 +147,7 @@ internal class HistoryBackupModel : ViewModel() {
         }
     }
     summary?.let { counts -> AlertDialog(onDismissRequest = { clearImport() }, title = { Text(stringResource(R.string.ui_d42ff6022f50)) },
-        text = { Text("This backup contains ${counts.summary.messages} messages and ${counts.summary.peers} conversations. Matching messages are kept once. Existing conversations and messaging security stay in place.") },
+        text = { Text(stringResource(R.string.backup_contents, androidx.compose.ui.res.pluralStringResource(R.plurals.backup_messages, counts.summary.messages, java.text.NumberFormat.getIntegerInstance().format(counts.summary.messages)), androidx.compose.ui.res.pluralStringResource(R.plurals.backup_conversations, counts.summary.peers, java.text.NumberFormat.getIntegerInstance().format(counts.summary.peers)))) },
         dismissButton = { TextButton(onClick = { clearImport() }) { Text(stringResource(R.string.cancel_action)) } },
         confirmButton = { TextButton(onClick = {
             val file = staged ?: return@TextButton
@@ -155,7 +155,7 @@ internal class HistoryBackupModel : ViewModel() {
             job = scope.launch {
                 try {
                     val result = chat.importHistory(file, password, counts)
-                    message = "Restored ${result.added} messages. ${result.unchanged} matching messages were already saved."
+                    message = context.getString(R.string.backup_restore_result, context.resources.getQuantityString(R.plurals.backup_messages, result.added, java.text.NumberFormat.getIntegerInstance().format(result.added)), context.resources.getQuantityString(R.plurals.backup_messages, result.unchanged, java.text.NumberFormat.getIntegerInstance().format(result.unchanged)))
                 } catch (error: CancellationException) { throw error }
                 catch (error: Exception) { failure(error) }
                 finally { clearImport(); password = ""; confirmation = ""; busy = false }

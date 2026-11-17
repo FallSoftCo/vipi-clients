@@ -57,10 +57,10 @@ import kotlinx.coroutines.launch
                         Text(stringResource(R.string.ui_2e8bd38513f3), fontWeight = FontWeight.SemiBold)
                         Text(when {
                             downloads.busy -> operationDescription!!
-                            downloads.checking -> "Checking this phone…"
-                            downloads.ready -> "${languageName(source)} and ${languageName(target)} are ready for full-message translation offline."
-                            downloads.installed == null -> "Download status isn’t available."
-                            else -> "Download your languages for full-message translation offline."
+                            downloads.checking -> stringResource(R.string.languages_checking)
+                            downloads.ready -> stringResource(R.string.languages_ready, languageName(source), languageName(target))
+                            downloads.installed == null -> stringResource(R.string.languages_status_unavailable)
+                            else -> stringResource(R.string.languages_download_explanation)
                         }, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
@@ -108,7 +108,7 @@ import kotlinx.coroutines.launch
                 Text(languageName(selected), Modifier.weight(1f)); Icon(Icons.Outlined.ExpandMore, null)
             }
             DropdownMenu(expanded = expanded && enabled, onDismissRequest = { expanded = false }) {
-                options.forEach { language -> DropdownMenuItem(text = { Text("${language.name} · ${language.localName}") },
+                options.forEach { language -> DropdownMenuItem(text = { Text("${languageName(language.code)} · ${language.localName}") },
                     onClick = { expanded = false; onSelect(language.code) }) }
             }
         }

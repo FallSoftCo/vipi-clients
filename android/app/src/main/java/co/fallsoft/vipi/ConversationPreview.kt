@@ -45,7 +45,7 @@ internal object ConversationExamples {
         ImmersionBubble(result, mode, speech, source, target, "language-preview-$source-$target", scrolling, fullReading = fullReading)
         Text(stringResource(R.string.ui_821bff5750c3), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         TextButton(onClick = { mode = if (mode == ReadingMode.TRANSLATION) ReadingMode.IMMERSED else ReadingMode.TRANSLATION }) {
-            Text(if (mode == ReadingMode.TRANSLATION) stringResource(R.string.ui_cc245f2e3a71) else "Show full translation in ${languageName(target)}", fontSize = 13.sp)
+            Text(if (mode == ReadingMode.TRANSLATION) stringResource(R.string.ui_cc245f2e3a71) else stringResource(R.string.show_full_translation_language, languageName(target)), fontSize = 13.sp)
         }
         SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(mapOf(source to result.original, target to result.translation)) }
     }

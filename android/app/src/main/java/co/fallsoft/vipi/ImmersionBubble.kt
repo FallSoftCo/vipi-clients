@@ -207,12 +207,12 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                         if (onModeChange != null) ReadingMode.entries.filter { it != ReadingMode.TRANSLATION || completeTranslation != null || onFullTranslation != null }.forEach { value ->
                             val missingFull = value == ReadingMode.TRANSLATION && completeTranslation == null
                             val title = when {
-                                missingFull && fullTranslationLoading -> "Translating to ${languageName(target)}…"
-                                missingFull && fullTranslationError == ImmersionStatus.MODEL_NOT_READY -> "Download for full translation"
-                                missingFull && fullTranslationError != null -> "Retry full translation"
-                                value == ReadingMode.IMMERSED -> "Word switching"
-                                value == ReadingMode.ORIGINAL -> "Original message"
-                                else -> "Full translation"
+                                missingFull && fullTranslationLoading -> stringResource(R.string.translating_language, languageName(target))
+                                missingFull && fullTranslationError == ImmersionStatus.MODEL_NOT_READY -> stringResource(R.string.full_translation_download)
+                                missingFull && fullTranslationError != null -> stringResource(R.string.full_translation_retry)
+                                value == ReadingMode.IMMERSED -> stringResource(R.string.reading_word_switching)
+                                value == ReadingMode.ORIGINAL -> stringResource(R.string.reading_original)
+                                else -> stringResource(R.string.reading_full)
                             }
                             DropdownMenuItem(text = { Text(title) }, leadingIcon = { if (effectiveMode == value) Icon(Icons.Outlined.Check, null) },
                                 enabled = !missingFull || !fullTranslationLoading,
@@ -226,10 +226,10 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                         if (fullTranslationLoading && onCancelFullTranslation != null)
                             DropdownMenuItem(text = { Text(stringResource(R.string.ui_4bc6d965deeb)) }, onClick = { onCancelFullTranslation(); menu = false })
                         if (completeTranslation == null && fullTranslationError != null) Text(when (fullTranslationError) {
-                            ImmersionStatus.MODEL_NOT_READY -> "Translation needs a download for this language pair."
-                            ImmersionStatus.TIMEOUT -> "That took too long. Word switching is still available."
-                            ImmersionStatus.INVALID_LANGUAGE -> "Choose this message’s language, then try again."
-                            else -> "The full translation couldn’t be prepared. Word switching is still available."
+                            ImmersionStatus.MODEL_NOT_READY -> stringResource(R.string.translation_pair_download_needed)
+                            ImmersionStatus.TIMEOUT -> stringResource(R.string.translation_timeout)
+                            ImmersionStatus.INVALID_LANGUAGE -> stringResource(R.string.translation_language_needed)
+                            else -> stringResource(R.string.translation_failed)
                         }, modifier = Modifier.widthIn(max = 280.dp).padding(horizontal = 16.dp, vertical = 12.dp),
                             style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         else if (completeTranslation == null && onFullTranslation == null)

@@ -40,7 +40,7 @@ private data class LicenseEntry(val title: String, val assets: List<String>)
                 }
             }
             result + grouped.map { LicenseEntry(it.key, it.value.toList()) }
-        }.getOrElse { error = "Licenses couldn’t be opened. Please try again."; emptyList() } }
+        }.getOrElse { error = context.getString(R.string.licenses_open_failed); emptyList() } }
     }
     val paragraphs by produceState<List<String>?>(null, selected) {
         value = selected?.let { entry -> withContext(Dispatchers.IO) {
