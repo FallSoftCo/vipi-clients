@@ -39,7 +39,21 @@ FILES = (
     "qa/backup/vectors.json", "qa/backup/format-v1.json", "qa/backup/history_v1.py",
 )
 FIXTURE_TREES = ("qa/packs/signed-pack-fixtures", "qa/immersion/installer-fixture-assets")
-EXCLUDED = frozenset(("android/BUILDING.md", "ios/BUILDING.md"))
+EXCLUDED = frozenset(("android/BUILDING.md", "ios/BUILDING.md",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ProfileSnapshotCompareDeviceTest.kt"))
+EXCLUDED_SUBTREES = ("language-packs/expansion-starter-20261117-r01/",
+    "language-packs/expansion-starter-20261117-r02/")
+EXCLUSION_REASONS = {
+    "android/BUILDING.md": "Internal host-specific build instructions",
+    "ios/BUILDING.md": "Internal host-specific build instructions",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/ProfileSnapshotCompareDeviceTest.kt": "Private account-state diagnostic, not a client build input",
+    "language-packs/expansion-starter-20261117-r01/": "Inactive experimental language pack, not in the active catalog",
+    "language-packs/expansion-starter-20261117-r02/": "Inactive experimental language pack, not in the active catalog",
+}
+
+
+def excluded_source(name):
+    return name in EXCLUDED or any(name.startswith(prefix) for prefix in EXCLUDED_SUBTREES)
 
 
 def sha_file(path):
@@ -104,7 +118,7 @@ def main():
         metadata, raw_name = item.split(b"\t", 1)
         mode, kind, oid, size = metadata.decode().split()
         name = safe_name(raw_name.decode())
-        if name in EXCLUDED:
+        if excluded_source(name):
             continue
         if kind != "blob" or mode not in ("100644", "100755", "120000"):
             raise ValueError("Source export needs explicit handling for: " + name)
@@ -121,6 +135,8 @@ def main():
         "included": selections, "upstream_manifest_sha256": args.upstream_manifest_sha256,
         "exclusions": ["Git history", "backend and operations", "private receipts", "external conversation research datasets", "signing and provider credentials", "Internal host-specific build instructions"],
         "excluded_source_paths": sorted(EXCLUDED),
+        "excluded_source_subtrees": list(EXCLUDED_SUBTREES),
+        "excluded_source_reasons": EXCLUSION_REASONS,
         "files": {}, "remaining": ["Final signed build/source identity", "Native dependency source-build instructions and complete combined dependency review", "Secret/privacy and language-data attribution review of this exact archive", "Public publication and store submission"]}
     archive_path = output / "vipi-client-source-candidate.tar.gz"
     with archive_path.open("xb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0, compresslevel=1) as compressed, tarfile.open(fileobj=compressed, mode="w|") as target:
@@ -143,7 +159,7 @@ def main():
                 for member in source:
                     if member.isdir():
                         continue
-                    if member.name in EXCLUDED:
+                    if excluded_source(member.name):
                         continue
                     if member.name not in blobs:
                         raise ValueError("Unexpected source member")
