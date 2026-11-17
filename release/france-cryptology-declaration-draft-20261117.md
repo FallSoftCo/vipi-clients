@@ -21,3 +21,7 @@ The official [ANSSI declaration procedure](https://demarche.numerique.gouv.fr/co
 5. Complete the official portal process and retain the real receipt and any correspondence; upload only the document Apple requests. Do not fabricate registration numbers, signatures, classifications, approval or filing receipts.
 
 Worldwide distribution, including France, was requested; Apple build association and release remain subject to truthful compliance and remaining launch qualification. Separate China mainland requirements are displayed in App Store Connect and must be reconciled independently.
+
+## Separate China mainland inventory
+
+[Apple's current app-compliance reference](https://developer.apple.com/help/app-store-connect/reference/app-information/app-and-compliance-information/) states that apps offering AI chatbots must declare those services and provide approved LLM or algorithm filing information, together with a third-party technology authorization or usage agreement where applicable. It also lists proof and a copy of a completed security assessment for end-to-end encrypted instant messaging. ICP filing information may also apply. Vipi has vBot and encrypted messaging; determine the actual applicability and required documents for the intended offering. No China filing, provider agreement for this purpose or security-assessment receipt has been established by this inventory.
