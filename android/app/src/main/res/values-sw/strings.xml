@@ -289,4 +289,9 @@
         <item quantity="one">Jibu %1$s kwa mwezi wa kalenda. Majibu yasiyotumiwa hayaongezwi kwenye mwezi ujao; hutozwi kiotomatiki kwa kuzidi kikomo.</item>
         <item quantity="other">Majibu %1$s kwa mwezi wa kalenda. Majibu yasiyotumiwa hayaongezwi kwenye mwezi ujao; hutozwi kiotomatiki kwa kuzidi kikomo.</item>
     </plurals>
+    <string name="languages_downloading">Inapakua lugha…</string>
+    <string name="languages_removing">Inaondoa vipakuliwa…</string>
+    <string name="languages_check_failed">Hatukuweza kukagua vipakuliwa vyako. Tafadhali jaribu tena.</string>
+    <string name="languages_download_failed">Upakuaji haukukamilika. Kagua muunganisho wako na ujaribu tena.</string>
+    <string name="languages_remove_failed">Baadhi ya vipakuliwa havikuweza kuondolewa. Tafadhali jaribu tena.</string>
 </resources>
