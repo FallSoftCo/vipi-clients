@@ -1,0 +1,26 @@
+{
+  "activation": {
+    "state": "active",
+    "backend_revision": "9b8cca69425f10df05c98b947f8152ca9534df71",
+    "schema": "20261116_01",
+    "environment_sha256": "689e448c844e8153634cd0b1e31aa3de315a3f16ee67e12ef6ac3b3e167fb7d3",
+    "proof_sha256": "5a38ae36d9591af60db01ef88b3597b92042a0cbca0e267f64fe07693ffe7f43",
+    "api_readiness_http": 200,
+    "unauthenticated_notification_http": 401,
+    "billing_worker_drained": true,
+    "push_pid_unchanged": true,
+    "tester_and_reviewers_preserved": true
+  },
+  "single_test": {
+    "intent_time_utc": "2026-11-17T01:55:17.284Z",
+    "google_receipts_before": 0,
+    "google_receipts_after": 1,
+    "receipt_time_utc": "2026-11-17T01:55:18.970688Z",
+    "event_id_sha256": "f0abeee90925ee1ad742cc8c94ba0c42d95d0fac7ea38aae59f9ca971a1b33b5",
+    "entitlements_before": 0,
+    "entitlements_after": 0,
+    "correlation": "timing and count; provider message ID not available for independent exact match",
+    "http_204_observed": false,
+    "purchase": false
+  }
+}

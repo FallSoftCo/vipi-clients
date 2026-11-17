@@ -70,8 +70,12 @@ event was retained without creating an entitlement. The existing restricted
 staging service now uses the Sandbox verifier; the production callback is unset.
 See `qa/backend/apple-sandbox-notification-r01/receipt.json`.
 
-Release qualification still requires production provider configuration, Google's
-actual test message, real store sandbox purchase/renewal/refund/restore events
+A single Google Play test was followed by an authenticated Google receipt; no
+entitlement was created. See the [activation and test receipt](../qa/backend/google-rtdn-activation-20261117-r01/receipt.json)
+for timing and correlation limits.
+
+Release qualification still requires production provider configuration, real
+store sandbox purchase/renewal/refund/restore events
 and confirmed account binding. Credentials or passing unit tests alone do not satisfy those gates.
 Monitor worker failures and pending reconciliation age; no external alert
 recipient or staffed response is established by this implementation.
