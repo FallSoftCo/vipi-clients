@@ -1,6 +1,6 @@
 {
   "schema": "vipi-store-metadata-draft-1",
-  "status": "draft_cardless_flow_pending_release_and_store_offer_change",
+  "status": "draft_cardless_flow_pending_release_qualification",
   "locale": "en-US",
   "application_id": "co.fallsoft.vipi",
   "seller": "Fallible Software, Co.",
@@ -32,6 +32,6 @@
     "The current API origin serves working policy/help routes. The apex domain is not assumed configured.",
     "Do not advertise an unsupported language count, measured fluency outcome, perfect accuracy or untested scale.",
     "Bot mini text requires actual response-provider and store qualification. Do not list an unavailable plan.",
-    "Google Base introductory offer was deactivated once and reload-verified on 2026-11-17; the Apple Base offer still needs removal before public release. Bot mini keeps its independent eligible one-month store trial. Cardless backend is active under restricted staging. Google no-charge license purchase/renewal/cancellation/lapse qualified; actual Apple sandbox purchase remains unqualified. Reviewer access is separate."
+    "Google and Apple Base introductory offers were removed and reload-verified on 2026-11-17; Bot mini retains its independent eligible one-month store trial. Cardless backend is active under restricted staging. Google no-charge license purchase/renewal/cancellation/lapse qualified; actual Apple sandbox purchase and submitted Apple runtime remain unqualified. Reviewer access is separate."
   ]
 }

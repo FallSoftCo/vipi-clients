@@ -9,5 +9,5 @@
   "google_short_description": "和朋友聊天，在日常訊息中接觸正在學習的語言。",
   "description_without_subscription_terms": "像平常一樣和朋友聊天。訊息中的部分詞語和短語會在原處切換成你正在學習的語言，朋友不必改變寫作方式。\n\n選擇顯示多少新詞，也可能看到之前見過的詞。其他文字、詞序和文法保持不變；詞彙因語言而異。登入前可以試用英語與西班牙語範例。\n\n可暫停切換、顯示原文或點選聆聽。拉丁字母讀音提示和語音取決於語言及下載情況。自動切換在裝置上執行，無須下載翻譯模型；全文翻譯是獨立的裝置端功能，可能需要下載。\n\n透過使用者名稱和邀請建立聯絡。與朋友的聊天採用端對端加密。你可以將加密的聊天紀錄備份儲存到自行選擇的位置。\n\nvBot 是聊天機器人，Bot mini 是可選的附加方案。傳送給 vBot 的訊息會交給我們的回覆服務供應商，自動回覆可能出錯。訂閱前會顯示每月回覆額度。\n\n隱私權政策: https://api.mambovipi.app/privacy\n服務條款: https://api.mambovipi.app/terms",
   "subscription_paragraph": "Vipi 的前 30 天免費，無須啟用訂閱或提供付款資訊。之後，由你決定是否訂閱。免費期間結束時不會自動扣款。在美國，Vipi 每年 12 美元。Bot mini 是可另外選購的附加訂閱，每年 48 美元，使用時需要有效的 Vipi 使用權限。符合資格的使用者可享有 Bot mini 單獨提供的一個月免費試用。購買前，商店會顯示當地價格和續訂日期。你選擇啟用的訂閱會自動續訂，除非透過商店取消。使用權限到期後，你仍可閱讀及匯出儲存在裝置上的聊天記錄。",
-  "subscription_status": "CARDLESS_BACKEND_ACTIVE_RESTRICTED_STAGING_GOOGLE_BASE_OFFER_DISABLED_APPLE_OFFER_AND_RELEASE_QUALIFICATION_PENDING"
+  "subscription_status": "CARDLESS_ACTIVE_RESTRICTED_STAGING_BOTH_BASE_INTRO_OFFERS_REMOVED_APPLE_RUNTIME_QUALIFICATION_AND_PUBLICATION_PENDING"
 }
