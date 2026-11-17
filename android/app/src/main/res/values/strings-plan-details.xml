@@ -120,6 +120,10 @@
     <string name="message_secure_open_failed">A message couldn’t be opened securely. Your existing conversations are saved.</string>
     <string name="bot_requires_vipi_access">Bot mini needs active Vipi access. Check your Vipi access or manage Bot mini in Google Play to prevent another renewal.</string>
     <string name="backup_save_failed">The backup couldn’t be saved. Your conversations are still here. Please try again.</string>
+    <string name="access_switch_word">Switch %1$s and %2$s</string>
+    <string name="access_switch_repeated">Switch %1$s and %2$s, word %3$s</string>
+    <string name="access_choose_word">Choose a word to switch</string>
+    <string name="access_message_actions">Message actions</string>
     <plurals name="bot_monthly_allowance">
         <item quantity="one">%1$s reply per calendar month. Unused replies don’t roll over; no automatic overage charges.</item>
         <item quantity="other">%1$s replies per calendar month. Unused replies don’t roll over; no automatic overage charges.</item>

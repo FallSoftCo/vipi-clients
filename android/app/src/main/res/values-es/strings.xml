@@ -401,4 +401,8 @@
     <string name="message_secure_open_failed">No se pudo abrir un mensaje de forma segura. Tus conversaciones existentes están guardadas.</string>
     <string name="bot_requires_vipi_access">Bot mini necesita acceso activo a Vipi. Consulta tu acceso a Vipi o gestiona Bot mini en Google Play para evitar otra renovación.</string>
     <string name="backup_save_failed">No se pudo guardar la copia de seguridad. Tus conversaciones siguen aquí. Inténtalo de nuevo.</string>
+    <string name="access_switch_word">Cambiar %1$s y %2$s</string>
+    <string name="access_switch_repeated">Cambiar %1$s y %2$s, palabra %3$s</string>
+    <string name="access_choose_word">Elige una palabra para cambiar</string>
+    <string name="access_message_actions">Acciones del mensaje</string>
 </resources>

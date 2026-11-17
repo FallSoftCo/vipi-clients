@@ -103,7 +103,7 @@ class MainActivity : ComponentActivity() {
     ) else lightColorScheme(
         primary = Color(0xFF2B6142), onPrimary = Color.White, background = Color(0xFFF9F7F2),
         surface = Color.White, surfaceVariant = Color(0xFFE0EDD4), onSurface = Color(0xFF18251D),
-        onBackground = Color(0xFF18251D), onSurfaceVariant = Color(0xFF646C64),
+        onBackground = Color(0xFF18251D), onSurfaceVariant = Color(0xFF5D655D),
         primaryContainer = Color(0xFFE0EDD4), onPrimaryContainer = Color(0xFF18351F),
         secondary = Color(0xFF50644D), onSecondary = Color.White, secondaryContainer = Color(0xFFD3E8CE), onSecondaryContainer = Color(0xFF142311),
         tertiary = Color(0xFF5B6447), onTertiary = Color.White, tertiaryContainer = Color(0xFFDFE9C7), onTertiaryContainer = Color(0xFF1A230A),

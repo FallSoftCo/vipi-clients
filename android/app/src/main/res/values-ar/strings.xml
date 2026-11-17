@@ -413,4 +413,8 @@
     <string name="voices_prepare_offline">جهّز صوتي اللغتين للاستماع دون اتصال.</string>
     <string name="ui_d55f942dbeea" formatted="false">الترجمة من Google. قد تكون الترجمات غير دقيقة.</string>
     <string name="backup_save_failed">تعذر حفظ النسخة الاحتياطية. لا تزال محادثاتك هنا. يرجى المحاولة مرة أخرى.</string>
+    <string name="access_switch_word">بدّل %1$s و%2$s</string>
+    <string name="access_switch_repeated">بدّل %1$s و%2$s، الكلمة %3$s</string>
+    <string name="access_choose_word">اختر كلمة لتبديلها</string>
+    <string name="access_message_actions">إجراءات الرسالة</string>
 </resources>

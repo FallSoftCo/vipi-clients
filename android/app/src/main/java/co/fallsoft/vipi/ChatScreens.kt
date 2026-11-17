@@ -60,7 +60,10 @@ import java.util.UUID
     chat.notice?.let { Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     Button(onClick = { scope.launch {
         chat.createProfile(username, name)
-        if (chat.ready) model.navigate(Screen.PLANS)
+        if (chat.ready) {
+            model.navigate(Screen.HOME)
+            model.subscriptions?.refresh()
+        }
     } }, enabled = !chat.busy && name.isNotBlank() && name.length <= 80 && username.matches(Regex("[a-zA-Z][a-zA-Z0-9_]{2,23}")),
         shape = RoundedCornerShape(18.dp), modifier = Modifier.fillMaxWidth().testTag("profile-submit"), contentPadding = PaddingValues(20.dp)) {
         if (chat.busy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)

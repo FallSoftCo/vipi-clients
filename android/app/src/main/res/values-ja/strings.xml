@@ -276,7 +276,7 @@
     <string name="ui_42f4f8b469bb" formatted="false">友達とチャット。\n読みながら言葉を学ぶ。</string>
     <string name="ui_47b7a66139f1" formatted="false">友達とのチャットを\n始めましょう。</string>
     <string name="ui_52c236be01ef" formatted="false">これらのダウンロードは任意の全文翻訳用です。単語の切り替えには不要です。全文を翻訳するには、そのメッセージの読み取りオプションで「全文翻訳」を選んでください。メッセージはこの端末に残ります。</string>
-    <string name="ui_54c1159d80bf" formatted="false">友達とチャット。\n新しい言葉を学ぼう。</string>
+    <string name="ui_54c1159d80bf" formatted="false">友達と話そう。\n新しい言葉を学ぶ。</string>
     <string name="ui_73bee38b06e8" formatted="false">友達はどうやって\nあなたを探せる？</string>
     <string name="ui_8ec4723d54ba" formatted="false">オフライン翻訳の前にこれらの言語を再ダウンロードする必要があります。会話はこの端末に残ります。</string>
     <string name="ui_cc9317e2ab2e" formatted="false">VipiクライアントのソースはAGPL-3.0-onlyでライセンスされ、無保証で提供されます。ライセンス条件に従いコピーや変更ができます。第三者ソフトウェアには各自のライセンスが適用されます。</string>
@@ -398,4 +398,8 @@
     <string name="voices_prepare_offline">接続なしで聴くには、両方の言語の音声を準備してください。</string>
     <string name="ui_d55f942dbeea" formatted="false">翻訳：Google。翻訳は不正確な場合があります。</string>
     <string name="backup_save_failed">バックアップを保存できませんでした。会話はここに残っています。もう一度お試しください。</string>
+    <string name="access_switch_word">%1$sと%2$sを切り替え</string>
+    <string name="access_switch_repeated">%1$sと%2$sを切り替え、単語%3$s</string>
+    <string name="access_choose_word">切り替える単語を選択</string>
+    <string name="access_message_actions">メッセージのアクション</string>
 </resources>

@@ -81,7 +81,6 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
             if (openingAccount) navigate(Screen.HOME)
             chat!!.start()
             if (!deletion.active && chat?.needsProfile == true) navigate(Screen.PROFILE)
-            else if (!prefs.getBoolean("planIntroduced", false)) navigate(Screen.PLANS)
             if (chat?.ready == true) {
                 PushDelivery.request(getApplication(), registration = true)
                 openPendingNotification()

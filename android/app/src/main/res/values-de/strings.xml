@@ -401,4 +401,8 @@
     <string name="voices_prepare_offline">Bereiten Sie die Stimmen für beide Sprachen vor, um ohne Verbindung zuzuhören.</string>
     <string name="ui_d55f942dbeea" formatted="false">Übersetzung von Google. Übersetzungen können ungenau sein.</string>
     <string name="backup_save_failed">Das Backup konnte nicht gespeichert werden. Ihre Gespräche sind immer noch hier. Bitte versuchen Sie es erneut.</string>
+    <string name="access_switch_word">%1$s und %2$s wechseln</string>
+    <string name="access_switch_repeated">%1$s und %2$s wechseln, Wort %3$s</string>
+    <string name="access_choose_word">Wählen Sie ein Wort zum Wechseln</string>
+    <string name="access_message_actions">Nachrichtenaktionen</string>
 </resources>

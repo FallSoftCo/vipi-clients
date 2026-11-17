@@ -398,4 +398,8 @@
     <string name="voices_prepare_offline">연결 없이 들으려면 두 언어의 음성을 준비하세요.</string>
     <string name="ui_d55f942dbeea" formatted="false">Google 번역. 번역이 부정확할 수 있습니다.</string>
     <string name="backup_save_failed">백업을 저장할 수 없습니다. 대화는 여기에 그대로 있습니다. 다시 시도해 주세요.</string>
+    <string name="access_switch_word">%1$s 및 %2$s 전환</string>
+    <string name="access_switch_repeated">%1$s 및 %2$s 전환, 단어 %3$s</string>
+    <string name="access_choose_word">전환할 단어 선택</string>
+    <string name="access_message_actions">메시지 동작</string>
 </resources>

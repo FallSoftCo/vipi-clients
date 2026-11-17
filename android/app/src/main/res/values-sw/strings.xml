@@ -401,4 +401,8 @@
     <string name="reading_faster">Haraka zaidi</string>
     <string name="nav_help">Msaada</string>
     <string name="backup_save_failed">Nakala ya usalama haikuweza kuhifadhiwa. Mazungumzo yako bado yapo. Tafadhali jaribu tena.</string>
+    <string name="access_switch_word">Badilisha %1$s na %2$s</string>
+    <string name="access_switch_repeated">Badilisha %1$s na %2$s, neno %3$s</string>
+    <string name="access_choose_word">Chagua neno la kubadilisha</string>
+    <string name="access_message_actions">Vitendo vya ujumbe</string>
 </resources>

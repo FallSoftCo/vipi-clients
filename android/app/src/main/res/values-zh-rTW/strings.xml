@@ -398,4 +398,8 @@
     <string name="voices_prepare_offline">準備兩種語言的語音，以便離線收聽。</string>
     <string name="ui_d55f942dbeea" formatted="false">由 Google 翻譯。翻譯可能不準確。</string>
     <string name="backup_save_failed">無法儲存備份。您的對話仍在這裡。請再試一次。</string>
+    <string name="access_switch_word">切換 %1$s 和 %2$s</string>
+    <string name="access_switch_repeated">切換 %1$s 和 %2$s，單字 %3$s</string>
+    <string name="access_choose_word">選擇要切換的單字</string>
+    <string name="access_message_actions">訊息操作</string>
 </resources>

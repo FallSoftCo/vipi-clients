@@ -247,7 +247,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                         if (onInputLanguage != null) DropdownMenuItem(text = { Text(stringResource(R.string.ui_cbf7e254a8c0)) }, onClick = { chooseLanguage = true; menu = false })
                         if (nativeActions) DropdownMenuItem(text = { Text(stringResource(R.string.ui_3370146d6d46)) }, onClick = { selectText = true; menu = false })
                         DropdownMenuItem(text = { Text(stringResource(R.string.ui_b0f88f29b4b2)) }, onClick = {
-                            (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager).setPrimaryClip(android.content.ClipData.newPlainText("Message", originalMessage ?: result.original)); menu = false
+                            (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager).setPrimaryClip(android.content.ClipData.newPlainText(context.getString(R.string.message_hint), originalMessage ?: result.original)); menu = false
                         })
                         if (onReport != null) DropdownMenuItem(text = { Text(stringResource(R.string.ui_5480a088185c)) }, onClick = { menu = false; onReport() })
                     }
@@ -300,7 +300,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                 DropdownMenuItem(text = { Text(stringResource(R.string.ui_cbf7e254a8c0)) }, onClick = { choose = true; menu = false })
                 DropdownMenuItem(text = { Text(stringResource(R.string.ui_b0f88f29b4b2)) }, onClick = {
                     (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
-                        .setPrimaryClip(android.content.ClipData.newPlainText("Message", text)); menu = false
+                        .setPrimaryClip(android.content.ClipData.newPlainText(context.getString(R.string.message_hint), text)); menu = false
                 })
             }
         }
