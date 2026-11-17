@@ -4,7 +4,7 @@ import VipiCore
 enum ReadingMode: String, CaseIterable, Identifiable {
     case immersed = "Immersed", original = "Original", translation = "Translation"
     var id: String { rawValue }
-    var label: String { switch self { case .immersed: "Word switching"; case .original: "Original message"; case .translation: "Full translation" } }
+    var label: String { switch self { case .immersed: String(localized: "Word switching"); case .original: String(localized: "Original message"); case .translation: String(localized: "Full translation") } }
 }
 
 struct ImmersionBubble: View {
