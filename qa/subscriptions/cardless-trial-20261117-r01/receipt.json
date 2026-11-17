@@ -1,0 +1,48 @@
+{
+  "at_utc": "2026-11-17T03:21:00.643634+00:00",
+  "status": "implemented_and_qualified_in_isolation_not_deployed",
+  "owner_choice": "30 cardless days from original account creation; optional Base annual subscription afterward; separate optional Bot mini store trial",
+  "candidate_revision": "84c3ff8db5235a0b9419373f5d56b99ad50bf495",
+  "package_manifest_sha256": "2ce12c7969d95eeddb76d2558a6f2c856cefa3e893a7e11687a8c7663aa0b521",
+  "schema_from": "20261116_01",
+  "schema_to": "20261117_01",
+  "postgres_full_suite": {
+    "passed": 204,
+    "skipped": 2,
+    "receipt": "investigations/vipi-cardless-pg-20261117-r01/receipt.json"
+  },
+  "postgres_followup": {
+    "passed": 12,
+    "receipt": "investigations/vipi-cardless-pg-20261117-r02/receipt.json"
+  },
+  "merged_root_tests": {
+    "passed": 42,
+    "seconds": 9.76,
+    "files": [
+      "test_cardless_trial.py",
+      "test_invitation.py",
+      "test_recovery_gate.py",
+      "test_reviewer_access.py"
+    ],
+    "database": "isolated SQLite fixtures; no provider requests"
+  },
+  "covered_behavior": [
+    "Profile creation, repeated registration and service/device replacement retain original trial dates",
+    "Base access before exclusive expiry; actual enforced message POST returns402 at exact expiry; pending-message and entitlement GET remain200",
+    "Cardless Base does not grant Bot mini; stale Bot store verification returns503 for Bot use while Base remains usable",
+    "Reviewer/store precedence, scoped sandbox grant isolation and deletion semantics",
+    "PostgreSQL migration upgrade/downgrade/re-upgrade retains original dates"
+  ],
+  "limits": [
+    "No live schema/service/config changes",
+    "Native localized release and real lifecycle qualification ongoing",
+    "Base store intro offer still active; coordinate removal before launch",
+    "Distinct new identities can receive distinct trials; no permanent anti-abuse identity retention promised"
+  ],
+  "external_actions": {
+    "purchase": false,
+    "store_offer_change": false,
+    "deployment": false,
+    "store_submission": false
+  }
+}

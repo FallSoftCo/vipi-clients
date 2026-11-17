@@ -11,7 +11,8 @@ in Git history before this revision.
 Both store listings are saved as **Vipi: Immersive Chat**, with **Immersive chat
 with friends.** opening the description. Apple uses **Learn from your everyday
 chats** as its subtitle. Google's title, short description and full description
-were reloaded and compared exactly with the canonical metadata.
+were reloaded and compared exactly with the metadata at that time. The current
+cardless-access metadata draft is newer and has not been saved to either store.
 
 The Google default listing is now ready to send for review. Its asset declaration
 was saved and reloaded: the original icon and feature artwork are labeled as
@@ -111,12 +112,24 @@ conversation. The original simulator and vault remain preserved; the export was
 not restored and excludes messaging identity, unsent messages and vBot history.
 Android then completed the explicit device handoff.
 
-The first-month audit found a release gap: dismissing the offer does not start a
-trial. Disabled staging enforcement allows indefinite chat; enabling enforcement
-would require a subscription immediately. A cardless first month is not yet
-implemented. The owner has been asked to choose between that flow and the
-existing optional store-authorized trial. Do not enable customer registration
-or describe a cardless month as available until the chosen flow is implemented.
+The owner selected **30 days free without payment details**, followed by an
+optional $12/year Base subscription. Bot mini remains a separate optional
+$48/year subscription with its own eligible one-month store trial. The Base
+store introductory offer must be removed so the new flow does not add a second
+free month. Neither offer has changed yet.
+
+The cardless backend is implemented and merged, but is **not deployed**.
+Migration `20261117_01` derives each account's trial dates from its original
+creation time; sign-in and device replacement do not reset them. Isolated
+PostgreSQL testing passed 204 tests with 2 skipped, followed by 12 focused
+trial/migration checks. Root's merged-code checks passed 42 tests, including
+the exact expiration boundary, read access after expiry and stale Bot purchase
+verification without a duplicate checkout prompt. See the
+[candidate receipt](../qa/subscriptions/cardless-trial-20261117-r01/receipt.json).
+The packaged candidate is `84c3ff8`; live schema and service remain unchanged.
+Native trial UI, localization and expiry handling are being qualified in
+isolated branches. Do not enable customer registration or claim the cardless
+period is live until migration, native behavior and store offers agree.
 
 Private receipts are under `vipi-submit-20261110-r01/` in
 `computer-use-release-20261116-r01`, `fcm-logging-activation-20261116-r01`,
