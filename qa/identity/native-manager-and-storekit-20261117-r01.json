@@ -1,0 +1,54 @@
+{
+  "scope": "Actual native iOS simulator XCTest using isolated co.fallsoft.vipi.uxqa and separate private keychain",
+  "device": "E640C5EE-A159-48B7-99D0-E330E8781FAF",
+  "identity_manager": {
+    "passed": 3,
+    "failed": 0,
+    "tests": [
+      "testDurableActivationRecoveryDoesNotReplayOAuthOrServerRequest",
+      "testSignOutDuringUncertainServerSuccessCannotRestoreAnySession",
+      "testWrongUUIDReadbackKeepsOldSessionThenExactRetryActivatesOriginalAccount"
+    ],
+    "private_result_bundle": "/Users/Apple/Development/vipi-quality-20261117-r01/root-identity-manager-r01.xcresult"
+  },
+  "storekit": {
+    "passed": 0,
+    "failed_cases": 7,
+    "qualification": "Unqualified: local StoreKit test configuration failed to apply before purchases",
+    "observed_errors": [
+      "SKInternalErrorDomain Code=3 while saving configuration, clearing overrides, setting values and clearing transactions",
+      "Products empty",
+      "SKTestSession.buyProduct returned notEntitled"
+    ],
+    "private_result_bundle": "/Users/Apple/Development/vipi-quality-20261117-r01/root-storekit-r01.xcresult",
+    "primary_related_report": "https://developer.apple.com/forums/thread/826971",
+    "limits": "Same symptom reported to and acknowledged by Apple; this does not prove all possible causes or qualify current purchase behavior. No live purchase fallback, reset, simulator replacement or fabricated entitlement applied."
+  },
+  "files": {
+    "/home/ai/Development/investigations/vipi-quality-20261117-r01/root-native-tests-receipt-r01.json": {
+      "bytes": 3938,
+      "sha256": "844e6a0a0b0032678486038551f05b9066293744c3653d1870cf16dc3efc1462"
+    },
+    "/home/ai/Development/investigations/vipi-quality-20261117-r01/root-native-identity-receipt-r01.json": {
+      "bytes": 2754,
+      "sha256": "59e62fa9235d36efc6b52a15ef5f12d6b37206b3d07163753dc58bf32b034cc0"
+    },
+    "/home/ai/Development/investigations/vipi-quality-20261117-r01/root-storekit-r01.log": {
+      "bytes": 268537,
+      "sha256": "e52dc2ae6c18d74ab57f6b2bc372518cd6fb9dd365a817efc74637cf6376a66f"
+    },
+    "/home/ai/Development/investigations/vipi-quality-20261117-r01/root-identity-manager-r01.log": {
+      "bytes": 136160,
+      "sha256": "c6c9d1af5a007f04287175a8535b181cd622f8bd7d76e6c0f15735f24ff3c48f"
+    }
+  },
+  "source_hashes": {
+    "ios/Vipi/Subscriptions.swift": "dfb3b9856745d4ef662163a93e11006e50863674afdefd4f784ce3339e541246",
+    "ios/Vipi/Authentication.swift": "a4675f96016fcb88c894cc73711fbcfb77f5bc500edd9363ac021bb749987672",
+    "ios/VipiCryptoTests/SubscriptionStoreTests.swift": "8a469e6c40041940033b7b57de623dc695bd6c1b3ac709cd485e1409a261bbf6",
+    "ios/VipiCryptoTests/IdentityLinkCoordinatorTests.swift": "acef69d7462acdf5ae1b4b1a2322f8ed32cba00af47bbd7637c3f08c1069813b",
+    "ios/VipiCryptoTests/StoreKit/Vipi.storekit": "b9014f79eff291c571beeb764384ed4bc46848efba3fd44b96c29c8c8f7b0cf5",
+    "ios/VipiCryptoTests/StoreKit/VipiWrongBaseTrial.storekit": "ba27ab9129bb1cc5c5b335a0104df775d455d317d2f32da572084ddf7980cccd",
+    "ios/project.yml": "93b34a3d89e8039d482f314089701551c4c7a2b6fad2f6227937dfd34427270f"
+  }
+}
