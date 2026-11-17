@@ -417,7 +417,7 @@
     <string name="account_detail_concise">Accedi, scegli un nome utente e trova i tuoi amici.</string>
     <string name="account_private_title">Chat private con gli amici</string>
     <string name="account_private_detail">Le chat con gli amici sono crittografate end-to-end. Gli amici vedono il tuo nome utente, mai la tua email.</string>
-    <string name="account_trial_concise">I primi 30 giorni sono gratis. Nessuna carta richiesta.</string>
+    <string name="account_trial_concise">30 giorni gratis. Nessuna carta richiesta. Poi scegli se abbonarti.</string>
     <string name="preview_message_title">Un’anteprima delle tue chat</string>
     <string name="speak_concise">Parlo</string>
     <string name="learn_concise">Sto imparando</string>

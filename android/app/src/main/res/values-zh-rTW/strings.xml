@@ -414,7 +414,7 @@
     <string name="account_detail_concise">登入後，選擇使用者名稱，找到你的朋友。</string>
     <string name="account_private_title">與朋友私密聊天</string>
     <string name="account_private_detail">與朋友的聊天採用端對端加密。朋友只能看到你的使用者名稱，看不到電子郵件。</string>
-    <string name="account_trial_concise">前 30 天免費，無需信用卡。</string>
+    <string name="account_trial_concise">30 天免費，無需信用卡。之後是否訂閱由你決定。</string>
     <string name="preview_message_title">看看聊天的樣子</string>
     <string name="speak_concise">我會說</string>
     <string name="learn_concise">我在學</string>

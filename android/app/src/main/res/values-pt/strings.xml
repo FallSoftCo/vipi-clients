@@ -417,7 +417,7 @@
     <string name="account_detail_concise">Entre, escolha um nome de usuário e encontre seus amigos.</string>
     <string name="account_private_title">Conversas privadas com amigos</string>
     <string name="account_private_detail">As conversas com amigos têm criptografia de ponta a ponta. Seus amigos veem seu nome de usuário, nunca seu e-mail.</string>
-    <string name="account_trial_concise">Seus primeiros 30 dias são grátis. Não precisa de cartão.</string>
+    <string name="account_trial_concise">30 dias grátis. Sem cartão. Depois, você decide se quer assinar.</string>
     <string name="preview_message_title">Uma prévia das suas conversas</string>
     <string name="speak_concise">Eu falo</string>
     <string name="learn_concise">Estou aprendendo</string>

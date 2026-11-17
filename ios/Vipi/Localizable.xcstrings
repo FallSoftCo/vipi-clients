@@ -35745,6 +35745,82 @@
           }
         }
       }
+    },
+    "30 days free. No card needed. Then choose whether to subscribe.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "30 días gratis. Sin tarjeta. Después, tú decides si te suscribes."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "30 jours gratuits. Aucune carte requise. Ensuite, vous choisissez de vous abonner ou non."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "30 Tage kostenlos. Keine Karte nötig. Danach entscheidest du, ob du ein Abo möchtest."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "30 giorni gratis. Nessuna carta richiesta. Poi scegli se abbonarti."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "30 dias grátis. Sem cartão. Depois, você decide se quer assinar."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "30 dias grátis. Sem cartão. Depois, decides se queres uma subscrição."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "30日間無料。カードは不要です。その後、有料プランに加入するか選べます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "30일 무료. 카드가 필요 없어요. 그 후 구독할지 직접 선택하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "30 天免费，无需银行卡。之后是否订阅由你决定。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "30 天免費，無需信用卡。之後是否訂閱由你決定。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "30 يومًا مجانًا. لا حاجة إلى بطاقة. بعد ذلك، تختار ما إذا كنت تريد الاشتراك."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Siku 30 bure. Huhitaji kadi. Baadaye, unaamua kama utajiunga na mpango wa kulipia."
+          }
+        }
+      }
     }
   },
   "version": "1.0"

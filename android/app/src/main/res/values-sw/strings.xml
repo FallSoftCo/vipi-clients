@@ -417,7 +417,7 @@
     <string name="account_detail_concise">Ingia, chagua jina la mtumiaji, kisha utafute marafiki zako.</string>
     <string name="account_private_title">Mazungumzo ya faragha na marafiki</string>
     <string name="account_private_detail">Mazungumzo yako na marafiki yamesimbwa kwa njia fiche kutoka mwisho hadi mwisho. Marafiki wanaona jina lako la mtumiaji, si barua pepe yako.</string>
-    <string name="account_trial_concise">Siku zako 30 za kwanza ni bure. Huhitaji kadi.</string>
+    <string name="account_trial_concise">Siku 30 bure. Huhitaji kadi. Baadaye, unaamua kama utajiunga na mpango wa kulipia.</string>
     <string name="preview_message_title">Mfano wa mazungumzo yako</string>
     <string name="speak_concise">Ninazungumza</string>
     <string name="learn_concise">Ninajifunza</string>

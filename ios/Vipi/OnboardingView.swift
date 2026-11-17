@@ -133,7 +133,7 @@ struct OnboardingView: View {
                     .font(.body.weight(.semibold))
                 Text("Chats with friends are end-to-end encrypted. Friends see your username, never your email.")
                     .font(.body).foregroundStyle(VipiDesign.secondary)
-                Text("Your first 30 days are free. No card needed.")
+                Text("30 days free. No card needed. Then choose whether to subscribe.")
                     .font(.body.weight(.medium))
             }
             Toggle(isOn: $acceptedTerms) {

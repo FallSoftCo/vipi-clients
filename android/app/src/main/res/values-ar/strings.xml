@@ -429,7 +429,7 @@
     <string name="account_detail_concise">سجّل الدخول واختر اسم مستخدم واعثر على أصدقائك.</string>
     <string name="account_private_title">دردشات خاصة مع الأصدقاء</string>
     <string name="account_private_detail">دردشاتك مع الأصدقاء مشفّرة من طرف إلى طرف. يرى أصدقاؤك اسم المستخدم فقط، ولا يرون بريدك الإلكتروني.</string>
-    <string name="account_trial_concise">أول 30 يومًا مجانًا. لا حاجة إلى بطاقة.</string>
+    <string name="account_trial_concise">30 يومًا مجانًا. لا حاجة إلى بطاقة. بعد ذلك، تختار ما إذا كنت تريد الاشتراك.</string>
     <string name="preview_message_title">لمحة عن دردشاتك</string>
     <string name="speak_concise">أتحدث</string>
     <string name="learn_concise">أتعلّم</string>

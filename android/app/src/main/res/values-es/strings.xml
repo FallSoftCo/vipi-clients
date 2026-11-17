@@ -417,7 +417,7 @@
     <string name="account_detail_concise">Inicia sesión, elige un nombre de usuario y encuentra a tus amigos.</string>
     <string name="account_private_title">Chats privados con amigos</string>
     <string name="account_private_detail">Los chats con amigos están cifrados de extremo a extremo. Tus amigos ven tu nombre de usuario, nunca tu correo.</string>
-    <string name="account_trial_concise">Tus primeros 30 días son gratis. Sin tarjeta.</string>
+    <string name="account_trial_concise">30 días gratis. Sin tarjeta. Después, tú decides si te suscribes.</string>
     <string name="preview_message_title">Así se verán tus chats</string>
     <string name="speak_concise">Hablo</string>
     <string name="learn_concise">Estoy aprendiendo</string>

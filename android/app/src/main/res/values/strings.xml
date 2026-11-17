@@ -46,7 +46,7 @@
     <string name="account_detail_concise">Sign in, choose a username, and find your friends.</string>
     <string name="account_private_title">Private chats with friends</string>
     <string name="account_private_detail">Chats with friends are end-to-end encrypted. Friends see your username, never your email.</string>
-    <string name="account_trial_concise">Your first 30 days are free. No card needed.</string>
+    <string name="account_trial_concise">30 days free. No card needed. Then choose whether to subscribe.</string>
     <string name="preview_message_title">A glimpse of your chats</string>
     <string name="speak_concise">I speak</string>
     <string name="learn_concise">I’m learning</string>

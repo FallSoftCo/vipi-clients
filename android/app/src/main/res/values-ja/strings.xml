@@ -414,7 +414,7 @@
     <string name="account_detail_concise">サインインしてユーザー名を選び、友達を見つけましょう。</string>
     <string name="account_private_title">友達とのプライベートなチャット</string>
     <string name="account_private_detail">友達とのチャットはエンドツーエンドで暗号化されます。友達に表示されるのはユーザー名だけで、メールアドレスは表示されません。</string>
-    <string name="account_trial_concise">最初の30日間は無料。カードの登録は不要です。</string>
+    <string name="account_trial_concise">30日間無料。カードは不要です。その後、有料プランに加入するか選べます。</string>
     <string name="preview_message_title">チャットのイメージ</string>
     <string name="speak_concise">話せる言語</string>
     <string name="learn_concise">学びたい言語</string>

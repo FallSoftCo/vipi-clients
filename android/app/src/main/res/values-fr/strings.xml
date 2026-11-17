@@ -417,7 +417,7 @@
     <string name="account_detail_concise">Connectez-vous, choisissez un nom d’utilisateur et retrouvez vos amis.</string>
     <string name="account_private_title">Des discussions privées entre amis</string>
     <string name="account_private_detail">Les discussions entre amis sont chiffrées de bout en bout. Vos amis voient votre nom d’utilisateur, jamais votre e-mail.</string>
-    <string name="account_trial_concise">Vos 30 premiers jours sont gratuits. Aucune carte requise.</string>
+    <string name="account_trial_concise">30 jours gratuits. Aucune carte requise. Ensuite, vous choisissez de vous abonner ou non.</string>
     <string name="preview_message_title">Un aperçu de vos discussions</string>
     <string name="speak_concise">Je parle</string>
     <string name="learn_concise">J’apprends</string>
