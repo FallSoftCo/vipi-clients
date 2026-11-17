@@ -40,6 +40,15 @@
     "build_id": null,
     "account_mutation": false,
     "desktop_lease_released": true,
-    "next": "Reauthenticate existing company session before final build/compliance readback; never repeat the completed upload."
+    "next": "Historical transient login redirect; superseded by stable build2 readback below. Do not repeat upload.",
+    "resolved_by": "qa/release/apple-signed-build2-20261117-r01/asc-readback.json: fresh existing-session readback succeeded; no reauthentication was required."
+  },
+  "app_store_connect_final": {
+    "build_id": "9367242c-b819-4bc7-9ade-6e192a12c43e",
+    "status": "Missing Compliance",
+    "groups": 0,
+    "individual_testers": 0,
+    "receipt": "qa/release/apple-signed-build2-20261117-r01/asc-readback.json",
+    "compliance_availability_receipt": "qa/release/apple-signed-build2-20261117-r01/asc-compliance-availability-readback.json"
   }
 }

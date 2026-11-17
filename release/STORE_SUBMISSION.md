@@ -134,9 +134,11 @@ subsequent external action, and inspect an uncertain result before retrying it.
 Current signing authorization: the owner explicitly directed “you must sign” on
 November 17. The proven signed Xcode archive and automatic Organizer export
 route completed for build 2; the final IPA passed verification and its single
-Transporter upload was delivered and finished processing. The final ASC readback
-redirected to login before TestFlight status could be established; restore the
-existing company session to continue, without repeating the upload.
+Transporter upload was delivered and finished processing. Fresh ASC readback
+confirms build 2 as Missing Compliance; the transient login redirect resolved.
+App availability is not configured and the version has no associated build.
+The owner has been asked whether to launch first outside France/mainland China
+or wait for their required filings. No availability or declaration was saved.
 Earlier signing-hold notes are superseded. The original company Android account
 separately retains an uncertain queued message. Do not resend, reset
 the account, accept a changed peer key or publish/install an update that may

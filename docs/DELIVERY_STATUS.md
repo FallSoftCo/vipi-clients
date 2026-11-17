@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 17, 2026, 12:35 UTC. Vipi remains restricted staging. Neither
+Updated November 17, 2026, 12:41 UTC. Vipi remains restricted staging. Neither
 app has been submitted for public review. Prior revisions and the linked
 receipts retain historical actions; do not replay them.
 
@@ -52,10 +52,11 @@ entitlements and debugging disabled. The 1,019 immersion/lexical/speech resource
 13 privacy manifests and 13 compiled localizations match the checked build.
 The prior build 1 and its original upload remain preserved; no upload was repeated.
 See [delivery](../release/apple-delivery-build2-20261117-r01.json) and
-[verification](../qa/release/apple-signed-build2-20261117-r01/root-verification.json). App Store Connect
-briefly showed the new upload as Processing, then redirected to login before
-a stable TestFlight status or build ID could be read. Reauthenticate the company
-session for that readback; never repeat the completed upload.
+[verification](../qa/release/apple-signed-build2-20261117-r01/root-verification.json). Fresh App Store Connect
+readback now confirms build ID `9367242c-b819-4bc7-9ade-6e192a12c43e`,
+**Missing Compliance**, with zero groups/testers. The brief earlier login
+redirect resolved in the existing session; no reauthentication was needed.
+Never repeat the completed upload.
 
 Reviewed text is saved and reload-verified in all 13 Apple-supported locales.
 Swahili is not an ASC locale; new locales retain inherited English keywords and
@@ -203,9 +204,12 @@ its allowance; it is not a typical-latency or quality benchmark.
 - Finish exact version 3 runtime checks for the qualified session and short-message
   routing fixes. Preserve the uncertain original send without replay; resolve its
   disposition before any retained-account update or automatic retry.
-- Restore the existing company ASC session for final build/compliance status,
-  then complete actual purchase/restore and remaining store qualification. Signing,
-  final IPA verification, single delivery and Transporter processing are complete.
+- Complete the Apple encryption declaration, build association and actual
+  purchase/restore qualification. Signing, final IPA verification, single delivery
+  and processing are complete. Availability is unconfigured; the France branch
+  requires documentation, and the draft displays China mainland security and
+  chatbot filing requirements. The owner has been asked whether to launch first
+  elsewhere or wait for those filings. No availability selection was saved.
 - Reconcile store artifacts, regional export requirements and screenshots.
   France needs a current company extract; China-specific requirements remain
   unresolved. The ML Kit/libsignal distribution question is a narrow legal

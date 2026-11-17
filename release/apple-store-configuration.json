@@ -86,9 +86,9 @@
     "customer_available": false,
     "apple_sandbox_test_notification": true,
     "build_processing_complete": true,
-    "testflight_status": "Not established: ASC redirected to login during final readback; no build association or compliance declaration submitted.",
+    "testflight_status": "Missing Compliance; build2 visible and processing complete, no groups/testers or build association",
     "testflight_ready": false,
-    "build_processing_evidence": "Transporter reports finished processing; stable ASC TestFlight readback unavailable after session expiry."
+    "build_processing_evidence": "Transporter finished-processing message and fresh ASC build2 Missing Compliance readback"
   },
   "private_receipt_directory": "investigations/vipi-production-delivery-20261107/apple-store-provisioning-20261109-r01",
   "in_app_purchase_key": {
@@ -185,13 +185,14 @@
     "aps_environment": "production",
     "get_task_allow": false,
     "delivery": "Delivered once by Transporter November 17, 2026 at 07:30 America/New_York; Transporter reports processing finished at 07:33.",
-    "testflight_status": "Not established: ASC redirected to login during final readback; no build association or compliance declaration submitted.",
+    "testflight_status": "Missing Compliance",
     "verification_receipt": "qa/release/apple-signed-build2-20261117-r01/qualification.json",
     "delivery_record": "release/apple-delivery-build2-20261117-r01.json",
     "source_supplement": "release/apple-build2-source-supplement-20261117/publication-receipt.json",
-    "independent_verification_receipt": "qa/release/apple-signed-build2-20261117-r01/root-verification.json"
+    "independent_verification_receipt": "qa/release/apple-signed-build2-20261117-r01/root-verification.json",
+    "build_id": "9367242c-b819-4bc7-9ade-6e192a12c43e"
   },
-  "verification_scope_note": "November17 current build2 distribution signature, production APS, disabled debugging, exact IPA hash, single Transporter delivery and finished-processing message reconciled. Source supplement published and verified. Final ASC status/compliance, build association and app-review submission remain incomplete.",
+  "verification_scope_note": "November17 build2 company distribution signature, production APS, disabled debugging, exact IPA hash, single delivery and finished processing reconciled. ASC build2 is Missing Compliance; availability unconfigured and version build unassociated. Source supplement is published. No TestFlight distribution or app-review submission.",
   "introductory_offer_current": {
     "verified_date": "2026-11-17",
     "base": {
@@ -281,5 +282,11 @@
       "verification_receipt": "investigations/vipi-resume-20261116-r01/apple-signed-qualification-r141.json",
       "delivery_record": "release/apple-delivery-20261116-r01.json"
     }
-  ]
+  ],
+  "app_availability": {
+    "state": "unconfigured",
+    "available_storefront_count": 175,
+    "note": "This is app availability, distinct from subscription price regions. User choice requested: first launch excluding France/mainland China while filings proceed, or wait for worldwide filings. No choice or availability change saved.",
+    "receipt": "qa/release/apple-signed-build2-20261117-r01/asc-compliance-availability-readback.json"
+  }
 }
