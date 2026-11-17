@@ -40,15 +40,15 @@ import kotlinx.coroutines.delay
             catch (_: Exception) { botAllowance = null }
         }
     }
-    fun open(url: String) { try { uri.openUri(url) } catch (_: Exception) { linkError = "This link couldn’t open. Please try again." } }
+    fun open(url: String) { try { uri.openUri(url) } catch (_: Exception) { linkError = context.getString(R.string.plan_link_error) } }
     Text(if (plan == SubscriptionPlan.BASE) stringResource(R.string.ui_42f4f8b469bb) else stringResource(R.string.ui_f80c9ded3433), fontFamily = FontFamily.Serif, fontSize = 30.sp, lineHeight = 36.sp)
-    Text(if (plan == SubscriptionPlan.BASE) "Chat with friends and see supported words and short phrases switch into your chosen language. Bot mini is a separate, optional plan."
-        else "Bot mini adds chatbot conversations with vBot to your Vipi plan. Automated replies can be mistaken. It is a separate subscription, with its own renewal date.", lineHeight = 23.sp)
+    Text(if (plan == SubscriptionPlan.BASE) stringResource(R.string.base_plan_description)
+        else stringResource(R.string.bot_plan_description), lineHeight = 23.sp)
     if (plan == SubscriptionPlan.BOT_MINI) Text(stringResource(R.string.ui_c518ff733bfe), style = MaterialTheme.typography.bodyMedium)
     if (plan == SubscriptionPlan.BOT_MINI) {
         val amount = botAllowance?.takeIf { it.serviceReady }?.monthly?.takeIf { it > 0 }
-        Text(if (amount != null) "$amount replies per calendar month. Unused replies don’t roll over; no automatic overage charges."
-            else "Bot mini isn’t available to start yet. Its monthly allowance must be confirmed first.", style = MaterialTheme.typography.bodyMedium)
+        Text(if (amount != null) androidx.compose.ui.res.pluralStringResource(R.plurals.bot_monthly_allowance, amount, NumberFormat.getIntegerInstance().format(amount))
+            else stringResource(R.string.bot_allowance_unavailable), style = MaterialTheme.typography.bodyMedium)
     }
     if (subscriptions == null) {
         Text(stringResource(R.string.ui_28e67a870e46))
@@ -71,19 +71,20 @@ import kotlinx.coroutines.delay
         try { subscriptions.refresh() } finally { expiryRefreshPending = false }
     }
     val verificationUnavailable = plan == SubscriptionPlan.BOT_MINI && access?.verificationUnavailable == true
-    val accessUnknown = expiryRefreshPending || subscriptions.accessCheckState != AccessCheckState.LOADED || verificationUnavailable
+    val clockUnavailable = snapshot != null && snapshot.serverTime == null
+    val accessUnknown = expiryRefreshPending || subscriptions.accessCheckState != AccessCheckState.LOADED || verificationUnavailable || clockUnavailable
     if (access?.usable(now) == true && !accessUnknown) {
         PlanAccessSummary(plan, access, now)
         if (plan == SubscriptionPlan.BOT_MINI && snapshot?.base?.usable(now) != true) Text(stringResource(R.string.ui_ef6cbddc4dd7))
         if (plan == SubscriptionPlan.BASE) Button(onClick = { model.navigate(Screen.HOME) }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_a2a2eed05c81)) }
         else if (snapshot?.active(SubscriptionPlan.BOT_MINI) == true) Button(onClick = { model.openBot() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_c6046d416aaf)) }
     } else if (accessUnknown) {
-        Text(if (verificationUnavailable) stringResource(R.string.bot_verification_unavailable) else if (subscriptions.accessCheckState == AccessCheckState.ERROR) stringResource(R.string.ui_1f90b03e1d77) else stringResource(R.string.ui_ee7fdea20d0b), style = MaterialTheme.typography.bodyMedium)
+        Text(if (verificationUnavailable) stringResource(R.string.bot_verification_unavailable) else if (clockUnavailable || subscriptions.accessCheckState == AccessCheckState.ERROR) stringResource(R.string.plan_clock_unavailable) else stringResource(R.string.ui_ee7fdea20d0b), style = MaterialTheme.typography.bodyMedium)
     } else if (offer != null) {
         Text(if (offer.oneMonthTrial) stringResource(R.string.trial_then_annual, offer.annualPrice) else stringResource(R.string.annual_price, offer.annualPrice), fontWeight = FontWeight.SemiBold, fontSize = 20.sp)
-        Text(if (offer.oneMonthTrial) "Google Play confirms your eligibility and first payment date at checkout. The annual subscription renews automatically unless you cancel."
-            else if (plan == SubscriptionPlan.BASE) "The annual subscription renews automatically unless you cancel."
-            else "A free trial isn’t available for this offer. The annual subscription renews automatically unless you cancel.", style = MaterialTheme.typography.bodyMedium)
+        Text(if (offer.oneMonthTrial) stringResource(R.string.play_trial_renewal_description)
+            else if (plan == SubscriptionPlan.BASE) stringResource(R.string.annual_renewal_description)
+            else stringResource(R.string.no_trial_renewal_description), style = MaterialTheme.typography.bodyMedium)
         if (plan == SubscriptionPlan.BOT_MINI) {
             val base = subscriptions.offers[SubscriptionPlan.BASE]
             if (base != null) {
@@ -128,7 +129,7 @@ import kotlinx.coroutines.delay
         Text(stringResource(R.string.cardless_no_payment), style = MaterialTheme.typography.bodyMedium)
         return
     }
-    Text(if (access.reviewAccess) "Review access is active. No subscription is required for this account."
+    Text(if (access.reviewAccess) stringResource(R.string.review_access_description)
         else stringResource(R.string.plan_active, plan.title), fontWeight = FontWeight.SemiBold)
     val trial = access.trialEndsAt?.takeIf { it.isAfter(now) }
     val until = trial ?: access.expiresAt

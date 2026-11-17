@@ -30,6 +30,7 @@ import kotlinx.coroutines.launch
     onSource: (String) -> Unit, onTarget: (String) -> Unit, downloads: LanguageDownloads) {
     val mobileDataDescription = stringResource(R.string.ui_115f6d951109)
     val checkingDescription = stringResource(R.string.ui_66201beae1d2)
+    val operationDescription = downloads.operation?.let { stringResource(it.label) }
     val pair = DownloadPair(source, target)
     val scope = rememberCoroutineScope()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
@@ -55,7 +56,7 @@ import kotlinx.coroutines.launch
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         Text(stringResource(R.string.ui_2e8bd38513f3), fontWeight = FontWeight.SemiBold)
                         Text(when {
-                            downloads.busy -> downloads.operation!!
+                            downloads.busy -> operationDescription!!
                             downloads.checking -> "Checking this phone…"
                             downloads.ready -> "${languageName(source)} and ${languageName(target)} are ready for full-message translation offline."
                             downloads.installed == null -> "Download status isn’t available."
@@ -65,7 +66,7 @@ import kotlinx.coroutines.launch
                 }
                 if (downloads.busy || downloads.checking) {
                     LinearProgressIndicator(Modifier.fillMaxWidth().semantics {
-                        contentDescription = downloads.operation ?: checkingDescription
+                        contentDescription = operationDescription ?: checkingDescription
                     })
                 } else {
                     if (downloads.installed != null && !downloads.ready) {
@@ -80,7 +81,7 @@ import kotlinx.coroutines.launch
                     }
                     TextButton(onClick = { scope.launch { downloads.refresh(pair) } }) { Text(stringResource(R.string.ui_f897de52ea1a)) }
                 }
-                downloads.message?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                downloads.message?.let { Text(stringResource(it.label), color = MaterialTheme.colorScheme.onSurfaceVariant) }
             }
         }
         Text(stringResource(R.string.ui_52c236be01ef),

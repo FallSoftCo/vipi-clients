@@ -37,7 +37,15 @@ internal data class PlanAccess(val active: Boolean, val expiresAt: Instant?, val
                     .also { period -> require(period.endsAt.isAfter(period.startedAt)) }
             }
             val source = value.optString("access_source").takeUnless { it.isBlank() || it == "null" }
-            return PlanAccess(value.getBoolean("active"), expires, trial, review, source, cardless, value.optBoolean("verification_unavailable", false))
+            if (source == "cardless_trial") {
+                require(cardless != null && cardless.active && expires == cardless.endsAt && trial == cardless.endsAt)
+            }
+            val verificationUnavailable = when (val raw = value.opt("verification_unavailable")) {
+                null, JSONObject.NULL -> false
+                is Boolean -> raw
+                else -> throw IllegalArgumentException("Invalid verification state")
+            }
+            return PlanAccess(value.getBoolean("active"), expires, trial, review, source, cardless, verificationUnavailable)
         }
     }
 }
@@ -54,7 +62,7 @@ internal data class SubscriptionAccess(val base: PlanAccess, val bot: PlanAccess
                 value.optString("server_time").takeUnless { it.isBlank() || it == "null" }?.let(Instant::parse), android.os.SystemClock.elapsedRealtime())
         }
     }
-    fun active(plan: SubscriptionPlan) = when (plan) {
+    fun active(plan: SubscriptionPlan) = serverTime != null && when (plan) {
         SubscriptionPlan.BASE -> base.usable(serverNow())
         SubscriptionPlan.BOT_MINI -> base.usable(serverNow()) && bot.usable(serverNow()) && botAvailable
     }
@@ -214,6 +222,7 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
     fun buy(activity: Activity, plan: SubscriptionPlan) {
         if (closed || busy || purchasing) return
         val snapshot = access ?: return
+        if (snapshot.serverTime == null) { notice = appContext.getString(R.string.plan_clock_unavailable); return }
         if (!snapshot.purchasesReady) { notice = appContext.getString(R.string.ui_f87b0e3bf7e6); return }
         if (plan == SubscriptionPlan.BOT_MINI && snapshot.bot.verificationUnavailable) { notice = appContext.getString(R.string.bot_verification_unavailable); return }
         if (plan == SubscriptionPlan.BOT_MINI && !snapshot.base.usable(snapshot.serverNow())) { notice = appContext.getString(R.string.ui_45787d668c50); return }

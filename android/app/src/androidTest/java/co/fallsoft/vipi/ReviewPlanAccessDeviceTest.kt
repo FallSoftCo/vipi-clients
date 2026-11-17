@@ -23,7 +23,7 @@ class ReviewPlanAccessDeviceTest {
         .put("access_source", "review_complimentary").put("review_access", true)
     private fun snapshot(base: JSONObject, bot: JSONObject, available: Boolean) = SubscriptionAccess.parse(JSONObject()
         .put("base", base).put("bot_mini", bot.put("available", available))
-        .put("billing_account_id", "b".repeat(64)).put("purchases_ready", JSONObject().put("google", false)))
+        .put("billing_account_id", "b".repeat(64)).put("server_time", Instant.now().toString()).put("purchases_ready", JSONObject().put("google", false)))
 
     @Test fun normalExpiryAndTrialPresentationPreservesPaidRules() {
         val value = mutableStateOf(PlanAccess.parse(ordinary()))

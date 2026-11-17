@@ -5,7 +5,7 @@
     <string name="nav_chats">Mazungumzo</string>
     <string name="nav_new_chat">Mazungumzo mapya</string>
     <string name="nav_plan">Mpango wako</string>
-    <string name="nav_invite">Alika rafiki</string>
+    <string name="nav_invite">Mwalike rafiki</string>
     <string name="nav_sign_in">Ingia</string>
     <string name="nav_terms">Masharti</string>
     <string name="nav_privacy">Faragha</string>
@@ -18,8 +18,8 @@
     <string name="message_hint">Ujumbe</string>
     <string name="choose_languages">Chagua lugha</string>
     <string name="language_settings">Mipangilio ya lugha</string>
-    <string name="already_speak">Ninazungumza tayari</string>
-    <string name="want_learn">Ninataka kujifunza</string>
+    <string name="already_speak">Ninazungumza</string>
+    <string name="want_learn">Nataka kujifunza</string>
     <string name="example_message">Ujumbe wa mfano</string>
     <string name="your_account">Akaunti yako</string>
     <string name="continue_signin">Endelea kuingia</string>
@@ -27,11 +27,266 @@
     <string name="terms_service">Masharti ya Huduma</string>
     <string name="privacy_policy">Sera ya Faragha</string>
     <string name="continue_with_language">Endelea na %1$s</string>
-    <string name="new_words_description">Chagua idadi ya maneno mapya yanayoonekana. Maneno uliyoyaona yanaweza kuendelea kuonekana pia, hivyo jumla inaweza kuongezeka.</string>
+    <string name="new_words_description">Chagua maneno mapya yaonekane kwa kiasi gani. Maneno uliyoyaona awali yanaweza kuendelea kuonekana pia, hivyo jumla inaweza kuongezeka.</string>
     <string name="new_words_off">Kubadilisha maneno kumezimwa.</string>
-    <string name="new_words_amount">Idadi ya maneno mapya</string>
+    <string name="new_words_amount">Kiasi cha maneno mapya</string>
     <string name="cardless_ends">Siku zako 30 za kutumia Vipi bila malipo zinaisha %1$s.</string>
     <string name="cardless_no_payment">Huhitaji njia ya malipo kwa kipindi hiki cha bure.</string>
-    <string name="cardless_intro">Anza kwa siku 30 bila malipo na bila njia ya malipo. Baadaye, chagua kama ungependa kujisajili.</string>
-    <string name="bot_verification_unavailable">Haiwezekani kuthibitisha ufikiaji wa Bot mini kwa sasa. Jaribu tena.</string>
+    <string name="cardless_intro">Anza na siku 30 bila malipo, bila kuweka njia ya malipo. Baada ya hapo, amua kama ungependa kulipia.</string>
+    <string name="bot_verification_unavailable">Hatuwezi kuthibitisha sasa kama unaweza kutumia Bot mini. Jaribu tena.</string>
+    <string name="plan_clock_unavailable">Hatukuweza kukagua kama mpango wako unatumika. Jaribu tena.</string>
+    <string name="ui_00e255330e43" formatted="false">Lugha · 1 kati ya 2</string>
+    <string name="ui_02d207068808" formatted="false">Dhibiti usajili katika Google Play</string>
+    <string name="ui_03fdb0dfc1b8" formatted="false">Ufute akaunti yako ya Vipi?</string>
+    <string name="ui_048a626ab4bb" formatted="false">Uondoe vipakuliwa?</string>
+    <string name="ui_04c8049b72ff" formatted="false">Tumia angalau vibambo 12. Ni bora kutumia kaulisiri ndefu ambayo huitumii kwingine.</string>
+    <string name="ui_04d7b4833927" formatted="false">Ujumbe</string>
+    <string name="ui_0541b2d9f69b" formatted="false">Hifadhi mazungumzo yako.</string>
+    <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
+    <string name="ui_08b041935798" formatted="false">Wewe</string>
+    <string name="ui_0c42f5497c0b" formatted="false">Onyesha maneno ya awali sasa</string>
+    <string name="ui_0c574552109f" formatted="false">Chagua lugha unayotaka kujifunza</string>
+    <string name="ui_0c86126aea39" formatted="false">Inasubiri Google Play…</string>
+    <string name="ui_0cb9c0cf3bb1" formatted="false">Ingia tena ili kuunganisha upya. Mazungumzo uliyohifadhi yanabaki kwenye kifaa hiki.</string>
+    <string name="ui_0cd8734d2fcd" formatted="false">Usajili wa kulipia unasimamiwa kando. Nakala za marafiki na nakala rudufu zilizohifadhiwa kwingine zinabaki.</string>
+    <string name="ui_0fac2fda13a5" formatted="false">Akaunti hii tayari inatumika kwenye kifaa kingine. Kuhamisha akaunti yako kunahitaji uthibitisho tofauti.</string>
+    <string name="ui_115f6d951109" formatted="false">Ruhusu data ya simu</string>
+    <string name="ui_11a6767d5674" formatted="false">Nimemaliza</string>
+    <string name="ui_127a78a187bd" formatted="false">Onyesha maandishi ya asili</string>
+    <string name="ui_12feaf099b55" formatted="false">Mazungumzo na marafiki yana usimbaji fiche kutoka mwanzo hadi mwisho.</string>
+    <string name="ui_13dff14c70d6" formatted="false">Ondoa kizuizi kwa mtu huyu ili kutuma ujumbe mpya.</string>
+    <string name="ui_1652f9585f6d" formatted="false">Malipo yako yanasubiri katika Google Play. Utaanza kutumia mpango baada ya malipo kuthibitishwa.</string>
+    <string name="ui_18714cc5a562" formatted="false">Rafiki amebadili simu?</string>
+    <string name="ui_1afc1c2532c4" formatted="false">Hatukuweza kuthibitisha kuingia huku. Tafadhali anza tena.</string>
+    <string name="ui_1e22fb013bb0" formatted="false">Endelea na maneno ya Kihispania</string>
+    <string name="ui_1f90b03e1d77" formatted="false">Hatukuweza kukagua kama mpango wako unatumika. Jaribu tena.</string>
+    <string name="ui_2090b85775b4" formatted="false">Angalia mpango wa Vipi</string>
+    <string name="ui_20b395d8ee06" formatted="false">Unganisha kwenye intaneti mara moja ili kumaliza kusanidi kifaa hiki.</string>
+    <string name="ui_211d0bb8cf4f" formatted="false">Zuia</string>
+    <string name="ui_225d29f6201e" formatted="false">Sikiliza</string>
+    <string name="ui_233a70befbdc" formatted="false">Tunza nenosiri la nakala rudufu. Vipi haiwezi kulirejesha. Bado utaweza kufikia mazungumzo na nakala rudufu ulizohifadhi mpango wako ukiisha.</string>
+    <string name="ui_235ad6028cca" formatted="false">Upakuaji haukukamilika. Kagua muunganisho wako na ujaribu tena.</string>
+    <string name="ui_24a3f4314e5c" formatted="false">Dhibiti usajili</string>
+    <string name="ui_24f13e3dc8e4" formatted="false">Nakala rudufu ya mazungumzo</string>
+    <string name="ui_258150cb3ee4" formatted="false">Anza mazungumzo</string>
+    <string name="ui_25cb0ec8237b" formatted="false">Mnaweza kutumiana ujumbe mpya tena. Ujumbe uliositishwa hautatumwa tena.</string>
+    <string name="ui_273afa09966b" formatted="false">Fungua Google Play → Malipo na usajili → Usajili.</string>
+    <string name="ui_28e67a870e46" formatted="false">Ingia ili kuona mipango inayopatikana kwa akaunti yako.</string>
+    <string name="ui_2a6b4d12ccfb" formatted="false">Leseni na taarifa</string>
+    <string name="ui_2b338821b42c" formatted="false">Hii inaondoa akaunti yako kwenye kifaa kingine kinachotumika. Mazungumzo yaliyo kwenye kifaa hiki yanabaki hapa. Ujumbe unaosubiri hauwezi kuhamishwa kati ya vifaa na utasitishwa. Funguo zako za usimbaji fiche zinabadilika; marafiki watahitaji kuzikubali na kulinganisha nambari za usalama tena.</string>
+    <string name="ui_2c6b2e253c01" formatted="false">Jina lako</string>
+    <string name="ui_2e03fab81b5f" formatted="false">Utambulisho wa usimbaji fiche wa rafiki yako umebadilika. Kagua funguo mpya kabla ya kutuma ujumbe mwingine. Historia uliyohifadhi inabaki hapa.</string>
+    <string name="ui_2e8bd38513f3" formatted="false">Tafsiri ya ujumbe mzima</string>
+    <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
+    <string name="ui_318655cea4bd" formatted="false">Lugha</string>
+    <string name="ui_3370146d6d46" formatted="false">Chagua maandishi</string>
+    <string name="ui_33875a9b79e5" formatted="false">Herufi, nambari au mistari ya chini 3–24. Nambari yako ya simu na orodha ya anwani zako zinabaki binafsi.</string>
+    <string name="ui_339484dc1f78" formatted="false">Maneno kwenye mazungumzo yako</string>
+    <string name="ui_33a2ae335a6b" formatted="false">Ombi la kufuta limetumwa</string>
+    <string name="ui_33a6e5e20062" formatted="false">Anza jaribio la mwezi mmoja bila malipo</string>
+    <string name="ui_3446735cfdee" formatted="false">Ondoa uthibitisho</string>
+    <string name="ui_37f6135c049a" formatted="false">Sitisha kubadilisha maneno</string>
+    <string name="ui_380f81884c22" formatted="false">Imetengenezwa na FallSoft.Co</string>
+    <string name="ui_38d5b00c27da" formatted="false">Kagua mabadiliko ya usimbaji fiche</string>
+    <string name="ui_3907fa7f8072" formatted="false">Mwonekano</string>
+    <string name="ui_3a4cae7c6a6e" formatted="false">Tafsiri haiko tayari. Pakua lugha hii kwanza, kisha ujaribu tena.</string>
+    <string name="ui_3abeae7a3bed" formatted="false">Una ujumbe mpya.</string>
+    <string name="ui_3b3139fd3460" formatted="false">Tafuta marafiki kwa jina la mtumiaji.</string>
+    <string name="ui_3ceeccf6b3ff" formatted="false">Rejesha ununuzi au onyesha mipango upya</string>
+    <string name="ui_3e39703b6e87" formatted="false">Nenosiri la nakala rudufu</string>
+    <string name="ui_3ec68bc63f9a" formatted="false">Ununuzi wako unasubiri uthibitisho. Rejesha ununuzi ili kujaribu tena; usinunue tena.</string>
+    <string name="ui_42ed79b95da1" formatted="false">Ujumbe unaotuma hapa na sehemu ya hivi karibuni ya mazungumzo ya vBot hutumwa kwa Vipi na DeepSeek ili kupata majibu. Haya ni mazungumzo na huduma, si mazungumzo na rafiki yenye usimbaji fiche kutoka mwanzo hadi mwisho. Mazungumzo na marafiki hayajumuishwi kamwe.</string>
+    <string name="ui_42f4f8b469bb" formatted="false">Zungumza na marafiki.\nJifunze maneno unaposoma.</string>
+    <string name="ui_45787d668c50" formatted="false">Anza au rejesha mpango wako wa Vipi kabla ya kuongeza Bot mini.</string>
+    <string name="ui_4757eee1005a" formatted="false">Barua pepe yako haionyeshwi kwa marafiki.</string>
+    <string name="ui_47b7a66139f1" formatted="false">Anza mazungumzo\nna rafiki.</string>
+    <string name="ui_48e35bc10280" formatted="false">Sema habari. Ujumbe wako una usimbaji fiche kutoka mwanzo hadi mwisho.</string>
+    <string name="ui_4a144bcc83d9" formatted="false">Tafadhali subiri kidogo kabla ya kujaribu tena. Ujumbe wako umehifadhiwa.</string>
+    <string name="ui_4a3ddf33db23" formatted="false">Badilisha neno</string>
+    <string name="ui_4b34e1b08868" formatted="false">Tuma kwa vBot</string>
+    <string name="ui_4bc6d965deeb" formatted="false">Ghairi tafsiri kamili</string>
+    <string name="ui_51fbe1dc8a73" formatted="false">Ingia tena</string>
+    <string name="ui_52c236be01ef" formatted="false">Vipakuliwa hivi ni vya kutafsiri ujumbe mzima ukichagua kufanya hivyo. Kubadilisha maneno hakuvihitaji. Kutafsiri ujumbe mzima, chagua Tafsiri kamili kwenye chaguo zake za kusoma. Ujumbe unabaki kwenye simu hii.</string>
+    <string name="ui_5394002806ab" formatted="false">Tumia herufi, nambari au mistari ya chini 3–24, ukianza na herufi.</string>
+    <string name="ui_53b6cd2365c7" formatted="false">Thibitisha usimbaji fiche</string>
+    <string name="ui_541ecffcdb87" formatted="false">Hatukuweza kukagua kama mpango wako unatumika.</string>
+    <string name="ui_5480a088185c" formatted="false">Ripoti jibu</string>
+    <string name="ui_54a04d4e9955" formatted="false">Akaunti yako imehamishwa kwenye kifaa kingine. Mazungumzo uliyohifadhi bado yanapatikana hapa.</string>
+    <string name="ui_54c1159d80bf" formatted="false">Zungumza na marafiki.\nJifunze maneno mapya.</string>
+    <string name="ui_561a197a2807" formatted="false">Ujumbe wa awali</string>
+    <string name="ui_56dd441b2ba6" formatted="false">Ripoti ujumbe huu</string>
+    <string name="ui_57225bd8b984" formatted="false">Unaweza kusoma mazungumzo uliyohifadhi na kufuta akaunti yako wakati wowote, hata bila mpango unaotumika.</string>
+    <string name="ui_58fd7deb0abe" formatted="false">Inaandaa sauti</string>
+    <string name="ui_59eb2538907f" formatted="false">Anza mazungumzo.</string>
+    <string name="ui_5aa854326157" formatted="false">Maneno na vifungu vinavyopatikana hutofautiana kulingana na lugha. Kusikiliza matamshi kunaweza kuhitaji kupakua sauti.</string>
+    <string name="ui_5b80e534fb0c" formatted="false">Pakua kwa tafsiri kamili</string>
+    <string name="ui_5cd3939d3b90" formatted="false">Jina hilo la mtumiaji halipatikani. Jaribu jingine.</string>
+    <string name="ui_5d670c14e5b1" formatted="false">Akaunti imefutwa</string>
+    <string name="ui_5de398810247" formatted="false">Kasi ya kubadilisha maneno</string>
+    <string name="ui_5f0f1b251f45" formatted="false">Usimbaji fiche umesasishwa. Ujumbe uliokuwa unasubiri umesitishwa. Linganisha nambari mpya ya usalama na rafiki yako.</string>
+    <string name="ui_6151d69d167a" formatted="false">Ikiwa kundi lolote linatofautiana, usiweke alama ya kuthibitisha. Simu mpya au kusakinisha upya programu kunaweza kubadilisha nambari hizi.</string>
+    <string name="ui_6315acd44d88" formatted="false">Muda wa kuwasilisha ujumbe huu uliisha kabla haujafika. Unaweza kuutuma tena.</string>
+    <string name="ui_63568f0582af" formatted="false">Mipangilio ya arifa</string>
+    <string name="ui_6382f38cc7cc" formatted="false">Maandishi ya jibu yaliyochaguliwa</string>
+    <string name="ui_6416c5a47450" formatted="false">Inakagua ufutaji…</string>
+    <string name="ui_66201beae1d2" formatted="false">Inakagua vipakuliwa</string>
+    <string name="ui_6802cad312c0" formatted="false">Anza au rejesha Vipi kabla ya kuongeza Bot mini.</string>
+    <string name="ui_682be64ae780" formatted="false">Washa arifa</string>
+    <string name="ui_69cd3590300a" formatted="false">Kagua hali</string>
+    <string name="ui_6a6965bcf571" formatted="false">Hifadhi nakala rudufu iliyosimbwa fiche</string>
+    <string name="ui_6a8b22232bef" formatted="false">Sauti haziko tayari.</string>
+    <string name="ui_70526d2742fe" formatted="false">Kujaribu tena kunatumia ripoti ileile, hivyo haitatumwa mara mbili.</string>
+    <string name="ui_712da63171e0" formatted="false">Ondoa kizuizi</string>
+    <string name="ui_71c971aaf02d" formatted="false">Jua marafiki wanapojibu. Arifa huficha maandishi ya ujumbe.</string>
+    <string name="ui_73bee38b06e8" formatted="false">Marafiki\nwatakupataje?</string>
+    <string name="ui_77d4347c1125" formatted="false">Tafadhali ingia tena ili kuunganisha akaunti yako upya. Mazungumzo uliyohifadhi bado yako kwenye kifaa hiki.</string>
+    <string name="ui_78ff037cf508" formatted="false">Tafsiri kamili haiko tayari</string>
+    <string name="ui_79290727c58b" formatted="false">Hatukuweza kufungua njia salama ya kuingia. Tafadhali jaribu tena.</string>
+    <string name="ui_79a7ada4e1f1" formatted="false">Lugha zako</string>
+    <string name="ui_7a888f9040e0" formatted="false">Huwezi kuingia kwa sasa. Tafadhali jaribu tena baada ya muda mfupi.</string>
+    <string name="ui_7ab60595358e" formatted="false">Futa akaunti yako</string>
+    <string name="ui_7f5e3877efec" formatted="false">Huu ni mfano. Kwenye mazungumzo yako, maneno na vifungu vinavyotumika tu ndivyo hubadilika. Mengine hubaki kama yalivyo.</string>
+    <string name="ui_817b085ae5a9" formatted="false">Ujumbe kati yenu utasitishwa. Mazungumzo yanabaki kwenye kifaa hiki. Unaweza kuondoa kizuizi wakati wowote.</string>
+    <string name="ui_8201f9bbb22b" formatted="false">Bado haijalinganishwa</string>
+    <string name="ui_8218810809d6" formatted="false">Hatukuweza kufungua mazungumzo uliyohifadhi. Tafadhali funga na ufungue tena Vipi ili kujaribu tena.</string>
+    <string name="ui_821bff5750c3" formatted="false">Maneno yaliyoangaziwa hubadilika kati ya lugha zako mbili. Huu ni mfano ulioandaliwa; maneno yanayopatikana kwenye mazungumzo yako hutofautiana kulingana na lugha. Unaweza pia kuona tafsiri kamili iliyoandaliwa.</string>
+    <string name="ui_822ebe66fdd6" formatted="false">Tazama maneno yaliyoangaziwa yakibadilika mahali yalipo. Gusa Sitisha ili kuyasimamisha au Sikiliza ili kusikia matamshi.</string>
+    <string name="ui_825bf52ce678" formatted="false">Ununuzi kupitia Google Play bado haupatikani. Mipango iliyopo bado inaweza kurejeshwa.</string>
+    <string name="ui_84368a0f0b2d" formatted="false">Usasishe usimbaji fiche?</string>
+    <string name="ui_84b61960effd" formatted="false">Kuendelea kunatumia funguo hizi lakini hakuweki alama kuwa zimethibitishwa. Linganisha makundi yote 12 na rafiki yako ana kwa ana au kupitia simu unayoamini kabla ya kuziwekea alama kuwa zimethibitishwa.</string>
+    <string name="ui_8767b4501794" formatted="false">Inakagua usimbaji fiche…</string>
+    <string name="ui_8927db75ddd0" formatted="false">Mipango bado haipatikani kutoka Google Play. Tafadhali jaribu tena baadaye.</string>
+    <string name="ui_89dbe6aad0c8" formatted="false">Jifunze lugha kupitia mazungumzo</string>
+    <string name="ui_8a74ed1b7a84" formatted="false">Jina la mtumiaji la rafiki</string>
+    <string name="ui_8a9877b04214" formatted="false">Tumia funguo hizi</string>
+    <string name="ui_8b3f05442c1b" formatted="false">Mipangilio ya sauti</string>
+    <string name="ui_8def6a81a73d" formatted="false">Wasifu wako na ujumbe unaosubiri kuwasilishwa vitaondolewa kwenye Vipi. Mazungumzo yaliyohifadhiwa kwenye kifaa hiki pia yatafutwa.</string>
+    <string name="ui_8ec4723d54ba" formatted="false">Utahitaji kupakua lugha hizi tena kabla ya kutafsiri bila intaneti. Mazungumzo yako yanabaki kwenye simu hii.</string>
+    <string name="ui_8ffeaed375d8" formatted="false">Umethibitisha funguo hizi</string>
+    <string name="ui_901dc3311d68" formatted="false">Hilo ni jina lako la mtumiaji. Weka jina la mtumiaji la rafiki yako ili kuanza mazungumzo.</string>
+    <string name="ui_93acaeeabd13" formatted="false">Onyesha herufi za Kilatini</string>
+    <string name="ui_93f7902d8131" formatted="false">Tafuta rafiki</string>
+    <string name="ui_94455044f130" formatted="false">Ingia kwenye akaunti ileile ili kuendelea.</string>
+    <string name="ui_94fa9b236332" formatted="false">Acha kusikiliza</string>
+    <string name="ui_956d8b926f8d" formatted="false">Chagua jina watakalolitambua na jina la mtumiaji la kuwapa.</string>
+    <string name="ui_9648f84b6ea3" formatted="false">Arifa binafsi marafiki wanapojibu</string>
+    <string name="ui_965e47e6fb9e" formatted="false">Rafiki yako anahitaji kufungua Vipi kabla ya ujumbe huu wa kwanza kutumwa. Ujumbe wako umehifadhiwa.</string>
+    <string name="ui_967b3ede020c" formatted="false">Ujumbe wa awali hapa chini, mtumaji wake na sababu yako vitatumwa kwa Fallible Software kwa ukaguzi. Mazungumzo mengine yanabaki binafsi. Ripoti huhifadhiwa kwa hadi siku 30.</string>
+    <string name="ui_9989062e50f8" formatted="false">MFANO: KIINGEREZA NA KIHISPANIA</string>
+    <string name="ui_99a6cb8ef035" formatted="false">Ninaelewa na ninataka kuzungumza na vBot.</string>
+    <string name="ui_9bbf916f3af5" formatted="false">Kati yenu wawili tu</string>
+    <string name="ui_9d2dbb5de070" formatted="false">Ingia ili kuthibitisha</string>
+    <string name="ui_9e0f3ffbf015" formatted="false">Ripoti jibu hili la vBot</string>
+    <string name="ui_9e36cb35d1a0" formatted="false">Ujumbe fulani haukuweza kuwasilishwa. Mazungumzo yako mengine yanaweza kuendelea.</string>
+    <string name="ui_9ed65d7add5f" formatted="false">Ninakubali Masharti ya Huduma na nimesoma Sera ya Faragha.</string>
+    <string name="ui_9f60f6c0e9e0" formatted="false">Tuma ujumbe kwa vBot</string>
+    <string name="ui_a0c63ae7f860" formatted="false">Tafsiri haipatikani kwa ujumbe huu. Ujumbe wako wa awali haujabadilika.</string>
+    <string name="ui_a2a2eed05c81" formatted="false">Endelea kwenye mazungumzo</string>
+    <string name="ui_a2e20a335700" formatted="false">Futa akaunti</string>
+    <string name="ui_a44d35311325" formatted="false">Tuma ripoti</string>
+    <string name="ui_a67f154bcb16" formatted="false">Chagua nakala rudufu ya kurejesha</string>
+    <string name="ui_a843a5adb644" formatted="false">Angalia au rejesha Bot mini</string>
+    <string name="ui_aae89a15c1be" formatted="false">Chagua lugha unayoijua</string>
+    <string name="ui_ac6b07b85d0f" formatted="false">Huenda funguo zimebadilika au chaguo lako halikuhifadhiwa. Linganisha nambari za sasa tena.</string>
+    <string name="ui_af0bd5582e73" formatted="false">Zungumza na roboti ya mazungumzo. Inahitaji mpango tofauti wa Bot mini.</string>
+    <string name="ui_af8a897d2feb" formatted="false">Chaguo za mazungumzo</string>
+    <string name="ui_b0f88f29b4b2" formatted="false">Nakili ujumbe wa awali</string>
+    <string name="ui_b1fe736c0809" formatted="false">Umemzuia mtu huyu.</string>
+    <string name="ui_b30a48ba0b99" formatted="false">Angalia au rejesha mpango wa Vipi</string>
+    <string name="ui_b4009c7a9f52" formatted="false">Google Play imechukua muda mrefu kujibu. Tafadhali jaribu tena.</string>
+    <string name="ui_b42323dd1fd2" formatted="false">Maneno yaliyochaguliwa na vifungu vifupi hubadilika kati ya lugha yako na lugha unayochagua. Mpangilio wa maneno na sarufi hubaki vilevile.</string>
+    <string name="ui_b47e6d6e77c8" formatted="false">Hatukuweza kufungua maelezo ya usimbaji fiche. Uthibitisho wako haujabadilika.</string>
+    <string name="ui_b68710eee013" formatted="false">Inaunganisha kwenye mazungumzo yako</string>
+    <string name="ui_b6ec9d55ae3b" formatted="false">Nimelinganisha makundi yote 12</string>
+    <string name="ui_b7c32ca74cb0" formatted="false">Sikiliza lugha zote mbili</string>
+    <string name="ui_b8173b954090" formatted="false">Ondoa vipakuliwa vya tafsiri</string>
+    <string name="ui_b8ed5279e897" formatted="false">Inatuma…</string>
+    <string name="ui_ba6e8c9b0c3e" formatted="false">Tafuta rafiki</string>
+    <string name="ui_bb1fe2470e72" formatted="false">Hifadhi historia ya mazungumzo na marafiki katika faili iliyosimbwa fiche. Unachagua pa kuihifadhi. Utambulisho wako wa kutuma ujumbe, ujumbe ambao haujatumwa na historia ya vBot havijumuishwi kwenye nakala rudufu.</string>
+    <string name="ui_bbd30d6992ff" formatted="false">Hatukuweza kuonyesha mipango yako upya. Kagua muunganisho wako na ujaribu tena.</string>
+    <string name="ui_beb6c51b9bf6" formatted="false">Rejesha historia</string>
+    <string name="ui_c011d6097bfb" formatted="false">Leseni</string>
+    <string name="ui_c26d4e55137b" formatted="false">Akaunti yako na mazungumzo kwenye kifaa hiki vitafutwa kabisa. Hili haliwezi kutenduliwa.</string>
+    <string name="ui_c3169261c50e" formatted="false">Onyesha bei ya sasa ya Google Play upya kabla ya kuendelea.</string>
+    <string name="ui_c3297f5bde81" formatted="false">Kufuta akaunti yako hakutaghairi usajili wa Google Play. Unaweza kuughairi kando ili kuzuia kujisasisha siku zijazo.</string>
+    <string name="ui_c3812fc4acb8" formatted="false">Ondoa</string>
+    <string name="ui_c48de4e830a9" formatted="false">Maandishi ya jibu uliyochagua na sababu pekee ndivyo hutumwa kwa Fallible Software kwa ukaguzi. Mazungumzo na marafiki hayajumuishwi. Ripoti huhifadhiwa kwa hadi siku 30.</string>
+    <string name="ui_c518ff733bfe" formatted="false">vBot inatumia DeepSeek. Ujumbe unaotuma kwa vBot huenda kwa Vipi na DeepSeek ili kutoa majibu. Mazungumzo yako na marafiki hayajumuishwi kiotomatiki kamwe.</string>
+    <string name="ui_c6046d416aaf" formatted="false">Endelea kwenye vBot</string>
+    <string name="ui_c654d70db3ac" formatted="false">Wewe · jibu halijathibitishwa</string>
+    <string name="ui_c753f85749ce" formatted="false">Google Play haikuweza kufungua ukurasa wa malipo. Onyesha mipango yako upya na ujaribu tena.</string>
+    <string name="ui_c754691a97ca" formatted="false">Tumianeni ujumbe kwanza ili kuunda nambari ya usalama ya mazungumzo haya.</string>
+    <string name="ui_cae7d57bc067" formatted="false">Simamisha</string>
+    <string name="ui_cbf7e254a8c0" formatted="false">Lugha ya ujumbe</string>
+    <string name="ui_cc245f2e3a71" formatted="false">Endelea kubadilisha maneno</string>
+    <string name="ui_cc39ebccb529" formatted="false">Muulize vBot swali au zungumza kuhusu siku yako. vBot ni roboti ya mazungumzo na inaweza kukosea; hakiki taarifa muhimu.</string>
+    <string name="ui_cc9317e2ab2e" formatted="false">Msimbo wa programu ya Vipi una leseni ya AGPL-3.0-only. Unatolewa bila dhamana. Unaweza kuunakili na kuubadilisha chini ya masharti ya leseni. Programu za wahusika wengine zinabaki na leseni zao.</string>
+    <string name="ui_cf0b3e3d47ec" formatted="false">Onyesha kikomo kilichobaki upya</string>
+    <string name="ui_d1fc884eb413" formatted="false">Google Play haikuweza kukamilisha ununuzi. Tafadhali jaribu tena.</string>
+    <string name="ui_d42ff6022f50" formatted="false">Urejeshe historia ya mazungumzo?</string>
+    <string name="ui_d55f942dbeea" formatted="false">Tafsiri imetolewa na Google. Tafsiri zinaweza kuwa na makosa.</string>
+    <string name="ui_d63cd658184e" formatted="false">Thibitisha nenosiri ili kuhifadhi nakala rudufu</string>
+    <string name="ui_d75c6cdd950a" formatted="false">Fungua mipangilio ya arifa za Vipi katika Mipangilio ya Android.</string>
+    <string name="ui_d8b8392e2c54" formatted="false">Jaribu tena</string>
+    <string name="ui_dad92e0774f7" formatted="false">Fungua Mipangilio ya simu yako na utafute kubadilisha maandishi kuwa sauti.</string>
+    <string name="ui_db2b1ef64bbf" formatted="false">Utumie Vipi kwenye kifaa hiki?</string>
+    <string name="ui_de6e21a278c4" formatted="false">Akaunti · 2 kati ya 2</string>
+    <string name="ui_df0b482c49b2" formatted="false">UJUMBE WA MFANO</string>
+    <string name="ui_dfe40efe921f" formatted="false">Inasasisha…</string>
+    <string name="ui_e131c9a64a5b" formatted="false">Weka jina lake la mtumiaji la Vipi kama lilivyo. Orodha ya anwani kwenye simu yako inabaki binafsi.</string>
+    <string name="ui_e1e68ee1cefa" formatted="false">Vipi inaandaliwa kuzinduliwa. Akaunti hii bado haijajumuishwa katika majaribio.</string>
+    <string name="ui_e28ba924e405" formatted="false">Wewe · ombi halijakubaliwa</string>
+    <string name="ui_e3b89e9d33f8" formatted="false">Jina la mtumiaji</string>
+    <string name="ui_e48800c742a6" formatted="false">Tumia kifaa hiki</string>
+    <string name="ui_e52b25aa61b5" formatted="false">Chaguo za kusoma</string>
+    <string name="ui_e5bd91ac481d" formatted="false">Kushiriki hakupatikani. Badala yake, mwambie rafiki jina lako la mtumiaji.</string>
+    <string name="ui_e768f0a75223" formatted="false">Hatukuweza kufungua mazungumzo ya vBot uliyohifadhi. Funga na ufungue tena Vipi ili kujaribu tena.</string>
+    <string name="ui_e7be3e288153" formatted="false">Chagua sehemu fupi zaidi ya jibu hili.</string>
+    <string name="ui_e7cde359a05e" formatted="false">Lugha na vipakuliwa</string>
+    <string name="ui_e7e76272a570" formatted="false">Onyesha ujumbe wa awali</string>
+    <string name="ui_e9fa6f9474f3" formatted="false">Ununuzi umeghairiwa. Mipango yako haijabadilika.</string>
+    <string name="ui_ea1029db5e5d" formatted="false">Kifaa hiki kimeunganishwa. Historia uliyohifadhi inabaki hapa. Ujumbe uliokuwa unasubiri umesitishwa; marafiki wataona funguo mpya za usimbaji fiche.</string>
+    <string name="ui_eb55b8291994" formatted="false">Endelea kufuta</string>
+    <string name="ui_eb7c5193d2ac" formatted="false">Hakuna aliyepatikana kwa jina hilo la mtumiaji. Hakiki tahajia na rafiki yako.</string>
+    <string name="ui_ed783fa140ed" formatted="false">Jaribu sauti tena</string>
+    <string name="ui_ee7fdea20d0b" formatted="false">Inakagua mpango wako…</string>
+    <string name="ui_ef32661fdda0" formatted="false">Nenda kwenye ujumbe wa hivi karibuni</string>
+    <string name="ui_ef6cbddc4dd7" formatted="false">Bot mini inahitaji mpango wa Vipi unaotumika. Rejesha Vipi au dhibiti Bot mini katika Google Play ili kuzuia usajili kujisasisha tena.</string>
+    <string name="ui_efd4b5d37081" formatted="false">Hatukuweza kufungua mazungumzo uliyohifadhi. Tafadhali jaribu tena.</string>
+    <string name="ui_f173182378d0" formatted="false">vBot</string>
+    <string name="ui_f1af503686b6" formatted="false">Anza au rejesha mpango wako wa Vipi ili kutuma ujumbe. Mazungumzo na rasimu ulizohifadhi zinabaki zinapatikana.</string>
+    <string name="ui_f1c94d2fa211" formatted="false">Inatafsiri ujumbe mzima</string>
+    <string name="ui_f4cfeca151e1" formatted="false">Inaandaa sauti…</string>
+    <string name="ui_f80c9ded3433" formatted="false">Zungumza na vBot.</string>
+    <string name="ui_f826885bfb23" formatted="false">Sanidi sauti</string>
+    <string name="ui_f87b0e3bf7e6" formatted="false">Ununuzi kupitia Google Play bado haupatikani. Tafadhali jaribu tena baadaye.</string>
+    <string name="ui_f897de52ea1a" formatted="false">Kagua vipakuliwa</string>
+    <string name="ui_f9adde8b7f6a" formatted="false">Weka vipakuliwa</string>
+    <string name="ui_fa3d530cf72d" formatted="false">Unganisha kifaa hiki</string>
+    <string name="ui_fc3360ba8336" formatted="false">Haiwezi kuunganishwa. Ujumbe umehifadhiwa hapa.</string>
+    <string name="ui_fd5e205fa654" formatted="false">Hii haitafuta nakala za marafiki au nakala rudufu ulizohifadhi kwingine.</string>
+    <string name="ui_ff245b368781" formatted="false">Bot mini</string>
+    <string name="annual_price">%1$s kwa mwaka</string>
+    <string name="trial_then_annual">Mwezi mmoja bila malipo, kisha %1$s kwa mwaka</string>
+    <string name="subscribe_annual">Jisajili kwa %1$s kwa mwaka</string>
+    <string name="both_plans_total">Mipango yote miwili: %1$s kwa mwaka baada ya majaribio, kila mmoja ukilipiwa kando.</string>
+    <string name="both_plans_separate">Vipi: %1$s kwa mwaka. Bot mini: %2$s zaidi kwa mwaka. Kila mmoja unalipiwa kando.</string>
+    <string name="plan_active">%1$s inatumika</string>
+    <string name="trial_end_date">Jaribio linaisha %1$s.</string>
+    <string name="access_end_date">Muda wa sasa wa kutumia huduma unaisha %1$s.</string>
+    <string name="public_username">Jina lako la mtumiaji linaloonekana kwa wengine ni @%1$s.</string>
+    <string name="chat_empty_target">Tafuta rafiki kwa jina la mtumiaji na utume ujumbe. Maneno na vifungu vinavyotumika vitabadilika kwenda %1$s unaposoma.</string>
+    <string name="security_number_description">Nambari ya usalama, %1$s</string>
+    <string name="annual_renewal_description">Usajili wa mwaka unajisasisha kiotomatiki isipokuwa uughairi.</string>
+    <string name="base_plan_description">Zungumza na marafiki huku maneno na vifungu vifupi vinavyopatikana vikibadilika kwenda lugha uliyochagua. Bot mini ni mpango tofauti wa hiari.</string>
+    <string name="bot_allowance_unavailable">Bado huwezi kuanza Bot mini. Kikomo chake cha majibu kwa mwezi lazima kithibitishwe kwanza.</string>
+    <string name="bot_plan_description">Bot mini inaongeza mazungumzo na roboti ya vBot kwenye mpango wako wa Vipi. Majibu ya kiotomatiki yanaweza kukosea. Ni usajili tofauti wenye tarehe yake ya kujisasisha.</string>
+    <string name="no_trial_renewal_description">Jaribio la bure halipatikani kwa ofa hii. Usajili wa mwaka unajisasisha kiotomatiki isipokuwa uughairi.</string>
+    <string name="plan_link_error">Kiungo hiki hakikufunguka. Tafadhali jaribu tena.</string>
+    <string name="play_trial_renewal_description">Google Play huthibitisha kama unastahiki na tarehe ya malipo ya kwanza kwenye ukurasa wa malipo. Usajili wa mwaka unajisasisha kiotomatiki isipokuwa uughairi.</string>
+    <string name="review_access_description">Akaunti hii inaweza kutumiwa kwa ukaguzi. Haihitaji usajili wa kulipia.</string>
+    <plurals name="bot_monthly_allowance">
+        <item quantity="one">Jibu %1$s kwa mwezi wa kalenda. Majibu yasiyotumiwa hayaongezwi kwenye mwezi ujao; hutozwi kiotomatiki kwa kuzidi kikomo.</item>
+        <item quantity="other">Majibu %1$s kwa mwezi wa kalenda. Majibu yasiyotumiwa hayaongezwi kwenye mwezi ujao; hutozwi kiotomatiki kwa kuzidi kikomo.</item>
+    </plurals>
 </resources>

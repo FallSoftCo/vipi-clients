@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="plan_link_error">This link couldn’t open. Please try again.</string>
+    <string name="base_plan_description">Chat with friends and see supported words and short phrases switch into your chosen language. Bot mini is a separate, optional plan.</string>
+    <string name="bot_plan_description">Bot mini adds chatbot conversations with vBot to your Vipi plan. Automated replies can be mistaken. It is a separate subscription, with its own renewal date.</string>
+    <string name="bot_allowance_unavailable">Bot mini isn’t available to start yet. Its monthly allowance must be confirmed first.</string>
+    <string name="play_trial_renewal_description">Google Play confirms your eligibility and first payment date at checkout. The annual subscription renews automatically unless you cancel.</string>
+    <string name="annual_renewal_description">The annual subscription renews automatically unless you cancel.</string>
+    <string name="no_trial_renewal_description">A free trial isn’t available for this offer. The annual subscription renews automatically unless you cancel.</string>
+    <string name="review_access_description">Review access is active. No subscription is required for this account.</string>
+    <string name="languages_downloading">Downloading languages…</string>
+    <string name="languages_removing">Removing downloads…</string>
+    <string name="languages_check_failed">Your downloads couldn’t be checked. Please try again.</string>
+    <string name="languages_download_failed">The download couldn’t finish. Check your connection and try again.</string>
+    <string name="languages_remove_failed">Some downloads couldn’t be removed. Please try again.</string>
+    <plurals name="bot_monthly_allowance">
+        <item quantity="one">%1$s reply per calendar month. Unused replies don’t roll over; no automatic overage charges.</item>
+        <item quantity="other">%1$s replies per calendar month. Unused replies don’t roll over; no automatic overage charges.</item>
+    </plurals>
+</resources>

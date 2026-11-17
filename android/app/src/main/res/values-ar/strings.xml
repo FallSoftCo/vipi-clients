@@ -34,4 +34,5 @@
     <string name="cardless_no_payment">لا تحتاج إلى وسيلة دفع لهذه الفترة المجانية.</string>
     <string name="cardless_intro">ابدأ بفترة مجانية مدتها 30 يومًا دون وسيلة دفع. بعدها اختر ما إذا كنت تريد الاشتراك.</string>
     <string name="bot_verification_unavailable">يتعذر التحقق من الوصول إلى Bot mini الآن. حاول مجددًا.</string>
+    <string name="plan_clock_unavailable">تعذر التحقق من الوصول إلى خطتك. حاول مجددًا.</string>
 </resources>

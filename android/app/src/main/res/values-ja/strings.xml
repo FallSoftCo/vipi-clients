@@ -34,4 +34,5 @@
     <string name="cardless_no_payment">この無料期間に支払い方法の登録は不要です。</string>
     <string name="cardless_intro">支払い方法を登録せずに30日間無料で始められます。その後、登録するか選べます。</string>
     <string name="bot_verification_unavailable">現在、Bot miniへのアクセスを確認できません。もう一度お試しください。</string>
+    <string name="plan_clock_unavailable">プランの利用状況を確認できませんでした。もう一度お試しください。</string>
 </resources>

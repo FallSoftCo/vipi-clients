@@ -140,8 +140,8 @@ import java.time.format.FormatStyle
             Text(stringResource(R.string.ui_541ecffcdb87))
             TextButton(onClick = onRetry) { Text(stringResource(R.string.try_again)) }
         }
-        AccessCheckState.LOADED -> if (access?.bot?.verificationUnavailable == true) {
-            Text(stringResource(R.string.bot_verification_unavailable))
+        AccessCheckState.LOADED -> if (access?.bot?.verificationUnavailable == true || access?.serverTime == null) {
+            Text(stringResource(if (access?.bot?.verificationUnavailable == true) R.string.bot_verification_unavailable else R.string.plan_clock_unavailable))
             TextButton(onClick = onRetry) { Text(stringResource(R.string.try_again)) }
         } else if (access?.active(SubscriptionPlan.BOT_MINI) == true) content()
             else TextButton(onClick = onPlan) { Text(stringResource(R.string.ui_a843a5adb644)) }

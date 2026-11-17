@@ -34,4 +34,5 @@
     <string name="cardless_no_payment">此免费期间无需付款方式。</string>
     <string name="cardless_intro">无需付款方式，先免费使用 30 天。之后可自行选择是否订阅。</string>
     <string name="bot_verification_unavailable">目前无法验证 Bot mini 的使用权限。请重试。</string>
+    <string name="plan_clock_unavailable">无法验证你的套餐使用权限。请重试。</string>
 </resources>

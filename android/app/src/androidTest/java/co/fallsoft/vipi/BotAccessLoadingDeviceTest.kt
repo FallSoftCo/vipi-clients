@@ -16,7 +16,7 @@ class BotAccessLoadingDeviceTest {
         fun plan() = JSONObject().put("active", active).put("expires_at", JSONObject.NULL)
             .put("trial_ends_at", JSONObject.NULL).put("review_access", true).put("access_source", "review_complimentary")
         return JSONObject().put("base", plan()).put("bot_mini", plan().put("available", active))
-            .put("billing_account_id", "a".repeat(64))
+            .put("billing_account_id", "a".repeat(64)).put("server_time", java.time.Instant.now().toString())
     }
     private fun transition(active: Boolean) {
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -75,4 +75,15 @@ class BotAccessLoadingDeviceTest {
             compose.runOnIdle { assertEquals(2, requests); assertEquals(AccessCheckState.LOADED, plans.accessCheckState) }
         } finally { compose.runOnIdle { plans.close(); scope.cancel() } }
     }
+    @Test fun staleBotVerificationNeverOffersAnotherPurchase() {
+        val response = payload(true)
+        response.getJSONObject("bot_mini").put("active", false).put("verification_unavailable", true)
+        val access = SubscriptionAccess.parse(response)
+        compose.setContent { BotPlanAccessGate(AccessCheckState.LOADED, access, {}, {}) { Text("COMPOSER") } }
+        compose.onNodeWithText("Bot mini access can’t be verified right now. Try again.").assertExists()
+        compose.onNodeWithText("View or restore Bot mini").assertDoesNotExist()
+        compose.onNodeWithText("COMPOSER").assertDoesNotExist()
+        assertTrue(access.active(SubscriptionPlan.BASE))
+    }
+
 }

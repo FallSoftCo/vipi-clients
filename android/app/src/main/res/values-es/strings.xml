@@ -34,4 +34,5 @@
     <string name="cardless_no_payment">No necesitas un método de pago para este período gratuito.</string>
     <string name="cardless_intro">Empieza con 30 días gratis, sin método de pago. Después, decide si quieres suscribirte.</string>
     <string name="bot_verification_unavailable">No se puede verificar el acceso a Bot mini ahora. Inténtalo de nuevo.</string>
+    <string name="plan_clock_unavailable">No se pudo verificar el acceso a tu plan. Inténtalo de nuevo.</string>
 </resources>
