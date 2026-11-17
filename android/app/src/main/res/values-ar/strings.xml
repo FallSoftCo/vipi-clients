@@ -417,4 +417,5 @@
     <string name="access_switch_repeated">بدّل %1$s و%2$s، الكلمة %3$s</string>
     <string name="access_choose_word">اختر كلمة لتبديلها</string>
     <string name="access_message_actions">إجراءات الرسالة</string>
+    <string name="cardless_ended">انتهى وصولك المجاني إلى Vipi في %1$s. اشترك لمواصلة المحادثة.</string>
 </resources>

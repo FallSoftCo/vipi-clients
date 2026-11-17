@@ -402,4 +402,5 @@
     <string name="access_switch_repeated">%1$s 및 %2$s 전환, 단어 %3$s</string>
     <string name="access_choose_word">전환할 단어 선택</string>
     <string name="access_message_actions">메시지 동작</string>
+    <string name="cardless_ended">Vipi 무료 이용 기간이 %1$s에 종료되었습니다. 계속 대화하려면 구독하세요.</string>
 </resources>

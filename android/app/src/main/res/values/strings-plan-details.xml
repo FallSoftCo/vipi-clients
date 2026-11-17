@@ -124,6 +124,7 @@
     <string name="access_switch_repeated">Switch %1$s and %2$s, word %3$s</string>
     <string name="access_choose_word">Choose a word to switch</string>
     <string name="access_message_actions">Message actions</string>
+    <string name="cardless_ended">Your free Vipi access ended %1$s. Subscribe to continue chatting.</string>
     <plurals name="bot_monthly_allowance">
         <item quantity="one">%1$s reply per calendar month. Unused replies don’t roll over; no automatic overage charges.</item>
         <item quantity="other">%1$s replies per calendar month. Unused replies don’t roll over; no automatic overage charges.</item>

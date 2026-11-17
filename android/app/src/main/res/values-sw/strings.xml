@@ -405,4 +405,5 @@
     <string name="access_switch_repeated">Badilisha %1$s na %2$s, neno %3$s</string>
     <string name="access_choose_word">Chagua neno la kubadilisha</string>
     <string name="access_message_actions">Vitendo vya ujumbe</string>
+    <string name="cardless_ended">Ufikiaji wako wa Vipi bila malipo uliisha %1$s. Jisajili ili kuendelea kuzungumza.</string>
 </resources>

@@ -405,4 +405,5 @@
     <string name="access_switch_repeated">Cambia %1$s e %2$s, parola %3$s</string>
     <string name="access_choose_word">Scegli una parola da cambiare</string>
     <string name="access_message_actions">Azioni del messaggio</string>
+    <string name="cardless_ended">Il tuo accesso gratuito a Vipi è terminato il %1$s. Abbonati per continuare a chattare.</string>
 </resources>

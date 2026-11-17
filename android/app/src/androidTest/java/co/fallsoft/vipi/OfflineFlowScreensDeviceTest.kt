@@ -65,7 +65,7 @@ class OfflineFlowScreensDeviceTest {
             state.value = value
         }
         val device = UiDevice.getInstance(inst)
-        val out = File(base.filesDir, "offline-flow-1bdd").apply { mkdirs() }
+        val out = File(base.filesDir, "offline-flow-plan-r02").apply { mkdirs() }
         var scenario: ActivityScenario<MainActivity>? = null
         try {
             withContext(Dispatchers.Main) {
@@ -93,8 +93,9 @@ class OfflineFlowScreensDeviceTest {
             assertTrue(device.wait(Until.hasObject(By.text("Invite a friend")), 10_000))
             assertTrue(device.takeScreenshot(File(out, "new-chat-profile.png")))
             device.findObject(By.text("Invite a friend")).click()
-            SystemClock.sleep(1_000)
+            SystemClock.sleep(2_000)
             assertNotEquals("Chooser must be outside the Vipi app", base.packageName, device.currentPackageName)
+            device.dumpWindowHierarchy(File(out, "invite-chooser.xml"))
             assertTrue(device.takeScreenshot(File(out, "invite-chooser.png")))
             device.pressBack()
             scenario!!.onActivity { model.openConversation(peer) }
@@ -103,21 +104,29 @@ class OfflineFlowScreensDeviceTest {
             SystemClock.sleep(800)
             assertTrue(device.takeScreenshot(File(out, "friend-composer-keyboard.png")))
             device.pressBack()
-            scenario!!.onActivity { setState(chat, "needsDeviceRecovery", true); model.navigate(Screen.HOME) }
+            scenario!!.onActivity { model.navigate(Screen.BACKUP) }
+            assertTrue(device.wait(Until.hasObject(By.textContains("backup")), 10_000))
+            assertTrue(device.takeScreenshot(File(out, "backup-form.png")))
+            scenario!!.onActivity { setState(chat, "needsDeviceRecovery", true); setState(chat, "ready", false); model.navigate(Screen.HOME) }
             assertTrue(device.wait(Until.hasObject(By.textContains("another device")), 10_000))
             assertTrue(device.takeScreenshot(File(out, "device-recovery.png")))
             scenario!!.onActivity {
-                setState(chat, "needsDeviceRecovery", false)
+                setState(chat, "needsDeviceRecovery", false); setState(chat, "ready", true)
                 setState(model, "subscriptions", plans)
                 setState(model, "screen", Screen.PLANS)
             }
             assertTrue(device.wait(Until.hasObject(By.textContains("couldn’t")), 15_000))
+            assertEquals("Unknown status must appear once", 1, device.findObjects(By.textContains("Your plan access couldn’t be checked")).size)
             assertTrue(device.takeScreenshot(File(out, "plan-unknown.png")))
-            val expired = SubscriptionAccess(PlanAccess(false, null, null), PlanAccess(false, null, null), false, "a".repeat(64), false, Instant.now(), SystemClock.elapsedRealtime())
-            scenario!!.onActivity { setState(plans, "access", expired); setState(plans, "accessCheckState", AccessCheckState.LOADED) }
+            val end = Instant.now().minusSeconds(3600)
+            val expiredTrial = CardlessTrial(end.minusSeconds(30L * 24 * 60 * 60), end, false)
+            val expired = SubscriptionAccess(PlanAccess(false, null, null, cardlessTrial = expiredTrial), PlanAccess(false, null, null), false, "a".repeat(64), false, Instant.now(), SystemClock.elapsedRealtime())
+            scenario!!.onActivity { setState(plans, "notice", null); setState(plans, "access", expired); setState(plans, "accessCheckState", AccessCheckState.LOADED) }
             SystemClock.sleep(800)
+            assertTrue(device.wait(Until.hasObject(By.textContains("Your free Vipi access ended")), 10_000))
+            assertFalse(device.hasObject(By.textContains("Your plan access couldn’t be checked")))
             assertTrue(device.takeScreenshot(File(out, "plan-expired-no-store-offer.png")))
-            File(out, "receipt.json").writeText(JSONObject().put("synthetic_profile", true).put("fake_transport_only", true).put("share_sent", false).put("message_sent", false).put("store_offer_loaded", false).put("screens", JSONArray(listOf("home-profile", "new-chat-profile", "invite-chooser", "friend-composer-keyboard", "device-recovery", "plan-unknown", "plan-expired-no-store-offer"))).toString(2))
+            File(out, "receipt.json").writeText(JSONObject().put("synthetic_profile", true).put("fake_transport_only", true).put("share_sent", false).put("message_sent", false).put("store_offer_loaded", false).put("screens", JSONArray(listOf("home-profile", "new-chat-profile", "invite-chooser", "friend-composer-keyboard", "backup-form", "device-recovery", "plan-unknown", "plan-expired-no-store-offer"))).toString(2))
         } finally {
             scenario?.close()
             withContext(Dispatchers.Main) { plans.close(); chat.close(); scope.cancel() }

@@ -402,4 +402,5 @@
     <string name="access_switch_repeated">切换 %1$s 和 %2$s，单词 %3$s</string>
     <string name="access_choose_word">选择要切换的单词</string>
     <string name="access_message_actions">消息操作</string>
+    <string name="cardless_ended">您的 Vipi 免费使用期已于 %1$s 结束。订阅后可继续聊天。</string>
 </resources>

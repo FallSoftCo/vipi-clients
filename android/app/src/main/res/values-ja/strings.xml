@@ -402,4 +402,5 @@
     <string name="access_switch_repeated">%1$sと%2$sを切り替え、単語%3$s</string>
     <string name="access_choose_word">切り替える単語を選択</string>
     <string name="access_message_actions">メッセージのアクション</string>
+    <string name="cardless_ended">Vipiの無料アクセスは%1$sに終了しました。チャットを続けるには登録してください。</string>
 </resources>

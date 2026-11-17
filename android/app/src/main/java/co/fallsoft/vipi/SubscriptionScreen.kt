@@ -73,13 +73,23 @@ import kotlinx.coroutines.delay
     val verificationUnavailable = plan == SubscriptionPlan.BOT_MINI && access?.verificationUnavailable == true
     val clockUnavailable = snapshot != null && snapshot.serverTime == null
     val accessUnknown = expiryRefreshPending || subscriptions.accessCheckState != AccessCheckState.LOADED || verificationUnavailable || clockUnavailable
+    val statusMessage = if (accessUnknown) {
+        if (verificationUnavailable) stringResource(R.string.bot_verification_unavailable)
+        else if (clockUnavailable || subscriptions.accessCheckState == AccessCheckState.ERROR) stringResource(R.string.plan_clock_unavailable)
+        else stringResource(R.string.ui_ee7fdea20d0b)
+    } else null
+    val endedTrial = access?.cardlessTrial?.takeIf { !it.active && !it.endsAt.isAfter(now) }
+    if (!accessUnknown && plan == SubscriptionPlan.BASE && access?.usable(now) != true && endedTrial != null) {
+        val end = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withZone(ZoneId.systemDefault()).format(endedTrial.endsAt)
+        Text(stringResource(R.string.cardless_ended, end), style = MaterialTheme.typography.bodyMedium)
+    }
     if (access?.usable(now) == true && !accessUnknown) {
         PlanAccessSummary(plan, access, now)
         if (plan == SubscriptionPlan.BOT_MINI && snapshot?.base?.usable(now) != true) Text(stringResource(R.string.bot_requires_vipi_access))
         if (plan == SubscriptionPlan.BASE) Button(onClick = { model.navigate(Screen.HOME) }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_a2a2eed05c81)) }
         else if (snapshot?.active(SubscriptionPlan.BOT_MINI) == true) Button(onClick = { model.openBot() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_c6046d416aaf)) }
     } else if (accessUnknown) {
-        Text(if (verificationUnavailable) stringResource(R.string.bot_verification_unavailable) else if (clockUnavailable || subscriptions.accessCheckState == AccessCheckState.ERROR) stringResource(R.string.plan_clock_unavailable) else stringResource(R.string.ui_ee7fdea20d0b), style = MaterialTheme.typography.bodyMedium)
+        Text(requireNotNull(statusMessage), style = MaterialTheme.typography.bodyMedium)
     } else if (offer != null) {
         Text(if (offer.oneMonthTrial) stringResource(R.string.trial_then_annual, offer.annualPrice) else stringResource(R.string.annual_price, offer.annualPrice), fontWeight = FontWeight.SemiBold, fontSize = 20.sp)
         Text(if (offer.oneMonthTrial) stringResource(R.string.play_trial_renewal_description)
@@ -108,7 +118,7 @@ import kotlinx.coroutines.delay
     }
     if (subscriptions.busy) CircularProgressIndicator(Modifier.size(24.dp))
     if (snapshot != null && !snapshot.purchasesReady) Text(stringResource(R.string.ui_825bf52ce678), style = MaterialTheme.typography.bodySmall)
-    subscriptions.notice?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+    subscriptions.notice?.takeUnless { it == statusMessage }?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     TextButton(onClick = { scope.launch { subscriptions.refresh() } }, enabled = !subscriptions.busy && !subscriptions.purchasing) { Text(stringResource(R.string.ui_3ceeccf6b3ff)) }
     TextButton(onClick = { open("https://play.google.com/store/account/subscriptions") }) { Text(stringResource(R.string.ui_02d207068808)) }
     Text(stringResource(R.string.ui_57225bd8b984), style = MaterialTheme.typography.bodySmall)
