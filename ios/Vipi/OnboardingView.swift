@@ -72,14 +72,6 @@ struct OnboardingView: View {
                     if speech.state == .unavailable { Button("Retry voices") { preparePreviewVoices() }.font(.footnote) }
                 }
                 Text("Tap a highlighted word to see its meaning.").font(.subheadline).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
-                Button {
-                    withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.18)) {
-                        previewMode = previewMode == .original ? .immersed : .original
-                    }
-                } label: {
-                    Label(LocalizedStringKey(previewMode == .original ? "Resume Spanish words" : "Show original message"), systemImage: "arrow.triangle.2.circlepath")
-                        .font(.subheadline.weight(.semibold)).frame(minHeight: 44, alignment: .leading)
-                }
             }
         }.onAppear { preparePreviewVoices() }
             .onDisappear { speech.close() }
@@ -96,7 +88,7 @@ struct OnboardingView: View {
                 Text("I speak").font(.body.weight(.semibold))
                 Picker("I already speak", selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) })) {
                     ForEach(VipiLanguage.initial) { Text($0.localizedName).tag($0.id) }
-                }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, alignment: .leading)
+                }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
                     .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
             }
             VStack(alignment: .leading, spacing: 10) {
@@ -105,7 +97,7 @@ struct OnboardingView: View {
                 ForEach(VipiLanguage.initial.filter { $0.id != state.knownLanguage }) { language in
                     Text("\(language.localizedName) · \(language.localName)").tag(language.id)
                 }
-            }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, alignment: .leading)
+            }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
                 .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
             }
             ConversationPreview(source: state.knownLanguage, target: state.targetLanguage, scrolling: scrolling)
@@ -136,8 +128,8 @@ struct OnboardingView: View {
     private var legalLinks: some View {
         let layout = dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 20)) : AnyLayout(HStackLayout(spacing: 20))
         return layout {
-                Link("Terms of Service", destination: URL(string: "https://api.mambovipi.app/terms")!)
-                Link("Privacy Policy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
+                Link("Terms of Service", destination: URL(string: "https://api.mambovipi.app/terms")!).frame(minHeight: 44)
+                Link("Privacy Policy", destination: URL(string: "https://api.mambovipi.app/privacy")!).frame(minHeight: 44)
             }.font(.subheadline)
     }
 

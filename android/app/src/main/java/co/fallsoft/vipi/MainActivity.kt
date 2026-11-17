@@ -253,10 +253,6 @@ class MainActivity : ComponentActivity() {
         ImmersionBubble(immersionPreview, mode, speech = speech, interactionPaused = scrolling)
         SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
         Text(stringResource(R.string.preview_tap_word), fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        TextButton(onClick = { mode = if (mode == ReadingMode.ORIGINAL) ReadingMode.IMMERSED else ReadingMode.ORIGINAL }, contentPadding = PaddingValues(0.dp)) {
-            Icon(Icons.Outlined.Sync, null, Modifier.size(17.dp)); Spacer(Modifier.width(8.dp))
-            Text(if (mode == ReadingMode.ORIGINAL) stringResource(R.string.ui_1e22fb013bb0) else stringResource(R.string.ui_e7e76272a570), fontSize = 16.sp)
-        }
     }
 }
 
