@@ -36,6 +36,15 @@
     "sw-listen-idle.png": {
       "sha256": "9e775b645e94659cdeb49f4c5195315a6bfa106935fa1dd8f7905c35c60b5414",
       "bytes": 137263
+    },
+    "ja-paused-playing.png": {
+      "sha256": "2f7975648e9e2039ca4edc79e95ea403f88d14d0c9f5ee1675ff88c6c6a5461f",
+      "bytes": 138480
+    },
+    "ja-paused-idle.png": {
+      "sha256": "8155d98632cd6fe91ba90e6fc30fff6ee02382d2813851cf2568fc34c49456cc",
+      "bytes": 135901
     }
-  }
+  },
+  "japanese_paused_visible_cycle": "Switching paused with koohii/ashita/kawa visibly displayed; Listen changed to Stop, then returned to Listen by 10 seconds. Visible state only, not verified spoken input."
 }

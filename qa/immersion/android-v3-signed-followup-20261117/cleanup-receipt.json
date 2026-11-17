@@ -1,0 +1,10 @@
+{
+  "avd": "vipi_v3_followup_20261117",
+  "path": "/home/ai/.android/avd/vipi_v3_followup_20261117.avd",
+  "free_before": 6898765824,
+  "reason": "stopped task-owned accountless AVD; reviewed evidence retained",
+  "free_after": 8393981952,
+  "avd_path_absent": true,
+  "completed_utc": "2026-11-17T08:18:14.803750+00:00",
+  "reclaimed_allocated_bytes": 1495216128
+}
