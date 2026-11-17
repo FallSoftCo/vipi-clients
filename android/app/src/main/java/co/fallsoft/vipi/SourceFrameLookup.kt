@@ -131,6 +131,7 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
      val fc=if(carrier==null)nativeCost(words,focus) else nativeCost(words,carrier)?.takeIf{it==1}
      val barrierText=if(wholeSentence)needle.trimEnd { it in ".!?。！？" } else needle
      val reason=when {
+      !SourceOrthography.permitsReplacement(original,focus.start,focus.end)->"partial_arabic_word"
       wholeSentence && sentences.none{it.first==context.start && it.last+1==context.end}->"whole_sentence_scope"
       v.optString("right_boundary")=="clause_or_end" && !clauseOrEnd(original,context.end)->"right_boundary"
       cc==null || fc==null->"partial_native_word"
@@ -164,7 +165,7 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
    }
   }
   val groups=mutableListOf<MutableList<Hit>>()
-  for(h in hits.filter{it.reason !in setOf("partial_native_word","context_barrier","whole_sentence_scope","right_boundary")}.sortedWith(compareBy<Hit>{it.focus.start}.thenBy{it.focus.end})) {
+  for(h in hits.filter{it.reason !in setOf("partial_native_word","partial_arabic_word","context_barrier","whole_sentence_scope","right_boundary")}.sortedWith(compareBy<Hit>{it.focus.start}.thenBy{it.focus.end})) {
    if(groups.isNotEmpty() && h.focus.start<groups.last().maxOf{it.focus.end})groups.last().add(h) else groups.add(mutableListOf(h))
   }
   val frameUnits=mutableListOf<Pair<Hit,SourceReferenceUnit>>();val frameRecognitions=mutableListOf<SourceRecognition>()

@@ -1,0 +1,12 @@
+{
+  "source_commit_before_changes": "c548c27",
+  "files": {
+    "ios/VipiCore/Sources/VipiCore/Immersion.swift": "597330b0b66a3d402acaa5e773d4e59bcbeb4b61e90188dd091b6999466a9db0",
+    "android/core/src/main/kotlin/co/fallsoft/vipi/core/Immersion.kt": "934d8a890aeb6b6e261f1353047ea2e850ebfe468f19196037558a27a6f4552f",
+    "ios/Vipi/SourceFrameLookup.swift": "34634a3c0b589264d89d69a448d12f8ab476b5572f07ccfdce4b2519fc0fbfbc",
+    "android/app/src/main/java/co/fallsoft/vipi/SourceFrameLookup.kt": "27b83ad6036385d17df3c42227de07ddcbf27a2b6bc0fc4063913f00ba6fdd9c",
+    "ios/Vipi/LocalImmersion.swift": "aa635ac576a5cce002c8b05a40c5943500c6e400482530d681a29857ea7f196f",
+    "ios/Vipi/SourceUnitLookup.swift": "8951b32d95bcb189d3f285728ce5d9e1495333ce26cafa698151e617ec4f49c9"
+  },
+  "fixture_sha256": "d279aece2e866aa2fa6d4fe0446c3dfd4e6af4ea9037c7c66bccd22ada0310b4"
+}

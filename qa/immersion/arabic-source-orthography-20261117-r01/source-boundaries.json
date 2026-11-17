@@ -1,0 +1,235 @@
+{
+  "cases": [
+    {
+      "id": "water_stem",
+      "text": "أنا أشرب الماء الآن.",
+      "startUTF16": 11,
+      "endUTF16": 14,
+      "allowed": false
+    },
+    {
+      "id": "water_whole",
+      "text": "أنا أشرب الماء الآن.",
+      "startUTF16": 9,
+      "endUTF16": 14,
+      "allowed": true
+    },
+    {
+      "id": "music_stem",
+      "text": "أنا أحب الموسيقى.",
+      "startUTF16": 10,
+      "endUTF16": 16,
+      "allowed": false
+    },
+    {
+      "id": "music_whole",
+      "text": "أنا أحب الموسيقى.",
+      "startUTF16": 8,
+      "endUTF16": 16,
+      "allowed": true
+    },
+    {
+      "id": "bare_water",
+      "text": "أريد ماء.",
+      "startUTF16": 5,
+      "endUTF16": 8,
+      "allowed": true
+    },
+    {
+      "id": "clitic_prefix",
+      "text": "بالماء",
+      "startUTF16": 1,
+      "endUTF16": 6,
+      "allowed": false
+    },
+    {
+      "id": "clitic_whole",
+      "text": "بالماء",
+      "startUTF16": 0,
+      "endUTF16": 6,
+      "allowed": true
+    },
+    {
+      "id": "suffix",
+      "text": "ماءك",
+      "startUTF16": 0,
+      "endUTF16": 3,
+      "allowed": false
+    },
+    {
+      "id": "suffix_whole",
+      "text": "ماءك",
+      "startUTF16": 0,
+      "endUTF16": 4,
+      "allowed": true
+    },
+    {
+      "id": "vowels_stem",
+      "text": "الْمَاءُ",
+      "startUTF16": 3,
+      "endUTF16": 8,
+      "allowed": false
+    },
+    {
+      "id": "vowels_whole",
+      "text": "الْمَاءُ",
+      "startUTF16": 0,
+      "endUTF16": 8,
+      "allowed": true
+    },
+    {
+      "id": "vowel_detached",
+      "text": "الْمَاءُ",
+      "startUTF16": 0,
+      "endUTF16": 7,
+      "allowed": false
+    },
+    {
+      "id": "tatweel_stem",
+      "text": "الـماء",
+      "startUTF16": 3,
+      "endUTF16": 6,
+      "allowed": false
+    },
+    {
+      "id": "tatweel_whole",
+      "text": "الـماء",
+      "startUTF16": 0,
+      "endUTF16": 6,
+      "allowed": true
+    },
+    {
+      "id": "zwj_stem",
+      "text": "ال‍ماء",
+      "startUTF16": 3,
+      "endUTF16": 6,
+      "allowed": false
+    },
+    {
+      "id": "zwj_whole",
+      "text": "ال‍ماء",
+      "startUTF16": 0,
+      "endUTF16": 6,
+      "allowed": true
+    },
+    {
+      "id": "zwnj_stem",
+      "text": "ال‌ماء",
+      "startUTF16": 3,
+      "endUTF16": 6,
+      "allowed": false
+    },
+    {
+      "id": "zwnj_whole",
+      "text": "ال‌ماء",
+      "startUTF16": 0,
+      "endUTF16": 6,
+      "allowed": true
+    },
+    {
+      "id": "marks_and_joiner",
+      "text": "الْ‍ماء",
+      "startUTF16": 3,
+      "endUTF16": 7,
+      "allowed": false
+    },
+    {
+      "id": "punctuation",
+      "text": "«الماء»،",
+      "startUTF16": 1,
+      "endUTF16": 6,
+      "allowed": true
+    },
+    {
+      "id": "mixed",
+      "text": "🙂 water الماء now",
+      "startUTF16": 9,
+      "endUTF16": 14,
+      "allowed": true
+    },
+    {
+      "id": "arabic_name_partial",
+      "text": "محمد",
+      "startUTF16": 1,
+      "endUTF16": 4,
+      "allowed": false
+    },
+    {
+      "id": "arabic_name_whole",
+      "text": "محمد",
+      "startUTF16": 0,
+      "endUTF16": 4,
+      "allowed": true
+    },
+    {
+      "id": "latin_unchanged",
+      "text": "books",
+      "startUTF16": 0,
+      "endUTF16": 4,
+      "allowed": true
+    },
+    {
+      "id": "korean_unchanged",
+      "text": "책을",
+      "startUTF16": 0,
+      "endUTF16": 1,
+      "allowed": true
+    },
+    {
+      "id": "japanese_unchanged",
+      "text": "私は",
+      "startUTF16": 0,
+      "endUTF16": 1,
+      "allowed": true
+    },
+    {
+      "id": "chinese_unchanged",
+      "text": "中国",
+      "startUTF16": 0,
+      "endUTF16": 1,
+      "allowed": true
+    },
+    {
+      "id": "separate_words",
+      "text": "ال ماء",
+      "startUTF16": 3,
+      "endUTF16": 6,
+      "allowed": true
+    },
+    {
+      "id": "persian_joining",
+      "text": "الپانی",
+      "startUTF16": 2,
+      "endUTF16": 6,
+      "allowed": false
+    },
+    {
+      "id": "tatweel_end_before",
+      "text": "الـماء",
+      "startUTF16": 0,
+      "endUTF16": 2,
+      "allowed": false
+    },
+    {
+      "id": "trailing_tatweel_cut",
+      "text": "ماءـ",
+      "startUTF16": 0,
+      "endUTF16": 3,
+      "allowed": false
+    },
+    {
+      "id": "trailing_tatweel_whole",
+      "text": "ماءـ",
+      "startUTF16": 0,
+      "endUTF16": 4,
+      "allowed": true
+    },
+    {
+      "id": "invalid_surrogate_edge",
+      "text": "😀ماء",
+      "startUTF16": 1,
+      "endUTF16": 2,
+      "allowed": false
+    }
+  ]
+}

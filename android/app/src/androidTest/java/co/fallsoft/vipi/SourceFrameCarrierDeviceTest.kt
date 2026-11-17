@@ -24,7 +24,7 @@ class SourceFrameCarrierDeviceTest {
  private fun result(frame:SourceFrameLookup,source:String,text:String,known:Set<String> = emptySet()) =
   frame.resolve(text,.5,known,SourceLookupEvidence(text,source,"en","empty",null,emptyList()),emptyList())
  @Test fun exactCarriersPreserveGrammarAndRejectLargerTokens() {
-  for((source,head,v) in listOf(Triple("ar","ماء",variant("الماء",2,5,"supplied-singular-definite-article-1")),Triple("ko","책",variant("책을",0,1,"hangul-noun-particles-1")))) {
+  for((source,head,v) in listOf(Triple("ko","책",variant("책을",0,1,"hangul-noun-particles-1")))) {
    val f=frame(source,head,v);val text=v.getString("context")
    val p=requireNotNull(result(f,source,text).partial)
    assertEquals(head,p.spans.single().original)
@@ -35,6 +35,14 @@ class SourceFrameCarrierDeviceTest {
    assertNull(result(f,source,text,setOf("noun")).partial)
    val noCarrier=JSONObject(v.toString()).apply{remove("carrier_utf16");remove("carrier_rule")}
    assertNull(result(frame(source,head,noCarrier),source,text).partial)
+  }
+ }
+ @Test fun reviewedArabicCarrierCannotSplitJoinedOrthography() {
+  for((word,head) in listOf("الماء" to "ماء","الموسيقى" to "موسيقى")) {
+   val v=variant(word,2,word.length,"supplied-singular-definite-article-1")
+   val f=frame("ar",head,v)
+   assertNull(result(f,"ar",word).partial)
+   assertEquals("partial_arabic_word",f.geometry(word).getJSONObject(0).getString("reason"))
   }
  }
  @Test fun malformedUnlicensedAndWrongAllomorphCarriersFailClosed() {

@@ -1,5 +1,32 @@
 package co.fallsoft.vipi.core
 
+/** A native morpheme boundary cannot sever a joined Arabic source word. */
+object SourceOrthography {
+    private fun letter(value:Int)=Character.isLetter(value)&&Character.UnicodeScript.of(value)==Character.UnicodeScript.ARABIC
+    private fun transparent(value:Int)=when(Character.getType(value)) {
+        Character.NON_SPACING_MARK.toInt(),Character.COMBINING_SPACING_MARK.toInt(),Character.ENCLOSING_MARK.toInt()->true
+        else->value==0x0640||value==0x200C||value==0x200D
+    }
+    fun permitsReplacement(original:String,start:Int,end:Int):Boolean {
+        if(start<0||end<=start||end>original.length||
+            (start<original.length&&Character.isLowSurrogate(original[start]))||
+            (end<original.length&&Character.isLowSurrogate(original[end])))return false
+        fun cutsWord(edge:Int):Boolean {
+            if(edge==0||edge==original.length)return false
+            val left=original.codePointBefore(edge);val right=original.codePointAt(edge)
+            if(!(letter(left)||transparent(left))||!(letter(right)||transparent(right)))return false
+            if(letter(left)||letter(right))return true
+            var cursor=edge
+            while(cursor>0&&transparent(original.codePointBefore(cursor)))cursor-=Character.charCount(original.codePointBefore(cursor))
+            if(cursor>0&&letter(original.codePointBefore(cursor)))return true
+            cursor=edge
+            while(cursor<original.length&&transparent(original.codePointAt(cursor)))cursor+=Character.charCount(original.codePointAt(cursor))
+            return cursor<original.length&&letter(original.codePointAt(cursor))
+        }
+        return !cutsWord(start)&&!cutsWord(end)
+    }
+}
+
 /** Ephemeral focus proved by an exact context match; bound to this message. */
 data class VocabularySourceScope(val original: String, val start: Int, val end: Int)
 /** Ephemeral target focus from a matched context, bound to the actual translation. */
@@ -167,12 +194,12 @@ class ImmersionEngine {
     }
 
     private fun sourceOccurrences(entry: VocabularyEntry, original: String, boundaries: Set<Int>?): List<IntRange> {
-        val scope=entry.sourceScope ?: return occurrences(entry.source,original,boundaries)
+        val scope=entry.sourceScope ?: return occurrences(entry.source,original,boundaries).filter { SourceOrthography.permitsReplacement(original,it.first,it.last+1) }
         if(scope.original!=original || scope.start<0 || scope.end<=scope.start || scope.end>original.length ||
             original.substring(scope.start,scope.end)!=entry.source) return emptyList()
         if((scope.start>0 && Character.isLowSurrogate(original[scope.start])) ||
             (scope.end<original.length && Character.isLowSurrogate(original[scope.end]))) return emptyList()
-        return listOf(scope.start until scope.end)
+        return if(SourceOrthography.permitsReplacement(original,scope.start,scope.end)) listOf(scope.start until scope.end) else emptyList()
     }
 
     private fun targetOccurrences(entry: VocabularyEntry, target: String, translation: String, boundaries: Set<Int>?): List<IntRange> {

@@ -1,0 +1,140 @@
+{
+  "cases": [
+    {
+      "allowed": false,
+      "id": "water_stem"
+    },
+    {
+      "allowed": true,
+      "id": "water_whole"
+    },
+    {
+      "allowed": false,
+      "id": "music_stem"
+    },
+    {
+      "allowed": true,
+      "id": "music_whole"
+    },
+    {
+      "allowed": true,
+      "id": "bare_water"
+    },
+    {
+      "allowed": false,
+      "id": "clitic_prefix"
+    },
+    {
+      "allowed": true,
+      "id": "clitic_whole"
+    },
+    {
+      "allowed": false,
+      "id": "suffix"
+    },
+    {
+      "allowed": true,
+      "id": "suffix_whole"
+    },
+    {
+      "allowed": false,
+      "id": "vowels_stem"
+    },
+    {
+      "allowed": true,
+      "id": "vowels_whole"
+    },
+    {
+      "allowed": false,
+      "id": "vowel_detached"
+    },
+    {
+      "allowed": false,
+      "id": "tatweel_stem"
+    },
+    {
+      "allowed": true,
+      "id": "tatweel_whole"
+    },
+    {
+      "allowed": false,
+      "id": "zwj_stem"
+    },
+    {
+      "allowed": true,
+      "id": "zwj_whole"
+    },
+    {
+      "allowed": false,
+      "id": "zwnj_stem"
+    },
+    {
+      "allowed": true,
+      "id": "zwnj_whole"
+    },
+    {
+      "allowed": false,
+      "id": "marks_and_joiner"
+    },
+    {
+      "allowed": true,
+      "id": "punctuation"
+    },
+    {
+      "allowed": true,
+      "id": "mixed"
+    },
+    {
+      "allowed": false,
+      "id": "arabic_name_partial"
+    },
+    {
+      "allowed": true,
+      "id": "arabic_name_whole"
+    },
+    {
+      "allowed": true,
+      "id": "latin_unchanged"
+    },
+    {
+      "allowed": true,
+      "id": "korean_unchanged"
+    },
+    {
+      "allowed": true,
+      "id": "japanese_unchanged"
+    },
+    {
+      "allowed": true,
+      "id": "chinese_unchanged"
+    },
+    {
+      "allowed": true,
+      "id": "separate_words"
+    },
+    {
+      "allowed": false,
+      "id": "persian_joining"
+    },
+    {
+      "allowed": false,
+      "id": "tatweel_end_before"
+    },
+    {
+      "allowed": false,
+      "id": "trailing_tatweel_cut"
+    },
+    {
+      "allowed": true,
+      "id": "trailing_tatweel_whole"
+    },
+    {
+      "allowed": false,
+      "id": "invalid_surrogate_edge"
+    }
+  ],
+  "mixed_safe_unit_retained": true,
+  "scope": "actual production core on host JVM; source-frame device test not run",
+  "ordinary_and_scoped_admission": true,
+  "passed": true
+}

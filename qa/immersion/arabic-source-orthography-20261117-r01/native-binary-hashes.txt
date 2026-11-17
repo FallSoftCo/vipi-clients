@@ -1,0 +1,3 @@
+784329260edf9f29c6f096b47c3dc51a117bae2601d18cd170c93d61d853b6d5  /Users/Apple/Development/vipi-quality-20261117-r01/arabic-source-orthography-r01/libVipiCore.dylib
+2b72cc6008b1c8158e29546a20673643124034ecbfdc6db27412cf2aa0cb2134  /Users/Apple/Development/vipi-quality-20261117-r01/manual-source-r03/libVipiCore.dylib
+d32038c57d068e9941c3f5b3e5a92006709dd510b22e739b45bb9a66fcf69e77  /Users/Apple/Development/vipi-quality-20261117-r01/arabic-source-orthography-r01/before/SourceFrameLookup.swift

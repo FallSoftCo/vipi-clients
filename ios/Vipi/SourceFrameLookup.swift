@@ -205,7 +205,8 @@ struct SourceFrameStarterCandidate {
                         fc = cost(carrier) == 1 ? 1 : nil
                     } else { fc = cost(focus) }
                     let reason: String?
-                    if cc == nil || fc == nil { reason = "partial_native_word" }
+                    if !SourceOrthography.permitsReplacement(in:original,range:focus) { reason = "partial_arabic_word" }
+                    else if cc == nil || fc == nil { reason = "partial_native_word" }
                     else if v.context_scope == "whole_sentence" && !sentenceRanges.contains(context) { reason = "not_whole_sentence" }
                     else if v.right_boundary == "clause_or_end" && !rightBoundary(context) { reason = "right_context_boundary" }
                     else if contextBarrier(v) { reason = "context_barrier" }
@@ -243,7 +244,7 @@ struct SourceFrameStarterCandidate {
             return a.id<b.id
         }
         var groups:[[Hit]]=[]
-        for h in hits.filter({ !["partial_native_word","context_barrier","not_whole_sentence","right_context_boundary"].contains($0.reason ?? "") }).sorted(by:{($0.focus.location,NSMaxRange($0.focus))<($1.focus.location,NSMaxRange($1.focus))}) {
+        for h in hits.filter({ !["partial_native_word","partial_arabic_word","context_barrier","not_whole_sentence","right_context_boundary"].contains($0.reason ?? "") }).sorted(by:{($0.focus.location,NSMaxRange($0.focus))<($1.focus.location,NSMaxRange($1.focus))}) {
             if let last=groups.last,h.focus.location<last.map({NSMaxRange($0.focus)}).max()! {groups[groups.count-1].append(h)}else{groups.append([h])}
         }
         var frameUnits:[(Hit,SourceReferenceUnit)]=[];var frameRecognitions:[SourceRecognition]=[]

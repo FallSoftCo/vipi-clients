@@ -1,0 +1,123 @@
+{
+  "cases" : [
+    {
+      "carrierAdmittedSourceFaces" : [
+        "ماء"
+      ],
+      "carrierGeometry" : [
+        {
+          "context" : [
+            9,
+            14
+          ],
+          "focus" : [
+            11,
+            14
+          ],
+          "pattern_id" : "qa-frame",
+          "reason" : null
+        }
+      ],
+      "coreScopedSourceRanges" : [
+        [
+          11,
+          14
+        ]
+      ],
+      "nativeWordRanges" : [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          9,
+          14
+        ],
+        [
+          15,
+          19
+        ]
+      ],
+      "ordinaryBareAdmittedSourceFaces" : [
+
+      ],
+      "ordinaryBareGeometry" : [
+        {
+          "context" : [
+            11,
+            14
+          ],
+          "focus" : [
+            11,
+            14
+          ],
+          "pattern_id" : "qa-frame",
+          "reason" : "partial_native_word"
+        }
+      ],
+      "text" : "أنا أشرب الماء الآن."
+    },
+    {
+      "carrierAdmittedSourceFaces" : [
+        "موسيقى"
+      ],
+      "carrierGeometry" : [
+        {
+          "context" : [
+            8,
+            16
+          ],
+          "focus" : [
+            10,
+            16
+          ],
+          "pattern_id" : "qa-frame",
+          "reason" : null
+        }
+      ],
+      "coreScopedSourceRanges" : [
+        [
+          10,
+          16
+        ]
+      ],
+      "nativeWordRanges" : [
+        [
+          0,
+          3
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          8,
+          16
+        ]
+      ],
+      "ordinaryBareAdmittedSourceFaces" : [
+
+      ],
+      "ordinaryBareGeometry" : [
+        {
+          "context" : [
+            10,
+            16
+          ],
+          "focus" : [
+            10,
+            16
+          ],
+          "pattern_id" : "qa-frame",
+          "reason" : "partial_native_word"
+        }
+      ],
+      "text" : "أنا أحب الموسيقى."
+    }
+  ],
+  "scope" : "unchanged pre-fix production matcher and existing old core library; native tokenizer"
+}

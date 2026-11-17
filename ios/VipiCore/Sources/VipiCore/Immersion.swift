@@ -1,5 +1,56 @@
 import Foundation
 
+/// Morphological evidence does not permit an attachment to sever an Arabic
+/// orthographic word. Original text, joining controls and vowels stay intact.
+public enum SourceOrthography {
+    private static let arabic = try! NSRegularExpression(pattern: #"^\p{Arabic}$"#)
+    private static func letter(_ value: UInt32) -> Bool {
+        guard let scalar=Unicode.Scalar(value),CharacterSet.letters.contains(scalar) else{return false}
+        let text=String(scalar)
+        return arabic.firstMatch(in:text,range:NSRange(location:0,length:text.utf16.count)) != nil
+    }
+    private static func transparent(_ value:UInt32)->Bool {
+        guard let scalar=Unicode.Scalar(value) else{return false}
+        return [Unicode.GeneralCategory.nonspacingMark,.spacingMark,.enclosingMark].contains(scalar.properties.generalCategory) || value==0x0640 || value==0x200C || value==0x200D
+    }
+    public static func permitsReplacement(in original:String,range:NSRange)->Bool {
+        let text=original as NSString
+        guard range.location>=0,range.location<=text.length,range.length>0,
+              range.length<=text.length-range.location,Range(range,in:original) != nil else{return false}
+        for edge in [range.location,NSMaxRange(range)] where edge<text.length {
+            if (0xDC00...0xDFFF).contains(text.character(at:edge)){return false}
+        }
+        func at(_ offset:Int)->(UInt32,Int)? {
+            guard offset>=0,offset<text.length else{return nil}
+            let first=text.character(at:offset)
+            if (0xD800...0xDBFF).contains(first),offset+1<text.length {
+                let last=text.character(at:offset+1)
+                guard (0xDC00...0xDFFF).contains(last) else{return nil}
+                return (0x10000+(UInt32(first)-0xD800)*0x400+UInt32(last)-0xDC00,2)
+            }
+            guard !(0xD800...0xDFFF).contains(first) else{return nil}
+            return (UInt32(first),1)
+        }
+        func before(_ offset:Int)->(UInt32,Int)? {
+            guard offset>0 else{return nil}
+            let last=text.character(at:offset-1)
+            return at(offset-((0xDC00...0xDFFF).contains(last) ? 2:1))
+        }
+        func cutsWord(_ edge:Int)->Bool {
+            guard let left=before(edge),let right=at(edge),
+                  (letter(left.0)||transparent(left.0)),(letter(right.0)||transparent(right.0)) else{return false}
+            if letter(left.0)||letter(right.0){return true}
+            var cursor=edge
+            while let value=before(cursor),transparent(value.0){cursor-=value.1}
+            if let value=before(cursor),letter(value.0){return true}
+            cursor=edge
+            while let value=at(cursor),transparent(value.0){cursor+=value.1}
+            return at(cursor).map{letter($0.0)} ?? false
+        }
+        return !cutsWord(range.location) && !cutsWord(NSMaxRange(range))
+    }
+}
+
 /// Entries contain surface forms, not context-free substitutions. A candidate
 /// must also occur unambiguously in the translation of this exact message.
 /// Ephemeral focus proved by an exact context match; never decoded from a pack.
@@ -285,11 +336,13 @@ public struct ImmersionEngine: Sendable {
     }
 
     private func sourceOccurrences(_ entry: VocabularyEntry, in original: String, boundaries: Set<Int>?) -> [NSRange] {
-        guard let scope=entry.sourceScope else { return occurrences(entry.source,in:original,boundaries:boundaries) }
+        guard let scope=entry.sourceScope else {
+            return occurrences(entry.source,in:original,boundaries:boundaries).filter { SourceOrthography.permitsReplacement(in:original,range:$0) }
+        }
         guard scope.original==original, scope.start>=0,scope.end>scope.start,scope.end<=original.utf16.count else {return []}
         let range=NSRange(location:scope.start,length:scope.end-scope.start)
         guard Range(range,in:original) != nil,(original as NSString).substring(with:range)==entry.source else {return []}
-        return [range]
+        return SourceOrthography.permitsReplacement(in:original,range:range) ? [range] : []
     }
 
     private func targetOccurrences(_ entry: VocabularyEntry,value: String,in translation: String,boundaries: Set<Int>?) -> [NSRange] {
