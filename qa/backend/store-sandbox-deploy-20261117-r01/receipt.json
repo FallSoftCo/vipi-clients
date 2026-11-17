@@ -1,0 +1,51 @@
+{
+  "schema": "vipi-store-sandbox-deployment-1",
+  "recorded_utc": "2026-11-17",
+  "status": "restricted_staging_active_empty_sandbox_allowlist",
+  "previous_release": "742e119f129e6e2c28284f949257fdfb66cfdcaa",
+  "active_release": "9b8cca69425f10df05c98b947f8152ca9534df71",
+  "previous_schema": "20261107_05",
+  "active_schema": "20261116_01",
+  "attempts": [
+    {
+      "id": "r01",
+      "result": "rolled_back_verified",
+      "failure": "Migration closure was inaccessible to the postgres OS user; old release and schema were restored.",
+      "backup_restore_verified": true
+    },
+    {
+      "id": "r02",
+      "result": "rolled_back_verified",
+      "failure": "Candidate readiness still expected the old schema; old release and schema were restored.",
+      "backup_restore_verified": true
+    },
+    {
+      "id": "r03",
+      "result": "active_empty_allowlist",
+      "clean_api_stop": true,
+      "backup_restore_verified": true,
+      "backup_sha256": "65991c797334c7f1f12a2f010c7c1a12cd49eb0e2b649dfc5a3874ddfe5c4aef",
+      "schema_and_readiness_verified": true
+    }
+  ],
+  "independent_tests": {
+    "postgres_full_suite": "192 passed, 2 skipped",
+    "staged_private_socket": "new schema 200; old schema 503; new schema restored 200",
+    "provider_construction": "Apple production and sandbox plus Google verifier constructed as service user without provider requests"
+  },
+  "post_activation": {
+    "readiness_http": 200,
+    "unauthenticated_profile_http": 401,
+    "admitted_subject_count": 2,
+    "complimentary_reviewer_count": 2,
+    "sandbox_tester_count": 0,
+    "entitlements": 0,
+    "push_worker_unchanged": true
+  },
+  "limitations": [
+    "Restricted staging only; subscription enforcement remains disabled.",
+    "No tester identity or purchase was added during deployment.",
+    "No real Apple or Google sandbox purchase, renewal, restore, or RTDN transaction is proven.",
+    "Later homepage and APNs sandbox worker source changes are not part of this deployed release."
+  ]
+}

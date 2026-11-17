@@ -81,3 +81,15 @@ Primary references: [Apple V2 notifications](https://developer.apple.com/documen
 [Google RTDN lifecycle](https://developer.android.com/google/play/billing/lifecycle),
 [Google event reference](https://developer.android.com/google/play/billing/rtdn-reference),
 [authenticated Pub/Sub push](https://docs.cloud.google.com/pubsub/docs/authenticate-push-subscriptions).
+
+On November 17, restricted staging activated backend `9b8cca6` and migration
+`20261116_01` with account-scoped sandbox mode enabled and an empty tester
+allowlist. Its [sanitized receipt](../qa/backend/store-sandbox-deploy-20261117-r01/receipt.json)
+records the two earlier verified rollbacks and the successful deployment; do not
+replay those attempts. Existing reviewer grants and the FCM push worker remain
+unchanged. The account-scoped tester must be an independently verified,
+non-complimentary account. Real purchases, renewal, restoration and RTDN remain
+unqualified, and subscription enforcement remains disabled in restricted staging.
+Later homepage and APNs worker source changes are not part of this deployed
+backend. A future rollout must recheck the live revision, schema, configuration,
+backup and service state before action.
