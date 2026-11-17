@@ -1,0 +1,8 @@
+{
+  "at_utc": "2026-11-17T16:50:56.789178+00:00",
+  "scope": "Existing company account, native browser, no remote debugging",
+  "chrome": "One legitimate saved company autofill sign-in reached Apps home. Apps list displayed Sorry, something went wrong; an unrelated News Request modal said it could not create a News Channel request. Dismissed modal with OK; Vipi list did not load.",
+  "safari": "Temporary native Safari window showed Apple account sign-in; no existing signed-in session. Window closed without authentication.",
+  "result": "No Vipi metadata changed; review notes, subscription attachment, and separate TestFlight review information remain unverified.",
+  "no_account_changes": true
+}
