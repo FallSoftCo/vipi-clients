@@ -68,3 +68,19 @@ def test_nonproduction_can_explicitly_accept_store_test_purchases(environment):
     settings = configuration(environment=environment, database_url=url, google_allow_test_purchases=True,
         apple_environment="Sandbox")
     assert settings.google_allow_test_purchases and settings.apple_environment == "Sandbox"
+
+
+def test_store_sandbox_allowlist_requires_canonical_uuid_and_is_separate_from_reviewers():
+    from uuid import uuid4
+    account = str(uuid4())
+    configured = configuration(environment='production', database_url='postgresql+asyncpg://fixture.invalid/test',
+        enforce_subscriptions=True, store_sandbox_user_ids=frozenset({account}))
+    assert configured.store_sandbox_user_ids == {account} and not configured.reviewer_user_ids
+    with pytest.raises(ValueError):
+        configuration(store_sandbox_user_ids=frozenset({'not-a-uuid'}))
+
+
+def test_restricted_staging_rejects_global_test_acceptance():
+    with pytest.raises(ValueError, match='Restricted sandbox mode cannot accept global test purchases'):
+        configuration(environment='staging', database_url='postgresql+asyncpg://fixture.invalid/test',
+            store_sandbox_restricted=True, google_allow_test_purchases=True)

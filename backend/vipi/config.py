@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     # Complimentary store-review access for exact authenticated internal user IDs.
     # Separate from staging subject admission; never a purchase/receipt override.
     reviewer_user_ids: frozenset[str] = Field(default=frozenset(), max_length=32)
+    store_sandbox_user_ids: frozenset[str] = Field(default=frozenset(), max_length=32)
+    store_sandbox_restricted: bool = False
     max_message_bytes: int = 65_536
     max_pending_per_recipient: int = 10_000
     delivery_seconds: int = 259_200
@@ -60,13 +62,13 @@ class Settings(BaseSettings):
     @model_validator(mode="after")
     def reviewer_configuration(self):
         from uuid import UUID
-        for value in self.reviewer_user_ids:
+        for value in self.reviewer_user_ids | self.store_sandbox_user_ids:
             try:
                 parsed = UUID(value)
             except (ValueError, AttributeError):
-                raise ValueError("Reviewer IDs must be canonical internal UUIDs") from None
+                raise ValueError("Reviewer and sandbox account IDs must be canonical internal UUIDs") from None
             if str(parsed) != value or parsed.int == 0:
-                raise ValueError("Reviewer IDs must be canonical internal UUIDs")
+                raise ValueError("Reviewer and sandbox account IDs must be canonical internal UUIDs")
         return self
 
     @model_validator(mode="after")
@@ -85,7 +87,15 @@ class Settings(BaseSettings):
             raise ValueError("Production requires verified subscriptions")
         if self.environment == "production" and (self.google_allow_test_purchases or self.apple_environment == "Sandbox"):
             raise ValueError("Production cannot accept store sandbox purchases")
+        if self.store_sandbox_restricted and self.google_allow_test_purchases:
+            raise ValueError("Restricted sandbox mode cannot accept global test purchases")
+        if self.store_sandbox_restricted and all(values) and not self.apple_app_id:
+            raise ValueError("Restricted Apple verification requires the numeric app identifier")
         return self
+
+    @property
+    def sandbox_restricted(self) -> bool:
+        return self.environment == "production" or self.store_sandbox_restricted
 
     @model_validator(mode="after")
     def deployment_database(self):

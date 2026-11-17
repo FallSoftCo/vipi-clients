@@ -41,14 +41,24 @@ class Subscriptions:
         self.cipher = Fernet(base64.urlsafe_b64encode(key))
 
     async def apply(self, user_id, purchase, observed_at, *, generation=None, lease_token=None):
+        if purchase.environment not in ("Production", "Sandbox"):
+            raise DeliveryError("purchase_environment_mismatch", 400)
+        if self.settings.sandbox_restricted and purchase.environment == "Sandbox" and user_id not in self.settings.store_sandbox_user_ids:
+            raise DeliveryError("purchase_environment_mismatch", 400)
         # Network verification finishes before taking this lock. Older requests
         # cannot overwrite newer observations, nor transfer another user's grant.
         async with self.db.sessions.begin() as session:
             user = (await session.execute(select(User).where(User.id == user_id).with_for_update())).scalar_one_or_none()
             if not user or user.deleted:
                 raise DeliveryError("account_unavailable", 409)
+            unknown = (await session.execute(select(Entitlement).where(
+                Entitlement.store == purchase.store, Entitlement.environment == "Unknown",
+                Entitlement.transaction_id == purchase.transaction_id))).scalar_one_or_none()
+            if unknown is not None:
+                # A legacy tombstone has no proven store environment. Never resurrect it.
+                raise DeliveryError("purchase_environment_mismatch", 409)
             row = (await session.execute(select(Entitlement).where(
-                Entitlement.store == purchase.store, Entitlement.transaction_id == purchase.transaction_id))).scalar_one_or_none()
+                Entitlement.store == purchase.store, Entitlement.environment == purchase.environment, Entitlement.transaction_id == purchase.transaction_id))).scalar_one_or_none()
             if lease_token and (row is None or row.lease_token != lease_token):
                 return
             if row and row.user_id != user_id:
@@ -57,7 +67,7 @@ class Subscriptions:
                 return
             if purchase.linked_transaction_id:
                 previous = (await session.execute(select(Entitlement).where(
-                    Entitlement.store == purchase.store,
+                    Entitlement.store == purchase.store, Entitlement.environment == purchase.environment,
                     Entitlement.transaction_id == purchase.linked_transaction_id))).scalar_one_or_none()
                 if previous and previous.user_id != user_id:
                     raise DeliveryError("purchase_account_mismatch", 409)
@@ -66,10 +76,10 @@ class Subscriptions:
                 else:
                     session.add(Entitlement(id=str(uuid4()), user_id=user_id,
                         store=purchase.store, transaction_id=purchase.linked_transaction_id,
-                        product=purchase.product, expires_at=utc(observed_at), revoked=True, superseded=True))
+                        product=purchase.product, environment=purchase.environment, expires_at=utc(observed_at), revoked=True, superseded=True))
             if row is None:
                 row = Entitlement(id=str(uuid4()), user_id=user_id, store=purchase.store,
-                                  transaction_id=purchase.transaction_id, superseded=False,
+                                  transaction_id=purchase.transaction_id, environment=purchase.environment, superseded=False,
                                   refresh_generation=0, completed_generation=0)
                 session.add(row)
             row.product = purchase.product
@@ -114,12 +124,19 @@ class Subscriptions:
             token, generation = str(uuid4()), row.refresh_generation
             row.lease_token, row.lease_until = token, now + timedelta(minutes=2)
             row.attempts += 1
-            row_id, user_id, store = row.id, row.user_id, row.store
+            row_id, user_id, store, environment = row.id, row.user_id, row.store, row.environment
             reference = self.cipher.decrypt(row.provider_reference).decode()
         successful, expired_reference = False, False
         try:
             provider = self.providers[store]
-            purchase = await provider.verify(reference, user_id, initial=False)
+            if environment == "Sandbox" and self.settings.sandbox_restricted and user_id not in self.settings.store_sandbox_user_ids:
+                raise DeliveryError("purchase_environment_mismatch", 400)
+            if hasattr(provider, "verify_for_environment"):
+                purchase = await provider.verify_for_environment(reference, user_id, environment)
+            else:
+                purchase = await provider.verify(reference, user_id, initial=False)
+            if purchase.environment != environment:
+                raise DeliveryError("purchase_environment_mismatch", 400)
             await self.apply(user_id, purchase, now, generation=generation, lease_token=token)
             await provider.acknowledge(purchase)
             successful = True
@@ -154,6 +171,9 @@ class Subscriptions:
                 if user is None or user.deleted or user.suspended:
                     raise DeliveryError("account_unavailable", 403)
             rows = (await session.execute(select(Entitlement).where(Entitlement.user_id == user_id))).scalars().all()
+        if self.settings.sandbox_restricted:
+            allowed = {"Production", "Sandbox"} if user_id in self.settings.store_sandbox_user_ids else {"Production"}
+            rows = [r for r in rows if r.environment in allowed]
         if not reviewer and any(not r.revoked and not r.superseded and r.verified_at and utc(r.verified_at) <= cutoff
                and utc(r.expires_at) > now for r in rows):
             # Do not turn a store outage into an invitation to buy a second time.

@@ -186,6 +186,7 @@ async def test_concurrent_reconcile_and_new_event_preserve_new_generation(db):
 
 async def test_apple_notification_uses_official_signed_verifier_and_current_status(db):
     provider = AppleProvider.__new__(AppleProvider)
+    provider.environment = "Sandbox"
     provider.parallel = asyncio.Semaphore(1)
     event_id = str(uuid4())
     def verified(signed):
@@ -210,7 +211,7 @@ async def test_apple_notification_uses_official_signed_verifier_and_current_stat
         from appstoreserverlibrary.signed_data_verifier import VerificationException, VerificationStatus
         def bad(_): raise VerificationException(VerificationStatus.INVALID_ENVIRONMENT)
         provider.verifier = SimpleNamespace(verify_and_decode_notification=bad)
-        with pytest.raises(DeliveryError, match="notification_invalid"):
+        with pytest.raises(DeliveryError, match="purchase_environment_mismatch"):
             await provider.notification("wrong-app-or-environment")
     finally:
         await app.state.pubsub_verifier.close(); await app.state.bot.close()

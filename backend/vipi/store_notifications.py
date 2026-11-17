@@ -51,7 +51,7 @@ def fingerprint(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
 
-async def retain(db, *, store, event_id, digest, transaction_id, now):
+async def retain(db, *, store, event_id, digest, transaction_id, now, environment=None):
     if not isinstance(event_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", event_id):
         raise DeliveryError("notification_invalid", 400)
     async with db.sessions.begin() as session:
@@ -66,20 +66,20 @@ async def retain(db, *, store, event_id, digest, transaction_id, now):
             return
         if transaction_id is None:
             return
-        row = (await session.execute(select(Entitlement).where(Entitlement.store == store,
-            Entitlement.transaction_id == transaction_id))).scalar_one_or_none()
-        if row is None:
-            # Initial purchase/restore verifies current state before granting.
-            # An unsolicited event must not create accounts or restore deletion.
-            return
-        owner = (await session.execute(select(User).where(User.id == row.user_id).with_for_update())).scalar_one_or_none()
-        if owner is None or owner.deleted:
-            return
-        row = (await session.execute(select(Entitlement).where(Entitlement.id == row.id)
-            .with_for_update().execution_options(populate_existing=True))).scalar_one_or_none()
-        if row is not None and not row.superseded:
-            row.refresh_generation += 1
-            row.next_attempt_at = now
+        query = select(Entitlement).where(Entitlement.store == store, Entitlement.transaction_id == transaction_id)
+        if environment is not None:
+            query = query.where(Entitlement.environment == environment)
+        rows = (await session.execute(query.order_by(Entitlement.user_id, Entitlement.id))).scalars().all()
+        for candidate in rows:
+            owner = (await session.execute(select(User).where(User.id == candidate.user_id).with_for_update())).scalar_one_or_none()
+            if owner is None or owner.deleted:
+                continue
+            row = (await session.execute(select(Entitlement).where(Entitlement.id == candidate.id)
+                .with_for_update().execution_options(populate_existing=True))).scalar_one_or_none()
+            if row is not None and not row.superseded:
+                row.refresh_generation += 1
+                row.next_attempt_at = now
+
 
 
 def install(app, settings, db, subscriptions, now, *, google_transport=None):
@@ -128,9 +128,17 @@ def install(app, settings, db, subscriptions, now, *, google_transport=None):
             signed = body["signedPayload"]
             if not isinstance(signed, str) or not 20 <= len(signed) <= 90000:
                 raise ValueError()
-            event_id, transaction, digest = await provider.notification(signed)
+            notification = await provider.notification(signed)
+            event_id, transaction, digest = notification[:3]
+            environment = notification[3] if len(notification) == 4 else provider.environment
             UUID(event_id)
-            await retain(db, store="apple", event_id=event_id, digest=digest,
-                transaction_id=transaction, now=now())
+            if environment not in ("Production", "Sandbox"):
+                raise ValueError()
+            await retain(db, store="apple", event_id=("P_" if environment == "Production" else "S_") + event_id,
+                digest=digest, transaction_id=transaction, now=now(), environment=environment)
+        except DeliveryError as error:
+            if error.code in ("purchase_environment_mismatch", "notification_app_identifier_mismatch"):
+                raise DeliveryError("notification_invalid", 400) from None
+            raise
         except (ValueError, KeyError, TypeError):
             raise DeliveryError("notification_invalid", 400) from None

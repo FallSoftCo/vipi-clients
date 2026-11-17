@@ -26,11 +26,11 @@ def milliseconds(number):
 
 
 class AppleProvider:
-    def __init__(self, settings):
+    def __init__(self, settings, *, environment=None):
         from appstoreserverlibrary.api_client import AsyncAppStoreServerAPIClient
         from appstoreserverlibrary.models.Environment import Environment
         from appstoreserverlibrary.signed_data_verifier import SignedDataVerifier
-        self.environment = settings.apple_environment
+        self.environment = environment or settings.apple_environment
         environment = Environment(self.environment)
         self.verifier = SignedDataVerifier(
             [Path(p).read_bytes() for p in settings.apple_root_certificate_paths], True,
@@ -64,6 +64,10 @@ class AppleProvider:
                 "type": event.rawNotificationType, "subtype": event.rawSubtype,
                 "signed_date": event.signedDate})
         except VerificationException as error:
+            if error.status == VerificationStatus.INVALID_ENVIRONMENT:
+                raise DeliveryError("purchase_environment_mismatch", 400) from None
+            if error.status == VerificationStatus.INVALID_APP_IDENTIFIER:
+                raise DeliveryError("notification_app_identifier_mismatch", 400) from None
             if error.status == VerificationStatus.RETRYABLE_VERIFICATION_FAILURE:
                 raise DeliveryError("notification_verification_unavailable", 503) from None
             raise DeliveryError("notification_invalid", 400) from None
@@ -111,10 +115,16 @@ class AppleProvider:
             return candidates[0]
         except DeliveryError:
             raise
-        except (ValueError, KeyError, TypeError, AttributeError):
-            raise DeliveryError("purchase_invalid", 400) from None
-        except Exception:
-            # SDK errors can contain signed data or credential-bearing URLs.
+        except Exception as error:
+            from appstoreserverlibrary.signed_data_verifier import VerificationException, VerificationStatus
+            if isinstance(error, VerificationException):
+                if error.status == VerificationStatus.INVALID_ENVIRONMENT:
+                    raise DeliveryError("purchase_environment_mismatch", 400) from None
+                if error.status == VerificationStatus.RETRYABLE_VERIFICATION_FAILURE:
+                    raise DeliveryError("purchase_verification_unavailable", 503) from None
+                raise DeliveryError("purchase_invalid", 400) from None
+            if isinstance(error, (ValueError, KeyError, TypeError, AttributeError)):
+                raise DeliveryError("purchase_invalid", 400) from None
             raise DeliveryError("purchase_verification_unavailable", 503) from None
 
     def check_account(self, transaction, user_id):
@@ -164,7 +174,8 @@ class GoogleProvider:
             data = response.json()
             if data.get("externalAccountIdentifiers", {}).get("obfuscatedExternalAccountId") != billing_account_id(user_id):
                 raise DeliveryError("purchase_account_mismatch", 409)
-            if "testPurchase" in data and not self.settings.google_allow_test_purchases:
+            if "testPurchase" in data and not (self.settings.google_allow_test_purchases or
+                    (self.settings.sandbox_restricted and user_id in self.settings.store_sandbox_user_ids)):
                 raise DeliveryError("purchase_environment_mismatch", 400)
             items = data.get("lineItems", [])
             if len(items) != 1:
@@ -193,6 +204,12 @@ class GoogleProvider:
         except Exception:
             raise DeliveryError("purchase_verification_unavailable", 503) from None
 
+    async def verify_for_environment(self, credential, user_id, environment):
+        result = await self.verify(credential, user_id, initial=False)
+        if result.environment != environment:
+            raise DeliveryError("purchase_environment_mismatch", 400)
+        return result
+
     async def acknowledge(self, purchase):
         if not purchase.needs_acknowledgement or purchase.revoked:
             return
@@ -208,10 +225,55 @@ class GoogleProvider:
         await self.http.aclose()
 
 
+
+class AccountScopedAppleProvider:
+    """Separate signed-store verifiers; environment is accepted only after verification."""
+    def __init__(self, settings):
+        self.settings = settings
+        self.production = AppleProvider(settings, environment="Production")
+        self.sandbox = AppleProvider(settings, environment="Sandbox")
+
+    async def verify(self, credential, user_id, *, initial):
+        try:
+            return await self.production.verify(credential, user_id, initial=initial)
+        except DeliveryError as error:
+            if error.code != "purchase_environment_mismatch" or user_id not in self.settings.store_sandbox_user_ids:
+                raise
+        return await self.sandbox.verify(credential, user_id, initial=initial)
+
+    async def verify_for_environment(self, credential, user_id, environment):
+        if environment == "Sandbox":
+            if user_id not in self.settings.store_sandbox_user_ids:
+                raise DeliveryError("purchase_environment_mismatch", 400)
+            return await self.sandbox.verify(credential, user_id, initial=False)
+        if environment == "Production":
+            return await self.production.verify(credential, user_id, initial=False)
+        raise DeliveryError("purchase_environment_mismatch", 400)
+
+    async def notification(self, signed):
+        try:
+            result = await self.production.notification(signed)
+            return (*result, "Production")
+        except DeliveryError as error:
+            # Sandbox notifications can omit appAppleId; the production SDK
+            # checks that field before reporting the environment mismatch.
+            # The separate sandbox verifier still validates signature, bundle and environment.
+            if error.code not in ("purchase_environment_mismatch", "notification_app_identifier_mismatch"):
+                raise
+        result = await self.sandbox.notification(signed)
+        return (*result, "Sandbox")
+
+    async def acknowledge(self, purchase):
+        return
+
+    async def close(self):
+        await self.production.close()
+        await self.sandbox.close()
+
 def providers_for(settings):
     providers = {}
     if settings.apple_private_key_path:
-        providers["apple"] = AppleProvider(settings)
+        providers["apple"] = AccountScopedAppleProvider(settings) if settings.sandbox_restricted else AppleProvider(settings)
     if settings.google_service_account_path:
         providers["google"] = GoogleProvider(settings)
     return providers

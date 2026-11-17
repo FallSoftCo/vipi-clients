@@ -30,7 +30,7 @@ async def recovery_db(tmp_path):
         for uid in ("alice", "bob", "eve"):
             s.add(Device(id=uid+"-phone", user_id=uid, credential_hash="a"*64, active=True, created_at=NOW))
         s.add(Entitlement(id="grant", user_id="bob", product="bot", store="apple", transaction_id="tx",
-            expires_at=NOW+timedelta(days=30), verified_at=NOW, lease_token="old", lease_until=NOW+timedelta(minutes=1)))
+            expires_at=NOW+timedelta(days=30), verified_at=NOW, environment="Production", lease_token="old", lease_until=NOW+timedelta(minutes=1)))
         s.add(BotPool(period="2026-10", budget_nano_usd=1000, reserved_nano_usd=200, spent_nano_usd=400))
         s.add(UsageBucket(user_id="bob", period="2026-10", budget_nano_usd=900, reserved_nano_usd=200, spent_nano_usd=300))
         s.add(Reservation(id="already-dispatched", user_id="bob", period="2026-10", reserved_nano_usd=200,

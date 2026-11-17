@@ -44,7 +44,7 @@ async def test_deletion_removes_related_records_and_preserves_other_accounts(db)
             KeyClaim(requester_device_id="bob-phone", id="claim-for-alice", recipient_id="alice", recipient_device_id="alice-phone", created_at=NOW, response=b"public bundle"),
             KeyClaim(requester_device_id="bob-phone", id="claim-for-eve", recipient_id="eve", recipient_device_id="eve-phone", created_at=NOW, response=b"unrelated"),
             Block(blocker_id="alice", blocked_id="bob"), Block(blocker_id="bob", blocked_id="alice"), Block(blocker_id="bob", blocked_id="eve"),
-            Entitlement(id="purchase", user_id="alice", product="base", store="test", transaction_id="test-transaction", expires_at=NOW+timedelta(days=1)),
+            Entitlement(id="purchase", user_id="alice", product="base", store="test", transaction_id="test-transaction", environment="Unknown", expires_at=NOW+timedelta(days=1)),
             Reservation(id="reservation", user_id="alice", period="2026-10", reserved_nano_usd=100, created_at=NOW),
             RateWindow(subject="user_alice", scope="test", window=1, count=1),
         ])
