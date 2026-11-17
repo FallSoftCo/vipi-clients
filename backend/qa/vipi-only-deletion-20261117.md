@@ -85,3 +85,12 @@ records produced after a snapshot; conflicts fail atomically. Marked recovery
 coverage requires an additional `eligibility` domain bound to the same snapshot
 and cutoff. Older five-domain proof packages are intentionally insufficient.
 Reconciliation still never releases the database hold or authorizes reopening.
+
+
+Actual isolated PostgreSQL 16 qualification passed all 38 deletion, browser,
+lifecycle-concurrency and migration tests after the copy followup. The retained
+owned Unix-socket-only qualification cluster was reused; disposable per-test
+schemas were removed and no other clients remained before its clean shutdown.
+Measured peak cluster growth was 5,857,280 bytes under the 100 MiB cap; the
+4 GiB + 200 MiB reserve remained intact. See the adjacent PostgreSQL receipt.
+No shared/live PostgreSQL instance, deployment or provider identity was touched.
