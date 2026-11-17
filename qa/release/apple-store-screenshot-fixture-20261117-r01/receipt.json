@@ -1,0 +1,156 @@
+{
+  "source_base": "a3c77ae",
+  "scope": "Native isolated QA app with real production views and full resources; not uploaded signed release.",
+  "source_overlays": "qa-only.patch, applied on retained nl-simulator-candidate-r01 QA snapshot",
+  "fixture": {
+    "profile": "synthetic Maya, synthetic contact Alex",
+    "messages": [
+      {
+        "direction": "incoming",
+        "text": "I love music.",
+        "state": "received"
+      },
+      {
+        "direction": "outgoing",
+        "text": "Me too! See you soon.",
+        "state": "accepted, displayed Sent; fictional UI state only"
+      }
+    ],
+    "transport": "in-process GET blocks false; GET pending empty; all other calls fail offline",
+    "vault": "temporary test-key vault; synthetic locally generated test device",
+    "network_or_real_account": false
+  },
+  "build": {
+    "result": "success",
+    "jobs": 2,
+    "signing": "disabled",
+    "log_sha256": "276bf933469cfa65f10ff2fd5e0742299a6e32ce72b2091a8e2a6724fe39aee7",
+    "app_dylib_sha256": "97c49095150701be58353a41e5de81e04cac0dce9894f351a8e03c09c3b4ceee",
+    "resource_comparison": "3295 paths in each QA app; only Vipi.debug.dylib differs from retained nl-simulator-candidate-r01"
+  },
+  "device_targets": "ios/project.yml TARGETED_DEVICE_FAMILY 1,2",
+  "device_sizes": {
+    "iPhone 17 Pro Max": [
+      1320,
+      2868
+    ],
+    "iPad Pro 13-inch M4": [
+      2064,
+      2752
+    ]
+  },
+  "simulator_presentation": "9:41, charged battery override for 941 iPhone/iPad chat and iPhone welcome; earlier preview captures retain simulator clock",
+  "specification": "https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/",
+  "selection_status": "candidates for root visual review; no screenshots uploaded",
+  "rejected_misnamed": [
+    "ipad-welcome-spanish.png",
+    "ipad-welcome-phase.png",
+    "ipad-welcome-relaunch-1.png",
+    "ipad-welcome-relaunch-2.png"
+  ],
+  "screenshots": [
+    {
+      "original": "iphone-welcome-switch-2.png",
+      "original_sha256": "489328a3eeba5b5b07e2e6a486101ceb1637d5c000dc3230f6dfdb5b11c4e0ad",
+      "opaque_rgb": "iphone-welcome-switch-2-store.png",
+      "opaque_sha256": "60471fdc92cd05f012fab0c02055b03a1d516964aec62123fdfed18b51aadb82",
+      "dimensions": [
+        1320,
+        2868
+      ],
+      "pixel_identical": true
+    },
+    {
+      "original": "iphone-chat-941-1.png",
+      "original_sha256": "8ce5b2942972a6fbd8458e0414f8ef1fff221d328af53fd6208931f42404d3aa",
+      "opaque_rgb": "iphone-chat-941-1-store.png",
+      "opaque_sha256": "a41946cf1c3502cc22f8d7aba663d04a71a2904d179d8b9f9d38692716311d10",
+      "dimensions": [
+        1320,
+        2868
+      ],
+      "pixel_identical": true
+    },
+    {
+      "original": "iphone-japanese-selection.png",
+      "original_sha256": "71abd50ca2de0a2bc4eef38bc4fdaf30ea4631ef3419c7ea6236cf7c03a5f97f",
+      "opaque_rgb": "iphone-japanese-selection-store.png",
+      "opaque_sha256": "a4109f0e23dfb021754d204fa72d1b8f0524842fcfdfaed8185daa989d2915cf",
+      "dimensions": [
+        1320,
+        2868
+      ],
+      "pixel_identical": true
+    },
+    {
+      "original": "iphone-japanese-script.png",
+      "original_sha256": "3f1b0a6915c25e42bfe894265a6c6bd214a06024fa866a215c4ab763756ed5ef",
+      "opaque_rgb": "iphone-japanese-script-store.png",
+      "opaque_sha256": "8767ab0b42c25f2ab3bf3bd770f5a470d70d4daa6023dda1308ba9e29af28bc3",
+      "dimensions": [
+        1320,
+        2868
+      ],
+      "pixel_identical": true
+    },
+    {
+      "original": "iphone-listen-active.png",
+      "original_sha256": "014ccf8be4c4b6aeedd7ed2cf2a732660228588b3bb7445c8d27718b32355c4c",
+      "opaque_rgb": "iphone-listen-active-store.png",
+      "opaque_sha256": "91512958b46016457ad4d888d6255a20e1c65da58d88397a8b1042d01994b8b4",
+      "dimensions": [
+        1320,
+        2868
+      ],
+      "pixel_identical": true
+    },
+    {
+      "original": "ipad-welcome-switch-2.png",
+      "original_sha256": "4482e92aa81f444951c2933a33e39532d529fbe4caced063dcd91b77e2dbbb7f",
+      "opaque_rgb": "ipad-welcome-switch-2-store.png",
+      "opaque_sha256": "ea8270b7b3602c3e79096e55caa7c7b8976ee63cf4947faeb5400feac8a8ffad",
+      "dimensions": [
+        2064,
+        2752
+      ],
+      "pixel_identical": true
+    },
+    {
+      "original": "ipad-chat-941-1.png",
+      "original_sha256": "b9a543c184af715d3fab2615bd112471bdb9e672af19f51d00599da0a1d49cfb",
+      "opaque_rgb": "ipad-chat-941-1-store.png",
+      "opaque_sha256": "c6923c6bd68455b81b6e2efdb3226da73baebb679ee6aacd75541cb6c78f7ce2",
+      "dimensions": [
+        2064,
+        2752
+      ],
+      "pixel_identical": true
+    },
+    {
+      "original": "ipad-japanese-latin.png",
+      "original_sha256": "2b9fa66e14fc6d7a0c6e48f0aa67b27294ce2bece464da70bcb31bf8c379bcaf",
+      "opaque_rgb": "ipad-japanese-latin-store.png",
+      "opaque_sha256": "c92338255024c31e6f2d43b37b1b57fc2857050d45eeef221c1d6999fd485dca",
+      "dimensions": [
+        2064,
+        2752
+      ],
+      "pixel_identical": true
+    },
+    {
+      "original": "ipad-japanese-script.png",
+      "original_sha256": "e0b32717909f2db6f99444860c1c622788c572b50c5f65c610f309a0e9456240",
+      "opaque_rgb": "ipad-japanese-script-store.png",
+      "opaque_sha256": "722db03b69846519b5ddedec500aa1b2e56add1d02ed2230b3c2d4ddfd04599a",
+      "dimensions": [
+        2064,
+        2752
+      ],
+      "pixel_identical": true
+    }
+  ],
+  "evidence_directory": "/home/ai/Development/investigations/vipi-resume-20261116-r01/apple-store-screenshot-r02",
+  "native_fixture_directory": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/localization-20261117-r01/store-chat-fixture-r01",
+  "native_preview_directory": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/localization-20261117-r01/store-large-capture-r01",
+  "captured_utc": "2026-11-17T08:57:29.834866+00:00"
+}

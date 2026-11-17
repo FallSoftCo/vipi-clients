@@ -1,0 +1,46 @@
+--- a/ios/Vipi/ChatSession.swift
++++ b/ios/Vipi/ChatSession.swift
+@@ -71,14 +71,16 @@
+         do {
+             let folder = FileManager.default.temporaryDirectory.appendingPathComponent("vipi-ui-fixture-" + UUID().uuidString, isDirectory: true)
+             let store = try MessageVault(account: selfID, directory: folder, testKey: SymmetricKey(data: Data(repeating: 0x42, count: 32)))
+-            vault = store
++            vault = store; core = try MessagingCore(vault: store); familiarity = VocabularyFamiliarityStore(vault: store)
+             let entries = [("I love music.", false), ("Me too! See you soon.", true)]
+             try store.transaction {
+                 for (index, entry) in entries.enumerated() {
+                     let id = UUID(), created = Int64(1_700_000_000_000 + index * 1000)
+-                    let item = HistoryBackupMessage(id: id, peer: peerID, outgoing: entry.1, createdAt: created, text: entry.0)
+-                    try store.put("imported", id.uuidString.lowercased(), JSONEncoder().encode(item))
+-                    try ConversationHistory.record(store, kind: "imported", id: id, peer: peerID, createdAt: created)
++                    let kind = entry.1 ? "outgoing" : "incoming"
++                    let envelope = ChatEnvelope(id: id, sender: entry.1 ? selfID : peerID, recipient: entry.1 ? peerID : selfID, createdAt: created, type: 1, ciphertext: Data())
++                    let item = StoredChat(envelope: envelope, text: entry.0, state: entry.1 ? "accepted" : "received")
++                    try store.put(kind, id.uuidString.lowercased(), JSONEncoder().encode(item))
++                    try ConversationHistory.record(store, kind: kind, id: id, peer: peerID, createdAt: created)
+                 }
+             }
+             let timeline = try ConversationHistory(vault: store); history = timeline; threads = try timeline.threads()
+--- a/ios/Vipi/VipiApp.swift
++++ b/ios/Vipi/VipiApp.swift
+@@ -57,14 +57,18 @@
+ 
+ @MainActor struct OfflineQualificationTransport: ChatTransport {
+     func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
+-        throw ServiceFailure(status: 0, code: "qa_offline")
++        let response: String
++        if method == "GET", path.hasPrefix("/v1/blocks/") { response = "{\"blocked\":false}" }
++        else if method == "GET", path == "/v1/messages/pending" { response = "{\"messages\":[],\"next_cursor\":null}" }
++        else { throw ServiceFailure(status: 0, code: "qa_offline") }
++        return try JSONDecoder().decode(T.self, from: Data(response.utf8))
+     }
+ }
+ 
+ struct QualificationHome: View {
+     @State private var chat: ChatSession
+     init() {
+-        let instance = ChatSession(qualificationAPI: OfflineQualificationTransport(), userID: "qa-only")
++        let instance = ChatSession(qualificationAPI: OfflineQualificationTransport(), userID: "qa-only", ready: true)
+         instance.qaSeed(populated: ProcessInfo.processInfo.arguments.contains("-qa-populated"))
+         _chat = State(initialValue: instance)
+     }
