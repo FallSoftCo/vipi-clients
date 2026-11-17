@@ -85,8 +85,10 @@ class ArabicRecoveryNumberDeviceTest {
             compose.waitUntil(5000) { compose.onAllNodesWithText(base.getString(R.string.ui_8a9877b04214)).fetchSemanticsNodes().isNotEmpty() }
             capture("changed-number-arabic")
             val descriptions = compose.onAllNodes(hasContentDescription("", substring = true), useUnmergedTree = true).fetchSemanticsNodes().flatMap { it.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.ContentDescription) ?: emptyList() }
-            val number = descriptions.single { it.count(Char::isDigit) == 60 }
-            assertTrue(number.contains(", "))
+            val numbers = descriptions.filter { it.count(Char::isDigit) == 60 }.distinct()
+            assertTrue("Both current and candidate numbers need descriptions", numbers.size >= 2)
+            assertTrue(numbers.all { it.contains(", ") })
+            val number = numbers.last()
             assertEquals(1, claims.size)
             assertTrue(chat.securityNumber(peer)!!.verified)
             compose.onNodeWithText(base.getString(R.string.cancel_action)).performClick()
