@@ -119,7 +119,10 @@ import kotlinx.coroutines.CancellationException
         title = { Text(stringResource(R.string.ui_84368a0f0b2d)) },
         text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             Text(stringResource(R.string.security_identity_changed, chat.name(peer)))
-            Text(candidate.number.groups.joinToString("  "), fontFamily = FontFamily.Monospace)
+            val candidateDescription = stringResource(R.string.security_number_description, candidate.number.digits.toList().joinToString(", "))
+            Text(candidate.number.groups.joinToString("  "),
+                style = MaterialTheme.typography.titleLarge.copy(fontFamily = FontFamily.Monospace, textDirection = TextDirection.Ltr, textAlign = TextAlign.Center),
+                modifier = Modifier.fillMaxWidth().semantics { contentDescription = candidateDescription })
             Text(stringResource(R.string.ui_84b61960effd))
             recoveryError?.let { Text(it) }
         } },
