@@ -1,0 +1,16 @@
+{
+  "state": "existing_peer_binding_confirmed_read_only",
+  "at_utc": "2026-11-17T16:43:20.186258+00:00",
+  "exact_provider_identity_matched": true,
+  "profile_created_at": "2026-11-17T15:32:10.440574+00:00",
+  "trial_end": "2026-12-17T15:32:10.440574+00:00",
+  "trial_seconds": 2592000,
+  "device_rows_total": 1,
+  "active_devices": 1,
+  "device_created_at": "2026-11-17T15:32:10.816706+00:00",
+  "binding_basis": "The sole device predates the v4 upgrade; no replacement enrollment row. Original profile creation and trial dates unchanged.",
+  "deleted": false,
+  "suspended": false,
+  "database_transaction_read_only": true,
+  "no_messages_purchases_or_mutations": true
+}
