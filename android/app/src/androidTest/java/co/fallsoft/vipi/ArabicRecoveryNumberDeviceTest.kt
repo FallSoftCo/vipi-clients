@@ -84,7 +84,14 @@ class ArabicRecoveryNumberDeviceTest {
             compose.onNodeWithText(base.getString(R.string.ui_18714cc5a562)).performScrollTo().performClick()
             compose.waitUntil(5000) { compose.onAllNodesWithText(base.getString(R.string.ui_8a9877b04214)).fetchSemanticsNodes().isNotEmpty() }
             capture("changed-number-arabic")
-            val descriptions = compose.onAllNodes(hasContentDescription("", substring = true), useUnmergedTree = true).fetchSemanticsNodes().flatMap { it.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.ContentDescription) ?: emptyList() }
+            val numberedNodes = compose.onAllNodes(hasContentDescription("", substring = true), useUnmergedTree = true).fetchSemanticsNodes()
+            val descriptions = numberedNodes.flatMap { it.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.ContentDescription) ?: emptyList() }
+            val pairs = numberedNodes.mapNotNull { node ->
+                val spoken = node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.ContentDescription)?.firstOrNull { it.count(Char::isDigit) == 60 }
+                val visible = node.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.Text)?.joinToString("") { it.text }
+                if (spoken != null && visible != null) spoken.filter(Char::isDigit) to visible.filter(Char::isDigit) else null
+            }
+            assertTrue("Both visible numbers must match their spoken digit order", pairs.distinct().size >= 2 && pairs.all { it.first == it.second })
             val numbers = descriptions.filter { it.count(Char::isDigit) == 60 }.distinct()
             assertTrue("Both current and candidate numbers need descriptions", numbers.size >= 2)
             assertTrue(numbers.all { it.contains(", ") })
