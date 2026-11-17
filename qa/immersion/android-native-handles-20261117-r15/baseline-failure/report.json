@@ -1,0 +1,74 @@
+{
+  "complete": false,
+  "provider": "delayed lifecycle fixture; no model or audio quality claim",
+  "nativeHandles": [
+    {
+      "class": "android.widget.Editor$SelectionHandleView",
+      "bounds": "[89,198][205,303]"
+    },
+    {
+      "class": "android.widget.Editor$SelectionHandleView",
+      "bounds": "[313,198][429,303]"
+    }
+  ],
+  "calls": [
+    {
+      "uptime": 13061384,
+      "source": "The marmot hums near the river."
+    }
+  ],
+  "trace": [
+    {
+      "event": "long_press_held",
+      "uptime": 13059889,
+      "selectionStart": 4,
+      "selectionEnd": 10,
+      "calls": 0,
+      "requestStart": -1,
+      "requestEnd": -1,
+      "windows": 1
+    },
+    {
+      "event": "initial_word_released",
+      "uptime": 13061405,
+      "selectionStart": 4,
+      "selectionEnd": 10,
+      "calls": 1,
+      "requestStart": 4,
+      "requestEnd": 10,
+      "windows": 5
+    },
+    {
+      "event": "before_handle_down",
+      "uptime": 13061722,
+      "selectionStart": 4,
+      "selectionEnd": 10,
+      "calls": 1,
+      "requestStart": 4,
+      "requestEnd": 10,
+      "windows": 5
+    },
+    {
+      "event": "handle_drag_held",
+      "uptime": 13062843,
+      "selectionStart": 4,
+      "selectionEnd": 15,
+      "calls": 1,
+      "requestStart": -1,
+      "requestEnd": -1,
+      "windows": 3
+    },
+    {
+      "event": "failure",
+      "uptime": 13067906,
+      "selectionStart": 4,
+      "selectionEnd": 15,
+      "calls": 1,
+      "requestStart": -1,
+      "requestEnd": -1,
+      "windows": 4
+    }
+  ],
+  "passed": false,
+  "error": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms"
+}

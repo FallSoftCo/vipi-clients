@@ -1,0 +1,8 @@
+{
+  "required_floor_bytes": 4504682496,
+  "initial_free_bytes": 4714332160,
+  "enforced_growth_budget_bytes": 104857600,
+  "minimum_possible_free_under_growth_guard": 4609474560,
+  "current_free_bytes": 4712853504,
+  "note": "Initial copied script accidentally used a 100 MiB reserve term after budget substitution; its independently enforced 100 MiB growth bound from this baseline still guaranteed the full required floor. Script corrected before any subsequent build."
+}

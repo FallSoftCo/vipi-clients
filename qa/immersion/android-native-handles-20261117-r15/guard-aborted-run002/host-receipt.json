@@ -1,0 +1,7 @@
+{
+  "adb_exit": -15,
+  "stop_reason": "capacity/time guard",
+  "seconds": 4.167876813095063,
+  "minimum_free_bytes": 5306966016,
+  "additional_bytes": 60129280
+}

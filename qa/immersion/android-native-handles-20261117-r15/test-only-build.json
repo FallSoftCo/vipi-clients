@@ -1,0 +1,33 @@
+{
+  "source_stamp": "e180197+native-handle-test-r14",
+  "floor_bytes": 4399824896,
+  "workers": 2,
+  "stages": [
+    {
+      "name": "android-test-r14-build",
+      "command": [
+        "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/scripts/build-android.sh",
+        "--offline",
+        "-PvipiSourceContextQualification=true",
+        "-PvipiQaAbi=x86_64",
+        ":app:assembleDebugAndroidTest",
+        "-x",
+        ":app:mergeDebugAssets",
+        "-x",
+        ":app:compressDebugAssets",
+        "-x",
+        ":app:mergeDebugNativeLibs",
+        "-x",
+        ":app:stripDebugDebugSymbols"
+      ],
+      "free_before": 4714332160,
+      "peak_budget": 104857600,
+      "pid": 2156658,
+      "exit": 0,
+      "seconds": 37.00637614913285,
+      "free_after": 4712865792
+    }
+  ],
+  "complete": true,
+  "free_after": 4712865792
+}

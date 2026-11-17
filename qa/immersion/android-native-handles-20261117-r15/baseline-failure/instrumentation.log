@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=co.fallsoft.vipi.ManualLookupHandleDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+co.fallsoft.vipi.ManualLookupHandleDeviceTest:
+INSTRUMENTATION_STATUS: test=actualLongPressHandleReleaseTranslatesOnceAndCopiesExactSelection
+INSTRUMENTATION_STATUS_CODE: 1
+s_glBindAttribLocation: bind attrib 0 name position
+s_glBindAttribLocation: bind attrib 1 name color
+s_glBindAttribLocation: bind attrib 2 name localCoord
+INSTRUMENTATION_STATUS: class=co.fallsoft.vipi.ManualLookupHandleDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at co.fallsoft.vipi.ManualLookupHandleDeviceTest.actualLongPressHandleReleaseTranslatesOnceAndCopiesExactSelection(ManualLookupHandleDeviceTest.kt:136)
+
+INSTRUMENTATION_STATUS: stream=
+Error in actualLongPressHandleReleaseTranslatesOnceAndCopiesExactSelection(co.fallsoft.vipi.ManualLookupHandleDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at co.fallsoft.vipi.ManualLookupHandleDeviceTest.actualLongPressHandleReleaseTranslatesOnceAndCopiesExactSelection(ManualLookupHandleDeviceTest.kt:136)
+
+INSTRUMENTATION_STATUS: test=actualLongPressHandleReleaseTranslatesOnceAndCopiesExactSelection
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 14.704
+There was 1 failure:
+1) actualLongPressHandleReleaseTranslatesOnceAndCopiesExactSelection(co.fallsoft.vipi.ManualLookupHandleDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 5000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at co.fallsoft.vipi.ManualLookupHandleDeviceTest.actualLongPressHandleReleaseTranslatesOnceAndCopiesExactSelection(ManualLookupHandleDeviceTest.kt:136)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

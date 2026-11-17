@@ -1,0 +1,10 @@
+{
+  "installed_app_sha256": "b0ac40b85bb437ddd26a70e44cc2489344407e14105060bc6cce14e862445803",
+  "test_apk_sha256": "8862a4457b2076228b4d641db928044246db6e0d824803778c95cac36518a468",
+  "test_apk_bytes": 9799366,
+  "floor_bytes": 4504682496,
+  "install_free_before": 4690620416,
+  "install_exit": 0,
+  "install_output": "Performing Streamed Install\nSuccess\n",
+  "install_free_after": 4690554880
+}

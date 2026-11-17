@@ -58,14 +58,29 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         }
     }
     private fun beginSelectionGesture() {
+        // Editor also calls ActionMode.hide for every native handle MOVE.
+        // Keep changes accumulated earlier in this same drag until hide(0)
+        // signals release; repeated MOVE notifications are not new gestures.
+        if (selectionGesture) { removeCallbacks(releasedSelection); return }
         selectionGesture = true; selectionChangedDuringGesture = false; deliveredSelection = null
         removeCallbacks(releasedSelection); onSelectionGestureBegan?.invoke()
     }
     private fun endSelectionGesture(cancelled: Boolean = false) {
+        val changed = selectionChangedDuringGesture
         selectionGesture = false
-        if (!cancelled && selectionChangedDuringGesture && hasSelection()) {
+        selectionChangedDuringGesture = false
+        if (cancelled) {
+            removeCallbacks(releasedSelection); deliveredSelection = null
+            return
+        }
+        if (changed && hasSelection()) {
             removeCallbacks(releasedSelection); postDelayed(releasedSelection, 180)
         }
+    }
+    override fun onDetachedFromWindow() {
+        removeCallbacks(releasedSelection)
+        selectionGesture = false; selectionChangedDuringGesture = false; deliveredSelection = null
+        super.onDetachedFromWindow()
     }
     /** Android's public floating ActionMode hide/show calls bracket native
      * handle drags, including their separate PopupWindow touch stream. */

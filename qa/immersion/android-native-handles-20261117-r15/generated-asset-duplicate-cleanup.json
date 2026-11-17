@@ -1,0 +1,9 @@
+{
+  "free_before": 4709093376,
+  "files": 655,
+  "logical_duplicate_bytes": 664082623,
+  "free_after": 5372112896,
+  "freed_bytes": 663019520,
+  "full_proof_retained": "investigations/vipi-quality-20261117-r01/generated-assets-r15-duplicate-proof.json",
+  "scope": "Owned generated copies only, exact SHA-verified symlinks to current source/staging inputs; originals preserved"
+}

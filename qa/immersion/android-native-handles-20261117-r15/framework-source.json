@@ -1,0 +1,18 @@
+{
+  "source": "https://raw.githubusercontent.com/aosp-mirror/platform_frameworks_base/android16-release/core/java/android/widget/Editor.java",
+  "inspected_sha256": "b1f4193784b0ae058a888cbed674b8b2e979d55d861822f1585ca94d021ad7ac",
+  "observed_markers": {
+    "updateFloatingToolbarVisibility(ev);": [
+      5737
+    ],
+    "hideFloatingToolbar(ActionMode.DEFAULT_HIDE_DURATION);": [
+      1814
+    ],
+    "mTextActionMode.hide(0);": [
+      435
+    ]
+  },
+  "inference": "The existing ActionMode wrapper receives repeat MOVE hiding and delayed show/release callbacks. Preserve the dirty selection flag across repeated begin notifications; no private API or additional window enumeration in production.",
+  "production_min_sdk": 28,
+  "new_platform_apis": false
+}

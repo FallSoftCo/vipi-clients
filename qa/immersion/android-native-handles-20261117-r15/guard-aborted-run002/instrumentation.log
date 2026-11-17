@@ -1,0 +1,10 @@
+INSTRUMENTATION_STATUS: class=co.fallsoft.vipi.ManualLookupHandleDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+co.fallsoft.vipi.ManualLookupHandleDeviceTest:
+INSTRUMENTATION_STATUS: test=actualLongPressHandleReleaseTranslatesOnceAndCopiesExactSelection
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_RESULT: shortMsg=Process crashed.
+INSTRUMENTATION_CODE: 0

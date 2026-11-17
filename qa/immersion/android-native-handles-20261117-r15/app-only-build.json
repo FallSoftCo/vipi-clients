@@ -1,0 +1,35 @@
+{
+  "source_stamp": "e180197+native-handle-release-r15",
+  "floor_bytes": 4504682496,
+  "workers": 2,
+  "stages": [
+    {
+      "name": "android-manual-r15-package",
+      "command": [
+        "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/scripts/build-android.sh",
+        "--offline",
+        "-PvipiSourceContextQualification=true",
+        "-PvipiQaAbi=x86_64",
+        ":app:assembleDebug",
+        "-x",
+        ":app:stageImmersionAssets",
+        "-x",
+        ":app:mergeDebugAssets",
+        "-x",
+        ":app:compressDebugAssets",
+        "-x",
+        ":app:mergeDebugNativeLibs",
+        "-x",
+        ":app:stripDebugDebugSymbols"
+      ],
+      "free_before": 5497413632,
+      "peak_budget": 576716800,
+      "pid": 2186297,
+      "exit": 0,
+      "seconds": 31.005589361768216,
+      "free_after": 4978171904
+    }
+  ],
+  "complete": true,
+  "free_after": 4978171904
+}
