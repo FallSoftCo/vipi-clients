@@ -94,3 +94,39 @@ async def test_environment_migration_preserves_unknown_tombstone_and_blocks_coll
                 config.attributes['connection']=sync
                 command.downgrade(config,'20261107_05')
             await connection.run_sync(down)
+
+
+async def test_staging_lifespan_readiness_tracks_real_postgres_alembic_head(db):
+    import httpx
+    import pytest
+    from test_api import TestVerifier
+    from vipi.api import create_app
+    from vipi.config import Settings
+    if db.engine.dialect.name != 'postgresql':
+        pytest.skip('requires real PostgreSQL event listener and migrations')
+    config = Config(str(Path(__file__).resolve().parents[1] / 'alembic.ini'))
+    async with db.engine.begin() as connection:
+        await connection.run_sync(Base.metadata.drop_all)
+        def upgrade(sync):
+            config.attributes['connection'] = sync
+            command.upgrade(config, 'head')
+        await connection.run_sync(upgrade)
+    options=Settings(database_url=db.engine.url.render_as_string(hide_password=False),
+        workos_client_id='client_fixture',workos_issuer='https://api.workos.com',service_secret='x'*43,
+        environment='staging',allowed_subjects=frozenset({'user_test'}))
+    app=create_app(options,database=db,verifier=TestVerifier(),store_providers={})
+    async with app.router.lifespan_context(app):
+        assert app.state.events.ready.is_set()
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app),base_url='https://vipi.test') as client:
+            response=await client.get('/health/ready')
+            assert response.status_code==200 and response.json()=={'status':'ok'}
+            app.state.events.ready.clear()
+            response=await client.get('/health/ready')
+            assert response.status_code==503 and response.json()=={'status':'events_unavailable'}
+            app.state.events.ready.set()
+            async with db.engine.begin() as connection:
+                await connection.execute(text("UPDATE alembic_version SET version_num='20261107_05'"))
+            response=await client.get('/health/ready')
+            assert response.status_code==503 and response.json()=={'status':'schema_unavailable'}
+            async with db.engine.begin() as connection:
+                await connection.execute(text("UPDATE alembic_version SET version_num='20261116_01'"))
