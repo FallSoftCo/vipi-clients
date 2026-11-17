@@ -28005,6 +28005,2496 @@
           }
         }
       }
+    },
+    "Your encrypted backup was saved. Keep its password safe.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your encrypted backup was saved. Keep its password safe."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Se guardó tu copia de seguridad cifrada. Guarda su contraseña en un lugar seguro."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Votre sauvegarde chiffrée a été enregistrée. Conservez son mot de passe en lieu sûr."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Il backup crittografato è stato salvato. Conserva la password in un luogo sicuro."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Seu backup criptografado foi salvo. Guarde a senha em um lugar seguro."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A cópia de segurança cifrada foi guardada. Guarde a palavra-passe num local seguro."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ihr verschlüsseltes Backup wurde gespeichert. Bewahren Sie sein Passwort sicher auf."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "暗号化されたバックアップが保存されました。 パスワードを安全に保管してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "귀하의 암호화된 백업이 저장되었습니다. 비밀번호를 안전하게 유지하십시오."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的加密备份已保存。 保护其密码安全。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的加密備份已保存。 保護其密碼安全。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تم حفظ نسختك الاحتياطية المشفرة. حافظ على أمان كلمة المرور الخاصة به."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nakala yako ya usalama iliyosimbwa fiche imehifadhiwa. Weka nenosiri lake mahali salama."
+          }
+        }
+      }
+    },
+    "Nothing was duplicated. Already saved: %lld.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nothing was duplicated. Already saved: %lld."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se duplicó nada. Ya guardados: %lld."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Aucun doublon créé. Déjà enregistrés : %lld."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nessun duplicato creato. Già salvati: %lld."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nada foi duplicado. Já salvos: %lld."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foram criados duplicados. Já guardadas: %lld."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Es wurde nichts dupliziert. Bereits gespeichert: %lld."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "何も重複していません。 既に保存済み: %lld."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "중복된 것이 없습니다. 이미 저장되었습니다: %lld."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "什么都没有被复制。 已保存：%lld。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "什麼都沒有被複製。 已保存：%lld。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لم يتم تكرار أي شيء. تم الحفظ بالفعل: %lld."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hakuna ujumbe uliorudiwa. Ujumbe uliokwishahifadhiwa: %lld."
+          }
+        }
+      }
+    },
+    "This backup contains no messages to restore.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This backup contains no messages to restore."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta copia de seguridad no contiene mensajes para restaurar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Cette sauvegarde ne contient aucun message à restaurer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Questo backup non contiene messaggi da ripristinare."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Este backup não contém mensagens para restaurar."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta cópia de segurança não contém mensagens para restaurar."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dieses Backup enthält keine Nachrichten zur Wiederherstellung."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このバックアップには復元すべきメッセージがありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 백업에는 복원할 메시지가 없습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此备份不包含要恢复的消息。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此備份不包含要恢復的消息。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لا تحتوي هذه النسخة الاحتياطية على أي رسائل لاستعادتها."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nakala hii ya usalama haina ujumbe wa kurejesha."
+          }
+        }
+      }
+    },
+    "Restore complete. Added: %lld. Already saved: %lld.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore complete. Added: %lld. Already saved: %lld."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Restauración completada. Añadidos: %lld. Ya guardados: %lld."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Restauration terminée. Ajoutés : %lld. Déjà enregistrés : %lld."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ripristino completato. Aggiunti: %lld. Già salvati: %lld."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Restauração concluída. Adicionados: %lld. Já salvos: %lld."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Restauro concluído. Adicionadas: %lld. Já guardadas: %lld."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Wiederherstellung abgeschlossen. Hinzugefügt: %1$lld. Bereits gespeichert: %2$lld."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "復元が完了しました。 追加しました: %1$lld. 既に保存済み: %2$lld."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "복원이 완료되었습니다. 추가됨: %1$lld. 이미 저장되었습니다: %2$lld."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "恢复完成。 已添加：%1$lld。 已保存：%2$lld。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "恢復完成。 已添加：%1$lld。 已保存：%2$lld。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "استعادة كاملة. تمت الإضافة: %1$lld. تم الحفظ بالفعل: %2$lld."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Urejeshaji umekamilika. Ujumbe ulioongezwa: %lld. Ujumbe uliokwishahifadhiwa: %lld."
+          }
+        }
+      }
+    },
+    "This backup belongs to a different Vipi account. Sign in to that account to restore it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This backup belongs to a different Vipi account. Sign in to that account to restore it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta copia de seguridad pertenece a otra cuenta de Vipi. Inicia sesión en esa cuenta para restaurarla."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Cette sauvegarde appartient à un autre compte Vipi. Connectez-vous à ce compte pour la restaurer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Questo backup appartiene a un altro account Vipi. Accedi a quell’account per ripristinarlo."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Este backup pertence a outra conta Vipi. Entre nessa conta para restaurá-lo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta cópia de segurança pertence a outra conta Vipi. Inicie sessão nessa conta para a restaurar."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dieses Backup gehört zu einem anderen Vipi-Konto. Melden Sie sich bei diesem Konto an, um es wiederherzustellen."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このバックアップは別のVipiアカウントに属しています。 そのアカウントにサインインして復元してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 백업은 다른 Vipi 계정에 속합니다. 해당 계정에 로그인하여 복원하십시오."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此备份属于其他Vipi帐户。 登录该帐户以恢复它。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此備份屬於其他Vipi帳戶。 登錄該帳戶以恢復它。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تنتمي هذه النسخة الاحتياطية إلى حساب Vipi مختلف. قم بتسجيل الدخول إلى هذا الحساب لاستعادته."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nakala hii ya usalama ni ya akaunti nyingine ya Vipi. Ingia kwenye akaunti hiyo ili kuirejesha."
+          }
+        }
+      }
+    },
+    "Use a passphrase of at least 12 characters.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use a passphrase of at least 12 characters."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Usa una frase de contraseña de al menos 12 caracteres."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utilisez une phrase secrète d’au moins 12 caractères."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Usa una frase di accesso di almeno 12 caratteri."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Use uma frase-senha de pelo menos 12 caracteres."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utilize uma frase-passe com pelo menos 12 caracteres."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Verwenden Sie eine Passphrase mit mindestens 12 Zeichen."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "12文字以上のパスフレーズを使用してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "최소 12자 이상의 암호 구문을 사용하십시오."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "使用至少12个字符的密码短语。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "使用至少12個字符的密碼短語。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "استخدم عبارة مرور لا تقل عن 12 حرفا."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tumia nenosiri lenye angalau vibambo 12."
+          }
+        }
+      }
+    },
+    "This backup conflicts with saved messages. Nothing was changed.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This backup conflicts with saved messages. Nothing was changed."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta copia de seguridad entra en conflicto con los mensajes guardados. No se cambió nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Cette sauvegarde entre en conflit avec des messages enregistrés. Rien n’a été modifié."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Questo backup è in conflitto con messaggi salvati. Non è stato modificato nulla."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Este backup entra em conflito com mensagens salvas. Nada foi alterado."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta cópia de segurança está em conflito com mensagens guardadas. Nada foi alterado."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dieses Backup kollidiert mit gespeicherten Nachrichten. Es wurde nichts geändert."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このバックアップは保存されたメッセージと競合しています。 何も変わっていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 백업은 저장된 메시지와 충돌합니다. 아무것도 바뀌지 않았습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此备份与已保存的邮件冲突。 什么都没改变。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此備份與已保存的郵件衝突。 什麼都沒改變。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "يتعارض هذا النسخ الاحتياطي مع الرسائل المحفوظة. لم يتغير شيء."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nakala hii ya usalama inakinzana na ujumbe uliohifadhiwa. Hakuna kilichobadilishwa."
+          }
+        }
+      }
+    },
+    "Your conversations are updating. Please try again in a moment.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your conversations are updating. Please try again in a moment."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tus conversaciones se están actualizando. Inténtalo de nuevo en un momento."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vos conversations sont en cours d’actualisation. Réessayez dans un instant."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le conversazioni sono in aggiornamento. Riprova tra poco."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Suas conversas estão sendo atualizadas. Tente novamente em instantes."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As suas conversas estão a ser atualizadas. Tente novamente dentro de momentos."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ihre Gespräche werden aktualisiert. Bitte versuchen Sie es gleich noch einmal."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "会話が更新されています。 しばらくしてからもう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "귀하의 대화가 업데이트되고 있습니다. 잠시 후에 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的对话正在更新。 请稍再试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的對話正在更新。 請稍再試。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "محادثاتك يتم تحديثها. يرجى المحاولة مرة أخرى في لحظة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mazungumzo yako yanasasishwa. Tafadhali jaribu tena baada ya muda mfupi."
+          }
+        }
+      }
+    },
+    "The password is incorrect or this backup is damaged. Nothing was changed.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The password is incorrect or this backup is damaged. Nothing was changed."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La contraseña es incorrecta o esta copia de seguridad está dañada. No se cambió nada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le mot de passe est incorrect ou cette sauvegarde est endommagée. Rien n’a été modifié."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La password non è corretta oppure il backup è danneggiato. Non è stato modificato nulla."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A senha está incorreta ou este backup está danificado. Nada foi alterado."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A palavra-passe está incorreta ou esta cópia de segurança está danificada. Nada foi alterado."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Das Passwort ist falsch oder dieses Backup ist beschädigt. Es wurde nichts geändert."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "パスワードが正しくないか、このバックアップが破損しています。 何も変わっていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "비밀번호가 올바르지 않거나 이 백업이 손상되었습니다. 아무것도 바뀌지 않았습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "密码不正确或此备份已损坏。 什么都没改变。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "密碼不正確或此備份已損壞。 什麼都沒改變。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "كلمة المرور غير صحيحة أو هذه النسخة الاحتياطية تالفة. لم يتغير شيء."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nenosiri si sahihi au nakala hii ya usalama imeharibika. Hakuna kilichobadilishwa."
+          }
+        }
+      }
+    },
+    "The backup couldn’t be saved. Your conversations are still here. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The backup couldn’t be saved. Your conversations are still here. Please try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo guardar la copia de seguridad. Tus conversaciones siguen aquí. Inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La sauvegarde n’a pas pu être enregistrée. Vos conversations sont toujours ici. Réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile salvare il backup. Le tue conversazioni sono ancora qui. Riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível salvar o backup. Suas conversas continuam aqui. Tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível guardar a cópia de segurança. As suas conversas continuam aqui. Tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Das Backup konnte nicht gespeichert werden. Ihre Gespräche sind immer noch hier. Bitte versuchen Sie es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "バックアップを保存できませんでした。 あなたの会話はまだここにあります。 もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "백업을 저장할 수 없습니다. 귀하의 대화는 아직 여기 있습니다. 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "无法保存备份。 你的谈话还在这里。 请再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "無法保存備份。 你的談話還在這裡。 請再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعذر حفظ النسخة الاحتياطية. لا تزال محادثاتك هنا. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nakala ya usalama haikuweza kuhifadhiwa. Mazungumzo yako bado yapo. Tafadhali jaribu tena."
+          }
+        }
+      }
+    },
+    "We couldn’t confirm your request. Check your connection and try again. You won’t need to start over.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We couldn’t confirm your request. Check your connection and try again. You won’t need to start over."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No pudimos confirmar tu solicitud. Comprueba tu conexión e inténtalo de nuevo. No tendrás que empezar de cero."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nous n’avons pas pu confirmer votre demande. Vérifiez votre connexion et réessayez. Vous n’aurez pas à recommencer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Non siamo riusciti a confermare la richiesta. Controlla la connessione e riprova. Non dovrai ricominciare."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível confirmar sua solicitação. Verifique sua conexão e tente novamente. Você não precisará começar de novo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível confirmar o seu pedido. Verifique a ligação e tente novamente. Não terá de começar de novo."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Wir konnten Ihre Anfrage nicht bestätigen. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut. Sie müssen nicht von vorne anfangen."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ご要望を確認できませんでした。 接続を確認して、もう一度お試しください。 やり直す必要はありません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "귀하의 요청을 확인할 수 없습니다. 연결을 확인하고 다시 시도하십시오. 다시 시작하실 필요가 없습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我们无法确认您的请求。 检查您的连接，然后重试。 你不需要重新开始。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我們無法確認您的請求。 檢查您的連接，然後重試。 你不需要重新開始。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لم نتمكن من تأكيد طلبك. تحقق من اتصالك وحاول مرة أخرى. لن تحتاج إلى البدء من جديد."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hatukuweza kuthibitisha ombi lako. Angalia muunganisho wako na ujaribu tena. Hutahitaji kuanza upya."
+          }
+        }
+      }
+    },
+    "Your request is saved. We couldn’t check completion. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your request is saved. We couldn’t check completion. Please try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tu solicitud está guardada. No pudimos comprobar si se completó. Inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Votre demande est enregistrée. Nous n’avons pas pu vérifier son aboutissement. Réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La tua richiesta è salvata. Non siamo riusciti a verificarne il completamento. Riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sua solicitação está salva. Não foi possível verificar sua conclusão. Tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O seu pedido está guardado. Não foi possível confirmar a sua conclusão. Tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ihre Anfrage wurde gespeichert. Wir konnten die Fertigstellung nicht überprüfen. Bitte versuchen Sie es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ご依頼は保存されました。 完了を確認できませんでした。 もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "귀하의 요청이 저장되었습니다. 완료를 확인할 수 없었습니다. 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的请求已保存。 我们无法检查完成情况。 请再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的請求已保存。 我們無法檢查完成情況。 請再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تم حفظ طلبك. لم نتمكن من التحقق من الإكمال. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ombi lako limehifadhiwa. Hatukuweza kuangalia kama limekamilika. Tafadhali jaribu tena."
+          }
+        }
+      }
+    },
+    "We couldn’t start a secure sign-in. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We couldn’t start a secure sign-in. Please try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No pudimos iniciar una sesión segura. Inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nous n’avons pas pu démarrer une connexion sécurisée. Réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Non siamo riusciti ad avviare un accesso sicuro. Riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível iniciar um login seguro. Tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível iniciar uma sessão segura. Tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Wir konnten keine sichere Anmeldung starten. Bitte versuchen Sie es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "安全なサインインを開始できませんでした。 もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "보안 로그인을 시작할 수 없었습니다. 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我们无法启动安全登录。 请再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我們無法啓動安全登錄。 請再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لم نتمكن من بدء تسجيل دخول آمن. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hatukuweza kuanzisha kuingia kwa usalama. Tafadhali jaribu tena."
+          }
+        }
+      }
+    },
+    "We couldn’t confirm vBot’s reply. This message won’t be resent automatically and may have used one reply from your allowance.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We couldn’t confirm vBot’s reply. This message won’t be resent automatically and may have used one reply from your allowance."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No pudimos confirmar la respuesta de vBot. Este mensaje no se reenviará automáticamente y puede haber consumido una respuesta de tu cupo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nous n’avons pas pu confirmer la réponse de vBot. Ce message ne sera pas renvoyé automatiquement et peut avoir utilisé une réponse de votre quota."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Non siamo riusciti a confermare la risposta di vBot. Il messaggio non verrà reinviato automaticamente e potrebbe aver consumato una risposta disponibile."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível confirmar a resposta do vBot. Esta mensagem não será reenviada automaticamente e pode ter usado uma resposta do seu limite."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível confirmar a resposta do vBot. Esta mensagem não será reenviada automaticamente e pode ter usado uma resposta do seu limite."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Wir konnten die Antwort von vBot nicht bestätigen. Diese Nachricht wird nicht automatisch erneut gesendet und kann eine Antwort von Ihrer Zulage verwendet haben."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot の返信を確認できませんでした。 このメッセージは自動的に再送されることはなく、許可された返信が1回使用された可能性があります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot의 회신을 확인할 수 없습니다. 이 메시지는 자동으로 재전송되지 않으며, 귀하의 허용 범위에서 한 번의 회신을 사용했을 수 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我们无法确认vBot的回复。 此消息不会自动重新发送，并且可能已使用您的津贴中的一个回复。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我們無法確認vBot的回復。 此消息不會自動重新發送，並且可能已使用您的津貼中的一個回復。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لم نتمكن من تأكيد رد vBot. لن يتم إعادة إرسال هذه الرسالة تلقائيا وربما تكون قد استخدمت ردا واحدا من بدلك."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hatukuweza kuthibitisha jibu la vBot. Ujumbe huu hautatumwa tena kiotomatiki na huenda umetumia jibu moja kati ya majibu uliyobakiza."
+          }
+        }
+      }
+    },
+    "Sign-in isn’t available yet. Please try again shortly.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign-in isn’t available yet. Please try again shortly."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "El inicio de sesión aún no está disponible. Inténtalo de nuevo en breve."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La connexion n’est pas encore disponible. Réessayez dans un instant."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "L’accesso non è ancora disponibile. Riprova tra poco."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O login ainda não está disponível. Tente novamente em instantes."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O início de sessão ainda não está disponível. Tente novamente dentro de momentos."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die Anmeldung ist noch nicht verfügbar. Bitte versuchen Sie es in Kürze erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "サインインはまだ利用できません。 すぐにもう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "로그인은 아직 사용할 수 없습니다. 잠시 후에 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "尚未提供登录。 请稍后再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "尚未提供登錄。 請稍後再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تسجيل الدخول غير متاح بعد. يرجى المحاولة مرة أخرى بعد قليل."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Kuingia bado hakupatikani. Tafadhali jaribu tena baada ya muda mfupi."
+          }
+        }
+      }
+    },
+    "We couldn’t verify this sign-in. Please start again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We couldn’t verify this sign-in. Please start again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No pudimos verificar este inicio de sesión. Empieza de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nous n’avons pas pu vérifier cette connexion. Recommencez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Non siamo riusciti a verificare questo accesso. Ricomincia."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível verificar este login. Comece novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível verificar este início de sessão. Comece novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Wir konnten diese Anmeldung nicht verifizieren. Bitte beginnen Sie erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このサインインを確認できませんでした。 もう一度始めてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 로그인을 확인할 수 없습니다. 다시 시작해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我们无法验证此登录。 请重新开始。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我們無法驗證此登錄。 請重新開始。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لم نتمكن من التحقق من تسجيل الدخول هذا. من فضلك ابدأ من جديد."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hatukuweza kuthibitisha kuingia huku. Tafadhali anza tena."
+          }
+        }
+      }
+    },
+    "Sign-in couldn’t open. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign-in couldn’t open. Please try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo abrir el inicio de sesión. Inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossible d’ouvrir la connexion. Réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile aprire l’accesso. Riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível abrir a tela de login. Tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível abrir o início de sessão. Tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die Anmeldung konnte nicht geöffnet werden. Bitte versuchen Sie es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "サインインが開きませんでした。 もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "로그인할 수 없습니다. 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "无法打开登录。 请再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "無法打開登錄。 請再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعذر فتح تسجيل الدخول. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ukurasa wa kuingia haukuweza kufunguliwa. Tafadhali jaribu tena."
+          }
+        }
+      }
+    },
+    "Couldn’t check your Bot mini allowance. Try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn’t check your Bot mini allowance. Try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo consultar tu cupo de Bot mini. Inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossible de vérifier votre quota Bot mini. Réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile verificare le risposte disponibili di Bot mini. Riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível verificar seu limite do Bot mini. Tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível verificar o seu limite do Bot mini. Tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ihre Bot mini-Zulage konnte nicht überprüft werden. Versuchen Sie es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini のアローンスを確認できませんでした。 もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini 할당량을 확인할 수 없습니다. 다시 시도하십시오."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "无法查看您的Bot mini津贴。 再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "無法查看您的Bot mini津貼。 再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعذر التحقق من بدل Bot mini الخاص بك. حاول مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hatukuweza kuangalia majibu ya Bot mini yaliyobaki. Jaribu tena."
+          }
+        }
+      }
+    },
+    "Check your subscriptions to continue this conversation.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check your subscriptions to continue this conversation."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Consulta tus suscripciones para continuar esta conversación."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vérifiez vos abonnements pour poursuivre cette conversation."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Controlla gli abbonamenti per continuare questa conversazione."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Verifique suas assinaturas para continuar esta conversa."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Verifique as suas subscrições para continuar esta conversa."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Überprüfen Sie Ihre Abonnements, um dieses Gespräch fortzusetzen."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "この会話を続けるには、サブスクリプションをご確認ください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 대화를 계속하려면 구독을 확인하십시오."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "检查您的订阅以继续此对话。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "檢查您的訂閱以繼續此對話。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تحقق من اشتراكاتك لمتابعة هذه المحادثة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Angalia usajili wako ili kuendelea na mazungumzo haya."
+          }
+        }
+      }
+    },
+    "We couldn’t confirm this report. Retrying sends the same report without creating a duplicate.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We couldn’t confirm this report. Retrying sends the same report without creating a duplicate."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No pudimos confirmar esta denuncia. Al reintentar se envía la misma denuncia sin crear un duplicado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nous n’avons pas pu confirmer ce signalement. Réessayer envoie le même signalement sans créer de doublon."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Non siamo riusciti a confermare la segnalazione. Riprova per inviare la stessa segnalazione senza crearne una duplicata."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível confirmar esta denúncia. Ao tentar novamente, a mesma denúncia será enviada sem criar uma duplicata."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível confirmar esta denúncia. Ao tentar novamente, a mesma denúncia será enviada sem criar um duplicado."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Wir konnten diesen Bericht nicht bestätigen. Der erneute Versuch sendet denselben Bericht, ohne ein Duplikat zu erstellen."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "この報告書を確認できませんでした。 再試行すると、同じレポートが送信され、重複が作成されません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "우리는 이 보고서를 확인할 수 없었습니다. 재시도하면 중복을 만들지 않고 동일한 보고서를 전송합니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我们无法确认这份报告。 重试会发送相同的报告，而不会创建重复的报告。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我們無法確認這份報告。 重試會發送相同的報告，而不會創建重復的報告。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لم نتمكن من تأكيد هذا التقرير. ترسل إعادة المحاولة نفس التقرير دون إنشاء نسخة مكررة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hatukuweza kuthibitisha taarifa hii. Ukijaribu tena, utatuma taarifa hiyo hiyo bila kuunda nyingine."
+          }
+        }
+      }
+    },
+    "Chat with me on Vipi and learn words as we talk. My username is @%@. After signing in, choose New chat and find my username.\n%@": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chat with me on Vipi and learn words as we talk. My username is @%@. After signing in, choose New chat and find my username.\n%@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chatea conmigo en Vipi y aprende palabras mientras hablamos. Mi nombre de usuario es @%@. Después de iniciar sesión, elige Nuevo chat y busca mi nombre de usuario.\n%@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Discutez avec moi sur Vipi et apprenez des mots au fil de nos échanges. Mon nom d’utilisateur est @%@. Après connexion, choisissez Nouvelle discussion et recherchez mon nom d’utilisateur.\n%@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chatta con me su Vipi e impara parole mentre parliamo. Il mio nome utente è @%@. Dopo aver effettuato l’accesso, scegli Nuova chat e cerca il mio nome utente.\n%@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Converse comigo no Vipi e aprenda palavras enquanto falamos. Meu nome de usuário é @%@. Depois de entrar, escolha Nova conversa e procure meu nome de usuário.\n%@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Converse comigo no Vipi e aprenda palavras enquanto falamos. O meu nome de utilizador é @%@. Depois de iniciar sessão, escolha Nova conversa e procure o meu nome de utilizador.\n%@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chatte mit mir auf Vipi und lerne beim Chatten Wörter. Mein Nutzername ist @%1$@. Melde dich an, wähle „Neuer Chat“ und suche meinen Nutzernamen.\n%2$@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipiで話しながら一緒に単語を学びましょう。私のユーザー名は@%1$@です。サインイン後、「新しいチャット」を選び、私のユーザー名を検索してください。\n%2$@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi에서 대화하며 단어를 배워요. 제 사용자 이름은 @%1$@입니다. 로그인한 후 새 채팅을 선택하고 제 사용자 이름을 찾아 주세요.\n%2$@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "来 Vipi 和我聊天，一边聊天一边学习单词。我的用户名是 @%1$@。登录后，选择“新聊天”并搜索我的用户名。\n%2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "來 Vipi 和我聊天，一邊聊天一邊學習單字。我的使用者名稱是 @%1$@。登入後，選擇「新聊天」並搜尋我的使用者名稱。\n%2$@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تحدث معي على Vipi وتعلّم كلمات أثناء محادثتنا. اسم المستخدم الخاص بي هو @%1$@. بعد تسجيل الدخول، اختر محادثة جديدة وابحث عن اسم المستخدم الخاص بي.\n%2$@"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Zungumza nami kwenye Vipi na ujifunze maneno tunapozungumza. Jina langu la mtumiaji ni @%@. Baada ya kuingia, chagua Mazungumzo mapya na utafute jina langu la mtumiaji.\n%@"
+          }
+        }
+      }
+    },
+    "Reconnect this account before sending to vBot. Your draft is still here.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconnect this account before sending to vBot. Your draft is still here."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vuelve a conectar esta cuenta antes de enviar mensajes a vBot. Tu borrador sigue aquí."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Reconnectez ce compte avant d’envoyer un message à vBot. Votre brouillon est toujours ici."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Riconnetti questo account prima di inviare messaggi a vBot. La bozza è ancora qui."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Reconecte esta conta antes de enviar mensagens ao vBot. Seu rascunho continua aqui."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Volte a ligar esta conta antes de enviar mensagens ao vBot. O seu rascunho continua aqui."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Verbinden Sie dieses Konto erneut, bevor Sie es an vBot senden. Ihr Entwurf ist immer noch da."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot に送信する前に、このアカウントを再接続してください。 下書きはまだこちらにあります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot로 전송하기 전에 이 계정을 다시 연결하십시오. 귀하의 초안은 아직 여기 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "在发送到vBot之前，请重新连接此帐户。 你的草稿还在这里。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "在發送到vBot之前，請重新連接此帳戶。 你的草稿還在這裡。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "أعد توصيل هذا الحساب قبل إرساله إلى vBot. لا تزال مسودتك هنا."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Unganisha akaunti hii tena kabla ya kutuma ujumbe kwa vBot. Rasimu yako bado ipo."
+          }
+        }
+      }
+    },
+    "Sign in to the same account to continue.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sign in to the same account to continue."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Inicia sesión en la misma cuenta para continuar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Connectez-vous au même compte pour continuer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Accedi allo stesso account per continuare."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Entre na mesma conta para continuar."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Inicie sessão na mesma conta para continuar."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Melden Sie sich bei demselben Konto an, um fortzufahren."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "同じアカウントにサインインして続行してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "계속하려면 같은 계정에 로그인하십시오."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "登录同一帐户以继续。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "登錄同一帳戶以繼續。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "قم بتسجيل الدخول إلى نفس الحساب للمتابعة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ingia kwenye akaunti hiyo hiyo ili kuendelea."
+          }
+        }
+      }
+    },
+    "You’ve used this month’s Bot mini replies. Your allowance refreshes next month.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You’ve used this month’s Bot mini replies. Your allowance refreshes next month."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Has usado las respuestas de Bot mini de este mes. Tu cupo se renueva el mes próximo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vous avez utilisé les réponses Bot mini de ce mois. Votre quota sera renouvelé le mois prochain."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hai usato le risposte Bot mini di questo mese. Le risposte disponibili si rinnovano il mese prossimo."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Você usou as respostas do Bot mini deste mês. Seu limite será renovado no próximo mês."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utilizou as respostas do Bot mini deste mês. O seu limite será renovado no próximo mês."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sie haben die Bot mini-Antworten dieses Monats verwendet. Ihr Taschengeld wird nächsten Monat aktualisiert."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "今月のBot miniの返信をご利用いただいています。 お客様の手当は来月更新されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이번 달 Bot mini 답글을 사용하셨습니다. 귀하의 수당이 다음 달에 갱신됩니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您已经使用了本月的Bot mini回复。 您的津贴下个月更新。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您已經使用了本月的Bot mini回復。 您的津貼下個月更新。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لقد استخدمت ردود Bot mini لهذا الشهر. يتم تحديث مصروفك الشهر المقبل."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Umetumia majibu yote ya Bot mini ya mwezi huu. Utapata majibu mengine mwezi ujao."
+          }
+        }
+      }
+    },
+    "Reconnect this account before sending to vBot. This request wasn’t accepted and won’t be resent automatically.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconnect this account before sending to vBot. This request wasn’t accepted and won’t be resent automatically."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vuelve a conectar esta cuenta antes de enviar mensajes a vBot. Esta solicitud no se aceptó y no se reenviará automáticamente."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Reconnectez ce compte avant d’envoyer un message à vBot. Cette demande n’a pas été acceptée et ne sera pas renvoyée automatiquement."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Riconnetti questo account prima di inviare messaggi a vBot. La richiesta non è stata accettata e non verrà reinviata automaticamente."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Reconecte esta conta antes de enviar mensagens ao vBot. Esta solicitação não foi aceita e não será reenviada automaticamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Volte a ligar esta conta antes de enviar mensagens ao vBot. Este pedido não foi aceite e não será reenviado automaticamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Verbinden Sie dieses Konto erneut, bevor Sie es an vBot senden. Diese Anfrage wurde nicht angenommen und wird nicht automatisch erneut gesendet."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot に送信する前に、このアカウントを再接続してください。 このリクエストは受理されず、自動的に再送されません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot로 전송하기 전에 이 계정을 다시 연결하십시오. 이 요청은 수락되지 않았으며 자동으로 다시 전송되지 않습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "在发送到vBot之前，请重新连接此帐户。 此请求没有被接受，也不会自动重新发送。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "在發送到vBot之前，請重新連接此帳戶。 此請求沒有被接受，也不會自動重新發送。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "أعد توصيل هذا الحساب قبل إرساله إلى vBot. لم يتم قبول هذا الطلب ولن يتم إعادة إرساله تلقائيا."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Unganisha akaunti hii tena kabla ya kutuma ujumbe kwa vBot. Ombi hili halijakubaliwa na halitatumwa tena kiotomatiki."
+          }
+        }
+      }
+    },
+    "We couldn’t finish signing in. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We couldn’t finish signing in. Please try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No pudimos completar el inicio de sesión. Inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nous n’avons pas pu terminer la connexion. Réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Non siamo riusciti a completare l’accesso. Riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível concluir o login. Tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível concluir o início de sessão. Tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Wir konnten die Anmeldung nicht abschließen. Bitte versuchen Sie es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "サインインを完了できませんでした。 もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "우리는 로그인을 완료할 수 없었습니다. 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我们无法完成登录。 请再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我們無法完成登錄。 請再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لم نتمكن من إنهاء تسجيل الدخول. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hatukuweza kukamilisha kuingia. Tafadhali jaribu tena."
+          }
+        }
+      }
+    },
+    "This notice could not be opened.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This notice could not be opened."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo abrir este aviso."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossible d’ouvrir cet avis."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile aprire questo avviso."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível abrir este aviso."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível abrir este aviso."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Diese Mitteilung konnte nicht geöffnet werden."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "この通知を開くことができませんでした。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 공지를 열 수 없습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此通知无法打开。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此通知無法打開。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعذر فتح هذا الإشعار."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Taarifa hii haikuweza kufunguliwa."
+          }
+        }
+      }
+    },
+    "Your message couldn’t be saved. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your message couldn’t be saved. Please try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo guardar tu mensaje. Inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Votre message n’a pas pu être enregistré. Réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile salvare il messaggio. Riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível salvar sua mensagem. Tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível guardar a sua mensagem. Tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ihre Nachricht konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "メッセージを保存できませんでした。 もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "메시지를 저장할 수 없습니다. 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的消息无法保存。 请再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的消息無法保存。 請再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعذر حفظ رسالتك. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ujumbe wako haukuweza kuhifadhiwa. Tafadhali jaribu tena."
+          }
+        }
+      }
+    },
+    "Your report couldn’t be confirmed. Please try again.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your report couldn’t be confirmed. Please try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo confirmar tu denuncia. Inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Votre signalement n’a pas pu être confirmé. Réessayez."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile confermare la segnalazione. Riprova."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível confirmar sua denúncia. Tente novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível confirmar a sua denúncia. Tente novamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ihr Bericht konnte nicht bestätigt werden. Bitte versuchen Sie es erneut."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ご報告は確認できませんでした。 もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "귀하의 보고서를 확인할 수 없습니다. 다시 시도해 주세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的报告无法得到确认。 请再试一次。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的報告無法得到確認。 請再試一次。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعذر تأكيد تقريرك. يرجى المحاولة مرة أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Taarifa yako haikuweza kuthibitishwa. Tafadhali jaribu tena."
+          }
+        }
+      }
+    },
+    "vBot is unavailable right now. Your message is saved and won’t be resent automatically.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot is unavailable right now. Your message is saved and won’t be resent automatically."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot no está disponible ahora. Tu mensaje está guardado y no se reenviará automáticamente."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot est indisponible pour le moment. Votre message est enregistré et ne sera pas renvoyé automatiquement."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot non è disponibile al momento. Il messaggio è salvato e non verrà reinviato automaticamente."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot está indisponível no momento. Sua mensagem está salva e não será reenviada automaticamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot está indisponível de momento. A sua mensagem está guardada e não será reenviada automaticamente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot ist derzeit nicht verfügbar. Ihre Nachricht wird gespeichert und nicht automatisch erneut gesendet."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotは現在利用できません。 メッセージは保存されており、自動的に再送されません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot는 현재 이용할 수 없습니다. 귀하의 메시지는 저장되었으며 자동으로 다시 전송되지 않습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot现在不可用。 您的消息已保存，不会自动重新发送。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot現在不可用。 您的消息已保存，不會自動重新發送。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot غير متاح الآن. تم حفظ رسالتك ولن يتم إعادة إرسالها تلقائيا."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot haipatikani kwa sasa. Ujumbe wako umehifadhiwa na hautatumwa tena kiotomatiki."
+          }
+        }
+      }
     }
   },
   "version": "1.0"
