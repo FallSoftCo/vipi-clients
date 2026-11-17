@@ -1,0 +1,33 @@
+{
+  "qualified_at": "2026-11-17T21:46:35Z",
+  "scope": "Shared Fallsoft Vipi application confidential authorization-code exchange via native callback; separate from prior public PKCE proof",
+  "source_head": "e853afa2f1b785c66c328005cb2732f7d58579e7",
+  "http_status": 200,
+  "code_exchanges": 1,
+  "client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+  "issuer": "https://api.workos.com",
+  "verified": [
+    "callback state",
+    "S256 PKCE accepted by provider",
+    "application-associated client secret accepted by provider",
+    "fixed reviewed JWKS and RS256 signature",
+    "exact existing shared identity",
+    "exact client and issuer"
+  ],
+  "lifecycle": {
+    "process_ended": true,
+    "owned_auth_window_absent": true,
+    "baseline_browser_window_preserved": true,
+    "reusable_tokens_retained": false,
+    "vipi_profile_or_link_or_deletion_write": false
+  },
+  "source_sha256": "cee9064ef64eaca441dfb36f7c41a59c90808329c950ea86fcda4a6fcf5ba200",
+  "binary_sha256": "41ffa761530f2ca05bccd3f81aa60fbe1df4adcdb4c13a3955c1ae8e4109541d",
+  "receipt_sha256": "1e01cec0e73cc037988b5225e4d11782e936138ca1d3b5779121d5a464468d6a",
+  "native_final_proof_sha256": "d2bf24b2d943c59698314757e444b91819cb0fbfc81fd9558d773dfcc4732ace",
+  "limitations": [
+    "Native callback only. The deployed HTTPS account-deletion callback still requires a separate non-destructive qualification.",
+    "This exchange does not establish a Vipi profile, link a legacy identity, delete an account, or qualify store purchases."
+  ],
+  "replay": "Completed once. Never rerun this intent or reuse its callback/code."
+}
