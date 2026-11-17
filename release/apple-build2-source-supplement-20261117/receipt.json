@@ -1,5 +1,5 @@
 {
-  "status": "prepared_not_published_pending_final_ipa_qualification",
+  "status": "signed_ipa_verified_source_supplement_unpublished",
   "public_base_release": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3",
   "public_base_archive_sha256": "3d3884ea4cc4632fa5f137deba816b386edccf5a6d00edde77b93ca2bcae304c",
   "base_revision": "87d53cd7c001b99383d18a25f7fafe40316c6c63",
@@ -17,8 +17,8 @@
   ],
   "shared_difference_explanation": "Unsigned and signed build2 source manifests each contain 419 identical path/hash entries. Neither manifest lists these three utilities, and the unsigned build log names none. build-android-speech-data.py is a regeneration tool for retained compiled speech data; the Apple build packages and verifies the retained 367-file data with ios/package-swahili-speech.py. check-source-context-assets.py is a source integrity check documented in CLIENT_SOURCE.md; prepare-client-source.py packages source. None is a direct frozen Apple compilation input. Public newer copies remain usable as supplied; do not claim they are identical to the diverged revision.",
   "limitations": [
-    "Signing/export inputs and final signed artifact not inspected or established.",
-    "No publication, signing, build, upload or store mutation."
+    "Source corresponds to retained verified build inputs; no App Store upload or customer release implied.",
+    "Xcode metadata write timing is not established; compiled locale values match."
   ],
   "patch_test": "Applied with patch --batch --forward -p1 to exact public-base project.yml; output SHA-256 matched Apple build-2 project.yml.",
   "frozen_manifest_comparison": {
@@ -62,5 +62,24 @@
     "corrected-archive-intent.json": "2377e968dcdc56a4ab04b239f6c00268c446bf86224444c2ab2bea1e7cb92733",
     "catalog-diff.json": "4d01d2de49f0d8b67ab6552af3c349e0f299514b875babd635e94570c03b9483",
     "compiled-localization-comparison.json": "500bc9cf79e545ea8d4ca763f43883cea9a83c2f0bfae0ee41c8cbb077bb8866"
+  },
+  "signed_ipa_qualification": {
+    "receipt_sha256": "9c7b42d1f61f4a3b686fff4e4da87843991c5c47186b7ea19d0cacac32e526dc",
+    "state": "verified",
+    "ipa_sha256": "e0e4e1cc2b7fd2488de1f42d37dae525be50af084949e149c386d7599d72d37a",
+    "ipa_bytes": 430849198,
+    "bundle": "co.fallsoft.vipi",
+    "version": "1.0",
+    "build": "2",
+    "upload_performed": false,
+    "localizations_exact_match": true,
+    "privacy_manifest_count": 13,
+    "resources_matched": {
+      "immersion": 583,
+      "lexical": 69,
+      "vipi-speech-699e7969": 367
+    },
+    "aps_production": true,
+    "get_task_allow": false
   }
 }
