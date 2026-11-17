@@ -118,7 +118,7 @@ struct SubscriptionOfferView: View {
                     Link("Privacy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
                 }.font(.footnote)
             }.padding(26).frame(maxWidth: 560).frame(maxWidth: .infinity)
-        }.background(VipiDesign.canvas).navigationTitle(plan.title).navigationBarTitleDisplayMode(.inline)
+        }.clipped().background(VipiDesign.canvas).navigationTitle(plan.title).navigationBarTitleDisplayMode(.inline)
             .task { await store.refresh() }
     }
     private static func date(_ value: String) -> Date? {
