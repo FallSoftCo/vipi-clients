@@ -204,7 +204,7 @@ class MainActivity : ComponentActivity() {
         if (model.screen !in setOf(Screen.WELCOME, Screen.HOME)) {
             IconButton(onClick = { model.back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) }
         } else { VipiMark(34); Spacer(Modifier.width(10.dp)) }
-        Text(stringResource(R.string.ui_2f7e29fbc47d), fontSize = 27.sp, letterSpacing = (-1).sp, fontWeight = FontWeight.SemiBold)
+        Text(stringResource(R.string.ui_2f7e29fbc47d), fontSize = 27.sp, letterSpacing = (-1).sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false)
         Spacer(Modifier.weight(1f))
         if (model.screen == Screen.HOME) IconButton(onClick = { model.navigate(Screen.SETTINGS) }) { Icon(Icons.Outlined.AccountCircle, stringResource(R.string.nav_settings)) }
         if (model.screen in setOf(Screen.LANGUAGE, Screen.ACCOUNT)) Text(if (model.screen == Screen.LANGUAGE) stringResource(R.string.ui_00e255330e43) else stringResource(R.string.ui_de6e21a278c4), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
