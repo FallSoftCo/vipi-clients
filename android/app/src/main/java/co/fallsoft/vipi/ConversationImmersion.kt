@@ -253,6 +253,51 @@ internal class ConversationImmersion(context: Context, val source: String, val t
     fun cachedReading(text: String): FullReading? = fullReadings.cached(text, target)
     suspend fun reading(text: String): FullReading? = fullReadings.resolve(text, target)
 
+    private val manualSelections = linkedMapOf<String, String>()
+    private val manualTranslations = linkedMapOf<Triple<String,String,String>, String>()
+    fun makeManualRequest(messageID: String, originalText: String, startUTF16: Int, endUTF16: Int,
+        generation: Long, inputLanguage: String? = null): ManualTranslationRequest = synchronized(stateLock) {
+        ManualTranslationRequest(messageID, originalText, startUTF16, endUTF16, source, target,
+            inputLanguage ?: inputLanguages[messageID], generation, this.generation)
+    }
+    suspend fun manualTranslation(request: ManualTranslationRequest): ManualTranslationOutcome {
+        val requestContext = coroutineContext
+        synchronized(stateLock) {
+            if (closed || request.ownerGeneration != generation || request.knownLanguage != source || request.learningLanguage != target)
+                return ManualTranslationOutcome(ManualTranslationStatus.STALE)
+            manualSelections[request.messageID] = request.selectionIdentity
+            while (manualSelections.size > 32) manualSelections.remove(manualSelections.keys.first())
+        }
+        fun valid() = requestContext.isActive && synchronized(stateLock) {
+            !closed && request.ownerGeneration == generation && manualSelections[request.messageID] == request.selectionIdentity
+        }
+        return try { withTimeout(30_000) { ManualTranslationResolver.resolve(request, ::valid,
+            reference = { text, from, to -> catalogMutex.withLock { withContext(Dispatchers.Default) { catalog.reference(text, from, to) } } },
+            identify = { language.identify(it, requireTwoWords = false) },
+            modelsReady = { from, to ->
+                val slice = ManualTranslationResolver.slice(request)
+                if (synchronized(stateLock) { slice != null && manualTranslations.containsKey(Triple(slice,from,to)) }) true
+                else { checkDownloads(); ready == true }
+            },
+            translate = { text, from, to ->
+                val key = Triple(text,from,to)
+                synchronized(stateLock) { manualTranslations[key] } ?: run {
+                    val value = providerMutex.withLock { translator.translate(text, from, to) }
+                    if (valid() && value.isNotBlank() && value.length <= 65_536 &&
+                        co.fallsoft.vipi.core.TranslationIntegrity.preservesIdentifiers(text,value)) synchronized(stateLock) {
+                        manualTranslations[key] = value
+                        while (manualTranslations.size > 64) manualTranslations.remove(manualTranslations.keys.first())
+                    }
+                    value
+                }
+            },
+            reading = { text, language -> fullReadings.resolve(text, language) }) } }
+        catch (_: TimeoutCancellationException) {
+            requestContext.ensureActive()
+            ManualTranslationOutcome(if (valid()) ManualTranslationStatus.TIMEOUT else ManualTranslationStatus.STALE)
+        }
+    }
+
     suspend fun checkDownloads() {
         qaModelsReady?.let { updateReadiness(it); return }
         try {
@@ -376,7 +421,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
         }
     }
     override fun close() {
-        synchronized(stateLock) { generation++; closed = true; cache.clear(); fullAttempts.clear() }
+        synchronized(stateLock) { generation++; closed = true; cache.clear(); fullAttempts.clear(); manualSelections.clear(); manualTranslations.clear() }
         fullReadings.close(); inputLanguages.clear(); translator.close(); language.close()
     }
 }

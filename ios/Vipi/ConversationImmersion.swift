@@ -18,7 +18,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
     struct Request: Identifiable {
         let id: UUID; let text: String; let pair: TranslationPair; let epoch: UUID
     }
-    private enum ProviderError: Error { case unavailable }
+    private enum ProviderError: Error { case unavailable, timedOut }
     private(set) var request: Request?
     private(set) var availability = LocalLanguageAvailability.checking
     private(set) var revision = 0
@@ -60,6 +60,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
     private var pending: [Request] = []
     private var replies: [UUID: CheckedContinuation<String?, Never>] = [:]
     private var deadlines: [UUID: Task<Void, Never>] = [:]
+    private var timedOutRequests = Set<UUID>()
     private var fullRequests: [ImmersionRequestIdentity: (UUID, Task<LookupFirstOutcome?, Never>)] = [:]
     private var cache = ImmersionPresentationCache()
     // Visible and in-flight snapshots stay pinned; inactive old messages are
@@ -158,6 +159,50 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
         }
         readingTasks[key] = (token, task)
     }
+    private var manualSelections: [String: String] = [:]
+    private struct ManualProviderKey: Hashable { let utf8: Data, source: String, target: String }
+    private var manualTranslations: [ManualProviderKey: String] = [:]
+    private var manualTranslationOrder: [ManualProviderKey] = []
+    func makeManualRequest(messageID: String, originalText: String, startUTF16: Int, endUTF16: Int,
+                           generation: UInt64, inputLanguage: String? = nil) -> ManualTranslationRequest {
+        .init(messageID:messageID,originalText:originalText,startUTF16:startUTF16,endUTF16:endUTF16,
+              knownLanguage:pair.source,learningLanguage:pair.target,inputLanguage:inputLanguage ?? inputLanguages[messageID],
+              generation:generation,ownerGeneration:epoch)
+    }
+    func manualTranslation(_ request: ManualTranslationRequest) async -> ManualTranslationOutcome {
+        guard !closed, request.ownerGeneration == epoch, request.knownLanguage == pair.source,
+              request.learningLanguage == pair.target else { return .init(.stale) }
+        manualSelections[request.messageID] = request.selectionIdentity
+        if manualSelections.count > 32, let old = manualSelections.keys.first(where: { $0 != request.messageID }) { manualSelections.removeValue(forKey:old) }
+        func valid() -> Bool { !Task.isCancelled && !closed && request.ownerGeneration == epoch && manualSelections[request.messageID] == request.selectionIdentity }
+        let clock=ContinuousClock(), deadline=ContinuousClock.now.advanced(by:fullTranslationTimeout)
+        do {
+            return try await ManualTranslationResolver.resolve(request,valid:valid,
+                reference: { text,from,to in try await self.catalog.reference(original:text,pair:.init(source:from,target:to)) },
+                identify: { try await self.language.identify($0,automatic:false) },
+                modelsReady: { from,to in
+                    if let slice=ManualTranslationResolver.slice(request), self.manualTranslations[.init(utf8:Data(slice.utf8),source:from,target:to)] != nil {return true}
+                    return await self.modelStatus(.init(source:from,target:to)) == .installed
+                },
+                translate: { text,from,to in
+                    let key=ManualProviderKey(utf8:Data(text.utf8),source:from,target:to)
+                    if let saved=self.manualTranslations[key] {return saved}
+                    let value:String
+                    let remaining=clock.now.duration(to:deadline)
+                    guard remaining > .zero else {throw ManualTranslationFailure.timeout}
+                    do { value=try await self.enqueue(text,pair:.init(source:from,target:to),epoch:request.ownerGeneration,timeout:remaining) }
+                    catch ProviderError.timedOut { throw ManualTranslationFailure.timeout }
+                    if valid(), !value.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty, value.utf16.count<=65_536,
+                       TranslationIntegrity.preservesIdentifiers(original:text,translation:value) {
+                        self.manualTranslations[key]=value;self.manualTranslationOrder.removeAll{$0==key};self.manualTranslationOrder.append(key)
+                        while self.manualTranslationOrder.count>64 {self.manualTranslations.removeValue(forKey:self.manualTranslationOrder.removeFirst())}
+                    }
+                    return value
+                },
+                reading: { text,language in await self.readings.resolve(text:text,language:language) })
+        } catch { return .init(valid() ? .error : .stale) }
+    }
+
     func refreshAvailability() async {
         let active = epoch
         let observed = await modelStatus(pair)
@@ -362,18 +407,21 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
                 if let timeout {
                     deadlines[id] = Task { @MainActor [weak self] in
                         do { try await Task.sleep(for: timeout) } catch { return }
-                        self?.cancel(id)
+                        self?.cancel(id, timedOut: true)
                     }
                 }
                 pending.append(.init(id: id, text: text, pair: pair, epoch: active)); next()
             }
+            let didTimeOut = timedOutRequests.remove(id) != nil
             try Task.checkCancellation()
+            if didTimeOut { throw ProviderError.timedOut }
             guard let translated else { throw ProviderError.unavailable }
             return translated
         } onCancel: { Task { @MainActor [weak self] in self?.cancel(id) } }
     }
     private func next() { if request == nil, !pending.isEmpty { request = pending.removeFirst() } }
-    private func cancel(_ id: UUID) {
+    private func cancel(_ id: UUID, timedOut: Bool = false) {
+        if timedOut { timedOutRequests.insert(id) }
         deadlines.removeValue(forKey: id)?.cancel()
         replies.removeValue(forKey: id)?.resume(returning: nil)
         pending.removeAll { $0.id == id }
@@ -401,6 +449,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
         for (_, task) in fullRequests.values { task.cancel() }; fullRequests.removeAll()
         for task in deadlines.values { task.cancel() }; deadlines.removeAll()
         for (_, task) in readingTasks.values { task.cancel() }; readingTasks.removeAll()
+        manualSelections.removeAll(); manualTranslations.removeAll(); manualTranslationOrder.removeAll(); timedOutRequests.removeAll()
         epoch = UUID(); readings.removeAll(); readingRevision += 1; request = nil; pending.removeAll()
         let outstanding = Array(replies.values); replies.removeAll()
         for reply in outstanding { reply.resume(returning: nil) }
