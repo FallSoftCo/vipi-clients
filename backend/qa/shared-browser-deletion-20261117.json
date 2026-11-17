@@ -1,0 +1,48 @@
+{
+  "recorded_at": "2026-11-17T20:51:35.389382+00:00",
+  "change": "Bind browser deletion callback raw WorkOS response user to the configured authority namespace before signed principal comparison; reject wrong authority. No email matching.",
+  "actual_postgres": {
+    "passed": 17,
+    "skipped": 0,
+    "seconds": 9.79,
+    "receipt": {
+      "created_at": "2026-11-17T20:50:36.886856+00:00",
+      "cluster": "/home/ai/Development/investigations/vipi-production-delivery-20261107/postgres-qualification-r01/data",
+      "scope": "Shared browser callback signed identity binding and existing deletion tests; isolated schemas; no production",
+      "state": "completed and cluster stopped",
+      "budget_bytes": 104857600,
+      "floor_bytes": 4504682496,
+      "baseline_allocated_bytes": 159989760,
+      "peak_allocated_bytes": 160350208,
+      "peak_additional_bytes": 360448,
+      "lowest_free_bytes": 4906098688,
+      "guard_triggered": null,
+      "exit_code": 0,
+      "post_test": {
+        "other_clients": "0",
+        "test_schemas": "0"
+      },
+      "postmaster_pid_exists": false
+    }
+  },
+  "sqlite": {
+    "passed": 16,
+    "skipped": 1,
+    "skip": "Existing PostgreSQL advisory-lock interleaving requires PostgreSQL",
+    "seconds": 14.55
+  },
+  "cases": [
+    "Shared signed token plus matching raw user reaches exact shared profile confirmation",
+    "Same raw ID in legacy realm is preserved",
+    "Shared response user mismatch rejected",
+    "Legacy token on shared configured callback rejected",
+    "Wrong client and issuer rejected",
+    "Stale sign-in rejected",
+    "Lost confirm response recovers exact deletion receipt without repeat provider action"
+  ],
+  "proof_boundary": "Provider exchange is mocked; RS256/JWKS verification and PostgreSQL application workflow are real. No live WorkOS request, credential rotation, profile creation/deletion, production deployment or store action. Actual shared issuer and confidential key exchange still require live qualification.",
+  "files": {
+    "backend/vipi/web_deletion.py": "bb85eb4cdf15cefd7eaf4e7ad1ec7e02521d963095356307a354a00328669b87",
+    "backend/tests/test_web_deletion_shared_identity.py": "69809d99b13802126188596b3c5068ba3099f8905a2853854d9d3b0a93146766"
+  }
+}

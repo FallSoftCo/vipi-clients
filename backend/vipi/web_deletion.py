@@ -24,6 +24,7 @@ from .auth import AuthenticationError
 from .db import AccountDeletion, User
 from .deletion import deletion_for, request_deletion, subject_hash, lock_account_lifecycle
 from .delivery import DeliveryError, utc
+from .identity_authorities import FALLSOFT_VIPI, LEGACY_VIPI, canonical_shared_subject
 from .rates import consume
 
 START = "__Host-vipi-delete-start"
@@ -220,8 +221,16 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
                     "grant_type": "authorization_code", "code": params["code"], "code_verifier": pending["verifier"]})
                 upstream.raise_for_status()
                 result = upstream.json()
-            auth = {"token": result["access_token"], "subject": result["user"]["id"], "csrf": secrets.token_urlsafe(32)}
+            # WorkOS returns its raw user ID; Vipi stores shared identities in a
+            # separate namespace. Choose that namespace from this callback's
+            # configured application, never from an email or an unverified JWT.
+            authority = FALLSOFT_VIPI if settings.workos_client_id == FALLSOFT_VIPI.client_id else LEGACY_VIPI
+            raw_subject = result["user"]["id"]
+            subject = canonical_shared_subject(raw_subject) if authority == FALLSOFT_VIPI else raw_subject
+            auth = {"token": result["access_token"], "subject": subject, "csrf": secrets.token_urlsafe(32)}
             p = await identity(auth)
+            if p.authority != authority.id:
+                raise AuthenticationError("sign_in_required")
             old = read(request, RECEIPT, WEEK)
             digest = subject_hash(p.subject, settings.service_secret)
             async with db.sessions() as session:
