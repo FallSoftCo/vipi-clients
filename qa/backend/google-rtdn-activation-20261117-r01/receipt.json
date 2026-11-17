@@ -20,7 +20,16 @@
     "entitlements_before": 0,
     "entitlements_after": 0,
     "correlation": "timing and count; provider message ID not available for independent exact match",
-    "http_204_observed": false,
-    "purchase": false
+    "purchase": false,
+    "provider_push_metric": {
+      "subscription": "vipi-play-rtdn-push",
+      "interval_utc": "2026-11-17T01:55:00Z/2026-11-17T01:56:00Z",
+      "webhook_ack_204_count": 1,
+      "following_two_one_minute_counts": [
+        0,
+        0
+      ],
+      "correlation": "aggregate time interval; no provider message ID match"
+    }
   }
 }

@@ -72,7 +72,8 @@ See `qa/backend/apple-sandbox-notification-r01/receipt.json`.
 
 A single Google Play test was followed by an authenticated Google receipt; no
 entitlement was created. See the [activation and test receipt](../qa/backend/google-rtdn-activation-20261117-r01/receipt.json)
-for timing and correlation limits.
+for timing and correlation limits. The Pub/Sub metric records one webhook HTTP 204
+in the test minute, without an independently matched message ID.
 
 Release qualification still requires production provider configuration, real
 store sandbox purchase/renewal/refund/restore events

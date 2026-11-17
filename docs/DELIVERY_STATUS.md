@@ -38,7 +38,8 @@ exception and finite guard were removed after the inherited domain restriction
 was restored and its enforcement proved. Backend notification configuration is active, and a single Play test was
 followed by an authenticated Google receipt with no entitlement created. Its
 [receipt](../qa/backend/google-rtdn-activation-20261117-r01/receipt.json) records
-the timing-based correlation; an HTTP 204 has not been independently observed.
+the timing-based correlation; the provider metric records one webhook HTTP 204
+in that minute, without an independently matched message ID.
 
 The first actual FCM background message reached the receiving Android app
 without foregrounding it, after several minutes. A distinct diagnostic message
