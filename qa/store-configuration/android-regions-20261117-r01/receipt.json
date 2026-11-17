@@ -1,0 +1,27 @@
+{
+  "scope": "Google Play native console, company Vipi app; configuration only, no review submission or publication",
+  "app_id": "4975664610567218322",
+  "developer_id": "4750854689150545006",
+  "production_track": "4697875695147185458",
+  "release": "1.0.2 (3), draft, inactive",
+  "production": {
+    "before": "0 targeted",
+    "operation": "select every offered country/region, then deselect France and China",
+    "after_reload": "176 targeted",
+    "france_scope": "Play Console groups France with 11 locations",
+    "china_scope": "Console row named China unchecked; other regions not individually deselected",
+    "save": "one save observed successful; not sent for review"
+  },
+  "subscriptions": {
+    "before": "Both annual plans and both existing offers each showed 175 countries/regions",
+    "after_reload": "Both annual plans and both existing offers each show 174 countries/regions; France removed",
+    "china": "China search returned no elements in Base annual availability selector",
+    "order": "Play rejected the first Base-plan save because France was still in its inactive offer; discarded failed edit, removed France from each offer first, then each plan; subsequent saves succeeded",
+    "status": "Base annual active, Base one-month-trial inactive; Bot mini annual and one-month-trial active",
+    "prices_and_trial_terms": "not edited"
+  },
+  "preview": "Ready to release; v3 and 14/14 language notes visible; preview Save and review submission not pressed",
+  "evidence_directory": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-regions-20261117-r01/",
+  "evidence": ["production-save-intent.json", "fr-before-save.png", "cn-before-save.png", "base-save-intent.json", "base-offer-save-intent.json", "bot-offer-save-intent.json", "bot-base-save-intent.json", "production-reloaded.png", "base-reloaded.png", "bot-reloaded.png", "preview.png"],
+  "limits": "Counts reflect Play Console region groupings, not an independent exhaustive enumeration. Subscription regional pricing availability is not identical to app track coverage. Original app/account/outbox state was not opened or modified. Trader declaration remains separate."
+}
