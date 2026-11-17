@@ -165,6 +165,14 @@ cleared. This does not prove clean-device restore, renewal or revocation.
 See [purchase](../release/apple-sandbox-purchase-20261117-r01/receipt.json)
 and [restore](../release/apple-sandbox-purchase-20261117-r01/restore-receipt.json).
 
+One separate Bot mini Sandbox trial also completed on that account. Apple's
+confirmation showed the eligible one-month offer followed by $48/year, with no
+charge for the test. Independent readback found its unrevoked Sandbox trial.
+One synthetic vBot prompt returned the requested sentence, and usage settled
+exactly once: one reply used, 149 remaining, no reserved balance. No human
+message or additional prompt was sent. See [Bot trial](../release/apple-sandbox-purchase-20261117-r01/bot-purchase-receipt.json)
+and [usage](../release/apple-sandbox-purchase-20261117-r01/bot-usage-receipt.json).
+
 The original no-charge Google license purchase on version 1 activated, renewed,
 was canceled and lapsed. No purchase was repeated. Version 2's retained account
 shows the dated cardless period. Cross-device purchase restoration remains
@@ -243,13 +251,27 @@ required reading structure, not linguistic accuracy. Authored test counts are
 not real-conversation coverage percentages. One prior real vBot response settled
 its allowance; it is not a typical-latency or quality benchmark.
 
+The installed TestFlight build now has a live English-to-Japanese observation:
+the actual vBot reply continuously switches music and ongaku in the same slot,
+and the script option displays 音楽. No source-language override was used; Latin
+letters were restored afterward. One Listen action entered Stop and returned
+to Listen. An app-filtered ScreenCaptureKit recording, with microphone capture
+disabled, produced a readable 48 kHz stereo WAV with a non-silent segment and
+no clipped samples. Independent ffprobe/ffmpeg analysis confirmed the format
+and signal measurements. These observations establish live display and sound
+output for that example, not pronunciation accuracy or general conversational
+coverage. See [live immersion](../qa/release/apple-signed-build2-20261117-r01/live-vbot-immersion.json)
+and [audio evidence](../qa/audio/screencapturekit-20261117-r01/receipt.json).
+
 ## Remaining work and constraints
 
 - Finish exact version 3 runtime checks for the qualified session and short-message
   routing fixes. Preserve the uncertain original send without replay; resolve its
   disposition before any retained-account update or automatic retry.
-- Complete isolated Apple purchase/restore and first-use/friend-chat
-  qualification. Signing, delivery, encryption declaration and build association
+- Finish first-use/friend-chat qualification; the fresh Android peer still
+  requires human verification. Apple Base/Bot purchases and same-device restore
+  are qualified, with clean-device recovery and lifecycle limits recorded.
+  Signing, delivery, encryption declaration and build association
   are complete. The owner excluded France and mainland China; the saved app and
   subscription settings reflect that choice. No government filing is being made.
 - Reconcile store artifacts, regional export requirements and screenshots.

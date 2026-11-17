@@ -92,7 +92,10 @@
     "same_device_restore": true,
     "sandbox_purchase_receipt": "release/apple-sandbox-purchase-20261117-r01/receipt.json",
     "same_device_restore_receipt": "release/apple-sandbox-purchase-20261117-r01/restore-receipt.json",
-    "purchase_limits": "Base Sandbox on fresh owned QA account. Clean-device restore, renewal/refund and customer availability not established."
+    "purchase_limits": "Base and Bot mini Sandbox on fresh owned QA account; same-device Restore. Clean-device restore, renewal/refund and customer availability not established.",
+    "bot_sandbox_trial": true,
+    "bot_sandbox_trial_receipt": "release/apple-sandbox-purchase-20261117-r01/bot-purchase-receipt.json",
+    "live_vbot_receipt": "qa/release/apple-signed-build2-20261117-r01/live-vbot-immersion.json"
   },
   "private_receipt_directory": "investigations/vipi-production-delivery-20261107/apple-store-provisioning-20261109-r01",
   "in_app_purchase_key": {
