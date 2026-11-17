@@ -20,6 +20,9 @@ class Settings(BaseSettings):
     # Complimentary store-review access for exact authenticated internal user IDs.
     # Separate from staging subject admission; never a purchase/receipt override.
     reviewer_user_ids: frozenset[str] = Field(default=frozenset(), max_length=32)
+    # Owned testing access may precede first profile creation. Bind only to a
+    # verified shared identity, never an email or a client-supplied account ID.
+    reviewer_identity_subjects: frozenset[str] = Field(default=frozenset(), max_length=32)
     store_sandbox_user_ids: frozenset[str] = Field(default=frozenset(), max_length=32)
     store_sandbox_restricted: bool = False
     max_message_bytes: int = 65_536
@@ -78,6 +81,9 @@ class Settings(BaseSettings):
     @model_validator(mode="after")
     def reviewer_configuration(self):
         from uuid import UUID
+        from .identity_authorities import raw_shared_subject
+        for subject in self.reviewer_identity_subjects:
+            raw_shared_subject(subject)
         for value in self.reviewer_user_ids | self.store_sandbox_user_ids:
             try:
                 parsed = UUID(value)

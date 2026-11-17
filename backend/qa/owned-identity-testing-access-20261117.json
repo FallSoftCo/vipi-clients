@@ -1,0 +1,49 @@
+{
+  "state": "source_qualified_not_deployed",
+  "at": "2026-11-17T23:08:44.269734+00:00",
+  "scope": "Explicitly configured complimentary testing access for canonical shared Fallsoft identities, including before ordinary first profile creation. Existing UUID grants preserved.",
+  "setting": "VIPI_REVIEWER_IDENTITY_SUBJECTS",
+  "default": [],
+  "maximum": 32,
+  "accepted_shape": "Exact canonical fallsoft-vipi-production:user_* identities; never email, wildcard, raw legacy subject or client-supplied UUID.",
+  "checks": [
+    "Normal first profile chooses its own username and receives Base/Bot review access only for configured stored identity",
+    "Ordinary and same-raw-ID legacy users retain normal 30-day cardless Base and no Bot entitlement",
+    "Query account-ID spoof cannot obtain another user grant",
+    "Missing, deleted and suspended accounts cannot use grants",
+    "No fabricated purchase records; provider consent, quota/spending and UUID grant behavior remain intact"
+  ],
+  "unique_tests_passed": 44,
+  "attempts": [
+    {
+      "file": "results.xml",
+      "sha256": "1d3756a885b55d0fdabc2636d8b6f258479220c671cd0bffb5635dbf27f22087",
+      "tests": 44,
+      "errors": 15,
+      "failures": 0,
+      "seconds": "0.823"
+    },
+    {
+      "file": "results-r02.xml",
+      "sha256": "3140f718c3d962aba1dba760dc6cb58c3f30859765c6bcc56e6bcb3d4c711dc8",
+      "tests": 15,
+      "errors": 0,
+      "failures": 0,
+      "seconds": "11.076"
+    }
+  ],
+  "initial_setup_issue": "First run passed29 synchronous cases;15 async cases could not create their temporary directory because its parent did not yet exist. JUnit retained. Those15 rerun unchanged after directory availability and passed.",
+  "source_sha256": {
+    "backend/vipi/config.py": "94c4a058a2262019dea4f98d7ea43d8e3d908d5c4da586e9289b350aec24d9a7",
+    "backend/vipi/subscriptions.py": "b6cd557ab40979c771052336780f9bb4ec7099ec78b8ae6c86c6a7c0755e79b0",
+    "backend/tests/test_reviewer_access.py": "777a1a1e484d1339b1985c14e798863d97bfc74a2c76da9aa96b8545801abb0b"
+  },
+  "database": "Isolated SQLite fixtures; no schema change or live provider call",
+  "live_owner_access_active": false,
+  "client_source_freeze_unchanged": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+  "remaining": [
+    "Exact owned provider identity binding",
+    "Scoped backend source/config activation",
+    "Live authenticated entitlement readback after owner profile exists"
+  ]
+}

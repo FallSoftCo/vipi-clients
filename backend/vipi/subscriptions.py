@@ -187,9 +187,10 @@ class Subscriptions:
         # reads. Chat cannot repeat a store call or reset provider backoff.
         now = self.clock()
         cutoff = now - timedelta(seconds=self.settings.purchase_outage_seconds)
-        reviewer = user_id in self.settings.reviewer_user_ids
         async with self.db.sessions() as session:
             user = await session.get(User, user_id)
+            reviewer = user_id in self.settings.reviewer_user_ids or (
+                user is not None and user.subject in self.settings.reviewer_identity_subjects)
             if user is None or user.deleted or (reviewer and user.suspended):
                 raise DeliveryError("account_unavailable", 403)
             trial_start, trial_end = utc(user.cardless_trial_started_at), utc(user.cardless_trial_ends_at)

@@ -19,6 +19,7 @@ from vipi.subscriptions import Subscriptions
 
 REVIEW='11111111-1111-4111-8111-111111111111'
 OTHER='22222222-2222-4222-8222-222222222222'
+OWNED_IDENTITY='fallsoft-vipi-production:user_owned_testing_fixture'
 
 @pytest.fixture
 async def reviewer_db(db):
@@ -33,6 +34,81 @@ def test_allowlist_is_explicit_canonical_internal_ids_only():
     for value in ['*','subject_reviewer','reviewer@example.test','11111111111141118111111111111111','00000000-0000-0000-0000-000000000000']:
         with pytest.raises(ValueError):settings(reviewer_user_ids={value})
     with pytest.raises(ValueError):settings(reviewer_user_ids={str(uuid4()) for _ in range(33)})
+
+
+def test_identity_access_accepts_only_exact_canonical_shared_subjects():
+    assert settings().reviewer_identity_subjects == frozenset()
+    assert settings(reviewer_identity_subjects={OWNED_IDENTITY}).reviewer_identity_subjects == {OWNED_IDENTITY}
+    for value in ['*', 'owner@example.test', 'user_owned_testing_fixture',
+                  'vipi-production:user_owned_testing_fixture',
+                  'fallsoft-vipi-production:*', 'fallsoft-vipi-production:user_',
+                  OWNED_IDENTITY + ' ', OWNED_IDENTITY + '/other']:
+        with pytest.raises(ValueError):
+            settings(reviewer_identity_subjects={value})
+    with pytest.raises(ValueError):
+        settings(reviewer_identity_subjects={'fallsoft-vipi-production:user_' + str(n) for n in range(33)})
+
+
+async def test_owned_identity_access_on_normal_first_profile_preserves_customer_trial(db):
+    from vipi.identity_authorities import FALLSOFT_VIPI, LEGACY_VIPI
+    class Verifier:
+        async def verify(self, token):
+            subjects = {'owner': OWNED_IDENTITY,
+                        'ordinary': 'fallsoft-vipi-production:user_ordinary_fixture',
+                        'legacy': 'user_owned_testing_fixture'}
+            if token not in subjects:
+                raise AuthenticationError('invalid')
+            authority = LEGACY_VIPI.id if token == 'legacy' else FALLSOFT_VIPI.id
+            return Principal(subjects[token], 'fixture_session', int(NOW.timestamp()), authority)
+    app = create_app(settings(reviewer_identity_subjects={OWNED_IDENTITY}, enforce_subscriptions=True),
+                     database=db, verifier=Verifier(), clock=lambda: NOW, store_providers={})
+    ids = {}
+    try:
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url='https://test') as client:
+            for token in ('owner', 'ordinary', 'legacy'):
+                headers = {'Authorization': 'Bearer ' + token}
+                before = await client.get('/v1/me', headers=headers)
+                assert before.status_code == 404
+                created = await client.put('/v1/me', headers=headers,
+                    json={'username': 'chosen_' + token, 'display_name': 'Synthetic tester'})
+                assert created.status_code == 200
+                ids[token] = created.json()['id']
+                snapshot = await client.get('/v1/entitlements', headers=headers)
+                assert snapshot.status_code == 200
+                access = snapshot.json()
+                assert access['base']['cardless_trial']['active']
+                if token == 'owner':
+                    for product in ('base', 'bot_mini'):
+                        assert access[product]['active']
+                        assert access[product]['access_source'] == 'review_complimentary'
+                        assert access[product]['review_access']
+                else:
+                    assert access['base']['access_source'] == 'cardless_trial'
+                    assert not access['bot_mini']['active']
+            forged = await client.get('/v1/entitlements?user_id=' + ids['owner'],
+                                      headers={'Authorization': 'Bearer ordinary'})
+            assert not forged.json()['bot_mini']['active']
+        async with db.sessions() as session:
+            for uid in ids.values():
+                user = await session.get(User, uid)
+                assert user.cardless_trial_started_at == user.created_at
+                assert user.cardless_trial_ends_at - user.cardless_trial_started_at == timedelta(days=30)
+            assert not (await session.execute(select(Entitlement))).scalars().all()
+    finally:
+        await app.state.bot.close()
+        await app.state.pubsub_verifier.close()
+
+
+@pytest.mark.parametrize('state', ['suspended', 'deleted', 'missing'])
+async def test_identity_access_preserves_account_safety(reviewer_db, state):
+    async with reviewer_db.sessions.begin() as session:
+        user = await session.get(User, REVIEW)
+        user.subject = OWNED_IDENTITY
+        if state != 'missing':
+            setattr(user, state, True)
+    service = Subscriptions(settings(reviewer_identity_subjects={OWNED_IDENTITY}), reviewer_db, {}, lambda: NOW)
+    with pytest.raises(DeliveryError, match='account_unavailable'):
+        await service.require(str(uuid4()) if state == 'missing' else REVIEW, bot=True)
 
 
 async def test_exact_authenticated_user_only_and_no_fabricated_purchase(reviewer_db):
