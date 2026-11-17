@@ -90,7 +90,13 @@ and [Apple](../qa/subscriptions/cardless-trial-20261117-r01/apple-base-offer.jso
 Restricted staging runs backend `84c3ff8`, schema `20261117_01`, activated once
 and independently checked. Three owned subjects are admitted: two complimentary
 reviewers and a separate company tester. Public registration is closed and
-subscription enforcement is disabled on staging. Isolated tests cover enforced
+subscription enforcement is disabled on staging. A proposed production configuration
+passed the deployed settings validators in memory: production mode, enforced
+access, no subject allowlist and Apple Production, preserving the scoped reviewer
+and sandbox tester sets. No service or environment changed. This establishes
+configuration validity and credential-file readability, not public signup or
+provider authorization. See [candidate receipt](../qa/release/production-settings-candidate-20261117-r01/validation-receipt.json).
+Isolated tests cover enforced
 expiry, retained trial dates and readable history; they do not prove public
 customer behavior. See [deployment](../qa/subscriptions/cardless-trial-20261117-r01/receipt.json).
 

@@ -1,0 +1,53 @@
+{
+  "timestamp_utc": "2026-11-17T09:12:31.538890+00:00",
+  "method": "run as service user; Settings(_env_file=existing file, explicit in-memory overrides); no candidate environment file created",
+  "live_release": "84c3ff8db5235a0b9419373f5d56b99ad50bf495",
+  "baseline_environment_sha256": "689e448c844e8153634cd0b1e31aa3de315a3f16ee67e12ef6ac3b3e167fb7d3",
+  "baseline": {
+    "environment": "staging",
+    "enforce_subscriptions": false,
+    "allowed_subject_count": 3,
+    "apple_environment": "Sandbox",
+    "restricted_sandbox": true,
+    "reviewer_count": 2,
+    "sandbox_tester_count": 1,
+    "global_google_test": false
+  },
+  "candidate": {
+    "validated": true,
+    "environment": "production",
+    "enforce_subscriptions": true,
+    "allowed_subject_count": 0,
+    "apple_environment": "Production",
+    "global_google_test": false,
+    "effective_restricted_sandbox": true,
+    "reviewer_ids_preserved": true,
+    "sandbox_tester_ids_preserved": true,
+    "exact_changed_fields": [
+      "allowed_subjects",
+      "apple_environment",
+      "enforce_subscriptions",
+      "environment"
+    ]
+  },
+  "checks": {
+    "account_deletion_enabled": true,
+    "dedicated_workos_pool": true,
+    "workos_api_key_present": true,
+    "deletion_origin": "https://api.mambovipi.app",
+    "apple_verifier_fields_present": true,
+    "apple_key_and_roots_service_readable": true,
+    "google_verifier_credential_service_readable": true,
+    "rtdn_fields_complete": true,
+    "rtdn_audience_origin": "https://api.mambovipi.app",
+    "recovery_hold": false
+  },
+  "initial_assertion": "First attempt assumed baseline Apple Production and safely failed; redacted inspection established unchanged env hash and Sandbox value before candidate validation.",
+  "limitations": [
+    "Settings validation and file readability only; no provider client, app, worker or server constructed.",
+    "Self-service signup, email delivery, friend lookup and chat flow remain unqualified for public access.",
+    "Sandbox purchase and Apple production notification remain separately unqualified.",
+    "Only the combined production-environment change and empty subject list would remove restricted admission; staging itself rejects an empty list. No such change is activated.",
+    "No environment, schema, services, account, payment, callback configuration or registration state was changed."
+  ]
+}
