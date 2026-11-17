@@ -1,0 +1,34 @@
+{
+  "state": "private_prepared_not_published",
+  "at": "2026-11-17T08:03:24.148073+00:00",
+  "source_revision": "87d53cd7c001b99383d18a25f7fafe40316c6c63",
+  "archive": "vipi-client-source-candidate.tar.gz",
+  "bytes": 591637830,
+  "sha256": "3d3884ea4cc4632fa5f137deba816b386edccf5a6d00edde77b93ca2bcae304c",
+  "manifest_sha256": "748f04854d0f03264203ff6816457fde9c14f6de808a36bf1cae9cdbde81d17e",
+  "checksum_file_sha256": "c88dcc33fff0fe6fbc8b1fc5e9fc1a72259fcb3e26679d1ef90ff6ecbbd682ee",
+  "members_verified": 5905,
+  "unchanged_from_previous": 5892,
+  "new_members": [
+    "android/app/src/androidTest/java/co/fallsoft/vipi/MessageLanguageShortChatDeviceTest.kt",
+    "android/app/src/main/assets/legal/third-party/texts/87a96b60f610a13aac64d81f4a0a61ef20ec4ef26deb2f5a7a17d8a488f5741f.txt",
+    "android/app/src/main/assets/legal/third-party/texts/9137c5e31fd2d8476489875b00b2a9dc860ce70b99d3c167bc4dd6d0a672e6f1.txt",
+    "android/app/src/main/assets/legal/third-party/texts/fd14428fe62f370f7249adeb95ae3b87ea525e7a2c9cb3eea9d0190290affc75.txt",
+    "android/app/src/main/assets/legal/third-party/texts/fe8a2e303c2827ecd5bb23289aaa7ff2342f1028acdb2463e35797149eced29c.txt",
+    "ios/VipiCryptoTests/MessageLanguageNativeCandidateTests.swift"
+  ],
+  "changed_members": [
+    "android/app/build.gradle.kts",
+    "android/app/proguard-rules.pro",
+    "android/app/src/main/assets/legal/third-party/index.json",
+    "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt",
+    "android/app/src/main/java/co/fallsoft/vipi/MessageLanguage.kt",
+    "ios/Vipi/ConversationImmersion.swift",
+    "ios/Vipi/MessageLanguage.swift"
+  ],
+  "prior_published_tag": "source-preview-2026-11-17",
+  "prior_published_source": "a547a4db1cba696027613543e17cce1e55a119aa",
+  "private_directory": "/home/ai/Development/investigations/vipi-production-delivery-20261107/client-source-candidate-r12",
+  "source_review": "New and changed application inputs are the reviewed classifier/JNI fix, version bump, focused synthetic tests and hash-bound resolved dependency notices. All other exported inputs match prior reviewed publication. No backend, credentials or private receipts selected. This is source review, not combined dependency license clearance.",
+  "external_action": "None; existing public release and original uploads preserved."
+}

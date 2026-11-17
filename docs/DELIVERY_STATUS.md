@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 17, 2026, 07:50 UTC. Vipi remains restricted staging. Neither
+Updated November 17, 2026, 08:04 UTC. Vipi remains restricted staging. Neither
 app has been submitted for public review. Prior revisions and the linked
 receipts retain historical actions; do not replay them.
 
@@ -15,11 +15,16 @@ signer continuity; the version 2 certificate was not separately extracted.
 See [artifacts](../release/android-build-artifacts-20261117.json) and
 [internal release](../release/android-internal-release-20261117.json).
 
-Android **1.0.2 (3)** is being packaged from frozen `87d53cd`, with the measured
+Android **1.0.2 (3)** has signed APK/AAB artifacts from frozen `87d53cd`, with the measured
 release-encryption fix, short-message language identification and updated
 dependency notices. Its 3,488 tracked Android entries and 655 generated asset
 files were checked against the frozen source and retained version 2 manifest.
+Signature, bundled model/notices, all 1,082 APK/AAB assets, the JNI keep-name
+rule and 16 KiB alignment checks passed. A representative ARM64 download
+estimate is 417,879,196 bytes; actual Play distribution may differ. Exact APK
+smoke qualification is in progress on a fresh accountless emulator.
 No version 3 upload, publication or retained-account update has occurred.
+See [candidate](../qa/immersion/android-v3-candidate-20261117/candidate.json).
 
 Google's 14 localized listings were field-checked and saved once. Independent
 reload verified the locale inventory and English, Swahili and Arabic field
@@ -48,6 +53,11 @@ was published once from `a547a4d`. GitHub's archive digest matches the reviewed
 archive; anonymous checksum and range reads passed. Publication does not settle
 every linked dependency's combined-binary distribution basis.
 See [publication](../release/client-source-publication-20261117.json).
+
+A separate private archive now corresponds to frozen version 3 source `87d53cd`.
+All 5,905 members were rehashed; 5,892 are unchanged from the reviewed prior
+archive, with six additions and seven changes for the native fixes and notices.
+It is not yet published. See [candidate source](../release/client-source-candidate-v3-20261117.json).
 
 ## Access and service
 
@@ -146,7 +156,7 @@ its allowance; it is not a typical-latency or quality benchmark.
 
 ## Remaining work and constraints
 
-- Finish version 3 artifact checks for the qualified session and short-message
+- Finish exact version 3 runtime checks for the qualified session and short-message
   routing fixes. Preserve the uncertain original send without replay; resolve its
   disposition before any retained-account update or automatic retry.
 - Deploy the matching detected-language privacy detail before the new Android
@@ -169,7 +179,7 @@ restart the retired VM or fleet hosts. The iPad remains reserved for other work.
 Preserve the nine original experimental modified files, account-bearing emulators,
 original signed artifacts and external-action receipts. Auto-reset stays disabled.
 
-Requested cleanup retired approximately 12.28 GB of verified local files across
+Requested cleanup retired approximately 16.10 GB of verified local files across
 the recorded passes, plus separately measured Mac cleanup. This is gross removal;
 ongoing builds consume space and the number is not net free capacity. Verified
 retained artifact routes are in

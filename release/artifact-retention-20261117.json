@@ -78,5 +78,18 @@
       2782027776
     ],
     "scope": "Finished task-owned regenerable build intermediates; exact QA APKs, tests, mappings and receipts retained. Gross deletion, not net disk gain."
-  }
+  },
+  "v3_completed_intermediate_retirement": {
+    "receipts": [
+      "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-v3-release-20261117-r01/bundle-intermediate-retirement.json",
+      "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-v3-release-20261117-r01/final-intermediate-retirement.json"
+    ],
+    "allocated_bytes": [
+      1057697792,
+      2765578240
+    ],
+    "scope": "Completed generated intermediates only; signed APK/AAB, split output, manifests, mapping, notices and logs retained."
+  },
+  "cumulative_local_gross_retired_bytes": 16102432768,
+  "cumulative_scope": "Gross removals across recorded passes:6630207488 +1157591040 +1709330432 +2782027776 +1057697792 +2765578240. New builds, source archive and QA storage consume capacity."
 }

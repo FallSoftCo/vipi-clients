@@ -847,7 +847,7 @@
     ],
     "reviewed_at_utc": "2026-11-17T07:51:32.513440+00:00",
     "remaining": [
-      "Verify final release model inclusion, dependency graph and network/data inventory",
+      "Qualify exact release runtime and network/data behavior separately from isolated offline harnesses",
       "Deploy matching policy before public availability"
     ],
     "resolved_notices": {
@@ -858,6 +858,14 @@
       "package_count": 146,
       "text_references_verified": 98,
       "scope": "Exact resolved release graph; final signed artifact verification separate."
+    },
+    "signed_android_artifact": {
+      "revision": "87d53cd7c001b99383d18a25f7fafe40316c6c63",
+      "version_code": 3,
+      "aab_sha256": "bcd92f1dcd0ceb43fe1ef0be060207e3b15f536da9680fabf90c194d05ac99cd",
+      "apk_sha256": "6f350e1326ed4c9acf635446142e8637ac5606e05159d291e5a2fdfd5d39bd0a",
+      "receipt": "qa/immersion/android-v3-candidate-20261117/candidate.json",
+      "checks": "Signed APK/AAB model and notice inclusion, matching1082assets, permission inspection, JNI preserved type and16KiB alignment. Not a whole-app network audit."
     }
   }
 }
