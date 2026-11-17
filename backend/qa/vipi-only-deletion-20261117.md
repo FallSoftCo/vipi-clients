@@ -55,8 +55,10 @@ canceled. Existing purchase proofs remain bound to the old account UUID and
 store account token. They are **not** automatically transferred to the new UUID.
 A separately reviewed, verified restore/link policy is needed; no email-only
 merge, reassignment, complimentary paid grant or store operation is added.
-Web confirmation and privacy text disclose this boundary and retained trial
-eligibility. Copies kept by friends, local device histories, user-exported
+Verified self-service restoration after rejoin is a release gate: this revision
+must not be deployed in a way that makes existing subscribers repay or leaves
+them with an invented support route. Public copy says to cancel subscriptions
+through the app store and discloses retained trial eligibility. Copies kept by friends, local device histories, user-exported
 backups and historical service backup retention keep their existing boundaries.
 
 ## Migration and rollback preparation

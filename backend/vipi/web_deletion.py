@@ -84,7 +84,7 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
     subscription = ('<details><summary>Subscriptions and copies of messages</summary><p>Deleting your account does not cancel a store subscription. '
         'You can cancel it in <a href="https://apps.apple.com/account/subscriptions" rel="noreferrer">Apple subscriptions</a> or '
         '<a href="https://play.google.com/store/account/subscriptions" rel="noreferrer">Google Play subscriptions</a>. '
-        'You do not need to cancel first. Purchase links are removed from Vipi; paid access is not automatically transferred to a new profile. Contact support about restoring an existing subscription before rejoining.</p><p>Friends’ copies of messages and backups you saved outside Vipi remain. '
+        'You do not need to cancel first. Deleting Vipi does not cancel subscriptions. Cancel through your app store.</p><p>Friends’ copies of messages and backups you saved outside Vipi remain. '
         'This website cannot erase chat history stored on your devices. Remove that history in the app or remove the app’s local data.</p></details>')
 
     async def throttle(request, scope, limit):
@@ -137,12 +137,12 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
 
     def progress(job):
         if job.finished_at:
-            response = page("Account deleted", '<p class="lead">Your Vipi account has been deleted. Your shared Fallsoft sign-in and accounts in other apps remain.</p>'
+            response = page("Account deleted", '<p class="lead">Your Vipi account has been deleted. This action applies to Vipi only; shared Fallsoft sign-in and other apps are managed separately.</p>'
                 '<p>You can close this page.</p><p><a href="/delete-account/sign-in">Sign in to review your current Vipi profile</a></p>'+subscription+
                 '<p class="small">A minimal deletion receipt is retained for seven days to let you check completion. A keyed identity hash and original free-trial dates remain to prevent a new free period after rejoining.</p>')
         else:
-            response = page("Deletion in progress", '<p class="lead">Your Vipi account data has been removed. An earlier identity-cleanup request is paused for review. Your shared Fallsoft sign-in remains.</p>'
-                '<p>You can close this page. This Vipi service will not delete your shared sign-in. Contact support about this earlier request.</p>'
+            response = page("Deletion in progress", '<p class="lead">Your Vipi account data has been removed. An earlier identity-cleanup request awaits verification.</p>'
+                '<p>You can close this page. This Vipi service will not dispatch further identity-provider deletion requests.</p>'
                 '<a class="button" href="/delete-account">Check status</a>'+subscription)
         return clear(response, AUTH, START)
 
