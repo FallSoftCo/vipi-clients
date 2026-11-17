@@ -1,0 +1,15 @@
+{
+  "at_utc": "2026-11-17T13:31:11.967945+00:00",
+  "build": "TestFlight 1.0 (2)",
+  "app": "co.fallsoft.vipi",
+  "keychain_preflight": "Exact service co.fallsoft.vipi.private / account session not found; no data requested",
+  "identity": "fresh staging-admitted Billing QA identity; username vipiqa_apple1117, display Vipi QA Apple",
+  "onboarding": "English known, Japanese target; Japanese Latin-reading preview displayed",
+  "profile": "Created successfully, Chats shown",
+  "base_plan": "Free access active; no payment method or subscription required, no automatic charge; ends 2026-12-17 08:29 local",
+  "bot_plan": "One month free then USD 48/year, separately optional; Vipi USD 12/year displayed",
+  "purchase_or_message": "none",
+  "chrome_network_prompt": "Denied unrelated local network discovery after coordination",
+  "screens": "/home/ai/Development/investigations/vipi-resume-20261116-r01/apple-live-qa-20261117-r01/",
+  "limits": "No purchase, real message, speech-completion or broad linguistic claim; identity and entitlement backend readback pending independent verification."
+}
