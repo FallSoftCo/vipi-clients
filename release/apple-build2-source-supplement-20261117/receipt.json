@@ -1,0 +1,24 @@
+{
+  "status": "prepared_not_published_pending_final_signed_artifact",
+  "public_base_release": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3",
+  "public_base_archive_sha256": "3d3884ea4cc4632fa5f137deba816b386edccf5a6d00edde77b93ca2bcae304c",
+  "base_revision": "87d53cd7c001b99383d18a25f7fafe40316c6c63",
+  "apple_source_revision": "09056a69de97a4c775d6f8936a072e58822f1519",
+  "ios_tree_diff": [
+    "ios/project.yml"
+  ],
+  "project_before_sha256": "995a42d643e608ca7b9928e18eb656dc07c5d19ffc1868054e150b15364c1112",
+  "project_after_sha256": "69407b73a8eafa8fe0a5f7e79018c75b0744babc3789cdc5f14af50cfa8665e9",
+  "patch_sha256": "ed1fe5891d67c040ab4336a9bd758c421c2170172f8b2a73d1721398e93c8af6",
+  "shared_exported_path_differences": [
+    "scripts/build-android-speech-data.py",
+    "scripts/check-source-context-assets.py",
+    "scripts/prepare-client-source.py"
+  ],
+  "shared_difference_explanation": "Branches are not ancestor-related. Listed files are source-export/check or Android speech-generation utilities; not assumed byte-identical or silently included in iOS-only comparison. Final actual build inputs and signed artifact correspondence remain pending.",
+  "limitations": [
+    "Signing/export inputs and final signed artifact not inspected or established.",
+    "No publication, signing, build, upload or store mutation."
+  ],
+  "patch_test": "Applied with patch --batch --forward -p1 to exact public-base project.yml; output SHA-256 matched Apple build-2 project.yml."
+}
