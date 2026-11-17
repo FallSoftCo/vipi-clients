@@ -1,0 +1,8 @@
+{
+  "observed_utc": "2026-11-17T13:52:47.369562+00:00",
+  "state": "Base subscription active; current access lasts until November 18, 2026, as shown in plan UI",
+  "restore": "Restore purchases available on Base plan and subscription list; not triggered",
+  "credential_cleanup": "One-use credential file absent; clipboard zero bytes, verified after submission",
+  "baseline": "Independent backend entitlement verification pending",
+  "no_repeat_purchase": true
+}
