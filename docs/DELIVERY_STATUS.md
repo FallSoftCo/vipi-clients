@@ -72,6 +72,16 @@ The brief earlier login
 redirect resolved in the existing session; no reauthentication was needed.
 Never repeat the completed upload.
 
+Apple **1.0 (3)** incorporates the expiry-specific sign-in copy and was
+independently signed and qualified; its 13 compiled localization catalogs and
+resource counts were inspected. The dedicated expiry UI path has not been
+exercised on build 3. The Apple owner reports Transporter delivery and completed
+processing; the exact upload receipt is pending. Do not infer public review,
+release association or TestFlight installation from that report. The build 3
+source supplement is prepared but not yet published. See [qualification](../qa/release/apple-signed-build3-20261117-r01/qualification.json)
+and [source scope](../qa/release/apple-signed-build3-20261117-r01/source-and-scope.json);
+their upload=false fields record the earlier pre-upload check.
+
 Reviewed text is saved and reload-verified in all 13 Apple-supported locales.
 Swahili is not an ASC locale; new locales retain inherited English keywords and
 URLs. The approved English iPhone large and iPad 13-inch screenshot pairs were
@@ -134,20 +144,25 @@ timestamps remain unchanged. Only that new user was added to the restricted
 sandbox tester set. Other accounts, push configuration and service timers were
 preserved. See [admission](../release/owned-qa-identities-20261117-r01/activation-receipt.json)
 and [billing fixture](../release/owned-qa-billing-20261117-r01/activation-receipt.json).
-The new Android peer remains at a human-verification challenge, with no profile
-or message created. The new QA identities were administratively verified;
-their use does not qualify email verification delivery.
+The fresh Android peer completed a new PKCE sign-in after the original flow expired,
+created its profile and showed Swahili with the 30-day cardless end date. The
+backend independently confirmed its original trial dates and one active device.
+The two new QA identities were administratively verified; their use does not
+qualify self-service signup or email verification delivery. See [peer qualification](../qa/owned-peer-v3-20261117-r01/receipt.json).
 Public registration is closed and
 subscription enforcement is disabled on staging. A proposed production configuration
 passed the deployed settings validators in memory: production mode, enforced
 access, no subject allowlist and Apple Production, preserving the scoped reviewer
 and sandbox tester sets. A new private candidate is now rebased on the current
 environment, whose SHA-256 is
-`4082efd72eca75e310b7cf57c873338b757796e7761a8a7c318432b97f3cba64`.
+`dec21a5fd082daeb98ef3742743cd4c8449576aff3b0f5a0bf8b6be57b48d8d1`.
 It preserves both reviewer IDs and both scoped sandbox tester IDs and changes
 only those four settings. It has not been activated. This establishes
 configuration validity and credential-file readability, not public signup or
-provider authorization. See [candidate receipt](../release/production-settings-20261117-r02/receipt.json).
+provider authorization. See [candidate receipt](../release/production-settings-20261117-r03/receipt.json).
+The WorkOS key was rotated once: the old key returned 401, the new key and API
+readiness returned 200, and push, database and timers were preserved. The old
+environment and r02 candidate must not be restored. See [rotation](../release/workos-key-replacement-20261117-r01/receipt.json).
 Isolated tests cover enforced
 expiry, retained trial dates and readable history; they do not prove public
 customer behavior. See [deployment](../qa/subscriptions/cardless-trial-20261117-r01/receipt.json).
@@ -195,17 +210,26 @@ A new company-to-owned-Beta message was submitted **once** on Play version 2
 at approximately 06:58 UTC and remains **Waiting to send**. A read-only database
 check found its key claim but no current matching envelope. The pending table
 is not a historical audit: the subsequent request outcome remains uncertain.
-No duplicate send, changed-key acceptance or account reset occurred. Both owned
-Android Vipi app processes were force-stopped at 09:20 UTC, preserving accounts
-and queued data; the emulators and other applications remain running. Do not
-reopen the company app until the original message disposition is resolved. An isolated
+No duplicate send, changed-key acceptance or account reset occurred. Both held Android Vipi packages were subsequently disabled for user 0 while
+stopped, preserving their accounts and queued data. Exclusive 5622 was shut
+down with its AVD retained; shared 5620 remains running for Pocket and separate
+QA. Do not re-enable either held package or reopen the company app until the
+original message disposition is resolved. An isolated
 R8-minified synthetic harness reproduced a session-establishment exception
 before encryption. R8 renamed the JNI callback's `NativeHandleGuard$Owner`
 return type; the narrow keep-name rule in `68805f6` fixes that measured failure.
 The fixed minified harness passed encryption and peer decryption, with malformed
 controls rejected. This does not prove the original message failed for that
-reason. Do not update its retained app or publish an update that may retry it.
+reason. Do not update or re-enable the retained app in a way that may retry it.
 Private evidence: `investigations/vipi-submit-20261110-r01/android-v2-incoming-20261117-r01/`.
+
+A separate fresh signed-v3 Android peer and owned Apple TestFlight peer exchanged
+one message in each direction. Both were delivered and decrypted; Android
+automatically showed music as muziki, and Apple showed its Japanese reading.
+No prior message was replayed. One Android guest-output recording contains a
+low-level nonzero segment, but its speech content and pronunciation remain
+unverified. The fresh Android AVD was stopped with account and history preserved.
+See [peer receipt](../qa/owned-peer-v3-20261117-r01/receipt.json).
 
 The accepted 007 catalogs support **11 languages and 110 directions**, including
 Swahili, with finite coverage. Automatic switching makes no translation-provider
@@ -265,26 +289,26 @@ and [audio evidence](../qa/audio/screencapturekit-20261117-r01/receipt.json).
 
 ## Remaining work and constraints
 
-- Finish exact version 3 runtime checks for the qualified session and short-message
-  routing fixes. Preserve the uncertain original send without replay; resolve its
-  disposition before any retained-account update or automatic retry.
-- Finish first-use/friend-chat qualification; the fresh Android peer still
-  requires human verification. Apple Base/Bot purchases and same-device restore
-  are qualified, with clean-device recovery and lifecycle limits recorded.
-  Signing, delivery, encryption declaration and build association
-  are complete. The owner excluded France and mainland China; the saved app and
-  subscription settings reflect that choice. No government filing is being made.
+- Preserve the uncertain original send without replay; resolve its disposition
+  before re-enabling either held package or allowing a retry. The separate v3
+  owned-peer exchange is qualified, not a resolution of that original outcome.
+- Complete the v4 Android artifact and corresponding-source checks and qualify
+  its expiry-specific copy safely. Apple Base/Bot purchases and same-device
+  restore are qualified, with clean-device recovery and lifecycle limits recorded.
+  France and mainland China remain excluded from initial storefronts.
 - Reconcile store artifacts, regional export requirements and screenshots.
   France and mainland China are excluded from the initial launch; their
   filing requirements are deferred. The ML Kit/libsignal distribution question is a narrow legal
   interpretation, not an established incompatibility or blanket App Store ban.
   Source publication is complete; the exact bundled SDK terms need focused review.
   See [export assessment](../release/EXPORT_ASSESSMENT.md).
-- Google requests an account-wide trader declaration by February 2027. Its
-  existing profile was reviewed; no declaration was saved. Approval was requested
-  because it publishes company contact details for all Fallsoft apps.
-- Enable customer registration/enforcement only after a qualified first-use,
-  friend-chat and paid-access flow. Public pages currently identify Vipi as testing.
+- Google requests an account-wide trader declaration by February 2027. No
+  declaration was saved; it is not a current release-preview blocker. It may
+  publish company contact details across Fallsoft apps.
+- Public registration and production enforcement are not active. Validate the
+  production configuration and public signup/email-verification path before
+  opening access. After each store is actually public, update the testing copy
+  and expose its verified store link on the homepage/invitation page.
 
 Canonical source is `/home/ai/Development/vipi-production-20261107`, branch
 `delivery/production-20261107`. Apple development uses native macbook-pro; never
