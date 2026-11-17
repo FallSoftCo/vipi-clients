@@ -1,0 +1,80 @@
+{
+  "app_id": "6832624092",
+  "version": "1.0",
+  "locale": "en-US",
+  "slots_before": {
+    "iphone_dynamic_island_large": 0,
+    "ipad_13": 0,
+    "iphone_dynamic_island_medium": 0
+  },
+  "files": [
+    {
+      "original": "iphone-chat-941-1.png",
+      "original_sha256": "8ce5b2942972a6fbd8458e0414f8ef1fff221d328af53fd6208931f42404d3aa",
+      "opaque": "iphone-chat-941-1-store.png",
+      "opaque_sha256": "a41946cf1c3502cc22f8d7aba663d04a71a2904d179d8b9f9d38692716311d10",
+      "size": [
+        1320,
+        2868
+      ],
+      "rgb_pixel_identical": true
+    },
+    {
+      "original": "iphone-welcome-switch-2.png",
+      "original_sha256": "489328a3eeba5b5b07e2e6a486101ceb1637d5c000dc3230f6dfdb5b11c4e0ad",
+      "opaque": "iphone-welcome-switch-2-store.png",
+      "opaque_sha256": "60471fdc92cd05f012fab0c02055b03a1d516964aec62123fdfed18b51aadb82",
+      "size": [
+        1320,
+        2868
+      ],
+      "rgb_pixel_identical": true
+    },
+    {
+      "original": "ipad-chat-1.png",
+      "original_sha256": "18e462a4d4f4ced7618057ca677be3e8f1bd29dfc36b47dc735d1477c0d94e94",
+      "opaque": "ipad-chat-1-store.png",
+      "opaque_sha256": "822f5c3829fe24f8292a4143a7b8e90a2cde21934fa0e61ab34fd8e6ad84339f",
+      "size": [
+        2064,
+        2752
+      ],
+      "rgb_pixel_identical": true
+    },
+    {
+      "original": "ipad-welcome-switch-2.png",
+      "original_sha256": "4482e92aa81f444951c2933a33e39532d529fbe4caced063dcd91b77e2dbbb7f",
+      "opaque": "ipad-welcome-switch-2-store.png",
+      "opaque_sha256": "ea8270b7b3602c3e79096e55caa7c7b8976ee63cf4947faeb5400feac8a8ffad",
+      "size": [
+        2064,
+        2752
+      ],
+      "rgb_pixel_identical": true
+    }
+  ],
+  "intent": "Upload approved four exactly once to matching iPhone large and iPad 13-inch slots; inspect uncertain result before any retry.",
+  "created_utc": "2026-11-17T09:00:49.888650+00:00",
+  "status": "both_approved_pairs_uploaded_once_and_counts_verified_after_reload",
+  "iphone_large": {
+    "before": 0,
+    "after_reload": 2,
+    "files": [
+      "iphone-chat-941-1-store.png",
+      "iphone-welcome-switch-2-store.png"
+    ],
+    "medium_section": "Using Existing Assets; 0 directly uploaded"
+  },
+  "ipad_13": {
+    "before": 0,
+    "after_reload": 2,
+    "files": [
+      "ipad-chat-1-store.png",
+      "ipad-welcome-switch-2-store.png"
+    ]
+  },
+  "debug_prompt": "Stale allow-remote-debugging sheet canceled after fresh desktop lease and lsof showed only Chrome 127.0.0.1:9222 listener, with no connected client; no approval granted.",
+  "review_submission": false,
+  "build_association": false,
+  "updated_utc": "2026-11-17T09:19:43.390369+00:00"
+}
