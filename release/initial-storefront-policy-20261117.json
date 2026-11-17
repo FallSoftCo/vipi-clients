@@ -1,0 +1,24 @@
+{
+  "recorded_at_utc": "2026-11-17T12:57:17.948208+00:00",
+  "user_instruction": "ok so let's not launch there then",
+  "interpretation": "Initial Vipi launch excludes France and mainland China; continue launch preparations in the other supported storefronts.",
+  "excluded_storefronts": [
+    {
+      "name": "France",
+      "code": "FR"
+    },
+    {
+      "name": "China mainland",
+      "code": "CN"
+    }
+  ],
+  "platforms": [
+    "Apple App Store",
+    "Google Play"
+  ],
+  "app_and_subscription_availability": "Align the app and Base/Bot mini subscriptions where these countries are offered. Preserve current prices, cardless access and Bot mini trial.",
+  "localizations": "Retain French and Chinese translations for users in other storefronts.",
+  "government_filings": "No France or China government filing is being submitted for this initial launch.",
+  "configuration_status": "Approved; store changes in progress, final saves and reload verification not yet recorded.",
+  "publication_status": "This policy does not itself publish a track, submit app review or open customer registration."
+}
