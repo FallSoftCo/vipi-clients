@@ -41,6 +41,7 @@ struct OnboardingView: View {
                     }.padding(.horizontal, 26).padding(.bottom, 24).frame(maxWidth: 560)
                         .frame(maxWidth: .infinity)
                 }
+                .clipped() // Keep scrolling content out of the opaque system status area.
                 .id(state.onboarding) // Each onboarding step begins at its own heading.
             }
             .onScrollPhaseChange { _, phase in scrolling = phase != .idle }
