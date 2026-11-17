@@ -86,7 +86,7 @@
     <string name="ui_5aa854326157" formatted="false">Available words and phrases vary by language. Pronunciation may need a voice download.</string>
     <string name="ui_5b80e534fb0c" formatted="false">Download for full translation</string>
     <string name="ui_5cd3939d3b90" formatted="false">That username isn’t available. Try another.</string>
-    <string name="ui_5d670c14e5b1" formatted="false">Account deleted</string>
+    <string name="ui_5d670c14e5b1" formatted="false">Vipi account deleted</string>
     <string name="ui_5de398810247" formatted="false">Word switching speed</string>
     <string name="ui_5f0f1b251f45" formatted="false">Encryption updated. Previous waiting messages stopped. Compare the new security number with your friend.</string>
     <string name="ui_6151d69d167a" formatted="false">If any group differs, don’t mark it as verified. A new phone or reinstalled app can change these numbers.</string>
@@ -109,7 +109,7 @@
     <string name="ui_79290727c58b" formatted="false">We couldn’t open secure sign-in. Please try again.</string>
     <string name="ui_79a7ada4e1f1" formatted="false">Your languages</string>
     <string name="ui_7a888f9040e0" formatted="false">Sign-in isn’t available yet. Please try again shortly.</string>
-    <string name="ui_7ab60595358e" formatted="false">Delete your account</string>
+    <string name="ui_7ab60595358e" formatted="false">Delete your Vipi account</string>
     <string name="ui_7f5e3877efec" formatted="false">This is an example. In your chats, only supported words and phrases switch. The rest stays unchanged.</string>
     <string name="ui_817b085ae5a9" formatted="false">Messages between you will stop. Your chat stays on this device. You can unblock anytime.</string>
     <string name="ui_8201f9bbb22b" formatted="false">Not yet compared</string>
@@ -147,7 +147,7 @@
     <string name="ui_9f60f6c0e9e0" formatted="false">Message vBot</string>
     <string name="ui_a0c63ae7f860" formatted="false">Translation isn’t available for this message. Your original is unchanged.</string>
     <string name="ui_a2a2eed05c81" formatted="false">Continue to chats</string>
-    <string name="ui_a2e20a335700" formatted="false">Delete account</string>
+    <string name="ui_a2e20a335700" formatted="false">Delete Vipi account</string>
     <string name="ui_a44d35311325" formatted="false">Send report</string>
     <string name="ui_a67f154bcb16" formatted="false">Choose a backup to restore</string>
     <string name="ui_a843a5adb644" formatted="false">View or restore Bot mini</string>
@@ -171,7 +171,7 @@
     <string name="ui_bbd30d6992ff" formatted="false">We couldn’t refresh your plans. Check your connection and try again.</string>
     <string name="ui_beb6c51b9bf6" formatted="false">Restore history</string>
     <string name="ui_c011d6097bfb" formatted="false">License</string>
-    <string name="ui_c26d4e55137b" formatted="false">Your account and chats on this device will be permanently deleted. This can’t be undone.</string>
+    <string name="ui_c26d4e55137b" formatted="false">Your Vipi account and chats on this device will be permanently deleted. This can’t be undone.</string>
     <string name="ui_c3169261c50e" formatted="false">Refresh the current Google Play price before continuing.</string>
     <string name="ui_c3297f5bde81" formatted="false">Deleting your account won’t cancel a Google Play subscription. You can cancel it separately to stop future renewals.</string>
     <string name="ui_c3812fc4acb8" formatted="false">Remove</string>
@@ -231,4 +231,5 @@
     <string name="ui_fc3360ba8336" formatted="false">Can’t connect. Messages are saved here.</string>
     <string name="ui_fd5e205fa654" formatted="false">This won’t erase friends’ copies or backups you saved elsewhere.</string>
     <string name="ui_ff245b368781" formatted="false">Bot mini</string>
+    <string name="deletion_fallsoft_retained">Your Fallsoft sign-in and accounts in other Fallsoft apps will remain.</string>
 </resources>

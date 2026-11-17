@@ -121,7 +121,7 @@
     <string name="ui_5aa854326157" formatted="false">Maneno na vifungu vinavyopatikana hutofautiana kulingana na lugha. Kusikiliza matamshi kunaweza kuhitaji kupakua sauti.</string>
     <string name="ui_5b80e534fb0c" formatted="false">Pakua kwa tafsiri kamili</string>
     <string name="ui_5cd3939d3b90" formatted="false">Jina hilo la mtumiaji halipatikani. Jaribu jingine.</string>
-    <string name="ui_5d670c14e5b1" formatted="false">Akaunti imefutwa</string>
+    <string name="ui_5d670c14e5b1" formatted="false">Akaunti ya Vipi imefutwa</string>
     <string name="ui_5de398810247" formatted="false">Kasi ya kubadilisha maneno</string>
     <string name="ui_5f0f1b251f45" formatted="false">Usimbaji fiche umesasishwa. Ujumbe uliokuwa unasubiri umesitishwa. Linganisha nambari mpya ya usalama na rafiki yako.</string>
     <string name="ui_6151d69d167a" formatted="false">Ikiwa kundi lolote linatofautiana, usiweke alama ya kuthibitisha. Simu mpya au kusakinisha upya programu kunaweza kubadilisha nambari hizi.</string>
@@ -144,7 +144,7 @@
     <string name="ui_79290727c58b" formatted="false">Hatukuweza kufungua njia salama ya kuingia. Tafadhali jaribu tena.</string>
     <string name="ui_79a7ada4e1f1" formatted="false">Lugha zako</string>
     <string name="ui_7a888f9040e0" formatted="false">Huwezi kuingia kwa sasa. Tafadhali jaribu tena baada ya muda mfupi.</string>
-    <string name="ui_7ab60595358e" formatted="false">Futa akaunti yako</string>
+    <string name="ui_7ab60595358e" formatted="false">Futa akaunti yako ya Vipi</string>
     <string name="ui_7f5e3877efec" formatted="false">Huu ni mfano. Kwenye mazungumzo yako, maneno na vifungu vinavyotumika tu ndivyo hubadilika. Mengine hubaki kama yalivyo.</string>
     <string name="ui_817b085ae5a9" formatted="false">Ujumbe kati yenu utasitishwa. Mazungumzo yanabaki kwenye kifaa hiki. Unaweza kuondoa kizuizi wakati wowote.</string>
     <string name="ui_8201f9bbb22b" formatted="false">Bado haijalinganishwa</string>
@@ -182,7 +182,7 @@
     <string name="ui_9f60f6c0e9e0" formatted="false">Tuma ujumbe kwa vBot</string>
     <string name="ui_a0c63ae7f860" formatted="false">Tafsiri haipatikani kwa ujumbe huu. Ujumbe wako wa awali haujabadilika.</string>
     <string name="ui_a2a2eed05c81" formatted="false">Endelea kwenye mazungumzo</string>
-    <string name="ui_a2e20a335700" formatted="false">Futa akaunti</string>
+    <string name="ui_a2e20a335700" formatted="false">Futa akaunti ya Vipi</string>
     <string name="ui_a44d35311325" formatted="false">Tuma ripoti</string>
     <string name="ui_a67f154bcb16" formatted="false">Chagua nakala rudufu ya kurejesha</string>
     <string name="ui_a843a5adb644" formatted="false">Angalia au rejesha Bot mini</string>
@@ -206,7 +206,7 @@
     <string name="ui_bbd30d6992ff" formatted="false">Hatukuweza kuonyesha mipango yako upya. Kagua muunganisho wako na ujaribu tena.</string>
     <string name="ui_beb6c51b9bf6" formatted="false">Rejesha historia</string>
     <string name="ui_c011d6097bfb" formatted="false">Leseni</string>
-    <string name="ui_c26d4e55137b" formatted="false">Akaunti yako na mazungumzo kwenye kifaa hiki vitafutwa kabisa. Hili haliwezi kutenduliwa.</string>
+    <string name="ui_c26d4e55137b" formatted="false">Akaunti yako ya Vipi na mazungumzo kwenye kifaa hiki vitafutwa kabisa. Hili haliwezi kutenduliwa.</string>
     <string name="ui_c3169261c50e" formatted="false">Onyesha bei ya sasa ya Google Play upya kabla ya kuendelea.</string>
     <string name="ui_c3297f5bde81" formatted="false">Kufuta akaunti yako hakutaghairi usajili wa Google Play. Unaweza kuughairi kando ili kuzuia kujisasisha siku zijazo.</string>
     <string name="ui_c3812fc4acb8" formatted="false">Ondoa</string>
@@ -436,4 +436,5 @@
     <string name="lookup_play_message">Sikiliza ujumbe</string>
     <string name="lookup_unsupported">Kifaa hiki hakitumii tafsiri kati ya lugha hizi.</string>
     <string name="lookup_translate_message">Tafsiri ujumbe</string>
+    <string name="deletion_fallsoft_retained">Akaunti yako ya kuingia kwenye Fallsoft na akaunti zako katika programu nyingine za Fallsoft zitabaki.</string>
 </resources>

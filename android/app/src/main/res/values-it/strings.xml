@@ -121,7 +121,7 @@
     <string name="ui_5aa854326157" formatted="false">Le parole e le frasi disponibili variano in base alla lingua. La pronuncia potrebbe richiedere il download di una voce.</string>
     <string name="ui_5b80e534fb0c" formatted="false">Scarica per la traduzione completa</string>
     <string name="ui_5cd3939d3b90" formatted="false">Questo nome utente non è disponibile. Provane un altro.</string>
-    <string name="ui_5d670c14e5b1" formatted="false">Account eliminato</string>
+    <string name="ui_5d670c14e5b1" formatted="false">Account Vipi eliminato</string>
     <string name="ui_5de398810247" formatted="false">Velocità di cambio delle parole</string>
     <string name="ui_5f0f1b251f45" formatted="false">Cifratura aggiornata. I messaggi precedenti in attesa sono stati interrotti. Confronta il nuovo numero di sicurezza con il tuo amico.</string>
     <string name="ui_6151d69d167a" formatted="false">Se un gruppo è diverso, non contrassegnarlo come verificato. Un nuovo telefono o la reinstallazione dell’app possono modificare questi numeri.</string>
@@ -144,7 +144,7 @@
     <string name="ui_79290727c58b" formatted="false">Impossibile aprire l’accesso sicuro. Riprova.</string>
     <string name="ui_79a7ada4e1f1" formatted="false">Le tue lingue</string>
     <string name="ui_7a888f9040e0" formatted="false">L’accesso non è ancora disponibile. Riprova tra poco.</string>
-    <string name="ui_7ab60595358e" formatted="false">Elimina il tuo account</string>
+    <string name="ui_7ab60595358e" formatted="false">Elimina il tuo account Vipi</string>
     <string name="ui_7f5e3877efec" formatted="false">Questo è un esempio. Nelle tue chat cambiano solo le parole e le frasi supportate. Il resto resta invariato.</string>
     <string name="ui_817b085ae5a9" formatted="false">I messaggi tra voi verranno interrotti. La chat resta su questo dispositivo. Puoi sbloccare la persona in qualsiasi momento.</string>
     <string name="ui_8201f9bbb22b" formatted="false">Non ancora confrontate</string>
@@ -182,7 +182,7 @@
     <string name="ui_9f60f6c0e9e0" formatted="false">Scrivi a vBot</string>
     <string name="ui_a0c63ae7f860" formatted="false">La traduzione non è disponibile per questo messaggio. L’originale resta invariato.</string>
     <string name="ui_a2a2eed05c81" formatted="false">Continua alle chat</string>
-    <string name="ui_a2e20a335700" formatted="false">Elimina account</string>
+    <string name="ui_a2e20a335700" formatted="false">Elimina account Vipi</string>
     <string name="ui_a44d35311325" formatted="false">Invia segnalazione</string>
     <string name="ui_a67f154bcb16" formatted="false">Scegli un backup da ripristinare</string>
     <string name="ui_a843a5adb644" formatted="false">Vedi o ripristina Bot mini</string>
@@ -206,7 +206,7 @@
     <string name="ui_bbd30d6992ff" formatted="false">Impossibile aggiornare i piani. Controlla la connessione e riprova.</string>
     <string name="ui_beb6c51b9bf6" formatted="false">Ripristina cronologia</string>
     <string name="ui_c011d6097bfb" formatted="false">Licenza</string>
-    <string name="ui_c26d4e55137b" formatted="false">Il tuo account e le chat su questo dispositivo verranno eliminati definitivamente. L’operazione non può essere annullata.</string>
+    <string name="ui_c26d4e55137b" formatted="false">Il tuo account Vipi e le chat su questo dispositivo verranno eliminati definitivamente. L’operazione non può essere annullata.</string>
     <string name="ui_c3169261c50e" formatted="false">Aggiorna il prezzo attuale di Google Play prima di continuare.</string>
     <string name="ui_c3297f5bde81" formatted="false">L’eliminazione dell’account non annulla un abbonamento Google Play. Puoi annullarlo separatamente per interrompere i rinnovi futuri.</string>
     <string name="ui_c3812fc4acb8" formatted="false">Rimuovi</string>
@@ -436,4 +436,5 @@
     <string name="lookup_play_message">Riproduci il messaggio</string>
     <string name="lookup_unsupported">La traduzione per questa coppia di lingue non è supportata su questo dispositivo.</string>
     <string name="lookup_translate_message">Traduci messaggio</string>
+    <string name="deletion_fallsoft_retained">Il tuo accesso Fallsoft e i tuoi account nelle altre app Fallsoft verranno mantenuti.</string>
 </resources>

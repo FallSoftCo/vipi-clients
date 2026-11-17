@@ -39,7 +39,7 @@
     <string name="ui_5aa854326157" formatted="false">可用的單詞和短語因語言而異。 發音可能需要語音下載。</string>
     <string name="ui_5b80e534fb0c" formatted="false">下載完整翻譯</string>
     <string name="ui_5cd3939d3b90" formatted="false">那個用戶名不可用。 試試另一個。</string>
-    <string name="ui_5d670c14e5b1" formatted="false">帳戶已刪除</string>
+    <string name="ui_5d670c14e5b1" formatted="false">Vipi 帳號已刪除</string>
     <string name="ui_5de398810247" formatted="false">單詞切換速度</string>
     <string name="ui_6151d69d167a" formatted="false">如果有任何小組不同，不要將其標記為已驗證。 新手機或重新安裝的應用程序可以更改這些號碼。</string>
     <string name="ui_6315acd44d88" formatted="false">此訊息在交付前已過期。 你可以再發一次。</string>
@@ -48,7 +48,7 @@
     <string name="ui_77d4347c1125" formatted="false">請再次登錄以重新連接您的帳戶。 您保存的對話仍在此設備上。</string>
     <string name="ui_79a7ada4e1f1" formatted="false">你的語言</string>
     <string name="ui_7a888f9040e0" formatted="false">尚未提供登錄。 請稍後再試一次。</string>
-    <string name="ui_7ab60595358e" formatted="false">刪除您的帳戶</string>
+    <string name="ui_7ab60595358e" formatted="false">刪除您的 Vipi 帳號</string>
     <string name="ui_7f5e3877efec" formatted="false">這是一個例子。 在您的聊天中，僅支持單詞和短語切換。 其餘的保持不變。</string>
     <string name="ui_817b085ae5a9" formatted="false">你們之間的信息將停止。 您的聊天記錄會保留在此設備上。 你可以隨時解除封鎖。</string>
     <string name="ui_8201f9bbb22b" formatted="false">還沒有比較</string>
@@ -68,7 +68,7 @@
     <string name="ui_9e36cb35d1a0" formatted="false">訊息無法送達。您可以繼續其他對話。</string>
     <string name="ui_9ed65d7add5f" formatted="false">我同意服務條款，並已閱讀隱私政策。</string>
     <string name="ui_9f60f6c0e9e0" formatted="false">傳訊息給 vBot</string>
-    <string name="ui_a2e20a335700" formatted="false">刪除帳號</string>
+    <string name="ui_a2e20a335700" formatted="false">刪除 Vipi 帳號</string>
     <string name="ui_a44d35311325" formatted="false">發送報告</string>
     <string name="ui_ac6b07b85d0f" formatted="false">金鑰可能已變更，或您的選擇未能儲存。請再次比對目前的號碼。</string>
     <string name="ui_af0bd5582e73" formatted="false">與聊天機器人聊天。需要另行訂閱 Bot mini 方案。</string>
@@ -82,7 +82,7 @@
     <string name="ui_b7c32ca74cb0" formatted="false">聽兩種語言</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">尋找朋友</string>
     <string name="ui_beb6c51b9bf6" formatted="false">恢復歷史記錄</string>
-    <string name="ui_c26d4e55137b" formatted="false">您的帳戶和此設備上的聊天將被永久刪除。 這是無法撤銷的。</string>
+    <string name="ui_c26d4e55137b" formatted="false">您的 Vipi 帳號和此裝置上的聊天將永久刪除。此操作無法復原。</string>
     <string name="ui_c3812fc4acb8" formatted="false">拿走</string>
     <string name="ui_c518ff733bfe" formatted="false">vBot 由 DeepSeek 提供支援。您傳給 vBot 的訊息會傳送給 Vipi 和 DeepSeek 以產生回覆。您與好友的聊天絕不會自動包含在內。</string>
     <string name="ui_c754691a97ca" formatted="false">先交換一條信息，以創建此對話的安全號碼。</string>
@@ -433,4 +433,5 @@
     <string name="lookup_play_message">播放訊息</string>
     <string name="lookup_unsupported">此裝置不支援這兩種語言之間的翻譯。</string>
     <string name="lookup_translate_message">翻譯訊息</string>
+    <string name="deletion_fallsoft_retained">您的 Fallsoft 登入帳號與其他 Fallsoft 應用程式中的帳號都會保留。</string>
 </resources>

@@ -39,7 +39,7 @@
     <string name="ui_5aa854326157" formatted="false">사용 가능한 단어와 구문은 언어에 따라 다릅니다. 발음은 음성 다운로드가 필요할 수 있습니다.</string>
     <string name="ui_5b80e534fb0c" formatted="false">전체 번역을 다운로드하세요</string>
     <string name="ui_5cd3939d3b90" formatted="false">해당 사용자 이름은 사용할 수 없습니다. 다른 것을 시도해 보세요.</string>
-    <string name="ui_5d670c14e5b1" formatted="false">계정이 삭제되었습니다.</string>
+    <string name="ui_5d670c14e5b1" formatted="false">Vipi 계정이 삭제되었습니다</string>
     <string name="ui_5de398810247" formatted="false">단어 전환 속도</string>
     <string name="ui_6151d69d167a" formatted="false">어떤 그룹이 다르면, 검증된 것으로 표시하지 마십시오. 새 휴대폰이나 재설치한 앱은 이러한 숫자를 변경할 수 있습니다.</string>
     <string name="ui_6315acd44d88" formatted="false">이 메시지는 전달되기 전에 만료되었습니다. 다시 보내실 수 있습니다.</string>
@@ -48,7 +48,7 @@
     <string name="ui_77d4347c1125" formatted="false">계정을 다시 연결하려면 다시 로그인해 주세요. 귀하가 저장한 대화는 여전히 이 기기에 있습니다.</string>
     <string name="ui_79a7ada4e1f1" formatted="false">귀하의 언어</string>
     <string name="ui_7a888f9040e0" formatted="false">로그인은 아직 사용할 수 없습니다. 잠시 후에 다시 시도해 주세요.</string>
-    <string name="ui_7ab60595358e" formatted="false">계정을 삭제하십시오.</string>
+    <string name="ui_7ab60595358e" formatted="false">Vipi 계정 삭제</string>
     <string name="ui_7f5e3877efec" formatted="false">이것은 예시입니다. 채팅에서는 지원되는 단어와 구문만 전환됩니다. 나머지는 변함없이 유지됩니다.</string>
     <string name="ui_817b085ae5a9" formatted="false">상대방과 주고받는 메시지가 중단됩니다. 채팅은 이 기기에 남습니다. 언제든 차단을 해제할 수 있습니다.</string>
     <string name="ui_8201f9bbb22b" formatted="false">아직 비교되지 않았습니다</string>
@@ -68,7 +68,7 @@
     <string name="ui_9e36cb35d1a0" formatted="false">메시지를 전달할 수 없습니다. 다른 대화는 계속하실 수 있습니다.</string>
     <string name="ui_9ed65d7add5f" formatted="false">서비스 약관에 동의하며 개인정보 처리방침을 읽었습니다.</string>
     <string name="ui_9f60f6c0e9e0" formatted="false">vBot에 메시지 보내기</string>
-    <string name="ui_a2e20a335700" formatted="false">계정 삭제</string>
+    <string name="ui_a2e20a335700" formatted="false">Vipi 계정 삭제</string>
     <string name="ui_a44d35311325" formatted="false">보고서 전송</string>
     <string name="ui_ac6b07b85d0f" formatted="false">키가 변경되었거나 선택을 저장할 수 없었을 수도 있습니다. 현재 수치를 다시 비교하십시오.</string>
     <string name="ui_af0bd5582e73" formatted="false">챗봇과 채팅하십시오. 별도의 Bot mini 플랜이 필요합니다.</string>
@@ -82,7 +82,7 @@
     <string name="ui_b7c32ca74cb0" formatted="false">두 언어를 모두 들어보세요</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">친구 찾기</string>
     <string name="ui_beb6c51b9bf6" formatted="false">기록 복원</string>
-    <string name="ui_c26d4e55137b" formatted="false">귀하의 계정 및 이 기기에서의 채팅은 영구적으로 삭제됩니다. 이것은 되돌릴 수 없습니다.</string>
+    <string name="ui_c26d4e55137b" formatted="false">Vipi 계정과 이 기기에 저장된 채팅이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.</string>
     <string name="ui_c3812fc4acb8" formatted="false">제거하다</string>
     <string name="ui_c518ff733bfe" formatted="false">vBot은 DeepSeek에 의해 구동됩니다. vBot에 보내는 메시지는 Vipi와 DeepSeek으로 이동하여 회신을 생성합니다. 친구와의 채팅은 자동으로 포함되지 않습니다.</string>
     <string name="ui_c754691a97ca" formatted="false">먼저 메시지를 교환하여 이 대화의 보안 번호를 생성하십시오.</string>
@@ -433,4 +433,5 @@
     <string name="lookup_play_message">메시지 재생</string>
     <string name="lookup_unsupported">이 기기에서는 이 언어 조합의 번역을 지원하지 않습니다.</string>
     <string name="lookup_translate_message">메시지 번역</string>
+    <string name="deletion_fallsoft_retained">Fallsoft 로그인 계정과 다른 Fallsoft 앱의 계정은 그대로 유지됩니다.</string>
 </resources>

@@ -72,12 +72,12 @@ class AccountDeletionUIDeviceTest {
                 }
             } }
             capture("android-deletion-explanation-light")
-            compose.onNode(hasText("Delete account") and hasClickAction()).performScrollTo().performClick()
+            compose.onNode(hasText("Delete Vipi account") and hasClickAction()).performScrollTo().performClick()
             compose.onNodeWithText("Delete your Vipi account?").assertIsDisplayed()
             capture("android-deletion-confirm-light")
             compose.onNodeWithText("Cancel").performClick()
             compose.runOnIdle { assertNull(store.record); assertEquals(0, api.submissions); theme.value = Appearance.DARK }
-            compose.onNode(hasText("Delete account") and hasClickAction()).performScrollTo().performClick()
+            compose.onNode(hasText("Delete Vipi account") and hasClickAction()).performScrollTo().performClick()
             compose.onNodeWithTag("delete-confirm").performClick()
             compose.onNodeWithText("Continue deletion").performScrollTo().assertIsDisplayed()
             compose.runOnIdle { assertNotNull(deletion.notice); assertEquals(0, erased) }
@@ -90,7 +90,7 @@ class AccountDeletionUIDeviceTest {
             compose.onNodeWithText("Check status").performScrollTo().assertIsDisplayed()
             compose.runOnIdle { api.finished = true; font.value = 1f }
             compose.onNodeWithText("Check status").performScrollTo().performClick()
-            compose.onNodeWithText("Account deleted").performScrollTo().assertIsDisplayed()
+            compose.onNodeWithText("Vipi account deleted").performScrollTo().assertIsDisplayed()
             capture("android-deletion-complete-light")
             compose.onNodeWithText("Done").performScrollTo().performClick()
             compose.runOnIdle { assertTrue(done); assertFalse(deletion.active); assertNull(store.record) }

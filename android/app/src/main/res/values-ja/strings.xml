@@ -39,7 +39,7 @@
     <string name="ui_5aa854326157" formatted="false">利用可能な単語やフレーズは言語によって異なります。 発音には音声ダウンロードが必要になる場合があります。</string>
     <string name="ui_5b80e534fb0c" formatted="false">完全な翻訳をダウンロード</string>
     <string name="ui_5cd3939d3b90" formatted="false">そのユーザー名は利用できません。 別のものをお試しください。</string>
-    <string name="ui_5d670c14e5b1" formatted="false">アカウントが削除されました</string>
+    <string name="ui_5d670c14e5b1" formatted="false">Vipiアカウントを削除しました</string>
     <string name="ui_5de398810247" formatted="false">単語切り替え速度</string>
     <string name="ui_6151d69d167a" formatted="false">いずれかのグループが異なる場合は、検証済みとしてマークしないでください。 新しい電話や再インストールしたアプリは、これらの数値を変更できる可能性があります。</string>
     <string name="ui_6315acd44d88" formatted="false">このメッセージは配信前に期限切れとなりました。 再度送信できます。</string>
@@ -48,7 +48,7 @@
     <string name="ui_77d4347c1125" formatted="false">アカウントを再接続するには、再度サインインしてください。 保存された会話はまだこのデバイスにあります。</string>
     <string name="ui_79a7ada4e1f1" formatted="false">お客様の言語</string>
     <string name="ui_7a888f9040e0" formatted="false">サインインはまだ利用できません。 すぐにもう一度お試しください。</string>
-    <string name="ui_7ab60595358e" formatted="false">アカウントを削除してください</string>
+    <string name="ui_7ab60595358e" formatted="false">Vipiアカウントを削除</string>
     <string name="ui_7f5e3877efec" formatted="false">これは例です。 チャットでは、サポートされている単語とフレーズのみが切り替えられます。 残りは変わりません。</string>
     <string name="ui_817b085ae5a9" formatted="false">この相手とのメッセージは停止します。チャットはこのデバイスに残ります。いつでもブロックを解除できます。</string>
     <string name="ui_8201f9bbb22b" formatted="false">まだ比較されていません</string>
@@ -68,7 +68,7 @@
     <string name="ui_9e36cb35d1a0" formatted="false">メッセージを配信できませんでした。 他の会話は続けても構いません。</string>
     <string name="ui_9ed65d7add5f" formatted="false">利用規約に同意し、プライバシーポリシーを読みました。</string>
     <string name="ui_9f60f6c0e9e0" formatted="false">vBotにメッセージを送る</string>
-    <string name="ui_a2e20a335700" formatted="false">アカウントを削除</string>
+    <string name="ui_a2e20a335700" formatted="false">Vipiアカウントを削除</string>
     <string name="ui_a44d35311325" formatted="false">レポートを送信</string>
     <string name="ui_ac6b07b85d0f" formatted="false">キーが変更されたか、選択が保存できなかった可能性があります。 現在の数値を再度比較してください。</string>
     <string name="ui_af0bd5582e73" formatted="false">チャットボットとチャットする。 別個のBot miniプランが必要です。</string>
@@ -82,7 +82,7 @@
     <string name="ui_b7c32ca74cb0" formatted="false">両方の言語を聞く</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">友だちを探す</string>
     <string name="ui_beb6c51b9bf6" formatted="false">履歴を復元</string>
-    <string name="ui_c26d4e55137b" formatted="false">このデバイス上のアカウントとチャットは永久に削除されます。 これは取り消すことができません。</string>
+    <string name="ui_c26d4e55137b" formatted="false">Vipiアカウントと、このデバイスに保存されたチャットを完全に削除します。この操作は取り消せません。</string>
     <string name="ui_c3812fc4acb8" formatted="false">除去する</string>
     <string name="ui_c518ff733bfe" formatted="false">vBotはDeepSeekによって動作しています。 vBot に送信したメッセージは、Vipi と DeepSeek に送信され、返信を生成します。 友達とのチャットは自動的に含まれません。</string>
     <string name="ui_c754691a97ca" formatted="false">まずメッセージをやり取りして、この会話のセキュリティ番号を作成してください。</string>
@@ -433,4 +433,5 @@
     <string name="lookup_play_message">メッセージを読み上げる</string>
     <string name="lookup_unsupported">このデバイスでは、この言語の組み合わせでの翻訳に対応していません。</string>
     <string name="lookup_translate_message">メッセージを翻訳</string>
+    <string name="deletion_fallsoft_retained">Fallsoftへのログインと、ほかのFallsoftアプリのアカウントは引き続き利用できます。</string>
 </resources>

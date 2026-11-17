@@ -39,7 +39,7 @@
     <string name="ui_5aa854326157" formatted="false">تختلف الكلمات والعبارات المتاحة حسب اللغة. قد يحتاج النطق إلى تنزيل صوتي.</string>
     <string name="ui_5b80e534fb0c" formatted="false">قم بالتنزيل للترجمة الكاملة</string>
     <string name="ui_5cd3939d3b90" formatted="false">اسم المستخدم هذا غير متاح. جرب آخر.</string>
-    <string name="ui_5d670c14e5b1" formatted="false">تم حذف الحساب</string>
+    <string name="ui_5d670c14e5b1" formatted="false">تم حذف حساب Vipi</string>
     <string name="ui_5de398810247" formatted="false">سرعة تبديل الكلمات</string>
     <string name="ui_6151d69d167a" formatted="false">إذا اختلفت أي مجموعة، فلا تضع علامة عليها على أنها تم التحقق منها. يمكن للهاتف الجديد أو التطبيق المعاد تثبيته تغيير هذه الأرقام.</string>
     <string name="ui_6315acd44d88" formatted="false">انتهت صلاحية هذه الرسالة قبل التسليم. يمكنك إرساله مرة أخرى.</string>
@@ -48,7 +48,7 @@
     <string name="ui_77d4347c1125" formatted="false">يرجى تسجيل الدخول مرة أخرى لإعادة توصيل حسابك. لا تزال محادثاتك المحفوظة على هذا الجهاز.</string>
     <string name="ui_79a7ada4e1f1" formatted="false">لغاتك</string>
     <string name="ui_7a888f9040e0" formatted="false">تسجيل الدخول غير متاح بعد. يرجى المحاولة مرة أخرى بعد قليل.</string>
-    <string name="ui_7ab60595358e" formatted="false">احذف حسابك</string>
+    <string name="ui_7ab60595358e" formatted="false">حذف حساب Vipi الخاص بك</string>
     <string name="ui_7f5e3877efec" formatted="false">هذا مثال. في دردشاتك، يتم تبديل الكلمات والعبارات المدعومة فقط. يبقى الباقي دون تغيير.</string>
     <string name="ui_817b085ae5a9" formatted="false">ستتوقف الرسائل بينكما. تبقى الدردشة الخاصة بك على هذا الجهاز. يمكنك إلغاء الحظر في أي وقت.</string>
     <string name="ui_8201f9bbb22b" formatted="false">لم تتم مقارنته بعد</string>
@@ -68,7 +68,7 @@
     <string name="ui_9e36cb35d1a0" formatted="false">تعذر تسليم الرسالة. يمكن أن تستمر محادثاتك الأخرى.</string>
     <string name="ui_9ed65d7add5f" formatted="false">أوافق على شروط الخدمة وقد قرأت سياسة الخصوصية.</string>
     <string name="ui_9f60f6c0e9e0" formatted="false">إرسال رسالة إلى vBot</string>
-    <string name="ui_a2e20a335700" formatted="false">حذف الحساب</string>
+    <string name="ui_a2e20a335700" formatted="false">حذف حساب Vipi</string>
     <string name="ui_a44d35311325" formatted="false">أرسل التقرير</string>
     <string name="ui_ac6b07b85d0f" formatted="false">ربما تكون المفاتيح قد تغيرت، أو تعذر حفظ اختيارك. قارن الأرقام الحالية مرة أخرى.</string>
     <string name="ui_af0bd5582e73" formatted="false">دردش مع روبوت الدردشة. يتطلب خطة Bot mini المنفصلة.</string>
@@ -82,7 +82,7 @@
     <string name="ui_b7c32ca74cb0" formatted="false">استمع إلى كلتا اللغتين</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">العثور على صديق</string>
     <string name="ui_beb6c51b9bf6" formatted="false">استعادة التاريخ</string>
-    <string name="ui_c26d4e55137b" formatted="false">سيتم حذف حسابك ودردشاتك على هذا الجهاز نهائيا. لا يمكن التراجع عن هذا.</string>
+    <string name="ui_c26d4e55137b" formatted="false">سيتم حذف حساب Vipi الخاص بك والدردشات على هذا الجهاز نهائيًا. لا يمكن التراجع عن هذا الإجراء.</string>
     <string name="ui_c3812fc4acb8" formatted="false">أَزالَ</string>
     <string name="ui_c518ff733bfe" formatted="false">يتم تشغيل vBot بواسطة DeepSeek. الرسائل التي ترسلها إلى vBot تذهب إلى Vipi وDeepSeek لإنشاء ردود. لا يتم تضمين دردشاتك مع الأصدقاء تلقائيا.</string>
     <string name="ui_c754691a97ca" formatted="false">تبادل رسالة أولا لإنشاء رقم أمان هذه المحادثة.</string>
@@ -448,4 +448,5 @@
     <string name="lookup_play_message">تشغيل الرسالة</string>
     <string name="lookup_unsupported">الترجمة بين هاتين اللغتين غير مدعومة على هذا الجهاز.</string>
     <string name="lookup_translate_message">ترجمة الرسالة</string>
+    <string name="deletion_fallsoft_retained">سيبقى حسابك لتسجيل الدخول إلى Fallsoft وحساباتك في تطبيقات Fallsoft الأخرى.</string>
 </resources>

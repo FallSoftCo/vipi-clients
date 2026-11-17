@@ -39,7 +39,7 @@
     <string name="ui_5aa854326157" formatted="false">Verfügbare Wörter und Phrasen variieren je nach Sprache. Die Aussprache kann einen Sprachdownload benötigen.</string>
     <string name="ui_5b80e534fb0c" formatted="false">Download für vollständige Übersetzung</string>
     <string name="ui_5cd3939d3b90" formatted="false">Dieser Benutzername ist nicht verfügbar. Versuchen Sie es mit einem anderen.</string>
-    <string name="ui_5d670c14e5b1" formatted="false">Konto gelöscht</string>
+    <string name="ui_5d670c14e5b1" formatted="false">Vipi-Konto gelöscht</string>
     <string name="ui_5de398810247" formatted="false">Wortwechselgeschwindigkeit</string>
     <string name="ui_6151d69d167a" formatted="false">Wenn sich eine Gruppe unterscheidet, markieren Sie sie nicht als verifiziert. Ein neues Telefon oder eine neu installierte App kann diese Nummern ändern.</string>
     <string name="ui_6315acd44d88" formatted="false">Diese Nachricht ist vor der Zustellung abgelaufen. Sie können es erneut senden.</string>
@@ -48,7 +48,7 @@
     <string name="ui_77d4347c1125" formatted="false">Bitte melden Sie sich erneut an, um Ihr Konto wieder zu verbinden. Ihre gespeicherten Unterhaltungen befinden sich immer noch auf diesem Gerät.</string>
     <string name="ui_79a7ada4e1f1" formatted="false">Ihre Sprachen</string>
     <string name="ui_7a888f9040e0" formatted="false">Die Anmeldung ist noch nicht verfügbar. Bitte versuchen Sie es in Kürze erneut.</string>
-    <string name="ui_7ab60595358e" formatted="false">Löschen Sie Ihr Konto</string>
+    <string name="ui_7ab60595358e" formatted="false">Ihr Vipi-Konto löschen</string>
     <string name="ui_7f5e3877efec" formatted="false">Dies ist ein Beispiel. In Ihren Chats wechseln nur unterstützte Wörter und Phrasen. Der Rest bleibt unverändert.</string>
     <string name="ui_817b085ae5a9" formatted="false">Die Nachrichten zwischen Ihnen werden aufhören. Ihr Chat bleibt auf diesem Gerät. Sie können jederzeit entsperren.</string>
     <string name="ui_8201f9bbb22b" formatted="false">Noch nicht verglichen</string>
@@ -68,7 +68,7 @@
     <string name="ui_9e36cb35d1a0" formatted="false">Eine Nachricht konnte nicht zugestellt werden. Ihre anderen Gespräche können fortgesetzt werden.</string>
     <string name="ui_9ed65d7add5f" formatted="false">Ich stimme den Nutzungsbedingungen zu und habe die Datenschutzrichtlinie gelesen.</string>
     <string name="ui_9f60f6c0e9e0" formatted="false">Nachricht an vBot</string>
-    <string name="ui_a2e20a335700" formatted="false">Konto löschen</string>
+    <string name="ui_a2e20a335700" formatted="false">Vipi-Konto löschen</string>
     <string name="ui_a44d35311325" formatted="false">Bericht senden</string>
     <string name="ui_ac6b07b85d0f" formatted="false">Die Schlüssel haben sich möglicherweise geändert oder Ihre Auswahl konnte nicht gespeichert werden. Vergleichen Sie die aktuellen Zahlen erneut.</string>
     <string name="ui_af0bd5582e73" formatted="false">Chatten Sie mit einem Chatbot. Erfordert den separaten Bot mini-Plan.</string>
@@ -82,7 +82,7 @@
     <string name="ui_b7c32ca74cb0" formatted="false">Beide Sprachen hören</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">Freund finden</string>
     <string name="ui_beb6c51b9bf6" formatted="false">Verlauf wiederherstellen</string>
-    <string name="ui_c26d4e55137b" formatted="false">Ihr Konto und Ihre Chats auf diesem Gerät werden dauerhaft gelöscht. Das kann nicht rückgängig gemacht werden.</string>
+    <string name="ui_c26d4e55137b" formatted="false">Ihr Vipi-Konto und die Chats auf diesem Gerät werden dauerhaft gelöscht. Das kann nicht rückgängig gemacht werden.</string>
     <string name="ui_c3812fc4acb8" formatted="false">Entfernen</string>
     <string name="ui_c518ff733bfe" formatted="false">vBot wird von DeepSeek betrieben. Nachrichten, die Sie an vBot senden, gehen zu Vipi und DeepSeek, um Antworten zu generieren. Ihre Chats mit Freunden werden nie automatisch einbezogen.</string>
     <string name="ui_c754691a97ca" formatted="false">Tauscht zuerst eine Nachricht aus, um die Sicherheitsnummer dieser Unterhaltung zu erstellen.</string>
@@ -436,4 +436,5 @@
     <string name="lookup_play_message">Nachricht abspielen</string>
     <string name="lookup_unsupported">Die Übersetzung für dieses Sprachpaar wird auf diesem Gerät nicht unterstützt.</string>
     <string name="lookup_translate_message">Nachricht übersetzen</string>
+    <string name="deletion_fallsoft_retained">Ihr Fallsoft-Zugang und Ihre Konten in anderen Fallsoft-Apps bleiben erhalten.</string>
 </resources>

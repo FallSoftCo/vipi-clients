@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
     var error by remember { mutableStateOf<String?>(null) }
     Text(stringResource(R.string.ui_a2e20a335700), fontFamily = FontFamily.Serif, fontSize = 32.sp, modifier = Modifier.semantics { heading() })
     Text(stringResource(R.string.ui_8def6a81a73d))
+    Text(stringResource(R.string.deletion_fallsoft_retained))
     Text(stringResource(R.string.ui_fd5e205fa654))
     Text(stringResource(R.string.ui_c3297f5bde81))
     SubscriptionManagement()
@@ -61,6 +62,7 @@ import kotlinx.coroutines.launch
                 if (deletion.needsSignIn && record != null) Button(onClick = { authentication.signIn(context, expectedUser = record.userID) }, enabled = !authentication.busy) { Text(stringResource(R.string.ui_9d2dbb5de070)) }
                 OutlinedButton(onClick = { scope.launch { deletion.resume() } }) { Text(if (accepted) stringResource(R.string.ui_69cd3590300a) else stringResource(R.string.ui_eb55b8291994)) }
             }
+            Text(stringResource(R.string.deletion_fallsoft_retained), style = MaterialTheme.typography.bodySmall)
             Text(stringResource(R.string.ui_0cd8734d2fcd), style = MaterialTheme.typography.bodySmall)
             SubscriptionManagement()
         }

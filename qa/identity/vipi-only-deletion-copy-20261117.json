@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-17T21:16:57.124172+00:00",
+  "scope": "Native Vipi-only deletion labels and static shared-login retention explanation",
+  "uiBase": "87fdaa6 (integrated UX117cabd)",
+  "worktreeMerge": "075e879",
+  "locales": [
+    "ar",
+    "de",
+    "en",
+    "es",
+    "fr",
+    "it",
+    "ja",
+    "ko",
+    "pt-BR",
+    "pt-PT",
+    "sw",
+    "zh-Hans",
+    "zh-Hant"
+  ],
+  "iosChangedStringsWithFullCoverage": 6,
+  "androidResourceFilesParsed": 29,
+  "crossPlatformChangedCopyParity": true,
+  "subscriptionAndCopiesWarningsUnchanged": true,
+  "buttonAlertAndLinkCountsUnchanged": true,
+  "existingSubscriptionDestinationsUnchanged": true,
+  "globalDeletionLinkAdded": false,
+  "identityBillingOrDeletionWorkflowChanged": false,
+  "nativeBuildOrRuntimeExecuted": false,
+  "actualAuthOrDeletionActions": 0,
+  "validation": "JSON/XML parse, 13-locale coverage and parity, warning preservation, action/link count and destination checks, git diff --check"
+}

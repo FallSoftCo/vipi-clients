@@ -121,7 +121,7 @@
     <string name="ui_5aa854326157" formatted="false">As palavras e frases disponíveis variam por idioma. A pronúncia pode precisar do download de uma voz.</string>
     <string name="ui_5b80e534fb0c" formatted="false">Baixar para tradução completa</string>
     <string name="ui_5cd3939d3b90" formatted="false">Esse nome de usuário não está disponível. Tente outro.</string>
-    <string name="ui_5d670c14e5b1" formatted="false">Conta excluída</string>
+    <string name="ui_5d670c14e5b1" formatted="false">Conta Vipi excluída</string>
     <string name="ui_5de398810247" formatted="false">Velocidade da troca de palavras</string>
     <string name="ui_5f0f1b251f45" formatted="false">Criptografia atualizada. Mensagens anteriores pendentes foram interrompidas. Compare o novo número de segurança com seu amigo.</string>
     <string name="ui_6151d69d167a" formatted="false">Se algum grupo for diferente, não o marque como verificado. Um telefone novo ou a reinstalação do app podem alterar esses números.</string>
@@ -144,7 +144,7 @@
     <string name="ui_79290727c58b" formatted="false">Não foi possível abrir a entrada segura. Tente novamente.</string>
     <string name="ui_79a7ada4e1f1" formatted="false">Seus idiomas</string>
     <string name="ui_7a888f9040e0" formatted="false">A entrada ainda não está disponível. Tente novamente em breve.</string>
-    <string name="ui_7ab60595358e" formatted="false">Exclua sua conta</string>
+    <string name="ui_7ab60595358e" formatted="false">Excluir sua conta Vipi</string>
     <string name="ui_7f5e3877efec" formatted="false">Este é um exemplo. Nas suas conversas, apenas palavras e frases compatíveis mudam. O restante permanece igual.</string>
     <string name="ui_817b085ae5a9" formatted="false">As mensagens entre vocês serão interrompidas. Sua conversa permanece neste dispositivo. Você pode desbloquear a pessoa a qualquer momento.</string>
     <string name="ui_8201f9bbb22b" formatted="false">Ainda não comparadas</string>
@@ -182,7 +182,7 @@
     <string name="ui_9f60f6c0e9e0" formatted="false">Enviar mensagem ao vBot</string>
     <string name="ui_a0c63ae7f860" formatted="false">A tradução não está disponível para esta mensagem. O original permanece igual.</string>
     <string name="ui_a2a2eed05c81" formatted="false">Continuar para conversas</string>
-    <string name="ui_a2e20a335700" formatted="false">Excluir conta</string>
+    <string name="ui_a2e20a335700" formatted="false">Excluir conta Vipi</string>
     <string name="ui_a44d35311325" formatted="false">Enviar denúncia</string>
     <string name="ui_a67f154bcb16" formatted="false">Escolha um backup para restaurar</string>
     <string name="ui_a843a5adb644" formatted="false">Ver ou restaurar Bot mini</string>
@@ -206,7 +206,7 @@
     <string name="ui_bbd30d6992ff" formatted="false">Não foi possível atualizar seus planos. Confira sua conexão e tente novamente.</string>
     <string name="ui_beb6c51b9bf6" formatted="false">Restaurar histórico</string>
     <string name="ui_c011d6097bfb" formatted="false">Licença</string>
-    <string name="ui_c26d4e55137b" formatted="false">Sua conta e as conversas neste dispositivo serão excluídas permanentemente. Isso não pode ser desfeito.</string>
+    <string name="ui_c26d4e55137b" formatted="false">Sua conta Vipi e as conversas neste dispositivo serão excluídas permanentemente. Isso não pode ser desfeito.</string>
     <string name="ui_c3169261c50e" formatted="false">Atualize o preço atual do Google Play antes de continuar.</string>
     <string name="ui_c3297f5bde81" formatted="false">Excluir sua conta não cancela uma assinatura do Google Play. Você pode cancelá-la separadamente para interromper renovações futuras.</string>
     <string name="ui_c3812fc4acb8" formatted="false">Remover</string>
@@ -436,4 +436,5 @@
     <string name="lookup_play_message">Reproduzir mensagem</string>
     <string name="lookup_unsupported">A tradução entre esses idiomas não é compatível com este dispositivo.</string>
     <string name="lookup_translate_message">Traduzir mensagem</string>
+    <string name="deletion_fallsoft_retained">Seu acesso à Fallsoft e suas contas em outros apps da Fallsoft serão mantidos.</string>
 </resources>

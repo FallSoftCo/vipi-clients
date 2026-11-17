@@ -9,6 +9,7 @@ struct DeleteAccountView: View {
         Form {
             Section {
                 Text("Your profile and messages waiting for delivery will be removed from Vipi. Saved chats on this device will also be erased.")
+                Text("Your Fallsoft sign-in and accounts in other Fallsoft apps will remain.")
                 Text("This won’t erase friends’ copies or backups you saved elsewhere.")
             } header: { Text("What will be deleted") }
             Section {
@@ -16,21 +17,21 @@ struct DeleteAccountView: View {
                 Link("Manage subscriptions", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
             }
             Section {
-                Button("Delete account", role: .destructive) { confirm = true }.accessibilityIdentifier("delete-account")
+                Button("Delete Vipi account", role: .destructive) { confirm = true }.accessibilityIdentifier("delete-account")
                 if let error { Text(error).font(.footnote) }
             }
         }.scrollContentBackground(.hidden).background(VipiDesign.canvas)
-            .navigationTitle("Delete account").navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Delete Vipi account").navigationBarTitleDisplayMode(.inline)
             .alert("Delete your Vipi account?", isPresented: $confirm) {
                 Button("Cancel", role: .cancel) {}
-                Button("Delete account", role: .destructive) {
+                Button("Delete Vipi account", role: .destructive) {
                     do {
                         guard chat.profile != nil || chat.needsProfile else { throw ServiceFailure(status: 0, code: "profile_required") }
                         let account = chat.profile?.id ?? UUID()
                         try deletion.begin(account: account, userID: chat.userID) { try chat.close() }
                     } catch { self.error = String(localized: "Deletion couldn’t be prepared. Close and reopen Vipi to try again.") }
                 }
-            } message: { Text("Your account and chats on this device will be permanently deleted. This can’t be undone.") }
+            } message: { Text("Your Vipi account and chats on this device will be permanently deleted. This can’t be undone.") }
     }
 }
 
@@ -45,7 +46,7 @@ struct AccountDeletionProgressView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     Image(systemName: "person.crop.circle.badge.minus").font(.system(size: 38)).foregroundStyle(VipiDesign.secondary)
-                    Text(LocalizedStringKey(finished ? "Account deleted" : accepted ? "Deletion requested" : "Delete your account"))
+                    Text(LocalizedStringKey(finished ? "Vipi account deleted" : accepted ? "Deletion requested" : "Delete your Vipi account"))
                         .font(.system(.largeTitle, design: .serif)).accessibilityAddTraits(.isHeader)
                     Text(LocalizedStringKey(finished ? "Your Vipi account and chats on this device have been removed." : accepted ? "Vipi has accepted your request. We’re finishing deletion. You can close the app and check back later." : "We’ll confirm the request and remove your saved chats from this device. Vipi saves your progress if the connection drops."))
                         .foregroundStyle(VipiDesign.secondary)
@@ -60,6 +61,8 @@ struct AccountDeletionProgressView: View {
                         Button(accepted ? "Check status" : "Continue deletion") { Task { await deletion.resume() } }
                             .buttonStyle(.bordered).accessibilityIdentifier("deletion-retry")
                     }
+                    Text("Your Fallsoft sign-in and accounts in other Fallsoft apps will remain.")
+                        .font(.footnote).foregroundStyle(VipiDesign.secondary)
                     Text("Subscriptions are managed separately. Friends’ copies and backups saved elsewhere remain.")
                         .font(.footnote).foregroundStyle(VipiDesign.secondary)
                     Link("Manage subscriptions", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)

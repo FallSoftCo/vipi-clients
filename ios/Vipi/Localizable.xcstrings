@@ -697,85 +697,85 @@
         }
       }
     },
-    "Account deleted": {
+    "Vipi account deleted": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Account deleted"
+            "value": "Vipi account deleted"
           }
         },
         "sw": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Akaunti imefutwa"
+            "value": "Akaunti ya Vipi imefutwa"
           }
         },
         "es": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Cuenta eliminada"
+            "value": "Cuenta de Vipi eliminada"
           }
         },
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Konto gelöscht"
+            "value": "Vipi-Konto gelöscht"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "アカウントが削除されました"
+            "value": "Vipiアカウントを削除しました"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "تم حذف الحساب"
+            "value": "تم حذف حساب Vipi"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "계정이 삭제되었습니다."
+            "value": "Vipi 계정이 삭제되었습니다"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "帐户已删除"
+            "value": "Vipi 账户已删除"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "帳戶已刪除"
+            "value": "Vipi 帳號已刪除"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Compte supprimé"
+            "value": "Compte Vipi supprimé"
           }
         },
         "it": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Account eliminato"
+            "value": "Account Vipi eliminato"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Conta excluída"
+            "value": "Conta Vipi excluída"
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Conta eliminada"
+            "value": "Conta Vipi eliminada"
           }
         }
       }
@@ -2708,168 +2708,168 @@
         }
       }
     },
-    "Delete account": {
+    "Delete Vipi account": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete account"
+            "value": "Delete Vipi account"
           }
         },
         "es": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Eliminar cuenta"
+            "value": "Eliminar cuenta de Vipi"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Supprimer le compte"
+            "value": "Supprimer le compte Vipi"
           }
         },
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Konto löschen"
+            "value": "Vipi-Konto löschen"
           }
         },
         "it": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Elimina account"
+            "value": "Elimina account Vipi"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Excluir conta"
+            "value": "Excluir conta Vipi"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "アカウントを削除"
+            "value": "Vipiアカウントを削除"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "계정 삭제"
+            "value": "Vipi 계정 삭제"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "删除账户"
+            "value": "删除 Vipi 账户"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "刪除帳號"
+            "value": "刪除 Vipi 帳號"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "حذف الحساب"
+            "value": "حذف حساب Vipi"
           }
         },
         "sw": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Futa akaunti"
+            "value": "Futa akaunti ya Vipi"
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Eliminar conta"
+            "value": "Eliminar conta Vipi"
           }
         }
       }
     },
-    "Delete your account": {
+    "Delete your Vipi account": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Delete your account"
+            "value": "Delete your Vipi account"
           }
         },
         "sw": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Futa akaunti yako"
+            "value": "Futa akaunti yako ya Vipi"
           }
         },
         "es": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Elimina tu cuenta"
+            "value": "Elimina tu cuenta de Vipi"
           }
         },
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Löschen Sie Ihr Konto"
+            "value": "Ihr Vipi-Konto löschen"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "アカウントを削除してください"
+            "value": "Vipiアカウントを削除"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "احذف حسابك"
+            "value": "حذف حساب Vipi الخاص بك"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "계정을 삭제하십시오."
+            "value": "Vipi 계정 삭제"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "删除您的帐户"
+            "value": "删除您的 Vipi 账户"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "刪除您的帳戶"
+            "value": "刪除您的 Vipi 帳號"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Supprimez votre compte"
+            "value": "Supprimer votre compte Vipi"
           }
         },
         "it": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Elimina il tuo account"
+            "value": "Elimina il tuo account Vipi"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Exclua sua conta"
+            "value": "Excluir sua conta Vipi"
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Exclua sua conta"
+            "value": "Eliminar a sua conta Vipi"
           }
         }
       }
@@ -11796,78 +11796,84 @@
         }
       }
     },
-    "Your account and chats on this device will be permanently deleted. This can’t be undone.": {
+    "Your Vipi account and chats on this device will be permanently deleted. This can’t be undone.": {
       "localizations": {
         "sw": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Akaunti yako na mazungumzo kwenye kifaa hiki vitafutwa kabisa. Hili haliwezi kutenduliwa."
+            "value": "Akaunti yako ya Vipi na mazungumzo kwenye kifaa hiki vitafutwa kabisa. Hili haliwezi kutenduliwa."
           }
         },
         "es": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Tu cuenta y los chats de este dispositivo se eliminarán permanentemente. Esto no se puede deshacer."
+            "value": "Tu cuenta de Vipi y los chats de este dispositivo se eliminarán permanentemente. Esto no se puede deshacer."
           }
         },
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Ihr Konto und Ihre Chats auf diesem Gerät werden dauerhaft gelöscht. Das kann nicht rückgängig gemacht werden."
+            "value": "Ihr Vipi-Konto und die Chats auf diesem Gerät werden dauerhaft gelöscht. Das kann nicht rückgängig gemacht werden."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "このデバイス上のアカウントとチャットは永久に削除されます。 これは取り消すことができません。"
+            "value": "Vipiアカウントと、このデバイスに保存されたチャットを完全に削除します。この操作は取り消せません。"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "سيتم حذف حسابك ودردشاتك على هذا الجهاز نهائيا. لا يمكن التراجع عن هذا."
+            "value": "سيتم حذف حساب Vipi الخاص بك والدردشات على هذا الجهاز نهائيًا. لا يمكن التراجع عن هذا الإجراء."
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "귀하의 계정 및 이 기기에서의 채팅은 영구적으로 삭제됩니다. 이것은 되돌릴 수 없습니다."
+            "value": "Vipi 계정과 이 기기에 저장된 채팅이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "您的帐户和此设备上的聊天将被永久删除。 这是无法撤销的。"
+            "value": "您的 Vipi 账户和此设备上的聊天将被永久删除。此操作无法撤销。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "您的帳戶和此設備上的聊天將被永久刪除。 這是無法撤銷的。"
+            "value": "您的 Vipi 帳號和此裝置上的聊天將永久刪除。此操作無法復原。"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Votre compte et les discussions sur cet appareil seront définitivement supprimés. Cette action est irréversible."
+            "value": "Votre compte Vipi et les discussions sur cet appareil seront définitivement supprimés. Cette action est irréversible."
           }
         },
         "it": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Il tuo account e le chat su questo dispositivo verranno eliminati definitivamente. L’operazione non può essere annullata."
+            "value": "Il tuo account Vipi e le chat su questo dispositivo verranno eliminati definitivamente. L’operazione non può essere annullata."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Sua conta e as conversas neste dispositivo serão excluídas permanentemente. Isso não pode ser desfeito."
+            "value": "Sua conta Vipi e as conversas neste dispositivo serão excluídas permanentemente. Isso não pode ser desfeito."
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Sua conta e as conversas neste dispositivo serão eliminadas permanentemente. Isso não pode ser desfeito."
+            "value": "A sua conta Vipi e as conversas neste dispositivo serão eliminadas permanentemente. Esta ação não pode ser anulada."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your Vipi account and chats on this device will be permanently deleted. This can’t be undone."
           }
         }
       }
@@ -37142,6 +37148,172 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Gusa neno lililoangaziwa ili kulisikia. Kwenye mazungumzo, gusa kiputo ili kutafsiri."
+          }
+        }
+      }
+    },
+    "Your Fallsoft sign-in and accounts in other Fallsoft apps will remain.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your Fallsoft sign-in and accounts in other Fallsoft apps will remain."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tu acceso a Fallsoft y tus cuentas en otras apps de Fallsoft se conservarán."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Votre accès à Fallsoft et vos comptes dans les autres apps Fallsoft seront conservés."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ihr Fallsoft-Zugang und Ihre Konten in anderen Fallsoft-Apps bleiben erhalten."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Il tuo accesso Fallsoft e i tuoi account nelle altre app Fallsoft verranno mantenuti."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Seu acesso à Fallsoft e suas contas em outros apps da Fallsoft serão mantidos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O seu acesso à Fallsoft e as suas contas noutras apps da Fallsoft serão mantidos."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Fallsoftへのログインと、ほかのFallsoftアプリのアカウントは引き続き利用できます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Fallsoft 로그인 계정과 다른 Fallsoft 앱의 계정은 그대로 유지됩니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的 Fallsoft 登录账号及其他 Fallsoft 应用中的账户将保留。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "您的 Fallsoft 登入帳號與其他 Fallsoft 應用程式中的帳號都會保留。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "سيبقى حسابك لتسجيل الدخول إلى Fallsoft وحساباتك في تطبيقات Fallsoft الأخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Akaunti yako ya kuingia kwenye Fallsoft na akaunti zako katika programu nyingine za Fallsoft zitabaki."
+          }
+        }
+      }
+    },
+    "Delete your Vipi account?": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete your Vipi account?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "¿Eliminar tu cuenta de Vipi?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Supprimer votre compte Vipi ?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ihr Vipi-Konto löschen?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Eliminare il tuo account Vipi?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Excluir sua conta Vipi?"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Eliminar sua conta Vipi?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipiアカウントを削除しますか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi 계정을 삭제할까요?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "删除您的 Vipi 账户？"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "刪除您的 Vipi 帳戶？"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "حذف حساب Vipi؟"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ufute akaunti yako ya Vipi?"
           }
         }
       }
