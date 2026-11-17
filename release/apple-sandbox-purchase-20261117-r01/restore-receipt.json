@@ -1,0 +1,22 @@
+{
+  "scope": "single same-device same-account Apple Sandbox Restore; read-only backend comparison",
+  "observed_at_utc": "2026-11-17T13:56:35.723555Z",
+  "ui": "Restore reported purchases up to date and Base active",
+  "entitlement_rows": 1,
+  "same_private_transaction": true,
+  "same_store_product_environment": true,
+  "store": "apple",
+  "product": "base",
+  "environment": "Sandbox",
+  "expiry_before_and_after_utc": "2026-11-18T13:51:25Z",
+  "verified_before_utc": "2026-11-17T13:51:33.782068Z",
+  "verified_after_utc": "2026-11-17T13:55:44.119750Z",
+  "revoked": false,
+  "superseded": false,
+  "apple_notification_count": 2,
+  "limitations": [
+    "Does not establish clean-device restore, renewal, cancellation or revocation.",
+    "Transaction identifiers remain private.",
+    "No provider call or mutation during this observation; original purchase was not repeated."
+  ]
+}
