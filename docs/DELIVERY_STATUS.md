@@ -31,7 +31,7 @@ Neither app has been submitted for app review.
 
 The Play verifier has Vipi-only read/financial/subscription permissions. A real
 read-only Publisher API call returned both active annual products. Its backend
-configuration is being staged separately. Google's RTDN publisher grant remains
+provider is configured on restricted staging. Google's RTDN publisher grant remains
 blocked by the inherited domain policy; no policy exception or push subscription
 is active.
 
@@ -46,11 +46,13 @@ send. The worker's narrow diagnostic overlay logs only response
 status or exception type. APNs production credentials remain configured;
 actual Apple delivery and a separately scoped simulator sandbox route remain.
 
-Backend commit `3afb0dc` adds account-scoped store sandbox verification and
-explicit restricted-staging configuration. The isolated PostgreSQL suite passed
-191 tests with 2 skipped. Its release candidate is prepared, not deployed.
-Live restricted staging still uses `742e119`, with reviewer access and
-subscription enforcement unchanged. Fixture tests are not real store purchases.
+Live restricted staging now runs backend `9b8cca6`, with schema `20261116_01`
+and account-scoped store sandbox verification enabled. The tester allowlist is
+empty; the existing reviewer access and disabled subscription enforcement are
+unchanged. The isolated PostgreSQL suite passed 192 tests with 2 skipped, and the
+staged API passed actual migrated-schema readiness checks. The [deployment
+receipt](../qa/backend/store-sandbox-deploy-20261117-r01/receipt.json) records two
+prior verified rollbacks. Fixture tests are not real store purchases.
 
 Private receipts are under `vipi-submit-20261110-r01/` in
 `computer-use-release-20261116-r01`, `fcm-logging-activation-20261116-r01`,
@@ -141,8 +143,8 @@ Both public downloads were fetched anonymously and their hashes verified.
 Source publication does not establish every linked dependency's combined-binary
 distribution terms. See the [publication record](../release/client-source-publication-20261116.json).
 
-The deployed service is now `742e119`, adding the public username invitation
-page. Registration remains restricted to the owned review accounts. No purchase
+The deployed service is now `9b8cca6`, retaining the earlier public username
+invitation page. Registration remains restricted to the owned review accounts. No purchase
 or app-review submission has occurred. The earlier authentication/signing hold
 changed when normal company browser access and Xcode Organizer signing worked;
 that does not establish unrestricted private-key or keychain access.
@@ -196,11 +198,12 @@ Those original exchanges establish foreground human chat. The subsequent FCM
 background result is recorded above; public onboarding, purchases and Apple
 live authentication still need qualification.
 
-The service runs `742e119`, preserving the earlier `b97b2c9` public vBot
-guardian-consent terms and adding username invitation pages. Its two owned reviewer accounts have explicit
+The service runs `9b8cca6`, preserving the earlier `b97b2c9` public vBot
+guardian-consent terms and `742e119` username invitation pages. Its two owned reviewer accounts have explicit
 complimentary Base and Bot mini access, with no purchase, expiry or trial invented.
 The Android app verified both review-access labels against the live service.
-The API was updated without changing the database/schema, push or shared services.
+The later sandbox-verification rollout migrated the database schema while
+preserving the existing push worker and shared services.
 A database-local restore HOLD blocks normal access to marked copies, qualified
 with SQLite and an isolated PostgreSQL/asyncpg instance. The live database is
 unmarked. External restore integration and authoritative financial replay remain
