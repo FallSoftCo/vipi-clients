@@ -1,0 +1,50 @@
+{
+  "phase": "complete",
+  "switched": true,
+  "rollback": false,
+  "preflight": {
+    "schema": "20261117_01",
+    "active": 0,
+    "staging": true,
+    "allowed_count": 3,
+    "enforced": false,
+    "apple_sandbox": true,
+    "reviewers": 2,
+    "testers": 1
+  },
+  "shared_pids": {
+    "nginx.service": "2433323",
+    "postgresql@16-main.service": "2433335"
+  },
+  "push_dropin_hashes": {
+    "50-vipi-fcm-20261116.conf": "43178f193472e9bf31a0d9634bdc7dc9fdbae75bd4f71ac2c9853b05d1b83a12",
+    "51-fcm-status-logging.conf": "e00d023454ee09c49758d2fcd4a384f5dace4959e8da1a2facd45862ed3128b5",
+    "52-vipi-apns-sandbox-20261117.conf": "f65d7c71f7290426fdc7adb96315e42acbce1b01fc2cac75ffbe29cf9326ecc6"
+  },
+  "check": "http_and_state",
+  "post_observed": {
+    "schema": "20261117_01",
+    "active": 0,
+    "staging": true,
+    "allowed_count": 5,
+    "enforced": false,
+    "apple_sandbox": true,
+    "reviewers": 2,
+    "testers": 1
+  },
+  "ready": 200,
+  "private_unauth": 401,
+  "public_unauth": 401,
+  "api_pid": "3460017",
+  "scope": "two owned synthetic QA subjects added to restricted staging admission only",
+  "unit": "vipi-owned-qa-admission-20261117-r01.service",
+  "script_sha256": "3e79cf3e1656b9386da50920d177e7abde4abfcc938909fae16cfc0033f8927f",
+  "environment_before_sha256": "689e448c844e8153634cd0b1e31aa3de315a3f16ee67e12ef6ac3b3e167fb7d3",
+  "environment_after_sha256": "7cbfe7e9196c0282ff94d0a20ec21f543a9932f8ff4b2f47eb581d2c981535b3",
+  "release_unchanged": true,
+  "original_clients_paused": true,
+  "limitations": [
+    "Admin-marked verified subjects are synthetic; real email verification was not tested.",
+    "No app sign-in, profile creation, device enrollment, purchase or trial fixture was performed."
+  ]
+}
