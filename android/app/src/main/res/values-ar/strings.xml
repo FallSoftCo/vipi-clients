@@ -433,4 +433,17 @@
     <string name="preview_message_title">لمحة عن دردشاتك</string>
     <string name="speak_concise">أتحدث</string>
     <string name="learn_concise">أتعلّم</string>
+    <string name="lookup_title">الترجمة</string>
+    <string name="lookup_play_again">تشغيل مجددًا</string>
+    <string name="lookup_close">إغلاق</string>
+    <string name="lookup_reading_unavailable">دليل القراءة غير متاح.</string>
+    <string name="lookup_translating">جارٍ الترجمة على هذا الجهاز…</string>
+    <string name="lookup_download_needed">تحتاج الترجمة إلى تنزيل لغة.</string>
+    <string name="lookup_choose_language">اختر لغة الرسالة.</string>
+    <string name="lookup_timeout">استغرقت الترجمة وقتًا طويلًا. حاول مجددًا.</string>
+    <string name="lookup_select_word">حدد كلمة أو عبارة لترجمتها.</string>
+    <string name="lookup_unavailable">الترجمة غير متاحة حاليًا.</string>
+    <string name="lookup_download">تنزيل اللغات</string>
+    <string name="lookup_translate_play">ترجم واستمع</string>
+    <string name="lookup_play_message">تشغيل الرسالة</string>
 </resources>

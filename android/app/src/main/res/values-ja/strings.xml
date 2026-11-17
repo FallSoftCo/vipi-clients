@@ -418,4 +418,17 @@
     <string name="preview_message_title">チャットのイメージ</string>
     <string name="speak_concise">話せる言語</string>
     <string name="learn_concise">学びたい言語</string>
+    <string name="lookup_title">翻訳</string>
+    <string name="lookup_play_again">もう一度再生</string>
+    <string name="lookup_close">閉じる</string>
+    <string name="lookup_reading_unavailable">読み方を表示できません。</string>
+    <string name="lookup_translating">このデバイスで翻訳中…</string>
+    <string name="lookup_download_needed">翻訳するには言語のダウンロードが必要です。</string>
+    <string name="lookup_choose_language">メッセージの言語を選んでください。</string>
+    <string name="lookup_timeout">翻訳に時間がかかりすぎました。もう一度お試しください。</string>
+    <string name="lookup_select_word">翻訳する単語やフレーズを選んでください。</string>
+    <string name="lookup_unavailable">現在、翻訳を利用できません。</string>
+    <string name="lookup_download">言語をダウンロード</string>
+    <string name="lookup_translate_play">翻訳して聞く</string>
+    <string name="lookup_play_message">メッセージを読み上げる</string>
 </resources>

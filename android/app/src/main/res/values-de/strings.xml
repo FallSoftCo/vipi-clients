@@ -421,4 +421,17 @@
     <string name="preview_message_title">So sehen deine Chats aus</string>
     <string name="speak_concise">Ich spreche</string>
     <string name="learn_concise">Ich lerne</string>
+    <string name="lookup_title">Übersetzung</string>
+    <string name="lookup_play_again">Erneut abspielen</string>
+    <string name="lookup_close">Schließen</string>
+    <string name="lookup_reading_unavailable">Lesehilfe nicht verfügbar.</string>
+    <string name="lookup_translating">Wird auf diesem Gerät übersetzt…</string>
+    <string name="lookup_download_needed">Zum Übersetzen muss eine Sprache heruntergeladen werden.</string>
+    <string name="lookup_choose_language">Wähle die Sprache der Nachricht.</string>
+    <string name="lookup_timeout">Die Übersetzung hat zu lange gedauert. Versuche es erneut.</string>
+    <string name="lookup_select_word">Wähle ein Wort oder eine Wortgruppe zum Übersetzen aus.</string>
+    <string name="lookup_unavailable">Die Übersetzung ist gerade nicht verfügbar.</string>
+    <string name="lookup_download">Sprachen herunterladen</string>
+    <string name="lookup_translate_play">Übersetzen und anhören</string>
+    <string name="lookup_play_message">Nachricht abspielen</string>
 </resources>

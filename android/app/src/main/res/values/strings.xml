@@ -50,4 +50,17 @@
     <string name="preview_message_title">A glimpse of your chats</string>
     <string name="speak_concise">I speak</string>
     <string name="learn_concise">I’m learning</string>
+    <string name="lookup_title">Translation</string>
+    <string name="lookup_play_again">Play again</string>
+    <string name="lookup_close">Close</string>
+    <string name="lookup_reading_unavailable">Reading guide unavailable.</string>
+    <string name="lookup_translating">Translating on this device…</string>
+    <string name="lookup_download_needed">Translation needs a language download.</string>
+    <string name="lookup_choose_language">Choose the message language.</string>
+    <string name="lookup_timeout">Translation took too long. Try again.</string>
+    <string name="lookup_select_word">Select a word or phrase to translate.</string>
+    <string name="lookup_unavailable">Translation isn’t available right now.</string>
+    <string name="lookup_download">Download languages</string>
+    <string name="lookup_translate_play">Translate and listen</string>
+    <string name="lookup_play_message">Play message</string>
 </resources>

@@ -421,4 +421,17 @@
     <string name="preview_message_title">Mfano wa mazungumzo yako</string>
     <string name="speak_concise">Ninazungumza</string>
     <string name="learn_concise">Ninajifunza</string>
+    <string name="lookup_title">Tafsiri</string>
+    <string name="lookup_play_again">Sikiliza tena</string>
+    <string name="lookup_close">Funga</string>
+    <string name="lookup_reading_unavailable">Mwongozo wa kusoma haupatikani.</string>
+    <string name="lookup_translating">Inatafsiri kwenye kifaa hiki…</string>
+    <string name="lookup_download_needed">Unahitaji kupakua lugha ili kutafsiri.</string>
+    <string name="lookup_choose_language">Chagua lugha ya ujumbe.</string>
+    <string name="lookup_timeout">Tafsiri imechukua muda mrefu sana. Jaribu tena.</string>
+    <string name="lookup_select_word">Chagua neno au kifungu cha maneno cha kutafsiri.</string>
+    <string name="lookup_unavailable">Tafsiri haipatikani kwa sasa.</string>
+    <string name="lookup_download">Pakua lugha</string>
+    <string name="lookup_translate_play">Tafsiri na usikilize</string>
+    <string name="lookup_play_message">Sikiliza ujumbe</string>
 </resources>

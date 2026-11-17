@@ -418,4 +418,17 @@
     <string name="preview_message_title">看看聊天的样子</string>
     <string name="speak_concise">我会说</string>
     <string name="learn_concise">我在学</string>
+    <string name="lookup_title">翻译</string>
+    <string name="lookup_play_again">再次播放</string>
+    <string name="lookup_close">关闭</string>
+    <string name="lookup_reading_unavailable">无法提供读音提示。</string>
+    <string name="lookup_translating">正在此设备上翻译…</string>
+    <string name="lookup_download_needed">需先下载语言才能翻译。</string>
+    <string name="lookup_choose_language">选择消息语言。</string>
+    <string name="lookup_timeout">翻译耗时过长，请重试。</string>
+    <string name="lookup_select_word">选择要翻译的词语或短语。</string>
+    <string name="lookup_unavailable">暂时无法翻译。</string>
+    <string name="lookup_download">下载语言</string>
+    <string name="lookup_translate_play">翻译并收听</string>
+    <string name="lookup_play_message">播放消息</string>
 </resources>

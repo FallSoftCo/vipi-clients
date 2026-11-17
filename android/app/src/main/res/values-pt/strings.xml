@@ -421,4 +421,17 @@
     <string name="preview_message_title">Uma prévia das suas conversas</string>
     <string name="speak_concise">Eu falo</string>
     <string name="learn_concise">Estou aprendendo</string>
+    <string name="lookup_title">Tradução</string>
+    <string name="lookup_play_again">Reproduzir novamente</string>
+    <string name="lookup_close">Fechar</string>
+    <string name="lookup_reading_unavailable">Guia de leitura indisponível.</string>
+    <string name="lookup_translating">Traduzindo neste dispositivo…</string>
+    <string name="lookup_download_needed">Para traduzir, é preciso baixar um idioma.</string>
+    <string name="lookup_choose_language">Escolha o idioma da mensagem.</string>
+    <string name="lookup_timeout">A tradução demorou demais. Tente novamente.</string>
+    <string name="lookup_select_word">Selecione uma palavra ou expressão para traduzir.</string>
+    <string name="lookup_unavailable">A tradução não está disponível no momento.</string>
+    <string name="lookup_download">Baixar idiomas</string>
+    <string name="lookup_translate_play">Traduzir e ouvir</string>
+    <string name="lookup_play_message">Reproduzir mensagem</string>
 </resources>

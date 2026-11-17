@@ -421,4 +421,17 @@
     <string name="preview_message_title">Un’anteprima delle tue chat</string>
     <string name="speak_concise">Parlo</string>
     <string name="learn_concise">Sto imparando</string>
+    <string name="lookup_title">Traduzione</string>
+    <string name="lookup_play_again">Riproduci di nuovo</string>
+    <string name="lookup_close">Chiudi</string>
+    <string name="lookup_reading_unavailable">Guida alla lettura non disponibile.</string>
+    <string name="lookup_translating">Traduzione su questo dispositivo…</string>
+    <string name="lookup_download_needed">Per tradurre devi scaricare una lingua.</string>
+    <string name="lookup_choose_language">Scegli la lingua del messaggio.</string>
+    <string name="lookup_timeout">La traduzione ha richiesto troppo tempo. Riprova.</string>
+    <string name="lookup_select_word">Seleziona una parola o una frase da tradurre.</string>
+    <string name="lookup_unavailable">La traduzione non è disponibile al momento.</string>
+    <string name="lookup_download">Scarica le lingue</string>
+    <string name="lookup_translate_play">Traduci e ascolta</string>
+    <string name="lookup_play_message">Riproduci il messaggio</string>
 </resources>
