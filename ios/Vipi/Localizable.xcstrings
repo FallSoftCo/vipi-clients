@@ -11032,7 +11032,7 @@
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "ハイライトされた単語が所に切り替わる様子をご覧ください。 一時停止をタップして停止するか、発音を聞くには「聞く」をタップしてください。"
+            "value": "ハイライトされた単語がその場で切り替わる様子をご覧ください。「一時停止」で切り替えを止め、「聴く」で発音を聞けます。"
           }
         },
         "ar": {
@@ -32012,6 +32012,310 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Imetengenezwa na"
+          }
+        }
+      }
+    },
+    "Automatic switching pauses while VoiceOver is on. Use the word actions to switch meanings. Reading options changes the language or script.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "El cambio automático se pausa mientras VoiceOver está activado. Usa las acciones de palabras para cambiar su significado. Las opciones de lectura cambian el idioma o la escritura."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le changement automatique est suspendu lorsque VoiceOver est activé. Utilisez les actions des mots pour changer leur sens. Les options de lecture modifient la langue ou l’écriture."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Il cambio automatico si interrompe quando VoiceOver è attivo. Usa le azioni delle parole per cambiarne il significato. Le opzioni di lettura cambiano la lingua o la scrittura."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A troca automática é pausada enquanto o VoiceOver está ativado. Use as ações das palavras para alternar os significados. As opções de leitura mudam o idioma ou a escrita."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A troca automática fica em pausa enquanto o VoiceOver estiver ativo. Utilize as ações das palavras para alternar os significados. As opções de leitura alteram a língua ou a escrita."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Der automatische Wechsel pausiert, während VoiceOver eingeschaltet ist. Verwenden Sie die Wortaktionen, um zwischen Bedeutungen zu wechseln. In den Leseoptionen ändern Sie Sprache oder Schrift."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "VoiceOverがオンの間は自動切り替えが一時停止します。単語のアクションで意味を切り替えられます。読み取りオプションで言語や文字を変更できます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "VoiceOver가 켜져 있으면 자동 전환이 일시 중지됩니다. 단어 동작을 사용해 뜻을 전환하세요. 읽기 옵션에서 언어 또는 문자를 변경할 수 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "VoiceOver 开启时自动切换会暂停。使用单词操作切换含义。阅读选项可更改语言或文字。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "VoiceOver 開啟時自動切換會暫停。使用單字操作切換意思。閱讀選項可更改語言或文字。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "يتوقف التبديل التلقائي مؤقتًا أثناء تشغيل VoiceOver. استخدم إجراءات الكلمات لتبديل المعاني. تغيّر خيارات القراءة اللغة أو الكتابة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ubadilishaji wa kiotomatiki husitishwa VoiceOver inapowashwa. Tumia vitendo vya maneno kubadilisha maana. Chaguo za kusoma hubadilisha lugha au maandishi."
+          }
+        }
+      }
+    },
+    "Words switch automatically. Pause holds the current words. Reading options changes the pace or script.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Las palabras cambian automáticamente. Pausa mantiene las palabras actuales. Las opciones de lectura cambian la velocidad o la escritura."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Les mots changent automatiquement. Pause maintient les mots affichés. Les options de lecture modifient la vitesse ou l’écriture."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le parole cambiano automaticamente. Pausa mantiene le parole attuali. Le opzioni di lettura cambiano la velocità o la scrittura."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As palavras mudam automaticamente. Pausa mantém as palavras atuais. As opções de leitura mudam a velocidade ou a escrita."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As palavras mudam automaticamente. Pausa mantém as palavras atuais. As opções de leitura alteram a velocidade ou a escrita."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Wörter wechseln automatisch. Pause hält die aktuellen Wörter fest. In den Leseoptionen ändern Sie Tempo oder Schrift."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "単語は自動的に切り替わります。一時停止すると現在の単語を保持します。読み取りオプションで速度や文字を変更できます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "단어가 자동으로 전환됩니다. 일시 중지는 현재 단어를 유지합니다. 읽기 옵션에서 속도 또는 문자를 변경할 수 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "单词会自动切换。“暂停”会保持当前单词。阅读选项可更改速度或文字。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "單字會自動切換。「暫停」會保留目前的單字。閱讀選項可更改速度或文字。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تتبدل الكلمات تلقائيًا. يُبقي الإيقاف المؤقت الكلمات الحالية ظاهرة. تغيّر خيارات القراءة السرعة أو الكتابة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Maneno hubadilika kiotomatiki. Sitisha huhifadhi maneno yanayoonekana. Chaguo za kusoma hubadilisha kasi au maandishi."
+          }
+        }
+      }
+    },
+    "Switch %@ and %@": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Cambiar %1$@ y %2$@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Changer %1$@ et %2$@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Cambia %1$@ e %2$@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Alternar %1$@ e %2$@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Alternar %1$@ e %2$@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%1$@ und %2$@ wechseln"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%1$@と%2$@を切り替え"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%1$@ 및 %2$@ 전환"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "切换 %1$@ 和 %2$@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "切換 %1$@ 和 %2$@"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "بدّل %1$@ و%2$@"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Badilisha %1$@ na %2$@"
+          }
+        }
+      }
+    },
+    "Copy displayed message": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Copiar mensaje mostrado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Copier le message affiché"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Copia il messaggio visualizzato"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Copiar mensagem exibida"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Copiar mensagem apresentada"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Angezeigte Nachricht kopieren"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "表示中のメッセージをコピー"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "표시된 메시지 복사"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "复制显示的消息"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "複製顯示的訊息"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "نسخ الرسالة المعروضة"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nakili ujumbe unaoonekana"
           }
         }
       }
