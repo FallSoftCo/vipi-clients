@@ -12,6 +12,7 @@ class User(Base):
     __tablename__ = "users"
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     subject: Mapped[str] = mapped_column(String(128), unique=True)
+    minimum_auth_time: Mapped[int] = mapped_column(BigInteger, default=0, server_default="0")
     username: Mapped[str] = mapped_column(String(24), unique=True)
     display_name: Mapped[str] = mapped_column(String(80))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
@@ -208,11 +209,19 @@ class RateWindow(Base):
     count: Mapped[int] = mapped_column(Integer)
 
 
+class VipiTrialEligibility(Base):
+    """Original trial dates only, retained across app-only delete/rejoin."""
+    __tablename__ = "vipi_trial_eligibility"
+    subject_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    ends_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
 class AccountDeletion(Base):
     """Bounded durable cleanup receipt, independent of the removed user row."""
     __tablename__ = "account_deletions"
     account_id: Mapped[str] = mapped_column(String(36), primary_key=True)
-    subject_hash: Mapped[str] = mapped_column(String(64), unique=True)
+    subject_hash: Mapped[str] = mapped_column(String(64), index=True)
     receipt_hash: Mapped[str] = mapped_column(String(64))
     subject: Mapped[str | None] = mapped_column(String(128), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))

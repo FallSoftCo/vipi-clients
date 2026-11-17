@@ -13,7 +13,7 @@ from sqlalchemy import delete, or_, select, update
 from .db import (AccountDeletion, Block, BotReport, Device, Entitlement, KeyClaim,
                  ModerationAction, PendingMessage, PublicBundle, PublicPreKey,
                  PushOutbox, PushToken, RateWindow, Reservation, UsageBucket,
-                 User, UserReport)
+                 User, UserReport, VipiTrialEligibility)
 from .delivery import utc
 
 
@@ -39,6 +39,18 @@ class DeletionRecord(EvidenceRecord):
         return self
 
 
+class TrialEligibilityRecord(EvidenceRecord):
+    subject_hash: str = Field(pattern=r"^[0-9a-f]{64}$")
+    started_at: AwareDatetime
+    ends_at: AwareDatetime
+
+    @model_validator(mode="after")
+    def interval(self):
+        if self.ends_at < self.started_at:
+            raise ValueError("invalid trial eligibility interval")
+        return self
+
+
 class RestrictionRecord(EvidenceRecord):
     account_id: str = Field(min_length=1, max_length=36)
     suspended: bool
@@ -53,6 +65,7 @@ class RecoveryEvidence(EvidenceRecord):
     claimed_complete: bool
     deletions: list[DeletionRecord] = Field(max_length=1000)
     restrictions: list[RestrictionRecord] = Field(max_length=1000)
+    trial_eligibility: list[TrialEligibilityRecord] = Field(default_factory=list, max_length=1000)
 
     @model_validator(mode="after")
     def interval(self):
@@ -61,8 +74,10 @@ class RecoveryEvidence(EvidenceRecord):
         for records in (self.deletions, self.restrictions):
             if len({x.account_id for x in records}) != len(records):
                 raise ValueError("duplicate account evidence")
-        if len({x.subject_hash for x in self.deletions}) != len(self.deletions):
-            raise ValueError("duplicate deletion identity")
+        if len({x.subject_hash for x in self.trial_eligibility}) != len(self.trial_eligibility):
+            raise ValueError("duplicate trial eligibility identity")
+        if any(x.started_at > self.cutoff_at for x in self.trial_eligibility):
+            raise ValueError("trial eligibility exceeds supplied cutoff")
         times = [x.created_at for x in self.deletions] + [x.finished_at for x in self.deletions if x.finished_at]
         times += [x.observed_at for x in self.restrictions]
         if any(t > self.cutoff_at for t in times):
@@ -82,16 +97,22 @@ async def reconcile_offline(db, evidence: RecoveryEvidence, *, snapshot_sha256: 
     digest = sha256(evidence.model_dump_json().encode()).hexdigest()
     counts = {"deleted_accounts_present": 0, "deletion_receipts_added": 0,
               "suspensions_applied": 0, "unknown_restrictions": 0,
-              "restore_requests_not_applied": 0}
+              "restore_requests_not_applied": 0, "trial_eligibility_added": 0}
     async with db.sessions.begin() as s:
         # Validate conflicts before any mutation; outer transaction rolls back on
         # all errors, including conflicts discovered later in the evidence list.
+        for record in evidence.trial_eligibility:
+            old = await s.get(VipiTrialEligibility, record.subject_hash)
+            if old and (utc(old.started_at) != record.started_at or utc(old.ends_at) != record.ends_at):
+                raise ValueError("conflicting trial eligibility")
+            if old is None:
+                s.add(VipiTrialEligibility(**record.model_dump()))
+                counts["trial_eligibility_added"] += 1
         for record in evidence.deletions:
             old = await s.get(AccountDeletion, record.account_id)
-            other = (await s.execute(select(AccountDeletion).where(
-                AccountDeletion.subject_hash == record.subject_hash))).scalar_one_or_none()
-            if (other and other.account_id != record.account_id) or (old and (
-                old.subject_hash != record.subject_hash or old.receipt_hash != record.receipt_hash)):
+            # Shared identity may have deleted/rejoined Vipi several times.
+            # Distinct original account receipts must coexist without merging.
+            if old and (old.subject_hash != record.subject_hash or old.receipt_hash != record.receipt_hash):
                 raise ValueError("conflicting deletion receipt identity")
             user = await s.get(User, record.account_id)
             if user and record.subject is not None and user.subject != record.subject:
@@ -149,14 +170,14 @@ async def reconcile_offline(db, evidence: RecoveryEvidence, *, snapshot_sha256: 
             "reopen_authorized": False, "bot_dispatch_authorized": False,
             "runtime_gate_installed": False,
             "required_before_reopen": ["independently verified deletion/restriction interval and cutoff",
-                "provider entitlement verification", "personal/global spend and consumed-request reconciliation",
+                "original trial eligibility interval coverage", "provider entitlement verification", "personal/global spend and consumed-request reconciliation",
                 "enforced offline-to-live admission gate", "explicit native device re-enrollment"],
             "spend_policy": "retained counters/request IDs unchanged except required account erasure; global charges retained",
             "services_must_remain_stopped": True}
 
 
 class CoverageRecord(EvidenceRecord):
-    domain: Literal["deletions", "restrictions", "billing", "spend", "requests"]
+    domain: Literal["deletions", "restrictions", "billing", "spend", "requests", "eligibility"]
     snapshot_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     start_at: AwareDatetime
     cutoff_at: AwareDatetime
@@ -167,14 +188,14 @@ class CoverageRecord(EvidenceRecord):
 class BoundRecoveryEvidence(EvidenceRecord):
     """Explicit external coverage claims, not an authority or a release token."""
     reconciliation: RecoveryEvidence
-    coverage: list[CoverageRecord] = Field(min_length=5, max_length=5)
+    coverage: list[CoverageRecord] = Field(min_length=6, max_length=6)
 
     @model_validator(mode="after")
     def coverage_binding(self):
         e = self.reconciliation
         if not e.claimed_complete:
             raise ValueError("contradictory incomplete reconciliation claim")
-        if {r.domain for r in self.coverage} != {"deletions", "restrictions", "billing", "spend", "requests"}:
+        if {r.domain for r in self.coverage} != {"deletions", "restrictions", "billing", "spend", "requests", "eligibility"}:
             raise ValueError("all recovery domains required exactly once")
         for row in self.coverage:
             if row.snapshot_sha256 != e.snapshot_sha256 or row.start_at != e.snapshot_at or row.cutoff_at != e.cutoff_at:
@@ -194,7 +215,7 @@ async def reconcile_marked_offline(db, supplied: BoundRecoveryEvidence, *, now: 
     result.update(runtime_gate_installed=True, restore_id=marker['restore_id'],
         restore_state="HOLD", coverage_claims_supplied=True,
         coverage_claims_sha256=sha256(supplied.model_dump_json().encode()).hexdigest(),
-        reconciled_domains=["deletions", "restrictions"],
+        reconciled_domains=["deletions", "restrictions", "eligibility"],
         unapplied_domains=["billing", "spend", "requests"],
         native_reenrollment_qualified=False)
     return result

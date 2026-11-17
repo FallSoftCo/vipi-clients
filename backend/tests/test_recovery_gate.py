@@ -93,7 +93,7 @@ async def test_workers_return_before_db_provider_initialization(monkeypatch, nam
     else:
         monkeypatch.setattr(module, 'Settings', lambda: settings(recovery_hold=True))
         if name == 'billing_worker': monkeypatch.setattr(module, 'providers_for', bomb)
-        if name == 'maintenance': monkeypatch.setattr(module, 'WorkOSUserDeleter', bomb)
+        if name == 'maintenance': monkeypatch.setattr(module, 'expire_deletion_receipts', bomb)
     await module.main()
 
 

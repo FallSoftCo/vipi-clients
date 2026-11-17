@@ -23,6 +23,7 @@ from .rates import consume
 from .prekeys import PublishInput, claim, inventory, publish
 from .inbox import decode_cursor, encode_cursor
 from .deletion import deletion_for, deletion_status, request_deletion, subject_hash, lock_account_lifecycle
+from .eligibility import original_trial
 
 
 class BodyLimit:
@@ -229,6 +230,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         user = (await session.execute(select(User).where(User.subject == p.subject, User.deleted.is_(False)))).scalar_one_or_none()
         if not user:
             raise DeliveryError("profile_required", 404)
+        if p.authenticated_at < user.minimum_auth_time:
+            raise DeliveryError("recent_sign_in_required", 401)
         if user.suspended and not allow_restricted:
             raise DeliveryError("account_restricted", 403)
         return user
@@ -259,7 +262,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 if not events.ready.is_set():
                     return JSONResponse({"status": "events_unavailable"}, status_code=503)
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261117_01":
+                if revision != "20261117_02":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -341,9 +344,14 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             async with db.sessions.begin() as session:
                 await lock_account_lifecycle(session, p.subject, settings.service_secret)
                 user = (await session.execute(select(User).where(User.subject == p.subject).with_for_update())).scalar_one_or_none()
-                if await deletion_for(session, p.subject, settings.service_secret):
+                deletion = await deletion_for(session, p.subject, settings.service_secret)
+                if deletion and deletion.finished_at is None:
                     raise DeliveryError("account_deletion_pending", 409)
+                if deletion and p.authenticated_at <= utc(deletion.created_at).timestamp():
+                    raise DeliveryError("recent_sign_in_required", 401)
                 if user:
+                    if p.authenticated_at < user.minimum_auth_time:
+                        raise DeliveryError("recent_sign_in_required", 401)
                     if user.deleted:
                         raise DeliveryError("account_unavailable", 409)
                     if user.suspended:
@@ -351,7 +359,14 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                     if user.username != username:
                         raise DeliveryError("profile_already_exists", 409)
                 else:
-                    user = User(id=str(uuid4()), subject=p.subject, username=username, display_name=body.display_name, created_at=now())
+                    # A shared refresh session must not silently recreate a
+                    # deleted Vipi profile after its seven-day receipt expires.
+                    if not 0 <= now().timestamp() - p.authenticated_at <= 600:
+                        raise DeliveryError("recent_sign_in_required", 401)
+                    trial = await original_trial(session, subject=p.subject, service_secret=settings.service_secret, started_at=now())
+                    user = User(id=str(uuid4()), subject=p.subject, minimum_auth_time=p.authenticated_at,
+                        username=username, display_name=body.display_name, created_at=now(),
+                        cardless_trial_started_at=trial.started_at, cardless_trial_ends_at=trial.ends_at)
                     session.add(user)
                     await session.flush()
                 return profile(user)
@@ -367,13 +382,13 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         await rate(p, "account-deletion", 10)
         async with db.sessions.begin() as session:
             job = await request_deletion(session, subject=p.subject, account_id=str(body.account_id),
-                                         receipt_secret=body.receipt_secret, service_secret=settings.service_secret, now=now())
+                                         receipt_secret=body.receipt_secret, service_secret=settings.service_secret, now=now(), authenticated_at=p.authenticated_at)
             return {"account_id": job.account_id, "status": "deleted" if job.finished_at else "deletion_requested"}
 
     @app.get("/v1/account-deletions/{account_id}")
     async def account_deletion_status(account_id: UUID, request: Request, authorization: Annotated[str | None, Header()] = None):
         # Client creates and durably saves this 256-bit capability BEFORE sending
-        # DELETE. Polling survives provider-user deletion and a lost response.
+        # DELETE. Polling survives Vipi deletion and a lost response.
         if not authorization or not authorization.startswith("Deletion "):
             raise DeliveryError("deletion_receipt_unavailable", 404)
         remote = request.client.host if request.client else "unknown"

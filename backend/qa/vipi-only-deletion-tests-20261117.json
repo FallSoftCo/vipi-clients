@@ -1,0 +1,29 @@
+{
+  "schema": "vipi-only-deletion-local-qualification-1",
+  "environment": "existing Python environment; disposable disk-backed SQLite fixtures only",
+  "dependencies_installed": false,
+  "production_actions": false,
+  "provider_delete_requests": 0,
+  "postgres_executed": false,
+  "runs": [
+    {
+      "report": "/home/ai/Development/investigations/vipi-quality-20261117-r01/backend-vipi-deletion-tests-r01.xml",
+      "sha256": "c87575c390aa577ec597849d6bc04ccad3a43e070c2198a005674877408b6ffa",
+      "tests": 215,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 19,
+      "seconds": 103.629
+    },
+    {
+      "report": "/home/ai/Development/investigations/vipi-quality-20261117-r01/backend-vipi-deletion-targeted-r02.xml",
+      "sha256": "94b25d4123e0065ff6c31a72c06a68aa77f7852dc35bf80069792b4c46b2bdc9",
+      "tests": 55,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 6,
+      "seconds": 40.322
+    }
+  ],
+  "interpretation": "First run covers the complete backend before final eligibility-recovery extension; second run covers all affected API/web/recovery/admission/events/migration components after that extension. PostgreSQL-only concurrency/migration qualification remains separate."
+}

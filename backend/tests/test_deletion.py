@@ -13,7 +13,7 @@ from vipi.api import create_app
 from vipi.auth import Principal
 from vipi.config import Settings
 from vipi.db import AccountDeletion, Block, Device, Entitlement, KeyClaim, PendingMessage, PublicBundle, PublicPreKey, RateWindow, Reservation, UsageBucket, User
-from vipi.deletion import WorkOSUserDeleter, deletion_status, expire_deletion_receipts, process_deletions, request_deletion
+from vipi.deletion import deletion_status, expire_deletion_receipts, request_deletion
 from vipi.delivery import DeliveryError, accept, utc
 
 KEY = "deletion-test-" * 4
@@ -22,7 +22,7 @@ KEY = "deletion-test-" * 4
 def settings(**extra):
     return Settings(database_url="sqlite+aiosqlite://", workos_client_id="client_fixture",
         workos_issuer="https://api.workos.com", service_secret=KEY, account_deletion_enabled=True,
-        workos_dedicated_user_pool=True, workos_api_key="test-key-never-live", **extra)
+        workos_dedicated_user_pool=False, workos_api_key="test-key-never-live", **extra)
 
 
 async def erase(db, secret, who="alice"):
@@ -62,7 +62,7 @@ async def test_deletion_removes_related_records_and_preserves_other_accounts(db)
         blocks = (await s.scalars(select(Block))).all()
         assert [(b.blocker_id, b.blocked_id) for b in blocks] == [("bob", "eve")]
         receipt = await s.get(AccountDeletion, "alice")
-        assert receipt.subject == "user_alice" and receipt.receipt_hash != secret and receipt.finished_at is None
+        assert receipt.subject is None and receipt.receipt_hash != secret and receipt.finished_at is not None
     # Response-loss retries neither recreate an account nor touch the peer.
     await erase(db, secret)
     with pytest.raises(DeliveryError, match="deletion_receipt_unavailable"):
@@ -80,52 +80,38 @@ async def test_deletion_transaction_rolls_back_all_effects(db):
         assert await s.get(AccountDeletion, "alice") is None
 
 
-async def test_identity_cleanup_retries_and_receipt_survives_removed_sign_in(db):
+async def test_vipi_deletion_completes_without_any_provider_and_receipt_is_bounded(db):
     secret = secrets.token_urlsafe(32)
     await erase(db, secret)
-    calls = []
-    responses = [503, 404]
-    async def upstream(request):
-        assert request.method == "DELETE" and str(request.url) == "https://api.workos.com/user_management/users/user_alice"
-        assert request.headers["Authorization"] == "Bearer test-key-never-live"
-        calls.append(request)
-        return httpx.Response(responses.pop(0), text="provider body must not be stored")
-    deleter = WorkOSUserDeleter(settings(), transport=httpx.MockTransport(upstream))
-    try:
-        assert (await process_deletions(db, deleter, now=NOW))["retry"] == 1
-        assert (await process_deletions(db, deleter, now=NOW+timedelta(seconds=20)))["finished"] == 0
-        assert len(calls) == 1
-        async with db.sessions() as s:
-            receipt = await s.get(AccountDeletion, "alice")
-            assert receipt.error_code == "identity_cleanup_unavailable" and receipt.subject == "user_alice"
-        assert (await process_deletions(db, deleter, now=NOW+timedelta(seconds=31)))["finished"] == 1
-        async with db.sessions() as s:
-            receipt = await s.get(AccountDeletion, "alice")
-            assert receipt.subject is None and receipt.error_code is None and receipt.finished_at is not None
-            assert await deletion_status(s, account_id="alice", receipt_secret=secret, service_secret=KEY) == {"account_id":"alice", "status":"deleted"}
-            with pytest.raises(DeliveryError):
-                await deletion_status(s, account_id="alice", receipt_secret=secrets.token_urlsafe(32), service_secret=KEY)
-    finally:
-        await deleter.close()
-
-
-async def test_expired_worker_lease_recovery_and_bounded_receipt_retention(db):
-    await erase(db, secrets.token_urlsafe(32))
-    await erase(db, secrets.token_urlsafe(32), "bob")
+    async with db.sessions() as s:
+        receipt = await s.get(AccountDeletion, "alice")
+        assert receipt.subject is None and receipt.finished_at is not None and receipt.attempts == 0
+        assert await deletion_status(s, account_id="alice", receipt_secret=secret, service_secret=KEY) == {"account_id":"alice", "status":"deleted"}
+        with pytest.raises(DeliveryError):
+            await deletion_status(s, account_id="alice", receipt_secret=secrets.token_urlsafe(32), service_secret=KEY)
     async with db.sessions.begin() as s:
-        job = await s.get(AccountDeletion, "alice")
-        job.lease_token = "lost-worker"; job.lease_until = NOW+timedelta(minutes=2)
-        other = await s.get(AccountDeletion, "bob")
-        other.next_attempt_at = NOW+timedelta(days=20)
-    class Provider:
-        async def delete(self, subject): assert subject == "user_alice"
-    assert (await process_deletions(db, Provider(), now=NOW))["finished"] == 0
-    assert (await process_deletions(db, Provider(), now=NOW+timedelta(minutes=3)))["finished"] == 1
-    async with db.sessions.begin() as s:
+        # An old provider queue row is explicitly not an app-only completion.
+        s.add(AccountDeletion(account_id="legacy", subject="user_legacy", subject_hash="a"*64,
+            receipt_hash="b"*64, created_at=NOW, next_attempt_at=NOW, attempts=2))
         await expire_deletion_receipts(s, NOW+timedelta(days=8))
     async with db.sessions() as s:
         assert await s.get(AccountDeletion, "alice") is None
-        assert (await s.get(AccountDeletion, "bob")).subject == "user_bob"
+        assert (await s.get(AccountDeletion, "legacy")).subject == "user_legacy"
+
+
+async def test_maintenance_never_dispatches_legacy_provider_deletion(db, monkeypatch):
+    from vipi import maintenance
+    async with db.sessions.begin() as s:
+        s.add(AccountDeletion(account_id="legacy", subject="user_other_environment", subject_hash="a"*64,
+            receipt_hash="b"*64, created_at=NOW, next_attempt_at=NOW, attempts=2))
+    monkeypatch.setattr(maintenance, "Settings", lambda: settings())
+    monkeypatch.setattr(maintenance, "Database", lambda _: db)
+    def provider_bomb(*args, **kwargs): pytest.fail("maintenance constructed a provider client")
+    monkeypatch.setattr(httpx, "AsyncClient", provider_bomb)
+    await maintenance.main()
+    async with db.sessions() as s:
+        job = await s.get(AccountDeletion, "legacy")
+        assert job.subject == "user_other_environment" and job.finished_at is None and job.attempts == 2
 
 
 async def test_account_deletion_api_requires_recent_identity_and_resumes_without_it(db):
@@ -143,12 +129,12 @@ async def test_account_deletion_api_requires_recent_identity_and_resumes_without
         assert (await api.request("DELETE", "/v1/me", json=body|{"account_id":bob["id"]}, headers=headers)).status_code == 409
         assert (await api.get("/v1/me", headers=headers)).json() == alice
         response = await api.request("DELETE", "/v1/me", json=body, headers=headers)
-        assert response.status_code == 202 and response.json()["status"] == "deletion_requested"
+        assert response.status_code == 202 and response.json()["status"] == "deleted"
         assert (await api.request("DELETE", "/v1/me", json=body, headers=headers)).json() == response.json()
         assert (await api.get("/v1/me", headers=headers)).status_code == 404
         assert (await api.get("/v1/messages/pending", headers=headers)).status_code == 404
         assert (await api.get("/v1/people/qa_alice", headers=bob_headers)).status_code == 404
-        assert (await api.put("/v1/me", headers=headers, json={"username":"new_alice", "display_name":"New"})).status_code == 409
+        assert (await api.put("/v1/me", headers=headers, json={"username":"new_alice", "display_name":"New"})).status_code == 401
         url = "/v1/account-deletions/"+alice["id"]
         assert (await api.get(url, headers=headers)).status_code == 404
         assert (await api.get(url, headers={"Authorization":"Deletion "+secrets.token_urlsafe(32)})).status_code == 404
@@ -158,10 +144,10 @@ async def test_account_deletion_api_requires_recent_identity_and_resumes_without
         assert (await api.get("/v1/me", headers=bob_headers)).json() == bob
 
 
-def test_shared_identity_pool_cannot_enable_provider_deletion():
-    with pytest.raises(ValueError, match="dedicated Vipi identity pool"):
-        Settings(database_url="sqlite+aiosqlite://", workos_client_id="client_fixture", workos_issuer="https://api.workos.com",
-                 service_secret=KEY, account_deletion_enabled=True, workos_api_key="not-a-live-secret")
+def test_shared_identity_app_deletion_needs_no_provider_secret():
+    value = Settings(database_url="sqlite+aiosqlite://", workos_client_id="client_fixture",
+        workos_issuer="https://api.workos.com", service_secret=KEY, account_deletion_enabled=True)
+    assert value.account_deletion_enabled and value.workos_api_key is None and not value.workos_dedicated_user_pool
 
 
 async def test_deletion_is_available_before_username_setup_without_touching_other_users(db):
@@ -173,9 +159,72 @@ async def test_deletion_is_available_before_username_setup_without_touching_othe
         response = await api.request("DELETE", "/v1/me", json=body, headers=headers)
         assert response.status_code == 202
         assert (await api.request("DELETE", "/v1/me", json=body, headers=headers)).json() == response.json()
-        assert (await api.put("/v1/me", json={"username": "qa_alice", "display_name": "QA"}, headers=headers)).status_code == 409
+        assert (await api.put("/v1/me", json={"username": "qa_alice", "display_name": "QA"}, headers=headers)).status_code == 401
     async with db.sessions() as s:
         assert all([await s.get(User, name) is not None for name in ("alice", "bob", "eve")])
     with pytest.raises(DeliveryError, match="account_changed"):
         async with db.sessions.begin() as s:
             await request_deletion(s, subject="user_new", account_id="bob", receipt_secret=secrets.token_urlsafe(32), service_secret=KEY, now=NOW)
+
+
+async def test_fresh_explicit_rejoin_retains_old_receipts_rejects_stale_sessions_and_keeps_trial(db):
+    from vipi.db import VipiTrialEligibility
+    from vipi.eligibility import eligibility_hash
+    current = [NOW]
+    class Verifier(TestVerifier):
+        async def verify(self, token):
+            if token == "fresh-alice": return Principal("user_qa_alice", "new-session", int(current[0].timestamp()))
+            if token == "old-refreshed": return Principal("user_qa_alice", "refreshed-session", int(NOW.timestamp()))
+            return await super().verify(token)
+    app = create_app(settings(), database=db, verifier=Verifier(), clock=lambda:current[0])
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="https://vipi.test") as api:
+        alice, _, old = await identity(api, "alice")
+        first_trial = (await api.get("/v1/entitlements", headers=old)).json()["base"]["cardless_trial"]
+        current[0] += timedelta(seconds=1)
+        first = {"account_id":alice["id"], "receipt_secret":secrets.token_urlsafe(32)}
+        assert (await api.request("DELETE", "/v1/me", headers=old, json=first)).json()["status"] == "deleted"
+        current[0] += timedelta(seconds=1)
+        fresh = {"Authorization":"Bearer fresh-alice"}
+        rejoin = await api.put("/v1/me", headers=fresh, json={"username":"rejoined_alice","display_name":"New profile"})
+        assert rejoin.status_code == 200
+        second_id = rejoin.json()["id"]
+        assert second_id != alice["id"]
+        assert (await api.get("/v1/entitlements", headers=fresh)).json()["base"]["cardless_trial"] == first_trial
+        # A new access token from an old shared refresh session is still old auth.
+        refreshed = {"Authorization":"Bearer old-refreshed"}
+        assert (await api.get("/v1/me", headers=refreshed)).status_code == 401
+        assert (await api.put("/v1/me", headers=old, json={"username":"rejoined_alice","display_name":"Old"})).status_code == 401
+        # The old DELETE returns its old receipt; it cannot target the new UUID.
+        assert (await api.request("DELETE", "/v1/me", headers=old, json=first)).json() == {"account_id":alice["id"],"status":"deleted"}
+        assert (await api.request("DELETE", "/v1/me", headers=old, json=first|{"account_id":second_id})).status_code == 401
+        assert (await api.get("/v1/me", headers=fresh)).json()["id"] == second_id
+        current[0] += timedelta(seconds=1)
+        second = {"account_id":second_id,"receipt_secret":secrets.token_urlsafe(32)}
+        assert (await api.request("DELETE", "/v1/me", headers=fresh, json=second)).json()["status"] == "deleted"
+        for body in (first, second):
+            receipt = await api.get("/v1/account-deletions/"+body["account_id"], headers={"Authorization":"Deletion "+body["receipt_secret"]})
+            assert receipt.json() == {"account_id":body["account_id"],"status":"deleted"}
+        current[0] += timedelta(days=8)
+        async with db.sessions.begin() as session:
+            await expire_deletion_receipts(session, current[0])
+        assert (await api.get("/v1/account-deletions/"+first["account_id"], headers={"Authorization":"Deletion "+first["receipt_secret"]})).status_code == 404
+        assert (await api.put("/v1/me", headers=refreshed, json={"username":"stale_recreate","display_name":"Old"})).status_code == 401
+        third = await api.put("/v1/me", headers=fresh, json={"username":"third_alice","display_name":"Fresh"})
+        assert third.status_code == 200
+        assert (await api.get("/v1/entitlements", headers=fresh)).json()["base"]["cardless_trial"] == first_trial
+        async with db.sessions() as session:
+            ledger = await session.get(VipiTrialEligibility, eligibility_hash("user_qa_alice", KEY))
+            assert ledger and utc(ledger.started_at) == NOW
+            assert (await session.scalar(select(func.count()).select_from(Entitlement).where(Entitlement.user_id == third.json()["id"]))) == 0
+
+
+async def test_global_eligibility_hook_is_separate_from_vipi_deletion(db):
+    from vipi.db import VipiTrialEligibility
+    from vipi.eligibility import eligibility_hash, erase_for_global_fallsoft_deletion
+    await erase(db, secrets.token_urlsafe(32))
+    async with db.sessions.begin() as session:
+        assert await session.get(VipiTrialEligibility, eligibility_hash("user_alice", KEY))
+        await erase_for_global_fallsoft_deletion(session, subject="user_alice", service_secret=KEY)
+    async with db.sessions() as session:
+        assert await session.get(VipiTrialEligibility, eligibility_hash("user_alice", KEY)) is None
+        assert await session.get(User, "bob")

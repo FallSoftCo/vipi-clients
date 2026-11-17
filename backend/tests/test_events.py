@@ -201,3 +201,14 @@ async def test_late_database_termination_does_not_close_replacement_listener(db,
         assert len(connections)==2 and not connections[1].closed and broker.ready.is_set()
     finally:
         await broker.close()
+
+
+async def test_events_and_http_reject_old_shared_auth_time_for_new_profile_floor(db):
+    async with application(db) as (app, client):
+        alice, _, headers = await identity(client, "alice")
+        async with db.sessions.begin() as session:
+            await session.execute(update(User).where(User.id == alice["id"]).values(minimum_auth_time=int(NOW.timestamp())+1))
+        assert (await client.get("/v1/me", headers=headers)).status_code == 401
+        async with Socket(app, headers) as socket:
+            assert (await socket.next())["code"] == 4403
+        assert app.state.events.count == 0

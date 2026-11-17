@@ -7,7 +7,7 @@ from .config import Settings
 from .db import BillingNotification, BotReport, Database, RateWindow, UserReport
 from .delivery import expire
 from .prekeys import expire_claims
-from .deletion import WorkOSUserDeleter, expire_deletion_receipts, process_deletions
+from .deletion import expire_deletion_receipts
 
 
 async def main():
@@ -31,12 +31,9 @@ async def main():
             await session.execute(delete(BotReport).where(BotReport.expires_at <= now))
             await session.execute(delete(UserReport).where(UserReport.expires_at <= now))
             await session.execute(delete(BillingNotification).where(BillingNotification.created_at < now - timedelta(days=30)))
-        if settings.account_deletion_enabled:
-            deleter = WorkOSUserDeleter(settings)
-            try:
-                await process_deletions(db, deleter, now=now)
-            finally:
-                await deleter.close()
+        # Vipi deletion completes in its own transaction. Never drain historical
+        # provider-user jobs using whichever shared identity environment is live.
+
     finally:
         await db.close()
 

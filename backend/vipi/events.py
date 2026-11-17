@@ -124,6 +124,8 @@ def install(app, settings, db, verifier, now, broker):
                 User.deleted.is_(False), User.suspended.is_(False)))).scalar_one_or_none()
             if not user:
                 raise DeliveryError("account_unavailable", 403)
+            if principal.authenticated_at < user.minimum_auth_time:
+                raise DeliveryError("recent_sign_in_required", 401)
             try:
                 await active_device(session, user.id, device_id, socket.headers.get("X-Vipi-Device-Secret", ""),
                     service_secret=settings.service_secret)

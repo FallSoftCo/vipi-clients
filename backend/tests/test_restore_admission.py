@@ -18,7 +18,7 @@ def bound(e=None):
     return BoundRecoveryEvidence.model_validate(dict(reconciliation=e.model_dump(), coverage=[
         dict(domain=d, snapshot_sha256=e.snapshot_sha256, start_at=e.snapshot_at,
              cutoff_at=e.cutoff_at, artifact_sha256=str(i)*64, claimed_complete=True)
-        for i,d in enumerate(['deletions','restrictions','billing','spend','requests'],1)]))
+        for i,d in enumerate(['deletions','restrictions','billing','spend','requests','eligibility'],1)]))
 
 
 async def restored_handle(db):
@@ -99,7 +99,7 @@ async def test_workers_refuse_marked_db_without_provider_dispatch(recovery_db,mo
     monkeypatch.setattr(vipi.config,'Settings',lambda:config)
     if hasattr(module,'Settings'):monkeypatch.setattr(module,'Settings',lambda:config)
     def bomb(*a,**kw):pytest.fail('provider constructed on held restore')
-    name={'billing_worker':'providers_for','maintenance':'WorkOSUserDeleter','push':'PushProviders'}[worker]
+    name={'billing_worker':'providers_for','maintenance':'expire_deletion_receipts','push':'PushProviders'}[worker]
     monkeypatch.setattr(module,name,bomb)
     try:
         with pytest.raises(RecoveryHoldError):await module.main()

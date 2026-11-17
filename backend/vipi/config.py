@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     delivery_seconds: int = 259_200
     bot_monthly_budget_nano_usd: int = 500_000_000
     account_deletion_enabled: bool = False
+    # Legacy deployment flag is accepted for compatibility; it grants no user DELETE.
     workos_dedicated_user_pool: bool = False
     workos_api_key: SecretStr | None = None
     deletion_web_origin: str | None = None
@@ -119,13 +120,13 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def deletion_configuration(self):
-        # WorkOS users can be shared by applications in an environment. Never
-        # delete that shared identity without a verified Vipi-only user pool.
-        if self.account_deletion_enabled and (not self.workos_dedicated_user_pool or not self.workos_api_key or not self.workos_api_key.get_secret_value()):
-            raise ValueError("Account deletion requires a configured, dedicated Vipi identity pool")
+        # App-only deletion needs no provider secret and never deletes a WorkOS
+        # user. The browser OAuth code exchange independently needs its secret.
         if self.deletion_web_origin:
             from urllib.parse import urlsplit
             origin = urlsplit(self.deletion_web_origin)
+            if not self.workos_api_key or not self.workos_api_key.get_secret_value():
+                raise ValueError("Browser deletion requires a configured sign-in credential")
             if not self.account_deletion_enabled or origin.scheme != "https" or not origin.netloc or origin.path or origin.query or origin.fragment or origin.username or origin.password:
                 raise ValueError("Browser deletion requires an enabled service and a fixed HTTPS origin")
         return self

@@ -1,7 +1,7 @@
 """Same-origin account deletion, with fresh AuthKit sign-in and no browser JS.
 
 Short-lived credentials stay in authenticated, encrypted HttpOnly cookies.
-A separate seven-day receipt survives sign-in removal and lost POST responses.
+A separate seven-day receipt survives Vipi deletion and lost POST responses.
 Only the explicitly configured HTTPS origin can issue state-changing requests.
 """
 import base64
@@ -23,7 +23,7 @@ from starlette.responses import HTMLResponse, RedirectResponse, Response
 from .auth import AuthenticationError
 from .db import AccountDeletion, User
 from .deletion import deletion_for, request_deletion, subject_hash, lock_account_lifecycle
-from .delivery import DeliveryError
+from .delivery import DeliveryError, utc
 from .rates import consume
 
 START = "__Host-vipi-delete-start"
@@ -84,7 +84,7 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
     subscription = ('<details><summary>Subscriptions and copies of messages</summary><p>Deleting your account does not cancel a store subscription. '
         'You can cancel it in <a href="https://apps.apple.com/account/subscriptions" rel="noreferrer">Apple subscriptions</a> or '
         '<a href="https://play.google.com/store/account/subscriptions" rel="noreferrer">Google Play subscriptions</a>. '
-        'You do not need to cancel first.</p><p>Friends’ copies of messages and backups you saved outside Vipi remain. '
+        'You do not need to cancel first. Purchase links are removed from Vipi; paid access is not automatically transferred to a new profile. Contact support about restoring an existing subscription before rejoining.</p><p>Friends’ copies of messages and backups you saved outside Vipi remain. '
         'This website cannot erase chat history stored on your devices. Remove that history in the app or remove the app’s local data.</p></details>')
 
     async def throttle(request, scope, limit):
@@ -121,19 +121,28 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
         async with db.sessions() as session:
             # This sealed cookie proves the authenticated subject independently
             # of a native client's receipt or an unfinished profile's UUID.
-            job = await session.scalar(select(AccountDeletion).where(AccountDeletion.subject_hash == receipt["subject_hash"]))
+            job = await session.scalar(select(AccountDeletion).where(AccountDeletion.account_id == receipt["account"], AccountDeletion.subject_hash == receipt["subject_hash"]))
+            if job is None and receipt.get("unprofiled"):
+                # Before username setup native and browser clients may choose
+                # different provisional UUIDs. A sealed subject receipt may
+                # observe a concurrent deletion, but never target a new profile.
+                candidate = await session.scalar(select(AccountDeletion).where(
+                    AccountDeletion.subject_hash == receipt["subject_hash"])
+                    .order_by(AccountDeletion.created_at.desc(), AccountDeletion.account_id.desc()).limit(1))
+                if candidate and utc(candidate.created_at).timestamp() >= receipt.get("issued_at", float("inf")):
+                    job = candidate
             if job and hmac.compare_digest(job.subject_hash, receipt["subject_hash"]):
                 return job
         return None
 
     def progress(job):
         if job.finished_at:
-            response = page("Account deleted", '<p class="lead">Your Vipi account and sign-in have been deleted.</p>'
-                '<p>You can close this page.</p>'+subscription+
-                '<p class="small">A minimal deletion receipt is retained for seven days to let you check completion.</p>')
+            response = page("Account deleted", '<p class="lead">Your Vipi account has been deleted. Your shared Fallsoft sign-in and accounts in other apps remain.</p>'
+                '<p>You can close this page.</p><p><a href="/delete-account/sign-in">Sign in to review your current Vipi profile</a></p>'+subscription+
+                '<p class="small">A minimal deletion receipt is retained for seven days to let you check completion. A keyed identity hash and original free-trial dates remain to prevent a new free period after rejoining.</p>')
         else:
-            response = page("Deletion in progress", '<p class="lead">Your Vipi account data has been removed. We’re finishing the removal of your sign-in.</p>'
-                '<p>You can close this page. Deletion continues automatically. Return in this browser within seven days to check completion.</p>'
+            response = page("Deletion in progress", '<p class="lead">Your Vipi account data has been removed. An earlier identity-cleanup request is paused for review. Your shared Fallsoft sign-in remains.</p>'
+                '<p>You can close this page. This Vipi service will not delete your shared sign-in. Contact support about this earlier request.</p>'
                 '<a class="button" href="/delete-account">Check status</a>'+subscription)
         return clear(response, AUTH, START)
 
@@ -173,8 +182,8 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
                 auth = None
             if auth:
                 return page("Delete your account?", f'<p class="identity">{escape(auth["label"])}</p>'
-                    '<p class="lead">Permanently delete your Vipi profile, sign-in, device registrations and messages waiting for delivery.</p>'
-                    '<p>This cannot be undone. Store subscriptions must be canceled separately.</p>'+subscription+
+                    '<p class="lead">Permanently delete your Vipi profile, device registrations and messages waiting for delivery. Your shared Fallsoft sign-in and accounts in other apps remain.</p>'
+                    '<p>This cannot be undone. Store subscriptions must be canceled separately. A keyed identity hash and original free-trial dates remain so rejoining does not restart the free period.</p>'+subscription+
                     '<div class="actions">'+form("confirm", auth["csrf"], "Delete account", danger=True)+form("cancel", auth["csrf"], "Cancel")+'</div>')
         response = page("Delete your Vipi account", '<p class="lead">Sign in to confirm which account you want to delete. You’ll review the details before anything is deleted.</p>'
             +'<a class="button" href="/delete-account/sign-in">Sign in to continue</a>'+subscription)
@@ -185,8 +194,8 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
         if not origin:
             return unavailable("Browser deletion is not available yet.", 503)
         await throttle(request, "web-deletion-sign-in", 10)
-        if job := await job_for(read(request, RECEIPT, WEEK)):
-            return progress(job)
+        # An explicit new sign-in can review a newly rejoined Vipi profile.
+        # The previous receipt still addresses only the deleted account UUID.
         pending = {"csrf": secrets.token_urlsafe(32), "state": secrets.token_urlsafe(32), "verifier": secrets.token_urlsafe(48)}
         challenge = base64.urlsafe_b64encode(hashlib.sha256(pending["verifier"].encode()).digest()).rstrip(b"=").decode()
         params = {"client_id": settings.workos_client_id, "provider": "authkit", "response_type": "code", "max_age": "0", "screen_hint": "sign-in",
@@ -218,12 +227,19 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
             async with db.sessions() as session:
                 job = await deletion_for(session, p.subject, settings.service_secret)
                 user = await session.scalar(select(User).where(User.subject == p.subject))
+                if user and p.authenticated_at < user.minimum_auth_time:
+                    raise AuthenticationError("sign_in_required")
                 previous_account = old["account"] if old and old.get("subject_hash") == digest else str(uuid4())
-                account = job.account_id if job else (user.id if user else previous_account)
+                if user:
+                    job = await session.get(AccountDeletion, user.id)
+                    account = user.id
+                else:
+                    account = job.account_id if job else previous_account
                 auth["label"] = "@"+user.username if user else result["user"]["email"]
             auth["account"] = account
             receipt = old if old and old.get("account") == account and old.get("subject_hash") == digest else {
-                "account": account, "subject_hash": digest, "secret": secrets.token_urlsafe(32)}
+                "account": account, "subject_hash": digest, "secret": secrets.token_urlsafe(32),
+                "unprofiled": user is None, "issued_at": timestamp()}
             response = headers(RedirectResponse("/delete-account", status_code=303))
             # Receipt reaches the browser before it can confirm the destructive
             # action; it also grants status for an existing native deletion job.
@@ -256,10 +272,15 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
             # A concurrent native request may already have committed with its
             # own receipt. Do not replace that capability or delete other data.
             await lock_account_lifecycle(session, p.subject, settings.service_secret)
-            existing = await deletion_for(session, p.subject, settings.service_secret)
+            existing = await session.get(AccountDeletion, auth["account"])
+            if not existing and receipt.get("unprofiled"):
+                latest = await deletion_for(session, p.subject, settings.service_secret)
+                user = await session.scalar(select(User).where(User.subject == p.subject))
+                if user is None and latest and utc(latest.created_at).timestamp() >= receipt.get("issued_at", float("inf")):
+                    existing = latest
             if not existing:
                 await request_deletion(session, subject=p.subject, account_id=auth["account"], receipt_secret=receipt["secret"],
-                    service_secret=settings.service_secret, now=clock())
+                    service_secret=settings.service_secret, now=clock(), authenticated_at=p.authenticated_at)
         response = headers(RedirectResponse("/delete-account", status_code=303))
         return clear(response, AUTH, START)
 

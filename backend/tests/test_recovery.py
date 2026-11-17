@@ -202,3 +202,35 @@ async def test_cli_special_path_characters_address_only_exact_output(recovery_db
     receipt = json.loads((out / 'receipt.json').read_text())
     assert receipt['output_sha256'] == hashlib.sha256(exact.read_bytes()).hexdigest()
     assert receipt['source_unchanged'] and receipt['complete']
+
+
+async def test_recovery_retains_multiple_deleted_accounts_for_one_shared_identity(recovery_db):
+    records = [dict(account_id="alice", subject_hash="b"*64, receipt_hash="c"*64,
+                   created_at=NOW-timedelta(days=1), finished_at=NOW-timedelta(hours=23)),
+               dict(account_id="old-rejoined-alice", subject_hash="b"*64, receipt_hash="d"*64,
+                   created_at=NOW-timedelta(hours=1), finished_at=NOW)]
+    data = evidence(deletions=records)
+    for _ in range(2):
+        result = await reconcile_offline(recovery_db, data, snapshot_sha256="a"*64, now=NOW)
+        assert result['reopen_authorized'] is False and result['bot_dispatch_authorized'] is False
+    async with recovery_db.sessions() as session:
+        rows = (await session.scalars(select(AccountDeletion).where(AccountDeletion.subject_hash == "b"*64))).all()
+        assert {row.account_id for row in rows} == {"alice", "old-rejoined-alice"}
+        assert {row.receipt_hash for row in rows} == {"c"*64, "d"*64}
+        assert await session.get(User, "bob") and await session.get(User, "eve")
+
+
+async def test_recovery_preserves_exact_post_snapshot_trial_eligibility_and_rejects_conflict(recovery_db):
+    from vipi.db import VipiTrialEligibility
+    record = dict(subject_hash='e'*64, started_at=NOW-timedelta(days=1), ends_at=NOW+timedelta(days=29))
+    data = evidence(trial_eligibility=[record])
+    for _ in range(2):
+        report = await reconcile_offline(recovery_db, data, snapshot_sha256='a'*64, now=NOW)
+        assert not report['reopen_authorized']
+    async with recovery_db.sessions() as session:
+        ledger = await session.get(VipiTrialEligibility, 'e'*64)
+        from vipi.delivery import utc
+        assert utc(ledger.started_at) == record['started_at'] and utc(ledger.ends_at) == record['ends_at']
+    bad = evidence(trial_eligibility=[record | {'ends_at':NOW+timedelta(days=30)}])
+    with pytest.raises(ValueError, match='conflicting trial eligibility'):
+        await reconcile_offline(recovery_db, bad, snapshot_sha256='a'*64, now=NOW)
