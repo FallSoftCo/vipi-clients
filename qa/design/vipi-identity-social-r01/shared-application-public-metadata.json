@@ -1,0 +1,81 @@
+{
+  "observed_at": "2026-11-17T17:49:20.895854+00:00",
+  "public_metadata_only": true,
+  "clients": {
+    "shared_vipi": {
+      "client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+      "discovery": {
+        "status": 200,
+        "url": "https://api.workos.com/user_management/client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4/.well-known/openid-configuration",
+        "issuer": "https://api.workos.com/user_management/client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+        "jwks_uri": "https://api.workos.com/sso/jwks/client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+        "authorization_endpoint": "https://api.workos.com/user_management/authorize",
+        "token_endpoint": "https://api.workos.com/user_management/authenticate",
+        "code_challenge_methods_supported": null,
+        "token_endpoint_auth_methods_supported": null
+      },
+      "jwks": {
+        "status": 200,
+        "url": "https://api.workos.com/sso/jwks/client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+        "document_sha256": "f8ba7d2eedb6e7a2d93bd495161cdf98afeca1cf1bb56eb4c698e877b53d180a",
+        "keys": [
+          {
+            "kid": "sso_oidc_key_pair_01JPK69ZXV11YNMERWH5JPPSHE",
+            "kty": "RSA",
+            "alg": "RS256"
+          }
+        ]
+      }
+    },
+    "shared_default": {
+      "client_id": "client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+      "discovery": {
+        "status": 200,
+        "url": "https://api.workos.com/user_management/client_01JPK69ZZFHH0NSP8BY2HGRDX6/.well-known/openid-configuration",
+        "issuer": "https://api.workos.com/user_management/client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+        "jwks_uri": "https://api.workos.com/sso/jwks/client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+        "authorization_endpoint": "https://api.workos.com/user_management/authorize",
+        "token_endpoint": "https://api.workos.com/user_management/authenticate",
+        "code_challenge_methods_supported": null,
+        "token_endpoint_auth_methods_supported": null
+      },
+      "jwks": {
+        "status": 200,
+        "url": "https://api.workos.com/sso/jwks/client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+        "document_sha256": "f8ba7d2eedb6e7a2d93bd495161cdf98afeca1cf1bb56eb4c698e877b53d180a",
+        "keys": [
+          {
+            "kid": "sso_oidc_key_pair_01JPK69ZXV11YNMERWH5JPPSHE",
+            "kty": "RSA",
+            "alg": "RS256"
+          }
+        ]
+      }
+    },
+    "legacy_vipi": {
+      "client_id": "client_01M6VYVQQ9GWVNS95DFGABXEW9",
+      "discovery": {
+        "status": 200,
+        "url": "https://api.workos.com/user_management/client_01M6VYVQQ9GWVNS95DFGABXEW9/.well-known/openid-configuration",
+        "issuer": "https://api.workos.com/user_management/client_01M6VYVQQ9GWVNS95DFGABXEW9",
+        "jwks_uri": "https://api.workos.com/sso/jwks/client_01M6VYVQQ9GWVNS95DFGABXEW9",
+        "authorization_endpoint": "https://api.workos.com/user_management/authorize",
+        "token_endpoint": "https://api.workos.com/user_management/authenticate",
+        "code_challenge_methods_supported": null,
+        "token_endpoint_auth_methods_supported": null
+      },
+      "jwks": {
+        "status": 200,
+        "url": "https://api.workos.com/sso/jwks/client_01M6VYVQQ9GWVNS95DFGABXEW9",
+        "document_sha256": "1f09d04bf31d3de3793190c346e766ae1a3432a1800b11ea518d5e99a9404929",
+        "keys": [
+          {
+            "kid": "sso_oidc_key_pair_01M6VYVQME4YRNHZ1ZV8B5V79J",
+            "kty": "RSA",
+            "alg": "RS256"
+          }
+        ]
+      }
+    }
+  }
+}

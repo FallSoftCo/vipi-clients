@@ -1,0 +1,53 @@
+{
+  "actor": "01a1ea84-2d9e-7cc2-abfa-f05efbe23fbf",
+  "created_at": "2026-11-17T17:46:41.996830+00:00",
+  "status": "created once and callback configuration read back after reload; complete, no replay",
+  "authorization": "Root explicitly authorized exactly one Vipi application inside existing shared Fallsoft Production environment after realm-format commit/tests",
+  "environment_id": "environment_01JPK69ZMKBJYK94G3G06FWGZA",
+  "operation": "Create AuthKit application",
+  "application_name": "Vipi",
+  "purpose": "Shared underlying Fallsoft users and existing Google/Apple providers with Vipi-specific client audience/callback/session context",
+  "allowed_redirect_additions": [
+    "co.fallsoft.vipi://auth/callback",
+    "https://api.mambovipi.app/delete-account/callback"
+  ],
+  "preserve": [
+    "existing default application and16redirects",
+    "existing default application session policy",
+    "existing Google/Apple provider credentials",
+    "existing environment branding/users/sessions/APIkeys",
+    "existing production Vipi client and backend configuration"
+  ],
+  "limits": [
+    "no duplicate application",
+    "no paid upgrade/purchase",
+    "no APIkey creation unless separately authorized",
+    "no native clientsecret",
+    "no production cutover or user migration"
+  ],
+  "external_create_dispatches": 1,
+  "preflight_job": "vipi-shared-fresh-app-inventory-r01",
+  "preflight_at": "2026-11-17T17:47:16.645909+00:00",
+  "dispatch_at": "2026-11-17T17:47:33.318519+00:00",
+  "create_form_job": "vipi-shared-create-form-r01",
+  "create_form": "Name-only creation, no billing upgrade or purchase shown",
+  "dispatch_job": "vipi-shared-create-submit-r01",
+  "application_id": "app_01M7N9Y2DGDVFNZBXCB3SAEFZX",
+  "client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+  "verified_job": "vipi-shared-created-identifiers-r01",
+  "verified_at": "2026-11-17T17:47:58.017862+00:00",
+  "redirect_save_dispatches": 1,
+  "redirect_save_job": "vipi-shared-save-redirects-r01",
+  "redirect_default": "co.fallsoft.vipi://auth/callback",
+  "redirect_preflight_job": "vipi-shared-stage-web-callback-r01",
+  "completed_at": "2026-11-17T17:50:53.306127+00:00",
+  "callback_readback_job": "vipi-shared-redirect-readback-r01",
+  "postcreate_inventory_job": "vipi-shared-postcreate-inventory-r02",
+  "postcreate_application_count": 2,
+  "default_preservation_job": "vipi-shared-default-preservation-r01",
+  "default_redirect_count": 16,
+  "default_redirect": "https://fallsoft.co/auth/callback",
+  "explicit_key_creation_dispatches": 0,
+  "provider_configuration_dispatches": 0,
+  "production_cutover_dispatches": 0
+}
