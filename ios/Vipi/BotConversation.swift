@@ -51,7 +51,7 @@ struct BotMessage: Codable, Identifiable {
     }
     func saveDraft() {
         do { try vault.transaction { try vault.put("bot-local", "draft", Data(draft.utf8)) } }
-        catch { notice = "This draft couldn’t be saved. Keep this conversation open and try again." }
+        catch { notice = String(localized: "This draft couldn’t be saved. Keep this conversation open and try again.") }
     }
     func setConsent(_ value: Bool) throws {
         guard !busy else { return }
@@ -70,7 +70,7 @@ struct BotMessage: Codable, Identifiable {
         do {
             let value: BotAllowance = try await api.request("GET", "/v1/bot/allowance")
             guard !closed else { return }; allowance = value
-        } catch { if !closed { allowance = nil; notice = "Couldn’t check your Bot mini allowance. Try again." } }
+        } catch { if !closed { allowance = nil; notice = String(localized: "Couldn’t check your Bot mini allowance. Try again.") } }
     }
     var canSend: Bool {
         !closed && !busy && consent && allowance?.available == true && (allowance?.remaining_replies ?? 0) > 0 &&
@@ -93,7 +93,7 @@ struct BotMessage: Codable, Identifiable {
         let device: DeviceCredential
         do { device = try DeviceCredential.registered(vault: vault) }
         catch {
-            notice = "Reconnect this account before sending to vBot. Your draft is still here."
+            notice = String(localized: "Reconnect this account before sending to vBot. Your draft is still here.")
             return
         }
         var outgoing = BotMessage(id: UUID(), role: "user", text: draft, createdAt: Date(), state: "sending")
@@ -105,7 +105,7 @@ struct BotMessage: Codable, Identifiable {
                 try vault.remove("bot-local", "draft")
             }
             messages.append(outgoing); draft = ""
-        } catch { notice = "Your message couldn’t be saved. Please try again."; return }
+        } catch { notice = String(localized: "Your message couldn’t be saved. Please try again."); return }
         do {
             let body = try JSONEncoder().encode(Request(request_id: outgoing.id, consent_version: "deepseek-v1", messages: context))
             let reply: Reply = try await api.request("POST", "/v1/bot/messages", body: body, device: device)
@@ -151,12 +151,12 @@ struct BotMessage: Codable, Identifiable {
     }
     private static func explanation(_ error: Error) -> String {
         if let error = error as? ServiceFailure {
-            if error.code == "device_revoked" { return "Reconnect this account before sending to vBot. This request wasn’t accepted and won’t be resent automatically." }
-            if error.code == "monthly_allowance_reached" { return "You’ve used this month’s Bot mini replies. Your allowance refreshes next month." }
-            if ["base_subscription_required", "bot_subscription_required"].contains(error.code) { return "Check your subscriptions to continue this conversation." }
-            if ["bot_unavailable", "bot_busy", "bot_temporarily_unavailable"].contains(error.code) { return "vBot is unavailable right now. Your message is saved and won’t be resent automatically." }
+            if error.code == "device_revoked" { return String(localized: "Reconnect this account before sending to vBot. This request wasn’t accepted and won’t be resent automatically.") }
+            if error.code == "monthly_allowance_reached" { return String(localized: "You’ve used this month’s Bot mini replies. Your allowance refreshes next month.") }
+            if ["base_subscription_required", "bot_subscription_required"].contains(error.code) { return String(localized: "Check your subscriptions to continue this conversation.") }
+            if ["bot_unavailable", "bot_busy", "bot_temporarily_unavailable"].contains(error.code) { return String(localized: "vBot is unavailable right now. Your message is saved and won’t be resent automatically.") }
         }
-        return "We couldn’t confirm vBot’s reply. This message won’t be resent automatically and may have used one reply from your allowance."
+        return String(localized: "We couldn’t confirm vBot’s reply. This message won’t be resent automatically and may have used one reply from your allowance.")
     }
 }
 
@@ -329,7 +329,7 @@ private struct BotReportView: View {
                             Task {
                                 defer { busy = false }
                                 do { try await session.report(message, reason: reason); sent = true }
-                                catch { notice = "Your report couldn’t be confirmed. Please try again." }
+                                catch { notice = String(localized: "Your report couldn’t be confirmed. Please try again.") }
                             }
                         }.disabled(busy)
                     }

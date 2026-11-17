@@ -65,7 +65,7 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
     }
     func signIn(expectedUser: String? = nil) {
         guard !busy else { return }
-        guard let client else { errorMessage = "Sign-in isn’t available yet. Please try again shortly."; return }
+        guard let client else { errorMessage = String(localized: "Sign-in isn’t available yet. Please try again shortly."); return }
         errorMessage = nil
         do {
             let authorization = try client.getAuthorizationUrlWithPKCE(redirectUri: callback, provider: "authkit")
@@ -83,7 +83,7 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
                     else {
                         self.busy = false
                         KeychainStore.delete(account: "pending-sign-in")
-                        if (error as? ASWebAuthenticationSessionError)?.code != .canceledLogin { self.errorMessage = "We couldn’t finish signing in. Please try again." }
+                        if (error as? ASWebAuthenticationSessionError)?.code != .canceledLogin { self.errorMessage = String(localized: "We couldn’t finish signing in. Please try again.") }
                     }
                     self.webSession = nil
                 }
@@ -92,9 +92,9 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
             webSession = auth
             if !auth.start() {
                 busy = false; webSession = nil; KeychainStore.delete(account: "pending-sign-in")
-                errorMessage = "Sign-in couldn’t open. Please try again."
+                errorMessage = String(localized: "Sign-in couldn’t open. Please try again.")
             }
-        } catch { busy = false; errorMessage = "We couldn’t start a secure sign-in. Please try again." }
+        } catch { busy = false; errorMessage = String(localized: "We couldn’t start a secure sign-in. Please try again.") }
     }
     func complete(_ url: URL) async {
         guard url.scheme == "co.fallsoft.vipi", url.host == "auth", url.path == "/callback",
@@ -110,20 +110,20 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
                   items.first(where: { $0.name == "state" })?.value == pending.state,
                   items.filter({ $0.name == "code" }).count == 1,
                   let code = items.first(where: { $0.name == "code" })?.value, !code.isEmpty else {
-                errorMessage = "We couldn’t verify this sign-in. Please start again."; return
+                errorMessage = String(localized: "We couldn’t verify this sign-in. Please start again."); return
             }
             KeychainStore.delete(account: "pending-sign-in")
             let generation = sessionGeneration
             let result = try await client.authenticateWithCode(code: code, codeVerifier: pending.verifier)
             guard generation == sessionGeneration else { throw SessionFailure.accountChanged }
             if let expected = pending.expectedUser, result.user.id != expected {
-                errorMessage = "Sign in to the same account to continue."; return
+                errorMessage = String(localized: "Sign in to the same account to continue."); return
             }
             let value = VipiSession(userID: result.user.id, accessToken: result.accessToken, refreshToken: result.refreshToken)
             try KeychainStore.save(JSONEncoder().encode(value), account: "session")
             sessionGeneration = UUID()
             session = value
-        } catch { errorMessage = "We couldn’t finish signing in. Please try again." }
+        } catch { errorMessage = String(localized: "We couldn’t finish signing in. Please try again.") }
     }
     /// Refresh only after the service rejects this exact access token. Concurrent
     /// requests share one exchange; an old response cannot restore a signed-out

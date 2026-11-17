@@ -135,7 +135,7 @@ private final class NoDeletionRedirects: NSObject, URLSessionTaskDelegate, Senda
         } catch is AuthenticationManager.SessionFailure {
             needsSignIn = true; notice = String(localized: "Sign in to the same account once more to continue.")
         } catch {
-            notice = pending?.phase == .prepared ? "We couldn’t confirm your request. Check your connection and try again. You won’t need to start over." : "Your request is saved. We couldn’t check completion. Please try again."
+            notice = pending?.phase == .prepared ? String(localized: "We couldn’t confirm your request. Check your connection and try again. You won’t need to start over.") : String(localized: "Your request is saved. We couldn’t check completion. Please try again.")
         }
     }
     func finish() {

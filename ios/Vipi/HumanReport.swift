@@ -123,7 +123,7 @@ struct HumanReportView: View {
         Task {
             defer { busy = false }
             do { try await chat.report(peer: peer, message: message, reason: reason); reported = true }
-            catch { notice = "We couldn’t confirm this report. Retrying sends the same report without creating a duplicate." }
+            catch { notice = String(localized: "We couldn’t confirm this report. Retrying sends the same report without creating a duplicate.") }
         }
     }
 }

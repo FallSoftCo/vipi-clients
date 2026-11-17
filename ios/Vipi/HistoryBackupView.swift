@@ -85,7 +85,7 @@ struct HistoryBackupView: View {
             HistoryDocumentPicker(request: request) { url in
                 if request.export == nil {
                     clearImport(); selected = url
-                } else if url != nil { notice = "Your encrypted backup was saved. Keep its password safe." }
+                } else if url != nil { notice = String(localized: "Your encrypted backup was saved. Keep its password safe.") }
                 picker = nil
             }.interactiveDismissDisabled()
         }
@@ -129,10 +129,11 @@ struct HistoryBackupView: View {
             do {
                 let result = try await chat.importHistory(staged: staged, password: password, verified: verified)
                 if result.added == 0 && result.existing > 0 {
-                    notice = result.existing == 1 ? "This message was already saved. Nothing was duplicated." : "All \(result.existing) messages were already saved. Nothing was duplicated."
-                } else if result.added == 0 { notice = "This backup contains no messages to restore." }
-                else {
-                    notice = "Restored \(result.added) \(result.added == 1 ? "message" : "messages"). \(result.existing) matching \(result.existing == 1 ? "message was" : "messages were") already saved."
+                    notice = String(localized: "Nothing was duplicated. Already saved: \(result.existing).")
+                } else if result.added == 0 {
+                    notice = String(localized: "This backup contains no messages to restore.")
+                } else {
+                    notice = String(localized: "Restore complete. Added: \(result.added). Already saved: \(result.existing).")
                 }
                 self.password = ""
             } catch { if !Task.isCancelled { notice = explanation(error) } }
@@ -149,14 +150,14 @@ struct HistoryBackupView: View {
     private func explanation(_ error: Error) -> String {
         if let failure = error as? HistoryBackupCodec.Failure {
             switch failure {
-            case .differentAccount: return "This backup belongs to a different Vipi account. Sign in to that account to restore it."
-            case .passwordLength: return "Use a passphrase of at least 12 characters."
-            case .conflict: return "This backup conflicts with saved messages. Nothing was changed."
+            case .differentAccount: return String(localized: "This backup belongs to a different Vipi account. Sign in to that account to restore it.")
+            case .passwordLength: return String(localized: "Use a passphrase of at least 12 characters.")
+            case .conflict: return String(localized: "This backup conflicts with saved messages. Nothing was changed.")
             default: break
             }
         }
-        if let failure = error as? ServiceFailure, failure.code == "history_busy" { return "Your conversations are updating. Please try again in a moment." }
-        return restoring ? "The password is incorrect or this backup is damaged. Nothing was changed." : "The backup couldn’t be saved. Your conversations are still here. Please try again."
+        if let failure = error as? ServiceFailure, failure.code == "history_busy" { return String(localized: "Your conversations are updating. Please try again in a moment.") }
+        return restoring ? String(localized: "The password is incorrect or this backup is damaged. Nothing was changed.") : String(localized: "The backup couldn’t be saved. Your conversations are still here. Please try again.")
     }
 }
 

@@ -5,7 +5,7 @@ private struct DependencyNotice: Decodable, Identifiable {
     let id: String; let title: String; let file: String; let sha256: String; let origin: String
     var text: String {
         guard let url = Bundle.main.url(forResource: file, withExtension: nil, subdirectory: "ThirdPartyNotices"),
-              let value = try? String(contentsOf: url, encoding: .utf8) else { return "This notice could not be opened." }
+              let value = try? String(contentsOf: url, encoding: .utf8) else { return String(localized: "This notice could not be opened.") }
         return value
     }
     static var all: [Self] {

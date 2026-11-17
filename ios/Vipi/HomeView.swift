@@ -238,6 +238,6 @@ struct ReauthenticationNotice: View {
 enum FriendInvitation {
     static func message(username: String) -> String {
         let url = URL(string: "https://api.mambovipi.app/invite")!.appendingPathComponent(username)
-        return "Chat with me on Vipi and learn words as we talk. My username is @\(username). After signing in, choose New chat and find my username.\n\(url.absoluteString)"
+        return String(localized: "Chat with me on Vipi and learn words as we talk. My username is @\(username). After signing in, choose New chat and find my username.\n\(url.absoluteString)")
     }
 }
