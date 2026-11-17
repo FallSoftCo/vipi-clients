@@ -45,7 +45,8 @@
     "generated_project_references_changed": 2,
     "generated_project_sha256": "996b4b438020917b60fbc2256921fe0c87fc291a29a146d634f25c89275ba1cf",
     "evidence_sha256": "abf64ef0da2aea6885144322b36715c9bdd5f9bb30bbcf8ae698662cdeff3b68",
-    "scope": "local path/project generation difference; library source bytes unchanged"
+    "scope": "local path/project generation difference; library source bytes unchanged",
+    "postbuild_note": "Only per-user Xcode-generated scheme metadata differed after build; library source and pinned libraries remained unchanged."
   },
   "catalog_metadata": {
     "original_sha256": "96993afb7d9089ec909a988e131c0cc84da68429601faba1ab08e1d341078e63",
@@ -53,5 +54,13 @@
     "change": "53 extractionState stale metadata updates; no keys or localized values changed",
     "compiled_localizations": "13 byte-identical to unsigned build2",
     "build_write_timing": "not established"
+  },
+  "archive_input_evidence_sha256": {
+    "package-isolation.json": "abf64ef0da2aea6885144322b36715c9bdd5f9bb30bbcf8ae698662cdeff3b68",
+    "package-postbuild-comparison.json": "8768021b8e39a71413baa21e30c49dc95b424efb289180bf9816d37ff9245d2d",
+    "generated-setting.json": "ad2f9e9eabf94ae1a7ad7183515609b8b20aeb69269cf0861a44e03a89477fbd",
+    "corrected-archive-intent.json": "2377e968dcdc56a4ab04b239f6c00268c446bf86224444c2ab2bea1e7cb92733",
+    "catalog-diff.json": "4d01d2de49f0d8b67ab6552af3c349e0f299514b875babd635e94570c03b9483",
+    "compiled-localization-comparison.json": "500bc9cf79e545ea8d4ca763f43883cea9a83c2f0bfae0ee41c8cbb077bb8866"
   }
 }
