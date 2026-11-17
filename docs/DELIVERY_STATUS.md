@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 17, 2026, 13:14 UTC. Vipi remains restricted staging. Neither
+Updated November 17, 2026. Vipi remains restricted staging. Neither
 app has been submitted for public review. Prior revisions and the linked
 receipts retain historical actions; do not replay them.
 
@@ -59,7 +59,16 @@ See [delivery](../release/apple-delivery-build2-20261117-r01.json) and
 readback now confirms build ID `9367242c-b819-4bc7-9ade-6e192a12c43e`,
 The encryption declaration was subsequently saved with standard algorithms
 and France No, and build 2 was associated with version 1.0. Its status then
-showed Ready to Submit; an isolated internal QA group is now being prepared. The brief earlier login
+showed Ready to Submit. The internal Vipi Release QA group now contains the
+single owned company tester. The supplied TestFlight code was redeemed once,
+and build 2 is installed through TestFlight on the native Apple silicon Mac.
+Fresh QA sign-in, profile creation, the 30-day access display, both plan prices
+and the native invitation share sheet passed. The copied invitation contains
+the correct username and its public landing returns HTTP 200. Joining uses the
+explicit manual username flow; app-link handoff was not demonstrated.
+See [first use](../qa/release/apple-signed-build2-20261117-r01/live-qa-first-launch.json)
+and [invitation](../qa/release/apple-signed-build2-20261117-r01/live-qa-invite.json).
+The brief earlier login
 redirect resolved in the existing session; no reauthentication was needed.
 Never repeat the completed upload.
 
@@ -116,12 +125,26 @@ Restricted staging runs the `84c3ff8` baseline plus the narrowly scoped
 The first privacy activation rolled back after a faulty case-sensitive header
 check. A fresh activation with the corrected check completed; public HTTPS
 returns the disclosure and `no-store`. Environment, schema, push worker and
-timers were preserved. See [rollout](../qa/backend/privacy-language-rollout-20261117-r02/receipt.json). Three owned subjects are admitted: two complimentary
-reviewers and a separate company tester. Public registration is closed and
+timers were preserved. See [rollout](../qa/backend/privacy-language-rollout-20261117-r02/receipt.json). Five owned subjects are now admitted: two complimentary
+reviewers, the earlier company tester and two new isolated QA identities.
+The new Apple QA profile was created normally with exactly 30 days of access.
+Its trial end was subsequently shortened in an explicit synthetic fixture to
+test checkout without waiting a month; its original creation and trial-start
+timestamps remain unchanged. Only that new user was added to the restricted
+sandbox tester set. Other accounts, push configuration and service timers were
+preserved. See [admission](../release/owned-qa-identities-20261117-r01/activation-receipt.json)
+and [billing fixture](../release/owned-qa-billing-20261117-r01/activation-receipt.json).
+The new Android peer remains at a human-verification challenge, with no profile
+or message created. The new QA identities were administratively verified;
+their use does not qualify email verification delivery.
+Public registration is closed and
 subscription enforcement is disabled on staging. A proposed production configuration
 passed the deployed settings validators in memory: production mode, enforced
 access, no subject allowlist and Apple Production, preserving the scoped reviewer
-and sandbox tester sets. No service or environment changed. This establishes
+and sandbox tester sets. That historical proposal was not activated and must
+be rebased on the current environment, whose SHA-256 is
+`4082efd72eca75e310b7cf57c873338b757796e7761a8a7c318432b97f3cba64`.
+This establishes
 configuration validity and credential-file readability, not public signup or
 provider authorization. See [candidate receipt](../qa/release/production-settings-candidate-20261117-r01/validation-receipt.json).
 Isolated tests cover enforced
