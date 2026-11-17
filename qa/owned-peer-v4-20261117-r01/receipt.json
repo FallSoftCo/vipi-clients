@@ -1,0 +1,13 @@
+{
+  "utc": "2026-11-17T16:39:07.612137+00:00",
+  "device": "emulator-5624",
+  "before": "version 3 / 1.0.2, CE inode 327706",
+  "after": "version 4 / 1.0.3 expected",
+  "apk_sha256": "572b60a4d6a5c11182925cdb19889d6d5377c2f9b0094636be8b431991d83e15",
+  "signer_match": "v3 and v4 f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+  "dispatches": 1,
+  "outcome": "one install returned Success; code4/name1.0.3; CE inode unchanged; peer username, Swahili 25%, two existing messages and Delivered, automatic muziki, and 30-day end unchanged",
+  "finished_utc": "2026-11-17T16:41:03.521210+00:00",
+  "stop": "5624 emu kill OK; supervisor exited; AVD retained",
+  "limits": "backend device binding independent readback pending; expiry callback UI not exercised; no message/purchase/restore"
+}
