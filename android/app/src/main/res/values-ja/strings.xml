@@ -397,4 +397,5 @@
     <string name="translation_failed">全文翻訳を準備できませんでした。単語の切り替えは引き続き利用できます。</string>
     <string name="voices_prepare_offline">接続なしで聴くには、両方の言語の音声を準備してください。</string>
     <string name="ui_d55f942dbeea" formatted="false">翻訳：Google。翻訳は不正確な場合があります。</string>
+    <string name="backup_save_failed">バックアップを保存できませんでした。会話はここに残っています。もう一度お試しください。</string>
 </resources>

@@ -17,6 +17,13 @@ internal data class ChatProfile(val id: UUID, val username: String, val displayN
     companion object { fun parse(value: JSONObject) = ChatProfile(UUID.fromString(value.getString("id")), value.getString("username"), value.getString("display_name")) }
 }
 
+/** A displayed @ prefix is accepted for lookup only; the stored username stays canonical. */
+internal fun normalizeLookupUsername(input: String): String {
+    val normalized = input.trim().lowercase().removePrefix("@")
+    if (!normalized.matches(Regex("[a-z][a-z0-9_]{2,23}"))) throw ServiceFailure(0, "invalid_username")
+    return normalized
+}
+
 /** Main-thread coordinator; transport events, lifecycle and explicit refresh
  * share one synchronization. Durable journal commits always precede receipts. */
 internal class ChatSession(private val context: Context, private val api: ChatTransport, val userID: String) : Closeable {
@@ -168,8 +175,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     suspend fun find(input: String): ChatProfile {
         val core = core; val vault = vault
         if (!ready || core == null || vault == null) throw ServiceFailure(0, "device_not_ready")
-        val username = input.trim().lowercase()
-        if (!username.matches(Regex("[a-z][a-z0-9_]{2,23}"))) throw ServiceFailure(0, "invalid_username")
+        val username = normalizeLookupUsername(input)
         val value = ChatProfile.parse(request("GET", "/v1/people/$username", device = core.device))
         if (value.id == profile?.id) throw ServiceFailure(0, "own_username")
         vault.transaction { vault.put("contact", value.id.toString(), value.json().toString().toByteArray(Charsets.UTF_8)) }

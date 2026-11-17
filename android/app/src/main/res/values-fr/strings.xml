@@ -400,4 +400,5 @@
     <string name="device_recovery_explanation">Votre compte est actif sur un autre appareil. Vos conversations enregistrées restent disponibles ici.</string>
     <string name="message_secure_open_failed">Un message n’a pas pu être ouvert en toute sécurité. Vos conversations existantes sont enregistrées.</string>
     <string name="bot_requires_vipi_access">Bot mini nécessite un accès Vipi actif. Vérifiez votre accès Vipi ou gérez Bot mini dans Google Play pour éviter un nouveau renouvellement.</string>
+    <string name="backup_save_failed">La sauvegarde n’a pas pu être enregistrée. Vos conversations sont toujours ici. Réessayez.</string>
 </resources>

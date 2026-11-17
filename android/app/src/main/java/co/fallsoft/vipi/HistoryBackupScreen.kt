@@ -84,7 +84,7 @@ internal class HistoryBackupModel : ViewModel() {
                 }
                 message = context.getString(R.string.backup_saved)
             } catch (error: CancellationException) { throw error }
-            catch (error: Exception) { failure(error) }
+            catch (error: Exception) { message = context.getString(R.string.backup_save_failed) }
             finally { file.delete(); exported = null; password = ""; confirmation = ""; busy = false }
         }
     }
@@ -136,7 +136,7 @@ internal class HistoryBackupModel : ViewModel() {
                         exported = file; file = null
                         save.launch("Vipi-chat-history.vipihistory")
                     } catch (error: CancellationException) { throw error }
-                    catch (error: Exception) { exported?.delete(); exported = null; failure(error); busy = false }
+                    catch (error: Exception) { exported?.delete(); exported = null; message = context.getString(R.string.backup_save_failed); busy = false }
                     finally { file?.delete() }
                 }
             }, enabled = !busy && HistoryBackupCodec.validPassword(password) && password == confirmation, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_6a6965bcf571)) }

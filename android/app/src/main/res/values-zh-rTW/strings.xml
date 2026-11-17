@@ -397,4 +397,5 @@
     <string name="translation_failed">無法準備全文翻譯。仍可使用單字切換。</string>
     <string name="voices_prepare_offline">準備兩種語言的語音，以便離線收聽。</string>
     <string name="ui_d55f942dbeea" formatted="false">由 Google 翻譯。翻譯可能不準確。</string>
+    <string name="backup_save_failed">無法儲存備份。您的對話仍在這裡。請再試一次。</string>
 </resources>

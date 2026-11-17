@@ -400,4 +400,5 @@
     <string name="translation_failed">Die vollständige Übersetzung konnte nicht vorbereitet werden. Wortwechsel ist weiterhin verfügbar.</string>
     <string name="voices_prepare_offline">Bereiten Sie die Stimmen für beide Sprachen vor, um ohne Verbindung zuzuhören.</string>
     <string name="ui_d55f942dbeea" formatted="false">Übersetzung von Google. Übersetzungen können ungenau sein.</string>
+    <string name="backup_save_failed">Das Backup konnte nicht gespeichert werden. Ihre Gespräche sind immer noch hier. Bitte versuchen Sie es erneut.</string>
 </resources>

@@ -400,4 +400,5 @@
     <string name="report_spam">Barua taka</string>
     <string name="reading_faster">Haraka zaidi</string>
     <string name="nav_help">Msaada</string>
+    <string name="backup_save_failed">Nakala ya usalama haikuweza kuhifadhiwa. Mazungumzo yako bado yapo. Tafadhali jaribu tena.</string>
 </resources>

@@ -412,4 +412,5 @@
     <string name="translation_failed">تعذّر إعداد الترجمة الكاملة. لا يزال تبديل الكلمات متاحًا.</string>
     <string name="voices_prepare_offline">جهّز صوتي اللغتين للاستماع دون اتصال.</string>
     <string name="ui_d55f942dbeea" formatted="false">الترجمة من Google. قد تكون الترجمات غير دقيقة.</string>
+    <string name="backup_save_failed">تعذر حفظ النسخة الاحتياطية. لا تزال محادثاتك هنا. يرجى المحاولة مرة أخرى.</string>
 </resources>
