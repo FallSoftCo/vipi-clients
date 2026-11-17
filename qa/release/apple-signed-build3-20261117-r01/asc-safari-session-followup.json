@@ -1,0 +1,6 @@
+{
+  "observed_utc": "2026-11-17T17:11:16.965639+00:00",
+  "scope": "Existing Safari session read, App Store Connect Apps",
+  "result": "Apple account sign-in page with blank email/phone; prior company-passkey session was not retained",
+  "actions": "No authentication, no metadata change; closed only temporary Safari window."
+}
