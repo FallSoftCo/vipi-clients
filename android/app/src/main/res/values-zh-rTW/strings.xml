@@ -194,7 +194,7 @@
     <string name="licenses_open_failed">無法開啟授權條款。請再試一次。</string>
     <string name="friends_sign_in_required">請登入以尋找好友。</string>
     <string name="backup_contents">此備份包含 %1$s 和 %2$s。相同訊息只保留一份。現有對話和訊息安全維持不變。</string>
-    <string name="backup_open_failed">無法開啟或儲存備份。請檢查密碼和檔案後再試。</string>
+    <string name="backup_open_failed">無法開啟備份。請檢查密碼和檔案後再試。</string>
     <string name="backup_saved">已儲存加密聊天備份。請將密碼保存在安全的地方。</string>
     <string name="backup_restore_result">已還原：%1$s。已儲存：%2$s。</string>
     <string name="bot_consent_save_failed">無法儲存您的選擇。請再試一次。</string>

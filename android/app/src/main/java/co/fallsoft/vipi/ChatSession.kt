@@ -181,7 +181,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         vault.transaction { vault.put("contact", value.id.toString(), value.json().toString().toByteArray(Charsets.UTF_8)) }
         contacts = contacts + (value.id to value); return value
     }
-    fun name(peer: UUID) = contacts[peer]?.displayName ?: importedNames[peer] ?: "New conversation"
+    fun name(peer: UUID) = contacts[peer]?.displayName ?: importedNames[peer] ?: context.getString(R.string.nav_new_chat)
     suspend fun refreshBlock(peer: UUID) {
         val core = core ?: throw ServiceFailure(0, "device_not_ready")
         if (peer in changingBlocks) return

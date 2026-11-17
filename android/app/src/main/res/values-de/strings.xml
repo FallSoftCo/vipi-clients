@@ -194,7 +194,7 @@
     <string name="licenses_open_failed">Lizenzen konnten nicht geöffnet werden. Bitte erneut versuchen.</string>
     <string name="friends_sign_in_required">Melden Sie sich an, um Ihre Freunde zu finden.</string>
     <string name="backup_contents">Dieses Backup enthält %1$s und %2$s. Übereinstimmende Nachrichten werden nur einmal gespeichert. Vorhandene Unterhaltungen und die Nachrichtensicherheit bleiben erhalten.</string>
-    <string name="backup_open_failed">Das Backup konnte nicht geöffnet oder gespeichert werden. Prüfen Sie Passwort und Datei und versuchen Sie es erneut.</string>
+    <string name="backup_open_failed">Das Backup konnte nicht geöffnet werden. Prüfen Sie das Passwort und die Datei und versuchen Sie es erneut.</string>
     <string name="backup_saved">Ihr verschlüsseltes Chat-Backup ist gespeichert. Bewahren Sie das Passwort sicher auf.</string>
     <string name="backup_restore_result">Wiederhergestellt: %1$s. Bereits gespeichert: %2$s.</string>
     <string name="bot_consent_save_failed">Ihre Auswahl konnte nicht gespeichert werden. Bitte erneut versuchen.</string>

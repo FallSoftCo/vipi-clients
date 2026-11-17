@@ -324,7 +324,7 @@
     <string name="deletion_accepted">Vipi imekubali ombi lako. Tunamalizia kufuta. Unaweza kufunga programu na kukagua tena baadaye.</string>
     <string name="deletion_pending">Tutathibitisha ombi na kuondoa mazungumzo uliyohifadhi kwenye kifaa hiki. Vipi huhifadhi hatua ulizofikia muunganisho ukikatika.</string>
     <string name="backup_wrong_account">Nakala rudufu hii ni ya akaunti nyingine ya Vipi. Ingia kwenye akaunti hiyo ili kuirejesha.</string>
-    <string name="backup_open_failed">Nakala rudufu haikuweza kufunguliwa au kuhifadhiwa. Kagua nenosiri na faili, kisha ujaribu tena.</string>
+    <string name="backup_open_failed">Nakala ya usalama haikuweza kufunguliwa. Angalia nenosiri na faili, kisha ujaribu tena.</string>
     <string name="backup_saved">Nakala rudufu ya mazungumzo iliyosimbwa fiche imehifadhiwa. Tunza nenosiri lake mahali salama.</string>
     <string name="backup_restore_result">Imerejeshwa: %1$s. Iliyokuwa tayari imehifadhiwa: %2$s.</string>
     <string name="speech_settings_help">Fungua Mipangilio ya simu yako na utafute kubadilisha maandishi kuwa sauti.</string>

@@ -194,7 +194,7 @@
     <string name="licenses_open_failed">라이선스를 열 수 없습니다. 다시 시도해 주세요.</string>
     <string name="friends_sign_in_required">친구를 찾으려면 로그인하세요.</string>
     <string name="backup_contents">이 백업에는 %1$s 및 %2$s이(가) 포함됩니다. 일치하는 메시지는 한 번만 저장됩니다. 기존 대화와 메시지 보안은 유지됩니다.</string>
-    <string name="backup_open_failed">백업을 열거나 저장할 수 없습니다. 비밀번호와 파일을 확인하고 다시 시도하세요.</string>
+    <string name="backup_open_failed">백업을 열 수 없습니다. 비밀번호와 파일을 확인한 후 다시 시도하세요.</string>
     <string name="backup_saved">암호화된 대화 백업이 저장되었습니다. 비밀번호를 안전한 곳에 보관하세요.</string>
     <string name="backup_restore_result">복원됨: %1$s. 이미 저장됨: %2$s.</string>
     <string name="bot_consent_save_failed">선택 사항을 저장할 수 없습니다. 다시 시도해 주세요.</string>

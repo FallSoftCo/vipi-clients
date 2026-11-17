@@ -328,7 +328,7 @@
     <string name="deletion_accepted">Vipi a accepté votre demande. Nous terminons la suppression. Vous pouvez fermer l’app et revenir plus tard.</string>
     <string name="deletion_pending">Nous confirmerons la demande et supprimerons vos discussions enregistrées sur cet appareil. Vipi enregistre votre progression si la connexion est interrompue.</string>
     <string name="backup_wrong_account">Cette sauvegarde appartient à un autre compte Vipi. Connectez-vous à ce compte pour la restaurer.</string>
-    <string name="backup_open_failed">Impossible d’ouvrir ou d’enregistrer la sauvegarde. Vérifiez le mot de passe et le fichier, puis réessayez.</string>
+    <string name="backup_open_failed">La sauvegarde n’a pas pu être ouverte. Vérifiez le mot de passe et le fichier, puis réessayez.</string>
     <string name="backup_saved">Votre sauvegarde chiffrée des discussions est enregistrée. Conservez son mot de passe en lieu sûr.</string>
     <string name="backup_restore_result">%1$s restaurés. %2$s étaient déjà enregistrés.</string>
     <string name="speech_settings_help">Ouvrez les paramètres du téléphone et recherchez la synthèse vocale.</string>

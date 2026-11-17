@@ -328,7 +328,7 @@
     <string name="deletion_accepted">O Vipi aceitou sua solicitação. Estamos concluindo a eliminação. Você pode fechar o app e verificar mais tarde.</string>
     <string name="deletion_pending">Vamos confirmar a solicitação e remover as conversas guardadas deste dispositivo. O Vipi guarda o seu progresso se a ligação cair.</string>
     <string name="backup_wrong_account">Este backup pertence a outra conta Vipi. Entre nessa conta para restaurá-lo.</string>
-    <string name="backup_open_failed">Não foi possível abrir ou guardar o backup. Confira a palavra-passe e o ficheiro e tente novamente.</string>
+    <string name="backup_open_failed">Não foi possível abrir a cópia de segurança. Verifique a palavra-passe e o ficheiro e tente novamente.</string>
     <string name="backup_saved">Seu backup cifrado de conversas está guardado. Guarde a palavra-passe em local seguro.</string>
     <string name="backup_restore_result">%1$s restaurados. %2$s já estavam guardados.</string>
     <string name="speech_settings_help">Abra as Definições do telefone e procure texto para fala.</string>

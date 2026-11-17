@@ -51,7 +51,7 @@
     <string name="deletion_accepted">Vipi has accepted your request. We’re finishing deletion. You can close the app and check back later.</string>
     <string name="deletion_pending">We’ll confirm the request and remove your saved chats from this device. Vipi saves your progress if the connection drops.</string>
     <string name="backup_wrong_account">This backup belongs to a different Vipi account. Sign in to that account to restore it.</string>
-    <string name="backup_open_failed">The backup couldn’t be opened or saved. Check the password and file, then try again.</string>
+    <string name="backup_open_failed">The backup couldn’t be opened. Check the password and file, then try again.</string>
     <string name="backup_saved">Your encrypted chat backup is saved. Keep its password somewhere safe.</string>
     <string name="backup_restore_result">Restored %1$s. %2$s were already saved.</string>
     <string name="speech_settings_help">Open your phone’s Settings and search for text-to-speech.</string>

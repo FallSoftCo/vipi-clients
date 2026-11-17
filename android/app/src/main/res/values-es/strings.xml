@@ -328,7 +328,7 @@
     <string name="deletion_accepted">Vipi ha aceptado tu solicitud. Estamos terminando la eliminación. Puedes cerrar la app y volver a comprobarlo más tarde.</string>
     <string name="deletion_pending">Confirmaremos la solicitud y eliminaremos tus chats guardados de este dispositivo. Vipi guarda tu progreso si se interrumpe la conexión.</string>
     <string name="backup_wrong_account">Esta copia de seguridad pertenece a otra cuenta de Vipi. Inicia sesión en esa cuenta para restaurarla.</string>
-    <string name="backup_open_failed">No se pudo abrir o guardar la copia de seguridad. Comprueba la contraseña y el archivo e inténtalo de nuevo.</string>
+    <string name="backup_open_failed">No se pudo abrir la copia de seguridad. Comprueba la contraseña y el archivo e inténtalo de nuevo.</string>
     <string name="backup_saved">Tu copia cifrada del historial de chats está guardada. Conserva su contraseña en un lugar seguro.</string>
     <string name="backup_restore_result">Se restauraron %1$s. Ya se habían guardado %2$s.</string>
     <string name="speech_settings_help">Abre los Ajustes del teléfono y busca texto a voz.</string>

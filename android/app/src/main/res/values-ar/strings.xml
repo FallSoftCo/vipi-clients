@@ -194,7 +194,7 @@
     <string name="licenses_open_failed">تعذّر فتح التراخيص. يُرجى المحاولة مجددًا.</string>
     <string name="friends_sign_in_required">سجّل الدخول للعثور على أصدقائك.</string>
     <string name="backup_contents">تحتوي هذه النسخة الاحتياطية على %1$s و%2$s. تُحفظ الرسائل المتطابقة مرة واحدة. تبقى المحادثات الحالية وأمان المراسلة كما هما.</string>
-    <string name="backup_open_failed">تعذّر فتح النسخة الاحتياطية أو حفظها. تحقّق من كلمة المرور والملف وحاول مجددًا.</string>
+    <string name="backup_open_failed">تعذّر فتح النسخة الاحتياطية. تحقّق من كلمة المرور والملف، ثم حاول مجددًا.</string>
     <string name="backup_saved">حُفظت النسخة الاحتياطية المشفّرة للمحادثات. احتفظ بكلمة مرورها في مكان آمن.</string>
     <string name="backup_restore_result">تمت الاستعادة: %1$s. محفوظة مسبقًا: %2$s.</string>
     <string name="bot_consent_save_failed">تعذّر حفظ اختيارك. يُرجى المحاولة مجددًا.</string>

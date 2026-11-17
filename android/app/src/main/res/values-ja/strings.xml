@@ -53,7 +53,7 @@
     <string name="ui_817b085ae5a9" formatted="false">この相手とのメッセージは停止します。チャットはこのデバイスに残ります。いつでもブロックを解除できます。</string>
     <string name="ui_8201f9bbb22b" formatted="false">まだ比較されていません</string>
     <string name="ui_821bff5750c3" formatted="false">ハイライトされた単語は、あなたの2つの言語間で切り替わります。 これは用意された例です。チャットで利用可能な単語は言語によって異なります。 用意された完全な翻訳もご覧いただけます。</string>
-    <string name="ui_822ebe66fdd6" formatted="false">ハイライトされた単語が所に切り替わる様子をご覧ください。 一時停止をタップして停止するか、発音を聞くには「聞く」をタップしてください。</string>
+    <string name="ui_822ebe66fdd6" formatted="false">ハイライトされた単語がその場で切り替わる様子をご覧ください。「一時停止」で切り替えを止め、「聴く」で発音を聞けます。</string>
     <string name="ui_89dbe6aad0c8" formatted="false">チャットによる語学学習</string>
     <string name="ui_8a74ed1b7a84" formatted="false">友だちのユーザー名</string>
     <string name="ui_8def6a81a73d" formatted="false">お客様のプロフィールおよび配信待ちのメッセージは、Vipiから削除されます。 このデバイスに保存されたチャットも削除されます。</string>
@@ -194,7 +194,7 @@
     <string name="licenses_open_failed">ライセンスを開けませんでした。もう一度お試しください。</string>
     <string name="friends_sign_in_required">友達を探すにはサインインしてください。</string>
     <string name="backup_contents">このバックアップには%1$sと%2$sが含まれます。一致するメッセージは重複保存されません。既存の会話とメッセージの安全性は維持されます。</string>
-    <string name="backup_open_failed">バックアップを開くか保存できませんでした。パスワードとファイルを確認して再試行してください。</string>
+    <string name="backup_open_failed">バックアップを開けませんでした。パスワードとファイルを確認して、もう一度お試しください。</string>
     <string name="backup_saved">暗号化されたチャットバックアップを保存しました。パスワードは安全な場所に保管してください。</string>
     <string name="backup_restore_result">復元：%1$s。保存済み：%2$s。</string>
     <string name="bot_consent_save_failed">選択内容を保存できませんでした。もう一度お試しください。</string>
