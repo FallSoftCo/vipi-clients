@@ -1,0 +1,54 @@
+{
+  "staged-gallery-card.json": {
+    "bytes": 2790,
+    "sha256": "da3bf74c4f77afaaf6b9f42b80af556c00c528a59bbaa2c11d847667d88f41ca"
+  },
+  "native-phrase-r11.jsonl": {
+    "bytes": 15821,
+    "sha256": "4eeda3cbdf4db4ff9ee4f7d356750d14be91d885f948d691c774cdd7abcb8e5c"
+  },
+  "gallery-verification.json": {
+    "bytes": 2415,
+    "sha256": "9e42992302503ac4ff57b3fe4269461eb7ada5a60d022493715cceb2e76f1070"
+  },
+  "gallery-scope.json": {
+    "bytes": 2196,
+    "sha256": "429f74725d160c56567339c728de0839ee4c1816d49f339e64ba71df9db5ca2e"
+  },
+  "ios-large-titleless-meaning-r12.png": {
+    "bytes": 706061,
+    "sha256": "06e2d492b1285fbb13747a4453db05fd0f9d393bfb40c6da89e8ea88573f3dfe"
+  },
+  "native-build.json": {
+    "bytes": 346,
+    "sha256": "2cb0850d4b847dac4d2ce901f41c9ba3c473dfd87b770ab06e9575823bebdbd6"
+  },
+  "final-ui-source-manifest-r13.json": {
+    "bytes": 5567,
+    "sha256": "e6a7ea320fc61191452a58640493ca4bcce69f942981b69f4e3292d23aeff57a"
+  },
+  "native-welcome-r12.jsonl": {
+    "bytes": 5559,
+    "sha256": "9d907d373ff5cabc36002dd93408498c7a9bf9555123d717307a4d0515d95de3"
+  },
+  "ios-phrase-release-r11.png": {
+    "bytes": 274693,
+    "sha256": "1b732723be661bdba6f6c7f9445c99934592e84d7472386979884bfaaed63912"
+  },
+  "ios-welcome-truthful-r12.png": {
+    "bytes": 195988,
+    "sha256": "eee6539ba6ccbf185abbd7bf596dc09eb3642b0aadbc0dc727f435ab3755a164"
+  },
+  "ios-reverse-chinese-reading-dark-r08.png": {
+    "bytes": 229393,
+    "sha256": "3add053763392eda60e2d57a760ecb3146f89a2614b4d72d2d8d0c719153a8a0"
+  },
+  "gallery-native-image-check.png": {
+    "bytes": 106475,
+    "sha256": "f10ee3848b377a1c43c79a837368b145338bcbd9898450fc444fe5f8198de701"
+  },
+  "README.md": {
+    "bytes": 5740,
+    "sha256": "1d838ebe367af9375011baedb2d7aec2a26e10f660e7c6f70fe70e5d4069bab1"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "classification": "Private internal QA; not store-ready or marketing-approved",
+  "content": "Unmodified native simulator screenshots containing synthetic Vipi messages only. No private account, authentication, Arabic failure or user-phone screenshots.",
+  "source_ui_commit": "117cabd6727dcc7c4b7bbc01c543504515d6327d",
+  "integrated_ui_commit": "87fdaa6",
+  "screenshots": {
+    "ios-welcome-truthful-r12.png": {
+      "sha256": "eee6539ba6ccbf185abbd7bf596dc09eb3642b0aadbc0dc727f435ab3755a164",
+      "bytes": 195988,
+      "label": "Welcome · readable example and truthful tap cue"
+    },
+    "ios-reverse-chinese-reading-dark-r08.png": {
+      "sha256": "3add053763392eda60e2d57a760ecb3146f89a2614b4d72d2d8d0c719153a8a0",
+      "bytes": 229393,
+      "label": "Chinese · learning script and marked guide"
+    },
+    "ios-large-titleless-meaning-r12.png": {
+      "sha256": "06e2d492b1285fbb13747a4453db05fd0f9d393bfb40c6da89e8ea88573f3dfe",
+      "bytes": 706061,
+      "label": "Largest Dynamic Type · full meaning remains scrollable"
+    },
+    "ios-phrase-release-r11.png": {
+      "sha256": "1b732723be661bdba6f6c7f9445c99934592e84d7472386979884bfaaed63912",
+      "bytes": 274693,
+      "label": "Native phrase selection · full-context result"
+    }
+  },
+  "qualified": [
+    "Readable native type and one-speaker chat footer",
+    "Reverse Chinese authored-reference result with the learning-side guide",
+    "Native iOS phrase handle-release, Copy and Stop",
+    "Actual welcome highlighted-word playback; script input, playing and completion recorded"
+  ],
+  "limits": [
+    "iOS simulator translation uses existing authored local references; simulator Apple Translation is unsupported for the tested pair.",
+    "Android handle dragging remains unqualified.",
+    "Arabic attachment boundaries require a separate joining fix; no Arabic screenshot included.",
+    "Local machine translation can produce semantic errors; no acoustic pronunciation-quality acceptance.",
+    "StoreKit local runtime remains unqualified; shared social authentication is separate pending work.",
+    "No phone installation, live purchase, store submission or release readiness is claimed."
+  ]
+}

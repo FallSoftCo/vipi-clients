@@ -1,0 +1,76 @@
+[
+  {
+    "id": "vipi-native-single-tap-20261117",
+    "brand": "Vipi",
+    "collection": "vipi",
+    "group": "Vipi · internal native review",
+    "title": "Vipi · Single-tap translation and pronunciation",
+    "updatedAt": "2026-11-17T20:58:36.604606+00:00",
+    "ready": true,
+    "finalReady": false,
+    "customerReady": false,
+    "privateQaOnly": true,
+    "marketingApproved": false,
+    "staticPoster": true,
+    "poster": "vipi-native-single-tap-20261117/ios-welcome-truthful-r12.png",
+    "width": 1206,
+    "height": 2622,
+    "aspect": "portrait",
+    "craft": "Actual iOS native components with synthetic messages",
+    "theme": "Private UI qualification",
+    "motion": "Readable chat, marked readings and direct word or phrase interactions.",
+    "note": "Internal QA only — not store-ready. Simulator reference results; Android handle dragging, Arabic joining, StoreKit and shared sign-in remain limited or pending. No acoustic-quality claim.",
+    "frameSequence": [
+      {
+        "path": "vipi-native-single-tap-20261117/ios-welcome-truthful-r12.png",
+        "label": "Welcome · readable example and truthful tap cue",
+        "kind": "frame",
+        "width": 1206,
+        "height": 2622
+      },
+      {
+        "path": "vipi-native-single-tap-20261117/ios-reverse-chinese-reading-dark-r08.png",
+        "label": "Chinese · learning script and marked guide",
+        "kind": "frame",
+        "width": 1206,
+        "height": 2622
+      },
+      {
+        "path": "vipi-native-single-tap-20261117/ios-large-titleless-meaning-r12.png",
+        "label": "Largest Dynamic Type · full meaning remains scrollable",
+        "kind": "frame",
+        "width": 1206,
+        "height": 2622
+      },
+      {
+        "path": "vipi-native-single-tap-20261117/ios-phrase-release-r11.png",
+        "label": "Native phrase selection · full-context result",
+        "kind": "frame",
+        "width": 1206,
+        "height": 2622
+      }
+    ],
+    "downloads": [
+      {
+        "label": "Welcome · readable example and truthful tap cue",
+        "path": "vipi-native-single-tap-20261117/ios-welcome-truthful-r12.png"
+      },
+      {
+        "label": "Chinese · learning script and marked guide",
+        "path": "vipi-native-single-tap-20261117/ios-reverse-chinese-reading-dark-r08.png"
+      },
+      {
+        "label": "Largest Dynamic Type · full meaning remains scrollable",
+        "path": "vipi-native-single-tap-20261117/ios-large-titleless-meaning-r12.png"
+      },
+      {
+        "label": "Native phrase selection · full-context result",
+        "path": "vipi-native-single-tap-20261117/ios-phrase-release-r11.png"
+      },
+      {
+        "label": "Scope, hashes and limits",
+        "path": "vipi-native-single-tap-20261117/scope.json"
+      }
+    ]
+  }
+]

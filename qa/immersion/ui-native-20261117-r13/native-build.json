@@ -1,0 +1,18 @@
+{
+  "source_stamp": "6a717a6+minimal-title-welcome-r12",
+  "qa_bundle_id": "co.fallsoft.vipi.uxqa",
+  "compiler_jobs": 2,
+  "complete": true,
+  "stages": [
+    {
+      "name": "ux-prepare",
+      "exit": 0,
+      "seconds": 2.0040047909133136
+    },
+    {
+      "name": "ux-build",
+      "exit": 0,
+      "seconds": 34.06396258296445
+    }
+  ]
+}

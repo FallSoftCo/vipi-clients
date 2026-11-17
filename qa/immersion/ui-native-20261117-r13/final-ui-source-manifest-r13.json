@@ -1,0 +1,138 @@
+{
+  "android/app/src/androidTest/java/co/fallsoft/vipi/EmbeddedSpeechStopDeviceTest.kt": {
+    "bytes": 3452,
+    "sha256": "02bf90236de9e78ee546e3f91276b61d8dd04dbac51b93784a8916f1b190a4a6"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/ManualLookupActualGestureDeviceTest.kt": {
+    "bytes": 11482,
+    "sha256": "030b10cd7fc55ddc6f114c8f9cd5d4dacd4d81babdca505d9e920796359309c7"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt": {
+    "bytes": 11876,
+    "sha256": "d2009ba112f62beaa3c360e8a80ff639092a9340665e4ec70c9d7a99d1568944"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/ChatScreens.kt": {
+    "bytes": 25121,
+    "sha256": "1544bda300488fb224a4ad2f39b9eaccb2d623659d02ba856f8dc97c6b613002"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/ConversationImmersion.kt": {
+    "bytes": 36993,
+    "sha256": "9302bd1461424947b7e0bfe1b76f3ba614e686f246498be4d94db5d7561e2f8a"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt": {
+    "bytes": 28140,
+    "sha256": "e772fd41006cb8835053a1fe5a46c631785e2edc673bc8f359d5799e3cd66078"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/SpeechPlayback.kt": {
+    "bytes": 6837,
+    "sha256": "fe18c31de08a514beda35a67087232dd17842bc781ac5f58ecb0d357df235f4c"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/StableImmersionText.kt": {
+    "bytes": 23798,
+    "sha256": "0e972244b0b1ac487999d7c87e76431fd6b91b592537adacb6c33bf87ac51753"
+  },
+  "android/app/src/main/res/values-ar/strings.xml": {
+    "bytes": 55750,
+    "sha256": "f4fc9cb7f598d462bf135bd6d62a31eeb9f189a10674a492d0f4eb9a4c493c26"
+  },
+  "android/app/src/main/res/values-de/strings.xml": {
+    "bytes": 49748,
+    "sha256": "c100c7b572d6e3d6c3beef84952de1daa31f83fc76eb7ab16ccd1d52e12eb9be"
+  },
+  "android/app/src/main/res/values-es/strings.xml": {
+    "bytes": 47191,
+    "sha256": "cd343c7e1a24f21b8862236952e5eb7c21d7f4e46ab9988c0d8b779f3dec584b"
+  },
+  "android/app/src/main/res/values-fr/strings.xml": {
+    "bytes": 48752,
+    "sha256": "6c02dd020a4ab6f724bf7d5029ee19f56bdd5f428cae3a42c0b3191e5be1de1f"
+  },
+  "android/app/src/main/res/values-it/strings.xml": {
+    "bytes": 46528,
+    "sha256": "13a6152d509decc0e0c64299edc7f4b84fc747a17f2d03ed8485ea73827b9c11"
+  },
+  "android/app/src/main/res/values-ja/strings.xml": {
+    "bytes": 53088,
+    "sha256": "b383cdc93db5bcffe95bdb24db774afcf4ee459dd1df078a38426654c2a23226"
+  },
+  "android/app/src/main/res/values-ko/strings.xml": {
+    "bytes": 49507,
+    "sha256": "e3915bf837d92e788b9cfcccd1eb8078a7619bd82037a8d67630c86e4c6f4261"
+  },
+  "android/app/src/main/res/values-pt-rPT/strings.xml": {
+    "bytes": 47038,
+    "sha256": "1b0c3b966bd660c0d8396d4149a6b6bec3501ebe231507812b38c4c93598af93"
+  },
+  "android/app/src/main/res/values-pt/strings.xml": {
+    "bytes": 46835,
+    "sha256": "c4306e29abfc92c16285cd95a0f0d4e81887616ef900780936c30ae06b950c15"
+  },
+  "android/app/src/main/res/values-sw/strings.xml": {
+    "bytes": 46126,
+    "sha256": "e2901993fba83aa364035fa6bf245043216e92c10fc9cef7d3e70e3f4f970c15"
+  },
+  "android/app/src/main/res/values-zh-rTW/strings.xml": {
+    "bytes": 42080,
+    "sha256": "7dd866f2af9ac7617b3a6ca6fc47af667f54c534fa3c1286312e3a1e4a4cd3b0"
+  },
+  "android/app/src/main/res/values-zh/strings.xml": {
+    "bytes": 41870,
+    "sha256": "26e6a7aa510667b4d28f4fa51f402fd850c33b72006923706e74744949700187"
+  },
+  "android/app/src/main/res/values/strings.xml": {
+    "bytes": 4782,
+    "sha256": "3b6a1e115c63bd3f74576a33f18c64d065f194791897b8e42d20bb3428f34ceb"
+  },
+  "ios/Vipi/ConnectedChatView.swift": {
+    "bytes": 38798,
+    "sha256": "4942a39d24d4a0849b4e02bb99e960f0f7528007046b07e44e68fd59b7cca39a"
+  },
+  "ios/Vipi/ConversationImmersion.swift": {
+    "bytes": 38945,
+    "sha256": "edd8f7b32d1f09b8f45d64329fb09f0a44b82145fb3e759edf83d2f2d49f8a0a"
+  },
+  "ios/Vipi/ImmersionBubble.swift": {
+    "bytes": 19135,
+    "sha256": "58eb5546301c99d7772656bead18d593fab72a69b3c410f1a7f7e403670732ff"
+  },
+  "ios/Vipi/Localizable.xcstrings": {
+    "bytes": 1110982,
+    "sha256": "742909a5f0e470c95630ea8d31b731e9aac2a76785cb0c4c1d9ef3e09872ab71"
+  },
+  "ios/Vipi/OnboardingView.swift": {
+    "bytes": 9775,
+    "sha256": "7e56c6d0f1ad64ebdf13e1b68a90b1637f50f8b749786e0724c742559853a4f7"
+  },
+  "ios/Vipi/OriginalTextSelection.swift": {
+    "bytes": 2908,
+    "sha256": "bd5dc5a7753b04b73c23ce697c2a52336196dfe098c10779e9aa646ba93f3d2d"
+  },
+  "ios/Vipi/SpeechPlayback.swift": {
+    "bytes": 7676,
+    "sha256": "135398850e7662becef74e57b0fd3f9ad0ad4432c83517368cb3a2a7edd7fca7"
+  },
+  "ios/Vipi/StableImmersionText.swift": {
+    "bytes": 29344,
+    "sha256": "1a4b2c9b6d52a87f6210f26ef35aa71e429df8c122dafd8eccb1f46fa9512db6"
+  },
+  "ios/Vipi/TimelineQualification.swift": {
+    "bytes": 21890,
+    "sha256": "627360eddc8c70e3ab815e204edb15db28191e0b72d115b035c89051a827d2f5"
+  },
+  "ios/VipiCore/Sources/VipiCore/SourceReferencePresentation.swift": {
+    "bytes": 12615,
+    "sha256": "2d01c09d00376807454f0fe04c8ea9fa2b720ecbffcfde051d39f4905ff12f20"
+  },
+  "android/app/src/androidTest/java/co/fallsoft/vipi/ManualLookupGestureDeviceTest.kt": {
+    "bytes": 16238,
+    "sha256": "1d112c1d39a70335435dc9e37a4613b2d09cf0abedeafb680d5c1502785a591a"
+  },
+  "android/app/src/main/java/co/fallsoft/vipi/ManualLookupInteraction.kt": {
+    "bytes": 15697,
+    "sha256": "d3c76e0f35e1c130bd8a25a50d2e4fcb25223fc44ef0c6f00a70af04abe0c8cb"
+  },
+  "ios/Vipi/ManualLookupInteraction.swift": {
+    "bytes": 16712,
+    "sha256": "c58071b6d036bfadaf5d27ec6d11659d2b259f7bb5fff285041305119ff883da"
+  }
+}

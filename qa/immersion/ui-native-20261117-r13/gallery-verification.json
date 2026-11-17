@@ -1,0 +1,53 @@
+{
+  "index_published": false,
+  "builder_error": "unrelated retained personal-digital-double-head-v40/poster.png is missing; source catalog preserved",
+  "playwright_check": "not run on system76; native-only browser directive",
+  "assets": {
+    "ios-welcome-truthful-r12.png": {
+      "url": "https://system76-pc.tailb77f2a.ts.net/8bar/vipi-native-single-tap-20261117/ios-welcome-truthful-r12.png",
+      "status": 200,
+      "content_type": "image/png",
+      "bytes": 195988,
+      "sha256": "eee6539ba6ccbf185abbd7bf596dc09eb3642b0aadbc0dc727f435ab3755a164",
+      "matches_source": true
+    },
+    "ios-reverse-chinese-reading-dark-r08.png": {
+      "url": "https://system76-pc.tailb77f2a.ts.net/8bar/vipi-native-single-tap-20261117/ios-reverse-chinese-reading-dark-r08.png",
+      "status": 200,
+      "content_type": "image/png",
+      "bytes": 229393,
+      "sha256": "3add053763392eda60e2d57a760ecb3146f89a2614b4d72d2d8d0c719153a8a0",
+      "matches_source": true
+    },
+    "ios-large-titleless-meaning-r12.png": {
+      "url": "https://system76-pc.tailb77f2a.ts.net/8bar/vipi-native-single-tap-20261117/ios-large-titleless-meaning-r12.png",
+      "status": 200,
+      "content_type": "image/png",
+      "bytes": 706061,
+      "sha256": "06e2d492b1285fbb13747a4453db05fd0f9d393bfb40c6da89e8ea88573f3dfe",
+      "matches_source": true
+    },
+    "ios-phrase-release-r11.png": {
+      "url": "https://system76-pc.tailb77f2a.ts.net/8bar/vipi-native-single-tap-20261117/ios-phrase-release-r11.png",
+      "status": 200,
+      "content_type": "image/png",
+      "bytes": 274693,
+      "sha256": "1b732723be661bdba6f6c7f9445c99934592e84d7472386979884bfaaed63912",
+      "matches_source": true
+    }
+  },
+  "inventory": {
+    "before_count": 3678,
+    "after_count": 3678,
+    "unrelated_ids_preserved": true,
+    "new_card_in_generated_catalog": false
+  },
+  "native_visual_check": {
+    "method": "Existing Chrome profile via native mouse/keyboard and OS window screenshot; browser:false; no DOM/CDP",
+    "direct_welcome_png": "visibly rendered correctly",
+    "card_layout": "not qualified because index rebuild stopped on unrelated missing poster",
+    "desktop_resource": "released; only created window closed; previous workspace restored"
+  },
+  "new_catalog_path": "output/catalog-extras/vipi-native-single-tap-20261117.json",
+  "status": "Assets served; card staged; shared generated index unchanged"
+}
