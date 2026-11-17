@@ -1,0 +1,34 @@
+{
+  "scope": "one owned synthetic QA Apple Sandbox Bot mini purchase and post/concurrent usage baseline",
+  "purchase_ui": "Apple owner reports original trial purchase successful; no second purchase",
+  "baseline_observed_utc": "2026-11-17T13:57:51.814551Z",
+  "baseline_timing": "post or concurrent with purchase, not a pre-purchase observation",
+  "baseline": {
+    "active_apple_sandbox_base_rows": 1,
+    "bot_rows": 1,
+    "usage_period": "2026-11",
+    "usage_bucket_rows": 0,
+    "counted_reservations": 0,
+    "configured_monthly_replies": 150,
+    "remaining_arithmetic": 150
+  },
+  "post_purchase_observed_utc": "2026-11-17T13:58:13.769990Z",
+  "bot": {
+    "rows": 1,
+    "store": "apple",
+    "environment": "Sandbox",
+    "product": "bot_mini",
+    "verified_at_utc": "2026-11-17T13:58:03.627623Z",
+    "expires_at_utc": "2026-11-18T13:57:41Z",
+    "trial_ends_at_utc": "2026-11-18T13:57:41Z",
+    "revoked": false,
+    "superseded": false
+  },
+  "apple_notification_rows": 3,
+  "limitations": [
+    "No provider readiness or prompt execution established by usage arithmetic.",
+    "Notification transaction correlation not established.",
+    "No renewal, cancellation or restore qualified; no transaction IDs included.",
+    "No provider call or mutation performed for this observation."
+  ]
+}
