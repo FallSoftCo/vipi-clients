@@ -1,0 +1,34 @@
+{
+  "status": "identities_created_candidate_prepared_not_applied",
+  "scope": "two synthetic owned QA WorkOS users, separate from held message accounts and reviewers",
+  "count": 2,
+  "precreation_exact_email_absence_verified": true,
+  "workos_create_calls": 2,
+  "direct_identity_readback_verified": true,
+  "admin_marked_verified": true,
+  "email_verification_flow_qualified": false,
+  "verification_or_invitation_endpoint_invoked": false,
+  "independent_email_delivery_audit": false,
+  "credential_storage": "private root-owned directory mode 0700; individual secret files mode 0600",
+  "candidate": {
+    "allowed_subjects_before": 3,
+    "allowed_subjects_after": 5,
+    "only_changed_field": "allowed_subjects",
+    "reviewer_and_sandbox_tester_sets_preserved": true,
+    "staging_and_enforcement_preserved": true,
+    "baseline_env_sha256": "689e448c844e8153634cd0b1e31aa3de315a3f16ee67e12ef6ac3b3e167fb7d3",
+    "candidate_env_sha256": "7cbfe7e9196c0282ff94d0a20ec21f543a9932f8ff4b2f47eb581d2c981535b3",
+    "service_user_settings_validation": true,
+    "applied": false
+  },
+  "script_sha256": "dda98d98699db7d08f980375bd03d7150d494a723b204b48a95e609e510198b2",
+  "limits": [
+    "No API authentication, device enrollment, database user creation, purchase, email-verification test or invitation performed.",
+    "Direct user creation is documented separately from the send-verification-email endpoint; no independent provider mail log was inspected.",
+    "Subject IDs and generated passwords are excluded from this receipt."
+  ],
+  "references": [
+    "https://workos.com/docs/reference/authkit/user/create",
+    "https://workos.com/docs/reference/authkit/user/list"
+  ]
+}
