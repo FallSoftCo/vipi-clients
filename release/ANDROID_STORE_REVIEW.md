@@ -126,7 +126,7 @@ examples establish working routes, not general semantic accuracy.
 The exact resolved graph adds only language-ID 17.0.6 and language-ID-common
 16.1.0. Refreshed notices cover 146 artifacts; all 98 text references were hash
 verified. See [notice receipt](../qa/android/language-id-20261117/notice-receipt.json)
-and [full app qualification](../qa/android/android-frozen-a52-route-20261117/qualification-receipt.json).
+and [full app qualification](../qa/immersion/android-frozen-a52-route-20261117/qualification-receipt.json).
 Google documents detected-language tags among SDK operational data. The draft
 privacy notice now names these tags; it has not yet been deployed. The saved
 data-safety categories already include shared ML Kit app interactions,

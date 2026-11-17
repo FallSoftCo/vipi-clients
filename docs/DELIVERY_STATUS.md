@@ -118,7 +118,7 @@ CLD2 first and considers native fallback at 0.70 only when CLD2 abstains.
 Both mask protected text and require two natural words for automatic detection.
 These thresholds concern language identification, not translation confidence.
 Accepted contextual catalog mappings remain the source of substitutions.
-See [Android](../qa/android/android-frozen-a52-route-20261117/qualification-receipt.json)
+See [Android](../qa/immersion/android-frozen-a52-route-20261117/qualification-receipt.json)
 and [Apple](../qa/macos/apple-native-detector-20261117-r01/README.md).
 
 Native catalogs contain 12 UI locales and store copy contains 14 variants.
