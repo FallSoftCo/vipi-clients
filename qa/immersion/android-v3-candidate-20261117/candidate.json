@@ -1,0 +1,102 @@
+{
+  "state": "signed_private_candidate_not_uploaded_or_installed",
+  "frozen_client_revision": "87d53cd7c001b99383d18a25f7fafe40316c6c63",
+  "package": "co.fallsoft.vipi",
+  "version_code": 3,
+  "version_name": "1.0.2",
+  "aab": {
+    "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-v3-release-20261117-r01/vipi-v3-release.aab",
+    "bytes": 546488908,
+    "sha256": "bcd92f1dcd0ceb43fe1ef0be060207e3b15f536da9680fabf90c194d05ac99cd"
+  },
+  "apk": {
+    "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-v3-release-20261117-r01/vipi-v3-release.apk",
+    "bytes": 539056298,
+    "sha256": "6f350e1326ed4c9acf635446142e8637ac5606e05159d291e5a2fdfd5d39bd0a"
+  },
+  "upload_certificate_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+  "matching_asset_count": 1082,
+  "language_model": {
+    "path": "base/assets/tflite_langid.tflite.jpg",
+    "bytes": 315520,
+    "sha256": "7f931f6f7c1dd0ec591ace7780df91645a450fafc83505f3ff45ce5ef7c8441b"
+  },
+  "notice_index_sha256": "2cf1f0bd10b606eb8e5b7feacecb93d5174a161b82ac97d391f9b0c115bcab79",
+  "r8_owner_type_preserved": true,
+  "apk_zipalign_16k": true,
+  "arm64_load_alignment": [
+    {
+      "name": "base/lib/arm64-v8a/libandroidx.graphics.path.so",
+      "sha256": "41e9a793c43a0f4fddb19e33f346bace464f30f888ba7b9eaf96294ea115bfb6",
+      "load_alignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/arm64-v8a/libdatastore_shared_counter.so",
+      "sha256": "d3e48717c9aa147e0ab21063ba0e8e0211cabf8bf40b222640829519edbf58e1",
+      "load_alignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/arm64-v8a/liblanguage_id_l2c_jni.so",
+      "sha256": "b93e65a48200df45dbbfc82e17560ae689b1b462ab4ecdce5fd2c093802e1a94",
+      "load_alignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/arm64-v8a/libsignal_jni.so",
+      "sha256": "aae5991d40b4c583271afe37ac1f58c7a5492544bf5bbfdfb1921c678d8dfc81",
+      "load_alignments": [
+        16384,
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/arm64-v8a/libtranslate_jni.so",
+      "sha256": "45040ff0cdd194d6e601589d759e6f1ba733de5f95790f76cc3e2046919046be",
+      "load_alignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/arm64-v8a/libvipi_language.so",
+      "sha256": "90884fdd2acd5fcf6a195d872996ccc03355e2d1b8b362d6f75f0c5fc4283b22",
+      "load_alignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "name": "base/lib/arm64-v8a/libvipi_speech.so",
+      "sha256": "e726ab3c9e755f8ece69352383ac230d1d7d5395b5f642d8dde699b12e2a5461",
+      "load_alignments": [
+        16384,
+        16384,
+        16384
+      ]
+    }
+  ],
+  "single_device_split_bytes": 417879196,
+  "split_apks_sha256": "74823ba8a6272853da5b1abdbf63610b77554e5d62aea378084e193f0479a62f",
+  "evidence_directory": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-v3-release-20261117-r01",
+  "limitations": [
+    "Synthetic full-app route and separate R8 crypto harness; exact signed v3 has not been installed or exercised.",
+    "One arm64 API35 English bundletool estimate, not Play delivery measurement.",
+    "No physical 16 KiB runtime.",
+    "Original owned test message remains uncertain and must not be resumed without coordinated disposition."
+  ]
+}
