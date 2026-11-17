@@ -1,0 +1,31 @@
+{
+  "state": "qualified_static_no_install",
+  "revision": "4cc7f95c18e7284e37d4b0505eb771875d0a8c0d",
+  "aab_bytes": 546489591,
+  "aab_sha256": "194db4f901517cfa666a3ae8aa84df2a98b80ed3320e8b7b049a0cda7827b5fd",
+  "apk_bytes": 539057806,
+  "apk_sha256": "572b60a4d6a5c11182925cdb19889d6d5377c2f9b0094636be8b431991d83e15",
+  "upload_cert_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+  "asset_files_identical_v3_and_apk": 1082,
+  "native_libraries_identical_v3": 20,
+  "native_libraries_rebuilt_changed": [
+    "base/lib/arm64-v8a/libvipi_language.so",
+    "base/lib/arm64-v8a/libvipi_speech.so",
+    "base/lib/armeabi-v7a/libvipi_language.so",
+    "base/lib/armeabi-v7a/libvipi_speech.so",
+    "base/lib/x86/libvipi_language.so",
+    "base/lib/x86/libvipi_speech.so",
+    "base/lib/x86_64/libvipi_language.so",
+    "base/lib/x86_64/libvipi_speech.so"
+  ],
+  "arm64_libraries_16k_aligned": 7,
+  "owner_class_mapping_retained": true,
+  "expiration_resource_locale_variants": 13,
+  "aab_validated": true,
+  "apk_zipaligned": true,
+  "installed_or_uploaded": false,
+  "runtime_limit": "no device or 16KiB hardware execution in this qualification",
+  "native_libraries_match_apk_aab": 28,
+  "owner_descriptor_verified_in_apk_dex": true,
+  "mapping_sha256": "f9115d372a8d2b0d8d915ad7dd7d886e3c8632658bc27511a339ac8b76382b16"
+}
