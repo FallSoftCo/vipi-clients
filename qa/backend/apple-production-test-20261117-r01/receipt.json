@@ -1,0 +1,19 @@
+{
+  "scope": "one authorized App Store Server API production TEST request",
+  "requested_at_utc": "2026-11-17T02:25:57.473923Z",
+  "result_at_utc": "2026-11-17T02:25:57.918671Z",
+  "result": "definitive_api_error",
+  "http_status": 401,
+  "numeric_api_error_code": null,
+  "request_count": 1,
+  "retry_count": 0,
+  "original_test_token_received": false,
+  "notification_delivery_qualified": false,
+  "configured_notification_version_qualified": false,
+  "backend_revision": "9b8cca69425f10df05c98b947f8152ca9534df71",
+  "environment_sha256": "689e448c844e8153634cd0b1e31aa3de315a3f16ee67e12ef6ac3b3e167fb7d3",
+  "recovery_hold_and_db_admission_checked": true,
+  "baseline_entitlements": 1,
+  "baseline_apple_notification_receipts": 1,
+  "no_purchase_or_configuration_change": true
+}
