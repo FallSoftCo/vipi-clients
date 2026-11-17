@@ -1,0 +1,63 @@
+{
+  "app_id": "6832624092",
+  "app_privacy": {
+    "status": "published",
+    "data_types": [
+      "Name",
+      "Email Address",
+      "Emails or Text Messages",
+      "Other User Content",
+      "User ID",
+      "Device ID",
+      "Purchase History",
+      "Product Interaction",
+      "Performance Data",
+      "Other Diagnostic Data",
+      "Other Data Types"
+    ],
+    "linked": [
+      "Name",
+      "Email Address",
+      "Emails or Text Messages",
+      "Other User Content",
+      "User ID",
+      "Device ID",
+      "Purchase History",
+      "Product Interaction"
+    ],
+    "not_linked": [
+      "Performance Data",
+      "Other Diagnostic Data",
+      "Other Data Types"
+    ],
+    "analytics_and_app_functionality": [
+      "Other User Content",
+      "Device ID",
+      "Product Interaction",
+      "Performance Data",
+      "Other Data Types"
+    ],
+    "analytics_only": [
+      "Other Diagnostic Data"
+    ],
+    "app_functionality_only": [
+      "Name",
+      "Email Address",
+      "Emails or Text Messages",
+      "User ID",
+      "Purchase History"
+    ],
+    "tracking": false,
+    "basis": "App and pinned ML Kit privacy manifests, with app data-flow inventory",
+    "receipt": "investigations/vipi-resume-20261116-r01/apple-privacy-20261117-r01/result.json"
+  },
+  "in_app_purchase_server_key": {
+    "name": "Vipi Server 20261109",
+    "key_id": "4RNYU333FS",
+    "status": "active",
+    "downloaded": "2026-11-09",
+    "observed": "ASC Users and Access > Integrations > In-App Purchase",
+    "scope_note": "Separate ASC API Team Keys page showed zero active keys; no key was created or changed."
+  },
+  "review_submitted": false
+}
