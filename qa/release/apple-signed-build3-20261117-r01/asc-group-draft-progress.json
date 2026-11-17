@@ -1,0 +1,11 @@
+{
+  "at_utc": "2026-11-17T16:32:06.764580+00:00",
+  "app": "6832624092",
+  "build": "1.0 (3)",
+  "compliance": "standard encryption beyond OS, France No saved; TestFlight Ready to Submit",
+  "draft": "Build 3 associated and confirmed after reload; no review submission",
+  "internal_group": "Vipi Release QA retains one tester and builds 2 and 3 Testing",
+  "testflight_install": "One Install selected; subsequent picker shows 3 Install and 2 Open; installed bundle remains build 2. No completion or explicit error observed; no retry.",
+  "reviewer_credential": "Rotated Alpha was saved and reloaded equal, but later exposed in private screenshot; requires final coordinated rotation before review. Beta untouched.",
+  "limitations": "Subscription attachment and TestFlight review info require independent follow-up; no public submission."
+}
