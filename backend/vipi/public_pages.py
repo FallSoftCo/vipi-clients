@@ -6,7 +6,7 @@ from starlette.responses import HTMLResponse
 from .accounts import normalize_username
 from .delivery import DeliveryError
 
-VERSION = "2026-11-10"
+VERSION = "2026-11-17"
 COMPANY_PRIVACY = "https://fallsoft.co/privacy-policy"
 COMPANY_TERMS = "https://fallsoft.co/terms-of-service"
 
@@ -20,7 +20,7 @@ PAGES = {
     """),
     "/privacy": ("Vipi privacy", """
         <p class="lead">Your conversations belong to you.</p>
-        <p>This product notice explains Vipi's data handling alongside the <a href="https://fallsoft.co/privacy-policy">Fallible Software, Co. privacy policy</a>. Updated November 10, 2026.</p>
+        <p>This product notice explains Vipi's data handling alongside the <a href="https://fallsoft.co/privacy-policy">Fallible Software, Co. privacy policy</a>. Updated November 17, 2026.</p>
         <h2>Conversations with friends</h2>
         <p>Human messages are encrypted on the sender's device and decrypted on the recipient's device using the Signal protocol. Vipi's relay does not have the keys to read their content. Account identifiers, device identifiers, message identifiers, routing, timing, delivery state, and public encryption keys are visible to the service. End-to-end encryption does not hide that metadata.</p>
         <p>Undelivered ciphertext has a 72-hour delivery window measured from the message's creation time. Ciphertext is cleared after a delivery receipt, cancellation, or expiry cleanup. Delivery metadata is removed seven days after that delivery window ends. Cleanup normally runs each minute; an outage can delay cleanup. Your device and your friend's device keep their own history until it is removed there.</p>
@@ -30,6 +30,7 @@ PAGES = {
         <p>Third-party language and notification SDKs can send operational diagnostics such as installation and device identifiers, app and operating-system details, language/model selections, performance, and errors to their providers. Google's on-device ML Kit translation does not send translation input or output to Google. See <a href="https://developers.google.com/ml-kit/terms">ML Kit's terms</a>, its <a href="https://developers.google.com/ml-kit/ios-data-disclosure">Apple-platform disclosures</a> and <a href="https://developers.google.com/ml-kit/android-data-disclosure">Android disclosures</a>, and <a href="https://firebase.google.com/support/privacy">Firebase privacy information</a>. We do not use advertising tracking or sell your chat content.</p>
         <h2>Account, purchases, and notifications</h2>
         <p>WorkOS handles sign-in, including your email address and authentication records. Vipi stores an account identifier, your chosen username and display name, and device registration information. Your email is not exposed through username lookup. People who know your exact username can find your profile.</p>
+        <p>Vipi records when your profile was created and when your first 30 days of free access end. These dates are tied to your account, so signing in again or changing devices does not restart the free period. This free access does not create a store subscription or require payment details.</p>
         <p>Apple or Google handles payment details. Vipi receives the purchase information needed to verify subscription access, including product, store transaction or purchase references, expiry, trial, and revocation status. Vipi does not receive your payment card details. Store notification identifiers and content fingerprints are kept for up to 30 days to avoid processing duplicate events; notification bodies and purchase tokens are not included in those receipts.</p>
         <p>For background message delivery, Vipi stores an encrypted push token and uses Apple Push Notification service or Firebase Cloud Messaging. Android registers for background delivery when your account is ready, including when visible notifications are turned off. On iOS, push registration follows your notification permission and Vipi notification setting. Push requests contain a generic notification or inbox-change signal, not the sender's name or message content. The app retrieves and decrypts messages separately. Your device's notification settings control what appears on its screen.</p>
         <h2>Optional vBot</h2>
@@ -51,7 +52,7 @@ PAGES = {
     """),
     "/terms": ("Using Vipi", """
         <p class="lead">Real conversations. Respect for the people in them.</p>
-        <p>These product terms supplement the <a href="https://fallsoft.co/terms-of-service">Fallible Software, Co. terms of service</a>. Updated November 11, 2026. The separate license supplied with software and language data governs rights to that software and data.</p>
+        <p>These product terms supplement the <a href="https://fallsoft.co/terms-of-service">Fallible Software, Co. terms of service</a>. Updated November 17, 2026. The separate license supplied with software and language data governs rights to that software and data.</p>
         <h2>Your account and conversations</h2>
         <p>Use your own account, protect your device, and keep any backup password safe. Vipi supports one active messaging device per account. Replacing it changes the device's encryption identity; friends may need to verify the new identity. Vipi does not maintain a cloud copy of your complete chat history.</p>
         <p>Do not use Vipi for threats, harassment, hate, scams, spam, exploitation, sexual content involving minors, nonconsensual intimate material, or other unlawful activity. Do not impersonate others, distribute malware, attack the service, or evade account restrictions. You must have the right to share what you send. Vipi is not for children under 13.</p>
@@ -61,10 +62,11 @@ PAGES = {
         <p>vBot is an optional generated conversation partner, not a person. It can make mistakes. Its use requires separate consent to provider processing described in the <a href="/privacy">Vipi privacy notice</a>. Human messages are not sent to vBot automatically.</p>
         <p>If you are under 18, or under the minimum age required in your country, read these terms and <a href="https://cdn.deepseek.com/policies/en-US/deepseek-terms-of-use.html">DeepSeek's terms</a> with a parent or legal guardian. Use vBot only with their consent. Vipi's minimum age of 13 still applies.</p>
         <h2>Subscriptions and trials</h2>
-        <p>Base and Bot mini are separate annual subscriptions. Bot mini is optional and requires active Base access. Each may offer an eligible one-month introductory trial; eligibility and the exact renewal date come from the store. Starting Base does not enroll you in Bot mini.</p>
+        <p>Your first 30 days of Vipi are free, starting when you create your Vipi profile. You do not need to start a subscription or provide payment details. Signing in again or changing devices does not restart this period. You will not be charged when it ends. Subscribe if you want to keep sending messages after your free access ends.</p>
+        <p>Base and Bot mini are separate annual subscriptions. Bot mini is optional and requires active Base access, including the initial free period. Bot mini may offer an eligible one-month introductory trial; eligibility and the exact renewal date come from the store. Starting Vipi does not enroll you in either subscription.</p>
         <p>Before subscribing, the app and store show the local price, billing period, trial eligibility, and what is included. A subscription renews unless you cancel through the store. Cancel before the store's displayed trial or renewal deadline to avoid the next charge. Manage purchases and refunds through the store that billed you. Deleting Vipi or your account does not cancel a subscription.</p>
         <p>Bot mini includes a displayed monthly reply allowance that resets each calendar month in UTC; unused replies do not roll over. Availability depends on the provider and service capacity. If a request's result is uncertain, the app will not automatically resubmit it and risk a duplicate response or charge.</p>
-        <p>Saved local history and history export remain accessible when subscription access ends. Sending new messages and using paid service features requires the applicable active subscription.</p>
+        <p>Saved local history and history export remain accessible when free or paid access ends. Sending new messages requires active Base access. Using vBot also requires active Bot mini access.</p>
         <h2>Delivery and availability</h2>
         <p>Messages have a 72-hour relay delivery window. Devices can retry within that window when connectivity permits. A message can expire if the recipient remains offline; the relay is not long-term history storage. Vipi does not promise delivery, uninterrupted service, or a particular latency. Keep backups of history you wish to retain.</p>
     """),
@@ -74,7 +76,8 @@ PAGES = {
         <h2>Sign in again</h2><p>If Vipi asks you to sign in again, use the same account to reconnect. Conversations saved on this device stay here. Signing in again does not move your account to a different device.</p>
         <h2>Change your active device</h2><p>Vipi uses one active messaging device at a time. Choosing Use this device is a separate action: it disconnects the other active device and changes your encryption keys. Messages still waiting for delivery cannot move between devices. Review the confirmation before continuing, then compare the new security number with your friends.</p>
         <h2>Missing messages</h2><p>Check connectivity and notification permission, then reopen the conversation to refresh. If a message expires after 72 hours, send a new message when it is still relevant. Replacing your active device can require your friend to verify its new identity.</p>
-        <h2>Subscriptions</h2><p>Use <a href="https://apps.apple.com/account/subscriptions">Apple subscription settings</a> or <a href="https://play.google.com/store/account/subscriptions">Google Play subscription settings</a> to manage or cancel the plan purchased there. Base and the optional Bot mini plan are separate.</p>
+        <h2>Your first 30 days</h2><p>Start chatting without payment details. Your free access ends 30 days after you create your Vipi profile; the app shows the end date. There is no automatic charge. After that, subscribe to keep sending messages. You can still read and export your saved local history.</p>
+        <h2>Subscriptions</h2><p>Use <a href="https://apps.apple.com/account/subscriptions">Apple subscription settings</a> or <a href="https://play.google.com/store/account/subscriptions">Google Play subscription settings</a> to manage or cancel a plan you chose to purchase. Base and the optional Bot mini plan are separate. Bot mini has its own store trial for eligible subscribers; it does not start automatically.</p>
         <h2>History and your account</h2><p>Use History backup in Settings to save an encrypted file. Keep the password separately; it cannot be reset by Vipi. Restore under the same Vipi account. Backups do not restore live encryption keys or unsent messages.</p><p><a href="/delete-account">Delete your account</a>. This does not cancel a subscription or remove copies kept by friends or in your own backup storage.</p>
         <h2>Contact</h2><p>Product and safety: <a href="mailto:one@fallsoft.co">one@fallsoft.co</a>. Privacy: <a href="mailto:privacy@fallsoft.co">privacy@fallsoft.co</a>. Do not email passwords or your private conversation history. To report a message in the app, select that message and review the content before submitting.</p>
     """),
