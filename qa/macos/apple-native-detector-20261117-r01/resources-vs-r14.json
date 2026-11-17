@@ -1,0 +1,9 @@
+{
+  "reference_count": 2716,
+  "qa_count": 2716,
+  "changed": [
+    "espeak-ng_data.bundle/Info.plist"
+  ],
+  "note": "generated QA bundle identifier only; all speech data and language packs equal",
+  "free_after": 73347547136
+}

@@ -32,3 +32,13 @@ files against the retained production snapshot; 15 bundled-provider files
 were also hash-compared. The focused XCTest source was typechecked natively;
 it was not run in an iOS test host. The separate Simulator run, if completed,
 must be reported independently.
+
+The subsequent `simulator-observation.json` records an actual iOS 26.5
+Simulator run in the existing full-resource isolated QA app. The synthetic
+non-reference message “I love music.” had no per-message language override and
+visibly alternated between source music and the approved Japanese forms ongaku
+and 音楽. Its source hashes match the candidate; 2,716 resource paths match the
+prior full app except the QA-specific eSpeak bundle identifier. The screenshot
+proves the observed UI, while the separate native LookupFirst result records the
+absence of model/translation callbacks. It is not acoustic review, real-user
+coverage, or a signed-release build.

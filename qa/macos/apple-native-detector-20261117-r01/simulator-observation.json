@@ -1,0 +1,27 @@
+{
+  "source_commit": "a3c77ae",
+  "device": "iOS Simulator 26.5 iPhone 17 arm64",
+  "scope": "actual production ConversationImmersion/MessageLanguage and views with full packs, isolated QA bootstrap and synthetic test-key encrypted vault",
+  "synthetic_text": "I love music.",
+  "input_language_override": null,
+  "language_settings": {
+    "known": "en",
+    "target": "ja"
+  },
+  "observed_latin": "I love ongaku.",
+  "observed_script": "I love 音楽.",
+  "pictures_sha256": {
+    "automatic-ja-1.png": "e2018edad515332bb612594e0ef12779239219a77cb2233f8e52613c7b775367",
+    "automatic-ja-3.png": "f1eb01ee96eb80b19a67077c9e0f6f7685796e046e112b9d8eff8dec1dbfabcf",
+    "automatic-ja-script-4.png": "b57eed65ed13ad50f738da7782286c4c7cfa95bf3a7e5b442420bad21a4fc24b",
+    "reading-menu.png": "a6e1f0ae0609ac7302e96463b2edc404c47782019767f56713ace62f8153a620"
+  },
+  "source_hashes": {
+    "MessageLanguage.swift": "9cc4501ec5c90a6bf74021dd0a830c01185fea03adfd4e319b0564a66949cf78",
+    "ConversationImmersion.swift": "7bddac2ef541f921391a7c658ccaccaff943bff4dfaa4f89f3537c7e9a18288f"
+  },
+  "resource_comparison": "resources-vs-r14.json",
+  "native_lookup_reference_absent_and_no_model_calls": "../nl-routing-candidate-r01/result-r02.json",
+  "limits": "visual UI observation only; exact no model calls and no-reference evidence from separate native route receipt; no actual speech/acoustic or real-user claim",
+  "utc": "2026-11-17T07:40:56Z"
+}
