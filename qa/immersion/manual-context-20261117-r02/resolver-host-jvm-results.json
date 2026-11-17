@@ -1,0 +1,7 @@
+{
+  "checks": 15,
+  "reading_calls": 5,
+  "passed": true,
+  "platform": "Host JVM component execution, not Android render or model quality",
+  "translation_calls": 10
+}

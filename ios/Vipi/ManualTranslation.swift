@@ -26,6 +26,8 @@ struct ManualTranslationResult: Sendable {
     let request: ManualTranslationRequest, originalSlice: String, targetText: String
     let reading: FullReading?
     let sourceLanguage: String, targetLanguage: String
+    let sourceContextText:String, sourceContextStartUTF16:Int, sourceContextEndUTF16:Int
+    let contextExpanded:Bool
 }
 enum ManualTranslationStatus: String, Sendable { case ready, invalidInput, invalidLanguage, modelNotReady, invalidResult, stale, timeout, error }
 struct ManualTranslationOutcome: Sendable {
@@ -97,13 +99,18 @@ enum ManualTranslationResolver {
         }
         return result
     }
-    private static func context(_ request:ManualTranslationRequest) -> String {
-        guard request.originalText.utf16.count>16_384 else{return request.originalText}
+    static func sourceContext(_ request:ManualTranslationRequest)->ManualSourceContext? {
+        guard slice(request) != nil else{return nil}
+        return ManualTranslationContext.enclosing(request.originalText,start:request.startUTF16,end:request.endUTF16,
+            language:request.inputLanguage ?? request.knownLanguage)
+    }
+    private static func detectionContext(_ source:ManualSourceContext,request:ManualTranslationRequest)->String {
+        guard source.text.utf16.count>16_384 else{return source.text}
         var boundaries:[Int]=[0],offset=0
-        for character in request.originalText {offset+=String(character).utf16.count;boundaries.append(offset)}
-        let start=boundaries.first(where:{$0>=max(0,request.startUTF16-4096)}) ?? 0
+        for character in source.text {offset+=String(character).utf16.count;boundaries.append(offset)}
+        let start=boundaries.first(where:{$0>=max(0,request.startUTF16-source.startUTF16-4096)}) ?? 0
         let end=boundaries.last(where:{$0<=start+16_384}) ?? start
-        return (request.originalText as NSString).substring(with:NSRange(location:start,length:end-start))
+        return (source.text as NSString).substring(with:NSRange(location:start,length:end-start))
     }
     @MainActor static func resolve(_ request: ManualTranslationRequest, valid: () -> Bool,
         reference: (String,String,String) async throws -> String?, identify: (String) async throws -> String?,
@@ -111,33 +118,33 @@ enum ManualTranslationResolver {
         reading: (String,String) async -> FullReading?) async throws -> ManualTranslationOutcome {
         func stop(_ status: ManualTranslationStatus) -> ManualTranslationOutcome { .init(valid() ? status : .stale) }
         guard valid() else { return stop(.stale) }
-        guard let slice = slice(request) else { return stop(.invalidInput) }
+        guard let slice = slice(request),let context=sourceContext(request) else { return stop(.invalidInput) }
+        let sourceText=context.text
         let known = request.knownLanguage, learning = request.learningLanguage, pair = [known,learning]
         guard known != learning, pair.allSatisfy(supported.contains), request.inputLanguage == nil || pair.contains(request.inputLanguage!) else { return stop(.invalidInput) }
         do {
-            var source = request.inputLanguage ?? scriptLanguage(slice,pair:pair)
+            var source = request.inputLanguage ?? scriptLanguage(sourceText,pair:pair)
             if source == nil {
-                let forward = try await reference(request.originalText,known,learning)
+                let forward = try await reference(sourceText,known,learning)
                 guard valid() else { return stop(.stale) }
-                let reverse = forward == nil ? try await reference(request.originalText,learning,known) : nil
+                let reverse = forward == nil ? try await reference(sourceText,learning,known) : nil
                 guard valid() else { return stop(.stale) }
                 if forward != nil { source = known }
                 else if reverse != nil { source = learning }
-                else { source = try await identify(context(request)) }
+                else { source = try await identify(detectionContext(context,request:request)) }
                 guard valid() else { return stop(.stale) }
-                if source.map({ !pair.contains($0) }) ?? true, !slice.utf8.elementsEqual(request.originalText.utf8) { source = try await identify(slice) }
             }
             guard valid() else { return stop(.stale) }
             guard let from = source, pair.contains(from) else { return stop(.invalidLanguage) }
             let to = from == known ? learning : known
-            let authored = try await reference(slice,from,to)
+            let authored = try await reference(sourceText,from,to)
             guard valid() else { return stop(.stale) }
             let translated: String
             if let authored { translated = authored }
             else {
                 guard try await modelsReady(from,to) else { return stop(.modelNotReady) }
                 guard valid() else { return stop(.stale) }
-                let parts=chunks(slice)
+                let parts=chunks(sourceText)
                 guard !parts.isEmpty else{return stop(.invalidInput)}
                 var output=""
                 for part in parts {
@@ -148,10 +155,10 @@ enum ManualTranslationResolver {
             }
             guard valid() else { return stop(.stale) }
             guard !translated.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty, translated.utf16.count <= 65_536,
-                  TranslationIntegrity.preservesIdentifiers(original:slice,translation:translated) else { return stop(.invalidResult) }
+                  TranslationIntegrity.preservesIdentifiers(original:sourceText,translation:translated) else { return stop(.invalidResult) }
             let guide = await reading(translated,to)
             guard valid() else { return stop(.stale) }
-            return .init(.ready,result:.init(request:request,originalSlice:slice,targetText:translated,reading:guide,sourceLanguage:from,targetLanguage:to))
+            return .init(.ready,result:.init(request:request,originalSlice:slice,targetText:translated,reading:guide,sourceLanguage:from,targetLanguage:to,sourceContextText:sourceText,sourceContextStartUTF16:context.startUTF16,sourceContextEndUTF16:context.endUTF16,contextExpanded:context.startUTF16 != request.startUTF16 || context.endUTF16 != request.endUTF16))
         } catch is CancellationError { throw CancellationError() }
         catch ManualTranslationFailure.timeout { return stop(.timeout) }
         catch { return stop(.error) }

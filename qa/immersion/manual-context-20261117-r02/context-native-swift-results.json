@@ -1,0 +1,115 @@
+{
+  "cases" : [
+    {
+      "end" : 31,
+      "id" : "book_table",
+      "start" : 0,
+      "text" : "Could you book a table tonight?"
+    },
+    {
+      "end" : 56,
+      "id" : "second_glasses",
+      "start" : 21,
+      "text" : "Bring two glasses of water, please."
+    },
+    {
+      "end" : 37,
+      "id" : "multisentence_selection",
+      "start" : 0,
+      "text" : "The book is red. Please book a table."
+    },
+    {
+      "end" : 25,
+      "id" : "abbreviation",
+      "start" : 0,
+      "text" : "Dr. Lee can book a table."
+    },
+    {
+      "end" : 32,
+      "id" : "quoted_sentence",
+      "start" : 0,
+      "text" : "She said, “Please book a table.”"
+    },
+    {
+      "end" : 42,
+      "id" : "protected_url",
+      "start" : 0,
+      "text" : "Open https://example.test/v1.2?q=notes.md."
+    },
+    {
+      "end" : 31,
+      "id" : "protected_code",
+      "start" : 0,
+      "text" : "Use `first. book. second` here."
+    },
+    {
+      "end" : 16,
+      "id" : "mixed_original",
+      "start" : 0,
+      "text" : "Meet 李 tomorrow."
+    },
+    {
+      "end" : 30,
+      "id" : "composed_emoji",
+      "start" : 0,
+      "text" : "🙂 Try café near the library."
+    },
+    {
+      "end" : 15,
+      "id" : "japanese",
+      "start" : 7,
+      "text" : "音楽を聞きます！"
+    },
+    {
+      "end" : 18,
+      "id" : "korean",
+      "start" : 10,
+      "text" : "음악을 들어요."
+    },
+    {
+      "end" : 25,
+      "id" : "arabic",
+      "start" : 12,
+      "text" : "أريد كوب ماء."
+    },
+    {
+      "end" : 38,
+      "id" : "unsafe_quote_fallback",
+      "start" : 0,
+      "text" : "She said “book a table. Then she left."
+    },
+    {
+      "end" : 35,
+      "id" : "unpunctuated_whole",
+      "start" : 0,
+      "text" : "Book a table\nBring glasses of water"
+    },
+    {
+      "end" : 4,
+      "id" : "one_word",
+      "start" : 0,
+      "text" : "book"
+    },
+    {
+      "end" : 26,
+      "id" : "whole_message",
+      "start" : 0,
+      "text" : "Book a table. Bring water."
+    },
+    {
+      "end" : 26,
+      "id" : "decimal",
+      "start" : 0,
+      "text" : "Bring 1.5 litres of water."
+    },
+    {
+      "end" : 36,
+      "id" : "quoted_attribution",
+      "start" : 0,
+      "text" : "“Please book a table,” said Dr. Lee."
+    }
+  ],
+  "isolated_dictionary_bypass_blocked" : true,
+  "passed" : true,
+  "platform" : "native macOS NLTokenizer component, not iOS UI/model acceptance"
+}

@@ -19,7 +19,8 @@ internal data class ManualTranslationRequest(
         .joinToString("") { "%02x".format(it) }
 }
 internal data class ManualTranslationResult(val request: ManualTranslationRequest, val originalSlice: String,
-    val targetText: String, val reading: FullReading?, val sourceLanguage: String, val targetLanguage: String)
+    val targetText: String, val reading: FullReading?, val sourceLanguage: String, val targetLanguage: String,
+    val sourceContextText:String, val sourceContextStartUTF16:Int, val sourceContextEndUTF16:Int, val contextExpanded:Boolean)
 internal enum class ManualTranslationStatus { READY, INVALID_INPUT, INVALID_LANGUAGE, MODEL_NOT_READY, INVALID_RESULT, STALE, TIMEOUT, ERROR }
 internal data class ManualTranslationOutcome(val status: ManualTranslationStatus, val result: ManualTranslationResult? = null)
 internal class ManualTranslationTimeout : Exception()
@@ -83,14 +84,19 @@ internal object ManualTranslationResolver {
         }
         return result
     }
-    private fun context(request: ManualTranslationRequest): String {
-        if (request.originalText.length <= 16_384) return request.originalText
-        val boundaries = BreakIterator.getCharacterInstance(Locale.ROOT).apply { setText(request.originalText) }
-        val desired = maxOf(0, request.startUTF16-4096)
-        val start = if (boundaries.isBoundary(desired)) desired else boundaries.following(desired)
-        val desiredEnd = minOf(request.originalText.length,start+16_384)
-        val end = if (boundaries.isBoundary(desiredEnd)) desiredEnd else boundaries.preceding(desiredEnd)
-        return request.originalText.substring(start,end)
+    fun sourceContext(request:ManualTranslationRequest):ManualSourceContext? {
+        if(slice(request)==null)return null
+        return ManualTranslationContext.enclosing(request.originalText,request.startUTF16,request.endUTF16,
+            request.inputLanguage ?: request.knownLanguage)
+    }
+    private fun detectionContext(source:ManualSourceContext,request:ManualTranslationRequest):String {
+        if(source.text.length<=16_384)return source.text
+        val boundaries=BreakIterator.getCharacterInstance(Locale.ROOT).apply{setText(source.text)}
+        val desired=maxOf(0,request.startUTF16-source.startUTF16-4096)
+        val start=if(boundaries.isBoundary(desired))desired else boundaries.following(desired)
+        val desiredEnd=minOf(source.text.length,start+16_384)
+        val end=if(boundaries.isBoundary(desiredEnd))desiredEnd else boundaries.preceding(desiredEnd)
+        return source.text.substring(start,end)
     }
     suspend fun resolve(request: ManualTranslationRequest, valid: () -> Boolean,
         reference: suspend (String, String, String) -> String?, identify: suspend (String) -> String?,
@@ -99,29 +105,30 @@ internal object ManualTranslationResolver {
         fun stop(status: ManualTranslationStatus) = ManualTranslationOutcome(if (valid()) status else ManualTranslationStatus.STALE)
         if (!valid()) return stop(ManualTranslationStatus.STALE)
         val slice = slice(request) ?: return stop(ManualTranslationStatus.INVALID_INPUT)
+        val context=sourceContext(request) ?: return stop(ManualTranslationStatus.INVALID_INPUT)
+        val sourceText=context.text
         val known = request.knownLanguage; val learning = request.learningLanguage; val pair = listOf(known, learning)
         if (known == learning || !supported.containsAll(pair) || request.inputLanguage?.let { it !in pair } == true)
             return stop(ManualTranslationStatus.INVALID_INPUT)
         try {
-            var source = request.inputLanguage ?: scriptLanguage(slice, pair)
+            var source = request.inputLanguage ?: scriptLanguage(sourceText, pair)
             if (source == null) {
-                val forward = reference(request.originalText, known, learning)
+                val forward = reference(sourceText, known, learning)
                 if (!valid()) return stop(ManualTranslationStatus.STALE)
-                val reverse = if (forward == null) reference(request.originalText, learning, known) else null
+                val reverse = if (forward == null) reference(sourceText, learning, known) else null
                 if (!valid()) return stop(ManualTranslationStatus.STALE)
-                source = when { forward != null -> known; reverse != null -> learning; else -> identify(context(request)) }
+                source = when { forward != null -> known; reverse != null -> learning; else -> identify(detectionContext(context,request)) }
                 if (!valid()) return stop(ManualTranslationStatus.STALE)
-                if (source !in pair && slice != request.originalText) source = identify(slice)
             }
             if (!valid()) return stop(ManualTranslationStatus.STALE)
             if (source !in pair) return stop(ManualTranslationStatus.INVALID_LANGUAGE)
             val from = requireNotNull(source); val to = if (from == known) learning else known
-            val authored = reference(slice, from, to)
+            val authored = reference(sourceText, from, to)
             if (!valid()) return stop(ManualTranslationStatus.STALE)
             val translated = authored ?: run {
                 if (!modelsReady(from, to)) return stop(ManualTranslationStatus.MODEL_NOT_READY)
                 if (!valid()) return stop(ManualTranslationStatus.STALE)
-                val parts = chunks(slice)
+                val parts = chunks(sourceText)
                 if (parts.isEmpty()) return stop(ManualTranslationStatus.INVALID_INPUT)
                 buildString {
                     for (part in parts) {
@@ -131,12 +138,12 @@ internal object ManualTranslationResolver {
                 }
             }
             if (!valid()) return stop(ManualTranslationStatus.STALE)
-            if (translated.isBlank() || translated.length > 65_536 || !TranslationIntegrity.preservesIdentifiers(slice, translated))
+            if (translated.isBlank() || translated.length > 65_536 || !TranslationIntegrity.preservesIdentifiers(sourceText, translated))
                 return stop(ManualTranslationStatus.INVALID_RESULT)
             val guide = reading(translated, to)
             if (!valid()) return stop(ManualTranslationStatus.STALE)
             return ManualTranslationOutcome(ManualTranslationStatus.READY,
-                ManualTranslationResult(request, slice, translated, guide, from, to))
+                ManualTranslationResult(request, slice, translated, guide, from, to,sourceText,context.startUTF16,context.endUTF16,context.startUTF16!=request.startUTF16||context.endUTF16!=request.endUTF16))
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: ManualTranslationTimeout) { return stop(ManualTranslationStatus.TIMEOUT) }
         catch (_: Exception) { return stop(ManualTranslationStatus.ERROR) }

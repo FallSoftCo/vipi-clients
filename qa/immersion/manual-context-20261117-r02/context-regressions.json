@@ -1,0 +1,185 @@
+{
+  "schema": "vipi-native-manual-context-regressions-1",
+  "cases": [
+    {
+      "id": "book_table",
+      "text": "Could you book a table tonight?",
+      "startUTF16": 10,
+      "endUTF16": 14,
+      "language": "en",
+      "expectedContext": "Could you book a table tonight?",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 31
+    },
+    {
+      "id": "second_glasses",
+      "text": "I put on my glasses. Bring two glasses of water, please.",
+      "startUTF16": 31,
+      "endUTF16": 38,
+      "language": "en",
+      "expectedContext": "Bring two glasses of water, please.",
+      "expectedStartUTF16": 21,
+      "expectedEndUTF16": 56
+    },
+    {
+      "id": "multisentence_selection",
+      "text": "The book is red. Please book a table. We leave soon.",
+      "startUTF16": 12,
+      "endUTF16": 28,
+      "language": "en",
+      "expectedContext": "The book is red. Please book a table.",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 37
+    },
+    {
+      "id": "abbreviation",
+      "text": "Dr. Lee can book a table. Another sentence.",
+      "startUTF16": 12,
+      "endUTF16": 16,
+      "language": "en",
+      "expectedContext": "Dr. Lee can book a table.",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 25
+    },
+    {
+      "id": "quoted_sentence",
+      "text": "She said, “Please book a table.” Then she left.",
+      "startUTF16": 18,
+      "endUTF16": 22,
+      "language": "en",
+      "expectedContext": "She said, “Please book a table.”",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 32
+    },
+    {
+      "id": "protected_url",
+      "text": "Open https://example.test/v1.2?q=notes.md. Then book a table.",
+      "startUTF16": 33,
+      "endUTF16": 38,
+      "language": "en",
+      "expectedContext": "Open https://example.test/v1.2?q=notes.md.",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 42
+    },
+    {
+      "id": "protected_code",
+      "text": "Use `first. book. second` here. Then go home.",
+      "startUTF16": 12,
+      "endUTF16": 16,
+      "language": "en",
+      "expectedContext": "Use `first. book. second` here.",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 31
+    },
+    {
+      "id": "mixed_original",
+      "text": "Meet 李 tomorrow. We leave at six.",
+      "startUTF16": 5,
+      "endUTF16": 6,
+      "language": "en",
+      "expectedContext": "Meet 李 tomorrow.",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 16
+    },
+    {
+      "id": "composed_emoji",
+      "text": "🙂 Try café near the library. We leave later.",
+      "startUTF16": 7,
+      "endUTF16": 12,
+      "language": "en",
+      "expectedContext": "🙂 Try café near the library.",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 30
+    },
+    {
+      "id": "japanese",
+      "text": "明日は雨です。音楽を聞きます！次に読みます。",
+      "startUTF16": 7,
+      "endUTF16": 9,
+      "language": "ja",
+      "expectedContext": "音楽を聞きます！",
+      "expectedStartUTF16": 7,
+      "expectedEndUTF16": 15
+    },
+    {
+      "id": "korean",
+      "text": "내일 비가 와요. 음악을 들어요. 집에 갑니다.",
+      "startUTF16": 10,
+      "endUTF16": 12,
+      "language": "ko",
+      "expectedContext": "음악을 들어요.",
+      "expectedStartUTF16": 10,
+      "expectedEndUTF16": 18
+    },
+    {
+      "id": "arabic",
+      "text": "وصل القطار. أريد كوب ماء. نذهب الآن.",
+      "startUTF16": 21,
+      "endUTF16": 24,
+      "language": "ar",
+      "expectedContext": "أريد كوب ماء.",
+      "expectedStartUTF16": 12,
+      "expectedEndUTF16": 25
+    },
+    {
+      "id": "unsafe_quote_fallback",
+      "text": "She said “book a table. Then she left.",
+      "startUTF16": 10,
+      "endUTF16": 14,
+      "language": "en",
+      "expectedContext": "She said “book a table. Then she left.",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 38
+    },
+    {
+      "id": "unpunctuated_whole",
+      "text": "Book a table\nBring glasses of water",
+      "startUTF16": 19,
+      "endUTF16": 26,
+      "language": "en",
+      "expectedContext": "Book a table\nBring glasses of water",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 35
+    },
+    {
+      "id": "one_word",
+      "text": "book",
+      "startUTF16": 0,
+      "endUTF16": 4,
+      "language": "en",
+      "expectedContext": "book",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 4
+    },
+    {
+      "id": "whole_message",
+      "text": "Book a table. Bring water.",
+      "startUTF16": 0,
+      "endUTF16": 26,
+      "language": "en",
+      "expectedContext": "Book a table. Bring water.",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 26
+    },
+    {
+      "id": "decimal",
+      "text": "Bring 1.5 litres of water. Then book a table.",
+      "startUTF16": 20,
+      "endUTF16": 25,
+      "language": "en",
+      "expectedContext": "Bring 1.5 litres of water.",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 26
+    },
+    {
+      "id": "quoted_attribution",
+      "text": "“Please book a table,” said Dr. Lee. Then she left.",
+      "startUTF16": 8,
+      "endUTF16": 12,
+      "language": "en",
+      "expectedContext": "“Please book a table,” said Dr. Lee.",
+      "expectedStartUTF16": 0,
+      "expectedEndUTF16": 36
+    }
+  ]
+}

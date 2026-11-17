@@ -14,11 +14,15 @@ import VipiCore
         let request=owner.makeManualRequest(messageID:"message",originalText:"The marmot hums.",startUTF16:4,endUTF16:10,generation:1)
         let task=Task{await owner.manualTranslation(request)}
         let provider=try await pending(owner)
-        XCTAssertEqual(provider.text,"marmot")
+        XCTAssertEqual(provider.text,"The marmot hums.")
         await owner.finish(provider,translation:"音乐")
         let outcome=await task.value
         XCTAssertEqual(outcome.status,.ready)
         XCTAssertEqual(outcome.result?.originalSlice,"marmot")
+        XCTAssertEqual(outcome.result?.sourceContextText,"The marmot hums.")
+        XCTAssertEqual(outcome.result?.contextExpanded,true)
+        XCTAssertEqual(outcome.result?.sourceContextStartUTF16,0)
+        XCTAssertEqual(outcome.result?.sourceContextEndUTF16,16)
         XCTAssertEqual(outcome.result?.targetText,"音乐")
         XCTAssertEqual(outcome.result?.reading?.text,"yīnyuè")
         XCTAssertEqual(outcome.result?.targetLanguage,"zh")

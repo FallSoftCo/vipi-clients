@@ -275,7 +275,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
             reference = { text, from, to -> catalogMutex.withLock { withContext(Dispatchers.Default) { catalog.reference(text, from, to) } } },
             identify = { language.identify(it, requireTwoWords = false) },
             modelsReady = { from, to ->
-                val slice = ManualTranslationResolver.slice(request)
+                val slice = ManualTranslationResolver.sourceContext(request)?.text
                 if (synchronized(stateLock) { slice != null && manualTranslations.containsKey(Triple(slice,from,to)) }) true
                 else { checkDownloads(); ready == true }
             },

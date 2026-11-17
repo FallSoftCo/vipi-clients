@@ -11,7 +11,7 @@ class ManualTranslationDeviceTest {
         var calls=0
         val translator=object:LanguageTranslation {
             override suspend fun prepare(source:String,target:String,cellularAllowed:Boolean) { error("unexpected download") }
-            override suspend fun translate(text:String,source:String,target:String):String {calls++;assertEquals("marmot",text);return "音乐"}
+            override suspend fun translate(text:String,source:String,target:String):String {calls++;assertEquals("The marmot hums.",text);return "音乐"}
             override fun close(){}
         }
         val owner=ConversationImmersion(context,"en","zh",0.0,translator=translator,qaModelsReady=true,sourceLookup=null)
@@ -20,6 +20,10 @@ class ManualTranslationDeviceTest {
             val first=owner.manualTranslation(request)
             assertEquals(ManualTranslationStatus.READY,first.status)
             assertEquals("marmot",first.result?.originalSlice)
+            assertEquals("The marmot hums.",first.result?.sourceContextText)
+            assertTrue(first.result?.contextExpanded==true)
+            assertEquals(0,first.result?.sourceContextStartUTF16)
+            assertEquals(16,first.result?.sourceContextEndUTF16)
             assertEquals("音乐",first.result?.targetText)
             assertEquals("yīnyuè",first.result?.reading?.text)
             assertEquals("zh",first.result?.targetLanguage)

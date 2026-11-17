@@ -18,14 +18,16 @@ import VipiCore
         }
         let selected = request("We discussed music after dinner.",13,18)
         let first = try await run(selected)
-        precondition(first.status == .ready && first.result?.originalSlice == "music" && translatedInput == "music")
+        precondition(first.status == .ready && first.result?.originalSlice == "music" && translatedInput == selected.originalText)
         precondition(first.result?.targetText == "音乐" && first.result?.reading?.text == "yīnyuè" && calls == 1)
         precondition(first.result?.request == selected && first.result?.sourceLanguage == "en" && first.result?.targetLanguage == "zh")
+        precondition(first.result?.sourceContextText == selected.originalText && first.result?.contextExpanded == true)
+        precondition(first.result?.sourceContextStartUTF16 == 0 && first.result?.sourceContextEndUTF16 == selected.originalText.utf16.count)
         let reverse = try await run(request("银行"),output:"bank")
         precondition(reverse.status == .ready && translatedDirection == "zh-en" && reverse.result?.reading == nil)
         let context = request("I would like to know what this word means.",2,7,"en","fr")
         _ = try await run(context,output:"voudrais")
-        precondition(detectedInput == context.originalText && translatedInput == "would")
+        precondition(detectedInput == context.originalText && translatedInput == context.originalText)
         let explicit = try await run(request("chat",0,nil,"en","fr","fr"),output:"cat")
         precondition(explicit.status == .ready && translatedDirection == "fr-en")
         precondition(ManualTranslationResolver.slice(request("A😀B",2,3)) == nil)
@@ -59,7 +61,7 @@ import VipiCore
             precondition(text.utf16.count <= 8192 && !text.contains("https://"));chunks+=1;return text
         },reading:{_,_ in nil})
         precondition(chunked.status == .ready && chunked.result?.targetText == longWhole && chunks>=2)
-        let report:[String:Any] = ["platform":"native macOS Swift CLI; component behavior, not app rendering or model quality","checks":["arbitrary word with no alignment","actual marked Chinese reading","reverse direction","whole-original context for ambiguous slice","explicit input language","UTF16 surrogate and composed boundaries","exact UTF8 identity","selection generation","missing model without inference","literal integrity","late-result suppression","timeout distinction","cancellation propagation","word in valid 30KiB original","whole-message chunk/literal preservation"],"passed":true,"translation_calls":calls,"reading_calls":readingCalls]
+        let report:[String:Any] = ["platform":"native macOS Swift CLI; component behavior, not app rendering or model quality","checks":["context fallback with no alignment","actual marked Chinese reading","reverse direction","complete context for ambiguous selection","explicit input language","UTF16 surrogate and composed boundaries","exact UTF8 identity","selection generation","missing model without inference","literal integrity","late-result suppression","timeout distinction","cancellation propagation","word in valid 30KiB original","whole-message chunk/literal preservation"],"passed":true,"translation_calls":calls,"reading_calls":readingCalls]
         try JSONSerialization.data(withJSONObject:report,options:[.prettyPrinted,.sortedKeys]).write(to:URL(fileURLWithPath:CommandLine.arguments[2]),options:.withoutOverwriting)
     }
 }

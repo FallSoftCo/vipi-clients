@@ -181,7 +181,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
                 reference: { text,from,to in try await self.catalog.reference(original:text,pair:.init(source:from,target:to)) },
                 identify: { try await self.language.identify($0,automatic:false) },
                 modelsReady: { from,to in
-                    if let slice=ManualTranslationResolver.slice(request), self.manualTranslations[.init(utf8:Data(slice.utf8),source:from,target:to)] != nil {return true}
+                    if let slice=ManualTranslationResolver.sourceContext(request)?.text, self.manualTranslations[.init(utf8:Data(slice.utf8),source:from,target:to)] != nil {return true}
                     return await self.modelStatus(.init(source:from,target:to)) == .installed
                 },
                 translate: { text,from,to in
