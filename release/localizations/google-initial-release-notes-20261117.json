@@ -1,0 +1,78 @@
+{
+  "source": "release/localizations/reviewed-platform-fields.json",
+  "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+  "method": "Exact previously reviewed first paragraph of each localized full description; no new translation or expanded claims.",
+  "locales": [
+    {
+      "locale": "ar",
+      "note": "تحدّث مع أصدقائك كالمعتاد. تتحوّل كلمات وعبارات قصيرة محددة في الرسائل إلى اللغة التي تتعلّمها، دون أن يحتاج أصدقاؤك إلى تغيير طريقة كتابتهم.",
+      "characters": 141
+    },
+    {
+      "locale": "de-DE",
+      "note": "Chatte wie gewohnt mit deinen Freunden. Einzelne Wörter und kurze Wendungen wechseln direkt in deinen Nachrichten in deine Lernsprache. Deine Freunde müssen ihren Schreibstil nicht ändern.",
+      "characters": 188
+    },
+    {
+      "locale": "en-US",
+      "note": "Chat with friends as usual. Selected words and short phrases switch in place into the language you are learning. Your friends do not need to change how they write.",
+      "characters": 163
+    },
+    {
+      "locale": "es-ES",
+      "note": "Chatea con tus amigos como siempre. Algunas palabras y frases cortas cambian en su sitio al idioma que aprendes. Tus amigos no tienen que cambiar su forma de escribir.",
+      "characters": 167
+    },
+    {
+      "locale": "es-419",
+      "note": "Chatea con tus amigos como siempre. Algunas palabras y frases cortas cambian en su sitio al idioma que aprendes. Tus amigos no tienen que cambiar su forma de escribir.",
+      "characters": 167
+    },
+    {
+      "locale": "fr-FR",
+      "note": "Discutez comme d’habitude. Certains mots et courtes expressions passent à la langue que vous apprenez, directement dans les messages. Vos amis n’ont pas à changer leur façon d’écrire.",
+      "characters": 183
+    },
+    {
+      "locale": "it-IT",
+      "note": "Chatta con gli amici come sempre. Alcune parole e brevi espressioni passano alla lingua che impari direttamente nei messaggi. I tuoi amici non devono cambiare il modo di scrivere.",
+      "characters": 179
+    },
+    {
+      "locale": "ja-JP",
+      "note": "友だちといつもどおりにチャット。一部の単語や短いフレーズが、メッセージ内で学習中の言語に切り替わります。友だちは書き方を変える必要がありません。",
+      "characters": 72
+    },
+    {
+      "locale": "ko-KR",
+      "note": "친구와 평소처럼 대화하세요. 메시지의 일부 단어와 짧은 표현이 배우는 언어로 바뀝니다. 친구는 글을 쓰는 방식을 바꿀 필요가 없습니다.",
+      "characters": 75
+    },
+    {
+      "locale": "pt-BR",
+      "note": "Converse com seus amigos normalmente. Algumas palavras e frases curtas mudam no próprio lugar para o idioma que você está aprendendo. Seus amigos não precisam mudar como escrevem.",
+      "characters": 179
+    },
+    {
+      "locale": "pt-PT",
+      "note": "Conversa com os teus amigos como habitualmente. Algumas palavras e expressões curtas passam para a língua que estás a aprender, diretamente nas mensagens. Os teus amigos não precisam de mudar a forma como escrevem.",
+      "characters": 214
+    },
+    {
+      "locale": "sw",
+      "note": "Piga gumzo na marafiki kama kawaida. Baadhi ya maneno na vifungu vifupi hubadilika ndani ya ujumbe kwenda lugha unayojifunza. Marafiki zako hawahitaji kubadili wanavyoandika.",
+      "characters": 174
+    },
+    {
+      "locale": "zh-CN",
+      "note": "像平时一样和朋友聊天。消息中的部分词语和短语会在原处切换成你正在学习的语言，朋友无需改变写作方式。",
+      "characters": 49
+    },
+    {
+      "locale": "zh-TW",
+      "note": "像平常一樣和朋友聊天。訊息中的部分詞語和短語會在原處切換成你正在學習的語言，朋友不必改變寫作方式。",
+      "characters": 49
+    }
+  ],
+  "text_sha256": "98750390059d05a7e5f74fa07515f4a12253180578b57b786718f27a727da4ce"
+}

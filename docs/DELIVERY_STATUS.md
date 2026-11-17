@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 17, 2026, 08:23 UTC. Vipi remains restricted staging. Neither
+Updated November 17, 2026, 09:03 UTC. Vipi remains restricted staging. Neither
 app has been submitted for public review. Prior revisions and the linked
 receipts retain historical actions; do not replay them.
 
@@ -28,14 +28,18 @@ Full-link scroll reachability and Listen/Stop/idle with Japanese and Swahili
 substitutions visible. Audio was disabled: these are UI/controller observations,
 not acoustic approval or exact-binary messaging-crypto qualification. Both fresh
 test emulators were retired after preserving evidence; original accounts remain.
-No version 3 upload, publication or retained-account update has occurred.
+Version 3 was uploaded once to the Play artifact library and processed. A fresh
+reload shows Draft with zero releases, 418 MB for a new install and 2.17 MB for
+an update. No track publication or retained-account update occurred.
+See [upload receipt](../release/android-v3-store-upload-20261117.json).
 See [candidate](../qa/immersion/android-v3-candidate-20261117/candidate.json).
 
 Google's 14 localized listings were field-checked and saved once. Independent
 reload verified the locale inventory and English, Swahili and Arabic field
-samples. They are ready to send for review, not approved. The production draft
-still uses version 1, with countries unselected; reconcile it with the eventual
-qualified release before submission. Existing artwork declarations and actual
+samples. They are ready to send for review, not approved. The existing production draft now references only version 3; its name and all
+14 localized release-note payloads were independently reloaded and verified.
+Countries remain unselected, the sole console preview error. No review was sent.
+See [draft receipt](../release/google-production-v3-draft-20261117.json). Existing artwork declarations and actual
 app screenshots remain. See [localization](../release/google-localized-listing-20261117.json).
 
 Apple's original signed **1.0 (1)**, source `4908d4e`, was delivered once and

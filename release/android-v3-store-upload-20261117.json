@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-17T08:42:52.008252+00:00",
+  "app_id": "4975664610567218322",
+  "developer_id": "4750854689150545006",
+  "version_code": 3,
+  "version_name": "1.0.2",
+  "aab": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-v3-release-20261117-r01/vipi-v3-release.aab",
+  "bytes": 546488908,
+  "sha256": "bcd92f1dcd0ceb43fe1ef0be060207e3b15f536da9680fabf90c194d05ac99cd",
+  "source": "87d53cd7c001b99383d18a25f7fafe40316c6c63",
+  "preflight": "Actual native All app bundles page shows exactly versions2(active) and1(inactive); no version3",
+  "scope": "First version3 artifact upload only; no track publication, app update, send, purchase or final review submission",
+  "state": "uploaded_processed_draft_verified",
+  "upload_dispatches": 1,
+  "screen": "/home/ai/Development/investigations/vipi-ux-review-20261117-r01/play-v3-library-r05.png",
+  "dispatch_at": "2026-11-17T08:43:40.460Z",
+  "observed_screen": "/home/ai/Development/investigations/vipi-ux-review-20261117-r01/play-v3-readback-r14.png",
+  "observation": "Bundle explorer after reload shows version3 (1.0.2), Draft, zero releases, 418 MB install and 2.17 MB update.",
+  "last_observed": "2026-11-17T08:50:30Z",
+  "artifact_id": "4860252271507042927",
+  "releases_observed": 0,
+  "track_publication": false,
+  "app_update": false,
+  "schema": "vipi-play-bundle-upload-1",
+  "screenshots": {
+    "play-v3-upload-done-r11.png": "fe76ebc0fc03c62e93d5e28cd18cd8cf19a0e473713a57cb9655abaff8234518",
+    "play-v3-readback-r14.png": "b11cd36999557c3c368313d5cfa24838e24b19c7930321beaf0db723f59fd320"
+  },
+  "receipt_recorded_at": "2026-11-17T08:56:31.991221+00:00"
+}

@@ -1,0 +1,29 @@
+{
+  "at_utc": "2026-11-17T09:01:03.428263+00:00",
+  "app": "4975664610567218322",
+  "track": "4697875695147185458",
+  "release": "1",
+  "action": "Save existing production draft with only version3 library artifact; name1.0.2(3);14 localized initial-release notes from reviewed listing first paragraphs.",
+  "scope": "Draft only. No publication/review/update/message/charge.",
+  "preflight": "Existing draft1 observed with onlyversion1; version3 added from existing library andversion1 removed onlyfromdraft.14/14notes shown.",
+  "next_job": "vipi-play-production-save-draft-r29",
+  "state": "saved_draft_reload_verified",
+  "saved_at": "2026-11-17T09:01:03.504Z",
+  "version_code": 3,
+  "version_name": "1.0.2",
+  "name": "1.0.2 (3)",
+  "save_dispatches": 1,
+  "notes_matched": true,
+  "notes_locales": 14,
+  "review_submission": false,
+  "public_rollout": false,
+  "geography_changed": false,
+  "console_errors": [
+    "No countries or regions have been selected for this track. Add at least 1 country or region to roll out this release."
+  ],
+  "screenshots": {
+    "play-production-save-draft-r29.png": "83829b553b57e83b1010a50fd8c59cce480bf6b22089456f078969f60b7f0cbf",
+    "play-production-reload-view-r31.png": "933657e4971d1a8dfabc28989af919ef8de0ab5ab96ce3767207ce1d78aec3c4",
+    "play-production-error-r34.png": "ca01c82e187a89c93b17bdf8bc86f3ba038ad580620807f2a2ad088e679441f2"
+  }
+}

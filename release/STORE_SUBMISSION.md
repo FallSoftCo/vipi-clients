@@ -21,8 +21,10 @@ Safety. The console shows none needing attention. Creation
 preceded content setup and publication in the documented Play workflow. The
 original signed Android bundle was uploaded once; subsequent internal release
 `2` is now installed through Play by the single owned company tester. Version 3
-has been built privately and is undergoing artifact verification. It has not been reviewed or
-publicly released. The corrected `EXPORT_ASSESSMENT.md` remains
+has completed signed-artifact and isolated offline UI checks, uploaded once to
+the artifact library, and replaced version 1 in the existing production draft.
+All 14 release-note translations were saved and reloaded exactly. No version 3
+track publication, retained-account update or public review has occurred. The corrected `EXPORT_ASSESSMENT.md` remains
 its technical export basis. Exact linked-binary distribution terms remain a
 separate release consideration. Both annual subscriptions are active. Base has
 30 cardless days from original profile creation and no store introductory offer;
@@ -68,7 +70,7 @@ dark, large-text and RTL/device-size QA are validation work, not a requirement
 to crowd every listing image with multiple variants. Final sizes and required
 device families come from the current store console.
 
-The checked [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The signed `0fda43f` bundle estimated 416,960,679 bytes for the retained ARM64, English, 420 dpi, SDK 35 device configuration. Its four generated splits passed upload-signer and 16 KiB alignment checks. Google subsequently accepted versions 1 and 2 and displayed a 417 MB new-install download. These are historical results; version 3 needs its own measured inspection. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. The November 17 public source preview is pinned to `a547a4d`; its hash and anonymous download were verified. It predates the new classifier and JNI keep-name fix and is not corresponding-source evidence for version 3. Prepare a separate exact source release without overwriting the prior publication. Source publication does not settle the separate linked-dependency distribution question. See `client-source-publication-20261117.json`, `android-build-artifacts-20261117.json` and `store-size-constraints.json`.
+The checked [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The signed `0fda43f` bundle estimated 416,960,679 bytes for the retained ARM64, English, 420 dpi, SDK 35 device configuration. Its four generated splits passed upload-signer and 16 KiB alignment checks. Google subsequently accepted versions 1 and 2 and displayed a 417 MB new-install download. Version 3 passed its own package and alignment checks and Play shows 418 MB for a new install. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. The November 17 public source preview is pinned to `a547a4d`; its hash and anonymous download were verified. It predates the new classifier and JNI keep-name fix and is not corresponding-source evidence for version 3. Prepare a separate exact source release without overwriting the prior publication. Source publication does not settle the separate linked-dependency distribution question. See `client-source-publication-20261117.json`, `android-build-artifacts-20261117.json` and `store-size-constraints.json`.
 
 ## Reviewer access
 
