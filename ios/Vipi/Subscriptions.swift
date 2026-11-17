@@ -67,9 +67,9 @@ struct BotAllowance: Decodable, Sendable {
     private let api: any ChatTransport
     private let accountToken: UUID
     private var listener: Task<Void, Never>?
-    private var trialExpiryTask: Task<Void, Never>?
-    private var trialClock: ServerTrialClock?
-    private var trialExpiryObserved = false
+    private var expiryTasks: [VipiPlan: Task<Void, Never>] = [:]
+    private var expiryClocks: [VipiPlan: ServerTrialClock] = [:]
+    private var expiredPlans = Set<VipiPlan>()
     private var closed = false
     private var synchronizing = Set<UInt64>()
     private var reconciling = false
@@ -103,7 +103,7 @@ struct BotAllowance: Decodable, Sendable {
         await refresh()
         await reconcile()
     }
-    func close() { closed = true; listener?.cancel(); listener = nil; trialExpiryTask?.cancel(); trialExpiryTask = nil; trialClock = nil; snapshot = nil; botAllowance = nil }
+    func close() { closed = true; listener?.cancel(); listener = nil; expiryTasks.values.forEach { $0.cancel() }; expiryTasks = [:]; expiryClocks = [:]; expiredPlans = []; snapshot = nil; botAllowance = nil }
     func refresh() async {
         guard !loading, !closed else { return }
         loading = true
@@ -149,8 +149,8 @@ struct BotAllowance: Decodable, Sendable {
     func accessVerificationPending(_ plan: VipiPlan) -> Bool {
         guard let access = snapshot?.access(plan) else { return true }
         if access.verification_unavailable == true { return true }
-        if plan == .base, access.active, access.access_source == "cardless_trial" {
-            return trialClock == nil || trialExpiryObserved || trialClock?.expired() == true
+        if access.active && !access.isReviewAccess {
+            return expiryClocks[plan] == nil || expiredPlans.contains(plan) || expiryClocks[plan]?.expired() == true
         }
         return false
     }
@@ -160,7 +160,7 @@ struct BotAllowance: Decodable, Sendable {
     var baseActive: Bool { accessActive(.base) }
     private(set) var purchaseReady = false
     var botServiceReady: Bool { botAllowance?.service_ready == true }
-    var botAvailable: Bool { snapshot?.bot_mini.available == true && baseActive && botAllowance?.available == true }
+    var botAvailable: Bool { snapshot?.bot_mini.available == true && accessActive(.botMini) && baseActive && botAllowance?.available == true }
     // A cardless Base trial must not be followed by a second store trial.
     // Block eligible Base checkout until the old introductory offer is removed.
     var baseStoreTrialStillOffered: Bool { introductoryEligible.contains(.base) }
@@ -206,19 +206,22 @@ struct BotAllowance: Decodable, Sendable {
             throw ServiceFailure(status: 0, code: "purchase_account_mismatch")
         }
         snapshot = value
-        trialExpiryTask?.cancel(); trialExpiryTask = nil; trialClock = nil; trialExpiryObserved = false
-        if value.base.active && value.base.access_source == "cardless_trial" {
-            if value.base.cardless_trial?.active != false {
-                // Starting the monotonic clock before the request is conservative about network delay.
-                trialClock = ServerTrialClock.make(serverTime: value.server_time, trialEnd: value.base.cardless_trial?.ends_at ?? value.base.trial_ends_at, now: capturedAt)
-            }
-            if let clock = trialClock {
-                trialExpiryTask = Task { [weak self] in
-                    do { try await ContinuousClock().sleep(until: clock.deadline) } catch { return }
-                    guard !Task.isCancelled, let self, !self.closed else { return }
-                    self.trialExpiryObserved = true
-                    await self.refresh()
-                }
+        expiryTasks.values.forEach { $0.cancel() }; expiryTasks = [:]; expiryClocks = [:]; expiredPlans = []
+        for plan in VipiPlan.allCases {
+            let access = value.access(plan)
+            guard access.active && !access.isReviewAccess else { continue }
+            if plan == .base && access.access_source == "cardless_trial" && access.cardless_trial?.active == false { continue }
+            let end = plan == .base && access.access_source == "cardless_trial"
+                ? (access.cardless_trial?.ends_at ?? access.trial_ends_at ?? access.expires_at)
+                : access.expires_at
+            // Request-start anchoring makes network delay conservative.
+            guard let clock = ServerTrialClock.make(serverTime: value.server_time, trialEnd: end, now: capturedAt) else { continue }
+            expiryClocks[plan] = clock
+            expiryTasks[plan] = Task { [weak self] in
+                do { try await ContinuousClock().sleep(until: clock.deadline) } catch { return }
+                guard !Task.isCancelled, let self, !self.closed else { return }
+                self.expiredPlans.insert(plan)
+                await self.refresh()
             }
         }
     }

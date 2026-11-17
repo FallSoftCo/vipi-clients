@@ -29,7 +29,10 @@ import StoreKitTest
                 if object["productId"] as? String == VipiPlan.base.rawValue { base = true }
                 if object["productId"] as? String == VipiPlan.botMini.rawValue { bot = true }
             }
-            return try decode(["base": ["active": base], "bot_mini": ["active": bot, "available": base && bot], "billing_account_id": "local-test-only", "app_account_token": account.uuidString, "purchases_ready": ["apple": ready, "google": false]], as: type)
+            let clock = ISO8601DateFormatter()
+            let now = Date()
+            let expiry = clock.string(from: now.addingTimeInterval(365 * 24 * 60 * 60))
+            return try decode(["server_time": clock.string(from: now), "base": ["active": base, "expires_at": expiry], "bot_mini": ["active": bot, "available": base && bot, "expires_at": expiry], "billing_account_id": "local-test-only", "app_account_token": account.uuidString, "purchases_ready": ["apple": ready, "google": false]], as: type)
         }
         private func decode<T: Decodable>(_ value: [String: Any], as type: T.Type) throws -> T {
             try JSONDecoder().decode(type, from: JSONSerialization.data(withJSONObject: value))
