@@ -65,7 +65,7 @@ class OfflineFlowScreensDeviceTest {
             state.value = value
         }
         val device = UiDevice.getInstance(inst)
-        val out = File(base.filesDir, "offline-flow-plan-r02").apply { mkdirs() }
+        val out = File(base.filesDir, "offline-flow-plan-r03").apply { mkdirs() }
         var scenario: ActivityScenario<MainActivity>? = null
         try {
             withContext(Dispatchers.Main) {
@@ -109,6 +109,7 @@ class OfflineFlowScreensDeviceTest {
             assertTrue(device.takeScreenshot(File(out, "backup-form.png")))
             scenario!!.onActivity { setState(chat, "needsDeviceRecovery", true); setState(chat, "ready", false); model.navigate(Screen.HOME) }
             assertTrue(device.wait(Until.hasObject(By.textContains("another device")), 10_000))
+            assertFalse("New chats require a ready device", device.findObject(By.text("Start a conversation")).isEnabled)
             assertTrue(device.takeScreenshot(File(out, "device-recovery.png")))
             scenario!!.onActivity {
                 setState(chat, "needsDeviceRecovery", false); setState(chat, "ready", true)

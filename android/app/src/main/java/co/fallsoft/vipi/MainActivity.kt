@@ -353,7 +353,7 @@ class MainActivity : ComponentActivity() {
         VipiMark(54)
         Text(stringResource(R.string.ui_47b7a66139f1), fontFamily = FontFamily.Serif, fontSize = 28.sp, lineHeight = 35.sp)
         Text(stringResource(R.string.chat_empty_target, languageName(model.targetLanguage)), lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        PrimaryButton(stringResource(R.string.ui_258150cb3ee4)) { model.navigate(Screen.NEW_CHAT) }
+        PrimaryButton(stringResource(R.string.ui_258150cb3ee4), enabled = chat?.ready == true) { model.navigate(Screen.NEW_CHAT) }
     }
     chat?.notice?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     if (chat?.ready == true && chat.threads.isNotEmpty()) NotificationSetup()
