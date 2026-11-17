@@ -69,6 +69,7 @@ struct BotAllowance: Decodable, Sendable {
     private var listener: Task<Void, Never>?
     private var expiryTasks: [VipiPlan: Task<Void, Never>] = [:]
     private var expiryClocks: [VipiPlan: ServerTrialClock] = [:]
+    private var serverClockValid = false
     private var expiredPlans = Set<VipiPlan>()
     private var closed = false
     private var synchronizing = Set<UInt64>()
@@ -103,7 +104,7 @@ struct BotAllowance: Decodable, Sendable {
         await refresh()
         await reconcile()
     }
-    func close() { closed = true; listener?.cancel(); listener = nil; expiryTasks.values.forEach { $0.cancel() }; expiryTasks = [:]; expiryClocks = [:]; expiredPlans = []; snapshot = nil; botAllowance = nil }
+    func close() { closed = true; listener?.cancel(); listener = nil; expiryTasks.values.forEach { $0.cancel() }; expiryTasks = [:]; expiryClocks = [:]; serverClockValid = false; expiredPlans = []; snapshot = nil; botAllowance = nil }
     func refresh() async {
         guard !loading, !closed else { return }
         loading = true
@@ -147,7 +148,7 @@ struct BotAllowance: Decodable, Sendable {
         }
     }
     func accessVerificationPending(_ plan: VipiPlan) -> Bool {
-        guard let access = snapshot?.access(plan) else { return true }
+        guard serverClockValid, let access = snapshot?.access(plan) else { return true }
         if access.verification_unavailable == true { return true }
         if access.active && !access.isReviewAccess {
             return expiryClocks[plan] == nil || expiredPlans.contains(plan) || expiryClocks[plan]?.expired() == true
@@ -206,6 +207,7 @@ struct BotAllowance: Decodable, Sendable {
             throw ServiceFailure(status: 0, code: "purchase_account_mismatch")
         }
         snapshot = value
+        serverClockValid = ServerTrialClock.make(serverTime: value.server_time, trialEnd: value.server_time, now: capturedAt) != nil
         expiryTasks.values.forEach { $0.cancel() }; expiryTasks = [:]; expiryClocks = [:]; expiredPlans = []
         for plan in VipiPlan.allCases {
             let access = value.access(plan)
