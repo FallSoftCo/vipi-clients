@@ -1,0 +1,23 @@
+{
+  "complete": false,
+  "provider": "actual installed ML Kit Spanish model; no download",
+  "scope": "one actual native gesture\/provider\/SpeechPlayback path; no acoustic acceptance",
+  "sourceContext": "Could you book a table for two tomorrow evening?",
+  "target": "¿Podrías reservar una mesa para dos mañana por la noche?",
+  "actualSpeechInput": "¿Podrías reservar una mesa para dos mañana por la noche?",
+  "actualSpeechLanguage": "es",
+  "tapToPlayingMs": 1106,
+  "actualTargetVisible": true,
+  "providerCalls": [
+    {
+      "source": "Could you book a table for two tomorrow evening?",
+      "from": "en",
+      "to": "es",
+      "target": "¿Podrías reservar una mesa para dos mañana por la noche?",
+      "elapsedMs": 175.47532
+    }
+  ],
+  "acceptedSpeechCount": 2,
+  "passed": false,
+  "error": "androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 3000 ms"
+}
