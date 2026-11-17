@@ -1,0 +1,39 @@
+{
+  "state": "verified",
+  "ipa": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/signed-release-20261117-build2-r01/Vipi-signed-build2-r01/Vipi.ipa",
+  "upload_performed": false,
+  "localization_count": 13,
+  "localizations_exact_match": true,
+  "sw_dict_sha256": "7b88adce8fcb6613d22f59caad8cc95ee84f9bf0337fdf76fa89335e9f0da3f7",
+  "ipa_bytes": 430849198,
+  "ipa_sha256": "e0e4e1cc2b7fd2488de1f42d37dae525be50af084949e149c386d7599d72d37a",
+  "bundle": "co.fallsoft.vipi",
+  "version": "1.0",
+  "build": "2",
+  "signing_details": "Executable=/Users/Apple/Development/vipi-native-delivery-20261109-r01/signed-release-20261117-build2-r01/verification-build2-r01/unpacked/Payload/Vipi.app/Vipi\nIdentifier=co.fallsoft.vipi\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20400 size=128916 flags=0x0(none) hashes=4018+7 location=embedded\nVersionPlatform=2\nVersionMin=1179648\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=586b0a402e58bb00d377a8f4f225fac8a0a0429d\nCandidateCDHashFull sha256=586b0a402e58bb00d377a8f4f225fac8a0a0429d44720e11e6838feaf2ad0be6\nHash choices=sha256\nCMSDigest=586b0a402e58bb00d377a8f4f225fac8a0a0429d44720e11e6838feaf2ad0be6\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=60964864\nExecutable Segment flags=0x1\nPage size=16384\nCDHash=586b0a402e58bb00d377a8f4f225fac8a0a0429d\nSignature size=4802\nAuthority=Apple Distribution: Fallible Software, Co. (3TNL2455JT)\nAuthority=Apple Worldwide Developer Relations Certification Authority\nAuthority=Apple Root CA\nSigned Time=Nov 17, 2026 at 7:21:30\u202fAM\nInfo.plist entries=34\nTeamIdentifier=3TNL2455JT\nSealed Resources version=2 rules=10 files=3309\nInternal requirements count=1 size=188\n",
+  "profile_name": "iOS Team Store Provisioning Profile: co.fallsoft.vipi",
+  "profile_uuid": "f25b521e-55f5-4e91-928f-6dbf43501fc1",
+  "profile_expires": "2027-10-24T22:50:46",
+  "entitlements": {
+    "application-identifier": "3TNL2455JT.co.fallsoft.vipi",
+    "aps-environment": "production",
+    "beta-reports-active": true,
+    "com.apple.developer.team-identifier": "3TNL2455JT",
+    "get-task-allow": false
+  },
+  "resources_matched": {
+    "immersion": 583,
+    "lexical": 69,
+    "vipi-speech-699e7969": 367
+  },
+  "privacy_manifest_count": 13,
+  "export_options": {
+    "destination": "export",
+    "manageAppVersionAndBuildNumber": false,
+    "method": "app-store-connect",
+    "signingStyle": "automatic",
+    "stripSwiftSymbols": true,
+    "teamID": "3TNL2455JT",
+    "uploadSymbols": false
+  }
+}
