@@ -118,9 +118,9 @@ struct ProfileSetupView: View {
                 Button { Task { await chat.createProfile(username: username, name: name) } } label: {
                     HStack { Spacer(); if chat.busy { ProgressView().tint(VipiDesign.onHighlight) } else { Text("Start chatting").fontWeight(.semibold) }; Spacer() }.padding(.vertical, 12)
                 }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).disabled(!valid || !acceptedTerms || chat.busy).accessibilityIdentifier("profile-submit")
-                Button("Delete account", role: .destructive) { showDelete = true }.disabled(chat.busy)
+                Button("Delete account", role: .destructive) { showDelete = true }.foregroundStyle(VipiDesign.destructive).disabled(chat.busy)
             }.padding(28).frame(maxWidth: 560).frame(maxWidth: .infinity)
-        }.background(VipiDesign.canvas).scrollDismissesKeyboard(.interactively)
+        }.clipped().background(VipiDesign.canvas).scrollDismissesKeyboard(.interactively)
             .sheet(isPresented: $showDelete) { NavigationStack { DeleteAccountView(chat: chat)
                 .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Back") { showDelete = false } } } } }
     }
