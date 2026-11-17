@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sign_in_attempt_expired">這次登入嘗試已過期，請重新開始。</string>
+</resources>

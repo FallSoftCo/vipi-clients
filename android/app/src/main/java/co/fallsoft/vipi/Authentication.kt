@@ -183,7 +183,12 @@ class Authentication(context: Context) {
             // Consume before any suspension; a second callback cannot exchange the same verifier.
             records.remove("pending-sign-in")
             stage = "callback-age"
-            require(System.currentTimeMillis() - pending.getLong("createdAt") in 0 until 600_000)
+            val ageMs = System.currentTimeMillis() - pending.getLong("createdAt")
+            if (ageMs >= 600_000) {
+                error = appContext.getString(R.string.sign_in_attempt_expired)
+                return
+            }
+            require(ageMs >= 0)
             stage = "callback-state"
             require(uri.getQueryParameters("state").singleOrNull() == pending.getString("state"))
             stage = "callback-code"

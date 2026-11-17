@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="sign_in_attempt_expired">このログイン操作の有効期限が切れました。最初からやり直してください。</string>
+</resources>
