@@ -1,0 +1,44 @@
+INSTRUMENTATION_STATUS: class=co.fallsoft.vipi.ManualLookupGestureDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stream=
+co.fallsoft.vipi.ManualLookupGestureDeviceTest:
+INSTRUMENTATION_STATUS: test=nativeWordAndWhitespaceTapOnceStopAndProgrammaticSelectionKeepsCopy
+INSTRUMENTATION_STATUS_CODE: 1
+s_glBindAttribLocation: bind attrib 0 name position
+s_glBindAttribLocation: bind attrib 1 name color
+s_glBindAttribLocation: bind attrib 2 name localCoord
+INSTRUMENTATION_STATUS: class=co.fallsoft.vipi.ManualLookupGestureDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=1
+INSTRUMENTATION_STATUS: stack=androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at co.fallsoft.vipi.ManualLookupGestureDeviceTest.nativeWordAndWhitespaceTapOnceStopAndProgrammaticSelectionKeepsCopy(ManualLookupGestureDeviceTest.kt:141)
+
+INSTRUMENTATION_STATUS: stream=
+Error in nativeWordAndWhitespaceTapOnceStopAndProgrammaticSelectionKeepsCopy(co.fallsoft.vipi.ManualLookupGestureDeviceTest):
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at co.fallsoft.vipi.ManualLookupGestureDeviceTest.nativeWordAndWhitespaceTapOnceStopAndProgrammaticSelectionKeepsCopy(ManualLookupGestureDeviceTest.kt:141)
+
+INSTRUMENTATION_STATUS: test=nativeWordAndWhitespaceTapOnceStopAndProgrammaticSelectionKeepsCopy
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_RESULT: stream=
+
+Time: 21.493
+There was 1 failure:
+1) nativeWordAndWhitespaceTapOnceStopAndProgrammaticSelectionKeepsCopy(co.fallsoft.vipi.ManualLookupGestureDeviceTest)
+androidx.compose.ui.test.ComposeTimeoutException: Condition still not satisfied after 15000 ms
+	at androidx.compose.ui.test.AndroidComposeUiTestEnvironment$AndroidComposeUiTestImpl.waitUntil(ComposeUiTest.android.kt:755)
+	at androidx.compose.ui.test.junit4.AndroidComposeTestRule.waitUntil(AndroidComposeTestRule.android.kt:362)
+	at co.fallsoft.vipi.ManualLookupGestureDeviceTest.nativeWordAndWhitespaceTapOnceStopAndProgrammaticSelectionKeepsCopy(ManualLookupGestureDeviceTest.kt:141)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

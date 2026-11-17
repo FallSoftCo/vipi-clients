@@ -1,0 +1,11 @@
+{
+  "device": "emulator-5624",
+  "packages": {
+    "co.fallsoft.vipi.uxqa": {
+      "sha256": "bff228ab16772046f032dbce54cc1c6edadab08df87b4fb72b24953652b8e39b"
+    },
+    "co.fallsoft.vipi.uxqa.test": {
+      "sha256": "c965212f7fffc7cf2761197a018e3e761f4897790fdd8197b031d07837e8576c"
+    }
+  }
+}

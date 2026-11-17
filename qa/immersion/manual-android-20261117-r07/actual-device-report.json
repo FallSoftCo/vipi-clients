@@ -1,0 +1,147 @@
+{
+  "complete": true,
+  "provider": "actual Google ML Kit local model",
+  "scope": "production manual resolver\/readers\/SpeechPlayback; no gesture or acoustic acceptance",
+  "cases": [
+    {
+      "id": "book-verb",
+      "raw": "Could you book a table for two tomorrow evening?",
+      "learning": "es",
+      "explicitInput": "en",
+      "modelInitiallyInstalled": false,
+      "modelPrepareMs": 8146,
+      "status": "READY",
+      "resolverMs": 553.367674,
+      "calls": [
+        {
+          "text": "Could you book a table for two tomorrow evening?",
+          "source": "en",
+          "target": "es",
+          "output": "¿Podrías reservar una mesa para dos mañana por la noche?",
+          "elapsedMs": 141.049492
+        }
+      ],
+      "sourceContext": "Could you book a table for two tomorrow evening?",
+      "sourceContextStartUTF16": 0,
+      "sourceContextEndUTF16": 48,
+      "target": "¿Podrías reservar una mesa para dos mañana por la noche?",
+      "sourceLanguage": "en",
+      "targetLanguage": "es",
+      "targetReading": null,
+      "sourceReading": null,
+      "voiceState": "READY",
+      "voiceError": null,
+      "playbackStartMs": 255,
+      "actualSpeechInput": "¿Podrías reservar una mesa para dos mañana por la noche?",
+      "actualSpeechLanguage": "es",
+      "playbackCompleteMs": 3478,
+      "playbackError": null,
+      "passed": true
+    },
+    {
+      "id": "water-vessels",
+      "raw": "Please bring two glasses of water to the balcony.",
+      "learning": "es",
+      "explicitInput": "en",
+      "modelInitiallyInstalled": true,
+      "status": "READY",
+      "resolverMs": 465.175964,
+      "calls": [
+        {
+          "text": "Please bring two glasses of water to the balcony.",
+          "source": "en",
+          "target": "es",
+          "output": "Por favor traiga dos vasos de agua al balcón.",
+          "elapsedMs": 129.271553
+        }
+      ],
+      "sourceContext": "Please bring two glasses of water to the balcony.",
+      "sourceContextStartUTF16": 0,
+      "sourceContextEndUTF16": 49,
+      "target": "Por favor traiga dos vasos de agua al balcón.",
+      "sourceLanguage": "en",
+      "targetLanguage": "es",
+      "targetReading": null,
+      "sourceReading": null,
+      "voiceState": "READY",
+      "voiceError": null,
+      "playbackStartMs": 112,
+      "actualSpeechInput": "Por favor traiga dos vasos de agua al balcón.",
+      "actualSpeechLanguage": "es",
+      "playbackCompleteMs": 2900,
+      "playbackError": null,
+      "passed": true
+    },
+    {
+      "id": "forward-zh",
+      "raw": "My younger cousin enjoys quiet music after lunch.",
+      "learning": "zh",
+      "explicitInput": "en",
+      "modelInitiallyInstalled": false,
+      "modelPrepareMs": 7223,
+      "status": "READY",
+      "resolverMs": 1323.459042,
+      "calls": [
+        {
+          "text": "My younger cousin enjoys quiet music after lunch.",
+          "source": "en",
+          "target": "zh",
+          "output": "午饭后，我的年轻堂兄享受安静的音乐。",
+          "elapsedMs": 116.360144
+        }
+      ],
+      "sourceContext": "My younger cousin enjoys quiet music after lunch.",
+      "sourceContextStartUTF16": 0,
+      "sourceContextEndUTF16": 49,
+      "target": "午饭后，我的年轻堂兄享受安静的音乐。",
+      "sourceLanguage": "en",
+      "targetLanguage": "zh",
+      "targetReading": "wǔ fàn hòu，wǒ de nián qīng táng xiōng xiǎng shòu ān jìng de yīnyuè。",
+      "sourceReading": null,
+      "voiceState": "READY",
+      "voiceError": null,
+      "playbackStartMs": 171,
+      "actualSpeechInput": "午饭后，我的年轻堂兄享受安静的音乐。",
+      "actualSpeechLanguage": "zh",
+      "playbackCompleteMs": 5314,
+      "playbackError": null,
+      "passed": true
+    },
+    {
+      "id": "reverse-zh",
+      "raw": "我喜欢音乐，也想去银行。",
+      "learning": "zh",
+      "explicitInput": "zh",
+      "modelInitiallyInstalled": true,
+      "status": "READY",
+      "resolverMs": 295.420216,
+      "calls": [
+        {
+          "text": "我喜欢音乐，也想去银行。",
+          "source": "zh",
+          "target": "en",
+          "output": "I like music and I want to go to bank.",
+          "elapsedMs": 92.910864
+        }
+      ],
+      "sourceContext": "我喜欢音乐，也想去银行。",
+      "sourceContextStartUTF16": 0,
+      "sourceContextEndUTF16": 12,
+      "target": "I like music and I want to go to bank.",
+      "sourceLanguage": "zh",
+      "targetLanguage": "en",
+      "targetReading": null,
+      "sourceReading": "wǒ xǐ huan yīnyuè，yě xiǎng qù yínháng。",
+      "voiceState": "READY",
+      "voiceError": null,
+      "playbackStartMs": 107,
+      "actualSpeechInput": "我喜欢音乐，也想去银行。",
+      "actualSpeechLanguage": "zh",
+      "playbackCompleteMs": 3459,
+      "playbackError": null,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "errors": []
+}
