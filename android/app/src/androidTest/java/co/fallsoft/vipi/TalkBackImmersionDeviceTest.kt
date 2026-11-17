@@ -53,6 +53,7 @@ class TalkBackImmersionDeviceTest {
         val before = keys.associateWith { shell("settings get secure $it") }
         val service = "com.google.android.marvin.talkback/com.google.android.marvin.talkback.TalkBackService"
         val manager = context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+        var ownerRef: ConversationImmersion? = null
         val visible = mutableStateOf(true)
         val longMessage = mutableStateOf(false)
         // Renderer/accessibility stress fixture, not a translation acceptance case.
@@ -79,7 +80,7 @@ class TalkBackImmersionDeviceTest {
             compose.setContent {
                 if (visible.value) VipiTheme(Appearance.LIGHT) {
                     val scope = rememberCoroutineScope()
-                    val owner = remember { ConversationImmersion(context, "en", "sw", 1.0, qaModelsReady = true).also { it.selectInputLanguage("talkback-qa", "en") } }
+                    val owner = remember { ConversationImmersion(context, "en", "sw", 1.0, qaModelsReady = true).also { ownerRef = it; it.selectInputLanguage("talkback-qa", "en") } }
                     val speech = remember { SpeechPlayback(context, "en", "sw", scope) }
                     DisposableEffect(Unit) { onDispose { owner.close(); speech.close() } }
                     Box(Modifier.fillMaxSize().safeDrawingPadding().padding(24.dp)) {
@@ -90,7 +91,22 @@ class TalkBackImmersionDeviceTest {
             }
             try { compose.waitUntil(20_000) { reading() == "I like muziki." } }
             catch (failure: Throwable) {
-                File(context.filesDir, "talkback-precondition-$run.json").writeText(JSONObject().put("actualVisibleText", reading() ?: JSONObject.NULL).put("expectedVisibleText", "I like muziki.").toString(2))
+                val diagnostic = JSONObject().put("actualVisibleText", reading() ?: JSONObject.NULL).put("expectedVisibleText", "I like muziki.")
+                instrumentation.runOnMainSync {
+                    val owner = ownerRef
+                    val outcome = owner?.lastOutcome
+                    val invocation = owner?.lastInvocation
+                    diagnostic.put("ownerReady", owner?.ready ?: JSONObject.NULL)
+                        .put("status", outcome?.status?.name ?: JSONObject.NULL)
+                        .put("origin", outcome?.origin?.name ?: JSONObject.NULL)
+                        .put("fallbackStatus", outcome?.fallbackStatus?.name ?: JSONObject.NULL)
+                        .put("localCalls", outcome?.localTranslationCalls ?: JSONObject.NULL)
+                        .put("sourceRecognitionCalls", invocation?.sourceRecognition ?: JSONObject.NULL)
+                        .put("partialCalls", invocation?.partialPresentation ?: JSONObject.NULL)
+                        .put("renderedSpans", JSONArray(outcome?.result?.spans?.map { JSONObject().put("original", it.original).put("target", it.translated) } ?: emptyList<JSONObject>()))
+                        .put("viewRoots", JSONArray(WindowInspector.getGlobalWindowViews().flatMap { paragraphs(it) }.map { JSONObject().put("shown", it.isShown).put("text", it.visibleText()) }))
+                }
+                File(context.filesDir, "talkback-precondition-$run.json").writeText(diagnostic.toString(2))
                 throw failure
             }
             val enabled = before.getValue("enabled_accessibility_services").takeUnless { it == "null" || it.isEmpty() }
