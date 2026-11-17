@@ -250,7 +250,13 @@
     "receipt": "qa/release/apple-unsigned-build2-20261117-r01/receipt.json",
     "signed": false,
     "uploaded": false,
-    "signing_hold": "Explicit owner recovery hold; root requested lift for proven normal Xcode signed archive then Organizer automatic export. No answer yet.",
-    "important": "Direct export of unsigned archive is not the demonstrated entitlements-safe route; historical r109 lacked APS. Do not repeat that pattern."
+    "signing_hold": null,
+    "important": "Direct export of unsigned archive is not the demonstrated entitlements-safe route; historical r109 lacked APS. Do not repeat that pattern.",
+    "signing_authorization": {
+      "recorded_at_utc": "2026-11-17T12:01:08.092233+00:00",
+      "user_instruction": "I never said hold signing. you must sign",
+      "scope": "Sign current build 2 using the verified signed Xcode archive and Organizer export route; continue existing authorized App Store delivery.",
+      "state": "authorized_in_progress"
+    }
   }
 }

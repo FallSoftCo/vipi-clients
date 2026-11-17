@@ -60,11 +60,11 @@ access and manual release are saved. Build association, compliance and purchase
 qualification remain incomplete. No physical iPad was used.
 See [Apple configuration](../release/apple-store-configuration.json).
 
-**The owner's Mac signing/keychain hold remains. Do not retry signing or upload
-until that dependency changes.** The earlier successful route was a normal Xcode signed archive followed by
-Organizer automatic export. Directly exporting an unsigned archive previously
-lost its push entitlement and must not be repeated. The explicit hold remains
-until clarified; an approval question for the proven route is pending.
+**Signing is authorized.** The user explicitly directed “you must sign” on
+November 17. The team is using the proven route: a normal signed Xcode archive
+followed by Organizer automatic export, then independent final IPA checks.
+Directly exporting an unsigned archive previously lost its push entitlement and
+must not be repeated. Earlier signing-hold notes are superseded by this direction.
 
 The [November 17 client source preview](https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17)
 was published once from `a547a4d`. GitHub's archive digest matches the reviewed
@@ -192,8 +192,8 @@ its allowance; it is not a typical-latency or quality benchmark.
 - Finish exact version 3 runtime checks for the qualified session and short-message
   routing fixes. Preserve the uncertain original send without replay; resolve its
   disposition before any retained-account update or automatic retry.
-- Complete current Apple qualification when its signing dependency changes,
-  actual purchase/restore and production notification evidence.
+- Complete authorized Apple build 2 signing, final IPA verification and upload,
+  then actual purchase/restore and remaining store qualification.
 - Reconcile store artifacts, regional export requirements and screenshots.
   France needs a current company extract; China-specific requirements remain
   unresolved. The ML Kit/libsignal distribution question is a narrow legal

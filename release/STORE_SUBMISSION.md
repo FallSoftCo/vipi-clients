@@ -129,9 +129,11 @@ Complete the current questionnaires from the exact released behavior and
 dependencies. Save each app/product/build/submission ID and receipt before a
 subsequent external action, and inspect an uncertain result before retrying it.
 
-Current operational holds: do not retry Mac signing/keychain access or upload a
-new Apple build until the owner's held dependency changes. The original company
-Android account also retains an uncertain queued message. Do not resend, reset
+Current signing authorization: the owner explicitly directed “you must sign” on
+November 17. Use the proven signed Xcode archive and automatic Organizer export
+route for build 2, verify the final IPA, and continue the authorized delivery.
+Earlier signing-hold notes are superseded. The original company Android account
+separately retains an uncertain queued message. Do not resend, reset
 the account, accept a changed peer key or publish/install an update that may
 resume it before its disposition is resolved. Isolated synthetic qualification
 uses separate packages and does not settle that original external outcome.
