@@ -21,7 +21,7 @@
     "ConversationImmersion.swift": "7bddac2ef541f921391a7c658ccaccaff943bff4dfaa4f89f3537c7e9a18288f"
   },
   "resource_comparison": "resources-vs-r14.json",
-  "native_lookup_reference_absent_and_no_model_calls": "../nl-routing-candidate-r01/result-r02.json",
+  "native_lookup_reference_absent_and_no_model_calls": "result-r02.json",
   "limits": "visual UI observation only; exact no model calls and no-reference evidence from separate native route receipt; no actual speech/acoustic or real-user claim",
   "utc": "2026-11-17T07:40:56Z"
 }
