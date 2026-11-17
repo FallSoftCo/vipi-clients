@@ -1,0 +1,29 @@
+{
+  "at": "2026-11-17T05:54:59.439Z",
+  "action": "Deactivate only obsolete Base offer vipi_base/annual/one-month-trial",
+  "reason": "Owner accepted30-day cardless account-bound access followed by optional12USDannual",
+  "prestate": "active175countries",
+  "preserve": [
+    "Base annual plan",
+    "Botmini plan and trial",
+    "existing subscriptions"
+  ],
+  "source": "https://support.google.com/googleplay/android-developer/answer/140504?hl=en",
+  "outcome": "completed_once_reloaded_and_verified",
+  "confirm_dispatched_at": "2026-11-17T05:55:10.560Z",
+  "verified_at": "2026-11-17T05:56:29.738Z",
+  "evidence": [
+    "base-offer-reloaded-r14.png",
+    "base-plan-preserved-r15.png",
+    "bot-plan-preserved-r17.png"
+  ],
+  "observed": {
+    "base_offer": "inactive",
+    "base_annual": "active175countries",
+    "bot_offer": "active175countries",
+    "bot_annual": "active175countries",
+    "new_purchase": false,
+    "subscription_cancellation": false,
+    "store_submission": false
+  }
+}

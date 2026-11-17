@@ -32,6 +32,6 @@
     "The current API origin serves working policy/help routes. The apex domain is not assumed configured.",
     "Do not advertise an unsupported language count, measured fluency outcome, perfect accuracy or untested scale.",
     "Bot mini text requires actual response-provider and store qualification. Do not list an unavailable plan.",
-    "The currently active Base store introductory offer must be removed before this cardless flow is released. Bot mini keeps its independent eligible one-month store trial. Google no-charge license purchase/renewal/cancellation/lapse qualified; actual Apple sandbox purchase remains unqualified. Reviewer access is separate."
+    "Google Base introductory offer was deactivated once and reload-verified on 2026-11-17; the Apple Base offer still needs removal before public release. Bot mini keeps its independent eligible one-month store trial. Cardless backend is active under restricted staging. Google no-charge license purchase/renewal/cancellation/lapse qualified; actual Apple sandbox purchase remains unqualified. Reviewer access is separate."
   ]
 }

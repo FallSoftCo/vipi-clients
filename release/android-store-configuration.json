@@ -19,7 +19,8 @@
     {
       "id": "vipi_base",
       "annual_usd": 12,
-      "introductory_trial": "one month for eligible subscribers"
+      "introductory_trial": null,
+      "cardless_access": "30 days from original profile creation; no purchase or automatic charge; optional annual subscription afterward"
     },
     {
       "id": "vipi_bot_mini",
@@ -96,10 +97,11 @@
       "base_plan_state": "active",
       "annual_usd": 12,
       "offer_id": "one-month-trial",
-      "offer_state": "active",
+      "offer_state": "inactive",
       "trial_period": "P1M",
       "eligibility": "never had this subscription",
-      "country_count": 175
+      "country_count": 175,
+      "offer_deactivated_at": "2026-11-17T05:55:10.560Z"
     },
     {
       "product_id": "vipi_bot_mini",
@@ -139,5 +141,14 @@
     "response": "RESPOND_NORMALLY",
     "receipt": "/home/ai/Development/investigations/vipi-submit-20261110-r01/computer-use-release-20261116-r01/play-license-testing-r254.json",
     "purchase_executed": false
+  },
+  "subscription_configuration_readback": {
+    "at": "2026-11-17T05:56:29.738Z",
+    "base_annual": "active",
+    "base_intro_offer": "inactive",
+    "bot_annual": "active",
+    "bot_intro_offer": "active",
+    "receipt": "qa/subscriptions/cardless-trial-20261117-r01/google-base-offer.json",
+    "scope": "Native console readback only; no purchase, cancellation, binary upload or review submission."
   }
 }
