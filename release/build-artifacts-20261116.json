@@ -3,9 +3,9 @@
   "recorded_date": "2026-11-16",
   "android_source_revision": "0fda43f5067e4bb3e339eacfb68d3b7f3bc4bce1",
   "customer_ready": false,
-  "store_uploaded": false,
+  "store_uploaded": true,
   "store_submitted": false,
-  "play_console_accepted": false,
+  "play_console_accepted": true,
   "identity": {
     "package": "co.fallsoft.vipi",
     "version_name": "1.0",
@@ -47,16 +47,22 @@
     "each_upload_signed_and_zipaligned_16k": true,
     "previous_estimate_bytes": 416959214,
     "estimate_change_bytes": 1465,
-    "play_measurement": false
+    "play_measurement": {
+      "new_install_size_mb": 417,
+      "state": "available_to_internal_testers",
+      "errors": 0,
+      "warnings": []
+    }
   },
   "evidence": {
     "artifact_handoff": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r02/final-handoff.json",
     "artifact_verification": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r02/verification.json",
-    "split_verification": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r02/split-verification-r01/verification.json"
+    "split_verification": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-production-bundle-20261116-r02/split-verification-r01/verification.json",
+    "play_internal_release": "/home/ai/Development/investigations/vipi-submit-20261110-r01/computer-use-release-20261116-r01/play-internal-release-r244.json"
   },
   "limitations": [
-    "Local artifact qualification only; no Play upload, submission or acceptance.",
-    "One-device bundletool estimate is not Play Console measurement.",
+    "Play accepted the exact bundle and published internal release1 once to the single owned tester; no app-review submission or customer launch.",
+    "Local device-specific bundletool estimate retained; Play separately displays 417 MB.",
     "No physical 16 KiB runtime, billing/provider delivery or distribution-clearance claim.",
     "Exact-reference additive route and provider concurrency were tested on QA builds. Exact signed release APK passed isolated offline emulator startup/onboarding; post-login runtime and customer purchases remain separate."
   ],

@@ -1,11 +1,11 @@
 {
-  "checked_at": "2026-11-11T03:58:03.267659+00:00",
+  "checked_at": "2026-11-17T00:33:47.351910+00:00",
   "company": "Fallible Software, Co.",
   "developer_id": "4750854689150545006",
   "app_id": "4975664610567218322",
-  "name": "Vipi",
+  "name": "Vipi: Immersive Chat",
   "package": "co.fallsoft.vipi",
-  "status": "private draft",
+  "status": "available to the single owned internal tester; not reviewed or public",
   "locale": "en-US",
   "free_download": true,
   "listing_text_saved": true,
@@ -13,8 +13,8 @@
   "support_email": "one@fallsoft.co",
   "website": "https://api.mambovipi.app/help",
   "privacy_url": "https://api.mambovipi.app/privacy",
-  "subscription_products_created": false,
-  "subscription_gate": "Console requires an app upload before product creation",
+  "subscription_products_created": true,
+  "subscription_gate": null,
   "intended_products": [
     {
       "id": "vipi_base",
@@ -29,12 +29,12 @@
     }
   ],
   "graphics_uploaded": true,
-  "binary_uploaded": false,
+  "binary_uploaded": true,
   "review_submitted": false,
   "publicly_available": false,
   "limits": [
-    "Saved metadata is not customer-ready service, offer or purchase qualification.",
-    "Exact linked-dependency terms and other release checks remain before binary distribution."
+    "Internal distribution does not establish customer-ready service, paid access or store approval.",
+    "Linked-dependency distribution terms and real provider/purchase qualification remain separate."
   ],
   "graphics": {
     "icon": "512x512 RGB PNG",
@@ -87,5 +87,57 @@
     "actioned": 10,
     "need_attention": 0,
     "receipt": "qa/release/play-content-20261111/receipt.json"
+  },
+  "subscriptions": [
+    {
+      "product_id": "vipi_base",
+      "name": "Vipi",
+      "base_plan_id": "annual",
+      "base_plan_state": "active",
+      "annual_usd": 12,
+      "offer_id": "one-month-trial",
+      "offer_state": "active",
+      "trial_period": "P1M",
+      "eligibility": "never had this subscription",
+      "country_count": 175
+    },
+    {
+      "product_id": "vipi_bot_mini",
+      "name": "Bot mini",
+      "base_plan_id": "annual",
+      "base_plan_state": "active",
+      "annual_usd": 48,
+      "offer_id": "one-month-trial",
+      "offer_state": "active",
+      "trial_period": "P1M",
+      "eligibility": "never had this subscription",
+      "country_count": 175
+    }
+  ],
+  "internal_release": {
+    "id": "1",
+    "track_id": "4701302215140856403",
+    "name": "1.0 (1) - Internal qualification",
+    "state": "available_to_internal_testers",
+    "testers_configured": true,
+    "errors": 0,
+    "warnings": 0,
+    "warning": null,
+    "new_install_size_mb": 417,
+    "aab_sha256": "72eaecf6820b10cf52a10589f72799de495301406a207c97f4315f522701fd8a",
+    "tester_list": "Vipi internal qualification",
+    "tester_count": 1,
+    "published_at_console": "Nov 16 2026 7:22 PM",
+    "reviewed": false,
+    "receipt": "/home/ai/Development/investigations/vipi-submit-20261110-r01/computer-use-release-20261116-r01/play-internal-release-r244.json"
+  },
+  "latest_listing_text_update": "Saved and reloaded; all three text fields exactly match store-metadata-en-US.json (play-listing-r215.json)",
+  "license_testing": {
+    "configured": true,
+    "list": "Vipi internal qualification",
+    "tester_count": 1,
+    "response": "RESPOND_NORMALLY",
+    "receipt": "/home/ai/Development/investigations/vipi-submit-20261110-r01/computer-use-release-20261116-r01/play-license-testing-r254.json",
+    "purchase_executed": false
   }
 }

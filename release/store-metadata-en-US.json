@@ -5,20 +5,20 @@
   "application_id": "co.fallsoft.vipi",
   "seller": "Fallible Software, Co.",
   "app_store": {
-    "name": "Vipi",
-    "subtitle": "Learn words while you chat",
-    "promotional_text": "Chat with friends. Selected words and short phrases switch between two languages as you read. Pause, hear pronunciation or show the original message.",
+    "name": "Vipi: Immersive Chat",
+    "subtitle": "Learn from your everyday chats",
+    "promotional_text": "Immersive chat with friends. Selected words in your messages switch into the language you are learning and back. Your friends can chat as usual.",
     "keywords": "chat,language,immersion,messaging,vocabulary,translation,conversation",
     "primary_category": "Social Networking",
     "secondary_category": "Education",
     "app_id": "6832624092"
   },
   "google_play": {
-    "title": "Vipi",
-    "short_description": "Chat with friends and learn words as they switch between two languages.",
+    "title": "Vipi: Immersive Chat",
+    "short_description": "Immersive chat with friends. Learn a language through your everyday messages.",
     "category": "Communication"
   },
-  "description": "Chat with friends. Learn new words.\n\nVipi is a messaging app for learning words while you chat with friends. Choose the language you know and the language you want to learn. As you read, selected words and short phrases switch in place between the two languages. You see the familiar wording and the new words in the same message.\n\nStart with a few words\nChoose how many new words appear. Words you have already seen can appear alongside them. The rest keeps its original wording, word order and grammar. Available vocabulary varies by language; unsupported words stay unchanged. Try the English and Spanish example before signing in.\n\nRead and listen at your own pace\nPause the changes or show the original message at any time. Tap Listen to hear pronunciation. Reading guides can show words in Latin letters. Available guides and voices depend on your languages and downloads.\n\nKeep your conversations private\nConnect through usernames and invitations. Chats with friends are end-to-end encrypted. Automatic word switching runs entirely on your device without a translation-model download. Full translation is a separate on-device action and may require a language download. You can save an encrypted history backup to a location you choose.\n\nTalk with vBot\nBot mini is an optional additional plan for chatting with vBot, a chatbot. Messages you send to vBot go to our response provider, and automated replies can be mistaken. You see the monthly reply allowance before subscribing.\n\nChoose your subscriptions separately\nIn the US, Vipi is $12 per year. Bot mini is an optional additional $48 per year and requires an active Vipi subscription. Each plan has its own one-month free trial for eligible subscribers and renews separately. Starting Vipi does not enroll you in Bot mini. Your store shows the price, trial eligibility and renewal date before purchase. Subscriptions renew automatically unless cancelled through your store. You can still read and export your existing local history after a subscription ends.\n\nPrivacy: https://api.mambovipi.app/privacy\nTerms: https://api.mambovipi.app/terms",
+  "description": "Immersive chat with friends.\n\nChat with your friends as usual. Vipi gradually introduces the language you are learning into the messages you read. Selected words and short phrases switch in place between familiar wording and the new language. Your friends do not need to know that language or change how they write.\n\nStart with a few words\nChoose how many new words appear. Words you have already seen can appear alongside them. The rest keeps its original wording, word order and grammar. Available vocabulary varies by language; unsupported words stay unchanged. Try the English and Spanish example before signing in.\n\nRead and listen at your own pace\nPause the changes or show the original message at any time. Tap Listen to hear pronunciation. Reading guides can show words in Latin letters. Available guides and voices depend on your languages and downloads.\n\nKeep your conversations private\nConnect through usernames and invitations. Chats with friends are end-to-end encrypted. Automatic word switching runs entirely on your device without a translation-model download. Full translation is a separate on-device action and may require a language download. You can save an encrypted history backup to a location you choose.\n\nTalk with vBot\nBot mini is an optional additional plan for chatting with vBot, a chatbot. Messages you send to vBot go to our response provider, and automated replies can be mistaken. You see the monthly reply allowance before subscribing.\n\nChoose your subscriptions separately\nIn the US, Vipi is $12 per year. Bot mini is an optional additional $48 per year and requires an active Vipi subscription. Each plan has its own one-month free trial for eligible subscribers and renews separately. Starting Vipi does not enroll you in Bot mini. Your store shows the price, trial eligibility and renewal date before purchase. Subscriptions renew automatically unless cancelled through your store. You can still read and export your existing local history after a subscription ends.\n\nPrivacy: https://api.mambovipi.app/privacy\nTerms: https://api.mambovipi.app/terms",
   "urls": {
     "marketing": "https://api.mambovipi.app/",
     "support": "https://api.mambovipi.app/help",
@@ -32,6 +32,6 @@
     "The current API origin serves working policy/help routes. The apex domain is not assumed configured.",
     "Do not advertise an unsupported language count, measured fluency outcome, perfect accuracy or untested scale.",
     "Bot mini text requires actual response-provider and store qualification. Do not list an unavailable plan.",
-    "Android Play products/offers remain unconfigured. Complimentary reviewer access is qualified separately and does not establish Google purchase access."
+    "Android Play products and independent one-month trial offers are active. Real purchase, restore and notification qualification remains; complimentary reviewer access is separate."
   ]
 }

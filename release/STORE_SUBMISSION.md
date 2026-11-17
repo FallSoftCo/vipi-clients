@@ -1,30 +1,33 @@
 # Store submission preparation
 
-The requested name and current listing draft are **Vipi**. Private Apple app
-`6832624092` exists under the company account with bundle `co.fallsoft.vipi`;
-its last verified saved name was **Mambo Vipi: Language Chat**. Saving the new
-name and copy awaits renewed App Store Connect authentication. No release
-binary or review submission has been uploaded.
+The app is **Vipi**, with **Vipi: Immersive Chat** as the saved listing
+name on both stores and **Immersive chat with friends.** as the opening headline. Private Apple
+app `6832624092` belongs to the company account, bundle `co.fallsoft.vipi`.
+The corrected company-signed 1.0(1) IPA was delivered once through Transporter
+and has finished processing. No app-review submission has occurred. Both
+store listings have the matching saved text.
 `docs/DELIVERY_STATUS.md` records current acceptance and blockers.
 The company is **Fallible Software, Co.**, using its FallSoft.Co accounts.
 Do not use the unrelated personal developer account or qualification build 63.
 
-Google Play private app `4975664610567218322` now exists as **Vipi** in company
+Google Play private app `4975664610567218322` now exists as **Vipi: Immersive Chat** in company
 account `4750854689150545006`, package `co.fallsoft.vipi`. Its reviewed text,
 Communication category, support contact, privacy URL, icon, feature graphic and
 two actual Android chat screenshots are saved. All ten app-content declarations
 are complete, including two reviewer accounts, the 13+ target audience and Data
 Safety. The console shows none needing attention. Creation
-preceded content setup and publication in the documented Play workflow; it did
-not upload or distribute an app. The corrected `EXPORT_ASSESSMENT.md` remains
+preceded content setup and publication in the documented Play workflow. The
+exact signed Android bundle was uploaded once and internal release `1` is now
+available to the single owned company tester. It has not been reviewed or
+publicly released. The corrected `EXPORT_ASSESSMENT.md` remains
 its technical export basis. Exact linked-binary distribution terms remain a
-separate release prerequisite. No build upload or review submission exists.
-Subscriptions cannot yet be configured: Play requests an app upload first.
-Google Cloud separately requires company reauthentication, including the existing
-CLI credential. The running worker has no FCM project or service-account
-credential configured. The last successful API check recorded it disabled;
-its current enabled state cannot be established until authentication is restored.
-Firebase page access is not delivery qualification.
+separate release consideration. Both annual subscriptions and independent
+one-month trial offers are active. Company Google browser/CLI authentication is
+restored. The existing push worker now has a dedicated FCM sender configured;
+one real background delivery completed after several minutes. A distinct
+diagnostic message has direct FCM HTTP 200, background inbox and visible
+notification evidence. Its five-minute delivery delay remains under investigation.
+Store products and registration alone do not qualify transactions or delivery.
 
 `privacy-data-inventory.json` maps implemented data flows and pinned SDK
 declarations. Its November 16 incremental review covers local familiarity
@@ -59,7 +62,7 @@ dark, large-text and RTL/device-size QA are validation work, not a requirement
 to crowd every listing image with multiple variants. Final sizes and required
 device families come from the current store console.
 
-The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The signed `0fda43f` bundle estimates 416,960,679 bytes for the retained ARM64, English, 420 dpi, SDK 35 device configuration. Four generated splits pass upload-signer and 16 KiB alignment checks. The earlier `a53ff86` estimate was 416,959,214 bytes. This is a local bundletool estimate; Google Play has not calculated or accepted it. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. Published source preview r10 matches the current Android application inputs and unsigned Apple `4908d4e` archive; anonymous public-download hashes are verified. Source publication does not settle the separate linked-dependency distribution question. See `client-source-publication-20261116.json`, `build-artifacts-20261116.json` and `store-size-constraints.json`.
+The current [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The signed `0fda43f` bundle estimates 416,960,679 bytes for the retained ARM64, English, 420 dpi, SDK 35 device configuration. Four generated splits pass upload-signer and 16 KiB alignment checks. The earlier `a53ff86` estimate was 416,959,214 bytes. This is a local bundletool estimate; Google Play has since accepted the exact bundle and displayed a 417 MB new-install download. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. Published source preview r10 matches the current Android application inputs and unsigned Apple `4908d4e` archive; anonymous public-download hashes are verified. Source publication does not settle the separate linked-dependency distribution question. See `client-source-publication-20261116.json`, `build-artifacts-20261116.json` and `store-size-constraints.json`.
 
 ## Reviewer access
 

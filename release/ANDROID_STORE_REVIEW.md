@@ -1,32 +1,38 @@
 # Android store preparation — updated November 16, 2026
 
-The company Play app now exists as private draft **Vipi**, app ID
-`4975664610567218322`. Reviewed listing text, Communication category, support
-contact and privacy URL are saved. No build upload, purchase, review submission
-or public availability is claimed. The signed `0fda43f` bundle passed local source, configuration, signature, 007
-catalog, asset and ARM64 16 KiB alignment checks. Its specified-device
-bundletool download estimate is 416,960,679 bytes; four generated splits passed
-signer and 16 KiB alignment checks. This is a local estimate, not Play's
-calculation or acceptance. The prior `a53ff86` estimate was 416,959,214 bytes.
-See `build-artifacts-20261116.json` and `android-store-configuration.json`.
-The published November 16 source preview r10 matches this build's application
-inputs; public download hashes are verified in `client-source-publication-20261116.json`.
-No Play upload or review submission has occurred. Exact-reference
-selection and concurrency corrections passed controlled QA; the signed release
-APK also passed isolated API 34 x86_64 emulator startup and offline onboarding
-checks, with its installed hash verified. Japanese script/Latin previews,
-Swahili, language selection and speed controls were exercised. Post-login
-settings, account access and purchases were not attempted; the no-audio emulator
-does not establish acoustic quality. See `qa/android/signed-release-20261116/receipt.json`.
+The company Play listing is **Vipi: Immersive Chat**, app ID
+`4975664610567218322`. The title, short description and full description were
+saved and reloaded with exact canonical-text comparison. The exact signed
+`0fda43f` bundle was uploaded once; internal release `1` is now available to the
+single owned company tester. No app-review submission, public availability or
+purchase is claimed. Both annual products and separate one-month trials are
+active, and the same owned account is configured for license testing.
+
+The bundle passed local source, configuration, signature, 007 catalog, asset
+and ARM64 16 KiB alignment checks. The specified-device bundletool download
+estimate is 416,960,679 bytes; Play accepted the bundle and displays 417 MB.
+The published November 16 source preview r10 matches its application inputs.
+See `build-artifacts-20261116.json`, `android-store-configuration.json` and
+`client-source-publication-20261116.json`.
+
+The signed release APK passed isolated API 34 x86_64 emulator startup and
+offline onboarding checks, with installed hash verified. Japanese script/Latin
+previews, Swahili, language selection and speed controls were exercised. These
+checks did not establish post-login runtime, purchases or acoustic quality.
+See `qa/android/signed-release-20261116/receipt.json`. One subsequent native
+background message reached the existing QA receiver without foregrounding it,
+after several minutes. The distinct diagnostic has FCM HTTP 200 and visible
+notification evidence after correcting the emulator's incomplete provisioning;
+prompt delivery remains under qualification.
 
 ## Product and reviewer access
 
 The app is **Vipi**. Its base subscription is displayed as **Vipi**; **Bot mini**
 is a separate optional subscription requiring active Vipi access. Android product
 IDs in `Subscriptions.kt` are `vipi_base` and `vipi_bot_mini`. Do not copy the
-Apple product IDs into Play. The intended US annual prices ($12 and additional
-$48) and separate eligible one-month trials remain listing drafts until the
-actual Google offers are configured and read back. The app displays store offers,
+Apple product IDs into Play. The US annual prices ($12 and additional
+$48) and separate eligible one-month trials are configured, active and read back
+from Play. The app displays store offers,
 not a locally invented price or eligibility result.
 
 Owned Alpha and Beta accounts completed real production-WorkOS PKCE, profile
@@ -142,16 +148,17 @@ account creation; see its [deletion guidance](https://support.google.com/googlep
 
 ## Remaining external gates
 
-1. Actual Play products/offers and billing/restore/refund/RTDN
-   qualification. The new private app requires its first bundle upload before
-   subscription products can be configured.
-2. Exact linked-dependency distribution basis, followed by Play's size/manifest
-   validation of the prepared signed bundle. The matching source preview is
+1. Actual billing/restore/refund/RTDN qualification. The first bundle is
+   accepted into a saved private internal draft. Both annual products and their
+   separate one-month trial offers are active; configuration is not purchase proof.
+2. Exact linked-dependency distribution basis, and final distribution
+   reconciliation. Play accepted the signed bundle and reports 417 MB. The matching source preview is
    published; that alone does not settle combined-binary distribution terms.
 3. Final release configuration reconciliation with the saved declarations;
    the live deletion landing page alone does not close the
    outstanding real provider deletion/recovery evidence.
-4. Existing FCM configuration and provider delivery, and ordinary Bot mini
+4. Actual FCM provider delivery (sender configuration and one client registration
+   now exist), and ordinary Bot mini
    paid-plan qualification. The confirmed Bot response and two foreground human
    messages do not establish background delivery or store transactions.
 

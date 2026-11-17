@@ -1,12 +1,64 @@
 # Current delivery status
 
-Updated 2026-11-16. Vipi remains restricted staging, not a submitted or publicly
-available store release. This page describes current operational state;
+Updated 2026-11-17 UTC (November 16 local). Vipi remains restricted staging,
+not submitted for app review or publicly available. This page describes current operational state;
 [VERIFICATION.md](VERIFICATION.md) and the linked receipts retain historical
 experiments, failures and qualification limits. The longer prior status remains
 in Git history before this revision.
 
-## November 16 update
+## Store delivery update
+
+Both store listings are saved as **Vipi: Immersive Chat**, with **Immersive chat
+with friends.** opening the description. Apple uses **Learn from your everyday
+chats** as its subtitle. Google's title, short description and full description
+were reloaded and compared exactly with the canonical metadata.
+
+Google Play accepted the exact signed Android bundle once and published
+internal release `1` once to the single owned company tester. It is **available
+to internal testers**, **not reviewed**, and not publicly available. The final
+review screen had no errors or warnings; Play reports a 417 MB new-install
+download. Both annual products and their independent one-month trial offers are
+active: Vipi $12/year and optional Bot mini $48/year in the US. The same owned
+account is configured for license testing. Actual purchase, restoration and
+billing-event tests remain; no transaction or charge has been made.
+
+Apple's corrected company-signed 1.0(1) IPA was delivered once through
+Transporter at 7:21 PM November 16 local time and has **finished processing**.
+It passes strict code-signature, production push entitlement and resource checks.
+Its SHA-256 is `a7a1108bcc98f303a8696a3fa67943d7e1ff8c42234a33b7c0506d1744b56ece`.
+The earlier export without a push entitlement was rejected and never uploaded.
+Neither app has been submitted for app review.
+
+The Play verifier has Vipi-only read/financial/subscription permissions. A real
+read-only Publisher API call returned both active annual products. Its backend
+configuration is being staged separately. Google's RTDN publisher grant remains
+blocked by the inherited domain policy; no policy exception or push subscription
+is active.
+
+The first actual FCM background message reached the receiving Android app
+without foregrounding it, after several minutes. A distinct diagnostic message
+has direct FCM HTTP 200 evidence and reached the encrypted inbox without
+foregrounding the app. Its inbox work was enqueued 5 minutes 5 seconds after
+dispatch; the delay remains unexplained. Android initially hid the posted
+notification because the QA emulator was incompletely provisioned. Correcting
+that emulator setting made the existing notification visible without another
+send. The worker's narrow diagnostic overlay logs only response
+status or exception type. APNs production credentials remain configured;
+actual Apple delivery and a separately scoped simulator sandbox route remain.
+
+Backend commit `3afb0dc` adds account-scoped store sandbox verification and
+explicit restricted-staging configuration. The isolated PostgreSQL suite passed
+191 tests with 2 skipped. Its release candidate is prepared, not deployed.
+Live restricted staging still uses `742e119`, with reviewer access and
+subscription enforcement unchanged. Fixture tests are not real store purchases.
+
+Private receipts are under `vipi-submit-20261110-r01/` in
+`computer-use-release-20261116-r01`, `fcm-logging-activation-20261116-r01`,
+`google-billing-preparation-20261116-r01` and
+`billing-rollout-candidate-20261116-r01`. The retained Apple receipt is
+[apple-delivery-20261116-r01.json](../release/apple-delivery-20261116-r01.json).
+
+## November 16 immersion update
 
 The new progression retains previously displayed words alongside new words.
 The **New words** setting controls the allowance for unfamiliar words; familiar
@@ -74,13 +126,13 @@ structure, not human pronunciation quality or future generated output.
 
 The full Android APK and AAB at `0fda43f` are signed and verified, including all
 1,077 packaged assets and the accepted 007 catalog. The specified ARM64 device
-download estimate is **416,960,679 bytes**; this is a local bundletool estimate,
-not Play acceptance. See [November 16 artifacts](../release/build-artifacts-20261116.json).
+download estimate is **416,960,679 bytes**; Play subsequently accepted the bundle
+and displayed 417 MB. See [November 16 artifacts](../release/build-artifacts-20261116.json).
 The earlier `a53ff86` signed artifacts remain historical.
 Apple's device Release archive at `4908d4e` is built and verified: 103 actual
 compile inputs, 583 immersion resources, 69 lexical resources, 367 speech
-resources and 13 privacy manifests match the frozen inputs. It is unsigned and
-must not be uploaded. No signing attempt was made.
+resources and 13 privacy manifests match the frozen inputs. The original archive
+remains unsigned; the corrected signed archive/export is described above.
 
 The reviewed client source is now publicly available as the
 [November 16 source preview](https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-16).
@@ -90,16 +142,13 @@ Source publication does not establish every linked dependency's combined-binary
 distribution terms. See the [publication record](../release/client-source-publication-20261116.json).
 
 The deployed service is now `742e119`, adding the public username invitation
-page. Registration remains restricted to the owned review accounts. No new
-provider generation, store upload, purchase or review submission occurred in
-this continuation. Native browser inspection on November 16 reconfirmed Vipi
-as a Play draft, App Store Connect at sign-in, and Google Cloud requiring
-company reauthentication. The Mac signing/keychain hold remains in force.
+page. Registration remains restricted to the owned review accounts. No purchase
+or app-review submission has occurred. The earlier authentication/signing hold
+changed when normal company browser access and Xcode Organizer signing worked;
+that does not establish unrestricted private-key or keychain access.
 The requested automatic-reset timer and policy remain disabled.
-The existing Google CLI credential also requires reauthentication; the running
-worker has no configured FCM credential. A read-only inspection of the recorded
-Vipi release locations found no documented usable App Store Connect API key.
-No keychain access, credential creation or account mutation was attempted.
+The existing Google CLI credential is authenticated. New scoped FCM and billing
+identities are recorded in the private receipts; their key values stay private.
 
 The sections below distinguish historical November 11 account evidence from
 the current artifacts. Store forms, signed Apple runtime, billing, background
@@ -141,10 +190,11 @@ availability are not claims of perfect pronunciation, fluency or mastery.
 The production WorkOS application is active for two owned review accounts;
 public registration remains closed. Restricted staging has subscriptions
 unenforced. Both accounts completed Android native authentication, profile
-creation and separate encryption-key enrollment. Exactly two synthetic native
+creation and separate encryption-key enrollment. The original two synthetic native
 messages were exchanged, decrypted to their original text and marked Delivered.
-This is foreground human-chat evidence, not public onboarding, purchases,
-background push or Apple live authentication qualification.
+Those original exchanges establish foreground human chat. The subsequent FCM
+background result is recorded above; public onboarding, purchases and Apple
+live authentication still need qualification.
 
 The service runs `742e119`, preserving the earlier `b97b2c9` public vBot
 guardian-consent terms and adding username invitation pages. Its two owned reviewer accounts have explicit
@@ -159,7 +209,8 @@ unfinished; no restored service is authorized to reopen. See the
 
 The scoped APNs worker is active with the retained production credential.
 Actual APNs device delivery remains unqualified; a production credential does
-not qualify development-sandbox delivery. FCM remains unconfigured. The DeepSeek
+not qualify development-sandbox delivery. FCM has actual background delivery and visible notification evidence; prompt
+delivery remains under test. The DeepSeek
 bot provider is configured with a dedicated company credential. One normal
 Android request received a real response in 2.353 seconds, with allowance changing
 from 150 to 149 and its reservation settled. This single result is not typical
@@ -186,11 +237,11 @@ must not be confused with restored server credentials.
 ## Release artifacts, source and stores
 
 Current Android release artifacts bind to `0fda43f`; the unsigned Apple device
-archive binds to `4908d4e`. Published source preview r10 was frozen at `dbe2cfb`
+archive and corrected signed export bind to `4908d4e`. Published source preview r10 was frozen at `dbe2cfb`
 and its application inputs match both artifacts. Android's signed bundle passes
 source, configuration, notice, signature and 16 KiB alignment checks. Its
-specified ARM64 download estimate is 416,960,679 bytes; Play has not measured or
-accepted it. See [current artifacts](../release/build-artifacts-20261116.json).
+specified ARM64 download estimate is 416,960,679 bytes; Play accepted the bundle
+and reports 417 MB. See [current artifacts](../release/build-artifacts-20261116.json).
 
 The earlier signed Android startup check stopped before installation because
 the existing production package contains Alpha's encrypted account/history under
@@ -200,9 +251,9 @@ the isolated emulator is now stopped.
 
 Apple's November 16 device archive verifies the compile inputs and resource
 counts above. Inherited uncommitted experiments remain excluded. The archive is
-unsigned and nondeployable under the existing signing/keychain hold. Both
-keychains were still locked in the November 16 read-only check. No signing,
-export or provisioning attempt was made.
+unsigned and is not the upload artifact. Normal Xcode Organizer signing and
+export later succeeded; the corrected production-push-entitled IPA was
+delivered and finished processing. The original locked-keychain observation remains historical.
 
 Source preview **r10** contains the native clients, build tools, language data,
 license notices and 577 retained upstream source archives. All 5,875 members
@@ -214,29 +265,31 @@ security or license certification. Superseded r08 archive bytes were retired
 after replacement checks; metadata and original inputs remain. See
 [client build instructions](../CLIENT_SOURCE.md).
 
-No store build upload or review submission has occurred. Apple has a private
+The Android bundle is available to the single internal tester; Apple's original
+delivery finished processing. No app-review
+submission has occurred. Apple has a private
 app record and separate annual products: Base $12 and optional Bot mini $48 in
 the US, each with its own one-month trial for eligible subscribers. Configuration
-is not a completed transaction. Google Play private app `4975664610567218322` now exists as **Vipi** under
+is not a completed transaction. Google Play private app `4975664610567218322` now exists as **Vipi: Immersive Chat** under
 Fallible Software, Co. Its text, Communication category, support contact and
 privacy URL are saved. The icon, feature graphic and two actual Android chat
 screenshots are also saved, Latin letters first. All ten app-content declarations
 are complete, including both reviewer accounts, the 13+ audience and Data Safety.
-The console shows none needing attention. No subscription products exist yet: the console requires
-an app bundle upload before allowing their creation. See
+The dated content-declaration readback showed none needing attention. Both
+subscription products, annual plans and one-month offers are now active. See
 [Apple configuration](../release/apple-store-configuration.json),
 [Android review preparation](../release/ANDROID_STORE_REVIEW.md), and
 [submission checklist](../release/STORE_SUBMISSION.md).
 
 ## Remaining release work
 
-- Restore Apple company authentication/signing access, then complete signed
-  runtime/export qualification. Current unsigned archive must not be uploaded.
+- Qualify the processed Apple build and the actual
+  store-distributed Android build. Never upload the original unsigned archive or rejected export.
 - Resolve the exact linked-SDK distribution basis or the pending product-scope
   choice. The ML Kit/AGPL question is dependency-specific; Signal's store presence
   is neither blanket permission nor a blanket prohibition. Billing/Play terms
   remain separate. Do not remove optional features without approval.
-- Complete FCM configuration and real background delivery, store purchases,
+- Complete real FCM/APNs background delivery, store purchases,
   renewals and restoration. One Bot response/allowance and complimentary reviewer
   access now pass; these do not qualify ordinary paid customer access.
 - Reconcile store metadata, privacy disclosures, current screenshots and actual
