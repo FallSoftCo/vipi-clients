@@ -106,7 +106,7 @@ struct SubscriptionOfferView: View {
                     Button("Try again") { Task { await store.refresh() } }.disabled(store.loading)
                 }
                 if let notice = store.notice { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("subscription-notice") }
-                if access?.isReviewAccess != true {
+                if access?.isReviewAccess != true && !(plan == .base && store.accessActive(.base) && access?.access_source == "cardless_trial") {
                     Text("Payment is charged to your Apple Account. Cancel in App Store subscriptions before renewal to avoid the next charge. Canceling does not erase your saved conversations.")
                         .font(.footnote).foregroundStyle(VipiDesign.secondary)
                 }

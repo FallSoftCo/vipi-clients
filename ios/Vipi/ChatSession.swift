@@ -203,8 +203,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     }
     func find(_ input: String) async throws -> ChatProfile {
         guard ready, let core, let vault else { throw ServiceFailure(status: 0, code: "device_not_ready") }
-        let username = input.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-        guard username.range(of: "^[a-z][a-z0-9_]{2,23}$", options: .regularExpression) != nil else { throw ServiceFailure(status: 0, code: "invalid_username") }
+        guard let username = FriendLookupUsername.normalize(input) else { throw ServiceFailure(status: 0, code: "invalid_username") }
         let value: ChatProfile = try await request("GET", "/v1/people/" + username, device: core.device)
         guard value.id != profile?.id else { throw ServiceFailure(status: 0, code: "own_username") }
         try vault.transaction { try vault.put("contact", value.id.uuidString.lowercased(), JSONEncoder().encode(value)) }
@@ -521,5 +520,15 @@ struct ChatAuthenticationRecovery {
            ["sign_in_required", "recent_sign_in_required"].contains(failure.code) { required = true }
         if let failure = error as? AuthenticationManager.SessionFailure,
            case .signInRequired = failure { required = true }
+    }
+}
+
+/// Accept the optional @ shown in invitations only for friend lookup.
+enum FriendLookupUsername {
+    static func normalize(_ input: String) -> String? {
+        var value = input.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        if value.hasPrefix("@") { value.removeFirst() }
+        guard value.range(of: "^[a-z][a-z0-9_]{2,23}$", options: .regularExpression) != nil else { return nil }
+        return value
     }
 }
