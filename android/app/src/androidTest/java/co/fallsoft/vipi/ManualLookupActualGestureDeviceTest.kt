@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.unit.dp
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
@@ -85,6 +87,7 @@ class ManualLookupActualGestureDeviceTest {
                     ImmersionBubble(fixture,ReadingMode.IMMERSED,speech,"en","es",id,embedded=true,
                         originalMessage=originalText,rawSourceLanguage="en",metadata={Text("3:15 PM")},manual=manual)
                 }
+                ManualLookupPopup(manual)
             }}
             lateinit var word:Rect
             val start=originalText.indexOf("book");val end=start+4
@@ -93,6 +96,7 @@ class ManualLookupActualGestureDeviceTest {
                 assertEquals(originalText,native().displayedOriginal)
                 word=native().sourceRangeRect(start,end)
             }
+            var expectedTarget=""
             val began=SystemClock.elapsedRealtime()
             assertTrue(device.click(word.centerX(),word.centerY()))
             compose.waitUntil(20_000){manual.outcome?.status==ManualTranslationStatus.READY&&accepted.size==1}
@@ -105,11 +109,14 @@ class ManualLookupActualGestureDeviceTest {
                 assertEquals("book",result.originalSlice);assertEquals(originalText,result.sourceContextText)
                 assertEquals(0,result.sourceContextStartUTF16);assertEquals(originalText.length,result.sourceContextEndUTF16)
                 assertTrue(result.targetText.contains("reservar",ignoreCase=true))
+                expectedTarget=result.targetText
                 assertEquals(listOf(SpeechSpan(result.targetText,"es")),accepted.single().second)
                 report.put("sourceContext",result.sourceContextText).put("target",result.targetText)
                     .put("actualSpeechInput",accepted.single().second.single().text).put("actualSpeechLanguage","es")
                     .put("tapToPlayingMs",SystemClock.elapsedRealtime()-began)
             }
+            compose.onNodeWithText(expectedTarget).assertIsDisplayed()
+            report.put("actualTargetVisible",true)
             device.takeScreenshot(File(output,"real-context-translation.png"));save()
             assertTrue(device.click(word.centerX(),word.centerY()))
             compose.waitUntil(3_000){manual.request==null&&!manual.visible&&speech.activeMessage==null}
