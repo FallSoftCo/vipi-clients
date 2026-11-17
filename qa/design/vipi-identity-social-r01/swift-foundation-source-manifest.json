@@ -1,0 +1,5 @@
+{
+  "source_sha256": "3c8a8d5e73839ec6e6d3716d238835fdae3a055e5cf30623966e8095c10c34e2",
+  "test_sha256": "2e410080400e849e9386e61fed8ee7352ec192ada69512f65b7e165d53aa3305",
+  "scope": "Exact routing enum/helper extracted from Authentication.swift; exact test source with module-name import changed only."
+}

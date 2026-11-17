@@ -138,6 +138,26 @@ internal class PrivateRecords(context: Context) {
     }
 }
 
+/** EMAIL opens hosted AuthKit, which also offers the environment's enabled providers. */
+enum class SignInProvider(internal val workosProvider: String) {
+    EMAIL("authkit"), GOOGLE("GoogleOAuth"), APPLE("AppleOAuth")
+}
+
+internal fun signInAuthorizationURL(start: String, provider: SignInProvider, reauthenticate: Boolean): Uri {
+    val original = Uri.parse(start)
+    val builder = original.buildUpon().clearQuery()
+    for (name in original.queryParameterNames) {
+        if (name !in setOf("provider", "max_age", "screen_hint")) {
+            for (value in original.getQueryParameters(name)) builder.appendQueryParameter(name, value)
+        }
+    }
+    // Fresh same-account authentication must go through AuthKit's factor selection.
+    // A direct upstream OAuth session is not proof of recent authentication.
+    builder.appendQueryParameter("provider", if (reauthenticate) "authkit" else provider.workosProvider)
+    if (reauthenticate) builder.appendQueryParameter("max_age", "0").appendQueryParameter("screen_hint", "sign-in")
+    return builder.build()
+}
+
 class Authentication(context: Context) {
     private val appContext = context.applicationContext
     private val application = context.applicationContext
@@ -159,18 +179,17 @@ class Authentication(context: Context) {
     var signInRevision by mutableStateOf(0)
         private set
 
-    fun signIn(context: Context, expectedUser: String? = null) {
+    fun signIn(context: Context, expectedUser: String? = null, provider: SignInProvider = SignInProvider.EMAIL) {
         if (busy) return
         error = null
         if (!BuildConfig.WORKOS_CLIENT_ID.startsWith("client_")) { error = appContext.getString(R.string.ui_7a888f9040e0); return }
         try {
+            val boundUser = expectedUser ?: userID
             val start = client.getAuthorizationUrlWithPkce(callback)
-            records.write("pending-sign-in", JSONObject().put("state", start.state).put("verifier", start.codeVerifier).put("createdAt", System.currentTimeMillis()).put("expectedUser", expectedUser))
+            records.write("pending-sign-in", JSONObject().put("state", start.state).put("verifier", start.codeVerifier).put("createdAt", System.currentTimeMillis()).put("expectedUser", boundUser))
             // WorkOS Android 0.4.0's public helper omits the connection selector.
-            // AuthKit needs provider=authkit even for an application with no SSO.
-            val url = Uri.parse(start.url).buildUpon().appendQueryParameter("provider", "authkit").apply {
-                if (expectedUser != null) { appendQueryParameter("max_age", "0"); appendQueryParameter("screen_hint", "sign-in") }
-            }.build()
+            // Supply exactly one selector while retaining the SDK's PKCE/state.
+            val url = signInAuthorizationURL(start.url, provider, reauthenticate = boundUser != null)
             CustomTabsIntent.Builder().setShowTitle(true).build().launchUrl(context, url)
         } catch (_: Exception) { records.remove("pending-sign-in"); error = appContext.getString(R.string.ui_79290727c58b) }
     }

@@ -42,6 +42,25 @@ struct VipiSession: Codable, Sendable {
 }
 private struct PendingSignIn: Codable { let state: String; let verifier: String; let createdAt: Date; var expectedUser: String? }
 
+/// Email opens hosted AuthKit, which also offers the environment's enabled providers.
+enum SignInProvider: String, CaseIterable {
+    case email = "authkit", google = "GoogleOAuth", apple = "AppleOAuth"
+}
+
+func signInAuthorizationURL(_ start: URL, provider: SignInProvider, reauthenticate: Bool) throws -> URL {
+    guard var parts = URLComponents(url: start, resolvingAgainstBaseURL: false) else { throw URLError(.badURL) }
+    var items = (parts.queryItems ?? []).filter { !["provider", "max_age", "screen_hint"].contains($0.name) }
+    // Let AuthKit select the existing account's factors for fresh authentication.
+    // A direct upstream OAuth session is not proof of recent authentication.
+    items.append(URLQueryItem(name: "provider", value: reauthenticate ? "authkit" : provider.rawValue))
+    if reauthenticate {
+        items += [URLQueryItem(name: "max_age", value: "0"), URLQueryItem(name: "screen_hint", value: "sign-in")]
+    }
+    parts.queryItems = items
+    guard let url = parts.url else { throw URLError(.badURL) }
+    return url
+}
+
 @MainActor @Observable final class AuthenticationManager: NSObject, ASWebAuthenticationPresentationContextProviding {
     enum SessionFailure: Error { case signInRequired, accountChanged }
     private(set) var session: VipiSession?
@@ -63,20 +82,18 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
     func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
         UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.flatMap(\.windows).first(where: \.isKeyWindow) ?? ASPresentationAnchor()
     }
-    func signIn(expectedUser: String? = nil) {
+    func signIn(expectedUser: String? = nil, provider: SignInProvider = .email) {
         guard !busy else { return }
         guard let client else { errorMessage = String(localized: "Sign-in isn’t available yet. Please try again shortly."); return }
         errorMessage = nil
         do {
+            let boundUser = expectedUser ?? session?.userID
             let authorization = try client.getAuthorizationUrlWithPKCE(redirectUri: callback, provider: "authkit")
-            let pending = PendingSignIn(state: authorization.state, verifier: authorization.codeVerifier, createdAt: Date(), expectedUser: expectedUser)
+            let pending = PendingSignIn(state: authorization.state, verifier: authorization.codeVerifier, createdAt: Date(), expectedUser: boundUser)
             try KeychainStore.save(JSONEncoder().encode(pending), account: "pending-sign-in")
-            var url = URLComponents(url: authorization.url, resolvingAgainstBaseURL: false)!
-            if expectedUser != nil {
-                url.queryItems = (url.queryItems ?? []).filter { !["max_age", "screen_hint"].contains($0.name) } + [URLQueryItem(name: "max_age", value: "0"), URLQueryItem(name: "screen_hint", value: "sign-in")]
-            }
+            let url = try signInAuthorizationURL(authorization.url, provider: provider, reauthenticate: boundUser != nil)
             busy = true
-            let auth = ASWebAuthenticationSession(url: url.url!, callbackURLScheme: "co.fallsoft.vipi") { [weak self] callbackURL, error in
+            let auth = ASWebAuthenticationSession(url: url, callbackURLScheme: "co.fallsoft.vipi") { [weak self] callbackURL, error in
                 Task { @MainActor in
                     guard let self else { return }
                     if let callbackURL { await self.complete(callbackURL) }

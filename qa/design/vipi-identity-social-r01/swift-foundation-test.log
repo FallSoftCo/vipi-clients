@@ -1,0 +1,30 @@
+Building for debugging...
+[0/7] /Users/Apple/Development/vipi-identity-routing-20261117-r01/.build/arm64-apple-macosx/debug/ProviderRoutingPackageTests.derived/runner.swift
+[1/7] Write swift-version--58304C5D6DBC2206.txt
+[2/7] Write sources
+[6/8] Emitting module ProviderRouting
+[7/9] Compiling ProviderRouting ProviderRouting.swift
+[8/10] Emitting module ProviderRoutingTests
+[9/11] Compiling ProviderRoutingTests SignInProviderTests.swift
+[10/12] Emitting module ProviderRoutingPackageTests
+[11/13] Compiling ProviderRoutingPackageTests runner.swift
+[11/13] Write Objects.LinkFileList
+[12/13] Linking ProviderRoutingPackageTests
+Build complete! (13.62s)
+Test Suite 'All tests' started at 2026-11-17 12:24:37.453.
+Test Suite 'ProviderRoutingPackageTests.xctest' started at 2026-11-17 12:24:37.455.
+Test Suite 'SignInProviderTests' started at 2026-11-17 12:24:37.455.
+Test Case '-[ProviderRoutingTests.SignInProviderTests testProviderSelectionPreservesOriginalPKCEStateAndExactCallback]' started.
+Test Case '-[ProviderRoutingTests.SignInProviderTests testProviderSelectionPreservesOriginalPKCEStateAndExactCallback]' passed (0.002 seconds).
+Test Case '-[ProviderRoutingTests.SignInProviderTests testSameAccountReauthenticationAlwaysUsesAuthKitFreshFactorSelection]' started.
+Test Case '-[ProviderRoutingTests.SignInProviderTests testSameAccountReauthenticationAlwaysUsesAuthKitFreshFactorSelection]' passed (0.000 seconds).
+Test Suite 'SignInProviderTests' passed at 2026-11-17 12:24:37.457.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
+Test Suite 'ProviderRoutingPackageTests.xctest' passed at 2026-11-17 12:24:37.457.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
+Test Suite 'All tests' passed at 2026-11-17 12:24:37.457.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.002 (0.004) seconds
+◇ Test run started.
+↳ Testing Library Version: 1902
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

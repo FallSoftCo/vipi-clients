@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-17",
+  "source_base": "8fbe559",
+  "scope": "Native social sign-in routing and production provider inventory; no provider configuration or release action",
+  "source_sha256": {
+    "android/app/src/main/java/co/fallsoft/vipi/Authentication.kt": "ac321781db622aefe01b9aac7b16e2b6c24cd27a9ddaa1e571e9484a0926ff74",
+    "ios/Vipi/Authentication.swift": "3c8a8d5e73839ec6e6d3716d238835fdae3a055e5cf30623966e8095c10c34e2",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SignInProviderDeviceTest.kt": "bcc3d1724b8841f088bbd8f44131ae5902bc3ca04f733cbb48bd6df5d9e076fc",
+    "ios/VipiCryptoTests/SignInProviderTests.swift": "2e410080400e849e9386e61fed8ee7352ec192ada69512f65b7e165d53aa3305"
+  },
+  "production_inventory": {
+    "workos_project": "Vipi",
+    "environment": "Production",
+    "environment_id": "environment_01M6VYVQJ917R9W5V4W5T1WCWT",
+    "client_id": "client_01M6VYVQQ9GWNS95DFGABXEW9",
+    "google": "disabled; Enable button observed",
+    "apple": "disabled; Enable button observed",
+    "native_observation_job": "vipi-identity-workos-providers-r01",
+    "gcp_project_from_retained_firebase_config": "mambo-vipi-4f569",
+    "gcp_project_number": "712167704443",
+    "google_web_client_inventory": "unverified; existing company GCP session requires password reauthentication",
+    "apple_services_id_and_key_inventory": "not yet verified",
+    "external_configuration_changes": 0,
+    "new_credentials": 0
+  },
+  "implementation": {
+    "initial_sign_in": "Optional typed GoogleOAuth or AppleOAuth selector; hosted authkit remains the compatible default",
+    "reauthentication": "Explicit expectedUser or current session user binds pending flow; authkit max_age=0 selects existing account factors",
+    "preserved": [
+      "original SDK PKCE state/challenge/verifier",
+      "exact callback validation",
+      "single-use pending exchange",
+      "account-binding check before private session writes",
+      "encrypted session storage and refresh",
+      "backend WorkOS issuer/client/sub verification"
+    ],
+    "identity_linking": "WorkOS links verified equal-email credentials. Apple relay email can identify another account; never merge client vaults or relabel email identity as equivalent."
+  },
+  "checks": {
+    "native_macos_swift_foundation": {
+      "tests": 2,
+      "failures": 0,
+      "compiler_jobs": 1,
+      "actual_source": "Exact enum/helper extracted from Authentication.swift; exact XCTest file with only module import changed",
+      "log": "swift-foundation-test.log",
+      "source_manifest": "swift-foundation-source-manifest.json",
+      "covers": [
+        "three provider selectors",
+        "original PKCE/state/redirect preservation",
+        "duplicate selectors removed",
+        "fresh same-account AuthKit factor selection"
+      ],
+      "limitation": "Does not compile the complete iOS app or exercise WorkOS/provider authentication"
+    },
+    "android_instrumentation": "Tests delivered but not executed; shared emulators and user phone preserved",
+    "full_app_builds": "pending integrated UX build",
+    "provider_end_to_end": "not run; both production providers remain disabled",
+    "git_diff_check": "passed"
+  },
+  "next_external_plan": {
+    "google": "Inventory existing company project clients/branding/audience first. Reuse matching dedicated web client or propose one scoped Vipi WorkOS web client with exact dashboard redirect, basic identity scopes only, external production audience, correct Vipi brand/links. Store secret only in WorkOS. Inspect Google brand verification status separately.",
+    "apple": "Inventory co.fallsoft.vipi Sign in with Apple capability, linked Services IDs and suitable restricted keys first. Reuse compatible Vipi assets; otherwise propose linked Vipi Services ID and SIWA-only key for primary app with exact WorkOS return URI/domain. Configure Team/Services ID/key in WorkOS and relay outbound domains.",
+    "enablement": "Review exact app-scoped changes before execution; no backend restart needed for WorkOS provider configuration. Require real owned QA callbacks, WorkOS subject identity/linking, same-user reauth and private-relay recovery/deletion review before release/UI availability claims."
+  },
+  "sources": [
+    "https://workos.com/docs/authkit/social-login",
+    "https://workos.com/docs/integrations/google-oauth",
+    "https://workos.com/docs/integrations/apple",
+    "https://workos.com/docs/authkit/identity-linking",
+    "https://workos.com/docs/authkit/reauthentication",
+    "https://raw.githubusercontent.com/workos/workos-ios/v0.8.0/Sources/WorkOS/Helpers/PublicClient.swift",
+    "https://developer.apple.com/help/account/capabilities/configure-sign-in-with-apple-for-the-web/",
+    "https://developers.google.com/identity/protocols/oauth2/production-readiness/overview",
+    "https://developers.google.com/identity/protocols/oauth2/production-readiness/brand-verification"
+  ]
+}
