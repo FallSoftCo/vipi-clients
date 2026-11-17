@@ -1,0 +1,12 @@
+{
+  "time_utc": "2026-11-17T13:43:11.817600+00:00",
+  "scope": "TestFlight build 1.0 (2), fresh authorized QA identity",
+  "product": "vipi.base.annual",
+  "preflight": "Free period ended; price $12/year, no introductory offer",
+  "apple_confirmation": "For testing purposes only. You will not be charged for confirming this purchase.",
+  "subscribe_confirmations": 1,
+  "current_state": "Apple asks password for company Apple account to authorize transaction; no password submitted, no success established",
+  "autofill": "Passwords app requested Mac user unlock; unlock cancelled; no guess/reset",
+  "follow_up": "Inspect original pending transaction; do not issue a second purchase",
+  "no_bot_purchase_or_messages": true
+}
