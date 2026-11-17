@@ -1,0 +1,35 @@
+{
+  "source_stamp": "d51c2e5+bot-readable-labels-r17",
+  "floor_bytes": 4504682496,
+  "workers": 2,
+  "stages": [
+    {
+      "name": "android-final-compile-r17-build",
+      "command": [
+        "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/scripts/build-android.sh",
+        "--offline",
+        "-PvipiSourceContextQualification=true",
+        "-PvipiQaAbi=x86_64",
+        ":app:compileDebugKotlin",
+        "-x",
+        ":app:stageImmersionAssets",
+        "-x",
+        ":app:mergeDebugAssets",
+        "-x",
+        ":app:compressDebugAssets",
+        "-x",
+        ":app:mergeDebugNativeLibs",
+        "-x",
+        ":app:stripDebugDebugSymbols"
+      ],
+      "free_before": 4855222272,
+      "peak_budget": 104857600,
+      "pid": 2265935,
+      "exit": 0,
+      "seconds": 44.007598294876516,
+      "free_after": 4853182464
+    }
+  ],
+  "complete": true,
+  "free_after": 4853182464
+}

@@ -1,0 +1,18 @@
+{
+  "compile-receipt.json": {
+    "bytes": 924,
+    "sha256": "7f56515ff3e66f3f898f41c8af32b4eae608b33bc86a7d8a51c7918019934a7e"
+  },
+  "scope.json": {
+    "bytes": 1046,
+    "sha256": "42471c3801a8f6e91fa48bb192f7421268499a4e272bb16b8ee12653c6c0718d"
+  },
+  "retained-synthetic-before.png": {
+    "bytes": 200127,
+    "sha256": "119ab814734dbb603a99423a80e42c09841e9d2327f6980160b489c7b1755c1e"
+  },
+  "README.md": {
+    "bytes": 1733,
+    "sha256": "13fc27f0810290dfb5616cc1a4dc0c41848c70fb0196230b5876ea6b8ee608d9"
+  }
+}

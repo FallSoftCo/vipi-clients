@@ -1,0 +1,18 @@
+{
+  "change": "Exactly two optional Bot metadata/allowance styles: labelSmall to bodySmall",
+  "source_after_sha256": "d9fd50a340e1e2ac79358e07005aa42eb213707ab1e8573947d4630b6324fdef",
+  "theme_sha256": "c67f92c8623cff8df766db8a9b2176841ef047f03c054737ae8e41b82c5df2fc",
+  "resolved_after_style": "VipiTheme bodySmall is explicitly 14 sp / 20 sp line height",
+  "before_screenshot": {
+    "original_path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-bot-plan-loading-r01/cold-bot.png",
+    "sha256": "119ab814734dbb603a99423a80e42c09841e9d2327f6980160b489c7b1755c1e",
+    "classification": "Retained owned synthetic Vipi review prompts, old before image; not a current after screenshot"
+  },
+  "compile_includes": [
+    "Arabic source guard 1767771",
+    "native handle fix 57ceb91",
+    "Vipi-only deletion copy d51c2e5",
+    "two Bot text styles"
+  ],
+  "runtime_boundary": "Current installed r16 app qualifies Arabic rendering; it predates this compile-only Bot/deletion delta. No new Bot/account/store flow run."
+}

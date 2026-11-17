@@ -68,7 +68,7 @@ import java.time.format.FormatStyle
         Column(Modifier.background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding().padding(horizontal = 12.dp)) {
             (localError ?: bot.notice)?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
             bot.allowance?.let { allowance ->
-                Text(stringResource(R.string.bot_allowance_remaining, java.text.NumberFormat.getIntegerInstance().format(allowance.remaining), java.text.NumberFormat.getIntegerInstance().format(allowance.monthly), DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)), style = MaterialTheme.typography.labelSmall)
+                Text(stringResource(R.string.bot_allowance_remaining, java.text.NumberFormat.getIntegerInstance().format(allowance.remaining), java.text.NumberFormat.getIntegerInstance().format(allowance.monthly), DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)), style = MaterialTheme.typography.bodySmall)
             }
             BotPlanAccessGate(subscriptions?.accessCheckState ?: AccessCheckState.UNKNOWN, subscriptions?.access,
                 onRetry = { scope.launch { subscriptions?.refreshAccess() } },
@@ -111,7 +111,7 @@ import java.time.format.FormatStyle
                             reportText = message.text
                             while (reportText.toByteArray(Charsets.UTF_8).size > 4000) reportText = reportText.dropLast(Character.charCount(reportText.codePointBefore(reportText.length)))
                         }) else null) {
-                        Text(if (message.role == "assistant") stringResource(R.string.ui_f173182378d0) else if (message.status == "unconfirmed") stringResource(R.string.ui_c654d70db3ac) else if (message.status == "rejected") stringResource(R.string.ui_e28ba924e405) else stringResource(R.string.ui_08b041935798), style = MaterialTheme.typography.labelSmall)
+                        Text(if (message.role == "assistant") stringResource(R.string.ui_f173182378d0) else if (message.status == "unconfirmed") stringResource(R.string.ui_c654d70db3ac) else if (message.status == "rejected") stringResource(R.string.ui_e28ba924e405) else stringResource(R.string.ui_08b041935798), style = MaterialTheme.typography.bodySmall)
                     }
                 }
             }
