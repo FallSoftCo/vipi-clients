@@ -1,0 +1,23 @@
+{
+  "observed_utc": "2026-11-17T12:24:41.227552+00:00",
+  "scope": "Independent root read-only verification of exported build2 IPA; no signing or upload action",
+  "ipa_sha256": "e0e4e1cc2b7fd2488de1f42d37dae525be50af084949e149c386d7599d72d37a",
+  "ipa_bytes": 430849198,
+  "bundle": "co.fallsoft.vipi",
+  "version": "1.0",
+  "build": "2",
+  "codesign_deep_strict_exit": 0,
+  "signed_entitlements": {
+    "application-identifier": "3TNL2455JT.co.fallsoft.vipi",
+    "aps-environment": "production",
+    "beta-reports-active": true,
+    "com.apple.developer.team-identifier": "3TNL2455JT",
+    "get-task-allow": false
+  },
+  "zip_to_verified_app_exact_files": [
+    "Vipi",
+    "Info.plist",
+    "embedded.mobileprovision",
+    "_CodeSignature/CodeResources"
+  ]
+}
