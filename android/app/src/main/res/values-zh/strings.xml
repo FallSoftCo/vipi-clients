@@ -20,7 +20,7 @@
     <string name="ui_2c6b2e253c01" formatted="false">你叫什么名字</string>
     <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
     <string name="ui_318655cea4bd" formatted="false">语言</string>
-    <string name="ui_33875a9b79e5" formatted="false">3-24个字母、数字或下划线。 您的电话号码和联系人保持私密。</string>
+    <string name="ui_33875a9b79e5" formatted="false">使用3至24个英文字母、数字或下划线，并以英文字母开头。您的电话号码和联系人保持私密。</string>
     <string name="ui_339484dc1f78" formatted="false">你聊天中的单词</string>
     <string name="ui_33a2ae335a6b" formatted="false">已请求删除</string>
     <string name="ui_3446735cfdee" formatted="false">清除验证状态</string>

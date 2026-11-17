@@ -20,7 +20,7 @@
     <string name="ui_2c6b2e253c01" formatted="false">あなたの名前</string>
     <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
     <string name="ui_318655cea4bd" formatted="false">言語</string>
-    <string name="ui_33875a9b79e5" formatted="false">3〜24文字、数字、またはアンダースコア。 電話番号と連絡先は非公開のままです。</string>
+    <string name="ui_33875a9b79e5" formatted="false">英字、数字、アンダースコアを3〜24文字使い、英字から始めてください。電話番号と連絡先は非公開です。</string>
     <string name="ui_339484dc1f78" formatted="false">チャット内の単語</string>
     <string name="ui_33a2ae335a6b" formatted="false">削除を申請しました</string>
     <string name="ui_3446735cfdee" formatted="false">検証状態を解除</string>
