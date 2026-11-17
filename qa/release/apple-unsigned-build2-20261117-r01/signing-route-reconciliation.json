@@ -1,0 +1,45 @@
+{
+  "scope": "Read-only reconciliation of retained Vipi 1.0(1) signing evidence; no signing, export, private key, keychain or account operation performed. The current owner hold remains in force.",
+  "failed_r109": {
+    "input": "unsigned r72 archive from 4908d4e; CODE_SIGNING_ALLOWED=NO; no archive xcent",
+    "method": "Organizer Custom / App Store Connect / Export; automatic",
+    "result": "Distribution-signed IPA but no aps-environment; profile had production APS; no upload",
+    "receipt": "investigations/vipi-resume-20261116-r01/apple-store-signing-reconciliation-r109.json"
+  },
+  "corrected_r141": {
+    "step_1": "Separate normal Xcode GUI signed archive with source release entitlements and automatic company team. Initial attempt stopped before signing for blank WorkOS client; generated Release config then set to qualified public production client.",
+    "archive_receipt": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/signed-archive-20261116-r110/archive-r111.json",
+    "archive_receipt_sha256": "507b3c78e0067e4daa209acdf3e8989aa54f9b61414c24fce6228a8de5fb04ee",
+    "archive_entitlements_observed": {
+      "aps-environment": "development",
+      "get-task-allow": true
+    },
+    "step_2": "Organizer App Store Connect automatic local export from that signed archive; team 3TNL2455JT; manage build number false; no symbols upload.",
+    "export_intent_sha256": "67c5520a981fef5876ac342329c217332df734043305af6cab72f488bda9286a",
+    "export_options_sha256": "916bbb51c98ec9d7ffa0afb45604d17f9a5ff6aa6ea26643966f11e3668e6695",
+    "final_entitlements_observed": {
+      "application-identifier": "3TNL2455JT.co.fallsoft.vipi",
+      "aps-environment": "production",
+      "get-task-allow": false,
+      "beta-reports-active": true
+    },
+    "receipt": "investigations/vipi-resume-20261116-r01/apple-signed-qualification-r141.json",
+    "final_ipa_sha256": "a7a1108bcc98f303a8696a3fa67943d7e1ff8c42234a33b7c0506d1744b56ece"
+  },
+  "current_build2": {
+    "unsigned_archive": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/unsigned-release-20261117-r01/Vipi.xcarchive",
+    "source_commit": "09056a69de97a4c775d6f8936a072e58822f1519",
+    "bundle": "co.fallsoft.vipi",
+    "version": "1.0",
+    "build": "2",
+    "code_signing_allowed": false,
+    "executable_lc_code_signature": false,
+    "entitlements_source": "ios/Vipi/Vipi.entitlements resolves aps-environment from VIPI_PUSH_ENVIRONMENT; project sets production for Release",
+    "entitlements_source_sha256": "ffb44f5f7fceb9d9d37b4b17739dc07292977437defdccb47ee94e4eca47fffe",
+    "project_yml_sha256": "69407b73a8eafa8fe0a5f7e79018c75b0744babc3789cdc5f14af50cfa8665e9",
+    "required_public_config": "WORKOS_CLIENT_ID matching qualified production client; VIPI_PUSH_ENVIRONMENT=production",
+    "implication": "Do not assume exporting the unsigned archive directly will add APS; the demonstrated corrected route began with a separately signed Xcode archive. Future signing and export remain unattempted and require owner-authorized hold resolution and final independent verification."
+  },
+  "verification_if_future_authorized": "Check actual signed archive and final exported IPA independently: expected bundle/team/version/build, distribution signer/profile, production aps-environment, get-task-allow false, resource/privacy correspondence and unchanged public config; stop on uncertain outcome before any retry.",
+  "at_utc": "2026-11-17T09:25:21.658528+00:00"
+}
