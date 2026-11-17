@@ -55,7 +55,9 @@ class ProfileCardlessFlowDeviceTest {
         val model = VipiModel(base.applicationContext as Application)
         fun setState(name: String, value: Any?) {
             val field = VipiModel::class.java.getDeclaredField("${name}\$delegate").apply { isAccessible = true }
-            @Suppress("UNCHECKED_CAST") (field.get(model) as MutableState<Any?>).value = value
+            @Suppress("UNCHECKED_CAST")
+            val state = field.get(model) as MutableState<Any?>
+            state.value = value
         }
         try {
             runBlocking { withContext(Dispatchers.Main) { chat.start() } }
