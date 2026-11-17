@@ -1,0 +1,35 @@
+{
+  "app_id": "6832624092",
+  "bundle_id": "co.fallsoft.vipi",
+  "team_id": "3TNL2455JT",
+  "version": "1.0",
+  "build": "2",
+  "source_commit": "09056a69de97a4c775d6f8936a072e58822f1519",
+  "ios_tree": "fa5f5650fd1b4ba9817af4938015dd3b4aa67380",
+  "ipa_sha256": "e0e4e1cc2b7fd2488de1f42d37dae525be50af084949e149c386d7599d72d37a",
+  "ipa_bytes": 430849198,
+  "ipa_native_path": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/signed-release-20261117-build2-r01/Vipi-signed-build2-r01/Vipi.ipa",
+  "qualification_native_receipt": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/signed-release-20261117-build2-r01/verification-build2-r01/receipt.json",
+  "qualification": {
+    "signature": "verified Apple Distribution",
+    "aps_environment": "production",
+    "get_task_allow": false,
+    "localizations": "13 compiled localizations matched unsigned comparison",
+    "privacy_manifests": 13,
+    "resources": "1032 compared archive resources matched, including Swahili dictionary"
+  },
+  "upload": {
+    "method": "Transporter",
+    "dispatch_count": 1,
+    "prior_inventory": "App Store Connect and Transporter showed only build 1 before dispatch",
+    "transporter_result": "delivered 2026-11-17 07:30 America/New_York",
+    "processing": "The app is processing, as shown by Transporter after delivery",
+    "testflight_distribution": false,
+    "app_review_submission": false
+  },
+  "observed_at_utc": "2026-11-17T12:31:28.064509+00:00",
+  "limitations": [
+    "Processing completion and App Store Connect compliance are not established by this receipt.",
+    "No live message, purchase, TestFlight distribution, or review submission was performed."
+  ]
+}
