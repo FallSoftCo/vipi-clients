@@ -10,11 +10,14 @@ See [current reconciled status](../docs/DELIVERY_STATUS.md),
 [Apple readback](../qa/release/apple-signed-build3-20261117-r01/asc-update-followup.json)
 and [Google draft](google-production-v4-preparation-20261117.json).
 
-The existing backend's four-setting production activation completed once.
-Shared Fallsoft identity and later deletion/restore migrations are prepared in
-source but not activated. A successful native Google PKCE exchange is not a
-backend cutover or a confidential browser callback qualification. Global
-Fallsoft deletion remains disabled until the other applications are covered.
+The original four-setting production activation and the subsequent reviewed
+shared-identity cutover each completed once. Schema 05, Vipi-only deletion,
+shared authentication, the new push runtime and scheduled jobs are active;
+existing account data and unrelated services were preserved. The native
+confidential exchange and real deployed HTTPS Google callback/Cancel were
+qualified separately. See [deployment](../qa/backend/shared-identity-deployment-20261117-r04/deployment.json)
+and [browser proof](../qa/backend/shared-browser-callback-20261117-r01/native-observation.json).
+Global Fallsoft deletion remains disabled until the other applications are covered.
 
 The historical actions below retain their original build numbers and limits.
 Use the current status and exact receipts, not an older paragraph, to determine

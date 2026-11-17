@@ -1,0 +1,114 @@
+{
+  "schema": "vipi-shared-identity-deployment-1",
+  "state": "active_verified",
+  "started_at": "2026-11-17T22:17:29.694538+00:00",
+  "completed_at": "2026-11-17T22:17:56.276973+00:00",
+  "independent_verification_at": "2026-11-17T22:21:17.277602+00:00",
+  "owner_actor": "01a16e0d-ac69-7dd0-872a-8cf087160515",
+  "source_revision": "e853afa2f1b785c66c328005cb2732f7d58579e7",
+  "source_archive_sha256": "5ee5136fa91c6e7536d32f86db2acab5a0e6c8011d6aca2e23641b07ac12a12d",
+  "requirements_lock_sha256": "cdd8aab54f1bef6679e47daf0907331fcdf67cc845d30ca34c51bac7209183e5",
+  "reviewed_plan_sha256": "f4c37dfec59947f3e27ef368964db179602b80a86535ac0b72c71de6c34b64fb",
+  "executed_script_sha256": "f1a00cf5a4db096ef5b058467675a7b59b1f7d5d19c641f9c0e8334bd2a99276",
+  "deployment_receipt_sha256": "34c6640a67733d1ca70f25dfdb5dcdd8c9617681f1e0b7c2f4f07d667ce94c69",
+  "independent_receipt_sha256": "78954e3e2540954e261156bd04e5f813a46659ea6560c38470205073c39b9384",
+  "active_release": "shared-identity-e853afa-20261117-r02",
+  "active_manifest_sha256": "dea0f137c7a1ac7a716f2d99383157e62cc79ff2eb1c511236d0778fabcdbab2",
+  "active_environment_sha256": "26d5927c47bbe5470260c539f43fa3dbffb822d27d921a9c4b3761944ee65609",
+  "scope": [
+    "Vipi API",
+    "Vipi push",
+    "Vipi expiry service/timer",
+    "Vipi billing service/timer"
+  ],
+  "schema_before": "20261117_01",
+  "schema_after": "20261117_05",
+  "existing_row_fingerprints": "Cutover script checked equality before/after additive migrations and private recovery probe; historical rows not independently re-derived after resuming traffic",
+  "new_authentication_floor": "Existing users default0 verified; explicit fresh authentication floors apply to later delete/rejoin/link actions",
+  "production_identity": {
+    "client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "issuer": "https://api.workos.com",
+    "shared_identity_transition_enabled": true,
+    "Vipi_only_deletion_enabled": true,
+    "workos_dedicated_pool": false,
+    "global_deletion_enabled": false
+  },
+  "service_checks": {
+    "api_active": true,
+    "push_active_and_stable": true,
+    "push_pythonpath": "/opt/vipi/current/deps",
+    "push_module_sha256": "c896b5780329fbf8f6342858297326cb3a3c509b3e0d58026790e5174c4629ae",
+    "push_restarts_observed": 0,
+    "expiry_timer_active": true,
+    "billing_timer_active": true,
+    "nginx_and_postgresql_pids_unchanged": true,
+    "private_ready_http": 200,
+    "private_live_http": 200,
+    "public_ready_http": 403,
+    "public_ready_restriction": "Existing nginx exact /health/ready location deny all; expected public403, internal readiness200",
+    "public_unauthenticated_me_http": 401,
+    "privacy_http": 200,
+    "privacy_body_sha256": "92b1a454c1a294ca579cebf1c1358057826d4ed7638fbc4705efd2d4a5bf0947",
+    "privacy_csp_present": true,
+    "delete_account_landing_http": 200,
+    "delete_account_landing_evidence": "Root completion receipt; independent verifier did not repeat GET because it updates rate_windows",
+    "web_deletion_source_sha256": "53db884afc1c655cd643bfb9b0feb18992eab06562c35862fa8cfa305f58497b"
+  },
+  "migration_prerequisite": {
+    "separate_root_owned_postgres_readable_closure": true,
+    "manifest_equals_active_candidate": true,
+    "actual_postgres_heads_and_history_passed": true,
+    "env_key_or_customer_data_included": false,
+    "prepared_once_not_replayed": true
+  },
+  "recovery": {
+    "schema05_new_code_old_settings_private_probe_qualified": true,
+    "private_probe_requests": [
+      "readiness",
+      "unauthenticated me"
+    ],
+    "private_probe_customer_row_changes": false,
+    "no_public_probe_listener": true,
+    "runtime_ipc_removed": true,
+    "automatic_old_code_or_legacy_only_config_rollback": false,
+    "database_restore_or_downgrade_performed": false,
+    "new_data_backup_created": false,
+    "schema_only_inventory_bytes": 27049,
+    "schema_only_inventory_sha256": "ef5c284bf6c91aa4a853bf1f949994ccabf84345037a12978bcd573f9cbd6512",
+    "current_encrypted_generation_backup_verification": "Not established by this qualification; historical disclosure receipt is not backup verification"
+  },
+  "prior_attempts": [
+    {
+      "attempt": "r01",
+      "stopped_before_drain": true,
+      "cause": "runuser missing from restricted PATH",
+      "live_config_schema_and_services_unchanged": true
+    },
+    {
+      "attempt": "r03",
+      "stopped_before_drain": true,
+      "cause": "service user could not traverse root-private candidate.env staging ancestor",
+      "live_config_schema_and_services_unchanged": true
+    }
+  ],
+  "not_performed": [
+    "new provider authorization or code exchange",
+    "profile creation",
+    "legacy identity link",
+    "account deletion",
+    "global deletion",
+    "store operation or submission",
+    "unrelated service restart",
+    "dependency installation",
+    "data backup/restore"
+  ],
+  "remaining_qualification": [
+    "Deployed HTTPS browser callback/cookie flow: native confidential exchange already passed separately; full deployed flow still unqualified.",
+    "Native beginFallsoftLink manager exists but no migration UI callsite; saved legacy sessions retained and no email-only account merge.",
+    "Shared-realm store reviewer plan needed before submission.",
+    "Genuine paid store lifecycle remains a separate release gate.",
+    "Global deletion remains disabled; all-app global coverage incomplete.",
+    "Restored-service reopening/offline evidence integrations remain separately unqualified.",
+    "Current encrypted service-backup generation verification receipt remains unknown."
+  ]
+}

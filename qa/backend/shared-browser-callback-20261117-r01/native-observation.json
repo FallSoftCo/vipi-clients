@@ -1,0 +1,33 @@
+{
+  "completed_at": "2026-11-17T22:24:18.612960+00:00",
+  "scope": "Actual deployed HTTPS shared Google sign-in followed by non-destructive cancellation, using existing owned company account",
+  "control": "Native mouse/keyboard and native screenshots on the existing Mac Chrome profile; no DOM/CDP or separate browser context",
+  "observed": [
+    "Both Google and Apple sign-in choices displayed by shared Fallsoft AuthKit",
+    "Selected the existing owned company Google account",
+    "Returned through the deployed HTTPS callback to the Vipi-only deletion confirmation",
+    "Confirmation identified the expected owned account and said the shared Fallsoft sign-in and other apps remain",
+    "Selected Cancel; page stated the account had not been deleted"
+  ],
+  "no_delete_confirmation_clicked": true,
+  "no_profile_or_identity_link_requested": true,
+  "owned_window_closed": true,
+  "baseline_window_preserved": true,
+  "desktop_lease_released": true,
+  "private_native_receipt_sha256": "52babd4ac112ceb590cf7a39e00cee9dcb5b8d63725ec42a9561923dfea9289f",
+  "private_screenshot_hashes": {
+    "google-stage.png": "43d30d86daf6c9d149b60751af1ffb610dc3591c6339820bbf0218bc7161ebeb",
+    "cancelled.png": "8494cb54b309ca50f761d9f98b41ce71376c813e851539fcda9b3e84f4d8fd07",
+    "callback-observed.png": "2cef85609c6c296a0744b7807d01b9166fa36fe5f0f54ad1ea2cde9d6c0169c6",
+    "callback-result.png": "f5df3751e49272efffefe5a4ac0a1e586efba878c38e38bff4c5ba0ee69a4b01",
+    "landing.png": "33bd3152ee9cb5a2c8078f26849417b352ea51798bfa322f8e893baec71b9e62",
+    "landing-visible.png": "ac05390969c960818228bb08c4a845522e1249d4730beed25718053a0768147f",
+    "auth-entry.png": "0e2810e0fc9bb5a36d7fc3c8626202aa5b9952010b415e1ab8c2dcf8c11da329"
+  },
+  "limitations": [
+    "Google callback and Cancel qualified; Apple sign-in and destructive deletion were not performed in this check.",
+    "Screenshots containing account identity are retained privately, not published as app/store artwork.",
+    "Browser observations are paired with independent backend ledger checks; no reusable token or authorization code was copied into these receipts."
+  ],
+  "replay": "Completed once; do not repeat this intent, sign-in callback or cancellation."
+}

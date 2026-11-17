@@ -1,0 +1,15 @@
+# Shared Vipi identity deployment, November 17, 2026
+
+The r04 cutover completed once at 22:17:56 UTC. The API now uses the shared Vipi WorkOS client with the pinned issuer, accepts the reviewed legacy transition, and uses Vipi-only deletion semantics. Global deletion remains disabled. Schema 20261117_01 advanced additively to 20261117_05; dependencies were retained without installation.
+
+Only Vipi API, push, expiry and billing workloads were drained or restarted. Push now imports the active candidate through `/opt/vipi/current/deps`; its new process remained stable with no restarts observed. Nginx and PostgreSQL process identities were unchanged. Independent observation at 22:21:17 UTC confirmed internal live/ready 200, unauthenticated profile 401, and the corrected public privacy page 200. Public readiness 403 is expected: the existing nginx exact `/health/ready` location denies public access. Root already observed the deletion landing page 200; the independent verifier did not repeat that GET because it writes a rate-limit counter.
+
+The script compared existing-table fingerprints across migration and the private recovery probe. It separately verified the new authentication floor defaults and empty new ledgers before public admission. A private Unix socket qualified new code with unchanged old settings at schema05; it made only readiness and unauthenticated requests and left no runtime socket directory. This qualifies a recovery option, not an automatic rollback after new traffic. Recovery must preserve identity, eligibility and billing evidence and roll forward; no data restore or downgrade was performed.
+
+The first two activation attempts stopped before drain: r01 could not locate `runuser` under its restricted PATH; r03 could not read a protected staging environment file as the service user. Their receipts and prepared candidate were retained. The successful r04 passed parsed settings through the child environment and used a separate root-owned, PostgreSQL-readable, hash-verified migration closure. Both its actual CLI heads and full history were qualified before upgrade. Neither earlier attempt nor the prerequisite copy was replayed.
+
+No customer-data backup was created. The only new database inventory was schema-only, 27,049 bytes. This record does not establish current encrypted service-backup verification; the historical privacy disclosure receipt is not such proof.
+
+This deployment does not qualify the deployed HTTPS browser callback flow, expose the legacy-link UI, qualify a new shared-realm store reviewer, complete paid store lifecycle checks, enable global deletion, or authorize reopening a restored service. Native public PKCE and native confidential code exchange were separately qualified earlier; neither was repeated here. No account/profile/link/deletion or store operation was performed during this deployment verification.
+
+`deployment.json` retains the exact source, plan, script and receipt hashes. It contains no credentials, tokens, customer identifiers or customer records.

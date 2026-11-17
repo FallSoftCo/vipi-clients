@@ -2,7 +2,8 @@
 
 Updated November 17, 2026. Neither app has been submitted for public review.
 The existing backend is in production mode with subscription enforcement;
-the shared Fallsoft login and revised native UI are not deployed there.
+shared Fallsoft authentication and Vipi-only deletion are now active. The revised
+native UI still needs new store artifacts.
 Prior revisions and linked receipts retain historical actions; do not replay them.
 
 ## Latest reconciled state
@@ -25,19 +26,24 @@ Prior revisions and linked receipts retain historical actions; do not replay the
 - Arabic source replacements now preserve joined orthographic words. The
   integrated iOS app was visually verified; this does not establish unrestricted
   Arabic reading coverage. See [native rendering](../qa/immersion/arabic-native-ui-20261117-r01/README.md).
-- Shared Google sign-in completed once through native public PKCE; its actual
-  signed issuer is pinned in source. This does not qualify the separate
-  confidential browser callback or activate the shared deployment.
-  See [authority proof](../backend/qa/shared-session-authority-20261117.json).
+- Shared Google public PKCE and the separate native confidential exchange passed.
+  The reviewed backend cutover completed once, including schema 05, preserved
+  account rows, healthy API/push/timers and unchanged shared services. The real
+  HTTPS browser callback then reached the Vipi-only confirmation; Cancel left
+  the account intact. See [deployment](../qa/backend/shared-identity-deployment-20261117-r04/deployment.json),
+  [confidential exchange](../qa/identity/shared-confidential-native-20261117.json)
+  and [browser check](../qa/backend/shared-browser-callback-20261117-r01/native-observation.json).
 - Native deletion copy explicitly names Vipi and preserves the shared Fallsoft
   sign-in in all 13 UI locales. Global Fallsoft deletion remains disabled until
   all affected applications are covered. See [copy validation](../qa/identity/vipi-only-deletion-copy-20261117.json).
-- Native identity-link manager tests passed. Local StoreKit tests encountered
-  an Xcode/simulator configuration error; their failure is separate from the
-  older successful TestFlight sandbox purchases described below.
+- Native identity-link manager tests passed. All seven StoreKit lifecycle cases
+  now pass on the native macOS test host with unchanged production purchase
+  logic; the test waits for asynchronous transaction publication. The earlier
+  iOS simulator configuration failure remains recorded. This is separate from
+  genuine store transactions. See [StoreKit proof](../qa/identity/storekit-native-host-20261117.json).
 
-Remaining release work includes the reviewed shared-identity backend deployment,
-final native integration and store-signed artifacts, current reviewer access,
+Remaining release work includes final native integration and store-signed
+artifacts, deliberately qualified shared reviewer access,
 exact corresponding source and updated screenshots. A staged candidate is not
 an activation, and an uploaded build is not a submission.
 
@@ -171,7 +177,7 @@ requires active Base access. Starting Vipi enrolls neither subscription.
 See [Google](../qa/subscriptions/cardless-trial-20261117-r01/google-base-offer.json)
 and [Apple](../qa/subscriptions/cardless-trial-20261117-r01/apple-base-offer.json).
 
-Restricted staging runs the `84c3ff8` baseline plus the narrowly scoped
+Before the completed production activations, restricted staging ran the `84c3ff8` baseline plus the narrowly scoped
 `privacy-language-20261117-r01` disclosure revision, schema `20261117_01`.
 The first privacy activation rolled back after a faulty case-sensitive header
 check. A fresh activation with the corrected check completed; public HTTPS
@@ -193,13 +199,18 @@ qualify self-service signup or email verification delivery. See [peer qualificat
 The subsequent four-setting r03 production activation completed once:
 production mode, enforced subscriptions, no subject allowlist and Apple
 Production, preserving reviewer and restricted sandbox sets. The active
-environment hash is
+environment hash at that checkpoint was
 `cee1262cae300c1c4eca3aa24424ac23ae42862fa4a88e52747faee3a1696a83`.
-The release remains `privacy-language-20261117-r01`, schema `20261117_01`,
+That checkpoint used `privacy-language-20261117-r01`, schema `20261117_01`,
 with the legacy Vipi identity authority. The before/after profile and trial
 digest was unchanged; readiness returned 200. This activation did not deploy
 later shared-identity or deletion migrations and does not prove ordinary
 customer signup. See [activation reconciliation](../release/production-settings-20261117-r03/executed-reconciliation.json).
+The later shared-login cutover superseded that runtime: the current release is
+`shared-identity-e853afa-20261117-r02`, schema `20261117_05`, with environment
+hash `26d5927c47bbe5470260c539f43fa3dbffb822d27d921a9c4b3761944ee65609`.
+Shared Fallsoft authentication and Vipi-only deletion are active; global
+Fallsoft deletion remains disabled. See the [completed cutover](../qa/backend/shared-identity-deployment-20261117-r04/deployment.json).
 The WorkOS key was rotated once: the old key returned 401, the new key and API
 readiness returned 200, and push, database and timers were preserved. The old
 environment and r02 candidate must not be restored. See [rotation](../release/workos-key-replacement-20261117-r01/receipt.json).

@@ -1,0 +1,50 @@
+{
+  "schema": "vipi-browser-callback-independent-backend-postcheck-1",
+  "observed_at": "2026-11-17T22:25:05.860633+00:00",
+  "scope": "Read-only aggregate database counts and nginx/API logging configuration; no sign-in/callback/cancel/page replay or log inspection",
+  "deployment_reference": {
+    "completed_receipt_sha256": "34c6640a67733d1ca70f25dfdb5dcdd8c9617681f1e0b7c2f4f07d667ce94c69",
+    "schema": "20261117_05",
+    "baseline_independent_observation": "2026-11-17T22:21:17.277602+00:00"
+  },
+  "counts": {
+    "users": 9,
+    "users_with_nonzero_auth_floor": 0,
+    "identity_link_receipts": 0,
+    "account_deletions": 0,
+    "global_deletion_holds": 0,
+    "global_deletion_receipts": 0,
+    "billing_account_bindings": 0,
+    "vipi_trial_eligibility": 0,
+    "vipi_trial_eligibility_links": 0
+  },
+  "counts_equal_cutover_and_prebrowser_baseline": true,
+  "interpretation": "No new durable identity-link, Vipi-deletion, global-deletion, trial-eligibility or billing-binding entries recorded. Aggregate counts do not constitute a full transaction audit; web rate-limit counters are outside these account/business counts.",
+  "native_flow_evidence": {
+    "source": "root-owned native browser qualification, not repeated by this verifier",
+    "receipt_path": "web-callback-native-r01/receipt.json",
+    "receipt_sha256": "52babd4ac112ceb590cf7a39e00cee9dcb5b8d63725ec42a9561923dfea9289f",
+    "native_input_only": true,
+    "no_delete_confirmation_clicked": true,
+    "baseline_window_preserved": true,
+    "owned_window_closed": true,
+    "scope_observed": "Google selected from actual shared AuthKit with Google/Apple choices; HTTPS callback reached owned-account Vipi-only confirmation; Cancel returned account-not-deleted. No account identifier or email retained in this sanitized proof."
+  },
+  "logging_configuration": {
+    "nginx_config_sha256": "9725db6debda84a307de5f90531b145a7148f47bc22b0c2d0e83c65616c3a165",
+    "api_server_blocks_checked": 2,
+    "nginx_access_log_off_both_api_server_blocks": true,
+    "nginx_error_log_level": "crit",
+    "nginx_error_logs_still_enabled": true,
+    "uvicorn_no_access_log": true,
+    "uvicorn_log_level": "warning",
+    "entrypoint_sha256": "8369a651125c5a6382eabb8b98566a6a570a29b27b0f8909d17a0965fa9a6964",
+    "error_log_contents_not_examined": true,
+    "does_not_claim_no_sensitive_failure_record_can_exist": true
+  },
+  "request_log_files_read": false,
+  "secret_bearing_request_URLs_queried_or_output": false,
+  "auth_callback_cancel_or_deletion_page_repeated": false,
+  "no_user_identifiers_in_output": true,
+  "outcome": "passed"
+}
