@@ -1,0 +1,38 @@
+{
+  "state": "published_once_and_verified",
+  "at_utc": "2026-11-17T12:25:56.279345+00:00",
+  "release_url": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3",
+  "release_id": 448369261,
+  "scope": "three additive Apple 1.0 (2) source supplement assets; no app upload or archive overwrite",
+  "source_revision": "09056a69de97a4c775d6f8936a072e58822f1519",
+  "qualified_ipa_sha256": "e0e4e1cc2b7fd2488de1f42d37dae525be50af084949e149c386d7599d72d37a",
+  "assets": [
+    {
+      "id": 758966901,
+      "name": "apple-build2-source-README.md",
+      "size": 2316,
+      "sha256": "e98bc8e6d8b81b1376341b26d2c1b5b8c5b15a22185aec29011bd5b6a1e416e8",
+      "github_digest_verified": true,
+      "anonymous_download_sha256_verified": true
+    },
+    {
+      "id": 758966898,
+      "name": "apple-build2-source.patch",
+      "size": 503,
+      "sha256": "ed1fe5891d67c040ab4336a9bd758c421c2170172f8b2a73d1721398e93c8af6",
+      "github_digest_verified": true,
+      "anonymous_download_sha256_verified": true
+    },
+    {
+      "id": 758966903,
+      "name": "apple-build2-source-receipt.json",
+      "size": 5130,
+      "sha256": "3b7bf5945b9a4f8573d44eef5ad065dcc11093815683bdee596d73ce003bddd6",
+      "github_digest_verified": true,
+      "anonymous_download_sha256_verified": true
+    }
+  ],
+  "base_archive_preserved_sha256": "3d3884ea4cc4632fa5f137deba816b386edccf5a6d00edde77b93ca2bcae304c",
+  "delta_secret_scan_findings": 0,
+  "limits": "Correspondence follows retained build-input and signed IPA qualification; no App Store upload, complete binary license clearance, or customer launch implied."
+}
