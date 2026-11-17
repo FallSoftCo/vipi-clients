@@ -1,0 +1,16 @@
+{
+  "device": "emulator-5624",
+  "package": "co.fallsoft.vipi.uxqa",
+  "floor_bytes": 4504682496,
+  "allowance_bytes": 20971520,
+  "initial_free_bytes": 4975595520,
+  "started_utc": "2026-11-17T20:15:44Z",
+  "class": "co.fallsoft.vipi.ManualLookupGestureDeviceTest",
+  "run": "001",
+  "minimum_free_bytes": 4972953600,
+  "final_free_bytes": 4972883968,
+  "max_net_additional_bytes": 2641920,
+  "stop_reason": null,
+  "adb_exit_code": 0,
+  "finished_utc": "2026-11-17T20:16:05Z"
+}

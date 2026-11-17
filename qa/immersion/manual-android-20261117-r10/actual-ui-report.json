@@ -1,0 +1,24 @@
+{
+  "complete": true,
+  "provider": "actual installed ML Kit Spanish model; no download",
+  "scope": "one actual native gesture\/provider\/SpeechPlayback path; no acoustic acceptance",
+  "sourceContext": "Could you book a table for two tomorrow evening?",
+  "target": "¿Podrías reservar una mesa para dos mañana por la noche?",
+  "actualSpeechInput": "¿Podrías reservar una mesa para dos mañana por la noche?",
+  "actualSpeechLanguage": "es",
+  "tapToPlayingMs": 1177,
+  "providerCalls": [
+    {
+      "source": "Could you book a table for two tomorrow evening?",
+      "from": "en",
+      "to": "es",
+      "target": "¿Podrías reservar una mesa para dos mañana por la noche?",
+      "elapsedMs": 262.120485
+    }
+  ],
+  "acceptedSpeechCount": 2,
+  "sameTapStop": true,
+  "cachedWholeMessage": true,
+  "actualSpeechOncePerGesture": true,
+  "passed": true
+}
