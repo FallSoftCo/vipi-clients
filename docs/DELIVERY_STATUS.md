@@ -151,6 +151,16 @@ Isolated tests cover enforced
 expiry, retained trial dates and readable history; they do not prove public
 customer behavior. See [deployment](../qa/subscriptions/cardless-trial-20261117-r01/receipt.json).
 
+The TestFlight Base checkout on the fresh Apple QA account displays $12/year
+without an introductory offer, and Apple's confirmation explicitly says it is
+a test with no charge. Subscribe was confirmed once. The original Apple
+authorization prompt is waiting for the company account password; no password
+was submitted and purchase success is not established. A subsequent read-only
+backend observation found no entitlement for that QA user and no new Apple
+notification. This is pending authentication, not evidence of purchase failure.
+Inspect the original result before any further purchase action.
+See [pending authorization](../qa/release/apple-signed-build2-20261117-r01/base-sandbox-auth-pending.json).
+
 The original no-charge Google license purchase on version 1 activated, renewed,
 was canceled and lapsed. No purchase was repeated. Version 2's retained account
 shows the dated cardless period. Cross-device purchase restoration and an actual
