@@ -1,0 +1,47 @@
+{
+  "catalog.json": {
+    "bytes": 1362206,
+    "sha256": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a",
+    "same": true
+  },
+  "starter-catalog.json": {
+    "bytes": 210,
+    "sha256": "8a5eb2f66398e676f6e5783ab6b5a2abf6c4eb3eb9e08508bfe1bcdaed7981e2",
+    "same": true
+  },
+  "starter-en-ja-007.json": {
+    "bytes": 61422,
+    "sha256": "dc8ed63767d110088afe31d42ab97cdda7502078677843abd4fb8795935fc2f3",
+    "same": true
+  },
+  "starter-sw-catalog.json": {
+    "bytes": 210,
+    "sha256": "83a04508801096539bc774f4eebc59a45de7deefcbf486c0945966b5971d6f7c",
+    "same": true
+  },
+  "starter-en-sw-008.json": {
+    "bytes": 67832,
+    "sha256": "37752d18786f69fb361983292ce60da98285c2b2736751675406f4b69426733a",
+    "same": true
+  },
+  "source-frames-en-ja-catalog.json": {
+    "bytes": 293,
+    "sha256": "2e93a5be772660ef7f20106d996c05dd4ca34bac139d86c93a78dc5b0adf00a3",
+    "same": true
+  },
+  "source-frames-en-ja-007.json": {
+    "bytes": 193077,
+    "sha256": "4644e910c72d2142ed5f5bfbd6f9d1f0822871920cfc7e8cc15f0b5c3f414489",
+    "same": true
+  },
+  "source-frames-en-sw-catalog.json": {
+    "bytes": 293,
+    "sha256": "f3974a23c3941eb025b1818de91d801e6c2c319c299b0da25395732a7a2b4727",
+    "same": true
+  },
+  "source-frames-en-sw-007.json": {
+    "bytes": 181252,
+    "sha256": "8880b2ed64309c5a288cddadccc25152cdf853cc5bfb779cddb308dc3d7455c5",
+    "same": true
+  }
+}

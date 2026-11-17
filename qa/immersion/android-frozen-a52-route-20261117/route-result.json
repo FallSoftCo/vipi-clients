@@ -1,0 +1,24 @@
+{
+  "synthetic": true,
+  "revision": "a52a806",
+  "cases": [
+    {
+      "target": "ja",
+      "status": "READY",
+      "source": "music",
+      "translated": "音楽",
+      "reading": "ongaku",
+      "exact_reference": true,
+      "full_calls": 0
+    },
+    {
+      "target": "sw",
+      "status": "READY",
+      "source": "music",
+      "translated": "muziki",
+      "reading": null,
+      "exact_reference": true,
+      "full_calls": 0
+    }
+  ]
+}
