@@ -1,0 +1,21 @@
+{
+  "state": "active_provider_delivery_unqualified",
+  "activation_unit": "vipi-apns-worker-activation-20261117-r01.service",
+  "activation_result": "success; durable state completed at 2026-11-17T01:36:20Z",
+  "source_commit": "803a5cd",
+  "worker_pid_before": 2599956,
+  "worker_pid_after": 2678219,
+  "worker_active": true,
+  "worker_restarts_after": 0,
+  "api_readiness_http": 200,
+  "shared_environment_sha256": "caa59701bf10eab3c877475b3ba59a3edbca29167cb51105ef34b391c304a22a",
+  "production_and_fcm_dropins_preserved": true,
+  "sandbox_key_id": "N9QS5NVA3U",
+  "sandbox_key_sha256": "46672c19408d4b9bd4249f28119e5d3f55f0790b9c2e2a00b8aec7c09307f3ed",
+  "sandbox_topic": "co.fallsoft.vipi",
+  "combined_push_sha256": "193fb7a3e3ff92d3667f9c166ecae4d4705a773aafd307f30a35bcf5b3c6e959",
+  "combined_config_sha256": "3770558cf28c2dee682f57fe8e766f879f06bfb83fef64845dc30f1c7ffd9446",
+  "staged_manifest_file_count": 29,
+  "preflight": "vipi user verified both credential signatures; queue and leases empty",
+  "limitations": "No APNs sandbox token, provider delivery, or device arrival has been verified."
+}
