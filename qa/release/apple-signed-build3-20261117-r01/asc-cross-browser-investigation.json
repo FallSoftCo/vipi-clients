@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-11-17T16:54:26.628900+00:00",
+  "chrome": {
+    "visible_url": "appstoreconnect.apple.com/apps",
+    "account": "Arjun Iyer / Fallible Software, Co.",
+    "result": "Apps list generic error and misleading no-apps placeholder; no deletion inferred"
+  },
+  "safari": {
+    "authentication": "Existing offered company passkey, normal sign-in",
+    "confirmed_account": "arjun@fallsoft.co, Fallible Software, Co.",
+    "result": "Same News Request modal and Apps list generic error",
+    "temporary_window": "closed"
+  },
+  "scope": "Native UI only; no remote debugging, key export, profile copy, install retry, credential rotation or app mutation",
+  "follow_up": "Portal needs to load the app list before requested metadata work can proceed."
+}
