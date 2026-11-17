@@ -183,6 +183,13 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
             } } }, confirmButton = { TextButton(onClick = { choosingWord = false }) { Text(stringResource(R.string.ui_11a6767d5674)) } })
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             if (embedded) { Box(Modifier.weight(1f)) { metadata?.invoke() } }
+            if (embedded && active && speech != null) {
+                TextButton(onClick = { speech.stop() }) {
+                    Icon(Icons.Outlined.Stop, null, Modifier.size(18.dp))
+                    Spacer(Modifier.width(6.dp))
+                    Text(stringResource(R.string.ui_cae7d57bc067))
+                }
+            }
             if (!embedded && effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) {
                 IconButton(onClick = { paused = !paused; revision++ }, modifier = Modifier.size(44.dp)) {
                     Icon(if (paused) Icons.Outlined.PlayArrow else Icons.Outlined.Pause, if (paused) stringResource(R.string.ui_cc245f2e3a71) else stringResource(R.string.ui_37f6135c049a), Modifier.size(18.dp))
@@ -247,7 +254,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                 }
             }
             if (!embedded) Spacer(Modifier.weight(1f))
-            if (!embedded && speech != null) TextButton(onClick = { listen() }, enabled = speech.state !in setOf(SpeechState.PREPARING, SpeechState.UNAVAILABLE), colors = TextButtonDefaults.textButtonColors(disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant)) {
+            if (!embedded && speech != null) TextButton(onClick = { listen() }, enabled = speech.state !in setOf(SpeechState.PREPARING, SpeechState.UNAVAILABLE), colors = ButtonDefaults.textButtonColors(disabledContentColor = MaterialTheme.colorScheme.onSurfaceVariant)) {
                 if (speech.state == SpeechState.PREPARING || (active && speech.state == SpeechState.RENDERING)) CircularProgressIndicator(Modifier.size(16.dp), strokeWidth = 2.dp)
                 else Icon(if (active) Icons.Outlined.Stop else Icons.Outlined.VolumeUp, null, Modifier.size(18.dp))
                 Spacer(Modifier.width(7.dp)); Text(if (active) stringResource(R.string.ui_cae7d57bc067) else if (speech.state == SpeechState.PREPARING) stringResource(R.string.ui_58fd7deb0abe) else stringResource(R.string.ui_225d29f6201e), fontSize = 13.sp)
