@@ -81,7 +81,7 @@ struct HomeView: View {
                             }.padding(.vertical, 12)
                         }.buttonStyle(.plain)
                     }.padding(24).frame(maxWidth: 680).frame(maxWidth: .infinity)
-                }
+                }.clipped()
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) { VipiMark(size: 25).accessibilityLabel("Vipi") }
@@ -168,7 +168,7 @@ struct BotIntroductionView: View {
                         .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight)
                 }
             }.padding(28).frame(maxWidth: 560).frame(maxWidth: .infinity)
-        }.background(VipiDesign.canvas).navigationTitle("vBot").navigationBarTitleDisplayMode(.inline)
+        }.clipped().background(VipiDesign.canvas).navigationTitle("vBot").navigationBarTitleDisplayMode(.inline)
     }
 }
 
