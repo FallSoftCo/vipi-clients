@@ -403,7 +403,7 @@
     <string name="access_choose_word">전환할 단어 선택</string>
     <string name="access_message_actions">메시지 동작</string>
     <string name="cardless_ended">Vipi 무료 이용 기간이 %1$s에 종료되었습니다. 계속 대화하려면 구독하세요.</string>
-    <string name="welcome_title_concise">익숙한 친구.\n새로운 언어.</string>
+    <string name="welcome_title_concise">친구와 채팅하세요.\n새로운 단어를 배우세요.</string>
     <string name="welcome_detail_concise">채팅하는 동안 일부 단어가 다른 언어로 바뀌어요.</string>
     <string name="preview_spanish_title">스페인어를 조금 만나 보세요</string>
     <string name="preview_tap_word">강조된 단어를 누르면 뜻을 볼 수 있어요.</string>
@@ -413,7 +413,7 @@
     <string name="account_title_concise">Vipi에 로그인</string>
     <string name="account_detail_concise">로그인하고 사용자 이름을 정해 친구를 찾아보세요.</string>
     <string name="account_private_title">친구와 나누는 비공개 채팅</string>
-    <string name="account_private_detail">메시지는 종단 간 암호화됩니다. 친구에게는 사용자 이름만 보이고 이메일은 공개되지 않아요.</string>
+    <string name="account_private_detail">친구와의 채팅은 종단 간 암호화됩니다. 친구에게는 사용자 이름만 보이고 이메일은 공개되지 않아요.</string>
     <string name="account_trial_concise">처음 30일은 무료예요. 카드가 필요 없어요.</string>
     <string name="preview_message_title">채팅 미리 보기</string>
     <string name="speak_concise">사용하는 언어</string>

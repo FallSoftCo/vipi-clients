@@ -30586,6 +30586,12 @@
             "value": "Discutez avec vos amis.\nApprenez de nouveaux mots."
           }
         },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chatte mit Freunden.\nLerne neue Wörter."
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "needs_review",
@@ -30601,13 +30607,7 @@
         "pt-PT": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Converse com amigos.\nAprenda palavras novas."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Chatte mit Freunden.\nLerne neue Wörter."
+            "value": "Conversa com amigos.\nAprende palavras novas."
           }
         },
         "ja": {
@@ -35590,6 +35590,158 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Ninajifunza"
+          }
+        }
+      }
+    },
+    "Which language would you like to learn?": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "¿Qué idioma te gustaría aprender?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Quelle langue aimeriez-vous apprendre ?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Welche Sprache möchtest du lernen?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Quale lingua vorresti imparare?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Qual idioma você gostaria de aprender?"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Que língua gostarias de aprender?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "どの言語を学びたいですか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "어떤 언어를 배우고 싶으세요?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你想学哪种语言？"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你想學哪種語言？"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ما اللغة التي تود تعلّمها؟"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ungependa kujifunza lugha gani?"
+          }
+        }
+      }
+    },
+    "Chats with friends are end-to-end encrypted. Friends see your username, never your email.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Los chats con amigos están cifrados de extremo a extremo. Tus amigos ven tu nombre de usuario, nunca tu correo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Les discussions entre amis sont chiffrées de bout en bout. Vos amis voient votre nom d’utilisateur, jamais votre e-mail."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chats mit Freunden sind Ende-zu-Ende-verschlüsselt. Freunde sehen deinen Benutzernamen, nie deine E-Mail-Adresse."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le chat con gli amici sono crittografate end-to-end. Gli amici vedono il tuo nome utente, mai la tua email."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As conversas com amigos têm criptografia de ponta a ponta. Seus amigos veem seu nome de usuário, nunca seu e-mail."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As conversas com amigos têm encriptação ponto a ponto. Os teus amigos veem o teu nome de utilizador, nunca o teu e-mail."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "友達とのチャットはエンドツーエンドで暗号化されます。友達に表示されるのはユーザー名だけで、メールアドレスは表示されません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "친구와의 채팅은 종단 간 암호화됩니다. 친구에게는 사용자 이름만 보이고 이메일은 공개되지 않아요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "与朋友的聊天采用端到端加密。朋友只能看到你的用户名，看不到邮箱。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "與朋友的聊天採用端對端加密。朋友只能看到你的使用者名稱，看不到電子郵件。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "دردشاتك مع الأصدقاء مشفّرة من طرف إلى طرف. يرى أصدقاؤك اسم المستخدم فقط، ولا يرون بريدك الإلكتروني."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mazungumzo yako na marafiki yamesimbwa kwa njia fiche kutoka mwisho hadi mwisho. Marafiki wanaona jina lako la mtumiaji, si barua pepe yako."
           }
         }
       }

@@ -406,7 +406,7 @@
     <string name="access_choose_word">Elige una palabra para cambiar</string>
     <string name="access_message_actions">Acciones del mensaje</string>
     <string name="cardless_ended">Tu acceso gratuito a Vipi terminó el %1$s. Suscríbete para seguir chateando.</string>
-    <string name="welcome_title_concise">Tus amigos.\nUn nuevo idioma.</string>
+    <string name="welcome_title_concise">Chatea con amigos.\nAprende palabras nuevas.</string>
     <string name="welcome_detail_concise">Algunas palabras cambian de idioma mientras chateas.</string>
     <string name="preview_spanish_title">Prueba un poco de español</string>
     <string name="preview_tap_word">Toca una palabra resaltada para ver su significado.</string>
@@ -416,7 +416,7 @@
     <string name="account_title_concise">Inicia sesión en Vipi</string>
     <string name="account_detail_concise">Inicia sesión, elige un nombre de usuario y encuentra a tus amigos.</string>
     <string name="account_private_title">Chats privados con amigos</string>
-    <string name="account_private_detail">Tus mensajes están cifrados de extremo a extremo. Tus amigos ven tu nombre de usuario, nunca tu correo.</string>
+    <string name="account_private_detail">Los chats con amigos están cifrados de extremo a extremo. Tus amigos ven tu nombre de usuario, nunca tu correo.</string>
     <string name="account_trial_concise">Tus primeros 30 días son gratis. Sin tarjeta.</string>
     <string name="preview_message_title">Así se verán tus chats</string>
     <string name="speak_concise">Hablo</string>

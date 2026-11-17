@@ -63,7 +63,7 @@ struct OnboardingView: View {
 
     private var welcome: some View {
         VStack(alignment: .leading, spacing: 24) {
-            IntroHeading(eyebrow: "", title: "Your friends.\nA new language.", detail: "A few words switch languages as you chat.")
+            IntroHeading(eyebrow: "", title: "Chat with friends.\nLearn new words.", detail: "A few words switch languages as you chat.")
             VStack(alignment: .leading, spacing: 14) {
                 Text("Try a little Spanish").font(.body.weight(.semibold)).foregroundStyle(VipiDesign.ink)
                 ImmersionBubble(result: .complete(ImmersionPreview.result), mode: previewMode, speech: speech, interactionPaused: scrolling)
@@ -91,7 +91,7 @@ struct OnboardingView: View {
     private var languages: some View {
         @Bindable var state = state
         return VStack(alignment: .leading, spacing: 24) {
-            IntroHeading(eyebrow: "", title: "Your languages", detail: "Which language would you like to pick up?")
+            IntroHeading(eyebrow: "", title: "Your languages", detail: "Which language would you like to learn?")
             VStack(alignment: .leading, spacing: 10) {
                 Text("I speak").font(.body.weight(.semibold))
                 Picker("I already speak", selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) })) {
@@ -120,7 +120,7 @@ struct OnboardingView: View {
             VStack(alignment: .leading, spacing: 16) {
                 Label("Private chats with friends", systemImage: "lock")
                     .font(.body.weight(.semibold))
-                Text("Your messages are end-to-end encrypted. Friends see your username, never your email.")
+                Text("Chats with friends are end-to-end encrypted. Friends see your username, never your email.")
                     .font(.body).foregroundStyle(VipiDesign.secondary)
                 Text("Your first 30 days are free. No card needed.")
                     .font(.body.weight(.medium))

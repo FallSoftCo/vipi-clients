@@ -406,7 +406,7 @@
     <string name="access_choose_word">Chagua neno la kubadilisha</string>
     <string name="access_message_actions">Vitendo vya ujumbe</string>
     <string name="cardless_ended">Ufikiaji wako wa Vipi bila malipo uliisha %1$s. Jisajili ili kuendelea kuzungumza.</string>
-    <string name="welcome_title_concise">Marafiki zako.\nLugha mpya.</string>
+    <string name="welcome_title_concise">Zungumza na marafiki.\nJifunze maneno mapya.</string>
     <string name="welcome_detail_concise">Baadhi ya maneno hubadilika lugha unapozungumza.</string>
     <string name="preview_spanish_title">Jaribu Kihispania kidogo</string>
     <string name="preview_tap_word">Gusa neno lililoangaziwa kuona maana yake.</string>
@@ -416,7 +416,7 @@
     <string name="account_title_concise">Ingia kwenye Vipi</string>
     <string name="account_detail_concise">Ingia, chagua jina la mtumiaji, kisha utafute marafiki zako.</string>
     <string name="account_private_title">Mazungumzo ya faragha na marafiki</string>
-    <string name="account_private_detail">Ujumbe wako umesimbwa kwa njia fiche kutoka mwisho hadi mwisho. Marafiki wanaona jina lako la mtumiaji, si barua pepe yako.</string>
+    <string name="account_private_detail">Mazungumzo yako na marafiki yamesimbwa kwa njia fiche kutoka mwisho hadi mwisho. Marafiki wanaona jina lako la mtumiaji, si barua pepe yako.</string>
     <string name="account_trial_concise">Siku zako 30 za kwanza ni bure. Huhitaji kadi.</string>
     <string name="preview_message_title">Mfano wa mazungumzo yako</string>
     <string name="speak_concise">Ninazungumza</string>
