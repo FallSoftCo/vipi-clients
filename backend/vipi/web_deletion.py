@@ -85,7 +85,7 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
     subscription = ('<details><summary>Subscriptions and copies of messages</summary><p>Deleting your account does not cancel a store subscription. '
         'You can cancel it in <a href="https://apps.apple.com/account/subscriptions" rel="noreferrer">Apple subscriptions</a> or '
         '<a href="https://play.google.com/store/account/subscriptions" rel="noreferrer">Google Play subscriptions</a>. '
-        'You do not need to cancel first. Deleting Vipi does not cancel subscriptions. Cancel through your app store.</p><p>Friends’ copies of messages and backups you saved outside Vipi remain. '
+        'You do not need to cancel first.</p><p>Friends’ copies of messages and backups you saved outside Vipi remain. '
         'This website cannot erase chat history stored on your devices. Remove that history in the app or remove the app’s local data.</p></details>')
 
     async def throttle(request, scope, limit):
@@ -138,7 +138,7 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
 
     def progress(job):
         if job.finished_at:
-            response = page("Account deleted", '<p class="lead">Your Vipi account has been deleted. This action applies to Vipi only; shared Fallsoft sign-in and other apps are managed separately.</p>'
+            response = page("Vipi account deleted", '<p class="lead">Your Vipi account has been deleted. Your shared Fallsoft sign-in and accounts in other apps remain.</p>'
                 '<p>You can close this page.</p><p><a href="/delete-account/sign-in">Sign in to review your current Vipi profile</a></p>'+subscription+
                 '<p class="small">A minimal deletion receipt is retained for seven days to let you check completion. A keyed identity hash and original free-trial dates remain to prevent a new free period after rejoining.</p>')
         else:
@@ -170,7 +170,7 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
     @app.get("/delete-account")
     async def landing(request: Request):
         if not origin:
-            return page("Delete your Vipi account", '<p class="lead">Browser account deletion is not available yet.</p><p>Please use Delete account in the app’s settings.</p>', 503)
+            return page("Delete your Vipi account", '<p class="lead">Browser account deletion is not available yet.</p><p>Please use Delete Vipi account in the app’s settings.</p>', 503)
         await throttle(request, "web-deletion-read", 120)
         receipt = read(request, RECEIPT, WEEK)
         if job := await job_for(receipt):
@@ -182,10 +182,10 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
             except AuthenticationError:
                 auth = None
             if auth:
-                return page("Delete your account?", f'<p class="identity">{escape(auth["label"])}</p>'
+                return page("Delete your Vipi account?", f'<p class="identity">{escape(auth["label"])}</p>'
                     '<p class="lead">Permanently delete your Vipi profile, device registrations and messages waiting for delivery. Your shared Fallsoft sign-in and accounts in other apps remain.</p>'
-                    '<p>This cannot be undone. Store subscriptions must be canceled separately. A keyed identity hash and original free-trial dates remain so rejoining does not restart the free period.</p>'+subscription+
-                    '<div class="actions">'+form("confirm", auth["csrf"], "Delete account", danger=True)+form("cancel", auth["csrf"], "Cancel")+'</div>')
+                    '<p>This cannot be undone. A keyed identity hash and original free-trial dates remain so rejoining does not restart the free period.</p>'+subscription+
+                    '<div class="actions">'+form("confirm", auth["csrf"], "Delete Vipi account", danger=True)+form("cancel", auth["csrf"], "Cancel")+'</div>')
         response = page("Delete your Vipi account", '<p class="lead">Sign in to confirm which account you want to delete. You’ll review the details before anything is deleted.</p>'
             +'<a class="button" href="/delete-account/sign-in">Sign in to continue</a>'+subscription)
         return clear(response, AUTH)

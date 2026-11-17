@@ -264,7 +264,7 @@
       ],
       "linked": true,
       "required_for": "Account-based chat; the introductory local preview does not establish that every account field is optional.",
-      "retention": "Vipi profile until account deletion; WorkOS deletion is retried separately. Provider authentication/security retention must be reconciled with the actual production configuration.",
+      "retention": "Reviewed shared-identity candidate: Vipi-only deletion removes the Vipi profile and app records while preserving the shared Fallsoft sign-in and other apps. Seven-day completion receipts, keyed identity/free-trial eligibility and keyed billing-ownership records have separately disclosed retention. No WorkOS deletion is dispatched by Vipi-only deletion. Global Fallsoft deletion is a separate privacy request; the automatic multi-app coordinator remains disabled until application coverage is qualified.",
       "apple_candidates": [
         "Name",
         "Email Address",
@@ -874,5 +874,33 @@
       "detected_language_disclosure": true,
       "body_sha256": "eed5a96b1c52dfd4517d89711b9881992682361ad2cd7d31a4a1bcb788d5e635"
     }
+  },
+  "shared_identity_and_single_tap_review_20261117": {
+    "at": "2026-11-17T21:35:09.847953+00:00",
+    "scope": "Current shared-login/deletion and single-tap native candidate; not yet deployed or resubmitted to either store",
+    "prior_identity_retention_wording": "Vipi profile until account deletion; WorkOS deletion is retried separately. Provider authentication/security retention must be reconciled with the actual production configuration.",
+    "source_hashes": {
+      "backend/vipi/deletion.py": "120514728912b934e20c900e731de0d8908436a4468f39dcafb51381786ef993",
+      "backend/vipi/web_deletion.py": "53db884afc1c655cd643bfb9b0feb18992eab06562c35862fa8cfa305f58497b",
+      "backend/vipi/public_pages.py": "ee7334fe909030f49409caaa538891a6ead09fa3aeb30f72e37dc47f97514b58",
+      "backend/vipi/identity_authorities.py": "8968dddb47790df34f27fba578bdf7b69bfbe2ecd7487d80c84298bbb2598f43",
+      "backend/vipi/billing_identity.py": "f61fee646ca343db89ec1c6e2afd5e666874b385ce2ecdb58efcc83d3a173710",
+      "ios/Vipi/ManualTranslation.swift": "756a1d4a34b70566d6bc30727c30b2c56c328be10a85b98ab3e9177e345fa160",
+      "ios/Vipi/AccountDeletionView.swift": "e7a0686d64b0395e5b9995b79eb8617c08fa4916116eb21d4953f19df968f7d9",
+      "android/app/src/main/java/co/fallsoft/vipi/ManualTranslation.kt": "66e6bdc6bd9add8d5ddfc22f68e7e0231bd862d969448fbb89ff5c4b42be546f",
+      "android/app/src/main/java/co/fallsoft/vipi/AccountDeletionScreen.kt": "c6caaa8b91ea6a3ffe3cac545cd30582220723bef6f0eea0fdf7fc40f2a4443c"
+    },
+    "changes": [
+      "Vipi-only deletion no longer dispatches provider-user deletion. The shared Fallsoft sign-in and other applications remain.",
+      "Retained keyed eligibility and purchase-ownership hashes permit original trial enforcement and fresh store-verified restoration; no cached paid access survives deletion.",
+      "Global multi-app deletion is not advertised as an active automatic feature; the existing privacy contact receives the separate request.",
+      "Single taps reuse existing local lookup/translation/readings/speech paths. The interaction change adds no remote human-message translation, microphone permission or new SDK. Existing language SDK operational telemetry disclosures remain applicable."
+    ],
+    "limits": [
+      "The automatic global coordinator remains disabled until every affected application and recovery path is qualified.",
+      "The immutable source candidate and exact signed-app artifacts must be reconciled with final store privacy/data-safety forms.",
+      "Earlier saved form, source-hash and deployment receipts remain historical and are not relabeled as current verification."
+    ],
+    "external_form_or_provider_actions": 0
   }
 }

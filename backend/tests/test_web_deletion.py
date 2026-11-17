@@ -86,10 +86,10 @@ async def test_web_deletion_confirms_exact_account_and_survives_lost_response(db
         # Discard the POST response's cookies as if the response never arrived.
         api.cookies = saved
         pending = await api.get("/delete-account")
-        assert "Account deleted" in pending.text and "shared Fallsoft sign-in" in pending.text
+        assert "Vipi account deleted" in pending.text and "shared Fallsoft sign-in" in pending.text
         assert AUTH not in api.cookies and START not in api.cookies
         finished = await api.get("/delete-account")
-        assert "Account deleted" in finished.text
+        assert "Vipi account deleted" in finished.text
         async with db.sessions() as s:
             assert await s.get(User, account) is None
             assert await s.get(User, "bob") is not None
@@ -109,7 +109,7 @@ async def test_web_deletion_cancel_and_unfinished_onboarding(db):
         confirm = await finish(api, await start(api))
         response = await api.post("/delete-account/confirm", data={"csrf": csrf(confirm)}, headers=HEADERS)
         assert response.status_code == 303
-        assert "Account deleted" in (await api.get("/delete-account")).text
+        assert "Vipi account deleted" in (await api.get("/delete-account")).text
         async with db.sessions() as s:
             assert (await s.scalar(select(AccountDeletion))).subject is None
             assert len((await s.scalars(select(User))).all()) == 3
@@ -170,8 +170,8 @@ async def test_web_receipt_handles_native_deletion_started_after_confirmation(db
             await request_deletion(s, subject="user_qa_alice", account_id=str(uuid4()), receipt_secret=secrets.token_urlsafe(32),
                                    service_secret=base_settings().service_secret, now=NOW)
         response = await api.post("/delete-account/cancel", data={"csrf":csrf(confirm)}, headers=HEADERS)
-        assert "Account deleted" in response.text and "Deletion canceled" not in response.text
-        assert "Account deleted" in (await api.get("/delete-account")).text
+        assert "Vipi account deleted" in response.text and "Deletion canceled" not in response.text
+        assert "Vipi account deleted" in (await api.get("/delete-account")).text
 
 
 async def test_browser_headers_cookies_and_disabled_service(db):
@@ -219,7 +219,7 @@ async def test_browser_confirmation_waiting_behind_native_deletion_recovers(db):
                 await request_deletion(native, subject="user_qa_alice", account_id=str(uuid4()), receipt_secret=secrets.token_urlsafe(32),
                     service_secret=base_settings().service_secret, now=NOW)
             assert (await asyncio.wait_for(task, 5)).status_code == 303
-            assert "Account deleted" in (await api.get("/delete-account")).text
+            assert "Vipi account deleted" in (await api.get("/delete-account")).text
             async with db.sessions() as session:
                 assert len((await session.scalars(select(AccountDeletion))).all()) == 1
         finally:
@@ -243,11 +243,11 @@ async def test_unadmitted_staging_identity_can_delete_its_own_account_but_cannot
         assert (await api.get("/v1/me", headers=headers)).status_code == 403
         assert (await api.put("/v1/me", json={"username":"new_person","display_name":"QA"}, headers=headers)).status_code == 403
         confirm = await finish(api, await start(api))
-        assert "Delete your account?" in confirm.text
+        assert "Delete your Vipi account?" in confirm.text
         native = await api.request("DELETE", "/v1/me", headers=headers,
             json={"account_id":str(uuid4()),"receipt_secret":secrets.token_urlsafe(32)})
         assert native.status_code == 202
-        assert "Account deleted" in (await api.get("/delete-account")).text
+        assert "Vipi account deleted" in (await api.get("/delete-account")).text
         async with db.sessions() as session:
             assert len((await session.scalars(select(User))).all()) == 3
 
@@ -273,11 +273,11 @@ async def test_web_old_receipt_cannot_delete_rejoined_profile_and_new_sign_in_ca
         api.cookies = old_cookies
         # An old browser confirmation observes only the old deletion.
         old_result = await api.post("/delete-account/confirm", data={"csrf":csrf(confirm)}, headers=HEADERS)
-        assert "Account deleted" in old_result.text
+        assert "Vipi account deleted" in old_result.text
         assert (await api.get("/v1/me", headers=fresh)).json()["id"] == second["id"]
         provider.token = "fresh-alice"
         new_confirm = await finish(api, await start(api))
-        assert "@new_alice" in new_confirm.text and "Delete your account?" in new_confirm.text
+        assert "@new_alice" in new_confirm.text and "Delete your Vipi account?" in new_confirm.text
         assert (await api.post("/delete-account/confirm", data={"csrf":csrf(new_confirm)}, headers=HEADERS)).status_code == 303
         assert "shared Fallsoft sign-in" in (await api.get("/delete-account")).text
         async with db.sessions() as session:

@@ -73,7 +73,7 @@ async def test_shared_callback_only_deletes_verified_namespaced_profile(db, sign
             assert result.status_code == 303
             # A lost POST response must still recover the exact shared receipt.
             api.cookies = saved
-            assert "Account deleted" in (await api.get("/delete-account")).text
+            assert "Vipi account deleted" in (await api.get("/delete-account")).text
             async with db.sessions() as session:
                 assert await session.get(User, account) is None
                 assert await session.get(User, "alice") is not None

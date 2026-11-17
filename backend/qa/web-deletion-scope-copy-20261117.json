@@ -1,0 +1,7 @@
+{
+  "at": "2026-11-17T21:35:53.039766+00:00",
+  "scope": "Web Vipi-only labels, duplicate subscription-copy removal, accurate disabled global-deletion disclosure, and candidate data inventory reconciliation",
+  "workflow_or_external_actions_changed": false,
+  "validation": "Existing browser deletion and signed shared-identity callback tests:16passed,1PostgreSQL-only skipped; JSON parse andgitdiffcheck passed. Earlier actualPostgreSQL17passes cover unchanged callback/deletion logic.",
+  "limits": "Source candidate only. No live deletion, sign-in, store form submission or production activation."
+}
