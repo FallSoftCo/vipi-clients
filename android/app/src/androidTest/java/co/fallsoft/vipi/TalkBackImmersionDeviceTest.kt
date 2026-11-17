@@ -79,7 +79,7 @@ class TalkBackImmersionDeviceTest {
             compose.setContent {
                 if (visible.value) VipiTheme(Appearance.LIGHT) {
                     val scope = rememberCoroutineScope()
-                    val owner = remember { ConversationImmersion(context, "en", "sw", 1.0) }
+                    val owner = remember { ConversationImmersion(context, "en", "sw", 1.0, qaModelsReady = true).also { it.selectInputLanguage("talkback-qa", "en") } }
                     val speech = remember { SpeechPlayback(context, "en", "sw", scope) }
                     DisposableEffect(Unit) { onDispose { owner.close(); speech.close() } }
                     Box(Modifier.fillMaxSize().safeDrawingPadding().padding(24.dp)) {
