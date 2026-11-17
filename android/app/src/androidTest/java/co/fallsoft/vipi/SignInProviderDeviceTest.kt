@@ -118,3 +118,61 @@ class IdentityAuthorityExchangeDeviceTest {
         } finally { root.deleteRecursively() }
     }
 }
+
+class IdentityLinkCoordinatorDeviceTest {
+    @Test fun wrongUUIDReadbackRetainsOldSessionAndExactRetryUsesSameAccountAndRequest() {
+        val base = InstrumentationRegistry.getInstrumentation().targetContext
+        val root = File(base.cacheDir, "identity-link-${UUID.randomUUID()}")
+        val context = object : ContextWrapper(base) { override fun getNoBackupFilesDir() = File(root, "private").apply { mkdirs() } }
+        val records = PrivateRecords(context)
+        val account = UUID.randomUUID(); val request = UUID.randomUUID(); val device = UUID.randomUUID()
+        val intent = IdentityLinkIntent(account.toString(), request.toString(), "user_original_fixture", device.toString(), "a".repeat(43))
+        val candidate = IdentityAuthority.FALLSOFT_VIPI_PRODUCTION.tag(JSONObject().put("userID", "user_shared_fixture")
+            .put("accessToken", "synthetic-new-access").put("refreshToken", "synthetic-new-refresh"))
+        records.write("session", IdentityAuthority.VIPI_PRODUCTION.tag(JSONObject().put("userID", intent.oldUserID)
+            .put("accessToken", "synthetic-old-access").put("refreshToken", "synthetic-old-refresh")))
+        records.write("pending-identity-link", IdentityLinkJournal(intent, candidate).json())
+        val auth = Authentication(context)
+        var wrongProfile = true; var posts = 0
+        try {
+            val original = File(context.noBackupFilesDir, "private-records/session").readBytes()
+            auth.qualificationLinkRequest = { method, _, body, token, suppliedDevice ->
+                assertEquals(device, suppliedDevice.id)
+                if (method == "POST") {
+                    posts++; assertEquals("synthetic-old-access", token)
+                    assertEquals(request.toString(), body!!.getString("request_id"))
+                    assertEquals(account.toString(), body.getString("expected_account_id"))
+                    assertEquals("synthetic-new-access", body.getString("fallsoft_access_token"))
+                    JSONObject().put("request_id", request).put("account_id", account).put("authority_id", IdentityAuthority.FALLSOFT_VIPI_PRODUCTION.recordID)
+                        .put("authentication_subject", "user_shared_fixture").put("binding_revision", 1)
+                } else {
+                    assertEquals("synthetic-new-access", token)
+                    JSONObject().put("id", if (wrongProfile) UUID.randomUUID() else account).put("username", "original_profile").put("display_name", "Synthetic")
+                }
+            }
+            runBlocking { withContext(Dispatchers.Main) { auth.resumeFallsoftLink() } }
+            assertNotNull(auth.error); assertEquals(intent.oldUserID, auth.userID)
+            assertArrayEquals(original, File(context.noBackupFilesDir, "private-records/session").readBytes())
+            assertNotNull(records.read("pending-identity-link"))
+            wrongProfile = false
+            runBlocking { withContext(Dispatchers.Main) { auth.resumeFallsoftLink() } }
+            assertNull(auth.error); assertEquals(2, posts); assertEquals("user_shared_fixture", auth.userID)
+            assertEquals(IdentityAuthority.FALLSOFT_VIPI_PRODUCTION, IdentityAuthority.read(requireNotNull(records.read("session"))))
+            assertNull(records.read("pending-identity-link"))
+        } finally { root.deleteRecursively() }
+    }
+
+    @Test fun journalRejectsFutureFormatWrongAuthorityTargetAndAccount() {
+        val intent = IdentityLinkIntent(UUID.randomUUID().toString(), UUID.randomUUID().toString(), "user_original_fixture", UUID.randomUUID().toString(), "a".repeat(43), "user_shared_fixture")
+        val candidate = IdentityAuthority.FALLSOFT_VIPI_PRODUCTION.tag(JSONObject().put("userID", "user_shared_fixture").put("accessToken", "synthetic-access").put("refreshToken", "synthetic-refresh"))
+        val valid = IdentityLinkJournal(intent, candidate).json()
+        assertEquals(intent.accountID, IdentityLinkJournal.parse(JSONObject(valid.toString())).intent.accountID)
+        val invalid = listOf(
+            JSONObject(valid.toString()).put("linkFormatVersion", 2),
+            JSONObject(valid.toString()).put("verifiedProfile", JSONObject().put("id", UUID.randomUUID())),
+            JSONObject(valid.toString()).apply { getJSONObject("candidate").put("userID", "user_other_fixture") },
+            JSONObject(valid.toString()).apply { IdentityAuthority.VIPI_PRODUCTION.tag(getJSONObject("candidate")) }
+        )
+        for (record in invalid) assertTrue(runCatching { IdentityLinkJournal.parse(record) }.isFailure)
+    }
+}

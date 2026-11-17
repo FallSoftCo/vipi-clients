@@ -28,6 +28,7 @@ import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.LinkOption.NOFOLLOW_LINKS
 import java.security.KeyStore
+import java.security.MessageDigest
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.ConcurrentHashMap
@@ -146,7 +147,8 @@ enum class SignInProvider(internal val workosProvider: String) {
 /** Only reviewed authorities may receive a stored verifier or refresh token. */
 internal enum class IdentityAuthority(val recordID: String, val clientID: String) {
     VIPI_PRODUCTION("vipi-production", "client_01M6VYVQQ9GWVNS95DFGABXEW9"),
-    VIPI_STAGING("vipi-staging", "client_01M5S2CDSQ8F7FEX26G3CY9VS1");
+    VIPI_STAGING("vipi-staging", "client_01M5S2CDSQ8F7FEX26G3CY9VS1"),
+    FALLSOFT_VIPI_PRODUCTION("fallsoft-vipi-production", "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4");
 
     fun tag(record: JSONObject): JSONObject = record.put("formatVersion", 2).put("authority", recordID).put("clientID", clientID)
     companion object {
@@ -164,6 +166,38 @@ internal enum class IdentityAuthority(val recordID: String, val clientID: String
                 ?: throw IOException("Unknown sign-in authority")
             require(record.getString("clientID") == authority.clientID) { "Sign-in authority mismatch" }
             return authority
+        }
+    }
+}
+
+internal data class IdentityLinkIntent(val accountID: String, val requestID: String, val oldUserID: String,
+                                      val deviceID: String, val deviceSecret: String, val expectedSharedUser: String? = null) {
+    fun json() = JSONObject().put("accountID", accountID).put("requestID", requestID).put("oldUserID", oldUserID)
+        .put("deviceID", deviceID).put("deviceSecret", deviceSecret).put("expectedSharedUser", expectedSharedUser)
+    companion object {
+        fun parse(value: JSONObject): IdentityLinkIntent {
+            fun uuid(key: String) = value.getString(key).also { require(UUID.fromString(it).toString() == it) }
+            return IdentityLinkIntent(uuid("accountID"), uuid("requestID"), value.getString("oldUserID").also { require(it.startsWith("user_") && it.length <= 128) },
+                uuid("deviceID"), value.getString("deviceSecret").also { require(it.matches(Regex("[A-Za-z0-9_-]{43}"))) },
+                value.optString("expectedSharedUser", "").takeIf { it.isNotEmpty() }?.also { require(it.startsWith("user_") && it.length <= 128) })
+        }
+    }
+}
+
+internal data class IdentityLinkJournal(val intent: IdentityLinkIntent, val candidate: JSONObject, val verifiedProfile: JSONObject? = null) {
+    fun json() = JSONObject().put("linkFormatVersion", 1).put("intent", intent.json()).put("candidate", candidate).put("verifiedProfile", verifiedProfile)
+    companion object {
+        fun parse(value: JSONObject): IdentityLinkJournal {
+            require(value.get("linkFormatVersion") == 1)
+            val intent = IdentityLinkIntent.parse(value.getJSONObject("intent"))
+            val candidate = value.getJSONObject("candidate")
+            require(IdentityAuthority.read(candidate) == IdentityAuthority.FALLSOFT_VIPI_PRODUCTION)
+            require(candidate.getString("userID").startsWith("user_") && candidate.getString("userID").length <= 128)
+            require(candidate.getString("accessToken").length in 1..32_768 && candidate.getString("refreshToken").length in 1..16_384)
+            require(intent.expectedSharedUser == null || intent.expectedSharedUser == candidate.getString("userID"))
+            val profile = value.optJSONObject("verifiedProfile")
+            if (profile != null) require(profile.getString("id") == intent.accountID)
+            return IdentityLinkJournal(intent, candidate, profile)
         }
     }
 }
@@ -219,6 +253,24 @@ class Authentication(context: Context) {
             CustomTabsIntent.Builder().setShowTitle(true).build().launchUrl(context, url)
         } catch (_: Exception) { records.remove("pending-sign-in"); error = appContext.getString(R.string.ui_79290727c58b) }
     }
+    /** Explicit migration only; ordinary sign-in never links or replaces accounts. */
+    internal fun beginFallsoftLink(context: Context, accountID: UUID, device: DeviceCredential) {
+        if (busy) return
+        error = null
+        try {
+            val current = requireNotNull(records.read("session"))
+            require(IdentityAuthority.read(current) == IdentityAuthority.VIPI_PRODUCTION && current.getString("userID") == userID)
+            val previous = records.read("pending-identity-link")?.let(IdentityLinkJournal::parse)
+            val intent = previous?.intent?.copy(expectedSharedUser = previous.candidate.getString("userID"))
+                ?: IdentityLinkIntent(accountID.toString(), UUID.randomUUID().toString(), current.getString("userID"), device.id.toString(), device.secret)
+            require(intent.accountID == accountID.toString() && intent.deviceID == device.id.toString() && intent.deviceSecret == device.secret && intent.oldUserID == userID)
+            val authority = IdentityAuthority.FALLSOFT_VIPI_PRODUCTION
+            val start = PublicClient.create(authority.clientID).getAuthorizationUrlWithPkce(callback)
+            records.write("pending-sign-in", authority.tag(JSONObject().put("state", start.state).put("verifier", start.codeVerifier)
+                .put("createdAt", System.currentTimeMillis()).put("link", intent.json())))
+            CustomTabsIntent.Builder().setShowTitle(true).build().launchUrl(context, signInAuthorizationURL(start.url, SignInProvider.EMAIL, reauthenticate = true))
+        } catch (_: Exception) { error = appContext.getString(R.string.ui_79290727c58b) }
+    }
     suspend fun complete(uri: Uri) {
         if (uri.scheme != "co.fallsoft.vipi" || uri.host != "auth" || uri.path != "/callback" || uri.port != -1 || uri.userInfo != null || uri.fragment != null || busy) return
         busy = true; error = null
@@ -250,6 +302,17 @@ class Authentication(context: Context) {
             val resultUser = result.getJSONObject("user").getString("id")
             stage = "account-binding"
             if (started != generation) throw SignInRequired()
+            pending.optJSONObject("link")?.let { link ->
+                require(authority == IdentityAuthority.FALLSOFT_VIPI_PRODUCTION)
+                val intent = IdentityLinkIntent.parse(link)
+                require(intent.expectedSharedUser == null || intent.expectedSharedUser == resultUser)
+                val current = requireNotNull(records.read("session"))
+                require(IdentityAuthority.read(current) == IdentityAuthority.VIPI_PRODUCTION && current.getString("userID") == intent.oldUserID && userID == intent.oldUserID)
+                val journal = IdentityLinkJournal(intent, sessionRecord(result, resultUser, authority))
+                records.write("pending-identity-link", journal.json())
+                finishFallsoftLink(journal, started)
+                return
+            }
             if (pending.has("expectedUser") && pending.getString("expectedUser") != resultUser) {
                 error = appContext.getString(R.string.ui_94455044f130); return
             }
@@ -271,6 +334,67 @@ class Authentication(context: Context) {
             error = appContext.getString(R.string.ui_1afc1c2532c4)
         }
         finally { busy = false }
+    }
+    internal suspend fun resumeFallsoftLink() {
+        if (busy) return
+        busy = true; error = null
+        try { finishFallsoftLink(IdentityLinkJournal.parse(requireNotNull(records.read("pending-identity-link"))), generation) }
+        catch (failure: CancellationException) { throw failure }
+        catch (_: Exception) { error = appContext.getString(R.string.ui_1afc1c2532c4) }
+        finally { busy = false }
+    }
+    private suspend fun finishFallsoftLink(journal: IdentityLinkJournal, started: UUID) {
+        val current = requireNotNull(records.read("session"))
+        val nextUser = journal.candidate.getString("userID")
+        // Recovery after an uncertain local activation never replays OAuth.
+        if (journal.verifiedProfile != null && IdentityAuthority.read(current) == IdentityAuthority.FALLSOFT_VIPI_PRODUCTION && current.getString("userID") == nextUser) {
+            require(records.read(profileKey(nextUser))?.getString("id") == journal.intent.accountID)
+            if (started != generation) throw SignInRequired()
+            if (userID != nextUser) { generation = UUID.randomUUID(); userID = nextUser; signInRevision++ }
+            records.remove("pending-identity-link")
+            return
+        }
+        require(IdentityAuthority.read(current) == IdentityAuthority.VIPI_PRODUCTION && current.getString("userID") == journal.intent.oldUserID && userID == journal.intent.oldUserID)
+        val device = DeviceCredential(UUID.fromString(journal.intent.deviceID), journal.intent.deviceSecret)
+        var oldToken = accessToken(journal.intent.oldUserID)
+        val body = JSONObject().put("request_id", journal.intent.requestID).put("expected_account_id", journal.intent.accountID)
+            .put("fallsoft_access_token", journal.candidate.getString("accessToken"))
+        val receipt = try { linkRequest("POST", "/v1/identity-links/fallsoft", body, oldToken, device) }
+        catch (failure: ServiceFailure) {
+            if (failure.status != 401 || failure.code != "sign_in_required") throw failure
+            oldToken = accessToken(journal.intent.oldUserID, oldToken)
+            linkRequest("POST", "/v1/identity-links/fallsoft", body, oldToken, device)
+        }
+        require(receipt.getString("request_id") == journal.intent.requestID && receipt.getString("account_id") == journal.intent.accountID
+            && receipt.getString("authority_id") == IdentityAuthority.FALLSOFT_VIPI_PRODUCTION.recordID && receipt.getString("authentication_subject") == nextUser
+            && receipt.getInt("binding_revision") == 1)
+        val profile = linkRequest("GET", "/v1/me", null, journal.candidate.getString("accessToken"), device)
+        require(profile.getString("id") == journal.intent.accountID)
+        if (started != generation || userID != journal.intent.oldUserID) throw SignInRequired()
+        // Journal the successful UUID readback before any session activation.
+        records.write("pending-identity-link", journal.copy(verifiedProfile = profile).json())
+        records.write(profileKey(nextUser), profile)
+        records.write("session", journal.candidate)
+        val saved = requireNotNull(records.read("session"))
+        require(IdentityAuthority.read(saved) == IdentityAuthority.FALLSOFT_VIPI_PRODUCTION && saved.getString("userID") == nextUser
+            && saved.getString("accessToken") == journal.candidate.getString("accessToken") && saved.getString("refreshToken") == journal.candidate.getString("refreshToken"))
+        generation = UUID.randomUUID(); userID = nextUser; signInRevision++
+        records.remove("pending-identity-link")
+    }
+    private fun profileKey(subject: String) = "profile-" + MessageDigest.getInstance("SHA-256").digest(subject.toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it) }
+    internal var qualificationLinkRequest: (suspend (String, String, JSONObject?, String, DeviceCredential) -> JSONObject)? = null
+        set(value) { check(BuildConfig.DEBUG); field = value }
+    private suspend fun linkRequest(method: String, path: String, fields: JSONObject?, token: String, device: DeviceCredential): JSONObject = withContext(Dispatchers.IO) {
+        qualificationLinkRequest?.let { check(BuildConfig.DEBUG); return@withContext it(method, path, fields, token, device) }
+        require(path in setOf("/v1/identity-links/fallsoft", "/v1/me"))
+        val body = fields?.toString()?.toRequestBody("application/json".toMediaType())
+        publicHTTP.newCall(Request.Builder().url("https://api.mambovipi.app$path").method(method, body)
+            .header("Authorization", "Bearer $token").header("X-Vipi-Device-ID", device.id.toString()).header("X-Vipi-Device-Secret", device.secret).build()).execute().use { response ->
+            val source = requireNotNull(response.body).source(); source.request(65_537); require(source.buffer.size <= 65_536)
+            val result = JSONObject(source.readUtf8())
+            if (!response.isSuccessful) throw ServiceFailure(response.code, result.optString("error", "service_unavailable"))
+            result
+        }
     }
     suspend fun accessToken(expectedUser: String, rejected: String? = null): String = withContext(Dispatchers.Main.immediate) {
         refreshLock.withLock {
@@ -310,5 +434,5 @@ class Authentication(context: Context) {
         val refresh = result.getString("refresh_token").also { require(it.isNotBlank() && it.length <= 16_384) }
         return authority.tag(JSONObject().put("userID", subject).put("accessToken", access).put("refreshToken", refresh))
     }
-    fun signOutLocally() { generation = UUID.randomUUID(); PrivateSpeechCache.erase(application); records.remove("session"); records.remove("pending-sign-in"); userID = null; signInRevision++ }
+    fun signOutLocally() { generation = UUID.randomUUID(); PrivateSpeechCache.erase(application); records.remove("session"); records.remove("pending-sign-in"); records.remove("pending-identity-link"); userID = null; signInRevision++ }
 }

@@ -101,3 +101,44 @@ final class IdentityAuthorityTests: XCTestCase {
         XCTAssertFalse(session.isBound(to: .vipiProduction, subject: "user_other_fixture"))
     }
 }
+
+final class IdentityLinkFormatTests: XCTestCase {
+    private func intent() -> IdentityLinkIntent { IdentityLinkIntent(accountID: UUID(), requestID: UUID(), oldUserID: "user_original_fixture",
+        deviceID: UUID(), deviceSecret: String(repeating: "a", count: 43), expectedSharedUser: "user_shared_fixture") }
+    private var candidate: VipiSession { VipiSession(userID: "user_shared_fixture", accessToken: "synthetic-new-access", refreshToken: "synthetic-new-refresh", authority: .fallsoftVipiProduction) }
+    func testJournalRoundTripRetainsOriginalAccountAndNewCandidateWithoutActivatingEither() throws {
+        let intent = intent()
+        let journal = try IdentityLinkJournal(intent: intent, candidate: candidate)
+        let restored = try JSONDecoder().decode(IdentityLinkJournal.self, from: JSONEncoder().encode(journal))
+        XCTAssertEqual(restored.intent.accountID, intent.accountID)
+        XCTAssertEqual(restored.intent.requestID, intent.requestID)
+        XCTAssertEqual(restored.intent.oldUserID, "user_original_fixture")
+        XCTAssertEqual(restored.candidate.userID, "user_shared_fixture")
+        XCTAssertNil(restored.verifiedProfile)
+        let profile = IdentityLinkProfile(id: intent.accountID, username: "original_profile", display_name: "Synthetic")
+        XCTAssertEqual(try IdentityLinkJournal(intent: intent, candidate: candidate, verifiedProfile: profile).verifiedProfile?.id, intent.accountID)
+    }
+    func testWrongAccountAuthorityTargetAndFutureJournalAreRejected() throws {
+        let intent = intent()
+        XCTAssertThrowsError(try IdentityLinkJournal(intent: intent, candidate: candidate,
+            verifiedProfile: IdentityLinkProfile(id: UUID(), username: "wrong_profile", display_name: "Wrong")))
+        XCTAssertThrowsError(try IdentityLinkJournal(intent: intent,
+            candidate: VipiSession(userID: candidate.userID, accessToken: candidate.accessToken, refreshToken: candidate.refreshToken, authority: .vipiProduction)))
+        var other = intent; other.expectedSharedUser = "user_other_fixture"
+        XCTAssertThrowsError(try IdentityLinkJournal(intent: other, candidate: candidate))
+        let saved = try JSONEncoder().encode(IdentityLinkJournal(intent: intent, candidate: candidate))
+        var fields = try XCTUnwrap(JSONSerialization.jsonObject(with: saved) as? [String: Any]); fields["linkFormatVersion"] = 2
+        XCTAssertThrowsError(try JSONDecoder().decode(IdentityLinkJournal.self, from: JSONSerialization.data(withJSONObject: fields)))
+    }
+    func testReceiptMustMatchExactRequestAccountAuthorityAndSubject() throws {
+        let intent = intent()
+        let valid: [String: Any] = ["request_id": intent.requestID.uuidString, "account_id": intent.accountID.uuidString,
+            "authority_id": IdentityAuthority.fallsoftVipiProduction.rawValue, "authentication_subject": candidate.userID, "binding_revision": 1]
+        for patch: [String: Any] in [[:], ["request_id": UUID().uuidString], ["account_id": UUID().uuidString],
+            ["authority_id": IdentityAuthority.vipiProduction.rawValue], ["authentication_subject": "user_other_fixture"], ["binding_revision": 2]] {
+            let receipt = try JSONDecoder().decode(IdentityLinkReceipt.self, from: JSONSerialization.data(withJSONObject: valid.merging(patch) { _, new in new }))
+            if patch.isEmpty { XCTAssertNoThrow(try receipt.validate(intent: intent, candidate: candidate)) }
+            else { XCTAssertThrowsError(try receipt.validate(intent: intent, candidate: candidate)) }
+        }
+    }
+}

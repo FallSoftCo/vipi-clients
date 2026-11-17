@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-17",
+  "status": "hidden explicit coordinator prepared; no UI caller or production cutover",
+  "server_contract_commit": "8f7d9f8",
+  "scope": "Explicit legacy-session->shared Fallsoft Vipi identity link, preserving accountUUID and private vault",
+  "default_production_client": "unchanged",
+  "new_reviewed_authority": {
+    "id": "fallsoft-vipi-production",
+    "client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4"
+  },
+  "entry_points": {
+    "android": [
+      "beginFallsoftLink(context, accountID, registeredDevice)",
+      "resumeFallsoftLink()"
+    ],
+    "apple": [
+      "beginFallsoftLink(accountID, registeredDevice)",
+      "resumeFallsoftLink()"
+    ],
+    "prerequisite": "Existing legacy Vipi session, expected cached accountUUID and original registered device; legacy fresh auth required by server. Shared auth always max_age0 through hosted AuthKit."
+  },
+  "durability": "Persist candidate session+original account/request/device in encrypted recovery journal before POST. Retain old active session. Validate receipt requestID/accountUUID/authority/subject/revision then independent GETv1me sameUUID. Journal readback proof before newcachealias/session activation; verify saved session readback; remove journal last. Unknown response, outage, wrongUUID or write failure leaves journal/oldsession for exactretry. Already durable activation recovers without replaying OAuth/server POST.",
+  "binding": "Local login subject/profile-cache alias changes only after unchanged backendUUID proof. Actual vault accountUUID, Signal keys/device ID, conversations/familiarity and backend subscriptions remain unchanged. Old profilecache remains retained. No email merge.",
+  "sign_out": "Explicit local signout clears pending candidate tokens and generation-guards in-flight responses. Server token-free receipt persists with linked Vipi account so later shared sign-in can recover same serverUUID; signout never rolls back a committed server link.",
+  "signed_out_returning_user_boundary": "This coordinator starts from existing legacy session. Shared profile_required UI must explicitly offer connecting an existing Vipi account before newprofile creation; no automatic signed-out cross-directory merge is claimed.",
+  "checks": {
+    "native_macos_formats": {
+      "passed": 10,
+      "failed": 0,
+      "compiler_jobs": 1,
+      "log": "link-format-swift-test.log",
+      "scope": "Exact Foundation record/journal/receipt/helpers +focused tests, no UIKit manager run"
+    },
+    "kotlin_jvm_formats": {
+      "passed": 4,
+      "failed": 0,
+      "log": "link-format-kotlin-jvm-test.log",
+      "scope": "Exact authority/journal helpers and focused test bodies with isolated BuildConfigfixture"
+    },
+    "actual_coordinator_tests_delivered": [
+      "Android wrongUUID readback then exact retry; saved authority refresh/cross-authority rejection",
+      "Apple wrongUUID readback then exact retry; durable activation recovery without network; signout during uncertain server success"
+    ],
+    "coordinator_execution": "Pending integrated isolated native QA; do not claim passed until UI owner receipt",
+    "diff_check": "passed"
+  },
+  "source_sha256": {
+    "android/app/src/main/java/co/fallsoft/vipi/Authentication.kt": "8745cb67df6715322b176c67f20269421fd3d1e30ccd4164c9a41f4303d25217",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SignInProviderDeviceTest.kt": "9dece9e734d304c9a5a40ca398d86867bcf9724fb5b7d6a1c8e92622419a9628",
+    "ios/Vipi/Authentication.swift": "044c1d18b3e8eed5ecd50dbbfabba4c19e72e709c3b2bb436b26a333d7ca5101",
+    "ios/VipiCryptoTests/SignInProviderTests.swift": "b816557b888a3ac1f403811c3d1e2c90c8b21438e6daf1a8f563541330400bf8",
+    "ios/VipiCryptoTests/IdentityLinkCoordinatorTests.swift": "acef69d7462acdf5ae1b4b1a2322f8ed32cba00af47bbd7637c3f08c1069813b"
+  },
+  "not_performed": [
+    "production WorkOS/client/backend switch",
+    "customer account linking",
+    "phone interaction",
+    "new signing/release/submission",
+    "live provider callback/end-to-end verification"
+  ]
+}
