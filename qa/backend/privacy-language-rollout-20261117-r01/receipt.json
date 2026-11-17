@@ -1,0 +1,23 @@
+{
+  "scope": "one authorized API-only privacy copy activation; failed and rolled back",
+  "unit": "vipi-privacy-language-20261117-r01.service",
+  "script_sha256": "9590c01b919f577929145589529c51034a527294328cebaf4b2fde165ef0b0c2",
+  "candidate_manifest_sha256": "d372529f7f2a940090248914066ff7e65a078a88e29ce7ded793a65a5cda7c96",
+  "base_revision": "84c3ff8db5235a0b9419373f5d56b99ad50bf495",
+  "candidate_privacy_sha256": "f78f9f504a9f4dd77c562bc04276bf1a8006ef3c131361ff76d6924b32aced40",
+  "outcome": "exit 1; candidate started; AssertionError; old release restored and API restarted",
+  "rollback": true,
+  "postcheck": {
+    "current_base_restored": true,
+    "api_active": true,
+    "api_pid": 3199845,
+    "private_ready_http": 200,
+    "privacy_http": 200,
+    "push_pid": 2678219,
+    "push_active": true,
+    "billing_and_expiry_timers_active": true,
+    "environment_sha256": "689e448c844e8153634cd0b1e31aa3de315a3f16ee67e12ef6ac3b3e167fb7d3"
+  },
+  "cause_assessment": "Assertion location was not retained. Plain dictionary lookup of Cache-Control is incorrect for the observed lowercase response header; the exact candidate failure is strongly suspected but unproven.",
+  "constraints": "No client restart, purchase, migration, provider test, settings or registration change. Do not replay the original unit."
+}
