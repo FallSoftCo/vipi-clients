@@ -1,0 +1,3010 @@
+{
+  "scope": "exact reference rows whose authored target Latin reading contains punctuation currently rejected by word/span validator; not a measurement of 468 real-world failed messages or guaranteed emitted units",
+  "catalog_sha256": "e1c8296bde4b1a873e5f5c01c59a9e45bdd2d80753ed6a42ac8ad3a8b68e118a",
+  "readings_sha256": "41dc56026038176348580016725ce1197e58b21586a719d3b40aa5c07d457c24",
+  "rows": 468,
+  "unique_readings": 35,
+  "by_target": {
+    "ja": 138,
+    "ko": 110,
+    "zh": 110,
+    "ar": 110
+  },
+  "unsupported_characters": {
+    "?": 25,
+    ",": 10
+  },
+  "examples": [
+    {
+      "language": "ar",
+      "text": "أين شاحن الهاتف؟",
+      "latin": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "language": "ar",
+      "text": "أين محطة القطار؟",
+      "latin": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "language": "ar",
+      "text": "أين مفتاح الباب؟",
+      "latin": "Ayna miftāḥ al-bāb?"
+    },
+    {
+      "language": "ar",
+      "text": "أين موقف الحافلة؟",
+      "latin": "Ayna mawqif al-ḥāfila?"
+    },
+    {
+      "language": "ar",
+      "text": "ما الأخبار؟",
+      "latin": "Mā al-akhbār?"
+    },
+    {
+      "language": "ar",
+      "text": "ما خطة الرحلة؟",
+      "latin": "Mā khuṭṭat ar-riḥla?"
+    },
+    {
+      "language": "ar",
+      "text": "ما رقم الهاتف الخاص بك؟",
+      "latin": "Mā raqam al-hātif al-khāṣṣ bik?"
+    },
+    {
+      "language": "ar",
+      "text": "ما عنوان الفندق؟",
+      "latin": "Mā 'unwān al-funduq?"
+    },
+    {
+      "language": "ja",
+      "text": "今、お茶を飲んでいます。",
+      "latin": "Ima, ocha o nonde imasu."
+    },
+    {
+      "language": "ja",
+      "text": "今、コーヒーを飲んでいます。",
+      "latin": "Ima, kōhī o nonde imasu."
+    },
+    {
+      "language": "ja",
+      "text": "今、チーズを食べています。",
+      "latin": "Ima, chīzu o tabete imasu."
+    },
+    {
+      "language": "ja",
+      "text": "今、パンを食べています。",
+      "latin": "Ima, pan o tabete imasu."
+    },
+    {
+      "language": "ja",
+      "text": "今、ピアノを弾いています。",
+      "latin": "Ima, piano o hiite imasu."
+    },
+    {
+      "language": "ja",
+      "text": "今、映画を見ています。",
+      "latin": "Ima, eiga o mite imasu."
+    },
+    {
+      "language": "ja",
+      "text": "今、本を読んでいます。",
+      "latin": "Ima, hon o yonde imasu."
+    },
+    {
+      "language": "ja",
+      "text": "今、水を飲んでいます。",
+      "latin": "Ima, mizu o nonde imasu."
+    },
+    {
+      "language": "ja",
+      "text": "今、犬を散歩させています。",
+      "latin": "Ima, inu o sanpo sasete imasu."
+    },
+    {
+      "language": "ja",
+      "text": "今、音楽を聴いています。",
+      "latin": "Ima, ongaku o kiite imasu."
+    },
+    {
+      "language": "ja",
+      "text": "最近どう？",
+      "latin": "Saikin dō?"
+    },
+    {
+      "language": "ko",
+      "text": "기차역이 어디예요?",
+      "latin": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "language": "ko",
+      "text": "당신의 전화번호가 뭐예요?",
+      "latin": "Dangsinui jeonhwabeonhoga mwoyeyo?"
+    },
+    {
+      "language": "ko",
+      "text": "문 열쇠가 어디예요?",
+      "latin": "Mun yeolsoega eodiyeyo?"
+    },
+    {
+      "language": "ko",
+      "text": "버스 정류장이 어디예요?",
+      "latin": "Beoseu jeongnyujangi eodiyeyo?"
+    },
+    {
+      "language": "ko",
+      "text": "여행 계획이 뭐예요?",
+      "latin": "Yeohaeng gyehoegi mwoyeyo?"
+    },
+    {
+      "language": "ko",
+      "text": "요즘 어때?",
+      "latin": "Yojeum eottae?"
+    },
+    {
+      "language": "ko",
+      "text": "호텔 주소가 뭐예요?",
+      "latin": "Hotel jusoga mwoyeyo?"
+    },
+    {
+      "language": "ko",
+      "text": "휴대폰 충전기가 어디예요?",
+      "latin": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "language": "zh",
+      "text": "你的电话号码是什么？",
+      "latin": "Nǐ de diànhuà hàomǎ shì shénme?"
+    },
+    {
+      "language": "zh",
+      "text": "公交站在哪里？",
+      "latin": "Gōngjiāozhàn zài nǎlǐ?"
+    },
+    {
+      "language": "zh",
+      "text": "手机充电器在哪里？",
+      "latin": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "language": "zh",
+      "text": "旅行的计划是什么？",
+      "latin": "Lǚxíng de jìhuà shì shénme?"
+    },
+    {
+      "language": "zh",
+      "text": "最近怎么样？",
+      "latin": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "language": "zh",
+      "text": "火车站在哪里？",
+      "latin": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "language": "zh",
+      "text": "酒店的地址是什么？",
+      "latin": "Jiǔdiàn de dìzhǐ shì shénme?"
+    },
+    {
+      "language": "zh",
+      "text": "门的钥匙在哪里？",
+      "latin": "Mén de yàoshi zài nǎlǐ?"
+    }
+  ],
+  "references": [
+    {
+      "pair": "ar-ja",
+      "original": "أنا آكل الجبن الآن.",
+      "translated": "今、チーズを食べています。",
+      "reading": "Ima, chīzu o tabete imasu."
+    },
+    {
+      "pair": "ar-ja",
+      "original": "أنا آكل الخبز الآن.",
+      "translated": "今、パンを食べています。",
+      "reading": "Ima, pan o tabete imasu."
+    },
+    {
+      "pair": "ar-ja",
+      "original": "أنا أتمشى مع الكلب الآن.",
+      "translated": "今、犬を散歩させています。",
+      "reading": "Ima, inu o sanpo sasete imasu."
+    },
+    {
+      "pair": "ar-ja",
+      "original": "أنا أستمع إلى الموسيقى الآن.",
+      "translated": "今、音楽を聴いています。",
+      "reading": "Ima, ongaku o kiite imasu."
+    },
+    {
+      "pair": "ar-ja",
+      "original": "أنا أشاهد فيلمًا الآن.",
+      "translated": "今、映画を見ています。",
+      "reading": "Ima, eiga o mite imasu."
+    },
+    {
+      "pair": "ar-ja",
+      "original": "أنا أشرب الشاي الآن.",
+      "translated": "今、お茶を飲んでいます。",
+      "reading": "Ima, ocha o nonde imasu."
+    },
+    {
+      "pair": "ar-ja",
+      "original": "أنا أشرب القهوة الآن.",
+      "translated": "今、コーヒーを飲んでいます。",
+      "reading": "Ima, kōhī o nonde imasu."
+    },
+    {
+      "pair": "ar-ja",
+      "original": "أنا أشرب الماء الآن.",
+      "translated": "今、水を飲んでいます。",
+      "reading": "Ima, mizu o nonde imasu."
+    },
+    {
+      "pair": "ar-ja",
+      "original": "أنا أعزف على البيانو الآن.",
+      "translated": "今、ピアノを弾いています。",
+      "reading": "Ima, piano o hiite imasu."
+    },
+    {
+      "pair": "ar-ja",
+      "original": "أنا أقرأ كتابًا الآن.",
+      "translated": "今、本を読んでいます。",
+      "reading": "Ima, hon o yonde imasu."
+    },
+    {
+      "pair": "ar-ja",
+      "original": "ما الأخبار",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "ar-ja",
+      "original": "ما الأخبار؟",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "ar-ko",
+      "original": "أين شاحن الهاتف؟",
+      "translated": "휴대폰 충전기가 어디예요?",
+      "reading": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "pair": "ar-ko",
+      "original": "أين محطة القطار؟",
+      "translated": "기차역이 어디예요?",
+      "reading": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "pair": "ar-ko",
+      "original": "أين مفتاح الباب؟",
+      "translated": "문 열쇠가 어디예요?",
+      "reading": "Mun yeolsoega eodiyeyo?"
+    },
+    {
+      "pair": "ar-ko",
+      "original": "أين موقف الحافلة؟",
+      "translated": "버스 정류장이 어디예요?",
+      "reading": "Beoseu jeongnyujangi eodiyeyo?"
+    },
+    {
+      "pair": "ar-ko",
+      "original": "ما الأخبار",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "ar-ko",
+      "original": "ما الأخبار؟",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "ar-ko",
+      "original": "ما خطة الرحلة؟",
+      "translated": "여행 계획이 뭐예요?",
+      "reading": "Yeohaeng gyehoegi mwoyeyo?"
+    },
+    {
+      "pair": "ar-ko",
+      "original": "ما رقم الهاتف الخاص بك؟",
+      "translated": "당신의 전화번호가 뭐예요?",
+      "reading": "Dangsinui jeonhwabeonhoga mwoyeyo?"
+    },
+    {
+      "pair": "ar-ko",
+      "original": "ما عنوان الفندق؟",
+      "translated": "호텔 주소가 뭐예요?",
+      "reading": "Hotel jusoga mwoyeyo?"
+    },
+    {
+      "pair": "ar-zh",
+      "original": "أين شاحن الهاتف؟",
+      "translated": "手机充电器在哪里？",
+      "reading": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "pair": "ar-zh",
+      "original": "أين محطة القطار؟",
+      "translated": "火车站在哪里？",
+      "reading": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "ar-zh",
+      "original": "أين مفتاح الباب؟",
+      "translated": "门的钥匙在哪里？",
+      "reading": "Mén de yàoshi zài nǎlǐ?"
+    },
+    {
+      "pair": "ar-zh",
+      "original": "أين موقف الحافلة؟",
+      "translated": "公交站在哪里？",
+      "reading": "Gōngjiāozhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "ar-zh",
+      "original": "ما الأخبار",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "ar-zh",
+      "original": "ما الأخبار؟",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "ar-zh",
+      "original": "ما خطة الرحلة؟",
+      "translated": "旅行的计划是什么？",
+      "reading": "Lǚxíng de jìhuà shì shénme?"
+    },
+    {
+      "pair": "ar-zh",
+      "original": "ما رقم الهاتف الخاص بك؟",
+      "translated": "你的电话号码是什么？",
+      "reading": "Nǐ de diànhuà hàomǎ shì shénme?"
+    },
+    {
+      "pair": "ar-zh",
+      "original": "ما عنوان الفندق؟",
+      "translated": "酒店的地址是什么？",
+      "reading": "Jiǔdiàn de dìzhǐ shì shénme?"
+    },
+    {
+      "pair": "de-ar",
+      "original": "Was geht",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "de-ar",
+      "original": "Was geht?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "de-ar",
+      "original": "Was ist deine Telefonnummer?",
+      "translated": "ما رقم الهاتف الخاص بك؟",
+      "reading": "Mā raqam al-hātif al-khāṣṣ bik?"
+    },
+    {
+      "pair": "de-ar",
+      "original": "Was ist der Plan für die Reise?",
+      "translated": "ما خطة الرحلة؟",
+      "reading": "Mā khuṭṭat ar-riḥla?"
+    },
+    {
+      "pair": "de-ar",
+      "original": "Wie lautet die Adresse des Hotels?",
+      "translated": "ما عنوان الفندق؟",
+      "reading": "Mā 'unwān al-funduq?"
+    },
+    {
+      "pair": "de-ar",
+      "original": "Wo ist das Ladegerät fürs Telefon?",
+      "translated": "أين شاحن الهاتف؟",
+      "reading": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "pair": "de-ar",
+      "original": "Wo ist der Bahnhof?",
+      "translated": "أين محطة القطار؟",
+      "reading": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "pair": "de-ar",
+      "original": "Wo ist der Schlüssel für die Tür?",
+      "translated": "أين مفتاح الباب؟",
+      "reading": "Ayna miftāḥ al-bāb?"
+    },
+    {
+      "pair": "de-ar",
+      "original": "Wo ist die Bushaltestelle?",
+      "translated": "أين موقف الحافلة؟",
+      "reading": "Ayna mawqif al-ḥāfila?"
+    },
+    {
+      "pair": "de-ja",
+      "original": "Ich esse Brot gerade.",
+      "translated": "今、パンを食べています。",
+      "reading": "Ima, pan o tabete imasu."
+    },
+    {
+      "pair": "de-ja",
+      "original": "Ich esse Käse gerade.",
+      "translated": "今、チーズを食べています。",
+      "reading": "Ima, chīzu o tabete imasu."
+    },
+    {
+      "pair": "de-ja",
+      "original": "Ich führe den Hund aus gerade.",
+      "translated": "今、犬を散歩させています。",
+      "reading": "Ima, inu o sanpo sasete imasu."
+    },
+    {
+      "pair": "de-ja",
+      "original": "Ich höre Musik gerade.",
+      "translated": "今、音楽を聴いています。",
+      "reading": "Ima, ongaku o kiite imasu."
+    },
+    {
+      "pair": "de-ja",
+      "original": "Ich lese ein Buch gerade.",
+      "translated": "今、本を読んでいます。",
+      "reading": "Ima, hon o yonde imasu."
+    },
+    {
+      "pair": "de-ja",
+      "original": "Ich sehe einen Film gerade.",
+      "translated": "今、映画を見ています。",
+      "reading": "Ima, eiga o mite imasu."
+    },
+    {
+      "pair": "de-ja",
+      "original": "Ich spiele Klavier gerade.",
+      "translated": "今、ピアノを弾いています。",
+      "reading": "Ima, piano o hiite imasu."
+    },
+    {
+      "pair": "de-ja",
+      "original": "Ich trinke Kaffee gerade.",
+      "translated": "今、コーヒーを飲んでいます。",
+      "reading": "Ima, kōhī o nonde imasu."
+    },
+    {
+      "pair": "de-ja",
+      "original": "Ich trinke Tee gerade.",
+      "translated": "今、お茶を飲んでいます。",
+      "reading": "Ima, ocha o nonde imasu."
+    },
+    {
+      "pair": "de-ja",
+      "original": "Ich trinke Wasser gerade.",
+      "translated": "今、水を飲んでいます。",
+      "reading": "Ima, mizu o nonde imasu."
+    },
+    {
+      "pair": "de-ja",
+      "original": "Was geht",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "de-ja",
+      "original": "Was geht?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "de-ko",
+      "original": "Was geht",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "de-ko",
+      "original": "Was geht?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "de-ko",
+      "original": "Was ist deine Telefonnummer?",
+      "translated": "당신의 전화번호가 뭐예요?",
+      "reading": "Dangsinui jeonhwabeonhoga mwoyeyo?"
+    },
+    {
+      "pair": "de-ko",
+      "original": "Was ist der Plan für die Reise?",
+      "translated": "여행 계획이 뭐예요?",
+      "reading": "Yeohaeng gyehoegi mwoyeyo?"
+    },
+    {
+      "pair": "de-ko",
+      "original": "Wie lautet die Adresse des Hotels?",
+      "translated": "호텔 주소가 뭐예요?",
+      "reading": "Hotel jusoga mwoyeyo?"
+    },
+    {
+      "pair": "de-ko",
+      "original": "Wo ist das Ladegerät fürs Telefon?",
+      "translated": "휴대폰 충전기가 어디예요?",
+      "reading": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "pair": "de-ko",
+      "original": "Wo ist der Bahnhof?",
+      "translated": "기차역이 어디예요?",
+      "reading": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "pair": "de-ko",
+      "original": "Wo ist der Schlüssel für die Tür?",
+      "translated": "문 열쇠가 어디예요?",
+      "reading": "Mun yeolsoega eodiyeyo?"
+    },
+    {
+      "pair": "de-ko",
+      "original": "Wo ist die Bushaltestelle?",
+      "translated": "버스 정류장이 어디예요?",
+      "reading": "Beoseu jeongnyujangi eodiyeyo?"
+    },
+    {
+      "pair": "de-zh",
+      "original": "Was geht",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "de-zh",
+      "original": "Was geht?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "de-zh",
+      "original": "Was ist deine Telefonnummer?",
+      "translated": "你的电话号码是什么？",
+      "reading": "Nǐ de diànhuà hàomǎ shì shénme?"
+    },
+    {
+      "pair": "de-zh",
+      "original": "Was ist der Plan für die Reise?",
+      "translated": "旅行的计划是什么？",
+      "reading": "Lǚxíng de jìhuà shì shénme?"
+    },
+    {
+      "pair": "de-zh",
+      "original": "Wie lautet die Adresse des Hotels?",
+      "translated": "酒店的地址是什么？",
+      "reading": "Jiǔdiàn de dìzhǐ shì shénme?"
+    },
+    {
+      "pair": "de-zh",
+      "original": "Wo ist das Ladegerät fürs Telefon?",
+      "translated": "手机充电器在哪里？",
+      "reading": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "pair": "de-zh",
+      "original": "Wo ist der Bahnhof?",
+      "translated": "火车站在哪里？",
+      "reading": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "de-zh",
+      "original": "Wo ist der Schlüssel für die Tür?",
+      "translated": "门的钥匙在哪里？",
+      "reading": "Mén de yàoshi zài nǎlǐ?"
+    },
+    {
+      "pair": "de-zh",
+      "original": "Wo ist die Bushaltestelle?",
+      "translated": "公交站在哪里？",
+      "reading": "Gōngjiāozhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "What is the hotel’s address?",
+      "translated": "ما عنوان الفندق؟",
+      "reading": "Mā 'unwān al-funduq?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "What is the plan for the trip?",
+      "translated": "ما خطة الرحلة؟",
+      "reading": "Mā khuṭṭat ar-riḥla?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "What is your phone number?",
+      "translated": "ما رقم الهاتف الخاص بك؟",
+      "reading": "Mā raqam al-hātif al-khāṣṣ bik?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "What's up",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "What's up?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "What’s up",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "What’s up?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "Where is the bus stop?",
+      "translated": "أين موقف الحافلة؟",
+      "reading": "Ayna mawqif al-ḥāfila?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "Where is the key to the door?",
+      "translated": "أين مفتاح الباب؟",
+      "reading": "Ayna miftāḥ al-bāb?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "Where is the phone charger?",
+      "translated": "أين شاحن الهاتف؟",
+      "reading": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "Where is the train station?",
+      "translated": "أين محطة القطار؟",
+      "reading": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "what's up",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "what's up?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "what’s up",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "en-ar",
+      "original": "what’s up?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "en-ja",
+      "original": "I am drinking coffee now.",
+      "translated": "今、コーヒーを飲んでいます。",
+      "reading": "Ima, kōhī o nonde imasu."
+    },
+    {
+      "pair": "en-ja",
+      "original": "I am drinking tea now.",
+      "translated": "今、お茶を飲んでいます。",
+      "reading": "Ima, ocha o nonde imasu."
+    },
+    {
+      "pair": "en-ja",
+      "original": "I am drinking water now.",
+      "translated": "今、水を飲んでいます。",
+      "reading": "Ima, mizu o nonde imasu."
+    },
+    {
+      "pair": "en-ja",
+      "original": "I am eating bread now.",
+      "translated": "今、パンを食べています。",
+      "reading": "Ima, pan o tabete imasu."
+    },
+    {
+      "pair": "en-ja",
+      "original": "I am eating cheese now.",
+      "translated": "今、チーズを食べています。",
+      "reading": "Ima, chīzu o tabete imasu."
+    },
+    {
+      "pair": "en-ja",
+      "original": "I am listening to music now.",
+      "translated": "今、音楽を聴いています。",
+      "reading": "Ima, ongaku o kiite imasu."
+    },
+    {
+      "pair": "en-ja",
+      "original": "I am playing the piano now.",
+      "translated": "今、ピアノを弾いています。",
+      "reading": "Ima, piano o hiite imasu."
+    },
+    {
+      "pair": "en-ja",
+      "original": "I am reading a book now.",
+      "translated": "今、本を読んでいます。",
+      "reading": "Ima, hon o yonde imasu."
+    },
+    {
+      "pair": "en-ja",
+      "original": "I am walking the dog now.",
+      "translated": "今、犬を散歩させています。",
+      "reading": "Ima, inu o sanpo sasete imasu."
+    },
+    {
+      "pair": "en-ja",
+      "original": "I am watching a movie now.",
+      "translated": "今、映画を見ています。",
+      "reading": "Ima, eiga o mite imasu."
+    },
+    {
+      "pair": "en-ja",
+      "original": "What's up",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "en-ja",
+      "original": "What's up?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "en-ja",
+      "original": "What’s up",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "en-ja",
+      "original": "What’s up?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "en-ja",
+      "original": "what's up",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "en-ja",
+      "original": "what's up?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "en-ja",
+      "original": "what’s up",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "en-ja",
+      "original": "what’s up?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "What is the hotel’s address?",
+      "translated": "호텔 주소가 뭐예요?",
+      "reading": "Hotel jusoga mwoyeyo?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "What is the plan for the trip?",
+      "translated": "여행 계획이 뭐예요?",
+      "reading": "Yeohaeng gyehoegi mwoyeyo?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "What is your phone number?",
+      "translated": "당신의 전화번호가 뭐예요?",
+      "reading": "Dangsinui jeonhwabeonhoga mwoyeyo?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "What's up",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "What's up?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "What’s up",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "What’s up?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "Where is the bus stop?",
+      "translated": "버스 정류장이 어디예요?",
+      "reading": "Beoseu jeongnyujangi eodiyeyo?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "Where is the key to the door?",
+      "translated": "문 열쇠가 어디예요?",
+      "reading": "Mun yeolsoega eodiyeyo?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "Where is the phone charger?",
+      "translated": "휴대폰 충전기가 어디예요?",
+      "reading": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "Where is the train station?",
+      "translated": "기차역이 어디예요?",
+      "reading": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "what's up",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "what's up?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "what’s up",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "en-ko",
+      "original": "what’s up?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "What is the hotel’s address?",
+      "translated": "酒店的地址是什么？",
+      "reading": "Jiǔdiàn de dìzhǐ shì shénme?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "What is the plan for the trip?",
+      "translated": "旅行的计划是什么？",
+      "reading": "Lǚxíng de jìhuà shì shénme?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "What is your phone number?",
+      "translated": "你的电话号码是什么？",
+      "reading": "Nǐ de diànhuà hàomǎ shì shénme?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "What's up",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "What's up?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "What’s up",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "What’s up?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "Where is the bus stop?",
+      "translated": "公交站在哪里？",
+      "reading": "Gōngjiāozhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "Where is the key to the door?",
+      "translated": "门的钥匙在哪里？",
+      "reading": "Mén de yàoshi zài nǎlǐ?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "Where is the phone charger?",
+      "translated": "手机充电器在哪里？",
+      "reading": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "Where is the train station?",
+      "translated": "火车站在哪里？",
+      "reading": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "what's up",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "what's up?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "what’s up",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "en-zh",
+      "original": "what’s up?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "Qué tal",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "Qué tal?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "qué tal",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "qué tal?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "¿Cuál es el plan para el viaje?",
+      "translated": "ما خطة الرحلة؟",
+      "reading": "Mā khuṭṭat ar-riḥla?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "¿Cuál es la dirección del hotel?",
+      "translated": "ما عنوان الفندق؟",
+      "reading": "Mā 'unwān al-funduq?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "¿Cuál es tu número de teléfono?",
+      "translated": "ما رقم الهاتف الخاص بك؟",
+      "reading": "Mā raqam al-hātif al-khāṣṣ bik?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "¿Dónde está el cargador del teléfono?",
+      "translated": "أين شاحن الهاتف؟",
+      "reading": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "¿Dónde está la estación de tren?",
+      "translated": "أين محطة القطار؟",
+      "reading": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "¿Dónde está la llave de la puerta?",
+      "translated": "أين مفتاح الباب؟",
+      "reading": "Ayna miftāḥ al-bāb?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "¿Dónde está la parada de autobús?",
+      "translated": "أين موقف الحافلة؟",
+      "reading": "Ayna mawqif al-ḥāfila?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "¿Qué tal",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "es-ar",
+      "original": "¿Qué tal?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "es-ja",
+      "original": "Estoy bebiendo agua ahora.",
+      "translated": "今、水を飲んでいます。",
+      "reading": "Ima, mizu o nonde imasu."
+    },
+    {
+      "pair": "es-ja",
+      "original": "Estoy bebiendo café ahora.",
+      "translated": "今、コーヒーを飲んでいます。",
+      "reading": "Ima, kōhī o nonde imasu."
+    },
+    {
+      "pair": "es-ja",
+      "original": "Estoy bebiendo té ahora.",
+      "translated": "今、お茶を飲んでいます。",
+      "reading": "Ima, ocha o nonde imasu."
+    },
+    {
+      "pair": "es-ja",
+      "original": "Estoy comiendo pan ahora.",
+      "translated": "今、パンを食べています。",
+      "reading": "Ima, pan o tabete imasu."
+    },
+    {
+      "pair": "es-ja",
+      "original": "Estoy comiendo queso ahora.",
+      "translated": "今、チーズを食べています。",
+      "reading": "Ima, chīzu o tabete imasu."
+    },
+    {
+      "pair": "es-ja",
+      "original": "Estoy escuchando música ahora.",
+      "translated": "今、音楽を聴いています。",
+      "reading": "Ima, ongaku o kiite imasu."
+    },
+    {
+      "pair": "es-ja",
+      "original": "Estoy leyendo un libro ahora.",
+      "translated": "今、本を読んでいます。",
+      "reading": "Ima, hon o yonde imasu."
+    },
+    {
+      "pair": "es-ja",
+      "original": "Estoy paseando al perro ahora.",
+      "translated": "今、犬を散歩させています。",
+      "reading": "Ima, inu o sanpo sasete imasu."
+    },
+    {
+      "pair": "es-ja",
+      "original": "Estoy tocando el piano ahora.",
+      "translated": "今、ピアノを弾いています。",
+      "reading": "Ima, piano o hiite imasu."
+    },
+    {
+      "pair": "es-ja",
+      "original": "Estoy viendo una película ahora.",
+      "translated": "今、映画を見ています。",
+      "reading": "Ima, eiga o mite imasu."
+    },
+    {
+      "pair": "es-ja",
+      "original": "Qué tal",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "es-ja",
+      "original": "Qué tal?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "es-ja",
+      "original": "qué tal",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "es-ja",
+      "original": "qué tal?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "es-ja",
+      "original": "¿Qué tal",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "es-ja",
+      "original": "¿Qué tal?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "Qué tal",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "Qué tal?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "qué tal",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "qué tal?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "¿Cuál es el plan para el viaje?",
+      "translated": "여행 계획이 뭐예요?",
+      "reading": "Yeohaeng gyehoegi mwoyeyo?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "¿Cuál es la dirección del hotel?",
+      "translated": "호텔 주소가 뭐예요?",
+      "reading": "Hotel jusoga mwoyeyo?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "¿Cuál es tu número de teléfono?",
+      "translated": "당신의 전화번호가 뭐예요?",
+      "reading": "Dangsinui jeonhwabeonhoga mwoyeyo?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "¿Dónde está el cargador del teléfono?",
+      "translated": "휴대폰 충전기가 어디예요?",
+      "reading": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "¿Dónde está la estación de tren?",
+      "translated": "기차역이 어디예요?",
+      "reading": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "¿Dónde está la llave de la puerta?",
+      "translated": "문 열쇠가 어디예요?",
+      "reading": "Mun yeolsoega eodiyeyo?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "¿Dónde está la parada de autobús?",
+      "translated": "버스 정류장이 어디예요?",
+      "reading": "Beoseu jeongnyujangi eodiyeyo?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "¿Qué tal",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "es-ko",
+      "original": "¿Qué tal?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "Qué tal",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "Qué tal?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "qué tal",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "qué tal?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "¿Cuál es el plan para el viaje?",
+      "translated": "旅行的计划是什么？",
+      "reading": "Lǚxíng de jìhuà shì shénme?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "¿Cuál es la dirección del hotel?",
+      "translated": "酒店的地址是什么？",
+      "reading": "Jiǔdiàn de dìzhǐ shì shénme?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "¿Cuál es tu número de teléfono?",
+      "translated": "你的电话号码是什么？",
+      "reading": "Nǐ de diànhuà hàomǎ shì shénme?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "¿Dónde está el cargador del teléfono?",
+      "translated": "手机充电器在哪里？",
+      "reading": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "¿Dónde está la estación de tren?",
+      "translated": "火车站在哪里？",
+      "reading": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "¿Dónde está la llave de la puerta?",
+      "translated": "门的钥匙在哪里？",
+      "reading": "Mén de yàoshi zài nǎlǐ?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "¿Dónde está la parada de autobús?",
+      "translated": "公交站在哪里？",
+      "reading": "Gōngjiāozhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "¿Qué tal",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "es-zh",
+      "original": "¿Qué tal?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "Où est la clé de la porte ?",
+      "translated": "أين مفتاح الباب؟",
+      "reading": "Ayna miftāḥ al-bāb?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "Où est la gare ?",
+      "translated": "أين محطة القطار؟",
+      "reading": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "Où est la gare ferroviaire ?",
+      "translated": "أين محطة القطار؟",
+      "reading": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "Où est le chargeur du téléphone ?",
+      "translated": "أين شاحن الهاتف؟",
+      "reading": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "Où est l’arrêt de bus ?",
+      "translated": "أين موقف الحافلة؟",
+      "reading": "Ayna mawqif al-ḥāfila?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "Quel est le plan pour le voyage ?",
+      "translated": "ما خطة الرحلة؟",
+      "reading": "Mā khuṭṭat ar-riḥla?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "Quel est ton numéro de téléphone ?",
+      "translated": "ما رقم الهاتف الخاص بك؟",
+      "reading": "Mā raqam al-hātif al-khāṣṣ bik?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "Quelle est l’adresse de l’hôtel ?",
+      "translated": "ما عنوان الفندق؟",
+      "reading": "Mā 'unwān al-funduq?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "Quoi de neuf",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "Quoi de neuf ?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "quoi de neuf",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "fr-ar",
+      "original": "quoi de neuf ?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "fr-ja",
+      "original": "Je bois de l’eau maintenant.",
+      "translated": "今、水を飲んでいます。",
+      "reading": "Ima, mizu o nonde imasu."
+    },
+    {
+      "pair": "fr-ja",
+      "original": "Je bois du café maintenant.",
+      "translated": "今、コーヒーを飲んでいます。",
+      "reading": "Ima, kōhī o nonde imasu."
+    },
+    {
+      "pair": "fr-ja",
+      "original": "Je bois du thé maintenant.",
+      "translated": "今、お茶を飲んでいます。",
+      "reading": "Ima, ocha o nonde imasu."
+    },
+    {
+      "pair": "fr-ja",
+      "original": "Je joue du piano maintenant.",
+      "translated": "今、ピアノを弾いています。",
+      "reading": "Ima, piano o hiite imasu."
+    },
+    {
+      "pair": "fr-ja",
+      "original": "Je lis un livre maintenant.",
+      "translated": "今、本を読んでいます。",
+      "reading": "Ima, hon o yonde imasu."
+    },
+    {
+      "pair": "fr-ja",
+      "original": "Je mange du fromage maintenant.",
+      "translated": "今、チーズを食べています。",
+      "reading": "Ima, chīzu o tabete imasu."
+    },
+    {
+      "pair": "fr-ja",
+      "original": "Je mange du pain maintenant.",
+      "translated": "今、パンを食べています。",
+      "reading": "Ima, pan o tabete imasu."
+    },
+    {
+      "pair": "fr-ja",
+      "original": "Je promène le chien maintenant.",
+      "translated": "今、犬を散歩させています。",
+      "reading": "Ima, inu o sanpo sasete imasu."
+    },
+    {
+      "pair": "fr-ja",
+      "original": "Je regarde un film maintenant.",
+      "translated": "今、映画を見ています。",
+      "reading": "Ima, eiga o mite imasu."
+    },
+    {
+      "pair": "fr-ja",
+      "original": "J’écoute de la musique maintenant.",
+      "translated": "今、音楽を聴いています。",
+      "reading": "Ima, ongaku o kiite imasu."
+    },
+    {
+      "pair": "fr-ja",
+      "original": "Quoi de neuf",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "fr-ja",
+      "original": "Quoi de neuf ?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "fr-ja",
+      "original": "quoi de neuf",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "fr-ja",
+      "original": "quoi de neuf ?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "Où est la clé de la porte ?",
+      "translated": "문 열쇠가 어디예요?",
+      "reading": "Mun yeolsoega eodiyeyo?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "Où est la gare ?",
+      "translated": "기차역이 어디예요?",
+      "reading": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "Où est la gare ferroviaire ?",
+      "translated": "기차역이 어디예요?",
+      "reading": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "Où est le chargeur du téléphone ?",
+      "translated": "휴대폰 충전기가 어디예요?",
+      "reading": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "Où est l’arrêt de bus ?",
+      "translated": "버스 정류장이 어디예요?",
+      "reading": "Beoseu jeongnyujangi eodiyeyo?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "Quel est le plan pour le voyage ?",
+      "translated": "여행 계획이 뭐예요?",
+      "reading": "Yeohaeng gyehoegi mwoyeyo?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "Quel est ton numéro de téléphone ?",
+      "translated": "당신의 전화번호가 뭐예요?",
+      "reading": "Dangsinui jeonhwabeonhoga mwoyeyo?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "Quelle est l’adresse de l’hôtel ?",
+      "translated": "호텔 주소가 뭐예요?",
+      "reading": "Hotel jusoga mwoyeyo?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "Quoi de neuf",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "Quoi de neuf ?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "quoi de neuf",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "fr-ko",
+      "original": "quoi de neuf ?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "Où est la clé de la porte ?",
+      "translated": "门的钥匙在哪里？",
+      "reading": "Mén de yàoshi zài nǎlǐ?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "Où est la gare ?",
+      "translated": "火车站在哪里？",
+      "reading": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "Où est la gare ferroviaire ?",
+      "translated": "火车站在哪里？",
+      "reading": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "Où est le chargeur du téléphone ?",
+      "translated": "手机充电器在哪里？",
+      "reading": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "Où est l’arrêt de bus ?",
+      "translated": "公交站在哪里？",
+      "reading": "Gōngjiāozhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "Quel est le plan pour le voyage ?",
+      "translated": "旅行的计划是什么？",
+      "reading": "Lǚxíng de jìhuà shì shénme?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "Quel est ton numéro de téléphone ?",
+      "translated": "你的电话号码是什么？",
+      "reading": "Nǐ de diànhuà hàomǎ shì shénme?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "Quelle est l’adresse de l’hôtel ?",
+      "translated": "酒店的地址是什么？",
+      "reading": "Jiǔdiàn de dìzhǐ shì shénme?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "Quoi de neuf",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "Quoi de neuf ?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "quoi de neuf",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "fr-zh",
+      "original": "quoi de neuf ?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "it-ar",
+      "original": "Come va",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "it-ar",
+      "original": "Come va?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "it-ar",
+      "original": "Dov’è il caricabatterie del telefono?",
+      "translated": "أين شاحن الهاتف؟",
+      "reading": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "pair": "it-ar",
+      "original": "Dov’è la chiave della porta?",
+      "translated": "أين مفتاح الباب؟",
+      "reading": "Ayna miftāḥ al-bāb?"
+    },
+    {
+      "pair": "it-ar",
+      "original": "Dov’è la fermata dell’autobus?",
+      "translated": "أين موقف الحافلة؟",
+      "reading": "Ayna mawqif al-ḥāfila?"
+    },
+    {
+      "pair": "it-ar",
+      "original": "Dov’è la stazione ferroviaria?",
+      "translated": "أين محطة القطار؟",
+      "reading": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "pair": "it-ar",
+      "original": "Qual è il piano per il viaggio?",
+      "translated": "ما خطة الرحلة؟",
+      "reading": "Mā khuṭṭat ar-riḥla?"
+    },
+    {
+      "pair": "it-ar",
+      "original": "Qual è il tuo numero di telefono?",
+      "translated": "ما رقم الهاتف الخاص بك؟",
+      "reading": "Mā raqam al-hātif al-khāṣṣ bik?"
+    },
+    {
+      "pair": "it-ar",
+      "original": "Qual è l’indirizzo dell’albergo?",
+      "translated": "ما عنوان الفندق؟",
+      "reading": "Mā 'unwān al-funduq?"
+    },
+    {
+      "pair": "it-ar",
+      "original": "come va",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "it-ar",
+      "original": "come va?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "it-ja",
+      "original": "Come va",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "it-ja",
+      "original": "Come va?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "it-ja",
+      "original": "Sto ascoltando musica adesso.",
+      "translated": "今、音楽を聴いています。",
+      "reading": "Ima, ongaku o kiite imasu."
+    },
+    {
+      "pair": "it-ja",
+      "original": "Sto bevendo acqua adesso.",
+      "translated": "今、水を飲んでいます。",
+      "reading": "Ima, mizu o nonde imasu."
+    },
+    {
+      "pair": "it-ja",
+      "original": "Sto bevendo caffè adesso.",
+      "translated": "今、コーヒーを飲んでいます。",
+      "reading": "Ima, kōhī o nonde imasu."
+    },
+    {
+      "pair": "it-ja",
+      "original": "Sto bevendo tè adesso.",
+      "translated": "今、お茶を飲んでいます。",
+      "reading": "Ima, ocha o nonde imasu."
+    },
+    {
+      "pair": "it-ja",
+      "original": "Sto guardando un film adesso.",
+      "translated": "今、映画を見ています。",
+      "reading": "Ima, eiga o mite imasu."
+    },
+    {
+      "pair": "it-ja",
+      "original": "Sto leggendo un libro adesso.",
+      "translated": "今、本を読んでいます。",
+      "reading": "Ima, hon o yonde imasu."
+    },
+    {
+      "pair": "it-ja",
+      "original": "Sto mangiando formaggio adesso.",
+      "translated": "今、チーズを食べています。",
+      "reading": "Ima, chīzu o tabete imasu."
+    },
+    {
+      "pair": "it-ja",
+      "original": "Sto mangiando pane adesso.",
+      "translated": "今、パンを食べています。",
+      "reading": "Ima, pan o tabete imasu."
+    },
+    {
+      "pair": "it-ja",
+      "original": "Sto portando a spasso il cane adesso.",
+      "translated": "今、犬を散歩させています。",
+      "reading": "Ima, inu o sanpo sasete imasu."
+    },
+    {
+      "pair": "it-ja",
+      "original": "Sto suonando il pianoforte adesso.",
+      "translated": "今、ピアノを弾いています。",
+      "reading": "Ima, piano o hiite imasu."
+    },
+    {
+      "pair": "it-ja",
+      "original": "come va",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "it-ja",
+      "original": "come va?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "it-ko",
+      "original": "Come va",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "it-ko",
+      "original": "Come va?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "it-ko",
+      "original": "Dov’è il caricabatterie del telefono?",
+      "translated": "휴대폰 충전기가 어디예요?",
+      "reading": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "pair": "it-ko",
+      "original": "Dov’è la chiave della porta?",
+      "translated": "문 열쇠가 어디예요?",
+      "reading": "Mun yeolsoega eodiyeyo?"
+    },
+    {
+      "pair": "it-ko",
+      "original": "Dov’è la fermata dell’autobus?",
+      "translated": "버스 정류장이 어디예요?",
+      "reading": "Beoseu jeongnyujangi eodiyeyo?"
+    },
+    {
+      "pair": "it-ko",
+      "original": "Dov’è la stazione ferroviaria?",
+      "translated": "기차역이 어디예요?",
+      "reading": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "pair": "it-ko",
+      "original": "Qual è il piano per il viaggio?",
+      "translated": "여행 계획이 뭐예요?",
+      "reading": "Yeohaeng gyehoegi mwoyeyo?"
+    },
+    {
+      "pair": "it-ko",
+      "original": "Qual è il tuo numero di telefono?",
+      "translated": "당신의 전화번호가 뭐예요?",
+      "reading": "Dangsinui jeonhwabeonhoga mwoyeyo?"
+    },
+    {
+      "pair": "it-ko",
+      "original": "Qual è l’indirizzo dell’albergo?",
+      "translated": "호텔 주소가 뭐예요?",
+      "reading": "Hotel jusoga mwoyeyo?"
+    },
+    {
+      "pair": "it-ko",
+      "original": "come va",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "it-ko",
+      "original": "come va?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "it-zh",
+      "original": "Come va",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "it-zh",
+      "original": "Come va?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "it-zh",
+      "original": "Dov’è il caricabatterie del telefono?",
+      "translated": "手机充电器在哪里？",
+      "reading": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "pair": "it-zh",
+      "original": "Dov’è la chiave della porta?",
+      "translated": "门的钥匙在哪里？",
+      "reading": "Mén de yàoshi zài nǎlǐ?"
+    },
+    {
+      "pair": "it-zh",
+      "original": "Dov’è la fermata dell’autobus?",
+      "translated": "公交站在哪里？",
+      "reading": "Gōngjiāozhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "it-zh",
+      "original": "Dov’è la stazione ferroviaria?",
+      "translated": "火车站在哪里？",
+      "reading": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "it-zh",
+      "original": "Qual è il piano per il viaggio?",
+      "translated": "旅行的计划是什么？",
+      "reading": "Lǚxíng de jìhuà shì shénme?"
+    },
+    {
+      "pair": "it-zh",
+      "original": "Qual è il tuo numero di telefono?",
+      "translated": "你的电话号码是什么？",
+      "reading": "Nǐ de diànhuà hàomǎ shì shénme?"
+    },
+    {
+      "pair": "it-zh",
+      "original": "Qual è l’indirizzo dell’albergo?",
+      "translated": "酒店的地址是什么？",
+      "reading": "Jiǔdiàn de dìzhǐ shì shénme?"
+    },
+    {
+      "pair": "it-zh",
+      "original": "come va",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "it-zh",
+      "original": "come va?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "ja-ar",
+      "original": "あなたの電話番号は何ですか。",
+      "translated": "ما رقم الهاتف الخاص بك؟",
+      "reading": "Mā raqam al-hātif al-khāṣṣ bik?"
+    },
+    {
+      "pair": "ja-ar",
+      "original": "ドアの鍵はどこですか。",
+      "translated": "أين مفتاح الباب؟",
+      "reading": "Ayna miftāḥ al-bāb?"
+    },
+    {
+      "pair": "ja-ar",
+      "original": "バス停はどこですか。",
+      "translated": "أين موقف الحافلة؟",
+      "reading": "Ayna mawqif al-ḥāfila?"
+    },
+    {
+      "pair": "ja-ar",
+      "original": "ホテルの住所は何ですか。",
+      "translated": "ما عنوان الفندق؟",
+      "reading": "Mā 'unwān al-funduq?"
+    },
+    {
+      "pair": "ja-ar",
+      "original": "携帯の充電器はどこですか。",
+      "translated": "أين شاحن الهاتف؟",
+      "reading": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "pair": "ja-ar",
+      "original": "旅行の計画は何ですか。",
+      "translated": "ما خطة الرحلة؟",
+      "reading": "Mā khuṭṭat ar-riḥla?"
+    },
+    {
+      "pair": "ja-ar",
+      "original": "最近どう",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "ja-ar",
+      "original": "最近どう？",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "ja-ar",
+      "original": "駅はどこですか。",
+      "translated": "أين محطة القطار؟",
+      "reading": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "pair": "ja-ko",
+      "original": "あなたの電話番号は何ですか。",
+      "translated": "당신의 전화번호가 뭐예요?",
+      "reading": "Dangsinui jeonhwabeonhoga mwoyeyo?"
+    },
+    {
+      "pair": "ja-ko",
+      "original": "ドアの鍵はどこですか。",
+      "translated": "문 열쇠가 어디예요?",
+      "reading": "Mun yeolsoega eodiyeyo?"
+    },
+    {
+      "pair": "ja-ko",
+      "original": "バス停はどこですか。",
+      "translated": "버스 정류장이 어디예요?",
+      "reading": "Beoseu jeongnyujangi eodiyeyo?"
+    },
+    {
+      "pair": "ja-ko",
+      "original": "ホテルの住所は何ですか。",
+      "translated": "호텔 주소가 뭐예요?",
+      "reading": "Hotel jusoga mwoyeyo?"
+    },
+    {
+      "pair": "ja-ko",
+      "original": "携帯の充電器はどこですか。",
+      "translated": "휴대폰 충전기가 어디예요?",
+      "reading": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "pair": "ja-ko",
+      "original": "旅行の計画は何ですか。",
+      "translated": "여행 계획이 뭐예요?",
+      "reading": "Yeohaeng gyehoegi mwoyeyo?"
+    },
+    {
+      "pair": "ja-ko",
+      "original": "最近どう",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "ja-ko",
+      "original": "最近どう？",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "ja-ko",
+      "original": "駅はどこですか。",
+      "translated": "기차역이 어디예요?",
+      "reading": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "pair": "ja-zh",
+      "original": "あなたの電話番号は何ですか。",
+      "translated": "你的电话号码是什么？",
+      "reading": "Nǐ de diànhuà hàomǎ shì shénme?"
+    },
+    {
+      "pair": "ja-zh",
+      "original": "ドアの鍵はどこですか。",
+      "translated": "门的钥匙在哪里？",
+      "reading": "Mén de yàoshi zài nǎlǐ?"
+    },
+    {
+      "pair": "ja-zh",
+      "original": "バス停はどこですか。",
+      "translated": "公交站在哪里？",
+      "reading": "Gōngjiāozhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "ja-zh",
+      "original": "ホテルの住所は何ですか。",
+      "translated": "酒店的地址是什么？",
+      "reading": "Jiǔdiàn de dìzhǐ shì shénme?"
+    },
+    {
+      "pair": "ja-zh",
+      "original": "携帯の充電器はどこですか。",
+      "translated": "手机充电器在哪里？",
+      "reading": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "pair": "ja-zh",
+      "original": "旅行の計画は何ですか。",
+      "translated": "旅行的计划是什么？",
+      "reading": "Lǚxíng de jìhuà shì shénme?"
+    },
+    {
+      "pair": "ja-zh",
+      "original": "最近どう",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "ja-zh",
+      "original": "最近どう？",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "ja-zh",
+      "original": "駅はどこですか。",
+      "translated": "火车站在哪里？",
+      "reading": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "ko-ar",
+      "original": "기차역이 어디예요?",
+      "translated": "أين محطة القطار؟",
+      "reading": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "pair": "ko-ar",
+      "original": "당신의 전화번호가 뭐예요?",
+      "translated": "ما رقم الهاتف الخاص بك؟",
+      "reading": "Mā raqam al-hātif al-khāṣṣ bik?"
+    },
+    {
+      "pair": "ko-ar",
+      "original": "문 열쇠가 어디예요?",
+      "translated": "أين مفتاح الباب؟",
+      "reading": "Ayna miftāḥ al-bāb?"
+    },
+    {
+      "pair": "ko-ar",
+      "original": "버스 정류장이 어디예요?",
+      "translated": "أين موقف الحافلة؟",
+      "reading": "Ayna mawqif al-ḥāfila?"
+    },
+    {
+      "pair": "ko-ar",
+      "original": "여행 계획이 뭐예요?",
+      "translated": "ما خطة الرحلة؟",
+      "reading": "Mā khuṭṭat ar-riḥla?"
+    },
+    {
+      "pair": "ko-ar",
+      "original": "요즘 어때",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "ko-ar",
+      "original": "요즘 어때?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "ko-ar",
+      "original": "호텔 주소가 뭐예요?",
+      "translated": "ما عنوان الفندق؟",
+      "reading": "Mā 'unwān al-funduq?"
+    },
+    {
+      "pair": "ko-ar",
+      "original": "휴대폰 충전기가 어디예요?",
+      "translated": "أين شاحن الهاتف؟",
+      "reading": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "pair": "ko-ja",
+      "original": "요즘 어때",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "ko-ja",
+      "original": "요즘 어때?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "ko-ja",
+      "original": "지금 개를 산책시키고 있어요.",
+      "translated": "今、犬を散歩させています。",
+      "reading": "Ima, inu o sanpo sasete imasu."
+    },
+    {
+      "pair": "ko-ja",
+      "original": "지금 물을 마시고 있어요.",
+      "translated": "今、水を飲んでいます。",
+      "reading": "Ima, mizu o nonde imasu."
+    },
+    {
+      "pair": "ko-ja",
+      "original": "지금 빵을 먹고 있어요.",
+      "translated": "今、パンを食べています。",
+      "reading": "Ima, pan o tabete imasu."
+    },
+    {
+      "pair": "ko-ja",
+      "original": "지금 영화를 보고 있어요.",
+      "translated": "今、映画を見ています。",
+      "reading": "Ima, eiga o mite imasu."
+    },
+    {
+      "pair": "ko-ja",
+      "original": "지금 음악을 듣고 있어요.",
+      "translated": "今、音楽を聴いています。",
+      "reading": "Ima, ongaku o kiite imasu."
+    },
+    {
+      "pair": "ko-ja",
+      "original": "지금 차를 마시고 있어요.",
+      "translated": "今、お茶を飲んでいます。",
+      "reading": "Ima, ocha o nonde imasu."
+    },
+    {
+      "pair": "ko-ja",
+      "original": "지금 책을 읽고 있어요.",
+      "translated": "今、本を読んでいます。",
+      "reading": "Ima, hon o yonde imasu."
+    },
+    {
+      "pair": "ko-ja",
+      "original": "지금 치즈를 먹고 있어요.",
+      "translated": "今、チーズを食べています。",
+      "reading": "Ima, chīzu o tabete imasu."
+    },
+    {
+      "pair": "ko-ja",
+      "original": "지금 커피를 마시고 있어요.",
+      "translated": "今、コーヒーを飲んでいます。",
+      "reading": "Ima, kōhī o nonde imasu."
+    },
+    {
+      "pair": "ko-ja",
+      "original": "지금 피아노를 치고 있어요.",
+      "translated": "今、ピアノを弾いています。",
+      "reading": "Ima, piano o hiite imasu."
+    },
+    {
+      "pair": "ko-zh",
+      "original": "기차역이 어디예요?",
+      "translated": "火车站在哪里？",
+      "reading": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "ko-zh",
+      "original": "당신의 전화번호가 뭐예요?",
+      "translated": "你的电话号码是什么？",
+      "reading": "Nǐ de diànhuà hàomǎ shì shénme?"
+    },
+    {
+      "pair": "ko-zh",
+      "original": "문 열쇠가 어디예요?",
+      "translated": "门的钥匙在哪里？",
+      "reading": "Mén de yàoshi zài nǎlǐ?"
+    },
+    {
+      "pair": "ko-zh",
+      "original": "버스 정류장이 어디예요?",
+      "translated": "公交站在哪里？",
+      "reading": "Gōngjiāozhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "ko-zh",
+      "original": "여행 계획이 뭐예요?",
+      "translated": "旅行的计划是什么？",
+      "reading": "Lǚxíng de jìhuà shì shénme?"
+    },
+    {
+      "pair": "ko-zh",
+      "original": "요즘 어때",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "ko-zh",
+      "original": "요즘 어때?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "ko-zh",
+      "original": "호텔 주소가 뭐예요?",
+      "translated": "酒店的地址是什么？",
+      "reading": "Jiǔdiàn de dìzhǐ shì shénme?"
+    },
+    {
+      "pair": "ko-zh",
+      "original": "휴대폰 충전기가 어디예요?",
+      "translated": "手机充电器在哪里？",
+      "reading": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "pair": "pt-ar",
+      "original": "E aí",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "pt-ar",
+      "original": "E aí?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "pt-ar",
+      "original": "Onde está a chave da porta?",
+      "translated": "أين مفتاح الباب؟",
+      "reading": "Ayna miftāḥ al-bāb?"
+    },
+    {
+      "pair": "pt-ar",
+      "original": "Onde está o carregador do telefone?",
+      "translated": "أين شاحن الهاتف؟",
+      "reading": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "pair": "pt-ar",
+      "original": "Onde fica a estação de trem?",
+      "translated": "أين محطة القطار؟",
+      "reading": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "pair": "pt-ar",
+      "original": "Onde fica o ponto de ônibus?",
+      "translated": "أين موقف الحافلة؟",
+      "reading": "Ayna mawqif al-ḥāfila?"
+    },
+    {
+      "pair": "pt-ar",
+      "original": "Qual é o endereço do hotel?",
+      "translated": "ما عنوان الفندق؟",
+      "reading": "Mā 'unwān al-funduq?"
+    },
+    {
+      "pair": "pt-ar",
+      "original": "Qual é o plano para a viagem?",
+      "translated": "ما خطة الرحلة؟",
+      "reading": "Mā khuṭṭat ar-riḥla?"
+    },
+    {
+      "pair": "pt-ar",
+      "original": "Qual é o seu número de telefone?",
+      "translated": "ما رقم الهاتف الخاص بك؟",
+      "reading": "Mā raqam al-hātif al-khāṣṣ bik?"
+    },
+    {
+      "pair": "pt-ar",
+      "original": "e aí",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "pt-ar",
+      "original": "e aí?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "pt-ja",
+      "original": "E aí",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "pt-ja",
+      "original": "E aí?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "pt-ja",
+      "original": "Estou assistindo a um filme agora.",
+      "translated": "今、映画を見ています。",
+      "reading": "Ima, eiga o mite imasu."
+    },
+    {
+      "pair": "pt-ja",
+      "original": "Estou bebendo café agora.",
+      "translated": "今、コーヒーを飲んでいます。",
+      "reading": "Ima, kōhī o nonde imasu."
+    },
+    {
+      "pair": "pt-ja",
+      "original": "Estou bebendo chá agora.",
+      "translated": "今、お茶を飲んでいます。",
+      "reading": "Ima, ocha o nonde imasu."
+    },
+    {
+      "pair": "pt-ja",
+      "original": "Estou bebendo água agora.",
+      "translated": "今、水を飲んでいます。",
+      "reading": "Ima, mizu o nonde imasu."
+    },
+    {
+      "pair": "pt-ja",
+      "original": "Estou comendo pão agora.",
+      "translated": "今、パンを食べています。",
+      "reading": "Ima, pan o tabete imasu."
+    },
+    {
+      "pair": "pt-ja",
+      "original": "Estou comendo queijo agora.",
+      "translated": "今、チーズを食べています。",
+      "reading": "Ima, chīzu o tabete imasu."
+    },
+    {
+      "pair": "pt-ja",
+      "original": "Estou lendo um livro agora.",
+      "translated": "今、本を読んでいます。",
+      "reading": "Ima, hon o yonde imasu."
+    },
+    {
+      "pair": "pt-ja",
+      "original": "Estou ouvindo música agora.",
+      "translated": "今、音楽を聴いています。",
+      "reading": "Ima, ongaku o kiite imasu."
+    },
+    {
+      "pair": "pt-ja",
+      "original": "Estou passeando com o cachorro agora.",
+      "translated": "今、犬を散歩させています。",
+      "reading": "Ima, inu o sanpo sasete imasu."
+    },
+    {
+      "pair": "pt-ja",
+      "original": "Estou tocando piano agora.",
+      "translated": "今、ピアノを弾いています。",
+      "reading": "Ima, piano o hiite imasu."
+    },
+    {
+      "pair": "pt-ja",
+      "original": "e aí",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "pt-ja",
+      "original": "e aí?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "pt-ko",
+      "original": "E aí",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "pt-ko",
+      "original": "E aí?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "pt-ko",
+      "original": "Onde está a chave da porta?",
+      "translated": "문 열쇠가 어디예요?",
+      "reading": "Mun yeolsoega eodiyeyo?"
+    },
+    {
+      "pair": "pt-ko",
+      "original": "Onde está o carregador do telefone?",
+      "translated": "휴대폰 충전기가 어디예요?",
+      "reading": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "pair": "pt-ko",
+      "original": "Onde fica a estação de trem?",
+      "translated": "기차역이 어디예요?",
+      "reading": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "pair": "pt-ko",
+      "original": "Onde fica o ponto de ônibus?",
+      "translated": "버스 정류장이 어디예요?",
+      "reading": "Beoseu jeongnyujangi eodiyeyo?"
+    },
+    {
+      "pair": "pt-ko",
+      "original": "Qual é o endereço do hotel?",
+      "translated": "호텔 주소가 뭐예요?",
+      "reading": "Hotel jusoga mwoyeyo?"
+    },
+    {
+      "pair": "pt-ko",
+      "original": "Qual é o plano para a viagem?",
+      "translated": "여행 계획이 뭐예요?",
+      "reading": "Yeohaeng gyehoegi mwoyeyo?"
+    },
+    {
+      "pair": "pt-ko",
+      "original": "Qual é o seu número de telefone?",
+      "translated": "당신의 전화번호가 뭐예요?",
+      "reading": "Dangsinui jeonhwabeonhoga mwoyeyo?"
+    },
+    {
+      "pair": "pt-ko",
+      "original": "e aí",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "pt-ko",
+      "original": "e aí?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "pt-zh",
+      "original": "E aí",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "pt-zh",
+      "original": "E aí?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "pt-zh",
+      "original": "Onde está a chave da porta?",
+      "translated": "门的钥匙在哪里？",
+      "reading": "Mén de yàoshi zài nǎlǐ?"
+    },
+    {
+      "pair": "pt-zh",
+      "original": "Onde está o carregador do telefone?",
+      "translated": "手机充电器在哪里？",
+      "reading": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "pair": "pt-zh",
+      "original": "Onde fica a estação de trem?",
+      "translated": "火车站在哪里？",
+      "reading": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "pt-zh",
+      "original": "Onde fica o ponto de ônibus?",
+      "translated": "公交站在哪里？",
+      "reading": "Gōngjiāozhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "pt-zh",
+      "original": "Qual é o endereço do hotel?",
+      "translated": "酒店的地址是什么？",
+      "reading": "Jiǔdiàn de dìzhǐ shì shénme?"
+    },
+    {
+      "pair": "pt-zh",
+      "original": "Qual é o plano para a viagem?",
+      "translated": "旅行的计划是什么？",
+      "reading": "Lǚxíng de jìhuà shì shénme?"
+    },
+    {
+      "pair": "pt-zh",
+      "original": "Qual é o seu número de telefone?",
+      "translated": "你的电话号码是什么？",
+      "reading": "Nǐ de diànhuà hàomǎ shì shénme?"
+    },
+    {
+      "pair": "pt-zh",
+      "original": "e aí",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "pt-zh",
+      "original": "e aí?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "Anwani ya hoteli ni ipi?",
+      "translated": "ما عنوان الفندق؟",
+      "reading": "Mā 'unwān al-funduq?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "Chaja ya simu iko wapi?",
+      "translated": "أين شاحن الهاتف؟",
+      "reading": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "Iko wapi chaja ya simu?",
+      "translated": "أين شاحن الهاتف؟",
+      "reading": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "Kiko wapi kituo cha basi?",
+      "translated": "أين موقف الحافلة؟",
+      "reading": "Ayna mawqif al-ḥāfila?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "Kiko wapi kituo cha treni?",
+      "translated": "أين محطة القطار؟",
+      "reading": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "Mambo vipi",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "Mambo vipi?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "Mpango wa safari ni upi?",
+      "translated": "ما خطة الرحلة؟",
+      "reading": "Mā khuṭṭat ar-riḥla?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "Nambari ya simu yako ni ipi?",
+      "translated": "ما رقم الهاتف الخاص بك؟",
+      "reading": "Mā raqam al-hātif al-khāṣṣ bik?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "Ufunguo wa mlango uko wapi?",
+      "translated": "أين مفتاح الباب؟",
+      "reading": "Ayna miftāḥ al-bāb?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "mambo vipi",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "sw-ar",
+      "original": "mambo vipi?",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Mambo vipi",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Mambo vipi?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Ninakula jibini sasa.",
+      "translated": "今、チーズを食べています。",
+      "reading": "Ima, chīzu o tabete imasu."
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Ninakula mkate sasa.",
+      "translated": "今、パンを食べています。",
+      "reading": "Ima, pan o tabete imasu."
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Ninakunywa chai sasa.",
+      "translated": "今、お茶を飲んでいます。",
+      "reading": "Ima, ocha o nonde imasu."
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Ninakunywa kahawa sasa.",
+      "translated": "今、コーヒーを飲んでいます。",
+      "reading": "Ima, kōhī o nonde imasu."
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Ninakunywa maji sasa.",
+      "translated": "今、水を飲んでいます。",
+      "reading": "Ima, mizu o nonde imasu."
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Ninamtembeza mbwa sasa.",
+      "translated": "今、犬を散歩させています。",
+      "reading": "Ima, inu o sanpo sasete imasu."
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Ninapiga piano sasa.",
+      "translated": "今、ピアノを弾いています。",
+      "reading": "Ima, piano o hiite imasu."
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Ninasikiliza muziki sasa.",
+      "translated": "今、音楽を聴いています。",
+      "reading": "Ima, ongaku o kiite imasu."
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Ninasoma kitabu sasa.",
+      "translated": "今、本を読んでいます。",
+      "reading": "Ima, hon o yonde imasu."
+    },
+    {
+      "pair": "sw-ja",
+      "original": "Ninatazama filamu sasa.",
+      "translated": "今、映画を見ています。",
+      "reading": "Ima, eiga o mite imasu."
+    },
+    {
+      "pair": "sw-ja",
+      "original": "mambo vipi",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "sw-ja",
+      "original": "mambo vipi?",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "Anwani ya hoteli ni ipi?",
+      "translated": "호텔 주소가 뭐예요?",
+      "reading": "Hotel jusoga mwoyeyo?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "Chaja ya simu iko wapi?",
+      "translated": "휴대폰 충전기가 어디예요?",
+      "reading": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "Iko wapi chaja ya simu?",
+      "translated": "휴대폰 충전기가 어디예요?",
+      "reading": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "Kiko wapi kituo cha basi?",
+      "translated": "버스 정류장이 어디예요?",
+      "reading": "Beoseu jeongnyujangi eodiyeyo?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "Kiko wapi kituo cha treni?",
+      "translated": "기차역이 어디예요?",
+      "reading": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "Mambo vipi",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "Mambo vipi?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "Mpango wa safari ni upi?",
+      "translated": "여행 계획이 뭐예요?",
+      "reading": "Yeohaeng gyehoegi mwoyeyo?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "Nambari ya simu yako ni ipi?",
+      "translated": "당신의 전화번호가 뭐예요?",
+      "reading": "Dangsinui jeonhwabeonhoga mwoyeyo?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "Ufunguo wa mlango uko wapi?",
+      "translated": "문 열쇠가 어디예요?",
+      "reading": "Mun yeolsoega eodiyeyo?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "mambo vipi",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "sw-ko",
+      "original": "mambo vipi?",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "Anwani ya hoteli ni ipi?",
+      "translated": "酒店的地址是什么？",
+      "reading": "Jiǔdiàn de dìzhǐ shì shénme?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "Chaja ya simu iko wapi?",
+      "translated": "手机充电器在哪里？",
+      "reading": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "Iko wapi chaja ya simu?",
+      "translated": "手机充电器在哪里？",
+      "reading": "Shǒujī chōngdiànqì zài nǎlǐ?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "Kiko wapi kituo cha basi?",
+      "translated": "公交站在哪里？",
+      "reading": "Gōngjiāozhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "Kiko wapi kituo cha treni?",
+      "translated": "火车站在哪里？",
+      "reading": "Huǒchēzhàn zài nǎlǐ?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "Mambo vipi",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "Mambo vipi?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "Mpango wa safari ni upi?",
+      "translated": "旅行的计划是什么？",
+      "reading": "Lǚxíng de jìhuà shì shénme?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "Nambari ya simu yako ni ipi?",
+      "translated": "你的电话号码是什么？",
+      "reading": "Nǐ de diànhuà hàomǎ shì shénme?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "Ufunguo wa mlango uko wapi?",
+      "translated": "门的钥匙在哪里？",
+      "reading": "Mén de yàoshi zài nǎlǐ?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "mambo vipi",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "sw-zh",
+      "original": "mambo vipi?",
+      "translated": "最近怎么样？",
+      "reading": "Zuìjìn zěnmeyàng?"
+    },
+    {
+      "pair": "zh-ar",
+      "original": "你的电话号码是什么？",
+      "translated": "ما رقم الهاتف الخاص بك؟",
+      "reading": "Mā raqam al-hātif al-khāṣṣ bik?"
+    },
+    {
+      "pair": "zh-ar",
+      "original": "公交站在哪里？",
+      "translated": "أين موقف الحافلة؟",
+      "reading": "Ayna mawqif al-ḥāfila?"
+    },
+    {
+      "pair": "zh-ar",
+      "original": "手机充电器在哪里？",
+      "translated": "أين شاحن الهاتف؟",
+      "reading": "Ayna shāḥin al-hātif?"
+    },
+    {
+      "pair": "zh-ar",
+      "original": "旅行的计划是什么？",
+      "translated": "ما خطة الرحلة؟",
+      "reading": "Mā khuṭṭat ar-riḥla?"
+    },
+    {
+      "pair": "zh-ar",
+      "original": "最近怎么样",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "zh-ar",
+      "original": "最近怎么样？",
+      "translated": "ما الأخبار؟",
+      "reading": "Mā al-akhbār?"
+    },
+    {
+      "pair": "zh-ar",
+      "original": "火车站在哪里？",
+      "translated": "أين محطة القطار؟",
+      "reading": "Ayna maḥaṭṭat al-qiṭār?"
+    },
+    {
+      "pair": "zh-ar",
+      "original": "酒店的地址是什么？",
+      "translated": "ما عنوان الفندق؟",
+      "reading": "Mā 'unwān al-funduq?"
+    },
+    {
+      "pair": "zh-ar",
+      "original": "门的钥匙在哪里？",
+      "translated": "أين مفتاح الباب؟",
+      "reading": "Ayna miftāḥ al-bāb?"
+    },
+    {
+      "pair": "zh-ja",
+      "original": "我正在吃奶酪。",
+      "translated": "今、チーズを食べています。",
+      "reading": "Ima, chīzu o tabete imasu."
+    },
+    {
+      "pair": "zh-ja",
+      "original": "我正在吃面包。",
+      "translated": "今、パンを食べています。",
+      "reading": "Ima, pan o tabete imasu."
+    },
+    {
+      "pair": "zh-ja",
+      "original": "我正在听音乐。",
+      "translated": "今、音楽を聴いています。",
+      "reading": "Ima, ongaku o kiite imasu."
+    },
+    {
+      "pair": "zh-ja",
+      "original": "我正在喝咖啡。",
+      "translated": "今、コーヒーを飲んでいます。",
+      "reading": "Ima, kōhī o nonde imasu."
+    },
+    {
+      "pair": "zh-ja",
+      "original": "我正在喝水。",
+      "translated": "今、水を飲んでいます。",
+      "reading": "Ima, mizu o nonde imasu."
+    },
+    {
+      "pair": "zh-ja",
+      "original": "我正在喝茶。",
+      "translated": "今、お茶を飲んでいます。",
+      "reading": "Ima, ocha o nonde imasu."
+    },
+    {
+      "pair": "zh-ja",
+      "original": "我正在弹钢琴。",
+      "translated": "今、ピアノを弾いています。",
+      "reading": "Ima, piano o hiite imasu."
+    },
+    {
+      "pair": "zh-ja",
+      "original": "我正在看一部电影。",
+      "translated": "今、映画を見ています。",
+      "reading": "Ima, eiga o mite imasu."
+    },
+    {
+      "pair": "zh-ja",
+      "original": "我正在读一本书。",
+      "translated": "今、本を読んでいます。",
+      "reading": "Ima, hon o yonde imasu."
+    },
+    {
+      "pair": "zh-ja",
+      "original": "我正在遛狗。",
+      "translated": "今、犬を散歩させています。",
+      "reading": "Ima, inu o sanpo sasete imasu."
+    },
+    {
+      "pair": "zh-ja",
+      "original": "最近怎么样",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "zh-ja",
+      "original": "最近怎么样？",
+      "translated": "最近どう？",
+      "reading": "Saikin dō?"
+    },
+    {
+      "pair": "zh-ko",
+      "original": "你的电话号码是什么？",
+      "translated": "당신의 전화번호가 뭐예요?",
+      "reading": "Dangsinui jeonhwabeonhoga mwoyeyo?"
+    },
+    {
+      "pair": "zh-ko",
+      "original": "公交站在哪里？",
+      "translated": "버스 정류장이 어디예요?",
+      "reading": "Beoseu jeongnyujangi eodiyeyo?"
+    },
+    {
+      "pair": "zh-ko",
+      "original": "手机充电器在哪里？",
+      "translated": "휴대폰 충전기가 어디예요?",
+      "reading": "Hyudaepon chungjeongiga eodiyeyo?"
+    },
+    {
+      "pair": "zh-ko",
+      "original": "旅行的计划是什么？",
+      "translated": "여행 계획이 뭐예요?",
+      "reading": "Yeohaeng gyehoegi mwoyeyo?"
+    },
+    {
+      "pair": "zh-ko",
+      "original": "最近怎么样",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "zh-ko",
+      "original": "最近怎么样？",
+      "translated": "요즘 어때?",
+      "reading": "Yojeum eottae?"
+    },
+    {
+      "pair": "zh-ko",
+      "original": "火车站在哪里？",
+      "translated": "기차역이 어디예요?",
+      "reading": "Gichayeogi eodiyeyo?"
+    },
+    {
+      "pair": "zh-ko",
+      "original": "酒店的地址是什么？",
+      "translated": "호텔 주소가 뭐예요?",
+      "reading": "Hotel jusoga mwoyeyo?"
+    },
+    {
+      "pair": "zh-ko",
+      "original": "门的钥匙在哪里？",
+      "translated": "문 열쇠가 어디예요?",
+      "reading": "Mun yeolsoega eodiyeyo?"
+    }
+  ],
+  "decision": "Keep current fail-closed exclusion pending a separately reviewed whole-sentence-specific validation design and native evidence; do not broaden a shared word validator merely for punctuation. Many whole-sentence units exceed 0.75 budget in single-sentence messages, so this is not equivalent to 468 newly displayable units.",
+  "full_translation": "When Full reading is absent, native bubbles display the complete translated original script; they do not abstain or fall back to original message. Arabic generated text lacks a generic authored-safe reading source.",
+  "limitations": [
+    "Independent linguistic acceptance for authored sentence-reading catalog is false.",
+    "This structural match is not native UI, pronunciation, or semantic proof."
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "scope": "active 007 catalog, 11 languages and 110 directed source-target routes; cross-product is availability of finite catalog, not message, word or semantic coverage",
+  "runtime_baseline": "reading audit bound Android 0fda43f and Apple 4908d4e; Android classifier candidate a52a806 has later synthetic actual route qualification; final v3 not yet qualified",
+  "evidence": {
+    "reading": "qa/immersion/active-reading-audit-20261116/review.json",
+    "android_speech": "qa/android/speech-completion-20261116/README.md",
+    "apple_speech": "qa/macos/apple-resume-20261116-r01/evidence-speech-matrix-r75.tar.gz (qualification-metadata.json)",
+    "android_short_message_route": "qa/immersion/android-frozen-a52-route-20261117/route-result.json",
+    "ui": "qa/ux/review-20261117-r01/REVIEW.md",
+    "apple_short_message_route": "qa/macos/apple-native-detector-20261117-r01/simulator-observation.json"
+  },
+  "language_rows": [
+    {
+      "code": "en",
+      "language": "English",
+      "script": "Latin",
+      "outgoing_routes": 10,
+      "incoming_routes": 10,
+      "offline_007_route": "pinned finite catalog route",
+      "automatic_target_reading": "Latin target; no added Latin guide required",
+      "source_side_reading": "original is Latin script",
+      "speech": "Android offline system voice or bundled fallback; Apple native voice except bundled Swahili fallback",
+      "specific_acoustic_claim": "none"
+    },
+    {
+      "code": "es",
+      "language": "Spanish",
+      "script": "Latin",
+      "outgoing_routes": 10,
+      "incoming_routes": 10,
+      "offline_007_route": "pinned finite catalog route",
+      "automatic_target_reading": "Latin target; no added Latin guide required",
+      "source_side_reading": "original is Latin script",
+      "speech": "Android offline system voice or bundled fallback; Apple native voice except bundled Swahili fallback",
+      "specific_acoustic_claim": "none"
+    },
+    {
+      "code": "fr",
+      "language": "French",
+      "script": "Latin",
+      "outgoing_routes": 10,
+      "incoming_routes": 10,
+      "offline_007_route": "pinned finite catalog route",
+      "automatic_target_reading": "Latin target; no added Latin guide required",
+      "source_side_reading": "original is Latin script",
+      "speech": "Android offline system voice or bundled fallback; Apple native voice except bundled Swahili fallback",
+      "specific_acoustic_claim": "none"
+    },
+    {
+      "code": "de",
+      "language": "German",
+      "script": "Latin",
+      "outgoing_routes": 10,
+      "incoming_routes": 10,
+      "offline_007_route": "pinned finite catalog route",
+      "automatic_target_reading": "Latin target; no added Latin guide required",
+      "source_side_reading": "original is Latin script",
+      "speech": "Android offline system voice or bundled fallback; Apple native voice except bundled Swahili fallback",
+      "specific_acoustic_claim": "none"
+    },
+    {
+      "code": "it",
+      "language": "Italian",
+      "script": "Latin",
+      "outgoing_routes": 10,
+      "incoming_routes": 10,
+      "offline_007_route": "pinned finite catalog route",
+      "automatic_target_reading": "Latin target; no added Latin guide required",
+      "source_side_reading": "original is Latin script",
+      "speech": "Android offline system voice or bundled fallback; Apple native voice except bundled Swahili fallback",
+      "specific_acoustic_claim": "none"
+    },
+    {
+      "code": "pt",
+      "language": "Portuguese",
+      "script": "Latin",
+      "outgoing_routes": 10,
+      "incoming_routes": 10,
+      "offline_007_route": "pinned finite catalog route",
+      "automatic_target_reading": "Latin target; no added Latin guide required",
+      "source_side_reading": "original is Latin script",
+      "speech": "Android offline system voice or bundled fallback; Apple native voice except bundled Swahili fallback",
+      "specific_acoustic_claim": "none"
+    },
+    {
+      "code": "sw",
+      "language": "Swahili",
+      "script": "Latin",
+      "outgoing_routes": 10,
+      "incoming_routes": 10,
+      "offline_007_route": "pinned finite catalog route",
+      "automatic_target_reading": "Latin target; no added Latin guide required",
+      "source_side_reading": "original is Latin script",
+      "speech": "Android offline system voice or bundled fallback; Apple native voice except bundled Swahili fallback",
+      "specific_acoustic_claim": "none"
+    },
+    {
+      "code": "ar",
+      "language": "Arabic",
+      "script": "non-Latin",
+      "outgoing_routes": 10,
+      "incoming_routes": 10,
+      "offline_007_route": "pinned finite catalog route",
+      "automatic_target_reading": "required and structurally audited before emission",
+      "source_side_reading": "not generally supplied for original non-Latin source",
+      "speech": "Android offline system voice or bundled fallback; Apple native voice except bundled Swahili fallback",
+      "specific_acoustic_claim": "none"
+    },
+    {
+      "code": "zh",
+      "language": "Chinese",
+      "script": "non-Latin",
+      "outgoing_routes": 10,
+      "incoming_routes": 10,
+      "offline_007_route": "pinned finite catalog route",
+      "automatic_target_reading": "required and structurally audited before emission",
+      "source_side_reading": "not generally supplied for original non-Latin source",
+      "speech": "Android offline system voice or bundled fallback; Apple native voice except bundled Swahili fallback",
+      "specific_acoustic_claim": "none"
+    },
+    {
+      "code": "ja",
+      "language": "Japanese",
+      "script": "non-Latin",
+      "outgoing_routes": 10,
+      "incoming_routes": 10,
+      "offline_007_route": "pinned finite catalog route",
+      "automatic_target_reading": "required and structurally audited before emission",
+      "source_side_reading": "not generally supplied for original non-Latin source",
+      "speech": "Android offline system voice or bundled fallback; Apple native voice except bundled Swahili fallback",
+      "specific_acoustic_claim": "none"
+    },
+    {
+      "code": "ko",
+      "language": "Korean",
+      "script": "non-Latin",
+      "outgoing_routes": 10,
+      "incoming_routes": 10,
+      "offline_007_route": "pinned finite catalog route",
+      "automatic_target_reading": "required and structurally audited before emission",
+      "source_side_reading": "not generally supplied for original non-Latin source",
+      "speech": "Android offline system voice or bundled fallback; Apple native voice except bundled Swahili fallback",
+      "specific_acoustic_claim": "none"
+    }
+  ],
+  "pair_rule": "For every distinct pair among the 11 rows, a pinned catalog route exists; a guarded match can emit a finite approved word/phrase with target reading when required, otherwise it abstains. This does not establish that arbitrary messages emit.",
+  "speech_qualification": "Android actual synthetic controller offline 110/110; no playback feeding underruns, one terminal drain underrun per row. iOS simulator 108 new + 2 prior routes completed; listening and pronunciation not assessed. These do not prove selected voice on each Android row, acoustic quality, real device performance or real conversation coverage.",
+  "identified_limits": [
+    "Latin readings are mandatory for non-Latin immersion target spans. The original known/source language is not generally transliterated. This report does not interpret that as a new source-reading requirement.",
+    "The target audit structurally checked 5,482 non-Latin-target frame patterns and 16,120 legacy rows; it did not validate pronunciation/meaning. Thirty-five authored whole-sentence readings contain question marks or commas rejected by the shared validator. They occur in 468 reference rows; this is not a count of actual display failures or gains, because other guards also apply.",
+    "Explicit Full translation may show Arabic script when no Latin reading exists. Automatic non-Latin target spans are still gated on a reading. No arbitrary Arabic full-sentence transliteration claim is made.",
+    "Existing synthetic measurements do not establish broad ordinary-message coverage, accurate translation in every context, or human-reviewed pronunciation.",
+    "Apple uses native voices where available and bundled Swahili; native voice availability/preparation depends on the device. Android chooses installed offline voice or pinned 11-language bundled fallback. Voice preparation may fail and is shown as unavailable.",
+    "Android a52 actual synthetic full-app en→ja/sw routes and Apple actual native routes/Simulator Japanese display pass. Final signed artifact and broader classifier interactions need separate evidence.",
+    "Inactive lexical catalog 008/009 experiments are not evidence for 007 production coverage; this does not refer to separately accepted contextual-frame assets."
+  ],
+  "no_runtime_changes": true
+}
