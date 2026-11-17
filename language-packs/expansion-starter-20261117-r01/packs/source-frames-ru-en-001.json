@@ -1,0 +1,87 @@
+{
+  "approval_sha256": "",
+  "patterns": [
+    {
+      "concept_id": "prototype:coffee_beverage",
+      "id": "ru-en:coffee_beverage",
+      "meaning": "coffee as a drink",
+      "pair": "ru-en",
+      "reading": "",
+      "source": "кофе",
+      "source_only_permission": false,
+      "target": "coffee",
+      "variants": [
+        {
+          "context": "пью кофе",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            8
+          ]
+        },
+        {
+          "context": "пьёт кофе",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "concept_id": "prototype:tea_beverage",
+      "id": "ru-en:tea_beverage",
+      "meaning": "tea as a drink",
+      "pair": "ru-en",
+      "reading": "",
+      "source": "чай",
+      "source_only_permission": false,
+      "target": "tea",
+      "variants": [
+        {
+          "context": "пью чай",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            7
+          ]
+        },
+        {
+          "context": "пьёт чай",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            5,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "concept_id": "prototype:book_written_work",
+      "id": "ru-en:book_written_work",
+      "meaning": "a written or printed book",
+      "pair": "ru-en",
+      "reading": "",
+      "source": "книга",
+      "source_only_permission": false,
+      "target": "book",
+      "variants": [
+        {
+          "context": "эта книга",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            4,
+            9
+          ]
+        }
+      ]
+    }
+  ],
+  "policy": "reference-first-source-frames-1",
+  "runtime_promotion": false,
+  "schema": "vipi-source-frame-pack-1",
+  "source": "ru",
+  "target": "en",
+  "version": "source-frames-ru-en-001"
+}

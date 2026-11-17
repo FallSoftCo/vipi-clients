@@ -1,0 +1,39 @@
+{
+  "status": "inactive_host_generated_no_native_synthesis",
+  "espeak_revision": "699e79690f23e2558d990a3a78b0050745b96932",
+  "baseline_manifest_sha256": "2765cf8fa3a3ae87337b47c6338a9fabcea72c9457eaf3c17956611ed8d39e11",
+  "expanded_manifest_sha256": "da1dd47f38431b57e9e2906a2c98fe6189e8198766200fba70ca5bd596efa030",
+  "baseline_files_compared": 367,
+  "baseline_unchanged": true,
+  "expanded_file_count": 370,
+  "expanded_total_bytes": 13052959,
+  "added_dictionaries": [
+    {
+      "path": "espeak-ng-data/id_dict",
+      "bytes": 59024,
+      "sha256": "82b34f976616f05f4d938fa7c9191b6cb91ad1dd30f85469dd3016e532e3d65a"
+    },
+    {
+      "path": "espeak-ng-data/nl_dict",
+      "bytes": 80393,
+      "sha256": "e90f4d9cddcc0cbb6d34d0b7baf294f528fc59a04c1a82c2ab2e98ba02a386e2"
+    },
+    {
+      "path": "espeak-ng-data/ru_dict",
+      "bytes": 9079501,
+      "sha256": "967ca4a05add4beb486e63e05365edcae5d2ba811c4e3d348f63ca08c84b29e1"
+    }
+  ],
+  "limits": [
+    "Host compiler only; no Android/iOS synthesis or acoustic assessment",
+    "Generated binary data not included in this source candidate",
+    "Existing active default build languages unchanged"
+  ],
+  "compiler_script_sha256": "0a6f276dbaf9d6e405afb84d9535247c0e966b32ac29488016f070f4bbbb2b48",
+  "source_git_trees": {
+    "espeak_ng": "67fb2c58e516542ebab3b3238e2a48d163de6482",
+    "sonic": "204be21e5303198d293c0e76f317d747f9ef54e8",
+    "cpp": "c2d26180526565fe7ab23e698c824f717dcba752"
+  },
+  "regenerated_370_file_manifest_match": true
+}

@@ -1,0 +1,95 @@
+{
+  "approval_sha256": "",
+  "patterns": [
+    {
+      "concept_id": "prototype:coffee_beverage",
+      "id": "en-nl:coffee_beverage",
+      "meaning": "coffee as a drink",
+      "pair": "en-nl",
+      "reading": "",
+      "source": "coffee",
+      "source_only_permission": false,
+      "target": "koffie",
+      "variants": [
+        {
+          "context": "drink coffee",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ]
+        },
+        {
+          "context": "drinking coffee",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            15
+          ]
+        }
+      ]
+    },
+    {
+      "concept_id": "prototype:tea_beverage",
+      "id": "en-nl:tea_beverage",
+      "meaning": "tea as a drink",
+      "pair": "en-nl",
+      "reading": "",
+      "source": "tea",
+      "source_only_permission": false,
+      "target": "thee",
+      "variants": [
+        {
+          "context": "drink tea",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            9
+          ]
+        },
+        {
+          "context": "drinking tea",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "concept_id": "prototype:book_written_work",
+      "id": "en-nl:book_written_work",
+      "meaning": "a written or printed book",
+      "pair": "en-nl",
+      "reading": "",
+      "source": "book",
+      "source_only_permission": false,
+      "target": "boek",
+      "variants": [
+        {
+          "context": "read the book",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ]
+        },
+        {
+          "context": "reading the book",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            12,
+            16
+          ]
+        }
+      ]
+    }
+  ],
+  "policy": "reference-first-source-frames-1",
+  "runtime_promotion": false,
+  "schema": "vipi-source-frame-pack-1",
+  "source": "en",
+  "target": "nl",
+  "version": "source-frames-en-nl-001"
+}

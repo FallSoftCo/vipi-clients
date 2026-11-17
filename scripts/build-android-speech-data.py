@@ -14,6 +14,7 @@ def sha(path):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--source-root', type=Path, help='Explicit verified source checkout for an inactive build')
     parser.add_argument('--cmake', required=True, type=Path)
     parser.add_argument('--ninja', required=True, type=Path)
     parser.add_argument('--build-dir', required=True, type=Path)
@@ -22,8 +23,17 @@ def main():
     parser.add_argument('--languages', nargs='+', default=['en', 'es', 'fr', 'de', 'it', 'pt', 'ja', 'ko', 'cmn', 'ar', 'sw'])
     args = parser.parse_args()
     assert len(set(args.languages)) == len(args.languages)
-    assert set(args.languages) <= {'en', 'es', 'fr', 'de', 'it', 'pt', 'ja', 'ko', 'cmn', 'ar', 'sw'}
-    root = Path(__file__).resolve().parents[1]
+    assert set(args.languages) <= {'en', 'es', 'fr', 'de', 'it', 'pt', 'ja', 'ko', 'cmn', 'ar', 'sw', 'id', 'nl', 'ru'}
+    root = args.source_root.resolve() if args.source_root else Path(__file__).resolve().parents[1]
+    if args.source_root:
+        pinned = {'android/vendor/espeak-ng': '67fb2c58e516542ebab3b3238e2a48d163de6482',
+                  'android/vendor/sonic': '204be21e5303198d293c0e76f317d747f9ef54e8',
+                  'android/app/src/main/cpp': 'c2d26180526565fe7ab23e698c824f717dcba752'}
+        for path, tree in pinned.items():
+            actual = subprocess.check_output(['git', '-C', str(root), 'rev-parse', 'HEAD:' + path], text=True).strip()
+            assert actual == tree, 'Unrecognized pinned speech source tree: ' + path
+        status = subprocess.check_output(['git', '-C', str(root), 'status', '--porcelain', '--untracked-files=all', '--', *pinned], text=True)
+        assert not status.strip(), 'Modified or untracked speech sources require review'
     source = root / 'android/vendor/espeak-ng'
     args.build_dir.mkdir(parents=True, exist_ok=True)
     assert not str(args.build_dir.resolve()).startswith(('/dev/shm/', '/run/'))
