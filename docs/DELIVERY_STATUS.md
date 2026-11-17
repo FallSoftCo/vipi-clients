@@ -141,30 +141,34 @@ Public registration is closed and
 subscription enforcement is disabled on staging. A proposed production configuration
 passed the deployed settings validators in memory: production mode, enforced
 access, no subject allowlist and Apple Production, preserving the scoped reviewer
-and sandbox tester sets. That historical proposal was not activated and must
-be rebased on the current environment, whose SHA-256 is
+and sandbox tester sets. A new private candidate is now rebased on the current
+environment, whose SHA-256 is
 `4082efd72eca75e310b7cf57c873338b757796e7761a8a7c318432b97f3cba64`.
-This establishes
+It preserves both reviewer IDs and both scoped sandbox tester IDs and changes
+only those four settings. It has not been activated. This establishes
 configuration validity and credential-file readability, not public signup or
-provider authorization. See [candidate receipt](../qa/release/production-settings-candidate-20261117-r01/validation-receipt.json).
+provider authorization. See [candidate receipt](../release/production-settings-20261117-r02/receipt.json).
 Isolated tests cover enforced
 expiry, retained trial dates and readable history; they do not prove public
 customer behavior. See [deployment](../qa/subscriptions/cardless-trial-20261117-r01/receipt.json).
 
 The TestFlight Base checkout on the fresh Apple QA account displays $12/year
 without an introductory offer, and Apple's confirmation explicitly says it is
-a test with no charge. Subscribe was confirmed once. The original Apple
-authorization prompt is waiting for the company account password; no password
-was submitted and purchase success is not established. A subsequent read-only
-backend observation found no entitlement for that QA user and no new Apple
-notification. This is pending authentication, not evidence of purchase failure.
-Inspect the original result before any further purchase action.
-See [pending authorization](../qa/release/apple-signed-build2-20261117-r01/base-sandbox-auth-pending.json).
+a test with no charge. Subscribe was confirmed once. The original authorization
+completed using the company's saved Chrome credential, without exposing it in
+chat or logs. Vipi reports Base active, and independent backend readback found
+one verified Apple Sandbox Base entitlement on the exact QA account. A single
+same-account, same-device Restore then reported purchases up to date. The same
+transaction and expiry remain, with an advanced verification timestamp and no
+duplicate entitlement. Temporary credential files were removed and clipboards
+cleared. This does not prove clean-device restore, renewal or revocation.
+See [purchase](../release/apple-sandbox-purchase-20261117-r01/receipt.json)
+and [restore](../release/apple-sandbox-purchase-20261117-r01/restore-receipt.json).
 
 The original no-charge Google license purchase on version 1 activated, renewed,
 was canceled and lapsed. No purchase was repeated. Version 2's retained account
-shows the dated cardless period. Cross-device purchase restoration and an actual
-Apple sandbox purchase remain unqualified. The original Apple production TEST
+shows the dated cardless period. Cross-device purchase restoration remains
+unqualified. The original Apple production TEST
 returned 401 and was not retried; earlier sandbox evidence is separate.
 See [purchase](../qa/subscriptions/google-license-sandbox-20261117-r01/receipt.json),
 [lapse](../qa/subscriptions/google-license-sandbox-20261117-r01/lapse.json) and

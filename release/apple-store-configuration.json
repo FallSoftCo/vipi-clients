@@ -78,7 +78,7 @@
     "introductory_offer_scope_note": "Historical common offer settings below apply only to Bot mini after November 17 Base removal; see introductory_offer_current."
   },
   "qualification": {
-    "real_sandbox_purchase": false,
+    "real_sandbox_purchase": true,
     "renewal_refund_restore": false,
     "provider_notifications": false,
     "build_uploaded": true,
@@ -86,9 +86,13 @@
     "customer_available": false,
     "apple_sandbox_test_notification": true,
     "build_processing_complete": true,
-    "testflight_status": "Ready to Submit at post-compliance readback; internal QA setup now in progress",
-    "testflight_ready": false,
-    "build_processing_evidence": "Transporter finished-processing message and fresh ASC build2 Missing Compliance readback"
+    "testflight_status": "Internal Vipi Release QA; build1.0(2) installed on native Apple silicon Mac",
+    "testflight_ready": true,
+    "build_processing_evidence": "Original single Transporter delivery processed; ASC build2 configured and TestFlight install verified",
+    "same_device_restore": true,
+    "sandbox_purchase_receipt": "release/apple-sandbox-purchase-20261117-r01/receipt.json",
+    "same_device_restore_receipt": "release/apple-sandbox-purchase-20261117-r01/restore-receipt.json",
+    "purchase_limits": "Base Sandbox on fresh owned QA account. Clean-device restore, renewal/refund and customer availability not established."
   },
   "private_receipt_directory": "investigations/vipi-production-delivery-20261107/apple-store-provisioning-20261109-r01",
   "in_app_purchase_key": {
