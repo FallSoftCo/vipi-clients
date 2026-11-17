@@ -144,8 +144,14 @@ class TalkBackImmersionDeviceTest {
             var menu: AccessibilityNodeInfo? = requireNotNull(tree.firstOrNull { it.contentDescription?.toString() == "Reading options" })
             while (menu != null && menu.actionList.none { it.id == AccessibilityNodeInfo.ACTION_CLICK }) menu = menu.parent
             assertTrue(requireNotNull(menu).performAction(AccessibilityNodeInfo.ACTION_CLICK))
-            compose.waitUntil(5_000) {
-                automation.rootInActiveWindow?.let(::nodes).orEmpty().any { it.text?.toString() == "Swahili" }
+            try {
+                compose.waitUntil(5_000) {
+                    automation.rootInActiveWindow?.let(::nodes).orEmpty().any { it.text?.toString() == "Swahili" }
+                }
+            } finally {
+                val observed = automation.rootInActiveWindow?.let(::nodes).orEmpty()
+                File(context.filesDir, "talkback-menu-$run.json").writeText(JSONArray(observed.map { JSONObject().put("text", it.text ?: JSONObject.NULL).put("description", it.contentDescription ?: JSONObject.NULL).put("visible", it.isVisibleToUser) }).toString(2))
+                androidx.test.uiautomator.UiDevice.getInstance(instrumentation).takeScreenshot(File(context.filesDir, "talkback-menu-$run.png"))
             }
             val menuLabels = nodes(requireNotNull(automation.rootInActiveWindow)).map { it.text?.toString() }
             for (inactive in listOf("Pause word switching", "Resume word switching", "Word switching speed")) {
