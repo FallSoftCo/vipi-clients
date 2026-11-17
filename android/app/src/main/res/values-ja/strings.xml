@@ -403,4 +403,19 @@
     <string name="access_choose_word">切り替える単語を選択</string>
     <string name="access_message_actions">メッセージのアクション</string>
     <string name="cardless_ended">Vipiの無料アクセスは%1$sに終了しました。チャットを続けるには登録してください。</string>
+    <string name="welcome_title_concise">いつもの友達。\n新しい言語。</string>
+    <string name="welcome_detail_concise">チャット中に、一部の単語が別の言語に切り替わります。</string>
+    <string name="preview_spanish_title">スペイン語を少し体験</string>
+    <string name="preview_tap_word">ハイライトされた単語をタップすると、意味が分かります。</string>
+    <string name="languages_title_concise">使う言語</string>
+    <string name="languages_detail_concise">どの言語を学びたいですか？</string>
+    <string name="languages_change_later">設定でいつでも変更できます。</string>
+    <string name="account_title_concise">Vipiにサインイン</string>
+    <string name="account_detail_concise">サインインしてユーザー名を選び、友達を見つけましょう。</string>
+    <string name="account_private_title">友達とのプライベートなチャット</string>
+    <string name="account_private_detail">メッセージはエンドツーエンドで暗号化されます。友達に表示されるのはユーザー名だけで、メールアドレスは表示されません。</string>
+    <string name="account_trial_concise">最初の30日間は無料。カードの登録は不要です。</string>
+    <string name="preview_message_title">チャットのイメージ</string>
+    <string name="speak_concise">話せる言語</string>
+    <string name="learn_concise">学びたい言語</string>
 </resources>

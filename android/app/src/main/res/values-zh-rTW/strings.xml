@@ -403,4 +403,19 @@
     <string name="access_choose_word">選擇要切換的單字</string>
     <string name="access_message_actions">訊息操作</string>
     <string name="cardless_ended">您的 Vipi 免費使用期已於 %1$s 結束。訂閱後可繼續聊天。</string>
+    <string name="welcome_title_concise">熟悉的朋友。\n新的語言。</string>
+    <string name="welcome_detail_concise">聊天時，部分詞語會切換成另一種語言。</string>
+    <string name="preview_spanish_title">體驗一點西班牙語</string>
+    <string name="preview_tap_word">輕點反白詞語，查看它的意思。</string>
+    <string name="languages_title_concise">你的語言</string>
+    <string name="languages_detail_concise">你想學哪種語言？</string>
+    <string name="languages_change_later">你可以隨時在設定中更改。</string>
+    <string name="account_title_concise">登入 Vipi</string>
+    <string name="account_detail_concise">登入後，選擇使用者名稱，找到你的朋友。</string>
+    <string name="account_private_title">與朋友私密聊天</string>
+    <string name="account_private_detail">訊息採用端對端加密。朋友只能看到你的使用者名稱，看不到電子郵件。</string>
+    <string name="account_trial_concise">前 30 天免費，無需信用卡。</string>
+    <string name="preview_message_title">看看聊天的樣子</string>
+    <string name="speak_concise">我會說</string>
+    <string name="learn_concise">我在學</string>
 </resources>

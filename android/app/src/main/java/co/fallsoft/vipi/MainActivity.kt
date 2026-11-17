@@ -173,7 +173,8 @@ class MainActivity : ComponentActivity() {
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding).widthIn(max = 680.dp).padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(24.dp)) {
+        Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.TopCenter) {
+        Column(Modifier.fillMaxHeight().widthIn(max = 680.dp).fillMaxWidth().padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(24.dp)) {
             TopBar(model)
             when (model.screen) {
                 Screen.WELCOME -> Welcome(scrollState.isScrollInProgress)
@@ -192,6 +193,7 @@ class MainActivity : ComponentActivity() {
             }
             if (onboarding && largeText) OnboardingAction(model, inScroll = true)
             Spacer(Modifier.height(20.dp))
+        }
         }
     }
 }
@@ -266,7 +268,7 @@ class MainActivity : ComponentActivity() {
         .getDisplayLanguage(uiLocale).replaceFirstChar { it.titlecase(uiLocale) }
     Heading("", stringResource(R.string.languages_title_concise), stringResource(R.string.languages_detail_concise))
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text(stringResource(R.string.already_speak), color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
+        Text(stringResource(R.string.speak_concise), color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
         Box {
             Row(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp)).clickable { knownMenu = true }.padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
                 Text(displayLanguage(model.knownLanguage)); Spacer(Modifier.weight(1f)); Icon(Icons.Outlined.ExpandMore, stringResource(R.string.ui_aae89a15c1be))
@@ -277,7 +279,7 @@ class MainActivity : ComponentActivity() {
         }
     }
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-    Text(stringResource(R.string.want_learn), color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
+    Text(stringResource(R.string.learn_concise), color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
     Box {
         Row(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(16.dp)).clickable { targetMenu = true }.padding(18.dp), verticalAlignment = Alignment.CenterVertically) {
             Text(displayLanguage(model.targetLanguage)); Spacer(Modifier.weight(1f)); Icon(Icons.Outlined.ExpandMore, stringResource(R.string.ui_0c574552109f))
@@ -307,7 +309,8 @@ class MainActivity : ComponentActivity() {
     var accepted by rememberSaveable { mutableStateOf(false) }
     val context = LocalContext.current
     val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f
-    Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background).then(if (inScroll) Modifier else Modifier.navigationBarsPadding()).padding(horizontal = if (inScroll) 0.dp else 26.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background), contentAlignment = Alignment.TopCenter) {
+    Column(Modifier.widthIn(max = 680.dp).fillMaxWidth().then(if (inScroll) Modifier else Modifier.navigationBarsPadding()).padding(horizontal = if (inScroll) 0.dp else 26.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         if (model.screen == Screen.ACCOUNT) {
             Row(verticalAlignment = Alignment.CenterVertically) { Checkbox(checked = accepted, onCheckedChange = { accepted = it }); Text(stringResource(R.string.ui_9ed65d7add5f), fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
             val legalLinks: @Composable () -> Unit = {
@@ -321,6 +324,7 @@ class MainActivity : ComponentActivity() {
         PrimaryButton(when (model.screen) { Screen.WELCOME -> stringResource(R.string.choose_languages); Screen.LANGUAGE -> stringResource(R.string.continue_action); else -> stringResource(R.string.continue_signin) }, enabled = model.screen != Screen.ACCOUNT || accepted, busy = model.authentication.busy) {
             when (model.screen) { Screen.WELCOME -> model.navigate(Screen.LANGUAGE); Screen.LANGUAGE -> model.navigate(Screen.ACCOUNT); else -> model.authentication.signIn(context) }
         }
+    }
     }
 }
 

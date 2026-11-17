@@ -48,4 +48,6 @@
     <string name="account_private_detail">Your messages are end-to-end encrypted. Friends see your username, never your email.</string>
     <string name="account_trial_concise">Your first 30 days are free. No card needed.</string>
     <string name="preview_message_title">A glimpse of your chats</string>
+    <string name="speak_concise">I speak</string>
+    <string name="learn_concise">I’m learning</string>
 </resources>

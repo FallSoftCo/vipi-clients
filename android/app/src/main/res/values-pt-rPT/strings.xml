@@ -406,4 +406,19 @@
     <string name="access_choose_word">Escolha uma palavra para alternar</string>
     <string name="access_message_actions">Ações da mensagem</string>
     <string name="cardless_ended">O seu acesso gratuito ao Vipi terminou em %1$s. Subscreva para continuar a conversar.</string>
+    <string name="welcome_title_concise">Os teus amigos.\nUma nova língua.</string>
+    <string name="welcome_detail_concise">Algumas palavras mudam de língua enquanto conversas.</string>
+    <string name="preview_spanish_title">Experimenta um pouco de espanhol</string>
+    <string name="preview_tap_word">Toca numa palavra destacada para veres o significado.</string>
+    <string name="languages_title_concise">As tuas línguas</string>
+    <string name="languages_detail_concise">Que língua gostarias de aprender?</string>
+    <string name="languages_change_later">Podes alterá-las nas Definições.</string>
+    <string name="account_title_concise">Entra no Vipi</string>
+    <string name="account_detail_concise">Entra, escolhe um nome de utilizador e encontra os teus amigos.</string>
+    <string name="account_private_title">Conversas privadas com amigos</string>
+    <string name="account_private_detail">As tuas mensagens têm encriptação ponto a ponto. Os teus amigos veem o teu nome de utilizador, nunca o teu e-mail.</string>
+    <string name="account_trial_concise">Os primeiros 30 dias são grátis. Não precisas de cartão.</string>
+    <string name="preview_message_title">Uma amostra das tuas conversas</string>
+    <string name="speak_concise">Falo</string>
+    <string name="learn_concise">Estou a aprender</string>
 </resources>

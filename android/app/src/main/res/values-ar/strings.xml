@@ -418,4 +418,19 @@
     <string name="access_choose_word">اختر كلمة لتبديلها</string>
     <string name="access_message_actions">إجراءات الرسالة</string>
     <string name="cardless_ended">انتهى وصولك المجاني إلى Vipi في %1$s. اشترك لمواصلة المحادثة.</string>
+    <string name="welcome_title_concise">أصدقاؤك.\nلغة جديدة.</string>
+    <string name="welcome_detail_concise">تتحوّل بعض الكلمات إلى لغة أخرى أثناء الدردشة.</string>
+    <string name="preview_spanish_title">جرّب قليلًا من الإسبانية</string>
+    <string name="preview_tap_word">اضغط على كلمة مميزة لترى معناها.</string>
+    <string name="languages_title_concise">لغاتك</string>
+    <string name="languages_detail_concise">ما اللغة التي تود تعلّمها؟</string>
+    <string name="languages_change_later">يمكنك تغييرها في الإعدادات.</string>
+    <string name="account_title_concise">سجّل الدخول إلى Vipi</string>
+    <string name="account_detail_concise">سجّل الدخول واختر اسم مستخدم واعثر على أصدقائك.</string>
+    <string name="account_private_title">دردشات خاصة مع الأصدقاء</string>
+    <string name="account_private_detail">رسائلك مشفّرة من طرف إلى طرف. يرى أصدقاؤك اسم المستخدم فقط، ولا يرون بريدك الإلكتروني.</string>
+    <string name="account_trial_concise">أول 30 يومًا مجانًا. لا حاجة إلى بطاقة.</string>
+    <string name="preview_message_title">لمحة عن دردشاتك</string>
+    <string name="speak_concise">أتحدث</string>
+    <string name="learn_concise">أتعلّم</string>
 </resources>
