@@ -1,0 +1,11 @@
+{
+  "observed_utc": "2026-11-17T16:14:32.977210+00:00",
+  "app_id": "6832624092",
+  "build": "1.0 (3)",
+  "testflight_status": "Ready to Submit after saving standard encryption beyond Apple OS and France No once",
+  "compliance_note": "Apple displayed the same contradictory generic no-encryption note as build2 despite standard selection; not adopted as technical claim",
+  "draft_association": "Still build 2; build 3 not yet associated",
+  "internal_group": "Add Build picker opened but not submitted; unrelated active browser debugging request blocked interaction",
+  "testflight_update": "Not started",
+  "no_public_review": true
+}
