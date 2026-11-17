@@ -1,0 +1,54 @@
+{
+  "schema": "vipi-play-listing-production-draft-1",
+  "at_utc": "2026-11-17T02:26:01.900809+00:00",
+  "package": "co.fallsoft.vipi",
+  "app_id": "4975664610567218322",
+  "listing": {
+    "locale": "en-US",
+    "name": "Vipi: Immersive Chat",
+    "state": "ready_to_send_for_review",
+    "saved_once_job": "vipi-play-readiness-r284",
+    "text_changed": false,
+    "assets_reuploaded": false,
+    "ai_asset_declaration": {
+      "selected": [
+        "app_icon",
+        "feature_graphic"
+      ],
+      "unselected": [
+        "actual_phone_screenshot_latin",
+        "actual_phone_screenshot_script"
+      ],
+      "basis": "Assistant-authored vector artwork; screenshots are unretouched native captures",
+      "selection_job": "vipi-play-readiness-r282",
+      "declaration_job": "vipi-play-readiness-r283"
+    }
+  },
+  "production": {
+    "track_id": "4697875695147185458",
+    "draft_release_id": "1",
+    "state": "saved_draft",
+    "library_bundle_version_code": 1,
+    "version_name": "1.0",
+    "new_upload": false,
+    "save_once_job": "vipi-play-readiness-r295",
+    "preview_job": "vipi-play-readiness-r298",
+    "console_errors": [
+      "No countries or regions have been selected for this track. Add at least 1 country or region to roll out this release."
+    ],
+    "console_error_count": 1,
+    "download_size_display": "417 MB",
+    "release_notes": "Immersive chat with friends. Selected words and short phrases switch into the language you are learning. See Latin spellings for unfamiliar scripts and listen aloud.",
+    "geography_changed": false
+  },
+  "review_submission": false,
+  "public_rollout": false,
+  "private_evidence_reference": "vipi-submit-20261110-r01/computer-use-release-20261116-r01",
+  "screenshot_sha256": {
+    "vipi-readiness-r282.png": "a28a2b9d1e864c5025ced19aea7fc4fd5d8c9765f1d443f017f185ec703c07d0",
+    "vipi-readiness-r284.png": "8244833abcd3e454509f9f15dca069837befb258a06fd13b968db05965ca76b2",
+    "vipi-readiness-r285.png": "74c91941366c745fbab742f041e36302f832dbd57bf4d7cced87518146a1081b",
+    "vipi-readiness-r296.png": "85b248e910da284ef85282e386ead0e8493854709bead534cd3e3ace3bbd19fd",
+    "vipi-readiness-r298.png": "388ebe963b784003a04198fbc273e17ce4e4728be1bca71346489849f40ec445"
+  }
+}
