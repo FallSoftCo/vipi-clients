@@ -106,11 +106,13 @@ struct SubscriptionOfferView: View {
                             .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                     }
                 } else {
-                    ContentUnavailableView("Prices aren’t available", systemImage: "network", description: Text(LocalizedStringKey(plan == .base ? "Connect to the App Store to see your subscription price. You haven’t been enrolled." : "Connect to the App Store to see your price and any free trial. You haven’t been enrolled.")))
+                    ContentUnavailableView("Prices aren’t available", systemImage: "network", description: Text(LocalizedStringKey(plan == .base ? "Connect to the App Store to see your subscription price. You haven’t been enrolled." : "Connect to the App Store to see your price and any free trial. You haven’t been enrolled.")).foregroundStyle(VipiDesign.secondary))
                     Button("Try again") { Task { await store.refresh() } }.disabled(store.loading)
                 }
                 if let notice = store.notice { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("subscription-notice") }
-                if access?.isReviewAccess != true && !(plan == .base && store.accessActive(.base) && access?.access_source == "cardless_trial") {
+                if !store.accessVerificationPending(plan) && access?.isReviewAccess != true &&
+                    ((store.accessActive(plan) && !(plan == .base && access?.access_source == "cardless_trial")) ||
+                     (!store.accessActive(plan) && product != nil)) {
                     Text("Payment is charged to your Apple Account. Cancel in App Store subscriptions before renewal to avoid the next charge. Canceling does not erase your saved conversations.")
                         .font(.footnote).foregroundStyle(VipiDesign.secondary)
                 }
