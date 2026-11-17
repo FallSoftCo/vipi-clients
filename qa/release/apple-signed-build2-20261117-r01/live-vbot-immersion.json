@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-17T14:03:02.920651+00:00",
+  "scope": "Owned QA account, TestFlight 1.0 (2), English known to Japanese target",
+  "consent": "Displayed disclosure explains message and up to 11 recent vBot messages sent to Vipi and DeepSeek, not end-to-end encrypted; accepted for synthetic test",
+  "prompt": "Reply with only this English sentence: I love music.",
+  "send_count": 1,
+  "reply": "I love music.",
+  "automatic_immersion": "Observed music and ongaku in same word position on separate cycle captures, without source-language override. Selecting original script displayed \u97f3\u697d; Latin letters restored.",
+  "allowance": "150 before, 149 after",
+  "listen": "Available in message menu; zero playbacks pending audio capture coordination",
+  "evidence": "/home/ai/Development/investigations/vipi-resume-20261116-r01/apple-live-vbot-20261117-r01/",
+  "limits": "One synthetic message; no acoustic quality, general language coverage or human-chat delivery claim."
+}
