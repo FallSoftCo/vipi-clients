@@ -546,5 +546,10 @@
     "review_sha256": "760ea24b6cccb3184915242bfecf66cb6742e68be4f0054aabda060458510e8a",
     "offer_evidence": "Google and Apple Base introductory offers removed and verified in their consoles on 2026-11-17; Bot mini retains its separate eligible one-month offer.",
     "limits_basis": "release/localizations/README.md"
+  },
+  "store_preparation": {
+    "google": "14 localized listings saved once and independently reloaded on2026-11-17; not submitted for public review",
+    "receipt": "release/google-localized-listing-20261117.json",
+    "apple": "Not imported; current native qualification pending"
   }
 }

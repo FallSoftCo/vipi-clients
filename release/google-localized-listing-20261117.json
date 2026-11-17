@@ -1,0 +1,126 @@
+{
+  "at": "2026-11-17T07:11:05.633063+00:00",
+  "saved_once": true,
+  "public_review_submitted": false,
+  "source_copy_commit": "751367302ade81b9611f0958ae3eca121952a9ba",
+  "pre_save_exact_fields": 42,
+  "pre_save_locales": 14,
+  "saved_dialog": "play-listing-save-r20.png",
+  "independent_reload": "play-listing-reloaded-r22.png",
+  "persisted_inventory": [
+    {
+      "code": "ar",
+      "present": true
+    },
+    {
+      "code": "de-DE",
+      "present": true
+    },
+    {
+      "code": "en-US",
+      "present": true
+    },
+    {
+      "code": "es-ES",
+      "present": true
+    },
+    {
+      "code": "es-419",
+      "present": true
+    },
+    {
+      "code": "fr-FR",
+      "present": true
+    },
+    {
+      "code": "it-IT",
+      "present": true
+    },
+    {
+      "code": "ja-JP",
+      "present": true
+    },
+    {
+      "code": "ko-KR",
+      "present": true
+    },
+    {
+      "code": "pt-BR",
+      "present": true
+    },
+    {
+      "code": "pt-PT",
+      "present": true
+    },
+    {
+      "code": "sw",
+      "present": true
+    },
+    {
+      "code": "zh-CN",
+      "present": true
+    },
+    {
+      "code": "zh-TW",
+      "present": true
+    }
+  ],
+  "post_reload_samples": [
+    {
+      "locale": "en-US",
+      "file": "play-sw-readback-native.txt",
+      "fields": [
+        {
+          "field": "app_name",
+          "exact_after_display_whitespace_normalization": true
+        },
+        {
+          "field": "short_description",
+          "exact_after_display_whitespace_normalization": true
+        },
+        {
+          "field": "full_description",
+          "exact_after_display_whitespace_normalization": true
+        }
+      ]
+    },
+    {
+      "locale": "sw",
+      "file": "play-sw-review-readback-native.txt",
+      "fields": [
+        {
+          "field": "app_name",
+          "exact_after_display_whitespace_normalization": true
+        },
+        {
+          "field": "short_description",
+          "exact_after_display_whitespace_normalization": true
+        },
+        {
+          "field": "full_description",
+          "exact_after_display_whitespace_normalization": true
+        }
+      ]
+    },
+    {
+      "locale": "ar",
+      "file": "play-ar-review-readback-native.txt",
+      "fields": [
+        {
+          "field": "app_name",
+          "exact_after_display_whitespace_normalization": true
+        },
+        {
+          "field": "short_description",
+          "exact_after_display_whitespace_normalization": true
+        },
+        {
+          "field": "full_description",
+          "exact_after_display_whitespace_normalization": true
+        }
+      ]
+    }
+  ],
+  "asset_declarations_preserved": true,
+  "limits": "All imported field values checked before save. Independent reload verified all14 locales and samples English, Swahili, Arabic; display collapses paragraph whitespace."
+}
