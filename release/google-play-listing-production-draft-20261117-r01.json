@@ -22,6 +22,18 @@
       "basis": "Assistant-authored vector artwork; screenshots are unretouched native captures",
       "selection_job": "vipi-play-readiness-r282",
       "declaration_job": "vipi-play-readiness-r283"
+    },
+    "reload_readback": {
+      "at_utc": "2026-11-17T02:36:22.107649+00:00",
+      "state": "Ready to send for review",
+      "asset_specific_labels_match": true,
+      "no_extra_save": true,
+      "jobs": [
+        "vipi-play-readiness-r301",
+        "vipi-play-readiness-r303",
+        "vipi-play-readiness-r304",
+        "vipi-play-readiness-r305"
+      ]
     }
   },
   "production": {
@@ -49,6 +61,7 @@
     "vipi-readiness-r284.png": "8244833abcd3e454509f9f15dca069837befb258a06fd13b968db05965ca76b2",
     "vipi-readiness-r285.png": "74c91941366c745fbab742f041e36302f832dbd57bf4d7cced87518146a1081b",
     "vipi-readiness-r296.png": "85b248e910da284ef85282e386ead0e8493854709bead534cd3e3ace3bbd19fd",
-    "vipi-readiness-r298.png": "388ebe963b784003a04198fbc273e17ce4e4728be1bca71346489849f40ec445"
+    "vipi-readiness-r298.png": "388ebe963b784003a04198fbc273e17ce4e4728be1bca71346489849f40ec445",
+    "vipi-readiness-r304.png": "da1ab3acc7d343f95c8ac64f882cef98a7126326c0f3c835eae05e759bcceb13"
   }
 }
