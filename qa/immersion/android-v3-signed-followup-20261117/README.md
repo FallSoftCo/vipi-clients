@@ -1,0 +1,1 @@
+The exact signed v3 APK was exercised on a fresh offline accountless API34 x86_64 emulator. Prepared Full link reachability and Japanese/Swahili Listen active-to-idle controls were observed; no acoustic, live chat or independently instrumented audio completion claim. Screenshots and local evidence remain in investigations/vipi-submit-20261110-r01/android-v3-signed-smoke-r02.

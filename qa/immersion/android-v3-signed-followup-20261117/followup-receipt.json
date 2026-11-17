@@ -1,0 +1,41 @@
+{
+  "time_utc": "2026-11-17T08:14:54.254889+00:00",
+  "scope": "distinct exact signed v3 offline prepared-preview follow-up",
+  "apk_sha256": "6f350e1326ed4c9acf635446142e8637ac5606e05159d291e5a2fdfd5d39bd0a",
+  "emulator": "fresh task-owned emulator-5624, API34 x86_64, accountless, airplane mode",
+  "full_link": "After two upward swipes the Japanese prepared Full link was wholly visible above Continue; tapping opened prepared romanized full sentence, Resume word switching returned to example.",
+  "japanese_listen": "Listen changed to Stop, then returned to Listen within 12 seconds; repeat play used solely to capture Stop visibly after first screenshot missed transient state.",
+  "swahili_listen": "Listen changed to Stop, then returned to Listen within 12 seconds.",
+  "limits": [
+    "UI controller active-to-idle only; no acoustic quality or independently instrumented engine-completion claim on -no-audio",
+    "Prepared examples only; no live chat, account, purchase or provider action",
+    "AVD retained pending root review"
+  ],
+  "crash_buffer_bytes": 0,
+  "screens": {
+    "ja-full-link-visible.png": {
+      "sha256": "10cbc6b54e50e3556afad8435332939d042f4c7fbf6a7bddd54fdeffda5cf139",
+      "bytes": 135247
+    },
+    "ja-full-open.png": {
+      "sha256": "77186a415886ee4c96c69b19b9f80875912825e66eaca5e293575672a3f07516",
+      "bytes": 140791
+    },
+    "ja-listen-stop.png": {
+      "sha256": "29d19723e63fcd9219010203854d123c774f33ed990b38db0e7f10590d002966",
+      "bytes": 135487
+    },
+    "ja-listen-idle.png": {
+      "sha256": "10cbc6b54e50e3556afad8435332939d042f4c7fbf6a7bddd54fdeffda5cf139",
+      "bytes": 135247
+    },
+    "sw-listen-active.png": {
+      "sha256": "e380568be6f2977ab7d17dfb846e09b998209b0c068e26a1e5ea63fe35e7706c",
+      "bytes": 136301
+    },
+    "sw-listen-idle.png": {
+      "sha256": "9e775b645e94659cdeb49f4c5195315a6bfa106935fa1dd8f7905c35c60b5414",
+      "bytes": 137263
+    }
+  }
+}
