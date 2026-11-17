@@ -1,0 +1,499 @@
+{
+  "app_id": "6832624092",
+  "version": "1.0",
+  "source": "release/localizations/reviewed-platform-fields.json",
+  "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+  "scope": "Existing ASC app, no upload or review submission. Each version and non-English app-information save was made once and read back after reload with exact source-field comparison. English name and subtitle already matched at initial inspection.",
+  "apple_locales": [
+    "ar",
+    "de-DE",
+    "en-US",
+    "es-ES",
+    "es-MX",
+    "fr-FR",
+    "it-IT",
+    "ja-JP",
+    "ko-KR",
+    "pt-BR",
+    "pt-PT",
+    "zh-Hans",
+    "zh-Hant"
+  ],
+  "excluded_locale": {
+    "locale": "sw",
+    "reason": "reviewed source has apple_locale null; App Store Connect does not offer Swahili localization"
+  },
+  "fields": "name and subtitle in App Information; promotional text and full description in version 1.0",
+  "limitations": [
+    "Keywords and support/marketing URLs were inherited from English for new localizations and were not translated in this task.",
+    "Localized screenshot assets, current build association, compliance, and final review submission remain separate.",
+    "Translations are reviewed drafts, not a claim of native-speaker or complete device-UX qualification."
+  ],
+  "receipts": {
+    "ar:info": {
+      "app_id": "6832624092",
+      "locale": "ar",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "d16493a1c77ce0614ae10e45360a93f6f62acf481a59f443bdba73d6934dbfce",
+        "apple_subtitle": "ee4457573f8180cd19e3fc57cb42d1af53d468bface9d948c0632ea64327a813"
+      },
+      "status": "saved_once_and_reloaded_exact_hash_match",
+      "readback_fields_sha256": {
+        "name": "d16493a1c77ce0614ae10e45360a93f6f62acf481a59f443bdba73d6934dbfce",
+        "apple_subtitle": "ee4457573f8180cd19e3fc57cb42d1af53d468bface9d948c0632ea64327a813"
+      },
+      "verified_utc": "2026-11-17T08:09:25.471641+00:00"
+    },
+    "ar:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "ar",
+      "intent": "Save Arabic version promotional text and description once; existing English fallback keywords and URLs retained",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "apple_promotional_text": "10bbf43c030e0b4b91ab62e399b0d740d0e5660520c49576d46d0f263f9a6bd6",
+        "full_description": "acb0401cc407e00ad94eba1eecd7558ea1acd18f4aabe0028c95dfe922c68d16"
+      },
+      "status": "saved_once_and_reloaded_exact_hash_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "10bbf43c030e0b4b91ab62e399b0d740d0e5660520c49576d46d0f263f9a6bd6",
+        "full_description": "acb0401cc407e00ad94eba1eecd7558ea1acd18f4aabe0028c95dfe922c68d16"
+      },
+      "readback_note": "Arabic appears under Localized after reload; promotional text and full description were selected in the native UI and compared by SHA-256. Keywords and URLs inherited English.",
+      "verified_utc": "2026-11-17T08:05:30.039021+00:00"
+    },
+    "de-DE:info": {
+      "app_id": "6832624092",
+      "locale": "de-DE",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "3619a87080fbc7d9382705fc5a202f6b14833c0dd155fa3365e4a376db021f9f",
+        "apple_subtitle": "d2dc92a2057822b1a0c683c238e4b10a35ea567ef8dec224785b3dd35009aba7"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "name": "3619a87080fbc7d9382705fc5a202f6b14833c0dd155fa3365e4a376db021f9f",
+        "apple_subtitle": "d2dc92a2057822b1a0c683c238e4b10a35ea567ef8dec224785b3dd35009aba7"
+      },
+      "verified_utc": "2026-11-17T08:11:11.921403+00:00"
+    },
+    "de-DE:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "de-DE",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "db49c48f7d0f58ce05d2f739e519fcdde725e28e7a387187f9aad6d3b1da6f63",
+        "full_description": "37a22f26e9de9a812c478c3c5a28a5d32f3cbbc3f041390413621997c2ae1d71"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "db49c48f7d0f58ce05d2f739e519fcdde725e28e7a387187f9aad6d3b1da6f63",
+        "full_description": "37a22f26e9de9a812c478c3c5a28a5d32f3cbbc3f041390413621997c2ae1d71"
+      },
+      "verified_utc": "2026-11-17T08:16:14.616999+00:00"
+    },
+    "en-US:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "en-US",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "8467e073f103ceee815470a350c597c2d382654e20cf0668be366be1d77d38e4",
+        "full_description": "b9c8d605b0cf9557ba5baa5ebc20f3c054c69caa920a4cfe39fa6502bb2fd6a0"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "f87fe3aa17cbce341f1a7432a35097c3dc028a6e55e9612724920c2b84eb8805",
+        "full_description": "c516890f2305a3480a4963270099a9196f9051d95ff0df4666b5e2d946216e1f"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "f87fe3aa17cbce341f1a7432a35097c3dc028a6e55e9612724920c2b84eb8805",
+        "full_description": "c516890f2305a3480a4963270099a9196f9051d95ff0df4666b5e2d946216e1f"
+      },
+      "verified_utc": "2026-11-17T08:15:56.106934+00:00",
+      "note": "Version save uses checkmark Save rather than Saved text; original save reloaded and read back without retry."
+    },
+    "es-ES:info": {
+      "app_id": "6832624092",
+      "locale": "es-ES",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "3bcaa64a8486ed3d3535ccc944a52acb32eadf6b7ea2addf49ac30f194f532a6",
+        "apple_subtitle": "5d80ee2f29f334086812306dfda9882e0597c8d4fe353fd61b80c66de5bf1563"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "name": "3bcaa64a8486ed3d3535ccc944a52acb32eadf6b7ea2addf49ac30f194f532a6",
+        "apple_subtitle": "5d80ee2f29f334086812306dfda9882e0597c8d4fe353fd61b80c66de5bf1563"
+      },
+      "verified_utc": "2026-11-17T08:11:49.980020+00:00"
+    },
+    "es-ES:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "es-ES",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "91974ab20b6aa9d9ae6cb8e3f418bc03604baba9a048f7db614ff19e7c57711a",
+        "full_description": "5b59f081e3763b75626d66fc599c46e401435ecc99c6b08015f6b255d48a760f"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "91974ab20b6aa9d9ae6cb8e3f418bc03604baba9a048f7db614ff19e7c57711a",
+        "full_description": "5b59f081e3763b75626d66fc599c46e401435ecc99c6b08015f6b255d48a760f"
+      },
+      "verified_utc": "2026-11-17T08:16:33.098797+00:00"
+    },
+    "es-MX:info": {
+      "app_id": "6832624092",
+      "locale": "es-MX",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "3bcaa64a8486ed3d3535ccc944a52acb32eadf6b7ea2addf49ac30f194f532a6",
+        "apple_subtitle": "5d80ee2f29f334086812306dfda9882e0597c8d4fe353fd61b80c66de5bf1563"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "name": "3bcaa64a8486ed3d3535ccc944a52acb32eadf6b7ea2addf49ac30f194f532a6",
+        "apple_subtitle": "5d80ee2f29f334086812306dfda9882e0597c8d4fe353fd61b80c66de5bf1563"
+      },
+      "verified_utc": "2026-11-17T08:12:03.602147+00:00"
+    },
+    "es-MX:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "es-MX",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "91974ab20b6aa9d9ae6cb8e3f418bc03604baba9a048f7db614ff19e7c57711a",
+        "full_description": "5b59f081e3763b75626d66fc599c46e401435ecc99c6b08015f6b255d48a760f"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "91974ab20b6aa9d9ae6cb8e3f418bc03604baba9a048f7db614ff19e7c57711a",
+        "full_description": "5b59f081e3763b75626d66fc599c46e401435ecc99c6b08015f6b255d48a760f"
+      },
+      "verified_utc": "2026-11-17T08:16:50.815605+00:00"
+    },
+    "fr-FR:info": {
+      "app_id": "6832624092",
+      "locale": "fr-FR",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "c553e8f048559b99c0d3b2cb0df09c5928dc28711926ea9630b8e463715fd6f4",
+        "apple_subtitle": "c389f51a65826e4bacaf5424ef271132b8f3be2a6a690551cb72f1858b452f45"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "name": "c553e8f048559b99c0d3b2cb0df09c5928dc28711926ea9630b8e463715fd6f4",
+        "apple_subtitle": "c389f51a65826e4bacaf5424ef271132b8f3be2a6a690551cb72f1858b452f45"
+      },
+      "verified_utc": "2026-11-17T08:12:16.561528+00:00"
+    },
+    "fr-FR:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "fr-FR",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "05bb5fbc45dce451ab95c961d5bada9fc6e19d4ad4d5225e3d9ee308b3a664bb",
+        "full_description": "67c7d7f872b8b3fe5d4f19d78771b7a4e3ab964d2cbc292ac2b3a8fa5da0d1b9"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "05bb5fbc45dce451ab95c961d5bada9fc6e19d4ad4d5225e3d9ee308b3a664bb",
+        "full_description": "67c7d7f872b8b3fe5d4f19d78771b7a4e3ab964d2cbc292ac2b3a8fa5da0d1b9"
+      },
+      "verified_utc": "2026-11-17T08:17:08.626683+00:00"
+    },
+    "it-IT:info": {
+      "app_id": "6832624092",
+      "locale": "it-IT",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "9ba373b54f4d99c30ce91b129dbe7427015ea1eb24a89258d1ce9df907fb5d18",
+        "apple_subtitle": "65156051e18488ce146e75e6963e0e35a5ca3310c4c4a50868dff2128170b7cf"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "name": "9ba373b54f4d99c30ce91b129dbe7427015ea1eb24a89258d1ce9df907fb5d18",
+        "apple_subtitle": "65156051e18488ce146e75e6963e0e35a5ca3310c4c4a50868dff2128170b7cf"
+      },
+      "verified_utc": "2026-11-17T08:12:29.770859+00:00"
+    },
+    "it-IT:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "it-IT",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "1dd808a1cc890e1268a85bd6d1d0297083791ede6439d637408a69be4df8eb79",
+        "full_description": "ebcfc80608e10232ded188928c78f3918a34446c639fd331f62e709ce49148f1"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "1dd808a1cc890e1268a85bd6d1d0297083791ede6439d637408a69be4df8eb79",
+        "full_description": "ebcfc80608e10232ded188928c78f3918a34446c639fd331f62e709ce49148f1"
+      },
+      "verified_utc": "2026-11-17T08:17:26.468013+00:00"
+    },
+    "ja-JP:info": {
+      "app_id": "6832624092",
+      "locale": "ja-JP",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "b0b4bc16598c6e4d8b174c08f0b8f21e2258acb444ff5b819088d61331d7dbb8",
+        "apple_subtitle": "93f2df5de57a5c3226e14bdb54722575ac7959da552da75341aaf06485e9c19d"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "name": "b0b4bc16598c6e4d8b174c08f0b8f21e2258acb444ff5b819088d61331d7dbb8",
+        "apple_subtitle": "93f2df5de57a5c3226e14bdb54722575ac7959da552da75341aaf06485e9c19d"
+      },
+      "verified_utc": "2026-11-17T08:12:42.716777+00:00"
+    },
+    "ja-JP:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "ja-JP",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "5b368599b824b6032231518dc166034349c63c36186bf0c04cc44550e425a051",
+        "full_description": "d31c27cc788195dde1055f72cc41e1c7a3257ad507b0d66ceb88c89a687471b6"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "5b368599b824b6032231518dc166034349c63c36186bf0c04cc44550e425a051",
+        "full_description": "d31c27cc788195dde1055f72cc41e1c7a3257ad507b0d66ceb88c89a687471b6"
+      },
+      "verified_utc": "2026-11-17T08:17:44.166589+00:00"
+    },
+    "ko-KR:info": {
+      "app_id": "6832624092",
+      "locale": "ko-KR",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "238f6bbe1d7fd7e5647bbd81f28c50df729b7ffdbecc561f4f4474a77a5c65c3",
+        "apple_subtitle": "929841cdd6e486a7c6dfaa872caa735c937bd698d031db852c265e1e7a1f7aa8"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "name": "238f6bbe1d7fd7e5647bbd81f28c50df729b7ffdbecc561f4f4474a77a5c65c3",
+        "apple_subtitle": "929841cdd6e486a7c6dfaa872caa735c937bd698d031db852c265e1e7a1f7aa8"
+      },
+      "verified_utc": "2026-11-17T08:12:55.896861+00:00"
+    },
+    "ko-KR:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "ko-KR",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "2a67dd8dc15c8558a8c8969b1f777a93bd38f3c6c59745cef110e2021882f784",
+        "full_description": "181452c4442d70ac233c8198fd75b95ed2bee2f7c65d52602df985e11f298170"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "2a67dd8dc15c8558a8c8969b1f777a93bd38f3c6c59745cef110e2021882f784",
+        "full_description": "181452c4442d70ac233c8198fd75b95ed2bee2f7c65d52602df985e11f298170"
+      },
+      "verified_utc": "2026-11-17T08:18:01.754986+00:00"
+    },
+    "pt-BR:info": {
+      "app_id": "6832624092",
+      "locale": "pt-BR",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "38c92dc186eef74f2f4c0ad43d1aa7eacf1fdc092c5fab13f9ff4084185e9bcb",
+        "apple_subtitle": "aed7af6debe5f327b3b1d605b4fd7323985886444978c451fd8cfca756abba41"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "name": "38c92dc186eef74f2f4c0ad43d1aa7eacf1fdc092c5fab13f9ff4084185e9bcb",
+        "apple_subtitle": "aed7af6debe5f327b3b1d605b4fd7323985886444978c451fd8cfca756abba41"
+      },
+      "verified_utc": "2026-11-17T08:13:09.315532+00:00"
+    },
+    "pt-BR:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "pt-BR",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "4133dd3adce89ce7d76c8f3c91bb47eeca1bb97851fc0c54c137e4fdee7e3fa1",
+        "full_description": "0aaf43ff76cd9b894d9e6646ae60d92808cb1ac1f5e63d4fe31e83ddc812a933"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "4133dd3adce89ce7d76c8f3c91bb47eeca1bb97851fc0c54c137e4fdee7e3fa1",
+        "full_description": "0aaf43ff76cd9b894d9e6646ae60d92808cb1ac1f5e63d4fe31e83ddc812a933"
+      },
+      "verified_utc": "2026-11-17T08:18:19.463771+00:00"
+    },
+    "pt-PT:info": {
+      "app_id": "6832624092",
+      "locale": "pt-PT",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "38c92dc186eef74f2f4c0ad43d1aa7eacf1fdc092c5fab13f9ff4084185e9bcb",
+        "apple_subtitle": "8b0dee96c016223316f08d3f0aefe251d2cc7eebd2bfaf5a5dddd50ef4698f24"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "name": "38c92dc186eef74f2f4c0ad43d1aa7eacf1fdc092c5fab13f9ff4084185e9bcb",
+        "apple_subtitle": "8b0dee96c016223316f08d3f0aefe251d2cc7eebd2bfaf5a5dddd50ef4698f24"
+      },
+      "verified_utc": "2026-11-17T08:13:24.110509+00:00"
+    },
+    "pt-PT:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "pt-PT",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "55199b14588bfd60d2eb815bf7bc0bb732339a439fb919394df12416a3aab45d",
+        "full_description": "e87ff13c5963879de16039884aded30312dfcd14a6438209be85c9b3f31a8213"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "55199b14588bfd60d2eb815bf7bc0bb732339a439fb919394df12416a3aab45d",
+        "full_description": "e87ff13c5963879de16039884aded30312dfcd14a6438209be85c9b3f31a8213"
+      },
+      "verified_utc": "2026-11-17T08:18:37.401134+00:00"
+    },
+    "zh-Hans:info": {
+      "app_id": "6832624092",
+      "locale": "zh-Hans",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "8721b6174bc462a0d958ca37b60355e5ae5cba0172c3ecf11295cc59605f7b0e",
+        "apple_subtitle": "b8d22fbdc215f5f4be81b2ed784f29fd4ee7882a3163562f905a64872437b710"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "name": "8721b6174bc462a0d958ca37b60355e5ae5cba0172c3ecf11295cc59605f7b0e",
+        "apple_subtitle": "b8d22fbdc215f5f4be81b2ed784f29fd4ee7882a3163562f905a64872437b710"
+      },
+      "verified_utc": "2026-11-17T08:14:01.420968+00:00",
+      "note": "Saved confirmation arrived after first short wait; no retry."
+    },
+    "zh-Hans:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "zh-Hans",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "19179a3556717a84dff06ceaaeb13621b74e2886c76fd5d80b531ccac657cb68",
+        "full_description": "2a095409fca2940ab6ecccbc79b4fe08d269b60acf954a69b7a0fdfa9fd966b5"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "19179a3556717a84dff06ceaaeb13621b74e2886c76fd5d80b531ccac657cb68",
+        "full_description": "2a095409fca2940ab6ecccbc79b4fe08d269b60acf954a69b7a0fdfa9fd966b5"
+      },
+      "verified_utc": "2026-11-17T08:18:54.845469+00:00"
+    },
+    "zh-Hant:info": {
+      "app_id": "6832624092",
+      "locale": "zh-Hant",
+      "intent": "Save localized app name and subtitle once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "fields_sha256": {
+        "name": "8721b6174bc462a0d958ca37b60355e5ae5cba0172c3ecf11295cc59605f7b0e",
+        "apple_subtitle": "b1c1257f41ebf370ec0245e99567a08f9955cb9d9c82e6f9386fada886b97a37"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "name": "8721b6174bc462a0d958ca37b60355e5ae5cba0172c3ecf11295cc59605f7b0e",
+        "apple_subtitle": "b1c1257f41ebf370ec0245e99567a08f9955cb9d9c82e6f9386fada886b97a37"
+      },
+      "verified_utc": "2026-11-17T08:14:17.871625+00:00"
+    },
+    "zh-Hant:version": {
+      "app_id": "6832624092",
+      "version": "1.0",
+      "locale": "zh-Hant",
+      "intent": "Save version promotional text and description once",
+      "source_sha256": "4d3614d573edd0af4bd7cddc4304c225bd19dbaf577a97bbaae14d2b7aba3463",
+      "previous_fields_sha256": {
+        "apple_promotional_text": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "full_description": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "fields_sha256": {
+        "apple_promotional_text": "3871794d339de8c282d00b3c7f0320f4243a1219d61fae73b1b2bdbfd7263a23",
+        "full_description": "515b1eab5c8dac68b1d697e73c86cee1de760eea9409c4d718f099456e35bdd7"
+      },
+      "status": "saved_once_and_reloaded_exact_match",
+      "readback_fields_sha256": {
+        "apple_promotional_text": "3871794d339de8c282d00b3c7f0320f4243a1219d61fae73b1b2bdbfd7263a23",
+        "full_description": "515b1eab5c8dac68b1d697e73c86cee1de760eea9409c4d718f099456e35bdd7"
+      },
+      "verified_utc": "2026-11-17T08:19:12.660510+00:00"
+    }
+  },
+  "completed_utc": "2026-11-17T08:19:47.592384+00:00"
+}
