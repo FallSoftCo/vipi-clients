@@ -61,6 +61,27 @@ import StoreKitTest
         session.resetToDefaultState(); session.disableDialogs = true; session.clearTransactions()
         return session
     }
+    private enum StoreKitWaitFailure: Error { case timedOut }
+    /// StoreKit publishes transactions asynchronously even after purchase()
+    /// returns. Keep the expected state strict while bounding that propagation.
+    private func waitForStoreKit(_ description: String, file: StaticString = #filePath, line: UInt = #line,
+                                 until condition: @MainActor () async -> Bool) async throws {
+        let deadline = ContinuousClock.now.advanced(by: .seconds(5))
+        while !(await condition()) {
+            guard ContinuousClock.now < deadline else {
+                XCTFail("Timed out waiting for StoreKit: \(description)", file: file, line: line)
+                throw StoreKitWaitFailure.timedOut
+            }
+            try await Task.sleep(for: .milliseconds(25))
+        }
+    }
+    private func unfinishedBaseCount() async -> Int {
+        var count = 0
+        for await result in Transaction.unfinished {
+            if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { count += 1 }
+        }
+        return count
+    }
     func testBaseAnnualWithoutExtraTrialAndSeparateBotMiniTrialRespectServiceReadiness() async throws {
         let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
         let api = Service(); api.ready = false
@@ -114,11 +135,24 @@ import StoreKitTest
         let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
         await store.start(); await store.purchase(.base)
         XCTAssertFalse(store.baseActive); XCTAssertFalse(store.canPurchase(.base)); XCTAssertTrue(store.awaitingConfirmation.contains(.base))
+        try await waitForStoreKit("denied purchase remains unfinished") { await self.unfinishedBaseCount() == 1 }
         var unfinished = 0
         for await result in Transaction.unfinished { if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { unfinished += 1 } }
         XCTAssertEqual(unfinished, 1)
+        // An explicit second checkout remains blocked while the service is
+        // unavailable. Reading/receiving the transaction must never finish it.
+        await store.purchase(.base)
+        XCTAssertEqual(environment.allTransactions().count, 1)
+        XCTAssertFalse(store.baseActive); XCTAssertFalse(store.canPurchase(.base))
+        XCTAssertTrue(store.awaitingConfirmation.contains(.base))
+        let stillUnfinished = await unfinishedBaseCount()
+        XCTAssertEqual(stillUnfinished, 1)
         api.rejectSubmission = false; await store.start()
+        try await waitForStoreKit("service-confirmed purchase becomes active") {
+            store.baseActive && !store.awaitingConfirmation.contains(.base)
+        }
         XCTAssertTrue(store.baseActive); XCTAssertFalse(store.awaitingConfirmation.contains(.base))
+        try await waitForStoreKit("confirmed purchase is finished") { await self.unfinishedBaseCount() == 0 }
         var remaining = 0
         for await result in Transaction.unfinished { if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { remaining += 1 } }
         XCTAssertEqual(remaining, 0); XCTAssertGreaterThanOrEqual(api.submitted, 2)

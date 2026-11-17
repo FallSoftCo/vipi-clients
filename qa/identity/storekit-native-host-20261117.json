@@ -1,0 +1,88 @@
+{
+  "qualifiedAt": "2026-11-17T21:58:08Z",
+  "scope": "Actual native macOS local StoreKit lifecycle of unchanged iOS Subscriptions.swift; mocked ChatTransport; no iOS UI, sandbox/production store or backend-provider qualification",
+  "host": {
+    "macOS": "26.6 (25G72)",
+    "Xcode": "26.6 (17F113)",
+    "sdk": "macOS26.5",
+    "bundleID": "co.fallsoft.vipi.storekitqa",
+    "createsSimulatorOrRuntime": false
+  },
+  "source": {
+    "productionSubscriptionSHA256": "dfb3b9856745d4ef662163a93e11006e50863674afdefd4f784ce3339e541246",
+    "qualifiedTestSHA256": "18114dec3725a87c6634ebb7cf2b0300c8939c4662f977c4578d2ad959af6523",
+    "catalogs": {
+      "Vipi.storekit": "b9014f79eff291c571beeb764384ed4bc46848efba3fd44b96c29c8c8f7b0cf5",
+      "VipiWrongBaseTrial.storekit": "ba27ab9129bb1cc5c5b335a0104df775d455d317d2f32da572084ddf7980cccd"
+    }
+  },
+  "change": {
+    "productionLogicChanged": false,
+    "catalogsChanged": false,
+    "testGuardChanged": false,
+    "existingAssertionsRemovedOrWeakened": false,
+    "pollIntervalMilliseconds": 25,
+    "pollTimeoutSeconds": 5,
+    "additionalAssertions": "Explicit second checkout creates no second transaction, remains inactive/blocked/awaiting, and leaves one transaction unfinished while service rejects"
+  },
+  "diagnosis": {
+    "initialFreshProcessResult": "One test, four assertion failures before asynchronous transaction enumeration appeared",
+    "observedDelay": "Diagnostic r06: unfinished/current/all absent at +200 ms, present by next +800 ms read, automatic listener retried after mock service became available, finish occurred only after accepted response; +2000 ms unfinished=0/current=1",
+    "productionSemantics": "awaitingConfirmation blocks another checkout after denied service; Transaction.updates and reconciliation provide retry; no independently retained transaction/JWS in SubscriptionStore",
+    "notAnEstablishedProductionBug": true,
+    "wrongCatalogIsolation": "Normal and intentionally wrong catalogs run in separate host processes with their exact scheme configuration"
+  },
+  "result": {
+    "uniqueTests": 7,
+    "executions": 8,
+    "failures": 0,
+    "runs": [
+      {
+        "name": "isolated-retry",
+        "exit": 0,
+        "logSHA256": "4fbd6c0f2e3475084c49cde9ebae66cdba3f24f244b3446f9c917c61c5712d60"
+      },
+      {
+        "name": "normal-six",
+        "exit": 0,
+        "logSHA256": "63ca4ca4ec123418586daee01b0b9c75d5302ca5562f9490eac0e849346ffd6e"
+      },
+      {
+        "name": "wrong-catalog",
+        "exit": 0,
+        "logSHA256": "a1ca3fdf8f2e3f221404e9ebdee003d865b8e7143f80ff7f9a55e045aa37a907"
+      }
+    ],
+    "elapsedSeconds": 23.21,
+    "peakAdditionalDiskBytes": 208633856,
+    "guardStopped": false
+  },
+  "safety": {
+    "realPurchases": false,
+    "authOrProfileActions": false,
+    "backendCalls": false,
+    "reusableTokensRetained": false,
+    "testHostAndOwnedWindowAbsentAfterRun": true,
+    "desktopReleased": true,
+    "compilerIdle": true
+  },
+  "evidence": {
+    "nativeRoot": "/Users/Apple/Development/vipi-quality-20261117-r01/native-storekit-host-r07",
+    "localRoot": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-storekit-host-r07",
+    "receiptSHA256": "411d04040899884965b32accdb03ca9641ecd898bf883865a0a088cf56709527",
+    "preservedEarlierEvidence": [
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/root-storekit-r01.log",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/storekit-ide-r01/result.json",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-storekit-host-r01/result.json",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-storekit-host-r02",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-storekit-host-r03",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-storekit-host-r05-diagnostic",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-storekit-host-r06-diagnostic"
+    ]
+  },
+  "officialReferences": [
+    "https://developer.apple.com/documentation/storekittest/sktestsession",
+    "https://developer.apple.com/documentation/storekit/transaction/unfinished",
+    "https://developer.apple.com/documentation/xcode/setting-up-storekit-testing-in-xcode"
+  ]
+}
