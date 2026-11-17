@@ -22,7 +22,12 @@ struct SubscriptionOfferView: View {
                     Text("vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.")
                         .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                 }
-                if access?.active == true {
+                if store.accessVerificationPending(plan) {
+                    Label("Checking subscription access", systemImage: "clock.arrow.circlepath")
+                        .foregroundStyle(VipiDesign.secondary)
+                    Text("We can’t verify your subscription right now. Please try again later. You won’t be charged.")
+                    Button("Try again") { Task { await store.refresh() } }.disabled(store.loading)
+                } else if store.accessActive(plan) {
                     if access?.isReviewAccess == true {
                         Label("Review access is active", systemImage: "checkmark.circle.fill")
                             .foregroundStyle(VipiDesign.highlight)
@@ -48,11 +53,6 @@ struct SubscriptionOfferView: View {
                         Text("Bot mini also needs an active Vipi subscription. You can manage both subscriptions below.")
                             .foregroundStyle(VipiDesign.secondary)
                     }
-                } else if access?.verification_unavailable == true {
-                    Label("Checking subscription access", systemImage: "clock.arrow.circlepath")
-                        .foregroundStyle(VipiDesign.secondary)
-                    Text("We can’t verify your subscription right now. Please try again later. You won’t be charged.")
-                    Button("Try again") { Task { await store.refresh() } }.disabled(store.loading)
                 } else if let product {
                     VStack(alignment: .leading, spacing: 12) {
                         if trial {
@@ -135,10 +135,10 @@ struct SubscriptionsView: View {
             Section {
                 ForEach(VipiPlan.allCases) { plan in
                     NavigationLink { SubscriptionOfferView(store: store, plan: plan) } label: {
-                        if store.snapshot?.access(plan).verification_unavailable == true {
+                        if store.accessVerificationPending(plan) {
                             LabeledContent(plan.title, value: String(localized: "Checking access"))
                         } else {
-                            LabeledContent(plan.title, value: store.snapshot?.access(plan).active == true ? String(localized: "Active") : String(localized: "See plan"))
+                            LabeledContent(plan.title, value: store.accessActive(plan) ? String(localized: "Active") : String(localized: "See plan"))
                         }
                     }
                 }

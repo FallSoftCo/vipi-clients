@@ -36,6 +36,24 @@ struct EntitlementSnapshot: Decodable, Sendable {
     func access(_ plan: VipiPlan) -> Access { plan == .base ? base : bot_mini }
 }
 
+/// Uses only the service timestamps and monotonic elapsed time, never the device wall clock.
+struct ServerTrialClock: Sendable {
+    let deadline: ContinuousClock.Instant
+    static func make(serverTime: String?, trialEnd: String?, now: ContinuousClock.Instant = .now) -> ServerTrialClock? {
+        guard let serverTime, let trialEnd else { return nil }
+        func parse(_ value: String) -> Date? {
+            let fractional = ISO8601DateFormatter()
+            fractional.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            return fractional.date(from: value) ?? ISO8601DateFormatter().date(from: value)
+        }
+        guard let start = parse(serverTime), let end = parse(trialEnd) else { return nil }
+        let remaining = end.timeIntervalSince(start)
+        guard remaining.isFinite else { return nil }
+        return ServerTrialClock(deadline: now.advanced(by: .seconds(max(0, remaining))))
+    }
+    func expired(at now: ContinuousClock.Instant = .now) -> Bool { now >= deadline }
+}
+
 struct BotAllowance: Decodable, Sendable {
     let available: Bool
     let service_ready: Bool
@@ -49,6 +67,9 @@ struct BotAllowance: Decodable, Sendable {
     private let api: any ChatTransport
     private let accountToken: UUID
     private var listener: Task<Void, Never>?
+    private var trialExpiryTask: Task<Void, Never>?
+    private var trialClock: ServerTrialClock?
+    private var trialExpiryObserved = false
     private var closed = false
     private var synchronizing = Set<UInt64>()
     private var reconciling = false
@@ -82,7 +103,7 @@ struct BotAllowance: Decodable, Sendable {
         await refresh()
         await reconcile()
     }
-    func close() { closed = true; listener?.cancel(); listener = nil; snapshot = nil; botAllowance = nil }
+    func close() { closed = true; listener?.cancel(); listener = nil; trialExpiryTask?.cancel(); trialExpiryTask = nil; trialClock = nil; snapshot = nil; botAllowance = nil }
     func refresh() async {
         guard !loading, !closed else { return }
         loading = true
@@ -91,8 +112,9 @@ struct BotAllowance: Decodable, Sendable {
         purchaseReady = false; botAllowance = nil
         defer { loading = false }
         do {
+            let startedAt = ContinuousClock.now
             let value: EntitlementSnapshot = try await api.request("GET", "/v1/entitlements")
-            try accept(value)
+            try accept(value, capturedAt: startedAt)
             purchaseReady = value.purchases_ready?.apple == true
         } catch { if !closed { notice = Self.explanation(error) } }
         do {
@@ -124,7 +146,18 @@ struct BotAllowance: Decodable, Sendable {
             }
         }
     }
-    var baseActive: Bool { snapshot?.base.active == true }
+    func accessVerificationPending(_ plan: VipiPlan) -> Bool {
+        guard let access = snapshot?.access(plan) else { return true }
+        if access.verification_unavailable == true { return true }
+        if plan == .base, access.active, access.access_source == "cardless_trial" {
+            return trialClock == nil || trialExpiryObserved || trialClock?.expired() == true
+        }
+        return false
+    }
+    func accessActive(_ plan: VipiPlan) -> Bool {
+        snapshot?.access(plan).active == true && !accessVerificationPending(plan)
+    }
+    var baseActive: Bool { accessActive(.base) }
     private(set) var purchaseReady = false
     var botServiceReady: Bool { botAllowance?.service_ready == true }
     var botAvailable: Bool { snapshot?.bot_mini.available == true && baseActive && botAllowance?.available == true }
@@ -134,7 +167,7 @@ struct BotAllowance: Decodable, Sendable {
     func canPurchase(_ plan: VipiPlan) -> Bool {
         !closed && !busy && !loading && !reconciling && !pending && !awaitingConfirmation.contains(plan) && !accountConflicts.contains(plan) && purchaseReady && snapshot != nil && products[plan] != nil &&
         snapshot?.access(plan).active == false &&
-        snapshot?.access(plan).verification_unavailable != true &&
+        !accessVerificationPending(plan) &&
         !(plan == .base && baseStoreTrialStillOffered) &&
         (plan == .base || (baseActive && botServiceReady))
     }
@@ -168,11 +201,26 @@ struct BotAllowance: Decodable, Sendable {
             if !closed && notice == nil { notice = String(localized: "Your App Store purchases are up to date.") }
         } catch { if !closed { notice = Self.explanation(error) } }
     }
-    private func accept(_ value: EntitlementSnapshot) throws {
+    private func accept(_ value: EntitlementSnapshot, capturedAt: ContinuousClock.Instant) throws {
         guard !closed, value.app_account_token == accountToken else {
             throw ServiceFailure(status: 0, code: "purchase_account_mismatch")
         }
         snapshot = value
+        trialExpiryTask?.cancel(); trialExpiryTask = nil; trialClock = nil; trialExpiryObserved = false
+        if value.base.active && value.base.access_source == "cardless_trial" {
+            if value.base.cardless_trial?.active != false {
+                // Starting the monotonic clock before the request is conservative about network delay.
+                trialClock = ServerTrialClock.make(serverTime: value.server_time, trialEnd: value.base.cardless_trial?.ends_at ?? value.base.trial_ends_at, now: capturedAt)
+            }
+            if let clock = trialClock {
+                trialExpiryTask = Task { [weak self] in
+                    do { try await ContinuousClock().sleep(until: clock.deadline) } catch { return }
+                    guard !Task.isCancelled, let self, !self.closed else { return }
+                    self.trialExpiryObserved = true
+                    await self.refresh()
+                }
+            }
+        }
     }
     private func reconcile() async {
         guard !closed else { return }
@@ -199,8 +247,9 @@ struct BotAllowance: Decodable, Sendable {
         defer { synchronizing.remove(transaction.id) }
         awaitingConfirmation.insert(plan)
         let body = try JSONEncoder().encode(PurchaseBody(signed_transaction_info: result.jwsRepresentation))
+        let startedAt = ContinuousClock.now
         let value: EntitlementSnapshot = try await api.request("POST", "/v1/purchases/apple", body: body)
-        try accept(value)
+        try accept(value, capturedAt: startedAt)
         // Preserve unfinished delivery when validation/network failed. A local
         // success flag never substitutes for the account-bound service result.
         await transaction.finish()

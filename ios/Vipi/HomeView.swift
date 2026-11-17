@@ -55,7 +55,7 @@ struct HomeView: View {
                                 .foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                             PrimaryButton(title: "Start a conversation") { showingInvite = true }
                         }.padding(26).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 28)) }
-                        if let subscriptions, subscriptions.snapshot?.base.active == false {
+                        if let subscriptions, subscriptions.snapshot?.base.active == false, !subscriptions.accessVerificationPending(.base) {
                             Button("See your Vipi subscription") { offerBase = true }
                                 .font(.subheadline.weight(.semibold))
                         }
