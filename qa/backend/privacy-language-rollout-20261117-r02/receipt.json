@@ -1,0 +1,67 @@
+{
+  "phase": "complete",
+  "switched": true,
+  "rollback": false,
+  "preflight": {
+    "schema": "20261117_01",
+    "active": 0,
+    "staging": true,
+    "allowed_count": 3,
+    "enforced": false,
+    "reviewers": 2,
+    "testers": 1
+  },
+  "push_pid": 2678219,
+  "dropins": {
+    "50-vipi-fcm-20261116.conf": "43178f193472e9bf31a0d9634bdc7dc9fdbae75bd4f71ac2c9853b05d1b83a12",
+    "51-fcm-status-logging.conf": "e00d023454ee09c49758d2fcd4a384f5dace4959e8da1a2facd45862ed3128b5",
+    "52-vipi-apns-sandbox-20261117.conf": "f65d7c71f7290426fdc7adb96315e42acbce1b01fc2cac75ffbe29cf9326ecc6"
+  },
+  "check": "schema_and_staging_settings",
+  "ready": 200,
+  "loopback_privacy": {
+    "status": 200,
+    "disclosure": true,
+    "no_store": true
+  },
+  "public_privacy": {
+    "status": 200,
+    "disclosure": true,
+    "no_store": true
+  },
+  "routes": {
+    "/": 200,
+    "/help": 200,
+    "/terms": 200,
+    "/v1/me": 401
+  },
+  "post_observed": {
+    "schema": "20261117_01",
+    "active": 0,
+    "staging": true,
+    "allowed_count": 3,
+    "enforced": false,
+    "reviewers": 2,
+    "testers": 1
+  },
+  "privacy": 200,
+  "unauth_me": 401,
+  "post": {
+    "schema": "20261117_01",
+    "active": 0,
+    "staging": true,
+    "allowed_count": 3,
+    "enforced": false,
+    "reviewers": 2,
+    "testers": 1
+  },
+  "api_pid": "3202995",
+  "scope": "one API-only privacy copy activation; no schema, settings, worker or client changes",
+  "unit": "vipi-privacy-language-20261117-r02.service",
+  "script_sha256": "13bbc13098c1d942d2c2e8066cacf124ac88decd3494a1df3284173447d6473a",
+  "candidate_manifest_sha256": "d372529f7f2a940090248914066ff7e65a078a88e29ce7ded793a65a5cda7c96",
+  "baseline_revision": "84c3ff8db5235a0b9419373f5d56b99ad50bf495",
+  "environment_sha256": "689e448c844e8153634cd0b1e31aa3de315a3f16ee67e12ef6ac3b3e167fb7d3",
+  "prior_attempt": "qa/backend/privacy-language-rollout-20261117-r01/receipt.json",
+  "limits": "Existing company QA apps remained stopped; no message replay, purchase or provider test. Restricted staging admission remains in force."
+}
