@@ -53,7 +53,8 @@ struct HistoryBackupView: View {
             }
             if let verified, restoring {
                 Section("Ready to restore") {
-                    Text("\(verified.messages) \(verified.messages == 1 ? "message" : "messages") across \(verified.peers) \(verified.peers == 1 ? "conversation" : "conversations").")
+                    LabeledContent("Messages", value: verified.messages.formatted())
+                    LabeledContent("Conversations", value: verified.peers.formatted())
                     Text("History will be merged with this Vipi account. Matching messages won’t be duplicated. Restored history does not verify anyone’s messaging identity.")
                         .font(.footnote).foregroundStyle(VipiDesign.secondary)
                     Button("Restore history", action: restore).disabled(busy).accessibilityIdentifier("history-confirm-restore")

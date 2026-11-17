@@ -516,7 +516,7 @@ struct ConversationImmersionText: View {
                     HStack {
                         metadata; Spacer(minLength: 8)
                         Menu {
-                            Button("Show \(VipiLanguage.named(identity.target).name)", action: requestTranslation)
+                            Button("Show \(VipiLanguage.named(identity.target).localizedName)", action: requestTranslation)
                                 .disabled(fullRequest != nil)
                             MessageLanguageMenu(source: identity.source, target: identity.target,
                                 selected: inputLanguage, select: { speech.stop(); immersion.selectInputLanguage($0, for: id) })

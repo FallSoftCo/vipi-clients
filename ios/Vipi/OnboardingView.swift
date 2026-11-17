@@ -97,14 +97,14 @@ struct OnboardingView: View {
             VStack(alignment: .leading, spacing: 10) {
                 Text("I already speak").font(.subheadline.weight(.medium)).foregroundStyle(VipiDesign.secondary)
                 Picker("I already speak", selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) })) {
-                    ForEach(VipiLanguage.initial) { Text($0.name).tag($0.id) }
+                    ForEach(VipiLanguage.initial) { Text($0.localizedName).tag($0.id) }
                 }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, alignment: .leading)
                     .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
             }
             Text("I want to learn").font(.subheadline.weight(.medium)).foregroundStyle(VipiDesign.secondary)
             Picker("I want to learn", selection: $state.targetLanguage) {
                 ForEach(VipiLanguage.initial.filter { $0.id != state.knownLanguage }) { language in
-                    Text("\(language.name) · \(language.localName)").tag(language.id)
+                    Text("\(language.localizedName) · \(language.localName)").tag(language.id)
                 }
             }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, alignment: .leading)
                 .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
@@ -147,7 +147,7 @@ struct OnboardingView: View {
 
     private var bottomAction: some View {
         VStack(spacing: 12) {
-            PrimaryButton(title: state.onboarding == .welcome ? "Choose languages" : state.onboarding == .language ? "Continue with \(VipiLanguage.named(state.targetLanguage).name)" : "Continue to sign in", busy: authentication.busy) {
+            PrimaryButton(title: state.onboarding == .welcome ? "Choose languages" : state.onboarding == .language ? "Continue with \(VipiLanguage.named(state.targetLanguage).localizedName)" : "Continue to sign in", busy: authentication.busy) {
                 switch state.onboarding {
                 case .welcome: advance(.language)
                 case .language: advance(.account)

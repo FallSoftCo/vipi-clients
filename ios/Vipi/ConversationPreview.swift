@@ -35,7 +35,7 @@ struct ConversationPreview: View {
                 ImmersionBubble(result: .complete(result), mode: mode, speech: speech, sourceLanguage: source, targetLanguage: target,
                     messageID: "language-preview-\(source)-\(target)", interactionPaused: scrolling, fullReading: ConversationExamples.examples?.languages[target]?.reading)
                 Text("Highlighted words switch between your two languages. This is a prepared example; available words in your chats vary by language. You can also view a prepared full translation.").font(.footnote).foregroundStyle(VipiDesign.secondary)
-                Button(mode == .translation ? "Resume word switching" : "Show full translation in \(VipiLanguage.named(target).name)") {
+                Button(mode == .translation ? "Resume word switching" : "Show full translation in \(VipiLanguage.named(target).localizedName)") {
                     mode = mode == .translation ? .immersed : .translation
                 }.font(.footnote.weight(.semibold)).frame(minHeight: 44)
                 if let error = speech.error { Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary) }

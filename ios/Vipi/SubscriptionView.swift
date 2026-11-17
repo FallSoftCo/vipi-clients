@@ -50,7 +50,7 @@ struct SubscriptionOfferView: View {
                         Text("Current access lasts until \(date.formatted(date: .long, time: .omitted)).")
                     }
                     if plan == .botMini && !store.baseActive {
-                        Text("Bot mini also needs an active Vipi subscription. You can manage both subscriptions below.")
+                        Text("Bot mini also needs active Vipi access. You can manage your plans below.")
                             .foregroundStyle(VipiDesign.secondary)
                     }
                 } else if let product {

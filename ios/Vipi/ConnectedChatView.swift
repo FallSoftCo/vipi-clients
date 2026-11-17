@@ -517,7 +517,7 @@ struct FriendConversationView: View {
                 }
             }.background(VipiDesign.canvas)
     }
-    @ViewBuilder private func statusLabel(_ title: String, symbol: String) -> some View {
+    @ViewBuilder private func statusLabel(_ title: LocalizedStringKey, symbol: String) -> some View {
         if typeSize.isAccessibilitySize {
             Label(title, systemImage: symbol).labelStyle(.iconOnly).frame(minWidth: 44, minHeight: 44)
         } else {

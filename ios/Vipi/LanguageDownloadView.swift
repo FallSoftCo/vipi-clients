@@ -171,30 +171,30 @@ struct LanguageDownloadView: View {
             Text("You’ll need to download these languages again before translating offline. Your conversations stay on this device.")
         }
     }
-    private func languagePicker(_ title: String, selection: Binding<String>, choices: [VipiLanguage], localName: Bool) -> some View {
+    private func languagePicker(_ title: LocalizedStringKey, selection: Binding<String>, choices: [VipiLanguage], localName: Bool) -> some View {
         NavigationLink {
             LanguageSelectionView(title: title, selection: selection, choices: choices, localName: localName)
         } label: {
             VStack(alignment: .leading, spacing: 6) {
                 Text(title).font(.callout).foregroundStyle(VipiDesign.secondary)
-                Text(VipiLanguage.named(selection.wrappedValue).name).foregroundStyle(VipiDesign.highlight)
+                Text(VipiLanguage.named(selection.wrappedValue).localizedName).foregroundStyle(VipiDesign.highlight)
             }.fixedSize(horizontal: false, vertical: true).frame(minHeight: 44)
                 .accessibilityElement(children: .combine)
         }.disabled(preparation.busy)
     }
     private var statusText: String {
-        if preparation.busy { return preparation.request == nil ? "Removing downloads…" : "Preparing translation downloads…" }
+        if preparation.busy { return preparation.request == nil ? String(localized: "Removing downloads…") : String(localized: "Preparing translation downloads…") }
         switch preparation.availability {
-        case .checking: return "Checking this device…"
-        case .downloadable: return "Download \(VipiLanguage.named(pair.source).name) and \(VipiLanguage.named(pair.target).name) for full-message translation offline."
-        case .installed: return "\(VipiLanguage.named(pair.source).name) and \(VipiLanguage.named(pair.target).name) are ready for full-message translation offline."
-        case .unsupported: return "Full-message translation isn’t available for this language pair on this device. Supported words can still switch."
+        case .checking: return String(localized: "Checking this device…")
+        case .downloadable: return String(localized: "Download \(VipiLanguage.named(pair.source).localizedName) and \(VipiLanguage.named(pair.target).localizedName) for full-message translation offline.")
+        case .installed: return String(localized: "\(VipiLanguage.named(pair.source).localizedName) and \(VipiLanguage.named(pair.target).localizedName) are ready for full-message translation offline.")
+        case .unsupported: return String(localized: "Full-message translation isn’t available for this language pair on this device. Supported words can still switch.")
         }
     }
 }
 
 private struct LanguageSelectionView: View {
-    let title: String
+    let title: LocalizedStringKey
     @Binding var selection: String
     let choices: [VipiLanguage]
     let localName: Bool
@@ -207,7 +207,7 @@ private struct LanguageSelectionView: View {
                         selection = language.id; dismiss()
                     } label: {
                         HStack(spacing: 16) {
-                            Text(localName ? "\(language.name) · \(language.localName)" : language.name)
+                            Text(localName ? "\(language.localizedName) · \(language.localName)" : language.localizedName)
                                 .font(.body).foregroundStyle(.primary)
                                 .fixedSize(horizontal: false, vertical: true)
                             Spacer(minLength: 0)

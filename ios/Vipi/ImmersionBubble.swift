@@ -203,7 +203,7 @@ struct MessageLanguageMenu: View {
         Menu("Message language") {
             Button("Detect automatically", systemImage: selected == nil ? "checkmark" : "text.bubble") { select(nil) }
             ForEach([source, target], id: \.self) { language in
-                Button(VipiLanguage.named(language).name, systemImage: selected == language ? "checkmark" : "text.bubble") { select(language) }
+                Button(VipiLanguage.named(language).localizedName, systemImage: selected == language ? "checkmark" : "text.bubble") { select(language) }
             }
         }
     }

@@ -52,7 +52,7 @@ struct HomeView: View {
                         } else { VStack(alignment: .leading, spacing: 16) {
                             VipiMark(size: 54)
                             Text("Start a chat\nwith a friend.").font(.system(.title, design: .serif)).fixedSize(horizontal: false, vertical: true)
-                            Text("Find a friend by username and send a message. Supported words and phrases will switch into \(VipiLanguage.named(state.targetLanguage).name) as you read.")
+                            Text("Find a friend by username and send a message. Supported words and phrases will switch into \(VipiLanguage.named(state.targetLanguage).localizedName) as you read.")
                                 .foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                             PrimaryButton(title: "Start a conversation") { showingInvite = true }
                         }.padding(26).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 28)) }
@@ -190,7 +190,7 @@ struct SettingsView: View {
             }
             Section("Words in your chats") {
                 NavigationLink { LanguageDownloadView() } label: {
-                    LabeledContent("Languages", value: VipiLanguage.named(state.targetLanguage).name)
+                    LabeledContent("Languages", value: VipiLanguage.named(state.targetLanguage).localizedName)
                 }.accessibilityIdentifier("language-settings-link")
                 VStack(alignment: .leading, spacing: 12) {
                     HStack { Text("New words"); Spacer(); Text("\(Int(state.density * 100))%").foregroundStyle(VipiDesign.secondary) }
