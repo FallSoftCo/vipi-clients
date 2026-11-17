@@ -1,0 +1,11 @@
+{
+  "time_utc": "2026-11-17T13:47:07.043282+00:00",
+  "scope": "Original pending Vipi Annual no-charge sandbox purchase",
+  "account": "arjun@fallsoft.co",
+  "native_field_context_menu": "AutoFill offers Passwords and Credit Card",
+  "passwords_result": "Passwords Is Locked: Enter the password for the user Apple to unlock. No Touch ID or other password provider displayed.",
+  "action": "Dismissed unlock popover; original Apple purchase authorization remains pending",
+  "secret_access": "No password accessed, revealed, copied or entered",
+  "purchase": "No second confirmation or purchase",
+  "native_evidence": "/tmp/vipi-autofill-locked.png on Mac"
+}
