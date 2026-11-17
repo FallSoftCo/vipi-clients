@@ -4,12 +4,12 @@
   "package": "co.fallsoft.vipi.frozenrouteqa",
   "artifacts": {
     "app_apk": {
-      "path": "/home/ai/Development/investigations/vipi-android-localization-20261117-r01/android/app/build/outputs/apk/debug/app-debug.apk",
+      "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-frozen-a52-qa-r01/retained-apks/qa.apk",
       "sha256": "d2dd65ba77f4e7f0fee4c75191286dfa9193c11aebbd1e198088ad408c659399",
       "bytes": 525415535
     },
     "test_apk": {
-      "path": "/home/ai/Development/investigations/vipi-android-localization-20261117-r01/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-frozen-a52-qa-r01/retained-apks/qa-test.apk",
       "sha256": "a2cf6032beb6443a1a52bbd9ee57a0707a27140a6afc68c531317f36eeeabd90",
       "bytes": 6008312
     },
