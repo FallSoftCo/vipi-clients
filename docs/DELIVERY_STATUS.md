@@ -31,9 +31,12 @@ Neither app has been submitted for app review.
 
 The Play verifier has Vipi-only read/financial/subscription permissions. A real
 read-only Publisher API call returned both active annual products. Its backend
-provider is configured on restricted staging. Google's RTDN publisher grant remains
-blocked by the inherited domain policy; no policy exception or push subscription
-is active.
+provider is configured on restricted staging. Google's RTDN publisher now has
+publisher access on the single billing topic. An authenticated push subscription
+and the exact Play Console topic are configured. The temporary project policy
+exception and finite guard were removed after the inherited domain restriction
+was restored and its enforcement proved. Backend notification configuration and
+the actual Play test delivery remain pending.
 
 The first actual FCM background message reached the receiving Android app
 without foregrounding it, after several minutes. A distinct diagnostic message
@@ -43,16 +46,35 @@ dispatch; the delay remains unexplained. Android initially hid the posted
 notification because the QA emulator was incompletely provisioned. Correcting
 that emulator setting made the existing notification visible without another
 send. The worker's narrow diagnostic overlay logs only response
-status or exception type. APNs production credentials remain configured;
-actual Apple delivery and a separately scoped simulator sandbox route remain.
+status or exception type. A later distinct FCM message reached inbox work in
+8.191 seconds and produced a visible notification; this does not establish
+typical delivery latency. Separate sandbox APNs credentials are now active while
+the production credential remains unchanged. One real Android-to-Apple message
+produced a simulator APNs arrival about three seconds after send, corroborated by
+apsd and SpringBoard logs. Foregrounding the app showed the decrypted message;
+notification presentation and server acknowledgement are tracked separately.
 
 Live restricted staging now runs backend `9b8cca6`, with schema `20261116_01`
-and account-scoped store sandbox verification enabled. The tester allowlist is
-empty; the existing reviewer access and disabled subscription enforcement are
-unchanged. The isolated PostgreSQL suite passed 192 tests with 2 skipped, and the
+and account-scoped store sandbox verification enabled. Three owned subjects are
+admitted, with two unchanged complimentary reviewers and one separately verified
+non-reviewer sandbox tester. Subscription enforcement remains disabled in this
+restricted staging environment. The isolated PostgreSQL suite passed 192 tests with 2 skipped, and the
 staged API passed actual migrated-schema readiness checks. The [deployment
 receipt](../qa/backend/store-sandbox-deploy-20261117-r01/receipt.json) records two
 prior verified rollbacks. Fixture tests are not real store purchases.
+
+The exact Play-generated version 1 universal APK is installed on a separate
+emulator, with the Play signing certificate and installed artifact hash verified.
+This was a sideload; installation through the Play Store is still unproven.
+The original account-bearing QA emulator is preserved. The new emulator uses
+software graphics after two graphics-thread crashes.
+
+The first-month audit found a release gap: dismissing the offer does not start a
+trial. Disabled staging enforcement allows indefinite chat; enabling enforcement
+would require a subscription immediately. A cardless first month is not yet
+implemented. The owner has been asked to choose between that flow and the
+existing optional store-authorized trial. Do not enable customer registration
+or describe a cardless month as available until the chosen flow is implemented.
 
 Private receipts are under `vipi-submit-20261110-r01/` in
 `computer-use-release-20261116-r01`, `fcm-logging-activation-20261116-r01`,

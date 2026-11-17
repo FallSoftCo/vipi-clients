@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-17T01:52:18.180274+00:00",
+  "scope": "Vipi Google Play billing notifications",
+  "publisher_role_scope": "single billing topic",
+  "push_authentication": "Google-signed OIDC with dedicated keyless service account and exact endpoint audience",
+  "token_creation_scope": "dedicated push identity only",
+  "legacy_domain_restriction_restored": true,
+  "legacy_enforcement_functionally_proven": true,
+  "temporary_project_policy_absent": true,
+  "temporary_custom_definition_absent": true,
+  "play_topic_saved_once_and_reloaded": true,
+  "backend_notification_config_active": false,
+  "test_notification_sent": false,
+  "purchase_or_charge": false,
+  "evidence": {
+    "google-rtdn-policy-preflight-20261116-r02/grant-restore-result.json": "a62b5934e879eb6b29dacda212d5b42bd9cdf952b920b83a91131bbe0d8a464a",
+    "google-rtdn-policy-preflight-20261116-r02/legacy-restoration-probe-r01-response.json": "6c93e8c0648121b8556ac86a891f882554a29395671ab1b4c44654f4adce3af3",
+    "google-rtdn-policy-preflight-20261116-r02/custom-cleanup-result.json": "ac1eb1169f961270d04b2aa0cb8590da75b2a4eec5723d2a8626127d8182fd6c",
+    "google-billing-preparation-20261116-r01/push-token-binding-readback.json": "28d34b9a4dca43ae8082660b82c6d2f90dbe1fe439346c35da3eb600409e8240",
+    "google-billing-preparation-20261116-r01/push-subscription-readback.json": "9b787fbff1e409a2da2f6132293c9688469b0283401baec4aff8c79be61270aa",
+    "google-billing-preparation-20261116-r01/play-rtdn-configuration.json": "a204b54053b30dcc9153eff94b32127d31b39df7942470a92d8aa44e2ddc5964"
+  }
+}
