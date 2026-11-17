@@ -1,0 +1,34 @@
+{
+  "state": "published_once_and_verified",
+  "at_utc": "2026-11-17T16:09:38.362217+00:00",
+  "release_url": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3",
+  "release_id": 448369261,
+  "assets": [
+    {
+      "name": "client-expiry-source-README.md",
+      "bytes": 1768,
+      "sha256": "f40a09c03c635099841e269eac5d82857fc28cf10d397c10bcbb650cc3c18ea6",
+      "id": 759716242,
+      "github_digest_verified": true,
+      "anonymous_download_verified": true
+    },
+    {
+      "name": "client-expiry-source-receipt.json",
+      "bytes": 5629,
+      "sha256": "14fd868a2d5fda9677f1e55474111f688531560f685c180ed27852493e6fa3ac",
+      "id": 759716244,
+      "github_digest_verified": true,
+      "anonymous_download_verified": true
+    },
+    {
+      "name": "client-expiry-source.patch",
+      "bytes": 12671,
+      "sha256": "e1954eade90e7a10c966f1d5b58bdd933894813a73556a08ebd7f7df9fdf05f8",
+      "id": 759716238,
+      "github_digest_verified": true,
+      "anonymous_download_verified": true
+    }
+  ],
+  "scope": "Additive source supplement for Android1.0.3(4) and Apple1.0(3); no app upload or store approval",
+  "base_archive_preserved": "sha256:3d3884ea4cc4632fa5f137deba816b386edccf5a6d00edde77b93ca2bcae304c"
+}
