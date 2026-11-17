@@ -1,0 +1,33 @@
+{
+  "observed_at_utc": "2026-11-17T13:08:08.981266+00:00",
+  "app_id": "6832624092",
+  "app_download_price": {
+    "base_region": "United States",
+    "price": "USD 0.00",
+    "price_schedule": "confirmed once; current price reloaded; price entries across 175 regions showed zero",
+    "app_availability": "173 available, France and China mainland not available; separate from price entries"
+  },
+  "subscriptions": "Prices and offers unchanged",
+  "testflight": {
+    "build": "1.0 (2)",
+    "build_id": "9367242c-b819-4bc7-9ade-6e192a12c43e",
+    "groups": 0,
+    "individual_testers": 0,
+    "existing_testers_picker": "No testers have been added",
+    "new_internal_group": "Up to 100 testers; optional automatic distribution cannot be changed later",
+    "actions": "No group created and no tester invited"
+  },
+  "mac": "iOS app Apple Silicon Mac availability checked; ASC states compatibility has not been verified",
+  "version_review": {
+    "associated_build": "1.0 (2)",
+    "manual_release": true,
+    "review_sign_in_contact_notes": "Populated; correctness not verified",
+    "validation": "No Add for Review or Submit pressed; no complete server-side validation claimed"
+  },
+  "no_other_changes": [
+    "subscriptions",
+    "build upload",
+    "purchase",
+    "review submission"
+  ]
+}
