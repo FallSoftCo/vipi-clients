@@ -7,3 +7,6 @@
 -keep class opennlp.tools.tokenize.TokenizerFactory { *; }
 -keep class opennlp.tools.postag.POSTaggerFactory { *; }
 -keep class opennlp.tools.util.featuregen.** { *; }
+# libsignal JNI resolves internal store callbacks using this exact return type.
+# Renaming it changes the callback descriptor and breaks release session setup.
+-keepnames class org.signal.libsignal.internal.NativeHandleGuard$Owner
