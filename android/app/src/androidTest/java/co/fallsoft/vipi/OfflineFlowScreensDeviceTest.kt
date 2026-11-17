@@ -65,7 +65,7 @@ class OfflineFlowScreensDeviceTest {
             state.value = value
         }
         val device = UiDevice.getInstance(inst)
-        val suffix = inst.arguments.getString("vipiFlowRun") ?: "light"
+        val suffix = InstrumentationRegistry.getArguments().getString("vipiFlowRun") ?: "light"
         require(suffix.matches(Regex("[a-z0-9-]+")))
         val out = File(base.filesDir, "offline-flow-plan-r08-$suffix").apply { check(!exists()); mkdirs() }
         var scenario: ActivityScenario<MainActivity>? = null
