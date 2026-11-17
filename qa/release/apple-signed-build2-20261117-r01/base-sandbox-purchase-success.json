@@ -1,0 +1,13 @@
+{
+  "observed_utc": "2026-11-17T13:52:01.845691+00:00",
+  "app": "TestFlight 1.0 (2)",
+  "product": "vipi.base.annual",
+  "account": "fresh owned staging billing QA",
+  "confirmation": "Apple displayed testing only and no charge; original single confirmation resumed after secure company credential transfer",
+  "result": "Vipi displayed Your purchase was successful and Base Active",
+  "backend_entitlement": "independent verification pending",
+  "credential_handling": "One-use private file removed, clipboard cleared; no password in receipt",
+  "no_repeat": true,
+  "no_bot_purchase_or_message": true,
+  "evidence": "/home/ai/Development/investigations/vipi-resume-20261116-r01/apple-base-sandbox-purchase-r01/success.png"
+}
