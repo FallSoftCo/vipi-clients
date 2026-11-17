@@ -1,0 +1,97 @@
+{
+  "AdditiveReferenceSelection.swift": {
+    "current": "ab07e7a53d078dd7dd5209923f9c81ff81f1dd37bcb75b11d727739be70f5381",
+    "old": "ab07e7a53d078dd7dd5209923f9c81ff81f1dd37bcb75b11d727739be70f5381",
+    "same": true
+  },
+  "ContextFrame.swift": {
+    "current": "fc7c3bc54e8df37223fbadc36a05296577682767fd146ca5d1c8901f603be645",
+    "old": "fc7c3bc54e8df37223fbadc36a05296577682767fd146ca5d1c8901f603be645",
+    "same": true
+  },
+  "ContextMapping.swift": {
+    "current": "390123c7ea5cdd771fb1827731e7bdf0b11d5f659513bef072f34d2860c689ac",
+    "old": "390123c7ea5cdd771fb1827731e7bdf0b11d5f659513bef072f34d2860c689ac",
+    "same": true
+  },
+  "Delivery.swift": {
+    "current": "d5fc1fdb58659e4934c7de10dda53f0a464ff01be216a25384800d0d4c379bad",
+    "old": "d5fc1fdb58659e4934c7de10dda53f0a464ff01be216a25384800d0d4c379bad",
+    "same": true
+  },
+  "FullReadingCache.swift": {
+    "current": "d9f6520fd1a3e7a5b04f5a938f9a8195576f3f35b5a782f485d81f6eb160bfe4",
+    "old": "d9f6520fd1a3e7a5b04f5a938f9a8195576f3f35b5a782f485d81f6eb160bfe4",
+    "same": true
+  },
+  "Immersion.swift": {
+    "current": "8c1913ed2caeaa41e12c8d4c30df45da7636bb202d1615a44f60739f90424a46",
+    "old": "8c1913ed2caeaa41e12c8d4c30df45da7636bb202d1615a44f60739f90424a46",
+    "same": true
+  },
+  "ImmersionCopyText.swift": {
+    "current": "fc36515462f3c2c26705781b3f7bb247b41d6c116337bb76f203264fa343f6e2",
+    "old": "fc36515462f3c2c26705781b3f7bb247b41d6c116337bb76f203264fa343f6e2",
+    "same": true
+  },
+  "ImmersionPresentationState.swift": {
+    "current": "f91fa0906584c0620250658fa2bb7cd4644c6768e3b4ccdd69282dd336f3ad51",
+    "old": "f91fa0906584c0620250658fa2bb7cd4644c6768e3b4ccdd69282dd336f3ad51",
+    "same": true
+  },
+  "LocalWordSelection.swift": {
+    "current": "37e416a2d856398029008f8d43546d9c077333972daa5dcaf71b431e1b19f8ad",
+    "old": "37e416a2d856398029008f8d43546d9c077333972daa5dcaf71b431e1b19f8ad",
+    "same": true
+  },
+  "LookupFirst.swift": {
+    "current": "28282ee2cd93e1bc2c977044fb74c427c0ac0ec011685cef0445964b62af02f8",
+    "old": "28282ee2cd93e1bc2c977044fb74c427c0ac0ec011685cef0445964b62af02f8",
+    "same": true
+  },
+  "PinnedSnapshotCache.swift": {
+    "current": "c41825abcb70968dfe93c7a8be841b91affa1cd9f7c492497958721878d84990",
+    "old": "c41825abcb70968dfe93c7a8be841b91affa1cd9f7c492497958721878d84990",
+    "same": true
+  },
+  "ReferenceComposition.swift": {
+    "current": "3edbb348ffa3f9023dbce6a89cb45095c9fbfde4414c089e1915001086ddb319",
+    "old": "3edbb348ffa3f9023dbce6a89cb45095c9fbfde4414c089e1915001086ddb319",
+    "same": true
+  },
+  "ReviewedFrameIdentity.swift": {
+    "current": "1f8e68f1942c917e776111ac2088552fdc59c0b85a0865b34d8c2cac69902665",
+    "old": "1f8e68f1942c917e776111ac2088552fdc59c0b85a0865b34d8c2cac69902665",
+    "same": true
+  },
+  "ReviewedStarterIdentity.swift": {
+    "current": "aeba5f37eb1d7e41197a2b09e4955d38b9a13648dabbc5e6cb60455b06101fd0",
+    "old": "aeba5f37eb1d7e41197a2b09e4955d38b9a13648dabbc5e6cb60455b06101fd0",
+    "same": true
+  },
+  "SourceLookupEvidence.swift": {
+    "current": "8b23da267a582a53560fdf254a52820724aa962efd4b38aafebfe8941244ad09",
+    "old": "8b23da267a582a53560fdf254a52820724aa962efd4b38aafebfe8941244ad09",
+    "same": true
+  },
+  "SourceReferencePresentation.swift": {
+    "current": "63f9f927b234453ec6766146234007384fd575c95e2337ba93c0defbc10b6a2b",
+    "old": "63f9f927b234453ec6766146234007384fd575c95e2337ba93c0defbc10b6a2b",
+    "same": true
+  },
+  "SourceUnitSelection.swift": {
+    "current": "ec64c3d2918cf81b862fa34e1bab1e1a7df80b51334e4809c45302577849b384",
+    "old": "ec64c3d2918cf81b862fa34e1bab1e1a7df80b51334e4809c45302577849b384",
+    "same": true
+  },
+  "TranslationIntegrity.swift": {
+    "current": "a3c592cf4bd24e776911e3e4c33be60c7430105338ceba4ed22c30fabe397030",
+    "old": "a3c592cf4bd24e776911e3e4c33be60c7430105338ceba4ed22c30fabe397030",
+    "same": true
+  },
+  "VocabularyFamiliarity.swift": {
+    "current": "29f66d079163a6858fd934978b829fba238205fa718f51ff6bfc20250ff0bb0a",
+    "old": "29f66d079163a6858fd934978b829fba238205fa718f51ff6bfc20250ff0bb0a",
+    "same": true
+  }
+}

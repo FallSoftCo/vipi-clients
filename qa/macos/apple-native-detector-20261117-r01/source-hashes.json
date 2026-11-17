@@ -1,0 +1,7 @@
+{
+  "ios/Vipi/MessageLanguage.swift": "9cc4501ec5c90a6bf74021dd0a830c01185fea03adfd4e319b0564a66949cf78",
+  "ios/Vipi/ConversationImmersion.swift": "7bddac2ef541f921391a7c658ccaccaff943bff4dfaa4f89f3537c7e9a18288f",
+  "ios/VipiCryptoTests/MessageLanguageNativeCandidateTests.swift": "140bb596e7080e96f5f0b9404150925e83217b9582db953434103a4d54e6ff63",
+  "ios/VipiCore/Sources/VipiCore/TranslationIntegrity.swift": "a3c592cf4bd24e776911e3e4c33be60c7430105338ceba4ed22c30fabe397030",
+  "ios/VipiLanguageDetector/VipiLanguageDetector.cpp": "352dd24fa3f5294a5ce39dd884008884b8e2fce5bcec232a50e7b4e306a039b0"
+}

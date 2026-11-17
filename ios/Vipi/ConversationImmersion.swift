@@ -247,7 +247,7 @@ private func sameExactPresentation(_ a: ImmersionPresentation, _ b: ImmersionPre
                 reference: { original, source, target in
                     try await self.catalog.reference(original: original, pair: .init(source: source, target: target))
                 },
-                identify: { try await self.language.identify($0) },
+                identify: { try await self.language.identify($0, automatic: intent == .automaticImmersion) },
                 modelsReady: { source, target in
                     let observed = await self.modelStatus(.init(source: source, target: target))
                     guard valid() else { return false }

@@ -1,0 +1,126 @@
+{
+  "failures" : [
+
+  ],
+  "rows" : [
+    {
+      "alignment_calls" : 0,
+      "identify_calls" : 1,
+      "model_readiness_calls" : 0,
+      "pass" : true,
+      "spans" : [
+        {
+          "reading" : "ongaku",
+          "source" : "music",
+          "target" : "音楽"
+        }
+      ],
+      "status" : "partial",
+      "target" : "ja",
+      "text" : "I love music.",
+      "translation_calls" : 0
+    },
+    {
+      "alignment_calls" : 0,
+      "identify_calls" : 1,
+      "model_readiness_calls" : 0,
+      "pass" : true,
+      "spans" : [
+        {
+          "reading" : "ongaku",
+          "source" : "music",
+          "target" : "音楽"
+        }
+      ],
+      "status" : "partial",
+      "target" : "ja",
+      "text" : "I heard music.",
+      "translation_calls" : 0
+    },
+    {
+      "alignment_calls" : 0,
+      "identify_calls" : 0,
+      "model_readiness_calls" : 0,
+      "pass" : true,
+      "spans" : [
+        {
+          "reading" : "ongaku",
+          "source" : "music",
+          "target" : "音楽"
+        }
+      ],
+      "status" : "partial",
+      "target" : "ja",
+      "text" : "I like music.",
+      "translation_calls" : 0
+    },
+    {
+      "identify_calls" : 0,
+      "override" : "en",
+      "pass" : true,
+      "status" : "partial",
+      "target" : "ja",
+      "text" : "music"
+    },
+    {
+      "alignment_calls" : 0,
+      "identify_calls" : 1,
+      "model_readiness_calls" : 0,
+      "pass" : true,
+      "spans" : [
+        {
+          "reading" : null,
+          "source" : "music",
+          "target" : "muziki"
+        }
+      ],
+      "status" : "partial",
+      "target" : "sw",
+      "text" : "I love music.",
+      "translation_calls" : 0
+    },
+    {
+      "alignment_calls" : 0,
+      "identify_calls" : 1,
+      "model_readiness_calls" : 0,
+      "pass" : true,
+      "spans" : [
+        {
+          "reading" : null,
+          "source" : "music",
+          "target" : "muziki"
+        }
+      ],
+      "status" : "partial",
+      "target" : "sw",
+      "text" : "I heard music.",
+      "translation_calls" : 0
+    },
+    {
+      "alignment_calls" : 0,
+      "identify_calls" : 0,
+      "model_readiness_calls" : 0,
+      "pass" : true,
+      "spans" : [
+        {
+          "reading" : null,
+          "source" : "music",
+          "target" : "muziki"
+        }
+      ],
+      "status" : "partial",
+      "target" : "sw",
+      "text" : "I like music.",
+      "translation_calls" : 0
+    },
+    {
+      "identify_calls" : 0,
+      "override" : "en",
+      "pass" : true,
+      "status" : "partial",
+      "target" : "sw",
+      "text" : "music"
+    }
+  ],
+  "scope" : "macOS LookupFirst plus actual bundled starter\/frame providers, exact wrapper, full r14 resource data, no model callback; source fixture not population estimate"
+}

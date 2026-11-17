@@ -1,0 +1,201 @@
+{
+  "failures" : [
+
+  ],
+  "legacy_full_short" : null,
+  "rows" : [
+    {
+      "actual" : "en",
+      "expected" : "en",
+      "id" : "masked_context",
+      "pass" : true
+    },
+    {
+      "actual" : "en",
+      "expected" : "en",
+      "id" : "short_like",
+      "pass" : true
+    },
+    {
+      "actual" : "en",
+      "expected" : "en",
+      "id" : "short_love",
+      "pass" : true
+    },
+    {
+      "actual" : "en",
+      "expected" : "en",
+      "id" : "short_heard",
+      "pass" : true
+    },
+    {
+      "actual" : "es",
+      "expected" : "es",
+      "id" : "es",
+      "pass" : true
+    },
+    {
+      "actual" : "fr",
+      "expected" : "fr",
+      "id" : "fr",
+      "pass" : true
+    },
+    {
+      "actual" : "de",
+      "expected" : "de",
+      "id" : "de",
+      "pass" : true
+    },
+    {
+      "actual" : "it",
+      "expected" : "it",
+      "id" : "it",
+      "pass" : true
+    },
+    {
+      "actual" : "pt",
+      "expected" : "pt",
+      "id" : "pt",
+      "pass" : true
+    },
+    {
+      "actual" : "ja",
+      "expected" : "ja",
+      "id" : "ja",
+      "pass" : true
+    },
+    {
+      "actual" : "ko",
+      "expected" : "ko",
+      "id" : "ko",
+      "pass" : true
+    },
+    {
+      "actual" : "zh",
+      "expected" : "zh",
+      "id" : "zh",
+      "pass" : true
+    },
+    {
+      "actual" : "ar",
+      "expected" : "ar",
+      "id" : "ar",
+      "pass" : true
+    },
+    {
+      "actual" : "sw",
+      "expected" : "sw",
+      "id" : "sw",
+      "pass" : true
+    },
+    {
+      "actual" : "en",
+      "expected" : "en",
+      "id" : "conflict_fr_en",
+      "pass" : true
+    },
+    {
+      "actual" : "en",
+      "expected" : "en",
+      "id" : "conflict_de_en",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "pain",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "gift",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "room",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "code",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "name",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "url",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "code_only",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "masked_one",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "polish",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "mixed",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "oversize",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "threshold_low",
+      "pass" : true
+    },
+    {
+      "actual" : "en",
+      "expected" : "en",
+      "id" : "threshold_equal",
+      "pass" : true
+    },
+    {
+      "actual" : "zh",
+      "expected" : "zh",
+      "id" : "zh_normalize",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "unsupported",
+      "pass" : true
+    },
+    {
+      "actual" : null,
+      "expected" : null,
+      "id" : "no_confidence",
+      "pass" : true
+    }
+  ],
+  "scope" : "macOS actual MessageLanguage source, real NaturalLanguage + CLD2 adapter and masking; synthetic samples, no production app"
+}
