@@ -65,7 +65,9 @@ class OfflineFlowScreensDeviceTest {
             state.value = value
         }
         val device = UiDevice.getInstance(inst)
-        val out = File(base.filesDir, "offline-flow-plan-r07").apply { mkdirs() }
+        val suffix = inst.arguments.getString("vipiFlowRun") ?: "light"
+        require(suffix.matches(Regex("[a-z0-9-]+")))
+        val out = File(base.filesDir, "offline-flow-plan-r08-$suffix").apply { check(!exists()); mkdirs() }
         var scenario: ActivityScenario<MainActivity>? = null
         try {
             withContext(Dispatchers.Main) {
@@ -98,10 +100,15 @@ class OfflineFlowScreensDeviceTest {
             device.dumpWindowHierarchy(File(out, "invite-chooser.xml"))
             assertTrue(device.takeScreenshot(File(out, "invite-chooser.png")))
             device.pressBack()
-            scenario!!.onActivity { model.openConversation(peer) }
+            scenario!!.onActivity {
+                chat.send("Hello! こんにちは مرحبا", peer)
+                model.openConversation(peer)
+            }
             assertTrue(device.wait(Until.hasObject(By.clazz("android.widget.EditText")), 15_000))
             device.findObject(By.clazz("android.widget.EditText")).click()
             SystemClock.sleep(800)
+            assertTrue(device.wait(Until.hasObject(By.textContains("Hello!")), 10_000))
+            device.dumpWindowHierarchy(File(out, "friend-composer-keyboard.xml"))
             assertTrue(device.takeScreenshot(File(out, "friend-composer-keyboard.png")))
             device.pressBack()
             scenario!!.onActivity { model.navigate(Screen.BACKUP) }
