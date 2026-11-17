@@ -3,11 +3,11 @@
   "status": "draft_requires_review_not_for_publication",
   "apple_locale": "ja",
   "google_play_locale": "ja-JP",
-  "app_name": "Vipi：ことばのチャット",
+  "app_name": "Vipi：友だちとのチャットで学ぶ",
   "apple_subtitle": "いつもの会話から学ぶ",
   "apple_promotional_text": "友だちとの会話で、一部の単語が学習中の言語に切り替わります。",
   "google_short_description": "友だちとのいつものメッセージで、学習中の言語に触れよう。",
   "description_without_subscription_terms": "友だちといつもどおりにチャット。一部の単語や短いフレーズが、メッセージ内で学習中の言語に切り替わります。友だちは書き方を変える必要がありません。\n\n表示する新しい単語の量を選べます。以前見た単語も表示されることがあります。その他の表現、語順、文法はそのままです。語彙は言語によって異なります。ログイン前に英語とスペイン語の例を試せます。\n\n切り替えを一時停止したり、原文を表示したり、音声を聞いたりできます。ラテン文字の読み方や音声は、言語とダウンロード状況によって異なります。自動切り替えはモデルのダウンロードなしで端末上で動作します。全文翻訳は別の端末内機能で、ダウンロードが必要な場合があります。\n\nユーザー名と招待でつながれます。友だちとのチャットはエンドツーエンドで暗号化されます。暗号化した履歴バックアップは好きな場所に保存できます。\n\nvBotはチャットボット、Bot miniは任意の追加プランです。vBotへのメッセージは回答プロバイダーに送られ、自動回答が間違うこともあります。月間回答数は登録前に確認できます。\n\nPrivacy: https://api.mambovipi.app/privacy\nTerms: https://api.mambovipi.app/terms",
-  "subscription_paragraph": null,
-  "subscription_status": "PENDING_OWNER_TRIAL_DECISION"
+  "subscription_paragraph": "Vipiは最初の30日間無料です。サブスクリプションの開始や支払い情報の入力は必要ありません。その後、継続して利用するかを選べます。無料期間の終了時に自動で請求されることはありません。米国でのVipiの料金は年額12米ドルです。Bot miniは任意の追加サブスクリプションで、米国では年額48米ドルです。利用には有効なVipiの利用権が必要です。対象の方は、Bot mini独自の1か月無料トライアルを利用できます。購入前にストアで地域の料金と更新日が表示されます。申し込んだサブスクリプションは、ストアで解約しない限り自動更新されます。利用期間が終了しても、端末に保存した履歴の閲覧と書き出しは可能です。",
+  "subscription_status": "OWNER_APPROVED_CARDLESS_FLOW_PENDING_IMPLEMENTATION_AND_STORE_OFFER_CHANGE"
 }
