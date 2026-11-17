@@ -25,5 +25,13 @@
     "play-production-save-draft-r29.png": "83829b553b57e83b1010a50fd8c59cce480bf6b22089456f078969f60b7f0cbf",
     "play-production-reload-view-r31.png": "933657e4971d1a8dfabc28989af919ef8de0ab5ab96ce3767207ce1d78aec3c4",
     "play-production-error-r34.png": "ca01c82e187a89c93b17bdf8bc86f3ba038ad580620807f2a2ad088e679441f2"
+  },
+  "subsequent_geography_configuration": {
+    "observed_date": "2026-11-17",
+    "state": "176 targeted, France/China excluded; Ready to release in preview",
+    "receipt": "qa/store-configuration/android-regions-20261117-r01/receipt.json",
+    "historical_console_error_resolved": true,
+    "review_submission": false,
+    "public_rollout": false
   }
 }

@@ -20,7 +20,7 @@ The official [ANSSI declaration procedure](https://demarche.numerique.gouv.fr/co
 4. Prepare and review a technical brochure, user guide and any applicable administrator guide. Verify cryptographic roles, versions, key management, source availability and whether additional attachments are requested by the actual form.
 5. Complete the official portal process and retain the real receipt and any correspondence; upload only the document Apple requests. Do not fabricate registration numbers, signatures, classifications, approval or filing receipts.
 
-Worldwide distribution, including France, was requested; Apple build association and release remain subject to truthful compliance and remaining launch qualification. Separate China mainland requirements are displayed in App Store Connect and must be reconciled independently.
+The earlier worldwide intent was superseded on November 17: the owner excluded France and mainland China from the initial launch. Both stores now reflect those exclusions. This draft is retained for possible future use; no filing or automatic future launch is scheduled.
 
 ## Separate China mainland inventory
 

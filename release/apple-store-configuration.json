@@ -86,7 +86,7 @@
     "customer_available": false,
     "apple_sandbox_test_notification": true,
     "build_processing_complete": true,
-    "testflight_status": "Missing Compliance; build2 visible and processing complete, no groups/testers or build association",
+    "testflight_status": "Ready to Submit at post-compliance readback; internal QA setup now in progress",
     "testflight_ready": false,
     "build_processing_evidence": "Transporter finished-processing message and fresh ASC build2 Missing Compliance readback"
   },
@@ -143,7 +143,13 @@
     "review_submitted": false,
     "metadata_source_note": "Reviewed platform-fields source now matches saved name/subtitle/promo/description. Keywords and URLs retain earlier saved values; new locales inherit those English fields.",
     "release_mode_receipt": "release/apple-privacy-20261117-r01.json",
-    "previous_metadata_source_sha256": "1018a42c0e23861898de5ca9bf9c63d35595efb64b1e075345dac0345c11920e"
+    "previous_metadata_source_sha256": "1018a42c0e23861898de5ca9bf9c63d35595efb64b1e075345dac0345c11920e",
+    "associated_build": {
+      "version": "1.0",
+      "build": "2",
+      "id": "9367242c-b819-4bc7-9ade-6e192a12c43e",
+      "saved_and_reloaded": true
+    }
   },
   "privacy_policy_url": {
     "url": "https://api.mambovipi.app/privacy",
@@ -185,14 +191,22 @@
     "aps_environment": "production",
     "get_task_allow": false,
     "delivery": "Delivered once by Transporter November 17, 2026 at 07:30 America/New_York; Transporter reports processing finished at 07:33.",
-    "testflight_status": "Missing Compliance",
+    "testflight_status": "Ready to Submit at post-compliance readback; internal QA setup now in progress",
     "verification_receipt": "qa/release/apple-signed-build2-20261117-r01/qualification.json",
     "delivery_record": "release/apple-delivery-build2-20261117-r01.json",
     "source_supplement": "release/apple-build2-source-supplement-20261117/publication-receipt.json",
     "independent_verification_receipt": "qa/release/apple-signed-build2-20261117-r01/root-verification.json",
-    "build_id": "9367242c-b819-4bc7-9ade-6e192a12c43e"
+    "build_id": "9367242c-b819-4bc7-9ade-6e192a12c43e",
+    "export_compliance": {
+      "answers": [
+        "Standard algorithms beyond Apple OS",
+        "Distribution in France: No"
+      ],
+      "saved_and_reloaded": true,
+      "receipt": "qa/release/apple-signed-build2-20261117-r01/storefront-and-compliance-configuration.json"
+    }
   },
-  "verification_scope_note": "November17 build2 company distribution signature, production APS, disabled debugging, exact IPA hash, single delivery and finished processing reconciled. ASC build2 is Missing Compliance; availability unconfigured and version build unassociated. Source supplement is published. No TestFlight distribution or app-review submission.",
+  "verification_scope_note": "Build2 signed/delivered/processed; standard-encryption FranceNo declaration saved, buildassociated, appandbothsubscriptions173storefrontsexcludingFR/CN, downloadFree. InternalQApreparationinprogress; no publicreview orcustomerlaunch.",
   "introductory_offer_current": {
     "verified_date": "2026-11-17",
     "base": {
@@ -284,9 +298,30 @@
     }
   ],
   "app_availability": {
-    "state": "unconfigured",
-    "available_storefront_count": 175,
-    "note": "This is app availability, distinct from subscription price regions. User choice requested: first launch excluding France/mainland China while filings proceed, or wait for worldwide filings. No choice or availability change saved.",
-    "receipt": "qa/release/apple-signed-build2-20261117-r01/asc-compliance-availability-readback.json"
+    "state": "saved_and_reload_verified",
+    "selected_storefronts": 173,
+    "offered_storefronts": 175,
+    "excluded": [
+      "France",
+      "China mainland"
+    ],
+    "future_storefronts_auto_enabled": true,
+    "receipt": "qa/release/apple-signed-build2-20261117-r01/storefront-and-compliance-configuration.json"
+  },
+  "subscription_availability": {
+    "base": 173,
+    "bot_mini": 173,
+    "excluded": [
+      "France",
+      "China mainland"
+    ],
+    "prices_and_offers_changed": false,
+    "receipt": "qa/release/apple-signed-build2-20261117-r01/storefront-and-compliance-configuration.json"
+  },
+  "app_download_price": {
+    "price": "USD 0.00",
+    "regional_zero_price_entries": 175,
+    "note": "Price entries do not enable the two excluded app storefronts.",
+    "receipt": "qa/release/apple-signed-build2-20261117-r01/free-price-and-testflight-options.json"
   }
 }

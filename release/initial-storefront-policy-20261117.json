@@ -19,6 +19,29 @@
   "app_and_subscription_availability": "Align the app and Base/Bot mini subscriptions where these countries are offered. Preserve current prices, cardless access and Bot mini trial.",
   "localizations": "Retain French and Chinese translations for users in other storefronts.",
   "government_filings": "No France or China government filing is being submitted for this initial launch.",
-  "configuration_status": "Approved; store changes in progress, final saves and reload verification not yet recorded.",
-  "publication_status": "This policy does not itself publish a track, submit app review or open customer registration."
+  "configuration_status": "Saved and reload-verified in both stores; no public review or rollout.",
+  "publication_status": "This policy does not itself publish a track, submit app review or open customer registration.",
+  "apple": {
+    "app_storefronts": 173,
+    "base_storefronts": 173,
+    "bot_mini_storefronts": 173,
+    "excluded": [
+      "FR",
+      "CN"
+    ],
+    "app_download_price": "Free",
+    "receipt": "qa/release/apple-signed-build2-20261117-r01/storefront-and-compliance-configuration.json",
+    "price_receipt": "qa/release/apple-signed-build2-20261117-r01/free-price-and-testflight-options.json"
+  },
+  "google": {
+    "production_target_entries": 176,
+    "excluded": [
+      "France group (11 locations)",
+      "China"
+    ],
+    "plan_and_offer_region_counts": 174,
+    "subscription_china_scope": "Absent from directly inspected Base selector; no separate Bot-selector absence claim. Production China excluded.",
+    "receipt": "qa/store-configuration/android-regions-20261117-r01/receipt.json"
+  },
+  "updated_at_utc": "2026-11-17T13:14:16.876875+00:00"
 }

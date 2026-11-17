@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 17, 2026, 12:41 UTC. Vipi remains restricted staging. Neither
+Updated November 17, 2026, 13:14 UTC. Vipi remains restricted staging. Neither
 app has been submitted for public review. Prior revisions and the linked
 receipts retain historical actions; do not replay them.
 
@@ -38,7 +38,10 @@ Google's 14 localized listings were field-checked and saved once. Independent
 reload verified the locale inventory and English, Swahili and Arabic field
 samples. They are ready to send for review, not approved. The existing production draft now references only version 3; its name and all
 14 localized release-note payloads were independently reloaded and verified.
-Countries remain unselected, the sole console preview error. No review was sent.
+Production availability now targets 176 Play region entries, excluding the
+France group and China. Both annual plans and their offers show 174 regions
+after France removal. The preview shows Ready to release, but no review or
+rollout occurred. See [geography](../qa/store-configuration/android-regions-20261117-r01/receipt.json).
 See [draft receipt](../release/google-production-v3-draft-20261117.json). Existing artwork declarations and actual
 app screenshots remain. See [localization](../release/google-localized-listing-20261117.json).
 
@@ -54,7 +57,9 @@ The prior build 1 and its original upload remain preserved; no upload was repeat
 See [delivery](../release/apple-delivery-build2-20261117-r01.json) and
 [verification](../qa/release/apple-signed-build2-20261117-r01/root-verification.json). Fresh App Store Connect
 readback now confirms build ID `9367242c-b819-4bc7-9ade-6e192a12c43e`,
-**Missing Compliance**, with zero groups/testers. The brief earlier login
+The encryption declaration was subsequently saved with standard algorithms
+and France No, and build 2 was associated with version 1.0. Its status then
+showed Ready to Submit; an isolated internal QA group is now being prepared. The brief earlier login
 redirect resolved in the existing session; no reauthentication was needed.
 Never repeat the completed upload.
 
@@ -64,8 +69,10 @@ URLs. The approved English iPhone large and iPad 13-inch screenshot pairs were
 uploaded once and each shows 2/10 after reload. The medium iPhone slot uses those
 existing assets. These captures show real production views with a synthetic
 offline conversation; they do not establish live delivery. Privacy, reviewer
-access and manual release are saved. Build association, compliance and purchase
-qualification remain incomplete. No physical iPad was used.
+access and manual release are saved. Build association and the encryption questionnaire are complete; purchase
+qualification remains incomplete. App and both subscriptions have 173 selected
+storefronts, excluding France and mainland China. The app download price is Free.
+Subscription prices and trial terms are unchanged. See [configuration](../qa/release/apple-signed-build2-20261117-r01/storefront-and-compliance-configuration.json). No physical iPad was used.
 See [Apple configuration](../release/apple-store-configuration.json).
 
 **Signing is authorized.** The user explicitly directed “you must sign” on
@@ -204,15 +211,13 @@ its allowance; it is not a typical-latency or quality benchmark.
 - Finish exact version 3 runtime checks for the qualified session and short-message
   routing fixes. Preserve the uncertain original send without replay; resolve its
   disposition before any retained-account update or automatic retry.
-- Complete the Apple encryption declaration, build association and actual
-  purchase/restore qualification. Signing, final IPA verification, single delivery
-  and processing are complete. Availability is unconfigured; the France branch
-  requires documentation, and the draft displays China mainland security and
-  chatbot filing requirements. The owner has been asked whether to launch first
-  elsewhere or wait for those filings. No availability selection was saved.
+- Complete isolated Apple purchase/restore and first-use/friend-chat
+  qualification. Signing, delivery, encryption declaration and build association
+  are complete. The owner excluded France and mainland China; the saved app and
+  subscription settings reflect that choice. No government filing is being made.
 - Reconcile store artifacts, regional export requirements and screenshots.
-  France needs a current company extract; China-specific requirements remain
-  unresolved. The ML Kit/libsignal distribution question is a narrow legal
+  France and mainland China are excluded from the initial launch; their
+  filing requirements are deferred. The ML Kit/libsignal distribution question is a narrow legal
   interpretation, not an established incompatibility or blanket App Store ban.
   Source publication is complete; the exact bundled SDK terms need focused review.
   See [export assessment](../release/EXPORT_ASSESSMENT.md).

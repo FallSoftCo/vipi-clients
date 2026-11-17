@@ -135,10 +135,11 @@ Current signing authorization: the owner explicitly directed “you must sign”
 November 17. The proven signed Xcode archive and automatic Organizer export
 route completed for build 2; the final IPA passed verification and its single
 Transporter upload was delivered and finished processing. Fresh ASC readback
-confirms build 2 as Missing Compliance; the transient login redirect resolved.
-App availability is not configured and the version has no associated build.
-The owner has been asked whether to launch first outside France/mainland China
-or wait for their required filings. No availability or declaration was saved.
+confirmed the processed build, and the subsequent standard-encryption/FranceNo
+declaration is saved. Build 2 is associated, the app download is Free, and app
+and both subscriptions exclude France/mainland China (173 storefronts). Google
+production draft excludes the same countries (176 grouped entries); its preview
+is Ready to release. These changes do not submit review or qualify purchases.
 Earlier signing-hold notes are superseded. The original company Android account
 separately retains an uncertain queued message. Do not resend, reset
 the account, accept a changed peer key or publish/install an update that may

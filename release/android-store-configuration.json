@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-17T07:11:05Z",
+  "checked_at": "2026-11-17T13:14:16.876875+00:00",
   "company": "Fallible Software, Co.",
   "developer_id": "4750854689150545006",
   "app_id": "4975664610567218322",
@@ -100,8 +100,9 @@
       "offer_state": "inactive",
       "trial_period": "P1M",
       "eligibility": "never had this subscription",
-      "country_count": 175,
-      "offer_deactivated_at": "2026-11-17T05:55:10.560Z"
+      "country_count": 174,
+      "offer_deactivated_at": "2026-11-17T05:55:10.560Z",
+      "offer_country_count": 174
     },
     {
       "product_id": "vipi_bot_mini",
@@ -113,7 +114,8 @@
       "offer_state": "active",
       "trial_period": "P1M",
       "eligibility": "never had this subscription",
-      "country_count": 175
+      "country_count": 174,
+      "offer_country_count": 174
     }
   ],
   "internal_release": {
@@ -174,5 +176,21 @@
     "installer": "com.android.vending",
     "preserved_account": true,
     "receipt": "investigations/vipi-submit-20261110-r01/android-v2-play-update-20261117-r01/result.json"
+  },
+  "production_geography": {
+    "state": "saved_draft_reload_verified",
+    "target_entries": 176,
+    "excluded": [
+      "France group (11 locations)",
+      "China"
+    ],
+    "preview": "Ready to release; not submitted or rolled out",
+    "receipt": "qa/store-configuration/android-regions-20261117-r01/receipt.json"
+  },
+  "subscription_geography": {
+    "france": "Removed from each offer, then each annual base plan; all reload174regions",
+    "china": "Not offered in directly inspected Base subscription selector; productiontrack excludesChina. Botselectorabsence not separately asserted.",
+    "prices_and_trial_terms_changed": false,
+    "receipt": "qa/store-configuration/android-regions-20261117-r01/receipt.json"
   }
 }
