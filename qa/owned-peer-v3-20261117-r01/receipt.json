@@ -1,0 +1,9 @@
+{
+  "scope":"Signed Android v3 1.0.2 (3), fresh isolated emulator 5624, two company-owned test identities; restricted staging",
+  "onboarding":"One fresh PKCE flow after prior expired flow; identity independently confirmed before one profile creation. Username vipiqa_peer1117; Settings showed Swahili and 25% new words. Native plan showed 30-day cardless access, no payment and no automatic charge. Backend independently confirmed account-bound 30-day dates and one active device.",
+  "exchange":"One Apple-to-Android I love music. arrived and decrypted; native UI visibly displayed I love muziki. One Android-to-Apple I love music too. was sent; Android showed Delivered and I love muziki too. Apple observed the original reply and automatic Japanese reading. No resend or manual language override.",
+  "audio":"One Listen dispatched while separate scrcpy guest-output audio-only capture ran. WAV decoded 19.904 seconds, 48 kHz stereo PCM, nonzero low-level segment; source isolation, intelligibility and pronunciation not established. Two recorder setup failures occurred before Listen; no repeat of Listen. Audio files retained privately, not in Git.",
+  "preservation":"After delivered readback, empty composer and no visible pending label, fresh emulator 5624 stopped gracefully. Its AVD and private app data retained; viewer and guard exited; 5620 and 5622 untouched.",
+  "private_evidence":"/home/ai/Development/investigations/vipi-submit-20261110-r01/android-v3-peer-qa-20261117-r01/",
+  "limits":"Single authored cross-platform exchange, not coverage or production-population proof. Runtime tests used uploaded v3 candidate APK, not later v4. No purchase."
+}
