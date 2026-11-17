@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-17T21:21:08.132271+00:00",
+  "guard_commit": "6bb188e",
+  "ui_base": "87fdaa6",
+  "visual_review": "Root inspected both full native screenshots. الماء and الموسيقى remain joined unbroken original words without inner-stem attachments. Standalone شاحن remains a fixed-width inline slot and changes to charger on the next face. The rest of the sentence and native composer/footer remain right-to-left.",
+  "fixture": "Existing synthetic timeline default English inputs normalized by bundled reverse reference into known Arabic; no new Arabic text injection or fabricated provider results. Same launch flags as previous failed r12 image; diagnostic suffix716 is fresh.",
+  "scope": "Native simulator E640C5EE-A159-48B7-99D0-E330E8781FAF isolated co.fallsoft.vipi.uxqa/private keychain, existing app data preserved; new compiler jobs2.",
+  "limitations": [
+    "No claim of universal Arabic mapping coverage or live Arabic romanization. Guard abstains from unsafe inner-word substitutions.",
+    "No new translation-provider, TTS acoustic, login, subscription, production, phone or store qualification performed in this check."
+  ],
+  "screenshots": {
+    "ios-arabic-face-02.png": "df8513e457fa068a59f84bc6a471c049d856dfc0f014a86c5fc7e2ab238f2fda",
+    "ios-arabic-face-01.png": "ea18c3ef0fb86d8e68a30caf733c549007e26085bd3f5548ccdd5c5bc50a5ec5"
+  }
+}

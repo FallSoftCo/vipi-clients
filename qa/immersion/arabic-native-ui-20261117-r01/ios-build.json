@@ -1,0 +1,49 @@
+{
+  "stage": "completed",
+  "source_head": "b85d85f",
+  "source": [
+    {
+      "path": "ios/Vipi/SourceFrameLookup.swift",
+      "before": "d32038c57d068e9941c3f5b3e5a92006709dd510b22e739b45bb9a66fcf69e77",
+      "after": "34634a3c0b589264d89d69a448d12f8ab476b5572f07ccfdce4b2519fc0fbfbc"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/Immersion.swift",
+      "before": "8c1913ed2caeaa41e12c8d4c30df45da7636bb202d1615a44f60739f90424a46",
+      "after": "597330b0b66a3d402acaa5e773d4e59bcbeb4b61e90188dd091b6999466a9db0"
+    }
+  ],
+  "jobs": 2,
+  "command": [
+    "xcodebuild",
+    "-workspace",
+    "/Users/Apple/Development/vipi-quality-20261117-r01/ux-source/ios/Vipi.xcworkspace",
+    "-scheme",
+    "VipiSimulator",
+    "-configuration",
+    "Simulator",
+    "-sdk",
+    "iphonesimulator",
+    "-destination",
+    "platform=iOS Simulator,id=E640C5EE-A159-48B7-99D0-E330E8781FAF",
+    "-derivedDataPath",
+    "/Users/Apple/Development/vipi-quality-20261117-r01/ux-derived",
+    "-clonedSourcePackagesDirPath",
+    "/Users/Apple/Development/vipi-quality-20261117-r01/ux-derived/SourcePackages",
+    "-disableAutomaticPackageResolution",
+    "-onlyUsePackageVersionsFromResolvedFile",
+    "-skipPackageUpdates",
+    "-jobs",
+    "2",
+    "CODE_SIGNING_ALLOWED=YES",
+    "CODE_SIGN_IDENTITY=-",
+    "ARCHS=arm64",
+    "EXCLUDED_ARCHS=",
+    "OTHER_SWIFT_FLAGS=$(inherited) -j2",
+    "build"
+  ],
+  "pid": 80367,
+  "exit": 0,
+  "seconds": 52.20193041698076,
+  "free_after": 50216714240
+}

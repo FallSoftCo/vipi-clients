@@ -1,0 +1,77 @@
+{
+  "bundle": "co.fallsoft.vipi.uxqa",
+  "binary_sha256": "9458df6d9b8f1230f29cd60161ee1c1b6ae7c0e3897a5aec7e61746a34747a0d",
+  "stages": [
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "install",
+        "E640C5EE-A159-48B7-99D0-E330E8781FAF",
+        "/Users/Apple/Development/vipi-quality-20261117-r01/ux-derived/Build/Products/Simulator-iphonesimulator/Vipi.app"
+      ],
+      "started_at": 1794950414.9037702,
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "launch",
+        "--terminate-running-process",
+        "E640C5EE-A159-48B7-99D0-E330E8781FAF",
+        "co.fallsoft.vipi.uxqa",
+        "-vipi-timeline-qa",
+        "-vipi-timeline-audit",
+        "-vipi-immersion-chat-qa",
+        "-vipi-source",
+        "ar",
+        "-vipi-target",
+        "en",
+        "-vipi-appearance-light",
+        "-vipi-live-immersion-state",
+        "716",
+        "-UIPreferredContentSizeCategoryName",
+        "UICTContentSizeCategoryL",
+        "-AppleLanguages",
+        "(ar)",
+        "-AppleLocale",
+        "ar_SA"
+      ],
+      "started_at": 1794950417.464488,
+      "exit": 0,
+      "stdout": "co.fallsoft.vipi.uxqa: 80743\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "io",
+        "E640C5EE-A159-48B7-99D0-E330E8781FAF",
+        "screenshot",
+        "/Users/Apple/Development/vipi-quality-20261117-r01/root-arabic-render-r01/arabic-face-01.png"
+      ],
+      "started_at": 1794950425.7426639,
+      "exit": 0,
+      "stdout": "",
+      "stderr": "Detected file type from extension: PNG\nNote: No display specified. Defaulting to display: FDE47C7D-552F-41AF-B48A-415863709BBA (screenID: 1, name: LCD)\nWrote screenshot to: /Users/Apple/Development/vipi-quality-20261117-r01/root-arabic-render-r01/arabic-face-01.png\n"
+    },
+    {
+      "command": [
+        "xcrun",
+        "simctl",
+        "io",
+        "E640C5EE-A159-48B7-99D0-E330E8781FAF",
+        "screenshot",
+        "/Users/Apple/Development/vipi-quality-20261117-r01/root-arabic-render-r01/arabic-face-02.png"
+      ],
+      "started_at": 1794950428.9515991,
+      "exit": 0,
+      "stdout": "",
+      "stderr": "Detected file type from extension: PNG\nNote: No display specified. Defaulting to display: FDE47C7D-552F-41AF-B48A-415863709BBA (screenID: 1, name: LCD)\nWrote screenshot to: /Users/Apple/Development/vipi-quality-20261117-r01/root-arabic-render-r01/arabic-face-02.png\n"
+    }
+  ]
+}
