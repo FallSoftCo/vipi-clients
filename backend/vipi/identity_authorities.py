@@ -19,7 +19,9 @@ LEGACY_VIPI = IdentityAuthority(
     "https://api.workos.com/sso/jwks/client_01M6VYVQQ9GWVNS95DFGABXEW9")
 FALLSOFT_VIPI = IdentityAuthority(
     "fallsoft-vipi-production", "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
-    "https://api.workos.com/user_management/client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+    # Actual native Google/PKCE session qualified 2026-11-17. Issuer alone
+    # does not distinguish applications: exact client and fixed JWKS still do.
+    "https://api.workos.com",
     "https://api.workos.com/sso/jwks/client_01JPK69ZZFHH0NSP8BY2HGRDX6")
 
 

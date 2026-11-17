@@ -152,7 +152,15 @@ async def test_shared_signature_still_requires_vipi_application_audience_and_exa
         token = jwt.encode(valid, signing[0], algorithm="RS256", headers={"kid":"fixture"})
         principal = await verifier.verify(token)
         assert principal.subject == canonical_shared_subject("user_fixture") and principal.authority == FALLSOFT_VIPI.id
-        for patch in ({"client_id":"client_01JPK69ZZFHH0NSP8BY2HGRDX6"}, {"iss":LEGACY_VIPI.issuer}):
+        # Both observed environments use the same exact issuer. Audience and
+        # fixed key authority must still isolate legacy, Vipi and company login.
+        for patch in (
+            {"client_id": "client_01JPK69ZZFHH0NSP8BY2HGRDX6"},
+            {"client_id": LEGACY_VIPI.client_id},
+            {"iss": "https://api.workos.com/"},
+            {"iss": "https://api.workos.com/user_management/client_01JPK69ZZFHH0NSP8BY2HGRDX6"},
+            {"iss": "https://api.workos.com/user_management/" + FALLSOFT_VIPI.client_id},
+        ):
             with pytest.raises(AuthenticationError):
                 await verifier.verify(jwt.encode(valid | patch, signing[0], algorithm="RS256", headers={"kid":"fixture"}))
     finally:
@@ -174,7 +182,7 @@ async def test_legacy_transition_uses_observed_session_issuer_and_keeps_applicat
         for patch in (
             {"iss": "https://api.workos.com/"},
             {"iss": "https://api.workos.com/user_management/" + LEGACY_VIPI.client_id},
-            {"iss": FALLSOFT_VIPI.issuer},
+            {"iss": "https://api.workos.com/user_management/client_01JPK69ZZFHH0NSP8BY2HGRDX6"},
             {"client_id": FALLSOFT_VIPI.client_id},
             {"client_id": "client_01JPK69ZZFHH0NSP8BY2HGRDX6"},
         ):

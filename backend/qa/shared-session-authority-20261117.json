@@ -1,0 +1,36 @@
+{
+  "observed": {
+    "auth_time": 1794949837,
+    "authority": "fallsoft-vipi",
+    "callbackStateVerified": true,
+    "client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "codeExchangeCount": 1,
+    "exp": 1794950137,
+    "finishedAt": "2026-11-17T21:10:38Z",
+    "httpStatus": 200,
+    "iat": 1794949837,
+    "identityMatchesDiscoveredSharedUser": true,
+    "iss": "https://api.workos.com",
+    "jwksSHA256": "f8ba7d2eedb6e7a2d93bd495161cdf98afeca1cf1bb56eb4c698e877b53d180a",
+    "outcome": "authenticated-and-signature-verified",
+    "publicPKCE": true,
+    "reusableTokensStored": false,
+    "signatureValid": true,
+    "tokenSHA256": "503588d164bd0450035dfc6066ca2d3108e58de3fa8080c2011bee83e85e2aa4"
+  },
+  "private_receipt": "/home/ai/Development/investigations/vipi-quality-20261117-r01/legacy-issuer-audit-r01/shared-google-auth-receipt-r04.json",
+  "receipt_sha256": "b27ede04a6c9d0a1cf234c74e0e46be9b5d997e28b33da5da2173438fa7009e6",
+  "implementation": "Exact issuer pin corrected from discovery suffix to observed signed session issuer; fixed Vipi client and fixed JWKS validation retained. Shared and legacy raw subjects remain separate. No issuer normalization or fallback.",
+  "validation": {
+    "passed": 37,
+    "seconds": 7.79,
+    "coverage": "Auth/configuration, signed shared/legacy application isolation, exact issuer negatives, shared browser deletion callback cases",
+    "provider_in_regressions": "mock exchange/JWKS with real fixture RS256 signature verification"
+  },
+  "limits": [
+    "Actual observed flow is one public native PKCE exchange; confidential client-secret callback remains unqualified",
+    "No reusable credentials/tokens in this proof",
+    "No production config/deployment, Vipi profile provision/link, account deletion, store action or purchase performed"
+  ],
+  "recorded_at": "2026-11-17T21:13:44.013428+00:00"
+}
