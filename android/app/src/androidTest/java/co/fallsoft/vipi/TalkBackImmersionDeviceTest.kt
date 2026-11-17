@@ -88,7 +88,11 @@ class TalkBackImmersionDeviceTest {
                     }
                 }
             }
-            compose.waitUntil(20_000) { reading() == "I like muziki." }
+            try { compose.waitUntil(20_000) { reading() == "I like muziki." } }
+            catch (failure: Throwable) {
+                File(context.filesDir, "talkback-precondition-$run.json").writeText(JSONObject().put("actualVisibleText", reading() ?: JSONObject.NULL).put("expectedVisibleText", "I like muziki.").toString(2))
+                throw failure
+            }
             val enabled = before.getValue("enabled_accessibility_services").takeUnless { it == "null" || it.isEmpty() }
             val services = listOfNotNull(enabled, service).joinToString(":")
             check(services.matches(Regex("[a-zA-Z0-9.$/:_\\-]+")))
