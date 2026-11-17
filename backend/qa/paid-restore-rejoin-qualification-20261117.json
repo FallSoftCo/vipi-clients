@@ -1,0 +1,59 @@
+{
+  "schema": 1,
+  "qualifiedAt": "2026-11-17T19:18:35.242284+00:00",
+  "baseRevision": "f019a6e",
+  "migration": "20261117_05",
+  "scope": "offline source + guarded SQLite with fake stores, no production/provider/native action",
+  "sqlite": {
+    "finalFocused": {
+      "passed": 43,
+      "skipped": 1,
+      "suite": "focused-r03",
+      "exitCode": 0,
+      "seconds": 45.35,
+      "allocatedPeakBytes": 13537280,
+      "budgetBytes": 83886080,
+      "guardStop": null,
+      "postgresEnvironmentUnset": true,
+      "freeBytesAfter": 4830937088
+    },
+    "relatedLifecycle": {
+      "passed": 94,
+      "skipped": 7,
+      "note": "ran before final current-UUID collision hardening; final focused rerun covers that helper change",
+      "suite": "lifecycle-r02",
+      "exitCode": 0,
+      "seconds": 59.34,
+      "allocatedPeakBytes": 24494080,
+      "budgetBytes": 83886080,
+      "guardStop": null,
+      "postgresEnvironmentUnset": true,
+      "freeBytesAfter": 4715966464
+    }
+  },
+  "skips": [
+    "actual PostgreSQL migration/listener/advisory-lock cases not run on SQLite",
+    "two existing recovery CLI tests require unavailable8GiB floor"
+  ],
+  "pending": [
+    "root independent actual PostgreSQL final-commit qualification",
+    "UX actual native scoped SubscriptionStoreTests and IdentityLinkCoordinatorTests",
+    "offline shared-link/global-hold/billing erasure recovery importer qualification",
+    "fresh production schema/data assessment and separately coordinated deployment"
+  ],
+  "externalEffects": {
+    "storeActions": 0,
+    "charges": 0,
+    "providerMutations": 0,
+    "productionWritesOrRestarts": 0,
+    "postgresStarts": 0,
+    "nativeBuildsOrSimActions": 0
+  },
+  "nativeTestsPrepared": [
+    "SubscriptionStoreTests.testServerOwnershipRejectionBlocksAnotherChargeAndAllowsVerifiedRetry",
+    "SubscriptionStoreTests.testOldProfileTokenReachesServiceAndFinishesOnlyAfterCurrentAccountReadback",
+    "SubscriptionStoreTests.testRestoredOldTokenCannotFinishOnWrongCurrentAccountReadback"
+  ],
+  "nativeTestScope": "guarded local Xcode SKTestSession + fake service; not actual store verification",
+  "recoveryReopenClaim": false
+}

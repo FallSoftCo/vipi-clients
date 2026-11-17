@@ -224,6 +224,14 @@ class VipiTrialEligibilityLink(Base):
     target_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
 
 
+class BillingAccountBinding(Base):
+    """Only keyed ownership identifiers survive app-only deletion, never grants."""
+    __tablename__ = "billing_account_bindings"
+    store: Mapped[str] = mapped_column(String(16), primary_key=True)
+    binding_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    owner_hash: Mapped[str] = mapped_column(String(64), index=True)
+
+
 class IdentityLinkReceipt(Base):
     """Token-free exact link retry proof, retained only with the Vipi account."""
     __tablename__ = "identity_link_receipts"

@@ -77,11 +77,11 @@ class AppleProvider:
             # Do not echo a signed event or an SDK error containing its payload.
             raise DeliveryError("notification_verification_unavailable", 503) from None
 
-    async def verify(self, credential, user_id, *, initial):
+    async def verify(self, credential, user_id, *, initial, account_check=None):
         try:
             if initial:
                 supplied = await self.decode(credential)
-                self.check_account(supplied, user_id)
+                await self.check_account(supplied, user_id, account_check)
                 original_id = supplied.originalTransactionId
             else:
                 original_id = credential
@@ -96,7 +96,7 @@ class AppleProvider:
                     if item.originalTransactionId != original_id:
                         continue
                     transaction = await self.decode(item.signedTransactionInfo)
-                    self.check_account(transaction, user_id)
+                    await self.check_account(transaction, user_id, account_check)
                     if transaction.originalTransactionId != original_id:
                         raise ValueError("transaction_changed")
                     expiry = milliseconds(transaction.expiresDate)
@@ -127,10 +127,11 @@ class AppleProvider:
                 raise DeliveryError("purchase_invalid", 400) from None
             raise DeliveryError("purchase_verification_unavailable", 503) from None
 
-    def check_account(self, transaction, user_id):
+    async def check_account(self, transaction, user_id, account_check=None):
+        identifier = str(UUID(transaction.appAccountToken or ""))
         if (transaction.productId not in APPLE_PRODUCTS
                 or value(transaction.type) != "Auto-Renewable Subscription"
-                or str(UUID(transaction.appAccountToken or "")) != user_id):
+                or not (await account_check("apple", identifier) if account_check else identifier == user_id)):
             raise DeliveryError("purchase_account_mismatch", 409)
 
     async def acknowledge(self, purchase):
@@ -162,7 +163,7 @@ class GoogleProvider:
                 await asyncio.to_thread(self.credentials.refresh, bounded_request)
             return {"Authorization": "Bearer " + self.credentials.token}
 
-    async def verify(self, credential, user_id, *, initial):
+    async def verify(self, credential, user_id, *, initial, account_check=None):
         if not 1 <= len(credential) <= 4096 or any(c.isspace() for c in credential):
             raise DeliveryError("purchase_invalid", 400)
         try:
@@ -172,7 +173,8 @@ class GoogleProvider:
             if response.status_code != 200:
                 raise DeliveryError("purchase_verification_unavailable", 503)
             data = response.json()
-            if data.get("externalAccountIdentifiers", {}).get("obfuscatedExternalAccountId") != billing_account_id(user_id):
+            identifier = data.get("externalAccountIdentifiers", {}).get("obfuscatedExternalAccountId")
+            if not (await account_check("google", identifier) if account_check else identifier == billing_account_id(user_id)):
                 raise DeliveryError("purchase_account_mismatch", 409)
             if "testPurchase" in data and not (self.settings.google_allow_test_purchases or
                     (self.settings.sandbox_restricted and user_id in self.settings.store_sandbox_user_ids)):
@@ -204,8 +206,8 @@ class GoogleProvider:
         except Exception:
             raise DeliveryError("purchase_verification_unavailable", 503) from None
 
-    async def verify_for_environment(self, credential, user_id, environment):
-        result = await self.verify(credential, user_id, initial=False)
+    async def verify_for_environment(self, credential, user_id, environment, *, account_check=None):
+        result = await self.verify(credential, user_id, initial=False, account_check=account_check)
         if result.environment != environment:
             raise DeliveryError("purchase_environment_mismatch", 400)
         return result
@@ -233,21 +235,21 @@ class AccountScopedAppleProvider:
         self.production = AppleProvider(settings, environment="Production")
         self.sandbox = AppleProvider(settings, environment="Sandbox")
 
-    async def verify(self, credential, user_id, *, initial):
+    async def verify(self, credential, user_id, *, initial, account_check=None):
         try:
-            return await self.production.verify(credential, user_id, initial=initial)
+            return await self.production.verify(credential, user_id, initial=initial, account_check=account_check)
         except DeliveryError as error:
             if error.code != "purchase_environment_mismatch" or user_id not in self.settings.store_sandbox_user_ids:
                 raise
-        return await self.sandbox.verify(credential, user_id, initial=initial)
+        return await self.sandbox.verify(credential, user_id, initial=initial, account_check=account_check)
 
-    async def verify_for_environment(self, credential, user_id, environment):
+    async def verify_for_environment(self, credential, user_id, environment, *, account_check=None):
         if environment == "Sandbox":
             if user_id not in self.settings.store_sandbox_user_ids:
                 raise DeliveryError("purchase_environment_mismatch", 400)
-            return await self.sandbox.verify(credential, user_id, initial=False)
+            return await self.sandbox.verify(credential, user_id, initial=False, account_check=account_check)
         if environment == "Production":
-            return await self.production.verify(credential, user_id, initial=False)
+            return await self.production.verify(credential, user_id, initial=False, account_check=account_check)
         raise DeliveryError("purchase_environment_mismatch", 400)
 
     async def notification(self, signed):

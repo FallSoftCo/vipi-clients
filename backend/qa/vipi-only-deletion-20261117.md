@@ -50,16 +50,13 @@ not implemented by this app-only change. Identity linking and service-key
 rotation must preserve original eligibility across authorities/keys; they must
 not silently create a new free period.
 
-Paid entitlement rows are erased with Vipi, and store subscriptions are not
-canceled. Existing purchase proofs remain bound to the old account UUID and
-store account token. They are **not** automatically transferred to the new UUID.
-A separately reviewed, verified restore/link policy is needed; no email-only
-merge, reassignment, complimentary paid grant or store operation is added.
-Verified self-service restoration after rejoin is a release gate: this revision
-must not be deployed in a way that makes existing subscribers repay or leaves
-them with an invented support route. Public copy says to cancel subscriptions
-through the app store and discloses retained trial eligibility. Copies kept by friends, local device histories, user-exported
-backups and historical service backup retention keep their existing boundaries.
+Paid entitlement rows and provider references are erased with Vipi; store subscriptions
+are not canceled. The later migration05 retains only keyed billing ownership
+hashes so the same exact Fallsoft identity can restore through fresh authoritative
+store verification after rejoin. It does not restore old UUIDs, grant paid access
+from hashes, or merge by email. Global deletion erases those bindings. See
+[the restore policy](paid-restore-rejoin-20261117.md) and its independent rollout
+qualification;02 alone is not a complete restore feature.
 
 ## Migration and rollback preparation
 

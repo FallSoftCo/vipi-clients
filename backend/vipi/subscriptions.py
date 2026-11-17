@@ -1,6 +1,5 @@
 """Provider-verified entitlements. Purchase credentials never enter logs or responses."""
 import base64
-import hashlib
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from uuid import uuid4
@@ -12,10 +11,8 @@ from sqlalchemy import and_, or_, select
 
 from .db import Entitlement, User
 from .delivery import DeliveryError, utc
-
-
-def billing_account_id(user_id):
-    return hashlib.sha256(("co.fallsoft.vipi:" + user_id).encode()).hexdigest()
+from .billing_identity import billing_account_id, matches_account
+from .deletion import lock_account_lifecycle
 
 
 @dataclass(frozen=True)
@@ -40,7 +37,21 @@ class Subscriptions:
                    info=b"vipi-store-reference-v1").derive(settings.service_secret.encode())
         self.cipher = Fernet(base64.urlsafe_b64encode(key))
 
-    async def apply(self, user_id, purchase, observed_at, *, generation=None, lease_token=None):
+    async def ownership(self, user_id, expected_subject=None):
+        from .global_deletion import provision_blocked
+        async with self.db.sessions() as session:
+            user = await session.get(User, user_id)
+            if (not user or user.deleted or (expected_subject is not None and user.subject != expected_subject)
+                    or await provision_blocked(session, user.subject, self.settings.service_secret)):
+                raise DeliveryError("account_unavailable", 409)
+            subject = user.subject
+        async def check(store, identifier):
+            async with self.db.sessions() as session:
+                return await matches_account(session, subject=subject, user_id=user_id, store=store,
+                    identifier=identifier, service_secret=self.settings.service_secret)
+        return subject, check
+
+    async def apply(self, user_id, purchase, observed_at, *, generation=None, lease_token=None, expected_subject=None):
         if purchase.environment not in ("Production", "Sandbox"):
             raise DeliveryError("purchase_environment_mismatch", 400)
         if self.settings.sandbox_restricted and purchase.environment == "Sandbox" and user_id not in self.settings.store_sandbox_user_ids:
@@ -48,8 +59,16 @@ class Subscriptions:
         # Network verification finishes before taking this lock. Older requests
         # cannot overwrite newer observations, nor transfer another user's grant.
         async with self.db.sessions.begin() as session:
+            subject = expected_subject
+            if subject is None:
+                subject = await session.scalar(select(User.subject).where(User.id == user_id))
+            if subject is None:
+                raise DeliveryError("account_unavailable", 409)
+            await lock_account_lifecycle(session, subject, self.settings.service_secret)
             user = (await session.execute(select(User).where(User.id == user_id).with_for_update())).scalar_one_or_none()
-            if not user or user.deleted:
+            from .global_deletion import provision_blocked
+            if (not user or user.deleted or user.subject != subject
+                    or await provision_blocked(session, subject, self.settings.service_secret)):
                 raise DeliveryError("account_unavailable", 409)
             unknown = (await session.execute(select(Entitlement).where(
                 Entitlement.store == purchase.store, Entitlement.environment == "Unknown",
@@ -60,11 +79,11 @@ class Subscriptions:
             row = (await session.execute(select(Entitlement).where(
                 Entitlement.store == purchase.store, Entitlement.environment == purchase.environment, Entitlement.transaction_id == purchase.transaction_id))).scalar_one_or_none()
             if lease_token and (row is None or row.lease_token != lease_token):
-                return
+                return False
             if row and row.user_id != user_id:
                 raise DeliveryError("purchase_account_mismatch", 409)
             if row and row.verified_at and utc(row.verified_at) > utc(observed_at):
-                return
+                return False
             if purchase.linked_transaction_id:
                 previous = (await session.execute(select(Entitlement).where(
                     Entitlement.store == purchase.store, Entitlement.environment == purchase.environment,
@@ -94,14 +113,17 @@ class Subscriptions:
             row.attempts = 0
             row.next_attempt_at = (self.clock() if row.refresh_generation > row.completed_generation
                 else self.clock() + timedelta(seconds=self.settings.purchase_freshness_seconds))
+        return True
 
-    async def sync(self, user_id, store, value):
+    async def sync(self, user_id, store, value, *, expected_subject=None):
         provider = self.providers.get(store)
         if not provider:
             raise DeliveryError("purchase_verification_unavailable", 503)
+        subject, check = await self.ownership(user_id, expected_subject)
         observed_at = self.clock()
-        purchase = await provider.verify(value, user_id, initial=True)
-        await self.apply(user_id, purchase, observed_at)
+        purchase = await provider.verify(value, user_id, initial=True, account_check=check)
+        if not await self.apply(user_id, purchase, observed_at, expected_subject=subject):
+            raise DeliveryError("purchase_sync_conflict", 409)
         await provider.acknowledge(purchase)
         return await self.snapshot(user_id)
 
@@ -129,17 +151,18 @@ class Subscriptions:
         successful, expired_reference = False, False
         try:
             provider = self.providers[store]
+            subject, check = await self.ownership(user_id)
             if environment == "Sandbox" and self.settings.sandbox_restricted and user_id not in self.settings.store_sandbox_user_ids:
                 raise DeliveryError("purchase_environment_mismatch", 400)
             if hasattr(provider, "verify_for_environment"):
-                purchase = await provider.verify_for_environment(reference, user_id, environment)
+                purchase = await provider.verify_for_environment(reference, user_id, environment, account_check=check)
             else:
-                purchase = await provider.verify(reference, user_id, initial=False)
+                purchase = await provider.verify(reference, user_id, initial=False, account_check=check)
             if purchase.environment != environment:
                 raise DeliveryError("purchase_environment_mismatch", 400)
-            await self.apply(user_id, purchase, now, generation=generation, lease_token=token)
-            await provider.acknowledge(purchase)
-            successful = True
+            successful = await self.apply(user_id, purchase, now, generation=generation, lease_token=token, expected_subject=subject)
+            if successful:
+                await provider.acknowledge(purchase)
         except DeliveryError as error:
             successful = False
             expired_reference = error.code == "purchase_invalid"

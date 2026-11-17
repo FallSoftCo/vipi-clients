@@ -171,6 +171,7 @@ async def reconcile_offline(db, evidence: RecoveryEvidence, *, snapshot_sha256: 
             "runtime_gate_installed": False,
             "required_before_reopen": ["independently verified deletion/restriction interval and cutoff",
                 "shared identity links and global deletion holds/receipts reconciliation",
+                "billing ownership bindings and their post-snapshot global erasures reconciliation",
                 "original trial eligibility interval coverage", "provider entitlement verification", "personal/global spend and consumed-request reconciliation",
                 "enforced offline-to-live admission gate", "explicit native device re-enrollment"],
             "spend_policy": "retained counters/request IDs unchanged except required account erasure; global charges retained",

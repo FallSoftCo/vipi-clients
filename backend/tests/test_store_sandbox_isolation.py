@@ -45,7 +45,7 @@ async def test_google_test_grant_restricted_and_removal_masks(db):
 
 class Stub:
     def __init__(self, result): self.result,self.calls=result,0
-    async def verify(self, credential,user,*,initial):
+    async def verify(self, credential,user,*,initial,account_check=None):
         self.calls+=1
         if isinstance(self.result,Exception):raise self.result
         return self.result
@@ -80,7 +80,7 @@ async def test_sandbox_refresh_uses_stored_environment_and_stops_after_allowlist
         s.add(User(id=tester,subject='test-refresh',username='refresh',display_name='Test',created_at=NOW-timedelta(days=31)))
     class Refresh:
         def __init__(self): self.calls=[]
-        async def verify_for_environment(self, token, user, environment):
+        async def verify_for_environment(self, token, user, environment, *, account_check=None):
             self.calls.append((user,environment))
             return purchase(store='apple',transaction_id='refresh-id',environment='Sandbox')
         async def acknowledge(self, value): pass

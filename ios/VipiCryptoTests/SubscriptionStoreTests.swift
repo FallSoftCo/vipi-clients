@@ -10,6 +10,8 @@ import StoreKitTest
         let account = UUID()
         var ready = true, base = false, bot = false, botService = true
         var rejectSubmission = false
+        var historicalAccount: UUID?
+        var responseAccount: UUID?
         var submitted = 0
         func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
             if path == "/v1/bot/allowance" {
@@ -25,14 +27,17 @@ import StoreKitTest
                 while payload.count % 4 != 0 { payload += "=" }
                 let object = try XCTUnwrap(JSONSerialization.jsonObject(with: XCTUnwrap(Data(base64Encoded: payload))) as? [String: Any])
                 XCTAssertEqual(object["environment"] as? String, "Xcode", "Only local zero-charge StoreKit transactions belong in this test")
-                XCTAssertEqual((object["appAccountToken"] as? String).flatMap(UUID.init(uuidString:)), account)
+                let token = (object["appAccountToken"] as? String).flatMap(UUID.init(uuidString:))
+                guard token == account || (historicalAccount != nil && token == historicalAccount) else {
+                    throw ServiceFailure(status: 409, code: "purchase_account_mismatch")
+                }
                 if object["productId"] as? String == VipiPlan.base.rawValue { base = true }
                 if object["productId"] as? String == VipiPlan.botMini.rawValue { bot = true }
             }
             let clock = ISO8601DateFormatter()
             let now = Date()
             let expiry = clock.string(from: now.addingTimeInterval(365 * 24 * 60 * 60))
-            return try decode(["server_time": clock.string(from: now), "base": ["active": base, "expires_at": expiry], "bot_mini": ["active": bot, "available": base && bot, "expires_at": expiry], "billing_account_id": "local-test-only", "app_account_token": account.uuidString, "purchases_ready": ["apple": ready, "google": false]], as: type)
+            return try decode(["server_time": clock.string(from: now), "base": ["active": base, "expires_at": expiry], "bot_mini": ["active": bot, "available": base && bot, "expires_at": expiry], "billing_account_id": "local-test-only", "app_account_token": (responseAccount ?? account).uuidString, "purchases_ready": ["apple": ready, "google": false]], as: type)
         }
         private func decode<T: Decodable>(_ value: [String: Any], as type: T.Type) throws -> T {
             try JSONDecoder().decode(type, from: JSONSerialization.data(withJSONObject: value))
@@ -80,7 +85,7 @@ import StoreKitTest
         for await result in Transaction.unfinished { if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { remaining += 1 } }
         XCTAssertEqual(remaining, 0); XCTAssertGreaterThanOrEqual(api.submitted, 2)
     }
-    func testAnotherAccountTransactionNeverGrantsAccessOrPromptsAnotherCharge() async throws {
+    func testServerOwnershipRejectionBlocksAnotherChargeAndAllowsVerifiedRetry() async throws {
         let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
         let other = UUID()
         let transaction = try await environment.buyProduct(identifier: VipiPlan.base.rawValue, options: [.appAccountToken(other)])
@@ -88,7 +93,39 @@ import StoreKitTest
         let api = Service()
         let actual = SubscriptionStore(api: api, accountToken: api.account); defer { actual.close() }
         await actual.start()
-        XCTAssertFalse(actual.baseActive); XCTAssertFalse(actual.canPurchase(.base)); XCTAssertEqual(api.submitted, 0)
+        XCTAssertFalse(actual.baseActive); XCTAssertFalse(actual.canPurchase(.base)); XCTAssertGreaterThanOrEqual(api.submitted, 1)
         XCTAssertTrue(actual.accountConflicts.contains(.base))
+        XCTAssertFalse(actual.awaitingConfirmation.contains(.base))
+        // A later explicit, server-verified identity link can make the old
+        // purchase rightful. Conflict UI must not permanently block restore.
+        api.historicalAccount = other
+        await actual.start()
+        XCTAssertTrue(actual.baseActive)
+        XCTAssertFalse(actual.accountConflicts.contains(.base))
+        XCTAssertFalse(actual.awaitingConfirmation.contains(.base))
+    }
+    func testOldProfileTokenReachesServiceAndFinishesOnlyAfterCurrentAccountReadback() async throws {
+        let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        let old = UUID()
+        _ = try await environment.buyProduct(identifier: VipiPlan.base.rawValue, options: [.appAccountToken(old)])
+        let api = Service(); api.historicalAccount = old
+        let actual = SubscriptionStore(api: api, accountToken: api.account); defer { actual.close() }
+        await actual.start()
+        XCTAssertGreaterThanOrEqual(api.submitted, 1); XCTAssertTrue(actual.baseActive)
+        var unfinished = 0
+        for await result in Transaction.unfinished { if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { unfinished += 1 } }
+        XCTAssertEqual(unfinished, 0)
+    }
+    func testRestoredOldTokenCannotFinishOnWrongCurrentAccountReadback() async throws {
+        let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        let old = UUID()
+        _ = try await environment.buyProduct(identifier: VipiPlan.base.rawValue, options: [.appAccountToken(old)])
+        let api = Service(); api.historicalAccount = old; api.responseAccount = UUID()
+        let actual = SubscriptionStore(api: api, accountToken: api.account); defer { actual.close() }
+        await actual.start()
+        XCTAssertGreaterThanOrEqual(api.submitted, 1); XCTAssertFalse(actual.baseActive)
+        var unfinished = 0
+        for await result in Transaction.unfinished { if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { unfinished += 1 } }
+        XCTAssertEqual(unfinished, 1)
     }
 }

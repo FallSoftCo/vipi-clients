@@ -244,21 +244,27 @@ struct BotAllowance: Decodable, Sendable {
             throw ServiceFailure(status: 0, code: "purchase_unverified")
         }
         guard let plan = VipiPlan(rawValue: transaction.productID) else { return }
-        guard transaction.appAccountToken == accountToken else {
-            accountConflicts.insert(plan)
-            throw ServiceFailure(status: 0, code: "purchase_account_mismatch")
-        }
+        // A verified transaction may retain the token of a deleted Vipi profile.
+        // The authenticated service checks its retained hashed ownership against
+        // this exact Fallsoft identity; a local UUID mismatch cannot decide it.
         guard synchronizing.insert(transaction.id).inserted else { return }
         defer { synchronizing.remove(transaction.id) }
         awaitingConfirmation.insert(plan)
         let body = try JSONEncoder().encode(PurchaseBody(signed_transaction_info: result.jwsRepresentation))
         let startedAt = ContinuousClock.now
-        let value: EntitlementSnapshot = try await api.request("POST", "/v1/purchases/apple", body: body)
+        let value: EntitlementSnapshot
+        do { value = try await api.request("POST", "/v1/purchases/apple", body: body) }
+        catch let error as ServiceFailure where error.code == "purchase_account_mismatch" {
+            accountConflicts.insert(plan)
+            awaitingConfirmation.remove(plan)
+            throw error
+        }
         try accept(value, capturedAt: startedAt)
         // Preserve unfinished delivery when validation/network failed. A local
         // success flag never substitutes for the account-bound service result.
         await transaction.finish()
         awaitingConfirmation.remove(plan)
+        accountConflicts.remove(plan)
         pending = false
     }
     private struct PurchaseBody: Encodable { let signed_transaction_info: String }

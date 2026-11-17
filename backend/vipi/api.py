@@ -291,7 +291,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 if not events.ready.is_set():
                     return JSONResponse({"status": "events_unavailable"}, status_code=503)
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261117_04":
+                if revision != "20261117_05":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -313,7 +313,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         async with db.sessions() as session:
             user = await user_for(session, p, allow_restricted=True)
         try:
-            return await subscriptions.sync(user.id, store, credential)
+            return await subscriptions.sync(user.id, store, credential, expected_subject=p.subject)
         except IntegrityError:
             # Concurrent first claims must not reveal another account binding.
             raise DeliveryError("purchase_sync_conflict", 409) from None

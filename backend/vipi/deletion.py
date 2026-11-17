@@ -69,6 +69,8 @@ async def request_deletion(session, *, subject: str, account_id: str, receipt_se
     ):
         raise DeliveryError("recent_sign_in_required", 401)
     if user:
+        from .billing_identity import retain_account
+        await retain_account(session, subject=subject, user_id=user.id, service_secret=service_secret)
         await original_trial(session, subject=subject, service_secret=service_secret,
             started_at=user.cardless_trial_started_at, ends_at=user.cardless_trial_ends_at)
     devices = select(Device.id).where(Device.user_id == account_id)

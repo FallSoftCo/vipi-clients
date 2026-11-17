@@ -106,6 +106,10 @@ async def erase(session, operation, service_secret, now):
     if user:
         await request_deletion(session, subject=subject, account_id=user.id,
             receipt_secret=secrets.token_urlsafe(32), service_secret=service_secret, now=now)
+    # request_deletion seeds the current billing ids too. Remove them AND all
+    # historical alias owners before this same transaction can report complete.
+    from .billing_identity import erase_accounts
+    await erase_accounts(session, {digest, *aliases})
     await erase_for_global_fallsoft_deletion(session, subject=subject, service_secret=service_secret)
     # The central receipt replaces app-only status receipts, including older joins.
     await session.execute(delete(AccountDeletion).where(AccountDeletion.subject_hash == subject_hash(subject, service_secret)))

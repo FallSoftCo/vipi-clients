@@ -31,7 +31,7 @@ def purchase(product="base", **kwargs):
 class Provider:
     def __init__(self, result):
         self.result, self.calls, self.ack = result, 0, 0
-    async def verify(self, credential, user_id, *, initial):
+    async def verify(self, credential, user_id, *, initial, account_check=None):
         self.calls += 1
         return self.result
     async def acknowledge(self, result):

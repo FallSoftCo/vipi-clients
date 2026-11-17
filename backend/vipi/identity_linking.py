@@ -76,6 +76,9 @@ async def link_identity(session, *, source, target, request_id: str, account_id:
                 raise DeliveryError("recent_sign_in_required", 401)
         await transfer_original_trial(session, source=source.subject, target=target.subject,
             user=user, service_secret=service_secret)
+        from .billing_identity import transfer_account
+        await transfer_account(session, source=source.subject, target=target.subject,
+            user_id=user.id, service_secret=service_secret)
         user.subject = target.subject
         # Keep the original account UUID, device and every encrypted identity.
         user.minimum_auth_time = max(user.minimum_auth_time, min(source.authenticated_at, target.authenticated_at))

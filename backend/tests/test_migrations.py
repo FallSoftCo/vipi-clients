@@ -19,7 +19,7 @@ async def test_initial_migration_matches_models_and_preserves_data_on_repeat(db)
             command.upgrade(config, "head")
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(upgrade)
-        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261117_04"
+        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261117_05"
     async with db.sessions.begin() as s:
         s.add(User(id="migration-fixture", subject="user_migration", username="migration", display_name="Migration QA", created_at=NOW))
     async with db.engine.begin() as connection:
@@ -167,3 +167,35 @@ async def test_vipi_only_deletion_migration_refuses_losing_security_or_eligibili
             await connection.run_sync(down)
     async with db.sessions() as session:
         assert await session.get(VipiTrialEligibility, 'e'*64)
+
+
+async def test_billing_binding_migration_cycle_and_refuse_loss(db):
+    import pytest
+    from vipi.db import BillingAccountBinding
+    config = Config(str(Path(__file__).resolve().parents[1] / 'alembic.ini'))
+    async with db.engine.begin() as connection:
+        await connection.run_sync(Base.metadata.drop_all)
+        def upgrade(sync):
+            config.attributes['connection'] = sync
+            command.upgrade(config, 'head')
+            assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
+        await connection.run_sync(upgrade)
+    async with db.sessions.begin() as session:
+        session.add(BillingAccountBinding(store='apple', binding_hash='b'*64, owner_hash='a'*64))
+    with pytest.raises(RuntimeError, match='unsafe downgrade'):
+        async with db.engine.begin() as connection:
+            def down(sync):
+                config.attributes['connection'] = sync
+                command.downgrade(config, '20261117_04')
+            await connection.run_sync(down)
+    async with db.sessions.begin() as session:
+        row = await session.get(BillingAccountBinding, ('apple','b'*64))
+        assert row.owner_hash == 'a'*64
+        await session.delete(row)
+    async with db.engine.begin() as connection:
+        def cycle(sync):
+            config.attributes['connection'] = sync
+            command.downgrade(config, '20261117_04')
+            command.upgrade(config, 'head')
+            assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
+        await connection.run_sync(cycle)
