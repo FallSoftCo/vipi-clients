@@ -143,6 +143,31 @@ enum class SignInProvider(internal val workosProvider: String) {
     EMAIL("authkit"), GOOGLE("GoogleOAuth"), APPLE("AppleOAuth")
 }
 
+/** Only reviewed authorities may receive a stored verifier or refresh token. */
+internal enum class IdentityAuthority(val recordID: String, val clientID: String) {
+    VIPI_PRODUCTION("vipi-production", "client_01M6VYVQQ9GWVNS95DFGABXEW9"),
+    VIPI_STAGING("vipi-staging", "client_01M5S2CDSQ8F7FEX26G3CY9VS1");
+
+    fun tag(record: JSONObject): JSONObject = record.put("formatVersion", 2).put("authority", recordID).put("clientID", clientID)
+    companion object {
+        // Older encrypted records contain no authority metadata. A future build
+        // must not reinterpret those records as its newly configured authority.
+        val legacy: IdentityAuthority get() = if (BuildConfig.DEBUG && BuildConfig.WORKOS_CLIENT_ID == VIPI_STAGING.clientID) VIPI_STAGING else VIPI_PRODUCTION
+        fun configured(clientID: String): IdentityAuthority = entries.singleOrNull { it.clientID == clientID }
+            ?: throw IOException("Unknown sign-in authority")
+        fun forSignIn(saved: IdentityAuthority?, hasExpectedUser: Boolean, configuredClientID: String): IdentityAuthority =
+            saved ?: if (hasExpectedUser) legacy else configured(configuredClientID)
+        fun read(record: JSONObject, legacyAuthority: IdentityAuthority = legacy): IdentityAuthority {
+            if (!record.has("formatVersion") && !record.has("authority") && !record.has("clientID")) return legacyAuthority
+            require(record.get("formatVersion") == 2) { "Unsupported sign-in record" }
+            val authority = entries.singleOrNull { it.recordID == record.getString("authority") }
+                ?: throw IOException("Unknown sign-in authority")
+            require(record.getString("clientID") == authority.clientID) { "Sign-in authority mismatch" }
+            return authority
+        }
+    }
+}
+
 internal fun signInAuthorizationURL(start: String, provider: SignInProvider, reauthenticate: Boolean): Uri {
     val original = Uri.parse(start)
     val builder = original.buildUpon().clearQuery()
@@ -164,13 +189,12 @@ class Authentication(context: Context) {
     class SignInRequired : Exception("Sign-in required")
     private val records = PrivateRecords(context)
     private val callback = "co.fallsoft.vipi://auth/callback"
-    private val client get() = PublicClient.create(BuildConfig.WORKOS_CLIENT_ID)
     private val refreshLock = Mutex()
     private var generation = UUID.randomUUID()
     private class ExchangeFailure(val status: Int) : java.io.IOException("Sign-in service unavailable")
     private val publicHTTP = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
         .retryOnConnectionFailure(false).callTimeout(20, TimeUnit.SECONDS).build()
-    var userID by mutableStateOf(runCatching { records.read("session")?.getString("userID") }.getOrNull())
+    var userID by mutableStateOf(runCatching { records.read("session")?.let { IdentityAuthority.read(it); it.getString("userID") } }.getOrNull())
         private set
     var busy by mutableStateOf(false)
         private set
@@ -182,11 +206,13 @@ class Authentication(context: Context) {
     fun signIn(context: Context, expectedUser: String? = null, provider: SignInProvider = SignInProvider.EMAIL) {
         if (busy) return
         error = null
-        if (!BuildConfig.WORKOS_CLIENT_ID.startsWith("client_")) { error = appContext.getString(R.string.ui_7a888f9040e0); return }
         try {
+            val saved = records.read("session")
+            val authority = IdentityAuthority.forSignIn(saved?.let { IdentityAuthority.read(it) }, expectedUser != null, BuildConfig.WORKOS_CLIENT_ID)
+            if (saved != null) require(saved.getString("userID") == userID)
             val boundUser = expectedUser ?: userID
-            val start = client.getAuthorizationUrlWithPkce(callback)
-            records.write("pending-sign-in", JSONObject().put("state", start.state).put("verifier", start.codeVerifier).put("createdAt", System.currentTimeMillis()).put("expectedUser", boundUser))
+            val start = PublicClient.create(authority.clientID).getAuthorizationUrlWithPkce(callback)
+            records.write("pending-sign-in", authority.tag(JSONObject().put("state", start.state).put("verifier", start.codeVerifier).put("createdAt", System.currentTimeMillis()).put("expectedUser", boundUser)))
             // WorkOS Android 0.4.0's public helper omits the connection selector.
             // Supply exactly one selector while retaining the SDK's PKCE/state.
             val url = signInAuthorizationURL(start.url, provider, reauthenticate = boundUser != null)
@@ -201,6 +227,7 @@ class Authentication(context: Context) {
             val pending = records.read("pending-sign-in") ?: return
             // Consume before any suspension; a second callback cannot exchange the same verifier.
             records.remove("pending-sign-in")
+            val authority = IdentityAuthority.read(pending)
             stage = "callback-age"
             val ageMs = System.currentTimeMillis() - pending.getLong("createdAt")
             if (ageMs >= 600_000) {
@@ -217,7 +244,7 @@ class Authentication(context: Context) {
             // WorkOS Android 0.4.0's PublicClient serializes client_secret="".
             // Public PKCE must omit that field; the provider rejects it with 422.
             // Exchange once, using the original browser flow's saved verifier.
-            val result = exchange(JSONObject().put("client_id", BuildConfig.WORKOS_CLIENT_ID)
+            val result = exchange(JSONObject().put("client_id", authority.clientID)
                 .put("grant_type", "authorization_code").put("code", code)
                 .put("code_verifier", pending.getString("verifier")))
             val resultUser = result.getJSONObject("user").getString("id")
@@ -226,9 +253,13 @@ class Authentication(context: Context) {
             if (pending.has("expectedUser") && pending.getString("expectedUser") != resultUser) {
                 error = appContext.getString(R.string.ui_94455044f130); return
             }
+            val existing = records.read("session")
+            if (existing != null && (IdentityAuthority.read(existing) != authority || existing.getString("userID") != resultUser)) {
+                error = appContext.getString(R.string.ui_94455044f130); return
+            }
             stage = "private-session-save"
             if (userID != resultUser) PrivateSpeechCache.erase(application)
-            records.write("session", sessionRecord(result, resultUser))
+            records.write("session", sessionRecord(result, resultUser, authority))
             generation = UUID.randomUUID()
             userID = resultUser
             signInRevision++
@@ -244,16 +275,17 @@ class Authentication(context: Context) {
     suspend fun accessToken(expectedUser: String, rejected: String? = null): String = withContext(Dispatchers.Main.immediate) {
         refreshLock.withLock {
             val current = records.read("session") ?: throw SignInRequired()
+            val authority = IdentityAuthority.read(current)
             if (current.getString("userID") != expectedUser || userID != expectedUser) throw SignInRequired()
             val token = current.getString("accessToken")
             if (rejected == null || token != rejected) return@withLock token
             val started = generation
             // The pinned Android SDK has no public-client refresh helper. Use
             // WorkOS's public refresh endpoint without any client secret.
-            val result = exchange(JSONObject().put("client_id", BuildConfig.WORKOS_CLIENT_ID).put("grant_type", "refresh_token")
+            val result = exchange(JSONObject().put("client_id", authority.clientID).put("grant_type", "refresh_token")
                 .put("refresh_token", current.getString("refreshToken")))
             if (generation != started || userID != expectedUser || result.getJSONObject("user").getString("id") != expectedUser) throw SignInRequired()
-            val next = sessionRecord(result, expectedUser)
+            val next = sessionRecord(result, expectedUser, authority)
             records.write("session", next)
             next.getString("accessToken")
         }
@@ -272,11 +304,11 @@ class Authentication(context: Context) {
             JSONObject(source.readUtf8())
         }
     }
-    private fun sessionRecord(result: JSONObject, subject: String): JSONObject {
+    private fun sessionRecord(result: JSONObject, subject: String, authority: IdentityAuthority): JSONObject {
         require(subject.startsWith("user_") && subject.length <= 128)
         val access = result.getString("access_token").also { require(it.isNotBlank() && it.length <= 32_768) }
         val refresh = result.getString("refresh_token").also { require(it.isNotBlank() && it.length <= 16_384) }
-        return JSONObject().put("userID", subject).put("accessToken", access).put("refreshToken", refresh)
+        return authority.tag(JSONObject().put("userID", subject).put("accessToken", access).put("refreshToken", refresh))
     }
     fun signOutLocally() { generation = UUID.randomUUID(); PrivateSpeechCache.erase(application); records.remove("session"); records.remove("pending-sign-in"); userID = null; signInRevision++ }
 }

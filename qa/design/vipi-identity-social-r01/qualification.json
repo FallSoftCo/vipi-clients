@@ -12,7 +12,7 @@
     "workos_project": "Vipi",
     "environment": "Production",
     "environment_id": "environment_01M6VYVQJ917R9W5V4W5T1WCWT",
-    "client_id": "client_01M6VYVQQ9GWNS95DFGABXEW9",
+    "client_id": "client_01M6VYVQQ9GWVNS95DFGABXEW9",
     "google": "disabled; Enable button observed",
     "apple": "disabled; Enable button observed",
     "native_observation_job": "vipi-identity-workos-providers-r01",
@@ -21,7 +21,8 @@
     "google_web_client_inventory": "unverified; existing company GCP session requires password reauthentication",
     "apple_services_id_and_key_inventory": "not yet verified",
     "external_configuration_changes": 0,
-    "new_credentials": 0
+    "new_credentials": 0,
+    "client_id_correction": "Corrected screenshot transcription against original retained source configuration; no setting ever used incorrect transcription."
   },
   "implementation": {
     "initial_sign_in": "Optional typed GoogleOAuth or AppleOAuth selector; hosted authkit remains the compatible default",

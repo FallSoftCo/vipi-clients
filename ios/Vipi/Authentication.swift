@@ -35,12 +35,98 @@ enum KeychainStore {
     }
 }
 
+/// A stored verifier/token may only be sent to an explicitly reviewed client.
+enum IdentityAuthority: String, Codable, Sendable, CaseIterable {
+    case vipiProduction = "vipi-production", vipiStaging = "vipi-staging"
+    var clientID: String {
+        switch self {
+        case .vipiProduction: "client_01M6VYVQQ9GWVNS95DFGABXEW9"
+        case .vipiStaging: "client_01M5S2CDSQ8F7FEX26G3CY9VS1"
+        }
+    }
+    static var legacy: Self {
+        #if DEBUG
+        if Bundle.main.object(forInfoDictionaryKey: "WorkOSClientID") as? String == Self.vipiStaging.clientID { return .vipiStaging }
+        #endif
+        return .vipiProduction
+    }
+    static func configured(_ clientID: String) throws -> Self {
+        guard let value = allCases.first(where: { $0.clientID == clientID }) else { throw URLError(.userAuthenticationRequired) }
+        return value
+    }
+    static func forSignIn(saved: Self?, hasExpectedUser: Bool, configuredClientID: String) throws -> Self {
+        if let saved { return saved }
+        return try hasExpectedUser ? .legacy : configured(configuredClientID)
+    }
+    private enum Keys: String, CodingKey { case formatVersion, authority, clientID }
+    static func read(from decoder: any Decoder) throws -> Self {
+        let record = try decoder.container(keyedBy: Keys.self)
+        if !record.contains(.formatVersion) && !record.contains(.authority) && !record.contains(.clientID) { return .legacy }
+        guard try record.decode(Int.self, forKey: .formatVersion) == 2 else {
+            throw DecodingError.dataCorruptedError(forKey: .formatVersion, in: record, debugDescription: "Unsupported sign-in record")
+        }
+        let authority = try record.decode(Self.self, forKey: .authority)
+        guard try record.decode(String.self, forKey: .clientID) == authority.clientID else {
+            throw DecodingError.dataCorruptedError(forKey: .clientID, in: record, debugDescription: "Sign-in authority mismatch")
+        }
+        return authority
+    }
+    func write(to encoder: any Encoder) throws {
+        var record = encoder.container(keyedBy: Keys.self)
+        try record.encode(2, forKey: .formatVersion)
+        try record.encode(self, forKey: .authority)
+        try record.encode(clientID, forKey: .clientID)
+    }
+}
+
 struct VipiSession: Codable, Sendable {
     let userID: String
     let accessToken: String
     let refreshToken: String
+    let authority: IdentityAuthority
+    init(userID: String, accessToken: String, refreshToken: String, authority: IdentityAuthority = .legacy) {
+        self.userID = userID; self.accessToken = accessToken; self.refreshToken = refreshToken; self.authority = authority
+    }
+    func isBound(to authority: IdentityAuthority, subject: String) -> Bool { self.authority == authority && userID == subject }
+    private enum Keys: String, CodingKey { case userID, accessToken, refreshToken }
+    init(from decoder: any Decoder) throws {
+        let record = try decoder.container(keyedBy: Keys.self)
+        userID = try record.decode(String.self, forKey: .userID)
+        accessToken = try record.decode(String.self, forKey: .accessToken)
+        refreshToken = try record.decode(String.self, forKey: .refreshToken)
+        authority = try IdentityAuthority.read(from: decoder)
+    }
+    func encode(to encoder: any Encoder) throws {
+        var record = encoder.container(keyedBy: Keys.self)
+        try record.encode(userID, forKey: .userID)
+        try record.encode(accessToken, forKey: .accessToken)
+        try record.encode(refreshToken, forKey: .refreshToken)
+        try authority.write(to: encoder)
+    }
 }
-private struct PendingSignIn: Codable { let state: String; let verifier: String; let createdAt: Date; var expectedUser: String? }
+struct PendingSignIn: Codable {
+    let state: String; let verifier: String; let createdAt: Date; let expectedUser: String?; let authority: IdentityAuthority
+    init(state: String, verifier: String, createdAt: Date, expectedUser: String?, authority: IdentityAuthority) {
+        self.state = state; self.verifier = verifier; self.createdAt = createdAt; self.expectedUser = expectedUser; self.authority = authority
+    }
+    private enum Keys: String, CodingKey { case state, verifier, createdAt, expectedUser }
+    init(from decoder: any Decoder) throws {
+        let record = try decoder.container(keyedBy: Keys.self)
+        state = try record.decode(String.self, forKey: .state)
+        verifier = try record.decode(String.self, forKey: .verifier)
+        createdAt = try record.decode(Date.self, forKey: .createdAt)
+        expectedUser = try record.decodeIfPresent(String.self, forKey: .expectedUser)
+        authority = try IdentityAuthority.read(from: decoder)
+    }
+    func encode(to encoder: any Encoder) throws {
+        var record = encoder.container(keyedBy: Keys.self)
+        try record.encode(state, forKey: .state)
+        try record.encode(verifier, forKey: .verifier)
+        try record.encode(createdAt, forKey: .createdAt)
+        try record.encodeIfPresent(expectedUser, forKey: .expectedUser)
+        try authority.write(to: encoder)
+    }
+}
 
 /// Email opens hosted AuthKit, which also offers the environment's enabled providers.
 enum SignInProvider: String, CaseIterable {
@@ -71,9 +157,9 @@ func signInAuthorizationURL(_ start: URL, provider: SignInProvider, reauthentica
     private var refreshID = UUID()
     private var sessionGeneration = UUID()
     private let callback = "co.fallsoft.vipi://auth/callback"
-    private var client: PublicClient? {
-        guard let id = Bundle.main.object(forInfoDictionaryKey: "WorkOSClientID") as? String, id.hasPrefix("client_") else { return nil }
-        return PublicClient(clientID: id)
+    private func storedSession() throws -> VipiSession? {
+        guard let data = try KeychainStore.read(account: "session") else { return nil }
+        return try JSONDecoder().decode(VipiSession.self, from: data)
     }
     override init() {
         super.init()
@@ -84,12 +170,18 @@ func signInAuthorizationURL(_ start: URL, provider: SignInProvider, reauthentica
     }
     func signIn(expectedUser: String? = nil, provider: SignInProvider = .email) {
         guard !busy else { return }
-        guard let client else { errorMessage = String(localized: "Sign-in isn’t available yet. Please try again shortly."); return }
         errorMessage = nil
         do {
+            let saved = try storedSession()
+            if let saved {
+                guard saved.userID == session?.userID else { throw SessionFailure.accountChanged }
+            }
+            let configuredID = Bundle.main.object(forInfoDictionaryKey: "WorkOSClientID") as? String ?? ""
+            let authority = try IdentityAuthority.forSignIn(saved: saved?.authority, hasExpectedUser: expectedUser != nil, configuredClientID: configuredID)
             let boundUser = expectedUser ?? session?.userID
+            let client = PublicClient(clientID: authority.clientID)
             let authorization = try client.getAuthorizationUrlWithPKCE(redirectUri: callback, provider: "authkit")
-            let pending = PendingSignIn(state: authorization.state, verifier: authorization.codeVerifier, createdAt: Date(), expectedUser: boundUser)
+            let pending = PendingSignIn(state: authorization.state, verifier: authorization.codeVerifier, createdAt: Date(), expectedUser: boundUser, authority: authority)
             try KeychainStore.save(JSONEncoder().encode(pending), account: "pending-sign-in")
             let url = try signInAuthorizationURL(authorization.url, provider: provider, reauthenticate: boundUser != nil)
             busy = true
@@ -115,8 +207,7 @@ func signInAuthorizationURL(_ start: URL, provider: SignInProvider, reauthentica
     }
     func complete(_ url: URL) async {
         guard url.scheme == "co.fallsoft.vipi", url.host == "auth", url.path == "/callback",
-              url.port == nil, url.user == nil, url.password == nil, url.fragment == nil,
-              let client else { return }
+              url.port == nil, url.user == nil, url.password == nil, url.fragment == nil else { return }
         defer { busy = false; KeychainStore.delete(account: "pending-sign-in") }
         do {
             guard let data = try KeychainStore.read(account: "pending-sign-in"),
@@ -138,12 +229,16 @@ func signInAuthorizationURL(_ start: URL, provider: SignInProvider, reauthentica
             }
             KeychainStore.delete(account: "pending-sign-in")
             let generation = sessionGeneration
+            let client = PublicClient(clientID: pending.authority.clientID)
             let result = try await client.authenticateWithCode(code: code, codeVerifier: pending.verifier)
             guard generation == sessionGeneration else { throw SessionFailure.accountChanged }
             if let expected = pending.expectedUser, result.user.id != expected {
                 errorMessage = String(localized: "Sign in to the same account to continue."); return
             }
-            let value = VipiSession(userID: result.user.id, accessToken: result.accessToken, refreshToken: result.refreshToken)
+            if let session, !session.isBound(to: pending.authority, subject: result.user.id) {
+                errorMessage = String(localized: "Sign in to the same account to continue."); return
+            }
+            let value = VipiSession(userID: result.user.id, accessToken: result.accessToken, refreshToken: result.refreshToken, authority: pending.authority)
             try KeychainStore.save(JSONEncoder().encode(value), account: "session")
             sessionGeneration = UUID()
             session = value
@@ -153,7 +248,8 @@ func signInAuthorizationURL(_ start: URL, provider: SignInProvider, reauthentica
     /// requests share one exchange; an old response cannot restore a signed-out
     /// session or attach a newly signed-in account to the old account's vault.
     func accessToken(for userID: String, rejected: String? = nil) async throws -> String {
-        guard let current = session, current.userID == userID, let client else { throw SessionFailure.signInRequired }
+        guard let current = session, current.userID == userID else { throw SessionFailure.signInRequired }
+        let client = PublicClient(clientID: current.authority.clientID)
         guard let rejected, rejected == current.accessToken else { return current.accessToken }
         if let refreshTask { return try await refreshTask.value }
         let generation = sessionGeneration, id = UUID()
@@ -165,7 +261,7 @@ func signInAuthorizationURL(_ start: URL, provider: SignInProvider, reauthentica
             try Task.checkCancellation()
             guard sessionGeneration == generation, session?.refreshToken == current.refreshToken,
                 result.user.id == userID else { throw SessionFailure.accountChanged }
-            let value = VipiSession(userID: userID, accessToken: result.accessToken, refreshToken: result.refreshToken)
+            let value = VipiSession(userID: userID, accessToken: result.accessToken, refreshToken: result.refreshToken, authority: current.authority)
             try KeychainStore.save(JSONEncoder().encode(value), account: "session")
             session = value
             return value.accessToken

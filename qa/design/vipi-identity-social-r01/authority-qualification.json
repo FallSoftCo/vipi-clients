@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-17",
+  "scope": "Backwards-compatible pinned native identity authority records; no production client switch or migration",
+  "source_sha256": {
+    "android/app/src/main/java/co/fallsoft/vipi/Authentication.kt": "15718493c7c580a029b551338658d2a5eeb6acaf17a1598a4bccd62d7994fef5",
+    "ios/Vipi/Authentication.swift": "bc7c504a2c3c8e92f5a8933e23d6f72b7047a7f0fd6a9183592cd8b5ce4a50e0",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SignInProviderDeviceTest.kt": "7c260f986295ba905e684b97259e508f2ca8e515a2bfc62aa98445ad3af5592a",
+    "ios/VipiCryptoTests/SignInProviderTests.swift": "a76fa3d91bb70e2ac60b999153f60760ff055c89df3dd20e4e3bae934de1f088"
+  },
+  "record_format": {
+    "formatVersion": 2,
+    "authority": "Reviewed authority registry key",
+    "clientID": "Must exactly match registry authority; no native secret",
+    "preserved": "Existing userID stable local binding, tokens, PKCE state/verifier/createdAt/expectedUser"
+  },
+  "registry": {
+    "vipi-production": "client_01M6VYVQQ9GWVNS95DFGABXEW9",
+    "vipi-staging": "client_01M5S2CDSQ8F7FEX26G3CY9VS1"
+  },
+  "legacy_policy": "Untagged old records pin to immutable legacy Vipi Production, with existing explicitly staging-configured debug builds retaining legacy staging. Never infer old record authority from a future production default. Partial tags, unknown realm/client and future versions fail closed.",
+  "operations": {
+    "fresh_sign_in": "Configured public client must resolve to reviewed registry",
+    "reauth": "Saved authority wins over default build client; expected old user with no session retains legacy authority",
+    "callback": "Saved pending authority chooses exact original PKCE client; current authority+subject must both match before replacing existing session",
+    "refresh": "Saved session authority chooses original client and is preserved on token rotation",
+    "unchanged": [
+      "default production client config",
+      "same-user guard",
+      "profile/vault account IDs",
+      "device/Signal keys",
+      "backend configuration",
+      "provider settings"
+    ]
+  },
+  "checks": {
+    "native_macos_swift_foundation": {
+      "tests": 7,
+      "failures": 0,
+      "compiler_jobs": 1,
+      "source": "Exact Foundation formats/helpers from Authentication.swift plus actual focused XCTest tests, only test module import renamed",
+      "log": "authority-swift-test.log"
+    },
+    "local_kotlin_jvm": {
+      "tests": 3,
+      "failures": 0,
+      "compiler": "Pinned cached Kotlin2.4.0; cached org.json20240303/JUnit4.13.2",
+      "source": "Exact IdentityAuthority enum and actual IdentityAuthorityDeviceTest class, isolated BuildConfig fixture DEBUGfalse with unknown future default",
+      "log": "authority-kotlin-jvm-test.log"
+    },
+    "instrumentation": "Delivered additional actual Authentication refresh/callback exchange test with synthetic qualificationExchange; not run, no network/emulator/phone interaction",
+    "full_app_compile": "pending integrated UX build",
+    "diff_check": "passed"
+  },
+  "limitations": [
+    "Shared application authority not registered until actual client exists and is reviewed",
+    "No migration activation until server dual-proof linking contract exists",
+    "No network/provider sign-in or token exchange performed by these serialization tests"
+  ]
+}
