@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="ui_04d7b4833927" formatted="false">메시지</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
     <string name="ui_0c42f5497c0b" formatted="false">지금 원본 단어를 표시하십시오.</string>
-    <string name="ui_0cd8734d2fcd" formatted="false">구독은 별도로 관리됩니다. 친구들의 복사본과 백업은 다른 곳에 저장되어 있습니다.</string>
+    <string name="ui_0cd8734d2fcd" formatted="false">구독은 별도로 관리됩니다. 친구가 가진 사본과 다른 곳에 저장된 백업은 그대로 유지됩니다.</string>
     <string name="ui_0fac2fda13a5" formatted="false">이 계정은 이미 다른 기기에서 활성화되어 있습니다. 계정을 이동하려면 별도의 확인이 필요합니다.</string>
-    <string name="ui_11a6767d5674" formatted="false">다 된</string>
+    <string name="ui_11a6767d5674" formatted="false">완료</string>
     <string name="ui_12feaf099b55" formatted="false">친구와의 채팅은 종단 간 암호화됩니다.</string>
     <string name="ui_13dff14c70d6" formatted="false">새 메시지를 보내려면 이 사람의 차단을 해제하십시오.</string>
     <string name="ui_1afc1c2532c4" formatted="false">이 로그인을 확인할 수 없습니다. 다시 시작해 주세요.</string>
-    <string name="ui_1e22fb013bb0" formatted="false">스페인어 단어 요약</string>
+    <string name="ui_1e22fb013bb0" formatted="false">스페인어 단어 다시 표시</string>
     <string name="ui_20b395d8ee06" formatted="false">한 번 연결하여 이 장치를 설정 완료하십시오.</string>
     <string name="ui_211d0bb8cf4f" formatted="false">차단</string>
     <string name="ui_225d29f6201e" formatted="false">듣다</string>
@@ -18,12 +18,12 @@
     <string name="ui_25cb0ec8237b" formatted="false">새로운 메시지를 다시 교환하실 수 있습니다. 중단된 메시지는 다시 전송되지 않습니다.</string>
     <string name="ui_2a6b4d12ccfb" formatted="false">라이선스 및 공지사항</string>
     <string name="ui_2c6b2e253c01" formatted="false">너의 이름</string>
-    <string name="ui_2f7e29fbc47d" formatted="false">Vipi</string>
+    <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
     <string name="ui_318655cea4bd" formatted="false">언어</string>
     <string name="ui_33875a9b79e5" formatted="false">3~24자, 숫자 또는 밑줄. 귀하의 전화번호와 연락처는 비공개로 유지됩니다.</string>
     <string name="ui_339484dc1f78" formatted="false">채팅에 있는 단어들</string>
     <string name="ui_33a2ae335a6b" formatted="false">삭제 요청</string>
-    <string name="ui_3446735cfdee" formatted="false">명확한 검증</string>
+    <string name="ui_3446735cfdee" formatted="false">확인 상태 지우기</string>
     <string name="ui_3907fa7f8072" formatted="false">화면 스타일</string>
     <string name="ui_3b3139fd3460" formatted="false">사용자 이름으로 친구를 찾으세요.</string>
     <string name="ui_4757eee1005a" formatted="false">이메일 주소는 친구에게 표시되지 않습니다.</string>
@@ -86,7 +86,7 @@
     <string name="ui_c3812fc4acb8" formatted="false">제거하다</string>
     <string name="ui_c518ff733bfe" formatted="false">vBot은 DeepSeek에 의해 구동됩니다. vBot에 보내는 메시지는 Vipi와 DeepSeek으로 이동하여 회신을 생성합니다. 친구와의 채팅은 자동으로 포함되지 않습니다.</string>
     <string name="ui_c754691a97ca" formatted="false">먼저 메시지를 교환하여 이 대화의 보안 번호를 생성하십시오.</string>
-    <string name="ui_cae7d57bc067" formatted="false">멈추다</string>
+    <string name="ui_cae7d57bc067" formatted="false">중지</string>
     <string name="ui_cbf7e254a8c0" formatted="false">메시지 언어</string>
     <string name="ui_d8b8392e2c54" formatted="false">다시 시도하십시오</string>
     <string name="ui_df0b482c49b2" formatted="false">예시 메시지</string>
@@ -119,13 +119,13 @@
     <string name="deletion_pending">요청을 확인하고 이 기기에서 저장된 채팅을 삭제하겠습니다. 연결이 끊기면 Vipi가 진행 상황을 저장합니다.</string>
     <string name="backup_wrong_account">이 백업은 다른 Vipi 계정에 속합니다. 해당 계정에 로그인하여 복원하십시오.</string>
     <string name="appearance_system">시스템</string>
-    <string name="appearance_light">가벼운</string>
-    <string name="appearance_dark">어두운</string>
+    <string name="appearance_light">라이트</string>
+    <string name="appearance_dark">다크</string>
     <string name="full_translation_download">전체 번역을 다운로드하세요</string>
-    <string name="delivery_delivered">배달료 포함의</string>
+    <string name="delivery_delivered">전달됨</string>
     <string name="delivery_sent">보냈습니다</string>
-    <string name="delivery_expired">배달되지 않음 · 72시간 경과</string>
-    <string name="delivery_failed">배달되지 않았습니다</string>
+    <string name="delivery_expired">전달되지 않음 · 72시간 경과</string>
+    <string name="delivery_failed">전달되지 않음</string>
     <string name="delivery_stopped">멈췄습니다</string>
     <string name="delivery_waiting">보내기를 기다리고 있습니다</string>
     <string name="account_description">계정을 만들거나 기존 계정에 로그인하십시오. 친구들은 이메일이 아니라 사용자 이름으로 당신을 찾습니다.</string>
@@ -134,7 +134,7 @@
     <string name="deletion_sign_in_again">같은 계정에 다시 로그인하여 본인임을 확인한 후 계속 진행하십시오.</string>
     <string name="deletion_request_unconfirmed">귀하의 요청을 확인할 수 없습니다. 연결을 확인하고 다시 시도하십시오. 다시 시작하실 필요가 없습니다.</string>
     <string name="deletion_check_failed">귀하의 요청이 저장되었습니다. 완료를 확인할 수 없었습니다. 다시 시도해 주세요.</string>
-    <string name="deletion_receipt_clear_failed">완료 영수증을 결제할 수 없습니다. 다시 시도해 주세요.</string>
+    <string name="deletion_receipt_clear_failed">완료 확인 기록을 지울 수 없습니다. 다시 시도해 주세요.</string>
     <string name="languages_description">알고 있는 언어와 배우고 싶은 언어를 선택하십시오. 이것들은 나중에 변경하실 수 있습니다.</string>
     <string name="reading_slower">느리게</string>
     <string name="reading_standard">보통</string>

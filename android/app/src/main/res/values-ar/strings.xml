@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="ui_04d7b4833927" formatted="false">الرسائل</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
     <string name="ui_0c42f5497c0b" formatted="false">أظهر الكلمات الأصلية الآن</string>
     <string name="ui_0cd8734d2fcd" formatted="false">تتم إدارة الاشتراكات بشكل منفصل. تبقى نسخ الأصدقاء والنسخ الاحتياطية المحفوظة في مكان آخر.</string>
     <string name="ui_0fac2fda13a5" formatted="false">هذا الحساب نشط بالفعل على جهاز آخر. يحتاج نقل حسابك إلى تأكيد منفصل.</string>
-    <string name="ui_11a6767d5674" formatted="false">مُنْتَهٍ</string>
+    <string name="ui_11a6767d5674" formatted="false">تم</string>
     <string name="ui_12feaf099b55" formatted="false">محادثات الأصدقاء مشفّرة من طرف إلى طرف.</string>
     <string name="ui_13dff14c70d6" formatted="false">قم بإلغاء حظر هذا الشخص لإرسال رسالة جديدة.</string>
     <string name="ui_1afc1c2532c4" formatted="false">لم نتمكن من التحقق من تسجيل الدخول هذا. من فضلك ابدأ من جديد.</string>
     <string name="ui_1e22fb013bb0" formatted="false">استئناف الكلمات الإسبانية</string>
     <string name="ui_20b395d8ee06" formatted="false">اتصل مرة واحدة لإنهاء إعداد هذا الجهاز.</string>
     <string name="ui_211d0bb8cf4f" formatted="false">حظر</string>
-    <string name="ui_225d29f6201e" formatted="false">اسْتَمَعَ</string>
+    <string name="ui_225d29f6201e" formatted="false">استمع</string>
     <string name="ui_24a3f4314e5c" formatted="false">إدارة الاشتراكات</string>
     <string name="ui_24f13e3dc8e4" formatted="false">نسخة احتياطية للمحادثات</string>
     <string name="ui_25cb0ec8237b" formatted="false">يمكنك تبادل الرسائل الجديدة مرة أخرى. لن يتم إعادة إرسال الرسائل المتوقفة.</string>
     <string name="ui_2a6b4d12ccfb" formatted="false">التراخيص والإشعارات</string>
     <string name="ui_2c6b2e253c01" formatted="false">اسمك</string>
-    <string name="ui_2f7e29fbc47d" formatted="false">فيبي</string>
+    <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
     <string name="ui_318655cea4bd" formatted="false">اللغات</string>
     <string name="ui_33875a9b79e5" formatted="false">3-24 حرفا أو رقما أو خطا سفلا. يظل رقم هاتفك وجهات الاتصال الخاصة بك خاصة.</string>
     <string name="ui_339484dc1f78" formatted="false">كلمات في دردشاتك</string>
-    <string name="ui_33a2ae335a6b" formatted="false">الحذف المطلوب</string>
-    <string name="ui_3446735cfdee" formatted="false">التحقق الواضح</string>
+    <string name="ui_33a2ae335a6b" formatted="false">تم طلب الحذف</string>
+    <string name="ui_3446735cfdee" formatted="false">مسح حالة التحقق</string>
     <string name="ui_3907fa7f8072" formatted="false">المظهر</string>
     <string name="ui_3b3139fd3460" formatted="false">اعثر على الأصدقاء باستخدام اسم المستخدم.</string>
     <string name="ui_4757eee1005a" formatted="false">لا يظهر بريدك الإلكتروني لأصدقائك.</string>
@@ -86,7 +86,7 @@
     <string name="ui_c3812fc4acb8" formatted="false">أَزالَ</string>
     <string name="ui_c518ff733bfe" formatted="false">يتم تشغيل vBot بواسطة DeepSeek. الرسائل التي ترسلها إلى vBot تذهب إلى Vipi وDeepSeek لإنشاء ردود. لا يتم تضمين دردشاتك مع الأصدقاء تلقائيا.</string>
     <string name="ui_c754691a97ca" formatted="false">تبادل رسالة أولا لإنشاء رقم أمان هذه المحادثة.</string>
-    <string name="ui_cae7d57bc067" formatted="false">تَوَقُّف</string>
+    <string name="ui_cae7d57bc067" formatted="false">إيقاف</string>
     <string name="ui_cbf7e254a8c0" formatted="false">لغة الرسالة</string>
     <string name="ui_d8b8392e2c54" formatted="false">حاول مرة أخرى</string>
     <string name="ui_df0b482c49b2" formatted="false">مثال على الرسالة</string>
@@ -119,12 +119,12 @@
     <string name="deletion_pending">سنؤكد الطلب ونزيل دردشاتك المحفوظة من هذا الجهاز. يحفظ Vipi تقدمك إذا انقطع الاتصال.</string>
     <string name="backup_wrong_account">تنتمي هذه النسخة الاحتياطية إلى حساب Vipi مختلف. قم بتسجيل الدخول إلى هذا الحساب لاستعادته.</string>
     <string name="appearance_system">نِظام</string>
-    <string name="appearance_light">ضَوْء</string>
-    <string name="appearance_dark">مُظْلِم</string>
+    <string name="appearance_light">فاتح</string>
+    <string name="appearance_dark">داكن</string>
     <string name="full_translation_download">قم بالتنزيل للترجمة الكاملة</string>
     <string name="delivery_delivered">تم التسليم</string>
     <string name="delivery_sent">أرسل</string>
-    <string name="delivery_expired">لم يتم التسليم · مرت 72 ساعة</string>
+    <string name="delivery_expired">لم يتم التسليم · مرّت 72 ساعة</string>
     <string name="delivery_failed">لم يتم التسليم</string>
     <string name="delivery_stopped">توقف</string>
     <string name="delivery_waiting">في انتظار الإرسال</string>

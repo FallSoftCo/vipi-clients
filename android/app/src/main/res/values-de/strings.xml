@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="ui_04d7b4833927" formatted="false">Nachrichten</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
     <string name="ui_0c42f5497c0b" formatted="false">Originalwörter jetzt anzeigen</string>
-    <string name="ui_0cd8734d2fcd" formatted="false">Abonnements werden separat verwaltet. Kopien und Backups von Freunden, die an anderer Stelle gespeichert wurden, bleiben bestehen.</string>
+    <string name="ui_0cd8734d2fcd" formatted="false">Abos werden getrennt verwaltet. Kopien Ihrer Freunde und anderswo gespeicherte Backups bleiben erhalten.</string>
     <string name="ui_0fac2fda13a5" formatted="false">Dieses Konto ist bereits auf einem anderen Gerät aktiv. Der Umzug Ihres Kontos erfordert eine separate Bestätigung.</string>
-    <string name="ui_11a6767d5674" formatted="false">Abgemacht!</string>
+    <string name="ui_11a6767d5674" formatted="false">Fertig</string>
     <string name="ui_12feaf099b55" formatted="false">Chats mit Freunden sind Ende-zu-Ende verschlüsselt.</string>
     <string name="ui_13dff14c70d6" formatted="false">Entsperren Sie diese Person, um eine neue Nachricht zu senden.</string>
     <string name="ui_1afc1c2532c4" formatted="false">Wir konnten diese Anmeldung nicht verifizieren. Bitte beginnen Sie erneut.</string>
-    <string name="ui_1e22fb013bb0" formatted="false">Spanische Wörter fortsetzen</string>
+    <string name="ui_1e22fb013bb0" formatted="false">Spanische Wörter wieder anzeigen</string>
     <string name="ui_20b395d8ee06" formatted="false">Einmal verbinden, um die Einrichtung dieses Geräts abzuschließen.</string>
     <string name="ui_211d0bb8cf4f" formatted="false">Sperren</string>
     <string name="ui_225d29f6201e" formatted="false">Zuhören</string>
@@ -18,16 +18,16 @@
     <string name="ui_25cb0ec8237b" formatted="false">Sie können wieder neue Nachrichten austauschen. Gestoppte Nachrichten werden nicht erneut gesendet.</string>
     <string name="ui_2a6b4d12ccfb" formatted="false">Lizenzen und Mitteilungen</string>
     <string name="ui_2c6b2e253c01" formatted="false">Dein Name</string>
-    <string name="ui_2f7e29fbc47d" formatted="false">VIP</string>
+    <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
     <string name="ui_318655cea4bd" formatted="false">Sprachen</string>
     <string name="ui_33875a9b79e5" formatted="false">3–24 Buchstaben, Zahlen oder Unterstriche. Ihre Telefonnummer und Kontakte bleiben privat.</string>
     <string name="ui_339484dc1f78" formatted="false">Wörter in Ihren Chats</string>
     <string name="ui_33a2ae335a6b" formatted="false">Löschung angefordert</string>
-    <string name="ui_3446735cfdee" formatted="false">Klare Verifizierung</string>
+    <string name="ui_3446735cfdee" formatted="false">Verifizierung zurücksetzen</string>
     <string name="ui_3907fa7f8072" formatted="false">Darstellung</string>
     <string name="ui_3b3139fd3460" formatted="false">Finde Freunde über ihren Nutzernamen.</string>
     <string name="ui_4757eee1005a" formatted="false">Deine E-Mail-Adresse ist für Freunde nicht sichtbar.</string>
-    <string name="ui_48e35bc10280" formatted="false">Sag Hallo. Ihre Nachrichten sind Ende-zu-Ende verschlüsselt.</string>
+    <string name="ui_48e35bc10280" formatted="false">Fangen Sie eine Unterhaltung an. Ihre Nachrichten sind Ende-zu-Ende verschlüsselt.</string>
     <string name="ui_4a144bcc83d9" formatted="false">Bitte warten Sie einen Moment, bevor Sie es erneut versuchen. Ihre Nachrichten sind gespeichert.</string>
     <string name="ui_4b34e1b08868" formatted="false">An vBot senden</string>
     <string name="ui_51fbe1dc8a73" formatted="false">Erneut anmelden</string>
@@ -86,7 +86,7 @@
     <string name="ui_c3812fc4acb8" formatted="false">Entfernen</string>
     <string name="ui_c518ff733bfe" formatted="false">vBot wird von DeepSeek betrieben. Nachrichten, die Sie an vBot senden, gehen zu Vipi und DeepSeek, um Antworten zu generieren. Ihre Chats mit Freunden werden nie automatisch einbezogen.</string>
     <string name="ui_c754691a97ca" formatted="false">Tauscht zuerst eine Nachricht aus, um die Sicherheitsnummer dieser Unterhaltung zu erstellen.</string>
-    <string name="ui_cae7d57bc067" formatted="false">Pause</string>
+    <string name="ui_cae7d57bc067" formatted="false">Stopp</string>
     <string name="ui_cbf7e254a8c0" formatted="false">Nachrichtensprache</string>
     <string name="ui_d8b8392e2c54" formatted="false">Versuchen Sie es erneut</string>
     <string name="ui_df0b482c49b2" formatted="false">BEISPIELNACHRICHT</string>
@@ -97,7 +97,7 @@
     <string name="ui_e52b25aa61b5" formatted="false">Leseoptionen</string>
     <string name="ui_e7e76272a570" formatted="false">Originalnachricht anzeigen</string>
     <string name="ui_eb7c5193d2ac" formatted="false">Mit diesem Benutzernamen wurde niemand gefunden. Überprüfe die Rechtschreibung mit deinem Freund.</string>
-    <string name="ui_ed783fa140ed" formatted="false">Wiederholen Sie Stimmen</string>
+    <string name="ui_ed783fa140ed" formatted="false">Stimmen erneut versuchen</string>
     <string name="ui_ef32661fdda0" formatted="false">Zu den neuesten Nachrichten springen</string>
     <string name="ui_efd4b5d37081" formatted="false">Ihre gespeicherten Unterhaltungen konnten nicht geöffnet werden. Bitte versuchen Sie es erneut.</string>
     <string name="ui_f173182378d0" formatted="false">vBot</string>
@@ -115,17 +115,17 @@
     <string name="chat_draft_save_failed">Dieser Entwurf konnte nicht gespeichert werden. Halten Sie dieses Gespräch offen und versuchen Sie es erneut.</string>
     <string name="chat_change_unconfirmed">Konnte die Änderung nicht bestätigen. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut.</string>
     <string name="deletion_completed">Ihr Vipi-Konto und Ihre Chats auf diesem Gerät wurden entfernt.</string>
-    <string name="deletion_accepted">Vipi hat Ihre Anfrage angenommen. Wir beenden die Löschung. Sie können die App schließen und später noch einmachsehen.</string>
+    <string name="deletion_accepted">Vipi hat Ihre Anfrage angenommen. Wir schließen die Löschung ab. Sie können die App schließen und später erneut nachsehen.</string>
     <string name="deletion_pending">Wir werden die Anfrage bestätigen und Ihre gespeicherten Chats von diesem Gerät entfernen. Vipi speichert Ihren Fortschritt, wenn die Verbindung unterbrochen wird.</string>
     <string name="backup_wrong_account">Dieses Backup gehört zu einem anderen Vipi-Konto. Melden Sie sich bei diesem Konto an, um es wiederherzustellen.</string>
     <string name="appearance_system">System</string>
-    <string name="appearance_light">Licht</string>
-    <string name="appearance_dark">Dunkelheit</string>
+    <string name="appearance_light">Hell</string>
+    <string name="appearance_dark">Dunkel</string>
     <string name="full_translation_download">Download für vollständige Übersetzung</string>
-    <string name="delivery_delivered">Geliefert</string>
+    <string name="delivery_delivered">Zugestellt</string>
     <string name="delivery_sent">Gesendet</string>
-    <string name="delivery_expired">Nicht geliefert · 72 Stunden vergangen</string>
-    <string name="delivery_failed">Nicht geliefert</string>
+    <string name="delivery_expired">Nicht zugestellt · 72 Stunden vergangen</string>
+    <string name="delivery_failed">Nicht zugestellt</string>
     <string name="delivery_stopped">Gestoppt</string>
     <string name="delivery_waiting">Warten auf Senden</string>
     <string name="account_description">Erstellen Sie ein Konto oder melden Sie sich bei einem bestehenden an. Freunde finden Sie nach Benutzername, nicht nach Ihrer E-Mail-Adresse.</string>

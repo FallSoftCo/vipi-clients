@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="ui_04d7b4833927" formatted="false">消息</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
@@ -9,7 +9,7 @@
     <string name="ui_12feaf099b55" formatted="false">与朋友的聊天采用端到端加密。</string>
     <string name="ui_13dff14c70d6" formatted="false">解除此人的封锁以发送新消息。</string>
     <string name="ui_1afc1c2532c4" formatted="false">我们无法验证此登录。 请重新开始。</string>
-    <string name="ui_1e22fb013bb0" formatted="false">简历西班牙语单词</string>
+    <string name="ui_1e22fb013bb0" formatted="false">恢复显示西班牙语单词</string>
     <string name="ui_20b395d8ee06" formatted="false">连接一次以完成此设备的设置。</string>
     <string name="ui_211d0bb8cf4f" formatted="false">屏蔽</string>
     <string name="ui_225d29f6201e" formatted="false">听</string>
@@ -18,12 +18,12 @@
     <string name="ui_25cb0ec8237b" formatted="false">您可以再次交换新消息。 停止的消息不会被重新发送。</string>
     <string name="ui_2a6b4d12ccfb" formatted="false">许可证和通知</string>
     <string name="ui_2c6b2e253c01" formatted="false">你叫什么名字</string>
-    <string name="ui_2f7e29fbc47d" formatted="false">维皮</string>
+    <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
     <string name="ui_318655cea4bd" formatted="false">语言</string>
     <string name="ui_33875a9b79e5" formatted="false">3-24个字母、数字或下划线。 您的电话号码和联系人保持私密。</string>
     <string name="ui_339484dc1f78" formatted="false">你聊天中的单词</string>
-    <string name="ui_33a2ae335a6b" formatted="false">请求取消</string>
-    <string name="ui_3446735cfdee" formatted="false">明确验证</string>
+    <string name="ui_33a2ae335a6b" formatted="false">已请求删除</string>
+    <string name="ui_3446735cfdee" formatted="false">清除验证状态</string>
     <string name="ui_3907fa7f8072" formatted="false">外观</string>
     <string name="ui_3b3139fd3460" formatted="false">通过用户名查找朋友。</string>
     <string name="ui_4757eee1005a" formatted="false">你的电子邮箱不会向朋友显示。</string>
@@ -57,7 +57,7 @@
     <string name="ui_89dbe6aad0c8" formatted="false">通过聊天学习语言</string>
     <string name="ui_8a74ed1b7a84" formatted="false">朋友的用户名</string>
     <string name="ui_8def6a81a73d" formatted="false">您的个人资料和等待交付的消息将从Vipi中删除。 此设备上保存的聊天也将被删除。</string>
-    <string name="ui_8ffeaed375d8" formatted="false">你验证了这些钥匙</string>
+    <string name="ui_8ffeaed375d8" formatted="false">您已验证这些密钥</string>
     <string name="ui_901dc3311d68" formatted="false">那是你的用户名。 输入您朋友的用户名以开始对话。</string>
     <string name="ui_94455044f130" formatted="false">登录同一帐户以继续。</string>
     <string name="ui_956d8b926f8d" formatted="false">选择一个他们会认出的名字和一个要共享的用户名。</string>
@@ -65,12 +65,12 @@
     <string name="ui_9989062e50f8" formatted="false">示例：英语和西班牙语</string>
     <string name="ui_9bbf916f3af5" formatted="false">只是你们两个之间</string>
     <string name="ui_9d2dbb5de070" formatted="false">登录确认</string>
-    <string name="ui_9e36cb35d1a0" formatted="false">无法发送消息。 您的其他对话可以继续。</string>
+    <string name="ui_9e36cb35d1a0" formatted="false">消息无法送达。您的其他对话可以继续。</string>
     <string name="ui_9ed65d7add5f" formatted="false">我同意服务条款，并已阅读隐私政策。</string>
     <string name="ui_9f60f6c0e9e0" formatted="false">给 vBot 发消息</string>
     <string name="ui_a2e20a335700" formatted="false">删除账户</string>
     <string name="ui_a44d35311325" formatted="false">发送报告</string>
-    <string name="ui_ac6b07b85d0f" formatted="false">钥匙可能已经改变，或者您的选择无法保存。 再次比较当前数字。</string>
+    <string name="ui_ac6b07b85d0f" formatted="false">密钥可能已更改，或您的选择未能保存。请再次比对当前号码。</string>
     <string name="ui_af0bd5582e73" formatted="false">与聊天机器人聊天。 需要单独的Bot mini计划。</string>
     <string name="ui_af8a897d2feb" formatted="false">对话选项</string>
     <string name="ui_b0f88f29b4b2" formatted="false">复制原始消息</string>
@@ -86,7 +86,7 @@
     <string name="ui_c3812fc4acb8" formatted="false">拿走</string>
     <string name="ui_c518ff733bfe" formatted="false">vBot由DeepSeek提供支持。 您发送到vBot的消息会转到Vipi和DeepSeek以生成回复。 您与朋友的聊天永远不会自动包括在内。</string>
     <string name="ui_c754691a97ca" formatted="false">先交换一条信息，以创建此对话的安全号码。</string>
-    <string name="ui_cae7d57bc067" formatted="false">阻止</string>
+    <string name="ui_cae7d57bc067" formatted="false">停止</string>
     <string name="ui_cbf7e254a8c0" formatted="false">信息语言</string>
     <string name="ui_d8b8392e2c54" formatted="false">再试一次</string>
     <string name="ui_df0b482c49b2" formatted="false">示例信息</string>
@@ -97,7 +97,7 @@
     <string name="ui_e52b25aa61b5" formatted="false">阅读选项</string>
     <string name="ui_e7e76272a570" formatted="false">显示原始消息</string>
     <string name="ui_eb7c5193d2ac" formatted="false">没有找到使用该用户名的人。 和你的朋友一起检查拼写。</string>
-    <string name="ui_ed783fa140ed" formatted="false">重試聲音</string>
+    <string name="ui_ed783fa140ed" formatted="false">重试语音</string>
     <string name="ui_ef32661fdda0" formatted="false">跳转到最新消息</string>
     <string name="ui_efd4b5d37081" formatted="false">您保存的对话无法打开。 请再试一次。</string>
     <string name="ui_f173182378d0" formatted="false">vBot</string>
@@ -119,13 +119,13 @@
     <string name="deletion_pending">我们将确认请求，并从该设备中删除您保存的聊天记录。 如果连接中断，Vipi会保存您的进度。</string>
     <string name="backup_wrong_account">此备份属于其他Vipi帐户。 登录该帐户以恢复它。</string>
     <string name="appearance_system">系统</string>
-    <string name="appearance_light">可见光</string>
-    <string name="appearance_dark">黑暗</string>
+    <string name="appearance_light">浅色</string>
+    <string name="appearance_dark">深色</string>
     <string name="full_translation_download">下载完整翻译</string>
-    <string name="delivery_delivered">交付</string>
+    <string name="delivery_delivered">已送达</string>
     <string name="delivery_sent">已发送</string>
-    <string name="delivery_expired">未交付·72小时已过</string>
-    <string name="delivery_failed">未交付</string>
+    <string name="delivery_expired">未送达 · 已过72小时</string>
+    <string name="delivery_failed">未送达</string>
     <string name="delivery_stopped">停止</string>
     <string name="delivery_waiting">等待发送</string>
     <string name="account_description">创建一个帐户或登录到现有帐户。 朋友通过用户名找到你，而不是你的电子邮件。</string>

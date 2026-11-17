@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="ui_04d7b4833927" formatted="false">メッセージ</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
     <string name="ui_0c42f5497c0b" formatted="false">元の単語を今すぐ表示してください</string>
     <string name="ui_0cd8734d2fcd" formatted="false">サブスクリプションは個別に管理されます。 友人のコピーやバックアップは、他の場所に保存されたままです。</string>
     <string name="ui_0fac2fda13a5" formatted="false">このアカウントはすでに別のデバイスで有効です。 アカウントの移行には別途確認が必要です。</string>
-    <string name="ui_11a6767d5674" formatted="false">済んで</string>
+    <string name="ui_11a6767d5674" formatted="false">完了</string>
     <string name="ui_12feaf099b55" formatted="false">友だちとのチャットはエンドツーエンドで暗号化されます。</string>
     <string name="ui_13dff14c70d6" formatted="false">この人のブロックを解除して新しいメッセージを送信してください。</string>
     <string name="ui_1afc1c2532c4" formatted="false">このサインインを確認できませんでした。 もう一度始めてください。</string>
-    <string name="ui_1e22fb013bb0" formatted="false">スペイン語の単語を要約してください</string>
+    <string name="ui_1e22fb013bb0" formatted="false">スペイン語の単語を再開</string>
     <string name="ui_20b395d8ee06" formatted="false">このデバイスの設定を完了するには、一度接続してください。</string>
     <string name="ui_211d0bb8cf4f" formatted="false">ブロック</string>
     <string name="ui_225d29f6201e" formatted="false">聴く</string>
@@ -18,12 +18,12 @@
     <string name="ui_25cb0ec8237b" formatted="false">新しいメッセージを再度やり取りできます。 停止されたメッセージは再送されません。</string>
     <string name="ui_2a6b4d12ccfb" formatted="false">ライセンスと通知</string>
     <string name="ui_2c6b2e253c01" formatted="false">あなたの名前</string>
-    <string name="ui_2f7e29fbc47d" formatted="false">ヴィピ</string>
+    <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
     <string name="ui_318655cea4bd" formatted="false">言語</string>
     <string name="ui_33875a9b79e5" formatted="false">3〜24文字、数字、またはアンダースコア。 電話番号と連絡先は非公開のままです。</string>
     <string name="ui_339484dc1f78" formatted="false">チャット内の単語</string>
-    <string name="ui_33a2ae335a6b" formatted="false">除去が要求されました</string>
-    <string name="ui_3446735cfdee" formatted="false">検証をクリア</string>
+    <string name="ui_33a2ae335a6b" formatted="false">削除を申請しました</string>
+    <string name="ui_3446735cfdee" formatted="false">検証状態を解除</string>
     <string name="ui_3907fa7f8072" formatted="false">外観</string>
     <string name="ui_3b3139fd3460" formatted="false">ユーザー名で友だちを探します。</string>
     <string name="ui_4757eee1005a" formatted="false">メールアドレスは友だちに表示されません。</string>
@@ -86,7 +86,7 @@
     <string name="ui_c3812fc4acb8" formatted="false">除去する</string>
     <string name="ui_c518ff733bfe" formatted="false">vBotはDeepSeekによって動作しています。 vBot に送信したメッセージは、Vipi と DeepSeek に送信され、返信を生成します。 友達とのチャットは自動的に含まれません。</string>
     <string name="ui_c754691a97ca" formatted="false">まずメッセージをやり取りして、この会話のセキュリティ番号を作成してください。</string>
-    <string name="ui_cae7d57bc067" formatted="false">止まる</string>
+    <string name="ui_cae7d57bc067" formatted="false">停止</string>
     <string name="ui_cbf7e254a8c0" formatted="false">メッセージの言語</string>
     <string name="ui_d8b8392e2c54" formatted="false">もう一度お試しください</string>
     <string name="ui_df0b482c49b2" formatted="false">例のメッセージ</string>
@@ -119,13 +119,13 @@
     <string name="deletion_pending">リクエストを確認し、このデバイスから保存されたチャットを削除いたします。 接続が切断された場合、Vipi は進行状況を保存します。</string>
     <string name="backup_wrong_account">このバックアップは別のVipiアカウントに属しています。 そのアカウントにサインインして復元してください。</string>
     <string name="appearance_system">システム</string>
-    <string name="appearance_light">光</string>
-    <string name="appearance_dark">暗い</string>
+    <string name="appearance_light">ライト</string>
+    <string name="appearance_dark">ダーク</string>
     <string name="full_translation_download">完全な翻訳をダウンロード</string>
-    <string name="delivery_delivered">配達済み</string>
+    <string name="delivery_delivered">配信済み</string>
     <string name="delivery_sent">送信しました</string>
-    <string name="delivery_expired">配信されていません · 72時間が経過しました</string>
-    <string name="delivery_failed">配信されていません</string>
+    <string name="delivery_expired">未配信 · 72時間経過</string>
+    <string name="delivery_failed">未配信</string>
     <string name="delivery_stopped">停止しました</string>
     <string name="delivery_waiting">送信を待っています</string>
     <string name="account_description">アカウントを作成するか、既存のアカウントにサインインしてください。 友達はメールアドレスではなく、ユーザー名であなたを見つけます。</string>
