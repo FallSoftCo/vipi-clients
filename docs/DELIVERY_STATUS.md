@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 17, 2026, 12:32 UTC. Vipi remains restricted staging. Neither
+Updated November 17, 2026, 12:35 UTC. Vipi remains restricted staging. Neither
 app has been submitted for public review. Prior revisions and the linked
 receipts retain historical actions; do not replay them.
 
@@ -44,14 +44,18 @@ app screenshots remain. See [localization](../release/google-localized-listing-2
 
 Apple **1.0 (2)**, source `09056a6`, is now signed with Fallible Software's
 Apple Distribution certificate and was delivered once through Transporter at
-07:30 America/New_York on November 17. Apple is processing it. Final IPA
+07:30 America/New_York on November 17. Transporter reported processing finished
+at 07:33. Final IPA
 SHA-256 is `e0e4e1cc2b7fd2488de1f42d37dae525be50af084949e149c386d7599d72d37a`.
 Independent strict/deep signature verification passed, with production push
 entitlements and debugging disabled. The 1,019 immersion/lexical/speech resources,
 13 privacy manifests and 13 compiled localizations match the checked build.
 The prior build 1 and its original upload remain preserved; no upload was repeated.
 See [delivery](../release/apple-delivery-build2-20261117-r01.json) and
-[verification](../qa/release/apple-signed-build2-20261117-r01/root-verification.json).
+[verification](../qa/release/apple-signed-build2-20261117-r01/root-verification.json). App Store Connect
+briefly showed the new upload as Processing, then redirected to login before
+a stable TestFlight status or build ID could be read. Reauthenticate the company
+session for that readback; never repeat the completed upload.
 
 Reviewed text is saved and reload-verified in all 13 Apple-supported locales.
 Swahili is not an ASC locale; new locales retain inherited English keywords and
@@ -199,8 +203,9 @@ its allowance; it is not a typical-latency or quality benchmark.
 - Finish exact version 3 runtime checks for the qualified session and short-message
   routing fixes. Preserve the uncertain original send without replay; resolve its
   disposition before any retained-account update or automatic retry.
-- Confirm Apple build 2 processing and complete actual purchase/restore and
-  remaining store qualification. Signing, final IPA verification and upload are complete.
+- Restore the existing company ASC session for final build/compliance status,
+  then complete actual purchase/restore and remaining store qualification. Signing,
+  final IPA verification, single delivery and Transporter processing are complete.
 - Reconcile store artifacts, regional export requirements and screenshots.
   France needs a current company extract; China-specific requirements remain
   unresolved. The ML Kit/libsignal distribution question is a narrow legal

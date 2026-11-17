@@ -31,5 +31,15 @@
   "limitations": [
     "Transporter processing completion does not establish App Store Connect export compliance or build association.",
     "No live message, purchase, TestFlight distribution, or review submission was performed."
-  ]
+  ],
+  "app_store_connect_readback": {
+    "reported_at_utc": "2026-11-17T12:35:40.310096+00:00",
+    "source": "Apple agent read-only browser inspection after processing completion",
+    "result": "Build Uploads briefly showed 1.0(2) Processing, then existing tab redirected to login before stable TestFlight status or build ID could be read.",
+    "stable_testflight_status": null,
+    "build_id": null,
+    "account_mutation": false,
+    "desktop_lease_released": true,
+    "next": "Reauthenticate existing company session before final build/compliance readback; never repeat the completed upload."
+  }
 }

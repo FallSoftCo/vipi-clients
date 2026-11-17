@@ -4,7 +4,7 @@ The app is **Vipi**, with **Vipi: Immersive Chat** as the saved listing
 name on both stores and **Immersive chat with friends.** as the opening headline. Private Apple
 app `6832624092` belongs to the company account, bundle `co.fallsoft.vipi`.
 The current company-signed 1.0(2) IPA was delivered once through Transporter
-on November 17 and is processing. Its production push entitlement, disabled
+on November 17; Transporter reports processing finished. Its production push entitlement, disabled
 debugging and exact IPA signature/hash were verified. The original 1.0(1)
 delivery remains preserved. No app-review submission has occurred. Both
 Google's 14 and Apple's 13 supported reviewed localized listings are saved and
@@ -134,7 +134,9 @@ subsequent external action, and inspect an uncertain result before retrying it.
 Current signing authorization: the owner explicitly directed “you must sign” on
 November 17. The proven signed Xcode archive and automatic Organizer export
 route completed for build 2; the final IPA passed verification and its single
-Transporter upload was delivered. Observe the existing processing operation.
+Transporter upload was delivered and finished processing. The final ASC readback
+redirected to login before TestFlight status could be established; restore the
+existing company session to continue, without repeating the upload.
 Earlier signing-hold notes are superseded. The original company Android account
 separately retains an uncertain queued message. Do not resend, reset
 the account, accept a changed peer key or publish/install an update that may

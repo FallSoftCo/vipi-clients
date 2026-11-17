@@ -85,9 +85,10 @@
     "submitted_for_review": false,
     "customer_available": false,
     "apple_sandbox_test_notification": true,
-    "build_processing_complete": false,
-    "testflight_status": "Build2 processing; original build1 Missing Compliance preserved in history",
-    "testflight_ready": false
+    "build_processing_complete": true,
+    "testflight_status": "Not established: ASC redirected to login during final readback; no build association or compliance declaration submitted.",
+    "testflight_ready": false,
+    "build_processing_evidence": "Transporter reports finished processing; stable ASC TestFlight readback unavailable after session expiry."
   },
   "private_receipt_directory": "investigations/vipi-production-delivery-20261107/apple-store-provisioning-20261109-r01",
   "in_app_purchase_key": {
@@ -183,13 +184,14 @@
     "profile_expires_utc": "2027-10-24T22:50:46Z",
     "aps_environment": "production",
     "get_task_allow": false,
-    "delivery": "Delivered once by Transporter November 17, 2026 at 07:30 America/New_York; Apple processing in progress.",
-    "testflight_status": "Processing; final state not yet observed",
-    "verification_receipt": "qa/release/apple-signed-build2-20261117-r01/root-verification.json",
+    "delivery": "Delivered once by Transporter November 17, 2026 at 07:30 America/New_York; Transporter reports processing finished at 07:33.",
+    "testflight_status": "Not established: ASC redirected to login during final readback; no build association or compliance declaration submitted.",
+    "verification_receipt": "qa/release/apple-signed-build2-20261117-r01/qualification.json",
     "delivery_record": "release/apple-delivery-build2-20261117-r01.json",
-    "source_supplement": "release/apple-build2-source-supplement-20261117/publication-receipt.json"
+    "source_supplement": "release/apple-build2-source-supplement-20261117/publication-receipt.json",
+    "independent_verification_receipt": "qa/release/apple-signed-build2-20261117-r01/root-verification.json"
   },
-  "verification_scope_note": "November17 current build2 distribution signature, production APS, disabled debugging, exact IPA hash and single Transporter delivery reconciled. Source supplement published and verified. Processing completion, compliance and app-review submission remain separate.",
+  "verification_scope_note": "November17 current build2 distribution signature, production APS, disabled debugging, exact IPA hash, single Transporter delivery and finished-processing message reconciled. Source supplement published and verified. Final ASC status/compliance, build association and app-review submission remain incomplete.",
   "introductory_offer_current": {
     "verified_date": "2026-11-17",
     "base": {
