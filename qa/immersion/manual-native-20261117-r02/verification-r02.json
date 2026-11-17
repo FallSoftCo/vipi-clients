@@ -1,0 +1,12 @@
+{
+  "source_commit": "81b7a1b",
+  "ready": 14,
+  "unsupported": 2,
+  "actual_source_range_roundtrips": 14,
+  "book_verb_preserved": true,
+  "drinking_glasses_preserved": true,
+  "second_sentence_only": true,
+  "known_remaining_error": "crane bird still translated as gr\u00faa; no semantic perfection claim",
+  "native_model_median_seconds": 0.08282798528671265,
+  "scope": "Authored targeted native macOS cases, not representative accuracy/device UI/performance benchmark"
+}

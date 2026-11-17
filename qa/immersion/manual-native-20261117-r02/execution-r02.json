@@ -1,0 +1,49 @@
+{
+  "state": "completed",
+  "source_hashes": {
+    "NativeContextProviderProbe.swift": "5eff231b01d2aa54d01d040c4b94d73cd6f2102b39ea1589b2a63f1bdb9dca44",
+    "ManualTranslation.swift": "322d5c429de84455d5831fa802d735ae604d5595c4758a70217fb5b001211715",
+    "ManualTranslationContext.swift": "4f3122558c55015b83a70b39a53d6af0ba74891d293a3e194bb217d3c7beed94",
+    "ChineseFullReading.swift": "3d5ed51e5bffb4e768da9ca1ebe57084a680caab5ff6298de7e72bae23fd7888",
+    "JapaneseFullReading.swift": "34b3190135e8531e8a9ed96100ec61f94f09788fa85511987c92de9031fa52c0",
+    "KoreanFullReading.swift": "99cbf7ba4dc36f336d393b7f303e7c0986a35ef0af7531ef987afc0e7327b192",
+    "cases.json": "0bce011a9cd0a37b3e2e35c2f3313209535f5d62e9b8547813b115586011ba44"
+  },
+  "source_commit": "81b7a1b",
+  "stages": [
+    {
+      "name": "compile",
+      "command": [
+        "xcrun",
+        "swiftc",
+        "-j2",
+        "-target",
+        "arm64-apple-macos26.4",
+        "-I",
+        "../manual-translation",
+        "-L",
+        "../manual-translation",
+        "-lVipiCore",
+        "ManualTranslation.swift",
+        "ManualTranslationContext.swift",
+        "ChineseFullReading.swift",
+        "JapaneseFullReading.swift",
+        "KoreanFullReading.swift",
+        "NativeContextProviderProbe.swift",
+        "-o",
+        "native-context-provider"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "run",
+      "command": [
+        "./native-context-provider",
+        "/Users/Apple/Development/vipi-quality-20261117-r01/native-manual-provider-r02"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "scope": "Native local model calls using synthetic authored text only; no model preparation, signing, app or store actions",
+  "finished_at": "2026-11-17T19:11:11.504567+00:00"
+}
