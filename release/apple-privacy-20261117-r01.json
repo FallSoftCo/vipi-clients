@@ -59,5 +59,15 @@
     "observed": "ASC Users and Access > Integrations > In-App Purchase",
     "scope_note": "Separate ASC API Team Keys page showed zero active keys; no key was created or changed."
   },
-  "review_submitted": false
+  "review_submitted": false,
+  "app_review_preparation": {
+    "sign_in_required": true,
+    "credentials": "Approved owned Alpha account in sign-in fields; notes include Beta; readback matched private sources.",
+    "contact": "Existing company contact copied from 8bar Club ASC record; confirmed after reload.",
+    "release_mode": "manual; confirmed after reload",
+    "build": "1.0 (1) appears in picker with Missing Compliance; not associated",
+    "screenshots": "iPhone medium size 0 of 10 at inspection",
+    "submitted_for_review": false,
+    "receipt": "investigations/vipi-resume-20261116-r01/apple-submission-inventory-r01/result.json"
+  }
 }
