@@ -1,0 +1,5 @@
+{
+  "checks": 10,
+  "scope": "host JVM production core/helper with injected translation; not mobile UI or model quality",
+  "passed": true
+}

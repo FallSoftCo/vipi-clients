@@ -18,6 +18,20 @@ internal data class ManualTranslationRequest(
     ).joinToString("") { "${it.toByteArray(Charsets.UTF_8).size}:$it" }.toByteArray(Charsets.UTF_8))
         .joinToString("") { "%02x".format(it) }
 }
+/** Coordinates belong to the actual raw source only after exact byte identity. */
+internal data class ManualSourceRange(val startUTF16:Int,val endUTF16:Int,val expanded:Boolean)
+internal object ManualSourceCoordinates {
+    fun resolve(rawOriginal:String,displayedSource:String,startUTF16:Int,endUTF16:Int):ManualSourceRange? {
+        if(rawOriginal.isBlank()||rawOriginal.toByteArray(Charsets.UTF_8).size>32_768||
+            rawOriginal.codePoints().anyMatch{it in 0xD800..0xDFFF})return null
+        fun whole()=ManualSourceRange(0,rawOriginal.length,true)
+        if(startUTF16<0||endUTF16<=startUTF16||endUTF16>displayedSource.length)return whole()
+        val boundaries=BreakIterator.getCharacterInstance(Locale.ROOT).apply{setText(displayedSource)}
+        if(!boundaries.isBoundary(startUTF16)||!boundaries.isBoundary(endUTF16))return whole()
+        if(!rawOriginal.toByteArray(Charsets.UTF_8).contentEquals(displayedSource.toByteArray(Charsets.UTF_8)))return whole()
+        return ManualSourceRange(startUTF16,endUTF16,false)
+    }
+}
 internal data class ManualTranslationResult(val request: ManualTranslationRequest, val originalSlice: String,
     val targetText: String, val reading: FullReading?, val sourceLanguage: String, val targetLanguage: String,
     val sourceContextText:String, val sourceContextStartUTF16:Int, val sourceContextEndUTF16:Int, val contextExpanded:Boolean)

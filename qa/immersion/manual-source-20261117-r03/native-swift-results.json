@@ -1,0 +1,16 @@
+{
+  "checks" : [
+    "reverse authored normalization retained",
+    "resolved actual language cached",
+    "target-language no-match metadata",
+    "stale and prevalidation metadata cleared",
+    "mismatched normalized source maps whole raw",
+    "exact raw preserves selection",
+    "NFC\/NFD exact-byte distinction",
+    "surrogate\/combining\/invalid offsets fall back whole raw",
+    "invalid empty raw rejected",
+    "reverse manual input and direction exact"
+  ],
+  "passed" : true,
+  "scope" : "native macOS production core\/helper with injected translation; not mobile UI or model quality"
+}

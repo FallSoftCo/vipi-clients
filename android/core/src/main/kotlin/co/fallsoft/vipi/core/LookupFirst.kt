@@ -13,7 +13,7 @@ enum class ImmersionStatus { READY, PARTIAL, INVALID_INPUT, INVALID_LANGUAGE, MO
 data class LookupFirstOutcome(val result: ImmersionPresentation?, val origin: ImmersionOrigin?,
                               val status: ImmersionStatus, val localTranslationCalls: Int,
                               val fallbackStatus: ImmersionStatus? = null, val cacheHit: Boolean = false,
-                              val sourceEvidence: SourceLookupEvidence? = null) {
+                              val sourceEvidence: SourceLookupEvidence? = null, val resolvedInputLanguage: String? = null) {
     fun cachedInvocation(): LookupFirstOutcome = copy(localTranslationCalls = 0, cacheHit = true)
 }
 
@@ -31,10 +31,12 @@ object LookupFirst {
         var origin: ImmersionOrigin? = null
         var partial: PartialImmersionResult? = null
         var constraints: SourceLookupEvidence? = null
+        var resolvedInputLanguage: String? = null
         fun stop(status: ImmersionStatus): LookupFirstOutcome =
             if (partial != null && valid() && status != ImmersionStatus.STALE)
-                LookupFirstOutcome(partial, ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, calls, status, sourceEvidence = constraints)
-            else LookupFirstOutcome(null, origin, status, calls, sourceEvidence = constraints.takeIf { valid() && status != ImmersionStatus.STALE })
+                LookupFirstOutcome(partial, ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, calls, status, sourceEvidence = constraints, resolvedInputLanguage = resolvedInputLanguage)
+            else LookupFirstOutcome(null, origin, status, calls, sourceEvidence = constraints.takeIf { valid() && status != ImmersionStatus.STALE },
+                resolvedInputLanguage = resolvedInputLanguage.takeIf { valid() && status != ImmersionStatus.STALE })
         if (!valid()) return stop(ImmersionStatus.STALE)
         val (text, source, target, input) = request
         if (text.isBlank() || text.length > 16_384 || source == target ||
@@ -53,6 +55,7 @@ object LookupFirst {
             val detected = when { forward != null -> source; reverse != null -> target; input != null -> input; else -> identify(text) }
             if (!valid()) return stop(ImmersionStatus.STALE)
             if (detected !in listOf(source, target)) return stop(ImmersionStatus.INVALID_LANGUAGE)
+            resolvedInputLanguage = detected
             // Recognition is independent of faces, including whole-reference hits,
             // but a forward-only producer must never run on target-language input.
             val evidence = if (detected == source) sourceEvidence?.invoke(text, source, target) else null
@@ -72,13 +75,17 @@ object LookupFirst {
                 onPartial(admitted)
                 if (!valid()) return stop(ImmersionStatus.STALE)
                 if (request.intent == ImmersionIntent.AUTOMATIC_IMMERSION)
-                    return LookupFirstOutcome(admitted, ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, 0, sourceEvidence = constraints)
+                    return LookupFirstOutcome(admitted, ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, 0, sourceEvidence = constraints, resolvedInputLanguage = resolvedInputLanguage)
             }
             val reversed = detected == target
             val known = forward ?: reverse
             // No readiness check, translator or model download on a local miss.
             if (known == null && !request.allowModelTranslation) return stop(ImmersionStatus.NO_LOCAL_MATCH)
-            if (known == null && !modelsReady()) return stop(ImmersionStatus.MODEL_NOT_READY)
+            if (known == null) {
+                val ready = modelsReady()
+                if (!valid()) return stop(ImmersionStatus.STALE)
+                if (!ready) return stop(ImmersionStatus.MODEL_NOT_READY)
+            }
             if (!valid()) return stop(ImmersionStatus.STALE)
             origin = if (known != null) ImmersionOrigin.LOOKUP_REFERENCE else ImmersionOrigin.LOCAL_FULL_CONTEXT
             val translated = known ?: run {
@@ -95,14 +102,14 @@ object LookupFirst {
             // target-dependent alignment would be computed only to discard it.
             partial?.let {
                 return LookupFirstOutcome(it.copy(completeTranslation = targetText),
-                    ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, calls, ImmersionStatus.READY, sourceEvidence = constraints)
+                    ImmersionOrigin.SOURCE_REFERENCE_PARTIAL, ImmersionStatus.PARTIAL, calls, ImmersionStatus.READY, sourceEvidence = constraints, resolvedInputLanguage = resolvedInputLanguage)
             }
             val result = align(original, targetText, constraints)
             if (!valid()) return stop(ImmersionStatus.STALE)
             if (result.original != original || result.translation != targetText || !anchored(result))
                 return stop(ImmersionStatus.INVALID_RESULT)
             val admitted = constraints?.filterLegacy(result) ?: result
-            return LookupFirstOutcome(admitted, origin, ImmersionStatus.READY, calls, sourceEvidence = constraints)
+            return LookupFirstOutcome(admitted, origin, ImmersionStatus.READY, calls, sourceEvidence = constraints, resolvedInputLanguage = resolvedInputLanguage)
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: ImmersionTranslationTimeout) { return stop(if (valid()) ImmersionStatus.TIMEOUT else ImmersionStatus.STALE) }
         catch (_: Exception) { return stop(if (valid()) ImmersionStatus.ERROR else ImmersionStatus.STALE) }

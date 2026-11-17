@@ -29,6 +29,18 @@ class LookupFirstTest {
                 partialReference={_,_,_->event("partial");partial}, onPartial={event("show_partial")})
         }
     }
+    @Test fun actualInputLanguageSurvivesReverseCacheAndLocalMissButNeverStale() {
+        val reverse=Work().apply{this.reverse="Hello.";ready=false}.resolve("es","Hola.")
+        assertEquals("Hello.",reverse.result!!.original);assertEquals("Hola.",reverse.result!!.translation)
+        assertEquals("es",reverse.resolvedInputLanguage);assertEquals("es",reverse.cachedInvocation().resolvedInputLanguage)
+        val miss=Work().apply{detected="es"}.resolve(null,"Una frase desconocida.",allowModelTranslation=false)
+        assertEquals(ImmersionStatus.NO_LOCAL_MATCH,miss.status);assertEquals("es",miss.resolvedInputLanguage)
+        val error=Work().apply{translationFailure=IllegalStateException("provider")}.resolve("es")
+        assertEquals(ImmersionStatus.ERROR,error.status);assertEquals("es",error.resolvedInputLanguage)
+        assertNull(Work().apply{invalidate="models"}.resolve("es").resolvedInputLanguage)
+        assertNull(Work().apply{detected="fr"}.resolve(null).resolvedInputLanguage)
+        assertNull(Work().resolve("fr").resolvedInputLanguage)
+    }
     @Test fun localOnlyMissNeverUsesModelsEvenWhenInstalled() {
         for (intent in ImmersionIntent.entries) {
             val w = Work(); w.ready = true

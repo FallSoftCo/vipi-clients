@@ -50,6 +50,22 @@ import XCTest
                 reading: nil, referenceID: "authored-reference", catalogSHA256: String(repeating: "a", count: 64), nativeSourceTokens: 1)],
             density: 1, nativeSourceTokenCount: 3))
     }
+    func testActualInputLanguageSurvivesReverseCacheAndLocalMissButNeverStale() async throws {
+        let h=LookupHarness();h.known["es-en:Hola."]="Hello."
+        let reverse=try await h.run("Hola.",input:"es")
+        XCTAssertEqual(reverse.result?.original,"Hello.");XCTAssertEqual(reverse.result?.translation,"Hola.")
+        XCTAssertEqual(reverse.resolvedInputLanguage,"es");XCTAssertEqual(reverse.cachedInvocation().resolvedInputLanguage,"es")
+        let unknown=LookupHarness();unknown.detected="es"
+        let miss=try await unknown.run("Una frase desconocida.",input:nil,allowModelTranslation:false)
+        XCTAssertEqual(miss.status,.noLocalMatch);XCTAssertEqual(miss.resolvedInputLanguage,"es")
+        let invalid=try await unknown.run(input:"fr");XCTAssertNil(invalid.resolvedInputLanguage)
+        unknown.detected="fr"
+        let unsupported=try await unknown.run(input:nil);XCTAssertNil(unsupported.resolvedInputLanguage)
+        let stale=LookupHarness();stale.staleDuringReadiness=true
+        let dropped=try await stale.run(input:"es");XCTAssertEqual(dropped.status,.stale);XCTAssertNil(dropped.resolvedInputLanguage)
+        let rejected=LookupHarness();rejected.ready=true;rejected.badAlignment=true
+        let failed=try await rejected.run(input:"es");XCTAssertEqual(failed.status,.invalidResult);XCTAssertEqual(failed.resolvedInputLanguage,"es")
+    }
     func testLocalOnlyMissNeverUsesModelsEvenWhenInstalled() async throws {
         for intent in [ImmersionRequestIntent.automaticImmersion, .fullTranslation] {
             let h = LookupHarness(); h.ready = true

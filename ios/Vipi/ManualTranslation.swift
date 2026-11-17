@@ -22,6 +22,22 @@ struct ManualTranslationRequest: Sendable, Equatable {
     }
     static func == (lhs: Self, rhs: Self) -> Bool { lhs.selectionIdentity == rhs.selectionIdentity }
 }
+/// Never projects normalized display offsets onto a different raw message.
+struct ManualSourceRange: Sendable, Equatable {
+    let startUTF16:Int, endUTF16:Int, expanded:Bool
+}
+enum ManualSourceCoordinates {
+    static func resolve(rawOriginal:String,displayedSource:String,startUTF16:Int,endUTF16:Int)->ManualSourceRange? {
+        guard !rawOriginal.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,rawOriginal.utf8.count<=32_768 else{return nil}
+        func whole()->ManualSourceRange{.init(startUTF16:0,endUTF16:rawOriginal.utf16.count,expanded:true)}
+        guard startUTF16>=0,endUTF16>startUTF16,endUTF16<=displayedSource.utf16.count else{return whole()}
+        var boundaries:Set<Int>=[0],offset=0
+        for character in displayedSource{offset+=String(character).utf16.count;boundaries.insert(offset)}
+        guard boundaries.contains(startUTF16),boundaries.contains(endUTF16),
+              rawOriginal.utf8.elementsEqual(displayedSource.utf8) else{return whole()}
+        return .init(startUTF16:startUTF16,endUTF16:endUTF16,expanded:false)
+    }
+}
 struct ManualTranslationResult: Sendable {
     let request: ManualTranslationRequest, originalSlice: String, targetText: String
     let reading: FullReading?
