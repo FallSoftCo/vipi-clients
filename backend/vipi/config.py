@@ -27,6 +27,8 @@ class Settings(BaseSettings):
     delivery_seconds: int = 259_200
     bot_monthly_budget_nano_usd: int = 500_000_000
     account_deletion_enabled: bool = False
+    global_deletion_enabled: bool = False
+    global_deletion_secret: SecretStr | None = None
     # Legacy deployment flag is accepted for compatibility; it grants no user DELETE.
     workos_dedicated_user_pool: bool = False
     workos_api_key: SecretStr | None = None
@@ -131,6 +133,10 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def deletion_configuration(self):
+        if self.global_deletion_enabled and (not self.global_deletion_secret or
+                len(self.global_deletion_secret.get_secret_value()) < 43 or
+                self.global_deletion_secret.get_secret_value() == self.service_secret):
+            raise ValueError("Global deletion requires its own dedicated shared secret")
         # App-only deletion needs no provider secret and never deletes a WorkOS
         # user. The browser OAuth code exchange independently needs its secret.
         if self.deletion_web_origin:

@@ -8,7 +8,7 @@ from sqlalchemy import delete, or_, select, text
 
 from .db import AccountDeletion, Block, BotReport, Device, Entitlement, IdentityLinkReceipt, KeyClaim, ModerationAction, PendingMessage, PublicBundle, PublicPreKey, PushOutbox, PushToken, RateWindow, Reservation, UsageBucket, User, UserReport
 from .delivery import DeliveryError, utc
-from .eligibility import original_trial
+from .eligibility import eligibility_hash, original_trial
 
 
 def subject_hash(subject: str, service_secret: str) -> str:
@@ -30,9 +30,17 @@ async def deletion_for(session, subject: str, service_secret: str):
 async def lock_account_lifecycle(session, subject: str, service_secret: str):
     # Registration and deletion must also serialize BEFORE a profile exists.
     # This short transaction-scoped PostgreSQL lock is independent of devices.
+    await lock_lifecycle_hash(session, eligibility_hash(subject, service_secret))
+
+
+async def lock_lifecycle_hash(session, digest: str):
+    # One lock family lets global erasure serialize historical linked identities
+    # using retained HMACs alone. Never retain the old raw identity just to lock it.
+    if not re.fullmatch(r"[a-f0-9]{64}", digest):
+        raise ValueError("invalid_lifecycle_hash")
     if session.get_bind().dialect.name == "postgresql":
-        digest = hmac.new(service_secret.encode(), b"vipi-account-lifecycle-v1\0" + subject.encode(), hashlib.sha256).digest()
-        await session.execute(text("SELECT pg_advisory_xact_lock(:key)"), {"key": int.from_bytes(digest[:8], "big", signed=True)})
+        await session.execute(text("SELECT pg_advisory_xact_lock(:key)"),
+            {"key": int.from_bytes(bytes.fromhex(digest)[:8], "big", signed=True)})
 
 
 async def request_deletion(session, *, subject: str, account_id: str, receipt_secret: str, service_secret: str, now, authenticated_at: int | None = None):
@@ -95,6 +103,8 @@ async def deletion_status(session, *, account_id: str, receipt_secret: str, serv
 
 
 async def expire_deletion_receipts(session, now):
+    from .global_deletion import expire_receipts
+    await expire_receipts(session, now)
     # Status capabilities expire after seven days. Legacy unfinished identity
     # jobs remain quarantined for explicit reconciliation; no worker dispatches
     # them against the current (possibly shared/different) provider environment.

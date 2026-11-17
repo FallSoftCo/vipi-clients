@@ -120,6 +120,9 @@ def install(app, settings, db, verifier, now, broker):
         except ValueError:
             raise DeliveryError("device_revoked", 403)
         async with db.sessions() as session:
+            from .global_deletion import provision_blocked
+            if await provision_blocked(session, principal.subject, settings.service_secret):
+                raise DeliveryError("account_deleted", 403)
             user = (await session.execute(select(User).where(User.subject == principal.subject,
                 User.deleted.is_(False), User.suspended.is_(False)))).scalar_one_or_none()
             if not user:

@@ -41,8 +41,12 @@ async def link_identity(session, *, source, target, request_id: str, account_id:
     for proof in (source, target):
         if not 0 <= utc(now).timestamp() - proof.authenticated_at <= 600:
             raise DeliveryError("recent_sign_in_required", 401)
-    for subject in sorted((source.subject, target.subject)):
+    # Shared target first, then legacy source: the same order as global erasure.
+    for subject in (target.subject, source.subject):
         await lock_account_lifecycle(session, subject, service_secret)
+    from .global_deletion import provision_blocked
+    if await provision_blocked(session, source.subject, service_secret) or await provision_blocked(session, target.subject, service_secret):
+        raise DeliveryError("account_deleted", 409)
     old_hash, new_hash = (link_hash(p.subject, service_secret) for p in (source, target))
     device_hash = link_hash("device:" + device_id, service_secret)
     receipt = await session.get(IdentityLinkReceipt, request_id)

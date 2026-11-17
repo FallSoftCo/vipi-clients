@@ -235,6 +235,21 @@ class IdentityLinkReceipt(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
 
+class GlobalDeletionHold(Base):
+    __tablename__ = "global_deletion_holds"
+    subject_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class GlobalDeletionReceipt(Base):
+    __tablename__ = "global_deletion_receipts"
+    request_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    subject_hash: Mapped[str] = mapped_column(String(64))
+    central_subject_hash: Mapped[str] = mapped_column(String(64))
+    receipt_id: Mapped[str] = mapped_column(String(32))
+    finished_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+
+
 class AccountDeletion(Base):
     """Bounded durable cleanup receipt, independent of the removed user row."""
     __tablename__ = "account_deletions"

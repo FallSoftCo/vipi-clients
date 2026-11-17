@@ -231,6 +231,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
     install_events(app, settings, db, token_verifier, now, events)
     from .web_deletion import install as install_web_deletion
     install_web_deletion(app, settings, db, token_verifier, now, provider_transport=web_provider_transport)
+    from .global_deletion import install as install_global_deletion
+    install_global_deletion(app, settings, db, now)
     from .public_pages import install as install_public_pages
     install_public_pages(app)
     from .store_notifications import install as install_store_notifications
@@ -251,6 +253,9 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         return JSONResponse({"error": "invalid_request"}, status_code=422)
 
     async def user_for(session, p: Principal, *, allow_restricted=False):
+        from .global_deletion import provision_blocked
+        if await provision_blocked(session, p.subject, settings.service_secret):
+            raise DeliveryError("account_deleted", 403)
         user = (await session.execute(select(User).where(User.subject == p.subject, User.deleted.is_(False)))).scalar_one_or_none()
         if not user:
             raise DeliveryError("profile_required", 404)
@@ -286,7 +291,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 if not events.ready.is_set():
                     return JSONResponse({"status": "events_unavailable"}, status_code=503)
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261117_03":
+                if revision != "20261117_04":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -367,6 +372,9 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         try:
             async with db.sessions.begin() as session:
                 await lock_account_lifecycle(session, p.subject, settings.service_secret)
+                from .global_deletion import provision_blocked
+                if await provision_blocked(session, p.subject, settings.service_secret):
+                    raise DeliveryError("account_deleted", 409)
                 from .identity_linking import source_was_linked
                 if await source_was_linked(session, p.subject, settings.service_secret):
                     raise DeliveryError("fallsoft_sign_in_required", 409)

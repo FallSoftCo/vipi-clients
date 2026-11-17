@@ -1,0 +1,91 @@
+{
+  "reviewed_at": "2026-11-17T18:32:25.559266+00:00",
+  "result": "One global alias re-provision race found and reproduced; root patched; fixed snapshot passes isolated PG and portable regression",
+  "edits_to_root_files": false,
+  "original_failure": {
+    "receipt": "/home/ai/Development/investigations/vipi-quality-20261117-r01/global-review-postgres-r01.json",
+    "log": "/home/ai/Development/investigations/vipi-quality-20261117-r01/global-review-postgres-r01.log",
+    "observed": {
+      "registration_status": 200,
+      "legacy_profiles_after_global_complete": 1,
+      "trial_ledger_rows_after_global_complete": 1,
+      "holds": 2
+    }
+  },
+  "fixed_source": {
+    "backend/vipi/global_deletion.py": "eec9214ca34859a2638d59c172a5688c2e148fe22bd4a54939d2589a7ff56bd1",
+    "backend/vipi/deletion.py": "b05c1cf926e36ac6c3b48ff64e23ed13f59f76f188491c5d80df2a272fdb6570",
+    "backend/vipi/identity_linking.py": "c6082e9ef74fcdb7d0ea65fdadfbbcc293c15c1685eb9b1de9b201273674742b",
+    "backend/vipi/eligibility.py": "5a26b1b9a1bdd79fc5dcf9a10a801a22ae69fa0c398262f1e5538406f63ca222",
+    "backend/vipi/api.py": "8c9cbaca7fa60bfd213c447af7114cfcd374ab765a98ea18c1f4b4a6beaa4bf4",
+    "backend/vipi/events.py": "dd9fe7dceb7a42c79f19370631d62fd5d6e4f19b6a673d9804a56a352b64c446",
+    "backend/vipi/config.py": "1f05ee55544033a2dc1fe0f0b81990ce0d6aef3b6016f9451df538ff6ce63808",
+    "backend/vipi/db.py": "0c093ddd71a8db9f64e0ac3c875706234dac1c1aac83547a52c95689c8e3b67d",
+    "backend/vipi/recovery.py": "075e0b16b84d0486d68aa9a3c015d6d52ad8a0b17f8898fe4f7e9d86d9c77eb8",
+    "backend/migrations/versions/20261117_04_global_deletion.py": "136f4045668ecde3bd468e2f10f80c52700dd39f439f29fbd478e27050cf23b8",
+    "backend/tests/test_global_deletion.py": "4534849d58296ecf74019fb7b4213ba5d578f6d00c75eab296a20308c269b912",
+    "backend/tests/test_migrations.py": "1edb55e12ba1c5061d2204fa7b20197943ba73713f4f394f095e63c2351db98b"
+  },
+  "current_source_matches": {
+    "backend/vipi/global_deletion.py": true,
+    "backend/vipi/deletion.py": true,
+    "backend/vipi/identity_linking.py": true,
+    "backend/vipi/eligibility.py": true,
+    "backend/vipi/api.py": true,
+    "backend/vipi/events.py": true,
+    "backend/vipi/config.py": true,
+    "backend/vipi/db.py": true,
+    "backend/vipi/recovery.py": true,
+    "backend/migrations/versions/20261117_04_global_deletion.py": true,
+    "backend/tests/test_global_deletion.py": true,
+    "backend/tests/test_migrations.py": true
+  },
+  "fix_review": "Single eligibility-HMAC advisory-lock family. Ordinary lifecycle uses raw->eligibilityhash; global locks canonical target then sorted historical alias hashes; linking locks shared target then legacy source. This prevents check/erase straddling and uses no raw historical identity retention. No deployed mixed lock families assumed.",
+  "actual_postgres": {
+    "passed": 108,
+    "skipped": 2,
+    "failed": 0,
+    "receipt": "/home/ai/Development/investigations/vipi-quality-20261117-r01/global-review-postgres-r02.json",
+    "log": "/home/ai/Development/investigations/vipi-quality-20261117-r01/global-review-postgres-r02.log",
+    "scope": [
+      "global signed adapter and atomic erase/hold receipts",
+      "legacy alias registration interleaving",
+      "identity link and Vipi-only deletion",
+      "events hold access",
+      "migration04 readiness/downgrade",
+      "recovery admission/gate"
+    ],
+    "skip_details": [
+      {
+        "test": "test_cli_copies_only_synthetic_snapshot_and_never_reopens",
+        "reason": "real CLI 8 GiB admission floor unavailable"
+      },
+      {
+        "test": "test_cli_special_path_characters_address_only_exact_output",
+        "reason": "real CLI 8 GiB admission floor unavailable"
+      }
+    ]
+  },
+  "portable_regression": {
+    "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/global-adapter-review-r02/source/backend/tests/test_global_alias_portable.py",
+    "sha256": "1380164dcb3e43686e180f0fed7815a19285e5c11c621a39293dfb6382203bc2",
+    "passed": 1,
+    "failed": 0,
+    "receipt": "/home/ai/Development/investigations/vipi-quality-20261117-r01/global-review-postgres-r03.json",
+    "scheduling": "Explicit alias-lock-attempt Event or global completion chooses interleaving, not a timing sleep"
+  },
+  "retention_review": "Permanent holds contain eligibility-domain HMAC and createdAt only. Vipi UUID/device/request receipt is erased by app cleanup; global adapter receipt expires7days; original trial ledgers and source-target HMAC relation erased globally after holds are durable. Raw shared subject is canonicalized through one exported helper.",
+  "limitations": [
+    "No provider user deletion, real signed central-to-live-Vipi call or production deployment",
+    "Offline importer does not yet independently requalify complete shared-link/global-hold recovery; required-before-reopen warning is correct and remains a gate",
+    "Two existing CLI recovery tests skipped because their8GiB admission floor is not available; floor not bypassed",
+    "Server-side cleanup/holds qualification does not establish erasure of device-local offline encrypted vaults"
+  ],
+  "cleanup": {
+    "retained_cluster_stopped": true,
+    "other_clients": 0,
+    "test_schemas": 0,
+    "own_budget_bytes": 104857600,
+    "guard_triggered": false
+  }
+}
