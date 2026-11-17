@@ -1,0 +1,220 @@
+{
+  "schema": "vipi-arabic-diacritization-frozen-cases-1",
+  "created_at_utc": "2026-11-17T18:16:02.970925+00:00",
+  "frozen_before_first_inference": true,
+  "origin": "Fresh manually authored qualification cases, not copied from model author benchmark/examples. No assertion of disjointness from every unknown training sample. Reference vowels are author assessment, not independent native linguistic acceptance.",
+  "cases": [
+    {
+      "id": "msa_doctor",
+      "text": "ذهب الطبيب إلى المستشفى.",
+      "reference": "ذَهَبَ الطَّبِيبُ إِلَى الْمُسْتَشْفَى.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_child_book",
+      "text": "اشترى الطفل كتابا جديدا.",
+      "reference": "اِشْتَرَى الطِّفْلُ كِتَابًا جَدِيدًا.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_clean_water",
+      "text": "نحتاج إلى ماء نظيف.",
+      "reference": "نَحْتَاجُ إِلَى مَاءٍ نَظِيفٍ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_room",
+      "text": "أريد حجز غرفة لليلة واحدة.",
+      "reference": "أُرِيدُ حَجْزَ غُرْفَةٍ لِلَيْلَةٍ وَاحِدَةٍ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_train",
+      "text": "وصل القطار قبل المغرب.",
+      "reference": "وَصَلَ الْقِطَارُ قَبْلَ الْمَغْرِبِ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_farmer",
+      "text": "زرع الفلاح القمح.",
+      "reference": "زَرَعَ الْفَلَّاحُ الْقَمْحَ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_apartment",
+      "text": "هذه شقة قريبة من النهر.",
+      "reference": "هَذِهِ شَقَّةٌ قَرِيبَةٌ مِنَ النَّهْرِ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_guard_closed",
+      "text": "أغلق الحارس الباب.",
+      "reference": "أَغْلَقَ الْحَارِسُ الْبَابَ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_sleep",
+      "text": "ينام الطفل في الغرفة.",
+      "reference": "يَنَامُ الطِّفْلُ فِي الْغُرْفَةِ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_read",
+      "text": "تقرأ المعلمة رسالة قصيرة.",
+      "reference": "تَقْرَأُ الْمُعَلِّمَةُ رِسَالَةً قَصِيرَةً.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "polyphone_flag",
+      "text": "رفع العامل العلم.",
+      "reference": "رَفَعَ الْعَامِلُ الْعَلَمَ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "polyphone_knowledge",
+      "text": "يحب الطالب العلم.",
+      "reference": "يُحِبُّ الطَّالِبُ الْعِلْمَ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_king",
+      "text": "الملك يعيش في القصر.",
+      "reference": "الْمَلِكُ يَعِيشُ فِي الْقَصْرِ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_queue",
+      "text": "ننتظر في طابور طويل.",
+      "reference": "نَنْتَظِرُ فِي طَابُورٍ طَوِيلٍ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_phone",
+      "text": "هذا الهاتف مكسور.",
+      "reference": "هَذَا الْهَاتِفُ مَكْسُورٌ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "msa_garden",
+      "text": "الحديقة جميلة في الربيع.",
+      "reference": "الْحَدِيقَةُ جَمِيلَةٌ فِي الرَّبِيعِ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately"
+    },
+    {
+      "id": "ambiguous_person",
+      "text": "سافرت أمس.",
+      "reference": null,
+      "category": "source_ambiguity",
+      "review_note": "I/you/she travelled are plausible without speaker context; do not reject an alternative solely against one guessed voice."
+    },
+    {
+      "id": "ambiguous_you",
+      "text": "هل يمكنك فتح النافذة؟",
+      "reference": null,
+      "category": "source_ambiguity",
+      "review_note": "Gender of you is unspecified."
+    },
+    {
+      "id": "name_layla",
+      "text": "أرسلت ليلى رسالة إلى سليم.",
+      "reference": null,
+      "category": "names",
+      "review_note": "Conventional names; inspect without treating one individual name pronunciation as certain."
+    },
+    {
+      "id": "name_nura",
+      "text": "نورة تنتظر يوسف قرب الجامعة.",
+      "reference": null,
+      "category": "names",
+      "review_note": "Name convention/person uncertain; annotate confidence."
+    },
+    {
+      "id": "dialect_egy",
+      "text": "فين أقرب محطة؟",
+      "reference": null,
+      "category": "dialect",
+      "review_note": "Egyptian colloquial; an MSA benchmark does not certify readable colloquial pronunciation."
+    },
+    {
+      "id": "dialect_levant",
+      "text": "شو بدك تشرب؟",
+      "reference": null,
+      "category": "dialect",
+      "review_note": "Levantine colloquial; report wrong forced-MSA vowels or abstain."
+    },
+    {
+      "id": "mixed_latin",
+      "text": "قابلت José قرب café في 8:30.",
+      "reference": null,
+      "category": "mixed",
+      "review_note": "Exact Latin accents/digits/punctuation must survive; Arabic speaker gender unspecified."
+    },
+    {
+      "id": "existing_marks",
+      "text": "عَلِمَ سامر الخبر اليوم.",
+      "reference": null,
+      "category": "preservation",
+      "review_note": "Supplied عَلِمَ marks must not be replaced with model preference."
+    },
+    {
+      "id": "zero_width",
+      "text": "أحب القهوة‍ كثيرا.",
+      "reference": null,
+      "category": "preservation",
+      "review_note": "Zero-width and exact original base-letter bytes remain in the original; model normalization is metadata-only."
+    },
+    {
+      "id": "url",
+      "text": "افتح https://example.test/عربي?q=علم الآن.",
+      "reference": null,
+      "category": "preservation",
+      "review_note": "Arabic inside the protected URL must remain exact, not vocalized or normalized."
+    },
+    {
+      "id": "code",
+      "text": "اكتب `علم_2026` في notes.md.",
+      "reference": null,
+      "category": "preservation",
+      "review_note": "Code identifier and filename must survive exact."
+    },
+    {
+      "id": "persian_variants",
+      "text": "هذه کافیة.",
+      "reference": null,
+      "category": "variant",
+      "review_note": "Unsupported Persian kaf/yeh variants require explicit mapping; never rewrite original script."
+    }
+  ]
+}

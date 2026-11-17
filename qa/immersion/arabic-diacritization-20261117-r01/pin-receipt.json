@@ -1,0 +1,90 @@
+{
+  "schema": "vipi-arabic-candidate-pin-1",
+  "model_revision": "ff8783fff6f6986929d8986983279d2f307d7bed",
+  "inference_source_repo": "Ichkil/ichkil-python",
+  "inference_source_commit": "380cf89465fafa6341ab007532101e299d20bb53",
+  "training_source_repo": "https://github.com/Ichkil/ichkil",
+  "training_source_http_status": 404,
+  "license_evidence": "Model card explicitly declares MIT for ONNX/config; exact inference-client MIT license retained separately, no standalone model LICENSE file supplied.",
+  "runtime_purpose": "Isolated native CPU research process only; no app dependency or global installation",
+  "artifacts": {
+    "model.onnx": {
+      "url": "https://huggingface.co/ichkil/ichkil/resolve/ff8783fff6f6986929d8986983279d2f307d7bed/model.onnx",
+      "bytes": 22284311,
+      "sha256": "9779e1aca89cebc77a9b92037b7d700c422cdf6c3774d4883f4652f641f3f705"
+    },
+    "onnxruntime.whl": {
+      "url": "https://files.pythonhosted.org/packages/6f/a4/480cd367bc135dd9951c89d461cc6af6be9302cd2ce91e231f6cb0e7ee1b/onnxruntime-1.32.0-cp312-cp312-macosx_14_0_arm64.whl",
+      "bytes": 22519308,
+      "sha256": "d52510bbbcc880c13b826f7d75cdf33ac5cf0bb864d960000fc29ce73f0cb83e"
+    },
+    "numpy.whl": {
+      "url": "https://files.pythonhosted.org/packages/8a/92/6de34324a266b73c04ba977db5864b9016500076b26f09078a565f527d34/numpy-2.5.5-cp312-cp312-macosx_14_0_arm64.whl",
+      "bytes": 5513680,
+      "sha256": "a3856a97e48ed8371c680fb04120b99fbcc29f2076ebe6dc3deb34f77947c5ca"
+    },
+    "config.json": {
+      "url": "https://huggingface.co/ichkil/ichkil/resolve/ff8783fff6f6986929d8986983279d2f307d7bed/config.json",
+      "bytes": 3060,
+      "sha256": "3d2621240e612d86cc483edeb84340f681b626b52eb992435e61b43e2b26731d"
+    },
+    "manifest.json": {
+      "url": "https://huggingface.co/ichkil/ichkil/resolve/ff8783fff6f6986929d8986983279d2f307d7bed/manifest.json",
+      "bytes": 1259,
+      "sha256": "e8be7a091c60c3f560c6c9aa45907b07bebe1be851e90a536768d7b290205a02"
+    },
+    "SHA256SUMS": {
+      "url": "https://huggingface.co/ichkil/ichkil/resolve/ff8783fff6f6986929d8986983279d2f307d7bed/SHA256SUMS",
+      "bytes": 153,
+      "sha256": "c631d41d432fe78ec8250c2011b2bdece742455f13fa91b3bfea0e3827994ddb"
+    },
+    "README.md": {
+      "url": "https://huggingface.co/ichkil/ichkil/resolve/ff8783fff6f6986929d8986983279d2f307d7bed/README.md",
+      "bytes": 10850,
+      "sha256": "b043fd8ef3b97a06d062bb860a6b40dac046f5eacb72a2c86bde3af31663b457"
+    }
+  },
+  "wheel_metadata": {
+    "onnxruntime.whl": [
+      "Name: onnxruntime",
+      "Version: 1.32.0",
+      "Requires-Dist: flatbuffers",
+      "Requires-Dist: numpy>=1.21.6",
+      "Requires-Dist: packaging",
+      "Requires-Dist: protobuf>=4.25.8",
+      "Requires-Dist: sympy; extra == \"symbolic\"",
+      "Requires-Dist: ml_dtypes; extra == \"quantization\""
+    ],
+    "numpy.whl": [
+      "Name: numpy",
+      "Version: 2.5.5"
+    ]
+  },
+  "total_logical_bytes": 154332029,
+  "max_bytes": 157286400,
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "manifest_asserted_training_git_commit": "18ab3ce5bcde2f4097cdc05890b18346729ef435",
+  "training_git_commit_independently_verified": false,
+  "frozen_cases_sha256": "ba78d10fcbd4310b74661f982100c47bc05bb80f98c2eb6c6eb6fc27859243f8",
+  "frozen_case_origin": "28freshauthor-writtenpre-inferencecases, not the model author benchmark; no claim every case is absent from unknown training material",
+  "original_message_uploads": 0,
+  "app_dependencies_added": false,
+  "source_files": {
+    "download.py": {
+      "bytes": 5045,
+      "sha256": "85c0d87233ea870eaa14844f7df479f2fe51e0ddfc3c111dfb650e852a74e9cf"
+    },
+    "pipeline.py": {
+      "bytes": 5600,
+      "sha256": "288e44badf0285bc458375d95442421558417443652deeff3d510c80bd62e2b1"
+    },
+    "diacritizer.py": {
+      "bytes": 5459,
+      "sha256": "3e4548ea385f20d10778fa9db1bdd8bd06200ad96f4c3cff3d605dd142e4f7e9"
+    },
+    "LICENSE": {
+      "bytes": 1108,
+      "sha256": "dbadb117bb71deb4400bd57c79664ecf0280c281dad22745d659d80194f1c5bd"
+    }
+  }
+}

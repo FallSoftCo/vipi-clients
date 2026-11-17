@@ -1,0 +1,175 @@
+{
+  "cases" : [
+    {
+      "candidate_latin" : "dẖahaba ạlṭãbību ại̹lay̱ ạl̊mus̊tasẖ̊fay̱.",
+      "derived_script" : "ذَهَبَ الطَّبِيبُ إِلَى الْمُسْتَشْفَى.",
+      "id" : "msa_doctor",
+      "source" : "ذهب الطبيب إلى المستشفى."
+    },
+    {
+      "candidate_latin" : "ạsẖ̊taray̱ ạlṭĩf̊lu kitābaⁿạ jadīdaⁿạ.",
+      "derived_script" : "اشْتَرَى الطِّفْلُ كِتَابًا جَدِيدًا.",
+      "id" : "msa_child_book",
+      "source" : "اشترى الطفل كتابا جديدا."
+    },
+    {
+      "candidate_latin" : "naḥ̊tāju ại̹lay̱ mā'iⁿ naẓīfiⁿ.",
+      "derived_script" : "نَحْتَاجُ إِلَى مَاءٍ نَظِيفٍ.",
+      "id" : "msa_clean_water",
+      "source" : "نحتاج إلى ماء نظيف."
+    },
+    {
+      "candidate_latin" : "ạủrīda ḥaj̊zu gẖur̊faẗiⁿ lilãẙlaẗiⁿ wāḥidaẗiⁿ.",
+      "derived_script" : "أُرِيدَ حَجْزُ غُرْفَةٍ لِلَّيْلَةٍ وَاحِدَةٍ.",
+      "id" : "msa_room",
+      "source" : "أريد حجز غرفة لليلة واحدة."
+    },
+    {
+      "candidate_latin" : "waṣala ạl̊qiṭāru qab̊la ạl̊magẖ̊ribi.",
+      "derived_script" : "وَصَلَ الْقِطَارُ قَبْلَ الْمَغْرِبِ.",
+      "id" : "msa_train",
+      "source" : "وصل القطار قبل المغرب."
+    },
+    {
+      "candidate_latin" : "zar̊'u ạl̊falāḥi ạl̊qam̊ḥa.",
+      "derived_script" : "زَرْعُ الْفَلَاحِ الْقَمْحَ.",
+      "id" : "msa_farmer",
+      "source" : "زرع الفلاح القمح."
+    },
+    {
+      "candidate_latin" : "hadẖihi sẖiqãẗuⁿ qarībaẗuⁿ mina ạlnãh̊ri.",
+      "derived_script" : "هَذِهِ شِقَّةٌ قَرِيبَةٌ مِنَ النَّهْرِ.",
+      "id" : "msa_apartment",
+      "source" : "هذه شقة قريبة من النهر."
+    },
+    {
+      "candidate_latin" : "ạảgẖ̊laqa ạl̊ḥārisu ạl̊bāba.",
+      "derived_script" : "أَغْلَقَ الْحَارِسُ الْبَابَ.",
+      "id" : "msa_guard_closed",
+      "source" : "أغلق الحارس الباب."
+    },
+    {
+      "candidate_latin" : "yanāmu ạlṭĩf̊lu fī ạl̊gẖur̊faẗi.",
+      "derived_script" : "يَنَامُ الطِّفْلُ فِي الْغُرْفَةِ.",
+      "id" : "msa_sleep",
+      "source" : "ينام الطفل في الغرفة."
+    },
+    {
+      "candidate_latin" : "taq̊rāủ ạl̊mu'alĩmaẗu risālaẗaⁿ qaṣīraẗaⁿ.",
+      "derived_script" : "تَقْرَأُ الْمُعَلِّمَةُ رِسَالَةً قَصِيرَةً.",
+      "id" : "msa_read",
+      "source" : "تقرأ المعلمة رسالة قصيرة."
+    },
+    {
+      "candidate_latin" : "raf̊'a ạl̊'āmili ạl̊'il̊ma.",
+      "derived_script" : "رَفْعَ الْعَامِلِ الْعِلْمَ.",
+      "id" : "polyphone_flag",
+      "source" : "رفع العامل العلم."
+    },
+    {
+      "candidate_latin" : "yuḥibũ ạlṭãạlibu ạl̊'il̊ma.",
+      "derived_script" : "يُحِبُّ الطَّالِبُ الْعِلْمَ.",
+      "id" : "polyphone_knowledge",
+      "source" : "يحب الطالب العلم."
+    },
+    {
+      "candidate_latin" : "ạl̊maliku ya'īsẖu fī ạl̊qaṣ̊ri.",
+      "derived_script" : "الْمَلِكُ يَعِيشُ فِي الْقَصْرِ.",
+      "id" : "msa_king",
+      "source" : "الملك يعيش في القصر."
+    },
+    {
+      "candidate_latin" : "nan̊taẓiru fī ṭābūriⁿ ṭawīliⁿ.",
+      "derived_script" : "نَنْتَظِرُ فِي طَابُورٍ طَوِيلٍ.",
+      "id" : "msa_queue",
+      "source" : "ننتظر في طابور طويل."
+    },
+    {
+      "candidate_latin" : "hadẖā ạl̊hātifu mak̊sūruⁿ.",
+      "derived_script" : "هَذَا الْهَاتِفُ مَكْسُورٌ.",
+      "id" : "msa_phone",
+      "source" : "هذا الهاتف مكسور."
+    },
+    {
+      "candidate_latin" : "ạl̊ḥadīqaẗu jamīlaẗuⁿ fī ạlrãbī'i.",
+      "derived_script" : "الْحَدِيقَةُ جَمِيلَةٌ فِي الرَّبِيعِ.",
+      "id" : "msa_garden",
+      "source" : "الحديقة جميلة في الربيع."
+    },
+    {
+      "candidate_latin" : "sāfarat̊ ạảm̊si.",
+      "derived_script" : "سَافَرَتْ أَمْسِ.",
+      "id" : "ambiguous_person",
+      "source" : "سافرت أمس."
+    },
+    {
+      "candidate_latin" : "hal̊ yum̊kinuka fat̊ḥu ạlnãạfidẖaẗi؟",
+      "derived_script" : "هَلْ يُمْكِنُكَ فَتْحُ النَّافِذَةِ؟",
+      "id" : "ambiguous_you",
+      "source" : "هل يمكنك فتح النافذة؟"
+    },
+    {
+      "candidate_latin" : "ạảr̊salat̊ laẙlay̱ risālaẗaⁿ ại̹lay̱ sulaẙmiⁿ.",
+      "derived_script" : "أَرْسَلَتْ لَيْلَى رِسَالَةً إِلَى سُلَيْمٍ.",
+      "id" : "name_layla",
+      "source" : "أرسلت ليلى رسالة إلى سليم."
+    },
+    {
+      "candidate_latin" : "nūraẗuⁿ tan̊taẓiru yūsufa qur̊ba ạl̊jāmi'aẗi.",
+      "derived_script" : "نُورَةٌ تَنْتَظِرُ يُوسُفَ قُرْبَ الْجَامِعَةِ.",
+      "id" : "name_nura",
+      "source" : "نورة تنتظر يوسف قرب الجامعة."
+    },
+    {
+      "candidate_latin" : "fīna ạảq̊rabu maḥaṭãẗiⁿ؟",
+      "derived_script" : "فِينَ أَقْرَبُ مَحَطَّةٍ؟",
+      "id" : "dialect_egy",
+      "source" : "فين أقرب محطة؟"
+    },
+    {
+      "candidate_latin" : "sẖū̊ badaka tasẖ̊rabu؟",
+      "derived_script" : "شُوْ بَدَكَ تَشْرَبُ؟",
+      "id" : "dialect_levant",
+      "source" : "شو بدك تشرب؟"
+    },
+    {
+      "candidate_latin" : "qābalat̊ José qur̊ba café fī 8:30.",
+      "derived_script" : "قَابَلَتْ José قُرْبَ café فِي 8:30.",
+      "id" : "mixed_latin",
+      "source" : "قابلت José قرب café في 8:30."
+    },
+    {
+      "candidate_latin" : "'alima sāmiri ạl̊kẖabara ạl̊yaẘma.",
+      "derived_script" : "عَلِمَ سَامِرِ الْخَبَرَ الْيَوْمَ.",
+      "id" : "existing_marks",
+      "source" : "عَلِمَ سامر الخبر اليوم."
+    },
+    {
+      "candidate_latin" : "ạủḥabũ ạl̊qah̊waẗa‍ katẖīraⁿạ.",
+      "derived_script" : "أُحَبُّ الْقَهْوَةَ‍ كَثِيرًا.",
+      "id" : "zero_width",
+      "source" : "أحب القهوة‍ كثيرا."
+    },
+    {
+      "candidate_latin" : "ạf̊taḥi https://example.test/عربي?q=علم ạl̊ậna.",
+      "derived_script" : "افْتَحِ https://example.test/عربي?q=علم الْآنَ.",
+      "id" : "url",
+      "source" : "افتح https://example.test/عربي?q=علم الآن."
+    },
+    {
+      "candidate_latin" : "ạuk̊tub̊ `علم_2026` fī notes.md.",
+      "derived_script" : "اُكْتُبْ `علم_2026` فِي notes.md.",
+      "id" : "code",
+      "source" : "اكتب `علم_2026` في notes.md."
+    },
+    {
+      "candidate_latin" : "hadẖihi ḵāfiy̰aẗuⁿ.",
+      "derived_script" : "هَذِهِ کَافِیَةٌ.",
+      "id" : "persian_variants",
+      "source" : "هذه کافیة."
+    }
+  ],
+  "interpretation" : "Candidate Latin conversion for review, not certified pronunciation. Existing protected literals remain exact; irregular orthography/assimilation and dialect still need qualification.",
+  "platform" : "native macOS Foundation toLatin transform of Arabic runs only",
+  "production_enabled" : false
+}

@@ -1,0 +1,5622 @@
+{
+  "schema": "vipi-arabic-local-candidate-qualification-1",
+  "model_sha256": "9779e1aca89cebc77a9b92037b7d700c422cdf6c3774d4883f4652f641f3f705",
+  "model_revision": "ff8783fff6f6986929d8986983279d2f307d7bed",
+  "frozen_cases_sha256": "ba78d10fcbd4310b74661f982100c47bc05bb80f98c2eb6c6eb6fc27859243f8",
+  "runtime": {
+    "onnxruntime": "1.32.0",
+    "numpy": "2.5.5",
+    "providers": [
+      "CPUExecutionProvider"
+    ],
+    "threads": 1
+  },
+  "load_ms": 27.08933292888105,
+  "peak_rss_bytes": 201703424,
+  "warm_median_ms": 3.7603750824928284,
+  "warm_max_ms": 5.046958103775978,
+  "max_input_inference_ms": 215.51574999466538,
+  "source_tts_remains_original": true,
+  "app_enabled": false,
+  "independent_native_linguistic_acceptance": false,
+  "accuracy_scope": "16 newly authored MSA references frozen before inference. No assertion of training disjointness; source ambiguity, names, dialect and preservation cases are separately reviewed, not scored against guessed reference vowels. This is not app population quality.",
+  "author_reference_letter_errors": 13,
+  "author_reference_letters": 273,
+  "cases": [
+    {
+      "id": "msa_doctor",
+      "text": "ذهب الطبيب إلى المستشفى.",
+      "reference": "ذَهَبَ الطَّبِيبُ إِلَى الْمُسْتَشْفَى.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "ذَهَبَ الطَّبِيبُ إِلَى الْمُسْتَشْفَى.",
+      "preserving_derived_metadata": "ذَهَبَ الطَّبِيبُ إِلَى الْمُسْتَشْفَى.",
+      "first_inference_ms": 4.73274989053607,
+      "preserving_first_ms": 4.232791950926185,
+      "warm_ms": [
+        4.5298750046640635,
+        4.365707980468869,
+        4.369000205770135
+      ],
+      "confidence": {
+        "min": 0.8948692083358765,
+        "mean": 0.9042884230613708,
+        "below_0_8": 0
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ذ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ذَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ه",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "هَ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ل"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ط",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "طَّ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بِ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بُ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "إ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "إِ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ى",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ى"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مُ"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "س",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "سْ"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تَ"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "ش",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "شْ"
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فَ"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": "ى",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ى"
+        },
+        {
+          "start_scalar": 23,
+          "end_scalar": 24,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [],
+      "reference_letters": 20
+    },
+    {
+      "id": "msa_child_book",
+      "text": "اشترى الطفل كتابا جديدا.",
+      "reference": "اِشْتَرَى الطِّفْلُ كِتَابًا جَدِيدًا.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "اشْتَرَى الطِّفْلُ كِتَابًا جَدِيدًا.",
+      "preserving_derived_metadata": "اشْتَرَى الطِّفْلُ كِتَابًا جَدِيدًا.",
+      "first_inference_ms": 4.398707998916507,
+      "preserving_first_ms": 4.41879197023809,
+      "warm_ms": [
+        4.430374829098582,
+        4.151124972850084,
+        4.110250156372786
+      ],
+      "confidence": {
+        "min": 0.8311027884483337,
+        "mean": 0.8983108282089234,
+        "below_0_8": 0
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ش",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "شْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رَ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ى",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ى"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ل"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ط",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "طِّ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فْ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لُ"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ك",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "كِ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تَ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بً"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "ج",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "جَ"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "د",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "دِ"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "د",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "دً"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 23,
+          "end_scalar": 24,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [
+        {
+          "letter_index": 0,
+          "letter": "ا",
+          "predicted_marks": "",
+          "reference_marks": "ِ"
+        }
+      ],
+      "reference_letters": 20
+    },
+    {
+      "id": "msa_clean_water",
+      "text": "نحتاج إلى ماء نظيف.",
+      "reference": "نَحْتَاجُ إِلَى مَاءٍ نَظِيفٍ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "نَحْتَاجُ إِلَى مَاءٍ نَظِيفٍ.",
+      "preserving_derived_metadata": "نَحْتَاجُ إِلَى مَاءٍ نَظِيفٍ.",
+      "first_inference_ms": 4.024249967187643,
+      "preserving_first_ms": 3.8997919764369726,
+      "warm_ms": [
+        3.933583153411746,
+        3.954667132347822,
+        3.9129171054810286
+      ],
+      "confidence": {
+        "min": 0.8825315237045288,
+        "mean": 0.9039782961209615,
+        "below_0_8": 0
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ج",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "جُ"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "إ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "إِ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ى",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ى"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مَ"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ء",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ءٍ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نَ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ظ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ظِ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فٍ"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [],
+      "reference_letters": 15
+    },
+    {
+      "id": "msa_room",
+      "text": "أريد حجز غرفة لليلة واحدة.",
+      "reference": "أُرِيدُ حَجْزَ غُرْفَةٍ لِلَيْلَةٍ وَاحِدَةٍ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "أُرِيدَ حَجْزُ غُرْفَةٍ لِلَّيْلَةٍ وَاحِدَةٍ.",
+      "preserving_derived_metadata": "أُرِيدَ حَجْزُ غُرْفَةٍ لِلَّيْلَةٍ وَاحِدَةٍ.",
+      "first_inference_ms": 4.800958093255758,
+      "preserving_first_ms": 4.916083998978138,
+      "warm_ms": [
+        4.8584172036498785,
+        4.9888750072568655,
+        4.866332979872823
+      ],
+      "confidence": {
+        "min": 0.42465493083000183,
+        "mean": 0.851245790719986,
+        "below_0_8": 3
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "أ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "أُ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رِ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "د",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "دَ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حَ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ج",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "جْ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ز",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "زُ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "غ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "غُ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رْ"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فَ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةٍ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لِ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَّ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "يْ"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةٍ"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "و",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "وَ"
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حِ"
+        },
+        {
+          "start_scalar": 23,
+          "end_scalar": 24,
+          "source": "د",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "دَ"
+        },
+        {
+          "start_scalar": 24,
+          "end_scalar": 25,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةٍ"
+        },
+        {
+          "start_scalar": 25,
+          "end_scalar": 26,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [
+        {
+          "letter_index": 3,
+          "letter": "د",
+          "predicted_marks": "َ",
+          "reference_marks": "ُ"
+        },
+        {
+          "letter_index": 6,
+          "letter": "ز",
+          "predicted_marks": "ُ",
+          "reference_marks": "َ"
+        },
+        {
+          "letter_index": 12,
+          "letter": "ل",
+          "predicted_marks": "َّ",
+          "reference_marks": "َ"
+        }
+      ],
+      "reference_letters": 21
+    },
+    {
+      "id": "msa_train",
+      "text": "وصل القطار قبل المغرب.",
+      "reference": "وَصَلَ الْقِطَارُ قَبْلَ الْمَغْرِبِ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "وَصَلَ الْقِطَارُ قَبْلَ الْمَغْرِبِ.",
+      "preserving_derived_metadata": "وَصَلَ الْقِطَارُ قَبْلَ الْمَغْرِبِ.",
+      "first_inference_ms": 4.140584031119943,
+      "preserving_first_ms": 4.219166934490204,
+      "warm_ms": [
+        4.136624978855252,
+        4.215124994516373,
+        4.121416015550494
+      ],
+      "confidence": {
+        "min": 0.6616367697715759,
+        "mean": 0.8808142145474752,
+        "below_0_8": 2
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "و",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "وَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ص",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "صَ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قِ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ط",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "طَ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رُ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قَ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بْ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مَ"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "غ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "غْ"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رِ"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بِ"
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [],
+      "reference_letters": 18
+    },
+    {
+      "id": "msa_farmer",
+      "text": "زرع الفلاح القمح.",
+      "reference": "زَرَعَ الْفَلَّاحُ الْقَمْحَ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "زَرْعُ الْفَلَاحِ الْقَمْحَ.",
+      "preserving_derived_metadata": "زَرْعُ الْفَلَاحِ الْقَمْحَ.",
+      "first_inference_ms": 3.3853340428322554,
+      "preserving_first_ms": 3.4210418816655874,
+      "warm_ms": [
+        3.4920840989798307,
+        3.484457964077592,
+        3.341374918818474
+      ],
+      "confidence": {
+        "min": 0.43372032046318054,
+        "mean": 0.7948339815650668,
+        "below_0_8": 5
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ز",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "زَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ع",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "عُ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فَ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حِ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قَ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مْ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حَ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [
+        {
+          "letter_index": 1,
+          "letter": "ر",
+          "predicted_marks": "ْ",
+          "reference_marks": "َ"
+        },
+        {
+          "letter_index": 2,
+          "letter": "ع",
+          "predicted_marks": "ُ",
+          "reference_marks": "َ"
+        },
+        {
+          "letter_index": 6,
+          "letter": "ل",
+          "predicted_marks": "َ",
+          "reference_marks": "َّ"
+        },
+        {
+          "letter_index": 8,
+          "letter": "ح",
+          "predicted_marks": "ِ",
+          "reference_marks": "ُ"
+        }
+      ],
+      "reference_letters": 14
+    },
+    {
+      "id": "msa_apartment",
+      "text": "هذه شقة قريبة من النهر.",
+      "reference": "هَذِهِ شَقَّةٌ قَرِيبَةٌ مِنَ النَّهْرِ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "هَذِهِ شِقَّةٌ قَرِيبَةٌ مِنَ النَّهْرِ.",
+      "preserving_derived_metadata": "هَذِهِ شِقَّةٌ قَرِيبَةٌ مِنَ النَّهْرِ.",
+      "first_inference_ms": 4.661415936425328,
+      "preserving_first_ms": 4.651041934266686,
+      "warm_ms": [
+        4.6565840020775795,
+        4.625541856512427,
+        4.602584056556225
+      ],
+      "confidence": {
+        "min": 0.5066747665405273,
+        "mean": 0.8759922517670525,
+        "below_0_8": 1
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ه",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "هَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ذ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ذِ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ه",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "هِ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ش",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "شِ"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قَّ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةٌ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قَ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رِ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بَ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةٌ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مِ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نَ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ل"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نَّ"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "ه",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "هْ"
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رِ"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [
+        {
+          "letter_index": 3,
+          "letter": "ش",
+          "predicted_marks": "ِ",
+          "reference_marks": "َ"
+        }
+      ],
+      "reference_letters": 18
+    },
+    {
+      "id": "msa_guard_closed",
+      "text": "أغلق الحارس الباب.",
+      "reference": "أَغْلَقَ الْحَارِسُ الْبَابَ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "أَغْلَقَ الْحَارِسُ الْبَابَ.",
+      "preserving_derived_metadata": "أَغْلَقَ الْحَارِسُ الْبَابَ.",
+      "first_inference_ms": 3.589458065107465,
+      "preserving_first_ms": 3.552875015884638,
+      "warm_ms": [
+        3.4614577889442444,
+        3.5579579416662455,
+        3.3501670695841312
+      ],
+      "confidence": {
+        "min": 0.5805816054344177,
+        "mean": 0.8748040715853374,
+        "below_0_8": 2
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "أ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "أَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "غ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "غْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قَ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حَ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رِ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "س",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "سُ"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بَ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بَ"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [],
+      "reference_letters": 15
+    },
+    {
+      "id": "msa_sleep",
+      "text": "ينام الطفل في الغرفة.",
+      "reference": "يَنَامُ الطِّفْلُ فِي الْغُرْفَةِ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "يَنَامُ الطِّفْلُ فِي الْغُرْفَةِ.",
+      "preserving_derived_metadata": "يَنَامُ الطِّفْلُ فِي الْغُرْفَةِ.",
+      "first_inference_ms": 4.058582941070199,
+      "preserving_first_ms": 4.168666899204254,
+      "warm_ms": [
+        4.135499941185117,
+        4.023250192403793,
+        4.069375107064843
+      ],
+      "confidence": {
+        "min": 0.8140915632247925,
+        "mean": 0.8990676262799431,
+        "below_0_8": 0
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "يَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نَ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مُ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ل"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ط",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "طِّ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فْ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لُ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فِ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "غ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "غُ"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رْ"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فَ"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةِ"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [],
+      "reference_letters": 17
+    },
+    {
+      "id": "msa_read",
+      "text": "تقرأ المعلمة رسالة قصيرة.",
+      "reference": "تَقْرَأُ الْمُعَلِّمَةُ رِسَالَةً قَصِيرَةً.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "تَقْرَأُ الْمُعَلِّمَةُ رِسَالَةً قَصِيرَةً.",
+      "preserving_derived_metadata": "تَقْرَأُ الْمُعَلِّمَةُ رِسَالَةً قَصِيرَةً.",
+      "first_inference_ms": 4.620332969352603,
+      "preserving_first_ms": 4.638291895389557,
+      "warm_ms": [
+        4.865334136411548,
+        4.715165821835399,
+        4.825291922315955
+      ],
+      "confidence": {
+        "min": 0.6692953109741211,
+        "mean": 0.8795373354639325,
+        "below_0_8": 1
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "أ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "أُ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مُ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ع",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "عَ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لِّ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مَ"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةُ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رِ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "س",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "سَ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةً"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قَ"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "ص",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "صِ"
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رَ"
+        },
+        {
+          "start_scalar": 23,
+          "end_scalar": 24,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةً"
+        },
+        {
+          "start_scalar": 24,
+          "end_scalar": 25,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [],
+      "reference_letters": 21
+    },
+    {
+      "id": "polyphone_flag",
+      "text": "رفع العامل العلم.",
+      "reference": "رَفَعَ الْعَامِلُ الْعَلَمَ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "رَفْعَ الْعَامِلِ الْعِلْمَ.",
+      "preserving_derived_metadata": "رَفْعَ الْعَامِلِ الْعِلْمَ.",
+      "first_inference_ms": 3.3264588564634323,
+      "preserving_first_ms": 3.345250152051449,
+      "warm_ms": [
+        3.3915829844772816,
+        3.299625124782324,
+        3.2637910917401314
+      ],
+      "confidence": {
+        "min": 0.42206230759620667,
+        "mean": 0.8320991120168141,
+        "below_0_8": 3
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ع",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "عَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ع",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "عَ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مِ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لِ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ع",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "عِ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مَ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [
+        {
+          "letter_index": 1,
+          "letter": "ف",
+          "predicted_marks": "ْ",
+          "reference_marks": "َ"
+        },
+        {
+          "letter_index": 8,
+          "letter": "ل",
+          "predicted_marks": "ِ",
+          "reference_marks": "ُ"
+        },
+        {
+          "letter_index": 11,
+          "letter": "ع",
+          "predicted_marks": "ِ",
+          "reference_marks": "َ"
+        },
+        {
+          "letter_index": 12,
+          "letter": "ل",
+          "predicted_marks": "ْ",
+          "reference_marks": "َ"
+        }
+      ],
+      "reference_letters": 14
+    },
+    {
+      "id": "polyphone_knowledge",
+      "text": "يحب الطالب العلم.",
+      "reference": "يُحِبُّ الطَّالِبُ الْعِلْمَ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "يُحِبُّ الطَّالِبُ الْعِلْمَ.",
+      "preserving_derived_metadata": "يُحِبُّ الطَّالِبُ الْعِلْمَ.",
+      "first_inference_ms": 3.2294581178575754,
+      "preserving_first_ms": 3.389707999303937,
+      "warm_ms": [
+        3.3261668868362904,
+        3.256249940022826,
+        3.3554579131305218
+      ],
+      "confidence": {
+        "min": 0.6780789494514465,
+        "mean": 0.8848827055522374,
+        "below_0_8": 1
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "يُ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حِ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بُّ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ل"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ط",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "طَّ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لِ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بُ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ع",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "عِ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مَ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [],
+      "reference_letters": 14
+    },
+    {
+      "id": "msa_king",
+      "text": "الملك يعيش في القصر.",
+      "reference": "الْمَلِكُ يَعِيشُ فِي الْقَصْرِ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "الْمَلِكُ يَعِيشُ فِي الْقَصْرِ.",
+      "preserving_derived_metadata": "الْمَلِكُ يَعِيشُ فِي الْقَصْرِ.",
+      "first_inference_ms": 3.5280839074403048,
+      "preserving_first_ms": 3.5477501805871725,
+      "warm_ms": [
+        3.5290420055389404,
+        3.5807909443974495,
+        3.5080418456345797
+      ],
+      "confidence": {
+        "min": 0.5110950469970703,
+        "mean": 0.8589897826313972,
+        "below_0_8": 2
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لِ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ك",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "كُ"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "يَ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ع",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "عِ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ش",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "شُ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فِ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قَ"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "ص",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "صْ"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رِ"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [],
+      "reference_letters": 16
+    },
+    {
+      "id": "msa_queue",
+      "text": "ننتظر في طابور طويل.",
+      "reference": "نَنْتَظِرُ فِي طَابُورٍ طَوِيلٍ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "نَنْتَظِرُ فِي طَابُورٍ طَوِيلٍ.",
+      "preserving_derived_metadata": "نَنْتَظِرُ فِي طَابُورٍ طَوِيلٍ.",
+      "first_inference_ms": 3.4504171926528215,
+      "preserving_first_ms": 3.630375023931265,
+      "warm_ms": [
+        3.590041073039174,
+        3.50883393548429,
+        3.607833059504628
+      ],
+      "confidence": {
+        "min": 0.8973140716552734,
+        "mean": 0.9061537533998489,
+        "below_0_8": 0
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ظ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ظِ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رُ"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فِ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ط",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "طَ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بُ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "و",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "و"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رٍ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ط",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "طَ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "و",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "وِ"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لٍ"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [],
+      "reference_letters": 16
+    },
+    {
+      "id": "msa_phone",
+      "text": "هذا الهاتف مكسور.",
+      "reference": "هَذَا الْهَاتِفُ مَكْسُورٌ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "هَذَا الْهَاتِفُ مَكْسُورٌ.",
+      "preserving_derived_metadata": "هَذَا الْهَاتِفُ مَكْسُورٌ.",
+      "first_inference_ms": 3.2215421088039875,
+      "preserving_first_ms": 3.2811251003295183,
+      "warm_ms": [
+        3.2741669565439224,
+        3.312584012746811,
+        3.2485839910805225
+      ],
+      "confidence": {
+        "min": 0.7268756628036499,
+        "mean": 0.8919129243918827,
+        "below_0_8": 1
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ه",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "هَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ذ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ذَ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ه",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "هَ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تِ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فُ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مَ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ك",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "كْ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "س",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "سُ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "و",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "و"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رٌ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [],
+      "reference_letters": 14
+    },
+    {
+      "id": "msa_garden",
+      "text": "الحديقة جميلة في الربيع.",
+      "reference": "الْحَدِيقَةُ جَمِيلَةٌ فِي الرَّبِيعِ.",
+      "category": "authored_msa_reference",
+      "reference_status": "author_assessment_not_independent_native_acceptance",
+      "case_endings": "full orthographic reference; internal and case errors must be reported separately",
+      "upstream_normalized_output": "الْحَدِيقَةُ جَمِيلَةٌ فِي الرَّبِيعِ.",
+      "preserving_derived_metadata": "الْحَدِيقَةُ جَمِيلَةٌ فِي الرَّبِيعِ.",
+      "first_inference_ms": 4.091791808605194,
+      "preserving_first_ms": 4.236417124047875,
+      "warm_ms": [
+        4.159832838922739,
+        4.175999900326133,
+        4.291582852602005
+      ],
+      "confidence": {
+        "min": 0.8068305850028992,
+        "mean": 0.8944702208042145,
+        "below_0_8": 0
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "د",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "دِ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قَ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةُ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ج",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "جَ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مِ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةٌ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فِ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ل"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رَّ"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بِ"
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": "ع",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "عِ"
+        },
+        {
+          "start_scalar": 23,
+          "end_scalar": 24,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ],
+      "author_reference_letter_errors": [],
+      "reference_letters": 20
+    },
+    {
+      "id": "ambiguous_person",
+      "text": "سافرت أمس.",
+      "reference": null,
+      "category": "source_ambiguity",
+      "review_note": "I/you/she travelled are plausible without speaker context; do not reject an alternative solely against one guessed voice.",
+      "upstream_normalized_output": "سَافَرَتْ أَمْسِ.",
+      "preserving_derived_metadata": "سَافَرَتْ أَمْسِ.",
+      "first_inference_ms": 2.0968751050531864,
+      "preserving_first_ms": 2.0667079370468855,
+      "warm_ms": [
+        2.0642501767724752,
+        2.110500121489167,
+        2.095665782690048
+      ],
+      "confidence": {
+        "min": 0.7990885376930237,
+        "mean": 0.8808263093233109,
+        "below_0_8": 1
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "س",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "سَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رَ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تْ"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "أ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "أَ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مْ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "س",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "سِ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ]
+    },
+    {
+      "id": "ambiguous_you",
+      "text": "هل يمكنك فتح النافذة؟",
+      "reference": null,
+      "category": "source_ambiguity",
+      "review_note": "Gender of you is unspecified.",
+      "upstream_normalized_output": "هَلْ يُمْكِنُكَ فَتْحُ النَّافِذَةِ؟",
+      "preserving_derived_metadata": "هَلْ يُمْكِنُكَ فَتْحُ النَّافِذَةِ؟",
+      "first_inference_ms": 3.889166982844472,
+      "preserving_first_ms": 3.954875050112605,
+      "warm_ms": [
+        4.05962485820055,
+        3.949458012357354,
+        3.9491248317062855
+      ],
+      "confidence": {
+        "min": 0.8492907881736755,
+        "mean": 0.8966075567638173,
+        "below_0_8": 0
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ه",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "هَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "يُ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مْ"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ك",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "كِ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نُ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ك",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "كَ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فَ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تْ"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حُ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ل"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نَّ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فِ"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "ذ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ذَ"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةِ"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "؟",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "؟"
+        }
+      ]
+    },
+    {
+      "id": "name_layla",
+      "text": "أرسلت ليلى رسالة إلى سليم.",
+      "reference": null,
+      "category": "names",
+      "review_note": "Conventional names; inspect without treating one individual name pronunciation as certain.",
+      "upstream_normalized_output": "أَرْسَلَتْ لَيْلَى رِسَالَةً إِلَى سُلَيْمٍ.",
+      "preserving_derived_metadata": "أَرْسَلَتْ لَيْلَى رِسَالَةً إِلَى سُلَيْمٍ.",
+      "first_inference_ms": 4.735417198389769,
+      "preserving_first_ms": 4.74133319221437,
+      "warm_ms": [
+        4.830209072679281,
+        4.790666978806257,
+        4.767957841977477
+      ],
+      "confidence": {
+        "min": 0.44465458393096924,
+        "mean": 0.8151187981878009,
+        "below_0_8": 5
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "أ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "أَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "س",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "سَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تْ"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "يْ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ى",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ى"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رِ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "س",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "سَ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةً"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "إ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "إِ"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "ى",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ى"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "س",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "سُ"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 23,
+          "end_scalar": 24,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "يْ"
+        },
+        {
+          "start_scalar": 24,
+          "end_scalar": 25,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مٍ"
+        },
+        {
+          "start_scalar": 25,
+          "end_scalar": 26,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ]
+    },
+    {
+      "id": "name_nura",
+      "text": "نورة تنتظر يوسف قرب الجامعة.",
+      "reference": null,
+      "category": "names",
+      "review_note": "Name convention/person uncertain; annotate confidence.",
+      "upstream_normalized_output": "نُورَةٌ تَنْتَظِرُ يُوسُفَ قُرْبَ الْجَامِعَةِ.",
+      "preserving_derived_metadata": "نُورَةٌ تَنْتَظِرُ يُوسُفَ قُرْبَ الْجَامِعَةِ.",
+      "first_inference_ms": 4.898417042568326,
+      "preserving_first_ms": 4.9757089000195265,
+      "warm_ms": [
+        5.046958103775978,
+        4.9351658672094345,
+        4.90487483330071
+      ],
+      "confidence": {
+        "min": 0.582734227180481,
+        "mean": 0.8798324465751648,
+        "below_0_8": 2
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نُ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "و",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "و"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةٌ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تَ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نْ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تَ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ظ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ظِ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رُ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "يُ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "و",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "و"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "س",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "سُ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فَ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قُ"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رْ"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بَ"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": "ج",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "جَ"
+        },
+        {
+          "start_scalar": 23,
+          "end_scalar": 24,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 24,
+          "end_scalar": 25,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مِ"
+        },
+        {
+          "start_scalar": 25,
+          "end_scalar": 26,
+          "source": "ع",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "عَ"
+        },
+        {
+          "start_scalar": 26,
+          "end_scalar": 27,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةِ"
+        },
+        {
+          "start_scalar": 27,
+          "end_scalar": 28,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ]
+    },
+    {
+      "id": "dialect_egy",
+      "text": "فين أقرب محطة؟",
+      "reference": null,
+      "category": "dialect",
+      "review_note": "Egyptian colloquial; an MSA benchmark does not certify readable colloquial pronunciation.",
+      "upstream_normalized_output": "فِينَ أَقْرَبُ مَحَطَّةٍ؟",
+      "preserving_derived_metadata": "فِينَ أَقْرَبُ مَحَطَّةٍ؟",
+      "first_inference_ms": 2.7054999954998493,
+      "preserving_first_ms": 2.7260410133749247,
+      "warm_ms": [
+        2.7181669138371944,
+        2.809792058542371,
+        2.7072918601334095
+      ],
+      "confidence": {
+        "min": 0.7597071528434753,
+        "mean": 0.88452302867716,
+        "below_0_8": 1
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فِ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "أ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "أَ"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قْ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رَ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بُ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مَ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حَ"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ط",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "طَّ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةٍ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "؟",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "؟"
+        }
+      ]
+    },
+    {
+      "id": "dialect_levant",
+      "text": "شو بدك تشرب؟",
+      "reference": null,
+      "category": "dialect",
+      "review_note": "Levantine colloquial; report wrong forced-MSA vowels or abstain.",
+      "upstream_normalized_output": "شُوْ بَدَكَ تَشْرَبُ؟",
+      "preserving_derived_metadata": "شُوْ بَدَكَ تَشْرَبُ؟",
+      "first_inference_ms": 2.2247498854994774,
+      "preserving_first_ms": 2.2228339221328497,
+      "warm_ms": [
+        2.229916164651513,
+        2.3155000526458025,
+        2.2143328096717596
+      ],
+      "confidence": {
+        "min": 0.3249035179615021,
+        "mean": 0.6809889707300398,
+        "below_0_8": 7
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ش",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "شُ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "و",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "وْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بَ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "د",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "دَ"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ك",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "كَ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تَ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ش",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "شْ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رَ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بُ"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "؟",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "؟"
+        }
+      ]
+    },
+    {
+      "id": "mixed_latin",
+      "text": "قابلت José قرب café في 8:30.",
+      "reference": null,
+      "category": "mixed",
+      "review_note": "Exact Latin accents/digits/punctuation must survive; Arabic speaker gender unspecified.",
+      "upstream_normalized_output": "قَابَلَتْ José قُرْبَ café فِي 8:30.",
+      "preserving_derived_metadata": "قَابَلَتْ José قُرْبَ café فِي 8:30.",
+      "first_inference_ms": 4.736416973173618,
+      "preserving_first_ms": 4.955208860337734,
+      "warm_ms": [
+        4.821917042136192,
+        4.831874975934625,
+        4.954874981194735
+      ],
+      "confidence": {
+        "min": 0.8262707591056824,
+        "mean": 0.8919395387172699,
+        "below_0_8": 0
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لَ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تْ"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "J",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "J"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "o",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "o"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "s",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "s"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "é",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "é"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قُ"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رْ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بَ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "c",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "c"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "a",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "a"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "f",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "f"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "é",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "é"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فِ"
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 23,
+          "end_scalar": 24,
+          "source": "8",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "8"
+        },
+        {
+          "start_scalar": 24,
+          "end_scalar": 25,
+          "source": ":",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": ":"
+        },
+        {
+          "start_scalar": 25,
+          "end_scalar": 26,
+          "source": "3",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "3"
+        },
+        {
+          "start_scalar": 26,
+          "end_scalar": 27,
+          "source": "0",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "0"
+        },
+        {
+          "start_scalar": 27,
+          "end_scalar": 28,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ]
+    },
+    {
+      "id": "existing_marks",
+      "text": "عَلِمَ سامر الخبر اليوم.",
+      "reference": null,
+      "category": "preservation",
+      "review_note": "Supplied عَلِمَ marks must not be replaced with model preference.",
+      "upstream_normalized_output": "عَلْمٌ سَامِرِ الْخَبَرَ الْيَوْمَ.",
+      "preserving_derived_metadata": "عَلِمَ سَامِرِ الْخَبَرَ الْيَوْمَ.",
+      "first_inference_ms": 3.8777918089181185,
+      "preserving_first_ms": 4.025709116831422,
+      "warm_ms": [
+        3.9311249274760485,
+        3.9749580901116133,
+        4.04729088768363
+      ],
+      "confidence": {
+        "min": 0.5039265155792236,
+        "mean": 0.8591852188110352,
+        "below_0_8": 2
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 2,
+          "source": "عَ",
+          "protected": false,
+          "existing_vowels": true,
+          "derived": "عَ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 4,
+          "source": "لِ",
+          "protected": false,
+          "existing_vowels": true,
+          "derived": "لِ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 6,
+          "source": "مَ",
+          "protected": false,
+          "existing_vowels": true,
+          "derived": "مَ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "س",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "سَ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مِ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رِ"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "خ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "خَ"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بَ"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رَ"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "يَ"
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "و",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "وْ"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": "م",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "مَ"
+        },
+        {
+          "start_scalar": 23,
+          "end_scalar": 24,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ]
+    },
+    {
+      "id": "zero_width",
+      "text": "أحب القهوة‍ كثيرا.",
+      "reference": null,
+      "category": "preservation",
+      "review_note": "Zero-width and exact original base-letter bytes remain in the original; model normalization is metadata-only.",
+      "upstream_normalized_output": "أُحَبُّ الْقَهْوَةَ كَثِيرًا.",
+      "preserving_derived_metadata": "أُحَبُّ الْقَهْوَةَ‍ كَثِيرًا.",
+      "first_inference_ms": 3.2084169797599316,
+      "preserving_first_ms": 3.2166249584406614,
+      "warm_ms": [
+        3.314416855573654,
+        3.401125082746148,
+        3.3062081784009933
+      ],
+      "confidence": {
+        "min": 0.4984029531478882,
+        "mean": 0.8259512058326176,
+        "below_0_8": 4
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "أ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "أُ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حَ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بُّ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ق",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "قَ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ه",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "هْ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "و",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "وَ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةَ"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "‍",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "‍"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "ك",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "كَ"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "ث",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ثِ"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "ر",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "رً"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ]
+    },
+    {
+      "id": "url",
+      "text": "افتح https://example.test/عربي?q=علم الآن.",
+      "reference": null,
+      "category": "preservation",
+      "review_note": "Arabic inside the protected URL must remain exact, not vocalized or normalized.",
+      "upstream_normalized_output": "افْتَحْ https://example.test/عَرَبِيٌّ?q=عِلْمٌ الْآنَ.",
+      "preserving_derived_metadata": "افْتَحِ https://example.test/عربي?q=علم الْآنَ.",
+      "first_inference_ms": 7.373417029157281,
+      "preserving_first_ms": 2.170584164559841,
+      "warm_ms": [
+        2.1230829879641533,
+        2.102541970089078,
+        2.1006250753998756
+      ],
+      "confidence": {
+        "min": 0.775357186794281,
+        "mean": 0.8755351603031158,
+        "below_0_8": 1
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تَ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ح",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "حِ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "h",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "h"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "t",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "t"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "t",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "t"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "p",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "p"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "s",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "s"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": ":",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": ":"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "/",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "/"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "/",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "/"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "e",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "e"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "x",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "x"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": "a",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "a"
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "m",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "m"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "p",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "p"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": "l",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "l"
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "e",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "e"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": ".",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "."
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "t",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "t"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": "e",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "e"
+        },
+        {
+          "start_scalar": 23,
+          "end_scalar": 24,
+          "source": "s",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "s"
+        },
+        {
+          "start_scalar": 24,
+          "end_scalar": 25,
+          "source": "t",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "t"
+        },
+        {
+          "start_scalar": 25,
+          "end_scalar": 26,
+          "source": "/",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "/"
+        },
+        {
+          "start_scalar": 26,
+          "end_scalar": 27,
+          "source": "ع",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "ع"
+        },
+        {
+          "start_scalar": 27,
+          "end_scalar": 28,
+          "source": "ر",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "ر"
+        },
+        {
+          "start_scalar": 28,
+          "end_scalar": 29,
+          "source": "ب",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "ب"
+        },
+        {
+          "start_scalar": 29,
+          "end_scalar": 30,
+          "source": "ي",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 30,
+          "end_scalar": 31,
+          "source": "?",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "?"
+        },
+        {
+          "start_scalar": 31,
+          "end_scalar": 32,
+          "source": "q",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "q"
+        },
+        {
+          "start_scalar": 32,
+          "end_scalar": 33,
+          "source": "=",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "="
+        },
+        {
+          "start_scalar": 33,
+          "end_scalar": 34,
+          "source": "ع",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "ع"
+        },
+        {
+          "start_scalar": 34,
+          "end_scalar": 35,
+          "source": "ل",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "ل"
+        },
+        {
+          "start_scalar": 35,
+          "end_scalar": 36,
+          "source": "م",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "م"
+        },
+        {
+          "start_scalar": 36,
+          "end_scalar": 37,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 37,
+          "end_scalar": 38,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 38,
+          "end_scalar": 39,
+          "source": "ل",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "لْ"
+        },
+        {
+          "start_scalar": 39,
+          "end_scalar": 40,
+          "source": "آ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "آ"
+        },
+        {
+          "start_scalar": 40,
+          "end_scalar": 41,
+          "source": "ن",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "نَ"
+        },
+        {
+          "start_scalar": 41,
+          "end_scalar": 42,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ]
+    },
+    {
+      "id": "code",
+      "text": "اكتب `علم_2026` في notes.md.",
+      "reference": null,
+      "category": "preservation",
+      "review_note": "Code identifier and filename must survive exact.",
+      "upstream_normalized_output": "اكْتُبْ `عَلَمَ_2026` فِي notes.md.",
+      "preserving_derived_metadata": "اُكْتُبْ `علم_2026` فِي notes.md.",
+      "first_inference_ms": 4.853416001424193,
+      "preserving_first_ms": 2.0845828112214804,
+      "warm_ms": [
+        1.9882081542164087,
+        1.979040913283825,
+        1.9966659601777792
+      ],
+      "confidence": {
+        "min": 0.651249885559082,
+        "mean": 0.8348200917243958,
+        "below_0_8": 2
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "اُ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ك",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "كْ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ت",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "تُ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": "ب",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "بْ"
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "`",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "`"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ع",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "ع"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ل",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "ل"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "م",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "م"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": "_",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "_"
+        },
+        {
+          "start_scalar": 10,
+          "end_scalar": 11,
+          "source": "2",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "2"
+        },
+        {
+          "start_scalar": 11,
+          "end_scalar": 12,
+          "source": "0",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "0"
+        },
+        {
+          "start_scalar": 12,
+          "end_scalar": 13,
+          "source": "2",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "2"
+        },
+        {
+          "start_scalar": 13,
+          "end_scalar": 14,
+          "source": "6",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "6"
+        },
+        {
+          "start_scalar": 14,
+          "end_scalar": 15,
+          "source": "`",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "`"
+        },
+        {
+          "start_scalar": 15,
+          "end_scalar": 16,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 16,
+          "end_scalar": 17,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فِ"
+        },
+        {
+          "start_scalar": 17,
+          "end_scalar": 18,
+          "source": "ي",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ي"
+        },
+        {
+          "start_scalar": 18,
+          "end_scalar": 19,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 19,
+          "end_scalar": 20,
+          "source": "n",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "n"
+        },
+        {
+          "start_scalar": 20,
+          "end_scalar": 21,
+          "source": "o",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "o"
+        },
+        {
+          "start_scalar": 21,
+          "end_scalar": 22,
+          "source": "t",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "t"
+        },
+        {
+          "start_scalar": 22,
+          "end_scalar": 23,
+          "source": "e",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "e"
+        },
+        {
+          "start_scalar": 23,
+          "end_scalar": 24,
+          "source": "s",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "s"
+        },
+        {
+          "start_scalar": 24,
+          "end_scalar": 25,
+          "source": ".",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "."
+        },
+        {
+          "start_scalar": 25,
+          "end_scalar": 26,
+          "source": "m",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "m"
+        },
+        {
+          "start_scalar": 26,
+          "end_scalar": 27,
+          "source": "d",
+          "protected": true,
+          "existing_vowels": false,
+          "derived": "d"
+        },
+        {
+          "start_scalar": 27,
+          "end_scalar": 28,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ]
+    },
+    {
+      "id": "persian_variants",
+      "text": "هذه کافیة.",
+      "reference": null,
+      "category": "variant",
+      "review_note": "Unsupported Persian kaf/yeh variants require explicit mapping; never rewrite original script.",
+      "upstream_normalized_output": "هَذِهِ كَافِيَةٌ.",
+      "preserving_derived_metadata": "هَذِهِ کَافِیَةٌ.",
+      "first_inference_ms": 2.07912502810359,
+      "preserving_first_ms": 2.077957848086953,
+      "warm_ms": [
+        2.0665000192821026,
+        2.056082943454385,
+        2.0724579226225615
+      ],
+      "confidence": {
+        "min": 0.8252897262573242,
+        "mean": 0.8959696814417839,
+        "below_0_8": 0
+      },
+      "source_partition": true,
+      "source_changed": false,
+      "protected_and_supplied_vowels_exact": true,
+      "pieces": [
+        {
+          "start_scalar": 0,
+          "end_scalar": 1,
+          "source": "ه",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "هَ"
+        },
+        {
+          "start_scalar": 1,
+          "end_scalar": 2,
+          "source": "ذ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ذِ"
+        },
+        {
+          "start_scalar": 2,
+          "end_scalar": 3,
+          "source": "ه",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "هِ"
+        },
+        {
+          "start_scalar": 3,
+          "end_scalar": 4,
+          "source": " ",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": " "
+        },
+        {
+          "start_scalar": 4,
+          "end_scalar": 5,
+          "source": "ک",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "کَ"
+        },
+        {
+          "start_scalar": 5,
+          "end_scalar": 6,
+          "source": "ا",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ا"
+        },
+        {
+          "start_scalar": 6,
+          "end_scalar": 7,
+          "source": "ف",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "فِ"
+        },
+        {
+          "start_scalar": 7,
+          "end_scalar": 8,
+          "source": "ی",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "یَ"
+        },
+        {
+          "start_scalar": 8,
+          "end_scalar": 9,
+          "source": "ة",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "ةٌ"
+        },
+        {
+          "start_scalar": 9,
+          "end_scalar": 10,
+          "source": ".",
+          "protected": false,
+          "existing_vowels": false,
+          "derived": "."
+        }
+      ]
+    }
+  ]
+}

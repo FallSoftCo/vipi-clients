@@ -1,0 +1,44 @@
+{
+  "model": "ichkil",
+  "version": "0.3.0",
+  "artifact": "model.onnx",
+  "sha256": "9779e1aca89cebc77a9b92037b7d700c422cdf6c3774d4883f4652f641f3f705",
+  "size_bytes": 22284311,
+  "opset": 17,
+  "runtime": "onnxruntime",
+  "device": "CPU",
+  "dtype": "float32",
+  "benchmark": {
+    "dataset": "Fadel et al. (2019), bundled test split",
+    "unit": "percent",
+    "pytorch": {
+      "DER": 2.3251876651310077,
+      "DER_no_case": 2.107701474275846,
+      "WER": 7.736340804624935,
+      "WER_no_case": 5.327204662844145,
+      "WER_final_word": 11.84
+    },
+    "onnx": {
+      "DER": 2.3251876651310077,
+      "DER_no_case": 2.107701474275846,
+      "WER": 7.736340804624935,
+      "WER_no_case": 5.327204662844145,
+      "WER_final_word": 11.84
+    },
+    "max_delta": 0.0,
+    "note": "DER = diacritic error rate (%); ONNX artifact verified to score identically to PyTorch"
+  },
+  "provenance": {
+    "checkpoint": "ichkil.pt",
+    "git_commit": "18ab3ce5bcde2f4097cdc05890b18346729ef435",
+    "exported_at": "2026-11-07T10:45:11+00:00",
+    "python": "3.12.15",
+    "torch": "2.14.0+cu130",
+    "onnxruntime": "1.30.0"
+  },
+  "parity": {
+    "worst_max_abs_diff": 2.2470951080322266e-05,
+    "worst_argmax_agreement": 1.0,
+    "cases_checked": 37
+  }
+}

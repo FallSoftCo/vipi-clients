@@ -1,0 +1,9 @@
+{
+  "schema": "vipi-arabic-qualification-erratum-1",
+  "superseded": "qualification-results-r01.json preserving projection only",
+  "cause": "Per-cluster use of upstream normalize_text trimmed whitespace-only clusters, accidentally removing spaces from model input. Raw upstream inference/author-reference comparisons were unaffected.",
+  "correction": "Model view retains/collapses source whitespace separately and asserts equality with globally normalized protected-masked source; corrected r02 replay is current.",
+  "source_preservation": "Original bytes and protected ranges were not rewritten, even in superseded projection, but derived vowels were invalid.",
+  "superseded_outputs_retired": true,
+  "current_results_sha256": "0da76ed01b821e78d57a273bff2177da376f3922ae9f941830240920f7f2363d"
+}
