@@ -1,0 +1,13 @@
+{
+  "locale": "fr-FR",
+  "status": "draft_requires_review_not_for_publication",
+  "apple_locale": "fr-FR",
+  "google_play_locale": "fr-FR",
+  "app_name": "Vipi : chat immersif",
+  "apple_subtitle": "Apprenez en discutant",
+  "apple_promotional_text": "Discutez avec vos proches : certains mots passent dans la langue que vous apprenez.",
+  "google_short_description": "Discutez avec vos proches et découvrez une langue dans vos messages.",
+  "description_without_subscription_terms": "Discutez comme d’habitude. Certains mots et courtes expressions passent à la langue que vous apprenez, directement dans les messages. Vos amis n’ont pas à changer leur façon d’écrire.\n\nChoisissez le nombre de mots nouveaux ; des mots déjà vus peuvent aussi apparaître. Le reste garde son texte, son ordre et sa grammaire. Le vocabulaire varie selon la langue. Essayez l’exemple anglais-espagnol avant de vous connecter.\n\nMettez les changements en pause, affichez l’original ou touchez Écouter. Les aides en caractères latins et les voix dépendent des langues et des téléchargements. Le changement automatique se fait sur votre appareil sans télécharger de modèle ; la traduction complète est une action distincte qui peut nécessiter un téléchargement.\n\nConnectez-vous par nom d’utilisateur et invitation. Les discussions avec vos amis sont chiffrées de bout en bout. Enregistrez une sauvegarde chiffrée de l’historique à l’endroit choisi.\n\nvBot est un chatbot ; Bot mini est une offre supplémentaire facultative. Les messages à vBot sont envoyés à notre fournisseur de réponses, et ses réponses automatiques peuvent être erronées. Le quota mensuel est indiqué avant l’abonnement.\n\nPrivacy: https://api.mambovipi.app/privacy\nTerms: https://api.mambovipi.app/terms",
+  "subscription_paragraph": null,
+  "subscription_status": "PENDING_OWNER_TRIAL_DECISION"
+}

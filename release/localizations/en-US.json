@@ -1,0 +1,13 @@
+{
+  "locale": "en-US",
+  "status": "draft_requires_review_not_for_publication",
+  "apple_locale": "en-US",
+  "google_play_locale": "en-US",
+  "app_name": "Vipi: Immersive Chat",
+  "apple_subtitle": "Learn from your everyday chats",
+  "apple_promotional_text": "Immersive chat with friends. Selected words in your messages switch into the language you are learning and back.",
+  "google_short_description": "Immersive chat with friends. Learn a language through your everyday messages.",
+  "description_without_subscription_terms": "Chat with friends as usual. Selected words and short phrases switch in place into the language you are learning. Your friends do not need to change how they write.\n\nChoose how many new words appear; previously seen words may appear too. Other wording, word order and grammar stay unchanged. Vocabulary varies by language. Try the English and Spanish example before signing in.\n\nPause switching, show the original or tap Listen. Latin-letter reading guides and voices depend on the language and downloads. Automatic switching runs on your device without a translation model download; full translation is a separate on-device action and may require one.\n\nConnect by username and invitation. Chats with friends are end-to-end encrypted. Save an encrypted history backup to a location you choose.\n\nvBot is a chatbot; Bot mini is an optional additional plan. Messages to vBot go to our response provider, and automated replies can be mistaken. The monthly reply allowance is shown before subscribing.\n\nPrivacy: https://api.mambovipi.app/privacy\nTerms: https://api.mambovipi.app/terms",
+  "subscription_paragraph": null,
+  "subscription_status": "PENDING_OWNER_TRIAL_DECISION"
+}

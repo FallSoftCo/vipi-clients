@@ -1,0 +1,13 @@
+{
+  "locale": "zh-Hant",
+  "status": "draft_requires_review_not_for_publication",
+  "apple_locale": "zh-Hant",
+  "google_play_locale": "zh-TW",
+  "app_name": "Vipi：沉浸式聊天",
+  "apple_subtitle": "在日常聊天中學習",
+  "apple_promotional_text": "和朋友照常聊天，部分詞語會切換成你正在學習的語言。",
+  "google_short_description": "和朋友聊天，在日常訊息中接觸正在學習的語言。",
+  "description_without_subscription_terms": "像平常一樣和朋友聊天。訊息中的部分詞語和短語會在原處切換成你正在學習的語言，朋友不必改變寫作方式。\n\n選擇顯示多少新詞，也可能看到之前見過的詞。其他文字、詞序和文法保持不變；詞彙因語言而異。登入前可以試用英語與西班牙語範例。\n\n可暫停切換、顯示原文或點選聆聽。拉丁字母讀音提示和語音取決於語言及下載情況。自動切換在裝置上執行，無須下載翻譯模型；全文翻譯是獨立的裝置端功能，可能需要下載。\n\n透過使用者名稱和邀請建立聯絡。與朋友的聊天採用端對端加密。你可以將加密的聊天紀錄備份儲存到自行選擇的位置。\n\nvBot 是聊天機器人，Bot mini 是可選的附加方案。傳送給 vBot 的訊息會交給我們的回覆服務供應商，自動回覆可能出錯。訂閱前會顯示每月回覆額度。\n\nPrivacy: https://api.mambovipi.app/privacy\nTerms: https://api.mambovipi.app/terms",
+  "subscription_paragraph": null,
+  "subscription_status": "PENDING_OWNER_TRIAL_DECISION"
+}
