@@ -20,7 +20,7 @@ struct VipiMark: View {
             RoundedRectangle(cornerRadius: size * 0.28).fill(Color(red: 35/255, green: 78/255, blue: 61/255))
             VipiVoiceShape(right: false).fill(Color(red: 249/255, green: 247/255, blue: 242/255))
             VipiVoiceShape(right: true).fill(Color(red: 221/255, green: 243/255, blue: 166/255))
-        }.frame(width: size, height: size).accessibilityHidden(true)
+        }.environment(\.layoutDirection, .leftToRight).frame(width: size, height: size).accessibilityHidden(true)
     }
 }
 
@@ -67,6 +67,7 @@ struct PrimaryButton: View {
 }
 
 struct IntroHeading: View {
+    @Environment(\.locale) private var locale
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     let eyebrow: LocalizedStringKey
     let title: LocalizedStringKey
@@ -74,7 +75,7 @@ struct IntroHeading: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             if !dynamicTypeSize.isAccessibilitySize {
-                Text(eyebrow).textCase(.uppercase).font(.caption.weight(.semibold)).tracking(2.1).foregroundStyle(VipiDesign.highlight)
+                Text(eyebrow).textCase(.uppercase).font(.caption.weight(.semibold)).tracking(locale.language.languageCode?.identifier == "ar" ? 0 : 2.1).foregroundStyle(VipiDesign.highlight)
             }
             Text(title).font(.system(.largeTitle, design: .serif).weight(.medium)).lineSpacing(1).fixedSize(horizontal: false, vertical: true)
             Text(detail).font(.body).foregroundStyle(VipiDesign.secondary).lineSpacing(4).fixedSize(horizontal: false, vertical: true)

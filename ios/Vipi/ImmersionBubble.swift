@@ -94,6 +94,12 @@ struct ImmersionBubble: View {
             controlLayout {
                 if embedded { metadata; Spacer(minLength: 8) }
                 HStack(spacing: stackedControls ? 12 : 0) {
+                if embedded, active, let speech {
+                    Button { speech.stop() } label: {
+                        Image(systemName: "stop.fill").font(.footnote).frame(width: 44, height: 44)
+                    }.accessibilityLabel("Stop listening")
+                        .accessibilityIdentifier("messageStop")
+                }
                 if !embedded && effectiveMode == .immersed && !result.spans.isEmpty && !voiceOver {
                     Button { paused.toggle(); revision += 1 } label: {
                         Image(systemName: paused ? "play" : "pause").font(.footnote).frame(width: 44, height: 44)

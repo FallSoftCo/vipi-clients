@@ -5,6 +5,7 @@ struct OnboardingView: View {
     @Environment(AuthenticationManager.self) private var authentication
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.locale) private var locale
     @State private var previewMode: ReadingMode = .immersed
     @State private var search = ""
     @State private var scrolling = false
@@ -20,7 +21,7 @@ struct OnboardingView: View {
                     VStack(alignment: .leading, spacing: state.onboarding == .welcome ? 24 : 32) {
                         HStack(spacing: 10) {
                             VipiMark(size: 34)
-                            Text("vipi").font(.system(size: 27, weight: .semibold, design: .rounded)).tracking(-1)
+                            Text(verbatim: "vipi").font(.system(size: 27, weight: .semibold, design: .rounded)).tracking(-1)
                             Spacer()
                             if state.onboarding != .welcome {
                                 Text(dynamicTypeSize.isAccessibilitySize
@@ -63,7 +64,7 @@ struct OnboardingView: View {
         VStack(alignment: .leading, spacing: 24) {
             IntroHeading(eyebrow: "Language learning through chat", title: "Chat with friends.\nLearn new words.", detail: "Selected words and short phrases switch between your language and the language you choose. Word order and grammar stay the same.")
             VStack(alignment: .leading, spacing: 14) {
-                HStack { Text("EXAMPLE: ENGLISH AND SPANISH").font(.caption2.weight(.semibold)).tracking(1.4); Spacer(); Image(systemName: "arrow.triangle.2.circlepath") }.foregroundStyle(VipiDesign.secondary)
+                HStack { Text("EXAMPLE: ENGLISH AND SPANISH").font(.caption2.weight(.semibold)).tracking(locale.language.languageCode?.identifier == "ar" ? 0 : 1.4); Spacer(); Image(systemName: "arrow.triangle.2.circlepath") }.foregroundStyle(VipiDesign.secondary)
                 ImmersionBubble(result: .complete(ImmersionPreview.result), mode: previewMode, speech: speech, interactionPaused: scrolling)
                 if let error = speech.error {
                     Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary)
@@ -147,7 +148,7 @@ struct OnboardingView: View {
 
     private var bottomAction: some View {
         VStack(spacing: 12) {
-            PrimaryButton(title: state.onboarding == .welcome ? "Choose languages" : state.onboarding == .language ? "Continue with \(VipiLanguage.named(state.targetLanguage).localizedName)" : "Continue to sign in", busy: authentication.busy) {
+            PrimaryButton(title: state.onboarding == .welcome ? "Choose languages" : state.onboarding == .language ? "Continue" : "Continue to sign in", busy: authentication.busy) {
                 switch state.onboarding {
                 case .welcome: advance(.language)
                 case .language: advance(.account)
