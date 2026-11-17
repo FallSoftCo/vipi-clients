@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 17, 2026, 09:09 UTC. Vipi remains restricted staging. Neither
+Updated November 17, 2026, 09:30 UTC. Vipi remains restricted staging. Neither
 app has been submitted for public review. Prior revisions and the linked
 receipts retain historical actions; do not replay them.
 
@@ -92,8 +92,12 @@ requires active Base access. Starting Vipi enrolls neither subscription.
 See [Google](../qa/subscriptions/cardless-trial-20261117-r01/google-base-offer.json)
 and [Apple](../qa/subscriptions/cardless-trial-20261117-r01/apple-base-offer.json).
 
-Restricted staging runs backend `84c3ff8`, schema `20261117_01`, activated once
-and independently checked. Three owned subjects are admitted: two complimentary
+Restricted staging runs the `84c3ff8` baseline plus the narrowly scoped
+`privacy-language-20261117-r01` disclosure revision, schema `20261117_01`.
+The first privacy activation rolled back after a faulty case-sensitive header
+check. A fresh activation with the corrected check completed; public HTTPS
+returns the disclosure and `no-store`. Environment, schema, push worker and
+timers were preserved. See [rollout](../qa/backend/privacy-language-rollout-20261117-r02/receipt.json). Three owned subjects are admitted: two complimentary
 reviewers and a separate company tester. Public registration is closed and
 subscription enforcement is disabled on staging. A proposed production configuration
 passed the deployed settings validators in memory: production mode, enforced
@@ -188,10 +192,6 @@ its allowance; it is not a typical-latency or quality benchmark.
 - Finish exact version 3 runtime checks for the qualified session and short-message
   routing fixes. Preserve the uncertain original send without replay; resolve its
   disposition before any retained-account update or automatic retry.
-- Deploy the matching detected-language privacy detail before the new Android
-  candidate becomes publicly available. An immutable candidate with only the
-  public-page production change is staged and standalone-tested; it is not active.
-  Activation must reconcile live API connections and the original message hold.
 - Complete current Apple qualification when its signing dependency changes,
   actual purchase/restore and production notification evidence.
 - Reconcile store artifacts, regional export requirements and screenshots.
