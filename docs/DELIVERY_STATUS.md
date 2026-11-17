@@ -1,8 +1,45 @@
 # Current delivery status
 
-Updated November 17, 2026. Vipi remains restricted staging. Neither
-app has been submitted for public review. Prior revisions and the linked
-receipts retain historical actions; do not replay them.
+Updated November 17, 2026. Neither app has been submitted for public review.
+The existing backend is in production mode with subscription enforcement;
+the shared Fallsoft login and revised native UI are not deployed there.
+Prior revisions and linked receipts retain historical actions; do not replay them.
+
+## Latest reconciled state
+
+- Google production draft contains **1.0.3 (4)**, saved once with 14 localized
+  release notes. Console checks passed; no review or public rollout occurred.
+  See [version 4 draft](../release/google-production-v4-preparation-20261117.json).
+- Apple **1.0 (3)** was uploaded, processed and attached to the version draft.
+  The existing internal group has builds 2 and 3 Testing. The Mac still showed
+  installed build 2 after the original attempted update; that attempt was not
+  repeated. See [latest readback](../qa/release/apple-signed-build3-20261117-r01/asc-update-followup.json).
+- Both old store artifacts predate the user's rejected UI and current
+  single-tap redesign. They must not be submitted as the accepted final product.
+- Native chat now offers one-tap word pronunciation, message translation with
+  automatic pronunciation, and one translation after a selection-handle release.
+  Actual native handle tests passed on both platforms. Android's previously
+  missed handle-release request was fixed and its original failure retained.
+  See [Android evidence](../qa/immersion/android-native-handles-20261117-r15/README.md)
+  and [native UI evidence](../qa/immersion/ui-native-20261117-r13/README.md).
+- Arabic source replacements now preserve joined orthographic words. The
+  integrated iOS app was visually verified; this does not establish unrestricted
+  Arabic reading coverage. See [native rendering](../qa/immersion/arabic-native-ui-20261117-r01/README.md).
+- Shared Google sign-in completed once through native public PKCE; its actual
+  signed issuer is pinned in source. This does not qualify the separate
+  confidential browser callback or activate the shared deployment.
+  See [authority proof](../backend/qa/shared-session-authority-20261117.json).
+- Native deletion copy explicitly names Vipi and preserves the shared Fallsoft
+  sign-in in all 13 UI locales. Global Fallsoft deletion remains disabled until
+  all affected applications are covered. See [copy validation](../qa/identity/vipi-only-deletion-copy-20261117.json).
+- Native identity-link manager tests passed. Local StoreKit tests encountered
+  an Xcode/simulator configuration error; their failure is separate from the
+  older successful TestFlight sandbox purchases described below.
+
+Remaining release work includes the reviewed shared-identity backend deployment,
+final native integration and store-signed artifacts, current reviewer access,
+exact corresponding source and updated screenshots. A staged candidate is not
+an activation, and an uploaded build is not a submission.
 
 ## Artifacts and stores
 
@@ -75,10 +112,14 @@ Never repeat the completed upload.
 Apple **1.0 (3)** incorporates the expiry-specific sign-in copy and was
 independently signed and qualified; its 13 compiled localization catalogs and
 resource counts were inspected. The dedicated expiry UI path has not been
-exercised on build 3. The Apple owner reports Transporter delivery and completed
-processing; the exact upload receipt is pending. Do not infer public review,
-release association or TestFlight installation from that report. The build 3
-source supplement is prepared but not yet published. See [qualification](../qa/release/apple-signed-build3-20261117-r01/qualification.json)
+exercised on build 3. Transporter delivery and processing were subsequently
+recorded, and App Store Connect reload confirmed build 3 attached to the draft.
+The attempted Mac update did not establish installation of build 3 and was not
+replayed. See [delivery](../qa/release/apple-signed-build3-20261117-r01/upload-processing.json)
+and [readback](../qa/release/apple-signed-build3-20261117-r01/asc-update-followup.json).
+The expiry source supplement was published separately; it predates the current
+redesign. See [publication](../release/client-expiry-source-supplement-20261117/publication-receipt.json)
+and [qualification](../qa/release/apple-signed-build3-20261117-r01/qualification.json)
 and [source scope](../qa/release/apple-signed-build3-20261117-r01/source-and-scope.json);
 their upload=false fields record the earlier pre-upload check.
 
@@ -149,17 +190,16 @@ created its profile and showed Swahili with the 30-day cardless end date. The
 backend independently confirmed its original trial dates and one active device.
 The two new QA identities were administratively verified; their use does not
 qualify self-service signup or email verification delivery. See [peer qualification](../qa/owned-peer-v3-20261117-r01/receipt.json).
-Public registration is closed and
-subscription enforcement is disabled on staging. A proposed production configuration
-passed the deployed settings validators in memory: production mode, enforced
-access, no subject allowlist and Apple Production, preserving the scoped reviewer
-and sandbox tester sets. A new private candidate is now rebased on the current
-environment, whose SHA-256 is
-`dec21a5fd082daeb98ef3742743cd4c8449576aff3b0f5a0bf8b6be57b48d8d1`.
-It preserves both reviewer IDs and both scoped sandbox tester IDs and changes
-only those four settings. It has not been activated. This establishes
-configuration validity and credential-file readability, not public signup or
-provider authorization. See [candidate receipt](../release/production-settings-20261117-r03/receipt.json).
+The subsequent four-setting r03 production activation completed once:
+production mode, enforced subscriptions, no subject allowlist and Apple
+Production, preserving reviewer and restricted sandbox sets. The active
+environment hash is
+`cee1262cae300c1c4eca3aa24424ac23ae42862fa4a88e52747faee3a1696a83`.
+The release remains `privacy-language-20261117-r01`, schema `20261117_01`,
+with the legacy Vipi identity authority. The before/after profile and trial
+digest was unchanged; readiness returned 200. This activation did not deploy
+later shared-identity or deletion migrations and does not prove ordinary
+customer signup. See [activation reconciliation](../release/production-settings-20261117-r03/executed-reconciliation.json).
 The WorkOS key was rotated once: the old key returned 401, the new key and API
 readiness returned 200, and push, database and timers were preserved. The old
 environment and r02 candidate must not be restored. See [rotation](../release/workos-key-replacement-20261117-r01/receipt.json).

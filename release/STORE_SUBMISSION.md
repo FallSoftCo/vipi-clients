@@ -1,5 +1,27 @@
 # Store submission preparation
 
+## Current release boundary — November 17
+
+The latest saved drafts are Apple **1.0 (3)** and Google **1.0.3 (4)**.
+Neither has been submitted for public review. Both predate the user's rejected
+UI and the current single-tap redesign; prepare and qualify new signed artifacts
+before replacing them. Do not repeat their completed uploads or draft saves.
+See [current reconciled status](../docs/DELIVERY_STATUS.md),
+[Apple readback](../qa/release/apple-signed-build3-20261117-r01/asc-update-followup.json)
+and [Google draft](google-production-v4-preparation-20261117.json).
+
+The existing backend's four-setting production activation completed once.
+Shared Fallsoft identity and later deletion/restore migrations are prepared in
+source but not activated. A successful native Google PKCE exchange is not a
+backend cutover or a confidential browser callback qualification. Global
+Fallsoft deletion remains disabled until the other applications are covered.
+
+The historical actions below retain their original build numbers and limits.
+Use the current status and exact receipts, not an older paragraph, to determine
+what has already happened.
+
+## Preserved store preparation
+
 The app is **Vipi**, with **Vipi: Immersive Chat** as the saved listing
 name on both stores and **Immersive chat with friends.** as the opening headline. Private Apple
 app `6832624092` belongs to the company account, bundle `co.fallsoft.vipi`.

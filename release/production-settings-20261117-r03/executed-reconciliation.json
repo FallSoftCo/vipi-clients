@@ -1,0 +1,27 @@
+{
+  "scope": "Reconciliation of the already-completed production settings activation; no new action",
+  "execution_receipt_sha256": "719a3d31eb244a0d2677ad698df601bba8760043c75ecfec456efb3724663231",
+  "state": "completed_once",
+  "environment_sha256": "cee1262cae300c1c4eca3aa24424ac23ae42862fa4a88e52747faee3a1696a83",
+  "release": "/opt/vipi/releases/privacy-language-20261117-r01",
+  "schema": "20261117_01",
+  "public_settings": {
+    "VIPI_ENVIRONMENT": "production",
+    "VIPI_WORKOS_CLIENT_ID": "client_01M6VYVQQ9GWVNS95DFGABXEW9",
+    "VIPI_WORKOS_ISSUER": "https://api.workos.com",
+    "VIPI_SHARED_IDENTITY_TRANSITION_ENABLED": null,
+    "VIPI_GLOBAL_DELETION_ENABLED": null,
+    "VIPI_ENFORCE_SUBSCRIPTIONS": "true",
+    "VIPI_APPLE_ENVIRONMENT": "Production"
+  },
+  "health": {
+    "/health/live": 200,
+    "/health/ready": 200
+  },
+  "last_read_only_observed_at": "2026-11-17T19:35:41.104570+00:00",
+  "profile_and_trial_digest_unchanged": true,
+  "users_preserved": 9,
+  "prior_preparation_receipt": "receipt.json records the earlier prepared-not-applied stage, not the final outcome",
+  "shared_identity_migrations_deployed": false,
+  "new_execution": false
+}
