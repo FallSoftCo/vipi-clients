@@ -6,7 +6,7 @@ In an extracted, writable copy of that archive, check the exact baseline and app
 
 ```sh
 printf '%s  %s\n' 995a42d643e608ca7b9928e18eb656dc07c5d19ffc1868054e150b15364c1112 ios/project.yml | sha256sum -c -
-patch --batch --forward -p1 < /path/to/build-number.patch
+patch --batch --forward -p1 < /path/to/apple-build2-source.patch
 printf '%s  %s\n' 69407b73a8eafa8fe0a5f7e79018c75b0744babc3789cdc5f14af50cfa8665e9 ios/project.yml | sha256sum -c -
 ```
 
