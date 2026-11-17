@@ -1,0 +1,12 @@
+{
+  "observed_utc": "2026-11-17T13:58:26.552153+00:00",
+  "scope": "One Bot mini Annual purchase on owned TestFlight QA account",
+  "product": "vipi.botmini.annual",
+  "apple_confirmation": "One month free then $48/year; explicitly testing only and no charge",
+  "subscribe_confirmations": 1,
+  "result": "Your purchase was successful; Bot mini subscription active and free trial ends November 18, 2026",
+  "base": "Already active; no additional Base purchase",
+  "backend_entitlement_and_allowance": "Independent baseline pending",
+  "vbot_messages": 0,
+  "evidence": "/home/ai/Development/investigations/vipi-resume-20261116-r01/apple-bot-sandbox-purchase-r01/"
+}
