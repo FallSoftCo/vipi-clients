@@ -23,13 +23,13 @@
     "dispatch_count": 1,
     "prior_inventory": "App Store Connect and Transporter showed only build 1 before dispatch",
     "transporter_result": "delivered 2026-11-17 07:30 America/New_York",
-    "processing": "The app is processing, as shown by Transporter after delivery",
+    "processing": "The app has finished processing, as shown by Transporter at 2026-11-17 07:33 America/New_York.",
     "testflight_distribution": false,
     "app_review_submission": false
   },
-  "observed_at_utc": "2026-11-17T12:31:28.064509+00:00",
+  "observed_at_utc": "2026-11-17T12:33:31.437603+00:00",
   "limitations": [
-    "Processing completion and App Store Connect compliance are not established by this receipt.",
+    "Transporter processing completion does not establish App Store Connect export compliance or build association.",
     "No live message, purchase, TestFlight distribution, or review submission was performed."
   ]
 }
