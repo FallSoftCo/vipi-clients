@@ -1,0 +1,12 @@
+{
+  "capture": "One coordinated TestFlight Listen; ScreenCaptureKit application filter, audio output only, no microphone; process isolation not independently established",
+  "source_sha256": "ddb796a9cd8045f28fe6fb10cdba042a0e76edd4b694c3c59443f90d921b9644",
+  "executable_sha256": "87bc76fdc70ed11909811c129f3c179c830a9862259ed4b39cbd2f2cb903023b",
+  "private_original": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/sck-audio-qa-r01/vipi-listen.wav",
+  "original_sha256": "06f2d3fe55fcd556b3a68da404257fd29f8af0deef02287930dc35496e43cee8",
+  "ffprobe": {"codec":"pcm_f32le", "sample_rate":48000, "channels":2, "bits_per_sample":32, "duration_seconds":15.56, "bytes":5979136},
+  "analysis": {"silence_threshold_db":-45, "silence_minimum_seconds":0.35, "non_silent_window_seconds":[7.98525,9.083771], "peak_db":-4.734045, "rms_db":-32.825050, "channel_difference_peak_db":"-inf", "helper_clipped_samples":0},
+  "private_trim": "/home/ai/Development/investigations/vipi-sck-audio-20261117-r01/vipi-listen-trim-r01.wav",
+  "trim": {"source_start_seconds":7.65,"duration_seconds":1.8,"codec":"pcm_s16le","sha256":"83acaa8b176ea72fac6ba5fec8b9e0e999ffc24131700c6e4fbf1fa408fb8c65"},
+  "limitations": "The WAV decodes and contains nonzero matching stereo channels; format warning did not prevent a readable file. PCM metrics do not establish speech identity, linguistic accuracy, or isolation from other app audio. The short non-silent region requires listening before describing content. No new recording."
+}
