@@ -25623,37 +25623,37 @@
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Nachricht vBot"
+            "value": "Nachricht an vBot"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "メッセージ vBot"
+            "value": "vBotにメッセージを送る"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "رسالة vBot"
+            "value": "أرسل رسالة إلى vBot"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "메시지 vBot"
+            "value": "vBot에게 메시지 보내기"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "消息vBot"
+            "value": "给 vBot 发消息"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "消息vBot"
+            "value": "傳訊息給 vBot"
           }
         },
         "fr": {
