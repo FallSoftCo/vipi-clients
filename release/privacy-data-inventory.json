@@ -832,5 +832,24 @@
       ],
       "result": "New familiarity counters stay in existing encrypted local account vault; no upload code introduced. Automatic word selection still uses accepted local mappings; diagnostic machine translations remain inactive. Existing chat-backup exclusions are explicit."
     }
-  ]
+  ],
+  "candidate_language_detection_20261117": {
+    "state": "candidate_not_in_uploaded_v2_or_apple_build1",
+    "android": "Bundled com.google.mlkit:language-id:17.0.6; protected text masked before local identification. No model download required. Existing translation SDK remains.",
+    "apple": "Candidate uses native NLLanguageRecognizer fallback after existing reliable CLD2; no added third-party SDK. Qualification pending.",
+    "data_difference": "Google documents identified language tags in addition to operational installation/app/device/performance metrics. Local classification does not imply zero SDK telemetry.",
+    "existing_google_categories": "Saved form already declares required/shared App interactions, Diagnostics, Device or other IDs for ML Kit operational data; candidate adds detected-language event detail within the retained metrics assessment.",
+    "policy_source": "backend/vipi/public_pages.py draft now explicitly mentions detected language tags; not yet deployed",
+    "qualification_limit": "First synthetic probe inherited INTERNET and scheduled telemetry. Later isolated wrapper APK removes INTERNET in merged manifest. Offline harness behavior does not disable SDK telemetry in the real chat app.",
+    "official_sources": [
+      "https://developers.google.com/ml-kit/language/identification/android?hl=en",
+      "https://developers.google.com/ml-kit/android-data-disclosure"
+    ],
+    "reviewed_at_utc": "2026-11-17T07:29:51.489897+00:00",
+    "remaining": [
+      "Regenerate notices from exact resolved release dependencies",
+      "Verify final release model inclusion, dependency graph and network/data inventory",
+      "Deploy matching policy before public availability"
+    ]
+  }
 }

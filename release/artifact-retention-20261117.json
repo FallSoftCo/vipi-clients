@@ -56,5 +56,16 @@
         "local_retired": true
       }
     }
-  ]
+  ],
+  "superseded_source_archive_retirement": {
+    "at": "2026-11-17T07:33:55Z",
+    "revisions": [
+      "r03",
+      "r05",
+      "r09"
+    ],
+    "allocated_bytes": 1709330432,
+    "basis": "Unpublished superseded archives only; every member preserved either unchanged in currentr11 or by retained Git blob. Privileged all-process descriptor check found no consumers. Currentr11/publishedr10 archives, metadata and source retained.",
+    "receipt": "/home/ai/Development/investigations/vipi-ux-review-20261117-r01/disk-cleanup-20261117-r01/obsolete-source-archives-retirement.json"
+  }
 }
