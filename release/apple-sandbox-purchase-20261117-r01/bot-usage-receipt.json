@@ -1,0 +1,21 @@
+{
+  "scope": "one owned QA vBot reply; read-only backend usage observation",
+  "observed_at_utc": "2026-11-17T14:01:26.612702Z",
+  "period": "2026-11",
+  "baseline_counted": 0,
+  "reservation_count": 1,
+  "reservation_state": "settled",
+  "actual_cost_nano_usd": 23100,
+  "usage_bucket_reserved_nano_usd": 0,
+  "usage_bucket_spent_nano_usd": 23100,
+  "counted_replies": 1,
+  "configured_monthly_replies": 150,
+  "remaining_replies": 149,
+  "private_readiness_http": 200,
+  "ui_evidence": "Apple owner reported one prompt and reply, including automatic music/ongaku display; this backend receipt does not itself inspect message content.",
+  "limits": [
+    "Request identifier retained privately; no prompt or response text is included.",
+    "No provider call, prompt resend, purchase or mutation was performed by this observation.",
+    "One request does not establish general latency, quality or all-language coverage."
+  ]
+}
