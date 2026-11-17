@@ -15,5 +15,17 @@
   "recovery_hold_and_db_admission_checked": true,
   "baseline_entitlements": 1,
   "baseline_apple_notification_receipts": 1,
-  "no_purchase_or_configuration_change": true
+  "no_purchase_or_configuration_change": true,
+  "provenance_comparison": {
+    "historical_sandbox_test": "qa/backend/apple-sandbox-notification-r01/receipt.json",
+    "key_id_issuer_bundle_and_credential_path_match": true,
+    "private_key_and_derived_public_key_fingerprints_match_original_provisioning": true,
+    "historical_and_current_sdk_api_client_bytes_match": true,
+    "sdk_version": "3.1.2",
+    "host_ntp_synchronized": true,
+    "intended_difference": "Production endpoint instead of Sandbox",
+    "limitation": "No observed credential or SDK drift; Apple-side key validity and precise HTTP 401 cause remain unproven.",
+    "plausible_first_release_gate": "https://developer.apple.com/forums/thread/806452",
+    "interpretation": "Apple staff describes a first-production-release prerequisite for production APIs; applicability to this particular TEST 401 is plausible, not proven. Production TEST can be qualified after first release rather than presumed possible before it; prelaunch Sandbox purchase and notification qualification remain separate."
+  }
 }

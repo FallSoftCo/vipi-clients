@@ -32,6 +32,15 @@ Its SHA-256 is `a7a1108bcc98f303a8696a3fa67943d7e1ff8c42234a33b7c0506d1744b56ece
 The earlier export without a push entitlement was rejected and never uploaded.
 Neither app has been submitted for app review.
 
+The Apple production notification URL was saved and reloaded; its configured
+notification version was not displayed. One production TEST request returned
+HTTP 401 and was not retried. Credential and SDK provenance matched the earlier
+successful sandbox test. Apple staff describes a first-release prerequisite for
+production APIs, a plausible but unproven explanation for this response; see
+the [receipt](../qa/backend/apple-production-test-20261117-r01/receipt.json).
+Production TEST qualification may follow the first release; prelaunch sandbox
+purchase and notification qualification remain separate.
+
 The Play verifier has Vipi-only read/financial/subscription permissions. A real
 read-only Publisher API call returned both active annual products. Its backend
 provider is configured on restricted staging. Google's RTDN publisher now has
