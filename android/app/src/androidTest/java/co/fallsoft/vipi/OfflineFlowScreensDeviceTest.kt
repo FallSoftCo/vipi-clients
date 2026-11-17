@@ -65,7 +65,7 @@ class OfflineFlowScreensDeviceTest {
             state.value = value
         }
         val device = UiDevice.getInstance(inst)
-        val out = File(base.filesDir, "offline-flow-plan-r04").apply { mkdirs() }
+        val out = File(base.filesDir, "offline-flow-plan-r05").apply { mkdirs() }
         var scenario: ActivityScenario<MainActivity>? = null
         try {
             withContext(Dispatchers.Main) {
@@ -115,8 +115,13 @@ class OfflineFlowScreensDeviceTest {
             assertTrue(device.takeScreenshot(File(out, "backup-restore.png")))
             scenario!!.onActivity { setState(chat, "needsDeviceRecovery", true); setState(chat, "ready", false); model.navigate(Screen.HOME) }
             assertTrue(device.wait(Until.hasObject(By.textContains("another device")), 10_000))
-            assertFalse("New chats require a ready device", device.findObject(By.text("Start a conversation")).isEnabled)
+            SystemClock.sleep(500)
+            device.dumpWindowHierarchy(File(out, "device-recovery.xml"))
             assertTrue(device.takeScreenshot(File(out, "device-recovery.png")))
+            var node = device.findObject(By.text("Start a conversation"))
+            while (node != null && node.className != "android.widget.Button") node = node.parent
+            assertNotNull("Button semantics missing", node)
+            assertFalse("New chats require a ready device", node!!.isEnabled)
             scenario!!.onActivity {
                 setState(chat, "needsDeviceRecovery", false); setState(chat, "ready", true)
                 setState(model, "subscriptions", plans)
