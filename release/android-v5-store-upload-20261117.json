@@ -1,0 +1,23 @@
+{
+  "state": "uploaded_and_production_draft_saved_not_submitted",
+  "frozen_source": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+  "version_code": 5,
+  "version_name": "1.0.4",
+  "artifact_id": "4860252483959584111",
+  "aab_sha256": "108e1152a8bf50d93e2d4ab9fd4d464aaf5ca04a9a36a25fc3f6bd0c6383714d",
+  "actual_upload_count": 1,
+  "production_release_id": "2",
+  "production_release_name": "1.0.4 (5)",
+  "pending_changes": 24,
+  "notes_locales": 14,
+  "new_install_size_observed_MB": 418,
+  "managed_publishing": "off",
+  "quick_checks": "Running at last observation",
+  "public_review_submitted": false,
+  "remaining": [
+    "Final native shared reviewer login and vBot access check",
+    "Refresh current store screenshots and reviewer credentials",
+    "Publish exact client source supplement",
+    "Inspect quick checks and submit once"
+  ]
+}

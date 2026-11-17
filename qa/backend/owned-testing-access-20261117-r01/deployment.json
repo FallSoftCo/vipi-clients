@@ -1,0 +1,65 @@
+{
+  "schema": "vipi-owned-testing-access-deployment-1",
+  "state": "active_independently_verified",
+  "source_revision": "85250faa5f03c8f683c4c875c09e3ca13e6fdd20",
+  "client_source_freeze": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+  "focused_tests": {
+    "unique_tests_passed": 44,
+    "initial_synchronous_passes": 29,
+    "initial_async_fixture_setup_errors": 15,
+    "unchanged_async_rerun_passes": 15,
+    "test_source": "backend/qa/owned-identity-testing-access-20261117.json",
+    "limits": "Isolated SQLite and mocked verifier fixtures; not real store/provider/native sign-in proof."
+  },
+  "activation": {
+    "completed_at": "2026-11-17T23:27:32Z",
+    "actual_activations": 1,
+    "receipt_sha256": "bd2043e00723122560a122e37668f31140ff9e4d48a8910e09b1552c40ec4ffc",
+    "reviewed_plan_sha256": "bbb81a588fba6b473c428e7b9877a563fb969d96bbac70f4f70eb2343f997505",
+    "script_sha256": "622cf3b57ba00e3ef8c726702777a09f29b0a4d74f5ea2c7ebc12eb8886715d8",
+    "runtime_manifest_sha256": "61e77331d2ff6ab5f568500833ddd86ff9eecbf67024fa0d2f7626369736a883",
+    "environment_sha256": "5036a4c602c56cabd08642d61456b0d7221d35affb9b288272cf0eb6ec11e866",
+    "actual_code_changes": [
+      "backend/vipi/config.py",
+      "backend/vipi/subscriptions.py"
+    ],
+    "packaging_metadata": "Matching distribution RECORD refreshed; dependencies retained without installation.",
+    "schema_unchanged": "20261117_05",
+    "scope": "API restart and two naturally drained worker timers; push and shared services preserved.",
+    "data_migration_or_restore": false,
+    "store_purchase_or_charge": false,
+    "owner_or_reviewer_profile_precreated": false
+  },
+  "independent_verification": {
+    "observed_at": "2026-11-17T23:29:40.061674+00:00",
+    "receipt_sha256": "44c04f7cce72577b48465a880ed0122c25d5872391c85d3b30e2cd35d294ac89",
+    "runtime_files_verified": 2295,
+    "exact_configured_shared_identities": 2,
+    "existing_UUID_grants_preserved": 2,
+    "every_other_setting_unchanged": true,
+    "API_effective_subject_set_matches_private_binding": true,
+    "internal_readiness_http": 200,
+    "timers_and_preserved_services_verified": true,
+    "existing_identity_device_trial_state_preserved": true,
+    "owner_profile_count": 0,
+    "new_Google_reviewer_profile_count": 0,
+    "auth_profile_message_or_provider_calls": 0
+  },
+  "access_behavior": {
+    "setting": "VIPI_REVIEWER_IDENTITY_SUBJECTS",
+    "matching": "Exact verified canonical shared identity stored on the ordinary User row; no email matching or legacy/raw-subject impersonation.",
+    "grant": "Base and Bot mini review_complimentary; no fabricated purchase or trial enrollment.",
+    "ordinary_signup": "Username choice and original 30-day Base period remain unchanged.",
+    "suspended_deleted_or_missing_accounts": "Not bypassed.",
+    "vBot_monthly_reply_limit": 150,
+    "vBot_uses_same_entitlement_and_quota_paths": true,
+    "existing_provider_key_configured": true,
+    "actual_vBot_request_made_in_this_qualification": false
+  },
+  "remaining_real_native_checks": [
+    "Fresh shared sign-in for each store-specific reviewer in the final review build, including normal username setup if asked.",
+    "Visible Base/Bot review-access markers and device readiness for the new Google reviewer.",
+    "One consented real vBot response under the existing native QA authorization and visible allowance accounting; no automatic replay of an uncertain request."
+  ],
+  "identities_credentials_and_host_private_paths_included": false
+}
