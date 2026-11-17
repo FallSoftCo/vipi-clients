@@ -13,6 +13,22 @@ with friends.** opening the description. Apple uses **Learn from your everyday
 chats** as its subtitle. Google's title, short description and full description
 were reloaded and compared exactly with the canonical metadata.
 
+The Google default listing is now ready to send for review. Its asset declaration
+was saved and reloaded: the original icon and feature artwork are labeled as
+created or edited with AI; the unretouched app screenshots are not. A first
+production draft reuses the already-uploaded version 1 bundle. Its preview has
+one setup error, because launch countries are not yet selected. No additional
+bundle upload, review submission or rollout occurred. See the
+[listing and draft receipt](../release/google-play-listing-production-draft-20261117-r01.json).
+
+Apple's [privacy disclosure](../release/apple-privacy-20261117-r01.json) is
+published. Reviewer access and manual release are saved. Screenshots, build
+association and regional declarations remain in progress. The owner has now
+requested worldwide availability with appropriate localizations, including
+France. Eleven immersion languages are supported, but the existing release
+interfaces are English; native UI and store localizations are new work, not
+capabilities of the uploaded artifacts. The original artifacts remain preserved.
+
 Google Play accepted the exact signed Android bundle once and published
 internal release `1` once to the single owned company tester. It is **available
 to internal testers**, **not reviewed**, and not publicly available. The final
