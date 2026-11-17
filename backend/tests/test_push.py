@@ -131,8 +131,9 @@ async def test_apns_payload_matches_native_background_callback_fixture(tmp_path,
     def handler(request):
         requests.append(request)
         return httpx.Response(200, json={})
-    providers = PushProviders(settings(apns_private_key_path=str(key_path),
-        apns_key_id="fixture-key-id", apns_team_id="fixture-team"), transport=httpx.MockTransport(handler))
+    providers = PushProviders(settings(apns_private_key_path=str(key_path), apns_key_id="fixture-key-id",
+        apns_sandbox_private_key_path=str(key_path), apns_sandbox_key_id="sandbox-fixture-key-id",
+        apns_team_id="fixture-team"), transport=httpx.MockTransport(handler))
     try:
         assert await providers.send(SimpleNamespace(provider="apns", environment=environment),
             "fixture-device-token", NOW, NOW + timedelta(hours=72)) == "sent"
@@ -174,3 +175,63 @@ async def test_dispatch_deadline_leaves_unclaimed_notifications_for_next_pass(db
     async with db.sessions() as session:
         job = await session.get(PushOutbox, "bob-phone")
         assert job.lease_token is None and job.attempts == 0
+
+
+async def test_apns_credentials_are_separate_and_never_fall_back(tmp_path):
+    import jwt
+    production = ec.generate_private_key(ec.SECP256R1())
+    sandbox = ec.generate_private_key(ec.SECP256R1())
+    paths = []
+    for name, key in (("production", production), ("sandbox", sandbox)):
+        path = tmp_path / (name + ".pem")
+        path.write_bytes(key.private_bytes(serialization.Encoding.PEM,
+            serialization.PrivateFormat.PKCS8, serialization.NoEncryption()))
+        paths.append(path)
+    captured = []
+    def handler(request):
+        captured.append(request)
+        return httpx.Response(410, json={"reason": "Unregistered"}) if len(captured) == 3 else httpx.Response(200, json={})
+    config = settings(apns_private_key_path=str(paths[0]), apns_key_id="production-key",
+        apns_sandbox_private_key_path=str(paths[1]), apns_sandbox_key_id="sandbox-key", apns_team_id="fixture-team")
+    providers = PushProviders(config, transport=httpx.MockTransport(handler))
+    try:
+        for environment, expected in (("production", "sent"), ("sandbox", "sent"), ("production", "invalid")):
+            assert await providers.send(SimpleNamespace(provider="apns", environment=environment),
+                "fixture-device-token", NOW, NOW + timedelta(hours=1)) == expected
+        assert [r.url.host for r in captured] == ["api.push.apple.com", "api.sandbox.push.apple.com", "api.push.apple.com"]
+        assert all(r.headers["apns-topic"] == "co.fallsoft.vipi" for r in captured)
+        for request, key, expected_kid in zip(captured, (production, sandbox, production),
+                                               ("production-key", "sandbox-key", "production-key")):
+            token = request.headers["authorization"].split()[1]
+            assert jwt.get_unverified_header(token)["kid"] == expected_kid
+            assert jwt.decode(token, key.public_key(), algorithms=["ES256"], options={"verify_iat": False})["iss"] == "fixture-team"
+    finally:
+        await providers.close()
+    captured.clear()
+    production_only = PushProviders(settings(apns_private_key_path=str(paths[0]), apns_key_id="production-key",
+        apns_team_id="fixture-team"), transport=httpx.MockTransport(handler))
+    try:
+        assert await production_only.send(SimpleNamespace(provider="apns", environment="sandbox"),
+            "fixture-device-token", NOW, NOW + timedelta(hours=1)) == "retry"
+        assert await production_only.send(SimpleNamespace(provider="apns", environment="invalid"),
+            "fixture-device-token", NOW, NOW + timedelta(hours=1)) == "retry"
+        assert captured == []
+    finally:
+        await production_only.close()
+
+
+@pytest.mark.parametrize("sandbox", [
+    {"apns_sandbox_key_id": "sandbox-id"},
+    {"apns_sandbox_private_key_path": "/synthetic/key.pem"},
+    {"apns_sandbox_key_id": "sandbox-id", "apns_sandbox_private_key_path": "/synthetic/key.pem"},
+    {"apns_sandbox_key_id": "sandbox-id", "apns_team_id": "team"},
+    {"apns_sandbox_private_key_path": "/synthetic/key.pem", "apns_team_id": "team"},
+])
+def test_apns_sandbox_partial_configuration_is_rejected(sandbox):
+    with pytest.raises(ValueError, match="APNs sandbox requires key ID, private key path and team ID"):
+        settings(**sandbox)
+
+def test_apns_sandbox_complete_configuration_is_accepted():
+    configured = settings(apns_sandbox_key_id="sandbox-id", apns_sandbox_private_key_path="/synthetic/key.pem",
+                          apns_team_id="team")
+    assert configured.apns_sandbox_key_id == "sandbox-id"

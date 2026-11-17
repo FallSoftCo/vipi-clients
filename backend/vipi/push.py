@@ -79,8 +79,11 @@ class PushProviders:
             from google.oauth2 import service_account
             self.credentials = service_account.Credentials.from_service_account_file(settings.fcm_service_account_path,
                 scopes=["https://www.googleapis.com/auth/firebase.messaging"])
-        self.apns_key = Path(settings.apns_private_key_path).read_bytes() if settings.apns_private_key_path else None
-        self.apns_jwt, self.apns_issued = None, 0
+        self.apns_keys = {
+            "production": (settings.apns_key_id, Path(settings.apns_private_key_path).read_bytes() if settings.apns_private_key_path else None),
+            "sandbox": (settings.apns_sandbox_key_id, Path(settings.apns_sandbox_private_key_path).read_bytes() if settings.apns_sandbox_private_key_path else None),
+        }
+        self.apns_tokens = {}
 
     async def send(self, registration, token, now, expires_at):
         """sent, invalid, or retry; only a definitive invalid-token reply retires it."""
@@ -109,16 +112,22 @@ class PushProviders:
                     return "sent"
                 errors = response.json().get("error", {}).get("details", [])
                 return "invalid" if any(e.get("errorCode") == "UNREGISTERED" for e in errors) else "retry"
-            if not all((self.apns_key, self.settings.apns_key_id, self.settings.apns_team_id)):
+            environment = registration.environment
+            if environment not in self.apns_keys:
+                return "retry"
+            key_id, key = self.apns_keys[environment]
+            if not all((key, key_id, self.settings.apns_team_id)):
                 return "retry"
             timestamp = int(now.timestamp())
-            if not self.apns_jwt or timestamp - self.apns_issued >= 1200:
-                self.apns_jwt = jwt.encode({"iss": self.settings.apns_team_id, "iat": timestamp}, self.apns_key,
-                    algorithm="ES256", headers={"kid": self.settings.apns_key_id})
-                self.apns_issued = timestamp
-            host = "api.sandbox.push.apple.com" if registration.environment == "sandbox" else "api.push.apple.com"
+            cached = self.apns_tokens.get(environment)
+            if cached is None or timestamp - cached[1] >= 1200 or timestamp < cached[1]:
+                signed = jwt.encode({"iss": self.settings.apns_team_id, "iat": timestamp}, key,
+                    algorithm="ES256", headers={"kid": key_id})
+                cached = (signed, timestamp)
+                self.apns_tokens[environment] = cached
+            host = "api.sandbox.push.apple.com" if environment == "sandbox" else "api.push.apple.com"
             response = await self.http.post("https://" + host + "/3/device/" + token,
-                headers={"authorization": "bearer " + self.apns_jwt, "apns-topic": self.settings.apns_bundle_id,
+                headers={"authorization": "bearer " + cached[0], "apns-topic": self.settings.apns_bundle_id,
                     "apns-push-type": "alert", "apns-priority": "10", "apns-expiration": str(timestamp + ttl),
                     "apns-collapse-id": "vipi-inbox"},
                 json={"aps": {"alert": {"title": "Vipi", "body": "You have a new message."}, "sound": "default", "content-available": 1}, "kind": "inbox_changed"})

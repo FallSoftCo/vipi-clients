@@ -56,6 +56,8 @@ class Settings(BaseSettings):
     apns_key_id: str | None = None
     apns_team_id: str | None = None
     apns_private_key_path: str | None = None
+    apns_sandbox_key_id: str | None = None
+    apns_sandbox_private_key_path: str | None = None
     apns_bundle_id: str = "co.fallsoft.vipi"
     foreground_connections_per_worker: int = Field(default=200, ge=1, le=10000)
 
@@ -69,6 +71,13 @@ class Settings(BaseSettings):
                 raise ValueError("Reviewer and sandbox account IDs must be canonical internal UUIDs") from None
             if str(parsed) != value or parsed.int == 0:
                 raise ValueError("Reviewer and sandbox account IDs must be canonical internal UUIDs")
+        return self
+
+    @model_validator(mode="after")
+    def apns_sandbox_configuration(self):
+        values = (self.apns_sandbox_key_id, self.apns_sandbox_private_key_path, self.apns_team_id)
+        if (self.apns_sandbox_key_id or self.apns_sandbox_private_key_path) and not all(values):
+            raise ValueError("APNs sandbox requires key ID, private key path and team ID")
         return self
 
     @model_validator(mode="after")
