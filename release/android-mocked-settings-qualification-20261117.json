@@ -1,0 +1,255 @@
+{
+  "scope": "Pinned legacy-to-Fallsoft Settings source and actual Android managers using local injected mocks; not a live login/link qualification. This passing snapshot predates the subsequently found old-profile-cache cleanup follow-up, which remains required.",
+  "source_base": "a64e5f326365b50aea90c3eb91e8fab5c5e28e0c",
+  "overlay_manifest_sha256": "d67d31ca54a7a81cc42d9e3b2f01835bcaf3752f08ad15cb1b851de61b2e632b",
+  "source_files": {
+    "android/app/src/main/java/co/fallsoft/vipi/Authentication.kt": {
+      "sha256": "18414d3175904606ed0c18411c6836e29fc6baa2b552c9c6321a627fbc7f0595",
+      "bytes": 30453
+    },
+    "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt": {
+      "sha256": "0143e3bf24abe57c98b865ac57d59f29015933b38897bdf7cea3ea9c1b692a4f",
+      "bytes": 33180
+    },
+    "android/app/src/main/java/co/fallsoft/vipi/VipiModel.kt": {
+      "sha256": "b590107a788eb0dd53f192257fa32d704ebd195568b2f8ac1bbe1444f1861e6f",
+      "bytes": 11068
+    },
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SignInProviderDeviceTest.kt": {
+      "sha256": "616508e074f0a57f16e8b0d661621c4d54bbdbe50e6b58412e44a04edc940806",
+      "bytes": 21331
+    },
+    "android/app/src/main/res/values-sw/strings.xml": {
+      "sha256": "b86d513a082831fd1b0f1d342f4f9398d41b9eacd44961fa78edc86a7999ea87",
+      "bytes": 46580
+    },
+    "android/app/src/main/res/values-it/strings.xml": {
+      "sha256": "729234305003204c1c33c7f29dc28fc28349dfefe47acde8040cffa20ce320ab",
+      "bytes": 46946
+    },
+    "android/app/src/main/res/values-ko/strings.xml": {
+      "sha256": "4916cd65f201373e6cab7e126957caec0b659514287722456a0339da106a0f07",
+      "bytes": 49915
+    },
+    "android/app/src/main/res/values-de/strings.xml": {
+      "sha256": "fc9cf350f13218bb68505cfcd45f2c78d37a1c58d32f1b5f7320b35b66b10745",
+      "bytes": 50168
+    },
+    "android/app/src/main/res/values-zh-rTW/strings.xml": {
+      "sha256": "807435394a24e91970e725ec02ef3627888e1fe9a6ed0ccb11ebf551ff228409",
+      "bytes": 42482
+    },
+    "android/app/src/main/res/values-ja/strings.xml": {
+      "sha256": "995db3bacdc4e3444393658ee6aca27e797e4a137060cf1df98c60d33cdf159d",
+      "bytes": 53573
+    },
+    "android/app/src/main/res/values-zh/strings.xml": {
+      "sha256": "eb2e7c50410cb9f5355702f171fc56f6f6d3bb117af2f84bba27807f47e54961",
+      "bytes": 42266
+    },
+    "android/app/src/main/res/values-ar/strings.xml": {
+      "sha256": "23cee4b6e8c490f3ccc2e22d189ac5780b065abf25ae976b2baef5b979265eef",
+      "bytes": 56300
+    },
+    "android/app/src/main/res/values-es/strings.xml": {
+      "sha256": "a8d67895a585641d08469236eaf6e0321be6ef4859872e7c2dcdc5e0ef02f45b",
+      "bytes": 47621
+    },
+    "android/app/src/main/res/values-pt-rPT/strings.xml": {
+      "sha256": "1a2a55dad121ab37758198812addbd0b591dee0d58a38446988bde07cd97bb96",
+      "bytes": 47480
+    },
+    "android/app/src/main/res/values-pt/strings.xml": {
+      "sha256": "6bc937518c6792f98107fa12640674c666a5ecaa4ed04ae498cf743515e3f48c",
+      "bytes": 47249
+    },
+    "android/app/src/main/res/values/strings.xml": {
+      "sha256": "7886af8051dc456d9834337631d881969c100c0739a86274c933030c314156ed",
+      "bytes": 5014
+    },
+    "android/app/src/main/res/values-fr/strings.xml": {
+      "sha256": "4b0e9c6ee5df139f285ed2e2f5ba3b8a17ba1707aceeb17bc81a9a1cdd0bc58b",
+      "bytes": 49191
+    }
+  },
+  "target": {
+    "emulator": "emulator-5624",
+    "avd": "vipi_v3_peer_qa_20261117",
+    "package": "co.fallsoft.vipi.uxqa",
+    "physical_phone_touched": false,
+    "models_downloaded": false
+  },
+  "build": {
+    "command": [
+      "taskset",
+      "-c",
+      "2,3",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/scripts/build-android.sh",
+      "--offline",
+      "-PvipiSourceContextQualification=true",
+      "-PvipiQaAbi=x86_64",
+      "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+      "-Pkotlin.compiler.execution.strategy=in-process",
+      ":app:assembleDebug",
+      ":app:assembleDebugAndroidTest",
+      "-x",
+      ":app:stageImmersionAssets"
+    ],
+    "floor_bytes": 4504682496,
+    "peak_budget": 1073741824,
+    "free_before": 7754342400,
+    "source_overlay_manifest_sha256": "d67d31ca54a7a81cc42d9e3b2f01835bcaf3752f08ad15cb1b851de61b2e632b",
+    "asset_count": 655,
+    "minimum_free": 7714406400,
+    "complete": true,
+    "pid": 2480530,
+    "exit": 0,
+    "seconds": 132.02213143417612,
+    "free_after": 7708266496,
+    "outputs": {
+      "android/app/build/outputs/apk/debug/app-debug.apk": {
+        "bytes": 525974907,
+        "sha256": "67187aa54363631b9de9adc8e6962df27c63000845da9778d5ee121d59bde806"
+      },
+      "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": {
+        "bytes": 6331261,
+        "sha256": "5e5a3cd3eb9be1dd1d73621fd850e8caf96f5a9d92073c572cd42c7010ab9c55"
+      }
+    }
+  },
+  "initial_capacity_stop": {
+    "command": [
+      "taskset",
+      "-c",
+      "2,3",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/scripts/build-android.sh",
+      "--offline",
+      "-PvipiSourceContextQualification=true",
+      "-PvipiQaAbi=x86_64",
+      "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+      "-Pkotlin.compiler.execution.strategy=in-process",
+      ":app:assembleDebug",
+      ":app:assembleDebugAndroidTest",
+      "-x",
+      ":app:stageImmersionAssets"
+    ],
+    "floor_bytes": 4504682496,
+    "peak_budget": 2147483648,
+    "free_before": 10185052160,
+    "source_overlay_manifest_sha256": "d67d31ca54a7a81cc42d9e3b2f01835bcaf3752f08ad15cb1b851de61b2e632b",
+    "asset_count": 655,
+    "minimum_free": 7809982464,
+    "complete": false,
+    "pid": 2467136,
+    "guard_stop": "capacity or timeout",
+    "exit": 143,
+    "seconds": 169.3917119577527,
+    "free_after": 7754534912,
+    "outputs": {}
+  },
+  "mocked_qualification": {
+    "floor_bytes": 4504682496,
+    "peak_budget": 1073741824,
+    "free_before": 7708164096,
+    "minimum_free": 7391297536,
+    "steps": [
+      {
+        "name": "install-app",
+        "command": [
+          "adb",
+          "-s",
+          "emulator-5624",
+          "install",
+          "-r",
+          "-t",
+          "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/debug/app-debug.apk"
+        ],
+        "state": "complete",
+        "pid": 2490022,
+        "exit": 0,
+        "seconds": 3.5019001220352948
+      },
+      {
+        "name": "install-test",
+        "command": [
+          "adb",
+          "-s",
+          "emulator-5624",
+          "install",
+          "-r",
+          "-t",
+          "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+        ],
+        "state": "complete",
+        "pid": 2490228,
+        "exit": 0,
+        "seconds": 0.5011061821132898
+      },
+      {
+        "name": "focused-mocked-instrumentation",
+        "command": [
+          "adb",
+          "-s",
+          "emulator-5624",
+          "shell",
+          "am",
+          "instrument",
+          "-w",
+          "-r",
+          "-e",
+          "class",
+          "co.fallsoft.vipi.IdentityLinkCoordinatorDeviceTest,co.fallsoft.vipi.IdentityAuthorityDeviceTest,co.fallsoft.vipi.IdentityAuthorityExchangeDeviceTest,co.fallsoft.vipi.SignInProviderDeviceTest",
+          "co.fallsoft.vipi.uxqa.test/androidx.test.runner.AndroidJUnitRunner"
+        ],
+        "state": "complete",
+        "pid": 2490416,
+        "exit": 0,
+        "seconds": 1.501441780012101
+      }
+    ],
+    "network_scope": "Local injected exchange/link/browser-launch mocks only; no live API/auth/provider calls.",
+    "complete": true,
+    "outputs": {
+      "android/app/build/outputs/apk/debug/app-debug.apk": {
+        "bytes": 525974907,
+        "sha256": "67187aa54363631b9de9adc8e6962df27c63000845da9778d5ee121d59bde806"
+      },
+      "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": {
+        "bytes": 6331261,
+        "sha256": "5e5a3cd3eb9be1dd1d73621fd850e8caf96f5a9d92073c572cd42c7010ab9c55"
+      }
+    },
+    "unchanged_asset_count": 1082,
+    "instrumentation_ok": true,
+    "private_records_unchanged": true,
+    "private_record_count_after": 0,
+    "free_after": 7391281152
+  },
+  "passed_tests": 13,
+  "instrumentation_reported_seconds": 0.521,
+  "asset_count_equal_to_accepted_r16": 1082,
+  "signer_equal_to_accepted_r16": true,
+  "existing_private_records_unchanged": true,
+  "preserved_r16": [
+    {
+      "old_path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/debug/app-debug.apk",
+      "retained_path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-android-r19/accepted-r16-app.apk",
+      "sha256": "5594b985531219d409b8f9b35f8cf2efe17159a0f637494c4c16dbad61c3104b",
+      "bytes": 516832627,
+      "state": "complete"
+    },
+    {
+      "old_path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "retained_path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-android-r19/accepted-r16-test.apk",
+      "sha256": "e6f1184eadc46aed8c749e571cd6a3989a81f6b3cef39f3cc1fc01dd493489c6",
+      "bytes": 9837286,
+      "state": "complete"
+    }
+  ],
+  "raw_receipt_hashes": {
+    "build-receipt.json": "48583b30e6e90b58a313119b5f982166b592e7c0c92fc41d63dd71d82012e42e",
+    "build-continuation-r01-receipt.json": "bdf06e052248017fc6f59f173f44e742aebd604cf4430b27a7af6c208a4ae585",
+    "mocked-tests-receipt.json": "4235693969578717a59b8f690fc1d018e63298526e913940f5d72b00b7794ac4",
+    "focused-mocked-instrumentation.log": "546e64deff416e9a33c1cda8629bcbbf3a5ad8992d0f226fbab8c699724777b6"
+  }
+}

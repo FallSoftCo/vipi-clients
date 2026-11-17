@@ -1,0 +1,406 @@
+{
+  "scope": "Preparation and scoped cleanup only. No release artifact build/upload/install or live auth/backend calls. Separate mocked integration qualification is recorded independently.",
+  "main_observed": "95c10a37ae0993f8cbe388e6714363d96e104f4c",
+  "qualified_ux_committed_head": "a64e5f326365b50aea90c3eb91e8fab5c5e28e0c",
+  "final_candidate_revision": "Pending root review/commit of exact identity Settings overlay, then integrated main freeze.",
+  "release_source_policy": "Accepted committed main only; original nine dirty files and untracked context-008/infinitive pilot physically preserved and excluded pending qualification.",
+  "original_dirty_bindings": [
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/ContextWitnessLookup.kt",
+      "committed_sha256": "0b909365249664afd8a13c3692655dd26db390871e491ab9567e0fb9ec9cf342",
+      "working_sha256": "37369f7d8f405b534f732ac7da18b19e1f559c64f695778f3ac6c01c231d6668",
+      "accepted_committed_equals_qualified_ux_head": true,
+      "working_bytes": 10457,
+      "disposition": "Preserved original working bytes; excluded pilot; release uses accepted committed equivalent."
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/LexicalConcordance.kt",
+      "committed_sha256": "b0a73e3951aee760f053a0b8a6882cea42f736c179f728c5f3560e2151c66656",
+      "working_sha256": "ef73965ac664ae8fd9edcf6640178854852f133383095a84eef4fc20778bebb0",
+      "accepted_committed_equals_qualified_ux_head": true,
+      "working_bytes": 49499,
+      "disposition": "Preserved original working bytes; excluded pilot; release uses accepted committed equivalent."
+    },
+    {
+      "path": "ios/Vipi/ContextWitnessLookup.swift",
+      "committed_sha256": "19771d0a63fce1eeae795c0a0b7bd4347630e3e396b21e841b066374ad03f0e4",
+      "working_sha256": "5956264289aaa7cb50b3bc64eba55208b56462e1208d10b7daf5677081e65718",
+      "accepted_committed_equals_qualified_ux_head": true,
+      "working_bytes": 12147,
+      "disposition": "Preserved original working bytes; excluded pilot; release uses accepted committed equivalent."
+    },
+    {
+      "path": "ios/Vipi/LexicalConcordance.swift",
+      "committed_sha256": "a595e316e848040a3d45496278b6620eb10c2c9edc6a1132a1d0bafaebcd045b",
+      "working_sha256": "eb0d328d606a7d08cc9476017bb07f1271ea9142143bf9bdf4bd971524846725",
+      "accepted_committed_equals_qualified_ux_head": true,
+      "working_bytes": 56005,
+      "disposition": "Preserved original working bytes; excluded pilot; release uses accepted committed equivalent."
+    },
+    {
+      "path": "ios/VipiCryptoTests/SpeechPairMatrixTests.swift",
+      "committed_sha256": "239419ff020bf1fbe107d7a2ebcea74bc82599bca7fad868a6a13e5919dcfcdf",
+      "working_sha256": "2b410eea96f95b6de2c3df068e27f299c5073929ed11707bcf8743a5f6420188",
+      "accepted_committed_equals_qualified_ux_head": true,
+      "working_bytes": 10078,
+      "disposition": "Preserved original working bytes; excluded pilot; release uses accepted committed equivalent."
+    },
+    {
+      "path": "language-packs/build_context_witnesses.py",
+      "committed_sha256": "763beeb66c25131a93c7956c3152eed7f0b7d06c59e130a4cb73a95ea8015643",
+      "working_sha256": "ac69a5539d9d4c8f46fa2325c744985d6b125a81c762b2587764bc14502fe06f",
+      "accepted_committed_equals_qualified_ux_head": true,
+      "working_bytes": 24779,
+      "disposition": "Preserved original working bytes; excluded pilot; release uses accepted committed equivalent."
+    },
+    {
+      "path": "language-packs/build_noun_context_filter.py",
+      "committed_sha256": "4aeeba2ab50b5d67fe7c9d917dd878a654982589d3e9ea7b229891d2a52d78c3",
+      "working_sha256": "ac8ac48519e569698361c13978e0e4287592b2d039b387332e96ade0b21c8fab",
+      "accepted_committed_equals_qualified_ux_head": true,
+      "working_bytes": 3350,
+      "disposition": "Preserved original working bytes; excluded pilot; release uses accepted committed equivalent."
+    },
+    {
+      "path": "language-packs/build_semantic_alternatives.py",
+      "committed_sha256": "714440c0dedaa5d5466f6d614a1143b93156070dedfccf063001b5cf53b6d01f",
+      "working_sha256": "c7c797d801cabf262bcb95cec3d5f65d2e6aefdd98abd6be5393b47267aa45d5",
+      "accepted_committed_equals_qualified_ux_head": true,
+      "working_bytes": 16238,
+      "disposition": "Preserved original working bytes; excluded pilot; release uses accepted committed equivalent."
+    },
+    {
+      "path": "qa/macos/apple-resume-20261116-r01/SimulatorQAMain.swift",
+      "committed_sha256": "f7367c57834c94d38333a0a860e629bddf241ac316384e86633194f07fae66a7",
+      "working_sha256": "6b8471a036ceefca795e963a5ebc8fe8e6ea788d2cfc3725dd7bf2febecf4c7a",
+      "accepted_committed_equals_qualified_ux_head": true,
+      "working_bytes": 7502,
+      "disposition": "Preserved original working bytes; excluded pilot; release uses accepted committed equivalent."
+    }
+  ],
+  "v4_artifacts": {
+    "uploaded_v4_aab": {
+      "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-v4-release-20261117-r01/vipi-v4-release.aab",
+      "bytes": 546489591,
+      "sha256": "194db4f901517cfa666a3ae8aa84df2a98b80ed3320e8b7b049a0cda7827b5fd"
+    },
+    "upload_signed_v4_apk": {
+      "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-v4-release-20261117-r01/vipi-v4-release.apk",
+      "bytes": 539057806,
+      "sha256": "572b60a4d6a5c11182925cdb19889d6d5377c2f9b0094636be8b431991d83e15",
+      "verified_signer_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c"
+    },
+    "play_generated_v4_apk": {
+      "path": "/home/ai/Downloads/4.apk",
+      "bytes": 536733238,
+      "sha256": "c33f08ec239885058f27d222bf56a1320075f462ba1a9152508260e97990cf76",
+      "verified_signer_sha256": "4258feafd4bfc9ee885da6f1ffceae6abf98c0039304c2291fd3e6230adbef82"
+    }
+  },
+  "planned_version": {
+    "code": 5,
+    "name": "1.0.4",
+    "fresh_store_inventory": false
+  },
+  "runtime": {
+    "public_client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "api": "https://api.mambovipi.app",
+    "callback": "co.fallsoft.vipi://auth/callback",
+    "authority": "Root selects exact release inputs after integrated source freeze; preserve legacy saved authority/link contract."
+  },
+  "capacity": {
+    "floor_bytes": 4504682496,
+    "bundle_peak_additional_bytes": 5368709120,
+    "required_bundle_admission_bytes": 9873391616,
+    "previous_measured_bundle_growth_bytes": 4181684224,
+    "free_after_cleanup_bytes": 10193616896,
+    "recheck_after_mock_build_required": true
+  },
+  "cleanup": {
+    "approved_plan_sha256": "f89eed2cfc587736764f609b121cc88401dee25eef9062544c7effea01fecb5a",
+    "completed_steps": 23,
+    "complete": true,
+    "net_reclaimed_bytes": 4308926464,
+    "root_prior_batch_reclaimed_bytes": 1131347968,
+    "live_use_hits": [],
+    "outside_symlink_consumers": [],
+    "steps": [
+      {
+        "label": "preflight-verified",
+        "intent_utc": "2026-11-17T22:22:20Z",
+        "state": "complete",
+        "result": {
+          "regular_inodes": 33461,
+          "root_proc": "no fd/cwd/root/map consumer",
+          "outside_symlinks": 0,
+          "overlay_sha256": "dae7ceba25ec3b65bcb745c72dd3a07c000200a14200255618f58c6df98ca02b"
+        },
+        "free_after": 5883678720
+      },
+      {
+        "label": "preserve-outputs-localization",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "source": "/home/ai/Development/investigations/vipi-android-localization-20261117-r01/android/app/build/outputs",
+          "destination": "/home/ai/Development/investigations/vipi-quality-20261117-r01/retained-store-build-outputs-r18/localization",
+          "files": 14,
+          "manifest_sha256": "76eb422b34e0757f4fb6158a51156d2a0a0c46326b4da833c4fca230a262a755"
+        },
+        "free_after": 5883674624
+      },
+      {
+        "label": "preserve-outputs-v4",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "source": "/home/ai/Development/investigations/vipi-android-v4-source-20261117-r01/android/app/build/outputs",
+          "destination": "/home/ai/Development/investigations/vipi-quality-20261117-r01/retained-store-build-outputs-r18/v4",
+          "files": 11,
+          "manifest_sha256": "9e54c91f6d541d2c1c8027743a619f5ec6bdaadebf7dc0db32b04c78ec6f869d"
+        },
+        "free_after": 5883670528
+      },
+      {
+        "label": "retire-worktree-vipi-android-v4-source-20261117-r01",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-android-v4-source-20261117-r01",
+          "branch_preserved": "codex/android-v4-20261117",
+          "head": "fc3700ed8d6937960ef6f0b2a5a22ba32a3de074"
+        },
+        "free_after": 6105460736
+      },
+      {
+        "label": "retire-worktree-vipi-android-localization-20261117-r01",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-android-localization-20261117-r01",
+          "branch_preserved": "android/localization-20261117",
+          "head": "8b6a539ac85386c54fb0f8dd0930bf286bbb5c84"
+        },
+        "free_after": 7455879168
+      },
+      {
+        "label": "retire-worktree-vipi-auth-expiry-20261117-r01",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-auth-expiry-20261117-r01",
+          "branch_preserved": "codex/auth-expiry-20261117",
+          "head": "24f9325fa251d9cc4e8336a74bf40cde7ae24e55"
+        },
+        "free_after": 7458807808
+      },
+      {
+        "label": "retire-worktree-vipi-cardless-trial-20261117-r01",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-cardless-trial-20261117-r01",
+          "branch_preserved": "codex/cardless-trial-20261117",
+          "head": "4a90cfb7ed2af815ca05eb900219192204d7dbc4"
+        },
+        "free_after": 7462363136
+      },
+      {
+        "label": "retire-worktree-vipi-expansion-starter-20261117-r01",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-expansion-starter-20261117-r01",
+          "branch_preserved": "codex/expansion-starter-20261117",
+          "head": "1579babc5a673264d1b4779dc4690f1ad5c9b534"
+        },
+        "free_after": 7494193152
+      },
+      {
+        "label": "retire-worktree-vipi-status-reconcile-20261117-r01",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-status-reconcile-20261117-r01",
+          "branch_preserved": "android-status-reconcile-20261117",
+          "head": "c829d8dd19c752cdfcfe8ad862c124db5c35c451"
+        },
+        "free_after": 7495290880
+      },
+      {
+        "label": "retire-worktree-android-regions-worktree-20261117-r01",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-submit-20261110-r01/android-regions-worktree-20261117-r01",
+          "branch_preserved": "android-regions-20261117-r01",
+          "head": "b1831902f2866ec027b3b6288e64b99b4244b0a8"
+        },
+        "free_after": 7496417280
+      },
+      {
+        "label": "preserve-output-interface-localization",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "alias": "/home/ai/Development/investigations/vipi-android-localization-20261117-r01/android/app/build/outputs",
+          "target": "/home/ai/Development/investigations/vipi-quality-20261117-r01/retained-store-build-outputs-r18/localization"
+        },
+        "free_after": 7496396800
+      },
+      {
+        "label": "preserve-output-interface-v4",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "alias": "/home/ai/Development/investigations/vipi-android-v4-source-20261117-r01/android/app/build/outputs",
+          "target": "/home/ai/Development/investigations/vipi-quality-20261117-r01/retained-store-build-outputs-r18/v4"
+        },
+        "free_after": 7496376320
+      },
+      {
+        "label": "retire-qa-apk-candidate-r98",
+        "intent_utc": "2026-11-17T22:22:21Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/invalid-result-cache-r01/candidate-r98/main.apk",
+          "sha256": "828e4536e8b39ab7e09f573743350a2f842124cbe0845690eed35b6795df12fa",
+          "replacement_preserved": "5594b985531219d409b8f9b35f8cf2efe17159a0f637494c4c16dbad61c3104b"
+        },
+        "free_after": 8008192000
+      },
+      {
+        "label": "retire-qa-apk-native-r93",
+        "intent_utc": "2026-11-17T22:22:22Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-constraints-r01/native-r93/main.apk",
+          "sha256": "bd09d7fd29bee477996e54ef66a26906ac1a42a51e33148f07a13052881a51fe",
+          "replacement_preserved": "5594b985531219d409b8f9b35f8cf2efe17159a0f637494c4c16dbad61c3104b"
+        },
+        "free_after": 8517849088
+      },
+      {
+        "label": "retire-qa-apk-default-readings-r83-r06",
+        "intent_utc": "2026-11-17T22:22:23Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/retained-qualified-apks/default-readings-r83-r06/app-debug.apk",
+          "sha256": "518982b483b6fe113d897b829b6b9c9de1ebbc080c8df74e8edf7561421c968b",
+          "replacement_preserved": "5594b985531219d409b8f9b35f8cf2efe17159a0f637494c4c16dbad61c3104b"
+        },
+        "free_after": 9027444736
+      },
+      {
+        "label": "retire-qa-apk-top-down-source-lookup-r01",
+        "intent_utc": "2026-11-17T22:22:23Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/top-down-source-lookup-r01/retained-r87-main.apk",
+          "sha256": "2e480d644ad64289b4818702d3afab552dde09326288272be41e7bd36ab42003",
+          "replacement_preserved": "5594b985531219d409b8f9b35f8cf2efe17159a0f637494c4c16dbad61c3104b"
+        },
+        "free_after": 9537040384
+      },
+      {
+        "label": "retire-generated-/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/intermediates",
+        "intent_utc": "2026-11-17T22:22:24Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/intermediates",
+          "manifest_sha256": "04cd126afd2c5e616ce8eeb7d8e3ab2bc5498cffdfec9ab3c547c835f229c875"
+        },
+        "free_after": 9740333056
+      },
+      {
+        "label": "retire-generated-/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/tmp",
+        "intent_utc": "2026-11-17T22:22:24Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/tmp",
+          "manifest_sha256": "2a7539557db72f73508bb78f8c66095fbec94f6bdfe81ea84a206543daae45d1"
+        },
+        "free_after": 9756012544
+      },
+      {
+        "label": "retire-generated-/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/kotlin",
+        "intent_utc": "2026-11-17T22:22:24Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/kotlin",
+          "manifest_sha256": "af57c4192774f12f8ad1a2d346fe9d77202e3353063d606acb0c1b44da04ecc5"
+        },
+        "free_after": 9764044800
+      },
+      {
+        "label": "retire-generated-/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/intermediates",
+        "intent_utc": "2026-11-17T22:22:24Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/intermediates",
+          "manifest_sha256": "b53dd4d77871b132eee6b63c9da521ea4a14d19a4f4045db528cb9994a271744"
+        },
+        "free_after": 9881923584
+      },
+      {
+        "label": "retire-generated-/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/tmp",
+        "intent_utc": "2026-11-17T22:22:24Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/tmp",
+          "manifest_sha256": "2055d1979e791b0abadf5d4ce30f562f551f2afcaccc450f216fef93f107283e"
+        },
+        "free_after": 9902354432
+      },
+      {
+        "label": "retire-generated-/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/kotlin",
+        "intent_utc": "2026-11-17T22:22:24Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-android-source-context-integration-20261109-r01/source/android/app/build/kotlin",
+          "manifest_sha256": "fb7a8fa7db64917c350595562edde01dd572e375a837fc65ea6be31c8a3566e8"
+        },
+        "free_after": 9913589760
+      },
+      {
+        "label": "retire-generated-/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-snapshot-r58/android/app/build/generated/immersionAssets",
+        "intent_utc": "2026-11-17T22:22:24Z",
+        "state": "complete",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-snapshot-r58/android/app/build/generated/immersionAssets",
+          "manifest_sha256": "14feafc7fa56af9fc69955445084ffae5f508ec20708f093e292ddcc6707577c"
+        },
+        "free_after": 10193616896
+      }
+    ],
+    "method_correction": "Original attempt interrupted before mutations on unrelated cold-gallery symlink lookup; resumed with local no-follow symlink graph. No remote mount/service mutation."
+  },
+  "retention": {
+    "localization_unique_overlay_sha256": "dae7ceba25ec3b65bcb745c72dd3a07c000200a14200255618f58c6df98ca02b",
+    "small_ignored_archive_sha256": "38e2550f0a3654bd786c2f35c3d55a93fd49f513a476576bad5e08e3da097c52",
+    "r16_apks": [
+      {
+        "old_path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/debug/app-debug.apk",
+        "retained_path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-android-r19/accepted-r16-app.apk",
+        "sha256": "5594b985531219d409b8f9b35f8cf2efe17159a0f637494c4c16dbad61c3104b",
+        "bytes": 516832627,
+        "state": "complete"
+      },
+      {
+        "old_path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+        "retained_path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-android-r19/accepted-r16-test.apk",
+        "sha256": "e6f1184eadc46aed8c749e571cd6a3989a81f6b3cef39f3cc1fc01dd493489c6",
+        "bytes": 9837286,
+        "state": "complete"
+      }
+    ],
+    "preserved": "Current qualified APKs; installed AVD accounts/models; all original store AAB/IPA; branches/commits; original dirty sources/pilots; accepted evidence and failed-run logs."
+  },
+  "private_receipt_hashes": {
+    "android-store-cleanup-execution-r18.json": "64efe8d66bdf56194e37c312873d3d575c3cd4cd87166263a5ed63b1602fad4c",
+    "android-store-cleanup-execution-r18-resume-r01.json": "222725443efae8dfe602308f6cc83956b2911db173bd744ce6ae75954fad2d92",
+    "android-store-remaining-cleanup-plan-r18.json": "f89eed2cfc587736764f609b121cc88401dee25eef9062544c7effea01fecb5a",
+    "android-store-prep-source-and-v4-bindings.json": "b194b3cfdc33370320d70ff938195e26a96b111293e428b4606cb3f3f5a9c69f",
+    "android-store-prep-accepted-source-equivalents.json": "780b4fd4544bd8caca74f0affe63febc71efeecbc081389244b0da35beb2d644"
+  }
+}
