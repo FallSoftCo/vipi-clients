@@ -18,7 +18,7 @@ struct OnboardingView: View {
             ZStack {
                 VipiDesign.canvas.ignoresSafeArea()
                 ScrollView {
-                    VStack(alignment: .leading, spacing: state.onboarding == .welcome ? 24 : 32) {
+                    VStack(alignment: .leading, spacing: state.onboarding == .language ? 16 : 24) {
                         HStack(spacing: 10) {
                             VipiMark(size: 34)
                             Text(verbatim: "vipi").font(.system(.title, design: .rounded).weight(.semibold)).tracking(-1)
@@ -83,7 +83,7 @@ struct OnboardingView: View {
     private var languages: some View {
         @Bindable var state = state
         return VStack(alignment: .leading, spacing: 24) {
-            IntroHeading(eyebrow: "", title: "Your languages", detail: "Which language would you like to learn?")
+            IntroHeading(eyebrow: "", title: "Your languages", detail: "", showsDetail: false)
             VStack(alignment: .leading, spacing: 10) {
                 Text("I speak").font(.body.weight(.semibold))
                 Picker("I already speak", selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) })) {
@@ -102,7 +102,6 @@ struct OnboardingView: View {
             }
             ConversationPreview(source: state.knownLanguage, target: state.targetLanguage, scrolling: scrolling)
                 .id("\(state.knownLanguage)-\(state.targetLanguage)")
-            Text("You can change these in Settings.").font(.subheadline).foregroundStyle(VipiDesign.secondary)
         }
     }
 

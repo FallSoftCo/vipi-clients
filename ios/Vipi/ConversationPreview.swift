@@ -31,7 +31,6 @@ struct ConversationPreview: View {
     var body: some View {
         if let result = ConversationExamples.result(source: source, target: target) {
             VStack(alignment: .leading, spacing: 10) {
-                Text("A glimpse of your chats").font(.body.weight(.semibold))
                 ImmersionBubble(result: .complete(result), mode: mode, speech: speech, sourceLanguage: source, targetLanguage: target,
                     messageID: "language-preview-\(source)-\(target)", interactionPaused: scrolling, fullReading: ConversationExamples.examples?.languages[target]?.reading)
                 if let error = speech.error { Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary) }

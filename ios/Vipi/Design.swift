@@ -72,10 +72,11 @@ struct IntroHeading: View {
     let eyebrow: LocalizedStringKey
     let title: LocalizedStringKey
     let detail: LocalizedStringKey
+    var showsDetail = true
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(title).font(.largeTitle.weight(.bold)).lineSpacing(1).fixedSize(horizontal: false, vertical: true)
-            Text(detail).font(.body).foregroundStyle(VipiDesign.secondary).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
+            if showsDetail { Text(detail).font(.body).foregroundStyle(VipiDesign.secondary).lineSpacing(4).fixedSize(horizontal: false, vertical: true) }
         }.frame(maxWidth: .infinity, alignment: .leading)
     }
 }

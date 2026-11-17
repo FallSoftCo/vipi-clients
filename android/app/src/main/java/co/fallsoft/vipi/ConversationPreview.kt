@@ -41,7 +41,6 @@ internal object ConversationExamples {
     LaunchedEffect(speech) { speech.prepare(mapOf(source to result.original, target to result.translation)) }
     DisposableEffect(speech) { onDispose { speech.close() } }
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text(stringResource(R.string.preview_message_title), fontSize = 18.sp, fontWeight = androidx.compose.ui.text.font.FontWeight.SemiBold)
         ImmersionBubble(result, mode, speech, source, target, "language-preview-$source-$target", scrolling, fullReading = fullReading)
         SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(mapOf(source to result.original, target to result.translation)) }
     }

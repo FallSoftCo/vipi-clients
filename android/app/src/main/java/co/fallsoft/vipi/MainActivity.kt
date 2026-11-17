@@ -174,7 +174,7 @@ class MainActivity : ComponentActivity() {
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->
         Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.TopCenter) {
-        Column(Modifier.fillMaxHeight().widthIn(max = 680.dp).fillMaxWidth().padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(24.dp)) {
+        Column(Modifier.fillMaxHeight().widthIn(max = 680.dp).fillMaxWidth().padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(if (model.screen == Screen.LANGUAGE) 16.dp else 24.dp)) {
             TopBar(model)
             when (model.screen) {
                 Screen.WELCOME -> Welcome(scrollState.isScrollInProgress)
@@ -207,21 +207,26 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable private fun TopBar(model: VipiModel) {
-    Row(Modifier.fillMaxWidth().padding(top = 20.dp), verticalAlignment = Alignment.CenterVertically) {
+    Row(Modifier.fillMaxWidth().padding(top = 12.dp), verticalAlignment = Alignment.CenterVertically) {
         if (model.screen !in setOf(Screen.WELCOME, Screen.HOME)) {
             IconButton(onClick = { model.back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) }
         } else { VipiMark(34); Spacer(Modifier.width(10.dp)) }
         Text(stringResource(R.string.ui_2f7e29fbc47d), fontSize = 27.sp, letterSpacing = (-1).sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false)
         Spacer(Modifier.weight(1f))
         if (model.screen == Screen.HOME) IconButton(onClick = { model.navigate(Screen.SETTINGS) }) { Icon(Icons.Outlined.AccountCircle, stringResource(R.string.nav_settings)) }
-        if (model.screen in setOf(Screen.LANGUAGE, Screen.ACCOUNT)) Text(if (model.screen == Screen.LANGUAGE) stringResource(R.string.ui_00e255330e43) else stringResource(R.string.ui_de6e21a278c4), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (model.screen in setOf(Screen.LANGUAGE, Screen.ACCOUNT)) {
+            val fullStep = if (model.screen == Screen.LANGUAGE) stringResource(R.string.ui_00e255330e43) else stringResource(R.string.ui_de6e21a278c4)
+            val shortStep = if (model.screen == Screen.LANGUAGE) "1 / 2" else "2 / 2"
+            Text(if (androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f) shortStep else fullStep,
+                fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.semantics { contentDescription = fullStep })
+        }
     }
 }
 
 @Composable private fun Heading(eyebrow: String, title: String, detail: String) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Text(title, fontSize = 34.sp, lineHeight = 39.sp, fontWeight = FontWeight.Bold)
-        Text(detail, fontSize = 18.sp, lineHeight = 27.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (detail.isNotBlank()) Text(detail, fontSize = 18.sp, lineHeight = 27.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 
@@ -262,7 +267,7 @@ class MainActivity : ComponentActivity() {
     val uiLocale = androidx.compose.ui.platform.LocalConfiguration.current.locales[0]
     fun displayLanguage(code: String): String = java.util.Locale.forLanguageTag(code)
         .getDisplayLanguage(uiLocale).replaceFirstChar { it.titlecase(uiLocale) }
-    Heading("", stringResource(R.string.languages_title_concise), stringResource(R.string.languages_detail_concise))
+    Heading("", stringResource(R.string.languages_title_concise), "")
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         Text(stringResource(R.string.speak_concise), color = MaterialTheme.colorScheme.onSurfaceVariant, fontWeight = FontWeight.Medium)
         Box {
@@ -286,7 +291,6 @@ class MainActivity : ComponentActivity() {
     }
     }
     key(model.knownLanguage, model.targetLanguage) { ConversationPreview(model.knownLanguage, model.targetLanguage, scrolling) }
-    Text(stringResource(R.string.languages_change_later), fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
 
 @Composable private fun AccountView() {
