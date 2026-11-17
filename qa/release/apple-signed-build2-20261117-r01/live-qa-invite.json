@@ -1,0 +1,19 @@
+{
+  "observed_utc": "2026-11-17T13:35:50.386217+00:00",
+  "app": "TestFlight 1.0 (2)",
+  "scope": "Own staging-admitted QA account, Settings > Invite a friend > native share sheet > Copy",
+  "verified": [
+    "Copied text contains exact current @username",
+    "Copied link matches current source-defined HTTPS invite route and exact username",
+    "Public landing HTTP 200 and HTML contains username"
+  ],
+  "landing_scope": "Returned HTML did not expose an app-scheme deeplink; no claim of universal-link handoff.",
+  "private_copy": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/owned-live-qa-20261117-r01/private/invite-copy.txt",
+  "clipboard": "cleared",
+  "not_performed": [
+    "recipient selection",
+    "sending",
+    "chat",
+    "purchase"
+  ]
+}
