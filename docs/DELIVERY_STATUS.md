@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 17, 2026, 09:03 UTC. Vipi remains restricted staging. Neither
+Updated November 17, 2026, 09:09 UTC. Vipi remains restricted staging. Neither
 app has been submitted for public review. Prior revisions and the linked
 receipts retain historical actions; do not replay them.
 
@@ -67,10 +67,12 @@ archive; anonymous checksum and range reads passed. Publication does not settle
 every linked dependency's combined-binary distribution basis.
 See [publication](../release/client-source-publication-20261117.json).
 
-A separate private archive now corresponds to frozen version 3 source `87d53cd`.
-All 5,905 members were rehashed; 5,892 are unchanged from the reviewed prior
-archive, with six additions and seven changes for the native fixes and notices.
-It is not yet published. See [candidate source](../release/client-source-candidate-v3-20261117.json).
+The separate [version 3 source preview](https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3)
+now corresponds to frozen source `87d53cd` and was published once. All 5,905
+members were rehashed; 5,892 match the reviewed prior archive, with six additions
+and seven changes. GitHub's asset digest matches the reviewed local archive;
+anonymous checksum and partial-download checks passed. Earlier releases remain.
+See [publication receipt](../release/client-source-publication-v3-20261117.json).
 
 ## Access and service
 
@@ -179,8 +181,10 @@ its allowance; it is not a typical-latency or quality benchmark.
 - Complete current Apple qualification when its signing dependency changes,
   actual purchase/restore and production notification evidence.
 - Reconcile store artifacts, regional export requirements and screenshots.
-  France needs a current company extract; China-specific requirements and the
-  exact linked ML Kit/libsignal distribution basis remain unresolved.
+  France needs a current company extract; China-specific requirements remain
+  unresolved. The ML Kit/libsignal distribution question is a narrow legal
+  interpretation, not an established incompatibility or blanket App Store ban.
+  Source publication is complete; the exact bundled SDK terms need focused review.
   See [export assessment](../release/EXPORT_ASSESSMENT.md).
 - Google requests an account-wide trader declaration by February 2027. Its
   existing profile was reviewed; no declaration was saved. Approval was requested
@@ -190,7 +194,7 @@ its allowance; it is not a typical-latency or quality benchmark.
 
 Canonical source is `/home/ai/Development/vipi-production-20261107`, branch
 `delivery/production-20261107`. Apple development uses native macbook-pro; never
-restart the retired VM or fleet hosts. The iPad remains reserved for other work.
+restart the retired VM or fleet hosts. The physical iPad remains reserved for other work; iPad Simulator preparation is allowed.
 Preserve the nine original experimental modified files, account-bearing emulators,
 original signed artifacts and external-action receipts. Auto-reset stays disabled.
 

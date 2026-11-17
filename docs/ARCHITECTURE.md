@@ -1,5 +1,10 @@
 # Architecture
 
+Deployment status is recorded in [DELIVERY_STATUS.md](DELIVERY_STATUS.md),
+updated November 17, 2026. The designs below include dated qualification
+notes; they do not supersede the current release receipts or authorize retired
+hosts, devices, jobs or external actions.
+
 ## Components
 
 | Concern | Choice | Qualification still required |
@@ -160,4 +165,4 @@ The former staging host and OZZZ development hosts are retired and must not be r
 
 `ops/` contains scoped service and nginx configurations; `scripts/package-service.py` builds an immutable dependency/source manifest and archive. Alembic 1.20.1 owns schema migrations; initial revision `20261025_01` was checked against the ORM and repeated without losing data. Readiness checks the migration head. Staging requires an explicit allowlist of already verified WorkOS subjects, so deploying a QA endpoint does not open public registration. The minute expiry task clears expired ciphertext and aged delivery/key-claim/rate metadata. An nginx reload for a new vhost must be syntax-checked and followed by existing-site checks; no shared service restart, firewall change or database restart is planned.
 
-The restricted staging service at `https://api.mambovipi.app` currently runs `5ca447b`, migration `20261107_05`. It serves product policies and account deletion, and has qualified live foreground native delivery and 72-hour expiry cleanup. A separate two-worker loopback experiment handled 192 sockets and 480 exchanges; it does not prove public or million-user capacity. Production registration, actual store billing/push/bot providers, full disaster recovery, final policy publication and release artifacts remain gates. No store submission or public customer release is implied by staging deployment.
+The restricted staging service at `https://api.mambovipi.app` runs on consolidated `fallsoft-production-20261106`. Its November 17 baseline is `84c3ff8`, migration `20261117_01`; current rollout, provider and release receipts are in DELIVERY_STATUS.md. Public registration remains closed and subscription enforcement remains disabled on staging. Earlier foreground delivery and 72-hour expiry evidence is retained. The separate two-worker loopback experiment with 192 sockets and 480 exchanges is a bounded experiment, not public or million-user capacity proof. No public customer release is implied by staging deployment.

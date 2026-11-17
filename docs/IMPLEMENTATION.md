@@ -1,5 +1,10 @@
 # Implementation sequence and release gates
 
+For current work and launch constraints, use [DELIVERY_STATUS.md](DELIVERY_STATUS.md).
+The dated checkpoints below are historical evidence: old host placements,
+physical-iPad authorization, catalog versions and uncreated-store claims are
+superseded by the current receipts and owner instructions.
+
 For the current milestone, source checkpoint and open gates, read
 [Current delivery status](DELIVERY_STATUS.md). The dated sections and original
 checklist below preserve the implementation history; unchecked historical items
