@@ -1,5 +1,5 @@
 {
-  "status": "prepared_not_published_pending_final_signed_artifact",
+  "status": "prepared_not_published_pending_final_ipa_qualification",
   "public_base_release": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3",
   "public_base_archive_sha256": "3d3884ea4cc4632fa5f137deba816b386edccf5a6d00edde77b93ca2bcae304c",
   "base_revision": "87d53cd7c001b99383d18a25f7fafe40316c6c63",
@@ -36,5 +36,22 @@
     "not_exported_explanation": "Build documentation intentionally excluded from public archive; CLIENT_SOURCE.md supplies public instructions. It is not compiled source.",
     "packager_sha256": "b1de2dfdc3c8c8e806b47791c09feb10e8de33a1db795711862271a335545693",
     "unsigned_resource_comparison": "1032 resources; zero added, missing or changed against prior retained signed app"
+  },
+  "package_isolation": {
+    "reason": "local SwiftPM package identity conflict resolved by using a separately named local package path",
+    "source_commit": "4beb029d8a941f81e7d9c6d8af1ed25a677569a8",
+    "identical_files": 221,
+    "compiled_libraries_unchanged": true,
+    "generated_project_references_changed": 2,
+    "generated_project_sha256": "996b4b438020917b60fbc2256921fe0c87fc291a29a146d634f25c89275ba1cf",
+    "evidence_sha256": "abf64ef0da2aea6885144322b36715c9bdd5f9bb30bbcf8ae698662cdeff3b68",
+    "scope": "local path/project generation difference; library source bytes unchanged"
+  },
+  "catalog_metadata": {
+    "original_sha256": "96993afb7d9089ec909a988e131c0cc84da68429601faba1ab08e1d341078e63",
+    "after_sha256": "313d77d47a38c83006c6b72d9c40a6bcffad17713db57f50e3ced5218002ab9c",
+    "change": "53 extractionState stale metadata updates; no keys or localized values changed",
+    "compiled_localizations": "13 byte-identical to unsigned build2",
+    "build_write_timing": "not established"
   }
 }
