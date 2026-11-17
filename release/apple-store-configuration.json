@@ -100,7 +100,7 @@
   "server_notifications": {
     "sandbox_url": "https://api.mambovipi.app/v1/store-notifications/apple",
     "sandbox_url_reload_verified": true,
-    "production_url": null,
+    "production_url": "https://api.mambovipi.app/v1/store-notifications/apple",
     "actual_sandbox_test": {
       "version": "2.0",
       "signature_verified": true,
@@ -108,7 +108,10 @@
       "matching_event_retained": true,
       "entitlements_created": false,
       "receipt": "qa/backend/apple-sandbox-notification-r01/receipt.json"
-    }
+    },
+    "production_url_reload_verified": true,
+    "production_notification_version": "not displayed in current ASC UI; unverified",
+    "production_test_sent": false
   },
   "listing_draft": {
     "subtitle": "Learn from your everyday chats",
