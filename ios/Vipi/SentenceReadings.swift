@@ -68,7 +68,7 @@ struct FullSentenceReadings: Sendable {
         // Static initialization runs once inside the off-render cache producer.
         // Missing or changed data leaves authored readings usable.
         if let file = Bundle.main.url(forResource: "chinese-ordinary", withExtension: "json"),
-           (try? file.resourceValues(forKeys: [.fileSizeKey]).fileSize) == 773_812,
+           (try? file.resourceValues(forKeys: [.fileSizeKey]).fileSize) == 813_708,
            let bytes = try? Data(contentsOf: file), let reader = try? ChineseFullReading(data: bytes) {
             return .init(chinese: reader)
         }

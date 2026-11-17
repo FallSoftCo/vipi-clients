@@ -5,7 +5,7 @@ import android.content.Context
 /** Display-only metadata. The original script remains the source for speech,
  * copying and message storage. Unsupported input keeps that script visible. */
 internal object NativeFullReadings {
-    const val POLICY = "authored-first-ja-kana-ko-cldr-zh-pinyin-v1"
+    const val POLICY = "authored-first-ja-kana-ko-cldr-zh-marked-pinyin-v2"
     private var chineseLoaded = false
     private var chineseReader: ChineseReadings? = null
 

@@ -1,0 +1,93 @@
+{
+  "schema": "vipi-chinese-reviewed-words-1",
+  "interpretation": "Bounded display word joins and explicit traditional equivalents. Readings derived only from pinned marked upstream dictionary/phrase values; joins apply only when selected syllables match. No inferred tones or automatic whole-script remapping.",
+  "sources": [
+    "https://github.com/zh-lx/pinyin-pro",
+    "https://dict.concised.moe.edu.tw/dictView.jsp?ID=41985&la=0&powerMode=0",
+    "https://dict.revised.moe.edu.tw/search.jsp?la=0&md=1&order=0&powerMode=0&word=%E9%8A%80%E8%A1%8C"
+  ],
+  "words": [
+    {
+      "simplified": "音乐",
+      "traditional": "音樂"
+    },
+    {
+      "simplified": "银行",
+      "traditional": "銀行"
+    },
+    {
+      "simplified": "重庆",
+      "traditional": "重慶",
+      "capitalized": true
+    },
+    {
+      "simplified": "行长",
+      "traditional": "行長"
+    },
+    {
+      "simplified": "重复",
+      "traditional": "重複"
+    },
+    {
+      "simplified": "睡觉",
+      "traditional": "睡覺"
+    },
+    {
+      "simplified": "妈妈",
+      "traditional": "媽媽"
+    },
+    {
+      "simplified": "孩子"
+    },
+    {
+      "simplified": "什么",
+      "traditional": "什麼"
+    },
+    {
+      "simplified": "咖啡"
+    },
+    {
+      "simplified": "明天"
+    },
+    {
+      "simplified": "河边",
+      "traditional": "河邊"
+    },
+    {
+      "simplified": "知道"
+    },
+    {
+      "simplified": "一起"
+    },
+    {
+      "simplified": "女儿",
+      "traditional": "女兒"
+    },
+    {
+      "simplified": "女孩"
+    },
+    {
+      "simplified": "绿色",
+      "traditional": "綠色"
+    },
+    {
+      "simplified": "旅游",
+      "traditional": "旅遊"
+    },
+    {
+      "simplified": "学生",
+      "traditional": "學生"
+    },
+    {
+      "simplified": "北京",
+      "capitalized": true
+    },
+    {
+      "simplified": "上海",
+      "capitalized": true
+    },
+    {
+      "simplified": "牛奶"
+    }
+  ]
+}

@@ -8,8 +8,8 @@ import java.security.MessageDigest
  * remains audio/copy authority; exact provenance lives in data/readings. */
 internal class ChineseReadings(data: ByteArray) {
     companion object {
-        const val DATA_SHA256 = "1d6d270bdf6dbb7eefdf35f5b5f40358e3e4013b950ba431b90f5db4f6e48acc"
-        const val POLICY = "pinyin-pro-3.29.5-ordinary-native-1"
+        const val DATA_SHA256 = "ec2f31077ea4aa2f531e0711366bb3d07af495c8ab53f144f32a5b231ed3f35c"
+        const val POLICY = "pinyin-pro-3.29.5-marked-native-2"
         private val opaque = listOf(
             Regex("```[\\s\\S]*?```"), Regex("`[^`\\r\\n]+`"),
             Regex("(?i)(?:https?://|www\\.)[^\\s<>\"“”‘’，。！？；、]+"),
@@ -37,6 +37,8 @@ internal class ChineseReadings(data: ByteArray) {
                      val reading: String, val converted: Boolean, val protected: Boolean)
     data class Result(val reading: String?, val pieces: List<Piece>, val unresolved: List<IntRange>)
     private data class Pattern(val source: IntArray, val readings: List<String>, val probability: Double)
+    private data class Word(val source: IntArray, val readings: List<String>, val capitalized: Boolean)
+    private val words: List<Word>
     private data class Node(val children: MutableMap<Int, Int> = mutableMapOf(), var pattern: Int? = null)
     private data class State(var probability: Double, var decimal: Int, val next: Int, val pattern: Int?) {
         fun scale() { if (probability < 1e-300) { probability *= 1e300; decimal++ } }
@@ -45,11 +47,11 @@ internal class ChineseReadings(data: ByteArray) {
     private val patterns: List<Pattern>
     private val nodes: List<Node>
     init {
-        require(data.size == 773_812)
+        require(data.size == 813_708)
         require(MessageDigest.getInstance("SHA-256").digest(data).joinToString("") { "%02x".format(it) } == DATA_SHA256)
-        val table = JSONObject(data.toString(Charsets.UTF_8)); require(table.getString("schema") == "vipi-pinyin-pro-ordinary-1")
+        val table = JSONObject(data.toString(Charsets.UTF_8)); require(table.getString("schema") == "vipi-pinyin-pro-marked-2")
         val chars = table.getJSONArray("characters"); val entries = table.getJSONArray("patterns")
-        require(chars.length() == 21_132 && entries.length() == 4_185)
+        require(chars.length() == 21_132 && entries.length() == 4_198)
         val characterMap = mutableMapOf<Int, List<String>>()
         for (i in 0 until chars.length()) {
             val item = chars.getJSONArray(i); require(item.length() == 2); val points = item.getString(0).codePoints().toArray()
@@ -73,6 +75,12 @@ internal class ChineseReadings(data: ByteArray) {
             val old = trie[node].pattern
             if (old == null || allPatterns[old].probability <= probability) trie[node].pattern = i
         }
+        val wordRows = table.getJSONArray("words")
+        words = (0 until wordRows.length()).map { i ->
+            val row = wordRows.getJSONObject(i); val readings = row.getJSONArray("readings")
+            Word(row.getString("source").codePoints().toArray(), (0 until readings.length()).map { readings.getString(it) }, row.getBoolean("capitalized"))
+        }.sortedByDescending { it.source.size }
+        require(words.size == 35 && words.all { it.source.size in 2..5 && it.source.size == it.readings.size })
         characters = characterMap; patterns = allPatterns; nodes = trie
     }
     private fun best(a: State?, b: State): State {
@@ -121,19 +129,34 @@ internal class ChineseReadings(data: ByteArray) {
             val point = points[i]; val previous = if (i == 0) null else characters[points[i - 1]]
             when {
                 protected[i] -> String(Character.toChars(point))
-                point == '了'.code && previous == null -> "liao"
-                point == '々'.code -> previous?.first() ?: "tong"
+                point == '了'.code && previous == null -> "liǎo"
+                point == '々'.code -> previous?.first() ?: "tóng"
                 else -> characters[point]?.first() ?: String(Character.toChars(point))
             }
         }.toMutableList()
         for ((start, pattern) in chosen) for ((offset, reading) in patterns[pattern].readings.withIndex()) values[start + offset] = reading
+        // Join only attested words whose contextual selected syllables agree.
+        // This changes display spacing, never the source ranges or speech text.
+        val joined = arrayOfNulls<String>(points.size)
+        var wordStart = 0
+        while (wordStart < points.size) {
+            val start = wordStart
+            val word = words.firstOrNull { w -> start + w.source.size <= points.size && w.source.indices.all { j ->
+                !protected[start + j] && points[start + j] == w.source[j] && values[start + j] == w.readings[j]
+            } }
+            if (word == null) { wordStart++; continue }
+            for (j in 1 until word.source.size) joined[start + j] = if (values[start + j].firstOrNull() in listOf('a', 'ā', 'á', 'ǎ', 'à', 'e', 'ē', 'é', 'ě', 'è', 'o', 'ō', 'ó', 'ǒ', 'ò')) "'" else ""
+            if (word.capitalized) values[start] = values[start].replaceFirstChar { it.uppercaseChar() }
+            wordStart += word.source.size
+        }
         val pieces = mutableListOf<Piece>(); val unresolved = mutableListOf<IntRange>(); val output = StringBuilder(); var previousConverted = false
         for (i in points.indices) {
             val source = text.substring(offsets[i], offsets[i + 1]); val reading = values[i]
             val converted = source != reading && !protected[i]
             if (!protected[i] && !converted && Character.isLetter(points[i]) &&
                 Character.UnicodeScript.of(points[i]) != Character.UnicodeScript.LATIN) unresolved += offsets[i] until offsets[i + 1]
-            if ((previousConverted || converted) && output.isNotEmpty() && reading.isNotEmpty() &&
+            if (joined[i] != null) output.append(joined[i])
+            else if ((previousConverted || converted) && output.isNotEmpty() && reading.isNotEmpty() &&
                 alphanumeric(output.codePointBefore(output.length)) && alphanumeric(reading.codePointAt(0))) output.append(' ')
             output.append(reading); previousConverted = converted
             pieces += Piece(offsets[i], offsets[i + 1], source, reading, converted, protected[i])

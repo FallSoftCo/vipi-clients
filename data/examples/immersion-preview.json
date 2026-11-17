@@ -117,18 +117,18 @@
       "words": {
         "coffee": {
           "surface": "咖啡",
-          "reading": "kafei"
+          "reading": "kāfēi"
         },
         "tomorrow": {
           "surface": "明天",
-          "reading": "mingtian"
+          "reading": "míngtiān"
         },
         "river": {
           "surface": "河",
-          "reading": "he"
+          "reading": "hé"
         }
       },
-      "reading": "Mingtian yiqi he kafei ma? Wo zhidao hebian you ge xiao difang."
+      "reading": "Míngtiān yīqǐ hē kāfēi ma? Wǒ zhīdào hébiān yǒu ge xiǎo dìfang."
     },
     "ja": {
       "text": "明日、コーヒーでもどう？川のそばに小さなお店を知っているよ。",

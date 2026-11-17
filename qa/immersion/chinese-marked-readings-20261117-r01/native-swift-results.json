@@ -1,0 +1,227 @@
+{
+  "cases" : [
+    {
+      "reading" : "yīnyuè",
+      "source" : "音乐",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "yīnyuè",
+      "source" : "音樂",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "yínháng",
+      "source" : "银行",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "yínháng",
+      "source" : "銀行",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "Chóngqìng",
+      "source" : "重庆",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "Chóngqìng",
+      "source" : "重慶",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "yínháng hángzhǎng",
+      "source" : "银行行长",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "yínháng hángzhǎng",
+      "source" : "銀行行長",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "shuìjiào",
+      "source" : "睡觉",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "shuìjiào",
+      "source" : "睡覺",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "chóngfù",
+      "source" : "重复",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "chóngfù",
+      "source" : "重複",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "māma",
+      "source" : "妈妈",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "māma",
+      "source" : "媽媽",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "háizi",
+      "source" : "孩子",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "shénme",
+      "source" : "什么",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "shénme",
+      "source" : "什麼",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "nǚ'ér",
+      "source" : "女儿",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "nǚ'ér",
+      "source" : "女兒",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "lǜsè",
+      "source" : "绿色",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "lǜsè",
+      "source" : "綠色",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "lǚyóu",
+      "source" : "旅游",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "lǚyóu",
+      "source" : "旅遊",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "niúnǎi",
+      "source" : "牛奶",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "wǒ xǐ huan yīnyuè。",
+      "source" : "我喜欢音乐。",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "yīnyuè，yínháng！Chóngqìng？",
+      "source" : "音乐，银行！重庆？",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "José yínháng café",
+      "source" : "José 银行 café",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "https://例子.cn/银行 yīnyuè",
+      "source" : "https://例子.cn/银行 音乐",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "`银行` yīnyuè",
+      "source" : "`银行` 音乐",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "nǐ hǎo yínháng",
+      "source" : "nǐ hǎo 银行",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : null,
+      "source" : "音乐𠮷",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : null,
+      "source" : "مرحبا",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "liǎo",
+      "source" : "了",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "tóng",
+      "source" : "々",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "kāfēi míngtiān hé",
+      "source" : "咖啡 明天 河",
+      "source_partition" : true,
+      "warm_identical" : true
+    },
+    {
+      "reading" : "m̌ yínháng",
+      "source" : "m̌银行",
+      "source_partition" : true,
+      "warm_identical" : true
+    }
+  ],
+  "data_sha256" : "ec2f31077ea4aa2f531e0711366bb3d07af495c8ab53f144f32a5b231ed3f35c",
+  "max_input_ms" : 240.13006687164307,
+  "max_input_utf16" : 16384,
+  "original_script_audio_authority" : true,
+  "platform" : "native macOS Swift CLI; not iOS render evidence",
+  "policy" : "pinyin-pro-3.29.5-marked-native-2",
+  "schema" : "vipi-marked-chinese-regression-1"
+}

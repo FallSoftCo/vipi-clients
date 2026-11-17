@@ -1,0 +1,146 @@
+[
+  {
+    "source": "音乐",
+    "expected": "yīnyuè"
+  },
+  {
+    "source": "音樂",
+    "expected": "yīnyuè"
+  },
+  {
+    "source": "银行",
+    "expected": "yínháng"
+  },
+  {
+    "source": "銀行",
+    "expected": "yínháng"
+  },
+  {
+    "source": "重庆",
+    "expected": "Chóngqìng"
+  },
+  {
+    "source": "重慶",
+    "expected": "Chóngqìng"
+  },
+  {
+    "source": "银行行长",
+    "expected": "yínháng hángzhǎng"
+  },
+  {
+    "source": "銀行行長",
+    "expected": "yínháng hángzhǎng"
+  },
+  {
+    "source": "睡觉",
+    "expected": "shuìjiào"
+  },
+  {
+    "source": "睡覺",
+    "expected": "shuìjiào"
+  },
+  {
+    "source": "重复",
+    "expected": "chóngfù"
+  },
+  {
+    "source": "重複",
+    "expected": "chóngfù"
+  },
+  {
+    "source": "妈妈",
+    "expected": "māma"
+  },
+  {
+    "source": "媽媽",
+    "expected": "māma"
+  },
+  {
+    "source": "孩子",
+    "expected": "háizi"
+  },
+  {
+    "source": "什么",
+    "expected": "shénme"
+  },
+  {
+    "source": "什麼",
+    "expected": "shénme"
+  },
+  {
+    "source": "女儿",
+    "expected": "nǚ'ér"
+  },
+  {
+    "source": "女兒",
+    "expected": "nǚ'ér"
+  },
+  {
+    "source": "绿色",
+    "expected": "lǜsè"
+  },
+  {
+    "source": "綠色",
+    "expected": "lǜsè"
+  },
+  {
+    "source": "旅游",
+    "expected": "lǚyóu"
+  },
+  {
+    "source": "旅遊",
+    "expected": "lǚyóu"
+  },
+  {
+    "source": "牛奶",
+    "expected": "niúnǎi"
+  },
+  {
+    "source": "我喜欢音乐。",
+    "expected": "wǒ xǐ huan yīnyuè。"
+  },
+  {
+    "source": "音乐，银行！重庆？",
+    "expected": "yīnyuè，yínháng！Chóngqìng？"
+  },
+  {
+    "source": "José 银行 café",
+    "expected": "José yínháng café"
+  },
+  {
+    "source": "https://例子.cn/银行 音乐",
+    "expected": "https://例子.cn/银行 yīnyuè"
+  },
+  {
+    "source": "`银行` 音乐",
+    "expected": "`银行` yīnyuè"
+  },
+  {
+    "source": "nǐ hǎo 银行",
+    "expected": "nǐ hǎo yínháng"
+  },
+  {
+    "source": "音乐𠮷",
+    "expected": null
+  },
+  {
+    "source": "مرحبا",
+    "expected": null
+  },
+  {
+    "source": "了",
+    "expected": "liǎo"
+  },
+  {
+    "source": "々",
+    "expected": "tóng"
+  },
+  {
+    "source": "咖啡 明天 河",
+    "expected": "kāfēi míngtiān hé"
+  },
+  {
+    "source": "m̌银行",
+    "expected": "m̌ yínháng"
+  }
+]

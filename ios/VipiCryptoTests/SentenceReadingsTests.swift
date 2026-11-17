@@ -2,6 +2,26 @@ import XCTest
 @testable import Vipi
 
 @MainActor final class SentenceReadingsTests: XCTestCase {
+    func testMarkedChineseWordsAndExactOnboardingPreview() throws {
+        let file = try XCTUnwrap(Bundle.main.url(forResource: "chinese-ordinary", withExtension: "json"))
+        let reader = try ChineseFullReading(data: Data(contentsOf: file))
+        for (source, expected) in [("音乐", "yīnyuè"), ("音樂", "yīnyuè"), ("银行", "yínháng"), ("銀行", "yínháng"),
+                                   ("重庆", "Chóngqìng"), ("重慶", "Chóngqìng"), ("銀行行長", "yínháng hángzhǎng"),
+                                   ("妈妈", "māma"), ("媽媽", "māma"), ("什麼", "shénme"), ("孩子", "háizi"),
+                                   ("女儿", "nǚ'ér"), ("綠色", "lǜsè"), ("牛奶", "niúnǎi"),
+                                   ("José 银行 café", "José yínháng café")] {
+            let result = try reader.resolve(source)
+            XCTAssertEqual(result.reading, expected, source)
+            XCTAssertEqual(result.pieces.map(\.source).joined(), source)
+        }
+        let preview = try XCTUnwrap(ConversationExamples.examples?.languages["zh"])
+        XCTAssertEqual(preview.words["coffee"]?.reading, "kāfēi")
+        XCTAssertEqual(preview.words["tomorrow"]?.reading, "míngtiān")
+        XCTAssertEqual(preview.words["river"]?.reading, "hé")
+        XCTAssertEqual(preview.reading, "Míngtiān yīqǐ hē kāfēi ma? Wǒ zhīdào hébiān yǒu ge xiǎo dìfang.")
+        XCTAssertEqual(SentenceReadings.reading("你好。", language: "zh"), "Nǐ hǎo.")
+    }
+
     func testAllAuthoredReadingsAndUnknownClauseAbstention() throws {
         let url = try XCTUnwrap(Bundle.main.url(forResource: "sentence-readings", withExtension: "json"))
         let root = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])

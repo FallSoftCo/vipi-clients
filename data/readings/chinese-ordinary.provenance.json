@@ -1,14 +1,14 @@
 {
   "schema": "vipi-reading-data-provenance-1",
   "language": "zh",
-  "policy": "pinyin-pro-3.29.5-ordinary-native-1",
+  "policy": "pinyin-pro-3.29.5-marked-native-2",
   "runtime_data": "chinese-ordinary.json",
-  "bytes": 773812,
-  "sha256": "1d6d270bdf6dbb7eefdf35f5b5f40358e3e4013b950ba431b90f5db4f6e48acc",
-  "source_export": "qa/immersion/chinese-reading-upstream-r01/ordinary-data.json",
+  "bytes": 813708,
+  "sha256": "ec2f31077ea4aa2f531e0711366bb3d07af495c8ab53f144f32a5b231ed3f35c",
+  "source_export": "language-packs/export_marked_chinese_readings.mjs",
   "source_package": "qa/immersion/chinese-reading-upstream-r01/pinyin-pro-3.29.5.tgz",
-  "reproduce": "Extract retained pinned tarball to an owned disk-backed directory; node qa/immersion/chinese-reading-upstream-r01/export-data.mjs /absolute/path/package /absolute/path/new-ordinary-data.json; compare exact SHA256 before copy.",
+  "reproduce": "Extract retained hash-verified pinyin-pro-3.29.5.tgz; node language-packs/export_marked_chinese_readings.mjs PACKAGE_DIRECTORY data/readings/chinese-reviewed-words.json NEW_OUTPUT; compare exact SHA256.",
   "license": "MIT",
   "license_path": "qa/immersion/chinese-reading-upstream-r01/LICENSE.upstream",
-  "semantics": "Ordinary tone-free pinyin, reviewed authored readings first. Original script remains speech/copy authority. Context-sensitive reading errors are retained in qualification, not hidden by phrase patches."
+  "semantics": "Marked Hanyu Pinyin dictionary readings, authored readings first; neutral syllables remain unmarked. Underlying dictionary tones rather than blanket surface sandhi. 35 bounded display word joins and 13 explicit Traditional phrase aliases; no general Traditional conversion. Original Chinese remains speech/copy authority. Dictionary defaults still have contextual limits."
 }

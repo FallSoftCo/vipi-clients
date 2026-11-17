@@ -3,7 +3,7 @@
 Full-message display uses exact authored readings first. If no authored reading
 exists, Japanese uses the existing Kuromoji/IPADIC pronunciation and reading
 features with Vipi's deterministic kana-to-Roman-letter conversion. Korean uses
-a small spelling-based converter derived from pinned Unicode CLDR rules. Chinese uses the pinned ordinary-pinyin data and native phrase selection described
+a small spelling-based converter derived from pinned Unicode CLDR rules. Chinese uses the pinned marked-pinyin data and native phrase selection described
 below. Arabic retains its existing authored-only Android path in this revision.
 
 These are ordinary display guides. They do not replace original-script audio,
@@ -37,17 +37,27 @@ adaptation of `qa/immersion/korean-reading-cldr-r01`: object renaming and a doc
 comment only, with `KoreanLetterRules.kt` byte-identical. The pinned Unicode
 license ships in the app's Licenses and notices inventory.
 
-Chinese packages the exact 773,812-byte pinyin-pro 3.29.5 ordinary resource and
-MIT notice. The Kotlin port preserves its phrase probabilities, tie ordering and
-numeric behavior; a bounded trie and backward dynamic program select phrases.
-The resource SHA-256 is verified before loading. A process-wide immutable public
-table can serve separate conversation caches without retaining message history.
-Unknown unprotected script withholds the complete guide. Protected identifiers,
-URLs and code retain exact source characters. The tone-free guide has recorded
-contextual syllable errors, including return-context 还 and some traditional
-phrases. `data/readings/chinese-quality-debt.json` preserves those findings;
-implementation parity does not make them correct. No evaluation phrase overrides
-or blanket multi-reading suppression are used.
+Chinese packages the hash-verified 813,708-byte marked pinyin-pro 3.29.5
+resource and MIT notice. Original dictionary tone marks, ü and neutral-tone
+syllables survive export. The native phrase selector retains the upstream
+probabilities and tie ordering. Thirteen explicit Traditional word equivalents
+extend context coverage; no broad script conversion or tone inference runs.
+Thirty-five reviewed word joins apply only when the chosen syllables match,
+including `yīnyuè`, `yínháng`, `Chóngqìng` and `nǚ'ér`. Other output retains
+syllable boundaries. Dictionary tones use the underlying orthographic convention,
+not a promise to transcribe every spoken tone-sandhi change.
+
+Unknown unprotected script withholds the complete guide. Names, URLs, identifiers
+and code keep their original characters. The source script remains speech and
+copy authority. The exact onboarding preview has separately authored tone marks;
+it does not use the full-reading fallback. Other authored sentence and word
+readings retain their existing precedence.
+
+Contextual limits remain, including `还` in return contexts and colloquial
+particles. `data/readings/chinese-quality-debt.json` preserves the older
+assessment as historical evidence; its original counts do not describe the
+revised table. The focused marked-reading regressions establish specified
+behavior, not population accuracy or acoustic quality.
 
 There is no new runtime model or dictionary download for these readers.
 Kuromoji/IPADIC and its notices were already packaged. Japanese source supports

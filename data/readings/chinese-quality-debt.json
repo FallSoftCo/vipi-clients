@@ -74,5 +74,7 @@
     "Perfect phonetics or tones",
     "Untouched conversational population accuracy",
     "Fresh Apple translation provider or physical iOS inference"
-  ]
+  ],
+  "historical_assessment": true,
+  "current_revision_note": "Marked-native-2 preserves this historical diagnostic and its counts; these are not new-version accuracy claims. Explicit Traditional aliases now cover 銀行/行長/音樂/重慶 and selected other words. Other listed contextual errors are not certified resolved."
 }

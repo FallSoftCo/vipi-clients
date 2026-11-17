@@ -449,9 +449,9 @@ private actor DelayedFullReadingQA {
         let file = try XCTUnwrap(Bundle.main.url(forResource: "chinese-ordinary", withExtension: "json"))
         let data = try Data(contentsOf: file)
         let reader = FullSentenceReadings(chinese: try ChineseFullReading(data: data))
-        XCTAssertEqual(data.count, 773_812)
+        XCTAssertEqual(data.count, 813_708)
         XCTAssertEqual(FullSentenceReadings.resolve("银行行长正在走路。", language: "zh"),
-                       .init(text: "yin hang hang zhang zheng zai zou lu。", provenance: .localTransliteration))
+                       .init(text: "yínháng hángzhǎng zhèng zài zǒu lù。", provenance: .localTransliteration))
         let authored = "我需要水。"
         XCTAssertEqual(reader.reading(authored, language: "zh"),
                        .init(text: try XCTUnwrap(SentenceReadings.reading(authored, language: "zh")), provenance: .authored))

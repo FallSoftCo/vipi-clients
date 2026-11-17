@@ -4,10 +4,10 @@ import CryptoKit
 /// Native ordinary-pinyin implementation of pinned pinyin-pro 3.29.5 data and
 /// max-probability phrase selection (MIT, copyright 2022-present zh-lx).
 /// See qa/immersion/chinese-reading-upstream-r01 for complete source and notice.
-/// Tone-free display is not a promise of contextual or acoustic correctness.
+/// Marked dictionary tones are a visual guide; original-script audio stays authoritative.
 struct ChineseFullReading: Sendable {
-    static let dataSHA256 = "1d6d270bdf6dbb7eefdf35f5b5f40358e3e4013b950ba431b90f5db4f6e48acc"
-    static let policy = "pinyin-pro-3.29.5-ordinary-native-1"
+    static let dataSHA256 = "ec2f31077ea4aa2f531e0711366bb3d07af495c8ab53f144f32a5b231ed3f35c"
+    static let policy = "pinyin-pro-3.29.5-marked-native-2"
     enum Invalid: Error { case data, input }
     struct Piece: Sendable, Codable {
         let startUTF16: Int, endUTF16: Int, source: String, reading: String
@@ -29,8 +29,10 @@ struct ChineseFullReading: Sendable {
     private struct Pattern: Decodable, Sendable {
         let source: String, readings: [String], probability: Double, priority: Int, order: Int
     }
+    private struct Word: Decodable, Sendable { let source: String, readings: [String]; let capitalized: Bool }
+    private let words: [Word]
     private struct Tables: Decodable {
-        let schema: String, characters: [CharacterEntry], patterns: [Pattern]
+        let schema: String, characters: [CharacterEntry], patterns: [Pattern], words: [Word]
     }
     private struct Node: Sendable { var children: [UInt32: Int] = [:]; var pattern: Int? }
     private struct State {
@@ -44,11 +46,11 @@ struct ChineseFullReading: Sendable {
     private let patterns: [Pattern]
     private let nodes: [Node]
     init(data: Data) throws {
-        guard data.count == 773_812,
+        guard data.count == 813_708,
               SHA256.hash(data: data).map({ String(format: "%02x", $0) }).joined() == Self.dataSHA256 else { throw Invalid.data }
         let table = try JSONDecoder().decode(Tables.self, from: data)
-        guard table.schema == "vipi-pinyin-pro-ordinary-1", table.characters.count == 21_132,
-              table.patterns.count == 4_185 else { throw Invalid.data }
+        guard table.schema == "vipi-pinyin-pro-marked-2", table.characters.count == 21_132,
+              table.patterns.count == 4_198 else { throw Invalid.data }
         var chars: [UInt32: [String]] = [:], trie = [Node()]
         for item in table.characters {
             let source = Array(item.source.unicodeScalars)
@@ -73,6 +75,8 @@ struct ChineseFullReading: Sendable {
             if let old = trie[node].pattern, table.patterns[old].probability > pattern.probability { continue }
             trie[node].pattern = index
         }
+        guard table.words.count == 35, table.words.allSatisfy({ (2...5).contains($0.source.unicodeScalars.count) && $0.source.unicodeScalars.count == $0.readings.count }) else { throw Invalid.data }
+        words = table.words.sorted { $0.source.unicodeScalars.count > $1.source.unicodeScalars.count }
         characters = chars; patterns = table.patterns; nodes = trie
     }
     private static func best(_ a: State?, _ b: State) -> State {
@@ -149,12 +153,29 @@ struct ChineseFullReading: Sendable {
         var values = scalars.indices.map { i -> String in
             let scalar = scalars[i], previous = i == 0 ? nil : characters[scalars[i-1].value]
             if protected[i] { return String(scalar) }
-            if scalar == "了", previous == nil { return "liao" }
-            if scalar == "々" { return previous?.first ?? "tong" }
+            if scalar == "了", previous == nil { return "liǎo" }
+            if scalar == "々" { return previous?.first ?? "tóng" }
             return characters[scalar.value]?.first ?? String(scalar)
         }
         for (start, pattern) in selected {
             for (offset, reading) in patterns[pattern].readings.enumerated() { values[start + offset] = reading }
+        }
+        // Word joins require exact selected syllables; no pronunciation is guessed.
+        var joined = [String?](repeating: nil, count: scalars.count), wordStart = 0
+        while wordStart < scalars.count {
+            let start = wordStart
+            let word = words.first { word in
+                let source = Array(word.source.unicodeScalars)
+                return start + source.count <= scalars.count && source.indices.allSatisfy { j in
+                    !protected[start+j] && scalars[start+j] == source[j] && values[start+j] == word.readings[j]
+                }
+            }
+            guard let word else { wordStart += 1; continue }
+            for j in 1..<word.readings.count {
+                joined[start+j] = values[start+j].first.map { "aāáǎàeēéěèoōóǒò".contains($0) } == true ? "'" : ""
+            }
+            if word.capitalized { values[start] = values[start].prefix(1).uppercased() + values[start].dropFirst() }
+            wordStart += word.readings.count
         }
         var pieces: [Piece] = [], unresolved: [NSRange] = [], output = "", previousConverted = false
         for i in scalars.indices {
@@ -162,8 +183,9 @@ struct ChineseFullReading: Sendable {
             let range = NSRange(location: offsets[i], length: offsets[i+1] - offsets[i])
             if !protected[i] && !converted && CharacterSet.letters.contains(scalars[i]) &&
                 source.range(of: #"\p{Latin}"#, options: .regularExpression) == nil { unresolved.append(range) }
-            if (previousConverted || converted), let left = output.unicodeScalars.last,
-               let right = reading.unicodeScalars.first, CharacterSet.alphanumerics.contains(left),
+            if let join = joined[i] { output += join }
+            else if (previousConverted || converted), let left = output.unicodeScalars.last,
+               let right = reading.unicodeScalars.first, (CharacterSet.alphanumerics.contains(left) || CharacterSet.nonBaseCharacters.contains(left)),
                CharacterSet.alphanumerics.contains(right) { output += " " }
             output += reading; previousConverted = converted
             pieces.append(.init(startUTF16: offsets[i], endUTF16: offsets[i+1], source: source,
