@@ -1,0 +1,21 @@
+{
+  "status": "isolated_wrapper_qualified_full_app_pending",
+  "fixture": "synthetic cases; no production account or messages",
+  "wrapper_sha256": "644193863c5a0c601e3b2cc2852c6c160e007240bf30257b2f058a9f579ef730",
+  "harness_apk_sha256": "ef062e595dedbb76751adaf2888a80a058434905d7b3e5a0f1be9544b54e8bdc",
+  "harness_log_path": "investigations/vipi-submit-20261110-r01/android-v2-crypto-isolated-r01/wrapper-fixed-r01.log",
+  "harness_log_sha256": "c79ccb5c02e402c6ec0ec16bce8b6f718b854a9a5a8da2fe73ff62c811d130ab",
+  "observed": [
+    "11 short/protected/Full classifier cases passed",
+    "11 preview-language paragraphs passed",
+    "closed classifier returned no result",
+    "R8 harness manifest verified without INTERNET permission"
+  ],
+  "limitations": [
+    "Full app and LookupFirst-to-007 actual provider route were not exercised.",
+    "In-flight cancellation was not exercised.",
+    "The earlier language-ID run with INTERNET permission could schedule telemetry; it is not evidence of network isolation.",
+    "Classifier confidence routes existing lookup only; it does not establish translation correctness.",
+    "No release build, release installation, provider or customer messages were performed."
+  ]
+}

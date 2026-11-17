@@ -317,7 +317,7 @@ internal class ConversationImmersion(context: Context, val source: String, val t
             LookupFirst.resolve(LookupFirstRequest(text, source, target, inputLanguage, intent,
                 allowModelTranslation = intent == ImmersionIntent.FULL_TRANSLATION), ::valid,
                 reference = { original, from, to -> catalogMutex.withLock { withContext(Dispatchers.Default) { catalog.reference(original, from, to) } } },
-                identify = { language.identify(it) }, modelsReady = { readinessCalls++; ready == true },
+                identify = { language.identify(it, requireTwoWords = intent == ImmersionIntent.AUTOMATIC_IMMERSION) }, modelsReady = { readinessCalls++; ready == true },
                 translate = { original, from, to ->
                     if (intent == ImmersionIntent.FULL_TRANSLATION) {
                         try { withTimeout(30_000) { providerMutex.withLock { translator.translate(original, from, to) } } }
