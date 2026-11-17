@@ -1,0 +1,18 @@
+{
+  "state": "prepared_not_applied",
+  "baseline_sha256": "dec21a5fd082daeb98ef3742743cd4c8449576aff3b0f5a0bf8b6be57b48d8d1",
+  "candidate_sha256": "cee1262cae300c1c4eca3aa24424ac23ae42862fa4a88e52747faee3a1696a83",
+  "changed_fields": [
+    "environment",
+    "enforce_subscriptions",
+    "allowed_subjects",
+    "apple_environment"
+  ],
+  "reviewers_preserved_count": 2,
+  "sandbox_testers_preserved_count": 2,
+  "workos_key_preserved": true,
+  "global_google_test": false,
+  "service_user_validator_passed": true,
+  "live_env_unchanged": true,
+  "no_application_provider_or_live_mutation": true
+}
