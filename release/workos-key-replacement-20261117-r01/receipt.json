@@ -1,0 +1,29 @@
+{
+  "state": "complete",
+  "company_dashboard": "Existing Fallible Software account authenticated with Firefox saved credential; existing Vipi Production project preserved",
+  "authorization": "Owner approved one Vipi-only coordination exception; one consolidated host",
+  "key_creations": 1,
+  "cutover_invocations": 1,
+  "old_key_expiry_submissions": 1,
+  "old_key_after_revocation_status": 401,
+  "new_key_after_revocation_status": 200,
+  "owned_user_readback_matches": true,
+  "api_ready_status": 200,
+  "api_pid": 3572548,
+  "only_setting_changed": "VIPI_WORKOS_API_KEY",
+  "current_environment_sha256": "dec21a5fd082daeb98ef3742743cd4c8449576aff3b0f5a0bf8b6be57b48d8d1",
+  "staging_admitted_subjects": 5,
+  "reviewer_count": 2,
+  "sandbox_tester_count": 2,
+  "billing_and_expiry_timers_preserved": true,
+  "push_nginx_postgres_pids_unchanged": true,
+  "replacement_secret_values_logged": false,
+  "temporary_key_inputs_removed_after_live_comparison": true,
+  "no_client_messages_or_purchases": true,
+  "rollback_warning": "Old credential is revoked; do not restore the pre-rotation env or r02 production candidate. Rebased production candidate r03 is prepared separately, not active.",
+  "limits": [
+    "New key verified through existing owned user GET and actual API process environment; OAuth exchange and account deletion were not re-exercised.",
+    "Push process was deliberately preserved; it inherited the old unused value. Reviewed current push and billing code has no WorkOS API-key use. Future invocations load current env.",
+    "Native create job timeout occurred after durable private capture; exact outcome reconciled before continuing, and no second creation was performed."
+  ]
+}
