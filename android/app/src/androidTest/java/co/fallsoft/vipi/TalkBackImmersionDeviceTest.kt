@@ -90,7 +90,7 @@ class TalkBackImmersionDeviceTest {
                 }
             }
             try { compose.waitUntil(20_000) { reading() == "I like muziki." } }
-            catch (failure: Throwable) {
+            finally {
                 val diagnostic = JSONObject().put("actualVisibleText", reading() ?: JSONObject.NULL).put("expectedVisibleText", "I like muziki.")
                 instrumentation.runOnMainSync {
                     val owner = ownerRef
@@ -107,7 +107,6 @@ class TalkBackImmersionDeviceTest {
                         .put("viewRoots", JSONArray(WindowInspector.getGlobalWindowViews().flatMap { paragraphs(it) }.map { JSONObject().put("shown", it.isShown).put("text", it.visibleText()) }))
                 }
                 File(context.filesDir, "talkback-precondition-$run.json").writeText(diagnostic.toString(2))
-                throw failure
             }
             val enabled = before.getValue("enabled_accessibility_services").takeUnless { it == "null" || it.isEmpty() }
             val services = listOfNotNull(enabled, service).joinToString(":")
