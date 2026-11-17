@@ -1,0 +1,11 @@
+{
+  "time_utc": "2026-11-17T15:34:21Z",
+  "sender": "vipiqa_apple1117",
+  "recipient": "vipiqa_peer1117",
+  "recipient_display": "Vipi QA Android",
+  "original_message": "I love music.",
+  "sends": 1,
+  "sender_ui": "Delivered; local switched display watashi love ongaku",
+  "receiver_verification": "pending independent Android readback",
+  "evidence": "/home/ai/Development/investigations/vipi-resume-20261116-r01/apple-owned-peer-20261117-r01/"
+}
