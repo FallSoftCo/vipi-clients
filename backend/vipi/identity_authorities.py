@@ -13,7 +13,9 @@ class IdentityAuthority:
 
 LEGACY_VIPI = IdentityAuthority(
     "vipi-production", "client_01M6VYVQQ9GWVNS95DFGABXEW9",
-    "https://api.workos.com/user_management/client_01M6VYVQQ9GWVNS95DFGABXEW9",
+    # Signed owned-reviewer session qualified 2026-11-17. Discovery advertises
+    # a different issuer; retain the exact issuer actually used by this realm.
+    "https://api.workos.com",
     "https://api.workos.com/sso/jwks/client_01M6VYVQQ9GWVNS95DFGABXEW9")
 FALLSOFT_VIPI = IdentityAuthority(
     "fallsoft-vipi-production", "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",

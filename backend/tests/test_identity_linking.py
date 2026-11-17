@@ -159,6 +159,31 @@ async def test_shared_signature_still_requires_vipi_application_audience_and_exa
         await verifier.close()
 
 
+async def test_legacy_transition_uses_observed_session_issuer_and_keeps_application_isolation(signing):
+    # A real owned-reviewer session uses this exact issuer, despite the public
+    # discovery document advertising a client-suffixed value.
+    configured = Settings(database_url="sqlite+aiosqlite://",
+        workos_client_id=LEGACY_VIPI.client_id, workos_issuer="https://api.workos.com",
+        service_secret=SECRET, shared_identity_transition_enabled=True)
+    verifier = WorkOSVerifier(configured, authority=LEGACY_VIPI,
+        transport=httpx.MockTransport(lambda request: httpx.Response(200, json={"keys": [signing[1]]})))
+    valid = claims(iss="https://api.workos.com", client_id=LEGACY_VIPI.client_id)
+    try:
+        principal = await verifier.verify(jwt.encode(valid, signing[0], algorithm="RS256", headers={"kid": "fixture"}))
+        assert principal.authority == LEGACY_VIPI.id and principal.subject == "user_fixture"
+        for patch in (
+            {"iss": "https://api.workos.com/"},
+            {"iss": "https://api.workos.com/user_management/" + LEGACY_VIPI.client_id},
+            {"iss": FALLSOFT_VIPI.issuer},
+            {"client_id": FALLSOFT_VIPI.client_id},
+            {"client_id": "client_01JPK69ZZFHH0NSP8BY2HGRDX6"},
+        ):
+            with pytest.raises(AuthenticationError):
+                await verifier.verify(jwt.encode(valid | patch, signing[0], algorithm="RS256", headers={"kid": "fixture"}))
+    finally:
+        await verifier.close()
+
+
 def test_transition_never_accepts_arbitrary_configured_authority():
     with pytest.raises(ValueError, match="pinned authority"):
         Settings(database_url="sqlite+aiosqlite://", workos_client_id="client_unknown", workos_issuer="https://attacker.invalid",

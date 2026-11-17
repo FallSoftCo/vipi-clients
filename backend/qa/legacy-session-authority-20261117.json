@@ -1,0 +1,22 @@
+{
+  "observed_at": "2026-11-17T19:58:00.260425+00:00",
+  "purpose": "Pin legacy transition authority to the issuer of an actual signed owned-reviewer session",
+  "observed": {
+    "issuer": "https://api.workos.com",
+    "client_id": "client_01M6VYVQQ9GWVNS95DFGABXEW9",
+    "signature_verified": true,
+    "owned_identity_matched": true,
+    "authentication_dispatches": 1,
+    "jwks_sha256": "1f09d04bf31d3de3793190c346e766ae1a3432a1800b11ea518d5e99a9404929"
+  },
+  "private_evidence": {
+    "receipt": "/home/ai/Development/investigations/vipi-quality-20261117-r01/legacy-issuer-audit-r01/legacy-password-auth-receipt-r01.json",
+    "sha256": "b8958c695dcb6ca246a2ed368074910695b2ba4412cf4a50cf0b849d8f863020"
+  },
+  "limits": [
+    "No reusable tokens or credentials retained in this artifact",
+    "Public OIDC discovery is not substituted for the observed issuer",
+    "Shared Vipi and company default authorities still require separate live qualification",
+    "No production configuration changed"
+  ]
+}
