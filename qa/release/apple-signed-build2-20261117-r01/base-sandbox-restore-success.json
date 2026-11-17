@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-11-17T13:56:12.955613+00:00",
+  "scope": "One same-account same-device Restore purchases on TestFlight build 1.0 (2)",
+  "ui_result": "Your App Store purchases are up to date; Vipi subscription active",
+  "clean_device_restore_proven": false,
+  "independent_backend_readback": "pending",
+  "credential_cleanup": "One-use file absent and clipboard empty, verified",
+  "evidence": "/home/ai/Development/investigations/vipi-resume-20261116-r01/apple-base-sandbox-purchase-r01/restore-success.png",
+  "no_repeat_restore_or_purchase": true
+}
