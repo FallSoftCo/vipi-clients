@@ -67,7 +67,7 @@
     <string name="ui_9d2dbb5de070" formatted="false">サインインして確認してください</string>
     <string name="ui_9e36cb35d1a0" formatted="false">メッセージを配信できませんでした。 他の会話は続けても構いません。</string>
     <string name="ui_9ed65d7add5f" formatted="false">利用規約に同意し、プライバシーポリシーを読みました。</string>
-    <string name="ui_9f60f6c0e9e0" formatted="false">メッセージ vBot</string>
+    <string name="ui_9f60f6c0e9e0" formatted="false">vBotにメッセージを送る</string>
     <string name="ui_a2e20a335700" formatted="false">アカウントを削除</string>
     <string name="ui_a44d35311325" formatted="false">レポートを送信</string>
     <string name="ui_ac6b07b85d0f" formatted="false">キーが変更されたか、選択が保存できなかった可能性があります。 現在の数値を再度比較してください。</string>
@@ -181,14 +181,29 @@
     <string name="cardless_intro">支払い方法を登録せずに30日間無料で始められます。その後、登録するか選べます。</string>
     <string name="bot_verification_unavailable">現在、Bot miniへのアクセスを確認できません。もう一度お試しください。</string>
     <string name="plan_clock_unavailable">プランの利用状況を確認できませんでした。もう一度お試しください。</string>
-    <string name="nav_help">ヘルプ</string>
-    <string name="cardless_intro_new">新しいアカウントは、お支払い方法なしで30日間無料で利用できます。その後、登録するかどうかを選べます。</string>
-    <string name="cardless_no_autocharge">無料期間中はお支払い方法は不要です。自動請求されずに終了し、登録は任意です。</string>
-    <string name="report_harmful_offensive">有害または不快</string>
-    <string name="block_person_question">%1$sをブロックしますか？</string>
-    <string name="unblock_person_question">%1$sのブロックを解除しますか？</string>
-    <string name="device_recovery_explanation">アカウントは別のデバイスで有効です。保存した会話はここで引き続き利用できます。</string>
-    <string name="bot_requires_vipi_access">Bot miniには有効なVipiアクセスが必要です。次回の更新を避けるには、Vipiのアクセスを確認するか、Google PlayでBot miniを管理してください。</string>
+    <string name="ui_03fdb0dfc1b8" formatted="false">Vipiアカウントを削除しますか？</string>
+    <string name="ui_04c8049b72ff" formatted="false">12文字以上を使用してください。長くて固有のパスフレーズをおすすめします。</string>
+    <string name="ui_0cb9c0cf3bb1" formatted="false">再接続するにはもう一度サインインしてください。保存済みの会話はこのデバイスに残ります。</string>
+    <string name="ui_18714cc5a562" formatted="false">友達が携帯電話を変更しましたか？</string>
+    <string name="ui_3e39703b6e87" formatted="false">バックアップのパスワード</string>
+    <string name="ui_54a04d4e9955" formatted="false">アカウントが別のデバイスに移動しました。保存済みの会話はここで引き続き利用できます。</string>
+    <string name="ui_8218810809d6" formatted="false">保存済みの会話を開けませんでした。Vipiを閉じて開き直してください。</string>
+    <string name="ui_d63cd658184e" formatted="false">バックアップを保存するにはパスワードを確認</string>
+    <string name="ui_db2b1ef64bbf" formatted="false">このデバイスでVipiを使いますか？</string>
+    <string name="deletion_prepare_failed">削除を準備できませんでした。Vipiを閉じて開き直してください。</string>
+    <string name="licenses_open_failed">ライセンスを開けませんでした。もう一度お試しください。</string>
+    <string name="friends_sign_in_required">友達を探すにはサインインしてください。</string>
+    <string name="backup_contents">このバックアップには%1$sと%2$sが含まれます。一致するメッセージは重複保存されません。既存の会話とメッセージの安全性は維持されます。</string>
+    <string name="backup_open_failed">バックアップを開くか保存できませんでした。パスワードとファイルを確認して再試行してください。</string>
+    <string name="backup_saved">暗号化されたチャットバックアップを保存しました。パスワードは安全な場所に保管してください。</string>
+    <string name="backup_restore_result">復元：%1$s。保存済み：%2$s。</string>
+    <string name="bot_consent_save_failed">選択内容を保存できませんでした。もう一度お試しください。</string>
+    <string name="bot_draft_save_failed">下書きを保存できませんでした。もう一度お試しください。</string>
+    <string name="bot_message_too_long">メッセージが長すぎます。短くして送信してください。</string>
+    <string name="bot_earlier_open_failed">以前のメッセージを開けませんでした。</string>
+    <string name="settings_page_open_failed">このページを開けませんでした。もう一度お試しください。</string>
+    <string name="delivery_imported">インポート済み</string>
+    <string name="conversations_local">会話はデバイスに保存されます。</string>
     <string name="annual_price">年額 %1$s</string>
     <string name="trial_then_annual">1か月無料、その後は年額 %1$s</string>
     <string name="subscribe_annual">年額 %1$s で登録</string>
@@ -207,28 +222,6 @@
     <string name="ui_3ec68bc63f9a" formatted="false">購入の確認を待っています。再度購入せず、「購入を復元」で再確認してください。</string>
     <string name="ui_e9fa6f9474f3" formatted="false">購入はキャンセルされました。プランに変更はありません。</string>
     <string name="ui_c753f85749ce" formatted="false">Google Playの購入画面を開けませんでした。プランを更新してもう一度お試しください。</string>
-    <string name="ui_2b338821b42c" formatted="false">他の有効なデバイスはサインアウトされます。このデバイス上のチャットは残ります。待機中のメッセージはデバイス間で移動できず、送信が停止します。暗号化キーが変わるため、友達は再承認し、セキュリティ番号を再確認する必要があります。</string>
-    <string name="ui_2e03fab81b5f" formatted="false">友達の暗号化IDが変更されました。次のメッセージを送る前に新しいキーを確認してください。保存済みの履歴は残ります。</string>
-    <string name="ui_5f0f1b251f45" formatted="false">暗号化が更新されました。以前の待機中メッセージは停止しました。友達と新しいセキュリティ番号を照合してください。</string>
-    <string name="ui_84b61960effd" formatted="false">続行するとこれらのキーを使用しますが、検証済みにはなりません。検証済みにする前に、友達と直接または信頼できる通話で12組すべてを照合してください。</string>
-    <string name="security_compare_with_friend">暗号化キーが一致することを確認するため、%1$sさんと直接または信頼できる通話で12組すべてを照合してください。</string>
-    <string name="security_identity_changed">%1$sさんのデバイスまたは暗号化IDが変更されました。保存済みの履歴は残ります。以前の待機中メッセージは停止され、再送されません。</string>
-    <string name="security_identity_check_failed">変更された暗号化IDを確認できませんでした。現在のキーは変更されていません。友達にVipiを開いてもらい、もう一度お試しください。</string>
-    <string name="security_confirmation_expired">キーが再び変更されたか、確認の期限が切れました。この画面を閉じて再確認してください。以前のキーは変更されていません。</string>
-    <string name="ui_ea1029db5e5d" formatted="false">このデバイスは接続されました。保存済みの履歴はここに残ります。以前の待機中メッセージは停止し、友達には新しい暗号化キーが表示されます。</string>
-    <string name="ui_38d5b00c27da" formatted="false">変更された暗号化を確認</string>
-    <string name="ui_84368a0f0b2d" formatted="false">暗号化を更新しますか？</string>
-    <string name="ui_8a9877b04214" formatted="false">このキーを使う</string>
-    <string name="ui_42ed79b95da1" formatted="false">ここで送信するメッセージと最近のvBot会話の文脈は、返信生成のためVipiとDeepSeekに送られます。これはサービスとのチャットであり、友達とのエンドツーエンド暗号化された会話ではありません。友達とのチャットは含まれません。</string>
-    <string name="ui_967b3ede020c" formatted="false">下の元のメッセージ、その送信者、理由が確認のためFallible Softwareに送信されます。会話の残りは非公開のままです。報告は最長30日間保存されます。</string>
-    <string name="ui_c48de4e830a9" formatted="false">選択した返信のテキストと理由のみが確認のためFallible Softwareに送信されます。友達との会話は含まれません。報告は最長30日間保存されます。</string>
-    <string name="ui_bb1fe2470e72" formatted="false">友達とのチャット履歴を暗号化ファイルに保存します。保存先は選べます。メッセージID、未送信メッセージ、vBot履歴はバックアップに含まれません。</string>
-    <string name="ui_c3297f5bde81" formatted="false">アカウントを削除してもGoogle Playのサブスクリプションは解約されません。今後の更新を止めるには別途解約できます。</string>
-    <string name="ui_57225bd8b984" formatted="false">有効なプランがなくても、保存済みの会話の閲覧とアカウントの削除はいつでもできます。</string>
-    <string name="ui_cc39ebccb529" formatted="false">vBotに質問したり、今日の出来事を話したりできます。vBotはチャットボットで、間違えることがあります。重要な内容は確認してください。</string>
-    <string name="bot_plan_description">Bot miniはVipiプランにvBotとの会話を追加します。自動返信は間違うことがあります。更新日が別の独立したサブスクリプションです。</string>
-    <string name="base_plan_description">友達とチャットしながら、対応する単語や短いフレーズが選んだ言語に切り替わります。Bot miniは別の任意プランです。</string>
-    <string name="ui_233a70befbdc" formatted="false">バックアップのパスワードを保管してください。Vipiは復元できません。プラン終了後も保存済みのチャットとバックアップにアクセスできます。</string>
     <string name="ui_00e255330e43" formatted="false">言語 · 1 / 2</string>
     <string name="ui_048a626ab4bb" formatted="false">ダウンロードを削除しますか？</string>
     <string name="ui_0541b2d9f69b" formatted="false">会話を残しましょう。</string>
@@ -280,6 +273,106 @@
     <string name="ui_f826885bfb23" formatted="false">音声を設定</string>
     <string name="ui_fa3d530cf72d" formatted="false">このデバイスを接続</string>
     <string name="ui_ff245b368781" formatted="false">Bot mini</string>
+    <string name="ui_42f4f8b469bb" formatted="false">友達とチャット。\n読みながら言葉を学ぶ。</string>
+    <string name="ui_47b7a66139f1" formatted="false">友達とのチャットを\n始めましょう。</string>
+    <string name="ui_52c236be01ef" formatted="false">これらのダウンロードは任意の全文翻訳用です。単語の切り替えには不要です。全文を翻訳するには、そのメッセージの読み取りオプションで「全文翻訳」を選んでください。メッセージはこの端末に残ります。</string>
+    <string name="ui_54c1159d80bf" formatted="false">友達とチャット。\n新しい言葉を学ぼう。</string>
+    <string name="ui_73bee38b06e8" formatted="false">友達はどうやって\nあなたを探せる？</string>
+    <string name="ui_8ec4723d54ba" formatted="false">オフライン翻訳の前にこれらの言語を再ダウンロードする必要があります。会話はこの端末に残ります。</string>
+    <string name="ui_cc9317e2ab2e" formatted="false">VipiクライアントのソースはAGPL-3.0-onlyでライセンスされ、無保証で提供されます。ライセンス条件に従いコピーや変更ができます。第三者ソフトウェアには各自のライセンスが適用されます。</string>
+    <string name="ui_ef6cbddc4dd7" formatted="false">Bot miniには有効なVipiプランが必要です。次回の更新を避けるにはVipiを復元するか、Google PlayでBot miniを管理してください。</string>
+    <string name="ui_f1af503686b6" formatted="false">メッセージを送るにはVipiプランを開始または復元してください。保存済みのチャットや下書きは引き続き利用できます。</string>
+    <string name="public_username">公開ユーザー名は @%1$s です。</string>
+    <string name="chat_empty_target">ユーザー名で友達を探してメッセージを送りましょう。読むとき、対応する単語やフレーズが%1$sに切り替わります。</string>
+    <string name="security_number_description">セキュリティ番号、%1$s</string>
+    <string name="chat_report_received">報告を受け付けました。会話オプションからこの相手をブロックすることもできます。</string>
+    <string name="chat_report_unconfirmed">報告を確認できませんでした。同じ報告を再試行できます。</string>
+    <string name="bot_allowance_remaining">返信は%2$s件中%1$s件残り · 更新：%3$s</string>
+    <string name="account_heading">サインインして\n友達とチャット。</string>
+    <string name="invite_share_text">Vipiで一緒にチャットしましょう。ユーザー名は @%1$s です。%2$s</string>
+    <string name="bot_allowance_check_failed">Bot miniの利用枠を確認できませんでした。もう一度お試しください。</string>
+    <string name="bot_device_not_ready">このデバイスは送信できる状態ではありません。再接続するにはチャットに戻ってください。下書きは保存されています。</string>
+    <string name="bot_device_unauthorized">このデバイスは認証されていません。再接続するにはチャットに戻ってください。このリクエストは受け付けられていません。</string>
+    <string name="bot_allowance_exhausted">今月のBot miniの返信を使い切りました。利用枠を更新して次の更新日時を確認してください。</string>
+    <string name="bot_reply_unconfirmed">vBotの返信を確認できませんでした。このリクエストは自動的に再送されません。新しいリクエストの前に利用枠を更新してください。</string>
+    <string name="bot_message_not_saved">メッセージを保存できませんでした。送信されていません。</string>
+    <string name="bot_report_received">報告を受け付けました。お知らせいただきありがとうございます。</string>
+    <string name="bot_report_unconfirmed">報告を確認できませんでした。再試行できます。</string>
+    <string name="languages_heading">言語を\n選びましょう。</string>
+    <string name="ui_0c86126aea39" formatted="false">Google Playを待機中…</string>
+    <string name="ui_1f90b03e1d77" formatted="false">プランの利用状況を確認できませんでした。もう一度お試しください。</string>
+    <string name="ui_2090b85775b4" formatted="false">Vipiプランを見る</string>
+    <string name="ui_235ad6028cca" formatted="false">ダウンロードを完了できませんでした。接続を確認してもう一度お試しください。</string>
+    <string name="ui_273afa09966b" formatted="false">Google Play → お支払いと定期購入 → 定期購入を開きます。</string>
+    <string name="ui_28e67a870e46" formatted="false">アカウントで利用できるプランを見るにはサインインしてください。</string>
+    <string name="ui_380f81884c22" formatted="false">制作：FallSoft.Co</string>
+    <string name="ui_3a4cae7c6a6e" formatted="false">翻訳の準備ができていません。先にこの言語をダウンロードしてから再試行してください。</string>
+    <string name="ui_3abeae7a3bed" formatted="false">新しいメッセージがあります。</string>
+    <string name="ui_3ceeccf6b3ff" formatted="false">購入を復元またはプランを更新</string>
+    <string name="ui_45787d668c50" formatted="false">Bot miniを追加する前にVipiプランを開始または復元してください。</string>
+    <string name="ui_541ecffcdb87" formatted="false">プランの利用状況を確認できませんでした。</string>
+    <string name="ui_59eb2538907f" formatted="false">会話を始めましょう。</string>
+    <string name="ui_6802cad312c0" formatted="false">Bot miniを追加する前にVipiを開始または復元してください。</string>
+    <string name="ui_70526d2742fe" formatted="false">再試行すると同じ報告が使用されるため、二重送信されません。</string>
+    <string name="ui_71c971aaf02d" formatted="false">友達からの返信をお知らせします。通知にはメッセージ本文が表示されません。</string>
+    <string name="ui_79290727c58b" formatted="false">安全なサインインを開けませんでした。もう一度お試しください。</string>
+    <string name="ui_825bf52ce678" formatted="false">Google Playでの購入はまだ利用できません。既存のプランは復元できます。</string>
+    <string name="ui_8927db75ddd0" formatted="false">Google Playのプランはまだ利用できません。後でもう一度お試しください。</string>
+    <string name="ui_9648f84b6ea3" formatted="false">友達からの返信をプライベートに通知</string>
+    <string name="ui_99a6cb8ef035" formatted="false">理解しました。vBotとチャットします。</string>
+    <string name="ui_a0c63ae7f860" formatted="false">このメッセージの翻訳は利用できません。元の内容は変わりません。</string>
+    <string name="ui_a843a5adb644" formatted="false">Bot miniを見るまたは復元</string>
+    <string name="ui_b30a48ba0b99" formatted="false">Vipiプランを見るまたは復元</string>
+    <string name="ui_b4009c7a9f52" formatted="false">Google Playの応答に時間がかかりすぎました。もう一度お試しください。</string>
+    <string name="ui_bbd30d6992ff" formatted="false">プランを更新できませんでした。接続を確認してもう一度お試しください。</string>
+    <string name="ui_c3169261c50e" formatted="false">続行する前にGoogle Playの現在の価格を更新してください。</string>
+    <string name="ui_c654d70db3ac" formatted="false">あなた · 返信未確認</string>
+    <string name="ui_d1fc884eb413" formatted="false">Google Playで購入を完了できませんでした。もう一度お試しください。</string>
+    <string name="ui_d75c6cdd950a" formatted="false">Androidの設定でVipiの通知設定を開きます。</string>
+    <string name="ui_dad92e0774f7" formatted="false">端末の設定を開き、テキスト読み上げを検索してください。</string>
+    <string name="ui_e28ba924e405" formatted="false">あなた · リクエスト未承認</string>
+    <string name="ui_e5bd91ac481d" formatted="false">共有できません。代わりに友達へユーザー名を伝えてください。</string>
+    <string name="ui_e768f0a75223" formatted="false">保存済みのvBot会話を開けませんでした。Vipiを閉じて開き直してください。</string>
+    <string name="ui_f87b0e3bf7e6" formatted="false">Google Playでの購入はまだ利用できません。後でもう一度お試しください。</string>
+    <plurals name="backup_messages">
+        <item quantity="other">%1$s件のメッセージ</item>
+    </plurals>
+    <plurals name="backup_conversations">
+        <item quantity="other">%1$s件の会話</item>
+    </plurals>
+    <plurals name="bot_monthly_allowance">
+        <item quantity="other">暦月ごとに%1$s件の返信。未使用分は繰り越されず、超過料金が自動で請求されることはありません。</item>
+    </plurals>
+    <string name="nav_help">ヘルプ</string>
+    <string name="cardless_intro_new">新しいアカウントは、お支払い方法なしで30日間無料で利用できます。その後、登録するかどうかを選べます。</string>
+    <string name="cardless_no_autocharge">無料期間中はお支払い方法は不要です。自動請求されずに終了し、登録は任意です。</string>
+    <string name="report_harmful_offensive">有害または不快</string>
+    <string name="block_person_question">%1$sをブロックしますか？</string>
+    <string name="unblock_person_question">%1$sのブロックを解除しますか？</string>
+    <string name="device_recovery_explanation">アカウントは別のデバイスで有効です。保存した会話はここで引き続き利用できます。</string>
+    <string name="bot_requires_vipi_access">Bot miniには有効なVipiアクセスが必要です。次回の更新を避けるには、Vipiのアクセスを確認するか、Google PlayでBot miniを管理してください。</string>
+    <string name="ui_42ed79b95da1" formatted="false">ここで送信するメッセージと最近のvBot会話の文脈は、返信生成のためVipiとDeepSeekに送られます。これはサービスとのチャットであり、友達とのエンドツーエンド暗号化された会話ではありません。友達とのチャットは含まれません。</string>
+    <string name="ui_967b3ede020c" formatted="false">下の元のメッセージ、その送信者、理由が確認のためFallible Softwareに送信されます。会話の残りは非公開のままです。報告は最長30日間保存されます。</string>
+    <string name="ui_c48de4e830a9" formatted="false">選択した返信のテキストと理由のみが確認のためFallible Softwareに送信されます。友達との会話は含まれません。報告は最長30日間保存されます。</string>
+    <string name="ui_bb1fe2470e72" formatted="false">友達とのチャット履歴を暗号化ファイルに保存します。保存先は選べます。メッセージID、未送信メッセージ、vBot履歴はバックアップに含まれません。</string>
+    <string name="ui_c3297f5bde81" formatted="false">アカウントを削除してもGoogle Playのサブスクリプションは解約されません。今後の更新を止めるには別途解約できます。</string>
+    <string name="ui_57225bd8b984" formatted="false">有効なプランがなくても、保存済みの会話の閲覧とアカウントの削除はいつでもできます。</string>
+    <string name="ui_cc39ebccb529" formatted="false">vBotに質問したり、今日の出来事を話したりできます。vBotはチャットボットで、間違えることがあります。重要な内容は確認してください。</string>
+    <string name="bot_plan_description">Bot miniはVipiプランにvBotとの会話を追加します。自動返信は間違うことがあります。更新日が別の独立したサブスクリプションです。</string>
+    <string name="base_plan_description">友達とチャットしながら、対応する単語や短いフレーズが選んだ言語に切り替わります。Bot miniは別の任意プランです。</string>
+    <string name="ui_233a70befbdc" formatted="false">バックアップのパスワードを保管してください。Vipiは復元できません。プラン終了後も保存済みのチャットとバックアップにアクセスできます。</string>
+    <string name="ui_2b338821b42c" formatted="false">他の有効なデバイスはサインアウトされます。このデバイス上のチャットは残ります。待機中のメッセージはデバイス間で移動できず、送信が停止します。暗号化キーが変わるため、友達は再承認し、セキュリティ番号を再確認する必要があります。</string>
+    <string name="ui_2e03fab81b5f" formatted="false">友達の暗号化IDが変更されました。次のメッセージを送る前に新しいキーを確認してください。保存済みの履歴は残ります。</string>
+    <string name="ui_5f0f1b251f45" formatted="false">暗号化が更新されました。以前の待機中メッセージは停止しました。友達と新しいセキュリティ番号を照合してください。</string>
+    <string name="ui_84b61960effd" formatted="false">続行するとこれらのキーを使用しますが、検証済みにはなりません。検証済みにする前に、友達と直接または信頼できる通話で12組すべてを照合してください。</string>
+    <string name="security_compare_with_friend">暗号化キーが一致することを確認するため、%1$sさんと直接または信頼できる通話で12組すべてを照合してください。</string>
+    <string name="security_identity_changed">%1$sさんのデバイスまたは暗号化IDが変更されました。保存済みの履歴は残ります。以前の待機中メッセージは停止され、再送されません。</string>
+    <string name="security_identity_check_failed">変更された暗号化IDを確認できませんでした。現在のキーは変更されていません。友達にVipiを開いてもらい、もう一度お試しください。</string>
+    <string name="security_confirmation_expired">キーが再び変更されたか、確認の期限が切れました。この画面を閉じて再確認してください。以前のキーは変更されていません。</string>
+    <string name="ui_ea1029db5e5d" formatted="false">このデバイスは接続されました。保存済みの履歴はここに残ります。以前の待機中メッセージは停止し、友達には新しい暗号化キーが表示されます。</string>
+    <string name="ui_38d5b00c27da" formatted="false">変更された暗号化を確認</string>
+    <string name="ui_84368a0f0b2d" formatted="false">暗号化を更新しますか？</string>
+    <string name="ui_8a9877b04214" formatted="false">このキーを使う</string>
     <string name="languages_downloading">言語をダウンロード中…</string>
     <string name="languages_check_failed">ダウンロードを確認できませんでした。もう一度お試しください。</string>
     <string name="languages_download_failed">ダウンロードを完了できませんでした。接続を確認してもう一度お試しください。</string>
@@ -304,36 +397,4 @@
     <string name="translation_failed">全文翻訳を準備できませんでした。単語の切り替えは引き続き利用できます。</string>
     <string name="voices_prepare_offline">接続なしで聴くには、両方の言語の音声を準備してください。</string>
     <string name="ui_d55f942dbeea" formatted="false">翻訳：Google。翻訳は不正確な場合があります。</string>
-    <plurals name="backup_messages">
-        <item quantity="other">%1$s件のメッセージ</item>
-    </plurals>
-    <plurals name="backup_conversations">
-        <item quantity="other">%1$s件の会話</item>
-    </plurals>
-    <plurals name="bot_monthly_allowance">
-        <item quantity="other">暦月ごとに%1$s件の返信。未使用分は繰り越されず、超過料金が自動で請求されることはありません。</item>
-    </plurals>
-    <string name="ui_03fdb0dfc1b8" formatted="false">Vipiアカウントを削除しますか？</string>
-    <string name="ui_04c8049b72ff" formatted="false">12文字以上を使用してください。長くて固有のパスフレーズをおすすめします。</string>
-    <string name="ui_0cb9c0cf3bb1" formatted="false">再接続するにはもう一度サインインしてください。保存済みの会話はこのデバイスに残ります。</string>
-    <string name="ui_18714cc5a562" formatted="false">友達が携帯電話を変更しましたか？</string>
-    <string name="ui_3e39703b6e87" formatted="false">バックアップのパスワード</string>
-    <string name="ui_54a04d4e9955" formatted="false">アカウントが別のデバイスに移動しました。保存済みの会話はここで引き続き利用できます。</string>
-    <string name="ui_8218810809d6" formatted="false">保存済みの会話を開けませんでした。Vipiを閉じて開き直してください。</string>
-    <string name="ui_d63cd658184e" formatted="false">バックアップを保存するにはパスワードを確認</string>
-    <string name="ui_db2b1ef64bbf" formatted="false">このデバイスでVipiを使いますか？</string>
-    <string name="deletion_prepare_failed">削除を準備できませんでした。Vipiを閉じて開き直してください。</string>
-    <string name="licenses_open_failed">ライセンスを開けませんでした。もう一度お試しください。</string>
-    <string name="friends_sign_in_required">友達を探すにはサインインしてください。</string>
-    <string name="backup_contents">このバックアップには%1$sと%2$sが含まれます。一致するメッセージは重複保存されません。既存の会話とメッセージの安全性は維持されます。</string>
-    <string name="backup_open_failed">バックアップを開くか保存できませんでした。パスワードとファイルを確認して再試行してください。</string>
-    <string name="backup_saved">暗号化されたチャットバックアップを保存しました。パスワードは安全な場所に保管してください。</string>
-    <string name="backup_restore_result">復元：%1$s。保存済み：%2$s。</string>
-    <string name="bot_consent_save_failed">選択内容を保存できませんでした。もう一度お試しください。</string>
-    <string name="bot_draft_save_failed">下書きを保存できませんでした。もう一度お試しください。</string>
-    <string name="bot_message_too_long">メッセージが長すぎます。短くして送信してください。</string>
-    <string name="bot_earlier_open_failed">以前のメッセージを開けませんでした。</string>
-    <string name="settings_page_open_failed">このページを開けませんでした。もう一度お試しください。</string>
-    <string name="delivery_imported">インポート済み</string>
-    <string name="conversations_local">会話はデバイスに保存されます。</string>
 </resources>
