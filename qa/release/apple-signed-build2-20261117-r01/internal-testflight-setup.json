@@ -1,0 +1,32 @@
+{
+  "observed_at_utc": "2026-11-17T13:15:03.144853+00:00",
+  "app_id": "6832624092",
+  "group": {
+    "name": "Vipi Release QA",
+    "id": "58a143a4-1330-4f73-8e7b-b79f0776ae14",
+    "type": "internal",
+    "automatic_distribution": "off; Settings shows Manual for Xcode Builds",
+    "apple_silicon_testing": "Available, preexisting default",
+    "builds": [
+      "1.0 (2) Ready to Test"
+    ],
+    "tester_count": 1,
+    "only_tester": "arjun@fallsoft.co",
+    "tester_status": "Invited"
+  },
+  "native_mac": {
+    "testflight_apple_account": "arjun@fallsoft.co",
+    "vipi_visible_in_testflight": false,
+    "installed_app_and_data": "No Vipi.app or co.fallsoft.vipi container at standard locations. Separate Vipi Immersion Lab retained untouched.",
+    "installation": "Not performed; invitation acceptance pending",
+    "vipi_launch_or_signin": false
+  },
+  "no_actions": [
+    "new upload",
+    "external tester",
+    "account switch",
+    "Vipi sign in",
+    "purchase",
+    "review submission"
+  ]
+}
