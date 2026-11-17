@@ -1,0 +1,305 @@
+{
+  "scope": "Final two-file post-activation legacy-profile-cache privacy cleanup; actual Android auth manager with injected local services, no real auth/backend/browser/model calls.",
+  "base_qualification": "release/android-mocked-settings-qualification-20261117.json (13/13 prior exact source).",
+  "delta_manifest_sha256": "3fc2730725fb865713bfb3dface1051d14c7805d76a076cbeca3f89089ba4ccf",
+  "combined_source_manifest_sha256": "03b72b0183823f7a5178d2288a72d6d0a7222faf5a8896525f037589df6fce13",
+  "combined_source_files": {
+    "android/app/src/main/java/co/fallsoft/vipi/Authentication.kt": {
+      "sha256": "4040f6924ad3b2f67f9c1b189ec827a8ed26527d3ad0e5a736310ce018f7ae95",
+      "bytes": 30905
+    },
+    "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt": {
+      "sha256": "0143e3bf24abe57c98b865ac57d59f29015933b38897bdf7cea3ea9c1b692a4f",
+      "bytes": 33180
+    },
+    "android/app/src/main/java/co/fallsoft/vipi/VipiModel.kt": {
+      "sha256": "b590107a788eb0dd53f192257fa32d704ebd195568b2f8ac1bbe1444f1861e6f",
+      "bytes": 11068
+    },
+    "android/app/src/androidTest/java/co/fallsoft/vipi/SignInProviderDeviceTest.kt": {
+      "sha256": "87ffcfc0fb558b8fe3ebd2db2ba2805c37a6e3032fb71a668a48c6ec37827965",
+      "bytes": 24677
+    },
+    "android/app/src/main/res/values-sw/strings.xml": {
+      "sha256": "b86d513a082831fd1b0f1d342f4f9398d41b9eacd44961fa78edc86a7999ea87",
+      "bytes": 46580
+    },
+    "android/app/src/main/res/values-it/strings.xml": {
+      "sha256": "729234305003204c1c33c7f29dc28fc28349dfefe47acde8040cffa20ce320ab",
+      "bytes": 46946
+    },
+    "android/app/src/main/res/values-ko/strings.xml": {
+      "sha256": "4916cd65f201373e6cab7e126957caec0b659514287722456a0339da106a0f07",
+      "bytes": 49915
+    },
+    "android/app/src/main/res/values-de/strings.xml": {
+      "sha256": "fc9cf350f13218bb68505cfcd45f2c78d37a1c58d32f1b5f7320b35b66b10745",
+      "bytes": 50168
+    },
+    "android/app/src/main/res/values-zh-rTW/strings.xml": {
+      "sha256": "807435394a24e91970e725ec02ef3627888e1fe9a6ed0ccb11ebf551ff228409",
+      "bytes": 42482
+    },
+    "android/app/src/main/res/values-ja/strings.xml": {
+      "sha256": "995db3bacdc4e3444393658ee6aca27e797e4a137060cf1df98c60d33cdf159d",
+      "bytes": 53573
+    },
+    "android/app/src/main/res/values-zh/strings.xml": {
+      "sha256": "eb2e7c50410cb9f5355702f171fc56f6f6d3bb117af2f84bba27807f47e54961",
+      "bytes": 42266
+    },
+    "android/app/src/main/res/values-ar/strings.xml": {
+      "sha256": "23cee4b6e8c490f3ccc2e22d189ac5780b065abf25ae976b2baef5b979265eef",
+      "bytes": 56300
+    },
+    "android/app/src/main/res/values-es/strings.xml": {
+      "sha256": "a8d67895a585641d08469236eaf6e0321be6ef4859872e7c2dcdc5e0ef02f45b",
+      "bytes": 47621
+    },
+    "android/app/src/main/res/values-pt-rPT/strings.xml": {
+      "sha256": "1a2a55dad121ab37758198812addbd0b591dee0d58a38446988bde07cd97bb96",
+      "bytes": 47480
+    },
+    "android/app/src/main/res/values-pt/strings.xml": {
+      "sha256": "6bc937518c6792f98107fa12640674c666a5ecaa4ed04ae498cf743515e3f48c",
+      "bytes": 47249
+    },
+    "android/app/src/main/res/values/strings.xml": {
+      "sha256": "7886af8051dc456d9834337631d881969c100c0739a86274c933030c314156ed",
+      "bytes": 5014
+    },
+    "android/app/src/main/res/values-fr/strings.xml": {
+      "sha256": "4b0e9c6ee5df139f285ed2e2f5ba3b8a17ba1707aceeb17bc81a9a1cdd0bc58b",
+      "bytes": 49191
+    }
+  },
+  "build": {
+    "command": [
+      "taskset",
+      "-c",
+      "2,3",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/scripts/build-android.sh",
+      "--offline",
+      "-PvipiSourceContextQualification=true",
+      "-PvipiQaAbi=x86_64",
+      "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+      "-Pkotlin.compiler.execution.strategy=in-process",
+      ":app:assembleDebug",
+      ":app:assembleDebugAndroidTest",
+      "-x",
+      ":app:stageImmersionAssets"
+    ],
+    "floor_bytes": 4504682496,
+    "peak_budget": 1073741824,
+    "free_before": 7247806464,
+    "source_overlay_manifest_sha256": "03b72b0183823f7a5178d2288a72d6d0a7222faf5a8896525f037589df6fce13",
+    "asset_count": 655,
+    "minimum_free": 7245856768,
+    "complete": true,
+    "pid": 2512973,
+    "exit": 0,
+    "seconds": 65.01289804978296,
+    "free_after": 7245991936,
+    "outputs": {
+      "android/app/build/outputs/apk/debug/app-debug.apk": {
+        "bytes": 528990389,
+        "sha256": "0cad2d3e723503bae67a84ffdb0bc19a1e3b34e70be825e95a13f27b8e6f489c"
+      },
+      "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": {
+        "bytes": 10108766,
+        "sha256": "96a95ff9cd9d71884c94118df43ecebf27a9cfbb2f1738233e34667dfa577426"
+      }
+    }
+  },
+  "mocked_followup": {
+    "floor_bytes": 4504682496,
+    "peak_budget": 1073741824,
+    "free_before": 7245238272,
+    "minimum_free": 7222603776,
+    "steps": [
+      {
+        "name": "install-app",
+        "command": [
+          "adb",
+          "-s",
+          "emulator-5624",
+          "install",
+          "-r",
+          "-t",
+          "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/debug/app-debug.apk"
+        ],
+        "state": "complete",
+        "pid": 2519002,
+        "exit": 0,
+        "seconds": 3.5019654403440654
+      },
+      {
+        "name": "install-test",
+        "command": [
+          "adb",
+          "-s",
+          "emulator-5624",
+          "install",
+          "-r",
+          "-t",
+          "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk"
+        ],
+        "state": "complete",
+        "pid": 2519242,
+        "exit": 0,
+        "seconds": 0.5014769220724702
+      },
+      {
+        "name": "focused-mocked-instrumentation",
+        "command": [
+          "adb",
+          "-s",
+          "emulator-5624",
+          "shell",
+          "am",
+          "instrument",
+          "-w",
+          "-r",
+          "-e",
+          "class",
+          "co.fallsoft.vipi.IdentityLinkCoordinatorDeviceTest#wrongUUIDReadbackRetainsOldSessionAndExactRetryUsesSameAccountAndRequest,co.fallsoft.vipi.IdentityLinkCoordinatorDeviceTest#settingsActionObtainsFreshLegacyProofBeforeSharedReceiptAndPreservesAccountDeviceRequest,co.fallsoft.vipi.IdentityLinkCoordinatorDeviceTest#wrongLegacyUserCannotContinueOrReplaceSession,co.fallsoft.vipi.IdentityLinkCoordinatorDeviceTest#cancellationAtEitherStageRetainsLegacyAndNeverLinks,co.fallsoft.vipi.IdentityLinkCoordinatorDeviceTest#recoveredJournalPinsOriginalRequestAndRejectsDifferentSharedUser,co.fallsoft.vipi.IdentityLinkCoordinatorDeviceTest#verifiedActivationRecoveryRemovesOnlyObsoleteLegacyCache,co.fallsoft.vipi.IdentityLinkCoordinatorDeviceTest#equalRawSubjectsAcrossRealmsDoNotEraseCurrentSharedProfile",
+          "co.fallsoft.vipi.uxqa.test/androidx.test.runner.AndroidJUnitRunner"
+        ],
+        "state": "complete",
+        "pid": 2519453,
+        "exit": 0,
+        "seconds": 2.0019643930718303
+      }
+    ],
+    "network_scope": "Local injected exchange/link/browser-launch mocks only; no live API/auth/provider calls.",
+    "complete": true,
+    "outputs": {
+      "android/app/build/outputs/apk/debug/app-debug.apk": {
+        "bytes": 528990389,
+        "sha256": "0cad2d3e723503bae67a84ffdb0bc19a1e3b34e70be825e95a13f27b8e6f489c"
+      },
+      "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": {
+        "bytes": 10108766,
+        "sha256": "96a95ff9cd9d71884c94118df43ecebf27a9cfbb2f1738233e34667dfa577426"
+      }
+    },
+    "unchanged_asset_count": 1082,
+    "instrumentation_ok": true,
+    "private_records_unchanged": true,
+    "private_record_count_after": 0,
+    "free_after": 7222599680
+  },
+  "passed_tests": 7,
+  "test_seconds": 0.744,
+  "behavior": "Old cache retained on cancellation/pre-activation failure; obsolete old-subject cache removed only after durable shared activation and during verified recovery; equal raw subjects preserve current shared profile.",
+  "source_and_account_preservation": {
+    "original_nine_working_hashes_unchanged": true,
+    "private_records_unchanged": true,
+    "installed_models_and_original_package_preserved": true,
+    "physical_phone_touched": false
+  },
+  "post_pass_cleanup": {
+    "scope": "Exact root-approved post-cache-pass cleanup only",
+    "free_before": 7234560000,
+    "keep": {
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/debug/app-debug.apk": "0cad2d3e723503bae67a84ffdb0bc19a1e3b34e70be825e95a13f27b8e6f489c",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "96a95ff9cd9d71884c94118df43ecebf27a9cfbb2f1738233e34667dfa577426"
+    },
+    "file_targets": [
+      {
+        "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-snapshot-r58/android/app/build/outputs/apk/debug/app-debug.apk",
+        "sha256": "22d22a9f6f00a27ceca2ced5624491c3a8431ed51ecda522e70f4f208fc3174a"
+      },
+      {
+        "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-android-r19/accepted-r16-app.apk",
+        "sha256": "5594b985531219d409b8f9b35f8cf2efe17159a0f637494c4c16dbad61c3104b"
+      },
+      {
+        "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-android-r19/accepted-r16-test.apk",
+        "sha256": "e6f1184eadc46aed8c749e571cd6a3989a81f6b3cef39f3cc1fc01dd493489c6"
+      }
+    ],
+    "directory_targets": [
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/intermediates",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/tmp",
+      "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/kotlin"
+    ],
+    "steps": [
+      {
+        "name": "retire-file-app-debug.apk",
+        "state": "complete",
+        "utc": "2026-11-17T22:39:39Z",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-android-readiness-20261107-r01/source-snapshot-r58/android/app/build/outputs/apk/debug/app-debug.apk",
+          "sha256": "22d22a9f6f00a27ceca2ced5624491c3a8431ed51ecda522e70f4f208fc3174a"
+        },
+        "free_after": 7740616704
+      },
+      {
+        "name": "retire-file-accepted-r16-app.apk",
+        "state": "complete",
+        "utc": "2026-11-17T22:39:40Z",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-android-r19/accepted-r16-app.apk",
+          "sha256": "5594b985531219d409b8f9b35f8cf2efe17159a0f637494c4c16dbad61c3104b"
+        },
+        "free_after": 8257470464
+      },
+      {
+        "name": "retire-file-accepted-r16-test.apk",
+        "state": "complete",
+        "utc": "2026-11-17T22:39:40Z",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-android-r19/accepted-r16-test.apk",
+          "sha256": "e6f1184eadc46aed8c749e571cd6a3989a81f6b3cef39f3cc1fc01dd493489c6"
+        },
+        "free_after": 8267313152
+      },
+      {
+        "name": "retire-directory-intermediates",
+        "state": "complete",
+        "utc": "2026-11-17T22:39:40Z",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/intermediates"
+        },
+        "free_after": 10172448768
+      },
+      {
+        "name": "retire-directory-tmp",
+        "state": "complete",
+        "utc": "2026-11-17T22:39:40Z",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/tmp"
+        },
+        "free_after": 10188304384
+      },
+      {
+        "name": "retire-directory-kotlin",
+        "state": "complete",
+        "utc": "2026-11-17T22:39:40Z",
+        "result": {
+          "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/kotlin"
+        },
+        "free_after": 10195390464
+      }
+    ],
+    "complete": true,
+    "target_manifest_sha256": "7cee22cc4a69d34481623c6554a43bdd037237e6bc106b163c6e40d271405e20",
+    "target_allocated_bytes": 2959806464,
+    "root_proc_scan": {
+      "hits": [],
+      "permission_errors": []
+    },
+    "outside_symlink_consumers": [],
+    "preflight_complete": true,
+    "free_after": 10195378176,
+    "reclaimed_net_bytes": 2960818176
+  },
+  "raw_evidence_hashes": {
+    "build-receipt.json": "94560180cea5e1a61c146b56dbe9396cbe53d61a66449e688c1c436aa2b2ee36",
+    "mocked-tests-receipt.json": "0d666a0bd9aa64a2cf59b6d96eaa55b264eb64ff322886e1ad09d95f3f8023e0",
+    "focused-mocked-instrumentation.log": "010eb337fa70bc54420f4b0c7a7f762f6cce73c520c8580ca17def309a690fb7",
+    "post-pass-cleanup-receipt.json": "cb875dc3e42d66052a4723b35cda5aafc888cad223ee26fbd75fdd11af93c7a9",
+    "post-pass-cleanup-target-manifest.json": "7cee22cc4a69d34481623c6554a43bdd037237e6bc106b163c6e40d271405e20"
+  }
+}

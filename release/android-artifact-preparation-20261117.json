@@ -100,7 +100,7 @@
   "planned_version": {
     "code": 5,
     "name": "1.0.4",
-    "fresh_store_inventory": false
+    "fresh_store_inventory": true
   },
   "runtime": {
     "public_client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
@@ -114,7 +114,10 @@
     "required_bundle_admission_bytes": 9873391616,
     "previous_measured_bundle_growth_bytes": 4181684224,
     "free_after_cleanup_bytes": 10193616896,
-    "recheck_after_mock_build_required": true
+    "recheck_after_mock_build_required": true,
+    "free_after_final_mock_cleanup_bytes": 10195378176,
+    "bundle_admission_met_after_final_mock_cleanup": true,
+    "must_recheck_immediately_before_bundle": true
   },
   "cleanup": {
     "approved_plan_sha256": "f89eed2cfc587736764f609b121cc88401dee25eef9062544c7effea01fecb5a",
@@ -373,7 +376,9 @@
         "free_after": 10193616896
       }
     ],
-    "method_correction": "Original attempt interrupted before mutations on unrelated cold-gallery symlink lookup; resumed with local no-follow symlink graph. No remote mount/service mutation."
+    "method_correction": "Original attempt interrupted before mutations on unrelated cold-gallery symlink lookup; resumed with local no-follow symlink graph. No remote mount/service mutation.",
+    "followup_cleanup_receipt_sha256": "cb875dc3e42d66052a4723b35cda5aafc888cad223ee26fbd75fdd11af93c7a9",
+    "followup_net_reclaimed_bytes": 2960818176
   },
   "retention": {
     "localization_unique_overlay_sha256": "dae7ceba25ec3b65bcb745c72dd3a07c000200a14200255618f58c6df98ca02b",
@@ -384,17 +389,30 @@
         "retained_path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-android-r19/accepted-r16-app.apk",
         "sha256": "5594b985531219d409b8f9b35f8cf2efe17159a0f637494c4c16dbad61c3104b",
         "bytes": 516832627,
-        "state": "complete"
+        "state": "complete",
+        "current_disposition": "Superseded and retired only after final r20 replacement passed, using exact root-approved cleanup. Historical move/hash receipt retained."
       },
       {
         "old_path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
         "retained_path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/native-link-settings-android-r19/accepted-r16-test.apk",
         "sha256": "e6f1184eadc46aed8c749e571cd6a3989a81f6b3cef39f3cc1fc01dd493489c6",
         "bytes": 9837286,
-        "state": "complete"
+        "state": "complete",
+        "current_disposition": "Superseded and retired only after final r20 replacement passed, using exact root-approved cleanup. Historical move/hash receipt retained."
       }
     ],
-    "preserved": "Current qualified APKs; installed AVD accounts/models; all original store AAB/IPA; branches/commits; original dirty sources/pilots; accepted evidence and failed-run logs."
+    "preserved": "Current qualified r20 app/test; installed AVD accounts/models; original store AAB/IPA; branches/commits; original dirty sources/pilots; accepted evidence and failed-run logs.",
+    "current_qualified_apks": {
+      "android/app/build/outputs/apk/debug/app-debug.apk": {
+        "bytes": 528990389,
+        "sha256": "0cad2d3e723503bae67a84ffdb0bc19a1e3b34e70be825e95a13f27b8e6f489c"
+      },
+      "android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": {
+        "bytes": 10108766,
+        "sha256": "96a95ff9cd9d71884c94118df43ecebf27a9cfbb2f1738233e34667dfa577426"
+      }
+    },
+    "r58_debug_apk_disposition": "Obsolete v1 debug APK SHA 22d22a9f6f00a27ceca2ced5624491c3a8431ed51ecda522e70f4f208fc3174a retired after r20 qualification; source and full prior asset proof retained."
   },
   "private_receipt_hashes": {
     "android-store-cleanup-execution-r18.json": "64efe8d66bdf56194e37c312873d3d575c3cd4cd87166263a5ed63b1602fad4c",
@@ -402,5 +420,18 @@
     "android-store-remaining-cleanup-plan-r18.json": "f89eed2cfc587736764f609b121cc88401dee25eef9062544c7effea01fecb5a",
     "android-store-prep-source-and-v4-bindings.json": "b194b3cfdc33370320d70ff938195e26a96b111293e428b4606cb3f3f5a9c69f",
     "android-store-prep-accepted-source-equivalents.json": "780b4fd4544bd8caca74f0affe63febc71efeecbc081389244b0da35beb2d644"
+  },
+  "fresh_store_inventory_update": {
+    "owner": "root",
+    "method": "native Play console full reload and readback; no write/upload",
+    "versions": {
+      "1": "1.0",
+      "2": "1.0.1",
+      "3": "1.0.2",
+      "4": "1.0.3"
+    },
+    "code5_present": false,
+    "screenshot_sha256": "7f1742e28659d73bbf5b1717b46c26c498b4111b4a5da37db3768b0b4448f0d0",
+    "artifact4_label": "Active; does not establish public rollout. Separate publishing-state check owned by root."
   }
 }
