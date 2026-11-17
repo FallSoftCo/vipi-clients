@@ -1,0 +1,649 @@
+{
+  "state": "Static production artifacts qualified; no install/upload/store/phone action by this task.",
+  "source_freeze": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+  "version_code": 5,
+  "version_name": "1.0.4",
+  "aab": {
+    "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/android-v5-release-r01/vipi-v5-release.aab",
+    "bytes": 546599495,
+    "sha256": "108e1152a8bf50d93e2d4ab9fd4d464aaf5ca04a9a36a25fc3f6bd0c6383714d"
+  },
+  "apk": {
+    "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/android-v5-release-r01/vipi-v5-release.apk",
+    "bytes": 539181694,
+    "sha256": "b49354c1fba8540a5dc1dcc12a281d37b392c64643224de24fdba43d47ebd9fe"
+  },
+  "public_runtime_inputs": {
+    "workos_client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "api": "https://api.mambovipi.app",
+    "callback": "co.fallsoft.vipi://auth/callback",
+    "firebase_configured": true,
+    "package": "co.fallsoft.vipi"
+  },
+  "bundle_checks": {
+    "aab_validate": true,
+    "jar_signature": true,
+    "upload_certificate_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+    "package": "co.fallsoft.vipi",
+    "version_code": 5,
+    "version_name": "1.0.4",
+    "debuggable": false,
+    "min_sdk": 28,
+    "target_sdk": 36,
+    "public_default_client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "firebase_configured": true,
+    "asset_count": 1082,
+    "assets_bound_directly_to_source": 1079,
+    "assets_match_merged_and_bundle": true,
+    "changed_asset_paths_since_v4": [
+      "immersion-preview.json",
+      "readings/chinese-ordinary.json"
+    ],
+    "asset_manifest_sha256": "1d5f0a85094d445eb19b8798941b9ad15e879d2dfe687c5ac4ec29fd389275bb",
+    "all_four_abis": [
+      "arm64-v8a",
+      "armeabi-v7a",
+      "x86",
+      "x86_64"
+    ],
+    "native_library_count": 28,
+    "native": [
+      {
+        "path": "base/lib/arm64-v8a/libandroidx.graphics.path.so",
+        "sha256": "41e9a793c43a0f4fddb19e33f346bace464f30f888ba7b9eaf96294ea115bfb6",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/arm64-v8a/libdatastore_shared_counter.so",
+        "sha256": "d3e48717c9aa147e0ab21063ba0e8e0211cabf8bf40b222640829519edbf58e1",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/arm64-v8a/liblanguage_id_l2c_jni.so",
+        "sha256": "b93e65a48200df45dbbfc82e17560ae689b1b462ab4ecdce5fd2c093802e1a94",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/arm64-v8a/libsignal_jni.so",
+        "sha256": "aae5991d40b4c583271afe37ac1f58c7a5492544bf5bbfdfb1921c678d8dfc81",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/arm64-v8a/libtranslate_jni.so",
+        "sha256": "45040ff0cdd194d6e601589d759e6f1ba733de5f95790f76cc3e2046919046be",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/arm64-v8a/libvipi_language.so",
+        "sha256": "50ad6102b9e514717c7a632508ea42f91d5c40a9ebe28119dfc6b96aa0c5e039",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": false
+      },
+      {
+        "path": "base/lib/arm64-v8a/libvipi_speech.so",
+        "sha256": "33000983d3b337da27484be41b42a35d27385da8408b8c1294eea2124a4d351e",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": false
+      },
+      {
+        "path": "base/lib/armeabi-v7a/libandroidx.graphics.path.so",
+        "sha256": "41399eba6fc2a60f6f14642375c1824f3cf25eb8fec7397d753730a3ceda3e2b",
+        "elf_bits": 32,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/armeabi-v7a/libdatastore_shared_counter.so",
+        "sha256": "716c5d8d2cac8ca0edf65da8f139c7886b726ac79d542a14edeb94994ba6d3dc",
+        "elf_bits": 32,
+        "load_alignments": [
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/armeabi-v7a/liblanguage_id_l2c_jni.so",
+        "sha256": "8f8e24c63aac7a035aa1d560a3374d5f5205395067cdd62601d89970d5fdeff1",
+        "elf_bits": 32,
+        "load_alignments": [
+          4096,
+          4096,
+          4096
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/armeabi-v7a/libsignal_jni.so",
+        "sha256": "c891c327b6286b184d974bdca5126495d2ce73cd1cf35cd57e6e9dc28cc67080",
+        "elf_bits": 32,
+        "load_alignments": [
+          4096,
+          4096,
+          4096,
+          4096
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/armeabi-v7a/libtranslate_jni.so",
+        "sha256": "9a7ebc4b29b51a54cc695ae57c736bc6676c6ddbcd4f75a3aed4547ab1c9e551",
+        "elf_bits": 32,
+        "load_alignments": [
+          4096,
+          4096,
+          4096
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/armeabi-v7a/libvipi_language.so",
+        "sha256": "11e2ef3e6984a07fd75e9a97fa343943d62bb01a31b273ffdd77f63526bc9b22",
+        "elf_bits": 32,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": false
+      },
+      {
+        "path": "base/lib/armeabi-v7a/libvipi_speech.so",
+        "sha256": "3cae8696a43ae0ad87299c00b51ed77eeda46fc8cd2ce2fdda2045194e7c146e",
+        "elf_bits": 32,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": false
+      },
+      {
+        "path": "base/lib/x86/libandroidx.graphics.path.so",
+        "sha256": "eb0570b41fd3bff25d8204a967c03bd7550719e768b791f680cc40cbe35f29af",
+        "elf_bits": 32,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/x86/libdatastore_shared_counter.so",
+        "sha256": "cd4a1649e2c8350703146f94a6ee2bf4c3c8c9f172159f805b61a4a2abdf0659",
+        "elf_bits": 32,
+        "load_alignments": [
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/x86/liblanguage_id_l2c_jni.so",
+        "sha256": "a807a27c2837b2a8bdbadd54f1c5d8b765c7813168d40f94ef96a2dae144e16b",
+        "elf_bits": 32,
+        "load_alignments": [
+          4096,
+          4096,
+          4096
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/x86/libsignal_jni.so",
+        "sha256": "a09dddaa1946edb555779cd42690be902e520de49ffd4da3c65f1708b2e76281",
+        "elf_bits": 32,
+        "load_alignments": [
+          4096,
+          4096,
+          4096,
+          4096
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/x86/libtranslate_jni.so",
+        "sha256": "a6808929b4aaaa5b7934ef832f3642b3368aad5d27a91f4628ac299ec59dbae1",
+        "elf_bits": 32,
+        "load_alignments": [
+          4096,
+          4096,
+          4096
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/x86/libvipi_language.so",
+        "sha256": "8fd01ab921c2cae0665a85e68dd879400f2a74fdcf86bccf4e7a5fce0532855d",
+        "elf_bits": 32,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": false
+      },
+      {
+        "path": "base/lib/x86/libvipi_speech.so",
+        "sha256": "771b3f637b295eae9d2080de65cf11b807430cec386e8b25e1ada85afff33cfc",
+        "elf_bits": 32,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": false
+      },
+      {
+        "path": "base/lib/x86_64/libandroidx.graphics.path.so",
+        "sha256": "4e56c996f13670e70082658de7880c4020eabf4f25e43387f88ed78a713fc9f0",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/x86_64/libdatastore_shared_counter.so",
+        "sha256": "fb6c9208988c49ae94943bc3236fa763ba584722e044fa4ea9a12d2941027105",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/x86_64/liblanguage_id_l2c_jni.so",
+        "sha256": "9adbd94888cb7c47e6b0b94a2145199cbe3b9e4eea48eafc9af47a6c3d0f4d4a",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/x86_64/libsignal_jni.so",
+        "sha256": "05b921e29c5398285dc46c942ac552cc2ee580c614a3090590366b56e1151ee6",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/x86_64/libtranslate_jni.so",
+        "sha256": "a757f9544d2731838e5e775f4fa06782aea7944d9039d24d9f2c57d81efa4265",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": true
+      },
+      {
+        "path": "base/lib/x86_64/libvipi_language.so",
+        "sha256": "10c8bf68b23674e9c10f572e26eee523314dc855b8bf931fbd2fb028009aefe7",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": false
+      },
+      {
+        "path": "base/lib/x86_64/libvipi_speech.so",
+        "sha256": "b4c6162b3fa346a2f4acdaa717f1911d67dd128619b0d27a614c2ed66cf32711",
+        "elf_bits": 64,
+        "load_alignments": [
+          16384,
+          16384,
+          16384
+        ],
+        "identical_v4": false
+      }
+    ],
+    "bundle_page_alignment": "PAGE_ALIGNMENT_16K",
+    "all_64_bit_native_loads_at_least_16k": true,
+    "required_native_owner_class_retained": true,
+    "mapping_sha256": "182e083d858885935d4ec895b0720eefc2fa0c2f673597b2a3127613c2ee9546",
+    "clean_frozen_source": true
+  },
+  "apk_checks": {
+    "upload_certificate_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+    "signer_continuity_with_upload_signed_v4": true,
+    "package": "co.fallsoft.vipi",
+    "version_code": 5,
+    "version_name": "1.0.4",
+    "min_sdk": 28,
+    "target_sdk": 36,
+    "debuggable": false,
+    "apk_signature_verified": true,
+    "zipalign_16k_verified": true,
+    "all_source_asset_hashes_match_aab": 1082,
+    "generated_baseline_profile_extras": [
+      "dexopt/baseline.prof",
+      "dexopt/baseline.profm"
+    ],
+    "all_native_library_hashes_match_aab": 28,
+    "four_abis": [
+      "arm64-v8a",
+      "armeabi-v7a",
+      "x86",
+      "x86_64"
+    ],
+    "all_64_bit_elf_load_alignments_at_least_16k": true,
+    "shared_default_configuration_present_in_optimized_dex": true,
+    "required_native_owner_class_retained": true,
+    "compiled_locale_variants": {
+      "preview_tap_word": 13,
+      "lookup_translating": 13,
+      "ui_cae7d57bc067": 13,
+      "lookup_unsupported": 13,
+      "fallsoft_link_title": 13
+    },
+    "concrete_onboarding_tap_cue_present": true,
+    "gesture_controller_source_unchanged_since_qualified_UI": {
+      "android/app/src/main/java/co/fallsoft/vipi/ImmersionBubble.kt": "e772fd41006cb8835053a1fe5a46c631785e2edc673bc8f359d5799e3cd66078",
+      "android/app/src/main/java/co/fallsoft/vipi/ManualLookupInteraction.kt": "d3c76e0f35e1c130bd8a25a50d2e4fcb25223fc44ef0c6f00a70af04abe0c8cb",
+      "android/app/src/main/java/co/fallsoft/vipi/StableImmersionText.kt": "2b5cc407dbe9aa301784447a778491ad14bef6545a7b2ebcea4ee3ee75e3f37b"
+    },
+    "feedback_scope": "Compiled loading/Stop strings present and unchanged production controllers; real same-tap Stop/word/whole/Copy behaviors were qualified in retained r12/r15 native QA, not newly executed in this release artifact.",
+    "clean_frozen_source": true
+  },
+  "source_reconciliation": {
+    "freeze": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+    "old_head": "eda3b918c07974c1367a0ecbe796ab7cfcd739d1",
+    "old_branch": "codex/ux-native-20261117",
+    "packaging_branch": "delivery/android-v5-artifact-20261117-r01",
+    "dirty_paths_preserved": [
+      "android/app/build.gradle.kts",
+      "android/app/src/androidTest/java/co/fallsoft/vipi/SignInProviderDeviceTest.kt",
+      "android/app/src/main/java/co/fallsoft/vipi/Authentication.kt",
+      "android/app/src/main/java/co/fallsoft/vipi/MainActivity.kt",
+      "android/app/src/main/java/co/fallsoft/vipi/VipiModel.kt",
+      "android/app/src/main/res/values-ar/strings.xml",
+      "android/app/src/main/res/values-de/strings.xml",
+      "android/app/src/main/res/values-es/strings.xml",
+      "android/app/src/main/res/values-fr/strings.xml",
+      "android/app/src/main/res/values-it/strings.xml",
+      "android/app/src/main/res/values-ja/strings.xml",
+      "android/app/src/main/res/values-ko/strings.xml",
+      "android/app/src/main/res/values-pt-rPT/strings.xml",
+      "android/app/src/main/res/values-pt/strings.xml",
+      "android/app/src/main/res/values-sw/strings.xml",
+      "android/app/src/main/res/values-zh-rTW/strings.xml",
+      "android/app/src/main/res/values-zh/strings.xml",
+      "android/app/src/main/res/values/strings.xml"
+    ],
+    "qa_patch_sha256": "ea30a847e9f8fa1f74f82bc0e961ad34d194d5f863637cec74edf707ffd4af42",
+    "free_before": 10219618304,
+    "new_worktree_created": false,
+    "complete": true,
+    "frozen_input_count": 4303,
+    "frozen_input_manifest_sha256": "195ba2611ada22f431a5c06c9495e597f3ef3c886c8d8667301acca0b55624ad",
+    "free_after": 10216411136
+  },
+  "bundle_build": {
+    "freeze": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+    "phase": "signed production bundle only",
+    "version_code": 5,
+    "version_name": "1.0.4",
+    "package": "co.fallsoft.vipi",
+    "public_client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "api": "https://api.mambovipi.app",
+    "callback": "co.fallsoft.vipi://auth/callback",
+    "expected_upload_certificate_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+    "command": [
+      "taskset",
+      "-c",
+      "2,3",
+      "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+      "--offline",
+      "--no-daemon",
+      "--max-workers=2",
+      "--console=plain",
+      "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+      "-Pkotlin.compiler.execution.strategy=in-process",
+      "-x",
+      ":app:stageImmersionAssets",
+      ":app:bundleRelease"
+    ],
+    "qa_flags": [],
+    "abi_filter_override": null,
+    "floor_bytes": 4504682496,
+    "peak_additional_bytes": 5368709120,
+    "concurrent_source_reservation_bytes": 0,
+    "source_reservation_note": "Root completed 6,033,610-byte supplement and released unused 64 MiB reservation before admission.",
+    "free_before": 10213138432,
+    "minimum_free": 5902303232,
+    "started_utc": "2026-11-17T22:45:21.938969+00:00",
+    "complete": true,
+    "pid": 2553312,
+    "observed_free": 5902303232,
+    "exit": 0,
+    "artifact": {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/android-v5-release-r01/vipi-v5-release.aab",
+      "bytes": 546599495,
+      "sha256": "108e1152a8bf50d93e2d4ab9fd4d464aaf5ca04a9a36a25fc3f6bd0c6383714d"
+    },
+    "free_after": 5902438400,
+    "seconds": 496.8356934520416
+  },
+  "apk_build": {
+    "freeze": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+    "phase": "matching upload-signed production APK only; no install",
+    "version_code": 5,
+    "version_name": "1.0.4",
+    "package": "co.fallsoft.vipi",
+    "public_client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "api": "https://api.mambovipi.app",
+    "callback": "co.fallsoft.vipi://auth/callback",
+    "expected_upload_certificate_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+    "command": [
+      "taskset",
+      "-c",
+      "2,3",
+      "/home/ai/.gradle/wrapper/dists/gradle-8.13-bin/5xuhj0ry160q40clulazy9h7d/gradle-8.13/bin/gradle",
+      "--offline",
+      "--no-daemon",
+      "--max-workers=2",
+      "--console=plain",
+      "-Dorg.gradle.jvmargs=-Xmx1536m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8",
+      "-Pkotlin.compiler.execution.strategy=in-process",
+      "-x",
+      ":app:stageImmersionAssets",
+      ":app:assembleRelease"
+    ],
+    "qa_flags": [],
+    "abi_filter_override": null,
+    "floor_bytes": 4504682496,
+    "peak_additional_bytes": 2147483648,
+    "concurrent_source_reservation_bytes": 0,
+    "source_reservation_note": "Root completed 6,033,610-byte supplement and released unused 64 MiB reservation before admission.",
+    "free_before": 7217426432,
+    "minimum_free": 6213644288,
+    "started_utc": "2026-11-17T23:18:13.431416+00:00",
+    "complete": true,
+    "pid": 2700300,
+    "observed_free": 7115055104,
+    "exit": 0,
+    "artifact": {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/android-v5-release-r01/vipi-v5-release.apk",
+      "bytes": 539181694,
+      "sha256": "b49354c1fba8540a5dc1dcc12a281d37b392c64643224de24fdba43d47ebd9fe"
+    },
+    "free_after": 6213697536,
+    "seconds": 44.66217344207689
+  },
+  "dependency_assets_unchanged_since_v4": [
+    "tflite_langid.tflite.jpg",
+    "acknowledgments/libsignal-testing.md",
+    "acknowledgments/libsignal.md"
+  ],
+  "retained_mapping_symbol_outputs": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/mapping/release/configuration.txt",
+      "bytes": 78846,
+      "sha256": "cff78071ad6eedec4542fbc7fbf0f537438dd5ae0b72543dcf1390c686d5bf44"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/mapping/release/seeds.txt",
+      "bytes": 271932,
+      "sha256": "a49ee6d2be525facb5c4daa4f18ed4634123e71c3471440104d2cfc9360a1e3f"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/mapping/release/resources.txt",
+      "bytes": 559823,
+      "sha256": "e62e13bc7b2f5e2918de4a8aa7e765e16155730f222e1201bc4335d7fe0970e5"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/mapping/release/usage.txt",
+      "bytes": 5894731,
+      "sha256": "50d3d8b7cef8bf80338befe82a9d08c79c166684a5d87d4ab850dcac82e670ae"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/mapping/release/mapping.txt",
+      "bytes": 58028614,
+      "sha256": "182e083d858885935d4ec895b0720eefc2fa0c2f673597b2a3127613c2ee9546"
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/outputs/native-debug-symbols/release/native-debug-symbols.zip",
+      "bytes": 71360314,
+      "sha256": "8bd18b1cb7cded26b16f09fcefc00981f7318120a39db36c055b36e879496214"
+    }
+  ],
+  "closed_intermediate_cleanup": {
+    "scope": "Exact root-approved closed two-file bundle intermediates only",
+    "resumes_zero_mutation_preflight": "bundle-intermediate-cleanup-receipt.json",
+    "retained_signed_aab": {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/android-v5-release-r01/vipi-v5-release.aab",
+      "bytes": 546599495,
+      "sha256": "108e1152a8bf50d93e2d4ab9fd4d464aaf5ca04a9a36a25fc3f6bd0c6383714d"
+    },
+    "free_before": 5328871424,
+    "steps": [
+      {
+        "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/intermediates/intermediary_bundle/release/packageReleaseBundle/intermediary-bundle.aab",
+        "state": "complete",
+        "utc": "2026-11-17T23:17:36Z",
+        "free_after": 6388813824
+      },
+      {
+        "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/intermediates/module_bundle/release/buildReleasePreBundle/base.zip",
+        "state": "complete",
+        "utc": "2026-11-17T23:17:37Z",
+        "free_after": 7217811456
+      }
+    ],
+    "complete": true,
+    "root_proc_scan": {
+      "hits": [],
+      "permission_errors": []
+    },
+    "outside_symlink_consumers": [],
+    "free_after": 7217795072,
+    "reclaimed_net_bytes": 1888923648
+  },
+  "closed_intermediate_targets": [
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/intermediates/intermediary_bundle/release/packageReleaseBundle/intermediary-bundle.aab",
+      "bytes": 1058453198,
+      "allocated": 1058488320,
+      "sha256": "5101bd43c223dca059baaf3a9fdd5a479e1c3efdbf935a6e53371b0c3ea30e1d",
+      "device": 66306,
+      "inode": 39845937,
+      "entry_prefix_in_final": "",
+      "path_normalization": "Repeated path separators only; exact per-entry bytes must match retained signed AAB",
+      "replacement_proof_complete": true,
+      "proven_entry_count": 1583
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree/android/app/build/intermediates/module_bundle/release/buildReleasePreBundle/base.zip",
+      "bytes": 828947669,
+      "allocated": 828997632,
+      "sha256": "1e1cdb60190d74e93626272a6eee627ac5ea656f0bd4ff97992f9dc7de43bc06",
+      "device": 66306,
+      "inode": 46142330,
+      "entry_prefix_in_final": "base/",
+      "path_normalization": "Repeated path separators only; exact per-entry bytes must match retained signed AAB",
+      "replacement_proof_complete": true,
+      "proven_entry_count": 1554
+    }
+  ],
+  "source_delivery": "Matching small source supplement is root-owned; no duplicate 592 MB source archive generated.",
+  "verification_corrections": [
+    "Zero-mutation intermediate proof first encountered a double path separator in base ZIP metadata; separate resume explicitly normalized that path and verified every entry hash against final signed AAB.",
+    "Original APK checker expected old aapt sdkVersion output; SDK36 emits minSdkVersion. Existing Stop resource is ui_cae7d57bc067. Original checker receipt and exact corrected file-only verification retained."
+  ],
+  "limitations": [
+    "Static release-artifact checks only; no install/uninstall/account action, physical 16 KiB runtime, new release UI screenshot, acoustic or live auth/payment qualification. Native gesture/cue behavior is backed by retained prior QA receipts; BFM conditional concerns do not authorize disabling same-tap Stop."
+  ],
+  "free_after": 6206767104,
+  "private_evidence_sha256": {
+    "bundle-build-receipt.json": "ea147e6c91e0023292e1c0daed9d057bdbf8b6ee507f1288fb0470c46aa598f4",
+    "bundle-verification.json": "f83d842a803e4883c5454464eb7e609107fa163aa80854dcea4edfd5cdb2c0b8",
+    "apk-build-receipt.json": "84ecfcaa3d35f0889b3aa0a29438b5cf3e430670bbb9a64fda830cf57104dea7",
+    "apk-verification.json": "68dcffc4e549c726da163bf10b7f89caef9cc6cfbf3ab43996db34a8bcb8535b",
+    "apk-verification-resume-r01.json": "fc3748125a0bdee8b9e43729a3c2dcf454078c49b16d6ff8f4271054341d4d21",
+    "bundle-intermediate-cleanup-receipt.json": "4f9b4813fb07f0b7af1e6979d0bc636dc6f4f8ee37ec60b4b091e8fcd970211d",
+    "bundle-intermediate-cleanup-resume-r01-receipt.json": "4972b141b5a3ab5c798ebcf3649550b19a4a130c2b3030d5065b570fc32b1033",
+    "frozen-build-inputs.json": "195ba2611ada22f431a5c06c9495e597f3ef3c886c8d8667301acca0b55624ad",
+    "release-assets.json": "1d5f0a85094d445eb19b8798941b9ad15e879d2dfe687c5ac4ec29fd389275bb"
+  }
+}
