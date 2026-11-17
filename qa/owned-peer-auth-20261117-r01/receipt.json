@@ -1,0 +1,9 @@
+{
+  "scope": "Fresh task-owned Android emulator 5624, signed Vipi 1.0.2 (3), designated owned peer only",
+  "prior_attempt": "After human verification, AuthKit returned Invalid email or password. Locally retained credential and authoritative creator file matched in memory for email and password; masked field did not prove entered bytes. No values or hashes reported.",
+  "environment": "Original custom-tab intent public WorkOS client ID matched retained release BuildConfig and current backend client ID in private comparisons; this does not prove password validity.",
+  "benign_transport": "scrcpy 5.0.1 with clipboard autosync disabled: explicit Alt+V pasted a synthetic punctuation string exactly in the isolated Android Settings search field. The first setup job timed out before paste; its unchanged field was inspected before the successful separate test.",
+  "corrected_attempt": "Initial password paste missed the moved input field; an empty submit was rejected locally. Native accessibility established the correct focused password field. Explicit clipboard sync alone did not populate Chrome's field; using the on-screen Gboard clipboard suggestion populated it. One subsequent nonempty sign-in submission reached Cloudflare human verification. No verification action, second nonempty submission, profile, registration, or message occurred.",
+  "state": "Human verification pending. Host and device clipboards replaced with neutral space through a separate focused Settings field; original AuthKit task restored. No credential or auth URL included here.",
+  "limits": "The synthetic paste demonstrates its own transport only; neither masked display nor verification prompt proves exact entered password bytes or successful authentication. One private screenshot with a transient unmasked last character was deleted immediately and is not retained. No CAPTCHA solving, provider API probe, account reset, or old emulator action."
+}
