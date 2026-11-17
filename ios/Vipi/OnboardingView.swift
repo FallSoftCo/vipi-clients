@@ -81,28 +81,48 @@ struct OnboardingView: View {
     private func preparePreviewVoices() { speech.prepare(source: "en", target: "es", warmups: ["en": "Hello.", "es": "Hola."]) }
 
     private var languages: some View {
-        @Bindable var state = state
-        return VStack(alignment: .leading, spacing: 24) {
+        VStack(alignment: .leading, spacing: 24) {
             IntroHeading(eyebrow: "", title: "Your languages", detail: "", showsDetail: false)
             VStack(alignment: .leading, spacing: 10) {
                 Text("I speak").font(.body.weight(.semibold))
-                Picker("I already speak", selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) })) {
-                    ForEach(VipiLanguage.initial) { Text($0.localizedName).tag($0.id) }
-                }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
-                    .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
+                Menu {
+                    ForEach(VipiLanguage.initial) { language in
+                        Button { state.selectKnownLanguage(language.id) } label: {
+                            Text(language.localizedName)
+                            if state.knownLanguage == language.id { Image(systemName: "checkmark") }
+                        }
+                    }
+                } label: { languageLabel(state.knownLanguage) }
+                    .accessibilityLabel("I speak")
+                    .accessibilityValue(VipiLanguage.named(state.knownLanguage).localizedName)
             }
             VStack(alignment: .leading, spacing: 10) {
                 Text("I’m learning").font(.body.weight(.semibold))
-                Picker("I want to learn", selection: $state.targetLanguage) {
-                ForEach(VipiLanguage.initial.filter { $0.id != state.knownLanguage }) { language in
-                    Text("\(language.localizedName) · \(language.localName)").tag(language.id)
-                }
-            }.pickerStyle(.menu).tint(.primary).padding(10).frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
-                .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
+                Menu {
+                    ForEach(VipiLanguage.initial.filter { $0.id != state.knownLanguage }) { language in
+                        Button { state.targetLanguage = language.id } label: {
+                            Text("\(language.localizedName) · \(language.localName)")
+                            if state.targetLanguage == language.id { Image(systemName: "checkmark") }
+                        }
+                    }
+                } label: { languageLabel(state.targetLanguage) }
+                    .accessibilityLabel("I’m learning")
+                    .accessibilityValue(VipiLanguage.named(state.targetLanguage).localizedName)
             }
             ConversationPreview(source: state.knownLanguage, target: state.targetLanguage, scrolling: scrolling)
                 .id("\(state.knownLanguage)-\(state.targetLanguage)")
         }
+    }
+
+    private func languageLabel(_ code: String) -> some View {
+        HStack(spacing: 12) {
+            Text(VipiLanguage.named(code).localizedName).fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: 8)
+            Image(systemName: "chevron.down").font(.body.weight(.semibold))
+        }.font(.body).foregroundStyle(VipiDesign.ink)
+            .frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
+            .padding(.horizontal, 16).padding(.vertical, 12)
+            .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
     }
 
     private var account: some View {
