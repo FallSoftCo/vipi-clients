@@ -1,0 +1,123 @@
+{
+  "date": "2026-11-17",
+  "status": "verified read-only inventory and proposed migration contract; no production/provider/user changes",
+  "supersedes": "Dedicated Vipi provider creation plan in qualification.json, following explicit user shared Fallsoft login steering",
+  "shared_authority": {
+    "project": "Fallible Software, Co.'s Project",
+    "environment": "Production",
+    "environment_id": "environment_01JPK69ZMKBJYK94G3G06FWGZA",
+    "application_id": "app_01KKFC4012DF919HWZPBSQ2D4W",
+    "default_client_id": "client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+    "google": "Enabled, Manage shown",
+    "apple": "Enabled, Manage shown",
+    "native_observation_jobs": [
+      "vipi-shared-provider-list-r02",
+      "vipi-shared-app-list-r01",
+      "vipi-shared-redirects-vipi-r01"
+    ],
+    "source_confirmations": [
+      {
+        "path": "/home/ai/Development/fallsoftco-nextjs/.env.production",
+        "public_client_id": "client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+        "callback": "https://fallsoft.co/callback"
+      },
+      {
+        "path": "/home/ai/Development/ozzz/.env.production.local",
+        "public_client_id": "client_01JPK69ZZFHH0NSP8BY2HGRDX6",
+        "callback": "https://ozzz.io/callback"
+      }
+    ],
+    "default_app_redirects": {
+      "count": 16,
+      "vipi_match_count": 0,
+      "vipi_search": "vipi",
+      "observed_examples": [
+        "https://fallsoft.co/auth/callback",
+        "https://ozzz.io/callback",
+        "https://ozzz.io/api/auth/native/callback",
+        "https://8bar.club/callback",
+        "https://8bar.club/api/auth/native/callback"
+      ]
+    },
+    "default_app_session_policy": {
+      "maximum_days": 7,
+      "inactive_days": 2,
+      "access_token_minutes": 5
+    }
+  },
+  "application_options": [
+    {
+      "option": "Vipi app inside existing shared Fallsoft environment",
+      "recommended": true,
+      "effect": "New application client/redirect/session policy only, sharing identical underlying environment users, organizations and configured Google/Apple providers. This is not a separate user directory or provider configuration.",
+      "changes_requiring_exact_review": [
+        "Create only Vipi application in existing environment",
+        "Allow exact co.fallsoft.vipi://auth/callback and app-scoped account-management callback if needed",
+        "Use public PKCE, never native client/API secret",
+        "Retain all default-app callbacks and session policies",
+        "Use correct shared-environment issuer/JWKS and new application client_id for backend verification"
+      ]
+    },
+    {
+      "option": "Reuse existing default Fallsoft client",
+      "recommended": false,
+      "effect": "Add exact Vipi callback to existing default application; shared user identity and providers already available. All apps share that application token context and existing 7-day/2-day/5-minute session policy.",
+      "changes_requiring_exact_review": [
+        "Append only exact Vipi callback; preserve all16 existing callbacks/default",
+        "Reconcile public PKCE authentication and actual issuer/JWKS before native production cutover",
+        "Keep other-app credentials, policies and sessions intact"
+      ]
+    }
+  ],
+  "public_pkce_compatibility": {
+    "documented": "WorkOS PublicClient supports system-browser authorization-code+PKCE using only public application client ID; SDK retains generated state/verifier. Applications inside one environment share underlying users/providers but can retain app-specific session/redirect policies.",
+    "actual_existing_shared_native_proof": "Existing shared default application already allows HTTPS native broker callbacks for ozzz and8bar; this is configuration evidence, not proof of Vipi direct-scheme callback/token exchange.",
+    "not_yet_proven": [
+      "Vipi custom callback registered in shared authority",
+      "Owned real Google/Apple callback on Vipi native client",
+      "Public code exchange/refresh with exact chosen application and real signed tokens",
+      "Exact issuer/JWKS claim mapping for chosen shared application"
+    ]
+  },
+  "native_contract": {
+    "primary_cta": "Continue with Fallsoft",
+    "provider_choice": "Hosted shared AuthKit displays the configured Google/Apple choices and existing methods. Optional typed direct selectors in859c3e1 are reusable but not necessary for a single Fallsoft entry point.",
+    "existing_session": "Do not merely replace WORKOS_CLIENT_ID. Existing session needs original client/authority for refresh until explicit linking commits. Current encrypted session format lacks authority/client ID, so backwards-compatible session decoding must pin old records to legacy Vipi authority.",
+    "same_user_reauth": "Keep state+PKCE+exact callback+single-use verifier+age+generation checks. For existing-session reauthentication retain same identity authority and expected subject, max_age=0; no alias/e-mail relaxation.",
+    "cache_and_crypto": "Stable backend User.id UUID keys the message vault/device/Signal identity. Legacy WorkOS subject keys profile caches and current token binding; retain stable local account binding or explicitly migrate cache alias only after same UUID proof. Never change vault account UUID or generate replacement device/Signal identity merely because login authority changes."
+  },
+  "proposed_linking_protocol": [
+    "Prepare namespaced identity binding (verified authority/issuer and provider subject) to existing stable Vipi User.id. Never resolve identity by unverified email or client-supplied account ID alone.",
+    "While old Vipi session and vault remain active, explicitly connect Fallsoft account. Require recent old Vipi authentication plus new shared Fallsoft authentication, independent PKCE/state transactions, and current active-device credential bound to the old Vipi account.",
+    "Server verifies each token against its pinned authority/JWKS and allowed application context, auth_time freshness, token subject and device ownership. Lock affected identity bindings and stable account; reject deleted/suspended/pending-deletion states.",
+    "If new shared subject is already bound to a different Vipi account, return conflict without merging/reassigning either account. Equal verified emails can suggest a candidate but cannot replace dual proof; Apple relay email is never assumed equal.",
+    "Commit one idempotent binding and return the unchanged account UUID plus expected old/new subject/authority identifiers. A single-use request nonce, exact target binding, durable receipt and retry lookup prevent uncertain external success from creating another account.",
+    "Client verifies unchanged expected account UUID and saved transition state, persists shared session/authority/subject plus stable local binding atomically, reads it back, then activates it. Before durable success retain old session, vault, device registration, contacts and conversations. Cancellation, expired state, wrong account, conflict or write failure leaves old account active.",
+    "Preserve old verifier/binding for a bounded explicit transition; remove legacy acceptance only after exact migrated-account/active-client receipts. Do not delete old provider users, keys or sessions as an incidental link action."
+  ],
+  "deletion_boundary": "Backend owner removes Vipi-only records/identity bindings and scoped sessions without deleting shared Fallsoft identity. Root owns separate central Fallsoft account deletion and affected-app coordination. Provider directory DELETE is never a side effect of Vipi-only delete.",
+  "required_owned_qa": [
+    "Existing legacy account retains exact User.id, registered-device id, Signal keys, vault ciphertext/history/familiarity across linking",
+    "Existing shared user new to Vipi provisions once under same shared subject",
+    "Google and Apple sign-in finish real callback/code exchange and refresh without native secrets",
+    "Different shared user, collision, replay, wrong state, stale auth_time and wrong device cannot link",
+    "Failure after server commit resumes via exact receipt without a parallel profile",
+    "Same-user reauthentication after transition remains bound",
+    "Vipi-only deletion leaves shared login/other apps intact; no automatic Vipi re-provision on stale token"
+  ],
+  "external_mutations_so_far": {
+    "provider_config": 0,
+    "application_create": 0,
+    "callback_changes": 0,
+    "new_credentials": 0,
+    "user_link_or_migration": 0,
+    "production_client_or_key_switch": 0
+  },
+  "sources": [
+    "https://workos.com/docs/authkit/applications",
+    "https://workos.com/docs/authkit/social-login",
+    "https://workos.com/docs/authkit/identity-linking",
+    "https://workos.com/docs/authkit/reauthentication",
+    "https://raw.githubusercontent.com/workos/workos-ios/v0.8.0/Sources/WorkOS/Helpers/PublicClient.swift"
+  ]
+}
