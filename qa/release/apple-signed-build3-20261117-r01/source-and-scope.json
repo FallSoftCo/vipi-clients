@@ -1,0 +1,19 @@
+{
+  "at_utc": "2026-11-17T15:51:32.721669+00:00",
+  "frozen_commit": "a42de560c6dc889e242b0387fe243692849c3454",
+  "build_number_commit": "decc33d",
+  "build2_baseline": "09056a69de97a4c775d6f8936a072e58822f1519",
+  "tracked_changes": [
+    "ios/Vipi/Authentication.swift",
+    "ios/Vipi/Localizable.xcstrings",
+    "ios/project.yml build number 2 to 3"
+  ],
+  "tracked_input_count": 419,
+  "generated_changes": "Build version and distinct byte-equivalent local libsignal package path; after build only Xcode user scheme metadata differed in package copy",
+  "pin_lock_sha256": "39ebfc26533214155c11e26c8200c9c5ed884589f61277c228b3861d9f48b6a0",
+  "ipa_sha256": "fbdfbf5e79eb45363746aeb0ef7910518674b32a90365e2570c2f561c6e85411",
+  "ipa_native": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/signed-release-20261117-build3-r01/Vipi-signed-build3-r01/Vipi.ipa",
+  "runtime_limit": "Updated expiry path compiled and its localized key verified in 13 compiled catalogs; dedicated expiry UI behavior not exercised for build3.",
+  "uploaded": false,
+  "installed_qa_build_replaced": false
+}
