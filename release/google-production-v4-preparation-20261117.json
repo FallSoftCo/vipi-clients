@@ -1,0 +1,48 @@
+{
+  "at_utc": "2026-11-17T16:55:45.694786+00:00",
+  "state": "saved_to_publishing_overview_not_submitted",
+  "app_id": "4975664610567218322",
+  "track_id": "4697875695147185458",
+  "release_id": "1",
+  "artifact_id": "4860252386438561651",
+  "version_code": 4,
+  "version_name": "1.0.3",
+  "release_name": "1.0.3 (4)",
+  "actions": {
+    "existing_artifact_added_once": true,
+    "version_3_removed_from_draft_only": true,
+    "draft_save_dispatches": 1,
+    "preview_save_dispatches": 1,
+    "new_upload_in_draft_step": false
+  },
+  "verification": {
+    "full_reload_only_version_4_and_correct_name": true,
+    "notes_locale_count": 14,
+    "all_locale_text_matches_reviewed_initial_notes": true,
+    "preview": "Ready to release",
+    "publishing_overview": "Changes not yet submitted for review: Production 1.0.3 (4), Start full rollout",
+    "pending_changes": 24,
+    "quick_checks": "Running; up to 14 minutes remaining at readback",
+    "download_size_mb": 418,
+    "geography_unchanged": "175 countries/regions plus rest of world; earlier France/China exclusions preserved",
+    "managed_publishing": "off, unchanged"
+  },
+  "review_submitted": false,
+  "public_rollout": false,
+  "pre_submission_dependencies": [
+    "Production service activation and ordinary signup verification",
+    "Final private reviewer credential replacement after Apple portal recovery"
+  ],
+  "jobs": {
+    "draft_save": "vipi-google-v4-save-draft-r21",
+    "preview_save": "vipi-google-v4-preview-save-r26",
+    "overview_readback": "vipi-google-v4-overview-read-r29"
+  },
+  "screenshots_sha256": {
+    "vipi-google-v4-r21.png": "46b9048d637a08861b7e6b1a5a25cfe23eb41a2ac6885aa0806ebda7fe9fd485",
+    "vipi-google-v4-r23.png": "95d3c2afe10cfc58cf72b4267fe49107bfccec0dbd803f60c554a96d1596c3b8",
+    "vipi-google-v4-r25.png": "03c31620da25846c57af67a31e7dc0640236344c69af8bae26f17e493365327a",
+    "vipi-google-v4-r27.png": "363da8164222866d98c74f6f27770f49ec29e6c24db037d0c3e410f60c9c306c",
+    "vipi-google-v4-r29.png": "7d4635030c1670be4b985e23be767a23187925247f27f8da37272d767f5feb48"
+  }
+}
