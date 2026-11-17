@@ -13,7 +13,7 @@ Native owners keep source changes isolated until their actual candidates are qua
 | Reference inspected through MCP | Application to Vipi | Limit |
 | --- | --- | --- |
 | [Mobbin: WhatsApp invite](https://mobbin.com/flows/cce40094-5111-4ee4-a7f5-90737cda749a?tab=screens) | Clear share-invite action, with the user choosing the recipient in the native share sheet. | iOS reference; not Android-specific evidence. |
-| [Mobbin: Signal first chat](https://mobbin.com/flows/a9c2cf2f-20b9-428d-8f31-c0cafe09a77d?tab=screens) | Empty state explains the next action and exposes compose. | Vipi must also explain why ordinary friend conversations teach words. |
+| [Mobbin: Signal empty chat and group creation](https://mobbin.com/flows/a9c2cf2f-20b9-428d-8f31-c0cafe09a77d?tab=screens) | Empty state explains the next action and exposes compose. | Vipi must also explain why ordinary friend conversations teach words. |
 | [Mobbin: Speak audio](https://mobbin.com/flows/1a1c0daf-879b-42f3-8100-9e03af3705f7?tab=screens) | Playback has distinct preparing, playing and stop states in a stable location. | Does not prove Vipi voice readiness or pronunciation. |
 | [Mobbin: Glovo translation](https://mobbin.com/flows/50aecc0a-c9ce-49bd-b4ae-41f9a1f3857a?tab=screens) | Keep chat geometry familiar and make translation state understandable. | Vipi’s automatic inline switching needs its own interaction validation. |
 | [Mobbin: Tide Guide subscription](https://mobbin.com/flows/5bef40b5-8760-4eb3-b232-dfaf5da7b41b?tab=screens) | Separate current access, renewal date and subscription management. | Its offer is not Vipi’s cardless access period. |
@@ -22,7 +22,7 @@ Native owners keep source changes isolated until their actual candidates are qua
 | [BFM: Canva trial breakdown](https://builtformars.com/ux-bites/canvas-trial-breakdown) | Explain what happens now and when access ends. | Vipi has no automatic charge for cardless access. Do not copy renewal or reminder promises. |
 | [BFM: visible lifeboats](https://builtformars.com/ux-glossary/visible-lifeboats) | Keep history, restore and recovery actions visible when access or connectivity fails. | Do not imply that lost device-only history can be recovered without a backup. |
 
-Mobbin references were inspected by the Apple agent using its available MCP tools. Its tool schema provides iOS and web search; this report does not claim Android-specific Mobbin coverage. Root’s BFM exact lookup and search metadata is retained in the private review evidence directory. One BFM advisory call failed; no advice was fabricated from that failure.
+Mobbin references were inspected by the Apple agent using its available MCP tools. Its tool schema provides iOS and web search; this report does not claim Android-specific Mobbin coverage. Root’s BFM exact lookup and search metadata is retained in the private review evidence directory. The first BFM advisory call failed. A later call using actual Vipi observations succeeded; its advice and source URLs are retained in bfm-observed-advisory-r04.json. Suggestions remain hypotheses, not measured adoption results.
 
 ## Observed findings and fixes
 
@@ -59,11 +59,14 @@ Current Android capture artifact: QA package co.fallsoft.vipi.sourcecontextqa, s
 
 - Android Spanish onboarding ready and playing-state captures show Escuchar and Detener in the same action area. The native accessibility tree reports Pausar cambio de palabras for the icon. These observations establish labels and state feedback, not audible output or actual-chat stop reachability.
 - Android French language selection used Continuer avec Espagnol. Interpolating a display language name creates article/case problems; the owner changed the next candidate to a simple localized Continue because the selected language is already visible.
-- Android French account onboarding explains the free period without payment details, but the old sentence could imply another free period for an existing account. The next candidate explicitly limits this to new accounts and states there is no automatic charge. The lower content’s scroll reachability still needs interaction verification.
+- Android French account onboarding explains the free period without payment details, but the old sentence could imply another free period for an existing account. The next candidate explicitly limits this to new accounts and states there is no automatic charge. The lower content was subsequently reached by scrolling at normal text size; the language-selection Continue action was also reached at 2× French text. These checks used the older 96611a0 wording and need a brief updated-build recheck.
 - Root inspected the live homepage and valid/invalid invitation pages using native browser control. The homepage describes ordinary friend chat, inline switching, local processing and the optional separate Bot plan. The valid invite shows a username and manual steps; the invalid invite says to request a fresh invitation. Both are currently English-only. The valid page intentionally says downloads are pending store approval. Store links and appropriate public-page localization remain release work; no real invitation was sent and no account was accessed.
+- Actual iOS 4d34fbe Spanish and Arabic captures exposed missing exact multiline/custom-component keys: the headline and main CTA remained English. Arabic also translated the wordmark, mirrored the logo and spaced Arabic letters using Latin-style tracking. Root and the language reviewer independently inspected the captures. The owner is adding the missing catalog entries, preserving the wordmark/logo and removing inappropriate tracking; corrected captures are pending. The compact no-Keychain QA app omits language packs and account services, so it establishes UI behavior only.
 - A synthetic Android conversation-row test passed for dwell, recomposition stability and seen-plus-new selection. It does not establish full conversation navigation, sound output or production account behavior.
 
 Private public-page capture receipt: investigations/vipi-ux-review-20261117-r01/web-review-receipt.json. Root’s temporary browser tab was closed and desktop lease released; the existing store tab remains.
+
+Root accepted one additional control change after source inspection and BFM/Mobbin comparison: when message audio is preparing or playing, Stop must be directly available without reopening overflow. Android confirmed its stop operation cancels both rendering and playback; both native owners are applying or checking the direct control. Idle messages retain the minimal layout.
 
 No new languages are exposed by this review. The current product has 11 enabled languages. Language expansion remains a separately qualified capability change.
 
