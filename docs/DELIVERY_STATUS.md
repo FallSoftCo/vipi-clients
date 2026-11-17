@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 17, 2026, 09:30 UTC. Vipi remains restricted staging. Neither
+Updated November 17, 2026, 12:32 UTC. Vipi remains restricted staging. Neither
 app has been submitted for public review. Prior revisions and the linked
 receipts retain historical actions; do not replay them.
 
@@ -42,13 +42,16 @@ Countries remain unselected, the sole console preview error. No review was sent.
 See [draft receipt](../release/google-production-v3-draft-20261117.json). Existing artwork declarations and actual
 app screenshots remain. See [localization](../release/google-localized-listing-20261117.json).
 
-Apple's original signed **1.0 (1)**, source `4908d4e`, was delivered once and
-finished processing. It remains **Missing Compliance**. Current source now has a full unsigned device Release archive **1.0 (2)** from
-`09056a6`, including localization, cardless access and native detection changes.
-Its 419 tracked source inputs matched before and after; 1,032 language, speech
-and privacy resources match the retained signed reference. No new signing or
-build upload occurred. The [archive receipt](../qa/release/apple-unsigned-build2-20261117-r01/receipt.json)
-records exact hashes and evidence boundaries.
+Apple **1.0 (2)**, source `09056a6`, is now signed with Fallible Software's
+Apple Distribution certificate and was delivered once through Transporter at
+07:30 America/New_York on November 17. Apple is processing it. Final IPA
+SHA-256 is `e0e4e1cc2b7fd2488de1f42d37dae525be50af084949e149c386d7599d72d37a`.
+Independent strict/deep signature verification passed, with production push
+entitlements and debugging disabled. The 1,019 immersion/lexical/speech resources,
+13 privacy manifests and 13 compiled localizations match the checked build.
+The prior build 1 and its original upload remain preserved; no upload was repeated.
+See [delivery](../release/apple-delivery-build2-20261117-r01.json) and
+[verification](../qa/release/apple-signed-build2-20261117-r01/root-verification.json).
 
 Reviewed text is saved and reload-verified in all 13 Apple-supported locales.
 Swahili is not an ASC locale; new locales retain inherited English keywords and
@@ -61,8 +64,8 @@ qualification remain incomplete. No physical iPad was used.
 See [Apple configuration](../release/apple-store-configuration.json).
 
 **Signing is authorized.** The user explicitly directed “you must sign” on
-November 17. The team is using the proven route: a normal signed Xcode archive
-followed by Organizer automatic export, then independent final IPA checks.
+November 17. The team completed the proven route: a normal signed Xcode archive
+followed by Organizer automatic export and independent final IPA checks.
 Directly exporting an unsigned archive previously lost its push entitlement and
 must not be repeated. Earlier signing-hold notes are superseded by this direction.
 
@@ -77,7 +80,11 @@ now corresponds to frozen source `87d53cd` and was published once. All 5,905
 members were rehashed; 5,892 match the reviewed prior archive, with six additions
 and seven changes. GitHub's asset digest matches the reviewed local archive;
 anonymous checksum and partial-download checks passed. Earlier releases remain.
-See [publication receipt](../release/client-source-publication-v3-20261117.json).
+See [publication receipt](../release/client-source-publication-v3-20261117.json). The Apple build 2
+source supplement is also published as three small additive assets on that same
+release, with exact GitHub digests and anonymous downloads verified. It binds
+the signed IPA to the public source plus its build-number patch; existing assets
+were preserved. See [supplement](../release/apple-build2-source-supplement-20261117/publication-receipt.json).
 
 ## Access and service
 
@@ -192,8 +199,8 @@ its allowance; it is not a typical-latency or quality benchmark.
 - Finish exact version 3 runtime checks for the qualified session and short-message
   routing fixes. Preserve the uncertain original send without replay; resolve its
   disposition before any retained-account update or automatic retry.
-- Complete authorized Apple build 2 signing, final IPA verification and upload,
-  then actual purchase/restore and remaining store qualification.
+- Confirm Apple build 2 processing and complete actual purchase/restore and
+  remaining store qualification. Signing, final IPA verification and upload are complete.
 - Reconcile store artifacts, regional export requirements and screenshots.
   France needs a current company extract; China-specific requirements remain
   unresolved. The ML Kit/libsignal distribution question is a narrow legal

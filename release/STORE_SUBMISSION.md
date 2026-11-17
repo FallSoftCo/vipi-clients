@@ -3,11 +3,13 @@
 The app is **Vipi**, with **Vipi: Immersive Chat** as the saved listing
 name on both stores and **Immersive chat with friends.** as the opening headline. Private Apple
 app `6832624092` belongs to the company account, bundle `co.fallsoft.vipi`.
-The corrected company-signed 1.0(1) IPA was delivered once through Transporter
-and has finished processing. No app-review submission has occurred. Both
+The current company-signed 1.0(2) IPA was delivered once through Transporter
+on November 17 and is processing. Its production push entitlement, disabled
+debugging and exact IPA signature/hash were verified. The original 1.0(1)
+delivery remains preserved. No app-review submission has occurred. Both
 Google's 14 and Apple's 13 supported reviewed localized listings are saved and
 reload-verified. Apple's new locales retain inherited English keywords and URLs.
-The original Apple binary does not include the latest fixes.
+Build 2 includes the current Apple fixes; see `apple-delivery-build2-20261117-r01.json`.
 `docs/DELIVERY_STATUS.md` records current acceptance and blockers.
 The company is **Fallible Software, Co.**, using its FallSoft.Co accounts.
 Do not use the unrelated personal developer account or qualification build 63.
@@ -130,8 +132,9 @@ dependencies. Save each app/product/build/submission ID and receipt before a
 subsequent external action, and inspect an uncertain result before retrying it.
 
 Current signing authorization: the owner explicitly directed “you must sign” on
-November 17. Use the proven signed Xcode archive and automatic Organizer export
-route for build 2, verify the final IPA, and continue the authorized delivery.
+November 17. The proven signed Xcode archive and automatic Organizer export
+route completed for build 2; the final IPA passed verification and its single
+Transporter upload was delivered. Observe the existing processing operation.
 Earlier signing-hold notes are superseded. The original company Android account
 separately retains an uncertain queued message. Do not resend, reset
 the account, accept a changed peer key or publish/install an update that may

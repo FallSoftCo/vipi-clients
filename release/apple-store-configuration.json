@@ -85,8 +85,8 @@
     "submitted_for_review": false,
     "customer_available": false,
     "apple_sandbox_test_notification": true,
-    "build_processing_complete": true,
-    "testflight_status": "Missing Compliance; not ready for testing",
+    "build_processing_complete": false,
+    "testflight_status": "Build2 processing; original build1 Missing Compliance preserved in history",
     "testflight_ready": false
   },
   "private_receipt_directory": "investigations/vipi-production-delivery-20261107/apple-store-provisioning-20261109-r01",
@@ -173,21 +173,23 @@
   },
   "signed_release": {
     "version": "1.0",
-    "build": "1",
-    "source_commit": "4908d4e7c9d98d8a33547f52883961108f457547",
-    "ipa_sha256": "a7a1108bcc98f303a8696a3fa67943d7e1ff8c42234a33b7c0506d1744b56ece",
+    "build": "2",
+    "source_commit": "09056a69de97a4c775d6f8936a072e58822f1519",
+    "ipa_sha256": "e0e4e1cc2b7fd2488de1f42d37dae525be50af084949e149c386d7599d72d37a",
+    "ipa_bytes": 430849198,
     "distribution_team_id": "3TNL2455JT",
     "profile_name": "iOS Team Store Provisioning Profile: co.fallsoft.vipi",
     "profile_uuid": "f25b521e-55f5-4e91-928f-6dbf43501fc1",
     "profile_expires_utc": "2027-10-24T22:50:46Z",
     "aps_environment": "production",
     "get_task_allow": false,
-    "delivery": "Delivered Nov 16, 2026 7:21 PM Mac local time; Apple processing complete",
-    "testflight_status": "Missing Compliance",
-    "verification_receipt": "investigations/vipi-resume-20261116-r01/apple-signed-qualification-r141.json",
-    "delivery_record": "release/apple-delivery-20261116-r01.json"
+    "delivery": "Delivered once by Transporter November 17, 2026 at 07:30 America/New_York; Apple processing in progress.",
+    "testflight_status": "Processing; final state not yet observed",
+    "verification_receipt": "qa/release/apple-signed-build2-20261117-r01/root-verification.json",
+    "delivery_record": "release/apple-delivery-build2-20261117-r01.json",
+    "source_supplement": "release/apple-build2-source-supplement-20261117/publication-receipt.json"
   },
-  "verification_scope_note": "November17 listing fields, published privacy receipt and manual release mode reconciled. Provisioning/build details retain their original dated receipts; no new signing, upload or app-review submission.",
+  "verification_scope_note": "November17 current build2 distribution signature, production APS, disabled debugging, exact IPA hash and single Transporter delivery reconciled. Source supplement published and verified. Processing completion, compliance and app-review submission remain separate.",
   "introductory_offer_current": {
     "verified_date": "2026-11-17",
     "base": {
@@ -256,7 +258,26 @@
       "recorded_at_utc": "2026-11-17T12:01:08.092233+00:00",
       "user_instruction": "I never said hold signing. you must sign",
       "scope": "Sign current build 2 using the verified signed Xcode archive and Organizer export route; continue existing authorized App Store delivery.",
-      "state": "authorized_in_progress"
+      "state": "completed: normal signed archive, automatic local export, final IPA verification and one confirmed Transporter delivery"
+    },
+    "superseded_by": "signed_release: 1.0 (2); historical unsigned archive retained"
+  },
+  "previous_signed_releases": [
+    {
+      "version": "1.0",
+      "build": "1",
+      "source_commit": "4908d4e7c9d98d8a33547f52883961108f457547",
+      "ipa_sha256": "a7a1108bcc98f303a8696a3fa67943d7e1ff8c42234a33b7c0506d1744b56ece",
+      "distribution_team_id": "3TNL2455JT",
+      "profile_name": "iOS Team Store Provisioning Profile: co.fallsoft.vipi",
+      "profile_uuid": "f25b521e-55f5-4e91-928f-6dbf43501fc1",
+      "profile_expires_utc": "2027-10-24T22:50:46Z",
+      "aps_environment": "production",
+      "get_task_allow": false,
+      "delivery": "Delivered Nov 16, 2026 7:21 PM Mac local time; Apple processing complete",
+      "testflight_status": "Missing Compliance",
+      "verification_receipt": "investigations/vipi-resume-20261116-r01/apple-signed-qualification-r141.json",
+      "delivery_record": "release/apple-delivery-20261116-r01.json"
     }
-  }
+  ]
 }
