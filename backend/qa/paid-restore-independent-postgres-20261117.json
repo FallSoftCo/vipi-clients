@@ -1,0 +1,45 @@
+{
+  "source_commit": "a7afa64",
+  "qualified_at": "2026-11-17",
+  "scope": "Independent actual PostgreSQL of committed backend; mocked store responses, no store/production actions",
+  "passed": 111,
+  "skipped": 0,
+  "seconds": 63.34,
+  "files": {
+    "backend/vipi/billing_identity.py": "f61fee646ca343db89ec1c6e2afd5e666874b385ce2ecdb58efcc83d3a173710",
+    "backend/vipi/subscriptions.py": "aec023e045fa31d2d6d3d83e4563517c9feccd09b0c309929c409fd248e97ab6",
+    "backend/vipi/store_providers.py": "236f4793e5d485835ec00c58d83e80b48a46e24b1486dba992b8f8a04909b87a",
+    "backend/vipi/global_deletion.py": "4762ba2f6af1f7122321b26a467787468855bd2e5a5208f52adf53d0574ee15e",
+    "backend/vipi/identity_linking.py": "2be7e454997d14b6b8a0aee5b6c8ef2ac0acf4ffa5840c8a471a467be3b276df",
+    "backend/vipi/deletion.py": "120514728912b934e20c900e731de0d8908436a4468f39dcafb51381786ef993",
+    "backend/vipi/db.py": "27fff2f9b6a90a97f0b6f2cb503fbda0d8790650f5158d3026606dfdcc260df4",
+    "backend/migrations/versions/20261117_05_billing_identity.py": "c965bf981e0d6f65ced1581396c009e0272adb83f28fcefa65d5c53fdd9ccc73",
+    "backend/tests/test_billing_identity.py": "1d115ab2d6ea5c91dad1d88b4ba94ff4ac38582eb30b6c3eb671e74cbbb316ed"
+  },
+  "execution": {
+    "created_at": "2026-11-17T19:19:25.454397+00:00",
+    "cluster": "/home/ai/Development/investigations/vipi-production-delivery-20261107/postgres-qualification-r01/data",
+    "scope": "Owned isolated test schemas; no production",
+    "state": "completed and cluster stopped",
+    "budget_bytes": 104857600,
+    "floor_bytes": 4504682496,
+    "baseline_allocated_bytes": 118870016,
+    "peak_allocated_bytes": 177401856,
+    "peak_additional_bytes": 58531840,
+    "lowest_free_bytes": 4894691328,
+    "guard_triggered": null,
+    "exit_code": 0,
+    "post_test": {
+      "other_clients": "0",
+      "test_schemas": "0"
+    },
+    "postmaster_pid_exists": false
+  },
+  "retention_review": "Hash-only historical billing owner binding survives Vipi-only deletion, never grants paid access; shared global erasure removes canonical and alias bindings atomically. Actual current provider verification and exact-user readback remain required.",
+  "remaining": [
+    "Native StoreKit/identity coordinator test target execution",
+    "Actual store catalog and shared-login rollout verification",
+    "Shared/global/billing erasure recovery importer qualification",
+    "Fresh production cutover plan and ownership coordination"
+  ]
+}
