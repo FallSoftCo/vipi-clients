@@ -1,6 +1,5 @@
 {
-  "at_utc": "2026-11-17T03:21:00.643634+00:00",
-  "status": "implemented_and_qualified_in_isolation_not_deployed",
+  "status": "restricted_staging_backend_deployed_and_independently_verified_clients_and_store_changes_pending",
   "owner_choice": "30 cardless days from original account creation; optional Base annual subscription afterward; separate optional Bot mini store trial",
   "candidate_revision": "84c3ff8db5235a0b9419373f5d56b99ad50bf495",
   "package_manifest_sha256": "2ce12c7969d95eeddb76d2558a6f2c856cefa3e893a7e11687a8c7663aa0b521",
@@ -34,7 +33,7 @@
     "PostgreSQL migration upgrade/downgrade/re-upgrade retains original dates"
   ],
   "limits": [
-    "No live schema/service/config changes",
+    "Public signup, customer enforcement, store offers and uploaded native clients remain unchanged",
     "Native localized release and real lifecycle qualification ongoing",
     "Base store intro offer still active; coordinate removal before launch",
     "Distinct new identities can receive distinct trials; no permanent anti-abuse identity retention promised"
@@ -42,7 +41,27 @@
   "external_actions": {
     "purchase": false,
     "store_offer_change": false,
-    "deployment": false,
+    "deployment": true,
     "store_submission": false
+  },
+  "qualification_at_utc": "2026-11-17T03:21:00.643634+00:00",
+  "at_utc": "2026-11-17T05:00:46.064986+00:00",
+  "deployment": {
+    "activation_at_utc": "2026-11-17T04:56:05Z",
+    "revision": "84c3ff8db5235a0b9419373f5d56b99ad50bf495",
+    "schema": "20261117_01",
+    "scope": "Existing restricted staging only",
+    "account_dates": "7 accounts; 0 invalid creation-anchored trial intervals",
+    "independent_postcheck": "investigations/vipi-submit-20261110-r01/backend-cardless-activation-prep-20261117-r01/postcheck.json",
+    "ledger": "/srv/fallsoft/staging/vipi-cardless-20261117-r01/activation-r01/ledger.json",
+    "backup_sha256": "a015cb86e4467dedc61de57ec38cd8b0d75e93c72f9094b52068d9c61c165aa2",
+    "preserved": [
+      "Push worker PID",
+      "Environment hash",
+      "Restricted registration and reviewer settings",
+      "nginx and PostgreSQL main processes"
+    ],
+    "readiness": "Private 200; public readiness deliberately 403 under existing policy; protected API 401 without credentials; public help/terms 200",
+    "replay_allowed": false
   }
 }
