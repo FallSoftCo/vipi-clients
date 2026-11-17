@@ -1,0 +1,19 @@
+{
+  "state": "prepared_not_applied",
+  "baseline_sha256": "4082efd72eca75e310b7cf57c873338b757796e7761a8a7c318432b97f3cba64",
+  "candidate_sha256": "653151cf9dbe5a1829528f48d27ebf101bf8e4ddfed00d5b0d8da5f1b7f086e2",
+  "changed_fields": [
+    "environment",
+    "enforce_subscriptions",
+    "allowed_subjects",
+    "apple_environment"
+  ],
+  "reviewers_preserved_count": 2,
+  "sandbox_testers_preserved_count": 2,
+  "global_google_test": false,
+  "service_user_validator_passed": true,
+  "worker_overlays_overlap_candidate_fields": false,
+  "no_application_provider_or_live_mutation": true,
+  "apple_production_test_first_release_gate": "plausible supported explanation, not proven cause",
+  "remaining": "public signup and friend-chat qualification, original-message hold, owned sandbox purchase and coordinated cutover"
+}

@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-11-17T13:44:22.978323+00:00",
+  "scope": "one read-only observation while Apple Sandbox purchase authentication pending",
+  "tester_entitlement_rows": 0,
+  "tester_apple_entitlement_rows": 0,
+  "apple_notification_rows": 1,
+  "latest_apple_notification_utc": "2026-11-09T17:51:00.442022Z",
+  "limitation": "No purchase completion or failure inferred; no poll, retry, rollback or settings switch performed."
+}
