@@ -1,0 +1,12 @@
+{
+  "host": "native apple@macbook-pro",
+  "command": "swift test --jobs 1 in isolated SelectionProjection QA package",
+  "source": "Exact production helper and actual XCTest source; test import only rebased from Vipi to SelectionProjection for Foundation-only macOS execution.",
+  "passed": true,
+  "tests": 4,
+  "files": {
+    "ios/Vipi/OriginalTextSelection.swift": "ee9e6049fd8edc2d9cd994f131c87e9b4133700a95e45d009a6bac9121196163",
+    "ios/VipiCryptoTests/OriginalTextSelectionTests.swift": "11504687136d9cc2ce24f132e19e06ac6f17e67625c1c7693d51c19298c6dd74"
+  },
+  "scope": "Original UTF16 coordinates across compressed repeated words, phrases, punctuation, emoji/combining graphemes and invalid ranges. UIKit attachment metadata integration still requires app/simulator build."
+}

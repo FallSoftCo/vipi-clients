@@ -2,6 +2,10 @@ import SwiftUI
 import UIKit
 import VipiCore
 
+private extension NSAttributedString.Key {
+    static let vipiOriginalRange = NSAttributedString.Key("co.fallsoft.vipi.original-range")
+}
+
 /// A native inline attachment reserves the same geometry for every word face.
 /// Its visible text remains available to accessibility and selection/copy.
 final class ImmersionWordAttachment: NSTextAttachment {
@@ -82,6 +86,15 @@ final class ImmersionWordAttachment: NSTextAttachment {
     override func copy(_ sender: Any?) {
         guard selectedRange.length > 0 else { return }
         UIPasteboard.general.string = visibleText(in: selectedRange)
+    }
+    var originalMessage = ""
+    func originalRange(for selection: NSRange) -> NSRange? {
+        var segments: [OriginalTextSegment] = []
+        attributedText.enumerateAttributes(in: NSRange(location: 0, length: attributedText.length)) { attributes, displayed, _ in
+            guard let source = attributes[.vipiOriginalRange] as? NSValue else { return }
+            segments.append(.init(displayed: displayed, original: source.rangeValue, atomic: attributes[.attachment] != nil))
+        }
+        return OriginalTextSelection.range(for: selection, segments: segments, original: originalMessage)
     }
     var onWordActivation: ((Int) -> Void)?
     func wordAccessibility(in container: UIView) -> [ImmersionAccessibilityElement] {
@@ -201,6 +214,7 @@ struct StableImmersionText: UIViewRepresentable {
         }
         let font = UIFont.preferredFont(forTextStyle: .body, compatibleWith: UITraitCollection(preferredContentSizeCategory: category))
         let color = UIColor(VipiDesign.highlight).resolvedColor(with: view.traitCollection)
+        view.originalMessage = result.original
         view.contentIdentity = String(describing: result)
         let identity = "\(view.contentIdentity)|\(revealed.sorted())|\(script)|\(font.pointSize)|\(scheme)"
         if view.renderingIdentity != identity {
@@ -238,12 +252,18 @@ struct StableImmersionText: UIViewRepresentable {
         let text = NSMutableAttributedString(string: "")
         let original = result.original as NSString
         var cursor = 0
+        func appendOriginal(_ range: NSRange) {
+            var style = attributes
+            style[.vipiOriginalRange] = NSValue(range: range)
+            text.append(NSAttributedString(string: original.substring(with: range), attributes: style))
+        }
         for word in result.spans {
-            if word.range.location > cursor { text.append(NSAttributedString(string: original.substring(with: NSRange(location: cursor, length: word.range.location - cursor)), attributes: attributes)) }
+            if word.range.location > cursor { appendOriginal(NSRange(location: cursor, length: word.range.location - cursor)) }
             let copyRun = ImmersionCopyText.run(for: word, in: result, showingOriginal: revealed.contains(word.id), script: script)
             let value = copyRun.text
             var style = attributes
             style[.font] = emphasis; style[.foregroundColor] = color
+            style[.vipiOriginalRange] = NSValue(range: word.range)
             style[.link] = URL(string: "vipi-reveal://word/\(word.id)")!
             let suffix = original.substring(from: NSMaxRange(word.range)).prefix { ".,!?;:…؟。！？；，、)]}’”\"".contains($0) }.prefix(8)
             let trailing = suffix.isEmpty ? 0 : ceil((String(suffix) as NSString).size(withAttributes: [.font: font]).width) + 1
@@ -254,7 +274,7 @@ struct StableImmersionText: UIViewRepresentable {
             text.append(token)
             cursor = NSMaxRange(word.range)
         }
-        if cursor < original.length { text.append(NSAttributedString(string: original.substring(from: cursor), attributes: attributes)) }
+        if cursor < original.length { appendOriginal(NSRange(location: cursor, length: original.length - cursor)) }
         return text
     }
     @MainActor final class Coordinator: NSObject, UITextViewDelegate {
