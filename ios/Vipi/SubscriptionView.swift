@@ -7,7 +7,7 @@ struct SubscriptionOfferView: View {
     @Environment(\.dismiss) private var dismiss
     private var product: Product? { store.products[plan] }
     private var access: EntitlementSnapshot.Access? { store.snapshot?.access(plan) }
-    private var trial: Bool { store.introductoryEligible.contains(plan) }
+    private var trial: Bool { plan == .botMini && store.introductoryEligible.contains(plan) }
 
     var body: some View {
         ScrollView {
@@ -22,22 +22,39 @@ struct SubscriptionOfferView: View {
                     Text("vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.")
                         .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                 }
-                if access?.active == true {
+                if plan == .base && !store.accessVerificationPending(.base) && !store.accessActive(.base) && access?.cardless_trial?.active == false {
+                    Text("Your free Vipi access has ended. Subscribe to continue chatting.")
+                        .font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                }
+                if store.accessVerificationPending(plan) {
+                    Label("Checking subscription access", systemImage: "clock.arrow.circlepath")
+                        .foregroundStyle(VipiDesign.secondary)
+                    Text("We can’t verify your subscription right now. Please try again later. Checking won’t start a new purchase.")
+                    Button("Try again") { Task { await store.refresh() } }.disabled(store.loading)
+                } else if store.accessActive(plan) {
                     if access?.isReviewAccess == true {
                         Label("Review access is active", systemImage: "checkmark.circle.fill")
                             .foregroundStyle(VipiDesign.highlight)
                         Text("No subscription is required for this account.")
+                    } else if plan == .base && access?.access_source == "cardless_trial" {
+                        Label("Your free Vipi access is active", systemImage: "checkmark.circle.fill")
+                            .foregroundStyle(VipiDesign.highlight)
+                        Text("No payment method or subscription is required for this free period.")
+                        Text("When the free period ends, you can choose whether to subscribe. You won’t be charged automatically.")
                     } else {
                         Label("Your \(plan.title) subscription is active", systemImage: "checkmark.circle.fill")
                             .foregroundStyle(VipiDesign.highlight)
                     }
-                    if let end = access?.trial_ends_at, let date = Self.date(end) {
+                    if plan == .base, access?.access_source == "cardless_trial",
+                       let trial = access?.cardless_trial, trial.active, let date = Self.date(trial.ends_at) {
+                        Text("Your free access ends \(date.formatted(date: .abbreviated, time: .shortened)).")
+                    } else if let end = access?.trial_ends_at, let date = Self.date(end) {
                         Text("Your free trial ends \(date.formatted(date: .long, time: .omitted)).")
                     } else if let end = access?.expires_at, let date = Self.date(end) {
                         Text("Current access lasts until \(date.formatted(date: .long, time: .omitted)).")
                     }
                     if plan == .botMini && !store.baseActive {
-                        Text("Bot mini also needs an active Vipi subscription. You can manage both subscriptions below.")
+                        Text("Bot mini also needs active Vipi access. You can manage your plans below.")
                             .foregroundStyle(VipiDesign.secondary)
                     }
                 } else if let product {
@@ -51,8 +68,13 @@ struct SubscriptionOfferView: View {
                             }
                         } else {
                             Text("\(product.displayPrice) per year").font(.title2.weight(.semibold))
-                            Text("Renews annually until you cancel. Any available introductory offer is confirmed by the App Store.")
-                                .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                            if plan == .base {
+                                Text("Renews annually until you cancel.")
+                                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                            } else {
+                                Text("Renews annually until you cancel. Any available introductory offer is confirmed by the App Store.")
+                                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                            }
                         }
                         if plan == .botMini {
                             Text("This is a separate subscription, in addition to Vipi.")
@@ -75,16 +97,22 @@ struct SubscriptionOfferView: View {
                             Task { await store.purchase(plan) }
                         }.disabled(!store.canPurchase(plan)).accessibilityIdentifier("subscription-purchase-\(plan.rawValue)")
                     }
+                    if plan == .base && store.baseStoreTrialStillOffered {
+                        Text("Vipi subscriptions aren’t available yet. You haven’t been enrolled.")
+                            .font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                    }
                     if !store.loading && (!store.purchaseReady || (plan == .botMini && !store.botServiceReady)) {
-                        Text(plan == .botMini ? "Bot mini isn’t available to subscribe to yet. You haven’t been enrolled." : "Subscriptions aren’t available yet. You haven’t been enrolled.")
+                        Text(LocalizedStringKey(plan == .botMini ? "Bot mini isn’t available to subscribe to yet. You haven’t been enrolled." : "Subscriptions aren’t available yet. You haven’t been enrolled."))
                             .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                     }
                 } else {
-                    ContentUnavailableView("Prices aren’t available", systemImage: "network", description: Text("Connect to the App Store to see your price and any free trial. You haven’t been enrolled."))
+                    ContentUnavailableView("Prices aren’t available", systemImage: "network", description: Text(LocalizedStringKey(plan == .base ? "Connect to the App Store to see your subscription price. You haven’t been enrolled." : "Connect to the App Store to see your price and any free trial. You haven’t been enrolled.")).foregroundStyle(VipiDesign.secondary))
                     Button("Try again") { Task { await store.refresh() } }.disabled(store.loading)
                 }
                 if let notice = store.notice { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("subscription-notice") }
-                if access?.isReviewAccess != true {
+                if !store.accessVerificationPending(plan) && access?.isReviewAccess != true &&
+                    ((store.accessActive(plan) && !(plan == .base && access?.access_source == "cardless_trial")) ||
+                     (!store.accessActive(plan) && product != nil)) {
                     Text("Payment is charged to your Apple Account. Cancel in App Store subscriptions before renewal to avoid the next charge. Canceling does not erase your saved conversations.")
                         .font(.footnote).foregroundStyle(VipiDesign.secondary)
                 }
@@ -96,7 +124,7 @@ struct SubscriptionOfferView: View {
                     Link("Privacy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
                 }.font(.footnote)
             }.padding(26).frame(maxWidth: 560).frame(maxWidth: .infinity)
-        }.background(VipiDesign.canvas).navigationTitle(plan.title).navigationBarTitleDisplayMode(.inline)
+        }.clipped().background(VipiDesign.canvas).navigationTitle(plan.title).navigationBarTitleDisplayMode(.inline)
             .task { await store.refresh() }
     }
     private static func date(_ value: String) -> Date? {
@@ -113,7 +141,11 @@ struct SubscriptionsView: View {
             Section {
                 ForEach(VipiPlan.allCases) { plan in
                     NavigationLink { SubscriptionOfferView(store: store, plan: plan) } label: {
-                        LabeledContent(plan.title, value: store.snapshot?.access(plan).active == true ? "Active" : "See plan")
+                        if store.accessVerificationPending(plan) {
+                            LabeledContent(plan.title, value: String(localized: "Checking access"))
+                        } else {
+                            LabeledContent(plan.title, value: store.accessActive(plan) ? String(localized: "Active") : String(localized: "See plan"))
+                        }
                     }
                 }
             } footer: {

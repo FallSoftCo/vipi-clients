@@ -38,22 +38,23 @@ struct HistoryBackupView: View {
                 if verified != nil {
                     Label("Backup unlocked", systemImage: "lock.open").foregroundStyle(VipiDesign.secondary)
                 } else {
-                    SecureField(restoring ? "Backup password" : "New backup password", text: $password)
+                    SecureField(restoring ? "Backup password" : "New backup password", text: $password, prompt: Text(LocalizedStringKey(restoring ? "Backup password" : "New backup password")).foregroundStyle(VipiDesign.secondary))
                         .textContentType(restoring ? .password : .newPassword)
                         .textInputAutocapitalization(.never).autocorrectionDisabled()
                         .disabled(busy).accessibilityIdentifier("history-password")
                 }
                 if !restoring {
-                    SecureField("Confirm backup password", text: $confirmation)
+                    SecureField("Confirm backup password", text: $confirmation, prompt: Text("Confirm backup password").foregroundStyle(VipiDesign.secondary))
                         .textContentType(.newPassword).textInputAutocapitalization(.never).autocorrectionDisabled()
                         .disabled(busy).accessibilityIdentifier("history-password-confirm")
                 }
             } footer: {
-                Text("Use a long, unique passphrase of at least 12 characters. Keep it somewhere safe. Vipi cannot recover this password.")
+                Text("Use a long, unique passphrase of at least 12 characters. Keep it somewhere safe. Vipi cannot recover this password.").foregroundStyle(VipiDesign.secondary)
             }
             if let verified, restoring {
                 Section("Ready to restore") {
-                    Text("\(verified.messages) \(verified.messages == 1 ? "message" : "messages") across \(verified.peers) \(verified.peers == 1 ? "conversation" : "conversations").")
+                    LabeledContent("Messages", value: verified.messages.formatted())
+                    LabeledContent("Conversations", value: verified.peers.formatted())
                     Text("History will be merged with this Vipi account. Matching messages won’t be duplicated. Restored history does not verify anyone’s messaging identity.")
                         .font(.footnote).foregroundStyle(VipiDesign.secondary)
                     Button("Restore history", action: restore).disabled(busy).accessibilityIdentifier("history-confirm-restore")
@@ -84,7 +85,7 @@ struct HistoryBackupView: View {
             HistoryDocumentPicker(request: request) { url in
                 if request.export == nil {
                     clearImport(); selected = url
-                } else if url != nil { notice = "Your encrypted backup was saved. Keep its password safe." }
+                } else if url != nil { notice = String(localized: "Your encrypted backup was saved. Keep its password safe.") }
                 picker = nil
             }.interactiveDismissDisabled()
         }
@@ -128,10 +129,11 @@ struct HistoryBackupView: View {
             do {
                 let result = try await chat.importHistory(staged: staged, password: password, verified: verified)
                 if result.added == 0 && result.existing > 0 {
-                    notice = result.existing == 1 ? "This message was already saved. Nothing was duplicated." : "All \(result.existing) messages were already saved. Nothing was duplicated."
-                } else if result.added == 0 { notice = "This backup contains no messages to restore." }
-                else {
-                    notice = "Restored \(result.added) \(result.added == 1 ? "message" : "messages"). \(result.existing) matching \(result.existing == 1 ? "message was" : "messages were") already saved."
+                    notice = String(localized: "Nothing was duplicated. Already saved: \(result.existing).")
+                } else if result.added == 0 {
+                    notice = String(localized: "This backup contains no messages to restore.")
+                } else {
+                    notice = String(localized: "Restore complete. Added: \(result.added). Already saved: \(result.existing).")
                 }
                 self.password = ""
             } catch { if !Task.isCancelled { notice = explanation(error) } }
@@ -148,14 +150,14 @@ struct HistoryBackupView: View {
     private func explanation(_ error: Error) -> String {
         if let failure = error as? HistoryBackupCodec.Failure {
             switch failure {
-            case .differentAccount: return "This backup belongs to a different Vipi account. Sign in to that account to restore it."
-            case .passwordLength: return "Use a passphrase of at least 12 characters."
-            case .conflict: return "This backup conflicts with saved messages. Nothing was changed."
+            case .differentAccount: return String(localized: "This backup belongs to a different Vipi account. Sign in to that account to restore it.")
+            case .passwordLength: return String(localized: "Use a passphrase of at least 12 characters.")
+            case .conflict: return String(localized: "This backup conflicts with saved messages. Nothing was changed.")
             default: break
             }
         }
-        if let failure = error as? ServiceFailure, failure.code == "history_busy" { return "Your conversations are updating. Please try again in a moment." }
-        return restoring ? "The password is incorrect or this backup is damaged. Nothing was changed." : "The backup couldn’t be saved. Your conversations are still here. Please try again."
+        if let failure = error as? ServiceFailure, failure.code == "history_busy" { return String(localized: "Your conversations are updating. Please try again in a moment.") }
+        return restoring ? String(localized: "The password is incorrect or this backup is damaged. Nothing was changed.") : String(localized: "The backup couldn’t be saved. Your conversations are still here. Please try again.")
     }
 }
 

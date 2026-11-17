@@ -14,10 +14,11 @@ struct HomeView: View {
     @State private var query = ""
     @State private var path: [UUID] = []
     private var botDescription: String {
-        guard let access = subscriptions?.snapshot?.bot_mini else { return "Chat with a chatbot." }
-        if access.isReviewAccess { return "Chat with a chatbot. Review access is active." }
-        if access.active { return "Chat with a chatbot. Bot mini access is active." }
-        return "Chat with a chatbot. Requires the separate Bot mini plan."
+        guard let subscriptions, let access = subscriptions.snapshot?.bot_mini else { return String(localized: "Chat with a chatbot.") }
+        if subscriptions.accessVerificationPending(.botMini) { return String(localized: "Chatbot access is being checked. Please try again later.") }
+        if access.isReviewAccess { return String(localized: "Chat with a chatbot. Review access is active.") }
+        if subscriptions.accessActive(.botMini) { return String(localized: "Chat with a chatbot. Bot mini access is active.") }
+        return String(localized: "Chat with a chatbot. Requires the separate Bot mini plan.")
     }
     var body: some View {
         NavigationStack(path: $path) {
@@ -51,11 +52,11 @@ struct HomeView: View {
                         } else { VStack(alignment: .leading, spacing: 16) {
                             VipiMark(size: 54)
                             Text("Start a chat\nwith a friend.").font(.system(.title, design: .serif)).fixedSize(horizontal: false, vertical: true)
-                            Text("Find a friend by username and send a message. Supported words and phrases will switch into \(VipiLanguage.named(state.targetLanguage).name) as you read.")
+                            Text("Find a friend by username and send a message. Supported words and phrases will switch into \(VipiLanguage.named(state.targetLanguage).localizedName) as you read.")
                                 .foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                             PrimaryButton(title: "Start a conversation") { showingInvite = true }
                         }.padding(26).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 28)) }
-                        if let subscriptions, subscriptions.snapshot?.base.active == false {
+                        if let subscriptions, subscriptions.snapshot?.base.active == false, !subscriptions.accessVerificationPending(.base) {
                             Button("See your Vipi subscription") { offerBase = true }
                                 .font(.subheadline.weight(.semibold))
                         }
@@ -80,7 +81,7 @@ struct HomeView: View {
                             }.padding(.vertical, 12)
                         }.buttonStyle(.plain)
                     }.padding(24).frame(maxWidth: 680).frame(maxWidth: .infinity)
-                }
+                }.clipped()
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) { VipiMark(size: 25).accessibilityLabel("Vipi") }
@@ -142,7 +143,7 @@ struct NewChatView: View {
     }
     private func findFriend() {
         guard !busy else { return }
-        guard let chat else { error = "Sign in to find your friends."; return }
+        guard let chat else { error = String(localized: "Sign in to find your friends."); return }
         busy = true; error = nil
         Task {
             defer { busy = false }
@@ -167,7 +168,7 @@ struct BotIntroductionView: View {
                         .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight)
                 }
             }.padding(28).frame(maxWidth: 560).frame(maxWidth: .infinity)
-        }.background(VipiDesign.canvas).navigationTitle("vBot").navigationBarTitleDisplayMode(.inline)
+        }.clipped().background(VipiDesign.canvas).navigationTitle("vBot").navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -189,7 +190,7 @@ struct SettingsView: View {
             }
             Section("Words in your chats") {
                 NavigationLink { LanguageDownloadView() } label: {
-                    LabeledContent("Languages", value: VipiLanguage.named(state.targetLanguage).name)
+                    LabeledContent("Languages", value: VipiLanguage.named(state.targetLanguage).localizedName)
                 }.accessibilityIdentifier("language-settings-link")
                 VStack(alignment: .leading, spacing: 12) {
                     HStack { Text("New words"); Spacer(); Text("\(Int(state.density * 100))%").foregroundStyle(VipiDesign.secondary) }
@@ -199,7 +200,7 @@ struct SettingsView: View {
             }
             Section("Appearance and notifications") {
                 if chat != nil { NavigationLink("Notifications") { NotificationSettingsView() } }
-                Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text($0.title).tag($0) } }
+                Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text(LocalizedStringKey($0.title)).tag($0) } }
             }
             if let subscriptions { Section { NavigationLink("Subscriptions") { SubscriptionsView(store: subscriptions) } } }
             if let chat { Section { NavigationLink("Chat backup") { HistoryBackupView(chat: chat) } } }
@@ -211,7 +212,7 @@ struct SettingsView: View {
                 LabeledContent("Made by", value: "FallSoft.Co")
             }
             if let chat {
-                Section("Account") { NavigationLink("Delete account") { DeleteAccountView(chat: chat) }.foregroundStyle(.red) }
+                Section("Account") { NavigationLink("Delete account") { DeleteAccountView(chat: chat) }.foregroundStyle(VipiDesign.destructive) }
             }
         }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
     }
@@ -237,6 +238,6 @@ struct ReauthenticationNotice: View {
 enum FriendInvitation {
     static func message(username: String) -> String {
         let url = URL(string: "https://api.mambovipi.app/invite")!.appendingPathComponent(username)
-        return "Chat with me on Vipi and learn words as we talk. My username is @\(username). After signing in, choose New chat and find my username.\n\(url.absoluteString)"
+        return String(localized: "Chat with me on Vipi and learn words as we talk. My username is @\(username). After signing in, choose New chat and find my username.\n\(url.absoluteString)")
     }
 }

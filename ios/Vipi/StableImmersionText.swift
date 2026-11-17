@@ -216,12 +216,12 @@ struct StableImmersionText: UIViewRepresentable {
         view.accessibilityLabel = view.visibleText()
         view.accessibilityValue = view.visibleText()
         view.accessibilityHint = voiceOver
-            ? "Automatic switching pauses while VoiceOver is on. Use the word actions to switch meanings. Reading options changes the language or script."
-            : "Words switch automatically. Pause holds the current words. Reading options changes the pace or script."
+            ? String(localized: "Automatic switching pauses while VoiceOver is on. Use the word actions to switch meanings. Reading options changes the language or script.")
+            : String(localized: "Words switch automatically. Pause holds the current words. Reading options changes the pace or script.")
         view.accessibilityCustomActions = result.spans.map { word in
-            UIAccessibilityCustomAction(name: "Switch \(word.original) and \(word.displayedTarget)") { _ in onWord(word.id); return true }
+            UIAccessibilityCustomAction(name: String(localized: "Switch \(word.original) and \(word.displayedTarget)")) { _ in onWord(word.id); return true }
         }
-        view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: "Copy displayed message") { [weak view] _ in
+        view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: String(localized: "Copy displayed message")) { [weak view] _ in
             guard let view else { return false }; UIPasteboard.general.string = view.visibleText(); return true
         })
         container.refreshAccessibility()

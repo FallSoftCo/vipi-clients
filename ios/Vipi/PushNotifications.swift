@@ -39,12 +39,12 @@ import UserNotifications
         do {
             let allowed = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound])
             authorization = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
-            guard allowed else { notice = "Notifications are off. You can allow them in iPhone Settings."; return }
+            guard allowed else { notice = String(localized: "Notifications are off. You can allow them in iPhone Settings."); return }
             enabled = true
             if let key = preferenceKey { UserDefaults.standard.set(true, forKey: key) }
             UIApplication.shared.registerForRemoteNotifications()
             await publish()
-        } catch { notice = "Notifications couldn’t be enabled. Please try again." }
+        } catch { notice = String(localized: "Notifications couldn’t be enabled. Please try again.") }
     }
     func disable() async {
         guard !busy, let chat else { return }
@@ -57,13 +57,13 @@ import UserNotifications
         UIApplication.shared.unregisterForRemoteNotifications()
         do {
             try await chat.removePushRegistration()
-        } catch { notice = "Notifications are off on this device. Reconnect to finish updating your preference." }
+        } catch { notice = String(localized: "Notifications are off on this device. Reconnect to finish updating your preference.") }
     }
     func receivedToken(_ data: Data) {
         token = data.map { String(format: "%02x", $0) }.joined()
         Task { await publish() }
     }
-    func registrationFailed() { notice = "Notifications couldn’t connect. Open Vipi to check for new messages." }
+    func registrationFailed() { notice = String(localized: "Notifications couldn’t connect. Open Vipi to check for new messages.") }
     private func publish() async {
         guard !publishing, enabled, authorization == .authorized || authorization == .provisional,
               let chat, let token, registered != token,
@@ -84,7 +84,7 @@ import UserNotifications
                 return
             }
             registered = token; notice = nil
-        } catch { if self.chat === chat { notice = "Notifications couldn’t connect. Open Vipi to check for new messages." } }
+        } catch { if self.chat === chat { notice = String(localized: "Notifications couldn’t connect. Open Vipi to check for new messages.") } }
     }
     func inboxChanged() async -> UIBackgroundFetchResult {
         guard let chat else { return .noData }

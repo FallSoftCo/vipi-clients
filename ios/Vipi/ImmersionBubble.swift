@@ -4,7 +4,7 @@ import VipiCore
 enum ReadingMode: String, CaseIterable, Identifiable {
     case immersed = "Immersed", original = "Original", translation = "Translation"
     var id: String { rawValue }
-    var label: String { switch self { case .immersed: "Word switching"; case .original: "Original message"; case .translation: "Full translation" } }
+    var label: String { switch self { case .immersed: String(localized: "Word switching"); case .original: String(localized: "Original message"); case .translation: String(localized: "Full translation") } }
 }
 
 struct ImmersionBubble: View {
@@ -94,6 +94,12 @@ struct ImmersionBubble: View {
             controlLayout {
                 if embedded { metadata; Spacer(minLength: 8) }
                 HStack(spacing: stackedControls ? 12 : 0) {
+                if embedded, active, let speech {
+                    Button { speech.stop() } label: {
+                        Image(systemName: "stop.fill").font(.footnote).frame(width: 44, height: 44)
+                    }.accessibilityLabel("Stop listening")
+                        .accessibilityIdentifier("messageStop")
+                }
                 if !embedded && effectiveMode == .immersed && !result.spans.isEmpty && !voiceOver {
                     Button { paused.toggle(); revision += 1 } label: {
                         Image(systemName: paused ? "play" : "pause").font(.footnote).frame(width: 44, height: 44)
@@ -144,7 +150,7 @@ struct ImmersionBubble: View {
                         HStack(spacing: 7) {
                             if speech.state == .preparing || (active && speech.state == .rendering) { ProgressView().controlSize(.small) }
                             else { Image(systemName: active ? "stop.fill" : "speaker.wave.2") }
-                            Text(active ? "Stop" : speech.state == .preparing ? "Preparing voices" : "Listen")
+                            Text(LocalizedStringKey(active ? "Stop" : speech.state == .preparing ? "Preparing voices" : "Listen"))
                         }.font(.footnote.weight(.medium)).frame(minWidth: 44, minHeight: 44)
                             .frame(maxWidth: stackedControls ? .infinity : nil, alignment: .leading)
                     }.disabled(speech.state == .preparing || speech.state == .unavailable)
@@ -203,7 +209,7 @@ struct MessageLanguageMenu: View {
         Menu("Message language") {
             Button("Detect automatically", systemImage: selected == nil ? "checkmark" : "text.bubble") { select(nil) }
             ForEach([source, target], id: \.self) { language in
-                Button(VipiLanguage.named(language).name, systemImage: selected == language ? "checkmark" : "text.bubble") { select(language) }
+                Button(VipiLanguage.named(language).localizedName, systemImage: selected == language ? "checkmark" : "text.bubble") { select(language) }
             }
         }
     }

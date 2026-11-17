@@ -58,15 +58,15 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                 self.ready = true; self.state = .ready
             } catch is CancellationError {
                 guard self.preparationID == preparationID, !Task.isCancelled else { return }
-                self.error = "Voices couldn’t get ready. Try again."; self.state = .unavailable
+                self.error = String(localized: "Voices couldn’t get ready. Try again."); self.state = .unavailable
             }
             catch LocalSpeechError.missingVoice(let language) {
                 guard self.preparationID == preparationID else { return }
-                self.error = "Add a \(VipiLanguage.named(language).name) voice in Settings → Accessibility → Spoken Content → Voices, then retry."
+                self.error = String(localized: "Add a \(VipiLanguage.named(language).localizedName) voice in Settings → Accessibility → Spoken Content → Voices, then retry.")
                 self.state = .unavailable
             } catch {
                 guard self.preparationID == preparationID else { return }
-                self.error = "Voices couldn’t get ready. Try again."; self.state = .unavailable
+                self.error = String(localized: "Voices couldn’t get ready. Try again."); self.state = .unavailable
             }
         }
     }
@@ -121,7 +121,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                 if self.scheduled.isEmpty { self.stop() }
             } catch is CancellationError { }
             catch {
-                if request == self.epoch { self.stop(); self.error = "This message couldn’t play. Try again." }
+                if request == self.epoch { self.stop(); self.error = String(localized: "This message couldn’t play. Try again.") }
             }
         }
     }

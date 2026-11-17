@@ -28,7 +28,7 @@ struct DeleteAccountView: View {
                         guard chat.profile != nil || chat.needsProfile else { throw ServiceFailure(status: 0, code: "profile_required") }
                         let account = chat.profile?.id ?? UUID()
                         try deletion.begin(account: account, userID: chat.userID) { try chat.close() }
-                    } catch { self.error = "Deletion couldn’t be prepared. Close and reopen Vipi to try again." }
+                    } catch { self.error = String(localized: "Deletion couldn’t be prepared. Close and reopen Vipi to try again.") }
                 }
             } message: { Text("Your account and chats on this device will be permanently deleted. This can’t be undone.") }
     }
@@ -45,9 +45,9 @@ struct AccountDeletionProgressView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     Image(systemName: "person.crop.circle.badge.minus").font(.system(size: 38)).foregroundStyle(VipiDesign.secondary)
-                    Text(finished ? "Account deleted" : accepted ? "Deletion requested" : "Delete your account")
+                    Text(LocalizedStringKey(finished ? "Account deleted" : accepted ? "Deletion requested" : "Delete your account"))
                         .font(.system(.largeTitle, design: .serif)).accessibilityAddTraits(.isHeader)
-                    Text(finished ? "Your Vipi account and chats on this device have been removed." : accepted ? "Vipi has accepted your request. We’re finishing deletion. You can close the app and check back later." : "We’ll confirm the request and remove your saved chats from this device. Vipi saves your progress if the connection drops.")
+                    Text(LocalizedStringKey(finished ? "Your Vipi account and chats on this device have been removed." : accepted ? "Vipi has accepted your request. We’re finishing deletion. You can close the app and check back later." : "We’ll confirm the request and remove your saved chats from this device. Vipi saves your progress if the connection drops."))
                         .foregroundStyle(VipiDesign.secondary)
                     if let notice = deletion.notice { Text(notice).font(.subheadline).accessibilityIdentifier("deletion-notice") }
                     if let error = authentication.errorMessage, deletion.needsSignIn { Text(error).font(.subheadline) }

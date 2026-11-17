@@ -6,6 +6,11 @@ struct VipiLanguage: Identifiable, Hashable {
     let id: String
     let name: String
     let localName: String
+    // UI locale is independent of the language selected for immersion.
+    var localizedName: String {
+        let locale = Bundle.main.preferredLocalizations.first.map { Locale(identifier: $0) } ?? .current
+        return locale.localizedString(forLanguageCode: id) ?? name
+    }
     static let initial: [Self] = [
         .init(id: "en", name: "English", localName: "English"),
         .init(id: "es", name: "Spanish", localName: "Español"),

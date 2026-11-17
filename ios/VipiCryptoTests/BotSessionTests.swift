@@ -6,10 +6,12 @@ import XCTest
     private final class Transport: ChatTransport {
         var requests: [(String, String, Data?)] = []
         var failReply = false
+        var failAllowance = false
         var refusal: String?
         var devices: [DeviceCredential?] = []
         func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
             requests.append((method, path, body))
+            if path == "/v1/bot/allowance" && failAllowance { throw URLError(.notConnectedToInternet) }
             if method == "POST" { devices.append(device) }
             let allowance: [String: Any] = ["available": true, "service_ready": true, "remaining_replies": 149, "monthly_replies": 150, "resets_at": "2026-12-01T00:00:00Z", "max_context_bytes": 8192]
             let value: [String: Any]
@@ -90,6 +92,18 @@ import XCTest
             XCTAssertEqual(Set(value.keys), ["request_id", "reason", "selected_reply"])
             XCTAssertLessThanOrEqual(try XCTUnwrap(value["selected_reply"]).utf8.count, 4000)
             XCTAssertFalse(try XCTUnwrap(value["selected_reply"]).contains("�"))
+        }
+    }
+    func testUnconfirmedSendNoticeSurvivesAllowanceFailure() async throws {
+        try await withVault { vault in
+            let api = Transport(), session = try BotSession(api: api, vault: vault)
+            await session.refresh(); try session.setConsent(true)
+            api.failReply = true; api.failAllowance = true
+            session.draft = "One request"; await session.send()
+            XCTAssertEqual(session.messages.first?.state, "unconfirmed")
+            XCTAssertTrue(session.notice?.contains("won’t be resent automatically") == true)
+            XCTAssertNil(session.allowance)
+            XCTAssertEqual(api.requests.filter { $0.1 == "/v1/bot/messages" }.count, 1)
         }
     }
     func testDefinitiveDeviceRefusalIsNotReplayed() async throws {
