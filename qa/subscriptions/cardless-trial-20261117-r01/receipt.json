@@ -1,5 +1,5 @@
 {
-  "status": "restricted_staging_backend_deployed_and_independently_verified_clients_and_store_changes_pending",
+  "status": "restricted_staging_backend_active_base_store_offers_removed_play_v2_updated_apple_current_release_pending",
   "owner_choice": "30 cardless days from original account creation; optional Base annual subscription afterward; separate optional Bot mini store trial",
   "candidate_revision": "84c3ff8db5235a0b9419373f5d56b99ad50bf495",
   "package_manifest_sha256": "2ce12c7969d95eeddb76d2558a6f2c856cefa3e893a7e11687a8c7663aa0b521",
@@ -33,10 +33,10 @@
     "PostgreSQL migration upgrade/downgrade/re-upgrade retains original dates"
   ],
   "limits": [
-    "Public signup, customer enforcement, store offers and uploaded native clients remain unchanged",
-    "Native localized release and real lifecycle qualification ongoing",
-    "Base store intro offer still active; coordinate removal before launch",
-    "Distinct new identities can receive distinct trials; no permanent anti-abuse identity retention promised"
+    "Public signup remains restricted; subscription enforcement remains disabled in staging.",
+    "Androidv2 actual Play update and retained account/plan verified; current Apple localized candidate remains unsigned.",
+    "Both Base store introductory offers removed and independently verified; Bot mini separate eligible month retained.",
+    "Distinct new identities can receive distinct trials; no permanent anti-abuse identity retention promised."
   ],
   "external_actions": {
     "purchase": false,
@@ -63,5 +63,13 @@
     ],
     "readiness": "Private 200; public readiness deliberately 403 under existing policy; protected API 401 without credentials; public help/terms 200",
     "replay_allowed": false
+  },
+  "historical_qualification_status": "restricted_staging_backend_deployed_and_independently_verified_clients_and_store_changes_pending",
+  "current_followup": {
+    "at_utc": "2026-11-17T07:18:29.652322+00:00",
+    "google_offer": "google-base-offer.json",
+    "apple_offer": "apple-base-offer.json",
+    "android_release": "release/android-internal-release-20261117.json",
+    "scope": "Original activation action receipt retained; this reconciliation is not another deployment, purchase or store submission."
   }
 }

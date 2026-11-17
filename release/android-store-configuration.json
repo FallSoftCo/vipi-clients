@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-17T00:33:47.351910+00:00",
+  "checked_at": "2026-11-17T07:11:05Z",
   "company": "Fallible Software, Co.",
   "developer_id": "4750854689150545006",
   "app_id": "4975664610567218322",
@@ -117,6 +117,40 @@
     }
   ],
   "internal_release": {
+    "id": "2",
+    "track_id": "4701302215140856403",
+    "name": "1.0.1 (2) - Internal qualification",
+    "state": "available_to_internal_testers",
+    "testers_configured": true,
+    "tester_count": 1,
+    "new_install_size_mb": 417,
+    "update_size_mb": 1.54,
+    "aab_sha256": "24fb071bf4258db55abd1ab90ab2be9ef1832678307f75df462b82c62f8e67bc",
+    "reviewed": false,
+    "receipt": "release/android-internal-release-20261117.json"
+  },
+  "latest_listing_text_update": "14 reviewed locale variants saved once on November17; independent reload verified locale inventory and English/Swahili/Arabic field samples. No review submission.",
+  "license_testing": {
+    "configured": true,
+    "list": "Vipi internal qualification",
+    "tester_count": 1,
+    "response": "RESPOND_NORMALLY",
+    "receipt": "/home/ai/Development/investigations/vipi-submit-20261110-r01/computer-use-release-20261116-r01/play-license-testing-r254.json",
+    "purchase_executed": true,
+    "purchase_scope": "Historical single no-charge test purchase onv1, renewed/canceled/lapsed; no new purchase",
+    "purchase_receipt": "qa/subscriptions/google-license-sandbox-20261117-r01/receipt.json",
+    "lapse_receipt": "qa/subscriptions/google-license-sandbox-20261117-r01/lapse.json"
+  },
+  "subscription_configuration_readback": {
+    "at": "2026-11-17T05:56:29.738Z",
+    "base_annual": "active",
+    "base_intro_offer": "inactive",
+    "bot_annual": "active",
+    "bot_intro_offer": "active",
+    "receipt": "qa/subscriptions/cardless-trial-20261117-r01/google-base-offer.json",
+    "scope": "Native console readback only; no purchase, cancellation, binary upload or review submission."
+  },
+  "previous_internal_release": {
     "id": "1",
     "track_id": "4701302215140856403",
     "name": "1.0 (1) - Internal qualification",
@@ -133,22 +167,12 @@
     "reviewed": false,
     "receipt": "/home/ai/Development/investigations/vipi-submit-20261110-r01/computer-use-release-20261116-r01/play-internal-release-r244.json"
   },
-  "latest_listing_text_update": "Saved and reloaded; all three text fields exactly match store-metadata-en-US.json (play-listing-r215.json)",
-  "license_testing": {
-    "configured": true,
-    "list": "Vipi internal qualification",
-    "tester_count": 1,
-    "response": "RESPOND_NORMALLY",
-    "receipt": "/home/ai/Development/investigations/vipi-submit-20261110-r01/computer-use-release-20261116-r01/play-license-testing-r254.json",
-    "purchase_executed": false
-  },
-  "subscription_configuration_readback": {
-    "at": "2026-11-17T05:56:29.738Z",
-    "base_annual": "active",
-    "base_intro_offer": "inactive",
-    "bot_annual": "active",
-    "bot_intro_offer": "active",
-    "receipt": "qa/subscriptions/cardless-trial-20261117-r01/google-base-offer.json",
-    "scope": "Native console readback only; no purchase, cancellation, binary upload or review submission."
+  "listing_localization_receipt": "release/google-localized-listing-20261117.json",
+  "play_update": {
+    "version_code": 2,
+    "version_name": "1.0.1",
+    "installer": "com.android.vending",
+    "preserved_account": true,
+    "receipt": "investigations/vipi-submit-20261110-r01/android-v2-play-update-20261117-r01/result.json"
   }
 }
