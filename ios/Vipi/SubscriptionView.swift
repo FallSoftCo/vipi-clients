@@ -22,6 +22,10 @@ struct SubscriptionOfferView: View {
                     Text("vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.")
                         .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                 }
+                if plan == .base && !store.accessVerificationPending(.base) && !store.accessActive(.base) && access?.cardless_trial?.active == false {
+                    Text("Your free Vipi access has ended. Subscribe to continue chatting.")
+                        .font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                }
                 if store.accessVerificationPending(plan) {
                     Label("Checking subscription access", systemImage: "clock.arrow.circlepath")
                         .foregroundStyle(VipiDesign.secondary)
@@ -102,7 +106,7 @@ struct SubscriptionOfferView: View {
                             .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                     }
                 } else {
-                    ContentUnavailableView("Prices aren’t available", systemImage: "network", description: Text("Connect to the App Store to see your price and any free trial. You haven’t been enrolled."))
+                    ContentUnavailableView("Prices aren’t available", systemImage: "network", description: Text(LocalizedStringKey(plan == .base ? "Connect to the App Store to see your subscription price. You haven’t been enrolled." : "Connect to the App Store to see your price and any free trial. You haven’t been enrolled.")))
                     Button("Try again") { Task { await store.refresh() } }.disabled(store.loading)
                 }
                 if let notice = store.notice { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("subscription-notice") }

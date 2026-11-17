@@ -32319,6 +32319,158 @@
           }
         }
       }
+    },
+    "Your free Vipi access has ended. Subscribe to continue chatting.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tu acceso gratuito a Vipi ha terminado. Suscríbete para seguir chateando."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Votre accès gratuit à Vipi est terminé. Abonnez-vous pour continuer à discuter."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Il tuo accesso gratuito a Vipi è terminato. Abbonati per continuare a chattare."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Seu acesso grátis ao Vipi terminou. Assine para continuar conversando."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O seu acesso gratuito ao Vipi terminou. Subscreva para continuar a conversar."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dein kostenloser Vipi-Zugang ist abgelaufen. Abonniere, um weiter zu chatten."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipiの無料利用期間が終了しました。チャットを続けるにはサブスクリプションに登録してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi 무료 이용 기간이 끝났습니다. 계속 채팅하려면 구독하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi 免费使用期已结束。订阅后可继续聊天。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi 免費使用期已結束。訂閱後可繼續聊天。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "انتهت فترة استخدام Vipi المجانية. اشترك لمتابعة الدردشة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Muda wako wa kutumia Vipi bila malipo umeisha. Lipia usajili ili uendelee kuchati."
+          }
+        }
+      }
+    },
+    "Connect to the App Store to see your subscription price. You haven’t been enrolled.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Conéctate a la App Store para ver el precio de tu suscripción. No se ha iniciado ninguna suscripción."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Connectez-vous à l’App Store pour voir le prix de votre abonnement. Aucun abonnement n’a été souscrit."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Connettiti all’App Store per vedere il prezzo dell’abbonamento. Non è stato attivato alcun abbonamento."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Conecte-se à App Store para ver o preço da assinatura. Nenhuma assinatura foi iniciada."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ligue-se à App Store para ver o preço da subscrição. Não foi iniciada nenhuma subscrição."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Verbinde dich mit dem App Store, um den Abopreis zu sehen. Du hast kein Abo abgeschlossen."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "App Storeに接続してサブスクリプションの料金を確認してください。まだ購読は開始されていません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "App Store에 연결하여 구독 가격을 확인하세요. 아직 구독이 시작되지 않았습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "连接 App Store 查看订阅价格。您尚未订阅。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "連線至 App Store 查看訂閱價格。您尚未訂閱。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "اتصل بـ App Store لمعرفة سعر الاشتراك. لم تشترك بعد."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Unganisha na App Store ili uone bei ya usajili. Hakuna usajili wa kulipia ulioanzishwa."
+          }
+        }
+      }
     }
   },
   "version": "1.0"
