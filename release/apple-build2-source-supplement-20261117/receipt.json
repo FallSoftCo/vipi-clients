@@ -15,10 +15,26 @@
     "scripts/check-source-context-assets.py",
     "scripts/prepare-client-source.py"
   ],
-  "shared_difference_explanation": "Branches are not ancestor-related. Listed files are source-export/check or Android speech-generation utilities; not assumed byte-identical or silently included in iOS-only comparison. Final actual build inputs and signed artifact correspondence remain pending.",
+  "shared_difference_explanation": "Unsigned and signed build2 source manifests each contain 419 identical path/hash entries. Neither manifest lists these three utilities, and the unsigned build log names none. build-android-speech-data.py is a regeneration tool for retained compiled speech data; the Apple build packages and verifies the retained 367-file data with ios/package-swahili-speech.py. check-source-context-assets.py is a source integrity check documented in CLIENT_SOURCE.md; prepare-client-source.py packages source. None is a direct frozen Apple compilation input. Public newer copies remain usable as supplied; do not claim they are identical to the diverged revision.",
   "limitations": [
     "Signing/export inputs and final signed artifact not inspected or established.",
     "No publication, signing, build, upload or store mutation."
   ],
-  "patch_test": "Applied with patch --batch --forward -p1 to exact public-base project.yml; output SHA-256 matched Apple build-2 project.yml."
+  "patch_test": "Applied with patch --batch --forward -p1 to exact public-base project.yml; output SHA-256 matched Apple build-2 project.yml.",
+  "frozen_manifest_comparison": {
+    "unsigned_entries": 419,
+    "signed_entries": 419,
+    "equal": true,
+    "signed_manifest_sha256": "7fc762a424f8396bf8330204ccf2d3475fd5fbaf8f636abf8f47ecc4fb90",
+    "public_base_matching_entries": 417,
+    "different": [
+      "ios/project.yml"
+    ],
+    "not_exported": [
+      "ios/BUILDING.md"
+    ],
+    "not_exported_explanation": "Build documentation intentionally excluded from public archive; CLIENT_SOURCE.md supplies public instructions. It is not compiled source.",
+    "packager_sha256": "b1de2dfdc3c8c8e806b47791c09feb10e8de33a1db795711862271a335545693",
+    "unsigned_resource_comparison": "1032 resources; zero added, missing or changed against prior retained signed app"
+  }
 }
