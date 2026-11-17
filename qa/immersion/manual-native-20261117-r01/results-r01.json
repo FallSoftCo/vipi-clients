@@ -1,0 +1,276 @@
+{
+  "cases" : [
+    {
+      "attributed_full_target" : "Estoy leyendo un libro junto a la ventana.",
+      "availability" : "installed",
+      "context_seconds" : 0.3888850212097168,
+      "full_target" : "Estoy leyendo un libro junto a la ventana.",
+      "id" : "book-noun",
+      "manual_seconds" : 0.64485406875610352,
+      "manual_status" : "ready",
+      "manual_target" : "Libro",
+      "original" : "I am reading a book by the window.",
+      "projected_focus" : [
+        "libro "
+      ],
+      "provider_calls" : 1,
+      "reading" : "",
+      "selected" : "book",
+      "source" : "en",
+      "target" : "es"
+    },
+    {
+      "attributed_full_target" : "Necesitamos reservar una mesa para la cena.",
+      "availability" : "installed",
+      "context_seconds" : 0.10385394096374512,
+      "full_target" : "Necesitamos reservar una mesa para la cena.",
+      "id" : "book-verb",
+      "manual_seconds" : 0.012151002883911133,
+      "manual_status" : "ready",
+      "manual_target" : "Libro",
+      "original" : "We need to book a table for dinner.",
+      "projected_focus" : [
+        "reservar "
+      ],
+      "provider_calls" : 1,
+      "reading" : "",
+      "selected" : "book",
+      "source" : "en",
+      "target" : "es"
+    },
+    {
+      "attributed_full_target" : "Dejé mis gafas en el escritorio.",
+      "availability" : "installed",
+      "context_seconds" : 0.088780999183654785,
+      "full_target" : "Dejé mis gafas en el escritorio.",
+      "id" : "glasses-eyewear",
+      "manual_seconds" : 0.011250019073486328,
+      "manual_status" : "ready",
+      "manual_target" : "Gafas",
+      "original" : "I left my glasses on the desk.",
+      "projected_focus" : [
+        "gafas "
+      ],
+      "provider_calls" : 1,
+      "reading" : "",
+      "selected" : "glasses",
+      "source" : "en",
+      "target" : "es"
+    },
+    {
+      "attributed_full_target" : "Trae dos vasos de agua, por favor.",
+      "availability" : "installed",
+      "context_seconds" : 0.090954065322875977,
+      "full_target" : "Trae dos vasos de agua, por favor.",
+      "id" : "glasses-vessels",
+      "manual_seconds" : 0.012521982192993164,
+      "manual_status" : "ready",
+      "manual_target" : "Gafas",
+      "original" : "Bring two glasses of water, please.",
+      "projected_focus" : [
+        "vasos "
+      ],
+      "provider_calls" : 1,
+      "reading" : "",
+      "selected" : "glasses",
+      "source" : "en",
+      "target" : "es"
+    },
+    {
+      "attributed_full_target" : "La grúa levantó una pesada viga de acero.",
+      "availability" : "installed",
+      "context_seconds" : 0.094422101974487305,
+      "full_target" : "La grúa levantó una pesada viga de acero.",
+      "id" : "crane-machine",
+      "manual_seconds" : 0.011995911598205566,
+      "manual_status" : "ready",
+      "manual_target" : "Grúa",
+      "original" : "The crane lifted a heavy steel beam.",
+      "projected_focus" : [
+        "grúa "
+      ],
+      "provider_calls" : 1,
+      "reading" : "",
+      "selected" : "crane",
+      "source" : "en",
+      "target" : "es"
+    },
+    {
+      "attributed_full_target" : "Vimos una grúa parada en el río.",
+      "availability" : "installed",
+      "context_seconds" : 0.080296039581298828,
+      "full_target" : "Vimos una grúa parada en el río.",
+      "id" : "crane-bird",
+      "manual_seconds" : 0.012192964553833008,
+      "manual_status" : "ready",
+      "manual_target" : "Grúa",
+      "original" : "We saw a crane standing in the river.",
+      "projected_focus" : [
+        "grúa "
+      ],
+      "provider_calls" : 1,
+      "reading" : "",
+      "selected" : "crane",
+      "source" : "en",
+      "target" : "es"
+    },
+    {
+      "attributed_full_target" : "你把手机充电器放在哪里了？",
+      "availability" : "installed",
+      "context_seconds" : 0.096314072608947754,
+      "full_target" : "你把手机充电器放在哪里了？",
+      "id" : "zh-charger",
+      "manual_seconds" : 0.71586000919342041,
+      "manual_status" : "ready",
+      "manual_target" : "手机充电器",
+      "original" : "Where did you put the phone charger?",
+      "projected_focus" : [
+        "手机充电器"
+      ],
+      "provider_calls" : 1,
+      "reading" : "shǒu jī chōng diàn qì",
+      "selected" : "phone charger",
+      "source" : "en",
+      "target" : "zh"
+    },
+    {
+      "attributed_full_target" : "你明天想见我吗？",
+      "availability" : "installed",
+      "context_seconds" : 0.089854955673217773,
+      "full_target" : "你明天想见我吗？",
+      "id" : "zh-tomorrow",
+      "manual_seconds" : 0.011027932167053223,
+      "manual_status" : "ready",
+      "manual_target" : "明天",
+      "original" : "Would you like to meet me tomorrow?",
+      "projected_focus" : [
+        "你明天"
+      ],
+      "provider_calls" : 1,
+      "reading" : "míngtiān",
+      "selected" : "tomorrow",
+      "source" : "en",
+      "target" : "zh"
+    },
+    {
+      "attributed_full_target" : "车站附近的面包店今天关门了。",
+      "availability" : "installed",
+      "context_seconds" : 0.065091967582702637,
+      "full_target" : "车站附近的面包店今天关门了。",
+      "id" : "zh-whole",
+      "manual_seconds" : 0.063112020492553711,
+      "manual_status" : "ready",
+      "manual_target" : "车站附近的面包店今天关门了。",
+      "original" : "The bakery near the station is closed today.",
+      "projected_focus" : [
+        "车站附近的面包店今天关门了。"
+      ],
+      "provider_calls" : 1,
+      "reading" : "chē zhàn fù jìn de miàn bāo diàn jīn tiān guān mén le。",
+      "selected" : "The bakery near the station is closed today.",
+      "source" : "en",
+      "target" : "zh"
+    },
+    {
+      "attributed_full_target" : "本日の午後に傘をご持参ください。",
+      "availability" : "installed",
+      "context_seconds" : 0.17199099063873291,
+      "full_target" : "本日の午後に傘をご持参ください。",
+      "id" : "ja-umbrella",
+      "manual_seconds" : 0.52510595321655273,
+      "manual_status" : "ready",
+      "manual_target" : "かさ",
+      "original" : "Please bring your umbrella this afternoon.",
+      "projected_focus" : [
+        "傘"
+      ],
+      "provider_calls" : 1,
+      "reading" : "ka sa",
+      "selected" : "umbrella",
+      "source" : "en",
+      "target" : "ja"
+    },
+    {
+      "attributed_full_target" : "私の妹は図書館の外で待っています。",
+      "availability" : "installed",
+      "context_seconds" : 0.075944066047668457,
+      "full_target" : "私の妹は図書館の外で待っています。",
+      "id" : "ja-whole",
+      "manual_seconds" : 0.062092065811157227,
+      "manual_status" : "ready",
+      "manual_target" : "私の妹は図書館の外で待っています。",
+      "original" : "My sister is waiting outside the library.",
+      "projected_focus" : [
+        "私の妹は図書館の外で待っています。"
+      ],
+      "provider_calls" : 1,
+      "reading" : "watakushi no imouto ha tosho kan no soto de matte i masu。",
+      "selected" : "My sister is waiting outside the library.",
+      "source" : "en",
+      "target" : "ja"
+    },
+    {
+      "attributed_full_target" : "우리는 저녁 식사 후에 음악을 들었습니다.",
+      "availability" : "installed",
+      "context_seconds" : 0.13793694972991943,
+      "full_target" : "우리는 저녁 식사 후에 음악을 들었습니다.",
+      "id" : "ko-music",
+      "manual_seconds" : 0.47444808483123779,
+      "manual_status" : "ready",
+      "manual_target" : "음악",
+      "original" : "We listened to music after dinner.",
+      "projected_focus" : [
+        "음악을 "
+      ],
+      "provider_calls" : 1,
+      "reading" : "eum-ag",
+      "selected" : "music",
+      "source" : "en",
+      "target" : "ko"
+    },
+    {
+      "availability" : "unsupported",
+      "id" : "sw-water",
+      "manual_seconds" : 2.002716064453125e-05,
+      "manual_status" : "modelNotReady",
+      "original" : "Would you like some water?",
+      "provider_calls" : 0,
+      "selected" : "water",
+      "source" : "en",
+      "target" : "sw"
+    },
+    {
+      "availability" : "unsupported",
+      "id" : "sw-hello",
+      "manual_seconds" : 1.1920928955078125e-05,
+      "manual_status" : "modelNotReady",
+      "original" : "Habari za asubuhi, rafiki yangu.",
+      "provider_calls" : 0,
+      "selected" : "rafiki",
+      "source" : "sw",
+      "target" : "en"
+    },
+    {
+      "attributed_full_target" : "The cat sleeps near the window.",
+      "availability" : "installed",
+      "context_seconds" : 0.15084195137023926,
+      "full_target" : "The cat sleeps near the window.",
+      "id" : "fr-cat",
+      "manual_seconds" : 0.44765794277191162,
+      "manual_status" : "ready",
+      "manual_target" : "Cat",
+      "original" : "Le chat dort près de la fenêtre.",
+      "projected_focus" : [
+
+      ],
+      "provider_calls" : 1,
+      "reading" : "",
+      "selected" : "chat",
+      "source" : "fr",
+      "target" : "en"
+    }
+  ],
+  "completed" : true,
+  "network_disabled" : false,
+  "scope" : "Actual native macOS installed Apple Translation lowLatency models through current manual resolver; authored synthetic cases; not mobile gesture or linguistic acceptance"
+}

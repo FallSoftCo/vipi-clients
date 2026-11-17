@@ -1,0 +1,93 @@
+{
+  "completed" : true,
+  "network_disabled" : false,
+  "results" : [
+    {
+      "channels" : 1,
+      "display_reading" : "shǒu jī chōng diàn qì",
+      "id" : "zh-charger",
+      "language" : "zh",
+      "locale" : "zh-CN",
+      "milliseconds" : 1313.1519274376417,
+      "peak" : 0.561065673828125,
+      "render_seconds" : 0.52538490295410156,
+      "sample_rate" : 22050,
+      "status" : "rendered",
+      "text" : "手机充电器",
+      "voice" : "com.apple.voice.super-compact.zh-CN.Tingting"
+    },
+    {
+      "channels" : 1,
+      "display_reading" : "míngtiān",
+      "id" : "zh-tomorrow",
+      "language" : "zh",
+      "locale" : "zh-CN",
+      "milliseconds" : 607.84580498866217,
+      "peak" : 0.54302978515625,
+      "render_seconds" : 0.2295989990234375,
+      "sample_rate" : 22050,
+      "status" : "rendered",
+      "text" : "明天",
+      "voice" : "com.apple.voice.super-compact.zh-CN.Tingting"
+    },
+    {
+      "channels" : 1,
+      "display_reading" : "chē zhàn fù jìn de miàn bāo diàn jīn tiān guān mén le。",
+      "id" : "zh-whole",
+      "language" : "zh",
+      "locale" : "zh-CN",
+      "milliseconds" : 2760,
+      "peak" : 0.62939453125,
+      "render_seconds" : 0.25134396553039551,
+      "sample_rate" : 22050,
+      "status" : "rendered",
+      "text" : "车站附近的面包店今天关门了。",
+      "voice" : "com.apple.voice.super-compact.zh-CN.Tingting"
+    },
+    {
+      "channels" : 1,
+      "display_reading" : "ka sa",
+      "id" : "ja-umbrella",
+      "language" : "ja",
+      "locale" : "ja-JP",
+      "milliseconds" : 413.19727891156464,
+      "peak" : 0.290771484375,
+      "render_seconds" : 0.43133699893951416,
+      "sample_rate" : 22050,
+      "status" : "rendered",
+      "text" : "かさ",
+      "voice" : "com.apple.voice.super-compact.ja-JP.Kyoko"
+    },
+    {
+      "channels" : 1,
+      "display_reading" : "watakushi no imouto ha tosho kan no soto de matte i masu。",
+      "id" : "ja-whole",
+      "language" : "ja",
+      "locale" : "ja-JP",
+      "milliseconds" : 3506.3038548752834,
+      "peak" : 0.34912109375,
+      "render_seconds" : 0.43500804901123047,
+      "sample_rate" : 22050,
+      "status" : "rendered",
+      "text" : "私の妹は図書館の外で待っています。",
+      "voice" : "com.apple.voice.super-compact.ja-JP.Kyoko"
+    },
+    {
+      "channels" : 1,
+      "display_reading" : "eum-ag",
+      "id" : "ko-music",
+      "language" : "ko",
+      "locale" : "ko-KR",
+      "milliseconds" : 378.18594104308391,
+      "peak" : 0.540985107421875,
+      "render_seconds" : 0.25253391265869141,
+      "sample_rate" : 22050,
+      "status" : "rendered",
+      "text" : "음악",
+      "voice" : "com.apple.voice.super-compact.ko-KR.Yuna"
+    }
+  ],
+  "romanization_passed_to_synthesis" : false,
+  "scope" : "Native macOS production LocalVoice file synthesis of exact previously emitted manual targets; no live iOS gesture or listening acceptance",
+  "source_result" : "\/Users\/Apple\/Development\/vipi-quality-20261117-r01\/native-manual-provider-r01\/results-r01.json"
+}

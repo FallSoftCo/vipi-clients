@@ -1,0 +1,38 @@
+{
+  "started": 1794942057.5291378,
+  "state": "completed",
+  "stages": [
+    {
+      "name": "build",
+      "command": [
+        "swift",
+        "build",
+        "-j",
+        "2",
+        "--disable-automatic-resolution"
+      ],
+      "exit": 0,
+      "seconds": 11.862313985824585
+    },
+    {
+      "name": "render",
+      "command": [
+        "/Users/Apple/Development/vipi-quality-20261117-r01/native-manual-provider-r01/emitted-speech-r01/.build/debug/Probe",
+        "/Users/Apple/Development/vipi-quality-20261117-r01/native-manual-provider-r01/emitted-speech-r01",
+        "/Users/Apple/Development/vipi-quality-20261117-r01/native-manual-provider-r01/results-r01.json"
+      ],
+      "exit": 0,
+      "seconds": 2.403846263885498
+    }
+  ],
+  "sources": {
+    "LocalSpeech.swift": "d3b3cdb1c596762ab0e7d3e4dc29d2f7a8c264fefcfef0259f83ee898cf4338a",
+    "SwahiliSpeech.swift": "03909cef7e003c92ac69d886c5aa4182af971ba6b8819bd80a8112178e2148c0",
+    "SpeechChunks.swift": "d5e6e7ba4bc1f066e26ae82c11f3ce17f42a9a15e6f41322f1e6381ee330b139",
+    "EmittedSpeechProbe.swift": "eec365c35da3c0256709e28a45ad28332cd2913cd3a25e6d3e45928fcb813de9"
+  },
+  "signing": false,
+  "playback": false,
+  "finished": 1794942071.797299,
+  "free_after": 38679638016
+}

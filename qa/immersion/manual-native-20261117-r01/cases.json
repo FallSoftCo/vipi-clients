@@ -1,0 +1,107 @@
+[
+  {
+    "id": "book-noun",
+    "original": "I am reading a book by the window.",
+    "focus": "book",
+    "source": "en",
+    "target": "es"
+  },
+  {
+    "id": "book-verb",
+    "original": "We need to book a table for dinner.",
+    "focus": "book",
+    "source": "en",
+    "target": "es"
+  },
+  {
+    "id": "glasses-eyewear",
+    "original": "I left my glasses on the desk.",
+    "focus": "glasses",
+    "source": "en",
+    "target": "es"
+  },
+  {
+    "id": "glasses-vessels",
+    "original": "Bring two glasses of water, please.",
+    "focus": "glasses",
+    "source": "en",
+    "target": "es"
+  },
+  {
+    "id": "crane-machine",
+    "original": "The crane lifted a heavy steel beam.",
+    "focus": "crane",
+    "source": "en",
+    "target": "es"
+  },
+  {
+    "id": "crane-bird",
+    "original": "We saw a crane standing in the river.",
+    "focus": "crane",
+    "source": "en",
+    "target": "es"
+  },
+  {
+    "id": "zh-charger",
+    "original": "Where did you put the phone charger?",
+    "focus": "phone charger",
+    "source": "en",
+    "target": "zh"
+  },
+  {
+    "id": "zh-tomorrow",
+    "original": "Would you like to meet me tomorrow?",
+    "focus": "tomorrow",
+    "source": "en",
+    "target": "zh"
+  },
+  {
+    "id": "zh-whole",
+    "original": "The bakery near the station is closed today.",
+    "focus": "The bakery near the station is closed today.",
+    "source": "en",
+    "target": "zh"
+  },
+  {
+    "id": "ja-umbrella",
+    "original": "Please bring your umbrella this afternoon.",
+    "focus": "umbrella",
+    "source": "en",
+    "target": "ja"
+  },
+  {
+    "id": "ja-whole",
+    "original": "My sister is waiting outside the library.",
+    "focus": "My sister is waiting outside the library.",
+    "source": "en",
+    "target": "ja"
+  },
+  {
+    "id": "ko-music",
+    "original": "We listened to music after dinner.",
+    "focus": "music",
+    "source": "en",
+    "target": "ko"
+  },
+  {
+    "id": "sw-water",
+    "original": "Would you like some water?",
+    "focus": "water",
+    "source": "en",
+    "target": "sw"
+  },
+  {
+    "id": "sw-hello",
+    "original": "Habari za asubuhi, rafiki yangu.",
+    "focus": "rafiki",
+    "source": "sw",
+    "target": "en"
+  },
+  {
+    "id": "fr-cat",
+    "original": "Le chat dort près de la fenêtre.",
+    "focus": "chat",
+    "source": "fr",
+    "target": "en"
+  }
+]
