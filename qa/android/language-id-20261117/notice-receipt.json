@@ -1,0 +1,14 @@
+{
+  "configuration": "releaseRuntimeClasspath",
+  "method": "offline Gradle resolved artifact inventory, then scripts/collect-android-notices.py",
+  "added_coordinates": [
+    "com.google.mlkit:language-id:17.0.6",
+    "com.google.mlkit:language-id-common:16.1.0"
+  ],
+  "removed_coordinates": [],
+  "other_package_changes": [],
+  "package_count": 146,
+  "unique_notice_texts": 29,
+  "notice_index_sha256": "2cf1f0bd10b606eb8e5b7feacecb93d5174a161b82ac97d391f9b0c115bcab79",
+  "scope": "Verbatim embedded notices and artifact hashes, not legal clearance or final release binary correspondence. Privacy inventory update remains independently maintained."
+}
