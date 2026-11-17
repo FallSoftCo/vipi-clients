@@ -1,0 +1,127 @@
+{
+  "state": "prepared_and_patch_application_verified_not_published",
+  "at_utc": "2026-11-17T16:05:07.617718+00:00",
+  "base_archive_sha256": "3d3884ea4cc4632fa5f137deba816b386edccf5a6d00edde77b93ca2bcae304c",
+  "base_revision": "87d53cd7c001b99383d18a25f7fafe40316c6c63",
+  "combined_revision": "c7df21de833c83b0f0a44a63b5a001feccf76e81",
+  "android_frozen_source": "4cc7f95c18e7284e37d4b0505eb771875d0a8c0d",
+  "apple_frozen_source": "decc33d25accdc0f2cb0bf8a2bac290697695f8c",
+  "android_version": "1.0.3 (4)",
+  "apple_version": "1.0 (3)",
+  "patch_sha256": "e1954eade90e7a10c966f1d5b58bdd933894813a73556a08ebd7f7df9fdf05f8",
+  "patch_bytes": 12671,
+  "changed_files": [
+    {
+      "path": "android/app/build.gradle.kts",
+      "base_sha256": "e74d97e0ac51fbcaab569c7455fb1762f19f72f46e6509eaf15e2961aa945d0c",
+      "target_sha256": "4349b1c8e7185f5cfb8553cff2a43fe3c5f5ce44de1bd3272fee690a923faa29",
+      "target_bytes": 11109
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/Authentication.kt",
+      "base_sha256": "cfc3a5c1b5dfc85c62cc906c7054f2b6150bf41341f4bf22265a4b181328756d",
+      "target_sha256": "6dfbdc3a6c48199e7a409c70b74edbac9d0e15bdadc332ba1f6493b43e5dc761",
+      "target_bytes": 15179
+    },
+    {
+      "path": "android/app/src/main/res/values-ar/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "fce1124831ab6c2127dca4d8615f36f6fa8c72ae9934cec9391ee048e30b171e",
+      "target_bytes": 215
+    },
+    {
+      "path": "android/app/src/main/res/values-de/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "0d6a83dc89ce48a86aa98f86d131696e26639898f77e0ca9887506eac71a6a55",
+      "target_bytes": 176
+    },
+    {
+      "path": "android/app/src/main/res/values-es/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "13496bb9dd4204d116bfaff200804e33ffae76d6064bb32ec5b1e7fc88883d8f",
+      "target_bytes": 181
+    },
+    {
+      "path": "android/app/src/main/res/values-fr/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "ccb88fd13327fbee870e1a73f7c89e8e60e6b2558783f8172cc4c1bd5c5fb8a9",
+      "target_bytes": 178
+    },
+    {
+      "path": "android/app/src/main/res/values-it/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "53ddc8a20e16a6e65b0eadf15f8965c7831994bd91fab7472fc170d1c0b272ae",
+      "target_bytes": 168
+    },
+    {
+      "path": "android/app/src/main/res/values-ja/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "a2db9c4442b8a0d5b33a085da12e86150764b742f87b7f41bf42047a0b209fc9",
+      "target_bytes": 219
+    },
+    {
+      "path": "android/app/src/main/res/values-ko/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "8859b6bedfcf0ec13b12870df67cabf1e9bfea51da64957f9ca090f35b7303a7",
+      "target_bytes": 187
+    },
+    {
+      "path": "android/app/src/main/res/values-pt-rPT/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "a3bd3e4bcd74149698e4c47af0538fddb90a0ce0382fd69e1a13b795268acd70",
+      "target_bytes": 180
+    },
+    {
+      "path": "android/app/src/main/res/values-pt/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "2d6044286fa86420f444f0f4a9fc35b1d73601203ff7ec237a66ba4fe7e0c258",
+      "target_bytes": 167
+    },
+    {
+      "path": "android/app/src/main/res/values-sw/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "36f9b0fe0e83d74ee56e9ad24d88531bdafa07ba87dba80e564c11ad860e2a5a",
+      "target_bytes": 176
+    },
+    {
+      "path": "android/app/src/main/res/values-zh-rTW/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "b6f6b3e042a239265b4063a8643d390f526320457f2ba8c92fac9bf548f2d959",
+      "target_bytes": 165
+    },
+    {
+      "path": "android/app/src/main/res/values-zh/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "f057b189be99de8c4c31955ae0adaa9e48ff99d71c6a7a5026fdb7895210f15a",
+      "target_bytes": 165
+    },
+    {
+      "path": "android/app/src/main/res/values/strings-sign-in-expiry.xml",
+      "base_sha256": null,
+      "target_sha256": "c24da2f1ff6b7a565e237443ad93aec84d4e2fbcd03d32fc5249cdeef603e947",
+      "target_bytes": 166
+    },
+    {
+      "path": "ios/Vipi/Authentication.swift",
+      "base_sha256": "39d07248e075e9ebbaa5de4bf6e1ae69b12645892785268b2ee1bbd5ebc9dd5b",
+      "target_sha256": "c124ecdfe7bc2c6d609aa0f5377ef890977cd85635678438e1af02b60ffd11cc",
+      "target_bytes": 11231
+    },
+    {
+      "path": "ios/Vipi/Localizable.xcstrings",
+      "base_sha256": "96993afb7d9089ec909a988e131c0cc84da68429601faba1ab08e1d341078e63",
+      "target_sha256": "b50e16d13337d234094ad3c7c867e5f4c233bf4306759139c6ad2f868276b7ad",
+      "target_bytes": 1039332
+    },
+    {
+      "path": "ios/project.yml",
+      "base_sha256": "995a42d643e608ca7b9928e18eb656dc07c5d19ffc1868054e150b15364c1112",
+      "target_sha256": "b03d05612a00cd4fa147d0680fbf6f900a2dd174e42db7d66b7ea5feb7917064",
+      "target_bytes": 8739
+    }
+  ],
+  "all_target_files_match_each_platform_frozen_source": true,
+  "base_archive_bytes_verified": true,
+  "verification": "All changed baseline files independently compared with actual published archive; patch dry-run and application with patch -p1; all 18 targets compared to frozen platform revisions. Earlier git apply in nested fixture skipped paths; assertion caught it, no repository sources changed.",
+  "limits": "Apple signed qualification retained separately; Android artifact not yet produced. Source only."
+}

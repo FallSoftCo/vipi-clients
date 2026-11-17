@@ -1,0 +1,290 @@
+diff --git a/android/app/build.gradle.kts b/android/app/build.gradle.kts
+index fa47cff..e61e114 100644
+--- a/android/app/build.gradle.kts
++++ b/android/app/build.gradle.kts
+@@ -35,8 +35,8 @@ android {
+         applicationId = "co.fallsoft.vipi"
+         minSdk = 28
+         targetSdk = 36
+-        versionCode = 3
+-        versionName = "1.0.2"
++        versionCode = 4
++        versionName = "1.0.3"
+         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+         externalNativeBuild { cmake { arguments += "-DANDROID_STL=c++_static" } }
+         buildConfigField("boolean", "FIREBASE_CONFIGURED", firebaseConfig.isNotEmpty().toString())
+diff --git a/android/app/src/main/java/co/fallsoft/vipi/Authentication.kt b/android/app/src/main/java/co/fallsoft/vipi/Authentication.kt
+index fb44f93..e9c619d 100644
+--- a/android/app/src/main/java/co/fallsoft/vipi/Authentication.kt
++++ b/android/app/src/main/java/co/fallsoft/vipi/Authentication.kt
+@@ -183,7 +183,12 @@ class Authentication(context: Context) {
+             // Consume before any suspension; a second callback cannot exchange the same verifier.
+             records.remove("pending-sign-in")
+             stage = "callback-age"
+-            require(System.currentTimeMillis() - pending.getLong("createdAt") in 0 until 600_000)
++            val ageMs = System.currentTimeMillis() - pending.getLong("createdAt")
++            if (ageMs >= 600_000) {
++                error = appContext.getString(R.string.sign_in_attempt_expired)
++                return
++            }
++            require(ageMs >= 0)
+             stage = "callback-state"
+             require(uri.getQueryParameters("state").singleOrNull() == pending.getString("state"))
+             stage = "callback-code"
+diff --git a/android/app/src/main/res/values-ar/strings-sign-in-expiry.xml b/android/app/src/main/res/values-ar/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..a71fd4b
+--- /dev/null
++++ b/android/app/src/main/res/values-ar/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">انتهت صلاحية محاولة تسجيل الدخول. يُرجى البدء من جديد.</string>
++</resources>
+diff --git a/android/app/src/main/res/values-de/strings-sign-in-expiry.xml b/android/app/src/main/res/values-de/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..d15c2f8
+--- /dev/null
++++ b/android/app/src/main/res/values-de/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">Dieser Anmeldeversuch ist abgelaufen. Bitte beginne erneut.</string>
++</resources>
+diff --git a/android/app/src/main/res/values-es/strings-sign-in-expiry.xml b/android/app/src/main/res/values-es/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..df26e5d
+--- /dev/null
++++ b/android/app/src/main/res/values-es/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">Este intento de inicio de sesión ha caducado. Vuelve a empezar.</string>
++</resources>
+diff --git a/android/app/src/main/res/values-fr/strings-sign-in-expiry.xml b/android/app/src/main/res/values-fr/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..086c118
+--- /dev/null
++++ b/android/app/src/main/res/values-fr/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">Cette tentative de connexion a expiré. Veuillez recommencer.</string>
++</resources>
+diff --git a/android/app/src/main/res/values-it/strings-sign-in-expiry.xml b/android/app/src/main/res/values-it/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..1182e07
+--- /dev/null
++++ b/android/app/src/main/res/values-it/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">Questo tentativo di accesso è scaduto. Ricomincia.</string>
++</resources>
+diff --git a/android/app/src/main/res/values-ja/strings-sign-in-expiry.xml b/android/app/src/main/res/values-ja/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..9468e2b
+--- /dev/null
++++ b/android/app/src/main/res/values-ja/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">このログイン操作の有効期限が切れました。最初からやり直してください。</string>
++</resources>
+diff --git a/android/app/src/main/res/values-ko/strings-sign-in-expiry.xml b/android/app/src/main/res/values-ko/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..a5679ce
+--- /dev/null
++++ b/android/app/src/main/res/values-ko/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">로그인 시도가 만료되었습니다. 다시 시작해 주세요.</string>
++</resources>
+diff --git a/android/app/src/main/res/values-pt-rPT/strings-sign-in-expiry.xml b/android/app/src/main/res/values-pt-rPT/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..fbc2979
+--- /dev/null
++++ b/android/app/src/main/res/values-pt-rPT/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">Esta tentativa de início de sessão expirou. Comece novamente.</string>
++</resources>
+diff --git a/android/app/src/main/res/values-pt/strings-sign-in-expiry.xml b/android/app/src/main/res/values-pt/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..a36248b
+--- /dev/null
++++ b/android/app/src/main/res/values-pt/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">Esta tentativa de login expirou. Comece novamente.</string>
++</resources>
+diff --git a/android/app/src/main/res/values-sw/strings-sign-in-expiry.xml b/android/app/src/main/res/values-sw/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..acfdf98
+--- /dev/null
++++ b/android/app/src/main/res/values-sw/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">Jaribio hili la kuingia limeisha muda. Tafadhali anza tena.</string>
++</resources>
+diff --git a/android/app/src/main/res/values-zh-rTW/strings-sign-in-expiry.xml b/android/app/src/main/res/values-zh-rTW/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..a824043
+--- /dev/null
++++ b/android/app/src/main/res/values-zh-rTW/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">這次登入嘗試已過期，請重新開始。</string>
++</resources>
+diff --git a/android/app/src/main/res/values-zh/strings-sign-in-expiry.xml b/android/app/src/main/res/values-zh/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..8f7f600
+--- /dev/null
++++ b/android/app/src/main/res/values-zh/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">此次登录尝试已过期。请重新开始。</string>
++</resources>
+diff --git a/android/app/src/main/res/values/strings-sign-in-expiry.xml b/android/app/src/main/res/values/strings-sign-in-expiry.xml
+new file mode 100644
+index 0000000..7b084ee
+--- /dev/null
++++ b/android/app/src/main/res/values/strings-sign-in-expiry.xml
+@@ -0,0 +1,4 @@
++<?xml version='1.0' encoding='utf-8'?>
++<resources>
++    <string name="sign_in_attempt_expired">This sign-in attempt expired. Please start again.</string>
++</resources>
+diff --git a/ios/Vipi/Authentication.swift b/ios/Vipi/Authentication.swift
+index 4def18b..9bcb88b 100644
+--- a/ios/Vipi/Authentication.swift
++++ b/ios/Vipi/Authentication.swift
+@@ -103,7 +103,14 @@ private struct PendingSignIn: Codable { let state: String; let verifier: String;
+         defer { busy = false; KeychainStore.delete(account: "pending-sign-in") }
+         do {
+             guard let data = try KeychainStore.read(account: "pending-sign-in"),
+-                  let pending = try? JSONDecoder().decode(PendingSignIn.self, from: data), (0..<600).contains(Date().timeIntervalSince(pending.createdAt)),
++                  let pending = try? JSONDecoder().decode(PendingSignIn.self, from: data) else {
++                errorMessage = String(localized: "We couldn’t verify this sign-in. Please start again."); return
++            }
++            let age = Date().timeIntervalSince(pending.createdAt)
++            if age >= 600 {
++                errorMessage = String(localized: "This sign-in attempt expired. Please start again."); return
++            }
++            guard age >= 0,
+                   let parts = URLComponents(url: url, resolvingAgainstBaseURL: false),
+                   let items = parts.queryItems,
+                   items.filter({ $0.name == "state" }).count == 1,
+diff --git a/ios/Vipi/Localizable.xcstrings b/ios/Vipi/Localizable.xcstrings
+index e90e2e6..9978587 100644
+--- a/ios/Vipi/Localizable.xcstrings
++++ b/ios/Vipi/Localizable.xcstrings
+@@ -29251,6 +29251,89 @@
+         }
+       }
+     },
++    "This sign-in attempt expired. Please start again.": {
++      "extractionState": "manual",
++      "localizations": {
++        "en": {
++          "stringUnit": {
++            "state": "translated",
++            "value": "This sign-in attempt expired. Please start again."
++          }
++        },
++        "ar": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "انتهت صلاحية محاولة تسجيل الدخول. يُرجى البدء من جديد."
++          }
++        },
++        "de": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "Dieser Anmeldeversuch ist abgelaufen. Bitte beginne erneut."
++          }
++        },
++        "es": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "Este intento de inicio de sesión ha caducado. Vuelve a empezar."
++          }
++        },
++        "fr": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "Cette tentative de connexion a expiré. Veuillez recommencer."
++          }
++        },
++        "it": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "Questo tentativo di accesso è scaduto. Ricomincia."
++          }
++        },
++        "ja": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "このログイン操作の有効期限が切れました。最初からやり直してください。"
++          }
++        },
++        "ko": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "로그인 시도가 만료되었습니다. 다시 시작해 주세요."
++          }
++        },
++        "pt-BR": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "Esta tentativa de login expirou. Comece novamente."
++          }
++        },
++        "pt-PT": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "Esta tentativa de início de sessão expirou. Comece novamente."
++          }
++        },
++        "sw": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "Jaribio hili la kuingia limeisha muda. Tafadhali anza tena."
++          }
++        },
++        "zh-Hans": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "此次登录尝试已过期。请重新开始。"
++          }
++        },
++        "zh-Hant": {
++          "stringUnit": {
++            "state": "needs_review",
++            "value": "這次登入嘗試已過期，請重新開始。"
++          }
++        }
++      }
++    },
+     "We couldn’t verify this sign-in. Please start again.": {
+       "extractionState": "manual",
+       "localizations": {
+diff --git a/ios/project.yml b/ios/project.yml
+index d406b0d..f4cf90c 100644
+--- a/ios/project.yml
++++ b/ios/project.yml
+@@ -20,7 +20,7 @@ settings:
+     SWIFT_VERSION: '6.0'
+     DEVELOPMENT_TEAM: 3TNL2455JT
+     MARKETING_VERSION: '1.0'
+-    CURRENT_PROJECT_VERSION: '1'
++    CURRENT_PROJECT_VERSION: '3'
+     CODE_SIGN_STYLE: Automatic
+     # CocoaPods copies its pinned SDK resource bundles using rsync staging files.
+     # This affects build scripts only, not the installed application's sandbox.
