@@ -65,7 +65,7 @@ class OfflineFlowScreensDeviceTest {
             state.value = value
         }
         val device = UiDevice.getInstance(inst)
-        val out = File(base.filesDir, "offline-flow-plan-r06").apply { mkdirs() }
+        val out = File(base.filesDir, "offline-flow-plan-r07").apply { mkdirs() }
         var scenario: ActivityScenario<MainActivity>? = null
         try {
             withContext(Dispatchers.Main) {
@@ -111,8 +111,17 @@ class OfflineFlowScreensDeviceTest {
             assertTrue(device.wait(Until.hasObject(By.text("Choose a backup to restore")), 5_000))
             assertFalse(device.hasObject(By.text("Confirm password to save a backup")))
             device.findObject(By.clazz("android.widget.EditText")).text = "synthetic-passphrase"
-            assertTrue(device.findObject(By.text("Choose a backup to restore")).isEnabled)
+            SystemClock.sleep(1_000)
+            var restore = device.findObject(By.text("Choose a backup to restore"))
+            while (restore != null && !restore.isClickable) restore = restore.parent
+            assertNotNull("Restore control semantics missing", restore)
+            assertTrue(restore!!.isEnabled)
             assertTrue(device.takeScreenshot(File(out, "backup-restore.png")))
+            device.click(restore.visibleCenter.x, restore.visibleCenter.y)
+            SystemClock.sleep(1_000)
+            assertNotEquals("Document picker must open", base.packageName, device.currentPackageName)
+            device.pressBack()
+            assertTrue(device.wait(Until.hasObject(By.text("Choose a backup to restore")), 5_000))
             scenario!!.onActivity { setState(chat, "needsDeviceRecovery", true); setState(chat, "ready", false); model.navigate(Screen.HOME) }
             assertTrue(device.wait(Until.hasObject(By.textContains("another device")), 10_000))
             SystemClock.sleep(500)
