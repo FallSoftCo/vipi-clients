@@ -1,0 +1,14 @@
+{
+  "observed_utc": "2026-11-17T15:37:46.956956+00:00",
+  "sender": "vipiqa_peer1117",
+  "recipient": "vipiqa_apple1117",
+  "original": "I love music too.",
+  "automatic_cycle": [
+    "I love music too.",
+    "watashi love ongaku too."
+  ],
+  "presentation": "Same visible word positions, no manual language or word override",
+  "scope": "one actual Android-to-Apple owned friend reply; TestFlight 1.0 (2)",
+  "no_additional_send_or_listen": true,
+  "evidence": "/home/ai/Development/investigations/vipi-resume-20261116-r01/apple-owned-peer-20261117-r01/vipi-inbound-phase1.png and vipi-inbound-phase2.png"
+}
