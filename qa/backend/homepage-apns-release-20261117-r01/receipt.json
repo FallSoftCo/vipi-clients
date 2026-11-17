@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "scope": "Approved homepage wording and APNs source configuration; API release only",
+  "activation": {
+    "state": "active",
+    "started_utc": "2026-11-17T02:44:22.951951+00:00",
+    "old_revision": "9b8cca69425f10df05c98b947f8152ca9534df71",
+    "candidate_revision": "8da2627256c67c8ab69c40e3a322fd9431a19b30",
+    "environment_sha256": "689e448c844e8153634cd0b1e31aa3de315a3f16ee67e12ef6ac3b3e167fb7d3",
+    "push_before": "2678219\nactive\nrunning",
+    "timer_before": "active\nwaiting",
+    "push_manifest_sha256": "820f64356e2de0368da98b87dece951c7de6a9bdad0bc85d795c15086249abdd",
+    "billing_worker_after_drain": "inactive",
+    "api_stop": {
+      "MainPID": "0",
+      "Result": "success",
+      "ExecMainCode": "1",
+      "ExecMainStatus": "0",
+      "ActiveState": "inactive"
+    },
+    "finished_utc": "2026-11-17T02:44:28.568721+00:00"
+  },
+  "independent_verification": {
+    "at_utc": "2026-11-17T02:44:46.706742+00:00",
+    "current_revision": "8da2627256c67c8ab69c40e3a322fd9431a19b30",
+    "environment_sha256": "689e448c844e8153634cd0b1e31aa3de315a3f16ee67e12ef6ac3b3e167fb7d3",
+    "local_ready": {
+      "http_status": 200
+    },
+    "public_home": {
+      "http_status": 200,
+      "approved_headline_present": true
+    },
+    "public_me": {
+      "http_status": 401
+    },
+    "vipi-api.service": "2754377\nactive\nrunning",
+    "vipi-push.service": "2678219\nactive\nrunning",
+    "vipi-billing.timer": "active\nwaiting"
+  },
+  "manifest_sha256": "3b04f2274f89f5c448ae9e065c76b60c22e9b3828897b1ab20fd7809ce7fe689",
+  "source_membership_verified": 2283,
+  "push_restarted": false,
+  "settings_changed": false,
+  "schema_changed": false,
+  "registration_opened": false,
+  "subscription_enforcement_changed": false,
+  "new_provider_requests": false,
+  "external_action_replayed": false,
+  "private_receipt_hashes": {
+    "staging-verification.json": "65936c3dfff20382ba6399b5c75fbc4510c59acc6fd0d612e40315089c9ffc48",
+    "dispatch-intent.json": "c4f383992731ffef856fd13929d68732b44f380ee4cbbf537d3b262aa0deebfa",
+    "dispatch-result.json": "8ee4c757e03ce6d2e0cda33588d7e54cc926650f6fec812d2fdc9fe1fecac6bf",
+    "activation-receipt.json": "92755797046535cb678d802f091543b51813cbc80f9fa16037b49d260882fbaa",
+    "independent-verification.json": "7ac4bbb3aeb4bc5286b6a8ce170ca127f5dc434891ca26bbb805132b922af7d3"
+  },
+  "qualification_limits": [
+    "Google lapse qualified separately before activation.",
+    "Scoped staging remains; this is not customer launch.",
+    "Transient activation unit unloaded after completion; durable dispatch/activation/independent readback receipts retained."
+  ]
+}
