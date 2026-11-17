@@ -25,7 +25,7 @@ struct SubscriptionOfferView: View {
                 if store.accessVerificationPending(plan) {
                     Label("Checking subscription access", systemImage: "clock.arrow.circlepath")
                         .foregroundStyle(VipiDesign.secondary)
-                    Text("We can’t verify your subscription right now. Please try again later. You won’t be charged.")
+                    Text("We can’t verify your subscription right now. Please try again later. Checking won’t start a new purchase.")
                     Button("Try again") { Task { await store.refresh() } }.disabled(store.loading)
                 } else if store.accessActive(plan) {
                     if access?.isReviewAccess == true {

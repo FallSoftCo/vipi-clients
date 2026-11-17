@@ -15,6 +15,7 @@ struct HomeView: View {
     @State private var path: [UUID] = []
     private var botDescription: String {
         guard let access = subscriptions?.snapshot?.bot_mini else { return String(localized: "Chat with a chatbot.") }
+        if access.verification_unavailable == true { return String(localized: "Chatbot access is being checked. Please try again later.") }
         if access.isReviewAccess { return String(localized: "Chat with a chatbot. Review access is active.") }
         if access.active { return String(localized: "Chat with a chatbot. Bot mini access is active.") }
         return String(localized: "Chat with a chatbot. Requires the separate Bot mini plan.")
