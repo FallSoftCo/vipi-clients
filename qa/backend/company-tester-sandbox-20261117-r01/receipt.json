@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-17",
+  "backend_revision": "9b8cca69425f10df05c98b947f8152ca9534df71",
+  "schema": "20261116_01",
+  "outcome": "active_tester_only",
+  "previous_environment_sha256": "c51b0531d62a44a9f0dae2ea35e97624ba4e8e7b2d5208745fabb941c2298ce5",
+  "environment_sha256": "caa59701bf10eab3c877475b3ba59a3edbca29167cb51105ef34b391c304a22a",
+  "sandbox_testers": 1,
+  "reviewers_preserved": 2,
+  "allowed_subjects": 3,
+  "billing_worker_drained": true,
+  "api_clean_stop_readiness_and_provider_checks": true,
+  "billing_timer_and_push_active": true,
+  "push_pid_unchanged": true,
+  "earlier_attempt": "r01 rolled back after transient timer substate assertion; previous environment and services verified",
+  "purchase_performed": false
+}
