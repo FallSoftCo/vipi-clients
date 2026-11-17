@@ -1,0 +1,17 @@
+{
+  "utc": "2026-11-17T17:06:21.388382+00:00",
+  "target": "Pixel 9 Pro Fold, serial 52261FDKD00158, authenticated existing wireless transport",
+  "transport": "100.101.220.29:42911",
+  "package": "co.fallsoft.vipi",
+  "prior": "no installed or retained package shown for user 0",
+  "apk_sha256": "572b60a4d6a5c11182925cdb19889d6d5377c2f9b0094636be8b431991d83e15",
+  "signer_sha256": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+  "intent": "one install only; no auth, signup, purchase or message",
+  "state": "installed",
+  "finished_utc": "2026-11-17T17:09:17.072782+00:00",
+  "install_result": "one streamed install returned Success",
+  "installed_version": "1.0.3 (4)",
+  "installed_apk_sha256_matches": true,
+  "launch": "one MainActivity launch requested; phone lockscreen currently showing, visible onboarding not verified",
+  "no_auth_or_purchase": true
+}
