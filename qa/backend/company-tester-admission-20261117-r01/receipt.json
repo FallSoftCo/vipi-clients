@@ -1,0 +1,20 @@
+{
+  "schema": "vipi-company-tester-admission-1",
+  "recorded_utc": "2026-11-17",
+  "state": "verified_subject_admitted_sandbox_allowlist_empty",
+  "backend_revision": "9b8cca69425f10df05c98b947f8152ca9534df71",
+  "database_schema": "20261116_01",
+  "identity_verified_directly_with_workos": true,
+  "admitted_subjects_before": 2,
+  "admitted_subjects_after": 3,
+  "complimentary_reviewer_grants_unchanged": 2,
+  "sandbox_tester_allowlist_count": 0,
+  "global_google_test_acceptance": false,
+  "clean_api_stop": true,
+  "api_ready_http": 200,
+  "unauthenticated_profile_http": 401,
+  "billing_timer_and_push_worker_unchanged": true,
+  "schema_or_credential_change": false,
+  "purchase_attempted": false,
+  "limitations": ["The subject is admitted only; creation of its Vipi profile and sandbox entitlement qualification remain separate.", "This is restricted staging, not general registration or customer launch."]
+}
