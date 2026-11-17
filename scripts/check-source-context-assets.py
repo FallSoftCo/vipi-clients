@@ -23,6 +23,11 @@ data = table.read_bytes()
 assert len(data) == manifest['unicode15']['bytes'] == 51278
 assert hashlib.sha256(data).hexdigest() == manifest['unicode15']['sha256'] == '930b68ddf7c328233125eeb56a68b6863a9b97942a7a5023128e6ad34b489879'
 expected.add(table.relative_to(vendor).as_posix())
-actual = {p.relative_to(vendor).as_posix() for p in vendor.rglob('*') if p.is_file() and p.name not in {'manifest.json', '.gitignore', 'PROVENANCE.md'}}
+provenance = vendor / 'upstream-source-provenance-20261116.json'
+assert provenance.is_file() and not provenance.is_symlink()
+assert hashlib.sha256(provenance.read_bytes()).hexdigest() == '4c6d45bfe7ee1dea10720579ce004dbc94f14f4681b435c8c5cd4611723e5241'
+expected.add(provenance.relative_to(vendor).as_posix())
+metadata = {'manifest.json', '.gitignore', 'PROVENANCE.md'}
+actual = {p.relative_to(vendor).as_posix() for p in vendor.rglob('*') if p.is_file() and p.relative_to(vendor).as_posix() not in metadata}
 assert actual == expected, (actual - expected, expected - actual)
 print('Pinned offline source-context assets and licenses verified.')
