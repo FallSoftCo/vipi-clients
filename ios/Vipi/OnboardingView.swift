@@ -126,6 +126,7 @@ struct OnboardingView: View {
                 Label("Find friends by username.", systemImage: "bubble.left.and.bubble.right")
                 Label("Your email is not shown to friends.", systemImage: "iphone")
                 Label("Chats with friends are end-to-end encrypted.", systemImage: "person.crop.circle.badge.checkmark")
+                Label("New accounts include 30 days free. No payment method is required.", systemImage: "calendar")
             }.font(.subheadline).padding(22).frame(maxWidth: .infinity, alignment: .leading)
                 .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 22))
             Toggle(isOn: $acceptedTerms) {

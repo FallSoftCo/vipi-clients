@@ -7,7 +7,7 @@ struct SubscriptionOfferView: View {
     @Environment(\.dismiss) private var dismiss
     private var product: Product? { store.products[plan] }
     private var access: EntitlementSnapshot.Access? { store.snapshot?.access(plan) }
-    private var trial: Bool { store.introductoryEligible.contains(plan) }
+    private var trial: Bool { plan == .botMini && store.introductoryEligible.contains(plan) }
 
     var body: some View {
         ScrollView {
@@ -27,11 +27,19 @@ struct SubscriptionOfferView: View {
                         Label("Review access is active", systemImage: "checkmark.circle.fill")
                             .foregroundStyle(VipiDesign.highlight)
                         Text("No subscription is required for this account.")
+                    } else if plan == .base && access?.access_source == "cardless_trial" {
+                        Label("Your free Vipi access is active", systemImage: "checkmark.circle.fill")
+                            .foregroundStyle(VipiDesign.highlight)
+                        Text("No payment method or subscription is required for this free period.")
+                        Text("When the free period ends, you can choose whether to subscribe. You won’t be charged automatically.")
                     } else {
                         Label("Your \(plan.title) subscription is active", systemImage: "checkmark.circle.fill")
                             .foregroundStyle(VipiDesign.highlight)
                     }
-                    if let end = access?.trial_ends_at, let date = Self.date(end) {
+                    if plan == .base, access?.access_source == "cardless_trial",
+                       let trial = access?.cardless_trial, trial.active, let date = Self.date(trial.ends_at) {
+                        Text("Your free access ends \(date.formatted(date: .abbreviated, time: .shortened)).")
+                    } else if let end = access?.trial_ends_at, let date = Self.date(end) {
                         Text("Your free trial ends \(date.formatted(date: .long, time: .omitted)).")
                     } else if let end = access?.expires_at, let date = Self.date(end) {
                         Text("Current access lasts until \(date.formatted(date: .long, time: .omitted)).")
@@ -51,8 +59,13 @@ struct SubscriptionOfferView: View {
                             }
                         } else {
                             Text("\(product.displayPrice) per year").font(.title2.weight(.semibold))
-                            Text("Renews annually until you cancel. Any available introductory offer is confirmed by the App Store.")
-                                .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                            if plan == .base {
+                                Text("Renews annually until you cancel.")
+                                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                            } else {
+                                Text("Renews annually until you cancel. Any available introductory offer is confirmed by the App Store.")
+                                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                            }
                         }
                         if plan == .botMini {
                             Text("This is a separate subscription, in addition to Vipi.")
@@ -74,6 +87,10 @@ struct SubscriptionOfferView: View {
                         PrimaryButton(title: trial ? "Start one month free" : "Subscribe for \(product.displayPrice) a year", busy: store.busy) {
                             Task { await store.purchase(plan) }
                         }.disabled(!store.canPurchase(plan)).accessibilityIdentifier("subscription-purchase-\(plan.rawValue)")
+                    }
+                    if plan == .base && store.baseStoreTrialStillOffered {
+                        Text("Vipi subscriptions aren’t available yet. You haven’t been enrolled.")
+                            .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                     }
                     if !store.loading && (!store.purchaseReady || (plan == .botMini && !store.botServiceReady)) {
                         Text(plan == .botMini ? "Bot mini isn’t available to subscribe to yet. You haven’t been enrolled." : "Subscriptions aren’t available yet. You haven’t been enrolled.")

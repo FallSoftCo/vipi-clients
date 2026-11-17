@@ -12,6 +12,7 @@ enum VipiPlan: String, CaseIterable, Identifiable {
 
 struct EntitlementSnapshot: Decodable, Sendable {
     struct PurchaseReadiness: Decodable, Sendable { let apple: Bool; let google: Bool }
+    struct CardlessTrial: Decodable, Sendable { let started_at: String; let ends_at: String; let active: Bool }
     struct Access: Decodable, Sendable {
         let active: Bool
         let available: Bool?
@@ -19,11 +20,13 @@ struct EntitlementSnapshot: Decodable, Sendable {
         let trial_ends_at: String?
         let access_source: String?
         let review_access: Bool?
+        let cardless_trial: CardlessTrial?
         var isReviewAccess: Bool {
             active && access_source == "review_complimentary" && review_access == true &&
                 expires_at == nil && trial_ends_at == nil
         }
     }
+    let server_time: String?
     let base: Access
     let bot_mini: Access
     let billing_account_id: String
@@ -112,15 +115,26 @@ struct BotAllowance: Decodable, Sendable {
             }
             guard !closed else { return }
             products = found; introductoryEligible = eligible
-        } catch { if !closed { notice = "The App Store couldn’t load prices. Please try again." } }
+        } catch {
+            if !closed {
+                // Never initiate a charge from stale offer or price information.
+                products = [:]; introductoryEligible = []
+                notice = "The App Store couldn’t load prices. Please try again."
+            }
+        }
     }
     var baseActive: Bool { snapshot?.base.active == true }
     private(set) var purchaseReady = false
     var botServiceReady: Bool { botAllowance?.service_ready == true }
     var botAvailable: Bool { snapshot?.bot_mini.available == true && baseActive && botAllowance?.available == true }
+    // A cardless Base trial must not be followed by a second store trial.
+    // Block eligible Base checkout until the old introductory offer is removed.
+    var baseStoreTrialStillOffered: Bool { introductoryEligible.contains(.base) }
     func canPurchase(_ plan: VipiPlan) -> Bool {
         !closed && !busy && !loading && !reconciling && !pending && !awaitingConfirmation.contains(plan) && !accountConflicts.contains(plan) && purchaseReady && snapshot != nil && products[plan] != nil &&
-        snapshot?.access(plan).active == false && (plan == .base || (baseActive && botServiceReady))
+        snapshot?.access(plan).active == false &&
+        !(plan == .base && baseStoreTrialStillOffered) &&
+        (plan == .base || (baseActive && botServiceReady))
     }
     func purchase(_ plan: VipiPlan) async {
         guard canPurchase(plan), let product = products[plan] else { return }
