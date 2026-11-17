@@ -1,0 +1,188 @@
+{
+  "status": "diagnostic_only_not_native_or_production",
+  "fixture_sha256": "38f83fd1847bd9907b70e2fc2f761a7ccbbe7c956fbc934386e4276841b1c7b6",
+  "seed_sha256": "17d9ccb40e426e3b8478239506521fc076dd709e3fd0e220fa769adf2dc8f1ac",
+  "cases": [
+    {
+      "source": "en",
+      "target": "id",
+      "message": "At breakfast I drink coffee.",
+      "actual": {
+        "source": "coffee",
+        "target": "kopi",
+        "reading": null,
+        "start": 21,
+        "end": 27
+      },
+      "expected": "kopi",
+      "passed": true,
+      "reason": null
+    },
+    {
+      "source": "en",
+      "target": "nl",
+      "message": "Tonight we are reading the book.",
+      "actual": {
+        "source": "book",
+        "target": "boek",
+        "reading": null,
+        "start": 27,
+        "end": 31
+      },
+      "expected": "boek",
+      "passed": true,
+      "reason": null
+    },
+    {
+      "source": "en",
+      "target": "ru",
+      "message": "At home I drink tea.",
+      "actual": {
+        "source": "tea",
+        "target": "чай",
+        "reading": "chay",
+        "start": 16,
+        "end": 19
+      },
+      "expected": "чай",
+      "passed": true,
+      "reason": null
+    },
+    {
+      "source": "id",
+      "target": "en",
+      "message": "Setiap pagi saya minum kopi.",
+      "actual": {
+        "source": "kopi",
+        "target": "coffee",
+        "reading": null,
+        "start": 23,
+        "end": 27
+      },
+      "expected": "coffee",
+      "passed": true,
+      "reason": null
+    },
+    {
+      "source": "nl",
+      "target": "en",
+      "message": "Gisteren las ik dit boek.",
+      "actual": {
+        "source": "boek",
+        "target": "book",
+        "reading": null,
+        "start": 20,
+        "end": 24
+      },
+      "expected": "book",
+      "passed": true,
+      "reason": null
+    },
+    {
+      "source": "ru",
+      "target": "en",
+      "message": "Сегодня я пью чай.",
+      "actual": {
+        "source": "чай",
+        "target": "tea",
+        "reading": null,
+        "start": 14,
+        "end": 17
+      },
+      "expected": "tea",
+      "passed": true,
+      "reason": null
+    },
+    {
+      "source": "en",
+      "target": "id",
+      "message": "I drink coffee grounds.",
+      "actual": null,
+      "expected": null,
+      "passed": true,
+      "reason": "coffee as a modifier of grounds"
+    },
+    {
+      "source": "en",
+      "target": "nl",
+      "message": "I read the book jacket.",
+      "actual": null,
+      "expected": null,
+      "passed": true,
+      "reason": "book as a modifier of jacket"
+    },
+    {
+      "source": "en",
+      "target": "ru",
+      "message": "I drink tea tree oil.",
+      "actual": null,
+      "expected": null,
+      "passed": true,
+      "reason": "tea as part of tea tree oil"
+    },
+    {
+      "source": "ru",
+      "target": "en",
+      "message": "Я пью чайник.",
+      "actual": null,
+      "expected": null,
+      "passed": true,
+      "reason": "чайник is kettle, not tea"
+    },
+    {
+      "source": "id",
+      "target": "en",
+      "message": "Kami minum kopitiam.",
+      "actual": null,
+      "expected": null,
+      "passed": true,
+      "reason": "embedded source word"
+    },
+    {
+      "source": "en",
+      "target": "ru",
+      "message": "Please read the book@example.org",
+      "actual": null,
+      "expected": null,
+      "passed": true,
+      "reason": "protected email local part"
+    },
+    {
+      "source": "en",
+      "target": "nl",
+      "message": "Please book the train.",
+      "actual": null,
+      "expected": null,
+      "passed": true,
+      "reason": "reservation verb"
+    },
+    {
+      "source": "en",
+      "target": "id",
+      "message": "I like tea.",
+      "actual": null,
+      "expected": null,
+      "passed": true,
+      "reason": "uncovered ordinary message"
+    },
+    {
+      "source": "en",
+      "target": "ru",
+      "message": "Can you bring me coffee?",
+      "actual": null,
+      "expected": null,
+      "passed": true,
+      "reason": "uncovered ordinary message"
+    },
+    {
+      "source": "en",
+      "target": "id",
+      "message": "I drink coffee after lunch.",
+      "actual": null,
+      "expected": null,
+      "passed": true,
+      "reason": "clause-end restriction intentionally loses this ordinary context"
+    }
+  ],
+  "all_passed": true
+}

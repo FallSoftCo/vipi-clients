@@ -1,0 +1,12 @@
+{
+  "status": "model_reviewed_inactive_candidate_not_approved_for_runtime",
+  "license": "CC-BY-SA-4.0",
+  "attribution": "Wiktionary contributors; source URLs and page histories identify contributors. Forms selected and contexts authored for this candidate.",
+  "source_date": "2026-11-17",
+  "review_limit": "A small model-authored prototype; dictionary meanings and proposed context semantics are not a native-runtime acceptance or broad language-coverage claim.",
+  "concepts": [
+    {"id":"coffee_beverage", "meaning":"coffee as a drink", "source_url":"https://en.wiktionary.org/wiki/coffee/translations", "forms":{"en":"coffee","id":"kopi","nl":"koffie","ru":"кофе"}, "readings":{"ru":"kofe"}, "reading_provenance":{"ru":"Wiktionary kófe, stress mark removed for plain Latin display: https://en.wiktionary.org/wiki/koffie"}, "contexts":{"en":["drink coffee","drinking coffee"],"id":["minum kopi"],"nl":["drink koffie","drinkt koffie"],"ru":["пью кофе","пьёт кофе"]}},
+    {"id":"tea_beverage", "meaning":"tea as a drink", "source_url":"https://en.wiktionary.org/wiki/tea/translations", "forms":{"en":"tea","id":"teh","nl":"thee","ru":"чай"}, "readings":{"ru":"chay"}, "reading_provenance":{"ru":"Wiktionary čaj, adapted to plain-Latin chay: https://en.wiktionary.org/wiki/tea/translations"}, "contexts":{"en":["drink tea","drinking tea"],"id":["minum teh"],"nl":["drink thee","drinkt thee"],"ru":["пью чай","пьёт чай"]}},
+    {"id":"book_written_work", "meaning":"a written or printed book", "source_url":"https://en.wiktionary.org/wiki/book/translations", "forms":{"en":"book","id":"buku","nl":"boek","ru":"книга"}, "readings":{"ru":"kniga"}, "reading_provenance":{"ru":"Wiktionary kníga, stress mark removed for plain Latin display: https://en.wiktionary.org/wiki/book/translations"}, "contexts":{"en":["read the book","reading the book"],"id":["buku ini"],"nl":["dit boek"],"ru":["эта книга"]}}
+  ]
+}

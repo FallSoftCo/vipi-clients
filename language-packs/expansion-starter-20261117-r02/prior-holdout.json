@@ -1,0 +1,111 @@
+{
+  "status": "authored_after_candidate_freeze_not_population_evidence",
+  "cases": [
+    {
+      "source": "en",
+      "target": "id",
+      "text": "I drink coffee after lunch.",
+      "expected": "kopi",
+      "focus": "coffee"
+    },
+    {
+      "source": "en",
+      "target": "nl",
+      "text": "We are reading the book tonight.",
+      "expected": "boek",
+      "focus": "book"
+    },
+    {
+      "source": "en",
+      "target": "ru",
+      "text": "I drink tea each morning.",
+      "expected": "чай",
+      "reading": "chay",
+      "focus": "tea"
+    },
+    {
+      "source": "id",
+      "target": "en",
+      "text": "Saya minum kopi setiap pagi.",
+      "expected": "coffee",
+      "focus": "kopi"
+    },
+    {
+      "source": "nl",
+      "target": "en",
+      "text": "Ik lees dit boek graag.",
+      "expected": "book",
+      "focus": "boek"
+    },
+    {
+      "source": "ru",
+      "target": "en",
+      "text": "Я пью чай дома.",
+      "expected": "tea",
+      "focus": "чай"
+    },
+    {
+      "source": "en",
+      "target": "nl",
+      "text": "Please book the train.",
+      "expected": null,
+      "reason": "book as a reservation verb"
+    },
+    {
+      "source": "en",
+      "target": "id",
+      "text": "I drink coffeehouse blends.",
+      "expected": null,
+      "reason": "coffee is embedded in a compound"
+    },
+    {
+      "source": "ru",
+      "target": "en",
+      "text": "Я пью чайник.",
+      "expected": null,
+      "reason": "чайник is a kettle, not tea"
+    },
+    {
+      "source": "id",
+      "target": "en",
+      "text": "Kami minum kopitiam.",
+      "expected": null,
+      "reason": "kopi embedded in a longer word"
+    },
+    {
+      "source": "en",
+      "target": "nl",
+      "text": "See https://example.test/read%20the%20book.",
+      "expected": null,
+      "reason": "protected URL"
+    },
+    {
+      "source": "en",
+      "target": "ru",
+      "text": "Can you bring me coffee?",
+      "expected": null,
+      "reason": "uncovered ordinary message, not a meaning rejection"
+    },
+    {
+      "source": "en",
+      "target": "id",
+      "text": "I like tea.",
+      "expected": null,
+      "reason": "uncovered ordinary message, not a meaning rejection"
+    },
+    {
+      "source": "nl",
+      "target": "en",
+      "text": "Dit boek is leuk.",
+      "expected": null,
+      "reason": "capitalized context not explicitly attested"
+    },
+    {
+      "source": "en",
+      "target": "ru",
+      "text": "Please read the book@example.org",
+      "expected": null,
+      "reason": "protected email local part is not a book noun"
+    }
+  ]
+}

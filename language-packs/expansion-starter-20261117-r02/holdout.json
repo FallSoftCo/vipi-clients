@@ -1,0 +1,21 @@
+{
+ "status":"authored_after_r02_freeze_not_population_evidence",
+ "cases":[
+  {"source":"en","target":"id","text":"At breakfast I drink coffee.","expected":"kopi","focus":"coffee"},
+  {"source":"en","target":"nl","text":"Tonight we are reading the book.","expected":"boek","focus":"book"},
+  {"source":"en","target":"ru","text":"At home I drink tea.","expected":"чай","reading":"chay","focus":"tea"},
+  {"source":"id","target":"en","text":"Setiap pagi saya minum kopi.","expected":"coffee","focus":"kopi"},
+  {"source":"nl","target":"en","text":"Gisteren las ik dit boek.","expected":"book","focus":"boek"},
+  {"source":"ru","target":"en","text":"Сегодня я пью чай.","expected":"tea","focus":"чай"},
+  {"source":"en","target":"id","text":"I drink coffee grounds.","expected":null,"reason":"coffee as a modifier of grounds"},
+  {"source":"en","target":"nl","text":"I read the book jacket.","expected":null,"reason":"book as a modifier of jacket"},
+  {"source":"en","target":"ru","text":"I drink tea tree oil.","expected":null,"reason":"tea as part of tea tree oil"},
+  {"source":"ru","target":"en","text":"Я пью чайник.","expected":null,"reason":"чайник is kettle, not tea"},
+  {"source":"id","target":"en","text":"Kami minum kopitiam.","expected":null,"reason":"embedded source word"},
+  {"source":"en","target":"ru","text":"Please read the book@example.org","expected":null,"reason":"protected email local part"},
+  {"source":"en","target":"nl","text":"Please book the train.","expected":null,"reason":"reservation verb"},
+  {"source":"en","target":"id","text":"I like tea.","expected":null,"reason":"uncovered ordinary message"},
+  {"source":"en","target":"ru","text":"Can you bring me coffee?","expected":null,"reason":"uncovered ordinary message"},
+  {"source":"en","target":"id","text":"I drink coffee after lunch.","expected":null,"reason":"clause-end restriction intentionally loses this ordinary context"}
+ ]
+}

@@ -1,0 +1,101 @@
+{
+  "approval_sha256": "",
+  "patterns": [
+    {
+      "concept_id": "prototype:coffee_beverage",
+      "id": "en-ru:coffee_beverage",
+      "meaning": "coffee as a drink",
+      "pair": "en-ru",
+      "reading": "kofe",
+      "source": "coffee",
+      "source_only_permission": false,
+      "target": "кофе",
+      "variants": [
+        {
+          "context": "drink coffee",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "drinking coffee",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            15
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ]
+    },
+    {
+      "concept_id": "prototype:tea_beverage",
+      "id": "en-ru:tea_beverage",
+      "meaning": "tea as a drink",
+      "pair": "en-ru",
+      "reading": "chay",
+      "source": "tea",
+      "source_only_permission": false,
+      "target": "чай",
+      "variants": [
+        {
+          "context": "drink tea",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "drinking tea",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            12
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ]
+    },
+    {
+      "concept_id": "prototype:book_written_work",
+      "id": "en-ru:book_written_work",
+      "meaning": "a written or printed book",
+      "pair": "en-ru",
+      "reading": "kniga",
+      "source": "book",
+      "source_only_permission": false,
+      "target": "книга",
+      "variants": [
+        {
+          "context": "read the book",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            9,
+            13
+          ],
+          "right_boundary": "clause_or_end"
+        },
+        {
+          "context": "reading the book",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            12,
+            16
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ]
+    }
+  ],
+  "policy": "reference-first-source-frames-1",
+  "runtime_promotion": false,
+  "schema": "vipi-source-frame-pack-1",
+  "source": "en",
+  "target": "ru",
+  "version": "source-frames-en-ru-001"
+}

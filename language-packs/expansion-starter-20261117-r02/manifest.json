@@ -1,0 +1,61 @@
+{
+  "packs": [
+    {
+      "bytes": 2424,
+      "file": "source-frames-en-id-001.json",
+      "patterns": 3,
+      "sha256": "edaf9baf150cd9ac72f7a8e6c5cdf96edd0ee2197484efc0d9a90a326681c033",
+      "source": "en",
+      "target": "id",
+      "variants": 6
+    },
+    {
+      "bytes": 1763,
+      "file": "source-frames-id-en-001.json",
+      "patterns": 3,
+      "sha256": "645f5c2ee6a988f5fb44204d3f16b60ceb44e95a0b47ac1095fe3b17e04d149a",
+      "source": "id",
+      "target": "en",
+      "variants": 3
+    },
+    {
+      "bytes": 2427,
+      "file": "source-frames-en-nl-001.json",
+      "patterns": 3,
+      "sha256": "4db473ff610556bfe6b95c98268d3238831bedba0d74e8fdfd9d94187c85fd76",
+      "source": "en",
+      "target": "nl",
+      "variants": 6
+    },
+    {
+      "bytes": 2200,
+      "file": "source-frames-nl-en-001.json",
+      "patterns": 3,
+      "sha256": "5464a3164e5fb655bd32ae8008ef9a3e2736d2f80eb168b8c3c7cba0e2188505",
+      "source": "nl",
+      "target": "en",
+      "variants": 5
+    },
+    {
+      "bytes": 2450,
+      "file": "source-frames-en-ru-001.json",
+      "patterns": 3,
+      "sha256": "7bc41052ef428ad9f31ae3d656efbda355764a783cfab9881d569b2caea2ff83",
+      "source": "en",
+      "target": "ru",
+      "variants": 6
+    },
+    {
+      "bytes": 2229,
+      "file": "source-frames-ru-en-001.json",
+      "patterns": 3,
+      "sha256": "00851bad28183706163c0f3f1f830ba2f2ccdd83ca541b2a07df1c5e46381f81",
+      "source": "ru",
+      "target": "en",
+      "variants": 5
+    }
+  ],
+  "reason": "No approval and permissions; native language and reading gates have not been extended or qualified.",
+  "seed_sha256": "17d9ccb40e426e3b8478239506521fc076dd709e3fd0e220fa769adf2dc8f1ac",
+  "status": "inactive_not_runtime_loadable"
+}

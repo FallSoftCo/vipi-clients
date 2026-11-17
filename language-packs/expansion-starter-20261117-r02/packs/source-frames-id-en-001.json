@@ -1,0 +1,74 @@
+{
+  "approval_sha256": "",
+  "patterns": [
+    {
+      "concept_id": "prototype:coffee_beverage",
+      "id": "id-en:coffee_beverage",
+      "meaning": "coffee as a drink",
+      "pair": "id-en",
+      "reading": "",
+      "source": "kopi",
+      "source_only_permission": false,
+      "target": "coffee",
+      "variants": [
+        {
+          "context": "minum kopi",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            10
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ]
+    },
+    {
+      "concept_id": "prototype:tea_beverage",
+      "id": "id-en:tea_beverage",
+      "meaning": "tea as a drink",
+      "pair": "id-en",
+      "reading": "",
+      "source": "teh",
+      "source_only_permission": false,
+      "target": "tea",
+      "variants": [
+        {
+          "context": "minum teh",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            6,
+            9
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ]
+    },
+    {
+      "concept_id": "prototype:book_written_work",
+      "id": "id-en:book_written_work",
+      "meaning": "a written or printed book",
+      "pair": "id-en",
+      "reading": "",
+      "source": "buku",
+      "source_only_permission": false,
+      "target": "book",
+      "variants": [
+        {
+          "context": "buku ini",
+          "context_scope": "local_phrase",
+          "focus_utf16": [
+            0,
+            4
+          ],
+          "right_boundary": "clause_or_end"
+        }
+      ]
+    }
+  ],
+  "policy": "reference-first-source-frames-1",
+  "runtime_promotion": false,
+  "schema": "vipi-source-frame-pack-1",
+  "source": "id",
+  "target": "en",
+  "version": "source-frames-id-en-001"
+}
