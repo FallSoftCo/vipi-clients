@@ -10,6 +10,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +40,7 @@ private data class LicenseEntry(val title: String, val assets: List<String>)
                 }
             }
             result + grouped.map { LicenseEntry(it.key, it.value.toList()) }
-        }.getOrElse { error = "Licenses couldn’t be opened. Please try again."; emptyList() } }
+        }.getOrElse { error = context.getString(R.string.licenses_open_failed); emptyList() } }
     }
     val paragraphs by produceState<List<String>?>(null, selected) {
         value = selected?.let { entry -> withContext(Dispatchers.IO) {
@@ -51,11 +52,11 @@ private data class LicenseEntry(val title: String, val assets: List<String>)
     }
     fun goBack() { if (selected != null) selected = null else back() }
     BackHandler { goBack() }
-    Scaffold(topBar = { TopAppBar(title = { Text(if (selected == null) "Licenses and notices" else "License") },
-        navigationIcon = { IconButton(onClick = ::goBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back") } }) }) { padding ->
+    Scaffold(topBar = { TopAppBar(title = { Text(if (selected == null) stringResource(R.string.ui_2a6b4d12ccfb) else stringResource(R.string.ui_c011d6097bfb)) },
+        navigationIcon = { IconButton(onClick = ::goBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } }) }) { padding ->
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             if (selected == null) {
-                item { Text("Vipi client source is licensed under AGPL-3.0-only. It is provided without warranty. You may copy and modify it under the license terms. Third-party software keeps its own licenses.") }
+                item { Text(stringResource(R.string.ui_cc9317e2ab2e)) }
                 error?.let { item { Text(it) } }
                 items(entries.orEmpty()) { entry -> Text(entry.title, Modifier.fillMaxWidth().clickable { selected = entry }.padding(vertical = 10.dp), style = MaterialTheme.typography.bodyLarge) }
                 if (entries == null) item { CircularProgressIndicator() }

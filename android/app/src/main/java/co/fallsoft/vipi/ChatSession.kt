@@ -17,6 +17,13 @@ internal data class ChatProfile(val id: UUID, val username: String, val displayN
     companion object { fun parse(value: JSONObject) = ChatProfile(UUID.fromString(value.getString("id")), value.getString("username"), value.getString("display_name")) }
 }
 
+/** A displayed @ prefix is accepted for lookup only; the stored username stays canonical. */
+internal fun normalizeLookupUsername(input: String): String {
+    val normalized = input.trim().lowercase().removePrefix("@")
+    if (!normalized.matches(Regex("[a-z][a-z0-9_]{2,23}"))) throw ServiceFailure(0, "invalid_username")
+    return normalized
+}
+
 /** Main-thread coordinator; transport events, lifecycle and explicit refresh
  * share one synchronization. Durable journal commits always precede receipts. */
 internal class ChatSession(private val context: Context, private val api: ChatTransport, val userID: String) : Closeable {
@@ -106,8 +113,8 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             open(currentProfile); provision()
         }
         catch (error: CancellationException) { throw error }
-        catch (error: ServiceFailure) { if (error.code == "profile_required") needsProfile = true else notice = explanation(error) }
-        catch (error: Exception) { notice = explanation(error) }
+        catch (error: ServiceFailure) { if (error.code == "profile_required") needsProfile = true else notice = explanation(context, error) }
+        catch (error: Exception) { notice = explanation(context, error) }
         finally { busy = false }
         if (ready) synchronize()
     }
@@ -118,7 +125,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             open(ChatProfile.parse(request("PUT", "/v1/me", JSONObject().put("username", username.trim().lowercase()).put("display_name", name))))
             provision()
         } catch (error: CancellationException) { throw error }
-        catch (error: Exception) { notice = explanation(error) }
+        catch (error: Exception) { notice = explanation(context, error) }
         finally { busy = false }
         if (ready) synchronize()
     }
@@ -152,7 +159,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             DeviceRecovery.commit(store, old.device, next)
             core = MessagingCore(store); ready = true; needsDeviceRecovery = false
             provision(); reload()
-            notice = "This device is connected. Your saved history remains here. Previous waiting messages stopped; your friends will see new encryption keys."
+            notice = context.getString(R.string.ui_ea1029db5e5d)
         } catch (error: CancellationException) { throw error }
         catch (error: Exception) {
             if (error is Authentication.SignInRequired || error is ServiceFailure && error.code in setOf("recent_sign_in_required", "sign_in_required")) recoveryNeedsSignIn = true
@@ -161,21 +168,20 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 // A further takeover needs another explicit user confirmation with a new candidate.
                 vault?.transaction { vault?.remove("local", "replacement-device") }
             }
-            notice = explanation(error)
+            notice = explanation(context, error)
         } finally { busy = false }
         if (ready) synchronize()
     }
     suspend fun find(input: String): ChatProfile {
         val core = core; val vault = vault
         if (!ready || core == null || vault == null) throw ServiceFailure(0, "device_not_ready")
-        val username = input.trim().lowercase()
-        if (!username.matches(Regex("[a-z][a-z0-9_]{2,23}"))) throw ServiceFailure(0, "invalid_username")
+        val username = normalizeLookupUsername(input)
         val value = ChatProfile.parse(request("GET", "/v1/people/$username", device = core.device))
         if (value.id == profile?.id) throw ServiceFailure(0, "own_username")
         vault.transaction { vault.put("contact", value.id.toString(), value.json().toString().toByteArray(Charsets.UTF_8)) }
         contacts = contacts + (value.id to value); return value
     }
-    fun name(peer: UUID) = contacts[peer]?.displayName ?: importedNames[peer] ?: "New conversation"
+    fun name(peer: UUID) = contacts[peer]?.displayName ?: importedNames[peer] ?: context.getString(R.string.nav_new_chat)
     suspend fun refreshBlock(peer: UUID) {
         val core = core ?: throw ServiceFailure(0, "device_not_ready")
         if (peer in changingBlocks) return
@@ -231,7 +237,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         require(vault!!.transaction { vault!!.get("pending-recovery", compared.peer.toString())?.toString(Charsets.UTF_8) } == compared.requestID.toString())
         core.keys.confirmRecovery(compared, response)
         peersNeedingRecovery = peersNeedingRecovery - compared.peer
-        notice = "Encryption updated. Previous waiting messages stopped. Compare the new security number with your friend."
+        notice = context.getString(R.string.ui_5f0f1b251f45)
         reload(); synchronize()
     }
     fun markRead(peer: UUID) { if (threads.any { it.peer == peer && it.unread > 0 }) { history?.markRead(peer); reload() } }
@@ -315,7 +321,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                             if (error is CancellationException) throw error
                             if (error is RetiredPeerMessage) return@repeat // Never acknowledge unread ciphertext from an explicitly retired device.
                             if (error is PeerIdentityChanged) markPeerRecovery(error.peer)
-                            completed = false; notice = if (error is PeerIdentityChanged) explanation(error) else "A message couldn’t be opened securely. Your existing conversations are saved."
+                            completed = false; notice = if (error is PeerIdentityChanged) explanation(context, error) else context.getString(R.string.message_secure_open_failed)
                         }
                     }
                     if (!result.has("next_cursor") || result.isNull("next_cursor")) break
@@ -350,7 +356,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                         if (draft.recipient in blockedPeers) continue
                         core.queue(draft.id, draft.recipient, draft.text, draft.createdAt, System.currentTimeMillis())
                     } catch (error: CancellationException) { throw error }
-                    catch (error: Exception) { if (error is PeerIdentityChanged) markPeerRecovery(error.peer); completed = false; notice = explanation(error) }
+                    catch (error: Exception) { if (error is PeerIdentityChanged) markPeerRecovery(error.peer); completed = false; notice = explanation(context, error) }
                 }
                 for (envelope in core.journal.pending(System.currentTimeMillis())) {
                     if (envelope.recipient in blockedPeers) continue
@@ -365,16 +371,16 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                         if (state != null) core.journal.applyStatus(envelope.id, state)
                         else if (error.code != "recipient_queue_full") throw error
                         else completed = false
-                        notice = explanation(error)
+                        notice = explanation(context, error)
                     }
                 }
             } while (syncAgain)
             lastSyncComplete = completed
         } catch (error: CancellationException) { throw error }
-        catch (error: Exception) { notice = explanation(error) }
+        catch (error: Exception) { notice = explanation(context, error) }
         finally {
             syncing = false
-            try { reload() } catch (_: Exception) { lastSyncComplete = false; notice = "Your saved conversations couldn’t be opened. Please try again." }
+            try { reload() } catch (_: Exception) { lastSyncComplete = false; notice = context.getString(R.string.ui_efd4b5d37081) }
             syncDone?.complete(Unit); syncDone = null
         }
     }
@@ -392,7 +398,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     internal fun noteDeviceRevoked() {
         if (closed) return
         ready = false; needsDeviceRecovery = true; needsReauthentication = false
-        notice = "Your account moved to another device. Your saved conversations are still available here."
+        notice = context.getString(R.string.ui_54a04d4e9955)
     }
     override fun close() {
         closed = true; ready = false; needsProfile = false; syncAgain = false
@@ -428,27 +434,27 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             error.status == 400 && error.code in setOf("invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type") -> "failed"
             else -> null
         }
-        fun explanation(error: Exception): String {
-            if (error is PeerIdentityChanged) return "Your friend’s encryption identity changed. Review the new keys before sending another message. Your saved history stays here."
+        fun explanation(context: Context, error: Exception): String {
+            if (error is PeerIdentityChanged) return context.getString(R.string.ui_2e03fab81b5f)
             if (error is ServiceFailure) {
                 when (error.code) {
-                    "username_unavailable" -> return "That username isn’t available. Try another."
-                    "person_not_found" -> return "No one was found with that username. Check the spelling with your friend."
-                    "invalid_username" -> return "Use 3–24 letters, numbers or underscores, starting with a letter."
-                    "own_username" -> return "That’s your username. Enter your friend’s username to start a conversation."
-                    "service_not_available" -> return "Vipi is being prepared for launch. This account isn’t in the preview yet."
-                    "base_subscription_required" -> return "Start or restore your Vipi plan to send messages. Your saved chats and drafts remain available."
-                    "device_replacement_confirmation_required" -> return "This account is already active on another device. Moving your account needs a separate confirmation."
-                    "recent_sign_in_required", "sign_in_required", "device_revoked" -> return "Please sign in again to reconnect your account. Your saved conversations are still on this device."
-                    "recipient_keys_unavailable" -> return "Your friend needs to open Vipi before this first message can be sent. Your message is saved."
-                    "device_not_ready" -> return "Connect once to finish setting up this device."
-                    "contact_blocked" -> return "Unblock this person to send a new message."
-                    "message_expired" -> return "This message expired before delivery. You can send it again."
-                    "recipient_unavailable", "recipient_identity_changed", "message_id_conflict", "invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type" -> return "A message couldn’t be delivered. Your other conversations can continue."
+                    "username_unavailable" -> return context.getString(R.string.ui_5cd3939d3b90)
+                    "person_not_found" -> return context.getString(R.string.ui_eb7c5193d2ac)
+                    "invalid_username" -> return context.getString(R.string.ui_5394002806ab)
+                    "own_username" -> return context.getString(R.string.ui_901dc3311d68)
+                    "service_not_available" -> return context.getString(R.string.ui_e1e68ee1cefa)
+                    "base_subscription_required" -> return context.getString(R.string.ui_f1af503686b6)
+                    "device_replacement_confirmation_required" -> return context.getString(R.string.ui_0fac2fda13a5)
+                    "recent_sign_in_required", "sign_in_required", "device_revoked" -> return context.getString(R.string.ui_77d4347c1125)
+                    "recipient_keys_unavailable" -> return context.getString(R.string.ui_965e47e6fb9e)
+                    "device_not_ready" -> return context.getString(R.string.ui_20b395d8ee06)
+                    "contact_blocked" -> return context.getString(R.string.ui_13dff14c70d6)
+                    "message_expired" -> return context.getString(R.string.ui_6315acd44d88)
+                    "recipient_unavailable", "recipient_identity_changed", "message_id_conflict", "invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type" -> return context.getString(R.string.ui_9e36cb35d1a0)
                 }
-                if (error.status == 429) return "Please wait a moment before trying again. Your messages are saved."
+                if (error.status == 429) return context.getString(R.string.ui_4a144bcc83d9)
             }
-            return "Can’t connect. Messages are saved here."
+            return context.getString(R.string.ui_fc3360ba8336)
         }
     }
 }

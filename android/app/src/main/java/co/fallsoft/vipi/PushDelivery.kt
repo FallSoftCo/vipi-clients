@@ -35,8 +35,8 @@ class VipiApplication : Application() {
                 .setApiKey(BuildConfig.FIREBASE_API_KEY).build())
         }
         getSystemService(NotificationManager::class.java).createNotificationChannel(
-            NotificationChannel(PushDelivery.CHANNEL, "Messages", NotificationManager.IMPORTANCE_DEFAULT).apply {
-                description = "Private notifications when friends reply"
+            NotificationChannel(PushDelivery.CHANNEL, getString(R.string.ui_04d7b4833927), NotificationManager.IMPORTANCE_DEFAULT).apply {
+                description = getString(R.string.ui_9648f84b6ea3)
                 lockscreenVisibility = android.app.Notification.VISIBILITY_PRIVATE
             })
     }
@@ -71,7 +71,7 @@ internal object PushDelivery {
         if (unread.size == 1) intent.putExtra("notification_peer", unread.single().peer.toString())
         val pending = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         val notification = NotificationCompat.Builder(context, CHANNEL).setSmallIcon(R.drawable.vipi_notification)
-            .setContentTitle("Vipi").setContentText("You have a new message.").setContentIntent(pending).setAutoCancel(true)
+            .setContentTitle(context.getString(R.string.ui_0882ca640d5a)).setContentText(context.getString(R.string.ui_3abeae7a3bed)).setContentIntent(pending).setAutoCancel(true)
             .setOnlyAlertOnce(true)
             .setVisibility(NotificationCompat.VISIBILITY_PRIVATE).setCategory(NotificationCompat.CATEGORY_MESSAGE).build()
         try { NotificationManagerCompat.from(context).notify(1, notification) } catch (_: SecurityException) { /* permission changed */ }

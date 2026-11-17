@@ -5,6 +5,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.Alignment
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -12,6 +15,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -28,6 +32,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 internal class HistoryBackupModel : ViewModel() {
     var password by mutableStateOf("")
     var confirmation by mutableStateOf("")
+    var restoring by mutableStateOf(false)
     var busy by mutableStateOf(false)
     var message by mutableStateOf<String?>(null)
     var summary by mutableStateOf<HistoryBackupCodec.Inspection?>(null)
@@ -48,6 +53,7 @@ internal class HistoryBackupModel : ViewModel() {
     val scope = transfer.viewModelScope
     var password by transfer::password
     var confirmation by transfer::confirmation
+    var restoring by transfer::restoring
     var busy by transfer::busy
     var message by transfer::message
     var summary by transfer::summary
@@ -58,8 +64,8 @@ internal class HistoryBackupModel : ViewModel() {
         .resolve("${UUID.randomUUID()}.vipihistory")
     fun clearImport() { staged?.delete(); staged = null; summary = null }
     fun failure(error: Exception) {
-        message = if (error is HistoryBackupCodec.DifferentAccount) "This backup belongs to a different Vipi account. Sign in to that account to restore it."
-        else "The backup couldn’t be opened or saved. Check the password and file, then try again."
+        message = if (error is HistoryBackupCodec.DifferentAccount) context.getString(R.string.backup_wrong_account)
+        else context.getString(R.string.backup_open_failed)
     }
     DisposableEffect(context) { onDispose {
         var owner = context
@@ -81,9 +87,9 @@ internal class HistoryBackupModel : ViewModel() {
                         output.flush()
                     }
                 }
-                message = "Your encrypted chat backup is saved. Keep its password somewhere safe."
+                message = context.getString(R.string.backup_saved)
             } catch (error: CancellationException) { throw error }
-            catch (error: Exception) { failure(error) }
+            catch (error: Exception) { message = context.getString(R.string.backup_save_failed) }
             finally { file.delete(); exported = null; password = ""; confirmation = ""; busy = false }
         }
     }
@@ -112,21 +118,29 @@ internal class HistoryBackupModel : ViewModel() {
             finally { file?.delete(); busy = false }
         }
     }
-    Scaffold(topBar = { TopAppBar(title = { Text("Chat backup") }, navigationIcon = {
-        IconButton(onClick = { job?.cancel(); back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, "Back") }
+    Scaffold(topBar = { TopAppBar(title = { Text(stringResource(R.string.ui_24f13e3dc8e4)) }, navigationIcon = {
+        IconButton(onClick = { job?.cancel(); back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) }
     }) }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            Text("Keep your conversations.", style = MaterialTheme.typography.headlineMedium)
-            Text("Save your friend chat history in an encrypted file. You choose where to keep it. Your messaging identity, unsent messages and vBot history stay out of the backup.")
-            Text("Keep your backup password. Vipi cannot recover it. Your saved chats and backups remain accessible if your plan ends.", style = MaterialTheme.typography.bodyMedium)
-            OutlinedTextField(password, { password = it; clearImport(); message = null }, label = { Text("Backup password") },
-                supportingText = { Text("Use at least 12 characters. A long, unique passphrase is best.") },
+            Text(stringResource(R.string.ui_0541b2d9f69b), style = MaterialTheme.typography.headlineMedium)
+            Text(stringResource(R.string.ui_bb1fe2470e72))
+            Text(stringResource(R.string.ui_233a70befbdc), style = MaterialTheme.typography.bodyMedium)
+            listOf(false to stringResource(R.string.ui_6a6965bcf571), true to stringResource(R.string.ui_beb6c51b9bf6)).forEach { (restore, label) ->
+                Row(Modifier.fillMaxWidth().selectable(selected = restoring == restore, enabled = !busy, role = Role.RadioButton, onClick = {
+                    if (restoring != restore) { clearImport(); confirmation = ""; message = null; restoring = restore }
+                }), verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(selected = restoring == restore, onClick = null, enabled = !busy)
+                    Text(label, modifier = Modifier.padding(start = 8.dp))
+                }
+            }
+            OutlinedTextField(password, { password = it; clearImport(); message = null }, label = { Text(stringResource(R.string.ui_3e39703b6e87)) },
+                supportingText = { Text(stringResource(R.string.ui_04c8049b72ff)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
                 singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth())
-            OutlinedTextField(confirmation, { confirmation = it }, label = { Text("Confirm password to save a backup") },
+            if (!restoring) OutlinedTextField(confirmation, { confirmation = it }, label = { Text(stringResource(R.string.ui_d63cd658184e)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
                 singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth())
-            Button(onClick = {
+            if (!restoring) Button(onClick = {
                 busy = true; message = null; clearImport()
                 job = scope.launch {
                     var file: File? = null
@@ -135,29 +149,29 @@ internal class HistoryBackupModel : ViewModel() {
                         exported = file; file = null
                         save.launch("Vipi-chat-history.vipihistory")
                     } catch (error: CancellationException) { throw error }
-                    catch (error: Exception) { exported?.delete(); exported = null; failure(error); busy = false }
+                    catch (error: Exception) { exported?.delete(); exported = null; message = context.getString(R.string.backup_save_failed); busy = false }
                     finally { file?.delete() }
                 }
-            }, enabled = !busy && HistoryBackupCodec.validPassword(password) && password == confirmation, modifier = Modifier.fillMaxWidth()) { Text("Save encrypted backup") }
-            OutlinedButton(onClick = { busy = true; message = null; open.launch(arrayOf("application/octet-stream", "application/*")) },
-                enabled = !busy && HistoryBackupCodec.validPassword(password), modifier = Modifier.fillMaxWidth()) { Text("Choose a backup to restore") }
+            }, enabled = !busy && HistoryBackupCodec.validPassword(password) && password == confirmation, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_6a6965bcf571)) }
+            if (restoring) OutlinedButton(onClick = { busy = true; message = null; open.launch(arrayOf("application/octet-stream", "application/*")) },
+                enabled = !busy && HistoryBackupCodec.validPassword(password), modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_a67f154bcb16)) }
             if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
             message?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
         }
     }
-    summary?.let { counts -> AlertDialog(onDismissRequest = { clearImport() }, title = { Text("Restore chat history?") },
-        text = { Text("This backup contains ${counts.summary.messages} messages and ${counts.summary.peers} conversations. Matching messages are kept once. Existing conversations and messaging security stay in place.") },
-        dismissButton = { TextButton(onClick = { clearImport() }) { Text("Cancel") } },
+    summary?.let { counts -> AlertDialog(onDismissRequest = { clearImport() }, title = { Text(stringResource(R.string.ui_d42ff6022f50)) },
+        text = { Text(stringResource(R.string.backup_contents, androidx.compose.ui.res.pluralStringResource(R.plurals.backup_messages, counts.summary.messages, java.text.NumberFormat.getIntegerInstance().format(counts.summary.messages)), androidx.compose.ui.res.pluralStringResource(R.plurals.backup_conversations, counts.summary.peers, java.text.NumberFormat.getIntegerInstance().format(counts.summary.peers)))) },
+        dismissButton = { TextButton(onClick = { clearImport() }) { Text(stringResource(R.string.cancel_action)) } },
         confirmButton = { TextButton(onClick = {
             val file = staged ?: return@TextButton
             summary = null; busy = true
             job = scope.launch {
                 try {
                     val result = chat.importHistory(file, password, counts)
-                    message = "Restored ${result.added} messages. ${result.unchanged} matching messages were already saved."
+                    message = context.getString(R.string.backup_restore_result, context.resources.getQuantityString(R.plurals.backup_messages, result.added, java.text.NumberFormat.getIntegerInstance().format(result.added)), context.resources.getQuantityString(R.plurals.backup_messages, result.unchanged, java.text.NumberFormat.getIntegerInstance().format(result.unchanged)))
                 } catch (error: CancellationException) { throw error }
                 catch (error: Exception) { failure(error) }
                 finally { clearImport(); password = ""; confirmation = ""; busy = false }
             }
-        }) { Text("Restore history") } }) }
+        }) { Text(stringResource(R.string.ui_beb6c51b9bf6)) } }) }
 }

@@ -1,0 +1,421 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="ui_04d7b4833927" formatted="false">الرسائل</string>
+    <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
+    <string name="ui_0c42f5497c0b" formatted="false">أظهر الكلمات الأصلية الآن</string>
+    <string name="ui_0cd8734d2fcd" formatted="false">تتم إدارة الاشتراكات بشكل منفصل. تبقى نسخ الأصدقاء والنسخ الاحتياطية المحفوظة في مكان آخر.</string>
+    <string name="ui_0fac2fda13a5" formatted="false">هذا الحساب نشط بالفعل على جهاز آخر. يحتاج نقل حسابك إلى تأكيد منفصل.</string>
+    <string name="ui_11a6767d5674" formatted="false">تم</string>
+    <string name="ui_12feaf099b55" formatted="false">محادثات الأصدقاء مشفّرة من طرف إلى طرف.</string>
+    <string name="ui_13dff14c70d6" formatted="false">قم بإلغاء حظر هذا الشخص لإرسال رسالة جديدة.</string>
+    <string name="ui_1afc1c2532c4" formatted="false">لم نتمكن من التحقق من تسجيل الدخول هذا. من فضلك ابدأ من جديد.</string>
+    <string name="ui_1e22fb013bb0" formatted="false">استئناف الكلمات الإسبانية</string>
+    <string name="ui_20b395d8ee06" formatted="false">اتصل مرة واحدة لإنهاء إعداد هذا الجهاز.</string>
+    <string name="ui_211d0bb8cf4f" formatted="false">حظر</string>
+    <string name="ui_225d29f6201e" formatted="false">استمع</string>
+    <string name="ui_24a3f4314e5c" formatted="false">إدارة الاشتراكات</string>
+    <string name="ui_24f13e3dc8e4" formatted="false">نسخة احتياطية للمحادثات</string>
+    <string name="ui_25cb0ec8237b" formatted="false">يمكنك تبادل الرسائل الجديدة مرة أخرى. لن يتم إعادة إرسال الرسائل المتوقفة.</string>
+    <string name="ui_2a6b4d12ccfb" formatted="false">التراخيص والإشعارات</string>
+    <string name="ui_2c6b2e253c01" formatted="false">اسمك</string>
+    <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
+    <string name="ui_318655cea4bd" formatted="false">اللغات</string>
+    <string name="ui_33875a9b79e5" formatted="false">استخدم من 3 إلى 24 حرفًا إنجليزيًا أو رقمًا أو شرطة سفلية. ابدأ بحرف إنجليزي. يظل رقم هاتفك وجهات اتصالك خاصّين.</string>
+    <string name="ui_339484dc1f78" formatted="false">كلمات في دردشاتك</string>
+    <string name="ui_33a2ae335a6b" formatted="false">تم طلب الحذف</string>
+    <string name="ui_3446735cfdee" formatted="false">مسح حالة التحقق</string>
+    <string name="ui_3907fa7f8072" formatted="false">المظهر</string>
+    <string name="ui_3b3139fd3460" formatted="false">اعثر على الأصدقاء باستخدام اسم المستخدم.</string>
+    <string name="ui_4757eee1005a" formatted="false">لا يظهر بريدك الإلكتروني لأصدقائك.</string>
+    <string name="ui_48e35bc10280" formatted="false">قل مرحبا. رسائلك مشفرة من طرف إلى طرف.</string>
+    <string name="ui_4a144bcc83d9" formatted="false">يرجى الانتظار لحظة قبل المحاولة مرة أخرى. تم حفظ رسائلك.</string>
+    <string name="ui_4b34e1b08868" formatted="false">أرسل إلى vBot</string>
+    <string name="ui_51fbe1dc8a73" formatted="false">تسجيل الدخول مجدداً</string>
+    <string name="ui_5394002806ab" formatted="false">استخدم 3-24 حرفا أو رقما أو خطا سفليا، بدءا من حرف.</string>
+    <string name="ui_53b6cd2365c7" formatted="false">تحقق من التشفير</string>
+    <string name="ui_5480a088185c" formatted="false">الإبلاغ عن الرد</string>
+    <string name="ui_561a197a2807" formatted="false">رسائل سابقة</string>
+    <string name="ui_58fd7deb0abe" formatted="false">إعداد الأصوات</string>
+    <string name="ui_5aa854326157" formatted="false">تختلف الكلمات والعبارات المتاحة حسب اللغة. قد يحتاج النطق إلى تنزيل صوتي.</string>
+    <string name="ui_5b80e534fb0c" formatted="false">قم بالتنزيل للترجمة الكاملة</string>
+    <string name="ui_5cd3939d3b90" formatted="false">اسم المستخدم هذا غير متاح. جرب آخر.</string>
+    <string name="ui_5d670c14e5b1" formatted="false">تم حذف الحساب</string>
+    <string name="ui_5de398810247" formatted="false">سرعة تبديل الكلمات</string>
+    <string name="ui_6151d69d167a" formatted="false">إذا اختلفت أي مجموعة، فلا تضع علامة عليها على أنها تم التحقق منها. يمكن للهاتف الجديد أو التطبيق المعاد تثبيته تغيير هذه الأرقام.</string>
+    <string name="ui_6315acd44d88" formatted="false">انتهت صلاحية هذه الرسالة قبل التسليم. يمكنك إرساله مرة أخرى.</string>
+    <string name="ui_682be64ae780" formatted="false">تمكين الإشعارات</string>
+    <string name="ui_712da63171e0" formatted="false">إلغاء الحظر</string>
+    <string name="ui_77d4347c1125" formatted="false">يرجى تسجيل الدخول مرة أخرى لإعادة توصيل حسابك. لا تزال محادثاتك المحفوظة على هذا الجهاز.</string>
+    <string name="ui_79a7ada4e1f1" formatted="false">لغاتك</string>
+    <string name="ui_7a888f9040e0" formatted="false">تسجيل الدخول غير متاح بعد. يرجى المحاولة مرة أخرى بعد قليل.</string>
+    <string name="ui_7ab60595358e" formatted="false">احذف حسابك</string>
+    <string name="ui_7f5e3877efec" formatted="false">هذا مثال. في دردشاتك، يتم تبديل الكلمات والعبارات المدعومة فقط. يبقى الباقي دون تغيير.</string>
+    <string name="ui_817b085ae5a9" formatted="false">ستتوقف الرسائل بينكما. تبقى الدردشة الخاصة بك على هذا الجهاز. يمكنك إلغاء الحظر في أي وقت.</string>
+    <string name="ui_8201f9bbb22b" formatted="false">لم تتم مقارنته بعد</string>
+    <string name="ui_821bff5750c3" formatted="false">تنتقل الكلمات المميزة بين لغتيك. هذا مثال معد؛ تختلف الكلمات المتاحة في دردشاتك حسب اللغة. يمكنك أيضا عرض ترجمة كاملة معدة.</string>
+    <string name="ui_822ebe66fdd6" formatted="false">شاهد تبديل الكلمات المميزة في مكانها. اضغط على \"إيقاف مؤقت\" لإيقافها أو \"استمع\" لسماع النطق.</string>
+    <string name="ui_89dbe6aad0c8" formatted="false">تعلم اللغة من خلال الدردشة</string>
+    <string name="ui_8a74ed1b7a84" formatted="false">اسم مستخدم الصديق</string>
+    <string name="ui_8def6a81a73d" formatted="false">ستتم إزالة ملفك الشخصي والرسائل التي تنتظر التسليم من Vipi. سيتم أيضا مسح الدردشات المحفوظة على هذا الجهاز.</string>
+    <string name="ui_8ffeaed375d8" formatted="false">لقد تحققت من هذه المفاتيح</string>
+    <string name="ui_901dc3311d68" formatted="false">هذا هو اسم المستخدم الخاص بك. أدخل اسم مستخدم صديقك لبدء محادثة.</string>
+    <string name="ui_94455044f130" formatted="false">قم بتسجيل الدخول إلى نفس الحساب للمتابعة.</string>
+    <string name="ui_956d8b926f8d" formatted="false">اختر اسما سيتعرفون عليه واسم مستخدم لمشاركته.</string>
+    <string name="ui_965e47e6fb9e" formatted="false">يحتاج صديقك إلى فتح Vipi قبل إرسال هذه الرسالة الأولى. تم حفظ رسالتك.</string>
+    <string name="ui_9989062e50f8" formatted="false">مثال: الإنجليزية والإسبانية</string>
+    <string name="ui_9bbf916f3af5" formatted="false">فقط بينكما</string>
+    <string name="ui_9d2dbb5de070" formatted="false">سجل الدخول للتأكيد</string>
+    <string name="ui_9e36cb35d1a0" formatted="false">تعذر تسليم الرسالة. يمكن أن تستمر محادثاتك الأخرى.</string>
+    <string name="ui_9ed65d7add5f" formatted="false">أوافق على شروط الخدمة وقد قرأت سياسة الخصوصية.</string>
+    <string name="ui_9f60f6c0e9e0" formatted="false">إرسال رسالة إلى vBot</string>
+    <string name="ui_a2e20a335700" formatted="false">حذف الحساب</string>
+    <string name="ui_a44d35311325" formatted="false">أرسل التقرير</string>
+    <string name="ui_ac6b07b85d0f" formatted="false">ربما تكون المفاتيح قد تغيرت، أو تعذر حفظ اختيارك. قارن الأرقام الحالية مرة أخرى.</string>
+    <string name="ui_af0bd5582e73" formatted="false">دردش مع روبوت الدردشة. يتطلب خطة Bot mini المنفصلة.</string>
+    <string name="ui_af8a897d2feb" formatted="false">خيارات المحادثة</string>
+    <string name="ui_b0f88f29b4b2" formatted="false">انسخ الرسالة الأصلية</string>
+    <string name="ui_b1fe736c0809" formatted="false">لقد حظرت هذا الشخص.</string>
+    <string name="ui_b42323dd1fd2" formatted="false">تنتقل الكلمات والعبارات القصيرة المختارة بين لغتك واللغة التي تختارها. يبقى ترتيب الكلمات والقواعد النحوية كما هي.</string>
+    <string name="ui_b47e6d6e77c8" formatted="false">تعذر فتح تفاصيل التشفير. لم يتغير التحقق الخاص بك.</string>
+    <string name="ui_b68710eee013" formatted="false">الاتصال بدردشاتك</string>
+    <string name="ui_b6ec9d55ae3b" formatted="false">لقد قارنت جميع المجموعات ال 12</string>
+    <string name="ui_b7c32ca74cb0" formatted="false">استمع إلى كلتا اللغتين</string>
+    <string name="ui_ba6e8c9b0c3e" formatted="false">العثور على صديق</string>
+    <string name="ui_beb6c51b9bf6" formatted="false">استعادة التاريخ</string>
+    <string name="ui_c26d4e55137b" formatted="false">سيتم حذف حسابك ودردشاتك على هذا الجهاز نهائيا. لا يمكن التراجع عن هذا.</string>
+    <string name="ui_c3812fc4acb8" formatted="false">أَزالَ</string>
+    <string name="ui_c518ff733bfe" formatted="false">يتم تشغيل vBot بواسطة DeepSeek. الرسائل التي ترسلها إلى vBot تذهب إلى Vipi وDeepSeek لإنشاء ردود. لا يتم تضمين دردشاتك مع الأصدقاء تلقائيا.</string>
+    <string name="ui_c754691a97ca" formatted="false">تبادل رسالة أولا لإنشاء رقم أمان هذه المحادثة.</string>
+    <string name="ui_cae7d57bc067" formatted="false">إيقاف</string>
+    <string name="ui_cbf7e254a8c0" formatted="false">لغة الرسالة</string>
+    <string name="ui_d8b8392e2c54" formatted="false">حاول مرة أخرى</string>
+    <string name="ui_df0b482c49b2" formatted="false">مثال على الرسالة</string>
+    <string name="ui_e131c9a64a5b" formatted="false">أدخل اسم مستخدم Vipi الخاص بهم بالضبط. تظل جهات اتصال هاتفك خاصة.</string>
+    <string name="ui_e1e68ee1cefa" formatted="false">يتم إعداد Vipi للإطلاق. هذا الحساب ليس في المعاينة بعد.</string>
+    <string name="ui_e3b89e9d33f8" formatted="false">اسم المستخدم</string>
+    <string name="ui_e48800c742a6" formatted="false">استخدم هذا الجهاز</string>
+    <string name="ui_e52b25aa61b5" formatted="false">خيارات القراءة</string>
+    <string name="ui_e7e76272a570" formatted="false">عرض الرسالة الأصلية</string>
+    <string name="ui_eb7c5193d2ac" formatted="false">لم يتم العثور على أحد باسم المستخدم هذا. تحقق من التهجئة مع صديقك.</string>
+    <string name="ui_ed783fa140ed" formatted="false">إعادة محاولة الأصوات</string>
+    <string name="ui_ef32661fdda0" formatted="false">انتقل إلى أحدث الرسائل</string>
+    <string name="ui_efd4b5d37081" formatted="false">تعذر فتح محادثاتك المحفوظة. يرجى المحاولة مرة أخرى.</string>
+    <string name="ui_f173182378d0" formatted="false">vBot</string>
+    <string name="ui_f897de52ea1a" formatted="false">تحقق من التنزيلات</string>
+    <string name="ui_f9adde8b7f6a" formatted="false">احتفظ بالتنزيلات</string>
+    <string name="ui_fc3360ba8336" formatted="false">لا يمكنني الاتصال. يتم حفظ الرسائل هنا.</string>
+    <string name="ui_fd5e205fa654" formatted="false">لن يؤدي ذلك إلى محو نسخ الأصدقاء أو النسخ الاحتياطية التي قمت بحفظها في مكان آخر.</string>
+    <string name="review_access_description">الوصول إلى المراجعة نشط. لا يوجد اشتراك مطلوب لهذا الحساب.</string>
+    <string name="languages_removing">إزالة التنزيلات...</string>
+    <string name="voices_not_ready">لم تستطع الأصوات الاستعداد. حاول مرة أخرى.</string>
+    <string name="audio_play_failed">تعذر تشغيل هذه الرسالة. حاول مرة أخرى.</string>
+    <string name="chat_saved_open_failed">تعذر فتح رسائلك المحفوظة. يرجى المحاولة مرة أخرى.</string>
+    <string name="chat_earlier_open_failed">تعذر فتح الرسائل السابقة. يرجى المحاولة مرة أخرى.</string>
+    <string name="chat_block_check_failed">تعذر التحقق من حالة الحظر. تم حفظ آخر اختيار مؤكد لك.</string>
+    <string name="chat_draft_save_failed">لا يمكن حفظ هذه المسودة. أبق هذه المحادثة مفتوحة وحاول مرة أخرى.</string>
+    <string name="chat_change_unconfirmed">تعذر تأكيد التغيير. تحقق من اتصالك وحاول مرة أخرى.</string>
+    <string name="deletion_completed">تمت إزالة حساب Vipi الخاص بك والدردشات على هذا الجهاز.</string>
+    <string name="deletion_accepted">قبل Vipi طلبك. نحن ننتهي من الحذف. يمكنك إغلاق التطبيق والتحقق مرة أخرى لاحقا.</string>
+    <string name="deletion_pending">سنؤكد الطلب ونزيل دردشاتك المحفوظة من هذا الجهاز. يحفظ Vipi تقدمك إذا انقطع الاتصال.</string>
+    <string name="backup_wrong_account">تنتمي هذه النسخة الاحتياطية إلى حساب Vipi مختلف. قم بتسجيل الدخول إلى هذا الحساب لاستعادته.</string>
+    <string name="appearance_system">نِظام</string>
+    <string name="appearance_light">فاتح</string>
+    <string name="appearance_dark">داكن</string>
+    <string name="full_translation_download">قم بالتنزيل للترجمة الكاملة</string>
+    <string name="delivery_delivered">تم التسليم</string>
+    <string name="delivery_sent">أرسل</string>
+    <string name="delivery_expired">لم يتم التسليم · مرّت 72 ساعة</string>
+    <string name="delivery_failed">لم يتم التسليم</string>
+    <string name="delivery_stopped">توقف</string>
+    <string name="delivery_waiting">في انتظار الإرسال</string>
+    <string name="account_description">قم بإنشاء حساب أو سجل الدخول إلى حساب موجود. يجدك الأصدقاء باسم المستخدم، وليس بريدك الإلكتروني.</string>
+    <string name="deletion_receipt_open_failed">تعذر فتح إيصال الحذف الخاص بك. أغلق وأعد فتح Vipi للمحاولة مرة أخرى.</string>
+    <string name="deletion_interrupted">توقف الطلب. تحقق من حالته للمتابعة.</string>
+    <string name="deletion_sign_in_again">قم بتسجيل الدخول إلى نفس الحساب مرة أخرى للتأكد من أنك أنت، ثم تابع.</string>
+    <string name="deletion_request_unconfirmed">لم نتمكن من تأكيد طلبك. تحقق من اتصالك وحاول مرة أخرى. لن تحتاج إلى البدء من جديد.</string>
+    <string name="deletion_check_failed">تم حفظ طلبك. لم نتمكن من التحقق من الإكمال. يرجى المحاولة مرة أخرى.</string>
+    <string name="deletion_receipt_clear_failed">تعذر مسح إيصال الإكمال. يرجى المحاولة مرة أخرى.</string>
+    <string name="languages_description">اختر اللغة التي تعرفها واللغة التي تريد تعلمها. يمكنك تغيير هذه لاحقا.</string>
+    <string name="reading_slower">أبطأ</string>
+    <string name="reading_standard">عادي</string>
+    <string name="reading_faster">أسرع</string>
+    <string name="language_detect_automatically">اكتشاف تلقائي</string>
+    <string name="report_spam">رسائل مزعجة</string>
+    <string name="report_harassment">مضايقة</string>
+    <string name="report_harmful_content">محتوى ضار</string>
+    <string name="report_other">سبب آخر</string>
+    <string name="report_inaccurate">غير دقيق</string>
+    <string name="message_secure_open_failed">تعذّر فتح رسالة بأمان. محادثاتك الحالية محفوظة.</string>
+    <string name="nav_back">رجوع</string>
+    <string name="nav_settings">ملفك الشخصي والإعدادات</string>
+    <string name="nav_chats">المحادثات</string>
+    <string name="nav_new_chat">محادثة جديدة</string>
+    <string name="nav_plan">خطتك</string>
+    <string name="nav_invite">دعوة صديق</string>
+    <string name="nav_sign_in">تسجيل الدخول</string>
+    <string name="nav_terms">الشروط</string>
+    <string name="nav_privacy">الخصوصية</string>
+    <string name="settings_title">الإعدادات</string>
+    <string name="new_words">كلمات جديدة</string>
+    <string name="try_again">حاول مجددًا</string>
+    <string name="cancel_action">إلغاء</string>
+    <string name="continue_action">متابعة</string>
+    <string name="send_message">إرسال رسالة</string>
+    <string name="message_hint">رسالة</string>
+    <string name="choose_languages">اختيار اللغات</string>
+    <string name="language_settings">إعدادات اللغة</string>
+    <string name="already_speak">أتحدث بالفعل</string>
+    <string name="want_learn">أريد تعلّم</string>
+    <string name="example_message">رسالة مثال</string>
+    <string name="your_account">حسابك</string>
+    <string name="continue_signin">المتابعة لتسجيل الدخول</string>
+    <string name="no_account_preview">لا تحتاج إلى حساب لتجربة هذا المثال.</string>
+    <string name="terms_service">شروط الخدمة</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="continue_with_language">المتابعة مع %1$s</string>
+    <string name="new_words_description">اختر عدد الكلمات الجديدة التي تظهر. قد تستمر الكلمات التي رأيتها في الظهور أيضًا، لذلك قد يزيد العدد الإجمالي.</string>
+    <string name="new_words_off">تبديل الكلمات متوقف.</string>
+    <string name="new_words_amount">عدد الكلمات الجديدة</string>
+    <string name="cardless_ends">تنتهي فترة وصولك المجاني إلى Vipi ومدتها 30 يومًا في %1$s.</string>
+    <string name="cardless_no_payment">لا تحتاج إلى وسيلة دفع لهذه الفترة المجانية.</string>
+    <string name="cardless_intro">ابدأ بفترة مجانية مدتها 30 يومًا دون وسيلة دفع. بعدها اختر ما إذا كنت تريد الاشتراك.</string>
+    <string name="bot_verification_unavailable">يتعذر التحقق من الوصول إلى Bot mini الآن. حاول مجددًا.</string>
+    <string name="plan_clock_unavailable">تعذر التحقق من الوصول إلى خطتك. حاول مجددًا.</string>
+    <string name="ui_03fdb0dfc1b8" formatted="false">حذف حساب Vipi؟</string>
+    <string name="ui_04c8049b72ff" formatted="false">استخدم 12 حرفًا على الأقل. يُفضّل استخدام عبارة مرور طويلة وفريدة.</string>
+    <string name="ui_0cb9c0cf3bb1" formatted="false">سجّل الدخول مجددًا لإعادة الاتصال. تبقى محادثاتك المحفوظة على هذا الجهاز.</string>
+    <string name="ui_18714cc5a562" formatted="false">هل غيّر صديقك هاتفه؟</string>
+    <string name="ui_3e39703b6e87" formatted="false">كلمة مرور النسخة الاحتياطية</string>
+    <string name="ui_54a04d4e9955" formatted="false">انتقل حسابك إلى جهاز آخر. تظل محادثاتك المحفوظة متاحة هنا.</string>
+    <string name="ui_8218810809d6" formatted="false">تعذّر فتح محادثاتك المحفوظة. أغلق Vipi وافتحه مجددًا للمحاولة مرة أخرى.</string>
+    <string name="ui_d63cd658184e" formatted="false">أكّد كلمة المرور لحفظ نسخة احتياطية</string>
+    <string name="ui_db2b1ef64bbf" formatted="false">استخدام Vipi على هذا الجهاز؟</string>
+    <string name="deletion_prepare_failed">تعذّر إعداد الحذف. أغلق Vipi وافتحه مجددًا للمحاولة مرة أخرى.</string>
+    <string name="licenses_open_failed">تعذّر فتح التراخيص. يُرجى المحاولة مجددًا.</string>
+    <string name="friends_sign_in_required">سجّل الدخول للعثور على أصدقائك.</string>
+    <string name="backup_contents">تحتوي هذه النسخة الاحتياطية على %1$s و%2$s. تُحفظ الرسائل المتطابقة مرة واحدة. تبقى المحادثات الحالية وأمان المراسلة كما هما.</string>
+    <string name="backup_open_failed">تعذّر فتح النسخة الاحتياطية. تحقّق من كلمة المرور والملف، ثم حاول مجددًا.</string>
+    <string name="backup_saved">حُفظت النسخة الاحتياطية المشفّرة للمحادثات. احتفظ بكلمة مرورها في مكان آمن.</string>
+    <string name="backup_restore_result">تمت الاستعادة: %1$s. محفوظة مسبقًا: %2$s.</string>
+    <string name="bot_consent_save_failed">تعذّر حفظ اختيارك. يُرجى المحاولة مجددًا.</string>
+    <string name="bot_draft_save_failed">تعذّر حفظ المسودة. يُرجى المحاولة مجددًا.</string>
+    <string name="bot_message_too_long">هذه الرسالة طويلة جدًا. أرسل رسالة أقصر.</string>
+    <string name="bot_earlier_open_failed">تعذّر فتح الرسائل السابقة.</string>
+    <string name="settings_page_open_failed">تعذّر فتح هذه الصفحة. يُرجى المحاولة مجددًا.</string>
+    <string name="delivery_imported">مستوردة</string>
+    <string name="conversations_local">تبقى محادثاتك على جهازك.</string>
+    <string name="annual_price">%1$s سنويًا</string>
+    <string name="trial_then_annual">شهر مجاني، ثم %1$s سنويًا</string>
+    <string name="subscribe_annual">اشترك مقابل %1$s سنويًا</string>
+    <string name="both_plans_total">الخطتان: %1$s سنويًا بعد الفترات التجريبية، وتُفوْتَر كل منهما بشكل منفصل.</string>
+    <string name="both_plans_separate">Vipi: ‏%1$s سنويًا. Bot mini: ‏%2$s إضافية سنويًا. تُفوْتَر كل خطة على حدة.</string>
+    <string name="plan_active">%1$s نشط</string>
+    <string name="trial_end_date">تنتهي الفترة التجريبية في %1$s.</string>
+    <string name="access_end_date">ينتهي الوصول الحالي في %1$s.</string>
+    <string name="plan_link_error">تعذّر فتح هذا الرابط. يُرجى المحاولة مرة أخرى.</string>
+    <string name="bot_allowance_unavailable">لا يمكن بدء Bot mini بعد. يجب تأكيد الحصة الشهرية أولًا.</string>
+    <string name="play_trial_renewal_description">يؤكد Google Play أهليتك وتاريخ أول دفعة عند إتمام الشراء. يتجدد الاشتراك السنوي تلقائيًا ما لم تلغه.</string>
+    <string name="annual_renewal_description">يتجدد الاشتراك السنوي تلقائيًا ما لم تلغه.</string>
+    <string name="no_trial_renewal_description">لا تتوفر فترة تجريبية مجانية لهذا العرض. يتجدد الاشتراك السنوي تلقائيًا ما لم تلغه.</string>
+    <string name="ui_02d207068808" formatted="false">إدارة الاشتراكات في Google Play</string>
+    <string name="ui_1652f9585f6d" formatted="false">دفعتك في Google Play معلقة. يبدأ الوصول بعد تأكيد الدفع.</string>
+    <string name="ui_3ec68bc63f9a" formatted="false">عملية الشراء بانتظار التحقق. استعد المشتريات للمحاولة مجددًا؛ لا تشترِ مرة أخرى.</string>
+    <string name="ui_e9fa6f9474f3" formatted="false">أُلغي الشراء. لم تتغير خططك.</string>
+    <string name="ui_c753f85749ce" formatted="false">تعذّر على Google Play فتح صفحة الشراء. حدّث خططك وحاول مرة أخرى.</string>
+    <string name="ui_00e255330e43" formatted="false">اللغة · 1 من 2</string>
+    <string name="ui_048a626ab4bb" formatted="false">إزالة التنزيلات؟</string>
+    <string name="ui_0541b2d9f69b" formatted="false">احتفظ بمحادثاتك.</string>
+    <string name="ui_08b041935798" formatted="false">أنت</string>
+    <string name="ui_0c574552109f" formatted="false">اختر اللغة التي تريد تعلمها</string>
+    <string name="ui_115f6d951109" formatted="false">السماح ببيانات الهاتف</string>
+    <string name="ui_127a78a187bd" formatted="false">إظهار الكتابة الأصلية</string>
+    <string name="ui_258150cb3ee4" formatted="false">بدء محادثة</string>
+    <string name="ui_2e8bd38513f3" formatted="false">ترجمة الرسالة كاملة</string>
+    <string name="ui_3370146d6d46" formatted="false">تحديد النص</string>
+    <string name="ui_33a6e5e20062" formatted="false">بدء تجربة مجانية لمدة شهر</string>
+    <string name="ui_37f6135c049a" formatted="false">إيقاف تبديل الكلمات مؤقتًا</string>
+    <string name="ui_4a3ddf33db23" formatted="false">تبديل كلمة</string>
+    <string name="ui_4bc6d965deeb" formatted="false">إلغاء الترجمة الكاملة</string>
+    <string name="ui_56dd441b2ba6" formatted="false">الإبلاغ عن هذه الرسالة</string>
+    <string name="ui_63568f0582af" formatted="false">إعدادات الإشعارات</string>
+    <string name="ui_6382f38cc7cc" formatted="false">نص الرد المحدد</string>
+    <string name="ui_6416c5a47450" formatted="false">جارٍ التحقق من الحذف…</string>
+    <string name="ui_66201beae1d2" formatted="false">جارٍ التحقق من التنزيلات</string>
+    <string name="ui_69cd3590300a" formatted="false">التحقق من الحالة</string>
+    <string name="ui_6a6965bcf571" formatted="false">حفظ نسخة احتياطية مشفّرة</string>
+    <string name="ui_6a8b22232bef" formatted="false">الأصوات غير جاهزة.</string>
+    <string name="ui_78ff037cf508" formatted="false">الترجمة الكاملة غير جاهزة</string>
+    <string name="ui_8767b4501794" formatted="false">جارٍ التحقق من التشفير…</string>
+    <string name="ui_8b3f05442c1b" formatted="false">إعدادات الصوت</string>
+    <string name="ui_93acaeeabd13" formatted="false">إظهار الحروف اللاتينية</string>
+    <string name="ui_93f7902d8131" formatted="false">البحث عن صديق</string>
+    <string name="ui_94fa9b236332" formatted="false">إيقاف الاستماع</string>
+    <string name="ui_9e0f3ffbf015" formatted="false">الإبلاغ عن رد vBot هذا</string>
+    <string name="ui_a2a2eed05c81" formatted="false">المتابعة إلى المحادثات</string>
+    <string name="ui_a67f154bcb16" formatted="false">اختر نسخة احتياطية لاستعادتها</string>
+    <string name="ui_aae89a15c1be" formatted="false">اختر اللغة التي تعرفها</string>
+    <string name="ui_b8173b954090" formatted="false">إزالة تنزيلات الترجمة</string>
+    <string name="ui_b8ed5279e897" formatted="false">جارٍ الإرسال…</string>
+    <string name="ui_c011d6097bfb" formatted="false">الترخيص</string>
+    <string name="ui_c6046d416aaf" formatted="false">المتابعة إلى vBot</string>
+    <string name="ui_cc245f2e3a71" formatted="false">استئناف تبديل الكلمات</string>
+    <string name="ui_cf0b3e3d47ec" formatted="false">تحديث الحصة</string>
+    <string name="ui_d42ff6022f50" formatted="false">استعادة سجل المحادثات؟</string>
+    <string name="ui_de6e21a278c4" formatted="false">الحساب · 2 من 2</string>
+    <string name="ui_dfe40efe921f" formatted="false">جارٍ التحديث…</string>
+    <string name="ui_e7be3e288153" formatted="false">اختر مقتطفًا أقصر من هذا الرد.</string>
+    <string name="ui_e7cde359a05e" formatted="false">اللغات والتنزيلات</string>
+    <string name="ui_eb55b8291994" formatted="false">متابعة الحذف</string>
+    <string name="ui_ee7fdea20d0b" formatted="false">جارٍ التحقق من خطتك…</string>
+    <string name="ui_f1c94d2fa211" formatted="false">جارٍ ترجمة الرسالة كاملة</string>
+    <string name="ui_f4cfeca151e1" formatted="false">جارٍ تجهيز الأصوات…</string>
+    <string name="ui_f80c9ded3433" formatted="false">تحدث مع vBot.</string>
+    <string name="ui_f826885bfb23" formatted="false">إعداد الأصوات</string>
+    <string name="ui_fa3d530cf72d" formatted="false">توصيل هذا الجهاز</string>
+    <string name="ui_ff245b368781" formatted="false">Bot mini</string>
+    <string name="ui_42f4f8b469bb" formatted="false">تحدث مع أصدقائك.\nتعلّم الكلمات أثناء القراءة.</string>
+    <string name="ui_47b7a66139f1" formatted="false">ابدأ محادثة\nمع صديق.</string>
+    <string name="ui_52c236be01ef" formatted="false">هذه التنزيلات لترجمة الرسائل كاملة اختياريًا. لا يحتاج تبديل الكلمات إليها. لترجمة رسالة كاملة، اختر الترجمة الكاملة من خيارات قراءتها. تبقى الرسائل على هذا الهاتف.</string>
+    <string name="ui_54c1159d80bf" formatted="false">تحدث مع أصدقائك.\nتعلّم كلمات جديدة.</string>
+    <string name="ui_73bee38b06e8" formatted="false">كيف سيعثر\nعليك أصدقاؤك؟</string>
+    <string name="ui_8ec4723d54ba" formatted="false">ستحتاج إلى تنزيل هذه اللغات مجددًا قبل الترجمة دون اتصال. تبقى محادثاتك على هذا الهاتف.</string>
+    <string name="ui_cc9317e2ab2e" formatted="false">ترخيص مصدر عميل Vipi هو AGPL-3.0-only، ويُقدَّم دون ضمان. يمكنك نسخه وتعديله وفق شروط الترخيص. تحتفظ برامج الجهات الخارجية بتراخيصها الخاصة.</string>
+    <string name="ui_ef6cbddc4dd7" formatted="false">تتطلب Bot mini خطة Vipi نشطة. استعد Vipi أو أدِر Bot mini في Google Play لتجنب تجديد آخر.</string>
+    <string name="ui_f1af503686b6" formatted="false">ابدأ خطة Vipi أو استعدها لإرسال الرسائل. تظل محادثاتك ومسوداتك المحفوظة متاحة.</string>
+    <string name="public_username">اسم المستخدم العام الخاص بك هو @%1$s.</string>
+    <string name="chat_empty_target">ابحث عن صديق باسم المستخدم وأرسل رسالة. ستتحول الكلمات والعبارات المدعومة إلى %1$s أثناء القراءة.</string>
+    <string name="security_number_description">رقم الأمان، %1$s</string>
+    <string name="chat_report_received">استُلم البلاغ. يمكنك أيضًا حظر هذا الشخص من خيارات المحادثة.</string>
+    <string name="chat_report_unconfirmed">تعذّر تأكيد البلاغ. يمكنك إعادة محاولة البلاغ نفسه.</string>
+    <string name="bot_allowance_remaining">متبقٍ %1$s من %2$s من الردود · يتجدد %3$s</string>
+    <string name="account_heading">سجّل الدخول للتحدث\nمع الأصدقاء.</string>
+    <string name="invite_share_text">تحدث معي على Vipi. اسم المستخدم الخاص بي هو @%1$s. %2$s</string>
+    <string name="bot_allowance_check_failed">تعذّر التحقق من حصة Bot mini. حاول مجددًا.</string>
+    <string name="bot_device_not_ready">هذا الجهاز غير جاهز للإرسال. عُد إلى المحادثات لإعادة الاتصال. تم حفظ مسودتك.</string>
+    <string name="bot_device_unauthorized">لم يعد هذا الجهاز مصرّحًا له. عُد إلى المحادثات لإعادة الاتصال. لم يُقبل هذا الطلب.</string>
+    <string name="bot_allowance_exhausted">استخدمت ردود Bot mini لهذا الشهر. حدّث حصتك لمعرفة موعد تجددها.</string>
+    <string name="bot_reply_unconfirmed">تعذّر تأكيد رد vBot. لن يُرسل هذا الطلب مجددًا تلقائيًا. حدّث حصتك قبل بدء طلب جديد.</string>
+    <string name="bot_message_not_saved">تعذّر حفظ رسالتك. لم تُرسل.</string>
+    <string name="bot_report_received">استُلم البلاغ. شكرًا لإبلاغنا.</string>
+    <string name="bot_report_unconfirmed">تعذّر تأكيد هذا البلاغ. يمكنك المحاولة مجددًا.</string>
+    <string name="languages_heading">اختر\nلغاتك.</string>
+    <string name="ui_0c86126aea39" formatted="false">بانتظار Google Play…</string>
+    <string name="ui_1f90b03e1d77" formatted="false">تعذّر التحقق من وصولك إلى الخطة. حاول مجددًا.</string>
+    <string name="ui_2090b85775b4" formatted="false">عرض خطة Vipi</string>
+    <string name="ui_235ad6028cca" formatted="false">تعذّر إكمال التنزيل. تحقّق من اتصالك وحاول مجددًا.</string>
+    <string name="ui_273afa09966b" formatted="false">افتح Google Play ← الدفعات والاشتراكات ← الاشتراكات.</string>
+    <string name="ui_28e67a870e46" formatted="false">سجّل الدخول لرؤية الخطط المتاحة لحسابك.</string>
+    <string name="ui_380f81884c22" formatted="false">من إنتاج FallSoft.Co</string>
+    <string name="ui_3a4cae7c6a6e" formatted="false">الترجمة غير جاهزة. نزّل هذه اللغة أولًا ثم حاول مجددًا.</string>
+    <string name="ui_3abeae7a3bed" formatted="false">لديك رسالة جديدة.</string>
+    <string name="ui_3ceeccf6b3ff" formatted="false">استعادة المشتريات أو تحديث الخطط</string>
+    <string name="ui_45787d668c50" formatted="false">ابدأ خطة Vipi أو استعدها قبل إضافة Bot mini.</string>
+    <string name="ui_541ecffcdb87" formatted="false">تعذّر التحقق من وصولك إلى الخطة.</string>
+    <string name="ui_59eb2538907f" formatted="false">ابدأ محادثة.</string>
+    <string name="ui_6802cad312c0" formatted="false">ابدأ Vipi أو استعده قبل إضافة Bot mini.</string>
+    <string name="ui_70526d2742fe" formatted="false">تحافظ إعادة المحاولة على البلاغ نفسه، لذلك لا يُرسل مرتين.</string>
+    <string name="ui_71c971aaf02d" formatted="false">اعرف متى يرد أصدقاؤك. تخفي الإشعارات نص الرسالة.</string>
+    <string name="ui_79290727c58b" formatted="false">تعذّر فتح تسجيل الدخول الآمن. يُرجى المحاولة مجددًا.</string>
+    <string name="ui_825bf52ce678" formatted="false">مشتريات Google Play غير متاحة بعد. لا يزال بالإمكان استعادة الخطط الحالية.</string>
+    <string name="ui_8927db75ddd0" formatted="false">الخطط غير متاحة من Google Play بعد. يُرجى المحاولة لاحقًا.</string>
+    <string name="ui_9648f84b6ea3" formatted="false">إشعارات خاصة عند رد الأصدقاء</string>
+    <string name="ui_99a6cb8ef035" formatted="false">فهمت وأريد التحدث مع vBot.</string>
+    <string name="ui_a0c63ae7f860" formatted="false">الترجمة غير متاحة لهذه الرسالة. يبقى الأصل دون تغيير.</string>
+    <string name="ui_a843a5adb644" formatted="false">عرض Bot mini أو استعادته</string>
+    <string name="ui_b30a48ba0b99" formatted="false">عرض خطة Vipi أو استعادتها</string>
+    <string name="ui_b4009c7a9f52" formatted="false">استغرق Google Play وقتًا طويلًا للرد. يُرجى المحاولة مجددًا.</string>
+    <string name="ui_bbd30d6992ff" formatted="false">تعذّر تحديث خططك. تحقّق من اتصالك وحاول مجددًا.</string>
+    <string name="ui_c3169261c50e" formatted="false">حدّث سعر Google Play الحالي قبل المتابعة.</string>
+    <string name="ui_c654d70db3ac" formatted="false">أنت · الرد غير مؤكد</string>
+    <string name="ui_d1fc884eb413" formatted="false">تعذّر على Google Play إكمال الشراء. يُرجى المحاولة مجددًا.</string>
+    <string name="ui_d75c6cdd950a" formatted="false">افتح إعدادات إشعارات Vipi في إعدادات Android.</string>
+    <string name="ui_dad92e0774f7" formatted="false">افتح إعدادات الهاتف وابحث عن تحويل النص إلى كلام.</string>
+    <string name="ui_e28ba924e405" formatted="false">أنت · لم يُقبل الطلب</string>
+    <string name="ui_e5bd91ac481d" formatted="false">المشاركة غير متاحة. أخبر صديقك باسم المستخدم بدلًا من ذلك.</string>
+    <string name="ui_e768f0a75223" formatted="false">تعذّر فتح محادثة vBot المحفوظة. أغلق Vipi وافتحه مجددًا للمحاولة مرة أخرى.</string>
+    <string name="ui_f87b0e3bf7e6" formatted="false">مشتريات Google Play غير متاحة بعد. يُرجى المحاولة لاحقًا.</string>
+    <plurals name="backup_messages">
+        <item quantity="zero">%1$s من الرسائل</item>
+        <item quantity="one">%1$s من الرسائل</item>
+        <item quantity="two">%1$s من الرسائل</item>
+        <item quantity="few">%1$s من الرسائل</item>
+        <item quantity="many">%1$s من الرسائل</item>
+        <item quantity="other">%1$s من الرسائل</item>
+    </plurals>
+    <plurals name="backup_conversations">
+        <item quantity="zero">%1$s من المحادثات</item>
+        <item quantity="one">%1$s من المحادثات</item>
+        <item quantity="two">%1$s من المحادثات</item>
+        <item quantity="few">%1$s من المحادثات</item>
+        <item quantity="many">%1$s من المحادثات</item>
+        <item quantity="other">%1$s من المحادثات</item>
+    </plurals>
+    <plurals name="bot_monthly_allowance">
+        <item quantity="zero">%1$s من الردود لكل شهر تقويمي. لا تُرحّل الردود غير المستخدمة ولا تُحصّل رسوم تجاوز تلقائيًا.</item>
+        <item quantity="one">%1$s من الردود لكل شهر تقويمي. لا تُرحّل الردود غير المستخدمة ولا تُحصّل رسوم تجاوز تلقائيًا.</item>
+        <item quantity="two">%1$s من الردود لكل شهر تقويمي. لا تُرحّل الردود غير المستخدمة ولا تُحصّل رسوم تجاوز تلقائيًا.</item>
+        <item quantity="few">%1$s من الردود لكل شهر تقويمي. لا تُرحّل الردود غير المستخدمة ولا تُحصّل رسوم تجاوز تلقائيًا.</item>
+        <item quantity="many">%1$s من الردود لكل شهر تقويمي. لا تُرحّل الردود غير المستخدمة ولا تُحصّل رسوم تجاوز تلقائيًا.</item>
+        <item quantity="other">%1$s من الردود لكل شهر تقويمي. لا تُرحّل الردود غير المستخدمة ولا تُحصّل رسوم تجاوز تلقائيًا.</item>
+    </plurals>
+    <string name="nav_help">المساعدة</string>
+    <string name="cardless_intro_new">تحصل الحسابات الجديدة على 30 يومًا مجانًا دون وسيلة دفع. بعد ذلك يمكنك اختيار الاشتراك أو عدمه.</string>
+    <string name="cardless_no_autocharge">لا تحتاج إلى وسيلة دفع خلال هذه الفترة المجانية. تنتهي دون تحصيل رسوم تلقائيًا، والاشتراك اختياري.</string>
+    <string name="report_harmful_offensive">ضار أو مسيء</string>
+    <string name="block_person_question">حظر %1$s؟</string>
+    <string name="unblock_person_question">إلغاء حظر %1$s؟</string>
+    <string name="device_recovery_explanation">حسابك نشط على جهاز آخر. تظل المحادثات المحفوظة متاحة هنا.</string>
+    <string name="bot_requires_vipi_access">يتطلب Bot mini وصولًا نشطًا إلى Vipi. تحقّق من وصولك إلى Vipi أو أدِر Bot mini في Google Play لتجنّب التجديد مرة أخرى.</string>
+    <string name="ui_42ed79b95da1" formatted="false">تُرسل الرسائل التي ترسلها هنا وسياق محادثات vBot الأخيرة إلى Vipi وDeepSeek لإنشاء الردود. هذه محادثة خدمة وليست محادثة مشفّرة من طرف إلى طرف مع صديق. لا تُضمَّن محادثات الأصدقاء مطلقًا.</string>
+    <string name="ui_967b3ede020c" formatted="false">ستُرسل الرسالة الأصلية أدناه ومرسلها وسببك إلى Fallible Software للمراجعة. يبقى باقي محادثتك خاصًا. تُحفظ البلاغات لمدة تصل إلى 30 يومًا.</string>
+    <string name="ui_c48de4e830a9" formatted="false">يُرسل نص الرد المحدد والسبب فقط إلى Fallible Software للمراجعة. لا تُضمَّن محادثات الأصدقاء. تُحفظ البلاغات لمدة تصل إلى 30 يومًا.</string>
+    <string name="ui_bb1fe2470e72" formatted="false">احفظ سجل محادثاتك مع الأصدقاء في ملف مشفّر. اختر مكان حفظه. لا تتضمن النسخة الاحتياطية هوية المراسلة أو الرسائل غير المرسلة أو سجل vBot.</string>
+    <string name="ui_c3297f5bde81" formatted="false">لن يؤدي حذف حسابك إلى إلغاء اشتراك Google Play. يمكنك إلغاؤه بشكل منفصل لإيقاف التجديدات المستقبلية.</string>
+    <string name="ui_57225bd8b984" formatted="false">يمكنك دائمًا قراءة المحادثات المحفوظة وحذف حسابك، حتى دون خطة نشطة.</string>
+    <string name="ui_cc39ebccb529" formatted="false">اطرح سؤالًا على vBot أو تحدث عن يومك. vBot روبوت محادثة وقد يخطئ؛ تحقّق من التفاصيل المهمة.</string>
+    <string name="bot_plan_description">تضيف Bot mini محادثات مع vBot إلى خطة Vipi. قد تكون الردود التلقائية خاطئة. وهو اشتراك منفصل له تاريخ تجديد خاص به.</string>
+    <string name="base_plan_description">تحدث مع الأصدقاء وشاهد الكلمات والعبارات القصيرة المدعومة تتحول إلى اللغة التي اخترتها. Bot mini خطة اختيارية منفصلة.</string>
+    <string name="ui_233a70befbdc" formatted="false">احتفظ بكلمة مرور النسخة الاحتياطية. لا يستطيع Vipi استعادتها. تظل محادثاتك ونسخك الاحتياطية المحفوظة متاحة إذا انتهت خطتك.</string>
+    <string name="ui_2b338821b42c" formatted="false">سيؤدي هذا إلى تسجيل خروج أي جهاز آخر نشط. تبقى المحادثات الموجودة على هذا الجهاز هنا. لا يمكن نقل الرسائل المنتظرة بين الأجهزة وستتوقف. ستتغير مفاتيح التشفير، وسيحتاج الأصدقاء إلى الموافقة عليها ومقارنة أرقام الأمان مجددًا.</string>
+    <string name="ui_2e03fab81b5f" formatted="false">تغيّرت هوية تشفير صديقك. راجع المفاتيح الجديدة قبل إرسال رسالة أخرى. يبقى سجلك المحفوظ هنا.</string>
+    <string name="ui_5f0f1b251f45" formatted="false">تم تحديث التشفير. توقفت الرسائل المنتظرة السابقة. قارن رقم الأمان الجديد مع صديقك.</string>
+    <string name="ui_84b61960effd" formatted="false">تستخدم المتابعة هذه المفاتيح لكنها لا تضع علامة التحقق عليها. قارن المجموعات الاثنتي عشرة كلها مع صديقك شخصيًا أو عبر مكالمة موثوقة قبل وضع علامة التحقق.</string>
+    <string name="security_compare_with_friend">قارن المجموعات الاثنتي عشرة كلها مع %1$s شخصيًا أو عبر مكالمة موثوقة لتأكيد تطابق مفاتيح التشفير.</string>
+    <string name="security_identity_changed">تغيّر جهاز %1$s أو هوية التشفير الخاصة به. يبقى سجلك المحفوظ هنا. ستتوقف الرسائل المنتظرة السابقة ولن تُرسل مجددًا.</string>
+    <string name="security_identity_check_failed">تعذّر تأكيد هوية التشفير المتغيرة. لم تتغير مفاتيحك الحالية. اطلب من صديقك فتح Vipi ثم حاول مجددًا.</string>
+    <string name="security_confirmation_expired">تغيّرت المفاتيح مجددًا أو انتهت صلاحية التأكيد. أغلق هذا الحوار وتحقّق مجددًا. تبقى مفاتيحك السابقة دون تغيير.</string>
+    <string name="ui_ea1029db5e5d" formatted="false">اتصل هذا الجهاز. يبقى سجلك المحفوظ هنا. توقفت الرسائل المنتظرة السابقة، وسيرى أصدقاؤك مفاتيح تشفير جديدة.</string>
+    <string name="ui_38d5b00c27da" formatted="false">مراجعة التشفير المتغيّر</string>
+    <string name="ui_84368a0f0b2d" formatted="false">تحديث التشفير؟</string>
+    <string name="ui_8a9877b04214" formatted="false">استخدام هذه المفاتيح</string>
+    <string name="languages_downloading">جارٍ تنزيل اللغات…</string>
+    <string name="languages_check_failed">تعذّر التحقق من تنزيلاتك. يُرجى المحاولة مجددًا.</string>
+    <string name="languages_download_failed">تعذّر إكمال التنزيل. تحقّق من اتصالك وحاول مجددًا.</string>
+    <string name="languages_remove_failed">تعذّرت إزالة بعض التنزيلات. يُرجى المحاولة مجددًا.</string>
+    <string name="languages_checking">جارٍ التحقق من هذا الهاتف…</string>
+    <string name="languages_ready">أصبحت %1$s و%2$s جاهزتين لترجمة الرسائل كاملة دون اتصال.</string>
+    <string name="languages_status_unavailable">حالة التنزيل غير متاحة.</string>
+    <string name="languages_download_explanation">نزّل لغاتك لترجمة الرسائل كاملة دون اتصال.</string>
+    <string name="show_full_translation_language">إظهار الترجمة الكاملة إلى %1$s</string>
+    <string name="translating_language">جارٍ الترجمة إلى %1$s…</string>
+    <string name="voice_download_needed">نزّل صوتًا للغة %1$s من إعدادات الصوت في هاتفك، ثم حاول مجددًا.</string>
+    <string name="audio_busy">الصوت قيد الاستخدام. حاول مجددًا بعد انتهاء الصوت الآخر.</string>
+    <string name="speech_settings_help">افتح إعدادات الهاتف وابحث عن تحويل النص إلى كلام.</string>
+    <string name="speech_settings_open_failed">تعذّر فتح إعدادات الصوت.</string>
+    <string name="full_translation_retry">إعادة محاولة الترجمة الكاملة</string>
+    <string name="reading_word_switching">تبديل الكلمات</string>
+    <string name="reading_original">الرسالة الأصلية</string>
+    <string name="reading_full">الترجمة الكاملة</string>
+    <string name="translation_pair_download_needed">تتطلب ترجمة زوج اللغات هذا تنزيلًا.</string>
+    <string name="translation_timeout">استغرق ذلك وقتًا طويلًا. لا يزال تبديل الكلمات متاحًا.</string>
+    <string name="translation_language_needed">اختر لغة هذه الرسالة ثم حاول مجددًا.</string>
+    <string name="translation_failed">تعذّر إعداد الترجمة الكاملة. لا يزال تبديل الكلمات متاحًا.</string>
+    <string name="voices_prepare_offline">جهّز صوتي اللغتين للاستماع دون اتصال.</string>
+    <string name="ui_d55f942dbeea" formatted="false">الترجمة من Google. قد تكون الترجمات غير دقيقة.</string>
+    <string name="backup_save_failed">تعذر حفظ النسخة الاحتياطية. لا تزال محادثاتك هنا. يرجى المحاولة مرة أخرى.</string>
+    <string name="access_switch_word">بدّل %1$s و%2$s</string>
+    <string name="access_switch_repeated">بدّل %1$s و%2$s، الكلمة %3$s</string>
+    <string name="access_choose_word">اختر كلمة لتبديلها</string>
+    <string name="access_message_actions">إجراءات الرسالة</string>
+    <string name="cardless_ended">انتهى وصولك المجاني إلى Vipi في %1$s. اشترك لمواصلة المحادثة.</string>
+</resources>

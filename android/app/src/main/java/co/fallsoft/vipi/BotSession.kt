@@ -33,6 +33,7 @@ internal data class BotMessage(val id: String, val role: String, val text: Strin
 /** Local bot history shares the account's encrypted vault but no friend-message query path.
  * A request is recorded before network work and never retried automatically. */
 internal class BotSession(context: Context, account: UUID, private val api: ChatTransport) : AutoCloseable {
+    private val appContext = context.applicationContext
     private val vault = MessageVault(context, account)
     val familiarity = VocabularyFamiliarityStore(vault)
     private var closed = false
@@ -71,7 +72,7 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
             val value = BotAllowance.parse(response)
             if (!closed) allowance = value
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { if (!closed) { allowance = null; notice = "Your Bot mini allowance couldn’t be checked. Try again." } }
+        catch (_: Exception) { if (!closed) { allowance = null; notice = appContext.getString(R.string.bot_allowance_check_failed) } }
     }
     suspend fun send() {
         if (closed || busy || !consent || draft.isBlank() || allowance?.let { it.available && it.remaining > 0 && it.resetsAt.isAfter(Instant.now()) } != true) return
@@ -81,7 +82,7 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
         var recorded = false
         try {
             val device = DeviceCredential.registered(vault) ?: run {
-                notice = "This device isn’t ready to send. Return to Chats to reconnect. Your draft is saved."
+                notice = appContext.getString(R.string.bot_device_not_ready)
                 return
             }
             val context = contextFor(messages, user)
@@ -109,10 +110,10 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
                 messages = messages.map { if (it.id == user.id) rejected else it }
             }
             if (!closed) notice = when {
-                deviceRejected -> "This device is no longer authorized. Return to Chats to reconnect. This request wasn’t accepted."
-                failure is ServiceFailure && failure.code == "monthly_allowance_reached" -> "You’ve used this month’s Bot mini replies. Refresh your allowance to see when it resets."
-                recorded -> "We couldn’t confirm vBot’s reply. This request won’t be sent again automatically. Refresh your allowance before starting a new request."
-                else -> "Your message couldn’t be saved. It hasn’t been sent."
+                deviceRejected -> appContext.getString(R.string.bot_device_unauthorized)
+                failure is ServiceFailure && failure.code == "monthly_allowance_reached" -> appContext.getString(R.string.bot_allowance_exhausted)
+                recorded -> appContext.getString(R.string.bot_reply_unconfirmed)
+                else -> appContext.getString(R.string.bot_message_not_saved)
             }
             if (!closed && recorded) allowance = null
         } finally { if (!closed) busy = false }
@@ -127,9 +128,9 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
             check(reply.getBoolean("reported"))
             if (closed) return false
             vault.transaction { vault.put("bot-reported", message.requestID, byteArrayOf(1)) }
-            notice = "Report received. Thank you for flagging it."; return true
+            notice = appContext.getString(R.string.bot_report_received); return true
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { if (!closed) notice = "We couldn’t confirm this report. You can try again."; return false }
+        catch (_: Exception) { if (!closed) notice = appContext.getString(R.string.bot_report_unconfirmed); return false }
         finally { if (!closed) reporting = false }
     }
     override fun close() { closed = true; vault.close() }

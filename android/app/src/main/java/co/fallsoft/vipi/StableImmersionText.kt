@@ -113,10 +113,14 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         val cap = if (messageActions != null) 30 else 31
         val repeated = value.spans.groupingBy { it.original to it.displayedTarget }.eachCount()
         wordActions = value.spans.take(cap).mapIndexed { index, word ->
-            val occurrence = if (repeated.getValue(word.original to word.displayedTarget) > 1) ", word ${index + 1}" else ""
-            ViewCompat.addAccessibilityAction(this, "Switch ${word.original} and ${word.displayedTarget}$occurrence") { _, _ -> onWord?.invoke(word.id); true }
-        } + if (value.spans.size > cap) listOf(ViewCompat.addAccessibilityAction(this, "Choose a word to switch") { _, _ -> onChooseWord?.invoke(); true }) else emptyList()
-        if (messageActions != null) wordActions += ViewCompat.addAccessibilityAction(this, "Message actions") { _, _ -> messageActions?.invoke(); true }
+            val label = if (repeated.getValue(word.original to word.displayedTarget) > 1) {
+                val locale = context.resources.configuration.locales[0]
+                context.getString(R.string.access_switch_repeated, word.original, word.displayedTarget,
+                    java.text.NumberFormat.getIntegerInstance(locale).format(index + 1))
+            } else context.getString(R.string.access_switch_word, word.original, word.displayedTarget)
+            ViewCompat.addAccessibilityAction(this, label) { _, _ -> onWord?.invoke(word.id); true }
+        } + if (value.spans.size > cap) listOf(ViewCompat.addAccessibilityAction(this, context.getString(R.string.access_choose_word)) { _, _ -> onChooseWord?.invoke(); true }) else emptyList()
+        if (messageActions != null) wordActions += ViewCompat.addAccessibilityAction(this, context.getString(R.string.access_message_actions)) { _, _ -> messageActions?.invoke(); true }
     }
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (messageActions != null && (keyCode == KeyEvent.KEYCODE_MENU || (keyCode == KeyEvent.KEYCODE_F10 && event.isShiftPressed))) {
@@ -207,7 +211,7 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     override fun onTextContextMenuItem(id: Int): Boolean {
         if (id == android.R.id.copy && hasSelection()) {
             (context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager)
-                .setPrimaryClip(android.content.ClipData.newPlainText("Message", visibleText(minOf(selectionStart, selectionEnd), maxOf(selectionStart, selectionEnd))))
+                .setPrimaryClip(android.content.ClipData.newPlainText(context.getString(R.string.message_hint), visibleText(minOf(selectionStart, selectionEnd), maxOf(selectionStart, selectionEnd))))
             if (messageActions != null) nativeSelectionMode?.finish()
             return true
         }

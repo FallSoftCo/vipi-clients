@@ -23,7 +23,8 @@ val initialLanguages = listOf(
     VipiLanguage("zh", "Chinese", "中文"), VipiLanguage("ar", "Arabic", "العربية"),
     VipiLanguage("sw", "Swahili", "Kiswahili")
 )
-fun languageName(code: String) = initialLanguages.firstOrNull { it.code == code }?.name ?: code
+fun languageName(code: String): String = if (initialLanguages.any { it.code == code })
+    java.util.Locale.forLanguageTag(code).getDisplayLanguage(java.util.Locale.getDefault()) else code
 enum class Appearance { SYSTEM, LIGHT, DARK }
 enum class Screen { WELCOME, LANGUAGE, ACCOUNT, HOME, SETTINGS, NEW_CHAT, BOT, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE, DELETE_ACCOUNT, PLANS, BOT_PLAN, BACKUP, LICENSES }
 enum class ReadingMode(val label: String) { IMMERSED("Immersed"), ORIGINAL("Original"), TRANSLATION("Translation") }
@@ -80,13 +81,13 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
             if (openingAccount) navigate(Screen.HOME)
             chat!!.start()
             if (!deletion.active && chat?.needsProfile == true) navigate(Screen.PROFILE)
-            else if (!prefs.getBoolean("planIntroduced", false)) navigate(Screen.PLANS)
+            else if (chat?.ready == true && screen == Screen.ACCOUNT) navigate(Screen.HOME)
             if (chat?.ready == true) {
                 PushDelivery.request(getApplication(), registration = true)
                 openPendingNotification()
             }
         } catch (error: CancellationException) { throw error }
-        catch (_: Exception) { chatError = "Your saved conversations couldn’t be opened. Please close and reopen Vipi to try again." }
+        catch (_: Exception) { chatError = getApplication<Application>().getString(R.string.ui_8218810809d6) }
     }
     internal fun openConversation(peer: UUID) { selectedPeer = peer; navigate(Screen.CONVERSATION) }
     internal fun openNotification(peer: String?) {
@@ -104,7 +105,7 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
         try {
             if (bot == null) bot = BotSession(getApplication(), account, ServiceClient(authentication, user))
             navigate(Screen.BOT)
-        } catch (_: Exception) { chatError = "Your saved vBot conversation couldn’t be opened. Close and reopen Vipi to try again." }
+        } catch (_: Exception) { chatError = getApplication<Application>().getString(R.string.ui_e768f0a75223) }
     }
     internal fun beginDeletion() {
         val current = requireNotNull(chat)
@@ -156,7 +157,7 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
             translator.prepare(source, target, cellularAllowed)
             if (revision == selectionRevision) modelMessage = "${languageName(target)} is ready for offline translation."
         } catch (error: CancellationException) { throw error }
-        catch (_: Exception) { if (revision == selectionRevision) modelMessage = "The download couldn’t finish. Check your connection and try again." }
+        catch (_: Exception) { if (revision == selectionRevision) modelMessage = getApplication<Application>().getString(R.string.ui_235ad6028cca) }
         finally { modelBusy = false }
     }
     fun translate(text: String) = viewModelScope.launch {
@@ -168,11 +169,11 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
             val result = translator.translate(text, source, target)
             if (revision == translationRevision) {
                 if (TranslationIntegrity.preservesIdentifiers(text, result)) translatedText = result
-                else modelMessage = "Translation isn’t available for this message. Your original is unchanged."
+                else modelMessage = getApplication<Application>().getString(R.string.ui_a0c63ae7f860)
             }
         }
         catch (error: CancellationException) { throw error }
-        catch (_: Exception) { if (revision == translationRevision) modelMessage = "Translation isn’t ready. Download this language first, then try again." }
+        catch (_: Exception) { if (revision == translationRevision) modelMessage = getApplication<Application>().getString(R.string.ui_3a4cae7c6a6e) }
         finally { modelBusy = false }
     }
     override fun onCleared() { translator.close(); chat?.let(DeliverySessions::release); subscriptions?.close(); bot?.close() }

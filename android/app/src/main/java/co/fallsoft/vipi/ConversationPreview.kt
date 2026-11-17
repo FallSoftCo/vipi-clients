@@ -3,6 +3,7 @@ package co.fallsoft.vipi
 import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.background
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -40,11 +41,11 @@ internal object ConversationExamples {
     LaunchedEffect(speech) { speech.prepare(mapOf(source to result.original, target to result.translation)) }
     DisposableEffect(speech) { onDispose { speech.close() } }
     Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = .48f), RoundedCornerShape(28.dp)).padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        Text("EXAMPLE MESSAGE", fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(stringResource(R.string.ui_df0b482c49b2), fontSize = 10.sp, letterSpacing = 1.2.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         ImmersionBubble(result, mode, speech, source, target, "language-preview-$source-$target", scrolling, fullReading = fullReading)
-        Text("Highlighted words switch between your two languages. This is a prepared example; available words in your chats vary by language. You can also view a prepared full translation.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(stringResource(R.string.ui_821bff5750c3), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
         TextButton(onClick = { mode = if (mode == ReadingMode.TRANSLATION) ReadingMode.IMMERSED else ReadingMode.TRANSLATION }) {
-            Text(if (mode == ReadingMode.TRANSLATION) "Resume word switching" else "Show full translation in ${languageName(target)}", fontSize = 13.sp)
+            Text(if (mode == ReadingMode.TRANSLATION) stringResource(R.string.ui_cc245f2e3a71) else stringResource(R.string.show_full_translation_language, languageName(target)), fontSize = 13.sp)
         }
         SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(mapOf(source to result.original, target to result.translation)) }
     }
@@ -56,13 +57,13 @@ internal object ConversationExamples {
     var settingsError by remember { mutableStateOf(false) }
     error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     if (state == SpeechState.UNAVAILABLE) {
-        if (error == null) Text("Voices aren’t ready.", fontSize = 13.sp)
-        if (settingsError) Text("Open your phone’s Settings and search for text-to-speech.", fontSize = 13.sp)
+        if (error == null) Text(stringResource(R.string.ui_6a8b22232bef), fontSize = 13.sp)
+        if (settingsError) Text(stringResource(R.string.ui_dad92e0774f7), fontSize = 13.sp)
         Row {
             TextButton(onClick = {
                 settingsError = !(openSettings?.invoke() ?: runCatching { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }.isSuccess)
-            }) { Text("Speech settings") }
-            TextButton(onClick = { settingsError = false; retry() }) { Text("Retry voices") }
+            }) { Text(stringResource(R.string.ui_8b3f05442c1b)) }
+            TextButton(onClick = { settingsError = false; retry() }) { Text(stringResource(R.string.ui_ed783fa140ed)) }
         }
     }
 }

@@ -9,7 +9,7 @@ class SubscriptionAccessDeviceTest {
     private fun plan(active: Boolean = true, expires: String? = "2099-01-01T00:00:00Z", trial: String? = null) =
         JSONObject().put("active", active).put("expires_at", expires ?: JSONObject.NULL).put("trial_ends_at", trial ?: JSONObject.NULL)
     private fun snapshot(base: JSONObject = plan(), bot: JSONObject = plan(), available: Boolean = true) = JSONObject()
-        .put("base", base).put("bot_mini", bot.put("available", available)).put("billing_account_id", "a".repeat(64))
+        .put("base", base).put("bot_mini", bot.put("available", available)).put("billing_account_id", "a".repeat(64)).put("server_time", Instant.now().toString())
 
     @Test fun expiredOrRevokedEntitlementsNeverOpenAccess() {
         val expired = PlanAccess.parse(plan(expires = "2020-01-01T00:00:00Z"))
@@ -36,4 +36,18 @@ class SubscriptionAccessDeviceTest {
         assertTrue(runCatching { SubscriptionAccess.parse(snapshot().put("billing_account_id", "email@example.test")) }.isFailure)
         assertTrue(runCatching { SubscriptionAccess.parse(snapshot().put("billing_account_id", JSONObject.NULL)) }.isFailure)
     }
+    @Test fun cardlessBoundaryAndMissingClockFailClosed() {
+        val start = Instant.parse("2026-11-17T00:00:00Z")
+        val end = start.plusSeconds(30L * 24 * 60 * 60)
+        val period = JSONObject().put("started_at", start.toString()).put("ends_at", end.toString()).put("active", true)
+        val base = plan(expires = end.toString(), trial = end.toString()).put("access_source", "cardless_trial").put("cardless_trial", period)
+        val value = PlanAccess.parse(base)
+        assertTrue(value.usable(end.minusMillis(1)))
+        assertFalse(value.usable(end))
+        assertTrue(runCatching { PlanAccess.parse(JSONObject(base.toString()).put("cardless_trial", JSONObject.NULL)) }.isFailure)
+        val missing = snapshot().apply { remove("server_time") }
+        assertFalse(SubscriptionAccess.parse(missing).active(SubscriptionPlan.BASE))
+        assertTrue(runCatching { PlanAccess.parse(plan().put("verification_unavailable", "invalid")) }.isFailure)
+    }
+
 }

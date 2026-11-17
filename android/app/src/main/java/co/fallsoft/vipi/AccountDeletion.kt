@@ -68,11 +68,11 @@ internal class AccountDeletion(private val store: DeletionStore, private val ser
     var busy by mutableStateOf(false); private set
     var loadFailed by mutableStateOf(false); private set
     var needsSignIn by mutableStateOf(false); private set
-    var notice by mutableStateOf<String?>(null); private set
+    var notice by mutableStateOf<Int?>(null); private set
     val active get() = pending != null || loadFailed
     init {
         try { pending = store.load() }
-        catch (_: Exception) { loadFailed = true; notice = "Your deletion receipt couldn’t be opened. Close and reopen Vipi to try again." }
+        catch (_: Exception) { loadFailed = true; notice = R.string.deletion_receipt_open_failed }
     }
     constructor(context: Context, authentication: Authentication) : this(PrivateDeletionStore(context), AccountDeletionService(authentication),
         { eraseLocal(context, it) }, { if (authentication.userID == it) authentication.signOutLocally() })
@@ -116,20 +116,20 @@ internal class AccountDeletion(private val store: DeletionStore, private val ser
             }
             eraseIfConfirmed()
         } catch (error: CancellationException) {
-            notice = "The request was interrupted. Check its status to continue."; throw error
+            notice = R.string.deletion_interrupted; throw error
         } catch (error: Exception) {
             if (error is Authentication.SignInRequired || (error is ServiceFailure && error.code in setOf("recent_sign_in_required", "sign_in_required"))) {
-                needsSignIn = true; notice = "Sign in to the same account once more to confirm it’s you, then continue."
+                needsSignIn = true; notice = R.string.deletion_sign_in_again
             } else notice = if (pending?.phase == DeletionRecord.Phase.PREPARED)
-                "We couldn’t confirm your request. Check your connection and try again. You won’t need to start over."
-            else "Your request is saved. We couldn’t check completion. Please try again."
+                R.string.deletion_request_unconfirmed
+            else R.string.deletion_check_failed
         } finally { busy = false }
     }
     fun finish() {
         val record = pending ?: return
         if (busy || record.phase != DeletionRecord.Phase.COMPLETED || !record.localErased) return
         try { store.remove(); pending = null; notice = null }
-        catch (_: Exception) { notice = "The completion receipt couldn’t be cleared. Please try again." }
+        catch (_: Exception) { notice = R.string.deletion_receipt_clear_failed }
     }
     companion object {
         fun eraseLocal(context: Context, record: DeletionRecord) {

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontFamily
@@ -14,10 +15,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.text.NumberFormat
 import java.time.ZoneId
+import java.time.Instant
+import java.time.Duration
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Currency
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 
 @Composable internal fun SubscriptionScreen(model: VipiModel, plan: SubscriptionPlan = SubscriptionPlan.BASE) {
     val subscriptions = model.subscriptions
@@ -36,33 +40,61 @@ import kotlinx.coroutines.launch
             catch (_: Exception) { botAllowance = null }
         }
     }
-    fun open(url: String) { try { uri.openUri(url) } catch (_: Exception) { linkError = "This link couldn’t open. Please try again." } }
-    Text(if (plan == SubscriptionPlan.BASE) "Chat with friends.\nLearn words as you read." else "Chat with vBot.", fontFamily = FontFamily.Serif, fontSize = 30.sp, lineHeight = 36.sp)
-    Text(if (plan == SubscriptionPlan.BASE) "Chat with friends and see supported words and short phrases switch into your chosen language. Bot mini is a separate, optional plan."
-        else "Bot mini adds chatbot conversations with vBot to your Vipi plan. Automated replies can be mistaken. It is a separate subscription, with its own renewal date.", lineHeight = 23.sp)
-    if (plan == SubscriptionPlan.BOT_MINI) Text("vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.", style = MaterialTheme.typography.bodyMedium)
+    fun open(url: String) { try { uri.openUri(url) } catch (_: Exception) { linkError = context.getString(R.string.plan_link_error) } }
+    Text(if (plan == SubscriptionPlan.BASE) stringResource(R.string.ui_42f4f8b469bb) else stringResource(R.string.ui_f80c9ded3433), fontFamily = FontFamily.Serif, fontSize = 30.sp, lineHeight = 36.sp)
+    Text(if (plan == SubscriptionPlan.BASE) stringResource(R.string.base_plan_description)
+        else stringResource(R.string.bot_plan_description), lineHeight = 23.sp)
+    if (plan == SubscriptionPlan.BOT_MINI) Text(stringResource(R.string.ui_c518ff733bfe), style = MaterialTheme.typography.bodyMedium)
     if (plan == SubscriptionPlan.BOT_MINI) {
         val amount = botAllowance?.takeIf { it.serviceReady }?.monthly?.takeIf { it > 0 }
-        Text(if (amount != null) "$amount replies per calendar month. Unused replies don’t roll over; no automatic overage charges."
-            else "Bot mini isn’t available to start yet. Its monthly allowance must be confirmed first.", style = MaterialTheme.typography.bodyMedium)
+        Text(if (amount != null) androidx.compose.ui.res.pluralStringResource(R.plurals.bot_monthly_allowance, amount, NumberFormat.getIntegerInstance().format(amount))
+            else stringResource(R.string.bot_allowance_unavailable), style = MaterialTheme.typography.bodyMedium)
     }
     if (subscriptions == null) {
-        Text("Sign in to see the plans available for your account.")
-        Button(onClick = { model.navigate(Screen.ACCOUNT) }) { Text("Sign in") }
+        Text(stringResource(R.string.ui_28e67a870e46))
+        Button(onClick = { model.navigate(Screen.ACCOUNT) }) { Text(stringResource(R.string.nav_sign_in)) }
         return
     }
     val snapshot = subscriptions.access
     val access = if (plan == SubscriptionPlan.BASE) snapshot?.base else snapshot?.bot
     val offer = subscriptions.offers[plan]
-    if (access?.usable() == true) {
-        PlanAccessSummary(plan, access)
-        if (plan == SubscriptionPlan.BOT_MINI && snapshot?.base?.usable() != true) Text("Bot mini needs an active Vipi plan. Restore Vipi or manage Bot mini in Google Play to prevent another renewal.")
-        if (plan == SubscriptionPlan.BASE) Button(onClick = { model.navigate(Screen.HOME) }, modifier = Modifier.fillMaxWidth()) { Text("Continue to chats") }
-        else if (snapshot?.active(SubscriptionPlan.BOT_MINI) == true) Button(onClick = { model.openBot() }, modifier = Modifier.fillMaxWidth()) { Text("Continue to vBot") }
+    var now by remember(subscriptions, plan, snapshot) { mutableStateOf(snapshot?.serverNow() ?: Instant.now()) }
+    var expiryRefreshPending by remember(subscriptions, plan, access?.expiresAt) {
+        mutableStateOf(access?.active == true && access.expiresAt?.let { !it.isAfter(snapshot?.serverNow() ?: Instant.now()) } == true)
+    }
+    LaunchedEffect(subscriptions, plan, access?.expiresAt) {
+        val expiry = access?.expiresAt ?: return@LaunchedEffect
+        val wait = Duration.between(snapshot?.serverNow() ?: Instant.now(), expiry).toMillis()
+        if (wait > 0) delay(wait)
+        expiryRefreshPending = true
+        now = snapshot?.serverNow() ?: Instant.now()
+        try { subscriptions.refresh() } finally { expiryRefreshPending = false }
+    }
+    val verificationUnavailable = plan == SubscriptionPlan.BOT_MINI && access?.verificationUnavailable == true
+    val clockUnavailable = snapshot != null && snapshot.serverTime == null
+    val accessUnknown = expiryRefreshPending || subscriptions.accessCheckState != AccessCheckState.LOADED || verificationUnavailable || clockUnavailable
+    val statusMessage = if (accessUnknown) {
+        if (verificationUnavailable) stringResource(R.string.bot_verification_unavailable)
+        else if (clockUnavailable || subscriptions.accessCheckState == AccessCheckState.ERROR) stringResource(R.string.plan_clock_unavailable)
+        else stringResource(R.string.ui_ee7fdea20d0b)
+    } else null
+    val endedTrial = access?.cardlessTrial?.takeIf { !it.active && !it.endsAt.isAfter(now) }
+    if (!accessUnknown && plan == SubscriptionPlan.BASE && access?.usable(now) != true && endedTrial != null) {
+        val end = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withZone(ZoneId.systemDefault()).format(endedTrial.endsAt)
+        Text(stringResource(R.string.cardless_ended, end), style = MaterialTheme.typography.bodyMedium)
+    }
+    if (access?.usable(now) == true && !accessUnknown) {
+        PlanAccessSummary(plan, access, now)
+        if (plan == SubscriptionPlan.BOT_MINI && snapshot?.base?.usable(now) != true) Text(stringResource(R.string.bot_requires_vipi_access))
+        if (plan == SubscriptionPlan.BASE) Button(onClick = { model.navigate(Screen.HOME) }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_a2a2eed05c81)) }
+        else if (snapshot?.active(SubscriptionPlan.BOT_MINI) == true) Button(onClick = { model.openBot() }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_c6046d416aaf)) }
+    } else if (accessUnknown) {
+        Text(requireNotNull(statusMessage), style = MaterialTheme.typography.bodyMedium)
     } else if (offer != null) {
-        Text(if (offer.oneMonthTrial) "One month free, then ${offer.annualPrice} per year" else "${offer.annualPrice} per year", fontWeight = FontWeight.SemiBold, fontSize = 20.sp)
-        Text(if (offer.oneMonthTrial) "Google Play confirms your eligibility and first payment date at checkout. The annual subscription renews automatically unless you cancel."
-            else "A free trial isn’t available for this offer. The annual subscription renews automatically unless you cancel.", style = MaterialTheme.typography.bodyMedium)
+        Text(if (offer.oneMonthTrial) stringResource(R.string.trial_then_annual, offer.annualPrice) else stringResource(R.string.annual_price, offer.annualPrice), fontWeight = FontWeight.SemiBold, fontSize = 20.sp)
+        Text(if (offer.oneMonthTrial) stringResource(R.string.play_trial_renewal_description)
+            else if (plan == SubscriptionPlan.BASE) stringResource(R.string.annual_renewal_description)
+            else stringResource(R.string.no_trial_renewal_description), style = MaterialTheme.typography.bodyMedium)
         if (plan == SubscriptionPlan.BOT_MINI) {
             val base = subscriptions.offers[SubscriptionPlan.BASE]
             if (base != null) {
@@ -70,29 +102,29 @@ import kotlinx.coroutines.launch
                     NumberFormat.getCurrencyInstance().apply { currency = Currency.getInstance(offer.currency) }
                         .format(java.math.BigDecimal.valueOf(base.annualMicros + offer.annualMicros, 6))
                 }.getOrNull() else null
-                Text(if (total != null) "Both plans: $total per year after trials, billed separately."
-                    else "Vipi: ${base.annualPrice} per year. Bot mini: ${offer.annualPrice} additional per year. Billed separately.")
+                Text(if (total != null) stringResource(R.string.both_plans_total, total)
+                    else stringResource(R.string.both_plans_separate, base.annualPrice, offer.annualPrice))
             }
-            if (snapshot?.base?.usable() != true) {
-                Text("Start or restore Vipi before adding Bot mini.")
-                TextButton(onClick = { model.navigate(Screen.PLANS) }) { Text("View Vipi plan") }
+            if (snapshot?.base?.usable(now) != true) {
+                Text(stringResource(R.string.ui_6802cad312c0))
+                TextButton(onClick = { model.navigate(Screen.PLANS) }) { Text(stringResource(R.string.ui_2090b85775b4)) }
             }
         }
         Button(onClick = { activity?.let { subscriptions.buy(it, plan) } }, modifier = Modifier.fillMaxWidth(),
             enabled = activity != null && snapshot?.purchasesReady == true && !subscriptions.busy && !subscriptions.purchasing &&
-                (plan == SubscriptionPlan.BASE || (snapshot?.base?.usable() == true && subscriptions.offers[SubscriptionPlan.BASE] != null && botAllowance?.serviceReady == true && (botAllowance?.monthly ?: 0) > 0))) {
-            Text(if (subscriptions.purchasing) "Waiting for Google Play…" else if (offer.oneMonthTrial) "Start one-month free trial" else "Subscribe for ${offer.annualPrice} per year")
+                (plan == SubscriptionPlan.BASE || (snapshot?.base?.usable(now) == true && subscriptions.offers[SubscriptionPlan.BASE] != null && botAllowance?.serviceReady == true && (botAllowance?.monthly ?: 0) > 0))) {
+            Text(if (subscriptions.purchasing) stringResource(R.string.ui_0c86126aea39) else if (offer.oneMonthTrial) stringResource(R.string.ui_33a6e5e20062) else stringResource(R.string.subscribe_annual, offer.annualPrice))
         }
     }
     if (subscriptions.busy) CircularProgressIndicator(Modifier.size(24.dp))
-    if (snapshot != null && !snapshot.purchasesReady) Text("Google Play purchases aren’t available yet. Existing plans can still be restored.", style = MaterialTheme.typography.bodySmall)
-    subscriptions.notice?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    TextButton(onClick = { scope.launch { subscriptions.refresh() } }, enabled = !subscriptions.busy && !subscriptions.purchasing) { Text("Restore purchases or refresh plans") }
-    TextButton(onClick = { open("https://play.google.com/store/account/subscriptions") }) { Text("Manage subscriptions in Google Play") }
-    Text("You can always read saved conversations and delete your account, even without an active plan.", style = MaterialTheme.typography.bodySmall)
+    if (snapshot != null && !snapshot.purchasesReady) Text(stringResource(R.string.ui_825bf52ce678), style = MaterialTheme.typography.bodySmall)
+    subscriptions.notice?.takeUnless { it == statusMessage }?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+    TextButton(onClick = { scope.launch { subscriptions.refresh() } }, enabled = !subscriptions.busy && !subscriptions.purchasing) { Text(stringResource(R.string.ui_3ceeccf6b3ff)) }
+    TextButton(onClick = { open("https://play.google.com/store/account/subscriptions") }) { Text(stringResource(R.string.ui_02d207068808)) }
+    Text(stringResource(R.string.ui_57225bd8b984), style = MaterialTheme.typography.bodySmall)
     Row {
-        TextButton(onClick = { open("https://api.mambovipi.app/terms") }) { Text("Terms") }
-        TextButton(onClick = { open("https://api.mambovipi.app/privacy") }) { Text("Privacy") }
+        TextButton(onClick = { open("https://api.mambovipi.app/terms") }) { Text(stringResource(R.string.nav_terms)) }
+        TextButton(onClick = { open("https://api.mambovipi.app/privacy") }) { Text(stringResource(R.string.nav_privacy)) }
     }
     linkError?.let { Text(it) }
 }
@@ -101,9 +133,15 @@ import kotlinx.coroutines.launch
 @Composable internal fun PlanAccessSummary(plan: SubscriptionPlan, access: PlanAccess,
     now: java.time.Instant = java.time.Instant.now()) {
     if (!access.usable(now)) return
-    Text(if (access.reviewAccess) "Review access is active. No subscription is required for this account."
-        else "${plan.title} is active", fontWeight = FontWeight.SemiBold)
+    if (plan == SubscriptionPlan.BASE && access.accessSource == "cardless_trial" && access.cardlessTrial?.active == true) {
+        val end = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.SHORT).withZone(ZoneId.systemDefault()).format(access.cardlessTrial.endsAt)
+        Text(stringResource(R.string.cardless_ends, end), fontWeight = FontWeight.SemiBold)
+        Text(stringResource(R.string.cardless_no_autocharge), style = MaterialTheme.typography.bodyMedium)
+        return
+    }
+    Text(if (access.reviewAccess) stringResource(R.string.review_access_description)
+        else stringResource(R.string.plan_active, plan.title), fontWeight = FontWeight.SemiBold)
     val trial = access.trialEndsAt?.takeIf { it.isAfter(now) }
     val until = trial ?: access.expiresAt
-    until?.let { Text("${if (trial != null) "Trial ends" else "Current access ends"} ${DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withZone(ZoneId.systemDefault()).format(it)}.") }
+    until?.let { Text(stringResource(if (trial != null) R.string.trial_end_date else R.string.access_end_date, DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withZone(ZoneId.systemDefault()).format(it))) }
 }
