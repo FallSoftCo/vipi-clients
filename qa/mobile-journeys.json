@@ -47,6 +47,13 @@
         ],
         "expected_junit_cases": 1,
         "scope": "One native test loops110 authored preview directions, not110 arbitrary-conversation cases. Inspect complete per-direction JSON, native playback and stop receipts."
+      },
+      "friend_history": {
+        "classes": [
+          "co.fallsoft.vipi.ChatTimelineDeviceTest"
+        ],
+        "expected_junit_cases": 2,
+        "scope": "Same production MainActivity and router, 70 real encrypted fixture sends, actual Signal incoming ciphertext and metadata-only inbox event while reading earlier messages, exact anchor through IME, own Send, explicit Jump and earlier-page insertion. Both ordinary and immersed histories; no live contact or physical push."
       }
     },
     "qualified_layouts": [
