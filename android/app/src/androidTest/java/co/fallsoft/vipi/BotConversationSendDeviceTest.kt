@@ -9,7 +9,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -61,6 +60,7 @@ class BotConversationSendDeviceTest {
             }
         }
         val account = UUID.randomUUID()
+        val subject = "synthetic-screen-${UUID.randomUUID()}"
         val prompt = "A synthetic greeting for this local test."
         val reply = "Synthetic reply received."
         val privateFriend = "PRIVATE_FRIEND_CONTENT_MUST_NOT_LEAVE_VAULT"
@@ -79,6 +79,9 @@ class BotConversationSendDeviceTest {
         }
         val transport = object : ChatTransport {
             override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>): JSONObject = when {
+                method == "GET" && path == "/v1/me" -> ChatProfile(account, "screen_tester", "Screen Tester").json()
+                method == "GET" && path == "/v1/keys" -> JSONObject().put("revision", 1).put("remaining", 20)
+                method == "GET" && path == "/v1/messages/pending" -> JSONObject().put("messages", JSONArray()).put("next_cursor", JSONObject.NULL)
                 method == "GET" && path == "/v1/entitlements" -> entitlements()
                 method == "GET" && path == "/v1/bot/allowance" -> allowance()
                 method == "POST" && path == "/v1/bot/messages" -> {
@@ -193,17 +196,30 @@ class BotConversationSendDeviceTest {
                         vault.put("message", "friend-private", privateFriend.toByteArray())
                     }
                 }
-                model = VipiModel(application, noTranslation)
+                PrivateRecords(application).write("session", IdentityAuthority.FALLSOFT_VIPI_PRODUCTION.tag(JSONObject()
+                    .put("userID", subject).put("accessToken", "synthetic-inert-access").put("refreshToken", "synthetic-inert-refresh")))
+                val boundary = object : VipiWorkflowBoundary {
+                    override fun transport(authentication: Authentication, userID: String): ChatTransport {
+                        check(userID == subject)
+                        return transport
+                    }
+                    override fun requestPush(context: Context, registration: Boolean) = Unit
+                    override fun cancelPush(context: Context) = Unit
+                    override fun billingClient(context: Context, listener: com.android.billingclient.api.PurchasesUpdatedListener) =
+                        WorkflowBillingClient(listener)
+                    override fun foregroundEvents(scope: CoroutineScope, authentication: Authentication, chat: ChatSession): ForegroundInboxEvents =
+                        error("This direct-screen test does not mount the app's foreground event owner")
+                }
+                model = VipiModel(application, noTranslation, boundary)
                 models.put("isolated-bot-send", model)
-                val plans = Subscriptions(application, transport, scope)
-                val field = VipiModel::class.java.getDeclaredField("subscriptions\$delegate").apply { isAccessible = true }
-                @Suppress("UNCHECKED_CAST")
-                (field.get(model) as MutableState<Any?>).value = plans
-                bot = BotSession(application, account, transport)
-                val botField = VipiModel::class.java.getDeclaredField("bot\$delegate").apply { isAccessible = true }
-                @Suppress("UNCHECKED_CAST")
-                (botField.get(model) as MutableState<Any?>).value = bot
                 initialized = true
+                scope.launch { model.activateChats() }
+            }
+            compose.waitUntil(10_000) { model.chat?.ready == true && model.chat?.profile?.id == account }
+            compose.runOnIdle {
+                model.openBot()
+                bot = requireNotNull(model.bot)
+                check(model.authentication.userID == subject && model.chat?.userID == subject)
                 check(!bot.consent && bot.draft.isEmpty() && bot.messages.isEmpty())
                 check(model.knownLanguage == "en" && model.targetLanguage == "es")
             }
