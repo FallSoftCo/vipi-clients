@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T11:19:44.500109+00:00",
+  "updated_utc": "2026-11-18T12:03:26.757001+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -97,9 +97,9 @@
     {
       "journey": "Owner review device and real Bot response",
       "implementation": "Android phone @rjuniyer",
-      "status": "Final8r02 APK delivered and hash verified; one installer request; installed readback still5, owner native use not yet verified",
+      "status": "Final8r02 delivery verified and installer requested once; fresh11:53readback still5, native owner use unverified",
       "required_observation": "production Base+Bot access verified; signed replacement must be installed and actual keyboard/send observed",
-      "limits": "Final8r02 exact99feAPK delivered539200030bytes with destination SHA verified; installer requested once, completion observed2026-11-18T11:15:51Z. Installer request is not installation: readback remainsversion5 and actual owner keyboard/Bot response is unverified. Final8r02 four-case production emulator success remains distinct. No copy/open/send replay."
+      "limits": "Final8r02 exact99feAPK delivered539200030bytes with destination SHA verified; one installer request completed11:15:51Z, no replay. Fresh read-only11:53:03Z stillversion5; installation and actual owner keyboard/Bot response remain unverified. Four light and two distinct dark signed-production emulator cases remain separate proof."
     },
     {
       "journey": "Edit a long multiline Bot draft",
@@ -170,6 +170,13 @@
       "status": "Final product051 passed14 normal/enlarged directional cases and simultaneous-view alternating rebinds",
       "required_observation": "Arabic and mixed-direction paragraphs retain native direction/leading edge through pending/prepared/flips; identical masked opposite paragraphs resolve against their own original range; original UTF16, selection/copy projection and noneditable source preserved",
       "limits": "Android36 native qualification and Android28 source/API review; no native API28 execution or arbitrary linguistic acceptance"
+    },
+    {
+      "journey": "Dark theme native typing, saved status and marked guides",
+      "implementation": "Signed production8r02 actual MainActivity, native Settings/Gboard and original PNG pixels",
+      "status": "passed dark normal portrait and enlarged landscape; root independently reviewed original PNGs",
+      "required_observation": "Actual Dark radio/palette; native Gboard hi, full glyph/caret,48dp Back/Send, readable saved status/history/quota and marked guides; owned draft cleared, exact original SYSTEM theme/display settings restored",
+      "limits": "Two distinct new dark production-native cases; earlier four light cases were not rerun. No Send/login/register/rekey/owner-phone/acoustic/all-language-dark/global-accessibility certification claim."
     }
   ],
   "receipts": {
@@ -219,9 +226,14 @@
     "android_signed_v8r02_root_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8r02-root-pixel-review-r01.json",
     "ios_build5_review_replacement": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/candidate5-review-replacement-execution-r01/receipt.json",
     "ios_build5_review_root_pixels": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/candidate5-review-replacement-execution-r01/65-final-exact-submission-detail-r01.png",
-    "phone_signed_v8r02_delivery": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-v8r02-delivery-r01.json"
+    "phone_signed_v8r02_delivery": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-v8r02-delivery-r01.json",
+    "android_signed_v8r02_aab_static": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-v8-r02-bundle-preparation-r02/verify-r02.json",
+    "android_signed_v8r02_aab_original_verifier_failure": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-v8-r02-bundle-preparation-r02/verify.json",
+    "android_signed_v8r02_dark_keyboard": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-r02-dark-native-smoke-r01/receipt.json",
+    "android_signed_v8r02_dark_root_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8r02-dark-root-pixel-review-r01.json",
+    "phone_installed_readonly_latest": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-installed-readonly-r04.json"
   },
-  "release_controls": "Exact Apple build5/five-item submission WAITING_FOR_REVIEW with MANUAL release,13locales and173-country roster preserved. Google Managed Publishing preserved; final Android AAB/Google replacement pending. No completed external action replay.",
+  "release_controls": "Apple exact5/five-item WAITING_FOR_REVIEW and MANUAL/13locales/173countries preserved. Final Android AAB staticPASS; Google5\u21928 replacement in progress, no upload/completion claim. Owner-phone fresh11:53readbackstill5; no completed-action replay.",
   "original_nine_dirty_files_preserved": true,
   "prior_external_actions_reconciled": {
     "base_intro_offers": "Google obsolete Base offer deactivated once; Apple Base offer removed once onNovember17. Reloadverifiedreceipts retained. No repetition.",
@@ -328,8 +340,79 @@
       "actual_owner_send_verified": false,
       "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-v8r02-delivery-r01.json",
       "receipt_sha256": "f50a59e294bfa452207820a7f7cb8a023b14de0a2606e22a2d9625cbce3cbe36",
-      "limits": "Installer request is not confirmed installation or actual owner send proof; no transfer or installer replay."
+      "limits": "Installer request is not confirmed installation or actual owner send proof; no transfer or installer replay.",
+      "latest_installed_readonly_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-installed-readonly-r04.json",
+      "latest_installed_readonly_receipt_sha256": "93a913e40a7a322b7ac4ff14a46a4a63d9b3b6438bf2d4941861153bdbc07333",
+      "latest_installed_readback_utc": "2026-11-18T11:53:03.404244+00:00"
     },
-    "android_store": "Final AAB validation and Google review replacement remain pending; Managed Publishing preserved."
+    "android_store": "Final8r02 AAB static verification passed exact3f21 bundle. Google replacement is in progress under scoped authorization to return original24 changes to Pending for5\u21928; no new upload/review completion claimed. Managed Publishing preserved."
+  },
+  "signed_production_dark_acceptance": {
+    "version_code": 8,
+    "apk_sha256": "99fe7498359e3e768c6b0d75bf690c57aa34f720cfa4968a6183efd135d86f46",
+    "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-r02-dark-native-smoke-r01/receipt.json",
+    "receipt_sha256": "2bdf84ac5c4f39fe4317735cf140ce4282df000d3cd689cd7a8fa0c639e103c8",
+    "root_pixel_review_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8r02-dark-root-pixel-review-r01.json",
+    "root_pixel_review_sha256": "e19d43cd6b87d518a5ed2c58ccbf10a1b3f3eb178c0219e6dba50835e60b7277",
+    "cases": [
+      "dark normal portrait/font1.0",
+      "dark enlarged landscape/font1.6"
+    ],
+    "actual_theme": "Explicit in-app DARK selected through native Settings; system nightNo preserved and Gboard independently light",
+    "normal_portrait_caret_px": 71,
+    "enlarged_landscape_caret_px": 100,
+    "full_glyph_caret_and_48dp_back_send_visible": true,
+    "marked_pinyin_history_status_and_quota_readable": true,
+    "sampled_pixel_contrast_range": [
+      5.32,
+      16.18
+    ],
+    "original_app_theme_and_display_settings_restored": true,
+    "owned_drafts_cleared_and_saved_history_preserved": true,
+    "scope": "Two distinct new dark production-native cases; earlier four light cases were not rerun. No Send/login/register/rekey/owner-phone/acoustic/all-language-dark/global-accessibility certification claim."
+  },
+  "signed_android_bundle_acceptance": {
+    "version_code": 8,
+    "version_name": "1.0.7",
+    "source_commit": "463599e77af9656f182d923d557589b9c1f7d5c0",
+    "bytes": 475274414,
+    "sha256": "3f21b2f5688043b9c9d707955543f52729c2943ee7df6db602e106bedbbde5fc",
+    "apk_sha256": "99fe7498359e3e768c6b0d75bf690c57aa34f720cfa4968a6183efd135d86f46",
+    "static_verification_passed": true,
+    "verification_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-v8-r02-bundle-preparation-r02/verify-r02.json",
+    "verification_receipt_sha256": "c9734ef32e484eea697a1fb6615d3e2a97d5e0b1c5425f52b7062cca612b2883",
+    "checks": {
+      "all_assets_native_and_every_dex_equal_verified_v8r02_apk": true,
+      "all_base_and_intermediary_entries_preserved": true,
+      "all_four_abis": true,
+      "bundletool_valid": true,
+      "exact_upload_certificate": "f01ec81085007945c6cbc1e81953d51cb9aa11e16777c1962f196acb088ea35c",
+      "native_64_bit_16k": true,
+      "packaged_and_retained_mapping_equal": true,
+      "signed_jar_every_payload_entry_covered": true,
+      "version_code": 8,
+      "version_name": "1.0.7"
+    },
+    "sdk_min": 28,
+    "sdk_target": 36,
+    "mapping_sha256": "f484a3adf9887afc7b825d84e68b4470d6313773ba15b4c1a42c8f6291d75076",
+    "original_failed_verification": {
+      "path": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-v8-r02-bundle-preparation-r02/verify.json",
+      "sha256": "60847520fc5ec0c54a1198b085f22538979aadd60e240c07bca90ae3d94c922a"
+    },
+    "precise_verifier_correction": {
+      "all_other_members_match_literally": true,
+      "bytes": 46,
+      "exception_count": 1,
+      "literal_member_matches": 1553,
+      "projected_names_unique": true,
+      "sha256": "38d377afa76b6364e5bf551cf4ffec1a881a46102a0047f523fbf148e0df6928",
+      "signed_redundant_source_name_absent": true,
+      "source": "root/META-INF//version-control-info.textproto",
+      "source_canonical_name_absent": true,
+      "target": "base/root/META-INF/version-control-info.textproto",
+      "total_base_members": 1554
+    },
+    "scope": "Static signed bundle proof only; no Google upload or review completion, owner installation, new purchase/live Send or iOS StoreKit transaction proof."
   }
 }
