@@ -181,6 +181,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 compose.waitUntil(8_000) { f.model.subscriptions?.accessCheckState == AccessCheckState.ERROR }
                 compose.onNodeWithTag("bot-message-input").assertTextEquals(draft)
                 compose.onNodeWithText(f.base.getString(R.string.ui_541ecffcdb87)).performScrollTo().assertIsDisplayed()
+                compose.onNodeWithText(f.base.getString(R.string.try_again)).performScrollTo()
                 compose.onNodeWithTag("bot-message-send").assertIsNotEnabled()
                 assertNativeContained(f, By.desc(f.base.getString(R.string.nav_back)), "Bot Back icon", 24)
                 assertNativeContained(f, By.text(f.base.getString(R.string.ui_f173182378d0)), "Bot title", 20)
