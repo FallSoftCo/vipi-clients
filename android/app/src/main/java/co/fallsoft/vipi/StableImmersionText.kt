@@ -18,6 +18,8 @@ import android.text.style.ClickableSpan
 import android.text.style.ReplacementSpan
 import android.text.style.LineHeightSpan
 import android.text.TextPaint
+import android.text.TextDirectionHeuristic
+import android.text.TextDirectionHeuristics
 import android.view.MotionEvent
 import android.view.View
 import android.view.KeyEvent
@@ -44,6 +46,12 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     var onCopyRequested: (() -> Unit)? = null
     var onWhitespace: ((StableImmersionText) -> Unit)? = null
     var onPlayMessage: (() -> Unit)? = null
+    // TextView may call the virtual getter during its own constructor, before
+    // Kotlin fields initialize. The native fallback is valid at that point.
+    private var sourceDirection: SourceParagraphDirection? = null
+    private fun nativeDirection(): TextDirectionHeuristic = if (layoutDirection == LAYOUT_DIRECTION_RTL)
+        TextDirectionHeuristics.FIRSTSTRONG_RTL else TextDirectionHeuristics.FIRSTSTRONG_LTR
+    override fun getTextDirectionHeuristic(): TextDirectionHeuristic = sourceDirection ?: nativeDirection()
     private var translationCallbacks = false
     private var selectionGesture = false
     private var selectionChangedDuringGesture = false
@@ -134,6 +142,10 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     private var menuSelectionPending = false
     private var nativeSelectionMode: ActionMode? = null
     init {
+        val direction = SourceParagraphDirection(::nativeDirection)
+        sourceDirection = direction
+        setSpannableFactory(direction.factory)
+        textDirection = TEXT_DIRECTION_FIRST_STRONG
         setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 18f)
         setPadding(0, 0, 0, 0); includeFontPadding = false
         setLineSpacing(5 * resources.displayMetrics.density, 1f)
