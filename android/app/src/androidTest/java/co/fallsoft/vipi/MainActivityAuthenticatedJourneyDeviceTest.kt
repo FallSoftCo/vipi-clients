@@ -103,6 +103,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 compose.onNodeWithTag("message-input").performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 compose.onNodeWithTag("message-input").assertIsFocused().performTextInput(prompt)
+                exerciseShortLandscapeComposer(compose, f, "message-input", "message-send", prompt, "friend-short-landscape")
+                compose.runOnIdle { assertEquals(0, services.friendPosts.get()); assertEquals(prompt, f.model.chat?.compose(services.peer)) }
                 f.device.pressBack()
                 compose.waitUntil(5_000) { !imeVisible(f) }
                 compose.runOnIdle { assertEquals(Screen.CONVERSATION, f.model.screen) }
@@ -407,6 +409,40 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 runCatching { f.capture("failure-before-cleanup") }.onFailure { failure.addSuppressed(it) }
                 throw failure
             } finally { services.botReplyGate.complete(Unit); f.stopActivity(); services.close() }
+        }
+    }
+
+    @Test fun shortLandscapeBotKeepsFullNativeLineCaretBackAndSendAboveImeAndDraftSurvives() {
+        val services = JourneyServices(profileRequired = false, expectedBotPosts = 0)
+        MainActivityJourneyFixture("bot-short-landscape", services::model).use { f ->
+            try {
+                f.launch(); waitScreen(f, Screen.HOME); openBot(f)
+                compose.onNodeWithTag("bot-consent-choice").performScrollTo().performTouchInput { click() }
+                compose.onNodeWithTag("bot-consent-continue").performScrollTo().performTouchInput { click() }
+                compose.waitUntil(8_000) { f.model.bot?.allowance != null && f.model.subscriptions?.accessCheckState == AccessCheckState.LOADED }
+                compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
+                compose.waitUntil(8_000) { imeVisible(f) }
+                // Native keyboard events enter the actual focused editor;
+                // layout/caret checks inspect its real pixels with the IME open.
+                assertTrue(f.device.pressKeyCode(android.view.KeyEvent.KEYCODE_H))
+                assertTrue(f.device.pressKeyCode(android.view.KeyEvent.KEYCODE_I))
+                compose.waitUntil(5_000) { f.model.bot?.draft == "hi" }
+                exerciseShortLandscapeComposer(compose, f, "bot-message-input", "bot-message-send", "hi", "bot-short-landscape")
+                compose.onNodeWithTag("bot-message-send").assertIsEnabled()
+                compose.runOnIdle { assertEquals(0, services.botPosts.get()); assertEquals(0, services.friendPosts.get()) }
+                f.device.pressBack(); compose.waitUntil(5_000) { !imeVisible(f) }
+                f.device.pressBack(); waitScreen(f, Screen.HOME); openBot(f)
+                compose.onNodeWithTag("bot-message-input").assertEditorValue("hi")
+                compose.runOnIdle {
+                    BotSession(f.isolated, services.account, services.transport(f.model.authentication, services.subject)).use { reopened -> assertEquals("hi", reopened.draft) }
+                }
+                services.assertNoPurchase()
+                File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("native_landscape", "1920x1080@420dpi")
+                    .put("posts", 0).put("full_rendered_caret_and_visual_line", true).put("draft_durable_after_restore", true).toString(2))
+            } catch (failure: Throwable) {
+                runCatching { f.capture("failure-before-cleanup") }.onFailure { failure.addSuppressed(it) }
+                throw failure
+            } finally { f.stopActivity(); services.close() }
         }
     }
 
