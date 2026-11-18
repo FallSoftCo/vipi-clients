@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T11:10:09.312359+00:00",
+  "updated_utc": "2026-11-18T11:19:44.500109+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -97,9 +97,9 @@
     {
       "journey": "Owner review device and real Bot response",
       "implementation": "Android phone @rjuniyer",
-      "status": "not yet verified",
+      "status": "Final8r02 APK delivered and hash verified; one installer request; installed readback still5, owner native use not yet verified",
       "required_observation": "production Base+Bot access verified; signed replacement must be installed and actual keyboard/send observed",
-      "limits": "Owner-phone installation and actual keyboard/Bot response remain unverified here. Final signed8r02 independently passed all four actual Gboard emulator cases with retained revoked Gamma history; this does not establish owner-phone acceptance or a new live Send."
+      "limits": "Final8r02 exact99feAPK delivered539200030bytes with destination SHA verified; installer requested once, completion observed2026-11-18T11:15:51Z. Installer request is not installation: readback remainsversion5 and actual owner keyboard/Bot response is unverified. Final8r02 four-case production emulator success remains distinct. No copy/open/send replay."
     },
     {
       "journey": "Edit a long multiline Bot draft",
@@ -216,9 +216,12 @@
     "android_signed_v8r02_install": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/install-signed-v8r02-emulator-r02.json",
     "android_signed_v8r02_native_keyboard": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-r02-native-smoke-r01/receipt.json",
     "android_signed_v8r02_native_evidence": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-r02-native-smoke-r01/evidence-manifest.json",
-    "android_signed_v8r02_root_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8r02-root-pixel-review-r01.json"
+    "android_signed_v8r02_root_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8r02-root-pixel-review-r01.json",
+    "ios_build5_review_replacement": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/candidate5-review-replacement-execution-r01/receipt.json",
+    "ios_build5_review_root_pixels": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/candidate5-review-replacement-execution-r01/65-final-exact-submission-detail-r01.png",
+    "phone_signed_v8r02_delivery": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-v8r02-delivery-r01.json"
   },
-  "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
+  "release_controls": "Exact Apple build5/five-item submission WAITING_FOR_REVIEW with MANUAL release,13locales and173-country roster preserved. Google Managed Publishing preserved; final Android AAB/Google replacement pending. No completed external action replay.",
   "original_nine_dirty_files_preserved": true,
   "prior_external_actions_reconciled": {
     "base_intro_offers": "Google obsolete Base offer deactivated once; Apple Base offer removed once onNovember17. Reloadverifiedreceipts retained. No repetition.",
@@ -268,5 +271,65 @@
       "Current native expiry fixtures do not inject an encrypted incoming peer reply while Base is expired; backend inbox access and active-account native incoming Signal proof cover those boundaries separately."
     ],
     "finding": "Coverage limits, not a newly demonstrated product defect. No tests added or rerun for this documentation review."
+  },
+  "external_delivery_and_review": {
+    "apple": {
+      "build": 5,
+      "batch_state": "WAITING_FOR_REVIEW",
+      "submission_id": "6b0f444d-6328-416a-85b7-5b29808eaa77",
+      "server_submitted_utc": "2026-11-18T11:10:07.41Z",
+      "exact_five_item_roster": [
+        {
+          "type": "App Version",
+          "name": "iOS1.0(5)"
+        },
+        {
+          "type": "Subscription",
+          "name": "Vipi Annual",
+          "id": "6832625761"
+        },
+        {
+          "type": "Subscription Group",
+          "name": "Vipi",
+          "id": "22561715"
+        },
+        {
+          "type": "Subscription",
+          "name": "Bot mini Annual",
+          "id": "6832634497"
+        },
+        {
+          "type": "Subscription Group",
+          "name": "Bot mini",
+          "id": "22561805"
+        }
+      ],
+      "native_ui_all_five_waiting_verified_by_root": true,
+      "api_item_state_scope": "Items remain READY_FOR_REVIEW inside WAITING_FOR_REVIEW batch; actual UI independently shows all five Waiting for Review.",
+      "manual_release_preserved": true,
+      "original_locales_preserved": 13,
+      "original_country_roster_preserved": 173,
+      "receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/candidate5-review-replacement-execution-r01/receipt.json",
+      "receipt_sha256": "d20e949c90ffd168554a53f5b172da434cc9a18e685fafdff8815de03a875cfc",
+      "root_pixel_evidence": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/candidate5-review-replacement-execution-r01/65-final-exact-submission-detail-r01.png",
+      "limits": "Review queued, not approved or publicly released. Completed replacement/submission must not be repeated."
+    },
+    "phone": {
+      "delivered_version_code": 8,
+      "delivered_version_name": "1.0.7",
+      "apk_sha256": "99fe7498359e3e768c6b0d75bf690c57aa34f720cfa4968a6183efd135d86f46",
+      "bytes": 539200030,
+      "remote": "/storage/emulated/0/Download/vipi-v8-r02-release.apk",
+      "destination_hash_verified": true,
+      "installer_requests": 1,
+      "delivery_completed_utc": "2026-11-18T11:15:51.048349+00:00",
+      "installed_version_code_readback": 5,
+      "installed_update_verified": false,
+      "actual_owner_send_verified": false,
+      "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-v8r02-delivery-r01.json",
+      "receipt_sha256": "f50a59e294bfa452207820a7f7cb8a023b14de0a2606e22a2d9625cbce3cbe36",
+      "limits": "Installer request is not confirmed installation or actual owner send proof; no transfer or installer replay."
+    },
+    "android_store": "Final AAB validation and Google review replacement remain pending; Managed Publishing preserved."
   }
 }
