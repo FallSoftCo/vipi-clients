@@ -119,6 +119,10 @@ internal class MainActivityJourneyFixture(
         instrumentation.runOnMainSync {
             snapshot.put("screen", model.screen.name).put("known", model.knownLanguage).put("learning", model.targetLanguage)
                 .put("activity_injections", injectionCount).put("actual_activity", activity?.javaClass?.name)
+                .put("width_px", base.resources.displayMetrics.widthPixels)
+                .put("height_px", base.resources.displayMetrics.heightPixels)
+                .put("screen_width_dp", base.resources.configuration.screenWidthDp)
+                .put("font_scale", base.resources.configuration.fontScale.toDouble())
             val views = JSONArray()
             paragraphs().forEach { view ->
                 val rect = Rect(); view.getGlobalVisibleRect(rect)
