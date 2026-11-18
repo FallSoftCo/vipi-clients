@@ -2,6 +2,48 @@ import XCTest
 
 @MainActor
 final class ChatConversationTests: XCTestCase {
+    /// The existing preview route renders the actual NewChatView with no chat
+    /// session. Find therefore returns a local error without any API/account.
+    func testPreviewFriendLookupKeepsControlsAboveKeyboardAndCancelReturnsHome() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-preview-home", "-vipi-appearance-light", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryL"]
+        app.launch(); defer { app.terminate() }
+        let newChat = app.buttons["New chat"]
+        XCTAssertTrue(newChat.waitForExistence(timeout: 15)); newChat.tap()
+        let username = app.textFields["Friend’s username"]
+        XCTAssertTrue(username.waitForExistence(timeout: 5)); username.tap(); username.typeText("vqa_keyboard_probe")
+        let keyboard = app.keyboards.firstMatch
+        XCTAssertTrue(keyboard.waitForExistence(timeout: 5), "A hardware-keyboard-only run cannot prove software keyboard clearance")
+        let find = app.buttons["Find friend"], cancel = app.buttons["Cancel"]
+        let navigation = app.navigationBars["New conversation"]
+        XCTAssertTrue(navigation.exists); XCTAssertGreaterThan(navigation.frame.height, 0)
+        func requireVisible(_ control: XCUIElement, belowNavigation: Bool = true) {
+            XCTAssertTrue(control.exists); XCTAssertTrue(control.isHittable)
+            XCTAssertGreaterThan(control.frame.width, 0); XCTAssertGreaterThan(control.frame.height, 0)
+            XCTAssertTrue(app.frame.contains(control.frame), "Control must fit entirely on screen: \(control.label)")
+            XCTAssertLessThanOrEqual(control.frame.maxY, keyboard.frame.minY + 1, "Keyboard must not cover \(control.label)")
+            if belowNavigation { XCTAssertGreaterThanOrEqual(control.frame.minY, navigation.frame.maxY - 1) }
+        }
+        requireVisible(username); requireVisible(find); requireVisible(cancel, belowNavigation: false)
+        capture("ios-preview-friend-lookup-keyboard")
+        find.tap()
+        let error = app.staticTexts["Sign in to find your friends."]
+        XCTAssertTrue(error.waitForExistence(timeout: 5)); XCTAssertTrue(keyboard.exists)
+        capture("ios-preview-friend-lookup-local-error-keyboard")
+        requireVisible(username); requireVisible(find); requireVisible(error); requireVisible(cancel, belowNavigation: false)
+        let geometry: [String: Any] = Dictionary(uniqueKeysWithValues: [("screen", app), ("keyboard", keyboard), ("username", username), ("find", find), ("error", error), ("cancel", cancel)].map { name, element in
+            let frame = element.frame
+            return (name, ["x": Double(frame.minX), "y": Double(frame.minY), "width": Double(frame.width), "height": Double(frame.height), "hittable": element.isHittable] as [String: Any])
+        })
+        let attachment = XCTAttachment(data: try JSONSerialization.data(withJSONObject: geometry, options: [.sortedKeys]), uniformTypeIdentifier: "public.json")
+        attachment.name = "friend-lookup-keyboard-geometry"; attachment.lifetime = .keepAlways; add(attachment)
+        cancel.tap()
+        XCTAssertTrue(newChat.waitForExistence(timeout: 5)); XCTAssertTrue(newChat.isHittable)
+        XCTAssertTrue(app.staticTexts["Chats"].exists)
+        XCTAssertFalse(username.exists); XCTAssertFalse(error.exists)
+        capture("ios-preview-friend-lookup-cancel-restores-home")
+    }
     func testObserveExistingImmersionThroughComposerAndSpeech() throws {
         guard ProcessInfo.processInfo.environment["VIPI_QA_PEER"] == "vqa_1107_android01" else { throw XCTSkip("Owned native session required") }
         continueAfterFailure = false
