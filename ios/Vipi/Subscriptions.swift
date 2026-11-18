@@ -118,18 +118,9 @@ struct BotAllowance: Decodable, Sendable {
     func refresh() async {
         guard !loading, !closed else { return }
         loading = true
-        // Fail closed on a failed refresh rather than reuse a stale readiness
-        // signal for a new charge. Existing account access is kept separately.
-        purchaseReady = false; botAllowance = nil
+        botAllowance = nil
         defer { loading = false }
-        let revision = entitlementRevision
-        do {
-            let startedAt = ContinuousClock.now
-            let value: EntitlementSnapshot = try await api.request("GET", "/v1/entitlements")
-            // A StoreKit confirmation can accept newer access while this GET
-            // is in flight. Its response must not undo that confirmation.
-            if revision == entitlementRevision { try accept(value, capturedAt: startedAt) }
-        } catch { if !closed && revision == entitlementRevision { notice = Self.explanation(error) } }
+        await refreshEntitlements()
         do {
             let value: BotAllowance = try await api.request("GET", "/v1/bot/allowance")
             if !closed { botAllowance = value }
@@ -158,6 +149,21 @@ struct BotAllowance: Decodable, Sendable {
                 notice = String(localized: "The App Store couldn’t load prices. Please try again.")
             }
         }
+    }
+    /// Service access reconciliation is independent of StoreKit offer loading.
+    func refreshEntitlements() async {
+        guard !closed else { return }
+        // Fail closed on a failed refresh rather than reuse a stale readiness
+        // signal for a new charge. Existing account access is kept separately.
+        purchaseReady = false
+        let revision = entitlementRevision
+        do {
+            let startedAt = ContinuousClock.now
+            let value: EntitlementSnapshot = try await api.request("GET", "/v1/entitlements")
+            // A StoreKit confirmation can accept newer access while this GET
+            // is in flight. Its response must not undo that confirmation.
+            if revision == entitlementRevision { try accept(value, capturedAt: startedAt) }
+        } catch { if !closed && revision == entitlementRevision { notice = Self.explanation(error) } }
     }
     func accessVerificationPending(_ plan: VipiPlan) -> Bool {
         guard serverClockValid, let access = snapshot?.access(plan) else { return true }
@@ -214,7 +220,8 @@ struct BotAllowance: Decodable, Sendable {
             if !closed && notice == nil { notice = String(localized: "Your App Store purchases are up to date.") }
         } catch { if !closed { notice = Self.explanation(error) } }
     }
-    private func accept(_ value: EntitlementSnapshot, capturedAt: ContinuousClock.Instant) throws {
+    /// Accept only an account-bound service response, including purchase verification.
+    func accept(_ value: EntitlementSnapshot, capturedAt: ContinuousClock.Instant) throws {
         guard !closed, value.app_account_token == accountToken else {
             throw ServiceFailure(status: 0, code: "purchase_account_mismatch")
         }

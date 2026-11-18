@@ -15,6 +15,7 @@ import StoreKitTest
         var responseAccount: UUID?
         var submitted = 0
         var pauseNextEntitlements = false
+        var failDeferredEntitlements = false
         var pendingEntitlements: CheckedContinuation<Void, Never>?
         func finishEntitlements() {
             let pending = pendingEntitlements; pendingEntitlements = nil; pending?.resume()
@@ -54,6 +55,7 @@ import StoreKitTest
             if path == "/v1/entitlements" && pauseNextEntitlements {
                 pauseNextEntitlements = false
                 await withCheckedContinuation { pendingEntitlements = $0 }
+                if failDeferredEntitlements { throw URLError(.notConnectedToInternet) }
             }
             return captured
         }
@@ -71,16 +73,16 @@ import StoreKitTest
         session.resetToDefaultState(); session.disableDialogs = true; session.clearTransactions()
         return session
     }
-    private enum StoreKitWaitFailure: Error { case timedOut }
-    /// StoreKit publishes transactions asynchronously even after purchase()
-    /// returns. Keep the expected state strict while bounding that propagation.
-    private func waitForStoreKit(_ description: String, file: StaticString = #filePath, line: UInt = #line,
+    private enum StateWaitFailure: Error { case timedOut }
+    /// Bound asynchronous transaction propagation and deferred transport setup
+    /// while keeping each expected state strict.
+    private func waitForState(_ description: String, file: StaticString = #filePath, line: UInt = #line,
                                  until condition: @MainActor () async -> Bool) async throws {
         let deadline = ContinuousClock.now.advanced(by: .seconds(5))
         while !(await condition()) {
             guard ContinuousClock.now < deadline else {
-                XCTFail("Timed out waiting for StoreKit: \(description)", file: file, line: line)
-                throw StoreKitWaitFailure.timedOut
+                XCTFail("Timed out waiting for state: \(description)", file: file, line: line)
+                throw StateWaitFailure.timedOut
             }
             try await Task.sleep(for: .milliseconds(25))
         }
@@ -136,11 +138,11 @@ import StoreKitTest
         api.ready = false; api.pauseNextEntitlements = true
         let refreshing = Task { await store.refresh() }
         defer { api.finishEntitlements(); refreshing.cancel() }
-        try await waitForStoreKit("older entitlement response captured before purchase") { api.pendingEntitlements != nil }
+        try await waitForState("older entitlement response captured before purchase") { api.pendingEntitlements != nil }
         api.ready = true
         let transaction = try await environment.buyProduct(identifier: VipiPlan.base.rawValue, options: [.appAccountToken(api.account)])
         XCTAssertEqual(transaction.environment, .xcode)
-        try await waitForStoreKit("transaction listener accepts service-confirmed access") {
+        try await waitForState("transaction listener accepts service-confirmed access") {
             api.submitted > 0 && store.baseActive && !store.awaitingConfirmation.contains(.base)
         }
         api.finishEntitlements()
@@ -150,6 +152,59 @@ import StoreKitTest
         XCTAssertTrue(store.purchaseReady, "Readiness belongs to the latest accepted service snapshot")
         XCTAssertFalse(store.canPurchase(.base), "The confirmed purchase must not offer another charge")
         XCTAssertEqual(environment.allTransactions().count, 1)
+    }
+    /// These domain/network regressions use the actual store and deferred
+    /// transport. Applying a service snapshot is not StoreKit verification.
+    func testDeferredEntitlementRefreshPreservesAcceptedServiceSnapshot() async throws {
+        let api = Service(); api.ready = false; api.pauseNextEntitlements = true
+        let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
+        let refreshing = Task { await store.refreshEntitlements() }
+        defer { api.finishEntitlements(); refreshing.cancel() }
+        try await waitForState("deferred entitlement response captured") { api.pendingEntitlements != nil }
+        api.base = true; api.ready = true
+        let confirmed: EntitlementSnapshot = try await api.request("GET", "/v1/entitlements")
+        try store.accept(confirmed, capturedAt: .now)
+        XCTAssertTrue(store.baseActive)
+        api.finishEntitlements(); await refreshing.value
+        XCTAssertTrue(store.baseActive, "An older GET must not replace the newer accepted service snapshot")
+        XCTAssertTrue(store.snapshot?.base.active == true)
+        XCTAssertTrue(store.purchaseReady)
+        XCTAssertEqual(api.submitted, 0); XCTAssertTrue(store.products.isEmpty)
+        // A subsequent authoritative change still applies; this is ordering,
+        // not a permanent override that preserves active access.
+        api.base = false; api.ready = false
+        await store.refreshEntitlements()
+        XCTAssertFalse(store.baseActive); XCTAssertFalse(store.purchaseReady)
+    }
+    func testDeferredEntitlementFailureCannotReplaceAcceptedServiceReadinessOrNotice() async throws {
+        let api = Service(); api.pauseNextEntitlements = true; api.failDeferredEntitlements = true
+        let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
+        let refreshing = Task { await store.refreshEntitlements() }
+        defer { api.finishEntitlements(); refreshing.cancel() }
+        try await waitForState("deferred failing entitlement response captured") { api.pendingEntitlements != nil }
+        api.base = true
+        let confirmed: EntitlementSnapshot = try await api.request("GET", "/v1/entitlements")
+        try store.accept(confirmed, capturedAt: .now)
+        store.notice = "Current service confirmation"
+        api.finishEntitlements(); await refreshing.value
+        XCTAssertTrue(store.baseActive); XCTAssertTrue(store.purchaseReady)
+        XCTAssertEqual(store.notice, "Current service confirmation")
+        XCTAssertEqual(api.submitted, 0); XCTAssertTrue(store.products.isEmpty)
+    }
+    func testRejectedAccountSnapshotDoesNotSupersedeDeferredRefresh() async throws {
+        let api = Service(); api.ready = false; api.pauseNextEntitlements = true
+        let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
+        let refreshing = Task { await store.refreshEntitlements() }
+        defer { api.finishEntitlements(); refreshing.cancel() }
+        try await waitForState("deferred account-bound entitlement response captured") { api.pendingEntitlements != nil }
+        api.base = true; api.ready = true; api.responseAccount = UUID()
+        let wrongAccount: EntitlementSnapshot = try await api.request("GET", "/v1/entitlements")
+        XCTAssertThrowsError(try store.accept(wrongAccount, capturedAt: .now))
+        XCTAssertNil(store.snapshot); XCTAssertFalse(store.purchaseReady)
+        api.finishEntitlements(); await refreshing.value
+        XCTAssertEqual(store.snapshot?.app_account_token, api.account)
+        XCTAssertFalse(store.baseActive); XCTAssertFalse(store.purchaseReady)
+        XCTAssertEqual(api.submitted, 0); XCTAssertTrue(store.products.isEmpty)
     }
     func testCardlessBaseTrialPreventsPaidBaseCheckoutAndLeavesBotMiniOptional() async throws {
         let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
@@ -169,7 +224,7 @@ import StoreKitTest
         let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
         await store.start(); await store.purchase(.base)
         XCTAssertFalse(store.baseActive); XCTAssertFalse(store.canPurchase(.base)); XCTAssertTrue(store.awaitingConfirmation.contains(.base))
-        try await waitForStoreKit("denied purchase remains unfinished") { await self.unfinishedBaseCount() == 1 }
+        try await waitForState("denied purchase remains unfinished") { await self.unfinishedBaseCount() == 1 }
         var unfinished = 0
         for await result in Transaction.unfinished { if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { unfinished += 1 } }
         XCTAssertEqual(unfinished, 1)
@@ -182,11 +237,11 @@ import StoreKitTest
         let stillUnfinished = await unfinishedBaseCount()
         XCTAssertEqual(stillUnfinished, 1)
         api.rejectSubmission = false; await store.start()
-        try await waitForStoreKit("service-confirmed purchase becomes active") {
+        try await waitForState("service-confirmed purchase becomes active") {
             store.baseActive && !store.awaitingConfirmation.contains(.base)
         }
         XCTAssertTrue(store.baseActive); XCTAssertFalse(store.awaitingConfirmation.contains(.base))
-        try await waitForStoreKit("confirmed purchase is finished") { await self.unfinishedBaseCount() == 0 }
+        try await waitForState("confirmed purchase is finished") { await self.unfinishedBaseCount() == 0 }
         var remaining = 0
         for await result in Transaction.unfinished { if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { remaining += 1 } }
         XCTAssertEqual(remaining, 0); XCTAssertGreaterThanOrEqual(api.submitted, 2)
