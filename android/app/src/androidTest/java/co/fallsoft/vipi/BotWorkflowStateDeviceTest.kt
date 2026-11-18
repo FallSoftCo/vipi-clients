@@ -115,6 +115,33 @@ class BotWorkflowStateDeviceTest {
         }
     }
 
+    @Test fun tiedAndBackwardClockKeepsNextPromptAfterPriorReplyAcrossReopen(): Unit = runBlocking(Dispatchers.Main) {
+        Fixture().use { f ->
+            var clock = 1000L
+            var sends = 0
+            f.handler = { _, path, body, _ -> if (path == "/v1/bot/allowance") quota(5) else {
+                sends++
+                JSONObject().put("request_id", body!!.getString("request_id")).put("reply", "Reply $sends").put("allowance", quota(5 - sends))
+            } }
+            BotSession(f.context, f.account, f.api) { clock }.use { bot ->
+                bot.acceptConsent(); bot.refreshAllowance()
+                bot.saveDraft("Prompt 1"); bot.send()
+                clock = 999L // Wall clocks can tie or move backward; persisted message order cannot.
+                bot.saveDraft("Prompt 2"); bot.send()
+                assertEquals(listOf("Prompt 1", "Reply 1", "Prompt 2", "Reply 2"), bot.messages.map { it.text })
+                assertEquals(bot.messages.map { it.id }.sorted(), bot.messages.map { it.id })
+                assertEquals(listOf(1000L, 1001L, 1002L, 1003L), bot.messages.map { it.id.substring(1, 20).toLong() })
+            }
+            BotSession(f.context, f.account, f.api) { clock }.use { reopened ->
+                assertEquals(listOf("Prompt 1", "Reply 1", "Prompt 2", "Reply 2"), reopened.messages.map { it.text })
+                reopened.refreshAllowance(); reopened.saveDraft("Prompt 3"); reopened.send()
+                assertEquals(1004L, reopened.messages[4].id.substring(1, 20).toLong())
+                assertEquals(listOf("Prompt 1", "Reply 1", "Prompt 2", "Reply 2", "Prompt 3", "Reply 3"), reopened.messages.map { it.text })
+            }
+            assertEquals(3, sends)
+        }
+    }
+
     private class Fixture : AutoCloseable {
         private val base = InstrumentationRegistry.getInstrumentation().targetContext
         val root = File(base.cacheDir, "bot-workflow-${UUID.randomUUID()}").apply { mkdirs() }

@@ -80,6 +80,7 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
     var access by mutableStateOf<SubscriptionAccess?>(null); private set
     var accessCheckState by mutableStateOf(AccessCheckState.UNKNOWN); private set
     private var accessRefresh: Deferred<Boolean>? = null
+    private var accessRevision = 0L
     var offers by mutableStateOf<Map<SubscriptionPlan, SubscriptionOffer>>(emptyMap()); private set
     var busy by mutableStateOf(false); private set
     var purchasing by mutableStateOf(false); private set
@@ -129,19 +130,20 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
         if (closed) return false
         accessRefresh?.let { return it.await() }
         if (ifNeeded && accessCheckState == AccessCheckState.LOADED) return true
+        val revision = accessRevision
         val job = scope.async(start = CoroutineStart.LAZY) {
-            accessCheckState = AccessCheckState.CHECKING
+            if (revision == accessRevision) accessCheckState = AccessCheckState.CHECKING
             try {
                 val snapshot = SubscriptionAccess.parse(api.request("GET", "/v1/entitlements"))
                 if (closed) return@async false
-                access = snapshot; accessCheckState = AccessCheckState.LOADED
-                true
+                if (revision == accessRevision) { access = snapshot; accessCheckState = AccessCheckState.LOADED }
+                accessCheckState == AccessCheckState.LOADED
             } catch (failure: CancellationException) {
-                if (!closed) accessCheckState = AccessCheckState.UNKNOWN
+                if (!closed && revision == accessRevision) accessCheckState = AccessCheckState.UNKNOWN
                 throw failure
             } catch (_: Exception) {
-                if (!closed) accessCheckState = AccessCheckState.ERROR
-                false
+                if (!closed && revision == accessRevision) accessCheckState = AccessCheckState.ERROR
+                !closed && accessCheckState == AccessCheckState.LOADED
             }
         }
         accessRefresh = job
@@ -198,7 +200,7 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
                     }
                 } }
                 verify(purchases)
-                if (offers.isEmpty() && !closed) notice = appContext.getString(R.string.ui_8927db75ddd0)
+                if (offers.isEmpty() && !closed && notice == null) notice = appContext.getString(R.string.ui_8927db75ddd0)
             } catch (_: TimeoutCancellationException) { if (!closed) notice = appContext.getString(R.string.ui_b4009c7a9f52) }
             catch (failure: CancellationException) { throw failure }
             catch (_: Exception) { if (!closed) notice = appContext.getString(R.string.ui_bbd30d6992ff) }
@@ -207,6 +209,7 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
     }
 
     private suspend fun verify(purchases: List<Purchase>) {
+        var ownershipMismatch = false
         for (purchase in purchases) {
             if (closed) return
             if (purchase.products.none { id -> SubscriptionPlan.entries.any { it.productID == id } }) continue
@@ -216,9 +219,19 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
             }
             if (purchase.purchaseState != Purchase.PurchaseState.PURCHASED) continue
             // Server verifies ownership, lifecycle and product, then acknowledges the verified purchase.
-            val verified = SubscriptionAccess.parse(api.request("POST", "/v1/purchases/google", JSONObject().put("purchase_token", purchase.purchaseToken)))
-            if (!closed) { access = verified; accessCheckState = AccessCheckState.LOADED }
+            try {
+                val verified = SubscriptionAccess.parse(api.request("POST", "/v1/purchases/google", JSONObject().put("purchase_token", purchase.purchaseToken)))
+                if (!closed) { ++accessRevision; access = verified; accessCheckState = AccessCheckState.LOADED }
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (failure: Exception) {
+                if (closed) return
+                ownershipMismatch = ownershipMismatch || (failure is ServiceFailure && failure.code == "purchase_account_mismatch")
+                notice = appContext.getString(if (ownershipMismatch) R.string.purchase_account_mismatch else R.string.ui_3ec68bc63f9a)
+                // One foreign or temporarily unverifiable purchase must not hide
+                // another purchase legitimately owned by this signed-in account.
+            }
         }
+        if (!closed && ownershipMismatch) notice = appContext.getString(R.string.purchase_account_mismatch)
     }
 
     fun buy(activity: Activity, plan: SubscriptionPlan) {
