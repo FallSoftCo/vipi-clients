@@ -122,7 +122,7 @@ import java.time.format.FormatStyle
                         .onFailure { localError = context.getString(R.string.bot_draft_save_failed) }
                     else localError = context.getString(R.string.bot_message_too_long)
                 }, onComposingChanged = { composing = it }, busy = bot.busy, allowance = bot.allowance,
-                onSend = model::sendBotMessage,
+                onSend = { if (model.sendBotMessage() != null) followingLatest = true },
                 onRetryAccess = { scope.launch { subscriptions?.refreshAccess() } },
                 onPlan = { model.navigate(Screen.BOT_PLAN) },
                 onRefreshAllowance = { scope.launch { bot.refreshAllowance() } },
