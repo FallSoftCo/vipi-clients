@@ -342,8 +342,11 @@ struct BotConversationView: View {
                         .onChange(of: value.draft) { _, _ in value.saveDraft() }
                     Button { composing = false; followingLatest = true; Task { await value.send() } } label: {
                         if value.busy { ProgressView().frame(width: 46, height: 46) }
-                        else { Image(systemName: "arrow.up").frame(width: 46, height: 46).background(VipiDesign.highlight, in: Circle()).foregroundStyle(VipiDesign.onHighlight) }
-                    }.disabled(!value.canSend).accessibilityLabel("Send to vBot").accessibilityIdentifier("bot-message-send")
+                        else { Image(systemName: "arrow.up").frame(width: 46, height: 46)
+                            .background(value.canSend ? VipiDesign.highlight : VipiDesign.secondary.opacity(0.16), in: Circle())
+                            .foregroundStyle(value.canSend ? VipiDesign.onHighlight : VipiDesign.secondary) }
+                    }.disabled(!value.canSend).accessibilityLabel("Send to vBot")
+                        .accessibilityHint(sendHint(value)).accessibilityIdentifier("bot-message-send")
                 }
             }.padding(14).background(VipiDesign.canvas)
         }
@@ -358,6 +361,12 @@ struct BotConversationView: View {
                 Button("Delete conversation", role: .destructive) { clearConfirmation = true }.disabled(value.busy)
             } label: { Image(systemName: "ellipsis").frame(width: 44, height: 44) }.accessibilityLabel("vBot options")
         } }
+    }
+    private func sendHint(_ value: BotSession) -> Text {
+        if !value.consent { return Text("Agree and start chatting") }
+        if value.busy { return Text("Waiting for vBot") }
+        if let notice = value.notice ?? error { return Text(verbatim: notice) }
+        return Text("Message vBot")
     }
     private func prepareVoices() {
         if let source = ConversationExamples.examples?.languages[state.knownLanguage]?.text,
