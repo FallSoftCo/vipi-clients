@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T09:30:37.846260+00:00",
+  "updated_utc": "2026-11-18T09:39:43.744393+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -132,9 +132,9 @@
     {
       "journey": "Friend older history through actual activity and encrypted inbox",
       "implementation": "Android actual MainActivity and Signal peer fixture",
-      "status": "041 immersed history passed complete actual-activity flow; ordinary history failed pre-incoming preparation with real20px content drift",
-      "required_observation": "Incoming ciphertext while reading history preserves visible reading text; IME/own Send/Jump/earlier-page behavior",
-      "limits": "041 real native observations: History44 above the reader grows125\u2192145px while top remains123px; reader History45 moves475\u2192495px as immersion prepares. Same message remains; visual line end changes with legitimate wrapping. Preserve original failure. Fix must maintain readable message/source position without overriding user scrolling; no tolerance widening or test-only scrolling."
+      "status": "045 both ordinary and immersed histories passed with strict source-point baseline and top unchanged; independent visual review underway",
+      "required_observation": "Actual Signal inbox append while reading older text, native IME, own Send, explicit Jump and earlier-page insertion; exact readable source point baseline and top within1px",
+      "limits": "Prior041/042 drift failures preserved. Actual MainActivity and encrypted Signal fixture; not real contact/push proof."
     },
     {
       "journey": "First-month expiry recovery without losing text",
@@ -149,6 +149,20 @@
       "status": "r08native1/1passed; rootreviewed3nativePNGs",
       "required_observation": "Expired402send\u2192readable message status\u2192Settings/Subscriptions/Base\u2192same queuedID and nextdraft, no checkout/expiredpeer delivery",
       "limits": "Controlled service/clock; unreadyStore case, no pricedcheckout or authrootrelaunch. Previously completed TestFlight sandboxpurchase remains distinct evidence."
+    },
+    {
+      "journey": "Native inline font metrics across four scripts",
+      "implementation": "Actual Android StableImmersionText with native font fallback",
+      "status": "045 8/8 authored font/script samples passed vertical metrics; Arabic horizontal placement defect identified independently",
+      "required_observation": "Pending/prepared and repeated original/target flips preserve baseline, paragraph height and readable ascent/descent; explicit Chinese script and return retain slot width",
+      "limits": "Normal/enlarged Latin, marked pinyin, Japanese and Arabic authored words; renderer-level bind, not script-menu or arbitrary translation acceptance. Arabic base direction/leading edge regression is pending and blocks complete continuity claim."
+    },
+    {
+      "journey": "Actual Settings deletion, fresh root recovery and selective erasure",
+      "implementation": "Android actual MainActivity, VipiModel, AccountDeletion, encrypted vault and AndroidKeyStore",
+      "status": "046 passed after test-only transactional sentinel-read fix; root inspected native recovery/completion/welcome frames",
+      "required_observation": "Cancel sends zero requests; accepted lost reply closes owners, fresh root retains original receipt; one status recovery erases only own account and cancels late Bot; Done/fresh model remain signed out",
+      "limits": "Synthetic service/accounts, no live/global deletion.045 test-defect failure retained. Cancel screenshot01 caught dismiss animation and is not a settled visual acceptance frame."
     }
   ],
   "receipts": {
@@ -187,7 +201,10 @@
     "android_first_month_expiry": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-expiry-r01.json",
     "android_first_month_expiry_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-expiry-native-review-r01.json",
     "first_month_test_audit": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/first-month-test-adequacy-audit-r01.json",
-    "ios_base_expiry": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-base-expiry-native-review-r01.json"
+    "ios_base_expiry": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-base-expiry-native-review-r01.json",
+    "android_history_and_metrics": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-reader-root-r01.json",
+    "android_deletion_root": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-root-deletion-r02.json",
+    "android_deletion_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-root-deletion-native-review-r01.json"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
   "original_nine_dirty_files_preserved": true,

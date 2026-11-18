@@ -61,6 +61,20 @@
         ],
         "expected_junit_cases": 1,
         "scope": "Actual MainActivity server402 expiry\u2192visible BasePlans\u2192Back/recreate\u2192independent encrypted draft/queuedID proof\u2192restoredaccess same Signal message deliveredonce. No billinglaunch or Botaccess; controlled serviceclock and providerboundaries."
+      },
+      "deletion_root": {
+        "classes": [
+          "co.fallsoft.vipi.RootDeletionJourneyDeviceTest"
+        ],
+        "expected_junit_cases": 1,
+        "scope": "Actual Settings cancel/confirm, real owner shutdown, accepted-lost-response recovery across two fresh VipiModels on same private disk, own vault/key erased and unrelated account preserved; no real account/global deletion."
+      },
+      "native_font_metrics": {
+        "classes": [
+          "co.fallsoft.vipi.NativeLineMetricDeviceTest"
+        ],
+        "expected_junit_cases": 1,
+        "scope": "Eight authored Latin/marked-pinyin/Japanese/Arabic cases normal/enlarged, pending/prepared/repeated flips and explicit Chinese script/guide return; actual native baseline, height, ascent/descent and width. Vertical proof only; discovered Arabic horizontal anchoring still under correction."
       }
     },
     "qualified_layouts": [
