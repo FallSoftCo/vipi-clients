@@ -116,11 +116,22 @@ class BotComposerInputDeviceTest {
             compose.runOnIdle { assertEquals(1, sendCallbacks) }
 
             beginRefresh()
+            val unverified = access()
+            unverified.getJSONObject("bot_mini").put("verification_unavailable", true)
+            response.complete(unverified)
+            compose.waitUntil(5_000) { plans.accessCheckState == AccessCheckState.LOADED }
+            compose.runOnIdle { assertTrue(plans.access?.active(SubscriptionPlan.BOT_MINI) == true) }
+            assertEditing("A local draft while checking")
+            compose.onNodeWithText(base.getString(R.string.bot_verification_unavailable)).performScrollTo().assertIsDisplayed()
+            compose.onNodeWithTag("bot-message-send").assertIsNotEnabled().performTouchInput { click() }
+            compose.runOnIdle { assertEquals(1, sendCallbacks) }
+
+            beginRefresh()
             response.complete(access(false))
             compose.waitUntil(5_000) { plans.accessCheckState == AccessCheckState.LOADED }
             assertEditing("A local draft while checking")
             compose.onNodeWithTag("bot-message-send").assertIsNotEnabled()
-            compose.runOnIdle { assertEquals(1, sendCallbacks); assertEquals(4, calls) }
+            compose.runOnIdle { assertEquals(1, sendCallbacks); assertEquals(5, calls) }
         } finally {
             compose.runOnIdle {
                 android.view.inspector.WindowInspector.getGlobalWindowViews().forEach {

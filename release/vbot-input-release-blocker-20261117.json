@@ -24,12 +24,13 @@
     "native keyboard/focus/send guard regression qualification"
   ],
   "external_actions": "No repeated upload/submission, no production code/config mutation, no charge or purchase, no repeated uncertain bot send",
-  "updated_utc": "2026-11-18T03:07:02.770354+00:00",
+  "updated_utc": "2026-11-18T03:24:03.904526+00:00",
   "verified": [
     "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
     "Actual VipiModel setup routing: 5 focused tests passed",
     "Original Gamma device replaced01:20Z; rejected native hi send was not accepted/charged; no replay",
-    "Production BotConversationScreen native draft/consent/Send/visible reply/durable history: controlled fake transport, exactly one POST, registered credential, no friend-content inclusion; pass7.7s"
+    "Production BotConversationScreen native draft/consent/Send/visible reply/durable history: controlled fake transport, exactly one POST, registered credential, no friend-content inclusion; pass7.7s",
+    "Final updated Send guard explicitly rejects verificationUnavailable even with active snapshot; final native focus/consent/successful full-screen send tests pass3/3 with updated guard; prior unchanged routing tests5/5"
   ],
   "remaining": [
     "Signed versionCode6 review APK and device delivery",

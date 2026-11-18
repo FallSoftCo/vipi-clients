@@ -86,6 +86,7 @@ import java.time.format.FormatStyle
                     // The button may have been drawn before a refresh began.
                     // Re-read current access at dispatch; retained drafts never authorize a send.
                     if (bot.consent && subscriptions?.accessCheckState == AccessCheckState.LOADED &&
+                        subscriptions.access?.bot?.verificationUnavailable != true &&
                         subscriptions.access?.active(SubscriptionPlan.BOT_MINI) == true) bot.send()
                 } },
                 onRetryAccess = { scope.launch { subscriptions?.refreshAccess() } },
@@ -163,7 +164,8 @@ import java.time.format.FormatStyle
             OutlinedTextField(draft, onDraft, placeholder = { Text(stringResource(R.string.ui_9f60f6c0e9e0)) },
                 maxLines = 5, modifier = Modifier.weight(1f).onFocusChanged { onComposingChanged(it.isFocused) }
                     .testTag("bot-message-input"), shape = RoundedCornerShape(24.dp))
-            val currentAccess = accessState == AccessCheckState.LOADED && access?.active(SubscriptionPlan.BOT_MINI) == true
+            val currentAccess = accessState == AccessCheckState.LOADED && access?.bot?.verificationUnavailable != true &&
+                access?.active(SubscriptionPlan.BOT_MINI) == true
             FilledIconButton(onClick = onSend, enabled = consent && currentAccess && !busy && draft.isNotBlank() &&
                 allowance?.let { it.available && it.remaining > 0 && it.resetsAt.isAfter(java.time.Instant.now()) } == true,
                 modifier = Modifier.size(48.dp).testTag("bot-message-send")) {
