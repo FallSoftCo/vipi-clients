@@ -121,7 +121,11 @@ class RootDeletionJourneyDeviceTest {
                     assertFalse(ownedDirectory.exists()); assertFalse(keyExists(services.account)); assertTrue(keyExists(other))
                     assertNull(f.model.authentication.userID)
                 }
-                MessageVault(f.isolated, other).use { vault -> assertEquals("other-account", vault.get("test", "preserved")?.toString(Charsets.UTF_8)) }
+                MessageVault(f.isolated, other).use { vault ->
+                    vault.transaction {
+                        assertEquals("other-account", vault.get("test", "preserved")?.toString(Charsets.UTF_8))
+                    }
+                }
                 services.botReplyGate.complete(Unit)
                 compose.waitForIdle()
                 assertFalse("Cancelled Bot work cannot recreate the erased account", ownedDirectory.exists())
