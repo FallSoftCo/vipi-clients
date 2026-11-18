@@ -163,7 +163,9 @@ import java.time.format.FormatStyle
                 statusKey = statusNotice,
                 statusContent = {
                     statusNotice?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
-                    bot.allowance?.let { allowance ->
+                    // Keep informational quota out of the tiny IME status
+                    // viewport; errors and recovery still use its scroll area.
+                    if (!compact) bot.allowance?.let { allowance ->
                         Text(stringResource(R.string.bot_allowance_remaining, java.text.NumberFormat.getIntegerInstance().format(allowance.remaining), java.text.NumberFormat.getIntegerInstance().format(allowance.monthly), DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)), style = MaterialTheme.typography.bodySmall)
                     }
                 })
