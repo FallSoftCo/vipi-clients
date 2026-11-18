@@ -20,8 +20,8 @@
           "co.fallsoft.vipi.MainActivityOnboardingJourneyDeviceTest",
           "co.fallsoft.vipi.MainActivityAuthenticatedJourneyDeviceTest"
         ],
-        "expected_junit_cases": 7,
-        "scope": "Real MainActivity routing, native IME/editor, profile/friend Signal send, Bot consent/send/reentry/errors/history and multiline draft before/after a confirmed exchange. Identity, relay, billing and Bot transport are controlled."
+        "expected_junit_cases": 8,
+        "scope": "Real MainActivity routing, native IME/editor, profile/friend Signal send, Bot consent/send/reentry/errors/history, multiline draft before/after confirmed exchange, and landscape full rendered final line/caret without shrinking text. Identity, relay, billing and Bot transport are controlled."
       },
       "domain": {
         "classes": [
@@ -59,7 +59,8 @@
         "font_scale": 1.6
       }
     ],
-    "verification": "Inspect instrumentation test result codes, not just adb exit0. Require all selected tests complete with no failures/skip; inspect final screen geometry and artifacts. Narrow/enlarged UI must keep input and actions inside the native window minus IME."
+    "verification": "Inspect instrumentation test result codes, not just adb exit0. Require all selected tests complete with no failures/skip; inspect final screen geometry and artifacts. Narrow/enlarged UI must keep input and actions inside the native window minus IME.",
+    "landscape_regression": "The friend and dedicated Bot journeys temporarily use1920x1080 while retaining current font scale; require full rendered line/caret, Back/Send target size and no toolbar/IME overlap, then restore the original size/rotation/accelerometer and exact draft. These tests failed the pre-fix product; corrected product must pass before acceptance."
   },
   "ios": {
     "native_qa_bundle": "co.fallsoft.vipi.uxqa",

@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T07:13:49.321806+00:00",
+  "updated_utc": "2026-11-18T07:44:35.629733+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -110,10 +110,24 @@
     },
     {
       "journey": "Type in landscape with native keyboard",
-      "implementation": "Actual signed Android7 production APK/Gboard",
-      "status": "FAILED; fix and regression in progress",
+      "implementation": "Actual signed Android7 production APK/Gboard and actual MainActivity native regression",
+      "status": "FAILED pre-fix; corrected product native run pending",
       "required_observation": "Complete typed visual line and caret must remain visible above IME; draft retained; Send/back reachable",
-      "limits": "1920x1080/font1 tap opens real Gboard and actual key taps produce hi, but text/caret are clipped inside field. No Send attempted; draft cleared and original orientation settings restored."
+      "limits": "Actual Gboard hi glyphs/caret clipped in vBot. New regression fails unchanged product; friend glyphs visible but field overlaps toolbar by13px. Native caret selection-handle observation separately corrected with real reversible X/Delete edit. Product compact layout and unchanged-font assertions implemented, not yet qualified."
+    },
+    {
+      "journey": "Current iOS reading controls and landscape drafting",
+      "implementation": "Actual iOS views on native simulator, screen-oriented Vision geometry",
+      "status": "passed current controls3 and Bot landscape1 on pre-style-fix product",
+      "required_observation": "continuous in-place reading; one-tap Listen/Stop; Japanese and Swahili starter rows; full last visual line/caret above keyboard with exact retained draft",
+      "limits": "Controlled fixtures; first landscape capture used wrong screenshot orientation and failed; corrected whole-screen capture with explicit EXIF mapping passed unchanged product. Later disabled Send color defect is a separate open correction."
+    },
+    {
+      "journey": "Disabled Send is visually distinguishable",
+      "implementation": "Actual iOS Bot view and captured pixels",
+      "status": "defect confirmed; minimal color correction and existing localized hints implemented, native comparison pending",
+      "required_observation": "pre-consent or empty draft Send visibly inactive; actual enabled draft state visibly active; guards and consent unchanged",
+      "limits": "Original pre-consent/empty state both incorrectly painted active green. No enabled-state screenshot claimed from old capture. New test retains all three states."
     }
   ],
   "receipts": {
@@ -131,7 +145,11 @@
     "android_signed_v7_keyboard": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-native-smoke-r01/receipt.json",
     "ios_signed_export": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/corrected-apple-export-result-r01/summary.json",
     "android_landscape_failure": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-landscape-r01/receipt.json",
-    "ios_prior_live_continuity_audit": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-acceptance-continuity-audit-r01.json"
+    "ios_prior_live_continuity_audit": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-acceptance-continuity-audit-r01.json",
+    "android_landscape_preimage": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-short-height-preimage-r01.json",
+    "ios_current_controls": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-ui-maintenance-stage-r01/native-r01-receipt.json",
+    "ios_landscape_current": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-ui-maintenance-stage-r03/",
+    "ios_current_selector_audit": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-ui-selector-maintenance-r01.json"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
   "original_nine_dirty_files_preserved": true,
@@ -140,5 +158,5 @@
     "google_license_test": "Prior no-charge license purchase/renewal/cancellation/lapse completed; do not replay. Current native tests controlbilling boundary and do not claim a new storetest.",
     "apple_native_purchase": "r01/r02 dispatched no test/purchase; r03 one actual IDE test/one local SKTestSession.buyProduct failed notEntitled, no confirmed transaction. No live Product.purchase or charge. Original failure retained; no replay."
   },
-  "evidence_retention": "After completed qualification and signedv7 verification, all synthetic QA app evidence was retained in a private hashed archive before retiring only its isolated emulator packages. Original user accounts/production app data retained; latest testAPK and source kept. No claim that the encrypted fixture archive is a restorable customer backup."
+  "evidence_retention": "Original signed7 and all failed/passed native receipts retained. Earlier QA app removal happened only after private evidence archive; QA app/test have now been reinstalled for tests-first landscape repro. Original production app and users preserved."
 }
