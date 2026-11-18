@@ -258,7 +258,8 @@ internal class StableImmersionText(context: Context) : TextView(context) {
             fm.descent = maxOf(fm.descent, descent); fm.bottom = maxOf(fm.bottom, descent)
         }
     }
-    private class WordSlot(val displayed: String, val forms: List<String>, val color: Int, val density: Float, val trailing: String) : ReplacementSpan() {
+    private class WordSlot(val displayed: String, val forms: List<String>, val heightForms: List<String>,
+        val color: Int, val density: Float, val trailing: String) : ReplacementSpan() {
         var maximumWidth = 10000
         private var key = ""
         private var width = 0
@@ -277,7 +278,10 @@ internal class StableImmersionText(context: Context) : TextView(context) {
             val inner = (width - padding * 2).toInt().coerceAtLeast(1)
             fun layout(text: String) = StaticLayout.Builder.obtain(text, 0, text.length, textPaint, inner)
                 .setAlignment(Layout.Alignment.ALIGN_CENTER).setIncludePad(false).setUseLineSpacingFromFallbacks(true).build()
-            val layouts = forms.distinct().map(::layout)
+            //Width reserves every guide/native/source form. Height reserves
+            //only the source and target face available in this script mode;
+            //a hidden native glyph must not enlarge a Latin reading guide.
+            val layouts = heightForms.distinct().map(::layout)
             ascent = -layouts.maxOf { it.getLineBaseline(0) } - (2 * density).toInt()
             descent = layouts.maxOf { it.height - it.getLineBaseline(0) } + (2 * density).toInt()
             drawing = layout(displayed)
@@ -303,7 +307,8 @@ internal class StableImmersionText(context: Context) : TextView(context) {
                 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             value.spans.forEach { word ->
                 val trailing = value.original.substring(word.end).takeWhile { it in ".,!?;:…؟。！？；，、)]}’”\"" }.take(8)
-                val slot = WordSlot(display(word, revealed, showScript), listOf(word.original, word.displayedTarget, word.translated), accent, resources.displayMetrics.density, trailing)
+                val slot = WordSlot(display(word, revealed, showScript), listOf(word.original, word.displayedTarget, word.translated),
+                    listOf(word.original, if (showScript) word.translated else word.displayedTarget), accent, resources.displayMetrics.density, trailing)
                 slot.maximumWidth = tokenWidth; tokenSpans += slot
                 setSpan(slot, word.start, word.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 setSpan(WordLink(word.id, accent) { onWord?.invoke(it) }, word.start, word.end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -353,7 +358,9 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         if (available != tokenWidth) { tokenWidth = available; tokenSpans.forEach { it.maximumWidth = available }; reserveKey = "" }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val width = (measuredWidth - totalPaddingLeft - totalPaddingRight).coerceAtLeast(1)
-        val context = "$width|$textSize|${result}"
+        //An explicit script preference may change the active font envelope;
+        //do not retain a hidden native-script height after returning to guide.
+        val context = "$width|$textSize|$script|${result}"
         if (measurementContext != context) { measurementContext = context; reserveHeight = 0; reserveKey = "" }
         val key = "$width|$textSize|${variants.map { it.toString() }}"
         if (key != reserveKey) {
