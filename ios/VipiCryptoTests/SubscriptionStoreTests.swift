@@ -66,13 +66,28 @@ import StoreKitTest
     private func environment(resource: String = "Vipi") async throws -> SKTestSession {
         let file = try XCTUnwrap(Bundle(for: Self.self).url(forResource: resource, withExtension: "storekit"))
         let session = try SKTestSession(contentsOf: file)
-        // Some iOS simulator versions log configuration failure without
-        // throwing from init. Require a working test-only service operation
-        // before loading products or exercising any purchase API.
-        try await session.setSimulatedError(nil, forAPI: .purchase)
         session.resetToDefaultState(); session.disableDialogs = true; session.clearTransactions()
+        // Clearing nil returned successfully on a broken local service while
+        // configuration writes logged Code3. Require a non-nil test condition
+        // to round-trip and clear before loading products or attempting a buy.
+        print("VIPI_STOREKIT_READINESS begin")
+        let probe = SKTestFailures.Purchase.generic(.notAvailableInStorefront)
+        do {
+            try await session.setSimulatedError(probe, forAPI: .purchase)
+            let observed = await session.simulatedError(forAPI: .purchase)
+            guard observed == probe else { throw LocalStoreKitReadinessFailure.overrideNotObserved }
+            print("VIPI_STOREKIT_READINESS override_observed")
+            try await session.setSimulatedError(nil, forAPI: .purchase)
+            let cleared = await session.simulatedError(forAPI: .purchase)
+            guard cleared == nil else { throw LocalStoreKitReadinessFailure.overrideNotCleared }
+        } catch {
+            try? await session.setSimulatedError(nil, forAPI: .purchase)
+            throw error
+        }
+        print("VIPI_STOREKIT_READINESS ready")
         return session
     }
+    private enum LocalStoreKitReadinessFailure: Error { case overrideNotObserved, overrideNotCleared }
     private enum StateWaitFailure: Error { case timedOut }
     /// Bound asynchronous transaction propagation and deferred transport setup
     /// while keeping each expected state strict.
