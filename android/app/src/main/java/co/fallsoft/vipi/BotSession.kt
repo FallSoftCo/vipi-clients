@@ -32,11 +32,13 @@ internal data class BotMessage(val id: String, val role: String, val text: Strin
 
 /** Local bot history shares the account's encrypted vault but no friend-message query path.
  * A request is recorded before network work and never retried automatically. */
-internal class BotSession(context: Context, account: UUID, private val api: ChatTransport) : AutoCloseable {
+internal class BotSession(context: Context, account: UUID, private val api: ChatTransport,
+    private val nowMillis: () -> Long = System::currentTimeMillis) : AutoCloseable {
     private val appContext = context.applicationContext
     private val vault = MessageVault(context, account)
     val familiarity = VocabularyFamiliarityStore(vault)
     private var closed = false
+    private var allowanceRevision = 0L
     var messages by mutableStateOf<List<BotMessage>>(emptyList()); private set
     var earlierAvailable by mutableStateOf(false); private set
     var draft by mutableStateOf(""); private set
@@ -66,19 +68,21 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
     }
     suspend fun refreshAllowance() {
         if (closed) return
+        val revision = ++allowanceRevision
         try {
             val response = api.request("GET", "/v1/bot/allowance")
             require(response.getInt("max_context_bytes") == 8192)
             val value = BotAllowance.parse(response)
-            if (!closed) allowance = value
+            if (!closed && revision == allowanceRevision) allowance = value
         } catch (cancelled: CancellationException) { throw cancelled }
-        catch (_: Exception) { if (!closed) { allowance = null; notice = appContext.getString(R.string.bot_allowance_check_failed) } }
+        catch (_: Exception) { if (!closed && revision == allowanceRevision) { allowance = null; notice = appContext.getString(R.string.bot_allowance_check_failed) } }
     }
     suspend fun send() {
         if (closed || busy || !consent || draft.isBlank() || allowance?.let { it.available && it.remaining > 0 && it.resetsAt.isAfter(Instant.now()) } != true) return
         busy = true; notice = null
+        ++allowanceRevision // An earlier quota read cannot authorize another send after this request.
         val requestID = UUID.randomUUID().toString()
-        val user = BotMessage("m%019d-%s".format(Locale.ROOT, System.currentTimeMillis(), requestID), "user", draft.trim(), "unconfirmed", requestID)
+        val user = BotMessage("m%019d-%s".format(Locale.ROOT, nextMessageMillis(), requestID), "user", draft.trim(), "unconfirmed", requestID)
         var recorded = false
         try {
             val device = DeviceCredential.registered(vault) ?: run {
@@ -93,13 +97,14 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
             require(response.getString("request_id") == requestID)
             val reply = response.getString("reply"); require(reply.isNotBlank() && reply.toByteArray().size <= 65_536)
             val confirmed = user.copy(status = "confirmed")
-            val answer = BotMessage("m%019d-%s".format(Locale.ROOT, System.currentTimeMillis().coerceAtLeast(user.id.substring(1, 20).toLong() + 1), UUID.randomUUID()), "assistant", reply, "confirmed", requestID)
-            val updatedAllowance = BotAllowance.parse(response.getJSONObject("allowance"), available = true)
+            val answer = BotMessage("m%019d-%s".format(Locale.ROOT, nowMillis().coerceAtLeast(user.id.substring(1, 20).toLong() + 1), UUID.randomUUID()), "assistant", reply, "confirmed", requestID)
+            val updatedAllowance = BotAllowance.parse(response.getJSONObject("allowance"))
             vault.transaction {
                 vault.put("bot-message", user.id, confirmed.json().toString().toByteArray())
                 vault.put("bot-message", answer.id, answer.json().toString().toByteArray())
             }
             messages = messages.map { if (it.id == user.id) confirmed else it } + answer
+            ++allowanceRevision
             allowance = updatedAllowance
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (failure: Exception) {
@@ -115,7 +120,7 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
                 recorded -> appContext.getString(R.string.bot_reply_unconfirmed)
                 else -> appContext.getString(R.string.bot_message_not_saved)
             }
-            if (!closed && recorded) allowance = null
+            if (!closed && recorded) { ++allowanceRevision; allowance = null }
         } finally { if (!closed) busy = false }
     }
     suspend fun report(message: BotMessage, reason: String, selected: String): Boolean {
@@ -133,7 +138,9 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
         catch (_: Exception) { if (!closed) notice = appContext.getString(R.string.bot_report_unconfirmed); return false }
         finally { if (!closed) reporting = false }
     }
-    override fun close() { closed = true; vault.close() }
+    private fun nextMessageMillis(): Long = nowMillis().coerceAtLeast(
+        (messages.lastOrNull()?.id?.substring(1, 20)?.toLongOrNull() ?: -1L) + 1)
+    override fun close() { closed = true; ++allowanceRevision; vault.close() }
     companion object {
         fun contextFor(history: List<BotMessage>, latest: BotMessage): JSONArray {
             require(latest.role == "user" && latest.text.isNotBlank() && latest.text.toByteArray(Charsets.UTF_8).size <= 8192)

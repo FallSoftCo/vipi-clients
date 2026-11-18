@@ -6,10 +6,11 @@ import android.content.Context
 internal object DeliverySessions {
     private data class Lease(val session: ChatSession, var owners: Int)
     private val sessions = mutableMapOf<String, Lease>()
-    fun acquire(context: Context, authentication: Authentication, userID: String): ChatSession {
+    fun acquire(context: Context, authentication: Authentication, userID: String, transport: ChatTransport? = null): ChatSession {
         check(android.os.Looper.myLooper() == android.os.Looper.getMainLooper())
         sessions[userID]?.let { it.owners++; return it.session }
-        return ChatSession(context.applicationContext, authentication, userID).also { sessions[userID] = Lease(it, 1) }
+        return (if (transport == null) ChatSession(context.applicationContext, authentication, userID)
+            else ChatSession(context.applicationContext, transport, userID)).also { sessions[userID] = Lease(it, 1) }
     }
     fun release(session: ChatSession) {
         check(android.os.Looper.myLooper() == android.os.Looper.getMainLooper())

@@ -75,7 +75,8 @@ internal data class SubscriptionOffer(val details: ProductDetails, val token: St
 
 /** Google Play offers are display/checkout information. Only our account-bound server grants access.
  * No purchase token, store response, or entitlement is written to an unencrypted log or preferences. */
-internal class Subscriptions(context: Context, private val api: ChatTransport, private val scope: CoroutineScope) : AutoCloseable {
+internal class Subscriptions(context: Context, private val api: ChatTransport, private val scope: CoroutineScope,
+    billingClientFactory: ((Context, PurchasesUpdatedListener) -> BillingClient)? = null) : AutoCloseable {
     var access by mutableStateOf<SubscriptionAccess?>(null); private set
     var accessCheckState by mutableStateOf(AccessCheckState.UNKNOWN); private set
     private var accessRefresh: Deferred<Boolean>? = null
@@ -88,8 +89,7 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
     private val refreshLock = Mutex()
     private val connectionLock = Mutex()
     private val appContext = context.applicationContext
-    private val client = BillingClient.newBuilder(appContext)
-        .setListener { result, purchases -> scope.launch {
+    private val purchaseListener = PurchasesUpdatedListener { result, purchases -> scope.launch {
             if (closed) return@launch
             purchasing = false
             when (result.responseCode) {
@@ -105,6 +105,8 @@ internal class Subscriptions(context: Context, private val api: ChatTransport, p
                 else -> notice = appContext.getString(R.string.ui_d1fc884eb413)
             }
         } }
+    private val client = billingClientFactory?.invoke(appContext, purchaseListener) ?: BillingClient.newBuilder(appContext)
+        .setListener(purchaseListener)
         .enablePendingPurchases(PendingPurchasesParams.newBuilder().enableOneTimeProducts().build())
         .enableAutoServiceReconnection().build()
 
