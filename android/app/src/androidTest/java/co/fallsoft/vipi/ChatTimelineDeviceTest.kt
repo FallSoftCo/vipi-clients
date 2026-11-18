@@ -4,7 +4,10 @@ import android.content.ContextWrapper
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.activity.ComponentActivity
+import androidx.activity.enableEdgeToEdge
+import android.view.WindowManager
 import androidx.core.view.WindowInsetsCompat
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
@@ -22,7 +25,7 @@ import java.util.UUID
 
 /** Native scrolling and real encrypted history; no real contact/network. */
 class ChatTimelineDeviceTest {
-    @get:Rule val compose = createComposeRule()
+    @get:Rule val compose = createAndroidComposeRule<ComponentActivity>()
     @Test fun preserveReadingPositionAndExplicitlyReturnToLatest() = qualify(false)
     @Test fun preserveImmersedReadingPositionAndEarlierPage() = qualify(true)
     private fun qualify(immersed: Boolean) {
@@ -52,6 +55,7 @@ class ChatTimelineDeviceTest {
         val visible = mutableStateOf(true); val appearance = mutableStateOf(Appearance.LIGHT)
         lateinit var chat: ChatSession
         var initialized = false
+        val originalSoftInputMode = compose.activity.window.attributes.softInputMode
         fun anchor(): Pair<String, Float> {
             compose.waitForIdle()
             val viewport = compose.onNodeWithTag("conversation-timeline").fetchSemanticsNode().boundsInRoot
@@ -70,6 +74,16 @@ class ChatTimelineDeviceTest {
             return compose.onNodeWithTag("message-meta-$id")
         }
         try {
+            // The generic AndroidX test manifest leaves this host's IME mode
+            // unspecified. Match MainActivity's edge-to-edge/adjustResize
+            // window before measuring reading anchors, instead of whole-window
+            // system panning that production explicitly disables.
+            compose.runOnUiThread {
+                compose.activity.enableEdgeToEdge()
+                compose.activity.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+                assertEquals(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE,
+                    compose.activity.window.attributes.softInputMode and WindowManager.LayoutParams.SOFT_INPUT_MASK_ADJUST)
+            }
             // Test the full software keyboard, not Gboard's floating stylus UI.
             device.executeShellCommand("settings put secure stylus_handwriting_enabled 0")
             runBlocking { withContext(Dispatchers.Main) {
@@ -152,11 +166,13 @@ class ChatTimelineDeviceTest {
             File(output, "receipt.json").writeText(JSONObject().put("synthetic_contact_and_transport", true)
                 .put("initial_latest", true).put("append_preserved_anchor", true).put("keyboard_preserved_reading", true)
                 .put("own_send_followed", true).put("explicit_jump_followed", true).put("followed_append", true)
-                .put("older_page_preserved_anchor", true).put("immersed_history", immersed).toString(2))
+                .put("older_page_preserved_anchor", true).put("immersed_history", immersed)
+                .put("host_window_matches_main_activity_edge_to_edge_adjust_resize", true).toString(2))
         } catch (failure: Throwable) {
             capture("android-timeline-failure")
             throw failure
         } finally {
+            compose.runOnUiThread { compose.activity.window.setSoftInputMode(originalSoftInputMode) }
             device.executeShellCommand(if (handwriting == "null") "settings delete secure stylus_handwriting_enabled" else "settings put secure stylus_handwriting_enabled $handwriting")
             compose.runOnIdle { visible.value = false }; compose.waitForIdle()
             if (initialized) runBlocking { withContext(Dispatchers.Main) { chat.close() } }
