@@ -368,6 +368,9 @@ final class ChatConversationTests: XCTestCase {
 @MainActor final class BotJourneyTests: XCTestCase {
     func testKeyboardConsentConfirmedReplyAndReopenWhileReplyIsPending() throws {
         continueAfterFailure = false
+        let originalOrientation = XCUIDevice.shared.orientation
+        XCUIDevice.shared.orientation = .portrait
+        defer { XCUIDevice.shared.orientation = originalOrientation }
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-bot-ui-qa", "-vipi-appearance-light", "-vipi-source", "en", "-vipi-target", "es", "-vipi-density", "0"]
         app.launch(); defer { app.terminate() }
@@ -389,6 +392,42 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertEqual(input.value as? String, "Local draft before consent.")
         XCTAssertFalse(send.isEnabled)
         capture(app, "bot-preconsent-draft-keyboard-title-back-send")
+        // Both orientations are declared by the app. Keep real multiline input,
+        // its action, and the focused field above the actual software IME.
+        let extra = "\nLandscape line two.\nLandscape line three.\nLandscape line four.\nLandscape line five.\nFinal landscape line."
+        input.typeText(extra)
+        let landscapeDraft = "Local draft before consent." + extra
+        XCTAssertEqual(input.value as? String, landscapeDraft)
+        XCUIDevice.shared.orientation = .landscapeLeft
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            app.frame.width > app.frame.height
+        }, object: app)], timeout: 5), .completed)
+        XCTAssertTrue(keyboard.waitForExistence(timeout: 5))
+        let layout = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            input.frame.maxY <= keyboard.frame.minY + 1 && input.frame.minY >= navigation.frame.maxY - 1
+        }, object: app)
+        let settled = XCTWaiter.wait(for: [layout], timeout: 5)
+        capture(app, "bot-landscape-multiline-draft-native-keyboard")
+        let geometry = XCTAttachment(data: try JSONSerialization.data(withJSONObject:
+            Dictionary(uniqueKeysWithValues: [("screen", app), ("keyboard", keyboard), ("input", input), ("send", send), ("navigation", navigation)].map { name, element in
+                let frame = element.frame
+                return (name, ["x": frame.minX, "y": frame.minY, "width": frame.width, "height": frame.height, "hittable": element.isHittable] as [String: Any])
+            }), options: [.sortedKeys]), uniformTypeIdentifier: "public.json")
+        geometry.name = "bot-landscape-native-input-geometry"; geometry.lifetime = .keepAlways; add(geometry)
+        XCTAssertEqual(settled, .completed, "Focused multiline composer must fit between native navigation and software keyboard")
+        XCTAssertEqual(input.value as? String, landscapeDraft)
+        for control in [input, send] {
+            XCTAssertTrue(app.frame.contains(control.frame))
+            XCTAssertGreaterThanOrEqual(control.frame.minY, navigation.frame.maxY - 1)
+            XCTAssertLessThanOrEqual(control.frame.maxY, keyboard.frame.minY + 1)
+        }
+        XCTAssertTrue(input.isHittable); XCTAssertFalse(send.isEnabled)
+        XCUIDevice.shared.orientation = .portrait
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            app.frame.height > app.frame.width
+        }, object: app)], timeout: 5), .completed)
+        input.tap(); input.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: extra.count))
+        XCTAssertEqual(input.value as? String, "Local draft before consent.")
         back.tap(); XCTAssertTrue(open.waitForExistence(timeout: 5))
         XCTAssertTrue(proof.label.contains("posts=0")); open.tap()
         XCTAssertTrue(input.waitForExistence(timeout: 5)); XCTAssertEqual(input.value as? String, "Local draft before consent.")
