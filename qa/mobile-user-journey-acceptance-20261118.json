@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T07:44:35.629733+00:00",
+  "updated_utc": "2026-11-18T08:23:14.925361+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -20,9 +20,9 @@
     {
       "journey": "Invite and send to a friend",
       "implementation": "Android actual MainActivity, Signal and vault",
-      "status": "passed normal and narrow/enlarged",
-      "required_observation": "intercept invite payload, missing-name error, correct peer, native keyboard, exactly one encrypted send, fake peer decrypt, draft/reopen/recreation",
-      "limits": "Share-sheet dispatch intercepted; no real friend invitation or physical push receipt"
+      "status": "outgoing encryption/durable incoming reply passed; enlarged incoming visual acceptance FAILED",
+      "required_observation": "Actual Signal peer ciphertext\u2192production inbox event/sync\u2192vault, one receipt and retained draft after recreation/reopen; visible newest reply in actual timeline above composer.",
+      "limits": "035 native8PASS missed incoming reply occlusion; independent root screenshots/OCR rejected it. Stricter timeline/frame test036 now fails unchanged product. Native complete body may not fit for arbitrary long messages; preserve readable newest content and user scrolling."
     },
     {
       "journey": "Draft before consent or while access is checking",
@@ -110,10 +110,10 @@
     },
     {
       "journey": "Type in landscape with native keyboard",
-      "implementation": "Actual signed Android7 production APK/Gboard and actual MainActivity native regression",
-      "status": "FAILED pre-fix; corrected product native run pending",
+      "implementation": "Actual MainActivity native keyboard, rendered caret and production TextLayoutResult",
+      "status": "passed corrected product at normal and enlarged text",
       "required_observation": "Complete typed visual line and caret must remain visible above IME; draft retained; Send/back reachable",
-      "limits": "Actual Gboard hi glyphs/caret clipped in vBot. New regression fails unchanged product; friend glyphs visible but field overlaps toolbar by13px. Native caret selection-handle observation separately corrected with real reversible X/Delete edit. Product compact layout and unchanged-font assertions implemented, not yet qualified."
+      "limits": "Original signed7 glyph clipping and first compact correction enlarged caret clipping retained. Final product034/035 passes full final line/caret, stable text metrics and48dp Back/Send; signed replacement remains pending."
     },
     {
       "journey": "Current iOS reading controls and landscape drafting",
@@ -149,7 +149,11 @@
     "android_landscape_preimage": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-short-height-preimage-r01.json",
     "ios_current_controls": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-ui-maintenance-stage-r01/native-r01-receipt.json",
     "ios_landscape_current": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-ui-maintenance-stage-r03/",
-    "ios_current_selector_audit": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-ui-selector-maintenance-r01.json"
+    "ios_current_selector_audit": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-ui-selector-maintenance-r01.json",
+    "android_final_normal": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-compact-normal-r02.json",
+    "android_final_large": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-compact-large-r02.json",
+    "incoming_pixel_rejection": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-incoming-pixel-review-r01.json",
+    "incoming_strict_red": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-incoming-visible-preimage-r01.json"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
   "original_nine_dirty_files_preserved": true,

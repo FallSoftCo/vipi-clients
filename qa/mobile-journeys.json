@@ -60,7 +60,14 @@
       }
     ],
     "verification": "Inspect instrumentation test result codes, not just adb exit0. Require all selected tests complete with no failures/skip; inspect final screen geometry and artifacts. Narrow/enlarged UI must keep input and actions inside the native window minus IME.",
-    "landscape_regression": "The friend and dedicated Bot journeys temporarily use1920x1080 while retaining current font scale; require full rendered line/caret, Back/Send target size and no toolbar/IME overlap, then restore the original size/rotation/accelerometer and exact draft. These tests failed the pre-fix product; corrected product must pass before acceptance."
+    "landscape_regression": "The friend and dedicated Bot journeys temporarily use1920x1080 while retaining current font scale; require full rendered line/caret, Back/Send target size and no toolbar/IME overlap, then restore the original size/rotation/accelerometer and exact draft. These tests failed the pre-fix product; corrected product must pass before acceptance.",
+    "incoming_reply_pixel_gate": {
+      "script": "qa/check_native_reply_pixels.py",
+      "inputs": "Paired native PNG/XML captured by the actual friend journey, known reply text and retained draft. Requires host Tesseract eng + Pillow; unavailable tooling fails, never skips.",
+      "assertion": "All expected fixture words must be visibly rendered inside the actual conversation scroll viewport above composer. Native paragraph coordinates alone are insufficient.",
+      "qualification": "Positive032 readable capture passed; original035 native8PASS capture failed pixel gate. Keep these as distinct observations, not a relabeled JUnit result.",
+      "limits": "Known English fixture only; does not assess arbitrary translation, emoji shape or acoustic quality."
+    }
   },
   "ios": {
     "native_qa_bundle": "co.fallsoft.vipi.uxqa",
