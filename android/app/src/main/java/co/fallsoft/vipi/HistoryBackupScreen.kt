@@ -22,11 +22,40 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.*
 import java.io.File
+import android.content.Context
+import java.nio.file.Files
 import java.io.FileOutputStream
 import java.util.UUID
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+
+/** Private encrypted transfer copies belong to the stable Vipi account UUID.
+ * Legacy unscoped copies have no trustworthy owner tag and are preserved. */
+internal object HistoryTransferFiles {
+    private fun directory(context: Context, account: UUID): File {
+        val root = File(context.noBackupFilesDir.canonicalFile, "history-transfer")
+        val owned = File(root, account.toString())
+        check(root.canonicalFile == root && owned.canonicalFile == owned) { "Invalid private transfer directory" }
+        return owned
+    }
+    fun temporary(context: Context, account: UUID): File {
+        val directory = directory(context, account)
+        check(directory.isDirectory || directory.mkdirs()) { "Private transfer directory unavailable" }
+        return File(directory, "${UUID.randomUUID()}.vipihistory")
+    }
+    fun erase(context: Context, account: UUID) {
+        fun remove(file: File) {
+            // Never follow a link into another account or a user-selected file.
+            if (!Files.isSymbolicLink(file.toPath()) && file.isDirectory) {
+                val children = checkNotNull(file.listFiles()) { "Private transfer cleanup incomplete" }
+                children.forEach(::remove)
+            }
+            check(!file.exists() && !Files.isSymbolicLink(file.toPath()) || file.delete()) { "Private transfer cleanup incomplete" }
+        }
+        remove(directory(context, account))
+    }
+}
 
 /** In-memory only across rotation; secrets never enter saved-state bundles. */
 internal class HistoryBackupModel : ViewModel() {
@@ -39,6 +68,18 @@ internal class HistoryBackupModel : ViewModel() {
     var staged by mutableStateOf<File?>(null)
     var exported by mutableStateOf<File?>(null)
     var job: Job? = null
+    suspend fun prepareExport(file: File, write: suspend (File) -> Unit) {
+        var retained = false
+        try {
+            write(file)
+            currentCoroutineContext().ensureActive()
+            exported = file; retained = true
+        } finally {
+            // IO can finish after clear() cancels the job. Its owned copy must
+            // still be removed before the cancelled export completes.
+            if (!retained) file.delete()
+        }
+    }
     fun clear() {
         job?.cancel(); job = null; staged?.delete(); staged = null; exported?.delete(); exported = null
         password = ""; confirmation = ""; summary = null; message = null; busy = false
@@ -49,7 +90,8 @@ internal class HistoryBackupModel : ViewModel() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable internal fun HistoryBackupScreen(chat: ChatSession, back: () -> Unit) {
     val context = LocalContext.current
-    val transfer: HistoryBackupModel = viewModel()
+    val account = chat.profile?.id ?: run { Text(stringResource(R.string.backup_open_failed)); return }
+    val transfer: HistoryBackupModel = viewModel(key = "history-transfer-$account")
     val scope = transfer.viewModelScope
     var password by transfer::password
     var confirmation by transfer::confirmation
@@ -60,14 +102,13 @@ internal class HistoryBackupModel : ViewModel() {
     var staged by transfer::staged
     var exported by transfer::exported
     var job by transfer::job
-    fun temporary() = File(context.noBackupFilesDir, "history-transfer").apply { mkdirs() }
-        .resolve("${UUID.randomUUID()}.vipihistory")
+    fun temporary() = HistoryTransferFiles.temporary(context, account)
     fun clearImport() { staged?.delete(); staged = null; summary = null }
     fun failure(error: Exception) {
         message = if (error is HistoryBackupCodec.DifferentAccount) context.getString(R.string.backup_wrong_account)
         else context.getString(R.string.backup_open_failed)
     }
-    DisposableEffect(context) { onDispose {
+    DisposableEffect(context, account, transfer) { onDispose {
         var owner = context
         while (owner is android.content.ContextWrapper && owner !is android.app.Activity) owner = owner.baseContext
         if ((owner as? android.app.Activity)?.isChangingConfigurations != true) transfer.clear()
@@ -143,14 +184,12 @@ internal class HistoryBackupModel : ViewModel() {
             if (!restoring) Button(onClick = {
                 busy = true; message = null; clearImport()
                 job = scope.launch {
-                    var file: File? = null
                     try {
-                        file = temporary(); chat.exportHistory(file, password)
-                        exported = file; file = null
+                        val exportPassword = password
+                        transfer.prepareExport(temporary()) { chat.exportHistory(it, exportPassword) }
                         save.launch("Vipi-chat-history.vipihistory")
                     } catch (error: CancellationException) { throw error }
                     catch (error: Exception) { exported?.delete(); exported = null; message = context.getString(R.string.backup_save_failed); busy = false }
-                    finally { file?.delete() }
                 }
             }, enabled = !busy && HistoryBackupCodec.validPassword(password) && password == confirmation, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_6a6965bcf571)) }
             if (restoring) OutlinedButton(onClick = { busy = true; message = null; open.launch(arrayOf("application/octet-stream", "application/*")) },

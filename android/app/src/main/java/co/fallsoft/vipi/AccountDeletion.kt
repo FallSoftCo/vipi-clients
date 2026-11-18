@@ -134,6 +134,7 @@ internal class AccountDeletion(private val store: DeletionStore, private val ser
     companion object {
         fun eraseLocal(context: Context, record: DeletionRecord) {
             PrivateSpeechCache.erase(context)
+            HistoryTransferFiles.erase(context, record.account)
             KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry("co.fallsoft.vipi.messages.${record.account}") }
             val folder = File(context.noBackupFilesDir, "messages/${record.account}")
             check(!folder.exists() || folder.deleteRecursively()) { "Local cleanup incomplete" }
