@@ -73,8 +73,16 @@ internal fun exerciseShortLandscapeComposer(compose: ComposeTestRule, f: MainAct
         File(f.output, "$evidence-selection.json").writeText(JSONObject().put("before_start", native.textSelectionStart)
             .put("before_end", native.textSelectionEnd).put("requested_end", expected.length)
             .put("native_end_action_needed", selectionNeeded).put("native_end_action_accepted", selectionAccepted ?: JSONObject.NULL)
-            .put("set_text_action_used", false).toString(2))
+            .put("set_text_action_used", false).put("blink_refresh_native_keys", "KEYCODE_X then KEYCODE_DEL; exact draft retained").toString(2))
         if (selectionNeeded) assertEquals("Native end-selection action must be accepted", true, selectionAccepted)
+        compose.waitUntil(5_000) { nativeEditor()?.let { it.textSelectionStart == expected.length && it.textSelectionEnd == expected.length } == true }
+        // Accessibility selection may leave an insertion handle while hiding
+        // the blinking cursor. A real reversible key edit dismisses that
+        // native state without replacing text or changing the retained draft.
+        assertTrue(f.device.pressKeyCode(android.view.KeyEvent.KEYCODE_X))
+        compose.waitUntil(5_000) { compose.onNodeWithTag(inputTag).fetchSemanticsNode().config[SemanticsProperties.EditableText].text == expected + "x" }
+        assertTrue(f.device.pressKeyCode(android.view.KeyEvent.KEYCODE_DEL))
+        compose.waitUntil(5_000) { compose.onNodeWithTag(inputTag).fetchSemanticsNode().config[SemanticsProperties.EditableText].text == expected }
         compose.waitUntil(5_000) { nativeEditor()?.let { it.textSelectionStart == expected.length && it.textSelectionEnd == expected.length } == true }
         val layout = currentLayout()
         assertEquals("Landscape must retain the user's text size", portraitLayout.layoutInput.style.fontSize, layout.layoutInput.style.fontSize)
