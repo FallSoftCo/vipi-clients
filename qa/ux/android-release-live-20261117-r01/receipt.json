@@ -72,7 +72,7 @@
     "user0_primary_state": "User 0: ceDataInode=327706 installed=true hidden=false suspended=false distractionFlags=0 stopped=true notLaunched=false enabled=3 instant=false virtual=false",
     "original_enabled_state": 0,
     "current_enabled_state": 0,
-    "primary_history_key_data_preserved": "No deletion/reset/session injection; same signer, UID and CE inode; user0 disabled before global v5 APK update and not launched.",
+    "primary_history_key_data_preserved": "No deletion/reset/session injection; same signer, UID and CE inode. User0 was disabled during Gamma testing, then restored to its original enabled state and safely opened once after a fresh zero-pending inspection; identity/session/device/prekey ciphertext digest remained unchanged.",
     "held_5620_5622_guest_actions": 0,
     "new_emulator_created": false,
     "new_secondary_users_created": 1,
@@ -132,7 +132,7 @@
     "No purchase/restore/store/phone actions by this task.",
     "Google-APIs emulator lacks Play billing catalog; server review grants and vBot worked independently.",
     "No acoustic pronunciation-quality or physical 16 KiB hardware claim.",
-    "Screenshots are actual unedited current production app UI; the conversation is vBot service chat, not a friend conversation."
+    "Screenshots are actual unedited current production app UI. The third frame shows vBot service chat; the fourth shows the preserved, already-delivered synthetic friend conversation."
   ],
   "private_evidence_sha256": {
     "phase-receipt.json": "a3f653fee1182fee77350a4fe1f09099dc0e68ff55bdff2b85ff030edd61e6bf",
