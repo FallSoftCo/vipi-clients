@@ -42,7 +42,8 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import android.content.Intent
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.isActive
 import java.text.DateFormat
 import java.util.Date
 import java.util.UUID
@@ -177,12 +178,15 @@ import java.util.UUID
         data class Viewport(val height: Int, val start: Int, val end: Int, val rows: List<Row>,
             val firstIndex: Int, val firstScrollOffset: Int)
         var previous: Viewport? = null
-        snapshotFlow {
+        fun measuredViewport(): Viewport {
             val layout = list.layoutInfo
-            Viewport(layout.viewportSize.height, layout.viewportStartOffset, layout.viewportEndOffset,
+            return Viewport(layout.viewportSize.height, layout.viewportStartOffset, layout.viewportEndOffset,
                 layout.visibleItemsInfo.map { Row(it.key, it.index, it.offset, it.size) },
                 list.firstVisibleItemIndex, list.firstVisibleItemScrollOffset)
-        }.collectLatest { current ->
+        }
+        // Finish an admitted correction before observing the next conflated
+        // layout; another prepared row must not cancel and lose its anchor.
+        snapshotFlow { measuredViewport() }.collect { current ->
             val before = previous
             previous = current
             // New keys alone represent scrolling/paging, not a row reflow.
@@ -207,7 +211,14 @@ import java.util.UUID
                     // An intervening reader gesture or jump always wins.
                     if (!followingLatest && !list.isScrollInProgress && list.firstVisibleItemIndex == current.firstIndex &&
                         list.firstVisibleItemScrollOffset == current.firstScrollOffset) {
-                        list.requestScrollToItem(moved.index, -anchor.offset)
+                        try { list.scrollToItem(moved.index, -anchor.offset) }
+                        catch (cancelled: CancellationException) {
+                            // User input may interrupt this default-priority
+                            // scroll without ending future resize observation.
+                            if (!currentCoroutineContext().isActive) throw cancelled
+                        }
+                        // Do not interpret our own correction as fresh drift.
+                        previous = measuredViewport()
                     }
                 }
             }
