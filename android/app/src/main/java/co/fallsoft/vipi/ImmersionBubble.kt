@@ -60,6 +60,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     val nativeAnchor = remember { NativeLookupAnchor() }
     val playbackScope = rememberCoroutineScope()
     var wordAudio by remember { mutableStateOf<Job?>(null) }
+    var wordAudioID by remember { mutableStateOf<Int?>(null) }
     val readingOptionsDescription = stringResource(R.string.ui_e52b25aa61b5)
     val translatingDescription = stringResource(R.string.ui_f1c94d2fa211)
     require(!contextualActions || BuildConfig.DEBUG)
@@ -141,11 +142,15 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     val canShowScript = (effectiveMode == ReadingMode.TRANSLATION && fullReading != null) ||
         (effectiveMode == ReadingMode.IMMERSED && result.spans.any { it.romanization != null })
     fun reveal(id: Int) {
+        val stopWord = manual == null && (speech?.activeMessage == "word-$messageID-$id" ||
+            (wordAudio?.isActive == true && wordAudioID == id))
+        wordAudio?.cancel(); wordAudio = null; wordAudioID = null
         speech?.stop(); overrides = overrides + (id to !(overrides[id] ?: originalPhase)); revision++
+        if (stopWord) return // The same word is a direct Stop, including pending voice preparation.
         result.spans.firstOrNull { it.id == id }?.let { word ->
             if (manual != null) manual.coveredWord(word, target, nativeAnchor.view.get())
             else if (speech != null) {
-                wordAudio?.cancel(); val produced = revision
+                val produced = revision; wordAudioID = id
                 wordAudio = playbackScope.launch {
                     for (attempt in 0 until 160) {
                         if (produced != revision || !resumed || interactionPaused) return@launch
