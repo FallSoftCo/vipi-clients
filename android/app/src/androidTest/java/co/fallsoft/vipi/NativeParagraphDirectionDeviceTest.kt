@@ -179,4 +179,102 @@ class NativeParagraphDirectionDeviceTest {
         report.put("complete", true).put("passed_cases", passed).put("expected_cases", 14); save()
         assertEquals("Inspect native-paragraph-direction report and screenshots", 14, passed)
     }
+
+    @Test fun simultaneousNativeBubblesKeepIndependentDirectionsAcrossAlternatingRebinds() {
+        val instrumentation = InstrumentationRegistry.getInstrumentation()
+        check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
+        val base = instrumentation.targetContext
+        val run = InstrumentationRegistry.getArguments().getString("vipiParagraphDirectionRun")
+            ?: InstrumentationRegistry.getArguments().getString("vipiJourneyRun") ?: "001"
+        require(run.matches(Regex("[0-9]{3}")))
+        val output = File(base.filesDir, "native-paragraph-direction-multiview-$run").apply { check(!exists()); check(mkdirs()) }
+        val arabic = ConversationExamples.result(base, "ar", "en").spans.first { it.translated == "river" }
+        val latin = ConversationExamples.result(base, "en", "ar").spans.first { it.original == "river" }
+        assertEquals(arabic.original, latin.translated)
+        assertEquals("Both paragraphs deliberately mask to the same code units", arabic.original.length, latin.original.length)
+        fun pair(first: ImmersionSpan, second: ImmersionSpan): ImmersionResult {
+            val start = first.original.length + 1
+            return ImmersionResult(first.original + "\n" + second.original, first.translated + "\n" + second.translated,
+                listOf(first.copy(start = 0, end = first.original.length),
+                    second.copy(start = start, end = start + second.original.length)))
+        }
+        val sources = listOf(pair(arabic, latin), pair(latin, arabic))
+        val shown = mutableStateOf(emptyList<Shown>())
+        val native = arrayOfNulls<StableImmersionText>(2)
+        compose.setContent { shown.value.takeIf { it.size == 2 }?.let { samples -> key(samples.first().scale) {
+            VipiTheme(Appearance.LIGHT) {
+                val accent = MaterialTheme.colorScheme.primary.toArgb()
+                val ink = MaterialTheme.colorScheme.onSurface.toArgb()
+                Column(Modifier.fillMaxSize().safeDrawingPadding().padding(16.dp)) {
+                    samples.forEachIndexed { index, sample ->
+                        AndroidView(factory = { StableImmersionText(sample.context).also { native[index] = it } },
+                            modifier = Modifier.fillMaxWidth(), update = { it.bind(sample.value, sample.revealed, false, accent, ink) })
+                        Spacer(Modifier.height(16.dp))
+                    }
+                }
+            }
+        } } }
+        val observations = JSONArray()
+        val report = JSONObject().put("complete", false).put("observations", observations)
+            .put("scope", "two simultaneous native selectable bubbles with equal masked opposite-direction paragraphs, alternating source/face rebinds")
+            .put("arbitrary_conversation_or_linguistic_acceptance", false).put("device_font_settings_changed", false)
+        fun save() = File(output, "report.json").writeText(report.toString(2))
+        val device = UiDevice.getInstance(instrumentation)
+        save()
+        try {
+            for (scale in listOf(1f, 1.6f)) {
+                val context = base.createConfigurationContext(Configuration(base.resources.configuration).apply { fontScale = scale })
+                for (step in -1 until 8) {
+                    val reverse = step >= 0 && step % 4 >= 2
+                    val pending = step == -1
+                    val reveal = step >= 0 && step % 2 == 1
+                    val ordered = if (reverse) sources.reversed() else sources
+                    compose.runOnIdle {
+                        shown.value = ordered.map { value ->
+                            Shown(scale, context, if (pending) value.copy(spans = emptyList()) else value,
+                                if (reveal) value.spans.map { it.id }.toSet() else emptySet())
+                        }
+                    }
+                    compose.waitForIdle()
+                    compose.runOnIdle {
+                        assertNotSame("Both native views must be alive independently", requireNotNull(native[0]), requireNotNull(native[1]))
+                        ordered.forEachIndexed { index, value ->
+                            val view = requireNotNull(native[index]); val layout = requireNotNull(view.layout)
+                            val row = JSONObject().put("font_scale", scale.toDouble()).put("step", step).put("view", index)
+                                .put("source", value.original).put("face", if (pending || reveal) "source" else "target")
+                            observations.put(row)
+                            assertEquals(value.original, view.text.toString())
+                            assertEquals(if (pending || reveal) value.original else value.spans.joinToString("\n") { it.displayedTarget }, view.visibleText())
+                            val paragraphs = JSONArray(); row.put("paragraphs", paragraphs)
+                            value.spans.forEach { word ->
+                                val line = layout.getLineForOffset(word.start)
+                                val direction = layout.getParagraphDirection(line)
+                                val leading = if (direction == -1) layout.getLineRight(line) else layout.getLineLeft(line)
+                                val expected = if (TextDirectionHeuristics.FIRSTSTRONG_LTR.isRtl(value.original, word.start, word.end - word.start)) -1 else 1
+                                paragraphs.put(JSONObject().put("source_start", word.start).put("direction", direction)
+                                    .put("leading_px", leading.toDouble()).put("width", layout.width))
+                                assertEquals("Independent paragraph direction in view $index", expected, direction)
+                                assertEquals("Independent source leading edge in view $index",
+                                    if (expected == -1) layout.width.toDouble() else 0.0, leading.toDouble(), 1.0)
+                                assertEquals(word.original, view.text.subSequence(word.start, word.end).toString())
+                                assertFalse(view.sourceRangeRect(word.start, word.end).isEmpty)
+                            }
+                        }
+                    }
+                    save()
+                    if (step in listOf(-1, 0, 6)) assertTrue(device.takeScreenshot(File(output,
+                        "${if (scale == 1f) "normal" else "enlarged"}-step-$step.png")))
+                }
+            }
+            report.put("status", "passed")
+        } catch (failure: Throwable) {
+            report.put("status", "failed").put("failure", failure.toString())
+            device.takeScreenshot(File(output, "failed.png"))
+            throw failure
+        } finally {
+            report.put("complete", true); save()
+            compose.runOnIdle { shown.value = emptyList() }
+        }
+    }
+
 }
