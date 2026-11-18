@@ -107,13 +107,26 @@ import java.time.format.FormatStyle
     val statusNotice = localError ?: bot.notice
     val bottomInsets = with(density) { maxOf(WindowInsets.ime.getBottom(this), WindowInsets.navigationBars.getBottom(this)).toDp() }
     val availableHeight = (maxHeight - with(density) { topBarHeightPx.toDp() } - bottomInsets).coerceAtLeast(0.dp)
-    val minimumComposerHeight = 56.dp + 24.dp * (density.fontScale - 1f).coerceAtLeast(0f)
+    // Use the current text line and Material padding. Density conversion
+    // follows Android's nonlinear enlarged-text scaling.
+    val composerPadding = OutlinedTextFieldDefaults.contentPadding()
+    val minimumComposerHeight = maxOf(OutlinedTextFieldDefaults.MinHeight,
+        with(density) { MaterialTheme.typography.bodyLarge.lineHeight.toDp() } +
+            composerPadding.calculateTopPadding() + composerPadding.calculateBottomPadding())
     val recoveryActionHeight = if (bot.allowance == null || bot.allowance?.remaining == 0)
         maxOf(48.dp, 22.dp * density.fontScale + 16.dp) else 0.dp
     val minimumStatusHeight = if (statusNotice != null) maxOf(48.dp, 27.dp * density.fontScale) else 0.dp
-    val fixedFooterHeight = 16.dp + recoveryActionHeight + minimumStatusHeight
+    val normalTopBarHeight = TopAppBarDefaults.TopAppBarExpandedHeight +
+        with(density) { TopAppBarDefaults.windowInsets.getTop(this).toDp() }
+    // Compare against the NORMAL bar, not the measured compact bar. Otherwise
+    // shrinking the bar would turn this decision off again on the next frame.
+    val compact = maxHeight - bottomInsets - normalTopBarHeight <
+        minimumComposerHeight + 16.dp + recoveryActionHeight + minimumStatusHeight
+    val compactBarHeight = maxOf(48.dp,
+        with(density) { MaterialTheme.typography.titleLarge.lineHeight.toDp() })
+    val fixedFooterHeight = (if (compact) 0.dp else 16.dp + recoveryActionHeight) + minimumStatusHeight
     val maximumHistoryHeight = (availableHeight - minimumComposerHeight - fixedFooterHeight).coerceAtLeast(0.dp)
-    val historyReserve = if (bot.messages.isNotEmpty()) minOf(160.dp, availableHeight * .45f, maximumHistoryHeight) else 0.dp
+    val historyReserve = if (!compact && bot.messages.isNotEmpty()) minOf(160.dp, availableHeight * .45f, maximumHistoryHeight) else 0.dp
     val footerContentHeight = (availableHeight - historyReserve).coerceAtLeast(0.dp)
     val composerMaxHeight = minOf(maxOf(96.dp, minimumComposerHeight),
         (footerContentHeight - fixedFooterHeight).coerceAtLeast(minimumComposerHeight),
@@ -123,7 +136,8 @@ import java.time.format.FormatStyle
     val footerMaxHeight = (maxHeight - with(density) { topBarHeightPx.toDp() } - historyReserve).coerceAtLeast(0.dp)
     Scaffold(topBar = {
         Box(Modifier.onSizeChanged { topBarHeightPx = it.height }) {
-        TopAppBar(title = { Text(stringResource(R.string.ui_f173182378d0)) }, navigationIcon = { IconButton(onClick = { model.back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
+        TopAppBar(title = { Text(stringResource(R.string.ui_f173182378d0)) },
+            expandedHeight = if (compact) compactBarHeight else TopAppBarDefaults.TopAppBarExpandedHeight, navigationIcon = { IconButton(onClick = { model.back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
             actions = { TextButton(onClick = { model.navigate(Screen.BOT_PLAN) }) { Text(stringResource(R.string.ui_ff245b368781)) } })
         }
     }, bottomBar = {
@@ -141,7 +155,7 @@ import java.time.format.FormatStyle
                 onRetryAccess = { scope.launch { subscriptions?.refreshAccess() } },
                 onPlan = { model.navigate(Screen.BOT_PLAN) },
                 onRefreshAllowance = { scope.launch { bot.refreshAllowance() } },
-                composerMaxHeight = composerMaxHeight,
+                composerMaxHeight = composerMaxHeight, composerMinHeight = minimumComposerHeight, compactLayout = compact,
                 statusKey = statusNotice,
                 statusContent = {
                     statusNotice?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
@@ -196,9 +210,15 @@ import java.time.format.FormatStyle
     draft: String, onDraft: (String) -> Unit, onComposingChanged: (Boolean) -> Unit,
     busy: Boolean, allowance: BotAllowance?, onSend: () -> Unit, onRetryAccess: () -> Unit,
     onPlan: () -> Unit, onRefreshAllowance: () -> Unit, statusContent: @Composable () -> Unit = {},
-    composerMaxHeight: Dp = Dp.Infinity, statusKey: String? = null) {
+    composerMaxHeight: Dp = Dp.Infinity, statusKey: String? = null,
+    composerMinHeight: Dp = 56.dp, compactLayout: Boolean = false) {
     val statusScroll = rememberScrollState()
     LaunchedEffect(statusKey) { if (statusKey != null) statusScroll.scrollTo(0) }
+    val refreshAllowance: @Composable () -> Unit = {
+        if (allowance == null || allowance.remaining == 0) TextButton(onClick = onRefreshAllowance) {
+            Text(stringResource(R.string.ui_cf0b3e3d47ec))
+        }
+    }
     Column {
         // Measure the input first, then let status/consent use only the remaining
         // height. The scroll area shrinks with the IME and enlarged system text.
@@ -219,13 +239,16 @@ import java.time.format.FormatStyle
                     Text(stringResource(R.string.continue_action))
                 }
             }
+            // In a short IME viewport, recovery shares the existing scroll
+            // area instead of competing with the editable line for height.
+            if (compactLayout) refreshAllowance()
         }
         // Local drafting is available before consent too. Only the explicit
         // Continue action accepts consent; typing never sends or accepts it.
-        Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.Bottom,
+        Row(Modifier.fillMaxWidth().padding(vertical = if (compactLayout) 0.dp else 8.dp), verticalAlignment = Alignment.Bottom,
             horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedTextField(draft, onDraft, placeholder = { Text(stringResource(R.string.ui_9f60f6c0e9e0)) },
-                maxLines = 5, modifier = Modifier.weight(1f).heightIn(max = composerMaxHeight).onFocusChanged { onComposingChanged(it.isFocused) }
+                maxLines = 5, modifier = Modifier.weight(1f).heightIn(min = composerMinHeight, max = composerMaxHeight).onFocusChanged { onComposingChanged(it.isFocused) }
                     .testTag("bot-message-input"), shape = RoundedCornerShape(24.dp))
             val currentAccess = accessState == AccessCheckState.LOADED && access?.bot?.verificationUnavailable != true &&
                 access?.active(SubscriptionPlan.BOT_MINI) == true
@@ -236,9 +259,7 @@ import java.time.format.FormatStyle
                 else Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.ui_4b34e1b08868))
             }
         }
-        if (allowance == null || allowance.remaining == 0) TextButton(onClick = onRefreshAllowance) {
-            Text(stringResource(R.string.ui_cf0b3e3d47ec))
-        }
+        if (!compactLayout) refreshAllowance()
     }
 }
 
