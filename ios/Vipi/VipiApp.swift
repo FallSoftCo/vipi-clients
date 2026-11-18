@@ -6,9 +6,16 @@ import SwiftUI
     @State private var authentication: AuthenticationManager
     @State private var deletion: AccountDeletion
     init() {
+        #if DEBUG
+        ConnectedDeletionUIQualification.prepareIfRequested()
+        #endif
         let authentication = AuthenticationManager()
         _authentication = State(initialValue: authentication)
+        #if DEBUG
+        _deletion = State(initialValue: ConnectedDeletionUIQualification.current?.makeDeletion(authentication) ?? AccountDeletion(authentication: authentication))
+        #else
         _deletion = State(initialValue: AccountDeletion(authentication: authentication))
+        #endif
         #if DEBUG
         PersistenceProbe.startIfRequested()
         #endif
@@ -33,7 +40,7 @@ import SwiftUI
                 else if ProcessInfo.processInfo.arguments.contains("-vipi-translation-matrix") { TranslationQualification() }
                 else if state.isAuthenticated {
                     if ProcessInfo.processInfo.arguments.contains("-vipi-preview-home") { HomeView() }
-                    else { ConnectedChatRoot() }
+                    else { ConnectedChatRoot(qualification: ConnectedDeletionUIQualification.current?.connection) }
                 }
                 else { OnboardingView() }
                 #else
@@ -54,6 +61,16 @@ import SwiftUI
                 state.isAuthenticated = value != nil
             }
             .onOpenURL { url in Task { await authentication.complete(url) } }
+            #if DEBUG
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if let qualification = ConnectedDeletionUIQualification.current {
+                    TimelineView(.periodic(from: .now, by: 0.5)) { _ in
+                        Text(qualification.proof).font(.caption2).lineLimit(1)
+                            .accessibilityIdentifier("deletion-root-qa-proof")
+                    }
+                }
+            }
+            #endif
         }
     }
 }

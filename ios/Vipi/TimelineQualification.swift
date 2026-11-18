@@ -511,6 +511,276 @@ private func removeAbandonedBaseExpiryFixtures() throws {
     }
 }
 
+/// Dependency/bootstrap fixture only. VipiApp, ConnectedChatRoot, Settings,
+/// AccountDeletionProgressView and AccountDeletion perform the entire flow.
+/// No fixture method begins, accepts, resumes or finishes a deletion manager.
+@MainActor final class ConnectedDeletionUIQualification: ChatTransport, DeletionTransport {
+    private(set) static var current: ConnectedDeletionUIQualification?
+    private struct Ledger: Codable {
+        let account: UUID, other: UUID, user: String, otherUser: String
+        var starts = 0, chats = 0, stores = 0, seededOwners = 0
+        var botPosts = 0, lateResults = 0, submissions = 0, statusReads = 0, confirmations = 0
+        var unexpected = 0
+        var accepted = false
+        var secretHash: String?
+        var otherKeyHash = "", otherProfileHash = ""
+        var failure: String?
+    }
+    private static var directory: URL {
+        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("ConnectedDeletionQualification", isDirectory: true)
+    }
+    private static var ledgerURL: URL { directory.appendingPathComponent("owner.json") }
+    private var ledger: Ledger
+    private weak var authentication: AuthenticationManager?
+    private weak var manager: AccountDeletion?
+    private var chats: [ChatSession] = []
+    private var botOwners: [BotConversationOwner] = []
+    private var botSessions: [BotSession] = []
+    private var botVaults: [MessageVault] = []
+    private var heldBot: CheckedContinuation<Void, Never>?
+    private static let ownMarker = Data("Owned encrypted deletion marker".utf8)
+    private static let otherMarker = Data("Unrelated encrypted marker must remain".utf8)
+    private static let lateReply = "Late response must never resurrect deleted data."
+
+    static func prepareIfRequested() {
+        guard ProcessInfo.processInfo.arguments.contains("-vipi-deletion-root-qa") else { return }
+        precondition(Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa", "Owned root qualification only")
+        do {
+            if ProcessInfo.processInfo.arguments.contains("-vipi-deletion-root-cleanup") { try cleanup(); return }
+            if current == nil { current = try ConnectedDeletionUIQualification() }
+        } catch {
+            // Never fall back to a live service after a partial QA bootstrap.
+            preconditionFailure("Reconcile the owned synthetic deletion fixture before qualification")
+        }
+    }
+    private static func hash(_ data: Data) -> String { SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined() }
+    private func save() throws { try JSONEncoder().encode(ledger).write(to: Self.ledgerURL, options: .atomic) }
+    private static func validate(_ value: Ledger) throws {
+        guard value.account != value.other, value.user.hasPrefix("deletion-root-ui-"),
+              UUID(uuidString: String(value.user.dropFirst("deletion-root-ui-".count))) != nil,
+              value.otherUser == "deletion-root-other-" + value.other.uuidString.lowercased() else {
+            throw ServiceFailure(status: 0, code: "invalid_root_fixture_ownership")
+        }
+    }
+    private init() throws {
+        if FileManager.default.fileExists(atPath: Self.ledgerURL.path) {
+            ledger = try JSONDecoder().decode(Ledger.self, from: Data(contentsOf: Self.ledgerURL))
+            try Self.validate(ledger)
+        } else {
+            for key in ["session", "account-deletion", "pending-sign-in", "pending-identity-link"] {
+                guard try KeychainStore.read(account: key) == nil else { throw ServiceFailure(status: 0, code: "empty_owned_qa_identity_required") }
+            }
+            // Production erasure removes the private audio parent. Do not use
+            // this fixture if it would erase preexisting QA recordings.
+            let audio = MessageSpeechCache.directory.deletingLastPathComponent()
+            if let files = FileManager.default.enumerator(at: audio, includingPropertiesForKeys: [.isRegularFileKey, .fileSizeKey]) {
+                for case let file as URL in files {
+                    let values = try file.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey])
+                    guard values.isRegularFile != true || values.fileSize == 0 else { throw ServiceFailure(status: 0, code: "preserve_existing_qa_audio") }
+                }
+            }
+            let account = UUID(), other = UUID()
+            ledger = Ledger(account: account, other: other, user: "deletion-root-ui-" + UUID().uuidString,
+                otherUser: "deletion-root-other-" + other.uuidString.lowercased())
+            try FileManager.default.createDirectory(at: Self.directory, withIntermediateDirectories: true)
+            try save() // Record ownership before creating any private records.
+            try seed()
+        }
+        ledger.starts += 1; try save()
+    }
+    private func seed() throws {
+        for (id, marker) in [(ledger.account, Self.ownMarker), (ledger.other, Self.otherMarker)] {
+            let vault = try MessageVault(account: id)
+            defer { try? vault.close() }
+            try vault.transaction { try vault.put("root-deletion-qa", "marker", marker) }
+            if id == ledger.account {
+                let core = try MessagingCore(vault: vault)
+                try vault.transaction { try vault.put("local", "registered-device", Data(core.device.id.uuidString.lowercased().utf8)) }
+            }
+        }
+        let profile = ChatProfile(id: ledger.account, username: "deletion_qa", display_name: "Deletion QA")
+        let other = ChatProfile(id: ledger.other, username: "preserved_qa", display_name: "Preserved QA")
+        try KeychainStore.save(JSONEncoder().encode(profile), account: "profile-" + ledger.user)
+        let otherData = try JSONEncoder().encode(other)
+        try KeychainStore.save(otherData, account: "profile-" + ledger.otherUser)
+        ledger.otherProfileHash = Self.hash(otherData)
+        guard let key = try KeychainStore.read(account: "messages-" + ledger.other.uuidString.lowercased()) else { throw MessageVault.Failure.missingKey }
+        ledger.otherKeyHash = Self.hash(key)
+        try KeychainStore.save(JSONEncoder().encode(VipiSession(userID: ledger.user, accessToken: "synthetic-root-access-never-transmitted",
+            refreshToken: "synthetic-root-refresh-never-transmitted", authority: .fallsoftVipiProduction)), account: "session")
+        try save()
+    }
+    var connection: ConnectedChatRoot.Qualification {
+        .init(makeChat: { [self] auth, user in
+            guard user == ledger.user, auth.session?.userID == ledger.user else { throw ServiceFailure(status: 0, code: "root_fixture_identity_mismatch") }
+            ledger.chats += 1; try save()
+            let chat = try ChatSession(api: self, userID: user); chats.append(chat); return chat
+        }, makeSubscriptions: { [self] auth, user, account in
+            guard user == ledger.user, auth.session?.userID == user, account == ledger.account else { throw ServiceFailure(status: 0, code: "root_fixture_account_mismatch") }
+            ledger.stores += 1; try save()
+            return SubscriptionStore(api: self, accountToken: account)
+        }, makeBotOwner: { [self] account in
+            let owner = BotConversationOwner()
+            guard let account else { return owner }
+            do {
+                guard account == ledger.account else { throw ServiceFailure(status: 0, code: "root_fixture_bot_mismatch") }
+                let vault = try MessageVault(account: account)
+                let session = try BotSession(api: self, vault: vault)
+                _ = try owner.session(for: account) { session }
+                botOwners.append(owner); botSessions.append(session); botVaults.append(vault)
+                ledger.seededOwners += 1; try save()
+            } catch { ledger.failure = "Root Bot preparation failed"; try? save() }
+            return owner
+        })
+    }
+    func makeDeletion(_ authentication: AuthenticationManager) -> AccountDeletion {
+        self.authentication = authentication
+        let value = AccountDeletion(store: KeychainDeletionStore(), service: self, erase: AccountDeletion.eraseLocal) { user in
+            try authentication.eraseLocalSession(for: user)
+        }
+        manager = value; return value
+    }
+    private func bind(_ record: DeletionRecord) throws {
+        guard record.account == ledger.account, record.userID == ledger.user else { throw ServiceFailure(status: 0, code: "root_fixture_receipt_mismatch") }
+        let fingerprint = Self.hash(Data(record.secret.utf8))
+        if let previous = ledger.secretHash {
+            guard previous == fingerprint else { throw ServiceFailure(status: 0, code: "root_fixture_capability_changed") }
+        } else { ledger.secretHash = fingerprint }
+    }
+    func submit(_ record: DeletionRecord) async throws -> DeletionReply {
+        try bind(record)
+        ledger.submissions += 1
+        guard !ledger.accepted, ledger.submissions == 1 else { ledger.unexpected += 1; try save(); throw ServiceFailure(status: 0, code: "root_fixture_repeated_delete") }
+        ledger.accepted = true; try save()
+        // The actual owner has already closed. Deliberately return a late
+        // response anyway; merely cancelling the transport would not test the
+        // production BotSession closed-result guard.
+        let waiting = heldBot; heldBot = nil; waiting?.resume()
+        throw URLError(.networkConnectionLost)
+    }
+    func status(_ record: DeletionRecord) async throws -> DeletionReply {
+        try bind(record); ledger.statusReads += 1; try save()
+        guard ledger.accepted else { throw ServiceFailure(status: 404, code: "deletion_receipt_unavailable") }
+        guard ledger.starts > 1 else { throw URLError(.networkConnectionLost) }
+        ledger.confirmations += 1; try save()
+        return DeletionReply(account_id: ledger.account, status: ledger.confirmations == 1 ? "deletion_requested" : "deleted")
+    }
+    private var allowance: [String: Any] {
+        ["available": true, "service_ready": true, "remaining_replies": 150, "monthly_replies": 150,
+         "resets_at": "2099-01-01T00:00:00Z", "max_context_bytes": 8192]
+    }
+    func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
+        let value: [String: Any]
+        switch (method, path) {
+        case ("GET", "/v1/me"):
+            guard !ledger.accepted else { throw ServiceFailure(status: 410, code: "account_deleted") }
+            value = ["id": ledger.account.uuidString, "username": "deletion_qa", "display_name": "Deletion QA"]
+        case ("GET", "/v1/keys"): value = ["revision": 1, "remaining": 20]
+        case ("GET", "/v1/messages/pending"): value = ["messages": [], "next_cursor": NSNull()]
+        case ("GET", "/v1/entitlements"):
+            let plan: [String: Any] = ["active": true, "access_source": "review_complimentary", "review_access": true]
+            var bot = plan; bot["available"] = true
+            value = ["server_time": ISO8601DateFormatter().string(from: Date()), "base": plan, "bot_mini": bot,
+                "billing_account_id": "synthetic-deletion-root-only", "app_account_token": ledger.account.uuidString,
+                "purchases_ready": ["apple": false, "google": false]]
+        case ("GET", "/v1/bot/allowance"): value = allowance
+        case ("POST", "/v1/bot/messages"):
+            guard let body, let payload = try JSONSerialization.jsonObject(with: body) as? [String: Any],
+                  let requestID = payload["request_id"] as? String, UUID(uuidString: requestID) != nil,
+                  let context = payload["messages"] as? [[String: String]], context.count == 1,
+                  context.first?["content"] == "Hold this reply while I review deletion.",
+                  payload["consent_version"] as? String == "deepseek-v1", device != nil, ledger.botPosts == 0, !ledger.accepted else {
+                ledger.unexpected += 1; try save(); throw ServiceFailure(status: 0, code: "root_fixture_bot_request_mismatch")
+            }
+            let vault = try MessageVault(account: ledger.account)
+            let registered: DeviceCredential
+            do { registered = try DeviceCredential.registered(vault: vault); try vault.close() }
+            catch { try? vault.close(); throw error }
+            guard device?.id == registered.id, device?.secret == registered.secret else {
+                ledger.unexpected += 1; try save(); throw ServiceFailure(status: 0, code: "root_fixture_bot_device_mismatch")
+            }
+            ledger.botPosts += 1; try save()
+            await withCheckedContinuation { heldBot = $0 }
+            ledger.lateResults += 1; try save()
+            value = ["request_id": requestID, "reply": Self.lateReply, "allowance": allowance]
+        default:
+            ledger.unexpected += 1; try save()
+            throw ServiceFailure(status: 0, code: "unexpected_root_fixture_request")
+        }
+        return try JSONDecoder().decode(type, from: JSONSerialization.data(withJSONObject: value))
+    }
+    private static func accountDirectory(_ account: UUID) -> URL {
+        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Messages").appendingPathComponent(account.uuidString.lowercased())
+    }
+    private func marker(_ account: UUID, expected: Data) throws -> (Bool, Int, [String]) {
+        // Do not instantiate a vault after erasure: doing so would create the
+        // very key/directory resurrection this regression must detect.
+        guard FileManager.default.fileExists(atPath: Self.accountDirectory(account).path),
+              try KeychainStore.read(account: "messages-" + account.uuidString.lowercased()) != nil else { return (false, 0, []) }
+        let vault = try MessageVault(account: account); defer { try? vault.close() }
+        return try vault.transaction {
+            let marker = try vault.get("root-deletion-qa", "marker") == expected
+            let ids = try vault.ids("bot-message")
+            let late = try ids.filter { key in
+                guard let data = try vault.get("bot-message", key) else { return false }
+                return try JSONDecoder().decode(BotMessage.self, from: data).text == Self.lateReply
+            }.count
+            return (marker, late, ids.sorted())
+        }
+    }
+    var proof: String {
+        do {
+            let own = try marker(ledger.account, expected: Self.ownMarker)
+            let other = try marker(ledger.other, expected: Self.otherMarker)
+            let pending = try KeychainDeletionStore().load()
+            let otherKey = try KeychainStore.read(account: "messages-" + ledger.other.uuidString.lowercased())
+            let otherProfile = try KeychainStore.read(account: "profile-" + ledger.otherUser)
+            let closed = botOwners.allSatisfy { owner in
+                do { _ = try owner.session(for: ledger.account) { nil }; return false }
+                catch { return true }
+            }
+            let value: [String: Any] = [
+                "starts": ledger.starts, "chat_creations": ledger.chats, "store_creations": ledger.stores,
+                "seeded_bot_owners": ledger.seededOwners, "bot_posts": ledger.botPosts, "bot_pending": heldBot != nil,
+                "late_results": ledger.lateResults, "late_memory_replies": botSessions.flatMap(\.messages).filter { $0.text == Self.lateReply }.count,
+                "all_bot_owners_closed": closed, "open_chat_owners": chats.filter { $0.ready || $0.profile != nil }.count,
+                "submissions": ledger.submissions, "status_reads": ledger.statusReads, "confirmations": ledger.confirmations,
+                "server_accepted": ledger.accepted, "unexpected_requests": ledger.unexpected, "fixture_failure": ledger.failure != nil,
+                "session_key_present": try KeychainStore.read(account: "session") != nil, "auth_signed_out": authentication?.session == nil,
+                "receipt_present": pending != nil, "phase": pending?.phase.rawValue ?? "none", "local_erased": pending?.localErased ?? false,
+                "receipt_matches_owner": pending.map { $0.account == ledger.account && $0.userID == ledger.user } ?? false,
+                "own_marker": own.0, "late_disk_replies": own.1, "bot_row_ids": own.2,
+                "own_directory": FileManager.default.fileExists(atPath: Self.accountDirectory(ledger.account).path),
+                "own_key": try KeychainStore.read(account: "messages-" + ledger.account.uuidString.lowercased()) != nil,
+                "own_profile": try KeychainStore.read(account: "profile-" + ledger.user) != nil,
+                "other_marker": other.0, "other_key_unchanged": otherKey.map { Self.hash($0) } == ledger.otherKeyHash,
+                "other_profile_unchanged": otherProfile.map { Self.hash($0) } == ledger.otherProfileHash]
+            return String(decoding: try JSONSerialization.data(withJSONObject: value, options: [.sortedKeys]), as: UTF8.self)
+        } catch { return "{\"proof_read_failed\":true}" }
+    }
+    private static func cleanup() throws {
+        guard FileManager.default.fileExists(atPath: ledgerURL.path) else { return }
+        let record = try JSONDecoder().decode(Ledger.self, from: Data(contentsOf: ledgerURL)); try validate(record)
+        if let pending = try KeychainDeletionStore().load() {
+            guard pending.account == record.account, pending.userID == record.user else { throw ServiceFailure(status: 0, code: "preserve_unrelated_deletion_record") }
+            try KeychainDeletionStore().remove()
+        }
+        if let data = try KeychainStore.read(account: "session") {
+            guard try JSONDecoder().decode(VipiSession.self, from: data).userID == record.user else { throw ServiceFailure(status: 0, code: "preserve_unrelated_session") }
+            try KeychainStore.deleteChecked(account: "session")
+        }
+        for id in [record.account, record.other] {
+            let directory = accountDirectory(id)
+            if FileManager.default.fileExists(atPath: directory.path) { try FileManager.default.removeItem(at: directory) }
+            try KeychainStore.deleteChecked(account: "messages-" + id.uuidString.lowercased())
+        }
+        for user in [record.user, record.otherUser] { try KeychainStore.deleteChecked(account: "profile-" + user) }
+        try FileManager.default.removeItem(at: directory)
+    }
+}
+
 private final class TimelineTransport: ChatTransport {
     let owner: UUID, peer: UUID
     init(owner: UUID, peer: UUID) { self.owner = owner; self.peer = peer }
