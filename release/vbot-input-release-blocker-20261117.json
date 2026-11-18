@@ -1,6 +1,6 @@
 {
   "reported": "Owner cannot open keyboard or send vBot message on Android versionCode5",
-  "status": "Corrected Android keyboard and incoming reply visibility passed native and pixel checks; final history regression and signed replacement pending; public release held",
+  "status": "Keyboard, incoming visibility, reading-position and vertical font corrections qualified; Arabic horizontal anchoring fix in progress. Apple corrected5 uploading once; Android final signed replacement pending. No readiness claim.",
   "readiness_claim_withdrawn": true,
   "public_release_controls": {
     "apple": "existing manual release retained",
@@ -24,7 +24,7 @@
     "native keyboard/focus/send guard regression qualification"
   ],
   "external_actions": "Existing store submissions not repeated. One config-only testing grant for user-confirmed owner profile activated and verified; API restart preserved unrelated services. No purchase/charge or uncertain Bot send replay.",
-  "updated_utc": "2026-11-18T08:33:52.102306+00:00",
+  "updated_utc": "2026-11-18T09:41:08.553383+00:00",
   "verified": [
     "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
     "Actual VipiModel setup routing: 5 focused tests passed",
@@ -37,11 +37,12 @@
     "Corrected037 enlarged and038 normal actual friend journeys pass stricter native reply containment plus both independent received/reopened-IME screenshot OCR gates. Original035 false pass and036 red retained."
   ],
   "remaining": [
-    "Complete targeted friend history regression with test window configured like shipping MainActivity, then produce version8 signed replacement",
-    "Verify corrected final build installed on owner phone and actual Bot send",
-    "Build and validate corrected Play bundle against newly qualified signed APK; v7sign/upload not dispatched after landscape failure",
-    "Obtain actual Apple purchase proof; local IDE test r03failednotEntitled with one localSDKbuy attempt/no confirmed transaction",
-    "Upload qualified Apple5 only after reconciled existing intents and fresh build inventory; preserve manual/managed release controls"
+    "Fix and prove Arabic source paragraph direction/leading edge during pending-to-prepared immersion and flips.",
+    "Qualify current Android core journeys at normal/enlarged text, then build/sign final8r02 and verify actual release keyboard/landscape.",
+    "Deliver final signed replacement to owner phone; readback still5, actual phone keyboard/Bot send unverified.",
+    "Build and validate exact corrected Google bundle and reconcile existing review before replacement.",
+    "Monitor original Apple corrected5 upload to ASCVALID then reconcile concrete review replacement preserving all subscription items and manual release.",
+    "Finish iOS actual deletion-root test using DEBUG-only isolated synthetic service; no production/global account deletion."
   ],
   "phone_identity": "User confirmed @rjuniyer; exact healthy shared-realm profile differs from previously pinned testing identity. One UUID grant activated with fresh own-workload coordination and independently verified.",
   "signed_review_build": {
@@ -71,7 +72,7 @@
     "actual_owner_send_verified": false,
     "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-v7-delivery-r01.json",
     "delivery_started_utc": "2026-11-18T06:20:27.700407+00:00",
-    "current_delivery_status": "Do not reinstall superseded7; corrected8 pending. Bounded phone-adb check08:32 unavailable, no USB/TCP; no reset or repeated installer."
+    "current_delivery_status": "Installed5 confirmedread-only; obsolete7installer not repeated. Initial8 superseded before successful install/delivery by history/font corrections; final8r02 pending. No phone data cleared."
   },
   "owner_access_verified": {
     "base": true,
@@ -84,26 +85,27 @@
   },
   "journey_qualification": {
     "android_domain": "20 integration cases passed through actual model, encrypted vault, subscription coordinator and deletion/backup cleanup; external HTTP and billing controlled",
-    "android_activity": "Eight current core cases passed034/035 at normal/enlarged sizes; visual review separately rejected035 incoming pixels. Strict036 failed that defect; corrected037 enlarged and038 normal friend methods plus independent pixels pass.038 standalone timeline host panned entire window; test-only production-window alignment pending.",
+    "android_activity": "045 actual MainActivity plain/immersed earlier history bothPASS exactsourcepoint top/baseline;046 Settings cancel/lostdelete/freshroot/status/scopedvault/keyerasePASS; normal047/enlarged048 current core underway.",
     "android_speech": "10 native lifecycle/word gesture cases passed;110 authored preview directions passed actual native playback/stop, median198ms/p95237ms/max319ms; arbitrary conversation and acoustics not implied",
     "ios_domain": "15 BotSession tests plus checked-close/deletion retry and actual Bot UI journey passed17;22 backup/deletion cases passed",
     "ios_ui": "Actual Bot consent/keyboard/send/navigation/reopen/draft and checked final disposal passed; local friend lookup geometry and Cancel passed",
-    "storekit": "Three domain/native coordinator tests passed with controlled transaction boundary. Actual IDEr03 localSKTestSession.buyProduct failednotEntitled; no confirmed transaction/liveProduct.purchase. Positive nonnil set/read/clear readiness guard integrated, typechecked againstinstalledSDK, not executed. Original scheme/QAsettings/source restored and native slot released.",
-    "evidence_directory": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01"
+    "storekit": "Current localSKTestSessionr03 failednotEntitled; no repeatedtransaction. Prior signedTestFlight Botmini sandboxpurchase succeededonce and independently reconciled in ios-acceptance-continuity-audit-r01.json. Current actualHomeView expiry r08PASS no checkout.",
+    "evidence_directory": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01",
+    "android_font_metrics": "045 eight authored Latin/marked-pinyin/Japanese/Arabic normal/enlarged casesPASS verticalbaseline/height and ChineseScript/backfixedwidth; independent review caught Arabic right-to-left anchoring jump, being fixed and regression added."
   },
   "acceptance_audit": "qa/mobile-user-journey-acceptance-20261118.json",
   "ios_signed_candidate": {
     "version": "1.0",
     "build": 5,
-    "ipa_sha256": "202a164aaa5448ee11ca4cb6a25b6afa35d5e60afcea2c802b81c618c52360f1",
+    "ipa_sha256": "4cc4ef573428c895071536a4a9cac5b53a12f154850adfc77141ef67ccf11d32",
     "distribution_signature_verified": true,
     "production_entitlements_resources_and_source_verified": true,
     "archive_dispatches": 1,
     "export_dispatches": 1,
-    "upload_dispatches": 0,
-    "receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/corrected-apple-export-result-r01/summary.json",
+    "upload_dispatches": 1,
+    "receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/corrected-apple-export-result-r02/summary.json",
     "fresh_store_inventory_receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/native-asc-session-readonly-r01/summary.json",
-    "build5_absent_at_utc": "2026-11-18T07:08:15.141005+00:00",
-    "delivery_status": "Original r01 local5 is obsolete for delivery after Bot Send appearance correction; preserved, never uploaded. Corrected r02 source/project assembled; archive/export pending."
+    "build5_absent_at_utc": "2026-11-18T09:39:47Z",
+    "delivery_status": "Correctedr02 source1162 exportedonce; ONE Add and ONE Deliver accepted09:35:50Z. Monitoring originaltransfer toASCVALID, no repeat or review mutation. Oldr01 localartifactretained/neveruploaded."
   }
 }
