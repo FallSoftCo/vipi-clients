@@ -1,0 +1,11 @@
+{
+  "original_export_directory": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/signed-release-20261117-build4-r01/source/ios/Vipi-signed-build4-r01:Users:Apple:Development:vipi-native-delivery-20261109-r01:signed-release-20261117-build4-r01:",
+  "final_export_directory": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/signed-release-20261117-build4-r01/Vipi-signed-build4-r01",
+  "completed_distribution_log_time": "2026-11-17T23:51:37Z",
+  "cause": "Rapid native save-panel input appended the destination path to Export As; macOS escaped the slashes as colons. The completed single export was found at that exact owned path.",
+  "reconciled_by": "Bounded pruned walk inside this build4 namespace; exact ZIP configuration and artifact SHA verification; no active exporter.",
+  "recovery": "Moved only the exact owned output directory to its initially intended exclusive destination, retaining the original path and hash receipt.",
+  "ipa_sha256_before_and_after_move": "ac1851a2d5947c86552204b1c32ce1f16801dc351d1275b53590ba189b5da416",
+  "re_export_or_rebuild": false,
+  "unrelated_xcode_and_chrome_state": "Preserved; only the owned build4 Xcode workspace/export was used."
+}

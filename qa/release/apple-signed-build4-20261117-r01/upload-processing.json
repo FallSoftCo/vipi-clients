@@ -1,0 +1,43 @@
+{
+  "observed_at": "2026-11-18T00:26:24.511531+00:00",
+  "state": "delivered-with-warning-processing",
+  "app_id": "6832624092",
+  "version": "1.0",
+  "build": "4",
+  "ipa_sha256": "ac1851a2d5947c86552204b1c32ce1f16801dc351d1275b53590ba189b5da416",
+  "ipa_bytes": 431015828,
+  "delivery_dispatches": 1,
+  "delivery_dispatch_at": "2026-11-18T00:18:23Z",
+  "delivery_ui_minute": "2026-11-18T00:24:00Z",
+  "asc_readback": {
+    "observed_at": "2026-11-18T00:28:49.657178+00:00",
+    "version_build": "1.0 (4)",
+    "status": "Processing",
+    "safe_screenshot_sha256": "51c0cdbdebe7650f77da8ccebd39056c5f7f5a1856965b6187f16e912244bcdb"
+  },
+  "warning": {
+    "code": 90725,
+    "kind": "Future SDK minimum advisory",
+    "detail": "The iOS 26.5 SDK build was accepted with an advisory that the iOS 27 SDK and Xcode 27 or later will be required starting April 2027."
+  },
+  "pre_dispatch_inventory": {
+    "existing_builds": [
+      1,
+      2,
+      3
+    ],
+    "expanded_upload_list_all_statuses": true,
+    "build4_absent": true
+  },
+  "local_preparation_recovery": {
+    "original_transporter_uptime_days": 8,
+    "original_delivery_dispatches_before_recovery": 0,
+    "observed_wait": "TKMakeITMSPIfNeededOperation -> CDAuthContext appSettingsResponse -> objc_sync_enter",
+    "action": "One normal Transporter quit/reopen; same pending package recovered without re-add",
+    "original_delivered_packages": "Preserved"
+  },
+  "archive_and_export_repeated": false,
+  "store_review_submission_claimed": false,
+  "later_processing_and_submission_receipt_pending": true,
+  "secrets_or_private_reviewer_values": false
+}

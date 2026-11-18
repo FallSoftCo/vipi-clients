@@ -1,0 +1,158 @@
+{
+  "state": "signed_export_verified",
+  "qualified_at": "2026-11-18T00:08:48.005925+00:00",
+  "client_source_revision": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+  "artifact": {
+    "native_path": "/Users/Apple/Development/vipi-native-delivery-20261109-r01/signed-release-20261117-build4-r01/Vipi-signed-build4-r01/Vipi.ipa",
+    "bytes": 431015828,
+    "sha256": "ac1851a2d5947c86552204b1c32ce1f16801dc351d1275b53590ba189b5da416",
+    "bundle": "co.fallsoft.vipi",
+    "version": "1.0",
+    "build": "4",
+    "device_families": [
+      1,
+      2
+    ]
+  },
+  "build_method": {
+    "archive": "Native Xcode IDE Vipi scheme, Release, Any iOS Device (arm64)",
+    "archive_dispatches": 1,
+    "compiler_jobs": 2,
+    "archive_path": "/Users/Apple/Library/Developer/Xcode/Archives/2026-11-17/Vipi 11-17-26, 6.45\u202fPM.xcarchive",
+    "archive_info_sha256": "9b01d183b9af2da19873c17ba99ad80d74efac312a40eb86d7d6d77d2602381d",
+    "archive_signature_verified": true,
+    "export": "Normal Organizer Custom / App Store Connect / Export, automatic company distribution signing",
+    "export_dispatches": 1,
+    "export_options": {
+      "destination": "export",
+      "manageAppVersionAndBuildNumber": false,
+      "method": "app-store-connect",
+      "signingStyle": "automatic",
+      "stripSwiftSymbols": true,
+      "teamID": "3TNL2455JT",
+      "uploadSymbols": false
+    },
+    "archive_signing_type": "Apple Development under company team 3TNL2455JT",
+    "normal_distribution_resigning_on_export": true,
+    "unsigned_archive_exported": false
+  },
+  "signing": {
+    "authority": "Apple Distribution: Fallible Software, Co. (3TNL2455JT)",
+    "deep_strict_verify": true,
+    "entitlements": {
+      "application-identifier": "3TNL2455JT.co.fallsoft.vipi",
+      "aps-environment": "production",
+      "beta-reports-active": true,
+      "com.apple.developer.team-identifier": "3TNL2455JT",
+      "get-task-allow": false
+    },
+    "profile_name": "iOS Team Store Provisioning Profile: co.fallsoft.vipi",
+    "profile_uuid": "f25b521e-55f5-4e91-928f-6dbf43501fc1",
+    "profile_expires": "2027-10-24T22:50:46"
+  },
+  "configuration": {
+    "public_workos_client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "push_environment": "production",
+    "normal_keychain_service": "co.fallsoft.vipi.private",
+    "normal_keychain_marker_present": true,
+    "qa_keychain_and_debug_launch_markers_absent": true,
+    "store_credentials_or_application_secret_in_client": false,
+    "checked_absent_markers": [
+      "-vipi-timeline-qa",
+      "-vipi-network-qa",
+      "-vipi-reauth-qa",
+      "-vipi-store-screenshots",
+      "co.fallsoft.vipi.uxqa.private"
+    ]
+  },
+  "resources": {
+    "locales": [
+      "ar",
+      "de",
+      "en",
+      "es",
+      "fr",
+      "it",
+      "ja",
+      "ko",
+      "pt-BR",
+      "pt-PT",
+      "sw",
+      "zh-Hans",
+      "zh-Hant"
+    ],
+    "privacy_manifest_count": 13,
+    "source_exact_groups": {
+      "immersion": {
+        "matchedFiles": 583,
+        "manifestSHA256": "1a135fa23d9bd24ac734a26b0cad3c328eb9320e71c672f525cde9996501555c"
+      },
+      "lexical": {
+        "matchedFiles": 69,
+        "manifestSHA256": "67621e7c1300704742512e93558c96746e06512a1647ac3e882ab292cd45a0bd"
+      },
+      "ThirdPartyNotices": {
+        "matchedFiles": 188,
+        "manifestSHA256": "78d40b952eb95c47e9e78bcfc34403f6b7f8210b134c6821711c768780b9049d"
+      }
+    },
+    "test_storekit_and_xctest_payloads": []
+  },
+  "source_binding": {
+    "tracked_files_verified_before_build": 8212,
+    "exact_git_blobs_after_build_including_symlink_mode": 8211,
+    "xcode_generated_catalog_metadata_only": {
+      "path": "ios/Vipi/Localizable.xcstrings",
+      "entries": 89,
+      "keys": 467,
+      "translationOrStringChanges": false,
+      "frozenSHA256": "22693d6abbd42d609aceaca92bd30af6788430c43680681b9adc89cf263d41d0",
+      "generatedSHA256": "fe6c07655248ed6b24017a4d7294606252a4bf299781885ff0cd1ccd3822c330"
+    },
+    "original_nine_experimental_dirty_files": "Physically preserved in main; excluded from the clean frozen Git export. Their accepted committed implementations were used.",
+    "symlink_check_correction": "The Android speak_lib.h entry is Git mode 120000 and exactly retains its frozen link target. Dereferenced header bytes do not represent a source mutation.",
+    "public_corresponding_source": {
+      "release_url": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3",
+      "published_assets": [
+        {
+          "name": "vipi-native-redesign-source-README.md",
+          "bytes": 3873,
+          "sha256": "da2fa87375ebe5aebc45d0a76ddfc545d033948be9915e9690188ad530479aa7",
+          "anonymous_http_status": 200
+        },
+        {
+          "name": "vipi-native-redesign-source-receipt.json",
+          "bytes": 34739,
+          "sha256": "71edfc51408cf44904260c319593cb6c9897b4ed49b533a8555ac1e85a5e4b6c",
+          "anonymous_http_status": 200
+        },
+        {
+          "name": "vipi-native-redesign-source.patch",
+          "bytes": 2383454,
+          "sha256": "e38bef9171bbe6f4fe4b7f6b225ccd50a1cf483e57a8d5e14538d2418d01f602",
+          "anonymous_http_status": 200
+        }
+      ],
+      "published_receipt_contains_exact_ipa_sha256": true,
+      "ipa_sha256_field_paths": [
+        "/Apple_artifact_binding/App_Store_Connect_distribution_IPA_sha256"
+      ],
+      "original_assets_unchanged": true,
+      "publication_receipt_sha256": "41b7505426b9430066af0c4885de95fb5fda63705b7dd479e5c599db27969a7f"
+    }
+  },
+  "capacity": {
+    "max_additional_bytes": 6442450944,
+    "free_floor_bytes": 8589934592,
+    "archive_monitor_observed_peak_additional_bytes": 4177821696,
+    "artifact_verification_observed_additional_bytes": 5491916800,
+    "verification_extraction_retired_after_hash_and_signature_proof": true,
+    "archive_ipa_sources_and_receipts_retained": true
+  },
+  "limits": {
+    "store_review_submission": "Separate later console receipt required",
+    "live_store_purchases_performed_for_build4": false,
+    "new_reviewer_device_provisioning_performed_for_build4": false,
+    "fresh_native_shared_Alpha_login_claimed": false
+  }
+}
