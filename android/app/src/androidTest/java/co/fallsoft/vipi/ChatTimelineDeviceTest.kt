@@ -8,6 +8,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import org.json.JSONArray
+import java.util.concurrent.atomic.AtomicInteger
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -26,6 +28,79 @@ class ChatTimelineDeviceTest {
             val handwriting = f.device.executeShellCommand("settings get secure stylus_handwriting_enabled").trim()
             val output = f.output
             lateinit var chat: ChatSession
+            val frames = AtomicInteger()
+            val ticker = object : android.view.Choreographer.FrameCallback {
+                override fun doFrame(frameTimeNanos: Long) {
+                    frames.incrementAndGet(); android.view.Choreographer.getInstance().postFrameCallback(this)
+                }
+            }
+            data class ReadingLine(val tag: String, val original: String, val start: Int, val end: Int,
+                val top: Float, val bottom: Float, val paragraphHeight: Int, val metadataTop: Float, val drawn: String) {
+                fun json() = JSONObject().put("message_metadata_tag", tag).put("original", original)
+                    .put("source_start", start).put("source_end", end).put("source_line", original.substring(start, end))
+                    .put("line_top", top.toDouble()).put("line_bottom", bottom.toDouble()).put("paragraph_height", paragraphHeight)
+                    .put("metadata_top", metadataTop.toDouble()).put("drawn_line", drawn)
+            }
+            fun readingLines(): List<ReadingLine> {
+                val timeline = compose.onNodeWithTag("conversation-timeline").fetchSemanticsNode().boundsInWindow
+                val viewport = f.unobscuredWindow()
+                val rows = compose.onAllNodes(SemanticsMatcher("message metadata") {
+                    it.config.getOrElse(SemanticsProperties.TestTag) { "" }.startsWith("message-meta-")
+                }).fetchSemanticsNodes().mapNotNull { meta -> meta.parent?.let {
+                    Triple(meta.config[SemanticsProperties.TestTag], it.boundsInWindow, meta.boundsInWindow.top)
+                } }
+                val result = mutableListOf<ReadingLine>()
+                f.instrumentation.runOnMainSync {
+                    for (view in f.paragraphs()) {
+                        if (!view.isShown || view.width <= 0 || view.height <= 0) continue
+                        val layout = view.layout ?: continue
+                        val point = IntArray(2); view.getLocationInWindow(point)
+                        //The existing Compose metadata identifies this exact
+                        //native paragraph even when authored texts repeat.
+                        val row = rows.singleOrNull { (_, box, _) -> kotlin.math.abs(box.left - point[0]) <= 1f &&
+                            kotlin.math.abs(box.top - point[1]) <= 1f } ?: continue
+                        val original = view.displayedOriginal
+                        for (line in 0 until layout.lineCount) {
+                            val top = point[1] + view.totalPaddingTop - view.scrollY + layout.getLineTop(line).toFloat()
+                            val bottom = point[1] + view.totalPaddingTop - view.scrollY + layout.getLineBottom(line).toFloat()
+                            val start = layout.getLineStart(line).coerceAtMost(original.length)
+                            val end = layout.getLineEnd(line).coerceAtMost(original.length)
+                            if (end > start && top >= timeline.top && bottom <= timeline.bottom &&
+                                top >= viewport.top && bottom <= viewport.bottom) {
+                                result += ReadingLine(row.first, original, start, end, top, bottom, view.height,
+                                    row.third, view.visibleText(start, end))
+                            }
+                        }
+                    }
+                }
+                return result
+            }
+            fun stableReadingLine(phase: String, expected: ReadingLine? = null): ReadingLine {
+                val observations = JSONArray(); var stableSince = 0L; var prior = ""; var frame = -1; var stableFrames = 0
+                var accepted: ReadingLine? = null
+                try {
+                    compose.waitUntil(8_000) {
+                        val lines = readingLines()
+                        val value = if (expected == null) lines.minByOrNull { it.top } else lines.singleOrNull {
+                            it.tag == expected.tag && it.original == expected.original && it.start == expected.start && it.end == expected.end
+                        }
+                        val now = android.os.SystemClock.uptimeMillis(); val currentFrame = frames.get()
+                        if (observations.length() == 32) observations.remove(0)
+                        observations.put(JSONObject().put("vsync_frame", currentFrame).put("uptime_ms", now)
+                            .put("reading_line", value?.json() ?: JSONObject.NULL))
+                        val geometry = value?.let { "${it.tag}:${it.start}:${it.end}:${it.top}:${it.bottom}:${it.paragraphHeight}" }.orEmpty()
+                        val samePosition = value != null && (expected == null || kotlin.math.abs(value.top - expected.top) <= 1f)
+                        if (!samePosition || geometry != prior) { stableSince = now; stableFrames = 0 }
+                        if (samePosition && currentFrame != frame) stableFrames++
+                        prior = geometry; frame = currentFrame
+                        (samePosition && stableFrames >= 3 && now - stableSince >= 250).also { if (it) accepted = value }
+                    }
+                } finally {
+                    File(output, "$phase-reading-observations.json").writeText(JSONObject().put("observations", observations)
+                        .put("expected_reading_line", expected?.json() ?: JSONObject.NULL).put("y_tolerance_px", 1).toString(2))
+                }
+                return requireNotNull(accepted)
+            }
             fun anchor(): Pair<String, Float> {
                 compose.waitForIdle()
                 val viewport = compose.onNodeWithTag("conversation-timeline").fetchSemanticsNode().boundsInRoot
@@ -58,6 +133,7 @@ class ChatTimelineDeviceTest {
                 f.instrumentation.runOnMainSync {
                     f.model.selectKnown("en"); f.model.selectTarget("sw"); f.model.changeDensity(.5)
                     f.model.changeAppearance(Appearance.LIGHT)
+                    android.view.Choreographer.getInstance().postFrameCallback(ticker)
                 }
                 f.launch()
                 compose.waitUntil(10_000) { f.model.screen == Screen.HOME && f.model.chat?.ready == true }
@@ -92,29 +168,38 @@ class ChatTimelineDeviceTest {
                 if (immersed) {
                     compose.waitUntil(20_000) {
                         var found = false
-                        f.instrumentation.runOnMainSync { found = f.paragraphs().any { it.visibleText().contains("maji") } }
+                        f.instrumentation.runOnMainSync { found = f.paragraphs().any { it.displayedOriginal == "I like music." && it.visibleText().contains("muziki") } }
                         found
                     }
                 }
                 compose.onNodeWithTag("conversation-timeline").performTouchInput { swipeDown() }
                 compose.onNodeWithTag("conversation-timeline").performTouchInput { swipeDown() }
                 compose.onNodeWithContentDescription("Jump to latest messages").assertIsDisplayed()
+                val beforeReading = stableReadingLine("before-incoming")
                 val before = anchor()
+                capture("android-reading-before-incoming-light")
+                stableReadingLine("before-incoming-captured", beforeReading)
                 compose.runOnIdle { services.queuePeerReplyAndSignalInbox() }
                 compose.waitUntil(8_000) {
                     chat.messages(services.peer).singleOrNull { !it.outgoing }?.id == services.friendReplyId &&
                         services.friendReplyReceipts.get() == 1
                 }
+                val afterReading = stableReadingLine("after-incoming", beforeReading)
                 val after = anchor()
-                assertEquals(before.first, after.first); assertEquals(before.second, after.second, 1f)
+                assertEquals(beforeReading.tag, afterReading.tag)
+                assertEquals(beforeReading.top, afterReading.top, 1f)
+                File(output, "incoming-anchor-proof.json").writeText(JSONObject().put("before", beforeReading.json())
+                    .put("after", afterReading.json()).put("metadata_before_tag", before.first).put("metadata_after_tag", after.first)
+                    .put("metadata_before_y", before.second.toDouble())
+                    .put("metadata_after_y", after.second.toDouble()).toString(2))
                 assertEquals(70, services.friendPosts.get())
                 capture("android-reading-preserved-light")
                 compose.onNodeWithTag("message-input").performTouchInput { click() }
                 compose.waitUntil(5_000) { imeVisible() }
                 compose.onNodeWithTag("message-input").performTextInput("A draft while reading")
-                compose.onNodeWithTag(before.first).assertIsDisplayed()
-                assertEquals("Opening the native IME moved the reading anchor", before.second,
-                    compose.onNodeWithTag(before.first).fetchSemanticsNode().boundsInRoot.top, 1f)
+                compose.onNodeWithTag(beforeReading.tag).assertExists()
+                val imeReading = stableReadingLine("after-native-ime", beforeReading)
+                assertEquals("Opening the native IME moved the actual reading line", beforeReading.top, imeReading.top, 1f)
                 compose.onNodeWithContentDescription("Jump to latest messages").assertIsDisplayed()
                 capture("android-reading-with-keyboard-light")
                 compose.onNodeWithContentDescription("Send message").performTouchInput { click() }
@@ -153,7 +238,8 @@ class ChatTimelineDeviceTest {
                 File(output, "receipt.json").writeText(JSONObject().put("synthetic_contact_and_transport", true)
                     .put("actual_main_activity", true).put("initial_latest", true).put("append_preserved_anchor", true)
                     .put("encrypted_incoming_reply_while_reading_earlier", true).put("incoming_receipts", 1)
-                    .put("native_ime_preserved_exact_anchor_y", true).put("keyboard_preserved_reading", true)
+                    .put("native_ime_preserved_exact_anchor_y", true).put("reader_anchor", "native source line, exact message ID and Y within1px")
+                    .put("keyboard_preserved_reading", true)
                     .put("own_send_followed", true).put("explicit_jump_followed", true).put("followed_append", true)
                     .put("older_page_preserved_anchor", true).put("immersed_history", immersed)
                     .put("setup_outgoing_posts", 70).put("later_outgoing_posts", 2).put("physical_push_or_live_relay_claimed", false).toString(2))
@@ -161,6 +247,7 @@ class ChatTimelineDeviceTest {
                 runCatching { capture("android-timeline-failure") }.onFailure { failure.addSuppressed(it) }
                 throw failure
             } finally {
+                f.instrumentation.runOnMainSync { android.view.Choreographer.getInstance().removeFrameCallback(ticker) }
                 f.device.executeShellCommand(if (handwriting == "null") "settings delete secure stylus_handwriting_enabled" else "settings put secure stylus_handwriting_enabled $handwriting")
                 f.stopActivity(); services.close()
             }
