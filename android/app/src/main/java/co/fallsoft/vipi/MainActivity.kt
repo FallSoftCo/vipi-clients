@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -30,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.LinkAnnotation
@@ -171,7 +174,7 @@ class MainActivity : ComponentActivity() {
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->
-        Box(Modifier.fillMaxSize().padding(padding), contentAlignment = Alignment.TopCenter) {
+        Box(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding(), contentAlignment = Alignment.TopCenter) {
         Column(Modifier.fillMaxHeight().widthIn(max = 680.dp).fillMaxWidth().padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(if (model.screen == Screen.LANGUAGE) 16.dp else 24.dp)) {
             TopBar(model)
             when (model.screen) {
@@ -376,15 +379,22 @@ class MainActivity : ComponentActivity() {
 
 @Composable private fun NewChatView(model: VipiModel) {
     val context = LocalContext.current
+    val keyboard = LocalSoftwareKeyboardController.current
+    val form = remember { BringIntoViewRequester() }
     var username by rememberSaveable { mutableStateOf("") }
     var error by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
+    LaunchedEffect(error) {
+        if (error != null) { withFrameNanos { }; form.bringIntoView() }
+    }
     InviteFriendButton(model)
     Heading(stringResource(R.string.ui_93f7902d8131), stringResource(R.string.ui_59eb2538907f), stringResource(R.string.ui_e131c9a64a5b))
+    Column(Modifier.fillMaxWidth().bringIntoViewRequester(form), verticalArrangement = Arrangement.spacedBy(24.dp)) {
     OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text(stringResource(R.string.ui_8a74ed1b7a84)) }, singleLine = true,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp))
     PrimaryButton(stringResource(R.string.ui_ba6e8c9b0c3e), enabled = username.isNotBlank(), busy = busy) {
+        keyboard?.hide()
         val chat = model.chat
         if (chat == null) error = context.getString(R.string.friends_sign_in_required)
         else scope.launch {
@@ -396,6 +406,7 @@ class MainActivity : ComponentActivity() {
         }
     }
     error?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+    }
 }
 
 @Composable private fun BotView(model: VipiModel) {

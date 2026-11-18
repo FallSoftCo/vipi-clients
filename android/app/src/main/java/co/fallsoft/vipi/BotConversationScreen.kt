@@ -21,6 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
@@ -49,6 +51,7 @@ import java.time.format.FormatStyle
     var reportedMessage by remember { mutableStateOf<BotMessage?>(null) }
     var reportText by remember { mutableStateOf("") }
     var reportReason by remember { mutableStateOf("") }
+    var topBarHeightPx by remember { mutableIntStateOf(0) }
     val list = rememberLazyListState()
     val subscriptions = model.subscriptions
     LaunchedEffect(subscriptions) { subscriptions?.refreshAccess(ifNeeded = true) }
@@ -64,15 +67,18 @@ import java.time.format.FormatStyle
         owner.lifecycle.addObserver(listener)
         onDispose { owner.lifecycle.removeObserver(listener); immersion.close(); speech.close() }
     }
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+    val density = LocalDensity.current
+    // Scaffold measures its bars independently. Bound the entire footer before
+    // applying IME padding so consent cannot cover the measured native topbar.
+    val footerMaxHeight = (maxHeight - with(density) { topBarHeightPx.toDp() }).coerceAtLeast(0.dp)
     Scaffold(topBar = {
+        Box(Modifier.onSizeChanged { topBarHeightPx = it.height }) {
         TopAppBar(title = { Text(stringResource(R.string.ui_f173182378d0)) }, navigationIcon = { IconButton(onClick = { model.back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
             actions = { TextButton(onClick = { model.navigate(Screen.BOT_PLAN) }) { Text(stringResource(R.string.ui_ff245b368781)) } })
+        }
     }, bottomBar = {
-        Column(Modifier.background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding().padding(horizontal = 12.dp)) {
-            (localError ?: bot.notice)?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
-            bot.allowance?.let { allowance ->
-                Text(stringResource(R.string.bot_allowance_remaining, java.text.NumberFormat.getIntegerInstance().format(allowance.remaining), java.text.NumberFormat.getIntegerInstance().format(allowance.monthly), DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)), style = MaterialTheme.typography.bodySmall)
-            }
+        Column(Modifier.heightIn(max = footerMaxHeight).background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding().padding(horizontal = 12.dp)) {
             BotConversationControls(
                 accessState = subscriptions?.accessCheckState ?: AccessCheckState.UNKNOWN, access = subscriptions?.access,
                 consent = bot.consent, consentChecked = consentChecked, onConsentChecked = { consentChecked = it },
@@ -85,7 +91,13 @@ import java.time.format.FormatStyle
                 onSend = model::sendBotMessage,
                 onRetryAccess = { scope.launch { subscriptions?.refreshAccess() } },
                 onPlan = { model.navigate(Screen.BOT_PLAN) },
-                onRefreshAllowance = { scope.launch { bot.refreshAllowance() } })
+                onRefreshAllowance = { scope.launch { bot.refreshAllowance() } },
+                statusContent = {
+                    (localError ?: bot.notice)?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
+                    bot.allowance?.let { allowance ->
+                        Text(stringResource(R.string.bot_allowance_remaining, java.text.NumberFormat.getIntegerInstance().format(allowance.remaining), java.text.NumberFormat.getIntegerInstance().format(allowance.monthly), DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)), style = MaterialTheme.typography.bodySmall)
+                    }
+                })
         }
     }) { padding ->
         LazyColumn(state = list, modifier = Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -109,6 +121,7 @@ import java.time.format.FormatStyle
             }
         }
     }
+    }
     reportedMessage?.let { message -> AlertDialog(onDismissRequest = { if (!bot.reporting) reportedMessage = null },
         title = { Text(stringResource(R.string.ui_9e0f3ffbf015)) },
         text = { Column(Modifier.heightIn(max = 360.dp).verticalScroll(rememberScrollState())) {
@@ -130,13 +143,14 @@ import java.time.format.FormatStyle
     consent: Boolean, consentChecked: Boolean, onConsentChecked: (Boolean) -> Unit, onAcceptConsent: () -> Unit,
     draft: String, onDraft: (String) -> Unit, onComposingChanged: (Boolean) -> Unit,
     busy: Boolean, allowance: BotAllowance?, onSend: () -> Unit, onRetryAccess: () -> Unit,
-    onPlan: () -> Unit, onRefreshAllowance: () -> Unit) {
+    onPlan: () -> Unit, onRefreshAllowance: () -> Unit, statusContent: @Composable () -> Unit = {}) {
     Column {
         // Measure the input first, then let status/consent use only the remaining
         // height. The scroll area shrinks with the IME and enlarged system text.
         Column(Modifier.fillMaxWidth().weight(1f, fill = false)
             .heightIn(max = (LocalConfiguration.current.screenHeightDp * .45f).dp)
             .verticalScroll(rememberScrollState()).testTag("bot-access-consent")) {
+            statusContent()
             BotPlanAccessGate(accessState, access, onRetryAccess, onPlan) {}
             if (!consent) Column(Modifier.fillMaxWidth().testTag("bot-consent")) {
                 Text(stringResource(R.string.ui_42ed79b95da1), style = MaterialTheme.typography.bodyMedium)
