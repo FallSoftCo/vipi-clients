@@ -411,6 +411,83 @@ class MainActivityAuthenticatedJourneyDeviceTest {
         }
     }
 
+    @Test fun multilineBotDraftKeepsNativeEndCaretVisibleAfterAppendAndBackReopenWithoutSending() {
+        val services = JourneyServices(profileRequired = false)
+        MainActivityJourneyFixture("bot-multiline-caret", services::model).use { f ->
+            fun appendAtNativeEnd(suffix: String) {
+                assertTrue(f.device.pressKeyCode(android.view.KeyEvent.KEYCODE_MOVE_END, android.view.KeyEvent.META_CTRL_ON))
+                f.instrumentation.sendStringSync(suffix)
+            }
+            fun assertNativeEndLine(expected: String) {
+                compose.onNodeWithTag("bot-message-input").assertEditorValue(expected).assertIsFocused()
+                var diagnostic = "No focused native editor"
+                try {
+                    compose.waitUntil(5_000) {
+                        if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
+                        val editor = f.instrumentation.uiAutomation.windows.mapNotNull { it.root }
+                            .firstOrNull { it.packageName?.toString() == f.base.packageName }
+                            ?.findFocus(android.view.accessibility.AccessibilityNodeInfo.FOCUS_INPUT)
+                        if (editor?.isEditable != true || editor.text?.toString() != expected ||
+                            editor.textSelectionStart != expected.length || editor.textSelectionEnd != expected.length) {
+                            diagnostic = "Native editor text/selection mismatch: selection ${editor?.textSelectionStart}..${editor?.textSelectionEnd}"
+                            false
+                        } else {
+                            val start = expected.lastIndexOf('\n') + 1
+                            val key = android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_KEY
+                            val args = android.os.Bundle().apply {
+                                putInt(android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_ARG_START_INDEX, start)
+                                putInt(android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_ARG_LENGTH, expected.length - start)
+                            }
+                            editor.refreshWithExtraData(key, args)
+                            @Suppress("DEPRECATION")
+                            val boxes = editor.extras.getParcelableArray(key)?.mapNotNull { it as? android.graphics.RectF }.orEmpty()
+                            val bounds = android.graphics.Rect(); editor.getBoundsInScreen(bounds)
+                            val viewport = android.graphics.RectF(f.unobscuredWindow())
+                            val field = android.graphics.RectF(bounds)
+                            diagnostic = "Native final line boxes=$boxes, field=$field, unobscured=$viewport"
+                            boxes.size == expected.length - start && boxes.all { box ->
+                                box.left.isFinite() && box.top.isFinite() && !box.isEmpty && viewport.contains(box) && field.contains(box)
+                            }
+                        }
+                    }
+                } catch (failure: ComposeTimeoutException) { throw AssertionError(diagnostic, failure) }
+            }
+            try {
+                f.launch(); waitScreen(f, Screen.HOME); openBot(f)
+                compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
+                compose.waitUntil(8_000) { imeVisible(f) }
+                val original = (1..6).joinToString("\n") { "Local draft line $it." }
+                compose.onNodeWithTag("bot-message-input").performTextInput(original)
+                val first = original + "\nFinal native line."
+                appendAtNativeEnd("\nFinal native line.")
+                assertNativeEndLine(first)
+                compose.onNodeWithTag("bot-message-send").assertIsNotEnabled()
+                assertEquals(first, f.model.bot?.draft); assertEquals(0, services.botPosts.get())
+                f.capture("01-multiline-native-end-caret-above-ime")
+                f.device.pressBack(); compose.waitUntil(5_000) { !imeVisible(f) }
+                f.device.pressBack(); waitScreen(f, Screen.HOME); openBot(f)
+                compose.onNodeWithTag("bot-message-input").assertEditorValue(first).performTouchInput { click() }
+                compose.waitUntil(8_000) { imeVisible(f) }
+                val restored = first + "\nReopened end line."
+                appendAtNativeEnd("\nReopened end line.")
+                assertNativeEndLine(restored)
+                compose.runOnIdle {
+                    assertEquals(restored, f.model.bot?.draft); assertEquals(0, services.botPosts.get())
+                    BotSession(f.isolated, services.account, services.transport(f.model.authentication, services.subject)).use { reopened ->
+                        assertEquals(restored, reopened.draft); assertTrue(reopened.messages.isEmpty())
+                    }
+                }
+                f.capture("02-restored-multiline-native-end-caret-above-ime")
+                File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("posts", 0)
+                    .put("native_ctrl_end_and_append", true).put("last_line_character_bounds_inside_editor_and_above_ime", true)
+                    .put("full_draft_retained_after_back_and_reopen", true).put("durable_draft_read", true).toString(2))
+            } catch (failure: Throwable) {
+                runCatching { f.capture("failure-before-cleanup") }.onFailure { failure.addSuppressed(it) }
+                throw failure
+            } finally { f.stopActivity(); services.close() }
+        }
+    }
+
     private fun SemanticsNodeInteraction.assertEmptyEditor(): SemanticsNodeInteraction =
         assertEditorValue("")
 
