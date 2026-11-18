@@ -113,6 +113,18 @@ internal class MainActivityJourneyFixture(
         return view.isShown && view.width > 0 && view.height > 0 && view.getLocalVisibleRect(visible) &&
             visible.left <= 0 && visible.top <= 0 && visible.right >= view.width && visible.bottom >= view.height
     }
+    fun unobscuredWindow(): Rect {
+        var visible: Rect? = null
+        instrumentation.runOnMainSync {
+            val host = requireNotNull(activity)
+            val bounds = host.windowManager.currentWindowMetrics.bounds
+            val insets = requireNotNull(host.window.decorView.rootWindowInsets)
+                .getInsets(android.view.WindowInsets.Type.systemBars() or android.view.WindowInsets.Type.ime())
+            visible = Rect(bounds.left + insets.left, bounds.top + insets.top,
+                bounds.right - insets.right, bounds.bottom - insets.bottom)
+        }
+        return requireNotNull(visible)
+    }
     fun capture(name: String) {
         instrumentation.waitForIdleSync()
         check(device.takeScreenshot(File(output, "$name.png")))

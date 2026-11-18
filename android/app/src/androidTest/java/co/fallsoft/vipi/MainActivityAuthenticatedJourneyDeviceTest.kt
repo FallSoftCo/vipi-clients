@@ -10,6 +10,8 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.core.view.WindowInsetsCompat
+import androidx.test.uiautomator.By
+import androidx.test.uiautomator.BySelector
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.PurchasesUpdatedListener
 import kotlinx.coroutines.CompletableDeferred
@@ -83,6 +85,9 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 compose.onNodeWithText(f.base.getString(R.string.ui_ba6e8c9b0c3e)).performScrollTo().performTouchInput { click() }
                 compose.onNodeWithText(f.base.getString(R.string.ui_eb7c5193d2ac)).assertIsDisplayed()
                 compose.runOnIdle { assertEquals(Screen.NEW_CHAT, f.model.screen) }
+                assertNativeContained(f, By.text("missing_friend"), "friend username", 48)
+                assertNativeContained(f, By.text(f.base.getString(R.string.ui_ba6e8c9b0c3e)), "find friend action")
+                assertNativeContained(f, By.text(f.base.getString(R.string.ui_eb7c5193d2ac)), "friend lookup error")
                 f.capture("02-lookup-error-keeps-editable-username")
                 username.performTextReplacement("@Journey_Friend")
                 compose.onNodeWithText(f.base.getString(R.string.ui_ba6e8c9b0c3e)).performScrollTo().performTouchInput { click() }
@@ -170,6 +175,10 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 compose.onNodeWithTag("bot-message-input").assertTextEquals(draft)
                 compose.onNodeWithText(f.base.getString(R.string.ui_541ecffcdb87)).performScrollTo().assertIsDisplayed()
                 compose.onNodeWithTag("bot-message-send").assertIsNotEnabled()
+                assertNativeContained(f, By.desc(f.base.getString(R.string.nav_back)), "Bot Back icon", 24)
+                assertNativeContained(f, By.text(f.base.getString(R.string.ui_f173182378d0)), "Bot title", 20)
+                assertNativeContained(f, By.text(draft), "Bot editor", 48)
+                assertNativeContained(f, By.text(f.base.getString(R.string.try_again)), "Bot access retry")
                 f.capture("01-bot-plan-error-with-retained-draft")
                 compose.onNodeWithText(f.base.getString(R.string.try_again)).performScrollTo().performTouchInput { click() }
                 compose.waitUntil(8_000) { f.model.subscriptions?.accessCheckState == AccessCheckState.LOADED }
@@ -297,6 +306,18 @@ class MainActivityAuthenticatedJourneyDeviceTest {
 
     private fun SemanticsNodeInteraction.assertEmptyEditor(): SemanticsNodeInteraction =
         assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
+
+    /** Accessibility bounds alone may extend behind a separate IME window.
+     * Compare the actual native node with the window minus system/IME insets,
+     * and reject a partially clipped topbar icon/title as well. */
+    private fun assertNativeContained(f: MainActivityJourneyFixture, selector: BySelector, name: String, minimumHeightDp: Int = 0) {
+        val viewport = f.unobscuredWindow()
+        val node = f.device.findObject(selector.pkg(f.base.packageName))
+        assertNotNull("$name must exist in the native app hierarchy", node)
+        val bounds = requireNotNull(node).visibleBounds
+        assertTrue("$name $bounds must be fully within unobscured window $viewport", !bounds.isEmpty && viewport.contains(bounds))
+        assertTrue("$name is clipped: $bounds", bounds.height() >= minimumHeightDp * f.base.resources.displayMetrics.density)
+    }
 
     private fun openBot(f: MainActivityJourneyFixture) {
         compose.onNodeWithText(f.base.getString(R.string.ui_f173182378d0)).performScrollTo().performTouchInput { click() }
