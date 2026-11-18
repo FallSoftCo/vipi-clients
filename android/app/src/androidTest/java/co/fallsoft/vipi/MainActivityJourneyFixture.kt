@@ -72,7 +72,9 @@ internal class MainActivityJourneyFixture(
         override fun onActivityDestroyed(activity: Activity) = Unit
     }
     init {
-        check(BuildConfig.DEBUG && BuildConfig.APPLICATION_ID.endsWith(".uxqa")) { "Requires isolated .uxqa target" }
+        check(BuildConfig.DEBUG && BuildConfig.APPLICATION_ID in setOf(
+            "co.fallsoft.vipi.uxqa", "co.fallsoft.vipi.sourcecontextqa"
+        )) { "Requires an explicitly isolated QA target; production is rejected" }
         check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
         val run = InstrumentationRegistry.getArguments().getString("vipiJourneyRun") ?: "001"
         require(run.matches(Regex("[0-9]{3}")))
@@ -123,6 +125,7 @@ internal class MainActivityJourneyFixture(
                 .put("height_px", base.resources.displayMetrics.heightPixels)
                 .put("screen_width_dp", base.resources.configuration.screenWidthDp)
                 .put("font_scale", base.resources.configuration.fontScale.toDouble())
+                .put("target_files_dir", base.filesDir.absolutePath)
             val views = JSONArray()
             paragraphs().forEach { view ->
                 val rect = Rect(); view.getGlobalVisibleRect(rect)
