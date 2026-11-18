@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "run_id": "PLACEHOLDER-unique-native-run",
+  "selectionAuthority": "PLACEHOLDER: reviewed immutable job selection and frozen source revision, chosen before results",
+  "artifacts": [
+    {"id": "native-log", "path": "/PLACEHOLDER/native-run/instrumentation.log", "sha256": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "native-receipt", "path": "/PLACEHOLDER/native-run/receipt.json", "sha256": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "frozen-source", "path": "/PLACEHOLDER/native-run/source-authority.json", "sha256": "0000000000000000000000000000000000000000000000000000000000000000"},
+    {"id": "independent-native-pixel-proof", "path": "/PLACEHOLDER/native-run/reviewed-screenshot.png", "sha256": "0000000000000000000000000000000000000000000000000000000000000000"}
+  ],
+  "checks": [
+    {"id": "exact-selected-native-journey", "type": "android", "artifact": "native-log", "expected_cases": ["com.example.app.NativeJourneyTest#requiredJourneyChosenBeforeDispatch"]},
+    {"id": "original-job-and-restoration", "type": "receipt", "artifact": "native-receipt", "equals": {"run_id": "PLACEHOLDER-unique-native-run", "source_commit": "PLACEHOLDER-frozen-full-commit", "state": "terminal", "exit": 0, "passed": true, "restored": true}}
+  ],
+  "limits": [
+    "This example intentionally cannot pass. Replace all PLACEHOLDER values only with independently reviewed existing evidence.",
+    "The example is Android instrumentation. For XCTest use type ios and identities such as ExampleUITests.JourneyTests/testRequiredJourney; bind its own complete/source/run/preservation fields with receipt checks.",
+    "Hashing a screenshot does not perform visual inspection. Record the separate independent pixel review and do not claim it from the verifier.",
+    "No acoustic, arbitrary-language, missing-runtime, physical-device or whole-product certification is implied."
+  ]
+}
