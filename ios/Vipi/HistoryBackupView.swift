@@ -4,6 +4,8 @@ import UIKit
 
 struct HistoryBackupView: View {
     let chat: ChatSession
+    @State private var account: UUID?
+    init(chat: ChatSession) { self.chat = chat; _account = State(initialValue: chat.profile?.id) }
     @State private var restoring = false
     @State private var password = ""
     @State private var confirmation = ""
@@ -99,6 +101,7 @@ struct HistoryBackupView: View {
     private func begin() {
         guard !busy, passwordValid else { return }
         busy = true; notice = nil
+        guard let account, chat.profile?.id == account else { busy = false; return }
         let password = password, selected = selected, restoring = restoring
         work = Task {
             defer { busy = false; work = nil }
@@ -106,12 +109,12 @@ struct HistoryBackupView: View {
                 if restoring {
                     guard let selected else { return }
                     clearImport()
-                    let destination = try HistoryBackupStore.temporaryURL(); staged = destination
+                    let destination = try HistoryBackupStore.temporaryURL(account: account); staged = destination
                     let result = try await chat.inspectHistory(selected: selected, password: password, staged: destination)
                     try Task.checkCancellation(); verified = result
                 } else {
                     removeExport()
-                    let destination = try HistoryBackupStore.exportURL(); exported = destination
+                    let destination = try HistoryBackupStore.exportURL(account: account); exported = destination
                     try await chat.exportHistory(password: password, to: destination)
                     try Task.checkCancellation(); picker = HistoryDocumentRequest(export: destination)
                 }
@@ -140,11 +143,11 @@ struct HistoryBackupView: View {
         }
     }
     private func clearImport() {
-        if let staged { try? FileManager.default.removeItem(at: staged) }
+        if let staged, let account { HistoryBackupStore.removeStaged(staged, account: account) }
         staged = nil; verified = nil
     }
     private func removeExport() {
-        if let exported { HistoryBackupStore.removeExport(exported) }
+        if let exported, let account { HistoryBackupStore.removeExport(exported, account: account) }
         exported = nil
     }
     static func explanation(_ error: Error, restoring: Bool) -> String {

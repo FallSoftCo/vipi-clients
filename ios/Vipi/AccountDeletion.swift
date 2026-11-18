@@ -88,8 +88,7 @@ private final class NoDeletionRedirects: NSObject, URLSessionTaskDelegate, Senda
         if FileManager.default.fileExists(atPath: folder.path) { try FileManager.default.removeItem(at: folder) }
         // These are private, temporary encrypted copies, not files the user
         // chose to save through Files. The coordinator is already closed.
-        let temporaryHistory = folder.deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("HistoryFiles")
-        if FileManager.default.fileExists(atPath: temporaryHistory.path) { try FileManager.default.removeItem(at: temporaryHistory) }
+        try HistoryBackupStore.erasePrivateFiles(account: record.account)
         // Rendered message audio contains the same private conversation content
         // as the vault. Public downloaded voices and language packs are separate.
         try MessageSpeechCache.erase()
