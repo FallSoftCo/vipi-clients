@@ -1,0 +1,117 @@
+{
+  "updated_utc": "2026-11-18T05:13:39.234492+00:00",
+  "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
+  "release_ready": false,
+  "journeys": [
+    {
+      "journey": "First launch to language preview and sign-in retry",
+      "implementation": "Android actual MainActivity",
+      "status": "passed normal and narrow/enlarged",
+      "required_observation": "onboarding language selection, Chinese tone-marked preview, auth failure/retry and activity recreation",
+      "limits": "External identity-provider screen and login are controlled; not live OAuth proof"
+    },
+    {
+      "journey": "Create profile and receive a month without checkout",
+      "implementation": "Android actual model/session",
+      "status": "passed domain integration",
+      "required_observation": "new profile, one device registration, 30-day Base access, optional Bot draft retained with no purchase launch",
+      "limits": "Fixture HTTP and billing; separate backend entitlement tests cover server policy"
+    },
+    {
+      "journey": "Invite and send to a friend",
+      "implementation": "Android actual MainActivity, Signal and vault",
+      "status": "passed normal and narrow/enlarged",
+      "required_observation": "intercept invite payload, missing-name error, correct peer, native keyboard, exactly one encrypted send, fake peer decrypt, draft/reopen/recreation",
+      "limits": "Share-sheet dispatch intercepted; no real friend invitation or physical push receipt"
+    },
+    {
+      "journey": "Draft before consent or while access is checking",
+      "implementation": "Android actual MainActivity",
+      "status": "passed normal and narrow/enlarged",
+      "required_observation": "native keyboard, editable saved draft, consent row/Continue, access error and Retry, Send guard",
+      "limits": "Transport controlled; does not bypass access or consent"
+    },
+    {
+      "journey": "Send to Bot then leave and return",
+      "implementation": "Android MainActivity and iOS actual Bot view",
+      "status": "passed native journeys",
+      "required_observation": "one POST, pending navigation/reopen, confirmed reply visible and saved once, next draft retained",
+      "limits": "Controlled Bot transport; no actual provider or owner phone send"
+    },
+    {
+      "journey": "Read older history while a reply arrives",
+      "implementation": "Android MainActivity",
+      "status": "passed normal and narrow/enlarged",
+      "required_observation": "actual swipes, stable upper reading fragment through reply and IME, explicit next Send follows latest",
+      "limits": "Native geometry and encrypted local history; fixture replies"
+    },
+    {
+      "journey": "Recover from uncertain Bot reply",
+      "implementation": "Android MainActivity",
+      "status": "normal passed; narrow/enlarged failed; fixing",
+      "required_observation": "one attempted POST, unconfirmed journal, no replay across navigation/recreation, explicit allowance refresh, editable next draft",
+      "limits": "Critical notice invisible on narrow/enlarged viewport remains a release blocker"
+    },
+    {
+      "journey": "Quota and message order under late responses",
+      "implementation": "Android actual session/vault and iOS actual session/vault",
+      "status": "passed domain integration",
+      "required_observation": "older GET success/error cannot replace new quota; pre-send GET cannot restore spent quota; fixed/backward clocks preserve saved conversation order",
+      "limits": "Controlled completion order and transport"
+    },
+    {
+      "journey": "Subscription ownership and stale access reads",
+      "implementation": "Android actual billing coordinator; iOS actual SubscriptionStore",
+      "status": "passed domain integration",
+      "required_observation": "stale GET success/error cannot revoke confirmed purchase, foreign receipt does not block rightful restore, wrong-account access rejected",
+      "limits": "SDK billing controlled on Android; native StoreKit transaction test still blocked before transaction"
+    },
+    {
+      "journey": "Local StoreKit checkout and restore",
+      "implementation": "iOS actual StoreKitTest",
+      "status": "blocked; diagnostic ongoing",
+      "required_observation": "must obtain Xcode-only zero-charge transaction and reconcile through production store coordinator",
+      "limits": "Do not substitute mocked subscription tests for a StoreKit pass"
+    },
+    {
+      "journey": "Single-tap word speech and stopping",
+      "implementation": "Android actual ImmersionBubble, SpeechPlayback, AudioTrack",
+      "status": "passed 10 lifecycle/gesture tests and 110 authored preview directions",
+      "required_observation": "first tap plays, second stops including pending preparation, third replays; background/read-mode/disposal stop only owned audio",
+      "limits": "110 directions are authored preview examples; not arbitrary language quality or physical acoustic acceptance"
+    },
+    {
+      "journey": "Delete account while Bot reply is pending",
+      "implementation": "iOS actual owner/session/vault/deletion coordinator; Android domain integration",
+      "status": "passed",
+      "required_observation": "close private vault before deletion, checked close failure stops erasure and supports retry, late callback cannot reopen/mutate closed session",
+      "limits": "Synthetic accounts and local resources only; no actual customer deletion"
+    },
+    {
+      "journey": "Cancel or delete private backup staging",
+      "implementation": "Android actual file coordinator and iOS actual encrypted codec/vault/filesystem",
+      "status": "passed; iOS full 22 backup/deletion cases",
+      "required_observation": "cancel during ciphertext copy or after fsync, remove own unpublished output, retain other account/user export/unattributed legacy, reject symlink/path escape",
+      "limits": "Native temporary filesystem fixtures, not arbitrary document-provider integration"
+    },
+    {
+      "journey": "Owner review device and real Bot response",
+      "implementation": "Android phone @rjuniyer",
+      "status": "not yet verified",
+      "required_observation": "production Base+Bot access verified; signed replacement must be installed and actual keyboard/send observed",
+      "limits": "Phone last observed version5; version6 delivered and installer requested once; never claim installation or successful send"
+    }
+  ],
+  "receipts": {
+    "android_normal": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-responsive-normal-r13.json",
+    "android_large": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-responsive-large-r14.json",
+    "android_domain": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-integrated-domain-r02.json",
+    "android_speech": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-native-fixed-r05.json",
+    "android_110": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/native-preview-matrix-110-r01.json",
+    "ios_bot": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-bot-native-evidence-r01/summary.json",
+    "ios_backup": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-backup-native-evidence-r01/summary.json",
+    "ios_subscription_domain": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-subscription-domain-evidence-r01/summary.json"
+  },
+  "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
+  "original_nine_dirty_files_preserved": true
+}

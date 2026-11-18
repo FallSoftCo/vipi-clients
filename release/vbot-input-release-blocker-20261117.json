@@ -23,7 +23,7 @@
     "native keyboard/focus/send guard regression qualification"
   ],
   "external_actions": "Existing store submissions not repeated. One config-only testing grant for user-confirmed owner profile activated and verified; API restart preserved unrelated services. No purchase/charge or uncertain Bot send replay.",
-  "updated_utc": "2026-11-18T04:26:28.740485+00:00",
+  "updated_utc": "2026-11-18T05:13:39.234492+00:00",
   "verified": [
     "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
     "Actual VipiModel setup routing: 5 focused tests passed",
@@ -34,8 +34,10 @@
     "Signed v6 signature matches exact installed phone v5; 1082 assets and 28 native libraries retained; 16KB alignment passed"
   ],
   "remaining": [
-    "Phone update install and actual native send verification",
-    "Broader genuine user-journey tests/fixes requested by user; public release remains held"
+    "Fix and prove critical Bot failure visibility at narrow width/enlarged text",
+    "Sign corrected Android replacement, verify installed phone version and native send",
+    "Resolve actual local StoreKit transaction test environment or retain explicit acceptance gap",
+    "Prepare corrected Apple release from build4 source authority; preserve existing review/public release holds"
   ],
   "phone_identity": "User confirmed @rjuniyer; exact healthy shared-realm profile differs from previously pinned testing identity. One UUID grant activated with fresh own-workload coordination and independently verified.",
   "signed_review_build": {
@@ -74,11 +76,12 @@
   },
   "journey_qualification": {
     "android_domain": "20 integration cases passed through actual model, encrypted vault, subscription coordinator and deletion/backup cleanup; external HTTP and billing controlled",
-    "android_activity": "Actual MainActivity onboarding and three authenticated friend/Bot journeys passed; screenshot review exposed two additional viewport defects, strengthened native tests reproduced both; fixed source under runtime verification",
-    "android_speech": "Real native repeated-word Stop and pending-preparation tests reproduced two failures; lifecycle baseline reproduced three failures; fixes under runtime verification",
-    "ios_domain": "13 BotSession tests passed; stale subscription success/error reproduced and fixed through three native domain/network tests",
-    "ios_ui": "Actual local friend lookup keyboard geometry and Cancel passed; authenticated Bot journey being added",
-    "storekit": "Local StoreKit purchase regression blocked by notEntitled before transaction; no native store transaction acceptance claimed",
+    "android_activity": "Actual MainActivity five journeys all passed at normal size. At840x1600/font1.6 four passed; critical uncertain-reply notice invisible and being fixed.",
+    "android_speech": "10 native lifecycle/word gesture cases passed;110 authored preview directions passed actual native playback/stop, median198ms/p95237ms/max319ms; arbitrary conversation and acoustics not implied",
+    "ios_domain": "15 BotSession tests plus checked-close/deletion retry and actual Bot UI journey passed17;22 backup/deletion cases passed",
+    "ios_ui": "Actual Bot consent/keyboard/send/navigation/reopen/draft and checked final disposal passed; local friend lookup geometry and Cancel passed",
+    "storekit": "Domain/network3 passed; actual StoreKit failed before transaction with notEntitled. Runtime/IDE diagnostic in progress; no transaction pass claimed",
     "evidence_directory": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01"
-  }
+  },
+  "acceptance_audit": "qa/mobile-user-journey-acceptance-20261118.json"
 }
