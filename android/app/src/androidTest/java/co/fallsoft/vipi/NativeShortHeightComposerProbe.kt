@@ -24,6 +24,12 @@ internal fun exerciseShortLandscapeComposer(compose: ComposeTestRule, f: MainAct
     check(rotation == 0) { "Qualification starts in its recorded portrait orientation" }
     check(f.base.resources.displayMetrics.densityDpi == 420) { "Requires the dedicated420dpi qualification device" }
     var completed = false
+    fun currentLayout(): androidx.compose.ui.text.TextLayoutResult {
+        val results = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+        compose.onNodeWithTag(inputTag).performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(results)) }
+        return results.single { it.layoutInput.text.text == expected }
+    }
+    val portraitLayout = currentLayout()
     fun imeVisible(): Boolean {
         var visible = false
         f.instrumentation.runOnMainSync {
@@ -70,9 +76,11 @@ internal fun exerciseShortLandscapeComposer(compose: ComposeTestRule, f: MainAct
             .put("set_text_action_used", false).toString(2))
         if (selectionNeeded) assertEquals("Native end-selection action must be accepted", true, selectionAccepted)
         compose.waitUntil(5_000) { nativeEditor()?.let { it.textSelectionStart == expected.length && it.textSelectionEnd == expected.length } == true }
-        val layouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
-        compose.onNodeWithTag(inputTag).performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(layouts)) }
-        val layout = layouts.single { it.layoutInput.text.text == expected }
+        val layout = currentLayout()
+        assertEquals("Landscape must retain the user's text size", portraitLayout.layoutInput.style.fontSize, layout.layoutInput.style.fontSize)
+        assertEquals("Landscape must retain the user's line height", portraitLayout.layoutInput.style.lineHeight, layout.layoutInput.style.lineHeight)
+        assertEquals("Landscape must retain actual scaled cursor height", portraitLayout.getCursorRect(expected.length).height,
+            layout.getCursorRect(expected.length).height, 1f)
         val line = layout.getLineForOffset(expected.length)
         val start = layout.getLineStart(line)
         val end = layout.getLineEnd(line, visibleEnd = true)
