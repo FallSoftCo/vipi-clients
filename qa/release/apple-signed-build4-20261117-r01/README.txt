@@ -7,3 +7,5 @@ The clean Git export excludes the nine physically preserved, unaccepted experime
 Transporter delivered the exact IPA once, and ASC readback showed Processing. Its only delivery advisory, 90725, concerns the April 2027 SDK minimum. These artifact/upload receipts do not claim a live purchase, reviewer-device provisioning or review submission. A later console receipt must establish processing/compliance, final metadata/assets and actual review submission.
 
 The local export save-path naming error was reconciled without repeating Archive or Export. Private native receipts and screenshots remain under the owned signed-release-20261117-build4-r01 namespace; reusable credentials are excluded from this evidence set.
+
+Later terminal state, 2026-11-18 02:24 UTC: processing and export compliance completed; app build 4, both annual subscriptions and both groups were submitted once and reload-verified Waiting for Review. See ../../../release/apple-review-submission-20261117.json. The earlier upload-processing.json remains an immutable pre-completion checkpoint. No approval or public-release claim.

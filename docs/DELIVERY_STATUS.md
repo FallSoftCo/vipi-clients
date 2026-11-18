@@ -1,8 +1,8 @@
 # Current delivery status
 
 Updated November 17, 2026 (latest handoff observations through November 18,
-00:37 UTC). Google **1.0.4 (5)** has been sent for production review. Apple
-**1.0 (4)** has been delivered but has not been submitted for review. Neither
+02:24 UTC). Google **1.0.4 (5)** is in production review. Apple **1.0 (4)**,
+both annual subscriptions and both groups are submitted and **Waiting for Review**. Neither
 approval nor public availability is established. Completed uploads, review sends,
 auth exchanges and Bot requests must not be replayed.
 
@@ -28,10 +28,16 @@ auth exchanges and Bot requests must not be replayed.
   **00:24 UTC** on November 18. IPA size is **431,015,828 bytes**, SHA-256
   `ac1851a2d5947c86552204b1c32ce1f16801dc351d1275b53590ba189b5da416`.
   Strict/deep signature, production push, disabled debugging, 13 localizations
-  and source/resource correspondence passed. Processing, current metadata and
-  screenshot work remain in progress; review submission is not established.
-  Qualification is retained in the private `ios-release-packaging-r01` receipts;
-  their earlier `uploadCount: 0` describes the pre-delivery check.
+  and source/resource correspondence passed. Processing/export compliance and
+  all 13 locale fields are complete; six current public screenshots and exact
+  Alpha review credentials were saved. The app, both annual subscriptions and
+  both groups were submitted once at **02:22:45 UTC**. All five show **Waiting
+  for Review**, verified after reload at **02:24 UTC**. Manual release remains set.
+  See [terminal Apple receipt](../release/apple-review-submission-20261117.json).
+  Private subscription reference screenshots disclose actual historical build 2
+  provenance and typography differences. Artifact/upload qualification remains
+  historical; its earlier zero-upload/pending-processing fields are superseded
+  by the later terminal receipt without replaying any operation.
 - The exact native-redesign source supplement for frozen `55a9f72` was published
   on the existing public v3 source release and anonymously verified. Prior source
   assets remain unchanged. See [terminal publication receipt](../release/native-redesign-source-publication-20261117.json).
@@ -51,7 +57,7 @@ auth exchanges and Bot requests must not be replayed.
   [receipt](../qa/ux/android-release-live-20261117-r01/receipt.json)
   and [independent service proof](../release/android-v5-owned-review-live-access-20261117.json).
 - The user's phone still reported **versionCode 4** in the read-only Termux check
-  at **00:31 UTC**. The complete verified v5 APK is in Downloads and its installer
+  at **01:55 UTC**. The complete verified v5 APK is in Downloads and its installer
   was opened once; installation is not established. Do not treat the transfer or
   installer opening as a completed update.
 - Native chat now offers one-tap word pronunciation, message translation with
@@ -81,11 +87,12 @@ auth exchanges and Bot requests must not be replayed.
 
 ## Remaining work and limits
 
-- Observe Google's review outcome; preliminary checks passed. Do not resend the
-  completed submission. Public availability remains unverified.
-- Finish Apple build 4 processing, metadata, screenshots and reviewer readback,
-  then record any actual review submission separately. Earlier Apple builds and
-  their purchase receipts do not establish fresh build 4 runtime behavior.
+- Observe both stores' review outcomes. Google is in review; Apple's five-item
+  submission is Waiting for Review. Do not resend either completed submission.
+  Approval and public availability remain unverified; Apple has manual release.
+- Earlier Apple builds and their purchase receipts do not establish fresh build 4
+  runtime behavior. The private product review notes explicitly disclose the
+  historical subscription captures; public listing screenshots are separate.
 - Reconcile the phone's pending installer outcome before any further install
   action. Its current known installed version remains 4.
 - Preserve the unresolved original company/Beta send and held environments.

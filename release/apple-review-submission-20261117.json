@@ -1,0 +1,84 @@
+{
+  "schema": "vipi-apple-review-submission-1",
+  "at": "2026-11-18T02:24:35.257Z",
+  "store": "Apple App Store",
+  "app_id": "6832624092",
+  "bundle_id": "co.fallsoft.vipi",
+  "version": "1.0",
+  "build": 4,
+  "submission_id": "f4a7f2c9-4d69-43be-9c4b-35a7abf6d0cc",
+  "review_status": "waiting_for_review",
+  "native_status": "Waiting for Review",
+  "submitted_at": "2026-11-18T02:22:45.339Z",
+  "final_submit_clicks": 1,
+  "item_count": 5,
+  "items": [
+    {
+      "name": "iOS App 1.0",
+      "build": "1.0 (4)"
+    },
+    {
+      "name": "Vipi Annual",
+      "id": "6832625761",
+      "type": "subscription"
+    },
+    {
+      "name": "Vipi",
+      "id": "22561715",
+      "type": "subscription_group"
+    },
+    {
+      "name": "Bot mini Annual",
+      "id": "6832634497",
+      "type": "subscription"
+    },
+    {
+      "name": "Bot mini",
+      "id": "22561805",
+      "type": "subscription_group"
+    }
+  ],
+  "reload_verified": true,
+  "manual_release": true,
+  "approval_or_public_availability_claimed": false,
+  "frozen_client_source": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+  "ipa_sha256": "ac1851a2d5947c86552204b1c32ce1f16801dc351d1275b53590ba189b5da416",
+  "metadata": {
+    "locales": 13,
+    "explicit_localized_keywords_support_and_privacy_urls_verified": true,
+    "current_public_screenshots": {
+      "iphone": 3,
+      "ipad": 3
+    },
+    "reviewer": "Exact Alpha shared credentials and access instructions saved and independently read back; credentials excluded.",
+    "age_rating": "13+",
+    "content_rights": "necessary rights declared",
+    "export_compliance": "standard encryption in addition to OS encryption; France not available"
+  },
+  "subscription_review_reference_limit": "Private historical actual TestFlight build 2 app crops, unchanged subscription-view source and offer copy; heading typography differs from build 4. White canvas padding preserves source pixels. Provenance and limits explicitly disclosed in each product review note. Public listing images are current separate native QA captures.",
+  "commercial_terms": {
+    "base": "US $12/year after 30 cardless days; no automatic charge or Base store introductory offer",
+    "bot_mini": "US $48/year; separate optional subscription, eligible one-month store trial, 150 replies per calendar month; requires active Base access",
+    "testing_owner": "Complimentary Base and Bot mini; no store purchase or charge"
+  },
+  "evidence_sha256": {
+    "apple-final-submit-intent-r01.json": "866eaddc035fdd725c65480d4e065a5c775aa5651561134bdda58d07b9c25292",
+    "apple-submit-terminal-r01.png": "497f61fec91d0fdf1402ce75b718521fe09497769b9a2f4aa5c55b5c7ecbf4a4",
+    "apple-review-status-r01.png": "3a9dfecbe931c61671d7d4cc96f01028eb5dc6675adeb9f693d1d2a32b748a23",
+    "apple-review-terminal-r01.json": "01521a9917df1305470ae58a39145e666355a0698bed59fa39dd5bd4dd421121",
+    "apple-review-terminal-r01.png": "369f6d114b5c3992e0e63cc7a51ae6f9eb0e1e5ab249cef1aa3862551fd6e681",
+    "all13-metadata-terminal-r01.json": "c11a8227d666ded29f5850a33dad51eba5cf2c61cf8baf8ae600132d5d324657",
+    "base-review-notes-stage-r02.json": "0a5eb02696c5770e2e28f9c36993b8893389ddbbdd1a4255da1429917387d790",
+    "bot-review-notes-stage-r01.json": "e70d11b260f8151117223668dcf3b8126483bc64f822a2cc0a09216a83c049a7"
+  },
+  "credentials_included": false,
+  "do_not_repeat": [
+    "archive",
+    "export",
+    "upload",
+    "submission",
+    "purchases",
+    "reviewer provisioning",
+    "held original company/Beta send"
+  ]
+}

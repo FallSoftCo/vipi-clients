@@ -21,8 +21,15 @@ before submission. No credentials belong in repository documentation.
 Apple **1.0 (4)** was signed/qualified and delivered once at approximately
 **00:24 UTC** on November 18. Its **431,015,828-byte** IPA has SHA-256
 `ac1851a2d5947c86552204b1c32ce1f16801dc351d1275b53590ba189b5da416`.
-Processing, metadata, screenshots and reviewer preparation remain ongoing;
-Apple review has not been submitted. The private `ios-release-packaging-r01`
+Processing and export compliance are complete. The app, both annual subscriptions
+and both subscription groups were **submitted once at 02:22:45 UTC** on November 18.
+The five items show **Waiting for Review**, verified again after reload at 02:24 UTC.
+Submission ID is `f4a7f2c9-4d69-43be-9c4b-35a7abf6d0cc`; manual release remains set.
+All 13 descriptions, localized keywords, support/privacy URLs, six current public
+screenshots and exact Alpha review access were saved before submission. Private
+subscription reference captures disclose their historical build 2 provenance
+and typography limits. See [terminal Apple receipt](apple-review-submission-20261117.json).
+Neither approval nor public availability is established. The private `ios-release-packaging-r01`
 qualification/export receipts retain the pre-upload checks; their zero-upload
 fields are historical and do not negate the later delivery. Do not repeat it.
 
@@ -70,9 +77,9 @@ are shown before purchase; reviewer grants are not billing qualification.
 
 ## Current remaining handoff
 
-Observe Google's review outcome; preliminary checks passed. Finish Apple build 4 processing and
-current metadata/screens/reviewer readback before recording any Apple review
-submission. The user's phone still reported versionCode **4** at **00:31 UTC**;
+Observe both stores' review outcomes without resending either submission. Google
+preliminary checks passed; Apple is Waiting for Review. The user's phone still
+reported versionCode **4** at **01:55 UTC**;
 the verified v5 APK transfer and one installer opening do not prove installation.
 Preserve original company/Beta held data and the unresolved old send. Earlier
 billing, restore, push and translation observations retain their exact limits;
@@ -97,7 +104,7 @@ on November 17; Transporter reports processing finished. Its production push ent
 debugging and exact IPA signature/hash were verified. The original 1.0(1)
 delivery remains preserved. No app-review submission has occurred. Both
 Google's 14 and Apple's 13 supported reviewed localized listings are saved and
-reload-verified. Apple's new locales retain inherited English keywords and URLs.
+reload-verified. The earlier assumption that new Apple locales inherited English keywords and URLs was incorrect: final validation found missing fields. All 13 locales now have explicitly saved and verified localized keywords, support URLs and privacy URLs; see `localizations/apple-final-fields-20261117.json`.
 Build 2 includes the current Apple fixes; see `apple-delivery-build2-20261117-r01.json`.
 `docs/DELIVERY_STATUS.md` records current acceptance and blockers.
 The company is **Fallible Software, Co.**, using its FallSoft.Co accounts.
