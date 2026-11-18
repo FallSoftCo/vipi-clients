@@ -1,22 +1,58 @@
 # Current delivery status
 
-Updated November 17, 2026. Neither app has been submitted for public review.
-The existing backend is in production mode with subscription enforcement;
-shared Fallsoft authentication and Vipi-only deletion are now active. The revised
-native UI still needs new store artifacts.
-Prior revisions and linked receipts retain historical actions; do not replay them.
+Updated November 17, 2026 (latest handoff observations through November 18,
+00:31 UTC). Google **1.0.4 (5)** has been sent for production review. Apple
+**1.0 (4)** has been delivered but has not been submitted for review. Neither
+approval nor public availability is established. Completed uploads, review sends,
+auth exchanges and Bot requests must not be replayed.
 
 ## Latest reconciled state
 
-- Google production draft contains **1.0.3 (4)**, saved once with 14 localized
-  release notes. Console checks passed; no review or public rollout occurred.
-  See [version 4 draft](../release/google-production-v4-preparation-20261117.json).
-- Apple **1.0 (3)** was uploaded, processed and attached to the version draft.
-  The existing internal group has builds 2 and 3 Testing. The Mac still showed
-  installed build 2 after the original attempted update; that attempt was not
-  repeated. See [latest readback](../qa/release/apple-signed-build3-20261117-r01/asc-update-followup.json).
-- Both old store artifacts predate the user's rejected UI and current
-  single-tap redesign. They must not be submitted as the accepted final product.
+- Google final **Send** was clicked once at **00:29:54 UTC** on November 18.
+  The console reported **24 changes sent for review**; **Changes in review**
+  persisted after a fresh reload. Preliminary checks were still running.
+  The submission includes 14 localized listings, four current native screenshots
+  and the independently read-back Gamma reviewer credentials.
+  See [terminal submission receipt](../release/google-play-review-submission-20261117.json).
+  The earlier [v5 draft receipt](../release/android-v5-store-upload-20261117.json)
+  records a historical pre-submission checkpoint; its remaining-work list is superseded.
+- Android production AAB and matching upload-signed APK were built and verified
+  from frozen source **55a9f723f436f4252730c0a85358a9aa32080f8b**.
+  AAB SHA-256 is `108e1152a8bf50d93e2d4ab9fd4d464aaf5ca04a9a36a25fc3f6bd0c6383714d`;
+  APK SHA-256 is `b49354c1fba8540a5dc1dcc12a281d37b392c64643224de24fdba43d47ebd9fe`.
+  Production package/configuration, all four ABIs, signatures, 1,082 assets and
+  16 KiB alignment checks passed. See [artifact qualification](../release/android-v5-artifact-qualification-20261117.json)
+  and [artifact handoff](../release/android-v5-artifacts-20261117.md).
+- Apple **1.0 (4)** was signed and qualified, then delivered once at approximately
+  **00:24 UTC** on November 18. IPA size is **431,015,828 bytes**, SHA-256
+  `ac1851a2d5947c86552204b1c32ce1f16801dc351d1275b53590ba189b5da416`.
+  Strict/deep signature, production push, disabled debugging, 13 localizations
+  and source/resource correspondence passed. Processing, current metadata and
+  screenshot work remain in progress; review submission is not established.
+  Qualification is retained in the private `ios-release-packaging-r01` receipts;
+  their earlier `uploadCount: 0` describes the pre-delivery check.
+- The exact native-redesign source supplement for frozen `55a9f72` was published
+  on the existing public v3 source release and anonymously verified. Prior source
+  assets remain unchanged. See [terminal publication receipt](../release/native-redesign-source-publication-20261117.json).
+  Publication is not a blanket conclusion about every linked dependency's terms.
+- The live backend uses shared Fallsoft identity, schema 05, Vipi-only deletion
+  and subscription enforcement. Exact verified owner and Gamma identities receive
+  complimentary Base/Bot access; other customers retain the ordinary access rules.
+  See [shared deployment](../qa/backend/shared-identity-deployment-20261117-r04/deployment.json)
+  and [testing-access activation](../qa/backend/owned-testing-access-20261117-r01/deployment.json).
+- Fresh Gamma sign-in, normal username setup, device readiness and complimentary
+  access passed in the exact production Android v5 APK. One consented vBot prompt
+  produced a reply, debited once and displayed **149/150**; independent readback
+  found one active device, one settled request, no pending/uncertain requests and
+  no purchased entitlements. Word tap and same-word Stop were observed with marked
+  Chinese readings. Four current, unedited native frames include the already-delivered
+  synthetic friend conversation. See [live review](../qa/ux/android-release-live-20261117-r01/REVIEW.md),
+  [receipt](../qa/ux/android-release-live-20261117-r01/receipt.json)
+  and [independent service proof](../release/android-v5-owned-review-live-access-20261117.json).
+- The user's phone still reported **versionCode 4** in the read-only Termux check
+  at **00:31 UTC**. The complete verified v5 APK is in Downloads and its installer
+  was opened once; installation is not established. Do not treat the transfer or
+  installer opening as a completed update.
 - Native chat now offers one-tap word pronunciation, message translation with
   automatic pronunciation, and one translation after a selection-handle release.
   Actual native handle tests passed on both platforms. Android's previously
@@ -42,12 +78,34 @@ Prior revisions and linked receipts retain historical actions; do not replay the
   iOS simulator configuration failure remains recorded. This is separate from
   genuine store transactions. See [StoreKit proof](../qa/identity/storekit-native-host-20261117.json).
 
-Remaining release work includes final native integration and store-signed
-artifacts, deliberately qualified shared reviewer access,
-exact corresponding source and updated screenshots. A staged candidate is not
-an activation, and an uploaded build is not a submission.
+## Remaining work and limits
 
-## Artifacts and stores
+- Observe Google's preliminary checks and review outcome; do not resend the
+  completed submission. Public availability remains unverified.
+- Finish Apple build 4 processing, metadata, screenshots and reviewer readback,
+  then record any actual review submission separately. Earlier Apple builds and
+  their purchase receipts do not establish fresh build 4 runtime behavior.
+- Reconcile the phone's pending installer outcome before any further install
+  action. Its current known installed version remains 4.
+- Preserve the unresolved original company/Beta send and held environments.
+  The safe, separate Gamma and owned-peer proofs do not resolve that old outcome.
+- Clean-device purchase restore, broader billing lifecycle/provider delivery,
+  pronunciation accuracy and unrestricted conversational coverage remain limited
+  to their recorded evidence. Actual local/model examples are not universal guarantees.
+- Keep the original nine experimental modified files and untracked NLP pilot
+  physically preserved and excluded from the committed release source. Regional
+  exclusions and dependency-distribution assessments retain their recorded scope.
+  Add public store links only after actual public availability is verified.
+
+## Historical narrative — retained, superseded where stated above
+
+The following sections preserve earlier version-specific observations and
+uncertainties. Their words “current,” “remaining,” “not submitted” and “not active”
+refer to those checkpoints, not the present release. Original receipts remain
+immutable; the terminal receipts above determine the current state. An uncertain
+external action remains uncertain unless later evidence explicitly resolves it.
+
+## Historical artifact and store checkpoints
 
 Android **1.0.1 (2)**, source `195c952`, was uploaded once, published once to
 the existing one-person company test list, and installed through an actual
@@ -164,7 +222,7 @@ release, with exact GitHub digests and anonymous downloads verified. It binds
 the signed IPA to the public source plus its build-number patch; existing assets
 were preserved. See [supplement](../release/apple-build2-source-supplement-20261117/publication-receipt.json).
 
-## Access and service
+## Historical access and service checkpoints
 
 The accepted flow is **30 days without payment details**, beginning at original
 profile creation, followed by optional **$12/year Base** in the US. Sign-in and
@@ -248,7 +306,7 @@ See [purchase](../qa/subscriptions/google-license-sandbox-20261117-r01/receipt.j
 [lapse](../qa/subscriptions/google-license-sandbox-20261117-r01/lapse.json) and
 [Apple TEST](../qa/backend/apple-production-test-20261117-r01/receipt.json).
 
-## Current messaging and immersion findings
+## Historical messaging and immersion findings
 
 Earlier owned Android foreground messages decrypted and reached Delivered.
 Separate FCM checks reached background inbox work and a visible notification;
@@ -338,13 +396,14 @@ output for that example, not pronunciation accuracy or general conversational
 coverage. See [live immersion](../qa/release/apple-signed-build2-20261117-r01/live-vbot-immersion.json)
 and [audio evidence](../qa/audio/screencapturekit-20261117-r01/receipt.json).
 
-## Remaining work and constraints
+## Historical open checks and preserved constraints
 
 - Preserve the uncertain original send without replay; resolve its disposition
   before re-enabling either held package or allowing a retry. The separate v3
   owned-peer exchange is qualified, not a resolution of that original outcome.
-- Complete the v4 Android artifact and corresponding-source checks and qualify
-  its expiry-specific copy safely. Apple Base/Bot purchases and same-device
+- At this earlier checkpoint, v4 Android artifact/source and expiry-copy
+  qualification were still pending; current v5 evidence supersedes that
+  packaging task. Apple Base/Bot purchases and same-device
   restore are qualified, with clean-device recovery and lifecycle limits recorded.
   France and mainland China remain excluded from initial storefronts.
 - Reconcile store artifacts, regional export requirements and screenshots.
@@ -356,10 +415,10 @@ and [audio evidence](../qa/audio/screencapturekit-20261117-r01/receipt.json).
 - Google requests an account-wide trader declaration by February 2027. No
   declaration was saved; it is not a current release-preview blocker. It may
   publish company contact details across Fallsoft apps.
-- Public registration and production enforcement are not active. Validate the
-  production configuration and public signup/email-verification path before
-  opening access. After each store is actually public, update the testing copy
-  and expose its verified store link on the homepage/invitation page.
+- At this earlier checkpoint, public registration and production enforcement
+  were not active. The completed shared runtime and fresh Gamma signup above
+  supersede that assertion. Store links still wait for independently verified
+  public availability.
 
 Canonical source is `/home/ai/Development/vipi-production-20261107`, branch
 `delivery/production-20261107`. Apple development uses native macbook-pro; never

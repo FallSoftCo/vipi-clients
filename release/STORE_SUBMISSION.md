@@ -1,29 +1,92 @@
-# Store submission preparation
+# Store submission handoff
 
-## Current release boundary — November 17
+## Current release boundary — November 17 / November 18 UTC
 
-The latest saved drafts are Apple **1.0 (3)** and Google **1.0.3 (4)**.
-Neither has been submitted for public review. Both predate the user's rejected
-UI and the current single-tap redesign; prepare and qualify new signed artifacts
-before replacing them. Do not repeat their completed uploads or draft saves.
-See [current reconciled status](../docs/DELIVERY_STATUS.md),
-[Apple readback](../qa/release/apple-signed-build3-20261117-r01/asc-update-followup.json)
-and [Google draft](google-production-v4-preparation-20261117.json).
+Google production **1.0.4 (5)** was sent for review once at **00:29:54 UTC**
+on November 18. The console reported **24 changes sent for review**, and
+**Changes in review** persisted after reload. Preliminary checks were running;
+approval and public rollout are not established. Do not send it again.
+See [terminal Google receipt](google-play-review-submission-20261117.json).
 
-The original four-setting production activation and the subsequent reviewed
-shared-identity cutover each completed once. Schema 05, Vipi-only deletion,
-shared authentication, the new push runtime and scheduled jobs are active;
-existing account data and unrelated services were preserved. The native
-confidential exchange and real deployed HTTPS Google callback/Cancel were
-qualified separately. See [deployment](../qa/backend/shared-identity-deployment-20261117-r04/deployment.json)
-and [browser proof](../qa/backend/shared-browser-callback-20261117-r01/native-observation.json).
-Global Fallsoft deletion remains disabled until the other applications are covered.
+The submitted AAB is SHA-256
+`108e1152a8bf50d93e2d4ab9fd4d464aaf5ca04a9a36a25fc3f6bd0c6383714d`,
+from frozen source **55a9f723f436f4252730c0a85358a9aa32080f8b**.
+The matching production APK, all four ABIs, source/assets, signatures and
+16 KiB alignment were qualified. See [artifacts](android-v5-artifacts-20261117.md).
+Google's 14 localized listings now describe the actual single-tap controls;
+four current actual UI frames and exact read-back Gamma credentials were saved
+before submission. No credentials belong in repository documentation.
 
-The historical actions below retain their original build numbers and limits.
-Use the current status and exact receipts, not an older paragraph, to determine
-what has already happened.
+Apple **1.0 (4)** was signed/qualified and delivered once at approximately
+**00:24 UTC** on November 18. Its **431,015,828-byte** IPA has SHA-256
+`ac1851a2d5947c86552204b1c32ce1f16801dc351d1275b53590ba189b5da416`.
+Processing, metadata, screenshots and reviewer preparation remain ongoing;
+Apple review has not been submitted. The private `ios-release-packaging-r01`
+qualification/export receipts retain the pre-upload checks; their zero-upload
+fields are historical and do not negate the later delivery. Do not repeat it.
 
-## Preserved store preparation
+The exact native-redesign source supplement was published and anonymously
+verified on the existing public source release. See [terminal source receipt](native-redesign-source-publication-20261117.json).
+The earlier [v5 draft receipt](android-v5-store-upload-20261117.json) and its
+remaining-work list precede the completed reviewer, screenshots, source and
+submission proofs and must not be used as the current gate list.
+
+## Current service and reviewer flow
+
+Shared Fallsoft authentication, schema 05, Vipi-only deletion and subscription
+enforcement are live. Exact verified owner/Gamma testing grants are active;
+they do not fabricate purchases or bypass deleted/suspended accounts.
+See [deployment](../qa/backend/shared-identity-deployment-20261117-r04/deployment.json)
+and [grant activation](../qa/backend/owned-testing-access-20261117-r01/deployment.json).
+Global Fallsoft deletion remains disabled until all affected applications are covered.
+
+Fresh Gamma shared sign-in and normal username setup passed on the exact
+Android v5 release. The app showed review access and a ready device. One
+consented vBot prompt produced an actual reply, with **149/150** remaining and
+one independently verified settled debit, no pending requests and no purchases.
+Chinese tone-marked readings, one-tap speech and same-tap Stop were observed.
+The fourth frame shows preserved, already-delivered synthetic friend history;
+no new friend message was sent. See [native review](../qa/ux/android-release-live-20261117-r01/REVIEW.md)
+and [independent accounting](android-v5-owned-review-live-access-20261117.json).
+
+Current Android review instructions use the saved Gamma credentials through
+**Continue with Fallsoft**, after choosing the known and learning languages.
+Review access requires no purchase or trial. Words switch inline automatically;
+tap a word for meaning and learning-language pronunciation, select a phrase and
+release for one contextual result, or tap bubble padding for whole-message
+translation and automatic pronunciation. The single speaker plays the visible
+mixed-language message; the active control stops playback. Copy/selection remains
+native. Unsupported local pairs expose recovery rather than a fictional download.
+vBot is optional, requires its separate consent, and has a disclosed provider boundary.
+Friend chats are end-to-end encrypted; vBot and selected reports have separate
+readable-service boundaries.
+
+Ordinary Base access starts with 30 days without a card from original profile
+creation; afterward the user chooses whether to subscribe. No automatic charge
+follows that cardless period. The optional Bot mini plan retains its separate
+eligible one-month store trial and requires Base. Actual localized store prices
+are shown before purchase; reviewer grants are not billing qualification.
+
+## Current remaining handoff
+
+Observe Google's checks/review outcome. Finish Apple build 4 processing and
+current metadata/screens/reviewer readback before recording any Apple review
+submission. The user's phone still reported versionCode **4** at **00:31 UTC**;
+the verified v5 APK transfer and one installer opening do not prove installation.
+Preserve original company/Beta held data and the unresolved old send. Earlier
+billing, restore, push and translation observations retain their exact limits;
+this handoff does not claim universal linguistic accuracy or complete lifecycle
+coverage. See [current delivery status](../docs/DELIVERY_STATUS.md).
+
+## Historical narrative — not current submission instructions
+
+The following earlier snapshots retain completed actions, prior artifacts,
+checklists and original uncertainty. Claims of “no review,” older builds being
+“current,” two screenshots or older reviewer credentials apply only to their
+recorded checkpoint. The current sections and terminal receipts above supersede
+those statements. Do not replay their uploads, purchases, authentication or sends.
+
+## Historical store preparation
 
 The app is **Vipi**, with **Vipi: Immersive Chat** as the saved listing
 name on both stores and **Immersive chat with friends.** as the opening headline. Private Apple
@@ -70,7 +133,7 @@ was published and manual release mode saved, as recorded in
 `apple-privacy-20261117-r01.json`. Final signed binary/configuration reconciliation
 remains separate work.
 
-## Listing and screenshots
+## Historical listing and screenshot procedure
 
 `localizations/reviewed-platform-fields.json` contains the reviewed platform
 copy, working policy URLs and separate-plan disclosure. Populate console fields from the appropriate
@@ -99,7 +162,7 @@ device families come from the current store console.
 
 The checked [Google Play limits](https://support.google.com/googleplay/android-developer/answer/9859372?hl=en) allow a 500 MB compressed base module; the older 200 MB assumption is not the current base limit. The signed `0fda43f` bundle estimated 416,960,679 bytes for the retained ARM64, English, 420 dpi, SDK 35 device configuration. Its four generated splits passed upload-signer and 16 KiB alignment checks. Google subsequently accepted versions 1 and 2 and displayed a 417 MB new-install download. Version 3 passed its own package and alignment checks and Play shows 418 MB for a new install. Earlier blank-auth/debug-signed qualification artifacts must never be uploaded. The November 17 public source preview is pinned to `a547a4d`; its hash and anonymous download were verified. It predates the new classifier and JNI keep-name fix and is not corresponding-source evidence for version 3. The separate `source-preview-2026-11-17-v3` publication now matches version 3; prior publications were preserved. Source publication does not settle the separate linked-dependency distribution question. See `client-source-publication-v3-20261117.json`, `client-source-publication-20261117.json`, `android-build-artifacts-20261117.json` and `store-size-constraints.json`.
 
-## Reviewer access
+## Historical reviewer-access procedure
 
 Android-specific current labels, Data Safety candidates, merged permissions,
 deletion readback and exact access limits are in `ANDROID_STORE_REVIEW.md`.
@@ -136,7 +199,7 @@ Review notes should explain the observable behavior:
 Replace this procedural draft with exact verified screen/control labels and
 the final build/provider configuration before sending it to a reviewer.
 
-## Evidence required before upload/submission
+## Historical evidence checklist
 
 | Item | Required evidence |
 |---|---|

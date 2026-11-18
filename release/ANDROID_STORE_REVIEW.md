@@ -1,4 +1,93 @@
-# Android store preparation — November 17, 2026
+# Android store review handoff — version 1.0.4 (5)
+
+Google production **1.0.4 (5)** was sent for review once at **00:29:54 UTC**
+on November 18. The result reported **24 changes sent for review** and
+**Changes in review** persisted after a fresh reload. Preliminary checks were
+running; no approval or public availability is claimed. See [terminal receipt](google-play-review-submission-20261117.json).
+The earlier [v5 draft](android-v5-store-upload-20261117.json) predates the final
+submission and its remaining-work assertions are superseded.
+
+## Exact submitted artifact and source
+
+Package `co.fallsoft.vipi`, versionCode **5**, versionName **1.0.4**, frozen source
+**55a9f723f436f4252730c0a85358a9aa32080f8b**. The selected shared Fallsoft public
+client is `client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4`, API `https://api.mambovipi.app`.
+The submitted AAB is **546,599,495 bytes**, SHA-256
+`108e1152a8bf50d93e2d4ab9fd4d464aaf5ca04a9a36a25fc3f6bd0c6383714d`.
+The upload-signed APK is **539,181,694 bytes**, SHA-256
+`b49354c1fba8540a5dc1dcc12a281d37b392c64643224de24fdba43d47ebd9fe`.
+Both passed production configuration/signature checks, all four ABI checks,
+1,082-asset correspondence and 16 KiB alignment checks. These are not physical
+16 KiB device or general pronunciation tests. See [artifact qualification](android-v5-artifact-qualification-20261117.json).
+
+The exact source supplement was published and anonymously verified; prior
+public source assets remain unchanged. See [terminal publication receipt](native-redesign-source-publication-20261117.json).
+Original experimental dirty files and the unfinished NLP pilot remain preserved
+and excluded from the frozen release. Corresponding source publication is not
+an independent conclusion about every combined-binary license interpretation.
+
+## Actual reviewer access and current screenshots
+
+The Play entry now contains only the verified Gamma reviewer credentials,
+independently read back after saving. Credentials remain in the private account
+store and console, never here. See [reviewer readback](google-reviewer-access-20261117.json).
+Fresh normal shared sign-in, username setup, active device and complimentary
+Base/Bot access passed in the exact release APK on an isolated secondary Android
+user. The original primary user's history/keys were preserved, its original
+enabled state restored, and its already-delivered synthetic friend conversation
+opened safely after a fresh zero-pending check. Held company/Beta environments
+were untouched. See [live receipt](../qa/ux/android-release-live-20261117-r01/receipt.json).
+
+One consented real vBot prompt produced a reply, changed the allowance from
+150 to **149**, and settled exactly one debit. Independent readback confirmed
+one profile, one active device, no uncertain/pending requests and no purchased
+entitlements. No retry, purchase or friend message was sent.
+See [independent live proof](android-v5-owned-review-live-access-20261117.json).
+
+All four saved store images are actual unedited current UI: welcome, Chinese
+language preview with marked readings, the real vBot reply, and the preserved
+synthetic friend conversation. They contain no credentials or auth screen.
+See [review and images](../qa/ux/android-release-live-20261117-r01/REVIEW.md).
+Fourteen localized descriptions were reconciled with the native controls before
+submission; the older two-image narratives below are not the final listing.
+
+## Current native review procedure and limits
+
+Choose the known and learning languages, then **Continue with Fallsoft** using
+the supplied review account. Review access needs no purchase or trial. In a chat,
+selected words switch inline automatically. A word tap shows meaning and speaks
+the learning-language side; same-tap Stop was observed. Phrase selection translates
+once on handle release. Tapping bubble padding translates the whole message and
+autoplays; the single speaker plays the currently visible mixed-language message.
+Native Copy and selection remain available. Local pair/model availability is
+reported truthfully. Chinese tone marks and speech/Stop were observed in the
+actual v5 reply; this does not establish flawless pronunciation or every language pair.
+
+vBot has a separate consent/provider boundary and visible reply allowance.
+Friend messages are end-to-end encrypted. **Delete Vipi account** preserves the
+shared Fallsoft sign-in and other applications; global Fallsoft deletion remains
+disabled. Shared identity, Vipi-only deletion and subscription enforcement are
+live, with exact owner/Gamma grants active. See [service activation](../qa/backend/owned-testing-access-20261117-r01/deployment.json).
+Ordinary customers receive 30 cardless days anchored to original profile creation;
+there is no automatic charge afterward. Base has no extra store introductory
+trial; optional Bot mini retains its separate eligible one-month offer.
+
+The remaining store task is observing Google's checks and review result, not
+re-uploading or re-sending. The phone's read-only **00:31 UTC** check still showed
+versionCode **4**; a complete verified v5 APK in Downloads and one installer open
+do not establish an installed update. Clean-device restore and broader lifecycle,
+provider-delivery and linguistic quality retain their recorded limitations.
+
+## Historical snapshots — retained for provenance
+
+Everything below records earlier checkpoints. Older “current candidate,”
+“restricted staging,” “not submitted” and “remaining gate” statements are
+historical; the version 5 receipts above supersede completed packaging, service,
+reviewer, screenshot, source and submission tasks. Earlier uncertain sends and
+unexercised paths remain unresolved unless an exact later receipt says otherwise.
+Do not replay an old purchase, upload or send to refresh a historical note.
+
+## Historical November 17 preparation checkpoint
 
 The current private candidate is version **2 (1.0.1)** from `195c952`, merged into delivery as `2880451`. Its signed APK and AAB pass exact source/configuration, upload-certificate, 1,077-asset and ARM64 16 KiB alignment checks. The representative local download estimate is 416,977,346 bytes. It was uploaded once and independently verified in Play’s library; it has not been installed or assigned to a release. See `android-build-artifacts-20261117.json`. The actual Play inventory has versions1and2; internal release1 is available to the existing company tester and production remains a draft. No review submission or public rollout has occurred.
 
@@ -8,7 +97,7 @@ Original version1 release packages and selected QA binaries have moved to verifi
 
 The matching November17 corresponding-source preview is published and verified. Remaining work includes exact version2 runtime/track qualification, public registration/enforcement readiness and the already-recorded distribution/regional requirements. Mobbin/BFM-guided native review and current fixes are recorded in `qa/ux/review-20261117-r01/REVIEW.md`; this does not claim every language pair or pronunciation is flawless. The following November16 narrative is historical, including its old two-trial setup and earlier pending test statements.
 
-# Historical November 16 preparation record
+## Historical November 16 preparation record
 
 The company Play listing is **Vipi: Immersive Chat**, app ID
 `4975664610567218322`. The title, short description and full description were
@@ -176,7 +265,7 @@ receipts/backups must follow the published notice; do not promise instant erasur
 of every copy. Google requires both in-app and web deletion routes for apps with
 account creation; see its [deletion guidance](https://support.google.com/googleplay/android-developer/answer/13327111?hl=en).
 
-## Remaining external gates
+## Historical external gates (not the current submission state)
 
 1. Actual billing/restore/refund/RTDN qualification. The first bundle is
    accepted into a saved private internal draft. Both annual products and their
