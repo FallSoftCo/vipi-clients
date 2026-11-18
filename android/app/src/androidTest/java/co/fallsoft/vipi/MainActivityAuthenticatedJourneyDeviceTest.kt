@@ -85,10 +85,13 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 compose.onNodeWithText(f.base.getString(R.string.ui_ba6e8c9b0c3e)).performScrollTo().performTouchInput { click() }
                 compose.onNodeWithText(f.base.getString(R.string.ui_eb7c5193d2ac)).assertIsDisplayed()
                 compose.runOnIdle { assertEquals(Screen.NEW_CHAT, f.model.screen) }
+                compose.waitUntil(5_000) { !imeVisible(f) }
                 assertNativeContained(f, By.text("missing_friend"), "friend username", 48)
                 assertNativeContained(f, By.text(f.base.getString(R.string.ui_ba6e8c9b0c3e)), "find friend action")
                 assertNativeContained(f, By.text(f.base.getString(R.string.ui_eb7c5193d2ac)), "friend lookup error")
                 f.capture("02-lookup-error-keeps-editable-username")
+                username.performScrollTo().performTouchInput { click() }
+                compose.waitUntil(8_000) { imeVisible(f) }
                 username.performTextReplacement("@Journey_Friend")
                 compose.onNodeWithText(f.base.getString(R.string.ui_ba6e8c9b0c3e)).performScrollTo().performTouchInput { click() }
                 waitScreen(f, Screen.CONVERSATION)
