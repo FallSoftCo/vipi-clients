@@ -30,13 +30,18 @@ final class HistoryBackupIsolationTests: XCTestCase {
         return url
     }
     private func encrypted(_ url: URL, account: UUID, large: Bool = false) throws {
-        let peer = UUID(), message = HistoryBackupMessage(id: UUID(), peer: peer, outgoing: false,
-            createdAt: 1_794_888_100_000, text: large ? String(repeating: "Private 日本語 chat. ", count: 6000) : "Keep this private chat.")
+        let peer = UUID(), count = large ? 3 : 1
+        // Three 24,000-byte messages cross the copy chunk boundary while each
+        // remains below the real codec's 32,768-byte per-message limit.
+        let text = large ? String(repeating: "Private 日本語 chat. ", count: 1000) : "Keep this private chat."
         let writer = try HistoryBackupCodec.Writer(url: url, password: password, account: account)
         try writer.append(.metadata(account: account, createdAt: 1_794_888_200_000))
         try writer.append(.peer(HistoryBackupPeer(id: peer, username: "backup_friend", displayName: "Backup Friend")))
-        try writer.append(.message(message))
-        try writer.append(.end(records: 3, peers: 1, messages: 1)); try writer.finish()
+        for index in 0..<count {
+            try writer.append(.message(HistoryBackupMessage(id: UUID(), peer: peer, outgoing: false,
+                createdAt: 1_794_888_100_000 + Int64(index), text: text)))
+        }
+        try writer.append(.end(records: 2 + count, peers: 1, messages: count)); try writer.finish()
     }
     private func vault(account: UUID, root: URL) throws -> MessageVault {
         let value = try MessageVault(account: account, directory: root.appendingPathComponent("Messages", isDirectory: true))
@@ -166,6 +171,6 @@ final class HistoryBackupIsolationTests: XCTestCase {
         if eraseAccount { XCTAssertFalse(FileManager.default.fileExists(atPath: own.path)) }
         XCTAssertEqual(try Data(contentsOf: source), bytes)
         XCTAssertEqual(try Data(contentsOf: otherStage), otherBytes)
-        XCTAssertEqual(try HistoryBackupCodec.inspect(url: source, password: password, account: account).messages, 1)
+        XCTAssertEqual(try HistoryBackupCodec.inspect(url: source, password: password, account: account).messages, 3)
     }
 }
