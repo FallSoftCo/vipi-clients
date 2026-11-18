@@ -1,0 +1,36 @@
+{
+  "at": "2026-11-18T00:11:03.382523+00:00",
+  "state": "published and anonymously verified",
+  "release_id": 448369261,
+  "release_url": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3",
+  "new_asset_count": 3,
+  "old_assets_unchanged": true,
+  "assets": [
+    {
+      "asset_id": 761166827,
+      "name": "vipi-native-redesign-source-README.md",
+      "url": "https://github.com/FallSoftCo/vipi-clients/releases/download/source-preview-2026-11-17-v3/vipi-native-redesign-source-README.md",
+      "bytes": 3873,
+      "sha256": "da2fa87375ebe5aebc45d0a76ddfc545d033948be9915e9690188ad530479aa7",
+      "anonymous_http_status": 200
+    },
+    {
+      "asset_id": 761166879,
+      "name": "vipi-native-redesign-source-receipt.json",
+      "url": "https://github.com/FallSoftCo/vipi-clients/releases/download/source-preview-2026-11-17-v3/vipi-native-redesign-source-receipt.json",
+      "bytes": 34739,
+      "sha256": "71edfc51408cf44904260c319593cb6c9897b4ed49b533a8555ac1e85a5e4b6c",
+      "anonymous_http_status": 200
+    },
+    {
+      "asset_id": 761166784,
+      "name": "vipi-native-redesign-source.patch",
+      "url": "https://github.com/FallSoftCo/vipi-clients/releases/download/source-preview-2026-11-17-v3/vipi-native-redesign-source.patch",
+      "bytes": 2383454,
+      "sha256": "e38bef9171bbe6f4fe4b7f6b225ccd50a1cf483e57a8d5e14538d2418d01f602",
+      "anonymous_http_status": 200
+    }
+  ],
+  "original_source_preparation_unchanged": true,
+  "store_submission_performed": false
+}

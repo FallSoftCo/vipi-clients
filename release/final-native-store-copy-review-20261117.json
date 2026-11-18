@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-18T00:13:14.631140+00:00",
+  "scope": "Final native welcome and single-tap translation/speech descriptions;14Google/13ASC locales",
+  "review": "Root read all14 changed paragraph pairs and current native proof; no external native-speaker review claimed. Only description revisions and corresponding source/hash/count metadata integrated.",
+  "prices_trials_other_text_preserved": true,
+  "max_full_description_codepoints": 2262,
+  "client_freeze_unchanged": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+  "source_proposal_receipt_sha256": "2b1967756efb75aeda64a002ef3f0c86c5372f95d7ea37b6bb92750b51badf7d",
+  "store_write_state": "not yet written"
+}

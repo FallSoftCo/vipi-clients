@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-18T00:09:23.238Z",
+  "outcome": "passed",
+  "freshReload": true,
+  "nativePersistedNameEmailPasswordMatch": [
+    true,
+    true,
+    true
+  ],
+  "entryCount": 1,
+  "heldBetaInstructionAbsent": true,
+  "notesCharacters": 460,
+  "saveDispatchCount": 1,
+  "accountsChanged": false,
+  "purchasesMade": false,
+  "reviewSubmitted": false
+}
