@@ -45,6 +45,31 @@ internal fun exerciseShortLandscapeComposer(compose: ComposeTestRule, f: MainAct
             it.config[SemanticsProperties.EditableText].text == expected
         })
         f.instrumentation.uiAutomation.waitForIdle(100, 5_000)
+        fun nativeEditor(): android.view.accessibility.AccessibilityNodeInfo? {
+            if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
+            fun focused(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
+                if (node.isEditable && node.isFocused && node.text?.toString() == expected) return node
+                for (i in 0 until node.childCount) node.getChild(i)?.let { focused(it)?.let { found -> return found } }
+                return null
+            }
+            return f.instrumentation.uiAutomation.windows.mapNotNull { it.root }
+                .filter { it.packageName?.toString() == f.base.packageName }.firstNotNullOfOrNull(::focused)
+        }
+        var initialEditor: android.view.accessibility.AccessibilityNodeInfo? = null
+        compose.waitUntil(5_000) { initialEditor = nativeEditor(); initialEditor != null }
+        val native = requireNotNull(initialEditor)
+        val selectionNeeded = native.textSelectionStart != expected.length || native.textSelectionEnd != expected.length
+        val selectionAccepted = if (selectionNeeded) native.performAction(
+            android.view.accessibility.AccessibilityNodeInfo.ACTION_SET_SELECTION, android.os.Bundle().apply {
+                putInt(android.view.accessibility.AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_START_INT, expected.length)
+                putInt(android.view.accessibility.AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_END_INT, expected.length)
+            }) else null
+        File(f.output, "$evidence-selection.json").writeText(JSONObject().put("before_start", native.textSelectionStart)
+            .put("before_end", native.textSelectionEnd).put("requested_end", expected.length)
+            .put("native_end_action_needed", selectionNeeded).put("native_end_action_accepted", selectionAccepted ?: JSONObject.NULL)
+            .put("set_text_action_used", false).toString(2))
+        if (selectionNeeded) assertEquals("Native end-selection action must be accepted", true, selectionAccepted)
+        compose.waitUntil(5_000) { nativeEditor()?.let { it.textSelectionStart == expected.length && it.textSelectionEnd == expected.length } == true }
         val layouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
         compose.onNodeWithTag(inputTag).performSemanticsAction(SemanticsActions.GetTextLayoutResult) { assertTrue(it(layouts)) }
         val layout = layouts.single { it.layoutInput.text.text == expected }
@@ -66,14 +91,7 @@ internal fun exerciseShortLandscapeComposer(compose: ComposeTestRule, f: MainAct
         var proof: JSONObject? = null
         try {
             compose.waitUntil(6_000) {
-                if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
-                fun focused(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
-                    if (node.isEditable && node.isFocused && node.text?.toString() == expected) return node
-                    for (i in 0 until node.childCount) node.getChild(i)?.let { focused(it)?.let { found -> return found } }
-                    return null
-                }
-                val editor = f.instrumentation.uiAutomation.windows.mapNotNull { it.root }
-                    .filter { it.packageName?.toString() == f.base.packageName }.firstNotNullOfOrNull(::focused)
+                val editor = nativeEditor()
                 if (editor == null || editor.textSelectionEnd != expected.length || editor.textSelectionStart != expected.length) false else {
                     val bounds = Rect(); editor.getBoundsInScreen(bounds)
                     val field = RectF(bounds); val viewport = RectF(f.unobscuredWindow())
