@@ -865,7 +865,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
  * subscription coordinators still execute. Every unlisted request is rejected. */
 internal class JourneyServices(profileRequired: Boolean, private val seedBotMessages: Int = 0,
     private val expectedBotPosts: Int = 1, private val expectedFriendPosts: Int = 1,
-    private val cardlessAccess: Boolean = false) : VipiWorkflowBoundary, AutoCloseable {
+    private val cardlessAccess: Boolean = false,
+    private val deletionService: DeletionTransport? = null) : VipiWorkflowBoundary, AutoCloseable {
     val account = UUID.randomUUID()
     val peer = UUID.randomUUID()
     val subject = "user_journey_${UUID.randomUUID().toString().replace("-", "")}"
@@ -887,6 +888,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         private set
     private var pendingPeerReply: JSONObject? = null
     val botPosts = AtomicInteger()
+    val cancelledBotPosts = AtomicInteger()
     val failNextEntitlement = AtomicBoolean(false)
     val failBotReply = AtomicBoolean(false)
     val botReplyGate = CompletableDeferred<Unit>()
@@ -1024,7 +1026,10 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
                         check(sent.getJSONArray("messages").length() == if (seedBotMessages == 0) 1 else 11)
                         val context = sent.getJSONArray("messages")
                         botRequestPrompts += context.getJSONObject(context.length() - 1).getString("content")
-                        botReplyGate.await()
+                        try { botReplyGate.await() }
+                        catch (cancelled: kotlinx.coroutines.CancellationException) {
+                            cancelledBotPosts.incrementAndGet(); throw cancelled
+                        }
                         if (failBotReply.get()) throw java.io.IOException("Synthetic uncertain provider outcome")
                         remaining = 150 - post
                         JSONObject().put("request_id", sent.getString("request_id")).put("reply", if (post == 1) botReply else botFollowupReply).put("allowance", allowance())
@@ -1053,6 +1058,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         .put("resets_at", "2099-01-01T00:00:00Z").put("max_context_bytes", 8192)
     override fun requestPush(context: Context, registration: Boolean) = Unit
     override fun cancelPush(context: Context) = Unit
+    override fun deletionTransport(authentication: Authentication) = deletionService
     override fun billingClient(context: Context, listener: PurchasesUpdatedListener): BillingClient = WorkflowBillingClient(listener).also { catalogs += it }
     override fun foregroundEvents(scope: CoroutineScope, authentication: Authentication, chat: ChatSession): ForegroundInboxEvents =
         ForegroundInboxEvents(scope, { "synthetic-inert-access" }, chat::eventDevice, { chat.synchronize() },

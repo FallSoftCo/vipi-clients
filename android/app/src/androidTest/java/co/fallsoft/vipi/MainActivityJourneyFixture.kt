@@ -43,7 +43,8 @@ internal class MainActivityJourneyFixture(
             return base.getSharedPreferences(prefix + name, mode)
         }
     }
-    val model: VipiModel
+    var model: VipiModel
+        private set
     val output: File
     private var scenario: ActivityScenario<MainActivity>? = null
     private var activity: MainActivity? = null
@@ -94,6 +95,16 @@ internal class MainActivityJourneyFixture(
     fun recreate() {
         val before = injectionCount
         requireNotNull(scenario).recreate()
+        check(injectionCount == before + 1)
+    }
+    /** New owner/model over the same private disk, after the real activity's
+     * ViewModelStore has closed the previous owner. No session reseeding. */
+    fun relaunch(createModel: (Application) -> VipiModel) {
+        stopActivity()
+        instrumentation.runOnMainSync { model = createModel(isolated) }
+        val before = injectionCount
+        scenario = ActivityScenario.launch(Intent(base, MainActivity::class.java)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK))
         check(injectionCount == before + 1)
     }
     fun backgroundAndResume() {
