@@ -222,6 +222,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 }
                 val nextDraft = "Keep this next Bot message local."
                 compose.onNodeWithTag("bot-message-input").performTextInput(nextDraft)
+                compose.onNodeWithTag("bot-message-input").assertEditorValue(nextDraft)
+                assertReplyAudioAboveComposer(f, services.botReply, nextDraft)
                 f.recreate()
                 waitScreen(f, Screen.BOT)
                 compose.onNodeWithTag("bot-message-input").assertTextEquals(nextDraft)
@@ -235,6 +237,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 }
                 compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
+                assertReplyAudioAboveComposer(f, services.botReply, nextDraft)
                 f.capture("03-recreated-bot-next-draft-with-confirmed-history")
                 services.assertNoPurchase()
                 File(f.output, "result.json").writeText(JSONObject().put("pass", true)
@@ -316,6 +319,32 @@ class MainActivityAuthenticatedJourneyDeviceTest {
 
     private fun SemanticsNodeInteraction.assertEditorValue(expected: String): SemanticsNodeInteraction =
         assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(expected)))
+
+    private fun assertReplyAudioAboveComposer(f: MainActivityJourneyFixture, reply: String, draft: String) {
+        compose.waitForIdle()
+        var audioBounds: android.graphics.Rect? = null
+        var composerBounds: android.graphics.Rect? = null
+        try {
+            compose.waitUntil(8_000) {
+                if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
+                val paragraph = f.device.findObject(By.text(reply).pkg(f.base.packageName))
+                val audio = paragraph?.let { text ->
+                    generateSequence(text.parent) { it.parent }.take(4)
+                        .mapNotNull { it.findObject(By.clickable(true)) }.firstOrNull()
+                }
+                audioBounds = audio?.visibleBounds
+                composerBounds = f.device.findObject(By.text(draft).pkg(f.base.packageName))?.visibleBounds
+                val viewport = f.unobscuredWindow()
+                val minimum = 48 * f.base.resources.displayMetrics.density
+                val control = audioBounds
+                val editor = composerBounds
+                control != null && editor != null && !control.isEmpty && viewport.contains(control) &&
+                    control.height() >= minimum && control.bottom <= editor.top
+            }
+        } catch (failure: ComposeTimeoutException) {
+            throw AssertionError("Latest reply audio control $audioBounds must be fully above composer $composerBounds and native IME", failure)
+        }
+    }
 
     /** Accessibility bounds alone may extend behind a separate IME window.
      * Compare the actual native node with the window minus system/IME insets,
