@@ -54,6 +54,13 @@
         ],
         "expected_junit_cases": 2,
         "scope": "Same production MainActivity and router, 70 real encrypted fixture sends, actual Signal incoming ciphertext and metadata-only inbox event while reading earlier messages, exact anchor through IME, own Send, explicit Jump and earlier-page insertion. Both ordinary and immersed histories; no live contact or physical push."
+      },
+      "first_month_expiry": {
+        "classes": [
+          "co.fallsoft.vipi.FirstMonthExpiryJourneyDeviceTest"
+        ],
+        "expected_junit_cases": 1,
+        "scope": "Actual MainActivity server402 expiry\u2192visible BasePlans\u2192Back/recreate\u2192independent encrypted draft/queuedID proof\u2192restoredaccess same Signal message deliveredonce. No billinglaunch or Botaccess; controlled serviceclock and providerboundaries."
       }
     },
     "qualified_layouts": [

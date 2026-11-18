@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T09:07:33.161948+00:00",
+  "updated_utc": "2026-11-18T09:19:15.521380+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -135,6 +135,13 @@
       "status": "041 immersed history passed complete actual-activity flow; ordinary history failed pre-incoming preparation with real20px content drift",
       "required_observation": "Incoming ciphertext while reading history preserves visible reading text; IME/own Send/Jump/earlier-page behavior",
       "limits": "041 real native observations: History44 above the reader grows125\u2192145px while top remains123px; reader History45 moves475\u2192495px as immersion prepares. Same message remains; visual line end changes with legitimate wrapping. Preserve original failure. Fix must maintain readable message/source position without overriding user scrolling; no tolerance widening or test-only scrolling."
+    },
+    {
+      "journey": "First-month expiry recovery without losing text",
+      "implementation": "Actual Android MainActivity, encrypted outbox/vault and Signal peer",
+      "status": "043 passed; root inspected native pixels for refusal, Baseplan and restored delivery",
+      "required_observation": "402 refusal preserves queued message and next draft; Plans/Back/recreation and independent vault read retain both; restored entitlement delivers identical ID/ciphertext once, no checkout or Botaccess",
+      "limits": "Serviceclock/HTTP/Play boundary controlled. Six refused retries across navigation, one acceptedpost. No actual timewait, subscriptionpurchase or charge."
     }
   ],
   "receipts": {
@@ -169,7 +176,10 @@
     "ios_r07": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-manual-panel-stage-r07/receipt.json",
     "android_signed_v8": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/release-verification-v8-r01.json",
     "android_friend_history_current": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-main-history-r02.json",
-    "android_signed_v8_install_failure": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-install-failure-reconciled-r01.json"
+    "android_signed_v8_install_failure": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-install-failure-reconciled-r01.json",
+    "android_first_month_expiry": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-expiry-r01.json",
+    "android_first_month_expiry_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-expiry-native-review-r01.json",
+    "first_month_test_audit": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/first-month-test-adequacy-audit-r01.json"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
   "original_nine_dirty_files_preserved": true,
