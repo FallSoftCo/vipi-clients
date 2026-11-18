@@ -78,6 +78,7 @@ internal class ManualLookupInteraction(
         if (!hasPendingTouchStop() || stoppedRange != range) return false
         stoppedRange = null; return true
     }
+    val wholeMessage get() = request?.let { it.startUTF16 == 0 && it.endUTF16 == original.length } == true
     val loading get() = request != null && outcome == null
     val speaking get() = audioID != null && speech.activeMessage == audioID
     val sourceText get() = outcome?.result?.sourceContextText ?: request?.let(ManualTranslationResolver::slice) ?: covered?.original.orEmpty()
@@ -214,7 +215,7 @@ internal class ManualLookupInteraction(
                     }
                     val failure = interaction.outcome?.status?.takeIf { it != ManualTranslationStatus.READY }
                     val error = when (failure) {
-                        ManualTranslationStatus.MODEL_NOT_READY -> stringResource(if (interaction.supportedPair) R.string.lookup_download_needed else R.string.lookup_unsupported)
+                        ManualTranslationStatus.MODEL_NOT_READY -> stringResource(if (interaction.supportedPair) R.string.lookup_download_needed else if (interaction.wholeMessage) R.string.lookup_whole_unsupported else R.string.lookup_unsupported)
                         ManualTranslationStatus.INVALID_LANGUAGE -> stringResource(R.string.lookup_choose_language)
                         ManualTranslationStatus.TIMEOUT -> stringResource(R.string.lookup_timeout)
                         ManualTranslationStatus.INVALID_INPUT -> stringResource(R.string.lookup_select_word)

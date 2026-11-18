@@ -259,7 +259,7 @@
     <string name="ui_c011d6097bfb" formatted="false">Lizenz</string>
     <string name="ui_c6046d416aaf" formatted="false">Weiter zu vBot</string>
     <string name="ui_cc245f2e3a71" formatted="false">Wortwechsel fortsetzen</string>
-    <string name="ui_cf0b3e3d47ec" formatted="false">Kontingent aktualisieren</string>
+    <string name="ui_cf0b3e3d47ec" formatted="false">Verbleibende Antworten prüfen</string>
     <string name="ui_d42ff6022f50" formatted="false">Chatverlauf wiederherstellen?</string>
     <string name="ui_de6e21a278c4" formatted="false">Konto · 2 von 2</string>
     <string name="ui_dfe40efe921f" formatted="false">Wird aktualisiert…</string>
@@ -290,11 +290,11 @@
     <string name="bot_allowance_remaining">%1$s von %2$s Antworten übrig · Erneuerung %3$s</string>
     <string name="account_heading">Melden Sie sich an, um\nmit Freunden zu chatten.</string>
     <string name="invite_share_text">Chatten Sie mit mir auf Vipi. Mein Benutzername ist @%1$s. %2$s</string>
-    <string name="bot_allowance_check_failed">Ihr Bot-mini-Kontingent konnte nicht geprüft werden. Versuchen Sie es erneut.</string>
+    <string name="bot_allowance_check_failed">Die verbleibenden Bot mini-Antworten konnten nicht geprüft werden. Versuche es erneut.</string>
     <string name="bot_device_not_ready">Dieses Gerät ist nicht sendebereit. Kehren Sie zu Chats zurück, um die Verbindung wiederherzustellen. Ihr Entwurf ist gespeichert.</string>
     <string name="bot_device_unauthorized">Dieses Gerät ist nicht mehr autorisiert. Kehren Sie zu Chats zurück, um die Verbindung wiederherzustellen. Diese Anfrage wurde nicht angenommen.</string>
-    <string name="bot_allowance_exhausted">Sie haben die Bot-mini-Antworten dieses Monats aufgebraucht. Aktualisieren Sie Ihr Kontingent, um den nächsten Erneuerungszeitpunkt zu sehen.</string>
-    <string name="bot_reply_unconfirmed">Wir konnten die Antwort von vBot nicht bestätigen. Diese Anfrage wird nicht automatisch erneut gesendet. Aktualisieren Sie Ihr Kontingent, bevor Sie eine neue Anfrage starten.</string>
+    <string name="bot_allowance_exhausted">Du hast die Bot mini-Antworten für diesen Monat aufgebraucht. Prüfe die verbleibenden Antworten, um zu sehen, wann sie erneuert werden.</string>
+    <string name="bot_reply_unconfirmed">Die Antwort von vBot konnte nicht bestätigt werden. Diese Nachricht wird nicht automatisch erneut gesendet. Prüfe die verbleibenden Antworten, bevor du eine weitere Nachricht sendest.</string>
     <string name="bot_message_not_saved">Ihre Nachricht konnte nicht gespeichert werden. Sie wurde nicht gesendet.</string>
     <string name="bot_report_received">Meldung erhalten. Danke für Ihren Hinweis.</string>
     <string name="bot_report_unconfirmed">Wir konnten diese Meldung nicht bestätigen. Sie können es erneut versuchen.</string>
@@ -409,7 +409,7 @@
     <string name="welcome_title_concise">Chatte mit Freunden.\nLerne neue Wörter.</string>
     <string name="welcome_detail_concise">Einige Wörter wechseln beim Chatten die Sprache.</string>
     <string name="preview_spanish_title">Probiere etwas Spanisch</string>
-    <string name="preview_tap_word">Tippe auf ein markiertes Wort, um es zu hören. Tippe im Chat auf eine Sprechblase zum Übersetzen.</string>
+    <string name="preview_tap_word">Tippe auf ein markiertes Wort, um es in der Sprache zu hören, die du lernst. Tippe im Chat auf eine Sprechblase zum Übersetzen.</string>
     <string name="languages_title_concise">Deine Sprachen</string>
     <string name="languages_detail_concise">Welche Sprache möchtest du lernen?</string>
     <string name="languages_change_later">Du kannst sie in den Einstellungen ändern.</string>

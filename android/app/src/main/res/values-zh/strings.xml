@@ -259,7 +259,7 @@
     <string name="ui_c011d6097bfb" formatted="false">许可证</string>
     <string name="ui_c6046d416aaf" formatted="false">继续前往 vBot</string>
     <string name="ui_cc245f2e3a71" formatted="false">恢复单词切换</string>
-    <string name="ui_cf0b3e3d47ec" formatted="false">刷新额度</string>
+    <string name="ui_cf0b3e3d47ec" formatted="false">查看剩余回复数</string>
     <string name="ui_d42ff6022f50" formatted="false">恢复聊天记录？</string>
     <string name="ui_de6e21a278c4" formatted="false">账户 · 第2步，共2步</string>
     <string name="ui_dfe40efe921f" formatted="false">正在更新…</string>
@@ -290,11 +290,11 @@
     <string name="bot_allowance_remaining">剩余 %1$s / %2$s 条回复 · 重置时间 %3$s</string>
     <string name="account_heading">登录后与\n好友聊天。</string>
     <string name="invite_share_text">在 Vipi 和我聊天吧。我的用户名是 @%1$s。%2$s</string>
-    <string name="bot_allowance_check_failed">无法检查您的 Bot mini 额度。请重试。</string>
+    <string name="bot_allowance_check_failed">无法查看 Bot mini 的剩余回复数。请重试。</string>
     <string name="bot_device_not_ready">此设备尚未准备好发送。请返回聊天以重新连接。草稿已保存。</string>
     <string name="bot_device_unauthorized">此设备不再获得授权。请返回聊天以重新连接。此请求未被接受。</string>
-    <string name="bot_allowance_exhausted">您已用完本月的 Bot mini 回复。请刷新额度以查看重置时间。</string>
-    <string name="bot_reply_unconfirmed">无法确认 vBot 的回复。此请求不会自动重发。开始新请求前请刷新额度。</string>
+    <string name="bot_allowance_exhausted">本月的 Bot mini 回复已用完。查看剩余回复数以了解重置时间。</string>
+    <string name="bot_reply_unconfirmed">无法确认 vBot 的回复。此消息不会自动重发。发送下一条消息前，请查看剩余回复数。</string>
     <string name="bot_message_not_saved">无法保存您的消息。消息尚未发送。</string>
     <string name="bot_report_received">已收到举报。感谢您的反馈。</string>
     <string name="bot_report_unconfirmed">无法确认此举报。您可以重试。</string>
@@ -406,7 +406,7 @@
     <string name="welcome_title_concise">与朋友聊天。\n学习新词汇。</string>
     <string name="welcome_detail_concise">聊天时，部分词语会切换成另一种语言。</string>
     <string name="preview_spanish_title">体验一点西班牙语</string>
-    <string name="preview_tap_word">点按高亮单词即可听发音。在聊天中，点按气泡即可翻译。</string>
+    <string name="preview_tap_word">点按高亮单词，即可听到它在所学语言中的发音。在聊天中，点按气泡即可翻译。</string>
     <string name="languages_title_concise">你的语言</string>
     <string name="languages_detail_concise">你想学哪种语言？</string>
     <string name="languages_change_later">你可以随时在设置中更改。</string>

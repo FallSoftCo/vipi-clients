@@ -27,6 +27,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -105,17 +106,26 @@ import java.time.format.FormatStyle
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val density = LocalDensity.current
     val statusNotice = localError ?: bot.notice
+    var statusNoticeHeightPx by remember(statusNotice) { mutableIntStateOf(0) }
     val bottomInsets = with(density) { maxOf(WindowInsets.ime.getBottom(this), WindowInsets.navigationBars.getBottom(this)).toDp() }
     val availableHeight = (maxHeight - with(density) { topBarHeightPx.toDp() } - bottomInsets).coerceAtLeast(0.dp)
     // Use the current text line and Material padding. Density conversion
     // follows Android's nonlinear enlarged-text scaling.
     val composerPadding = OutlinedTextFieldDefaults.contentPadding()
     val minimumComposerHeight = maxOf(OutlinedTextFieldDefaults.MinHeight,
-        with(density) { MaterialTheme.typography.bodyLarge.lineHeight.toDp() } +
+        with(density) { resolvedComposeLineHeight(MaterialTheme.typography.bodyLarge) } +
             composerPadding.calculateTopPadding() + composerPadding.calculateBottomPadding())
+    var recoveryActionHeightPx by remember { mutableIntStateOf(0) }
     val recoveryActionHeight = if (bot.allowance == null || bot.allowance?.remaining == 0)
-        maxOf(48.dp, 22.dp * density.fontScale + 16.dp) else 0.dp
-    val minimumStatusHeight = if (statusNotice != null) maxOf(48.dp, 27.dp * density.fontScale) else 0.dp
+        maxOf(48.dp, with(density) { recoveryActionHeightPx.toDp() }) else 0.dp
+    val statusLineHeight = with(density) { resolvedComposeLineHeight(MaterialTheme.typography.bodySmall) }
+    // A long explanation can require compact layout without making its action
+    // impossible to fit. Keep that same measured action outside the text scroll
+    // whenever one complete status line and the editable line still fit.
+    val pinRecoveryAction = availableHeight >= minimumComposerHeight + recoveryActionHeight +
+        (if (statusNotice != null) statusLineHeight else 0.dp)
+    val pinnedRecoveryHeight = if (pinRecoveryAction) recoveryActionHeight else 0.dp
+    val minimumStatusHeight = if (statusNotice != null) maxOf(48.dp, with(density) { statusNoticeHeightPx.toDp() }) else 0.dp
     val normalTopBarHeight = TopAppBarDefaults.TopAppBarExpandedHeight +
         with(density) { TopAppBarDefaults.windowInsets.getTop(this).toDp() }
     // Compare against the NORMAL bar, not the measured compact bar. Otherwise
@@ -123,15 +133,25 @@ import java.time.format.FormatStyle
     val compact = maxHeight - bottomInsets - normalTopBarHeight <
         minimumComposerHeight + 16.dp + recoveryActionHeight + minimumStatusHeight
     val compactBarHeight = maxOf(48.dp,
-        with(density) { MaterialTheme.typography.titleLarge.lineHeight.toDp() })
-    val fixedFooterHeight = (if (compact) 0.dp else 16.dp + recoveryActionHeight) + minimumStatusHeight
+        with(density) { resolvedComposeLineHeight(MaterialTheme.typography.titleLarge) })
+    val reservedStatusHeight = if (compact && statusNotice != null) statusLineHeight else minimumStatusHeight
+    val fixedFooterHeight = (if (compact) 0.dp else 16.dp) + pinnedRecoveryHeight + reservedStatusHeight
     val maximumHistoryHeight = (availableHeight - minimumComposerHeight - fixedFooterHeight).coerceAtLeast(0.dp)
-    val historyReserve = if (!compact && bot.messages.isNotEmpty()) minOf(160.dp, availableHeight * .45f, maximumHistoryHeight) else 0.dp
+    // Native message metrics differ; this is a bounded reading-space
+    // preference whose actual paint remains independently qualified.
+    val minimumReadableHistory = with(density) { 28.sp.toDp() } + EmbeddedMessageVerticalPadding * 2
+    val candidateHistoryHeight = minOf(160.dp, availableHeight * .45f, maximumHistoryHeight)
+    // A long explanation alone must not erase the conversation. Retain a
+    // useful slice when one complete scaled message line and its insets fit;
+    // the remaining explanation stays in the existing bounded scroll area.
+    val historyReserve = if (bot.messages.isNotEmpty() && candidateHistoryHeight >= minimumReadableHistory)
+        candidateHistoryHeight else 0.dp
     val footerContentHeight = (availableHeight - historyReserve).coerceAtLeast(0.dp)
     // In a short viewport let the field measure its actual first-line
     // intrinsic height, including native font padding at enlarged text sizes.
     // The normal proportional history/status budget must not cap that line.
-    val composerMaxHeight = if (compact) maxOf(minimumComposerHeight, footerContentHeight)
+    val composerMaxHeight = if (compact) maxOf(minimumComposerHeight,
+        footerContentHeight - pinnedRecoveryHeight - reservedStatusHeight)
         else minOf(maxOf(96.dp, minimumComposerHeight),
             (footerContentHeight - fixedFooterHeight).coerceAtLeast(minimumComposerHeight),
             (footerContentHeight * .6f).coerceAtLeast(minimumComposerHeight))
@@ -160,24 +180,35 @@ import java.time.format.FormatStyle
                 onPlan = { model.navigate(Screen.BOT_PLAN) },
                 onRefreshAllowance = { scope.launch { bot.refreshAllowance() } },
                 composerMaxHeight = composerMaxHeight, composerMinHeight = minimumComposerHeight, compactLayout = compact,
+                pinRecoveryAction = pinRecoveryAction, onRecoveryActionHeight = { recoveryActionHeightPx = it },
                 statusKey = statusNotice,
                 statusContent = {
-                    statusNotice?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
+                    statusNotice?.let { Text(it, style = MaterialTheme.typography.bodySmall,
+                        modifier = Modifier.onSizeChanged { measured -> statusNoticeHeightPx = measured.height }) }
                     // Keep informational quota out of the tiny IME status
                     // viewport; errors and recovery still use its scroll area.
-                    if (!compact) bot.allowance?.let { allowance ->
+                    if (bot.allowance?.remaining == 0) bot.allowance?.let { allowance ->
                         Text(stringResource(R.string.bot_allowance_remaining, java.text.NumberFormat.getIntegerInstance().format(allowance.remaining), java.text.NumberFormat.getIntegerInstance().format(allowance.monthly), DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)), style = MaterialTheme.typography.bodySmall)
                     }
                 })
         }
     }) { padding ->
-        LazyColumn(state = list, modifier = Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        BoxWithConstraints(Modifier.fillMaxSize().padding(padding)) {
+        // Passive empty-state copy needs room for at least one complete scaled
+        // line and the list's existing vertical padding. Do not render a glyph
+        // strip in a landscape viewport temporarily owned by the IME.
+        val minimumIntroHeight = with(density) { resolvedComposeLineHeight(MaterialTheme.typography.bodySmall) } + 32.dp
+        val showEmptyIntro = maxHeight >= minimumIntroHeight
+        LazyColumn(state = list, modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
                 if (bot.earlierAvailable) TextButton(onClick = { followingLatest = false; runCatching { bot.earlier() }.onFailure { localError = context.getString(R.string.bot_earlier_open_failed) } }) { Text(stringResource(R.string.ui_561a197a2807)) }
-                else Text(stringResource(R.string.ui_cc39ebccb529), style = MaterialTheme.typography.bodySmall)
+                else if (bot.messages.isNotEmpty() || showEmptyIntro) Text(stringResource(if (bot.messages.isEmpty()) R.string.ui_cc39ebccb529 else R.string.bot_caution), style = MaterialTheme.typography.bodySmall)
             }
             items(bot.messages, key = { it.id }) { message ->
-                Column(Modifier.fillMaxWidth().background(if (message.role == "user") MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp))) {
+                val outgoing = message.role == "user"
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = if (outgoing) Arrangement.End else Arrangement.Start) {
+                    if (outgoing) Spacer(Modifier.width(38.dp))
+                    Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).background(if (outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp))) {
                     ConversationImmersionText(message.text, message.id, immersion, speech, (composing && bot.draft.isNotEmpty()) || list.isScrollInProgress || reportedMessage != null,
                         onVoiceHelp = { runCatching { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }.onFailure { localError = context.getString(R.string.speech_settings_open_failed) } },
                         onTranslationSetup = { model.navigate(Screen.LANGUAGE_DOWNLOAD) },
@@ -186,11 +217,16 @@ import java.time.format.FormatStyle
                             reportText = message.text
                             while (reportText.toByteArray(Charsets.UTF_8).size > 4000) reportText = reportText.dropLast(Character.charCount(reportText.codePointBefore(reportText.length)))
                         }) else null) {
-                        Text(if (message.role == "assistant") stringResource(R.string.ui_f173182378d0) else if (message.status == "unconfirmed") stringResource(R.string.ui_c654d70db3ac) else if (message.status == "rejected") stringResource(R.string.ui_e28ba924e405) else stringResource(R.string.ui_08b041935798), style = MaterialTheme.typography.bodySmall)
+                        if (outgoing && message.status in setOf("unconfirmed", "rejected")) Text(
+                            stringResource(if (message.status == "unconfirmed") R.string.ui_c654d70db3ac else R.string.ui_e28ba924e405),
+                            style = MaterialTheme.typography.bodySmall)
                     }
+                    }
+                    if (!outgoing) Spacer(Modifier.width(38.dp))
                 }
             }
             item(key = "bot-history-bottom") { Spacer(Modifier.height(1.dp)) }
+        }
         }
     }
     }
@@ -217,11 +253,13 @@ import java.time.format.FormatStyle
     busy: Boolean, allowance: BotAllowance?, onSend: () -> Unit, onRetryAccess: () -> Unit,
     onPlan: () -> Unit, onRefreshAllowance: () -> Unit, statusContent: @Composable () -> Unit = {},
     composerMaxHeight: Dp = Dp.Infinity, statusKey: String? = null,
-    composerMinHeight: Dp = 56.dp, compactLayout: Boolean = false) {
+    composerMinHeight: Dp = 56.dp, compactLayout: Boolean = false,
+    pinRecoveryAction: Boolean = !compactLayout, onRecoveryActionHeight: (Int) -> Unit = {}) {
     val statusScroll = rememberScrollState()
     LaunchedEffect(statusKey) { if (statusKey != null) statusScroll.scrollTo(0) }
     val refreshAllowance: @Composable () -> Unit = {
-        if (allowance == null || allowance.remaining == 0) TextButton(onClick = onRefreshAllowance) {
+        if (allowance == null || allowance.remaining == 0) TextButton(onClick = onRefreshAllowance,
+            modifier = Modifier.heightIn(min = 48.dp).onSizeChanged { onRecoveryActionHeight(it.height) }) {
             Text(stringResource(R.string.ui_cf0b3e3d47ec))
         }
     }
@@ -245,15 +283,16 @@ import java.time.format.FormatStyle
                     Text(stringResource(R.string.continue_action))
                 }
             }
-            // In a short IME viewport, recovery shares the existing scroll
-            // area instead of competing with the editable line for height.
-            if (compactLayout) refreshAllowance()
+            // Only a physically short viewport keeps recovery in the scroll;
+            // otherwise the measured existing action remains outside it.
+            if (!pinRecoveryAction) refreshAllowance()
         }
         // Local drafting is available before consent too. Only the explicit
         // Continue action accepts consent; typing never sends or accepts it.
         Row(Modifier.fillMaxWidth().padding(vertical = if (compactLayout) 0.dp else 8.dp), verticalAlignment = Alignment.Bottom,
             horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedTextField(draft, onDraft, placeholder = { Text(stringResource(R.string.ui_9f60f6c0e9e0)) },
+            OutlinedTextField(draft, onDraft, textStyle = MaterialTheme.typography.bodyLarge.copy(textDirection = androidx.compose.ui.text.style.TextDirection.Content),
+                placeholder = { Text(stringResource(R.string.ui_9f60f6c0e9e0)) },
                 maxLines = 5, modifier = Modifier.weight(1f).heightIn(min = composerMinHeight, max = composerMaxHeight).onFocusChanged { onComposingChanged(it.isFocused) }
                     .testTag("bot-message-input"), shape = RoundedCornerShape(24.dp))
             val currentAccess = accessState == AccessCheckState.LOADED && access?.bot?.verificationUnavailable != true &&
@@ -265,7 +304,7 @@ import java.time.format.FormatStyle
                 else Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.ui_4b34e1b08868))
             }
         }
-        if (!compactLayout) refreshAllowance()
+        if (pinRecoveryAction) refreshAllowance()
     }
 }
 

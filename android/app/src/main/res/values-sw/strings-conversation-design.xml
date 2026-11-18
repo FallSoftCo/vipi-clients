@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_find_friend">Tafuta rafiki kwa jina la mtumiaji.</string>
+    <string name="home_bot_description">Roboti ya mazungumzo · Bot mini</string>
+    <string name="bot_caution">vBot inaweza kukosea. Hakiki taarifa muhimu.</string>
+    <string name="lookup_whole_unsupported">Kifaa hiki hakitumii tafsiri ya ujumbe mzima kati ya lugha hizi.</string>
+    <string name="base_plan_summary">Zungumza na marafiki. Maneno yanayotumika hubadilika unaposoma. Bot mini ni mpango tofauti wa hiari.</string>
+</resources>

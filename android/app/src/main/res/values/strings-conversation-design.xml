@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_find_friend">Find a friend by username.</string>
+    <string name="home_bot_description">Chatbot · Bot mini</string>
+    <string name="bot_caution">vBot can make mistakes. Check important details.</string>
+    <string name="lookup_whole_unsupported">Full-message translation isn’t supported for this language pair on this device.</string>
+    <string name="base_plan_summary">Chat with friends. Supported words switch as you read. Bot mini is a separate, optional plan.</string>
+</resources>

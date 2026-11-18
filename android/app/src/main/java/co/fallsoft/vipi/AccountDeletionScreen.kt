@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
@@ -22,7 +21,7 @@ import kotlinx.coroutines.launch
     val context = LocalContext.current
     var confirm by rememberSaveable { mutableStateOf(false) }
     var error by remember { mutableStateOf<String?>(null) }
-    Text(stringResource(R.string.ui_a2e20a335700), fontFamily = FontFamily.Serif, fontSize = 32.sp, modifier = Modifier.semantics { heading() })
+    Text(stringResource(R.string.ui_a2e20a335700), fontSize = 32.sp, modifier = Modifier.semantics { heading() })
     Text(stringResource(R.string.ui_8def6a81a73d))
     Text(stringResource(R.string.deletion_fallsoft_retained))
     Text(stringResource(R.string.ui_fd5e205fa654))
@@ -50,7 +49,7 @@ import kotlinx.coroutines.launch
         Column(Modifier.fillMaxSize().padding(insets).verticalScroll(rememberScrollState()).widthIn(max = 560.dp).padding(28.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)) {
             Text(if (finished) stringResource(R.string.ui_5d670c14e5b1) else if (accepted) stringResource(R.string.ui_33a2ae335a6b) else stringResource(R.string.ui_7ab60595358e),
-                fontFamily = FontFamily.Serif, fontSize = 32.sp, modifier = Modifier.semantics { heading() })
+                fontSize = 32.sp, modifier = Modifier.semantics { heading() })
             Text(if (finished) stringResource(R.string.deletion_completed)
                 else if (accepted) stringResource(R.string.deletion_accepted)
                 else stringResource(R.string.deletion_pending))

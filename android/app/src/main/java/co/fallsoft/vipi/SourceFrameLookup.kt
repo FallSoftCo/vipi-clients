@@ -109,7 +109,13 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
  private fun clauseOrEnd(original:String,end:Int):Boolean {
   var next=end
   while(next<original.length && (original[next]=='\t' || Character.getType(original[next])==Character.SPACE_SEPARATOR.toInt()))next++
-  return next==original.length || original[next] in ".!?。！？,，;；\r\n"
+  return next==original.length || original[next] in ".!?。！？,，、;；\r\n"
+ }
+ private fun boundStandaloneLater(original:String,start:Int,pattern:JSONObject):Boolean {
+  if(source!="ja" || pattern.getString("source")!="後で" || pattern.getString("concept_id")!="candidate-frequency-r01:later")return false
+  var previous=start-1
+  while(previous>=0 && (original[previous]=='\t' || Character.getType(original[previous])==Character.SPACE_SEPARATOR.toInt()))previous--
+  return previous>=0 && original[previous]=='の'
  }
  private fun matches(original:String):List<Hit> {
   val words=LocalImmersion.words(original,source);val sentences=LocalImmersion.sentences(original,source)
@@ -136,6 +142,8 @@ internal class SourceFrameLookup(bytes:ByteArray,manifestBytes:ByteArray,private
       v.optString("right_boundary")=="clause_or_end" && !clauseOrEnd(original,context.end)->"right_boundary"
       cc==null || fc==null->"partial_native_word"
       barrierText.any{it in ".!?。！？;；\r\n"}->"context_barrier"
+      // Retain this semantic hit so its mask also excludes ordinary starter fallback.
+      boundStandaloneLater(original,focus.start,p)->"bound_standalone_later"
       else->null
      }
      hits+=Hit(p,context,focus,cc?:0,fc?:0,id,reason);require(hits.size<=4096)

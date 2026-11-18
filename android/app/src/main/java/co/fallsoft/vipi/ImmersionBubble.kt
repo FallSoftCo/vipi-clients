@@ -189,22 +189,15 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
         }
         speech?.toggle(messageID, spans)
     }
-    Column(Modifier.fillMaxWidth().pointerInput(manual) {
-        detectTapGestures(onTap = { translateWhole() }, onLongPress = { if (embedded) messageActions() })
-    }.background(if (embedded) androidx.compose.ui.graphics.Color.Transparent else MaterialTheme.colorScheme.surface, RoundedCornerShape(23.dp))
-        .padding(start = if (embedded) 15.dp else 20.dp, end = if (embedded) 15.dp else 12.dp,
-            top = if (embedded) EmbeddedMessageVerticalPadding else 20.dp,
-            bottom = if (embedded) EmbeddedMessageVerticalPadding else 6.dp)
-        .onGloballyPositioned {
-            val bounds = it.boundsInWindow()
-            visible = bounds.width > 0 && bounds.height > 0 && bounds.bottom > 0 && bounds.top < root.height && bounds.right > 0 && bounds.left < root.width
-            // boundsInWindow is clipped by ancestors: compare with measured size
-            // before treating a partially scrolled bubble as a complete exposure.
-            exposureVisible = visible && bounds.width >= it.size.width - 1 && bounds.height >= it.size.height - 1 &&
-                bounds.top >= 0 && bounds.bottom <= root.height && bounds.left >= 0 && bounds.right <= root.width
-        }) {
+    // The native TextView owns reserved source/target/reading slot widths. Let
+    // its preferred width size embedded messages; forcing fillMaxWidth here
+    // makes even a short reply a full-width card.
+    val messageBody: @Composable () -> Unit = {
         if (effectiveMode == ReadingMode.IMMERSED) {
-            AndroidView(factory = { StableImmersionText(it) }, modifier = Modifier.fillMaxWidth(), update = {
+            AndroidView(factory = { StableImmersionText(it).apply {
+                if (embedded) layoutParams = android.view.ViewGroup.LayoutParams(
+                    android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
+            } }, modifier = if (embedded) Modifier else Modifier.fillMaxWidth(), update = {
                 it.onWord = { id -> reveal(id) }; it.onSelection = { value -> selecting = value }
                 nativeAnchor.view = WeakReference(it); manual?.bind(it)
                 it.onPlainWord = manual?.let { lookup -> { start, end, view -> ManualSourceCoordinates.resolve(originalMessage ?: result.original, view.displayedOriginal, start, end)?.let { sourceRange -> lookup.begin(sourceRange.startUTF16, sourceRange.endUTF16, view) } } }
@@ -225,8 +218,10 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                 override val spans = emptyList<ImmersionSpan>()
             } }
             AndroidView(factory = { StableImmersionText(it).apply {
+                if (embedded) layoutParams = android.view.ViewGroup.LayoutParams(
+                    android.view.ViewGroup.LayoutParams.WRAP_CONTENT, android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
                 setLineHeight(android.util.TypedValue.applyDimension(android.util.TypedValue.COMPLEX_UNIT_SP, 27f, resources.displayMetrics).toInt())
-            } }, modifier = Modifier.fillMaxWidth(), update = {
+            } }, modifier = if (embedded) Modifier else Modifier.fillMaxWidth(), update = {
                 it.onWord = null; it.onChooseWord = null; it.onSelection = { value -> selecting = value }
                 nativeAnchor.view = WeakReference(it); manual?.bind(it)
                 it.onPlainWord = manual?.takeIf { effectiveMode == ReadingMode.ORIGINAL }?.let { lookup -> { start, end, view -> ManualSourceCoordinates.resolve(originalMessage ?: result.original, view.displayedOriginal, start, end)?.let { sourceRange -> lookup.begin(sourceRange.startUTF16, sourceRange.endUTF16, view) } } }
@@ -243,6 +238,39 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                 Text(if (effectiveMode == ReadingMode.ORIGINAL) result.original else if (script) requireNotNull(completeTranslation) else (fullReading ?: requireNotNull(completeTranslation)), fontSize = 18.sp, lineHeight = 28.sp)
             }
         }
+    }
+    val messageSpeaker: @Composable () -> Unit = {
+        if (speech != null) IconButton(modifier = Modifier.size(48.dp), onClick = { if (manual?.consumeTouchStop() == true) Unit else if (manual != null && (manual.loading || manual.speaking || manual.preparingAudio)) manual.cancel() else if (rawVoiceUnresolved) chooseLanguage = true else if (speech.state == SpeechState.UNAVAILABLE) onVoiceHelp?.invoke() else listen() },
+                enabled = rawVoiceUnresolved || (manual != null && (manual.loading || manual.speaking || manual.preparingAudio)) || (speech.state != SpeechState.PREPARING && (speech.state != SpeechState.UNAVAILABLE || onVoiceHelp != null))) {
+                if (!rawVoiceUnresolved && speech.state == SpeechState.PREPARING && manual?.preparingAudio != true && manual?.loading != true) CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
+                else Icon(if (active || manual?.loading == true || manual?.speaking == true || manual?.preparingAudio == true) Icons.Outlined.Stop else Icons.Outlined.VolumeUp,
+                    stringResource(if (active || manual?.loading == true || manual?.speaking == true || manual?.preparingAudio == true) R.string.ui_cae7d57bc067 else if (rawVoiceUnresolved) R.string.ui_cbf7e254a8c0 else if (speech.state == SpeechState.UNAVAILABLE) R.string.ui_f826885bfb23 else R.string.lookup_play_message), Modifier.size(20.dp))
+            }
+    }
+    Column((if (embedded) Modifier.widthIn(max = 520.dp) else Modifier.fillMaxWidth()).pointerInput(manual) {
+        detectTapGestures(onTap = { translateWhole() }, onLongPress = { if (embedded) messageActions() })
+    }.background(if (embedded) androidx.compose.ui.graphics.Color.Transparent else MaterialTheme.colorScheme.surface, RoundedCornerShape(23.dp))
+        .padding(start = if (embedded) 15.dp else 20.dp, end = if (embedded) 15.dp else 12.dp,
+            top = if (embedded) EmbeddedMessageVerticalPadding else 20.dp,
+            bottom = if (embedded) EmbeddedMessageVerticalPadding else 6.dp)
+        .onGloballyPositioned {
+            val bounds = it.boundsInWindow()
+            visible = bounds.width > 0 && bounds.height > 0 && bounds.bottom > 0 && bounds.top < root.height && bounds.right > 0 && bounds.left < root.width
+            // boundsInWindow is clipped by ancestors: compare with measured size
+            // before treating a partially scrolled bubble as a complete exposure.
+            exposureVisible = visible && bounds.width >= it.size.width - 1 && bounds.height >= it.size.height - 1 &&
+                bounds.top >= 0 && bounds.bottom <= root.height && bounds.left >= 0 && bounds.right <= root.width
+        }) {
+        if (embedded) {
+            Row(verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Column(Modifier.weight(1f, fill = false).heightIn(min = if (speech != null) 48.dp else 0.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically)) {
+                    messageBody()
+                    metadata?.invoke()
+                }
+                messageSpeaker()
+            }
+        } else messageBody()
         if (choosingWord) AlertDialog(onDismissRequest = { choosingWord = false },
             title = { Text(stringResource(R.string.ui_4a3ddf33db23)) },
             text = { LazyColumn { items(result.spans, key = { it.id }) { word ->
@@ -250,14 +278,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
                     Text("${word.original} · ${word.displayedTarget}")
                 }
             } } }, confirmButton = { TextButton(onClick = { choosingWord = false }) { Text(stringResource(R.string.ui_11a6767d5674)) } })
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            if (embedded) { Box(Modifier.weight(1f)) { metadata?.invoke() } }
-            if (embedded && speech != null) IconButton(onClick = { if (manual?.consumeTouchStop() == true) Unit else if (manual != null && (manual.loading || manual.speaking || manual.preparingAudio)) manual.cancel() else if (rawVoiceUnresolved) chooseLanguage = true else if (speech.state == SpeechState.UNAVAILABLE) onVoiceHelp?.invoke() else listen() },
-                enabled = rawVoiceUnresolved || (manual != null && (manual.loading || manual.speaking || manual.preparingAudio)) || (speech.state != SpeechState.PREPARING && (speech.state != SpeechState.UNAVAILABLE || onVoiceHelp != null))) {
-                if (!rawVoiceUnresolved && speech.state == SpeechState.PREPARING && manual?.preparingAudio != true && manual?.loading != true) CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
-                else Icon(if (active || manual?.loading == true || manual?.speaking == true || manual?.preparingAudio == true) Icons.Outlined.Stop else Icons.Outlined.VolumeUp,
-                    stringResource(if (active || manual?.loading == true || manual?.speaking == true || manual?.preparingAudio == true) R.string.ui_cae7d57bc067 else if (rawVoiceUnresolved) R.string.ui_cbf7e254a8c0 else if (speech.state == SpeechState.UNAVAILABLE) R.string.ui_f826885bfb23 else R.string.lookup_play_message), Modifier.size(20.dp))
-            }
+        Row(if (embedded) Modifier else Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             if (!embedded && effectiveMode == ReadingMode.IMMERSED && result.spans.isNotEmpty() && !screenReader) {
                 IconButton(onClick = { paused = !paused; revision++ }, modifier = Modifier.size(44.dp)) {
                     Icon(if (paused) Icons.Outlined.PlayArrow else Icons.Outlined.Pause, if (paused) stringResource(R.string.ui_cc245f2e3a71) else stringResource(R.string.ui_37f6135c049a), Modifier.size(18.dp))

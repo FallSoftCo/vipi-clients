@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_find_friend">Trova un amico tramite il nome utente.</string>
+    <string name="home_bot_description">Chatbot · Bot mini</string>
+    <string name="bot_caution">vBot può sbagliare. Verifica le informazioni importanti.</string>
+    <string name="lookup_whole_unsupported">Questo dispositivo non supporta la traduzione di messaggi interi per questa coppia di lingue.</string>
+    <string name="base_plan_summary">Chatta con gli amici. Le parole supportate cambiano durante la lettura. Bot mini è un piano separato e facoltativo.</string>
+</resources>

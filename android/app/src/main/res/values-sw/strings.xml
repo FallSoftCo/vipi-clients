@@ -221,7 +221,7 @@
     <string name="ui_cc245f2e3a71" formatted="false">Endelea kubadilisha maneno</string>
     <string name="ui_cc39ebccb529" formatted="false">Muulize vBot swali au zungumza kuhusu siku yako. vBot ni roboti ya mazungumzo na inaweza kukosea; hakiki taarifa muhimu.</string>
     <string name="ui_cc9317e2ab2e" formatted="false">Msimbo wa programu ya Vipi una leseni ya AGPL-3.0-only. Unatolewa bila dhamana. Unaweza kuunakili na kuubadilisha chini ya masharti ya leseni. Programu za wahusika wengine zinabaki na leseni zao.</string>
-    <string name="ui_cf0b3e3d47ec" formatted="false">Onyesha kikomo kilichobaki upya</string>
+    <string name="ui_cf0b3e3d47ec" formatted="false">Angalia majibu yaliyobaki</string>
     <string name="ui_d1fc884eb413" formatted="false">Google Play haikuweza kukamilisha ununuzi. Tafadhali jaribu tena.</string>
     <string name="ui_d42ff6022f50" formatted="false">Urejeshe historia ya mazungumzo?</string>
     <string name="ui_d55f942dbeea" formatted="false">Tafsiri imetolewa na Google. Tafsiri zinaweza kuwa na makosa.</string>
@@ -366,11 +366,11 @@
     <string name="account_description">Fungua akaunti au ingia kwenye iliyopo. Marafiki wanakupata kwa jina la mtumiaji, si barua pepe yako.</string>
     <string name="conversations_local">Mazungumzo yako yanabaki kwenye kifaa chako.</string>
     <string name="invite_share_text">Zungumza nami kwenye Vipi. Jina langu la mtumiaji ni @%1$s. %2$s</string>
-    <string name="bot_allowance_check_failed">Hatukuweza kuangalia majibu ya Bot mini yaliyobaki. Jaribu tena.</string>
+    <string name="bot_allowance_check_failed">Majibu ya Bot mini yaliyobaki hayakuweza kuangaliwa. Jaribu tena.</string>
     <string name="bot_device_not_ready">Kifaa hiki hakiko tayari kutuma. Rudi kwenye Mazungumzo ili kuunganisha tena. Rasimu yako imehifadhiwa.</string>
     <string name="bot_device_unauthorized">Kifaa hiki hakina ruhusa tena. Rudi kwenye Mazungumzo ili kuunganisha tena. Ombi hili halijakubaliwa.</string>
-    <string name="bot_allowance_exhausted">Umetumia majibu yote ya Bot mini ya mwezi huu. Sasisha taarifa za majibu yaliyobaki ili kuona lini utapata mengine.</string>
-    <string name="bot_reply_unconfirmed">Hatukuweza kuthibitisha jibu la vBot. Ombi hili halitatumwa tena kiotomatiki. Sasisha taarifa za majibu yaliyobaki kabla ya kutuma ombi jipya.</string>
+    <string name="bot_allowance_exhausted">Umetumia majibu ya Bot mini ya mwezi huu. Angalia majibu yaliyobaki ili kuona yatapatikana tena lini.</string>
+    <string name="bot_reply_unconfirmed">Jibu la vBot halikuweza kuthibitishwa. Ujumbe huu hautatumwa tena kiotomatiki. Angalia majibu yaliyobaki kabla ya kutuma ujumbe mwingine.</string>
     <string name="bot_message_not_saved">Ujumbe wako haukuweza kuhifadhiwa. Haujatumwa.</string>
     <string name="bot_report_received">Taarifa imepokelewa. Asante kwa kutufahamisha.</string>
     <string name="bot_report_unconfirmed">Hatukuweza kuthibitisha taarifa hii. Unaweza kujaribu tena.</string>
@@ -409,7 +409,7 @@
     <string name="welcome_title_concise">Zungumza na marafiki.\nJifunze maneno mapya.</string>
     <string name="welcome_detail_concise">Baadhi ya maneno hubadilika lugha unapozungumza.</string>
     <string name="preview_spanish_title">Jaribu Kihispania kidogo</string>
-    <string name="preview_tap_word">Gusa neno lililoangaziwa ili kulisikia. Kwenye mazungumzo, gusa kiputo ili kutafsiri.</string>
+    <string name="preview_tap_word">Gusa neno lililoangaziwa ili kusikia matamshi yake katika lugha unayojifunza. Kwenye mazungumzo, gusa kiputo ili kutafsiri.</string>
     <string name="languages_title_concise">Lugha zako</string>
     <string name="languages_detail_concise">Ungependa kujifunza lugha gani?</string>
     <string name="languages_change_later">Unaweza kuzibadilisha kwenye Mipangilio.</string>

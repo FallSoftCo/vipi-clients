@@ -6,7 +6,7 @@ import VipiCore
 @MainActor final class BundledSourceFrameCatalog {
     static let indexFile = "all-pair-source-catalog-001.json"
     // Filled only from the compiler's reviewed, frozen index receipt.
-    static let pinnedIndexSHA256: String? = "a0f6f73172cd747a758d677a8c49383fc25591763045a1b0bb77575ba60114a3"
+    static let pinnedIndexSHA256: String? = "16b2198d52dfd0eb780e56669ce7863ae64d8521c960ed902484144917a98e7a"
 
     struct Entry: Decodable {
         let pair, source, target, file, sha256, manifest_file, manifest_sha256: String

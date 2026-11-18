@@ -221,7 +221,7 @@
     <string name="ui_cc245f2e3a71" formatted="false">Retomar troca de palavras</string>
     <string name="ui_cc39ebccb529" formatted="false">Faça uma pergunta ao vBot ou conte como foi seu dia. O vBot é um chatbot e pode errar; confira informações importantes.</string>
     <string name="ui_cc9317e2ab2e" formatted="false">O código-fonte do cliente Vipi está sob AGPL-3.0-only e é fornecido sem garantia. Você pode copiá-lo e modificá-lo conforme a licença. Softwares de terceiros mantêm suas próprias licenças.</string>
-    <string name="ui_cf0b3e3d47ec" formatted="false">Atualizar limite</string>
+    <string name="ui_cf0b3e3d47ec" formatted="false">Verificar respostas restantes</string>
     <string name="ui_d1fc884eb413" formatted="false">O Google Play não conseguiu concluir a compra. Tente novamente.</string>
     <string name="ui_d42ff6022f50" formatted="false">Restaurar histórico de conversas?</string>
     <string name="ui_d55f942dbeea" formatted="false">Tradução do Google. As traduções podem ser imperfeitas.</string>
@@ -362,11 +362,11 @@
     <string name="account_description">Crie uma conta ou entre em uma existente. Seus amigos encontram você pelo nome de utilizador, não pelo e-mail.</string>
     <string name="conversations_local">Suas conversas permanecem no seu dispositivo.</string>
     <string name="invite_share_text">Converse comigo no Vipi. Meu nome de utilizador é @%1$s. %2$s</string>
-    <string name="bot_allowance_check_failed">Não foi possível verificar seu limite do Bot mini. Tente novamente.</string>
+    <string name="bot_allowance_check_failed">Não foi possível verificar as respostas restantes do Bot mini. Tente novamente.</string>
     <string name="bot_device_not_ready">Este dispositivo não está pronto para enviar. Volte a Conversas para reconectar. Seu rascunho está guardado.</string>
     <string name="bot_device_unauthorized">Este dispositivo não está mais autorizado. Volte a Conversas para reconectar. Esta solicitação não foi aceita.</string>
-    <string name="bot_allowance_exhausted">Você usou as respostas do Bot mini deste mês. Atualize seu limite para ver quando ele reinicia.</string>
-    <string name="bot_reply_unconfirmed">Não conseguimos confirmar a resposta do vBot. Esta solicitação não será enviada novamente de forma automática. Atualize seu limite antes de iniciar outra solicitação.</string>
+    <string name="bot_allowance_exhausted">Utilizou as respostas do Bot mini deste mês. Verifique as respostas restantes para saber quando serão renovadas.</string>
+    <string name="bot_reply_unconfirmed">Não foi possível confirmar a resposta do vBot. Esta mensagem não será reenviada automaticamente. Verifique as respostas restantes antes de enviar outra mensagem.</string>
     <string name="bot_message_not_saved">Não foi possível guardar sua mensagem. Ela não foi enviada.</string>
     <string name="bot_report_received">Denúncia recebida. Obrigado por avisar.</string>
     <string name="bot_report_unconfirmed">Não conseguimos confirmar esta denúncia. Você pode tentar novamente.</string>
@@ -409,7 +409,7 @@
     <string name="welcome_title_concise">Conversa com amigos.\nAprende palavras novas.</string>
     <string name="welcome_detail_concise">Algumas palavras mudam de língua enquanto conversas.</string>
     <string name="preview_spanish_title">Experimenta um pouco de espanhol</string>
-    <string name="preview_tap_word">Toca numa palavra destacada para a ouvires. Nas conversas, toca num balão para traduzir.</string>
+    <string name="preview_tap_word">Toca numa palavra destacada para a ouvires na língua que estás a aprender. Nas conversas, toca num balão para traduzir.</string>
     <string name="languages_title_concise">As tuas línguas</string>
     <string name="languages_detail_concise">Que língua gostarias de aprender?</string>
     <string name="languages_change_later">Podes alterá-las nas Definições.</string>

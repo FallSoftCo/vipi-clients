@@ -1215,3 +1215,202 @@ private enum FrozenSourceUnitControl {
         return true
     }
 }
+
+
+// Append to ConversationImmersionTests.swift for the isolated hosted iOS run.
+// Inputs contain source text and expected source focuses only. Nothing below
+// supplies a target translation, provider, detected language, or model status.
+extension ConversationImmersionTests {
+    private struct FrozenConversationCorpus: Decodable {
+        struct Item: Decodable {
+            let id: String
+            let source: String
+            let text: String
+            let targets: [String]?
+            let content_fragments: [String]?
+            let required_focus: String?
+            let forbidden_focus: [String]?
+        }
+        let schema: String
+        let cases: [Item]
+    }
+
+    func testFrozenDefaultConversationAndContextCorpus() async throws {
+        guard let run = ProcessInfo.processInfo.environment["VIPI_CORPUS_RUN"] else {
+            throw XCTSkip("The frozen corpus diagnostic requires an explicitly staged VIPI_CORPUS_RUN")
+        }
+        XCTAssertNotNil(run.range(of: "^[0-9]{3}$", options: .regularExpression))
+        guard run.range(of: "^[0-9]{3}$", options: .regularExpression) != nil else { return }
+        let fm = FileManager.default
+        let documents = try XCTUnwrap(fm.urls(for: .documentDirectory, in: .userDomainMask).first)
+        let inputs = documents.appendingPathComponent("vipi-frozen-corpus-inputs", isDirectory: true)
+        let output = documents.appendingPathComponent("vipi-default-corpus-" + run, isDirectory: true)
+        XCTAssertFalse(fm.fileExists(atPath: output.path), "Inspect the original native capture; use a new run identity")
+        guard !fm.fileExists(atPath: output.path) else { return }
+        let expectedIndex = "16b2198d52dfd0eb780e56669ce7863ae64d8521c960ed902484144917a98e7a"
+        XCTAssertEqual(BundledSourceFrameCatalog.pinnedIndexSHA256, expectedIndex)
+        let resource = try XCTUnwrap(Bundle.main.resourceURL)
+        let indexBytes = try Data(contentsOf: resource.appendingPathComponent("immersion/all-pair-source-catalog-001.json"))
+        XCTAssertEqual(Self.frozenCorpusHash(indexBytes), expectedIndex)
+        guard BundledSourceFrameCatalog.pinnedIndexSHA256 == expectedIndex,
+              Self.frozenCorpusHash(indexBytes) == expectedIndex else { return }
+
+        let specifications: [(name: String, file: String, sha: String, rows: Int, conversation: Bool)] = [
+            ("conversations", "conversation-inputs-r01.json", "6b778aabcf9d3b17b900c31e0fa0c644d048e83ec8f4f9c00b4b95d3dbaf08e0", 330, true),
+            ("contexts", "book-coffee-source-only-qualification-r02.json", "01ddf6782907036cdfad49d76dcb8b75fbf68759f1935e9ac0c1e9c47e3b8e5d", 630, false),
+            ("later", "source-only-probes.json", "8bbfa35996c9281edab8949a611ef36d31843b6b8928eb9b8d60798518847148", 80, false)
+        ]
+        let languages = ["en", "es", "fr", "de", "it", "pt", "ja", "ko", "zh", "ar", "sw"]
+        XCTAssertEqual(Set(languages), SourceFrameLookup.languages)
+        var fixtures: [FrozenConversationCorpus] = []
+        for specification in specifications {
+            let data = try Data(contentsOf: inputs.appendingPathComponent(specification.file))
+            XCTAssertEqual(Self.frozenCorpusHash(data), specification.sha)
+            guard Self.frozenCorpusHash(data) == specification.sha else { return }
+            let fixture = try JSONDecoder().decode(FrozenConversationCorpus.self, from: data)
+            XCTAssertEqual(fixture.schema, specification.conversation ? "vipi-conversation-journey-input-1" : "vipi-context-increment-probes-1")
+            XCTAssertEqual(Set(fixture.cases.map(\.id)).count, fixture.cases.count)
+            XCTAssertEqual(fixture.cases.reduce(0) { $0 + ($1.targets?.count ?? 10) }, specification.rows)
+            for item in fixture.cases {
+                XCTAssertTrue(languages.contains(item.source))
+                XCTAssertFalse(item.text.isEmpty)
+                if let targets = item.targets {
+                    XCTAssertEqual(Set(targets).count, targets.count)
+                    XCTAssertTrue(targets.allSatisfy { languages.contains($0) && $0 != item.source })
+                }
+                for focus in (item.content_fragments ?? []) + (item.forbidden_focus ?? []) + (item.required_focus.map { [$0] } ?? []) {
+                    XCTAssertFalse(focus.isEmpty)
+                    XCTAssertTrue(item.text.contains(focus))
+                }
+            }
+            fixtures.append(fixture)
+        }
+        try fm.createDirectory(at: output, withIntermediateDirectories: false)
+        var totalViolations = 0
+        let started = ProcessInfo.processInfo.systemUptime
+        for (specification, fixture) in zip(specifications, fixtures) {
+            let destination = output.appendingPathComponent(specification.name + "-outcomes.jsonl")
+            XCTAssertTrue(fm.createFile(atPath: destination.path, contents: nil))
+            let handle = try FileHandle(forWritingTo: destination)
+            defer { try? handle.close() }
+            var rows = 0, withSpans = 0, withContent = 0, violations = 0
+            for source in languages {
+                let cases = fixture.cases.filter { $0.source == source }
+                if cases.isEmpty { continue }
+                for target in languages where target != source {
+                    let selected = cases.filter { $0.targets?.contains(target) ?? true }
+                    if selected.isEmpty { continue }
+                    let owner = ConversationImmersion()
+                    await owner.configure(pair: .init(source: source, target: target), density: 0.35)
+                    defer { owner.close() }
+                    for item in selected {
+                        var failures: [String] = []
+                        func expect(_ condition: Bool, _ description: String) {
+                            if !condition { failures.append(description); violations += 1 }
+                        }
+                        let begin = ProcessInfo.processInfo.systemUptime
+                        let result = await owner.result(for: item.text, messageID: item.id)
+                        let elapsed = (ProcessInfo.processInfo.systemUptime - begin) * 1000
+                        let outcome = owner.lastOutcome
+                        expect(outcome != nil, "Missing observable default outcome")
+                        expect(outcome?.status == .ready || outcome?.status == .partial || outcome?.status == .noLocalMatch, "Default lookup returned an unexpected error or invalid state")
+                        expect(outcome?.resolvedInputLanguage == source, "Default source identification differs")
+                        expect(outcome?.localTranslationCalls == 0, "Automatic lookup invoked translation or omitted telemetry")
+                        expect(outcome?.modelReadinessCalls == 0, "Automatic lookup consulted model readiness or omitted telemetry")
+                        expect(result == nil || result?.original.utf8.elementsEqual(item.text.utf8) == true, "Original source bytes changed")
+                        let spans = result?.spans ?? []
+                        if let required = item.required_focus {
+                            expect(spans.contains { $0.original == required }, "Required content word absent: " + required)
+                        }
+                        for forbidden in item.forbidden_focus ?? [] {
+                            expect(!spans.contains { $0.original == forbidden }, "Forbidden source word admitted: " + forbidden)
+                        }
+                        let text = item.text as NSString
+                        let contentRanges = (item.content_fragments ?? []).map { text.range(of: $0) }
+                        var previousEnd = 0, content = false, validRanges = true
+                        var entries: [[String: Any]] = []
+                        for span in spans {
+                            let range = span.range
+                            let valid = range.location >= previousEnd && range.location <= text.length &&
+                                range.length > 0 && range.length <= text.length - range.location && Range(range, in: item.text) != nil
+                            expect(valid, "Invalid or overlapping UTF16 source range")
+                            if valid {
+                                expect(text.substring(with: range).utf8.elementsEqual(span.original.utf8), "Source range bytes do not match original")
+                                content = content || contentRanges.contains { $0.location != NSNotFound && range.location <= $0.location && NSMaxRange(range) >= NSMaxRange($0) }
+                                previousEnd = NSMaxRange(range)
+                            } else { validRanges = false }
+                            expect(!span.translated.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, "Empty target word")
+                            if ["ar", "ja", "ko", "zh"].contains(target) {
+                                expect(!(span.romanization?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true), "Missing required reading")
+                            }
+                            if target == "zh", span.translated.range(of: "\\p{Han}", options: .regularExpression) != nil {
+                                expect((span.romanization ?? "").contains { "āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ".contains($0) }, "Chinese reading lost tone marks")
+                            }
+                            entries.append(["original": span.original, "translated": span.translated,
+                                "reading": span.romanization as Any? ?? NSNull(),
+                                "start": range.location, "end": NSMaxRange(range)])
+                        }
+                        let row: [String: Any] = ["id": item.id, "source_language": source,
+                            "target_language": target, "original": item.text, "elapsed_ms": elapsed,
+                            "status": outcome?.status.rawValue as Any? ?? NSNull(),
+                            "origin": outcome?.origin?.rawValue as Any? ?? NSNull(),
+                            "resolved_input_language": outcome?.resolvedInputLanguage as Any? ?? NSNull(),
+                            "translation_calls": outcome?.localTranslationCalls as Any? ?? NSNull(),
+                            "readiness_calls": outcome?.modelReadinessCalls as Any? ?? NSNull(),
+                            "spans": entries, "content_anchor_selected": content,
+                            "mixed_script": validRanges ? Self.frozenCorpusProjection(result, original: item.text, script: true) : item.text,
+                            "mixed_reading": validRanges ? Self.frozenCorpusProjection(result, original: item.text, script: false) : item.text,
+                            "structural_failures": failures, "failures": failures]
+                        var bytes = try JSONSerialization.data(withJSONObject: row, options: [.sortedKeys])
+                        bytes.append(0x0A)
+                        try handle.write(contentsOf: bytes)
+                        rows += 1
+                        if !spans.isEmpty { withSpans += 1 }
+                        if content { withContent += 1 }
+                        XCTAssertLessThan(try handle.offset(), 8 * 1024 * 1024)
+                        guard ProcessInfo.processInfo.systemUptime - started < 600 else {
+                            XCTFail("Bounded native corpus deadline exceeded; retain partial output")
+                            return
+                        }
+                    }
+                }
+            }
+            try handle.synchronize()
+            let summary: [String: Any] = ["complete": true, "rows": rows, "expected_rows": specification.rows,
+                "violations": violations, "structural_violations": violations, "with_spans": withSpans,
+                "with_content_anchor": withContent, "input_sha256": specification.sha,
+                "output_sha256": Self.frozenCorpusHash(try Data(contentsOf: destination)),
+                "index_sha256": expectedIndex, "platform": "ios-native-hosted",
+                "target_provider_or_span_injected": false, "representative_coverage": false,
+                "linguistic_acceptance": false, "physical_or_acoustic_acceptance": false]
+            let bytes = try JSONSerialization.data(withJSONObject: summary, options: [.sortedKeys, .prettyPrinted])
+            try bytes.write(to: output.appendingPathComponent(specification.name + "-summary.json"), options: .atomic)
+            let attachment = XCTAttachment(data: bytes, uniformTypeIdentifier: "public.json")
+            attachment.name = "default-corpus-" + specification.name + "-" + run
+            attachment.lifetime = .keepAlways; add(attachment)
+            XCTAssertEqual(rows, specification.rows)
+            totalViolations += violations
+        }
+        XCTAssertEqual(totalViolations, 0, "Inspect every retained native failure; no target or language override is permitted")
+    }
+
+    private static func frozenCorpusHash(_ bytes: Data) -> String {
+        SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined()
+    }
+
+    private static func frozenCorpusProjection(_ result: ImmersionPresentation?, original: String, script: Bool) -> String {
+        guard let result else { return original }
+        let text = original as NSString
+        var cursor = 0
+        var runs: [ImmersionCopyRun] = []
+        for span in result.spans {
+            if cursor < span.range.location {
+                runs.append(.init(text: text.substring(with: .init(location: cursor, length: span.range.location - cursor))))
+            }
+            runs.append(ImmersionCopyText.run(for: span, in: result, showingOriginal: false, script: script))
+            cursor = NSMaxRange(span.range)
+        }
+        if cursor < text.length { runs.append(.init(text: text.substring(from: cursor))) }
+        return ImmersionCopyText.compose(runs)
+    }
+}

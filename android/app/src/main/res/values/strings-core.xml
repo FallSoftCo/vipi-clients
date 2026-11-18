@@ -186,7 +186,7 @@
     <string name="ui_cc245f2e3a71" formatted="false">Resume word switching</string>
     <string name="ui_cc39ebccb529" formatted="false">Ask vBot a question or talk about your day. vBot is a chatbot and can make mistakes; check important details.</string>
     <string name="ui_cc9317e2ab2e" formatted="false">Vipi client source is licensed under AGPL-3.0-only. It is provided without warranty. You may copy and modify it under the license terms. Third-party software keeps its own licenses.</string>
-    <string name="ui_cf0b3e3d47ec" formatted="false">Refresh allowance</string>
+    <string name="ui_cf0b3e3d47ec" formatted="false">Check remaining replies</string>
     <string name="ui_d1fc884eb413" formatted="false">Google Play couldn’t complete the purchase. Please try again.</string>
     <string name="ui_d42ff6022f50" formatted="false">Restore chat history?</string>
     <string name="ui_d55f942dbeea" formatted="false">Translation by Google. Translations can be imperfect.</string>

@@ -52,6 +52,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.core.view.WindowCompat
 
@@ -176,7 +178,7 @@ class MainActivity : ComponentActivity() {
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->
         Box(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding(), contentAlignment = Alignment.TopCenter) {
-        Column(Modifier.fillMaxHeight().widthIn(max = 680.dp).fillMaxWidth().padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(if (model.screen == Screen.LANGUAGE) 16.dp else 24.dp)) {
+        Column(Modifier.fillMaxHeight().widthIn(max = 680.dp).fillMaxWidth().padding(horizontal = if (model.screen == Screen.HOME) 20.dp else 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(if (model.screen == Screen.LANGUAGE) 16.dp else 24.dp)) {
             TopBar(model)
             when (model.screen) {
                 Screen.WELCOME -> Welcome(scrollState.isScrollInProgress)
@@ -212,10 +214,19 @@ class MainActivity : ComponentActivity() {
     Row(Modifier.fillMaxWidth().padding(top = 12.dp), verticalAlignment = Alignment.CenterVertically) {
         if (model.screen !in setOf(Screen.WELCOME, Screen.HOME)) {
             IconButton(onClick = { model.back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) }
-        } else { VipiMark(34); Spacer(Modifier.width(10.dp)) }
-        Text(stringResource(R.string.ui_2f7e29fbc47d), fontSize = 27.sp, letterSpacing = (-1).sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false)
+        } else if (model.screen == Screen.WELCOME) { VipiMark(34); Spacer(Modifier.width(10.dp)) }
+        Text(stringResource(when (model.screen) {
+            Screen.HOME -> R.string.nav_chats
+            Screen.NEW_CHAT -> R.string.nav_new_chat
+            Screen.PLANS -> R.string.nav_plan
+            Screen.BOT_PLAN -> R.string.ui_ff245b368781
+            else -> R.string.ui_2f7e29fbc47d
+        }), fontSize = 27.sp, letterSpacing = (-1).sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false)
         Spacer(Modifier.weight(1f))
-        if (model.screen == Screen.HOME) IconButton(onClick = { model.navigate(Screen.SETTINGS) }) { Icon(Icons.Outlined.AccountCircle, stringResource(R.string.nav_settings)) }
+        if (model.screen == Screen.HOME) {
+            IconButton(onClick = { model.navigate(Screen.SETTINGS) }) { Icon(Icons.Outlined.AccountCircle, stringResource(R.string.nav_settings)) }
+            IconButton(onClick = { model.navigate(Screen.NEW_CHAT) }, enabled = model.chat?.ready == true) { Icon(Icons.Outlined.Edit, stringResource(R.string.nav_new_chat)) }
+        }
         if (model.screen in setOf(Screen.LANGUAGE, Screen.ACCOUNT)) {
             val fullStep = if (model.screen == Screen.LANGUAGE) stringResource(R.string.ui_00e255330e43) else stringResource(R.string.ui_de6e21a278c4)
             val shortStep = if (model.screen == Screen.LANGUAGE) "1 / 2" else "2 / 2"
@@ -326,7 +337,7 @@ class MainActivity : ComponentActivity() {
             }
             if (largeText) Column(verticalArrangement = Arrangement.spacedBy(4.dp)) { legalLinks() }
             else Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) { legalLinks() }
-            model.authentication.error?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.error) }
+            model.authentication.error?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error) }
         }
         PrimaryButton(when (model.screen) { Screen.WELCOME -> stringResource(R.string.choose_languages); Screen.LANGUAGE -> stringResource(R.string.continue_action); else -> stringResource(R.string.continue_signin) }, enabled = model.screen != Screen.ACCOUNT || accepted, busy = model.authentication.busy) {
             when (model.screen) { Screen.WELCOME -> model.navigate(Screen.LANGUAGE); Screen.LANGUAGE -> model.navigate(Screen.ACCOUNT); else -> model.authentication.signIn(context) }
@@ -342,15 +353,13 @@ class MainActivity : ComponentActivity() {
     if (chat?.needsReauthentication == true && !chat.needsDeviceRecovery) ReauthenticationCard(chat, model.authentication.busy, model.authentication.error) { expected -> model.authentication.signIn(context, expectedUser = expected) }
     if (chat?.needsDeviceRecovery == true) DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) }
     if (model.authentication.userID != null && chat?.needsDeviceRecovery != true && chat?.needsReauthentication != true && (chat?.ready != true || model.chatError != null)) {
-        Text(stringResource(R.string.ui_b68710eee013), fontSize = 30.sp)
-        Text(model.chatError ?: chat?.notice ?: stringResource(R.string.conversations_local), color = MaterialTheme.colorScheme.onSurfaceVariant)
-        if (chat?.busy == true) CircularProgressIndicator()
-        else PrimaryButton(stringResource(R.string.ui_d8b8392e2c54)) { scope.launch { model.activateChats() } }
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (chat?.busy == true) Text(stringResource(R.string.ui_b68710eee013), style = MaterialTheme.typography.titleMedium)
+            Text(model.chatError ?: chat?.notice ?: stringResource(R.string.conversations_local), color = MaterialTheme.colorScheme.onSurfaceVariant)
+            if (chat?.busy == true) CircularProgressIndicator(Modifier.size(24.dp))
+            else TextButton(onClick = { scope.launch { model.activateChats() } }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.ui_d8b8392e2c54)) }
+        }
         return
-    }
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(stringResource(R.string.nav_chats), fontSize = 34.sp, modifier = Modifier.weight(1f))
-        IconButton(onClick = { model.navigate(Screen.NEW_CHAT) }, enabled = chat?.ready == true) { Icon(Icons.Outlined.Edit, stringResource(R.string.nav_new_chat)) }
     }
     if (chat != null && chat.threads.isNotEmpty()) {
         chat.threads.forEach { thread ->
@@ -363,19 +372,19 @@ class MainActivity : ComponentActivity() {
                 if (thread.unread > 0) Badge { Text(thread.unread.toString()) }
             }
         }
-    } else Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface, RoundedCornerShape(28.dp)).padding(26.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-        VipiMark(54)
-        Text(stringResource(R.string.ui_47b7a66139f1), fontSize = 28.sp, lineHeight = 35.sp)
-        Text(stringResource(R.string.chat_empty_target, languageName(model.targetLanguage)), lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    } else Column(Modifier.fillMaxWidth().padding(top = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.ui_47b7a66139f1).replace("\n", " "), fontSize = 24.sp, lineHeight = 30.sp, fontWeight = FontWeight.SemiBold)
+        Text(stringResource(R.string.home_find_friend), fontSize = 17.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Spacer(Modifier.height(8.dp))
         PrimaryButton(stringResource(R.string.ui_258150cb3ee4), enabled = chat?.ready == true) { model.navigate(Screen.NEW_CHAT) }
     }
     chat?.notice?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    if (chat?.ready == true && chat.threads.isNotEmpty()) NotificationSetup()
     Row(Modifier.fillMaxWidth().clickable { model.openBot() }.padding(vertical = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-        Icon(Icons.Outlined.AutoAwesome, null, Modifier.size(50.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(18.dp)).padding(13.dp), tint = MaterialTheme.colorScheme.primary)
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) { Text(stringResource(R.string.ui_f173182378d0), fontWeight = FontWeight.SemiBold); Text(stringResource(R.string.ui_af0bd5582e73), fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        Icon(Icons.Outlined.AutoAwesome, null, Modifier.size(48.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(24.dp)).padding(12.dp), tint = MaterialTheme.colorScheme.primary)
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) { Text(stringResource(R.string.ui_f173182378d0), fontWeight = FontWeight.SemiBold); Text(stringResource(R.string.home_bot_description), fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
         Icon(Icons.Outlined.ChevronRight, null)
     }
+    if (chat?.ready == true && chat.threads.isNotEmpty()) NotificationSetup()
 }
 
 @Composable private fun NewChatView(model: VipiModel) {
@@ -395,26 +404,32 @@ class MainActivity : ComponentActivity() {
     LaunchedEffect(usernameFocused, imeBottom) {
         if (usernameFocused && imeBottom > 0) { withFrameNanos { }; usernameField.bringIntoView() }
     }
-    InviteFriendButton(model)
-    Heading(stringResource(R.string.ui_93f7902d8131), stringResource(R.string.ui_59eb2538907f), stringResource(R.string.ui_e131c9a64a5b))
-    Column(Modifier.fillMaxWidth().bringIntoViewRequester(form), verticalArrangement = Arrangement.spacedBy(24.dp)) {
-    OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text(stringResource(R.string.ui_8a74ed1b7a84)) }, singleLine = true,
-        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false),
-        modifier = Modifier.fillMaxWidth().bringIntoViewRequester(usernameField).onFocusChanged { usernameFocused = it.isFocused }, shape = RoundedCornerShape(16.dp))
-    PrimaryButton(stringResource(R.string.ui_ba6e8c9b0c3e), enabled = username.isNotBlank(), busy = busy) {
+    fun findFriend() {
+        if (username.isBlank() || busy) return
+        val requestedUsername = username
         keyboard?.hide()
         val chat = model.chat
         if (chat == null) error = context.getString(R.string.friends_sign_in_required)
-        else scope.launch {
+        else {
             busy = true; error = null
-            try { model.openConversation(chat.find(username).id) }
-            catch (failure: kotlinx.coroutines.CancellationException) { throw failure }
-            catch (failure: Exception) { error = ChatSession.explanation(context, failure) }
-            finally { busy = false }
+            scope.launch {
+                try { model.openConversation(chat.find(requestedUsername).id) }
+                catch (failure: kotlinx.coroutines.CancellationException) { throw failure }
+                catch (failure: Exception) { error = ChatSession.explanation(context, failure) }
+                finally { busy = false }
+            }
         }
     }
+    Text(stringResource(R.string.ui_e131c9a64a5b), style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    Column(Modifier.fillMaxWidth().bringIntoViewRequester(form), verticalArrangement = Arrangement.spacedBy(24.dp)) {
+    OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text(stringResource(R.string.ui_8a74ed1b7a84)) }, singleLine = true,
+        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false, imeAction = ImeAction.Search),
+        keyboardActions = KeyboardActions(onSearch = { findFriend() }),
+        modifier = Modifier.fillMaxWidth().bringIntoViewRequester(usernameField).onFocusChanged { usernameFocused = it.isFocused }, shape = RoundedCornerShape(16.dp))
+    PrimaryButton(stringResource(R.string.ui_ba6e8c9b0c3e), enabled = username.isNotBlank(), busy = busy, onClick = ::findFriend)
     error?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
+    InviteFriendButton(model)
 }
 
 @Composable private fun BotView(model: VipiModel) {
@@ -475,7 +490,7 @@ class MainActivity : ComponentActivity() {
     Column {
         Row { Text(stringResource(R.string.new_words)); Spacer(Modifier.weight(1f)); Text("${(density * 100).toInt()}%") }
         Slider(value = density.toFloat(), onValueChange = { onChange(it.toDouble()) }, valueRange = 0f..0.75f, steps = 14, modifier = Modifier.semantics { contentDescription = amountDescription })
-        Text(if (density == 0.0) stringResource(R.string.new_words_off) else stringResource(R.string.new_words_description), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Text(if (density == 0.0) stringResource(R.string.new_words_off) else stringResource(R.string.new_words_description), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 

@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -41,19 +40,29 @@ import kotlinx.coroutines.delay
         }
     }
     fun open(url: String) { try { uri.openUri(url) } catch (_: Exception) { linkError = context.getString(R.string.plan_link_error) } }
-    Text(if (plan == SubscriptionPlan.BASE) stringResource(R.string.ui_42f4f8b469bb) else stringResource(R.string.ui_f80c9ded3433), fontFamily = FontFamily.Serif, fontSize = 30.sp, lineHeight = 36.sp)
-    Text(if (plan == SubscriptionPlan.BASE) stringResource(R.string.base_plan_description)
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    val benefits: @Composable () -> Unit = {
+    Text(if (plan == SubscriptionPlan.BASE) stringResource(R.string.base_plan_summary)
         else stringResource(R.string.bot_plan_description), lineHeight = 23.sp)
     if (plan == SubscriptionPlan.BOT_MINI) Text(stringResource(R.string.ui_c518ff733bfe), style = MaterialTheme.typography.bodyMedium)
     if (plan == SubscriptionPlan.BOT_MINI) {
+        botAllowance?.let { allowance ->
+            Text(stringResource(R.string.bot_allowance_remaining,
+                NumberFormat.getIntegerInstance().format(allowance.remaining),
+                NumberFormat.getIntegerInstance().format(allowance.monthly),
+                DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)),
+                style = MaterialTheme.typography.bodyMedium)
+        }
         val amount = botAllowance?.takeIf { it.serviceReady }?.monthly?.takeIf { it > 0 }
         Text(if (amount != null) androidx.compose.ui.res.pluralStringResource(R.plurals.bot_monthly_allowance, amount, NumberFormat.getIntegerInstance().format(amount))
             else stringResource(R.string.bot_allowance_unavailable), style = MaterialTheme.typography.bodyMedium)
     }
+    }
     if (subscriptions == null) {
+        benefits()
         Text(stringResource(R.string.ui_28e67a870e46))
         Button(onClick = { model.navigate(Screen.ACCOUNT) }) { Text(stringResource(R.string.nav_sign_in)) }
-        return
+        return@Column
     }
     val snapshot = subscriptions.access
     val access = if (plan == SubscriptionPlan.BASE) snapshot?.base else snapshot?.bot
@@ -91,6 +100,7 @@ import kotlinx.coroutines.delay
     } else if (accessUnknown) {
         Text(requireNotNull(statusMessage), style = MaterialTheme.typography.bodyMedium)
     } else if (offer != null) {
+        benefits()
         Text(if (offer.oneMonthTrial) stringResource(R.string.trial_then_annual, offer.annualPrice) else stringResource(R.string.annual_price, offer.annualPrice), fontWeight = FontWeight.SemiBold, fontSize = 20.sp)
         Text(if (offer.oneMonthTrial) stringResource(R.string.play_trial_renewal_description)
             else if (plan == SubscriptionPlan.BASE) stringResource(R.string.annual_renewal_description)
@@ -119,14 +129,19 @@ import kotlinx.coroutines.delay
     if (subscriptions.busy) CircularProgressIndicator(Modifier.size(24.dp))
     if (snapshot != null && !snapshot.purchasesReady) Text(stringResource(R.string.ui_825bf52ce678), style = MaterialTheme.typography.bodySmall)
     subscriptions.notice?.takeUnless { it == statusMessage }?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    TextButton(onClick = { scope.launch { subscriptions.refresh() } }, enabled = !subscriptions.busy && !subscriptions.purchasing) { Text(stringResource(R.string.ui_3ceeccf6b3ff)) }
-    TextButton(onClick = { open("https://play.google.com/store/account/subscriptions") }) { Text(stringResource(R.string.ui_02d207068808)) }
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        TextButton(onClick = { scope.launch { subscriptions.refresh() } }, enabled = !subscriptions.busy && !subscriptions.purchasing,
+            modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.ui_3ceeccf6b3ff)) }
+        TextButton(onClick = { open("https://play.google.com/store/account/subscriptions") }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.ui_02d207068808)) }
+    }
+    if (accessUnknown || access?.usable(now) == true || offer == null) benefits()
     Text(stringResource(R.string.ui_57225bd8b984), style = MaterialTheme.typography.bodySmall)
     Row {
         TextButton(onClick = { open("https://api.mambovipi.app/terms") }) { Text(stringResource(R.string.nav_terms)) }
         TextButton(onClick = { open("https://api.mambovipi.app/privacy") }) { Text(stringResource(R.string.nav_privacy)) }
     }
     linkError?.let { Text(it) }
+    }
 }
 
 /** Shared by the normal plan screen and isolated native UI qualification. */

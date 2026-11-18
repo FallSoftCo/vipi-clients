@@ -259,7 +259,7 @@
     <string name="ui_c011d6097bfb" formatted="false">ライセンス</string>
     <string name="ui_c6046d416aaf" formatted="false">vBotへ進む</string>
     <string name="ui_cc245f2e3a71" formatted="false">単語の切り替えを再開</string>
-    <string name="ui_cf0b3e3d47ec" formatted="false">利用枠を更新</string>
+    <string name="ui_cf0b3e3d47ec" formatted="false">残りの返信数を確認</string>
     <string name="ui_d42ff6022f50" formatted="false">チャット履歴を復元しますか？</string>
     <string name="ui_de6e21a278c4" formatted="false">アカウント · 2 / 2</string>
     <string name="ui_dfe40efe921f" formatted="false">更新中…</string>
@@ -290,11 +290,11 @@
     <string name="bot_allowance_remaining">返信は%2$s件中%1$s件残り · 更新：%3$s</string>
     <string name="account_heading">サインインして\n友達とチャット。</string>
     <string name="invite_share_text">Vipiで一緒にチャットしましょう。ユーザー名は @%1$s です。%2$s</string>
-    <string name="bot_allowance_check_failed">Bot miniの利用枠を確認できませんでした。もう一度お試しください。</string>
+    <string name="bot_allowance_check_failed">Bot miniの残りの返信数を確認できませんでした。もう一度お試しください。</string>
     <string name="bot_device_not_ready">このデバイスは送信できる状態ではありません。再接続するにはチャットに戻ってください。下書きは保存されています。</string>
     <string name="bot_device_unauthorized">このデバイスは認証されていません。再接続するにはチャットに戻ってください。このリクエストは受け付けられていません。</string>
-    <string name="bot_allowance_exhausted">今月のBot miniの返信を使い切りました。利用枠を更新して次の更新日時を確認してください。</string>
-    <string name="bot_reply_unconfirmed">vBotの返信を確認できませんでした。このリクエストは自動的に再送されません。新しいリクエストの前に利用枠を更新してください。</string>
+    <string name="bot_allowance_exhausted">今月のBot miniの返信を使い切りました。残りの返信数を確認して、更新日をご確認ください。</string>
+    <string name="bot_reply_unconfirmed">vBotの返信を確認できませんでした。このメッセージが自動で再送されることはありません。次のメッセージを送る前に、残りの返信数を確認してください。</string>
     <string name="bot_message_not_saved">メッセージを保存できませんでした。送信されていません。</string>
     <string name="bot_report_received">報告を受け付けました。お知らせいただきありがとうございます。</string>
     <string name="bot_report_unconfirmed">報告を確認できませんでした。再試行できます。</string>
@@ -406,7 +406,7 @@
     <string name="welcome_title_concise">友達とチャット。\n新しい単語を学ぼう。</string>
     <string name="welcome_detail_concise">チャット中に、一部の単語が別の言語に切り替わります。</string>
     <string name="preview_spanish_title">スペイン語を少し体験</string>
-    <string name="preview_tap_word">ハイライトされた単語をタップすると音声が流れます。チャットでは、吹き出しをタップすると翻訳されます。</string>
+    <string name="preview_tap_word">ハイライトされた単語をタップすると、学習中の言語での発音を聞けます。チャットでは、吹き出しをタップすると翻訳されます。</string>
     <string name="languages_title_concise">使う言語</string>
     <string name="languages_detail_concise">どの言語を学びたいですか？</string>
     <string name="languages_change_later">設定でいつでも変更できます。</string>

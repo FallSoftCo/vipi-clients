@@ -259,7 +259,7 @@
     <string name="ui_c011d6097bfb" formatted="false">라이선스</string>
     <string name="ui_c6046d416aaf" formatted="false">vBot으로 이동</string>
     <string name="ui_cc245f2e3a71" formatted="false">단어 전환 재개</string>
-    <string name="ui_cf0b3e3d47ec" formatted="false">이용량 새로고침</string>
+    <string name="ui_cf0b3e3d47ec" formatted="false">남은 답변 확인</string>
     <string name="ui_d42ff6022f50" formatted="false">대화 기록을 복원할까요?</string>
     <string name="ui_de6e21a278c4" formatted="false">계정 · 2/2</string>
     <string name="ui_dfe40efe921f" formatted="false">업데이트 중…</string>
@@ -290,11 +290,11 @@
     <string name="bot_allowance_remaining">답변 %2$s개 중 %1$s개 남음 · 갱신 %3$s</string>
     <string name="account_heading">로그인하고 친구와\n대화하세요.</string>
     <string name="invite_share_text">Vipi에서 저와 대화해요. 제 사용자 이름은 @%1$s입니다. %2$s</string>
-    <string name="bot_allowance_check_failed">Bot mini 이용량을 확인할 수 없습니다. 다시 시도하세요.</string>
+    <string name="bot_allowance_check_failed">Bot mini의 남은 답변 수를 확인할 수 없었습니다. 다시 시도하세요.</string>
     <string name="bot_device_not_ready">이 기기는 전송할 준비가 되지 않았습니다. 다시 연결하려면 대화로 돌아가세요. 초안은 저장되었습니다.</string>
     <string name="bot_device_unauthorized">이 기기는 더 이상 승인되지 않았습니다. 다시 연결하려면 대화로 돌아가세요. 이 요청은 수락되지 않았습니다.</string>
-    <string name="bot_allowance_exhausted">이번 달 Bot mini 답변을 모두 사용했습니다. 이용량을 새로고침해 갱신 시점을 확인하세요.</string>
-    <string name="bot_reply_unconfirmed">vBot의 답변을 확인할 수 없습니다. 이 요청은 자동으로 다시 전송되지 않습니다. 새 요청을 시작하기 전에 이용량을 새로고침하세요.</string>
+    <string name="bot_allowance_exhausted">이번 달 Bot mini 답변을 모두 사용했습니다. 남은 답변을 확인해 갱신일을 알아보세요.</string>
+    <string name="bot_reply_unconfirmed">vBot의 답변을 확인할 수 없었습니다. 이 메시지는 자동으로 다시 전송되지 않습니다. 다른 메시지를 보내기 전에 남은 답변 수를 확인하세요.</string>
     <string name="bot_message_not_saved">메시지를 저장할 수 없습니다. 전송되지 않았습니다.</string>
     <string name="bot_report_received">신고가 접수되었습니다. 알려 주셔서 감사합니다.</string>
     <string name="bot_report_unconfirmed">이 신고를 확인할 수 없습니다. 다시 시도할 수 있습니다.</string>
@@ -406,7 +406,7 @@
     <string name="welcome_title_concise">친구와 채팅하세요.\n새로운 단어를 배우세요.</string>
     <string name="welcome_detail_concise">채팅하는 동안 일부 단어가 다른 언어로 바뀌어요.</string>
     <string name="preview_spanish_title">스페인어를 조금 만나 보세요</string>
-    <string name="preview_tap_word">강조된 단어를 누르면 소리를 들을 수 있어요. 채팅에서는 말풍선을 누르면 번역돼요.</string>
+    <string name="preview_tap_word">강조된 단어를 누르면 학습 중인 언어로 발음을 들을 수 있어요. 채팅에서는 말풍선을 누르면 번역돼요.</string>
     <string name="languages_title_concise">사용할 언어</string>
     <string name="languages_detail_concise">어떤 언어를 배우고 싶으세요?</string>
     <string name="languages_change_later">설정에서 언제든 바꿀 수 있어요.</string>

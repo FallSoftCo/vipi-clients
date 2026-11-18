@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_find_friend">اعثر على صديق باسم المستخدم.</string>
+    <string name="home_bot_description">روبوت محادثة · Bot mini</string>
+    <string name="bot_caution">قد يخطئ vBot. تحقّق من المعلومات المهمة.</string>
+    <string name="lookup_whole_unsupported">لا يدعم هذا الجهاز ترجمة الرسالة كاملةً بين هاتين اللغتين.</string>
+    <string name="base_plan_summary">دردش مع الأصدقاء. تتبدّل الكلمات المدعومة أثناء القراءة. Bot mini خطة منفصلة واختيارية.</string>
+</resources>

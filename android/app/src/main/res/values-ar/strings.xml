@@ -259,7 +259,7 @@
     <string name="ui_c011d6097bfb" formatted="false">الترخيص</string>
     <string name="ui_c6046d416aaf" formatted="false">المتابعة إلى vBot</string>
     <string name="ui_cc245f2e3a71" formatted="false">استئناف تبديل الكلمات</string>
-    <string name="ui_cf0b3e3d47ec" formatted="false">تحديث الحصة</string>
+    <string name="ui_cf0b3e3d47ec" formatted="false">التحقّق من الردود المتبقية</string>
     <string name="ui_d42ff6022f50" formatted="false">استعادة سجل المحادثات؟</string>
     <string name="ui_de6e21a278c4" formatted="false">الحساب · 2 من 2</string>
     <string name="ui_dfe40efe921f" formatted="false">جارٍ التحديث…</string>
@@ -290,11 +290,11 @@
     <string name="bot_allowance_remaining">متبقٍ %1$s من %2$s من الردود · يتجدد %3$s</string>
     <string name="account_heading">سجّل الدخول للتحدث\nمع الأصدقاء.</string>
     <string name="invite_share_text">تحدث معي على Vipi. اسم المستخدم الخاص بي هو @%1$s. %2$s</string>
-    <string name="bot_allowance_check_failed">تعذّر التحقق من حصة Bot mini. حاول مجددًا.</string>
+    <string name="bot_allowance_check_failed">تعذّر التحقّق من ردود Bot mini المتبقية. حاول مرة أخرى.</string>
     <string name="bot_device_not_ready">هذا الجهاز غير جاهز للإرسال. عُد إلى المحادثات لإعادة الاتصال. تم حفظ مسودتك.</string>
     <string name="bot_device_unauthorized">لم يعد هذا الجهاز مصرّحًا له. عُد إلى المحادثات لإعادة الاتصال. لم يُقبل هذا الطلب.</string>
-    <string name="bot_allowance_exhausted">استخدمت ردود Bot mini لهذا الشهر. حدّث حصتك لمعرفة موعد تجددها.</string>
-    <string name="bot_reply_unconfirmed">تعذّر تأكيد رد vBot. لن يُرسل هذا الطلب مجددًا تلقائيًا. حدّث حصتك قبل بدء طلب جديد.</string>
+    <string name="bot_allowance_exhausted">لقد استخدمت ردود Bot mini لهذا الشهر. تحقّق من الردود المتبقية لمعرفة موعد تجددها.</string>
+    <string name="bot_reply_unconfirmed">تعذّر تأكيد رد vBot. لن تُرسل هذه الرسالة مجددًا تلقائيًا. تحقّق من الردود المتبقية قبل إرسال رسالة أخرى.</string>
     <string name="bot_message_not_saved">تعذّر حفظ رسالتك. لم تُرسل.</string>
     <string name="bot_report_received">استُلم البلاغ. شكرًا لإبلاغنا.</string>
     <string name="bot_report_unconfirmed">تعذّر تأكيد هذا البلاغ. يمكنك المحاولة مجددًا.</string>
@@ -421,7 +421,7 @@
     <string name="welcome_title_concise">تحدث مع الأصدقاء.\nتعلّم كلمات جديدة.</string>
     <string name="welcome_detail_concise">تتحوّل بعض الكلمات إلى لغة أخرى أثناء الدردشة.</string>
     <string name="preview_spanish_title">جرّب قليلًا من الإسبانية</string>
-    <string name="preview_tap_word">اضغط على كلمة مميزة لسماعها. في الدردشات، اضغط على فقاعة للترجمة.</string>
+    <string name="preview_tap_word">اضغط على كلمة مميزة لسماع نطقها باللغة التي تتعلمها. في الدردشات، اضغط على فقاعة للترجمة.</string>
     <string name="languages_title_concise">لغاتك</string>
     <string name="languages_detail_concise">ما اللغة التي تود تعلّمها؟</string>
     <string name="languages_change_later">يمكنك تغييرها في الإعدادات.</string>

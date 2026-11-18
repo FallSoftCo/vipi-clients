@@ -23,14 +23,24 @@ import java.util.UUID
  * lazy ViewModel. No duplicate app router, private activity field or production hook. */
 internal class MainActivityJourneyFixture(
     name: String,
-    createModel: (Application) -> VipiModel = { VipiModel(it, NoJourneyModelTranslation) }
+    createModel: (Application) -> VipiModel = { VipiModel(it, NoJourneyModelTranslation) },
+    private val retainedToken: String? = null
 ) : AutoCloseable {
     val instrumentation = InstrumentationRegistry.getInstrumentation()
     val base = instrumentation.targetContext
     val device: UiDevice = UiDevice.getInstance(instrumentation)
     private val application = base.applicationContext as Application
-    private val prefix = "journey-${UUID.randomUUID()}-"
-    private val root = File(base.cacheDir, prefix).apply { check(mkdirs()) }
+    private val prefix = retainedToken?.let { token ->
+        check(BuildConfig.DEBUG && BuildConfig.APPLICATION_ID in setOf("co.fallsoft.vipi.uxqa", "co.fallsoft.vipi.sourcecontextqa"))
+        require(token.matches(Regex("[a-f0-9]{32}")))
+        "journey-persistent-$token-"
+    } ?: "journey-${UUID.randomUUID()}-"
+    private var eraseRetainedOnClose = false
+    private val root = File(base.cacheDir, prefix).apply {
+        check(!java.nio.file.Files.isSymbolicLink(toPath()))
+        check(parentFile.canonicalFile == base.cacheDir.canonicalFile)
+        if (retainedToken == null) check(mkdirs()) else check((isDirectory || mkdirs()))
+    }
     private val preferences = mutableSetOf<String>()
     val isolated = object : Application() {
         init { attachBaseContext(base) }
@@ -163,11 +173,20 @@ internal class MainActivityJourneyFixture(
         scenario?.close()
         scenario = null
     }
+    /** Called only after the retained journey verifies its exact ownership
+     * ledger and terminal proof. Failures keep their private disk for diagnosis. */
+    fun eraseRetainedStorageAfterProof(token: String) {
+        check(retainedToken != null && token == retainedToken)
+        eraseRetainedOnClose = true
+    }
     override fun close() {
         stopActivity()
         instrumentation.runOnMainSync { if (installed) application.unregisterActivityLifecycleCallbacks(callback) }
-        preferences.forEach { base.deleteSharedPreferences(it) }
-        root.deleteRecursively()
+        if (retainedToken == null || eraseRetainedOnClose) {
+            preferences.forEach { base.deleteSharedPreferences(it) }
+            check(!java.nio.file.Files.isSymbolicLink(root.toPath()))
+            root.deleteRecursively()
+        }
     }
 }
 

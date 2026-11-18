@@ -34,7 +34,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -48,6 +47,18 @@ import java.text.DateFormat
 import java.util.Date
 import java.util.UUID
 
+/** Match Compose1.9.3's Android paragraph resolver: enlarged text preserves
+ * line-height/font-size proportions instead of independently scaling larger sp.
+ * Round outward in physical pixels before adding unchanged Material padding. */
+internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: androidx.compose.ui.text.TextStyle): androidx.compose.ui.unit.Dp {
+    require(style.fontSize.type == androidx.compose.ui.unit.TextUnitType.Sp &&
+        style.lineHeight.type == androidx.compose.ui.unit.TextUnitType.Sp && style.fontSize.value > 0)
+    val fontPx = style.fontSize.toPx()
+    val linePx = if (fontScale > 1.05f) style.lineHeight.value / fontPx.toSp().value * fontPx
+        else style.lineHeight.toPx()
+    return kotlin.math.ceil(linePx).toDp()
+}
+
 @Composable internal fun ProfileSetupScreen(model: VipiModel) {
     val chat = model.chat ?: return
     var name by rememberSaveable { mutableStateOf("") }
@@ -60,7 +71,7 @@ import java.util.UUID
     OutlinedTextField(username, { username = it }, label = { Text(stringResource(R.string.ui_e3b89e9d33f8)) }, prefix = { Text("@") }, singleLine = true,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false),
         modifier = Modifier.fillMaxWidth().testTag("profile-username"), shape = RoundedCornerShape(16.dp))
-    Text(stringResource(R.string.ui_33875a9b79e5), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    Text(stringResource(R.string.ui_33875a9b79e5), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
     chat.notice?.let { Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     Button(onClick = { scope.launch {
         chat.createProfile(username, name)
@@ -141,7 +152,15 @@ import java.util.UUID
         fun showLeadingEdgeIfOversized(): Boolean {
             val layout = list.layoutInfo
             val row = layout.visibleItemsInfo.firstOrNull { it.key == newest.id } ?: return false
-            if (layout.viewportSize.height <= 0 || row.size <= layout.viewportSize.height) return false
+            // The footer spacer/gap and both list paddings also consume the
+            // physical viewport. A row can fit its raw height while its first
+            // text line is pushed under the toolbar by bottom-follow scrolling.
+            val trailingEnd = layout.visibleItemsInfo.filter { it.index > row.index }
+                .maxOfOrNull { it.offset + it.size } ?: (row.offset + row.size)
+            val trailingExtent = (trailingEnd - row.offset - row.size).coerceAtLeast(0)
+            val usableHeight = (layout.viewportSize.height - layout.beforeContentPadding -
+                layout.afterContentPadding - trailingExtent).coerceAtLeast(0)
+            if (layout.viewportSize.height <= 0 || row.size <= usableHeight) return false
             // A long row cannot fit together with its metadata/audio. Show its
             // leading text instead of its decorative top padding or trailing controls
             // visible. This non-scrolling remeasure preserves follow intent;
@@ -263,16 +282,39 @@ import java.util.UUID
     val bottomInsets = with(viewDensity) { maxOf(WindowInsets.ime.getBottom(this), WindowInsets.navigationBars.getBottom(this)).toDp() }
     val composerPadding = OutlinedTextFieldDefaults.contentPadding()
     val minimumComposerHeight = maxOf(OutlinedTextFieldDefaults.MinHeight,
-        with(viewDensity) { MaterialTheme.typography.bodyLarge.lineHeight.toDp() } +
+        with(viewDensity) { resolvedComposeLineHeight(MaterialTheme.typography.bodyLarge) } +
             composerPadding.calculateTopPadding() + composerPadding.calculateBottomPadding())
     val normalTopBarHeight = TopAppBarDefaults.TopAppBarExpandedHeight +
         with(viewDensity) { TopAppBarDefaults.windowInsets.getTop(this).toDp() }
-    val compact = maxHeight - bottomInsets - normalTopBarHeight < minimumComposerHeight + 16.dp
+    val availableHeight = (maxHeight - with(viewDensity) { topBarHeightPx.toDp() } - bottomInsets).coerceAtLeast(0.dp)
+    // Native StableImmersionText has its own font/slot metrics. This scaled
+    // reading-space preference is qualified by actual native ink, not assumed
+    // to equal a Compose paragraph's measured line height.
+    val messageLineHeight = with(viewDensity) { 28.sp.toDp() }
+    val hasStatus = (speech.state != SpeechState.UNAVAILABLE && speech.error != null) || error != null || chat.notice != null ||
+        (chat.needsPlan && onPlan != null) || chat.needsDeviceRecovery || peer in chat.peersNeedingRecovery
+    // Reserve readable conversation space before a growing draft consumes it.
+    // Three current scaled message lines is a preference, bounded by half the
+    // actual viewport and the minimum editable/status lines. Tiny landscapes
+    // prioritize the native editable line when both cannot fit.
+    val preferredHistoryHeight = if (messages.isNotEmpty())
+        minOf(availableHeight * .5f, messageLineHeight * 3 + EmbeddedMessageVerticalPadding * 2) else 0.dp
+    val statusLineHeight = if (hasStatus) maxOf(48.dp,
+        with(viewDensity) { resolvedComposeLineHeight(MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp)) }) else 0.dp
+    val compact = maxHeight - bottomInsets - normalTopBarHeight - preferredHistoryHeight <
+        minimumComposerHeight + statusLineHeight + 16.dp
     val compactBarHeight = maxOf(48.dp,
-        with(viewDensity) { MaterialTheme.typography.titleLarge.lineHeight.toDp() })
-    val footerMaxHeight = (maxHeight - with(viewDensity) { topBarHeightPx.toDp() }).coerceAtLeast(0.dp)
-    val availableHeight = (footerMaxHeight - bottomInsets).coerceAtLeast(0.dp)
-    val composerMaxHeight = if (compact) maxOf(minimumComposerHeight, availableHeight) else Dp.Infinity
+        with(viewDensity) { resolvedComposeLineHeight(MaterialTheme.typography.titleLarge) })
+    val composerOuterPadding = if (compact) 0.dp else 16.dp
+    val candidateHistoryHeight = minOf(preferredHistoryHeight,
+        (availableHeight - minimumComposerHeight - statusLineHeight - composerOuterPadding).coerceAtLeast(0.dp))
+    val historyReserve = if (candidateHistoryHeight >= messageLineHeight + EmbeddedMessageVerticalPadding * 2)
+        candidateHistoryHeight else 0.dp
+    val footerContentHeight = (availableHeight - historyReserve).coerceAtLeast(0.dp)
+    val footerMaxHeight = (maxHeight - with(viewDensity) { topBarHeightPx.toDp() } - historyReserve).coerceAtLeast(0.dp)
+    // Keep normal expansion when it fits; longer drafts scroll inside the real
+    // editor instead of collapsing the timeline or moving controls under IME.
+    val composerMaxHeight = maxOf(minimumComposerHeight, footerContentHeight - statusLineHeight - composerOuterPadding)
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         topBar = { TopAppBar(title = { Text(chat.name(peer), maxLines = 1) },
             modifier = Modifier.onSizeChanged { topBarHeightPx = it.height },
@@ -296,9 +338,14 @@ import java.util.UUID
             Column(Modifier.heightIn(max = footerMaxHeight).background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
                 Column(Modifier.fillMaxWidth().weight(1f, fill = false).verticalScroll(composerStatusScroll)) {
                 if (speech.state != SpeechState.UNAVAILABLE) speech.error?.let {
-                    Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp))
+                    Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = if (compact) 0.dp else 8.dp))
                 }
-                (error ?: chat.notice)?.let { Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp)) }
+                // A failed security check must not hide the current connection or
+                // persistence explanation. Keep both distinct current failures
+                // in the same bounded status area, with transport recovery first.
+                listOfNotNull(chat.notice, error).distinct().forEach {
+                    Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = if (compact) 0.dp else 8.dp))
+                }
                 if (chat.needsPlan && onPlan != null) TextButton(onClick = onPlan, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_b30a48ba0b99)) }
                 if (chat.needsDeviceRecovery) TextButton(onClick = back, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_fa3d530cf72d)) }
                 if (peer in chat.peersNeedingRecovery) TextButton(onClick = { showSecurityNumber = true }, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_38d5b00c27da)) }
@@ -312,7 +359,8 @@ import java.util.UUID
                         text = value
                         try { chat.saveCompose(value, peer) }
                         catch (_: Exception) { error = context.getString(R.string.chat_draft_save_failed) }
-                    }, placeholder = { Text(stringResource(R.string.message_hint)) }, maxLines = 6, shape = RoundedCornerShape(24.dp),
+                    }, textStyle = MaterialTheme.typography.bodyLarge.copy(textDirection = androidx.compose.ui.text.style.TextDirection.Content),
+                        placeholder = { Text(stringResource(R.string.message_hint)) }, maxLines = 6, shape = RoundedCornerShape(24.dp),
                         modifier = Modifier.weight(1f).heightIn(min = minimumComposerHeight, max = composerMaxHeight)
                             .onFocusChanged { composing = it.isFocused }.testTag("message-input"))
                     FilledIconButton(onClick = {
@@ -355,7 +403,7 @@ import java.util.UUID
                 items(messages, key = { it.id }) { item ->
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = if (item.outgoing) Arrangement.End else Arrangement.Start) {
                         if (item.outgoing) Spacer(Modifier.width(38.dp))
-                        Column(Modifier.weight(1f, fill = false).background(if (item.outgoing) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface, RoundedCornerShape(18.dp)), verticalArrangement = Arrangement.spacedBy(7.dp)) {
+                        Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).background(if (item.outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(18.dp)), verticalArrangement = Arrangement.spacedBy(7.dp)) {
                             val time = remember(item.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(item.createdAt)) }
                             ConversationImmersionText(item.text, item.id.toString(), immersion, speech,
                                 list.isScrollInProgress || (composing && text.isNotEmpty()) || reportedMessage != null,

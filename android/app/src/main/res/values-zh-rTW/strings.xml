@@ -259,7 +259,7 @@
     <string name="ui_c011d6097bfb" formatted="false">授權</string>
     <string name="ui_c6046d416aaf" formatted="false">繼續前往 vBot</string>
     <string name="ui_cc245f2e3a71" formatted="false">繼續單字切換</string>
-    <string name="ui_cf0b3e3d47ec" formatted="false">重新整理額度</string>
+    <string name="ui_cf0b3e3d47ec" formatted="false">查看剩餘回覆數</string>
     <string name="ui_d42ff6022f50" formatted="false">還原聊天紀錄？</string>
     <string name="ui_de6e21a278c4" formatted="false">帳戶 · 第2步，共2步</string>
     <string name="ui_dfe40efe921f" formatted="false">正在更新…</string>
@@ -290,11 +290,11 @@
     <string name="bot_allowance_remaining">剩餘 %1$s / %2$s 則回覆 · 重設時間 %3$s</string>
     <string name="account_heading">登入後與\n好友聊天。</string>
     <string name="invite_share_text">在 Vipi 和我聊天吧。我的使用者名稱是 @%1$s。%2$s</string>
-    <string name="bot_allowance_check_failed">無法檢查您的 Bot mini 額度。請再試一次。</string>
+    <string name="bot_allowance_check_failed">無法查看 Bot mini 的剩餘回覆數。請重試。</string>
     <string name="bot_device_not_ready">此裝置尚未準備好傳送。請返回聊天以重新連線。草稿已儲存。</string>
     <string name="bot_device_unauthorized">此裝置不再獲得授權。請返回聊天以重新連線。此請求未被接受。</string>
-    <string name="bot_allowance_exhausted">您已用完本月的 Bot mini 回覆。請重新整理額度以查看重設時間。</string>
-    <string name="bot_reply_unconfirmed">無法確認 vBot 的回覆。此請求不會自動重傳。開始新請求前請重新整理額度。</string>
+    <string name="bot_allowance_exhausted">本月的 Bot mini 回覆已用完。查看剩餘回覆數以了解重設時間。</string>
+    <string name="bot_reply_unconfirmed">無法確認 vBot 的回覆。此訊息不會自動重傳。傳送下一則訊息前，請查看剩餘回覆數。</string>
     <string name="bot_message_not_saved">無法儲存您的訊息。訊息尚未傳送。</string>
     <string name="bot_report_received">已收到檢舉。感謝您的回報。</string>
     <string name="bot_report_unconfirmed">無法確認此檢舉。您可以再試一次。</string>
@@ -406,7 +406,7 @@
     <string name="welcome_title_concise">與朋友聊天。\n學習新詞彙。</string>
     <string name="welcome_detail_concise">聊天時，部分詞語會切換成另一種語言。</string>
     <string name="preview_spanish_title">體驗一點西班牙語</string>
-    <string name="preview_tap_word">點一下反白單字即可聽發音。在聊天中，點一下對話氣泡即可翻譯。</string>
+    <string name="preview_tap_word">點一下反白單字，即可聽到它在所學語言中的發音。在聊天中，點一下對話氣泡即可翻譯。</string>
     <string name="languages_title_concise">你的語言</string>
     <string name="languages_detail_concise">你想學哪種語言？</string>
     <string name="languages_change_later">你可以隨時在設定中更改。</string>

@@ -85,11 +85,11 @@
     <string name="account_description">Create an account or sign in to an existing one. Friends find you by username, not your email.</string>
     <string name="conversations_local">Your conversations stay on your device.</string>
     <string name="invite_share_text">Chat with me on Vipi. My username is @%1$s. %2$s</string>
-    <string name="bot_allowance_check_failed">Your Bot mini allowance couldn’t be checked. Try again.</string>
+    <string name="bot_allowance_check_failed">Your remaining Bot mini replies couldn’t be checked. Try again.</string>
     <string name="bot_device_not_ready">This device isn’t ready to send. Return to Chats to reconnect. Your draft is saved.</string>
     <string name="bot_device_unauthorized">This device is no longer authorized. Return to Chats to reconnect. This request wasn’t accepted.</string>
-    <string name="bot_allowance_exhausted">You’ve used this month’s Bot mini replies. Refresh your allowance to see when it resets.</string>
-    <string name="bot_reply_unconfirmed">We couldn’t confirm vBot’s reply. This request won’t be sent again automatically. Refresh your allowance before starting a new request.</string>
+    <string name="bot_allowance_exhausted">You’ve used this month’s Bot mini replies. Check remaining replies to see when they reset.</string>
+    <string name="bot_reply_unconfirmed">vBot’s reply couldn’t be confirmed. This message won’t be sent again automatically. Check remaining replies before sending another message.</string>
     <string name="bot_message_not_saved">Your message couldn’t be saved. It hasn’t been sent.</string>
     <string name="bot_report_received">Report received. Thank you for flagging it.</string>
     <string name="bot_report_unconfirmed">We couldn’t confirm this report. You can try again.</string>

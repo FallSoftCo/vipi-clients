@@ -170,7 +170,7 @@ struct SourceFrameStarterCandidate {
             let suffix = text.substring(from: NSMaxRange(range))
             for scalar in suffix.unicodeScalars {
                 if scalar.value == 9 || scalar.properties.generalCategory == .spaceSeparator { continue }
-                return ".!?。！？,，;；\r\n".unicodeScalars.contains(scalar)
+                return ".!?。！？,，、;；\r\n".unicodeScalars.contains(scalar)
             }
             return true
         }
@@ -180,6 +180,15 @@ struct SourceFrameStarterCandidate {
                 while let last = content.last, ".!?。！？".contains(last) { content.removeLast() }
             }
             return content.contains(where: { ".!?。！？;；\r\n".contains($0) })
+        }
+        func boundStandaloneLater(_ pattern: Pattern, _ focus: NSRange) -> Bool {
+            guard source == "ja", pattern.source == "後で",
+                  pattern.concept_id == "candidate-frequency-r01:later" else { return false }
+            for scalar in text.substring(to: focus.location).unicodeScalars.reversed() {
+                if scalar.value == 9 || scalar.properties.generalCategory == .spaceSeparator { continue }
+                return scalar.value == 0x306E // の
+            }
+            return false
         }
         func cost(_ range:NSRange)->Int? {
             let touched=native.filter{overlap($0,range)}
@@ -210,6 +219,8 @@ struct SourceFrameStarterCandidate {
                     else if v.context_scope == "whole_sentence" && !sentenceRanges.contains(context) { reason = "not_whole_sentence" }
                     else if v.right_boundary == "clause_or_end" && !rightBoundary(context) { reason = "right_context_boundary" }
                     else if contextBarrier(v) { reason = "context_barrier" }
+                    // Retain this semantic hit so its mask also excludes ordinary starter fallback.
+                    else if boundStandaloneLater(p, focus) { reason = "bound_standalone_later" }
                     else { reason = nil }
                     hits.append(Hit(p,context,focus,cc ?? 0,fc ?? 0,id,reason));guard hits.count<=4096 else {throw Invalid.evidence}
                 }

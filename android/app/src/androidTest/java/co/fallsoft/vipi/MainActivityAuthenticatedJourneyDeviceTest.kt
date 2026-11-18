@@ -156,7 +156,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 f.capture("01-visible-chats-after-profile")
                 compose.onNodeWithContentDescription(f.base.getString(R.string.nav_new_chat)).performTouchInput { click() }
                 waitScreen(f, Screen.NEW_CHAT)
-                compose.onNodeWithText(f.base.getString(R.string.nav_invite)).performTouchInput { click() }
+                compose.onNodeWithText(f.base.getString(R.string.nav_invite)).performScrollTo().assertIsDisplayed().performTouchInput { click() }
                 compose.runOnIdle { assertEquals(1, shareCount) }
                 val username = compose.onNode(hasSetTextAction())
                 username.performScrollTo().performTouchInput { click() }
@@ -331,7 +331,12 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                     f.instrumentation.runOnMainSync { shown = f.paragraphs().any { it.displayedOriginal == services.botReply && f.fullyVisible(it) } }
                     shown
                 }
-                compose.onNodeWithText("149 of 150 replies left", substring = true).assertIsDisplayed()
+                // Healthy usage moved to the existing Bot mini details route.
+                compose.onNodeWithText(f.base.getString(R.string.ui_ff245b368781)).performTouchInput { click() }
+                waitScreen(f, Screen.BOT_PLAN)
+                compose.onNodeWithText("149 of 150 replies left", substring = true).performScrollTo().assertIsDisplayed()
+                f.capture("02a-usage-discoverable-in-existing-bot-mini-details")
+                f.device.pressBack(); waitScreen(f, Screen.BOT)
                 compose.onNodeWithTag("bot-message-input").assertEmptyEditor().performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 f.capture("02-one-confirmed-reply-after-back-and-reopen")
@@ -396,13 +401,35 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 assertNativeContained(f, By.text(f.base.getString(R.string.ui_cf0b3e3d47ec)), "unconfirmed reply recovery action", 20)
                 compose.onNodeWithTag("bot-message-input").assertEmptyEditor()
                 compose.onNodeWithTag("bot-message-send").assertIsNotEnabled()
+                if (f.base.resources.configuration.fontScale <= 1.1f &&
+                    f.base.resources.configuration.screenWidthDp >= 360 &&
+                    f.base.resources.configuration.screenHeightDp > f.base.resources.configuration.screenWidthDp) {
+                    f.assertCompleteComposeStatus(compose, f.base.getString(R.string.bot_reply_unconfirmed), "uncertain-status-full-rendering")
+                }
                 f.capture("01-uncertain-reply-with-explicit-allowance-recovery")
-                compose.onNodeWithText(f.base.getString(R.string.ui_cf0b3e3d47ec)).performTouchInput { click() }
-                compose.waitUntil(8_000) { f.model.bot?.allowance != null }
                 val nextDraft = "An editable draft after the uncertain reply."
                 compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 compose.onNodeWithTag("bot-message-input").performTextInput(nextDraft)
+                assertNativeDraftEndLine(compose, f, "bot-message-input", nextDraft,
+                    "01b-next-draft-native-end-caret-with-recovery", requireInternalScroll = false)
+                f.assertNativeTextInViewport(compose, f.base.getString(R.string.ui_cf0b3e3d47ec), "recovery action beside editable next draft", 48, requireClickOwner = true)
+                // Real accessibility reading scroll, with keyboard and draft
+                // retained: a constrained footer must leave useful history.
+                compose.onNode(SemanticsMatcher("Actual Bot LazyColumn") {
+                    it.config.contains(androidx.compose.ui.semantics.SemanticsActions.ScrollToIndex)
+                }).performScrollToIndex(1)
+                f.assertNativeBotMessageLineAboveComposer(compose, firstPrompt, "01c-native-history-line-beside-recovery-and-draft")
+                f.assertNativeTextInViewport(compose, f.base.getString(R.string.ui_cf0b3e3d47ec), "recovery remains reachable while reading", 48, requireClickOwner = true)
+                compose.onNodeWithTag("bot-message-input").assertEditorValue(nextDraft).assertIsFocused()
+                val priorGets = services.botAllowanceGets.get()
+                val priorAllowance = f.model.bot?.allowance
+                f.capture("01b-editable-next-draft-and-recovery-before-refresh")
+                compose.onNodeWithText(f.base.getString(R.string.ui_cf0b3e3d47ec)).performTouchInput { click() }
+                compose.waitUntil(8_000) { services.botAllowanceGets.get() == priorGets + 1 &&
+                    f.model.bot?.allowance != null && f.model.bot?.allowance !== priorAllowance }
+                compose.onNodeWithTag("bot-message-input").assertEditorValue(nextDraft)
+                compose.runOnIdle { assertEquals(1, services.botPosts.get()); assertEquals(nextDraft, f.model.bot?.draft) }
                 compose.onNodeWithTag("bot-message-send").assertIsEnabled()
                 f.device.pressBack()
                 compose.waitUntil(5_000) { !imeVisible(f) }
@@ -549,10 +576,28 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 compose.onNodeWithTag("bot-message-send").assertIsEnabled()
                 compose.runOnIdle { assertEquals(0, services.botPosts.get()); assertEquals(0, services.friendPosts.get()) }
                 f.device.pressBack(); compose.waitUntil(5_000) { !imeVisible(f) }
+                compose.onNodeWithText(f.base.getString(R.string.ui_cc39ebccb529)).assertIsDisplayed()
+                f.capture("bot-passive-intro-restored-portrait-ime-hidden")
                 f.device.pressBack(); waitScreen(f, Screen.HOME); openBot(f)
                 compose.onNodeWithTag("bot-message-input").assertEditorValue("hi")
                 compose.runOnIdle {
                     BotSession(f.isolated, services.account, services.transport(f.model.authentication, services.subject)).use { reopened -> assertEquals("hi", reopened.draft) }
+                }
+                // Same real Bot editor and English chrome/language settings;
+                // content, including an embedded Latin word, determines RTL.
+                val mixed = "هل نلتقي في cafe بعد العمل؟"
+                compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
+                compose.waitUntil(8_000) { imeVisible(f) }
+                compose.onNodeWithTag("bot-message-input").performTextReplacement(mixed)
+                exerciseShortLandscapeComposer(compose, f, "bot-message-input", "bot-message-send", mixed,
+                    "bot-arabic-latin-content-caret", requireContentDirection = true)
+                compose.onNodeWithTag("bot-message-send").assertIsEnabled()
+                compose.runOnIdle { assertEquals(0, services.botPosts.get()) }
+                f.device.pressBack(); compose.waitUntil(5_000) { !imeVisible(f) }
+                f.device.pressBack(); waitScreen(f, Screen.HOME); openBot(f)
+                compose.onNodeWithTag("bot-message-input").assertEditorValue(mixed)
+                compose.runOnIdle {
+                    BotSession(f.isolated, services.account, services.transport(f.model.authentication, services.subject)).use { reopened -> assertEquals(mixed, reopened.draft) }
                 }
                 services.assertNoPurchase()
                 File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("native_landscape", "1920x1080@420dpi")
@@ -577,18 +622,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
         MainActivityJourneyFixture(if (withHistory) "bot-multiline-caret-with-history" else "bot-multiline-caret", services::model).use { f ->
             var proofNumber = 0
             var appendNumber = 0
-            fun nativeEditor(expected: String): android.view.accessibility.AccessibilityNodeInfo? {
-                fun editorIn(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
-                    if (node.isEditable && node.isFocused && node.text?.toString() == expected) return node
-                    for (index in 0 until node.childCount) node.getChild(index)?.let { child ->
-                        editorIn(child)?.let { return it }
-                    }
-                    return null
-                }
-                if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
-                return f.instrumentation.uiAutomation.windows.mapNotNull { it.root }
-                    .filter { it.packageName?.toString() == f.base.packageName }.firstNotNullOfOrNull(::editorIn)
-            }
+            fun nativeEditor(expected: String) = f.focusedNativeEditor(expected)
             fun appendAtNativeEnd(before: String, suffix: String) {
                 compose.onNodeWithTag("bot-message-input").assertEditorValue(before).assertIsFocused()
                 // A focus tap can still generate IME selection events after
@@ -627,108 +661,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                     .put("selection_observed", true).put("typing", "Instrumentation.sendStringSync key events").toString(2))
                 f.instrumentation.sendStringSync(suffix)
             }
-            fun assertNativeEndLine(expected: String) {
-                compose.onNodeWithTag("bot-message-input").assertEditorValue(expected).assertIsFocused()
-                val layouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
-                compose.onNodeWithTag("bot-message-input").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) {
-                    assertTrue(it(layouts))
-                }
-                val layout = layouts.single { it.layoutInput.text.text == expected }
-                val visualLine = layout.getLineForOffset(expected.length)
-                val start = layout.getLineStart(visualLine)
-                val end = layout.getLineEnd(visualLine, visibleEnd = true)
-                val cursor = layout.getCursorRect(expected.length)
-                require(end > start && cursor.height > 0)
-                proofNumber++
-                var diagnostic = "No focused native editor"
-                var nativeExtraDiagnostic: JSONObject? = null
-                try {
-                    compose.waitUntil(5_000) {
-                        val editor = nativeEditor(expected)
-                        if (editor?.isEditable != true || editor.text?.toString() != expected ||
-                            editor.textSelectionStart != expected.length || editor.textSelectionEnd != expected.length) {
-                            diagnostic = "Native editable descendant selection ${editor?.textSelectionStart}..${editor?.textSelectionEnd}, class=${editor?.className}, extras=${editor?.availableExtraData}"
-                            false
-                        } else {
-                            if (nativeExtraDiagnostic == null) {
-                                val key = android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_KEY
-                                val args = android.os.Bundle().apply {
-                                    putInt(android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_ARG_START_INDEX, start)
-                                    putInt(android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_ARG_LENGTH, end - start)
-                                }
-                                val refreshed = editor.refreshWithExtraData(key, args)
-                                @Suppress("DEPRECATION") val raw = editor.extras.getParcelableArray(key)
-                                nativeExtraDiagnostic = JSONObject().put("available_keys", JSONArray(editor.availableExtraData))
-                                    .put("refresh_succeeded", refreshed).put("raw_count", raw?.size ?: 0)
-                                    .put("nonnull_count", raw?.count { it != null } ?: 0)
-                            }
-                            val bounds = android.graphics.Rect(); editor.getBoundsInScreen(bounds)
-                            val viewport = android.graphics.RectF(f.unobscuredWindow())
-                            val field = android.graphics.RectF(bounds)
-                            val bitmap = f.instrumentation.uiAutomation.takeScreenshot()
-                            if (bitmap == null) false else try {
-                                val pixels = IntArray(bounds.width() * bounds.height())
-                                bitmap.getPixels(pixels, 0, bounds.width(), bounds.left, bounds.top, bounds.width(), bounds.height())
-                                fun pixel(x: Int, y: Int) = pixels[(y - bounds.top) * bounds.width() + x - bounds.left] and 0xFFFFFF
-                                val colors = mutableMapOf<Int, Int>()
-                                for (y in bounds.centerY() - 10 until bounds.centerY() + 10) for (x in bounds.left until bounds.left + 12) {
-                                    val color = pixel(x, y); val r = color ushr 16; val g = (color ushr 8) and 255; val b = color and 255
-                                    if (g - r >= 12 && g - b >= 12) colors[color] = (colors[color] ?: 0) + 1
-                                }
-                                val ink = colors.maxByOrNull { it.value }?.key
-                                val runs = mutableListOf<android.graphics.Rect>()
-                                if (ink != null) {
-                                    fun matches(color: Int) = kotlin.math.abs((color ushr 16) - (ink ushr 16)) <= 4 &&
-                                        kotlin.math.abs(((color ushr 8) and 255) - ((ink ushr 8) and 255)) <= 4 &&
-                                        kotlin.math.abs((color and 255) - (ink and 255)) <= 4
-                                    val margin = (12 * f.base.resources.displayMetrics.density).toInt()
-                                    for (x in bounds.left + margin until bounds.right - margin) {
-                                        var y = bounds.top + 4
-                                        while (y < bounds.bottom - 4) {
-                                            if (!matches(pixel(x, y))) { y++; continue }
-                                            val top = y
-                                            while (y < bounds.bottom - 4 && matches(pixel(x, y))) y++
-                                            if (kotlin.math.abs((y - top) - cursor.height) <= 4f) runs += android.graphics.Rect(x, top, x + 1, y)
-                                        }
-                                    }
-                                }
-                                val groups = mutableListOf<android.graphics.Rect>()
-                                runs.forEach { run ->
-                                    val group = groups.lastOrNull()
-                                    if (group != null && run.left == group.right && kotlin.math.abs(run.top - group.top) <= 2 && kotlin.math.abs(run.bottom - group.bottom) <= 2)
-                                        group.union(run) else groups += android.graphics.Rect(run)
-                                }
-                                val carets = groups.filter { it.width() <= 4 * f.base.resources.displayMetrics.density }
-                                diagnostic = "Rendered caret candidates=$carets, layout cursor=$cursor, field=$field, viewport=$viewport, native=$nativeExtraDiagnostic"
-                                if (carets.size != 1) false else {
-                                    val rendered = android.graphics.RectF(carets.single())
-                                    val dx = rendered.centerX() - cursor.center.x
-                                    val dy = rendered.top - cursor.top
-                                    val boxes = (start until end).map { offset ->
-                                        val box = layout.getBoundingBox(offset)
-                                        android.graphics.RectF(box.left + dx, box.top + dy, box.right + dx, box.bottom + dy)
-                                    }
-                                    val visible = viewport.contains(rendered) && field.contains(rendered) && dy < field.top &&
-                                        boxes.all { !it.isEmpty && viewport.contains(it) && field.contains(it) }
-                                    if (visible) {
-                                        File(f.output, "caret-proof-$proofNumber.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
-                                        File(f.output, "caret-proof-$proofNumber.json").writeText(JSONObject()
-                                            .put("method", "production_text_layout_translated_by_measured_native_rendered_caret")
-                                            .put("native_end_selection", editor.textSelectionEnd).put("native_character_api_diagnostic", nativeExtraDiagnostic)
-                                            .put("visual_line", expected.substring(start, end)).put("visual_line_offsets", "$start..$end")
-                                            .put("layout_cursor", cursor.toString()).put("rendered_caret", rendered.toString())
-                                            .put("translation_x", dx.toDouble()).put("translation_y", dy.toDouble())
-                                            .put("editor", field.toString()).put("unobscured_window", viewport.toString())
-                                            .put("projected_glyph_boxes", JSONArray(boxes.map { it.toString() }))
-                                            .put("native_glyph_api_proof_claimed", false).toString(2))
-                                    }
-                                    visible
-                                }
-                            } finally { bitmap.recycle() }
-                        }
-                    }
-                } catch (failure: ComposeTimeoutException) { throw AssertionError(diagnostic, failure) }
-            }
+            fun assertNativeEndLine(expected: String) = assertNativeDraftEndLine(compose, f,
+                "bot-message-input", expected, "caret-proof-${++proofNumber}", requireInternalScroll = true)
             try {
                 f.launch(); waitScreen(f, Screen.HOME); openBot(f)
                 if (withHistory) {
@@ -866,10 +800,12 @@ class MainActivityAuthenticatedJourneyDeviceTest {
 internal class JourneyServices(profileRequired: Boolean, private val seedBotMessages: Int = 0,
     private val expectedBotPosts: Int = 1, private val expectedFriendPosts: Int = 1,
     private val cardlessAccess: Boolean = false,
-    private val deletionService: DeletionTransport? = null) : VipiWorkflowBoundary, AutoCloseable {
+    private val deletionService: DeletionTransport? = null,
+    private val emptyPriceCatalog: Boolean = false) : VipiWorkflowBoundary, AutoCloseable {
     val account = UUID.randomUUID()
     val peer = UUID.randomUUID()
     val subject = "user_journey_${UUID.randomUUID().toString().replace("-", "")}"
+    val profileUnavailable = AtomicBoolean(false)
     val profileWrites = AtomicInteger()
     val deviceRegistrations = AtomicInteger()
     val friendPosts = AtomicInteger()
@@ -888,6 +824,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         private set
     private var pendingPeerReply: JSONObject? = null
     val botPosts = AtomicInteger()
+    val botAllowanceGets = AtomicInteger()
     val cancelledBotPosts = AtomicInteger()
     val failNextEntitlement = AtomicBoolean(false)
     val failBotReply = AtomicBoolean(false)
@@ -932,6 +869,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
             override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>): JSONObject {
                 return when {
                     method == "GET" && path == "/v1/me" -> {
+                        if (profileUnavailable.get()) throw java.io.IOException("Controlled profile service unavailable")
                         if (!created) throw ServiceFailure(404, "profile_required")
                         ChatProfile(account, "journey_tester", "Journey Tester").json()
                     }
@@ -1016,15 +954,23 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
                         JSONObject().put("base", plan()).put("bot_mini", plan().put("available", true))
                             .put("billing_account_id", "c".repeat(64)).put("server_time", Instant.now().toString())
                     }
-                    method == "GET" && path == "/v1/bot/allowance" -> allowance()
+                    method == "GET" && path == "/v1/bot/allowance" -> { botAllowanceGets.incrementAndGet(); allowance() }
                     method == "POST" && path == "/v1/bot/messages" -> {
                         check(device == registered)
                         val post = botPosts.incrementAndGet()
                         check(post <= expectedBotPosts)
                         val sent = requireNotNull(body)
                         check(sent.getString("consent_version") == "deepseek-v1")
-                        check(sent.getJSONArray("messages").length() == if (seedBotMessages == 0) 1 else 11)
                         val context = sent.getJSONArray("messages")
+                        val expectedContextSize = if (seedBotMessages == 0) minOf(post * 2 - 1, 11) else 11
+                        check(context.length() == expectedContextSize) { "POST $post must retain exactly $expectedContextSize confirmed turns plus the new prompt" }
+                        check(context.getJSONObject(context.length() - 1).getString("role") == "user")
+                        if (post > 1) {
+                            check(context.getJSONObject(context.length() - 3).getString("content") == botRequestPrompts.last())
+                            check(context.getJSONObject(context.length() - 3).getString("role") == "user")
+                            check(context.getJSONObject(context.length() - 2).getString("content") == if (post == 2) botReply else botFollowupReply)
+                            check(context.getJSONObject(context.length() - 2).getString("role") == "assistant")
+                        }
                         botRequestPrompts += context.getJSONObject(context.length() - 1).getString("content")
                         try { botReplyGate.await() }
                         catch (cancelled: kotlinx.coroutines.CancellationException) {
@@ -1059,7 +1005,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
     override fun requestPush(context: Context, registration: Boolean) = Unit
     override fun cancelPush(context: Context) = Unit
     override fun deletionTransport(authentication: Authentication) = deletionService
-    override fun billingClient(context: Context, listener: PurchasesUpdatedListener): BillingClient = WorkflowBillingClient(listener).also { catalogs += it }
+    override fun billingClient(context: Context, listener: PurchasesUpdatedListener): BillingClient = WorkflowBillingClient(listener).also { if (emptyPriceCatalog) it.catalog = emptyList(); catalogs += it }
     override fun foregroundEvents(scope: CoroutineScope, authentication: Authentication, chat: ChatSession): ForegroundInboxEvents =
         ForegroundInboxEvents(scope, { "synthetic-inert-access" }, chat::eventDevice, { chat.synchronize() },
             sockets = WebSocket.Factory { request, listener -> JourneySocket(request, listener).also { sockets += it; it.open() } })
