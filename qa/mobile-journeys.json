@@ -74,7 +74,14 @@
           "co.fallsoft.vipi.NativeLineMetricDeviceTest"
         ],
         "expected_junit_cases": 1,
-        "scope": "Eight authored Latin/marked-pinyin/Japanese/Arabic cases normal/enlarged, pending/prepared/repeated flips and explicit Chinese script/guide return; actual native baseline, height, ascent/descent and width. Vertical proof only; discovered Arabic horizontal anchoring still under correction."
+        "scope": "Eight authored Latin/marked-pinyin/Japanese/Arabic cases normal/enlarged, pending/prepared/repeated flips and explicit Chinese script/guide return; actual native baseline, height, ascent/descent and fixed width."
+      },
+      "native_paragraph_direction": {
+        "classes": [
+          "co.fallsoft.vipi.NativeParagraphDirectionDeviceTest"
+        ],
+        "expected_junit_cases": 2,
+        "scope": "Fourteen authored normal/enlarged paragraphs plus simultaneous selectable TextViews with opposite masked paragraphs and alternating rebinds. Native paragraph direction/leading edge, exact UTF16, source selection/copy and noneditable contract. No arbitrary translation claim."
       }
     },
     "qualified_layouts": [
@@ -108,7 +115,11 @@
     ],
     "ui_suite": "ChatConversationTests",
     "isolation": "Separate native simulator and private QA bundle/keychain. Run two compiler jobs. DEBUG host uses actual view, owner/session and encrypted vault with controlled transport; do not copy its bundle/Auth/project overlays into release source.",
-    "storekit": "Local StoreKit transactions must pass readiness and assert environment Xcode. Domain/mock tests are separate evidence; real sandbox/server signature verification is another boundary."
+    "storekit": "Local StoreKit transactions must pass readiness and assert environment Xcode. Domain/mock tests are separate evidence; real sandbox/server signature verification is another boundary.",
+    "additional_ui_suites": [
+      "ConnectedDeletionRootTests"
+    ],
+    "connected_deletion_status": "Source reviewed; native r10 pending. Existing audio and all source/preferences must be preserved and byte-verified after isolated synthetic-root test."
   },
   "acceptance_record": "mobile-user-journey-acceptance-20261118.json",
   "limits": [

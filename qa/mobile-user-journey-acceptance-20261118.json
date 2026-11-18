@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T09:39:43.744393+00:00",
+  "updated_utc": "2026-11-18T10:17:01.513824+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -20,9 +20,9 @@
     {
       "journey": "Invite and send to a friend",
       "implementation": "Android actual MainActivity, Signal and vault",
-      "status": "strict normal and enlarged native friend journey plus both independent rendered-pixel gates passed corrected product",
+      "status": "Final product052 enlarged and053 normal native journeys plus four independent rendered-pixel gates passed; root inspected both final layouts",
       "required_observation": "Actual Signal peer ciphertext\u2192production inbox event/sync\u2192vault, one receipt and retained draft after recreation/reopen; visible newest reply in actual timeline above composer.",
-      "limits": "035 native pass missed occlusion; original screenshot/OCR rejection and stricter036 failure retained. Corrected037 native frame containment and both receive/reopen-IME pixel gates pass. Controlled Signal peer/relay, not real push or owner device proof. Very long rows remain scrollable."
+      "limits": "Original035 false pass,036 failure and048 enlarged text clipping retained. Final incoming text inset fix qualified on actual MainActivity, controlled Signal peer/relay; no physical owner device or live push claim. Oversized rows remain scrollable."
     },
     {
       "journey": "Draft before consent or while access is checking",
@@ -76,16 +76,16 @@
     {
       "journey": "Single-tap word speech and stopping",
       "implementation": "Android actual ImmersionBubble, SpeechPlayback, AudioTrack",
-      "status": "passed 10 lifecycle/gesture tests and 110 authored preview directions",
+      "status": "Final product053 passed10 lifecycle/gesture tests and all110 authored preview directions",
       "required_observation": "first tap plays, second stops including pending preparation, third replays; background/read-mode/disposal stop only owned audio",
       "limits": "110 directions are authored preview examples; not arbitrary language quality or physical acoustic acceptance"
     },
     {
       "journey": "Delete account while Bot reply is pending",
-      "implementation": "iOS actual owner/session/vault/deletion coordinator; Android domain integration",
+      "implementation": "iOS owner/session/vault/deletion domain integration; Android actual MainActivity Settings/root and domain integration",
       "status": "passed",
       "required_observation": "close private vault before deletion, checked close failure stops erasure and supports retry, late callback cannot reopen/mutate closed session",
-      "limits": "Synthetic accounts and local resources only; no actual customer deletion"
+      "limits": "Synthetic accounts only. Android046 actual Settings/root recovery and scoped erasure passed. iOS actual VipiApp root test prepared; r09 read-only preflight preserved existing QA audio, fresh r10 controlled preservation/test pending."
     },
     {
       "journey": "Cancel or delete private backup staging",
@@ -132,7 +132,7 @@
     {
       "journey": "Friend older history through actual activity and encrypted inbox",
       "implementation": "Android actual MainActivity and Signal peer fixture",
-      "status": "045 both ordinary and immersed histories passed with strict source-point baseline and top unchanged; independent visual review underway",
+      "status": "Final product053 ordinary and immersed histories passed exact source-point top/baseline stability; prior045 independent pixel review retained",
       "required_observation": "Actual Signal inbox append while reading older text, native IME, own Send, explicit Jump and earlier-page insertion; exact readable source point baseline and top within1px",
       "limits": "Prior041/042 drift failures preserved. Actual MainActivity and encrypted Signal fixture; not real contact/push proof."
     },
@@ -153,9 +153,9 @@
     {
       "journey": "Native inline font metrics across four scripts",
       "implementation": "Actual Android StableImmersionText with native font fallback",
-      "status": "045 8/8 authored font/script samples passed vertical metrics; Arabic horizontal placement defect identified independently",
+      "status": "Final product051 eight authored font/script cases passed, including separate paragraph-direction and simultaneous-view regressions",
       "required_observation": "Pending/prepared and repeated original/target flips preserve baseline, paragraph height and readable ascent/descent; explicit Chinese script and return retain slot width",
-      "limits": "Normal/enlarged Latin, marked pinyin, Japanese and Arabic authored words; renderer-level bind, not script-menu or arbitrary translation acceptance. Arabic base direction/leading edge regression is pending and blocks complete continuity claim."
+      "limits": "Normal/enlarged Latin, marked pinyin, Japanese and Arabic authored words; renderer-level bind, not arbitrary translation acceptance. Separate14 bidirectional cases and simultaneous independent bubbles now pass source direction and leading-edge preservation."
     },
     {
       "journey": "Actual Settings deletion, fresh root recovery and selective erasure",
@@ -163,6 +163,13 @@
       "status": "046 passed after test-only transactional sentinel-read fix; root inspected native recovery/completion/welcome frames",
       "required_observation": "Cancel sends zero requests; accepted lost reply closes owners, fresh root retains original receipt; one status recovery erases only own account and cancels late Bot; Done/fresh model remain signed out",
       "limits": "Synthetic service/accounts, no live/global deletion.045 test-defect failure retained. Cancel screenshot01 caught dismiss animation and is not a settled visual acceptance frame."
+    },
+    {
+      "journey": "Source paragraph direction and independent inline bubbles",
+      "implementation": "Actual Android TextView, ReplacementSpan, native layout and source-preserving Spannable/GetChars bridge",
+      "status": "Final product051 passed14 normal/enlarged directional cases and simultaneous-view alternating rebinds",
+      "required_observation": "Arabic and mixed-direction paragraphs retain native direction/leading edge through pending/prepared/flips; identical masked opposite paragraphs resolve against their own original range; original UTF16, selection/copy projection and noneditable source preserved",
+      "limits": "Android36 native qualification and Android28 source/API review; no native API28 execution or arbitrary linguistic acceptance"
     }
   ],
   "receipts": {
