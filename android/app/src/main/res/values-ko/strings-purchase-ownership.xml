@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="purchase_account_mismatch">이 구매는 다른 Vipi 계정에 연결되어 있습니다. 복원하려면 해당 계정으로 로그인하세요.</string>
+</resources>

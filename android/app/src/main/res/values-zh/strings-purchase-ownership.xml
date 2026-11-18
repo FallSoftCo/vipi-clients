@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="purchase_account_mismatch">此购买属于另一个 Vipi 账户。请登录该账户以恢复购买。</string>
+</resources>

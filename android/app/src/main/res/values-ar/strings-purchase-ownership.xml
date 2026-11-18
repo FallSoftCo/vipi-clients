@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="purchase_account_mismatch">عملية الشراء هذه مرتبطة بحساب Vipi آخر. سجّل الدخول إلى ذلك الحساب لاستعادتها.</string>
+</resources>

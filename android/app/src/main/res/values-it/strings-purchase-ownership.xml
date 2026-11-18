@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="purchase_account_mismatch">Questo acquisto appartiene a un altro account Vipi. Accedi a quell’account per ripristinarlo.</string>
+</resources>

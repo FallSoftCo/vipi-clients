@@ -18,12 +18,12 @@
   "existing_evidence": [
     {
       "path": "qa/android/speech-completion-20261116/README.md",
-      "proves": "Actual offline synthetic SpeechPlayback prepare→READY→PLAYING→READY across 110directions, zero feeding underruns.",
+      "proves": "Actual offline synthetic SpeechPlayback prepare→READY→PLAYING→READY across 110 directions, zero feeding underruns.",
       "limit": "Direct controller toggle; no visible word gesture, per-row selected voice identity, physical or acoustic acceptance."
     },
     {
       "path": "android/app/src/androidTest/java/co/fallsoft/vipi/LanguagePreviewMatrixDeviceTest.kt",
-      "proves": "All 110authored directions, native tokenization and stable inline layout/readings at 3 widths × 3 scales.",
+      "proves": "All 110 authored directions, native tokenization and stable inline layout/readings at 3 widths × 3 scales.",
       "limit": "Unattached native TextViews; no pointer gesture or speech."
     },
     {
@@ -110,14 +110,14 @@
     "fast_smoke": "android/app/src/androidTest/java/co/fallsoft/vipi/PreviewWordSpeechDeviceTest.kt",
     "lifecycle": "android/app/src/androidTest/java/co/fallsoft/vipi/PreviewSpeechLifecycleDeviceTest.kt",
     "all110_authored_native_gestures": "android/app/src/androidTest/java/co/fallsoft/vipi/PreviewWordSpeechMatrixDeviceTest.kt",
-    "all110_status": "Authored but not compiled/executed by this audit agent; root owns native qualification.",
+    "all110_status": "Passed all 110 directions in the root-owned native run; evidence independently read and SHA-256 verified by this audit agent.",
     "all110_checks": [
       "Shipped authored original/translation identity",
       "Visible native selected target/Latin guide; marked pinyin for every Chinese span",
       "Native word tap reaches real SpeechPlayback and AudioTrack PLAYING",
       "Exact underlying target script and language accepted by production playback controller",
       "Same native word Stop with no accepted replay or 300 ms rebound",
-      "All 110rows retained, including failures; no inferred symmetry"
+      "All 110 rows retained, including failures; no inferred symmetry"
     ],
     "all110_limits": [
       "Authored preview component only; no Friend/Bot source-lookup integration or ordinary conversation coverage",
@@ -131,5 +131,33 @@
     "Unavailable voice recovery and actual audio-focus/headphone-noisy interruptions; no existing Android instrumentation references to AUDIO_BECOMING_NOISY/audio-focus interruption found in this audit.",
     "Physical-device offline audio route and listening/pronunciation review; native PLAYING alone cannot establish these."
   ],
-  "actions": "No build, device, account, store or production action performed by this audit agent."
+  "actions": "No build, device, account, store or production action performed by this audit agent.",
+  "qualified_preview_matrix": {
+    "report": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/native-preview-matrix-110-r01.json",
+    "sha256": "4cfd2ab1acbdee2d562a40b4c9b1b6927de05073fe044cea9826b38bfdb12526",
+    "source_asset_sha256": "5a1ca33426dae02178c63df41b18f92ac3f9d12160d9bd020941eb6327d0aaf3",
+    "complete": true,
+    "expected_directions": 110,
+    "passed_directions": 110,
+    "failed_directions": 0,
+    "coverage": "All distinct pairs of the 11 supported languages, with no inferred symmetry or omitted direction.",
+    "proves": [
+      "Shipped authored preview text and native visible selected target/Latin guide",
+      "Marked pinyin retained for each Chinese preview span",
+      "Actual native word tap reaches production SpeechPlayback and AudioTrack PLAYING",
+      "Exact target script and language enter playback; same native word tap stops without replay or rebound"
+    ],
+    "tap_to_playing_ms": {
+      "median": 198.0,
+      "p95_nearest_rank": 237,
+      "maximum": 319,
+      "p95_lower_observation": 230,
+      "p95_methods": "Lower observation: sorted index floor(0.95*(110-1))=103; nearest rank: sorted index ceil(0.95*110)-1=104."
+    },
+    "limits": [
+      "Authored preview component; does not establish ordinary Friend/Bot conversation coverage or translation/readings accuracy",
+      "Player state is not acoustic output latency, pronunciation or human listening acceptance",
+      "No physical-device, per-row selected voice identifier or new offline-network qualification claim"
+    ]
+  }
 }
