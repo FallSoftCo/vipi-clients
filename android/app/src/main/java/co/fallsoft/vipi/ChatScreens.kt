@@ -133,6 +133,29 @@ import java.util.UUID
     DisposableEffect(immersion) { onDispose { immersion.close() } }
     DisposableEffect(speech) { onDispose { speech.close() } }
     val list = rememberLazyListState()
+    suspend fun revealNewestMessage() {
+        val newest = messages.lastOrNull() ?: return
+        if (!followingLatest || list.isScrollInProgress) return
+        fun showLeadingEdgeIfOversized(): Boolean {
+            val layout = list.layoutInfo
+            val row = layout.visibleItemsInfo.firstOrNull { it.key == newest.id } ?: return false
+            if (layout.viewportSize.height <= 0 || row.size <= layout.viewportSize.height) return false
+            // A long row cannot fit together with its metadata/audio. Show its
+            // leading content instead of leaving only the trailing controls
+            // visible. This non-scrolling remeasure preserves follow intent;
+            // an actual reader drag still opts out through the observer below.
+            list.requestScrollToItem(row.index, layout.beforeContentPadding)
+            return true
+        }
+        // Reuse a measured oversized row directly on IME/paragraph resize;
+        // do not bounce it to the bottom on every layout observation.
+        if (showLeadingEdgeIfOversized()) return
+        list.scrollToItem(messages.size + 1)
+        withFrameNanos { }
+        if (followingLatest && !list.isScrollInProgress && messages.lastOrNull()?.id == newest.id) {
+            showLeadingEdgeIfOversized()
+        }
+    }
     LaunchedEffect(list, peer) {
         snapshotFlow {
             val layout = list.layoutInfo
@@ -167,7 +190,7 @@ import java.util.UUID
                 // scroll, then respect any intervening jump back to history.
                 withFrameNanos { }
                 if (followingLatest && !list.isScrollInProgress && messages.isNotEmpty()) {
-                    list.scrollToItem(messages.size + 1)
+                    revealNewestMessage()
                 }
             }
         }
@@ -203,7 +226,7 @@ import java.util.UUID
     }
     LaunchedEffect(chat.revision) { refresh() }
     LaunchedEffect(messages.lastOrNull()?.id, jumpRevision) {
-        if (followingLatest && messages.isNotEmpty()) list.scrollToItem(messages.size + 1)
+        if (followingLatest && messages.isNotEmpty()) revealNewestMessage()
     }
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val viewDensity = LocalDensity.current
