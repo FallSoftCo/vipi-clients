@@ -74,7 +74,11 @@ enum HistoryBackupStore {
         try Task.checkCancellation()
         let authorized = selected.startAccessingSecurityScopedResource()
         defer { if authorized { selected.stopAccessingSecurityScopedResource() } }
-        guard destination.isFileURL, sameFilePath(destination.resolvingSymlinksInPath(), destination) else { throw CocoaError(.fileWriteInvalidFileName) }
+        let parent = destination.deletingLastPathComponent()
+        // Foundation may leave a nonexistent leaf unresolved even when its
+        // existing parent is a symlink. Check that parent before allocation.
+        guard destination.isFileURL, sameFilePath(parent.resolvingSymlinksInPath(), parent),
+              sameFilePath(destination.resolvingSymlinksInPath(), destination) else { throw CocoaError(.fileWriteInvalidFileName) }
         guard !FileManager.default.fileExists(atPath: destination.path) else { throw CocoaError(.fileWriteFileExists) }
         guard FileManager.default.createFile(atPath: destination.path, contents: nil,
             attributes: [.posixPermissions: 0o600, .protectionKey: FileProtectionType.completeUntilFirstUserAuthentication]) else { throw CocoaError(.fileWriteUnknown) }
