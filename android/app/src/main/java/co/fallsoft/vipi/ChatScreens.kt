@@ -25,6 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.scrollToIndex
@@ -32,6 +34,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -111,6 +114,9 @@ import java.util.UUID
     }
     val lifecycle = LocalLifecycleOwner.current
     var composing by remember { mutableStateOf(false) }
+    var topBarHeightPx by remember { mutableIntStateOf(0) }
+    val composerStatusScroll = rememberScrollState()
+    LaunchedEffect(peer, error, chat.notice, speech.error) { composerStatusScroll.scrollTo(0) }
     LaunchedEffect(immersion) { immersion.checkDownloads() }
     LaunchedEffect(speech) { speech.prepare(warmups) }
     LaunchedEffect(speech.state) { if (speech.state == SpeechState.READY) showVoiceHelp = false }
@@ -199,8 +205,25 @@ import java.util.UUID
     LaunchedEffect(messages.lastOrNull()?.id, jumpRevision) {
         if (followingLatest && messages.isNotEmpty()) list.scrollToItem(messages.size + 1)
     }
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+    val viewDensity = LocalDensity.current
+    val bottomInsets = with(viewDensity) { maxOf(WindowInsets.ime.getBottom(this), WindowInsets.navigationBars.getBottom(this)).toDp() }
+    val composerPadding = OutlinedTextFieldDefaults.contentPadding()
+    val minimumComposerHeight = maxOf(OutlinedTextFieldDefaults.MinHeight,
+        with(viewDensity) { MaterialTheme.typography.bodyLarge.lineHeight.toDp() } +
+            composerPadding.calculateTopPadding() + composerPadding.calculateBottomPadding())
+    val normalTopBarHeight = TopAppBarDefaults.TopAppBarExpandedHeight +
+        with(viewDensity) { TopAppBarDefaults.windowInsets.getTop(this).toDp() }
+    val compact = maxHeight - bottomInsets - normalTopBarHeight < minimumComposerHeight + 16.dp
+    val compactBarHeight = maxOf(48.dp,
+        with(viewDensity) { MaterialTheme.typography.titleLarge.lineHeight.toDp() })
+    val footerMaxHeight = (maxHeight - with(viewDensity) { topBarHeightPx.toDp() }).coerceAtLeast(0.dp)
+    val availableHeight = (footerMaxHeight - bottomInsets).coerceAtLeast(0.dp)
+    val composerMaxHeight = if (compact) maxOf(minimumComposerHeight, availableHeight) else Dp.Infinity
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
-        topBar = { TopAppBar(title = { Text(chat.name(peer), maxLines = 1) }, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
+        topBar = { TopAppBar(title = { Text(chat.name(peer), maxLines = 1) },
+            modifier = Modifier.onSizeChanged { topBarHeightPx = it.height },
+            expandedHeight = if (compact) compactBarHeight else TopAppBarDefaults.TopAppBarExpandedHeight, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
             actions = {
                 Box {
                     IconButton(onClick = { options = true }, enabled = !blockBusy, modifier = Modifier.testTag("conversation-options")) {
@@ -215,7 +238,10 @@ import java.util.UUID
                 }
             }) },
         bottomBar = {
-            Column(Modifier.background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
+            // Scaffold measures bars independently. Keep the complete footer
+            // below the measured toolbar, even with a multiline draft and IME.
+            Column(Modifier.heightIn(max = footerMaxHeight).background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
+                Column(Modifier.fillMaxWidth().weight(1f, fill = false).verticalScroll(composerStatusScroll)) {
                 if (speech.state != SpeechState.UNAVAILABLE) speech.error?.let {
                     Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = 8.dp))
                 }
@@ -223,17 +249,19 @@ import java.util.UUID
                 if (chat.needsPlan && onPlan != null) TextButton(onClick = onPlan, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_b30a48ba0b99)) }
                 if (chat.needsDeviceRecovery) TextButton(onClick = back, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_fa3d530cf72d)) }
                 if (peer in chat.peersNeedingRecovery) TextButton(onClick = { showSecurityNumber = true }, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_38d5b00c27da)) }
+                }
                 if (blocked) Row(Modifier.fillMaxWidth().padding(16.dp).testTag("conversation-blocked"), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
                     Text(stringResource(R.string.ui_b1fe736c0809), fontSize = 14.sp)
                     TextButton(onClick = { confirmBlock = true }, enabled = !blockBusy) { Text(stringResource(R.string.ui_712da63171e0)) }
                 } else {
-                Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = if (compact) 0.dp else 8.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     OutlinedTextField(text, { value ->
                         text = value
                         try { chat.saveCompose(value, peer) }
                         catch (_: Exception) { error = context.getString(R.string.chat_draft_save_failed) }
                     }, placeholder = { Text(stringResource(R.string.message_hint)) }, maxLines = 6, shape = RoundedCornerShape(24.dp),
-                        modifier = Modifier.weight(1f).onFocusChanged { composing = it.isFocused }.testTag("message-input"))
+                        modifier = Modifier.weight(1f).heightIn(min = minimumComposerHeight, max = composerMaxHeight)
+                            .onFocusChanged { composing = it.isFocused }.testTag("message-input"))
                     FilledIconButton(onClick = {
                         try {
                             chat.send(text, peer); text = ""; error = null
@@ -300,6 +328,7 @@ import java.util.UUID
                 }
             }
         }
+    }
     }
     if (showSecurityNumber) SecurityNumberSheet(chat, peer, dismiss = { showSecurityNumber = false })
     if (showVoiceHelp) AlertDialog(onDismissRequest = { showVoiceHelp = false },
