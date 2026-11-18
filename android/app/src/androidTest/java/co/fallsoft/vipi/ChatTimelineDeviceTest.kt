@@ -35,10 +35,11 @@ class ChatTimelineDeviceTest {
                 }
             }
             data class ReadingLine(val tag: String, val original: String, val start: Int, val end: Int,
-                val top: Float, val bottom: Float, val paragraphHeight: Int, val metadataTop: Float, val drawn: String) {
+                val top: Float, val bottom: Float, val baseline: Float, val paragraphHeight: Int, val metadataTop: Float, val drawn: String) {
                 fun json() = JSONObject().put("message_metadata_tag", tag).put("original", original)
                     .put("source_start", start).put("source_end", end).put("source_line", original.substring(start, end))
-                    .put("line_top", top.toDouble()).put("line_bottom", bottom.toDouble()).put("paragraph_height", paragraphHeight)
+                    .put("line_top", top.toDouble()).put("line_bottom", bottom.toDouble()).put("line_baseline", baseline.toDouble())
+                    .put("paragraph_height", paragraphHeight)
                     .put("metadata_top", metadataTop.toDouble()).put("drawn_line", drawn)
             }
             fun readingLines(): List<ReadingLine> {
@@ -63,11 +64,12 @@ class ChatTimelineDeviceTest {
                         for (line in 0 until layout.lineCount) {
                             val top = point[1] + view.totalPaddingTop - view.scrollY + layout.getLineTop(line).toFloat()
                             val bottom = point[1] + view.totalPaddingTop - view.scrollY + layout.getLineBottom(line).toFloat()
+                            val baseline = point[1] + view.totalPaddingTop - view.scrollY + layout.getLineBaseline(line).toFloat()
                             val start = layout.getLineStart(line).coerceAtMost(original.length)
                             val end = layout.getLineEnd(line).coerceAtMost(original.length)
                             if (end > start && top >= timeline.top && bottom <= timeline.bottom &&
                                 top >= viewport.top && bottom <= viewport.bottom) {
-                                result += ReadingLine(row.first, original, start, end, top, bottom, view.height,
+                                result += ReadingLine(row.first, original, start, end, top, bottom, baseline, view.height,
                                     row.third, view.visibleText(start, end))
                             }
                         }
@@ -82,13 +84,16 @@ class ChatTimelineDeviceTest {
                     compose.waitUntil(8_000) {
                         val lines = readingLines()
                         val value = if (expected == null) lines.minByOrNull { it.top } else lines.singleOrNull {
-                            it.tag == expected.tag && it.original == expected.original && it.start == expected.start && it.end == expected.end
+                            //A fixed source position identifies the reading
+                            //content; preparation may legitimately rewrap its
+                            //visual line and change that line's ending offset.
+                            it.tag == expected.tag && it.original == expected.original && expected.start in it.start until it.end
                         }
                         val now = android.os.SystemClock.uptimeMillis(); val currentFrame = frames.get()
                         if (observations.length() == 32) observations.remove(0)
                         observations.put(JSONObject().put("vsync_frame", currentFrame).put("uptime_ms", now)
                             .put("reading_line", value?.json() ?: JSONObject.NULL))
-                        val geometry = value?.let { "${it.tag}:${it.start}:${it.end}:${it.top}:${it.bottom}:${it.paragraphHeight}" }.orEmpty()
+                        val geometry = value?.let { "${it.tag}:${it.start}:${it.end}:${it.top}:${it.bottom}:${it.baseline}:${it.paragraphHeight}" }.orEmpty()
                         val samePosition = value != null && (expected == null || kotlin.math.abs(value.top - expected.top) <= 1f)
                         if (!samePosition || geometry != prior) { stableSince = now; stableFrames = 0 }
                         if (samePosition && currentFrame != frame) stableFrames++
@@ -97,7 +102,9 @@ class ChatTimelineDeviceTest {
                     }
                 } finally {
                     File(output, "$phase-reading-observations.json").writeText(JSONObject().put("observations", observations)
-                        .put("expected_reading_line", expected?.json() ?: JSONObject.NULL).put("y_tolerance_px", 1).toString(2))
+                        .put("expected_reading_line", expected?.json() ?: JSONObject.NULL)
+                        .put("fixed_source_point_utf16", expected?.start ?: accepted?.start ?: JSONObject.NULL)
+                        .put("baseline_observed_separately", true).put("y_tolerance_px", 1).toString(2))
                 }
                 return requireNotNull(accepted)
             }
@@ -238,7 +245,7 @@ class ChatTimelineDeviceTest {
                 File(output, "receipt.json").writeText(JSONObject().put("synthetic_contact_and_transport", true)
                     .put("actual_main_activity", true).put("initial_latest", true).put("append_preserved_anchor", true)
                     .put("encrypted_incoming_reply_while_reading_earlier", true).put("incoming_receipts", 1)
-                    .put("native_ime_preserved_exact_anchor_y", true).put("reader_anchor", "native source line, exact message ID and Y within1px")
+                    .put("native_ime_preserved_exact_anchor_y", true).put("reader_anchor", "fixed source point, exact message ID and native line Y within1px")
                     .put("keyboard_preserved_reading", true)
                     .put("own_send_followed", true).put("explicit_jump_followed", true).put("followed_append", true)
                     .put("older_page_preserved_anchor", true).put("immersed_history", immersed)
