@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T06:43:25.348748+00:00",
+  "updated_utc": "2026-11-18T07:13:49.321806+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -64,14 +64,14 @@
       "implementation": "Android actual billing coordinator; iOS actual SubscriptionStore",
       "status": "passed domain integration",
       "required_observation": "stale GET success/error cannot revoke confirmed purchase, foreign receipt does not block rightful restore, wrong-account access rejected",
-      "limits": "SDK billing controlled on Android; native StoreKit transaction test still blocked before transaction"
+      "limits": "SDK billing controlled on Android; native StoreKit r03 local buy failed notEntitled, with no confirmed transaction."
     },
     {
       "journey": "Local StoreKit checkout and restore",
       "implementation": "iOS actual StoreKitTest",
-      "status": "not passed; IDE control diagnostics reconciled",
+      "status": "not passed; actual IDE test failed notEntitled",
       "required_observation": "must obtain Xcode-only zero-charge transaction and reconcile through production store coordinator",
-      "limits": "Earlier local StoreKit readiness returned notEntitled before transaction. Two later IDE-control diagnostics dispatched no test or purchase; native scheme restored. Mock tests are not a StoreKit pass."
+      "limits": "r03 dispatched one IDE test and one local SKTestSession.buyProduct call; call failed notEntitled, no confirmed transaction. Prior nil-error readiness operation falsely returned success. Positive set/read/clear readiness guard prepared/typechecked only. No live Product.purchase call; mocks are not a StoreKit pass."
     },
     {
       "journey": "Single-tap word speech and stopping",
@@ -107,6 +107,13 @@
       "status": "passed normal and narrow/enlarged, with and without confirmed chat history",
       "required_observation": "Complete draft and history survive Back/reopen; actual native end selection; full final visual line/caret above IME; exactly one setup POST only for history variant, zero draft sends",
       "limits": "Native character-location API returns null for scrolled text. Geometry uses screenshot-measured caret and actual layout, explicitly not native glyph API proof. Test waits for native focus/IME events before one end-selection action."
+    },
+    {
+      "journey": "Type in landscape with native keyboard",
+      "implementation": "Actual signed Android7 production APK/Gboard",
+      "status": "FAILED; fix and regression in progress",
+      "required_observation": "Complete typed visual line and caret must remain visible above IME; draft retained; Send/back reachable",
+      "limits": "1920x1080/font1 tap opens real Gboard and actual key taps produce hi, but text/caret are clipped inside field. No Send attempted; draft cleared and original orientation settings restored."
     }
   ],
   "receipts": {
@@ -122,14 +129,16 @@
     "android_multiline_large": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-editing-idle-large-r30.json",
     "android_signed_v7": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/release-verification-v7-r01.json",
     "android_signed_v7_keyboard": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-native-smoke-r01/receipt.json",
-    "ios_signed_export": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/corrected-apple-export-result-r01/summary.json"
+    "ios_signed_export": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/corrected-apple-export-result-r01/summary.json",
+    "android_landscape_failure": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-landscape-r01/receipt.json",
+    "ios_prior_live_continuity_audit": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-acceptance-continuity-audit-r01.json"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
   "original_nine_dirty_files_preserved": true,
   "prior_external_actions_reconciled": {
     "base_intro_offers": "Google obsolete Base offer deactivated once; Apple Base offer removed once onNovember17. Reloadverifiedreceipts retained. No repetition.",
     "google_license_test": "Prior no-charge license purchase/renewal/cancellation/lapse completed; do not replay. Current native tests controlbilling boundary and do not claim a new storetest.",
-    "apple_native_purchase": "No actual Apple transaction pass. IDE-control diagnostics r01/r02 restored unchanged QA scheme; no test or purchase dispatched."
+    "apple_native_purchase": "r01/r02 dispatched no test/purchase; r03 one actual IDE test/one local SKTestSession.buyProduct failed notEntitled, no confirmed transaction. No live Product.purchase or charge. Original failure retained; no replay."
   },
   "evidence_retention": "After completed qualification and signedv7 verification, all synthetic QA app evidence was retained in a private hashed archive before retiring only its isolated emulator packages. Original user accounts/production app data retained; latest testAPK and source kept. No claim that the encrypted fixture archive is a restorable customer backup."
 }
