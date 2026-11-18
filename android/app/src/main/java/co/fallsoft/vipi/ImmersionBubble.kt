@@ -104,15 +104,22 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     val root = LocalView.current
     val accessibility = remember { context.getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager }
     var screenReader by remember { mutableStateOf(accessibility.isTouchExplorationEnabled) }
-    DisposableEffect(owner, accessibility) {
+    fun stopOwnedSpeech() {
+        val current = speech?.activeMessage
+        val ownedWord = current != null && (wordAudioID?.let { current == "word-$messageID-$it" } == true ||
+            result.spans.any { current == "word-$messageID-${it.id}" })
+        wordAudio?.cancel(); wordAudio = null; wordAudioID = null; revision++
+        if (current == messageID || current == "translation-$messageID" || ownedWord) speech?.stop()
+    }
+    DisposableEffect(owner, accessibility, speech, messageID, inlineIdentity) {
         resumed = owner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
         val lifecycle = LifecycleEventObserver { _, _ ->
             resumed = owner.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
-            if (!resumed && speech?.activeMessage == messageID) speech.stop()
+            if (!resumed) stopOwnedSpeech()
         }
         val listener = AccessibilityManager.TouchExplorationStateChangeListener { screenReader = it }
         owner.lifecycle.addObserver(lifecycle); accessibility.addTouchExplorationStateChangeListener(listener)
-        onDispose { owner.lifecycle.removeObserver(lifecycle); accessibility.removeTouchExplorationStateChangeListener(listener); if (speech?.activeMessage == messageID) speech.stop() }
+        onDispose { owner.lifecycle.removeObserver(lifecycle); accessibility.removeTouchExplorationStateChangeListener(listener); stopOwnedSpeech() }
     }
     val rawVoiceUnresolved = originalMessage != null && rawSourceLanguage == null &&
         (effectiveMode == ReadingMode.ORIGINAL || originalMessage.toByteArray(Charsets.UTF_8).contentEquals(result.original.toByteArray(Charsets.UTF_8)))
@@ -136,7 +143,7 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
             originalPhase = !originalPhase; overrides = emptyMap()
         }
     }
-    LaunchedEffect(visibleIdentity) { if (speech?.activeMessage == messageID) speech.stop(); overrides = emptyMap(); revision++ }
+    LaunchedEffect(visibleIdentity, speech, messageID) { stopOwnedSpeech(); overrides = emptyMap() }
     val accent = MaterialTheme.colorScheme.primary.toArgb()
     val ink = MaterialTheme.colorScheme.onSurface.toArgb()
     val canShowScript = (effectiveMode == ReadingMode.TRANSLATION && fullReading != null) ||
