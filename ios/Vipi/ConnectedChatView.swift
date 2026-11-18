@@ -1,6 +1,21 @@
 import SwiftUI
 
 struct ConnectedChatRoot: View {
+    #if DEBUG
+    @MainActor struct Qualification {
+        let makeChat: (AuthenticationManager, String) throws -> ChatSession
+        let makeSubscriptions: (AuthenticationManager, String, UUID) throws -> SubscriptionStore
+        let makeBotOwner: (UUID?) -> BotConversationOwner
+    }
+    private let qualification: Qualification?
+    init(qualification: Qualification? = nil) {
+        if qualification != nil {
+            precondition(Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" &&
+                ProcessInfo.processInfo.arguments.contains("-vipi-deletion-root-qa"), "Owned root qualification only")
+        }
+        self.qualification = qualification
+    }
+    #endif
     @Environment(AuthenticationManager.self) private var authentication
     @Environment(\.scenePhase) private var scenePhase
     @State private var chat: ChatSession?
@@ -58,23 +73,49 @@ struct ConnectedChatRoot: View {
             if let chat, !chat.ready || chat.needsReauthentication { Task { await chat.start() } }
         }
         .task(id: authentication.session?.userID) {
-            try? botOwner.close(); botOwner = BotConversationOwner()
+            try? botOwner.close()
+            #if DEBUG
+            botOwner = qualification?.makeBotOwner(nil) ?? BotConversationOwner()
+            #else
+            botOwner = BotConversationOwner()
+            #endif
             subscriptions?.close(); subscriptions = nil
             PushNotifications.shared.detach()
             try? chat?.close(); chat = nil
             guard let userID = authentication.session?.userID else { return }
             do {
+                #if DEBUG
+                let value = try qualification?.makeChat(authentication, userID) ?? ChatSession(authentication: authentication, userID: userID)
+                #else
                 let value = try ChatSession(authentication: authentication, userID: userID)
+                #endif
                 chat = value; await value.start()
             } catch { self.error = String(localized: "Your saved data is still here. Please close and reopen Vipi to try again.") }
         }
         .onDisappear { try? botOwner.close(); subscriptions?.close(); PushNotifications.shared.detach(); try? chat?.close() }
         .task(id: chat?.profile?.id) {
-            try? botOwner.close(); botOwner = BotConversationOwner()
+            try? botOwner.close()
+            #if DEBUG
+            botOwner = qualification?.makeBotOwner(chat?.profile?.id) ?? BotConversationOwner()
+            #else
+            botOwner = BotConversationOwner()
+            #endif
             subscriptions?.close(); subscriptions = nil
+            #if DEBUG
+            guard let profile = chat?.profile, let userID = authentication.session?.userID else { return }
+            let store: SubscriptionStore
+            if let qualification {
+                do { store = try qualification.makeSubscriptions(authentication, userID, profile.id) }
+                catch { self.error = "Synthetic root subscription preparation failed"; return }
+            } else {
+                guard let api = try? ServiceClient(authentication: authentication, userID: userID) else { return }
+                store = SubscriptionStore(api: api, accountToken: profile.id)
+            }
+            #else
             guard let profile = chat?.profile, let userID = authentication.session?.userID,
                   let api = try? ServiceClient(authentication: authentication, userID: userID) else { return }
             let store = SubscriptionStore(api: api, accountToken: profile.id)
+            #endif
             subscriptions = store; await store.start()
         }
         .task(id: chat?.ready == true && chat?.needsReauthentication == false) {
