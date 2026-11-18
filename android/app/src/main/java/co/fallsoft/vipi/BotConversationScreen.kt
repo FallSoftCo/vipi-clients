@@ -82,13 +82,7 @@ import java.time.format.FormatStyle
                         .onFailure { localError = context.getString(R.string.bot_draft_save_failed) }
                     else localError = context.getString(R.string.bot_message_too_long)
                 }, onComposingChanged = { composing = it }, busy = bot.busy, allowance = bot.allowance,
-                onSend = { scope.launch {
-                    // The button may have been drawn before a refresh began.
-                    // Re-read current access at dispatch; retained drafts never authorize a send.
-                    if (bot.consent && subscriptions?.accessCheckState == AccessCheckState.LOADED &&
-                        subscriptions.access?.bot?.verificationUnavailable != true &&
-                        subscriptions.access?.active(SubscriptionPlan.BOT_MINI) == true) bot.send()
-                } },
+                onSend = model::sendBotMessage,
                 onRetryAccess = { scope.launch { subscriptions?.refreshAccess() } },
                 onPlan = { model.navigate(Screen.BOT_PLAN) },
                 onRefreshAllowance = { scope.launch { bot.refreshAllowance() } })

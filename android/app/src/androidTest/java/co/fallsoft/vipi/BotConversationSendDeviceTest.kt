@@ -200,6 +200,9 @@ class BotConversationSendDeviceTest {
                 @Suppress("UNCHECKED_CAST")
                 (field.get(model) as MutableState<Any?>).value = plans
                 bot = BotSession(application, account, transport)
+                val botField = VipiModel::class.java.getDeclaredField("bot\$delegate").apply { isAccessible = true }
+                @Suppress("UNCHECKED_CAST")
+                (botField.get(model) as MutableState<Any?>).value = bot
                 initialized = true
                 check(!bot.consent && bot.draft.isEmpty() && bot.messages.isEmpty())
                 check(model.knownLanguage == "en" && model.targetLanguage == "es")
@@ -272,7 +275,7 @@ class BotConversationSendDeviceTest {
                 compose.runOnIdle { visible.value = false }
                 compose.waitForIdle()
                 instrumentation.runOnMainSync {
-                    bot.close(); models.clear(); scope.cancel()
+                    models.clear(); scope.cancel()
                     originalSoftInputMode?.let { mode -> host?.window?.setSoftInputMode(mode) }
                     android.view.inspector.WindowInspector.getGlobalWindowViews().forEach {
                         it.windowInsetsController?.hide(android.view.WindowInsets.Type.ime())

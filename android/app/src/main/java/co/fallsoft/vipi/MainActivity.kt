@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -124,7 +125,7 @@ class MainActivity : ComponentActivity() {
 @Composable private fun VipiApp(model: VipiModel) {
     LaunchedEffect(model.authentication.userID, model.authentication.signInRevision, model.deletion.active) {
         if (model.deletion.active) model.deletion.resume()
-        else if (model.authentication.userID != null) model.activateChats()
+        else model.activateChats()
     }
     if (model.deletion.active) { AccountDeletionProgress(model.deletion, model.authentication) { model.navigate(Screen.WELCOME) }; return }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
@@ -144,11 +145,7 @@ class MainActivity : ComponentActivity() {
     DisposableEffect(lifecycle, model.chat, model.chat?.ready, model.chat?.needsReauthentication, model.authentication.userID) {
         val chat = model.chat
         val events = chat?.takeIf { it.ready && !it.needsReauthentication && it.userID == model.authentication.userID }?.let {
-            ForegroundInboxEvents(syncScope, { rejected -> model.authentication.accessToken(it.userID, rejected) },
-                it::eventDevice, {
-                    it.synchronize()
-                    if (!it.lastSyncComplete) throw java.io.IOException("Inbox synchronization incomplete")
-                }, onDeviceRevoked = it::noteDeviceRevoked)
+            model.foregroundEvents(syncScope, it)
         }
         val observer = LifecycleEventObserver { _, event -> when (event) {
             Lifecycle.Event.ON_START -> events?.start()
@@ -313,7 +310,12 @@ class MainActivity : ComponentActivity() {
     Box(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background), contentAlignment = Alignment.TopCenter) {
     Column(Modifier.widthIn(max = 680.dp).fillMaxWidth().then(if (inScroll) Modifier else Modifier.navigationBarsPadding()).padding(horizontal = if (inScroll) 0.dp else 26.dp, vertical = 12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
         if (model.screen == Screen.ACCOUNT) {
-            Row(verticalAlignment = Alignment.CenterVertically) { Checkbox(checked = accepted, onCheckedChange = { accepted = it }); Text(stringResource(R.string.ui_9ed65d7add5f), fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+            Row(Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                .toggleable(value = accepted, role = Role.Checkbox, onValueChange = { accepted = it }),
+                verticalAlignment = Alignment.CenterVertically) {
+                Checkbox(checked = accepted, onCheckedChange = null)
+                Text(stringResource(R.string.ui_9ed65d7add5f), fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
             val legalLinks: @Composable () -> Unit = {
                 TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/terms"))) }) { Text(stringResource(R.string.terms_service), fontSize = 15.sp) }
                 TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/privacy"))) }) { Text(stringResource(R.string.privacy_policy), fontSize = 15.sp) }

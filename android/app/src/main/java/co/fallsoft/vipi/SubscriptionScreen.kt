@@ -35,7 +35,7 @@ import kotlinx.coroutines.delay
     LaunchedEffect(plan, model.authentication.userID) {
         if (plan == SubscriptionPlan.BOT_MINI) {
             val user = model.authentication.userID
-            if (user != null) try { botAllowance = BotAllowance.parse(ServiceClient(model.authentication, user).request("GET", "/v1/bot/allowance")) }
+            if (user != null) try { botAllowance = BotAllowance.parse(model.service(user).request("GET", "/v1/bot/allowance")) }
             catch (cancelled: kotlinx.coroutines.CancellationException) { throw cancelled }
             catch (_: Exception) { botAllowance = null }
         }
