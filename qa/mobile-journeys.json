@@ -1,0 +1,83 @@
+{
+  "purpose": "Repeatable selection of the real mobile journey tests; never interpret compilation or a large test count as release acceptance",
+  "android": {
+    "package": "co.fallsoft.vipi.sourcecontextqa",
+    "runner": "co.fallsoft.vipi.sourcecontextqa.test/androidx.test.runner.AndroidJUnitRunner",
+    "build_properties": [
+      "-PvipiSourceContextQualification=true",
+      "-PvipiQaAbi=x86_64"
+    ],
+    "isolation": "Dedicated emulator with isolated QA app data. Never run against owner phone/prod app or clear other users/apps. Record installed app/test APK hashes, original screen/font settings, and a fresh three-digit run ID. Preserve logs/screenshots/results and restore original configuration after large-text runs. Do not replay a receipt whose outcome is uncertain.",
+    "instrumentation_arguments": {
+      "vipiDedicatedEmulator": "true",
+      "vipiJourneyRun": "<fresh three-digit run ID>",
+      "vipiPreviewWordRun": "<fresh three-digit run ID>",
+      "vipiPreviewMatrixRun": "<fresh three-digit run ID>"
+    },
+    "suites": {
+      "core": {
+        "classes": [
+          "co.fallsoft.vipi.MainActivityOnboardingJourneyDeviceTest",
+          "co.fallsoft.vipi.MainActivityAuthenticatedJourneyDeviceTest"
+        ],
+        "expected_junit_cases": 6,
+        "scope": "Real MainActivity routing, native IME/editor, profile/friend Signal send, Bot consent/send/reentry/errors/history/multiline draft. Identity, relay, billing and Bot transport are controlled."
+      },
+      "domain": {
+        "classes": [
+          "co.fallsoft.vipi.BotWorkflowStateDeviceTest",
+          "co.fallsoft.vipi.SubscriptionWorkflowDeviceTest",
+          "co.fallsoft.vipi.ModelWorkflowDeviceTest",
+          "co.fallsoft.vipi.AccountDeletionDeviceTest"
+        ],
+        "expected_junit_cases": 20,
+        "scope": "Real sessions, model, encrypted vault, ownership, clock/order races, cancellation and cleanup; controlled transport/SDK."
+      },
+      "speech": {
+        "classes": [
+          "co.fallsoft.vipi.PreviewWordSpeechDeviceTest",
+          "co.fallsoft.vipi.PreviewSpeechLifecycleDeviceTest"
+        ],
+        "expected_junit_cases": 10,
+        "scope": "Actual production bubble gestures and native AudioTrack lifecycle; no physical acoustic-quality claim."
+      },
+      "preview_pairs": {
+        "classes": [
+          "co.fallsoft.vipi.PreviewWordSpeechMatrixDeviceTest"
+        ],
+        "expected_junit_cases": 1,
+        "scope": "One native test loops110 authored preview directions, not110 arbitrary-conversation cases. Inspect complete per-direction JSON, native playback and stop receipts."
+      }
+    },
+    "qualified_layouts": [
+      {
+        "pixels": "1080x1920",
+        "font_scale": 1.0
+      },
+      {
+        "pixels": "840x1600",
+        "font_scale": 1.6
+      }
+    ],
+    "verification": "Inspect instrumentation test result codes, not just adb exit0. Require all selected tests complete with no failures/skip; inspect final screen geometry and artifacts. Narrow/enlarged UI must keep input and actions inside the native window minus IME."
+  },
+  "ios": {
+    "native_qa_bundle": "co.fallsoft.vipi.uxqa",
+    "domain_suites": [
+      "BotSessionTests",
+      "HistoryBackupTests",
+      "HistoryBackupIsolationTests",
+      "AccountDeletionTests",
+      "SubscriptionStoreTests"
+    ],
+    "ui_suite": "ChatConversationTests",
+    "isolation": "Separate native simulator and private QA bundle/keychain. Run two compiler jobs. DEBUG host uses actual view, owner/session and encrypted vault with controlled transport; do not copy its bundle/Auth/project overlays into release source.",
+    "storekit": "Local StoreKit transactions must pass readiness and assert environment Xcode. Domain/mock tests are separate evidence; real sandbox/server signature verification is another boundary."
+  },
+  "acceptance_record": "mobile-user-journey-acceptance-20261118.json",
+  "limits": [
+    "External OAuth and real share-sheet delivery must be established separately.",
+    "No-charge store transactions already completed must be reconciled, not repeated.",
+    "Do not publish or call the app ready while a user-facing journey failure remains."
+  ]
+}
