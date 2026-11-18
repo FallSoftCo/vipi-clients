@@ -81,6 +81,7 @@ struct BotAllowance: Decodable, Sendable {
     private var serverClockValid = false
     private var expiredPlans = Set<VipiPlan>()
     private var closed = false
+    private var entitlementRevision: UInt64 = 0
     private var synchronizing = Set<UInt64>()
     private var reconciling = false
     private(set) var awaitingConfirmation = Set<VipiPlan>()
@@ -121,12 +122,14 @@ struct BotAllowance: Decodable, Sendable {
         // signal for a new charge. Existing account access is kept separately.
         purchaseReady = false; botAllowance = nil
         defer { loading = false }
+        let revision = entitlementRevision
         do {
             let startedAt = ContinuousClock.now
             let value: EntitlementSnapshot = try await api.request("GET", "/v1/entitlements")
-            try accept(value, capturedAt: startedAt)
-            purchaseReady = value.purchases_ready?.apple == true
-        } catch { if !closed { notice = Self.explanation(error) } }
+            // A StoreKit confirmation can accept newer access while this GET
+            // is in flight. Its response must not undo that confirmation.
+            if revision == entitlementRevision { try accept(value, capturedAt: startedAt) }
+        } catch { if !closed && revision == entitlementRevision { notice = Self.explanation(error) } }
         do {
             let value: BotAllowance = try await api.request("GET", "/v1/bot/allowance")
             if !closed { botAllowance = value }
@@ -215,7 +218,9 @@ struct BotAllowance: Decodable, Sendable {
         guard !closed, value.app_account_token == accountToken else {
             throw ServiceFailure(status: 0, code: "purchase_account_mismatch")
         }
+        entitlementRevision &+= 1
         snapshot = value
+        purchaseReady = value.purchases_ready?.apple == true
         serverClockValid = ServerTrialClock.make(serverTime: value.server_time, trialEnd: value.server_time, now: capturedAt) != nil
         expiryTasks.values.forEach { $0.cancel() }; expiryTasks = [:]; expiryClocks = [:]; expiredPlans = []
         for plan in VipiPlan.allCases {

@@ -14,6 +14,11 @@ import StoreKitTest
         var historicalAccount: UUID?
         var responseAccount: UUID?
         var submitted = 0
+        var pauseNextEntitlements = false
+        var pendingEntitlements: CheckedContinuation<Void, Never>?
+        func finishEntitlements() {
+            let pending = pendingEntitlements; pendingEntitlements = nil; pending?.resume()
+        }
         func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
             if path == "/v1/bot/allowance" {
                 return try decode(["available": (base || cardlessTrial) && bot && botService, "service_ready": botService, "remaining_replies": 150, "monthly_replies": 150, "resets_at": "2026-12-01T00:00:00Z", "max_context_bytes": 8192], as: type)
@@ -39,13 +44,18 @@ import StoreKitTest
             let now = Date()
             let expiry = clock.string(from: now.addingTimeInterval(365 * 24 * 60 * 60))
             let trialEnd = clock.string(from: now.addingTimeInterval(30 * 24 * 60 * 60))
-            return try decode(["server_time": clock.string(from: now), "base": ["active": base || cardlessTrial,
+            let captured = try decode(["server_time": clock.string(from: now), "base": ["active": base || cardlessTrial,
                 "expires_at": cardlessTrial && !base ? trialEnd : expiry,
                 "access_source": base ? "store" : "cardless_trial",
                 "cardless_trial": ["active": cardlessTrial, "started_at": clock.string(from: now), "ends_at": trialEnd]],
                 "bot_mini": ["active": bot, "available": (base || cardlessTrial) && bot, "expires_at": expiry],
                 "billing_account_id": "local-test-only", "app_account_token": (responseAccount ?? account).uuidString,
                 "purchases_ready": ["apple": ready, "google": false]], as: type)
+            if path == "/v1/entitlements" && pauseNextEntitlements {
+                pauseNextEntitlements = false
+                await withCheckedContinuation { pendingEntitlements = $0 }
+            }
+            return captured
         }
         private func decode<T: Decodable>(_ value: [String: Any], as type: T.Type) throws -> T {
             try JSONDecoder().decode(type, from: JSONSerialization.data(withJSONObject: value))
@@ -116,6 +126,30 @@ import StoreKitTest
         await store.purchase(.base)
         XCTAssertTrue(environment.allTransactions().isEmpty)
         XCTAssertEqual(api.submitted, 0)
+    }
+    func testOlderRefreshCannotReplaceServiceConfirmedStoreKitPurchase() async throws {
+        let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        let api = Service()
+        let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
+        await store.start()
+        XCTAssertFalse(store.baseActive)
+        api.ready = false; api.pauseNextEntitlements = true
+        let refreshing = Task { await store.refresh() }
+        defer { api.finishEntitlements(); refreshing.cancel() }
+        try await waitForStoreKit("older entitlement response captured before purchase") { api.pendingEntitlements != nil }
+        api.ready = true
+        let transaction = try await environment.buyProduct(identifier: VipiPlan.base.rawValue, options: [.appAccountToken(api.account)])
+        XCTAssertEqual(transaction.environment, .xcode)
+        try await waitForStoreKit("transaction listener accepts service-confirmed access") {
+            api.submitted > 0 && store.baseActive && !store.awaitingConfirmation.contains(.base)
+        }
+        api.finishEntitlements()
+        await refreshing.value
+        XCTAssertTrue(store.baseActive, "An older GET must not undo the accepted purchase response")
+        XCTAssertTrue(store.snapshot?.base.active == true)
+        XCTAssertTrue(store.purchaseReady, "Readiness belongs to the latest accepted service snapshot")
+        XCTAssertFalse(store.canPurchase(.base), "The confirmed purchase must not offer another charge")
+        XCTAssertEqual(environment.allTransactions().count, 1)
     }
     func testCardlessBaseTrialPreventsPaidBaseCheckoutAndLeavesBotMiniOptional() async throws {
         let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
