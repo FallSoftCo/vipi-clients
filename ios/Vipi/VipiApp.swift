@@ -19,7 +19,8 @@ import SwiftUI
                 if deletion.active { AccountDeletionProgressView() }
                 else {
                 #if DEBUG
-                if ProcessInfo.processInfo.arguments.contains("-vipi-reauth-qa") { ReauthenticationQualificationView() }
+                if ProcessInfo.processInfo.arguments.contains("-vipi-bot-ui-qa"), Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" { BotUIQualificationView() }
+                else if ProcessInfo.processInfo.arguments.contains("-vipi-reauth-qa") { ReauthenticationQualificationView() }
                 else if ProcessInfo.processInfo.arguments.contains("-vipi-network-qa") {
                     // The explicit native HTTP harness owns inbox ordering.
                     // It still uses the real account session and production

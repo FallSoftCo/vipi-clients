@@ -3,6 +3,7 @@ import SwiftUI
 struct HomeView: View {
     var chat: ChatSession? = nil
     var subscriptions: SubscriptionStore? = nil
+    var botOwner = BotConversationOwner()
     var reauthenticate: (() -> Void)? = nil
     var authenticationBusy = false
     var authenticationError: String? = nil
@@ -67,7 +68,7 @@ struct HomeView: View {
                         if let notice = chat?.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary) }
                         NavigationLink {
                             if let profile = chat?.profile, let subscriptions {
-                                BotConversationView(account: profile.id, subscriptions: subscriptions)
+                                BotConversationView(account: profile.id, subscriptions: subscriptions, owner: botOwner)
                             } else { BotIntroductionView(subscriptions: subscriptions) }
                         } label: {
                             HStack(spacing: 16) {
@@ -89,7 +90,7 @@ struct HomeView: View {
                     Button { showingSettings = true } label: { Image(systemName: "person.crop.circle").font(.title3) }.accessibilityLabel("Your profile and settings")
                 }
             }
-            .navigationDestination(isPresented: $showingSettings) { SettingsView(chat: chat, subscriptions: subscriptions) }
+            .navigationDestination(isPresented: $showingSettings) { SettingsView(chat: chat, subscriptions: subscriptions, closeBot: botOwner.close) }
             .sheet(isPresented: $showingInvite) { NewChatView(chat: chat) { peer in path.append(peer) } }
             .navigationDestination(for: UUID.self) { peer in if let chat { FriendConversationView(chat: chat, peer: peer) } }
             .sheet(isPresented: $offerBase) {
@@ -175,6 +176,7 @@ struct BotIntroductionView: View {
 struct SettingsView: View {
     var chat: ChatSession? = nil
     var subscriptions: SubscriptionStore? = nil
+    var closeBot: () throws -> Void = {}
     @Environment(AppState.self) private var state
     @Environment(AuthenticationManager.self) private var authentication
     var body: some View {
@@ -229,7 +231,7 @@ struct SettingsView: View {
                             if let error = authentication.errorMessage { Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary) }
                         }
                     }
-                    NavigationLink("Delete Vipi account") { DeleteAccountView(chat: chat) }.foregroundStyle(VipiDesign.destructive)
+                    NavigationLink("Delete Vipi account") { DeleteAccountView(chat: chat, closeBot: closeBot) }.foregroundStyle(VipiDesign.destructive)
                 }
             }
         }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)

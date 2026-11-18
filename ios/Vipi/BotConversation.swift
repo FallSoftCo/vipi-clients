@@ -37,8 +37,14 @@ struct BotMessage: Codable, Identifiable {
         }
         try loadEarlier()
     }
-    func close() { closed = true }
+    func close() throws {
+        closed = true
+        messages = []; draft = ""; consent = false; allowance = nil; notice = nil; earlierAvailable = false
+        // Retry remains possible if SQLite refuses while a transaction is open.
+        try vault.close()
+    }
     func loadEarlier() throws {
+        guard !closed else { throw CancellationError() }
         let before = messages.first?.key
         let page = try vault.transaction {
             try vault.pageIDs("bot-message", prefix: "0", before: before, limit: 50).compactMap { key -> BotMessage? in
@@ -52,11 +58,12 @@ struct BotMessage: Codable, Identifiable {
         messages = (page + messages).sorted { $0.key < $1.key }
     }
     func saveDraft() {
+        guard !closed else { return }
         do { try vault.transaction { try vault.put("bot-local", "draft", Data(draft.utf8)) } }
         catch { notice = String(localized: "This draft couldn’t be saved. Keep this conversation open and try again.") }
     }
     func setConsent(_ value: Bool) throws {
-        guard !busy else { return }
+        guard !closed && !busy else { return }
         try vault.transaction {
             if value { try vault.put("bot-local", "consent", Data("deepseek-v1".utf8)) }
             else { try vault.remove("bot-local", "consent") }
@@ -64,7 +71,7 @@ struct BotMessage: Codable, Identifiable {
         consent = value
     }
     func clear() throws {
-        guard !busy else { return }
+        guard !closed && !busy else { return }
         try vault.transaction { for id in try vault.ids("bot-message") { try vault.remove("bot-message", id) } }
         messages = []; earlierAvailable = false
     }
@@ -120,10 +127,11 @@ struct BotMessage: Codable, Identifiable {
         do {
             let body = try JSONEncoder().encode(Request(request_id: outgoing.id, consent_version: "deepseek-v1", messages: context))
             let reply: Reply = try await api.request("POST", "/v1/bot/messages", body: body, device: device)
+            guard !closed else { return }
             guard reply.request_id == outgoing.id, !reply.reply.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
                   reply.reply.utf8.count <= 16384 else { throw ServiceFailure(status: 0, code: "invalid_bot_reply") }
-            // Complete the local record even if navigation closed the view
-            // while the request was in flight. No follow-up request is sent.
+            // Ordinary navigation retains this account-owned session. Final
+            // disposal above must never write after its vault/key are erased.
             outgoing.state = "complete"
             var incoming = BotMessage(id: UUID(), role: "assistant", text: reply.reply, createdAt: nextMessageDate(), state: "complete")
             incoming.requestID = outgoing.id
@@ -136,6 +144,7 @@ struct BotMessage: Codable, Identifiable {
             allowanceRevision &+= 1
             allowance = reply.allowance
         } catch {
+            guard !closed else { return }
             outgoing.state = (error as? ServiceFailure)?.code == "device_revoked" ? "rejected" : "unconfirmed"
             try? vault.transaction { try vault.put("bot-message", outgoing.key, JSONEncoder().encode(outgoing)) }
             if let index = messages.firstIndex(where: { $0.id == outgoing.id }) { messages[index] = outgoing }
@@ -180,9 +189,42 @@ struct BotMessage: Codable, Identifiable {
     }
 }
 
+/// One live session per account root, retained across ordinary navigation.
+/// Closing an owner is final; a new account/root must create another owner.
+@MainActor final class BotConversationOwner {
+    private var account: UUID?
+    private var session: BotSession?
+    private var closed = false
+    func session(for account: UUID, create: () throws -> BotSession?) throws -> BotSession? {
+        guard !closed else { throw CancellationError() }
+        if let current = self.account, current != account {
+            throw ServiceFailure(status: 0, code: "bot_account_changed")
+        }
+        if let session { return session }
+        guard let value = try create() else { return nil }
+        self.account = account; session = value; return value
+    }
+    func close() throws {
+        closed = true
+        // Keep the resource on failure so explicit disposal can retry. The
+        // closed session already rejects sends and late response writes.
+        try session?.close()
+        session = nil; account = nil
+    }
+}
+
 struct BotConversationView: View {
     let account: UUID
     let subscriptions: SubscriptionStore
+    let owner: BotConversationOwner
+    private let sessionFactory: @MainActor (AuthenticationManager, UUID) throws -> BotSession?
+    init(account: UUID, subscriptions: SubscriptionStore, owner: BotConversationOwner,
+         sessionFactory: @escaping @MainActor (AuthenticationManager, UUID) throws -> BotSession? = { authentication, account in
+             guard let userID = authentication.session?.userID else { return nil }
+             return try BotSession(api: ServiceClient(authentication: authentication, userID: userID, responseTimeout: 90), vault: MessageVault(account: account))
+         }) {
+        self.account = account; self.subscriptions = subscriptions; self.owner = owner; self.sessionFactory = sessionFactory
+    }
     @Environment(AuthenticationManager.self) private var authentication
     @Environment(AppState.self) private var state
     @Environment(\.scenePhase) private var scenePhase
@@ -204,8 +246,7 @@ struct BotConversationView: View {
             .background { ConversationTranslationTask(immersion: immersion) }
             .task(id: account) {
                 do {
-                    guard let userID = authentication.session?.userID else { return }
-                    let value = try BotSession(api: ServiceClient(authentication: authentication, userID: userID, responseTimeout: 90), vault: MessageVault(account: account))
+                    guard let value = try owner.session(for: account, create: { try sessionFactory(authentication, account) }) else { return }
                     session = value; await value.refresh()
                 } catch { self.error = String(localized: "Your saved conversation couldn’t be opened. Please try again.") }
             }
@@ -214,7 +255,7 @@ struct BotConversationView: View {
                 await immersion.configure(pair: .init(source: state.knownLanguage, target: state.targetLanguage), density: state.density, familiarity: session?.familiarity)
                 prepareVoices()
             }
-            .onDisappear { session?.close(); immersion.close(); speech.close() }
+            .onDisappear { immersion.close(); speech.close() }
             .onChange(of: scenePhase) { _, phase in
                 if phase != .active { speech.stop() }
                 else { Task { await session?.refresh(); await immersion.refreshAvailability(); prepareVoices() } }
@@ -296,12 +337,13 @@ struct BotConversationView: View {
                 }
                 HStack(alignment: .bottom, spacing: 10) {
                     TextField("Message vBot", text: $value.draft, axis: .vertical).lineLimit(1...6).focused($composing)
+                        .accessibilityIdentifier("bot-message-input")
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
                         .onChange(of: value.draft) { _, _ in value.saveDraft() }
                     Button { composing = false; followingLatest = true; Task { await value.send() } } label: {
                         if value.busy { ProgressView().frame(width: 46, height: 46) }
                         else { Image(systemName: "arrow.up").frame(width: 46, height: 46).background(VipiDesign.highlight, in: Circle()).foregroundStyle(VipiDesign.onHighlight) }
-                    }.disabled(!value.canSend).accessibilityLabel("Send to vBot")
+                    }.disabled(!value.canSend).accessibilityLabel("Send to vBot").accessibilityIdentifier("bot-message-send")
                 }
             }.padding(14).background(VipiDesign.canvas)
         }

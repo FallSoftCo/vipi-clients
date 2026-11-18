@@ -23,6 +23,34 @@ import XCTest
             throw ServiceFailure(status: 404, code: "deletion_receipt_unavailable")
         }
     }
+    func testActualBotVaultCloseRefusalStopsDeletionAndCanRetryAfterTransactionEnds() throws {
+        final class NoBotRequests: ChatTransport {
+            func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
+                XCTFail("Closing local resources must not request the service")
+                throw URLError(.unsupportedURL)
+            }
+        }
+        let account = UUID(), folder = FileManager.default.temporaryDirectory.appendingPathComponent("bot-close-refusal-" + UUID().uuidString)
+        let vault = try MessageVault(account: account, directory: folder), owner = BotConversationOwner()
+        defer {
+            try? owner.close(); try? vault.close(); try? FileManager.default.removeItem(at: folder)
+            KeychainStore.delete(account: "messages-" + account.uuidString.lowercased())
+        }
+        _ = try owner.session(for: account) { try BotSession(api: NoBotRequests(), vault: vault) }
+        let store = Store(), api = Transport(); var chatClosed = 0, erased = 0
+        let manager = AccountDeletion(store: store, service: api, erase: { _ in erased += 1 }, signOut: { _ in })
+        try vault.transaction {
+            // MessageVault.close refuses an actual active SQLite transaction.
+            XCTAssertThrowsError(try manager.begin(account: account, userID: "bot_close_refusal_qa") { try owner.close(); chatClosed += 1 })
+            XCTAssertNil(store.record); XCTAssertFalse(manager.active); XCTAssertEqual(chatClosed, 0)
+            XCTAssertNotNil(try vault.get("metadata", "schema"), "The refused close retains its handle for retry")
+            XCTAssertThrowsError(try owner.session(for: account) { XCTFail("Failed disposal reopened the account"); return nil })
+        }
+        try manager.begin(account: account, userID: "bot_close_refusal_qa") { try owner.close(); chatClosed += 1 }
+        XCTAssertEqual(chatClosed, 1); XCTAssertNotNil(store.record); XCTAssertTrue(manager.active)
+        XCTAssertThrowsError(try vault.transaction { try vault.ids("bot-message") }, "Explicit retry must actually close the retained handle")
+        XCTAssertEqual(erased, 0); XCTAssertEqual(api.submitCount, 0); XCTAssertEqual(api.statusCount, 0)
+    }
     func testLostResponseRecoversAfterRestartWithoutResubmission() async throws {
         let store = Store(), api = Transport(), account = UUID()
         var closed = false, erased = 0, signedOut = [String]()

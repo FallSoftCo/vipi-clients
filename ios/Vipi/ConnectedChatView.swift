@@ -5,6 +5,7 @@ struct ConnectedChatRoot: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var chat: ChatSession?
     @State private var subscriptions: SubscriptionStore?
+    @State private var botOwner = BotConversationOwner()
     @State private var error: String?
     @State private var replacement: OwnDeviceReplacement?
     @State private var showReplacement = false
@@ -12,7 +13,7 @@ struct ConnectedChatRoot: View {
         Group {
             if let chat {
                 if chat.profile != nil {
-                    HomeView(chat: chat, subscriptions: subscriptions, reauthenticate: { authentication.signIn(expectedUser: chat.userID) }, authenticationBusy: authentication.busy, authenticationError: authentication.errorMessage)
+                    HomeView(chat: chat, subscriptions: subscriptions, botOwner: botOwner, reauthenticate: { authentication.signIn(expectedUser: chat.userID) }, authenticationBusy: authentication.busy, authenticationError: authentication.errorMessage)
                         .safeAreaInset(edge: .top) {
                             if !chat.ready && !chat.needsReauthentication {
                                 VStack(alignment: .leading, spacing: 8) {
@@ -57,6 +58,7 @@ struct ConnectedChatRoot: View {
             if let chat, !chat.ready || chat.needsReauthentication { Task { await chat.start() } }
         }
         .task(id: authentication.session?.userID) {
+            try? botOwner.close(); botOwner = BotConversationOwner()
             subscriptions?.close(); subscriptions = nil
             PushNotifications.shared.detach()
             try? chat?.close(); chat = nil
@@ -66,8 +68,9 @@ struct ConnectedChatRoot: View {
                 chat = value; await value.start()
             } catch { self.error = String(localized: "Your saved data is still here. Please close and reopen Vipi to try again.") }
         }
-        .onDisappear { subscriptions?.close(); PushNotifications.shared.detach(); try? chat?.close() }
+        .onDisappear { try? botOwner.close(); subscriptions?.close(); PushNotifications.shared.detach(); try? chat?.close() }
         .task(id: chat?.profile?.id) {
+            try? botOwner.close(); botOwner = BotConversationOwner()
             subscriptions?.close(); subscriptions = nil
             guard let profile = chat?.profile, let userID = authentication.session?.userID,
                   let api = try? ServiceClient(authentication: authentication, userID: userID) else { return }

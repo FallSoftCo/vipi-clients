@@ -202,11 +202,16 @@ import XCTest
 
     func testConfirmedReplySurvivesLeavingConversationWithoutAnotherRequest() async throws {
         try await withVault { vault in
-            let api = Transport(), session = try BotSession(api: api, vault: vault)
+            let api = Transport(), owner = BotConversationOwner(); defer { try? owner.close() }
+            let session = try XCTUnwrap(owner.session(for: vault.account) { try BotSession(api: api, vault: vault) })
             await session.refresh(); try session.setConsent(true); session.draft = "Finish my reply"
             api.pauseReply = true
             let sending = Task { await session.send() }; await api.waitForReply()
-            session.close(); api.finishReply(); await sending.value
+            // Ordinary Back returns the same live owner. close() is reserved
+            // for final account disposal and intentionally drops late results.
+            let returned = try owner.session(for: vault.account) { XCTFail("Navigation recreated the pending session"); return nil }
+            XCTAssertTrue(returned === session)
+            api.finishReply(); await sending.value
             let reopened = try BotSession(api: api, vault: vault)
             XCTAssertEqual(reopened.messages.map(\.state), ["complete", "complete"])
             XCTAssertEqual(reopened.messages.last?.text, "Coffee tomorrow sounds good.")
@@ -243,6 +248,63 @@ import XCTest
             XCTAssertFalse(session.canSend); await session.send()
             XCTAssertFalse(api.requests.contains { $0.1 == "/v1/bot/messages" })
             XCTAssertEqual(try BotSession(api: api, vault: vault).draft, "Wait for next month")
+        }
+    }
+
+    func testAccountOwnerReusesOnlyItsLiveAccountAndDisposalPreventsAnotherSend() async throws {
+        try await withVault { vault in
+            let api = Transport(), owner = BotConversationOwner()
+            var created = 0
+            let first = try XCTUnwrap(owner.session(for: vault.account) {
+                created += 1; return try BotSession(api: api, vault: vault)
+            })
+            let retained = try owner.session(for: vault.account) { XCTFail("Ordinary navigation recreated the live session"); return nil }
+            XCTAssertTrue(first === retained); XCTAssertEqual(created, 1)
+            XCTAssertThrowsError(try owner.session(for: UUID()) { XCTFail("Another account reached the factory"); return nil })
+            await first.refresh(); try first.setConsent(true)
+            first.draft = "Only the first account draft"; first.saveDraft(); XCTAssertTrue(first.canSend)
+            try owner.close(); XCTAssertFalse(first.canSend); await first.send()
+            XCTAssertFalse(api.requests.contains { $0.1 == "/v1/bot/messages" })
+            XCTAssertThrowsError(try owner.session(for: vault.account) { XCTFail("A disposed account owner reopened"); return nil })
+            try await self.withVault { otherVault in
+                XCTAssertNotEqual(otherVault.account, vault.account)
+                let otherAPI = Transport(), otherOwner = BotConversationOwner(); defer { try? otherOwner.close() }
+                let other = try XCTUnwrap(otherOwner.session(for: otherVault.account) { try BotSession(api: otherAPI, vault: otherVault) })
+                XCTAssertFalse(first === other); XCTAssertTrue(other.messages.isEmpty)
+                XCTAssertTrue(other.draft.isEmpty); XCTAssertFalse(other.consent)
+            }
+        }
+    }
+
+    func testFinalOwnerDisposalClosesVaultBeforeErasureAndIgnoresLateReply() async throws {
+        try await withVault { vault in
+            try await self.withVault { otherVault in
+                try otherVault.transaction { try otherVault.put("qa-owner", "keep", Data("other account".utf8)) }
+                let api = Transport(), owner = BotConversationOwner()
+                let session = try XCTUnwrap(owner.session(for: vault.account) { try BotSession(api: api, vault: vault) })
+                await session.refresh(); try session.setConsent(true); session.draft = "Erase only this account"
+                api.pauseReply = true
+                let sending = Task { await session.send() }; await api.waitForReply()
+                defer { api.finishReply(); sending.cancel() }
+                try owner.close()
+                var connectionClosed = false
+                do { _ = try vault.transaction { try vault.ids("bot-message") } } catch { connectionClosed = true }
+                // The same exact account folder/key erasure as local deletion,
+                // inside our temporary vault root; no shared caches are touched.
+                let folder = vault.url.deletingLastPathComponent()
+                try FileManager.default.removeItem(at: folder)
+                try KeychainStore.deleteChecked(account: "messages-" + vault.account.uuidString.lowercased())
+                api.finishReply(); await sending.value
+                XCTAssertTrue(connectionClosed, "Final disposal must close the actual SQLite connection before erasure")
+                XCTAssertTrue(session.messages.isEmpty); XCTAssertTrue(session.draft.isEmpty)
+                XCTAssertFalse(session.consent); XCTAssertNil(session.allowance); XCTAssertNil(session.notice)
+                XCTAssertFalse(FileManager.default.fileExists(atPath: folder.path))
+                XCTAssertNil(try KeychainStore.read(account: "messages-" + vault.account.uuidString.lowercased()))
+                XCTAssertThrowsError(try owner.session(for: vault.account) { XCTFail("Erased account reached session creation"); return nil })
+                XCTAssertEqual(api.requests.filter { $0.1 == "/v1/bot/messages" }.count, 1)
+                try otherVault.transaction { XCTAssertEqual(try otherVault.get("qa-owner", "keep"), Data("other account".utf8)) }
+                XCTAssertNotNil(try KeychainStore.read(account: "messages-" + otherVault.account.uuidString.lowercased()))
+            }
         }
     }
 

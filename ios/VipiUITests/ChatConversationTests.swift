@@ -357,3 +357,69 @@ final class ChatConversationTests: XCTestCase {
     }
     private func capture(_ name: String) { let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot()); attachment.name = name; attachment.lifetime = .keepAlways; add(attachment) }
 }
+
+/// Actual BotConversationView and BotSession in the exact guarded QA bundle.
+@MainActor final class BotJourneyTests: XCTestCase {
+    func testKeyboardConsentConfirmedReplyAndReopenWhileReplyIsPending() throws {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-bot-ui-qa", "-vipi-appearance-light", "-vipi-source", "en", "-vipi-target", "es", "-vipi-density", "0"]
+        app.launch(); defer { app.terminate() }
+        let open = app.buttons["Open vBot"], proof = app.staticTexts["bot-qa-proof"]
+        XCTAssertTrue(open.waitForExistence(timeout: 15)); open.tap()
+        let input = app.descendants(matching: .any).matching(identifier: "bot-message-input").firstMatch
+        let send = app.buttons["bot-message-send"]
+        XCTAssertTrue(input.waitForExistence(timeout: 10)); input.tap(); input.typeText("Local draft before consent.")
+        let keyboard = app.keyboards.firstMatch
+        XCTAssertTrue(keyboard.waitForExistence(timeout: 5))
+        let navigation = app.navigationBars["vBot"], back = navigation.buttons.element(boundBy: 0)
+        let title = navigation.staticTexts["vBot"]
+        for control in [input, send, title, back] {
+            XCTAssertTrue(control.exists)
+            if control.isEnabled { XCTAssertTrue(control.isHittable) }
+            XCTAssertGreaterThan(control.frame.height, 0); XCTAssertTrue(app.frame.contains(control.frame))
+            XCTAssertLessThanOrEqual(control.frame.maxY, keyboard.frame.minY + 1)
+        }
+        XCTAssertEqual(input.value as? String, "Local draft before consent.")
+        XCTAssertFalse(send.isEnabled)
+        capture(app, "bot-preconsent-draft-keyboard-title-back-send")
+        back.tap(); XCTAssertTrue(open.waitForExistence(timeout: 5))
+        XCTAssertTrue(proof.label.contains("posts=0")); open.tap()
+        XCTAssertTrue(input.waitForExistence(timeout: 5)); XCTAssertEqual(input.value as? String, "Local draft before consent.")
+        let agree = app.buttons["Agree and start chatting"]
+        XCTAssertTrue(agree.waitForExistence(timeout: 5)); XCTAssertTrue(agree.isHittable); agree.tap()
+        XCTAssertTrue(send.isEnabled); send.tap()
+        let confirmed = message("Confirmed QA reply.", in: app)
+        XCTAssertTrue(confirmed.waitForExistence(timeout: 8)); XCTAssertTrue(confirmed.isHittable)
+        capture(app, "bot-explicit-consent-single-confirmed-reply")
+        input.tap(); input.typeText("Draft survives ordinary Back.")
+        XCTAssertEqual(input.value as? String, "Draft survives ordinary Back.")
+        back.tap(); XCTAssertTrue(open.waitForExistence(timeout: 5))
+        XCTAssertTrue(proof.label.contains("posts=1;completed=1"))
+        app.buttons["Hold next reply"].tap(); XCTAssertTrue(proof.label.contains("hold=true")); open.tap()
+        XCTAssertTrue(input.waitForExistence(timeout: 5)); XCTAssertEqual(input.value as? String, "Draft survives ordinary Back.")
+        XCTAssertTrue(send.isEnabled); send.tap()
+        XCTAssertTrue(message("Waiting for vBot", in: app).waitForExistence(timeout: 5))
+        back.tap(); XCTAssertTrue(open.waitForExistence(timeout: 5))
+        XCTAssertTrue(proof.label.contains("posts=2;completed=1;pending=true"))
+        capture(app, "bot-left-pending-request-without-account-disposal")
+        open.tap(); XCTAssertTrue(input.waitForExistence(timeout: 5))
+        let pendingReply = message("Pending QA reply completed.", in: app)
+        let lateReplyVisible = pendingReply.waitForExistence(timeout: 8)
+        capture(app, "bot-returned-before-pending-reply-completed")
+        back.tap(); XCTAssertTrue(open.waitForExistence(timeout: 5))
+        XCTAssertTrue(proof.label.contains("posts=2;completed=2;pending=false"))
+        XCTAssertTrue(proof.label.contains("durableComplete=4"), "Both actual encrypted request/reply pairs must be complete")
+        capture(app, "bot-durable-pairs-after-ordinary-navigation")
+        XCTAssertTrue(lateReplyVisible, "The reopened conversation must display a reply that completed after ordinary Back and return")
+        app.buttons["Finish Bot QA"].tap()
+        XCTAssertTrue(app.staticTexts["Synthetic Bot conversation removed"].waitForExistence(timeout: 5))
+    }
+    private func message(_ text: String, in app: XCUIApplication) -> XCUIElement {
+        app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", text)).firstMatch
+    }
+    private func capture(_ app: XCUIApplication, _ name: String) {
+        let screenshot = XCTAttachment(screenshot: app.screenshot()); screenshot.name = name; screenshot.lifetime = .keepAlways; add(screenshot)
+        let hierarchy = XCTAttachment(string: app.debugDescription); hierarchy.name = name + "-hierarchy"; hierarchy.lifetime = .keepAlways; add(hierarchy)
+    }
+}

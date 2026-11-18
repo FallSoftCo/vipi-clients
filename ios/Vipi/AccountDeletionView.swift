@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DeleteAccountView: View {
     let chat: ChatSession
+    var closeBot: () throws -> Void = {}
     @Environment(AccountDeletion.self) private var deletion
     @State private var confirm = false
     @State private var error: String?
@@ -28,7 +29,7 @@ struct DeleteAccountView: View {
                     do {
                         guard chat.profile != nil || chat.needsProfile else { throw ServiceFailure(status: 0, code: "profile_required") }
                         let account = chat.profile?.id ?? UUID()
-                        try deletion.begin(account: account, userID: chat.userID) { try chat.close() }
+                        try deletion.begin(account: account, userID: chat.userID) { try closeBot(); try chat.close() }
                     } catch { self.error = String(localized: "Deletion couldn’t be prepared. Close and reopen Vipi to try again.") }
                 }
             } message: { Text("Your Vipi account and chats on this device will be permanently deleted. This can’t be undone.") }
