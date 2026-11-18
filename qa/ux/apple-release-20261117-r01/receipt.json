@@ -107,7 +107,7 @@
   ],
   "truthfulScope": {
     "welcome": "Fixed Spanish example on initial welcome. Language choice and Chinese preview on separate pre-sign-in language step.",
-    "chat": "Fictional Maya/Alex local history with received/accepted display states; actual unchanged production friend-chat view and reading engine. Not evidence of real message delivery. Both final chat frames include the real pushed navigation context. The iPhone frame shows one target reading and one source-known face during the normal automatic cycle.",
+    "chat": "Fictional Maya/Alex local history with received/accepted display states; actual unchanged production friend-chat view and reading engine. Not evidence of real message delivery. Both final chat frames include the real pushed navigation context.",
     "readingExamples": [
       "kāfēi",
       "míngtiān",
