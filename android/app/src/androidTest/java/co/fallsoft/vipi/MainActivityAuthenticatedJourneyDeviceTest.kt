@@ -41,6 +41,31 @@ class MainActivityAuthenticatedJourneyDeviceTest {
     @Test fun profileToChatsInviteLookupFriendKeyboardSendAndReturnToSavedHistory() {
         val services = JourneyServices(profileRequired = true)
         MainActivityJourneyFixture("profile-friend", services::model).use { f ->
+            fun assertIncomingReplyVisible(phase: String) {
+                var observation = "Incoming native paragraph not yet visible"
+                try {
+                    compose.waitUntil(8_000) {
+                        val viewport = f.unobscuredWindow()
+                        var visible = false
+                        f.instrumentation.runOnMainSync {
+                            // Accessibility text follows the current immersed
+                            // face. Authenticate the real native paragraph by
+                            // its source identity while letting it keep flipping.
+                            val paragraph = f.paragraphs().singleOrNull { it.displayedOriginal == services.friendReply }
+                            val bounds = android.graphics.Rect()
+                            if (paragraph != null) {
+                                val drawn = paragraph.visibleText()
+                                visible = paragraph.getGlobalVisibleRect(bounds) && f.fullyVisible(paragraph) &&
+                                    viewport.contains(bounds) && drawn.isNotBlank()
+                                observation = "original=${paragraph.displayedOriginal} drawn=$drawn bounds=$bounds viewport=$viewport fullyVisible=$visible"
+                            }
+                        }
+                        visible
+                    }
+                } catch (failure: ComposeTimeoutException) {
+                    throw AssertionError("$phase: $observation", failure)
+                }
+            }
             var shareCount = 0
             val share = object : Instrumentation.ActivityMonitor() {
                 override fun onStartActivity(intent: Intent): Instrumentation.ActivityResult? {
@@ -136,7 +161,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                         it.id == services.friendReplyId && it.text == services.friendReply
                     } == true && services.friendReplyReceipts.get() == 1
                 }
-                assertNativeContained(f, By.text(services.friendReply), "decrypted incoming peer reply above native IME")
+                assertIncomingReplyVisible("Decrypted incoming peer reply above native IME")
                 compose.onNodeWithTag("message-input").assertEditorValue("Keep this local friend draft.")
                 f.capture("04-incoming-signal-reply-keeps-unsent-draft")
                 f.backgroundAndResume()
@@ -145,14 +170,14 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 f.recreate()
                 waitScreen(f, Screen.CONVERSATION)
                 compose.onNodeWithTag("message-input").assertTextEquals("Keep this local friend draft.")
-                assertNativeContained(f, By.text(services.friendReply), "incoming peer reply after activity recreation")
+                assertIncomingReplyVisible("Incoming peer reply after activity recreation")
                 // Reopen the conversation through the real list as well as
                 // recreating its host; the local compose draft is independent.
                 if (imeVisible(f)) { f.device.pressBack(); compose.waitUntil(5_000) { !imeVisible(f) } }
                 f.device.pressBack(); waitScreen(f, Screen.HOME)
                 compose.onNodeWithText("Journey Friend").performScrollTo().performTouchInput { click() }
                 waitScreen(f, Screen.CONVERSATION)
-                assertNativeContained(f, By.text(services.friendReply), "durable incoming peer reply after conversation reopen")
+                assertIncomingReplyVisible("Durable incoming peer reply after conversation reopen")
                 compose.onNodeWithTag("message-input").assertEditorValue("Keep this local friend draft.")
                 compose.runOnIdle {
                     MessageVault(f.isolated, services.account).use { vault ->
