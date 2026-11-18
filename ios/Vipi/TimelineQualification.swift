@@ -563,6 +563,55 @@ private func removeAbandonedBaseExpiryFixtures() throws {
             throw ServiceFailure(status: 0, code: "invalid_root_fixture_ownership")
         }
     }
+    private static func requireDisposableAudio() throws {
+        let audio = MessageSpeechCache.directory.deletingLastPathComponent()
+        guard FileManager.default.fileExists(atPath: audio.path) else { return }
+        guard try audio.resourceValues(forKeys: [.isDirectoryKey]).isDirectory == true else {
+            throw ServiceFailure(status: 0, code: "preserve_existing_qa_audio")
+        }
+        func inspect(_ url: URL) throws {
+            let values = try url.resourceValues(forKeys: [.isDirectoryKey, .isRegularFileKey, .fileSizeKey, .isSymbolicLinkKey])
+            guard values.isSymbolicLink != true else { throw ServiceFailure(status: 0, code: "preserve_existing_qa_audio") }
+            if values.isDirectory == true {
+                for child in try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil) { try inspect(child) }
+            } else {
+                guard values.isRegularFile == true, values.fileSize == 0 else { throw ServiceFailure(status: 0, code: "preserve_existing_qa_audio") }
+            }
+        }
+        try inspect(audio)
+    }
+    private func validateSavedAuthority(expected: DeletionRecord? = nil) throws {
+        // AccountDeletion.resume may erase a saved requested/completed receipt
+        // BEFORE calling its transport. Validate global keys before the actual
+        // manager exists, including on a resumed fixture/bootstrap.
+        if let data = try KeychainStore.read(account: "session") {
+            let value = try JSONDecoder().decode(VipiSession.self, from: data)
+            guard value.userID == ledger.user, value.authority == .fallsoftVipiProduction,
+                  value.accessToken == "synthetic-root-access-never-transmitted",
+                  value.refreshToken == "synthetic-root-refresh-never-transmitted" else {
+                throw ServiceFailure(status: 0, code: "preserve_unrelated_root_session")
+            }
+        }
+        for key in ["pending-sign-in", "pending-identity-link"] {
+            guard try KeychainStore.read(account: key) == nil else { throw ServiceFailure(status: 0, code: "preserve_unrelated_root_authentication") }
+        }
+        let pending = try KeychainDeletionStore().load()
+        if let pending {
+            guard pending.account == ledger.account, pending.userID == ledger.user else { throw ServiceFailure(status: 0, code: "preserve_unrelated_root_deletion") }
+            if let fingerprint = ledger.secretHash {
+                guard Self.hash(Data(pending.secret.utf8)) == fingerprint else { throw ServiceFailure(status: 0, code: "preserve_unrelated_root_capability") }
+            }
+            if pending.phase != .prepared || pending.localErased {
+                guard ledger.accepted, ledger.secretHash != nil else { throw ServiceFailure(status: 0, code: "unowned_confirmed_root_receipt") }
+            }
+        }
+        if let expected {
+            guard let pending, pending.account == expected.account, pending.userID == expected.userID,
+                  pending.secret == expected.secret, pending.phase == expected.phase else {
+                throw ServiceFailure(status: 0, code: "root_erasure_receipt_changed")
+            }
+        }
+    }
     private init() throws {
         if FileManager.default.fileExists(atPath: Self.ledgerURL.path) {
             ledger = try JSONDecoder().decode(Ledger.self, from: Data(contentsOf: Self.ledgerURL))
@@ -573,13 +622,7 @@ private func removeAbandonedBaseExpiryFixtures() throws {
             }
             // Production erasure removes the private audio parent. Do not use
             // this fixture if it would erase preexisting QA recordings.
-            let audio = MessageSpeechCache.directory.deletingLastPathComponent()
-            if let files = FileManager.default.enumerator(at: audio, includingPropertiesForKeys: [.isRegularFileKey, .fileSizeKey]) {
-                for case let file as URL in files {
-                    let values = try file.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey])
-                    guard values.isRegularFile != true || values.fileSize == 0 else { throw ServiceFailure(status: 0, code: "preserve_existing_qa_audio") }
-                }
-            }
+            try Self.requireDisposableAudio()
             let account = UUID(), other = UUID()
             ledger = Ledger(account: account, other: other, user: "deletion-root-ui-" + UUID().uuidString,
                 otherUser: "deletion-root-other-" + other.uuidString.lowercased())
@@ -587,6 +630,8 @@ private func removeAbandonedBaseExpiryFixtures() throws {
             try save() // Record ownership before creating any private records.
             try seed()
         }
+        try validateSavedAuthority()
+        try Self.requireDisposableAudio()
         ledger.starts += 1; try save()
     }
     private func seed() throws {
@@ -634,9 +679,17 @@ private func removeAbandonedBaseExpiryFixtures() throws {
             return owner
         })
     }
-    func makeDeletion(_ authentication: AuthenticationManager) -> AccountDeletion {
+    func makeDeletion(_ authentication: AuthenticationManager) throws -> AccountDeletion {
+        try validateSavedAuthority()
+        try Self.requireDisposableAudio()
         self.authentication = authentication
-        let value = AccountDeletion(store: KeychainDeletionStore(), service: self, erase: AccountDeletion.eraseLocal) { user in
+        let value = AccountDeletion(store: KeychainDeletionStore(), service: self, erase: { [self] record in
+            // Recheck immediately before the unchanged real eraser, rather
+            // than relying on bootstrap or a later service.status binding.
+            try validateSavedAuthority(expected: record)
+            try Self.requireDisposableAudio()
+            try AccountDeletion.eraseLocal(record)
+        }) { user in
             try authentication.eraseLocalSession(for: user)
         }
         manager = value; return value
@@ -744,7 +797,8 @@ private func removeAbandonedBaseExpiryFixtures() throws {
             let value: [String: Any] = [
                 "starts": ledger.starts, "chat_creations": ledger.chats, "store_creations": ledger.stores,
                 "seeded_bot_owners": ledger.seededOwners, "bot_posts": ledger.botPosts, "bot_pending": heldBot != nil,
-                "late_results": ledger.lateResults, "late_memory_replies": botSessions.flatMap(\.messages).filter { $0.text == Self.lateReply }.count,
+                "late_results": ledger.lateResults, "busy_bot_sessions": botSessions.filter(\.busy).count,
+                "late_memory_replies": botSessions.flatMap(\.messages).filter { $0.text == Self.lateReply }.count,
                 "all_bot_owners_closed": closed, "open_chat_owners": chats.filter { $0.ready || $0.profile != nil }.count,
                 "submissions": ledger.submissions, "status_reads": ledger.statusReads, "confirmations": ledger.confirmations,
                 "server_accepted": ledger.accepted, "unexpected_requests": ledger.unexpected, "fixture_failure": ledger.failure != nil,

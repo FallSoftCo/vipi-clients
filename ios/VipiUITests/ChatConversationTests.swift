@@ -94,7 +94,8 @@ import ImageIO
         let uncertain = observe("accepted-lost-response-persists-real-receipt-and-disposes-owners") {
             $0["submissions"] as? Int == 1 && $0["server_accepted"] as? Bool == true &&
                 $0["phase"] as? String == "prepared" && $0["receipt_matches_owner"] as? Bool == true &&
-                $0["late_results"] as? Int == 1 && $0["all_bot_owners_closed"] as? Bool == true && $0["open_chat_owners"] as? Int == 0
+                $0["late_results"] as? Int == 1 && $0["busy_bot_sessions"] as? Int == 0 &&
+                $0["all_bot_owners_closed"] as? Bool == true && $0["open_chat_owners"] as? Int == 0
         }
         XCTAssertEqual(uncertain["bot_row_ids"] as? [String], originalRows)
         XCTAssertEqual(uncertain["own_marker"] as? Bool, true, "Unconfirmed response must not erase local data")

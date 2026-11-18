@@ -12,7 +12,10 @@ import SwiftUI
         let authentication = AuthenticationManager()
         _authentication = State(initialValue: authentication)
         #if DEBUG
-        _deletion = State(initialValue: ConnectedDeletionUIQualification.current?.makeDeletion(authentication) ?? AccountDeletion(authentication: authentication))
+        if let qualification = ConnectedDeletionUIQualification.current {
+            do { _deletion = State(initialValue: try qualification.makeDeletion(authentication)) }
+            catch { preconditionFailure("Preserve unknown QA identity/deletion/audio state before qualification") }
+        } else { _deletion = State(initialValue: AccountDeletion(authentication: authentication)) }
         #else
         _deletion = State(initialValue: AccountDeletion(authentication: authentication))
         #endif
