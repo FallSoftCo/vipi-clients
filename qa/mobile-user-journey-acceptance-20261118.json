@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T06:24:30.873301+00:00",
+  "updated_utc": "2026-11-18T06:43:25.348748+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -99,7 +99,7 @@
       "implementation": "Android phone @rjuniyer",
       "status": "not yet verified",
       "required_observation": "production Base+Bot access verified; signed replacement must be installed and actual keyboard/send observed",
-      "limits": "Phone last observed version5; version6 delivered and installer requested once; never claim installation or successful send"
+      "limits": "Phone readback stillversion5 after exact signedversion7 delivered and installer requested once. Release emulator independently passed actual Gboard typing; no owner installation or successful send claim."
     },
     {
       "journey": "Edit a long multiline Bot draft",
@@ -121,7 +121,8 @@
     "android_multiline_normal": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-editing-idle-normal-r29.json",
     "android_multiline_large": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-editing-idle-large-r30.json",
     "android_signed_v7": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/release-verification-v7-r01.json",
-    "android_signed_v7_keyboard": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-native-smoke-r01/receipt.json"
+    "android_signed_v7_keyboard": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-native-smoke-r01/receipt.json",
+    "ios_signed_export": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/corrected-apple-export-result-r01/summary.json"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
   "original_nine_dirty_files_preserved": true,
