@@ -410,9 +410,17 @@ class MainActivityAuthenticatedJourneyDeviceTest {
         }
     }
 
-    @Test fun multilineBotDraftKeepsNativeEndCaretVisibleAfterAppendAndBackReopenWithoutSending() {
+    @Test fun multilineBotDraftKeepsNativeEndCaretVisibleAfterAppendAndBackReopenWithoutSending() =
+        multilineDraftJourney(withHistory = false)
+
+    @Test fun multilineBotDraftAfterConfirmedExchangeKeepsNativeEndCaretAndSavedHistoryAfterReopen() =
+        multilineDraftJourney(withHistory = true)
+
+    private fun multilineDraftJourney(withHistory: Boolean) {
         val services = JourneyServices(profileRequired = false)
-        MainActivityJourneyFixture("bot-multiline-caret", services::model).use { f ->
+        val expectedPosts = if (withHistory) 1 else 0
+        val setupPrompt = "A local setup exchange before editing the next message."
+        MainActivityJourneyFixture(if (withHistory) "bot-multiline-caret-with-history" else "bot-multiline-caret", services::model).use { f ->
             var proofNumber = 0
             var appendNumber = 0
             fun nativeEditor(expected: String): android.view.accessibility.AccessibilityNodeInfo? {
@@ -552,6 +560,23 @@ class MainActivityAuthenticatedJourneyDeviceTest {
             }
             try {
                 f.launch(); waitScreen(f, Screen.HOME); openBot(f)
+                if (withHistory) {
+                    compose.onNodeWithTag("bot-consent-choice").performScrollTo().performTouchInput { click() }
+                    compose.onNodeWithTag("bot-consent-continue").performScrollTo().performTouchInput { click() }
+                    compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
+                    compose.waitUntil(8_000) { imeVisible(f) }
+                    compose.onNodeWithTag("bot-message-input").performTextInput(setupPrompt)
+                    compose.waitUntil(8_000) { f.model.bot?.allowance != null && f.model.subscriptions?.accessCheckState == AccessCheckState.LOADED }
+                    compose.onNodeWithTag("bot-message-send").assertIsEnabled().performTouchInput { click() }
+                    compose.waitUntil(5_000) { services.botPosts.get() == 1 && f.model.bot?.busy == true }
+                    services.botReplyGate.complete(Unit)
+                    compose.waitUntil(8_000) { f.model.bot?.busy == false && f.model.bot?.messages?.size == 2 }
+                    compose.onNodeWithTag("bot-message-input").assertEmptyEditor()
+                    compose.runOnIdle {
+                        assertEquals(listOf(setupPrompt, services.botReply), f.model.bot?.messages?.map { it.text })
+                        assertTrue(f.model.bot!!.messages.all { it.status == "confirmed" })
+                    }
+                }
                 compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 val original = (1..6).joinToString("\n") { "Local draft line $it." }
@@ -559,8 +584,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 val first = original + "\nFinal native line."
                 appendAtNativeEnd(original, "\nFinal native line.")
                 assertNativeEndLine(first)
-                compose.onNodeWithTag("bot-message-send").assertIsNotEnabled()
-                assertEquals(first, f.model.bot?.draft); assertEquals(0, services.botPosts.get())
+                if (!withHistory) compose.onNodeWithTag("bot-message-send").assertIsNotEnabled()
+                assertEquals(first, f.model.bot?.draft); assertEquals(expectedPosts, services.botPosts.get())
                 f.capture("01-multiline-native-end-caret-above-ime")
                 f.device.pressBack(); compose.waitUntil(5_000) { !imeVisible(f) }
                 f.device.pressBack(); waitScreen(f, Screen.HOME); openBot(f)
@@ -570,13 +595,17 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 appendAtNativeEnd(first, "\nReopened end line.")
                 assertNativeEndLine(restored)
                 compose.runOnIdle {
-                    assertEquals(restored, f.model.bot?.draft); assertEquals(0, services.botPosts.get())
+                    assertEquals(restored, f.model.bot?.draft); assertEquals(expectedPosts, services.botPosts.get())
                     BotSession(f.isolated, services.account, services.transport(f.model.authentication, services.subject)).use { reopened ->
-                        assertEquals(restored, reopened.draft); assertTrue(reopened.messages.isEmpty())
+                        assertEquals(restored, reopened.draft)
+                        assertEquals(if (withHistory) listOf(setupPrompt, services.botReply) else emptyList<String>(), reopened.messages.map { it.text })
+                        assertTrue(reopened.messages.all { it.status == "confirmed" })
                     }
                 }
                 f.capture("02-restored-multiline-native-end-caret-above-ime")
-                File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("posts", 0)
+                services.assertNoPurchase()
+                File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("posts", expectedPosts)
+                    .put("setup_confirmed_exchange", withHistory).put("draft_posts", 0)
                     .put("native_accessibility_end_selection_before_key_event_append", true).put("final_visual_line_layout_and_rendered_caret_inside_editor_above_ime", true)
                     .put("native_glyph_api_proof_claimed", false)
                     .put("full_draft_retained_after_back_and_reopen", true).put("durable_draft_read", true).toString(2))
