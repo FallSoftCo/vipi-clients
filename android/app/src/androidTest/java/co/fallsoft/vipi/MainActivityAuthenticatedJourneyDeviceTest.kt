@@ -82,6 +82,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 username.performScrollTo().performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 username.performTextInput("missing_friend")
+                assertNativeContained(f, By.text("missing_friend"), "focused friend username above IME", 48)
                 compose.onNodeWithText(f.base.getString(R.string.ui_ba6e8c9b0c3e)).performScrollTo().performTouchInput { click() }
                 compose.onNodeWithText(f.base.getString(R.string.ui_eb7c5193d2ac)).assertIsDisplayed()
                 compose.runOnIdle { assertEquals(Screen.NEW_CHAT, f.model.screen) }
@@ -93,6 +94,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 username.performScrollTo().performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 username.performTextReplacement("@Journey_Friend")
+                assertNativeContained(f, By.text("@Journey_Friend"), "corrected friend username above IME", 48)
                 compose.onNodeWithText(f.base.getString(R.string.ui_ba6e8c9b0c3e)).performScrollTo().performTouchInput { click() }
                 waitScreen(f, Screen.CONVERSATION)
                 compose.onNodeWithText("Journey Friend").assertIsDisplayed()
