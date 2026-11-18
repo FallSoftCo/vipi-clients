@@ -273,6 +273,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 services.botReplyGate.complete(Unit)
                 compose.waitUntil(8_000) { f.model.bot?.busy == false && f.model.bot?.messages?.singleOrNull()?.status == "unconfirmed" }
                 compose.onNodeWithText(f.base.getString(R.string.bot_reply_unconfirmed)).assertIsDisplayed()
+                assertNativeContained(f, By.text(f.base.getString(R.string.bot_reply_unconfirmed)), "new unconfirmed reply notice", 20)
+                assertNativeContained(f, By.text(f.base.getString(R.string.ui_cf0b3e3d47ec)), "unconfirmed reply recovery action", 20)
                 compose.onNodeWithTag("bot-message-input").assertEmptyEditor()
                 compose.onNodeWithTag("bot-message-send").assertIsNotEnabled()
                 f.capture("01-uncertain-reply-with-explicit-allowance-recovery")
