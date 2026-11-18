@@ -16,6 +16,7 @@ import android.text.Spanned
 import android.text.StaticLayout
 import android.text.style.ClickableSpan
 import android.text.style.ReplacementSpan
+import android.text.style.LineHeightSpan
 import android.text.TextPaint
 import android.view.MotionEvent
 import android.view.View
@@ -230,6 +231,33 @@ internal class StableImmersionText(context: Context) : TextView(context) {
         override fun onClick(widget: View) { action(id) }
         override fun updateDrawState(ds: TextPaint) { ds.color = color; ds.isUnderlineText = false }
     }
+    /** Reserve the known source font/fallback envelope before slots arrive.
+     * Merge a minimum, rather than adding padding to already-padded slots. */
+    private class MinimumSlotMetrics(private val original: String, private val margin: Int,
+        private val initialPaint: TextPaint) : LineHeightSpan.WithDensity {
+        private var geometry = ""
+        private val lines = mutableMapOf<Pair<Int, Int>, Pair<Int, Int>>()
+        override fun chooseHeight(text: CharSequence, start: Int, end: Int, spanstartv: Int, lineHeight: Int,
+            fm: Paint.FontMetricsInt) = reserve(start, end, fm, initialPaint)
+        override fun chooseHeight(text: CharSequence, start: Int, end: Int, spanstartv: Int, lineHeight: Int,
+            fm: Paint.FontMetricsInt, paint: TextPaint) = reserve(start, end, fm, paint)
+        private fun reserve(start: Int, end: Int, fm: Paint.FontMetricsInt, paint: TextPaint) {
+            val next = "${paint.textSize}|${paint.typeface}|${paint.textScaleX}|${paint.textSkewX}|${paint.letterSpacing}|${paint.textLocales}"
+            if (geometry != next) { geometry = next; lines.clear() }
+            val (ascent, descent) = lines.getOrPut(start to end) {
+                val source = original.substring(start.coerceIn(0, original.length), end.coerceIn(0, original.length))
+                val measured = TextPaint(paint).apply { typeface = Typeface.create(typeface, Typeface.BOLD) }
+                val width = (kotlin.math.ceil(Layout.getDesiredWidth(source, measured)).toInt() + 1).coerceAtLeast(1)
+                // Paint.fontMetrics alone can omit Japanese/Arabic fallback.
+                // Use the same native fallback policy as WordSlot's forms.
+                val layout = StaticLayout.Builder.obtain(source, 0, source.length, measured, width)
+                    .setIncludePad(false).setUseLineSpacingFromFallbacks(true).build()
+                layout.getLineAscent(0) - margin to layout.getLineDescent(0) + margin
+            }
+            fm.ascent = minOf(fm.ascent, ascent); fm.top = minOf(fm.top, ascent)
+            fm.descent = maxOf(fm.descent, descent); fm.bottom = maxOf(fm.bottom, descent)
+        }
+    }
     private class WordSlot(val displayed: String, val forms: List<String>, val color: Int, val density: Float, val trailing: String) : ReplacementSpan() {
         var maximumWidth = 10000
         private var key = ""
@@ -271,6 +299,8 @@ internal class StableImmersionText(context: Context) : TextView(context) {
     private fun render(revealed: Set<Int>, showScript: Boolean): CharSequence {
         val value = result ?: return ""
         return SpannableStringBuilder(value.original).apply {
+            if (isNotEmpty()) setSpan(MinimumSlotMetrics(value.original, (2 * resources.displayMetrics.density).toInt(), TextPaint(paint)),
+                0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             value.spans.forEach { word ->
                 val trailing = value.original.substring(word.end).takeWhile { it in ".,!?;:…؟。！？；，、)]}’”\"" }.take(8)
                 val slot = WordSlot(display(word, revealed, showScript), listOf(word.original, word.displayedTarget, word.translated), accent, resources.displayMetrics.density, trailing)
