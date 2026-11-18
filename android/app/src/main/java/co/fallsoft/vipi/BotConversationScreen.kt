@@ -2,6 +2,7 @@ package co.fallsoft.vipi
 
 import android.content.Intent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
@@ -19,6 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -70,30 +73,24 @@ import java.time.format.FormatStyle
             bot.allowance?.let { allowance ->
                 Text(stringResource(R.string.bot_allowance_remaining, java.text.NumberFormat.getIntegerInstance().format(allowance.remaining), java.text.NumberFormat.getIntegerInstance().format(allowance.monthly), DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)), style = MaterialTheme.typography.bodySmall)
             }
-            BotPlanAccessGate(subscriptions?.accessCheckState ?: AccessCheckState.UNKNOWN, subscriptions?.access,
-                onRetry = { scope.launch { subscriptions?.refreshAccess() } },
-                onPlan = { model.navigate(Screen.BOT_PLAN) }) {
-            if (!bot.consent) {
-                Text(stringResource(R.string.ui_42ed79b95da1), style = MaterialTheme.typography.bodyMedium)
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Checkbox(consentChecked, onCheckedChange = { consentChecked = it })
-                    Text(stringResource(R.string.ui_99a6cb8ef035), style = MaterialTheme.typography.bodyMedium)
-                }
-                Button(onClick = { runCatching { bot.acceptConsent() }.onFailure { localError = context.getString(R.string.bot_consent_save_failed) } }, enabled = consentChecked) { Text(stringResource(R.string.continue_action)) }
-            } else {
-                Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedTextField(bot.draft, { value ->
-                        if (value.toByteArray(Charsets.UTF_8).size <= 8192) runCatching { bot.saveDraft(value); localError = null }
-                            .onFailure { localError = context.getString(R.string.bot_draft_save_failed) }
-                        else localError = context.getString(R.string.bot_message_too_long)
-                    }, placeholder = { Text(stringResource(R.string.ui_9f60f6c0e9e0)) }, maxLines = 5, modifier = Modifier.weight(1f).onFocusChanged { composing = it.isFocused }.testTag("bot-message-input"), shape = RoundedCornerShape(24.dp))
-                    FilledIconButton(onClick = { scope.launch { bot.send() } }, enabled = !bot.busy && bot.draft.isNotBlank() && bot.allowance?.let { it.available && it.remaining > 0 } == true) {
-                        if (bot.busy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp) else Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.ui_4b34e1b08868))
-                    }
-                }
-                if (bot.allowance == null || bot.allowance?.remaining == 0) TextButton(onClick = { scope.launch { bot.refreshAllowance() } }) { Text(stringResource(R.string.ui_cf0b3e3d47ec)) }
-            }
-            }
+            BotConversationControls(
+                accessState = subscriptions?.accessCheckState ?: AccessCheckState.UNKNOWN, access = subscriptions?.access,
+                consent = bot.consent, consentChecked = consentChecked, onConsentChecked = { consentChecked = it },
+                onAcceptConsent = { runCatching { bot.acceptConsent() }.onFailure { localError = context.getString(R.string.bot_consent_save_failed) } },
+                draft = bot.draft, onDraft = { value ->
+                    if (value.toByteArray(Charsets.UTF_8).size <= 8192) runCatching { bot.saveDraft(value); localError = null }
+                        .onFailure { localError = context.getString(R.string.bot_draft_save_failed) }
+                    else localError = context.getString(R.string.bot_message_too_long)
+                }, onComposingChanged = { composing = it }, busy = bot.busy, allowance = bot.allowance,
+                onSend = { scope.launch {
+                    // The button may have been drawn before a refresh began.
+                    // Re-read current access at dispatch; retained drafts never authorize a send.
+                    if (bot.consent && subscriptions?.accessCheckState == AccessCheckState.LOADED &&
+                        subscriptions.access?.active(SubscriptionPlan.BOT_MINI) == true) bot.send()
+                } },
+                onRetryAccess = { scope.launch { subscriptions?.refreshAccess() } },
+                onPlan = { model.navigate(Screen.BOT_PLAN) },
+                onRefreshAllowance = { scope.launch { bot.refreshAllowance() } })
         }
     }) { padding ->
         LazyColumn(state = list, modifier = Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -130,6 +127,54 @@ import java.time.format.FormatStyle
         confirmButton = { TextButton(enabled = !bot.reporting && reportReason.isNotEmpty() && reportText.isNotBlank() && message.text.contains(reportText) && reportText.toByteArray(Charsets.UTF_8).size <= 4000,
             onClick = { scope.launch { if (bot.report(message, reportReason, reportText)) reportedMessage = null } }) { Text(if (bot.reporting) stringResource(R.string.ui_b8ed5279e897) else stringResource(R.string.ui_a44d35311325)) } },
         dismissButton = { TextButton(enabled = !bot.reporting, onClick = { reportedMessage = null }) { Text(stringResource(R.string.cancel_action)) } }) }
+}
+
+/** Keep the real editable field mounted through entitlement rechecks. Access
+ * controls dispatch, not whether the user can focus or retain a local draft. */
+@Composable internal fun BotConversationControls(accessState: AccessCheckState, access: SubscriptionAccess?,
+    consent: Boolean, consentChecked: Boolean, onConsentChecked: (Boolean) -> Unit, onAcceptConsent: () -> Unit,
+    draft: String, onDraft: (String) -> Unit, onComposingChanged: (Boolean) -> Unit,
+    busy: Boolean, allowance: BotAllowance?, onSend: () -> Unit, onRetryAccess: () -> Unit,
+    onPlan: () -> Unit, onRefreshAllowance: () -> Unit) {
+    Column {
+        // Measure the input first, then let status/consent use only the remaining
+        // height. The scroll area shrinks with the IME and enlarged system text.
+        Column(Modifier.fillMaxWidth().weight(1f, fill = false)
+            .heightIn(max = (LocalConfiguration.current.screenHeightDp * .45f).dp)
+            .verticalScroll(rememberScrollState()).testTag("bot-access-consent")) {
+            BotPlanAccessGate(accessState, access, onRetryAccess, onPlan) {}
+            if (!consent) Column(Modifier.fillMaxWidth().testTag("bot-consent")) {
+                Text(stringResource(R.string.ui_42ed79b95da1), style = MaterialTheme.typography.bodyMedium)
+                Row(Modifier.fillMaxWidth().heightIn(min = 48.dp)
+                    .toggleable(value = consentChecked, role = Role.Checkbox, onValueChange = onConsentChecked)
+                    .testTag("bot-consent-choice"), verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(consentChecked, onCheckedChange = null)
+                    Text(stringResource(R.string.ui_99a6cb8ef035), style = MaterialTheme.typography.bodyMedium)
+                }
+                Button(onClick = onAcceptConsent, enabled = consentChecked, modifier = Modifier.testTag("bot-consent-continue")) {
+                    Text(stringResource(R.string.continue_action))
+                }
+            }
+        }
+        // Local drafting is available before consent too. Only the explicit
+        // Continue action accepts consent; typing never sends or accepts it.
+        Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.Bottom,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedTextField(draft, onDraft, placeholder = { Text(stringResource(R.string.ui_9f60f6c0e9e0)) },
+                maxLines = 5, modifier = Modifier.weight(1f).onFocusChanged { onComposingChanged(it.isFocused) }
+                    .testTag("bot-message-input"), shape = RoundedCornerShape(24.dp))
+            val currentAccess = accessState == AccessCheckState.LOADED && access?.active(SubscriptionPlan.BOT_MINI) == true
+            FilledIconButton(onClick = onSend, enabled = consent && currentAccess && !busy && draft.isNotBlank() &&
+                allowance?.let { it.available && it.remaining > 0 && it.resetsAt.isAfter(java.time.Instant.now()) } == true,
+                modifier = Modifier.size(48.dp).testTag("bot-message-send")) {
+                if (busy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
+                else Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.ui_4b34e1b08868))
+            }
+        }
+        if (allowance == null || allowance.remaining == 0) TextButton(onClick = onRefreshAllowance) {
+            Text(stringResource(R.string.ui_cf0b3e3d47ec))
+        }
+    }
 }
 
 @Composable internal fun BotPlanAccessGate(state: AccessCheckState, access: SubscriptionAccess?,

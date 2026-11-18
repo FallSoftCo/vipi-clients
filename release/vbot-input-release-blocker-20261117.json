@@ -1,0 +1,39 @@
+{
+  "reported": "Owner cannot open keyboard or send vBot message on Android versionCode5",
+  "status": "release_blocked_pending_input_and_actual_account_verification",
+  "readiness_claim_withdrawn": true,
+  "public_release_controls": {
+    "apple": "existing manual release retained",
+    "google": "Managed Publishing enabled once and persisted after refresh",
+    "google_receipt_sha256": "806fa4137205d3a1e1f143cb56b97e6bc36c724dd0937bc57028179937739eb0"
+  },
+  "reproduced": [
+    "first-use consent/access gate omits editor in currentsource",
+    "access recheck replaces focused editor",
+    "existing Gamma v5 emulator typed with native Gboard then send rejected device_revoked"
+  ],
+  "not_established": [
+    "exact owner phone screen/error",
+    "identity bound to phone session",
+    "cause of Gamma active-device change"
+  ],
+  "work": [
+    "persistent local composer without bypassing consent/current access",
+    "reachable scrollable consent for narrow and enlarged text",
+    "route missing account setup to setup instead of plan page",
+    "native keyboard/focus/send guard regression qualification"
+  ],
+  "external_actions": "No repeated upload/submission, no production code/config mutation, no charge or purchase, no repeated uncertain bot send",
+  "updated_utc": "2026-11-18T03:07:02.770354+00:00",
+  "verified": [
+    "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
+    "Actual VipiModel setup routing: 5 focused tests passed",
+    "Original Gamma device replaced01:20Z; rejected native hi send was not accepted/charged; no replay",
+    "Production BotConversationScreen native draft/consent/Send/visible reply/durable history: controlled fake transport, exactly one POST, registered credential, no friend-content inclusion; pass7.7s"
+  ],
+  "remaining": [
+    "Signed versionCode6 review APK and device delivery",
+    "Actual owner phone @username/account and native send verification"
+  ],
+  "phone_identity": "User @username question pending; shared-owner grant has no profile, exact legacy predecessor has no Bot grant; do not infer phone binding"
+}

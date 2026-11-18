@@ -99,9 +99,22 @@ class VipiModel @JvmOverloads constructor(application: Application, private val 
         if (peer != null && chat?.threads?.any { it.peer == peer } == true) openConversation(peer)
     }
     internal fun openBot() {
+        if (deletion.active) return
         val user = authentication.userID
-        val account = chat?.profile?.id
-        if (user == null || account == null) { navigate(Screen.BOT_PLAN); return }
+        if (user == null) { navigate(Screen.ACCOUNT); return }
+        val current = chat
+        if (current == null) { navigate(Screen.HOME); return }
+        if (current.userID != user) {
+            // Force Home's connection/retry card rather than display a cached
+            // conversation list belonging to another sign-in.
+            chatError = getApplication<Application>().getString(R.string.ui_8218810809d6)
+            navigate(Screen.HOME); return
+        }
+        if (current.needsProfile) { navigate(Screen.PROFILE); return }
+        val account = current.profile?.id
+        if (account == null) { navigate(Screen.HOME); return }
+        // A current profile may still read saved Bot history while offline or
+        // reconnecting its device. Consent/access/device checks guard sending.
         try {
             if (bot == null) bot = BotSession(getApplication(), account, ServiceClient(authentication, user))
             navigate(Screen.BOT)
