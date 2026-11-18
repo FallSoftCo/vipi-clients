@@ -231,6 +231,68 @@ class MainActivityAuthenticatedJourneyDeviceTest {
             } finally { services.botReplyGate.complete(Unit); f.stopActivity(); services.close() }
         }
     }
+    @Test fun uncertainBotReplyHasVisibleRecoveryWithoutReplayingThePrompt() {
+        val services = JourneyServices(profileRequired = false)
+        MainActivityJourneyFixture("bot-uncertain-recovery", services::model).use { f ->
+            try {
+                f.launch()
+                waitScreen(f, Screen.HOME)
+                openBot(f)
+                compose.onNodeWithTag("bot-consent-choice").performScrollTo().performTouchInput { click() }
+                compose.onNodeWithTag("bot-consent-continue").performScrollTo().performTouchInput { click() }
+                val firstPrompt = "A local prompt with an uncertain reply."
+                compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
+                compose.waitUntil(8_000) { imeVisible(f) }
+                compose.onNodeWithTag("bot-message-input").performTextInput(firstPrompt)
+                compose.waitUntil(8_000) { f.model.bot?.allowance != null && f.model.subscriptions?.accessCheckState == AccessCheckState.LOADED }
+                services.failBotReply.set(true)
+                compose.onNodeWithTag("bot-message-send").assertIsEnabled().performTouchInput { click() }
+                compose.waitUntil(5_000) { services.botPosts.get() == 1 && f.model.bot?.busy == true }
+                services.botReplyGate.complete(Unit)
+                compose.waitUntil(8_000) { f.model.bot?.busy == false && f.model.bot?.messages?.singleOrNull()?.status == "unconfirmed" }
+                compose.onNodeWithText(f.base.getString(R.string.bot_reply_unconfirmed)).assertIsDisplayed()
+                compose.onNodeWithTag("bot-message-input").assertTextEquals("")
+                compose.onNodeWithTag("bot-message-send").assertIsNotEnabled()
+                f.capture("01-uncertain-reply-with-explicit-allowance-recovery")
+                compose.onNodeWithText(f.base.getString(R.string.ui_cf0b3e3d47ec)).performTouchInput { click() }
+                compose.waitUntil(8_000) { f.model.bot?.allowance != null }
+                val nextDraft = "An editable draft after the uncertain reply."
+                compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
+                compose.waitUntil(8_000) { imeVisible(f) }
+                compose.onNodeWithTag("bot-message-input").performTextInput(nextDraft)
+                compose.onNodeWithTag("bot-message-send").assertIsEnabled()
+                f.device.pressBack()
+                compose.waitUntil(5_000) { !imeVisible(f) }
+                f.device.pressBack()
+                waitScreen(f, Screen.HOME)
+                openBot(f)
+                compose.onNodeWithTag("bot-message-input").assertTextEquals(nextDraft)
+                f.recreate()
+                waitScreen(f, Screen.BOT)
+                compose.onNodeWithTag("bot-message-input").assertTextEquals(nextDraft).performTouchInput { click() }
+                compose.waitUntil(8_000) { imeVisible(f) }
+                compose.runOnIdle {
+                    assertEquals(1, services.botPosts.get())
+                    assertEquals("unconfirmed", f.model.bot?.messages?.singleOrNull()?.status)
+                    assertEquals(firstPrompt, f.model.bot?.messages?.singleOrNull()?.text)
+                    BotSession(f.isolated, services.account, services.transport(f.model.authentication, services.subject)).use { reopened ->
+                        assertEquals(nextDraft, reopened.draft)
+                        assertEquals("unconfirmed", reopened.messages.single().status)
+                    }
+                }
+                f.capture("02-editable-recreated-draft-without-automatic-replay")
+                services.assertNoPurchase()
+                File(f.output, "result.json").writeText(JSONObject().put("pass", true)
+                    .put("uncertain_post_count", 1).put("unconfirmed_history_retained", true)
+                    .put("allowance_recovery_did_not_replay", true).put("draft_survived_back_and_recreate", true)
+                    .put("provider_result_claimed", false).toString(2))
+            } catch (failure: Throwable) {
+                runCatching { f.capture("failure-before-cleanup") }.onFailure { failure.addSuppressed(it) }
+                throw failure
+            } finally { services.botReplyGate.complete(Unit); f.stopActivity(); services.close() }
+        }
+    }
+
     private fun openBot(f: MainActivityJourneyFixture) {
         compose.onNodeWithText(f.base.getString(R.string.ui_f173182378d0)).performScrollTo().performTouchInput { click() }
         waitScreen(f, Screen.BOT)
@@ -259,6 +321,7 @@ private class JourneyServices(profileRequired: Boolean) : VipiWorkflowBoundary, 
     val friendPosts = AtomicInteger()
     val botPosts = AtomicInteger()
     val failNextEntitlement = AtomicBoolean(false)
+    val failBotReply = AtomicBoolean(false)
     val botReplyGate = CompletableDeferred<Unit>()
     val botReply = "The local lifecycle reply arrived."
     val lookups = mutableListOf<String>()
@@ -343,6 +406,7 @@ private class JourneyServices(profileRequired: Boolean) : VipiWorkflowBoundary, 
                         check(sent.getString("consent_version") == "deepseek-v1")
                         check(sent.getJSONArray("messages").length() == 1)
                         botReplyGate.await()
+                        if (failBotReply.get()) throw java.io.IOException("Synthetic uncertain provider outcome")
                         remaining = 149
                         JSONObject().put("request_id", sent.getString("request_id")).put("reply", botReply).put("allowance", allowance())
                     }
