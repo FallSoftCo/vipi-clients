@@ -415,8 +415,33 @@ class MainActivityAuthenticatedJourneyDeviceTest {
         val services = JourneyServices(profileRequired = false)
         MainActivityJourneyFixture("bot-multiline-caret", services::model).use { f ->
             var proofNumber = 0
-            fun appendAtNativeEnd(suffix: String) {
-                assertTrue(f.device.pressKeyCode(android.view.KeyEvent.KEYCODE_MOVE_END, android.view.KeyEvent.META_CTRL_ON))
+            var appendNumber = 0
+            fun nativeEditor(expected: String): android.view.accessibility.AccessibilityNodeInfo? {
+                fun editorIn(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
+                    if (node.isEditable && node.isFocused && node.text?.toString() == expected) return node
+                    for (index in 0 until node.childCount) node.getChild(index)?.let { child ->
+                        editorIn(child)?.let { return it }
+                    }
+                    return null
+                }
+                if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
+                return f.instrumentation.uiAutomation.windows.mapNotNull { it.root }
+                    .filter { it.packageName?.toString() == f.base.packageName }.firstNotNullOfOrNull(::editorIn)
+            }
+            fun appendAtNativeEnd(before: String, suffix: String) {
+                compose.onNodeWithTag("bot-message-input").assertEditorValue(before).assertIsFocused()
+                val editor = requireNotNull(nativeEditor(before))
+                val args = android.os.Bundle().apply {
+                    putInt(android.view.accessibility.AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_START_INT, before.length)
+                    putInt(android.view.accessibility.AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_END_INT, before.length)
+                }
+                assertTrue(editor.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_SET_SELECTION, args))
+                compose.waitUntil(5_000) {
+                    nativeEditor(before)?.let { it.textSelectionStart == before.length && it.textSelectionEnd == before.length } == true
+                }
+                File(f.output, "append-selection-proof-${++appendNumber}.json").writeText(JSONObject()
+                    .put("action", "native_accessibility_ACTION_SET_SELECTION").put("observed_native_start", before.length)
+                    .put("observed_native_end", before.length).put("typing", "Instrumentation.sendStringSync key events").toString(2))
                 f.instrumentation.sendStringSync(suffix)
             }
             fun assertNativeEndLine(expected: String) {
@@ -432,21 +457,11 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 val cursor = layout.getCursorRect(expected.length)
                 require(end > start && cursor.height > 0)
                 proofNumber++
-                fun editorIn(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
-                    if (node.isEditable && node.isFocused && node.text?.toString() == expected) return node
-                    for (index in 0 until node.childCount) node.getChild(index)?.let { child ->
-                        editorIn(child)?.let { return it }
-                    }
-                    return null
-                }
                 var diagnostic = "No focused native editor"
                 var nativeExtraDiagnostic: JSONObject? = null
                 try {
                     compose.waitUntil(5_000) {
-                        if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
-                        val editor = f.instrumentation.uiAutomation.windows.mapNotNull { it.root }
-                            .filter { it.packageName?.toString() == f.base.packageName }
-                            .firstNotNullOfOrNull(::editorIn)
+                        val editor = nativeEditor(expected)
                         if (editor?.isEditable != true || editor.text?.toString() != expected ||
                             editor.textSelectionStart != expected.length || editor.textSelectionEnd != expected.length) {
                             diagnostic = "Native editable descendant selection ${editor?.textSelectionStart}..${editor?.textSelectionEnd}, class=${editor?.className}, extras=${editor?.availableExtraData}"
@@ -538,7 +553,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 val original = (1..6).joinToString("\n") { "Local draft line $it." }
                 compose.onNodeWithTag("bot-message-input").performTextInput(original)
                 val first = original + "\nFinal native line."
-                appendAtNativeEnd("\nFinal native line.")
+                appendAtNativeEnd(original, "\nFinal native line.")
                 assertNativeEndLine(first)
                 compose.onNodeWithTag("bot-message-send").assertIsNotEnabled()
                 assertEquals(first, f.model.bot?.draft); assertEquals(0, services.botPosts.get())
@@ -548,7 +563,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 compose.onNodeWithTag("bot-message-input").assertEditorValue(first).performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 val restored = first + "\nReopened end line."
-                appendAtNativeEnd("\nReopened end line.")
+                appendAtNativeEnd(first, "\nReopened end line.")
                 assertNativeEndLine(restored)
                 compose.runOnIdle {
                     assertEquals(restored, f.model.bot?.draft); assertEquals(0, services.botPosts.get())
@@ -558,7 +573,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 }
                 f.capture("02-restored-multiline-native-end-caret-above-ime")
                 File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("posts", 0)
-                    .put("native_ctrl_end_and_append", true).put("final_visual_line_layout_and_rendered_caret_inside_editor_above_ime", true)
+                    .put("native_accessibility_end_selection_before_key_event_append", true).put("final_visual_line_layout_and_rendered_caret_inside_editor_above_ime", true)
                     .put("native_glyph_api_proof_claimed", false)
                     .put("full_draft_retained_after_back_and_reopen", true).put("durable_draft_read", true).toString(2))
             } catch (failure: Throwable) {
