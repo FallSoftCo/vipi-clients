@@ -71,26 +71,28 @@
   "preservation": {
     "user0_primary_state": "User 0: ceDataInode=327706 installed=true hidden=false suspended=false distractionFlags=0 stopped=true notLaunched=false enabled=3 instant=false virtual=false",
     "original_enabled_state": 0,
-    "current_enabled_state": 3,
+    "current_enabled_state": 0,
     "primary_history_key_data_preserved": "No deletion/reset/session injection; same signer, UID and CE inode; user0 disabled before global v5 APK update and not launched.",
     "held_5620_5622_guest_actions": 0,
     "new_emulator_created": false,
-    "new_secondary_users_created": 1
+    "new_secondary_users_created": 1,
+    "user0_restored_primary_state": "User 0: ceDataInode=327706 installed=true hidden=false suspended=false distractionFlags=0 stopped=true notLaunched=false enabled=0 instant=false virtual=false",
+    "primary_and_gamma_apps_parked": true,
+    "owned_emulator_stopped": true
   },
   "restoration_plan": {
-    "state": "pending owner-authorized restoration; not dispatched",
-    "steps": [
-      "Keep Gamma data/session; no deletion required.",
-      "When owner approves primary QA resumption, restore only user0 co.fallsoft.vipi to its original enabled/default state, then force-stop user0 before any intentional launch.",
-      "Do not restore or launch held 5620/5622 packages as part of this task."
-    ]
+    "state": "Completed under explicit root authorization; original enabled=0 restored with supported default-state, then primary app force-stopped and AVD parked.",
+    "remaining": "Both users/data retained; no removal, app reset, token/session injection or held-peer action."
   },
   "capacity": {
     "floor_bytes": 4504682496,
     "growth_budget_bytes": 1503238554,
     "free_before": 6140866560,
     "minimum_free": 5945155584,
-    "observed_free": 6010392576
+    "free_after": 5967695872,
+    "seconds": 2383.756586657837,
+    "stopped_cleanly": true,
+    "stop_cause": "Explicit successful-QA stop request; elapsed below timeout and growth below soft ceiling."
   },
   "images": {
     "01-welcome.png": {
@@ -116,6 +118,14 @@
       "height": 1920,
       "pixel_edits": false,
       "content": "synthetic production UI; no credentials/auth page"
+    },
+    "04-friend-chat.png": {
+      "source": "user0-v5-friend-chat-ready.png",
+      "sha256": "c2977a5194d4ca1555cc0241cae1b194a2cfe63df604c34191aec68296e09c25",
+      "width": 1080,
+      "height": 1920,
+      "pixel_edits": false,
+      "content": "Already-delivered synthetic friend conversation in current v5; no new send"
     }
   },
   "limits": [
@@ -125,11 +135,47 @@
     "Screenshots are actual unedited current production app UI; the conversation is vBot service chat, not a friend conversation."
   ],
   "private_evidence_sha256": {
-    "phase-receipt.json": "3e52c663d162065a8e59b7e06372fa809a8493adb38037f7e546bb2756ebc179",
+    "phase-receipt.json": "a3f653fee1182fee77350a4fe1f09099dc0e68ff55bdff2b85ff030edd61e6bf",
     "gamma-native-auth-intent.json": "fc8ffcc15d5d6e4a63825d04109fa0080abd362aef376bd337195e613c715612",
     "gamma-profile-create-intent.json": "3f743431670f5d2afe86ca5d05edaee10c8787ba657ab2ff77f325c9ba52ff2c",
     "vbot-send-intent.json": "9040a2b522b91119e2be06928b931a8714816f102dcaa7e9ff099836f096e83d",
     "word-audio-stop-result.json": "e5aff0280eeb27d49abdfe1d42466a8096fa0cc7d51a99e81f17f320f4f523b8",
-    "root-live-database-proof-r01.json": "b4ba8d0c7ec8ef43107d86ef10e9d7906707c13bee88e5d2154681a19313a8d1"
+    "root-live-database-proof-r01.json": "b4ba8d0c7ec8ef43107d86ef10e9d7906707c13bee88e5d2154681a19313a8d1",
+    "user0-fresh-outbox-and-crypto-before.json": "b332a70cd59da6dda86e727594efa06630fd8f7f60b20dff1d48b951ade19987",
+    "user0-fresh-outbox-and-crypto-after.json": "984f423d29b895b7229190464d62f8a774087dbf594988e1fe7fe66b45d3ffb2",
+    "primary-friend-capture-intent.json": "ca1ee7ad3f007219986614e8ff24b9c7d7abf26b209697cbc702c81504a3905e",
+    "qa-park-intent.json": "3c8cea32784fb625ffcd531d0be012fa86c8bc0e8f979a44c9c32b610179734f"
+  },
+  "friend_capture": {
+    "scope": "Existing two already-delivered synthetic messages rendered in current production v5",
+    "new_friend_message_dispatches": 0,
+    "signin_migration_recovery_or_key_acceptance_actions": 0,
+    "pending_counts_before": {
+      "pending": 0,
+      "draft": 0,
+      "compose": 0,
+      "receipt": 0
+    },
+    "pending_counts_after": {
+      "pending": 0,
+      "draft": 0,
+      "compose": 0,
+      "receipt": 0
+    },
+    "crypto_kinds": [
+      "identity",
+      "key-directory",
+      "kyber-prekey",
+      "local",
+      "peer-device",
+      "prekey",
+      "session",
+      "signed-prekey"
+    ],
+    "identity_session_device_prekey_ciphertext_digest_before": "6e3e1dc797451f660e81a7c7b52c7c9e6d4030eda32308a3d6e2b896d39e6a7c",
+    "identity_session_device_prekey_ciphertext_digest_after": "6e3e1dc797451f660e81a7c7b52c7c9e6d4030eda32308a3d6e2b896d39e6a7c",
+    "ciphertext_digest_unchanged": true,
+    "message_history_record_count_before": 2,
+    "message_history_record_count_after": 2
   }
 }
