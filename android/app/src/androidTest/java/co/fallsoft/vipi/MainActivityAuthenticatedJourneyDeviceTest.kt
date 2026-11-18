@@ -414,12 +414,24 @@ class MainActivityAuthenticatedJourneyDeviceTest {
     @Test fun multilineBotDraftKeepsNativeEndCaretVisibleAfterAppendAndBackReopenWithoutSending() {
         val services = JourneyServices(profileRequired = false)
         MainActivityJourneyFixture("bot-multiline-caret", services::model).use { f ->
+            var proofNumber = 0
             fun appendAtNativeEnd(suffix: String) {
                 assertTrue(f.device.pressKeyCode(android.view.KeyEvent.KEYCODE_MOVE_END, android.view.KeyEvent.META_CTRL_ON))
                 f.instrumentation.sendStringSync(suffix)
             }
             fun assertNativeEndLine(expected: String) {
                 compose.onNodeWithTag("bot-message-input").assertEditorValue(expected).assertIsFocused()
+                val layouts = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+                compose.onNodeWithTag("bot-message-input").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) {
+                    assertTrue(it(layouts))
+                }
+                val layout = layouts.single { it.layoutInput.text.text == expected }
+                val visualLine = layout.getLineForOffset(expected.length)
+                val start = layout.getLineStart(visualLine)
+                val end = layout.getLineEnd(visualLine, visibleEnd = true)
+                val cursor = layout.getCursorRect(expected.length)
+                require(end > start && cursor.height > 0)
+                proofNumber++
                 fun editorIn(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
                     if (node.isEditable && node.isFocused && node.text?.toString() == expected) return node
                     for (index in 0 until node.childCount) node.getChild(index)?.let { child ->
@@ -428,6 +440,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                     return null
                 }
                 var diagnostic = "No focused native editor"
+                var nativeExtraDiagnostic: JSONObject? = null
                 try {
                     compose.waitUntil(5_000) {
                         if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
@@ -439,22 +452,81 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                             diagnostic = "Native editable descendant selection ${editor?.textSelectionStart}..${editor?.textSelectionEnd}, class=${editor?.className}, extras=${editor?.availableExtraData}"
                             false
                         } else {
-                            val start = expected.lastIndexOf('\n') + 1
-                            val key = android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_KEY
-                            val args = android.os.Bundle().apply {
-                                putInt(android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_ARG_START_INDEX, start)
-                                putInt(android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_ARG_LENGTH, expected.length - start)
+                            if (nativeExtraDiagnostic == null) {
+                                val key = android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_KEY
+                                val args = android.os.Bundle().apply {
+                                    putInt(android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_ARG_START_INDEX, start)
+                                    putInt(android.view.accessibility.AccessibilityNodeInfo.EXTRA_DATA_TEXT_CHARACTER_LOCATION_ARG_LENGTH, end - start)
+                                }
+                                val refreshed = editor.refreshWithExtraData(key, args)
+                                @Suppress("DEPRECATION") val raw = editor.extras.getParcelableArray(key)
+                                nativeExtraDiagnostic = JSONObject().put("available_keys", JSONArray(editor.availableExtraData))
+                                    .put("refresh_succeeded", refreshed).put("raw_count", raw?.size ?: 0)
+                                    .put("nonnull_count", raw?.count { it != null } ?: 0)
                             }
-                            editor.refreshWithExtraData(key, args)
-                            @Suppress("DEPRECATION")
-                            val boxes = editor.extras.getParcelableArray(key)?.mapNotNull { it as? android.graphics.RectF }.orEmpty()
                             val bounds = android.graphics.Rect(); editor.getBoundsInScreen(bounds)
                             val viewport = android.graphics.RectF(f.unobscuredWindow())
                             val field = android.graphics.RectF(bounds)
-                            diagnostic = "Native final line boxes=$boxes, field=$field, unobscured=$viewport"
-                            boxes.size == expected.length - start && boxes.all { box ->
-                                box.left.isFinite() && box.top.isFinite() && !box.isEmpty && viewport.contains(box) && field.contains(box)
-                            }
+                            val bitmap = f.instrumentation.uiAutomation.takeScreenshot()
+                            if (bitmap == null) false else try {
+                                val pixels = IntArray(bounds.width() * bounds.height())
+                                bitmap.getPixels(pixels, 0, bounds.width(), bounds.left, bounds.top, bounds.width(), bounds.height())
+                                fun pixel(x: Int, y: Int) = pixels[(y - bounds.top) * bounds.width() + x - bounds.left] and 0xFFFFFF
+                                val colors = mutableMapOf<Int, Int>()
+                                for (y in bounds.centerY() - 10 until bounds.centerY() + 10) for (x in bounds.left until bounds.left + 12) {
+                                    val color = pixel(x, y); val r = color ushr 16; val g = (color ushr 8) and 255; val b = color and 255
+                                    if (g - r >= 12 && g - b >= 12) colors[color] = (colors[color] ?: 0) + 1
+                                }
+                                val ink = colors.maxByOrNull { it.value }?.key
+                                val runs = mutableListOf<android.graphics.Rect>()
+                                if (ink != null) {
+                                    fun matches(color: Int) = kotlin.math.abs((color ushr 16) - (ink ushr 16)) <= 4 &&
+                                        kotlin.math.abs(((color ushr 8) and 255) - ((ink ushr 8) and 255)) <= 4 &&
+                                        kotlin.math.abs((color and 255) - (ink and 255)) <= 4
+                                    val margin = (12 * f.base.resources.displayMetrics.density).toInt()
+                                    for (x in bounds.left + margin until bounds.right - margin) {
+                                        var y = bounds.top + 4
+                                        while (y < bounds.bottom - 4) {
+                                            if (!matches(pixel(x, y))) { y++; continue }
+                                            val top = y
+                                            while (y < bounds.bottom - 4 && matches(pixel(x, y))) y++
+                                            if (kotlin.math.abs((y - top) - cursor.height) <= 4f) runs += android.graphics.Rect(x, top, x + 1, y)
+                                        }
+                                    }
+                                }
+                                val groups = mutableListOf<android.graphics.Rect>()
+                                runs.forEach { run ->
+                                    val group = groups.lastOrNull()
+                                    if (group != null && run.left == group.right && kotlin.math.abs(run.top - group.top) <= 2 && kotlin.math.abs(run.bottom - group.bottom) <= 2)
+                                        group.union(run) else groups += android.graphics.Rect(run)
+                                }
+                                val carets = groups.filter { it.width() <= 4 * f.base.resources.displayMetrics.density }
+                                diagnostic = "Rendered caret candidates=$carets, layout cursor=$cursor, field=$field, viewport=$viewport, native=$nativeExtraDiagnostic"
+                                if (carets.size != 1) false else {
+                                    val rendered = android.graphics.RectF(carets.single())
+                                    val dx = rendered.centerX() - cursor.center.x
+                                    val dy = rendered.top - cursor.top
+                                    val boxes = (start until end).map { offset ->
+                                        val box = layout.getBoundingBox(offset)
+                                        android.graphics.RectF(box.left + dx, box.top + dy, box.right + dx, box.bottom + dy)
+                                    }
+                                    val visible = viewport.contains(rendered) && field.contains(rendered) && dy < field.top &&
+                                        boxes.all { !it.isEmpty && viewport.contains(it) && field.contains(it) }
+                                    if (visible) {
+                                        File(f.output, "caret-proof-$proofNumber.png").outputStream().use { bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+                                        File(f.output, "caret-proof-$proofNumber.json").writeText(JSONObject()
+                                            .put("method", "production_text_layout_translated_by_measured_native_rendered_caret")
+                                            .put("native_end_selection", editor.textSelectionEnd).put("native_character_api_diagnostic", nativeExtraDiagnostic)
+                                            .put("visual_line", expected.substring(start, end)).put("visual_line_offsets", "$start..$end")
+                                            .put("layout_cursor", cursor.toString()).put("rendered_caret", rendered.toString())
+                                            .put("translation_x", dx.toDouble()).put("translation_y", dy.toDouble())
+                                            .put("editor", field.toString()).put("unobscured_window", viewport.toString())
+                                            .put("projected_glyph_boxes", JSONArray(boxes.map { it.toString() }))
+                                            .put("native_glyph_api_proof_claimed", false).toString(2))
+                                    }
+                                    visible
+                                }
+                            } finally { bitmap.recycle() }
                         }
                     }
                 } catch (failure: ComposeTimeoutException) { throw AssertionError(diagnostic, failure) }
@@ -486,7 +558,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 }
                 f.capture("02-restored-multiline-native-end-caret-above-ime")
                 File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("posts", 0)
-                    .put("native_ctrl_end_and_append", true).put("last_line_character_bounds_inside_editor_and_above_ime", true)
+                    .put("native_ctrl_end_and_append", true).put("final_visual_line_layout_and_rendered_caret_inside_editor_above_ime", true)
+                    .put("native_glyph_api_proof_claimed", false)
                     .put("full_draft_retained_after_back_and_reopen", true).put("durable_draft_read", true).toString(2))
             } catch (failure: Throwable) {
                 runCatching { f.capture("failure-before-cleanup") }.onFailure { failure.addSuppressed(it) }
