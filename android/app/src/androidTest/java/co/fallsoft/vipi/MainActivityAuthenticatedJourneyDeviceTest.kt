@@ -82,6 +82,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 username.performScrollTo().performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 username.performTextInput("missing_friend")
+                username.assertEditorValue("missing_friend").assertIsFocused()
                 assertNativeContained(f, By.text("missing_friend"), "focused friend username above IME", 48)
                 compose.onNodeWithText(f.base.getString(R.string.ui_ba6e8c9b0c3e)).performScrollTo().performTouchInput { click() }
                 compose.onNodeWithText(f.base.getString(R.string.ui_eb7c5193d2ac)).assertIsDisplayed()
@@ -94,6 +95,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 username.performScrollTo().performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 username.performTextReplacement("@Journey_Friend")
+                username.assertEditorValue("@Journey_Friend").assertIsFocused()
                 assertNativeContained(f, By.text("@Journey_Friend"), "corrected friend username above IME", 48)
                 compose.onNodeWithText(f.base.getString(R.string.ui_ba6e8c9b0c3e)).performScrollTo().performTouchInput { click() }
                 waitScreen(f, Screen.CONVERSATION)
@@ -310,18 +312,31 @@ class MainActivityAuthenticatedJourneyDeviceTest {
     }
 
     private fun SemanticsNodeInteraction.assertEmptyEditor(): SemanticsNodeInteraction =
-        assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
+        assertEditorValue("")
+
+    private fun SemanticsNodeInteraction.assertEditorValue(expected: String): SemanticsNodeInteraction =
+        assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(expected)))
 
     /** Accessibility bounds alone may extend behind a separate IME window.
      * Compare the actual native node with the window minus system/IME insets,
      * and reject a partially clipped topbar icon/title as well. */
     private fun assertNativeContained(f: MainActivityJourneyFixture, selector: BySelector, name: String, minimumHeightDp: Int = 0) {
-        val viewport = f.unobscuredWindow()
-        val node = f.device.findObject(selector.pkg(f.base.packageName))
-        assertNotNull("$name must exist in the native app hierarchy", node)
-        val bounds = requireNotNull(node).visibleBounds
-        assertTrue("$name $bounds must be fully within unobscured window $viewport", !bounds.isEmpty && viewport.contains(bounds))
-        assertTrue("$name is clipped: $bounds", bounds.height() >= minimumHeightDp * f.base.resources.displayMetrics.density)
+        compose.waitForIdle()
+        var bounds: android.graphics.Rect? = null
+        var viewport = f.unobscuredWindow()
+        try {
+            compose.waitUntil(5_000) {
+                // Compose editing and IME layout settle before the independent
+                // accessibility tree necessarily receives its latest snapshot.
+                if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
+                viewport = f.unobscuredWindow()
+                bounds = f.device.findObject(selector.pkg(f.base.packageName))?.visibleBounds
+                bounds?.let { actual -> !actual.isEmpty && viewport.contains(actual) &&
+                    actual.height() >= minimumHeightDp * f.base.resources.displayMetrics.density } == true
+            }
+        } catch (failure: ComposeTimeoutException) {
+            throw AssertionError("$name native bounds $bounds must be fully within unobscured window $viewport with height >= $minimumHeightDp dp", failure)
+        }
     }
 
     private fun openBot(f: MainActivityJourneyFixture) {
