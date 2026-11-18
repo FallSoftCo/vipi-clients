@@ -3,20 +3,26 @@ import Foundation
 enum HistoryBackupStore {
     struct ImportResult: Sendable { let added: Int; let existing: Int }
 
+    /// Directory URLs may differ in their trailing directory identity after
+    /// resolution. Ownership follows exact normalized filesystem components.
+    private static func sameFilePath(_ lhs: URL, _ rhs: URL) -> Bool {
+        lhs.isFileURL && rhs.isFileURL && lhs.standardizedFileURL.pathComponents == rhs.standardizedFileURL.pathComponents
+    }
+
     private static func accountDirectory(_ account: UUID, baseDirectory: URL?) throws -> URL {
         let base = baseDirectory ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
         guard base.isFileURL else { throw CocoaError(.fileWriteInvalidFileName) }
         let support = base.standardizedFileURL.resolvingSymlinksInPath()
         let root = support.appendingPathComponent("HistoryFiles", isDirectory: true)
         let attributed = root.appendingPathComponent("accounts-v1", isDirectory: true)
-        guard root.resolvingSymlinksInPath() == root, attributed.resolvingSymlinksInPath() == attributed else { throw CocoaError(.fileWriteInvalidFileName) }
+        guard sameFilePath(root.resolvingSymlinksInPath(), root), sameFilePath(attributed.resolvingSymlinksInPath(), attributed) else { throw CocoaError(.fileWriteInvalidFileName) }
         // Legacy exports used UUID run folders directly below HistoryFiles.
         // A separate namespace prevents guessing that such a folder is an account.
         return attributed.appendingPathComponent(account.uuidString.lowercased(), isDirectory: true)
     }
     static func directory(account: UUID, baseDirectory: URL? = nil) throws -> URL {
         var owned = try accountDirectory(account, baseDirectory: baseDirectory)
-        guard owned.resolvingSymlinksInPath() == owned else { throw CocoaError(.fileWriteInvalidFileName) }
+        guard sameFilePath(owned.resolvingSymlinksInPath(), owned) else { throw CocoaError(.fileWriteInvalidFileName) }
         try FileManager.default.createDirectory(at: owned, withIntermediateDirectories: true,
             attributes: [.posixPermissions: 0o700, .protectionKey: FileProtectionType.completeUntilFirstUserAuthentication])
         var values = URLResourceValues(); values.isExcludedFromBackup = true; try owned.setResourceValues(values)
@@ -34,16 +40,16 @@ enum HistoryBackupStore {
     }
     static func removeStaged(_ url: URL, account: UUID, baseDirectory: URL? = nil) {
         guard url.isFileURL, let owned = try? accountDirectory(account, baseDirectory: baseDirectory),
-              url.standardizedFileURL.deletingLastPathComponent() == owned,
+              sameFilePath(url.deletingLastPathComponent(), owned),
               url.pathExtension == "vipihistory", UUID(uuidString: url.deletingPathExtension().lastPathComponent) != nil,
-              url.resolvingSymlinksInPath() == url.standardizedFileURL else { return }
+              sameFilePath(url.resolvingSymlinksInPath(), url) else { return }
         try? FileManager.default.removeItem(at: url)
     }
     static func removeExport(_ url: URL, account: UUID, baseDirectory: URL? = nil) {
         let parent = url.standardizedFileURL.deletingLastPathComponent()
         guard url.isFileURL, let owned = try? accountDirectory(account, baseDirectory: baseDirectory),
-              parent.deletingLastPathComponent() == owned, UUID(uuidString: parent.lastPathComponent) != nil,
-              url.pathExtension == "vipihistory", url.resolvingSymlinksInPath() == url.standardizedFileURL else { return }
+              sameFilePath(parent.deletingLastPathComponent(), owned), UUID(uuidString: parent.lastPathComponent) != nil,
+              url.pathExtension == "vipihistory", sameFilePath(url.resolvingSymlinksInPath(), url) else { return }
         try? FileManager.default.removeItem(at: url)
         if (try? FileManager.default.contentsOfDirectory(atPath: parent.path).isEmpty) == true {
             try? FileManager.default.removeItem(at: parent)
@@ -68,7 +74,7 @@ enum HistoryBackupStore {
         try Task.checkCancellation()
         let authorized = selected.startAccessingSecurityScopedResource()
         defer { if authorized { selected.stopAccessingSecurityScopedResource() } }
-        guard destination.isFileURL, destination.resolvingSymlinksInPath() == destination.standardizedFileURL else { throw CocoaError(.fileWriteInvalidFileName) }
+        guard destination.isFileURL, sameFilePath(destination.resolvingSymlinksInPath(), destination) else { throw CocoaError(.fileWriteInvalidFileName) }
         guard !FileManager.default.fileExists(atPath: destination.path) else { throw CocoaError(.fileWriteFileExists) }
         guard FileManager.default.createFile(atPath: destination.path, contents: nil,
             attributes: [.posixPermissions: 0o600, .protectionKey: FileProtectionType.completeUntilFirstUserAuthentication]) else { throw CocoaError(.fileWriteUnknown) }
@@ -93,7 +99,7 @@ enum HistoryBackupStore {
             try FileManager.default.setAttributes([.posixPermissions: 0o400], ofItemAtPath: destination.path)
             return destination
         } catch {
-            if destination.resolvingSymlinksInPath() == destination.standardizedFileURL { try? FileManager.default.removeItem(at: destination) }
+            if sameFilePath(destination.resolvingSymlinksInPath(), destination) { try? FileManager.default.removeItem(at: destination) }
             throw error
         }
     }
@@ -134,7 +140,7 @@ enum HistoryBackupStore {
             try writer.finish()
             try Task.checkCancellation()
         } catch {
-            if url.resolvingSymlinksInPath() == expectedPath { try? FileManager.default.removeItem(at: url) }
+            if sameFilePath(url.resolvingSymlinksInPath(), expectedPath) { try? FileManager.default.removeItem(at: url) }
             throw error
         }
     }
