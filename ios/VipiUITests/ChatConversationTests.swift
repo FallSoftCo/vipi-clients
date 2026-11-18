@@ -1,6 +1,7 @@
 import XCTest
 import UIKit
 import Vision
+import ImageIO
 
 @MainActor
 final class ChatConversationTests: XCTestCase {
@@ -472,13 +473,40 @@ final class ChatConversationTests: XCTestCase {
     /// that same frame for independent caret/blink inspection.
     private func assertRenderedEndLine(_ endLine: String, in input: XCUIElement,
         app: XCUIApplication, keyboard: XCUIElement) throws {
-        let screenshot = app.screenshot()
+        let screenshot = XCUIScreen.main.screenshot()
         let frame = XCTAttachment(screenshot: screenshot)
         frame.name = "bot-landscape-final-line-and-native-caret"; frame.lifetime = .keepAlways; add(frame)
-        let image = try XCTUnwrap(screenshot.image.cgImage)
+        let nativeImage = screenshot.image
+        let image = try XCTUnwrap(nativeImage.cgImage)
+        let orientation: CGImagePropertyOrientation
+        switch nativeImage.imageOrientation {
+        case .up: orientation = .up
+        case .down: orientation = .down
+        case .left: orientation = .left
+        case .right: orientation = .right
+        case .upMirrored: orientation = .upMirrored
+        case .downMirrored: orientation = .downMirrored
+        case .leftMirrored: orientation = .leftMirrored
+        case .rightMirrored: orientation = .rightMirrored
+        @unknown default: throw NSError(domain: "VipiScreenshot", code: 1,
+            userInfo: [NSLocalizedDescriptionKey: "Unknown native screenshot orientation; glyph coordinates cannot be qualified"])
+        }
+        let swapsAxes = [UIImage.Orientation.left, .right, .leftMirrored, .rightMirrored].contains(nativeImage.imageOrientation)
+        let rasterWidth = CGFloat(swapsAxes ? image.height : image.width)
+        let rasterHeight = CGFloat(swapsAxes ? image.width : image.height)
+        let captureGeometry: [String: Any] = ["capture": "XCUIScreen.main.screenshot", "cg_width": image.width,
+            "cg_height": image.height, "ui_image_orientation": nativeImage.imageOrientation.rawValue,
+            "vision_orientation": orientation.rawValue, "ui_image_width": nativeImage.size.width,
+            "ui_image_height": nativeImage.size.height, "oriented_raster_width": rasterWidth,
+            "oriented_raster_height": rasterHeight, "native_window_width": app.frame.width,
+            "native_window_height": app.frame.height]
+        let captureReceipt = XCTAttachment(data: try JSONSerialization.data(withJSONObject: captureGeometry, options: [.sortedKeys]), uniformTypeIdentifier: "public.json")
+        captureReceipt.name = "bot-landscape-whole-screen-capture-geometry"; captureReceipt.lifetime = .keepAlways; add(captureReceipt)
+        XCTAssertEqual(rasterWidth / rasterHeight, app.frame.width / app.frame.height, accuracy: 0.01,
+            "Validate the complete orientation-aware native raster before mapping any glyph coordinates")
         let request = VNRecognizeTextRequest()
         request.recognitionLevel = .accurate; request.usesLanguageCorrection = false; request.recognitionLanguages = ["en-US"]
-        try VNImageRequestHandler(cgImage: image, options: [:]).perform([request])
+        try VNImageRequestHandler(cgImage: image, orientation: orientation, options: [:]).perform([request])
         let observed = try XCTUnwrap(request.results?.compactMap { observation -> CGRect? in
             guard let candidate = observation.topCandidates(1).first, candidate.confidence >= 0.8,
                   let range = candidate.string.range(of: endLine),
@@ -489,7 +517,7 @@ final class ChatConversationTests: XCTestCase {
                 width: box.width * app.frame.width, height: box.height * app.frame.height)
         }.first, "The full final typed visual line must actually render; field existence alone is insufficient")
         let measured = XCTAttachment(data: try JSONSerialization.data(withJSONObject: [
-            "method": "Vision OCR on exact native XCUIScreenshot; normalized glyph box mapped to native app coordinates",
+            "method": "Orientation-aware Vision OCR on validated whole-screen XCUIScreenshot; normalized glyph box mapped to native app coordinates",
             "line": endLine, "x": observed.minX, "y": observed.minY, "width": observed.width, "height": observed.height,
             "keyboard_top": keyboard.frame.minY, "native_full_draft_verified": true,
             "caret_rect_exposed_by_public_xcuitest": false, "caret_evidence": "same retained native screenshot after actual append"
@@ -504,7 +532,7 @@ final class ChatConversationTests: XCTestCase {
         app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", text)).firstMatch
     }
     private func capture(_ app: XCUIApplication, _ name: String) {
-        let screenshot = XCTAttachment(screenshot: app.screenshot()); screenshot.name = name; screenshot.lifetime = .keepAlways; add(screenshot)
+        let screenshot = XCTAttachment(screenshot: XCUIScreen.main.screenshot()); screenshot.name = name; screenshot.lifetime = .keepAlways; add(screenshot)
         let hierarchy = XCTAttachment(string: app.debugDescription); hierarchy.name = name + "-hierarchy"; hierarchy.lifetime = .keepAlways; add(hierarchy)
     }
 }
