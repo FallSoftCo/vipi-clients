@@ -81,11 +81,24 @@ import UIKit
             let username = app.textFields["profile-username"]; username.tap(); username.typeText("vqa_1107_ios01")
             app.switches["profile-accept-terms"].tap()
             app.buttons["profile-submit"].tap()
-            XCTAssertTrue(app.buttons["New chat"].waitForExistence(timeout: 30))
-        } else {
-            // A genuine provider callback can precede backend allowlist deploy.
-            XCTAssertTrue(app.buttons["New chat"].exists || app.buttons["Try again"].exists,
-                          "Hosted sign-in did not return to an authenticated app screen")
+        }
+        let joined = app.buttons["New chat"].waitForExistence(timeout: 30)
+            && app.staticTexts["Chats"].exists
+            && !app.staticTexts["Chatting is paused"].exists
+        guard joined else {
+            // Keep diagnostics to route metadata. A full hierarchy/screenshot
+            // while the provider is still open could retain private fields.
+            let route = XCTAttachment(string: """
+                new_chat=\(app.buttons["New chat"].exists)
+                chats=\(app.staticTexts["Chats"].exists)
+                profile_required=\(app.textFields["profile-name"].exists)
+                profile_error=\(app.staticTexts["profile-error"].exists)
+                retry=\(app.buttons["Try again"].exists)
+                chatting_paused=\(app.staticTexts["Chatting is paused"].exists)
+                provider_webview=\(app.webViews.firstMatch.exists)
+                """)
+            route.name = "hosted-sign-in-incomplete-route"; route.lifetime = .keepAlways; add(route)
+            return XCTFail("Hosted sign-in must reach the joined Chats screen. A retry/reconnect screen does not prove profile creation or joining; inspect the route-only diagnostic.")
         }
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = "owned-staging-authenticated-app"; attachment.lifetime = .keepAlways; add(attachment)
