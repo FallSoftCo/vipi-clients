@@ -1,0 +1,135 @@
+{
+  "source_freeze": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+  "apk_sha256": "b49354c1fba8540a5dc1dcc12a281d37b392c64643224de24fdba43d47ebd9fe",
+  "package": "co.fallsoft.vipi",
+  "version_code": 5,
+  "version_name": "1.0.4",
+  "target": "existing emulator-5624 / full secondary user10",
+  "android_user_label": "Vipi (shortened by adb shell joining; root explicitly accepted label and prohibited further rename)",
+  "normal_auth": {
+    "native_initial_continues": 1,
+    "password_submissions": 1,
+    "visible_verification_checkbox": 1,
+    "normal_native_callback_profile_step": true,
+    "google_apple_email_options_visibly_present": true,
+    "credentials_or_auth_images_published": false
+  },
+  "profile": {
+    "username": "vipi_review_gamma_1117",
+    "normal_create_dispatches": 1,
+    "independent_root_profile_count": 1,
+    "independent_root_active_device_count": 1
+  },
+  "access": {
+    "base_review_access_visibly_active": true,
+    "bot_allowance_before": 150,
+    "bot_allowance_after": 149,
+    "bot_monthly_limit": 150,
+    "purchase_dispatches": 0,
+    "friend_message_dispatches": 0
+  },
+  "bot": {
+    "consent_observed_and_accepted": true,
+    "prompt": "Write a friendly one-sentence invitation for coffee tomorrow.",
+    "send_dispatches": 1,
+    "retry_dispatches": 0,
+    "reply": "Hey! Want to grab a coffee tomorrow and catch up?",
+    "independent_root_settled_debited_requests": 1,
+    "independent_root_pending_or_uncertain_requests": 0,
+    "independent_root_purchased_entitlements": 0
+  },
+  "word_speech_stop": {
+    "natural_baseline_player": 135,
+    "natural_playback_ms": 556,
+    "same_tap_stop_player": 143,
+    "interrupted_playback_ms": 123,
+    "playing_observed_before_second_tap": true,
+    "no_restarted_player_after_stop": true,
+    "event_lines": [
+      "11-17 19:08:12:927 new player piid:135 uid/pid:1010192/8131 type:android.media.AudioTrack attr:AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_SPEECH flags=0x800 tags= bundle=null session:169",
+      "11-17 19:08:12:929 player piid:135 event:started",
+      "11-17 19:08:13:485 player piid:135 event:stopped",
+      "11-17 19:08:13:485 player piid:135 event:stopped",
+      "11-17 19:08:13:488 releasing player piid:135",
+      "11-17 19:08:14:579 new player piid:143 uid/pid:1010192/8131 type:android.media.AudioTrack attr:AudioAttributes: usage=USAGE_MEDIA content=CONTENT_TYPE_SPEECH flags=0x800 tags= bundle=null session:177",
+      "11-17 19:08:14:580 player piid:143 event:started",
+      "11-17 19:08:14:703 player piid:143 event:stopped",
+      "11-17 19:08:14:703 player piid:143 event:stopped",
+      "11-17 19:08:14:703 releasing player piid:143"
+    ],
+    "acoustic_quality_claim": false
+  },
+  "onboarding": {
+    "known": "en",
+    "learning": "zh",
+    "selection_preserved_through_auth": true,
+    "voice_preparation_finished": true,
+    "one_visible_listen_tap_showed_stop": true,
+    "chinese_tone_marks_visibly_correct": true,
+    "model_download_requested": false
+  },
+  "preservation": {
+    "user0_primary_state": "User 0: ceDataInode=327706 installed=true hidden=false suspended=false distractionFlags=0 stopped=true notLaunched=false enabled=3 instant=false virtual=false",
+    "original_enabled_state": 0,
+    "current_enabled_state": 3,
+    "primary_history_key_data_preserved": "No deletion/reset/session injection; same signer, UID and CE inode; user0 disabled before global v5 APK update and not launched.",
+    "held_5620_5622_guest_actions": 0,
+    "new_emulator_created": false,
+    "new_secondary_users_created": 1
+  },
+  "restoration_plan": {
+    "state": "pending owner-authorized restoration; not dispatched",
+    "steps": [
+      "Keep Gamma data/session; no deletion required.",
+      "When owner approves primary QA resumption, restore only user0 co.fallsoft.vipi to its original enabled/default state, then force-stop user0 before any intentional launch.",
+      "Do not restore or launch held 5620/5622 packages as part of this task."
+    ]
+  },
+  "capacity": {
+    "floor_bytes": 4504682496,
+    "growth_budget_bytes": 1503238554,
+    "free_before": 6140866560,
+    "minimum_free": 5945155584,
+    "observed_free": 6010392576
+  },
+  "images": {
+    "01-welcome.png": {
+      "source": "welcome-word-tap-v5.png",
+      "sha256": "856bd24a7121597422df99152fc6daa62965b6283ad890d907d241f3654fccee",
+      "width": 1080,
+      "height": 1920,
+      "pixel_edits": false,
+      "content": "synthetic production UI; no credentials/auth page"
+    },
+    "02-chinese-preview.png": {
+      "source": "language-chinese-v5.png",
+      "sha256": "c06a4f8a2c6a63fb107f63ae5f1423be8b0035f3953c1f56bc4033f565ec7b04",
+      "width": 1080,
+      "height": 1920,
+      "pixel_edits": false,
+      "content": "synthetic production UI; no credentials/auth page"
+    },
+    "03-vbot-live-reply.png": {
+      "source": "gamma-vbot-result-after-wait.png",
+      "sha256": "ddfb5a97c7ce05bf8a2ce9a876aa4cef97118ebae7816fd86408ffa72f4e33b3",
+      "width": 1080,
+      "height": 1920,
+      "pixel_edits": false,
+      "content": "synthetic production UI; no credentials/auth page"
+    }
+  },
+  "limits": [
+    "No purchase/restore/store/phone actions by this task.",
+    "Google-APIs emulator lacks Play billing catalog; server review grants and vBot worked independently.",
+    "No acoustic pronunciation-quality or physical 16 KiB hardware claim.",
+    "Screenshots are actual unedited current production app UI; the conversation is vBot service chat, not a friend conversation."
+  ],
+  "private_evidence_sha256": {
+    "phase-receipt.json": "3e52c663d162065a8e59b7e06372fa809a8493adb38037f7e546bb2756ebc179",
+    "gamma-native-auth-intent.json": "fc8ffcc15d5d6e4a63825d04109fa0080abd362aef376bd337195e613c715612",
+    "gamma-profile-create-intent.json": "3f743431670f5d2afe86ca5d05edaee10c8787ba657ab2ff77f325c9ba52ff2c",
+    "vbot-send-intent.json": "9040a2b522b91119e2be06928b931a8714816f102dcaa7e9ff099836f096e83d",
+    "word-audio-stop-result.json": "e5aff0280eeb27d49abdfe1d42466a8096fa0cc7d51a99e81f17f320f4f523b8",
+    "root-live-database-proof-r01.json": "b4ba8d0c7ec8ef43107d86ef10e9d7906707c13bee88e5d2154681a19313a8d1"
+  }
+}
