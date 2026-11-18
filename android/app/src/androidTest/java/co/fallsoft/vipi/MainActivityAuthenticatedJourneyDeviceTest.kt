@@ -318,15 +318,24 @@ class MainActivityAuthenticatedJourneyDeviceTest {
         val services = JourneyServices(profileRequired = false, seedBotMessages = 30, expectedBotPosts = 2)
         MainActivityJourneyFixture("bot-history-anchor", services::model).use { f ->
             fun paragraphPosition(original: String? = null): Pair<String, Int>? {
+                if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
+                val listViewport = requireNotNull(f.device.findObject(By.scrollable(true).pkg(f.base.packageName))) {
+                    "The real native Bot timeline must be present"
+                }.visibleBounds
+                val windowViewport = f.unobscuredWindow()
                 var found: Pair<String, Int>? = null
                 f.instrumentation.runOnMainSync {
-                    f.paragraphs().firstOrNull { view ->
-                        view.displayedOriginal.startsWith("Earlier local Bot message") &&
-                            (original == null || view.displayedOriginal == original) && f.fullyVisible(view)
-                    }?.let { view ->
-                        val location = IntArray(2); view.getLocationOnScreen(location)
-                        found = view.displayedOriginal to location[1]
-                    }
+                    // LazyLayout reuses native children in traversal order;
+                    // that order is unrelated to the reader's visual position.
+                    // Exclude text covered by either bar, then anchor the
+                    // uppermost complete paragraph in the actual native list.
+                    found = f.paragraphs().mapNotNull { view ->
+                        val bounds = android.graphics.Rect()
+                        if (view.displayedOriginal.startsWith("Earlier local Bot message") &&
+                            (original == null || view.displayedOriginal == original) && f.fullyVisible(view) &&
+                            view.getGlobalVisibleRect(bounds) && listViewport.contains(bounds) && windowViewport.contains(bounds))
+                            view.displayedOriginal to bounds.top else null
+                    }.minByOrNull { it.second }
                 }
                 return found
             }
