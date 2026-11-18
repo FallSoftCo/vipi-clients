@@ -1,6 +1,6 @@
 {
   "reported": "Owner cannot open keyboard or send vBot message on Android versionCode5",
-  "status": "portrait_input_and_journeys_passed; signed_android7_landscape_text_clipping_reproduced; fix_and_regression_pending; public_release_held",
+  "status": "Corrected Android keyboard and incoming reply visibility passed native and pixel checks; final history regression and signed replacement pending; public release held",
   "readiness_claim_withdrawn": true,
   "public_release_controls": {
     "apple": "existing manual release retained",
@@ -24,7 +24,7 @@
     "native keyboard/focus/send guard regression qualification"
   ],
   "external_actions": "Existing store submissions not repeated. One config-only testing grant for user-confirmed owner profile activated and verified; API restart preserved unrelated services. No purchase/charge or uncertain Bot send replay.",
-  "updated_utc": "2026-11-18T07:18:56.426165+00:00",
+  "updated_utc": "2026-11-18T08:33:52.102306+00:00",
   "verified": [
     "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
     "Actual VipiModel setup routing: 5 focused tests passed",
@@ -33,10 +33,11 @@
     "Final updated Send guard explicitly rejects verificationUnavailable even with active snapshot; final native focus/consent/successful full-screen send tests pass3/3 with updated guard; prior unchanged routing tests5/5",
     "Production signed v6 APK installed in preserved emulator user10; native pointer opened Gboard and real Gboard taps typed hi; unsent draft cleared afterward; no provider call or registration attempted",
     "Signed v6 signature matches exact installed phone v5; 1082 assets and 28 native libraries retained; 16KB alignment passed",
-    "Current product APK hashcd6fcfa8 passed all seven selected MainActivity journeys across normal and enlarged text; separate runs explicitly linked in acceptance record."
+    "Current product APK hashcd6fcfa8 passed all seven selected MainActivity journeys across normal and enlarged text; separate runs explicitly linked in acceptance record.",
+    "Corrected037 enlarged and038 normal actual friend journeys pass stricter native reply containment plus both independent received/reopened-IME screenshot OCR gates. Original035 false pass and036 red retained."
   ],
   "remaining": [
-    "Fix and prove short-height landscape editor text/caret visibility, then produce a newly qualified Android artifact",
+    "Complete targeted friend history regression with test window configured like shipping MainActivity, then produce version8 signed replacement",
     "Verify corrected final build installed on owner phone and actual Bot send",
     "Build and validate corrected Play bundle against newly qualified signed APK; v7sign/upload not dispatched after landscape failure",
     "Obtain actual Apple purchase proof; local IDE test r03failednotEntitled with one localSDKbuy attempt/no confirmed transaction",
@@ -65,13 +66,12 @@
     "installer_requested_once": true,
     "installer_command_exit": 0,
     "installed_update_verified": false,
-    "blocking_user_actions": [
-      "Android Install confirmation remains pending for deliveredversion7"
-    ],
+    "blocking_user_actions": [],
     "no_phone_data_cleared": true,
     "actual_owner_send_verified": false,
     "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-v7-delivery-r01.json",
-    "delivery_started_utc": "2026-11-18T06:20:27.700407+00:00"
+    "delivery_started_utc": "2026-11-18T06:20:27.700407+00:00",
+    "current_delivery_status": "Do not reinstall superseded7; corrected8 pending. Bounded phone-adb check08:32 unavailable, no USB/TCP; no reset or repeated installer."
   },
   "owner_access_verified": {
     "base": true,
@@ -84,7 +84,7 @@
   },
   "journey_qualification": {
     "android_domain": "20 integration cases passed through actual model, encrypted vault, subscription coordinator and deletion/backup cleanup; external HTTP and billing controlled",
-    "android_activity": "Five core MainActivity journeys passed at1080x1920/font1.0 and840x1600/font1.6; recovery error/Refresh reachable. Two additional long-draft journeys passed at both sizes, with/without confirmed history, native end-caret/final visual line above IME and no draft sends.",
+    "android_activity": "Eight current core cases passed034/035 at normal/enlarged sizes; visual review separately rejected035 incoming pixels. Strict036 failed that defect; corrected037 enlarged and038 normal friend methods plus independent pixels pass.038 standalone timeline host panned entire window; test-only production-window alignment pending.",
     "android_speech": "10 native lifecycle/word gesture cases passed;110 authored preview directions passed actual native playback/stop, median198ms/p95237ms/max319ms; arbitrary conversation and acoustics not implied",
     "ios_domain": "15 BotSession tests plus checked-close/deletion retry and actual Bot UI journey passed17;22 backup/deletion cases passed",
     "ios_ui": "Actual Bot consent/keyboard/send/navigation/reopen/draft and checked final disposal passed; local friend lookup geometry and Cancel passed",
@@ -103,6 +103,7 @@
     "upload_dispatches": 0,
     "receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/corrected-apple-export-result-r01/summary.json",
     "fresh_store_inventory_receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/native-asc-session-readonly-r01/summary.json",
-    "build5_absent_at_utc": "2026-11-18T07:08:15.141005+00:00"
+    "build5_absent_at_utc": "2026-11-18T07:08:15.141005+00:00",
+    "delivery_status": "Original r01 local5 is obsolete for delivery after Bot Send appearance correction; preserved, never uploaded. Corrected r02 source/project assembled; archive/export pending."
   }
 }
