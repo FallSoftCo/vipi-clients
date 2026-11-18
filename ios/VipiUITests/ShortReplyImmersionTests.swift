@@ -26,7 +26,7 @@ final class ShortReplyImmersionTests: XCTestCase {
             XCTAssertTrue(panel.staticTexts["yes"].exists)
             closeTranslationPanel(panel, in: app)
             openMessageReadingOptions(in: app, paragraph: paragraph)
-            app.buttons["Original message"].tap()
+            selectReadingMode("Original message", in: app)
             XCTAssertEqual(paragraph.label, "yes")
             app.terminate()
         }

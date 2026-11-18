@@ -53,6 +53,38 @@ extension XCTestCase {
         XCTAssertEqual(XCTWaiter.wait(for: [portrait], timeout: 5), .completed, file: file, line: line)
     }
 
+    /// UIKit context-menu items may share image-derived identifiers. Resolve
+    /// the unique visible label/frame, then deliver one real coordinate tap.
+    @MainActor @discardableResult func tapNativeMenuButton(_ title: String, in app: XCUIApplication,
+        excluding frameToExclude: CGRect? = nil, file: StaticString = #filePath, line: UInt = #line) -> XCUIElement {
+        let matches = app.buttons.matching(NSPredicate(format: "label == %@", title))
+        var previousFrame: CGRect?
+        let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            let visible = matches.allElementsBoundByIndex.filter {
+                $0.isHittable && app.frame.contains($0.frame) && $0.frame != frameToExclude
+            }
+            guard visible.count == 1 else { return false }
+            let frame = visible[0].frame
+            defer { previousFrame = frame }
+            return previousFrame == frame
+        }, object: app)
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 5), .completed, file: file, line: line)
+        let visible = matches.allElementsBoundByIndex.filter {
+            $0.isHittable && app.frame.contains($0.frame) && $0.frame != frameToExclude
+        }
+        guard visible.count == 1 else {
+            XCTFail("The native menu choice must be uniquely visible", file: file, line: line)
+            return matches.firstMatch
+        }
+        let choice = visible[0]
+        XCTAssertTrue(choice.exists && choice.isHittable, file: file, line: line)
+        let point = choice.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        let witness = XCTAttachment(string: "native menu choice=\(title); frame=\(choice.frame); point=\(point.screenPoint)")
+        witness.name = "native-menu-choice-coordinate"; witness.lifetime = .keepAlways; add(witness)
+        point.tap()
+        return choice
+    }
+
     /// Nonembedded previews retain a visible menu; reading settings now live in
     /// its nested submenu, alongside the separate Copy and Select actions.
     @MainActor func openInlineMessageActions(in app: XCUIApplication,
@@ -65,18 +97,11 @@ extension XCTestCase {
 
     @MainActor func openInlineReadingOptions(in app: XCUIApplication,
         file: StaticString = #filePath, line: UInt = #line) {
-        let trigger = app.buttons["Reading options"].firstMatch
+        // Capture before opening: firstMatch can rebind to the submenu after
+        // the native menu appears, despite retaining the same label.
+        let triggerFrame = app.buttons["Reading options"].firstMatch.frame
         openInlineMessageActions(in: app, file: file, line: line)
-        let triggerFrame = trigger.frame
-        let submenu = app.buttons.matching(NSPredicate(format: "label == 'Reading options'"))
-        let presented = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
-            submenu.allElementsBoundByIndex.contains { $0.isHittable && $0.frame != triggerFrame }
-        }, object: app)
-        XCTAssertEqual(XCTWaiter.wait(for: [presented], timeout: 5), .completed, file: file, line: line)
-        guard let control = submenu.allElementsBoundByIndex.first(where: { $0.isHittable && $0.frame != triggerFrame }) else {
-            XCTFail("The native reading submenu must be presented", file: file, line: line); return
-        }
-        control.tap()
+        tapNativeMenuButton("Reading options", in: app, excluding: triggerFrame, file: file, line: line)
     }
 
     /// Embedded rows expose secondary reading actions through their native
@@ -93,9 +118,25 @@ extension XCTestCase {
     @MainActor func openMessageReadingOptions(in app: XCUIApplication, paragraph: XCUIElement,
         file: StaticString = #filePath, line: UInt = #line) {
         openMessageActions(in: app, paragraph: paragraph, file: file, line: line)
-        let submenu = app.buttons["Reading options"].firstMatch
-        XCTAssertTrue(submenu.waitForExistence(timeout: 5), file: file, line: line)
-        submenu.tap()
+        tapNativeMenuButton("Reading options", in: app, file: file, line: line)
+        XCTAssertTrue(app.buttons["Word switching"].waitForExistence(timeout: 5), file: file, line: line)
+    }
+
+    @MainActor func selectReadingMode(_ title: String, in app: XCUIApplication,
+        file: StaticString = #filePath, line: UInt = #line) {
+        let choice = tapNativeMenuButton(title, in: app, file: file, line: line)
+        let other = app.buttons[title == "Original message" ? "Word switching" : "Original message"]
+        var selectionObserved = false
+        let applied = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            if choice.exists && choice.isSelected { selectionObserved = true; return true }
+            return !choice.exists && !other.exists
+        }, object: app)
+        XCTAssertEqual(XCTWaiter.wait(for: [applied], timeout: 5), .completed, file: file, line: line)
+        if other.exists {
+            XCTAssertTrue(selectionObserved, file: file, line: line)
+            app.navigationBars.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        }
+        XCTAssertTrue(other.waitForNonExistence(timeout: 5), file: file, line: line)
     }
 
     /// The current whole-message action opens a nonmodal translation panel;
@@ -122,33 +163,19 @@ extension XCTestCase {
     @MainActor func chooseMessageLanguage(_ language: String, in app: XCUIApplication, paragraph: XCUIElement,
         file: StaticString = #filePath, line: UInt = #line) {
         openMessageReadingOptions(in: app, paragraph: paragraph, file: file, line: line)
-        let languageMenu = app.buttons["Message language"]
-        XCTAssertTrue(languageMenu.waitForExistence(timeout: 5), file: file, line: line)
-        languageMenu.tap()
-        let choices = app.buttons.matching(NSPredicate(format: "label == %@", language))
-        var previousFrame: CGRect?
-        let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
-            let visible = choices.allElementsBoundByIndex.filter { $0.isHittable && app.frame.contains($0.frame) }
-            guard visible.count == 1 else { return false }
-            let frame = visible[0].frame
-            defer { previousFrame = frame }
-            return previousFrame == frame
-        }, object: app)
-        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 5), .completed, file: file, line: line)
-        guard let choice = choices.allElementsBoundByIndex.first(where: { $0.isHittable && app.frame.contains($0.frame) }) else {
-            XCTFail("Exactly one native language choice must be visible", file: file, line: line); return
-        }
-        let witness = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
-        witness.name = "native-message-language-choice-before-tap"; witness.lifetime = .keepAlways; add(witness)
-        choice.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        tapNativeMenuButton("Message language", in: app, file: file, line: line)
+        XCTAssertTrue(app.buttons["Detect automatically"].waitForExistence(timeout: 5), file: file, line: line)
+        let choice = tapNativeMenuButton(language, in: app, file: file, line: line)
         let automatic = app.buttons["Detect automatically"]
+        var selectionObserved = false
         let applied = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
-            !automatic.exists || choice.isSelected
+            if choice.exists && choice.isSelected { selectionObserved = true; return true }
+            return !automatic.exists
         }, object: app)
         XCTAssertEqual(XCTWaiter.wait(for: [applied], timeout: 5), .completed, file: file, line: line)
         if automatic.exists {
-            XCTAssertTrue(choice.isSelected, file: file, line: line)
-            app.navigationBars.firstMatch.tap()
+            XCTAssertTrue(selectionObserved, file: file, line: line)
+            app.navigationBars.firstMatch.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
         }
         XCTAssertTrue(automatic.waitForNonExistence(timeout: 5), file: file, line: line)
     }

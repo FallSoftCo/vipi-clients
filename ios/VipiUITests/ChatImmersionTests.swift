@@ -87,7 +87,7 @@ final class ChatImmersionTests: XCTestCase {
             .filter { $0.isHittable && $0.frame.minY > viewport.minY + 40 && $0.frame.maxY < viewport.maxY - 40 }
             .min { abs($0.frame.midY - viewport.midY) < abs($1.frame.midY - viewport.midY) })
         chooseMessageLanguage("English", in: app, paragraph: paragraph)
-        openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Original message"].tap()
+        openMessageReadingOptions(in: app, paragraph: paragraph); selectReadingMode("Original message", in: app)
         XCTAssertEqual(paragraph.label, "I like music.")
         let before = paragraph.frame
         let panel = translateMessage(in: app, paragraph: paragraph)
@@ -201,7 +201,7 @@ final class ChatImmersionTests: XCTestCase {
         for count in transitions { XCTAssertGreaterThanOrEqual(count, 6) }
         closeTranslationPanel(panel, in: app)
         openMessageReadingOptions(in: app, paragraph: paragraph)
-        app.buttons["Original message"].tap()
+        selectReadingMode("Original message", in: app)
         XCTAssertEqual(paragraph.label, "I need water. Did you finish the report?")
         capture("ios-partial-original-message-preserved")
         let attachment = XCTAttachment(data: try JSONSerialization.data(withJSONObject: ["samples": samples,
@@ -237,7 +237,7 @@ final class ChatImmersionTests: XCTestCase {
         capture("ios-greeting-largest-direct-translation")
         closeTranslationPanel(panel, in: app)
         openMessageReadingOptions(in: app, paragraph: paragraph)
-        app.buttons["Original message"].tap()
+        selectReadingMode("Original message", in: app)
         XCTAssertEqual(paragraph.label, "Thank you very much.")
         XCTAssertEqual(paragraph.frame.height, bounds.height, accuracy: 1)
         XCTAssertEqual(paragraph.frame.minY, bounds.minY, accuracy: 1)
@@ -259,7 +259,7 @@ final class ChatImmersionTests: XCTestCase {
         for title in ["Pause word switching", "Word switching speed", "Show original words now"] {
             XCTAssertFalse(app.buttons[title].exists)
         }
-        app.buttons["Original message"].tap()
+        selectReadingMode("Original message", in: app)
         XCTAssertEqual(paragraph.label, "I like music.")
         let panel = translateMessage(in: app, paragraph: paragraph)
         XCTAssertTrue(panel.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 10))
@@ -307,11 +307,11 @@ final class ChatImmersionTests: XCTestCase {
             }
             closeTranslationPanel(panel, in: app)
             openMessageReadingOptions(in: app, paragraph: paragraph)
-            app.buttons["Original message"].tap()
+            selectReadingMode("Original message", in: app)
             XCTAssertEqual(paragraph.label, "I need a phone charger.")
             if code == "ar" {
                 openMessageReadingOptions(in: app, paragraph: paragraph)
-                app.buttons["Word switching"].tap()
+                selectReadingMode("Word switching", in: app)
                 for label in ["Slower", "Standard"] {
                     openMessageReadingOptions(in: app, paragraph: paragraph)
                     let pace = app.buttons["Word switching speed"]
@@ -429,8 +429,9 @@ final class ChatImmersionTests: XCTestCase {
         capture("ios-japanese-direct-reading-and-script")
         closeTranslationPanel(panel, in: app)
         XCTAssertEqual(paragraph.frame.height, before.height, accuracy: 1)
-        openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Original message"].tap()
+        openMessageReadingOptions(in: app, paragraph: paragraph); selectReadingMode("Original message", in: app)
         XCTAssertEqual(paragraph.label, "I like music.")
+        XCTAssertFalse(music.exists, "Original mode must remove word attachments; a natural original clock face is insufficient")
         openMessageReadingOptions(in: app, paragraph: paragraph)
         XCTAssertFalse(app.buttons["Show original script"].exists)
     }
@@ -500,9 +501,9 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(panel.staticTexts["I like music."].waitForExistence(timeout: 10))
         XCTAssertTrue(panel.staticTexts["Ninapenda muziki."].exists)
         closeTranslationPanel(panel, in: app)
-        openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Original message"].tap()
+        openMessageReadingOptions(in: app, paragraph: paragraph); selectReadingMode("Original message", in: app)
         XCTAssertEqual(paragraph.label, "Ninapenda muziki.")
-        openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Word switching"].tap()
+        openMessageReadingOptions(in: app, paragraph: paragraph); selectReadingMode("Word switching", in: app)
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "I like muziki."), object: paragraph)], timeout: 10), .completed)
         openMessageActions(in: app, paragraph: paragraph); app.buttons["Copy original message"].tap()
         let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
