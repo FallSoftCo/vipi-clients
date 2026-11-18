@@ -30,6 +30,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.collectLatest
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -52,13 +53,46 @@ import java.time.format.FormatStyle
     var reportText by remember { mutableStateOf("") }
     var reportReason by remember { mutableStateOf("") }
     var topBarHeightPx by remember { mutableIntStateOf(0) }
+    var followingLatest by remember(bot) { mutableStateOf(true) }
     val list = rememberLazyListState()
     val subscriptions = model.subscriptions
     LaunchedEffect(subscriptions) { subscriptions?.refreshAccess(ifNeeded = true) }
     LaunchedEffect(bot) { bot.refreshAllowance() }
     LaunchedEffect(immersion) { immersion.checkDownloads() }
     LaunchedEffect(speech) { speech.prepare(warmups) }
-    LaunchedEffect(bot.messages.lastOrNull()?.id) { if (bot.messages.isNotEmpty()) list.scrollToItem(bot.messages.size) }
+    LaunchedEffect(list, bot) {
+        snapshotFlow {
+            val layout = list.layoutInfo
+            val last = layout.visibleItemsInfo.lastOrNull()
+            val nearBottom = last != null && last.index == layout.totalItemsCount - 1 &&
+                last.offset + last.size <= layout.viewportEndOffset
+            Triple(list.isScrollInProgress, nearBottom,
+                layout.visibleItemsInfo.firstOrNull()?.index == list.firstVisibleItemIndex)
+        }.collect { (scrolling, nearBottom, measuredPosition) ->
+            // Content insertion or an IME resize must not revoke following;
+            // only an actual reader scroll can leave the latest messages.
+            if (measuredPosition && (scrolling || nearBottom)) followingLatest = nearBottom
+        }
+    }
+    LaunchedEffect(list, bot) {
+        var previous: Pair<Int, Map<Any, Int>>? = null
+        snapshotFlow {
+            val layout = list.layoutInfo
+            layout.viewportSize.height to layout.visibleItemsInfo.associate { it.key to it.size }
+        }.collectLatest { current ->
+            val before = previous
+            previous = current
+            val resized = before != null && before.first > 0 && before.second.isNotEmpty() &&
+                (before.first != current.first || current.second.any { (key, height) -> before.second[key]?.let { it != height } == true })
+            if (resized && followingLatest && !list.isScrollInProgress && bot.messages.isNotEmpty()) {
+                withFrameNanos { }
+                if (followingLatest && !list.isScrollInProgress && bot.messages.isNotEmpty()) list.scrollToItem(bot.messages.size + 1)
+            }
+        }
+    }
+    LaunchedEffect(bot.messages.lastOrNull()?.id) {
+        if (followingLatest && bot.messages.isNotEmpty()) list.scrollToItem(bot.messages.size + 1)
+    }
     DisposableEffect(owner, immersion, speech) {
         val listener = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_STOP) speech.stop()
@@ -102,7 +136,7 @@ import java.time.format.FormatStyle
     }) { padding ->
         LazyColumn(state = list, modifier = Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
-                if (bot.earlierAvailable) TextButton(onClick = { runCatching { bot.earlier() }.onFailure { localError = context.getString(R.string.bot_earlier_open_failed) } }) { Text(stringResource(R.string.ui_561a197a2807)) }
+                if (bot.earlierAvailable) TextButton(onClick = { followingLatest = false; runCatching { bot.earlier() }.onFailure { localError = context.getString(R.string.bot_earlier_open_failed) } }) { Text(stringResource(R.string.ui_561a197a2807)) }
                 else Text(stringResource(R.string.ui_cc39ebccb529), style = MaterialTheme.typography.bodySmall)
             }
             items(bot.messages, key = { it.id }) { message ->
@@ -119,6 +153,7 @@ import java.time.format.FormatStyle
                     }
                 }
             }
+            item(key = "bot-history-bottom") { Spacer(Modifier.height(1.dp)) }
         }
     }
     }
