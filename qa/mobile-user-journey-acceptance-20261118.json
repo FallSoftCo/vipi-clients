@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T08:23:14.925361+00:00",
+  "updated_utc": "2026-11-18T08:31:35.404849+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -20,9 +20,9 @@
     {
       "journey": "Invite and send to a friend",
       "implementation": "Android actual MainActivity, Signal and vault",
-      "status": "outgoing encryption/durable incoming reply passed; enlarged incoming visual acceptance FAILED",
+      "status": "strict enlarged native journey and independent rendered-pixel gates passed corrected product; normal follow-up running",
       "required_observation": "Actual Signal peer ciphertext\u2192production inbox event/sync\u2192vault, one receipt and retained draft after recreation/reopen; visible newest reply in actual timeline above composer.",
-      "limits": "035 native8PASS missed incoming reply occlusion; independent root screenshots/OCR rejected it. Stricter timeline/frame test036 now fails unchanged product. Native complete body may not fit for arbitrary long messages; preserve readable newest content and user scrolling."
+      "limits": "035 native pass missed occlusion; original screenshot/OCR rejection and stricter036 failure retained. Corrected037 native frame containment and both receive/reopen-IME pixel gates pass. Controlled Signal peer/relay, not real push or owner device proof. Very long rows remain scrollable."
     },
     {
       "journey": "Draft before consent or while access is checking",
@@ -118,16 +118,16 @@
     {
       "journey": "Current iOS reading controls and landscape drafting",
       "implementation": "Actual iOS views on native simulator, screen-oriented Vision geometry",
-      "status": "passed current controls3 and Bot landscape1 on pre-style-fix product",
+      "status": "current controls and Bot landscape passed; Swahili manual lookup passed r06; three native test-driver issues under correction",
       "required_observation": "continuous in-place reading; one-tap Listen/Stop; Japanese and Swahili starter rows; full last visual line/caret above keyboard with exact retained draft",
-      "limits": "Controlled fixtures; first landscape capture used wrong screenshot orientation and failed; corrected whole-screen capture with explicit EXIF mapping passed unchanged product. Later disabled Send color defect is a separate open correction."
+      "limits": "Controlled fixtures. Japanese exact word/script/full panel and Chinese marked reading observed, but later menu stages failed; those incomplete journeys are not recorded as passes. No arbitrary provider translation claim."
     },
     {
       "journey": "Disabled Send is visually distinguishable",
       "implementation": "Actual iOS Bot view and captured pixels",
-      "status": "defect confirmed; minimal color correction and existing localized hints implemented, native comparison pending",
+      "status": "passed native comparison of inactive pre-consent, genuinely enabled draft and inactive empty draft",
       "required_observation": "pre-consent or empty draft Send visibly inactive; actual enabled draft state visibly active; guards and consent unchanged",
-      "limits": "Original pre-consent/empty state both incorrectly painted active green. No enabled-state screenshot claimed from old capture. New test retains all three states."
+      "limits": "Shipping product1162 qualified in r04 with all three captures; actual consent, send guards, durable draft and landscape behavior passed. Existing localized hints reused."
     }
   ],
   "receipts": {
@@ -153,7 +153,11 @@
     "android_final_normal": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-compact-normal-r02.json",
     "android_final_large": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-compact-large-r02.json",
     "incoming_pixel_rejection": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-incoming-pixel-review-r01.json",
-    "incoming_strict_red": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-incoming-visible-preimage-r01.json"
+    "incoming_strict_red": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-incoming-visible-preimage-r01.json",
+    "incoming_strict_corrected": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-incoming-visible-fixed-r01.json",
+    "incoming_corrected_pixels_receive": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/incoming-pixels-037-received-r01.json",
+    "incoming_corrected_pixels_reopen": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/incoming-pixels-037-reopened-ime-r01.json",
+    "ios_send_style": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-send-affordance-stage-r04"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
   "original_nine_dirty_files_preserved": true,
