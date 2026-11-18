@@ -46,7 +46,7 @@ class ChatTimelineDeviceTest {
                 val viewport = f.unobscuredWindow()
                 val rows = compose.onAllNodes(SemanticsMatcher("message metadata") {
                     it.config.getOrElse(SemanticsProperties.TestTag) { "" }.startsWith("message-meta-")
-                }).fetchSemanticsNodes().mapNotNull { meta -> meta.parent?.let {
+                }, useUnmergedTree = true).fetchSemanticsNodes().mapNotNull { meta -> meta.parent?.let {
                     Triple(meta.config[SemanticsProperties.TestTag], it.boundsInWindow, meta.boundsInWindow.top)
                 } }
                 val result = mutableListOf<ReadingLine>()
