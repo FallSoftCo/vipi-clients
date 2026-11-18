@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T10:39:28.765825+00:00",
+  "updated_utc": "2026-11-18T11:10:09.312359+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -99,7 +99,7 @@
       "implementation": "Android phone @rjuniyer",
       "status": "not yet verified",
       "required_observation": "production Base+Bot access verified; signed replacement must be installed and actual keyboard/send observed",
-      "limits": "Phone readback stillversion5 after exact signedversion7 delivered and installer requested once. Release emulator independently passed actual Gboard typing; no owner installation or successful send claim."
+      "limits": "Owner-phone installation and actual keyboard/Bot response remain unverified here. Final signed8r02 independently passed all four actual Gboard emulator cases with retained revoked Gamma history; this does not establish owner-phone acceptance or a new live Send."
     },
     {
       "journey": "Edit a long multiline Bot draft",
@@ -110,10 +110,10 @@
     },
     {
       "journey": "Type in landscape with native keyboard",
-      "implementation": "Actual MainActivity native keyboard, rendered caret and production TextLayoutResult",
-      "status": "passed corrected product at normal and enlarged text",
-      "required_observation": "Complete typed visual line and caret must remain visible above IME; draft retained; Send/back reachable",
-      "limits": "Original signed7 glyph clipping and first compact correction enlarged caret clipping retained. Final product034/035 passes full final line/caret, stable text metrics and48dp Back/Send; signed replacement remains pending."
+      "implementation": "Signed production Android8r02 actual MainActivity and Gboard, native accessibility/window bounds and original PNG pixel measurements",
+      "status": "passed all four signed production cases: portrait/landscape at font scales1.0 and1.6",
+      "required_observation": "Native Gboard h/i taps produce exact hi; full glyphs/caret above IME and below toolbar;48dp Back/Send; owned draft cleared, native Back/reopen blank with saved history retained",
+      "limits": "Original signed7 clipping and earlier compact enlarged-caret failures retained. Final signed8r02 caret/glyph ink heights match portrait and landscape at each font scale:71/40px normal,100/57px enlarged. Pixel evidence does not claim production TextLayout/native glyph API access. No new live Send, sign-in, registration, rekey, owner-phone or store action."
     },
     {
       "journey": "Current iOS reading controls and landscape drafting",
@@ -211,7 +211,12 @@
     "ios_base_expiry": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-base-expiry-native-review-r01.json",
     "android_history_and_metrics": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-reader-root-r01.json",
     "android_deletion_root": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-root-deletion-r02.json",
-    "android_deletion_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-root-deletion-native-review-r01.json"
+    "android_deletion_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-root-deletion-native-review-r01.json",
+    "android_signed_v8r02": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/release-verification-v8-r02.json",
+    "android_signed_v8r02_install": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/install-signed-v8r02-emulator-r02.json",
+    "android_signed_v8r02_native_keyboard": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-r02-native-smoke-r01/receipt.json",
+    "android_signed_v8r02_native_evidence": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-r02-native-smoke-r01/evidence-manifest.json",
+    "android_signed_v8r02_root_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8r02-root-pixel-review-r01.json"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
   "original_nine_dirty_files_preserved": true,
@@ -220,5 +225,48 @@
     "google_license_test": "Prior no-charge license purchase/renewal/cancellation/lapse completed; do not replay. Current native tests controlbilling boundary and do not claim a new storetest.",
     "apple_native_purchase": "r01/r02 dispatched no test/purchase; r03 one actual IDE test/one local SKTestSession.buyProduct failed notEntitled, no confirmed transaction. No live Product.purchase or charge. Original failure retained; no replay."
   },
-  "evidence_retention": "Original signed7 and all failed/passed native receipts retained. Earlier QA app removal happened only after private evidence archive; QA app/test have now been reinstalled for tests-first landscape repro. Original production app and users preserved."
+  "evidence_retention": "Original signed7 and all failed/passed native receipts retained. Sole owned QA app/test were archived before removal for final production8r02 installation; original production data/users preserved. Final signed8r02 four-case private PNG/XML/geometry evidence and exact settings restoration are retained at the referenced receipt.",
+  "signed_production_keyboard_acceptance": {
+    "version_code": 8,
+    "version_name": "1.0.7",
+    "source_commit": "463599e77af9656f182d923d557589b9c1f7d5c0",
+    "apk_bytes": 539200030,
+    "apk_sha256": "99fe7498359e3e768c6b0d75bf690c57aa34f720cfa4968a6183efd135d86f46",
+    "device": "emulator-5624",
+    "user": 10,
+    "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-r02-native-smoke-r01/receipt.json",
+    "receipt_sha256": "905c2ae3ad177847f884bbcc0b0f6b7acbfac30eb7af3b60b8a8dec7e0da6cb2",
+    "four_case_scope": "Portrait and landscape at font scales1.0/1.6; actual Gboard taps/native focused EditText, full visible glyph/caret and Back/Send bounds, no font shrinking",
+    "normal_caret_and_hi_ink_px": [
+      71,
+      40
+    ],
+    "enlarged_caret_and_hi_ink_px": [
+      100,
+      57
+    ],
+    "owned_drafts_cleared": true,
+    "native_back_reopen_blank_with_saved_history": true,
+    "original_settings_restored": {
+      "font_scale": "1.0",
+      "user_rotation": "0",
+      "accelerometer_rotation": "1",
+      "size": "Physical size: 1080x1920",
+      "density": "Physical density: 420"
+    },
+    "no_new_live_send": true,
+    "limitations": "Production signed emulator input/geometry only; no owner-phone, successful provider Send, new purchase/StoreKit transaction, physical acoustics or store completion proof.",
+    "root_pixel_review_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8r02-root-pixel-review-r01.json",
+    "root_pixel_review_sha256": "ba0bafe767e8fd9382917545875d2ad850febf2e97efbdaf137487f8de907f61"
+  },
+  "first_month_scope_review": {
+    "reviewed_utc": "2026-11-18T11:10:09.312359+00:00",
+    "credited_current_proof": "Android actualActivity043 covers real server-shaped402, visible Base Plans, Back/recreation, independent encrypted queued ID/next draft and single accepted Signal delivery after controlled access restoration. iOS r08 covers actual HomeView expiry recovery. Backend exact30day/inbox policy and first-profile/one registration/30day Base/optional Bot domain evidence remain credited at their original scope.",
+    "remaining_material_limits": [
+      "No current final-signed full external-authentication to newly provisioned profile/cardless-month journey; current Android auth boundary is controlled and dated signed first-use evidence remains separate.",
+      "Controlled entitlement restoration in expiry tests does not prove a current post-expiry paid Base checkout/verified store reconciliation. Historical sandbox/license and native domain proofs remain distinct; no repeat purchase proposed.",
+      "Current native expiry fixtures do not inject an encrypted incoming peer reply while Base is expired; backend inbox access and active-account native incoming Signal proof cover those boundaries separately."
+    ],
+    "finding": "Coverage limits, not a newly demonstrated product defect. No tests added or rerun for this documentation review."
+  }
 }

@@ -1,6 +1,6 @@
 {
   "reported": "Owner cannot open keyboard or send vBot message on Android versionCode5",
-  "status": "Final Android source qualified for native keyboard, incoming visibility, reading position, font metrics, bidirectional continuity and speech. Signed8r02 building; Apple corrected5 VALID, existing review replacement pending. No readiness claim.",
+  "status": "Final signed Android8r02 statically verified and passed four production Gboard portrait/landscape normal/enlarged cases; source supplement published. Owner-phone installation/live Send and store completion remain open; no readiness claim.",
   "readiness_claim_withdrawn": true,
   "public_release_controls": {
     "apple": "existing manual release retained",
@@ -24,7 +24,7 @@
     "native keyboard/focus/send guard regression qualification"
   ],
   "external_actions": "Existing store submissions not repeated. One config-only testing grant for user-confirmed owner profile activated and verified; API restart preserved unrelated services. No purchase/charge or uncertain Bot send replay.",
-  "updated_utc": "2026-11-18T10:39:28.765825+00:00",
+  "updated_utc": "2026-11-18T11:10:09.312359+00:00",
   "verified": [
     "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
     "Actual VipiModel setup routing: 5 focused tests passed",
@@ -34,12 +34,12 @@
     "Production signed v6 APK installed in preserved emulator user10; native pointer opened Gboard and real Gboard taps typed hi; unsent draft cleared afterward; no provider call or registration attempted",
     "Signed v6 signature matches exact installed phone v5; 1082 assets and 28 native libraries retained; 16KB alignment passed",
     "Current product APK hashcd6fcfa8 passed all seven selected MainActivity journeys across normal and enlarged text; separate runs explicitly linked in acceptance record.",
-    "Corrected037 enlarged and038 normal actual friend journeys pass stricter native reply containment plus both independent received/reopened-IME screenshot OCR gates. Original035 false pass and036 red retained."
+    "Corrected037 enlarged and038 normal actual friend journeys pass stricter native reply containment plus both independent received/reopened-IME screenshot OCR gates. Original035 false pass and036 red retained.",
+    "Final signed Android8r02 APK99fe7498359e3e768c6b0d75bf690c57aa34f720cfa4968a6183efd135d86f46 passed actual Gboard hi input in portrait/landscape at font scales1.0/1.6. Full caret/glyph ink71/40px normal and100/57px enlarged match across orientation;48dp Back/Send, known drafts cleared, Back/reopen blank/history retained, original settings restored. No new live Send/login/register/rekey or owner-phone action."
   ],
   "remaining": [
-    "Complete signed Android8r02 artifact verification and production native keyboard/landscape smoke.",
     "Deliver final signed replacement to owner phone; readback still5, actual phone keyboard/Bot send unverified.",
-    "Build/validate final Google bundle and corresponding public source, then reconcile existing review before replacement.",
+    "Complete final Google bundle validation and reconcile the existing review before replacement; corresponding source supplement is published and verified.",
     "Replace Apple existing build4 review with valid corrected5, preserving subscription items and MANUAL release."
   ],
   "phone_identity": "User confirmed @rjuniyer; exact healthy shared-realm profile differs from previously pinned testing identity. One UUID grant activated with fresh own-workload coordination and independently verified.",
@@ -53,7 +53,8 @@
     "native_smoke_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-native-smoke-r01/receipt.json",
     "portrait_only_pass": true,
     "landscape_pass": false,
-    "landscape_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-landscape-r01/receipt.json"
+    "landscape_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-landscape-r01/receipt.json",
+    "scope": "Superseded signed7 retained as original portrait-pass/landscape-clipping-failure evidence; final candidate is android_candidate_v8r02."
   },
   "phone_delivery": {
     "phone_package": "co.fallsoft.vipi",
@@ -70,7 +71,7 @@
     "actual_owner_send_verified": false,
     "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-v7-delivery-r01.json",
     "delivery_started_utc": "2026-11-18T06:20:27.700407+00:00",
-    "current_delivery_status": "Installed5 confirmedread-only; obsolete7installer not repeated. Initial8 superseded before successful install/delivery by history/font corrections; final8r02 pending. No phone data cleared."
+    "current_delivery_status": "Owner installation/live Send remain unverified here; obsolete7 installer was not repeated. Final8r02 is signed/static/native-emulator verified; phone and store completion remain separate. No phone data cleared."
   },
   "owner_access_verified": {
     "base": true,
@@ -90,7 +91,8 @@
     "storekit": "Current localSKTestSessionr03 failednotEntitled; no repeatedtransaction. Prior signedTestFlight Botmini sandboxpurchase succeededonce and independently reconciled in ios-acceptance-continuity-audit-r01.json. Current actualHomeView expiry r08PASS no checkout.",
     "evidence_directory": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01",
     "android_font_metrics": "Final0518 authored font cases,14 directional paragraphs and simultaneous selectable-view rebinds PASS. Arabic horizontal regression fixed; prior RED evidence retained.",
-    "ios_deletion_root": "r12 actual VipiApp/Settings recovery PASS50.952s including lostresponse, relaunch, scoped vault/key erasure, no late Bot write, Done/onboarding; independent native pixels and original source/prefs/audio restoration verified."
+    "ios_deletion_root": "r12 actual VipiApp/Settings recovery PASS50.952s including lostresponse, relaunch, scoped vault/key erasure, no late Bot write, Done/onboarding; independent native pixels and original source/prefs/audio restoration verified.",
+    "android_signed_production_keyboard": "Final signed8r02 exact99feAPK passed all four actual MainActivity/Gboard cases with full glyph/caret and reachable48dp Back/Send; same-scale portrait/landscape pixels unchanged, drafts cleared/history retained/settings restored. No new live Send or phone acceptance."
   },
   "acceptance_audit": "qa/mobile-user-journey-acceptance-20261118.json",
   "ios_signed_candidate": {
@@ -113,10 +115,27 @@
     "commit": "463599e77af9656f182d923d557589b9c1f7d5c0",
     "source_freeze": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/release-candidate-v8-source-r02.json",
     "build_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/build-signed-v8-r02.json",
-    "state": "signed and statically verified; actual signed installation/native smoke pending",
+    "state": "signed, statically verified, installed in preserved production emulator user10 and passed all four actual native Gboard cases; owner-phone/store completion pending",
     "delivered": false,
     "uploaded": false,
-    "sha256": "99fe7498359e3e768c6b0d75bf690c57aa34f720cfa4968a6183efd135d86f46"
+    "sha256": "99fe7498359e3e768c6b0d75bf690c57aa34f720cfa4968a6183efd135d86f46",
+    "bytes": 539200030,
+    "static_verification_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/release-verification-v8-r02.json",
+    "installed_emulator_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/install-signed-v8r02-emulator-r02.json",
+    "native_smoke_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-r02-native-smoke-r01/receipt.json",
+    "native_smoke_receipt_sha256": "905c2ae3ad177847f884bbcc0b0f6b7acbfac30eb7af3b60b8a8dec7e0da6cb2",
+    "native_smoke_cases": [
+      "portrait font1.0",
+      "landscape font1.0",
+      "portrait font1.6",
+      "landscape font1.6"
+    ],
+    "owned_drafts_cleared": true,
+    "settings_restored": true,
+    "no_new_live_send": true,
+    "native_smoke_limits": "Input/geometry on retained revoked Gamma production account only; no new provider acceptance, owner-phone or store proof.",
+    "root_pixel_review_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8r02-root-pixel-review-r01.json",
+    "root_pixel_review_sha256": "ba0bafe767e8fd9382917545875d2ad850febf2e97efbdaf137487f8de907f61"
   },
   "corresponding_source": {
     "published": true,
@@ -125,5 +144,6 @@
     "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/client-source-apple5r02-android8r02-preparation-r01/publication-final-r01/receipt.json",
     "receipt_sha256": "6be890097b6c7267ec1a0302dc766ded4eec0acd9648685c79cab7cd595c7134",
     "url": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3"
-  }
+  },
+  "release_ready": false
 }
