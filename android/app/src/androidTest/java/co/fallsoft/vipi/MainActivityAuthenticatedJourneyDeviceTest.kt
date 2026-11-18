@@ -314,6 +314,62 @@ class MainActivityAuthenticatedJourneyDeviceTest {
         }
     }
 
+    @Test fun readingOlderBotHistoryKeepsItsNativeAnchorWhenPendingReplyArrivesAndImeOpens() {
+        val services = JourneyServices(profileRequired = false, seedBotMessages = 30)
+        MainActivityJourneyFixture("bot-history-anchor", services::model).use { f ->
+            fun paragraphPosition(original: String? = null): Pair<String, Int>? {
+                var found: Pair<String, Int>? = null
+                f.instrumentation.runOnMainSync {
+                    f.paragraphs().firstOrNull { view ->
+                        view.displayedOriginal.startsWith("Earlier local Bot message") &&
+                            (original == null || view.displayedOriginal == original) && f.fullyVisible(view)
+                    }?.let { view ->
+                        val location = IntArray(2); view.getLocationOnScreen(location)
+                        found = view.displayedOriginal to location[1]
+                    }
+                }
+                return found
+            }
+            try {
+                f.launch(); waitScreen(f, Screen.HOME); openBot(f)
+                compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
+                compose.waitUntil(8_000) { imeVisible(f) }
+                compose.onNodeWithTag("bot-message-input").performTextInput("A new local prompt while keeping older history.")
+                compose.waitUntil(8_000) { f.model.bot?.allowance != null && f.model.subscriptions?.accessCheckState == AccessCheckState.LOADED }
+                compose.onNodeWithTag("bot-message-send").assertIsEnabled().performTouchInput { click() }
+                compose.waitUntil(5_000) { services.botPosts.get() == 1 && f.model.bot?.busy == true }
+                f.device.pressBack(); compose.waitUntil(5_000) { !imeVisible(f) }
+                repeat(3) {
+                    compose.onNode(hasScrollToIndexAction()).performTouchInput { swipeDown(startY = height * .25f, endY = height * .8f) }
+                }
+                compose.waitForIdle()
+                val anchor = requireNotNull(paragraphPosition()) { "A real older native paragraph must be fully visible after scrolling" }
+                assertNotEquals("Earlier local Bot message 29.", anchor.first)
+                f.capture("01-older-history-anchor-before-pending-reply")
+                services.botReplyGate.complete(Unit)
+                compose.waitUntil(8_000) { f.model.bot?.busy == false && f.model.bot?.messages?.lastOrNull()?.text == services.botReply }
+                compose.waitForIdle()
+                val afterReply = requireNotNull(paragraphPosition(anchor.first)) { "Incoming reply must preserve the older native paragraph" }
+                assertEquals("Incoming reply moved the older reading anchor", anchor.second.toDouble(), afterReply.second.toDouble(), 2.0)
+                compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
+                compose.waitUntil(8_000) { imeVisible(f) }
+                compose.onNodeWithTag("bot-message-input").performTextInput("Keep reading this older passage.")
+                compose.onNodeWithTag("bot-message-input").assertEditorValue("Keep reading this older passage.")
+                compose.waitForIdle()
+                val afterIme = requireNotNull(paragraphPosition(anchor.first)) { "Opening IME must preserve the older native paragraph" }
+                assertEquals("IME resize moved the older reading anchor", anchor.second.toDouble(), afterIme.second.toDouble(), 2.0)
+                assertEquals(1, services.botPosts.get())
+                f.capture("02-older-anchor-after-reply-and-native-ime")
+                File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("one_controlled_post", true)
+                    .put("older_anchor", anchor.first).put("anchor_y", anchor.second)
+                    .put("incoming_and_ime_preserved_anchor", true).put("provider_claimed", false).toString(2))
+            } catch (failure: Throwable) {
+                runCatching { f.capture("failure-before-cleanup") }.onFailure { failure.addSuppressed(it) }
+                throw failure
+            } finally { services.botReplyGate.complete(Unit); f.stopActivity(); services.close() }
+        }
+    }
+
     private fun SemanticsNodeInteraction.assertEmptyEditor(): SemanticsNodeInteraction =
         assertEditorValue("")
 
@@ -387,7 +443,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
 
 /** External relay/service boundary; real account, Signal, history, Bot and
  * subscription coordinators still execute. Every unlisted request is rejected. */
-private class JourneyServices(profileRequired: Boolean) : VipiWorkflowBoundary, AutoCloseable {
+private class JourneyServices(profileRequired: Boolean, private val seedBotMessages: Int = 0) : VipiWorkflowBoundary, AutoCloseable {
     val account = UUID.randomUUID()
     val peer = UUID.randomUUID()
     val subject = "user_journey_${UUID.randomUUID().toString().replace("-", "")}"
@@ -412,6 +468,17 @@ private class JourneyServices(profileRequired: Boolean) : VipiWorkflowBoundary, 
     fun model(application: Application): VipiModel {
         PrivateRecords(application).write("session", IdentityAuthority.FALLSOFT_VIPI_PRODUCTION.tag(JSONObject()
             .put("userID", subject).put("accessToken", "synthetic-inert-access").put("refreshToken", "synthetic-inert-refresh")))
+        if (seedBotMessages > 0) MessageVault(application, account).use { history ->
+            history.transaction {
+                history.put("bot-settings", "consent", "deepseek-v1".toByteArray())
+                val start = System.currentTimeMillis() - 60_000
+                repeat(seedBotMessages) { index ->
+                    val message = BotMessage("m%019d-seeded-%03d".format(java.util.Locale.ROOT, start + index, index),
+                        if (index % 2 == 0) "user" else "assistant", "Earlier local Bot message $index.", "confirmed", null)
+                    history.put("bot-message", message.id, message.json().toString().toByteArray())
+                }
+            }
+        }
         val vault = MessageVault(application, peer)
         peerVault = vault
         peerCore = MessagingCore(vault)
@@ -479,7 +546,7 @@ private class JourneyServices(profileRequired: Boolean) : VipiWorkflowBoundary, 
                         check(device == registered && botPosts.incrementAndGet() == 1)
                         val sent = requireNotNull(body)
                         check(sent.getString("consent_version") == "deepseek-v1")
-                        check(sent.getJSONArray("messages").length() == 1)
+                        check(sent.getJSONArray("messages").length() == if (seedBotMessages == 0) 1 else 11)
                         botReplyGate.await()
                         if (failBotReply.get()) throw java.io.IOException("Synthetic uncertain provider outcome")
                         remaining = 149
