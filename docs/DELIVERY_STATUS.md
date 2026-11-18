@@ -1,5 +1,54 @@
 # Current delivery status
 
+Updated November 18, 2026. **Both store reviews are withdrawn and neither new
+app is released.** Full-message immersion is still being qualified. Do not
+resubmit or release until that work is complete. Completed uploads, withdrawals,
+auth exchanges and Bot requests must not be replayed.
+
+## Current release hold
+
+- Google 1.0.7 (8): 24 changes not yet submitted, zero in review and zero ready
+  to publish. Managed publishing remains on.
+- Apple 1.0 (5): Developer Rejected; all five submission items were removed,
+  with zero active review submissions. The build remains valid and release is manual.
+- These are the previously verified November 18 withdrawal results, reconciled
+  in [the hold summary](../release/store-review-hold-20261118.json). This document
+  update did not inspect the consoles again or perform any store action.
+
+## Current implementation and qualification
+
+Every sent and received message uses full local translation. The default reading
+uses transliteration; tapping plays practice-language audio, holding reveals the
+meaning in the known language, and double-tapping changes script. The authored
+message remains separate from its translated display. The older word-switching
+builds and evidence below do not qualify this replacement.
+
+Immersion uses existing on-device APIs only. Apple Translation and Google ML Kit
+remain the implementations, including the existing Swahili path. Separate model
+experiments have stopped. Tests of Apple Intelligence API variants are research
+evidence; they do not establish that the shipping app uses an explicit strategy
+or that translations are consistently accurate.
+
+Android's targeted Friend and vBot journeys have passed on the existing emulator;
+pronunciation-cache migration and older-OS API compatibility still need closure.
+The short landscape capture proves a readable draft and Send control while chat
+history is clipped. iOS layout and playback lifecycle work remains in progress,
+including large-text settings. Neither platform has a fresh qualified signed
+release of the full-message design, and the user's requested phone delivery is
+pending that qualification.
+
+The public information pages now describe the full-message design in source.
+Their existing invitation and recovery tests pass; that source change has not
+been deployed. The prepared store-copy candidates also remain unapplied. Final
+assembly must use the qualified native sources and matching copy, then verify
+signed artifacts, actual device delivery and store state before submission.
+
+## Historical delivery checkpoint — November 17 to early November 18
+
+Everything below preserves earlier version-specific observations and their
+original receipts. In-review states and remaining-work lists below are historical
+and are superseded by the current release hold above.
+
 Updated November 17, 2026 (latest handoff observations through November 18,
 02:24 UTC). Google **1.0.4 (5)** is in production review. Apple **1.0 (4)**,
 both annual subscriptions and both groups are submitted and **Waiting for Review**. Neither

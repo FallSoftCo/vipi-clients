@@ -1,0 +1,36 @@
+{
+  "scope": "Reconciled summary of completed withdrawal; no new external action or fresh console inspection.",
+  "confirmedUtc": "2026-11-18T18:58:25Z",
+  "sourceReceiptSha256": "8c743e2b4dd6854c81a721dc05c4347b5a272a2612efd8dcdac1c7efb99958a5",
+  "authorization": "User: make sure the apps are not in review until this UX is complete.",
+  "hold": "Do not resubmit or release until full translation UX, transliteration default, hold reveals all native meanings, tap audio and double-tap script is complete and qualified.",
+  "google": {
+    "package": "co.fallsoft.vipi",
+    "versionCode": 8,
+    "versionName": "1.0.7",
+    "after": "Changes not yet submitted for review",
+    "pendingChanges": 24,
+    "changesInReview": 0,
+    "changesReadyToPublish": 0,
+    "managedPublishingOn": true,
+    "publicPublishCount": 0
+  },
+  "apple": {
+    "appID": "6832624092",
+    "version": "1.0",
+    "build": "5",
+    "submissionAfter": "COMPLETE",
+    "itemsAfter": [
+      "REMOVED",
+      "REMOVED",
+      "REMOVED",
+      "REMOVED",
+      "REMOVED"
+    ],
+    "versionAfter": "DEVELOPER_REJECTED",
+    "releaseType": "MANUAL",
+    "buildProcessingState": "VALID",
+    "activeReviewSubmissions": 0,
+    "publicReleaseCount": 0
+  }
+}
