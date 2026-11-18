@@ -1,0 +1,71 @@
+{
+  "state": "Private diagnostic PNGs excluded from committed accepted screenshot set",
+  "files": [
+    {
+      "file": "ipad-friend-chat-en-zh-settled.png",
+      "sha256": "03b42e416a671c8ce907373765e5ed668b1eb89c9aa3f00f50a67da8208d53b8",
+      "bytes": 159407,
+      "reason": "Earlier capture superseded by final navigation-context frame."
+    },
+    {
+      "file": "ipad-friend-chat-en-zh.png",
+      "sha256": "1ca6804f5d068461f9cbfffdd42f3c6a1de72660094045c490052572f86c399c",
+      "bytes": 157196,
+      "reason": "Early capture before voice/reading preparation settled."
+    },
+    {
+      "file": "ipad-language-en-zh-settled.png",
+      "sha256": "99a33b4d4ff0e085422cfe47039bed073ffb943226df500c95d269db8084b1f5",
+      "bytes": 192296,
+      "reason": "Real source-known automatic-cycle phase; target-visible frame selected instead."
+    },
+    {
+      "file": "ipad-language-en-zh.png",
+      "sha256": "f560bdb357fe4173a6dfa4e7dbba557bd737315a13b1495a06e8bdc89fd67aaf",
+      "bytes": 194378,
+      "reason": "Early capture before voice/reading preparation settled."
+    },
+    {
+      "file": "ipad-welcome-en-es-settled.png",
+      "sha256": "bc63aafa1972501c8ab061828a9a400ce1e04c84e04c8b2a6b656a5512ecae21",
+      "bytes": 202365,
+      "reason": "Real source-known automatic-cycle phase; target-visible frame selected instead."
+    },
+    {
+      "file": "ipad-welcome-en-es.png",
+      "sha256": "92b76c231edb2634633824c26ae7742f34f47b1cfb70e0e050afd9622db55ee3",
+      "bytes": 204459,
+      "reason": "Early capture before voice/reading preparation settled."
+    },
+    {
+      "file": "iphone-friend-chat-en-zh-navigation-r04.png",
+      "sha256": "034bd74f72a95149e3e5497c78d258974c967d1d4beefdc5d040b11fa714f5a0",
+      "bytes": 155018,
+      "reason": "Real source-known automatic-cycle phase; target-visible frame selected instead."
+    },
+    {
+      "file": "iphone-friend-chat-en-zh-navigation-target-r04.png",
+      "sha256": "034bd74f72a95149e3e5497c78d258974c967d1d4beefdc5d040b11fa714f5a0",
+      "bytes": 155018,
+      "reason": "Real source-known automatic-cycle phase; target-visible frame selected instead."
+    },
+    {
+      "file": "iphone-friend-chat-en-zh-navigation.png",
+      "sha256": "5e51dd20ccbbf0954ba658d4956c617517705d23e56ac5b66c18e4102fd10d02",
+      "bytes": 87729,
+      "reason": "Rejected QA wrapper optional-destination timing: blank navigation destination."
+    },
+    {
+      "file": "iphone-friend-chat-en-zh.png",
+      "sha256": "6109bb425c1a5b39063e8f1d34ea95c4c9beab1ca1b233309c1981663f20b73a",
+      "bytes": 133147,
+      "reason": "Earlier capture superseded by final navigation-context frame."
+    },
+    {
+      "file": "iphone-welcome-en-zh.png",
+      "sha256": "4f790143553d7c5c6ea88032530be1cdf52c127e3281c251c429ec05581ee0cc",
+      "bytes": 196002,
+      "reason": "Duplicate fixed Spanish welcome; not a distinct Chinese example."
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+  "at": "2026-11-18T00:43:08.765429+00:00",
+  "state": "six_current_native_frames_prepared_not_uploaded",
+  "releaseSourceFreeze": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+  "buildVariant": "DEBUG Simulator, co.fallsoft.vipi.uxqa; not the distribution IPA",
+  "frames": [
+    {
+      "file": "iphone-welcome-en-es.png",
+      "sha256": "4f790143553d7c5c6ea88032530be1cdf52c127e3281c251c429ec05581ee0cc",
+      "bytes": 196002,
+      "width": 1206,
+      "height": 2622,
+      "visualReview": "Root independently accepted; clear current native UI with no clipping or loading state."
+    },
+    {
+      "file": "iphone-language-en-zh.png",
+      "sha256": "cee0146c955ad6bb8c21deb4cc8b9594918c5aebdf08f9993d32f8fa4ba3adf6",
+      "bytes": 187762,
+      "width": 1206,
+      "height": 2622,
+      "visualReview": "Root independently accepted; clear current native UI with no clipping or loading state."
+    },
+    {
+      "file": "iphone-friend-chat-en-zh-navigation-final-r04.png",
+      "sha256": "ef583c093cf801d650daf5a00780e091b87e2602269179cf038021172ff53ab1",
+      "bytes": 154991,
+      "width": 1206,
+      "height": 2622,
+      "visualReview": "Root independently accepted; clear current native UI with no clipping or loading state."
+    },
+    {
+      "file": "ipad-welcome-en-es-target-phase.png",
+      "sha256": "e3640fa0ea47ee3274388435c240258d4332a014eb77d43de68fd0bf30220303",
+      "bytes": 202083,
+      "width": 2064,
+      "height": 2752,
+      "visualReview": "Root independently accepted; clear current native UI with no clipping or loading state."
+    },
+    {
+      "file": "ipad-language-en-zh-target-phase.png",
+      "sha256": "ef5b274ff8c9490f561c1f0bbab805cafbb8431ea6e2b6a226e24b2d0c2ab956",
+      "bytes": 192259,
+      "width": 2064,
+      "height": 2752,
+      "visualReview": "Root independently accepted; clear current native UI with no clipping or loading state."
+    },
+    {
+      "file": "ipad-friend-chat-en-zh-navigation-r04.png",
+      "sha256": "10df245839b6d8f3f627e7a7aba1d421b903a91d0449e9f51a3d0e59ed9e3b7c",
+      "bytes": 170748,
+      "width": 2064,
+      "height": 2752,
+      "visualReview": "Root independently accepted; clear current native UI with no clipping or loading state."
+    }
+  ],
+  "sourceCorrespondence": {
+    "baselineAppSwiftFiles": 83,
+    "baselineCoreSwiftFiles": 19,
+    "productionSourcesEqualAfterOnlyQAKeychainLiteralNormalization": true,
+    "absentDormantFile": "ios/Vipi/ArabicVocalizedReading.swift (unreferenced research renderer)",
+    "qaOnlyOverlayFiles": [
+      "ios/Vipi/ChatSession.swift",
+      "ios/Vipi/TimelineQualification.swift",
+      "ios/Vipi/VipiApp.swift",
+      "ios/Vipi/MessageVault.swift"
+    ],
+    "sourceReceiptSHA256": "68930d855522521bb8bd1a3eab44cc4722f363db53a38a308ea88f8a13d069b4",
+    "qaPatchSHA256": "e6349708abdad5114ef92e656a7f01d1fd9f4fdc74fadf6a14393a265a4aafca",
+    "resourceCorrespondence": {
+      "localizedValuesExactlyMatchRelease": true,
+      "ignoredCatalogMetadataOnly": "extractionState",
+      "resources": [
+        {
+          "tree": "data",
+          "fileCount": 658,
+          "differences": []
+        }
+      ]
+    },
+    "resourceReceiptSHA256": "d6fdaaa0ba8cf40ccb792d32c43a9f27eb1639cd4ef4fee0ad98eaf463f9692b",
+    "navigationContext": "QA-only root registers a destination with the already-seeded nonoptional chat, then pushes unchanged FriendConversationView from a Chats-titled NavigationStack."
+  },
+  "buildAttempts": [
+    {
+      "receipt": "build-receipt.json",
+      "exit": 65,
+      "reason": "Prior fixture testKey initializer absent; no install occurred."
+    },
+    {
+      "receipt": "build-r02-receipt.json",
+      "exit": 0,
+      "seconds": 37.12,
+      "peakGrowthBytes": 14155776
+    },
+    {
+      "receipt": "navigation-r03-build-receipt.json",
+      "exit": 0,
+      "seconds": 34.2,
+      "renderResult": "Rejected: QA optional-destination timing produced blank chat captures; no production source defect."
+    },
+    {
+      "receipt": "navigation-r04-build-receipt.json",
+      "exit": 0,
+      "seconds": 28.1,
+      "renderResult": "Accepted: nonoptional destination registered before push; actual back affordance and pinyin visible."
+    }
+  ],
+  "truthfulScope": {
+    "welcome": "Fixed Spanish example on initial welcome. Language choice and Chinese preview on separate pre-sign-in language step.",
+    "chat": "Fictional Maya/Alex local history with received/accepted display states; actual unchanged production friend-chat view and reading engine. Not evidence of real message delivery. Both final chat frames include the real pushed navigation context. The iPhone frame shows one target reading and one source-known face during the normal automatic cycle.",
+    "readingExamples": [
+      "kāfēi",
+      "míngtiān",
+      "yīnyuè",
+      "bùjiǔ"
+    ],
+    "capture": "Direct simctl PNG, no crop, resize, mockup or image edits. Status bar set to 9:41/full battery on owned simulators. Target faces captured during real automatic flip cycle.",
+    "localization": "English UI only."
+  },
+  "isolation": {
+    "noDesktopFocusOrInput": true,
+    "noAPIFriendSendAuthenticationProfilePurchaseOrStoreWrite": true,
+    "noProductionOrHeld46CBAppInteraction": true,
+    "onlyAssignedExistingSimulators": true,
+    "ephemeralFixtureKey": "Fixed synthetic test key supplied solely to a guarded QA DEBUG vault, no keychain access for that vault."
+  },
+  "capacity": {
+    "captureSeriesGrowthBytes": 82214912,
+    "globalReleaseGrowthAtCaptureCompletionBytes": 4796305408,
+    "globalReleaseBudgetBytes": 6442450944,
+    "freeFloorBytes": 8589934592,
+    "freeAfterCleanupBytes": 40820445184,
+    "globalReleaseGrowthAfterCleanupBytes": 5853376512,
+    "captureSeriesFinalNetGrowthBytes": 1139286016,
+    "additionalCaptureBudgetBytes": 1342177280
+  },
+  "diagnosticOnlyExcluded": "All nonselected captures remain private in the investigation directory; only their hashes/reasons are committed in diagnostic-hashes.json.",
+  "cleanup": {
+    "finalReceipt": "cleanup-r04-receipt.json",
+    "earlierReceipt": "cleanup-receipt.json",
+    "QAAppsTerminated": true,
+    "newSyntheticVaultDirectoriesRemovedFinalPass": 5,
+    "newSyntheticVaultDirectoriesRemovedTotal": 7,
+    "keychainMutations": 0,
+    "ownedStatusBarOverridesCleared": true,
+    "iPadOriginalShutdownRestored": true,
+    "iPhoneOriginalBootedStatePreserved": true,
+    "heldAndProductionUntouched": true,
+    "compilerActive": false
+  },
+  "independentReview": "Root independently viewed and accepted the four unchanged onboarding frames and both final r04 navigation-context chat frames."
+}

@@ -1,0 +1,635 @@
+{
+  "releaseFreeze": "55a9f723f436f4252730c0a85358a9aa32080f8b",
+  "productionSwift": [
+    {
+      "path": "ios/Vipi/SignalKeys.swift",
+      "status": "exact",
+      "releaseSHA256": "2089b997d87cb063cb1633908971bc71ea95be52a93d44225361598023cf35c2",
+      "qaSHA256": "2089b997d87cb063cb1633908971bc71ea95be52a93d44225361598023cf35c2"
+    },
+    {
+      "path": "ios/Vipi/HistoryBackupCodec.swift",
+      "status": "exact",
+      "releaseSHA256": "c884a003f6c30018b7752ccd86788032030d8771b7655915d2a863a14e889805",
+      "qaSHA256": "c884a003f6c30018b7752ccd86788032030d8771b7655915d2a863a14e889805"
+    },
+    {
+      "path": "ios/Vipi/BundledSourceFrameCatalog.swift",
+      "status": "exact",
+      "releaseSHA256": "77823a8b7fe0fe4f3a20d2c16e6d1a92a1e270a99bb55342a16d631378763049",
+      "qaSHA256": "77823a8b7fe0fe4f3a20d2c16e6d1a92a1e270a99bb55342a16d631378763049"
+    },
+    {
+      "path": "ios/Vipi/AppState.swift",
+      "status": "exact",
+      "releaseSHA256": "692c315ef14b36731e7a3954fef14412e48386fe0986c752d81261695e8c8a6b",
+      "qaSHA256": "692c315ef14b36731e7a3954fef14412e48386fe0986c752d81261695e8c8a6b"
+    },
+    {
+      "path": "ios/Vipi/ConversationImmersion.swift",
+      "status": "exact",
+      "releaseSHA256": "edd8f7b32d1f09b8f45d64329fb09f0a44b82145fb3e759edf83d2f2d49f8a0a",
+      "qaSHA256": "edd8f7b32d1f09b8f45d64329fb09f0a44b82145fb3e759edf83d2f2d49f8a0a"
+    },
+    {
+      "path": "ios/Vipi/VipiApp.swift",
+      "status": "exact",
+      "releaseSHA256": "8021cd9e1fc5f00804ee6fb38741198014f143a35d57f6087f7e5f07c206c5d3",
+      "qaSHA256": "8021cd9e1fc5f00804ee6fb38741198014f143a35d57f6087f7e5f07c206c5d3"
+    },
+    {
+      "path": "ios/Vipi/MessageJournal.swift",
+      "status": "exact",
+      "releaseSHA256": "05e603501e7ba7360b627d2c5c18f71af689cc51fd5463a1b36b77c97917329f",
+      "qaSHA256": "05e603501e7ba7360b627d2c5c18f71af689cc51fd5463a1b36b77c97917329f"
+    },
+    {
+      "path": "ios/Vipi/StarterRouteQualification.swift",
+      "status": "exact",
+      "releaseSHA256": "35242dccecb54265d71ebfb727cfc6da0cede4b606084ca42ebc245199183f7c",
+      "qaSHA256": "35242dccecb54265d71ebfb727cfc6da0cede4b606084ca42ebc245199183f7c"
+    },
+    {
+      "path": "ios/Vipi/DurableSignalStore.swift",
+      "status": "exact",
+      "releaseSHA256": "a39bc0d7ae56f86d1e28f8249ad6cf95c1c27d79764a02ce465b4ace807798c6",
+      "qaSHA256": "a39bc0d7ae56f86d1e28f8249ad6cf95c1c27d79764a02ce465b4ace807798c6"
+    },
+    {
+      "path": "ios/Vipi/MessagingCore.swift",
+      "status": "exact",
+      "releaseSHA256": "a91e7030cd41739ee1f4077810e326559371c81ab6cf577a976cecab71fd6d97",
+      "qaSHA256": "a91e7030cd41739ee1f4077810e326559371c81ab6cf577a976cecab71fd6d97"
+    },
+    {
+      "path": "ios/Vipi/ForegroundEvents.swift",
+      "status": "exact",
+      "releaseSHA256": "fc7211067aac77c5b73c74dfea22efc70b092b129c1ba400060892eb5fba742a",
+      "qaSHA256": "fc7211067aac77c5b73c74dfea22efc70b092b129c1ba400060892eb5fba742a"
+    },
+    {
+      "path": "ios/Vipi/FrozenContextUnicodeTables.swift",
+      "status": "exact",
+      "releaseSHA256": "044ed43cc6a2b5e115028a22d3b05b8661a537fde535cbb3b27fe5dc6ee28ec9",
+      "qaSHA256": "044ed43cc6a2b5e115028a22d3b05b8661a537fde535cbb3b27fe5dc6ee28ec9"
+    },
+    {
+      "path": "ios/Vipi/OriginalTextSelection.swift",
+      "status": "exact",
+      "releaseSHA256": "bd5dc5a7753b04b73c23ce697c2a52336196dfe098c10779e9aa646ba93f3d2d",
+      "qaSHA256": "bd5dc5a7753b04b73c23ce697c2a52336196dfe098c10779e9aa646ba93f3d2d"
+    },
+    {
+      "path": "ios/Vipi/BundledImmersionCatalog.swift",
+      "status": "exact",
+      "releaseSHA256": "94223c77e5ac64744fa244da25c1bd46fd5f22980e5296fd9a14a18bc0eecf99",
+      "qaSHA256": "94223c77e5ac64744fa244da25c1bd46fd5f22980e5296fd9a14a18bc0eecf99"
+    },
+    {
+      "path": "ios/Vipi/FrozenCandidateProducer.swift",
+      "status": "exact",
+      "releaseSHA256": "899b9ae6d33b760bba875031e479efa8d9e798c46165cd5a067dd5bc1585b4f4",
+      "qaSHA256": "899b9ae6d33b760bba875031e479efa8d9e798c46165cd5a067dd5bc1585b4f4"
+    },
+    {
+      "path": "ios/Vipi/Authentication.swift",
+      "status": "exact_after_QA_keychain_substitution",
+      "releaseSHA256": "6bf0f78c74575a3579add83e3d2e6cf559d5860ac58b11d0c8432da4613cce2d",
+      "qaSHA256": "985d50d2abf7ac47cd9b36b01517850014a27f5f6d1fce8c0cf4c2dce3f0d77b"
+    },
+    {
+      "path": "ios/Vipi/BundledStarterLookup.swift",
+      "status": "exact",
+      "releaseSHA256": "86ce7f66a86675c89b6fed84d057bbfbb5298c2db33158d14e7779cf59eb33d3",
+      "qaSHA256": "86ce7f66a86675c89b6fed84d057bbfbb5298c2db33158d14e7779cf59eb33d3"
+    },
+    {
+      "path": "ios/Vipi/EnglishSourceRoleProvider.swift",
+      "status": "exact",
+      "releaseSHA256": "e96d502ff83dfd5bd20bc6c7833673d83a88f72ed46e97552e7ec6087b7557a1",
+      "qaSHA256": "e96d502ff83dfd5bd20bc6c7833673d83a88f72ed46e97552e7ec6087b7557a1"
+    },
+    {
+      "path": "ios/Vipi/FrozenNativeCandidateProvider.swift",
+      "status": "exact",
+      "releaseSHA256": "32076b1d1096fe9cb1a36c5553301aca9308dca370738213db84e75eb6b75dcf",
+      "qaSHA256": "32076b1d1096fe9cb1a36c5553301aca9308dca370738213db84e75eb6b75dcf"
+    },
+    {
+      "path": "ios/Vipi/ConnectedChatView.swift",
+      "status": "exact",
+      "releaseSHA256": "517743e8da4d87a2c56be2f279fa5f55efa3efcc977fa142f3678534beea149b",
+      "qaSHA256": "517743e8da4d87a2c56be2f279fa5f55efa3efcc977fa142f3678534beea149b"
+    },
+    {
+      "path": "ios/Vipi/LocalSpeech.swift",
+      "status": "exact",
+      "releaseSHA256": "d3b3cdb1c596762ab0e7d3e4dc29d2f7a8c264fefcfef0259f83ee898cf4338a",
+      "qaSHA256": "d3b3cdb1c596762ab0e7d3e4dc29d2f7a8c264fefcfef0259f83ee898cf4338a"
+    },
+    {
+      "path": "ios/Vipi/StableImmersionText.swift",
+      "status": "exact",
+      "releaseSHA256": "1a4b2c9b6d52a87f6210f26ef35aa71e429df8c122dafd8eccb1f46fa9512db6",
+      "qaSHA256": "1a4b2c9b6d52a87f6210f26ef35aa71e429df8c122dafd8eccb1f46fa9512db6"
+    },
+    {
+      "path": "ios/Vipi/AccountDeletion.swift",
+      "status": "exact",
+      "releaseSHA256": "5fa084be1215eb98ed88ade0da9f95b4b3de408c0a1793c8c74cec7712869153",
+      "qaSHA256": "5fa084be1215eb98ed88ade0da9f95b4b3de408c0a1793c8c74cec7712869153"
+    },
+    {
+      "path": "ios/Vipi/ChatSession.swift",
+      "status": "exact",
+      "releaseSHA256": "691ba97778602f11128ec184f9fc764e19f7dc01bdb9c28f5ca22717a3068c8d",
+      "qaSHA256": "691ba97778602f11128ec184f9fc764e19f7dc01bdb9c28f5ca22717a3068c8d"
+    },
+    {
+      "path": "ios/Vipi/LanguageDownloadView.swift",
+      "status": "exact",
+      "releaseSHA256": "f9966378564c7e2c3f8112607ee7505fcaf82a3eb2176011ffc03141f0923470",
+      "qaSHA256": "f9966378564c7e2c3f8112607ee7505fcaf82a3eb2176011ffc03141f0923470"
+    },
+    {
+      "path": "ios/Vipi/LexicalConcordance.swift",
+      "status": "exact",
+      "releaseSHA256": "a595e316e848040a3d45496278b6620eb10c2c9edc6a1132a1d0bafaebcd045b",
+      "qaSHA256": "a595e316e848040a3d45496278b6620eb10c2c9edc6a1132a1d0bafaebcd045b"
+    },
+    {
+      "path": "ios/Vipi/SpeechPlayback.swift",
+      "status": "exact",
+      "releaseSHA256": "135398850e7662becef74e57b0fd3f9ad0ad4432c83517368cb3a2a7edd7fca7",
+      "qaSHA256": "135398850e7662becef74e57b0fd3f9ad0ad4432c83517368cb3a2a7edd7fca7"
+    },
+    {
+      "path": "ios/Vipi/ManualTranslationContext.swift",
+      "status": "exact",
+      "releaseSHA256": "4f3122558c55015b83a70b39a53d6af0ba74891d293a3e194bb217d3c7beed94",
+      "qaSHA256": "4f3122558c55015b83a70b39a53d6af0ba74891d293a3e194bb217d3c7beed94"
+    },
+    {
+      "path": "ios/Vipi/HomeView.swift",
+      "status": "exact",
+      "releaseSHA256": "1935fb35335a05716b846525764797ad88b53e8a28b806e9b3f36d173b4b81f3",
+      "qaSHA256": "1935fb35335a05716b846525764797ad88b53e8a28b806e9b3f36d173b4b81f3"
+    },
+    {
+      "path": "ios/Vipi/TimelineQualification.swift",
+      "status": "exact",
+      "releaseSHA256": "627360eddc8c70e3ab815e204edb15db28191e0b72d115b035c89051a827d2f5",
+      "qaSHA256": "627360eddc8c70e3ab815e204edb15db28191e0b72d115b035c89051a827d2f5"
+    },
+    {
+      "path": "ios/Vipi/HistoryBackupView.swift",
+      "status": "exact",
+      "releaseSHA256": "6f320564b4e6eca0314e515db6d1c37679105489b194414c6e7190dc8a994247",
+      "qaSHA256": "6f320564b4e6eca0314e515db6d1c37679105489b194414c6e7190dc8a994247"
+    },
+    {
+      "path": "ios/Vipi/FrozenHeadAdmission.swift",
+      "status": "exact",
+      "releaseSHA256": "8d643bd6063f3a97702acc249a81552ee87a93d787aaf5cad23fc60ab7a75167",
+      "qaSHA256": "8d643bd6063f3a97702acc249a81552ee87a93d787aaf5cad23fc60ab7a75167"
+    },
+    {
+      "path": "ios/Vipi/LexicalSourceRecognition.swift",
+      "status": "exact",
+      "releaseSHA256": "f341bf42132e555a16c53ac42318d32c376523a90e3e4072445cd0c46a7eaf13",
+      "qaSHA256": "f341bf42132e555a16c53ac42318d32c376523a90e3e4072445cd0c46a7eaf13"
+    },
+    {
+      "path": "ios/Vipi/MessageLanguage.swift",
+      "status": "exact",
+      "releaseSHA256": "9cc4501ec5c90a6bf74021dd0a830c01185fea03adfd4e319b0564a66949cf78",
+      "qaSHA256": "9cc4501ec5c90a6bf74021dd0a830c01185fea03adfd4e319b0564a66949cf78"
+    },
+    {
+      "path": "ios/Vipi/FrozenContextPack.swift",
+      "status": "exact",
+      "releaseSHA256": "ed3d9361b70f5d25625cc5d73423320d2371bf4c9fc1505f6073ab9a299ea278",
+      "qaSHA256": "ed3d9361b70f5d25625cc5d73423320d2371bf4c9fc1505f6073ab9a299ea278"
+    },
+    {
+      "path": "ios/Vipi/SecurityNumberView.swift",
+      "status": "exact",
+      "releaseSHA256": "7183c2354edd59d0dcaa2f5cde0b7416202add8419104e4f9c4d26afa02bfd1c",
+      "qaSHA256": "7183c2354edd59d0dcaa2f5cde0b7416202add8419104e4f9c4d26afa02bfd1c"
+    },
+    {
+      "path": "ios/Vipi/ReviewedContextLookup.swift",
+      "status": "exact",
+      "releaseSHA256": "617eb6ee8fea98775b4b6463c5fe4dcdd6a617179959e7d806e96626b1b081ee",
+      "qaSHA256": "617eb6ee8fea98775b4b6463c5fe4dcdd6a617179959e7d806e96626b1b081ee"
+    },
+    {
+      "path": "ios/Vipi/PushNotifications.swift",
+      "status": "exact",
+      "releaseSHA256": "564e026c3aea3d77ad71730c2e14481ffffd17484752306fcc87a1705f9dd7c8",
+      "qaSHA256": "564e026c3aea3d77ad71730c2e14481ffffd17484752306fcc87a1705f9dd7c8"
+    },
+    {
+      "path": "ios/Vipi/MessageVault.swift",
+      "status": "exact",
+      "releaseSHA256": "96aa7f5e5f738811cd9020e5e7ddedc61a62ab6d1f99abcafc8294616650c756",
+      "qaSHA256": "96aa7f5e5f738811cd9020e5e7ddedc61a62ab6d1f99abcafc8294616650c756"
+    },
+    {
+      "path": "ios/Vipi/SentenceReadings.swift",
+      "status": "exact",
+      "releaseSHA256": "c9bbaead1a50f400a5a144269f4c0376110274f1ccd47d2fc9921db6aa5d83dc",
+      "qaSHA256": "c9bbaead1a50f400a5a144269f4c0376110274f1ccd47d2fc9921db6aa5d83dc"
+    },
+    {
+      "path": "ios/Vipi/FrozenCandidateSelection.swift",
+      "status": "exact",
+      "releaseSHA256": "2f9584c4944a0f86c6055be4ba4b75288da8fd6e6953a2f8a2182b128897ee66",
+      "qaSHA256": "2f9584c4944a0f86c6055be4ba4b75288da8fd6e6953a2f8a2182b128897ee66"
+    },
+    {
+      "path": "ios/Vipi/SwahiliSpeech.swift",
+      "status": "exact",
+      "releaseSHA256": "03909cef7e003c92ac69d886c5aa4182af971ba6b8819bd80a8112178e2148c0",
+      "qaSHA256": "03909cef7e003c92ac69d886c5aa4182af971ba6b8819bd80a8112178e2148c0"
+    },
+    {
+      "path": "ios/Vipi/SubscriptionView.swift",
+      "status": "exact",
+      "releaseSHA256": "824c4a3cb57bc1a9c8a2207c2ef8c39fb00d4f35d4498f2e1309f74e55cc6b4d",
+      "qaSHA256": "824c4a3cb57bc1a9c8a2207c2ef8c39fb00d4f35d4498f2e1309f74e55cc6b4d"
+    },
+    {
+      "path": "ios/Vipi/VocabularyPack.swift",
+      "status": "exact",
+      "releaseSHA256": "94c29215f32e2ab2985f7b0a220ce9b0bed9603acad349c7f12e41dffa3c264a",
+      "qaSHA256": "94c29215f32e2ab2985f7b0a220ce9b0bed9603acad349c7f12e41dffa3c264a"
+    },
+    {
+      "path": "ios/Vipi/TranslationQualification.swift",
+      "status": "exact",
+      "releaseSHA256": "1baac99be8987dffb8760f451b7012cb33dcf2a51f65c2044ba9da1fd3fd0d62",
+      "qaSHA256": "1baac99be8987dffb8760f451b7012cb33dcf2a51f65c2044ba9da1fd3fd0d62"
+    },
+    {
+      "path": "ios/Vipi/ServiceClient.swift",
+      "status": "exact",
+      "releaseSHA256": "429f4503065fd05442bc43a01229c081918944cbaba4996d3ed90a3c58e3e6da",
+      "qaSHA256": "429f4503065fd05442bc43a01229c081918944cbaba4996d3ed90a3c58e3e6da"
+    },
+    {
+      "path": "ios/Vipi/ConversationPreview.swift",
+      "status": "exact",
+      "releaseSHA256": "269351e0c4d5a6db32d10a26f6bbaf146d448d4a19ee7ae6cd236cb169f6ba91",
+      "qaSHA256": "269351e0c4d5a6db32d10a26f6bbaf146d448d4a19ee7ae6cd236cb169f6ba91"
+    },
+    {
+      "path": "ios/Vipi/BundledLexicalCatalog.swift",
+      "status": "exact",
+      "releaseSHA256": "95d855127748ccff733e6f7426be060a90506d945da22f3a8fb1479050975c0e",
+      "qaSHA256": "95d855127748ccff733e6f7426be060a90506d945da22f3a8fb1479050975c0e"
+    },
+    {
+      "path": "ios/Vipi/KoreanFullReading.swift",
+      "status": "exact",
+      "releaseSHA256": "99cbf7ba4dc36f336d393b7f303e7c0986a35ef0af7531ef987afc0e7327b192",
+      "qaSHA256": "99cbf7ba4dc36f336d393b7f303e7c0986a35ef0af7531ef987afc0e7327b192"
+    },
+    {
+      "path": "ios/Vipi/LocalImmersion.swift",
+      "status": "exact",
+      "releaseSHA256": "aa635ac576a5cce002c8b05a40c5943500c6e400482530d681a29857ea7f196f",
+      "qaSHA256": "aa635ac576a5cce002c8b05a40c5943500c6e400482530d681a29857ea7f196f"
+    },
+    {
+      "path": "ios/Vipi/NoticesView.swift",
+      "status": "exact",
+      "releaseSHA256": "f366927aab2282b3cc1ec11f8a545c555b11811f844d8f8d2f1e7f11070285e8",
+      "qaSHA256": "f366927aab2282b3cc1ec11f8a545c555b11811f844d8f8d2f1e7f11070285e8"
+    },
+    {
+      "path": "ios/Vipi/ManualTranslation.swift",
+      "status": "exact",
+      "releaseSHA256": "756a1d4a34b70566d6bc30727c30b2c56c328be10a85b98ab3e9177e345fa160",
+      "qaSHA256": "756a1d4a34b70566d6bc30727c30b2c56c328be10a85b98ab3e9177e345fa160"
+    },
+    {
+      "path": "ios/Vipi/SecurityNumber.swift",
+      "status": "exact",
+      "releaseSHA256": "fa04853cc901cdfd95369f3a42ea30cdce971d8c19216d0aed7a4be113388fda",
+      "qaSHA256": "fa04853cc901cdfd95369f3a42ea30cdce971d8c19216d0aed7a4be113388fda"
+    },
+    {
+      "path": "ios/Vipi/ManualLookupInteraction.swift",
+      "status": "exact",
+      "releaseSHA256": "c58071b6d036bfadaf5d27ec6d11659d2b259f7bb5fff285041305119ff883da",
+      "qaSHA256": "c58071b6d036bfadaf5d27ec6d11659d2b259f7bb5fff285041305119ff883da"
+    },
+    {
+      "path": "ios/Vipi/FullReadingQualification.swift",
+      "status": "exact",
+      "releaseSHA256": "53af87273972a975005bd9da38ad10eba1abd42091049beb3747250402ab80a7",
+      "qaSHA256": "53af87273972a975005bd9da38ad10eba1abd42091049beb3747250402ab80a7"
+    },
+    {
+      "path": "ios/Vipi/ContextWitnessLookup.swift",
+      "status": "exact",
+      "releaseSHA256": "19771d0a63fce1eeae795c0a0b7bd4347630e3e396b21e841b066374ad03f0e4",
+      "qaSHA256": "19771d0a63fce1eeae795c0a0b7bd4347630e3e396b21e841b066374ad03f0e4"
+    },
+    {
+      "path": "ios/Vipi/ConversationHistory.swift",
+      "status": "exact",
+      "releaseSHA256": "907456e6b4130f84534f8e5de6a15051471030bcc3093f85ac96ccb3bea39ec2",
+      "qaSHA256": "907456e6b4130f84534f8e5de6a15051471030bcc3093f85ac96ccb3bea39ec2"
+    },
+    {
+      "path": "ios/Vipi/VocabularyFamiliarityStore.swift",
+      "status": "exact",
+      "releaseSHA256": "7551d16f0c0073d5b04e60aec8830afa9ab6d14fda4f22af80930667c568d40a",
+      "qaSHA256": "7551d16f0c0073d5b04e60aec8830afa9ab6d14fda4f22af80930667c568d40a"
+    },
+    {
+      "path": "ios/Vipi/SwahiliTranslation.swift",
+      "status": "exact",
+      "releaseSHA256": "c5cd0dc44ec5a18b247e7a7ebc6d9fcd53be06a28e05ba550d8bd1cef1c16f14",
+      "qaSHA256": "c5cd0dc44ec5a18b247e7a7ebc6d9fcd53be06a28e05ba550d8bd1cef1c16f14"
+    },
+    {
+      "path": "ios/Vipi/ReviewedContextRecord.swift",
+      "status": "exact",
+      "releaseSHA256": "e1aedd478dff0c8abbe0ae30c868a06049b6591f1f4ffe55b46600f1e2c637cf",
+      "qaSHA256": "e1aedd478dff0c8abbe0ae30c868a06049b6591f1f4ffe55b46600f1e2c637cf"
+    },
+    {
+      "path": "ios/Vipi/SpeechChunks.swift",
+      "status": "exact",
+      "releaseSHA256": "d5e6e7ba4bc1f066e26ae82c11f3ce17f42a9a15e6f41322f1e6381ee330b139",
+      "qaSHA256": "d5e6e7ba4bc1f066e26ae82c11f3ce17f42a9a15e6f41322f1e6381ee330b139"
+    },
+    {
+      "path": "ios/Vipi/ImmersionBubble.swift",
+      "status": "exact",
+      "releaseSHA256": "58eb5546301c99d7772656bead18d593fab72a69b3c410f1a7f7e403670732ff",
+      "qaSHA256": "58eb5546301c99d7772656bead18d593fab72a69b3c410f1a7f7e403670732ff"
+    },
+    {
+      "path": "ios/Vipi/JapaneseStarterLookup.swift",
+      "status": "exact",
+      "releaseSHA256": "867f6e6cf722b83619d685c2626cbf45249a993084201b1463e417556053a3e5",
+      "qaSHA256": "867f6e6cf722b83619d685c2626cbf45249a993084201b1463e417556053a3e5"
+    },
+    {
+      "path": "ios/Vipi/AccountDeletionView.swift",
+      "status": "exact",
+      "releaseSHA256": "e7a0686d64b0395e5b9995b79eb8617c08fa4916116eb21d4953f19df968f7d9",
+      "qaSHA256": "e7a0686d64b0395e5b9995b79eb8617c08fa4916116eb21d4953f19df968f7d9"
+    },
+    {
+      "path": "ios/Vipi/ChineseFullReading.swift",
+      "status": "exact",
+      "releaseSHA256": "3d5ed51e5bffb4e768da9ca1ebe57084a680caab5ff6298de7e72bae23fd7888",
+      "qaSHA256": "3d5ed51e5bffb4e768da9ca1ebe57084a680caab5ff6298de7e72bae23fd7888"
+    },
+    {
+      "path": "ios/Vipi/ReviewedFrameLookup.swift",
+      "status": "exact",
+      "releaseSHA256": "c002d6bbdc99737e171015685bae35a8d8a61a3431ce92b49b52056e35a08949",
+      "qaSHA256": "c002d6bbdc99737e171015685bae35a8d8a61a3431ce92b49b52056e35a08949"
+    },
+    {
+      "path": "ios/Vipi/FrozenContextEvidence.swift",
+      "status": "exact",
+      "releaseSHA256": "672a6d24431f5efb4e7a258069ca331b6922dd72955793c5b4f9d464dd7cf32d",
+      "qaSHA256": "672a6d24431f5efb4e7a258069ca331b6922dd72955793c5b4f9d464dd7cf32d"
+    },
+    {
+      "path": "ios/Vipi/FrozenContextTokenizer.swift",
+      "status": "exact",
+      "releaseSHA256": "55b523677f6471f4b4110b2d314517c435b7b2c33b9e3192097fcbba1a71a08e",
+      "qaSHA256": "55b523677f6471f4b4110b2d314517c435b7b2c33b9e3192097fcbba1a71a08e"
+    },
+    {
+      "path": "ios/Vipi/OnboardingView.swift",
+      "status": "exact",
+      "releaseSHA256": "7e56c6d0f1ad64ebdf13e1b68a90b1637f50f8b749786e0724c742559853a4f7",
+      "qaSHA256": "7e56c6d0f1ad64ebdf13e1b68a90b1637f50f8b749786e0724c742559853a4f7"
+    },
+    {
+      "path": "ios/Vipi/SourceFrameLookup.swift",
+      "status": "exact",
+      "releaseSHA256": "34634a3c0b589264d89d69a448d12f8ab476b5572f07ccfdce4b2519fc0fbfbc",
+      "qaSHA256": "34634a3c0b589264d89d69a448d12f8ab476b5572f07ccfdce4b2519fc0fbfbc"
+    },
+    {
+      "path": "ios/Vipi/FrozenSourceCase.swift",
+      "status": "exact",
+      "releaseSHA256": "891682b97d0e2bad86c81bbbd4ccdd142deb27f0e52294cf918623ce171a5ee1",
+      "qaSHA256": "891682b97d0e2bad86c81bbbd4ccdd142deb27f0e52294cf918623ce171a5ee1"
+    },
+    {
+      "path": "ios/Vipi/SourceUnitLookup.swift",
+      "status": "exact",
+      "releaseSHA256": "8951b32d95bcb189d3f285728ce5d9e1495333ce26cafa698151e617ec4f49c9",
+      "qaSHA256": "8951b32d95bcb189d3f285728ce5d9e1495333ce26cafa698151e617ec4f49c9"
+    },
+    {
+      "path": "ios/Vipi/SwahiliStarterLookup.swift",
+      "status": "exact",
+      "releaseSHA256": "5418b7dfcd77877ef29ab57587c4dbd8a812eacd64d5464a3182fad3bbe905fa",
+      "qaSHA256": "5418b7dfcd77877ef29ab57587c4dbd8a812eacd64d5464a3182fad3bbe905fa"
+    },
+    {
+      "path": "ios/Vipi/FrozenCandidateCatalog.swift",
+      "status": "exact",
+      "releaseSHA256": "f3fb7186712e2fe1cb55697937b58505e8dcd72938a53756f86701d12d092094",
+      "qaSHA256": "f3fb7186712e2fe1cb55697937b58505e8dcd72938a53756f86701d12d092094"
+    },
+    {
+      "path": "ios/Vipi/Design.swift",
+      "status": "exact",
+      "releaseSHA256": "69e74f8bebfe9c6983dd7712d96d9d204eaeb0545e5bb28f53374abbd48db78e",
+      "qaSHA256": "69e74f8bebfe9c6983dd7712d96d9d204eaeb0545e5bb28f53374abbd48db78e"
+    },
+    {
+      "path": "ios/Vipi/Subscriptions.swift",
+      "status": "exact",
+      "releaseSHA256": "dfb3b9856745d4ef662163a93e11006e50863674afdefd4f784ce3339e541246",
+      "qaSHA256": "dfb3b9856745d4ef662163a93e11006e50863674afdefd4f784ce3339e541246"
+    },
+    {
+      "path": "ios/Vipi/ArabicVocalizedReading.swift",
+      "status": "absent_dormant_unreferenced_renderer",
+      "releaseSHA256": "639b2dca753d8fc9cae4b301b02dc11c7e59556b7b67e7bcf5c9622def84b055"
+    },
+    {
+      "path": "ios/Vipi/HistoryBackupStore.swift",
+      "status": "exact",
+      "releaseSHA256": "1febe0d8c6864915bc75641e33d295065cf9b17571a38162e565396d047d8fc0",
+      "qaSHA256": "1febe0d8c6864915bc75641e33d295065cf9b17571a38162e565396d047d8fc0"
+    },
+    {
+      "path": "ios/Vipi/FrozenSourceCaseTables.swift",
+      "status": "exact",
+      "releaseSHA256": "efc43fa752fab45b8c55250bd319eec5e5b14f8f6ec2b6d242908f535eada489",
+      "qaSHA256": "efc43fa752fab45b8c55250bd319eec5e5b14f8f6ec2b6d242908f535eada489"
+    },
+    {
+      "path": "ios/Vipi/JapaneseFullReading.swift",
+      "status": "exact",
+      "releaseSHA256": "34b3190135e8531e8a9ed96100ec61f94f09788fa85511987c92de9031fa52c0",
+      "qaSHA256": "34b3190135e8531e8a9ed96100ec61f94f09788fa85511987c92de9031fa52c0"
+    },
+    {
+      "path": "ios/Vipi/BotConversation.swift",
+      "status": "exact",
+      "releaseSHA256": "18c06b615dc990dfb70b2b471452613725732672f91a1e0fc2cec99668727250",
+      "qaSHA256": "18c06b615dc990dfb70b2b471452613725732672f91a1e0fc2cec99668727250"
+    },
+    {
+      "path": "ios/Vipi/PersistenceProbe.swift",
+      "status": "exact",
+      "releaseSHA256": "356550b54c36750f4bb46839d6723da9b711f8b3a8405d7d84182700020afd9a",
+      "qaSHA256": "356550b54c36750f4bb46839d6723da9b711f8b3a8405d7d84182700020afd9a"
+    },
+    {
+      "path": "ios/Vipi/HumanReport.swift",
+      "status": "exact",
+      "releaseSHA256": "e21350ca8607925615aad9014a47bcb80100bbeb01318282b17fe29100fff15c",
+      "qaSHA256": "e21350ca8607925615aad9014a47bcb80100bbeb01318282b17fe29100fff15c"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/Delivery.swift",
+      "status": "exact",
+      "releaseSHA256": "d5fc1fdb58659e4934c7de10dda53f0a464ff01be216a25384800d0d4c379bad",
+      "qaSHA256": "d5fc1fdb58659e4934c7de10dda53f0a464ff01be216a25384800d0d4c379bad"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/VocabularyFamiliarity.swift",
+      "status": "exact",
+      "releaseSHA256": "29f66d079163a6858fd934978b829fba238205fa718f51ff6bfc20250ff0bb0a",
+      "qaSHA256": "29f66d079163a6858fd934978b829fba238205fa718f51ff6bfc20250ff0bb0a"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/LocalWordSelection.swift",
+      "status": "exact",
+      "releaseSHA256": "37e416a2d856398029008f8d43546d9c077333972daa5dcaf71b431e1b19f8ad",
+      "qaSHA256": "37e416a2d856398029008f8d43546d9c077333972daa5dcaf71b431e1b19f8ad"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ReviewedStarterIdentity.swift",
+      "status": "exact",
+      "releaseSHA256": "aeba5f37eb1d7e41197a2b09e4955d38b9a13648dabbc5e6cb60455b06101fd0",
+      "qaSHA256": "aeba5f37eb1d7e41197a2b09e4955d38b9a13648dabbc5e6cb60455b06101fd0"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/SourceLookupEvidence.swift",
+      "status": "exact",
+      "releaseSHA256": "8b23da267a582a53560fdf254a52820724aa962efd4b38aafebfe8941244ad09",
+      "qaSHA256": "8b23da267a582a53560fdf254a52820724aa962efd4b38aafebfe8941244ad09"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ContextFrame.swift",
+      "status": "exact",
+      "releaseSHA256": "fc7c3bc54e8df37223fbadc36a05296577682767fd146ca5d1c8901f603be645",
+      "qaSHA256": "fc7c3bc54e8df37223fbadc36a05296577682767fd146ca5d1c8901f603be645"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/FullReadingCache.swift",
+      "status": "exact",
+      "releaseSHA256": "d9f6520fd1a3e7a5b04f5a938f9a8195576f3f35b5a782f485d81f6eb160bfe4",
+      "qaSHA256": "d9f6520fd1a3e7a5b04f5a938f9a8195576f3f35b5a782f485d81f6eb160bfe4"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ImmersionPresentationState.swift",
+      "status": "exact",
+      "releaseSHA256": "f91fa0906584c0620250658fa2bb7cd4644c6768e3b4ccdd69282dd336f3ad51",
+      "qaSHA256": "f91fa0906584c0620250658fa2bb7cd4644c6768e3b4ccdd69282dd336f3ad51"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ReferenceComposition.swift",
+      "status": "exact",
+      "releaseSHA256": "3edbb348ffa3f9023dbce6a89cb45095c9fbfde4414c089e1915001086ddb319",
+      "qaSHA256": "3edbb348ffa3f9023dbce6a89cb45095c9fbfde4414c089e1915001086ddb319"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/SourceReferencePresentation.swift",
+      "status": "exact",
+      "releaseSHA256": "2d01c09d00376807454f0fe04c8ea9fa2b720ecbffcfde051d39f4905ff12f20",
+      "qaSHA256": "2d01c09d00376807454f0fe04c8ea9fa2b720ecbffcfde051d39f4905ff12f20"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ContextMapping.swift",
+      "status": "exact",
+      "releaseSHA256": "390123c7ea5cdd771fb1827731e7bdf0b11d5f659513bef072f34d2860c689ac",
+      "qaSHA256": "390123c7ea5cdd771fb1827731e7bdf0b11d5f659513bef072f34d2860c689ac"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ImmersionCopyText.swift",
+      "status": "exact",
+      "releaseSHA256": "fc36515462f3c2c26705781b3f7bb247b41d6c116337bb76f203264fa343f6e2",
+      "qaSHA256": "fc36515462f3c2c26705781b3f7bb247b41d6c116337bb76f203264fa343f6e2"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/AdditiveReferenceSelection.swift",
+      "status": "exact",
+      "releaseSHA256": "ab07e7a53d078dd7dd5209923f9c81ff81f1dd37bcb75b11d727739be70f5381",
+      "qaSHA256": "ab07e7a53d078dd7dd5209923f9c81ff81f1dd37bcb75b11d727739be70f5381"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/Immersion.swift",
+      "status": "exact",
+      "releaseSHA256": "597330b0b66a3d402acaa5e773d4e59bcbeb4b61e90188dd091b6999466a9db0",
+      "qaSHA256": "597330b0b66a3d402acaa5e773d4e59bcbeb4b61e90188dd091b6999466a9db0"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/ReviewedFrameIdentity.swift",
+      "status": "exact",
+      "releaseSHA256": "1f8e68f1942c917e776111ac2088552fdc59c0b85a0865b34d8c2cac69902665",
+      "qaSHA256": "1f8e68f1942c917e776111ac2088552fdc59c0b85a0865b34d8c2cac69902665"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/PinnedSnapshotCache.swift",
+      "status": "exact",
+      "releaseSHA256": "c41825abcb70968dfe93c7a8be841b91affa1cd9f7c492497958721878d84990",
+      "qaSHA256": "c41825abcb70968dfe93c7a8be841b91affa1cd9f7c492497958721878d84990"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/TranslationIntegrity.swift",
+      "status": "exact",
+      "releaseSHA256": "a3c592cf4bd24e776911e3e4c33be60c7430105338ceba4ed22c30fabe397030",
+      "qaSHA256": "a3c592cf4bd24e776911e3e4c33be60c7430105338ceba4ed22c30fabe397030"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/SourceUnitSelection.swift",
+      "status": "exact",
+      "releaseSHA256": "ec64c3d2918cf81b862fa34e1bab1e1a7df80b51334e4809c45302577849b384",
+      "qaSHA256": "ec64c3d2918cf81b862fa34e1bab1e1a7df80b51334e4809c45302577849b384"
+    },
+    {
+      "path": "ios/VipiCore/Sources/VipiCore/LookupFirst.swift",
+      "status": "exact",
+      "releaseSHA256": "9a4f49920f76235d02fc4e0af6e1711c3a39fd928907f4276b61adc4321b6499",
+      "qaSHA256": "9a4f49920f76235d02fc4e0af6e1711c3a39fd928907f4276b61adc4321b6499"
+    }
+  ],
+  "qaOnlyModified": [
+    "ios/Vipi/ChatSession.swift",
+    "ios/Vipi/TimelineQualification.swift",
+    "ios/Vipi/VipiApp.swift",
+    "ios/Vipi/MessageVault.swift"
+  ],
+  "beforeHashes": {
+    "ios/Vipi/ChatSession.swift": "691ba97778602f11128ec184f9fc764e19f7dc01bdb9c28f5ca22717a3068c8d",
+    "ios/Vipi/TimelineQualification.swift": "627360eddc8c70e3ab815e204edb15db28191e0b72d115b035c89051a827d2f5",
+    "ios/Vipi/VipiApp.swift": "8021cd9e1fc5f00804ee6fb38741198014f143a35d57f6087f7e5f07c206c5d3",
+    "ios/Vipi/MessageVault.swift": "96aa7f5e5f738811cd9020e5e7ddedc61a62ab6d1f99abcafc8294616650c756"
+  },
+  "afterHashes": {
+    "ios/Vipi/ChatSession.swift": "83e1bf92cf6eed7560d179dcf7d623b132daac73050e9caf98da203e81785b7b",
+    "ios/Vipi/TimelineQualification.swift": "5a63437a006347256e12bc0a5a724eef1499fa6771900585e298fb1602d07ecc",
+    "ios/Vipi/VipiApp.swift": "7a7cafbd65e469f50a6de0ee35707be8b10025dcd43b20ecc2f488299a6dbe55",
+    "ios/Vipi/MessageVault.swift": "b5a1ff9d72bc6c400e3c807f80573101e7c98a1982bf0df9852ee3575403c8a3"
+  },
+  "navigationContext": "QA wrapper pushes unchanged FriendConversationView from a Chats-titled NavigationStack root."
+}

@@ -1,0 +1,9 @@
+{
+  "exit": 0,
+  "seconds": 28.1,
+  "peakGrowthBytes": 135254016,
+  "guardStop": null,
+  "freeAfter": 40961855488,
+  "qaPatchSHA256": "e6349708abdad5114ef92e656a7f01d1fd9f4fdc74fadf6a14393a265a4aafca",
+  "sourceCorrespondenceSHA256": "68930d855522521bb8bd1a3eab44cc4722f363db53a38a308ea88f8a13d069b4"
+}

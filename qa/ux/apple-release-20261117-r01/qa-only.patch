@@ -1,0 +1,137 @@
+--- before/ios/Vipi/ChatSession.swift
++++ qa/ios/Vipi/ChatSession.swift
+@@ -1,5 +1,8 @@
+ import Foundation
+ import Observation
++#if DEBUG
++import CryptoKit
++#endif
+ 
+ struct ChatProfile: Codable, Identifiable, Hashable {
+     let id: UUID; let username: String; let display_name: String
+@@ -61,6 +64,38 @@
+         self.userID = userID; self.api = qualificationAPI; self.ready = ready; self.profile = profile
+     }
+     #endif
++    #if DEBUG
++    /// Screenshot-only synthetic local history. Uses an ephemeral test key and
++    /// the production history/view path; it never registers or sends a message.
++    func storeScreenshotSeed(directory: URL) throws {
++        guard Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa",
++              ProcessInfo.processInfo.arguments.contains("-vipi-store-screenshot-qa") else {
++            throw ServiceFailure(status: 0, code: "screenshot_fixture_only")
++        }
++        let selfID = UUID(uuidString: "00000000-0000-4000-8000-000000000011")!
++        let peerID = UUID(uuidString: "00000000-0000-4000-8000-000000000012")!
++        profile = ChatProfile(id: selfID, username: "maya", display_name: "Maya")
++        contacts[peerID] = ChatProfile(id: peerID, username: "alex", display_name: "Alex")
++        let store = try MessageVault(account: selfID, directory: directory,
++            testKey: SymmetricKey(data: Data(repeating: 0x42, count: 32)))
++        vault = store; core = try MessagingCore(vault: store)
++        familiarity = VocabularyFamiliarityStore(vault: store)
++        let entries = [("I like music.", false), ("Me too! See you soon.", true)]
++        try store.transaction {
++            for (index, entry) in entries.enumerated() {
++                let id = UUID(), created = Int64(1_700_000_000_000 + index * 1000)
++                let kind = entry.1 ? "outgoing" : "incoming"
++                let envelope = ChatEnvelope(id: id, sender: entry.1 ? selfID : peerID,
++                    recipient: entry.1 ? peerID : selfID, createdAt: created, type: 1, ciphertext: Data())
++                let item = StoredChat(envelope: envelope, text: entry.0, state: entry.1 ? "accepted" : "received")
++                try store.put(kind, id.uuidString.lowercased(), JSONEncoder().encode(item))
++                try ConversationHistory.record(store, kind: kind, id: id, peer: peerID, createdAt: created)
++            }
++        }
++        history = try ConversationHistory(vault: store); threads = try history!.threads()
++        ready = true
++    }
++    #endif
+     private func open(_ value: ChatProfile) throws {
+         try ensureOpen()
+         if let profile, profile.id != value.id { throw AuthenticationManager.SessionFailure.accountChanged }
+--- before/ios/Vipi/TimelineQualification.swift
++++ qa/ios/Vipi/TimelineQualification.swift
+@@ -327,4 +327,42 @@
+         return try JSONDecoder().decode(type, from: JSONSerialization.data(withJSONObject: value))
+     }
+ }
++
++/// QA-only offline wrapper around the unchanged production friend-chat view.
++struct StoreScreenshotQualificationView: View {
++    @State private var chat: ChatSession?
++    @State private var path: [UUID] = []
++    @State private var failure = "Preparing local example"
++    private let peer = UUID(uuidString: "00000000-0000-4000-8000-000000000012")!
++    var body: some View {
++        NavigationStack(path: $path) {
++            Group {
++                if let chat {
++                    Text("Chats")
++                        .navigationDestination(for: UUID.self) { selectedPeer in
++                            FriendConversationView(chat: chat, peer: selectedPeer)
++                        }
++                        .onAppear { if path.isEmpty { path = [peer] } }
++                } else { Text(failure) }
++            }.navigationTitle("Chats")
++        }.task {
++            guard chat == nil else { return }
++            do {
++                let value = ChatSession(qualificationAPI: StoreScreenshotOfflineTransport(), userID: "store-screenshot-fictional")
++                let folder = FileManager.default.temporaryDirectory.appendingPathComponent("vipi-store-screenshot-" + UUID().uuidString)
++                try value.storeScreenshotSeed(directory: folder)
++                chat = value
++            } catch { failure = "Local example unavailable" }
++        }
++    }
++}
++private final class StoreScreenshotOfflineTransport: ChatTransport {
++    func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
++        let value: [String: Any]
++        if method == "GET", path.hasPrefix("/v1/blocks/") { value = ["blocked": false] }
++        else if method == "GET", path == "/v1/messages/pending" { value = ["messages": [], "next_cursor": NSNull()] }
++        else { throw ServiceFailure(status: 0, code: "screenshot_offline") }
++        return try JSONDecoder().decode(type, from: JSONSerialization.data(withJSONObject: value))
++    }
++}
+ #endif
+--- before/ios/Vipi/VipiApp.swift
++++ qa/ios/Vipi/VipiApp.swift
+@@ -19,7 +19,8 @@
+                 if deletion.active { AccountDeletionProgressView() }
+                 else {
+                 #if DEBUG
+-                if ProcessInfo.processInfo.arguments.contains("-vipi-reauth-qa") { ReauthenticationQualificationView() }
++                if ProcessInfo.processInfo.arguments.contains("-vipi-store-screenshot-qa") { StoreScreenshotQualificationView() }
++                else if ProcessInfo.processInfo.arguments.contains("-vipi-reauth-qa") { ReauthenticationQualificationView() }
+                 else if ProcessInfo.processInfo.arguments.contains("-vipi-network-qa") {
+                     // The explicit native HTTP harness owns inbox ordering.
+                     // It still uses the real account session and production
+--- before/ios/Vipi/MessageVault.swift
++++ qa/ios/Vipi/MessageVault.swift
+@@ -15,7 +15,7 @@
+     private static let keyLock = NSLock()
+     private let transient = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
+ 
+-    init(account: UUID, directory: URL? = nil) throws {
++    init(account: UUID, directory: URL? = nil, testKey: SymmetricKey? = nil) throws {
+         self.account = account
+         let root = directory ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Messages")
+         var folder = root.appendingPathComponent(account.uuidString.lowercased(), isDirectory: true)
+@@ -23,7 +23,17 @@
+         Self.keyLock.lock()
+         defer { Self.keyLock.unlock() }
+         let keyName = "messages-\(account.uuidString.lowercased())"
+-        if let data = try KeychainStore.read(account: keyName) {
++        if let testKey {
++            #if DEBUG
++            guard Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa",
++                  ProcessInfo.processInfo.arguments.contains("-vipi-store-screenshot-qa"), directory != nil else {
++                throw Failure.invalidRecord
++            }
++            key = testKey
++            #else
++            throw Failure.invalidRecord
++            #endif
++        } else if let data = try KeychainStore.read(account: keyName) {
+             guard data.count == 32 else { throw Failure.missingKey }
+             key = SymmetricKey(data: data)
+         } else {

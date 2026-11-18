@@ -1,0 +1,11 @@
+{
+  "localizedValuesExactlyMatchRelease": true,
+  "ignoredCatalogMetadataOnly": "extractionState",
+  "resources": [
+    {
+      "tree": "data",
+      "fileCount": 658,
+      "differences": []
+    }
+  ]
+}

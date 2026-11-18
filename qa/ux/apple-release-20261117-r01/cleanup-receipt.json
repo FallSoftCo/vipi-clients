@@ -1,0 +1,36 @@
+{
+  "at": "2026-11-18T00:34:19.958391+00:00",
+  "devices": [
+    {
+      "simulator": "E640C5EE-A159-48B7-99D0-E330E8781FAF",
+      "qaAppTerminated": true,
+      "statusBarOverrideCleared": true,
+      "removedOnlyNewSyntheticVaults": [
+        {
+          "syntheticFixtureDirectory": "vipi-store-screenshot-0BB8F0D4-79D8-4A9B-9179-1F4C81FFD609",
+          "bytes": 131656
+        }
+      ],
+      "keychainMutation": false
+    },
+    {
+      "simulator": "76B2F57C-7839-4A70-9A3F-3C405C31CA9F",
+      "qaAppTerminated": true,
+      "statusBarOverrideCleared": true,
+      "removedOnlyNewSyntheticVaults": [
+        {
+          "syntheticFixtureDirectory": "vipi-store-screenshot-F708AB40-0AC3-4A7F-944D-535749C78903",
+          "bytes": 131656
+        }
+      ],
+      "keychainMutation": false
+    }
+  ],
+  "iPadReturnedToOriginalShutdownState": true,
+  "iPhoneRemainsBooted": true,
+  "held46CBAndProductionUntouched": true,
+  "freeAfter": 41432698880,
+  "wholeReleaseGrowthBytes": 5241122816,
+  "globalBudgetBytes": 6442450944,
+  "compilerActive": false
+}
