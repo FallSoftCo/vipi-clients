@@ -17,6 +17,7 @@ struct BotMessage: Codable, Identifiable {
 @MainActor @Observable final class BotSession {
     private let api: any ChatTransport
     private let vault: MessageVault
+    private let now: () -> Date
     let familiarity: VocabularyFamiliarityStore
     private var closed = false
     private var allowanceRevision: UInt64 = 0
@@ -27,8 +28,8 @@ struct BotMessage: Codable, Identifiable {
     private(set) var earlierAvailable = false
     var notice: String?
     var draft = ""
-    init(api: any ChatTransport, vault: MessageVault) throws {
-        self.api = api; self.vault = vault
+    init(api: any ChatTransport, vault: MessageVault, now: @escaping () -> Date = Date.init) throws {
+        self.api = api; self.vault = vault; self.now = now
         self.familiarity = VocabularyFamiliarityStore(vault: vault)
         try vault.transaction {
             consent = try vault.get("bot-local", "consent") == Data("deepseek-v1".utf8)
@@ -81,7 +82,7 @@ struct BotMessage: Codable, Identifiable {
         }
     }
     var canSend: Bool {
-        !closed && !busy && consent && allowance?.canSend(at: Date()) == true &&
+        !closed && !busy && consent && allowance?.canSend(at: now()) == true &&
         !draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && draft.utf8.count <= min(8192, allowance?.max_context_bytes ?? 0)
     }
     struct Context: Codable { let role: String; let content: String }
@@ -106,7 +107,7 @@ struct BotMessage: Codable, Identifiable {
             notice = String(localized: "Reconnect this account before sending to vBot. Your draft is still here.")
             return
         }
-        var outgoing = BotMessage(id: UUID(), role: "user", text: draft, createdAt: Date(), state: "sending")
+        var outgoing = BotMessage(id: UUID(), role: "user", text: draft, createdAt: nextMessageDate(), state: "sending")
         struct Request: Encodable { let request_id: UUID; let consent_version: String; let messages: [Context] }
         struct Reply: Decodable { let request_id: UUID; let reply: String; let allowance: BotAllowance }
         do {
@@ -124,7 +125,7 @@ struct BotMessage: Codable, Identifiable {
             // Complete the local record even if navigation closed the view
             // while the request was in flight. No follow-up request is sent.
             outgoing.state = "complete"
-            var incoming = BotMessage(id: UUID(), role: "assistant", text: reply.reply, createdAt: Date(), state: "complete")
+            var incoming = BotMessage(id: UUID(), role: "assistant", text: reply.reply, createdAt: nextMessageDate(), state: "complete")
             incoming.requestID = outgoing.id
             try vault.transaction {
                 try vault.put("bot-message", outgoing.key, JSONEncoder().encode(outgoing))
@@ -142,6 +143,13 @@ struct BotMessage: Codable, Identifiable {
             // Never retry a potentially consumed response-generation request.
             if !closed { await refresh(preservingNotice: true) }
         }
+    }
+    private func nextMessageDate() -> Date {
+        guard let previous = messages.last?.createdAt else { return now() }
+        // Storage keys have millisecond precision. Two milliseconds leaves room
+        // for Date's floating-point rounding and keeps a reply after its prompt,
+        // even with an immediate response or a backward device-clock correction.
+        return max(now(), previous.addingTimeInterval(0.002))
     }
     static func reportExcerpt(_ text: String) -> String {
         var result = ""

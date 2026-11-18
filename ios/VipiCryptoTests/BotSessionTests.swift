@@ -246,4 +246,23 @@ import XCTest
         }
     }
 
+    func testImmediateRepliesAndClockCorrectionKeepConversationOrderAfterReopen() async throws {
+        try await withVault { vault in
+            var clock = Date(timeIntervalSince1970: 1_790_000_000)
+            let api = Transport(), session = try BotSession(api: api, vault: vault, now: { clock })
+            await session.refresh(); try session.setConsent(true)
+            session.draft = "First prompt"; await session.send()
+            clock = clock.addingTimeInterval(-60)
+            session.draft = "Second prompt"; await session.send()
+            let expected = ["First prompt", "Coffee tomorrow sounds good.", "Second prompt", "Coffee tomorrow sounds good."]
+            XCTAssertEqual(session.messages.map(\.text), expected)
+            let timeKeys = session.messages.map { String($0.key.prefix(20)) }
+            for (earlier, later) in zip(timeKeys, timeKeys.dropFirst()) {
+                XCTAssertLessThan(earlier, later, "Conversation order must never depend on random UUID sorting")
+            }
+            XCTAssertEqual(try BotSession(api: api, vault: vault).messages.map(\.text), expected)
+            XCTAssertEqual(api.requests.filter { $0.1 == "/v1/bot/messages" }.count, 2)
+        }
+    }
+
 }
