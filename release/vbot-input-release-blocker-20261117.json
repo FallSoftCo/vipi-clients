@@ -1,6 +1,6 @@
 {
   "reported": "Owner cannot open keyboard or send vBot message on Android versionCode5",
-  "status": "signed_fix_delivered_pending_phone_install_and_actual_account_send",
+  "status": "expanded_native_journeys_and_audio_fixes_under_verification; public_release_held",
   "readiness_claim_withdrawn": true,
   "public_release_controls": {
     "apple": "existing manual release retained",
@@ -14,7 +14,6 @@
   ],
   "not_established": [
     "exact owner phone screen/error",
-    "identity bound to phone session",
     "cause of Gamma active-device change"
   ],
   "work": [
@@ -23,8 +22,8 @@
     "route missing account setup to setup instead of plan page",
     "native keyboard/focus/send guard regression qualification"
   ],
-  "external_actions": "No repeated upload/submission, no production code/config mutation, no charge or purchase, no repeated uncertain bot send",
-  "updated_utc": "2026-11-18T03:39:49.795377+00:00",
+  "external_actions": "Existing store submissions not repeated. One config-only testing grant for user-confirmed owner profile activated and verified; API restart preserved unrelated services. No purchase/charge or uncertain Bot send replay.",
+  "updated_utc": "2026-11-18T04:26:28.740485+00:00",
   "verified": [
     "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
     "Actual VipiModel setup routing: 5 focused tests passed",
@@ -59,8 +58,7 @@
     "installer_command_exit": 0,
     "installed_update_verified": false,
     "blocking_user_actions": [
-      "Confirm Android APK update",
-      "Provide Vipi Settings @username to resolve actual phone account binding"
+      "Confirm delivered Android update; latest signed replacement will follow native qualification"
     ],
     "no_phone_data_cleared": true,
     "actual_owner_send_verified": false
@@ -73,5 +71,14 @@
     "monthly_replies": 150,
     "profile_and_device_unchanged": true,
     "receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/owner-confirmed-readonly-r01/verified-after-receipt.json"
+  },
+  "journey_qualification": {
+    "android_domain": "20 integration cases passed through actual model, encrypted vault, subscription coordinator and deletion/backup cleanup; external HTTP and billing controlled",
+    "android_activity": "Actual MainActivity onboarding and three authenticated friend/Bot journeys passed; screenshot review exposed two additional viewport defects, strengthened native tests reproduced both; fixed source under runtime verification",
+    "android_speech": "Real native repeated-word Stop and pending-preparation tests reproduced two failures; lifecycle baseline reproduced three failures; fixes under runtime verification",
+    "ios_domain": "13 BotSession tests passed; stale subscription success/error reproduced and fixed through three native domain/network tests",
+    "ios_ui": "Actual local friend lookup keyboard geometry and Cancel passed; authenticated Bot journey being added",
+    "storekit": "Local StoreKit purchase regression blocked by notEntitled before transaction; no native store transaction acceptance claimed",
+    "evidence_directory": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01"
   }
 }
