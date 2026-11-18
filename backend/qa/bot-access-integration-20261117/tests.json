@@ -1,0 +1,24 @@
+{
+  "base_commit": "7ee251ab276190c38b1524e292dd96b78c7d3bbf",
+  "source_sha256": "7d47008d0214cdaca44fca6c0a8809a82e402cf2ce6da1c89e396bc1b1860250",
+  "command": "PYTHONPATH=backend <existing backend-env>/bin/python -m pytest backend/tests/test_bot_access_integration.py backend/tests/test_reviewer_access.py backend/tests/test_bot.py -q",
+  "database": "SQLite disposable test files",
+  "provider": "httpx.MockTransport; no network",
+  "principal": "injected synthetic verifier; not a signed live JWT",
+  "passed": 26,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "elapsed_seconds": 19.737,
+  "terminal_XML_sha256": "30191036c033b7ff391b670e69c3ce9f39d03ca802d39cd257a5d92929639096",
+  "new_test_cases": [
+    "test_wrong_shared_pin_does_not_grant_actual_profile_and_exact_UUID_remedy_preserves_it",
+    "test_available_allowance_does_not_authorize_revoked_foreign_or_missing_device",
+    "test_existing_device_works_after_fresh_auth_window_without_reregistering",
+    "test_complimentary_grant_never_bypasses_auth_floor_or_provider_consent",
+    "test_HTTP_provider_errors_preserve_no_replay_and_correct_quota[uncertain_timeout]",
+    "test_HTTP_provider_errors_preserve_no_replay_and_correct_quota[definite_rejection]"
+  ],
+  "production_logic_changes": 0,
+  "production_auth_provider_Bot_send_actions": 0
+}
