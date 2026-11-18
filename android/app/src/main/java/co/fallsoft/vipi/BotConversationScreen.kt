@@ -104,11 +104,20 @@ import java.time.format.FormatStyle
     }
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val density = LocalDensity.current
+    val statusNotice = localError ?: bot.notice
     val bottomInsets = with(density) { maxOf(WindowInsets.ime.getBottom(this), WindowInsets.navigationBars.getBottom(this)).toDp() }
     val availableHeight = (maxHeight - with(density) { topBarHeightPx.toDp() } - bottomInsets).coerceAtLeast(0.dp)
-    val historyReserve = if (bot.messages.isNotEmpty()) minOf(160.dp, availableHeight * .45f) else 0.dp
+    val minimumComposerHeight = 56.dp + 24.dp * (density.fontScale - 1f).coerceAtLeast(0f)
+    val recoveryActionHeight = if (bot.allowance == null || bot.allowance?.remaining == 0)
+        maxOf(48.dp, 22.dp * density.fontScale + 16.dp) else 0.dp
+    val minimumStatusHeight = if (statusNotice != null) maxOf(48.dp, 27.dp * density.fontScale) else 0.dp
+    val fixedFooterHeight = 16.dp + recoveryActionHeight + minimumStatusHeight
+    val maximumHistoryHeight = (availableHeight - minimumComposerHeight - fixedFooterHeight).coerceAtLeast(0.dp)
+    val historyReserve = if (bot.messages.isNotEmpty()) minOf(160.dp, availableHeight * .45f, maximumHistoryHeight) else 0.dp
     val footerContentHeight = (availableHeight - historyReserve).coerceAtLeast(0.dp)
-    val composerMaxHeight = minOf(96.dp, (footerContentHeight * .6f).coerceAtLeast(56.dp))
+    val composerMaxHeight = minOf(maxOf(96.dp, minimumComposerHeight),
+        (footerContentHeight - fixedFooterHeight).coerceAtLeast(minimumComposerHeight),
+        (footerContentHeight * .6f).coerceAtLeast(minimumComposerHeight))
     // Scaffold measures its bars independently. Bound the entire footer before
     // applying IME padding so consent cannot cover the measured native topbar.
     val footerMaxHeight = (maxHeight - with(density) { topBarHeightPx.toDp() } - historyReserve).coerceAtLeast(0.dp)
@@ -133,8 +142,9 @@ import java.time.format.FormatStyle
                 onPlan = { model.navigate(Screen.BOT_PLAN) },
                 onRefreshAllowance = { scope.launch { bot.refreshAllowance() } },
                 composerMaxHeight = composerMaxHeight,
+                statusKey = statusNotice,
                 statusContent = {
-                    (localError ?: bot.notice)?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
+                    statusNotice?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
                     bot.allowance?.let { allowance ->
                         Text(stringResource(R.string.bot_allowance_remaining, java.text.NumberFormat.getIntegerInstance().format(allowance.remaining), java.text.NumberFormat.getIntegerInstance().format(allowance.monthly), DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withZone(ZoneId.systemDefault()).format(allowance.resetsAt)), style = MaterialTheme.typography.bodySmall)
                     }
@@ -186,13 +196,15 @@ import java.time.format.FormatStyle
     draft: String, onDraft: (String) -> Unit, onComposingChanged: (Boolean) -> Unit,
     busy: Boolean, allowance: BotAllowance?, onSend: () -> Unit, onRetryAccess: () -> Unit,
     onPlan: () -> Unit, onRefreshAllowance: () -> Unit, statusContent: @Composable () -> Unit = {},
-    composerMaxHeight: Dp = Dp.Infinity) {
+    composerMaxHeight: Dp = Dp.Infinity, statusKey: String? = null) {
+    val statusScroll = rememberScrollState()
+    LaunchedEffect(statusKey) { if (statusKey != null) statusScroll.scrollTo(0) }
     Column {
         // Measure the input first, then let status/consent use only the remaining
         // height. The scroll area shrinks with the IME and enlarged system text.
         Column(Modifier.fillMaxWidth().weight(1f, fill = false)
             .heightIn(max = (LocalConfiguration.current.screenHeightDp * .45f).dp)
-            .verticalScroll(rememberScrollState()).testTag("bot-access-consent")) {
+            .verticalScroll(statusScroll).testTag("bot-access-consent")) {
             statusContent()
             BotPlanAccessGate(accessState, access, onRetryAccess, onPlan) {}
             if (!consent) Column(Modifier.fillMaxWidth().testTag("bot-consent")) {
