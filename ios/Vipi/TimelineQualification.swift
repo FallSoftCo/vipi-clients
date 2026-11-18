@@ -580,7 +580,7 @@ private func removeAbandonedBaseExpiryFixtures() throws {
         }
         try inspect(audio)
     }
-    private func validateSavedAuthority(expected: DeletionRecord? = nil) throws {
+    private static func validateSavedAuthority(_ ledger: Ledger, expected: DeletionRecord? = nil) throws {
         // AccountDeletion.resume may erase a saved requested/completed receipt
         // BEFORE calling its transport. Validate global keys before the actual
         // manager exists, including on a resumed fixture/bootstrap.
@@ -630,7 +630,7 @@ private func removeAbandonedBaseExpiryFixtures() throws {
             try save() // Record ownership before creating any private records.
             try seed()
         }
-        try validateSavedAuthority()
+        try Self.validateSavedAuthority(ledger)
         try Self.requireDisposableAudio()
         ledger.starts += 1; try save()
     }
@@ -680,13 +680,13 @@ private func removeAbandonedBaseExpiryFixtures() throws {
         })
     }
     func makeDeletion(_ authentication: AuthenticationManager) throws -> AccountDeletion {
-        try validateSavedAuthority()
+        try Self.validateSavedAuthority(ledger)
         try Self.requireDisposableAudio()
         self.authentication = authentication
         let value = AccountDeletion(store: KeychainDeletionStore(), service: self, erase: { [self] record in
             // Recheck immediately before the unchanged real eraser, rather
             // than relying on bootstrap or a later service.status binding.
-            try validateSavedAuthority(expected: record)
+            try Self.validateSavedAuthority(ledger, expected: record)
             try Self.requireDisposableAudio()
             try AccountDeletion.eraseLocal(record)
         }) { user in
@@ -817,6 +817,7 @@ private func removeAbandonedBaseExpiryFixtures() throws {
     private static func cleanup() throws {
         guard FileManager.default.fileExists(atPath: ledgerURL.path) else { return }
         let record = try JSONDecoder().decode(Ledger.self, from: Data(contentsOf: ledgerURL)); try validate(record)
+        try validateSavedAuthority(record)
         if let pending = try KeychainDeletionStore().load() {
             guard pending.account == record.account, pending.userID == record.user else { throw ServiceFailure(status: 0, code: "preserve_unrelated_deletion_record") }
             try KeychainDeletionStore().remove()
