@@ -1,5 +1,32 @@
 # Decisions and discovery — 2026-10-24
 
+## Current immersion decisions — 2026-11-18
+
+The owner's current direction supersedes earlier word/phrase catalog and
+standalone-model proposals below. Translate each sent and received message
+locally in full. Use transliteration by default, practice-language audio, and
+the agreed gestures for revealing the original and switching scripts. Preserve
+the authored message independently of its local display derivatives.
+
+Use the platforms' existing on-device APIs. Apple Translation and Google ML Kit
+remain the translation implementations. Apple Intelligence's high-fidelity
+Translation strategy, Foundation Models, and Gemini Nano through AICore are
+evaluation candidates where available; none is automatically selected merely
+because it returns a nonempty response. Compare actual meaning and latency.
+Keep Swahili support through the existing Google ML Kit path where Apple
+Translation does not support it.
+
+Do not add independently distributed translation or generative-model weights
+or a separate inference runtime to Vipi. Standalone-model experiments have
+stopped; their retained results are historical research, not product scope.
+Platform-managed language/model preparation remains part of the existing API
+flow. This decision does not change the separately authorized response-only
+vBot service or authorize sending private friend-chat text to a cloud model.
+
+Store reviews remain withdrawn until the full-message immersion UX is qualified.
+An available model, a completed API call, and a correct translation are distinct
+results; none establishes that the app is ready for customers by itself.
+
 ## User decisions
 
 - Product Vipi; bot contact vBot; add-on plan Bot mini. Avoid “AI” as the plan/feature marketing name while accurately disclosing the provider and processing.

@@ -1,5 +1,12 @@
 # Architecture
 
+The November 18 owner decision is **full-message local translation through
+existing on-device APIs only**. Apple Translation and Google ML Kit are the
+current implementations; eligible Apple Intelligence and AICore API variants
+are being compared. Do not add standalone model weights or inference runtimes.
+Earlier catalog-based immersion designs below are historical and do not
+supersede the [current immersion decisions](DECISIONS.md#current-immersion-decisions--2026-11-18).
+
 Deployment status is recorded in [DELIVERY_STATUS.md](DELIVERY_STATUS.md),
 updated November 17, 2026. The designs below include dated qualification
 notes; they do not supersede the current release receipts or authorize retired
