@@ -113,7 +113,7 @@
     "android_normal": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-recovery-normal-r15.json",
     "android_large": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-recovery-large-r16.json",
     "android_domain": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-integrated-domain-r02.json",
-    "android_speech": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-native-fixed-r05.json",
+    "android_speech": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-speech-qualified-methods-r01.json",
     "android_110": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/native-preview-matrix-110-r01.json",
     "ios_bot": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-bot-native-evidence-r01/summary.json",
     "ios_backup": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-backup-native-evidence-r01/summary.json",
