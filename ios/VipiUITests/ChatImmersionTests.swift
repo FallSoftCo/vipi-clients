@@ -155,7 +155,8 @@ final class ChatImmersionTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-source-unit-routing-qa", "-vipi-timeline-audit",
             "-vipi-source", "en", "-vipi-target", "sw", "-vipi-density", "0.25", "-vipi-appearance-dark", "-vipi-live-immersion-state", "016"]
-        app.launch()
+        app.launchArguments += ["-readingPace", "balanced"]
+        launchPortraitApp(app)
         defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch() }
         let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
         XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
@@ -163,32 +164,41 @@ final class ChatImmersionTests: XCTestCase {
         // language rather than injecting inferred direction or target text.
         chooseMessageLanguage("English", in: app, paragraph: paragraph)
         XCTAssertTrue(paragraph.label.contains("Did you finish the report?"))
-        let slot = app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'immersion-word-'")).firstMatch
-        XCTAssertTrue(slot.exists)
-        let bounds = slot.frame
+        // An explicit English choice resolves the current provider's two
+        // native units. Wait for that binding, not the cached sentence face
+        // which may still exist while the source override is being applied.
+        let words: [(id: String, faces: [String])] = [
+            ("immersion-word-0", ["I need", "ninahitaji"]),
+            ("immersion-word-7", ["water", "maji"])
+        ]
+        let slots = words.map { app.descendants(matching: .any).matching(identifier: $0.id).firstMatch }
+        for slot in slots { XCTAssertTrue(slot.waitForExistence(timeout: 5)) }
+        let bounds = slots.map(\.frame)
         let panel = translateMessage(in: app, paragraph: paragraph)
         XCTAssertTrue(panel.staticTexts["Translation isn’t supported for this language pair on this device."].waitForExistence(timeout: 10))
         XCTAssertFalse(panel.buttons["Try again"].exists)
         XCTAssertFalse(panel.buttons["Download languages"].exists)
         XCTAssertTrue(paragraph.label.contains("Did you finish the report?"))
         capture("ios-partial-direct-translation-unavailable")
-        var samples: [[String: Any]] = [], transitions = 0
-        var previous: String?
+        var samples: [[String: Any]] = []
+        var transitions = [0, 0], previous: [String?] = [nil, nil]
         let start = Date()
         while Date().timeIntervalSince(start) < 29 {
-            let label = slot.label, frame = slot.frame
-            let complete = ["I need water.", "Ninahitaji maji."].contains(label) && frame.height > 0
-            if complete {
-                if let previous, label != previous { transitions += 1 }
-                previous = label
-                XCTAssertEqual(frame.width, bounds.width, accuracy: 1)
-                XCTAssertEqual(frame.height, bounds.height, accuracy: 1)
+            for index in words.indices {
+                let label = slots[index].label, frame = slots[index].frame
+                let complete = words[index].faces.contains(label) && frame.height > 0
+                if complete {
+                    if let old = previous[index], label != old { transitions[index] += 1 }
+                    previous[index] = label
+                    XCTAssertEqual(frame.width, bounds[index].width, accuracy: 1)
+                    XCTAssertEqual(frame.height, bounds[index].height, accuracy: 1)
+                }
+                samples.append(["seconds": Date().timeIntervalSince(start), "id": words[index].id, "label": label,
+                    "width": frame.width, "height": frame.height, "complete_accessibility_snapshot": complete])
             }
-            samples.append(["seconds": Date().timeIntervalSince(start), "label": label,
-                "width": frame.width, "height": frame.height, "complete_accessibility_snapshot": complete])
             Thread.sleep(forTimeInterval: 0.3)
         }
-        XCTAssertGreaterThanOrEqual(transitions, 6)
+        for count in transitions { XCTAssertGreaterThanOrEqual(count, 6) }
         closeTranslationPanel(panel)
         openMessageReadingOptions(in: app, paragraph: paragraph)
         app.buttons["Original message"].tap()
@@ -396,7 +406,8 @@ final class ChatImmersionTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-single-qa", "-vipi-timeline-audit",
             "-vipi-source", "en", "-vipi-target", "ja", "-vipi-appearance-light"]
-        app.launch()
+        app.launchArguments += ["-vipi-density", "0.25", "-readingPace", "balanced", "-vipi-live-immersion-state", "044"]
+        launchPortraitApp(app)
         defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch() }
         let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
         XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
@@ -585,7 +596,8 @@ final class ChatImmersionTests: XCTestCase {
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-source", "en", "-vipi-target", "sw", "-vipi-appearance-light"]
-        app.launch()
+        app.launchArguments += ["-vipi-density", "0.25", "-readingPace", "balanced", "-vipi-timeline-audit", "-vipi-live-immersion-state", "045"]
+        launchPortraitApp(app)
         defer {
             app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
         }

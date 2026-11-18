@@ -39,6 +39,20 @@ import XCTest
 
 
 extension XCTestCase {
+    /// Each UI case owns its orientation, including when a preceding case
+    /// intentionally exercised landscape. XCTest teardown also runs on failure.
+    @MainActor func launchPortraitApp(_ app: XCUIApplication,
+        file: StaticString = #filePath, line: UInt = #line) {
+        let initial = XCUIDevice.shared.orientation
+        addTeardownBlock { @MainActor in XCUIDevice.shared.orientation = initial }
+        XCUIDevice.shared.orientation = .portrait
+        app.launch()
+        let portrait = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            app.frame.height > app.frame.width
+        }, object: app)
+        XCTAssertEqual(XCTWaiter.wait(for: [portrait], timeout: 5), .completed, file: file, line: line)
+    }
+
     /// Nonembedded previews retain a visible menu; reading settings now live in
     /// its nested submenu, alongside the separate Copy and Select actions.
     @MainActor func openInlineMessageActions(in app: XCUIApplication,
@@ -88,8 +102,16 @@ extension XCTestCase {
     @MainActor @discardableResult func translateMessage(in app: XCUIApplication, paragraph: XCUIElement,
         file: StaticString = #filePath, line: UInt = #line) -> XCUIElement {
         XCTAssertTrue(paragraph.exists && paragraph.isHittable, file: file, line: line)
-        paragraph.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0.5))
-            .withOffset(CGVector(dx: -7, dy: 0)).tap()
+        XCTAssertTrue(app.buttons["Copy original message"].waitForNonExistence(timeout: 5), file: file, line: line)
+        // The production UITextView has an explicit native whitespace action.
+        // Tap its trailing blank area, rather than the outer SwiftUI padding.
+        let point = paragraph.coordinate(withNormalizedOffset: CGVector(dx: 0.98, dy: 0.98))
+        let before = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        before.name = "native-message-whitespace-before-tap"; before.lifetime = .keepAlways; add(before)
+        let bounds = paragraph.frame
+        let evidence = XCTAttachment(string: "paragraph=\(bounds); label=\(paragraph.label); nativeWhitespacePoint=\(point.screenPoint)")
+        evidence.name = "native-message-whitespace-gesture"; evidence.lifetime = .keepAlways; add(evidence)
+        point.tap()
         let panel = app.descendants(matching: .any).matching(identifier: "manual-translation-panel").firstMatch
         XCTAssertTrue(panel.waitForExistence(timeout: 10), file: file, line: line)
         return panel
@@ -102,6 +124,8 @@ extension XCTestCase {
         choices.tap()
         XCTAssertTrue(app.buttons[language].waitForExistence(timeout: 5), file: file, line: line)
         app.buttons[language].tap()
+        XCTAssertTrue(app.buttons["Detect automatically"].waitForNonExistence(timeout: 5), file: file, line: line)
+        XCTAssertTrue(app.buttons["Copy original message"].waitForNonExistence(timeout: 5), file: file, line: line)
     }
 
     @MainActor func closeTranslationPanel(_ panel: XCUIElement,
