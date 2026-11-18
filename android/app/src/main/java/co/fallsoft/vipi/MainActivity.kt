@@ -29,6 +29,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -381,6 +382,9 @@ class MainActivity : ComponentActivity() {
     val context = LocalContext.current
     val keyboard = LocalSoftwareKeyboardController.current
     val form = remember { BringIntoViewRequester() }
+    val usernameField = remember { BringIntoViewRequester() }
+    var usernameFocused by remember { mutableStateOf(false) }
+    val imeBottom = WindowInsets.ime.getBottom(androidx.compose.ui.platform.LocalDensity.current)
     var username by rememberSaveable { mutableStateOf("") }
     var error by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
@@ -388,11 +392,15 @@ class MainActivity : ComponentActivity() {
     LaunchedEffect(error) {
         if (error != null) { withFrameNanos { }; form.bringIntoView() }
     }
+    LaunchedEffect(usernameFocused, imeBottom) {
+        if (usernameFocused && imeBottom > 0) { withFrameNanos { }; usernameField.bringIntoView() }
+    }
     InviteFriendButton(model)
     Heading(stringResource(R.string.ui_93f7902d8131), stringResource(R.string.ui_59eb2538907f), stringResource(R.string.ui_e131c9a64a5b))
     Column(Modifier.fillMaxWidth().bringIntoViewRequester(form), verticalArrangement = Arrangement.spacedBy(24.dp)) {
     OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text(stringResource(R.string.ui_8a74ed1b7a84)) }, singleLine = true,
-        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false), modifier = Modifier.fillMaxWidth(), shape = RoundedCornerShape(16.dp))
+        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false),
+        modifier = Modifier.fillMaxWidth().bringIntoViewRequester(usernameField).onFocusChanged { usernameFocused = it.isFocused }, shape = RoundedCornerShape(16.dp))
     PrimaryButton(stringResource(R.string.ui_ba6e8c9b0c3e), enabled = username.isNotBlank(), busy = busy) {
         keyboard?.hide()
         val chat = model.chat

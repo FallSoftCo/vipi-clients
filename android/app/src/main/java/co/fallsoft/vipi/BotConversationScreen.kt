@@ -26,6 +26,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
@@ -103,9 +104,14 @@ import java.time.format.FormatStyle
     }
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val density = LocalDensity.current
+    val bottomInsets = with(density) { maxOf(WindowInsets.ime.getBottom(this), WindowInsets.navigationBars.getBottom(this)).toDp() }
+    val availableHeight = (maxHeight - with(density) { topBarHeightPx.toDp() } - bottomInsets).coerceAtLeast(0.dp)
+    val historyReserve = if (bot.messages.isNotEmpty()) minOf(160.dp, availableHeight * .45f) else 0.dp
+    val footerContentHeight = (availableHeight - historyReserve).coerceAtLeast(0.dp)
+    val composerMaxHeight = minOf(96.dp, (footerContentHeight * .6f).coerceAtLeast(56.dp))
     // Scaffold measures its bars independently. Bound the entire footer before
     // applying IME padding so consent cannot cover the measured native topbar.
-    val footerMaxHeight = (maxHeight - with(density) { topBarHeightPx.toDp() }).coerceAtLeast(0.dp)
+    val footerMaxHeight = (maxHeight - with(density) { topBarHeightPx.toDp() } - historyReserve).coerceAtLeast(0.dp)
     Scaffold(topBar = {
         Box(Modifier.onSizeChanged { topBarHeightPx = it.height }) {
         TopAppBar(title = { Text(stringResource(R.string.ui_f173182378d0)) }, navigationIcon = { IconButton(onClick = { model.back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
@@ -126,6 +132,7 @@ import java.time.format.FormatStyle
                 onRetryAccess = { scope.launch { subscriptions?.refreshAccess() } },
                 onPlan = { model.navigate(Screen.BOT_PLAN) },
                 onRefreshAllowance = { scope.launch { bot.refreshAllowance() } },
+                composerMaxHeight = composerMaxHeight,
                 statusContent = {
                     (localError ?: bot.notice)?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
                     bot.allowance?.let { allowance ->
@@ -178,7 +185,8 @@ import java.time.format.FormatStyle
     consent: Boolean, consentChecked: Boolean, onConsentChecked: (Boolean) -> Unit, onAcceptConsent: () -> Unit,
     draft: String, onDraft: (String) -> Unit, onComposingChanged: (Boolean) -> Unit,
     busy: Boolean, allowance: BotAllowance?, onSend: () -> Unit, onRetryAccess: () -> Unit,
-    onPlan: () -> Unit, onRefreshAllowance: () -> Unit, statusContent: @Composable () -> Unit = {}) {
+    onPlan: () -> Unit, onRefreshAllowance: () -> Unit, statusContent: @Composable () -> Unit = {},
+    composerMaxHeight: Dp = Dp.Infinity) {
     Column {
         // Measure the input first, then let status/consent use only the remaining
         // height. The scroll area shrinks with the IME and enlarged system text.
@@ -205,7 +213,7 @@ import java.time.format.FormatStyle
         Row(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalAlignment = Alignment.Bottom,
             horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             OutlinedTextField(draft, onDraft, placeholder = { Text(stringResource(R.string.ui_9f60f6c0e9e0)) },
-                maxLines = 5, modifier = Modifier.weight(1f).onFocusChanged { onComposingChanged(it.isFocused) }
+                maxLines = 5, modifier = Modifier.weight(1f).heightIn(max = composerMaxHeight).onFocusChanged { onComposingChanged(it.isFocused) }
                     .testTag("bot-message-input"), shape = RoundedCornerShape(24.dp))
             val currentAccess = accessState == AccessCheckState.LOADED && access?.bot?.verificationUnavailable != true &&
                 access?.active(SubscriptionPlan.BOT_MINI) == true
