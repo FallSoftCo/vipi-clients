@@ -1,6 +1,6 @@
 {
   "reported": "Owner cannot open keyboard or send vBot message on Android versionCode5",
-  "status": "corrected_signed_android_native_keyboard_passed; phone_delivery_and_store_bundle_in_progress; public_release_held",
+  "status": "portrait_input_and_journeys_passed; signed_android7_landscape_text_clipping_reproduced; fix_and_regression_pending; public_release_held",
   "readiness_claim_withdrawn": true,
   "public_release_controls": {
     "apple": "existing manual release retained",
@@ -10,7 +10,8 @@
   "reproduced": [
     "first-use consent/access gate omits editor in currentsource",
     "access recheck replaces focused editor",
-    "existing Gamma v5 emulator typed with native Gboard then send rejected device_revoked"
+    "existing Gamma v5 emulator typed with native Gboard then send rejected device_revoked",
+    "SignedAndroid7 landscape1920x1080/font1 opens Gboard and accepts native hi key taps, but editor clips visual text/caret within its bounds. No Send; draft cleared/settings restored."
   ],
   "not_established": [
     "exact owner phone screen/error",
@@ -23,7 +24,7 @@
     "native keyboard/focus/send guard regression qualification"
   ],
   "external_actions": "Existing store submissions not repeated. One config-only testing grant for user-confirmed owner profile activated and verified; API restart preserved unrelated services. No purchase/charge or uncertain Bot send replay.",
-  "updated_utc": "2026-11-18T06:43:25.349191+00:00",
+  "updated_utc": "2026-11-18T07:18:56.426165+00:00",
   "verified": [
     "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
     "Actual VipiModel setup routing: 5 focused tests passed",
@@ -35,10 +36,11 @@
     "Current product APK hashcd6fcfa8 passed all seven selected MainActivity journeys across normal and enlarged text; separate runs explicitly linked in acceptance record."
   ],
   "remaining": [
-    "Verify corrected version7 installed on owner phone and actual Bot send",
-    "Build and validate corrected Play bundle, including byte-for-byte DEX equality with signedv7",
-    "Obtain actual local StoreKit transaction proof; current IDE control/readiness gap remains explicit",
-    "Establish fresh ASC inventory before corrected build5 upload; preserve existing release controls"
+    "Fix and prove short-height landscape editor text/caret visibility, then produce a newly qualified Android artifact",
+    "Verify corrected final build installed on owner phone and actual Bot send",
+    "Build and validate corrected Play bundle against newly qualified signed APK; v7sign/upload not dispatched after landscape failure",
+    "Obtain actual Apple purchase proof; local IDE test r03failednotEntitled with one localSDKbuy attempt/no confirmed transaction",
+    "Upload qualified Apple5 only after reconciled existing intents and fresh build inventory; preserve manual/managed release controls"
   ],
   "phone_identity": "User confirmed @rjuniyer; exact healthy shared-realm profile differs from previously pinned testing identity. One UUID grant activated with fresh own-workload coordination and independently verified.",
   "signed_review_build": {
@@ -48,10 +50,12 @@
     "sha256": "fe63726e204520d1b28d71a1b65c9369b9289521f834a965b2d23564261245d6",
     "signature_and_assets_verified": true,
     "release_native_keyboard_smoke": true,
-    "native_smoke_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-native-smoke-r01/receipt.json"
+    "native_smoke_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-native-smoke-r01/receipt.json",
+    "portrait_only_pass": true,
+    "landscape_pass": false,
+    "landscape_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-landscape-r01/receipt.json"
   },
   "phone_delivery": {
-    "checked_utc": "2026-11-18T03:39:49.795377+00:00",
     "phone_package": "co.fallsoft.vipi",
     "installed_version_code": 5,
     "delivered_version_code": 7,
@@ -66,7 +70,8 @@
     ],
     "no_phone_data_cleared": true,
     "actual_owner_send_verified": false,
-    "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-v7-delivery-r01.json"
+    "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-v7-delivery-r01.json",
+    "delivery_started_utc": "2026-11-18T06:20:27.700407+00:00"
   },
   "owner_access_verified": {
     "base": true,
@@ -83,7 +88,7 @@
     "android_speech": "10 native lifecycle/word gesture cases passed;110 authored preview directions passed actual native playback/stop, median198ms/p95237ms/max319ms; arbitrary conversation and acoustics not implied",
     "ios_domain": "15 BotSession tests plus checked-close/deletion retry and actual Bot UI journey passed17;22 backup/deletion cases passed",
     "ios_ui": "Actual Bot consent/keyboard/send/navigation/reopen/draft and checked final disposal passed; local friend lookup geometry and Cancel passed",
-    "storekit": "Domain/network3 passed; earlier local StoreKit notEntitled before transaction. Later two IDE-control diagnostics dispatched no tests/purchases, then restored exact QA scheme. No transaction pass claimed.",
+    "storekit": "Three domain/native coordinator tests passed with controlled transaction boundary. Actual IDEr03 localSKTestSession.buyProduct failednotEntitled; no confirmed transaction/liveProduct.purchase. Positive nonnil set/read/clear readiness guard integrated, typechecked againstinstalledSDK, not executed. Original scheme/QAsettings/source restored and native slot released.",
     "evidence_directory": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01"
   },
   "acceptance_audit": "qa/mobile-user-journey-acceptance-20261118.json",
@@ -96,6 +101,8 @@
     "archive_dispatches": 1,
     "export_dispatches": 1,
     "upload_dispatches": 0,
-    "receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/corrected-apple-export-result-r01/summary.json"
+    "receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/corrected-apple-export-result-r01/summary.json",
+    "fresh_store_inventory_receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/native-asc-session-readonly-r01/summary.json",
+    "build5_absent_at_utc": "2026-11-18T07:08:15.141005+00:00"
   }
 }
