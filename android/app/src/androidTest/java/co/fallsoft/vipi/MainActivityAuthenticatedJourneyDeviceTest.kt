@@ -420,16 +420,23 @@ class MainActivityAuthenticatedJourneyDeviceTest {
             }
             fun assertNativeEndLine(expected: String) {
                 compose.onNodeWithTag("bot-message-input").assertEditorValue(expected).assertIsFocused()
+                fun editorIn(node: android.view.accessibility.AccessibilityNodeInfo): android.view.accessibility.AccessibilityNodeInfo? {
+                    if (node.isEditable && node.isFocused && node.text?.toString() == expected) return node
+                    for (index in 0 until node.childCount) node.getChild(index)?.let { child ->
+                        editorIn(child)?.let { return it }
+                    }
+                    return null
+                }
                 var diagnostic = "No focused native editor"
                 try {
                     compose.waitUntil(5_000) {
                         if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
                         val editor = f.instrumentation.uiAutomation.windows.mapNotNull { it.root }
-                            .firstOrNull { it.packageName?.toString() == f.base.packageName }
-                            ?.findFocus(android.view.accessibility.AccessibilityNodeInfo.FOCUS_INPUT)
+                            .filter { it.packageName?.toString() == f.base.packageName }
+                            .firstNotNullOfOrNull(::editorIn)
                         if (editor?.isEditable != true || editor.text?.toString() != expected ||
                             editor.textSelectionStart != expected.length || editor.textSelectionEnd != expected.length) {
-                            diagnostic = "Native editor text/selection mismatch: selection ${editor?.textSelectionStart}..${editor?.textSelectionEnd}"
+                            diagnostic = "Native editable descendant selection ${editor?.textSelectionStart}..${editor?.textSelectionEnd}, class=${editor?.className}, extras=${editor?.availableExtraData}"
                             false
                         } else {
                             val start = expected.lastIndexOf('\n') + 1
