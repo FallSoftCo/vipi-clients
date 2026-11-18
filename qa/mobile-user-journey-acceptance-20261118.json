@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T09:19:15.521380+00:00",
+  "updated_utc": "2026-11-18T09:30:37.846260+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -142,6 +142,13 @@
       "status": "043 passed; root inspected native pixels for refusal, Baseplan and restored delivery",
       "required_observation": "402 refusal preserves queued message and next draft; Plans/Back/recreation and independent vault read retain both; restored entitlement delivers identical ID/ciphertext once, no checkout or Botaccess",
       "limits": "Serviceclock/HTTP/Play boundary controlled. Six refused retries across navigation, one acceptedpost. No actual timewait, subscriptionpurchase or charge."
+    },
+    {
+      "journey": "iOS Base expiry through actual Settings and Plans",
+      "implementation": "Actual HomeView, ChatSession, SubscriptionStore, Signal peer and independently reopened encrypted vault",
+      "status": "r08native1/1passed; rootreviewed3nativePNGs",
+      "required_observation": "Expired402send\u2192readable message status\u2192Settings/Subscriptions/Base\u2192same queuedID and nextdraft, no checkout/expiredpeer delivery",
+      "limits": "Controlled service/clock; unreadyStore case, no pricedcheckout or authrootrelaunch. Previously completed TestFlight sandboxpurchase remains distinct evidence."
     }
   ],
   "receipts": {
@@ -179,7 +186,8 @@
     "android_signed_v8_install_failure": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-install-failure-reconciled-r01.json",
     "android_first_month_expiry": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-expiry-r01.json",
     "android_first_month_expiry_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-expiry-native-review-r01.json",
-    "first_month_test_audit": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/first-month-test-adequacy-audit-r01.json"
+    "first_month_test_audit": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/first-month-test-adequacy-audit-r01.json",
+    "ios_base_expiry": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/ios-base-expiry-native-review-r01.json"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
   "original_nine_dirty_files_preserved": true,
