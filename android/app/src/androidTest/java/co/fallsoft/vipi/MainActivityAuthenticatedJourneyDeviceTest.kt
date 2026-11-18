@@ -127,25 +127,60 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 compose.onNodeWithTag("message-input").performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 compose.onNodeWithTag("message-input").performTextInput("Keep this local friend draft.")
+                // The reply is encrypted by the actual peer Signal session.
+                // A metadata-only event wakes the production durable inbox;
+                // no application message/history is inserted by the fixture.
+                compose.runOnIdle { services.queuePeerReplyAndSignalInbox() }
+                compose.waitUntil(8_000) {
+                    f.model.chat?.messages(services.peer)?.singleOrNull { !it.outgoing }?.let {
+                        it.id == services.friendReplyId && it.text == services.friendReply
+                    } == true && services.friendReplyReceipts.get() == 1
+                }
+                assertNativeContained(f, By.text(services.friendReply), "decrypted incoming peer reply above native IME")
+                compose.onNodeWithTag("message-input").assertEditorValue("Keep this local friend draft.")
+                f.capture("04-incoming-signal-reply-keeps-unsent-draft")
                 f.backgroundAndResume()
                 waitScreen(f, Screen.CONVERSATION)
                 compose.onNodeWithTag("message-input").assertTextEquals("Keep this local friend draft.")
                 f.recreate()
                 waitScreen(f, Screen.CONVERSATION)
                 compose.onNodeWithTag("message-input").assertTextEquals("Keep this local friend draft.")
+                assertNativeContained(f, By.text(services.friendReply), "incoming peer reply after activity recreation")
+                // Reopen the conversation through the real list as well as
+                // recreating its host; the local compose draft is independent.
+                if (imeVisible(f)) { f.device.pressBack(); compose.waitUntil(5_000) { !imeVisible(f) } }
+                f.device.pressBack(); waitScreen(f, Screen.HOME)
+                compose.onNodeWithText("Journey Friend").performScrollTo().performTouchInput { click() }
+                waitScreen(f, Screen.CONVERSATION)
+                assertNativeContained(f, By.text(services.friendReply), "durable incoming peer reply after conversation reopen")
+                compose.onNodeWithTag("message-input").assertEditorValue("Keep this local friend draft.")
                 compose.runOnIdle {
                     MessageVault(f.isolated, services.account).use { vault ->
-                        assertEquals("Keep this local friend draft.", ConversationHistory(vault).composeDraft(services.peer))
+                        val history = ConversationHistory(vault)
+                        assertEquals("Keep this local friend draft.", history.composeDraft(services.peer))
+                        val saved = history.messages(services.peer)
+                        assertEquals(2, saved.size)
+                        assertEquals(prompt, saved.single { it.outgoing }.text)
+                        assertEquals(services.outgoingFriendId, saved.single { it.outgoing }.id)
+                        assertEquals(services.friendReply, saved.single { !it.outgoing }.text)
+                        assertEquals(services.friendReplyId, saved.single { !it.outgoing }.id)
                     }
+                    assertEquals(1, services.friendReplyReceipts.get())
+                    assertEquals(1, services.inboxWakeups.get())
                 }
                 compose.onNodeWithTag("message-input").performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
-                f.capture("04-returned-friend-history-and-resumed-draft")
+                f.capture("05-returned-bidirectional-friend-history-and-resumed-draft")
                 compose.runOnIdle { assertEquals(1, services.friendPosts.get()); assertEquals(0, services.botPosts.get()) }
                 services.assertNoPurchase()
                 File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("profile_writes", 1)
                     .put("share_payload_checked_external_share_blocked", true).put("native_ime", true)
                     .put("friend_encrypted_posts", 1).put("fake_peer_decrypted", true)
+                    .put("peer_encrypted_replies", 1).put("metadata_only_inbox_events", 1).put("incoming_receipts", 1)
+                    .put("incoming_reply_native_visible_after_sync_recreate_and_reopen", true)
+                    .put("encrypted_history_exact_one_incoming_and_one_outgoing", true)
+                    .put("physical_push_or_live_relay_claimed", false)
+                    .put("draft_survived_incoming_reply_resume_recreate_and_reopen", true)
                     .put("draft_survived_resume_and_recreate", true).put("draft_read_from_fresh_encrypted_vault", true)
                     .put("device_registrations", 1).put("live_server_or_real_contact", false).toString(2))
             } catch (failure: Throwable) {
@@ -753,6 +788,14 @@ private class JourneyServices(profileRequired: Boolean, private val seedBotMessa
     val profileWrites = AtomicInteger()
     val deviceRegistrations = AtomicInteger()
     val friendPosts = AtomicInteger()
+    val friendReplyReceipts = AtomicInteger()
+    val inboxWakeups = AtomicInteger()
+    val friendReply = "Thanks for your message — café ☕."
+    var friendReplyId: UUID? = null
+        private set
+    var outgoingFriendId: UUID? = null
+        private set
+    private var pendingPeerReply: JSONObject? = null
     val botPosts = AtomicInteger()
     val failNextEntitlement = AtomicBoolean(false)
     val failBotReply = AtomicBoolean(false)
@@ -815,7 +858,17 @@ private class JourneyServices(profileRequired: Boolean, private val seedBotMessa
                         JSONObject().put("id", registered!!.id).put("active", true)
                     }
                     method == "GET" && path == "/v1/keys" -> JSONObject().put("revision", 1).put("remaining", 20)
-                    method == "GET" && path == "/v1/messages/pending" -> JSONObject().put("messages", JSONArray()).put("next_cursor", JSONObject.NULL)
+                    method == "GET" && path == "/v1/messages/pending" -> {
+                        check(device == registered)
+                        JSONObject().put("messages", JSONArray().apply { pendingPeerReply?.let { put(JSONObject(it.toString())) } })
+                            .put("next_cursor", JSONObject.NULL)
+                    }
+                    method == "POST" && friendReplyId != null && path == "/v1/messages/$friendReplyId/receipt" -> {
+                        check(device == registered && pendingPeerReply != null)
+                        check(friendReplyReceipts.incrementAndGet() == 1)
+                        pendingPeerReply = null
+                        JSONObject().put("state", "delivered")
+                    }
                     method == "GET" && path.startsWith("/v1/blocks/") -> JSONObject().put("blocked", false)
                     method == "GET" && path.startsWith("/v1/people/") -> {
                         val name = path.substringAfterLast('/')
@@ -835,6 +888,7 @@ private class JourneyServices(profileRequired: Boolean, private val seedBotMessa
                         check(device == registered && friendPosts.incrementAndGet() == 1)
                         val encrypted = JSONObject(requireNotNull(body).toString())
                         check(!encrypted.toString().contains("I am reading a book now."))
+                        outgoingFriendId = UUID.fromString(encrypted.getString("id"))
                         encrypted.put("sender_id", account).put("sender_device_id", requireNotNull(registered).id)
                         peerReceived = requireNotNull(peerCore).receive(RoutedMessage.received(encrypted, peer), System.currentTimeMillis()).text
                         JSONObject().put("state", "delivered")
@@ -866,6 +920,20 @@ private class JourneyServices(profileRequired: Boolean, private val seedBotMessa
             }
         }
     }
+    fun queuePeerReplyAndSignalInbox() {
+        check(android.os.Looper.myLooper() == android.os.Looper.getMainLooper())
+        check(friendPosts.get() == 1 && peerReceived != null && friendReplyId == null)
+        val socket = requireNotNull(sockets.lastOrNull { it.active }) { "The actual foreground inbox event connection must be open" }
+        val core = requireNotNull(peerCore)
+        val id = UUID.randomUUID(); val now = System.currentTimeMillis()
+        val encrypted = core.queue(id, account, friendReply, now, now)
+        check(encrypted.recipientDevice == requireNotNull(registered).id)
+        val wire = encrypted.sendJSON().put("sender_id", peer).put("sender_device_id", core.device.id)
+        check(!wire.toString().contains(friendReply))
+        friendReplyId = id; pendingPeerReply = wire
+        check(inboxWakeups.incrementAndGet() == 1)
+        socket.inboxChanged()
+    }
     private fun allowance() = JSONObject().put("available", true).put("service_ready", true)
         .put("remaining_replies", remaining).put("monthly_replies", 150).put("period", "2098-12")
         .put("resets_at", "2099-01-01T00:00:00Z").put("max_context_bytes", 8192)
@@ -885,12 +953,15 @@ private class JourneyServices(profileRequired: Boolean, private val seedBotMessa
         }
     }
     private class JourneySocket(private val request: Request, private val listener: WebSocketListener) : WebSocket {
+        var active = true
+            private set
         override fun request() = request
         override fun queueSize() = 0L
         override fun send(text: String) = error("No application content may use the fake event socket")
         override fun send(bytes: ByteString) = error("No application content may use the fake event socket")
-        override fun close(code: Int, reason: String?) = true
-        override fun cancel() = Unit
+        override fun close(code: Int, reason: String?): Boolean { active = false; return true }
+        override fun cancel() { active = false }
+        fun inboxChanged() { check(active); listener.onMessage(this, "{\"event\":\"inbox_changed\"}") }
         fun open() = listener.onOpen(this, Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(101).message("Switching Protocols").build())
     }
 }
