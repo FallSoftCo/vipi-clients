@@ -430,17 +430,22 @@ class MainActivityAuthenticatedJourneyDeviceTest {
             }
             fun appendAtNativeEnd(before: String, suffix: String) {
                 compose.onNodeWithTag("bot-message-input").assertEditorValue(before).assertIsFocused()
-                val editor = requireNotNull(nativeEditor(before))
+                var observed: android.view.accessibility.AccessibilityNodeInfo? = null
+                compose.waitUntil(5_000) { observed = nativeEditor(before); observed != null }
+                val editor = requireNotNull(observed)
+                val alreadyAtEnd = editor.textSelectionStart == before.length && editor.textSelectionEnd == before.length
                 val args = android.os.Bundle().apply {
                     putInt(android.view.accessibility.AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_START_INT, before.length)
                     putInt(android.view.accessibility.AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_END_INT, before.length)
                 }
-                assertTrue(editor.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_SET_SELECTION, args))
+                val dispatchResult = if (alreadyAtEnd) null else
+                    editor.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_SET_SELECTION, args)
                 compose.waitUntil(5_000) {
                     nativeEditor(before)?.let { it.textSelectionStart == before.length && it.textSelectionEnd == before.length } == true
                 }
                 File(f.output, "append-selection-proof-${++appendNumber}.json").writeText(JSONObject()
-                    .put("action", "native_accessibility_ACTION_SET_SELECTION").put("observed_native_start", before.length)
+                    .put("action", if (alreadyAtEnd) "already_at_native_document_end" else "native_accessibility_ACTION_SET_SELECTION")
+                    .put("dispatch_result", dispatchResult ?: JSONObject.NULL).put("observed_native_start", before.length)
                     .put("observed_native_end", before.length).put("typing", "Instrumentation.sendStringSync key events").toString(2))
                 f.instrumentation.sendStringSync(suffix)
             }
