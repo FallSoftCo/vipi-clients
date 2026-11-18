@@ -5,7 +5,7 @@
 The owner's current direction supersedes earlier word/phrase catalog and
 standalone-model proposals below. Translate each sent and received message
 locally in full. Use transliteration by default, practice-language audio, and
-the agreed gestures for revealing the original and switching scripts. Preserve
+the agreed gestures for revealing meanings in the known language and switching scripts. Preserve
 the authored message independently of its local display derivatives.
 
 Use the platforms' existing on-device APIs. Apple Translation and Google ML Kit
