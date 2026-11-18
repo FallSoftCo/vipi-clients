@@ -72,11 +72,11 @@ import XCTest
             XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", row.mixed), object: paragraph)], timeout: 12), .completed)
             let reading = XCTAttachment(screenshot: app.screenshot()); reading.name = row.source + "-" + row.target + "-continuous-reading"; reading.lifetime = .keepAlways; add(reading)
             if row.mixed != row.script {
-                app.buttons["Reading options"].tap()
+                openMessageReadingOptions(in: app, paragraph: paragraph)
                 XCTAssertTrue(app.buttons["Show original script"].waitForExistence(timeout: 5)); app.buttons["Show original script"].tap()
                 XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", row.script), object: paragraph)], timeout: 12), .completed)
                 let script = XCTAttachment(screenshot: app.screenshot()); script.name = row.source + "-" + row.target + "-native-script"; script.lifetime = .keepAlways; add(script)
-                app.buttons["Reading options"].tap(); app.buttons["Show Latin letters"].tap()
+                openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Show Latin letters"].tap()
                 XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", row.mixed), object: paragraph)], timeout: 12), .completed)
             }
             let record = XCTAttachment(data: try JSONSerialization.data(withJSONObject: observations, options: [.sortedKeys]), uniformTypeIdentifier: "public.json")

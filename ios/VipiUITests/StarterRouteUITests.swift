@@ -37,19 +37,22 @@ import XCTest
             let widths=observations.compactMap{$0["width"] as? Double},heights=observations.compactMap{$0["height"] as? Double}
             XCTAssertLessThan((widths.max() ?? 0)-(widths.min() ?? 0),0.5);XCTAssertLessThan((heights.max() ?? 0)-(heights.min() ?? 0),0.5)
             let screenshot=XCTAttachment(screenshot:app.screenshot());screenshot.name="starter-ui-"+target+"-continuous";screenshot.lifetime = .keepAlways;add(screenshot)
-            app.buttons["Reading options"].tap()
+            openMessageReadingOptions(in: app, paragraph: paragraph)
             if target == "ja" {
                 XCTAssertTrue(app.buttons["Show original script"].waitForExistence(timeout:5));app.buttons["Show original script"].tap()
                 let expected=XCTNSPredicateExpectation(predicate:NSPredicate(format:"label == %@",expanded ? "The コーヒー and パン are for 昼食." : packed ? "My 家族 and my 家族 enjoy ピザ." : "Country 音楽 is fun!"),object:paragraph)
                 XCTAssertEqual(XCTWaiter.wait(for:[expected],timeout:12),.completed)
                 let script=XCTAttachment(screenshot:app.screenshot());script.name="starter-ui-ja-native-script";script.lifetime = .keepAlways;add(script)
-                app.buttons["Reading options"].tap();XCTAssertTrue(app.buttons["Show Latin letters"].exists);app.buttons["Show Latin letters"].tap()
+                openMessageReadingOptions(in: app, paragraph: paragraph);XCTAssertTrue(app.buttons["Show Latin letters"].exists);app.buttons["Show Latin letters"].tap()
             } else {
                 XCTAssertFalse(app.buttons["Show original script"].exists);app.coordinate(withNormalizedOffset:CGVector(dx:0.95,dy:0.1)).tap()
             }
             let targetVisible=XCTNSPredicateExpectation(predicate:NSPredicate(format:"label == %@",mixed),object:paragraph)
             XCTAssertEqual(XCTWaiter.wait(for:[targetVisible],timeout:12),.completed)
-            app.buttons["Reading options"].tap();XCTAssertTrue(app.buttons["Listen"].waitForExistence(timeout:20));app.buttons["Listen"].tap()
+            let listen = app.buttons["messageListen"]
+            XCTAssertTrue(listen.waitForExistence(timeout:20))
+            XCTAssertEqual(XCTWaiter.wait(for:[XCTNSPredicateExpectation(predicate:NSPredicate(format:"enabled == true AND label == %@", "Play message"),object:listen)],timeout:20),.completed)
+            listen.tap()
             let state=app.staticTexts["starter-route-speech-events"]
             let started=XCTNSPredicateExpectation(predicate:NSPredicate(format:"label CONTAINS %@","playing"),object:state)
             XCTAssertEqual(XCTWaiter.wait(for:[started],timeout:10),.completed)

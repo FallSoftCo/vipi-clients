@@ -55,8 +55,9 @@ import UIKit
         if app.buttons["New chat"].waitForExistence(timeout: 3) { throw XCTSkip("Reconcile the existing signed-in identity before a fresh login") }
         XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout: 15))
         app.buttons["Choose languages"].tap()
-        XCTAssertTrue(app.buttons["Continue with Spanish"].waitForExistence(timeout: 10))
-        app.buttons["Continue with Spanish"].tap()
+        XCTAssertTrue(app.buttons["I’m learning"].waitForExistence(timeout: 10))
+        XCTAssertEqual(app.buttons["I’m learning"].value as? String, "Spanish")
+        app.buttons["Continue"].tap()
         XCTAssertTrue(app.switches.firstMatch.waitForExistence(timeout: 10)); app.switches.firstMatch.tap()
         app.buttons["Continue to sign in"].tap()
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")

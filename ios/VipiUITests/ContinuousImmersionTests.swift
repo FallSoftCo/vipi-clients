@@ -2,6 +2,7 @@ import XCTest
 
 @MainActor final class ContinuousImmersionTests: XCTestCase {
     func testRepeatsWithoutTapsPreservesGeometryAndResumesAfterPause() throws {
+        continueAfterFailure = false
         let app = XCUIApplication(); app.launchArguments = ["-vipi-welcome"]; app.launch()
         let text = app.descendants(matching: .any)["immersionText"]
         XCTAssertTrue(text.waitForExistence(timeout: 15))
@@ -23,12 +24,15 @@ import XCTest
         XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 8), .completed)
         app.buttons["immersionPause"].tap()
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label != %@", held), object: text)], timeout: 8), .completed)
-        app.buttons["Show original message"].tap()
-        XCTAssertTrue(app.staticTexts["Coffee tomorrow? I know a little place by the river."].exists)
-        app.buttons["Resume Spanish words"].tap()
-        XCTAssertTrue(text.waitForExistence(timeout: 3))
+        app.buttons["immersionPause"].tap()
+        openInlineReadingOptions(in: app)
+        app.buttons["Show original words now"].tap()
+        XCTAssertEqual(text.label, original)
+        XCTAssertEqual(app.buttons["immersionPause"].label, "Resume word switching")
+        app.buttons["immersionPause"].tap()
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", target), object: text)], timeout: 8), .completed)
         app.buttons["Choose languages"].tap()
-        XCTAssertTrue(app.staticTexts["I already speak"].waitForExistence(timeout: 3))
-        XCTAssertFalse(app.staticTexts["TRY A LITTLE SPANISH"].exists)
+        XCTAssertTrue(app.buttons["I speak"].waitForExistence(timeout: 3))
+        XCTAssertFalse(app.staticTexts["Try a little Spanish"].exists)
     }
 }

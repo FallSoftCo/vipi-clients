@@ -80,11 +80,13 @@ final class ChatConversationTests: XCTestCase {
         input.typeText(XCUIKeyboardKey.delete.rawValue)
         observe("draft-cleared-still-focused", seconds: 25)
         let frame = paragraph.frame
-        let menu = app.buttons.matching(identifier: "Reading options").allElementsBoundByIndex
+        let actions = app.buttons.matching(identifier: "messageListen").allElementsBoundByIndex
             .filter { $0.frame.minY >= frame.maxY - 1 && $0.frame.minY < frame.maxY + 85 }
             .min { $0.frame.minY < $1.frame.minY }
-        let control = try XCTUnwrap(menu); control.tap()
-        XCTAssertTrue(app.buttons["Listen"].waitForExistence(timeout: 10)); app.buttons["Listen"].tap()
+        let control = try XCTUnwrap(actions)
+        XCTAssertEqual(control.label, "Play message")
+        XCTAssertTrue(control.isEnabled && control.isHittable)
+        control.tap()
         observe("after-listen", seconds: 25)
         for stage in ["before-composer", "empty-composer-focused", "draft-cleared-still-focused", "after-listen"] {
             let labels = observations.filter { $0["stage"] as? String == stage }.compactMap { $0["text"] as? String }
@@ -148,11 +150,15 @@ final class ChatConversationTests: XCTestCase {
                 let widths = samples.compactMap { $0["width"] as? Double }, heights = samples.compactMap { $0["height"] as? Double }
                 XCTAssertLessThan((widths.max() ?? 0) - (widths.min() ?? 0), 0.5)
                 XCTAssertLessThan((heights.max() ?? 0) - (heights.min() ?? 0), 0.5)
-                // The latest incoming bubble owns the last reading menu. No word
-                // taps occur; the action plays the faces currently on screen.
-                let menus = app.buttons.matching(identifier: "Reading options")
-                menus.element(boundBy: menus.count - 1).tap()
-                XCTAssertTrue(app.buttons["Listen"].waitForExistence(timeout: 15)); app.buttons["Listen"].tap()
+                // Use the direct speaker belonging to this incoming paragraph.
+                // No word tap changes the currently visible speech faces.
+                let frame = paragraph.frame
+                let action = try XCTUnwrap(app.buttons.matching(identifier: "messageListen").allElementsBoundByIndex
+                    .filter { $0.frame.minY >= frame.maxY - 1 && $0.frame.minY < frame.maxY + 85 }
+                    .min { $0.frame.minY < $1.frame.minY })
+                XCTAssertEqual(action.label, "Play message")
+                XCTAssertTrue(action.isEnabled && action.isHittable)
+                action.tap()
                 capture("live-sw-water-native-listen")
                 Thread.sleep(forTimeInterval: 5)
             }

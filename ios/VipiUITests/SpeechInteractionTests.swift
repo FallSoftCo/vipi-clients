@@ -2,9 +2,14 @@ import XCTest
 
 @MainActor final class SpeechInteractionTests: XCTestCase {
     func testListenFollowsReadingStateAndNavigation() {
+        continueAfterFailure = false
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-welcome"]
         app.launch()
+        let text = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
+        XCTAssertTrue(text.waitForExistence(timeout: 10))
+        let target = "Café mañana? I know a little place by the río."
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", target), object: text)], timeout: 10), .completed)
         app.buttons["immersionPause"].tap()
         let listen = app.buttons["messageListen"]
         XCTAssertTrue(listen.waitForExistence(timeout: 10))
@@ -14,25 +19,28 @@ import XCTest
         listen.tap()
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == 'Stop'"), object: listen)], timeout: 3), .completed)
         let playing = XCTAttachment(screenshot: app.screenshot()); playing.name = "Mixed message — playing"; playing.lifetime = .keepAlways; add(playing)
-        app.buttons["Show original message"].tap()
+        openInlineReadingOptions(in: app)
+        app.buttons["Show original words now"].tap()
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == 'Listen'"), object: listen)], timeout: 2), .completed)
-        XCTAssertTrue(app.staticTexts["Coffee tomorrow? I know a little place by the river."].exists)
+        XCTAssertEqual(text.label, "Coffee tomorrow? I know a little place by the river.")
+        // Resume the real clock, then hold the mixed face for a native word tap.
+        app.buttons["immersionPause"].tap()
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", target), object: text)], timeout: 8), .completed)
+        app.buttons["immersionPause"].tap()
+        print("VIPI_ACCESSIBILITY_TREE\n\(app.debugDescription)")
+        // The native attachment exposes a named accessibility element, not a link.
+        let word = app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'immersion-word-' AND label == 'mañana'")).firstMatch
+        XCTAssertTrue(word.exists)
         listen.tap()
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == 'Stop'"), object: listen)], timeout: 3), .completed)
-        app.buttons["Resume Spanish words"].tap()
+        word.tap()
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == 'Listen'"), object: listen)], timeout: 2), .completed)
-        print("VIPI_ACCESSIBILITY_TREE\n\(app.debugDescription)")
-        // The link changes the word in place; verify its native accessible action.
-        let word = app.links["mañana"]
-        XCTAssertTrue(word.exists)
-        if word.exists {
-            listen.tap(); word.tap()
-            XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == 'Listen'"), object: listen)], timeout: 2), .completed)
-            XCTAssertTrue(app.links["tomorrow"].exists)
-            let revealed = XCTAttachment(screenshot: app.screenshot()); revealed.name = "Word revealed — audio stopped"; revealed.lifetime = .keepAlways; add(revealed)
-        }
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'immersion-word-' AND label == 'tomorrow'")).firstMatch.exists)
+        let revealed = XCTAttachment(screenshot: app.screenshot()); revealed.name = "Word revealed — message audio stopped"; revealed.lifetime = .keepAlways; add(revealed)
+        listen.tap()
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == 'Stop'"), object: listen)], timeout: 3), .completed)
         app.buttons["Choose languages"].tap()
-        XCTAssertTrue(app.staticTexts["I already speak"].waitForExistence(timeout: 3))
-        XCTAssertFalse(app.staticTexts["TRY A LITTLE SPANISH"].exists)
+        XCTAssertTrue(app.buttons["I speak"].waitForExistence(timeout: 3))
+        XCTAssertFalse(app.staticTexts["Try a little Spanish"].exists)
     }
 }
