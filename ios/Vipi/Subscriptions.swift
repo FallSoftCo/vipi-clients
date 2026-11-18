@@ -61,6 +61,15 @@ struct BotAllowance: Decodable, Sendable {
     let monthly_replies: Int
     let resets_at: String
     let max_context_bytes: Int
+    func canSend(at now: Date) -> Bool {
+        guard available, service_ready, monthly_replies > 0,
+              remaining_replies > 0, remaining_replies <= monthly_replies,
+              max_context_bytes > 0, max_context_bytes <= 8192 else { return false }
+        let fractional = ISO8601DateFormatter()
+        fractional.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        guard let reset = fractional.date(from: resets_at) ?? ISO8601DateFormatter().date(from: resets_at) else { return false }
+        return reset > now
+    }
 }
 
 @MainActor @Observable final class SubscriptionStore {

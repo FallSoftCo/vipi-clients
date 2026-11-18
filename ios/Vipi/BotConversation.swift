@@ -19,6 +19,7 @@ struct BotMessage: Codable, Identifiable {
     private let vault: MessageVault
     let familiarity: VocabularyFamiliarityStore
     private var closed = false
+    private var allowanceRevision: UInt64 = 0
     private(set) var messages: [BotMessage] = []
     private(set) var consent = false
     private(set) var busy = false
@@ -67,13 +68,20 @@ struct BotMessage: Codable, Identifiable {
         messages = []; earlierAvailable = false
     }
     func refresh(preservingNotice: Bool = false) async {
+        guard !closed else { return }
+        allowanceRevision &+= 1
+        let revision = allowanceRevision
         do {
             let value: BotAllowance = try await api.request("GET", "/v1/bot/allowance")
-            guard !closed else { return }; allowance = value
-        } catch { if !closed { allowance = nil; if !preservingNotice || notice == nil { notice = String(localized: "Couldn’t check your Bot mini allowance. Try again.") } } }
+            guard !closed, revision == allowanceRevision else { return }; allowance = value
+        } catch {
+            guard !closed, revision == allowanceRevision else { return }
+            allowance = nil
+            if !preservingNotice || notice == nil { notice = String(localized: "Couldn’t check your Bot mini allowance. Try again.") }
+        }
     }
     var canSend: Bool {
-        !closed && !busy && consent && allowance?.available == true && (allowance?.remaining_replies ?? 0) > 0 &&
+        !closed && !busy && consent && allowance?.canSend(at: Date()) == true &&
         !draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && draft.utf8.count <= min(8192, allowance?.max_context_bytes ?? 0)
     }
     struct Context: Codable { let role: String; let content: String }
@@ -89,6 +97,8 @@ struct BotMessage: Codable, Identifiable {
     func send() async {
         guard canSend, let context = Self.context(history: messages, newText: draft, maximumBytes: allowance?.max_context_bytes ?? 0) else { return }
         busy = true; notice = nil
+        // A read started before this request cannot restore a spent reply.
+        allowanceRevision &+= 1
         defer { busy = false }
         let device: DeviceCredential
         do { device = try DeviceCredential.registered(vault: vault) }
@@ -121,7 +131,9 @@ struct BotMessage: Codable, Identifiable {
                 try vault.put("bot-message", incoming.key, JSONEncoder().encode(incoming))
             }
             if let index = messages.firstIndex(where: { $0.id == outgoing.id }) { messages[index] = outgoing }
-            messages.append(incoming); allowance = reply.allowance
+            messages.append(incoming)
+            allowanceRevision &+= 1
+            allowance = reply.allowance
         } catch {
             outgoing.state = (error as? ServiceFailure)?.code == "device_revoked" ? "rejected" : "unconfirmed"
             try? vault.transaction { try vault.put("bot-message", outgoing.key, JSONEncoder().encode(outgoing)) }

@@ -35,10 +35,10 @@
     "Signed v6 signature matches exact installed phone v5; 1082 assets and 28 native libraries retained; 16KB alignment passed"
   ],
   "remaining": [
-    "Android installer confirmation; last observed phone versionCode5",
-    "Actual owner phone @username/account and native send verification"
+    "Phone update install and actual native send verification",
+    "Broader genuine user-journey tests/fixes requested by user; public release remains held"
   ],
-  "phone_identity": "User @username question pending; shared-owner grant has no profile, exact legacy predecessor has no Bot grant; do not infer phone binding",
+  "phone_identity": "User confirmed @rjuniyer; exact healthy shared-realm profile differs from previously pinned testing identity. One UUID grant activated with fresh own-workload coordination and independently verified.",
   "signed_review_build": {
     "version_code": 6,
     "version_name": "1.0.5",
@@ -64,5 +64,14 @@
     ],
     "no_phone_data_cleared": true,
     "actual_owner_send_verified": false
+  },
+  "owner_access_verified": {
+    "base": true,
+    "bot_mini": true,
+    "source": "review_complimentary",
+    "remaining_replies": 150,
+    "monthly_replies": 150,
+    "profile_and_device_unchanged": true,
+    "receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/owner-confirmed-readonly-r01/verified-after-receipt.json"
   }
 }
