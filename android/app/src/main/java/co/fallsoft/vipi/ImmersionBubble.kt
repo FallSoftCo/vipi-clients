@@ -39,6 +39,7 @@ import kotlinx.coroutines.Job
 import java.lang.ref.WeakReference
 
 private class NativeLookupAnchor { var view = WeakReference<StableImmersionText>(null) }
+internal val EmbeddedMessageVerticalPadding = 12.dp
 private data class InlineReadingIdentity(val original: String, val spans: List<ImmersionSpan>, val source: String, val target: String)
 private data class WholeReadingIdentity(val mode: ReadingMode, val text: String, val language: String)
 
@@ -191,7 +192,9 @@ private data class WholeReadingIdentity(val mode: ReadingMode, val text: String,
     Column(Modifier.fillMaxWidth().pointerInput(manual) {
         detectTapGestures(onTap = { translateWhole() }, onLongPress = { if (embedded) messageActions() })
     }.background(if (embedded) androidx.compose.ui.graphics.Color.Transparent else MaterialTheme.colorScheme.surface, RoundedCornerShape(23.dp))
-        .padding(start = if (embedded) 15.dp else 20.dp, end = if (embedded) 15.dp else 12.dp, top = if (embedded) 12.dp else 20.dp, bottom = if (embedded) 12.dp else 6.dp)
+        .padding(start = if (embedded) 15.dp else 20.dp, end = if (embedded) 15.dp else 12.dp,
+            top = if (embedded) EmbeddedMessageVerticalPadding else 20.dp,
+            bottom = if (embedded) EmbeddedMessageVerticalPadding else 6.dp)
         .onGloballyPositioned {
             val bounds = it.boundsInWindow()
             visible = bounds.width > 0 && bounds.height > 0 && bounds.bottom > 0 && bounds.top < root.height && bounds.right > 0 && bounds.left < root.width

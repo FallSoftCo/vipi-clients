@@ -134,6 +134,7 @@ import java.util.UUID
     DisposableEffect(immersion) { onDispose { immersion.close() } }
     DisposableEffect(speech) { onDispose { speech.close() } }
     val list = rememberLazyListState()
+    val messageTextInset = with(LocalDensity.current) { EmbeddedMessageVerticalPadding.roundToPx() }
     suspend fun revealNewestMessage() {
         val newest = messages.lastOrNull() ?: return
         if (!followingLatest || list.isScrollInProgress) return
@@ -142,10 +143,10 @@ import java.util.UUID
             val row = layout.visibleItemsInfo.firstOrNull { it.key == newest.id } ?: return false
             if (layout.viewportSize.height <= 0 || row.size <= layout.viewportSize.height) return false
             // A long row cannot fit together with its metadata/audio. Show its
-            // leading content instead of leaving only the trailing controls
+            // leading text instead of its decorative top padding or trailing controls
             // visible. This non-scrolling remeasure preserves follow intent;
             // an actual reader drag still opts out through the observer below.
-            list.requestScrollToItem(row.index, layout.beforeContentPadding)
+            list.requestScrollToItem(row.index, layout.beforeContentPadding + messageTextInset)
             return true
         }
         // Reuse a measured oversized row directly on IME/paragraph resize;
