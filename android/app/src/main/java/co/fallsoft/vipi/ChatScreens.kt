@@ -173,24 +173,42 @@ import java.util.UUID
         }
     }
     LaunchedEffect(list, peer) {
-        var previous: Pair<Int, Map<Any, Int>>? = null
+        data class Row(val key: Any, val index: Int, val offset: Int, val size: Int)
+        data class Viewport(val height: Int, val start: Int, val end: Int, val rows: List<Row>,
+            val firstIndex: Int, val firstScrollOffset: Int)
+        var previous: Viewport? = null
         snapshotFlow {
             val layout = list.layoutInfo
-            layout.viewportSize.height to layout.visibleItemsInfo.associate { it.key to it.size }
+            Viewport(layout.viewportSize.height, layout.viewportStartOffset, layout.viewportEndOffset,
+                layout.visibleItemsInfo.map { Row(it.key, it.index, it.offset, it.size) },
+                list.firstVisibleItemIndex, list.firstVisibleItemScrollOffset)
         }.collectLatest { current ->
             val before = previous
             previous = current
-            // New visible keys mean scrolling, not resizing. Compare only
-            // shared rows so paging back cannot trigger a jump to the bottom.
-            val resized = before != null && before.first > 0 && before.second.isNotEmpty() && (before.first != current.first ||
-                current.second.any { (key, height) -> before.second[key]?.let { it != height } == true })
+            // New keys alone represent scrolling/paging, not a row reflow.
+            val sharedSizeChanged = before != null && current.rows.any { row ->
+                before.rows.firstOrNull { it.key == row.key }?.let { it.size != row.size } == true
+            }
+            val resized = before != null && before.height > 0 && before.rows.isNotEmpty() &&
+                (before.height != current.height || sharedSizeChanged)
             if (resized && followingLatest && !list.isScrollInProgress && messages.isNotEmpty()) {
-                // Layout snapshots can arrive while AndroidView is measuring.
-                // Wait for the next frame before requesting a synchronous
-                // scroll, then respect any intervening jump back to history.
                 withFrameNanos { }
-                if (followingLatest && !list.isScrollInProgress && messages.isNotEmpty()) {
-                    revealNewestMessage()
+                if (followingLatest && !list.isScrollInProgress && messages.isNotEmpty()) revealNewestMessage()
+            } else if (sharedSizeChanged && before != null && before.height == current.height &&
+                !followingLatest && !list.isScrollInProgress) {
+                // Keeping a clipped first row's top fixed still moves the
+                // readable row below it when that clipped row gains word slots.
+                // Preserve the prior first fully visible MESSAGE row instead.
+                val anchor = before.rows.firstOrNull { it.key is UUID && it.offset >= before.start &&
+                    it.offset + it.size <= before.end }
+                val moved = anchor?.let { saved -> current.rows.firstOrNull { it.key == saved.key } }
+                if (anchor != null && moved != null && moved.offset != anchor.offset) {
+                    withFrameNanos { }
+                    // An intervening reader gesture or jump always wins.
+                    if (!followingLatest && !list.isScrollInProgress && list.firstVisibleItemIndex == current.firstIndex &&
+                        list.firstVisibleItemScrollOffset == current.firstScrollOffset) {
+                        list.requestScrollToItem(moved.index, -anchor.offset)
+                    }
                 }
             }
         }
