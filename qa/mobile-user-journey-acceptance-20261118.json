@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T05:13:39.234492+00:00",
+  "updated_utc": "2026-11-18T05:24:41.290524+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -48,9 +48,9 @@
     {
       "journey": "Recover from uncertain Bot reply",
       "implementation": "Android MainActivity",
-      "status": "normal passed; narrow/enlarged failed; fixing",
+      "status": "passed normal and narrow/enlarged",
       "required_observation": "one attempted POST, unconfirmed journal, no replay across navigation/recreation, explicit allowance refresh, editable next draft",
-      "limits": "Critical notice invisible on narrow/enlarged viewport remains a release blocker"
+      "limits": "First readable error line and existing Refresh action are automatically visible; full long explanation scrolls in existing bounded status area at1.6font. Controlled transport; no live provider resend."
     },
     {
       "journey": "Quota and message order under late responses",
@@ -100,18 +100,31 @@
       "status": "not yet verified",
       "required_observation": "production Base+Bot access verified; signed replacement must be installed and actual keyboard/send observed",
       "limits": "Phone last observed version5; version6 delivered and installer requested once; never claim installation or successful send"
+    },
+    {
+      "journey": "Edit a long multiline Bot draft",
+      "implementation": "Actual Android MainActivity plus native Ctrl+End/key input",
+      "status": "under qualification; test harness corrected once, native character-location data unsupported so evidence method being revised",
+      "required_observation": "Full draft retained through navigation; native selection stays at true end; rendered final line/caret inside editor and aboveIME; zero network sends",
+      "limits": "Observed screenshot shows final line and caret; cannot count unavailable native character-location API as a pass"
     }
   ],
   "receipts": {
-    "android_normal": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-responsive-normal-r13.json",
-    "android_large": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-responsive-large-r14.json",
+    "android_normal": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-recovery-normal-r15.json",
+    "android_large": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-recovery-large-r16.json",
     "android_domain": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-integrated-domain-r02.json",
     "android_speech": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-native-fixed-r05.json",
     "android_110": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/native-preview-matrix-110-r01.json",
     "ios_bot": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-bot-native-evidence-r01/summary.json",
     "ios_backup": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-backup-native-evidence-r01/summary.json",
-    "ios_subscription_domain": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-subscription-domain-evidence-r01/summary.json"
+    "ios_subscription_domain": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-subscription-domain-evidence-r01/summary.json",
+    "android_multiline_attempt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-editing-native-normal-r19.json"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
-  "original_nine_dirty_files_preserved": true
+  "original_nine_dirty_files_preserved": true,
+  "prior_external_actions_reconciled": {
+    "base_intro_offers": "Google obsolete Base offer deactivated once; Apple Base offer removed once onNovember17. Reloadverifiedreceipts retained. No repetition.",
+    "google_license_test": "Prior no-charge license purchase/renewal/cancellation/lapse completed; do not replay. Current native tests controlbilling boundary and do not claim a new storetest.",
+    "apple_native_purchase": "Still no actual Apple transaction pass; localStoreKit IDE diagnostic in progress."
+  }
 }
