@@ -2,6 +2,7 @@
 import SwiftUI
 import Security
 import CryptoKit
+import Observation
 
 /// Actual hosted reauthentication using only the already-owned staging account.
 /// Never supplies a token, creates a device, rotates keys, or takes over another
@@ -204,6 +205,11 @@ struct TimelineQualificationView: View {
     @State private var readingReleased = false
     private var delayedReading: Bool { ProcessInfo.processInfo.arguments.contains("-vipi-delayed-reading-qa") }
     var body: some View {
+        if ProcessInfo.processInfo.arguments.contains("-vipi-base-expiry-qa") {
+            BaseExpiryQualificationView()
+        } else { timeline }
+    }
+    private var timeline: some View {
         NavigationStack {
             Group {
                 if let chat { FriendConversationView(chat: chat, peer: peer, immersion: readingOwner) }
@@ -287,6 +293,7 @@ struct TimelineQualificationView: View {
 /// XCTest can terminate the app before Swift defer/onDisappear runs. Enumerate
 /// attributes only, then read/remove solely our synthetic profile namespace.
 private func removeAbandonedTimelineFixtures() throws {
+    try removeAbandonedBaseExpiryFixtures()
     let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword,
         kSecAttrService as String: "co.fallsoft.vipi.private", kSecReturnAttributes as String: true,
         kSecMatchLimit as String: kSecMatchLimitAll]
@@ -304,6 +311,203 @@ private func removeAbandonedTimelineFixtures() throws {
         if FileManager.default.fileExists(atPath: directory.path) { try FileManager.default.removeItem(at: directory) }
         try KeychainStore.deleteChecked(account: "messages-" + profile.id.uuidString.lowercased())
         try KeychainStore.deleteChecked(account: key)
+    }
+}
+
+/// This is the production HomeView navigation owner, not a copied auth/root
+/// router. Only the service/store boundary and isolated encrypted accounts are
+/// supplied. Release builds contain neither this fixture nor its launch flag.
+private struct BaseExpiryQualificationView: View {
+    @State private var fixture: BaseExpiryFixture?
+    @State private var status = "Preparing isolated expiry QA"
+    var body: some View {
+        Group {
+            if let fixture {
+                VStack(spacing: 0) {
+                    HomeView(chat: fixture.chat, subscriptions: fixture.subscriptions, botOwner: fixture.owner)
+                    // Read-only fixture evidence, outside the production view.
+                    // No test button dispatches navigation, sends or purchases.
+                    TimelineView(.periodic(from: .now, by: 0.5)) { _ in
+                        Text(fixture.proof).font(.caption2).lineLimit(1)
+                            .accessibilityIdentifier("base-expiry-qa-proof")
+                    }
+                }
+            } else { Text(status).accessibilityIdentifier("base-expiry-qa-status") }
+        }.task {
+            guard fixture == nil, Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" else { return }
+            do {
+                try removeAbandonedTimelineFixtures()
+                let value = try BaseExpiryFixture()
+                try await value.prepare()
+                fixture = value
+            } catch { status = "Synthetic expiry preparation failed" }
+        }
+    }
+}
+
+private struct BaseExpiryOwnership: Codable {
+    let account: UUID
+    let peer: UUID
+    let user: String
+    static var root: URL {
+        FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("TimelineExpiryQualification", isDirectory: true)
+    }
+}
+
+private func removeAbandonedBaseExpiryFixtures() throws {
+    guard Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" else { return }
+    let root = BaseExpiryOwnership.root
+    guard FileManager.default.fileExists(atPath: root.path) else { return }
+    for directory in try FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) {
+        let record = try JSONDecoder().decode(BaseExpiryOwnership.self, from: Data(contentsOf: directory.appendingPathComponent("owner.json")))
+        guard directory.lastPathComponent == record.account.uuidString.lowercased(), record.account != record.peer,
+              record.user.hasPrefix("timeline-ui-"), UUID(uuidString: String(record.user.dropFirst("timeline-ui-".count))) != nil else {
+            throw ServiceFailure(status: 0, code: "invalid_expiry_fixture_ownership")
+        }
+        if let data = try KeychainStore.read(account: "profile-" + record.user) {
+            let profile = try JSONDecoder().decode(ChatProfile.self, from: data)
+            guard profile.id == record.account, profile.username == "timeline_qa" else {
+                throw ServiceFailure(status: 0, code: "expiry_fixture_profile_mismatch")
+            }
+        }
+        let accountDirectory = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Messages").appendingPathComponent(record.account.uuidString.lowercased())
+        if FileManager.default.fileExists(atPath: accountDirectory.path) { try FileManager.default.removeItem(at: accountDirectory) }
+        try KeychainStore.deleteChecked(account: "profile-" + record.user)
+        for id in [record.account, record.peer] { try KeychainStore.deleteChecked(account: "messages-" + id.uuidString.lowercased()) }
+        try FileManager.default.removeItem(at: directory)
+    }
+}
+
+@MainActor private final class BaseExpiryFixture {
+    let account = UUID(), peer = UUID()
+    let user = "timeline-ui-" + UUID().uuidString
+    let owner = BotConversationOwner()
+    let api: BaseExpiryTransport
+    let chat: ChatSession
+    let subscriptions: SubscriptionStore
+    private let peerVault: MessageVault
+    init() throws {
+        guard Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" else { throw ServiceFailure(status: 0, code: "qa_bundle_required") }
+        let directory = BaseExpiryOwnership.root.appendingPathComponent(account.uuidString.lowercased(), isDirectory: true)
+        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
+        try JSONEncoder().encode(BaseExpiryOwnership(account: account, peer: peer, user: user))
+            .write(to: directory.appendingPathComponent("owner.json"), options: .atomic)
+        peerVault = try MessageVault(account: peer, directory: directory.appendingPathComponent("peer"))
+        api = try BaseExpiryTransport(account: account, peer: peer, peerCore: MessagingCore(vault: peerVault))
+        chat = try ChatSession(api: api, userID: user)
+        subscriptions = SubscriptionStore(api: api, accountToken: account)
+    }
+    func prepare() async throws {
+        await chat.start()
+        guard chat.ready else { throw ServiceFailure(status: 0, code: "expiry_fixture_not_ready") }
+        _ = try await chat.find("alex")
+        try chat.send("Saved before the free period ended.", peer: peer)
+        await chat.synchronize()
+        let saved = try chat.messages(peer)
+        guard saved.count == 1, saved.first?.state == "delivered", api.setupDecryptions == 1 else {
+            throw ServiceFailure(status: 0, code: "expiry_fixture_setup_not_delivered")
+        }
+        await subscriptions.refreshEntitlements()
+        guard subscriptions.baseActive, !subscriptions.botAvailable, !subscriptions.purchaseReady else {
+            throw ServiceFailure(status: 0, code: "expiry_fixture_trial_required")
+        }
+        api.setupComplete = true
+    }
+    var proof: String {
+        // Observe actual model revisions, then independently reopen encrypted
+        // storage. Never insert a row, draft or navigation state for the test.
+        _ = chat.revision
+        do {
+            let vault = try MessageVault(account: account)
+            defer { try? vault.close() }
+            let history = try ConversationHistory(vault: vault)
+            let rows = try history.messages(peer: peer)
+            let queued = rows.filter { $0.text != "Saved before the free period ended." }
+            let data = try JSONSerialization.data(withJSONObject: [
+                "setup_decryptions": api.setupDecryptions, "expired_posts": api.expiredPosts,
+                "expired_ids": api.expiredIDs.sorted(), "rows": rows.count,
+                "queued_count": queued.count, "queued_text": queued.first?.text ?? "",
+                "queued_id": queued.first?.id.uuidString.lowercased() ?? "",
+                "queued_state": queued.first?.state ?? "", "draft": try history.composeDraft(peer),
+                "base_active": subscriptions.baseActive, "bot_active": subscriptions.botAvailable,
+                "purchase_ready": subscriptions.purchaseReady, "unexpected_requests": api.unexpectedRequests
+            ], options: [.sortedKeys])
+            return String(decoding: data, as: UTF8.self)
+        } catch { return "{\"durable_read_failed\":true}" }
+    }
+}
+
+@MainActor @Observable private final class BaseExpiryTransport: ChatTransport {
+    let account: UUID, peer: UUID
+    let peerCore: MessagingCore
+    let publication: KeyPublication
+    var setupComplete = false
+    var setupDecryptions = 0
+    var expiredPosts = 0
+    var expiredIDs = Set<String>()
+    var unexpectedRequests = 0
+    private var device: DeviceCredential?
+    init(account: UUID, peer: UUID, peerCore: MessagingCore) throws {
+        self.account = account; self.peer = peer; self.peerCore = peerCore
+        publication = try peerCore.keys.publication(now: Int64(Date().timeIntervalSince1970 * 1000), count: 2)
+        try peerCore.keys.published(revision: publication.revision)
+    }
+    func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
+        let input: [String: Any]
+        if let body { input = try JSONSerialization.jsonObject(with: body) as? [String: Any] ?? [:] }
+        else { input = [:] }
+        let value: [String: Any]
+        switch (method, path) {
+        case ("GET", "/v1/me"):
+            value = ["id": account.uuidString, "username": "timeline_qa", "display_name": "Expiry QA"]
+        case ("POST", "/v1/devices"):
+            guard let id = input["device_id"] as? String, let uuid = UUID(uuidString: id), let secret = input["secret"] as? String else { throw ServiceFailure(status: 0, code: "invalid_qa_device") }
+            self.device = DeviceCredential(id: uuid, secret: secret); value = ["id": id, "active": true]
+        case ("GET", "/v1/keys"): value = ["revision": 1, "remaining": 20]
+        case ("GET", "/v1/messages/pending"): value = ["messages": [], "next_cursor": NSNull()]
+        case ("GET", "/v1/people/alex"), ("GET", "/v1/people/by-id/" + peer.uuidString.lowercased()):
+            value = ["id": peer.uuidString, "username": "alex", "display_name": "Alex"]
+        case ("GET", "/v1/blocks/" + peer.uuidString.lowercased()): value = ["blocked": false]
+        case ("POST", "/v1/people/" + peer.uuidString.lowercased() + "/keys"):
+            guard let raw = input["request_id"] as? String, let request = UUID(uuidString: raw) else { throw ServiceFailure(status: 0, code: "invalid_qa_claim") }
+            let claim = ClaimedKeys(request_id: request, user_id: peer, device_id: peerCore.device.id, signal_device_id: 1,
+                registration_id: publication.registration_id, identity_key: publication.identity_key, signed: publication.signed, one_time: publication.one_time[0])
+            return try JSONDecoder().decode(type, from: JSONEncoder().encode(claim))
+        case ("POST", "/v1/messages"):
+            guard device?.id == self.device?.id, let body, let id = input["id"] as? String else { throw ServiceFailure(status: 0, code: "invalid_qa_message") }
+            if setupComplete {
+                expiredPosts += 1; expiredIDs.insert(id)
+                throw ServiceFailure(status: 402, code: "base_subscription_required")
+            }
+            var routed = try JSONSerialization.jsonObject(with: body) as! [String: Any]
+            routed["sender_id"] = account.uuidString; routed["sender_device_id"] = device!.id.uuidString
+            let received = try JSONDecoder().decode(RoutedMessage.Received.self, from: JSONSerialization.data(withJSONObject: routed))
+            let message = try peerCore.receive(received.routed(account: peer), now: Int64(Date().timeIntervalSince1970 * 1000))
+            guard message.text == "Saved before the free period ended." else { throw ServiceFailure(status: 0, code: "unexpected_qa_plaintext") }
+            setupDecryptions += 1; value = ["state": "delivered"]
+        case ("GET", "/v1/entitlements"):
+            // The controlled server crosses its exact exclusive trial end on
+            // the user's first POST. No device clock or paid grant is changed.
+            let ended = expiredPosts > 0
+            let end = Date(timeIntervalSince1970: 1_800_000_000)
+            let format = ISO8601DateFormatter()
+            var base: [String: Any] = ["active": !ended,
+                "cardless_trial": ["started_at": format.string(from: end.addingTimeInterval(-30 * 86400)),
+                    "ends_at": format.string(from: end), "active": !ended]]
+            if ended { base["expires_at"] = NSNull(); base["access_source"] = NSNull() }
+            else { base["expires_at"] = format.string(from: end); base["access_source"] = "cardless_trial" }
+            value = ["server_time": format.string(from: ended ? end : end.addingTimeInterval(-3600)),
+                "base": base,
+                "bot_mini": ["active": false, "available": false], "billing_account_id": "synthetic-expiry-only",
+                "app_account_token": account.uuidString, "purchases_ready": ["apple": false, "google": false]]
+        case ("GET", "/v1/bot/allowance"): throw ServiceFailure(status: 503, code: "bot_not_available")
+        default:
+            unexpectedRequests += 1
+            throw ServiceFailure(status: 0, code: "unexpected_expiry_qa_request")
+        }
+        return try JSONDecoder().decode(type, from: JSONSerialization.data(withJSONObject: value))
     }
 }
 

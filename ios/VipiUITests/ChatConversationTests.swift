@@ -47,6 +47,104 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertFalse(username.exists); XCTAssertFalse(error.exists)
         capture("ios-preview-friend-lookup-cancel-restores-home")
     }
+    /// Production HomeView owns every navigation step. The existing guarded
+    /// timeline fixture supplies only synthetic service/Signal/account state.
+    /// This does not qualify hosted auth or the outer ConnectedChatRoot router.
+    func testExpiredBaseUsesActualSettingsPlansAndKeepsQueuedMessageAndDraft() throws {
+        guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated client expiry qualification only") }
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-base-expiry-qa", "-vipi-appearance-light", "-vipi-source", "en", "-vipi-target", "es", "-vipi-density", "0"]
+        launchPortraitApp(app)
+        addTeardownBlock { @MainActor in
+            app.terminate()
+            app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]
+            app.launch()
+            XCTAssertTrue(app.staticTexts["Synthetic conversation removed"].waitForExistence(timeout: 10), "Remove only this fixture's recorded synthetic account/peer resources")
+            app.terminate()
+        }
+        let evidence = app.staticTexts["base-expiry-qa-proof"]
+        XCTAssertTrue(evidence.waitForExistence(timeout: 20))
+        func proof() -> [String: Any] {
+            guard evidence.exists, let bytes = evidence.label.data(using: .utf8),
+                  let result = try? JSONSerialization.jsonObject(with: bytes) as? [String: Any] else { return [:] }
+            return result
+        }
+        func observe(_ phase: String, _ predicate: @escaping ([String: Any]) -> Bool) -> [String: Any] {
+            let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in predicate(proof()) }, object: evidence)
+            XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 10), .completed, phase)
+            let result = proof()
+            let bytes = (try? JSONSerialization.data(withJSONObject: result, options: [.sortedKeys])) ?? Data()
+            let attachment = XCTAttachment(data: bytes, uniformTypeIdentifier: "public.json")
+            attachment.name = "base-expiry-" + phase; attachment.lifetime = .keepAlways; add(attachment)
+            XCTAssertEqual(result["unexpected_requests"] as? Int, 0)
+            XCTAssertEqual(result["purchase_ready"] as? Bool, false)
+            XCTAssertEqual(result["bot_active"] as? Bool, false)
+            return result
+        }
+        _ = observe("initial-cardless-access") {
+            $0["base_active"] as? Bool == true && $0["setup_decryptions"] as? Int == 1 && $0["rows"] as? Int == 1
+        }
+        let friend = app.staticTexts["Alex"].firstMatch
+        XCTAssertTrue(friend.waitForExistence(timeout: 10)); friend.tap()
+        let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
+        XCTAssertTrue(input.waitForExistence(timeout: 10)); input.tap()
+        let attempted = "Keep this message when my free access ends."
+        let nextDraft = "Keep my next unsent draft too."
+        input.typeText(attempted)
+        let send = app.buttons["message-send"]
+        XCTAssertTrue(send.isEnabled); send.tap()
+        let refused = observe("server-refuses-expired-send") {
+            ($0["expired_posts"] as? Int ?? 0) >= 1 && $0["queued_count"] as? Int == 1 && $0["queued_text"] as? String == attempted
+        }
+        let originalID = try XCTUnwrap(refused["queued_id"] as? String)
+        XCTAssertNotNil(UUID(uuidString: originalID))
+        XCTAssertEqual(refused["expired_ids"] as? [String], [originalID])
+        XCTAssertEqual(input.value as? String, "")
+        input.typeText(nextDraft)
+        XCTAssertEqual(input.value as? String, nextDraft)
+        _ = observe("draft-committed-after-refusal") { $0["draft"] as? String == nextDraft }
+        let notice = app.buttons["conversation-notice"]
+        XCTAssertTrue(notice.waitForExistence(timeout: 10)); notice.tap()
+        let explanation = app.staticTexts["conversation-notice-detail"]
+        XCTAssertTrue(explanation.waitForExistence(timeout: 5))
+        XCTAssertEqual(explanation.label, "Start or restore your Vipi plan in Settings → Subscriptions to send messages. Your saved chats and drafts remain available.")
+        capture("ios-expired-base-real-message-status")
+        app.navigationBars["Message status"].buttons["Done"].tap()
+        app.navigationBars["Alex"].buttons["Back"].tap()
+        XCTAssertTrue(app.staticTexts["Chats"].waitForExistence(timeout: 5))
+        app.buttons["Your profile and settings"].tap()
+        let subscriptions = app.buttons["Subscriptions"]
+        for _ in 0..<4 where !subscriptions.isHittable { app.swipeUp() }
+        XCTAssertTrue(subscriptions.exists && subscriptions.isHittable); subscriptions.tap()
+        let base = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Vipi' AND label CONTAINS 'See plan'")).firstMatch
+        XCTAssertTrue(base.waitForExistence(timeout: 15))
+        let bot = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Bot mini' AND label CONTAINS 'See plan'")).firstMatch
+        XCTAssertTrue(bot.exists, "Bot mini stays separate from the expired Base period")
+        base.tap()
+        let ended = app.staticTexts["Your free Vipi access has ended. Subscribe to continue chatting."]
+        XCTAssertTrue(ended.waitForExistence(timeout: 15))
+        _ = observe("actual-base-plan-after-expiry") { $0["base_active"] as? Bool == false && $0["rows"] as? Int == 2 && $0["draft"] as? String == nextDraft }
+        let checkout = app.buttons["subscription-purchase-vipi.base.annual"]
+        if checkout.exists { XCTAssertFalse(checkout.isEnabled, "Unready service cannot authorize checkout") }
+        capture("ios-expired-base-real-plan-no-enrollment")
+        app.navigationBars["Vipi"].buttons["Subscriptions"].tap()
+        app.navigationBars["Subscriptions"].buttons["Settings"].tap()
+        app.navigationBars["Settings"].buttons["Back"].tap()
+        XCTAssertTrue(friend.waitForExistence(timeout: 5)); friend.tap()
+        XCTAssertTrue(input.waitForExistence(timeout: 5))
+        XCTAssertEqual(input.value as? String, nextDraft)
+        let final = observe("returned-durable-queued-text-and-next-draft") {
+            $0["queued_id"] as? String == originalID && $0["queued_text"] as? String == attempted &&
+                $0["draft"] as? String == nextDraft && $0["queued_count"] as? Int == 1 && $0["rows"] as? Int == 2
+        }
+        XCTAssertEqual(final["expired_ids"] as? [String], [originalID], "Foreground retries must retain the original message identity")
+        XCTAssertEqual(final["setup_decryptions"] as? Int, 1, "No expired message was delivered to the synthetic peer")
+        let queued = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label == %@", attempted)).firstMatch
+        XCTAssertTrue(queued.exists && queued.isHittable, "Queued plaintext remains readable in the actual conversation")
+        capture("ios-expired-base-returned-original-row-and-next-draft")
+    }
+
     func testObserveExistingImmersionThroughComposerAndSpeech() throws {
         guard ProcessInfo.processInfo.environment["VIPI_QA_PEER"] == "vqa_1107_android01" else { throw XCTSkip("Owned native session required") }
         continueAfterFailure = false
