@@ -317,7 +317,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
     @Test fun readingOlderBotHistoryKeepsItsNativeAnchorWhenPendingReplyArrivesAndImeOpens() {
         val services = JourneyServices(profileRequired = false, seedBotMessages = 30, expectedBotPosts = 2)
         MainActivityJourneyFixture("bot-history-anchor", services::model).use { f ->
-            fun paragraphPosition(original: String? = null): Pair<String, Int>? {
+            fun paragraphPosition(original: String? = null, allowPartial: Boolean = false): Pair<String, Int>? {
                 if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
                 val listViewport = requireNotNull(f.device.findObject(By.scrollable(true).pkg(f.base.packageName))) {
                     "The real native Bot timeline must be present"
@@ -331,10 +331,14 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                     // uppermost complete paragraph in the actual native list.
                     found = f.paragraphs().mapNotNull { view ->
                         val bounds = android.graphics.Rect()
+                        val visible = view.getGlobalVisibleRect(bounds) && if (allowPartial)
+                            android.graphics.Rect.intersects(listViewport, bounds) && android.graphics.Rect.intersects(windowViewport, bounds)
+                        else f.fullyVisible(view) && listViewport.contains(bounds) && windowViewport.contains(bounds)
                         if (view.displayedOriginal.startsWith("Earlier local Bot message") &&
-                            (original == null || view.displayedOriginal == original) && f.fullyVisible(view) &&
-                            view.getGlobalVisibleRect(bounds) && listViewport.contains(bounds) && windowViewport.contains(bounds))
-                            view.displayedOriginal to bounds.top else null
+                            (original == null || view.displayedOriginal == original) && visible) {
+                            val location = IntArray(2); view.getLocationOnScreen(location)
+                            view.displayedOriginal to location[1]
+                        } else null
                     }.minByOrNull { it.second }
                 }
                 return found
@@ -360,15 +364,23 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 compose.waitForIdle()
                 val afterReply = requireNotNull(paragraphPosition(anchor.first)) { "Incoming reply must preserve the older native paragraph" }
                 assertEquals("Incoming reply moved the older reading anchor", anchor.second.toDouble(), afterReply.second.toDouble(), 2.0)
+                val upperFragment = requireNotNull(paragraphPosition(allowPartial = true))
                 compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 compose.onNodeWithTag("bot-message-input").performTextInput("Keep reading this older passage.")
                 compose.onNodeWithTag("bot-message-input").assertEditorValue("Keep reading this older passage.")
                 compose.waitForIdle()
-                val afterIme = requireNotNull(paragraphPosition(anchor.first)) { "Opening IME must preserve the older native paragraph" }
-                assertEquals("IME resize moved the older reading anchor", anchor.second.toDouble(), afterIme.second.toDouble(), 2.0)
+                // At 320 dp with enlarged type the remaining timeline can be
+                // shorter than one paragraph. Keep the actual upper visible
+                // fragment in place, then restore the full paragraph on hide.
+                val afterIme = requireNotNull(paragraphPosition(upperFragment.first, allowPartial = true)) { "Opening IME must preserve the visible older reading fragment" }
+                assertEquals("IME resize moved the visible reading fragment", upperFragment.second.toDouble(), afterIme.second.toDouble(), 2.0)
+                assertNativeContained(f, By.text("Keep reading this older passage."), "older-history editor above IME", 48)
                 assertEquals(1, services.botPosts.get())
                 f.capture("02-older-anchor-after-reply-and-native-ime")
+                f.device.pressBack(); compose.waitUntil(5_000) { !imeVisible(f) }; compose.waitForIdle()
+                val restored = requireNotNull(paragraphPosition(anchor.first)) { "Hiding IME must restore the complete older paragraph" }
+                assertEquals("Hiding IME moved the full older reading anchor", anchor.second.toDouble(), restored.second.toDouble(), 2.0)
                 // The reader's explicit new Send is a fresh intent to follow
                 // the latest exchange, even though an incoming reply was not.
                 compose.onNodeWithTag("bot-message-send").assertIsEnabled().performTouchInput { click() }
@@ -376,6 +388,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                     f.model.bot?.messages?.lastOrNull()?.text == services.botFollowupReply }
                 compose.onNodeWithTag("bot-message-input").assertEmptyEditor()
                 val nextDraft = "A local draft after returning to the newest reply."
+                compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
+                compose.waitUntil(8_000) { imeVisible(f) }
                 compose.onNodeWithTag("bot-message-input").performTextInput(nextDraft)
                 compose.onNodeWithTag("bot-message-input").assertEditorValue(nextDraft)
                 assertReplyAudioAboveComposer(f, services.botFollowupReply, nextDraft)
@@ -384,7 +398,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 f.capture("03-own-send-returned-to-latest-with-audio-action")
                 File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("one_post_before_explicit_followup", true)
                     .put("older_anchor", anchor.first).put("anchor_y", anchor.second)
-                    .put("incoming_and_ime_preserved_anchor", true).put("own_send_resumed_following_latest", true)
+                    .put("incoming_preserved_complete_paragraph", true).put("ime_preserved_visible_fragment", upperFragment.first)
+                    .put("ime_hide_restored_complete_paragraph", true).put("own_send_resumed_following_latest", true)
                     .put("one_post_per_explicit_send", true).put("total_posts", 2).put("provider_claimed", false).toString(2))
             } catch (failure: Throwable) {
                 runCatching { f.capture("failure-before-cleanup") }.onFailure { failure.addSuppressed(it) }
