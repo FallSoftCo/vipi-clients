@@ -65,8 +65,9 @@ extension XCTestCase {
 
     @MainActor func openInlineReadingOptions(in app: XCUIApplication,
         file: StaticString = #filePath, line: UInt = #line) {
-        let triggerFrame = app.buttons["Reading options"].firstMatch.frame
+        let trigger = app.buttons["Reading options"].firstMatch
         openInlineMessageActions(in: app, file: file, line: line)
+        let triggerFrame = trigger.frame
         let submenu = app.buttons.matching(NSPredicate(format: "label == 'Reading options'"))
         let presented = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
             submenu.allElementsBoundByIndex.contains { $0.isHittable && $0.frame != triggerFrame }
@@ -112,25 +113,50 @@ extension XCTestCase {
         let evidence = XCTAttachment(string: "paragraph=\(bounds); label=\(paragraph.label); nativeWhitespacePoint=\(point.screenPoint)")
         evidence.name = "native-message-whitespace-gesture"; evidence.lifetime = .keepAlways; add(evidence)
         point.tap()
-        let panel = app.descendants(matching: .any).matching(identifier: "manual-translation-panel").firstMatch
+        // SwiftUI propagates the stack identifier to its header buttons and
+        // scroll view. Scope content by native role, not any.firstMatch.
+        let panel = app.scrollViews.matching(identifier: "manual-translation-panel").firstMatch
         XCTAssertTrue(panel.waitForExistence(timeout: 10), file: file, line: line)
         return panel
     }
     @MainActor func chooseMessageLanguage(_ language: String, in app: XCUIApplication, paragraph: XCUIElement,
         file: StaticString = #filePath, line: UInt = #line) {
         openMessageReadingOptions(in: app, paragraph: paragraph, file: file, line: line)
-        let choices = app.buttons["Message language"]
-        XCTAssertTrue(choices.waitForExistence(timeout: 5), file: file, line: line)
-        choices.tap()
-        XCTAssertTrue(app.buttons[language].waitForExistence(timeout: 5), file: file, line: line)
-        app.buttons[language].tap()
-        XCTAssertTrue(app.buttons["Detect automatically"].waitForNonExistence(timeout: 5), file: file, line: line)
-        XCTAssertTrue(app.buttons["Copy original message"].waitForNonExistence(timeout: 5), file: file, line: line)
+        let languageMenu = app.buttons["Message language"]
+        XCTAssertTrue(languageMenu.waitForExistence(timeout: 5), file: file, line: line)
+        languageMenu.tap()
+        let choices = app.buttons.matching(NSPredicate(format: "label == %@", language))
+        var previousFrame: CGRect?
+        let ready = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            let visible = choices.allElementsBoundByIndex.filter { $0.isHittable && app.frame.contains($0.frame) }
+            guard visible.count == 1 else { return false }
+            let frame = visible[0].frame
+            defer { previousFrame = frame }
+            return previousFrame == frame
+        }, object: app)
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 5), .completed, file: file, line: line)
+        guard let choice = choices.allElementsBoundByIndex.first(where: { $0.isHittable && app.frame.contains($0.frame) }) else {
+            XCTFail("Exactly one native language choice must be visible", file: file, line: line); return
+        }
+        let witness = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        witness.name = "native-message-language-choice-before-tap"; witness.lifetime = .keepAlways; add(witness)
+        choice.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        let automatic = app.buttons["Detect automatically"]
+        let applied = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            !automatic.exists || choice.isSelected
+        }, object: app)
+        XCTAssertEqual(XCTWaiter.wait(for: [applied], timeout: 5), .completed, file: file, line: line)
+        if automatic.exists {
+            XCTAssertTrue(choice.isSelected, file: file, line: line)
+            app.navigationBars.firstMatch.tap()
+        }
+        XCTAssertTrue(automatic.waitForNonExistence(timeout: 5), file: file, line: line)
     }
 
-    @MainActor func closeTranslationPanel(_ panel: XCUIElement,
+    @MainActor func closeTranslationPanel(_ panel: XCUIElement, in app: XCUIApplication,
         file: StaticString = #filePath, line: UInt = #line) {
-        let close = panel.buttons["Close"]
+        let close = app.buttons.matching(identifier: "manual-translation-panel")
+            .matching(NSPredicate(format: "label == 'Close'")).firstMatch
         XCTAssertTrue(close.waitForExistence(timeout: 5), file: file, line: line)
         close.tap()
         XCTAssertTrue(panel.waitForNonExistence(timeout: 5), file: file, line: line)

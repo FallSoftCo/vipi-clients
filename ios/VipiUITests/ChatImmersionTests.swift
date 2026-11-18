@@ -102,7 +102,7 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(panel.staticTexts["私は音楽が好きです。"].exists)
         XCTAssertTrue(panel.staticTexts["I like music."].exists)
         capture("ios-delayed-direct-reading-ready")
-        closeTranslationPanel(panel)
+        closeTranslationPanel(panel, in: app)
         let after = paragraph.frame
         func box(_ rect: CGRect) -> [String: Double] { ["x": rect.minX, "y": rect.minY, "width": rect.width, "height": rect.height] }
         let data = try JSONSerialization.data(withJSONObject: ["before": box(before), "after": box(after),
@@ -125,8 +125,8 @@ final class ChatImmersionTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-full-reading-qa", "-vipi-appearance-dark",
             "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
-        app.launch(); defer { app.terminate() }
-        let latin = app.staticTexts["yin hang hang zhang zheng zai zou lu。"]
+        launchPortraitApp(app); defer { app.terminate() }
+        let latin = app.staticTexts["yínháng hángzhǎng zhèng zài zǒu lù。"]
         XCTAssertTrue(latin.waitForExistence(timeout: 15))
         XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "localTransliteration")
         capture("ios-chinese-local-full-reading")
@@ -199,7 +199,7 @@ final class ChatImmersionTests: XCTestCase {
             Thread.sleep(forTimeInterval: 0.3)
         }
         for count in transitions { XCTAssertGreaterThanOrEqual(count, 6) }
-        closeTranslationPanel(panel)
+        closeTranslationPanel(panel, in: app)
         openMessageReadingOptions(in: app, paragraph: paragraph)
         app.buttons["Original message"].tap()
         XCTAssertEqual(paragraph.label, "I need water. Did you finish the report?")
@@ -235,7 +235,7 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(panel.staticTexts["Asante sana."].waitForExistence(timeout: 10))
         XCTAssertTrue(panel.staticTexts["Thank you very much."].exists)
         capture("ios-greeting-largest-direct-translation")
-        closeTranslationPanel(panel)
+        closeTranslationPanel(panel, in: app)
         openMessageReadingOptions(in: app, paragraph: paragraph)
         app.buttons["Original message"].tap()
         XCTAssertEqual(paragraph.label, "Thank you very much.")
@@ -265,7 +265,7 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(panel.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 10))
         XCTAssertTrue(panel.staticTexts["I like music."].exists)
         capture("ios-zero-vocabulary-direct-translation")
-        closeTranslationPanel(panel)
+        closeTranslationPanel(panel, in: app)
         XCTAssertEqual(paragraph.label, "I like music.")
     }
 
@@ -305,7 +305,7 @@ final class ChatImmersionTests: XCTestCase {
                 XCTAssertLessThanOrEqual(content.frame.maxY, panel.frame.maxY)
                 capture("ios-request-direct-reading-largest-" + code + "-" + face)
             }
-            closeTranslationPanel(panel)
+            closeTranslationPanel(panel, in: app)
             openMessageReadingOptions(in: app, paragraph: paragraph)
             app.buttons["Original message"].tap()
             XCTAssertEqual(paragraph.label, "I need a phone charger.")
@@ -412,17 +412,22 @@ final class ChatImmersionTests: XCTestCase {
         let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
         XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
         chooseMessageLanguage("English", in: app, paragraph: paragraph)
-        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "I like ongaku."), object: paragraph)], timeout: 10), .completed)
-        let before = paragraph.frame
+        let music = app.descendants(matching: .any).matching(identifier: "immersion-word-7").firstMatch
+        XCTAssertTrue(music.waitForExistence(timeout: 5))
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "ongaku"), object: music)], timeout: 10), .completed)
+        let before = paragraph.frame, wordBefore = music.frame
         openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Show original script"].tap()
-        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "I like 音楽."), object: paragraph)], timeout: 10), .completed)
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "音楽"), object: music)], timeout: 10), .completed)
+        XCTAssertEqual(music.frame.width, wordBefore.width, accuracy: 1)
+        XCTAssertEqual(music.frame.height, wordBefore.height, accuracy: 1)
+        XCTAssertEqual(music.frame.minX, wordBefore.minX, accuracy: 1)
         openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Show Latin letters"].tap()
         let panel = translateMessage(in: app, paragraph: paragraph)
         XCTAssertTrue(panel.staticTexts["Watashi wa ongaku ga suki desu."].waitForExistence(timeout: 10))
         XCTAssertTrue(panel.staticTexts["私は音楽が好きです。"].exists)
         XCTAssertTrue(panel.staticTexts["I like music."].exists)
         capture("ios-japanese-direct-reading-and-script")
-        closeTranslationPanel(panel)
+        closeTranslationPanel(panel, in: app)
         XCTAssertEqual(paragraph.frame.height, before.height, accuracy: 1)
         openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Original message"].tap()
         XCTAssertEqual(paragraph.label, "I like music.")
@@ -494,7 +499,7 @@ final class ChatImmersionTests: XCTestCase {
         let panel = translateMessage(in: app, paragraph: paragraph)
         XCTAssertTrue(panel.staticTexts["I like music."].waitForExistence(timeout: 10))
         XCTAssertTrue(panel.staticTexts["Ninapenda muziki."].exists)
-        closeTranslationPanel(panel)
+        closeTranslationPanel(panel, in: app)
         openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Original message"].tap()
         XCTAssertEqual(paragraph.label, "Ninapenda muziki.")
         openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Word switching"].tap()
@@ -603,9 +608,11 @@ final class ChatImmersionTests: XCTestCase {
         }
         let target = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label CONTAINS 'muziki'")).firstMatch
         XCTAssertTrue(target.waitForExistence(timeout: 30))
-        // Stable semantic identity survives the first row leaving the viewport
-        // when the keyboard appears; a positional index does not.
-        let paragraph = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label BEGINSWITH 'I like '")).firstMatch
+        // Match both real word faces: explicit English also permits I→mimi.
+        // This identifies the same music row after earlier rows leave view.
+        let musicRows = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND (label CONTAINS 'music' OR label CONTAINS 'muziki')"))
+        XCTAssertEqual(musicRows.count, 1)
+        let paragraph = musicRows.firstMatch
         let before = paragraph.frame
         let meaning = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label == 'I like music.'")).firstMatch
         XCTAssertTrue(meaning.waitForExistence(timeout: 10))
@@ -616,7 +623,7 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(panel.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 10))
         XCTAssertTrue(panel.staticTexts["I like music."].exists)
         capture("ios-swahili-direct-translation-light")
-        closeTranslationPanel(panel)
+        closeTranslationPanel(panel, in: app)
         XCTAssertTrue(target.waitForExistence(timeout: 10))
         let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
         input.tap(); input.typeText("I am eating bread now.")

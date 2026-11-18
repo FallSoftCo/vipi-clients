@@ -24,7 +24,7 @@ final class ShortReplyImmersionTests: XCTestCase {
             let panel = translateMessage(in: app, paragraph: paragraph)
             XCTAssertTrue(panel.staticTexts["Ndiyo."].waitForExistence(timeout: 10))
             XCTAssertTrue(panel.staticTexts["yes"].exists)
-            closeTranslationPanel(panel)
+            closeTranslationPanel(panel, in: app)
             openMessageReadingOptions(in: app, paragraph: paragraph)
             app.buttons["Original message"].tap()
             XCTAssertEqual(paragraph.label, "yes")
