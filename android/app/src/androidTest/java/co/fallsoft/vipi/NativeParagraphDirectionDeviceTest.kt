@@ -244,6 +244,7 @@ class NativeParagraphDirectionDeviceTest {
                                 .put("source", value.original).put("face", if (pending || reveal) "source" else "target")
                             observations.put(row)
                             assertEquals(value.original, view.text.toString())
+                            assertFalse("Selectable renderer must retain a non-Editable native buffer", view.text is android.text.Editable)
                             assertEquals(if (pending || reveal) value.original else value.spans.joinToString("\n") { it.displayedTarget }, view.visibleText())
                             val paragraphs = JSONArray(); row.put("paragraphs", paragraphs)
                             value.spans.forEach { word ->

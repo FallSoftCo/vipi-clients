@@ -1,7 +1,8 @@
 package co.fallsoft.vipi
 
 import android.text.Spannable
-import android.text.SpannableStringBuilder
+import android.text.SpannableString
+import android.text.GetChars
 import android.text.TextDirectionHeuristic
 import android.text.style.ReplacementSpan
 import java.util.WeakHashMap
@@ -20,19 +21,23 @@ internal class SourceParagraphDirection(private val fallback: () -> TextDirectio
     private var current: SourceText? = null
 
     val factory = object : Spannable.Factory() {
-        override fun newSpannable(source: CharSequence): Spannable = SourceText(source, this@SourceParagraphDirection).also {
+        override fun newSpannable(source: CharSequence): Spannable = SourceText(SpannableString(source), this@SourceParagraphDirection).also {
             synchronized(copies) { copies.clear(); current = it }
         }
     }
 
-    private class SourceText(source: CharSequence, registry: SourceParagraphDirection) : SpannableStringBuilder(source) {
-        // getChars can be called while the superclass is still constructing us.
-        private var registry: SourceParagraphDirection? = null
-        val original = source.toString()
-        init { this.registry = registry }
+    // Keep the default factory's non-Editable buffer contract. Delegation
+    // forwards the exact Spanned/Spannable API; the wrapper owns only GetChars.
+    private class SourceText(private val content: SpannableString, private val registry: SourceParagraphDirection) :
+        Spannable by content, GetChars {
+        val original = content.toString()
+        override val length: Int get() = content.length
+        override fun get(index: Int): Char = content[index]
+        override fun subSequence(startIndex: Int, endIndex: Int): CharSequence = content.subSequence(startIndex, endIndex)
+        override fun toString(): String = original
         override fun getChars(start: Int, end: Int, destination: CharArray, destinationStart: Int) {
-            super.getChars(start, end, destination, destinationStart)
-            registry?.copied(this, start, end, destination, destinationStart)
+            content.getChars(start, end, destination, destinationStart)
+            registry.copied(this, start, end, destination, destinationStart)
         }
     }
 
@@ -42,8 +47,7 @@ internal class SourceParagraphDirection(private val fallback: () -> TextDirectio
             copies.remove(destination)
             if (source !== current || start < 0 || end < start || end > source.original.length ||
                 destinationStart < 0 || destinationStart > destination.size - (end - start)) return
-            // Text is selectable, not editable; nevertheless do not trust a
-            // record if an external Editable caller changed its characters.
+            // Trust only the exact copied characters before AOSP masks spans.
             for (i in start until end) if (destination[destinationStart + i - start] != source.original[i]) return
             copies[destination] = Copy(source, start, end - start, destinationStart)
         }
