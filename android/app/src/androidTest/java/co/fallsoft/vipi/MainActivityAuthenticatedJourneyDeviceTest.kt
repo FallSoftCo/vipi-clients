@@ -373,7 +373,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 assertEquals(listOf("A new local prompt while keeping older history.", "Keep reading this older passage."), services.botRequestPrompts)
                 assertEquals(2, services.botPosts.get())
                 f.capture("03-own-send-returned-to-latest-with-audio-action")
-                File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("one_controlled_post", true)
+                File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("one_post_before_explicit_followup", true)
                     .put("older_anchor", anchor.first).put("anchor_y", anchor.second)
                     .put("incoming_and_ime_preserved_anchor", true).put("own_send_resumed_following_latest", true)
                     .put("one_post_per_explicit_send", true).put("total_posts", 2).put("provider_claimed", false).toString(2))
