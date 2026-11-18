@@ -430,6 +430,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
      * and reject a partially clipped topbar icon/title as well. */
     private fun assertNativeContained(f: MainActivityJourneyFixture, selector: BySelector, name: String, minimumHeightDp: Int = 0) {
         compose.waitForIdle()
+        val appSelector = selector.pkg(f.base.packageName)
         var bounds: android.graphics.Rect? = null
         var viewport = f.unobscuredWindow()
         try {
@@ -438,7 +439,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 // accessibility tree necessarily receives its latest snapshot.
                 if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
                 viewport = f.unobscuredWindow()
-                bounds = f.device.findObject(selector.pkg(f.base.packageName))?.visibleBounds
+                bounds = f.device.findObject(appSelector)?.visibleBounds
                 bounds?.let { actual -> !actual.isEmpty && viewport.contains(actual) &&
                     actual.height() >= minimumHeightDp * f.base.resources.displayMetrics.density } == true
             }
