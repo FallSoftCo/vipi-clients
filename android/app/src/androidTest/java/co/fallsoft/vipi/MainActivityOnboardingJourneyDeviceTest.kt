@@ -30,7 +30,27 @@ class MainActivityOnboardingJourneyDeviceTest {
                 }
             }
             fun text(id: Int) = f.base.getString(id)
+            val largeText = f.base.resources.configuration.fontScale >= 1.5f
             fun waitScreen(screen: Screen) = compose.waitUntil(8_000) { f.model.screen == screen }
+            fun action(id: Int): SemanticsNodeInteraction = compose.onNodeWithText(text(id)).also {
+                // Production moves these actions into the page at large type.
+                if (largeText) it.performScrollTo()
+            }
+            fun revealParagraph(original: String) {
+                fun visible(): Boolean {
+                    var shown = false
+                    f.instrumentation.runOnMainSync { shown = f.paragraphs().any { it.displayedOriginal == original && f.fullyVisible(it) } }
+                    return shown
+                }
+                // Native paragraph contents change as the preview flips. Use
+                // actual page swipes rather than matching a transient projection.
+                repeat(6) {
+                    if (!visible()) compose.onNode(hasScrollAction()).performTouchInput {
+                        swipeUp(startY = height * .8f, endY = height * .55f)
+                    }
+                }
+                compose.waitUntil(5_000) { visible() }
+            }
             fun language(code: String) = Locale.forLanguageTag(code).getDisplayLanguage(f.base.resources.configuration.locales[0])
                 .replaceFirstChar { it.titlecase(f.base.resources.configuration.locales[0]) }
             try {
@@ -38,24 +58,26 @@ class MainActivityOnboardingJourneyDeviceTest {
                 waitScreen(Screen.WELCOME)
                 compose.onNodeWithText(text(R.string.welcome_title_concise)).assertIsDisplayed()
                 compose.onNodeWithText(text(R.string.welcome_detail_concise)).assertIsDisplayed()
-                // The first primary action is visible without scrolling at normal type.
-                compose.onNodeWithText(text(R.string.choose_languages)).assertIsDisplayed()
+                // Preserve the no-scroll requirement at normal type. Large
+                // system type deliberately uses the accessible scrolling page.
+                if (!largeText) compose.onNodeWithText(text(R.string.choose_languages)).assertIsDisplayed()
+                revealParagraph(immersionPreview.original)
                 compose.waitUntil(5_000) {
                     var shown = false
                     f.instrumentation.runOnMainSync { shown = f.paragraphs().any { it.displayedOriginal == immersionPreview.original && f.fullyVisible(it) } }
                     shown
                 }
                 f.capture("01-welcome-example-and-forward-action")
-                compose.onNodeWithText(text(R.string.choose_languages)).performTouchInput { click() }
+                action(R.string.choose_languages).assertIsDisplayed().performTouchInput { click() }
                 waitScreen(Screen.LANGUAGE)
-                compose.onNodeWithContentDescription(text(R.string.ui_aae89a15c1be)).performTouchInput { click() }
+                compose.onNodeWithContentDescription(text(R.string.ui_aae89a15c1be)).performScrollTo().performTouchInput { click() }
                 compose.onNodeWithText(language("fr")).performScrollTo().performTouchInput { click() }
-                compose.onNodeWithContentDescription(text(R.string.ui_0c574552109f)).performTouchInput { click() }
+                compose.onNodeWithContentDescription(text(R.string.ui_0c574552109f)).performScrollTo().performTouchInput { click() }
                 compose.onNodeWithText("${language("zh")} · 中文").performScrollTo().performTouchInput { click() }
                 compose.runOnIdle { assertEquals("fr", f.model.knownLanguage); assertEquals("zh", f.model.targetLanguage) }
                 // Scroll the actual production page to reveal the changed example.
-                compose.onNode(hasScrollAction()).performTouchInput { swipeUp() }
                 val expected = ConversationExamples.result(f.base, "fr", "zh")
+                revealParagraph(expected.original)
                 compose.waitUntil(8_000) {
                     var ready = false
                     f.instrumentation.runOnMainSync {
@@ -67,34 +89,36 @@ class MainActivityOnboardingJourneyDeviceTest {
                     ready
                 }
                 f.capture("02-selected-languages-with-marked-chinese-preview")
-                compose.onNodeWithText(text(R.string.continue_action)).performTouchInput { click() }
+                action(R.string.continue_action).performTouchInput { click() }
                 waitScreen(Screen.ACCOUNT)
-                compose.onNodeWithText(text(R.string.account_trial_concise)).assertIsDisplayed()
-                compose.onNodeWithText(text(R.string.continue_signin)).assertIsNotEnabled()
+                compose.onNodeWithText(text(R.string.account_trial_concise)).performScrollTo().assertIsDisplayed()
+                action(R.string.continue_signin).assertIsNotEnabled()
                 val consent = compose.onNode(hasText(text(R.string.ui_9ed65d7add5f)) and SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.Role, Role.Checkbox))
+                if (largeText) consent.performScrollTo()
                 consent.assertIsOff().performTouchInput { click(center + androidx.compose.ui.geometry.Offset(center.x - 12f, 0f)) }
                 consent.assertIsOn()
-                compose.onNodeWithText(text(R.string.continue_signin)).assertIsEnabled().performTouchInput { click() }
+                action(R.string.continue_signin).assertIsEnabled().performTouchInput { click() }
                 compose.onNodeWithText(text(R.string.ui_79290727c58b)).assertIsDisplayed()
                 compose.runOnIdle { assertEquals(1, launches.get()); assertNull(f.model.authentication.userID) }
                 f.capture("03-auth-open-error-retains-language-and-retry")
                 f.device.pressBack()
                 waitScreen(Screen.LANGUAGE)
-                compose.onNodeWithText(language("fr")).assertIsDisplayed()
-                compose.onNodeWithText(language("zh")).assertIsDisplayed()
+                compose.onNodeWithText(language("fr")).performScrollTo().assertIsDisplayed()
+                compose.onNodeWithText(language("zh")).performScrollTo().assertIsDisplayed()
                 f.recreate()
                 waitScreen(Screen.LANGUAGE)
                 compose.runOnIdle { assertEquals("fr", f.model.knownLanguage); assertEquals("zh", f.model.targetLanguage) }
-                compose.onNodeWithText(text(R.string.continue_action)).performTouchInput { click() }
+                action(R.string.continue_action).performTouchInput { click() }
                 waitScreen(Screen.ACCOUNT)
                 // A recreated native page still requires the explicit forward action;
                 // neither Back nor recreation opens a second auth attempt.
                 compose.runOnIdle { assertEquals(1, launches.get()); blockLaunch = false }
                 val accepted = compose.onNode(hasText(text(R.string.ui_9ed65d7add5f)) and SemanticsMatcher.expectValue(androidx.compose.ui.semantics.SemanticsProperties.Role, Role.Checkbox))
+                if (largeText) accepted.performScrollTo()
                 if (accepted.fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.ToggleableState] != androidx.compose.ui.state.ToggleableState.On) {
                     accepted.performTouchInput { click() }
                 }
-                compose.onNodeWithText(text(R.string.continue_signin)).performTouchInput { click() }
+                action(R.string.continue_signin).performTouchInput { click() }
                 compose.runOnIdle { assertEquals(2, launches.get()); assertNull(f.model.authentication.error) }
                 f.capture("04-auth-launch-boundary-context-preserved")
                 File(f.output, "result.json").writeText(JSONObject().put("pass", true)
