@@ -110,20 +110,39 @@ import ImageIO
         app.terminate(); app.launchArguments = arguments; app.launch()
         XCTAssertTrue(metadata.waitForExistence(timeout: 15))
         let recovered = observe("fresh-app-owner-enters-only-deletion-recovery-and-erases-scope") {
-            $0["starts"] as? Int == 2 && $0["phase"] as? String == "requested" &&
-                $0["local_erased"] as? Bool == true && $0["auth_signed_out"] as? Bool == true
+            $0["starts"] as? Int == 2 && ["requested", "completed"].contains($0["phase"] as? String ?? "") &&
+                $0["local_erased"] as? Bool == true && $0["auth_signed_out"] as? Bool == true &&
+                ($0["confirmations"] as? Int ?? 0) > 0
         }
         XCTAssertEqual(recovered["chat_creations"] as? Int, initial["chat_creations"] as? Int)
         XCTAssertEqual(recovered["store_creations"] as? Int, initial["store_creations"] as? Int)
         XCTAssertEqual(recovered["seeded_bot_owners"] as? Int, initial["seeded_bot_owners"] as? Int)
         XCTAssertEqual(recovered["submissions"] as? Int, 1, "Recovery must check status without another DELETE")
         for key in ["own_key", "own_directory", "own_profile", "own_marker", "session_key_present"] { XCTAssertEqual(recovered[key] as? Bool, false, key) }
-        XCTAssertTrue(app.staticTexts["Deletion requested"].exists)
         XCTAssertFalse(app.staticTexts["Chats"].exists); XCTAssertFalse(app.buttons["New chat"].exists)
         XCTAssertFalse(app.buttons["Your profile and settings"].exists)
         capture("fresh-process-deletion-only-other-account-preserved")
-        app.buttons["Check status"].tap()
-        _ = observe("status-confirmed-complete") { $0["phase"] as? String == "completed" && $0["local_erased"] as? Bool == true && $0["submissions"] as? Int == 1 }
+        let completedTitle = app.staticTexts["Vipi account deleted"]
+        let checkStatus = app.buttons["Check status"]
+        var manuallyChecked = false
+        if read()["phase"] as? String == "requested" {
+            let available = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+                completedTitle.exists || (checkStatus.exists && checkStatus.isHittable)
+            }, object: app)
+            XCTAssertEqual(XCTWaiter.wait(for: [available], timeout: 5), .completed)
+            // A foreground/scene check may finish between observations. Do
+            // not require a transient intermediate state to remain visible.
+            if !completedTitle.exists && read()["phase"] as? String == "requested" && checkStatus.exists && checkStatus.isHittable {
+                checkStatus.tap(); manuallyChecked = true
+            }
+        }
+        let complete = observe("status-confirmed-complete") {
+            $0["phase"] as? String == "completed" && $0["local_erased"] as? Bool == true &&
+                $0["submissions"] as? Int == 1 && ($0["confirmations"] as? Int ?? 0) > 0
+        }
+        XCTAssertTrue(completedTitle.exists)
+        let route = XCTAttachment(string: "status_route=\(manuallyChecked ? "manual Check status" : "automatic status completion"); confirmations=\(complete["confirmations"] as? Int ?? 0)")
+        route.name = "connected-deletion-confirmation-route"; route.lifetime = .keepAlways; add(route)
         let done = app.buttons["Done"]
         XCTAssertTrue(done.waitForExistence(timeout: 5)); done.tap()
         XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout: 10))
