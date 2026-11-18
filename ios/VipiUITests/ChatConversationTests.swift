@@ -441,7 +441,9 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertTrue(input.waitForExistence(timeout: 5)); XCTAssertEqual(input.value as? String, "Local draft before consent.")
         let agree = app.buttons["Agree and start chatting"]
         XCTAssertTrue(agree.waitForExistence(timeout: 5)); XCTAssertTrue(agree.isHittable); agree.tap()
-        XCTAssertTrue(send.isEnabled); send.tap()
+        XCTAssertTrue(send.isEnabled)
+        capture(app, "bot-explicit-consent-draft-send-enabled")
+        send.tap()
         let confirmed = message("Confirmed QA reply.", in: app)
         XCTAssertTrue(confirmed.waitForExistence(timeout: 8)); XCTAssertTrue(confirmed.isHittable)
         capture(app, "bot-explicit-consent-single-confirmed-reply")
