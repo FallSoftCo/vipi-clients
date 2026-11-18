@@ -94,7 +94,8 @@ class ChatTimelineDeviceTest {
                         observations.put(JSONObject().put("vsync_frame", currentFrame).put("uptime_ms", now)
                             .put("reading_line", value?.json() ?: JSONObject.NULL))
                         val geometry = value?.let { "${it.tag}:${it.start}:${it.end}:${it.top}:${it.bottom}:${it.baseline}:${it.paragraphHeight}" }.orEmpty()
-                        val samePosition = value != null && (expected == null || kotlin.math.abs(value.top - expected.top) <= 1f)
+                        val samePosition = value != null && (expected == null ||
+                            (kotlin.math.abs(value.top - expected.top) <= 1f && kotlin.math.abs(value.baseline - expected.baseline) <= 1f))
                         if (!samePosition || geometry != prior) { stableSince = now; stableFrames = 0 }
                         if (samePosition && currentFrame != frame) stableFrames++
                         prior = geometry; frame = currentFrame
@@ -104,7 +105,7 @@ class ChatTimelineDeviceTest {
                     File(output, "$phase-reading-observations.json").writeText(JSONObject().put("observations", observations)
                         .put("expected_reading_line", expected?.json() ?: JSONObject.NULL)
                         .put("fixed_source_point_utf16", expected?.start ?: accepted?.start ?: JSONObject.NULL)
-                        .put("baseline_observed_separately", true).put("y_tolerance_px", 1).toString(2))
+                        .put("baseline_observed_separately", true).put("baseline_required_within_px", 1).put("y_tolerance_px", 1).toString(2))
                 }
                 return requireNotNull(accepted)
             }
@@ -195,6 +196,7 @@ class ChatTimelineDeviceTest {
                 val after = anchor()
                 assertEquals(beforeReading.tag, afterReading.tag)
                 assertEquals(beforeReading.top, afterReading.top, 1f)
+                assertEquals("Incoming/preparation moved the actual source glyph baseline", beforeReading.baseline, afterReading.baseline, 1f)
                 File(output, "incoming-anchor-proof.json").writeText(JSONObject().put("before", beforeReading.json())
                     .put("after", afterReading.json()).put("metadata_before_tag", before.first).put("metadata_after_tag", after.first)
                     .put("metadata_before_y", before.second.toDouble())
@@ -207,6 +209,7 @@ class ChatTimelineDeviceTest {
                 compose.onNodeWithTag(beforeReading.tag).assertExists()
                 val imeReading = stableReadingLine("after-native-ime", beforeReading)
                 assertEquals("Opening the native IME moved the actual reading line", beforeReading.top, imeReading.top, 1f)
+                assertEquals("Opening the native IME moved the actual source glyph baseline", beforeReading.baseline, imeReading.baseline, 1f)
                 compose.onNodeWithContentDescription("Jump to latest messages").assertIsDisplayed()
                 capture("android-reading-with-keyboard-light")
                 compose.onNodeWithContentDescription("Send message").performTouchInput { click() }
