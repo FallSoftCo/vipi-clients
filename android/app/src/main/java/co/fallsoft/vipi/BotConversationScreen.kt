@@ -128,9 +128,13 @@ import java.time.format.FormatStyle
     val maximumHistoryHeight = (availableHeight - minimumComposerHeight - fixedFooterHeight).coerceAtLeast(0.dp)
     val historyReserve = if (!compact && bot.messages.isNotEmpty()) minOf(160.dp, availableHeight * .45f, maximumHistoryHeight) else 0.dp
     val footerContentHeight = (availableHeight - historyReserve).coerceAtLeast(0.dp)
-    val composerMaxHeight = minOf(maxOf(96.dp, minimumComposerHeight),
-        (footerContentHeight - fixedFooterHeight).coerceAtLeast(minimumComposerHeight),
-        (footerContentHeight * .6f).coerceAtLeast(minimumComposerHeight))
+    // In a short viewport let the field measure its actual first-line
+    // intrinsic height, including native font padding at enlarged text sizes.
+    // The normal proportional history/status budget must not cap that line.
+    val composerMaxHeight = if (compact) maxOf(minimumComposerHeight, footerContentHeight)
+        else minOf(maxOf(96.dp, minimumComposerHeight),
+            (footerContentHeight - fixedFooterHeight).coerceAtLeast(minimumComposerHeight),
+            (footerContentHeight * .6f).coerceAtLeast(minimumComposerHeight))
     // Scaffold measures its bars independently. Bound the entire footer before
     // applying IME padding so consent cannot cover the measured native topbar.
     val footerMaxHeight = (maxHeight - with(density) { topBarHeightPx.toDp() } - historyReserve).coerceAtLeast(0.dp)
