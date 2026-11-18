@@ -123,6 +123,33 @@ class PreviewSpeechLifecycleDeviceTest {
         }
     }
 
+    @Test fun wholeAndTranslationPlaybackStopWhenTheirBubbleChangesMode() {
+        check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        lateinit var speech: SpeechPlayback
+        val shown = mutableStateOf(true); val mode = mutableStateOf(ReadingMode.IMMERSED)
+        val result = ConversationExamples.result(context, "en", "es")
+        compose.runOnIdle { speech = SpeechPlayback(context, "en", "es", scope); speech.prepare(mapOf("en" to result.original, "es" to result.translation)) }
+        compose.setContent { if (shown.value) VipiTheme(Appearance.LIGHT) {
+            ImmersionBubble(result, mode.value, speech, "en", "es", "owned-reading", onModeChange = { mode.value = it })
+        } }
+        try {
+            compose.waitUntil(30_000) { speech.state != SpeechState.PREPARING }
+            compose.runOnIdle { assertEquals(speech.error.orEmpty(), SpeechState.READY, speech.state) }
+            for (id in listOf("owned-reading", "translation-owned-reading")) {
+                compose.runOnIdle { mode.value = ReadingMode.IMMERSED }; compose.waitForIdle()
+                compose.runOnIdle { speech.toggle(id, listOf(SpeechSpan(if (id.startsWith("translation-")) result.translation else result.original, if (id.startsWith("translation-")) "es" else "en"))) }
+                compose.waitUntil(15_000) { speech.state == SpeechState.PLAYING }
+                compose.runOnIdle { mode.value = ReadingMode.ORIGINAL }; compose.waitForIdle()
+                compose.runOnIdle { assertNull("Changing the owned reading must stop $id", speech.activeMessage) }
+            }
+        } finally {
+            compose.runOnIdle { shown.value = false }; compose.waitForIdle()
+            compose.runOnIdle { speech.close() }; scope.cancel()
+        }
+    }
+
     private fun paragraph(original: String): StableImmersionText {
         fun collect(view: View): List<StableImmersionText> = when (view) {
             is StableImmersionText -> listOf(view)
