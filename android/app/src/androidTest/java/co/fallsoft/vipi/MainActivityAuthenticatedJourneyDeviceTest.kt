@@ -56,10 +56,10 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 f.launch()
                 waitScreen(f, Screen.PROFILE)
                 compose.onNodeWithTag("profile-submit").assertIsNotEnabled()
-                compose.onNodeWithTag("profile-name").performTouchInput { click() }
+                compose.onNodeWithTag("profile-name").performScrollTo().performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 compose.onNodeWithTag("profile-name").performTextInput("Journey Tester")
-                compose.onNodeWithTag("profile-username").performTouchInput { click() }
+                compose.onNodeWithTag("profile-username").performScrollTo().performTouchInput { click() }
                 compose.onNodeWithTag("profile-username").performTextInput("journey_tester")
                 compose.onNodeWithTag("profile-submit").performScrollTo().assertIsEnabled().performTouchInput { click() }
                 waitScreen(f, Screen.HOME)
@@ -75,7 +75,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 compose.onNodeWithText(f.base.getString(R.string.nav_invite)).performTouchInput { click() }
                 compose.runOnIdle { assertEquals(1, shareCount) }
                 val username = compose.onNode(hasSetTextAction())
-                username.performTouchInput { click() }
+                username.performScrollTo().performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 username.performTextInput("missing_friend")
                 compose.onNodeWithText(f.base.getString(R.string.ui_ba6e8c9b0c3e)).performScrollTo().performTouchInput { click() }
