@@ -58,7 +58,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                     val editorWindow = compose.onNodeWithTag("message-input").fetchSemanticsNode().boundsInWindow
                     val metadata = compose.onAllNodesWithTag("message-meta-${services.friendReplyId}")
                         .fetchSemanticsNodes().singleOrNull()?.boundsInWindow
-                    val axis = timelineNode.config.getOrElse(SemanticsProperties.VerticalScrollAxisRange) { null }
+                    val axis = if (timelineNode.config.contains(SemanticsProperties.VerticalScrollAxisRange))
+                        timelineNode.config[SemanticsProperties.VerticalScrollAxisRange] else null
                     val jump = compose.onAllNodesWithTag("conversation-latest").fetchSemanticsNodes().isNotEmpty()
                     var visible = false; var geometry = "Missing incoming native paragraph"
                     val sample = JSONObject().put("vsync_frame", frames.get()).put("uptime_ms", android.os.SystemClock.uptimeMillis())
@@ -250,6 +251,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 }
                 compose.onNodeWithTag("message-input").performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
+                compose.onNodeWithTag("message-input").assertEditorValue("Keep this local friend draft.")
+                assertIncomingReplyVisible("Reopened incoming peer reply after final native IME focus")
                 f.capture("05-returned-bidirectional-friend-history-and-resumed-draft")
                 compose.runOnIdle { assertEquals(1, services.friendPosts.get()); assertEquals(0, services.botPosts.get()) }
                 services.assertNoPurchase()
