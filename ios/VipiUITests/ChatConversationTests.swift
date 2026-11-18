@@ -1,4 +1,6 @@
 import XCTest
+import UIKit
+import Vision
 
 @MainActor
 final class ChatConversationTests: XCTestCase {
@@ -396,7 +398,7 @@ final class ChatConversationTests: XCTestCase {
         // its action, and the focused field above the actual software IME.
         let extra = "\nLandscape line two.\nLandscape line three.\nLandscape line four.\nLandscape line five.\nFinal landscape line."
         input.typeText(extra)
-        let landscapeDraft = "Local draft before consent." + extra
+        var landscapeDraft = "Local draft before consent." + extra
         XCTAssertEqual(input.value as? String, landscapeDraft)
         XCUIDevice.shared.orientation = .landscapeLeft
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
@@ -407,6 +409,10 @@ final class ChatConversationTests: XCTestCase {
             input.frame.maxY <= keyboard.frame.minY + 1 && input.frame.minY >= navigation.frame.maxY - 1
         }, object: app)
         let settled = XCTWaiter.wait(for: [layout], timeout: 5)
+        // Appending after rotation proves real typing remains at the document
+        // end and restarts the native caret blink for retained visual evidence.
+        input.typeText(" End."); landscapeDraft += " End."
+        XCTAssertEqual(input.value as? String, landscapeDraft)
         capture(app, "bot-landscape-multiline-draft-native-keyboard")
         let geometry = XCTAttachment(data: try JSONSerialization.data(withJSONObject:
             Dictionary(uniqueKeysWithValues: [("screen", app), ("keyboard", keyboard), ("input", input), ("send", send), ("navigation", navigation)].map { name, element in
@@ -414,6 +420,7 @@ final class ChatConversationTests: XCTestCase {
                 return (name, ["x": frame.minX, "y": frame.minY, "width": frame.width, "height": frame.height, "hittable": element.isHittable] as [String: Any])
             }), options: [.sortedKeys]), uniformTypeIdentifier: "public.json")
         geometry.name = "bot-landscape-native-input-geometry"; geometry.lifetime = .keepAlways; add(geometry)
+        try assertRenderedEndLine("Final landscape line. End.", in: input, app: app, keyboard: keyboard)
         XCTAssertEqual(settled, .completed, "Focused multiline composer must fit between native navigation and software keyboard")
         XCTAssertEqual(input.value as? String, landscapeDraft)
         for control in [input, send] {
@@ -426,7 +433,7 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
             app.frame.height > app.frame.width
         }, object: app)], timeout: 5), .completed)
-        input.tap(); input.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: extra.count))
+        input.tap(); input.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: extra.count + " End.".count))
         XCTAssertEqual(input.value as? String, "Local draft before consent.")
         back.tap(); XCTAssertTrue(open.waitForExistence(timeout: 5))
         XCTAssertTrue(proof.label.contains("posts=0")); open.tap()
@@ -459,6 +466,39 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertTrue(lateReplyVisible, "The reopened conversation must display a reply that completed after ordinary Back and return")
         app.buttons["Finish Bot QA"].tap()
         XCTAssertTrue(app.staticTexts["Synthetic Bot conversation removed"].waitForExistence(timeout: 5))
+    }
+    /// Public XCUITest does not expose UITextInput's caret rect. Measure the
+    /// actually rendered last line in the native screenshot instead; retain
+    /// that same frame for independent caret/blink inspection.
+    private func assertRenderedEndLine(_ endLine: String, in input: XCUIElement,
+        app: XCUIApplication, keyboard: XCUIElement) throws {
+        let screenshot = app.screenshot()
+        let frame = XCTAttachment(screenshot: screenshot)
+        frame.name = "bot-landscape-final-line-and-native-caret"; frame.lifetime = .keepAlways; add(frame)
+        let image = try XCTUnwrap(screenshot.image.cgImage)
+        let request = VNRecognizeTextRequest()
+        request.recognitionLevel = .accurate; request.usesLanguageCorrection = false; request.recognitionLanguages = ["en-US"]
+        try VNImageRequestHandler(cgImage: image, options: [:]).perform([request])
+        let observed = try XCTUnwrap(request.results?.compactMap { observation -> CGRect? in
+            guard let candidate = observation.topCandidates(1).first, candidate.confidence >= 0.8,
+                  let range = candidate.string.range(of: endLine),
+                  let glyphs = try? candidate.boundingBox(for: range) else { return nil }
+            let box = glyphs.boundingBox
+            return CGRect(x: app.frame.minX + box.minX * app.frame.width,
+                y: app.frame.minY + (1 - box.maxY) * app.frame.height,
+                width: box.width * app.frame.width, height: box.height * app.frame.height)
+        }.first, "The full final typed visual line must actually render; field existence alone is insufficient")
+        let measured = XCTAttachment(data: try JSONSerialization.data(withJSONObject: [
+            "method": "Vision OCR on exact native XCUIScreenshot; normalized glyph box mapped to native app coordinates",
+            "line": endLine, "x": observed.minX, "y": observed.minY, "width": observed.width, "height": observed.height,
+            "keyboard_top": keyboard.frame.minY, "native_full_draft_verified": true,
+            "caret_rect_exposed_by_public_xcuitest": false, "caret_evidence": "same retained native screenshot after actual append"
+        ], options: [.sortedKeys]), uniformTypeIdentifier: "public.json")
+        measured.name = "bot-landscape-rendered-final-line-geometry"; measured.lifetime = .keepAlways; add(measured)
+        XCTAssertGreaterThanOrEqual(observed.height, UIFont.preferredFont(forTextStyle: .body).capHeight * 0.85,
+            "A clipped fragment of the final line cannot qualify as fully rendered")
+        XCTAssertTrue(input.frame.insetBy(dx: -1, dy: -1).contains(observed))
+        XCTAssertLessThanOrEqual(observed.maxY, keyboard.frame.minY - 1)
     }
     private func message(_ text: String, in app: XCUIApplication) -> XCUIElement {
         app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", text)).firstMatch
