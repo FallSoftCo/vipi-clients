@@ -315,7 +315,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
     }
 
     @Test fun readingOlderBotHistoryKeepsItsNativeAnchorWhenPendingReplyArrivesAndImeOpens() {
-        val services = JourneyServices(profileRequired = false, seedBotMessages = 30)
+        val services = JourneyServices(profileRequired = false, seedBotMessages = 30, expectedBotPosts = 2)
         MainActivityJourneyFixture("bot-history-anchor", services::model).use { f ->
             fun paragraphPosition(original: String? = null): Pair<String, Int>? {
                 var found: Pair<String, Int>? = null
@@ -360,9 +360,23 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 assertEquals("IME resize moved the older reading anchor", anchor.second.toDouble(), afterIme.second.toDouble(), 2.0)
                 assertEquals(1, services.botPosts.get())
                 f.capture("02-older-anchor-after-reply-and-native-ime")
+                // The reader's explicit new Send is a fresh intent to follow
+                // the latest exchange, even though an incoming reply was not.
+                compose.onNodeWithTag("bot-message-send").assertIsEnabled().performTouchInput { click() }
+                compose.waitUntil(8_000) { services.botPosts.get() == 2 && f.model.bot?.busy == false &&
+                    f.model.bot?.messages?.lastOrNull()?.text == services.botFollowupReply }
+                compose.onNodeWithTag("bot-message-input").assertEmptyEditor()
+                val nextDraft = "A local draft after returning to the newest reply."
+                compose.onNodeWithTag("bot-message-input").performTextInput(nextDraft)
+                compose.onNodeWithTag("bot-message-input").assertEditorValue(nextDraft)
+                assertReplyAudioAboveComposer(f, services.botFollowupReply, nextDraft)
+                assertEquals(listOf("A new local prompt while keeping older history.", "Keep reading this older passage."), services.botRequestPrompts)
+                assertEquals(2, services.botPosts.get())
+                f.capture("03-own-send-returned-to-latest-with-audio-action")
                 File(f.output, "result.json").writeText(JSONObject().put("pass", true).put("one_controlled_post", true)
                     .put("older_anchor", anchor.first).put("anchor_y", anchor.second)
-                    .put("incoming_and_ime_preserved_anchor", true).put("provider_claimed", false).toString(2))
+                    .put("incoming_and_ime_preserved_anchor", true).put("own_send_resumed_following_latest", true)
+                    .put("one_post_per_explicit_send", true).put("total_posts", 2).put("provider_claimed", false).toString(2))
             } catch (failure: Throwable) {
                 runCatching { f.capture("failure-before-cleanup") }.onFailure { failure.addSuppressed(it) }
                 throw failure
@@ -443,7 +457,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
 
 /** External relay/service boundary; real account, Signal, history, Bot and
  * subscription coordinators still execute. Every unlisted request is rejected. */
-private class JourneyServices(profileRequired: Boolean, private val seedBotMessages: Int = 0) : VipiWorkflowBoundary, AutoCloseable {
+private class JourneyServices(profileRequired: Boolean, private val seedBotMessages: Int = 0,
+    private val expectedBotPosts: Int = 1) : VipiWorkflowBoundary, AutoCloseable {
     val account = UUID.randomUUID()
     val peer = UUID.randomUUID()
     val subject = "user_journey_${UUID.randomUUID().toString().replace("-", "")}"
@@ -455,6 +470,8 @@ private class JourneyServices(profileRequired: Boolean, private val seedBotMessa
     val failBotReply = AtomicBoolean(false)
     val botReplyGate = CompletableDeferred<Unit>()
     val botReply = "The local lifecycle reply arrived."
+    val botFollowupReply = "The new local reply is now fully reachable."
+    val botRequestPrompts = mutableListOf<String>()
     val lookups = mutableListOf<String>()
     var peerReceived: String? = null
     private var created = !profileRequired
@@ -543,14 +560,18 @@ private class JourneyServices(profileRequired: Boolean, private val seedBotMessa
                     }
                     method == "GET" && path == "/v1/bot/allowance" -> allowance()
                     method == "POST" && path == "/v1/bot/messages" -> {
-                        check(device == registered && botPosts.incrementAndGet() == 1)
+                        check(device == registered)
+                        val post = botPosts.incrementAndGet()
+                        check(post <= expectedBotPosts)
                         val sent = requireNotNull(body)
                         check(sent.getString("consent_version") == "deepseek-v1")
                         check(sent.getJSONArray("messages").length() == if (seedBotMessages == 0) 1 else 11)
+                        val context = sent.getJSONArray("messages")
+                        botRequestPrompts += context.getJSONObject(context.length() - 1).getString("content")
                         botReplyGate.await()
                         if (failBotReply.get()) throw java.io.IOException("Synthetic uncertain provider outcome")
-                        remaining = 149
-                        JSONObject().put("request_id", sent.getString("request_id")).put("reply", botReply).put("allowance", allowance())
+                        remaining = 150 - post
+                        JSONObject().put("request_id", sent.getString("request_id")).put("reply", if (post == 1) botReply else botFollowupReply).put("allowance", allowance())
                     }
                     else -> error("Unexpected journey service boundary request: $method $path")
                 }
