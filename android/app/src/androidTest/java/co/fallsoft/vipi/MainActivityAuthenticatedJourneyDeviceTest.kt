@@ -864,13 +864,20 @@ class MainActivityAuthenticatedJourneyDeviceTest {
 /** External relay/service boundary; real account, Signal, history, Bot and
  * subscription coordinators still execute. Every unlisted request is rejected. */
 internal class JourneyServices(profileRequired: Boolean, private val seedBotMessages: Int = 0,
-    private val expectedBotPosts: Int = 1, private val expectedFriendPosts: Int = 1) : VipiWorkflowBoundary, AutoCloseable {
+    private val expectedBotPosts: Int = 1, private val expectedFriendPosts: Int = 1,
+    private val cardlessAccess: Boolean = false) : VipiWorkflowBoundary, AutoCloseable {
     val account = UUID.randomUUID()
     val peer = UUID.randomUUID()
     val subject = "user_journey_${UUID.randomUUID().toString().replace("-", "")}"
     val profileWrites = AtomicInteger()
     val deviceRegistrations = AtomicInteger()
     val friendPosts = AtomicInteger()
+    val baseExpired = AtomicBoolean(false)
+    val baseRestored = AtomicBoolean(false)
+    val refusedFriendIDs = mutableListOf<UUID>()
+    val refusedFriendCiphertexts = mutableListOf<String>()
+    val cardlessStarted: Instant = Instant.now().minusSeconds(29 * 86_400L)
+    val cardlessEnds: Instant = cardlessStarted.plusSeconds(30 * 86_400L)
     val friendReplyReceipts = AtomicInteger()
     val inboxWakeups = AtomicInteger()
     val friendReply = "Thanks for your message — café ☕."
@@ -968,9 +975,16 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
                             .put("signed", publication.getJSONObject("signed")).put("one_time", publication.getJSONArray("one_time").getJSONObject(0))
                     }
                     method == "POST" && path == "/v1/messages" -> {
-                        check(device == registered && friendPosts.incrementAndGet() <= expectedFriendPosts)
+                        check(device == registered)
                         val encrypted = JSONObject(requireNotNull(body).toString())
                         check(!encrypted.toString().contains("I am reading a book now."))
+                        if (cardlessAccess && baseExpired.get() && !baseRestored.get()) {
+                            check(refusedFriendIDs.size < 8) { "Unexpected unbounded retry of expired send" }
+                            refusedFriendIDs += UUID.fromString(encrypted.getString("id"))
+                            refusedFriendCiphertexts += encrypted.toString()
+                            throw ServiceFailure(402, "base_subscription_required")
+                        }
+                        check(friendPosts.incrementAndGet() <= expectedFriendPosts)
                         outgoingFriendId = UUID.fromString(encrypted.getString("id"))
                         encrypted.put("sender_id", account).put("sender_device_id", requireNotNull(registered).id)
                         peerReceived = requireNotNull(peerCore).receive(RoutedMessage.received(encrypted, peer), System.currentTimeMillis()).text
@@ -978,6 +992,23 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
                     }
                     method == "GET" && path == "/v1/entitlements" -> {
                         if (failNextEntitlement.getAndSet(false)) throw java.io.IOException("Synthetic entitlement unavailable")
+                        if (cardlessAccess) {
+                            val expired = baseExpired.get()
+                            val restored = baseRestored.get()
+                            val now = if (expired) cardlessEnds.plusSeconds(1) else Instant.now()
+                            val base = JSONObject().put("active", !expired || restored)
+                                .put("expires_at", if (restored) now.plusSeconds(365 * 86_400L).toString() else cardlessEnds.toString())
+                                .put("trial_ends_at", if (!expired) cardlessEnds.toString() else JSONObject.NULL)
+                                .put("review_access", false)
+                                .put("access_source", if (restored) "google_play" else if (!expired) "cardless_trial" else JSONObject.NULL)
+                                .put("cardless_trial", JSONObject().put("started_at", cardlessStarted.toString())
+                                    .put("ends_at", cardlessEnds.toString()).put("active", !expired))
+                            val bot = JSONObject().put("active", false).put("available", true)
+                                .put("expires_at", JSONObject.NULL).put("trial_ends_at", JSONObject.NULL)
+                            return JSONObject().put("base", base).put("bot_mini", bot)
+                                .put("billing_account_id", "c".repeat(64)).put("server_time", now.toString())
+                                .put("purchases_ready", JSONObject().put("google", true))
+                        }
                         fun plan() = JSONObject().put("active", true).put("expires_at", JSONObject.NULL).put("trial_ends_at", JSONObject.NULL)
                             .put("review_access", true).put("access_source", "review_complimentary")
                         JSONObject().put("base", plan()).put("bot_mini", plan().put("available", true))
