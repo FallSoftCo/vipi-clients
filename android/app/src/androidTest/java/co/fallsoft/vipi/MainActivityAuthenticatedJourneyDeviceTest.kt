@@ -5,6 +5,8 @@ import android.app.Application
 import android.app.Instrumentation
 import android.content.Context
 import android.content.Intent
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.core.view.WindowInsetsCompat
@@ -97,7 +99,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 compose.onNodeWithTag("message-send").assertIsEnabled().performTouchInput { click() }
                 compose.waitUntil(10_000) { f.model.chat?.messages(services.peer)?.singleOrNull()?.state == "delivered" }
                 compose.onNodeWithText("Delivered", substring = true).assertIsDisplayed()
-                compose.onNodeWithTag("message-input").assertTextEquals("")
+                compose.onNodeWithTag("message-input").assertEmptyEditor()
                 compose.runOnIdle {
                     assertEquals(1, services.friendPosts.get())
                     assertEquals(prompt, services.peerReceived)
@@ -194,7 +196,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                     shown
                 }
                 compose.onNodeWithText("149 of 150 replies left", substring = true).assertIsDisplayed()
-                compose.onNodeWithTag("bot-message-input").assertTextEquals("").performTouchInput { click() }
+                compose.onNodeWithTag("bot-message-input").assertEmptyEditor().performTouchInput { click() }
                 compose.waitUntil(8_000) { imeVisible(f) }
                 f.capture("02-one-confirmed-reply-after-back-and-reopen")
                 compose.runOnIdle {
@@ -251,7 +253,7 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 services.botReplyGate.complete(Unit)
                 compose.waitUntil(8_000) { f.model.bot?.busy == false && f.model.bot?.messages?.singleOrNull()?.status == "unconfirmed" }
                 compose.onNodeWithText(f.base.getString(R.string.bot_reply_unconfirmed)).assertIsDisplayed()
-                compose.onNodeWithTag("bot-message-input").assertTextEquals("")
+                compose.onNodeWithTag("bot-message-input").assertEmptyEditor()
                 compose.onNodeWithTag("bot-message-send").assertIsNotEnabled()
                 f.capture("01-uncertain-reply-with-explicit-allowance-recovery")
                 compose.onNodeWithText(f.base.getString(R.string.ui_cf0b3e3d47ec)).performTouchInput { click() }
@@ -292,6 +294,9 @@ class MainActivityAuthenticatedJourneyDeviceTest {
             } finally { services.botReplyGate.complete(Unit); f.stopActivity(); services.close() }
         }
     }
+
+    private fun SemanticsNodeInteraction.assertEmptyEditor(): SemanticsNodeInteraction =
+        assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString("")))
 
     private fun openBot(f: MainActivityJourneyFixture) {
         compose.onNodeWithText(f.base.getString(R.string.ui_f173182378d0)).performScrollTo().performTouchInput { click() }
