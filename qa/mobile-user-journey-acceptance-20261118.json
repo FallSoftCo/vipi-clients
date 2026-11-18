@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T06:04:14.724278+00:00",
+  "updated_utc": "2026-11-18T06:24:30.873301+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -119,7 +119,9 @@
     "ios_backup": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-backup-native-evidence-r01/summary.json",
     "ios_subscription_domain": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-subscription-domain-evidence-r01/summary.json",
     "android_multiline_normal": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-editing-idle-normal-r29.json",
-    "android_multiline_large": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-editing-idle-large-r30.json"
+    "android_multiline_large": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-editing-idle-large-r30.json",
+    "android_signed_v7": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/release-verification-v7-r01.json",
+    "android_signed_v7_keyboard": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-native-smoke-r01/receipt.json"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
   "original_nine_dirty_files_preserved": true,
@@ -127,5 +129,6 @@
     "base_intro_offers": "Google obsolete Base offer deactivated once; Apple Base offer removed once onNovember17. Reloadverifiedreceipts retained. No repetition.",
     "google_license_test": "Prior no-charge license purchase/renewal/cancellation/lapse completed; do not replay. Current native tests controlbilling boundary and do not claim a new storetest.",
     "apple_native_purchase": "No actual Apple transaction pass. IDE-control diagnostics r01/r02 restored unchanged QA scheme; no test or purchase dispatched."
-  }
+  },
+  "evidence_retention": "After completed qualification and signedv7 verification, all synthetic QA app evidence was retained in a private hashed archive before retiring only its isolated emulator packages. Original user accounts/production app data retained; latest testAPK and source kept. No claim that the encrypted fixture archive is a restorable customer backup."
 }

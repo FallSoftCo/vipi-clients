@@ -1,6 +1,6 @@
 {
   "reported": "Owner cannot open keyboard or send vBot message on Android versionCode5",
-  "status": "native_core_journeys_passed; corrected_signed_delivery_pending; public_release_held",
+  "status": "corrected_signed_android_native_keyboard_passed; phone_delivery_and_store_bundle_in_progress; public_release_held",
   "readiness_claim_withdrawn": true,
   "public_release_controls": {
     "apple": "existing manual release retained",
@@ -23,7 +23,7 @@
     "native keyboard/focus/send guard regression qualification"
   ],
   "external_actions": "Existing store submissions not repeated. One config-only testing grant for user-confirmed owner profile activated and verified; API restart preserved unrelated services. No purchase/charge or uncertain Bot send replay.",
-  "updated_utc": "2026-11-18T06:04:14.724278+00:00",
+  "updated_utc": "2026-11-18T06:24:30.872893+00:00",
   "verified": [
     "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
     "Actual VipiModel setup routing: 5 focused tests passed",
@@ -35,18 +35,20 @@
     "Current product APK hashcd6fcfa8 passed all seven selected MainActivity journeys across normal and enlarged text; separate runs explicitly linked in acceptance record."
   ],
   "remaining": [
-    "Sign corrected Android replacement, verify installed phone version and actual keyboard/send",
+    "Verify corrected version7 installed on owner phone and actual Bot send",
+    "Build and validate corrected Play bundle, including byte-for-byte DEX equality with signedv7",
     "Obtain actual local StoreKit transaction proof; current IDE control/readiness gap remains explicit",
-    "Archive/export corrected Apple build from reconciled source; fresh ASC inventory before upload; preserve existing release controls"
+    "Finish corrected Apple distribution export and fresh ASC inventory before upload; preserve existing release controls"
   ],
   "phone_identity": "User confirmed @rjuniyer; exact healthy shared-realm profile differs from previously pinned testing identity. One UUID grant activated with fresh own-workload coordination and independently verified.",
   "signed_review_build": {
-    "version_code": 6,
-    "version_name": "1.0.5",
-    "source": "20f7fb46e8ca16a1913cd9fc5de951336b4dd0a6",
-    "sha256": "7bf15941b8a76e179ff8256ea989e13c6f5a45e2c76551d93f30186a4fe41eb0",
+    "version_code": 7,
+    "version_name": "1.0.6",
+    "source": "c477c37456b45162ff233b6bec2deb3a49773b7a",
+    "sha256": "fe63726e204520d1b28d71a1b65c9369b9289521f834a965b2d23564261245d6",
     "signature_and_assets_verified": true,
-    "release_native_keyboard_smoke": true
+    "release_native_keyboard_smoke": true,
+    "native_smoke_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v7-native-smoke-r01/receipt.json"
   },
   "phone_delivery": {
     "checked_utc": "2026-11-18T03:39:49.795377+00:00",
