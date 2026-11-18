@@ -19,10 +19,15 @@ final class ShortReplyImmersionTests: XCTestCase {
             XCTAssertEqual(meaning.frame.height,bounds.height,accuracy:1);XCTAssertEqual(meaning.frame.minY,bounds.minY,accuracy:1)
             let b=XCTAttachment(screenshot:XCUIScreen.main.screenshot());b.name="ios-short-reply-\(source)-\(target)-meaning";b.lifetime = .keepAlways;add(b)
             XCTAssertTrue(learned.waitForExistence(timeout:10),"Switch continuously, without a word tap")
-            app.buttons["Reading options"].tap();app.buttons["Swahili"].tap()
-            XCTAssertTrue(app.staticTexts["Ndiyo."].waitForExistence(timeout:5))
-            app.buttons["Reading options"].tap();app.buttons["English"].tap()
-            XCTAssertTrue(app.staticTexts["yes"].waitForExistence(timeout:5))
+            let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
+            chooseMessageLanguage("English", in: app, paragraph: paragraph)
+            let panel = translateMessage(in: app, paragraph: paragraph)
+            XCTAssertTrue(panel.staticTexts["Ndiyo."].waitForExistence(timeout: 10))
+            XCTAssertTrue(panel.staticTexts["yes"].exists)
+            closeTranslationPanel(panel)
+            openMessageReadingOptions(in: app, paragraph: paragraph)
+            app.buttons["Original message"].tap()
+            XCTAssertEqual(paragraph.label, "yes")
             app.terminate()
         }
     }

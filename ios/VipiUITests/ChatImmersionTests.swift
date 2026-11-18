@@ -13,10 +13,10 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(latin.waitForExistence(timeout: 15))
         XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "localTransliteration")
         capture("ios-japanese-local-full-reading")
-        app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
+        openInlineReadingOptions(in: app); app.buttons["Show original script"].tap()
         XCTAssertTrue(app.staticTexts["ZoëとJoséにメッセージを送った。"].waitForExistence(timeout: 5))
         capture("ios-japanese-local-original-script")
-        app.buttons["Reading options"].tap(); app.buttons["Show Latin letters"].tap()
+        openInlineReadingOptions(in: app); app.buttons["Show Latin letters"].tap()
         XCTAssertTrue(latin.waitForExistence(timeout: 5))
         app.buttons["Authored"].tap()
         XCTAssertTrue(app.staticTexts["Mizu ga hitsuyō desu."].waitForExistence(timeout: 5))
@@ -25,10 +25,12 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["𠮷先生に会う。"].waitForExistence(timeout: 5))
         XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "unavailable")
         capture("ios-japanese-unknown-reading-abstains")
-        app.buttons["Reading options"].tap()
+        openInlineMessageActions(in: app)
+        XCTAssertTrue(app.buttons["Copy original message"].exists)
+        app.navigationBars.firstMatch.tap()
+        openInlineReadingOptions(in: app)
         XCTAssertFalse(app.buttons["Show original script"].exists)
         XCTAssertFalse(app.buttons["Show Latin letters"].exists)
-        XCTAssertTrue(app.buttons["Copy original message"].exists)
     }
 
     @MainActor func testKoreanDefaultReadingUsesOriginalScriptAndAuthoredPriority() throws {
@@ -41,10 +43,10 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(latin.waitForExistence(timeout: 15))
         XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "localTransliteration")
         capture("ios-korean-local-full-reading")
-        app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
+        openInlineReadingOptions(in: app); app.buttons["Show original script"].tap()
         XCTAssertTrue(app.staticTexts["같이 학교에 갑니다."].waitForExistence(timeout: 5))
         capture("ios-korean-local-original-script")
-        app.buttons["Reading options"].tap(); app.buttons["Show Latin letters"].tap()
+        openInlineReadingOptions(in: app); app.buttons["Show Latin letters"].tap()
         XCTAssertTrue(latin.waitForExistence(timeout: 5))
         app.buttons["Authored"].tap()
         XCTAssertTrue(app.staticTexts["Muri piryohaeyo."].waitForExistence(timeout: 5))
@@ -53,37 +55,16 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["𠮷에게 메시지를 보내요."].waitForExistence(timeout: 5))
         XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "unavailable")
         capture("ios-korean-unknown-reading-abstains")
-        app.buttons["Reading options"].tap()
+        openInlineMessageActions(in: app)
+        XCTAssertTrue(app.buttons["Copy original message"].exists)
+        app.navigationBars.firstMatch.tap()
+        openInlineReadingOptions(in: app)
         XCTAssertFalse(app.buttons["Show original script"].exists)
         XCTAssertFalse(app.buttons["Show Latin letters"].exists)
-        XCTAssertTrue(app.buttons["Copy original message"].exists)
     }
 
-    @MainActor func testDelayedFullReadingPreservesProductionHistoryAnchor() throws {
+    @MainActor func testDelayedManualReadingPreservesProductionHistoryAnchor() throws {
         continueAfterFailure = false
-        let layoutTrait = UITraitCollection(preferredContentSizeCategory: .accessibilityExtraExtraExtraLarge)
-        let layoutFont = UIFont.preferredFont(forTextStyle: .body, compatibleWith: layoutTrait)
-        // The production outgoing row deducts 18pt outer padding twice,
-        // 38pt leading space, and 15pt inner padding twice.
-        // The UI-test host's UIScreen can report its compatibility width.
-        // Read the actual simulator display through the accessibility host.
-        let displayWidth = XCUIApplication(bundleIdentifier: "com.apple.springboard").frame.width
-        XCTAssertGreaterThan(displayWidth, 104)
-        let layoutWidth = min(displayWidth, 680) - 104
-        let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 5
-        func measuredHeight(_ text: String) -> CGFloat {
-            (text as NSString).boundingRect(with: CGSize(width: layoutWidth, height: .greatestFiniteMagnitude),
-                options: [.usesLineFragmentOrigin, .usesFontLeading],
-                attributes: [.font: layoutFont, .paragraphStyle: paragraph], context: nil).height
-        }
-        let scriptHeight = measuredHeight("私は音楽が好きです。")
-        let readingHeight = measuredHeight("Watashi wa ongaku ga suki desu.")
-        let layoutReceipt = XCTAttachment(data: try JSONSerialization.data(withJSONObject: [
-            "font": layoutFont.fontName, "point_size": layoutFont.pointSize,
-            "available_width": layoutWidth, "script_height": scriptHeight, "latin_height": readingHeight
-        ], options: [.prettyPrinted, .sortedKeys]), uniformTypeIdentifier: "public.json")
-        layoutReceipt.name = "delayed-reading-native-layout-preflight"; layoutReceipt.lifetime = .keepAlways; add(layoutReceipt)
-        XCTAssertGreaterThan(readingHeight, scriptHeight + 5, "Do not launch the UI with a fixture that has no native text growth")
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-history-qa",
             "-vipi-immersion-single-qa", "-vipi-delayed-reading-qa", "-vipi-timeline-audit",
@@ -96,60 +77,47 @@ final class ChatImmersionTests: XCTestCase {
             app.terminate()
         }
         let timeline = app.scrollViews["conversation-timeline"]
-        let readingOptions = app.buttons.matching(identifier: "Reading options")
-        XCTAssertTrue(readingOptions.firstMatch.waitForExistence(timeout: 30))
+        let paragraphs = app.descendants(matching: .any).matching(identifier: "immersionText")
+        XCTAssertTrue(paragraphs.firstMatch.waitForExistence(timeout: 30))
         timeline.swipeDown(); timeline.swipeDown()
         let jump = app.buttons["conversation-latest"]
         XCTAssertTrue(jump.waitForExistence(timeout: 5))
-        let bounds = timeline.frame
-        var chosen: XCUIElement?
-        var closest = CGFloat.greatestFiniteMagnitude
-        for button in readingOptions.allElementsBoundByIndex {
-            let frame = button.frame
-            guard button.isHittable, frame.minY > bounds.minY + 40, frame.maxY < bounds.maxY - 40 else { continue }
-            let distance = abs(frame.midY - bounds.midY)
-            if distance < closest { closest = distance; chosen = button }
-        }
-        let options = try XCTUnwrap(chosen)
-        options.tap(); app.buttons["Japanese"].tap()
-        let script = app.staticTexts["私は音楽が好きです。"]
-        XCTAssertTrue(script.waitForExistence(timeout: 5))
-        XCTAssertTrue(script.isHittable)
-        // At the largest text size the selected row's menu can be visible
-        // while its text starts above the viewport. Put the actual text into
-        // a reading position before measuring the later metadata update.
-        for _ in 0..<3 {
-            let frame = script.frame, viewport = timeline.frame
-            let target = viewport.minY + 24
-            if abs(frame.minY - target) < 24 { break }
-            let shift = min(viewport.height * 0.45, max(-viewport.height * 0.45, target - frame.minY))
-            let start = timeline.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: shift > 0 ? 0.3 : 0.7))
-            start.press(forDuration: 0.1, thenDragTo: start.withOffset(CGVector(dx: 0, dy: shift)),
-                withVelocity: .slow, thenHoldForDuration: 1)
-        }
-        let before = script.frame, viewport = timeline.frame
-        XCTAssertEqual(viewport.width, displayWidth, accuracy: 1)
-        XCTAssertGreaterThanOrEqual(before.minY, viewport.minY)
-        XCTAssertLessThan(before.minY, viewport.midY)
+        let viewport = timeline.frame
+        let paragraph = try XCTUnwrap(paragraphs.allElementsBoundByIndex
+            .filter { $0.isHittable && $0.frame.minY > viewport.minY + 40 && $0.frame.maxY < viewport.maxY - 40 }
+            .min { abs($0.frame.midY - viewport.midY) < abs($1.frame.midY - viewport.midY) })
+        chooseMessageLanguage("English", in: app, paragraph: paragraph)
+        openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Original message"].tap()
+        XCTAssertEqual(paragraph.label, "I like music.")
+        let before = paragraph.frame
+        let panel = translateMessage(in: app, paragraph: paragraph)
+        XCTAssertTrue(panel.staticTexts["Translating on this device…"].waitForExistence(timeout: 5))
+        XCTAssertFalse(panel.staticTexts["Watashi wa ongaku ga suki desu."].exists)
+        XCTAssertEqual(paragraph.frame.minY, before.minY, accuracy: 3)
         XCTAssertTrue(jump.exists)
-        capture("ios-delayed-reading-history-script")
+        capture("ios-delayed-direct-reading-pending")
         app.buttons["timeline-qa-release-reading"].tap()
-        let latin = app.staticTexts["Watashi wa ongaku ga suki desu."]
-        XCTAssertTrue(latin.waitForExistence(timeout: 10))
-        let after = latin.frame
-        capture("ios-delayed-reading-history-latin")
+        let reading = panel.staticTexts["Watashi wa ongaku ga suki desu."]
+        XCTAssertTrue(reading.waitForExistence(timeout: 10))
+        XCTAssertTrue(panel.staticTexts["私は音楽が好きです。"].exists)
+        XCTAssertTrue(panel.staticTexts["I like music."].exists)
+        capture("ios-delayed-direct-reading-ready")
+        closeTranslationPanel(panel)
+        let after = paragraph.frame
         func box(_ rect: CGRect) -> [String: Double] { ["x": rect.minX, "y": rect.minY, "width": rect.width, "height": rect.height] }
-        let data = try JSONSerialization.data(withJSONObject: ["script": box(before), "latin": box(after),
+        let data = try JSONSerialization.data(withJSONObject: ["before": box(before), "after": box(after),
             "timeline_before": box(viewport), "timeline_after": box(timeline.frame),
-            "history_mode_retained": jump.exists, "supplied_authored_reference": true, "fresh_translation_provider": false], options: [.prettyPrinted, .sortedKeys])
+            "history_mode_retained": jump.exists, "actual_direct_panel": true,
+            "supplied_authored_reference": true, "fresh_translation_provider": false,
+            "retired_expectation": "Full-target mode used to grow the chat row; current lookup publishes target+reading in its separate panel."], options: [.prettyPrinted, .sortedKeys])
         let receipt = XCTAttachment(data: data, uniformTypeIdentifier: "public.json")
-        receipt.name = "delayed-reading-history-geometry"; receipt.lifetime = .keepAlways; add(receipt)
-        XCTAssertGreaterThan(after.intersection(timeline.frame).height, 0)
-        XCTAssertGreaterThan(after.height, before.height + 5, "The fixture must exercise actual row growth")
+        receipt.name = "delayed-direct-reading-history-geometry"; receipt.lifetime = .keepAlways; add(receipt)
+        XCTAssertEqual(paragraph.label, "I like music.")
         XCTAssertEqual(after.minY, before.minY, accuracy: 3)
+        XCTAssertEqual(after.height, before.height, accuracy: 1)
         XCTAssertEqual(timeline.frame.minY, viewport.minY, accuracy: 1)
         XCTAssertEqual(timeline.frame.height, viewport.height, accuracy: 1)
-        XCTAssertTrue(jump.exists, "Metadata must not change older-reading intent")
+        XCTAssertTrue(jump.exists, "Reading arrival must preserve older-reading intent")
     }
 
     @MainActor func testChineseFullReadingUsesBundledReaderAndOriginalScript() throws {
@@ -162,10 +130,10 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(latin.waitForExistence(timeout: 15))
         XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "localTransliteration")
         capture("ios-chinese-local-full-reading")
-        app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
+        openInlineReadingOptions(in: app); app.buttons["Show original script"].tap()
         XCTAssertTrue(app.staticTexts["银行行长正在走路。"].waitForExistence(timeout: 5))
         capture("ios-chinese-local-original-script")
-        app.buttons["Reading options"].tap(); app.buttons["Show Latin letters"].tap()
+        openInlineReadingOptions(in: app); app.buttons["Show Latin letters"].tap()
         XCTAssertTrue(latin.waitForExistence(timeout: 5))
         app.buttons["Authored"].tap()
         XCTAssertTrue(app.staticTexts["Wǒ xūyào shuǐ."].waitForExistence(timeout: 5))
@@ -174,10 +142,12 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["𠮷先生与𰻞字怎么读？"].waitForExistence(timeout: 5))
         XCTAssertEqual(app.staticTexts["reading-qa-provenance"].label, "unavailable")
         capture("ios-chinese-unknown-reading-abstains")
-        app.buttons["Reading options"].tap()
+        openInlineMessageActions(in: app)
+        XCTAssertTrue(app.buttons["Copy original message"].exists)
+        app.navigationBars.firstMatch.tap()
+        openInlineReadingOptions(in: app)
         XCTAssertFalse(app.buttons["Show original script"].exists)
         XCTAssertFalse(app.buttons["Show Latin letters"].exists)
-        XCTAssertTrue(app.buttons["Copy original message"].exists)
     }
 
     @MainActor func testPartialLookupKeepsSwitchingAfterUnavailableWholeTranslation() throws {
@@ -186,42 +156,27 @@ final class ChatImmersionTests: XCTestCase {
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-source-unit-routing-qa", "-vipi-timeline-audit",
             "-vipi-source", "en", "-vipi-target", "sw", "-vipi-density", "0.25", "-vipi-appearance-dark", "-vipi-live-immersion-state", "016"]
         app.launch()
-        defer {
-            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
-        }
-        // The frozen protocol explicitly chooses English. ML Kit language ID
-        // has no simulator binary, so use the real message-language action;
-        // do not inject a classifier or infer direction from a lexical hit.
-        let options = app.buttons["Reading options"].firstMatch
-        XCTAssertTrue(options.waitForExistence(timeout: 20)); options.tap()
-        app.buttons["Message language"].tap(); app.buttons["English"].tap()
+        defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch() }
         let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
         XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
+        // The simulator has no ML Kit classifier. Choose the real message
+        // language rather than injecting inferred direction or target text.
+        chooseMessageLanguage("English", in: app, paragraph: paragraph)
         XCTAssertTrue(paragraph.label.contains("Did you finish the report?"))
         let slot = app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'immersion-word-'")).firstMatch
         XCTAssertTrue(slot.exists)
         let bounds = slot.frame
-        app.buttons["Reading options"].firstMatch.tap()
-        let full = app.buttons["Swahili"]
-        XCTAssertTrue(full.waitForExistence(timeout: 5)); full.tap()
-        let error = app.descendants(matching: .any).matching(identifier: "full-translation-error").firstMatch
-        XCTAssertTrue(error.waitForExistence(timeout: 10))
-        XCTAssertFalse(error.buttons["Try again"].exists)
-        XCTAssertFalse(error.buttons["Prepare languages"].exists)
-        XCTAssertTrue(app.staticTexts["Full translation for this language pair isn’t supported on this device. Your message stays here."].exists)
+        let panel = translateMessage(in: app, paragraph: paragraph)
+        XCTAssertTrue(panel.staticTexts["Translation isn’t supported for this language pair on this device."].waitForExistence(timeout: 10))
+        XCTAssertFalse(panel.buttons["Try again"].exists)
+        XCTAssertFalse(panel.buttons["Download languages"].exists)
         XCTAssertTrue(paragraph.label.contains("Did you finish the report?"))
-        capture("ios-partial-whole-reference-unavailable")
-        // Observe the native attachment throughout several real clock phases;
-        // retained error text must not turn continuous immersion into tap-only UI.
+        capture("ios-partial-direct-translation-unavailable")
         var samples: [[String: Any]] = [], transitions = 0
         var previous: String?
         let start = Date()
         while Date().timeIntervalSince(start) < 29 {
-            let label = slot.label
-            let frame = slot.frame
-            // UIKit replaces the accessibility attachment on each face change.
-            // A query racing that replacement may have no label/frame; retain
-            // that observation without counting it as a language transition.
+            let label = slot.label, frame = slot.frame
             let complete = ["I need water.", "Ninahitaji maji."].contains(label) && frame.height > 0
             if complete {
                 if let previous, label != previous { transitions += 1 }
@@ -234,17 +189,17 @@ final class ChatImmersionTests: XCTestCase {
             Thread.sleep(forTimeInterval: 0.3)
         }
         XCTAssertGreaterThanOrEqual(transitions, 6)
-        XCTAssertTrue(paragraph.label.contains("Did you finish the report?"))
-        app.buttons["Reading options"].firstMatch.tap()
-        XCTAssertTrue(app.buttons["Copy original message"].exists)
-        app.buttons["English"].tap()
-        XCTAssertTrue(app.staticTexts["I need water. Did you finish the report?"].waitForExistence(timeout: 5))
+        closeTranslationPanel(panel)
+        openMessageReadingOptions(in: app, paragraph: paragraph)
+        app.buttons["Original message"].tap()
+        XCTAssertEqual(paragraph.label, "I need water. Did you finish the report?")
         capture("ios-partial-original-message-preserved")
         let attachment = XCTAttachment(data: try JSONSerialization.data(withJSONObject: ["samples": samples,
             "transitions": transitions, "real_provider": "simulator unsupported; no injected inference"], options: [.sortedKeys]),
             uniformTypeIdentifier: "public.json")
         attachment.name = "source-unit-partial-switching"; attachment.lifetime = .keepAlways; add(attachment)
     }
+
     @MainActor func testWholeGreetingKeepsItsBlockStableAtLargestText() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -253,80 +208,104 @@ final class ChatImmersionTests: XCTestCase {
             "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
         app.launch()
         defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch() }
-        func face(_ label: String) -> XCUIElement {
-            app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label == %@", label)).firstMatch
-        }
-        let target = face("Asante sana.")
-        XCTAssertTrue(target.waitForExistence(timeout: 20))
-        let bounds = target.frame
+        let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
+        XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
+        chooseMessageLanguage("English", in: app, paragraph: paragraph)
+        let target = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "Asante sana."), object: paragraph)
+        XCTAssertEqual(XCTWaiter.wait(for: [target], timeout: 10), .completed)
+        let bounds = paragraph.frame
         XCTAssertGreaterThanOrEqual(bounds.minX, app.frame.minX)
         XCTAssertLessThanOrEqual(bounds.maxX, app.frame.maxX)
         capture("ios-greeting-largest-target")
-        let original = face("Thank you very much.")
-        XCTAssertTrue(original.waitForExistence(timeout: 10))
-        XCTAssertEqual(original.frame.height, bounds.height, accuracy: 1)
-        XCTAssertEqual(original.frame.minY, bounds.minY, accuracy: 1)
-        capture("ios-greeting-largest-original")
-        app.buttons["Reading options"].tap(); app.buttons["Swahili"].tap()
-        XCTAssertTrue(app.staticTexts["Asante sana."].waitForExistence(timeout: 5))
-        app.buttons["Reading options"].tap(); app.buttons["English"].tap()
-        XCTAssertTrue(app.staticTexts["Thank you very much."].waitForExistence(timeout: 5))
+        let meaning = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "Thank you very much."), object: paragraph)
+        XCTAssertEqual(XCTWaiter.wait(for: [meaning], timeout: 10), .completed)
+        XCTAssertEqual(paragraph.frame.height, bounds.height, accuracy: 1)
+        XCTAssertEqual(paragraph.frame.minY, bounds.minY, accuracy: 1)
+        let panel = translateMessage(in: app, paragraph: paragraph)
+        XCTAssertTrue(panel.staticTexts["Asante sana."].waitForExistence(timeout: 10))
+        XCTAssertTrue(panel.staticTexts["Thank you very much."].exists)
+        capture("ios-greeting-largest-direct-translation")
+        closeTranslationPanel(panel)
+        openMessageReadingOptions(in: app, paragraph: paragraph)
+        app.buttons["Original message"].tap()
+        XCTAssertEqual(paragraph.label, "Thank you very much.")
+        XCTAssertEqual(paragraph.frame.height, bounds.height, accuracy: 1)
+        XCTAssertEqual(paragraph.frame.minY, bounds.minY, accuracy: 1)
     }
-    @MainActor func testZeroDensityKeepsLanguageViewsWithoutInactiveWordActions() throws {
+
+    @MainActor func testZeroDensityKeepsDirectTranslationWithoutInactiveWordActions() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-single-qa", "-vipi-timeline-audit",
             "-vipi-source", "en", "-vipi-target", "sw", "-vipi-density", "0", "-vipi-appearance-light"]
         app.launch()
         defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup", "-vipi-density", "0.25"]; app.launch() }
-        let menu = app.buttons["Reading options"]
-        XCTAssertTrue(menu.waitForExistence(timeout: 20)); menu.tap()
+        let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
+        XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
+        chooseMessageLanguage("English", in: app, paragraph: paragraph)
+        openMessageActions(in: app, paragraph: paragraph)
+        XCTAssertTrue(app.buttons["Copy original message"].exists)
+        app.buttons["Reading options"].tap()
         for title in ["Pause word switching", "Word switching speed", "Show original words now"] {
             XCTAssertFalse(app.buttons[title].exists)
         }
-        XCTAssertTrue(app.buttons["Copy original message"].exists)
-        app.buttons["Swahili"].tap()
-        XCTAssertTrue(app.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 5))
-        capture("ios-zero-vocabulary-whole-translation")
-        menu.tap(); app.buttons["English"].tap()
-        XCTAssertTrue(app.staticTexts["I like music."].waitForExistence(timeout: 5))
+        app.buttons["Original message"].tap()
+        XCTAssertEqual(paragraph.label, "I like music.")
+        let panel = translateMessage(in: app, paragraph: paragraph)
+        XCTAssertTrue(panel.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 10))
+        XCTAssertTrue(panel.staticTexts["I like music."].exists)
+        capture("ios-zero-vocabulary-direct-translation")
+        closeTranslationPanel(panel)
+        XCTAssertEqual(paragraph.label, "I like music.")
     }
+
     @MainActor func testExpandedRequestReadingsInAllFourNonRomanLanguagesAtLargestText() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
         defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch() }
         let cases = [
-            ("ar", "Arabic", "Aḥtāj ilā shāḥin hātif.", "أحتاج إلى شاحن هاتف."),
-            ("zh", "Chinese", "Wǒ xūyào yí ge shǒujī chōngdiànqì.", "我需要一个手机充电器。"),
-            ("ja", "Japanese", "Keitai denwa no jūdenki ga hitsuyō desu.", "携帯電話の充電器が必要です。"),
-            ("ko", "Korean", "Hyudaepon chungjeongiga piryohaeyo.", "휴대폰 충전기가 필요해요.")
+            ("ar", "Aḥtāj ilā shāḥin hātif.", "أحتاج إلى شاحن هاتف."),
+            ("zh", "Wǒ xūyào yí ge shǒujī chōngdiànqì.", "我需要一个手机充电器。"),
+            ("ja", "Keitai denwa no jūdenki ga hitsuyō desu.", "携帯電話の充電器が必要です。"),
+            ("ko", "Hyudaepon chungjeongiga piryohaeyo.", "휴대폰 충전기가 필요해요.")
         ]
-        for (code, name, latin, native) in cases {
+        for (code, latin, native) in cases {
             app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-request-qa", "-vipi-timeline-audit",
                 "-vipi-source", "en", "-vipi-target", code, "-vipi-appearance-light",
                 "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
             app.launch()
-            let menu = app.buttons["Reading options"]
-            XCTAssertTrue(menu.waitForExistence(timeout: 20)); menu.tap(); app.buttons[name].tap()
-            let reading = app.staticTexts[latin]
-            XCTAssertTrue(reading.waitForExistence(timeout: 10)); XCTAssertTrue(reading.isHittable)
-            XCTAssertGreaterThanOrEqual(reading.frame.minX, app.frame.minX)
-            XCTAssertLessThanOrEqual(reading.frame.maxX, app.frame.maxX)
-            capture("ios-request-reading-largest-" + code)
-            menu.tap()
-            XCTAssertFalse(app.buttons["Pause word switching"].exists)
-            XCTAssertFalse(app.buttons["Word switching speed"].exists)
-            app.buttons["Show original script"].tap()
-            XCTAssertTrue(app.staticTexts[native].waitForExistence(timeout: 5))
-            menu.tap(); app.buttons["English"].tap()
-            XCTAssertTrue(app.staticTexts["I need a phone charger."].waitForExistence(timeout: 5))
+            let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
+            XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
+            chooseMessageLanguage("English", in: app, paragraph: paragraph)
+            let panel = translateMessage(in: app, paragraph: paragraph)
+            // Direct lookup shows native target and its reading together; it
+            // does not replace the row or require toggling a full-target mode.
+            let reading = panel.staticTexts[latin]
+            XCTAssertTrue(reading.waitForExistence(timeout: 10))
+            XCTAssertTrue(panel.staticTexts[native].exists)
+            for (face, content) in [("native", panel.staticTexts[native]), ("latin", reading)] {
+                for _ in 0..<4 {
+                    if content.isHittable && content.frame.minY >= panel.frame.minY && content.frame.maxY <= panel.frame.maxY { break }
+                    panel.swipeUp()
+                }
+                XCTAssertTrue(content.isHittable)
+                XCTAssertGreaterThanOrEqual(content.frame.minX, app.frame.minX)
+                XCTAssertLessThanOrEqual(content.frame.maxX, app.frame.maxX)
+                XCTAssertGreaterThanOrEqual(content.frame.minY, panel.frame.minY)
+                XCTAssertLessThanOrEqual(content.frame.maxY, panel.frame.maxY)
+                capture("ios-request-direct-reading-largest-" + code + "-" + face)
+            }
+            closeTranslationPanel(panel)
+            openMessageReadingOptions(in: app, paragraph: paragraph)
+            app.buttons["Original message"].tap()
+            XCTAssertEqual(paragraph.label, "I need a phone charger.")
             if code == "ar" {
-                menu.tap(); app.buttons["Word switching"].tap()
+                openMessageReadingOptions(in: app, paragraph: paragraph)
+                app.buttons["Word switching"].tap()
                 for label in ["Slower", "Standard"] {
-                    menu.tap()
+                    openMessageReadingOptions(in: app, paragraph: paragraph)
                     let pace = app.buttons["Word switching speed"]
-                    XCTAssertTrue(pace.isHittable)
-                    pace.tap()
+                    XCTAssertTrue(pace.isHittable); pace.tap()
                     XCTAssertTrue(app.buttons[label].waitForExistence(timeout: 5))
                     capture("ios-request-pace-largest-" + label.lowercased())
                     app.buttons[label].tap()
@@ -335,39 +314,38 @@ final class ChatImmersionTests: XCTestCase {
             app.terminate()
         }
     }
-    @MainActor func testOnboardingSelectsSwahiliAndShowsWholeThoughtInBothDirections() throws {
+
+    @MainActor func testOnboardingSelectsSwahiliAndKeepsPreparedWordFacesInBothDirections() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-language", "-vipi-source", "en", "-vipi-target", "es", "-vipi-appearance-light"]
         app.launch()
         defer { app.terminate(); app.launchArguments = ["-vipi-welcome", "-vipi-source", "en", "-vipi-target", "es"]; app.launch() }
-        let targetPicker = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'I want to learn'")).firstMatch
+        let targetPicker = app.buttons["I’m learning"]
         XCTAssertTrue(targetPicker.waitForExistence(timeout: 15)); targetPicker.tap()
         app.buttons["Swahili · Kiswahili"].tap()
-        XCTAssertTrue(app.buttons["Continue with Swahili"].waitForExistence(timeout: 5))
-        let whole = app.buttons["Show full translation in Swahili"]
-        for _ in 0..<3 {
-            if whole.isHittable && whole.frame.maxY < app.buttons["Continue with Swahili"].frame.minY - 24 { break }
-            app.scrollViews.firstMatch.swipeUp()
-        }
-        whole.tap()
-        XCTAssertTrue(app.staticTexts["Kahawa kesho? Ninajua sehemu ndogo karibu na mto."].waitForExistence(timeout: 5))
-        capture("ios-onboarding-swahili-whole-thought")
-        app.buttons["Resume word switching"].tap()
+        XCTAssertEqual(targetPicker.value as? String, "Swahili")
+        XCTAssertTrue(app.buttons["Continue"].exists)
+        let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
+        XCTAssertTrue(paragraph.waitForExistence(timeout: 5))
+        for _ in 0..<3 { if paragraph.isHittable { break }; app.swipeUp() }
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label CONTAINS 'Kahawa' AND label CONTAINS 'mto'"), object: paragraph)], timeout: 10), .completed)
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "Coffee tomorrow? I know a little place by the river."), object: paragraph)], timeout: 10), .completed)
+        capture("ios-onboarding-swahili-prepared-faces")
         for _ in 0..<3 { if targetPicker.isHittable { break }; app.swipeDown() }
-        let sourcePicker = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'I already speak'")).firstMatch
+        let sourcePicker = app.buttons["I speak"]
         sourcePicker.tap(); app.buttons["Swahili"].tap()
         targetPicker.tap(); app.buttons["English · English"].tap()
-        XCTAssertTrue(app.buttons["Continue with English"].waitForExistence(timeout: 5))
-        let reverseWhole = app.buttons["Show full translation in English"]
-        for _ in 0..<3 {
-            if reverseWhole.isHittable && reverseWhole.frame.maxY < app.buttons["Continue with English"].frame.minY - 24 { break }
-            app.scrollViews.firstMatch.swipeUp()
-        }
-        reverseWhole.tap()
-        XCTAssertTrue(app.staticTexts["Coffee tomorrow? I know a little place by the river."].waitForExistence(timeout: 5))
-        capture("ios-onboarding-swahili-known-language")
+        XCTAssertEqual(sourcePicker.value as? String, "Swahili")
+        XCTAssertEqual(targetPicker.value as? String, "English")
+        for _ in 0..<3 { if paragraph.isHittable { break }; app.swipeUp() }
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label CONTAINS 'Coffee' AND label CONTAINS 'river'"), object: paragraph)], timeout: 10), .completed)
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "Kahawa kesho? Ninajua sehemu ndogo karibu na mto."), object: paragraph)], timeout: 10), .completed)
+        capture("ios-onboarding-swahili-known-language-faces")
+        // The former prepared full-target display button was removed. This
+        // test now names the actual preview outcome, not full-text translation.
     }
+
     @MainActor func testOldestAndNewestMetadataActuallyGrowAndRemainReadable() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -413,28 +391,34 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(input.isHittable)
         capture("ios-largest-text-latest-message")
     }
-    @MainActor func testJapaneseWholeReadingAndScriptUseTheSameChatBubble() throws {
+    @MainActor func testJapaneseDirectLookupKeepsReadingBesideOriginalChatBubble() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-immersion-single-qa", "-vipi-timeline-audit",
             "-vipi-source", "en", "-vipi-target", "ja", "-vipi-appearance-light"]
         app.launch()
-        defer {
-            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
-        }
-        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label == 'I like ongaku.'")).firstMatch.waitForExistence(timeout: 20))
-        app.buttons["Reading options"].tap(); app.buttons["Japanese"].tap()
-        XCTAssertTrue(app.staticTexts["Watashi wa ongaku ga suki desu."].waitForExistence(timeout: 5))
-        capture("ios-japanese-whole-reading")
-        app.buttons["Reading options"].tap(); app.buttons["Show original script"].tap()
-        XCTAssertTrue(app.staticTexts["私は音楽が好きです。"].waitForExistence(timeout: 5))
-        app.buttons["Reading options"].tap(); app.buttons["Show Latin letters"].tap()
-        XCTAssertTrue(app.staticTexts["Watashi wa ongaku ga suki desu."].waitForExistence(timeout: 5))
-        app.buttons["Reading options"].tap(); app.buttons["English"].tap()
-        XCTAssertTrue(app.staticTexts["I like music."].waitForExistence(timeout: 5))
-        app.buttons["Reading options"].tap()
+        defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch() }
+        let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
+        XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
+        chooseMessageLanguage("English", in: app, paragraph: paragraph)
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "I like ongaku."), object: paragraph)], timeout: 10), .completed)
+        let before = paragraph.frame
+        openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Show original script"].tap()
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "I like 音楽."), object: paragraph)], timeout: 10), .completed)
+        openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Show Latin letters"].tap()
+        let panel = translateMessage(in: app, paragraph: paragraph)
+        XCTAssertTrue(panel.staticTexts["Watashi wa ongaku ga suki desu."].waitForExistence(timeout: 10))
+        XCTAssertTrue(panel.staticTexts["私は音楽が好きです。"].exists)
+        XCTAssertTrue(panel.staticTexts["I like music."].exists)
+        capture("ios-japanese-direct-reading-and-script")
+        closeTranslationPanel(panel)
+        XCTAssertEqual(paragraph.frame.height, before.height, accuracy: 1)
+        openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Original message"].tap()
+        XCTAssertEqual(paragraph.label, "I like music.")
+        openMessageReadingOptions(in: app, paragraph: paragraph)
         XCTAssertFalse(app.buttons["Show original script"].exists)
     }
+
     @MainActor func testLongImmersedHistoryPreservesReadingAcrossAppendAndEarlierPage() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -491,20 +475,20 @@ final class ChatImmersionTests: XCTestCase {
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-learning-language-qa", "-vipi-timeline-audit",
             "-vipi-source", "en", "-vipi-target", "sw", "-vipi-appearance-light"]
         app.launch()
-        defer {
-            app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch()
-        }
-        let immersed = app.descendants(matching: .any).matching(NSPredicate(format: "identifier == 'immersionText' AND label == 'I like muziki.'")).firstMatch
-        XCTAssertTrue(immersed.waitForExistence(timeout: 20))
-        app.buttons["Reading options"].tap(); app.buttons["English"].tap()
-        XCTAssertTrue(app.staticTexts["I like music."].waitForExistence(timeout: 5))
-        app.buttons["Reading options"].tap(); app.buttons["Swahili"].tap()
-        XCTAssertTrue(app.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 5))
-        app.buttons["Reading options"].tap(); app.buttons["Word switching"].tap()
-        app.buttons["Reading options"].tap(); app.buttons["Message language"].tap()
-        app.buttons["Swahili"].tap()
-        XCTAssertTrue(immersed.waitForExistence(timeout: 10))
-        app.buttons["Reading options"].tap(); app.buttons["Copy original message"].tap()
+        defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch() }
+        let paragraph = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
+        XCTAssertTrue(paragraph.waitForExistence(timeout: 20))
+        chooseMessageLanguage("Swahili", in: app, paragraph: paragraph)
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "I like muziki."), object: paragraph)], timeout: 10), .completed)
+        let panel = translateMessage(in: app, paragraph: paragraph)
+        XCTAssertTrue(panel.staticTexts["I like music."].waitForExistence(timeout: 10))
+        XCTAssertTrue(panel.staticTexts["Ninapenda muziki."].exists)
+        closeTranslationPanel(panel)
+        openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Original message"].tap()
+        XCTAssertEqual(paragraph.label, "Ninapenda muziki.")
+        openMessageReadingOptions(in: app, paragraph: paragraph); app.buttons["Word switching"].tap()
+        XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", "I like muziki."), object: paragraph)], timeout: 10), .completed)
+        openMessageActions(in: app, paragraph: paragraph); app.buttons["Copy original message"].tap()
         let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
         input.tap(); input.press(forDuration: 1.2)
         let paste = app.buttons["Paste"].exists ? app.buttons["Paste"] : app.menuItems["Paste"]
@@ -512,9 +496,7 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertEqual(input.value as? String, "Ninapenda muziki.")
         capture("ios-swahili-original-copy")
     }
-    // A single row and the preparation notice remain in the viewport at all
-    // audited sizes. The separate full-history audit stays unfiltered too.
-    // This distinguishes an actual font failure from nodes moving offscreen.
+
     @MainActor func testVisibleImmersedRowAndPreparationNoticeAccessibility() throws {
         continueAfterFailure = true
         let app = XCUIApplication()
@@ -599,7 +581,7 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "message-input").firstMatch.isHittable)
         capture("ios-swahili-largest-text-dark")
     }
-    @MainActor func testSwahiliImmersionAndFullTranslationInActualConversationRows() throws {
+    @MainActor func testSwahiliImmersionAndDirectTranslationInActualConversationRows() throws {
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-source", "en", "-vipi-target", "sw", "-vipi-appearance-light"]
@@ -617,13 +599,12 @@ final class ChatImmersionTests: XCTestCase {
         XCTAssertTrue(meaning.waitForExistence(timeout: 10))
         XCTAssertEqual(meaning.frame.height, before.height, accuracy: 1)
         capture("ios-swahili-conversation-light")
-        let menu = app.buttons.matching(NSPredicate(format: "label == %@", "Reading options")).allElementsBoundByIndex.last!
-        menu.tap()
-        app.buttons["Swahili"].tap()
-        XCTAssertTrue(app.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 5))
-        capture("ios-swahili-whole-translation-light")
-        app.buttons.matching(NSPredicate(format: "label == %@", "Reading options")).allElementsBoundByIndex.last!.tap()
-        app.buttons["Word switching"].tap()
+        chooseMessageLanguage("English", in: app, paragraph: paragraph)
+        let panel = translateMessage(in: app, paragraph: paragraph)
+        XCTAssertTrue(panel.staticTexts["Ninapenda muziki."].waitForExistence(timeout: 10))
+        XCTAssertTrue(panel.staticTexts["I like music."].exists)
+        capture("ios-swahili-direct-translation-light")
+        closeTranslationPanel(panel)
         XCTAssertTrue(target.waitForExistence(timeout: 10))
         let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
         input.tap(); input.typeText("I am eating bread now.")

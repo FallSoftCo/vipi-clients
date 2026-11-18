@@ -61,22 +61,39 @@ final class VoiceOverDeviceTests: XCTestCase {
         try activate(word, until: { paragraph.label != held })
         XCTAssertTrue(["I like music.", "I like muziki."].contains(paragraph.label))
         capture("ipad-voiceover-manual-word")
-        try activate(app.buttons["Reading options"], until: { app.buttons["Show original words now"].exists })
+        try openVoiceOverReadingOptions(in: app, paragraph: paragraph)
         for title in ["Pause word switching", "Resume word switching", "Word switching speed"] { XCTAssertFalse(app.buttons[title].exists) }
-        XCTAssertTrue(app.buttons["Swahili"].exists)
-        try activate(app.buttons["Show original words now"], until: { !app.buttons["Show original words now"].exists && paragraph.label == "I like music." })
+        XCTAssertTrue(app.buttons["Original message"].exists)
+        try activate(app.buttons["Original message"], until: { paragraph.label == "I like music." })
+        try openVoiceOverReadingOptions(in: app, paragraph: paragraph)
+        try activate(app.buttons["Word switching"], until: { !app.buttons["Word switching"].exists })
+        let restoredFace = paragraph.label
+        let heldAgain = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label != %@", restoredFace), object: paragraph)
+        heldAgain.isInverted = true
+        XCTAssertEqual(XCTWaiter.wait(for: [heldAgain], timeout: 8), .completed)
         if initial == "0" {
             settings.activate()
             try setVoiceOver("0", control: try voiceControl(in: settings))
             app.activate()
-            XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == 'I like muziki.'"), object: paragraph)], timeout: 12), .completed)
-            app.buttons["Reading options"].tap()
+            XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label != %@", restoredFace), object: paragraph)], timeout: 12), .completed)
+            openMessageReadingOptions(in: app, paragraph: paragraph)
             XCTAssertTrue(app.buttons["Pause word switching"].waitForExistence(timeout: 5))
             XCTAssertTrue(app.buttons["Word switching speed"].exists)
         }
         let receipt = XCTAttachment(string: "{\"physical_voiceover_setting_verified\":true,\"eight_second_pause\":true,\"native_word_activation\":true,\"inactive_controls_hidden\":true,\"automatic_resume_checked\":\(initial == "0"),\"speech_listening_acceptance\":false}")
         receipt.name = "voiceover-immersion-result"; receipt.lifetime = .keepAlways; add(receipt)
         #endif
+    }
+    /// With VoiceOver running, use the actual focus then hold gesture to open
+    /// the bubble context menu. Require its observed actions before continuing.
+    @MainActor private func openVoiceOverReadingOptions(in app: XCUIApplication, paragraph: XCUIElement) throws {
+        XCTAssertTrue(UIAccessibility.isVoiceOverRunning)
+        let point = paragraph.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0.5))
+            .withOffset(CGVector(dx: -7, dy: 0))
+        point.tap(); point.press(forDuration: 1)
+        XCTAssertTrue(app.buttons["Copy original message"].waitForExistence(timeout: 5))
+        try activate(app.buttons["Reading options"], until: { app.buttons["Original message"].exists })
+        XCTAssertTrue(UIAccessibility.isVoiceOverRunning)
     }
     @MainActor private func voiceControl(in settings: XCUIApplication) throws -> XCUIElement {
         let control = settings.switches["VoiceOver"]

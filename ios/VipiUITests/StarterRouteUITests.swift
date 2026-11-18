@@ -14,7 +14,7 @@ import XCTest
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated starter UI qualification only") }
         continueAfterFailure=false
         for target in ["ja","sw"] {
-            let app=XCUIApplication();app.launchArguments=["-vipi-starter-route-qa"]+(target == "sw" ? ["-vipi-starter-sw"] : [])+(packed ? ["-vipi-starter-packed"] : [])+(expanded ? ["-vipi-starter-expanded"] : [])
+            let app=XCUIApplication();app.launchArguments=["-vipi-starter-route-qa", "-readingPace", "balanced"]+(target == "sw" ? ["-vipi-starter-sw"] : [])+(packed ? ["-vipi-starter-packed"] : [])+(expanded ? ["-vipi-starter-expanded"] : [])
             app.launch();defer { app.terminate() }
             let proof=app.staticTexts["starter-route-proof"]
             let expectedProof="sourceReferencePartial|"+String(packed ? (target == "sw" ? 4 : 3) : 1)+"|0"

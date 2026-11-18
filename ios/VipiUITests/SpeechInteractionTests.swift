@@ -4,7 +4,7 @@ import XCTest
     func testListenFollowsReadingStateAndNavigation() {
         continueAfterFailure = false
         let app = XCUIApplication()
-        app.launchArguments = ["-vipi-welcome"]
+        app.launchArguments = ["-vipi-welcome", "-readingPace", "balanced"]
         app.launch()
         let text = app.descendants(matching: .any).matching(identifier: "immersionText").firstMatch
         XCTAssertTrue(text.waitForExistence(timeout: 10))
@@ -28,7 +28,7 @@ import XCTest
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", target), object: text)], timeout: 8), .completed)
         app.buttons["immersionPause"].tap()
         print("VIPI_ACCESSIBILITY_TREE\n\(app.debugDescription)")
-        // The native attachment exposes a named accessibility element, not a link.
+        // Use the native attachment’s stable identifier and visible word face.
         let word = app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'immersion-word-' AND label == 'mañana'")).firstMatch
         XCTAssertTrue(word.exists)
         listen.tap()

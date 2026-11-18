@@ -3,7 +3,7 @@ import XCTest
 @MainActor final class ContinuousImmersionTests: XCTestCase {
     func testRepeatsWithoutTapsPreservesGeometryAndResumesAfterPause() throws {
         continueAfterFailure = false
-        let app = XCUIApplication(); app.launchArguments = ["-vipi-welcome"]; app.launch()
+        let app = XCUIApplication(); app.launchArguments = ["-vipi-welcome", "-readingPace", "balanced"]; app.launch()
         let text = app.descendants(matching: .any)["immersionText"]
         XCTAssertTrue(text.waitForExistence(timeout: 15))
         let target = "Café mañana? I know a little place by the río."

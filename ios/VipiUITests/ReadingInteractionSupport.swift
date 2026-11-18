@@ -56,4 +56,21 @@ extension XCTestCase {
         XCTAssertTrue(panel.waitForExistence(timeout: 10), file: file, line: line)
         return panel
     }
+    @MainActor func chooseMessageLanguage(_ language: String, in app: XCUIApplication, paragraph: XCUIElement,
+        file: StaticString = #filePath, line: UInt = #line) {
+        openMessageReadingOptions(in: app, paragraph: paragraph, file: file, line: line)
+        let choices = app.buttons["Message language"]
+        XCTAssertTrue(choices.waitForExistence(timeout: 5), file: file, line: line)
+        choices.tap()
+        XCTAssertTrue(app.buttons[language].waitForExistence(timeout: 5), file: file, line: line)
+        app.buttons[language].tap()
+    }
+
+    @MainActor func closeTranslationPanel(_ panel: XCUIElement,
+        file: StaticString = #filePath, line: UInt = #line) {
+        let close = panel.buttons["Close"]
+        XCTAssertTrue(close.waitForExistence(timeout: 5), file: file, line: line)
+        close.tap()
+        XCTAssertTrue(panel.waitForNonExistence(timeout: 5), file: file, line: line)
+    }
 }
