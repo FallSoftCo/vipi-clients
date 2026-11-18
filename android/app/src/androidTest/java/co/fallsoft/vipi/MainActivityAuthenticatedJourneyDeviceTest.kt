@@ -863,8 +863,8 @@ class MainActivityAuthenticatedJourneyDeviceTest {
 
 /** External relay/service boundary; real account, Signal, history, Bot and
  * subscription coordinators still execute. Every unlisted request is rejected. */
-private class JourneyServices(profileRequired: Boolean, private val seedBotMessages: Int = 0,
-    private val expectedBotPosts: Int = 1) : VipiWorkflowBoundary, AutoCloseable {
+internal class JourneyServices(profileRequired: Boolean, private val seedBotMessages: Int = 0,
+    private val expectedBotPosts: Int = 1, private val expectedFriendPosts: Int = 1) : VipiWorkflowBoundary, AutoCloseable {
     val account = UUID.randomUUID()
     val peer = UUID.randomUUID()
     val subject = "user_journey_${UUID.randomUUID().toString().replace("-", "")}"
@@ -968,7 +968,7 @@ private class JourneyServices(profileRequired: Boolean, private val seedBotMessa
                             .put("signed", publication.getJSONObject("signed")).put("one_time", publication.getJSONArray("one_time").getJSONObject(0))
                     }
                     method == "POST" && path == "/v1/messages" -> {
-                        check(device == registered && friendPosts.incrementAndGet() == 1)
+                        check(device == registered && friendPosts.incrementAndGet() <= expectedFriendPosts)
                         val encrypted = JSONObject(requireNotNull(body).toString())
                         check(!encrypted.toString().contains("I am reading a book now."))
                         outgoingFriendId = UUID.fromString(encrypted.getString("id"))
@@ -1005,7 +1005,7 @@ private class JourneyServices(profileRequired: Boolean, private val seedBotMessa
     }
     fun queuePeerReplyAndSignalInbox() {
         check(android.os.Looper.myLooper() == android.os.Looper.getMainLooper())
-        check(friendPosts.get() == 1 && peerReceived != null && friendReplyId == null)
+        check(friendPosts.get() in 1..expectedFriendPosts && peerReceived != null && friendReplyId == null)
         val socket = requireNotNull(sockets.lastOrNull { it.active }) { "The actual foreground inbox event connection must be open" }
         val core = requireNotNull(peerCore)
         val id = UUID.randomUUID(); val now = System.currentTimeMillis()
