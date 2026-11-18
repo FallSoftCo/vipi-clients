@@ -437,23 +437,40 @@ class MainActivityAuthenticatedJourneyDeviceTest {
             }
             fun appendAtNativeEnd(before: String, suffix: String) {
                 compose.onNodeWithTag("bot-message-input").assertEditorValue(before).assertIsFocused()
+                // A focus tap can still generate IME selection events after
+                // Compose is idle. Settle that native event stream first.
+                f.instrumentation.uiAutomation.waitForIdle(100, 5_000)
+                compose.waitForIdle()
                 var observed: android.view.accessibility.AccessibilityNodeInfo? = null
                 compose.waitUntil(5_000) { observed = nativeEditor(before); observed != null }
                 val editor = requireNotNull(observed)
                 val alreadyAtEnd = editor.textSelectionStart == before.length && editor.textSelectionEnd == before.length
+                val receipt = File(f.output, "append-selection-proof-${++appendNumber}.json")
+                val attempt = JSONObject().put("action", if (alreadyAtEnd) "already_at_native_document_end" else "native_accessibility_ACTION_SET_SELECTION")
+                    .put("expected_end", before.length).put("native_start_before", editor.textSelectionStart)
+                    .put("native_end_before", editor.textSelectionEnd).put("native_accessibility_idle_ms", 100)
+                    .put("started_uptime_ms", android.os.SystemClock.uptimeMillis())
                 val args = android.os.Bundle().apply {
                     putInt(android.view.accessibility.AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_START_INT, before.length)
                     putInt(android.view.accessibility.AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_END_INT, before.length)
                 }
                 val dispatchResult = if (alreadyAtEnd) null else
                     editor.performAction(android.view.accessibility.AccessibilityNodeInfo.ACTION_SET_SELECTION, args)
-                compose.waitUntil(5_000) {
-                    nativeEditor(before)?.let { it.textSelectionStart == before.length && it.textSelectionEnd == before.length } == true
+                attempt.put("dispatch_result", dispatchResult ?: JSONObject.NULL)
+                receipt.writeText(attempt.toString(2))
+                try {
+                    compose.waitUntil(5_000) {
+                        observed = nativeEditor(before)
+                        observed?.let { it.textSelectionStart == before.length && it.textSelectionEnd == before.length } == true
+                    }
+                } catch (failure: ComposeTimeoutException) {
+                    attempt.put("observed_native_start", observed?.textSelectionStart ?: -1)
+                        .put("observed_native_end", observed?.textSelectionEnd ?: -1).put("selection_observed", false)
+                    receipt.writeText(attempt.toString(2))
+                    throw AssertionError("Native end-selection did not settle: $attempt", failure)
                 }
-                File(f.output, "append-selection-proof-${++appendNumber}.json").writeText(JSONObject()
-                    .put("action", if (alreadyAtEnd) "already_at_native_document_end" else "native_accessibility_ACTION_SET_SELECTION")
-                    .put("dispatch_result", dispatchResult ?: JSONObject.NULL).put("observed_native_start", before.length)
-                    .put("observed_native_end", before.length).put("typing", "Instrumentation.sendStringSync key events").toString(2))
+                receipt.writeText(attempt.put("observed_native_start", before.length).put("observed_native_end", before.length)
+                    .put("selection_observed", true).put("typing", "Instrumentation.sendStringSync key events").toString(2))
                 f.instrumentation.sendStringSync(suffix)
             }
             fun assertNativeEndLine(expected: String) {
