@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T10:17:01.513824+00:00",
+  "updated_utc": "2026-11-18T10:39:28.765825+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -82,10 +82,10 @@
     },
     {
       "journey": "Delete account while Bot reply is pending",
-      "implementation": "iOS owner/session/vault/deletion domain integration; Android actual MainActivity Settings/root and domain integration",
-      "status": "passed",
+      "implementation": "Android actual MainActivity and iOS actual VipiApp/ConnectedChatRoot, real owners/session/vault/deletion coordinator",
+      "status": "Android046 and iOSr12 actual Settings/root recovery passed; root inspected final native pixels",
       "required_observation": "close private vault before deletion, checked close failure stops erasure and supports retry, late callback cannot reopen/mutate closed session",
-      "limits": "Synthetic accounts only. Android046 actual Settings/root recovery and scoped erasure passed. iOS actual VipiApp root test prepared; r09 read-only preflight preserved existing QA audio, fresh r10 controlled preservation/test pending."
+      "limits": "Synthetic local accounts/transport only. iOSr12 automatic completion had one DELETE/three status reads/two confirmations; all original sources/preferences/audio restored. No real customer/global deletion or manual-status-button assertion."
     },
     {
       "journey": "Cancel or delete private backup staging",
@@ -160,9 +160,9 @@
     {
       "journey": "Actual Settings deletion, fresh root recovery and selective erasure",
       "implementation": "Android actual MainActivity, VipiModel, AccountDeletion, encrypted vault and AndroidKeyStore",
-      "status": "046 passed after test-only transactional sentinel-read fix; root inspected native recovery/completion/welcome frames",
+      "status": "Android046 passed; iOSr12 actual app root/Settings/relaunch/Done passed with final pixels independently reviewed",
       "required_observation": "Cancel sends zero requests; accepted lost reply closes owners, fresh root retains original receipt; one status recovery erases only own account and cancels late Bot; Done/fresh model remain signed out",
-      "limits": "Synthetic service/accounts, no live/global deletion.045 test-defect failure retained. Cancel screenshot01 caught dismiss animation and is not a settled visual acceptance frame."
+      "limits": "Actual private encrypted storage and Keychain; controlled server. No customer/global deletion, live auth rerun or charge."
     },
     {
       "journey": "Source paragraph direction and independent inline bubbles",

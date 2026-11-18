@@ -24,7 +24,7 @@
     "native keyboard/focus/send guard regression qualification"
   ],
   "external_actions": "Existing store submissions not repeated. One config-only testing grant for user-confirmed owner profile activated and verified; API restart preserved unrelated services. No purchase/charge or uncertain Bot send replay.",
-  "updated_utc": "2026-11-18T10:17:01.513824+00:00",
+  "updated_utc": "2026-11-18T10:39:28.765825+00:00",
   "verified": [
     "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
     "Actual VipiModel setup routing: 5 focused tests passed",
@@ -40,8 +40,7 @@
     "Complete signed Android8r02 artifact verification and production native keyboard/landscape smoke.",
     "Deliver final signed replacement to owner phone; readback still5, actual phone keyboard/Bot send unverified.",
     "Build/validate final Google bundle and corresponding public source, then reconcile existing review before replacement.",
-    "Replace Apple existing build4 review with valid corrected5, preserving subscription items and MANUAL release.",
-    "Complete iOS actual deletion-root native test with preserved QA audio/source/preferences."
+    "Replace Apple existing build4 review with valid corrected5, preserving subscription items and MANUAL release."
   ],
   "phone_identity": "User confirmed @rjuniyer; exact healthy shared-realm profile differs from previously pinned testing identity. One UUID grant activated with fresh own-workload coordination and independently verified.",
   "signed_review_build": {
@@ -90,7 +89,8 @@
     "ios_ui": "Actual Bot consent/keyboard/send/navigation/reopen/draft and checked final disposal passed; local friend lookup geometry and Cancel passed",
     "storekit": "Current localSKTestSessionr03 failednotEntitled; no repeatedtransaction. Prior signedTestFlight Botmini sandboxpurchase succeededonce and independently reconciled in ios-acceptance-continuity-audit-r01.json. Current actualHomeView expiry r08PASS no checkout.",
     "evidence_directory": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01",
-    "android_font_metrics": "Final0518 authored font cases,14 directional paragraphs and simultaneous selectable-view rebinds PASS. Arabic horizontal regression fixed; prior RED evidence retained."
+    "android_font_metrics": "Final0518 authored font cases,14 directional paragraphs and simultaneous selectable-view rebinds PASS. Arabic horizontal regression fixed; prior RED evidence retained.",
+    "ios_deletion_root": "r12 actual VipiApp/Settings recovery PASS50.952s including lostresponse, relaunch, scoped vault/key erasure, no late Bot write, Done/onboarding; independent native pixels and original source/prefs/audio restoration verified."
   },
   "acceptance_audit": "qa/mobile-user-journey-acceptance-20261118.json",
   "ios_signed_candidate": {
@@ -113,8 +113,17 @@
     "commit": "463599e77af9656f182d923d557589b9c1f7d5c0",
     "source_freeze": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/release-candidate-v8-source-r02.json",
     "build_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/build-signed-v8-r02.json",
-    "state": "building",
+    "state": "signed and statically verified; actual signed installation/native smoke pending",
     "delivered": false,
-    "uploaded": false
+    "uploaded": false,
+    "sha256": "99fe7498359e3e768c6b0d75bf690c57aa34f720cfa4968a6183efd135d86f46"
+  },
+  "corresponding_source": {
+    "published": true,
+    "new_assets": 3,
+    "prior_assets_preserved": 11,
+    "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/client-source-apple5r02-android8r02-preparation-r01/publication-final-r01/receipt.json",
+    "receipt_sha256": "6be890097b6c7267ec1a0302dc766ded4eec0acd9648685c79cab7cd595c7134",
+    "url": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-17-v3"
   }
 }

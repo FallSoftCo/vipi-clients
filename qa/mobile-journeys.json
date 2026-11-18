@@ -119,7 +119,7 @@
     "additional_ui_suites": [
       "ConnectedDeletionRootTests"
     ],
-    "connected_deletion_status": "Source reviewed; native r10 pending. Existing audio and all source/preferences must be preserved and byte-verified after isolated synthetic-root test."
+    "connected_deletion_status": "Native r12PASS1/1, actual root/Settings/lost-response/relaunch/scoped erasure/late Bot suppression/Done. Automatic completion path; all26 authority source hashes, staged sources/preferences and7 originalCAF files restored. Prior r11 overly strict intermediate-state failure retained."
   },
   "acceptance_record": "mobile-user-journey-acceptance-20261118.json",
   "limits": [
