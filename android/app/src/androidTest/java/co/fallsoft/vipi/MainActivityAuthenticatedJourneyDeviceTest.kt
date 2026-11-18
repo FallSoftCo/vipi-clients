@@ -42,41 +42,83 @@ class MainActivityAuthenticatedJourneyDeviceTest {
         val services = JourneyServices(profileRequired = true)
         MainActivityJourneyFixture("profile-friend", services::model).use { f ->
             fun assertIncomingReplyVisible(phase: String) {
-                var observation = "Incoming native paragraph not yet visible"
+                val name = "incoming-" + phase.lowercase(java.util.Locale.ROOT).replace(Regex("[^a-z0-9]+"), "-")
+                val observations = JSONArray()
+                val frames = AtomicInteger()
+                val ticker = object : android.view.Choreographer.FrameCallback {
+                    override fun doFrame(frameTimeNanos: Long) {
+                        frames.incrementAndGet()
+                        android.view.Choreographer.getInstance().postFrameCallback(this)
+                    }
+                }
+                fun observe(): Pair<Boolean, String> {
+                    val viewport = f.unobscuredWindow()
+                    val timelineNode = compose.onNodeWithTag("conversation-timeline").fetchSemanticsNode()
+                    val timelineWindow = timelineNode.boundsInWindow
+                    val editorWindow = compose.onNodeWithTag("message-input").fetchSemanticsNode().boundsInWindow
+                    val metadata = compose.onAllNodesWithTag("message-meta-${services.friendReplyId}")
+                        .fetchSemanticsNodes().singleOrNull()?.boundsInWindow
+                    val axis = timelineNode.config.getOrElse(SemanticsProperties.VerticalScrollAxisRange) { null }
+                    val jump = compose.onAllNodesWithTag("conversation-latest").fetchSemanticsNodes().isNotEmpty()
+                    var visible = false; var geometry = "Missing incoming native paragraph"
+                    val sample = JSONObject().put("vsync_frame", frames.get()).put("uptime_ms", android.os.SystemClock.uptimeMillis())
+                        .put("timeline_window", timelineWindow.toString()).put("editor_window", editorWindow.toString())
+                        .put("incoming_metadata_window", metadata?.toString() ?: JSONObject.NULL).put("jump_to_latest_mounted", jump)
+                        .put("scroll_axis_value", axis?.value() ?: JSONObject.NULL).put("scroll_axis_max", axis?.maxValue() ?: JSONObject.NULL)
+                    f.instrumentation.runOnMainSync {
+                        // Native accessibility follows the current immersed
+                        // face and may report a stale AndroidView position.
+                        val paragraph = f.paragraphs().singleOrNull { it.displayedOriginal == services.friendReply }
+                        if (paragraph != null) {
+                            val drawn = paragraph.visibleText()
+                            val screen = IntArray(2); paragraph.getLocationOnScreen(screen)
+                            val window = IntArray(2); paragraph.getLocationInWindow(window)
+                            val dx = screen[0] - window[0]; val dy = screen[1] - window[1]
+                            val bounds = android.graphics.Rect(screen[0], screen[1], screen[0] + paragraph.width, screen[1] + paragraph.height)
+                            val timeline = android.graphics.RectF(timelineWindow.left + dx, timelineWindow.top + dy,
+                                timelineWindow.right + dx, timelineWindow.bottom + dy)
+                            val editor = android.graphics.RectF(editorWindow.left + dx, editorWindow.top + dy,
+                                editorWindow.right + dx, editorWindow.bottom + dy)
+                            visible = f.fullyVisible(paragraph) && viewport.contains(bounds) &&
+                                timeline.contains(android.graphics.RectF(bounds)) && bounds.bottom <= editor.top && drawn.isNotBlank()
+                            geometry = "fullBounds=$bounds timeline=$timeline editor=$editor viewport=$viewport"
+                            sample.put("original", paragraph.displayedOriginal).put("drawn", drawn).put("native_full_bounds", bounds.toShortString())
+                                .put("native_local_visible", f.fullyVisible(paragraph)).put("screen_window_offset", "$dx,$dy")
+                        }
+                    }
+                    sample.put("complete_inside_timeline_above_composer", visible)
+                    if (observations.length() == 24) observations.remove(0)
+                    observations.put(sample)
+                    return visible to geometry
+                }
+                f.instrumentation.runOnMainSync { android.view.Choreographer.getInstance().postFrameCallback(ticker) }
+                var lastGeometry = ""; var acceptedGeometry = ""; var lastFrame = -1; var stableFrames = 0; var stableSince = 0L
                 try {
                     compose.waitUntil(8_000) {
-                        val viewport = f.unobscuredWindow()
-                        val timelineWindow = compose.onNodeWithTag("conversation-timeline").fetchSemanticsNode().boundsInWindow
-                        val editorWindow = compose.onNodeWithTag("message-input").fetchSemanticsNode().boundsInWindow
-                        var visible = false
-                        f.instrumentation.runOnMainSync {
-                            // Accessibility text follows the current immersed
-                            // face. Authenticate the real native paragraph by
-                            // its source identity while letting it keep flipping.
-                            val paragraph = f.paragraphs().singleOrNull { it.displayedOriginal == services.friendReply }
-                            if (paragraph != null) {
-                                val drawn = paragraph.visibleText()
-                                val screen = IntArray(2); paragraph.getLocationOnScreen(screen)
-                                val window = IntArray(2); paragraph.getLocationInWindow(window)
-                                val dx = screen[0] - window[0]; val dy = screen[1] - window[1]
-                                val bounds = android.graphics.Rect(screen[0], screen[1], screen[0] + paragraph.width, screen[1] + paragraph.height)
-                                val timeline = android.graphics.RectF(timelineWindow.left + dx, timelineWindow.top + dy,
-                                    timelineWindow.right + dx, timelineWindow.bottom + dy)
-                                val editor = android.graphics.RectF(editorWindow.left + dx, editorWindow.top + dy,
-                                    editorWindow.right + dx, editorWindow.bottom + dy)
-                                // Native AndroidView visibility does not account
-                                // for a Compose sibling footer painting over it.
-                                // Require the complete native paragraph rectangle
-                                // inside the actual timeline and above composer.
-                                visible = f.fullyVisible(paragraph) && viewport.contains(bounds) &&
-                                    timeline.contains(android.graphics.RectF(bounds)) && bounds.bottom <= editor.top && drawn.isNotBlank()
-                                observation = "original=${paragraph.displayedOriginal} drawn=$drawn fullBounds=$bounds timeline=$timeline editor=$editor viewport=$viewport fullyVisible=$visible"
-                            }
+                        val (visible, geometry) = observe(); val frame = frames.get()
+                        if (!visible || geometry != lastGeometry) { stableFrames = 0; stableSince = android.os.SystemClock.uptimeMillis() }
+                        if (visible && frame != lastFrame) stableFrames++
+                        lastGeometry = geometry; lastFrame = frame
+                        (visible && stableFrames >= 3 && android.os.SystemClock.uptimeMillis() - stableSince >= 80).also {
+                            if (it) acceptedGeometry = geometry
                         }
-                        visible
                     }
-                } catch (failure: ComposeTimeoutException) {
-                    throw AssertionError("$phase: $observation", failure)
+                    // Retain pixels at the accepted state and reject a geometry
+                    // change across that capture. Root also reviews these PNGs;
+                    // native coordinate claims alone are not pixel proof.
+                    f.capture(name)
+                    val after = observe()
+                    assertTrue("$phase changed across observed-state screenshot: $lastGeometry -> ${after.second}", after.first && after.second == acceptedGeometry)
+                } catch (failure: Throwable) {
+                    runCatching { f.capture("$name-failed") }.onFailure { failure.addSuppressed(it) }
+                    runCatching { File(f.output, "$name-compose-tree.txt").writeText(compose.onRoot(useUnmergedTree = true).printToString()) }
+                        .onFailure { failure.addSuppressed(it) }
+                    throw AssertionError("$phase: $lastGeometry; samples=$observations", failure)
+                } finally {
+                    f.instrumentation.runOnMainSync { android.view.Choreographer.getInstance().removeFrameCallback(ticker) }
+                    File(f.output, "$name-observations.json").writeText(JSONObject().put("observations", observations)
+                        .put("requires_root_pixel_review", true).put("native_coordinate_only_pixel_proof_claimed", false)
+                        .put("private_lazy_list_following_state_not_exposed", true).toString(2))
                 }
             }
             var shareCount = 0
