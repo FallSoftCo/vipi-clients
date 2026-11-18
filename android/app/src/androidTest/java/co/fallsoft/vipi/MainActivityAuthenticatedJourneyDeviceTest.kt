@@ -46,18 +46,31 @@ class MainActivityAuthenticatedJourneyDeviceTest {
                 try {
                     compose.waitUntil(8_000) {
                         val viewport = f.unobscuredWindow()
+                        val timelineWindow = compose.onNodeWithTag("conversation-timeline").fetchSemanticsNode().boundsInWindow
+                        val editorWindow = compose.onNodeWithTag("message-input").fetchSemanticsNode().boundsInWindow
                         var visible = false
                         f.instrumentation.runOnMainSync {
                             // Accessibility text follows the current immersed
                             // face. Authenticate the real native paragraph by
                             // its source identity while letting it keep flipping.
                             val paragraph = f.paragraphs().singleOrNull { it.displayedOriginal == services.friendReply }
-                            val bounds = android.graphics.Rect()
                             if (paragraph != null) {
                                 val drawn = paragraph.visibleText()
-                                visible = paragraph.getGlobalVisibleRect(bounds) && f.fullyVisible(paragraph) &&
-                                    viewport.contains(bounds) && drawn.isNotBlank()
-                                observation = "original=${paragraph.displayedOriginal} drawn=$drawn bounds=$bounds viewport=$viewport fullyVisible=$visible"
+                                val screen = IntArray(2); paragraph.getLocationOnScreen(screen)
+                                val window = IntArray(2); paragraph.getLocationInWindow(window)
+                                val dx = screen[0] - window[0]; val dy = screen[1] - window[1]
+                                val bounds = android.graphics.Rect(screen[0], screen[1], screen[0] + paragraph.width, screen[1] + paragraph.height)
+                                val timeline = android.graphics.RectF(timelineWindow.left + dx, timelineWindow.top + dy,
+                                    timelineWindow.right + dx, timelineWindow.bottom + dy)
+                                val editor = android.graphics.RectF(editorWindow.left + dx, editorWindow.top + dy,
+                                    editorWindow.right + dx, editorWindow.bottom + dy)
+                                // Native AndroidView visibility does not account
+                                // for a Compose sibling footer painting over it.
+                                // Require the complete native paragraph rectangle
+                                // inside the actual timeline and above composer.
+                                visible = f.fullyVisible(paragraph) && viewport.contains(bounds) &&
+                                    timeline.contains(android.graphics.RectF(bounds)) && bounds.bottom <= editor.top && drawn.isNotBlank()
+                                observation = "original=${paragraph.displayedOriginal} drawn=$drawn fullBounds=$bounds timeline=$timeline editor=$editor viewport=$viewport fullyVisible=$visible"
                             }
                         }
                         visible
