@@ -1,0 +1,135 @@
+{
+  "schema": "android-visible-immersion-audit-1",
+  "scope": "Read-only source and retained native evidence audit; authored preview gestures are separate from ordinary conversation coverage and acoustic quality.",
+  "languages": [
+    "en",
+    "es",
+    "fr",
+    "de",
+    "it",
+    "pt",
+    "ja",
+    "ko",
+    "zh",
+    "ar",
+    "sw"
+  ],
+  "expected_directed_pairs": 110,
+  "existing_evidence": [
+    {
+      "path": "qa/android/speech-completion-20261116/README.md",
+      "proves": "Actual offline synthetic SpeechPlayback prepare→READY→PLAYING→READY across 110directions, zero feeding underruns.",
+      "limit": "Direct controller toggle; no visible word gesture, per-row selected voice identity, physical or acoustic acceptance."
+    },
+    {
+      "path": "android/app/src/androidTest/java/co/fallsoft/vipi/LanguagePreviewMatrixDeviceTest.kt",
+      "proves": "All 110authored directions, native tokenization and stable inline layout/readings at 3 widths × 3 scales.",
+      "limit": "Unattached native TextViews; no pointer gesture or speech."
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/manual-android-ui-r12/files/manual-actual-gesture-004/report.json",
+      "proves": "English→Spanish uncovered word native tap, actual installed MLKit full-context translation, actual playback, same/footer Stop, cached repeat; 1191 ms first tap to PLAYING.",
+      "limit": "One authored case; no all-pair ordinary-message or acoustic acceptance."
+    },
+    {
+      "path": "/home/ai/Development/investigations/vipi-quality-20261117-r01/android-v5-gamma-native-r01/word-audio-stop-result.json",
+      "proves": "Visible English→Chinese covered coffee in existing Bot reply; AudioTrack interrupted after 123 ms vs 556 ms natural duration; no new player rebound.",
+      "limit": "One reply/word on dedicated Android user; no all-pair or physical acoustic acceptance."
+    },
+    {
+      "path": "qa/immersion/android-default-readings-qualification-r01.json",
+      "proves": "Actual production chat default Japanese/Korean guide, script/copy/cache identity and Korean original-script playback.",
+      "limit": "Korean translation model absent; Korean references/readiness controlled explicitly for QA. Japanese contextual pronunciation limitations retained."
+    },
+    {
+      "path": "qa/immersion/android-chinese-reading-qualification-r01.json",
+      "proves": "Production chat Chinese guide/script/copy/unknown state plus actual original-script playback.",
+      "limit": "Chinese translation model absent; fixed QA reference/readiness. Historical tone-free receipt is not current marked-pinyin acceptance; current marked regressions are ChineseReadingsDeviceTest."
+    }
+  ],
+  "reproduced_baseline": [
+    {
+      "log": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-native-visible-baseline-r03.log",
+      "sha256": "d41181212273ef095edd6a871955f3052bea8f7087bdfc9ef722f2efee572d96",
+      "cases": [
+        {
+          "test": "sameWordCancelsPendingPreparationWithoutLateAudio",
+          "result": "failed",
+          "assertion": "java.lang.AssertionError: expected:<READY> but was:<RENDERING>"
+        },
+        {
+          "test": "sameCoveredWordStopsAndAnotherTapReplaysOriginalScriptForNonRomanTargets",
+          "result": "failed",
+          "assertion": "java.lang.AssertionError: Same-word Stop must not enqueue a replacement expected:<1> but was:<2>"
+        }
+      ]
+    },
+    {
+      "log": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-preview-lifecycle-baseline-r04.log",
+      "sha256": "ccf004c038d3c0bf2fb95930312989d663dc79a26a588edf8803ff4be346b0b9",
+      "cases": [
+        {
+          "test": "activeWordStopsOnBackgroundAndDoesNotResume",
+          "result": "passed",
+          "assertion": null
+        },
+        {
+          "test": "pendingWordCannotStartAfterReadingModeChange",
+          "result": "passed",
+          "assertion": null
+        },
+        {
+          "test": "pendingWordCannotStartAfterBackgroundAndResume",
+          "result": "failed",
+          "assertion": "java.lang.AssertionError: expected:<READY> but was:<RENDERING>"
+        },
+        {
+          "test": "pendingWordCannotStartAfterBubbleRemoval",
+          "result": "passed",
+          "assertion": null
+        },
+        {
+          "test": "activeWordStopsWhenItsBubbleIsRemoved",
+          "result": "failed",
+          "assertion": "java.lang.AssertionError: Boundary must stop this bubble's word expected null, but was:<word-preview-lifecycle-0>"
+        },
+        {
+          "test": "modeChangeAndRemovalPreserveOtherBubbleAudioWithSimilarMessageID",
+          "result": "passed",
+          "assertion": null
+        },
+        {
+          "test": "activeWordStopsWhenReadingModeChanges",
+          "result": "failed",
+          "assertion": "java.lang.AssertionError: Boundary must stop this bubble's word expected null, but was:<word-preview-lifecycle-0>"
+        }
+      ]
+    }
+  ],
+  "candidate_tests": {
+    "fast_smoke": "android/app/src/androidTest/java/co/fallsoft/vipi/PreviewWordSpeechDeviceTest.kt",
+    "lifecycle": "android/app/src/androidTest/java/co/fallsoft/vipi/PreviewSpeechLifecycleDeviceTest.kt",
+    "all110_authored_native_gestures": "android/app/src/androidTest/java/co/fallsoft/vipi/PreviewWordSpeechMatrixDeviceTest.kt",
+    "all110_status": "Authored but not compiled/executed by this audit agent; root owns native qualification.",
+    "all110_checks": [
+      "Shipped authored original/translation identity",
+      "Visible native selected target/Latin guide; marked pinyin for every Chinese span",
+      "Native word tap reaches real SpeechPlayback and AudioTrack PLAYING",
+      "Exact underlying target script and language accepted by production playback controller",
+      "Same native word Stop with no accepted replay or 300 ms rebound",
+      "All 110rows retained, including failures; no inferred symmetry"
+    ],
+    "all110_limits": [
+      "Authored preview component only; no Friend/Bot source-lookup integration or ordinary conversation coverage",
+      "No new model downloads requested; no offline claim unless runner separately proves network state",
+      "No selected engine voice identifier per row or acoustic/physical listening acceptance"
+    ]
+  },
+  "remaining_priorities": [
+    "Actual Friend/Bot visible source-lookup→mixed target guide→native word speech→Stop across all supported directions, including foreign-script source and reverse input.",
+    "Unknown/uncovered input and arbitrary Arabic full-reading availability: NativeFullReadings has no generic Arabic branch; exact authored readings remain finite.",
+    "Unavailable voice recovery and actual audio-focus/headphone-noisy interruptions; no existing Android instrumentation references to AUDIO_BECOMING_NOISY/audio-focus interruption found in this audit.",
+    "Physical-device offline audio route and listening/pronunciation review; native PLAYING alone cannot establish these."
+  ],
+  "actions": "No build, device, account, store or production action performed by this audit agent."
+}
