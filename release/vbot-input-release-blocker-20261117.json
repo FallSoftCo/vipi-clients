@@ -1,6 +1,6 @@
 {
   "reported": "Owner cannot open keyboard or send vBot message on Android versionCode5",
-  "status": "release_blocked_pending_input_and_actual_account_verification",
+  "status": "signed_fix_delivered_pending_phone_install_and_actual_account_send",
   "readiness_claim_withdrawn": true,
   "public_release_controls": {
     "apple": "existing manual release retained",
@@ -24,17 +24,45 @@
     "native keyboard/focus/send guard regression qualification"
   ],
   "external_actions": "No repeated upload/submission, no production code/config mutation, no charge or purchase, no repeated uncertain bot send",
-  "updated_utc": "2026-11-18T03:24:03.904526+00:00",
+  "updated_utc": "2026-11-18T03:39:49.795377+00:00",
   "verified": [
     "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
     "Actual VipiModel setup routing: 5 focused tests passed",
     "Original Gamma device replaced01:20Z; rejected native hi send was not accepted/charged; no replay",
     "Production BotConversationScreen native draft/consent/Send/visible reply/durable history: controlled fake transport, exactly one POST, registered credential, no friend-content inclusion; pass7.7s",
-    "Final updated Send guard explicitly rejects verificationUnavailable even with active snapshot; final native focus/consent/successful full-screen send tests pass3/3 with updated guard; prior unchanged routing tests5/5"
+    "Final updated Send guard explicitly rejects verificationUnavailable even with active snapshot; final native focus/consent/successful full-screen send tests pass3/3 with updated guard; prior unchanged routing tests5/5",
+    "Production signed v6 APK installed in preserved emulator user10; native pointer opened Gboard and real Gboard taps typed hi; unsent draft cleared afterward; no provider call or registration attempted",
+    "Signed v6 signature matches exact installed phone v5; 1082 assets and 28 native libraries retained; 16KB alignment passed"
   ],
   "remaining": [
-    "Signed versionCode6 review APK and device delivery",
+    "Android installer confirmation; last observed phone versionCode5",
     "Actual owner phone @username/account and native send verification"
   ],
-  "phone_identity": "User @username question pending; shared-owner grant has no profile, exact legacy predecessor has no Bot grant; do not infer phone binding"
+  "phone_identity": "User @username question pending; shared-owner grant has no profile, exact legacy predecessor has no Bot grant; do not infer phone binding",
+  "signed_review_build": {
+    "version_code": 6,
+    "version_name": "1.0.5",
+    "source": "20f7fb46e8ca16a1913cd9fc5de951336b4dd0a6",
+    "sha256": "7bf15941b8a76e179ff8256ea989e13c6f5a45e2c76551d93f30186a4fe41eb0",
+    "signature_and_assets_verified": true,
+    "release_native_keyboard_smoke": true
+  },
+  "phone_delivery": {
+    "checked_utc": "2026-11-18T03:39:49.795377+00:00",
+    "phone_package": "co.fallsoft.vipi",
+    "installed_version_code": 5,
+    "delivered_version_code": 6,
+    "delivered_version_name": "1.0.5",
+    "delivered_apk": "/storage/emulated/0/Download/vipi-v6-release.apk",
+    "sha256": "7bf15941b8a76e179ff8256ea989e13c6f5a45e2c76551d93f30186a4fe41eb0",
+    "installer_requested_once": true,
+    "installer_command_exit": 0,
+    "installed_update_verified": false,
+    "blocking_user_actions": [
+      "Confirm Android APK update",
+      "Provide Vipi Settings @username to resolve actual phone account binding"
+    ],
+    "no_phone_data_cleared": true,
+    "actual_owner_send_verified": false
+  }
 }
