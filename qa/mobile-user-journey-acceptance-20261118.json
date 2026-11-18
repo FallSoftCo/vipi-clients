@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T12:03:26.757001+00:00",
+  "updated_utc": "2026-11-18T12:44:20.375105+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -97,9 +97,9 @@
     {
       "journey": "Owner review device and real Bot response",
       "implementation": "Android phone @rjuniyer",
-      "status": "Final8r02 delivery verified and installer requested once; fresh11:53readback still5, native owner use unverified",
+      "status": "Final8r02 delivery/one installer request verified; fresh12:39readbackstill5, owner installation and actual keyboard/Bot response unverified",
       "required_observation": "production Base+Bot access verified; signed replacement must be installed and actual keyboard/send observed",
-      "limits": "Final8r02 exact99feAPK delivered539200030bytes with destination SHA verified; one installer request completed11:15:51Z, no replay. Fresh read-only11:53:03Z stillversion5; installation and actual owner keyboard/Bot response remain unverified. Four light and two distinct dark signed-production emulator cases remain separate proof."
+      "limits": "Existing owner Base+Bot review access was independently rechecked read-only12:10 with150/150 and no provider/send/grant changes. Final8r02 file is hash verified and installer requested once;12:39:06Z readbackstill5. One12:41bounded phone-adb check found no authorized USB/verifiedTCP; no reconnect or installer replay. Emulator Light/Dark success and server availability are not owner-phone/actualSend proof."
     },
     {
       "journey": "Edit a long multiline Bot draft",
@@ -231,9 +231,15 @@
     "android_signed_v8r02_aab_original_verifier_failure": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-v8-r02-bundle-preparation-r02/verify.json",
     "android_signed_v8r02_dark_keyboard": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8-r02-dark-native-smoke-r01/receipt.json",
     "android_signed_v8r02_dark_root_pixels": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/signed-v8r02-dark-root-pixel-review-r01.json",
-    "phone_installed_readonly_latest": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-installed-readonly-r04.json"
+    "phone_installed_readonly_latest": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-installed-readonly-r05.json",
+    "production_readonly_health_access_latest": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/production-readonly-health-access-r02/receipt.json",
+    "phone_installed_readonly_r04_prior": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-installed-readonly-r04.json",
+    "phone_adb_readiness_latest": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-adb-readiness-r05.json",
+    "google_final8_review_submission": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/receipt.json",
+    "google_final24_root_approval": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/root-final24-submit-approval-r01.json",
+    "both_stores_root_terminal_review": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/root-terminal-review-r01.json"
   },
-  "release_controls": "Apple exact5/five-item WAITING_FOR_REVIEW and MANUAL/13locales/173countries preserved. Final Android AAB staticPASS; Google5\u21928 replacement in progress, no upload/completion claim. Owner-phone fresh11:53readbackstill5; no completed-action replay.",
+  "release_controls": "Both final replacements submitted: Apple exact5/five items WAITING_FOR_REVIEW with MANUAL release preserved; Google exact8/1.0.7 Submission2/24changes IN_REVIEW with Managed Publishing ON and quick checks complete. Neither is approval/public launch. Owner-phone latest12:39readbackstill5 and current authorized USB/TCP automation unavailable; no completed-action replay.",
   "original_nine_dirty_files_preserved": true,
   "prior_external_actions_reconciled": {
     "base_intro_offers": "Google obsolete Base offer deactivated once; Apple Base offer removed once onNovember17. Reloadverifiedreceipts retained. No repetition.",
@@ -341,11 +347,72 @@
       "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-v8r02-delivery-r01.json",
       "receipt_sha256": "f50a59e294bfa452207820a7f7cb8a023b14de0a2606e22a2d9625cbce3cbe36",
       "limits": "Installer request is not confirmed installation or actual owner send proof; no transfer or installer replay.",
-      "latest_installed_readonly_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-installed-readonly-r04.json",
-      "latest_installed_readonly_receipt_sha256": "93a913e40a7a322b7ac4ff14a46a4a63d9b3b6438bf2d4941861153bdbc07333",
-      "latest_installed_readback_utc": "2026-11-18T11:53:03.404244+00:00"
+      "latest_installed_readonly_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-installed-readonly-r05.json",
+      "latest_installed_readonly_receipt_sha256": "f730092f4c113ced0e2384d80e764e5c8149587b945586bff40d7c0319f7f3d5",
+      "latest_installed_readback_utc": "2026-11-18T12:39:06.386882+00:00",
+      "prior_installed_readonly_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-installed-readonly-r04.json",
+      "automation_dependency": {
+        "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-adb-readiness-r05.json",
+        "receipt_sha256": "4f9afe62a905f87666b2bb8f2cdf8ff67bf75fc605a017635c298a356873a4d2",
+        "checked_utc": "2026-11-18T12:41:06.521806+00:00",
+        "exit": 1,
+        "state": "No authorized Pixel USB or verified TCP connection; bounded attempt checked5037/existing5039. No install/UI/send/reset/Wi-Fi action.",
+        "no_reconnect_loop": true
+      }
     },
-    "android_store": "Final8r02 AAB static verification passed exact3f21 bundle. Google replacement is in progress under scoped authorization to return original24 changes to Pending for5\u21928; no new upload/review completion claimed. Managed Publishing preserved."
+    "android_store": "Final exact8/1.0.7 Submission2/24changes is IN_REVIEW after one final confirmation and completed quick checks. Managed Publishing ON; no approval/public launch. Completed replacement/submission must not be repeated.",
+    "google": {
+      "version_code": 8,
+      "version_name": "1.0.7",
+      "production_release_id": "3",
+      "artifact_id": "4860252668056648803",
+      "submission_id": "2",
+      "native_review_state": "IN_REVIEW",
+      "exact_changes": 24,
+      "single_final_confirmation_utc": "2026-11-18T12:38:34.861Z",
+      "quick_checks_complete_by_utc": "2026-11-18T12:39:34.218Z",
+      "terminal_text": "Your changes are now in review. We may find additional issues when reviewing your app.",
+      "managed_publishing_on": true,
+      "public_publish_triggered": false,
+      "sole_production_release": "1.0.7 (8); prior4/5 not included",
+      "original_country_rows_preserved": [
+        "Add175countries/regions",
+        "Addrestofworld"
+      ],
+      "original_other21_semantics_preserved": true,
+      "aab_sha256": "3f21b2f5688043b9c9d707955543f52729c2943ee7df6db602e106bedbbde5fc",
+      "effect_counts": {
+        "removeOriginalReviewConfirmation": 1,
+        "discardOriginalUnpublishedVersion5Release": 1,
+        "createProductionDraft": 1,
+        "aabFileSubmit": 1,
+        "saveAsDraft": 1,
+        "previewSave": 1,
+        "nativeSymbolsFileSubmit": 1,
+        "manualMappingUpload": 0,
+        "openFinalSubmitConfirmation": 1,
+        "finalSendForReviewConfirmation": 1,
+        "semanticReviewSubmission": 1,
+        "publicPublish": 0,
+        "otherDiscard": 0,
+        "otherUpload": 0,
+        "login": 0,
+        "accountDeclaration": 0
+      },
+      "mapping_auto_associated": true,
+      "native_symbols_scope": "12SYMBOL_TABLE ELF files of28shippingnative libraries;functionnamesonly,nofullsource-lineclaim",
+      "receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/receipt.json",
+      "receipt_sha256": "8c64bff0e68dcaedc43d47cd2f6d7f44dc3c12bf255e9d5de29dd7e00ab7a3d6",
+      "root_approval_receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/root-final24-submit-approval-r01.json",
+      "root_approval_sha256": "bb2bae6b4b820d5d10ce1d93174a502d6434d48b20009c8f6e27064e6898c5b0",
+      "root_terminal_review_receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/root-terminal-review-r01.json",
+      "root_terminal_review_sha256": "bf1a0df980fecf8abe12567347efeb4e5f95369e3e16f4076870023c96d8cc19",
+      "root_viewed_pixels": [
+        "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/81-original-submission-status-top.png",
+        "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/83-submission2-exact-new8-inreview.png"
+      ],
+      "limits": "Submission and quick checks completed; in review is not store approval or public launch. Managed Publishing remains ON. No completed upload/submission/Publish action is to be replayed."
+    }
   },
   "signed_production_dark_acceptance": {
     "version_code": 8,
@@ -414,5 +481,25 @@
       "total_base_members": 1554
     },
     "scope": "Static signed bundle proof only; no Google upload or review completion, owner installation, new purchase/live Send or iOS StoreKit transaction proof."
-  }
+  },
+  "owner_production_readonly_access": {
+    "checked_utc": "2026-11-18T12:10:02.933692+00:00",
+    "owner_username": "@rjuniyer",
+    "base_active": true,
+    "bot_mini_active": true,
+    "access_source": "review_complimentary",
+    "remaining_replies": 150,
+    "monthly_replies": 150,
+    "device_count": 1,
+    "active_device_count": 1,
+    "profile_and_device_binding_unchanged": true,
+    "readiness_http": 200,
+    "four_services_active": true,
+    "remote_mutations": 0,
+    "provider_or_send_calls": 0,
+    "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/production-readonly-health-access-r02/receipt.json",
+    "receipt_sha256": "9111e2a14ee4aace55a043ddf1748027a8dd3c6206eab11cde053db94aea3743",
+    "limits": "Read-only existing access/service check; not a new grant, store purchase, provider response or owner-phone UI/Send proof."
+  },
+  "current_unverified_user_outcome": "The owner phone remains on reported version5 after a verified8r02 delivery and one installer request. Actual updated-phone keyboard and one confirmed Bot response remain unverified; healthy access150/150 and queued store reviews do not close that gap."
 }

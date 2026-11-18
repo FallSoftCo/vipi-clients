@@ -1,10 +1,10 @@
 {
   "reported": "Owner cannot open keyboard or send vBot message on Android versionCode5",
-  "status": "Final Android8r02 APK/AAB statically verified and four light plus two dark production-native input cases passed. Phone delivery/one installer request verified, fresh11:53readbackstill5. Apple exact5/five-item submission WAITING_FOR_REVIEW/MANUAL. Google5\u21928 review replacement in progress; no new upload/completion claim or readiness claim.",
+  "status": "Final signed Android8r02 APK/AAB and Light/Dark native input qualified; source published; Apple exact5/five-item review WAITING_FOR_REVIEW and Google exact8/1.0.7 Submission2/24 IN_REVIEW with quick checks complete. MANUAL/Managed Publishing preserved; no public launch. Owner @rjuniyer access rechecked active150/150, but phone12:39readbackstill5 and actual updated-phone Send unverified.",
   "readiness_claim_withdrawn": true,
   "public_release_controls": {
     "apple": "Exact build5/five-item review WAITING_FOR_REVIEW; MANUAL release unchanged;13locales/173country roster unchanged.",
-    "google": "Managed Publishing enabled once and persisted after refresh",
+    "google": "Exact8/1.0.7 Submission2/24 IN_REVIEW after one confirmation/completed quick checks; Managed Publishing remains ON, Publish0.",
     "google_receipt_sha256": "806fa4137205d3a1e1f143cb56b97e6bc36c724dd0937bc57028179937739eb0"
   },
   "reproduced": [
@@ -23,8 +23,8 @@
     "route missing account setup to setup instead of plan page",
     "native keyboard/focus/send guard regression qualification"
   ],
-  "external_actions": "Existing store submissions not repeated. One config-only testing grant for user-confirmed owner profile activated and verified; API restart preserved unrelated services. No purchase/charge or uncertain Bot send replay.",
-  "updated_utc": "2026-11-18T12:03:26.757001+00:00",
+  "external_actions": "Completed actions reconciled without replay: Apple exact5/five-item review replacement and Google exact8/24 review replacement; three additive source assets published/verified; exact8r02 phone file delivered/hash verified and installer requested once. Fresh owner access/service check read-only with no grant/provider/send mutations. No public store launch or new live Bot send/purchase/charge.",
+  "updated_utc": "2026-11-18T12:44:20.375105+00:00",
   "verified": [
     "Actual keyboard/IME and draft/focus continuity: 2 focused native tests passed",
     "Actual VipiModel setup routing: 5 focused tests passed",
@@ -39,12 +39,13 @@
     "Exact Apple5/five-item review submission6b0f444d-6328-416a-85b7-5b29808eaa77 is WAITING_FOR_REVIEW at2026-11-18T11:10:07.41Z; root independently viewed all five Waiting. MANUAL,13original localization payloads and173country roster unchanged; no public release.",
     "Final signed8r02 phone delivery independently verified exact99feAPK539200030bytes and one installer request completed11:15:51Z. Installed readback is still5; installer request/exit0 is not confirmed installation or owner Send proof.",
     "Final signed8r02 AAB475274414bytes SHA3f21b2f5688043b9c9d707955543f52729c2943ee7df6db602e106bedbbde5fc passed cert/signature coverage,16K/four ABI,SDK28/36, exact asset/native/everyDEX vs99feAPK and retained/packaged R8 mapping checks. Original608475 verifier failure retained: sole46byte version-control-info metadata double/single separator projection, exact same bytes/hash, unique target and all1553other literal members; r02c973 proof retains all checks.",
-    "Two new signed8r02 dark native cases passed actualGboardhi/fullglyph/caret/Back/Send plus readable saved status/history/marked guides; originalPNG/rootreview and exacttheme/display/draft/history restoration verified. No newliveSend."
+    "Two new signed8r02 dark native cases passed actualGboardhi/fullglyph/caret/Back/Send plus readable saved status/history/marked guides; originalPNG/rootreview and exacttheme/display/draft/history restoration verified. No newliveSend.",
+    "Production health/access12:10 read-only: exact confirmedowner @rjuniyer Base+Bot review_complimentary active150/150, profile/device binding unchanged, readiness200/fourservicesactive, provider/send/grant mutations0. This is not a fresh provider/phone Send proof.",
+    "Google exact8/1.0.7 Submission2/24 changes IN_REVIEW, one final confirmation12:38:34.861Z, quick checks complete12:39:34.218Z, ManagedPublishingON/Publish0. Sole new8 production row and original country/21nonproduction semantics preserved; root directly viewed81/83 and sealed final receipt8c64bff0."
   ],
   "remaining": [
-    "Verify the already-requested owner-phone8r02 installation; fresh11:53readbackstill5 and actual owner keyboard/Bot response remain unverified. Do not replay delivery/installer.",
-    "Complete authorized Google5\u21928 review replacement with Managed Publishing preserved. Final AAB static verification already passed; original24 changes return-to-Pending work is in progress, no new upload/completion claimed.",
-    "Await Apple exact5/five-item review while MANUAL release remains preserved; completed replacement/submission must not be replayed."
+    "Verify completion of the existing owner-phone8r02 installer request and actual native keyboard/confirmed Bot response. Latest12:39readbackstill5; authorizedPixelUSB/verifiedTCP unavailable on one bounded12:41check. Do not repeat delivery/installer/reconnect loops.",
+    "Await Apple exact5/five-item and Google exact8/24 review outcomes. MANUAL and Managed Publishing remain preserved; review submission is not approval/public launch. Do not replay completed uploads/submissions or press Publish automatically."
   ],
   "phone_identity": "User confirmed @rjuniyer; exact healthy shared-realm profile differs from previously pinned testing identity. One UUID grant activated with fresh own-workload coordination and independently verified.",
   "signed_review_build": {
@@ -81,10 +82,19 @@
     "receipt_sha256": "f50a59e294bfa452207820a7f7cb8a023b14de0a2606e22a2d9625cbce3cbe36",
     "delivery_started_utc": "2026-11-18T11:09:14.158639+00:00",
     "delivery_completed_utc": "2026-11-18T11:15:51.048349+00:00",
-    "current_delivery_status": "Final8r02 destination SHA verified and installer requested exactly once at11:15:51Z. Fresh read-only11:53:03Z stillversion5; owner installation/native keyboard/Bot response unverified. Do not replay copy/open/installer or infer installation from exit0.",
-    "latest_installed_readonly_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-installed-readonly-r04.json",
-    "latest_installed_readonly_receipt_sha256": "93a913e40a7a322b7ac4ff14a46a4a63d9b3b6438bf2d4941861153bdbc07333",
-    "latest_installed_readback_utc": "2026-11-18T11:53:03.404244+00:00"
+    "current_delivery_status": "Final8r02 file independently SHA verified and installer requested exactly once at11:15:51Z. Latest read-only12:39:06Z stillversion5; updated-phone keyboard/Bot response unverified. One bounded12:41ADB readiness check found no authorizedUSB/verifiedTCP; no repeat transfer/open/installer or reconnect loop.",
+    "latest_installed_readonly_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-installed-readonly-r05.json",
+    "latest_installed_readonly_receipt_sha256": "f730092f4c113ced0e2384d80e764e5c8149587b945586bff40d7c0319f7f3d5",
+    "latest_installed_readback_utc": "2026-11-18T12:39:06.386882+00:00",
+    "prior_installed_readonly_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-installed-readonly-r04.json",
+    "automation_dependency": {
+      "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/phone-adb-readiness-r05.json",
+      "receipt_sha256": "4f9afe62a905f87666b2bb8f2cdf8ff67bf75fc605a017635c298a356873a4d2",
+      "checked_utc": "2026-11-18T12:41:06.521806+00:00",
+      "exit": 1,
+      "state": "No authorized Pixel USB or verified TCP connection; bounded attempt checked5037/existing5039. No install/UI/send/reset/Wi-Fi action.",
+      "no_reconnect_loop": true
+    }
   },
   "owner_access_verified": {
     "base": true,
@@ -93,7 +103,14 @@
     "remaining_replies": 150,
     "monthly_replies": 150,
     "profile_and_device_unchanged": true,
-    "receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/owner-confirmed-readonly-r01/verified-after-receipt.json"
+    "receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/production-readonly-health-access-r02/receipt.json",
+    "prior_verification_receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/owner-confirmed-readonly-r01/verified-after-receipt.json",
+    "receipt_sha256": "9111e2a14ee4aace55a043ddf1748027a8dd3c6206eab11cde053db94aea3743",
+    "checked_utc": "2026-11-18T12:10:02.933692+00:00",
+    "read_only": true,
+    "new_grant_created": false,
+    "provider_or_send_calls": 0,
+    "service_readiness_http": 200
   },
   "journey_qualification": {
     "android_domain": "20 integration cases passed through actual model, encrypted vault, subscription coordinator and deletion/backup cleanup; external HTTP and billing controlled",
@@ -165,9 +182,9 @@
     "commit": "463599e77af9656f182d923d557589b9c1f7d5c0",
     "source_freeze": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/release-candidate-v8-source-r02.json",
     "build_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/build-signed-v8-r02.json",
-    "state": "Final APK/AAB staticPASS; four light plus two new dark native input casesPASS. Phone delivered/requestedonce but fresh readbackstill5. Google replacement pending.",
+    "state": "Signed APK/AAB/static/Light+Dark native accepted; exact8/1.0.7 submitted as GoogleSubmission2/24 IN_REVIEW, Managed Publishing ON. Owner phone delivered/requestedonce but latestinstalled5; no public launch.",
     "delivered": true,
-    "uploaded": false,
+    "uploaded": true,
     "sha256": "99fe7498359e3e768c6b0d75bf690c57aa34f720cfa4968a6183efd135d86f46",
     "bytes": 539200030,
     "static_verification_receipt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/release-verification-v8-r02.json",
@@ -255,7 +272,12 @@
       "original_app_theme_and_display_settings_restored": true,
       "owned_drafts_cleared_and_saved_history_preserved": true,
       "scope": "Two distinct new dark production-native cases; earlier four light cases were not rerun. No Send/login/register/rekey/owner-phone/acoustic/all-language-dark/global-accessibility certification claim."
-    }
+    },
+    "store_review_submission_id": "2",
+    "store_review_state": "IN_REVIEW",
+    "store_review_receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/receipt.json",
+    "store_review_receipt_sha256": "8c64bff0e68dcaedc43d47cd2f6d7f44dc3c12bf255e9d5de29dd7e00ab7a3d6",
+    "publicly_released": false
   },
   "corresponding_source": {
     "published": true,
@@ -285,5 +307,57 @@
       "current_delivery_status": "Owner installation/live Send remain unverified here; obsolete7 installer was not repeated. Final8r02 is signed/static/native-emulator verified; phone and store completion remain separate. No phone data cleared.",
       "historical_scope": "Superseded signed7 delivery retained; its installer/copy must not be replayed."
     }
-  ]
+  ],
+  "google_review_submission": {
+    "version_code": 8,
+    "version_name": "1.0.7",
+    "production_release_id": "3",
+    "artifact_id": "4860252668056648803",
+    "submission_id": "2",
+    "native_review_state": "IN_REVIEW",
+    "exact_changes": 24,
+    "single_final_confirmation_utc": "2026-11-18T12:38:34.861Z",
+    "quick_checks_complete_by_utc": "2026-11-18T12:39:34.218Z",
+    "terminal_text": "Your changes are now in review. We may find additional issues when reviewing your app.",
+    "managed_publishing_on": true,
+    "public_publish_triggered": false,
+    "sole_production_release": "1.0.7 (8); prior4/5 not included",
+    "original_country_rows_preserved": [
+      "Add175countries/regions",
+      "Addrestofworld"
+    ],
+    "original_other21_semantics_preserved": true,
+    "aab_sha256": "3f21b2f5688043b9c9d707955543f52729c2943ee7df6db602e106bedbbde5fc",
+    "effect_counts": {
+      "removeOriginalReviewConfirmation": 1,
+      "discardOriginalUnpublishedVersion5Release": 1,
+      "createProductionDraft": 1,
+      "aabFileSubmit": 1,
+      "saveAsDraft": 1,
+      "previewSave": 1,
+      "nativeSymbolsFileSubmit": 1,
+      "manualMappingUpload": 0,
+      "openFinalSubmitConfirmation": 1,
+      "finalSendForReviewConfirmation": 1,
+      "semanticReviewSubmission": 1,
+      "publicPublish": 0,
+      "otherDiscard": 0,
+      "otherUpload": 0,
+      "login": 0,
+      "accountDeclaration": 0
+    },
+    "mapping_auto_associated": true,
+    "native_symbols_scope": "12SYMBOL_TABLE ELF files of28shippingnative libraries;functionnamesonly,nofullsource-lineclaim",
+    "receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/receipt.json",
+    "receipt_sha256": "8c64bff0e68dcaedc43d47cd2f6d7f44dc3c12bf255e9d5de29dd7e00ab7a3d6",
+    "root_approval_receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/root-final24-submit-approval-r01.json",
+    "root_approval_sha256": "bb2bae6b4b820d5d10ce1d93174a502d6434d48b20009c8f6e27064e6898c5b0",
+    "root_terminal_review_receipt": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/root-terminal-review-r01.json",
+    "root_terminal_review_sha256": "bf1a0df980fecf8abe12567347efeb4e5f95369e3e16f4076870023c96d8cc19",
+    "root_viewed_pixels": [
+      "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/81-original-submission-status-top.png",
+      "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/google-final8r02-review-execution-r01/83-submission2-exact-new8-inreview.png"
+    ],
+    "limits": "Submission and quick checks completed; in review is not store approval or public launch. Managed Publishing remains ON. No completed upload/submission/Publish action is to be replayed."
+  }
 }
