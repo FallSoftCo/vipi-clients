@@ -25,10 +25,10 @@ import java.io.File
  * This is font/line-geometry evidence, not arbitrary conversation/linguistic QA. */
 class NativeLineMetricDeviceTest {
     @get:Rule val compose = createComposeRule()
-    private data class Sample(val id: String, val context: Context, val value: ImmersionPresentation, val revealed: Set<Int>)
-    private data class Geometry(val baseline: Int, val lineHeight: Int, val viewHeight: Int, val textSize: Float) {
+    private data class Sample(val id: String, val context: Context, val value: ImmersionPresentation, val revealed: Set<Int>, val showScript: Boolean = false)
+    private data class Geometry(val baseline: Int, val lineHeight: Int, val viewHeight: Int, val textSize: Float, val slotWidth: Int) {
         fun json() = JSONObject().put("baseline", baseline).put("line_height", lineHeight)
-            .put("view_height", viewHeight).put("text_size_px", textSize.toDouble())
+            .put("view_height", viewHeight).put("text_size_px", textSize.toDouble()).put("source_selection_width", slotWidth)
     }
 
     @Test fun pendingOriginalAndPreparedLatinPinyinJapaneseArabicKeepBaselineThroughRepeatedFlips() {
@@ -47,7 +47,7 @@ class NativeLineMetricDeviceTest {
                 val ink = MaterialTheme.colorScheme.onSurface.toArgb()
                 Column(Modifier.fillMaxSize().safeDrawingPadding().padding(16.dp)) {
                     AndroidView(factory = { StableImmersionText(sample.context).also { native = it } },
-                        modifier = Modifier.fillMaxWidth(), update = { it.bind(sample.value, sample.revealed, false, accent, ink) })
+                        modifier = Modifier.fillMaxWidth(), update = { it.bind(sample.value, sample.revealed, sample.showScript, accent, ink) })
                 }
             }
         } } }
@@ -62,7 +62,10 @@ class NativeLineMetricDeviceTest {
             compose.runOnIdle {
                 val view = requireNotNull(native); val layout = requireNotNull(view.layout)
                 assertEquals("Qualification word must occupy one native line", 1, layout.lineCount)
-                result = Geometry(layout.getLineBaseline(0), layout.getLineBottom(0) - layout.getLineTop(0), view.height, view.textSize)
+                assertTrue("Native ascent must be inside the paragraph", layout.getLineBaseline(0) + layout.getLineAscent(0) >= 0)
+                assertTrue("Native descent must be inside the paragraph", layout.getLineBaseline(0) + layout.getLineDescent(0) <= view.height)
+                result = Geometry(layout.getLineBaseline(0), layout.getLineBottom(0) - layout.getLineTop(0), view.height,
+                    view.textSize, view.sourceRangeRect(0, view.displayedOriginal.length).width())
             }
             return requireNotNull(result)
         }
@@ -115,8 +118,32 @@ class NativeLineMetricDeviceTest {
                     compose.runOnIdle { assertEquals(if (original) word.original else word.displayedTarget, requireNotNull(native).visibleText()) }
                     flips.put(actual.json().put("face", if (original) "original" else "target"))
                 }
-                row.put("flips", flips).put("status", "passed")
+                row.put("flips", flips)
                 assertTrue(device.takeScreenshot(File(output, "$id-prepared.png")))
+                if (word.displayedTarget != word.translated) {
+                    //The explicit native-script preference may use its actual
+                    //fallback height, but its fixed slot width must not change.
+                    compose.runOnIdle { shown.value = Sample(id, context, prepared, emptySet(), showScript = true) }
+                    val script = geometry()
+                    assertEquals("All three forms retain the same slot width", firstPrepared.slotWidth, script.slotWidth)
+                    compose.runOnIdle { assertEquals(word.translated, requireNotNull(native).visibleText()) }
+                    row.put("explicit_native_script", script.json())
+                    assertTrue(device.takeScreenshot(File(output, "$id-native-script.png")))
+                    repeat(4) { index ->
+                        val original = index % 2 == 0
+                        compose.runOnIdle { shown.value = Sample(id, context, prepared,
+                            if (original) setOf(cropped.id) else emptySet(), showScript = true) }
+                        val actual = geometry(); same(script, actual)
+                        assertEquals(script.slotWidth, actual.slotWidth)
+                        compose.runOnIdle { assertEquals(if (original) word.original else word.translated, requireNotNull(native).visibleText()) }
+                    }
+                    compose.runOnIdle { shown.value = Sample(id, context, prepared, emptySet()) }
+                    val restoredGuide = geometry(); same(initial, restoredGuide)
+                    assertEquals(firstPrepared.slotWidth, restoredGuide.slotWidth)
+                    compose.runOnIdle { assertEquals(word.displayedTarget, requireNotNull(native).visibleText()) }
+                    row.put("restored_guide", restoredGuide.json())
+                }
+                row.put("status", "passed")
             } catch (failure: Throwable) {
                 row.put("status", "failed").put("failure", failure.toString())
                 device.takeScreenshot(File(output, "$id-failed.png"))
