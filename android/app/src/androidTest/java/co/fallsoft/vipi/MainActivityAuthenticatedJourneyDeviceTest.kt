@@ -6,7 +6,6 @@ import android.app.Instrumentation
 import android.content.Context
 import android.content.Intent
 import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.core.view.WindowInsetsCompat
@@ -592,7 +591,9 @@ class MainActivityAuthenticatedJourneyDeviceTest {
         assertEditorValue("")
 
     private fun SemanticsNodeInteraction.assertEditorValue(expected: String): SemanticsNodeInteraction =
-        assert(SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(expected)))
+        assert(SemanticsMatcher("EditableText plain text exactly equals the expected draft") { node ->
+            node.config.contains(SemanticsProperties.EditableText) && node.config[SemanticsProperties.EditableText].text == expected
+        })
 
     private fun assertReplyAudioAboveComposer(f: MainActivityJourneyFixture, reply: String, draft: String) {
         compose.waitForIdle()
