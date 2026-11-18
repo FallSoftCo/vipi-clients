@@ -20,8 +20,8 @@
           "co.fallsoft.vipi.MainActivityOnboardingJourneyDeviceTest",
           "co.fallsoft.vipi.MainActivityAuthenticatedJourneyDeviceTest"
         ],
-        "expected_junit_cases": 6,
-        "scope": "Real MainActivity routing, native IME/editor, profile/friend Signal send, Bot consent/send/reentry/errors/history/multiline draft. Identity, relay, billing and Bot transport are controlled."
+        "expected_junit_cases": 7,
+        "scope": "Real MainActivity routing, native IME/editor, profile/friend Signal send, Bot consent/send/reentry/errors/history and multiline draft before/after a confirmed exchange. Identity, relay, billing and Bot transport are controlled."
       },
       "domain": {
         "classes": [

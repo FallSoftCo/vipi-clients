@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-18T05:24:41.290524+00:00",
+  "updated_utc": "2026-11-18T06:04:14.724278+00:00",
   "purpose": "User-visible completion evidence; counts, compilation and mock success do not imply readiness",
   "release_ready": false,
   "journeys": [
@@ -69,9 +69,9 @@
     {
       "journey": "Local StoreKit checkout and restore",
       "implementation": "iOS actual StoreKitTest",
-      "status": "blocked; diagnostic ongoing",
+      "status": "not passed; IDE control diagnostics reconciled",
       "required_observation": "must obtain Xcode-only zero-charge transaction and reconcile through production store coordinator",
-      "limits": "Do not substitute mocked subscription tests for a StoreKit pass"
+      "limits": "Earlier local StoreKit readiness returned notEntitled before transaction. Two later IDE-control diagnostics dispatched no test or purchase; native scheme restored. Mock tests are not a StoreKit pass."
     },
     {
       "journey": "Single-tap word speech and stopping",
@@ -103,10 +103,10 @@
     },
     {
       "journey": "Edit a long multiline Bot draft",
-      "implementation": "Actual Android MainActivity plus native Ctrl+End/key input",
-      "status": "under qualification; test harness corrected once, native character-location data unsupported so evidence method being revised",
-      "required_observation": "Full draft retained through navigation; native selection stays at true end; rendered final line/caret inside editor and aboveIME; zero network sends",
-      "limits": "Observed screenshot shows final line and caret; cannot count unavailable native character-location API as a pass"
+      "implementation": "Actual Android MainActivity, native accessibility selection and key events, measured rendered caret plus production TextLayoutResult",
+      "status": "passed normal and narrow/enlarged, with and without confirmed chat history",
+      "required_observation": "Complete draft and history survive Back/reopen; actual native end selection; full final visual line/caret above IME; exactly one setup POST only for history variant, zero draft sends",
+      "limits": "Native character-location API returns null for scrolled text. Geometry uses screenshot-measured caret and actual layout, explicitly not native glyph API proof. Test waits for native focus/IME events before one end-selection action."
     }
   ],
   "receipts": {
@@ -118,13 +118,14 @@
     "ios_bot": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-bot-native-evidence-r01/summary.json",
     "ios_backup": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-backup-native-evidence-r01/summary.json",
     "ios_subscription_domain": "/home/ai/Development/investigations/vipi-vbot-composer-20261117-r01/ios-subscription-domain-evidence-r01/summary.json",
-    "android_multiline_attempt": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-editing-native-normal-r19.json"
+    "android_multiline_normal": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-editing-idle-normal-r29.json",
+    "android_multiline_large": "/home/ai/Development/investigations/vipi-user-journeys-20261117-r01/android-editing-idle-large-r30.json"
   },
   "release_controls": "Existing Apple manual release and Google Managed Publishing preserved; no submission replay",
   "original_nine_dirty_files_preserved": true,
   "prior_external_actions_reconciled": {
     "base_intro_offers": "Google obsolete Base offer deactivated once; Apple Base offer removed once onNovember17. Reloadverifiedreceipts retained. No repetition.",
     "google_license_test": "Prior no-charge license purchase/renewal/cancellation/lapse completed; do not replay. Current native tests controlbilling boundary and do not claim a new storetest.",
-    "apple_native_purchase": "Still no actual Apple transaction pass; localStoreKit IDE diagnostic in progress."
+    "apple_native_purchase": "No actual Apple transaction pass. IDE-control diagnostics r01/r02 restored unchanged QA scheme; no test or purchase dispatched."
   }
 }
