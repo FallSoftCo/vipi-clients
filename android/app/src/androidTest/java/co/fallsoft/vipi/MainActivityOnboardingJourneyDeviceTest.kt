@@ -89,6 +89,13 @@ class MainActivityOnboardingJourneyDeviceTest {
                     ready
                 }
                 f.capture("02-selected-languages-with-marked-chinese-preview")
+                if (largeText) {
+                    // A tall example is read by scrolling. Deliberately expose
+                    // its lower portion and the existing forward action too.
+                    compose.onNode(hasScrollAction()).performTouchInput { swipeUp() }
+                    action(R.string.continue_action).assertIsDisplayed()
+                    f.capture("02b-large-preview-bottom-and-forward-action-after-scroll")
+                }
                 action(R.string.continue_action).performTouchInput { click() }
                 waitScreen(Screen.ACCOUNT)
                 compose.onNodeWithText(text(R.string.account_trial_concise)).performScrollTo().assertIsDisplayed()
@@ -124,6 +131,8 @@ class MainActivityOnboardingJourneyDeviceTest {
                 File(f.output, "result.json").writeText(JSONObject().put("pass", true)
                     .put("actual_activity", "MainActivity").put("native_preview_tone_marks", true)
                     .put("auth_launches", 2).put("known", "fr").put("learning", "zh")
+                    .put("large_preview_bottom_and_forward_action_reviewed_by_scroll", largeText)
+                    .put("entire_tall_preview_simultaneously_visible_claimed", false)
                     .put("external_browser_or_exchange", false).put("human_comprehension_claimed", false).toString(2))
             } catch (failure: Throwable) {
                 runCatching { f.capture("failure-before-cleanup") }.onFailure { failure.addSuppressed(it) }
