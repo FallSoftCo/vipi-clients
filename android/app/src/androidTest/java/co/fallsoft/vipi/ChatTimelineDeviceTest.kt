@@ -74,6 +74,15 @@ class ChatTimelineDeviceTest {
                     chat.synchronize()
                     assertEquals(70, services.friendPosts.get())
                     assertNotNull(services.peerReceived)
+                    assertTrue(chat.notice, chat.lastSyncComplete)
+                    assertNull(chat.notice)
+                    assertEquals(50, chat.messages(services.peer).size)
+                    assertTrue(chat.messages(services.peer).all { it.outgoing && it.state == "delivered" })
+                    MessageVault(f.isolated, services.account).use { vault ->
+                        val journal = MessageJournal(vault)
+                        assertTrue(journal.pendingDrafts(System.currentTimeMillis()).isEmpty())
+                        assertTrue(journal.pending(System.currentTimeMillis()).isEmpty())
+                    }
                 } }
                 //Open through the production chat list, not a substitute screen.
                 compose.onNodeWithText("Journey Friend").performScrollTo().performTouchInput { click() }
