@@ -74,7 +74,8 @@ internal class AccountDeletion(private val store: DeletionStore, private val ser
         try { pending = store.load() }
         catch (_: Exception) { loadFailed = true; notice = R.string.deletion_receipt_open_failed }
     }
-    constructor(context: Context, authentication: Authentication) : this(PrivateDeletionStore(context), AccountDeletionService(authentication),
+    constructor(context: Context, authentication: Authentication,
+                service: DeletionTransport = AccountDeletionService(authentication)) : this(PrivateDeletionStore(context), service,
         { eraseLocal(context, it) }, { if (authentication.userID == it) authentication.signOutLocally() })
     fun begin(account: UUID, userID: String, closeChat: () -> Unit) {
         check(!active && !busy)

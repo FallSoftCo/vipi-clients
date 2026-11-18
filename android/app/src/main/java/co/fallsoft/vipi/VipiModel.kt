@@ -41,6 +41,7 @@ internal interface VipiWorkflowBoundary {
     fun billingClient(context: Context, listener: PurchasesUpdatedListener): BillingClient
     fun cancelPush(context: Context)
     fun foregroundEvents(scope: CoroutineScope, authentication: Authentication, chat: ChatSession): ForegroundInboxEvents
+    fun deletionTransport(authentication: Authentication): DeletionTransport? = null
 }
 
 class VipiModel internal constructor(application: Application, private val translator: LanguageTranslation,
@@ -48,7 +49,8 @@ class VipiModel internal constructor(application: Application, private val trans
     @JvmOverloads constructor(application: Application, translator: LanguageTranslation = LocalTranslation()) :
         this(application, translator, null)
     val authentication = Authentication(application)
-    internal val deletion = AccountDeletion(application, authentication)
+    internal val deletion = AccountDeletion(application, authentication,
+        workflow?.deletionTransport(authentication) ?: AccountDeletionService(authentication))
     private val prefs = application.getSharedPreferences("preferences", 0)
     var screen by mutableStateOf(runCatching { Screen.valueOf(prefs.getString("onboardingStep", "WELCOME")!!) }.getOrDefault(Screen.WELCOME))
         private set
