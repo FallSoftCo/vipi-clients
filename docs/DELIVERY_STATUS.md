@@ -1,7 +1,7 @@
 # Current delivery status
 
 Updated November 17, 2026 (latest handoff observations through November 18,
-00:31 UTC). Google **1.0.4 (5)** has been sent for production review. Apple
+00:37 UTC). Google **1.0.4 (5)** has been sent for production review. Apple
 **1.0 (4)** has been delivered but has not been submitted for review. Neither
 approval nor public availability is established. Completed uploads, review sends,
 auth exchanges and Bot requests must not be replayed.
@@ -10,7 +10,8 @@ auth exchanges and Bot requests must not be replayed.
 
 - Google final **Send** was clicked once at **00:29:54 UTC** on November 18.
   The console reported **24 changes sent for review**; **Changes in review**
-  persisted after a fresh reload. Preliminary checks were still running.
+  persisted after a fresh reload. At 00:37 UTC the preliminary checks had passed,
+  and the console stated that the changes are now in review.
   The submission includes 14 localized listings, four current native screenshots
   and the independently read-back Gamma reviewer credentials.
   See [terminal submission receipt](../release/google-play-review-submission-20261117.json).
@@ -80,7 +81,7 @@ auth exchanges and Bot requests must not be replayed.
 
 ## Remaining work and limits
 
-- Observe Google's preliminary checks and review outcome; do not resend the
+- Observe Google's review outcome; preliminary checks passed. Do not resend the
   completed submission. Public availability remains unverified.
 - Finish Apple build 4 processing, metadata, screenshots and reviewer readback,
   then record any actual review submission separately. Earlier Apple builds and

@@ -4,8 +4,9 @@
 
 Google production **1.0.4 (5)** was sent for review once at **00:29:54 UTC**
 on November 18. The console reported **24 changes sent for review**, and
-**Changes in review** persisted after reload. Preliminary checks were running;
-approval and public rollout are not established. Do not send it again.
+**Changes in review** persisted after reload. At 00:37 UTC, preliminary checks had passed and the
+console stated that the changes are now in review. Approval and public rollout
+are not established. Do not send it again.
 See [terminal Google receipt](google-play-review-submission-20261117.json).
 
 The submitted AAB is SHA-256
@@ -69,7 +70,7 @@ are shown before purchase; reviewer grants are not billing qualification.
 
 ## Current remaining handoff
 
-Observe Google's checks/review outcome. Finish Apple build 4 processing and
+Observe Google's review outcome; preliminary checks passed. Finish Apple build 4 processing and
 current metadata/screens/reviewer readback before recording any Apple review
 submission. The user's phone still reported versionCode **4** at **00:31 UTC**;
 the verified v5 APK transfer and one installer opening do not prove installation.

@@ -10,7 +10,7 @@
   "final_send_dispatches": 1,
   "change_count": 24,
   "observed_result": "24 changes sent for review; Changes in review persists after browser reload",
-  "preliminary_checks": "Running; Google will forward to review after successful checks",
+  "preliminary_checks": "Passed; native Play Console now says Your changes are now in review",
   "approval_or_publication_claimed": false,
   "managed_publishing": false,
   "localizations": 14,
@@ -21,6 +21,9 @@
     "play-final-send-review-once-r01.png": "36a2abd5d8debb4954db88919ccab2c2dbaa78ed0e97afab180b071661d4d4fe",
     "play-final-review-persisted-r01.png": "41782eec5f9321ea74c8f9e226907f4f6b32db789fcf1bb96e5e3cbf7c362778",
     "play-final-listing-save-receipt-r01.json": "3203754e71c20e717c29f100edd962b04afa77b17c69124d2d6e6f72ad3ab7dd",
-    "play-four-current-screens-r01.png": "4dad6a463e24a6f19a491df494568dc9f201da6c9aa7a48d4e5d13fa5bbe0be1"
-  }
+    "play-four-current-screens-r01.png": "4dad6a463e24a6f19a491df494568dc9f201da6c9aa7a48d4e5d13fa5bbe0be1",
+    "play-submitted-checks-observe-r02.png": "dcfa235d13e664e27959c60346787423e88471c8edd0f3e8c5c49e741f0f390c"
+  },
+  "review_status_observed_at": "2026-11-18T00:38:08.512515+00:00",
+  "review_status": "in_review"
 }

@@ -2,8 +2,9 @@
 
 Google production **1.0.4 (5)** was sent for review once at **00:29:54 UTC**
 on November 18. The result reported **24 changes sent for review** and
-**Changes in review** persisted after a fresh reload. Preliminary checks were
-running; no approval or public availability is claimed. See [terminal receipt](google-play-review-submission-20261117.json).
+**Changes in review** persisted after a fresh reload. At 00:37 UTC, preliminary
+checks had passed and the console stated that the changes are now in review;
+no approval or public availability is claimed. See [terminal receipt](google-play-review-submission-20261117.json).
 The earlier [v5 draft](android-v5-store-upload-20261117.json) predates the final
 submission and its remaining-work assertions are superseded.
 
@@ -72,7 +73,7 @@ Ordinary customers receive 30 cardless days anchored to original profile creatio
 there is no automatic charge afterward. Base has no extra store introductory
 trial; optional Bot mini retains its separate eligible one-month offer.
 
-The remaining store task is observing Google's checks and review result, not
+The remaining store task is observing Google's review result, not
 re-uploading or re-sending. The phone's read-only **00:31 UTC** check still showed
 versionCode **4**; a complete verified v5 APK in Downloads and one installer open
 do not establish an installed update. Clean-device restore and broader lifecycle,
