@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-19",
+  "baseline_commit": "acd9f28d21ff4a378e8bde61d661c514457d116f",
+  "scope": "Recheck principal account lifecycle admission after membership/user locks, before committing group mutations or fanout.",
+  "feature_enabled_by_default": false,
+  "deployed": false,
+  "result": "14 passed (Groups API and atomic service tests).",
+  "qualification": "Deterministic SQLite simulation and HTTP rollback assertions; not real PostgreSQL concurrency or native/Signal testing.",
+  "source_sha256": {
+    "backend/vipi/groups_api.py": "46c32bdc4439a8f04266cb13d7511831f1bb355eb51991da3ad97ab873928059",
+    "backend/tests/test_groups_api.py": "d386e2542dc574c4553e717838135b8395bf497fc2c2fed4562dea2fe6d946e4",
+    "backend/qa/groups-admission-race-20261119-tests.xml": "458ee75cd09e2cce77a9f2b7a4fd78866da6dbfde50b6c9f719047d0648cd15d"
+  }
+}

@@ -148,3 +148,23 @@ async def test_http_atomic_role_and_control_share_one_commit_and_admission(api):
     assert result.json()["control_acceptance"]["admitted"] is True
     assert next(m for m in result.json()["members"] if m["user_id"]==bob["id"])["role"] == "admin"
     assert (await api.patch(path,headers=ah,json=body)).json() == result.json()
+
+
+async def test_principal_revocation_is_rechecked_after_group_lock(api,db,monkeypatch):
+    from sqlalchemy import update
+    from vipi import groups
+    from vipi.db import User
+    alice,_,ah = await identity(api,"alice")
+    group = await create(api,ah)
+    original = groups.mutate
+    async def revoked_before_lock(session,**args):
+        # Simulate lifecycle/re-auth admission changing after the first token
+        # check. The group lock refreshes the previously cached User object.
+        await session.execute(update(User).where(User.id == alice["id"])
+            .values(minimum_auth_time=int(NOW.timestamp())+1).execution_options(synchronize_session=False))
+        return await original(session,**args)
+    monkeypatch.setattr(groups,"mutate",revoked_before_lock)
+    result = await api.patch('/v1/groups/'+group["id"],headers=ah,
+        json={"request_id":uid(),"expected_epoch":1,"title":"Must roll back"})
+    assert result.status_code == 401 and result.json() == {"error":"recent_sign_in_required"}
+    assert (await api.get('/v1/groups/'+group["id"],headers=ah)).json()["title"] == "Friends"

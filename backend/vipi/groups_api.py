@@ -74,7 +74,9 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
         await rate(p, "groups-list", 60)
         async with db.sessions.begin() as session:
             user = await user_for(session, p)
-            await session.execute(select(User).where(User.id == user.id).with_for_update())
+            await session.execute(select(User).where(User.id == user.id).with_for_update()
+                .execution_options(populate_existing=True))
+            user = await user_for(session, p)
             await phone_for(session, request, user)
             return await groups.list_groups(session, user.id, now=now())
 
@@ -86,6 +88,7 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                 user = await user_for(session, p)
                 await phone_for(session, request, user)
                 result = await groups.create(session, actor_id=user.id, group_id=str(body.id), title=body.title, now=now())
+                await user_for(session, p)
                 await phone_for(session, request, user)
                 return result
         except IntegrityError:
@@ -99,6 +102,7 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
             await phone_for(session, request, user)
             group, roster, _ = await groups.lock_group(session, str(group_id), user.id)
             groups.member_for(roster, user.id)
+            await user_for(session, p)
             await phone_for(session, request, user)
             return await groups.snapshot(session, group, roster)
 
@@ -122,6 +126,7 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                     request_id=str(body.request_id), expected_epoch=body.expected_epoch,
                     action=action, now=now(), control=control, device_id=device.id,
                     max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient, **extra)
+                await user_for(session, p)
                 await phone_for(session, request, user)
                 return result
         except IntegrityError:
@@ -172,10 +177,13 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                 envelopes = tuple(Envelope(str(e.id), user.id, device.id, str(e.recipient_id),
                     str(e.recipient_device_id), body.created_at, raw, e.cipher_type)
                     for e, raw in zip(body.envelopes, decoded, strict=True))
-                return await groups.send(session, group_id=str(group_id), actor_id=user.id, device_id=device.id,
+                result = await groups.send(session, group_id=str(group_id), actor_id=user.id, device_id=device.id,
                     fanout=groups.Fanout(str(body.id), body.epoch, body.created_at, envelopes, kind,
                         str(body.invited_user_id) if isinstance(body, ControlInput) and body.invited_user_id else None), now=now(),
                     max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient)
+                await user_for(session, p)
+                await phone_for(session, request, user)
+                return result
         except IntegrityError:
             raise DeliveryError("group_request_conflict", 409) from None
 
