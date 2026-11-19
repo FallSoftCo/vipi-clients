@@ -40,7 +40,7 @@ import UserNotifications
         do {
             let allowed = try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound])
             authorization = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
-            guard allowed else { notice = String(localized: "Notifications are off. You can allow them in iPhone Settings."); return }
+            guard allowed else { notice = String(localized: "Notifications are off. Turn them on in Settings."); return }
             enabled = true
             if let key = preferenceKey { UserDefaults.standard.set(true, forKey: key) }
             UIApplication.shared.registerForRemoteNotifications()

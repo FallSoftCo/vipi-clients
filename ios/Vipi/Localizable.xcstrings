@@ -15845,89 +15845,6 @@
         }
       }
     },
-    "Notifications are off. You can allow them in iPhone Settings.": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Notifications are off. You can allow them in iPhone Settings."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Las notificaciones están desactivadas. Puedes permitirlas en los ajustes del iPhone."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Benachrichtigungen sind ausgeschaltet. Sie können sie in den iPhone-Einstellungen zulassen."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "通知はオフです。 iPhoneの設定でそれらを許可できます。"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "الإشعارات متوقفة. يمكنك السماح لهم في إعدادات iPhone."
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "알림이 꺼져 있습니다. iPhone 설정에서 허용할 수 있습니다."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "通知已关闭。 您可以在 iPhone 设置中允许它们。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "通知已關閉。 您可以在 iPhone 設置中允許它們。"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Les notifications sont désactivées. Vous pouvez les autoriser dans les réglages de l’iPhone."
-          }
-        },
-        "sw": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Arifa zimezimwa. Unaweza kuziruhusu katika Mipangilio ya iPhone."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Le notifiche sono disattivate. Puoi consentirle nelle impostazioni dell’iPhone."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "As notificações estão desativadas. Você pode permiti-las nos Ajustes do iPhone."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "As notificações estão desativadas. Você pode permiti-las nos Ajustes do iPhone."
-          }
-        }
-      }
-    },
     "Notifications couldn’t be enabled. Please try again.": {
       "extractionState": "manual",
       "localizations": {
@@ -40166,6 +40083,89 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "兩次輸入的密碼片語不一致。"
+          }
+        }
+      }
+    },
+    "Notifications are off. Turn them on in Settings.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Notifications are off. Turn them on in Settings."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Las notificaciones están desactivadas. Actívalas en Ajustes."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Les notifications sont désactivées. Activez-les dans Réglages."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Benachrichtigungen sind ausgeschaltet. Aktiviere sie in den Einstellungen."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le notifiche sono disattivate. Attivale in Impostazioni."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As notificações estão desativadas. Ative-as nos Ajustes."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As notificações estão desativadas. Ative-as nas Definições."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "通知がオフになっています。「設定」でオンにしてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "알림이 꺼져 있습니다. 설정에서 켜세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "通知已关闭。请在“设置”中开启。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "通知已關閉。請在「設定」中開啟。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "الإشعارات متوقفة. شغّلها من الإعدادات."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Arifa zimezimwa. Ziwashe katika Mipangilio."
           }
         }
       }
