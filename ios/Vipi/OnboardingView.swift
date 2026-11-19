@@ -77,26 +77,19 @@ struct OnboardingView: View {
             IntroHeading(eyebrow: "", title: "Your languages", detail: "", showsDetail: false)
             VStack(alignment: .leading, spacing: 10) {
                 Text("I speak").font(.body.weight(.semibold))
-                Menu {
-                    ForEach(VipiLanguage.initial) { language in
-                        Button { state.selectKnownLanguage(language.id) } label: {
-                            Text(language.localizedName)
-                            if state.knownLanguage == language.id { Image(systemName: "checkmark") }
-                        }
-                    }
+                NavigationLink {
+                    LanguageSelectionView(title: "I speak",
+                        selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) }),
+                        choices: VipiLanguage.initial, localName: false)
                 } label: { languageLabel(state.knownLanguage) }
                     .accessibilityLabel("I speak")
                     .accessibilityValue(VipiLanguage.named(state.knownLanguage).localizedName)
             }
             VStack(alignment: .leading, spacing: 10) {
                 Text("I’m learning").font(.body.weight(.semibold))
-                Menu {
-                    ForEach(VipiLanguage.initial.filter { $0.id != state.knownLanguage }) { language in
-                        Button { state.targetLanguage = language.id } label: {
-                            Text("\(language.localizedName) · \(language.localName)")
-                            if state.targetLanguage == language.id { Image(systemName: "checkmark") }
-                        }
-                    }
+                NavigationLink {
+                    LanguageSelectionView(title: "I’m learning", selection: $state.targetLanguage,
+                        choices: VipiLanguage.initial.filter { $0.id != state.knownLanguage }, localName: true)
                 } label: { languageLabel(state.targetLanguage) }
                     .accessibilityLabel("I’m learning")
                     .accessibilityValue(VipiLanguage.named(state.targetLanguage).localizedName)

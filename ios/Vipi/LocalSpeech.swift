@@ -120,7 +120,7 @@ private final class ConverterInput: @unchecked Sendable {
         let preferred = ["en": "en-US", "es": "es-ES", "fr": "fr-FR", "de": "de-DE", "it": "it-IT", "pt": "pt-BR",
             "ar": "ar-001", "zh": "zh-CN", "ja": "ja-JP", "ko": "ko-KR"][language] ?? language
         let available = AVSpeechSynthesisVoice.speechVoices().filter {
-            $0.language.components(separatedBy: "-")[0] == code && !$0.voiceTraits.contains(.isNoveltyVoice)
+            LocalLanguageCatalog.canonicalCode($0.language) == code && !$0.voiceTraits.contains(.isNoveltyVoice)
         }.sorted {
             if ($0.language == preferred) != ($1.language == preferred) { return $0.language == preferred }
             if $0.quality != $1.quality { return $0.quality.rawValue > $1.quality.rawValue }

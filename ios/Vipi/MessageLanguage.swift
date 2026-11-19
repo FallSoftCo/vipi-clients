@@ -11,6 +11,6 @@ import NaturalLanguage
         recognizer.processString(text)
         try Task.checkCancellation()
         guard let code = recognizer.dominantLanguage?.rawValue else { return nil }
-        return code == "zh-Hans" || code == "zh-Hant" ? "zh" : code
+        return LocalLanguageCatalog.canonicalCode(code)
     }
 }

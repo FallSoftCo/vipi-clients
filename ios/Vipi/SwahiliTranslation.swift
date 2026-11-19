@@ -4,23 +4,30 @@ import VipiCore
 @preconcurrency import MLKitTranslate
 @preconcurrency import MLKitCommon
 
-/// Downloading is an explicit preparation action. Translating never initiates
-/// a download and never sends message text to a remote translator.
+/// The existing ML Kit adapter also serves languages that Apple Translation
+/// does not support. Downloading remains an explicit preparation action.
+/// Translating never downloads or sends message text to a remote translator.
 @MainActor final class SwahiliTranslation {
     enum Failure: Error { case invalidPair, modelsMissing, emptyResult }
     let pair: TranslationPair
     private let translator: Translator
 
     init(pair: TranslationPair) throws {
-        guard pair.valid, pair.source == "sw" || pair.target == "sw" else { throw Failure.invalidPair }
+        guard Self.supports(pair) else { throw Failure.invalidPair }
         self.pair = pair
         translator = Translator.translator(options: TranslatorOptions(
             sourceLanguage: TranslateLanguage(rawValue: pair.source),
             targetLanguage: TranslateLanguage(rawValue: pair.target)))
     }
 
+    static func supports(_ pair: TranslationPair) -> Bool {
+        pair.valid && TranslateLanguage.allLanguages().contains(TranslateLanguage(rawValue: pair.source))
+            && TranslateLanguage.allLanguages().contains(TranslateLanguage(rawValue: pair.target))
+    }
+
     static func installed(_ pair: TranslationPair) -> Bool {
-        [pair.source, pair.target].allSatisfy { code in
+        guard supports(pair) else { return false }
+        return [pair.source, pair.target].allSatisfy { code in
             code == "en" || ModelManager.modelManager().isModelDownloaded(
                 TranslateRemoteModel.translateRemoteModel(language: TranslateLanguage(rawValue: code)))
         }
@@ -57,6 +64,7 @@ import VipiCore
     }
 
     static func removeDownloads(_ pair: TranslationPair) async throws {
+        guard supports(pair) else { throw Failure.invalidPair }
         for code in Set([pair.source, pair.target]) where code != "en" {
             let model = TranslateRemoteModel.translateRemoteModel(language: TranslateLanguage(rawValue: code))
             guard ModelManager.modelManager().isModelDownloaded(model) else { continue }
@@ -75,6 +83,7 @@ import VipiCore
 @MainActor final class SwahiliTranslation {
     enum Failure: Error { case requiresPhysicalDevice }
     init(pair: TranslationPair) throws { throw Failure.requiresPhysicalDevice }
+    static func supports(_ pair: TranslationPair) -> Bool { false }
     static func installed(_ pair: TranslationPair) -> Bool { false }
     func prepare() async throws { throw Failure.requiresPhysicalDevice }
     func translate(_ text: String) async throws -> String { throw Failure.requiresPhysicalDevice }

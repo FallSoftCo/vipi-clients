@@ -3,6 +3,18 @@ import XCTest
 import VipiCore
 
 final class FullReadingRequirementTests: XCTestCase {
+    func testScriptTransformsPreserveOverlappingCodeLinksEmailsAndUnicodeLiterals() throws {
+        let literals = ["`Привет https://example.com/中文`", "https://example.com/中文", "用户@例子.公司", "```\nمرحبا\n```"]
+        for literal in literals {
+            let input = "Привет 👩🏽‍💻 " + literal + " завтра"
+            let transformed = try XCTUnwrap(FullReadingRequirement.transformingReadableText(input) { $0.applyingTransform(.toLatin, reverse: false) })
+            XCTAssertTrue(transformed.contains(literal),"Literal bytes must survive reading generation")
+            XCTAssertTrue(transformed.contains("👩🏽‍💻"))
+            XCTAssertFalse(FullReadingRequirement.needsReading(transformed))
+            XCTAssertTrue(input.hasPrefix("Привет"),"Original text remains authoritative")
+        }
+        XCTAssertNil(FullReadingRequirement.transformingReadableText("Привет") { _ in nil })
+    }
     func testActualScriptAndProtectedContentDetermineReadingNeed() {
         for text in ["café", "cafe\u{301}", "42 👩🏽‍💻", "`生日`", "```\n日本語\n```", "https://example.com/中文", "ok@example.com"] {
             XCTAssertFalse(FullReadingRequirement.needsReading(text), text)

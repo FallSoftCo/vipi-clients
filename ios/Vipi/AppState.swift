@@ -11,36 +11,9 @@ struct VipiLanguage: Identifiable, Hashable {
         let locale = Bundle.main.preferredLocalizations.first.map { Locale(identifier: $0) } ?? .current
         return locale.localizedString(forLanguageCode: id) ?? name
     }
-    /// Source UI copy for the onboarding example, in the selected known
-    /// language. The practice-language face is still translated on device.
-    var exampleGreeting: String {
-        switch id {
-        case "es": "¡Hola! ¿Cómo estás?"
-        case "fr": "Bonjour ! Comment vas-tu ?"
-        case "de": "Hallo! Wie geht es dir?"
-        case "it": "Ciao! Come stai?"
-        case "pt": "Olá! Como você está?"
-        case "ja": "こんにちは！元気ですか？"
-        case "ko": "안녕하세요! 잘 지내세요?"
-        case "zh": "你好！你好吗？"
-        case "ar": "مرحبًا! كيف حالك؟"
-        case "sw": "Habari! Unaendeleaje?"
-        default: "Hello! How are you?"
-        }
-    }
-    static let initial: [Self] = [
-        .init(id: "en", name: "English", localName: "English"),
-        .init(id: "es", name: "Spanish", localName: "Español"),
-        .init(id: "fr", name: "French", localName: "Français"),
-        .init(id: "de", name: "German", localName: "Deutsch"),
-        .init(id: "it", name: "Italian", localName: "Italiano"),
-        .init(id: "pt", name: "Portuguese", localName: "Português"),
-        .init(id: "ja", name: "Japanese", localName: "日本語"),
-        .init(id: "ko", name: "Korean", localName: "한국어"),
-        .init(id: "zh", name: "Chinese", localName: "中文"),
-        .init(id: "ar", name: "Arabic", localName: "العربية"),
-        .init(id: "sw", name: "Swahili", localName: "Kiswahili")
-    ]
+    /// Source UI copy only; the practice face is always produced on device.
+    let exampleGreeting: String
+    static let initial = LocalLanguageCatalog.languages
     static func named(_ code: String) -> Self { initial.first { $0.id == code } ?? initial[0] }
 }
 

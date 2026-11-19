@@ -49,6 +49,31 @@ public enum FullReadingRequirement {
         }
         return spans
     }
+    /// Apply a script transform without rewriting literal links, email addresses
+    /// or code. The same literal contract is used when judging remaining script.
+    public static func transformingReadableText(_ text: String, transform: (String) -> String?) -> String? {
+        let source = text as NSString
+        let whole = NSRange(location: 0, length: source.length)
+        let spans = (protected.flatMap { $0.matches(in: text, range: whole).map(\.range) } + emailRanges(text))
+            .sorted { $0.location < $1.location }
+        var offset = 0, result = ""
+        for span in spans {
+            let end = NSMaxRange(span)
+            guard end > offset else { continue }
+            if span.location > offset {
+                guard let changed = transform(source.substring(with: NSRange(location: offset, length: span.location - offset))) else { return nil }
+                result += changed
+            }
+            let start = max(offset, span.location)
+            result += source.substring(with: NSRange(location: start, length: end - start))
+            offset = end
+        }
+        if offset < source.length {
+            guard let changed = transform(source.substring(from: offset)) else { return nil }
+            result += changed
+        }
+        return result
+    }
     public static func needsReading(_ text: String) -> Bool {
         let length = (text as NSString).length
         let range = NSRange(location: 0, length: length)

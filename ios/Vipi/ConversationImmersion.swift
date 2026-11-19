@@ -367,7 +367,7 @@ struct ChatMessageArrival {
         if let selected = identity.inputLanguage { detected = selected }
         else { detected = try? await identify(identity.text) }
         guard valid() else { return nil }
-        let supported = detected.flatMap { code in VipiLanguage.initial.contains(where: { $0.id == code }) ? code : nil }
+        let supported = detected.map(LocalLanguageCatalog.canonicalCode).flatMap { LocalLanguageCatalog.codes.contains($0) ? $0 : nil }
         let input = supported ?? pair.source
         let from = input, to = input == pair.target ? pair.source : pair.target
         let requestedPair = TranslationPair(source: from,target: to); requiredPairs[identity] = requestedPair
@@ -527,16 +527,18 @@ struct ConversationTranslationTask: View {
 private struct TranslationRequestTask: View {
     let request: ConversationImmersion.Request
     let immersion: ConversationImmersion
+    @State private var provider: LocalTranslationProvider?
     var body: some View {
-        if request.pair.usesMLKit {
+        Group {
+        if provider == .mlKit {
             Color.clear.frame(width: 0, height: 0).accessibilityHidden(true)
                 .task { await immersion.translateSwahili(request) }
-        } else {
+        } else if provider == .apple {
             Color.clear.frame(width: 0, height: 0).accessibilityHidden(true)
-                .translationTask(source: .init(identifier: request.pair.source), target: .init(identifier: request.pair.target)) { session in
-                    let readiness = await LanguagePreparation.nativeStatus(request.pair)
-                    guard readiness == .installed else {
-                        await immersion.finish(request,translation:nil,failure:readiness == .unsupported ? .unsupported:.modelNotReady); return
+                .translationTask(source: request.pair.appleSource, target: request.pair.appleTarget) { session in
+                    let readiness = await LocalTranslationCapability.resolve(request.pair)
+                    guard readiness.provider == .apple, readiness.availability == .installed else {
+                        await immersion.finish(request,translation:nil,failure:readiness.availability == .unsupported ? .unsupported:.modelNotReady); return
                     }
                     var attemptedTranslation = false
                     do {
@@ -551,6 +553,16 @@ private struct TranslationRequestTask: View {
                         await immersion.finish(request,translation:nil,failure:attemptedTranslation ? .unavailable:.preparation)
                     }
                 }
+        } else {
+            Color.clear.frame(width: 0, height: 0).accessibilityHidden(true)
+        }
+        }.task(id: request.id) {
+            let resolved = await LocalTranslationCapability.resolve(request.pair)
+            guard !Task.isCancelled else { return }
+            provider = resolved.provider
+            if resolved.provider == .unsupported {
+                await immersion.finish(request, translation: nil, failure: .unsupported)
+            }
         }
     }
 }

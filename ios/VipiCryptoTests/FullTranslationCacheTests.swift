@@ -325,7 +325,8 @@ import VipiCore
     }
 
     func testLegacyReadingRefreshKeepsExactTranslationCacheKeyAndOriginal() async throws {
-        XCTAssertEqual(FullSentenceReadings.translationCacheCompatibilitySuffix,FullSentenceReadings.policy)
+        XCTAssertEqual(FullSentenceReadings.translationCacheCompatibilitySuffix,"live-full-text-2-byte-contract:pinyin-pro-3.29.5-marked-native-2:ec2f31077ea4aa2f531e0711366bb3d07af495c8ab53f144f32a5b231ed3f35c:cf-hangul-orthographic-guard-1:cf-japanese-guard-sokuon-1:cf-arabic-latin")
+        XCTAssertNotEqual(FullSentenceReadings.translationCacheCompatibilitySuffix,FullSentenceReadings.policy,"Reading expansion must not invalidate stored full translations")
         let vault = try store(), first = await owner(vault,target:"zh")
         _ = try await complete(first,id:"old-guide",text:"Tomorrow",target:"明天")
         first.close()

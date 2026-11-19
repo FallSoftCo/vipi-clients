@@ -4,6 +4,20 @@ import VipiCore
 @testable import Vipi
 
 final class SentenceReadingsTests: XCTestCase {
+    func testExpandedPlatformGuidesKeepLiteralDataAndNeverClaimPronunciationAccuracy() throws {
+        // Real platform transforms, rather than authored target readings. This
+        // checks script completion and preservation, not linguistic accuracy.
+        for language in ["be","bg","bn","el","fa","gu","he","hi","ka","kn","mk","mr","ru","ta","te","th","uk"] {
+            let input = VipiLanguage.named(language).exampleGreeting + " 18:30 👩🏽‍💻 https://example.com/中文 用户@例子.公司"
+            let value = try XCTUnwrap(FullSentenceReadings.resolve(input,language:language),language)
+            XCTAssertTrue(value.text.contains("18:30 👩🏽‍💻 https://example.com/中文 用户@例子.公司"),language)
+            XCTAssertFalse(FullReadingRequirement.needsReading(value.text),language)
+            XCTAssertEqual(FullSentenceReadings.state(text:input,language:language,reading:value).status,.available)
+        }
+        let placeholder = FullReading(text:"slām ◌̃",provenance:.localTransliteration)
+        XCTAssertEqual(FullSentenceReadings.state(text:"سلام",language:"ur",reading:placeholder).failure,.unresolved)
+        XCTAssertNil(FullSentenceReadings.resolve("Привет",language:"xx"))
+    }
     func testLiveNonRomanFullTextReadingsDoNotNeedAuthoredSentenceMatches() throws {
         for (language,text) in [("zh","桌子旁边有三本新书。"),("ja","駅の近くで新しい本を読みます。"),("ko","오늘 새로운 책을 읽어요."),("ar","أين محطة القطار الجديدة؟")] {
             let result = try XCTUnwrap(FullSentenceReadings.resolve(text,language:language),language)

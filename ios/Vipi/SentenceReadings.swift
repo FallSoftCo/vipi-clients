@@ -5,7 +5,7 @@ import VipiCore
 /// translation dictionaries participate; native-script audio is authoritative.
 struct FullSentenceReadings: Sendable {
     let chinese: ChineseFullReading?
-    static let policy = "live-full-text-2-byte-contract:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256 + ":" + KoreanFullReading.policy + ":" + JapaneseFullReading.policy + ":cf-arabic-latin"
+    static let policy = "live-full-text-2-byte-contract:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256 + ":" + KoreanFullReading.policy + ":" + JapaneseFullReading.policy + ":cf-any-latin-literals-1"
     static let statePolicy = "reading-status-3:" + policy
     /// Preserve the existing translation-cache namespace independently of reading
     /// revisions. This exact historical suffix is compatibility, not reader policy.
@@ -15,7 +15,7 @@ struct FullSentenceReadings: Sendable {
             return .init(status:.unavailable,failure:.inputLimit,policy:statePolicy)
         }
         guard FullReadingRequirement.needsReading(text) else { return .init(status:.notNeeded,policy:statePolicy) }
-        guard ["ar","zh","ja","ko"].contains(language) else {
+        guard LocalLanguageCatalog.codes.contains(language) else {
             return .init(status:.unavailable,failure:.unsupportedLanguage,policy:statePolicy)
         }
         if let reason = reading?.failure ?? failure {
@@ -26,7 +26,7 @@ struct FullSentenceReadings: Sendable {
             return .init(status:.unavailable,failure:.outputLimit,policy:statePolicy)
         }
         guard !reading.text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,
-              !FullReadingRequirement.needsReading(reading.text) else {
+              !FullReadingRequirement.needsReading(reading.text), !reading.text.contains("◌") else {
             return .init(status:.unavailable,failure:.unresolved,policy:statePolicy)
         }
         return .init(status:.available,policy:statePolicy)
@@ -39,6 +39,7 @@ struct FullSentenceReadings: Sendable {
     }
     func detailedReading(_ text:String, language:String) -> FullReading? {
         guard (1...FullMessageBudget.recordBytes).contains(text.utf8.count) else { return nil }
+        guard FullReadingRequirement.needsReading(text) else { return nil }
         func failed(_ reason:FullReading.Failure) -> FullReading {
             .init(text:"",provenance:.localTransliteration,failure:reason)
         }
@@ -60,14 +61,17 @@ struct FullSentenceReadings: Sendable {
             if result.issues.contains("tokenizer_unavailable") { return nil }
             if !result.issues.isEmpty { return failed(.unresolved) }
             value = result.reading
-        case "ar": value = text.applyingTransform(.toLatin,reverse:false)
-        default: value = nil
+        default:
+            guard LocalLanguageCatalog.codes.contains(language) else { return nil }
+            value = FullReadingRequirement.transformingReadableText(text) {
+                $0.applyingTransform(.toLatin, reverse: false)
+            }
         }
         // Native failure never invokes a different reader or translation provider.
         guard let value else { return nil }
         guard value.utf8.count <= FullMessageBudget.recordBytes else { return failed(.outputLimit) }
         guard !value.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,
-              !FullReadingRequirement.needsReading(value) else { return failed(.unresolved) }
+              !FullReadingRequirement.needsReading(value), !value.contains("◌") else { return failed(.unresolved) }
         return .init(text:value,provenance:.localTransliteration)
     }
     private static let current: Self = {
