@@ -17,7 +17,21 @@ struct HistoryBackupView: View {
     @State private var work: Task<Void, Never>?
     @State private var busy = false
     @State private var notice: String?
+    @State private var attemptedValidation = false
+    @State private var attemptedConfirmation = false
+    private enum Field: Hashable { case password, confirmation }
+    @FocusState private var focusedField: Field?
     private var passwordValid: Bool { (try? HistoryBackupCodec.passwordBytes(password)) != nil }
+    private var passwordError: String? {
+        guard attemptedValidation, !passwordValid else { return nil }
+        let normalized = password.precomposedStringWithCanonicalMapping
+        if normalized.utf8.count > 1024 { return String(localized: "This passphrase is too long.") }
+        return String(localized: "Use at least 12 characters.")
+    }
+    private var confirmationError: String? {
+        attemptedConfirmation && passwordValid && !restoring && password != confirmation
+            ? String(localized: "The passphrases don’t match.") : nil
+    }
 
     var body: some View {
         Form {
@@ -44,11 +58,24 @@ struct HistoryBackupView: View {
                         .textContentType(restoring ? .password : .newPassword)
                         .textInputAutocapitalization(.never).autocorrectionDisabled()
                         .disabled(busy).accessibilityIdentifier("history-password")
+                        .focused($focusedField, equals: .password)
+                        .submitLabel(restoring ? .done : .next)
+                        .onSubmit { if restoring { begin() } else { focusedField = .confirmation } }
+                    if let passwordError {
+                        Text(passwordError).foregroundStyle(VipiDesign.destructive)
+                            .accessibilityIdentifier("history-password-error")
+                    }
                 }
                 if !restoring {
                     SecureField("Confirm backup password", text: $confirmation, prompt: Text("Confirm backup password").foregroundStyle(VipiDesign.secondary))
                         .textContentType(.newPassword).textInputAutocapitalization(.never).autocorrectionDisabled()
                         .disabled(busy).accessibilityIdentifier("history-password-confirm")
+                        .focused($focusedField, equals: .confirmation)
+                        .submitLabel(.done).onSubmit(begin)
+                    if let confirmationError {
+                        Text(confirmationError).foregroundStyle(VipiDesign.destructive)
+                            .accessibilityIdentifier("history-password-confirm-error")
+                    }
                 }
             } footer: {
                 Text("Use a long, unique passphrase of at least 12 characters. Keep it somewhere safe. Vipi cannot recover this password.").foregroundStyle(VipiDesign.secondary)
@@ -65,7 +92,7 @@ struct HistoryBackupView: View {
             } else {
                 Section {
                     Button(restoring ? "Check backup" : "Create encrypted backup", action: begin)
-                        .disabled(busy || !passwordValid || (restoring ? selected == nil : password != confirmation))
+                        .disabled(busy || (restoring && selected == nil))
                         .accessibilityIdentifier("history-begin")
                 }
             }
@@ -91,7 +118,7 @@ struct HistoryBackupView: View {
                 picker = nil
             }.interactiveDismissDisabled()
         }
-        .onChange(of: restoring) { _, _ in clearImport(); selected = nil; password = ""; confirmation = ""; notice = nil }
+        .onChange(of: restoring) { _, _ in clearImport(); selected = nil; password = ""; confirmation = ""; notice = nil; attemptedValidation = false; attemptedConfirmation = false; focusedField = nil }
         .onDisappear {
             work?.cancel(); password = ""; confirmation = ""; clearImport()
             // The document picker may still be consuming the encrypted export.
@@ -99,8 +126,14 @@ struct HistoryBackupView: View {
         }
     }
     private func begin() {
-        guard !busy, passwordValid else { return }
-        busy = true; notice = nil
+        guard !busy else { return }
+        attemptedValidation = true; notice = nil
+        guard passwordValid else { focusedField = .password; return }
+        if !restoring { attemptedConfirmation = true }
+        guard restoring || password == confirmation else { focusedField = .confirmation; return }
+        guard !restoring || selected != nil else { return }
+        focusedField = nil
+        busy = true
         guard let account, chat.profile?.id == account else { busy = false; return }
         let password = password, selected = selected, restoring = restoring
         work = Task {

@@ -804,6 +804,53 @@ final class ChatConversationTests: XCTestCase {
     func testBotOversizedDraftHasVisibleReasonAndReopensExactlyAtActualRoot() throws {
         try checkJourney(largest:ProcessInfo.processInfo.environment["VIPI_DRAFT_BOUNDARY_LARGEST"] == "true",reading:"en-zh",fullTranslation:true,copyOriginal:true,copyBot:true,draftBoundary:true)
     }
+    func testBackupExplainsInvalidPassphrasesAndCancelsNativeExportAtActualRoot() throws {
+        try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,backupValidation:true)
+    }
+    private func checkBackupValidation(in app:XCUIApplication,evidence:@escaping()->[String:Any]) throws {
+        let baseline = evidence()["texts"] as? [String]
+        app.navigationBars["Alex"].buttons.element(boundBy:0).tap()
+        app.buttons["Your profile and settings"].tap()
+        let backup = app.buttons["Chat backup"]
+        for _ in 0..<6 { if backup.isHittable { break }; app.swipeUp() }
+        XCTAssertTrue(backup.isHittable); backup.tap()
+        let password = app.secureTextFields["history-password"], confirmation = app.secureTextFields["history-password-confirm"]
+        let begin = app.buttons["history-begin"], passwordError = app.staticTexts["history-password-error"]
+        let mismatch = app.staticTexts["history-password-confirm-error"]
+        func reveal(_ element:XCUIElement,up:Bool) {
+            for _ in 0..<6 { if element.isHittable { break }; if up { app.swipeUp() } else { app.swipeDown() } }
+            XCTAssertTrue(element.isHittable)
+        }
+        func capture(_ phase:String) {
+            let image = XCTAttachment(screenshot:app.screenshot()); image.name = "backup-validation-"+phase; image.lifetime = .keepAlways; add(image)
+            let hierarchy = XCTAttachment(string:app.debugDescription); hierarchy.name = "backup-validation-"+phase+"-hierarchy"; hierarchy.lifetime = .keepAlways; add(hierarchy)
+        }
+        XCTAssertTrue(password.waitForExistence(timeout:10))
+        XCTAssertFalse(passwordError.exists); XCTAssertFalse(mismatch.exists)
+        reveal(begin,up:true); XCTAssertTrue(begin.isEnabled); begin.tap()
+        XCTAssertTrue(passwordError.waitForExistence(timeout:5)); XCTAssertEqual(passwordError.label,"Use at least 12 characters.")
+        capture("short-passphrase-explained")
+        reveal(password,up:false); password.tap(); password.typeText("Public QA passphrase 2026")
+        XCTAssertFalse(passwordError.exists); XCTAssertFalse(mismatch.exists,"Correcting the password must not preemptively mark the untouched confirmation")
+        reveal(confirmation,up:true); confirmation.tap(); confirmation.typeText("Public QA passphrase 202")
+        reveal(begin,up:true); XCTAssertTrue(begin.isEnabled); begin.tap()
+        XCTAssertTrue(mismatch.waitForExistence(timeout:5)); XCTAssertEqual(mismatch.label,"The passphrases don’t match.")
+        capture("mismatch-explained")
+        reveal(confirmation,up:false); confirmation.tap(); confirmation.typeText("6")
+        XCTAssertFalse(mismatch.exists)
+        reveal(begin,up:true); begin.tap()
+        let cancel = app.buttons["Cancel"].firstMatch
+        XCTAssertTrue(cancel.waitForExistence(timeout:20))
+        XCTAssertTrue(app.navigationBars["Save to Files"].exists || app.buttons["Save"].exists || app.buttons["Move"].exists)
+        capture("actual-encrypted-export-native-picker")
+        cancel.tap()
+        XCTAssertTrue(begin.waitForExistence(timeout:10)); XCTAssertTrue(begin.isEnabled)
+        XCTAssertFalse(app.staticTexts["history-notice"].exists,"Cancelling the picker must not claim the file was saved")
+        capture("native-export-cancelled")
+        XCTAssertEqual(evidence()["texts"] as? [String],baseline)
+        XCTAssertEqual(evidence()["unexpected"] as? Int,0)
+    }
+
     private func checkDraftBoundary(in app:XCUIApplication,bot:Bool,evidence:@escaping()->[String:Any]) throws {
         // Actual native edit-menu Paste into the production field. The existing
         // owned clipboard transaction is required; no text/provider injection.
@@ -1631,7 +1678,7 @@ final class ChatConversationTests: XCTestCase {
         try capture("marketing-coffee-03-practice-script")
     }
 
-    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false) throws {
+    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false) throws {
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated first-month root only") }
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -2126,6 +2173,10 @@ final class ChatConversationTests: XCTestCase {
             }
             if cueLifecycle {
                 try checkDeferredCueAfterMessages(in:app,evidence:proof)
+                return
+            }
+            if backupValidation {
+                try checkBackupValidation(in:app,evidence:proof)
                 return
             }
             if draftBoundary {
