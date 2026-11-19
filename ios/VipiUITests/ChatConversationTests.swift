@@ -1500,11 +1500,11 @@ final class ChatConversationTests: XCTestCase {
             }
         }
         func retryViewport()->CGRect {
-            let geometry = (evidence()["full_message_geometry"] as? [[String:Any]])?.last {
-                $0["event"] as? String == "full_message_composer_geometry"
-            }
+            let geometry = evidence()["full_message_composer_geometry"] as? [String:Any]
             guard let frame = geometry?["frame"] as? [String:Double],let composerTop = frame["y"] else { return .null }
-            let top = max(timeline.frame.minY,app.navigationBars["Alex"].frame.maxY)
+            let hint = app.staticTexts["chat-gesture-hint"]
+            let top = max(max(timeline.frame.minY,app.navigationBars["Alex"].frame.maxY),
+                          hint.exists ? hint.frame.maxY : 0)
             return CGRect(x:timeline.frame.minX,y:top,width:timeline.frame.width,height:max(0,CGFloat(composerTop)-top))
         }
         for _ in 0..<8 {
@@ -1674,7 +1674,10 @@ final class ChatConversationTests: XCTestCase {
         let receipt = XCTAttachment(data:try JSONSerialization.data(withJSONObject:data,options:.sortedKeys),uniformTypeIdentifier:"public.json")
         receipt.name = "first-cue-native-layout-and-AX"; receipt.lifetime = .keepAlways; add(receipt)
         func lastGeometry(_ event:String) -> [String:Any]? {
-            (evidence()["full_message_geometry"] as? [[String:Any]])?.last { $0["event"] as? String == event }
+            if event == "full_message_composer_geometry" {
+                return evidence()["full_message_composer_geometry"] as? [String:Any]
+            }
+            return (evidence()["full_message_geometry"] as? [[String:Any]])?.last { $0["event"] as? String == event }
         }
         let scrollBefore = try XCTUnwrap(lastGeometry("full_message_scroll_geometry"))
         let containerBefore = try XCTUnwrap(scrollBefore["container_height"] as? Double)

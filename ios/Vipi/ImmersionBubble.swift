@@ -32,6 +32,12 @@ enum ReadingMode: String, CaseIterable, Identifiable {
     @ObservationIgnored private var pendingPlayback: ImmersionRequestIdentity?
     @ObservationIgnored private var playbackOwner: UUID?
     @ObservationIgnored private var manualPlayback: ((ImmersionRequestIdentity)->Void)?
+    @ObservationIgnored private var hintFrames:[UUID:CGRect] = [:]
+    func setHintFrame(_ frame:CGRect,owner:UUID) {
+        if frame.isNull || frame.isEmpty { hintFrames.removeValue(forKey:owner) }
+        else { hintFrames[owner] = frame }
+    }
+    func removeHintFrame(owner:UUID) { hintFrames.removeValue(forKey:owner) }
     func bindPlayback(owner:UUID,play:@escaping(ImmersionRequestIdentity)->Void) { playbackOwner = owner; manualPlayback = play; pendingPlayback = nil }
     func unbindPlayback(owner:UUID) { if playbackOwner == owner { playbackOwner = nil; manualPlayback = nil; pendingPlayback = nil } }
     func cancelPendingPlayback() { pendingPlayback = nil }
@@ -59,7 +65,12 @@ enum ReadingMode: String, CaseIterable, Identifiable {
     private func row(at point: CGPoint) -> Row? {
         rows.values.filter { $0.frame.contains(point) }.min { $0.frame.width*$0.frame.height < $1.frame.width*$1.frame.height }
     }
-    func tap(at point: CGPoint) { if let row = row(at:point) { activate(row.identity) } }
+    func tap(at point: CGPoint) {
+        // A scrolled row may extend behind the first-chat hint. Only visible
+        // message content should respond to a playback tap in that area.
+        guard !hintFrames.values.contains(where:{$0.contains(point)}) else { return }
+        if let row = row(at:point) { activate(row.identity) }
+    }
     func hold(at point: CGPoint) {
         learnedGesture(); holding = true
     }
@@ -88,25 +99,24 @@ struct ChatGestureCue: View {
     let reading:ChatReadingState
     let composing:Bool
     @State private var reservesHint:Bool
+    @State private var hintOwner = UUID()
     init(reading:ChatReadingState,composing:Bool = false) {
         self.reading = reading; self.composing = composing; _reservesHint = State(initialValue:reading.needsGestureHint)
     }
     var body:some View {
-        let description = ChatReadingState.gestureDescription(source:state.knownLanguage,target:state.targetLanguage,hasAlternateScript:reading.hasAlternateScript)
-        // Reserve room before an asynchronous reading arrives, without teaching
-        // an unavailable action. Latin-only targets keep the shorter inset.
-        let reservation = ChatReadingState.gestureDescription(source:state.knownLanguage,target:state.targetLanguage,
-            hasAlternateScript:reading.hasAlternateScript || FullReadingRequirement.needsReading(VipiLanguage.named(state.targetLanguage).localName))
+        // The interactive preview teaches all three gestures. In a live chat,
+        // remind the reader how to understand a message without a pinned lesson.
+        let description = String(format:String(localized:"Hold to read in %1$@."),VipiLanguage.named(state.knownLanguage).localizedName)
         VStack(spacing:0) {
             if reservesHint && !composing {
-                InertTextReservation(text:reservation,
+                InertTextReservation(text:description,
                     minimumHeight:0,insets:UIEdgeInsets(top:18,left:30,bottom:12,right:30),fillsWidth:true)
                     .frame(maxWidth:560)
                     .overlay(alignment:.top) {
                         if reading.needsGestureHint {
                             Text(description)
                                 .font(.subheadline).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
-                                .padding(12).background(VipiDesign.canvas.opacity(0.96),in:RoundedRectangle(cornerRadius:12))
+                                .padding(12)
                                 .padding(.horizontal,18).padding(.top,6).frame(maxWidth:560)
                                 .accessibilityLabel(Text(ChatReadingState.actionDescription(showingMeaning:reading.showingMeaning,nativeScript:reading.nativeScript,hasAlternateScript:reading.hasAlternateScript)))
                                 .accessibilityIdentifier("chat-gesture-hint").allowsHitTesting(false)
@@ -114,9 +124,11 @@ struct ChatGestureCue: View {
                     }
             }
         }
+        .frame(maxWidth:.infinity).background(VipiDesign.canvas)
+        .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { reading.setHintFrame($0,owner:hintOwner) }
         // Reset only when the whole cue host leaves. Hiding its conditional
         // text for the editor must not consume the first-chat reservation.
-        .onDisappear { reservesHint = false }
+        .onDisappear { reservesHint = false; reading.removeHintFrame(owner:hintOwner) }
     }
 }
 

@@ -1540,6 +1540,9 @@ struct PendingPairRootBinding: View {
                 "controlled_native_faces":speechObservations.filter{$0["event"] as? String == "full_message_native_face"},
                 "composition_geometry":compositionGeometry,
                 "full_message_geometry":Array(speechObservations.filter{($0["event"] as? String ?? "").hasSuffix("_geometry")}.suffix(64)),
+                // Scroll/row callbacks can fill the recent event window while
+                // the composer stays still. Keep its actual latest measurement.
+                "full_message_composer_geometry":speechObservations.last{$0["event"] as? String == "full_message_composer_geometry"} ?? [:],
                 "speech_inputs":speechObservations.filter{$0["event"] as? String == "speech_input"}.count,
                 "speech_played": speechObservations.filter { $0["event"] as? String == "speech_file_played_back" }.count,
                 "speech_last_output": speechObservations.last { $0["event"] as? String == "speech_file_played_back" } ?? [:],

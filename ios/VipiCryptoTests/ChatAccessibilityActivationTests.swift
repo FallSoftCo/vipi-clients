@@ -96,6 +96,29 @@ import VipiCore
         editor.resignFirstResponder()
     }
 
+    func testHintDoesNotPlayAnObscuredMessageAndStillAllowsGlobalMeaning() throws {
+        let suite = "hint-playback-" + UUID().uuidString
+        let defaults = try XCTUnwrap(UserDefaults(suiteName:suite))
+        defer { defaults.removePersistentDomain(forName:suite) }
+        let reading = ChatReadingState(defaults:defaults), playback = UUID(), hint = UUID()
+        let identity = ImmersionRequestIdentity(messageID:"obscured",text:"Tomorrow.",source:"en",target:"es",inputLanguage:"en",generation:UUID())
+        var selected:[ImmersionRequestIdentity] = []
+        reading.bindPlayback(owner:playback) { selected.append($0) }
+        defer { reading.unbindPlayback(owner:playback) }
+        reading.register(.init(identity:identity,frame:CGRect(x:0,y:0,width:300,height:200),activate:{_ in true}))
+        reading.setHintFrame(CGRect(x:0,y:0,width:300,height:80),owner:hint)
+        reading.tap(at:CGPoint(x:30,y:40))
+        XCTAssertTrue(selected.isEmpty,"A hidden message must not play through the hint")
+        reading.hold(at:CGPoint(x:30,y:40)); XCTAssertTrue(reading.showingMeaning)
+        reading.releaseHold(); XCTAssertFalse(reading.showingMeaning)
+        reading.toggleScript(); XCTAssertTrue(reading.nativeScript)
+        reading.tap(at:CGPoint(x:30,y:120)); XCTAssertEqual(selected,[identity])
+        reading.removeHintFrame(owner:UUID())
+        reading.tap(at:CGPoint(x:30,y:40)); XCTAssertEqual(selected.count,1)
+        reading.removeHintFrame(owner:hint)
+        reading.tap(at:CGPoint(x:30,y:40)); XCTAssertEqual(selected,[identity,identity])
+    }
+
     func testLatinMessageKeepsTimeAndPlaybackWithoutAdvertisingAnUnavailableScript() async throws {
         let suite = "latin-message-accessibility-" + UUID().uuidString
         let defaults = try XCTUnwrap(UserDefaults(suiteName:suite))
