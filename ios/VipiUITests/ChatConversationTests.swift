@@ -839,11 +839,18 @@ final class ChatConversationTests: XCTestCase {
         reveal(confirmation,up:false); confirmation.tap(); confirmation.typeText("6")
         XCTAssertFalse(mismatch.exists)
         reveal(begin,up:true); begin.tap()
-        let cancel = app.buttons["Cancel"].firstMatch
-        XCTAssertTrue(cancel.waitForExistence(timeout:20))
-        XCTAssertTrue(app.navigationBars["Save to Files"].exists || app.buttons["Save"].exists || app.buttons["Move"].exists)
+        let save = app.buttons["Save"].firstMatch
+        XCTAssertTrue(save.waitForExistence(timeout:20))
         capture("actual-encrypted-export-native-picker")
-        cancel.tap()
+        // Files can open inside the last-used folder, where its navigation bar
+        // offers Back and Save instead of Cancel. Dismiss the native sheet from
+        // that actual state, without saving or navigating through other folders.
+        let pickerBar = app.navigationBars.containing(.button,identifier:"Save").firstMatch
+        XCTAssertTrue(pickerBar.exists)
+        let start = pickerBar.coordinate(withNormalizedOffset:CGVector(dx:0.5,dy:0.5))
+        let end = app.coordinate(withNormalizedOffset:CGVector(dx:0.5,dy:0.85))
+        start.press(forDuration:0.1,thenDragTo:end)
+        XCTAssertTrue(save.waitForNonExistence(timeout:10))
         XCTAssertTrue(begin.waitForExistence(timeout:10)); XCTAssertTrue(begin.isEnabled)
         XCTAssertFalse(app.staticTexts["history-notice"].exists,"Cancelling the picker must not claim the file was saved")
         capture("native-export-cancelled")

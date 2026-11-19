@@ -116,7 +116,9 @@ struct HistoryBackupView: View {
                     clearImport(); selected = url
                 } else if url != nil { notice = String(localized: "Your encrypted backup was saved. Keep its password safe.") }
                 picker = nil
-            }.interactiveDismissDisabled()
+            }
+            // Saving a backup is optional. Keep the native sheet dismissal
+            // available from every folder; onDismiss removes the staged export.
         }
         .onChange(of: restoring) { _, _ in clearImport(); selected = nil; password = ""; confirmation = ""; notice = nil; attemptedValidation = false; attemptedConfirmation = false; focusedField = nil }
         .onDisappear {
