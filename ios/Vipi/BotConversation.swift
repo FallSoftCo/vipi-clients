@@ -439,10 +439,11 @@ struct BotConversationView: View {
                         .accessibilityIdentifier("bot-message-length-notice")
                 }
                 HStack(alignment: .bottom, spacing: 10) {
-                    TextField("Message vBot", text: Binding(get: { value.draft }, set: { draft in
+                    MessageEditor(text: Binding(get: { value.draft }, set: { draft in
                         guard draft.utf8.count <= ConversationHistory.maximumDraftBytes else { rejectedDraftEdit = true; return }
                         rejectedDraftEdit = false; value.draft = draft
-                    }), axis: .vertical).lineLimit(1...6).focused($composing)
+                    }), placeholder: String(localized: "Message vBot"), focus: $composing,
+                        maximumBytes: ConversationHistory.maximumDraftBytes, rejected: { rejectedDraftEdit = true })
                         .accessibilityIdentifier("bot-message-input")
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
                         .onChange(of: value.draft) { _, _ in value.saveDraft() }
