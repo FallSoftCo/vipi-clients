@@ -1,7 +1,7 @@
 import SwiftUI
 import VipiCore
 
-private enum HomeDestination: Hashable { case friend(UUID), bot }
+private enum HomeDestination: Hashable { case friend(UUID) }
 
 struct HomeView: View {
     var chat: ChatSession? = nil
@@ -17,7 +17,6 @@ struct HomeView: View {
     @State private var showingInvite = false
     @State private var query = ""
     @State private var path: [HomeDestination] = []
-    private var botDescription: String { String(localized: "Chat with a bot, free on supported devices.") }
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
@@ -26,12 +25,6 @@ struct HomeView: View {
                     VStack(alignment: .leading, spacing: 24) {
                         if let chat, chat.needsReauthentication, let reauthenticate {
                             ReauthenticationNotice(busy: authenticationBusy || chat.busy, error: authenticationError, signIn: reauthenticate)
-                        }
-                        if let subscriptions, subscriptions.snapshot?.base.active == false, !subscriptions.accessVerificationPending(.base) {
-                            Button { offerBase = true } label: {
-                                Text("See your Vipi subscription").font(.subheadline.weight(.semibold))
-                                    .frame(minHeight: 44, alignment: .leading).contentShape(Rectangle())
-                            }
                         }
                         if let notice = chat?.notice { Text(notice).font(.body).foregroundStyle(VipiDesign.secondary) }
                         if let chat, !chat.threads.isEmpty {
@@ -59,18 +52,6 @@ struct HomeView: View {
                             PrimaryButton(title: "New chat") { showingInvite = true }
                                 .accessibilityIdentifier("home-start-conversation")
                         } }
-                        NavigationLink(value: HomeDestination.bot) {
-                            HStack(spacing: 12) {
-                                Image(systemName: "sparkle").font(.title2).frame(width: 48, height: 48).background(VipiDesign.outgoing, in: Circle())
-                                VStack(alignment: .leading, spacing: 5) {
-                                    Text("vBot").font(.body.weight(.semibold)).foregroundStyle(.primary)
-                                    Text(botDescription).font(.body).foregroundStyle(VipiDesign.secondary).multilineTextAlignment(.leading)
-                                        .fixedSize(horizontal: false, vertical: true)
-                                }
-                                Spacer(minLength: 0)
-                                Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(VipiDesign.secondary)
-                            }.padding(.vertical, 12)
-                        }.buttonStyle(.plain)
                         if let chat, chat.ready, !chat.threads.isEmpty, PushNotifications.shared.authorization == .notDetermined {
                             Button { Task { await PushNotifications.shared.enable() } } label: {
                                 Text("Notify me when friends reply").font(.subheadline.weight(.semibold))
@@ -104,25 +85,9 @@ struct HomeView: View {
             .navigationDestination(for: HomeDestination.self) { destination in
                 switch destination {
                 case .friend(let peer): if let chat { FriendConversationView(chat: chat, peer: peer) }
-                case .bot:
-                    if let profile = chat?.profile, let subscriptions {
-                        BotConversationView(account: profile.id, subscriptions: subscriptions, owner: botOwner)
-                    } else { BotIntroductionView(subscriptions: subscriptions) }
                 }
             }
-            .sheet(isPresented: $offerBase) {
-                if let subscriptions { NavigationStack { SubscriptionOfferView(store: subscriptions, plan: .base)
-                    .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Not now") { offerBase = false } } } } }
-            }
-            .onChange(of: subscriptions?.canPurchase(.base) == true, initial: true) { _, available in
-                guard available, !offeredBase, state.invitationUsername == nil, chat?.threads.isEmpty == true,
-                      let profile = chat?.profile else { return }
-                let key = "vipi.base-offer-seen.\(profile.id.uuidString.lowercased())"
-                guard !UserDefaults.standard.bool(forKey: key) else { return }
-                UserDefaults.standard.set(true, forKey: key)
-                offeredBase = true; offerBase = true
-            }
-            .refreshable { await chat?.synchronize(); await subscriptions?.refresh() }
+            .refreshable { await chat?.synchronize() }
         }
     }
     private func presentInvitationIfReady() {
@@ -157,7 +122,7 @@ struct HomeMessagePreview: View {
                 let identity = owner.identity(messageID:message.id.uuidString,text:message.text)
                 VisibleHomeMessagePreview(owner:owner,identity:identity).id(identity)
             } else {
-                Text("Translating…")
+                Text(message.text)
             }
         }.lineLimit(1).font(.body).foregroundStyle(VipiDesign.secondary)
             .accessibilityIdentifier("chat-preview-"+message.id.uuidString.lowercased())
@@ -182,7 +147,7 @@ private struct VisibleHomeMessagePreview: View {
             }
         }
         switch owner.phase(for:identity) {
-        case .translating,.ready: return String(localized:"Translating…")
+        case .translating,.ready: return identity.text
         case .needsDownload,.unsupported,.failed,.timedOut: return String(localized:"Translation unavailable")
         }
     }
@@ -305,13 +270,6 @@ struct SettingsView: View {
                 }
                 Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text(LocalizedStringKey($0.title)).tag($0) } }
             } header: { Text("Appearance and notifications").foregroundStyle(VipiDesign.secondary) }
-            if let subscriptions {
-                Section {
-                    NavigationLink { SubscriptionsView(store: subscriptions) } label: {
-                        Text("Subscriptions").font(.body).fixedSize(horizontal: false, vertical: true)
-                    }
-                }
-            }
             if let chat { Section { NavigationLink("Chat backup") { HistoryBackupView(chat: chat) } } }
             Section {
                 Link("Privacy Policy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
@@ -336,7 +294,7 @@ struct SettingsView: View {
                                 } catch { authentication.errorMessage = String(localized: "Sign in to reconnect") }
                             }.disabled(authentication.busy || !chat.ready || chat.needsReauthentication || chat.userID != authentication.session?.userID)
                                 .accessibilityIdentifier("fallsoft-link-start")
-                            Text("Sign in to Vipi again, then connect your Fallsoft login. Your chats, profile and original trial stay with you.")
+                            Text("Sign in to Vipi again, then connect your Fallsoft login. Your chats and profile stay with you.")
                                 .font(.body).foregroundStyle(VipiDesign.secondary)
                             if let error = authentication.errorMessage { Text(error).font(.body).foregroundStyle(VipiDesign.secondary) }
                         }

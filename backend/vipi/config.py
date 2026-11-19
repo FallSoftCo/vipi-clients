@@ -36,6 +36,8 @@ class Settings(BaseSettings):
     workos_dedicated_user_pool: bool = False
     workos_api_key: SecretStr | None = None
     deletion_web_origin: str | None = None
+    # Accepted only so an existing deployment can upgrade without dropping its
+    # environment file. Free friend messaging never consults this legacy flag.
     enforce_subscriptions: bool = False
     apple_bundle_id: str = "co.fallsoft.vipi"
     apple_app_id: int | None = None
@@ -112,8 +114,6 @@ class Settings(BaseSettings):
             raise ValueError("Apple verification requires key, issuer and pinned root certificates")
         if all(values) and self.apple_environment == "Production" and not self.apple_app_id:
             raise ValueError("Apple production verification requires the numeric app identifier")
-        if self.environment == "production" and not self.enforce_subscriptions:
-            raise ValueError("Production requires verified subscriptions")
         if self.environment == "production" and (self.google_allow_test_purchases or self.apple_environment == "Sandbox"):
             raise ValueError("Production cannot accept store sandbox purchases")
         if self.store_sandbox_restricted and self.google_allow_test_purchases:

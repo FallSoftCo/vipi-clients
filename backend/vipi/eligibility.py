@@ -41,6 +41,8 @@ async def erase_for_global_fallsoft_deletion(session, *, subject: str, service_s
 
 async def transfer_original_trial(session, *, source: str, target: str, user, service_secret: str):
     """A verified link preserves the earliest eligibility of both identities."""
+    if utc(user.cardless_trial_ends_at) <= utc(user.cardless_trial_started_at):
+        return  # Free accounts have no trial identity to retain or transfer.
     old = await original_trial(session, subject=source, service_secret=service_secret,
         started_at=user.cardless_trial_started_at, ends_at=user.cardless_trial_ends_at)
     new = await original_trial(session, subject=target, service_secret=service_secret,

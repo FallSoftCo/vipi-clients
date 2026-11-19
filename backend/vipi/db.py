@@ -17,7 +17,9 @@ class User(Base):
     display_name: Mapped[str] = mapped_column(String(80))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     cardless_trial_started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda ctx: ctx.get_current_parameters()["created_at"])
-    cardless_trial_ends_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda ctx: ctx.get_current_parameters()["created_at"] + timedelta(days=30))
+    # Existing non-null columns remain readable during the free-product rollout.
+    # Equal timestamps mean no trial was created; messaging ignores both fields.
+    cardless_trial_ends_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda ctx: ctx.get_current_parameters()["created_at"])
     deleted: Mapped[bool] = mapped_column(Boolean, default=False)
     suspended: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
 

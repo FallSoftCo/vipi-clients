@@ -167,7 +167,7 @@ async def test_deletion_is_available_before_username_setup_without_touching_othe
             await request_deletion(s, subject="user_new", account_id="bob", receipt_secret=secrets.token_urlsafe(32), service_secret=KEY, now=NOW)
 
 
-async def test_fresh_explicit_rejoin_retains_old_receipts_rejects_stale_sessions_and_keeps_trial(db):
+async def test_fresh_explicit_rejoin_retains_receipts_rejects_stale_sessions_and_stays_free(db):
     from vipi.db import VipiTrialEligibility
     from vipi.eligibility import eligibility_hash
     current = [NOW]
@@ -179,7 +179,8 @@ async def test_fresh_explicit_rejoin_retains_old_receipts_rejects_stale_sessions
     app = create_app(settings(), database=db, verifier=Verifier(), clock=lambda:current[0])
     async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="https://vipi.test") as api:
         alice, _, old = await identity(api, "alice")
-        first_trial = (await api.get("/v1/entitlements", headers=old)).json()["base"]["cardless_trial"]
+        first_access = (await api.get("/v1/entitlements", headers=old)).json()["base"]
+        assert first_access["active"] and first_access["access_source"] == "free"
         current[0] += timedelta(seconds=1)
         first = {"account_id":alice["id"], "receipt_secret":secrets.token_urlsafe(32)}
         assert (await api.request("DELETE", "/v1/me", headers=old, json=first)).json()["status"] == "deleted"
@@ -189,7 +190,7 @@ async def test_fresh_explicit_rejoin_retains_old_receipts_rejects_stale_sessions
         assert rejoin.status_code == 200
         second_id = rejoin.json()["id"]
         assert second_id != alice["id"]
-        assert (await api.get("/v1/entitlements", headers=fresh)).json()["base"]["cardless_trial"] == first_trial
+        assert (await api.get("/v1/entitlements", headers=fresh)).json()["base"] == first_access
         # A new access token from an old shared refresh session is still old auth.
         refreshed = {"Authorization":"Bearer old-refreshed"}
         assert (await api.get("/v1/me", headers=refreshed)).status_code == 401
@@ -211,10 +212,10 @@ async def test_fresh_explicit_rejoin_retains_old_receipts_rejects_stale_sessions
         assert (await api.put("/v1/me", headers=refreshed, json={"username":"stale_recreate","display_name":"Old"})).status_code == 401
         third = await api.put("/v1/me", headers=fresh, json={"username":"third_alice","display_name":"Fresh"})
         assert third.status_code == 200
-        assert (await api.get("/v1/entitlements", headers=fresh)).json()["base"]["cardless_trial"] == first_trial
+        assert (await api.get("/v1/entitlements", headers=fresh)).json()["base"] == first_access
         async with db.sessions() as session:
             ledger = await session.get(VipiTrialEligibility, eligibility_hash("user_qa_alice", KEY))
-            assert ledger and utc(ledger.started_at) == NOW
+            assert ledger is None
             assert (await session.scalar(select(func.count()).select_from(Entitlement).where(Entitlement.user_id == third.json()["id"]))) == 0
 
 

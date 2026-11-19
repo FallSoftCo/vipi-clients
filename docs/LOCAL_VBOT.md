@@ -1,3 +1,5 @@
+> Superseded November 19, 2026: the owner removed vBot from Vipi. This document records historical investigation only. See INCREMENTAL_IMMERSION.md for current scope.
+
 # Local vBot
 
 Implementation in progress, November 19, 2026. Not deployed or release accepted.

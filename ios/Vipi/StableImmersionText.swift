@@ -485,7 +485,9 @@ struct StableImmersionText: UIViewRepresentable {
         view.accessibilityCustomActions = result.spans.map { word in
             let repeated = result.spans.filter { $0.original == word.original && $0.displayedTarget == word.displayedTarget }
             let name: String
-            if repeated.count > 1 {
+            if fullMessage {
+                name = String(localized:"Hear \(word.displayedTarget)")
+            } else if repeated.count > 1 {
                 let occurrence = (repeated.firstIndex(where: { $0.id == word.id }) ?? 0) + 1
                 name = String(localized: "Switch \(word.original) and \(word.displayedTarget), occurrence \(occurrence)")
             } else { name = String(localized: "Switch \(word.original) and \(word.displayedTarget)") }

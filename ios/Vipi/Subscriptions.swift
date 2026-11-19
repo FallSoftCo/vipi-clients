@@ -188,13 +188,7 @@ struct BotAllowance: Decodable, Sendable {
     // A cardless Base trial must not be followed by a second store trial.
     // Block eligible Base checkout until the old introductory offer is removed.
     var baseStoreTrialStillOffered: Bool { introductoryEligible.contains(.base) }
-    func canPurchase(_ plan: VipiPlan) -> Bool {
-        plan == .base && !closed && !busy && !loading && !reconciling && !pending && !awaitingConfirmation.contains(plan) && !accountConflicts.contains(plan) && purchaseReady && snapshot != nil && products[plan] != nil &&
-        snapshot?.access(plan).active == false &&
-        !accessVerificationPending(plan) &&
-        !(plan == .base && baseStoreTrialStillOffered) &&
-        (plan == .base || (baseActive && botServiceReady))
-    }
+    func canPurchase(_ plan: VipiPlan) -> Bool { false }
     func purchase(_ plan: VipiPlan) async {
         guard plan == .base, canPurchase(plan), let product = products[plan] else { return }
         busy = true; notice = nil

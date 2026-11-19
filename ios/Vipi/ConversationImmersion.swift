@@ -31,19 +31,19 @@ struct ChatMessageArrival {
     func makePreparation() -> LanguagePreparation { LanguagePreparation(status:{pair in await self.status(pair)},nativePrepare:prepare) }
 }
 
-/// Every immutable chat message requests a complete on-device translation.
+/// Every immutable chat message introduces at most one new translated word.
 /// Model output is derivative display state; encrypted stored text is never rewritten.
 @MainActor @Observable final class ConversationImmersion {
     struct Request: Identifiable { let id: UUID; let text: String; let pair: TranslationPair; let epoch: UUID }
     enum Phase: Equatable { case translating, ready, needsDownload, unsupported, failed, timedOut }
-    enum ProviderError: Error { case unavailable, timedOut, cancelled, modelNotReady, unsupported, preparation }
+    enum ProviderError: Error, Equatable { case unavailable, timedOut, cancelled, modelNotReady, unsupported, preparation }
     private(set) var request: Request?
     private(set) var availability = LocalLanguageAvailability.checking
     private(set) var revision = 0
     private(set) var pair = TranslationPair(source: "en", target: "es")
     private(set) var lastOutcome: LookupFirstOutcome?
     // Retained native diagnostic field: no lexical preparation runs in this path.
-    var lexicalPreparation: String { "not used: full on-device translation" }
+    var lexicalPreparation: String { "native words; no dictionary" }
     private var epoch = UUID()
     private var closed = false
     #if DEBUG
@@ -57,6 +57,8 @@ struct ChatMessageArrival {
     private var inputLanguages: [String: String] = [:]
     private var translations: [ImmersionRequestIdentity: FullMessageTranslation] = [:]
     private weak var cacheVault: MessageVault?
+    private let introducedWords = IntroducedWords()
+    private var progressionTail: Task<Void,Never>?
     private struct CachedTranslation: Codable {
         let policy:String; let messageID:String; let source:String; let target:String
         let value:FullMessageTranslation
@@ -83,7 +85,7 @@ struct ChatMessageArrival {
         try? vault.transaction { try vault.put("full-message-translation-failure",durableKey(identity),data) }
     }
     private let cachePolicy: String
-    func attachCache(_ vault:MessageVault) { cacheVault = vault }
+    func attachCache(_ vault:MessageVault) { cacheVault = vault; introducedWords.vault = vault }
     private func durableKey(_ identity:ImmersionRequestIdentity) -> String {
         let parts = [cachePolicy,identity.messageID,identity.source,identity.target,identity.inputLanguage ?? "auto",identity.text]
         var bytes = Data()
@@ -213,7 +215,7 @@ struct ChatMessageArrival {
         precondition(memoryCacheLimit > 0 && memoryCacheByteLimit > 0)
         self.memoryCacheLimit = memoryCacheLimit; self.memoryCacheByteLimit = memoryCacheByteLimit
         self.modelStatus = modelStatus; self.fullTranslationTimeout = fullTranslationTimeout; self.identify = identify; self.nativeTranslation = nativeTranslation
-        cachePolicy = (nativeTranslation == nil ? "native-full-message-1:" : "controlled-sdk-full-message-1:") + FullSentenceReadings.translationCacheCompatibilitySuffix
+        cachePolicy = (nativeTranslation == nil ? "native-incremental-word-1:" : "controlled-sdk-incremental-word-1:") + FullSentenceReadings.translationCacheCompatibilitySuffix
         readings = FullReadingCache(policy: FullSentenceReadings.policy, producer: fullReadingProducer)
     }
     func identity(messageID: String, text: String) -> ImmersionRequestIdentity {
@@ -319,12 +321,15 @@ struct ChatMessageArrival {
             let token = UUID()
             // Cache-hit reading refresh has the same message-scoped lifetime as
             // model work: forget must cancel it before any derivative can commit.
+            let previous = progressionTail
             let task = Task<FullMessageTranslation?,Never> { @MainActor [weak self] in
-                guard let self else { return nil }
+                await previous?.value
+                guard let self,!Task.isCancelled else { return nil }
                 if let stored { return await restoreCachedTranslation(stored,for:identity) }
                 return await translateMessage(identity)
             }
             entry = (token,task); inFlight[identity] = entry
+            progressionTail = Task { _ = await task.value }
         }
         // Request lifetime belongs to the conversation, not a disappearing lazy row.
         // A cancelled waiter must not cancel another visible row or autoplay.
@@ -335,7 +340,7 @@ struct ChatMessageArrival {
     }
     private func restoreCachedTranslation(_ stored:FullMessageTranslation,for identity:ImmersionRequestIdentity) async -> FullMessageTranslation? {
         guard !closed,!Task.isCancelled,identity == self.identity(messageID:identity.messageID,text:identity.text) else { return nil }
-        let needsRefresh = !hasCurrentReadingState(stored)
+        let needsRefresh = stored.words == nil && !hasCurrentReadingState(stored)
         let saved = needsRefresh ? await refreshReading(stored,for:identity) : stored
         guard !closed,!Task.isCancelled,identity == self.identity(messageID:identity.messageID,text:identity.text) else { return nil }
         if needsRefresh { saveTranslation(saved,identity:identity) }
@@ -346,76 +351,105 @@ struct ChatMessageArrival {
     }
     private func translateMessage(_ identity: ImmersionRequestIdentity) async -> FullMessageTranslation? {
         let active = epoch
-        var readinessCalls = 0
-        func valid() -> Bool { !closed && active == epoch && !Task.isCancelled && identity == self.identity(messageID: identity.messageID, text: identity.text) }
-        func fail(_ phase: Phase, status: ImmersionStatus, calls: Int, input: String? = nil) -> FullMessageTranslation? {
-            guard valid() else { return nil }
-            phases[identity] = phase
-            // A provider failure remains an explicit retry across eviction and
-            // restart. Cancellation/model availability never becomes durable.
-            if calls > 0 && (phase == .failed || phase == .timedOut) { saveFailure(phase,identity:identity) }
-            touchResident(identity)
-            lastOutcome = .init(result: nil, origin: .localFullContext, status: status, localTranslationCalls: calls,
-                                fallbackStatus: nil, modelReadinessCalls: readinessCalls, resolvedInputLanguage: input)
-            return nil
-        }
-        guard valid(), pair.valid else { return nil }
-        phases[identity] = .translating; touchResident(identity); lastOutcome = nil
-        guard !identity.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, identity.text.utf8.count <= FullMessageBudget.sourceBytes else { return fail(.failed,status:.invalidInput,calls:0) }
-        // Classification supports direction. Short/unknown text never vetoes translation.
-        let detected:String?
-        if let selected = identity.inputLanguage { detected = selected }
-        else { detected = try? await identify(identity.text) }
-        guard valid() else { return nil }
-        let supported = detected.map(LocalLanguageCatalog.canonicalCode).flatMap { LocalLanguageCatalog.codes.contains($0) ? $0 : nil }
-        let input = supported ?? pair.source
-        let from = input, to = input == pair.target ? pair.source : pair.target
-        let requestedPair = TranslationPair(source: from,target: to); requiredPairs[identity] = requestedPair
-        readinessCalls += 1
-        let observed = await modelStatus(requestedPair)
-        guard valid() else { return nil }
-        availability = observed
-        guard observed == .installed else { return fail(observed == .unsupported ? .unsupported : .needsDownload,status:.modelNotReady,calls:0,input:input) }
+        func valid() -> Bool { !closed && active == epoch && !Task.isCancelled && identity == self.identity(messageID:identity.messageID,text:identity.text) }
+        guard valid(),pair.valid,!identity.text.isEmpty,identity.text.utf8.count <= FullMessageBudget.sourceBytes else { return nil }
+        phases[identity] = .translating; touchResident(identity)
         var providerCalls = 0
+        let deadline = ContinuousClock.now.advanced(by:fullTranslationTimeout)
         do {
-            providerCalls += 1
-            let actual = try await enqueue(identity.text,pair:requestedPair,epoch:active,timeout:fullTranslationTimeout)
+            // Very short messages have insufficient evidence to override the
+            // language chosen by the user. Detection never mixes pair ledgers.
+            let configuredTokens = IncrementalWords.tokens(identity.text,language:pair.source)
+            let detected = identity.inputLanguage == nil && configuredTokens.count >= 3 ? (try? await identify(identity.text)) : nil
             guard valid() else { return nil }
-            guard !actual.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty, actual.utf8.count <= FullMessageBudget.recordBytes else { return fail(.failed,status:.invalidResult,calls:1,input:input) }
-            let reversed = input == pair.target
-            var meaning = reversed ? actual : identity.text
-            if input != pair.source && !reversed {
-                // A third-language original is not the user's native-language meaning.
-                let meaningPair = TranslationPair(source: input, target: pair.source)
-                requiredPairs[identity] = meaningPair; readinessCalls += 1
-                let meaningAvailability = await modelStatus(meaningPair)
+            let input = identity.inputLanguage ?? detected.flatMap { LocalLanguageCatalog.codes.contains($0) ? $0 : nil } ?? pair.source
+            if input == pair.target {
+                let base = FullMessageTranslation(original:identity.text,practiceText:identity.text,meaningText:identity.text,
+                    inputLanguage:input,practiceLanguage:pair.target,meaningLanguage:pair.source)
+                let value = await refreshReading(base,for:identity)
                 guard valid() else { return nil }
-                availability = meaningAvailability
-                guard meaningAvailability == .installed else { return fail(meaningAvailability == .unsupported ? .unsupported : .needsDownload,status:.modelNotReady,calls:providerCalls,input:input) }
-                providerCalls += 1
-                meaning = try await enqueue(identity.text,pair:meaningPair,epoch:active,timeout:fullTranslationTimeout)
-                guard valid() else { return nil }
-                guard !meaning.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty, meaning.utf8.count <= FullMessageBudget.recordBytes else { return fail(.failed,status:.invalidResult,calls:providerCalls,input:input) }
+                saveTranslation(value,identity:identity); remember(value,for:identity)
+                return value
             }
-            let practice = reversed ? identity.text : actual
-            let base = FullMessageTranslation(original:identity.text,practiceText:practice,meaningText:meaning,inputLanguage:input,
-                practiceLanguage:pair.target,meaningLanguage:pair.source)
-            let value = await refreshReading(base,for:identity)
+            let tokens = IncrementalWords.tokens(identity.text,language:input)
+            var known: [String:IntroducedWord] = [:]
+            for token in tokens where known[token.key] == nil {
+                if let word = try introducedWords.word(source:input,target:pair.target,key:token.key) { known[token.key] = word }
+            }
+            let unknown = tokens.filter { known[$0.key] == nil }
+            var attempted = Set<String>()
+            let candidates = (unknown.filter(\.preferred)+unknown.filter{!$0.preferred}).filter{attempted.insert($0.key).inserted}
+            var introduced: IntroducedWord?
+            for candidate in candidates {
+                let direction = TranslationPair(source:input,target:pair.target)
+                requiredPairs[identity] = direction
+                let available = await modelStatus(direction)
+                guard valid() else { return nil }
+                availability = available
+                guard available == .installed else {
+                    phases[identity] = available == .unsupported ? .unsupported : .needsDownload
+                    return nil
+                }
+                providerCalls += 1
+                let remaining = ContinuousClock.now.duration(to:deadline)
+                guard remaining > .zero else { throw ProviderError.timedOut }
+                let target = try await enqueue(candidate.text,pair:direction,epoch:active,timeout:remaining)
+                    .trimmingCharacters(in:.whitespacesAndNewlines)
+                guard valid() else { return nil }
+                guard !target.isEmpty,target.utf8.count <= FullMessageBudget.recordBytes else { throw ProviderError.unavailable }
+                if target.precomposedStringWithCanonicalMapping.caseInsensitiveCompare(candidate.text.precomposedStringWithCanonicalMapping) != .orderedSame {
+                    let resolved = await readings.resolveDetailed(text:target,language:pair.target)
+                    guard valid() else { return nil }
+                    let state = FullSentenceReadings.state(text:target,language:pair.target,reading:resolved.value,failure:resolved.failure)
+                    // A mandatory guide must actually exist before introducing
+                    // the word. A retry keeps the same original message intact.
+                    guard state.status != .unavailable else { throw ProviderError.unavailable }
+                    let word = IntroducedWord(source:input,target:pair.target,key:candidate.key,
+                        translation:target,reading:state.status == .available ? resolved.value?.text : nil)
+                    known[candidate.key] = word; introduced = word
+                    break
+                }
+            }
+            let words: [WordReplacement] = tokens.compactMap { token in
+                guard let word = known[token.key] else { return nil }
+                return .init(start:token.range.location,length:token.range.length,source:token.text,target:word.translation,reading:word.reading)
+            }
+            func compose(reading:Bool) -> String {
+                let result = NSMutableString(string:identity.text)
+                for word in words.reversed() {
+                    result.replaceCharacters(in:NSRange(location:word.start,length:word.length),with:reading ? (word.reading ?? word.target) : word.target)
+                }
+                return result as String
+            }
+            let practice = compose(reading:false), guide = compose(reading:true)
+            let hasGuide = words.contains{$0.reading != nil}
+            let value = FullMessageTranslation(original:identity.text,practiceText:practice,meaningText:identity.text,
+                inputLanguage:input,practiceLanguage:pair.target,meaningLanguage:pair.source,
+                practiceReading:hasGuide ? guide : nil,
+                readingState:.init(status:hasGuide ? .available : .notNeeded,failure:nil,policy:FullSentenceReadings.statePolicy),words:words)
+            guard valid(),let bytes = encodedTranslation(value,identity:identity) else { return nil }
+            if let vault = cacheVault {
+                try vault.transaction {
+                    if let introduced { try introducedWords.commit(introduced) }
+                    try vault.put("full-message-translation",durableKey(identity),bytes)
+                    try vault.remove("full-message-translation-failure",durableKey(identity))
+                }
+            } else if let introduced { try introducedWords.commit(introduced) }
             guard valid() else { return nil }
-            guard encodedTranslation(value,identity:identity) != nil else { return fail(.failed,status:.invalidResult,calls:providerCalls,input:input) }
-            readingRevision += 1
-            saveTranslation(value,identity:identity)
-            remember(value,for:identity)
-            lastOutcome = .init(result:value.presentation,origin:.localFullContext,status:.ready,localTranslationCalls:providerCalls,
-                fallbackStatus:nil,modelReadinessCalls:readinessCalls,resolvedInputLanguage:input)
+            remember(value,for:identity); readingRevision += 1
+            lastOutcome = .init(result:value.presentation,origin:.localFullContext,status:.ready,
+                localTranslationCalls:providerCalls,fallbackStatus:nil,resolvedInputLanguage:input)
             return value
         } catch is CancellationError { return nil }
         catch ProviderError.cancelled { return nil }
-        catch ProviderError.modelNotReady { return fail(.needsDownload,status:.modelNotReady,calls:0,input:input) }
-        catch ProviderError.unsupported { return fail(.unsupported,status:.modelNotReady,calls:0,input:input) }
-        catch ProviderError.preparation { return fail(.failed,status:.error,calls:0,input:input) }
-        catch ProviderError.timedOut { return fail(.timedOut,status:.error,calls:providerCalls,input:input) }
-        catch { return fail(.failed,status:.error,calls:providerCalls,input:input) }
+        catch {
+            guard valid() else { return nil }
+            let phase: Phase = (error as? ProviderError) == .timedOut ? .timedOut : .failed
+            phases[identity] = phase; touchResident(identity)
+            // No vocabulary was committed. Explicit retry cannot add twice.
+            saveFailure(phase,identity:identity)
+            return nil
+        }
     }
     /// Newly loaded/sent/received messages translate even when their rows are
     /// outside the lazy viewport. One bounded feeder avoids model queue floods.
@@ -512,7 +546,7 @@ struct ChatMessageArrival {
         let outstanding = Array(replies.values); replies.removeAll(); for reply in outstanding { reply.resume(returning:nil) }
         timedOutRequests.removeAll(); providerFailures.removeAll(); translations.removeAll(); residentOrder.removeAll(); residentCosts.removeAll(); visibleTranslations.removeAll(); phases.removeAll(); requiredPairs.removeAll()
     }
-    func close() { cacheVault = nil; closed = true; invalidateOutstanding(); inputLanguages.removeAll(); swahili.removeAll(); lastOutcome = nil; revision += 1 }
+    func close() { introducedWords.close(); progressionTail = nil; cacheVault = nil; closed = true; invalidateOutstanding(); inputLanguages.removeAll(); swahili.removeAll(); lastOutcome = nil; revision += 1 }
 }
 
 struct ConversationTranslationTask: View {
@@ -624,7 +658,7 @@ struct ConversationImmersionText: View {
                     readingRetryPending:immersion.readingRetryPending(for:identity),
                     onReadingRetry:{ _ = immersion.retryReading(identity) },embedded:true,metadata:metadata,accessibilityMessageContext:accessibilityMessageContext,
                     onVoiceHelp:onVoiceHelp,originalMessage:value.original,inputLanguage:value.inputLanguage,
-                    onReport:onReport,reading:state.chatReading,identity:identity)
+                    onReport:onReport,reading:state.chatReading,identity:identity,incremental:value.words != nil)
                 if let failure = playback?.failure(for:id) {
                     Button { state.chatReading.activate(identity) } label: {
                         Text(failure).font(.subheadline).foregroundStyle(VipiDesign.secondary)
@@ -635,10 +669,7 @@ struct ConversationImmersionText: View {
                 VStack(alignment:.leading,spacing:6) {
                     Text(text).font(.body).fixedSize(horizontal:false,vertical:true)
                         .accessibilityHint(accessibilityMessageContext ?? "")
-                    if immersion.phase(for:identity) == .translating {
-                        HStack(spacing:7) { ProgressView(); Text("Translating…").font(.subheadline) }
-                            .foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("message-translation-pending")
-                    } else {
+                    if immersion.phase(for:identity) != .translating {
                         Button { state.chatReading.activate(identity) } label: {
                             Text(failureText).font(.subheadline).fixedSize(horizontal:false,vertical:true)
                                 .frame(minHeight:44,alignment:.leading).contentShape(Rectangle())

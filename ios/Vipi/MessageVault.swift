@@ -15,6 +15,12 @@ final class MessageVault: @unchecked Sendable {
     private static let keyLock = NSLock()
     private let transient = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
 
+    /// Low-entropy vocabulary is never exposed as a plain hash in SQLite keys.
+    func opaqueID(scope:String,value:String) -> String {
+        HMAC<SHA256>.authenticationCode(for:Data((scope+"\0"+value).utf8),using:key)
+            .map{String(format:"%02x",$0)}.joined()
+    }
+
     init(account: UUID, directory: URL? = nil) throws {
         self.account = account
         let root = directory ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Messages")

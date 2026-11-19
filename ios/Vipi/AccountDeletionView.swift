@@ -14,10 +14,6 @@ struct DeleteAccountView: View {
                 Text("This won’t erase friends’ copies or backups you saved elsewhere.")
             } header: { Text("What will be deleted") }
             Section {
-                Text("Deleting your account won’t cancel an App Store subscription. You can cancel it separately to stop future renewals.")
-                Link("Manage subscriptions", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
-            }
-            Section {
                 Button("Delete Vipi account", role: .destructive) { confirm = true }.accessibilityIdentifier("delete-account")
                 if let error { Text(error).font(.body) }
             }
@@ -64,9 +60,8 @@ struct AccountDeletionProgressView: View {
                     }
                     Text("Your Fallsoft sign-in and accounts in other Fallsoft apps will remain.")
                         .font(.body).foregroundStyle(VipiDesign.secondary)
-                    Text("Subscriptions are managed separately. Friends’ copies and backups saved elsewhere remain.")
+                    Text("Friends’ copies and backups saved elsewhere remain.")
                         .font(.body).foregroundStyle(VipiDesign.secondary)
-                    Link("Manage subscriptions", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
                 }.padding(28).frame(maxWidth: 560).frame(maxWidth: .infinity)
             }.background(VipiDesign.canvas)
         }

@@ -47,9 +47,9 @@ def test_s2_postgresql_url_and_driver_are_not_rewritten(environment, url):
     assert settings.database_url == url
 
 
-def test_production_cannot_disable_verified_subscriptions():
-    with pytest.raises(ValueError, match="Production requires verified subscriptions"):
-        configuration(environment="production", database_url="postgresql+asyncpg://fixture.invalid/test")
+def test_free_production_requires_no_billing_provider_or_entitlement_flag():
+    value = configuration(environment="production", database_url="postgresql+asyncpg://fixture.invalid/test")
+    assert not value.enforce_subscriptions
 
 
 @pytest.mark.parametrize("store_settings", [

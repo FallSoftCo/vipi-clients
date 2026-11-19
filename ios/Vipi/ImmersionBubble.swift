@@ -277,6 +277,7 @@ struct ImmersionBubble: View {
     var rawSourceLanguage: String? = nil
     var reading: ChatReadingState? = nil
     var identity: ImmersionRequestIdentity? = nil
+    var incremental = false
     @State private var localReading = ChatReadingState()
     @State private var frame = CGRect.zero
     @Environment(\.scenePhase) private var scenePhase
@@ -292,16 +293,22 @@ struct ImmersionBubble: View {
         guard scenePhase == .active, let speech else { return false }
         if speech.state == .unavailable { onVoiceHelp?(); return true }
         guard speech.state != .preparing else { return false }
-        let span = [(text:practice,language:targetLanguage)]
+        let span = incremental ? result.spans.map{(text:$0.translated,language:targetLanguage)} : [(text:practice,language:targetLanguage)]
+        guard !span.isEmpty else { return true }
         if start { speech.start(message:messageID,spans:span) } else { speech.toggle(message:messageID,spans:span) }
         return true
     }
     private var hasAlternateScript: Bool { fullReading.map { !$0.isEmpty && $0 != practice } ?? false }
     private func register() { controls.register(.init(identity:binding,frame:frame,activate:play,hasAlternateScript:hasAlternateScript)) }
     private var native: StableImmersionText {
-        var view = StableImmersionText(result:.sourceOnly(original:displayed,target:targetLanguage),revealed:[],script:true,onWord:{_ in},onSelection:{_ in})
+        let revealed = controls.showingMeaning || mode == .original ? Set(result.spans.map(\.id)) : Set<Int>()
+        var view = StableImmersionText(result:incremental ? result : .sourceOnly(original:displayed,target:targetLanguage),
+            revealed:revealed,script:incremental ? controls.nativeScript : true,onWord:{ id in
+                guard UIAccessibility.isVoiceOverRunning,let word = result.spans.first(where:{$0.id == id}) else { return }
+                speech?.toggle(message:messageID,spans:[(word.translated,targetLanguage)])
+            },onSelection:{_ in})
         view.fitsContentWidth = embedded
-        view.reservedSentences = faces
+        view.reservedSentences = incremental ? [] : faces
         view.sentenceIdentity = String(describing:binding)+"|"+faces.joined(separator:"\u{0}")
         view.fullMessage = true
         view.onPlayMessage = { controls.activate(binding) }
@@ -445,7 +452,8 @@ struct ImmersionBubble: View {
                 do { try await Task.sleep(for:.milliseconds(30)) } catch { return }
             }
             guard speech.state != .unavailable else { onVoiceHelp(); return }
-            speech.start(message:identity.messageID,spans:[(value.practiceText,value.practiceLanguage)])
+            guard !value.practiceSpeech.isEmpty else { return }
+            speech.start(message:identity.messageID,spans:value.practiceSpeech.map{($0.text,$0.language)})
             let serial = speech.playbackSerial
             while speech.activeMessage == identity.messageID {
                 guard !Task.isCancelled,active == epoch,selected == manualEpoch else { return }
@@ -477,7 +485,8 @@ struct ImmersionBubble: View {
                 guard !Task.isCancelled,epoch == active else { return }
                 if consumed.contains(next.id) { if queue.first?.id == next.id { queue.removeFirst() }; continue }
                 if speech.state == .unavailable { missingVoice(speech); return }
-                speech.start(message:next.id,spans:[(value.practiceText,value.practiceLanguage)],autoplay:true)
+                guard !value.practiceSpeech.isEmpty else { continue }
+                speech.start(message:next.id,spans:value.practiceSpeech.map{($0.text,$0.language)},autoplay:true)
                 let serial = speech.playbackSerial
                 while speech.activeMessage == next.id {
                     guard !Task.isCancelled,epoch == active else { return }

@@ -87,6 +87,17 @@ public struct ImmersionPresentationCache {
 
 /// Exact stored message and the two complete on-device translation faces.
 /// Reading is display metadata; playback always uses practiceText in its native script.
+public struct WordReplacement: Sendable, Equatable, Codable {
+    public let start: Int
+    public let length: Int
+    public let source: String
+    public let target: String
+    public let reading: String?
+    public init(start:Int,length:Int,source:String,target:String,reading:String?) {
+        self.start = start; self.length = length; self.source = source; self.target = target; self.reading = reading
+    }
+}
+
 public struct FullMessageTranslation: Sendable, Equatable, Codable {
     public let original: String
     public let practiceText: String
@@ -96,13 +107,17 @@ public struct FullMessageTranslation: Sendable, Equatable, Codable {
     public let meaningLanguage: String
     public let practiceReading: String?
     public let readingState: FullMessageReadingState?
+    /// nil identifies retained full-message fixtures; [] is a completed
+    /// incremental message with no new/repeated translatable word.
+    public let words: [WordReplacement]?
     public init(original: String, practiceText: String, meaningText: String,
-                inputLanguage: String, practiceLanguage: String, meaningLanguage: String, practiceReading:String? = nil, readingState:FullMessageReadingState? = nil) {
+                inputLanguage: String, practiceLanguage: String, meaningLanguage: String, practiceReading:String? = nil, readingState:FullMessageReadingState? = nil, words:[WordReplacement]? = nil) {
         self.original = original; self.practiceText = practiceText; self.meaningText = meaningText
         self.inputLanguage = inputLanguage; self.practiceLanguage = practiceLanguage; self.meaningLanguage = meaningLanguage; self.practiceReading = practiceReading; self.readingState = readingState
+        self.words = words
     }
     private enum CodingKeys: String, CodingKey {
-        case original, practiceText, meaningText, inputLanguage, practiceLanguage, meaningLanguage, practiceReading, readingState
+        case original, practiceText, meaningText, inputLanguage, practiceLanguage, meaningLanguage, practiceReading, readingState, words
     }
     public init(from decoder:Decoder) throws {
         let values = try decoder.container(keyedBy:CodingKeys.self)
@@ -116,14 +131,26 @@ public struct FullMessageTranslation: Sendable, Equatable, Codable {
         // The complete translated message must not become a model cache miss.
         practiceReading = try? values.decodeIfPresent(String.self,forKey:.practiceReading)
         readingState = try? values.decodeIfPresent(FullMessageReadingState.self,forKey:.readingState)
+        words = try values.decodeIfPresent([WordReplacement].self,forKey:.words)
     }
     public func withReading(_ reading: String?, state: FullMessageReadingState) -> Self {
         .init(original:original, practiceText:practiceText, meaningText:meaningText,
               inputLanguage:inputLanguage, practiceLanguage:practiceLanguage, meaningLanguage:meaningLanguage,
-              practiceReading:reading, readingState:state)
+              practiceReading:reading, readingState:state,words:words)
     }
     /// Compatibility with source selection/copy primitives; no word spans or invented alignment.
     public var presentation: ImmersionPresentation {
-        .complete(.init(original: meaningText, translation: practiceText, spans: []))
+        var offset = 0
+        let spans = (words ?? []).map { word in
+            let targetRange = NSRange(location:word.start+offset,length:word.target.utf16.count)
+            offset += word.target.utf16.count-word.length
+            return ImmersionSpan(range:NSRange(location:word.start,length:word.length),original:word.source,
+                translated:word.target,targetRange:targetRange,romanization:word.reading)
+        }
+        return .complete(.init(original: meaningText, translation: practiceText, spans: spans))
+    }
+    public var practiceSpeech: [SpeechSpan] {
+        if let words { return words.map{.init(text:$0.target,language:practiceLanguage)} }
+        return [.init(text:practiceText,language:practiceLanguage)]
     }
 }

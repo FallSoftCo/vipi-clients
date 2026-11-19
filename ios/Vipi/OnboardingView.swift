@@ -70,7 +70,7 @@ struct OnboardingView: View {
 
     private var welcome: some View {
         VStack(alignment:.leading,spacing:24) {
-            IntroHeading(eyebrow:"",title:"Chat with friends.\nLearn a language.",detail:"Every message appears in the language you’re learning.")
+            IntroHeading(eyebrow:"",title:"Chat with friends.\nLearn a language.",detail:"Learn a new word with each message. Familiar words keep appearing as you chat.")
         }
     }
 
@@ -142,7 +142,7 @@ struct OnboardingView: View {
                     .font(.body.weight(.semibold))
                 Text("Chats with friends are end-to-end encrypted. Friends see your username, never your email.")
                     .font(.body).foregroundStyle(VipiDesign.secondary)
-                Text("30 days free. No card needed. Then choose whether to subscribe.")
+                Text("Free to use. No subscription.")
                     .font(.body.weight(.medium))
             }
             legalLinks

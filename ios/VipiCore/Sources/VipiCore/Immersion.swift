@@ -114,6 +114,10 @@ public struct ImmersionSpan: Sendable, Equatable, Identifiable {
     public let romanization: String?
     public var id: Int { range.location }
     public var displayedTarget: String { romanization ?? translated }
+    public init(range:NSRange,original:String,translated:String,targetRange:NSRange,romanization:String? = nil) {
+        self.range = range; self.original = original; self.translated = translated
+        self.targetRange = targetRange; self.romanization = romanization
+    }
 }
 
 public struct SpeechSpan: Sendable, Equatable {

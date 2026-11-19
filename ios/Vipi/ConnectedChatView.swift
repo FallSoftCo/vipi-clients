@@ -100,39 +100,13 @@ struct ConnectedChatRoot: View {
             } catch { self.error = String(localized: "Your saved data is still here. Please close and reopen Vipi to try again.") }
         }
         .onDisappear { try? botOwner.close(); subscriptions?.close(); PushNotifications.shared.detach(); try? chat?.close() }
-        .task(id: chat?.profile?.id) {
-            try? botOwner.close()
-            #if DEBUG
-            botOwner = qualification?.makeBotOwner(chat?.profile?.id) ?? BotConversationOwner()
-            #else
-            botOwner = BotConversationOwner()
-            #endif
-            botOwner.useTranslation(chat?.translationOwner)
-            subscriptions?.close(); subscriptions = nil
-            #if DEBUG
-            guard let profile = chat?.profile, let userID = authentication.session?.userID else { return }
-            let store: SubscriptionStore
-            if let qualification {
-                do { store = try qualification.makeSubscriptions(authentication, userID, profile.id) }
-                catch { self.error = "Synthetic root subscription preparation failed"; return }
-            } else {
-                guard let api = try? ServiceClient(authentication: authentication, userID: userID) else { return }
-                store = SubscriptionStore(api: api, accountToken: profile.id)
-            }
-            #else
-            guard let profile = chat?.profile, let userID = authentication.session?.userID,
-                  let api = try? ServiceClient(authentication: authentication, userID: userID) else { return }
-            let store = SubscriptionStore(api: api, accountToken: profile.id)
-            #endif
-            subscriptions = store; await store.start()
-        }
         .task(id: chat?.ready == true && chat?.needsReauthentication == false) {
             chat?.setForeground(scenePhase == .active)
             if let chat, chat.ready && !chat.needsReauthentication { await PushNotifications.shared.attach(chat) }
         }
         .onChange(of: scenePhase) { _, phase in
             chat?.setForeground(phase == .active)
-            if phase == .active { Task { await chat?.synchronize(); await subscriptions?.refresh(); await PushNotifications.shared.refresh() } }
+            if phase == .active { Task { await chat?.synchronize(); await PushNotifications.shared.refresh() } }
         }
     }
 }

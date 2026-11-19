@@ -23,7 +23,6 @@ from .rates import consume
 from .prekeys import PublishInput, claim, inventory, publish
 from .inbox import decode_cursor, encode_cursor
 from .deletion import deletion_for, deletion_status, request_deletion, subject_hash, lock_account_lifecycle
-from .eligibility import original_trial
 
 
 class BodyLimit:
@@ -201,10 +200,11 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         else:
             token_verifier = FixedVerifierSet(primary_verifier, link_verifier)
     now = clock or (lambda: datetime.now(UTC))
-    from .store_providers import providers_for
     from .subscriptions import Subscriptions
     from .bot import BotGateway
-    providers = providers_for(settings) if store_providers is None else store_providers
+    # No new purchases in the free product. Historical reconciliation belongs
+    # to its separate worker; the chat API never opens a store provider.
+    providers = {} if store_providers is None else store_providers
     subscriptions = Subscriptions(settings, db, providers, now)
     bot = BotGateway(settings, db, subscriptions, now, transport=bot_transport)
     from .events import InboxEvents, install as install_events
@@ -314,17 +314,16 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         await rate(p, "entitlements", 30)
         async with db.sessions() as session:
             user = await user_for(session, p, allow_restricted=True)
-        return await subscriptions.snapshot(user.id)
+        from .billing_identity import billing_account_id
+        return {"billing_account_id": billing_account_id(user.id), "base": {"active": True, "expires_at": None, "trial_ends_at": None,
+                         "access_source": "free"},
+                "bot_mini": {"active": False, "available": False, "expires_at": None,
+                             "trial_ends_at": None},
+                "server_time": now().isoformat(), "app_account_token": user.id,
+                "purchases_ready": {"apple": False, "google": False}}
 
     async def purchase_sync(p, store, credential):
-        await rate(p, "purchase-sync", 10)
-        async with db.sessions() as session:
-            user = await user_for(session, p, allow_restricted=True)
-        try:
-            return await subscriptions.sync(user.id, store, credential, expected_subject=p.subject)
-        except IntegrityError:
-            # Concurrent first claims must not reveal another account binding.
-            raise DeliveryError("purchase_sync_conflict", 409) from None
+        raise DeliveryError("purchases_unavailable", 410)
 
     @app.post("/v1/purchases/apple")
     async def apple_purchase(body: ApplePurchaseInput, p: Annotated[Principal, Depends(principal)]):
@@ -336,41 +335,20 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
 
     @app.get("/v1/bot/allowance")
     async def bot_allowance(p: Annotated[Principal, Depends(principal)]):
-        await rate(p, "bot-allowance", 30)
-        async with db.sessions() as session:
-            user = await user_for(session, p)
-        return await bot.allowance(user.id)
+        raise DeliveryError("bot_unavailable", 410)
 
     @app.post("/v1/bot/messages")
     async def bot_message(body: BotInput, request: Request, p: Annotated[Principal, Depends(principal)]):
-        await rate(p, "bot-messages", 10)
-        async with db.sessions() as session:
-            user = await user_for(session, p)
-            await phone_for(session, request, user)
-        return await bot.reply(user.id, str(body.request_id), [item.model_dump() for item in body.messages], body.consent_version)
+        raise DeliveryError("bot_unavailable", 410)
 
     @app.post("/v1/bot/reports", status_code=202)
     async def bot_report(body: BotReportInput, request: Request, p: Annotated[Principal, Depends(principal)]):
-        await rate(p, "bot-reports", 5)
-        async with db.sessions() as session:
-            user = await user_for(session, p)
-            await phone_for(session, request, user)
-        return await bot.report(user.id, str(body.request_id), body.reason, body.selected_reply)
+        raise DeliveryError("bot_unavailable", 410)
 
     @app.post("/v1/bot/local-reports", status_code=202)
     async def local_bot_report(body: LocalBotReportInput, request: Request,
                                p: Annotated[Principal, Depends(principal)]):
-        from .local_bot_reports import submit
-        await rate(p, "local-bot-reports", 5)
-        try:
-            async with db.sessions.begin() as session:
-                user = await user_for(session, p)
-                await phone_for(session, request, user)
-                return await submit(session, user_id=user.id, report_id=str(body.report_id),
-                    provider=body.provider, reason=body.reason, selected_reply=body.selected_reply,
-                    consent_version=body.consent_version, secret=settings.service_secret, now=now())
-        except IntegrityError:
-            raise DeliveryError("report_id_conflict", 409) from None
+        raise DeliveryError("bot_unavailable", 410)
 
     @app.post("/v1/reports", status_code=202)
     async def user_report(body: UserReportInput, request: Request, p: Annotated[Principal, Depends(principal)]):
@@ -421,10 +399,10 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                     # deleted Vipi profile after its seven-day receipt expires.
                     if not 0 <= now().timestamp() - p.authenticated_at <= 600:
                         raise DeliveryError("recent_sign_in_required", 401)
-                    trial = await original_trial(session, subject=p.subject, service_secret=settings.service_secret, started_at=now())
+                    created = now()
                     user = User(id=str(uuid4()), subject=p.subject, minimum_auth_time=p.authenticated_at,
-                        username=username, display_name=body.display_name, created_at=now(),
-                        cardless_trial_started_at=trial.started_at, cardless_trial_ends_at=trial.ends_at)
+                        username=username, display_name=body.display_name, created_at=created,
+                        cardless_trial_started_at=created, cardless_trial_ends_at=created)
                     session.add(user)
                     await session.flush()
                 return profile(user)
@@ -573,10 +551,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
     @app.post("/v1/messages")
     async def send(body: SendInput, request: Request, p: Annotated[Principal, Depends(principal)]):
         await rate(p, "send", 120)
-        if settings.enforce_subscriptions:
-            async with db.sessions() as session:
-                user = await user_for(session, p)
-            await subscriptions.require(user.id)
+        # Every authenticated, unrestricted account can send. No trial clock,
+        # receipt, purchase provider or billing outage participates in delivery.
         try:
             ciphertext = base64.b64decode(body.ciphertext, validate=True)
         except (ValueError, binascii.Error):
