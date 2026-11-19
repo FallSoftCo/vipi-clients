@@ -99,6 +99,9 @@ struct SubscriptionOfferView: View {
                         Text(LocalizedStringKey(plan == .botMini ? "Bot mini isn’t available to subscribe to yet. You haven’t been enrolled." : "Subscriptions aren’t available yet. You haven’t been enrolled."))
                             .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                     }
+                } else if store.loading {
+                    ProgressView("Loading prices…")
+                        .accessibilityIdentifier("subscription-prices-loading")
                 } else {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Prices aren’t available").font(.headline)
@@ -193,7 +196,13 @@ struct SubscriptionsView: View {
                 Link("Manage App Store subscriptions", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
             }
             if let notice = store.notice { Section { Text(notice).foregroundStyle(VipiDesign.secondary) } }
-            if store.catalogUnavailable {
+            if store.loading {
+                Section {
+                    ProgressView(LocalizedStringKey(store.accessVerificationPending(.base) || store.accessVerificationPending(.botMini)
+                        ? "Checking subscription access" : "Loading prices…"))
+                        .accessibilityIdentifier("subscription-prices-loading")
+                }
+            } else if store.catalogUnavailable {
                 Section {
                     Text("The App Store couldn’t load prices. Please try again.").foregroundStyle(VipiDesign.secondary)
                     Button("Try again") { Task { await store.refresh() } }
