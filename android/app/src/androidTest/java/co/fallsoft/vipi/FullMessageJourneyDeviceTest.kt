@@ -330,8 +330,33 @@ class FullMessageJourneyDeviceTest {
                 }
                 return f.instrumentation.uiAutomation.windows.mapNotNull { it.root }.firstNotNullOfOrNull(::find)
             }
+            var pasteIndex = 0
+            fun tapNativeEditAction(label:String) {
+                f.instrumentation.uiAutomation.waitForIdle(100,5_000)
+                val selector = androidx.test.uiautomator.By.res("android","floating_toolbar_menu_item_text").text(label).pkg(f.base.packageName)
+                assertTrue("Actual native edit action must appear",f.device.wait(androidx.test.uiautomator.Until.hasObject(selector),5_000))
+                fun owner(): androidx.test.uiautomator.UiObject2 {
+                    val matches = f.device.findObjects(selector)
+                    assertEquals("Native edit action label must be unique",1,matches.size)
+                    val textNode = matches.single(); var candidate = textNode
+                    while (!candidate.isClickable) candidate = requireNotNull(candidate.parent) { "Native edit label has no clickable parent" }
+                    assertTrue("Actual native action must contain its visible label",candidate.visibleBounds.contains(textNode.visibleBounds))
+                    assertTrue("Native edit owner must retain48dp height",candidate.visibleBounds.height() >= 48*f.base.resources.displayMetrics.density)
+                    return candidate
+                }
+                val before = android.graphics.Rect(owner().visibleBounds)
+                val file = "native-menu-"+(pasteIndex++)
+                File(f.output,file+".json").writeText(JSONObject().put("label",label).put("click_owner",before.toShortString()).put("density",f.base.resources.displayMetrics.density).put("gesture_route","Native UiAutomator focus/long press/action; no Compose virtual-time long press").toString(2))
+                f.capture(file+"-before-tap")
+                val button = owner()
+                assertEquals("Do not tap a moving native toolbar",before,button.visibleBounds)
+                button.click()
+            }
             fun pasteThroughNativeMenu(value:String) {
-                compose.onNodeWithTag(input).performTouchInput { click() }
+                compose.onNodeWithTag(input).assertIsDisplayed()
+                val fields = f.device.findObjects(androidx.test.uiautomator.By.clazz("android.widget.EditText").pkg(f.base.packageName))
+                assertEquals("Actual production composer must be unique",1,fields.size)
+                fields.single().click()
                 val priorText = compose.onNodeWithTag(input).fetchSemanticsNode().config[SemanticsProperties.EditableText].text
                 f.instrumentation.runOnMainSync {
                     if (!clipboardCaptured) { savedClipboard = clipboard.primaryClip?.let { android.content.ClipData(it) }; clipboardCaptured = true }
@@ -339,16 +364,13 @@ class FullMessageJourneyDeviceTest {
                     if (android.os.Build.VERSION.SDK_INT >= 33) clip.description.extras = android.os.PersistableBundle().apply { putBoolean(android.content.ClipDescription.EXTRA_IS_SENSITIVE,true) }
                     clipboard.setPrimaryClip(clip)
                 }
-                compose.onNodeWithTag(input).performTouchInput { longClick(center) }
+                val focused = f.device.findObjects(androidx.test.uiautomator.By.clazz("android.widget.EditText").pkg(f.base.packageName).focused(true))
+                assertEquals(1,focused.size); focused.single().longClick()
                 if (priorText.isNotEmpty()) {
-                    val selectAll = f.device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.text("Select all")),5_000)
-                    assertNotNull("Actual native edit menu must expose Select all",selectAll)
-                    requireNotNull(selectAll).click()
+                    tapNativeEditAction(f.base.getString(android.R.string.selectAll))
                     compose.waitUntil(5_000) { nativeEditor()?.let { it.textSelectionStart == 0 && it.textSelectionEnd == priorText.length } == true }
                 }
-                val paste = f.device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.text("Paste")),5_000)
-                assertNotNull("Actual native edit menu must expose Paste",paste)
-                requireNotNull(paste).click()
+                tapNativeEditAction(f.base.getString(android.R.string.paste))
             }
             fun assertNativeEditor(expected:String,stage:String) {
                 compose.waitUntil(8_000) { nativeEditor()?.text?.toString() == expected }
