@@ -336,6 +336,25 @@ class FullMessageJourneyDeviceTest {
             fun tapNativeEditAction(label:String) {
                 f.instrumentation.uiAutomation.waitForIdle(100,5_000)
                 val selector = androidx.test.uiautomator.By.res("android","floating_toolbar_menu_item_text").text(label).pkg(f.base.packageName)
+                if (!f.device.hasObject(selector)) {
+                    // The real platform toolbar can put Select all behind its
+                    // overflow button (observed in963); never guess a screen
+                    // coordinate or substitute a semantics selection action.
+                    val overflow = f.device.findObjects(androidx.test.uiautomator.By.res("android", "overflow").pkg(f.base.packageName).clickable(true))
+                    assertEquals("Missing edit action requires one actual native overflow owner", 1, overflow.size)
+                    val button = overflow.single(); val bounds = android.graphics.Rect(button.visibleBounds)
+                    assertTrue("Native overflow owner must retain48dp height", bounds.height() >= 48*f.base.resources.displayMetrics.density)
+                    File(f.output,"native-overflow-"+pasteIndex+".json").writeText(JSONObject()
+                        .put("requested_action",label).put("actual_button_description",button.contentDescription)
+                        .put("bounds",bounds.toShortString()).put("required_min_height",48*f.base.resources.displayMetrics.density).toString(2))
+                    f.capture("native-overflow-"+pasteIndex+"-before-tap")
+                    val current = f.device.findObjects(androidx.test.uiautomator.By.res("android", "overflow").pkg(f.base.packageName).clickable(true))
+                    assertEquals(1,current.size); assertEquals("Do not tap a moving native overflow", bounds,current.single().visibleBounds)
+                    val stamp = SystemClock.uptimeMillis()
+                    assertTrue(pointer(f,MotionEvent.ACTION_DOWN,bounds.exactCenterX(),bounds.exactCenterY(),stamp))
+                    assertTrue(pointer(f,MotionEvent.ACTION_UP,bounds.exactCenterX(),bounds.exactCenterY(),stamp))
+                    compose.waitForIdle()
+                }
                 assertTrue("Actual native edit action must appear",f.device.wait(androidx.test.uiautomator.Until.hasObject(selector),5_000))
                 fun owner(): androidx.test.uiautomator.UiObject2 {
                     val matches = f.device.findObjects(selector)
@@ -420,8 +439,16 @@ class FullMessageJourneyDeviceTest {
                 f.capture("native-hold-"+pasteIndex+"-after-release")
                 compose.waitUntil(5_000) { f.device.hasObject(selector) }
                 if (priorText.isNotEmpty()) {
-                    tapNativeEditAction(f.base.getString(android.R.string.selectAll))
-                    compose.waitUntil(5_000) { nativeEditor()?.let { it.textSelectionStart == 0 && it.textSelectionEnd == priorText.length } == true }
+                    fun fullNativeSelection(): Boolean = nativeEditor()?.let {
+                        it.text?.toString() == priorText && minOf(it.textSelectionStart,it.textSelectionEnd) == 0 &&
+                            maxOf(it.textSelectionStart,it.textSelectionEnd) == priorText.length
+                    } == true
+                    if (!fullNativeSelection()) tapNativeEditAction(f.base.getString(android.R.string.selectAll))
+                    compose.waitUntil(5_000) { fullNativeSelection() }
+                    val selected = requireNotNull(nativeEditor())
+                    File(f.output,"native-selected-full-"+pasteIndex+".json").writeText(JSONObject()
+                        .put("utf16_length",priorText.length).put("selection_start",selected.textSelectionStart)
+                        .put("selection_end",selected.textSelectionEnd).put("exact_prior_value",selected.text?.toString() == priorText).toString(2))
                 }
                 tapNativeEditAction(f.base.getString(android.R.string.paste))
             }
