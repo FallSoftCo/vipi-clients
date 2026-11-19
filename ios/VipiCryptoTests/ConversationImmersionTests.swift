@@ -10,6 +10,36 @@ import VipiCore
         while owner.request == nil && ContinuousClock.now < deadline { await Task.yield() }
         return try XCTUnwrap(owner.request,"Expected actual native SDK request",file:file,line:line)
     }
+    func testOnboardingExampleUsesOnlyTheSelectedPairForEverySupportedDirection() async throws {
+        let english = VipiLanguage.named("en").exampleGreeting
+        for source in VipiLanguage.initial {
+            XCTAssertFalse(source.exampleGreeting.isEmpty)
+            if source.id != "en" { XCTAssertNotEqual(source.exampleGreeting,english) }
+            for target in VipiLanguage.initial where target.id != source.id {
+                let pair = TranslationPair(source:source.id,target:target.id)
+                var readiness: [TranslationPair] = []
+                let owner = ConversationImmersion(modelStatus: { requested in
+                    readiness.append(requested)
+                    return requested == pair ? .installed : .downloadable
+                },identify: { _ in
+                    XCTFail("An authored example has a known source language; classification must not request a different pair")
+                    return "en"
+                })
+                await ConversationPreview.configure(owner,pair:pair)
+                let identity = owner.identity(messageID:"language-preview",text:source.exampleGreeting)
+                let work = Task { await owner.translatedMessage(for:identity) }
+                let request = try await next(owner)
+                XCTAssertEqual(request.pair,pair)
+                XCTAssertEqual(request.text,source.exampleGreeting)
+                XCTAssertEqual(readiness,[pair],"The selected pair must be sufficient for this example")
+                // Stop at the real SDK request boundary. No supplied target
+                // sentence or test response can stand in for model quality.
+                await owner.finish(request,translation:nil)
+                _ = await work.value
+                owner.close()
+            }
+        }
+    }
     func testEveryMessageRequestsFullTranslationIncludingShortAndFormerReferenceHits() async throws {
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
         await owner.configure(pair:.init(source:"en",target:"es"))
