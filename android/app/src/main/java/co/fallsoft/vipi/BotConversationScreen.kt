@@ -8,6 +8,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -20,6 +21,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
@@ -274,16 +276,28 @@ import java.time.format.FormatStyle
                     else if (bot.messages.isNotEmpty() || showEmptyIntro) Text(stringResource(if (bot.messages.isEmpty()) R.string.ui_cc39ebccb529 else R.string.bot_caution), style = MaterialTheme.typography.bodySmall)
                 }
             }
-            items(bot.messages, key = { it.id }) { message ->
+            itemsIndexed(bot.messages, key = { _, message -> message.id }) { index, message ->
                 val outgoing = message.role == "user"
                 ConversationTranscriptItem {
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = if (outgoing) Arrangement.End else Arrangement.Start) {
                         if (outgoing) Spacer(Modifier.width(38.dp))
                         Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).background(if (outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp))) {
-                        if (translation != null && audio != null) FullMessageBubble(message.text, message.id, translation, gestures, audio) {
-                            if (outgoing && message.status in setOf("unconfirmed", "rejected")) Text(
-                                stringResource(if (message.status == "unconfirmed") R.string.ui_c654d70db3ac else R.string.ui_e28ba924e405),
-                                style = MaterialTheme.typography.bodySmall)
+                        val locale = androidx.compose.ui.platform.LocalConfiguration.current.locales[0]
+                        val timestamp = MessageTimelineMetadata.botTime(message.id)
+                        val priorTime = bot.messages.getOrNull(index-1)?.id?.let(MessageTimelineMetadata::botTime)
+                        val time = timestamp?.takeIf { MessageTimelineMetadata.showTime(it, priorTime) }?.let { MessageTimelineMetadata.label(it, locale) }
+                        val status = when {
+                            outgoing && message.status == "unconfirmed" -> stringResource(R.string.ui_c654d70db3ac)
+                            outgoing && message.status == "rejected" -> stringResource(R.string.ui_e28ba924e405)
+                            outgoing -> stringResource(R.string.delivery_sent)
+                            else -> null
+                        }
+                        val metadata = listOfNotNull(time, status.takeIf { outgoing && message.status in setOf("unconfirmed", "rejected") }).joinToString(" · ")
+                        val accessible = listOfNotNull(timestamp?.let { MessageTimelineMetadata.exactTime(it, locale) }, status).joinToString(" · ")
+                        if (translation != null && audio != null) FullMessageBubble(message.text, message.id, translation, gestures, audio,
+                            accessibilityContext = accessible) {
+                            if (metadata.isNotEmpty()) Text(metadata, style = MaterialTheme.typography.bodySmall,
+                                modifier = Modifier.testTag("message-meta-${message.id}").clearAndSetSemantics { })
                         }
                         }
                         if (!outgoing) Spacer(Modifier.width(38.dp))

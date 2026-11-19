@@ -117,12 +117,13 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         layoutParams = android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
             android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
     }
-    fun bind(displayed: String, original: String, variants: List<String>, color: Int) {
+    fun bind(displayed: String, original: String, variants: List<String>, color: Int, accessibilityContext: String? = null) {
         rawOriginal = original
         val next = variants.distinct()
         if (faces != next) { faces = next; requestLayout() }
         setTextColor(color)
-        if (text.toString() != displayed) { text = displayed; contentDescription = displayed; requestLayout() }
+        if (text.toString() != displayed) { text = displayed; requestLayout() }
+        contentDescription = listOfNotNull(displayed, accessibilityContext?.takeIf { it.isNotBlank() }).joinToString(". ")
     }
     // The enclosing Compose surface owns all pointer arbitration, including
     // blank background. Native accessibility actions remain available.
@@ -166,7 +167,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
 }
 
 @Composable internal fun FullMessageBubble(text: String, id: String, translation: ConversationTranslation,
-    gestures: FullMessageGestures, audio: ConversationAutoplay,
+    gestures: FullMessageGestures, audio: ConversationAutoplay, accessibilityContext: String? = null,
     metadata: @Composable () -> Unit) {
     val speech = audio.speech
     val state = translation.state(id, text)
@@ -207,7 +208,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             view.reveal = { gestures.interacted(); gestures.accessibilityMeaning = true }
             view.practice = { gestures.accessibilityMeaning = false; gestures.held = false }
             view.script = if (alternateReading) ({ gestures.toggleScript() }) else null
-            view.bind(displayed, text, faces, ink)
+            view.bind(displayed, text, faces, ink, accessibilityContext)
         })
         if (value == null) {
             if (state?.phase == MessageTranslationPhase.FAILED) {

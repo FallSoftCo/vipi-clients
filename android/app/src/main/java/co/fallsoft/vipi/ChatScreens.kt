@@ -6,6 +6,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -24,6 +25,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
@@ -466,15 +468,23 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                         }
                     }
                 }
-                items(messages, key = { it.id }) { item ->
+                itemsIndexed(messages, key = { _, item -> item.id }) { index, item ->
                     ConversationTranscriptItem {
                         Row(Modifier.fillMaxWidth(), horizontalArrangement = if (item.outgoing) Arrangement.End else Arrangement.Start) {
                             if (item.outgoing) Spacer(Modifier.width(38.dp))
                             Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).background(if (item.outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(18.dp)), verticalArrangement = Arrangement.spacedBy(7.dp)) {
-                                val time = remember(item.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(item.createdAt)) }
-                                if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio) {
-                                Text(time + if (item.outgoing) " · " + deliveryLabel(item.state) else "", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier.testTag("message-meta-${item.id}"))
+                                val locale = androidx.compose.ui.platform.LocalConfiguration.current.locales[0]
+                                val status = deliveryLabel(item.state)
+                                val time = if (MessageTimelineMetadata.showTime(item.createdAt, messages.getOrNull(index-1)?.createdAt))
+                                    MessageTimelineMetadata.label(item.createdAt, locale) else null
+                                val showStatus = MessageTimelineMetadata.showDelivery(item.outgoing, item.state,
+                                    item.id == messages.lastOrNull { it.outgoing }?.id)
+                                val metadata = listOfNotNull(time, status.takeIf { showStatus }).joinToString(" · ")
+                                val accessible = MessageTimelineMetadata.exactTime(item.createdAt, locale) + " · " + status
+                                if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio,
+                                    accessibilityContext = accessible) {
+                                    if (metadata.isNotEmpty()) Text(metadata, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.testTag("message-meta-${item.id}").clearAndSetSemantics { })
                                 }
                             }
                             if (!item.outgoing) Spacer(Modifier.width(38.dp))
