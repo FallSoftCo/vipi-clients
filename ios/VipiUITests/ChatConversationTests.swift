@@ -2525,7 +2525,7 @@ final class ChatConversationTests: XCTestCase {
                     XCTAssertTrue(notices.waitForExistence(timeout:10))
                     let sourceLink = app.descendants(matching:.any).matching(identifier:"vipi-source-releases").firstMatch
                     XCTAssertTrue(sourceLink.waitForExistence(timeout:10))
-                    XCTAssertEqual(sourceLink.label,"https://github.com/FallSoftCo/vipi-clients/releases")
+                    XCTAssertEqual(sourceLink.label,"Vipi source code")
                     let list = app.collectionViews.firstMatch
                     func revealNotice(_ target:XCUIElement) throws {
                         for _ in 0..<8 {

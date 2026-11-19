@@ -21,7 +21,7 @@ struct NoticesView: View {
             Section {
                 Text("Vipi is made with open-source software and the native services listed here. Each component retains its own license.")
                 Link(destination:URL(string:"https://github.com/FallSoftCo/vipi-clients/releases")!) {
-                    Text(verbatim:"https://github.com/FallSoftCo/vipi-clients/releases")
+                    Text("Vipi source code")
                 }.accessibilityIdentifier("vipi-source-releases")
             }
             if entries.isEmpty { Text("Notices could not be opened. Please reopen Vipi.") }
