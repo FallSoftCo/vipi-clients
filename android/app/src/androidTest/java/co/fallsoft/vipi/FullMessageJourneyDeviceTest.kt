@@ -305,7 +305,8 @@ class FullMessageJourneyDeviceTest {
      * isolate layout; these methods make no SDK quality or provider claims. */
     @Test fun actualFriendOversizedDraftAndCompactTypingRetainExactEditableText() = draftBoundaryAtRoot(false)
     @Test fun actualBotOversizedDraftAndCompactTypingRetainExactEditableText() = draftBoundaryAtRoot(true)
-    private fun draftBoundaryAtRoot(bot: Boolean) {
+    @Test fun actualComposerNativePasteClockAndSavedText() = draftBoundaryAtRoot(false, menuOnly = true)
+    private fun draftBoundaryAtRoot(bot: Boolean, menuOnly:Boolean = false) {
         val services = JourneyServices(profileRequired=false, seedBotMessages=if (bot) 20 else 0, expectedFriendPosts=if (bot) 0 else 1, translationFactory={
             object : LanguageTranslation {
                 override suspend fun prepare(source:String,target:String,cellularAllowed:Boolean) = Unit
@@ -350,7 +351,12 @@ class FullMessageJourneyDeviceTest {
                 f.capture(file+"-before-tap")
                 val button = owner()
                 assertEquals("Do not tap a moving native toolbar",before,button.visibleBounds)
-                button.click()
+                val stamp = SystemClock.uptimeMillis()
+                assertTrue(pointer(f,MotionEvent.ACTION_DOWN,before.exactCenterX(),before.exactCenterY(),stamp))
+                assertTrue(pointer(f,MotionEvent.ACTION_UP,before.exactCenterX(),before.exactCenterY(),stamp))
+                // Native callback can update Compose state only after its test
+                // frame scheduler is allowed to run; this does not set text.
+                compose.waitForIdle()
             }
             fun pasteThroughNativeMenu(value:String) {
                 compose.onNodeWithTag(input).assertIsDisplayed()
@@ -365,7 +371,26 @@ class FullMessageJourneyDeviceTest {
                     clipboard.setPrimaryClip(clip)
                 }
                 val focused = f.device.findObjects(androidx.test.uiautomator.By.clazz("android.widget.EditText").pkg(f.base.packageName).focused(true))
-                assertEquals(1,focused.size); focused.single().longClick()
+                assertEquals(1,focused.size)
+                val bounds = focused.single().visibleBounds
+                val began = SystemClock.uptimeMillis(); val clockBefore = compose.mainClock.currentTime
+                val selector = androidx.test.uiautomator.By.res("android","floating_toolbar_menu_item_text").text(f.base.getString(android.R.string.paste)).pkg(f.base.packageName)
+                assertTrue(pointer(f,MotionEvent.ACTION_DOWN,bounds.exactCenterX(),bounds.exactCenterY(),began))
+                var beforeAdvance = false; var heldWall = 0L; var clockAtWallBoundary = 0L
+                try {
+                    if (menuOnly) {
+                        SystemClock.sleep(android.view.ViewConfiguration.getLongPressTimeout()*3L/2)
+                        heldWall = SystemClock.uptimeMillis()-began; clockAtWallBoundary = compose.mainClock.currentTime
+                        beforeAdvance = f.device.hasObject(selector)
+                    }
+                    // Same physical DOWN -> advancing wait -> UP mechanism as
+                    // the retained actual native message-hold qualification.
+                    compose.waitUntil(5_000) { f.device.hasObject(selector) }
+                } finally { assertTrue(pointer(f,MotionEvent.ACTION_UP,bounds.exactCenterX(),bounds.exactCenterY(),began)) }
+                File(f.output,"native-hold-clock-"+pasteIndex+".json").writeText(JSONObject().put("auto_advance",compose.mainClock.autoAdvance)
+                    .put("test_clock_before",clockBefore).put("test_clock_after_wall_hold",if (menuOnly) clockAtWallBoundary else JSONObject.NULL).put("wall_hold_ms",if (menuOnly) heldWall else JSONObject.NULL)
+                    .put("menu_visible_before_frame_advance",if (menuOnly) beforeAdvance else JSONObject.NULL)
+                    .put("test_clock_after_menu",compose.mainClock.currentTime).put("field_bounds",bounds.toShortString()).toString(2))
                 if (priorText.isNotEmpty()) {
                     tapNativeEditAction(f.base.getString(android.R.string.selectAll))
                     compose.waitUntil(5_000) { nativeEditor()?.let { it.textSelectionStart == 0 && it.textSelectionEnd == priorText.length } == true }
@@ -395,6 +420,15 @@ class FullMessageJourneyDeviceTest {
                     screen(f,Screen.NEW_CHAT)
                     compose.onNode(hasSetTextAction()).performScrollTo().performTextInput("journey_friend")
                     compose.onNode(hasSetTextAction()).performImeAction(); screen(f,Screen.CONVERSATION)
+                }
+                if (menuOnly) {
+                    val value = "Native paste café ☕."
+                    pasteThroughNativeMenu(value); assertNativeEditor(value,"short-native-clock-probe")
+                    compose.onNodeWithTag(input).assertTextEquals(value)
+                    assertEquals(value,requireNotNull(f.model.chat).compose(services.peer))
+                    assertEquals(0,services.friendPosts.get()); assertEquals(0,services.botPosts.get())
+                    f.capture("native-menu-clock-paste-and-encrypted-draft")
+                    return@use
                 }
                 val pasted = "界".repeat(if (bot) 2_731 else 10_923)
                 pasteThroughNativeMenu(pasted)
