@@ -64,17 +64,25 @@ struct SecurityNumberView: View {
                             .font(.system(.title3, design: .monospaced)).lineSpacing(12)
                             .padding(20).frame(maxWidth: .infinity).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
                             .environment(\.layoutDirection, .leftToRight).textSelection(.enabled)
+                            .accessibilityLabel("Security number")
+                            .accessibilityValue(candidate.number.digits.map(String.init).joined(separator: ", "))
                             .accessibilityIdentifier("new-security-number")
                         Text("Accepting lets new messages use these keys. It does not mark them as verified. Saved history remains; waiting messages won’t be redirected or resent.")
                             .font(.body).foregroundStyle(VipiDesign.secondary)
-                        Button("Accept these keys to continue") { confirmChange = true }
+                        Button { confirmChange = true } label: {
+                            Text("Accept these keys to continue").frame(minHeight: 44).contentShape(Rectangle())
+                        }
                             .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).disabled(checking)
                             .accessibilityIdentifier("peer-identity-accept")
-                        Button("Keep current keys") { self.candidate = nil }.disabled(checking)
+                        Button { self.candidate = nil } label: {
+                            Text("Keep current keys").frame(minHeight: 44).contentShape(Rectangle())
+                        }.disabled(checking)
                     } else if loading { ProgressView("Opening encryption details") }
                     else if failed {
                         Text("Encryption details couldn’t be opened. Your verification hasn’t changed.")
-                        Button("Try again", action: load)
+                        Button(action: load) {
+                            Text("Try again").frame(minHeight: 44).contentShape(Rectangle())
+                        }
                     } else if let number {
                         Text("Compare all 12 groups with \(chat.name(peer)) in person or over a trusted call to confirm your encryption keys match.")
                             .foregroundStyle(VipiDesign.secondary)
@@ -89,10 +97,14 @@ struct SecurityNumberView: View {
                         if number.verified {
                             Label("You verified these keys", systemImage: "checkmark.shield")
                                 .accessibilityIdentifier("identity-verified")
-                            Button("Clear verification") { change(number) }.accessibilityIdentifier("identity-clear")
+                            Button { change(number) } label: {
+                                Text("Clear verification").frame(minHeight: 44).contentShape(Rectangle())
+                            }.accessibilityIdentifier("identity-clear")
                         } else {
                             Text("Not yet compared").font(.subheadline).foregroundStyle(VipiDesign.secondary)
-                            Button("I compared all 12 groups") { change(number) }
+                            Button { change(number) } label: {
+                                Text("I compared all 12 groups").frame(minHeight: 44).contentShape(Rectangle())
+                            }
                                 .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).accessibilityIdentifier("identity-verify")
                         }
                         Text("If any group differs, don’t mark it as verified. A new phone or reinstalled app can change these numbers.")
@@ -103,13 +115,15 @@ struct SecurityNumberView: View {
                             .foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("identity-not-established")
                     }
                     if candidate == nil, number != nil, chat.ready {
-                        Button("Check for changed keys", action: review).disabled(checking)
+                        Button(action: review) {
+                            Text("Check for changed keys").frame(minHeight: 44).contentShape(Rectangle())
+                        }.disabled(checking)
                             .accessibilityIdentifier("identity-check-current")
                     }
                     if checking { ProgressView("Checking current keys") }
                     if let reviewNotice { Text(reviewNotice).font(.body).accessibilityIdentifier("identity-review-notice") }
                 }.padding(24).frame(maxWidth: 560).frame(maxWidth: .infinity)
-            }.background(VipiDesign.canvas)
+            }.background(VipiDesign.canvas).accessibilityIdentifier("security-content")
                 .navigationTitle("Security number").navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
         }.tint(VipiDesign.highlight).task { load() }

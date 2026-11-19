@@ -37,9 +37,7 @@ struct HistoryBackupView: View {
     var body: some View {
         Form {
             Section {
-                Text("Save your friend chat history in an encrypted file, wherever you choose to keep it.")
-                Text("Your messaging identity and unsent messages stay on this device. vBot history is not included.")
-                    .font(.body).foregroundStyle(VipiDesign.secondary)
+                Text("Back up chats with friends in an encrypted file.")
             }
             Section {
                 if dynamicTypeSize.isAccessibilitySize {
@@ -106,6 +104,10 @@ struct HistoryBackupView: View {
             }
             if let notice { Section { Text(notice).accessibilityIdentifier("history-notice") } }
             Section {
+                Text("Save your friend chat history in an encrypted file, wherever you choose to keep it.")
+                    .font(.body).foregroundStyle(VipiDesign.secondary)
+                Text("Your messaging identity and unsent messages stay on this device. vBot history is not included.")
+                    .font(.body).foregroundStyle(VipiDesign.secondary)
                 Text("You can read, back up and restore your saved history even after a subscription ends.")
                     .font(.body).foregroundStyle(VipiDesign.secondary)
             }

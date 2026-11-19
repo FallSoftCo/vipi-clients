@@ -41002,6 +41002,172 @@
           }
         }
       }
+    },
+    "Bot mini is optional. Each plan is billed separately.": {
+      "comment": "Concise iOS summary only; Android dynamic benefit already states optional/separate billing, annual-price strings unchanged.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bot mini is optional. Each plan is billed separately."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini اختياري. تتم فوترة كل خطة بشكل منفصل."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini ist optional. Jeder Tarif wird separat abgerechnet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini es opcional. Cada plan se factura por separado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini est facultatif. Chaque formule est facturée séparément."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini è facoltativo. Ogni piano viene fatturato separatamente."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini は任意です。各プランは個別に請求されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini는 선택 사항입니다. 각 요금제는 별도로 청구됩니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O Bot mini é opcional. Cada plano é cobrado separadamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O Bot mini é opcional. Cada plano é cobrado separadamente."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini ni ya hiari. Kila mpango hutozwa kando."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini 为可选服务。各方案单独计费。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini 為選用服務。各方案分開計費。"
+          }
+        }
+      }
+    },
+    "Back up chats with friends in an encrypted file.": {
+      "comment": "Explicit friend-chat-only brief intent before form; lower full location/exclusions preserved, warning adjacent before Create.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back up chats with friends in an encrypted file."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "احتفظ بنسخة احتياطية من محادثاتك مع الأصدقاء في ملف مشفّر."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sichere Chats mit Freunden in einer verschlüsselten Datei."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Guarda una copia de tus chats con amigos en un archivo cifrado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sauvegardez vos discussions avec vos amis dans un fichier chiffré."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Salva una copia delle chat con gli amici in un file crittografato."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "友だちとのチャットを暗号化されたファイルにバックアップします。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "친구와의 채팅을 암호화된 파일로 백업하세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Faça backup das conversas com amigos em um arquivo criptografado."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Faça uma cópia das conversas com amigos num ficheiro encriptado."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hifadhi nakala ya mazungumzo na marafiki katika faili lililosimbwa kwa njia fiche."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "将与好友的聊天记录备份到加密文件。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "將與好友的聊天記錄備份到加密檔案。"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

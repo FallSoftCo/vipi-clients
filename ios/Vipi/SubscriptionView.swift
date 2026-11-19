@@ -187,7 +187,7 @@ struct SubscriptionsView: View {
                     if store.snapshot?.base.isReviewAccess == true && store.snapshot?.bot_mini.isReviewAccess == true {
                         Text("Review access is active. No subscription is required for this account.")
                     } else {
-                        Text("Vipi and Bot mini are separate subscriptions. You choose each one explicitly.")
+                        Text("Bot mini is optional. Each plan is billed separately.")
                     }
                 }.font(.body).foregroundStyle(VipiDesign.secondary)
             }

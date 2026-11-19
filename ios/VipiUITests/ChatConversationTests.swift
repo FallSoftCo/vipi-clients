@@ -895,8 +895,35 @@ final class ChatConversationTests: XCTestCase {
         let begin = app.buttons["history-begin"], passwordError = app.staticTexts["history-password-error"]
         let mismatch = app.staticTexts["history-password-confirm-error"]
         func reveal(_ element:XCUIElement,up:Bool) {
-            for _ in 0..<6 { if element.isHittable { break }; if up { app.swipeUp() } else { app.swipeDown() } }
+            let bar = app.navigationBars["Chat backup"]
+            func viewport() -> CGRect {
+                let keyboard = app.keyboards.firstMatch
+                let bottom = keyboard.exists ? min(app.frame.maxY-24,keyboard.frame.minY-8) : app.frame.maxY-24
+                return CGRect(x:app.frame.minX,y:bar.frame.maxY+8,width:app.frame.width,
+                              height:max(0,bottom-bar.frame.maxY-8))
+            }
+            for _ in 0..<24 {
+                let visible = viewport()
+                XCTAssertGreaterThan(visible.height,100)
+                var towardBottom = up
+                var distance = visible.height * 0.45
+                if element.exists {
+                    let frame = element.frame
+                    if element.isHittable && visible.contains(frame) { break }
+                    towardBottom = frame.midY > visible.midY
+                    let overflow = towardBottom ? frame.maxY-visible.maxY : visible.minY-frame.minY
+                    distance = min(distance,max(36,overflow+16))
+                }
+                // Hittability can include a partly occluded row whose center
+                // is under the navigation bar. Put the entire target between
+                // the real bar and keyboard before tapping it.
+                let direction:CGFloat = towardBottom ? 1 : -1
+                let origin = app.coordinate(withNormalizedOffset:.zero)
+                origin.withOffset(CGVector(dx:visible.midX-app.frame.minX,dy:visible.midY+direction*distance/2-app.frame.minY))
+                    .press(forDuration:0.05,thenDragTo:origin.withOffset(CGVector(dx:visible.midX-app.frame.minX,dy:visible.midY-direction*distance/2-app.frame.minY)),withVelocity:.slow,thenHoldForDuration:0)
+            }
             XCTAssertTrue(element.isHittable)
+            XCTAssertTrue(viewport().contains(element.frame),"Backup controls must be fully visible above the keyboard and below the navigation bar")
         }
         func capture(_ phase:String) {
             let image = XCTAttachment(screenshot:app.screenshot()); image.name = "backup-validation-"+phase; image.lifetime = .keepAlways; add(image)
@@ -1499,7 +1526,7 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertEqual(evidence()["texts"] as? [String],baseline)
         }
         func reveal(_ element:XCUIElement) {
-            let scroll = app.scrollViews.firstMatch, bar = app.navigationBars["Security number"]
+            let scroll = app.scrollViews["security-content"], bar = app.navigationBars["Security number"]
             XCTAssertTrue(scroll.waitForExistence(timeout:10))
             for _ in 0..<24 {
                 guard element.exists else { scroll.swipeUp(); continue }
@@ -1510,6 +1537,8 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(element.isHittable)
             XCTAssertGreaterThanOrEqual(element.frame.minY,bar.frame.maxY)
             XCTAssertLessThanOrEqual(element.frame.maxY,app.frame.maxY-24)
+            XCTAssertGreaterThanOrEqual(element.frame.height,44,"Security actions need a full native touch target")
+            XCTAssertGreaterThanOrEqual(element.frame.width,44)
         }
         func open() {
             app.buttons["conversation-options"].tap(); app.buttons["Verify encryption"].tap()
