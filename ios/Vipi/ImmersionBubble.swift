@@ -291,10 +291,10 @@ struct ImmersionBubble: View {
     }
     private func play(start: Bool) -> Bool {
         guard scenePhase == .active, let speech else { return false }
-        if speech.state == .unavailable { onVoiceHelp?(); return true }
-        guard speech.state != .preparing else { return false }
         let span = incremental ? result.spans.map{(text:$0.translated,language:targetLanguage)} : [(text:practice,language:targetLanguage)]
         guard !span.isEmpty else { return true }
+        if speech.state == .unavailable { onVoiceHelp?(); return true }
+        guard speech.state != .preparing else { return false }
         if start { speech.start(message:messageID,spans:span) } else { speech.toggle(message:messageID,spans:span) }
         return true
     }
@@ -447,12 +447,12 @@ struct ImmersionBubble: View {
             }
             guard let value = await immersion.translatedMessage(for:identity),!Task.isCancelled,
                   active == epoch,selected == manualEpoch else { return }
+            guard !value.practiceSpeech.isEmpty else { return }
             while speech.state == .preparing {
                 guard !Task.isCancelled,active == epoch,selected == manualEpoch else { return }
                 do { try await Task.sleep(for:.milliseconds(30)) } catch { return }
             }
             guard speech.state != .unavailable else { onVoiceHelp(); return }
-            guard !value.practiceSpeech.isEmpty else { return }
             speech.start(message:identity.messageID,spans:value.practiceSpeech.map{($0.text,$0.language)})
             let serial = speech.playbackSerial
             while speech.activeMessage == identity.messageID {
@@ -478,6 +478,10 @@ struct ImmersionBubble: View {
                 guard !Task.isCancelled,epoch == active else { return }
                 if consumed.contains(next.id) { if queue.first?.id == next.id { queue.removeFirst() }; continue }
                 guard let value else { if queue.first?.id == next.id { queue.removeFirst() }; continue }
+                guard !value.practiceSpeech.isEmpty else {
+                    if queue.first?.id == next.id { queue.removeFirst() }
+                    continue
+                }
                 while manualTask != nil || speech.state == .preparing || speech.activeMessage != nil {
                     guard !Task.isCancelled,epoch == active else { return }
                     do { try await Task.sleep(for:.milliseconds(30)) } catch { return }
@@ -485,7 +489,6 @@ struct ImmersionBubble: View {
                 guard !Task.isCancelled,epoch == active else { return }
                 if consumed.contains(next.id) { if queue.first?.id == next.id { queue.removeFirst() }; continue }
                 if speech.state == .unavailable { missingVoice(speech); return }
-                guard !value.practiceSpeech.isEmpty else { continue }
                 speech.start(message:next.id,spans:value.practiceSpeech.map{($0.text,$0.language)},autoplay:true)
                 let serial = speech.playbackSerial
                 while speech.activeMessage == next.id {

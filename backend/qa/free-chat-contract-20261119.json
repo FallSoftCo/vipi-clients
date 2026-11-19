@@ -1,0 +1,40 @@
+{
+  "at": "2026-11-19T22:41:26.852910+00:00",
+  "source": "46c121f4",
+  "scope": "Synthetic local SQLiteonly; no credentials/store/prod/provideractions",
+  "runs": [
+    {
+      "original": 68276,
+      "passed": 36,
+      "failed": 1,
+      "reason": "obsolete deployment requirespayment expectation"
+    },
+    {
+      "original": 42833,
+      "passed": 45,
+      "failed": 1,
+      "reason": "obsolete rejoin trial snapshotexpectation"
+    },
+    {
+      "original": 3869,
+      "passed": 46,
+      "failed": 0,
+      "seconds": 21.17
+    }
+  ],
+  "capability_claim": "No translation/transliteration/TTS qualification",
+  "retired_synthetic_db_dirs": [
+    {
+      "path": "qa-free-chat-r01",
+      "bytes": 2928640
+    },
+    {
+      "path": "qa-free-chat-r02",
+      "bytes": 5779456
+    },
+    {
+      "path": "qa-free-chat-r03",
+      "bytes": 5779456
+    }
+  ]
+}
