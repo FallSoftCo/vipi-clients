@@ -145,10 +145,12 @@ source freeze and release correspondence.
 Actual iOS-on-Mac provider execution completed all 44 selected translation calls,
 including 40 Swahili-direction calls through the existing ML Kit path. Semantic
 review found material errors involving names, times and ordinary meaning. This
-small, repeated corpus is not a population accuracy estimate. The choice of
-launching Swahili with an explicit quality note or holding for a better onboard
-translator is awaiting the user's answer. Language availability and policy are
-unchanged while independent release preparation continues.
+small, repeated corpus is not a population accuracy estimate. The user's existing
+directions require Swahili and onboard APIs, so language availability remains
+unchanged. The saved store descriptions and public pages explicitly state that
+translations can be wrong. The assistant's additional launch-preference question
+does not create a new permission requirement; the release still awaits the
+user-required completion of the interaction work.
 
 ## Historical delivery checkpoint — November 17 to early November 18
 
