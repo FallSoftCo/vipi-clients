@@ -1989,7 +1989,10 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(app.descendants(matching:.any).matching(identifier:"message-input").firstMatch.waitForExistence(timeout:10))
             let opened = observe("invitation-explicit-find-opens-real-conversation") { $0["friend_username_lookups"] as? Int == 1 && ($0["texts"] as? [String])?.isEmpty == true }
             XCTAssertEqual(opened["purchase_ready"] as? Bool,false); XCTAssertEqual(opened["unexpected"] as? Int,0)
-            capture("invitation-real-conversation-without-send")
+            let invitationImage = XCTAttachment(screenshot: app.screenshot())
+            invitationImage.name = "invitation-real-conversation-without-send"
+            invitationImage.lifetime = .keepAlways
+            add(invitationImage)
             return
         }
         if largest {
