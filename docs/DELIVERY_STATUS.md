@@ -1,6 +1,6 @@
 # Current delivery status
 
-Updated November 18, 2026. **Both store reviews are withdrawn and neither new
+Updated November 19, 2026. **Both store reviews are withdrawn and neither new
 app is released.** Full-message immersion is still being qualified. Do not
 resubmit or release until that work is complete. Completed uploads, withdrawals,
 auth exchanges and Bot requests must not be replayed.
@@ -17,7 +17,7 @@ auth exchanges and Bot requests must not be replayed.
 
 ## Current implementation and qualification
 
-Every sent and received message uses full local translation. The default reading
+Every sent and received message requests full local translation. The default reading
 uses transliteration; tapping plays practice-language audio, holding reveals the
 meaning in the known language, and double-tapping changes script. The authored
 message remains separate from its translated display. The older word-switching
@@ -55,6 +55,15 @@ A focused native Android accessibility check also passed for the first-use cue:
 it exposes the available action names rather than physical double-tap instructions.
 This verifies the native accessibility tree, not an actual TalkBack session.
 
+The new production Android APK is version 9 / 1.0.8, signed with the existing
+upload identity. Its signature, release configuration, all four native ABIs,
+16 KiB alignment and all 419 product assets passed static checks. The build
+controller exceeded its disk budget after emitting the complete APK; that
+failure remains recorded. Independent verification qualified the emitted file
+without rebuilding it. Production runtime checks and the AAB are still pending.
+The user's phone was inspected through Termux SSH and is confirmed to retain
+the exact older signed version 8 APK; no update was installed in this continuation.
+
 iOS normal and maximum-text chat layout checks and the targeted owner, cache
 and playback tests passed. The Japanese assertion was corrected to accept valid
 native readings and then passed. A later Settings run verified actual system
@@ -72,10 +81,15 @@ or skips, with unfiltered native audits. It used the same compiled app and tests
 verified the actual maximum system category, and restored the simulator state.
 Image inspection then found a qualification gap: the largest-text footer was
 readable before the audit, but the immediate post-audit capture had an empty
-Settings body beneath its painted header. The
-test did not verify visual recovery, so its passing result does not establish
-the complete flow. The cause and recovery remain unverified; the ordinary-size
-flow and earlier live-size audit findings also need their own conclusions.
+Settings body beneath its painted header. The test did not verify visual
+recovery. A further strict run reproduced the empty body after the native audit:
+the retained scroll offset exceeded the reduced content height. This has not
+yet been reproduced through ordinary user interaction. The normal-size run also
+failed a test geometry check before OCR ran; its target-window geometry check
+has since been corrected. Original audit failures remain open. Separate normal
+and maximum-size interaction tests now exercise invitation cancellation,
+Licenses navigation and a real maximum-to-normal system text-size change, with
+audits explicitly not run in that selection. These tests are in progress.
 Twenty-four focused iOS checks now pass for reading status, encrypted-cache
 migration, cancellation of a pending refresh when its message is deleted,
 native Arabic transliteration and Copy-related playback cancellation. The test
@@ -87,9 +101,14 @@ not retained, so exact pre-run preference equality cannot be established. The
 passing tests were not repeated. These tests do not qualify the conditional
 reading-failure UI or the actual Copy menu interaction. Touch Copy original is
 integrated in the iOS candidate source; its new native interaction tests remain
-unexecuted. A further source review identified misleading screen-reader gesture
-instructions and a first-use cue dismissed by composer focus; focused corrections
-and native interaction checks are in progress.
+unexecuted. Misleading screen-reader gesture instructions and a first-use cue
+dismissed by composer focus have been corrected in source. The combined iOS
+candidate now builds successfully, including the focused cue, reading-feedback,
+Settings and Copy tests. A compiler error in the preceding build was an API
+rename in test diagnostics; its original failure is retained. Native interaction
+qualification remains in progress. The Mac and local workstation are muted at
+the user's request; playback routing or waveform evidence does not establish
+acoustic listening quality.
 Neither platform has
 a fresh qualified signed release of the full-message design, and the user's
 requested phone delivery is pending that qualification.
