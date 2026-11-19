@@ -58,6 +58,42 @@ import VipiCore
         XCTAssertGreaterThan(results[0]["dark_text_pixels"] as? Int ?? 0, 100, "A retained draft must actually render its text")
     }
 
+    func testNativeDraftEditingKeepsMixedScriptCompositionAndRejectsAnOversizedReplacement() async throws {
+        let scene = try XCTUnwrap(UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.first)
+        let previous = scene.windows.first { $0.isKeyWindow }, window = UIWindow(windowScene: scene)
+        window.frame = scene.coordinateSpace.bounds
+        let host = UIViewController(); window.rootViewController = host; window.makeKeyAndVisible()
+        defer { window.rootViewController = nil; window.isHidden = true; previous?.makeKeyAndVisible() }
+        var draft = "", rejected = 0
+        let wrapper = MessageEditor(text: Binding(get: { draft }, set: { draft = $0 }), placeholder: "Message",
+            focus: .constant(false), maximumBytes: 128 * 1024, rejected: { rejected += 1 })
+        let coordinator = wrapper.makeCoordinator(), editor = DraftTextView.messageEditor()
+        editor.delegate = coordinator; editor.font = .systemFont(ofSize: 24)
+        editor.frame = CGRect(x: 20, y: 140, width: 320, height: 150)
+        host.view.addSubview(editor); editor.becomeFirstResponder()
+        let initial = "Coffee غدًا مع ليلى — café 👩🏽‍💻 "
+        editor.insertText(initial)
+        XCTAssertEqual(draft, initial); XCTAssertEqual(editor.text, initial)
+        editor.setMarkedText("にほん", selectedRange: NSRange(location: 3, length: 0))
+        XCTAssertNotNil(editor.markedTextRange)
+        editor.setMarkedText("日本", selectedRange: NSRange(location: 2, length: 0)); editor.unmarkText()
+        XCTAssertNil(editor.markedTextRange); XCTAssertEqual(editor.text, initial + "日本")
+        let range = (editor.text as NSString).range(of: "غدًا")
+        let start = try XCTUnwrap(editor.position(from: editor.beginningOfDocument, offset: range.location))
+        let end = try XCTUnwrap(editor.position(from: start, offset: range.length))
+        editor.selectedTextRange = editor.textRange(from: start, to: end); editor.insertText("اليوم")
+        let expected = initial.replacingOccurrences(of: "غدًا", with: "اليوم") + "日本"
+        XCTAssertEqual(editor.text, expected); XCTAssertEqual(draft, expected)
+        editor.selectAll(nil)
+        let beforeSelection = editor.selectedRange
+        editor.insertText(String(repeating: "a", count: 128 * 1024 + 1))
+        XCTAssertEqual(rejected, 1); XCTAssertEqual(editor.text, expected); XCTAssertEqual(draft, expected)
+        XCTAssertEqual(editor.selectedRange, beforeSelection)
+        let image = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        image.name = "native-mixed-script-marked-text-and-rejected-replacement"; image.lifetime = .keepAlways; add(image)
+        editor.resignFirstResponder()
+    }
+
     func testLatinMessageKeepsTimeAndPlaybackWithoutAdvertisingAnUnavailableScript() async throws {
         let suite = "latin-message-accessibility-" + UUID().uuidString
         let defaults = try XCTUnwrap(UserDefaults(suiteName:suite))
