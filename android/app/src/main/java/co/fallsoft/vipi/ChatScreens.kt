@@ -409,7 +409,10 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                         if (value.toByteArray(Charsets.UTF_8).size > ConversationHistory.MAX_DRAFT_BYTES) {
                             rejectedDraftEdit = true; return@OutlinedTextField
                         }
-                        rejectedDraftEdit = false
+                        // Selection/restoration can echo the unchanged value
+                        // after a rejected paste. Keep its reason until an
+                        // accepted content change actually replaces that draft.
+                        if (value != text) rejectedDraftEdit = false
                         text = value
                         try { chat.saveCompose(value, peer) }
                         catch (_: Exception) { error = context.getString(R.string.chat_draft_save_failed) }

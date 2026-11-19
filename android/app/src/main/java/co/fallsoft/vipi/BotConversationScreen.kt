@@ -232,7 +232,7 @@ import java.time.format.FormatStyle
                 draft = bot.draft, onDraft = { value ->
                     if (value.toByteArray(Charsets.UTF_8).size > ConversationHistory.MAX_DRAFT_BYTES) rejectedDraftEdit = true
                     else {
-                        rejectedDraftEdit = false
+                        if (value != bot.draft) rejectedDraftEdit = false
                         runCatching { bot.saveDraft(value); localError = null }
                             .onFailure { localError = context.getString(R.string.bot_draft_save_failed) }
                     }
