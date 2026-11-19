@@ -9,6 +9,7 @@ struct GroupMutationPlan: Codable {
     let fields: [String: String]
     let previous: GroupApprovedRoster?
     func transition(actor: UUID) throws -> GroupRosterTransition? {
+        guard group.epoch < Int.max, previous?.revision != Int.max else { throw GroupsFailure.invalidResponse }
         if suffix == "/leave", let previous {
             return .init(actor_id: actor, action: .leave, target_id: actor, from_revision: previous.revision, to_revision: previous.revision + 1, server_epoch: group.epoch + 1, previous_members: previous.members, members: previous.members.filter { $0.user_id != actor })
         }
@@ -27,4 +28,10 @@ struct GroupMutationPlan: Codable {
         }
         return GroupRosterTransition(actor_id: actor, action: action, target_id: target, from_revision: previous.revision, to_revision: previous.revision + 1, server_epoch: group.epoch + 1, previous_members: previous.members, members: people, role: role)
     }
+}
+
+struct GroupJoinApprovalPlan: Codable {
+    let id: UUID
+    let group: GroupSnapshot
+    let change: GroupRosterTransition
 }

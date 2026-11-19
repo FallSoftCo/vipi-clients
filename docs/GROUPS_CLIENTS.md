@@ -20,13 +20,27 @@ subscription or payment API is introduced.
 A relay snapshot cannot authorize a recipient. Creator-only genesis is seeded
 from the known local create intent. All other membership changes require a
 pinned existing Signal identity, exact previous roster/revision and a valid
-single-member/role delta. Fresh text uses only the latest authenticated revision.
+single-member/role delta. Role/remove/leave submit the intended encrypted control
+and exact roster mutation in one atomic HTTP request. Own approval advances only
+after that request returns its durable admission receipt. That receipt is relay
+transaction status, not cryptographic membership proof; the locally authored
+control remains the intended authority and returned roster must match it.
+Fresh text uses only the latest authenticated revision.
 A server roster mismatch or pending mutation freezes sends. First-join trust is
 an explicit confirmation of the decrypted full roster and pinned inviter.
-Newly arriving old-revision text is rejected after a removal; exact already
-committed envelope replay remains idempotent. Missing controls are retained and
-valid consecutive controls drain atomically. A returning control ID with altered
-content conflicts. Local owner departure requires prior ownership transfer;
+Newly arriving old-revision text is withheld after a removal; exact already
+committed envelope replay remains idempotent. Unknown/changed identities hold
+immutable ciphertext until explicit encryption review. Pinned decrypted text
+whose revision is not approved commits Signal state, secure withheld content,
+context fingerprint and receipt together; it never enters normal text,
+translation, autoplay or unread until authorized. Future-revision text can
+promote after approval. Earlier-revision text offers a clear ask-to-resend draft.
+Recovery admission is bounded to1024 records/32MiB per account and128/8MiB per
+group using actual encoded sizes; existing holds are never silently evicted.
+Held first-seen time preserves originally timely recovery after relay expiry. Missing controls are retained and
+valid consecutive controls drain atomically. Equivalent historical controls can
+be recognized without rewinding the roster, and conflicting authenticated rosters
+freeze fresh data. A returning control ID with altered content conflicts. Local owner departure requires prior ownership transfer;
 automatic relay succession is not accepted as cryptographic authority.
 
 The relay can see names, rosters, roles, invitations and routing metadata. This
@@ -84,11 +98,19 @@ These sources have not validated this implementation's actual native UX.
    pending immutable mutation retry, approval ordering/missing/reissued controls,
    concurrent admin mutations and identity/device replacement. Backend tests do
    not establish these native properties.
-5. Complete source/UI recovery for expired controls and missing-chain reissue,
-   durable pending-change resume controls, cancelled create recovery, membership
-   changes concurrent with offline sends, history paging/retention, departed-group
-   cache markers, selected-envelope reporting and actual notification/unread flows.
-   Current local stores enumerate group history, so long histories need paging.
+5. Complete expired-control/missing-chain reissue and verified-recovery UI,
+   definitive no-admission mutation conflict recovery, selected-envelope reporting,
+   and actual notification/unread integration. Durable pending-change and join
+   plans now have Resume controls; pending create reopens its immutable name.
+   Departed groups retain a read-only Past groups route across restart. Multiple
+   accepted joiners can be approved one at a time while sends stay frozen until
+   the full approved roster matches. Concurrent contradictory admin approvals
+   freeze visibly; resolving that fork/recreating safely needs real qualification.
+   First-use member identity binding remains an explicit security review gate.
+   A departed/deleted/rekeyed original control author may be unable to resend an
+   old pairwise proof; another admin cannot impersonate that proof. In that case
+   offer explicit verified recovery or a new group, not endless retry. Current
+   local stores enumerate group history, so long histories need paging/retention.
 6. Perform real visual/accessibility validation at large font sizes, VoiceOver and
    TalkBack, narrow landscape, keyboard, RTL, long names, long messages, empty,
    loading, offline and destructive states. English copy is newly authored; full

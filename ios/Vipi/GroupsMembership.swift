@@ -124,8 +124,14 @@ final class GroupsMembership {
         }
     }
     func applyInTransaction(_ change: GroupRosterTransition, group: UUID, authenticatedSender: UUID) throws {
-        guard let old = try currentInTransaction(group) else { throw GroupsFailure.retryRequiresReview }
-        let next = try change.validated(group: group, previous: old, authenticatedSender: authenticatedSender)
+        guard let current = try currentInTransaction(group),
+              let previous = try historyInTransaction(group, revision: change.from_revision) else { throw GroupsFailure.retryRequiresReview }
+        let next = try change.validated(group: group, previous: previous, authenticatedSender: authenticatedSender)
+        if let existing = try historyInTransaction(group, revision: next.revision) {
+            guard Set(existing.members) == Set(next.members) else { throw MessageJournal.Failure.conflict }
+            return // Reissued/equivalent approved transition never rewinds state.
+        }
+        guard current.revision == change.from_revision else { throw GroupsFailure.retryRequiresReview }
         try putInTransaction(next)
     }
     /// Explicit bootstrap is restricted to a pending, authenticated add-self

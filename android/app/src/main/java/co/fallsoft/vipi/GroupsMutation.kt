@@ -6,6 +6,7 @@ import java.util.UUID
 internal data class GroupMutationPlan(val group: GroupSnapshot, val request: UUID, val control: UUID, val method: String, val suffix: String,
     val fields: Map<String, String>, val previous: GroupApprovedRoster?) {
     fun transition(actor: UUID): GroupRosterTransition? {
+        require(group.epoch < Int.MAX_VALUE && previous?.revision != Int.MAX_VALUE)
         val old = previous ?: return null
         if (suffix == "/leave") return GroupRosterTransition(actor, GroupControlAction.LEAVE, actor, old.revision, old.revision + 1, group.epoch + 1, old.members, old.members.filter { it.id != actor })
         if (!suffix.startsWith("/members/")) return null
@@ -21,4 +22,9 @@ internal data class GroupMutationPlan(val group: GroupSnapshot, val request: UUI
     }
     fun json() = JSONObject().put("group", group.json()).put("request", request).put("control", control).put("method", method).put("suffix", suffix).put("fields", JSONObject(fields)).put("previous", previous?.json() ?: JSONObject.NULL)
     companion object { fun parse(o: JSONObject): GroupMutationPlan { val fields = o.getJSONObject("fields"); return GroupMutationPlan(GroupSnapshot.parse(o.getJSONObject("group")), o.uuid("request"), o.uuid("control"), o.getString("method"), o.getString("suffix"), fields.keys().asSequence().associateWith(fields::getString), if (o.isNull("previous")) null else GroupApprovedRoster.parse(o.getJSONObject("previous"))) } }
+}
+
+internal data class GroupJoinApprovalPlan(val id: UUID, val group: GroupSnapshot, val change: GroupRosterTransition) {
+    fun json() = JSONObject().put("id", id).put("group", group.json()).put("change", change.json())
+    companion object { fun parse(o: JSONObject) = GroupJoinApprovalPlan(o.uuid("id"), GroupSnapshot.parse(o.getJSONObject("group")), GroupRosterTransition.parse(o.getJSONObject("change"))) }
 }

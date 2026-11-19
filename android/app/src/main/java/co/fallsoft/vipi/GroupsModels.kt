@@ -29,11 +29,11 @@ internal data class GroupSnapshot(val id: UUID, val title: String, val epoch: In
         value.validate(); return value
     } }
 }
-internal enum class GroupDelivery { QUEUED, ACCEPTED, FAILED, EXPIRED, MEMBERSHIP_CHANGED, IDENTITY_CHANGED, RECEIVED }
-internal data class GroupMessage(val id: UUID, val group: UUID, val epoch: Int, val membershipRevision: Int, val sender: UUID, val text: String, val createdAt: Long, val delivery: GroupDelivery) {
+internal enum class GroupDelivery { QUEUED, ACCEPTED, FAILED, EXPIRED, MEMBERSHIP_CHANGED, IDENTITY_CHANGED, RECEIVED, WITHHELD }
+internal data class GroupMessage(val id: UUID, val group: UUID, val epoch: Int, val membershipRevision: Int, val sender: UUID, val text: String, val createdAt: Long, val delivery: GroupDelivery, val withheldReason: String? = null) {
     val renderID get() = "group:$group:$id"
-    fun json() = JSONObject().put("id", id).put("group", group).put("epoch", epoch).put("membershipRevision", membershipRevision).put("sender", sender).put("text", text).put("createdAt", createdAt).put("delivery", delivery.name)
-    companion object { fun parse(o: JSONObject) = GroupMessage(o.uuid("id"), o.uuid("group"), o.getInt("epoch"), o.getInt("membershipRevision"), o.uuid("sender"), o.getString("text"), o.getLong("createdAt"), GroupDelivery.valueOf(o.getString("delivery"))) }
+    fun json() = JSONObject().put("id", id).put("group", group).put("epoch", epoch).put("membershipRevision", membershipRevision).put("sender", sender).put("text", text).put("createdAt", createdAt).put("delivery", delivery.name).put("withheldReason", withheldReason ?: JSONObject.NULL)
+    companion object { fun parse(o: JSONObject) = GroupMessage(o.uuid("id"), o.uuid("group"), o.getInt("epoch"), o.getInt("membershipRevision"), o.uuid("sender"), o.getString("text"), o.getLong("createdAt"), GroupDelivery.valueOf(o.getString("delivery")), if (o.isNull("withheldReason")) null else o.getString("withheldReason")) }
 }
 internal data class GroupPreferences(val muted: Boolean = false, val read: Set<UUID> = emptySet(), val draft: String = "")
 internal object GroupSelection {

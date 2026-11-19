@@ -84,6 +84,10 @@ import java.util.UUID
                     if (unread > 0) Text("$unread unread", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
                 } }
             }
+            if (session.departedGroups.isNotEmpty()) item { Text("Past groups", style = MaterialTheme.typography.titleLarge) }
+            items(session.departedGroups, key = { "past:${it.id}" }) { group -> Card(onClick = { onOpen(group.id) }, modifier = Modifier.fillMaxWidth()) {
+                Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) { Text(group.title, style = MaterialTheme.typography.titleLarge); Text("Left group · Messages saved here", style = MaterialTheme.typography.bodyLarge) }
+            } }
             item { TextButton(onClick = { scope.launch { session.refresh() } }, enabled = !session.busy) { Text("Refresh groups") } }
         }
     }
@@ -110,7 +114,7 @@ import java.util.UUID
     }
 }
 @Composable internal fun GroupCreateScreen(session: GroupsSession, people: List<ChatProfile>, onBack: () -> Unit, onCreated: (UUID) -> Unit) {
-    var name by remember { mutableStateOf("") }; var selected by remember { mutableStateOf(emptySet<UUID>()) }
+    var name by remember { mutableStateOf(session.pendingCreateTitle() ?: "") }; var selected by remember { mutableStateOf(emptySet<UUID>()) }
     var created by remember { mutableStateOf<UUID?>(null) }; var error by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
     GroupFrame("New group", onBack) { padding ->
@@ -154,12 +158,27 @@ import java.util.UUID
                     Text("Your group starts here", style = MaterialTheme.typography.headlineSmall)
                     Text("Say hello. Invited people can read new messages after they join. Your language practice settings apply only to you.", style = MaterialTheme.typography.bodyLarge)
                 } }
+                items(session.heldMessages(groupID), key = { "held:${it.routed.envelope.id}" }) { item -> Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text("Message waiting for encryption review", style = MaterialTheme.typography.titleMedium)
+                    Text("Confirm this sender’s encryption details to open their saved message. It is kept securely on this device.", style = MaterialTheme.typography.bodyLarge)
+                    TextButton(onClick = onInfo) { Text("Review sender in Group info") }
+                    TextButton(onClick = { session.retryHeld(groupID) }) { Text("Try opening saved message") }
+                } }
                 items(messages, key = { it.id }) { message ->
                     val name = if (message.sender == session.account) "You" else group?.members?.firstOrNull { it.id == message.sender }?.name ?: people.firstOrNull { it.id == message.sender }?.displayName ?: "Former member"
                     val status = groupDelivery(message)
                     Column(Modifier.fillMaxWidth().background(if (message.sender == session.account) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(18.dp)).padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         Text(name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
-                        FullMessageBubble(message.text, message.renderID, translation, gestures, audio, "$name. $status") { Text(status, style = MaterialTheme.typography.bodyLarge) }
+                        if (message.delivery == GroupDelivery.WITHHELD) {
+                            if (message.withheldReason == "changed") {
+                                Text("The people in this group changed before this message arrived. Ask $name to send it again.", style = MaterialTheme.typography.bodyLarge)
+                                TextButton(onClick = { text = "$name, could you send your last message again?"; session.draft(groupID, text) }) { Text("Ask sender to resend") }
+                            } else {
+                                Text("An admin needs to confirm who’s in this group before this message can open. It is saved securely on this device.", style = MaterialTheme.typography.bodyLarge)
+                                TextButton(onClick = onInfo) { Text("Review group approval") }
+                            }
+                        }
+                        else FullMessageBubble(message.text, message.renderID, translation, gestures, audio, "$name. $status") { Text(status, style = MaterialTheme.typography.bodyLarge) }
                         if (message.sender == session.account && message.delivery in setOf(GroupDelivery.QUEUED, GroupDelivery.FAILED)) TextButton(onClick = { scope.launch { session.retry(message) } }, enabled = !session.busy) { Text("Retry sending to everyone") }
                         if (message.delivery in setOf(GroupDelivery.MEMBERSHIP_CHANGED, GroupDelivery.IDENTITY_CHANGED)) {
                             Text("This message wasn’t sent. Review Group info, then copy it into a new message when you’re ready.", style = MaterialTheme.typography.bodyLarge)
@@ -173,7 +192,7 @@ import java.util.UUID
                     if (foreground && visible.isNotEmpty()) session.markRead(groupID, visible)
                 }
             }
-            if (group?.role(session.account) != null) Row(Modifier.fillMaxWidth().padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (session.isActive(groupID) && group?.role(session.account) != null) Row(Modifier.fillMaxWidth().padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(text, { text = it; session.draft(groupID, it) }, label = { Text("Message the group") }, maxLines = 6, modifier = Modifier.weight(1f))
                 Button(onClick = { val draft = text; scope.launch { if (session.send(group, draft) && text == draft) text = "" } }, enabled = !session.busy && text.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp)) { Text("Send") }
             } else Text("You’re no longer in this group. Saved messages remain on this device.", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(18.dp))
@@ -187,6 +206,7 @@ private fun groupDelivery(message: GroupMessage) = when (message.delivery) {
     GroupDelivery.EXPIRED -> "Not sent · Message expired"
     GroupDelivery.MEMBERSHIP_CHANGED -> "Not sent · Group changed"
     GroupDelivery.IDENTITY_CHANGED -> "Not sent · Encryption review needed"
+    GroupDelivery.WITHHELD -> "Held · Membership confirmation needed"
     GroupDelivery.RECEIVED -> DateTimeFormatter.ofLocalizedTime(java.time.format.FormatStyle.SHORT).withZone(ZoneId.systemDefault()).format(Instant.ofEpochMilli(message.createdAt))
 }
 
@@ -200,8 +220,15 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
             if (group == null) item { Text("You’re no longer a member of this group.", style = MaterialTheme.typography.bodyLarge) }
             if (group != null) {
+                if (session.pendingChanges(groupID) > 0) item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text("Saved group change", style = MaterialTheme.typography.titleLarge)
+                    Text("A saved change is waiting to be confirmed. Resume it before making another change or sending messages.", style = MaterialTheme.typography.bodyLarge)
+                    Button(onClick = { scope.launch { session.resumePending(groupID) } }, enabled = !session.busy) { Text("Resume saved group change") }
+                } }
+                if (!session.isActive(groupID)) item { Text("You’re no longer in this group. These people and roles describe the last saved roster. Your messages remain available here.", style = MaterialTheme.typography.bodyLarge) }
+                if (session.hasMembershipConflict(groupID)) item { Text("Conflicting encrypted group approvals were received. New messages are held. Ask an admin to resolve the group history or create a new group with confirmed identities.", style = MaterialTheme.typography.bodyLarge) }
                 item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    if (group.manages(session.account)) {
+                    if (session.isActive(groupID) && group.manages(session.account)) {
                         OutlinedTextField(name, { name = it }, label = { Text("Group name") }, modifier = Modifier.fillMaxWidth())
                         Button(onClick = { scope.launch { session.rename(group, name) } }, enabled = !session.busy && name != group.title && runCatching { GroupSelection.name(name) }.isSuccess) { Text("Save name") }
                     } else Text(group.title, style = MaterialTheme.typography.headlineMedium)
@@ -209,6 +236,12 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
                     Text("Muted groups keep unread counts. Your device won’t alert you about new messages from this group.", style = MaterialTheme.typography.bodyLarge)
                     Text("Your language practice settings apply to you alone. Other people can practise different languages in the same conversation.", style = MaterialTheme.typography.bodyLarge)
                     Text("People · ${group.members.size} of 16", style = MaterialTheme.typography.titleLarge)
+                } }
+                items(session.heldControls(groupID), key = { "held-control:${it.routed.envelope.id}" }) { item -> Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text("Group approval waiting for encryption review", style = MaterialTheme.typography.titleLarge)
+                    Text("Confirm the inviter’s existing encryption details, then try opening the saved group approval.", style = MaterialTheme.typography.bodyLarge)
+                    TextButton(onClick = { reviewIdentity(item.routed.envelope.sender) }) { Text("Review inviter’s encryption details") }
+                    TextButton(onClick = { session.retryHeld(groupID) }) { Text("Try opening group approval") }
                 } }
                 items(session.pendingApprovals(groupID), key = { "approval:${it.id}" }) { control -> Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
                     Text("Confirm group membership", style = MaterialTheme.typography.titleLarge)
@@ -219,35 +252,35 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
                         Text((member?.let { "${it.name} · @${it.username}" } ?: person.id.toString()) + " · ${person.role.wire}", style = MaterialTheme.typography.bodyLarge)
                     }
                     if (session.canBootstrap(control)) Button(onClick = { bootstrap = control }) { Text("Confirm these people") }
-                    else Text("An earlier group approval is missing. Ask an existing admin to resend the authenticated group history. Messages stay paused until it arrives.", style = MaterialTheme.typography.bodyLarge)
+                    else Text("An earlier group approval is missing. If its original sender is still in this group, ask them to resend it. If they’ve left or changed devices, start a new group after confirming everyone’s encryption details. These messages stay saved here.", style = MaterialTheme.typography.bodyLarge)
                 } }
                 items(group.members, key = { it.id }) { member ->
                     OutlinedCard(Modifier.fillMaxWidth()) { Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         Text(member.name + if (member.id == session.account) " (you)" else "", style = MaterialTheme.typography.titleMedium)
                         Text("@${member.username} · ${member.role.wire.replaceFirstChar(Char::uppercase)}", style = MaterialTheme.typography.bodyLarge)
                         if (member.id != session.account) TextButton(onClick = { reviewIdentity(member.id) }) { Text("Encryption details") }
-                        if (!session.approved(groupID, member.id) && group.manages(session.account) && member.id != session.account) {
+                        if (!session.approved(groupID, member.id) && session.isActive(groupID) && group.manages(session.account) && member.id != session.account) {
                             Text("This person joined, and an existing admin still needs to approve their membership securely.", style = MaterialTheme.typography.bodyLarge)
                             TextButton(onClick = { confirmation = GroupConfirmation("Approve ${member.name} for this group?", "Confirm their encryption details first. Your approval will let everyone send them future group messages.", "Approve membership", "/approve/${member.id}", "POST") }) { Text("Approve this person") }
                         }
-                        if (group.role(session.account) == GroupRole.OWNER && member.id != session.account) {
+                        if (session.isActive(groupID) && group.role(session.account) == GroupRole.OWNER && member.id != session.account) {
                             TextButton(onClick = { confirmation = GroupConfirmation(if (member.role == GroupRole.ADMIN) "Remove admin role?" else "Make ${member.name} an admin?", "Admins can invite people, rename the group and remove members.", "Confirm role change", "/members/${member.id}", "PATCH", mapOf("role" to if (member.role == GroupRole.ADMIN) "member" else "admin")) }) { Text(if (member.role == GroupRole.ADMIN) "Remove admin role" else "Make admin") }
                             TextButton(onClick = { confirmation = GroupConfirmation("Make ${member.name} the owner?", "They’ll manage admin roles and ownership. You’ll become an admin.", "Transfer ownership", "/members/${member.id}", "PATCH", mapOf("role" to "owner")) }) { Text("Transfer ownership") }
                         }
-                        if (group.removes(session.account, member.id)) TextButton(onClick = { confirmation = GroupConfirmation("Remove ${member.name}?", "They won’t receive future messages. Messages already delivered stay on their device.", "Remove person", "/members/${member.id}", "DELETE") }) { Text("Remove from group", color = MaterialTheme.colorScheme.error) }
+                        if (session.isActive(groupID) && group.removes(session.account, member.id)) TextButton(onClick = { confirmation = GroupConfirmation("Remove ${member.name}?", "They won’t receive future messages. Messages already delivered stay on their device.", "Remove person", "/members/${member.id}", "DELETE") }) { Text("Remove from group", color = MaterialTheme.colorScheme.error) }
                     } }
                 }
-                if (group.manages(session.account)) item { Button(onClick = onInvite, enabled = group.members.size < 16) { Text("Invite people") } }
+                if (session.isActive(groupID) && group.manages(session.account)) item { Button(onClick = onInvite, enabled = group.members.size < 16) { Text("Invite people") } }
                 if (group.invitations.isNotEmpty()) item { Text("Pending invitations", style = MaterialTheme.typography.titleLarge) }
                 items(group.invitations, key = { "pending:${it.id}" }) { invitation -> Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(people.firstOrNull { it.id == invitation.user }?.displayName ?: "Invited person", style = MaterialTheme.typography.titleMedium)
                     Text("Waiting for them to accept", style = MaterialTheme.typography.bodyLarge)
-                    if (group.manages(session.account)) TextButton(onClick = { confirmation = GroupConfirmation("Cancel this invitation?", "This person won’t be able to join using this invitation.", "Cancel invitation", "/invitations/${invitation.id}", "DELETE") }) { Text("Cancel invitation") }
+                    if (session.isActive(groupID) && group.manages(session.account)) TextButton(onClick = { confirmation = GroupConfirmation("Cancel this invitation?", "This person won’t be able to join using this invitation.", "Cancel invitation", "/invitations/${invitation.id}", "DELETE") }) { Text("Cancel invitation") }
                 } }
                 item { Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
                     Text("Message text is end-to-end encrypted between current devices. The service can see the group name, people, roles and invitations. New members don’t receive earlier messages.", style = MaterialTheme.typography.bodyLarge)
                     Text("Removing someone or leaving can’t erase copies already delivered. Blocking a person also leaves groups you share.", style = MaterialTheme.typography.bodyLarge)
-                    OutlinedButton(onClick = { confirmation = GroupConfirmation("Leave ${group.title}?", (if (group.role(session.account) == GroupRole.OWNER) "Transfer ownership to another person before leaving. " else "") + "You’ll stop receiving new messages. Your saved messages remain on this device.", "Leave group", "/leave", "POST") }) { Text("Leave group", color = MaterialTheme.colorScheme.error) }
+                    OutlinedButton(enabled = session.isActive(groupID), onClick = { confirmation = GroupConfirmation("Leave ${group.title}?", (if (session.isActive(groupID) && group.role(session.account) == GroupRole.OWNER) "Transfer ownership to another person before leaving. " else "") + "You’ll stop receiving new messages. Your saved messages remain on this device.", "Leave group", "/leave", "POST") }) { Text("Leave group", color = MaterialTheme.colorScheme.error) }
                 } }
             }
             item { GroupNotice(session) }

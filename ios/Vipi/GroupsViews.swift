@@ -45,6 +45,13 @@ struct GroupsHomeView: View {
                     }
                 }
             }
+            if !groups.departedGroups.isEmpty { Section("Past groups") {
+                ForEach(groups.departedGroups) { group in
+                    NavigationLink { GroupConversationView(groups: groups, groupID: group.id, people: people, immersion: immersion, reviewIdentity: reviewIdentity) } label: {
+                        VStack(alignment: .leading, spacing: 8) { Text(group.title).font(.headline); Text("Left group · Messages saved here").font(.body) }
+                    }
+                }
+            } }
         }.navigationTitle("Groups")
             .toolbar { ToolbarItem(placement: .primaryAction) { Button("Create group", systemImage: "plus") { creating = true } } }
             .refreshable { await groups.refresh() }.task { await groups.refresh() }
@@ -84,7 +91,7 @@ struct GroupCreateView: View {
                     }
                 }.font(.headline).disabled(!canCreate).accessibilityIdentifier("group-create")
             } footer: { Text("Message text is end-to-end encrypted. The service can see the group name, people and invitations.").font(.body) }
-        }.navigationTitle("New group").toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() }.disabled(groups.busy) } }
+        }.navigationTitle("New group").task { if let pending = groups.pendingCreateTitle() { title = pending } }.toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() }.disabled(groups.busy) } }
     }
 }
 
@@ -148,13 +155,31 @@ struct GroupConversationView: View {
                                 Text("Say hello. Invited people can read new messages after they join. Your language practice settings apply only to you.").font(.body)
                             }.padding(.vertical, 24)
                         }
+                        ForEach(groups.heldMessages(groupID), id: \.id) { item in
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("Message waiting for encryption review").font(.headline)
+                                Text("Confirm this sender’s encryption details to open their saved message. It is kept securely on this device.").font(.body)
+                                Button("Review sender’s encryption details") { reviewIdentity(item.sender_id) }
+                                Button("Try opening saved message") { groups.retryHeld(groupID) }
+                            }.padding(16).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
+                        }
                         ForEach(messages) { message in
                             VStack(alignment: .leading, spacing: 8) {
                                 Text(sender(message)).font(.headline).accessibilityAddTraits(.isHeader)
+                                if message.delivery == .withheld {
+                                    if message.withheldReason == "changed" {
+                                        Text("The people in this group changed before this message arrived. Ask \(sender(message)) to send it again.").font(.body)
+                                        Button("Ask sender to resend") { text = "\(sender(message)), could you send your last message again?"; groups.saveDraft(groupID, text) }
+                                    } else {
+                                        Text("An admin needs to confirm who’s in this group before this message can open. It is saved securely on this device.").font(.body)
+                                        Button("Review group approval") { showInfo = true }
+                                    }
+                                } else {
                                 ConversationImmersionText(text: message.text, id: message.renderID, immersion: immersion, speech: speech,
                                     paused: scenePhase != .active, metadata: AnyView(Text(status(message)).font(.body).foregroundStyle(VipiDesign.secondary)),
                                     onVoiceHelp: { voiceHelp = true }, onTranslationSetup: { translationHelp = $0 }, playback: autoplay,
                                     accessibilityMessageContext: sender(message) + ". " + status(message))
+                                }
                                 if message.sender == groups.account && [.queued, .failed].contains(message.delivery) {
                                     Button("Retry sending to everyone") { Task { await groups.retry(message) } }.font(.body).disabled(groups.busy)
                                 }
@@ -171,7 +196,7 @@ struct GroupConversationView: View {
                 }.scrollDismissesKeyboard(.interactively).background { ChatReadingGestureSurface(reading: state.chatReading) }
                     .onChange(of: messages.count) { old, new in if old == 0, let id = messages.last?.id { proxy.scrollTo(id, anchor: .bottom) } }
             }
-            if group?.role(for: groups.account) != nil {
+            if groups.isActive(groupID), group?.role(for: groups.account) != nil {
                 HStack(alignment: .bottom, spacing: 12) {
                     TextField("Message the group", text: $text, axis: .vertical).font(.body).lineLimit(1...6).padding(12).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 14)).accessibilityIdentifier("group-message-input")
                     Button("Send") { Task { guard let group else { return }; let draft = text; if await groups.send(group, text: draft), text == draft { text = "" } } }
@@ -207,6 +232,7 @@ struct GroupConversationView: View {
         case .expired: return "Not sent · Message expired"
         case .membershipChanged: return "Not sent · Group changed"
         case .identityChanged: return "Not sent · Encryption review needed"
+        case .withheld: return "Held · Membership confirmation needed"
         case .received: return Date(timeIntervalSince1970: Double(message.createdAt) / 1000).formatted(date: .omitted, time: .shortened)
         }
     }
@@ -226,8 +252,14 @@ struct GroupInfoView: View {
     var body: some View {
         List {
             if let group {
+                if !groups.isActive(groupID) { Text("You’re no longer in this group. These people and roles describe the last saved roster. Your messages remain available here.").font(.body) }
+                if groups.hasMembershipConflict(groupID) { Text("Conflicting encrypted group approvals were received. New messages are held. Ask an admin to resolve the group history or create a new group with confirmed identities.").font(.body) }
+                if groups.pendingChanges(groupID) > 0 { Section("Saved group change") {
+                    Text("A saved change is waiting to be confirmed. Resume it before making another change or sending messages.").font(.body)
+                    Button("Resume saved group change") { Task { await groups.resumePending(groupID) } }.disabled(groups.busy)
+                } }
                 Section("Group name") {
-                    if group.canManage(groups.account) {
+                    if groups.isActive(groupID) && group.canManage(groups.account) {
                         TextField("Group name", text: $name).font(.body)
                         Button("Save name") { Task { _ = await groups.rename(group, title: name) } }.disabled(groups.busy || name == group.title || (try? GroupSelection.name(name)) == nil)
                     } else { Text(group.title).font(.title2.bold()) }
@@ -236,6 +268,13 @@ struct GroupInfoView: View {
                     Toggle("Mute this group", isOn: Binding(get: { groups.preferences(groupID).muted }, set: { groups.setMuted(groupID, $0) })).font(.body)
                     Text("Muted groups keep unread counts. Your device won’t alert you about new messages from this group.").font(.body)
                     Text("Your language practice settings apply to you alone. Other people can practise different languages in the same conversation.").font(.body)
+                }
+                ForEach(groups.heldControls(groupID), id: \.id) { item in
+                    Section("Group approval waiting for encryption review") {
+                        Text("Confirm the inviter’s existing encryption details, then try opening the saved group approval.").font(.body)
+                        Button("Review inviter’s encryption details") { reviewIdentity(item.sender_id) }
+                        Button("Try opening group approval") { groups.retryHeld(groupID) }
+                    }
                 }
                 ForEach(groups.pendingApprovals(groupID)) { control in
                     Section("Confirm group membership") {
@@ -249,7 +288,7 @@ struct GroupInfoView: View {
                             }
                         }
                         if groups.canBootstrap(control) { Button("Confirm these people") { bootstrap = control }.disabled(groups.busy) }
-                        else { Text("An earlier group approval is missing. Ask an existing admin to resend the authenticated group history. Messages stay paused until it arrives.").font(.body) }
+                        else { Text("An earlier group approval is missing. If its original sender is still in this group, ask them to resend it. If they’ve left or changed devices, start a new group after confirming everyone’s encryption details. These messages stay saved here.").font(.body) }
                     }
                 }
                 Section("People · \(group.members.count) of 16") {
@@ -258,34 +297,34 @@ struct GroupInfoView: View {
                             Text(member.display_name + (member.id == groups.account ? " (you)" : "")).font(.headline)
                             Text("@\(member.username) · \(member.role.rawValue.capitalized)").font(.body)
                             if member.id != groups.account { Button("Encryption details") { reviewIdentity(member.id) }.font(.body) }
-                            if !groups.approved(groupID, person: member.id) && group.canManage(groups.account) && member.id != groups.account {
+                            if !groups.approved(groupID, person: member.id) && groups.isActive(groupID) && group.canManage(groups.account) && member.id != groups.account {
                                 Text("This person joined, and an existing admin still needs to approve their membership securely.").font(.body)
                                 Button("Approve this person") { confirmation = .init(title: "Approve \(member.display_name) for this group?", detail: "Confirm their encryption details first. Your approval will let everyone send them future group messages.", action: "Approve membership", suffix: "/approve/\(member.id.uuidString.lowercased())", method: "POST", fields: [:]) }
                             }
-                            if group.role(for: groups.account) == .owner && member.id != groups.account {
+                            if groups.isActive(groupID) && group.role(for: groups.account) == .owner && member.id != groups.account {
                                 Button(member.role == .admin ? "Remove admin role" : "Make admin") { confirmation = .init(title: member.role == .admin ? "Remove admin role?" : "Make \(member.display_name) an admin?", detail: "Admins can invite people, rename the group and remove members.", action: "Confirm role change", suffix: "/members/\(member.id.uuidString.lowercased())", method: "PATCH", fields: ["role": member.role == .admin ? "member" : "admin"]) }
                                 Button("Transfer ownership") { confirmation = .init(title: "Make \(member.display_name) the owner?", detail: "They’ll manage admin roles and ownership. You’ll become an admin.", action: "Transfer ownership", suffix: "/members/\(member.id.uuidString.lowercased())", method: "PATCH", fields: ["role": "owner"]) }
                             }
-                            if group.canRemove(groups.account, member.id) {
+                            if groups.isActive(groupID) && group.canRemove(groups.account, member.id) {
                                 Button("Remove from group", role: .destructive) { confirmation = .init(title: "Remove \(member.display_name)?", detail: "They won’t receive future messages. Messages already delivered stay on their device.", action: "Remove person", suffix: "/members/\(member.id.uuidString.lowercased())", method: "DELETE", fields: [:]) }
                             }
                         }.padding(.vertical, 8)
                     }
-                    if group.canManage(groups.account) { Button("Invite people") { adding = true }.disabled(group.members.count >= 16) }
+                    if groups.isActive(groupID) && group.canManage(groups.account) { Button("Invite people") { adding = true }.disabled(group.members.count >= 16) }
                 }
                 if !group.invitations.isEmpty { Section("Pending invitations") {
                     ForEach(group.invitations) { invitation in
                         VStack(alignment: .leading, spacing: 10) {
                             Text(people.first { $0.id == invitation.user_id }?.display_name ?? "Invited person").font(.headline)
                             Text("Waiting for them to accept").font(.body)
-                            if group.canManage(groups.account) { Button("Cancel invitation", role: .destructive) { confirmation = .init(title: "Cancel this invitation?", detail: "This person won’t be able to join using this invitation.", action: "Cancel invitation", suffix: "/invitations/\(invitation.id.uuidString.lowercased())", method: "DELETE", fields: [:]) } }
+                            if groups.isActive(groupID) && group.canManage(groups.account) { Button("Cancel invitation", role: .destructive) { confirmation = .init(title: "Cancel this invitation?", detail: "This person won’t be able to join using this invitation.", action: "Cancel invitation", suffix: "/invitations/\(invitation.id.uuidString.lowercased())", method: "DELETE", fields: [:]) } }
                         }
                     }
                 } }
                 Section {
                     Text("Message text is end-to-end encrypted between current devices. The service can see the group name, people, roles and invitations. New members don’t receive earlier messages.").font(.body)
                     Text("Removing someone or leaving can’t erase copies already delivered. Blocking a person also leaves groups you share.").font(.body)
-                    Button("Leave group", role: .destructive) { confirmation = .init(title: "Leave \(group.title)?", detail: group.role(for: groups.account) == .owner ? "Transfer ownership to another person first. After that, you can leave while keeping your saved messages on this device." : "You’ll stop receiving new messages. Your saved messages remain on this device.", action: "Leave group", suffix: "/leave", method: "POST", fields: [:]) }
+                    Button("Leave group", role: .destructive) { confirmation = .init(title: "Leave \(group.title)?", detail: group.role(for: groups.account) == .owner ? "Transfer ownership to another person first. After that, you can leave while keeping your saved messages on this device." : "You’ll stop receiving new messages. Your saved messages remain on this device.", action: "Leave group", suffix: "/leave", method: "POST", fields: [:]) }.disabled(!groups.isActive(groupID))
                 }
                 if let notice = groups.notice { Section { Text(notice).font(.body); Button("Refresh group") { Task { await groups.refresh() } } } }
             } else { Text("You’re no longer a member of this group.").font(.body) }

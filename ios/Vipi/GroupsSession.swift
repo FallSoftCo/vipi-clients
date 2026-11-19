@@ -11,6 +11,7 @@ import Observation
     private let preparePeer: (UUID) async throws -> Void
     private let identityReview: (UUID) -> Bool
     private(set) var groups: [GroupSnapshot] = []
+    private(set) var departedGroups: [GroupSnapshot] = []
     private(set) var invitations: [GroupInvitation] = []
     private(set) var busy = false
     private(set) var loaded = false
@@ -24,9 +25,12 @@ import Observation
          preparePeer: @escaping (UUID) async throws -> Void, identityReview: @escaping (UUID) -> Bool) throws {
         self.account = account; self.api = api; self.store = store; self.crypto = crypto; membership = GroupsMembership(vault: store.vault)
         self.preparePeer = preparePeer; self.identityReview = identityReview; controls = GroupsControlCrypto(vault: store.vault, core: crypto.messagingCore)
-        groups = try store.snapshots()
+        let cached = try store.snapshots(), active = try store.activeIDs()
+        groups = cached.filter { active?.contains($0.id) ?? true }; departedGroups = cached.filter { active?.contains($0.id) == false }
     }
-    func snapshot(_ id: UUID) -> GroupSnapshot? { groups.first { $0.id == id } }
+    func snapshot(_ id: UUID) -> GroupSnapshot? { (groups + departedGroups).first { $0.id == id } }
+    func isActive(_ id: UUID) -> Bool { groups.contains { $0.id == id } }
+    func hasMembershipConflict(_ id: UUID) -> Bool { _ = revision; return (try? store.vault.transaction { try store.vault.get("group-membership-conflict", id.uuidString.lowercased()) != nil }) == true }
     func messages(_ id: UUID) -> [GroupMessage] { _ = revision; return (try? store.messages(id)) ?? [] }
     func preferences(_ id: UUID) -> GroupLocalPreferences { _ = revision; return (try? store.preferences(id)) ?? .init() }
     func unread(_ id: UUID) -> Int { _ = revision; return (try? store.unread(id, account: account)) ?? 0 }
@@ -40,12 +44,14 @@ import Observation
             for group in result.groups { try store.save(group) }
             // Retain departed histories locally, but stop presenting cached stale
             // membership as an active conversation after authoritative refresh.
+            try store.saveActiveIDs(Set(result.groups.map(\.id)))
+            let activeIDs = Set(result.groups.map(\.id)); departedGroups = try store.snapshots().filter { !activeIDs.contains($0.id) }
             groups = result.groups; invitations = result.invitations; loaded = true; notice = nil; revision += 1
         } catch is CancellationError {} catch { notice = Self.explanation(error) }
     }
     private func put(_ value: GroupSnapshot) throws {
         try value.validate(); try store.save(value)
-        groups.removeAll { $0.id == value.id }; groups.append(value); revision += 1
+        groups.removeAll { $0.id == value.id }; groups.append(value); departedGroups.removeAll { $0.id == value.id }; try store.saveActiveIDs(Set(groups.map(\.id))); revision += 1
     }
     /// Durable immutable admission identity survives uncertain network outcomes.
     private func operation(_ scope: String, body: [String: String]) throws -> UUID {
@@ -89,11 +95,15 @@ import Observation
             if let change = try plan.transition(actor: account) {
                 for person in plan.group.members where person.id != account { guard !identityReview(person.id) else { throw GroupsFailure.identityChanged }; try await preparePeer(person.id) }
                 let value = try controls.prepare(id: plan.control, roster: plan.group, change: change, now: Int64(Date().timeIntervalSince1970 * 1000))
-                try controls.accepted(try await api.sendControl(value), fanout: value); fanout = value
+                fanout = value
             }
-            let value = try await api.change(plan.group, method: plan.method, suffix: plan.suffix, request: plan.request, fields: plan.fields)
-            if fanout != nil { guard try membership.current(group.id)?.matches(value) == true else { throw GroupsFailure.unapprovedMembership } }
-            try put(value)
+            let result = try await api.change(plan.group, method: plan.method, suffix: plan.suffix, request: plan.request, fields: plan.fields, control: fanout)
+            if let fanout {
+                guard let accepted = result.control_acceptance else { throw GroupsFailure.invalidResponse }
+                try controls.accepted(accepted, fanout: fanout)
+                guard try membership.current(group.id)?.matches(result.snapshot) == true else { throw GroupsFailure.unapprovedMembership }
+            }
+            try put(result.snapshot)
             if let fanout { try controls.reconciled(fanout) }
             try store.vault.transaction { try store.vault.remove("group-mutation", scope) }; return true
         } ?? false
@@ -125,13 +135,13 @@ import Observation
         guard let change = try plan.transition(actor: account) else { throw GroupsFailure.unapprovedMembership }
         for member in plan.group.members where member.id != account { guard !identityReview(member.id) else { throw GroupsFailure.identityChanged }; try await preparePeer(member.id) }
         let fanout = try controls.prepare(id: plan.control, roster: plan.group, change: change, now: Int64(Date().timeIntervalSince1970 * 1000))
-        try controls.accepted(try await api.sendControl(fanout), fanout: fanout)
-        try await api.leave(plan.group, request: plan.request); try controls.reconciled(fanout)
+        let accepted = try await api.leave(plan.group, request: plan.request, control: fanout)
+        try controls.accepted(accepted, fanout: fanout); try controls.reconciled(fanout)
         try store.vault.transaction { try store.vault.remove("group-mutation", scope) }
-        groups.removeAll { $0.id == group.id }; revision += 1; return true
+        groups.removeAll { $0.id == group.id }; departedGroups.removeAll { $0.id == group.id }; departedGroups.append(plan.group); try store.saveActiveIDs(Set(groups.map(\.id))); revision += 1; return true
     } ?? false }
     func send(_ group: GroupSnapshot, text: String) async -> Bool {
-        guard let approved = try? membership.current(group.id), approved.matches(group) else { notice = Self.explanation(GroupsFailure.unapprovedMembership); return false }
+        guard isActive(group.id), let approved = try? membership.current(group.id), approved.matches(group) else { notice = Self.explanation(GroupsFailure.unapprovedMembership); return false }
         let value = GroupMessage(id: UUID(), groupID: group.id, epoch: group.epoch, membershipRevision: approved.revision, sender: account, text: text,
             createdAt: Int64(Date().timeIntervalSince1970 * 1000), delivery: .queued)
         guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= 32768 else { notice = Self.explanation(GroupsFailure.invalidMessage); return false }
@@ -141,7 +151,7 @@ import Observation
     }
     func retry(_ value: GroupMessage) async {
         _ = await perform {
-            guard var roster = snapshot(value.groupID), roster.role(for: account) != nil else { throw GroupsFailure.notMember }
+            guard isActive(value.groupID), var roster = snapshot(value.groupID), roster.role(for: account) != nil else { throw GroupsFailure.notMember }
             let now = Int64(Date().timeIntervalSince1970 * 1000)
             guard now < value.createdAt + MessageJournal.ttl else { var expired = value; expired.delivery = .expired; try store.saveMessage(expired); revision += 1; return false }
             let saved = try crypto.pending(value.groupID, value.id)
@@ -156,39 +166,74 @@ import Observation
                 }
                 fanout = try crypto.prepare(value, roster: roster, now: now)
             }
-            let response = try await api.send(fanout); try crypto.accepted(response, fanout: fanout); revision += 1; return true
+            do {
+                let response = try await api.send(fanout); try crypto.accepted(response, fanout: fanout)
+            } catch let failure as ServiceFailure {
+                var terminal = value
+                if ["group_epoch_changed", "group_recipients_changed", "group_unavailable", "group_member_unavailable"].contains(failure.code) { terminal.delivery = .membershipChanged }
+                else if ["recipient_identity_changed", "peer_identity_review_required"].contains(failure.code) { terminal.delivery = .identityChanged }
+                if terminal.delivery != value.delivery { try store.saveMessage(terminal); revision += 1 }
+                throw failure
+            }
+            revision += 1; return true
         }
+    }
+    func heldMessages(_ group: UUID) -> [GroupIncoming] { _ = revision; return ((try? crypto.heldEnvelopes()) ?? []).filter { $0.group_id == group } }
+    func retryHeld(_ group: UUID) {
+        do {
+            for item in try crypto.heldEnvelopes() where item.group_id == group { _ = try received(item) }
+            for item in try controls.heldEnvelopes() where item.group_id == group { try receivedControl(item) }
+            revision += 1
+        } catch { notice = Self.explanation(error) }
+    }
+    func heldControls(_ group: UUID) -> [GroupIncoming] { _ = revision; return ((try? controls.heldEnvelopes()) ?? []).filter { $0.group_id == group } }
+    func pendingCreateTitle() -> String? { try? store.vault.transaction { guard let data = try store.vault.get("group-operation", "create") else { return nil }; return try JSONDecoder().decode([String: String].self, from: data)["title"] } }
+    func pendingChanges(_ group: UUID) -> Int { _ = revision; return (try? store.vault.transaction { try store.vault.ids("group-mutation").filter { $0.contains(group.uuidString.lowercased()) }.count + store.vault.ids("group-join-plan").filter { $0.hasPrefix(group.uuidString.lowercased() + "/") }.count }) ?? 0 }
+    func resumePending(_ group: UUID) async {
+        do {
+            let mutations: [GroupMutationPlan] = try store.vault.transaction { try store.vault.ids("group-mutation").compactMap { key in try store.vault.get("group-mutation", key).map { try JSONDecoder().decode(GroupMutationPlan.self, from: $0) } }.filter { $0.group.id == group } }
+            for plan in mutations { if plan.suffix == "/leave" { _ = await leave(plan.group) } else { _ = await change(plan.group, method: plan.method, suffix: plan.suffix, fields: plan.fields) }; if notice != nil { return } }
+            let joins: [GroupJoinApprovalPlan] = try store.vault.transaction { try store.vault.ids("group-join-plan").filter { $0.hasPrefix(group.uuidString.lowercased() + "/") }.compactMap { key in try store.vault.get("group-join-plan", key).map { try JSONDecoder().decode(GroupJoinApprovalPlan.self, from: $0) } } }
+            for plan in joins { await approveJoin(plan.group, person: plan.change.target_id); if notice != nil { return } }
+        } catch { notice = Self.explanation(error) }
     }
     func pendingApprovals(_ group: UUID) -> [GroupPendingControl] { _ = revision; return ((try? controls.pending()) ?? []).filter { $0.group == group } }
     func canBootstrap(_ control: GroupPendingControl) -> Bool { (try? membership.current(control.group)) == nil && control.transition.action == .add && control.transition.target_id == account }
-    func confirmBootstrap(_ control: GroupPendingControl) { do { try controls.confirmBootstrap(control); revision += 1 } catch { notice = Self.explanation(error) } }
+    func confirmBootstrap(_ control: GroupPendingControl) { do { try controls.confirmBootstrap(control); _ = try crypto.releaseAuthorized(control.group); revision += 1 } catch { notice = Self.explanation(error) } }
     func approveJoin(_ group: GroupSnapshot, person: UUID) async {
         _ = await perform {
-            guard let previous = try membership.current(group.id), !previous.contains(person),
-                  let added = group.members.first(where: { $0.id == person }), added.role == .member,
-                  Set(group.members.map { GroupApprovedPerson(user_id: $0.id, role: $0.role) }) == Set(previous.members + [.init(user_id: person, role: .member)]) else { throw GroupsFailure.unapprovedMembership }
-            let request = try operation("approve/" + group.id.uuidString.lowercased() + "/" + person.uuidString.lowercased(), body: ["epoch": String(group.epoch), "revision": String(previous.revision)])
-            let change = GroupRosterTransition(actor_id: account, action: .add, target_id: person, from_revision: previous.revision, to_revision: previous.revision + 1, server_epoch: group.epoch, previous_members: previous.members, members: previous.members + [.init(user_id: person, role: .member)])
-            for member in group.members where member.id != account { guard !identityReview(member.id) else { throw GroupsFailure.identityChanged }; try await preparePeer(member.id) }
-            let fanout = try controls.prepare(id: request, roster: group, change: change, now: Int64(Date().timeIntervalSince1970 * 1000))
+            let scope = group.id.uuidString.lowercased() + "/" + person.uuidString.lowercased()
+            let plan: GroupJoinApprovalPlan = try store.vault.transaction {
+                if let data = try store.vault.get("group-join-plan", scope) { return try JSONDecoder().decode(GroupJoinApprovalPlan.self, from: data) }
+                guard let previous = try membership.currentInTransaction(group.id), !previous.contains(person),
+                      group.members.first(where: { $0.id == person })?.role == .member,
+                      Set(previous.members).isSubset(of: Set(group.members.map { GroupApprovedPerson(user_id: $0.id, role: $0.role) })) else { throw GroupsFailure.unapprovedMembership }
+                let change = GroupRosterTransition(actor_id: account, action: .add, target_id: person, from_revision: previous.revision, to_revision: previous.revision + 1, server_epoch: group.epoch, previous_members: previous.members, members: previous.members + [.init(user_id: person, role: .member)])
+                _ = try change.validated(group: group.id, previous: previous, authenticatedSender: account)
+                let value = GroupJoinApprovalPlan(id: UUID(), group: group, change: change)
+                try store.vault.put("group-join-plan", scope, JSONEncoder().encode(value)); return value
+            }
+            for member in plan.group.members where member.id != account { guard !identityReview(member.id) else { throw GroupsFailure.identityChanged }; try await preparePeer(member.id) }
+            let fanout = try controls.prepare(id: plan.id, roster: plan.group, change: plan.change, now: Int64(Date().timeIntervalSince1970 * 1000))
             try controls.accepted(try await api.sendControl(fanout), fanout: fanout); try controls.reconciled(fanout)
-            try completed("approve/" + group.id.uuidString.lowercased() + "/" + person.uuidString.lowercased()); revision += 1; return true
+            try store.vault.transaction { try store.vault.remove("group-join-plan", scope) }; revision += 1; return true
         }
     }
     func approved(_ group: UUID, person: UUID) -> Bool { _ = revision; return (try? membership.current(group))?.contains(person) == true }
-    func receivedControl(_ item: GroupIncoming) throws { guard !closed else { throw CancellationError() }; try controls.receive(item, now: Int64(Date().timeIntervalSince1970 * 1000)); revision += 1 }
-    func received(_ item: GroupIncoming) throws -> GroupMessage {
+    func receivedControl(_ item: GroupIncoming) throws { guard !closed else { throw CancellationError() }; try controls.receive(item, now: Int64(Date().timeIntervalSince1970 * 1000)); _ = try crypto.releaseAuthorized(item.group_id); revision += 1 }
+    func received(_ item: GroupIncoming) throws -> GroupMessage? {
         guard !closed else { throw CancellationError() }
         let duplicate = try store.messages(item.group_id).contains { $0.id == item.group_message_id }
         let value = try crypto.receive(item, now: Int64(Date().timeIntervalSince1970 * 1000)); revision += 1
-        if !duplicate { for callback in Array(arrivals.values) { callback(value) } }
+        if let value, !duplicate, value.delivery == .received { for callback in Array(arrivals.values) { callback(value) } }
+        else if value == nil { notice = "A group message is held securely. Review the sender’s encryption identity before opening it." }
         return value
     }
-    func close() { closed = true; arrivals.removeAll(); groups = []; invitations = []; notice = nil }
+    func close() { closed = true; arrivals.removeAll(); groups = []; departedGroups = []; invitations = []; notice = nil }
     static func explanation(_ error: Error) -> String {
         if let failure = error as? ServiceFailure {
             switch failure.code {
-            case "group_epoch_changed": return "The group changed. Refresh to review the people, then send your message again."
+            case "group_epoch_changed", "group_recipients_changed": return "The group changed. Refresh to review the people, then send your message again."
             case "group_full": return "This group already has 16 people, including its creator."
             case "groups_not_available": return "Groups aren’t available on this service yet."
             case "recipient_identity_changed", "peer_identity_review_required": return "Someone’s encryption identity changed. Review their encryption details before sending."
@@ -198,6 +243,7 @@ import Observation
         }
         switch error {
         case GroupsFailure.unapprovedMembership: return "The people in this group haven’t been confirmed securely. Ask an existing admin to approve the change before sending."
+        case GroupsFailure.holdCapacity: return "Saved messages need review before more can be opened. Review waiting messages in Group info, then try again."
         case GroupsFailure.noPermission: return "Review the group roles. If you’re the owner, transfer ownership before leaving. Resume any pending change before starting another."
         case GroupsFailure.invalidName: return "Give your group a name with 1–80 characters."
         case GroupsFailure.groupFull: return "Choose up to 15 other people. The limit of 16 includes you."

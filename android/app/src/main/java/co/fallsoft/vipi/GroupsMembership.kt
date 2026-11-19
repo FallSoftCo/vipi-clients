@@ -62,8 +62,11 @@ internal class GroupsMembership(private val vault: MessageVault) {
         vault.transaction { if (currentInTransaction(snapshot.id) == null) putInTransaction(GroupApprovedRoster(snapshot.id, 1, listOf(GroupApprovedPerson(vault.account, GroupRole.OWNER)))) }
     }
     fun applyInTransaction(change: GroupRosterTransition, group: UUID, authenticatedSender: UUID) {
-        val old = requireNotNull(currentInTransaction(group)) { "Authenticated group history is missing. Review the inviter’s encryption details." }
-        putInTransaction(change.validated(group, old, authenticatedSender))
+        val current = requireNotNull(currentInTransaction(group)) { "Authenticated group history is missing. Review the inviter’s encryption details." }
+        val previous = requireNotNull(historyInTransaction(group, change.fromRevision)) { "An earlier authenticated group approval is missing." }
+        val next = change.validated(group, previous, authenticatedSender)
+        historyInTransaction(group, next.revision)?.let { require(it.members.toSet() == next.members.toSet()) { "Conflicting authenticated group approvals" }; return }
+        require(current.revision == change.fromRevision); putInTransaction(next)
     }
     /** UI consent must bind to the full decrypted control and the pinned inviter
      * identity. A server invitation or snapshot can never call this alone. */

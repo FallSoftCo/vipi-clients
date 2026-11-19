@@ -44,7 +44,7 @@ struct GroupSnapshot: Codable, Identifiable, Equatable {
 struct GroupPendingInvitation: Codable, Identifiable, Equatable {
     let id: UUID; let user_id: UUID; let invited_by: UUID; let expires_at: String; let state: String
 }
-enum GroupDelivery: String, Codable { case queued, sending, accepted, failed, expired, membershipChanged, identityChanged, received }
+enum GroupDelivery: String, Codable { case queued, sending, accepted, failed, expired, membershipChanged, identityChanged, received, withheld }
 struct GroupMessage: Codable, Identifiable, Equatable {
     let id: UUID
     let groupID: UUID
@@ -54,6 +54,7 @@ struct GroupMessage: Codable, Identifiable, Equatable {
     let text: String
     let createdAt: Int64
     var delivery: GroupDelivery
+    var withheldReason: String? = nil
     var renderID: String { "group:\(groupID.uuidString.lowercased()):\(id.uuidString.lowercased())" }
 }
 struct GroupLocalPreferences: Codable {
@@ -61,7 +62,7 @@ struct GroupLocalPreferences: Codable {
     var readIDs: Set<UUID> = []
     var draft = ""
 }
-enum GroupsFailure: Error { case invalidResponse, groupFull, noPermission, invalidName, invalidMessage, membershipChanged, identityChanged, notMember, retryRequiresReview, unapprovedMembership }
+enum GroupsFailure: Error { case invalidResponse, groupFull, noPermission, invalidName, invalidMessage, membershipChanged, identityChanged, notMember, retryRequiresReview, unapprovedMembership, holdCapacity }
 
 /// UI policy shared by creation and invite pickers. Pending invitations reserve
 /// seats on the server; these checks only provide immediate local feedback.

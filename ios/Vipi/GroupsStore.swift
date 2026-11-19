@@ -10,6 +10,8 @@ final class GroupsStore {
     func snapshots() throws -> [GroupSnapshot] { try vault.transaction {
         try vault.ids("group-roster").compactMap { id in try vault.get("group-roster", id).map { try decoder.decode(GroupSnapshot.self, from: $0) } }
     } }
+    func activeIDs() throws -> Set<UUID>? { try vault.transaction { try vault.get("group-active", "ids").map { Set(try decoder.decode([UUID].self, from: $0)) } } }
+    func saveActiveIDs(_ ids: Set<UUID>) throws { try vault.transaction { try vault.put("group-active", "ids", encoder.encode(Array(ids))) } }
     func save(_ value: GroupSnapshot) throws { try value.validate(); try vault.transaction {
         if let bytes = try vault.get("group-roster", key(value.id)) {
             let old = try decoder.decode(GroupSnapshot.self, from: bytes)
@@ -44,7 +46,7 @@ final class GroupsStore {
     func saveMessage(_ value: GroupMessage) throws { try vault.transaction { try saveMessageInTransaction(value) } }
     func unread(_ group: UUID, account: UUID) throws -> Int {
         let read = try preferences(group).readIDs
-        return try messages(group).filter { $0.sender != account && !read.contains($0.id) }.count
+        return try messages(group).filter { $0.sender != account && $0.delivery == .received && !read.contains($0.id) }.count
     }
     func markRead(_ group: UUID, visible: Set<UUID>) throws { try updatePreferences(group) { $0.readIDs.formUnion(visible) } }
 }
