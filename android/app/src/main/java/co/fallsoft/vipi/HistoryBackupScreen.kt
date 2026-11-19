@@ -22,6 +22,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -112,7 +113,8 @@ internal class HistoryBackupModel : ViewModel() {
     var job by transfer::job
     var invalidPassword by transfer::invalidPassword
     var mismatchedConfirmation by transfer::mismatchedConfirmation
-    val feedbackScope = rememberCoroutineScope()
+    var validationAttempt by remember { mutableIntStateOf(0) }
+    val keyboardBottom = WindowInsets.ime.getBottom(LocalDensity.current)
     val passwordIntoView = remember { BringIntoViewRequester() }
     val confirmationIntoView = remember { BringIntoViewRequester() }
     val passwordFocus = remember { FocusRequester() }
@@ -128,18 +130,24 @@ internal class HistoryBackupModel : ViewModel() {
         invalidPassword = !HistoryBackupCodec.validPassword(password)
         mismatchedConfirmation = !invalidPassword && requireConfirmation && password != confirmation
         val field = when {
-            invalidPassword -> passwordFocus to passwordIntoView
-            mismatchedConfirmation -> confirmationFocus to confirmationIntoView
+            invalidPassword -> passwordFocus
+            mismatchedConfirmation -> confirmationFocus
             else -> return true
         }
-        field.first.requestFocus()
-        feedbackScope.launch {
-            // Include the newly composed supporting error, not just the input
-            // caret, in the viewport above the software keyboard.
-            withFrameNanos { }
-            field.second.bringIntoView()
-        }
+        field.requestFocus()
+        validationAttempt++
         return false
+    }
+    LaunchedEffect(validationAttempt, keyboardBottom, invalidPassword, mismatchedConfirmation) {
+        val field = when {
+            invalidPassword -> passwordIntoView
+            mismatchedConfirmation -> confirmationIntoView
+            else -> return@LaunchedEffect
+        }
+        // Repeat for the actual changing IME viewport: a request fulfilled
+        // before the keyboard opens must not leave its explanation underneath.
+        withFrameNanos { }
+        field.bringIntoView()
     }
     fun temporary() = HistoryTransferFiles.temporary(context, account)
     fun clearImport() { staged?.delete(); staged = null; summary = null }
