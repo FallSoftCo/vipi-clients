@@ -306,7 +306,8 @@ class FullMessageJourneyDeviceTest {
     @Test fun actualFriendOversizedDraftAndCompactTypingRetainExactEditableText() = draftBoundaryAtRoot(false)
     @Test fun actualBotOversizedDraftAndCompactTypingRetainExactEditableText() = draftBoundaryAtRoot(true)
     @Test fun actualComposerNativePasteClockAndSavedText() = draftBoundaryAtRoot(false, menuOnly = true)
-    private fun draftBoundaryAtRoot(bot: Boolean, menuOnly:Boolean = false) {
+    @Test fun restoredLongDraftNativeSelectionAndPaste() = draftBoundaryAtRoot(false, restoredMenuOnly = true)
+    private fun draftBoundaryAtRoot(bot: Boolean, menuOnly:Boolean = false, restoredMenuOnly:Boolean = false) {
         val services = JourneyServices(profileRequired=false, seedBotMessages=if (bot) 20 else 0, expectedFriendPosts=if (bot) 0 else 1, translationFactory={
             object : LanguageTranslation {
                 override suspend fun prepare(source:String,target:String,cellularAllowed:Boolean) = Unit
@@ -407,6 +408,16 @@ class FullMessageJourneyDeviceTest {
                     .put("test_clock_before",clockBefore).put("test_clock_after_wall_hold",clockAtWallBoundary).put("wall_hold_ms",heldWall)
                     .put("menu_visible_before_frame_advance",beforeAdvance).put("toolbar_observation","After physical UP; absence while held does not identify the cause")
                     .put("test_clock_after_release",compose.mainClock.currentTime).put("settled_ime_field_bounds",bounds.toShortString()).toString(2))
+                val selected = nativeEditor()
+                val windows = JSONArray(f.instrumentation.uiAutomation.windows.map { window ->
+                    val rect = android.graphics.Rect().also(window::getBoundsInScreen)
+                    JSONObject().put("type",window.type).put("bounds",rect.toShortString())
+                })
+                File(f.output,"native-selection-after-hold-"+pasteIndex+".json").writeText(JSONObject()
+                    .put("prior_utf16_length",priorText.length).put("selected_start",selected?.textSelectionStart)
+                    .put("selected_end",selected?.textSelectionEnd).put("native_utf16_length",selected?.text?.length)
+                    .put("toolbar_present",f.device.hasObject(selector)).put("windows",windows).toString(2))
+                f.capture("native-hold-"+pasteIndex+"-after-release")
                 compose.waitUntil(5_000) { f.device.hasObject(selector) }
                 if (priorText.isNotEmpty()) {
                     tapNativeEditAction(f.base.getString(android.R.string.selectAll))
@@ -458,6 +469,14 @@ class FullMessageJourneyDeviceTest {
                 f.capture("01-over-send-limit-draft-retained")
                 f.recreate(); screen(f,if (bot) Screen.BOT else Screen.CONVERSATION)
                 compose.waitUntil(15_000) { compose.onNodeWithTag(input).fetchSemanticsNode().config[SemanticsProperties.EditableText].text == pasted }
+                if (restoredMenuOnly) {
+                    val short = "A restored draft can be edited."
+                    pasteThroughNativeMenu(short); assertNativeEditor(short,"restored-short-replacement")
+                    assertEquals(short,saved())
+                    assertEquals(0,services.friendPosts.get()); assertEquals(0,services.botPosts.get())
+                    f.capture("restored-native-menu-and-encrypted-draft")
+                    return@use
+                }
                 pasteThroughNativeMenu("a".repeat(ConversationHistory.MAX_DRAFT_BYTES+1))
                 assertNativeEditor(pasted,"over-editing-limit")
                 compose.onNodeWithTag(input).assertTextEquals(pasted)

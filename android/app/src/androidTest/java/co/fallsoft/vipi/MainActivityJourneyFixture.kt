@@ -173,6 +173,7 @@ internal class MainActivityJourneyFixture(
         val window = unobscuredWindow()
         val geometry = runCatching { captureGeometry?.invoke() }.onFailure {
             snapshot.put("visibility_geometry_error", it.toString())
+                .put("visibility_geometry_stack", it.stackTraceToString().take(16_384))
         }.getOrNull()
         snapshot.put("visibility_qualification", if (geometry == null) "unqualified_no_unique_actual_compose_viewport" else "actual_compose_timeline_editor_window_IME_intersection")
             .put("unobscured_window", window.toShortString())
