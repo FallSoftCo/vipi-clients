@@ -549,6 +549,7 @@ struct CopyOriginalProof: View {
         if Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa",
            ProcessInfo.processInfo.arguments.contains("-vipi-first-month-root-qa"),
            ProcessInfo.processInfo.arguments.contains("-vipi-copy-original-root-qa"),
+           !ProcessInfo.processInfo.arguments.contains("-vipi-draft-boundary-root-qa"),
            ProcessInfo.processInfo.environment["VIPI_COPY_CLIPBOARD_ISOLATED"] == "true" {
             TimelineView(.periodic(from:.now,by:0.1)) { _ in
                 Text("Copy QA").font(.system(size:1)).frame(width:1,height:1)

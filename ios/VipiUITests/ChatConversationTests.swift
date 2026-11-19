@@ -808,8 +808,10 @@ final class ChatConversationTests: XCTestCase {
         // Actual native edit-menu Paste into the production field. The existing
         // owned clipboard transaction is required; no text/provider injection.
         XCTAssertEqual(ProcessInfo.processInfo.environment["VIPI_COPY_CLIPBOARD_ISOLATED"],"true")
-        let oldClipboard = UIPasteboard.general.items
-        defer { UIPasteboard.general.items = oldClipboard }
+        // This fixture already replaced the isolated Simulator pasteboard
+        // with its public sentinel. Reading it across app identities creates
+        // a runner permission prompt unrelated to the user's Paste gesture.
+        defer { UIPasteboard.general.string = "Vipi owned simulator Copy sentinel — no customer text" }
         let title = bot ? "vBot" : "Alex"
         let input = app.descendants(matching:.any).matching(identifier:bot ? "bot-message-input" : "message-input").firstMatch
         let send = app.buttons[bot ? "bot-message-send" : "message-send"]
@@ -1667,6 +1669,7 @@ final class ChatConversationTests: XCTestCase {
             arguments += ["-vipi-first-month-reading-probe", reading, "-vipi-live-immersion-state", prefix + (largest ? "3" : reading == "en-zh" ? "1" : "2")]
         }
         if fullTranslation { arguments += ["-vipi-full-translation-sdk-qa"] }
+        if draftBoundary { arguments += ["-vipi-draft-boundary-root-qa"] }
         if invitation { arguments += ["-vipi-invitation-root-qa"] }
         if marketing {
             XCTAssertTrue(fullTranslation && reading == "en-zh" && !largest && !dark && !copyOriginal && !settingsInvite && !cueLifecycle && !pendingPair)
