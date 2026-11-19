@@ -1,7 +1,7 @@
 # Vipi client source
 
-This source contains the native Android and Apple clients, language data and its
-build tools. The backend, company signing credentials, provider secrets, private
+This source contains the native Android and Apple clients, live transliteration
+data and build tools. The backend, company signing credentials, provider secrets, private
 operations and Git history are not part of the client source archive. The
 archive's `SOURCE_MANIFEST.json` records the exact source revision, file hashes
 and included generated assets.
@@ -13,14 +13,17 @@ not be submitted as production releases.
 
 ## Shared inputs
 
-Keep the directory structure intact. Both clients use `data/immersion`,
-`data/examples`, `data/readings` and `data/lexical`. Compressed lexical databases
-are included separately from Git source and bound to `data/lexical/catalog.json`.
-Check them before building:
+Keep the directory structure intact. Both clients translate full messages through
+on-device provider APIs: Google ML Kit on Android and Apple Translation on iOS,
+with the existing iOS ML Kit adapter for Swahili. The providers manage their own
+language downloads. The source archive contains no separately distributed
+translation model or custom message-translation catalog.
+
+The shared `data/readings` directory supplies live Chinese pinyin data, with its
+provenance, pinned upstream package, exporter and license. Verify it before building:
 
 ```sh
-python3 scripts/check-bundled-lexical.py
-python3 scripts/check-source-context-assets.py
+python3 scripts/check-client-reading-data.py
 ```
 
 The archive includes pinned upstream source packages under `upstream-sources`.
@@ -43,7 +46,7 @@ locks during an ordinary reproduction.
 ## Android
 
 The source pins Gradle 8.13, Android Gradle Plugin 8.13.2, Kotlin 2.4.0, SDK 36,
-minimum API 28, NDK 29.0.14206865 and CMake 3.22.1. Use Java 17 or newer (the release build used Java 21). Set `JAVA_HOME`
+minimum API 29, NDK 29.0.14206865 and CMake 3.22.1. Use Java 17 or newer (the release build used Java 21). Set `JAVA_HOME`
 and `ANDROID_HOME` to compatible installed tools; `ANDROID_SDK_ROOT`, if present,
 must identify the same SDK. The helper defaults to two Gradle workers.
 
@@ -61,15 +64,6 @@ scripts/build-android.sh -PvipiQaAbi=x86_64 \
 Select a dedicated test device. Instrumented tests can alter local accounts,
 message history and settings; inspect the selected test setup before execution.
 An emulator build is not physical-device, minimum-API or acoustic qualification.
-
-The additive exposure instrumentation expects three synthetic JSON fixtures in
-the test app's private `files/additive-selection-r01/` directory. On a dedicated
-debuggable test installation, stage the retained `qa/immersion/additive-selection-r01/`
-files `fixtures.json`, `identity-fixtures.json`, and
-`starter-identity-fixtures.json` using the selected device's authorized debug
-file-transfer route before running `AdditiveExposureDeviceTest`. The identity
-vectors contain a public test key, not an account credential. Fixture presence
-is not proof of a passed device or visibility test.
 
 eSpeak NG and Sonic sources are in `android/vendor`, with revisions recorded in
 `speech-provenance.json`. JNI/CMake code is in `android/app/src/main/cpp`.
@@ -105,7 +99,7 @@ scripts/prepare-ios-project.sh
 
 `--fetch` obtains only missing pinned public inputs and refuses to overwrite
 conflicting source or artifacts. Without that flag it only verifies the vendor
-tree. The preparation script checks data, runs XcodeGen and `pod install
+tree. The preparation script checks live-reading data, runs XcodeGen and `pod install
 --deployment`, then copies the pinned Swift package resolution into the generated
 workspace. Open `ios/Vipi.xcworkspace` rather than the generated project.
 
@@ -159,15 +153,7 @@ included materials. Keep the final release's source revision, generated-data
 hashes, dependency identities and binary hashes together. Publication and store
 submission require the completed release qualification, not this candidate.
 
-The frozen context-pack exporter is disabled research tooling, not runtime
-permission. To use it with a separately prepared and pinned research protocol,
-provide both the protocol directory and the exact authorized host explicitly:
-
-```sh
-python3 language-packs/export_frozen_context_pack.py measure \
-  --protocol-root /path/to/research-protocol --expected-host your-hostname
-```
-
-The protocol must pin this exact exporter and its contract and inputs. The
-host check and existing resource limits remain in force; historical protocols
-that pin another exporter revision are not interchangeable.
+The synthetic backup, speech and package-installer fixtures retained for native
+tests are not runtime translation data. Historical dictionary-based releases
+retain their original archives and source revisions; use those exact revisions
+to reproduce them. They do not qualify the full-message replacement.

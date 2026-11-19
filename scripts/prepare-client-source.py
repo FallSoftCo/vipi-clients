@@ -17,23 +17,19 @@ import shutil
 import subprocess
 import tarfile
 
-TREES = ("android", "ios", "data", "language-packs")
+TREES = ("android", "ios", "data/readings")
 FILES = (
     "CLIENT_SOURCE.md", "vendor/cld2",
     "scripts/build-android.sh", "scripts/build-android-speech-data.py",
     "scripts/android-dependency-inventory.gradle", "scripts/collect-android-notices.py",
     "scripts/collect-cld2-notices.py",
-    "scripts/sync-immersion-notice.py",
-    "scripts/check-android-release.py", "scripts/check-bundled-lexical.py",
-    "scripts/check-source-context-assets.py",
+    "scripts/check-client-reading-data.py",
     "scripts/prepare-ios-project.sh", "scripts/prepare-client-source.py",
-    "qa/immersion/local-release-r01/provenance.json",
+    "language-packs/export_marked_chinese_readings.mjs",
+    "qa/immersion/chinese-reading-upstream-r01/pinyin-pro-3.29.5.tgz",
+    "qa/immersion/chinese-reading-upstream-r01/LICENSE.upstream",
+    "qa/immersion/chinese-reading-upstream-r01/provenance.json",
     "qa/immersion/corpus.json", "qa/immersion/speech.json", "qa/immersion/speech-lengths.json",
-    "qa/immersion/source_lookup_experiment/controls.json",
-    "qa/immersion/source_lookup_experiment/native-pilot-protocol.json",
-    "qa/immersion/additive-selection-r01/fixtures.json",
-    "qa/immersion/additive-selection-r01/identity-fixtures.json",
-    "qa/immersion/additive-selection-r01/starter-identity-fixtures.json",
     "qa/backup/ascii.vipihistory", "qa/backup/unicode.vipihistory",
     "qa/backup/android-history-v1.vipihistory", "qa/backup/ios-history-v1.vipihistory",
     "qa/backup/vectors.json", "qa/backup/format-v1.json", "qa/backup/history_v1.py",
@@ -41,19 +37,24 @@ FILES = (
 FIXTURE_TREES = ("qa/packs/signed-pack-fixtures", "qa/immersion/installer-fixture-assets")
 EXCLUDED = frozenset(("android/BUILDING.md", "ios/BUILDING.md",
     "android/app/src/androidTest/java/co/fallsoft/vipi/ProfileSnapshotCompareDeviceTest.kt"))
-EXCLUDED_SUBTREES = ("language-packs/expansion-starter-20261117-r01/",
-    "language-packs/expansion-starter-20261117-r02/")
+EXCLUDED_SUBTREES = ("data/immersion/", "data/lexical/", "data/examples/")
 EXCLUSION_REASONS = {
     "android/BUILDING.md": "Internal host-specific build instructions",
     "ios/BUILDING.md": "Internal host-specific build instructions",
     "android/app/src/androidTest/java/co/fallsoft/vipi/ProfileSnapshotCompareDeviceTest.kt": "Private account-state diagnostic, not a client build input",
-    "language-packs/expansion-starter-20261117-r01/": "Inactive experimental language pack, not in the active catalog",
-    "language-packs/expansion-starter-20261117-r02/": "Inactive experimental language pack, not in the active catalog",
+    "data/immersion/": "Retired custom translation catalogs",
+    "data/lexical/": "Retired custom translation catalogs",
+    "data/examples/": "Retired authored translation and reading examples",
 }
 
 
 def excluded_source(name):
     return name in EXCLUDED or any(name.startswith(prefix) for prefix in EXCLUDED_SUBTREES)
+
+
+def selected_source(name):
+    roots = (*TREES, *FILES, *FIXTURE_TREES)
+    return not excluded_source(name) and any(name == p or name.startswith(p + "/") for p in roots)
 
 
 def sha_file(path):
@@ -68,11 +69,20 @@ def safe_name(name):
     return name
 
 
+def verify_provider_build_inputs(android_build, ios_project):
+    # Historical releases must use their pinned exporter. Otherwise this new
+    # narrower source archive could omit resources required by an old build.
+    for description, content in (("Android", android_build), ("Apple", ios_project)):
+        if "data/readings" not in content or any(
+            prefix.rstrip("/") in content for prefix in EXCLUDED_SUBTREES
+        ):
+            raise ValueError(description + " revision still requires retired translation resources; reconcile the full-message source first")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--revision", required=True)
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--lexical-assets", type=Path)
     parser.add_argument("--upstream-root", required=True, type=Path)
     parser.add_argument("--upstream-manifest", required=True, type=Path)
     parser.add_argument("--upstream-manifest-sha256", required=True)
@@ -82,6 +92,9 @@ def main():
     output = args.output.resolve()
     if output.exists():
         raise ValueError("Output exists; inspect the original result instead of overwriting it")
+    build_inputs = [subprocess.check_output(["git", "show", revision + ":" + name], cwd=root, text=True)
+                    for name in ("android/app/build.gradle.kts", "ios/project.yml")]
+    verify_provider_build_inputs(*build_inputs)
     if sha_file(args.upstream_manifest) != args.upstream_manifest_sha256:
         raise ValueError("Upstream source manifest differs from the reviewed manifest")
     upstream = json.loads(args.upstream_manifest.read_text())["files"]
@@ -94,18 +107,6 @@ def main():
         if path.is_symlink() or path.stat().st_size != row["bytes"] or sha_file(path) != row["sha256"]:
             raise ValueError("Upstream archive differs: " + row["path"])
 
-    catalog_raw = subprocess.check_output(["git", "show", revision + ":data/lexical/catalog.json"], cwd=root)
-    catalog = json.loads(catalog_raw)
-    assets = args.lexical_assets or root / "data/lexical"
-    extra = []
-    for row in catalog["files"]:
-        if row["file"] != row["id"] + ".sqlite.zlib":
-            raise ValueError("Unexpected lexical artifact name")
-        name = safe_name(row["file"])
-        path = assets / name
-        if path.is_symlink() or path.stat().st_size != row["compressed_bytes"] or sha_file(path) != row["compressed_sha256"]:
-            raise ValueError("Generated lexical asset differs: " + name)
-        extra.append(("data/lexical/" + name, path, row["compressed_bytes"], row["compressed_sha256"]))
     selections = [*TREES, *FILES, *FIXTURE_TREES]
     # Check every explicit input exists in this revision before creating output.
     for name in selections:
@@ -118,19 +119,20 @@ def main():
         metadata, raw_name = item.split(b"\t", 1)
         mode, kind, oid, size = metadata.decode().split()
         name = safe_name(raw_name.decode())
-        if excluded_source(name):
+        if not selected_source(name):
             continue
         if kind != "blob" or mode not in ("100644", "100755", "120000"):
             raise ValueError("Source export needs explicit handling for: " + name)
         blobs[name] = {"git_blob": oid, "bytes": int(size), "mode": mode}
-    additional_bytes = sum(x["bytes"] for x in blobs.values()) + sum(x[2] for x in extra) + sum(x["bytes"] for x in upstream)
+    additional_bytes = sum(x["bytes"] for x in blobs.values()) + sum(x["bytes"] for x in upstream)
     output.parent.mkdir(parents=True, exist_ok=True)
     # Streaming avoids an extracted duplicate tree. Allow uncompressed payload
     # plus manifest/stream overhead and preserve a separate 1 GiB margin.
     if shutil.disk_usage(output.parent).free < additional_bytes + 1024**3:
         raise ValueError("Insufficient disk headroom for the complete archive")
     output.mkdir(mode=0o700)
-    manifest = {"schema": "vipi-private-client-source-candidate-1", "revision": revision,
+    manifest = {"schema": "vipi-private-client-source-candidate-2", "revision": revision,
+        "product": "full-message-on-device-provider-apis",
         "published": False, "complete_corresponding_source_claim": False,
         "included": selections, "upstream_manifest_sha256": args.upstream_manifest_sha256,
         "exclusions": ["Git history", "backend and operations", "private receipts", "external conversation research datasets", "signing and provider credentials", "Internal host-specific build instructions"],
@@ -159,7 +161,7 @@ def main():
                 for member in source:
                     if member.isdir():
                         continue
-                    if excluded_source(member.name):
+                    if not selected_source(member.name):
                         continue
                     if member.name not in blobs:
                         raise ValueError("Unexpected source member")
@@ -190,11 +192,6 @@ def main():
         finally:
             if command.poll() is None:
                 command.terminate(); command.wait(timeout=10)
-        for name, path, size, expected_sha in extra:
-            with path.open("rb") as stream:
-                content = add(name, stream, size)
-            if hashlib.sha256(content).hexdigest() != expected_sha:
-                raise ValueError("Lexical artifact changed during capture")
         for row in upstream:
             name = "upstream-sources/" + row["path"]
             with (args.upstream_root / row["path"]).open("rb") as stream:
@@ -208,7 +205,7 @@ def main():
     receipt = {"state": "private_candidate_prepared", "revision": revision,
         "archive": archive_path.name, "bytes": archive_path.stat().st_size,
         "sha256": sha_file(archive_path), "manifest_sha256": hashlib.sha256(data).hexdigest(),
-        "files": len(manifest["files"]), "generated_lexical_artifacts": len(extra),
+        "files": len(manifest["files"]), "generated_lexical_artifacts": 0,
         "retained_upstream_archives": len(upstream), "published": False}
     (output / "receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
     print(json.dumps(receipt))
