@@ -7,6 +7,57 @@ import VipiCore
 /// Actual UIKit accessibility paragraph produced by the production SwiftUI
 /// bubble. This tests action routing, not the VoiceOver service or MT quality.
 @MainActor final class ChatAccessibilityActivationTests: XCTestCase {
+    /// Observe the actual pixels of a long native editor, including the older
+    /// UIKit layout engine as a diagnostic control. Text/value assertions alone
+    /// cannot detect a blank viewport with a correctly retained draft.
+    func testLongDraftNativeViewportContainsVisibleText() async throws {
+        let scene = try XCTUnwrap(UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.first)
+        let previous = scene.windows.first { $0.isKeyWindow }, window = UIWindow(windowScene: scene)
+        window.frame = scene.coordinateSpace.bounds; window.overrideUserInterfaceStyle = .light
+        let host = UIViewController(); host.view.backgroundColor = .white
+        window.rootViewController = host; window.makeKeyAndVisible()
+        defer { window.rootViewController = nil; window.isHidden = true; previous?.makeKeyAndVisible() }
+        var results: [[String: Any]] = []
+        for legacy in [false, true] {
+            let editor: UITextView = legacy ? UITextView(usingTextLayoutManager: false) : DraftTextView(frame: .zero, textContainer: nil)
+            editor.backgroundColor = .white; editor.textColor = .black; editor.tintColor = .systemGreen
+            editor.font = .systemFont(ofSize: 53); editor.textContainerInset = .zero
+            editor.textContainer.lineFragmentPadding = 0; editor.isScrollEnabled = true
+            editor.frame = CGRect(x: 24, y: 180, width: 272, height: 190)
+            host.view.addSubview(editor); editor.becomeFirstResponder()
+            editor.insertText(String(repeating: "界", count: 10_923))
+            // Reproduce the production representable's normal sizing query.
+            _ = editor.sizeThatFits(CGSize(width: 272, height: .greatestFiniteMagnitude))
+            editor.scrollRangeToVisible(NSRange(location: editor.text.utf16.count, length: 0))
+            try await Task.sleep(for: .milliseconds(700))
+            let image = UIGraphicsImageRenderer(size: editor.bounds.size).image { _ in
+                editor.drawHierarchy(in: CGRect(origin: .zero, size: editor.bounds.size), afterScreenUpdates: true)
+            }
+            let attachment = XCTAttachment(image: image)
+            attachment.name = legacy ? "long-draft-TextKit1-control" : "long-draft-production-native-editor"
+            attachment.lifetime = .keepAlways; add(attachment)
+            let cg = try XCTUnwrap(image.cgImage), width = cg.width, height = cg.height
+            var bytes = [UInt8](repeating: 0, count: width * height * 4)
+            let count = bytes.withUnsafeMutableBytes { buffer -> Int in
+                let context = CGContext(data: buffer.baseAddress, width: width, height: height, bitsPerComponent: 8,
+                    bytesPerRow: width * 4, space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+                context.draw(cg, in: CGRect(x: 0, y: 0, width: width, height: height))
+                let pixels = buffer.bindMemory(to: UInt8.self)
+                return stride(from: 0, to: pixels.count, by: 4).filter { i in
+                    let lo = min(pixels[i], pixels[i+1], pixels[i+2]), hi = max(pixels[i], pixels[i+1], pixels[i+2])
+                    return hi < 120 && hi - lo < 15
+                }.count
+            }
+            results.append(["legacy_control": legacy, "dark_text_pixels": count,
+                "text_utf16": editor.text.utf16.count, "viewport": NSCoder.string(for: editor.bounds),
+                "content_size": NSCoder.string(for: editor.contentSize), "textkit2": editor.textLayoutManager != nil])
+            editor.resignFirstResponder(); editor.removeFromSuperview()
+        }
+        let proof = XCTAttachment(data: try JSONSerialization.data(withJSONObject: results, options: .sortedKeys), uniformTypeIdentifier: "public.json")
+        proof.name = "long-draft-native-layout-comparison"; proof.lifetime = .keepAlways; add(proof)
+        XCTAssertGreaterThan(results[0]["dark_text_pixels"] as? Int ?? 0, 100, "A retained draft must actually render its text")
+    }
+
     func testLatinMessageKeepsTimeAndPlaybackWithoutAdvertisingAnUnavailableScript() async throws {
         let suite = "latin-message-accessibility-" + UUID().uuidString
         let defaults = try XCTUnwrap(UserDefaults(suiteName:suite))

@@ -1438,6 +1438,7 @@ struct PendingPairRootBinding: View {
                             "frame":LiveImmersionQualification.frameFields(view.convert(view.bounds,to:window))]
                         if let input = view as? any UITextInput,let range = input.selectedTextRange {
                             item["caret"] = LiveImmersionQualification.frameFields(view.convert(input.caretRect(for:range.end),to:window))
+                            item["selection_start"] = input.offset(from:input.beginningOfDocument,to:range.start)
                             item["selection_end"] = input.offset(from:input.beginningOfDocument,to:range.end)
                         }
                         if let input = view as? UITextView {
