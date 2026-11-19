@@ -12,6 +12,7 @@ import UserNotifications
     private(set) var authorization: UNAuthorizationStatus = .notDetermined
     private(set) var enabled = true
     private(set) var busy = false
+    private(set) var inboxPresentation: UUID?
     var notice: String?
     private var preferenceKey: String? { chat?.profile.map { "notifications-enabled-" + $0.id.uuidString.lowercased() } }
 
@@ -92,6 +93,17 @@ import UserNotifications
         await chat.synchronize()
         return chat.revision != before ? .newData : .noData
     }
+    func notificationOpened(kind: String?, actionIdentifier: String) async {
+        guard kind == "inbox_changed", actionIdentifier == UNNotificationDefaultActionIdentifier else { return }
+        // The push contains no peer identity. Open Chats immediately and let
+        // the authenticated inbox refresh in parallel with navigation.
+        inboxPresentation = UUID()
+        _ = await inboxChanged()
+    }
+    func consumeInboxPresentation(_ request: UUID) {
+        if inboxPresentation == request { inboxPresentation = nil }
+    }
+    func clearInboxPresentation() { inboxPresentation = nil }
 }
 
 @MainActor final class VipiAppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -119,7 +131,11 @@ import UserNotifications
         // The visible conversation updates in place. No duplicate alert over it.
         return []
     }
-    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async { _ = await PushNotifications.shared.inboxChanged() }
+    nonisolated func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
+        await PushNotifications.shared.notificationOpened(
+            kind: response.notification.request.content.userInfo["kind"] as? String,
+            actionIdentifier: response.actionIdentifier)
+    }
 }
 
 struct NotificationSettingsView: View {

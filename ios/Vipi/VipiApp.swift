@@ -77,12 +77,18 @@ import SwiftUI
             }
             .onOpenURL { url in
                 if deletion.active || !state.acceptInvitation(url) { Task { await authentication.complete(url) } }
+                else { PushNotifications.shared.clearInboxPresentation() }
             }
             .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { activity in
-                if let url = activity.webpageURL, !deletion.active { state.acceptInvitation(url) }
+                if let url = activity.webpageURL, !deletion.active, state.acceptInvitation(url) {
+                    PushNotifications.shared.clearInboxPresentation()
+                }
             }
             .onChange(of: deletion.active, initial: true) { _, active in
-                if active { state.invitationUsername = nil }
+                if active {
+                    state.invitationUsername = nil
+                    PushNotifications.shared.clearInboxPresentation()
+                }
             }
             #if DEBUG
             .safeAreaInset(edge: .bottom, spacing: 0) {

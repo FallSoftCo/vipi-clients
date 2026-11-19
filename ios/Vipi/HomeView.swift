@@ -1,6 +1,8 @@
 import SwiftUI
 import VipiCore
 
+private enum HomeDestination: Hashable { case friend(UUID), bot }
+
 struct HomeView: View {
     var chat: ChatSession? = nil
     var subscriptions: SubscriptionStore? = nil
@@ -14,7 +16,7 @@ struct HomeView: View {
     @State private var offeredBase = false
     @State private var showingInvite = false
     @State private var query = ""
-    @State private var path: [UUID] = []
+    @State private var path: [HomeDestination] = []
     private var botDescription: String {
         guard let subscriptions, let access = subscriptions.snapshot?.bot_mini else { return String(localized: "Optional Bot mini plan") }
         if subscriptions.accessVerificationPending(.botMini) { return String(localized: "Chatbot access is being checked. Please try again later.") }
@@ -40,7 +42,7 @@ struct HomeView: View {
                         if let notice = chat?.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary) }
                         if let chat, !chat.threads.isEmpty {
                             ForEach(chat.threads) { thread in
-                                NavigationLink(value: thread.peer) {
+                                NavigationLink(value: HomeDestination.friend(thread.peer)) {
                                     HStack(spacing: 14) {
                                         Text(String(chat.name(thread.peer).prefix(1))).font(.title2)
                                             .frame(width: 48, height: 48).background(VipiDesign.outgoing, in: Circle())
@@ -63,11 +65,7 @@ struct HomeView: View {
                             PrimaryButton(title: "New chat") { showingInvite = true }
                                 .accessibilityIdentifier("home-start-conversation")
                         } }
-                        NavigationLink {
-                            if let profile = chat?.profile, let subscriptions {
-                                BotConversationView(account: profile.id, subscriptions: subscriptions, owner: botOwner)
-                            } else { BotIntroductionView(subscriptions: subscriptions) }
-                        } label: {
+                        NavigationLink(value: HomeDestination.bot) {
                             HStack(spacing: 12) {
                                 Image(systemName: "sparkle").font(.title2).frame(width: 48, height: 48).background(VipiDesign.outgoing, in: Circle())
                                 VStack(alignment: .leading, spacing: 5) {
@@ -101,11 +99,23 @@ struct HomeView: View {
             }
             .navigationDestination(isPresented: $showingSettings) { SettingsView(chat: chat, subscriptions: subscriptions, closeBot: botOwner.close) }
             .sheet(isPresented: $showingInvite, onDismiss: { state.invitationUsername = nil }) {
-                NewChatView(chat: chat, invitationUsername: state.invitationUsername) { peer in path.append(peer) }
+                NewChatView(chat: chat, invitationUsername: state.invitationUsername) { peer in path.append(.friend(peer)) }
             }
             .onChange(of: state.invitationUsername, initial: true) { _, _ in presentInvitationIfReady() }
-            .onChange(of: chat?.ready) { _, _ in presentInvitationIfReady() }
-            .navigationDestination(for: UUID.self) { peer in if let chat { FriendConversationView(chat: chat, peer: peer) } }
+            .onChange(of: chat?.ready) { _, _ in
+                presentInboxIfReady()
+                presentInvitationIfReady()
+            }
+            .onChange(of: PushNotifications.shared.inboxPresentation, initial: true) { _, _ in presentInboxIfReady() }
+            .navigationDestination(for: HomeDestination.self) { destination in
+                switch destination {
+                case .friend(let peer): if let chat { FriendConversationView(chat: chat, peer: peer) }
+                case .bot:
+                    if let profile = chat?.profile, let subscriptions {
+                        BotConversationView(account: profile.id, subscriptions: subscriptions, owner: botOwner)
+                    } else { BotIntroductionView(subscriptions: subscriptions) }
+                }
+            }
             .sheet(isPresented: $offerBase) {
                 if let subscriptions { NavigationStack { SubscriptionOfferView(store: subscriptions, plan: .base)
                     .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Not now") { offerBase = false } } } } }
@@ -127,6 +137,16 @@ struct HomeView: View {
         offerBase = false
         path.removeAll()
         showingInvite = true
+    }
+    private func presentInboxIfReady() {
+        guard chat?.ready == true, let request = PushNotifications.shared.inboxPresentation else { return }
+        state.invitationUsername = nil
+        showingInvite = false
+        showingSettings = false
+        offerBase = false
+        query = ""
+        path.removeAll()
+        PushNotifications.shared.consumeInboxPresentation(request)
     }
 }
 
