@@ -1937,8 +1937,9 @@ final class ChatConversationTests: XCTestCase {
             $0["auth_launches"] as? Int == 1 && $0["pending_auth"] as? Bool == true && $0["session"] as? Bool == false && $0["profiles"] as? Int == 0
         }
         let callback = try XCTUnwrap(URL(string: try XCTUnwrap(pending["callback"] as? String)))
+        let startsBeforeInterruption = try XCTUnwrap(pending["starts"] as? Int)
         app.terminate(); app.launchArguments = arguments; app.launch()
-        _ = observe("fresh-process-pending-journal-retained") { $0["starts"] as? Int == 2 && $0["pending_auth"] as? Bool == true && $0["session"] as? Bool == false }
+        _ = observe("fresh-process-pending-journal-retained") { $0["starts"] as? Int == startsBeforeInterruption + 1 && $0["pending_auth"] as? Bool == true && $0["session"] as? Bool == false }
         app.open(callback)
         let name = app.textFields["profile-name"]
         XCTAssertTrue(name.waitForExistence(timeout: 20))
