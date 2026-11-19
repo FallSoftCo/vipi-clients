@@ -130,7 +130,7 @@ class PushProviders:
                 headers={"authorization": "bearer " + cached[0], "apns-topic": self.settings.apns_bundle_id,
                     "apns-push-type": "alert", "apns-priority": "10", "apns-expiration": str(timestamp + ttl),
                     "apns-collapse-id": "vipi-inbox"},
-                json={"aps": {"alert": {"title": "Vipi", "body": "You have a new message."}, "sound": "default", "content-available": 1}, "kind": "inbox_changed"})
+                json={"aps": {"alert": {"title": "Vipi", "loc-key": "You have a new message."}, "sound": "default", "content-available": 1}, "kind": "inbox_changed"})
             if response.status_code == 200:
                 return "sent"
             reason = response.json().get("reason")

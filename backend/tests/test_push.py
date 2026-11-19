@@ -127,6 +127,15 @@ async def test_apns_payload_matches_native_background_callback_fixture(tmp_path,
         serialization.PrivateFormat.PKCS8, serialization.NoEncryption()))
     expected = json.loads((Path(__file__).resolve().parents[2] /
         "ios/VipiCryptoTests/APNsInboxChanged.json").read_text())
+    # The real server payload must resolve on every shipped Apple UI locale,
+    # without learning the recipient's language or adding chat content to APNs.
+    catalog = json.loads((Path(__file__).resolve().parents[2] /
+        "ios/Vipi/Localizable.xcstrings").read_text())
+    key = expected["aps"]["alert"]["loc-key"]
+    localized = catalog["strings"][key]["localizations"]
+    assert set(localized) == {"en", "ar", "de", "es", "fr", "it", "ja", "ko", "pt", "pt-PT", "sw", "zh-Hans", "zh-Hant"}
+    assert all(value["stringUnit"]["value"].strip() for value in localized.values())
+    assert set(expected["aps"]["alert"]) == {"title", "loc-key"}
     requests = []
     def handler(request):
         requests.append(request)

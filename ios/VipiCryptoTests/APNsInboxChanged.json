@@ -2,7 +2,7 @@
   "aps": {
     "alert": {
       "title": "Vipi",
-      "body": "You have a new message."
+      "loc-key": "You have a new message."
     },
     "sound": "default",
     "content-available": 1
