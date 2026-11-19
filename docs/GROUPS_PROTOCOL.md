@@ -21,7 +21,7 @@ A sender first requires an authenticated approved roster matching the relay
 roster, then encrypts a versioned JSON object for each recipient, using the same
 existing Signal session machinery and identity-change confirmation as direct
 chat. Plaintext object: `{ "version":2, "kind":"group", "id":"envelope UUID",
-"sender":"account UUID", "recipient":"account UUID", "createdAt":"ISO8601",
+"sender":"account UUID", "recipient":"account UUID", "createdAt":<UTC Unix milliseconds>,
 "text":"original text", "sender_device_id":"UUID", "group_id":"UUID",
 "group_epoch":N, "group_revision":R, "group_message_id":"shared message UUID" }`.
 Receiver MUST compare every envelope context field to transport metadata, and validates group_revision
@@ -130,3 +130,37 @@ expiry, queue rollback, blocked joins, deletion and revocation. PostgreSQL row
 lock/race qualification, actual iOS↔Android libsignal exchange, native persistence
 crash/restart, identity confirmation UX, report UI, push/reconnect and rollout
 remain release gates. Passing opaque-byte relay tests is not encryption proof.
+
+## Atomic membership/control mutation extension
+
+Role changes, removal and leave can include `control` in the mutation body:
+`{request_id,expected_epoch,...,control:{id,epoch,created_at,envelopes:[...]}}`.
+That control is an immutable pre-mutation CURRENT roster fanout, with
+`control.epoch == expected_epoch`. Admission and mutation share one savepoint
+and outer transaction; rejection of either leaves neither effect. Do not send
+that control separately first. The sender applies its own intended authenticated
+transition only after the atomic response, comparing the returned roster with
+that intent, never approving arbitrary returned additions.
+
+Snapshot responses (or `{left:true}`) add `control_acceptance` with the usual
+`{id,group_id,epoch,admitted:true,deliveries}` result. Exact mutation retry binds
+the complete original encrypted fanout in the operation fingerprint. It retrieves
+original admission after leave/closure or per-recipient offline expiry; it does
+not re-encrypt, reapply membership, or resurrect a ciphertext. `admitted:true`
+means the fanout transaction was accepted; `delivered`, `expired`, `unavailable`
+or `identity_changed` are separate per-device outcomes. A recipient removed by
+that same mutation has its queued copy cancelled. The sender's locally known
+transition still committed and remaining clients may need a fresh authenticated
+reissue. Control admission metadata is retained for the mutation's 30-day retry
+window; body retention remains 72 hours.
+
+Standalone `/controls` remains for post-join approval and control-history
+reissue; it also returns `admitted:true`. A control previously admitted separately
+cannot be retroactively attached to a new atomic mutation (`409
+group_control_already_admitted`). Unsupported atomic control actions are rejected.
+A definitive rejection permits explicit recovery; an uncertain network result
+requires retrying the saved mutation/control bytes before creating new IDs.
+
+The old-revision withheld/resend policy in [the independent review](GROUPS_REVIEW_20261119.md)
+is an unresolved offline UX/security tradeoff requiring review before release.
+It must not be described as seamless, lossless offline group delivery.

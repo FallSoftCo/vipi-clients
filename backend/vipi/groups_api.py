@@ -24,23 +24,6 @@ class CreateInput(Input):
     title: str = Field(min_length=1, max_length=80)
 
 
-class MutationInput(Input):
-    request_id: UUID
-    expected_epoch: int = Field(ge=1)
-
-
-class RenameInput(MutationInput):
-    title: str = Field(min_length=1, max_length=80)
-
-
-class InviteInput(MutationInput):
-    user_id: UUID
-
-
-class RoleInput(MutationInput):
-    role: Literal["owner", "admin", "member"]
-
-
 class CipherInput(Input):
     id: UUID
     recipient_id: UUID
@@ -58,6 +41,25 @@ class MessageInput(Input):
 
 class ControlInput(MessageInput):
     invited_user_id: UUID | None = None
+
+
+class MutationInput(Input):
+    request_id: UUID
+    expected_epoch: int = Field(ge=1)
+    control: MessageInput | None = None
+
+
+class RenameInput(MutationInput):
+    title: str = Field(min_length=1, max_length=80)
+
+
+class InviteInput(MutationInput):
+    user_id: UUID
+
+
+class RoleInput(MutationInput):
+    role: Literal["owner", "admin", "member"]
+
 
 
 def install(app, settings, db, now, principal, user_for, phone_for, rate):
@@ -105,10 +107,21 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
         try:
             async with db.sessions.begin() as session:
                 user = await user_for(session, p)
-                await phone_for(session, request, user)
+                device = await phone_for(session, request, user)
+                control = None
+                if body.control is not None:
+                    try:
+                        envelopes = tuple(Envelope(str(e.id), user.id, device.id, str(e.recipient_id),
+                            str(e.recipient_device_id), body.control.created_at,
+                            base64.b64decode(e.ciphertext, validate=True), e.cipher_type) for e in body.control.envelopes)
+                    except (ValueError, binascii.Error):
+                        raise DeliveryError("invalid_ciphertext") from None
+                    control = groups.Fanout(str(body.control.id), body.control.epoch, body.control.created_at,
+                        envelopes, "control")
                 result = await groups.mutate(session, group_id=str(group_id), actor_id=user.id,
                     request_id=str(body.request_id), expected_epoch=body.expected_epoch,
-                    action=action, now=now(), **extra)
+                    action=action, now=now(), control=control, device_id=device.id,
+                    max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient, **extra)
                 await phone_for(session, request, user)
                 return result
         except IntegrityError:

@@ -167,9 +167,40 @@ async def operation(session, group, actor_id, request_id, value, expected_epoch,
 
 
 async def mutate(session, *, group_id, actor_id, request_id, expected_epoch, action, now,
-                 target_id=None, title=None, role=None, invite_id=None):
+                 target_id=None, title=None, role=None, invite_id=None, control=None, device_id=None,
+                 max_bytes=65536, max_pending=10000):
+    # The control admission and membership authority must have the same commit.
+    # Savepoint rollback also protects service callers that catch errors.
+    async with session.begin_nested():
+        return await _mutate(session, group_id=group_id, actor_id=actor_id, request_id=request_id,
+            expected_epoch=expected_epoch, action=action, now=now, target_id=target_id,
+            title=title, role=role, invite_id=invite_id, control=control, device_id=device_id,
+            max_bytes=max_bytes, max_pending=max_pending)
+
+
+async def _mutate(session, *, group_id, actor_id, request_id, expected_epoch, action, now,
+                  target_id=None, title=None, role=None, invite_id=None, control=None, device_id=None,
+                  max_bytes=65536, max_pending=10000):
     group, roster, users = await lock_group(session, group_id, actor_id, extra=[target_id] if target_id else [], allow_closed=action == "leave")
+    if device_id is not None:
+        device = await session.get(Device, device_id, populate_existing=True)
+        if not device or not device.active or device.user_id != actor_id:
+            raise DeliveryError("device_revoked", 401)
     value = [action, expected_epoch, target_id, title, role, invite_id]
+    if control is not None:
+        if action not in ("role", "remove", "leave") or control.kind != "control" or control.invited_user_id or not device_id:
+            raise DeliveryError("invalid_atomic_group_control")
+        value.append(["atomic-control", fanout_fingerprint(group_id, actor_id, device_id, control)])
+
+    async def result_with_control(result):
+        if control is None:
+            return result
+        record = await session.get(GroupMessage, (group_id, control.id))
+        if (not record or record.kind != "control" or record.sender_id != actor_id or
+                record.sender_device_id != device_id or
+                record.fingerprint != fanout_fingerprint(group_id, actor_id, device_id, control)):
+            raise DeliveryError("group_request_conflict", 409)
+        return result | {"control_acceptance": await message_result(session, group_id, record, now=now)}
     # Invitations are account capabilities; accepting/declining requires that
     # exact account, not existing group membership.
     invite = await session.get(GroupInvitation, invite_id) if invite_id else None
@@ -182,7 +213,7 @@ async def mutate(session, *, group_id, actor_id, request_id, expected_epoch, act
         if previous:
             if previous.actor_id != actor_id or previous.fingerprint != digest(value):
                 raise DeliveryError("group_request_conflict", 409)
-            return {"left": True}
+            return await result_with_control({"left": True})
         if group.state != "active":
             raise DeliveryError("group_unavailable", 404)
         member_for(roster, actor_id)
@@ -191,11 +222,16 @@ async def mutate(session, *, group_id, actor_id, request_id, expected_epoch, act
     # Include expected_epoch in idempotency identity: retries are exact bytes.
     if not await operation(session, group, actor_id, request_id, value, expected_epoch, now=now):
         if action == "leave":
-            return {"left": True}
+            return await result_with_control({"left": True})
         if action == "decline":
             return {"declined": True}
         member_for(await members(session, group_id), actor_id)
-        return await snapshot(session, group)
+        return await result_with_control(await snapshot(session, group))
+    if control is not None:
+        if await session.get(GroupMessage, (group_id, control.id)):
+            raise DeliveryError("group_control_already_admitted", 409)
+        await send(session, group_id=group_id, actor_id=actor_id, device_id=device_id,
+            fanout=control, now=now, max_bytes=max_bytes, max_pending=max_pending)
     if action in ("accept", "decline"):
         if invite.state != "pending" or utc(invite.expires_at) <= utc(now):
             raise DeliveryError("group_invitation_unavailable", 404)
@@ -268,10 +304,10 @@ async def mutate(session, *, group_id, actor_id, request_id, expected_epoch, act
     await session.flush()
     await notify_group(session, group_id, now=now, extra=[actor_id] + ([target_id] if target_id else []))
     if action == "leave":
-        return {"left": True}
+        return await result_with_control({"left": True})
     if action == "decline":
         return {"declined": True}
-    return await snapshot(session, group)
+    return await result_with_control(await snapshot(session, group))
 
 
 async def depart(session, group, roster, target, *, now, increment=True):
@@ -358,7 +394,13 @@ async def message_result(session, group_id, record, *, now):
         if item and state == "accepted" and utc(item.expires_at) <= utc(now):
             item.state, item.ciphertext, state = "expired", None, "expired"
         found.append({"id": message_id, "state": state, "expires_at": utc(record.expires_at).isoformat()})
-    return {"id": record.id, "group_id": group_id, "epoch": record.epoch, "deliveries": found}
+    return {"id": record.id, "group_id": group_id, "epoch": record.epoch, "admitted": True, "deliveries": found}
+
+
+def fanout_fingerprint(group_id, actor_id, device_id, fanout):
+    stamp = digest([group_id, fanout.id, actor_id, device_id, fanout.epoch, utc(fanout.created_at).isoformat(),
+        sorted(fingerprint(e) for e in fanout.envelopes)])
+    return digest([stamp, fanout.kind, fanout.invited_user_id])
 
 
 async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes=65536, max_pending=10000):
@@ -369,11 +411,9 @@ async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes
     if not device or not device.active or device.user_id != actor_id:
         raise DeliveryError("device_revoked", 401)
     sent, now = utc(fanout.created_at), utc(now)
-    stamp = digest([group_id, fanout.id, actor_id, device_id, fanout.epoch, sent.isoformat(),
-        sorted(fingerprint(e) for e in fanout.envelopes)])
     if fanout.kind not in ("message", "control"):
         raise DeliveryError("invalid_group_envelope")
-    stamp = digest([stamp, fanout.kind, fanout.invited_user_id])
+    stamp = fanout_fingerprint(group_id, actor_id, device_id, fanout)
     old = await session.get(GroupMessage, (group_id, fanout.id))
     if old:
         if old.sender_id != actor_id or old.sender_device_id != device_id or old.fingerprint != stamp:
@@ -438,7 +478,9 @@ async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes
 
 
 async def expire(session, *, now):
-    await session.execute(delete(GroupMessage).where(GroupMessage.expires_at < utc(now) - timedelta(days=7)))
+    await session.execute(delete(GroupMessage).where(or_(
+        and_(GroupMessage.kind == "message", GroupMessage.expires_at < utc(now) - timedelta(days=7)),
+        and_(GroupMessage.kind == "control", GroupMessage.expires_at < utc(now) - timedelta(days=27)))))
     await session.execute(delete(GroupOperation).where(GroupOperation.created_at < utc(now) - timedelta(days=30)))
     await session.execute(update(GroupInvitation).where(GroupInvitation.state == "pending",
         GroupInvitation.expires_at <= utc(now)).values(state="expired"))

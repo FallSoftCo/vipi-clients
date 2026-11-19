@@ -92,10 +92,11 @@ real libsignal identity-store check.
 
 Owner/admin operations persist the exact intended roster delta independently
 of the server response. Generate controls only for that intended delta; never
-approve an arbitrary returned roster. Owner transfer and voluntary departure
-controls are sent to the current roster BEFORE the mutation while the actor is
-still authorized. Once pending, stop text sends until the mutation and approvals
-reconcile. A failed/uncertain mutation keeps that operation pending for exact
+approve an arbitrary returned roster. Owner transfer, role/removal changes and voluntary departure use the atomic
+mutation `control` field: prepare encryption for the current roster before
+submission, then submit control and mutation together. Never admit the control
+through a separate request before the mutation. Once pending, stop text sends
+until the atomic mutation and approvals reconcile. A failed/uncertain mutation keeps that operation pending for exact
 retry; it does not silently roll back or approve a different roster.
 
 An invitee's server acceptance does not authorize anybody to encrypt to it.

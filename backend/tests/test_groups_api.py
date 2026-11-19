@@ -132,3 +132,19 @@ async def test_replaced_device_detected_again_after_membership_lock(api,db,monke
         json={"request_id":uid(),"expected_epoch":1,"title":"Must roll back"})
     assert result.status_code == 401 and result.json() == {"error":"device_revoked"}
     assert (await api.get('/v1/groups/'+group["id"],headers=ah)).json()["title"] == "Friends"
+
+
+async def test_http_atomic_role_and_control_share_one_commit_and_admission(api):
+    _,_,ah = await identity(api,"alice")
+    bob,bd,bh = await identity(api,"bob")
+    group = await invite_join(api,await create(api,ah),ah,bob,bh)
+    control = {"id":uid(),"epoch":group["epoch"],"created_at":NOW.isoformat(),"envelopes":[{
+        "id":uid(),"recipient_id":bob["id"],"recipient_device_id":bd,"cipher_type":3,
+        "ciphertext":base64.b64encode(b"opaque control not real encryption"*2).decode()}]}
+    body = {"request_id":uid(),"expected_epoch":group["epoch"],"role":"admin","control":control}
+    path = '/v1/groups/'+group["id"]+'/members/'+bob["id"]
+    result = await api.patch(path,headers=ah,json=body)
+    assert result.status_code == 200,result.text
+    assert result.json()["control_acceptance"]["admitted"] is True
+    assert next(m for m in result.json()["members"] if m["user_id"]==bob["id"])["role"] == "admin"
+    assert (await api.patch(path,headers=ah,json=body)).json() == result.json()

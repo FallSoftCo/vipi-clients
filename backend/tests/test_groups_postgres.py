@@ -74,3 +74,35 @@ async def test_concurrent_invite_acceptance_cannot_overfill_group(db):
     assert sum(isinstance(value,dict) for value in result) == 1
     assert result.count("group_epoch_changed") == 1
     assert len((await current(db,gid))["members"]) == 16
+
+
+async def test_atomic_control_never_escapes_losing_epoch_race(db):
+    if db.engine.dialect.name != "postgresql":
+        pytest.skip("requires disposable PostgreSQL row locks")
+    from dataclasses import replace
+    from test_groups_atomic import atomic
+    from vipi.db import GroupMessage
+    gid = await create(db)
+    await join(db,gid,"bob")
+    body = replace(fanout(await current(db,gid),("bob",)),kind="control")
+    async def role():
+        try:
+            return await atomic(db,gid,"role",body,target_id="bob",role="admin")
+        except DeliveryError as error:
+            return error.code
+    async def rename():
+        try:
+            return await change(db,gid,"rename",epoch=body.epoch,title="Concurrent name")
+        except DeliveryError as error:
+            return error.code
+    result = await asyncio.wait_for(asyncio.gather(role(),rename()),10)
+    assert sum(isinstance(value,dict) for value in result) == 1
+    assert result.count("group_epoch_changed") == 1
+    async with db.sessions() as s:
+        record = await s.get(GroupMessage,(gid,body.id))
+        queued = await s.get(PendingMessage,body.envelopes[0].id)
+        member = await s.get(GroupMember,(gid,"bob"))
+        if isinstance(result[0],dict):
+            assert record and queued and member.role == "admin"
+        else:
+            assert record is None and queued is None and member.role == "member"

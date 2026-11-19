@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-19",
+  "baseline_commit": "2d61565deccbd90742d242b23a1eba7e53e4b0a7",
+  "reviewed_clients_commit": "e70b8d0e16648c17896ae48b8a8fd436a42d04a3",
+  "feature_enabled_by_default": false,
+  "deployed": false,
+  "native_execution": false,
+  "postgres_execution": false,
+  "dependency_installs": false,
+  "scope": "Atomic roster mutation plus encrypted control admission and independent client/recovery review.",
+  "receipt": "backend/qa/groups-atomic-review-20261119-tests.xml",
+  "receipt_sha256": "de097dd90876b374b9fd7914f058d82589b98086c6952f8e1ee54c28527ed254",
+  "tests": 58,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 5,
+  "result": "53 passed / 5 skipped. Four new PostgreSQL race tests and existing readiness skipped without a disposable test database.",
+  "security_and_ux_limits": [
+    "Old-revision arriving ciphertext is visibly withheld; transparent lossless offline recovery is not established. Request/resend uses a new message ID under current approved membership.",
+    "Historical already delivered exact-envelope replay remains valid local history.",
+    "Pairwise control evidence cannot be forwarded as another actor. Original actor departure/deletion/device loss can require verified recovery or recreation.",
+    "Native first-use identity binding, durable quarantine/hold UI, control reissue, group inbox hooks and actual two-platform Signal/vault testing remain mandatory gates.",
+    "Pure recovery policy tests describe expected behavior and do not prove native persistence/cryptographic execution."
+  ],
+  "source_sha256": {
+    "backend/vipi/groups.py": "59f15a5980f8c42e474d4e9f6c260d87533aed3622b7521958ac2b5868f8e126",
+    "backend/vipi/groups_api.py": "7f1400e0d316fb88f345b360f5bb213e811220a709aff56dabcce8b05dcb6392",
+    "backend/vipi/group_recovery.py": "02d57774b4dae16629332672e6ca9ae9f8a91f09efd655f9e8aa49b97e7914f5",
+    "backend/tests/test_groups_atomic.py": "6d9ab412fa7b6fc6aa12b549ea6e30c099720a5d808197723b106821dd9113a9",
+    "backend/tests/test_group_recovery.py": "461f95caae4fb9fba11ddd9a5f7b28436d75c300d1a9c20d6914cdb1ffe528b5",
+    "backend/tests/test_groups_api.py": "c5b2c2a64732ed4c95663b6025751df7dbf8925fead3dd7c4bbb291035a7b6e8",
+    "backend/tests/test_groups_postgres.py": "a23b83bd2dcf18ac01d64e5249bab5490915e714b703bb0aa6662675bc259915",
+    "docs/GROUPS_PROTOCOL.md": "e61dfa97909e38acc6b67a4b67f2621b26e82130e0367a6a496709582bc375cf",
+    "docs/GROUPS_MEMBERSHIP_AUTH.md": "b20788c7a5c566f215fdd166c4295bf6665e778e6d4cb6c979341c315b17245f",
+    "docs/GROUPS_REVIEW_20261119.md": "a5a8a5492ef7a26cfc36f7d0d1ae134c9748d52af7234bb869a10d3f19c45626"
+  }
+}
