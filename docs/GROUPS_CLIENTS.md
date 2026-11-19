@@ -1,0 +1,99 @@
+# Groups native upgrade — source checkpoint
+
+This branch is isolated from the free one-to-one launch. `GroupsUpgrade.enabled`
+is false on both platforms and neither launch home calls the new group entry
+point. Do not enable it based on source checks or relay tests.
+
+## Implemented source
+
+Both platforms have separate group models, encrypted account-vault storage,
+contract HTTP adapter, pairwise Signal message fanout, authenticated roster
+history, control fanout/decryption/bootstrap, durable immutable member mutation
+plans, native coordinators and native screens. Create/select/name/invite flows
+include the creator in the limit of16. Invites require acceptance. Group info
+covers admin roles, ownership transfer, removal, leave, invitation cancellation,
+local mute and unread state. Conversation rows attribute the sender and call the
+existing immersion renderer with stable `group:<group UUID>:<logical UUID>` IDs,
+original text and the current user's existing translation/audio owners. No bot,
+subscription or payment API is introduced.
+
+A relay snapshot cannot authorize a recipient. Creator-only genesis is seeded
+from the known local create intent. All other membership changes require a
+pinned existing Signal identity, exact previous roster/revision and a valid
+single-member/role delta. Fresh text uses only the latest authenticated revision.
+A server roster mismatch or pending mutation freezes sends. First-join trust is
+an explicit confirmation of the decrypted full roster and pinned inviter.
+Newly arriving old-revision text is rejected after a removal; exact already
+committed envelope replay remains idempotent. Missing controls are retained and
+valid consecutive controls drain atomically. A returning control ID with altered
+content conflicts. Local owner departure requires prior ownership transfer;
+automatic relay succession is not accepted as cryptographic authority.
+
+The relay can see names, rosters, roles, invitations and routing metadata. This
+is application membership authorization over pairwise Signal, not Signal Private
+Groups or MLS. Suppression, availability forks, malicious authorized admins and
+recipient disclosure remain outside the guarantees described here.
+
+## References actually consulted
+
+Mobbin MCP returned native creating-group flows whose inline previews were
+inspected: [X](https://mobbin.com/flows/7dbf78a0-9a50-44d6-ae65-a15507f3db5c)
+and [Fanatics Live](https://mobbin.com/flows/3a8c6203-883f-4801-b70c-0abf7092d5bd).
+The member picker keeps clear selected state, name and handle; the conversation
+keeps sender attribution. These are reference principles, not copied screens.
+
+Built for Mars MCP exact article [Group Sessions](https://builtformars.com/case-studies/how-group-sessions-on-spotify-work)
+informed explicit role/consequence context and recognizable names.
+[Intentional Friction](https://builtformars.com/ux-glossary/intentional-friction)
+informed targeted confirmations for removal, leaving, ownership and trust.
+These sources have not validated this implementation's actual native UX.
+
+## Validation so far
+
+- `git diff --cached --check`: passed for the source checkpoint.
+- Shared pure protocol reference:22 authorization cases passed against the copied
+  fixture. This runs the protocol owner's Python reference, not the native code.
+- Fixture SHA256: `25c7dead55d9dd88956bebaeac321c39d6735e395a613d867ff08a7b52aeb2d3`.
+- Native Swift and Android tests authored for those same22 cases, creator-inclusive
+  selection and relay-only membership changes. Native tests have not run.
+- No SDK/dependency install, native build, simulator, emulator, phone, iPad,
+  desktop interaction, auth mutation, release build or production action performed.
+
+## Integration and qualification still required
+
+1. Merge only the separate upgrade with the frozen free incremental-word facade.
+   Both source bases here predate that facade. Do not take old launch files from
+   this branch as authority. The new UI supplies the current account's existing
+   `ConversationImmersion` / `ConversationTranslation` and audio owner unchanged.
+2. Wire the native parent ChatSession to a single GroupsSession sharing its exact
+   account vault, core, transport and peer identity review. Route all four group
+   inbox fields together before direct receive, dispatch message/control strictly,
+   acknowledge committed group receipts, refresh groups on reconnect/wakeup, warm
+   namespaced immersion IDs and close GroupsSession before closing its vault.
+   Integrate mute preferences into actual group notification delivery; opaque push
+   wakeups must still synchronize muted groups. These hooks are not yet installed.
+3. Build/typecheck against retained native dependency closures in a root-allocated
+   isolated Mac directory. New source uses existing libsignal Swift0.105.0 calls,
+   Swift6 Observation, iOS18 scroll visibility and existing immersion signatures.
+   Android uses current lifecycle-compose `LocalLifecycleOwner`, Compose Material3
+   and the existing libsignal SessionCipher constructor. No native compiler has
+   confirmed these assumptions yet.
+4. Exercise iOS↔Android text and controls with real pinned identities, max16 people,
+   malformed metadata, all envelope/context substitutions, ratchet rollback on a
+   recipient failure, crash after encryption/before HTTP and after uncertain HTTP,
+   pending immutable mutation retry, approval ordering/missing/reissued controls,
+   concurrent admin mutations and identity/device replacement. Backend tests do
+   not establish these native properties.
+5. Complete source/UI recovery for expired controls and missing-chain reissue,
+   durable pending-change resume controls, cancelled create recovery, membership
+   changes concurrent with offline sends, history paging/retention, departed-group
+   cache markers, selected-envelope reporting and actual notification/unread flows.
+   Current local stores enumerate group history, so long histories need paging.
+6. Perform real visual/accessibility validation at large font sizes, VoiceOver and
+   TalkBack, narrow landscape, keyboard, RTL, long names, long messages, empty,
+   loading, offline and destructive states. English copy is newly authored; full
+   locale coverage remains a gate. Group conversation scroll following/history
+   paging and autoplay controls still need parity with the qualified direct chat.
+
+No world-class, production-ready, complete native UX or encryption qualification
+claim follows from this checkpoint. The initial one-to-one launch stays separate.

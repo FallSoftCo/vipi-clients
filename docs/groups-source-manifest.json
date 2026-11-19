@@ -1,0 +1,118 @@
+{
+  "base": "d6eaf672",
+  "protocol_commit": "2d61565deccbd90742d242b23a1eba7e53e4b0a7",
+  "feature_enabled": false,
+  "native_tests_executed": false,
+  "files": [
+    {
+      "path": "android/app/src/androidTest/java/co/fallsoft/vipi/GroupsMembershipTest.kt",
+      "sha256": "c040afd7455f9abc3f1d8c500151d890c41bcbf38df1d005829fb5e46c853fda",
+      "bytes": 33745
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsAPI.kt",
+      "sha256": "aa05cf137545c987958c4ce39aaac3441956813191a4d63e40328208079b2e04",
+      "bytes": 2063
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsControlCrypto.kt",
+      "sha256": "11569a12a85648771abb2944262c3fd5680d3b48b51816cd616ea415b0d53790",
+      "bytes": 10955
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsCrypto.kt",
+      "sha256": "a9e861acbb7b9a551283ae0c5a59e78f94310b7cba38b7a768d0e35a277364b3",
+      "bytes": 9910
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsMembership.kt",
+      "sha256": "7bd1667a1220dadf58ad3bdafab81b8be0c7a1ca5d5f0611c1a1503609b2bb35",
+      "bytes": 8237
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsModels.kt",
+      "sha256": "e3a4383d7df852cfeddf1a81f0f1328646bfda91b1e6b242c98ac4612eb83f68",
+      "bytes": 4873
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsMutation.kt",
+      "sha256": "43562faf7b9cd1ce9d796d6ea15aabc41e739dad192616ff0164ec72762cad30",
+      "bytes": 2185
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsScreens.kt",
+      "sha256": "3d34b8c7e888abea9462715a32f4a1169a34ce8af04bfd06a610116c27732341",
+      "bytes": 27506
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsSession.kt",
+      "sha256": "e2ac76a29a582aeed308e49c7c4c7ef5dece95928ad3ec3170441fd866d43efb",
+      "bytes": 13223
+    },
+    {
+      "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsStore.kt",
+      "sha256": "86257d62554880cb3883eb4a940ef7162f997b6ab438a9f99f250bae04fa2461",
+      "bytes": 2753
+    },
+    {
+      "path": "docs/GROUPS_CLIENTS.md",
+      "sha256": "f1e1981a5b91c8fa9d7515e7fec7c9d5fd029bfc6b2b207cc8e7e05bd64f2f93",
+      "bytes": 6537
+    },
+    {
+      "path": "docs/groups-approval-v1-fixtures.json",
+      "sha256": "25c7dead55d9dd88956bebaeac321c39d6735e395a613d867ff08a7b52aeb2d3",
+      "bytes": 31740
+    },
+    {
+      "path": "ios/Vipi/GroupsAPI.swift",
+      "sha256": "7d192531c728efd15fc37a1c4b46aac6a7acf90230cfb1db50a1b17a327c11c8",
+      "bytes": 2742
+    },
+    {
+      "path": "ios/Vipi/GroupsControlCrypto.swift",
+      "sha256": "440560e107169221d00cf8645b34e213a77ff3db510046a5d57c0e7e3a2be8ec",
+      "bytes": 14926
+    },
+    {
+      "path": "ios/Vipi/GroupsCrypto.swift",
+      "sha256": "b0c34b6d6f087e16efbed85f9bd4fe378eee880bd7d487f3210d8e2d2075eff5",
+      "bytes": 12003
+    },
+    {
+      "path": "ios/Vipi/GroupsMembership.swift",
+      "sha256": "b3b4484e11356b881ed8210c671f80457d6220ee0f660c5e779920ed19a72489",
+      "bytes": 10196
+    },
+    {
+      "path": "ios/Vipi/GroupsModels.swift",
+      "sha256": "7c7e56a8a676320007fd4fe72c3713f73c83f7c957b19b81a4b25a4193e14f92",
+      "bytes": 3777
+    },
+    {
+      "path": "ios/Vipi/GroupsMutation.swift",
+      "sha256": "63356938e9e4230acfb699cb2cba0d7e9d0812318742c0943bee41d3da45aad3",
+      "bytes": 1766
+    },
+    {
+      "path": "ios/Vipi/GroupsSession.swift",
+      "sha256": "3fd2397b5b39acae3692caa4f737b2378cab348d5cb77e022ff2ee2b6e75406f",
+      "bytes": 17426
+    },
+    {
+      "path": "ios/Vipi/GroupsStore.swift",
+      "sha256": "697767d70c18bbd903ac17da5d8be1368234b5d3aff683776058ba1fe3af009f",
+      "bytes": 3301
+    },
+    {
+      "path": "ios/Vipi/GroupsViews.swift",
+      "sha256": "57da49290ddf515bb71063b2e7740379855fbf99034818a39120c1d69ec355ca",
+      "bytes": 25939
+    },
+    {
+      "path": "ios/VipiCryptoTests/GroupsMembershipTests.swift",
+      "sha256": "7966273cc84515f60a16956d3636476100b08132df6235cd1d532af88c0d6dce",
+      "bytes": 34673
+    }
+  ]
+}
