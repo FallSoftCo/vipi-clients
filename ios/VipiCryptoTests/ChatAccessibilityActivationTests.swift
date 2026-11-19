@@ -89,7 +89,10 @@ import VipiCore
         editor.insertText(String(repeating: "a", count: 128 * 1024 + 1))
         XCTAssertEqual(rejected, 1); XCTAssertEqual(editor.text, expected); XCTAssertEqual(draft, expected)
         XCTAssertEqual(editor.selectedRange, beforeSelection)
-        let image = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+        let rendered = UIGraphicsImageRenderer(size: window.bounds.size).image { _ in
+            window.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
+        }
+        let image = XCTAttachment(image: rendered)
         image.name = "native-mixed-script-marked-text-and-rejected-replacement"; image.lifetime = .keepAlways; add(image)
         editor.resignFirstResponder()
     }
