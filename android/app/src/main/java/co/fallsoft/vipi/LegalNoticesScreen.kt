@@ -10,6 +10,7 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
@@ -70,8 +71,8 @@ private data class LicenseEntry(val title: String, val assets: List<String>)
                         TextButton(onClick = {
                             runCatching { uri.openUri(CLIENT_SOURCE_URL) }
                                 .onFailure { error = context.getString(R.string.settings_page_open_failed) }
-                        }, modifier = Modifier.heightIn(min = 48.dp)) { Text(CLIENT_SOURCE_URL) }
-                    } else Text(paragraph, style = MaterialTheme.typography.bodySmall)
+                        }, modifier = Modifier.heightIn(min = 48.dp).testTag("licenses-client-source")) { Text(stringResource(R.string.licenses_client_source)) }
+                    } else Text(paragraph, style = MaterialTheme.typography.bodyLarge)
                 }
                 error?.let { item { Text(it) } }
                 if (paragraphs == null) item { CircularProgressIndicator() }

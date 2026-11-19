@@ -460,4 +460,5 @@
     <string name="full_translation_context_hint">Tippe, um %1$s zu hören. Halte gedrückt, um auf %2$s zu lesen.</string>
     <string name="full_translation_writing_hint">Tippe doppelt, um %1$s in Schriftform zu sehen.</string>
     <string name="backup_new_password">Neues Backup-Passwort</string>
+    <string name="licenses_client_source">Vipi-Quellcode</string>
 </resources>

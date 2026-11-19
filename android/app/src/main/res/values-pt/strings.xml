@@ -460,4 +460,5 @@
     <string name="full_translation_context_hint">Toque para ouvir em %1$s. Mantenha pressionado para ler em %2$s.</string>
     <string name="full_translation_writing_hint">Toque duas vezes para ver o texto em %1$s.</string>
     <string name="backup_new_password">Nova senha do backup</string>
+    <string name="licenses_client_source">Código-fonte do Vipi</string>
 </resources>

@@ -246,7 +246,11 @@ class FullMessageMarketingDeviceTest {
         f.capture("legal-01-catalog")
         compose.onNodeWithText("Vipi client · AGPL-3.0-only").performTouchInput { click() }
         val sourceUrl = "https://github.com/FallSoftCo/vipi-clients/releases"
-        compose.onNodeWithText(sourceUrl).performScrollTo().assertIsDisplayed().assertHasClickAction()
+        compose.onNodeWithTag("licenses-client-source").performScrollTo().assertIsDisplayed().assertHasClickAction()
+        compose.onNodeWithText(f.base.getString(R.string.licenses_client_source)).assertIsDisplayed()
+        val sourceBounds = compose.onNodeWithTag("licenses-client-source").fetchSemanticsNode().boundsInWindow
+        assertTrue("Source link must retain48dp target height", sourceBounds.height >= 48*f.base.resources.displayMetrics.density)
+        assertTrue(f.base.assets.open("licenses/vipi/NOTICE").bufferedReader().use { it.readText() }.contains(sourceUrl))
         f.capture("legal-02-client-source")
         compose.onNodeWithText(f.base.getString(R.string.licenses_open_failed)).assertDoesNotExist()
         f.device.pressBack()
@@ -254,7 +258,7 @@ class FullMessageMarketingDeviceTest {
         f.device.pressBack(); screen(f, Screen.SETTINGS)
         f.device.pressBack(); screen(f, Screen.HOME)
         File(f.output, "legal-proof.json").writeText(JSONObject().put("settings_licenses_client_notice_back", true)
-            .put("obsolete_catalog_absent", true).put("source_url_visible_clickable", sourceUrl)
+            .put("obsolete_catalog_absent", true).put("source_label_visible_clickable", f.base.getString(R.string.licenses_client_source)).put("exact_source_destination", sourceUrl)
             .put("external_source_url_opened", false).toString(2))
     }
     @Test fun captureNativeFullMessageStoryAndLegalNotices() = captureStory(qualifyTranscriptLane = false)
