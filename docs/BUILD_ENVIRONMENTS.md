@@ -1,5 +1,46 @@
 # Build environments
 
+## Current authority — November 18, 2026
+
+The records below this section are historical. In particular, their signing
+holds, restricted-staging status, old emulator numbers and dictionary-based
+qualification do not describe the current release effort. The user explicitly
+reauthorized signing; successful later signed builds and uploads are retained in
+[delivery status](DELIVERY_STATUS.md). Both store reviews are now withdrawn
+pending qualification of the full-message replacement. Do not replay completed
+uploads, withdrawals, authentication exchanges or production activation.
+
+- The canonical delivery worktree remains
+  `/home/ai/Development/vipi-production-20261107`. Its nine inherited modified
+  experimental files remain preserved and excluded from release assembly.
+- Android's current implementation and native QA owner use
+  `/home/ai/Development/investigations/vipi-quality-20261117-r01/ux-worktree`
+  and `emulator-5624`, isolated Android user 10. The actual qualified runtime is
+  API 34. The current API 29 minimum is a packaging result, not an API 29 runtime
+  qualification. Preserve the separate user 0 installation and data.
+- iOS's current source owner uses
+  `/home/ai/Development/investigations/vipi-simulator-completion-20261118-r01/ios/worktree`.
+  New Apple builds and tests run on native `apple@macbook-pro`, using the existing
+  `/Users/Apple/Development/vipi-quality-20261117-r01/ux-source` mirror and owned
+  simulator `E640C5EE-A159-48B7-99D0-E330E8781FAF`. Only the native owner changes
+  that mirror; each job binds its source manifest and restores temporary source,
+  application, preference and audio changes. Keep two compiler jobs. Preserve
+  the existing translation-preparation application and unrelated Mac work.
+- Translation uses existing on-device provider APIs only. Separate model
+  experiments are stopped. iOS ML Kit's missing arm64 Simulator slice remains
+  a real validation gap; authored Swahili fixtures do not establish execution
+  of that device adapter. The iPad remains reserved for 8bar Club.
+- The former Apple VM and OZZZ CPU/GPU hosts are retired. The consolidated
+  production activation already completed; no new deployment is implied by
+  these source changes. Use retained receipts before any external action.
+
+Source branches are still under qualification and have not been assembled into
+a fresh signed release. Exact source revisions, native test outcomes and
+remaining limitations are tracked in the current investigation receipts and
+[delivery status](DELIVERY_STATUS.md).
+
+## Historical environment records
+
 ## Local immersion and identity qualification — November 10, 2026
 
 The current bounded revision is retained in `qa/immersion/local-release-r01`
