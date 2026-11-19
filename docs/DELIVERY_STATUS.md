@@ -96,7 +96,9 @@ requested phone delivery is pending that qualification.
 
 The public information pages now describe the full-message design in source.
 Their existing invitation and recovery tests pass; that source change has not
-been deployed. The prepared store-copy candidates also remain unapplied. Final
+been deployed. Store-listing source now describes full translations, default
+reading guides and the current gestures in all 14 existing locales, with the
+agreed billing terms retained. The store consoles have not been updated. Final
 assembly must use the qualified native sources and matching copy, then verify
 signed artifacts, actual device delivery and store state before submission.
 The client source exporter and Apple setup script now require live-reading data
