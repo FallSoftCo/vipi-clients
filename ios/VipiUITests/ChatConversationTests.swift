@@ -1413,7 +1413,7 @@ final class ChatConversationTests: XCTestCase {
         guard !visibleKeyboard.isNull && !visibleKeyboard.isEmpty else {
             XCTFail("A physical drag requires an onscreen keyboard"); return
         }
-        let input = app.textFields["message-input"]
+        let input = app.descendants(matching:.any).matching(identifier:"message-input").firstMatch
         XCTAssertTrue(input.exists)
         let top = max(viewport.minY,app.navigationBars.firstMatch.frame.maxY)
         let bottom = min(visibleKeyboard.minY,input.frame.minY)-30
