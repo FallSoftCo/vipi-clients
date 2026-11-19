@@ -59,12 +59,18 @@ and [independent accounting](android-v5-owned-review-live-access-20261117.json).
 
 Current Android review instructions use the saved Gamma credentials through
 **Continue with Fallsoft**, after choosing the known and learning languages.
-Review access requires no purchase or trial. Words switch inline automatically;
-tap a word for meaning and learning-language pronunciation, select a phrase and
-release for one contextual result, or tap bubble padding for whole-message
-translation and automatic pronunciation. The single speaker plays the visible
-mixed-language message; the active control stops playback. Copy/selection remains
-native. Unsupported local pairs expose recovery rather than a fictional download.
+Review access requires no purchase or trial. Whole sent and received messages
+are translated automatically into the practice language. Available non-Latin
+reading guides appear in Latin letters by default; Chinese pinyin includes tone
+marks. Tap a message to hear its full practice-language text; tap the playing
+message to stop. Hold the message area to reveal all meanings in the known
+language; release to restore the prior script view. Double-tap a message to
+switch the script view for all visible messages between reading guides/native
+script. Hold and double-tap are silent. The header
+speaker enables autoplay only for new sent/received messages, without replaying
+history; turning it off stops and clears pending audio. Copy original remains a
+native header-menu action. Downloaded local models, guide and voice availability
+are reported truthfully; translation and reading mistakes remain possible.
 vBot is optional, requires its separate consent, and has a disclosed provider boundary.
 Friend chats are end-to-end encrypted; vBot and selected reports have separate
 readable-service boundaries.

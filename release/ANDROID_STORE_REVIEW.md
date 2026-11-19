@@ -56,13 +56,17 @@ submission; the older two-image narratives below are not the final listing.
 
 Choose the known and learning languages, then **Continue with Fallsoft** using
 the supplied review account. Review access needs no purchase or trial. In a chat,
-selected words switch inline automatically. A word tap shows meaning and speaks
-the learning-language side; same-tap Stop was observed. Phrase selection translates
-once on handle release. Tapping bubble padding translates the whole message and
-autoplays; the single speaker plays the currently visible mixed-language message.
-Native Copy and selection remain available. Local pair/model availability is
-reported truthfully. Chinese tone marks and speech/Stop were observed in the
-actual v5 reply; this does not establish flawless pronunciation or every language pair.
+whole messages are translated automatically into the practice language. Available
+non-Latin reading guides appear in Latin letters by default; Chinese pinyin has
+tone marks. Tap a message for its full practice-language audio, and tap the
+playing message to stop. Hold the message area to reveal all meanings in the
+known language; release to restore the prior script view. Double-tap switches the script view for all visible messages between
+reading guides/native script. Hold and double-tap are silent. The header speaker
+autoplays only new sent/received messages, without replaying history; Off stops
+and clears pending audio. Copy original is a native header-menu action. Local
+model, reading-guide and voice availability is reported truthfully. Translations
+and guides can be wrong. Historical Chinese tone marks and speech/Stop in the
+actual v5 reply do not establish flawless pronunciation or every language pair.
 
 vBot has a separate consent/provider boundary and visible reply allowance.
 Friend messages are end-to-end encrypted. **Delete Vipi account** preserves the
