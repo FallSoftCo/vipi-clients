@@ -139,6 +139,7 @@ struct GroupConversationView: View {
     @State private var autoplay = ChatAutoplay()
     @State private var showInfo = false
     @State private var arrivalObserver: UUID?
+    @State private var visibleMessages = Set<UUID>()
     @State private var voiceHelp = false
     @State private var translationHelp: TranslationPair?
     private var group: GroupSnapshot? { groups.snapshot(groupID) }
@@ -190,7 +191,10 @@ struct GroupConversationView: View {
                             }.padding(14).frame(maxWidth: 600, alignment: .leading)
                                 .background(message.sender == groups.account ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
                                 .id(message.id)
-                                .onScrollVisibilityChange(threshold: 0.5) { visible in if visible && scenePhase == .active { groups.markRead(groupID, visible: [message.id]) } }
+                                .onScrollVisibilityChange(threshold: 0.5) { visible in
+                                    if visible { visibleMessages.insert(message.id) } else { visibleMessages.remove(message.id) }
+                                    if visible && scenePhase == .active { groups.markRead(groupID, visible: [message.id]) }
+                                }
                         }
                     }.padding(18).frame(maxWidth: 644).frame(maxWidth: .infinity)
                 }.scrollDismissesKeyboard(.interactively).background { ChatReadingGestureSurface(reading: state.chatReading) }
@@ -217,7 +221,8 @@ struct GroupConversationView: View {
                 await groups.refresh()
             }
             .onChange(of: text) { _, value in groups.saveDraft(groupID, value) }
-            .onChange(of: scenePhase) { _, phase in if phase != .active { autoplay.stop(speech: speech); speech.stop() } }
+            .onChange(of: messages) { _, _ in if scenePhase == .active { groups.markRead(groupID, visible: visibleMessages) } }
+            .onChange(of: scenePhase) { _, phase in if phase != .active { autoplay.stop(speech: speech); speech.stop() } else { groups.markRead(groupID, visible: visibleMessages) } }
             .onDisappear { if let arrivalObserver { groups.removeObserver(arrivalObserver) }; arrivalObserver = nil; autoplay.stop(speech: speech); speech.stop() }
     }
     private func sender(_ message: GroupMessage) -> String {
@@ -254,6 +259,10 @@ struct GroupInfoView: View {
             if let group {
                 if !groups.isActive(groupID) { Text("You’re no longer in this group. These people and roles describe the last saved roster. Your messages remain available here.").font(.body) }
                 if groups.hasMembershipConflict(groupID) { Text("Conflicting encrypted group approvals were received. New messages are held. Ask an admin to resolve the group history or create a new group with confirmed identities.").font(.body) }
+                if groups.hasRejectedApproval(groupID) { Section("An invalid group approval was blocked") {
+                    Text("That approval couldn’t change who’s in this group. Your existing messages are still saved. Review the people and their encryption details before continuing.").font(.body)
+                    Button("Dismiss this notice") { groups.dismissRejectedApproval(groupID) }
+                } }
                 if groups.pendingChanges(groupID) > 0 { Section("Saved group change") {
                     Text("A saved change is waiting to be confirmed. Resume it before making another change or sending messages.").font(.body)
                     Button("Resume saved group change") { Task { await groups.resumePending(groupID) } }.disabled(groups.busy)

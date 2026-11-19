@@ -73,7 +73,8 @@ internal class GroupsMembership(private val vault: MessageVault) {
     fun bootstrapInTransaction(change: GroupRosterTransition, group: UUID, authenticatedSender: UUID, confirmedInviter: UUID) {
         require(currentInTransaction(group) == null && authenticatedSender == confirmedInviter && change.action == GroupControlAction.ADD && change.target == vault.account)
         val previous = GroupApprovedRoster(group, change.fromRevision, change.previousMembers)
-        putInTransaction(change.validated(group, previous, authenticatedSender))
+        val next = change.validated(group, previous, authenticatedSender)
+        putInTransaction(previous); putInTransaction(next)
     }
 }
 

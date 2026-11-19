@@ -30,10 +30,14 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
     fun group(id: UUID) = (groups + departedGroups).firstOrNull { it.id == id }
     fun isActive(id: UUID) = groups.any { it.id == id }
     fun hasMembershipConflict(id: UUID): Boolean { val observed = revision; return store.vault.transaction { store.vault.get("group-membership-conflict", id.toString()) != null } }
-    fun messages(id: UUID) = store.messages(id)
-    fun preferences(id: UUID) = store.preferences(id)
-    fun unread(id: UUID) = store.unread(id, account)
-    fun markRead(id: UUID, visible: Set<UUID>) { store.preferences(id) { it.copy(read = it.read + visible) }; revision++ }
+    fun messages(id: UUID) = if (closed) emptyList() else store.messages(id)
+    fun preferences(id: UUID) = if (closed) GroupPreferences() else store.preferences(id)
+    fun unread(id: UUID) = if (closed) 0 else store.unread(id, account)
+    fun markRead(id: UUID, visible: Set<UUID>) {
+        if (closed) return
+        val old = store.preferences(id).read; val eligible = store.messages(id).filter { it.id in visible && it.sender != account && it.delivery == GroupDelivery.RECEIVED }.map { it.id }.toSet() - old
+        if (eligible.isEmpty()) return; store.preferences(id) { it.copy(read = it.read + eligible) }; revision++
+    }
     fun mute(id: UUID, value: Boolean) { store.preferences(id) { it.copy(muted = value) }; revision++ }
     fun draft(id: UUID, text: String) { store.preferences(id) { it.copy(draft = text) } }
     suspend fun refresh() { perform {
@@ -72,7 +76,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
             val value = controls.prepare(plan.control, plan.group, change, System.currentTimeMillis()); fanout = value
         }
         val response = api.change(plan.group, plan.method, plan.suffix, plan.request, plan.fields, fanout)
-        fanout?.let { controls.accepted(requireNotNull(response.control), it); require(membership.current(group.id)?.matches(response.snapshot) == true) { "The service roster doesn’t match the authenticated group change." } }
+        fanout?.let { controls.accepted(requireNotNull(response.control), it) }
         put(response.snapshot); fanout?.let(controls::reconciled); store.vault.transaction { store.vault.remove("group-mutation", scope) }; true
     } ?: false
     suspend fun invite(group: GroupSnapshot, user: UUID) = change(group, "POST", "/invitations", mapOf("user_id" to user.toString()))
@@ -127,12 +131,14 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         }
         revision++; true
     } }
-    fun heldMessages(group: UUID): List<GroupIncoming> { val observed = revision; return crypto.heldEnvelopes().filter { it.group == group } }
-    fun heldControls(group: UUID): List<GroupIncoming> { val observed = revision; return controls.heldEnvelopes().filter { it.group == group } }
+    fun heldMessages(group: UUID): List<GroupIncoming> { val observed = revision; return if (closed) emptyList() else crypto.heldEnvelopes().filter { it.group == group } }
+    fun heldControls(group: UUID): List<GroupIncoming> { val observed = revision; return if (closed) emptyList() else controls.heldEnvelopes().filter { it.group == group } }
     fun retryHeld(group: UUID) {
         try { crypto.heldEnvelopes().filter { it.group == group }.forEach { receive(it) }; controls.heldEnvelopes().filter { it.group == group }.forEach { receiveControl(it) }; revision++ }
         catch (error: Exception) { notice = explanation(error) }
     }
+    fun hasRejectedApproval(group: UUID): Boolean { val observed = revision; return store.vault.transaction { store.vault.get("group-last-rejection", group.toString()) != null } }
+    fun dismissRejectedApproval(group: UUID) { store.vault.transaction { store.vault.remove("group-last-rejection", group.toString()) }; revision++ }
     fun pendingCreateTitle(): String? = store.vault.transaction { store.vault.get("group-operation", "create")?.let { GroupsStore.json(it).optString("title").takeIf(String::isNotEmpty) } }
     fun pendingChanges(group: UUID): Int { val observed = revision; return store.vault.transaction { store.vault.ids("group-mutation").count { it.contains(group.toString()) } + store.vault.ids("group-join-plan").count { it.startsWith("$group/") } } }
     suspend fun resumePending(group: UUID) {

@@ -187,7 +187,8 @@ import java.util.UUID
                     }
                 }
             }
-            LaunchedEffect(groupID, foreground, list) {
+            val readable = messages.filter { it.delivery == GroupDelivery.RECEIVED && it.sender != session.account }.map { it.id }.toSet()
+            LaunchedEffect(groupID, foreground, list, readable) {
                 snapshotFlow { list.layoutInfo.visibleItemsInfo.mapNotNull { it.key as? UUID }.toSet() }.distinctUntilChanged().collect { visible ->
                     if (foreground && visible.isNotEmpty()) session.markRead(groupID, visible)
                 }
@@ -220,6 +221,11 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
             if (group == null) item { Text("You’re no longer a member of this group.", style = MaterialTheme.typography.bodyLarge) }
             if (group != null) {
+                if (session.hasRejectedApproval(groupID)) item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text("An invalid group approval was blocked", style = MaterialTheme.typography.titleLarge)
+                    Text("That approval couldn’t change who’s in this group. Your existing messages are still saved. Review the people and their encryption details before continuing.", style = MaterialTheme.typography.bodyLarge)
+                    TextButton(onClick = { session.dismissRejectedApproval(groupID) }) { Text("Dismiss this notice") }
+                } }
                 if (session.pendingChanges(groupID) > 0) item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text("Saved group change", style = MaterialTheme.typography.titleLarge)
                     Text("A saved change is waiting to be confirmed. Resume it before making another change or sending messages.", style = MaterialTheme.typography.bodyLarge)

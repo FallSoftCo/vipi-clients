@@ -34,7 +34,14 @@ import Observation
     func messages(_ id: UUID) -> [GroupMessage] { _ = revision; return (try? store.messages(id)) ?? [] }
     func preferences(_ id: UUID) -> GroupLocalPreferences { _ = revision; return (try? store.preferences(id)) ?? .init() }
     func unread(_ id: UUID) -> Int { _ = revision; return (try? store.unread(id, account: account)) ?? 0 }
-    func markRead(_ id: UUID, visible: Set<UUID>) { do { try store.markRead(id, visible: visible); revision += 1 } catch { notice = Self.explanation(error) } }
+    func markRead(_ id: UUID, visible: Set<UUID>) {
+        guard !closed else { return }
+        do {
+            let read = try store.preferences(id).readIDs
+            let eligible = Set(try store.messages(id).filter { visible.contains($0.id) && $0.sender != account && $0.delivery == .received }.map(\.id)).subtracting(read)
+            guard !eligible.isEmpty else { return }; try store.markRead(id, visible: eligible); revision += 1
+        } catch { notice = Self.explanation(error) }
+    }
     func setMuted(_ id: UUID, _ muted: Bool) { do { try store.updatePreferences(id) { $0.muted = muted }; revision += 1 } catch { notice = Self.explanation(error) } }
     func saveDraft(_ id: UUID, _ value: String) { do { try store.updatePreferences(id) { $0.draft = value } } catch { notice = Self.explanation(error) } }
     func refresh() async {
@@ -101,7 +108,6 @@ import Observation
             if let fanout {
                 guard let accepted = result.control_acceptance else { throw GroupsFailure.invalidResponse }
                 try controls.accepted(accepted, fanout: fanout)
-                guard try membership.current(group.id)?.matches(result.snapshot) == true else { throw GroupsFailure.unapprovedMembership }
             }
             try put(result.snapshot)
             if let fanout { try controls.reconciled(fanout) }
@@ -187,6 +193,8 @@ import Observation
         } catch { notice = Self.explanation(error) }
     }
     func heldControls(_ group: UUID) -> [GroupIncoming] { _ = revision; return ((try? controls.heldEnvelopes()) ?? []).filter { $0.group_id == group } }
+    func hasRejectedApproval(_ group: UUID) -> Bool { _ = revision; return (try? store.vault.transaction { try store.vault.get("group-last-rejection", group.uuidString.lowercased()) != nil }) == true }
+    func dismissRejectedApproval(_ group: UUID) { do { try store.vault.transaction { try store.vault.remove("group-last-rejection", group.uuidString.lowercased()) }; revision += 1 } catch { notice = Self.explanation(error) } }
     func pendingCreateTitle() -> String? { try? store.vault.transaction { guard let data = try store.vault.get("group-operation", "create") else { return nil }; return try JSONDecoder().decode([String: String].self, from: data)["title"] } }
     func pendingChanges(_ group: UUID) -> Int { _ = revision; return (try? store.vault.transaction { try store.vault.ids("group-mutation").filter { $0.contains(group.uuidString.lowercased()) }.count + store.vault.ids("group-join-plan").filter { $0.hasPrefix(group.uuidString.lowercased() + "/") }.count }) ?? 0 }
     func resumePending(_ group: UUID) async {

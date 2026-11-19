@@ -142,6 +142,7 @@ final class GroupsMembership {
               change.action == .add, change.target_id == vault.account else { throw GroupsFailure.noPermission }
         let previous = GroupApprovedRoster(group_id: group, revision: change.from_revision, members: change.previous_members)
         let next = try change.validated(group: group, previous: previous, authenticatedSender: authenticatedSender)
+        try putInTransaction(previous) // Explicitly reviewed trust anchor; no network-derived authority.
         try putInTransaction(next)
     }
 }

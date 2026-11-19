@@ -7,9 +7,9 @@ import org.signal.libsignal.protocol.message.PreKeySignalMessage
 import org.signal.libsignal.protocol.message.SignalMessage
 import java.util.UUID
 
-internal data class GroupPendingControl(val id: UUID, val group: UUID, val sender: UUID, val pinnedIdentity: ByteArray, val transition: GroupRosterTransition) {
-    fun json() = JSONObject().put("id", id).put("group", group).put("sender", sender).put("pinned_identity", android.util.Base64.encodeToString(pinnedIdentity, android.util.Base64.NO_WRAP)).put("transition", transition.json())
-    companion object { fun parse(o: JSONObject) = GroupPendingControl(o.uuid("id"), o.uuid("group"), o.uuid("sender"), android.util.Base64.decode(o.getString("pinned_identity"), android.util.Base64.NO_WRAP), GroupRosterTransition.parse(o.getJSONObject("transition"))) }
+internal data class GroupPendingControl(val id: UUID, val group: UUID, val sender: UUID, val senderDevice: UUID, val pinnedIdentity: ByteArray, val transition: GroupRosterTransition) {
+    fun json() = JSONObject().put("id", id).put("group", group).put("sender", sender).put("senderDevice", senderDevice).put("pinned_identity", android.util.Base64.encodeToString(pinnedIdentity, android.util.Base64.NO_WRAP)).put("transition", transition.json())
+    companion object { fun parse(o: JSONObject) = GroupPendingControl(o.uuid("id"), o.uuid("group"), o.uuid("sender"), o.uuid("senderDevice"), android.util.Base64.decode(o.getString("pinned_identity"), android.util.Base64.NO_WRAP), GroupRosterTransition.parse(o.getJSONObject("transition"))) }
 }
 /** Control plaintext is never exposed as a message. A pre-existing pinned
  * Signal identity is checked before decryption, then bound to bootstrap consent. */
@@ -56,8 +56,11 @@ internal class GroupsControlCrypto(private val vault: MessageVault, private val 
             var advanced = false
             for (id in vault.ids("group-control-pending").filter { it.startsWith("$group/") }) {
                 val bytes = vault.get("group-control-pending", id) ?: continue; val candidate = GroupPendingControl.parse(GroupsStore.json(bytes))
-                if (candidate.transition.fromRevision != current.revision || vault.get("identity", "${candidate.sender}/1")?.contentEquals(candidate.pinnedIdentity) != true || vault.get("identity-change", candidate.sender.toString()) != null) continue
-                if (runCatching { candidate.transition.validated(group, current, candidate.sender) }.isFailure) { vault.put("group-control-rejected", id, bytes); vault.remove("group-control-pending", id); continue }
+                if (candidate.transition.fromRevision != current.revision || vault.get("identity", "${candidate.sender}/1")?.contentEquals(candidate.pinnedIdentity) != true || vault.get("identity-change", candidate.sender.toString()) != null || vault.get("blocked", candidate.sender.toString()) != null || vault.get("peer-device", candidate.sender.toString())?.toString(Charsets.UTF_8) != candidate.senderDevice.toString() || vault.get("retired-peer-device", "${candidate.sender}/${candidate.senderDevice}") != null) continue
+                if (runCatching { candidate.transition.validated(group, current, candidate.sender) }.isFailure) {
+                    vault.put("group-last-rejection", group.toString(), GroupsStore.bytes(JSONObject().put("sender", candidate.sender).put("reason", "invalid_group_approval")))
+                    vault.remove("group-control-pending", id); holdBudget.releaseInTransaction("approval", id); continue
+                }
                 membership.applyInTransaction(candidate.transition, group, candidate.sender); vault.put("group-control-logical", id, GroupsStore.bytes(candidate.transition.json())); vault.remove("group-control-pending", id); holdBudget.releaseInTransaction("approval", id); advanced = true; break
             }
             if (!advanced) return
@@ -96,17 +99,17 @@ internal class GroupsControlCrypto(private val vault: MessageVault, private val 
         val transition = GroupRosterTransition.parse(body); require(transition.actor == e.sender); val key = "${item.group}/${item.message}"
         vault.get("group-control-logical", key)?.let { previous -> require(GroupRosterTransition.parse(GroupsStore.json(previous)) == transition) }
             ?: run {
-                vault.get("group-control-pending", key)?.let { val saved = GroupPendingControl.parse(GroupsStore.json(it)); require(saved.transition == transition && saved.sender == e.sender && saved.pinnedIdentity.contentEquals(pinned)) { "Conflicting pending group control" } }
+                vault.get("group-control-pending", key)?.let { val saved = GroupPendingControl.parse(GroupsStore.json(it)); require(saved.transition == transition && saved.sender == e.sender && saved.senderDevice == route.senderDevice && saved.pinnedIdentity.contentEquals(pinned)) { "Conflicting pending group control" } }
                 val current = membership.currentInTransaction(item.group)
                 val prior = membership.historyInTransaction(item.group, transition.fromRevision)
                 if (current != null && prior != null) {
                     val candidate = transition.validated(item.group, prior, e.sender); val existing = membership.historyInTransaction(item.group, transition.toRevision)
                     if (existing != null && existing.members.toSet() != candidate.members.toSet()) {
-                        val pending = GroupsStore.bytes(GroupPendingControl(item.message, item.group, e.sender, pinned, transition).json())
+                        val pending = GroupsStore.bytes(GroupPendingControl(item.message, item.group, e.sender, route.senderDevice, pinned, transition).json())
                         holdBudget.reserveInTransaction("approval", key, item.group, pending.size); vault.put("group-membership-conflict", item.group.toString(), pending); vault.put("group-control-pending", key, pending)
                     } else { membership.applyInTransaction(transition, item.group, e.sender); vault.put("group-control-logical", key, GroupsStore.bytes(transition.json())) }
                 } else {
-                    val bytes = GroupsStore.bytes(GroupPendingControl(item.message, item.group, e.sender, pinned, transition).json())
+                    val bytes = GroupsStore.bytes(GroupPendingControl(item.message, item.group, e.sender, route.senderDevice, pinned, transition).json())
                     holdBudget.reserveInTransaction("approval", key, item.group, bytes.size); vault.put("group-control-pending", key, bytes)
                 }
             }
@@ -116,8 +119,8 @@ internal class GroupsControlCrypto(private val vault: MessageVault, private val 
     fun confirmBootstrap(reviewed: GroupPendingControl) = vault.transaction {
         val key = "${reviewed.group}/${reviewed.id}"
         val saved = GroupPendingControl.parse(GroupsStore.json(requireNotNull(vault.get("group-control-pending", key))))
-        require(saved.id == reviewed.id && saved.group == reviewed.group && saved.sender == reviewed.sender && saved.transition == reviewed.transition && saved.pinnedIdentity.contentEquals(reviewed.pinnedIdentity))
-        if (vault.get("identity", "${saved.sender}/1")?.contentEquals(saved.pinnedIdentity) != true || vault.get("identity-change", saved.sender.toString()) != null) throw PeerIdentityChanged(saved.sender)
+        require(saved.id == reviewed.id && saved.group == reviewed.group && saved.sender == reviewed.sender && saved.senderDevice == reviewed.senderDevice && saved.transition == reviewed.transition && saved.pinnedIdentity.contentEquals(reviewed.pinnedIdentity))
+        if (vault.get("identity", "${saved.sender}/1")?.contentEquals(saved.pinnedIdentity) != true || vault.get("identity-change", saved.sender.toString()) != null || vault.get("blocked", saved.sender.toString()) != null || vault.get("peer-device", saved.sender.toString())?.toString(Charsets.UTF_8) != saved.senderDevice.toString() || vault.get("retired-peer-device", "${saved.sender}/${saved.senderDevice}") != null) throw PeerIdentityChanged(saved.sender)
         membership.bootstrapInTransaction(saved.transition, saved.group, saved.sender, saved.sender)
         vault.put("group-control-logical", key, GroupsStore.bytes(saved.transition.json())); vault.remove("group-control-pending", key); holdBudget.releaseInTransaction("approval", key)
         drainInTransaction(saved.group)

@@ -5,6 +5,7 @@ struct GroupPendingControl: Codable, Identifiable {
     let id: UUID
     let group: UUID
     let sender: UUID
+    let senderDevice: UUID
     let pinnedIdentity: Data
     let transition: GroupRosterTransition
 }
@@ -84,9 +85,14 @@ final class GroupsControlCrypto {
                 let candidate = try decoder.decode(GroupPendingControl.self, from: bytes)
                 guard candidate.transition.from_revision == current.revision,
                       try vault.get("identity", candidate.sender.uuidString.lowercased() + "/1") == candidate.pinnedIdentity,
-                      try vault.get("identity-change", candidate.sender.uuidString.lowercased()) == nil else { continue }
+                      try vault.get("identity-change", candidate.sender.uuidString.lowercased()) == nil,
+                      try vault.get("blocked", candidate.sender.uuidString.lowercased()) == nil,
+                      try vault.get("peer-device", candidate.sender.uuidString.lowercased()) == Data(candidate.senderDevice.uuidString.lowercased().utf8),
+                      try vault.get("retired-peer-device", candidate.sender.uuidString.lowercased() + "/" + candidate.senderDevice.uuidString.lowercased()) == nil else { continue }
                 guard (try? candidate.transition.validated(group: group, previous: current, authenticatedSender: candidate.sender)) != nil else {
-                    try vault.put("group-control-rejected", id, bytes); try vault.remove("group-control-pending", id); continue
+                    let marker = try JSONSerialization.data(withJSONObject: ["sender": candidate.sender.uuidString.lowercased(), "reason": "invalid_group_approval"])
+                    try vault.put("group-last-rejection", group.uuidString.lowercased(), marker)
+                    try vault.remove("group-control-pending", id); try holdBudget.releaseInTransaction(kind: "approval", id: id); continue
                 }
                 try membership.applyInTransaction(candidate.transition, group: group, authenticatedSender: candidate.sender)
                 try vault.put("group-control-logical", id, encoder.encode(candidate.transition)); try vault.remove("group-control-pending", id); try holdBudget.releaseInTransaction(kind: "approval", id: id)
@@ -150,10 +156,10 @@ final class GroupsControlCrypto {
             if let previous = try vault.get("group-control-logical", logicalKey) {
                 guard try decoder.decode(GroupRosterTransition.self, from: previous) == transition else { throw MessageJournal.Failure.conflict }
             } else {
-                let pending = GroupPendingControl(id: item.group_message_id, group: item.group_id, sender: item.sender_id, pinnedIdentity: pinned, transition: transition)
+                let pending = GroupPendingControl(id: item.group_message_id, group: item.group_id, sender: item.sender_id, senderDevice: item.sender_device_id, pinnedIdentity: pinned, transition: transition)
                 if let bytes = try vault.get("group-control-pending", logicalKey) {
                     let saved = try decoder.decode(GroupPendingControl.self, from: bytes)
-                    guard saved.transition == transition, saved.sender == item.sender_id, saved.pinnedIdentity == pinned else { throw MessageJournal.Failure.conflict }
+                    guard saved.transition == transition, saved.sender == item.sender_id, saved.senderDevice == item.sender_device_id, saved.pinnedIdentity == pinned else { throw MessageJournal.Failure.conflict }
                 }
                 if try membership.currentInTransaction(item.group_id) != nil, let prior = try membership.historyInTransaction(item.group_id, revision: transition.from_revision) {
                     let candidate = try transition.validated(group: item.group_id, previous: prior, authenticatedSender: item.sender_id)
@@ -182,10 +188,13 @@ final class GroupsControlCrypto {
             let recordKey = key(reviewed.group, reviewed.id)
             guard let data = try vault.get("group-control-pending", recordKey),
                   let saved = try? decoder.decode(GroupPendingControl.self, from: data), saved.id == reviewed.id,
-                  saved.group == reviewed.group, saved.sender == reviewed.sender, saved.transition == reviewed.transition,
+                  saved.group == reviewed.group, saved.sender == reviewed.sender, saved.senderDevice == reviewed.senderDevice, saved.transition == reviewed.transition,
                   saved.pinnedIdentity == reviewed.pinnedIdentity,
                   try vault.get("identity", saved.sender.uuidString.lowercased() + "/1") == saved.pinnedIdentity,
-                  try vault.get("identity-change", saved.sender.uuidString.lowercased()) == nil else { throw GroupsFailure.identityChanged }
+                  try vault.get("identity-change", saved.sender.uuidString.lowercased()) == nil,
+                  try vault.get("blocked", saved.sender.uuidString.lowercased()) == nil,
+                  try vault.get("peer-device", saved.sender.uuidString.lowercased()) == Data(saved.senderDevice.uuidString.lowercased().utf8),
+                  try vault.get("retired-peer-device", saved.sender.uuidString.lowercased() + "/" + saved.senderDevice.uuidString.lowercased()) == nil else { throw GroupsFailure.identityChanged }
             try membership.bootstrapInTransaction(saved.transition, group: saved.group, authenticatedSender: saved.sender, confirmedInviter: saved.sender)
             try vault.put("group-control-logical", recordKey, encoder.encode(saved.transition)); try vault.remove("group-control-pending", recordKey); try holdBudget.releaseInTransaction(kind: "approval", id: recordKey)
             try drainInTransaction(saved.group)

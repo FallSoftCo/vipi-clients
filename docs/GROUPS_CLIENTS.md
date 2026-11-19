@@ -24,7 +24,9 @@ single-member/role delta. Role/remove/leave submit the intended encrypted contro
 and exact roster mutation in one atomic HTTP request. Own approval advances only
 after that request returns its durable admission receipt. That receipt is relay
 transaction status, not cryptographic membership proof; the locally authored
-control remains the intended authority and returned roster must match it.
+control remains the intended authority. A retry can return a later relay snapshot;
+that does not strand an already committed immutable operation. Fresh sends still
+require the relay proposal to match the latest authenticated roster exactly.
 Fresh text uses only the latest authenticated revision.
 A server roster mismatch or pending mutation freezes sends. First-join trust is
 an explicit confirmation of the decrypted full roster and pinned inviter.
@@ -35,6 +37,13 @@ whose revision is not approved commits Signal state, secure withheld content,
 context fingerprint and receipt together; it never enters normal text,
 translation, autoplay or unread until authorized. Future-revision text can
 promote after approval. Earlier-revision text offers a clear ask-to-resend draft.
+Withheld placeholders cannot consume unread state; promotion re-evaluates only
+visible, opened incoming messages. Pending controls retain their authenticated
+sender device and must still match an unblocked, unretired pinned route before
+bootstrap or deferred application. Invalid deferred approvals keep only a bounded
+per-group rejection notice with an explicit dismissal; their recovery reservation
+is released. Explicit bootstrap also stores its reviewed prior roster as an
+historical anchor so equivalent fresh-transport reissue can be recognized.
 Recovery admission is bounded to1024 records/32MiB per account and128/8MiB per
 group using actual encoded sizes; existing holds are never silently evicted.
 Held first-seen time preserves originally timely recovery after relay expiry. Missing controls are retained and
@@ -85,7 +94,12 @@ These sources have not validated this implementation's actual native UX.
    acknowledge committed group receipts, refresh groups on reconnect/wakeup, warm
    namespaced immersion IDs and close GroupsSession before closing its vault.
    Integrate mute preferences into actual group notification delivery; opaque push
-   wakeups must still synchronize muted groups. These hooks are not yet installed.
+   wakeups must still synchronize muted groups. Current relay APNs uses a generic
+   alert, so merely storing a native mute preference cannot suppress it. A real
+   per-user relay mute policy or qualified notification-extension/silent-local
+   design is required before the UI promise is enabled. This is a substantive
+   missing implementation, not just a callback hookup. These hooks are not yet
+   installed.
 3. Build/typecheck against retained native dependency closures in a root-allocated
    isolated Mac directory. New source uses existing libsignal Swift0.105.0 calls,
    Swift6 Observation, iOS18 scroll visibility and existing immersion signatures.
