@@ -6,6 +6,7 @@ struct SubscriptionOfferView: View {
     let plan: VipiPlan
     @Environment(AppState.self) private var state
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     private var product: Product? { store.products[plan] }
     private var access: EntitlementSnapshot.Access? { store.snapshot?.access(plan) }
     private var trial: Bool { plan == .botMini && store.introductoryEligible.contains(plan) }
@@ -103,7 +104,10 @@ struct SubscriptionOfferView: View {
                         Text("Prices aren’t available").font(.headline)
                         Text(LocalizedStringKey(plan == .base ? "Connect to the App Store to see your subscription price. You haven’t been enrolled." : "Connect to the App Store to see your price and any free trial. You haven’t been enrolled."))
                             .font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal: false, vertical: true)
-                        HStack(spacing: 20) {
+                        let actions = dynamicTypeSize.isAccessibilitySize
+                            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 12))
+                            : AnyLayout(HStackLayout(spacing: 20))
+                        actions {
                             Button { Task { await store.refresh() } } label: {
                                 Text("Try again").frame(minHeight: 44).contentShape(Rectangle())
                             }.disabled(store.loading)
@@ -164,26 +168,41 @@ struct SubscriptionsView: View {
                 ForEach(VipiPlan.allCases) { plan in
                     NavigationLink { SubscriptionOfferView(store: store, plan: plan) } label: {
                         if store.accessVerificationPending(plan) {
-                            LabeledContent(plan.title, value: String(localized: "Checking access"))
+                            LabeledContent(plan.title) { Text("Checking access").foregroundStyle(VipiDesign.secondary) }
                         } else if plan == .base && store.accessActive(.base) && store.snapshot?.base.access_source == "cardless_trial" {
-                            LabeledContent(plan.title, value: String(localized: "Free access"))
+                            LabeledContent(plan.title) { Text("Free access").foregroundStyle(VipiDesign.secondary) }
                         } else {
-                            LabeledContent(plan.title, value: store.accessActive(plan) ? String(localized: "Active") : String(localized: "See plan"))
+                            LabeledContent(plan.title) {
+                                Text(LocalizedStringKey(store.accessActive(plan) ? "Active" : "See plan"))
+                                    .foregroundStyle(VipiDesign.secondary)
+                            }
                         }
                     }
                 }
             } footer: {
-                if store.snapshot?.base.isReviewAccess == true && store.snapshot?.bot_mini.isReviewAccess == true {
-                    Text("Review access is active. No subscription is required for this account.")
-                } else {
-                    Text("Vipi and Bot mini are separate subscriptions. You choose each one explicitly.")
-                }
+                Group {
+                    if store.snapshot?.base.isReviewAccess == true && store.snapshot?.bot_mini.isReviewAccess == true {
+                        Text("Review access is active. No subscription is required for this account.")
+                    } else {
+                        Text("Vipi and Bot mini are separate subscriptions. You choose each one explicitly.")
+                    }
+                }.font(.body).foregroundStyle(VipiDesign.secondary)
             }
             Section {
                 Button("Restore purchases") { Task { await store.restore() } }.disabled(store.busy)
                 Link("Manage App Store subscriptions", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
             }
             if let notice = store.notice { Section { Text(notice).foregroundStyle(VipiDesign.secondary) } }
-        }.navigationTitle("Subscriptions").task { await store.refresh() }
+            if store.catalogUnavailable {
+                Section {
+                    Text("The App Store couldn’t load prices. Please try again.").foregroundStyle(VipiDesign.secondary)
+                    Button("Try again") { Task { await store.refresh() } }
+                        .disabled(store.loading).accessibilityIdentifier("subscription-prices-retry")
+                }
+            }
+        }.scrollContentBackground(.hidden).background(VipiDesign.canvas)
+            .navigationTitle("Subscriptions").navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(VipiDesign.canvas, for: .navigationBar).toolbarBackground(.visible, for: .navigationBar)
+            .task { await store.refresh() }
     }
 }

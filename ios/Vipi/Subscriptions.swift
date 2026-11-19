@@ -75,6 +75,7 @@ struct BotAllowance: Decodable, Sendable {
 @MainActor @Observable final class SubscriptionStore {
     private let api: any ChatTransport
     private let accountToken: UUID
+    private let loadProducts: @MainActor () async throws -> [Product]
     private var listener: Task<Void, Never>?
     private var expiryTasks: [VipiPlan: Task<Void, Never>] = [:]
     private var expiryClocks: [VipiPlan: ServerTrialClock] = [:]
@@ -93,10 +94,14 @@ struct BotAllowance: Decodable, Sendable {
     private(set) var loading = false
     private(set) var busy = false
     private(set) var pending = false
+    private(set) var catalogUnavailable = false
     var notice: String?
 
-    init(api: any ChatTransport, accountToken: UUID) {
-        self.api = api; self.accountToken = accountToken
+    init(api: any ChatTransport, accountToken: UUID,
+         loadProducts: @escaping @MainActor () async throws -> [Product] = {
+             try await Product.products(for: VipiPlan.allCases.map(\.rawValue))
+         }) {
+        self.api = api; self.accountToken = accountToken; self.loadProducts = loadProducts
     }
     func start() async {
         guard !closed else { return }
@@ -126,7 +131,7 @@ struct BotAllowance: Decodable, Sendable {
             if !closed { botAllowance = value }
         } catch { /* Bot availability never prevents using a base subscription. */ }
         do {
-            let values = try await Product.products(for: VipiPlan.allCases.map(\.rawValue))
+            let values = try await loadProducts()
             guard !closed else { return }
             var found: [VipiPlan: Product] = [:], eligible = Set<VipiPlan>()
             for value in values {
@@ -142,11 +147,14 @@ struct BotAllowance: Decodable, Sendable {
             }
             guard !closed else { return }
             products = found; introductoryEligible = eligible
+            catalogUnavailable = found.count != VipiPlan.allCases.count
         } catch {
             if !closed {
                 // Never initiate a charge from stale offer or price information.
                 products = [:]; introductoryEligible = []
-                notice = String(localized: "The App Store couldn’t load prices. Please try again.")
+                // Catalog availability does not invalidate current account
+                // access or replace a purchase/restore reconciliation notice.
+                catalogUnavailable = true
             }
         }
     }
