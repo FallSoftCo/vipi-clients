@@ -25,8 +25,12 @@ import androidx.compose.ui.unit.sp
     LaunchedEffect(scrolling) { if (scrolling) gestures.held = false }
     DisposableEffect(translation, speech) { onDispose { audio.close(); translation.close(); speech.close() } }
     Column(Modifier.fillMaxWidth().fullMessageGestures(gestures), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        FullMessageBubble("Let's meet tomorrow after work.", "language-preview-$source-$target", translation,
-            gestures, audio) {}
+        Surface(shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surface,
+            modifier = Modifier.fillMaxWidth()) {
+            FullMessageBubble("Let's meet tomorrow after work.", "language-preview-$source-$target", translation,
+                gestures, audio) {}
+        }
+        FullMessageContextHint(gestures, source, target)
         SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
     }
 }

@@ -85,4 +85,6 @@
     <string name="backup_password_too_short">Use at least 12 characters.</string>
     <string name="backup_password_too_long">This passphrase is too long.</string>
     <string name="backup_password_mismatch">The passphrases don’t match.</string>
+    <string name="full_translation_context_hint">Tap to hear %1$s. Hold to read in %2$s.</string>
+    <string name="full_translation_writing_hint">Double-tap to see %1$s writing.</string>
 </resources>

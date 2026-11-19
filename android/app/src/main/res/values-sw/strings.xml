@@ -457,4 +457,6 @@
     <string name="backup_password_too_short">Tumia angalau vibambo 12.</string>
     <string name="backup_password_too_long">Kaulisiri hii ni ndefu mno.</string>
     <string name="backup_password_mismatch">Kaulisiri hazilingani.</string>
+    <string name="full_translation_context_hint">Gusa ili usikie %1$s. Shikilia ili usome kwa %2$s.</string>
+    <string name="full_translation_writing_hint">Gusa mara mbili ili uone maandishi ya %1$s.</string>
 </resources>

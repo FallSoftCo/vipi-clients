@@ -454,4 +454,6 @@
     <string name="backup_password_too_short">12자 이상을 사용하세요.</string>
     <string name="backup_password_too_long">이 암호 구문은 너무 깁니다.</string>
     <string name="backup_password_mismatch">암호 구문이 일치하지 않습니다.</string>
+    <string name="full_translation_context_hint">탭하여 %1$s로 듣고, 길게 눌러 %2$s로 읽으세요.</string>
+    <string name="full_translation_writing_hint">두 번 탭하면 %1$s 표기를 볼 수 있어요.</string>
 </resources>

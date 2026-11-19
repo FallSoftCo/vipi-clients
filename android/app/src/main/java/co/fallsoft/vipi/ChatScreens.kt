@@ -492,7 +492,8 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             }
             }
             FullMessageGestureCue(gestures, composing, compact ||
-                androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE)
+                androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE,
+                source = source, target = target)
             }
         }
     }

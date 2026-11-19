@@ -295,7 +295,8 @@ import java.time.format.FormatStyle
         }
         }
         FullMessageGestureCue(gestures, composing, compact ||
-            androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE)
+            androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE,
+            source = model.knownLanguage, target = model.targetLanguage)
         }
     }
     }

@@ -454,4 +454,6 @@
     <string name="backup_password_too_short">12文字以上を使用してください。</string>
     <string name="backup_password_too_long">このパスフレーズは長すぎます。</string>
     <string name="backup_password_mismatch">パスフレーズが一致しません。</string>
+    <string name="full_translation_context_hint">タップすると%1$sの音声を聞けます。長押しすると%2$sで読めます。</string>
+    <string name="full_translation_writing_hint">ダブルタップすると%1$sの文字を表示します。</string>
 </resources>

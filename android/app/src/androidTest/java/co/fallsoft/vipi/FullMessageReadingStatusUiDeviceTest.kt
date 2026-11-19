@@ -30,7 +30,7 @@ class FullMessageReadingStatusUiDeviceTest {
     @get:Rule val compose = createComposeRule()
     private val instrumentation get() = InstrumentationRegistry.getInstrumentation()
     private val context get() = instrumentation.targetContext
-    private data class Native(val displayed: String, val bounds: Rect, val state: String?)
+    private data class Native(val displayed: String, val bounds: Rect, val state: String?, val actions: List<String>)
     private fun paragraph(original: String): Native {
         var result: Native? = null
         instrumentation.runOnMainSync {
@@ -43,7 +43,7 @@ class FullMessageReadingStatusUiDeviceTest {
             val view = found.single(); val location = IntArray(2); view.getLocationOnScreen(location)
             val info = view.createAccessibilityNodeInfo()
             try { result = Native(view.text.toString(), Rect(location[0], location[1], location[0]+view.width, location[1]+view.height),
-                AccessibilityNodeInfoCompat.wrap(info).stateDescription?.toString()) }
+                AccessibilityNodeInfoCompat.wrap(info).stateDescription?.toString(), info.actionList.mapNotNull { it.label?.toString() }) }
             finally { info.recycle() }
         }
         return requireNotNull(result)
@@ -96,9 +96,10 @@ class FullMessageReadingStatusUiDeviceTest {
         val preferences = context.getSharedPreferences("full-message-gestures", android.content.Context.MODE_PRIVATE)
         val key = "hold-script-policy-1"; val present = preferences.contains(key); val seen = preferences.getBoolean(key, false)
         val gestures = FullMessageGestures(); val mounted = androidx.compose.runtime.mutableStateOf(true)
-        val expected = listOf(context.getString(R.string.full_translation_play), context.getString(R.string.full_translation_meaning),
-            context.getString(R.string.full_translation_script)).joinToString(". ")
-        val physical = context.getString(R.string.full_translation_gestures)
+        val expected = listOf(context.getString(R.string.full_translation_play), context.getString(R.string.full_translation_meaning)).joinToString(". ")
+        val locale = context.resources.configuration.locales[0]
+        val physical = context.getString(R.string.full_translation_context_hint,
+            java.util.Locale.forLanguageTag("es").getDisplayLanguage(locale), java.util.Locale.forLanguageTag("en").getDisplayLanguage(locale))
         try {
             check(preferences.edit().remove(key).commit())
             compose.setContent { if (mounted.value) VipiTheme(Appearance.LIGHT) {
@@ -200,6 +201,8 @@ class FullMessageReadingStatusUiDeviceTest {
                 actionBounds.height >= 48 * context.resources.displayMetrics.density)
             assertTrue("Actual native AX click owner $nativeOwner must be at least48dp", nativeOwner.height() >= 48 * context.resources.displayMetrics.density)
             assertEquals(practice, before.displayed); assertEquals(copy, before.state)
+            assertFalse("Unavailable reading must not offer a nonexistent alternate script", before.actions.contains(context.getString(R.string.full_translation_script)))
+            assertFalse("Literal content must not offer an alternate script", paragraph(literalOriginal).actions.contains(context.getString(R.string.full_translation_script)))
             assertNull(paragraph(literalOriginal).state)
             val layout = compose.onNodeWithTag("reading-status-layout").fetchSemanticsNode().boundsInWindow
             compose.runOnIdle { gestures.held = true }
@@ -237,6 +240,7 @@ class FullMessageReadingStatusUiDeviceTest {
             compose.onNodeWithText(feedback).assertDoesNotExist()
             compose.onNodeWithText(copy).assertIsDisplayed().assertHasNoClickAction() // Only the permanent limit remains.
             assertNull(paragraph(original).state); assertEquals(1, reads.get()); assertEquals(1, calls.size)
+            assertTrue("Actual completed alternate reading offers the native script action", paragraph(original).actions.contains(context.getString(R.string.full_translation_script)))
             readingRegressionFile(context, "reading-status-ui.json").writeText(JSONObject().put("passed", true)
                 .put("native_state_description", copy).put("no_notice_for_literal", true).put("hold_script_geometry_preserved", true)
                 .put("practice_audio_command_preserved", true).put("reading_only_touch_retry", true).put("ready_during_retry", true)

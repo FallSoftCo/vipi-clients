@@ -469,4 +469,6 @@
     <string name="backup_password_too_short">استخدم 12 حرفًا على الأقل.</string>
     <string name="backup_password_too_long">عبارة المرور هذه طويلة جدًا.</string>
     <string name="backup_password_mismatch">عبارتا المرور غير متطابقتين.</string>
+    <string name="full_translation_context_hint">اضغط للاستماع باللغة %1$s. اضغط مطولًا للقراءة باللغة %2$s.</string>
+    <string name="full_translation_writing_hint">اضغط مرتين لرؤية الكتابة باللغة %1$s.</string>
 </resources>

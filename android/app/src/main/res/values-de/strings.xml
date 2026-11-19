@@ -457,4 +457,6 @@
     <string name="backup_password_too_short">Verwende mindestens 12 Zeichen.</string>
     <string name="backup_password_too_long">Diese Passphrase ist zu lang.</string>
     <string name="backup_password_mismatch">Die Passphrasen stimmen nicht überein.</string>
+    <string name="full_translation_context_hint">Tippe, um %1$s zu hören. Halte gedrückt, um auf %2$s zu lesen.</string>
+    <string name="full_translation_writing_hint">Tippe doppelt, um %1$s in Schriftform zu sehen.</string>
 </resources>

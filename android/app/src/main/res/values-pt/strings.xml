@@ -457,4 +457,6 @@
     <string name="backup_password_too_short">Use pelo menos 12 caracteres.</string>
     <string name="backup_password_too_long">Esta frase secreta é longa demais.</string>
     <string name="backup_password_mismatch">As frases secretas não coincidem.</string>
+    <string name="full_translation_context_hint">Toque para ouvir em %1$s. Mantenha pressionado para ler em %2$s.</string>
+    <string name="full_translation_writing_hint">Toque duas vezes para ver o texto em %1$s.</string>
 </resources>

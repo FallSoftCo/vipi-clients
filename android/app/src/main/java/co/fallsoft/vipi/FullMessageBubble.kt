@@ -50,10 +50,15 @@ internal class FullMessageGestures {
     val meaning: Boolean get() = held || accessibilityMeaning
     private data class Hit(val bounds: Rect, val play: () -> Unit)
     private val messages = mutableMapOf<String, Hit>()
-    fun register(id: String, bounds: Rect, play: () -> Unit) { messages[id] = Hit(bounds, play) }
-    fun remove(id: String) { messages.remove(id) }
+    private val alternateReadings = mutableStateMapOf<String, Boolean>()
+    val canSwitchScript: Boolean get() = alternateReadings.values.any { it }
+    fun register(id: String, bounds: Rect, play: () -> Unit, alternateReading: Boolean = false) {
+        messages[id] = Hit(bounds, play)
+        if (alternateReadings[id] != alternateReading) alternateReadings[id] = alternateReading
+    }
+    fun remove(id: String) { messages.remove(id); alternateReadings.remove(id) }
     fun tap(position: Offset) { messages.values.lastOrNull { it.bounds.contains(position) }?.play?.invoke() }
-    fun toggleScript() { interacted(); nativeScript = !nativeScript }
+    fun toggleScript() { if (canSwitchScript) { interacted(); nativeScript = !nativeScript } }
 }
 
 @Composable internal fun Modifier.fullMessageGestures(state: FullMessageGestures): Modifier {
@@ -64,10 +69,11 @@ internal class FullMessageGestures {
     val reading = stringResource(R.string.full_translation_reading)
     DisposableEffect(state) { onDispose { state.held = false } }
     return onGloballyPositioned { coordinates = it }.semantics {
-        customActions = listOf(
-            CustomAccessibilityAction(reveal) { state.interacted(); state.accessibilityMeaning = true; true },
-            CustomAccessibilityAction(practice) { state.accessibilityMeaning = false; state.held = false; true },
-            CustomAccessibilityAction(if (state.nativeScript) reading else script) { state.toggleScript(); true })
+        customActions = buildList {
+            add(CustomAccessibilityAction(reveal) { state.interacted(); state.accessibilityMeaning = true; true })
+            add(CustomAccessibilityAction(practice) { state.accessibilityMeaning = false; state.held = false; true })
+            if (state.canSwitchScript) add(CustomAccessibilityAction(if (state.nativeScript) reading else script) { state.toggleScript(); true })
+        }
     }.pointerInput(state) {
         detectTapGestures(
             onPress = { try { tryAwaitRelease() } finally { state.held = false } },
@@ -141,7 +147,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             context.getString(if (playing) R.string.ui_cae7d57bc067 else R.string.full_translation_play)))
         info.addAction(AccessibilityNodeInfo.AccessibilityAction(REVEAL, context.getString(R.string.full_translation_meaning)))
         info.addAction(AccessibilityNodeInfo.AccessibilityAction(PRACTICE, context.getString(R.string.full_translation_practice)))
-        info.addAction(AccessibilityNodeInfo.AccessibilityAction(SCRIPT, context.getString(if (showingNativeScript) R.string.full_translation_reading else R.string.full_translation_script)))
+        if (script != null) info.addAction(AccessibilityNodeInfo.AccessibilityAction(SCRIPT, context.getString(if (showingNativeScript) R.string.full_translation_reading else R.string.full_translation_script)))
         info.addAction(AccessibilityNodeInfo.AccessibilityAction(AccessibilityNodeInfo.ACTION_COPY, context.getString(R.string.full_translation_copy_original)))
     }
     override fun performAccessibilityAction(action: Int, arguments: Bundle?): Boolean {
@@ -149,7 +155,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             AccessibilityNodeInfo.ACTION_CLICK -> { val callback = play ?: return false; callback(); return true }
             REVEAL -> { reveal?.invoke(); return true }
             PRACTICE -> { practice?.invoke(); return true }
-            SCRIPT -> { script?.invoke(); return true }
+            SCRIPT -> { val callback = script ?: return false; callback(); return true }
             AccessibilityNodeInfo.ACTION_COPY -> {
                 context.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("", rawOriginal)); return true
             }
@@ -167,6 +173,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     val value = state?.value
     val readingUnavailable = value?.readingStatus == FullMessageReadingStatus.UNAVAILABLE
     val showReadingFailure = readingUnavailable && !gestures.meaning && !gestures.nativeScript
+    val alternateReading = value?.practiceReading?.let { it.isNotBlank() && it != value.practiceText } == true
     val ink = MaterialTheme.colorScheme.onSurface.toArgb()
     val activityColor = MaterialTheme.colorScheme.primary
     LaunchedEffect(translation, id, text) { translation.enqueue(id, text) }
@@ -176,7 +183,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         onDispose { gestures.remove(id); translation.release(id, text) }
     }
     Column(Modifier.widthIn(max = 520.dp).onGloballyPositioned {
-        gestures.register(id, it.boundsInWindow(), play)
+        gestures.register(id, it.boundsInWindow(), play, alternateReading)
     }.drawWithContent {
         drawContent()
         if (speech.activeMessage == id || audio.manualMessage == id) drawLine(activityColor,
@@ -196,7 +203,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             view.playing = speech.activeMessage == id || audio.manualMessage == id
             view.reveal = { gestures.interacted(); gestures.accessibilityMeaning = true }
             view.practice = { gestures.accessibilityMeaning = false; gestures.held = false }
-            view.script = { gestures.toggleScript() }
+            view.script = if (alternateReading) ({ gestures.toggleScript() }) else null
             view.bind(displayed, text, faces, ink)
         })
         if (value == null) {

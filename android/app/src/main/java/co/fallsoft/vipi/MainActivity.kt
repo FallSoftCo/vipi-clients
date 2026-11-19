@@ -258,10 +258,6 @@ class MainActivity : ComponentActivity() {
 @Composable private fun Welcome(scrolling: Boolean) {
     Heading("", stringResource(R.string.welcome_title_concise), stringResource(R.string.welcome_detail_concise))
     ConversationPreview("en", "es", scrolling)
-    val gestureActions = fullMessageActionDescription()
-    Text(stringResource(R.string.full_translation_gestures), style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = Modifier.clearAndSetSemantics { contentDescription = gestureActions })
 }
 
 @Composable private fun LanguageSelection(model: VipiModel, scrolling: Boolean) {
