@@ -25,12 +25,12 @@ struct HistoryBackupView: View {
     private var passwordError: String? {
         guard attemptedValidation, !passwordValid else { return nil }
         let normalized = password.precomposedStringWithCanonicalMapping
-        if normalized.utf8.count > 1024 { return String(localized: "This passphrase is too long.") }
+        if normalized.utf8.count > 1024 { return String(localized: "This password is too long.") }
         return String(localized: "Use at least 12 characters.")
     }
     private var confirmationError: String? {
         attemptedConfirmation && passwordValid && !restoring && password != confirmation
-            ? String(localized: "The passphrases don’t match.") : nil
+            ? String(localized: "The passwords don’t match.") : nil
     }
 
     var body: some View {
@@ -78,7 +78,7 @@ struct HistoryBackupView: View {
                     }
                 }
             } footer: {
-                Text("Use a long, unique passphrase of at least 12 characters. Keep it somewhere safe. Vipi cannot recover this password.").foregroundStyle(VipiDesign.secondary)
+                Text("Use at least 12 characters. Keep this password safe. Vipi can’t recover it.").foregroundStyle(VipiDesign.secondary)
             }
             if let verified, restoring {
                 Section("Ready to restore") {

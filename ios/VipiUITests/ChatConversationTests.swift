@@ -834,7 +834,7 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertFalse(passwordError.exists); XCTAssertFalse(mismatch.exists,"Correcting the password must not preemptively mark the untouched confirmation")
         reveal(confirmation,up:true); confirmation.tap(); confirmation.typeText("Public QA passphrase 202")
         reveal(begin,up:true); XCTAssertTrue(begin.isEnabled); begin.tap()
-        XCTAssertTrue(mismatch.waitForExistence(timeout:5)); XCTAssertEqual(mismatch.label,"The passphrases don’t match.")
+        XCTAssertTrue(mismatch.waitForExistence(timeout:5)); XCTAssertEqual(mismatch.label,"The passwords don’t match.")
         capture("mismatch-explained")
         reveal(confirmation,up:false); confirmation.tap(); confirmation.typeText("6")
         XCTAssertFalse(mismatch.exists)

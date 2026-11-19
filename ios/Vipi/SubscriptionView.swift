@@ -4,6 +4,7 @@ import StoreKit
 struct SubscriptionOfferView: View {
     let store: SubscriptionStore
     let plan: VipiPlan
+    @Environment(AppState.self) private var state
     @Environment(\.dismiss) private var dismiss
     private var product: Product? { store.products[plan] }
     private var access: EntitlementSnapshot.Access? { store.snapshot?.access(plan) }
@@ -140,8 +141,11 @@ struct SubscriptionOfferView: View {
             .task { await store.refresh() }
     }
     private var benefit: some View {
-        Text(LocalizedStringKey(plan == .base ? "Private chats with friends" : "Chat with vBot."))
-            .font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal: false, vertical: true)
+        Group {
+            if plan == .base {
+                Text("Your messages appear in \(VipiLanguage.named(state.targetLanguage).localizedName), translated on this device. Bot mini is optional and billed separately.")
+            } else { Text("Chat with vBot.") }
+        }.font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal: false, vertical: true)
     }
     private static func date(_ value: String) -> Date? {
         let format = ISO8601DateFormatter()

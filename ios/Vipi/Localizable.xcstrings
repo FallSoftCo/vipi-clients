@@ -22192,14 +22192,14 @@
       "localizations": {
         "en": {
           "stringUnit": {
-            "state": "translated",
+            "state": "needs_review",
             "value": "Confirm backup password"
           }
         },
-        "es": {
+        "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Confirmar contraseña de la copia de seguridad"
+            "value": "تأكيد كلمة مرور النسخة الاحتياطية"
           }
         },
         "de": {
@@ -22208,22 +22208,52 @@
             "value": "Backup-Passwort bestätigen"
           }
         },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Confirmar contraseña de la copia de seguridad"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Confirmer le mot de passe de sauvegarde"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Conferma la password del backup"
+          }
+        },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "バックアップパスワードを確認してください"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "تأكيد كلمة مرور النسخ الاحتياطي"
+            "value": "バックアップのパスワードを確認"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
             "value": "백업 비밀번호 확인"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Confirmar senha do backup"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Confirmar palavra-passe da cópia de segurança"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Thibitisha nenosiri la nakala rudufu"
           }
         },
         "zh-Hans": {
@@ -22236,36 +22266,6 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "確認備份密碼"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Confirmer le mot de passe de sauvegarde"
-          }
-        },
-        "sw": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Thibitisha nenosiri la nakala rudufu"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Conferma la password del backup"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Confirmar senha do backup"
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Confirmar palavra-passe do backup"
           }
         }
       }
@@ -40166,6 +40166,421 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Arifa zimezimwa. Ziwashe katika Mipangilio."
+          }
+        }
+      }
+    },
+    "Your messages appear in %@, translated on this device. Bot mini is optional and billed separately.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Your messages appear in %@, translated on this device. Bot mini is optional and billed separately."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تظهر رسائلك باللغة %@، وتُترجم على هذا الجهاز. Bot mini اختياري وتُدفع رسومه بشكل منفصل."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Deine Nachrichten erscheinen auf %@ und werden auf diesem Gerät übersetzt. Bot mini ist optional und wird separat berechnet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tus mensajes aparecen en %@, traducidos en este dispositivo. Bot mini es opcional y se cobra por separado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vos messages s’affichent en %@, traduits sur cet appareil. Bot mini est facultatif et facturé séparément."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "I messaggi appaiono in %@, tradotti su questo dispositivo. Bot mini è facoltativo e viene addebitato separatamente."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "メッセージはこのデバイス上で%@に翻訳されて表示されます。Bot miniは任意の追加プランで、別途請求されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "메시지는 이 기기에서 %@로 번역되어 표시됩니다. Bot mini는 선택 사항이며 별도로 청구됩니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Suas mensagens aparecem em %@, traduzidas neste dispositivo. O Bot mini é opcional e cobrado separadamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As suas mensagens aparecem em %@, traduzidas neste dispositivo. O Bot mini é opcional e faturado separadamente."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ujumbe wako unaonekana kwa %@, ukitafsiriwa kwenye kifaa hiki. Bot mini ni ya hiari na inalipiwa kando."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你的消息会在此设备上翻译为%@并显示。Bot mini为可选方案，单独计费。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你的訊息會在此裝置上翻譯為%@並顯示。Bot mini為選用方案，單獨計費。"
+          }
+        }
+      }
+    },
+    "Use at least 12 characters. Keep this password safe. Vipi can’t recover it.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Use at least 12 characters. Keep this password safe. Vipi can’t recover it."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "استخدم 12 حرفًا على الأقل. احتفظ بكلمة المرور هذه بأمان. لا يستطيع Vipi استعادتها."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Verwende mindestens 12 Zeichen. Bewahre dieses Passwort sicher auf. Vipi kann es nicht wiederherstellen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Usa al menos 12 caracteres. Guarda esta contraseña en un lugar seguro. Vipi no puede recuperarla."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utilisez au moins 12 caractères. Gardez ce mot de passe en lieu sûr. Vipi ne peut pas le récupérer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Usa almeno 12 caratteri. Conserva questa password al sicuro. Vipi non può recuperarla."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "12文字以上を使用してください。このパスワードは安全な場所に保管してください。Vipiでは復元できません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "12자 이상을 사용하세요. 이 비밀번호를 안전하게 보관하세요. Vipi는 복구할 수 없습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Use pelo menos 12 caracteres. Guarde esta senha em um local seguro. O Vipi não pode recuperá-la."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Use pelo menos 12 carateres. Guarde esta palavra-passe num local seguro. O Vipi não a pode recuperar."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tumia angalau vibambo 12. Hifadhi nenosiri hili mahali salama. Vipi haiwezi kulirejesha."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "请使用至少12个字符。请妥善保管此密码，Vipi无法恢复。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "請使用至少12個字元。請妥善保管此密碼，Vipi無法復原。"
+          }
+        }
+      }
+    },
+    "This password is too long.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "This password is too long."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "كلمة المرور هذه طويلة جدًا."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dieses Passwort ist zu lang."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta contraseña es demasiado larga."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ce mot de passe est trop long."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Questa password è troppo lunga."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このパスワードは長すぎます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 비밀번호는 너무 깁니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta senha é longa demais."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta palavra-passe é demasiado longa."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nenosiri hili ni refu mno."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此密码过长。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此密碼過長。"
+          }
+        }
+      }
+    },
+    "The passwords don’t match.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "The passwords don’t match."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "كلمتا المرور غير متطابقتين."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die Passwörter stimmen nicht überein."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Las contraseñas no coinciden."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Les mots de passe ne correspondent pas."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le password non corrispondono."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "パスワードが一致しません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "비밀번호가 일치하지 않습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As senhas não coincidem."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As palavras-passe não coincidem."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Manenosiri hayalingani."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "两次输入的密码不一致。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "兩次輸入的密碼不一致。"
+          }
+        }
+      }
+    },
+    "New backup password": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "New backup password"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "كلمة مرور جديدة للنسخة الاحتياطية"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Neues Backup-Passwort"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nueva contraseña de la copia de seguridad"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nouveau mot de passe de sauvegarde"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nuova password del backup"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "新しいバックアップのパスワード"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "새 백업 비밀번호"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nova senha do backup"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nova palavra-passe da cópia de segurança"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nenosiri jipya la nakala rudufu"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "新的备份密码"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "新的備份密碼"
           }
         }
       }
