@@ -50,8 +50,10 @@ late cache/audio results, and completed Arabic playback. The Friend/vBot tests
 passed their native assertions; a collection error requiring a nonexistent vBot
 audio log is retained and reconciled separately. It does not establish a vBot
 full-audio-completion trace. The source also corrects obsolete download guidance
-in all 13 UI locales; that copy and the screen-reader guidance changes await their
-next targeted build.
+in all 13 UI locales; the compiled package now contains those corrections.
+A focused native Android accessibility check also passed for the first-use cue:
+it exposes the available action names rather than physical double-tap instructions.
+This verifies the native accessibility tree, not an actual TalkBack session.
 
 iOS normal and maximum-text chat layout checks and the targeted owner, cache
 and playback tests passed. The Japanese assertion was corrected to accept valid
@@ -78,8 +80,11 @@ Twenty-four focused iOS checks now pass for reading status, encrypted-cache
 migration, cancellation of a pending refresh when its message is deleted,
 native Arabic transliteration and Copy-related playback cancellation. The test
 controller stopped during cleanup because CoreSimulator relocated the app's data
-container; that recovery is tracked separately and the passing tests must not be
-repeated to replace its receipt. These tests do not qualify the conditional
+container. A separate recovery restored the exact owned audio cache and verified
+the retained artifacts; the original incomplete controller receipt remains.
+Preferences were left untouched, but an immediate pre-run preference baseline was
+not retained, so exact pre-run preference equality cannot be established. The
+passing tests were not repeated. These tests do not qualify the conditional
 reading-failure UI or the actual Copy menu interaction. Touch Copy original is
 integrated in the iOS candidate source; its new native interaction tests remain
 unexecuted. A further source review identified misleading screen-reader gesture
