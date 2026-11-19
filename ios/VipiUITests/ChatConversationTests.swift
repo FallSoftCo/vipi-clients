@@ -852,7 +852,11 @@ final class ChatConversationTests: XCTestCase {
         app.navigationBars["Notifications"].buttons.element(boundBy:0).tap()
         XCTAssertTrue(settings.waitForExistence(timeout:10)); capture("settings-before-background")
         XCUIDevice.shared.press(.home)
-        XCTAssertEqual(app.state,.runningBackground)
+        let backgrounded = XCTNSPredicateExpectation(predicate:NSPredicate { _,_ in
+            app.state == .runningBackground || app.state == .runningBackgroundSuspended
+        },object:app)
+        XCTAssertEqual(XCTWaiter.wait(for:[backgrounded],timeout:10),.completed,
+            "Wait for the native Home transition before requesting the single notification")
         try JSONSerialization.data(withJSONObject:["run":run,"nonce":nonce,"stage":"app-background-from-settings"],options:.sortedKeys)
             .write(to:directory.appendingPathComponent("request.json"),options:.atomic)
         let system = XCUIApplication(bundleIdentifier:"com.apple.springboard")
