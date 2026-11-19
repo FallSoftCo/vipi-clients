@@ -35,14 +35,21 @@ emulator. The application now requires Android 10/API 29 for the platform
 transliteration API; source and packaged-manifest checks do not establish an
 API 29 runtime result. The short landscape capture proves a readable draft and
 Send control while chat history is clipped. Long-reading limits and pronunciation
-quality still have explicit gaps.
+quality still have explicit gaps. A separate 4,096-character baseline completed
+18 reader calls across Chinese, Japanese and Korean with complete source ranges
+and no reported reading issues. This measures the existing readers on the
+emulator; it does not establish pronunciation accuracy or longer-input support.
 
-iOS normal and maximum-text chat layout checks passed. The subsequent owner,
-cache, playback and Settings packet compiled and completed with 39 passes and
-three failures: a Japanese reading assertion, the largest-text Invite share-sheet
-check, and standard Settings accessibility issues. Original failures are retained
-for diagnosis; neither the Settings flow nor that complete packet is qualified.
-Touch Copy original parity is also still being implemented. Neither platform has
+iOS normal and maximum-text chat layout checks and the targeted owner, cache
+and playback tests passed. The Japanese assertion was corrected to accept valid
+native readings and then passed. A later Settings run verified actual system
+text-size categories, named-row sizing and the native invitation share/cancel
+flow at both sizes. Three normal-size Dynamic Type audit findings remain;
+both Settings routes also stopped at a test assertion that expected a separate
+value where accessibility exposes the combined “Made by, FallSoft.Co” label.
+The contrast warnings were absent after the header-color correction. Original
+failures remain retained, and the complete Settings flow is not yet qualified.
+Touch Copy original parity is still being implemented. Neither platform has
 a fresh qualified signed release of the full-message design, and the user's
 requested phone delivery is pending that qualification.
 
