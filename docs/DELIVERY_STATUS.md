@@ -60,7 +60,8 @@ the existing complete largest-text Settings flow passed: one test, zero failures
 or skips, with unfiltered native audits. It used the same compiled app and tests,
 verified the actual maximum system category, and restored the simulator state.
 Image inspection then found a qualification gap: the largest-text footer was
-readable before the audit, but the immediate post-audit capture was blank. The
+readable before the audit, but the immediate post-audit capture had an empty
+Settings body beneath its painted header. The
 test did not verify visual recovery, so its passing result does not establish
 the complete flow. The cause and recovery remain unverified; the ordinary-size
 flow and earlier live-size audit findings also need their own conclusions.
