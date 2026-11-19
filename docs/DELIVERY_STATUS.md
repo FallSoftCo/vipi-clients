@@ -59,8 +59,12 @@ clipped-text report. Its original failures remain retained. A subsequent run of
 the existing complete largest-text Settings flow passed: one test, zero failures
 or skips, with unfiltered native audits. It used the same compiled app and tests,
 verified the actual maximum system category, and restored the simulator state.
-This qualifies that flow; the ordinary-size flow and the earlier live-size audit
-findings still need their own conclusions. Touch Copy original is integrated in
+Image inspection then found a qualification gap: the largest-text footer was
+readable before the audit, but the immediate post-audit capture was blank. The
+test did not verify visual recovery, so its passing result does not establish
+the complete flow. The cause and recovery remain unverified; the ordinary-size
+flow and earlier live-size audit findings also need their own conclusions.
+Touch Copy original is integrated in
 the iOS candidate source; its new native interaction tests remain unexecuted.
 Neither platform has
 a fresh qualified signed release of the full-message design, and the user's
