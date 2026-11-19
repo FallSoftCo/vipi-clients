@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-11-19T21:19:40.515527+00:00",
+  "updated_utc": "2026-11-19T21:47:16.984368+00:00",
   "policy": "Manual review and primary platform documentation establish support; automated test pass counts do not. Missing installed voice is not proof of permanent platform non-support.",
   "inventory_scope": "macOS26.6 inventory only, not iOS or Android certification",
   "languages": [
@@ -15,7 +15,16 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "not observed in manually paged stock catalog; API unsupported status not established",
+        "stock_labels": [],
+        "ui_evidence": [],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "sq",
@@ -29,7 +38,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Albanian (Albania)"
+        ],
+        "ui_evidence": [
+          "03-voice-data.xml",
+          "06-voice-list-b-c.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ar",
@@ -47,7 +70,21 @@
         "output": "mrḥbaⁿạ! kyf ḥạlk?"
       },
       "reading_manual_notes": "Generic conversion does not recover unwritten vowels; observed mrḥbaⁿạ! kyf ḥạlk? is not a dependable beginner pronunciation guide.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "download explicitly required",
+        "stock_labels": [
+          "Arabic"
+        ],
+        "ui_evidence": [
+          "03-voice-data.xml",
+          "06-voice-list-b-c.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "be",
@@ -65,7 +102,16 @@
         "output": "Pryvítanne! Âk spravy?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "not observed in manually paged stock catalog; API unsupported status not established",
+        "stock_labels": [],
+        "ui_evidence": [],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "bn",
@@ -83,7 +129,23 @@
         "output": "namaskāra! kēmana āchēna?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Bangla (Bangladesh)",
+          "Bangla (India)"
+        ],
+        "ui_evidence": [
+          "03-voice-data.xml",
+          "06-voice-list-b-c.xml",
+          "07-voice-list-b-e.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "bg",
@@ -101,7 +163,20 @@
         "output": "Zdravej! Kak si?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Bulgarian (Bulgaria)"
+        ],
+        "ui_evidence": [
+          "07-voice-list-b-e.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ca",
@@ -115,7 +190,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Catalan (Spain)"
+        ],
+        "ui_evidence": [
+          "07-voice-list-b-e.xml",
+          "08-voice-list-c-h.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "zh",
@@ -139,6 +228,21 @@
           "manual-chinese-reading-r01.png",
           "manual-chinese-authored-r01.png"
         ]
+      },
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Chinese (China)",
+          "Chinese (Taiwan)"
+        ],
+        "ui_evidence": [
+          "07-voice-list-b-e.xml",
+          "08-voice-list-c-h.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
       }
     },
     {
@@ -153,7 +257,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Croatian (Croatia)"
+        ],
+        "ui_evidence": [
+          "08-voice-list-c-h.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "cs",
@@ -167,7 +284,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Czech (Czechia)"
+        ],
+        "ui_evidence": [
+          "08-voice-list-c-h.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "da",
@@ -181,7 +311,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Danish (Denmark)"
+        ],
+        "ui_evidence": [
+          "08-voice-list-c-h.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "nl",
@@ -195,7 +338,22 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Dutch (Belgium)",
+          "Dutch (Netherlands)"
+        ],
+        "ui_evidence": [
+          "08-voice-list-c-h.xml",
+          "09-voice-list-d-g.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "en",
@@ -209,7 +367,27 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "installed choices visible",
+        "stock_labels": [
+          "English (United States)",
+          "English (Australia)",
+          "English (India)",
+          "English (Nigeria)",
+          "English (United Kingdom)"
+        ],
+        "ui_evidence": [
+          "03-voice-data.xml",
+          "06-voice-list-b-c.xml",
+          "09-voice-list-d-g.xml",
+          "10-voice-list-f-h.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "eo",
@@ -223,7 +401,16 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "not observed in manually paged stock catalog; API unsupported status not established",
+        "stock_labels": [],
+        "ui_evidence": [],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "et",
@@ -237,7 +424,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Estonian (Estonia)"
+        ],
+        "ui_evidence": [
+          "09-voice-list-d-g.xml",
+          "10-voice-list-f-h.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "fi",
@@ -251,7 +452,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Finnish (Finland)"
+        ],
+        "ui_evidence": [
+          "09-voice-list-d-g.xml",
+          "10-voice-list-f-h.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "fr",
@@ -265,7 +480,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "French (Canada)",
+          "French (France)"
+        ],
+        "ui_evidence": [
+          "10-voice-list-f-h.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "gl",
@@ -279,7 +508,16 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "not observed in manually paged stock catalog; API unsupported status not established",
+        "stock_labels": [],
+        "ui_evidence": [],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ka",
@@ -297,7 +535,16 @@
         "output": "gamarjoba! rogor khar?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "not observed in manually paged stock catalog; API unsupported status not established",
+        "stock_labels": [],
+        "ui_evidence": [],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "de",
@@ -311,7 +558,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "German (Germany)"
+        ],
+        "ui_evidence": [
+          "10-voice-list-f-h.xml",
+          "11-voice-list-h-k.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "el",
@@ -329,7 +590,21 @@
         "output": "Geia sou! Ti káneis?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Greek (Greece)"
+        ],
+        "ui_evidence": [
+          "10-voice-list-f-h.xml",
+          "11-voice-list-h-k.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "gu",
@@ -347,7 +622,21 @@
         "output": "namastē! tamē kēma chō?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Gujarati (India)"
+        ],
+        "ui_evidence": [
+          "10-voice-list-f-h.xml",
+          "11-voice-list-h-k.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ht",
@@ -361,7 +650,16 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "not observed in manually paged stock catalog; API unsupported status not established",
+        "stock_labels": [],
+        "ui_evidence": [],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "he",
@@ -379,7 +677,21 @@
         "output": "şlwm! mh şlwmk?"
       },
       "reading_manual_notes": "Observed şlwm! mh şlwmk? does not recover unwritten vowels.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Hebrew (Israel)"
+        ],
+        "ui_evidence": [
+          "10-voice-list-f-h.xml",
+          "11-voice-list-h-k.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "hi",
@@ -397,7 +709,21 @@
         "output": "namastē! āpa kaisē haiṁ?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Hindi (India)"
+        ],
+        "ui_evidence": [
+          "10-voice-list-f-h.xml",
+          "11-voice-list-h-k.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "hu",
@@ -411,7 +737,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Hungarian (Hungary)"
+        ],
+        "ui_evidence": [
+          "11-voice-list-h-k.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "is",
@@ -425,7 +764,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Icelandic (Iceland)"
+        ],
+        "ui_evidence": [
+          "11-voice-list-h-k.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "id",
@@ -439,7 +791,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Indonesian (Indonesia)"
+        ],
+        "ui_evidence": [
+          "11-voice-list-h-k.xml",
+          "12-voice-list-j-m.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ga",
@@ -453,7 +819,16 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "not observed in manually paged stock catalog; API unsupported status not established",
+        "stock_labels": [],
+        "ui_evidence": [],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "it",
@@ -467,7 +842,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Italian (Italy)"
+        ],
+        "ui_evidence": [
+          "11-voice-list-h-k.xml",
+          "12-voice-list-j-m.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ja",
@@ -490,6 +879,20 @@
         "evidence": [
           "manual-japanese-reading-r01.png"
         ]
+      },
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Japanese (Japan)"
+        ],
+        "ui_evidence": [
+          "11-voice-list-h-k.xml",
+          "12-voice-list-j-m.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
       }
     },
     {
@@ -508,7 +911,20 @@
         "output": "namaskāra! hēgiddīrā?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Kannada (India)"
+        ],
+        "ui_evidence": [
+          "12-voice-list-j-m.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ko",
@@ -531,6 +947,20 @@
         "evidence": [
           "manual-korean-reading-r01.png"
         ]
+      },
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Korean (South Korea)"
+        ],
+        "ui_evidence": [
+          "12-voice-list-j-m.xml",
+          "13-voice-list-k-n.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
       }
     },
     {
@@ -545,7 +975,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Latvian (Latvia)"
+        ],
+        "ui_evidence": [
+          "12-voice-list-j-m.xml",
+          "13-voice-list-k-n.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "lt",
@@ -559,7 +1003,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Lithuanian (Lithuania)"
+        ],
+        "ui_evidence": [
+          "13-voice-list-k-n.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "mk",
@@ -577,7 +1034,16 @@
         "output": "Zdravo! Kako si?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "not observed in manually paged stock catalog; API unsupported status not established",
+        "stock_labels": [],
+        "ui_evidence": [],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ms",
@@ -591,7 +1057,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Malay (Malaysia)"
+        ],
+        "ui_evidence": [
+          "13-voice-list-k-n.xml",
+          "14-voice-list-m-p.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "mt",
@@ -605,7 +1085,16 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "not observed in manually paged stock catalog; API unsupported status not established",
+        "stock_labels": [],
+        "ui_evidence": [],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "mr",
@@ -623,7 +1112,21 @@
         "output": "namaskāra! kasē āhāta?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Marathi (India)"
+        ],
+        "ui_evidence": [
+          "13-voice-list-k-n.xml",
+          "14-voice-list-m-p.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "no",
@@ -637,7 +1140,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Norwegian Bokmål (Norway)"
+        ],
+        "ui_evidence": [
+          "14-voice-list-m-p.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "fa",
@@ -655,7 +1171,16 @@
         "output": "slạm! ḥạl sẖmạ cẖṭwr ạst?"
       },
       "reading_manual_notes": "Generic letter conversion does not recover unwritten vowels; visible output uses unfamiliar marks.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "not observed in manually paged stock catalog; API unsupported status not established",
+        "stock_labels": [],
+        "ui_evidence": [],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "pl",
@@ -669,7 +1194,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Polish (Poland)"
+        ],
+        "ui_evidence": [
+          "14-voice-list-m-p.xml",
+          "15-voice-list-p-s.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "pt",
@@ -683,7 +1222,22 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Portuguese (Brazil)",
+          "Portuguese (Portugal)"
+        ],
+        "ui_evidence": [
+          "14-voice-list-m-p.xml",
+          "15-voice-list-p-s.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ro",
@@ -697,7 +1251,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Romanian (Romania)"
+        ],
+        "ui_evidence": [
+          "15-voice-list-p-s.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ru",
@@ -715,7 +1282,20 @@
         "output": "Privet! Kak dela?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Russian (Russia)"
+        ],
+        "ui_evidence": [
+          "15-voice-list-p-s.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "sk",
@@ -729,7 +1309,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Slovak (Slovakia)"
+        ],
+        "ui_evidence": [
+          "16-voice-list-s-t.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "sl",
@@ -743,7 +1336,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": false,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Slovenian (Slovenia)"
+        ],
+        "ui_evidence": [
+          "16-voice-list-s-t.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "es",
@@ -757,7 +1363,22 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Spanish (Spain)",
+          "Spanish (United States)"
+        ],
+        "ui_evidence": [
+          "16-voice-list-s-t.xml",
+          "17-voice-list-s-v.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "sw",
@@ -771,7 +1392,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Swahili (Kenya)"
+        ],
+        "ui_evidence": [
+          "17-voice-list-s-v.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "sv",
@@ -785,7 +1419,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Swedish (Sweden)"
+        ],
+        "ui_evidence": [
+          "17-voice-list-s-v.xml",
+          "18-voice-list-end.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "tl",
@@ -799,7 +1447,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Filipino (Philippines)"
+        ],
+        "ui_evidence": [
+          "09-voice-list-d-g.xml",
+          "10-voice-list-f-h.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ta",
@@ -817,7 +1479,21 @@
         "output": "vaṇakkam! eppaṭi irukkiṟīrkaḷ?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Tamil (India)"
+        ],
+        "ui_evidence": [
+          "17-voice-list-s-v.xml",
+          "18-voice-list-end.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "te",
@@ -835,7 +1511,21 @@
         "output": "namaskāraṁ! elā unnāru?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Telugu (India)"
+        ],
+        "ui_evidence": [
+          "17-voice-list-s-v.xml",
+          "18-voice-list-end.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "th",
@@ -853,7 +1543,21 @@
         "output": "s̄wạs̄dī! s̄bāy dī h̄ịm"
       },
       "reading_manual_notes": "Observed s̄wạs̄dī uses stacked marks; beginner readability and tones remain unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Thai (Thailand)"
+        ],
+        "ui_evidence": [
+          "17-voice-list-s-v.xml",
+          "18-voice-list-end.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "tr",
@@ -867,7 +1571,21 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Turkish (Türkiye)"
+        ],
+        "ui_evidence": [
+          "17-voice-list-s-v.xml",
+          "18-voice-list-end.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "uk",
@@ -885,7 +1603,21 @@
         "output": "Privít! Âk spravi?"
       },
       "reading_manual_notes": "Output inspected as script conversion only; pronunciation and in-app presentation unverified.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Ukrainian (Ukraine)"
+        ],
+        "ui_evidence": [
+          "17-voice-list-s-v.xml",
+          "18-voice-list-end.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "ur",
@@ -903,7 +1635,21 @@
         "output": "slạm! ập ḵy̰sai ḥy̰◌̃?"
       },
       "reading_manual_notes": "Observed output contains the unresolved dotted-circle marker ◌. Current reader rejects it.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Urdu (India)",
+          "Urdu (Pakistan)"
+        ],
+        "ui_evidence": [
+          "18-voice-list-end.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "vi",
@@ -917,7 +1663,20 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": true,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Vietnamese (Vietnam)"
+        ],
+        "ui_evidence": [
+          "18-voice-list-end.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     },
     {
       "code": "cy",
@@ -931,7 +1690,145 @@
       "reading_route_ios_candidate": "Latin script; normally no reading needed",
       "reading_sample": null,
       "reading_manual_notes": "Current in-app manual review pending.",
-      "new_language_release_qualification": "pending"
+      "new_language_release_qualification": "pending",
+      "apple_voiceover_documented": false,
+      "google_tts_talkback_documented": true,
+      "documented_voice_scope": "Official accessibility voice catalogs; not proof of installed/offline app synthesis. False means not listed in the cited catalog, not permanently unsupported.",
+      "android_stock_tts_manual_review": {
+        "stock_voice_manual_ui": "listed under Available languages",
+        "stock_labels": [
+          "Welsh (United Kingdom)"
+        ],
+        "ui_evidence": [
+          "18-voice-list-end.xml"
+        ],
+        "scope": "API35 emulator-5620 stock Settings only; no Vipi synthesis or listening acceptance"
+      }
     }
-  ]
+  ],
+  "voice_documentation": {
+    "apple": {
+      "url": "https://support.apple.com/en-asia/111748",
+      "published": "2023-12-28",
+      "candidate_codes": [
+        "ar",
+        "bg",
+        "bn",
+        "ca",
+        "cs",
+        "da",
+        "de",
+        "el",
+        "en",
+        "es",
+        "fa",
+        "fi",
+        "fr",
+        "gl",
+        "he",
+        "hi",
+        "hr",
+        "hu",
+        "id",
+        "it",
+        "ja",
+        "kn",
+        "ko",
+        "mr",
+        "ms",
+        "nl",
+        "no",
+        "pl",
+        "pt",
+        "ro",
+        "ru",
+        "sk",
+        "sl",
+        "sv",
+        "ta",
+        "te",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "zh"
+      ]
+    },
+    "google": {
+      "url": "https://support.google.com/accessibility/android/answer/11101402?hl=en",
+      "reviewed": "2026-11-19",
+      "candidate_codes": [
+        "ar",
+        "bg",
+        "bn",
+        "ca",
+        "cs",
+        "cy",
+        "da",
+        "de",
+        "el",
+        "en",
+        "es",
+        "et",
+        "fi",
+        "fr",
+        "gu",
+        "hi",
+        "hr",
+        "hu",
+        "id",
+        "is",
+        "it",
+        "ja",
+        "kn",
+        "ko",
+        "lt",
+        "lv",
+        "mr",
+        "ms",
+        "nl",
+        "no",
+        "pl",
+        "pt",
+        "ro",
+        "ru",
+        "sk",
+        "sq",
+        "sv",
+        "sw",
+        "ta",
+        "te",
+        "th",
+        "tl",
+        "tr",
+        "uk",
+        "ur",
+        "vi",
+        "zh"
+      ],
+      "caveat": "Google notes device and region differences. Filipino is recorded against the app Tagalog/tl candidate; verify locale mapping in the app."
+    }
+  },
+  "android_stock_tts_manual_evidence": {
+    "date": "2026-11-19",
+    "device": "API35 sdk_gphone64_x86_64",
+    "method": "Direct manually initiated stock TTS Settings navigation on emulator-5620; no instrumentation/tests, no downloads, no voice changes; prior task and absent default-engine preference restored",
+    "limits": "Stock catalog listing is not actual Vipi speech support. No acoustic judgment while muted. Absence in this UI is not proof of API permanent unsupported. Reader-route false does not imply Latin requires transliteration.",
+    "path": "../ux-copy/android-manual-language-review-r01/candidate59-manual-matrix.json",
+    "sha256": "e148c39a024a31a522e57d453faea5e4f71d42334b0f6ae37901741bef2b8ec1",
+    "listed_candidate_count": 49,
+    "not_observed_codes": [
+      "af",
+      "be",
+      "eo",
+      "fa",
+      "ga",
+      "gl",
+      "ht",
+      "ka",
+      "mk",
+      "mt"
+    ],
+    "new_languages_accepted": 0
+  }
 }

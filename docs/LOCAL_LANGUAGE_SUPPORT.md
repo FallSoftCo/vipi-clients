@@ -14,6 +14,22 @@ The owner requires translation and local speech support to match one to one, wit
 - [Apple toLatin](https://developer.apple.com/documentation/corefoundation/kcfstringtransformtolatin) converts what it can to Latin script and treats ideographs as Mandarin. It is unsuitable as a generic Japanese reading engine. [ICU's transform documentation](https://unicode-org.github.io/icu/userguide/transforms/general/) describes script conversion, which must not be presented as reliable pronunciation for arbitrary languages.
 - The current [Apple feature list](https://www.apple.com/ios/feature-availability/) describes iOS/iPadOS27. Our retained Simulator is iOS26.5. Do not use the newer list to certify this older runtime.
 
+## Documented voice catalogs
+
+[Apple’s VoiceOver catalog](https://support.apple.com/en-asia/111748), dated December28,2023, lists voices for 41 of our translation candidates. [Google’s TalkBack TTS catalog](https://support.google.com/accessibility/android/answer/11101402?hl=en) lists 47, including Swahili and Urdu. These lists describe platform voice catalogs; they do not establish installation or offline synthesis inside Vipi. “Not listed” is not equivalent to “unsupported.” Google explicitly notes device/region differences.
+
+Apple’s documented Farsi, Galician and Marathi voices were absent from the retained Mac enumeration. That is a setup/availability question, not evidence that Apple has no voice for those languages. The Android reviewer also saw Hebrew offered in the current voice-download UI even though it is absent from the cited Google help list; preserve that discrepancy.
+
+The per-language JSON now records both official catalog memberships independently of the installed Mac inventory and manual mobile outcomes. Filipino from the Google list is associated with Vipi’s Tagalog/tl candidate for investigation; do not treat that association as a reviewed dialect guarantee.
+
+## Manual Android voice settings review
+
+On November 19, the reviewer manually opened and paged through Google Speech Services’ voice-download screens on the retained API35 Android emulator. The UI listed 81 regional entries covering 49 of our 59 translation candidates. English (United States) appeared under installed languages; the Arabic detail screen offered a roughly 4.2 MB download. Neither downloads nor playback were performed. Root also visually inspected those two screens.
+
+These ten candidates were not observed in that UI: Afrikaans, Belarusian, Esperanto, Persian, Irish, Galician, Haitian Creole, Georgian, Macedonian and Maltese. This is an observation about this device and engine, not a universal unsupported-language list. Hebrew was present despite its omission from the cited Google help catalog.
+
+The retained evidence is `ux-copy/android-manual-language-review-r01/` in the investigation. The companion JSON records the observed labels and evidence file for each candidate. The prior foreground task and the previously unset TTS-engine preference were restored. Actual offline Vipi speech and live readings remain separate, pending manual checks; none of these catalog observations qualifies a new language for release.
+
 ## Findings already inspected
 
 The existing native macOS26.6 inventory reported 22 base translation languages and voices for 38 of the 59 candidates. Vipi also has an existing bundled Swahili voice. These are inventory facts, not 39 qualified iOS languages. No audio was played during that inventory.
