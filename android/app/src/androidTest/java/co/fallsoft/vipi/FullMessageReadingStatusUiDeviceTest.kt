@@ -201,6 +201,7 @@ class FullMessageReadingStatusUiDeviceTest {
                 actionBounds.height >= 48 * context.resources.displayMetrics.density)
             assertTrue("Actual native AX click owner $nativeOwner must be at least48dp", nativeOwner.height() >= 48 * context.resources.displayMetrics.density)
             assertEquals(practice, before.displayed); assertEquals(copy, before.state)
+            assertFalse("No composed row has a real alternate reading yet", gestures.canSwitchScript)
             assertFalse("Unavailable reading must not offer a nonexistent alternate script", before.actions.contains(context.getString(R.string.full_translation_script)))
             assertFalse("Literal content must not offer an alternate script", paragraph(literalOriginal).actions.contains(context.getString(R.string.full_translation_script)))
             assertNull(paragraph(literalOriginal).state)
@@ -241,6 +242,8 @@ class FullMessageReadingStatusUiDeviceTest {
             compose.onNodeWithText(copy).assertIsDisplayed().assertHasNoClickAction() // Only the permanent limit remains.
             assertNull(paragraph(original).state); assertEquals(1, reads.get()); assertEquals(1, calls.size)
             assertTrue("Actual completed alternate reading offers the native script action", paragraph(original).actions.contains(context.getString(R.string.full_translation_script)))
+            assertEquals("Reading capability must update without a paragraph geometry change", before.bounds, paragraph(original).bounds)
+            compose.waitUntil(3_000) { gestures.canSwitchScript }
             readingRegressionFile(context, "reading-status-ui.json").writeText(JSONObject().put("passed", true)
                 .put("native_state_description", copy).put("no_notice_for_literal", true).put("hold_script_geometry_preserved", true)
                 .put("practice_audio_command_preserved", true).put("reading_only_touch_retry", true).put("ready_during_retry", true)

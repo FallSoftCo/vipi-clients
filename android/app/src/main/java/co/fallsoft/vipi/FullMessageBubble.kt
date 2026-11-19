@@ -52,9 +52,9 @@ internal class FullMessageGestures {
     private val messages = mutableMapOf<String, Hit>()
     private val alternateReadings = mutableStateMapOf<String, Boolean>()
     val canSwitchScript: Boolean get() = alternateReadings.values.any { it }
-    fun register(id: String, bounds: Rect, play: () -> Unit, alternateReading: Boolean = false) {
-        messages[id] = Hit(bounds, play)
-        if (alternateReadings[id] != alternateReading) alternateReadings[id] = alternateReading
+    fun register(id: String, bounds: Rect, play: () -> Unit) { messages[id] = Hit(bounds, play) }
+    fun readingAvailable(id: String, available: Boolean) {
+        if (alternateReadings[id] != available) alternateReadings[id] = available
     }
     fun remove(id: String) { messages.remove(id); alternateReadings.remove(id) }
     fun tap(position: Offset) { messages.values.lastOrNull { it.bounds.contains(position) }?.play?.invoke() }
@@ -178,12 +178,15 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     val activityColor = MaterialTheme.colorScheme.primary
     LaunchedEffect(translation, id, text) { translation.enqueue(id, text) }
     val play = { gestures.interacted(); audio.manual(id, text) }
+    // Readings complete independently of stable paragraph geometry. Bounds
+    // registration must never be the only trigger for action availability.
+    SideEffect { gestures.readingAvailable(id, alternateReading) }
     DisposableEffect(gestures, translation, id, text) {
         translation.retain(id, text)
         onDispose { gestures.remove(id); translation.release(id, text) }
     }
     Column(Modifier.widthIn(max = 520.dp).onGloballyPositioned {
-        gestures.register(id, it.boundsInWindow(), play, alternateReading)
+        gestures.register(id, it.boundsInWindow(), play)
     }.drawWithContent {
         drawContent()
         if (speech.activeMessage == id || audio.manualMessage == id) drawLine(activityColor,
