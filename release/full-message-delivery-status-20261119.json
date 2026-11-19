@@ -1,0 +1,27 @@
+{
+  "confirmed_utc": "2026-11-19T06:23:04Z",
+  "scope": "Completed source publication, backend copy activation and fresh review-hold inspection; no app-store submission",
+  "android": {
+    "versionCode": 9,
+    "versionName": "1.0.8",
+    "signed_apk_sha256": "9bd6429a27c3812c82a69e1782b41b9f3e434cb8db0ddb5ef9bf61740186c5e3",
+    "signed_aab_sha256": "f8d8378bdb11c90a5b4f0a4fc46183708f55eb8050b3efc244654625f0564deb",
+    "production_runtime": "Passed isolated public onboarding: Spanish and Chinese translation, marked reading, reveal/script gestures, OS audio start/drain/natural stop. Muted; no acoustic/all-pair/authenticated-R8 claim.",
+    "phone_delivery": "Verified installer transferred to Downloads; installed version remains8 because ADB is unavailable. No install or launch performed."
+  },
+  "ios": {
+    "shipping_source": "1b7915374b11410058698cc6b9b7e065fc72ea4c",
+    "remaining": "Corrected cue/reading UI execution, actual Copy menu journeys, onboard device-compatible provider qualification, final signed build/export and store association. Test-driver failures remain recorded; no production-ready claim."
+  },
+  "public_pages": {
+    "state": "updated_and_verified",
+    "module_sha256": "328722fe4e4314db7fd5ca3c4a10da132ef106049bba3a223b3aa2c4f5277095",
+    "verification": "Homepage/privacy/help/invitation full-message copy200/no-store; health200 and unauthenticated account401. API-only graceful restart; environment/schema/timers/push/shared services unchanged."
+  },
+  "stores": {
+    "google": "Fresh native observation:24 unsubmitted changes forv8,managed publishing on.",
+    "apple": "Fresh authenticated native observation:1.0 Developer Rejected; two completed Removed5-item submissions; no active review.",
+    "hold": "Retain user-requested hold until full-message UX qualification is complete.",
+    "screenshots": "Existing store screenshots show old word flipping and must be replaced before submission."
+  }
+}

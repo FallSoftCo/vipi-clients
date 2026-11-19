@@ -1,0 +1,34 @@
+{
+  "state": "published_once_and_verified",
+  "repository": "FallSoftCo/vipi-clients",
+  "tag": "source-preview-2026-11-19-full-message",
+  "release_id": 450953233,
+  "release_url": "https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-19-full-message",
+  "published_at": "2026-11-19T06:21:59Z",
+  "prerelease": true,
+  "scope": "Full-message client source preview; no app-store submission",
+  "source_revision": "72c4c7c73a0c16e7c479ed9364696fad8ee630c9",
+  "android_revision": "47cd2084461a0566c442fe0e36bb6c200399ff8b",
+  "ios_revision": "1b7915374b11410058698cc6b9b7e065fc72ea4c",
+  "manifest_sha256": "438d1ecd16a87d835b8b9317fb3153b01a6388b7b8a2fedfbc8da1f292c2dc29",
+  "committed_files": 3848,
+  "retained_upstream_packages": 577,
+  "assets": [
+    {
+      "id": 766505949,
+      "name": "SHA256SUMS.txt",
+      "bytes": 102,
+      "sha256": "cb71cd08436371eee343ed63fd6a6a8e7266740781b2a7bdfc442943df6a4919",
+      "url": "https://github.com/FallSoftCo/vipi-clients/releases/download/source-preview-2026-11-19-full-message/SHA256SUMS.txt"
+    },
+    {
+      "id": 766505948,
+      "name": "vipi-client-source-candidate.tar.gz",
+      "bytes": 195944219,
+      "sha256": "95fd2818123d7d40dab14b3484b5a81198f4d38ce92e5181815af743f09c21f5",
+      "url": "https://github.com/FallSoftCo/vipi-clients/releases/download/source-preview-2026-11-19-full-message/vipi-client-source-candidate.tar.gz"
+    }
+  ],
+  "verification": "GitHub asset digests match independently hashed reviewed files. Anonymous checksum GET200 and archive range GET206 verified. Prior releases/assets unchanged.",
+  "limits": "Source availability and package correspondence; not an iOS release qualification, semantic guarantee or store approval."
+}
