@@ -807,6 +807,76 @@ final class ChatConversationTests: XCTestCase {
     func testBackupExplainsInvalidPassphrasesAndCancelsNativeExportAtActualRoot() throws {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,backupValidation:true)
     }
+    func testSystemNotificationReturnsFromSettingsToChatsWithoutLosingMessages() throws {
+        try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,notificationNavigation:true)
+    }
+    private func checkSystemNotification(in app:XCUIApplication,evidence:@escaping()->[String:Any]) throws {
+        let environment = ProcessInfo.processInfo.environment
+        let run = try XCTUnwrap(environment["VIPI_NOTIFICATION_RUN"])
+        let nonce = try XCTUnwrap(environment["VIPI_NOTIFICATION_NONCE"])
+        XCTAssertEqual(run.count,3); XCTAssertTrue(run.allSatisfy(\.isNumber)); XCTAssertNotNil(UUID(uuidString:nonce))
+        let directory = FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0]
+            .appendingPathComponent("vipi-native-notification-"+run,isDirectory:true)
+        XCTAssertFalse(FileManager.default.fileExists(atPath:directory.path))
+        try FileManager.default.createDirectory(at:directory,withIntermediateDirectories:true)
+        let owner:[String:Any] = ["run":run,"nonce":nonce]
+        try JSONSerialization.data(withJSONObject:owner,options:.sortedKeys).write(to:directory.appendingPathComponent("owner.json"),options:.atomic)
+        // Keep this small test-owned handshake as evidence, including if the
+        // controller's single simulated push has an uncertain result.
+        func capture(_ phase:String) {
+            let png = XCTAttachment(screenshot:XCUIScreen.main.screenshot()); png.name = "system-notification-"+phase; png.lifetime = .keepAlways; add(png)
+            let tree = XCTAttachment(string:app.debugDescription); tree.name = "system-notification-"+phase+"-app-tree"; tree.lifetime = .keepAlways; add(tree)
+        }
+        let originals = try XCTUnwrap(evidence()["texts"] as? [String])
+        app.navigationBars["Alex"].buttons.element(boundBy:0).tap()
+        app.buttons["Your profile and settings"].tap()
+        let settings = app.navigationBars["Settings"]
+        XCTAssertTrue(settings.waitForExistence(timeout:10))
+        let notifications = app.buttons["Notifications"]
+        for _ in 0..<6 { if notifications.isHittable { break }; app.swipeUp() }
+        XCTAssertTrue(notifications.isHittable); notifications.tap()
+        let enabled = app.buttons["Turn off Vipi notifications"]
+        let previouslyEnabled = enabled.waitForExistence(timeout:3)
+        if !previouslyEnabled {
+            let enable = app.buttons["Enable notifications"]
+            XCTAssertTrue(enable.waitForExistence(timeout:10)); enable.tap()
+            let system = XCUIApplication(bundleIdentifier:"com.apple.springboard")
+            let allow = system.alerts.buttons["Allow"]
+            if allow.waitForExistence(timeout:5) { allow.tap() }
+            XCTAssertTrue(enabled.waitForExistence(timeout:10),"Actual OS permission must be granted; a denied setting cannot be treated as a notification pass")
+        }
+        // This is the owned QA bundle's real OS permission, not a production
+        // account preference. Record the change; do not claim to reset TCC.
+        try JSONSerialization.data(withJSONObject:["previously_enabled":previouslyEnabled,"now_enabled":true,"scope":"owned QA Simulator app only"],options:.sortedKeys)
+            .write(to:directory.appendingPathComponent("permission.json"),options:.atomic)
+        app.navigationBars["Notifications"].buttons.element(boundBy:0).tap()
+        XCTAssertTrue(settings.waitForExistence(timeout:10)); capture("settings-before-background")
+        XCUIDevice.shared.press(.home)
+        XCTAssertEqual(app.state,.runningBackground)
+        try JSONSerialization.data(withJSONObject:["run":run,"nonce":nonce,"stage":"app-background-from-settings"],options:.sortedKeys)
+            .write(to:directory.appendingPathComponent("request.json"),options:.atomic)
+        let system = XCUIApplication(bundleIdentifier:"com.apple.springboard")
+        let title = "Vipi QA "+run
+        let matches = system.descendants(matching:.any).matching(NSPredicate(format:"label CONTAINS %@",title))
+        let presented = XCTNSPredicateExpectation(predicate:NSPredicate { _,_ in matches.allElementsBoundByIndex.contains { $0.isHittable } },object:system)
+        XCTAssertEqual(XCTWaiter.wait(for:[presented],timeout:20),.completed,"Wait for the real simulated APNs banner; never invoke the app delegate or navigation intent directly")
+        let banner = try XCTUnwrap(matches.allElementsBoundByIndex.filter { $0.isHittable && $0.frame.width > 0 && $0.frame.height > 0 }
+            .min { $0.frame.width * $0.frame.height < $1.frame.width * $1.frame.height })
+        XCTAssertTrue(system.descendants(matching:.any).matching(NSPredicate(format:"label CONTAINS %@","You have a new message.")).firstMatch.exists,
+            "The OS must resolve the shipped localized notification key")
+        let before = XCTAttachment(screenshot:system.screenshot()); before.name = "system-notification-native-banner"; before.lifetime = .keepAlways; add(before)
+        let tree = XCTAttachment(string:system.debugDescription); tree.name = "system-notification-native-banner-tree"; tree.lifetime = .keepAlways; add(tree)
+        banner.tap()
+        XCTAssertTrue(app.navigationBars["Chats"].waitForExistence(timeout:15))
+        XCTAssertFalse(settings.exists); XCTAssertFalse(app.navigationBars["Notifications"].exists)
+        XCTAssertEqual(evidence()["texts"] as? [String],originals,"A notification must navigate without resending or replacing the saved conversation")
+        XCTAssertEqual(evidence()["unexpected"] as? Int,0)
+        capture("native-tap-returned-to-chats")
+        app.staticTexts["Alex"].firstMatch.tap()
+        XCTAssertTrue(app.descendants(matching:.any).matching(identifier:"message-input").firstMatch.waitForExistence(timeout:10))
+        XCTAssertEqual(evidence()["texts"] as? [String],originals)
+        capture("saved-conversation-reopened")
+    }
     private func checkBackupValidation(in app:XCUIApplication,evidence:@escaping()->[String:Any]) throws {
         let baseline = evidence()["texts"] as? [String]
         app.navigationBars["Alex"].buttons.element(boundBy:0).tap()
@@ -1739,7 +1809,7 @@ final class ChatConversationTests: XCTestCase {
         try capture("marketing-coffee-03-practice-script")
     }
 
-    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false) throws {
+    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false) throws {
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated first-month root only") }
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -2224,6 +2294,10 @@ final class ChatConversationTests: XCTestCase {
         let firstReply = marketing ? "Yes! Let's meet at ten." : "Your private message arrived."
         _ = observe("first-incoming-received-and-receipted") { $0["receipts"] as? Int == 1 && ($0["texts"] as? [String])?.contains(firstReply) == true }
         if fullTranslation {
+            if notificationNavigation {
+                try checkSystemNotification(in:app,evidence:proof)
+                return
+            }
             if marketing {
                 try captureNaturalCoffeeFriend(in:app,evidence:proof)
                 return
