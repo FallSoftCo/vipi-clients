@@ -902,7 +902,11 @@ final class ChatConversationTests: XCTestCase {
             let image = XCTAttachment(screenshot:app.screenshot()); image.name = "backup-validation-"+phase; image.lifetime = .keepAlways; add(image)
             let hierarchy = XCTAttachment(string:app.debugDescription); hierarchy.name = "backup-validation-"+phase+"-hierarchy"; hierarchy.lifetime = .keepAlways; add(hierarchy)
         }
-        XCTAssertTrue(password.waitForExistence(timeout:10))
+        XCTAssertTrue(app.navigationBars["Chat backup"].waitForExistence(timeout:10))
+        capture("opened")
+        // At accessibility sizes the explanation legitimately fills the first
+        // viewport. Form creates its password row only after the user scrolls.
+        reveal(password,up:true)
         XCTAssertFalse(passwordError.exists); XCTAssertFalse(mismatch.exists)
         reveal(begin,up:true); XCTAssertTrue(begin.isEnabled); begin.tap()
         XCTAssertTrue(passwordError.waitForExistence(timeout:5)); XCTAssertEqual(passwordError.label,"Use at least 12 characters.")
