@@ -40,9 +40,18 @@ outputs at 4,096 characters. Separate 8,192- and 16,384-character runs completed
 21 calls each, including Japanese text without sentence punctuation, with complete
 source ranges and no reported reading issues. These are bounded reader results,
 not pronunciation or whole-chat latency guarantees. Cold Japanese processing at
-16,384 characters took about five seconds. A source review also found silent
-native-script fallback when a required reading is unavailable; explicit reading
-status and conditional failure feedback are being implemented.
+16,384 characters took about five seconds. Explicit reading status now separates
+a valid full translation from an unavailable transliteration. Focused Android
+checks passed for conditional feedback, a native retry target, stable message
+geometry and full practice-language playback routing. The latest actual-root
+language-picker test also passed: switching from Chinese to Arabic cancelled
+pending old-language work, preserved encrypted originals and the draft, rejected
+late cache/audio results, and completed Arabic playback. The Friend/vBot tests
+passed their native assertions; a collection error requiring a nonexistent vBot
+audio log is retained and reconciled separately. It does not establish a vBot
+full-audio-completion trace. The source also corrects obsolete download guidance
+in all 13 UI locales; that copy and the screen-reader guidance changes await their
+next targeted build.
 
 iOS normal and maximum-text chat layout checks and the targeted owner, cache
 and playback tests passed. The Japanese assertion was corrected to accept valid
@@ -65,8 +74,17 @@ Settings body beneath its painted header. The
 test did not verify visual recovery, so its passing result does not establish
 the complete flow. The cause and recovery remain unverified; the ordinary-size
 flow and earlier live-size audit findings also need their own conclusions.
-Touch Copy original is integrated in
-the iOS candidate source; its new native interaction tests remain unexecuted.
+Twenty-four focused iOS checks now pass for reading status, encrypted-cache
+migration, cancellation of a pending refresh when its message is deleted,
+native Arabic transliteration and Copy-related playback cancellation. The test
+controller stopped during cleanup because CoreSimulator relocated the app's data
+container; that recovery is tracked separately and the passing tests must not be
+repeated to replace its receipt. These tests do not qualify the conditional
+reading-failure UI or the actual Copy menu interaction. Touch Copy original is
+integrated in the iOS candidate source; its new native interaction tests remain
+unexecuted. A further source review identified misleading screen-reader gesture
+instructions and a first-use cue dismissed by composer focus; focused corrections
+and native interaction checks are in progress.
 Neither platform has
 a fresh qualified signed release of the full-message design, and the user's
 requested phone delivery is pending that qualification.
