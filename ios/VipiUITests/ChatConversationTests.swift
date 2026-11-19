@@ -833,11 +833,31 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(paste.waitForExistence(timeout:5)); paste.tap()
         }
         func retain(_ phase:String) throws {
+            if phase == "over-send-limit" {
+                func rect(_ value:Any?) -> CGRect? {
+                    guard let fields = value as? [String:Any],let x = fields["x"] as? Double,
+                          let y = fields["y"] as? Double,let width = fields["width"] as? Double,
+                          let height = fields["height"] as? Double else { return nil }
+                    return CGRect(x:x,y:y,width:width,height:height)
+                }
+                wait("Pasted draft keeps the actual native insertion caret inside its editor") {
+                    guard let geometry = evidence()["composition_geometry"] as? [String:Any],
+                          let windows = geometry["windows"] as? [[String:Any]] else { return false }
+                    return windows.contains { window in
+                        (window["first_responders"] as? [[String:Any]] ?? []).contains { editor in
+                            guard editor["class"] as? String == "DraftTextView",let frame = rect(editor["frame"]),
+                                  let caret = rect(editor["caret"]),caret.height > 0,
+                                  editor["selection_end"] as? Int == (input.value as? String ?? "").utf16.count else { return false }
+                            return frame.insetBy(dx:-1,dy:-1).contains(caret)
+                        }
+                    }
+                }
+            }
             let warning = notice.frame,keyboard = self.visibleKeyboardFrame(in:app)
             XCTAssertTrue(notice.exists && notice.isHittable)
             XCTAssertTrue(app.frame.contains(warning)); XCTAssertGreaterThanOrEqual(warning.minY,app.navigationBars.firstMatch.frame.maxY)
             if !keyboard.isNull && !keyboard.isEmpty { XCTAssertLessThanOrEqual(warning.maxY,keyboard.minY) }
-            let json = XCTAttachment(data:try JSONSerialization.data(withJSONObject:["phase":phase,"warning":NSCoder.string(for:warning),"input":NSCoder.string(for:input.frame),"send":NSCoder.string(for:send.frame),"visible_keyboard":NSCoder.string(for:keyboard),"send_enabled":send.isEnabled],options:.sortedKeys),uniformTypeIdentifier:"public.json")
+            let json = XCTAttachment(data:try JSONSerialization.data(withJSONObject:["phase":phase,"warning":NSCoder.string(for:warning),"input":NSCoder.string(for:input.frame),"send":NSCoder.string(for:send.frame),"visible_keyboard":NSCoder.string(for:keyboard),"send_enabled":send.isEnabled,"native_editor":evidence()["composition_geometry"] ?? [:]],options:.sortedKeys),uniformTypeIdentifier:"public.json")
             json.name = "draft-boundary-"+phase; json.lifetime = .keepAlways; add(json)
             let image = XCTAttachment(screenshot:app.screenshot()); image.name = "draft-boundary-"+phase; image.lifetime = .keepAlways; add(image)
         }
