@@ -33,11 +33,9 @@ source archives does not mean every dependency manager has been configured for
 an entirely offline build. Language data and speech voices have separate
 attribution requirements from the application code; preserve their notices.
 
-Both clients compile the pinned CLD2 language detector in `vendor/cld2`.
-Its provenance, model-table version and two source patches are recorded there.
-The detector classifies text locally; its reliability flag is not a translation
-quality score. Regenerate its native license notices from the pinned inputs with
-`python3 scripts/collect-cld2-notices.py`.
+Source-language routing uses Google ML Kit language identification on Android
+and Apple Natural Language on iOS. Detection is advisory and is not a
+translation-quality score.
 
 Use disk-backed source and build directories with enough space for dependencies,
 native libraries, generated assets and compiler output. Do not update dependency
