@@ -14,7 +14,7 @@ struct MessageEditor: UIViewRepresentable {
 
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeUIView(context: Context) -> DraftTextView {
-        let view = DraftTextView()
+        let view = DraftTextView(frame: .zero, textContainer: nil)
         view.delegate = context.coordinator
         view.backgroundColor = .clear
         view.textContainerInset = .zero
@@ -53,8 +53,9 @@ struct MessageEditor: UIViewRepresentable {
         var parent: MessageEditor
         init(_ parent: MessageEditor) { self.parent = parent }
         func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-            guard let range = Range(range, in: textView.text) else { return false }
-            let proposed = textView.text.replacingCharacters(in: range, with: text)
+            let current = textView.text ?? ""
+            guard let range = Range(range, in: current) else { return false }
+            let proposed = current.replacingCharacters(in: range, with: text)
             guard proposed.utf8.count <= parent.maximumBytes else {
                 parent.rejected()
                 return false
