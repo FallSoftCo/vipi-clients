@@ -450,6 +450,16 @@ class FullMessageJourneyDeviceTest {
                         .put("utf16_length",priorText.length).put("selection_start",selected.textSelectionStart)
                         .put("selection_end",selected.textSelectionEnd).put("exact_prior_value",selected.text?.toString() == priorText).toString(2))
                 }
+                // Bind the actual owned clipboard immediately before native
+                // Paste. Unchanged editor text alone cannot prove rejection.
+                f.instrumentation.runOnMainSync {
+                    val actual = requireNotNull(clipboard.primaryClip).getItemAt(0).text.toString()
+                    assertEquals(value, actual)
+                    File(f.output,"native-paste-input-"+pasteIndex+".json").writeText(JSONObject()
+                        .put("utf8_bytes",actual.toByteArray(Charsets.UTF_8).size)
+                        .put("utf16_length",actual.length)
+                        .put("sha256",java.security.MessageDigest.getInstance("SHA-256").digest(actual.toByteArray()).joinToString("") { "%02x".format(it) }).toString(2))
+                }
                 tapNativeEditAction(f.base.getString(android.R.string.paste))
             }
             fun assertNativeEditor(expected:String,stage:String) {
@@ -507,7 +517,14 @@ class FullMessageJourneyDeviceTest {
                 pasteThroughNativeMenu("a".repeat(ConversationHistory.MAX_DRAFT_BYTES+1))
                 assertNativeEditor(pasted,"over-editing-limit")
                 compose.onNodeWithTag(input).assertTextEquals(pasted)
-                compose.onNodeWithTag(notice).assertTextEquals(f.base.getString(R.string.draft_edit_too_large))
+                // Paste reads the clipboard asynchronously. The old native
+                // value already equals the expected rejected value, so its
+                // equality cannot be used as an action-completion barrier.
+                val rejection = f.base.getString(R.string.draft_edit_too_large)
+                compose.waitUntil(8_000) {
+                    compose.onNodeWithTag(notice).fetchSemanticsNode().config[SemanticsProperties.Text].joinToString("") { it.text } == rejection
+                }
+                compose.onNodeWithTag(notice).assertTextEquals(rejection)
                 assertEquals(pasted,saved())
                 f.capture("01b-over-editing-limit-native-field-and-warning")
                 assertEquals(0,services.friendPosts.get()); assertEquals(0,services.botPosts.get())
