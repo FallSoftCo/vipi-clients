@@ -11,6 +11,8 @@ struct MessageEditor: UIViewRepresentable {
     let maximumBytes: Int
     let rejected: () -> Void
     @Environment(\.isEnabled) private var enabled
+    @Environment(\.dynamicTypeSize) private var typeSize
+    @Environment(\.verticalSizeClass) private var verticalSizeClass
 
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeUIView(context: Context) -> DraftTextView {
@@ -46,7 +48,11 @@ struct MessageEditor: UIViewRepresentable {
         guard let width = proposal.width, width > 0 else { return nil }
         let line = uiView.font?.lineHeight ?? 22
         let measured = uiView.sizeThatFits(CGSize(width: width, height: .greatestFiniteMagnitude))
-        return CGSize(width: width, height: min(max(line, measured.height), line * 6))
+        // Large text and a software keyboard still need room for the native
+        // navigation bar and a visible validation message. The draft scrolls
+        // inside the editor rather than pushing controls off the screen.
+        let lines: CGFloat = verticalSizeClass == .compact ? 2 : typeSize.isAccessibilitySize ? 3 : 6
+        return CGSize(width: width, height: min(max(line, measured.height), line * lines))
     }
 
     @MainActor final class Coordinator: NSObject, UITextViewDelegate {
