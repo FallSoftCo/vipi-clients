@@ -35,10 +35,14 @@ emulator. The application now requires Android 10/API 29 for the platform
 transliteration API; source and packaged-manifest checks do not establish an
 API 29 runtime result. The short landscape capture proves a readable draft and
 Send control while chat history is clipped. Long-reading limits and pronunciation
-quality still have explicit gaps. A separate 4,096-character baseline completed
-18 reader calls across Chinese, Japanese and Korean with complete source ranges
-and no reported reading issues. This measures the existing readers on the
-emulator; it does not establish pronunciation accuracy or longer-input support.
+quality still have explicit gaps. The updated readers matched all 18 baseline
+outputs at 4,096 characters. Separate 8,192- and 16,384-character runs completed
+21 calls each, including Japanese text without sentence punctuation, with complete
+source ranges and no reported reading issues. These are bounded reader results,
+not pronunciation or whole-chat latency guarantees. Cold Japanese processing at
+16,384 characters took about five seconds. A source review also found silent
+native-script fallback when a required reading is unavailable; explicit reading
+status and conditional failure feedback are being implemented.
 
 iOS normal and maximum-text chat layout checks and the targeted owner, cache
 and playback tests passed. The Japanese assertion was corrected to accept valid
@@ -47,8 +51,13 @@ text-size categories, named-row sizing and the native invitation share/cancel
 flow at both sizes. Three normal-size Dynamic Type audit findings remain;
 both Settings routes also stopped at a test assertion that expected a separate
 value where accessibility exposes the combined “Made by, FallSoft.Co” label.
-The contrast warnings were absent after the header-color correction. Original
-failures remain retained, and the complete Settings flow is not yet qualified.
+The contrast warnings were absent after the header-color correction. A subsequent
+run exercised all twelve actual system text sizes in the same open Settings view;
+the three named rows passed direct font-size and complete-label viewport checks.
+The strict test still failed its native audits, including a separate clipped-text
+report. Those findings require comparison with the retained images and geometry;
+they have not been waived or converted into a passing test. Original failures
+remain retained, and the complete Settings flow is not yet qualified.
 Touch Copy original parity is still being implemented. Neither platform has
 a fresh qualified signed release of the full-message design, and the user's
 requested phone delivery is pending that qualification.
@@ -58,6 +67,9 @@ Their existing invitation and recovery tests pass; that source change has not
 been deployed. The prepared store-copy candidates also remain unapplied. Final
 assembly must use the qualified native sources and matching copy, then verify
 signed artifacts, actual device delivery and store state before submission.
+The client source exporter and Apple setup script now require live-reading data
+instead of retired translation catalogs. Source-selection and integrity checks
+pass; no new corresponding-source archive has been published.
 
 ## Historical delivery checkpoint — November 17 to early November 18
 

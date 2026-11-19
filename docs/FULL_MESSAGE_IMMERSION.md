@@ -32,6 +32,15 @@ Use these on-device provider APIs only. Do not add separately distributed transl
 5. Compute a live reading from the complete practice result. Keep transliteration data and its licenses, but no custom translation catalogs, authored sentence overrides or partial matching runtime.
 6. Save only complete results in the existing account-encrypted vault. The cache key binds immutable message identity/text, language pair and translation policy. Corrupt or obsolete derived cache entries are recomputed; they never corrupt the source message.
 
+Reading availability is separate from translation readiness. Latin text, numbers,
+emoji and protected literals may need no transliteration. When non-Latin text
+needs a reading, distinguish a complete reading from an unavailable one. Preserve
+the full practice text and audio in either case. If the requested Latin reading
+is unavailable, show the existing localized failure message and accessibility
+state instead of silently treating native script as a successful reading. Refresh
+obsolete reading metadata without translating the message again; a known reader
+limit must not create a retry loop on every reopen.
+
 Concurrent requests for the same message share one operation. Account or pair changes cancel the old owner and reject late completions. Preparing, failed and ready are distinct states. An unprepared model or failed translation must not be presented as a successful translation. Model downloads require connectivity; message translation has no server fallback.
 
 Translation completion is not a guarantee of perfect semantics. Short ambiguous replies, names, code switching and unusual grammar need actual-output review. No fabricated confidence score, word blacklist or dictionary fallback should silently prevent an otherwise valid full-message request.
