@@ -4,6 +4,8 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.ui.semantics.Role
@@ -110,6 +112,9 @@ internal class HistoryBackupModel : ViewModel() {
     var job by transfer::job
     var invalidPassword by transfer::invalidPassword
     var mismatchedConfirmation by transfer::mismatchedConfirmation
+    val feedbackScope = rememberCoroutineScope()
+    val passwordIntoView = remember { BringIntoViewRequester() }
+    val confirmationIntoView = remember { BringIntoViewRequester() }
     val passwordFocus = remember { FocusRequester() }
     val confirmationFocus = remember { FocusRequester() }
     val normalizedPassword = remember(password) { java.text.Normalizer.normalize(password, java.text.Normalizer.Form.NFC) }
@@ -122,10 +127,17 @@ internal class HistoryBackupModel : ViewModel() {
     fun validate(requireConfirmation: Boolean): Boolean {
         invalidPassword = !HistoryBackupCodec.validPassword(password)
         mismatchedConfirmation = !invalidPassword && requireConfirmation && password != confirmation
-        when {
-            invalidPassword -> passwordFocus.requestFocus()
-            mismatchedConfirmation -> confirmationFocus.requestFocus()
+        val field = when {
+            invalidPassword -> passwordFocus to passwordIntoView
+            mismatchedConfirmation -> confirmationFocus to confirmationIntoView
             else -> return true
+        }
+        field.first.requestFocus()
+        feedbackScope.launch {
+            // Include the newly composed supporting error, not just the input
+            // caret, in the viewport above the software keyboard.
+            withFrameNanos { }
+            field.second.bringIntoView()
         }
         return false
     }
@@ -189,7 +201,7 @@ internal class HistoryBackupModel : ViewModel() {
     Scaffold(topBar = { TopAppBar(title = { Text(stringResource(R.string.ui_24f13e3dc8e4)) }, navigationIcon = {
         IconButton(onClick = { job?.cancel(); back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) }
     }) }) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding).verticalScroll(rememberScrollState()).padding(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
+        Column(Modifier.fillMaxSize().padding(padding).imePadding().verticalScroll(rememberScrollState()).padding(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
             Text(stringResource(R.string.ui_0541b2d9f69b), style = MaterialTheme.typography.headlineMedium)
             Text(stringResource(R.string.ui_bb1fe2470e72))
             Text(stringResource(R.string.ui_233a70befbdc), style = MaterialTheme.typography.bodyMedium)
@@ -207,13 +219,13 @@ internal class HistoryBackupModel : ViewModel() {
             }, isError = invalidPassword, label = { Text(stringResource(if (restoring) R.string.ui_3e39703b6e87 else R.string.backup_new_password)) },
                 supportingText = { Text(stringResource(passwordFeedback)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
-                singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth().focusRequester(passwordFocus).testTag("backup-password"))
+                singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth().focusRequester(passwordFocus).bringIntoViewRequester(passwordIntoView).testTag("backup-password"))
             if (!restoring) OutlinedTextField(confirmation, { confirmation = it
                 if (password == it) mismatchedConfirmation = false
             }, isError = mismatchedConfirmation,
                 supportingText = { if (mismatchedConfirmation) Text(stringResource(R.string.backup_password_mismatch)) }, label = { Text(stringResource(R.string.ui_d63cd658184e)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
-                singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth().focusRequester(confirmationFocus).testTag("backup-confirmation"))
+                singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth().focusRequester(confirmationFocus).bringIntoViewRequester(confirmationIntoView).testTag("backup-confirmation"))
             if (!restoring) Button(onClick = {
                 if (!validate(true)) return@Button
                 busy = true; message = null; clearImport()
