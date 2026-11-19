@@ -5,6 +5,7 @@ import UIKit
 struct HistoryBackupView: View {
     let chat: ChatSession
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var account: UUID?
     init(chat: ChatSession) { self.chat = chat; _account = State(initialValue: chat.profile?.id) }
     @State private var restoring = false
@@ -22,6 +23,8 @@ struct HistoryBackupView: View {
     @State private var attemptedConfirmation = false
     private enum Field: Hashable { case password, confirmation }
     @FocusState private var focusedField: Field?
+    @State private var correctionField: Field?
+    @State private var correctionRevision = 0
     private var passwordValid: Bool { (try? HistoryBackupCodec.passwordBytes(password)) != nil }
     private var passwordError: String? {
         guard attemptedValidation, !passwordValid else { return nil }
@@ -35,6 +38,7 @@ struct HistoryBackupView: View {
     }
 
     var body: some View {
+        ScrollViewReader { scroll in
         Form {
             Section {
                 Text("Back up chats with friends in an encrypted file.")
@@ -54,6 +58,7 @@ struct HistoryBackupView: View {
                 if verified != nil {
                     Label("Backup unlocked", systemImage: "lock.open").foregroundStyle(VipiDesign.secondary)
                 } else {
+                    VStack(alignment: .leading, spacing: 8) {
                     SecureField(restoring ? "Backup password" : "New backup password", text: $password, prompt: Text(LocalizedStringKey(restoring ? "Backup password" : "New backup password")).foregroundStyle(VipiDesign.secondary))
                         .textContentType(restoring ? .password : .newPassword)
                         .textInputAutocapitalization(.never).autocorrectionDisabled()
@@ -65,8 +70,10 @@ struct HistoryBackupView: View {
                         Text(passwordError).foregroundStyle(VipiDesign.destructive)
                             .accessibilityIdentifier("history-password-error")
                     }
+                    }.id(Field.password)
                 }
                 if !restoring {
+                    VStack(alignment: .leading, spacing: 8) {
                     SecureField("Confirm backup password", text: $confirmation, prompt: Text("Confirm backup password").foregroundStyle(VipiDesign.secondary))
                         .textContentType(.newPassword).textInputAutocapitalization(.never).autocorrectionDisabled()
                         .disabled(busy).accessibilityIdentifier("history-password-confirm")
@@ -76,6 +83,7 @@ struct HistoryBackupView: View {
                         Text(confirmationError).foregroundStyle(VipiDesign.destructive)
                             .accessibilityIdentifier("history-password-confirm-error")
                     }
+                    }.id(Field.confirmation)
                 }
             } footer: {
                 Text("Use at least 12 characters. Keep this password safe. Vipi can’t recover it.").font(.body).foregroundStyle(VipiDesign.secondary)
@@ -114,6 +122,18 @@ struct HistoryBackupView: View {
         }
         .scrollContentBackground(.hidden).background(VipiDesign.canvas)
         .navigationTitle("Chat backup").navigationBarTitleDisplayMode(.inline)
+        .task(id: correctionRevision) {
+            guard correctionRevision > 0, let correctionField else { return }
+            // A focused field can have been scrolled offscreen. Setting the
+            // same focus again does not reveal its newly inserted error row.
+            // Wait for that row's layout, then show the field and its correction
+            // together, including when the user submits the same error again.
+            await Task.yield()
+            guard !Task.isCancelled else { return }
+            withAnimation(reduceMotion ? nil : .easeInOut(duration: 0.2)) {
+                scroll.scrollTo(correctionField, anchor: .top)
+            }
+        }
         .sheet(item: $picker, onDismiss: { removeExport() }) { request in
             HistoryDocumentPicker(request: request) { url in
                 if request.export == nil {
@@ -130,6 +150,7 @@ struct HistoryBackupView: View {
             // The document picker may still be consuming the encrypted export.
             if picker == nil { removeExport() }
         }
+        }
     }
     private var backupMode: some View {
         Picker("Chat backup", selection: $restoring) {
@@ -140,9 +161,9 @@ struct HistoryBackupView: View {
     private func begin() {
         guard !busy else { return }
         attemptedValidation = true; notice = nil
-        guard passwordValid else { focusedField = .password; return }
+        guard passwordValid else { revealCorrection(.password); return }
         if !restoring { attemptedConfirmation = true }
-        guard restoring || password == confirmation else { focusedField = .confirmation; return }
+        guard restoring || password == confirmation else { revealCorrection(.confirmation); return }
         guard !restoring || selected != nil else { return }
         focusedField = nil
         busy = true
@@ -168,6 +189,11 @@ struct HistoryBackupView: View {
                 clearImport(); removeExport()
             }
         }
+    }
+    private func revealCorrection(_ field: Field) {
+        focusedField = field
+        correctionField = field
+        correctionRevision += 1
     }
     private func restore() {
         guard !busy, let staged, let verified else { return }

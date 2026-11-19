@@ -929,6 +929,18 @@ final class ChatConversationTests: XCTestCase {
             let image = XCTAttachment(screenshot:app.screenshot()); image.name = "backup-validation-"+phase; image.lifetime = .keepAlways; add(image)
             let hierarchy = XCTAttachment(string:app.debugDescription); hierarchy.name = "backup-validation-"+phase+"-hierarchy"; hierarchy.lifetime = .keepAlways; add(hierarchy)
         }
+        func expectVisibleCorrection(field:XCUIElement,error:XCUIElement) {
+            let visible = XCTNSPredicateExpectation(predicate:NSPredicate { _,_ in
+                guard field.exists, error.exists else { return false }
+                let bar = app.navigationBars["Chat backup"], keyboard = app.keyboards.firstMatch
+                let bottom = keyboard.exists ? min(app.frame.maxY-24,keyboard.frame.minY-8) : app.frame.maxY-24
+                let viewport = CGRect(x:app.frame.minX,y:bar.frame.maxY+4,width:app.frame.width,
+                                      height:max(0,bottom-bar.frame.maxY-4))
+                return viewport.contains(field.frame) && viewport.contains(error.frame)
+            },object:app)
+            XCTAssertEqual(XCTWaiter.wait(for:[visible],timeout:5),.completed,
+                "Submitting an invalid backup password must reveal its field and explanation without another user scroll")
+        }
         XCTAssertTrue(app.navigationBars["Chat backup"].waitForExistence(timeout:10))
         capture("opened")
         // At accessibility sizes the explanation legitimately fills the first
@@ -937,12 +949,14 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertFalse(passwordError.exists); XCTAssertFalse(mismatch.exists)
         reveal(begin,up:true); XCTAssertTrue(begin.isEnabled); begin.tap()
         XCTAssertTrue(passwordError.waitForExistence(timeout:5)); XCTAssertEqual(passwordError.label,"Use at least 12 characters.")
+        expectVisibleCorrection(field:password,error:passwordError)
         capture("short-passphrase-explained")
         reveal(password,up:false); password.tap(); password.typeText("Public QA passphrase 2026")
         XCTAssertFalse(passwordError.exists); XCTAssertFalse(mismatch.exists,"Correcting the password must not preemptively mark the untouched confirmation")
         reveal(confirmation,up:true); confirmation.tap(); confirmation.typeText("Public QA passphrase 202")
         reveal(begin,up:true); XCTAssertTrue(begin.isEnabled); begin.tap()
         XCTAssertTrue(mismatch.waitForExistence(timeout:5)); XCTAssertEqual(mismatch.label,"The passwords don’t match.")
+        expectVisibleCorrection(field:confirmation,error:mismatch)
         capture("mismatch-explained")
         reveal(confirmation,up:false); confirmation.tap(); confirmation.typeText("6")
         XCTAssertFalse(mismatch.exists)
