@@ -182,13 +182,13 @@
     <string name="bot_verification_unavailable">يتعذر التحقق من الوصول إلى Bot mini الآن. حاول مجددًا.</string>
     <string name="plan_clock_unavailable">تعذر التحقق من الوصول إلى خطتك. حاول مجددًا.</string>
     <string name="ui_03fdb0dfc1b8" formatted="false">حذف حساب Vipi؟</string>
-    <string name="ui_04c8049b72ff" formatted="false">استخدم 12 حرفًا على الأقل. يُفضّل استخدام عبارة مرور طويلة وفريدة.</string>
+    <string name="ui_04c8049b72ff">استخدم 12 حرفًا على الأقل. احتفظ بكلمة المرور هذه بأمان. لا يستطيع Vipi استعادتها.</string>
     <string name="ui_0cb9c0cf3bb1" formatted="false">سجّل الدخول مجددًا لإعادة الاتصال. تبقى محادثاتك المحفوظة على هذا الجهاز.</string>
     <string name="ui_18714cc5a562" formatted="false">هل غيّر صديقك هاتفه؟</string>
     <string name="ui_3e39703b6e87" formatted="false">كلمة مرور النسخة الاحتياطية</string>
     <string name="ui_54a04d4e9955" formatted="false">انتقل حسابك إلى جهاز آخر. تظل محادثاتك المحفوظة متاحة هنا.</string>
     <string name="ui_8218810809d6" formatted="false">تعذّر فتح محادثاتك المحفوظة. أغلق Vipi وافتحه مجددًا للمحاولة مرة أخرى.</string>
-    <string name="ui_d63cd658184e" formatted="false">أكّد كلمة المرور لحفظ نسخة احتياطية</string>
+    <string name="ui_d63cd658184e">تأكيد كلمة مرور النسخة الاحتياطية</string>
     <string name="ui_db2b1ef64bbf" formatted="false">استخدام Vipi على هذا الجهاز؟</string>
     <string name="deletion_prepare_failed">تعذّر إعداد الحذف. أغلق Vipi وافتحه مجددًا للمحاولة مرة أخرى.</string>
     <string name="licenses_open_failed">تعذّر فتح التراخيص. يُرجى المحاولة مجددًا.</string>
@@ -374,8 +374,8 @@
     <string name="ui_57225bd8b984" formatted="false">يمكنك دائمًا قراءة المحادثات المحفوظة وحذف حسابك، حتى دون خطة نشطة.</string>
     <string name="ui_cc39ebccb529" formatted="false">اطرح سؤالًا على vBot أو تحدث عن يومك. vBot روبوت محادثة وقد يخطئ؛ تحقّق من التفاصيل المهمة.</string>
     <string name="bot_plan_description">تضيف Bot mini محادثات مع vBot إلى خطة Vipi. قد تكون الردود التلقائية خاطئة. وهو اشتراك منفصل له تاريخ تجديد خاص به.</string>
-    <string name="base_plan_description">تحدث مع الأصدقاء وشاهد الكلمات والعبارات القصيرة المدعومة تتحول إلى اللغة التي اخترتها. Bot mini خطة اختيارية منفصلة.</string>
-    <string name="ui_233a70befbdc" formatted="false">احتفظ بكلمة مرور النسخة الاحتياطية. لا يستطيع Vipi استعادتها. تظل محادثاتك ونسخك الاحتياطية المحفوظة متاحة إذا انتهت خطتك.</string>
+    <string name="base_plan_description">تظهر رسائلك باللغة التي تتعلمها، وتُترجم على هذا الجهاز. Bot mini اختياري وتُدفع رسومه بشكل منفصل.</string>
+    <string name="ui_233a70befbdc">تظل محادثاتك المحفوظة ونسخك الاحتياطية متاحة إذا انتهت خطتك.</string>
     <string name="ui_2b338821b42c" formatted="false">سيؤدي هذا إلى تسجيل خروج أي جهاز آخر نشط. تبقى المحادثات الموجودة على هذا الجهاز هنا. لا يمكن نقل الرسائل المنتظرة بين الأجهزة وستتوقف. ستتغير مفاتيح التشفير، وسيحتاج الأصدقاء إلى الموافقة عليها ومقارنة أرقام الأمان مجددًا.</string>
     <string name="ui_2e03fab81b5f" formatted="false">تغيّرت هوية تشفير صديقك. راجع المفاتيح الجديدة قبل إرسال رسالة أخرى. يبقى سجلك المحفوظ هنا.</string>
     <string name="ui_5f0f1b251f45" formatted="false">تم تحديث التشفير. توقفت الرسائل المنتظرة السابقة. قارن رقم الأمان الجديد مع صديقك.</string>
@@ -467,8 +467,9 @@
     <string name="full_translation_unavailable">الترجمة غير متاحة</string>
     <string name="draft_edit_too_large">هذا النص طويل جدًا. مسودتك السابقة ما زالت محفوظة.</string>
     <string name="backup_password_too_short">استخدم 12 حرفًا على الأقل.</string>
-    <string name="backup_password_too_long">عبارة المرور هذه طويلة جدًا.</string>
-    <string name="backup_password_mismatch">عبارتا المرور غير متطابقتين.</string>
+    <string name="backup_password_too_long">كلمة المرور هذه طويلة جدًا.</string>
+    <string name="backup_password_mismatch">كلمتا المرور غير متطابقتين.</string>
     <string name="full_translation_context_hint">اضغط للاستماع باللغة %1$s. اضغط مطولًا للقراءة باللغة %2$s.</string>
     <string name="full_translation_writing_hint">اضغط مرتين لرؤية الكتابة باللغة %1$s.</string>
+    <string name="backup_new_password">كلمة مرور جديدة للنسخة الاحتياطية</string>
 </resources>

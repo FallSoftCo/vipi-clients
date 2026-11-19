@@ -4,5 +4,5 @@
     <string name="home_bot_description">Chatbot · Bot mini</string>
     <string name="bot_caution">O vBot pode errar. Confirme informações importantes.</string>
     <string name="lookup_whole_unsupported">Este dispositivo não suporta a tradução de mensagens completas entre estes idiomas.</string>
-    <string name="base_plan_summary">Converse com amigos. As palavras suportadas mudam durante a leitura. Bot mini é um plano separado e opcional.</string>
+    <string name="base_plan_summary">As suas mensagens aparecem em %1$s, traduzidas neste dispositivo. O Bot mini é opcional e faturado separadamente.</string>
 </resources>

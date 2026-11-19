@@ -204,7 +204,7 @@ internal class HistoryBackupModel : ViewModel() {
             OutlinedTextField(password, { password = it; clearImport(); message = null
                 if (HistoryBackupCodec.validPassword(it)) invalidPassword = false
                 if (it == confirmation) mismatchedConfirmation = false
-            }, isError = invalidPassword, label = { Text(stringResource(R.string.ui_3e39703b6e87)) },
+            }, isError = invalidPassword, label = { Text(stringResource(if (restoring) R.string.ui_3e39703b6e87 else R.string.backup_new_password)) },
                 supportingText = { Text(stringResource(passwordFeedback)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
                 singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth().focusRequester(passwordFocus).testTag("backup-password"))

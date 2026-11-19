@@ -4,5 +4,5 @@
     <string name="home_bot_description">روبوت محادثة · Bot mini</string>
     <string name="bot_caution">قد يخطئ vBot. تحقّق من المعلومات المهمة.</string>
     <string name="lookup_whole_unsupported">لا يدعم هذا الجهاز ترجمة الرسالة كاملةً بين هاتين اللغتين.</string>
-    <string name="base_plan_summary">دردش مع الأصدقاء. تتبدّل الكلمات المدعومة أثناء القراءة. Bot mini خطة منفصلة واختيارية.</string>
+    <string name="base_plan_summary">تظهر رسائلك باللغة %1$s، وتُترجم على هذا الجهاز. Bot mini اختياري وتُدفع رسومه بشكل منفصل.</string>
 </resources>

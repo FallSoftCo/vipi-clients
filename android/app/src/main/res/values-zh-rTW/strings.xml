@@ -182,13 +182,13 @@
     <string name="bot_verification_unavailable">目前無法驗證 Bot mini 的使用權限。請再試一次。</string>
     <string name="plan_clock_unavailable">無法驗證你的方案使用權限。請再試一次。</string>
     <string name="ui_03fdb0dfc1b8" formatted="false">刪除您的 Vipi 帳戶？</string>
-    <string name="ui_04c8049b72ff" formatted="false">請至少使用12個字元。建議使用較長且獨特的密碼片語。</string>
+    <string name="ui_04c8049b72ff">請使用至少12個字元。請妥善保管此密碼，Vipi無法復原。</string>
     <string name="ui_0cb9c0cf3bb1" formatted="false">請重新登入以重新連線。您儲存的對話會留在此裝置上。</string>
     <string name="ui_18714cc5a562" formatted="false">好友換手機了？</string>
     <string name="ui_3e39703b6e87" formatted="false">備份密碼</string>
     <string name="ui_54a04d4e9955" formatted="false">您的帳戶已轉移到另一部裝置。您儲存的對話仍可在此查看。</string>
     <string name="ui_8218810809d6" formatted="false">無法開啟您儲存的對話。請關閉並重新開啟 Vipi 後再試。</string>
-    <string name="ui_d63cd658184e" formatted="false">確認密碼以儲存備份</string>
+    <string name="ui_d63cd658184e">確認備份密碼</string>
     <string name="ui_db2b1ef64bbf" formatted="false">在此裝置上使用 Vipi？</string>
     <string name="deletion_prepare_failed">無法準備刪除。請關閉並重新開啟 Vipi 後再試。</string>
     <string name="licenses_open_failed">無法開啟授權條款。請再試一次。</string>
@@ -359,8 +359,8 @@
     <string name="ui_57225bd8b984" formatted="false">即使沒有有效方案，您也可以隨時閱讀儲存的對話並刪除帳戶。</string>
     <string name="ui_cc39ebccb529" formatted="false">向 vBot 提問或聊聊您的一天。vBot 是聊天機器人，可能出錯；請查證重要資訊。</string>
     <string name="bot_plan_description">Bot mini 為您的 Vipi 方案增加與 vBot 的聊天。自動回覆可能出錯。這是獨立訂閱，有自己的續訂日期。</string>
-    <string name="base_plan_description">與好友聊天時，支援的單字和短語會切換成您選擇的語言。Bot mini 是獨立的選用方案。</string>
-    <string name="ui_233a70befbdc" formatted="false">請妥善保存備份密碼。Vipi 無法找回該密碼。方案結束後，您仍可存取儲存的聊天和備份。</string>
+    <string name="base_plan_description">你的訊息會在此裝置上翻譯為你正在學習的語言並顯示。Bot mini為選用方案，單獨計費。</string>
+    <string name="ui_233a70befbdc">方案結束後，仍可存取已儲存的聊天和備份。</string>
     <string name="ui_2b338821b42c" formatted="false">這會讓其他正在使用的裝置登出。本裝置上的對話會保留。等候中的訊息無法在裝置間轉移，將停止傳送。您的加密金鑰會改變；好友需要重新核准並比對安全號碼。</string>
     <string name="ui_2e03fab81b5f" formatted="false">好友的加密身分已變更。傳送下一則訊息前請檢查新金鑰。您儲存的歷史紀錄會保留。</string>
     <string name="ui_5f0f1b251f45" formatted="false">加密已更新。先前等候中的訊息已停止。請與好友比對新的安全號碼。</string>
@@ -452,8 +452,9 @@
     <string name="full_translation_unavailable">翻譯暫時無法使用</string>
     <string name="draft_edit_too_large">這段文字太長了。之前的草稿仍然保留。</string>
     <string name="backup_password_too_short">請使用至少12個字元。</string>
-    <string name="backup_password_too_long">此密碼片語過長。</string>
-    <string name="backup_password_mismatch">兩次輸入的密碼片語不一致。</string>
+    <string name="backup_password_too_long">此密碼過長。</string>
+    <string name="backup_password_mismatch">兩次輸入的密碼不一致。</string>
     <string name="full_translation_context_hint">輕點即可聽%1$s，長按可閱讀%2$s釋義。</string>
     <string name="full_translation_writing_hint">點兩下即可顯示%1$s文字。</string>
+    <string name="backup_new_password">新的備份密碼</string>
 </resources>

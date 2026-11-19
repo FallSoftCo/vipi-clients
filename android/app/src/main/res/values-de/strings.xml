@@ -182,13 +182,13 @@
     <string name="bot_verification_unavailable">Der Zugang zu Bot mini kann gerade nicht überprüft werden. Versuche es erneut.</string>
     <string name="plan_clock_unavailable">Dein Abo-Zugang konnte nicht überprüft werden. Versuche es erneut.</string>
     <string name="ui_03fdb0dfc1b8" formatted="false">Ihr Vipi-Konto löschen?</string>
-    <string name="ui_04c8049b72ff" formatted="false">Verwenden Sie mindestens 12 Zeichen. Am besten ist eine lange, einzigartige Passphrase.</string>
+    <string name="ui_04c8049b72ff">Verwende mindestens 12 Zeichen. Bewahre dieses Passwort sicher auf. Vipi kann es nicht wiederherstellen.</string>
     <string name="ui_0cb9c0cf3bb1" formatted="false">Melden Sie sich erneut an, um die Verbindung wiederherzustellen. Ihre gespeicherten Unterhaltungen bleiben auf diesem Gerät.</string>
     <string name="ui_18714cc5a562" formatted="false">Hat Ihr Freund das Smartphone gewechselt?</string>
     <string name="ui_3e39703b6e87" formatted="false">Backup-Passwort</string>
     <string name="ui_54a04d4e9955" formatted="false">Ihr Konto wurde auf ein anderes Gerät übertragen. Ihre gespeicherten Unterhaltungen bleiben hier verfügbar.</string>
     <string name="ui_8218810809d6" formatted="false">Ihre gespeicherten Unterhaltungen konnten nicht geöffnet werden. Schließen Sie Vipi und öffnen Sie es erneut.</string>
-    <string name="ui_d63cd658184e" formatted="false">Passwort bestätigen, um ein Backup zu speichern</string>
+    <string name="ui_d63cd658184e">Backup-Passwort bestätigen</string>
     <string name="ui_db2b1ef64bbf" formatted="false">Vipi auf diesem Gerät verwenden?</string>
     <string name="deletion_prepare_failed">Die Löschung konnte nicht vorbereitet werden. Schließen Sie Vipi und öffnen Sie es erneut.</string>
     <string name="licenses_open_failed">Lizenzen konnten nicht geöffnet werden. Bitte erneut versuchen.</string>
@@ -362,8 +362,8 @@
     <string name="ui_57225bd8b984" formatted="false">Gespeicherte Unterhaltungen lesen und Ihr Konto löschen können Sie auch ohne aktives Abo jederzeit.</string>
     <string name="ui_cc39ebccb529" formatted="false">Stellen Sie vBot eine Frage oder sprechen Sie über Ihren Tag. vBot ist ein Chatbot und kann Fehler machen; prüfen Sie wichtige Angaben.</string>
     <string name="bot_plan_description">Bot mini ergänzt Ihren Vipi-Plan um Gespräche mit vBot. Automatische Antworten können falsch sein. Es ist ein separates Abo mit eigenem Verlängerungsdatum.</string>
-    <string name="base_plan_description">Chatten Sie mit Freunden und sehen Sie, wie unterstützte Wörter und kurze Ausdrücke in Ihre gewählte Sprache wechseln. Bot mini ist ein separates, optionales Abo.</string>
-    <string name="ui_233a70befbdc" formatted="false">Bewahren Sie Ihr Backup-Passwort auf. Vipi kann es nicht wiederherstellen. Ihre gespeicherten Chats und Backups bleiben auch nach Ende Ihres Abos zugänglich.</string>
+    <string name="base_plan_description">Deine Nachrichten erscheinen in der Sprache, die du lernst, und werden auf diesem Gerät übersetzt. Bot mini ist optional und wird separat berechnet.</string>
+    <string name="ui_233a70befbdc">Deine gespeicherten Chats und Backups bleiben zugänglich, wenn dein Abo endet.</string>
     <string name="ui_2b338821b42c" formatted="false">Dadurch wird jedes andere aktive Gerät abgemeldet. Chats auf diesem Gerät bleiben erhalten. Wartende Nachrichten können nicht zwischen Geräten übertragen werden und werden gestoppt. Ihre Verschlüsselungsschlüssel ändern sich; Freunde müssen sie erneut bestätigen und Sicherheitsnummern vergleichen.</string>
     <string name="ui_2e03fab81b5f" formatted="false">Die Verschlüsselungsidentität Ihres Freundes hat sich geändert. Prüfen Sie die neuen Schlüssel, bevor Sie eine weitere Nachricht senden. Ihr gespeicherter Verlauf bleibt erhalten.</string>
     <string name="ui_5f0f1b251f45" formatted="false">Verschlüsselung aktualisiert. Zuvor wartende Nachrichten wurden gestoppt. Vergleichen Sie die neue Sicherheitsnummer mit Ihrem Freund.</string>
@@ -455,8 +455,9 @@
     <string name="full_translation_unavailable">Übersetzung nicht verfügbar</string>
     <string name="draft_edit_too_large">Dieser Text ist zu lang. Dein vorheriger Entwurf ist noch da.</string>
     <string name="backup_password_too_short">Verwende mindestens 12 Zeichen.</string>
-    <string name="backup_password_too_long">Diese Passphrase ist zu lang.</string>
-    <string name="backup_password_mismatch">Die Passphrasen stimmen nicht überein.</string>
+    <string name="backup_password_too_long">Dieses Passwort ist zu lang.</string>
+    <string name="backup_password_mismatch">Die Passwörter stimmen nicht überein.</string>
     <string name="full_translation_context_hint">Tippe, um %1$s zu hören. Halte gedrückt, um auf %2$s zu lesen.</string>
     <string name="full_translation_writing_hint">Tippe doppelt, um %1$s in Schriftform zu sehen.</string>
+    <string name="backup_new_password">Neues Backup-Passwort</string>
 </resources>

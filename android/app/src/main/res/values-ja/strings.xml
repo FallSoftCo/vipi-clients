@@ -182,13 +182,13 @@
     <string name="bot_verification_unavailable">現在、Bot miniへのアクセスを確認できません。もう一度お試しください。</string>
     <string name="plan_clock_unavailable">プランの利用状況を確認できませんでした。もう一度お試しください。</string>
     <string name="ui_03fdb0dfc1b8" formatted="false">Vipiアカウントを削除しますか？</string>
-    <string name="ui_04c8049b72ff" formatted="false">12文字以上を使用してください。長くて固有のパスフレーズをおすすめします。</string>
+    <string name="ui_04c8049b72ff">12文字以上を使用してください。このパスワードは安全な場所に保管してください。Vipiでは復元できません。</string>
     <string name="ui_0cb9c0cf3bb1" formatted="false">再接続するにはもう一度サインインしてください。保存済みの会話はこのデバイスに残ります。</string>
     <string name="ui_18714cc5a562" formatted="false">友達が携帯電話を変更しましたか？</string>
     <string name="ui_3e39703b6e87" formatted="false">バックアップのパスワード</string>
     <string name="ui_54a04d4e9955" formatted="false">アカウントが別のデバイスに移動しました。保存済みの会話はここで引き続き利用できます。</string>
     <string name="ui_8218810809d6" formatted="false">保存済みの会話を開けませんでした。Vipiを閉じて開き直してください。</string>
-    <string name="ui_d63cd658184e" formatted="false">バックアップを保存するにはパスワードを確認</string>
+    <string name="ui_d63cd658184e">バックアップのパスワードを確認</string>
     <string name="ui_db2b1ef64bbf" formatted="false">このデバイスでVipiを使いますか？</string>
     <string name="deletion_prepare_failed">削除を準備できませんでした。Vipiを閉じて開き直してください。</string>
     <string name="licenses_open_failed">ライセンスを開けませんでした。もう一度お試しください。</string>
@@ -359,8 +359,8 @@
     <string name="ui_57225bd8b984" formatted="false">有効なプランがなくても、保存済みの会話の閲覧とアカウントの削除はいつでもできます。</string>
     <string name="ui_cc39ebccb529" formatted="false">vBotに質問したり、今日の出来事を話したりできます。vBotはチャットボットで、間違えることがあります。重要な内容は確認してください。</string>
     <string name="bot_plan_description">Bot miniはVipiプランにvBotとの会話を追加します。自動返信は間違うことがあります。更新日が別の独立したサブスクリプションです。</string>
-    <string name="base_plan_description">友達とチャットしながら、対応する単語や短いフレーズが選んだ言語に切り替わります。Bot miniは別の任意プランです。</string>
-    <string name="ui_233a70befbdc" formatted="false">バックアップのパスワードを保管してください。Vipiは復元できません。プラン終了後も保存済みのチャットとバックアップにアクセスできます。</string>
+    <string name="base_plan_description">メッセージはこのデバイス上で学習中の言語に翻訳されて表示されます。Bot miniは任意の追加プランで、別途請求されます。</string>
+    <string name="ui_233a70befbdc">プランが終了しても、保存済みのチャットとバックアップには引き続きアクセスできます。</string>
     <string name="ui_2b338821b42c" formatted="false">他の有効なデバイスはサインアウトされます。このデバイス上のチャットは残ります。待機中のメッセージはデバイス間で移動できず、送信が停止します。暗号化キーが変わるため、友達は再承認し、セキュリティ番号を再確認する必要があります。</string>
     <string name="ui_2e03fab81b5f" formatted="false">友達の暗号化IDが変更されました。次のメッセージを送る前に新しいキーを確認してください。保存済みの履歴は残ります。</string>
     <string name="ui_5f0f1b251f45" formatted="false">暗号化が更新されました。以前の待機中メッセージは停止しました。友達と新しいセキュリティ番号を照合してください。</string>
@@ -452,8 +452,9 @@
     <string name="full_translation_unavailable">翻訳を表示できません</string>
     <string name="draft_edit_too_large">テキストが長すぎます。前の下書きは残っています。</string>
     <string name="backup_password_too_short">12文字以上を使用してください。</string>
-    <string name="backup_password_too_long">このパスフレーズは長すぎます。</string>
-    <string name="backup_password_mismatch">パスフレーズが一致しません。</string>
+    <string name="backup_password_too_long">このパスワードは長すぎます。</string>
+    <string name="backup_password_mismatch">パスワードが一致しません。</string>
     <string name="full_translation_context_hint">タップすると%1$sの音声を聞けます。長押しすると%2$sで読めます。</string>
     <string name="full_translation_writing_hint">ダブルタップすると%1$sの文字を表示します。</string>
+    <string name="backup_new_password">新しいバックアップのパスワード</string>
 </resources>

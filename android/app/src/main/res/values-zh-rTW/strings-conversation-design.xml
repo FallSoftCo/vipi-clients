@@ -4,5 +4,5 @@
     <string name="home_bot_description">聊天機器人 · Bot mini</string>
     <string name="bot_caution">vBot 可能出錯。請查證重要資訊。</string>
     <string name="lookup_whole_unsupported">此裝置不支援這兩種語言之間的整則訊息翻譯。</string>
-    <string name="base_plan_summary">與朋友聊天。支援的詞語會在閱讀時切換。Bot mini 是獨立的選用方案。</string>
+    <string name="base_plan_summary">你的訊息會在此裝置上翻譯為%1$s並顯示。Bot mini為選用方案，單獨計費。</string>
 </resources>

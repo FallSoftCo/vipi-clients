@@ -39,7 +39,7 @@
     <string name="ui_02d207068808" formatted="false">Gestionar suscripciones en Google Play</string>
     <string name="ui_03fdb0dfc1b8" formatted="false">¿Eliminar tu cuenta de Vipi?</string>
     <string name="ui_048a626ab4bb" formatted="false">¿Eliminar las descargas?</string>
-    <string name="ui_04c8049b72ff" formatted="false">Usa al menos 12 caracteres. Es mejor usar una contraseña larga y única.</string>
+    <string name="ui_04c8049b72ff">Usa al menos 12 caracteres. Guarda esta contraseña en un lugar seguro. Vipi no puede recuperarla.</string>
     <string name="ui_04d7b4833927" formatted="false">Mensajes</string>
     <string name="ui_0541b2d9f69b" formatted="false">Conserva tus conversaciones.</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
@@ -64,7 +64,7 @@
     <string name="ui_20b395d8ee06" formatted="false">Conéctate una vez para terminar de configurar este dispositivo.</string>
     <string name="ui_211d0bb8cf4f" formatted="false">Bloquear</string>
     <string name="ui_225d29f6201e" formatted="false">Escuchar</string>
-    <string name="ui_233a70befbdc" formatted="false">Conserva la contraseña de la copia de seguridad. Vipi no puede recuperarla. Tus chats y copias guardados seguirán disponibles si termina tu plan.</string>
+    <string name="ui_233a70befbdc">Tus chats guardados y copias de seguridad siguen disponibles si termina tu plan.</string>
     <string name="ui_235ad6028cca" formatted="false">No se pudo completar la descarga. Comprueba tu conexión e inténtalo de nuevo.</string>
     <string name="ui_24a3f4314e5c" formatted="false">Gestionar suscripciones</string>
     <string name="ui_24f13e3dc8e4" formatted="false">Copia de seguridad de chats</string>
@@ -225,7 +225,7 @@
     <string name="ui_d1fc884eb413" formatted="false">Google Play no pudo completar la compra. Inténtalo de nuevo.</string>
     <string name="ui_d42ff6022f50" formatted="false">¿Restaurar historial de chats?</string>
     <string name="ui_d55f942dbeea" formatted="false">Traducción de Google. Las traducciones pueden ser imperfectas.</string>
-    <string name="ui_d63cd658184e" formatted="false">Confirma la contraseña para guardar una copia de seguridad</string>
+    <string name="ui_d63cd658184e">Confirmar contraseña de la copia de seguridad</string>
     <string name="ui_d75c6cdd950a" formatted="false">Abre los ajustes de notificaciones de Vipi en Ajustes de Android.</string>
     <string name="ui_d8b8392e2c54" formatted="false">Intentar de nuevo</string>
     <string name="ui_dad92e0774f7" formatted="false">Abre los Ajustes del teléfono y busca texto a voz.</string>
@@ -278,7 +278,7 @@
     <string name="chat_empty_target">Busca a un amigo por su nombre de usuario y envíale un mensaje. Las palabras y frases compatibles cambiarán a %1$s mientras lees.</string>
     <string name="security_number_description">Número de seguridad, %1$s</string>
     <string name="plan_link_error">No se pudo abrir este enlace. Inténtalo de nuevo.</string>
-    <string name="base_plan_description">Chatea con amigos y ve cómo las palabras y frases compatibles cambian al idioma que elijas. Bot mini es un plan independiente opcional.</string>
+    <string name="base_plan_description">Tus mensajes aparecen en el idioma que estás aprendiendo, traducidos en este dispositivo. Bot mini es opcional y se cobra por separado.</string>
     <string name="bot_plan_description">Bot mini añade conversaciones con el chatbot vBot a tu plan de Vipi. Las respuestas automáticas pueden equivocarse. Es una suscripción independiente con su propia fecha de renovación.</string>
     <string name="bot_allowance_unavailable">Bot mini aún no está disponible para empezar. Primero hay que confirmar su cuota mensual.</string>
     <string name="play_trial_renewal_description">Google Play confirma tu elegibilidad y la fecha del primer pago al comprar. La suscripción anual se renueva automáticamente hasta que canceles.</string>
@@ -459,4 +459,5 @@
     <string name="backup_password_mismatch">Las contraseñas no coinciden.</string>
     <string name="full_translation_context_hint">Toca para escuchar en %1$s. Mantén pulsado para leer en %2$s.</string>
     <string name="full_translation_writing_hint">Toca dos veces para ver el texto en %1$s.</string>
+    <string name="backup_new_password">Nueva contraseña de la copia de seguridad</string>
 </resources>

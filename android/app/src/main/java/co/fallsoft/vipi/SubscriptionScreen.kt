@@ -42,7 +42,8 @@ import kotlinx.coroutines.delay
     fun open(url: String) { try { uri.openUri(url) } catch (_: Exception) { linkError = context.getString(R.string.plan_link_error) } }
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
     val benefits: @Composable () -> Unit = {
-    Text(if (plan == SubscriptionPlan.BASE) stringResource(R.string.base_plan_summary)
+    Text(if (plan == SubscriptionPlan.BASE) stringResource(R.string.base_plan_summary, java.util.Locale.forLanguageTag(model.targetLanguage)
+        .getDisplayLanguage(androidx.compose.ui.platform.LocalConfiguration.current.locales[0]))
         else stringResource(R.string.bot_plan_description), lineHeight = 23.sp)
     if (plan == SubscriptionPlan.BOT_MINI) Text(stringResource(R.string.ui_c518ff733bfe), style = MaterialTheme.typography.bodyMedium)
     if (plan == SubscriptionPlan.BOT_MINI) {

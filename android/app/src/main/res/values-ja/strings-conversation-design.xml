@@ -4,5 +4,5 @@
     <string name="home_bot_description">チャットボット · Bot mini</string>
     <string name="bot_caution">vBotは間違えることがあります。重要な情報は確認してください。</string>
     <string name="lookup_whole_unsupported">このデバイスでは、この言語の組み合わせでメッセージ全体を翻訳できません。</string>
-    <string name="base_plan_summary">友達とチャット。対応する単語が読む間に切り替わります。Bot miniは別の任意プランです。</string>
+    <string name="base_plan_summary">メッセージはこのデバイス上で%1$sに翻訳されて表示されます。Bot miniは任意の追加プランで、別途請求されます。</string>
 </resources>

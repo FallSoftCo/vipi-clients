@@ -39,7 +39,7 @@
     <string name="ui_02d207068808" formatted="false">Gérer les abonnements dans Google Play</string>
     <string name="ui_03fdb0dfc1b8" formatted="false">Supprimer votre compte Vipi ?</string>
     <string name="ui_048a626ab4bb" formatted="false">Supprimer les téléchargements ?</string>
-    <string name="ui_04c8049b72ff" formatted="false">Utilisez au moins 12 caractères. Une phrase secrète longue et unique est préférable.</string>
+    <string name="ui_04c8049b72ff">Utilisez au moins 12 caractères. Gardez ce mot de passe en lieu sûr. Vipi ne peut pas le récupérer.</string>
     <string name="ui_04d7b4833927" formatted="false">Messages</string>
     <string name="ui_0541b2d9f69b" formatted="false">Conservez vos conversations.</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
@@ -64,7 +64,7 @@
     <string name="ui_20b395d8ee06" formatted="false">Connectez-vous une fois pour terminer la configuration de cet appareil.</string>
     <string name="ui_211d0bb8cf4f" formatted="false">Bloquer</string>
     <string name="ui_225d29f6201e" formatted="false">Écouter</string>
-    <string name="ui_233a70befbdc" formatted="false">Conservez votre mot de passe de sauvegarde. Vipi ne peut pas le récupérer. Vos discussions et sauvegardes enregistrées restent accessibles après la fin de votre offre.</string>
+    <string name="ui_233a70befbdc">Vos discussions et sauvegardes enregistrées restent accessibles à la fin de votre abonnement.</string>
     <string name="ui_235ad6028cca" formatted="false">Le téléchargement n’a pas pu aboutir. Vérifiez votre connexion et réessayez.</string>
     <string name="ui_24a3f4314e5c" formatted="false">Gérer les abonnements</string>
     <string name="ui_24f13e3dc8e4" formatted="false">Sauvegarde des discussions</string>
@@ -225,7 +225,7 @@
     <string name="ui_d1fc884eb413" formatted="false">Google Play n’a pas pu terminer l’achat. Réessayez.</string>
     <string name="ui_d42ff6022f50" formatted="false">Restaurer l’historique des discussions ?</string>
     <string name="ui_d55f942dbeea" formatted="false">Traduction par Google. Les traductions peuvent être imparfaites.</string>
-    <string name="ui_d63cd658184e" formatted="false">Confirmez le mot de passe pour enregistrer une sauvegarde</string>
+    <string name="ui_d63cd658184e">Confirmer le mot de passe de sauvegarde</string>
     <string name="ui_d75c6cdd950a" formatted="false">Ouvrez les réglages des notifications Vipi dans les paramètres Android.</string>
     <string name="ui_d8b8392e2c54" formatted="false">Réessayer</string>
     <string name="ui_dad92e0774f7" formatted="false">Ouvrez les paramètres du téléphone et recherchez la synthèse vocale.</string>
@@ -278,7 +278,7 @@
     <string name="chat_empty_target">Trouvez un ami par son nom d’utilisateur et envoyez un message. Les mots et expressions pris en charge passeront en %1$s pendant votre lecture.</string>
     <string name="security_number_description">Numéro de sécurité, %1$s</string>
     <string name="plan_link_error">Impossible d’ouvrir ce lien. Réessayez.</string>
-    <string name="base_plan_description">Discutez avec vos amis et voyez les mots et expressions pris en charge passer dans la langue choisie. Bot mini est une offre distincte facultative.</string>
+    <string name="base_plan_description">Vos messages s’affichent dans la langue que vous apprenez, traduits sur cet appareil. Bot mini est facultatif et facturé séparément.</string>
     <string name="bot_plan_description">Bot mini ajoute les conversations avec le chatbot vBot à votre offre Vipi. Les réponses automatiques peuvent être erronées. Cet abonnement est distinct et possède sa propre date de renouvellement.</string>
     <string name="bot_allowance_unavailable">Bot mini ne peut pas encore être activé. Son quota mensuel doit d’abord être confirmé.</string>
     <string name="play_trial_renewal_description">Google Play confirme votre éligibilité et la date du premier paiement lors de l’achat. L’abonnement annuel se renouvelle automatiquement jusqu’à annulation.</string>
@@ -455,8 +455,9 @@
     <string name="full_translation_unavailable">Traduction indisponible</string>
     <string name="draft_edit_too_large">Ce texte est trop long. Votre brouillon précédent est toujours là.</string>
     <string name="backup_password_too_short">Utilisez au moins 12 caractères.</string>
-    <string name="backup_password_too_long">Cette phrase secrète est trop longue.</string>
-    <string name="backup_password_mismatch">Les phrases secrètes ne correspondent pas.</string>
+    <string name="backup_password_too_long">Ce mot de passe est trop long.</string>
+    <string name="backup_password_mismatch">Les mots de passe ne correspondent pas.</string>
     <string name="full_translation_context_hint">Touchez pour écouter en %1$s. Maintenez le doigt pour lire en %2$s.</string>
     <string name="full_translation_writing_hint">Touchez deux fois pour afficher le texte en %1$s.</string>
+    <string name="backup_new_password">Nouveau mot de passe de sauvegarde</string>
 </resources>

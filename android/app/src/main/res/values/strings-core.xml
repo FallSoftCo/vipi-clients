@@ -4,7 +4,7 @@
     <string name="ui_02d207068808" formatted="false">Manage subscriptions in Google Play</string>
     <string name="ui_03fdb0dfc1b8" formatted="false">Delete your Vipi account?</string>
     <string name="ui_048a626ab4bb" formatted="false">Remove downloads?</string>
-    <string name="ui_04c8049b72ff" formatted="false">Use at least 12 characters. A long, unique passphrase is best.</string>
+    <string name="ui_04c8049b72ff">Use at least 12 characters. Keep this password safe. Vipi can’t recover it.</string>
     <string name="ui_04d7b4833927" formatted="false">Messages</string>
     <string name="ui_0541b2d9f69b" formatted="false">Keep your conversations.</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
@@ -29,7 +29,7 @@
     <string name="ui_20b395d8ee06" formatted="false">Connect once to finish setting up this device.</string>
     <string name="ui_211d0bb8cf4f" formatted="false">Block</string>
     <string name="ui_225d29f6201e" formatted="false">Listen</string>
-    <string name="ui_233a70befbdc" formatted="false">Keep your backup password. Vipi cannot recover it. Your saved chats and backups remain accessible if your plan ends.</string>
+    <string name="ui_233a70befbdc">Your saved chats and backups remain accessible if your plan ends.</string>
     <string name="ui_235ad6028cca" formatted="false">The download couldn’t finish. Check your connection and try again.</string>
     <string name="ui_24a3f4314e5c" formatted="false">Manage subscriptions</string>
     <string name="ui_24f13e3dc8e4" formatted="false">Chat backup</string>
@@ -190,7 +190,7 @@
     <string name="ui_d1fc884eb413" formatted="false">Google Play couldn’t complete the purchase. Please try again.</string>
     <string name="ui_d42ff6022f50" formatted="false">Restore chat history?</string>
     <string name="ui_d55f942dbeea" formatted="false">Translation by Google. Translations can be imperfect.</string>
-    <string name="ui_d63cd658184e" formatted="false">Confirm password to save a backup</string>
+    <string name="ui_d63cd658184e">Confirm backup password</string>
     <string name="ui_d75c6cdd950a" formatted="false">Open Vipi’s notification settings in Android Settings.</string>
     <string name="ui_d8b8392e2c54" formatted="false">Try again</string>
     <string name="ui_dad92e0774f7" formatted="false">Open your phone’s Settings and search for text-to-speech.</string>

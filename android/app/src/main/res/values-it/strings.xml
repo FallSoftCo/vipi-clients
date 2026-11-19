@@ -39,7 +39,7 @@
     <string name="ui_02d207068808" formatted="false">Gestisci abbonamenti in Google Play</string>
     <string name="ui_03fdb0dfc1b8" formatted="false">Eliminare il tuo account Vipi?</string>
     <string name="ui_048a626ab4bb" formatted="false">Rimuovere i download?</string>
-    <string name="ui_04c8049b72ff" formatted="false">Usa almeno 12 caratteri. È meglio usare una frase segreta lunga e unica.</string>
+    <string name="ui_04c8049b72ff">Usa almeno 12 caratteri. Conserva questa password al sicuro. Vipi non può recuperarla.</string>
     <string name="ui_04d7b4833927" formatted="false">Messaggi</string>
     <string name="ui_0541b2d9f69b" formatted="false">Conserva le tue conversazioni.</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
@@ -64,7 +64,7 @@
     <string name="ui_20b395d8ee06" formatted="false">Connettiti una volta per completare la configurazione di questo dispositivo.</string>
     <string name="ui_211d0bb8cf4f" formatted="false">Blocca</string>
     <string name="ui_225d29f6201e" formatted="false">Ascolta</string>
-    <string name="ui_233a70befbdc" formatted="false">Conserva la password del backup. Vipi non può recuperarla. Chat e backup salvati restano accessibili se il piano termina.</string>
+    <string name="ui_233a70befbdc">Le chat salvate e i backup restano accessibili se il piano termina.</string>
     <string name="ui_235ad6028cca" formatted="false">Impossibile completare il download. Controlla la connessione e riprova.</string>
     <string name="ui_24a3f4314e5c" formatted="false">Gestisci abbonamenti</string>
     <string name="ui_24f13e3dc8e4" formatted="false">Backup delle chat</string>
@@ -225,7 +225,7 @@
     <string name="ui_d1fc884eb413" formatted="false">Google Play non è riuscito a completare l’acquisto. Riprova.</string>
     <string name="ui_d42ff6022f50" formatted="false">Ripristinare la cronologia delle chat?</string>
     <string name="ui_d55f942dbeea" formatted="false">Traduzione di Google. Le traduzioni possono essere imperfette.</string>
-    <string name="ui_d63cd658184e" formatted="false">Conferma la password per salvare un backup</string>
+    <string name="ui_d63cd658184e">Conferma la password del backup</string>
     <string name="ui_d75c6cdd950a" formatted="false">Apri le impostazioni delle notifiche Vipi nelle impostazioni Android.</string>
     <string name="ui_d8b8392e2c54" formatted="false">Riprova</string>
     <string name="ui_dad92e0774f7" formatted="false">Apri le impostazioni del telefono e cerca la sintesi vocale.</string>
@@ -278,7 +278,7 @@
     <string name="chat_empty_target">Trova un amico tramite il nome utente e inviagli un messaggio. Le parole e le frasi supportate passeranno a %1$s mentre leggi.</string>
     <string name="security_number_description">Numero di sicurezza, %1$s</string>
     <string name="plan_link_error">Impossibile aprire questo link. Riprova.</string>
-    <string name="base_plan_description">Chatta con gli amici e guarda le parole e le frasi supportate passare alla lingua scelta. Bot mini è un piano separato facoltativo.</string>
+    <string name="base_plan_description">I messaggi appaiono nella lingua che stai imparando, tradotti su questo dispositivo. Bot mini è facoltativo e viene addebitato separatamente.</string>
     <string name="bot_plan_description">Bot mini aggiunge le conversazioni con il chatbot vBot al piano Vipi. Le risposte automatiche possono essere errate. È un abbonamento separato con una propria data di rinnovo.</string>
     <string name="bot_allowance_unavailable">Bot mini non è ancora disponibile. Occorre prima confermare la quota mensile.</string>
     <string name="play_trial_renewal_description">Google Play conferma l’idoneità e la data del primo pagamento al momento dell’acquisto. L’abbonamento annuale si rinnova automaticamente fino all’annullamento.</string>
@@ -455,8 +455,9 @@
     <string name="full_translation_unavailable">Traduzione non disponibile</string>
     <string name="draft_edit_too_large">Quel testo è troppo lungo. La bozza precedente è ancora qui.</string>
     <string name="backup_password_too_short">Usa almeno 12 caratteri.</string>
-    <string name="backup_password_too_long">Questa passphrase è troppo lunga.</string>
-    <string name="backup_password_mismatch">Le passphrase non corrispondono.</string>
+    <string name="backup_password_too_long">Questa password è troppo lunga.</string>
+    <string name="backup_password_mismatch">Le password non corrispondono.</string>
     <string name="full_translation_context_hint">Tocca per ascoltare in %1$s. Tieni premuto per leggere in %2$s.</string>
     <string name="full_translation_writing_hint">Tocca due volte per vedere il testo in %1$s.</string>
+    <string name="backup_new_password">Nuova password del backup</string>
 </resources>

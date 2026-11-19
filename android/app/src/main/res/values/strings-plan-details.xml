@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="plan_link_error">This link couldn’t open. Please try again.</string>
-    <string name="base_plan_description">Chat with friends and see supported words and short phrases switch into your chosen language. Bot mini is a separate, optional plan.</string>
+    <string name="base_plan_description">Your messages appear in the language you’re learning, translated on this device. Bot mini is optional and billed separately.</string>
     <string name="bot_plan_description">Bot mini adds chatbot conversations with vBot to your Vipi plan. Automated replies can be mistaken. It is a separate subscription, with its own renewal date.</string>
     <string name="bot_allowance_unavailable">Bot mini isn’t available to start yet. Its monthly allowance must be confirmed first.</string>
     <string name="play_trial_renewal_description">Google Play confirms your eligibility and first payment date at checkout. The annual subscription renews automatically unless you cancel.</string>

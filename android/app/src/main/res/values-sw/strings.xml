@@ -39,7 +39,7 @@
     <string name="ui_02d207068808" formatted="false">Dhibiti usajili katika Google Play</string>
     <string name="ui_03fdb0dfc1b8" formatted="false">Ufute akaunti yako ya Vipi?</string>
     <string name="ui_048a626ab4bb" formatted="false">Uondoe vipakuliwa?</string>
-    <string name="ui_04c8049b72ff" formatted="false">Tumia angalau vibambo 12. Ni bora kutumia kaulisiri ndefu ambayo huitumii kwingine.</string>
+    <string name="ui_04c8049b72ff">Tumia angalau vibambo 12. Hifadhi nenosiri hili mahali salama. Vipi haiwezi kulirejesha.</string>
     <string name="ui_04d7b4833927" formatted="false">Ujumbe</string>
     <string name="ui_0541b2d9f69b" formatted="false">Hifadhi mazungumzo yako.</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
@@ -64,7 +64,7 @@
     <string name="ui_20b395d8ee06" formatted="false">Unganisha kwenye intaneti mara moja ili kumaliza kusanidi kifaa hiki.</string>
     <string name="ui_211d0bb8cf4f" formatted="false">Zuia</string>
     <string name="ui_225d29f6201e" formatted="false">Sikiliza</string>
-    <string name="ui_233a70befbdc" formatted="false">Tunza nenosiri la nakala rudufu. Vipi haiwezi kulirejesha. Bado utaweza kufikia mazungumzo na nakala rudufu ulizohifadhi mpango wako ukiisha.</string>
+    <string name="ui_233a70befbdc">Mazungumzo na nakala rudufu ulizohifadhi zitaendelea kupatikana mpango wako ukiisha.</string>
     <string name="ui_235ad6028cca" formatted="false">Upakuaji haukukamilika. Kagua muunganisho wako na ujaribu tena.</string>
     <string name="ui_24a3f4314e5c" formatted="false">Dhibiti usajili</string>
     <string name="ui_24f13e3dc8e4" formatted="false">Nakala rudufu ya mazungumzo</string>
@@ -225,7 +225,7 @@
     <string name="ui_d1fc884eb413" formatted="false">Google Play haikuweza kukamilisha ununuzi. Tafadhali jaribu tena.</string>
     <string name="ui_d42ff6022f50" formatted="false">Urejeshe historia ya mazungumzo?</string>
     <string name="ui_d55f942dbeea" formatted="false">Tafsiri imetolewa na Google. Tafsiri zinaweza kuwa na makosa.</string>
-    <string name="ui_d63cd658184e" formatted="false">Thibitisha nenosiri ili kuhifadhi nakala rudufu</string>
+    <string name="ui_d63cd658184e">Thibitisha nenosiri la nakala rudufu</string>
     <string name="ui_d75c6cdd950a" formatted="false">Fungua mipangilio ya arifa za Vipi katika Mipangilio ya Android.</string>
     <string name="ui_d8b8392e2c54" formatted="false">Jaribu tena</string>
     <string name="ui_dad92e0774f7" formatted="false">Fungua Mipangilio ya simu yako na utafute kubadilisha maandishi kuwa sauti.</string>
@@ -278,7 +278,7 @@
     <string name="chat_empty_target">Tafuta rafiki kwa jina la mtumiaji na utume ujumbe. Maneno na vifungu vinavyotumika vitabadilika kwenda %1$s unaposoma.</string>
     <string name="security_number_description">Nambari ya usalama, %1$s</string>
     <string name="annual_renewal_description">Usajili wa mwaka unajisasisha kiotomatiki isipokuwa uughairi.</string>
-    <string name="base_plan_description">Zungumza na marafiki huku maneno na vifungu vifupi vinavyopatikana vikibadilika kwenda lugha uliyochagua. Bot mini ni mpango tofauti wa hiari.</string>
+    <string name="base_plan_description">Ujumbe wako unaonekana kwa lugha unayojifunza, ukitafsiriwa kwenye kifaa hiki. Bot mini ni ya hiari na inalipiwa kando.</string>
     <string name="bot_allowance_unavailable">Bado huwezi kuanza Bot mini. Kikomo chake cha majibu kwa mwezi lazima kithibitishwe kwanza.</string>
     <string name="bot_plan_description">Bot mini inaongeza mazungumzo na roboti ya vBot kwenye mpango wako wa Vipi. Majibu ya kiotomatiki yanaweza kukosea. Ni usajili tofauti wenye tarehe yake ya kujisasisha.</string>
     <string name="no_trial_renewal_description">Jaribio la bure halipatikani kwa ofa hii. Usajili wa mwaka unajisasisha kiotomatiki isipokuwa uughairi.</string>
@@ -455,8 +455,9 @@
     <string name="full_translation_unavailable">Tafsiri haipatikani</string>
     <string name="draft_edit_too_large">Maandishi hayo ni marefu sana. Rasimu yako ya awali bado ipo.</string>
     <string name="backup_password_too_short">Tumia angalau vibambo 12.</string>
-    <string name="backup_password_too_long">Kaulisiri hii ni ndefu mno.</string>
-    <string name="backup_password_mismatch">Kaulisiri hazilingani.</string>
+    <string name="backup_password_too_long">Nenosiri hili ni refu mno.</string>
+    <string name="backup_password_mismatch">Manenosiri hayalingani.</string>
     <string name="full_translation_context_hint">Gusa ili usikie %1$s. Shikilia ili usome kwa %2$s.</string>
     <string name="full_translation_writing_hint">Gusa mara mbili ili uone maandishi ya %1$s.</string>
+    <string name="backup_new_password">Nenosiri jipya la nakala rudufu</string>
 </resources>
