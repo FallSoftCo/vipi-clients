@@ -1459,6 +1459,12 @@ final class ChatConversationTests: XCTestCase {
     func testFullMessageSettingsInviteAtLargestType() throws {
         try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,settingsInvite:true)
     }
+    func testSecurityNumberVerificationPersistsAndCanBeClearedAtActualRootDark() throws {
+        try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,securityReview:true)
+    }
+    func testLargestSecurityNumberVerificationPersistsAndCanBeClearedAtActualRoot() throws {
+        try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,securityReview:true)
+    }
     func testCardlessAccessSeparateBotAndExpiredHistoryAtActualRoot() throws {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,plansReview:true)
     }
@@ -1480,6 +1486,58 @@ final class ChatConversationTests: XCTestCase {
     /// Navigate production screens from a real enrolled root. Only the service
     /// account and first-month clock are controlled. No store transaction is
     /// created; this qualifies access/copy/navigation, not store checkout.
+    private func checkSecurityNumber(in app:XCUIApplication,arguments:[String],evidence:@escaping()->[String:Any]) throws {
+        let baseline = try XCTUnwrap(evidence()["texts"] as? [String])
+        func capture(_ phase:String) {
+            let image = XCTAttachment(screenshot:app.screenshot()); image.name = "security-"+phase; image.lifetime = .keepAlways; add(image)
+            let tree = XCTAttachment(string:app.debugDescription); tree.name = "security-"+phase+"-tree"; tree.lifetime = .keepAlways; add(tree)
+            XCTAssertEqual(evidence()["unexpected"] as? Int,0)
+            XCTAssertEqual(evidence()["texts"] as? [String],baseline)
+        }
+        func reveal(_ element:XCUIElement) {
+            let scroll = app.scrollViews.firstMatch, bar = app.navigationBars["Security number"]
+            XCTAssertTrue(scroll.waitForExistence(timeout:10))
+            for _ in 0..<24 {
+                guard element.exists else { scroll.swipeUp(); continue }
+                let frame = element.frame
+                if element.isHittable && frame.minY >= bar.frame.maxY+4 && frame.maxY <= app.frame.maxY-24 { break }
+                if frame.minY < bar.frame.maxY+4 { scroll.swipeDown() } else { scroll.swipeUp() }
+            }
+            XCTAssertTrue(element.isHittable)
+            XCTAssertGreaterThanOrEqual(element.frame.minY,bar.frame.maxY)
+            XCTAssertLessThanOrEqual(element.frame.maxY,app.frame.maxY-24)
+        }
+        func open() {
+            app.buttons["conversation-options"].tap(); app.buttons["Verify encryption"].tap()
+            XCTAssertTrue(app.navigationBars["Security number"].waitForExistence(timeout:10))
+        }
+        open()
+        let number = app.staticTexts["security-number"]
+        XCTAssertTrue(number.waitForExistence(timeout:10))
+        let spoken = try XCTUnwrap(number.value as? String)
+        let digits = spoken.filter(\.isNumber)
+        XCTAssertEqual(digits.count,60,"All twelve five-digit groups must be available to the screen reader")
+        XCTAssertEqual(spoken,digits.map(String.init).joined(separator:", "))
+        capture("unverified-number")
+        let verify = app.buttons["identity-verify"]
+        reveal(verify); capture("comparison-action-readable"); verify.tap()
+        let clear = app.buttons["identity-clear"]
+        XCTAssertTrue(clear.waitForExistence(timeout:10))
+        XCTAssertTrue(app.descendants(matching:.any).matching(identifier:"identity-verified").firstMatch.exists)
+        capture("verified")
+        app.navigationBars["Security number"].buttons["Done"].tap()
+        app.terminate(); app.launchArguments = arguments; app.launch()
+        XCTAssertTrue(app.navigationBars["Chats"].waitForExistence(timeout:20))
+        app.staticTexts["Alex"].firstMatch.tap(); open()
+        XCTAssertTrue(number.waitForExistence(timeout:10)); XCTAssertEqual(number.value as? String,spoken)
+        reveal(clear); capture("verified-after-relaunch"); clear.tap()
+        XCTAssertTrue(verify.waitForExistence(timeout:10)); capture("verification-cleared")
+        app.navigationBars["Security number"].buttons["Done"].tap(); open()
+        XCTAssertTrue(number.waitForExistence(timeout:10)); XCTAssertEqual(number.value as? String,spoken)
+        reveal(verify); XCTAssertFalse(clear.exists); capture("unverified-reopened")
+        app.navigationBars["Security number"].buttons["Done"].tap()
+    }
+
     private func checkCardlessPlans(in app:XCUIApplication,arguments:[String],evidence:@escaping()->[String:Any]) throws {
         func wait(_ reason:String,_ predicate:@escaping()->Bool) {
             XCTAssertEqual(XCTWaiter.wait(for:[XCTNSPredicateExpectation(predicate:NSPredicate{_,_ in predicate()},object:app)],timeout:20),.completed,reason)
@@ -1947,7 +2005,7 @@ final class ChatConversationTests: XCTestCase {
         try capture("marketing-coffee-03-practice-script")
     }
 
-    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false) throws {
+    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false,securityReview:Bool = false) throws {
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated first-month root only") }
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -2435,6 +2493,10 @@ final class ChatConversationTests: XCTestCase {
         let firstReply = marketing ? "Yes! Let's meet at ten." : "Your private message arrived."
         _ = observe("first-incoming-received-and-receipted") { $0["receipts"] as? Int == 1 && ($0["texts"] as? [String])?.contains(firstReply) == true }
         if fullTranslation {
+            if securityReview {
+                try checkSecurityNumber(in:app,arguments:arguments,evidence:proof)
+                return
+            }
             if plansReview {
                 try checkCardlessPlans(in:app,arguments:arguments,evidence:proof)
                 return
