@@ -54,11 +54,15 @@ value where accessibility exposes the combined “Made by, FallSoft.Co” label.
 The contrast warnings were absent after the header-color correction. A subsequent
 run exercised all twelve actual system text sizes in the same open Settings view;
 the three named rows passed direct font-size and complete-label viewport checks.
-The strict test still failed its native audits, including a separate clipped-text
-report. Those findings require comparison with the retained images and geometry;
-they have not been waived or converted into a passing test. Original failures
-remain retained, and the complete Settings flow is not yet qualified.
-Touch Copy original parity is still being implemented. Neither platform has
+The strict live-size test still failed its native audits, including a separate
+clipped-text report. Its original failures remain retained. A subsequent run of
+the existing complete largest-text Settings flow passed: one test, zero failures
+or skips, with unfiltered native audits. It used the same compiled app and tests,
+verified the actual maximum system category, and restored the simulator state.
+This qualifies that flow; the ordinary-size flow and the earlier live-size audit
+findings still need their own conclusions. Touch Copy original is integrated in
+the iOS candidate source; its new native interaction tests remain unexecuted.
+Neither platform has
 a fresh qualified signed release of the full-message design, and the user's
 requested phone delivery is pending that qualification.
 
