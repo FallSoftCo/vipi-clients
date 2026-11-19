@@ -1478,8 +1478,11 @@ final class ChatConversationTests: XCTestCase {
             data.name = "plans-"+phase+"-state"; data.lifetime = .keepAlways; add(data)
         }
         func reveal(_ element:XCUIElement,scroll:XCUIElement,bar:XCUIElement) {
-            XCTAssertTrue(scroll.waitForExistence(timeout:10)); XCTAssertTrue(element.waitForExistence(timeout:10))
+            XCTAssertTrue(scroll.waitForExistence(timeout:10))
             for _ in 0..<24 {
+                // Form/List virtualizes rows outside the viewport, especially
+                // at maximum text size. Locate them through actual scrolling.
+                guard element.exists else { scroll.swipeUp(); continue }
                 let top = max(scroll.frame.minY,bar.frame.maxY)+8
                 let bottom = min(scroll.frame.maxY,app.frame.maxY)-24
                 let frame = element.frame
