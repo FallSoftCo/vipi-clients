@@ -1,162 +1,100 @@
 # Current delivery status
 
-Updated November 19, 2026. **Both store reviews are withdrawn and neither new
-app is released.** Full-message immersion is still being qualified. Do not
-resubmit or release until that work is complete. Completed uploads, withdrawals,
+Updated November 19, 2026, 11:54 UTC. **Android 1.0.10 (11) has been submitted
+to Google Play. iOS is still completing qualification and is outside review.**
+Neither app is publicly released. Completed uploads, submissions, purchases,
 auth exchanges and Bot requests must not be replayed.
 
-## Current release hold
+## Store state
 
-- Google 1.0.9 (10) is uploaded and saved as a production draft. The older
-  1.0.7 (8) draft remains unsubmitted. Managed publishing remains on; no new
-  review submission or publishing has occurred.
-- Apple 1.0 (5): Developer Rejected; all five submission items were removed,
-  with zero active review submissions. The build remains valid and release is manual.
-- The November 18 withdrawals are retained in
-  [the hold summary](../release/store-review-hold-20261118.json). November 19
-  console work saved the new descriptions and reviewer instructions as drafts;
-  Android screenshots were also replaced. This document update performs no
-  additional console action.
+- Google accepted 24 changes for review at 11:51:51 UTC. The confirmation toast
+  and a fresh reload showed **Changes in review**, with only version 11 in the
+  production queue. Version 8 is superseded. Google also showed automatic
+  preliminary checks after reload; approval is not established. Managed publishing
+  remains on. France and mainland China remain excluded.
+- Android's 14 localized listings use the current descriptions and controls.
+  The four ten-inch tablet screenshots now show centered conversations; all
+  secondary listings were checked for inheritance. Existing phone and seven-inch
+  screenshots remain applicable and unchanged.
+- Apple 1.0 (5) remains Developer Rejected, with all five earlier submission
+  items removed. Build 6 has not been uploaded or submitted. Manual release
+  remains configured. The 13 descriptions and reviewer instructions are saved;
+  final screenshots and the new build association remain pending.
 
-## Current implementation and qualification
+See [the Google submission receipt](../release/google-play-review-submission-20261119.json).
+The [November 18 withdrawal record](../release/store-review-hold-20261118.json)
+is historical; its Android hold has been satisfied by the current qualification.
+The remaining iOS interaction work must finish before Apple resubmission.
 
-Every sent and received message requests full local translation. The default reading
-uses transliteration; tapping plays practice-language audio, holding reveals the
-meaning in the known language, and double-tapping changes script. The authored
-message remains separate from its translated display. The older word-switching
-builds and evidence below do not qualify this replacement.
+## Current behavior
 
-Immersion uses existing on-device APIs only. Apple Translation and Google ML Kit
-remain the implementations, including the existing Swahili path. Separate model
-experiments have stopped. Tests of Apple Intelligence API variants are research
-evidence; they do not establish that the shipping app uses an explicit strategy
-or that translations are consistently accurate.
+Every sent and received message requests full local translation. Reading guides
+are the default for supported scripts. Tap a message for practice-language audio,
+hold the conversation to reveal meanings, and double-tap to switch scripts.
+Autoplay is off initially and handles future messages only. The encrypted authored
+message stays separate from its translated display. A reading failure does not
+hide a valid complete translation; retrying the reading preserves the message.
 
-Android's targeted Friend and vBot journeys, pronunciation-cache migration and
-Copy original keyboard/audio regressions have passed on the existing API 34
-emulator. The application now requires Android 10/API 29 for the platform
-transliteration API; source and packaged-manifest checks do not establish an
-API 29 runtime result. The short landscape capture proves a readable draft and
-Send control while chat history is clipped. Long-reading limits and pronunciation
-quality still have explicit gaps. The updated readers matched all 18 baseline
-outputs at 4,096 characters. Separate 8,192- and 16,384-character runs completed
-21 calls each, including Japanese text without sentence punctuation, with complete
-source ranges and no reported reading issues. These are bounded reader results,
-not pronunciation or whole-chat latency guarantees. Cold Japanese processing at
-16,384 characters took about five seconds. Explicit reading status now separates
-a valid full translation from an unavailable transliteration. Focused Android
-checks passed for conditional feedback, a native retry target, stable message
-geometry and full practice-language playback routing. The latest actual-root
-language-picker test also passed: switching from Chinese to Arabic cancelled
-pending old-language work, preserved encrypted originals and the draft, rejected
-late cache/audio results, and completed Arabic playback. The Friend/vBot tests
-passed their native assertions; a collection error requiring a nonexistent vBot
-audio log is retained and reconciled separately. It does not establish a vBot
-full-audio-completion trace. The source also corrects obsolete download guidance
-in all 13 UI locales; the compiled package now contains those corrections.
-A focused native Android accessibility check also passed for the first-use cue:
-it exposes the available action names rather than physical double-tap instructions.
-This verifies the native accessibility tree, not an actual TalkBack session.
+Translation uses the existing onboard APIs: Apple Translation and Google ML Kit,
+including the existing Swahili path. No additional translation models or retired
+word-mapping catalogs are added. Provider errors and transliteration limitations
+remain possible and are disclosed in the public copy. A returned translation or
+passing interaction test does not establish semantic or pronunciation perfection.
 
-The current production Android APK and AAB are version 10 / 1.0.9, signed with
-the existing upload identity. Release configuration, native ABI packaging and
-16 KiB ZIP/ELF alignment passed inspection. The actual signed APK passed the
-targeted API 34 emulator smoke check while preserving the installed account and
-storage. The audio trace confirms delivered and consumed frames; its underrun
-count remains recorded, so this is not a claim of glitch-free audible playback.
-The preceding version 9 build exceeded its disk estimate after producing a
-complete APK; that original failure remains recorded. It was not silently
-relabelled as a successful build.
+Base access is 30 cardless days, followed by an optional US$12 annual subscription;
+trial expiry does not charge the user. Bot mini is a separate optional US$48 annual
+subscription, with its own eligible store trial, and requires Base access.
 
-The exact version 10 APK was transferred once to the user's phone at
-`Download/vipi-1.0.9-v10.apk` and its hash was verified. The installed app remains
-version 8: ADB is unavailable, so installation and physical-device qualification
-are still pending. No account reset, history removal or replacement login was
-performed.
+## Qualification and remaining work
 
-iOS normal and maximum-text chat layout checks and the targeted owner, cache
-and playback tests passed. The Japanese assertion was corrected to accept valid
-native readings and then passed. A later Settings run verified actual system
-text-size categories, named-row sizing and the native invitation share/cancel
-flow at both sizes. Three normal-size Dynamic Type audit findings remain;
-both Settings routes also stopped at a test assertion that expected a separate
-value where accessibility exposes the combined “Made by, FallSoft.Co” label.
-The contrast warnings were absent after the header-color correction. A subsequent
-run exercised all twelve actual system text sizes in the same open Settings view;
-the three named rows passed direct font-size and complete-label viewport checks.
-The strict live-size test still failed its native audits, including a separate
-clipped-text report. Its original failures remain retained. A subsequent run of
-the existing complete largest-text Settings flow passed: one test, zero failures
-or skips, with unfiltered native audits. It used the same compiled app and tests,
-verified the actual maximum system category, and restored the simulator state.
-Image inspection then found a qualification gap: the largest-text footer was
-readable before the audit, but the immediate post-audit capture had an empty
-Settings body beneath its painted header. The test did not verify visual
-recovery. A further strict run reproduced the empty body after the native audit:
-the retained scroll offset exceeded the reduced content height. This has not
-yet been reproduced through ordinary user interaction. The normal-size run also
-failed a test geometry check before OCR ran; its target-window geometry check
-has since been corrected. Original audit failures remain open. Separate normal
-and maximum-size interaction tests now exercise invitation cancellation,
-Licenses navigation and a real maximum-to-normal system text-size change, with
-audits explicitly not run in that selection. These tests are in progress.
-Twenty-four focused iOS checks now pass for reading status, encrypted-cache
-migration, cancellation of a pending refresh when its message is deleted,
-native Arabic transliteration and Copy-related playback cancellation. The test
-controller stopped during cleanup because CoreSimulator relocated the app's data
-container. A separate recovery restored the exact owned audio cache and verified
-the retained artifacts; the original incomplete controller receipt remains.
-Preferences were left untouched, but an immediate pre-run preference baseline was
-not retained, so exact pre-run preference equality cannot be established. The
-passing tests were not repeated. These tests do not qualify the conditional
-reading-failure UI or the actual Copy menu interaction. Subsequent native
-interaction checks passed for reading-only retry, silent script/meaning changes,
-hidden accessibility controls and initially hidden, wrapping Arabic feedback at
-maximum Dynamic Type. The first-use cue also passed its actual composer and
-reopened-chat geometry checks. Its first failed assertion measured the outer
-accessibility frame rather than the usable scroll viewport; the corrected test
-checks the native container and insets. Touch Copy original is integrated;
-its two native Friend/vBot journeys are now being exercised with the host
-clipboard isolated. The pending-language-switch journey remains unqualified:
-its fixture has not yet delivered the second message without a foreground
-transition. Original failed runs are retained. Misleading screen-reader gesture instructions and a first-use cue
-dismissed by composer focus have been corrected in source. The combined iOS
-candidate now builds successfully, including the focused cue, reading-feedback,
-Settings and Copy tests. A compiler error in the preceding build was an API
-rename in test diagnostics; its original failure is retained. Native interaction
-qualification remains in progress. The Mac and local workstation are muted at
-the user's request; playback routing or waveform evidence does not establish
-acoustic listening quality.
-Android has the qualified signed version 10 artifacts described above. Final
-iOS signing/export and the remaining native interaction checks are still pending.
+The signed Android 11 APK and AAB match frozen source `8799a115`. Production
+configuration, signatures, R8 outputs, all four ABIs, runtime assets and 16 KiB
+alignment passed inspection. Actual signed public onboarding exercised local
+translation, marked Chinese reading, script switching, held meanings and complete
+practice-audio delivery. Authenticated Friend/vBot layout was exercised through
+the isolated native QA app with matching rendering source. The 644dp centered
+conversation layout passed tablet and unchanged phone-geometry checks.
 
-The full-message public information pages are deployed and their public responses
-verified. Descriptions are saved in all 14 Google and 13 Apple listing locales,
-with the agreed billing terms retained. Both consoles' reviewer instructions
-now describe the current controls and were verified after saving and reloading.
-Android has current screenshots; final iOS screenshots and build association are
-pending. None of those draft updates submits the apps for review.
-The client source exporter and Apple setup script now require live-reading data
-instead of retired translation catalogs. Source-selection and integrity checks
-pass. The full-message source archive and Android version 10 supplement are
-published on the existing public source release; the final iOS supplement awaits
-source freeze and release correspondence.
+Android requires API 29 / Android 10 for the onboard ICU transliteration API.
+Google's warning about 1,564 fewer supported device models accompanies the
+intentional API 28-to-29 minimum change; all four processor architectures remain.
+Prior provider, cache, lifecycle, Copy and language-switch evidence retains its
+original artifact scope. Extreme short landscape with the keyboard can clip chat
+history while leaving the composer usable. There is no claim of every-device or
+acoustic listening validation.
 
-Actual iOS-on-Mac provider execution completed all 44 selected translation calls,
-including 40 Swahili-direction calls through the existing ML Kit path. Semantic
-review found material errors involving names, times and ordinary meaning. This
-small, repeated corpus is not a population accuracy estimate. The user's existing
-directions require Swahili and onboard APIs, so language availability remains
-unchanged. The saved store descriptions and public pages explicitly state that
-translations can be wrong. The assistant's additional launch-preference question
-does not create a new permission requirement; the release still awaits the
-user-required completion of the interaction work.
+The user's phone still has version 8. The earlier version 10 APK transfer was
+verified, but installation was not performed. A fresh November 19, 11:39 UTC ADB
+check found neither the TCP nor authorized USB route. Version 11 has not been
+installed on the phone. Account, keys and message history remain preserved.
+
+On iOS, the completed checks include the core chat interactions, focused reading
+and cancellation checks, actual reading-feedback and first-use-cue UI, the
+translated Home preview, and a native pending-language-switch journey. The two
+Friend/vBot Copy-original interactions and the largest-text Licenses round trip
+with a real maximum-to-normal text-size change remain pending. The latest Notices
+failure overscrolled a readable row; its narrowly corrected test driver is ready
+for the remaining case. Earlier failed runs remain retained with their limits.
+No passing test is relabeled as evidence for an unexercised journey.
+
+After those checks, iOS still needs natural-dialogue screenshots at the required
+phone and iPad sizes, a production-signed build 6, export/upload verification,
+matching source publication, and app/subscription review association. Closed test
+results are being moved to verified private storage to provide build capacity.
+Both Mac and Linux output remain muted at the user's request.
+
+The live backend and public help/privacy/terms responses were checked successfully
+on November 19. Existing shared identity, Vipi-only deletion and subscription
+configuration are unchanged. Global Fallsoft account deletion remains unavailable.
+The full-message base source archive and Android 10/11 supplements are published
+and anonymously hash-verified on the [public source release](https://github.com/FallSoftCo/vipi-clients/releases/tag/source-preview-2026-11-19-full-message).
+The final Apple supplement still awaits signed-build correspondence.
 
 ## Historical delivery checkpoint — November 17 to early November 18
 
 Everything below preserves earlier version-specific observations and their
 original receipts. In-review states and remaining-work lists below are historical
-and are superseded by the current release hold above.
+and are superseded by the current release status above.
 
 Updated November 17, 2026 (latest handoff observations through November 18,
 02:24 UTC). Google **1.0.4 (5)** is in production review. Apple **1.0 (4)**,

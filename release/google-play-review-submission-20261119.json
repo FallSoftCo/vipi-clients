@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-19T11:53:08.560037+00:00",
+  "state": "SUBMITTED_ONCE_GOOGLE_PLAY_CHANGES_IN_REVIEW",
+  "version": "1.0.10 (11)",
+  "release_id": 4,
+  "submission_dispatch": {
+    "at": "2026-11-19T11:51:51.024Z",
+    "job": "vipi-root-play11-final-25-send-review-once",
+    "action": "Confirm Send24changesforreview once",
+    "release": "1.0.10 (11)"
+  },
+  "native_confirmation": "24changes sent for review toast; Changes in review after reload; onlyproduction11",
+  "google_quick_checks": "Reload also shows automatic quickchecks; changes will be forwarded aftersuccessfulchecks; noapprovalclaim",
+  "managed_publishing": true,
+  "automatic_public_release": false,
+  "country_exclusions": [
+    "China",
+    "France"
+  ],
+  "old8": "Superseded by another release",
+  "queue_count": 24,
+  "corresponding_source_assets": [
+    767473778,
+    767473835
+  ],
+  "android_minimum": "Android10/API29 for onboard ICU Transliterator; exact4ABIs retained",
+  "compatibility_receipt_sha256": "1162a5bd7ed998fc98b283fbcc1676a4d494f0d72c809aa9e6d1cca386929ef8",
+  "physical_phone": "installed8;11notinstalledbecauseADBunavailable; SSHtransfer10historicalonly",
+  "desktop_restored": {
+    "zoom": 100,
+    "floating": false,
+    "lease": "released"
+  },
+  "evidence": {
+    "after-save-preview.png": "1c936d3a8fd05c7e37e0d967c1ecd994798327cb3f7a1b73d337472066be7961",
+    "country-exclusions.png": "f3dc31d9784aadc81bb5efc592fa909f03041fe32ef5c8021e8ef333b3a3e4fa",
+    "presubmit-ready.png": "f51e428898e7f956b730488fcf69f24a422e0d7dc7c1c067cd970b29a4142501",
+    "queue-0.png": "65041b075d85f44c05ecb20830a11195a48ca0ff7f90b6f774714ed5113005c8",
+    "queue-1.png": "c54a7924d93cca4a2af32a2bb87465e65e7415feb0ea0d386bddd1319e853d87",
+    "queue-2.png": "4357bdb4f6ae46b2fcb7ae85f6e8433b4d59c5ab972205588b95f2e7df2b7f3b",
+    "queue-3.png": "a01c977b180d1d3bc00245b1455b559aa74c60c283ba81a497585d92f92ba96b",
+    "reloaded-review.png": "882b2df3b8d9a6f8d40fe7f9c668bc1d7aaa2fa633a30cf64669be720f08ddce",
+    "save-result.png": "ad5192388279da9978642dd302daa3f48a6cd28acd904b94ff54abd70f102351",
+    "send-review-result.png": "27b5f13c1d6d479768862361666af299228ca51ec8433eb3efea08dc9a8102e3",
+    "submit-open-result.png": "ae34fef198f289f440cdfbaf9a67adfd9584f09333027182050fd801c6fc4de0",
+    "summary.png": "9a2636f0c59b0557daf3308df66fae7c379e2970c32bea148bce42a61004235d",
+    "track-after-save.png": "c3a717378c4a27cc7c9b89372a5ecf401d2039b24a3a4a9b9d0aacb0bafbcf61",
+    "warning.png": "d7f2c9841b250d263a5470145fde58f4e22870551806ca9ea36b9db83550c9a2"
+  },
+  "do_not_replay_submission": true
+}
