@@ -988,6 +988,10 @@ final class ChatConversationTests: XCTestCase {
         let choose = app.buttons["history-choose-file"]
         XCTAssertTrue(choose.waitForExistence(timeout:5)); reveal(choose,up:true)
         XCTAssertFalse(passwordError.exists); XCTAssertFalse(mismatch.exists)
+        capture("restore-file-choice")
+        // At maximum text the action is a later virtualized Form row.
+        // Reach it through the actual scroll view before checking its state.
+        reveal(begin,up:true)
         XCTAssertFalse(begin.isEnabled,"A file is required before checking a backup")
         capture("restore-ready-to-choose-file")
         XCTAssertEqual(evidence()["texts"] as? [String],baseline)
