@@ -143,11 +143,6 @@ struct LanguageDownloadView: View {
                     }
                         .accessibilityIdentifier("language-download-check")
                 }
-                Text("Tap to listen. Hold to see meanings. Double-tap to change script.")
-                    .font(.callout).foregroundStyle(VipiDesign.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .accessibilityLabel(Text(ChatReadingState.actionDescription()))
-                    .accessibilityIdentifier("language-download-explanation")
             }
             Section {
                 if pair.usesMLKit {

@@ -366,7 +366,7 @@ struct FriendConversationView: View {
                                     speech: speech, paused: scrolling || (composing && !text.isEmpty), metadata: AnyView(
                                 messageMetadata(item).font(.subheadline)
                                     .fixedSize(horizontal: false, vertical: true).foregroundStyle(VipiDesign.secondary)
-                                    .accessibilityIdentifier("message-meta-" + item.id.uuidString)), onVoiceHelp: { showVoiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; showTranslationHelp = true }, onReport: !item.outgoing && item.state != "imported" ? { reporting = HumanReportSelection(message: item) } : nil,playback:autoplay)
+                                    .accessibilityIdentifier("message-meta-" + item.id.uuidString)), onVoiceHelp: { showVoiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; showTranslationHelp = true }, onReport: !item.outgoing && item.state != "imported" ? { reporting = HumanReportSelection(message: item) } : nil,playback:autoplay,accessibilityMessageContext:messageAccessibilityContext(item))
                             }.background(item.outgoing ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
                             if !item.outgoing { Spacer(minLength: 38) }
                         }.id(item.id)
@@ -706,10 +706,21 @@ struct FriendConversationView: View {
         let language = state.targetLanguage
         speech.prepare(source:language,target:language,warmups:[language:VipiLanguage.named(language).localName])
     }
-    private func messageMetadata(_ item: ChatItem) -> Text {
-        let time = Text(Date(timeIntervalSince1970: Double(item.createdAt) / 1000), style: .time)
-        if item.state == "imported" { return time + Text(" · Saved history") }
-        return item.outgoing ? time + Text(" · " + status(item.state)) : time
+    private func messageDate(_ item: ChatItem) -> Date { Date(timeIntervalSince1970: Double(item.createdAt) / 1000) }
+    private func messageAccessibilityContext(_ item: ChatItem) -> String {
+        let time = messageDate(item).formatted(date:.abbreviated,time:.shortened)
+        if item.state == "imported" { return time + " · " + String(localized:"Saved history") }
+        return item.outgoing ? time + " · " + status(item.state) : time
+    }
+    @ViewBuilder private func messageMetadata(_ item: ChatItem) -> some View {
+        let index = messages.firstIndex { $0.id == item.id } ?? 0
+        let previous = index > 0 ? messageDate(messages[index-1]) : nil
+        let time = MessageTimelineMetadata.timeLabel(for:messageDate(item),previous:previous)
+        let showState = MessageTimelineMetadata.showsFriendState(item.state,outgoing:item.outgoing,latestOutgoing:messages.last(where: { $0.outgoing })?.id == item.id)
+        let delivery = showState ? (item.state == "imported" ? String(localized:"Saved history") : status(item.state)) : nil
+        if time != nil || delivery != nil {
+            Text([time,delivery].compactMap { $0 }.joined(separator:" · "))
+        }
     }
     private func status(_ value: String) -> String {
         switch value {

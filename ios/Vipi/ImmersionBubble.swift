@@ -25,7 +25,9 @@ enum ReadingMode: String, CaseIterable, Identifiable {
         let identity: ImmersionRequestIdentity
         var frame: CGRect
         let activate: (Bool) -> Bool
+        var hasAlternateScript = false
     }
+    private(set) var hasAlternateScript = false
     @ObservationIgnored private var rows: [String:Row] = [:]
     @ObservationIgnored private var pendingPlayback: ImmersionRequestIdentity?
     @ObservationIgnored private var playbackOwner: UUID?
@@ -35,11 +37,17 @@ enum ReadingMode: String, CaseIterable, Identifiable {
     func cancelPendingPlayback() { pendingPlayback = nil }
     func register(_ row: Row) {
         rows[row.identity.messageID] = row
+        refreshScriptAvailability()
         if pendingPlayback == row.identity, row.activate(true) { pendingPlayback = nil }
     }
     func remove(_ identity: ImmersionRequestIdentity) {
         if rows[identity.messageID]?.identity == identity { rows.removeValue(forKey:identity.messageID) }
+        refreshScriptAvailability()
         if pendingPlayback == identity { pendingPlayback = nil }
+    }
+    private func refreshScriptAvailability() {
+        let available = rows.values.contains { $0.hasAlternateScript }
+        if available != hasAlternateScript { hasAlternateScript = available }
     }
     func activate(_ identity: ImmersionRequestIdentity, start: Bool = false) {
         learnedGesture()
@@ -60,10 +68,15 @@ enum ReadingMode: String, CaseIterable, Identifiable {
     func toggleScript() { learnedGesture(); nativeScript.toggle() }
     func toggleMeaning() { learnedGesture(); accessibleMeaning.toggle() }
     /// Assistive activation uses native actions, not the physical touch grammar.
-    static func actionDescription(showingMeaning:Bool = false,nativeScript:Bool = false) -> String {
-        [String(localized:"Play in practice language"),
-         showingMeaning ? String(localized:"Show practice text") : String(localized:"Show meanings"),
-         nativeScript ? String(localized:"Show transliteration") : String(localized:"Show native script")].joined(separator:". ")
+    static func actionDescription(showingMeaning:Bool = false,nativeScript:Bool = false,hasAlternateScript:Bool = true) -> String {
+        var actions = [String(localized:"Play in practice language"),
+                       showingMeaning ? String(localized:"Show practice text") : String(localized:"Show meanings")]
+        if hasAlternateScript { actions.append(nativeScript ? String(localized:"Show transliteration") : String(localized:"Show native script")) }
+        return actions.joined(separator:". ")
+    }
+    static func gestureDescription(source:String,target:String,hasAlternateScript:Bool) -> String {
+        let basic = String(format:String(localized:"Tap to hear %1$@. Hold to read in %2$@."),VipiLanguage.named(target).localizedName,VipiLanguage.named(source).localizedName)
+        return hasAlternateScript ? basic + " " + String(format:String(localized:"Double-tap to see %1$@ writing."),VipiLanguage.named(target).localizedName) : basic
     }
 }
 
@@ -71,6 +84,7 @@ enum ReadingMode: String, CaseIterable, Identifiable {
 /// Learning hides its ink/AX content without moving the held message; leaving
 /// the conversation releases the inset. Subsequent chats need no cue.
 struct ChatGestureCue: View {
+    @Environment(AppState.self) private var state
     let reading:ChatReadingState
     let composing:Bool
     @State private var reservesHint:Bool
@@ -78,18 +92,23 @@ struct ChatGestureCue: View {
         self.reading = reading; self.composing = composing; _reservesHint = State(initialValue:reading.needsGestureHint)
     }
     var body:some View {
+        let description = ChatReadingState.gestureDescription(source:state.knownLanguage,target:state.targetLanguage,hasAlternateScript:reading.hasAlternateScript)
+        // Reserve room before an asynchronous reading arrives, without teaching
+        // an unavailable action. Latin-only targets keep the shorter inset.
+        let reservation = ChatReadingState.gestureDescription(source:state.knownLanguage,target:state.targetLanguage,
+            hasAlternateScript:reading.hasAlternateScript || FullReadingRequirement.needsReading(VipiLanguage.named(state.targetLanguage).localName))
         VStack(spacing:0) {
             if reservesHint && !composing {
-                InertTextReservation(text:String(localized:"Tap to listen. Hold to see meanings. Double-tap to change script."),
+                InertTextReservation(text:reservation,
                     minimumHeight:0,insets:UIEdgeInsets(top:18,left:30,bottom:12,right:30),fillsWidth:true)
                     .frame(maxWidth:560)
                     .overlay(alignment:.top) {
                         if reading.needsGestureHint {
-                            Text("Tap to listen. Hold to see meanings. Double-tap to change script.")
+                            Text(description)
                                 .font(.subheadline).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
                                 .padding(12).background(VipiDesign.canvas.opacity(0.96),in:RoundedRectangle(cornerRadius:12))
                                 .padding(.horizontal,18).padding(.top,6).frame(maxWidth:560)
-                                .accessibilityLabel(Text(ChatReadingState.actionDescription(showingMeaning:reading.showingMeaning,nativeScript:reading.nativeScript)))
+                                .accessibilityLabel(Text(ChatReadingState.actionDescription(showingMeaning:reading.showingMeaning,nativeScript:reading.nativeScript,hasAlternateScript:reading.hasAlternateScript)))
                                 .accessibilityIdentifier("chat-gesture-hint").allowsHitTesting(false)
                         }
                     }
@@ -237,6 +256,7 @@ struct ImmersionBubble: View {
     var embedded = false
     var onModeChange: ((ReadingMode)->Void)? = nil
     var metadata: AnyView? = nil
+    var accessibilityMessageContext: String? = nil
     var onVoiceHelp: (() -> Void)? = nil
     var originalMessage: String? = nil
     var inputLanguage: String? = nil
@@ -264,7 +284,8 @@ struct ImmersionBubble: View {
         if start { speech.start(message:messageID,spans:span) } else { speech.toggle(message:messageID,spans:span) }
         return true
     }
-    private func register() { controls.register(.init(identity:binding,frame:frame,activate:play)) }
+    private var hasAlternateScript: Bool { fullReading.map { !$0.isEmpty && $0 != practice } ?? false }
+    private func register() { controls.register(.init(identity:binding,frame:frame,activate:play,hasAlternateScript:hasAlternateScript)) }
     private var native: StableImmersionText {
         var view = StableImmersionText(result:.sourceOnly(original:displayed,target:targetLanguage),revealed:[],script:true,onWord:{_ in},onSelection:{_ in})
         view.fitsContentWidth = embedded
@@ -274,8 +295,9 @@ struct ImmersionBubble: View {
         view.onPlayMessage = { controls.activate(binding) }
         view.onMeaning = { controls.toggleMeaning() }
         view.showingMeaning = controls.showingMeaning
-        view.onScript = { controls.toggleScript() }
+        if hasAlternateScript { view.onScript = { controls.toggleScript() } }
         view.showingNativeScript = controls.nativeScript
+        view.accessibilityMessageContext = accessibilityMessageContext
         view.originalForCopy = originalMessage ?? result.original
         view.onReport = onReport
         return view
@@ -312,6 +334,7 @@ struct ImmersionBubble: View {
         .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { frame = $0; register() }
         .onAppear { register() }
         .onChange(of:result) { register() }
+        .onChange(of:fullReading) { register() }
         .onChange(of:speech?.state) { register() }
         .onChange(of:interactionPaused) { if !$0 { register() } }
         .onDisappear { controls.remove(binding) }

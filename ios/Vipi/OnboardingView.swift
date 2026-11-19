@@ -69,9 +69,6 @@ struct OnboardingView: View {
     private var welcome: some View {
         VStack(alignment:.leading,spacing:24) {
             IntroHeading(eyebrow:"",title:"Chat with friends.\nLearn a language.",detail:"Every message appears in the language you’re learning.")
-            Text("Tap to listen. Hold to see meanings. Double-tap to change script.")
-                .accessibilityLabel(Text(ChatReadingState.actionDescription()))
-                .font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
         }
     }
 
@@ -106,6 +103,10 @@ struct OnboardingView: View {
             }
             ConversationPreview(source:state.knownLanguage,target:state.targetLanguage,scrolling:scrolling,modelsReady:preparation.prepared)
                 .id("\(state.knownLanguage)-\(state.targetLanguage)")
+            Text(ChatReadingState.gestureDescription(source:state.knownLanguage,target:state.targetLanguage,hasAlternateScript:state.chatReading.hasAlternateScript && !state.chatReading.nativeScript))
+                .font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
+                .accessibilityLabel(Text(ChatReadingState.actionDescription(showingMeaning:state.chatReading.showingMeaning,nativeScript:state.chatReading.nativeScript,hasAlternateScript:state.chatReading.hasAlternateScript)))
+                .accessibilityIdentifier("language-preview-gesture-hint")
             if preparation.busy || preparation.availability == .checking {
                 HStack { ProgressView(); Text("Preparing translation downloads…").font(.subheadline) }.foregroundStyle(VipiDesign.secondary)
             } else if !preparation.prepared {

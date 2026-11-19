@@ -3,6 +3,26 @@ import XCTest
 @testable import Vipi
 
 final class ConversationHistoryTests: XCTestCase {
+    func testGroupedChronologyKeepsGapsAndDayBoundariesVisible() throws {
+        var calendar = Calendar(identifier:.gregorian)
+        calendar.timeZone = try XCTUnwrap(TimeZone(secondsFromGMT:0))
+        let beforeMidnight = try XCTUnwrap(calendar.date(from:DateComponents(year:2026,month:11,day:19,hour:23,minute:59)))
+        XCTAssertNotNil(MessageTimelineMetadata.timeLabel(for:beforeMidnight,previous:nil,now:beforeMidnight,calendar:calendar))
+        XCTAssertNil(MessageTimelineMetadata.timeLabel(for:beforeMidnight.addingTimeInterval(30),previous:beforeMidnight,now:beforeMidnight,calendar:calendar))
+        XCTAssertNotNil(MessageTimelineMetadata.timeLabel(for:beforeMidnight.addingTimeInterval(60),previous:beforeMidnight,now:beforeMidnight,calendar:calendar))
+        XCTAssertNotNil(MessageTimelineMetadata.timeLabel(for:beforeMidnight.addingTimeInterval(-300),previous:beforeMidnight.addingTimeInterval(-600),now:beforeMidnight,calendar:calendar))
+        XCTAssertEqual(MessageTimelineMetadata.timeLabel(for:beforeMidnight,previous:nil,now:beforeMidnight.addingTimeInterval(86_400),calendar:calendar),beforeMidnight.formatted(date:.abbreviated,time:.shortened))
+    }
+    func testGroupingNeverHidesUnsentFailedOrImportedState() {
+        for state in ["queued","failed","expired","cancelled","draft","imported"] {
+            XCTAssertTrue(MessageTimelineMetadata.showsFriendState(state,outgoing:true,latestOutgoing:false),state)
+        }
+        XCTAssertTrue(MessageTimelineMetadata.showsFriendState("imported",outgoing:false,latestOutgoing:false))
+        for state in ["accepted","delivered"] {
+            XCTAssertFalse(MessageTimelineMetadata.showsFriendState(state,outgoing:true,latestOutgoing:false))
+            XCTAssertTrue(MessageTimelineMetadata.showsFriendState(state,outgoing:true,latestOutgoing:true))
+        }
+    }
     private enum Interrupted: Error { case write }
     func testOversizedEditableDraftReopensButOutgoingLimitRemains() throws {
         let account = UUID(), peer = UUID()

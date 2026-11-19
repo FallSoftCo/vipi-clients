@@ -362,6 +362,26 @@ struct BotConversationView: View {
                 if let session { BotReportView(session: session, message: message) }
             }
     }
+    private func pendingStatus(_ item: BotMessage) -> String? {
+        switch item.state {
+        case "sending": String(localized:"Waiting for vBot")
+        case "unconfirmed": String(localized:"Reply unconfirmed")
+        case "rejected": String(localized:"Request not accepted")
+        default: nil
+        }
+    }
+    private func messageAccessibilityContext(_ item: BotMessage) -> String {
+        [item.createdAt.formatted(date:.abbreviated,time:.shortened),pendingStatus(item)].compactMap { $0 }.joined(separator:" · ")
+    }
+    @ViewBuilder private func messageMetadata(_ item: BotMessage, in messages: [BotMessage]) -> some View {
+        let index = messages.firstIndex { $0.id == item.id } ?? 0
+        let previous = index > 0 ? messages[index-1].createdAt : nil
+        let time = MessageTimelineMetadata.timeLabel(for:item.createdAt,previous:previous)
+        let pending = pendingStatus(item)
+        if time != nil || pending != nil {
+            Text([time,pending].compactMap { $0 }.joined(separator:" · "))
+        }
+    }
     @ViewBuilder private func conversation(_ value: BotSession) -> some View {
         @Bindable var value = value
         ScrollViewReader { scroll in
@@ -375,8 +395,8 @@ struct BotConversationView: View {
                             if item.role == "user" { Spacer(minLength: 38) }
                             ConversationImmersionText(text: item.text, id: "bot-" + item.id.uuidString, immersion: immersion,
                                 speech: speech, paused: scrolling || composing,
-                                metadata: AnyView(Text(item.state == "sending" ? String(localized: "Waiting for vBot") : item.state == "unconfirmed" ? String(localized: "Reply unconfirmed") : item.state == "rejected" ? String(localized: "Request not accepted") : item.createdAt.formatted(date: .omitted, time: .shortened)).font(.subheadline).foregroundStyle(VipiDesign.secondary)),
-                                onVoiceHelp: { voiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; translationHelp = true }, onReport:item.role == "assistant" && item.requestID != nil ? { reporting = item } : nil,playback:autoplay)
+                                metadata: AnyView(messageMetadata(item,in:value.messages).font(.subheadline).foregroundStyle(VipiDesign.secondary)),
+                                onVoiceHelp: { voiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; translationHelp = true }, onReport:item.role == "assistant" && item.requestID != nil ? { reporting = item } : nil,playback:autoplay,accessibilityMessageContext:messageAccessibilityContext(item))
                                 .background(item.role == "user" ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
 
                             if item.role != "user" { Spacer(minLength: 38) }

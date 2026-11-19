@@ -396,6 +396,7 @@ struct StableImmersionText: UIViewRepresentable {
     var onScript: (() -> Void)? = nil
     var showingNativeScript = false
     var originalForCopy: String? = nil
+    var accessibilityMessageContext: String? = nil
     @Environment(\.dynamicTypeSize) private var typeSize
     @Environment(\.colorScheme) private var scheme
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
@@ -475,7 +476,8 @@ struct StableImmersionText: UIViewRepresentable {
         view.accessibilityLabel = view.visibleText()
         view.accessibilityValue = view.visibleText()
         if fullMessage {
-            view.accessibilityHint = ChatReadingState.actionDescription(showingMeaning:showingMeaning,nativeScript:showingNativeScript)
+            let actions = ChatReadingState.actionDescription(showingMeaning:showingMeaning,nativeScript:showingNativeScript,hasAlternateScript:onScript != nil)
+            view.accessibilityHint = [accessibilityMessageContext,actions].compactMap { $0 }.joined(separator:". ")
         } else { view.accessibilityHint = voiceOver
             ? String(localized: "Automatic switching pauses while VoiceOver is on. Use the word actions to switch meanings. Reading options changes the language or script.")
             : String(localized: "Words switch automatically. Pause holds the current words. Reading options changes the pace or script.")

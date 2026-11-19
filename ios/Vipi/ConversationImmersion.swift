@@ -568,6 +568,7 @@ struct ConversationImmersionText: View {
     var onTranslationSetup: ((TranslationPair) -> Void)? = nil
     var onReport: (() -> Void)? = nil
     var playback: ChatAutoplay? = nil
+    var accessibilityMessageContext: String? = nil
     @Environment(AppState.self) private var state
     @Environment(\.scenePhase) private var scenePhase
     @State private var frame = CGRect.zero
@@ -609,7 +610,7 @@ struct ConversationImmersionText: View {
                     readingUnavailable:value.readingState?.status == .unavailable,
                     readingCanRetry:value.readingState?.canRetry == true,
                     readingRetryPending:immersion.readingRetryPending(for:identity),
-                    onReadingRetry:{ _ = immersion.retryReading(identity) },embedded:true,metadata:metadata,
+                    onReadingRetry:{ _ = immersion.retryReading(identity) },embedded:true,metadata:metadata,accessibilityMessageContext:accessibilityMessageContext,
                     onVoiceHelp:onVoiceHelp,originalMessage:value.original,inputLanguage:value.inputLanguage,
                     onReport:onReport,reading:state.chatReading,identity:identity)
                 if let failure = playback?.failure(for:id) {
@@ -621,6 +622,7 @@ struct ConversationImmersionText: View {
             } else {
                 VStack(alignment:.leading,spacing:6) {
                     Text(text).font(.body).fixedSize(horizontal:false,vertical:true)
+                        .accessibilityHint(accessibilityMessageContext ?? "")
                     if immersion.phase(for:identity) == .translating {
                         HStack(spacing:7) { ProgressView(); Text("Translating…").font(.subheadline) }
                             .foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("message-translation-pending")

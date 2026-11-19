@@ -447,7 +447,7 @@ final class ChatConversationTests: XCTestCase {
         print("VIPI_FOREGROUND_RECEIVER_READY")
         // No refresh, lifecycle change, navigation or subsequent local send.
         XCTAssertTrue(app.staticTexts[expected].waitForExistence(timeout: 120))
-        let delivered = metadata.matching(NSPredicate(format: "NOT (identifier IN %@) AND label CONTAINS ' · Delivered'", previousIDs)).firstMatch
+        let delivered = metadata.matching(NSPredicate(format: "NOT (identifier IN %@) AND (label == 'Delivered' OR label CONTAINS ' · Delivered')", previousIDs)).firstMatch
         XCTAssertTrue(delivered.waitForExistence(timeout: 30))
         capture("foreground-bidirectional-delivered-without-refresh")
         print("VIPI_FOREGROUND_EXCHANGE_COMPLETE " + ISO8601DateFormatter().string(from: Date()))
@@ -614,7 +614,7 @@ final class ChatConversationTests: XCTestCase {
         if app.buttons["Not now"].waitForExistence(timeout: 3) { app.buttons["Not now"].tap() }
     }
     private func sentMetadata(_ app: XCUIApplication) -> XCUIElement {
-        app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'message-meta-' AND (label CONTAINS ' · Sent' OR label CONTAINS ' · Delivered')")).firstMatch
+        app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH 'message-meta-' AND (label == 'Sent' OR label == 'Delivered' OR label CONTAINS ' · Sent' OR label CONTAINS ' · Delivered')")).firstMatch
     }
     private func capture(_ name: String) { let attachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot()); attachment.name = name; attachment.lifetime = .keepAlways; add(attachment) }
 }
@@ -2057,7 +2057,7 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertEqual(proof()["gesture_policy_seen"] as? Bool,false)
             XCTAssertTrue(cue.label.contains("Play in practice language"))
             XCTAssertTrue(cue.label.contains("Show meanings"))
-            XCTAssertTrue(cue.label.contains("Show native script"))
+            XCTAssertFalse(cue.label.contains("Show native script"),"An empty conversation must not teach a script action before an alternate reading exists")
             XCTAssertFalse(cue.label.contains("Double-tap"),"Actual native AX cue uses named actions")
             let png = XCTAttachment(screenshot:app.screenshot()); png.name = "first-cue-restored-after-real-IME"; png.lifetime = .keepAlways; add(png)
         }
