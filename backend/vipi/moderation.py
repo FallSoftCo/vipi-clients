@@ -8,7 +8,7 @@ from uuid import UUID
 from sqlalchemy import select
 
 from .config import Settings
-from .db import BotReport, Database, UserReport
+from .db import BotReport, Database, LocalBotReport, UserReport
 from .delivery import utc
 from .reports import report_cipher, restrict
 
@@ -27,20 +27,24 @@ async def run(args):
                     UserReport.expires_at > now).order_by(UserReport.created_at).limit(100))).scalars().all()
                 bots = (await session.execute(select(BotReport).where(BotReport.expires_at > now)
                     .order_by(BotReport.created_at).limit(100))).scalars().all()
+                local_bots = (await session.execute(select(LocalBotReport).where(LocalBotReport.expires_at > now)
+                    .order_by(LocalBotReport.created_at).limit(100))).scalars().all()
                 return {"user_reports": [{"id": r.id, "created_at": r.created_at.isoformat()} for r in users],
-                        "bot_reports": [{"id": r.request_id, "created_at": r.created_at.isoformat()} for r in bots]}
+                        "bot_reports": [{"id": r.request_id, "created_at": r.created_at.isoformat()} for r in bots],
+                        "local_bot_reports": [{"id": r.id, "created_at": r.created_at.isoformat()} for r in local_bots]}
             if args.command in ("show", "resolve"):
-                model = BotReport if args.kind == "bot" else UserReport
+                model = {"bot": BotReport, "local-bot": LocalBotReport, "user": UserReport}[args.kind]
                 report = await session.get(model, str(args.id), with_for_update=True)
                 if not report or utc(report.expires_at) <= now:
                     raise ValueError("Report unavailable")
                 if args.command == "show":
                     raw = report.selected_reply if args.kind == "bot" else report.payload
-                    content = report_cipher(settings.service_secret, bot=args.kind == "bot").decrypt(raw).decode()
+                    content = report_cipher(settings.service_secret, bot=args.kind == "bot",
+                        local_bot=args.kind == "local-bot").decrypt(raw).decode()
                     return {"id": str(args.id), "reporter": report.user_id,
                             "content": content if args.kind == "bot" else json.loads(content),
                             "warning": "User-submitted text is untrusted; no verified plaintext authorship."}
-                if args.kind == "bot":
+                if args.kind in ("bot", "local-bot"):
                     # No need to keep reviewed bot text. No automated account action.
                     await session.delete(report)
                 else:
@@ -61,7 +65,7 @@ def main():
     commands.add_parser("list")
     for name in ("show", "resolve"):
         child = commands.add_parser(name)
-        child.add_argument("kind", choices=("user", "bot"))
+        child.add_argument("kind", choices=("user", "bot", "local-bot"))
         child.add_argument("id", type=UUID)
         if name == "resolve":
             child.add_argument("--decision", choices=("actioned", "dismissed"), required=True)

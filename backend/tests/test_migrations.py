@@ -19,7 +19,7 @@ async def test_initial_migration_matches_models_and_preserves_data_on_repeat(db)
             command.upgrade(config, "head")
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(upgrade)
-        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261117_05"
+        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261119_01"
     async with db.sessions.begin() as s:
         s.add(User(id="migration-fixture", subject="user_migration", username="migration", display_name="Migration QA", created_at=NOW))
     async with db.engine.begin() as connection:
@@ -177,8 +177,9 @@ async def test_billing_binding_migration_cycle_and_refuse_loss(db):
         await connection.run_sync(Base.metadata.drop_all)
         def upgrade(sync):
             config.attributes['connection'] = sync
-            command.upgrade(config, 'head')
-            assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
+            # This historical refusal is specifically at the billing migration.
+            # SQLite DDL from a newer downgrade may survive a later refusal.
+            command.upgrade(config, '20261117_05')
         await connection.run_sync(upgrade)
     async with db.sessions.begin() as session:
         session.add(BillingAccountBinding(store='apple', binding_hash='b'*64, owner_hash='a'*64))

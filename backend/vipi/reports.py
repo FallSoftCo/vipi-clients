@@ -15,8 +15,9 @@ from .db import Device, ModerationAction, PendingMessage, PushOutbox, User, User
 from .delivery import DeliveryError
 
 
-def report_cipher(secret, *, bot=False):
-    domain = b"vipi-bot-report-v1" if bot else b"vipi-user-report-v1"
+def report_cipher(secret, *, bot=False, local_bot=False):
+    domain = (b"vipi-local-bot-report-v1" if local_bot else
+              b"vipi-bot-report-v1" if bot else b"vipi-user-report-v1")
     key = HKDF(algorithm=hashes.SHA256(), length=32, salt=None, info=domain).derive(secret.encode())
     return Fernet(base64.urlsafe_b64encode(key))
 

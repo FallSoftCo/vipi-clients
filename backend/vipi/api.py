@@ -135,6 +135,14 @@ class BotReportInput(Input):
     selected_reply: str = Field(min_length=1, max_length=4000, repr=False)
 
 
+class LocalBotReportInput(Input):
+    report_id: UUID
+    provider: Literal["gemini-nano", "apple-foundation-models"]
+    reason: Literal["harmful", "inaccurate", "other"]
+    selected_reply: str = Field(min_length=1, max_length=4000, repr=False)
+    consent_version: str = Field(max_length=32)
+
+
 class UserReportInput(Input):
     report_id: UUID
     reported_user_id: UUID
@@ -291,7 +299,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 if not events.ready.is_set():
                     return JSONResponse({"status": "events_unavailable"}, status_code=503)
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261117_05":
+                if revision != "20261119_01":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -348,6 +356,21 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             user = await user_for(session, p)
             await phone_for(session, request, user)
         return await bot.report(user.id, str(body.request_id), body.reason, body.selected_reply)
+
+    @app.post("/v1/bot/local-reports", status_code=202)
+    async def local_bot_report(body: LocalBotReportInput, request: Request,
+                               p: Annotated[Principal, Depends(principal)]):
+        from .local_bot_reports import submit
+        await rate(p, "local-bot-reports", 5)
+        try:
+            async with db.sessions.begin() as session:
+                user = await user_for(session, p)
+                await phone_for(session, request, user)
+                return await submit(session, user_id=user.id, report_id=str(body.report_id),
+                    provider=body.provider, reason=body.reason, selected_reply=body.selected_reply,
+                    consent_version=body.consent_version, secret=settings.service_secret, now=now())
+        except IntegrityError:
+            raise DeliveryError("report_id_conflict", 409) from None
 
     @app.post("/v1/reports", status_code=202)
     async def user_report(body: UserReportInput, request: Request, p: Annotated[Principal, Depends(principal)]):

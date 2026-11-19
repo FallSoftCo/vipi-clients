@@ -10,7 +10,7 @@ from typing import Literal
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
 from sqlalchemy import delete, or_, select, update
 
-from .db import (AccountDeletion, Block, BotReport, Device, Entitlement, KeyClaim,
+from .db import (AccountDeletion, Block, BotReport, LocalBotReport, Device, Entitlement, KeyClaim,
                  ModerationAction, PendingMessage, PublicBundle, PublicPreKey,
                  PushOutbox, PushToken, RateWindow, Reservation, UsageBucket,
                  User, UserReport, VipiTrialEligibility)
@@ -126,7 +126,7 @@ async def reconcile_offline(db, evidence: RecoveryEvidence, *, snapshot_sha256: 
                                   (Block, (Block.blocker_id, Block.blocked_id)),
                                   (UserReport, (UserReport.user_id, UserReport.reported_user_id))):
                 await s.execute(delete(model).where(or_(*(f == record.account_id for f in fields))))
-            for model in (ModerationAction, BotReport, Entitlement, Reservation, UsageBucket, Device):
+            for model in (ModerationAction, BotReport, LocalBotReport, Entitlement, Reservation, UsageBucket, Device):
                 await s.execute(delete(model).where(model.user_id == record.account_id))
             if user:
                 await s.execute(delete(RateWindow).where(RateWindow.subject == user.subject))
@@ -156,7 +156,7 @@ async def reconcile_offline(db, evidence: RecoveryEvidence, *, snapshot_sha256: 
         # Excluded transport/report content must not be resurrected even when a
         # supplied snapshot was created with the wrong table exclusions.
         for model in (PendingMessage, PublicBundle, PublicPreKey, KeyClaim,
-                      PushOutbox, PushToken, UserReport, BotReport):
+                      PushOutbox, PushToken, UserReport, BotReport, LocalBotReport):
             await s.execute(delete(model))
         await s.execute(update(Entitlement).values(verified_at=None, lease_token=None,
             lease_until=None, next_attempt_at=utc(now)))

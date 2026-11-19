@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-19T21:56:04.689620+00:00",
+  "status": "source verified on synthetic SQLite only; not deployed",
+  "schema_revision": "20261119_01",
+  "first_run": {
+    "original_session": 78751,
+    "passed": 41,
+    "failed": 1,
+    "skipped": 3,
+    "failure": "Historical billing downgrade test crossed the new empty report table; SQLite DDL survived the later expected billing refusal."
+  },
+  "correction": "Begin the historical billing refusal at its actual20261117_05revision; current head/model parity remains separately checked.",
+  "focused_run": {
+    "original_session": 99998,
+    "passed": 14,
+    "deselected": 2
+  },
+  "scope": "Local report auth/device/consent/idempotency/encryption/UTF8limits/rate/erasure; existing reports/recovery and migrations. No speech or transliteration acceptance.",
+  "remaining": [
+    "PostgreSQL migration rehearsal",
+    "production backup content exclusion review",
+    "explicit local-report expiry and moderator manual review",
+    "deployment with matching API/schema"
+  ]
+}
