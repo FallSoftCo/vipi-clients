@@ -60,12 +60,13 @@ async def register(session, *, user_id, device_id, provider, environment, token,
         await enqueue(session, device_id, now, latest.expires_at)
 
 
-async def enqueue(session, device_id, now, expires_at):
+async def enqueue(session, device_id, now, expires_at, *, group_event=False):
     insert = pg_insert if session.get_bind().dialect.name == "postgresql" else sqlite_insert
     statement = insert(PushOutbox).values(device_id=device_id, generation=1, next_attempt_at=now,
-        expires_at=expires_at, attempts=0)
+        expires_at=expires_at, attempts=0, group_event=group_event)
     await session.execute(statement.on_conflict_do_update(index_elements=[PushOutbox.device_id], set_={
         "generation": PushOutbox.generation + 1, "next_attempt_at": now,
+        "group_event": or_(PushOutbox.group_event, group_event),
         "expires_at": case((PushOutbox.expires_at > expires_at, PushOutbox.expires_at), else_=expires_at), "attempts": 0}))
 
 
@@ -166,7 +167,7 @@ async def process_pushes(db, providers, *, secret, now, limit=100, clock=None, d
             registration = await session.get(PushToken, job.device_id)
             pending = (await session.execute(select(PendingMessage.id).where(PendingMessage.recipient_device_id == job.device_id,
                 PendingMessage.state == "accepted", PendingMessage.expires_at > now).limit(1))).scalar_one_or_none()
-            if utc(job.expires_at) <= now or not device or not device.active or not registration or not pending:
+            if utc(job.expires_at) <= now or not device or not device.active or not registration or not (pending or job.group_event):
                 await session.delete(job); counts["discarded"] += 1
                 continue
             job.lease_token, job.lease_until = lease, now + timedelta(minutes=2)

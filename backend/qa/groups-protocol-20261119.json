@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-19",
+  "branch": "upgrade/groups-protocol-worktree-20261119-r01",
+  "source_base": "d6eaf672",
+  "scope": "Isolated Groups upgrade backend/protocol; free direct-chat launch independent.",
+  "feature_enabled_by_default": false,
+  "migration": "20261119_02",
+  "deployment_or_production_access": false,
+  "dependency_installs": false,
+  "tests": [
+    {
+      "file": "groups-upgrade-20261119-tests.xml",
+      "sha256": "1d6f4c380a8df5c7c0a06e2c751b23af391f03fc087788cf71168634f1b195ed",
+      "tests": 94,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 4
+    },
+    {
+      "file": "groups-upgrade-20261119-final-recheck.xml",
+      "sha256": "6708854a4e860f18b47c9c3933ee63493da5e70e71550b3b3e09021eabe1b3b5",
+      "tests": 42,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    }
+  ],
+  "passed": "90 passed / 4 skipped broad scoped suite; after final lock-order edits, 41 passed / 1 skipped focused service/API/deletion/report/migration recheck.",
+  "skip_reason": "No disposable VIPI_TEST_POSTGRES_URL configured. Three new PostgreSQL concurrency tests and existing PostgreSQL readiness skipped.",
+  "warnings": "Existing Python 3.12 sqlite datetime-adapter deprecation warnings.",
+  "security_boundary": [
+    "Pairwise bodies use existing client libsignal; relay tests use opaque bytes and do not qualify encryption.",
+    "Server sees roster/name/roles/invites/routing/times/sizes. No Signal Private Groups, MLS, anonymity or global non-equivocation claim.",
+    "Authenticated roster controls and pinned identity continuity are required client authorization, separate from relay membership. Shared validator is an executable client reference, not server-side proof.",
+    "New send recipients require exact approved roster and current server epoch; fresh inbound text requires latest authenticated group_revision.",
+    "Explicit admin-pinned join anchor, exact-delta/revision chain, explicit owner transfer, and orphaned succession freeze are mandatory.",
+    "A malicious relay can suppress controls; offline clients cannot know a revocation they have not received. Honest relay epoch fences reject their stale fanout."
+  ],
+  "required_before_enablement": [
+    "Native authenticated membership-control coordinator integration and shared fixture conformance.",
+    "Actual iOS to Android and Android to iOS libsignal group/control exchange.",
+    "Native vault crash/restart, exact encrypted fanout retry, orphaned owner/device recovery, blocked-member UI, offline push/reconnect, report UI.",
+    "Real PostgreSQL membership/send/accept races and production-like migration qualification in an isolated allowed environment.",
+    "Security review of application roster-control authorization and rollout plan."
+  ],
+  "sources": [
+    "https://signal.org/docs/specifications/sesame/",
+    "https://signal.org/blog/signal-private-group-system/"
+  ],
+  "source_sha256": {
+    "backend/vipi/groups.py": "fb3ba1112e6a8bae07b8b728f319929f91d7ebdef849a023540c972bd0de07b0",
+    "backend/vipi/groups_api.py": "f31963a1fb72c2853e71a96a4906b66696786e7211c2cd9f403835c8401395e9",
+    "backend/vipi/group_approval.py": "05dfb4e9072d739c21c2aa4b4cfb720bfc59f08a8dd3c4b1a9b3be51b59c22c7",
+    "backend/vipi/accounts.py": "795be51c76e3a52dddf5719d7c6f0fa4995f26ff7731cda11212fdf679d0d79e",
+    "backend/vipi/api.py": "b02de39ee4f182dc784b7c06a7136bed81b7cf65a734c41492f10b07bb457067",
+    "backend/vipi/config.py": "a04e496065839c0d26e1931c51a56dcda1f482f06449be262a9a9c1e3f972581",
+    "backend/vipi/db.py": "bc121cd4b5b16d9d3d9aafd01116e70a8d49ea0936084a52fcd41c7928429f70",
+    "backend/vipi/deletion.py": "0e5152c9d785f0eaff90272722532a3b967138581e0315aee86acf994a44a089",
+    "backend/vipi/maintenance.py": "877b6d6ab80ce3e77d3b6077640058a962575b3c7fb8ac7dd11bdb12b4822e60",
+    "backend/vipi/push.py": "183dfbfd4f3864d1857b280ac24c424849c4819f8681c3d336552c793f5e7894",
+    "backend/vipi/reports.py": "f0b347d634681e60e834fd802f551e06f7aec2d463286ed9c8c63c4e4b19d569",
+    "backend/migrations/versions/20261119_02_groups.py": "0fb6c89549865cc3e250ea8c4635e645b62068febc0322aeccfffc939800a8b3",
+    "docs/GROUPS_PROTOCOL.md": "cea1a355b7208e4e2ee4aafc15679af77d7dceee786b6d65e8eaf338e6dbc40e",
+    "docs/GROUPS_MEMBERSHIP_AUTH.md": "095f13c972eb866bc0d07fff30bc28e5bd2f3efadd5eae0b0735223b93363acf",
+    "docs/groups-approval-v1-fixtures.json": "25c7dead55d9dd88956bebaeac321c39d6735e395a613d867ff08a7b52aeb2d3"
+  }
+}

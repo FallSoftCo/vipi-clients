@@ -25,6 +25,8 @@ async def main():
         now = datetime.now(UTC)
         async with db.sessions.begin() as session:
             await expire(session, now=now)
+            from .groups import expire as expire_groups
+            await expire_groups(session, now=now)
             await expire_claims(session, now)
             await session.execute(delete(RateWindow).where(RateWindow.window < int(now.timestamp()) // 60 - 120))
             await expire_deletion_receipts(session, now)

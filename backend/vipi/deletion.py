@@ -75,6 +75,8 @@ async def request_deletion(session, *, subject: str, account_id: str, receipt_se
         if utc(user.cardless_trial_ends_at) > utc(user.cardless_trial_started_at):
             await original_trial(session, subject=subject, service_secret=service_secret,
                 started_at=user.cardless_trial_started_at, ends_at=user.cardless_trial_ends_at)
+    from .groups import revoke_memberships
+    await revoke_memberships(session, account_id, now=now, deleting=True)
     devices = select(Device.id).where(Device.user_id == account_id)
     await session.execute(delete(PushOutbox).where(PushOutbox.device_id.in_(devices)))
     await session.execute(delete(PushToken).where(PushToken.device_id.in_(devices)))

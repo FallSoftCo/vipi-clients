@@ -26,19 +26,20 @@ from .deletion import deletion_for, deletion_status, request_deletion, subject_h
 
 
 class BodyLimit:
-    def __init__(self, app, limit=100_000):
-        self.app, self.limit = app, limit
+    def __init__(self, app, limit=100_000, groups_enabled=False):
+        self.app, self.limit, self.groups_enabled = app, limit, groups_enabled
 
     async def __call__(self, scope, receive, send):
         if scope["type"] != "http":
             return await self.app(scope, receive, send)
+        limit = 1_500_000 if self.groups_enabled and scope.get("path", "").startswith("/v1/groups/") else self.limit
         data = bytearray()
         while True:
             event = await receive()
             if event["type"] == "http.disconnect":
                 return
             data.extend(event.get("body", b""))
-            if len(data) > self.limit:
+            if len(data) > limit:
                 return await JSONResponse({"error": "request_too_large"}, status_code=413)(scope, receive, send)
             if not event.get("more_body", False):
                 break
@@ -230,7 +231,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 await db.close()
 
     app = FastAPI(title="Vipi service", docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
-    app.add_middleware(BodyLimit)
+    app.add_middleware(BodyLimit, groups_enabled=settings.groups_enabled)
     app.state.verifier = token_verifier
     app.state.allowed_subjects = settings.allowed_subjects
     app.state.subscriptions = subscriptions
@@ -299,7 +300,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 if not events.ready.is_set():
                     return JSONResponse({"status": "events_unavailable"}, status_code=503)
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261119_01":
+                if revision != "20261119_02":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -586,7 +587,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             cursor = encode_cursor(device.id, items[-1].accepted_at, items[-1].id, settings.service_secret) if len(found) > 100 else None
             return {"next_cursor": cursor, "messages": [message_status(item) | {"sender_id": item.sender_id, "sender_device_id": item.sender_device_id,
                 "recipient_device_id": item.recipient_device_id, "created_at": utc(item.created_at).isoformat(), "cipher_type": item.cipher_type,
-                "ciphertext": base64.b64encode(item.ciphertext).decode()} for item in items]}
+                "ciphertext": base64.b64encode(item.ciphertext).decode()} | ({"group_id": item.group_id,
+                "group_epoch": item.group_epoch, "group_message_id": item.group_message_id, "group_kind": item.group_kind} if item.group_id else {}) for item in items]}
 
     @app.get("/v1/messages/{message_id}")
     async def status(message_id: UUID, request: Request, p: Annotated[Principal, Depends(principal)]):
@@ -627,9 +629,11 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         async with db.sessions.begin() as session:
             user = await user_for(session, p)
             await phone_for(session, request, user)
-            await set_block(session, blocker_id=user.id, blocked_id=str(user_id), blocked=body.blocked)
+            await set_block(session, blocker_id=user.id, blocked_id=str(user_id), blocked=body.blocked, now=now())
             return {"blocked": body.blocked}
 
+    from .groups_api import install as install_groups
+    install_groups(app, settings, db, now, principal, user_for, phone_for, rate)
     return app
 
 

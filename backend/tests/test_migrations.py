@@ -19,7 +19,7 @@ async def test_initial_migration_matches_models_and_preserves_data_on_repeat(db)
             command.upgrade(config, "head")
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(upgrade)
-        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261119_01"
+        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261119_02"
     async with db.sessions.begin() as s:
         s.add(User(id="migration-fixture", subject="user_migration", username="migration", display_name="Migration QA", created_at=NOW))
     async with db.engine.begin() as connection:
@@ -200,3 +200,26 @@ async def test_billing_binding_migration_cycle_and_refuse_loss(db):
             command.upgrade(config, 'head')
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(cycle)
+
+
+async def test_group_migration_refuses_losing_membership_authority(db):
+    import pytest
+    from vipi.db import ChatGroup
+    config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
+    async with db.engine.begin() as connection:
+        await connection.run_sync(Base.metadata.drop_all)
+        def upgrade(sync):
+            config.attributes["connection"] = sync
+            command.upgrade(config,"head")
+        await connection.run_sync(upgrade)
+    async with db.sessions.begin() as session:
+        session.add(ChatGroup(id="group-preserve",creator_id=None,creation_fingerprint="f"*64,
+            title="Retained group",epoch=1,state="closed",created_at=NOW))
+    with pytest.raises(RuntimeError,match="Preserve group authority"):
+        async with db.engine.begin() as connection:
+            def downgrade(sync):
+                config.attributes["connection"] = sync
+                command.downgrade(config,"20261119_01")
+            await connection.run_sync(downgrade)
+    async with db.sessions() as session:
+        assert (await session.get(ChatGroup,"group-preserve")).title == "Retained group"
