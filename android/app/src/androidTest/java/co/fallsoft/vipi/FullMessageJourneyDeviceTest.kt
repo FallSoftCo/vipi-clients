@@ -318,6 +318,48 @@ class FullMessageJourneyDeviceTest {
             val send = if (bot) "bot-message-send" else "message-send"
             val notice = if (bot) "bot-message-length-notice" else "message-length-notice"
             f.bindConversationCapture(compose,input)
+            val clipboard = f.base.getSystemService(android.content.ClipboardManager::class.java)
+            var savedClipboard: android.content.ClipData? = null
+            var clipboardCaptured = false
+            fun nativeEditor(): AccessibilityNodeInfo? {
+                if (android.os.Build.VERSION.SDK_INT >= 33) f.instrumentation.uiAutomation.clearCache()
+                fun find(node:AccessibilityNodeInfo):AccessibilityNodeInfo? {
+                    if (node.isEditable && node.isFocused && node.packageName?.toString() == f.base.packageName) return node
+                    for (i in 0 until node.childCount) node.getChild(i)?.let { child -> find(child)?.let { return it } }
+                    return null
+                }
+                return f.instrumentation.uiAutomation.windows.mapNotNull { it.root }.firstNotNullOfOrNull(::find)
+            }
+            fun pasteThroughNativeMenu(value:String) {
+                compose.onNodeWithTag(input).performTouchInput { click() }
+                val priorText = compose.onNodeWithTag(input).fetchSemanticsNode().config[SemanticsProperties.EditableText].text
+                f.instrumentation.runOnMainSync {
+                    if (!clipboardCaptured) { savedClipboard = clipboard.primaryClip?.let { android.content.ClipData(it) }; clipboardCaptured = true }
+                    val clip = android.content.ClipData.newPlainText("Vipi owned draft-boundary input",value)
+                    if (android.os.Build.VERSION.SDK_INT >= 33) clip.description.extras = android.os.PersistableBundle().apply { putBoolean(android.content.ClipDescription.EXTRA_IS_SENSITIVE,true) }
+                    clipboard.setPrimaryClip(clip)
+                }
+                compose.onNodeWithTag(input).performTouchInput { longClick(center) }
+                if (priorText.isNotEmpty()) {
+                    val selectAll = f.device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.text("Select all")),5_000)
+                    assertNotNull("Actual native edit menu must expose Select all",selectAll)
+                    requireNotNull(selectAll).click()
+                    compose.waitUntil(5_000) { nativeEditor()?.let { it.textSelectionStart == 0 && it.textSelectionEnd == priorText.length } == true }
+                }
+                val paste = f.device.wait(androidx.test.uiautomator.Until.findObject(androidx.test.uiautomator.By.text("Paste")),5_000)
+                assertNotNull("Actual native edit menu must expose Paste",paste)
+                requireNotNull(paste).click()
+            }
+            fun assertNativeEditor(expected:String,stage:String) {
+                compose.waitUntil(8_000) { nativeEditor()?.text?.toString() == expected }
+                val editor = requireNotNull(nativeEditor())
+                assertEquals(expected,editor.text.toString())
+                assertTrue("Native selection start must address the retained value",editor.textSelectionStart in 0..expected.length)
+                assertTrue("Native selection end must address the retained value",editor.textSelectionEnd in 0..expected.length)
+                File(f.output,"native-editor-"+stage+".json").writeText(JSONObject().put("text_sha256",java.security.MessageDigest.getInstance("SHA-256").digest(editor.text.toString().toByteArray()).joinToString("") { "%02x".format(it) })
+                    .put("utf16_length",expected.length).put("selection_start",editor.textSelectionStart).put("selection_end",editor.textSelectionEnd)
+                    .put("input_route","Actual native Select all/Paste; no semantics SetText replacement").toString(2))
+            }
             try {
                 f.launch(); screen(f,Screen.HOME)
                 if (bot) {
@@ -333,7 +375,8 @@ class FullMessageJourneyDeviceTest {
                     compose.onNode(hasSetTextAction()).performImeAction(); screen(f,Screen.CONVERSATION)
                 }
                 val pasted = "界".repeat(if (bot) 2_731 else 10_923)
-                compose.onNodeWithTag(input).performTouchInput { click() }.performTextReplacement(pasted)
+                pasteThroughNativeMenu(pasted)
+                assertNativeEditor(pasted,"over-send-limit")
                 compose.onNodeWithTag(notice).assertIsDisplayed()
                 compose.onNodeWithTag(send).assertIsNotEnabled()
                 compose.onNodeWithTag(input).assertTextEquals(pasted)
@@ -342,12 +385,15 @@ class FullMessageJourneyDeviceTest {
                 f.capture("01-over-send-limit-draft-retained")
                 f.recreate(); screen(f,if (bot) Screen.BOT else Screen.CONVERSATION)
                 compose.waitUntil(15_000) { compose.onNodeWithTag(input).fetchSemanticsNode().config[SemanticsProperties.EditableText].text == pasted }
-                compose.onNodeWithTag(input).performTextReplacement("a".repeat(ConversationHistory.MAX_DRAFT_BYTES+1))
+                pasteThroughNativeMenu("a".repeat(ConversationHistory.MAX_DRAFT_BYTES+1))
+                assertNativeEditor(pasted,"over-editing-limit")
                 compose.onNodeWithTag(input).assertTextEquals(pasted)
                 compose.onNodeWithTag(notice).assertTextEquals(f.base.getString(R.string.draft_edit_too_large))
                 assertEquals(pasted,saved())
+                f.capture("01b-over-editing-limit-native-field-and-warning")
                 assertEquals(0,services.friendPosts.get()); assertEquals(0,services.botPosts.get())
-                compose.onNodeWithTag(input).performTextReplacement("A short message to keep.")
+                pasteThroughNativeMenu("A short message to keep.")
+                assertNativeEditor("A short message to keep.","shortened")
                 compose.onNodeWithTag(notice).assertDoesNotExist()
                 compose.onNodeWithTag(send).assertIsEnabled().performTouchInput { click() }
                 if (bot) { services.botReplyGate.complete(Unit); compose.waitUntil(15_000) { f.model.bot?.messages?.size == 22 } }
@@ -384,7 +430,10 @@ class FullMessageJourneyDeviceTest {
                 f.capture("03-history-restored-after-typing")
                 services.assertNoPurchase()
             } catch (failure:Throwable) { runCatching { f.capture("failure") }; throw failure }
-            finally { services.botReplyGate.complete(Unit); f.stopActivity(); services.close() }
+            finally {
+                if (clipboardCaptured) f.instrumentation.runOnMainSync { savedClipboard?.let { clipboard.setPrimaryClip(it) } ?: clipboard.clearPrimaryClip() }
+                services.botReplyGate.complete(Unit); f.stopActivity(); services.close()
+            }
         }
     }
     @Test fun actualFriendSendIncomingHoldScriptAndPracticeAudioKeepDraftAndHistory() {
