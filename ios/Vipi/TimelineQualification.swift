@@ -902,6 +902,9 @@ struct PendingPairRootBinding: View {
         var controlledTranslationFailures = 0
         var cueCaptured:Bool?
         var cuePriorSeen:Bool?
+        var invitationCaptured: Bool?
+        var priorInvitation: String?
+        var friendUsernameLookups: Int?
         var pendingHash: String?, verifierHash: String?, callback: String?
         var device: DeviceCredential?
         var acceptedIDs = Set<String>(), expiredIDs = Set<String>(), receipts = Set<String>()
@@ -1153,6 +1156,16 @@ struct PendingPairRootBinding: View {
                     "Copy QA requires owned simulator clipboard isolation")
             }
             current = try FirstMonthRootQualification()
+            if ProcessInfo.processInfo.arguments.contains("-vipi-invitation-root-qa"), let current,
+               current.ledger.invitationCaptured != true {
+                precondition(ProcessInfo.processInfo.arguments.contains("-vipi-full-translation-sdk-qa"))
+                let prior = UserDefaults.standard.object(forKey: "invitationUsername")
+                guard prior == nil || prior is String else { throw ServiceFailure(status: 0, code: "preserve_unknown_invitation_preference") }
+                current.ledger.priorInvitation = prior as? String
+                current.ledger.invitationCaptured = true
+                try current.save()
+                UserDefaults.standard.removeObject(forKey: "invitationUsername")
+            }
             if ProcessInfo.processInfo.arguments.contains("-vipi-marketing-root-qa") {
                 precondition(marketingEnabled && !copyRootEnabled && !(current?.pendingPairEnabled ?? false),
                     "Natural marketing requires the isolated controlled full-message fixture")
@@ -1317,6 +1330,10 @@ struct PendingPairRootBinding: View {
             value = ["id": id.uuidString, "active": true]
         case ("GET", "/v1/keys"): value = ["revision": 1, "remaining": 20]
         case ("GET", "/v1/people/alex"), ("GET", "/v1/people/by-id/" + ledger.peer.uuidString.lowercased()):
+            if path == "/v1/people/alex" {
+                ledger.friendUsernameLookups = (ledger.friendUsernameLookups ?? 0) + 1
+                try save()
+            }
             value = ["id": ledger.peer.uuidString, "username": Self.marketingEnabled ? "maya" : "alex", "display_name": Self.marketingEnabled ? "Maya" : "Alex"]
         case ("GET", "/v1/people/maya") where Self.marketingEnabled:
             value = ["id": ledger.peer.uuidString, "username": "maya", "display_name": "Maya"]
@@ -1513,6 +1530,8 @@ struct PendingPairRootBinding: View {
                 "trial_started": stores.last?.snapshot?.base.cardless_trial?.started_at ?? "",
                 "trial_ends": stores.last?.snapshot?.base.cardless_trial?.ends_at ?? "",
                 "purchase_ready": stores.last?.purchaseReady ?? false, "unexpected": ledger.unexpected,
+                "invitation_username": ledger.invitationCaptured == true ? UserDefaults.standard.string(forKey: "invitationUsername") ?? "" : "",
+                "friend_username_lookups": ledger.friendUsernameLookups ?? 0,
                 "controlled_sdk_translation": ProcessInfo.processInfo.arguments.contains("-vipi-full-translation-sdk-qa"),
                 "controlled_translation_inputs":ledger.controlledTranslations,
                 "controlled_translation_failures":ledger.controlledTranslationFailures,
@@ -1556,6 +1575,10 @@ struct PendingPairRootBinding: View {
         if ledger.cueCaptured == true {
             if let prior = ledger.cuePriorSeen { UserDefaults.standard.set(prior,forKey:"full-message-gestures-v1-seen") }
             else { UserDefaults.standard.removeObject(forKey:"full-message-gestures-v1-seen") }
+        }
+        if ledger.invitationCaptured == true {
+            if let prior = ledger.priorInvitation { UserDefaults.standard.set(prior, forKey: "invitationUsername") }
+            else { UserDefaults.standard.removeObject(forKey: "invitationUsername") }
         }
         try FileManager.default.removeItem(at: directory)
     }

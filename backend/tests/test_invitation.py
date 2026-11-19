@@ -14,6 +14,8 @@ async def test_invitation_preserves_name_without_disclosing_a_profile():
         assert response.status_code == 200
         assert "@alice_123" in response.text
         assert "New chat" in response.text and "username" in response.text
+        assert 'href="co.fallsoft.vipi://invite/alice_123"' in response.text
+        assert "Tap Find friend" in response.text
         assert "in testing" in response.text and "after store approval" in response.text
         assert "Set-Cookie" not in response.headers
         assert response.headers["Referrer-Policy"] == "no-referrer"
@@ -39,3 +41,23 @@ async def test_invalid_invitation_cannot_inject_content_or_impersonate_system():
             assert "This invitation isn't valid" in unescape(response.text)
             assert "<script>" not in response.text and "onload=" not in response.text
             assert response.headers["X-Robots-Tag"].startswith("noindex")
+
+
+async def test_link_associations_bind_only_production_apps_and_invite_route():
+    app = FastAPI()
+    install(app)
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="https://vipi.test") as client:
+        apple = await client.get("/.well-known/apple-app-site-association")
+        assert apple.status_code == 200
+        assert apple.headers["content-type"] == "application/json"
+        assert apple.json()["applinks"]["details"] == [{
+            "appIDs": ["3TNL2455JT.co.fallsoft.vipi"],
+            "components": [{"/": "/invite/*", "comment": "Open a friend invitation in Vipi"}],
+        }]
+        android = await client.get("/.well-known/assetlinks.json")
+        assert android.status_code == 200
+        target = android.json()[0]["target"]
+        assert target["package_name"] == "co.fallsoft.vipi"
+        assert target["namespace"] == "android_app"
+        # No debug or locally upload-signed installation is declared trusted.
+        assert target["sha256_cert_fingerprints"] == ["42:58:FE:AF:D4:BF:C9:EE:88:5D:A6:F1:FF:CE:AE:6A:BF:98:C0:03:93:04:C2:29:1F:D3:E6:23:0A:DB:EF:82"]

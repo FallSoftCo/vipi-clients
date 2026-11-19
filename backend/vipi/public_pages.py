@@ -1,7 +1,7 @@
 """Product information served without trackers, external assets, or browser JS."""
 from html import escape
 
-from starlette.responses import HTMLResponse
+from starlette.responses import HTMLResponse, JSONResponse
 
 from .accounts import normalize_username
 from .delivery import DeliveryError
@@ -89,6 +89,23 @@ PAGES = {
 
 
 def install(app):
+    @app.get("/.well-known/apple-app-site-association", include_in_schema=False)
+    async def apple_app_links():
+        return JSONResponse({"applinks": {"details": [{
+            "appIDs": ["3TNL2455JT.co.fallsoft.vipi"],
+            "components": [{"/": "/invite/*", "comment": "Open a friend invitation in Vipi"}],
+        }]}}, headers={"Cache-Control": "public, max-age=3600"})
+
+    @app.get("/.well-known/assetlinks.json", include_in_schema=False)
+    async def android_app_links():
+        # Play app-signing certificate independently verified from the retained
+        # Play-generated APK. The upload/debug certificates do not authorize links.
+        return JSONResponse([{
+            "relation": ["delegate_permission/common.handle_all_urls"],
+            "target": {"namespace": "android_app", "package_name": "co.fallsoft.vipi",
+                "sha256_cert_fingerprints": ["42:58:FE:AF:D4:BF:C9:EE:88:5D:A6:F1:FF:CE:AE:6A:BF:98:C0:03:93:04:C2:29:1F:D3:E6:23:0A:DB:EF:82"]},
+        }], headers={"Cache-Control": "public, max-age=3600"})
+
     def render(title, body, *, status_code=200, private_link=False):
         html = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
             '<meta name="viewport" content="width=device-width,initial-scale=1">'
@@ -119,6 +136,9 @@ def install(app):
             <p class="lead">Find your friend with the username <strong>@{escape(name)}</strong>.</p>
             <p>Chat with your friend while reading the conversation in the language you want to learn. Vipi translates whole messages on your device. Tap a message to hear it, or hold the chat to read in the language you know.</p>
             <h2>Already have Vipi?</h2>
+            <p><a class="button" href="co.fallsoft.vipi://invite/{escape(name)}">Open Vipi</a></p>
+            <p>The invitation opens with your friend's username filled in. Tap Find friend to start your conversation.</p>
+            <p>If the app doesn't open:</p>
             <ol><li>Open Vipi and tap New chat.</li>
             <li>Enter <strong>{escape(name)}</strong> in the username field.</li>
             <li>Find your friend and send a message.</li></ol>

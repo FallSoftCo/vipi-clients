@@ -75,7 +75,15 @@ import SwiftUI
                 #endif
                 state.isAuthenticated = value != nil
             }
-            .onOpenURL { url in Task { await authentication.complete(url) } }
+            .onOpenURL { url in
+                if deletion.active || !state.acceptInvitation(url) { Task { await authentication.complete(url) } }
+            }
+            .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { activity in
+                if let url = activity.webpageURL, !deletion.active { state.acceptInvitation(url) }
+            }
+            .onChange(of: deletion.active, initial: true) { _, active in
+                if active { state.invitationUsername = nil }
+            }
             #if DEBUG
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 if let qualification = FirstMonthRootQualification.current {

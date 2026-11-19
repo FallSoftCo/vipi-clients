@@ -43,7 +43,16 @@ enum AppAppearance: String, CaseIterable, Identifiable {
     let chatReading: ChatReadingState
     let translationServices: MessageTranslationServices
     var isAuthenticated = false
+    var invitationUsername: String? {
+        didSet { defaults.set(invitationUsername, forKey: "invitationUsername") }
+    }
     private let defaults: UserDefaults
+
+    @discardableResult func acceptInvitation(_ url: URL) -> Bool {
+        guard let name = FriendInvitationLink.username(in: url) else { return false }
+        invitationUsername = name
+        return true
+    }
 
     func selectKnownLanguage(_ value: String) {
         guard VipiLanguage.initial.contains(where: { $0.id == value }) else { return }
@@ -57,6 +66,9 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         self.translationServices = translationServices ?? MessageTranslationServices()
         chatReading = ChatReadingState(defaults:defaults)
         self.defaults = defaults
+        invitationUsername = defaults.string(forKey: "invitationUsername").flatMap {
+            URL(string: "https://api.mambovipi.app/invite/" + $0).flatMap(FriendInvitationLink.username)
+        }
         onboarding = OnboardingStep(rawValue: defaults.string(forKey: "onboardingStep") ?? "") ?? .welcome
         knownLanguage = defaults.string(forKey: "knownLanguage") ?? "en"
         targetLanguage = defaults.string(forKey: "targetLanguage") ?? "es"

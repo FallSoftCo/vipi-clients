@@ -51,6 +51,10 @@ class VipiModel internal constructor(application: Application, private val trans
     internal val deletion = AccountDeletion(application, authentication,
         workflow?.deletionTransport(authentication) ?: AccountDeletionService(authentication))
     private val prefs = application.getSharedPreferences("preferences", 0)
+    internal var invitationUsername by mutableStateOf(prefs.getString("invitationUsername", null)?.let {
+        FriendInvitationLink.username("https://api.mambovipi.app/invite/$it")
+    })
+        private set
     var screen by mutableStateOf(runCatching { Screen.valueOf(prefs.getString("onboardingStep", "WELCOME")!!) }.getOrDefault(Screen.WELCOME))
         private set
     var knownLanguage by mutableStateOf(prefs.getString("knownLanguage", "en")!!)
@@ -105,14 +109,29 @@ class VipiModel internal constructor(application: Application, private val trans
             else if (chat?.ready == true && screen == Screen.ACCOUNT) navigate(Screen.HOME)
             if (chat?.ready == true) {
                 requestPush(registration = true)
-                openPendingNotification()
+                if (invitationUsername != null) navigate(Screen.NEW_CHAT)
+                else openPendingNotification()
             }
         } catch (error: CancellationException) { throw error }
         catch (_: Exception) { chatError = getApplication<Application>().getString(R.string.ui_8218810809d6) }
     }
-    internal fun openConversation(peer: UUID) { selectedPeer = peer; navigate(Screen.CONVERSATION) }
+    internal fun acceptInvitation(url: String): Boolean {
+        val username = FriendInvitationLink.username(url) ?: return false
+        if (deletion.active) return true
+        notificationPeer = null
+        invitationUsername = username
+        prefs.edit().putString("invitationUsername", username).apply()
+        if (chat?.ready == true && chat?.userID == authentication.userID) navigate(Screen.NEW_CHAT)
+        return true
+    }
+    private fun clearInvitation() {
+        invitationUsername = null
+        prefs.edit().remove("invitationUsername").apply()
+    }
+    internal fun openConversation(peer: UUID) { clearInvitation(); selectedPeer = peer; navigate(Screen.CONVERSATION) }
     internal fun openNotification(peer: String?) {
         notificationPeer = peer?.let { runCatching { UUID.fromString(it) }.getOrNull() }
+        if (notificationPeer != null) clearInvitation()
         if (chat?.ready == true) openPendingNotification()
     }
     private fun openPendingNotification() {
@@ -175,11 +194,14 @@ class VipiModel internal constructor(application: Application, private val trans
         val account = current.profile?.id ?: UUID.randomUUID()
         deletion.begin(account, current.userID) {
             if (workflow == null) PushDelivery.cancel(getApplication()) else workflow.cancelPush(getApplication())
+            clearInvitation()
             DeliverySessions.delete(current); chat = null; selectedPeer = null; subscriptions?.close(); subscriptions = null; subscriptionUser = null; closeBot()
         }
     }
 
-    fun navigate(value: Screen) {
+    fun navigate(requested: Screen) {
+        val value = if (requested == Screen.HOME && screen in setOf(Screen.PROFILE, Screen.ACCOUNT) &&
+            chat?.ready == true && invitationUsername != null) Screen.NEW_CHAT else requested
         if (value == Screen.LANGUAGE_DOWNLOAD && screen != value) {
             languageReturnScreen = if (screen in setOf(Screen.CONVERSATION, Screen.BOT)) screen else Screen.SETTINGS
         }
@@ -220,7 +242,9 @@ class VipiModel internal constructor(application: Application, private val trans
     fun sentenceChanged() { translationRevision++; translatedText = null; modelMessage = null }
     fun changeAppearance(value: Appearance) { appearance = value; prefs.edit().putString("appearance", value.name).apply() }
     fun changeDensity(value: Double) { density = value; prefs.edit().putFloat("density", value.toFloat()).apply() }
-    fun back() { navigate(when (screen) {
+    fun back() {
+        if (screen == Screen.NEW_CHAT) clearInvitation()
+        navigate(when (screen) {
         Screen.LANGUAGE -> Screen.WELCOME
         Screen.ACCOUNT -> Screen.LANGUAGE
         Screen.LANGUAGE_DOWNLOAD -> languageReturnScreen

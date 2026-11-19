@@ -100,14 +100,18 @@ struct HomeView: View {
                 }
             }
             .navigationDestination(isPresented: $showingSettings) { SettingsView(chat: chat, subscriptions: subscriptions, closeBot: botOwner.close) }
-            .sheet(isPresented: $showingInvite) { NewChatView(chat: chat) { peer in path.append(peer) } }
+            .sheet(isPresented: $showingInvite, onDismiss: { state.invitationUsername = nil }) {
+                NewChatView(chat: chat, invitationUsername: state.invitationUsername) { peer in path.append(peer) }
+            }
+            .onChange(of: state.invitationUsername, initial: true) { _, _ in presentInvitationIfReady() }
+            .onChange(of: chat?.ready) { _, _ in presentInvitationIfReady() }
             .navigationDestination(for: UUID.self) { peer in if let chat { FriendConversationView(chat: chat, peer: peer) } }
             .sheet(isPresented: $offerBase) {
                 if let subscriptions { NavigationStack { SubscriptionOfferView(store: subscriptions, plan: .base)
                     .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Not now") { offerBase = false } } } } }
             }
             .onChange(of: subscriptions?.canPurchase(.base) == true, initial: true) { _, available in
-                guard available, !offeredBase, chat?.threads.isEmpty == true,
+                guard available, !offeredBase, state.invitationUsername == nil, chat?.threads.isEmpty == true,
                       let profile = chat?.profile else { return }
                 let key = "vipi.base-offer-seen.\(profile.id.uuidString.lowercased())"
                 guard !UserDefaults.standard.bool(forKey: key) else { return }
@@ -116,6 +120,13 @@ struct HomeView: View {
             }
             .refreshable { await chat?.synchronize(); await subscriptions?.refresh() }
         }
+    }
+    private func presentInvitationIfReady() {
+        guard state.invitationUsername != nil, chat?.ready == true else { return }
+        showingSettings = false
+        offerBase = false
+        path.removeAll()
+        showingInvite = true
     }
 }
 
@@ -181,6 +192,7 @@ private struct VisibleHomeMessagePreview: View {
 
 struct NewChatView: View {
     var chat: ChatSession? = nil
+    var invitationUsername: String? = nil
     var selected: (UUID) -> Void = { _ in }
     @Environment(\.dismiss) private var dismiss
     @State private var username = ""
@@ -209,6 +221,9 @@ struct NewChatView: View {
                 if let error { Section { Text(error).foregroundStyle(VipiDesign.secondary) } }
             }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("New conversation").navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } } }
+                .onChange(of: invitationUsername, initial: true) { _, value in
+                    if let value { username = value; error = nil }
+                }
         }
     }
     private func findFriend() {

@@ -19,6 +19,48 @@ import java.util.UUID
 
 /** Actual model/session/vault/plan workflow. No state reflection, live identity, SDK billing or HTTP. */
 class ModelWorkflowDeviceTest {
+    @Test fun invitationSurvivesSetupAndRelaunchWithoutSendingOrBuying(): Unit = runBlocking(Dispatchers.Main) {
+        Fixture().use { f ->
+            val model = f.model()
+            assertTrue(model.acceptInvitation("https://api.mambovipi.app/invite/Alice_123"))
+            assertEquals(Screen.WELCOME, model.screen)
+            assertEquals("alice_123", model.invitationUsername)
+            assertFalse(model.acceptInvitation("co.fallsoft.vipi://auth/callback?code=unchanged"))
+            f.clearModels()
+            val reopened = f.model()
+            assertEquals("alice_123", reopened.invitationUsername)
+            reopened.activateChats()
+            assertEquals(Screen.PROFILE, reopened.screen)
+            reopened.chat!!.createProfile("first_user", "First User")
+            reopened.navigate(Screen.HOME)
+            assertEquals(Screen.NEW_CHAT, reopened.screen)
+            assertEquals("alice_123", reopened.invitationUsername)
+            assertEquals(0, f.botPosts)
+            assertTrue(reopened.chat!!.threads.isEmpty())
+            reopened.back()
+            assertEquals(Screen.HOME, reopened.screen)
+            assertNull(reopened.invitationUsername)
+            f.clearModels()
+            assertNull(f.model().invitationUsername)
+        }
+    }
+
+    @Test fun newInvitationOnReadyAccountPrefillsSearchAndInvalidLinkDoesNotReplaceIt(): Unit = runBlocking(Dispatchers.Main) {
+        Fixture(profileExists = true).use { f ->
+            val model = f.model(); model.activateChats()
+            assertTrue(model.acceptInvitation("co.fallsoft.vipi://invite/friend_one"))
+            assertEquals(Screen.NEW_CHAT, model.screen)
+            assertFalse(model.acceptInvitation("https://evil.example/invite/friend_two"))
+            assertEquals("friend_one", model.invitationUsername)
+            assertTrue(model.acceptInvitation("https://api.mambovipi.app/invite/friend_two"))
+            assertEquals("friend_two", model.invitationUsername)
+            assertEquals(0, f.botPosts)
+            assertTrue(model.chat!!.threads.isEmpty())
+            model.openConversation(UUID.randomUUID())
+            assertNull(model.invitationUsername)
+        }
+    }
+
     @Test fun firstProfileReceivesCardlessMonthAndOptionalBotKeepsDraftWithoutCheckout(): Unit = runBlocking(Dispatchers.Main) {
         Fixture().use { f ->
             val model = f.model()

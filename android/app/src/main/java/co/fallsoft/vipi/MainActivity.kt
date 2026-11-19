@@ -83,7 +83,9 @@ class MainActivity : ComponentActivity() {
     }
     override fun onNewIntent(intent: Intent) { super.onNewIntent(intent); setIntent(intent); handleCallback(intent) }
     private fun handleCallback(intent: Intent) {
-        if (intent.action == Intent.ACTION_VIEW) intent.data?.let { uri -> lifecycleScope.launch { model.authentication.complete(uri) } }
+        if (intent.action == Intent.ACTION_VIEW) intent.data?.let { uri ->
+            if (!model.acceptInvitation(uri.toString())) lifecycleScope.launch { model.authentication.complete(uri) }
+        }
         if (intent.action == PushDelivery.ACTION) model.openNotification(intent.getStringExtra("notification_peer"))
     }
 }
@@ -404,7 +406,7 @@ class MainActivity : ComponentActivity() {
     val usernameField = remember { BringIntoViewRequester() }
     var usernameFocused by remember { mutableStateOf(false) }
     val imeBottom = WindowInsets.ime.getBottom(androidx.compose.ui.platform.LocalDensity.current)
-    var username by rememberSaveable { mutableStateOf("") }
+    var username by rememberSaveable(model.invitationUsername) { mutableStateOf(model.invitationUsername.orEmpty()) }
     var error by remember { mutableStateOf<String?>(null) }
     var busy by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
