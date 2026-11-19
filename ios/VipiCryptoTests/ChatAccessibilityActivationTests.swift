@@ -27,7 +27,7 @@ import VipiCore
             host.view.addSubview(editor); editor.becomeFirstResponder()
             editor.insertText(String(repeating: "界", count: 10_923))
             // Reproduce the production representable's normal sizing query.
-            _ = editor.sizeThatFits(CGSize(width: 272, height: .greatestFiniteMagnitude))
+            _ = editor.sizeThatFits(CGSize(width: 272, height: CGFloat.greatestFiniteMagnitude))
             editor.scrollRangeToVisible(NSRange(location: editor.text.utf16.count, length: 0))
             try await Task.sleep(for: .milliseconds(700))
             let image = UIGraphicsImageRenderer(size: editor.bounds.size).image { _ in
