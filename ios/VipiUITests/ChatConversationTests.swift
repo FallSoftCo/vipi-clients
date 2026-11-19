@@ -868,16 +868,47 @@ final class ChatConversationTests: XCTestCase {
         func wait(_ name:String,_ predicate:@escaping()->Bool) {
             XCTAssertEqual(XCTWaiter.wait(for:[XCTNSPredicateExpectation(predicate:NSPredicate { _,_ in predicate() },object:app)],timeout:20),.completed,name)
         }
+        func selectedAll(_ count:Int) -> Bool {
+            guard let geometry = evidence()["composition_geometry"] as? [String:Any],
+                  let windows = geometry["windows"] as? [[String:Any]] else { return false }
+            return windows.contains { window in
+                (window["first_responders"] as? [[String:Any]] ?? []).contains {
+                    $0["class"] as? String == "DraftTextView" && $0["selection_start"] as? Int == 0 && $0["selection_end"] as? Int == count
+                }
+            }
+        }
+        func nativeMenuItem(_ title:String) -> XCUIElement {
+            let item = app.menuItems[title].firstMatch
+            XCTAssertTrue(app.menuItems.firstMatch.waitForExistence(timeout:5))
+            func arrow(_ label:String) -> XCUIElement? {
+                let visible = app.menuItems.allElementsBoundByIndex.filter { $0.isHittable }
+                let row = visible.reduce(CGRect.null) { $0.union($1.frame) }
+                return app.buttons.matching(NSPredicate(format:"label == %@",label)).allElementsBoundByIndex.first {
+                    $0.isHittable && !$0.frame.intersection(row.insetBy(dx:-200,dy:-12)).isNull
+                }
+            }
+            // At maximum Dynamic Type the real edit menu fits one item per
+            // page. Use its native arrows; do not assume Select All is on page 1.
+            for _ in 0..<8 {
+                if item.exists && item.isHittable { return item }
+                guard let back = arrow("Back") else { break }; back.tap()
+            }
+            for _ in 0..<8 {
+                if item.exists && item.isHittable { return item }
+                guard let forward = arrow("Forward") else { break }; forward.tap()
+            }
+            XCTAssertTrue(item.exists && item.isHittable,"Native edit-menu action remains reachable: " + title)
+            return item
+        }
         func paste(_ text:String) {
             UIPasteboard.general.string = text
             input.tap(); input.press(forDuration:1.1)
             let current = input.value as? String ?? ""
             if !current.isEmpty && current != "Message" && current != "Message vBot" {
-                let selectAll = app.menuItems["Select All"].firstMatch
-                XCTAssertTrue(selectAll.waitForExistence(timeout:5)); selectAll.tap()
+                if !selectedAll(current.utf16.count) { nativeMenuItem("Select All").tap() }
+                wait("Actual native selection covers the entire draft before replacement") { selectedAll(current.utf16.count) }
             }
-            let paste = app.menuItems["Paste"].firstMatch
-            XCTAssertTrue(paste.waitForExistence(timeout:5)); paste.tap()
+            nativeMenuItem("Paste").tap()
         }
         func retain(_ phase:String) throws {
             if phase == "over-send-limit" {
