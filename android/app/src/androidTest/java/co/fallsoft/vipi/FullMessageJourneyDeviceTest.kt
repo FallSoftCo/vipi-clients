@@ -378,18 +378,19 @@ class FullMessageJourneyDeviceTest {
                 assertTrue(pointer(f,MotionEvent.ACTION_DOWN,bounds.exactCenterX(),bounds.exactCenterY(),began))
                 var beforeAdvance = false; var heldWall = 0L; var clockAtWallBoundary = 0L
                 try {
-                    if (menuOnly) {
-                        SystemClock.sleep(android.view.ViewConfiguration.getLongPressTimeout()*3L/2)
-                        heldWall = SystemClock.uptimeMillis()-began; clockAtWallBoundary = compose.mainClock.currentTime
-                        beforeAdvance = f.device.hasObject(selector)
-                    }
-                    // Same physical DOWN -> advancing wait -> UP mechanism as
-                    // the retained actual native message-hold qualification.
-                    compose.waitUntil(5_000) { f.device.hasObject(selector) }
+                    val longPress = android.view.ViewConfiguration.getLongPressTimeout()*3L/2
+                    SystemClock.sleep(longPress)
+                    heldWall = SystemClock.uptimeMillis()-began; clockAtWallBoundary = compose.mainClock.currentTime
+                    beforeAdvance = f.device.hasObject(selector)
+                    // Pinned Foundation1.9.3 hides this toolbar in onStart and
+                    // shows it in onStop/onEnd. Advance the gesture deadline
+                    // WHILE physically held, then release BEFORE observing it.
+                    compose.mainClock.advanceTimeBy(longPress)
                 } finally { assertTrue(pointer(f,MotionEvent.ACTION_UP,bounds.exactCenterX(),bounds.exactCenterY(),began)) }
+                compose.waitUntil(5_000) { f.device.hasObject(selector) }
                 File(f.output,"native-hold-clock-"+pasteIndex+".json").writeText(JSONObject().put("auto_advance",compose.mainClock.autoAdvance)
-                    .put("test_clock_before",clockBefore).put("test_clock_after_wall_hold",if (menuOnly) clockAtWallBoundary else JSONObject.NULL).put("wall_hold_ms",if (menuOnly) heldWall else JSONObject.NULL)
-                    .put("menu_visible_before_frame_advance",if (menuOnly) beforeAdvance else JSONObject.NULL)
+                    .put("test_clock_before",clockBefore).put("test_clock_after_wall_hold",clockAtWallBoundary).put("wall_hold_ms",heldWall)
+                    .put("menu_visible_before_frame_advance",beforeAdvance).put("toolbar_observation","After physical UP; absence while held does not identify the cause")
                     .put("test_clock_after_menu",compose.mainClock.currentTime).put("field_bounds",bounds.toShortString()).toString(2))
                 if (priorText.isNotEmpty()) {
                     tapNativeEditAction(f.base.getString(android.R.string.selectAll))
