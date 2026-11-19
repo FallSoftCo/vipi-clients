@@ -7,6 +7,7 @@ struct ConversationPreview: View {
     let target: String
     var scrolling = false
     var modelsReady = false
+    var onVoiceState: (SpeechState, String?) -> Void = { _, _ in }
     @Environment(AppState.self) private var state
     @State private var immersion = ConversationImmersion()
     @State private var speech = SpeechPlayback()
@@ -26,12 +27,14 @@ struct ConversationPreview: View {
             .background(VipiDesign.surface,in:RoundedRectangle(cornerRadius:18))
             .background { ConversationTranslationTask(immersion:immersion) }
             .background { ChatReadingGestureSurface(reading:state.chatReading) }
+            .onChange(of: speech.state, initial: true) { _, value in onVoiceState(value, speech.error) }
             .task(id:"\(source)-\(target)-\(modelsReady)") {
+                onVoiceState(.preparing, nil)
                 immersion.close(); immersion = state.translationServices.makeOwner()
                 await Self.configure(immersion, pair: pair)
                 speech.close(); speech.prepare(source:target,target:target,warmups:[target:VipiLanguage.named(target).localName])
             }
-            .onDisappear { immersion.close(); speech.close() }
+            .onDisappear { immersion.close(); speech.close(); onVoiceState(.preparing, nil) }
     }
     static func configure(_ owner: ConversationImmersion, pair: TranslationPair) async {
         await owner.configure(pair: pair)

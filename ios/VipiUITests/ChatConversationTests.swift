@@ -2336,23 +2336,16 @@ final class ChatConversationTests: XCTestCase {
             }
         }
         func chooseNativeLanguage(_ name:String) {
-            let item = app.buttons.matching(NSPredicate(format:"label BEGINSWITH %@",name)).firstMatch
-            for _ in 0..<12 {
-                let menu = app.collectionViews.firstMatch
-                let rail = menu.otherElements.matching(NSPredicate(format:"label BEGINSWITH 'Vertical scroll bar'")).firstMatch
-                var viewport = menu.frame.intersection(app.frame)
-                if rail.exists,rail.frame.height > 0 {
-                    viewport.origin.y = max(viewport.minY,rail.frame.minY)
-                    viewport.size.height = min(min(menu.frame.maxY,rail.frame.maxY),app.frame.maxY)-viewport.minY
-                }
-                if item.exists,item.isHittable,viewport.contains(CGPoint(x:item.frame.midX,y:item.frame.midY)) { item.tap(); return }
-                guard menu.exists,viewport.height > 60 else { XCTFail("Actual native language menu missing"); return }
-                let origin = menu.coordinate(withNormalizedOffset:.zero)
-                let x = viewport.midX-menu.frame.minX
-                origin.withOffset(CGVector(dx:x,dy:viewport.maxY-menu.frame.minY-24))
-                    .press(forDuration:0.05,thenDragTo:origin.withOffset(CGVector(dx:x,dy:viewport.minY-menu.frame.minY+24)))
-            }
-            XCTFail("Expected native language item must be reachable by scrolling its actual menu")
+            let search = app.searchFields.firstMatch
+            XCTAssertTrue(search.waitForExistence(timeout: 10), "Expanded languages use native searchable navigation")
+            search.tap(); search.typeText(name)
+            let item = app.buttons.matching(NSPredicate(format:"label == %@ OR label BEGINSWITH %@",name,name + " ·")).firstMatch
+            XCTAssertTrue(item.waitForExistence(timeout: 5))
+            XCTAssertTrue(item.isHittable, "Filtered language must remain reachable above the native keyboard")
+            XCTAssertGreaterThanOrEqual(item.frame.height,44-0.000001)
+            let image = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+            image.name = "first-month-native-language-search-" + name; image.lifetime = .keepAlways; add(image)
+            item.tap()
         }
         if invitation {
             app.open(try XCTUnwrap(URL(string:"co.fallsoft.vipi://invite/alex")))
@@ -2374,7 +2367,10 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertTrue((learning.value as? String)?.hasPrefix(targetName) == true)
         let pairImage = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
         pairImage.name = "first-month-native-selected-languages-" + (reading ?? "en-es"); pairImage.lifetime = .keepAlways; add(pairImage)
-        let proceed = app.buttons["Continue"]; reveal(proceed); proceed.tap()
+        let proceed = app.buttons["Continue"]; reveal(proceed)
+        let ready = XCTNSPredicateExpectation(predicate:NSPredicate(format:"enabled == true"),object:proceed)
+        XCTAssertEqual(XCTWaiter.wait(for:[ready],timeout:35),.completed,"Onboarding must prepare practice audio as well as translation before continuing")
+        proceed.tap()
         XCTAssertTrue(app.staticTexts["30 days free. No card needed. Then choose whether to subscribe."].waitForExistence(timeout: 10))
         XCTAssertFalse(app.switches.firstMatch.exists, "The one required agreement belongs to first Vipi profile creation, not every sign-in")
         // XCUI frame subtraction can represent an exact44pt target as

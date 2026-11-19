@@ -9,7 +9,9 @@ struct OnboardingView: View {
     @State private var preparation = LanguagePreparation()
     @State private var search = ""
     @State private var scrolling = false
-    @State private var speech = SpeechPlayback()
+    @State private var voiceState = SpeechState.preparing
+    @State private var voiceProblem: String?
+    @State private var voiceRetry = 0
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
@@ -73,7 +75,8 @@ struct OnboardingView: View {
     }
 
     private var languages: some View {
-        VStack(alignment: .leading, spacing: 24) {
+        @Bindable var state = state
+        return VStack(alignment: .leading, spacing: 24) {
             IntroHeading(eyebrow: "", title: "Your languages", detail: "", showsDetail: false)
             VStack(alignment: .leading, spacing: 10) {
                 Text("I speak").font(.body.weight(.semibold))
@@ -94,8 +97,16 @@ struct OnboardingView: View {
                     .accessibilityLabel("I’m learning")
                     .accessibilityValue(VipiLanguage.named(state.targetLanguage).localizedName)
             }
-            ConversationPreview(source:state.knownLanguage,target:state.targetLanguage,scrolling:scrolling,modelsReady:preparation.prepared)
-                .id("\(state.knownLanguage)-\(state.targetLanguage)")
+            ConversationPreview(source:state.knownLanguage,target:state.targetLanguage,scrolling:scrolling,modelsReady:preparation.prepared,
+                onVoiceState: { voiceState = $0; voiceProblem = $1 })
+                .id("\(state.knownLanguage)-\(state.targetLanguage)-\(voiceRetry)")
+            if voiceState == .unavailable, let voiceProblem {
+                Text(voiceProblem).font(.body).foregroundStyle(VipiDesign.secondary)
+                    .fixedSize(horizontal: false, vertical: true).accessibilityIdentifier("language-voice-problem")
+                Button("Try again") { voiceRetry += 1 }.accessibilityIdentifier("language-voice-retry")
+            } else if preparation.prepared && voiceState == .preparing {
+                HStack { ProgressView(); Text("Preparing voices") }.font(.body).foregroundStyle(VipiDesign.secondary)
+            }
             Text(ChatReadingState.gestureDescription(source:state.knownLanguage,target:state.targetLanguage,hasAlternateScript:state.chatReading.hasAlternateScript && !state.chatReading.nativeScript))
                 .font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
                 .accessibilityLabel(Text(ChatReadingState.actionDescription(showingMeaning:state.chatReading.showingMeaning,nativeScript:state.chatReading.nativeScript,hasAlternateScript:state.chatReading.hasAlternateScript)))
@@ -155,7 +166,7 @@ struct OnboardingView: View {
                 case .language: advance(.account)
                 case .account: authentication.signIn()
                 }
-            }.disabled(state.onboarding == .language && !preparation.prepared)
+            }.disabled(state.onboarding == .language && (!preparation.prepared || voiceState == .preparing || voiceState == .unavailable))
         }.padding(.horizontal, dynamicTypeSize.isAccessibilitySize ? 0 : 26).padding(.top, 14).padding(.bottom, 12)
             .frame(maxWidth: 560).frame(maxWidth: .infinity).background(VipiDesign.canvas)
     }
