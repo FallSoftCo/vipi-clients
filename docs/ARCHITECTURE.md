@@ -2,13 +2,14 @@
 
 The November 18 owner decision is **full-message local translation through
 existing on-device APIs only**. Apple Translation and Google ML Kit are the
-current implementations; eligible Apple Intelligence and AICore API variants
-are being compared. Do not add standalone model weights or inference runtimes.
-Earlier catalog-based immersion designs below are historical and do not
-supersede the [current immersion decisions](DECISIONS.md#current-immersion-decisions--2026-11-18).
+current implementations. Apple API comparisons are retained research evidence,
+not a shipping strategy change; the AICore probe has not run on a compatible
+device. Do not add standalone model weights or inference runtimes. The
+[current immersion decisions](DECISIONS.md#current-immersion-decisions--2026-11-18)
+supersede the former catalog-based designs retained in Git history.
 
 Deployment status is recorded in [DELIVERY_STATUS.md](DELIVERY_STATUS.md),
-updated November 17, 2026. The designs below include dated qualification
+updated November 18, 2026. The designs below include dated qualification
 notes; they do not supersede the current release receipts or authorize retired
 hosts, devices, jobs or external actions.
 
@@ -20,21 +21,21 @@ hosts, devices, jobs or external actions.
 | Android | Kotlin, Compose, coroutines, Room/SQLite, WorkManager | Current OS text-size changes, physical ARM64/16-KiB runtime and background behavior |
 | Messaging relay | Native HTTPS/WebSocket clients, FastAPI and PostgreSQL ciphertext inbox | Background wakeups and public workload capacity; live foreground exchange passed |
 | E2EE | Official libsignal Swift/Java bindings, pinned 0.105.0 | Physical lifecycle, corresponding-source release and distribution review; native interoperability passed |
-| Identity | WorkOS AuthKit, native PKCE | Production client cutover and final callback/session lifecycle; current live staging authentication passed |
-| Account/control API | Stateless API backed by PostgreSQL | Actual billing, push and bot providers; current restricted service deployed |
-| Local translation | Apple Translation / Google ML Kit | Explicit Full translation; device/model/direction availability and alignment remain qualification questions |
-| Vocabulary | Versioned downloadable SQLite packs | Source licensing, provenance, contextual alignment quality |
+| Identity | Shared Fallsoft WorkOS AuthKit, native PKCE | Current signed-client callback, session and deletion lifecycle |
+| Account/control API | Stateless API backed by PostgreSQL | Current client integration with verified billing, push and bot provider behavior |
+| Local translation | Apple Translation / Google ML Kit | Automatic full-message requests; actual model/direction, semantic and lifecycle qualification |
+| Transliteration | Live native/library reading adapters and licensed Pinyin data | Complete readings, Chinese tones and ambiguous readings across the supported scripts |
 | Speech | Native device voices with bundled eSpeak fallback and joined audio | Physical listening/pronunciation; eleven-language synthesis passed on both runtimes, Android offline |
 | Push | APNs and FCM, wake hints without message body | Delivery and force-quit limitations tested/disclosed |
 | Purchases | StoreKit 2 / Google Play Billing; Apple official server SDK and Google subscriptions v2 | Store products and actual sandbox lifecycle receipts |
 | vBot | Separate response-only DeepSeek gateway with atomic personal/global budgets | Real provider quality, latency and spend qualification |
 | Domains | mambovipi.app registered through AWS Route 53 Domains; api.mambovipi.app live | Apex DNS and final store association files; AWS session renewal pending |
-| Pack files | Bundled starter SQLite catalogs; versioned HTTPS updates | Release download-size measurement, signed updates and hosting qualification |
+| Local models | Platform-managed translation and voice downloads | Actual preparation, offline use, recovery and storage controls |
 | Initial hosting | Consolidated `fallsoft-production-20261106`; existing Storage Box for retained source/data | Full disaster recovery and public capacity; migration and scoped rollback receipts retained |
 
 ## Native boundaries
 
-Each app implements its own UI, orchestration, immersion renderer, translation adapter, downloader, speech adapter, local database and lifecycle behavior. Share JSON schemas, SQLite pack structure, protocol fixtures, design tokens and test vectors. Reusing a maintained cryptographic library's native bindings is allowed; do not build a new shared application engine or invent cryptography.
+Each app implements its own UI, orchestration, immersion renderer, translation adapter, downloader, speech adapter, local database and lifecycle behavior. Share JSON schemas, protocol fixtures, design tokens, licensed transliteration data and test vectors. Reusing a maintained cryptographic library's native bindings is allowed; do not build a new shared application engine or invent cryptography.
 
 The user approved open-source clients. The encryption spike now uses official libsignal Swift and Java bindings at the same pinned version, replacing the older Signal-C adapter candidate. The transport can carry opaque Signal envelopes without implementing cryptography. This is not Signal network interoperability. Native durable stores and transport-independent message journals now have qualification tests. Real relay integration, identity-change UX, key rotation, source-release packaging and release licensing remain required before production. Upstream does not support third-party use; Vipi owns dependency qualification and upgrades. Do not deploy placeholder encryption while this is pending.
 
@@ -83,62 +84,11 @@ The first native qualification used private SSH/ADB forwards and was followed by
 
 ## Local immersion pipeline
 
-Automatic immersion starts with the original message, language detection, and the active reviewed local source-only catalogs. A supported match supplies an approved target span and, for non-Latin targets, a Latin reading. An unsupported or unsafe match stays unchanged. Automatic lookup does not call whole-message translation or model readiness on a miss. The active 007 directional increment and the separate English→Japanese and English→Swahili starters retain all 110 directions; their finite coverage is not a claim of broad conversational accuracy. See [delivery status](DELIVERY_STATUS.md) for the active baseline and its limits.
+The current contract is [Full-message immersion](FULL_MESSAGE_IMMERSION.md), replacing all earlier dictionary and fractional-word selection designs. Every new sent or received message reaches a native, account-owned full-message translation service. Complete results and live transliteration are cached in the account's encrypted vault; the authenticated authored original stays unchanged. Source detection is advisory and bounded, with the user's native language as fallback.
 
-Source-lookup evidence binds approved spans and masks to the exact original text, direction and catalog revision. Context recognition and the displayed focus are separate. Literal protections, competing meanings, native boundaries and overlapping restrictions remain in force through selection; an excluded phrase cannot become eligible through a later word fallback. Keep sender text immutable and use Unicode-aware source ranges. A reviewed catalog lookup can operate without a translation model, but a matching word alone does not establish the intended sense.
+The chat shows one complete practice-language message, using live transliteration by default where needed. Tap plays practice-language audio; hold reveals meanings across the visible chat; double-tap switches script. A header toggle enables ordered automatic playback of new messages, with explicit stop and lifecycle cancellation. No timed word cycling, authored sentence lookup or translation dictionary remains in the shipping route.
 
-**Full translation is a separate explicit user action.** It may invoke the installed Apple Translation or Google ML Kit model, or require model preparation; its full output is separate from the partially immersed source. Provider availability, output quality, target alignment, native-script readings and speech remain independently qualified. Research into whole-message witnesses, isolated word translation or attributed spans does not activate generated translation for automatic immersion. Agreement between isolated and whole-message text is not proof of meaning or alignment.
-
-The owner has directed an additive immersion policy: the setting describes the amount of *new* words, previously seen eligible words may also appear, and the combined source-word budget cannot exceed the existing 75% ceiling. A word is seen only after a completed visible target dwell, not after a lookup or cache hit; seen does not mean learned or mastered and never authorizes a replacement. The presentation for an existing visible message must remain stable after its own exposure write; updated history applies to a later request or message, while an explicit setting or language-pair change may request a new presentation. Native additive selection, secure identity continuity, display behavior and the POS/local-translation approach are under qualification and are not yet established as the active production path. The shared [additive fixtures](../qa/immersion/additive-selection-r01/fixtures.json) specify intended selection and lifecycle behavior; they are not native-runtime evidence.
-
-Account-local exposure history uses the existing encrypted message vault. The current familiarity record tracks exposure days for presentation timing; it is not a score or a spaced-repetition outcome. The current VIPIHST1 chat backup exports conversation records only: it does not carry exposure history or its HMAC identity key, so restoring that backup does not transfer familiarity. Any versioned sense or displayed-form identity must preserve the existing state, keep language pairs and distinct meanings separate, and never infer permission from history. Derived translation caches, where used, must bind exact text, direction and provider/model/data revisions and be invalidated when those inputs change.
-
-The next data path expands the catalog into contextual word/phrase records, inflected forms, sense-specific mappings and native-script readings. Precompute this work before distribution, using licensed dictionaries and attested aligned examples first, then evaluated generation where coverage is missing. Ship searchable data; retain separate Swift and Kotlin runtime implementations. A future local full-text retrieval path could propose candidates from the message's actual sentence or paragraph; it is research, not the current automatic route. Selection must consider the meaning, competing senses, phrase boundaries and reading evidence; search relevance alone never authorizes a replacement. Measure incorrect substitutions as well as useful coverage on untouched acceptance data. The research builder retains explicit aligned usage-example spans and provenance. Separately assessed frame/context exports cover 110 directed pairs in the native chat path. Research candidates still require review before promotion; broad coverage, arbitrary readings and production distribution remain open.
-
-The mapping unit is a word or phrase **in a particular meaning**, not an arbitrary source spelling. Keep its attested written/inflected forms, grammatical and register evidence, source-language contexts, target forms and readable transliteration together with provenance. Retain exact focus spans in both example sentences: copying an example's target phrase can otherwise import a person or possession absent from the new message (for example, `de camino` → `on my way` in a request addressed to someone else). Phrase constraints remain unresolved unless established by data or evaluated generation. FTS results are candidates for the native selector; incidental shared context words must not make them display-ready.
-
-Build the catalog incrementally with SQLite: immutable record revisions, exact provenance, transactionally committed input checkpoints, per-revision assessments and correction/quarantine history. Export compact per-pair client data separately. PostgreSQL/pgvector is not needed on the phone or in the catalog build path. A future local embedding index must earn its place through better measured meaning selection; the existing vector experiments have not done so.
-
-The current expansion experiment learns reusable phrase candidates offline from
-retained direct bilingual corpora. Bidirectional statistical alignment supplies
-contiguous source/target spans, including competing complete target-boundary
-variants; dictionary sense and form records can corroborate a complete lexical
-head inside a matched context. Corpus frequency, alignment consistency and
-dictionary membership are evidence for review, not permission to show a
-translation. Evaluate actual conversational substitutions and vocabulary
-depletion before exporting an accepted increment. The first frozen corpus arm
-covers English–Spanish and English–Swahili; it does not qualify the remaining
-languages or directions. Details and immutable input identities are in
-`qa/immersion/corpus-phrase-extraction-r01`.
-
-Finite-state tools such as HFST are a possible build-time source of attested
-morphological analyses and forms. The Swahili feasibility run found both useful
-analyses and concrete missing or incorrect forms, so no general grammar generator
-or new native dependency is adopted. Bounded typed templates likewise preserve
-literal captures and require supplied target faces; they do not infer arbitrary
-target grammar. Native Swift and Kotlin retain their separate runtime ownership.
-
-Historical research has evaluated bounded word/phrase observations alongside whole-message local translation; these experiments are not the active automatic route. Cache by exact text, direction and data/provider version; changing `my` to `your` must not reuse a sentence translation. Phrase agreement is a research observation, not an independent meaning or alignment verdict. Keep authored context patterns finite: literals, enumerated variations outside one lexical focus, and target forms/readings attached to that meaning. Preserve original characters outside the focus. Native Kotlin/Swift matchers implement this constraint separately; the approved bundled context/frame catalogs now run in the actual native conversation components, with a bounded per-conversation cache and immutable sender originals. Broad conversational coverage remains unproven.
-
-Use existing concept-linked dictionaries to broaden coverage before generating missing records. The pinned [Cygnet release](https://github.com/omwn/cygnet/releases/tag/2026.05.12) supplies a second research source with explicit multilingual concepts and source-sense examples. Preserve its per-row provenance and resource licenses; the repository's MIT code license does not license all the underlying data. Never merge a Wiktionary sense with a WordNet concept merely because their headwords match. Generation may fill missing meanings, contexts, forms and readings at build time, with its model/version, inputs, outputs and evaluation retained. No network model is added to runtime immersion. Native full-thought translation and local TTS remain independent features.
-
-Native pack schema 4 preserves every catalog sense associated with a source spelling that has at least one eligible mapping, including senses with no target mapping. These empty-target entries supply ambiguity and contrary-context evidence. Count sense identities, not identical gloss strings. This prevents target-language coverage from erasing source ambiguity; it does not claim the underlying source catalog is complete.
-
-Keep grammatical source phrases native when every whitespace-delimited component is an attested function word. This closes multiword `do not` escaping the original single-spelling filter. It does not remove lexical phrases just because they contain a function word, and it does not infer segmentation for unspaced scripts.
-
-Pack manifest: schema version, pack ID, language tags, license/provenance, build ID, compressed/uncompressed size, content SHA-256, signing key ID and signature. Download to a bounded temporary file, verify signature/hash/schema, atomically install, preserve the previous valid pack on failure, and expose cancellation/removal/storage usage. Prevent path traversal, decompression bombs, stale manifest rollback and silent incompatible schema installation. Provider translation models are downloaded through native provider APIs, not redistributed as our files.
-
-Desired eventual coverage is 80 languages. Launch picker reflects the intersection of provider direction support, installed model capability, tested vocabulary packs and available speech; display capability differences honestly. No 80-language launch claim until verified. Start the engineering spike with English/Spanish and add representative morphology, non-Latin and RTL fixtures before broad rollout.
-
-The native presentation layer owns continuous immersion clocks, separate from translation and pack processing. Only visible, active, unpaused messages alternate; scrolling/selection/audio and screen readers suspend the clock. Defaults are 4.5 seconds target vocabulary and 3 seconds familiar meanings, with persistent pace choices. The renderer uses native paragraphs with fixed vocabulary blocks. Android ReplacementSpan retains source ranges for stable bidi layout and draws the active face; iOS text attachments reserve all faces’ maximum dimensions. Both use a faint background with 2.5-point rounding, and preserve readable selection/copy output. The local presentation wrappers own this behavior; no shared cross-platform UI engine is introduced. Swift and Kotlin own their implementation; only authored examples and fixture contracts are shared. Native token boundaries constrain candidate matching, and protected spans in both original and translation cannot corroborate vocabulary replacements.
-
-The bundled eleven-language conversation previews, including Swahili, are expressly authored demonstrations. They do not represent a production multilingual pack, arbitrary-message transliteration or platform translation output. The Apple physical-device QA route prepares native models and records actual direction-by-direction output and network state; simulator availability cannot replace that receipt.
-
-Speech is owned by the active conversation's language pair. Both installed native voices are selected and silently warmed before Listen becomes ready, then retained for that conversation. This does not guarantee OS-level model residency. Visible transliteration maps back to the original target script for synthesis. Word reveals, reading-mode changes, navigation and audio interruptions invalidate queued work and stop playback.
-
-Short messages render to one PCM file; longer messages use bounded local rendering into one continuous native output: Android AudioTrack, iOS AVAudioEngine/AVAudioPlayerNode. No separate player is created for each word. Keep generated speech caches bounded to 64 MiB per app and rebuild derived audio when the reading state or voices change. Brief pauses can help comprehension and are preserved for listening evaluation; optimize predictable startup and prevent accidental stalls without assuming zero silence is desirable. See [speech qualification](SPEECH_QUALIFICATION.md) for measurements and limits.
-
-The incremental context engine has native Kotlin and Swift implementations. A matched context can supply an ephemeral source scope bound to the exact original message and lexical offsets, plus attested target forms with explicit inner lexical offsets. These allow a noun inside an attached article/particle token without introducing generic stemming or replacing surrounding grammar. Generic dictionary JSON cannot persist those ephemeral capabilities. Unscoped entries retain ordinary native word-boundary checks; protected text, ambiguous meanings, required readings and contrary context still constrain selection. Straight and curly apostrophes compare equivalently without rewriting stored/displayed strings. These components now run in general friend chat using app-bundled, hash-checked exports from the authoring ledger. Downloadable production updates and broad meaning/coverage acceptance remain open; synthetic chat qualification is not live messaging proof.
+Native model availability, actual provider output, phonetic reading, acoustic quality and UI behavior require separate evidence. The current local adapters do not send chat text to a translation server. Native macOS testing does not stand in for iOS app execution; compatible device testing remains necessary for the iOS ML Kit path.
 
 ## vBot and billing
 
@@ -162,14 +112,14 @@ Operational metadata backups use the existing consolidated daily controller and 
 
 ## Deployment and growth
 
-The former OZZZ CPU/GPU hosts are retired. Vipi's restricted staging API and dedicated database now run on the consolidated production host, with a separate runtime user, database privileges and private API listener behind HTTPS ingress. New Apple builds and QA use native `apple@macbook-pro`; the former development VM was preserved and retired on November 9. Preserve other workloads and existing QA environments. Deploy Vipi changes with explicit source/dependency manifests, database migration/backup receipts and scoped service restart.
+The former OZZZ CPU/GPU hosts are retired. Vipi's API and dedicated database run on the consolidated production host, with a separate runtime user, database privileges and private API listener behind HTTPS ingress. New Apple builds and QA use native `apple@macbook-pro`; the former development VM was preserved and retired on November 9. Preserve other workloads and existing QA environments. Deploy Vipi changes with explicit source/dependency manifests, database migration/backup receipts and scoped service restart.
 
-Measure message throughput, p50/p95/p99 latency, CPU/RAM, reconnect storms, foreground polling, backlog and queue-age bounds. Scale stateless API and push workers from those measurements, then database capacity and transport changes when justified. Immutable pack distribution scales independently. A million registered or paying accounts is not a concurrent connection count or demonstrated capacity.
+Measure message throughput, p50/p95/p99 latency, CPU/RAM, reconnect storms, foreground polling, backlog and queue-age bounds. Scale stateless API and push workers from those measurements, then database capacity and transport changes when justified. Translation models are managed by platform provider APIs. A million registered or paying accounts is not a concurrent connection count or demonstrated capacity.
 
-Observability is content-free: request/error counters, delivery latency, active connections, queue expiry, database health, pack downloads and spend. Redact credentials and contact text. Alert on budget/retention failures, create restorable operational backups and exercise rollback before public release.
+Observability is content-free: request/error counters, delivery latency, active connections, queue expiry, database health and spend. Redact credentials and contact text. Alert on budget/retention failures, create restorable operational backups and exercise rollback before public release.
 
 The former staging host and OZZZ development hosts are retired and must not be reconnected or recreated. The consolidated service has its own runtime user, database/roles, immutable release directories and expiry/billing timers. New changes preserve shared PostgreSQL/nginx processes and other applications. Source authority is the reconciled delivery checkout; native Apple work uses the verified committed-source mirror described in `BUILD_ENVIRONMENTS.md`. Copied historical directories are not independently authoritative.
 
 `ops/` contains scoped service and nginx configurations; `scripts/package-service.py` builds an immutable dependency/source manifest and archive. Alembic 1.20.1 owns schema migrations; initial revision `20261025_01` was checked against the ORM and repeated without losing data. Readiness checks the migration head. Staging requires an explicit allowlist of already verified WorkOS subjects, so deploying a QA endpoint does not open public registration. The minute expiry task clears expired ciphertext and aged delivery/key-claim/rate metadata. An nginx reload for a new vhost must be syntax-checked and followed by existing-site checks; no shared service restart, firewall change or database restart is planned.
 
-The restricted staging service at `https://api.mambovipi.app` runs on consolidated `fallsoft-production-20261106`. Its November 17 baseline is `84c3ff8` with the deployed detected-language privacy wording, migration `20261117_01`; current rollout, provider and release receipts are in DELIVERY_STATUS.md. Public registration remains closed and subscription enforcement remains disabled on staging. Earlier foreground delivery and 72-hour expiry evidence is retained. The separate two-worker loopback experiment with 192 sockets and 480 exchanges is a bounded experiment, not public or million-user capacity proof. No public customer release is implied by staging deployment.
+The service at `https://api.mambovipi.app` runs on consolidated `fallsoft-production-20261106`. The completed November 17 configuration-only activation enabled production mode, subscription enforcement and Apple Production, and removed the restricted-subject allowlist. Its independent postflight confirmed readiness, unauthenticated-request rejection, migration `20261117_01`, and preservation of unrelated services; no schema or database restoration occurred. This is a reconciliation of the retained activation receipt, not a new deployment or a fresh live-status assertion. Current rollout and release evidence is in [DELIVERY_STATUS.md](DELIVERY_STATUS.md). Earlier foreground delivery and 72-hour expiry evidence is retained. The separate two-worker loopback experiment with 192 sockets and 480 exchanges is a bounded experiment, not public or million-user capacity proof. Production backend configuration does not establish app-store availability.
