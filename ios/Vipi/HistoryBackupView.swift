@@ -189,7 +189,7 @@ struct HistoryBackupView: View {
         if let failure = error as? HistoryBackupCodec.Failure {
             switch failure {
             case .differentAccount: return String(localized: "This backup belongs to a different Vipi account. Sign in to that account to restore it.")
-            case .passwordLength: return String(localized: "Use a passphrase of at least 12 characters.")
+            case .passwordLength: return String(localized: "Use at least 12 characters.")
             case .conflict: return String(localized: "This backup conflicts with saved messages. Nothing was changed.")
             case .damaged where restoring: return String(localized: "The password is incorrect or this backup is damaged. Nothing was changed.")
             default: break
