@@ -1555,7 +1555,15 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertGreaterThanOrEqual(element.frame.width,44)
         }
         func open() {
-            app.buttons["conversation-options"].tap(); app.buttons["Verify encryption"].tap()
+            app.buttons["conversation-options"].tap()
+            let action = app.buttons["Verify encryption"]
+            XCTAssertTrue(action.waitForExistence(timeout:10))
+            XCTAssertTrue(app.frame.contains(action.frame))
+            // At maximum text, XCUITest's menu hit-point resolver can return
+            // (-1,-1) for a fully rendered row. Use the actual row's physical
+            // center once, then require the resulting native screen. This
+            // invokes neither the SwiftUI action nor the navigation model.
+            action.coordinate(withNormalizedOffset:CGVector(dx:0.5,dy:0.5)).tap()
             XCTAssertTrue(app.navigationBars["Security number"].waitForExistence(timeout:10))
         }
         open()
