@@ -372,7 +372,23 @@ class FullMessageJourneyDeviceTest {
                 }
                 val focused = f.device.findObjects(androidx.test.uiautomator.By.clazz("android.widget.EditText").pkg(f.base.packageName).focused(true))
                 assertEquals(1,focused.size)
-                val bounds = focused.single().visibleBounds
+                // Focus can begin an IME resize after recreation. A pointer
+                // anchored to the pre-IME rectangle lands on the keyboard once
+                // it opens; require the actual editable rectangle to settle.
+                var settledBounds: android.graphics.Rect? = null
+                var stableSince = 0L
+                compose.waitUntil(8_000) {
+                    val editors = f.device.findObjects(androidx.test.uiautomator.By.clazz("android.widget.EditText").pkg(f.base.packageName).focused(true))
+                    val imes = f.instrumentation.uiAutomation.windows.filter { it.type == android.view.accessibility.AccessibilityWindowInfo.TYPE_INPUT_METHOD }
+                        .map { android.graphics.Rect().also(it::getBoundsInScreen) }.filter { it.height() > 0 && it.top in 1 until f.device.displayHeight }
+                    val current = editors.singleOrNull()?.visibleBounds
+                    if (current == null || imes.isEmpty() || imes.any { current.bottom > it.top }) {
+                        settledBounds = null; stableSince = 0L; false
+                    } else if (current != settledBounds) {
+                        settledBounds = android.graphics.Rect(current); stableSince = SystemClock.uptimeMillis(); false
+                    } else SystemClock.uptimeMillis()-stableSince >= 160
+                }
+                val bounds = requireNotNull(settledBounds)
                 val began = SystemClock.uptimeMillis(); val clockBefore = compose.mainClock.currentTime
                 val selector = androidx.test.uiautomator.By.res("android","floating_toolbar_menu_item_text").text(f.base.getString(android.R.string.paste)).pkg(f.base.packageName)
                 assertTrue(pointer(f,MotionEvent.ACTION_DOWN,bounds.exactCenterX(),bounds.exactCenterY(),began))
@@ -387,11 +403,11 @@ class FullMessageJourneyDeviceTest {
                     // WHILE physically held, then release BEFORE observing it.
                     compose.mainClock.advanceTimeBy(longPress)
                 } finally { assertTrue(pointer(f,MotionEvent.ACTION_UP,bounds.exactCenterX(),bounds.exactCenterY(),began)) }
-                compose.waitUntil(5_000) { f.device.hasObject(selector) }
                 File(f.output,"native-hold-clock-"+pasteIndex+".json").writeText(JSONObject().put("auto_advance",compose.mainClock.autoAdvance)
                     .put("test_clock_before",clockBefore).put("test_clock_after_wall_hold",clockAtWallBoundary).put("wall_hold_ms",heldWall)
                     .put("menu_visible_before_frame_advance",beforeAdvance).put("toolbar_observation","After physical UP; absence while held does not identify the cause")
-                    .put("test_clock_after_menu",compose.mainClock.currentTime).put("field_bounds",bounds.toShortString()).toString(2))
+                    .put("test_clock_after_release",compose.mainClock.currentTime).put("settled_ime_field_bounds",bounds.toShortString()).toString(2))
+                compose.waitUntil(5_000) { f.device.hasObject(selector) }
                 if (priorText.isNotEmpty()) {
                     tapNativeEditAction(f.base.getString(android.R.string.selectAll))
                     compose.waitUntil(5_000) { nativeEditor()?.let { it.textSelectionStart == 0 && it.textSelectionEnd == priorText.length } == true }
