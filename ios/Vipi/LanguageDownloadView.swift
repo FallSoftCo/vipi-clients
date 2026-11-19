@@ -132,7 +132,7 @@ struct LanguageDownloadView: View {
                     }.accessibilityIdentifier("language-download-start")
                 }
                 if let message = preparation.message {
-                    Text(message).font(.footnote).foregroundStyle(VipiDesign.secondary)
+                    Text(message).font(.body).foregroundStyle(VipiDesign.secondary)
                         .accessibilityIdentifier("language-download-message")
                 }
                 if !preparation.busy && preparation.availability != .checking {

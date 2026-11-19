@@ -4,6 +4,7 @@ import UIKit
 
 struct HistoryBackupView: View {
     let chat: ChatSession
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @State private var account: UUID?
     init(chat: ChatSession) { self.chat = chat; _account = State(initialValue: chat.profile?.id) }
     @State private var restoring = false
@@ -38,18 +39,19 @@ struct HistoryBackupView: View {
             Section {
                 Text("Save your friend chat history in an encrypted file, wherever you choose to keep it.")
                 Text("Your messaging identity and unsent messages stay on this device. vBot history is not included.")
-                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                    .font(.body).foregroundStyle(VipiDesign.secondary)
             }
             Section {
-                Picker("Chat backup", selection: $restoring) {
-                    Text("Create backup").tag(false)
-                    Text("Restore backup").tag(true)
-                }.pickerStyle(.segmented).disabled(busy)
+                if dynamicTypeSize.isAccessibilitySize {
+                    backupMode.pickerStyle(.menu)
+                } else {
+                    backupMode.pickerStyle(.segmented)
+                }
                 if restoring {
                     Button { picker = HistoryDocumentRequest(export: nil) } label: {
                         Label(selected == nil ? "Choose backup file" : "Choose a different file", systemImage: "doc")
                     }.disabled(busy).accessibilityIdentifier("history-choose-file")
-                    if let selected { Text(selected.lastPathComponent).font(.footnote).lineLimit(2) }
+                    if let selected { Text(selected.lastPathComponent).font(.body).fixedSize(horizontal: false, vertical: true) }
                 }
                 if verified != nil {
                     Label("Backup unlocked", systemImage: "lock.open").foregroundStyle(VipiDesign.secondary)
@@ -78,14 +80,14 @@ struct HistoryBackupView: View {
                     }
                 }
             } footer: {
-                Text("Use at least 12 characters. Keep this password safe. Vipi can’t recover it.").foregroundStyle(VipiDesign.secondary)
+                Text("Use at least 12 characters. Keep this password safe. Vipi can’t recover it.").font(.body).foregroundStyle(VipiDesign.secondary)
             }
             if let verified, restoring {
                 Section("Ready to restore") {
                     LabeledContent("Messages", value: verified.messages.formatted())
                     LabeledContent("Conversations", value: verified.peers.formatted())
                     Text("History will be merged with this Vipi account. Matching messages won’t be duplicated. Restored history does not verify anyone’s messaging identity.")
-                        .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                        .font(.body).foregroundStyle(VipiDesign.secondary)
                     Button("Restore history", action: restore).disabled(busy).accessibilityIdentifier("history-confirm-restore")
                     Button("Choose again") { clearImport(); selected = nil }.disabled(busy)
                 }
@@ -105,7 +107,7 @@ struct HistoryBackupView: View {
             if let notice { Section { Text(notice).accessibilityIdentifier("history-notice") } }
             Section {
                 Text("You can read, back up and restore your saved history even after a subscription ends.")
-                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                    .font(.body).foregroundStyle(VipiDesign.secondary)
             }
         }
         .scrollContentBackground(.hidden).background(VipiDesign.canvas)
@@ -126,6 +128,12 @@ struct HistoryBackupView: View {
             // The document picker may still be consuming the encrypted export.
             if picker == nil { removeExport() }
         }
+    }
+    private var backupMode: some View {
+        Picker("Chat backup", selection: $restoring) {
+            Text("Create backup").tag(false)
+            Text("Restore backup").tag(true)
+        }.disabled(busy).accessibilityIdentifier("history-backup-mode")
     }
     private func begin() {
         guard !busy else { return }

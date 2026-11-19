@@ -19,7 +19,7 @@ struct DeleteAccountView: View {
             }
             Section {
                 Button("Delete Vipi account", role: .destructive) { confirm = true }.accessibilityIdentifier("delete-account")
-                if let error { Text(error).font(.footnote) }
+                if let error { Text(error).font(.body) }
             }
         }.scrollContentBackground(.hidden).background(VipiDesign.canvas)
             .navigationTitle("Delete Vipi account").navigationBarTitleDisplayMode(.inline)
@@ -63,9 +63,9 @@ struct AccountDeletionProgressView: View {
                             .buttonStyle(.bordered).accessibilityIdentifier("deletion-retry")
                     }
                     Text("Your Fallsoft sign-in and accounts in other Fallsoft apps will remain.")
-                        .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                        .font(.body).foregroundStyle(VipiDesign.secondary)
                     Text("Subscriptions are managed separately. Friends’ copies and backups saved elsewhere remain.")
-                        .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                        .font(.body).foregroundStyle(VipiDesign.secondary)
                     Link("Manage subscriptions", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
                 }.padding(28).frame(maxWidth: 560).frame(maxWidth: .infinity)
             }.background(VipiDesign.canvas)

@@ -66,7 +66,7 @@ struct SecurityNumberView: View {
                             .environment(\.layoutDirection, .leftToRight).textSelection(.enabled)
                             .accessibilityIdentifier("new-security-number")
                         Text("Accepting lets new messages use these keys. It does not mark them as verified. Saved history remains; waiting messages won’t be redirected or resent.")
-                            .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                            .font(.body).foregroundStyle(VipiDesign.secondary)
                         Button("Accept these keys to continue") { confirmChange = true }
                             .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).disabled(checking)
                             .accessibilityIdentifier("peer-identity-accept")
@@ -96,8 +96,8 @@ struct SecurityNumberView: View {
                                 .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).accessibilityIdentifier("identity-verify")
                         }
                         Text("If any group differs, don’t mark it as verified. A new phone or reinstalled app can change these numbers.")
-                            .font(.footnote).foregroundStyle(VipiDesign.secondary)
-                        if changeFailed { Text("The keys may have changed, or your choice couldn’t be saved. Compare the current numbers again.").font(.footnote) }
+                            .font(.body).foregroundStyle(VipiDesign.secondary)
+                        if changeFailed { Text("The keys may have changed, or your choice couldn’t be saved. Compare the current numbers again.").font(.body) }
                     } else {
                         Text("Exchange a message first to create this conversation’s security number.")
                             .foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("identity-not-established")
@@ -107,7 +107,7 @@ struct SecurityNumberView: View {
                             .accessibilityIdentifier("identity-check-current")
                     }
                     if checking { ProgressView("Checking current keys") }
-                    if let reviewNotice { Text(reviewNotice).font(.footnote).accessibilityIdentifier("identity-review-notice") }
+                    if let reviewNotice { Text(reviewNotice).font(.body).accessibilityIdentifier("identity-review-notice") }
                 }.padding(24).frame(maxWidth: 560).frame(maxWidth: .infinity)
             }.background(VipiDesign.canvas)
                 .navigationTitle("Security number").navigationBarTitleDisplayMode(.inline)

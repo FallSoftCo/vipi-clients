@@ -807,6 +807,9 @@ final class ChatConversationTests: XCTestCase {
     func testBackupExplainsInvalidPassphrasesAndCancelsNativeExportAtActualRoot() throws {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,backupValidation:true)
     }
+    func testLargestBackupExplainsInvalidPasswordsAndCancelsNativeExportAtActualRoot() throws {
+        try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,backupValidation:true)
+    }
     func testSystemNotificationReturnsFromSettingsToChatsWithoutLosingMessages() throws {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,notificationNavigation:true)
     }
@@ -881,7 +884,7 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertEqual(evidence()["texts"] as? [String],originals)
         capture("saved-conversation-reopened")
     }
-    private func checkBackupValidation(in app:XCUIApplication,evidence:@escaping()->[String:Any]) throws {
+    private func checkBackupValidation(in app:XCUIApplication,largest:Bool,evidence:@escaping()->[String:Any]) throws {
         let baseline = evidence()["texts"] as? [String]
         app.navigationBars["Alex"].buttons.element(boundBy:0).tap()
         app.buttons["Your profile and settings"].tap()
@@ -928,6 +931,20 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertTrue(begin.waitForExistence(timeout:10)); XCTAssertTrue(begin.isEnabled)
         XCTAssertFalse(app.staticTexts["history-notice"].exists,"Cancelling the picker must not claim the file was saved")
         capture("native-export-cancelled")
+        if largest {
+            let mode = app.buttons["history-backup-mode"].firstMatch
+            reveal(mode,up:false); mode.tap()
+            let restore = app.buttons["Restore backup"].firstMatch
+            XCTAssertTrue(restore.waitForExistence(timeout:5)); restore.tap()
+        } else {
+            let restore = app.segmentedControls.buttons["Restore backup"].firstMatch
+            reveal(restore,up:false); restore.tap()
+        }
+        let choose = app.buttons["history-choose-file"]
+        XCTAssertTrue(choose.waitForExistence(timeout:5)); reveal(choose,up:true)
+        XCTAssertFalse(passwordError.exists); XCTAssertFalse(mismatch.exists)
+        XCTAssertFalse(begin.isEnabled,"A file is required before checking a backup")
+        capture("restore-ready-to-choose-file")
         XCTAssertEqual(evidence()["texts"] as? [String],baseline)
         XCTAssertEqual(evidence()["unexpected"] as? Int,0)
     }
@@ -2439,7 +2456,7 @@ final class ChatConversationTests: XCTestCase {
                 return
             }
             if backupValidation {
-                try checkBackupValidation(in:app,evidence:proof)
+                try checkBackupValidation(in:app,largest:largest,evidence:proof)
                 return
             }
             if draftBoundary {

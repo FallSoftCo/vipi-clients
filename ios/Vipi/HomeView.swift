@@ -39,7 +39,7 @@ struct HomeView: View {
                                     .frame(minHeight: 44, alignment: .leading).contentShape(Rectangle())
                             }
                         }
-                        if let notice = chat?.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary) }
+                        if let notice = chat?.notice { Text(notice).font(.body).foregroundStyle(VipiDesign.secondary) }
                         if let chat, !chat.threads.isEmpty {
                             ForEach(chat.threads) { thread in
                                 NavigationLink(value: HomeDestination.friend(thread.peer)) {
@@ -266,7 +266,7 @@ struct BotIntroductionView: View {
                 Image(systemName: "sparkle").font(.system(size: 44)).foregroundStyle(VipiDesign.highlight)
                 IntroHeading(eyebrow: "Meet vBot", title: "Chat with\na chatbot.", detail: "Ask vBot a question or talk about your day. Read and hear the replies in the language you’re learning. vBot can make mistakes; check important details.")
                 Text("vBot is powered by DeepSeek. Messages in this conversation are sent to Vipi and DeepSeek to generate replies. Your conversations with friends are never included automatically.")
-                    .font(.footnote).foregroundStyle(VipiDesign.secondary).lineSpacing(4)
+                    .font(.body).foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                 Text("Available with Bot mini").font(.subheadline.weight(.semibold))
                 if let subscriptions {
                     NavigationLink("See Bot mini") { SubscriptionOfferView(store: subscriptions, plan: .botMini) }
@@ -346,8 +346,8 @@ struct SettingsView: View {
                             }.disabled(authentication.busy || !chat.ready || chat.needsReauthentication || chat.userID != authentication.session?.userID)
                                 .accessibilityIdentifier("fallsoft-link-start")
                             Text("Sign in to Vipi again, then connect your Fallsoft login. Your chats, profile and original trial stay with you.")
-                                .font(.footnote).foregroundStyle(VipiDesign.secondary)
-                            if let error = authentication.errorMessage { Text(error).font(.footnote).foregroundStyle(VipiDesign.secondary) }
+                                .font(.body).foregroundStyle(VipiDesign.secondary)
+                            if let error = authentication.errorMessage { Text(error).font(.body).foregroundStyle(VipiDesign.secondary) }
                         }
                     }
                     NavigationLink("Delete Vipi account") { DeleteAccountView(chat: chat, closeBot: closeBot) }.foregroundStyle(VipiDesign.destructive)
@@ -365,8 +365,8 @@ struct ReauthenticationNotice: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Sign in to reconnect").font(.headline)
-            Text("Your saved conversations are still on this device.").font(.footnote)
-            if let error { Text(error).font(.footnote) }
+            Text("Your saved conversations are still on this device.").font(.body)
+            if let error { Text(error).font(.body) }
             Button("Sign in again", action: signIn)
                 .disabled(busy).accessibilityIdentifier("chat-reauthenticate")
         }.padding(16).frame(maxWidth: .infinity, alignment: .leading)
