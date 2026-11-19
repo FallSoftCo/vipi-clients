@@ -1,5 +1,7 @@
 # Implementation sequence and release gates
 
+**Current November 18 direction:** [Full-message immersion](FULL_MESSAGE_IMMERSION.md) replaces the dictionary, word-selection and timer work described in older checkpoints below. Store reviews are withdrawn while the replacement is qualified. Follow its behavior and release checks; historical pass counts do not qualify the new experience.
+
 For current work and launch constraints, use [DELIVERY_STATUS.md](DELIVERY_STATUS.md).
 The dated checkpoints below are historical evidence: old host placements,
 physical-iPad authorization, catalog versions and uncreated-store claims are

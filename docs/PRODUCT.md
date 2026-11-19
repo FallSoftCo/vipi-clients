@@ -10,16 +10,16 @@ Vipi is second-language acquisition through immersion in personally relevant con
 - One active phone per account. Explicit phone replacement, identity-change notices, and user-controlled encrypted backup/restore.
 - WorkOS identity. Email is private account information; usernames and invitation links connect friends without mandatory address-book upload or SMS.
 - Human chats use end-to-end encryption. vBot is a distinct service conversation, disclosed before the first prompt leaves the device.
-- Local translation, contextual vocabulary immersion, and local text-to-speech. Model and vocabulary downloads have visible size, state, retry, and removal controls. Network translation is not a fallback.
+- Local full-message translation, live transliteration and local text-to-speech. Model downloads expose preparation, retry and removal controls. Network translation is not a fallback.
 - Server delivery expires 72 hours after the original send. Retries do not extend it. Delivered history stays on the phones; an expired undelivered message is visibly different from a delivered message.
 - Themes: system, light, dark. Accessible text scaling, screen readers, reduced motion, keyboard handling, safe areas, back navigation, and RTL must work.
 
 ## First experience
 
-1. A concise explanation with an interactive sample bubble: “Chat about your life. Let another language become part of it.” Vocabulary automatically alternates between familiar meaning and the immersion language in place. Tapping is an optional immediate reveal or hold, not a prerequisite for understanding each word. The sample is clearly a preview, not a fake conversation.
+1. A concise explanation: “Chat with friends. Learn a language.” A real local-translation preview demonstrates tap to listen, hold to see meanings and double-tap to change script. It is clearly a preview, not a fake conversation.
 2. Confirm the language the user knows and choose an immersion language from actually supported local translation directions. Explain downloads and let chat remain usable while they prepare.
 3. Create/sign into an account, pick a unique username, and accept FallSoft.Co terms and Vipi product disclosures.
-4. Explain the one-month trial and annual renewal using live store metadata and eligibility. An eligible user must explicitly start the store subscription; do not silently enroll them or hardcode “30 days” for a calendar-month offer.
+4. Provide 30 days of Base access from original profile creation without payment details. Show the actual end date. Signing in enrolls neither subscription and expiry creates no charge; continued paid access requires an explicit store purchase.
 5. Land in the real chat list with clear choices to invite a friend or talk to vBot. The optional Bot mini offer appears when the user chooses vBot; base onboarding does not enroll the add-on.
 6. Request notifications when their benefit is clear, with a graceful denial path. Never gate first use on address-book access.
 
@@ -27,21 +27,17 @@ Do not overload onboarding with tutorials, carousels, notification prompts, down
 
 ## Conversation
 
-The message bubble remains the single reading surface. Original, mixed immersion, and complete translation replace its contents in place. No stacked bilingual rows. Inline words/phrases reveal in place; a clearly discoverable message action reveals the full translation for correct grammatical context. Preserve selection, copy, layout stability, and accessibility semantics.
+Every sent or received message appears fully translated into the practice language. Non-Latin practice text shows live transliteration by default, including Chinese tone marks. There is one message surface, without stacked translations or automatically flipping words.
 
-Automatic flip-flop is a core requirement, clarified by the user on 2026-10-24. Selected vocabulary alternates between familiar meaning and the target form without per-word taps. Default non-Roman target forms remain readable transliterations. Both native previews now repeat continuously while visible: 4.5 seconds of target vocabulary, then 3 seconds of familiar meanings by default. Relaxed and brisk pace settings double or halve those intervals. These are engineering defaults, not measured learning optima.
+Tap a message to hear its complete practice-language audio. Hold the chat area to reveal native-language meanings for all visible messages; release restores the practice display. Double-tap toggles practice script and transliteration without playing audio. A speaker toggle in the header enables automatic playback of new messages, off by default. Leaving the chat, backgrounding or turning it off stops pending and active playback.
 
-Implemented preview interaction: alternate eligible vocabulary in each visible message without a one-cycle limit. Offscreen history has no running clock. Visibility is a scheduling signal, not proof of attention or comprehension. Provide a simple pause/pace preference and optional immediate reveal/hold. Pause automatic changes while scrolling, composing, selecting text, listening, or backgrounded; resume with a fresh dwell rather than replaying missed timer events. An optional word tap immediately changes that word and restarts the dwell; the next automatic phase clears that override. The separate pause control holds the current face until resumed. Speech freezes the visible language state for its duration. The clock pauses with VoiceOver/TalkBack enabled, and the text changes without motion effects. Actual screen-reader reading and sustained comprehension still need qualification. Following the user’s fixed-space refinement, vocabulary sits in faintly filled inline blocks with 2.5-point corner rounding. Each reserves the largest familiar, transliterated or original-script form, so surrounding text and punctuation keep their positions during switching. The paragraph can reflow when its width or text size changes, not when the words flip. Copying returns visible text, never an attachment placeholder. Test dwell times, layout and comprehension before accepting a default; no particular interval is established as effective.
-
-Mixed immersion keeps the source grammar and introduces only locally aligned, sufficiently confident vocabulary or phrases. Full translation supplies target-language grammar. Ambiguous alignment leaves the original span unchanged. Proper names, numbers, URLs, code, negation, idioms, and conflicting senses need explicit fixtures. Unsupported content is not silently mistranslated.
-
-Immersion density is user-controlled. Familiarity estimates stay on device; tapping is not proof of ignorance and not tapping is not proof of mastery. Non-Roman target vocabulary requires readable transliteration in the default in-place immersion display, with original script accessible. Audio supplies pronunciation; no IPA/phonetic notation in chat. Speech uses the underlying text and language of the visible spans, including when a target word is displayed as transliteration. Prepare both voices for the language pair, aiming for a single continuous playback per message with measured latency. A missing offline voice has an actionable state.
+The authored original stays unchanged in encrypted storage and remains available through copy-original. Translation preparation and failure are explicit and retryable. Rendering must preserve the reading position across reveal/script changes and respect native text scaling, RTL, editable controls and screen-reader actions. The complete current behavior and qualification requirements are in [Full-message immersion](FULL_MESSAGE_IMMERSION.md).
 
 ## Plans
 
 | Plan | Annual target price (USD) | Trial | Scope |
 |---|---:|---|---|
-| Vipi | $12 | One month, store eligibility applies | Friends, local immersion, speech, encrypted backup tools |
+| Vipi | $12 | 30 days without payment details, from profile creation | Friends, local immersion, speech, encrypted backup tools |
 | Bot mini | $48 additional | One month, store eligibility applies | vBot responses, with a disclosed monthly allowance |
 
 Only these two plans launch. Storefront localized prices and billing periods are authoritative. Confirm supported exact price points during store configuration. Bot mini depends on a Vipi entitlement; handle base cancellation, lapse, refund, and recovery without leaving an unusable paid add-on unexplained. Purchase design must show total recurring commitments, restore purchases, and management links. A lapsed subscription must not prevent users reading/exporting their existing local history or deleting their account.

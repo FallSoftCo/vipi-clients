@@ -1,16 +1,17 @@
 # Vipi
 
-Native private messaging that helps people acquire another language through conversations that matter to them.
+Vipi: immersive chat with friends. Messages appear in the language you are learning; hold to see the meaning and tap to listen.
 
-**Status: restricted staging is live; not ready for public customers or store submission.** This is a new product, separate from Enterprise OZZZ and the earlier Osmos applications. Do not reuse their production databases, accounts, identifiers, or services. See [current delivery status](docs/DELIVERY_STATUS.md) for qualified behavior and remaining gates.
+**Status: the full-message immersion update is in qualification; both store reviews are withdrawn.** Vipi uses the shared Fallsoft sign-in with its own app data, subscriptions and encrypted messages. Vipi-only deletion preserves the shared account; global Fallsoft deletion remains disabled until all affected apps are covered. Preserve the databases and services of Enterprise OZZZ and Osmos. See [current delivery status](docs/DELIVERY_STATUS.md) for qualified behavior and remaining work.
 
 - [Product and experience](docs/PRODUCT.md)
+- [Current full-message immersion contract](docs/FULL_MESSAGE_IMMERSION.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Implementation and release gates](docs/IMPLEMENTATION.md)
 - [Verification ledger](docs/VERIFICATION.md)
 - [Decisions and environment receipts](docs/DECISIONS.md)
 
-Swift/SwiftUI for iOS and Kotlin/Compose for Android. Each platform owns its local translation, vocabulary alignment, speech, storage, and navigation. Shared artifacts are schemas, language data, and behavioral fixtures, not a custom shared application engine.
+Swift/SwiftUI for iOS and Kotlin/Compose for Android. Each platform owns its full-message translation, live transliteration, speech, storage and navigation. Translation uses existing on-device provider APIs only. Shared artifacts are schemas, licensed transliteration data and behavioral fixtures; there is no custom shared application engine.
 
 Current source authority (November 7, 2026): `/home/ai/Development/vipi-production-20261107`, branch `delivery/production-20261107`. Git history, previously uncommitted source and newer native changes were reconciled during recovery. The older `/home/ai/Development/vipi` directory is not authoritative. OZZZ-OS and the dedicated GPU host have been retired; do not use historical commands that reconnect to them.
 
