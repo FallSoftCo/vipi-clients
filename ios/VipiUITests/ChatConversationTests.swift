@@ -886,6 +886,26 @@ final class ChatConversationTests: XCTestCase {
         }
         func nativeMenuItem(_ title:String) -> XCUIElement {
             let item = app.menuItems[title].firstMatch
+            let expanded = app.collectionViews.containing(.button,identifier:title).firstMatch
+            func expandedAction() -> XCUIElement? {
+                guard expanded.exists else { return nil }
+                let button = expanded.buttons[title].firstMatch
+                for _ in 0..<4 {
+                    if button.isHittable { return button }
+                    // At accessibility sizes, More expands the horizontal edit
+                    // menu into a clipped, scrolling collection of Buttons.
+                    // Swipe inside its actually reachable rows, not the
+                    // collection's oversized accessibility frame or the editor.
+                    let visible = expanded.buttons.allElementsBoundByIndex.filter { $0.isHittable }
+                    let frame = visible.reduce(CGRect.null) { $0.union($1.frame) }
+                    guard !frame.isNull,frame.height > 40 else { break }
+                    let origin = app.coordinate(withNormalizedOffset:.zero)
+                    origin.withOffset(CGVector(dx:frame.midX,dy:frame.maxY-12)).press(forDuration:0.1,
+                        thenDragTo:origin.withOffset(CGVector(dx:frame.midX,dy:frame.minY+12)))
+                }
+                return button.isHittable ? button : nil
+            }
+            if let button = expandedAction() { return button }
             XCTAssertTrue(app.menuItems.firstMatch.waitForExistence(timeout:5))
             func arrow(_ label:String) -> XCUIElement? {
                 let visible = app.menuItems.allElementsBoundByIndex.filter { $0.isHittable }
@@ -897,13 +917,16 @@ final class ChatConversationTests: XCTestCase {
             // At maximum Dynamic Type the real edit menu fits one item per
             // page. Use its native arrows; do not assume Select All is on page 1.
             for _ in 0..<8 {
+                if let button = expandedAction() { return button }
                 if item.exists && item.isHittable { return item }
                 guard let back = arrow("Back") else { break }; back.tap()
             }
             for _ in 0..<8 {
+                if let button = expandedAction() { return button }
                 if item.exists && item.isHittable { return item }
                 guard let forward = arrow("Forward") else { break }; forward.tap()
             }
+            if let button = expandedAction() { return button }
             XCTAssertTrue(item.exists && item.isHittable,"Native edit-menu action remains reachable: " + title)
             return item
         }
