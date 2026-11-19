@@ -52,7 +52,11 @@ struct MessageEditor: UIViewRepresentable {
         // navigation bar and a visible validation message. The draft scrolls
         // inside the editor rather than pushing controls off the screen.
         let lines: CGFloat = verticalSizeClass == .compact ? 2 : typeSize.isAccessibilitySize ? 3 : 6
-        return CGSize(width: width, height: min(max(line, measured.height), line * lines))
+        let desired = min(max(line, measured.height), line * lines)
+        // VStack proposes the space left after wrapped validation/recovery
+        // copy. Respect it so a longer error cannot push above navigation.
+        let available = proposal.height.flatMap { $0.isFinite ? $0 : nil } ?? desired
+        return CGSize(width: width, height: max(line, min(desired, available)))
     }
 
     @MainActor final class Coordinator: NSObject, UITextViewDelegate {

@@ -666,7 +666,6 @@ struct FriendConversationView: View {
                 HStack(alignment: .bottom, spacing: 10) {
                     MessageEditor(text: editableDraft, placeholder: String(localized: "Message"), focus: $composing,
                         maximumBytes: ConversationHistory.maximumDraftBytes, rejected: { rejectedDraftEdit = true }).disabled(!loaded)
-                        .fixedSize(horizontal: false, vertical: true)
                         .id(typeSize)
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
                         .accessibilityIdentifier("message-input")
