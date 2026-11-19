@@ -27964,6 +27964,12 @@
             "state": "needs_review",
             "value": "Kifaa hiki kinakaguliwa…"
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Verificando este dispositivo…"
+          }
         }
       }
     },
@@ -41249,6 +41255,12 @@
             "state": "needs_review",
             "value": "Zungumza na vBot kwenye kifaa hiki bila malipo ya ziada. Majibu yanaweza kuwa na makosa."
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Converse com o vBot neste dispositivo, sem custo adicional. As respostas podem estar erradas."
+          }
         }
       }
     },
@@ -41331,6 +41343,12 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Andaa vBot"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Preparar vBot"
           }
         }
       }
@@ -41415,6 +41433,12 @@
             "state": "needs_review",
             "value": "vBot haipatikani kwenye kifaa hiki."
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não está disponível neste dispositivo."
+          }
         }
       }
     },
@@ -41497,6 +41521,12 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Andaa vBot ili kuzungumza kwenye kifaa hiki."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Prepare o vBot para conversar neste dispositivo."
           }
         }
       }
@@ -41581,6 +41611,12 @@
             "state": "needs_review",
             "value": "vBot inaandaliwa…"
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Preparando o vBot…"
+          }
         }
       }
     },
@@ -41663,6 +41699,12 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "vBot iko tayari."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot está pronto."
           }
         }
       }
@@ -41747,6 +41789,12 @@
             "state": "needs_review",
             "value": "vBot ina shughuli nyingi. Jaribu tena baada ya muda mfupi."
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot está ocupado. Tente novamente em instantes."
+          }
         }
       }
     },
@@ -41829,6 +41877,12 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Kikomo cha vBot cha kifaa hiki kimefikiwa. Jaribu tena baadaye."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O limite do vBot neste dispositivo foi atingido. Tente novamente mais tarde."
           }
         }
       }
@@ -41913,6 +41967,12 @@
             "state": "needs_review",
             "value": "vBot imesimama. Ujumbe wako bado upo hapa."
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot parou. Sua mensagem continua aqui."
+          }
         }
       }
     },
@@ -41995,6 +42055,12 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "vBot haikuweza kumaliza. Ujumbe wako bado upo hapa."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não conseguiu terminar. Sua mensagem continua aqui."
           }
         }
       }
@@ -42079,6 +42145,12 @@
             "state": "needs_review",
             "value": "Upatikanaji na lugha za majibu hutegemea kifaa chako."
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A disponibilidade e os idiomas das respostas dependem do dispositivo."
+          }
         }
       }
     },
@@ -42161,6 +42233,12 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Dhibiti usajili uliopo wa Bot mini"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gerenciar uma assinatura existente do Bot mini"
           }
         }
       }
@@ -42245,6 +42323,12 @@
             "state": "needs_review",
             "value": "Zungumza na boti bila malipo kwenye vifaa vinavyotumika."
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Converse com um bot, grátis em dispositivos compatíveis."
+          }
         }
       }
     },
@@ -42328,6 +42412,12 @@
             "state": "needs_review",
             "value": "Jibu lililochaguliwa na maelezo ya ripoti pekee hutumwa kwa watengenezaji wa Vipi. Ripoti husimbwa kwa usalama, huhifadhiwa kwa hadi siku 30, na huondolewa unapofuta akaunti yako."
           }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apenas a resposta selecionada e os detalhes da denúncia são enviados aos desenvolvedores do Vipi. As denúncias são criptografadas, mantidas por até 30 dias e removidas quando você exclui sua conta."
+          }
         }
       }
     },
@@ -42410,6 +42500,1608 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "你的訊息會在此裝置上翻譯為%@並顯示。"
+          }
+        }
+      }
+    },
+    "This message is too long for vBot on this device. Try a shorter message.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This message is too long for vBot on this device. Try a shorter message."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Este mensaje es demasiado largo para vBot en este dispositivo. Prueba con uno más corto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ce message est trop long pour vBot sur cet appareil. Essayez un message plus court."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Diese Nachricht ist für vBot auf diesem Gerät zu lang. Versuche eine kürzere Nachricht."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Questo messaggio è troppo lungo per vBot su questo dispositivo. Prova un messaggio più breve."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta mensagem é longa demais para o vBot neste dispositivo. Tente uma mensagem mais curta."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta mensagem é demasiado longa para o vBot neste dispositivo. Tente uma mensagem mais curta."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このメッセージは、このデバイスのvBotでは長すぎます。短いメッセージを試してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 기기의 vBot이 처리하기에는 메시지가 너무 깁니다. 더 짧은 메시지를 입력하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "这条消息过长，此设备上的vBot无法处理。请试试较短的消息。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "這則訊息過長，此裝置上的vBot無法處理。請試試較短的訊息。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "هذه الرسالة طويلة جدًا على vBot في هذا الجهاز. جرّب رسالة أقصر."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ujumbe huu ni mrefu sana kwa vBot kwenye kifaa hiki. Jaribu ujumbe mfupi zaidi."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta mensagem é longa demais para o vBot neste dispositivo. Tente uma mensagem mais curta."
+          }
+        }
+      }
+    },
+    "vBot can’t answer that message. Try asking something else.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot can’t answer that message. Try asking something else."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot no puede responder a ese mensaje. Prueba a preguntar otra cosa."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot ne peut pas répondre à ce message. Essayez de poser une autre question."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot kann diese Nachricht nicht beantworten. Versuche eine andere Frage."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot non può rispondere a questo messaggio. Prova a chiedere qualcos’altro."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não pode responder a essa mensagem. Tente perguntar outra coisa."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não pode responder a essa mensagem. Tente perguntar outra coisa."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotはそのメッセージに回答できません。別の質問を試してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot이 해당 메시지에 답할 수 없습니다. 다른 내용을 물어보세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot无法回答这条消息。请试着询问其他内容。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot無法回答這則訊息。請試著詢問其他內容。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لا يستطيع vBot الإجابة عن هذه الرسالة. جرّب السؤال عن شيء آخر."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot haiwezi kujibu ujumbe huo. Jaribu kuuliza kitu kingine."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não pode responder a essa mensagem. Tente perguntar outra coisa."
+          }
+        }
+      }
+    },
+    "vBot needs iOS 26 or later and a device that supports Apple Intelligence.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot needs iOS 26 or later and a device that supports Apple Intelligence."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot necesita iOS 26 o posterior y un dispositivo compatible con Apple Intelligence."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot nécessite iOS 26 ou une version ultérieure et un appareil compatible avec Apple Intelligence."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot benötigt iOS 26 oder neuer und ein Gerät, das Apple Intelligence unterstützt."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot richiede iOS 26 o successivo e un dispositivo compatibile con Apple Intelligence."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot precisa do iOS 26 ou posterior e de um dispositivo compatível com Apple Intelligence."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot requer o iOS 26 ou posterior e um dispositivo compatível com Apple Intelligence."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotにはiOS 26以降と、Apple Intelligenceに対応するデバイスが必要です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot을 사용하려면 iOS 26 이상과 Apple Intelligence를 지원하는 기기가 필요합니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot需要iOS 26或更高版本，以及支持Apple Intelligence的设备。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot需要iOS 26或以上版本，以及支援Apple Intelligence的裝置。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "يتطلب vBot نظام iOS 26 أو أحدث وجهازًا يدعم Apple Intelligence."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot inahitaji iOS 26 au toleo jipya zaidi na kifaa kinachotumia Apple Intelligence."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot precisa do iOS 26 ou posterior e de um dispositivo compatível com Apple Intelligence."
+          }
+        }
+      }
+    },
+    "Apple Intelligence doesn’t support your writing language yet. You can still chat with friends.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence doesn’t support your writing language yet. You can still chat with friends."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence aún no admite el idioma en el que escribes. Puedes seguir chateando con amigos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence ne prend pas encore en charge votre langue d’écriture. Vous pouvez toujours discuter avec vos amis."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence unterstützt deine Schreibsprache noch nicht. Du kannst weiterhin mit Freunden chatten."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence non supporta ancora la lingua in cui scrivi. Puoi comunque chattare con gli amici."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O Apple Intelligence ainda não oferece suporte ao idioma em que você escreve. Você ainda pode conversar com amigos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A Apple Intelligence ainda não suporta o idioma em que escreve. Pode continuar a conversar com amigos."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligenceは、選択した入力言語にまだ対応していません。友達とのチャットは引き続き利用できます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence가 아직 선택한 작성 언어를 지원하지 않습니다. 친구와의 대화는 계속할 수 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence尚不支持你的书写语言。你仍可与朋友聊天。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence尚未支援你的書寫語言。你仍可與朋友聊天。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لا تدعم Apple Intelligence لغة كتابتك بعد. لا يزال بإمكانك الدردشة مع الأصدقاء."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence bado haitumii lugha yako ya kuandika. Bado unaweza kuzungumza na marafiki."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O Apple Intelligence ainda não oferece suporte ao idioma em que você escreve. Você ainda pode conversar com amigos."
+          }
+        }
+      }
+    },
+    "vBot needs a device that supports Apple Intelligence. You can still chat with friends.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot needs a device that supports Apple Intelligence. You can still chat with friends."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot necesita un dispositivo compatible con Apple Intelligence. Puedes seguir chateando con amigos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot nécessite un appareil compatible avec Apple Intelligence. Vous pouvez toujours discuter avec vos amis."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot benötigt ein Gerät, das Apple Intelligence unterstützt. Du kannst weiterhin mit Freunden chatten."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot richiede un dispositivo compatibile con Apple Intelligence. Puoi comunque chattare con gli amici."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot precisa de um dispositivo compatível com Apple Intelligence. Você ainda pode conversar com amigos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot requer um dispositivo compatível com Apple Intelligence. Pode continuar a conversar com amigos."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotにはApple Intelligenceに対応するデバイスが必要です。友達とのチャットは引き続き利用できます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot을 사용하려면 Apple Intelligence를 지원하는 기기가 필요합니다. 친구와의 대화는 계속할 수 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot需要支持Apple Intelligence的设备。你仍可与朋友聊天。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot需要支援Apple Intelligence的裝置。你仍可與朋友聊天。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "يتطلب vBot جهازًا يدعم Apple Intelligence. لا يزال بإمكانك الدردشة مع الأصدقاء."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot inahitaji kifaa kinachotumia Apple Intelligence. Bado unaweza kuzungumza na marafiki."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot precisa de um dispositivo compatível com Apple Intelligence. Você ainda pode conversar com amigos."
+          }
+        }
+      }
+    },
+    "Turn on Apple Intelligence in Settings to use vBot on this device.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on Apple Intelligence in Settings to use vBot on this device."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Activa Apple Intelligence en Ajustes para usar vBot en este dispositivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Activez Apple Intelligence dans Réglages pour utiliser vBot sur cet appareil."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Aktiviere Apple Intelligence in den Einstellungen, um vBot auf diesem Gerät zu nutzen."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Attiva Apple Intelligence in Impostazioni per usare vBot su questo dispositivo."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ative o Apple Intelligence em Ajustes para usar o vBot neste dispositivo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ative a Apple Intelligence nas Definições para utilizar o vBot neste dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このデバイスでvBotを使うには、「設定」でApple Intelligenceをオンにしてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 기기에서 vBot을 사용하려면 설정에서 Apple Intelligence를 켜세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "请在“设置”中开启Apple Intelligence，以在此设备上使用vBot。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "請在「設定」中開啟Apple Intelligence，以在此裝置上使用vBot。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "فعّل Apple Intelligence في الإعدادات لاستخدام vBot على هذا الجهاز."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Washa Apple Intelligence katika Mipangilio ili kutumia vBot kwenye kifaa hiki."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ative o Apple Intelligence em Ajustes para usar o vBot neste dispositivo."
+          }
+        }
+      }
+    },
+    "Apple Intelligence is still preparing. Try vBot again shortly.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence is still preparing. Try vBot again shortly."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence aún se está preparando. Vuelve a probar vBot en un momento."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence est encore en préparation. Réessayez vBot dans un instant."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence wird noch vorbereitet. Versuche vBot gleich noch einmal."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence è ancora in preparazione. Riprova vBot tra poco."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O Apple Intelligence ainda está sendo preparado. Tente usar o vBot novamente em instantes."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A Apple Intelligence ainda está a ser preparada. Tente usar o vBot novamente dentro de momentos."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligenceはまだ準備中です。少し待ってからvBotを再試行してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence가 아직 준비 중입니다. 잠시 후 vBot을 다시 시도하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence仍在准备中，请稍后重试vBot。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence仍在準備中，請稍後再試vBot。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ما زالت Apple Intelligence قيد التجهيز. جرّب vBot مجددًا بعد قليل."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence bado inaandaliwa. Jaribu vBot tena baada ya muda mfupi."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O Apple Intelligence ainda está sendo preparado. Tente usar o vBot novamente em instantes."
+          }
+        }
+      }
+    },
+    "vBot is not available on this device right now.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot is not available on this device right now."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot no está disponible en este dispositivo ahora mismo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot n’est pas disponible sur cet appareil pour le moment."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot ist auf diesem Gerät gerade nicht verfügbar."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot non è disponibile su questo dispositivo al momento."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não está disponível neste dispositivo no momento."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não está disponível neste dispositivo neste momento."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "現在、このデバイスではvBotを利用できません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "현재 이 기기에서는 vBot을 사용할 수 없습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此设备暂时无法使用vBot。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此裝置暫時無法使用vBot。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot غير متاح حاليًا على هذا الجهاز."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot haipatikani kwenye kifaa hiki kwa sasa."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não está disponível neste dispositivo no momento."
+          }
+        }
+      }
+    },
+    "Apple Intelligence doesn’t support a language in this message yet.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence doesn’t support a language in this message yet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence aún no admite uno de los idiomas de este mensaje."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence ne prend pas encore en charge une langue de ce message."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence unterstützt eine Sprache in dieser Nachricht noch nicht."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence non supporta ancora una delle lingue di questo messaggio."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O Apple Intelligence ainda não oferece suporte a um idioma desta mensagem."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A Apple Intelligence ainda não suporta um idioma desta mensagem."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligenceは、このメッセージに含まれる言語にまだ対応していません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence가 아직 이 메시지에 포함된 언어를 지원하지 않습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence尚不支持这条消息中的某种语言。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence尚未支援這則訊息中的某種語言。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لا تدعم Apple Intelligence بعد إحدى اللغات في هذه الرسالة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apple Intelligence bado haitumii lugha fulani katika ujumbe huu."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O Apple Intelligence ainda não oferece suporte a um idioma desta mensagem."
+          }
+        }
+      }
+    },
+    "No reply — message saved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No reply — message saved"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sin respuesta — mensaje guardado"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Pas de réponse — message enregistré"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Keine Antwort — Nachricht gespeichert"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nessuna risposta — messaggio salvato"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sem resposta — mensagem salva"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sem resposta — mensagem guardada"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "回答なし — メッセージを保存済み"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "답변 없음 — 메시지 저장됨"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "未收到回答 — 消息已保存"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "未收到回答 — 訊息已儲存"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لا توجد إجابة — تم حفظ الرسالة"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hakuna jibu — ujumbe umehifadhiwa"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sem resposta — mensagem salva"
+          }
+        }
+      }
+    },
+    "Your vBot conversation": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your vBot conversation"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tu conversación con vBot"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Votre conversation avec vBot"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dein Chat mit vBot"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La tua conversazione con vBot"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sua conversa com o vBot"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A sua conversa com o vBot"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotとのチャット"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot과의 대화"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你与vBot的聊天"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你與vBot的聊天"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "محادثتك مع vBot"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mazungumzo yako na vBot"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sua conversa com o vBot"
+          }
+        }
+      }
+    },
+    "Delete this vBot conversation?": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delete this vBot conversation?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "¿Eliminar esta conversación con vBot?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Supprimer cette conversation avec vBot ?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Diesen Chat mit vBot löschen?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Eliminare questa conversazione con vBot?"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Excluir esta conversa com o vBot?"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Eliminar esta conversa com o vBot?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このvBotとのチャットを削除しますか？"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 vBot 대화를 삭제할까요?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "删除这段vBot聊天？"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "刪除這段vBot聊天？"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "حذف هذه المحادثة مع vBot؟"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ungependa kufuta mazungumzo haya na vBot?"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Excluir esta conversa com o vBot?"
+          }
+        }
+      }
+    },
+    "This removes the saved vBot messages from this device. Reports you already sent to Vipi are kept for up to 30 days. Existing subscriptions are managed separately.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This removes the saved vBot messages from this device. Reports you already sent to Vipi are kept for up to 30 days. Existing subscriptions are managed separately."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Se eliminarán de este dispositivo los mensajes guardados de vBot. Los informes que ya hayas enviado a Vipi se conservan hasta 30 días. Las suscripciones existentes se gestionan por separado."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Les messages vBot enregistrés seront supprimés de cet appareil. Les signalements déjà envoyés à Vipi sont conservés pendant 30 jours au maximum. Les abonnements existants se gèrent séparément."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die gespeicherten vBot-Nachrichten werden von diesem Gerät entfernt. Bereits an Vipi gesendete Meldungen werden bis zu 30 Tage aufbewahrt. Bestehende Abos werden separat verwaltet."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "I messaggi vBot salvati verranno rimossi da questo dispositivo. Le segnalazioni già inviate a Vipi vengono conservate per un massimo di 30 giorni. Gli abbonamenti esistenti si gestiscono separatamente."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As mensagens salvas do vBot serão removidas deste dispositivo. As denúncias já enviadas ao Vipi são mantidas por até 30 dias. As assinaturas existentes são gerenciadas separadamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As mensagens guardadas do vBot serão removidas deste dispositivo. As denúncias já enviadas ao Vipi são guardadas até 30 dias. As subscrições existentes são geridas separadamente."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "保存されたvBotのメッセージをこのデバイスから削除します。Vipiに送信済みの報告は最長30日間保管されます。既存のサブスクリプションは別途管理してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 기기에 저장된 vBot 메시지가 삭제됩니다. 이미 Vipi에 보낸 신고는 최대 30일 동안 보관됩니다. 기존 구독은 별도로 관리해야 합니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "这将从此设备中移除已保存的vBot消息。已发送给Vipi的举报最多保留30天。现有订阅需单独管理。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "這將從此裝置中移除已儲存的vBot訊息。已傳送給Vipi的檢舉最多保留30天。現有訂閱需另外管理。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "سيؤدي هذا إلى إزالة رسائل vBot المحفوظة من هذا الجهاز. تُحفظ البلاغات التي أرسلتها بالفعل إلى Vipi لمدة تصل إلى 30 يومًا. تُدار الاشتراكات الحالية بشكل منفصل."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hii huondoa ujumbe wa vBot uliohifadhiwa kwenye kifaa hiki. Ripoti ulizotuma kwa Vipi huhifadhiwa kwa hadi siku 30. Usajili uliopo unasimamiwa kando."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As mensagens salvas do vBot serão removidas deste dispositivo. As denúncias já enviadas ao Vipi são mantidas por até 30 dias. As assinaturas existentes são gerenciadas separadamente."
+          }
+        }
+      }
+    },
+    "vBot replies on supported devices using Apple Intelligence. Your messages stay on this device unless you choose to report a reply.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot replies on supported devices using Apple Intelligence. Your messages stay on this device unless you choose to report a reply."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot responde en dispositivos compatibles mediante Apple Intelligence. Tus mensajes permanecen en este dispositivo salvo que decidas denunciar una respuesta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot répond sur les appareils compatibles grâce à Apple Intelligence. Vos messages restent sur cet appareil, sauf si vous choisissez de signaler une réponse."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot antwortet auf unterstützten Geräten mithilfe von Apple Intelligence. Deine Nachrichten bleiben auf diesem Gerät, sofern du nicht eine Antwort meldest."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot risponde sui dispositivi compatibili tramite Apple Intelligence. I messaggi restano su questo dispositivo, a meno che tu scelga di segnalare una risposta."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot responde em dispositivos compatíveis usando o Apple Intelligence. Suas mensagens ficam neste dispositivo, a menos que você escolha denunciar uma resposta."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot responde em dispositivos compatíveis através da Apple Intelligence. As suas mensagens ficam neste dispositivo, a menos que escolha denunciar uma resposta."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotは対応デバイス上でApple Intelligenceを使って回答します。回答を報告する場合を除き、メッセージはこのデバイスに保存されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot은 지원되는 기기에서 Apple Intelligence로 답변합니다. 답변을 신고하기로 선택하지 않는 한 메시지는 이 기기에 보관됩니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot在支持的设备上通过Apple Intelligence回答。除非你选择举报回答，否则消息会保留在此设备上。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot在支援的裝置上透過Apple Intelligence回答。除非你選擇檢舉回答，否則訊息會保留在此裝置上。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "يجيب vBot على الأجهزة المدعومة باستخدام Apple Intelligence. تبقى رسائلك على هذا الجهاز ما لم تختر الإبلاغ عن إجابة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot hujibu kwenye vifaa vinavyotumika kupitia Apple Intelligence. Ujumbe wako hubaki kwenye kifaa hiki isipokuwa ukichagua kuripoti jibu."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot responde em dispositivos compatíveis usando o Apple Intelligence. Suas mensagens ficam neste dispositivo, a menos que você escolha denunciar uma resposta."
+          }
+        }
+      }
+    },
+    "No extra subscription. Availability and reply languages depend on your device.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No extra subscription. Availability and reply languages depend on your device."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sin suscripción adicional. La disponibilidad y los idiomas de respuesta dependen de tu dispositivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Aucun abonnement supplémentaire. La disponibilité et les langues de réponse dépendent de votre appareil."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Kein zusätzliches Abo. Verfügbarkeit und Antwortsprachen hängen von deinem Gerät ab."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nessun abbonamento aggiuntivo. La disponibilità e le lingue delle risposte dipendono dal dispositivo."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sem assinatura adicional. A disponibilidade e os idiomas das respostas dependem do dispositivo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sem subscrição adicional. A disponibilidade e os idiomas das respostas dependem do dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "追加のサブスクリプションは不要です。利用可否と回答言語はデバイスによって異なります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "추가 구독이 필요 없습니다. 사용 가능 여부와 답변 언어는 기기에 따라 다릅니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "无需额外订阅。是否可用及回答语言取决于你的设备。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "無需額外訂閱。是否可用及回答語言取決於你的裝置。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لا يلزم اشتراك إضافي. يعتمد التوفر ولغات الإجابة على جهازك."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hakuna usajili wa ziada. Upatikanaji na lugha za majibu hutegemea kifaa chako."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sem assinatura adicional. A disponibilidade e os idiomas das respostas dependem do dispositivo."
+          }
+        }
+      }
+    },
+    "vBot replies on this device, at no extra charge.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot replies on this device, at no extra charge."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot responde en este dispositivo sin coste adicional."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot répond sur cet appareil, sans frais supplémentaires."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot antwortet auf diesem Gerät, ohne zusätzliche Kosten."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot risponde su questo dispositivo, senza costi aggiuntivi."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot responde neste dispositivo, sem custo adicional."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot responde neste dispositivo, sem custos adicionais."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotは追加料金なしで、このデバイス上で回答します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot은 추가 요금 없이 이 기기에서 답변합니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot在此设备上回答，无需额外付费。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot在此裝置上回答，無需額外付費。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "يجيب vBot على هذا الجهاز دون رسوم إضافية."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot hujibu kwenye kifaa hiki bila malipo ya ziada."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot responde neste dispositivo, sem custo adicional."
+          }
+        }
+      }
+    },
+    "If you already have a Bot mini subscription, manage it in the App Store. It does not cancel automatically.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If you already have a Bot mini subscription, manage it in the App Store. It does not cancel automatically."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Si ya tienes una suscripción a Bot mini, gestiónala en el App Store. No se cancela automáticamente."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Si vous avez déjà un abonnement Bot mini, gérez-le dans l’App Store. Il ne s’annule pas automatiquement."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Wenn du bereits ein Bot-mini-Abo hast, verwalte es im App Store. Es wird nicht automatisch gekündigt."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Se hai già un abbonamento Bot mini, gestiscilo nell’App Store. Non si annulla automaticamente."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Se você já tem uma assinatura do Bot mini, gerencie-a na App Store. Ela não é cancelada automaticamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Se já tem uma subscrição do Bot mini, faça a gestão na App Store. A subscrição não é cancelada automaticamente."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "すでにBot miniをサブスクリプション登録している場合は、App Storeで管理してください。自動では解約されません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "기존 Bot mini 구독이 있다면 App Store에서 관리하세요. 자동으로 취소되지 않습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "如果你已有Bot mini订阅，请在App Store中管理。订阅不会自动取消。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "如果你已有Bot mini訂閱，請在App Store中管理。訂閱不會自動取消。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "إذا كان لديك اشتراك Bot mini حالي، فأدِره في App Store. لا يُلغى تلقائيًا."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ikiwa tayari una usajili wa Bot mini, udhibiti katika App Store. Haujighairi kiotomatiki."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Se você já tem uma assinatura do Bot mini, gerencie-a na App Store. Ela não é cancelada automaticamente."
+          }
+        }
+      }
+    },
+    "vBot runs on supported devices at no extra charge.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot runs on supported devices at no extra charge."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot funciona en dispositivos compatibles sin coste adicional."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot fonctionne sur les appareils compatibles, sans frais supplémentaires."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot läuft auf unterstützten Geräten ohne zusätzliche Kosten."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot funziona sui dispositivi compatibili senza costi aggiuntivi."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot funciona em dispositivos compatíveis sem custo adicional."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot funciona em dispositivos compatíveis sem custos adicionais."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotは対応デバイスで追加料金なしで動作します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot은 지원되는 기기에서 추가 요금 없이 실행됩니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot在支持的设备上运行，无需额外付费。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot在支援的裝置上執行，無需額外付費。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "يعمل vBot على الأجهزة المدعومة دون رسوم إضافية."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot hutumika kwenye vifaa vinavyotumika bila malipo ya ziada."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot funciona em dispositivos compatíveis sem custo adicional."
           }
         }
       }
