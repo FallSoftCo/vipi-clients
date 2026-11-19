@@ -149,7 +149,7 @@ struct NotificationSettingsView: View {
                 } else {
                     Button("Enable notifications") { Task { await notifications.enable() } }.disabled(notifications.busy)
                 }
-                Link("Open iPhone notification settings", destination: URL(string: UIApplication.openNotificationSettingsURLString)!)
+                Link("Open notification settings", destination: URL(string: UIApplication.openNotificationSettingsURLString)!)
             }
             if let notice = notifications.notice { Section { Text(notice).foregroundStyle(VipiDesign.secondary) } }
         }.navigationTitle("Notifications").task { await notifications.refresh() }
