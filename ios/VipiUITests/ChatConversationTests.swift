@@ -1507,7 +1507,9 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(app.navigationBars[name].waitForExistence(timeout:10))
         }
         func read(_ text:String,plan:String,phase:String) throws {
-            let label = app.staticTexts[text].firstMatch
+            // XCUI's identifier shorthand rejects strings over 128 characters.
+            // Match the exact complete rendered label without truncating it.
+            let label = app.staticTexts.matching(NSPredicate(format:"label == %@",text)).firstMatch
             reveal(label,scroll:app.scrollViews.firstMatch,bar:app.navigationBars[plan]); try capture(phase)
         }
         func closePlans() {
