@@ -17,13 +17,7 @@ struct HomeView: View {
     @State private var showingInvite = false
     @State private var query = ""
     @State private var path: [HomeDestination] = []
-    private var botDescription: String {
-        guard let subscriptions, let access = subscriptions.snapshot?.bot_mini else { return String(localized: "Optional Bot mini plan") }
-        if subscriptions.accessVerificationPending(.botMini) { return String(localized: "Chatbot access is being checked. Please try again later.") }
-        if access.isReviewAccess { return String(localized: "Review access is active.") }
-        if subscriptions.accessActive(.botMini) { return String(localized: "Active") }
-        return String(localized: "Optional Bot mini plan")
-    }
+    private var botDescription: String { String(localized: "Chat with a bot, free on supported devices.") }
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
@@ -265,13 +259,10 @@ struct BotIntroductionView: View {
             VStack(alignment: .leading, spacing: 28) {
                 Image(systemName: "sparkle").font(.system(size: 44)).foregroundStyle(VipiDesign.highlight)
                 IntroHeading(eyebrow: "Meet vBot", title: "Chat with\na chatbot.", detail: "Ask vBot a question or talk about your day. Read and hear the replies in the language you’re learning. vBot can make mistakes; check important details.")
-                Text("vBot is powered by DeepSeek. Messages in this conversation are sent to Vipi and DeepSeek to generate replies. Your conversations with friends are never included automatically.")
+                Text("vBot replies on supported devices using Apple Intelligence. Your messages stay on this device unless you choose to report a reply.")
                     .font(.body).foregroundStyle(VipiDesign.secondary).lineSpacing(4)
-                Text("Available with Bot mini").font(.subheadline.weight(.semibold))
-                if let subscriptions {
-                    NavigationLink("See Bot mini") { SubscriptionOfferView(store: subscriptions, plan: .botMini) }
-                        .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight)
-                }
+                Text("No extra subscription. Availability and reply languages depend on your device.")
+                    .font(.body).foregroundStyle(VipiDesign.secondary)
             }.padding(28).frame(maxWidth: 560).frame(maxWidth: .infinity)
         }.clipped().background(VipiDesign.canvas).navigationTitle("vBot").navigationBarTitleDisplayMode(.inline)
     }

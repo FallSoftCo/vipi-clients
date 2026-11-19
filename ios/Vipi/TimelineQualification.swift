@@ -534,7 +534,7 @@ private func removeAbandonedBaseExpiryFixtures() throws {
 /// Dependency/bootstrap fixture only. VipiApp, ConnectedChatRoot, Settings,
 /// AccountDeletionProgressView and AccountDeletion perform the entire flow.
 /// No fixture method begins, accepts, resumes or finishes a deletion manager.
-@MainActor final class ConnectedDeletionUIQualification: ChatTransport, DeletionTransport {
+@MainActor final class ConnectedDeletionUIQualification: ChatTransport, DeletionTransport, LocalBotGenerating {
     private(set) static var current: ConnectedDeletionUIQualification?
     private struct Ledger: Codable {
         let account: UUID, other: UUID, user: String, otherUser: String
@@ -562,6 +562,20 @@ private func removeAbandonedBaseExpiryFixtures() throws {
     private static let ownMarker = Data("Owned encrypted deletion marker".utf8)
     private static let otherMarker = Data("Unrelated encrypted marker must remain".utf8)
     private static let lateReply = "Late response must never resurrect deleted data."
+    let provider = "apple-foundation-models"
+    let maximumContextBytes = 3072
+    func availability(language: String) -> LocalBotAvailability { .ready }
+    func reply(to turns: [LocalBotTurn], language: String) async throws -> String {
+        guard turns.count == 1, turns.first?.content == "Hold this reply while I review deletion.", ledger.botPosts == 0, !ledger.accepted else {
+            ledger.unexpected += 1; try save(); throw ServiceFailure(status: 0, code: "root_fixture_bot_request_mismatch")
+        }
+        ledger.botPosts += 1; try save()
+        await withCheckedContinuation { heldBot = $0 }
+        // Deliberately ignore cancellation: the real owner must reject late data.
+        ledger.lateResults += 1; try save()
+        return Self.lateReply
+    }
+
 
     static func prepareIfRequested() {
         guard ProcessInfo.processInfo.arguments.contains("-vipi-deletion-root-qa") else { return }
@@ -691,7 +705,7 @@ private func removeAbandonedBaseExpiryFixtures() throws {
             do {
                 guard account == ledger.account else { throw ServiceFailure(status: 0, code: "root_fixture_bot_mismatch") }
                 let vault = try MessageVault(account: account)
-                let session = try BotSession(api: self, vault: vault)
+                let session = try BotSession(api: self, vault: vault, generator: self)
                 _ = try owner.session(for: account) { session }
                 botOwners.append(owner); botSessions.append(session); botVaults.append(vault)
                 ledger.seededOwners += 1; try save()
@@ -1298,7 +1312,7 @@ struct PendingPairRootBinding: View {
                             try vault.put("bot-local","copy-seeded-v1",Data([1]))
                         }
                     }
-                    let session = try BotSession(api:self,vault:vault)
+                    let session = try BotSession(api:self,vault:vault,generator:TimelineOnlyBotGenerator())
                     _ = try owner.session(for:account) { session }
                 } catch { try? vault.close(); throw error }
             } catch { preconditionFailure("Preserve unknown Copy root Bot fixture; no live fallback") }
@@ -1588,4 +1602,12 @@ struct PendingPairRootBinding: View {
     }
 }
 
+
+/// Timeline fixtures never start a real model or certify response quality.
+@MainActor private final class TimelineOnlyBotGenerator: LocalBotGenerating {
+    let provider = "apple-foundation-models"
+    let maximumContextBytes = 3072
+    func availability(language: String) -> LocalBotAvailability { .ready }
+    func reply(to turns: [LocalBotTurn], language: String) async throws -> String { throw LocalBotFailure.incomplete }
+}
 #endif

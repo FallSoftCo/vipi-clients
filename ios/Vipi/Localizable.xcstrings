@@ -27905,52 +27905,22 @@
             "value": "Vérification de cet appareil…"
           }
         },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dieses Gerät wird geprüft…"
+          }
+        },
         "it": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Verifica del dispositivo…"
           }
         },
-        "pt-BR": {
+        "pt": {
           "stringUnit": {
             "state": "needs_review",
             "value": "Verificando este dispositivo…"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Überprüfung dieses Geräts..."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "このデバイスを確認しています..."
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "이 장치를 확인하고 있습니다..."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "检查此设备..."
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "檢查此設備..."
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "التحقق من هذا الجهاز..."
           }
         },
         "pt-PT": {
@@ -27959,10 +27929,40 @@
             "value": "A verificar este dispositivo…"
           }
         },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このデバイスを確認中…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 기기를 확인하는 중…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "正在检查此设备…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "正在檢查此裝置…"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "جارٍ التحقق من هذا الجهاز…"
+          }
+        },
         "sw": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Inakagua kifaa hiki…"
+            "value": "Kifaa hiki kinakaguliwa…"
           }
         }
       }
@@ -41165,6 +41165,1251 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "將與好友的聊天記錄備份到加密檔案。"
+          }
+        }
+      }
+    },
+    "Chat with vBot on this device, at no extra charge. Replies can be wrong.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chat with vBot on this device, at no extra charge. Replies can be wrong."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chatea con vBot en este dispositivo sin coste adicional. Las respuestas pueden ser incorrectas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Discutez avec vBot sur cet appareil, sans frais supplémentaires. Ses réponses peuvent être erronées."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chatte mit vBot auf diesem Gerät, ohne zusätzliche Kosten. Antworten können falsch sein."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chatta con vBot su questo dispositivo, senza costi aggiuntivi. Le risposte possono essere errate."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Converse com o vBot neste dispositivo, sem custo adicional. As respostas podem estar erradas."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Converse com o vBot neste dispositivo, sem custos adicionais. As respostas podem estar erradas."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "追加料金なしで、このデバイス上のvBotとチャットできます。回答が間違っていることがあります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "추가 요금 없이 이 기기의 vBot과 대화하세요. 답변이 틀릴 수 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "在此设备上与vBot聊天，无需额外付费。回答可能有误。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "在此裝置上與vBot聊天，無需額外付費。回答可能有誤。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تحدث مع vBot على هذا الجهاز دون رسوم إضافية. قد تكون الإجابات خاطئة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Zungumza na vBot kwenye kifaa hiki bila malipo ya ziada. Majibu yanaweza kuwa na makosa."
+          }
+        }
+      }
+    },
+    "Prepare vBot": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prepare vBot"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Preparar vBot"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Préparer vBot"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot vorbereiten"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Prepara vBot"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Preparar vBot"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Preparar vBot"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotを準備"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot 준비"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "准备vBot"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "準備vBot"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تجهيز vBot"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Andaa vBot"
+          }
+        }
+      }
+    },
+    "vBot is not available on this device.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot is not available on this device."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot no está disponible en este dispositivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot n’est pas disponible sur cet appareil."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot ist auf diesem Gerät nicht verfügbar."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot non è disponibile su questo dispositivo."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não está disponível neste dispositivo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não está disponível neste dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このデバイスではvBotを利用できません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 기기에서는 vBot을 사용할 수 없습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此设备无法使用vBot。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此裝置無法使用vBot。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot غير متاح على هذا الجهاز."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot haipatikani kwenye kifaa hiki."
+          }
+        }
+      }
+    },
+    "Prepare vBot to chat on this device.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prepare vBot to chat on this device."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Prepara vBot para chatear en este dispositivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Préparez vBot pour discuter sur cet appareil."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bereite vBot vor, um auf diesem Gerät zu chatten."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Prepara vBot per chattare su questo dispositivo."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Prepare o vBot para conversar neste dispositivo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Prepare o vBot para conversar neste dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このデバイスでチャットするには、vBotを準備してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 기기에서 대화하려면 vBot을 준비하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "请先准备vBot，再在此设备上聊天。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "請先準備vBot，再在此裝置上聊天。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "جهّز vBot للدردشة على هذا الجهاز."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Andaa vBot ili kuzungumza kwenye kifaa hiki."
+          }
+        }
+      }
+    },
+    "Preparing vBot…": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparing vBot…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Preparando vBot…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Préparation de vBot…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot wird vorbereitet…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Preparazione di vBot…"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Preparando o vBot…"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A preparar o vBot…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotを準備中…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot 준비 중…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "正在准备vBot…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "正在準備vBot…"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "جارٍ تجهيز vBot…"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot inaandaliwa…"
+          }
+        }
+      }
+    },
+    "vBot is ready.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot is ready."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot está listo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot est prêt."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot ist bereit."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot è pronto."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot está pronto."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot está pronto."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotの準備ができました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot이 준비되었습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot已准备就绪。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot已準備就緒。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot جاهز."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot iko tayari."
+          }
+        }
+      }
+    },
+    "vBot is busy. Try again shortly.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot is busy. Try again shortly."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot está ocupado. Inténtalo de nuevo en un momento."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot est occupé. Réessayez dans un instant."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot ist beschäftigt. Versuche es gleich noch einmal."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot è occupato. Riprova tra poco."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot está ocupado. Tente novamente em instantes."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot está ocupado. Tente novamente dentro de momentos."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotは処理中です。少し待ってから再試行してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot이 사용 중입니다. 잠시 후 다시 시도하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot正忙，请稍后重试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot正忙，請稍後再試。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot مشغول. حاول مجددًا بعد قليل."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot ina shughuli nyingi. Jaribu tena baada ya muda mfupi."
+          }
+        }
+      }
+    },
+    "This device’s vBot limit has been reached. Try again later.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This device’s vBot limit has been reached. Try again later."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Se ha alcanzado el límite de vBot en este dispositivo. Inténtalo más tarde."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La limite de vBot sur cet appareil est atteinte. Réessayez plus tard."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Das vBot-Limit dieses Geräts ist erreicht. Versuche es später erneut."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "È stato raggiunto il limite di vBot su questo dispositivo. Riprova più tardi."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O limite do vBot neste dispositivo foi atingido. Tente novamente mais tarde."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Foi atingido o limite do vBot neste dispositivo. Tente novamente mais tarde."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このデバイスのvBot利用上限に達しました。後で再試行してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 기기의 vBot 사용 한도에 도달했습니다. 나중에 다시 시도하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此设备的vBot已达到使用上限，请稍后重试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此裝置的vBot已達到使用上限，請稍後再試。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تم بلوغ حد استخدام vBot على هذا الجهاز. حاول لاحقًا."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Kikomo cha vBot cha kifaa hiki kimefikiwa. Jaribu tena baadaye."
+          }
+        }
+      }
+    },
+    "vBot stopped. Your message is still here.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot stopped. Your message is still here."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot se ha detenido. Tu mensaje sigue aquí."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot s’est arrêté. Votre message est toujours là."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot wurde gestoppt. Deine Nachricht ist noch da."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot si è fermato. Il tuo messaggio è ancora qui."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot parou. Sua mensagem continua aqui."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot parou. A sua mensagem continua aqui."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotが停止しました。メッセージは残っています。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot이 중지되었습니다. 메시지는 그대로 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot已停止，你的消息仍然保留。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot已停止，你的訊息仍然保留。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "توقف vBot. رسالتك ما زالت هنا."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot imesimama. Ujumbe wako bado upo hapa."
+          }
+        }
+      }
+    },
+    "vBot couldn’t finish. Your message is still here.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vBot couldn’t finish. Your message is still here."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot no pudo terminar. Tu mensaje sigue aquí."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot n’a pas pu terminer. Votre message est toujours là."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot konnte nicht fertig antworten. Deine Nachricht ist noch da."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot non è riuscito a terminare. Il tuo messaggio è ancora qui."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não conseguiu terminar. Sua mensagem continua aqui."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O vBot não conseguiu terminar. A sua mensagem continua aqui."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBotが回答を完了できませんでした。メッセージは残っています。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot이 완료하지 못했습니다. 메시지는 그대로 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot未能完成，你的消息仍然保留。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot未能完成，你的訊息仍然保留。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لم يتمكن vBot من الإكمال. رسالتك ما زالت هنا."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vBot haikuweza kumaliza. Ujumbe wako bado upo hapa."
+          }
+        }
+      }
+    },
+    "Availability and reply languages depend on your device.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Availability and reply languages depend on your device."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La disponibilidad y los idiomas de respuesta dependen de tu dispositivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La disponibilité et les langues de réponse dépendent de votre appareil."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Verfügbarkeit und Antwortsprachen hängen von deinem Gerät ab."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La disponibilità e le lingue delle risposte dipendono dal dispositivo."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A disponibilidade e os idiomas das respostas dependem do dispositivo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A disponibilidade e os idiomas das respostas dependem do dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "利用可否と回答言語はデバイスによって異なります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "사용 가능 여부와 답변 언어는 기기에 따라 다릅니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "是否可用及回答语言取决于你的设备。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "是否可用及回答語言取決於你的裝置。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "يعتمد التوفر ولغات الإجابة على جهازك."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Upatikanaji na lugha za majibu hutegemea kifaa chako."
+          }
+        }
+      }
+    },
+    "Manage an existing Bot mini subscription": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manage an existing Bot mini subscription"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gestionar una suscripción existente a Bot mini"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gérer un abonnement Bot mini existant"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bestehendes Bot-mini-Abo verwalten"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gestisci un abbonamento Bot mini esistente"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gerenciar uma assinatura existente do Bot mini"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gerir uma subscrição existente do Bot mini"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "既存のBot miniサブスクリプションを管理"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "기존 Bot mini 구독 관리"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "管理现有的Bot mini订阅"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "管理現有的Bot mini訂閱"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "إدارة اشتراك Bot mini حالي"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dhibiti usajili uliopo wa Bot mini"
+          }
+        }
+      }
+    },
+    "Chat with a bot, free on supported devices.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chat with a bot, free on supported devices."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chatea con un bot gratis en dispositivos compatibles."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Discutez avec un bot, gratuitement sur les appareils compatibles."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chatte mit einem Bot, kostenlos auf unterstützten Geräten."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Chatta con un bot, gratis sui dispositivi compatibili."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Converse com um bot, grátis em dispositivos compatíveis."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Converse com um bot, grátis nos dispositivos compatíveis."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "対応デバイスで、ボットと無料でチャット。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "지원되는 기기에서 무료로 봇과 대화하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "在支持的设备上免费与机器人聊天。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "在支援的裝置上免費與機器人聊天。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تحدث مع روبوت مجانًا على الأجهزة المدعومة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Zungumza na boti bila malipo kwenye vifaa vinavyotumika."
+          }
+        }
+      }
+    },
+    "Only the selected reply and report details are sent to Vipi’s developers. Reports are encrypted, kept for up to 30 days, and removed when you delete your account.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only the selected reply and report details are sent to Vipi’s developers. Reports are encrypted, kept for up to 30 days, and removed when you delete your account."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Solo se envían la respuesta seleccionada y los datos del informe a los desarrolladores de Vipi. Los informes se cifran, se conservan hasta 30 días y se eliminan al borrar tu cuenta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Seuls la réponse sélectionnée et les détails du signalement sont envoyés aux développeurs de Vipi. Les signalements sont chiffrés, conservés pendant 30 jours au maximum et supprimés lorsque vous supprimez votre compte."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nur die ausgewählte Antwort und die Meldungsdetails werden an die Entwickler von Vipi gesendet. Meldungen werden verschlüsselt, bis zu 30 Tage gespeichert und beim Löschen deines Kontos entfernt."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Solo la risposta selezionata e i dettagli della segnalazione vengono inviati agli sviluppatori di Vipi. Le segnalazioni sono cifrate, conservate per un massimo di 30 giorni ed eliminate quando elimini il tuo account."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apenas a resposta selecionada e os detalhes da denúncia são enviados aos desenvolvedores do Vipi. As denúncias são criptografadas, mantidas por até 30 dias e removidas quando você exclui sua conta."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apenas a resposta selecionada e os detalhes da denúncia são enviados aos programadores do Vipi. As denúncias são encriptadas, guardadas até 30 dias e removidas quando elimina a sua conta."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "選択した回答と報告の詳細だけがVipiの開発者に送信されます。報告は暗号化され、最長30日間保管されます。アカウントを削除すると報告も削除されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "선택한 답변과 신고 내용만 Vipi 개발자에게 전송됩니다. 신고는 암호화되어 최대 30일 동안 보관되며, 계정을 삭제하면 함께 삭제됩니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "仅将选中的回答和举报详情发送给Vipi开发者。举报经过加密，最多保留30天，并会在你删除账户时移除。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "僅將選取的回答和檢舉詳情傳送給Vipi開發者。檢舉經過加密，最多保留30天，並會在你刪除帳號時移除。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تُرسل الإجابة المحددة وتفاصيل البلاغ فقط إلى مطوري Vipi. تُشفّر البلاغات وتُحفظ لمدة تصل إلى 30 يومًا وتُزال عند حذف حسابك."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Jibu lililochaguliwa na maelezo ya ripoti pekee hutumwa kwa watengenezaji wa Vipi. Ripoti husimbwa kwa usalama, huhifadhiwa kwa hadi siku 30, na huondolewa unapofuta akaunti yako."
+          }
+        }
+      }
+    },
+    "Your messages appear in %@, translated on this device.": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your messages appear in %@, translated on this device."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تظهر رسائلك باللغة %@، وتُترجم على هذا الجهاز."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Deine Nachrichten erscheinen auf %@ und werden auf diesem Gerät übersetzt."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tus mensajes aparecen en %@, traducidos en este dispositivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vos messages s’affichent en %@, traduits sur cet appareil."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "I messaggi appaiono in %@, tradotti su questo dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "メッセージはこのデバイス上で%@に翻訳されて表示されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "메시지는 이 기기에서 %@로 번역되어 표시됩니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Suas mensagens aparecem em %@, traduzidas neste dispositivo. O"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As suas mensagens aparecem em %@, traduzidas neste dispositivo. O"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ujumbe wako unaonekana kwa %@, ukitafsiriwa kwenye kifaa hiki."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你的消息会在此设备上翻译为%@并显示。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你的訊息會在此裝置上翻譯為%@並顯示。"
           }
         }
       }

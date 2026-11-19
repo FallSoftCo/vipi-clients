@@ -9,6 +9,7 @@ struct BotMessage: Codable, Identifiable {
     let createdAt: Date
     var state: String
     var requestID: UUID? = nil
+    var provider: String? = nil
     var key: String { String(format: "%020lld", Int64(createdAt.timeIntervalSince1970 * 1000)) + "-" + id.uuidString.lowercased() }
 }
 
@@ -18,6 +19,9 @@ struct BotMessage: Codable, Identifiable {
     private let api: any ChatTransport
     private let vault: MessageVault
     private let now: () -> Date
+    private let generator: any LocalBotGenerating
+    private var generation: Task<String, Error>?
+    private var inputLanguage = "en"
     private var closed = false
     private weak var translationOwner: ConversationImmersion?
     private var translationReplay: Task<Void,Never>?
@@ -59,25 +63,35 @@ struct BotMessage: Codable, Identifiable {
         for observer in Array(messageObservers.values) { observer(arrival) }
     }
 
-    private var allowanceRevision: UInt64 = 0
     private(set) var messages: [BotMessage] = []
-    private(set) var consent = false
     private(set) var busy = false
-    private(set) var allowance: BotAllowance?
+    private(set) var availability: LocalBotAvailability = .checking
+    var maximumMessageBytes: Int { generator.maximumContextBytes }
     private(set) var earlierAvailable = false
     var notice: String?
     var draft = ""
-    init(api: any ChatTransport, vault: MessageVault, now: @escaping () -> Date = Date.init) throws {
-        self.api = api; self.vault = vault; self.now = now
+    init(api: any ChatTransport, vault: MessageVault, generator: any LocalBotGenerating = AppleLocalBot(), now: @escaping () -> Date = Date.init) throws {
+        self.api = api; self.vault = vault; self.generator = generator; self.now = now
         try vault.transaction {
-            consent = try vault.get("bot-local", "consent") == Data("deepseek-v1".utf8)
             draft = try vault.get("bot-local", "draft").flatMap { String(data: $0, encoding: .utf8) } ?? ""
+            if let key = try vault.pageIDs("bot-message", prefix: "0", before: nil, limit: 1).first,
+               let bytes = try vault.get("bot-message", key) {
+                var interrupted = try JSONDecoder().decode(BotMessage.self, from: bytes)
+                if interrupted.state == "sending", interrupted.provider != nil {
+                    interrupted.state = "stopped"
+                    try vault.put("bot-message", key, JSONEncoder().encode(interrupted))
+                    if draft.isEmpty {
+                        draft = interrupted.text
+                        try vault.put("bot-local", "draft", Data(draft.utf8))
+                    }
+                }
+            }
         }
         try loadEarlier()
     }
     func close() throws {
-        closed = true; translationReplay?.cancel(); translationReplay = nil; translationOwner = nil; messageObservers.removeAll()
-        messages = []; draft = ""; consent = false; allowance = nil; notice = nil; earlierAvailable = false
+        closed = true; generation?.cancel(); generation = nil; translationReplay?.cancel(); translationReplay = nil; translationOwner = nil; messageObservers.removeAll()
+        messages = []; draft = ""; availability = .checking; notice = nil; earlierAvailable = false
         // Retry remains possible if SQLite refuses while a transaction is open.
         try vault.close()
     }
@@ -88,7 +102,7 @@ struct BotMessage: Codable, Identifiable {
             try vault.pageIDs("bot-message", prefix: "0", before: before, limit: 50).compactMap { key -> BotMessage? in
                 guard let data = try vault.get("bot-message", key) else { return nil }
                 var message = try JSONDecoder().decode(BotMessage.self, from: data)
-                if message.state == "sending" { message.state = "unconfirmed" }
+                if message.state == "sending" { message.state = message.provider == nil ? "unconfirmed" : "stopped" }
                 return message
             }
         }
@@ -103,14 +117,12 @@ struct BotMessage: Codable, Identifiable {
         do { try vault.transaction { try vault.put("bot-local", "draft", Data(draft.utf8)) } }
         catch { notice = String(localized: "This draft couldn’t be saved. Keep this conversation open and try again.") }
     }
-    func setConsent(_ value: Bool) throws {
-        guard !closed && !busy else { return }
-        try vault.transaction {
-            if value { try vault.put("bot-local", "consent", Data("deepseek-v1".utf8)) }
-            else { try vault.remove("bot-local", "consent") }
-        }
-        consent = value
+    func useInputLanguage(_ language: String) {
+        guard !closed else { return }
+        if inputLanguage != language { cancelGeneration(); inputLanguage = language }
+        availability = generator.availability(language: language)
     }
+    func cancelGeneration() { generation?.cancel() }
     func clear() throws {
         guard !closed && !busy else { return }
         translationReplay?.cancel(); translationReplay = nil
@@ -119,27 +131,21 @@ struct BotMessage: Codable, Identifiable {
             return "bot-"+(try JSONDecoder().decode(BotMessage.self,from:bytes)).id.uuidString
         }) }
         try translationOwner?.forget(messageIDs:ids)
-        try vault.transaction { for id in try vault.ids("bot-message") { try vault.remove("bot-message",id) } }
+        try vault.transaction {
+            for id in try vault.ids("bot-message") { try vault.remove("bot-message",id) }
+            for id in try vault.ids("bot-report-id") { try vault.remove("bot-report-id",id) }
+        }
         messages = []; earlierAvailable = false
     }
     func refresh(preservingNotice: Bool = false) async {
         guard !closed else { return }
-        allowanceRevision &+= 1
-        let revision = allowanceRevision
-        do {
-            let value: BotAllowance = try await api.request("GET", "/v1/bot/allowance")
-            guard !closed, revision == allowanceRevision else { return }; allowance = value
-        } catch {
-            guard !closed, revision == allowanceRevision else { return }
-            allowance = nil
-            if !preservingNotice || notice == nil { notice = String(localized: "Couldn’t check your Bot mini allowance. Try again.") }
-        }
+        availability = generator.availability(language: inputLanguage)
     }
     var canSend: Bool {
-        !closed && !busy && consent && allowance?.canSend(at: now()) == true &&
-        !draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && draft.utf8.count <= min(8192, allowance?.max_context_bytes ?? 0)
+        !closed && !busy && availability == .ready &&
+        !draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && draft.utf8.count <= maximumMessageBytes
     }
-    struct Context: Codable { let role: String; let content: String }
+    typealias Context = LocalBotTurn
     static func context(history: [BotMessage], newText: String, maximumBytes: Int) -> [Context]? {
         guard !newText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
               newText.utf8.count <= min(8192, maximumBytes) else { return nil }
@@ -147,23 +153,15 @@ struct BotMessage: Codable, Identifiable {
             .suffix(11).map { Context(role: $0.role, content: $0.text) }
         values.append(Context(role: "user", content: newText))
         while values.reduce(0, { $0 + $1.content.utf8.count }) > min(8192, maximumBytes) { values.removeFirst() }
+        while values.first?.role == "assistant" { values.removeFirst() }
         return values
     }
     func send() async {
-        guard canSend, let context = Self.context(history: messages, newText: draft, maximumBytes: allowance?.max_context_bytes ?? 0) else { return }
+        guard canSend, let context = Self.context(history: messages, newText: draft, maximumBytes: maximumMessageBytes) else { return }
         busy = true; notice = nil
-        // A read started before this request cannot restore a spent reply.
-        allowanceRevision &+= 1
-        defer { busy = false }
-        let device: DeviceCredential
-        do { device = try DeviceCredential.registered(vault: vault) }
-        catch {
-            notice = String(localized: "Reconnect this account before sending to vBot. Your draft is still here.")
-            return
-        }
+        defer { busy = false; generation = nil }
         var outgoing = BotMessage(id: UUID(), role: "user", text: draft, createdAt: nextMessageDate(), state: "sending")
-        struct Request: Encodable { let request_id: UUID; let consent_version: String; let messages: [Context] }
-        struct Reply: Decodable { let request_id: UUID; let reply: String; let allowance: BotAllowance }
+        outgoing.provider = generator.provider
         do {
             try vault.transaction {
                 try vault.put("bot-message", outgoing.key, JSONEncoder().encode(outgoing))
@@ -171,33 +169,40 @@ struct BotMessage: Codable, Identifiable {
             }
             messages.append(outgoing); draft = ""; messageCommitted(outgoing)
         } catch { notice = String(localized: "Your message couldn’t be saved. Please try again."); return }
+        let task = Task { @MainActor [generator, inputLanguage] in
+            try await generator.reply(to: context, language: inputLanguage)
+        }
+        generation = task
         do {
-            let body = try JSONEncoder().encode(Request(request_id: outgoing.id, consent_version: "deepseek-v1", messages: context))
-            let reply: Reply = try await api.request("POST", "/v1/bot/messages", body: body, device: device)
+            let reply = try await task.value
             guard !closed else { return }
-            guard reply.request_id == outgoing.id, !reply.reply.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-                  reply.reply.utf8.count <= 16384 else { throw ServiceFailure(status: 0, code: "invalid_bot_reply") }
-            // Ordinary navigation retains this account-owned session. Final
-            // disposal above must never write after its vault/key are erased.
+            guard !task.isCancelled else { throw CancellationError() }
+            guard !reply.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, reply.utf8.count <= 16384 else { throw LocalBotFailure.incomplete }
             outgoing.state = "complete"
-            var incoming = BotMessage(id: UUID(), role: "assistant", text: reply.reply, createdAt: nextMessageDate(), state: "complete")
-            incoming.requestID = outgoing.id
+            var incoming = BotMessage(id: UUID(), role: "assistant", text: reply, createdAt: nextMessageDate(), state: "complete")
+            incoming.requestID = outgoing.id; incoming.provider = generator.provider
             try vault.transaction {
                 try vault.put("bot-message", outgoing.key, JSONEncoder().encode(outgoing))
                 try vault.put("bot-message", incoming.key, JSONEncoder().encode(incoming))
             }
             if let index = messages.firstIndex(where: { $0.id == outgoing.id }) { messages[index] = outgoing }
             messages.append(incoming); messageCommitted(incoming)
-            allowanceRevision &+= 1
-            allowance = reply.allowance
         } catch {
             guard !closed else { return }
-            outgoing.state = (error as? ServiceFailure)?.code == "device_revoked" ? "rejected" : "unconfirmed"
-            try? vault.transaction { try vault.put("bot-message", outgoing.key, JSONEncoder().encode(outgoing)) }
-            if let index = messages.firstIndex(where: { $0.id == outgoing.id }) { messages[index] = outgoing }
-            notice = Self.explanation(error)
-            // Never retry a potentially consumed response-generation request.
-            if !closed { await refresh(preservingNotice: true) }
+            outgoing.state = "stopped"
+            // Restore only an empty composer. Never replace a newer draft.
+            if draft.isEmpty { draft = outgoing.text }
+            do {
+                try vault.transaction {
+                    try vault.put("bot-message", outgoing.key, JSONEncoder().encode(outgoing))
+                    try vault.put("bot-local", "draft", Data(draft.utf8))
+                }
+                if let index = messages.firstIndex(where: { $0.id == outgoing.id }) { messages[index] = outgoing }
+                notice = task.isCancelled || error is CancellationError
+                    ? String(localized: "vBot stopped. Your message is still here.")
+                    : (error as? LocalBotFailure)?.errorDescription ?? String(localized: "vBot couldn’t finish. Your message is still here.")
+            } catch { notice = String(localized: "This draft couldn’t be saved. Keep this conversation open and try again.") }
+            await refresh(preservingNotice: true)
         }
     }
     private func nextMessageDate() -> Date {
@@ -218,22 +223,28 @@ struct BotMessage: Codable, Identifiable {
     func report(_ message: BotMessage, reason: String) async throws {
         guard !closed, message.role == "assistant", let request = message.requestID,
               ["harmful", "inaccurate", "other"].contains(reason) else { throw ServiceFailure(status: 0, code: "invalid_report") }
-        struct Report: Encodable { let request_id: UUID; let reason: String; let selected_reply: String }
-        struct Result: Decodable { let reported: Bool }
-        let body = try JSONEncoder().encode(Report(request_id: request, reason: reason, selected_reply: Self.reportExcerpt(message.text)))
+        struct Result: Decodable { let reported: Bool; var report_id: UUID? }
         let device = try DeviceCredential.registered(vault: vault)
-        let result: Result = try await api.request("POST", "/v1/bot/reports", body: body, device: device)
-        guard result.reported else { throw ServiceFailure(status: 0, code: "report_unconfirmed") }
-    }
-    private static func explanation(_ error: Error) -> String {
-        if let error = error as? ServiceFailure {
-            if error.code == "device_revoked" { return String(localized: "Reconnect this account before sending to vBot. This request wasn’t accepted and won’t be resent automatically.") }
-            if error.code == "monthly_allowance_reached" { return String(localized: "You’ve used this month’s Bot mini replies. Your allowance refreshes next month.") }
-            if ["base_subscription_required", "bot_subscription_required"].contains(error.code) { return String(localized: "Check your subscriptions to continue this conversation.") }
-            if ["bot_unavailable", "bot_busy", "bot_temporarily_unavailable"].contains(error.code) { return String(localized: "vBot is unavailable right now. Your message is saved and won’t be resent automatically.") }
+        if let provider = message.provider {
+            guard ["apple-foundation-models", "gemini-nano"].contains(provider) else { throw ServiceFailure(status: 0, code: "invalid_report") }
+            let key = message.id.uuidString.lowercased() + "-" + reason
+            let reportID: UUID = try vault.transaction {
+                if let data = try vault.get("bot-report-id", key), let text = String(data: data, encoding: .utf8), let saved = UUID(uuidString: text) { return saved }
+                let id = UUID(); try vault.put("bot-report-id", key, Data(id.uuidString.lowercased().utf8)); return id
+            }
+            struct Report: Encodable { let report_id: UUID; let provider: String; let reason: String; let selected_reply: String; let consent_version: String }
+            let body = try JSONEncoder().encode(Report(report_id: reportID, provider: provider, reason: reason, selected_reply: Self.reportExcerpt(message.text), consent_version: "local-bot-report-v1"))
+            let result: Result = try await api.request("POST", "/v1/bot/local-reports", body: body, device: device)
+            guard result.reported, result.report_id == reportID else { throw ServiceFailure(status: 0, code: "report_unconfirmed") }
+        } else {
+            // Existing DeepSeek replies retain their original request binding.
+            struct Report: Encodable { let request_id: UUID; let reason: String; let selected_reply: String }
+            let body = try JSONEncoder().encode(Report(request_id: request, reason: reason, selected_reply: Self.reportExcerpt(message.text)))
+            let result: Result = try await api.request("POST", "/v1/bot/reports", body: body, device: device)
+            guard result.reported else { throw ServiceFailure(status: 0, code: "report_unconfirmed") }
         }
-        return String(localized: "We couldn’t confirm vBot’s reply. This message won’t be resent automatically and may have used one reply from your allowance.")
     }
+
 }
 
 /// One live session per account root, retained across ordinary navigation.
@@ -317,11 +328,13 @@ struct BotConversationView: View {
                 do {
                     guard let value = try owner.session(for: account, create: { try sessionFactory(authentication, account) }) else { return }
                     session = value
+                value.useInputLanguage(state.knownLanguage)
                 messageObserver = value.observeNewMessages { event in autoplay.arrived(.init(id:event.id,load:event.load),immersion:immersion,speech:speech,foreground:scenePhase == .active) }
                 await value.refresh()
                 } catch { self.error = String(localized: "Your saved conversation couldn’t be opened. Please try again.") }
             }
             .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(session != nil)-\(owner.translationOwner.map{String(describing:ObjectIdentifier($0))} ?? "local")") {
+                session?.useInputLanguage(state.knownLanguage)
                 copyOriginal.abandon()
                 speech.close()
                 autoplay.stop(speech:speech)
@@ -340,14 +353,14 @@ struct BotConversationView: View {
                 if owner.translationOwner == nil { immersion.close() }; speech.close()
             }
             .onChange(of: scenePhase) { _, phase in
-                if phase != .active { copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); speech.stop() }
+                if phase != .active { session?.cancelGeneration(); copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); speech.stop() }
                 else { Task { await session?.refresh(); await immersion.refreshAvailability(); prepareVoices() } }
             }
             .onChange(of:speech.state) { _,value in if value == .ready { autoplay.voicesReady() } }
             .alert("Delete this vBot conversation?", isPresented: $clearConfirmation) {
                 Button("Delete conversation", role: .destructive) { do { try session?.clear(); autoplay.stop(speech:speech); state.chatReading.cancelPendingPlayback() } catch { self.error = String(localized: "The conversation couldn’t be deleted.") } }
                 Button("Cancel", role: .cancel) { }
-            } message: { Text("This removes the saved vBot messages from this device. It does not cancel your subscription or erase messages already processed by DeepSeek.") }
+            } message: { Text("This removes the saved vBot messages from this device. Reports you already sent to Vipi are kept for up to 30 days. Existing subscriptions are managed separately.") }
             .alert("Listen in your practice language", isPresented: $voiceHelp) {
                 Button("Retry voices") { prepareVoices() }; Button("Done", role: .cancel) { }
             } message: { Text(speech.error ?? String(localized: "Voices are preparing. Please try again shortly.")) }
@@ -367,6 +380,7 @@ struct BotConversationView: View {
         case "sending": String(localized:"Waiting for vBot")
         case "unconfirmed": String(localized:"Reply unconfirmed")
         case "rejected": String(localized:"Request not accepted")
+        case "stopped": String(localized:"No reply — message saved")
         default: nil
         }
     }
@@ -387,8 +401,8 @@ struct BotConversationView: View {
         ScrollViewReader { scroll in
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 14) {
-                    Text("Powered by DeepSeek · Bot conversations aren’t end-to-end encrypted.")
-                        .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                    Text("Chat with vBot on this device, at no extra charge. Replies can be wrong.")
+                        .font(.body).foregroundStyle(VipiDesign.secondary)
                     if value.earlierAvailable { Button("Earlier messages") { do { try value.loadEarlier() } catch { self.error = String(localized: "Earlier messages couldn’t be opened.") } } }
                     ForEach(value.messages) { item in
                         HStack {
@@ -403,16 +417,6 @@ struct BotConversationView: View {
                         }.id(item.id)
                     }
                     if let notice = value.notice ?? error { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary) }
-                    if !value.consent {
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text("Before you start").font(.headline)
-                            Text("Your message and up to 11 recent messages from this conversation are sent to Vipi and DeepSeek to generate each reply. Friend conversations are never included automatically. You can withdraw consent in this conversation’s menu.")
-                            Link("DeepSeek privacy policy", destination: URL(string: "https://cdn.deepseek.com/policies/en-US/deepseek-privacy-policy.html")!)
-                            Link("Vipi privacy policy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
-                            Button("Agree and start chatting") { do { try value.setConsent(true) } catch { self.error = String(localized: "Your choice couldn’t be saved.") } }
-                                .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight)
-                        }.padding(20).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 20))
-                    }
                     Color.clear.frame(height: 1).id("bot-bottom")
                 }.padding(.vertical,18).frame(maxWidth:644).frame(maxWidth:.infinity)
             }.contentMargins(.horizontal,18,for:.scrollContent)
@@ -435,16 +439,10 @@ struct BotConversationView: View {
         }
         .safeAreaInset(edge: .bottom) {
             VStack(alignment: .leading, spacing: 7) {
-                if let allowance = value.allowance {
-                    if allowance.available {
-                        if allowance.remaining_replies <= 0 {
-                            Text("You’ve used this month’s Bot mini replies. Your allowance refreshes next month.")
-                                .font(.subheadline).foregroundStyle(VipiDesign.secondary)
-                        }
-                    } else if !allowance.service_ready {
-                        Text("vBot isn’t available yet.").font(.subheadline).foregroundStyle(VipiDesign.secondary)
-                    } else {
-                        NavigationLink("Check Bot mini") { SubscriptionOfferView(store: subscriptions, plan: .botMini) }
+                if let message = value.availability.message {
+                    HStack(alignment: .top, spacing: 12) {
+                        Text(message).font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal: false, vertical: true)
+                        Button("Check again") { Task { await value.refresh() } }.frame(minHeight: 44)
                     }
                 }
                 if let notice = autoplay.voiceNotice {
@@ -453,7 +451,7 @@ struct BotConversationView: View {
                         Button("Retry voices") { prepareVoices() }.frame(minHeight:44)
                     }.accessibilityIdentifier("chat-voice-recovery")
                 }
-                if rejectedDraftEdit || value.draft.utf8.count > min(8192, value.allowance?.max_context_bytes ?? 8192) {
+                if rejectedDraftEdit || value.draft.utf8.count > value.maximumMessageBytes {
                     Text(LocalizedStringKey(rejectedDraftEdit ? "That text is too long. Your previous draft is still here." : "This message is too long. Send a shorter message."))
                         .font(.subheadline).foregroundStyle(VipiDesign.destructive).fixedSize(horizontal: false, vertical: true)
                         .accessibilityIdentifier("bot-message-length-notice")
@@ -485,20 +483,10 @@ struct BotConversationView: View {
                     copyOriginal.open(value.messages.map{.init(id:$0.id.uuidString,original:$0.text)},autoplay:autoplay,speech:speech,reading:state.chatReading,fromMenu:true)
                 }.disabled(value.messages.isEmpty).accessibilityIdentifier("copy-original-picker")
                 NavigationLink("Languages") { LanguageDownloadView() }
-                NavigationLink("Bot mini subscription") { SubscriptionOfferView(store: subscriptions, plan: .botMini) }
-                if let allowance = value.allowance {
-                    Section("Bot mini usage") {
-                        Text("\(allowance.remaining_replies.formatted()) of \(allowance.monthly_replies.formatted()) replies left this month")
-                        if let reset = allowanceReset(allowance.resets_at) {
-                            Text("Replies reset on \(reset.formatted(date: .abbreviated, time: .shortened)).")
-                        }
-                    }
-                }
                 if value.messages.contains(where:{$0.role == "assistant" && $0.requestID != nil}) {
                     Button("Report a message",systemImage:"flag") { choosingReport = true }
                         .accessibilityIdentifier("report-message-picker")
                 }
-                if value.consent { Button("Withdraw DeepSeek consent") { do { try value.setConsent(false) } catch { self.error = String(localized: "Your choice couldn’t be saved.") } }.disabled(value.busy) }
                 Button("Delete conversation", role: .destructive) { clearConfirmation = true }.disabled(value.busy)
              } label: { Image(systemName: "ellipsis").frame(width: 44, height: 44)
                 .background { CopyOriginalMenuCapture(context:copyOriginal) } }.accessibilityLabel("vBot options")
@@ -512,13 +500,9 @@ struct BotConversationView: View {
         }
 
     }
-    private func allowanceReset(_ value: String) -> Date? {
-        let format = ISO8601DateFormatter(); format.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        return format.date(from: value) ?? ISO8601DateFormatter().date(from: value)
-    }
     private func sendHint(_ value: BotSession) -> Text {
-        if value.draft.utf8.count > min(8192, value.allowance?.max_context_bytes ?? 8192) { return Text("This message is too long. Send a shorter message.") }
-        if !value.consent { return Text("Agree and start chatting") }
+        if value.draft.utf8.count > value.maximumMessageBytes { return Text("This message is too long. Send a shorter message.") }
+        if let message = value.availability.message { return Text(verbatim: message) }
         if value.busy { return Text("Waiting for vBot") }
         if let notice = value.notice ?? error { return Text(verbatim: notice) }
         return Text("Message vBot")
@@ -553,7 +537,7 @@ private struct BotReportView: View {
                         Picker("Reason", selection: $reason) {
                             Text("Harmful").tag("harmful"); Text("Inaccurate").tag("inaccurate"); Text("Other").tag("other")
                         }
-                        Text("Send only the reply shown above and your selected reason to Vipi. Reports are stored encrypted for up to 30 days. Your other messages aren’t included.")
+                        Text("Only the selected reply and report details are sent to Vipi’s developers. Reports are encrypted, kept for up to 30 days, and removed when you delete your account.")
                             .font(.footnote).foregroundStyle(VipiDesign.secondary)
                         Button("Send report") {
                             busy = true; notice = nil

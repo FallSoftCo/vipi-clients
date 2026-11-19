@@ -12,6 +12,19 @@ struct SubscriptionOfferView: View {
     private var trial: Bool { plan == .botMini && store.introductoryEligible.contains(plan) }
 
     var body: some View {
+        if plan == .botMini {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    Text("vBot replies on this device, at no extra charge.").font(.title2.weight(.semibold))
+                    Text("Availability and reply languages depend on your device.")
+                    Text("If you already have a Bot mini subscription, manage it in the App Store. It does not cancel automatically.")
+                    Link("Manage an existing Bot mini subscription", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
+                        .frame(minHeight: 44)
+                }.padding(24).frame(maxWidth: 560).frame(maxWidth: .infinity)
+            }.background(VipiDesign.canvas).navigationTitle("vBot")
+        } else { baseOffer }
+    }
+    private var baseOffer: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
                 if plan == .base && !store.accessVerificationPending(.base) && !store.accessActive(.base) && access?.cardless_trial?.active == false {
@@ -152,7 +165,7 @@ struct SubscriptionOfferView: View {
     private var benefit: some View {
         Group {
             if plan == .base {
-                Text("Your messages appear in \(VipiLanguage.named(state.targetLanguage).localizedName), translated on this device. Bot mini is optional and billed separately.")
+                Text("Your messages appear in \(VipiLanguage.named(state.targetLanguage).localizedName), translated on this device.")
             } else { Text("Chat with vBot.") }
         }.font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal: false, vertical: true)
     }
@@ -168,7 +181,7 @@ struct SubscriptionsView: View {
     var body: some View {
         List {
             Section {
-                ForEach(VipiPlan.allCases) { plan in
+                ForEach([VipiPlan.base]) { plan in
                     NavigationLink { SubscriptionOfferView(store: store, plan: plan) } label: {
                         if store.accessVerificationPending(plan) {
                             LabeledContent(plan.title) { Text("Checking access").foregroundStyle(VipiDesign.secondary) }
@@ -187,11 +200,14 @@ struct SubscriptionsView: View {
                     if store.snapshot?.base.isReviewAccess == true && store.snapshot?.bot_mini.isReviewAccess == true {
                         Text("Review access is active. No subscription is required for this account.")
                     } else {
-                        Text("Bot mini is optional. Each plan is billed separately.")
+                        Text("vBot runs on supported devices at no extra charge.")
                     }
                 }.font(.body).foregroundStyle(VipiDesign.secondary)
             }
             Section {
+                if store.snapshot?.bot_mini.expires_at != nil {
+                    Link("Manage an existing Bot mini subscription", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
+                }
                 Button("Restore purchases") { Task { await store.restore() } }.disabled(store.busy)
                 Link("Manage App Store subscriptions", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
             }

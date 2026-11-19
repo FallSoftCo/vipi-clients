@@ -58,8 +58,7 @@ import ImageIO
         XCTAssertTrue(app.staticTexts["Chats"].exists)
         let botEntry = app.buttons.matching(NSPredicate(format: "label CONTAINS 'vBot'"))
         XCTAssertEqual(botEntry.count, 1); XCTAssertTrue(botEntry.firstMatch.isHittable); botEntry.firstMatch.tap()
-        let agree = app.buttons["Agree and start chatting"]
-        XCTAssertTrue(agree.waitForExistence(timeout: 10)); agree.tap()
+        XCTAssertFalse(app.buttons["Agree and start chatting"].exists)
         let input = app.descendants(matching: .any).matching(identifier: "bot-message-input").firstMatch
         XCTAssertTrue(input.waitForExistence(timeout: 10)); input.tap()
         input.typeText("Hold this reply while I review deletion.")
@@ -621,7 +620,7 @@ final class ChatConversationTests: XCTestCase {
 
 /// Actual BotConversationView and BotSession in the exact guarded QA bundle.
 @MainActor final class BotJourneyTests: XCTestCase {
-    func testKeyboardConsentConfirmedReplyAndReopenWhileReplyIsPending() throws {
+    func testKeyboardLocalReplyAndReopenWhileReplyIsPending() throws {
         continueAfterFailure = false
         let originalOrientation = XCUIDevice.shared.orientation
         XCUIDevice.shared.orientation = .portrait
@@ -633,7 +632,7 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertTrue(open.waitForExistence(timeout: 15)); open.tap()
         let input = app.descendants(matching: .any).matching(identifier: "bot-message-input").firstMatch
         let send = app.buttons["bot-message-send"]
-        XCTAssertTrue(input.waitForExistence(timeout: 10)); input.tap(); input.typeText("Local draft before consent.")
+        XCTAssertTrue(input.waitForExistence(timeout: 10)); input.tap(); input.typeText("Local draft before sending.")
         let keyboard = app.keyboards.firstMatch
         XCTAssertTrue(keyboard.waitForExistence(timeout: 5))
         let navigation = app.navigationBars["vBot"], back = navigation.buttons.element(boundBy: 0)
@@ -644,14 +643,14 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertGreaterThan(control.frame.height, 0); XCTAssertTrue(app.frame.contains(control.frame))
             XCTAssertLessThanOrEqual(control.frame.maxY, keyboard.frame.minY + 1)
         }
-        XCTAssertEqual(input.value as? String, "Local draft before consent.")
-        XCTAssertFalse(send.isEnabled)
-        capture(app, "bot-preconsent-draft-keyboard-title-back-send")
+        XCTAssertEqual(input.value as? String, "Local draft before sending.")
+        XCTAssertTrue(send.isEnabled)
+        capture(app, "bot-local-draft-keyboard-title-back-send")
         // Both orientations are declared by the app. Keep real multiline input,
         // its action, and the focused field above the actual software IME.
         let extra = "\nLandscape line two.\nLandscape line three.\nLandscape line four.\nLandscape line five.\nFinal landscape line."
         input.typeText(extra)
-        var landscapeDraft = "Local draft before consent." + extra
+        var landscapeDraft = "Local draft before sending." + extra
         XCTAssertEqual(input.value as? String, landscapeDraft)
         XCUIDevice.shared.orientation = .landscapeLeft
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
@@ -681,24 +680,23 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertGreaterThanOrEqual(control.frame.minY, navigation.frame.maxY - 1)
             XCTAssertLessThanOrEqual(control.frame.maxY, keyboard.frame.minY + 1)
         }
-        XCTAssertTrue(input.isHittable); XCTAssertFalse(send.isEnabled)
+        XCTAssertTrue(input.isHittable); XCTAssertTrue(send.isEnabled)
         XCUIDevice.shared.orientation = .portrait
         XCTAssertEqual(XCTWaiter.wait(for: [XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
             app.frame.height > app.frame.width
         }, object: app)], timeout: 5), .completed)
         input.tap(); input.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: extra.count + " End.".count))
-        XCTAssertEqual(input.value as? String, "Local draft before consent.")
+        XCTAssertEqual(input.value as? String, "Local draft before sending.")
         back.tap(); XCTAssertTrue(open.waitForExistence(timeout: 5))
         XCTAssertTrue(proof.label.contains("posts=0")); open.tap()
-        XCTAssertTrue(input.waitForExistence(timeout: 5)); XCTAssertEqual(input.value as? String, "Local draft before consent.")
-        let agree = app.buttons["Agree and start chatting"]
-        XCTAssertTrue(agree.waitForExistence(timeout: 5)); XCTAssertTrue(agree.isHittable); agree.tap()
+        XCTAssertTrue(input.waitForExistence(timeout: 5)); XCTAssertEqual(input.value as? String, "Local draft before sending.")
+        XCTAssertFalse(app.buttons["Agree and start chatting"].exists)
         XCTAssertTrue(send.isEnabled)
-        capture(app, "bot-explicit-consent-draft-send-enabled")
+        capture(app, "bot-local-draft-send-enabled")
         send.tap()
         let confirmed = message("Confirmed QA reply.", in: app)
         XCTAssertTrue(confirmed.waitForExistence(timeout: 8)); XCTAssertTrue(confirmed.isHittable)
-        capture(app, "bot-explicit-consent-single-confirmed-reply")
+        capture(app, "bot-local-single-confirmed-reply")
         input.tap(); input.typeText("Draft survives ordinary Back.")
         XCTAssertEqual(input.value as? String, "Draft survives ordinary Back.")
         back.tap(); XCTAssertTrue(open.waitForExistence(timeout: 5))
@@ -1663,12 +1661,9 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertFalse(app.buttons["subscription-purchase-vipi.base.annual"].exists,"Active cardless access must not demand enrollment")
         XCTAssertEqual(evidence()["base_active"] as? Bool,true)
         app.navigationBars["Vipi"].buttons["Subscriptions"].tap()
-        openPlan("Bot mini","See plan")
-        try read("This is a separate subscription, in addition to Vipi.",plan:"Bot mini",phase:"bot-optional-separate")
-        try read("vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.",plan:"Bot mini",phase:"bot-processing-explained")
-        let botPurchase = app.buttons["subscription-purchase-vipi.botmini.annual"]
-        if botPurchase.exists { XCTAssertFalse(botPurchase.isEnabled,"This controlled service cannot enroll a customer") }
-        app.navigationBars["Bot mini"].buttons["Subscriptions"].tap(); closePlans()
+        XCTAssertFalse(app.buttons["subscription-purchase-vipi.botmini.annual"].exists)
+        XCTAssertFalse(app.staticTexts["Bot mini"].exists, "New Bot mini purchases are retired")
+        closePlans()
         app.staticTexts["Alex"].firstMatch.tap()
         let input = app.descendants(matching:.any).matching(identifier:"message-input").firstMatch
         XCTAssertTrue(input.waitForExistence(timeout:10)); input.tap()

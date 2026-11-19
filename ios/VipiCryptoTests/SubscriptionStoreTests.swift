@@ -170,18 +170,15 @@ import StoreKitTest
         let unfinished = await unfinishedBaseCount()
         XCTAssertEqual(unfinished, 0)
     }
-    func testBaseAnnualWithoutExtraTrialAndSeparateBotMiniTrialRespectServiceReadiness() async throws {
+    func testBaseAnnualWithoutExtraTrialAndNoNewBotMiniPurchase() async throws {
         let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
         let api = Service(); api.ready = false
         let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
         await store.start()
-        XCTAssertEqual(Set(store.products.keys), Set(VipiPlan.allCases))
-        XCTAssertEqual(store.introductoryEligible, [.botMini])
+        XCTAssertEqual(Set(store.products.keys), [.base])
+        XCTAssertTrue(store.introductoryEligible.isEmpty)
         XCTAssertNil(store.products[.base]?.subscription?.introductoryOffer)
         XCTAssertEqual(store.products[.base]?.price, Decimal(12))
-        XCTAssertEqual(store.products[.botMini]?.subscription?.introductoryOffer?.period.unit, .month)
-        XCTAssertEqual(store.products[.botMini]?.subscription?.introductoryOffer?.period.value, 1)
-        XCTAssertNotEqual(store.products[.base]?.subscription?.subscriptionGroupID, store.products[.botMini]?.subscription?.subscriptionGroupID)
         XCTAssertFalse(store.canPurchase(.base)); XCTAssertFalse(store.canPurchase(.botMini)); XCTAssertTrue(environment.allTransactions().isEmpty)
         api.ready = true; await store.refresh()
         XCTAssertTrue(store.canPurchase(.base)); XCTAssertFalse(store.canPurchase(.botMini))
@@ -189,7 +186,7 @@ import StoreKitTest
         XCTAssertTrue(store.baseActive); XCTAssertFalse(store.botAvailable)
         XCTAssertEqual(environment.allTransactions().count, 1)
         api.botService = false; await store.refresh(); XCTAssertFalse(store.canPurchase(.botMini))
-        api.botService = true; await store.refresh(); XCTAssertTrue(store.canPurchase(.botMini))
+        api.botService = true; await store.refresh(); XCTAssertFalse(store.canPurchase(.botMini))
     }
     func testUnexpectedBaseStoreTrialBlocksCheckoutWithoutCreatingTransaction() async throws {
         let environment = try await environment(resource: "VipiWrongBaseTrial")
@@ -282,13 +279,13 @@ import StoreKitTest
         XCTAssertFalse(store.baseActive); XCTAssertFalse(store.purchaseReady)
         XCTAssertEqual(api.submitted, 0); XCTAssertTrue(store.products.isEmpty)
     }
-    func testCardlessBaseTrialPreventsPaidBaseCheckoutAndLeavesBotMiniOptional() async throws {
+    func testCardlessBaseTrialPreventsPaidCheckoutAndLocalBotNeedsNoPlan() async throws {
         let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }
         let api = Service(); api.cardlessTrial = true
         let store = SubscriptionStore(api: api, accountToken: api.account); defer { store.close() }
         await store.start()
         XCTAssertTrue(store.baseActive); XCTAssertFalse(store.canPurchase(.base))
-        XCTAssertTrue(store.canPurchase(.botMini)); XCTAssertFalse(store.botAvailable)
+        XCTAssertFalse(store.canPurchase(.botMini)); XCTAssertFalse(store.botAvailable)
         await store.purchase(.base)
         XCTAssertTrue(environment.allTransactions().isEmpty); XCTAssertEqual(api.submitted, 0)
         api.cardlessTrial = false; await store.refresh()

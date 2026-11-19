@@ -99,7 +99,7 @@ struct BotAllowance: Decodable, Sendable {
 
     init(api: any ChatTransport, accountToken: UUID,
          loadProducts: @escaping @MainActor () async throws -> [Product] = {
-             try await Product.products(for: VipiPlan.allCases.map(\.rawValue))
+             try await Product.products(for: [VipiPlan.base.rawValue])
          }) {
         self.api = api; self.accountToken = accountToken; self.loadProducts = loadProducts
     }
@@ -126,10 +126,7 @@ struct BotAllowance: Decodable, Sendable {
         botAllowance = nil
         defer { loading = false }
         await refreshEntitlements()
-        do {
-            let value: BotAllowance = try await api.request("GET", "/v1/bot/allowance")
-            if !closed { botAllowance = value }
-        } catch { /* Bot availability never prevents using a base subscription. */ }
+        // Local vBot readiness is device-owned; subscription refresh sends no bot request.
         do {
             let values = try await loadProducts()
             guard !closed else { return }
@@ -147,7 +144,7 @@ struct BotAllowance: Decodable, Sendable {
             }
             guard !closed else { return }
             products = found; introductoryEligible = eligible
-            catalogUnavailable = found.count != VipiPlan.allCases.count
+            catalogUnavailable = found[.base] == nil
         } catch {
             if !closed {
                 // Never initiate a charge from stale offer or price information.
@@ -192,14 +189,14 @@ struct BotAllowance: Decodable, Sendable {
     // Block eligible Base checkout until the old introductory offer is removed.
     var baseStoreTrialStillOffered: Bool { introductoryEligible.contains(.base) }
     func canPurchase(_ plan: VipiPlan) -> Bool {
-        !closed && !busy && !loading && !reconciling && !pending && !awaitingConfirmation.contains(plan) && !accountConflicts.contains(plan) && purchaseReady && snapshot != nil && products[plan] != nil &&
+        plan == .base && !closed && !busy && !loading && !reconciling && !pending && !awaitingConfirmation.contains(plan) && !accountConflicts.contains(plan) && purchaseReady && snapshot != nil && products[plan] != nil &&
         snapshot?.access(plan).active == false &&
         !accessVerificationPending(plan) &&
         !(plan == .base && baseStoreTrialStillOffered) &&
         (plan == .base || (baseActive && botServiceReady))
     }
     func purchase(_ plan: VipiPlan) async {
-        guard canPurchase(plan), let product = products[plan] else { return }
+        guard plan == .base, canPurchase(plan), let product = products[plan] else { return }
         busy = true; notice = nil
         defer { busy = false }
         do {

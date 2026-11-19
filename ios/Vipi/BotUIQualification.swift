@@ -71,7 +71,7 @@ struct BotUIQualificationView: View {
     func makeSession(account: UUID) throws -> BotSession {
         guard account == self.account else { throw ServiceFailure(status: 0, code: "qa_account_mismatch") }
         let vault = try MessageVault(account: account, directory: directory)
-        let session = try BotSession(api: api, vault: vault)
+        let session = try BotSession(api: api, vault: vault, generator: api)
         vaults.append(vault); sessions.append(session); opened += 1
         return session
     }
@@ -84,7 +84,7 @@ struct BotUIQualificationView: View {
     }
 }
 
-@MainActor @Observable private final class BotUITransport: ChatTransport {
+@MainActor @Observable private final class BotUITransport: ChatTransport, LocalBotGenerating {
     let account: UUID
     let device = DeviceCredential(id: UUID(), secret: String(repeating: "x", count: 43))
     var posts = 0
@@ -95,6 +95,29 @@ struct BotUIQualificationView: View {
     @ObservationIgnored private var continuation: CheckedContinuation<Void, Never>?
     private var requestIDs = Set<UUID>()
     init(account: UUID) { self.account = account }
+    let provider = "apple-foundation-models"
+    let maximumContextBytes = 3072
+    func availability(language: String) -> LocalBotAvailability {
+        if pending {
+            Task { @MainActor in
+                try? await Task.sleep(for: .seconds(2))
+                let held = continuation; continuation = nil; held?.resume()
+            }
+        }
+        return .ready
+    }
+    func reply(to turns: [LocalBotTurn], language: String) async throws -> String {
+        posts += 1
+        if holdNext {
+            holdNext = false; pending = true
+            await withCheckedContinuation { continuation = $0 }
+            pending = false
+        }
+        try Task.checkCancellation()
+        completed += 1
+        return posts == 1 ? "Confirmed QA reply." : "Pending QA reply completed."
+    }
+
     private var allowance: [String: Any] {
         ["available": true, "service_ready": true, "remaining_replies": remaining, "monthly_replies": 150,
          "resets_at": "2099-01-01T00:00:00Z", "max_context_bytes": 8192]
