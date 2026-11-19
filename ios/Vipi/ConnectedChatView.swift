@@ -238,7 +238,7 @@ struct FriendConversationView: View {
         rejectedDraftEdit = false; text = value
     }) }
     private var canSend: Bool { loaded && !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && text.utf8.count <= 32768 }
-    @FocusState private var composing: Bool
+    @State private var composing = false
     init(chat: ChatSession, peer: UUID, immersion: ConversationImmersion? = nil) {
         self.chat = chat; self.peer = peer; usesAppTranslationServices = immersion == nil
         _immersion = State(initialValue: immersion ?? ConversationImmersion())

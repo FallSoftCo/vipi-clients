@@ -7,7 +7,7 @@ import UIKit
 struct MessageEditor: UIViewRepresentable {
     @Binding var text: String
     let placeholder: String
-    let focus: FocusState<Bool>.Binding
+    let focus: Binding<Bool>
     let maximumBytes: Int
     let rejected: () -> Void
     @Environment(\.isEnabled) private var enabled

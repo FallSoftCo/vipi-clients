@@ -294,7 +294,7 @@ struct BotConversationView: View {
     @State private var copyOriginal = CopyOriginalContext(editorID:"bot-message-input",timelineID:"bot-conversation-timeline")
     @State private var chosenReportMessage: BotMessage?
     @State private var rejectedDraftEdit = false
-    @FocusState private var composing: Bool
+    @State private var composing = false
     var body: some View {
         Group {
             if let session { conversation(session) }
