@@ -465,12 +465,18 @@ struct BotConversationView: View {
                         .accessibilityIdentifier("bot-message-input")
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
                         .onChange(of: value.draft) { _, _ in value.saveDraft() }
-                    Button { composing = false; followingLatest = true; Task { await value.send() } } label: {
-                        if value.busy { ProgressView().frame(width: 46, height: 46) }
+                    Button {
+                        if value.busy { value.cancelGeneration() }
+                        else { composing = false; followingLatest = true; Task { await value.send() } }
+                    } label: {
+                        if value.busy {
+                            Image(systemName: "stop.fill").frame(width: 46, height: 46)
+                                .background(VipiDesign.highlight, in: Circle()).foregroundStyle(VipiDesign.onHighlight)
+                        }
                         else { Image(systemName: "arrow.up").frame(width: 46, height: 46)
                             .background(value.canSend ? VipiDesign.highlight : VipiDesign.secondary.opacity(0.16), in: Circle())
                             .foregroundStyle(value.canSend ? VipiDesign.onHighlight : VipiDesign.secondary) }
-                    }.disabled(!value.canSend).accessibilityLabel("Send to vBot")
+                    }.disabled(!value.busy && !value.canSend).accessibilityLabel(value.busy ? String(localized: "Stop vBot reply") : String(localized: "Send to vBot"))
                         .accessibilityHint(sendHint(value)).accessibilityIdentifier("bot-message-send")
                 }
             }.padding(14).background(VipiDesign.canvas)
