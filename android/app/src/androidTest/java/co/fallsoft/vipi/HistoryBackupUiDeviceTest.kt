@@ -14,7 +14,7 @@ class HistoryBackupUiDeviceTest {
     @get:Rule val compose = createEmptyComposeRule()
 
     private fun value(tag: String, expected: String) = compose.onNodeWithTag(tag).assert(
-        SemanticsMatcher.expectValue(SemanticsProperties.EditableText, AnnotatedString(expected)))
+        SemanticsMatcher.expectValue(SemanticsProperties.InputText, AnnotatedString(expected)))
 
     @Test fun attemptedBackupExplainsInvalidFieldsAndKeepsTheirValues() {
         val services = JourneyServices(profileRequired = false)
