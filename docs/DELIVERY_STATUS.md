@@ -7,13 +7,16 @@ auth exchanges and Bot requests must not be replayed.
 
 ## Current release hold
 
-- Google 1.0.7 (8): 24 changes not yet submitted, zero in review and zero ready
-  to publish. Managed publishing remains on.
+- Google 1.0.9 (10) is uploaded and saved as a production draft. The older
+  1.0.7 (8) draft remains unsubmitted. Managed publishing remains on; no new
+  review submission or publishing has occurred.
 - Apple 1.0 (5): Developer Rejected; all five submission items were removed,
   with zero active review submissions. The build remains valid and release is manual.
-- These are the previously verified November 18 withdrawal results, reconciled
-  in [the hold summary](../release/store-review-hold-20261118.json). This document
-  update did not inspect the consoles again or perform any store action.
+- The November 18 withdrawals are retained in
+  [the hold summary](../release/store-review-hold-20261118.json). November 19
+  console work saved the new descriptions and reviewer instructions as drafts;
+  Android screenshots were also replaced. This document update performs no
+  additional console action.
 
 ## Current implementation and qualification
 
@@ -55,14 +58,21 @@ A focused native Android accessibility check also passed for the first-use cue:
 it exposes the available action names rather than physical double-tap instructions.
 This verifies the native accessibility tree, not an actual TalkBack session.
 
-The new production Android APK is version 9 / 1.0.8, signed with the existing
-upload identity. Its signature, release configuration, all four native ABIs,
-16 KiB alignment and all 419 product assets passed static checks. The build
-controller exceeded its disk budget after emitting the complete APK; that
-failure remains recorded. Independent verification qualified the emitted file
-without rebuilding it. Production runtime checks and the AAB are still pending.
-The user's phone was inspected through Termux SSH and is confirmed to retain
-the exact older signed version 8 APK; no update was installed in this continuation.
+The current production Android APK and AAB are version 10 / 1.0.9, signed with
+the existing upload identity. Release configuration, native ABI packaging and
+16 KiB ZIP/ELF alignment passed inspection. The actual signed APK passed the
+targeted API 34 emulator smoke check while preserving the installed account and
+storage. The audio trace confirms delivered and consumed frames; its underrun
+count remains recorded, so this is not a claim of glitch-free audible playback.
+The preceding version 9 build exceeded its disk estimate after producing a
+complete APK; that original failure remains recorded. It was not silently
+relabelled as a successful build.
+
+The exact version 10 APK was transferred once to the user's phone at
+`Download/vipi-1.0.9-v10.apk` and its hash was verified. The installed app remains
+version 8: ADB is unavailable, so installation and physical-device qualification
+are still pending. No account reset, history removal or replacement login was
+performed.
 
 iOS normal and maximum-text chat layout checks and the targeted owner, cache
 and playback tests passed. The Japanese assertion was corrected to accept valid
@@ -99,9 +109,17 @@ the retained artifacts; the original incomplete controller receipt remains.
 Preferences were left untouched, but an immediate pre-run preference baseline was
 not retained, so exact pre-run preference equality cannot be established. The
 passing tests were not repeated. These tests do not qualify the conditional
-reading-failure UI or the actual Copy menu interaction. Touch Copy original is
-integrated in the iOS candidate source; its new native interaction tests remain
-unexecuted. Misleading screen-reader gesture instructions and a first-use cue
+reading-failure UI or the actual Copy menu interaction. Subsequent native
+interaction checks passed for reading-only retry, silent script/meaning changes,
+hidden accessibility controls and initially hidden, wrapping Arabic feedback at
+maximum Dynamic Type. The first-use cue also passed its actual composer and
+reopened-chat geometry checks. Its first failed assertion measured the outer
+accessibility frame rather than the usable scroll viewport; the corrected test
+checks the native container and insets. Touch Copy original is integrated;
+its two native Friend/vBot journeys are now being exercised with the host
+clipboard isolated. The pending-language-switch journey remains unqualified:
+its fixture has not yet delivered the second message without a foreground
+transition. Original failed runs are retained. Misleading screen-reader gesture instructions and a first-use cue
 dismissed by composer focus have been corrected in source. The combined iOS
 candidate now builds successfully, including the focused cue, reading-feedback,
 Settings and Copy tests. A compiler error in the preceding build was an API
@@ -109,20 +127,28 @@ rename in test diagnostics; its original failure is retained. Native interaction
 qualification remains in progress. The Mac and local workstation are muted at
 the user's request; playback routing or waveform evidence does not establish
 acoustic listening quality.
-Neither platform has
-a fresh qualified signed release of the full-message design, and the user's
-requested phone delivery is pending that qualification.
+Android has the qualified signed version 10 artifacts described above. Final
+iOS signing/export and the remaining native interaction checks are still pending.
 
-The public information pages now describe the full-message design in source.
-Their existing invitation and recovery tests pass; that source change has not
-been deployed. Store-listing source now describes full translations, default
-reading guides and the current gestures in all 14 existing locales, with the
-agreed billing terms retained. The store consoles have not been updated. Final
-assembly must use the qualified native sources and matching copy, then verify
-signed artifacts, actual device delivery and store state before submission.
+The full-message public information pages are deployed and their public responses
+verified. Descriptions are saved in all 14 Google and 13 Apple listing locales,
+with the agreed billing terms retained. Both consoles' reviewer instructions
+now describe the current controls and were verified after saving and reloading.
+Android has current screenshots; final iOS screenshots and build association are
+pending. None of those draft updates submits the apps for review.
 The client source exporter and Apple setup script now require live-reading data
 instead of retired translation catalogs. Source-selection and integrity checks
-pass; no new corresponding-source archive has been published.
+pass. The full-message source archive and Android version 10 supplement are
+published on the existing public source release; the final iOS supplement awaits
+source freeze and release correspondence.
+
+Actual iOS-on-Mac provider execution completed all 44 selected translation calls,
+including 40 Swahili-direction calls through the existing ML Kit path. Semantic
+review found material errors involving names, times and ordinary meaning. This
+small, repeated corpus is not a population accuracy estimate. The choice of
+launching Swahili with an explicit quality note or holding for a better onboard
+translator is awaiting the user's answer. Language availability and policy are
+unchanged while independent release preparation continues.
 
 ## Historical delivery checkpoint — November 17 to early November 18
 
