@@ -19,7 +19,7 @@ import VipiCore
         defer { window.rootViewController = nil; window.isHidden = true; previous?.makeKeyAndVisible() }
         var results: [[String: Any]] = []
         for legacy in [false, true] {
-            let editor: UITextView = legacy ? UITextView(usingTextLayoutManager: false) : DraftTextView(frame: .zero, textContainer: nil)
+            let editor: UITextView = legacy ? UITextView(usingTextLayoutManager: false) : DraftTextView.messageEditor()
             editor.backgroundColor = .white; editor.textColor = .black; editor.tintColor = .systemGreen
             editor.font = .systemFont(ofSize: 53); editor.textContainerInset = .zero
             editor.textContainer.lineFragmentPadding = 0; editor.isScrollEnabled = true

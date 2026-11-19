@@ -16,7 +16,7 @@ struct MessageEditor: UIViewRepresentable {
 
     func makeCoordinator() -> Coordinator { Coordinator(self) }
     func makeUIView(context: Context) -> DraftTextView {
-        let view = DraftTextView(frame: .zero, textContainer: nil)
+        let view = DraftTextView.messageEditor()
         view.delegate = context.coordinator
         view.backgroundColor = .clear
         view.textContainerInset = .zero
@@ -80,6 +80,14 @@ struct MessageEditor: UIViewRepresentable {
 
 @MainActor final class DraftTextView: UITextView {
     let placeholder = UILabel()
+    static func messageEditor() -> DraftTextView {
+        // UIKit's TextKit 2 viewport renders a long single paragraph blank at
+        // large text sizes, even with a valid caret and retained native text.
+        // The explicit compatibility constructor keeps bounded plain drafts
+        // visible and editable. Do not trigger an implicit engine switch by
+        // accessing layoutManager after editing has begun.
+        DraftTextView(usingTextLayoutManager: false)
+    }
     override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         placeholder.isUserInteractionEnabled = false
