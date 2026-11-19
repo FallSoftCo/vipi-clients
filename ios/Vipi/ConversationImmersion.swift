@@ -59,6 +59,97 @@ struct ChatMessageArrival {
     private weak var cacheVault: MessageVault?
     private let introducedWords = IntroducedWords()
     private var progressionTail: Task<Void,Never>?
+    /// A completed message owns immutable selected spans independently of the
+    /// disposable rendering cache and reading policy. Cache loss is not a lesson.
+    private struct MessagePlan: Codable {
+        struct Span: Codable { let start:Int; let length:Int; let key:String }
+        let originalSHA256:String
+        let input:String
+        let spans:[Span]
+    }
+    private var transientPlans: [String:MessagePlan] = [:]
+    private func originalHash(_ identity:ImmersionRequestIdentity) -> String {
+        SHA256.hash(data:Data(identity.text.utf8)).map{String(format:"%02x",$0)}.joined()
+    }
+    private func planPrefix(_ messageID:String) -> String {
+        (cacheVault?.opaqueID(scope:"word-plan-message-v1",value:messageID) ?? messageID)+"/"
+    }
+    private func planKey(_ identity:ImmersionRequestIdentity) -> String {
+        let parts = [identity.source,identity.target,identity.inputLanguage ?? "auto",originalHash(identity)]
+        let value = parts.joined(separator:"\u{0}")
+        return planPrefix(identity.messageID)+(cacheVault?.opaqueID(scope:"word-plan-v1",value:value) ?? value)
+    }
+    private func savedPlan(_ identity:ImmersionRequestIdentity) throws -> MessagePlan? {
+        let key = planKey(identity)
+        let plan:MessagePlan?
+        if let vault = cacheVault {
+            plan = try vault.transaction {
+                guard let bytes = try vault.get("message-word-plan",key) else { return nil }
+                return try JSONDecoder().decode(MessagePlan.self,from:bytes)
+            }
+        } else { plan = transientPlans[key] }
+        guard let plan else { return nil }
+        guard plan.originalSHA256 == originalHash(identity),LocalLanguageCatalog.codes.contains(plan.input) else { throw MessageVault.Failure.invalidRecord }
+        var end = 0
+        for span in plan.spans {
+            guard span.start >= end,span.length > 0,span.start <= identity.text.utf16.count,
+                  span.length <= identity.text.utf16.count - span.start,
+                  let range = Range(NSRange(location:span.start,length:span.length),in:identity.text),
+                  IncrementalWords.normalized(String(identity.text[range]),language:plan.input) == span.key else { throw MessageVault.Failure.invalidRecord }
+            end = span.start + span.length
+        }
+        guard plan.input != identity.target || plan.spans.isEmpty else { throw MessageVault.Failure.invalidRecord }
+        return plan
+    }
+    private func commit(_ value:FullMessageTranslation,plan:MessagePlan,introduced:IntroducedWord?,identity:ImmersionRequestIdentity) throws {
+        guard let bytes = encodedTranslation(value,identity:identity) else { throw MessageVault.Failure.invalidRecord }
+        if let vault = cacheVault {
+            try vault.transaction {
+                if let introduced { try introducedWords.commit(introduced) }
+                try vault.put("message-word-plan",planKey(identity),JSONEncoder().encode(plan))
+                try vault.put("full-message-translation",durableKey(identity),bytes)
+                try vault.remove("full-message-translation-failure",durableKey(identity))
+            }
+        } else {
+            if let introduced { try introducedWords.commit(introduced) }
+            transientPlans[planKey(identity)] = plan
+        }
+    }
+    private func compose(_ words:[WordReplacement],input:String,identity:ImmersionRequestIdentity) -> FullMessageTranslation {
+        func text(reading:Bool) -> String {
+            let result = NSMutableString(string:identity.text)
+            for word in words.reversed() {
+                result.replaceCharacters(in:NSRange(location:word.start,length:word.length),with:reading ? (word.reading ?? word.target) : word.target)
+            }
+            return result as String
+        }
+        let hasGuide = words.contains{$0.reading != nil}
+        return FullMessageTranslation(original:identity.text,practiceText:text(reading:false),meaningText:identity.text,
+            inputLanguage:input,practiceLanguage:identity.target,meaningLanguage:identity.source,
+            practiceReading:hasGuide ? text(reading:true) : nil,
+            readingState:.init(status:hasGuide ? .available : .notNeeded,failure:nil,policy:FullSentenceReadings.statePolicy),words:words)
+    }
+    private func rebuild(_ plan:MessagePlan,identity:ImmersionRequestIdentity) async throws -> FullMessageTranslation {
+        if plan.input == identity.target {
+            let base = FullMessageTranslation(original:identity.text,practiceText:identity.text,meaningText:identity.text,
+                inputLanguage:plan.input,practiceLanguage:identity.target,meaningLanguage:identity.source)
+            return await refreshReading(base,for:identity)
+        }
+        var known: [String:IntroducedWord] = [:]
+        for span in plan.spans where known[span.key] == nil {
+            guard let word = try introducedWords.word(source:plan.input,target:identity.target,key:span.key) else { throw MessageVault.Failure.invalidRecord }
+            let resolved = await readings.resolveDetailed(text:word.translation,language:identity.target)
+            let state = FullSentenceReadings.state(text:word.translation,language:identity.target,reading:resolved.value,failure:resolved.failure)
+            guard state.status != .unavailable else { throw ProviderError.unavailable }
+            known[span.key] = IntroducedWord(source:word.source,target:word.target,key:word.key,
+                translation:word.translation,reading:state.status == .available ? resolved.value?.text : nil)
+        }
+        let words = try plan.spans.map { span -> WordReplacement in
+            guard let word = known[span.key],let range = Range(NSRange(location:span.start,length:span.length),in:identity.text) else { throw MessageVault.Failure.invalidRecord }
+            return WordReplacement(start:span.start,length:span.length,source:String(identity.text[range]),target:word.translation,reading:word.reading)
+        }
+        return compose(words,input:plan.input,identity:identity)
+    }
     private struct CachedTranslation: Codable {
         let policy:String; let messageID:String; let source:String; let target:String
         let value:FullMessageTranslation
@@ -102,9 +193,18 @@ struct ChatMessageArrival {
         warmQueue.removeAll{messageIDs.contains($0.id)}; warmKnown.subtract(messageIDs)
         for key in residentCosts.keys.filter({messageIDs.contains($0.messageID)}) { residentCosts.removeValue(forKey:key) }
         residentOrder.removeAll{messageIDs.contains($0.messageID)}; readings.removeAll(); readingRevision += 1; revision += 1
+        for id in messageIDs {
+            let prefix = planPrefix(id)
+            transientPlans = transientPlans.filter{!$0.key.hasPrefix(prefix)}
+        }
         if let vault = cacheVault {
             try vault.transaction {
                 for id in messageIDs {
+                    while true {
+                        let keys = try vault.pageIDs("message-word-plan",prefix:planPrefix(id),before:nil,limit:100)
+                        for key in keys { try vault.remove("message-word-plan",key) }
+                        if keys.count < 100 { break }
+                    }
                     let prefix = SHA256.hash(data:Data(id.utf8)).map{String(format:"%02x",$0)}.joined()+"/"
                     for namespace in ["full-message-translation","full-message-translation-failure"] {
                         while true {
@@ -118,7 +218,7 @@ struct ChatMessageArrival {
         }
     }
     private func savedTranslation(_ identity:ImmersionRequestIdentity) -> FullMessageTranslation? {
-        guard let vault = cacheVault,
+        guard (try? savedPlan(identity)) != nil,let vault = cacheVault,
               let bytes = try? vault.transaction({try vault.get("full-message-translation",durableKey(identity))}),
               let saved = try? JSONDecoder().decode(CachedTranslation.self,from:bytes),
               saved.policy == cachePolicy, saved.messageID.utf8.elementsEqual(identity.messageID.utf8),
@@ -357,6 +457,15 @@ struct ChatMessageArrival {
         var providerCalls = 0
         let deadline = ContinuousClock.now.advanced(by:fullTranslationTimeout)
         do {
+            if let plan = try savedPlan(identity) {
+                let value = try await rebuild(plan,identity:identity)
+                guard valid() else { return nil }
+                try commit(value,plan:plan,introduced:nil,identity:identity)
+                remember(value,for:identity); readingRevision += 1
+                lastOutcome = .init(result:value.presentation,origin:.localFullContext,status:.ready,
+                    localTranslationCalls:0,fallbackStatus:nil,cacheHit:true,resolvedInputLanguage:plan.input)
+                return value
+            }
             // Very short messages have insufficient evidence to override the
             // language chosen by the user. Detection never mixes pair ledgers.
             let configuredTokens = IncrementalWords.tokens(identity.text,language:pair.source)
@@ -368,7 +477,8 @@ struct ChatMessageArrival {
                     inputLanguage:input,practiceLanguage:pair.target,meaningLanguage:pair.source)
                 let value = await refreshReading(base,for:identity)
                 guard valid() else { return nil }
-                saveTranslation(value,identity:identity); remember(value,for:identity)
+                try commit(value,plan:MessagePlan(originalSHA256:originalHash(identity),input:input,spans:[]),introduced:nil,identity:identity)
+                remember(value,for:identity)
                 return value
             }
             let tokens = IncrementalWords.tokens(identity.text,language:input)
@@ -414,27 +524,11 @@ struct ChatMessageArrival {
                 guard let word = known[token.key] else { return nil }
                 return .init(start:token.range.location,length:token.range.length,source:token.text,target:word.translation,reading:word.reading)
             }
-            func compose(reading:Bool) -> String {
-                let result = NSMutableString(string:identity.text)
-                for word in words.reversed() {
-                    result.replaceCharacters(in:NSRange(location:word.start,length:word.length),with:reading ? (word.reading ?? word.target) : word.target)
-                }
-                return result as String
-            }
-            let practice = compose(reading:false), guide = compose(reading:true)
-            let hasGuide = words.contains{$0.reading != nil}
-            let value = FullMessageTranslation(original:identity.text,practiceText:practice,meaningText:identity.text,
-                inputLanguage:input,practiceLanguage:pair.target,meaningLanguage:pair.source,
-                practiceReading:hasGuide ? guide : nil,
-                readingState:.init(status:hasGuide ? .available : .notNeeded,failure:nil,policy:FullSentenceReadings.statePolicy),words:words)
-            guard valid(),let bytes = encodedTranslation(value,identity:identity) else { return nil }
-            if let vault = cacheVault {
-                try vault.transaction {
-                    if let introduced { try introducedWords.commit(introduced) }
-                    try vault.put("full-message-translation",durableKey(identity),bytes)
-                    try vault.remove("full-message-translation-failure",durableKey(identity))
-                }
-            } else if let introduced { try introducedWords.commit(introduced) }
+            let value = compose(words,input:input,identity:identity)
+            let plan = MessagePlan(originalSHA256:originalHash(identity),input:input,
+                spans:tokens.filter{known[$0.key] != nil}.map{.init(start:$0.range.location,length:$0.range.length,key:$0.key)})
+            guard valid() else { return nil }
+            try commit(value,plan:plan,introduced:introduced,identity:identity)
             guard valid() else { return nil }
             remember(value,for:identity); readingRevision += 1
             lastOutcome = .init(result:value.presentation,origin:.localFullContext,status:.ready,
@@ -446,7 +540,8 @@ struct ChatMessageArrival {
             guard valid() else { return nil }
             let phase: Phase = (error as? ProviderError) == .timedOut ? .timedOut : .failed
             phases[identity] = phase; touchResident(identity)
-            // No vocabulary was committed. Explicit retry cannot add twice.
+            // A failed first translation commits nothing. A completed plan is
+            // never reselected, including when a damaged cache/plan is retried.
             saveFailure(phase,identity:identity)
             return nil
         }
@@ -546,7 +641,7 @@ struct ChatMessageArrival {
         let outstanding = Array(replies.values); replies.removeAll(); for reply in outstanding { reply.resume(returning:nil) }
         timedOutRequests.removeAll(); providerFailures.removeAll(); translations.removeAll(); residentOrder.removeAll(); residentCosts.removeAll(); visibleTranslations.removeAll(); phases.removeAll(); requiredPairs.removeAll()
     }
-    func close() { introducedWords.close(); progressionTail = nil; cacheVault = nil; closed = true; invalidateOutstanding(); inputLanguages.removeAll(); swahili.removeAll(); lastOutcome = nil; revision += 1 }
+    func close() { introducedWords.close(); transientPlans.removeAll(); progressionTail = nil; cacheVault = nil; closed = true; invalidateOutstanding(); inputLanguages.removeAll(); swahili.removeAll(); lastOutcome = nil; revision += 1 }
 }
 
 struct ConversationTranslationTask: View {

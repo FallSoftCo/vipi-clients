@@ -41,3 +41,5 @@ Automated checks cover progression, persistence, cancellation, isolation and
 messaging behavior. New builds remain on the existing release hold until the
 actual two-platform experience is reviewed. No store or production action is
 implied by this source revision.
+
+Completed messages retain an encrypted, immutable span plan separately from their disposable display cache. The plan and newly introduced word commit in one vault transaction. Clearing the cache or changing the reading policy rebuilds precisely those selected spans; it never selects another new word or inserts words learned later into old messages. Corrupt plans or missing vocabulary records produce a retryable failure rather than silent additional learning. Deleting a conversation removes its message plans while retaining the account’s learned vocabulary.

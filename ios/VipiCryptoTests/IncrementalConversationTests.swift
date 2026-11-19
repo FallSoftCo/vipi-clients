@@ -124,4 +124,68 @@ import VipiCore
         XCTAssertEqual(second.practiceText,"agua!"); XCTAssertEqual(calls,1)
         XCTAssertEqual(try vault.transaction{try vault.ids("introduced-word").count},1)
     }
+    func testClearingDerivativeCacheKeepsExactOriginalPlanAfterLaterLearning() async throws {
+        let vault = try store()
+        let first = await owner(vault) { text,_ in text == "water" ? "agua" : "pan" }
+        let original = try await message(first,"one","water bread")
+        XCTAssertEqual(original.words?.count,1)
+        _ = try await message(first,"two","water bread")
+        first.close()
+        try vault.transaction {
+            for id in try vault.ids("full-message-translation") { try vault.remove("full-message-translation",id) }
+        }
+        let reopened = await owner(vault) { _,_ in XCTFail("Cache loss must not introduce another word"); return "unexpected" }
+        defer { reopened.close() }
+        let restored = try await message(reopened,"one","water bread")
+        XCTAssertEqual(restored,original)
+        XCTAssertEqual(try vault.transaction{try vault.ids("introduced-word").count},2)
+        XCTAssertEqual(try vault.transaction{try vault.ids("message-word-plan").count},2)
+    }
+    func testCorruptPlanDoesNotFallBackToSelectingAnotherWordEvenWithValidCache() async throws {
+        let vault = try store()
+        let first = await owner(vault) { _,_ in "agua" }
+        _ = try await message(first,"one","water bread"); first.close()
+        try vault.transaction {
+            for id in try vault.ids("message-word-plan") { try vault.put("message-word-plan",id,Data("broken".utf8)) }
+        }
+        var calls = 0
+        let reopened = await owner(vault) { _,_ in calls += 1; return "pan" }
+        defer { reopened.close() }
+        let identity = reopened.identity(messageID:"one",text:"water bread")
+        let result = await reopened.translatedMessage(for:identity)
+        XCTAssertNil(result); XCTAssertEqual(reopened.phase(for:identity),.failed)
+        reopened.retry(identity)
+        let retried = await reopened.translatedMessage(for:identity)
+        XCTAssertNil(retried); XCTAssertEqual(calls,0)
+        XCTAssertEqual(try vault.transaction{try vault.ids("introduced-word").count},1)
+    }
+    func testMissingPlanWordCannotSilentlyAdvanceVocabulary() async throws {
+        let vault = try store()
+        let first = await owner(vault) { _,_ in "agua" }
+        _ = try await message(first,"one","water bread"); first.close()
+        try vault.transaction {
+            for kind in ["full-message-translation","introduced-word"] {
+                for id in try vault.ids(kind) { try vault.remove(kind,id) }
+            }
+        }
+        var calls = 0
+        let reopened = await owner(vault) { _,_ in calls += 1; return "pan" }
+        defer { reopened.close() }
+        let identity = reopened.identity(messageID:"one",text:"water bread")
+        let result = await reopened.translatedMessage(for:identity)
+        XCTAssertNil(result); XCTAssertEqual(reopened.phase(for:identity),.failed)
+        XCTAssertEqual(calls,0)
+    }
+    func testConversationDeletionRemovesMessagePlansButRetainsLearnedVocabulary() async throws {
+        let vault = try store()
+        let value = await owner(vault) { _,_ in "agua" }
+        defer { value.close() }
+        _ = try await message(value,"one","water")
+        _ = try await message(value,"two","water!")
+        try value.forget(messageIDs:["one"])
+        XCTAssertEqual(try vault.transaction{try vault.ids("message-word-plan").count},1)
+        XCTAssertEqual(try vault.transaction{try vault.ids("introduced-word").count},1)
+        XCTAssertEqual(try vault.transaction{try vault.ids("full-message-translation").count},1)
+    }
+
 }
