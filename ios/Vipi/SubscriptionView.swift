@@ -16,6 +16,8 @@ struct SubscriptionOfferView: View {
                 if plan == .base && !store.accessVerificationPending(.base) && !store.accessActive(.base) && access?.cardless_trial?.active == false {
                     Text("Your free Vipi access has ended. Subscribe to continue chatting.")
                         .font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                    Text("You can read, back up and restore your saved history even after a subscription ends.")
+                        .font(.body).fixedSize(horizontal: false, vertical: true)
                 }
                 if store.accessVerificationPending(plan) {
                     Label("Checking subscription access", systemImage: "clock.arrow.circlepath")
@@ -163,6 +165,8 @@ struct SubscriptionsView: View {
                     NavigationLink { SubscriptionOfferView(store: store, plan: plan) } label: {
                         if store.accessVerificationPending(plan) {
                             LabeledContent(plan.title, value: String(localized: "Checking access"))
+                        } else if plan == .base && store.accessActive(.base) && store.snapshot?.base.access_source == "cardless_trial" {
+                            LabeledContent(plan.title, value: String(localized: "Free access"))
                         } else {
                             LabeledContent(plan.title, value: store.accessActive(plan) ? String(localized: "Active") : String(localized: "See plan"))
                         }

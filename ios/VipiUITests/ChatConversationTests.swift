@@ -1442,6 +1442,12 @@ final class ChatConversationTests: XCTestCase {
     func testFullMessageSettingsInviteAtLargestType() throws {
         try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,settingsInvite:true)
     }
+    func testCardlessAccessSeparateBotAndExpiredHistoryAtActualRoot() throws {
+        try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,plansReview:true)
+    }
+    func testLargestCardlessAccessSeparateBotAndExpiredHistoryAtActualRoot() throws {
+        try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,plansReview:true)
+    }
     func testOnboardingInterruptedSignInFreeMonthAndExpiredIncomingSurviveRelaunch() throws {
         try checkJourney(largest: false)
     }
@@ -1454,6 +1460,109 @@ final class ChatConversationTests: XCTestCase {
     func testArabicSourceInActualPrivateConversationDark() throws {
         try checkJourney(largest: false, reading: "ar-en", dark: true)
     }
+    /// Navigate production screens from a real enrolled root. Only the service
+    /// account and first-month clock are controlled. No store transaction is
+    /// created; this qualifies access/copy/navigation, not store checkout.
+    private func checkCardlessPlans(in app:XCUIApplication,arguments:[String],evidence:@escaping()->[String:Any]) throws {
+        func wait(_ reason:String,_ predicate:@escaping()->Bool) {
+            XCTAssertEqual(XCTWaiter.wait(for:[XCTNSPredicateExpectation(predicate:NSPredicate{_,_ in predicate()},object:app)],timeout:20),.completed,reason)
+        }
+        func capture(_ phase:String) throws {
+            let proof = evidence()
+            XCTAssertEqual(proof["unexpected"] as? Int,0)
+            XCTAssertEqual(proof["purchase_ready"] as? Bool,false)
+            XCTAssertEqual(proof["bot_active"] as? Bool,false)
+            let png = XCTAttachment(screenshot:app.screenshot()); png.name = "plans-"+phase; png.lifetime = .keepAlways; add(png)
+            let tree = XCTAttachment(string:app.debugDescription); tree.name = "plans-"+phase+"-tree"; tree.lifetime = .keepAlways; add(tree)
+            let data = XCTAttachment(data:try JSONSerialization.data(withJSONObject:proof,options:.sortedKeys),uniformTypeIdentifier:"public.json")
+            data.name = "plans-"+phase+"-state"; data.lifetime = .keepAlways; add(data)
+        }
+        func reveal(_ element:XCUIElement,scroll:XCUIElement,bar:XCUIElement) {
+            XCTAssertTrue(scroll.waitForExistence(timeout:10)); XCTAssertTrue(element.waitForExistence(timeout:10))
+            for _ in 0..<24 {
+                let top = max(scroll.frame.minY,bar.frame.maxY)+8
+                let bottom = min(scroll.frame.maxY,app.frame.maxY)-24
+                let frame = element.frame
+                if element.isHittable && frame.midY >= top && frame.midY <= bottom { break }
+                if frame.midY < top { scroll.swipeDown() } else { scroll.swipeUp() }
+            }
+            XCTAssertTrue(element.isHittable)
+            XCTAssertGreaterThanOrEqual(element.frame.minX,app.frame.minX)
+            XCTAssertLessThanOrEqual(element.frame.maxX,app.frame.maxX)
+            XCTAssertGreaterThanOrEqual(element.frame.midY,bar.frame.maxY)
+            XCTAssertLessThanOrEqual(element.frame.midY,app.frame.maxY-24)
+        }
+        func openPlans() {
+            app.buttons["Your profile and settings"].tap()
+            let settings = app.navigationBars["Settings"], form = app.collectionViews.firstMatch
+            XCTAssertTrue(settings.waitForExistence(timeout:10))
+            let row = app.buttons["Subscriptions"]
+            reveal(row,scroll:form,bar:settings); row.tap()
+            XCTAssertTrue(app.navigationBars["Subscriptions"].waitForExistence(timeout:10))
+        }
+        func openPlan(_ name:String,_ status:String) {
+            let row = app.buttons.matching(NSPredicate(format:"label BEGINSWITH %@ AND label CONTAINS %@",name,status)).firstMatch
+            XCTAssertTrue(row.waitForExistence(timeout:15))
+            reveal(row,scroll:app.collectionViews.firstMatch,bar:app.navigationBars["Subscriptions"]); row.tap()
+            XCTAssertTrue(app.navigationBars[name].waitForExistence(timeout:10))
+        }
+        func read(_ text:String,plan:String,phase:String) throws {
+            let label = app.staticTexts[text].firstMatch
+            reveal(label,scroll:app.scrollViews.firstMatch,bar:app.navigationBars[plan]); try capture(phase)
+        }
+        func closePlans() {
+            app.navigationBars["Subscriptions"].buttons["Settings"].tap()
+            app.navigationBars["Settings"].buttons["BackButton"].tap()
+            XCTAssertTrue(app.navigationBars["Chats"].waitForExistence(timeout:10))
+        }
+        app.navigationBars["Alex"].buttons["BackButton"].tap()
+        openPlans(); try capture("free-access-summary")
+        openPlan("Vipi","Free access")
+        try read("Your free Vipi access is active",plan:"Vipi",phase:"free-active")
+        try read("No payment method or subscription is required for this free period.",plan:"Vipi",phase:"free-without-payment")
+        try read("When the free period ends, you can choose whether to subscribe. You won’t be charged automatically.",plan:"Vipi",phase:"free-no-automatic-charge")
+        XCTAssertFalse(app.buttons["subscription-purchase-vipi.base.annual"].exists,"Active cardless access must not demand enrollment")
+        XCTAssertEqual(evidence()["base_active"] as? Bool,true)
+        app.navigationBars["Vipi"].buttons["Subscriptions"].tap()
+        openPlan("Bot mini","See plan")
+        try read("This is a separate subscription, in addition to Vipi.",plan:"Bot mini",phase:"bot-optional-separate")
+        try read("vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.",plan:"Bot mini",phase:"bot-processing-explained")
+        let botPurchase = app.buttons["subscription-purchase-vipi.botmini.annual"]
+        if botPurchase.exists { XCTAssertFalse(botPurchase.isEnabled,"This controlled service cannot enroll a customer") }
+        app.navigationBars["Bot mini"].buttons["Subscriptions"].tap(); closePlans()
+        app.staticTexts["Alex"].firstMatch.tap()
+        let input = app.descendants(matching:.any).matching(identifier:"message-input").firstMatch
+        XCTAssertTrue(input.waitForExistence(timeout:10)); input.tap()
+        let queued = "Keep this after my free month ends.", draft = "My next unsent draft."
+        input.typeText(queued); XCTAssertEqual(input.value as? String,queued); app.buttons["message-send"].tap()
+        wait("Service refusal retains the original encrypted outgoing entry") {
+            (evidence()["expired_posts"] as? Int ?? 0)>0 && (evidence()["expired_ids"] as? [String])?.count == 1
+        }
+        let queuedID = try XCTUnwrap((evidence()["expired_ids"] as? [String])?.first)
+        XCTAssertEqual(input.value as? String,""); input.typeText(draft)
+        wait("Next draft is durable before relaunch") { evidence()["draft"] as? String == draft }
+        app.terminate(); app.launchArguments = arguments; app.launch()
+        XCTAssertTrue(app.navigationBars["Chats"].waitForExistence(timeout:20))
+        wait("Expired access still receives a peer reply without a second enrollment") {
+            evidence()["base_active"] as? Bool == false && evidence()["receipts"] as? Int == 2 &&
+            evidence()["registrations"] as? Int == 1 && evidence()["draft"] as? String == draft &&
+            (evidence()["texts"] as? [String])?.contains("You can still read my reply.") == true
+        }
+        openPlans(); openPlan("Vipi","See plan")
+        try read("Your free Vipi access has ended. Subscribe to continue chatting.",plan:"Vipi",phase:"expired-access")
+        try read("You can read, back up and restore your saved history even after a subscription ends.",plan:"Vipi",phase:"expired-history-remains")
+        let purchase = app.buttons["subscription-purchase-vipi.base.annual"]
+        if purchase.exists { XCTAssertFalse(purchase.isEnabled) }
+        app.navigationBars["Vipi"].buttons["Subscriptions"].tap(); closePlans()
+        app.staticTexts["Alex"].firstMatch.tap(); XCTAssertTrue(input.waitForExistence(timeout:10))
+        XCTAssertEqual(input.value as? String,draft)
+        XCTAssertEqual(evidence()["expired_ids"] as? [String],[queuedID],"No new outgoing identity or duplicate send after reviewing plans")
+        let ids = try XCTUnwrap(evidence()["ids"] as? [String]), states = try XCTUnwrap(evidence()["states"] as? [String])
+        let index = try XCTUnwrap(ids.firstIndex(of:queuedID)); XCTAssertEqual(states[index],"queued")
+        XCTAssertEqual((evidence()["texts"] as? [String])?.filter{$0 == queued}.count,1)
+        try capture("expired-return-preserves-chat-and-draft")
+    }
+
     private func checkFullPracticeTranslation(in app:XCUIApplication,arguments:[String],largest:Bool,evidence:@escaping()->[String:Any]) throws {
         func capture(_ name:String) {
             let png = XCTAttachment(screenshot:app.screenshot()); png.name = name; png.lifetime = .keepAlways; add(png)
@@ -1816,10 +1925,13 @@ final class ChatConversationTests: XCTestCase {
         try capture("marketing-coffee-03-practice-script")
     }
 
-    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false) throws {
+    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false) throws {
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated first-month root only") }
         continueAfterFailure = false
         let app = XCUIApplication()
+        if plansReview {
+            XCTAssertTrue(fullTranslation && reading == "en-zh" && !settingsInvite && !copyOriginal && !cueLifecycle && !pendingPair && !marketing && !draftBoundary && !invitation && !backupValidation && !notificationNavigation)
+        }
         let systemTypeDiagnostic = ProcessInfo.processInfo.environment["VIPI_SYSTEM_TYPE_DIAGNOSTIC"] == "true"
         let settingsSystemType = ProcessInfo.processInfo.environment["VIPI_SETTINGS_SYSTEM_TYPE"] == "true"
         if settingsSystemType { XCTAssertTrue(settingsInvite,"System-category qualification only owns the existing Settings methods") }
@@ -2301,6 +2413,10 @@ final class ChatConversationTests: XCTestCase {
         let firstReply = marketing ? "Yes! Let's meet at ten." : "Your private message arrived."
         _ = observe("first-incoming-received-and-receipted") { $0["receipts"] as? Int == 1 && ($0["texts"] as? [String])?.contains(firstReply) == true }
         if fullTranslation {
+            if plansReview {
+                try checkCardlessPlans(in:app,arguments:arguments,evidence:proof)
+                return
+            }
             if notificationNavigation {
                 try checkSystemNotification(in:app,evidence:proof)
                 return
