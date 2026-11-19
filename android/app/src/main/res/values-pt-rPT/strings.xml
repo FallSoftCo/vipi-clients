@@ -454,4 +454,7 @@
     <string name="report_message">Denunciar uma mensagem</string>
     <string name="full_translation_unavailable">Tradução indisponível</string>
     <string name="draft_edit_too_large">Esse texto é demasiado longo. O rascunho anterior continua aqui.</string>
+    <string name="backup_password_too_short">Use pelo menos 12 carateres.</string>
+    <string name="backup_password_too_long">Esta frase-passe é demasiado longa.</string>
+    <string name="backup_password_mismatch">As frases-passe não coincidem.</string>
 </resources>

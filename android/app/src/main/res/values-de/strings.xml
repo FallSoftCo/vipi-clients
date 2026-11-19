@@ -454,4 +454,7 @@
     <string name="report_message">Nachricht melden</string>
     <string name="full_translation_unavailable">Übersetzung nicht verfügbar</string>
     <string name="draft_edit_too_large">Dieser Text ist zu lang. Dein vorheriger Entwurf ist noch da.</string>
+    <string name="backup_password_too_short">Verwende mindestens 12 Zeichen.</string>
+    <string name="backup_password_too_long">Diese Passphrase ist zu lang.</string>
+    <string name="backup_password_mismatch">Die Passphrasen stimmen nicht überein.</string>
 </resources>

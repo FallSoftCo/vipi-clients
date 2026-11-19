@@ -466,4 +466,7 @@
     <string name="report_message">الإبلاغ عن رسالة</string>
     <string name="full_translation_unavailable">الترجمة غير متاحة</string>
     <string name="draft_edit_too_large">هذا النص طويل جدًا. مسودتك السابقة ما زالت محفوظة.</string>
+    <string name="backup_password_too_short">استخدم 12 حرفًا على الأقل.</string>
+    <string name="backup_password_too_long">عبارة المرور هذه طويلة جدًا.</string>
+    <string name="backup_password_mismatch">عبارتا المرور غير متطابقتين.</string>
 </resources>

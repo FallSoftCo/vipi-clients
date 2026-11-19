@@ -451,4 +451,7 @@
     <string name="report_message">メッセージを報告</string>
     <string name="full_translation_unavailable">翻訳を表示できません</string>
     <string name="draft_edit_too_large">テキストが長すぎます。前の下書きは残っています。</string>
+    <string name="backup_password_too_short">12文字以上を使用してください。</string>
+    <string name="backup_password_too_long">このパスフレーズは長すぎます。</string>
+    <string name="backup_password_mismatch">パスフレーズが一致しません。</string>
 </resources>

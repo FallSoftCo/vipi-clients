@@ -451,4 +451,7 @@
     <string name="report_message">메시지 신고</string>
     <string name="full_translation_unavailable">번역을 사용할 수 없음</string>
     <string name="draft_edit_too_large">텍스트가 너무 깁니다. 이전 초안은 그대로 남아 있습니다.</string>
+    <string name="backup_password_too_short">12자 이상을 사용하세요.</string>
+    <string name="backup_password_too_long">이 암호 구문은 너무 깁니다.</string>
+    <string name="backup_password_mismatch">암호 구문이 일치하지 않습니다.</string>
 </resources>

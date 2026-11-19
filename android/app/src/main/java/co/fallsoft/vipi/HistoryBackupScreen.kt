@@ -15,6 +15,9 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
@@ -68,6 +71,8 @@ internal class HistoryBackupModel : ViewModel() {
     var staged by mutableStateOf<File?>(null)
     var exported by mutableStateOf<File?>(null)
     var job: Job? = null
+    var invalidPassword by mutableStateOf(false)
+    var mismatchedConfirmation by mutableStateOf(false)
     suspend fun prepareExport(file: File, write: suspend (File) -> Unit) {
         var retained = false
         try {
@@ -83,6 +88,7 @@ internal class HistoryBackupModel : ViewModel() {
     fun clear() {
         job?.cancel(); job = null; staged?.delete(); staged = null; exported?.delete(); exported = null
         password = ""; confirmation = ""; summary = null; message = null; busy = false
+        invalidPassword = false; mismatchedConfirmation = false
     }
     override fun onCleared() { clear() }
 }
@@ -102,6 +108,27 @@ internal class HistoryBackupModel : ViewModel() {
     var staged by transfer::staged
     var exported by transfer::exported
     var job by transfer::job
+    var invalidPassword by transfer::invalidPassword
+    var mismatchedConfirmation by transfer::mismatchedConfirmation
+    val passwordFocus = remember { FocusRequester() }
+    val confirmationFocus = remember { FocusRequester() }
+    val normalizedPassword = remember(password) { java.text.Normalizer.normalize(password, java.text.Normalizer.Form.NFC) }
+    val passwordFeedback = when {
+        !invalidPassword -> R.string.ui_04c8049b72ff
+        normalizedPassword.codePointCount(0, normalizedPassword.length) < 12 -> R.string.backup_password_too_short
+        normalizedPassword.toByteArray(Charsets.UTF_8).size > 1024 -> R.string.backup_password_too_long
+        else -> R.string.ui_04c8049b72ff
+    }
+    fun validate(requireConfirmation: Boolean): Boolean {
+        invalidPassword = !HistoryBackupCodec.validPassword(password)
+        mismatchedConfirmation = !invalidPassword && requireConfirmation && password != confirmation
+        when {
+            invalidPassword -> passwordFocus.requestFocus()
+            mismatchedConfirmation -> confirmationFocus.requestFocus()
+            else -> return true
+        }
+        return false
+    }
     fun temporary() = HistoryTransferFiles.temporary(context, account)
     fun clearImport() { staged?.delete(); staged = null; summary = null }
     fun failure(error: Exception) {
@@ -168,20 +195,27 @@ internal class HistoryBackupModel : ViewModel() {
             Text(stringResource(R.string.ui_233a70befbdc), style = MaterialTheme.typography.bodyMedium)
             listOf(false to stringResource(R.string.ui_6a6965bcf571), true to stringResource(R.string.ui_beb6c51b9bf6)).forEach { (restore, label) ->
                 Row(Modifier.fillMaxWidth().selectable(selected = restoring == restore, enabled = !busy, role = Role.RadioButton, onClick = {
-                    if (restoring != restore) { clearImport(); confirmation = ""; message = null; restoring = restore }
+                    if (restoring != restore) { clearImport(); confirmation = ""; message = null; invalidPassword = false; mismatchedConfirmation = false; restoring = restore }
                 }), verticalAlignment = Alignment.CenterVertically) {
                     RadioButton(selected = restoring == restore, onClick = null, enabled = !busy)
                     Text(label, modifier = Modifier.padding(start = 8.dp))
                 }
             }
-            OutlinedTextField(password, { password = it; clearImport(); message = null }, label = { Text(stringResource(R.string.ui_3e39703b6e87)) },
-                supportingText = { Text(stringResource(R.string.ui_04c8049b72ff)) },
+            OutlinedTextField(password, { password = it; clearImport(); message = null
+                if (HistoryBackupCodec.validPassword(it)) invalidPassword = false
+                if (it == confirmation) mismatchedConfirmation = false
+            }, isError = invalidPassword, label = { Text(stringResource(R.string.ui_3e39703b6e87)) },
+                supportingText = { Text(stringResource(passwordFeedback)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
-                singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth())
-            if (!restoring) OutlinedTextField(confirmation, { confirmation = it }, label = { Text(stringResource(R.string.ui_d63cd658184e)) },
+                singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth().focusRequester(passwordFocus).testTag("backup-password"))
+            if (!restoring) OutlinedTextField(confirmation, { confirmation = it
+                if (password == it) mismatchedConfirmation = false
+            }, isError = mismatchedConfirmation,
+                supportingText = { if (mismatchedConfirmation) Text(stringResource(R.string.backup_password_mismatch)) }, label = { Text(stringResource(R.string.ui_d63cd658184e)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
-                singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth())
+                singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth().focusRequester(confirmationFocus).testTag("backup-confirmation"))
             if (!restoring) Button(onClick = {
+                if (!validate(true)) return@Button
                 busy = true; message = null; clearImport()
                 job = scope.launch {
                     try {
@@ -191,9 +225,11 @@ internal class HistoryBackupModel : ViewModel() {
                     } catch (error: CancellationException) { throw error }
                     catch (error: Exception) { exported?.delete(); exported = null; message = context.getString(R.string.backup_save_failed); busy = false }
                 }
-            }, enabled = !busy && HistoryBackupCodec.validPassword(password) && password == confirmation, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_6a6965bcf571)) }
-            if (restoring) OutlinedButton(onClick = { busy = true; message = null; open.launch(arrayOf("application/octet-stream", "application/*")) },
-                enabled = !busy && HistoryBackupCodec.validPassword(password), modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ui_a67f154bcb16)) }
+            }, enabled = !busy, modifier = Modifier.fillMaxWidth().testTag("backup-create")) { Text(stringResource(R.string.ui_6a6965bcf571)) }
+            if (restoring) OutlinedButton(onClick = {
+                if (!validate(false)) return@OutlinedButton
+                busy = true; message = null; open.launch(arrayOf("application/octet-stream", "application/*"))
+            }, enabled = !busy, modifier = Modifier.fillMaxWidth().testTag("backup-open")) { Text(stringResource(R.string.ui_a67f154bcb16)) }
             if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
             message?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
         }

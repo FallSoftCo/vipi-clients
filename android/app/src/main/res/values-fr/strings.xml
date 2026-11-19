@@ -454,4 +454,7 @@
     <string name="report_message">Signaler un message</string>
     <string name="full_translation_unavailable">Traduction indisponible</string>
     <string name="draft_edit_too_large">Ce texte est trop long. Votre brouillon précédent est toujours là.</string>
+    <string name="backup_password_too_short">Utilisez au moins 12 caractères.</string>
+    <string name="backup_password_too_long">Cette phrase secrète est trop longue.</string>
+    <string name="backup_password_mismatch">Les phrases secrètes ne correspondent pas.</string>
 </resources>

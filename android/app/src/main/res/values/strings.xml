@@ -82,4 +82,7 @@
     <string name="report_message">Report a message</string>
     <string name="full_translation_unavailable">Translation unavailable</string>
     <string name="draft_edit_too_large">That text is too long. Your previous draft is still here.</string>
+    <string name="backup_password_too_short">Use at least 12 characters.</string>
+    <string name="backup_password_too_long">This passphrase is too long.</string>
+    <string name="backup_password_mismatch">The passphrases don’t match.</string>
 </resources>
