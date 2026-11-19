@@ -81,4 +81,5 @@
     <string name="autoplay_on_notice">Autoplay on. New messages play aloud.</string>
     <string name="report_message">Report a message</string>
     <string name="full_translation_unavailable">Translation unavailable</string>
+    <string name="draft_edit_too_large">That text is too long. Your previous draft is still here.</string>
 </resources>

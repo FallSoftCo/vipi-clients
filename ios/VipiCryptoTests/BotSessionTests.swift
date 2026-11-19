@@ -61,6 +61,24 @@ import XCTest
         }
         try await body(vault)
     }
+    func testOversizedDraftPersistsButCannotSendUntilShortened() async throws {
+        try await withVault { vault in
+            let api = Transport(), session = try BotSession(api:api,vault:vault)
+            try session.setConsent(true); await session.refresh()
+            let pasted = String(repeating:"界",count:2_731)
+            session.draft = pasted; session.saveDraft()
+            XCTAssertFalse(session.canSend)
+            XCTAssertNil(BotSession.context(history:[],newText:pasted,maximumBytes:8192))
+            let reopened = try BotSession(api:api,vault:vault)
+            XCTAssertEqual(reopened.draft,pasted)
+            reopened.draft = String(repeating:"a",count:ConversationHistory.maximumDraftBytes + 1); reopened.saveDraft()
+            XCTAssertEqual(try BotSession(api:api,vault:vault).draft,pasted)
+            XCTAssertNotNil(reopened.notice)
+            reopened.draft = "Shortened café ☕"; reopened.saveDraft()
+            XCTAssertEqual(try BotSession(api:api,vault:vault).draft,"Shortened café ☕")
+            XCTAssertFalse(api.requests.contains { $0.0 == "POST" },"Editing and reopening must not dispatch a Bot message")
+        }
+    }
     func testConsentAndDurableBotOnlyHistory() async throws {
         try await withVault { vault in
             try vault.transaction { try vault.put("message", "private-friend", Data("Friend-only secret".utf8)) }

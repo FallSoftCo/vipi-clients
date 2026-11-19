@@ -450,4 +450,5 @@
     <string name="autoplay_on_notice">自動朗讀已開啟。新訊息將自動朗讀。</string>
     <string name="report_message">檢舉訊息</string>
     <string name="full_translation_unavailable">翻譯暫時無法使用</string>
+    <string name="draft_edit_too_large">這段文字太長了。之前的草稿仍然保留。</string>
 </resources>

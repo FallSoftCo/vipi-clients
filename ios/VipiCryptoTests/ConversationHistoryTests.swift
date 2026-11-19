@@ -4,6 +4,28 @@ import XCTest
 
 final class ConversationHistoryTests: XCTestCase {
     private enum Interrupted: Error { case write }
+    func testOversizedEditableDraftReopensButOutgoingLimitRemains() throws {
+        let account = UUID(), peer = UUID()
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("history-draft-limit-" + UUID().uuidString)
+        let pasted = String(repeating:"界",count:10_923)
+        let vault = try MessageVault(account:account,directory:root)
+        defer { try? vault.close(); try? FileManager.default.removeItem(at:root); KeychainStore.delete(account:"messages-" + account.uuidString.lowercased()) }
+        let history = try ConversationHistory(vault:vault)
+        try history.saveComposeDraft(pasted,peer:peer)
+        XCTAssertThrowsError(try MessageJournal(vault:vault).saveDraft(id:UUID(),recipient:peer,text:pasted,createdAt:1_800_000_000_000,now:1_800_000_000_000))
+        XCTAssertTrue(try history.messages(peer:peer).isEmpty)
+        let reopened = try MessageVault(account:account,directory:root)
+        defer { try? reopened.close() }
+        let restored = try ConversationHistory(vault:reopened)
+        XCTAssertEqual(try restored.composeDraft(peer),pasted)
+        let atLimit = String(repeating:"a",count:ConversationHistory.maximumDraftBytes)
+        try restored.saveComposeDraft(atLimit,peer:peer)
+        XCTAssertThrowsError(try restored.saveComposeDraft(atLimit + "a",peer:peer))
+        XCTAssertEqual(try restored.composeDraft(peer),atLimit)
+        try restored.saveComposeDraft("Shortened café ☕",peer:peer)
+        XCTAssertEqual(try history.composeDraft(peer),"Shortened café ☕")
+    }
+
     func testHistoryPaginationDraftsUnreadAndReceiptRecovery() throws {
         let account = UUID(), peer = UUID(), other = UUID(), now: Int64 = 1_800_000_000_000
         let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("HistoryQA/\(UUID())")

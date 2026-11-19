@@ -97,6 +97,9 @@ struct BotMessage: Codable, Identifiable {
     }
     func saveDraft() {
         guard !closed else { return }
+        guard draft.utf8.count <= ConversationHistory.maximumDraftBytes else {
+            notice = String(localized: "This draft couldn’t be saved. Keep this conversation open and try again."); return
+        }
         do { try vault.transaction { try vault.put("bot-local", "draft", Data(draft.utf8)) } }
         catch { notice = String(localized: "This draft couldn’t be saved. Keep this conversation open and try again.") }
     }
@@ -290,6 +293,7 @@ struct BotConversationView: View {
     @State private var choosingReport = false
     @State private var copyOriginal = CopyOriginalContext(editorID:"bot-message-input",timelineID:"bot-conversation-timeline")
     @State private var chosenReportMessage: BotMessage?
+    @State private var rejectedDraftEdit = false
     @FocusState private var composing: Bool
     var body: some View {
         Group {
@@ -429,8 +433,16 @@ struct BotConversationView: View {
                         Button("Retry voices") { prepareVoices() }.frame(minHeight:44)
                     }.accessibilityIdentifier("chat-voice-recovery")
                 }
+                if rejectedDraftEdit || value.draft.utf8.count > min(8192, value.allowance?.max_context_bytes ?? 8192) {
+                    Text(LocalizedStringKey(rejectedDraftEdit ? "That text is too long. Your previous draft is still here." : "This message is too long. Send a shorter message."))
+                        .font(.subheadline).foregroundStyle(VipiDesign.destructive).fixedSize(horizontal: false, vertical: true)
+                        .accessibilityIdentifier("bot-message-length-notice")
+                }
                 HStack(alignment: .bottom, spacing: 10) {
-                    TextField("Message vBot", text: $value.draft, axis: .vertical).lineLimit(1...6).focused($composing)
+                    TextField("Message vBot", text: Binding(get: { value.draft }, set: { draft in
+                        guard draft.utf8.count <= ConversationHistory.maximumDraftBytes else { rejectedDraftEdit = true; return }
+                        rejectedDraftEdit = false; value.draft = draft
+                    }), axis: .vertical).lineLimit(1...6).focused($composing)
                         .accessibilityIdentifier("bot-message-input")
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
                         .onChange(of: value.draft) { _, _ in value.saveDraft() }
@@ -484,6 +496,7 @@ struct BotConversationView: View {
         return format.date(from: value) ?? ISO8601DateFormatter().date(from: value)
     }
     private func sendHint(_ value: BotSession) -> Text {
+        if value.draft.utf8.count > min(8192, value.allowance?.max_context_bytes ?? 8192) { return Text("This message is too long. Send a shorter message.") }
         if !value.consent { return Text("Agree and start chatting") }
         if value.busy { return Text("Waiting for vBot") }
         if let notice = value.notice ?? error { return Text(verbatim: notice) }

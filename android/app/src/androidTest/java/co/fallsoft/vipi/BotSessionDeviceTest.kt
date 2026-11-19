@@ -11,6 +11,30 @@ import java.security.KeyStore
 import java.util.UUID
 
 class BotSessionDeviceTest {
+    @Test fun oversizedBotDraftReopensWithoutSendingOrTruncation() {
+        val base = InstrumentationRegistry.getInstrumentation().targetContext
+        val root = File(base.cacheDir, "bot-draft-limit-${UUID.randomUUID()}").apply { check(mkdirs()) }
+        val context = object : ContextWrapper(base) { override fun getNoBackupFilesDir() = root }
+        val account = UUID.randomUUID()
+        val api = object : ChatTransport {
+            override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>): JSONObject = error("Draft editing must not invoke a service")
+        }
+        val pasted = "界".repeat(2_731) // 8,193 UTF-8 bytes.
+        try {
+            BotSession(context, account, api).use { it.saveDraft(pasted) }
+            BotSession(context, account, api).use { bot ->
+                assertEquals(pasted, bot.draft)
+                assertTrue(runCatching { BotSession.contextFor(emptyList(), BotMessage("m0000000000000000001-test", "user", pasted, "unconfirmed", UUID.randomUUID().toString())) }.isFailure)
+                assertTrue(runCatching { bot.saveDraft("a".repeat(ConversationHistory.MAX_DRAFT_BYTES + 1)) }.isFailure)
+                assertEquals(pasted, bot.draft)
+                bot.saveDraft("Shortened café ☕")
+            }
+            BotSession(context, account, api).use { assertEquals("Shortened café ☕", it.draft) }
+        } finally {
+            root.deleteRecursively()
+            KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry("co.fallsoft.vipi.messages.$account") }
+        }
+    }
     @Test fun explicitReportContainsOnlySelectedReplyAndUsesCurrentDevice(): Unit = runBlocking {
         val base = InstrumentationRegistry.getInstrumentation().targetContext
         val root = File(base.cacheDir, "bot-report-${UUID.randomUUID()}").apply { mkdirs() }

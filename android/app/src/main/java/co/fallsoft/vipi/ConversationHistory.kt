@@ -60,10 +60,13 @@ internal class ConversationHistory(private val vault: MessageVault) {
     }
     fun composeDraft(peer: UUID): String = vault.transaction { vault.get("compose", peer.toString())?.toString(Charsets.UTF_8) ?: "" }
     fun saveComposeDraft(text: String, peer: UUID) {
-        require(text.toByteArray(Charsets.UTF_8).size <= 32768)
+        require(text.toByteArray(Charsets.UTF_8).size <= MAX_DRAFT_BYTES)
         vault.transaction { vault.put("compose", peer.toString(), text.toByteArray(Charsets.UTF_8)) }
     }
     companion object {
+        // Editable drafts may exceed the 32 KiB send limit. Bound them at
+        // 128 KiB (well within the vault’s 2 MiB record limit); never truncate.
+        const val MAX_DRAFT_BYTES = 128 * 1024
         fun record(vault: MessageVault, kind: String, id: UUID, peer: UUID, createdAt: Long, unread: Boolean = false) {
             val index = "$peer/" + String.format(Locale.ROOT, "%019d", createdAt) + "/$id"
             val exists = vault.get("history", index) != null

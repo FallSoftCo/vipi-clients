@@ -453,4 +453,5 @@
     <string name="autoplay_on_notice">Automatische Wiedergabe an. Neue Nachrichten werden vorgelesen.</string>
     <string name="report_message">Nachricht melden</string>
     <string name="full_translation_unavailable">Übersetzung nicht verfügbar</string>
+    <string name="draft_edit_too_large">Dieser Text ist zu lang. Dein vorheriger Entwurf ist noch da.</string>
 </resources>

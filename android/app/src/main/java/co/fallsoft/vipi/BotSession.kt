@@ -92,7 +92,7 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
         }
     }
     fun acceptConsent() { check(!closed); vault.transaction { vault.put("bot-settings", "consent", "deepseek-v1".toByteArray()) }; consent = true }
-    fun saveDraft(value: String) { check(!closed); require(value.toByteArray(Charsets.UTF_8).size <= 8192); vault.transaction { vault.put("bot-settings", "draft", value.toByteArray()) }; draft = value }
+    fun saveDraft(value: String) { check(!closed); require(value.toByteArray(Charsets.UTF_8).size <= ConversationHistory.MAX_DRAFT_BYTES); vault.transaction { vault.put("bot-settings", "draft", value.toByteArray()) }; draft = value }
     fun earlier() {
         check(!closed)
         vault.transaction {

@@ -107,6 +107,8 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     var messages by remember(peer) { mutableStateOf<List<ChatItem>>(emptyList()) }
     var text by remember(peer) { mutableStateOf("") }
     var error by remember(peer) { mutableStateOf<String?>(null) }
+    var rejectedDraftEdit by remember(peer) { mutableStateOf(false) }
+    val messageTooLong = text.toByteArray(Charsets.UTF_8).size > 32768
     var earlierAvailable by remember(peer) { mutableStateOf(false) }
     var loaded by remember(peer) { mutableStateOf(false) }
     var userRefreshing by remember(peer) { mutableStateOf(false) }
@@ -143,7 +145,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     var composing by remember { mutableStateOf(false) }
     var topBarHeightPx by remember { mutableIntStateOf(0) }
     val composerStatusScroll = rememberScrollState()
-    LaunchedEffect(peer, error, chat.notice, speech.error) { composerStatusScroll.scrollTo(0) }
+    LaunchedEffect(peer, error, chat.notice, speech.error, messageTooLong, rejectedDraftEdit) { composerStatusScroll.scrollTo(0) }
     LaunchedEffect(speech) { speech.prepare(warmups) }
     LaunchedEffect(speech.state) { if (speech.state == SpeechState.READY) showVoiceHelp = false }
     DisposableEffect(lifecycle, speech, audio) {
@@ -305,7 +307,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     // reading-space preference is qualified by actual native ink, not assumed
     // to equal a Compose paragraph's measured line height.
     val messageLineHeight = with(viewDensity) { 28.sp.toDp() }
-    val hasStatus = showVoiceHelp || speech.state == SpeechState.UNAVAILABLE || (speech.state != SpeechState.UNAVAILABLE && speech.error != null) || error != null || chat.notice != null ||
+    val hasStatus = rejectedDraftEdit || messageTooLong || showVoiceHelp || speech.state == SpeechState.UNAVAILABLE || (speech.state != SpeechState.UNAVAILABLE && speech.error != null) || error != null || chat.notice != null ||
         (chat.needsPlan && onPlan != null) || chat.needsDeviceRecovery || peer in chat.peersNeedingRecovery
     // Reserve readable conversation space before a growing draft consumes it.
     // Three current scaled message lines is a preference, bounded by half the
@@ -376,6 +378,10 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             // below the measured toolbar, even with a multiline draft and IME.
             Column(Modifier.heightIn(max = footerMaxHeight).background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
                 Column(Modifier.fillMaxWidth().weight(1f, fill = false).verticalScroll(composerStatusScroll)) {
+                if (rejectedDraftEdit || messageTooLong) Text(
+                    stringResource(if (rejectedDraftEdit) R.string.draft_edit_too_large else R.string.bot_message_too_long),
+                    color = MaterialTheme.colorScheme.error, fontSize = 14.sp,
+                    modifier = Modifier.padding(horizontal = 18.dp).testTag("message-length-notice"))
                 if (showVoiceHelp || speech.state == SpeechState.UNAVAILABLE)
                     SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
                 if (speech.state != SpeechState.UNAVAILABLE) speech.error?.let {
@@ -398,6 +404,10 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                 Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = if (compact) 0.dp else 8.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     OutlinedTextField(text, { value ->
                         if (!loaded) return@OutlinedTextField
+                        if (value.toByteArray(Charsets.UTF_8).size > ConversationHistory.MAX_DRAFT_BYTES) {
+                            rejectedDraftEdit = true; return@OutlinedTextField
+                        }
+                        rejectedDraftEdit = false
                         text = value
                         try { chat.saveCompose(value, peer) }
                         catch (_: Exception) { error = context.getString(R.string.chat_draft_save_failed) }
@@ -412,7 +422,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                             followingLatest = true; jumpRevision++; refresh()
                             scope.launch { chat.synchronize() }
                         } catch (failure: Exception) { error = ChatSession.explanation(context, failure) }
-                    }, enabled = loaded && chat.ready && peer !in chat.peersNeedingRecovery && text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768,
+                    }, enabled = loaded && chat.ready && peer !in chat.peersNeedingRecovery && text.isNotBlank() && !messageTooLong,
                         modifier = Modifier.size(48.dp).testTag("message-send")) { Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.send_message)) }
                 }
                 }
@@ -423,7 +433,14 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             try { chat.synchronize(); refresh() } finally { userRefreshing = false }
         } }, modifier = Modifier.fillMaxSize().padding(padding)) {
             Column(Modifier.fillMaxSize()) {
-            Box(Modifier.weight(1f).fillMaxWidth()) {
+            BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
+            // Below one complete reading line plus the existing list/bubble
+            // insets, the IME owns this viewport. Keep the list state outside
+            // this branch and restore it when typing ends; never paint a strip.
+            val showTranscript = keyboardInsets.getBottom(viewDensity) == 0 ||
+                maxHeight >= messageLineHeight + 36.dp + EmbeddedMessageVerticalPadding * 2
+            if (!showTranscript) Box(Modifier.fillMaxSize().testTag("conversation-compact-composing"))
+            if (showTranscript) {
             LazyColumn(state = list, modifier = Modifier.fillMaxSize().fullMessageGestures(gestures).testTag("conversation-timeline").semantics {
                 scrollToIndex { index ->
                     if (index !in 0 until list.layoutInfo.totalItemsCount) false else {
@@ -471,6 +488,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                     modifier = Modifier.align(Alignment.BottomEnd).padding(12.dp).size(48.dp).testTag("conversation-latest")) {
                     Icon(Icons.Outlined.ArrowDownward, stringResource(R.string.ui_ef32661fdda0))
                 }
+            }
             }
             }
             FullMessageGestureCue(gestures, composing, compact ||

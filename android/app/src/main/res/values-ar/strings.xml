@@ -465,4 +465,5 @@
     <string name="autoplay_on_notice">القراءة التلقائية مفعّلة. ستُقرأ الرسائل الجديدة بصوت عالٍ.</string>
     <string name="report_message">الإبلاغ عن رسالة</string>
     <string name="full_translation_unavailable">الترجمة غير متاحة</string>
+    <string name="draft_edit_too_large">هذا النص طويل جدًا. مسودتك السابقة ما زالت محفوظة.</string>
 </resources>

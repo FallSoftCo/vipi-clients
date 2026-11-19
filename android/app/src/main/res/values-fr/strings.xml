@@ -453,4 +453,5 @@
     <string name="autoplay_on_notice">Lecture automatique activée. Les nouveaux messages sont lus à voix haute.</string>
     <string name="report_message">Signaler un message</string>
     <string name="full_translation_unavailable">Traduction indisponible</string>
+    <string name="draft_edit_too_large">Ce texte est trop long. Votre brouillon précédent est toujours là.</string>
 </resources>

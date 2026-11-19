@@ -450,4 +450,5 @@
     <string name="autoplay_on_notice">自動読み上げはオンです。新しいメッセージを読み上げます。</string>
     <string name="report_message">メッセージを報告</string>
     <string name="full_translation_unavailable">翻訳を表示できません</string>
+    <string name="draft_edit_too_large">テキストが長すぎます。前の下書きは残っています。</string>
 </resources>

@@ -301,6 +301,92 @@ class FullMessageJourneyDeviceTest {
             .put("results", JSONArray(values.values.map { it.json() }))
         File(f.output,"$name-proof.json").writeText(summary.toString(2))
     }
+    /** Actual screen/edit/save/recreate/send boundary. Controlled translations
+     * isolate layout; these methods make no SDK quality or provider claims. */
+    @Test fun actualFriendOversizedDraftAndCompactTypingRetainExactEditableText() = draftBoundaryAtRoot(false)
+    @Test fun actualBotOversizedDraftAndCompactTypingRetainExactEditableText() = draftBoundaryAtRoot(true)
+    private fun draftBoundaryAtRoot(bot: Boolean) {
+        val services = JourneyServices(profileRequired=false, seedBotMessages=if (bot) 20 else 0, expectedFriendPosts=if (bot) 0 else 1, translationFactory={
+            object : LanguageTranslation {
+                override suspend fun prepare(source:String,target:String,cellularAllowed:Boolean) = Unit
+                override suspend fun translate(text:String,source:String,target:String) = "你好。"
+                override fun close() = Unit
+            }
+        })
+        MainActivityJourneyFixture(if (bot) "draft-boundary-bot" else "draft-boundary-friend", { services.model(it).apply { selectTarget("zh") } }).use { f ->
+            val input = if (bot) "bot-message-input" else "message-input"
+            val send = if (bot) "bot-message-send" else "message-send"
+            val notice = if (bot) "bot-message-length-notice" else "message-length-notice"
+            f.bindConversationCapture(compose,input)
+            try {
+                f.launch(); screen(f,Screen.HOME)
+                if (bot) {
+                    compose.onNodeWithText(f.base.getString(R.string.ui_f173182378d0)).performScrollTo().performTouchInput { click() }
+                    screen(f,Screen.BOT)
+                    compose.waitUntil(15_000) { f.model.bot?.allowance != null && f.model.subscriptions?.accessCheckState == AccessCheckState.LOADED }
+                    compose.onNodeWithTag("bot-consent-choice").performScrollTo().performTouchInput { click() }
+                    compose.onNodeWithTag("bot-consent-continue").performScrollTo().performTouchInput { click() }
+                } else {
+                    compose.onNodeWithContentDescription(f.base.getString(R.string.nav_new_chat)).performTouchInput { click() }
+                    screen(f,Screen.NEW_CHAT)
+                    compose.onNode(hasSetTextAction()).performScrollTo().performTextInput("journey_friend")
+                    compose.onNode(hasSetTextAction()).performImeAction(); screen(f,Screen.CONVERSATION)
+                }
+                val pasted = "界".repeat(if (bot) 2_731 else 10_923)
+                compose.onNodeWithTag(input).performTouchInput { click() }.performTextReplacement(pasted)
+                compose.onNodeWithTag(notice).assertIsDisplayed()
+                compose.onNodeWithTag(send).assertIsNotEnabled()
+                compose.onNodeWithTag(input).assertTextEquals(pasted)
+                fun saved() = if (bot) f.model.bot?.draft else f.model.chat?.compose(services.peer)
+                assertEquals(pasted,saved())
+                f.capture("01-over-send-limit-draft-retained")
+                f.recreate(); screen(f,if (bot) Screen.BOT else Screen.CONVERSATION)
+                compose.waitUntil(15_000) { compose.onNodeWithTag(input).fetchSemanticsNode().config[SemanticsProperties.EditableText].text == pasted }
+                compose.onNodeWithTag(input).performTextReplacement("a".repeat(ConversationHistory.MAX_DRAFT_BYTES+1))
+                compose.onNodeWithTag(input).assertTextEquals(pasted)
+                compose.onNodeWithTag(notice).assertTextEquals(f.base.getString(R.string.draft_edit_too_large))
+                assertEquals(pasted,saved())
+                assertEquals(0,services.friendPosts.get()); assertEquals(0,services.botPosts.get())
+                compose.onNodeWithTag(input).performTextReplacement("A short message to keep.")
+                compose.onNodeWithTag(notice).assertDoesNotExist()
+                compose.onNodeWithTag(send).assertIsEnabled().performTouchInput { click() }
+                if (bot) { services.botReplyGate.complete(Unit); compose.waitUntil(15_000) { f.model.bot?.messages?.size == 22 } }
+                else compose.waitUntil(15_000) { services.friendPosts.get() == 1 }
+                compose.waitUntil(15_000) { faces(f,setOf("A short message to keep.")).isNotEmpty() }
+                if (!bot) repeat(20) { index ->
+                    compose.runOnIdle { services.queueAdditionalPeerReplyAndSignalInbox("A saved history message number $index stays in place while I type.") }
+                    compose.waitUntil(15_000) { services.friendReplyReceipts.get() == index+1 }
+                }
+                val originals = if (bot) requireNotNull(f.model.bot).messages.map { it.text }.toSet()
+                    else requireNotNull(f.model.chat).messages(services.peer).map { it.text }.toSet()
+                val draft = "Keep this exact draft: café ☕.\nThe final line remains editable."
+                compose.onNodeWithTag(input).performTextReplacement(draft)
+                f.device.pressBack()
+                val timeline = compose.onNode(SemanticsMatcher("Actual transcript") { it.config.contains(androidx.compose.ui.semantics.SemanticsActions.ScrollToIndex) })
+                timeline.performScrollToIndex(2)
+                fun visibleAnchor(): Face {
+                    val viewport = compose.onNode(SemanticsMatcher("Actual transcript") { it.config.contains(androidx.compose.ui.semantics.SemanticsActions.ScrollToIndex) }).fetchSemanticsNode().boundsInWindow
+                    return faces(f,originals).filter { viewport.contains(androidx.compose.ui.geometry.Offset(it.bounds.left.toFloat(),it.bounds.top.toFloat())) &&
+                        viewport.contains(androidx.compose.ui.geometry.Offset(it.bounds.right.toFloat()-1,it.bounds.bottom.toFloat()-1)) }.minByOrNull { it.bounds.top }
+                        ?: error("A complete actual native paragraph must anchor the reading position")
+                }
+                compose.waitUntil(15_000) { runCatching { visibleAnchor() }.isSuccess }
+                val before = visibleAnchor()
+                f.capture("02-reader-anchor-before-compact-typing")
+                exerciseShortLandscapeComposer(compose,f,input,send,draft,"02-compact-composing-no-clipped-transcript",requireCompactTranscript=true)
+                assertEquals(draft,saved())
+                f.device.pressBack()
+                compose.waitUntil(8_000) { faces(f,originals).isNotEmpty() }
+                compose.waitUntil(8_000) { runCatching { visibleAnchor() }.isSuccess }
+                val after = visibleAnchor()
+                assertEquals("Typing must not replace the reader’s actual message anchor",before.original,after.original)
+                assertEquals("Matching restored portrait viewport retains the native paragraph position",before.bounds,after.bounds)
+                f.capture("03-history-restored-after-typing")
+                services.assertNoPurchase()
+            } catch (failure:Throwable) { runCatching { f.capture("failure") }; throw failure }
+            finally { services.botReplyGate.complete(Unit); f.stopActivity(); services.close() }
+        }
+    }
     @Test fun actualFriendSendIncomingHoldScriptAndPracticeAudioKeepDraftAndHistory() {
         runBlocking { cachedLocalTranslation().use { it.prepare("en", practice, cellularAllowed = false) } }
         val audioEvents = java.util.concurrent.CopyOnWriteArrayList<JSONObject>()
@@ -519,13 +605,11 @@ class FullMessageJourneyDeviceTest {
                 // than inferring text visibility from a containing field.
                 assertTrue(cuePreferences.edit().remove("hold-script-policy-1").commit())
                 exerciseShortLandscapeComposer(compose, f, "message-input", "message-send", savedDraft,
-                    "friend-12-current-draft-short-landscape", requireContentDirection = true)
+                    "friend-12-current-draft-short-landscape", requireContentDirection = true, requireCompactTranscript = true)
                 val constrainedCapture = JSONObject(File(f.output, "friend-12-current-draft-short-landscape.json").readText())
                 assertEquals("actual_compose_timeline_editor_window_IME_intersection", constrainedCapture.getString("visibility_qualification"))
                 val nativeRows = constrainedCapture.getJSONArray("native_paragraphs")
-                assertTrue("The real clipped native history must be observed", nativeRows.length() > 0)
-                assertTrue("A native local rectangle must not qualify history behind the composer as fully visible",
-                    (0 until nativeRows.length()).none { nativeRows.getJSONObject(it).getBoolean("fully_visible") })
+                assertEquals("Compact typing must not paint unreadable history strips", 0, nativeRows.length())
                 assertEquals(savedDraft, chat.compose(services.peer))
                 assertEquals(2, services.friendPosts.get()); assertEquals(0, services.reportPosts.get())
                 // Import through the actual encrypted backup/session boundary:

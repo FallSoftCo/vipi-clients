@@ -15,7 +15,7 @@ import java.io.File
 
 /** Real activity, Gboard/window insets and rendered text/caret. No substitute editor. */
 internal fun exerciseShortLandscapeComposer(compose: ComposeTestRule, f: MainActivityJourneyFixture,
-    inputTag: String, sendTag: String, expected: String, evidence: String, requireContentDirection: Boolean = false) {
+    inputTag: String, sendTag: String, expected: String, evidence: String, requireContentDirection: Boolean = false, requireCompactTranscript: Boolean = false) {
     val originalSize = f.device.executeShellCommand("wm size").trim()
     val override = Regex("Override size: ([0-9]+x[0-9]+)").find(originalSize)?.groupValues?.get(1)
     val rotation = f.device.displayRotation
@@ -197,6 +197,11 @@ internal fun exerciseShortLandscapeComposer(compose: ComposeTestRule, f: MainAct
             }
         } catch (failure: Throwable) { throw AssertionError("Short landscape composer clipped/overlapping: $diagnostic", failure) }
         File(f.output, "$evidence-geometry.json").writeText(requireNotNull(proof).toString(2))
+        if (requireCompactTranscript) {
+            compose.onNodeWithTag("conversation-compact-composing").assertExists()
+            compose.onNodeWithTag("conversation-timeline").assertDoesNotExist()
+            f.instrumentation.runOnMainSync { assertTrue("Compact composing must paint no clipped native paragraph", f.paragraphs().isEmpty()) }
+        }
         f.capture(evidence)
         if (requireContentDirection) {
             val layout = currentLayout()

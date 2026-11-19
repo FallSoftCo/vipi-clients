@@ -66,6 +66,8 @@ import java.time.format.FormatStyle
     var composing by remember { mutableStateOf(false) }
     var consentChecked by remember { mutableStateOf(false) }
     var localError by remember { mutableStateOf<String?>(null) }
+    var rejectedDraftEdit by remember(bot) { mutableStateOf(false) }
+    val messageTooLong = bot.draft.toByteArray(Charsets.UTF_8).size > 8192
     var reportOptions by remember { mutableStateOf(false) }
     var chooseReport by remember { mutableStateOf(false) }
     var chooseCopy by remember(bot) { mutableStateOf(false) }
@@ -126,7 +128,11 @@ import java.time.format.FormatStyle
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val density = LocalDensity.current
     val keyboardInsets = WindowInsets.ime
-    val statusNotice = localError ?: bot.notice
+    val statusNotice = when {
+        rejectedDraftEdit -> context.getString(R.string.draft_edit_too_large)
+        messageTooLong -> context.getString(R.string.bot_message_too_long)
+        else -> localError ?: bot.notice
+    }
     var statusNoticeHeightPx by remember(statusNotice) { mutableIntStateOf(0) }
     val bottomInsets = with(density) { maxOf(WindowInsets.ime.getBottom(this), WindowInsets.navigationBars.getBottom(this)).toDp() }
     val availableHeight = (maxHeight - with(density) { topBarHeightPx.toDp() } - bottomInsets).coerceAtLeast(0.dp)
@@ -222,9 +228,12 @@ import java.time.format.FormatStyle
                 consent = bot.consent, consentChecked = consentChecked, onConsentChecked = { consentChecked = it },
                 onAcceptConsent = { runCatching { bot.acceptConsent() }.onFailure { localError = context.getString(R.string.bot_consent_save_failed) } },
                 draft = bot.draft, onDraft = { value ->
-                    if (value.toByteArray(Charsets.UTF_8).size <= 8192) runCatching { bot.saveDraft(value); localError = null }
-                        .onFailure { localError = context.getString(R.string.bot_draft_save_failed) }
-                    else localError = context.getString(R.string.bot_message_too_long)
+                    if (value.toByteArray(Charsets.UTF_8).size > ConversationHistory.MAX_DRAFT_BYTES) rejectedDraftEdit = true
+                    else {
+                        rejectedDraftEdit = false
+                        runCatching { bot.saveDraft(value); localError = null }
+                            .onFailure { localError = context.getString(R.string.bot_draft_save_failed) }
+                    }
                 }, onComposingChanged = { composing = it }, busy = bot.busy, allowance = bot.allowance,
                 onSend = { if (model.sendBotMessage() != null) followingLatest = true },
                 onRetryAccess = { scope.launch { subscriptions?.refreshAccess() } },
@@ -237,7 +246,8 @@ import java.time.format.FormatStyle
                     if (showVoiceHelp || speech.state == SpeechState.UNAVAILABLE)
                         SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
                     statusNotice?.let { Text(it, style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.onSizeChanged { measured -> statusNoticeHeightPx = measured.height }) }
+                        modifier = Modifier.onSizeChanged { measured -> statusNoticeHeightPx = measured.height }
+                            .then(if (rejectedDraftEdit || messageTooLong) Modifier.testTag("bot-message-length-notice") else Modifier)) }
                     // Keep informational quota out of the tiny IME status
                     // viewport; errors and recovery still use its scroll area.
                     if (bot.allowance?.remaining == 0) bot.allowance?.let { allowance ->
@@ -253,6 +263,10 @@ import java.time.format.FormatStyle
         // strip in a landscape viewport temporarily owned by the IME.
         val minimumIntroHeight = with(density) { resolvedComposeLineHeight(MaterialTheme.typography.bodySmall) } + 32.dp
         val showEmptyIntro = maxHeight >= minimumIntroHeight
+        val showTranscript = keyboardInsets.getBottom(density) == 0 ||
+            maxHeight >= minimumReadableHistory + 32.dp
+        if (!showTranscript) Box(Modifier.fillMaxSize().testTag("conversation-compact-composing"))
+        if (showTranscript) {
         LazyColumn(state = list, modifier = Modifier.fillMaxSize().fullMessageGestures(gestures), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
                 ConversationTranscriptItem {
@@ -277,6 +291,7 @@ import java.time.format.FormatStyle
                 }
             }
             item(key = "bot-history-bottom") { Spacer(Modifier.height(1.dp)) }
+        }
         }
         }
         FullMessageGestureCue(gestures, composing, compact ||
@@ -355,7 +370,7 @@ import java.time.format.FormatStyle
                     .testTag("bot-message-input"), shape = RoundedCornerShape(24.dp))
             val currentAccess = accessState == AccessCheckState.LOADED && access?.bot?.verificationUnavailable != true &&
                 access?.active(SubscriptionPlan.BOT_MINI) == true
-            FilledIconButton(onClick = onSend, enabled = consent && currentAccess && !busy && draft.isNotBlank() &&
+            FilledIconButton(onClick = onSend, enabled = consent && currentAccess && !busy && draft.isNotBlank() && draft.toByteArray(Charsets.UTF_8).size <= 8192 &&
                 allowance?.let { it.available && it.remaining > 0 && it.resetsAt.isAfter(java.time.Instant.now()) } == true,
                 modifier = Modifier.size(48.dp).testTag("bot-message-send")) {
                 if (busy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)

@@ -453,4 +453,5 @@
     <string name="autoplay_on_notice">Reproducción automática activada. Los mensajes nuevos se leen en voz alta.</string>
     <string name="report_message">Denunciar un mensaje</string>
     <string name="full_translation_unavailable">Traducción no disponible</string>
+    <string name="draft_edit_too_large">Ese texto es demasiado largo. Tu borrador anterior sigue aquí.</string>
 </resources>

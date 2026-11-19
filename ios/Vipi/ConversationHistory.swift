@@ -12,6 +12,9 @@ struct ChatThread: Identifiable {
 /// Only opaque IDs/timestamps are indexed. Text, draft input, contacts and unread
 /// counts remain authenticated encrypted values in the native message vault.
 final class ConversationHistory {
+    // Editing allowance, separate from the unchanged 32 KiB send limit.
+    // 128 KiB stays well within the vault’s 2 MiB authenticated-record bound.
+    static let maximumDraftBytes = 128 * 1024
     private struct Reference: Codable { let kind: String; let id: UUID }
     private struct Summary: Codable { let peer: UUID; var latest: String; var unread: Int }
     private let vault: MessageVault
@@ -129,7 +132,7 @@ final class ConversationHistory {
         try vault.transaction { String(decoding: try vault.get("compose", peer.uuidString.lowercased()) ?? Data(), as: UTF8.self) }
     }
     func saveComposeDraft(_ text: String, peer: UUID) throws {
-        guard text.utf8.count <= 32768 else { throw MessageJournal.Failure.invalidMessage }
+        guard text.utf8.count <= Self.maximumDraftBytes else { throw MessageJournal.Failure.invalidMessage }
         try vault.transaction { try vault.put("compose", peer.uuidString.lowercased(), Data(text.utf8)) }
     }
 }

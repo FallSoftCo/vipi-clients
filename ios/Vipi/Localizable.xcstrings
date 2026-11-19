@@ -1,6 +1,170 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "This message is too long. Send a shorter message.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "This message is too long. Send a shorter message."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "هذه الرسالة طويلة جدًا. أرسل رسالة أقصر."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Diese Nachricht ist zu lang. Senden Sie eine kürzere Nachricht."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Este mensaje es demasiado largo. Envía uno más corto."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ce message est trop long. Envoyez un message plus court."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Questo messaggio è troppo lungo. Inviane uno più breve."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "メッセージが長すぎます。短くして送信してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "메시지가 너무 깁니다. 더 짧게 보내세요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta mensagem é longa demais. Envie uma mensagem menor."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esta mensagem é longa demais. Envie uma mensagem menor."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ujumbe huu ni mrefu sana. Tuma ujumbe mfupi zaidi."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "消息太长，请发送较短的消息。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "訊息太長，請傳送較短的訊息。"
+          }
+        }
+      }
+    },
+    "That text is too long. Your previous draft is still here.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "That text is too long. Your previous draft is still here."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "هذا النص طويل جدًا. مسودتك السابقة ما زالت محفوظة."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Dieser Text ist zu lang. Dein vorheriger Entwurf ist noch da."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ese texto es demasiado largo. Tu borrador anterior sigue aquí."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ce texte est trop long. Votre brouillon précédent est toujours là."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Quel testo è troppo lungo. La bozza precedente è ancora qui."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "テキストが長すぎます。前の下書きは残っています。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "텍스트가 너무 깁니다. 이전 초안은 그대로 남아 있습니다."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esse texto é muito longo. Seu rascunho anterior continua aqui."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Esse texto é demasiado longo. O rascunho anterior continua aqui."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Maandishi hayo ni marefu sana. Rasimu yako ya awali bado ipo."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "这段文字太长了。之前的草稿仍然保留。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "這段文字太長了。之前的草稿仍然保留。"
+          }
+        }
+      }
+    },
     "Automated replies can be mistaken.": {
       "localizations": {
         "es": {

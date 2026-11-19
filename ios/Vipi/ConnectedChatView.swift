@@ -230,6 +230,13 @@ struct FriendConversationView: View {
         for notice in notices where !distinct.contains(notice) { distinct.append(notice) }
         return distinct.isEmpty ? nil : distinct.joined(separator: "\n\n")
     }
+    @State private var rejectedDraftEdit = false
+    private var messageTooLong: Bool { text.utf8.count > 32768 }
+    private var editableDraft: Binding<String> { Binding(get: { text }, set: { value in
+        guard loaded else { return }
+        guard value.utf8.count <= ConversationHistory.maximumDraftBytes else { rejectedDraftEdit = true; return }
+        rejectedDraftEdit = false; text = value
+    }) }
     private var canSend: Bool { loaded && !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && text.utf8.count <= 32768 }
     @FocusState private var composing: Bool
     init(chat: ChatSession, peer: UUID, immersion: ConversationImmersion? = nil) {
@@ -639,6 +646,11 @@ struct FriendConversationView: View {
     }
     private var composer: some View {
             VStack(spacing: 9) {
+                if rejectedDraftEdit || messageTooLong {
+                    Text(LocalizedStringKey(rejectedDraftEdit ? "That text is too long. Your previous draft is still here." : "This message is too long. Send a shorter message."))
+                        .font(.subheadline).foregroundStyle(VipiDesign.destructive).fixedSize(horizontal: false, vertical: true)
+                        .padding(.horizontal, 14).accessibilityIdentifier("message-length-notice")
+                }
                 if let notice = autoplay.voiceNotice {
                     HStack(alignment:.top) {
                         Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
@@ -652,7 +664,7 @@ struct FriendConversationView: View {
                     }.padding(16).accessibilityIdentifier("conversation-blocked")
                 } else {
                 HStack(alignment: .bottom, spacing: 10) {
-                    TextField("Message", text: $text, prompt: Text("Message").foregroundColor(VipiDesign.secondary), axis: .vertical).lineLimit(1...6).focused($composing).disabled(!loaded)
+                    TextField("Message", text: editableDraft, prompt: Text("Message").foregroundColor(VipiDesign.secondary), axis: .vertical).lineLimit(1...6).focused($composing).disabled(!loaded)
                         .fixedSize(horizontal: false, vertical: true)
                         .id(typeSize)
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))

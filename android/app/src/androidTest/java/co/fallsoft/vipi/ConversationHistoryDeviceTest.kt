@@ -10,6 +10,37 @@ import java.util.UUID
 
 @RunWith(AndroidJUnit4::class)
 class ConversationHistoryDeviceTest {
+    @Test fun oversizedEditableDraftReopensExactlyButCannotBecomeAnOutgoingMessage() {
+        val base = InstrumentationRegistry.getInstrumentation().targetContext
+        val root = java.io.File(base.cacheDir, "draft-limit-${UUID.randomUUID()}").apply { check(mkdirs()) }
+        val context = object : android.content.ContextWrapper(base) { override fun getNoBackupFilesDir() = root }
+        val account = UUID.randomUUID(); val peer = UUID.randomUUID()
+        val pasted = "界".repeat(10_923) // 32,769 UTF-8 bytes, not UTF-16 count.
+        try {
+            MessageVault(context, account).use { vault ->
+                val history = ConversationHistory(vault)
+                history.saveComposeDraft(pasted, peer)
+                assertEquals(pasted, history.composeDraft(peer))
+                assertTrue(runCatching { MessageJournal(vault).saveDraft(UUID.randomUUID(), peer, pasted, 1_800_000_000_000L, 1_800_000_000_000L) }.isFailure)
+                assertTrue(history.messages(peer).isEmpty())
+            }
+            MessageVault(context, account).use { vault ->
+                val history = ConversationHistory(vault)
+                assertEquals(pasted, history.composeDraft(peer))
+                val atEditingLimit = "a".repeat(ConversationHistory.MAX_DRAFT_BYTES)
+                history.saveComposeDraft(atEditingLimit, peer)
+                assertTrue(runCatching { history.saveComposeDraft(atEditingLimit + "a", peer) }.isFailure)
+                assertEquals(atEditingLimit, history.composeDraft(peer))
+                history.saveComposeDraft("Shortened café ☕", peer)
+            }
+            MessageVault(context, account).use { vault ->
+                assertEquals("Shortened café ☕", ConversationHistory(vault).composeDraft(peer))
+            }
+        } finally {
+            root.deleteRecursively()
+            java.security.KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry("co.fallsoft.vipi.messages.$account") }
+        }
+    }
     @Test fun historyPaginationDraftsUnreadAndReceiptRecovery() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val account = UUID.randomUUID(); val peer = UUID.randomUUID(); val other = UUID.randomUUID(); val now = 1_800_000_000_000L

@@ -450,4 +450,5 @@
     <string name="autoplay_on_notice">자동 재생이 켜졌어요. 새 메시지를 소리 내어 읽어요.</string>
     <string name="report_message">메시지 신고</string>
     <string name="full_translation_unavailable">번역을 사용할 수 없음</string>
+    <string name="draft_edit_too_large">텍스트가 너무 깁니다. 이전 초안은 그대로 남아 있습니다.</string>
 </resources>

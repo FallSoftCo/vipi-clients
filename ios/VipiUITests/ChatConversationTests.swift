@@ -795,6 +795,66 @@ final class ChatConversationTests: XCTestCase {
 /// test never supplies a session/profile/message directly to the app model.
 @MainActor final class FirstMonthRootTests: XCTestCase {
     /// Native marketing pixels from controlled screenshot data, never model proof.
+    func testInvitationSurvivesInterruptedEnrollmentAndRequiresExplicitFindAtActualRoot() throws {
+        try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true)
+    }
+    func testFriendOversizedDraftHasVisibleReasonAndReopensExactlyAtActualRoot() throws {
+        try checkJourney(largest:ProcessInfo.processInfo.environment["VIPI_DRAFT_BOUNDARY_LARGEST"] == "true",reading:"en-zh",fullTranslation:true,copyOriginal:true,draftBoundary:true)
+    }
+    func testBotOversizedDraftHasVisibleReasonAndReopensExactlyAtActualRoot() throws {
+        try checkJourney(largest:ProcessInfo.processInfo.environment["VIPI_DRAFT_BOUNDARY_LARGEST"] == "true",reading:"en-zh",fullTranslation:true,copyOriginal:true,copyBot:true,draftBoundary:true)
+    }
+    private func checkDraftBoundary(in app:XCUIApplication,bot:Bool,evidence:@escaping()->[String:Any]) throws {
+        // Actual native edit-menu Paste into the production field. The existing
+        // owned clipboard transaction is required; no text/provider injection.
+        XCTAssertEqual(ProcessInfo.processInfo.environment["VIPI_COPY_CLIPBOARD_ISOLATED"],"true")
+        let oldClipboard = UIPasteboard.general.items
+        defer { UIPasteboard.general.items = oldClipboard }
+        let title = bot ? "vBot" : "Alex"
+        let input = app.descendants(matching:.any).matching(identifier:bot ? "bot-message-input" : "message-input").firstMatch
+        let send = app.buttons[bot ? "bot-message-send" : "message-send"]
+        let notice = app.staticTexts[bot ? "bot-message-length-notice" : "message-length-notice"]
+        let baselineTexts = evidence()["texts"] as? [String]
+        XCTAssertNotNil(baselineTexts)
+        func wait(_ name:String,_ predicate:@escaping()->Bool) {
+            XCTAssertEqual(XCTWaiter.wait(for:[XCTNSPredicateExpectation(predicate:NSPredicate { _,_ in predicate() },object:app)],timeout:20),.completed,name)
+        }
+        func paste(_ text:String) {
+            UIPasteboard.general.string = text
+            input.tap(); input.press(forDuration:1.1)
+            let current = input.value as? String ?? ""
+            if !current.isEmpty && current != "Message" && current != "Message vBot" {
+                let selectAll = app.menuItems["Select All"].firstMatch
+                XCTAssertTrue(selectAll.waitForExistence(timeout:5)); selectAll.tap()
+            }
+            let paste = app.menuItems["Paste"].firstMatch
+            XCTAssertTrue(paste.waitForExistence(timeout:5)); paste.tap()
+        }
+        func retain(_ phase:String) throws {
+            let warning = notice.frame,keyboard = self.visibleKeyboardFrame(in:app)
+            XCTAssertTrue(notice.exists && notice.isHittable)
+            XCTAssertTrue(app.frame.contains(warning)); XCTAssertGreaterThanOrEqual(warning.minY,app.navigationBars.firstMatch.frame.maxY)
+            if !keyboard.isNull && !keyboard.isEmpty { XCTAssertLessThanOrEqual(warning.maxY,keyboard.minY) }
+            let json = XCTAttachment(data:try JSONSerialization.data(withJSONObject:["phase":phase,"warning":NSCoder.string(for:warning),"input":NSCoder.string(for:input.frame),"send":NSCoder.string(for:send.frame),"visible_keyboard":NSCoder.string(for:keyboard),"send_enabled":send.isEnabled],options:.sortedKeys),uniformTypeIdentifier:"public.json")
+            json.name = "draft-boundary-"+phase; json.lifetime = .keepAlways; add(json)
+            let image = XCTAttachment(screenshot:app.screenshot()); image.name = "draft-boundary-"+phase; image.lifetime = .keepAlways; add(image)
+        }
+        let pasted = String(repeating:"界",count:bot ? 2_731 : 10_923)
+        XCTAssertTrue(input.waitForExistence(timeout:10)); paste(pasted)
+        wait("Oversized paste stays editable and explains disabled Send") { input.value as? String == pasted && notice.exists && !send.isEnabled }
+        try retain("over-send-limit")
+        app.navigationBars[title].buttons.element(boundBy:0).tap(); app.staticTexts[title].firstMatch.tap()
+        wait("Oversized encrypted draft reopens unchanged") { input.value as? String == pasted && notice.exists && !send.isEnabled }
+        paste(String(repeating:"a",count:128*1024+1))
+        wait("Edit beyond bounded storage preserves previous draft visibly") { input.value as? String == pasted && notice.label == "That text is too long. Your previous draft is still here." }
+        try retain("over-editing-limit-previous-draft-retained")
+        paste("Shortened café ☕")
+        wait("Shortening clears the warning and enables Send") { input.value as? String == "Shortened café ☕" && !notice.exists && send.isEnabled }
+        app.navigationBars[title].buttons.element(boundBy:0).tap(); app.staticTexts[title].firstMatch.tap()
+        wait("Shortened draft also survives reopening") { input.value as? String == "Shortened café ☕" && send.isEnabled }
+        XCTAssertEqual(evidence()["texts"] as? [String],baselineTexts,"Editing must not create or send a chat message")
+        XCTAssertEqual(evidence()["unexpected"] as? Int,0); XCTAssertEqual(evidence()["purchase_ready"] as? Bool,false)
+    }
     func testNaturalCoffeeFriendMarketingReadingHeldMeaningAndScriptAtActualRoot() throws {
         guard ProcessInfo.processInfo.environment["VIPI_NATURAL_MARKETING_CAPTURE"] == "true" else {
             throw XCTSkip("Selected isolated marketing capture only")
@@ -1549,7 +1609,7 @@ final class ChatConversationTests: XCTestCase {
         try capture("marketing-coffee-03-practice-script")
     }
 
-    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false) throws {
+    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false) throws {
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated first-month root only") }
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -1607,6 +1667,7 @@ final class ChatConversationTests: XCTestCase {
             arguments += ["-vipi-first-month-reading-probe", reading, "-vipi-live-immersion-state", prefix + (largest ? "3" : reading == "en-zh" ? "1" : "2")]
         }
         if fullTranslation { arguments += ["-vipi-full-translation-sdk-qa"] }
+        if invitation { arguments += ["-vipi-invitation-root-qa"] }
         if marketing {
             XCTAssertTrue(fullTranslation && reading == "en-zh" && !largest && !dark && !copyOriginal && !settingsInvite && !cueLifecycle && !pendingPair)
             arguments += ["-vipi-marketing-root-qa"]
@@ -1834,6 +1895,10 @@ final class ChatConversationTests: XCTestCase {
             }
             XCTFail("Expected native language item must be reachable by scrolling its actual menu")
         }
+        if invitation {
+            app.open(try XCTUnwrap(URL(string:"co.fallsoft.vipi://invite/alex")))
+            _ = observe("invitation-retained-at-welcome-before-auth") { $0["invitation_username"] as? String == "alex" && $0["friend_username_lookups"] as? Int == 0 }
+        }
         let start = app.buttons["Choose languages"]
         reveal(start); start.tap()
         let speaking = app.buttons["I speak"]
@@ -1895,7 +1960,8 @@ final class ChatConversationTests: XCTestCase {
         }
         _ = observe("native-profile-explicit-agreement-before-creation") { $0["profiles"] as? Int == 0 && $0["registrations"] as? Int == 0 }
         reveal(create); XCTAssertTrue(create.isEnabled); create.tap()
-        XCTAssertTrue(app.staticTexts["Chats"].waitForExistence(timeout: 20))
+        if invitation { XCTAssertTrue(app.textFields["Friend’s username"].waitForExistence(timeout:20)) }
+        else { XCTAssertTrue(app.staticTexts["Chats"].waitForExistence(timeout: 20)) }
         let access = observe("native-profile-one-registration-free-month") {
             $0["exchanges"] as? Int == 1 && $0["profiles"] as? Int == 1 && $0["registrations"] as? Int == 1 &&
                 $0["base_active"] as? Bool == true && $0["pending_auth"] as? Bool == false && $0["session"] as? Bool == true
@@ -1904,6 +1970,28 @@ final class ChatConversationTests: XCTestCase {
         let begins = try XCTUnwrap(clock.date(from: try XCTUnwrap(access["trial_started"] as? String)))
         let ends = try XCTUnwrap(clock.date(from: try XCTUnwrap(access["trial_ends"] as? String)))
         XCTAssertEqual(ends.timeIntervalSince(begins), 30 * 86400, accuracy: 0.001)
+        if invitation {
+            let friend = app.textFields["Friend’s username"]
+            XCTAssertTrue(friend.waitForExistence(timeout:10)); XCTAssertEqual(friend.value as? String,"alex")
+            let before = observe("invitation-cold-enrollment-prefilled-without-lookup") { $0["invitation_username"] as? String == "alex" && $0["friend_username_lookups"] as? Int == 0 && ($0["texts"] as? [String])?.isEmpty == true }
+            XCTAssertEqual(before["purchase_ready"] as? Bool,false)
+            app.buttons["Cancel"].tap()
+            _ = observe("invitation-cancel-clears-without-lookup") { $0["invitation_username"] as? String == "" && $0["friend_username_lookups"] as? Int == 0 }
+            XCTAssertTrue(app.navigationBars["Chats"].exists)
+            app.open(try XCTUnwrap(URL(string:"co.fallsoft.vipi://invite/alex")))
+            XCTAssertTrue(friend.waitForExistence(timeout:10)); XCTAssertEqual(friend.value as? String,"alex")
+            for url in ["co.fallsoft.vipi://invite/invalid/name","co.fallsoft.vipi://unrelated/invite/maya","co.fallsoft.vipi://auth/callback?state=not-the-owned-auth-state"] {
+                app.open(try XCTUnwrap(URL(string:url)))
+                XCTAssertEqual(friend.value as? String,"alex")
+                _ = observe("invitation-ignores-unrelated-url-without-lookup") { $0["invitation_username"] as? String == "alex" && $0["friend_username_lookups"] as? Int == 0 }
+            }
+            app.buttons["Find friend"].tap()
+            XCTAssertTrue(app.descendants(matching:.any).matching(identifier:"message-input").firstMatch.waitForExistence(timeout:10))
+            let opened = observe("invitation-explicit-find-opens-real-conversation") { $0["friend_username_lookups"] as? Int == 1 && ($0["texts"] as? [String])?.isEmpty == true }
+            XCTAssertEqual(opened["purchase_ready"] as? Bool,false); XCTAssertEqual(opened["unexpected"] as? Int,0)
+            capture("invitation-real-conversation-without-send")
+            return
+        }
         if largest {
             let primary = app.buttons["home-start-conversation"].firstMatch
             let scroll = app.scrollViews.firstMatch
@@ -1915,7 +2003,7 @@ final class ChatConversationTests: XCTestCase {
             }
             XCTAssertTrue(primary.exists && primary.isHittable)
         }
-        if !marketing { try audit("free-month-home") }
+        if !marketing && !draftBoundary { try audit("free-month-home") }
         if largest { app.buttons["home-start-conversation"].tap() }
         else { app.navigationBars["Chats"].buttons["New chat"].tap() }
         let friend = app.textFields["Friend’s username"]
@@ -2011,6 +2099,11 @@ final class ChatConversationTests: XCTestCase {
             }
             if cueLifecycle {
                 try checkDeferredCueAfterMessages(in:app,evidence:proof)
+                return
+            }
+            if draftBoundary {
+                if copyBot { app.navigationBars["Alex"].buttons["BackButton"].tap(); app.staticTexts["vBot"].firstMatch.tap() }
+                try checkDraftBoundary(in:app,bot:copyBot,evidence:proof)
                 return
             }
             try checkFullPracticeTranslation(in:app,arguments:arguments,largest:largest,evidence:proof)
