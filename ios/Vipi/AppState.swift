@@ -40,7 +40,8 @@ enum AppAppearance: String, CaseIterable, Identifiable {
     var knownLanguage: String { didSet { defaults.set(knownLanguage, forKey: "knownLanguage") } }
     var targetLanguage: String { didSet { defaults.set(targetLanguage, forKey: "targetLanguage") } }
     var appearance: AppAppearance { didSet { defaults.set(appearance.rawValue, forKey: "appearance") } }
-    var density: Double { didSet { defaults.set(density, forKey: "density") } }
+    let chatReading: ChatReadingState
+    let translationServices: MessageTranslationServices
     var isAuthenticated = false
     private let defaults: UserDefaults
 
@@ -52,13 +53,14 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         knownLanguage = value
     }
 
-    init(defaults: UserDefaults = .standard) {
+    init(defaults: UserDefaults = .standard, translationServices: MessageTranslationServices? = nil) {
+        self.translationServices = translationServices ?? MessageTranslationServices()
+        chatReading = ChatReadingState(defaults:defaults)
         self.defaults = defaults
         onboarding = OnboardingStep(rawValue: defaults.string(forKey: "onboardingStep") ?? "") ?? .welcome
         knownLanguage = defaults.string(forKey: "knownLanguage") ?? "en"
         targetLanguage = defaults.string(forKey: "targetLanguage") ?? "es"
         appearance = AppAppearance(rawValue: defaults.string(forKey: "appearance") ?? "") ?? .system
-        density = defaults.object(forKey: "density") as? Double ?? 0.25
         #if DEBUG
         let args = ProcessInfo.processInfo.arguments
         if args.contains("-vipi-welcome") { onboarding = .welcome }
@@ -68,8 +70,7 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         if args.contains("-vipi-preview-home") { isAuthenticated = true }
         if args.contains("-vipi-appearance-light") { appearance = .light }
         if args.contains("-vipi-appearance-dark") { appearance = .dark }
-        if let index = args.firstIndex(of: "-vipi-density"), args.indices.contains(index + 1),
-           let value = Double(args[index + 1]), value.isFinite, (0...0.75).contains(value) { density = value }
+
         #endif
     }
 }

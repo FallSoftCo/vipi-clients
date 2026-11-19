@@ -84,3 +84,46 @@ public struct ImmersionPresentationCache {
     }
     public mutating func removeAll() { values.removeAll(); order.removeAll() }
 }
+
+/// Exact stored message and the two complete on-device translation faces.
+/// Reading is display metadata; playback always uses practiceText in its native script.
+public struct FullMessageTranslation: Sendable, Equatable, Codable {
+    public let original: String
+    public let practiceText: String
+    public let meaningText: String
+    public let inputLanguage: String
+    public let practiceLanguage: String
+    public let meaningLanguage: String
+    public let practiceReading: String?
+    public let readingState: FullMessageReadingState?
+    public init(original: String, practiceText: String, meaningText: String,
+                inputLanguage: String, practiceLanguage: String, meaningLanguage: String, practiceReading:String? = nil, readingState:FullMessageReadingState? = nil) {
+        self.original = original; self.practiceText = practiceText; self.meaningText = meaningText
+        self.inputLanguage = inputLanguage; self.practiceLanguage = practiceLanguage; self.meaningLanguage = meaningLanguage; self.practiceReading = practiceReading; self.readingState = readingState
+    }
+    private enum CodingKeys: String, CodingKey {
+        case original, practiceText, meaningText, inputLanguage, practiceLanguage, meaningLanguage, practiceReading, readingState
+    }
+    public init(from decoder:Decoder) throws {
+        let values = try decoder.container(keyedBy:CodingKeys.self)
+        original = try values.decode(String.self,forKey:.original)
+        practiceText = try values.decode(String.self,forKey:.practiceText)
+        meaningText = try values.decode(String.self,forKey:.meaningText)
+        inputLanguage = try values.decode(String.self,forKey:.inputLanguage)
+        practiceLanguage = try values.decode(String.self,forKey:.practiceLanguage)
+        meaningLanguage = try values.decode(String.self,forKey:.meaningLanguage)
+        // Unknown or damaged derivative metadata triggers only a reading refresh.
+        // The complete translated message must not become a model cache miss.
+        practiceReading = try? values.decodeIfPresent(String.self,forKey:.practiceReading)
+        readingState = try? values.decodeIfPresent(FullMessageReadingState.self,forKey:.readingState)
+    }
+    public func withReading(_ reading: String?, state: FullMessageReadingState) -> Self {
+        .init(original:original, practiceText:practiceText, meaningText:meaningText,
+              inputLanguage:inputLanguage, practiceLanguage:practiceLanguage, meaningLanguage:meaningLanguage,
+              practiceReading:reading, readingState:state)
+    }
+    /// Compatibility with source selection/copy primitives; no word spans or invented alignment.
+    public var presentation: ImmersionPresentation {
+        .complete(.init(original: meaningText, translation: practiceText, spans: []))
+    }
+}

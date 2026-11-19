@@ -1,0 +1,31 @@
+{
+  "schema": "vipi-native-marketing-source-1",
+  "known_language": "en",
+  "practice_language": "zh",
+  "account_name": "Alex",
+  "friend_name": "Maya",
+  "friend_turns": [
+    {
+      "role": "outgoing",
+      "text": "Would you like to get coffee tomorrow?"
+    },
+    {
+      "role": "incoming",
+      "text": "Yes! Let's meet at ten."
+    },
+    {
+      "role": "outgoing",
+      "text": "I'll see you at the café."
+    },
+    {
+      "role": "incoming",
+      "text": "I'll bring my camera."
+    },
+    {
+      "role": "outgoing",
+      "text": "We can take a walk after coffee."
+    }
+  ],
+  "bot_prompt": "Help me practice ordering lunch.",
+  "bot_reply": "You can say: I would like a bowl of soup."
+}

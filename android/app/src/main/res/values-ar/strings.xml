@@ -79,7 +79,7 @@
     <string name="ui_b47e6d6e77c8" formatted="false">تعذر فتح تفاصيل التشفير. لم يتغير التحقق الخاص بك.</string>
     <string name="ui_b68710eee013" formatted="false">الاتصال بدردشاتك</string>
     <string name="ui_b6ec9d55ae3b" formatted="false">لقد قارنت جميع المجموعات ال 12</string>
-    <string name="ui_b7c32ca74cb0" formatted="false">استمع إلى كلتا اللغتين</string>
+    <string name="ui_b7c32ca74cb0" formatted="false">استمع باللغة التي تتعلمها</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">العثور على صديق</string>
     <string name="ui_beb6c51b9bf6" formatted="false">استعادة التاريخ</string>
     <string name="ui_c26d4e55137b" formatted="false">سيتم حذف حساب Vipi الخاص بك والدردشات على هذا الجهاز نهائيًا. لا يمكن التراجع عن هذا الإجراء.</string>
@@ -207,7 +207,7 @@
     <string name="annual_price">%1$s سنويًا</string>
     <string name="trial_then_annual">شهر مجاني، ثم %1$s سنويًا</string>
     <string name="subscribe_annual">اشترك مقابل %1$s سنويًا</string>
-    <string name="both_plans_total">الخطتان: %1$s سنويًا بعد الفترات التجريبية، وتُفوْتَر كل منهما بشكل منفصل.</string>
+    <string name="both_plans_total">الخطتان: %1$s سنويًا، وتُفوْتَر كل منهما بشكل منفصل.</string>
     <string name="both_plans_separate">Vipi: ‏%1$s سنويًا. Bot mini: ‏%2$s إضافية سنويًا. تُفوْتَر كل خطة على حدة.</string>
     <string name="plan_active">%1$s نشط</string>
     <string name="trial_end_date">تنتهي الفترة التجريبية في %1$s.</string>
@@ -275,7 +275,7 @@
     <string name="ui_ff245b368781" formatted="false">Bot mini</string>
     <string name="ui_42f4f8b469bb" formatted="false">تحدث مع أصدقائك.\nتعلّم الكلمات أثناء القراءة.</string>
     <string name="ui_47b7a66139f1" formatted="false">ابدأ محادثة\nمع صديق.</string>
-    <string name="ui_52c236be01ef" formatted="false">هذه التنزيلات لترجمة الرسائل كاملة اختياريًا. لا يحتاج تبديل الكلمات إليها. لترجمة رسالة كاملة، اختر الترجمة الكاملة من خيارات قراءتها. تبقى الرسائل على هذا الهاتف.</string>
+    <string name="ui_52c236be01ef" formatted="false">يترجم Vipi الرسائل كاملةً على هذا الهاتف، حتى دون اتصال بالإنترنت.</string>
     <string name="ui_54c1159d80bf" formatted="false">تحدث مع أصدقائك.\nتعلّم كلمات جديدة.</string>
     <string name="ui_73bee38b06e8" formatted="false">كيف سيعثر\nعليك أصدقاؤك؟</string>
     <string name="ui_8ec4723d54ba" formatted="false">ستحتاج إلى تنزيل هذه اللغات مجددًا قبل الترجمة دون اتصال. تبقى محادثاتك على هذا الهاتف.</string>
@@ -410,7 +410,7 @@
     <string name="translation_timeout">استغرق ذلك وقتًا طويلًا. لا يزال تبديل الكلمات متاحًا.</string>
     <string name="translation_language_needed">اختر لغة هذه الرسالة ثم حاول مجددًا.</string>
     <string name="translation_failed">تعذّر إعداد الترجمة الكاملة. لا يزال تبديل الكلمات متاحًا.</string>
-    <string name="voices_prepare_offline">جهّز صوتي اللغتين للاستماع دون اتصال.</string>
+    <string name="voices_prepare_offline">جهّز صوت اللغة التي تتعلمها للاستماع دون اتصال.</string>
     <string name="ui_d55f942dbeea" formatted="false">الترجمة من Google. قد تكون الترجمات غير دقيقة.</string>
     <string name="backup_save_failed">تعذر حفظ النسخة الاحتياطية. لا تزال محادثاتك هنا. يرجى المحاولة مرة أخرى.</string>
     <string name="access_switch_word">بدّل %1$s و%2$s</string>
@@ -418,8 +418,8 @@
     <string name="access_choose_word">اختر كلمة لتبديلها</string>
     <string name="access_message_actions">إجراءات الرسالة</string>
     <string name="cardless_ended">انتهى وصولك المجاني إلى Vipi في %1$s. اشترك لمواصلة المحادثة.</string>
-    <string name="welcome_title_concise">تحدث مع الأصدقاء.\nتعلّم كلمات جديدة.</string>
-    <string name="welcome_detail_concise">تتحوّل بعض الكلمات إلى لغة أخرى أثناء الدردشة.</string>
+    <string name="welcome_title_concise">دردش مع أصدقائك.\nوتعلّم لغة.</string>
+    <string name="welcome_detail_concise">تظهر كل رسالة باللغة التي تتعلّمها.</string>
     <string name="preview_spanish_title">جرّب قليلًا من الإسبانية</string>
     <string name="preview_tap_word">اضغط على كلمة مميزة لسماع نطقها باللغة التي تتعلمها. في الدردشات، اضغط على فقاعة للترجمة.</string>
     <string name="languages_title_concise">لغاتك</string>
@@ -451,4 +451,18 @@
     <string name="deletion_fallsoft_retained">سيبقى حسابك لتسجيل الدخول إلى Fallsoft وحساباتك في تطبيقات Fallsoft الأخرى.</string>
     <string name="fallsoft_link_title">استخدم حساب Fallsoft</string>
     <string name="fallsoft_link_detail">سجّل دخولك إلى Vipi مجددًا، ثم اربط حساب Fallsoft. ستبقى محادثاتك وملفك الشخصي وفترة التجربة الأصلية كما هي.</string>
+    <string name="full_translation_preparing">جارٍ الترجمة…</string>
+    <string name="full_translation_failed">تعذّرت الترجمة. اضغط للمحاولة مجددًا.</string>
+    <string name="full_translation_meaning">إظهار المعاني</string>
+    <string name="full_translation_practice">إظهار النص بلغة التعلّم</string>
+    <string name="full_translation_script">إظهار الحروف الأصلية</string>
+    <string name="full_translation_reading">إظهار الكتابة بالحروف اللاتينية</string>
+    <string name="full_translation_play">الاستماع بلغة التعلّم</string>
+    <string name="full_translation_copy_original">نسخ الرسالة الأصلية</string>
+    <string name="full_translation_gestures">اضغط للاستماع. اضغط مطولًا لرؤية المعاني. اضغط مرتين لتغيير طريقة الكتابة.</string>
+    <string name="autoplay_turn_on">تشغيل القراءة التلقائية</string>
+    <string name="autoplay_turn_off">إيقاف القراءة التلقائية</string>
+    <string name="autoplay_on_notice">القراءة التلقائية مفعّلة. ستُقرأ الرسائل الجديدة بصوت عالٍ.</string>
+    <string name="report_message">الإبلاغ عن رسالة</string>
+    <string name="full_translation_unavailable">الترجمة غير متاحة</string>
 </resources>

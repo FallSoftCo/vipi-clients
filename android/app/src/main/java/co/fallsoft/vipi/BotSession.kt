@@ -36,7 +36,42 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
     private val nowMillis: () -> Long = System::currentTimeMillis) : AutoCloseable {
     private val appContext = context.applicationContext
     private val vault = MessageVault(context, account)
-    val familiarity = VocabularyFamiliarityStore(vault)
+    var translations by mutableStateOf<ConversationTranslation?>(null); private set
+    private var translationPair: Pair<String, String>? = null
+    private val newMessageObservers = mutableMapOf<Any, (String, String) -> Unit>()
+    internal fun observeNewMessages(owner: Any, action: (String, String) -> Unit) { newMessageObservers[owner] = action }
+    internal fun removeNewMessageObserver(owner: Any) { newMessageObservers.remove(owner) }
+    private fun newMessage(id: String, text: String) { newMessageObservers.values.toList().forEach { runCatching { it(id, text) } } }
+    internal fun configureTranslations(source: String, target: String, factory: (() -> LanguageTranslation)? = null) {
+        if (translationPair == source to target && translations != null) return
+        translations?.close()
+        translationPair = source to target
+        translations = ConversationTranslation(appContext, source, target, FullMessageTranslationStore(vault), translator = factory?.invoke() ?: LocalTranslation())
+        replaySavedTranslations()
+    }
+    internal fun messageOriginal(id: String): String? {
+        if (closed) return null
+        return vault.transaction { vault.get("bot-message", id)?.let { BotMessage.parse(JSONObject(it.toString(Charsets.UTF_8))).text } }
+    }
+    private fun translateDurable(id: String) {
+        val owner = java.lang.ref.WeakReference(this)
+        translations?.enqueueStored(id) { owner.get()?.messageOriginal(id) }
+    }
+    private fun replaySavedTranslations() {
+        translations?.replaySaved { sequence {
+            var before: String? = null
+            while (true) {
+                val page = vault.transaction {
+                    vault.pageIDs("bot-message", "m", before = before, limit = 16).map { id ->
+                        BotMessage.parse(JSONObject(requireNotNull(vault.get("bot-message", id)).toString(Charsets.UTF_8)))
+                    }
+                }
+                for (message in page) yield(ConversationTranslation.SavedMessage(message.id, message.text))
+                if (page.size < 16) break
+                before = page.last().id
+            }
+        } }
+    }
     private var closed = false
     private var allowanceRevision = 0L
     var messages by mutableStateOf<List<BotMessage>>(emptyList()); private set
@@ -92,6 +127,8 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
             val context = contextFor(messages, user)
             vault.transaction { vault.put("bot-message", user.id, user.json().toString().toByteArray()); vault.remove("bot-settings", "draft") }
             recorded = true; messages = messages + user; draft = ""
+            translateDurable(user.id)
+            newMessage(user.id, user.text)
             val response = api.request("POST", "/v1/bot/messages", JSONObject().put("request_id", requestID).put("consent_version", "deepseek-v1").put("messages", context), device)
             if (closed) return
             require(response.getString("request_id") == requestID)
@@ -104,6 +141,8 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
                 vault.put("bot-message", answer.id, answer.json().toString().toByteArray())
             }
             messages = messages.map { if (it.id == user.id) confirmed else it } + answer
+            translateDurable(answer.id)
+            newMessage(answer.id, answer.text)
             ++allowanceRevision
             allowance = updatedAllowance
         } catch (cancelled: CancellationException) { throw cancelled }
@@ -140,7 +179,7 @@ internal class BotSession(context: Context, account: UUID, private val api: Chat
     }
     private fun nextMessageMillis(): Long = nowMillis().coerceAtLeast(
         (messages.lastOrNull()?.id?.substring(1, 20)?.toLongOrNull() ?: -1L) + 1)
-    override fun close() { closed = true; ++allowanceRevision; vault.close() }
+    override fun close() { closed = true; ++allowanceRevision; newMessageObservers.clear(); translations?.close(); translations = null; vault.close() }
     companion object {
         fun contextFor(history: List<BotMessage>, latest: BotMessage): JSONArray {
             require(latest.role == "user" && latest.text.isNotBlank() && latest.text.toByteArray(Charsets.UTF_8).size <= 8192)

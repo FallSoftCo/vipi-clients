@@ -84,6 +84,15 @@ import StoreKitTest
             try? await session.setSimulatedError(nil, forAPI: .purchase)
             throw error
         }
+        // A nil override readback alone did not restore Product.purchase on
+        // the qualified native host. Reset every documented session override
+        // after the positive probe, then restore automatic local dialogs.
+        session.resetToDefaultState(); session.disableDialogs = true
+        let baseline = await session.simulatedError(forAPI: .purchase)
+        guard baseline == nil, session.allTransactions().isEmpty else {
+            throw LocalStoreKitReadinessFailure.overrideNotCleared
+        }
+        print("VIPI_STOREKIT_READINESS configuration_reset_ready")
         print("VIPI_STOREKIT_READINESS ready")
         return session
     }
@@ -108,6 +117,58 @@ import StoreKitTest
             if case .verified(let transaction) = result, transaction.productID == VipiPlan.base.rawValue { count += 1 }
         }
         return count
+    }
+    func testLocalReadinessRoundTripMakesNoTransaction() async throws {
+        let environment = try await environment()
+        defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        XCTAssertTrue(environment.allTransactions().isEmpty)
+    }
+    func testExplicitRestoreReconcilesFinishedXcodeTransactionIntoFreshStore() async throws {
+        let environment = try await environment()
+        defer { environment.clearTransactions(); environment.resetToDefaultState() }
+        let api = Service()
+        let original = SubscriptionStore(api: api, accountToken: api.account)
+        defer { original.close() }
+        await original.start(); await original.purchase(.base)
+        try await waitForState("original local purchase accepted and finished") {
+            let unfinished = await self.unfinishedBaseCount()
+            return original.baseActive && !original.awaitingConfirmation.contains(.base) && unfinished == 0
+        }
+        XCTAssertEqual(environment.allTransactions().count, 1)
+        var verifiedXcode = false
+        // Finishing/accepting a purchase can precede StoreKit's asynchronous
+        // current-entitlement propagation. Observe the actual verified result
+        // instead of treating the first empty enumeration as final.
+        try await waitForState("verified finished Xcode entitlement becomes observable") {
+            for await item in Transaction.currentEntitlements {
+                if case .verified(let transaction) = item, transaction.productID == VipiPlan.base.rawValue {
+                    XCTAssertEqual(transaction.environment, .xcode)
+                    XCTAssertEqual(transaction.appAccountToken, api.account)
+                    verifiedXcode = transaction.environment == .xcode && transaction.appAccountToken == api.account
+                }
+            }
+            return verifiedXcode
+        }
+        XCTAssertTrue(verifiedXcode, "Explicit restore may run only with an existing verified local Xcode purchase")
+        guard verifiedXcode else { return }
+        let submissions = api.submitted
+        original.close()
+        // A fresh client owner sees a stale/inactive service response first.
+        // Only actual AppStore.sync + production reconciliation may restore it.
+        api.base = false
+        let restored = SubscriptionStore(api: api, accountToken: api.account)
+        defer { restored.close() }
+        await restored.refreshEntitlements()
+        XCTAssertFalse(restored.baseActive)
+        await restored.restore()
+        try await waitForState("explicit restore re-verifies finished local entitlement") {
+            restored.baseActive && !restored.awaitingConfirmation.contains(.base)
+        }
+        XCTAssertGreaterThan(api.submitted, submissions)
+        XCTAssertEqual(environment.allTransactions().count, 1, "Restore must not create another checkout")
+        XCTAssertFalse(restored.canPurchase(.base))
+        let unfinished = await unfinishedBaseCount()
+        XCTAssertEqual(unfinished, 0)
     }
     func testBaseAnnualWithoutExtraTrialAndSeparateBotMiniTrialRespectServiceReadiness() async throws {
         let environment = try await environment(); defer { environment.clearTransactions(); environment.resetToDefaultState() }

@@ -51,8 +51,7 @@ class OfflineVoiceAvailabilityTest {
             withTimeout(480_000) {
                 for (language in initialLanguages.map { it.code }) {
                     assertNull(network.activeNetwork)
-                    val example = ConversationExamples.result(context, "en", if (language == "en") "sw" else language)
-                    val text = if (language == "en") example.original else example.translation
+                    val text = SpeechProviderFixtures.text.getValue(language)
                     val row = JSONObject().put("language", language).put("text", text)
                         .put("advertised", JSONArray(advertised.filter { it.getString("language") == language }))
                     val voice = withContext(Dispatchers.Main) { LocalVoice(context, language) }

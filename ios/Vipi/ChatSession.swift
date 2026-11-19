@@ -18,7 +18,6 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private var vault: MessageVault?
     private var core: MessagingCore?
     private var history: ConversationHistory?
-    private(set) var familiarity: VocabularyFamiliarityStore?
     private(set) var profile: ChatProfile?
     private(set) var needsProfile = false
     private(set) var busy = false
@@ -41,6 +40,66 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private var syncAgain = false
     private var events: ForegroundEvents?
     private var closed = false
+    private(set) var translationOwner: ConversationImmersion?
+    private var translationReplay: Task<Void,Never>?
+    func configureTranslation(pair:TranslationPair,services:MessageTranslationServices) async {
+        guard !closed else { return }
+        if let owner = translationOwner,owner.pair == pair { return }
+        translationReplay?.cancel(); translationOwner?.close()
+        let owner = services.makeOwner(); await owner.configure(pair:pair)
+        if let vault { owner.attachCache(vault) }
+        translationOwner = owner; replayTranslations()
+    }
+    private func replayTranslations() {
+        translationReplay?.cancel()
+        guard let owner = translationOwner,let history else { return }
+        translationReplay = Task { @MainActor [weak self,weak owner] in
+            guard let self,let owner else { return }
+            for peer in (try? history.threads().map(\.peer)) ?? [] {
+                var before: String?
+                repeat {
+                    guard !Task.isCancelled,!closed,translationOwner === owner else { return }
+                    let page = (try? history.messages(peer:peer,before:before,limit:50)) ?? []
+                    for message in page {
+                        guard !Task.isCancelled,!closed,translationOwner === owner else { return }
+                        await owner.prepareStoredMessage(id:message.id.uuidString,text:message.text); await Task.yield()
+                    }
+                    before = page.count == 50 ? page.map(\.cursor).min() : nil
+                } while before != nil
+            }
+        }
+    }
+
+    @ObservationIgnored private var messageObservers: [UUID:(ChatMessageArrival)->Void] = [:]
+    func observeNewMessages(_ callback:@escaping(ChatMessageArrival)->Void) -> UUID {
+        let id = UUID(); if !closed { messageObservers[id] = callback }; return id
+    }
+    func removeMessageObserver(_ id:UUID) { messageObservers.removeValue(forKey:id) }
+    private func messageCommitted(_ value:ChatMessageArrival) {
+        guard let vault,let id = UUID(uuidString:value.id),let peer = value.peer else { return }
+        let arrival = ChatMessageArrival(id:value.id,peer:peer) { [weak vault] in
+            guard let vault else { return nil }
+            return try? vault.transaction {
+                let key = id.uuidString.lowercased()
+                if let bytes = try vault.get("draft",key) {
+                    let draft = try JSONDecoder().decode(DraftChat.self,from:bytes)
+                    guard draft.id == id,draft.recipient == peer else { return nil }
+                    return draft.text
+                }
+                for kind in ["outgoing","incoming"] {
+                    if let bytes = try vault.get(kind,key) {
+                        let stored = try JSONDecoder().decode(StoredChat.self,from:bytes)
+                        guard stored.envelope.id == id,(kind == "incoming" ? stored.envelope.sender:stored.envelope.recipient) == peer else { return nil }
+                        return stored.text
+                    }
+                }
+                return nil
+            }
+        }
+        translationOwner?.warmStored(id:arrival.id,load:arrival.load)
+        for observer in Array(messageObservers.values) { observer(arrival) }
+    }
+
     private var blockVersions: [UUID: Int] = [:]
     private var changingBlocks = Set<UUID>()
     private var nameLookupAfter: [UUID: Date] = [:]
@@ -67,7 +126,6 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         if vault == nil {
             let store = try MessageVault(account: value.id)
             vault = store; core = try MessagingCore(vault: store); history = try ConversationHistory(vault: store)
-            familiarity = VocabularyFamiliarityStore(vault: store)
             ready = try store.transaction { try store.get("local", "registered-device") == Data(core!.device.id.uuidString.lowercased().utf8) }
             hasPendingDeviceReplacement = try store.transaction { try store.get("local", "replacement-consent") == Data(core!.device.id.uuidString.lowercased().utf8) }
             contacts = try store.transaction {
@@ -89,9 +147,10 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             changedIdentities = try store.transaction { Set(try store.ids("identity-change").compactMap(UUID.init(uuidString:))) }
             blockedPeers = try store.transaction { Set(try store.ids("blocked").compactMap(UUID.init(uuidString:))) }
         }
+        if let vault { translationOwner?.attachCache(vault) }
         profile = value; needsProfile = false
         try KeychainStore.save(JSONEncoder().encode(value), account: cacheKey)
-        try reload()
+        try reload(); replayTranslations()
     }
     private func reload() throws { threads = try history?.threads() ?? []; revision += 1 }
     private func body(_ values: [String: Any]) throws -> Data { try JSONSerialization.data(withJSONObject: values) }
@@ -285,7 +344,9 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         guard let core, ready else { throw ServiceFailure(status: 0, code: "device_not_ready") }
         guard !blockedPeers.contains(peer) else { throw ServiceFailure(status: 0, code: "contact_blocked") }
         guard !changedIdentities.contains(peer) else { throw ServiceFailure(status: 0, code: "peer_identity_review_required") }
-        try core.journal.saveDraft(id: UUID(), recipient: peer, text: text, createdAt: now, now: now, consumeCompose: true)
+        let id = UUID()
+        try core.journal.saveDraft(id:id,recipient:peer,text:text,createdAt:now,now:now,consumeCompose:true)
+        messageCommitted(.init(id:id.uuidString,text:text,peer:peer))
         try reload()
     }
     private func establish(_ peer: UUID) async throws {
@@ -323,7 +384,11 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                     let inbox: Inbox = try await request("GET", "/v1/messages/pending", device: core.device, query: cursor.map { ["after": $0] } ?? [:])
                     for item in inbox.messages {
                         if blockedPeers.contains(item.sender_id) { continue }
-                        do { _ = try core.receive(item.routed(account: profile!.id), now: now) }
+                        do {
+                            let alreadyStored = try vault?.transaction { try vault?.get("incoming",item.id.uuidString.lowercased()) != nil } ?? false
+                            let received = try core.receive(item.routed(account:profile!.id),now:now)
+                            if !alreadyStored { messageCommitted(.init(id:item.id.uuidString,text:received.text,peer:item.sender_id)) }
+                        }
                         catch DurableSignalStore.Failure.retiredDevice { continue }
                         catch DurableSignalStore.Failure.identityChanged {
                             try recordIdentityChange(item.sender_id)
@@ -412,6 +477,8 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     }
 
     func close() throws {
+        translationReplay?.cancel(); translationReplay = nil; translationOwner?.close(); translationOwner = nil
+        messageObservers.removeAll()
         events?.stop(); events = nil
         cancelHistoryWork?(); cancelHistoryWork = nil
         closed = true; ready = false; needsProfile = false; syncAgain = false
@@ -454,7 +521,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             }
             return result
         }
-        try reload()
+        try reload(); replayTranslations()
         return value
     }
     private func ensureOpen() throws {

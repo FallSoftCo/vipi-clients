@@ -1,12 +1,17 @@
 import AVFoundation
 import Foundation
 import Observation
+import VipiCore
 
 enum SpeechState { case preparing, ready, rendering, playing, unavailable }
 
-/// One owner per conversation, retaining both generators and one audio player.
+/// One owner per open chat, retaining its practice voice and one audio player.
 @MainActor @Observable final class SpeechPlayback: NSObject {
-    private var pair: LocalSpeechPair?
+    private var pair: (any PreparedSpeechPair)?
+    private let pairFactory: (String,String,URL) throws -> any PreparedSpeechPair
+    init(pairFactory: @escaping (String,String,URL) throws -> any PreparedSpeechPair = { try LocalSpeechPair(source:$0,target:$1,root:$2) }) {
+        self.pairFactory = pairFactory; super.init()
+    }
     private var player: AVAudioPlayerNode?
     private var engine: AVAudioEngine?
     private var scheduled: [UUID: AVAudioFile] = [:]
@@ -19,9 +24,20 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
     private var epoch = 0
     private var ready = false
     private var sessionActive = false
-    private(set) var state: SpeechState = .preparing
+    @ObservationIgnored var onUnavailable: (() -> Void)?
+    @ObservationIgnored var onInterruption: (() -> Void)?
+    private(set) var state: SpeechState = .preparing {
+        didSet { if state == .unavailable { onUnavailable?() } }
+    }
     private(set) var error: String?
     private(set) var activeMessage: String?
+    private(set) var autoplayOwned = false
+    struct Completion: Equatable { let serial:UInt64; let message:String; let succeeded:Bool }
+    private(set) var playbackSerial: UInt64 = 0
+    private(set) var lastCompletion: Completion?
+    private func completed(_ message:String,succeeded:Bool) {
+        lastCompletion = .init(serial:playbackSerial,message:message,succeeded:succeeded); stop()
+    }
     #if DEBUG
     /// Component-only preparation failure injection; no account or audio state.
     var qualificationPrepare: (() async throws -> Void)?
@@ -30,7 +46,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
         #if DEBUG
         if let qualificationPrepare { try await qualificationPrepare(); return }
         #endif
-        let next = try LocalSpeechPair(source: source, target: target, root: MessageSpeechCache.directory)
+        let next = try pairFactory(source,target,MessageSpeechCache.directory)
         pair = next
         try await next.prepare(warmups: warmups)
     }
@@ -43,7 +59,13 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                 observers.append(NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { [weak self] note in
                     if name == AVAudioSession.routeChangeNotification,
                        (note.userInfo?[AVAudioSessionRouteChangeReasonKey] as? UInt) != AVAudioSession.RouteChangeReason.oldDeviceUnavailable.rawValue { return }
-                    Task { @MainActor [weak self] in self?.stop() }
+                    if name == AVAudioSession.interruptionNotification,
+                       (note.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt) != AVAudioSession.InterruptionType.began.rawValue { return }
+                    Task { @MainActor [weak self] in
+                        guard let self else { return }
+                        self.onInterruption?()
+                        self.stop()
+                    }
                 })
             }
         }
@@ -71,6 +93,13 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
         }
     }
 
+    /// Start or replace practice playback without toggling the selected item off.
+    func start(message: String, spans: [(text: String, language: String)], autoplay: Bool = false) {
+        if activeMessage == message { stop() }
+        toggle(message:message,spans:spans)
+        if activeMessage == message { autoplayOwned = autoplay }
+    }
+
     func toggle(message: String, spans: [(text: String, language: String)]) {
         guard ready, let pair else { return }
         if activeMessage == message { stop(); return }
@@ -80,17 +109,27 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
         let previous = rendering
         stop()
         let request = epoch
+        playbackSerial &+= 1
         activeMessage = message; state = .rendering; error = nil
         rendering = Task { [weak self] in
             // Await cancellation cleanup before reusing AVSpeechSynthesizer.
             await previous?.value
             guard let self, !Task.isCancelled, request == self.epoch else { return }
             do {
-                guard spans.reduce(0, { $0 + $1.text.utf16.count }) <= 16_384 else { throw LocalSpeechError.unavailable }
-                let chunks = SpeechChunks.plan(spans)
+                guard spans.reduce(0, { $0 + $1.text.utf8.count }) <= FullMessageBudget.recordBytes else { throw LocalSpeechError.unavailable }
+                let planning = Task.detached(priority:.userInitiated) {
+                    try SpeechChunks.plan(spans,checkCancellation:{ try Task.checkCancellation() })
+                }
+                let chunks = try await withTaskCancellationHandler { try await planning.value } onCancel: { planning.cancel() }
+                try Task.checkCancellation()
                 guard !chunks.isEmpty else { throw LocalSpeechError.unavailable }
                 self.schedulingFinished = false; self.outputUnderruns = 0
+                var renderedAny = false
                 for chunk in chunks {
+                    // A punctuation-only native utterance can return zero PCM.
+                    // Treat it as silence; do not abort later pronounceable text.
+                    guard chunk.contains(where:{SpeechChunks.hasSpokenContent($0.text)}) else { continue }
+                    renderedAny = true
                     while self.scheduled.count >= 3 { try await Task.sleep(for: .milliseconds(20)) }
                     let audio = try await pair.render(chunk)
                     try Task.checkCancellation()
@@ -108,23 +147,39 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                     guard let node = self.player else { throw LocalSpeechError.unavailable }
                     let id = UUID()
                     self.scheduled[id] = file
+                    #if DEBUG
+                    LiveImmersionQualification.recordFirstMonthSpeechOutput(["event": "speech_file_scheduled",
+                        "message_id": message, "audio_file": audio.file.lastPathComponent,
+                        "frames": file.length, "sample_rate": file.processingFormat.sampleRate])
+                    #endif
                     node.scheduleFile(file, at: nil, completionCallbackType: .dataPlayedBack) { [weak self] _ in
                         Task { @MainActor [weak self] in
                             guard let self, request == self.epoch else { return }
+                            #if DEBUG
+                            let sampleTime = self.player.flatMap { player in
+                                player.lastRenderTime.flatMap { player.playerTime(forNodeTime: $0)?.sampleTime }
+                            } ?? 0
+                            LiveImmersionQualification.recordFirstMonthSpeechOutput(["event": "speech_file_played_back",
+                                "message_id": message, "audio_file": audio.file.lastPathComponent,
+                                "frames": file.length, "sample_rate": file.processingFormat.sampleRate,
+                                "node_sample_time": sampleTime, "engine_running": self.engine?.isRunning == true,
+                                "callback": "dataPlayedBack", "epoch_matches": true])
+                            #endif
                             self.scheduled.removeValue(forKey: id)
                             if self.scheduled.isEmpty {
-                                if self.schedulingFinished { self.stop() }
+                                if self.schedulingFinished { self.completed(message,succeeded:true) }
                                 else { self.outputUnderruns += 1 }
                             }
                         }
                     }
                     if !node.isPlaying { node.play(); self.state = .playing }
                 }
+                guard renderedAny else { throw LocalSpeechError.invalidAudio }
                 self.schedulingFinished = true
-                if self.scheduled.isEmpty { self.stop() }
+                if self.scheduled.isEmpty { self.completed(message,succeeded:true) }
             } catch is CancellationError { }
             catch {
-                if request == self.epoch { self.stop(); self.error = String(localized: "This message couldn’t play. Try again.") }
+                if request == self.epoch { self.completed(message,succeeded:false); self.error = String(localized: "This message couldn’t play. Try again.") }
             }
         }
     }
@@ -134,7 +189,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
         // Keep the task reference until the next request has awaited its cleanup.
         player?.stop(); engine?.stop(); player = nil; engine = nil; scheduled.removeAll()
         if sessionActive { try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation); sessionActive = false }
-        activeMessage = nil
+        activeMessage = nil; autoplayOwned = false
         if ready { state = .ready }
     }
     func close() {

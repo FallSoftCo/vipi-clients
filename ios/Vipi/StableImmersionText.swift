@@ -1,4 +1,5 @@
 import SwiftUI
+import CryptoKit
 import UIKit
 import VipiCore
 
@@ -84,8 +85,7 @@ final class ImmersionWordAttachment: NSTextAttachment {
 @MainActor final class ImmersionNativeTextView: UITextView {
     var playbackControlRectInWindow = CGRect.null
     func isSelectionHandleTouch(_ touch: UITouch) -> Bool {
-        guard selectedRange.length > 0, let selectedTextRange, let window,
-              !ManualLookupInteraction.coversActivePanel(touch) else { return false }
+        guard selectedRange.length > 0, let selectedTextRange, let window else { return false }
         let point = touch.location(in: window)
         guard !playbackControlRectInWindow.contains(point) else { return false }
         for selection in selectionRects(for: selectedTextRange) {
@@ -274,6 +274,36 @@ final class ImmersionWordAttachment: NSTextAttachment {
         }
         return links
     }
+    private var preferredWidthContext = ""
+    private var preferredWidth: CGFloat = 0
+    private lazy var widthMeasurer: UITextView = {
+        let view = UITextView(usingTextLayoutManager: false)
+        view.textContainerInset = .zero; view.textContainer.lineFragmentPadding = 0
+        view.textContainer.widthTracksTextView = false; view.textContainer.heightTracksTextView = false
+        view.isScrollEnabled = false
+        return view
+    }()
+    /// The real TextKit attachments reserve source, target and reading forms.
+    /// Measure those glyph boxes under the width cap, never the current ink face.
+    func preferredContentWidth(maximumWidth: CGFloat) -> CGFloat {
+        let font = attributedText.length > 0 ? attributedText.attribute(.font, at: 0, effectiveRange: nil) as? UIFont : nil
+        let context = "\(maximumWidth)|\(contentIdentity)|\(font?.fontDescriptor.description ?? "")|\(traitCollection.preferredContentSizeCategory.rawValue)"
+        if context != preferredWidthContext {
+            preferredWidthContext = context
+            var widest: CGFloat = 1
+            for variant in variants {
+                widthMeasurer.attributedText = variant
+                widthMeasurer.textContainer.size = CGSize(width: maximumWidth, height: .greatestFiniteMagnitude)
+                let layout = widthMeasurer.layoutManager
+                layout.ensureLayout(for: widthMeasurer.textContainer)
+                layout.enumerateLineFragments(forGlyphRange: NSRange(location: 0, length: layout.numberOfGlyphs)) { _, used, _, _, _ in
+                    widest = max(widest, used.width)
+                }
+            }
+            preferredWidth = min(maximumWidth, ceil(widest + 1))
+        }
+        return preferredWidth
+    }
     func reservedSize(width: CGFloat) -> CGSize {
         let key = "\(width)|\(variants.map(\.string))|\(variants.map { $0.length > 0 ? ($0.attribute(.font, at: 0, effectiveRange: nil) as? UIFont)?.pointSize ?? 0 : 0 })|\(traitCollection.preferredContentSizeCategory.rawValue)"
         let context = "\(width)|\(contentIdentity)|\(variants.first.flatMap { $0.length > 0 ? $0.attribute(.font, at: 0, effectiveRange: nil) as? UIFont : nil }?.pointSize ?? 0)"
@@ -308,8 +338,25 @@ final class ImmersionWordAttachment: NSTextAttachment {
         addSubview(textView)
     }
     required init?(coder: NSCoder) { return nil }
-    override func layoutSubviews() { super.layoutSubviews(); textView.frame = bounds }
+    #if DEBUG
+    private var lastQualificationGeometry = ""
+    #endif
+    override func layoutSubviews() {
+        super.layoutSubviews(); textView.frame = bounds
+        #if DEBUG
+        guard LiveImmersionQualification.fullMessageGeometryEnabled else { return }
+        let rect = textView.convert(textView.bounds,to:nil)
+        let digest = SHA256.hash(data:Data(textView.attributedText.string.utf8)).map{String(format:"%02x",$0)}.joined()
+        let key = "\(rect)|" + digest
+        if key != lastQualificationGeometry {
+            lastQualificationGeometry = key
+            LiveImmersionQualification.recordFullMessageGeometry(["event":"full_message_paragraph_geometry",
+                "text_sha256":digest,"frame":LiveImmersionQualification.frameFields(rect)])
+        }
+        #endif
+    }
     func refreshAccessibility() {
+        paragraph.activate = textView.onPlayMessage
         paragraph.accessibilityIdentifier = "immersionText"
         paragraph.accessibilityLabel = textView.visibleText()
         paragraph.accessibilityTraits = .staticText
@@ -338,7 +385,17 @@ struct StableImmersionText: UIViewRepresentable {
     var onCopyRequested: (() -> Void)? = nil
     var onWhitespace: ((ImmersionNativeTextView) -> Void)? = nil
     var onPlayMessage: (() -> Void)? = nil
+    var onReport: (() -> Void)? = nil
     var onNativeView: ((ImmersionNativeTextView) -> Void)? = nil
+    var fitsContentWidth = false
+    var reservedSentences: [String] = []
+    var sentenceIdentity: String? = nil
+    var fullMessage = false
+    var onMeaning: (() -> Void)? = nil
+    var showingMeaning = false
+    var onScript: (() -> Void)? = nil
+    var showingNativeScript = false
+    var originalForCopy: String? = nil
     @Environment(\.dynamicTypeSize) private var typeSize
     @Environment(\.colorScheme) private var scheme
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
@@ -389,25 +446,48 @@ struct StableImmersionText: UIViewRepresentable {
         let font = UIFont.preferredFont(forTextStyle: .body, compatibleWith: UITraitCollection(preferredContentSizeCategory: category))
         let color = UIColor(VipiDesign.highlight).resolvedColor(with: view.traitCollection)
         view.originalMessage = result.original
-        view.contentIdentity = String(describing: result)
-        let identity = "\(view.contentIdentity)|\(revealed.sorted())|\(script)|\(font.pointSize)|\(scheme)"
+        view.isSelectable = !fullMessage
+        view.contentIdentity = sentenceIdentity ?? String(describing: result)
+        let identity = "\(view.contentIdentity)|\(revealed.sorted())|\(script)|\(font.pointSize)|\(scheme)|" + Data(result.original.utf8).base64EncodedString()
         if view.renderingIdentity != identity {
             view.renderingIdentity = identity
             let current = render(revealed: revealed, script: script, font: font, color: color)
             let selection = view.selectedRange
             let sameText = view.attributedText.string == current.string
             view.attributedText = current
-            view.variants = [current]
+            #if DEBUG
+            if fullMessage, Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa",
+               ProcessInfo.processInfo.arguments.contains("-vipi-full-translation-sdk-qa"),
+               FirstMonthRootQualification.current != nil {
+                LiveImmersionQualification.record(["event":"full_message_native_face",
+                    "showing_meaning":showingMeaning,"showing_native_script":showingNativeScript,
+                    "original_sha256":SHA256.hash(data:Data((originalForCopy ?? result.original).utf8)).map{String(format:"%02x",$0)}.joined(),
+                    "displayed_sha256":SHA256.hash(data:Data(view.attributedText.string.utf8)).map{String(format:"%02x",$0)}.joined()])
+            }
+            #endif
+            view.variants = reservedSentences.isEmpty ? [current] : reservedSentences.map { sentence in
+                let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 5; paragraph.baseWritingDirection = .natural
+                return NSAttributedString(string:sentence,attributes:[.font:font,.foregroundColor:UIColor.label,.paragraphStyle:paragraph])
+            }
             view.reserveKey = ""
             if sameText && NSMaxRange(selection) <= current.length { view.selectedRange = selection }
         }
         view.accessibilityLabel = view.visibleText()
         view.accessibilityValue = view.visibleText()
-        view.accessibilityHint = voiceOver
+        if fullMessage {
+            view.accessibilityHint = ChatReadingState.actionDescription(showingMeaning:showingMeaning,nativeScript:showingNativeScript)
+        } else { view.accessibilityHint = voiceOver
             ? String(localized: "Automatic switching pauses while VoiceOver is on. Use the word actions to switch meanings. Reading options changes the language or script.")
             : String(localized: "Words switch automatically. Pause holds the current words. Reading options changes the pace or script.")
+        }
         view.accessibilityCustomActions = result.spans.map { word in
-            UIAccessibilityCustomAction(name: String(localized: "Switch \(word.original) and \(word.displayedTarget)")) { _ in onWord(word.id); return true }
+            let repeated = result.spans.filter { $0.original == word.original && $0.displayedTarget == word.displayedTarget }
+            let name: String
+            if repeated.count > 1 {
+                let occurrence = (repeated.firstIndex(where: { $0.id == word.id }) ?? 0) + 1
+                name = String(localized: "Switch \(word.original) and \(word.displayedTarget), occurrence \(occurrence)")
+            } else { name = String(localized: "Switch \(word.original) and \(word.displayedTarget)") }
+            return UIAccessibilityCustomAction(name: name) { _ in onWord(word.id); return true }
         }
         view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: String(localized: "Copy displayed message")) { [weak view] _ in
             guard let view else { return false }; view.onCopyRequested?(); UIPasteboard.general.string = view.visibleText(); return true
@@ -417,14 +497,28 @@ struct StableImmersionText: UIViewRepresentable {
                 guard let view else { return false }; onWhitespace(view); return true
             })
         }
+        if let onMeaning {
+            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name:showingMeaning ? String(localized:"Show practice text") : String(localized:"Show meanings")) { _ in onMeaning(); return true })
+        }
+        if let onScript {
+            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name:showingNativeScript ? String(localized:"Show transliteration") : String(localized:"Show native script")) { _ in onScript(); return true })
+        }
+        if let originalForCopy {
+            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name:String(localized:"Copy original message")) { _ in UIPasteboard.general.string = originalForCopy; return true })
+        }
         if let onPlayMessage {
-            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: String(localized: "Play message")) { _ in onPlayMessage(); return true })
+            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: fullMessage ? String(localized:"Play in practice language") : String(localized:"Play message")) { _ in onPlayMessage(); return true })
+        }
+        if let onReport {
+            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: String(localized: "Report message")) { _ in onReport(); return true })
         }
         container.refreshAccessibility()
     }
     func sizeThatFits(_ proposal: ProposedViewSize, uiView container: ImmersionTextContainer, context: Context) -> CGSize? {
-        guard let width = proposal.width, width > 0 else { return nil }
-        return container.textView.reservedSize(width: width)
+        guard let width = proposal.width ?? (fitsContentWidth ? 520 : nil), width > 0 else { return nil }
+        let fitted = fitsContentWidth && container.textView.attributedText.length > 0
+            ? container.textView.preferredContentWidth(maximumWidth: width) : width
+        return container.textView.reservedSize(width: fitted)
     }
     private func render(revealed: Set<Int>, script: Bool, font: UIFont, color: UIColor) -> NSAttributedString {
         let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 5; paragraph.baseWritingDirection = .natural

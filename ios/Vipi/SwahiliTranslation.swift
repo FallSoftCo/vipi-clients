@@ -1,4 +1,5 @@
 import Foundation
+import VipiCore
 #if !targetEnvironment(simulator)
 @preconcurrency import MLKitTranslate
 @preconcurrency import MLKitCommon
@@ -42,7 +43,7 @@ import Foundation
         try Task.checkCancellation()
         guard Self.installed(pair) else { throw Failure.modelsMissing }
         guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-              text.utf16.count <= 16_384 else { throw Failure.emptyResult }
+              text.utf8.count <= FullMessageBudget.sourceBytes else { throw Failure.emptyResult }
         let result: String = try await withCheckedThrowingContinuation { continuation in
             translator.translate(text) { result, error in
                 if let error { continuation.resume(throwing: error) }

@@ -1,6 +1,5 @@
 package co.fallsoft.vipi
 
-import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.ui.res.stringResource
@@ -12,37 +11,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import co.fallsoft.vipi.core.ImmersionResult
-import co.fallsoft.vipi.core.VocabularyEntry
-import org.json.JSONObject
 
-internal object ConversationExamples {
-    fun reading(context: Context, target: String): String? = JSONObject(context.assets.open("immersion-preview.json").bufferedReader().use { it.readText() }).getJSONObject("languages").getJSONObject(target).optString("reading").takeIf { it.isNotBlank() }
-    fun result(context: Context, source: String, target: String): ImmersionResult {
-        val languages = JSONObject(context.assets.open("immersion-preview.json").bufferedReader().use { it.readText() }).getJSONObject("languages")
-        val from = languages.getJSONObject(source); val to = languages.getJSONObject(target)
-        val a = from.getJSONObject("words"); val b = to.getJSONObject("words")
-        val entries = a.keys().asSequence().map { key ->
-            val destination = b.getJSONObject(key); val surface = destination.getString("surface")
-            VocabularyEntry(a.getJSONObject(key).getString("surface"), listOf(surface),
-                if (destination.has("reading")) mapOf(surface to listOf(destination.getString("reading"))) else emptyMap())
-        }.toList()
-        return LocalImmersion.align(from.getString("text"), to.getString("text"), entries, .5, source, target)
-    }
-}
-
+/** Preview is a real local translation request, not a lookup/example catalog. */
 @Composable internal fun ConversationPreview(source: String, target: String, scrolling: Boolean = false) {
     val context = LocalContext.current
-    val result = remember(source, target) { ConversationExamples.result(context, source, target) }
-    val fullReading = remember(target) { ConversationExamples.reading(context, target) }
-    var mode by remember(source, target) { mutableStateOf(ReadingMode.IMMERSED) }
+    val translation = remember(source, target) { ConversationTranslation(context, source, target) }
+    val gestures = remember(source, target) { FullMessageGestures() }
     val scope = rememberCoroutineScope()
-    val speech = remember(source, target) { SpeechPlayback(context, source, target, scope) }
-    LaunchedEffect(speech) { speech.prepare(mapOf(source to result.original, target to result.translation)) }
-    DisposableEffect(speech) { onDispose { speech.close() } }
-    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        ImmersionBubble(result, mode, speech, source, target, "language-preview-$source-$target", scrolling, fullReading = fullReading)
-        SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(mapOf(source to result.original, target to result.translation)) }
+    val speech = remember(source, target) { SpeechPlayback(context, target, scope) }
+    val warmups = remember(source, target) { mapOf(source to "1", target to "1") }
+    val audio = remember(translation, speech) { ConversationAutoplay(translation, speech, scope) {} }
+    LaunchedEffect(speech) { speech.prepare(warmups) }
+    LaunchedEffect(scrolling) { if (scrolling) gestures.held = false }
+    DisposableEffect(translation, speech) { onDispose { audio.close(); translation.close(); speech.close() } }
+    Column(Modifier.fillMaxWidth().fullMessageGestures(gestures), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        FullMessageBubble("Let's meet tomorrow after work.", "language-preview-$source-$target", translation,
+            gestures, audio) {}
+        SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
     }
 }
 

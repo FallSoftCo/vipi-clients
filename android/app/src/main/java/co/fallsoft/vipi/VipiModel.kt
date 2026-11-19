@@ -10,8 +10,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import co.fallsoft.vipi.core.ImmersionEngine
-import co.fallsoft.vipi.core.VocabularyEntry
 import co.fallsoft.vipi.core.TranslationIntegrity
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CancellationException
@@ -42,6 +40,7 @@ internal interface VipiWorkflowBoundary {
     fun cancelPush(context: Context)
     fun foregroundEvents(scope: CoroutineScope, authentication: Authentication, chat: ChatSession): ForegroundInboxEvents
     fun deletionTransport(authentication: Authentication): DeletionTransport? = null
+    fun translationClient(): LanguageTranslation = LocalTranslation()
 }
 
 class VipiModel internal constructor(application: Application, private val translator: LanguageTranslation,
@@ -100,6 +99,7 @@ class VipiModel internal constructor(application: Application, private val trans
             // The retained model is activated again after activity recreation
             // and reauthentication. Keep this account's current conversation.
             if (openingAccount) navigate(Screen.HOME)
+            chat!!.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient })
             chat!!.start()
             if (!deletion.active && chat?.needsProfile == true) navigate(Screen.PROFILE)
             else if (chat?.ready == true && screen == Screen.ACCOUNT) navigate(Screen.HOME)
@@ -138,6 +138,7 @@ class VipiModel internal constructor(application: Application, private val trans
         // reconnecting its device. Consent/access/device checks guard sending.
         try {
             if (bot == null) bot = BotSession(getApplication(), account, service(user))
+            bot?.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient })
             navigate(Screen.BOT)
         } catch (_: Exception) { chatError = getApplication<Application>().getString(R.string.ui_e768f0a75223) }
     }
@@ -195,10 +196,26 @@ class VipiModel internal constructor(application: Application, private val trans
         knownLanguage = code
         if (targetLanguage == code) selectTarget(if (code == "es") "en" else "es")
         prefs.edit().putString("knownLanguage", code).apply()
+        prepareSelectedPair()
     }
     fun selectTarget(code: String) {
         if (targetLanguage != code) { selectionRevision++; sentenceChanged() }
         targetLanguage = code; prefs.edit().putString("targetLanguage", code).apply()
+        prepareSelectedPair()
+    }
+    private var pairPreparation: Job? = null
+    private fun prepareSelectedPair() {
+        if (knownLanguage == targetLanguage) return
+        chat?.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient })
+        bot?.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient })
+        pairPreparation?.cancel()
+        pairPreparation = viewModelScope.launch {
+            modelBusy = true; modelMessage = null
+            try { translator.prepare(knownLanguage, targetLanguage, cellularAllowed = true) }
+            catch (cancelled: CancellationException) { throw cancelled }
+            catch (_: Exception) { modelMessage = getApplication<Application>().getString(R.string.full_translation_failed) }
+            finally { modelBusy = false }
+        }
     }
     fun sentenceChanged() { translationRevision++; translatedText = null; modelMessage = null }
     fun changeAppearance(value: Appearance) { appearance = value; prefs.edit().putString("appearance", value.name).apply() }
@@ -250,8 +267,3 @@ class VipiModel internal constructor(application: Application, private val trans
     override fun onCleared() { translator.close(); chat?.let(DeliverySessions::release); subscriptions?.close(); closeBot() }
 }
 
-val immersionPreview = ImmersionEngine().align(
-    "Coffee tomorrow? I know a little place by the river.",
-    "¿Café mañana? Conozco un pequeño lugar junto al río.",
-    listOf(VocabularyEntry("Coffee", listOf("Café")), VocabularyEntry("tomorrow", listOf("mañana")), VocabularyEntry("river", listOf("río"))), .3
-)

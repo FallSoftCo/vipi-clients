@@ -79,7 +79,7 @@
     <string name="ui_b47e6d6e77c8" formatted="false">無法打開加密詳細信息。 您的驗證沒有改變。</string>
     <string name="ui_b68710eee013" formatted="false">連接到您的聊天</string>
     <string name="ui_b6ec9d55ae3b" formatted="false">我比較了所有12個小組</string>
-    <string name="ui_b7c32ca74cb0" formatted="false">聽兩種語言</string>
+    <string name="ui_b7c32ca74cb0" formatted="false">聆聽正在學習的語言</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">尋找朋友</string>
     <string name="ui_beb6c51b9bf6" formatted="false">恢復歷史記錄</string>
     <string name="ui_c26d4e55137b" formatted="false">您的 Vipi 帳號和此裝置上的聊天將永久刪除。此操作無法復原。</string>
@@ -207,7 +207,7 @@
     <string name="annual_price">每年 %1$s</string>
     <string name="trial_then_annual">免費一個月，之後每年 %1$s</string>
     <string name="subscribe_annual">以每年 %1$s 訂閱</string>
-    <string name="both_plans_total">試用期後兩個方案合計：每年 %1$s，分開計費。</string>
+    <string name="both_plans_total">兩個方案合計：每年 %1$s，分開計費。</string>
     <string name="both_plans_separate">Vipi：每年 %1$s。Bot mini：額外每年 %2$s。分開計費。</string>
     <string name="plan_active">%1$s 已啟用</string>
     <string name="trial_end_date">試用期於 %1$s 結束。</string>
@@ -275,7 +275,7 @@
     <string name="ui_ff245b368781" formatted="false">Bot mini</string>
     <string name="ui_42f4f8b469bb" formatted="false">與好友聊天。\n邊閱讀邊學單字。</string>
     <string name="ui_47b7a66139f1" formatted="false">與好友\n開始聊天。</string>
-    <string name="ui_52c236be01ef" formatted="false">這些下載用於選擇性的整則訊息翻譯，單字切換不需要下載。要翻譯整則訊息，請在閱讀選項中選擇「全文翻譯」。訊息會保留在此手機上。</string>
+    <string name="ui_52c236be01ef" formatted="false">Vipi 在這支手機上翻譯整則訊息，離線也能使用。</string>
     <string name="ui_54c1159d80bf" formatted="false">與好友聊天。\n學習新單字。</string>
     <string name="ui_73bee38b06e8" formatted="false">好友如何\n找到您？</string>
     <string name="ui_8ec4723d54ba" formatted="false">離線翻譯前需要重新下載這些語言。您的對話會保留在此手機上。</string>
@@ -395,7 +395,7 @@
     <string name="translation_timeout">花費時間過長。仍可使用單字切換。</string>
     <string name="translation_language_needed">選擇此訊息的語言後再試。</string>
     <string name="translation_failed">無法準備全文翻譯。仍可使用單字切換。</string>
-    <string name="voices_prepare_offline">準備兩種語言的語音，以便離線收聽。</string>
+    <string name="voices_prepare_offline">準備好所學語言的語音，即可離線收聽。</string>
     <string name="ui_d55f942dbeea" formatted="false">由 Google 翻譯。翻譯可能不準確。</string>
     <string name="backup_save_failed">無法儲存備份。您的對話仍在這裡。請再試一次。</string>
     <string name="access_switch_word">切換 %1$s 和 %2$s</string>
@@ -403,8 +403,8 @@
     <string name="access_choose_word">選擇要切換的單字</string>
     <string name="access_message_actions">訊息操作</string>
     <string name="cardless_ended">您的 Vipi 免費使用期已於 %1$s 結束。訂閱後可繼續聊天。</string>
-    <string name="welcome_title_concise">與朋友聊天。\n學習新詞彙。</string>
-    <string name="welcome_detail_concise">聊天時，部分詞語會切換成另一種語言。</string>
+    <string name="welcome_title_concise">和朋友聊天。\n學一門語言。</string>
+    <string name="welcome_detail_concise">每則訊息都會用你正在學習的語言顯示。</string>
     <string name="preview_spanish_title">體驗一點西班牙語</string>
     <string name="preview_tap_word">點一下反白單字，即可聽到它在所學語言中的發音。在聊天中，點一下對話氣泡即可翻譯。</string>
     <string name="languages_title_concise">你的語言</string>
@@ -436,4 +436,18 @@
     <string name="deletion_fallsoft_retained">您的 Fallsoft 登入帳號與其他 Fallsoft 應用程式中的帳號都會保留。</string>
     <string name="fallsoft_link_title">使用 Fallsoft 帳號登入</string>
     <string name="fallsoft_link_detail">請先重新登入 Vipi，再連結 Fallsoft 帳號。你的聊天、個人資料和原有試用期都會保留。</string>
+    <string name="full_translation_preparing">正在翻譯…</string>
+    <string name="full_translation_failed">翻譯失敗。點一下重試。</string>
+    <string name="full_translation_meaning">顯示意思</string>
+    <string name="full_translation_practice">顯示學習語言</string>
+    <string name="full_translation_script">顯示原文文字</string>
+    <string name="full_translation_reading">顯示羅馬字母轉寫</string>
+    <string name="full_translation_play">用學習語言朗讀</string>
+    <string name="full_translation_copy_original">複製原始訊息</string>
+    <string name="full_translation_gestures">點一下朗讀，按住查看意思，點兩下切換文字形式。</string>
+    <string name="autoplay_turn_on">開啟自動朗讀</string>
+    <string name="autoplay_turn_off">關閉自動朗讀</string>
+    <string name="autoplay_on_notice">自動朗讀已開啟。新訊息將自動朗讀。</string>
+    <string name="report_message">檢舉訊息</string>
+    <string name="full_translation_unavailable">翻譯暫時無法使用</string>
 </resources>

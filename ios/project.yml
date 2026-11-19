@@ -20,7 +20,7 @@ settings:
     SWIFT_VERSION: '6.0'
     DEVELOPMENT_TEAM: 3TNL2455JT
     MARKETING_VERSION: '1.0'
-    CURRENT_PROJECT_VERSION: '4'
+    CURRENT_PROJECT_VERSION: '6'
     CODE_SIGN_STYLE: Automatic
     # CocoaPods copies its pinned SDK resource bundles using rsync staging files.
     # This affects build scripts only, not the installed application's sandbox.
@@ -37,23 +37,6 @@ packages:
   LibSignalClient:
     path: ../vendor/libsignal/source/swift
 targets:
-  VipiLanguageDetector:
-    type: library.static
-    platform: iOS
-    sources:
-      - path: VipiLanguageDetector
-        headerVisibility: public
-      - path: ../vendor/cld2/internal
-        includes: ["*.cc"]
-    settings:
-      base:
-        PRODUCT_MODULE_NAME: VipiLanguageDetector
-        DEFINES_MODULE: YES
-        MODULEMAP_FILE: $(SRCROOT)/VipiLanguageDetector/module.modulemap
-        CLANG_CXX_LANGUAGE_STANDARD: c++17
-        HEADER_SEARCH_PATHS: $(SRCROOT)/../vendor
-        OTHER_CPLUSPLUSFLAGS: $(inherited) -Wno-c++11-narrowing
-        PUBLIC_HEADERS_FOLDER_PATH: include/VipiLanguageDetector
   Vipi:
     type: application
     platform: iOS
@@ -63,22 +46,9 @@ targets:
       - path: Vipi/ThirdPartyNotices
         type: folder
         buildPhase: resources
-      - path: ../data/immersion
-        type: folder
-        buildPhase: resources
-      - path: ../data/lexical
-        type: folder
-        buildPhase: resources
-      - path: ../data/examples/immersion-preview.json
-        buildPhase: resources
-      - path: ../data/examples/sentence-readings.json
-        buildPhase: resources
       - path: ../data/readings/chinese-ordinary.json
         buildPhase: resources
-      - path: ../qa/immersion/corpus.json
-        buildPhase: resources
     dependencies:
-      - target: VipiLanguageDetector
       - sdk: libz.tbd
       - package: ESpeakNG
         product: libespeak-ng
@@ -155,7 +125,6 @@ targets:
         TARGETED_DEVICE_FAMILY: '1,2'
         SUPPORTS_MACCATALYST: NO
         SWIFT_STRICT_CONCURRENCY: complete
-        SWIFT_INCLUDE_PATHS: $(SRCROOT)/VipiLanguageDetector
         'LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios-sim/release
         'LIBRARY_SEARCH_PATHS[sdk=iphoneos*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios/release
       configs:
@@ -205,7 +174,6 @@ targets:
           OTHER_LDFLAGS: '-lsqlite3 -lc++'
       base:
         GENERATE_INFOPLIST_FILE: YES
-        SWIFT_INCLUDE_PATHS: $(SRCROOT)/VipiLanguageDetector
         'LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios-sim/release
         'LIBRARY_SEARCH_PATHS[sdk=iphoneos*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios/release
   VipiUITests:

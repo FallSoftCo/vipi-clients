@@ -37,34 +37,27 @@ class ChineseReadingsDeviceTest {
         }
         assertNull(reader.resolve("音乐𠮷").reading)
         assertNull(reader.resolve("مرحبا").reading)
-        val long = "银行还款。".repeat(3276) + "银行还款"
-        assertEquals(16384, long.length)
-        assertTrue(reader.resolve(long).reading!!.startsWith("yínháng"))
-        assertTrue(runCatching { reader.resolve("银".repeat(16385)) }.exceptionOrNull() is IllegalArgumentException)
-        File(context.filesDir, "chinese-marked-readings-native.json").writeText(JSONObject()
+        readingRegressionFile(context, "chinese-marked-readings-native.json").writeText(JSONObject()
             .put("data_sha256", ChineseReadings.DATA_SHA256).put("cases", rows).put("passed", true).toString(2))
     }
 
-    @Test fun exactOnboardingPreviewAndAuthoredSentenceKeepTonesAndChineseSpeech() {
+    /** Deferred size qualification: intentionally excluded from the short/4K
+     * packet. Preserve the old complete-boundary assertions and test the new
+     * admission boundary only when the larger stage is explicitly selected. */
+    @Test fun legacySizeBoundaryAndNewEnvelopeRemainComplete() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val result = ConversationExamples.result(context, "en", "zh")
-        val preview = JSONObject(context.assets.open("immersion-preview.json").bufferedReader().use { it.readText() })
-            .getJSONObject("languages").getJSONObject("zh")
-        assertEquals("kāfēi", preview.getJSONObject("words").getJSONObject("coffee").getString("reading"))
-        assertEquals("míngtiān", preview.getJSONObject("words").getJSONObject("tomorrow").getString("reading"))
-        assertEquals("hé", preview.getJSONObject("words").getJSONObject("river").getString("reading"))
-        assertEquals("Míngtiān yīqǐ hē kāfēi ma? Wǒ zhīdào hébiān yǒu ge xiǎo dìfang.", ConversationExamples.reading(context, "zh"))
-        assertTrue(result.spans.isNotEmpty())
-        assertTrue(result.spans.all { it.romanization in setOf("kāfēi", "míngtiān", "hé") })
-        val chineseSpeech = result.speech("en", "zh").filter { it.language == "zh" }
-        assertTrue(chineseSpeech.isNotEmpty())
-        assertTrue(chineseSpeech.all { it.text in setOf("咖啡", "明天", "河") })
-        val authored = SentenceReadings(context)
-        val exact = NativeFullReadings.resolve("你好。", "zh", authored, context)
-        assertEquals("Nǐ hǎo.", exact?.text)
-        assertEquals(FullReading.Provenance.AUTHORED, exact?.provenance)
-        assertEquals("yīnyuè", NativeFullReadings.resolve("音乐", "zh", authored, context)?.text)
-        assertEquals(FullReading.Provenance.LOCAL_TRANSLITERATION,
-            NativeFullReadings.resolve("音乐", "zh", authored, context)?.provenance)
+        val reader = ChineseReadings(context.assets.open("readings/chinese-ordinary.json").use { it.readBytes() })
+        val long = "银行还款。".repeat(3276) + "银行还款"
+        assertEquals(16384, long.length)
+        assertTrue(reader.resolve(long).reading!!.startsWith("yínháng"))
+        assertNotNull(reader.resolve("银".repeat(16385)).reading)
+        assertTrue(runCatching { reader.resolve("银".repeat(FullReadingLimits.MAX_TEXT_UTF16 + 1)) }
+            .exceptionOrNull() is IllegalArgumentException)
+    }
+
+    @Test fun fullMessageReadingUsesLiveContextualPolyphones() {
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        assertEquals("yínháng hángzhǎng", FullMessageReadings.read(context, "银行行长", "zh").text)
+        assertEquals("kāfēi", FullMessageReadings.read(context, "咖啡", "zh").text)
     }
 }

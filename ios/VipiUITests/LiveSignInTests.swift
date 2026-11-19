@@ -38,7 +38,7 @@ import UIKit
         let attachment = XCTAttachment(screenshot: app.screenshot())
         attachment.name = "owned-staging-fresh-reauthentication"; attachment.lifetime = .keepAlways; add(attachment)
         app.terminate(); app.launchArguments = []; app.launch()
-        XCTAssertTrue(app.buttons["New chat"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.navigationBars["Chats"].buttons["New chat"].waitForExistence(timeout: 20))
     }
     func testHostedPKCESignInForOwnedStagingIdentity() throws {
         let fixture = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("private-staging-identity.json")
@@ -52,14 +52,16 @@ import UIKit
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-welcome", "-vipi-source", "en", "-vipi-target", "es", "-vipi-appearance-light"]
         app.launch()
-        if app.buttons["New chat"].waitForExistence(timeout: 3) { throw XCTSkip("Reconcile the existing signed-in identity before a fresh login") }
+        if app.navigationBars["Chats"].buttons["New chat"].waitForExistence(timeout: 3) { throw XCTSkip("Reconcile the existing signed-in identity before a fresh login") }
         XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout: 15))
         app.buttons["Choose languages"].tap()
         XCTAssertTrue(app.buttons["I’m learning"].waitForExistence(timeout: 10))
         XCTAssertEqual(app.buttons["I’m learning"].value as? String, "Spanish")
         app.buttons["Continue"].tap()
-        XCTAssertTrue(app.switches.firstMatch.waitForExistence(timeout: 10)); app.switches.firstMatch.tap()
-        app.buttons["Continue to sign in"].tap()
+        XCTAssertFalse(app.switches.firstMatch.exists)
+        let accountContinue = app.buttons["Continue to sign in"]
+        XCTAssertTrue(accountContinue.waitForExistence(timeout: 10)); XCTAssertTrue(accountContinue.isEnabled)
+        accountContinue.tap()
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
         if springboard.alerts.buttons["Continue"].waitForExistence(timeout: 5) { springboard.alerts.buttons["Continue"].tap() }
         if app.webViews.textFields["One-time code"].waitForExistence(timeout: 5) {
@@ -82,14 +84,14 @@ import UIKit
             app.switches["profile-accept-terms"].tap()
             app.buttons["profile-submit"].tap()
         }
-        let joined = app.buttons["New chat"].waitForExistence(timeout: 30)
+        let joined = app.navigationBars["Chats"].buttons["New chat"].waitForExistence(timeout: 30)
             && app.staticTexts["Chats"].exists
             && !app.staticTexts["Chatting is paused"].exists
         guard joined else {
             // Keep diagnostics to route metadata. A full hierarchy/screenshot
             // while the provider is still open could retain private fields.
             let route = XCTAttachment(string: """
-                new_chat=\(app.buttons["New chat"].exists)
+                new_chat=\(app.navigationBars["Chats"].buttons["New chat"].exists)
                 chats=\(app.staticTexts["Chats"].exists)
                 profile_required=\(app.textFields["profile-name"].exists)
                 profile_error=\(app.staticTexts["profile-error"].exists)

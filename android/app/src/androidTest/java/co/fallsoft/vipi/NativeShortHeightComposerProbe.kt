@@ -45,6 +45,10 @@ internal fun exerciseShortLandscapeComposer(compose: ComposeTestRule, f: MainAct
         f.device.executeShellCommand("wm size 1080x1920")
         f.device.setOrientationLeft()
         compose.waitUntil(10_000) { f.device.displayWidth == 1920 && f.device.displayHeight == 1080 }
+        compose.onNodeWithTag("full-message-gesture-cue").assertDoesNotExist()
+        File(f.output, "$evidence-cue-before-editor-focus.json").writeText(JSONObject()
+            .put("orientation", "landscape").put("cue_absent_before_explicit_editor_focus", true)
+            .put("font_scale", f.base.resources.configuration.fontScale.toDouble()).toString(2))
         compose.onNodeWithTag(inputTag).performTouchInput { click() }
         compose.waitUntil(8_000) { imeVisible() }
         compose.onNodeWithTag(inputTag).assertIsFocused().assert(SemanticsMatcher("Exact landscape draft") {

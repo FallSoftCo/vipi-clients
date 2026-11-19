@@ -1,46 +1,65 @@
 import XCTest
+import Foundation
+import VipiCore
 @testable import Vipi
 
-@MainActor final class SentenceReadingsTests: XCTestCase {
-    func testMarkedChineseWordsAndExactOnboardingPreview() throws {
-        let file = try XCTUnwrap(Bundle.main.url(forResource: "chinese-ordinary", withExtension: "json"))
-        let reader = try ChineseFullReading(data: Data(contentsOf: file))
-        for (source, expected) in [("音乐", "yīnyuè"), ("音樂", "yīnyuè"), ("银行", "yínháng"), ("銀行", "yínháng"),
-                                   ("重庆", "Chóngqìng"), ("重慶", "Chóngqìng"), ("銀行行長", "yínháng hángzhǎng"),
-                                   ("妈妈", "māma"), ("媽媽", "māma"), ("什麼", "shénme"), ("孩子", "háizi"),
-                                   ("女儿", "nǚ'ér"), ("綠色", "lǜsè"), ("牛奶", "niúnǎi"),
-                                   ("José 银行 café", "José yínháng café")] {
-            let result = try reader.resolve(source)
-            XCTAssertEqual(result.reading, expected, source)
-            XCTAssertEqual(result.pieces.map(\.source).joined(), source)
+final class SentenceReadingsTests: XCTestCase {
+    func testLiveNonRomanFullTextReadingsDoNotNeedAuthoredSentenceMatches() throws {
+        for (language,text) in [("zh","桌子旁边有三本新书。"),("ja","駅の近くで新しい本を読みます。"),("ko","오늘 새로운 책을 읽어요."),("ar","أين محطة القطار الجديدة؟")] {
+            let result = try XCTUnwrap(FullSentenceReadings.resolve(text,language:language),language)
+            XCTAssertFalse(result.text.isEmpty); XCTAssertEqual(result.provenance,.localTransliteration)
+            XCTAssertNotEqual(result.text,text,language)
+            XCTAssertNotNil(result.text.range(of:#"\p{Latin}"#,options:.regularExpression),language)
         }
-        let preview = try XCTUnwrap(ConversationExamples.examples?.languages["zh"])
-        XCTAssertEqual(preview.words["coffee"]?.reading, "kāfēi")
-        XCTAssertEqual(preview.words["tomorrow"]?.reading, "míngtiān")
-        XCTAssertEqual(preview.words["river"]?.reading, "hé")
-        XCTAssertEqual(preview.reading, "Míngtiān yīqǐ hē kāfēi ma? Wǒ zhīdào hébiān yǒu ge xiǎo dìfang.")
-        XCTAssertEqual(SentenceReadings.reading("你好。", language: "zh"), "Nǐ hǎo.")
+        XCTAssertNil(FullSentenceReadings.resolve("Already Latin",language:"en"))
+    }
+    func testChineseLiveGuideKeepsMarkedTonesAndSourceIndependentAudioText() throws {
+        let native = "你好，明天见！"
+        let value = try XCTUnwrap(FullSentenceReadings.resolve(native,language:"zh"))
+        XCTAssertTrue(value.text.contains { "āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ".contains($0) })
+        XCTAssertEqual(native,"你好，明天见！")
+    }
+    func testLongJapaneseKeepsNativeLexicalReadingAndExactUnicodeTail() throws {
+        // More than the retired 16K UTF16 cap. No Han-Latin fallback is allowed.
+        let original = String(repeating:"明日は学校に行きます。",count:1500) + " café\u{301} 👩🏽‍💻 END"
+        let native = JapaneseFullReading.resolve(original)
+        XCTAssertTrue(native.issues.isEmpty,String(describing:native.issues))
+        let reading = try XCTUnwrap(native.reading)
+        XCTAssertEqual(try XCTUnwrap(FullSentenceReadings.resolve(original,language:"ja")).text,reading)
+        XCTAssertTrue(reading.hasSuffix("café\u{301} 👩🏽‍💻 END"))
+        XCTAssertTrue(native.pieces.map(\.source).joined().utf8.elementsEqual(original.utf8))
+        let observation:[String:Any] = ["original_utf8_bytes":original.utf8.count,
+            "reading_utf8_bytes":reading.utf8.count,"reading_prefix":String(reading.prefix(240)),
+            "tokens":native.tokens.prefix(12).map{["source":$0.source,"start":$0.startUTF16,"end":$0.endUTF16,"raw_latin":$0.rawLatin ?? ""] as [String:Any]}]
+        let attachment = XCTAttachment(data:try JSONSerialization.data(withJSONObject:observation,options:[.sortedKeys]),uniformTypeIdentifier:"public.json")
+        attachment.name = "long-japanese-actual-native-token-prefix"; attachment.lifetime = .keepAlways; add(attachment)
+        let first = try XCTUnwrap(native.tokens.first)
+        XCTAssertEqual(first.source,"明日"); XCTAssertEqual(first.startUTF16,0); XCTAssertEqual(first.endUTF16,2)
+        // Kyoto University's Japanese course independently lists あした/あす/みょうにち:
+        // https://www.samidori.k.kyoto-u.ac.jp/study/exam?id=153
+        let acceptedReadings:Set<String> = ["ashita","asu","myounichi","myōnichi"]
+        XCTAssertTrue(acceptedReadings.contains(try XCTUnwrap(first.rawLatin)),"Native 明日 reading must be Japanese, without requiring a single valid variant")
+        let beginning = Array(native.tokens.prefix(6))
+        XCTAssertEqual(beginning.count,6)
+        XCTAssertTrue(beginning.allSatisfy{$0.rawLatin?.isEmpty == false})
+        XCTAssertEqual(native.tokens.first{$0.source == "学校"}?.rawLatin,"gakkou")
+        let composed = beginning.compactMap(\.rawLatin).joined(separator:" ") + "。"
+        XCTAssertTrue(reading.hasPrefix(composed),"Composition must retain the actual native Japanese tokens")
     }
 
-    func testAllAuthoredReadingsAndUnknownClauseAbstention() throws {
-        let url = try XCTUnwrap(Bundle.main.url(forResource: "sentence-readings", withExtension: "json"))
-        let root = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
-        let entries = try XCTUnwrap(root["entries"] as? [[String: String]])
-        XCTAssertEqual(entries.count, 423)
-        for entry in entries {
-            let language = try XCTUnwrap(entry["language"]), native = try XCTUnwrap(entry["text"]), reading = try XCTUnwrap(entry["latin"])
-            XCTAssertEqual(SentenceReadings.reading(native, language: language), reading)
-            XCTAssertEqual(SentenceReadings.reading(native + "\n" + native, language: language), reading + "\n" + reading)
-            XCTAssertNil(SentenceReadings.reading(native + "\nUnknown new sentence.", language: language))
-            XCTAssertNil(SentenceReadings.reading(native, language: "sw"))
-            XCTAssertTrue(reading.range(of: #"^[\p{Latin}\p{M}\p{N}\s.,?!'’\-]+$"#, options: .regularExpression) != nil)
-            XCTAssertFalse(reading.unicodeScalars.contains { (0x0250...0x02FF).contains($0.value) || (0x1D00...0x1DBF).contains($0.value) })
-        }
-        XCTAssertEqual(SentenceReadings.reading("私は音楽が好きです。駅はどこですか。", language: "ja"), "Watashi wa ongaku ga suki desu. Eki wa doko desu ka.")
-        XCTAssertNil(SentenceReadings.reading("私は新しい音楽が好きです。", language: "ja"))
-        XCTAssertNil(SentenceReadings.reading("أنا أحب هذه الموسيقى.", language: "ar"))
-        let output = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("sentence-readings-009.json")
-        XCTAssertFalse(FileManager.default.fileExists(atPath: output.path))
-        try JSONSerialization.data(withJSONObject: ["exact_readings":entries.count,"languages":4,"unknown_clause_abstention":true,"independent_linguistic_acceptance":false], options: [.prettyPrinted, .sortedKeys]).write(to: output, options: .withoutOverwriting)
+    func testActualArabicNativeGuideAcceptsPhoneticModifierLetters() throws {
+        let original = "عربي"
+        let actualNative = try XCTUnwrap(original.applyingTransform(.toLatin, reverse: false))
+        let guide = try XCTUnwrap(FullSentenceReadings.resolve(original, language: "ar"))
+        XCTAssertEqual(guide.text, actualNative)
+        XCTAssertFalse(FullReadingRequirement.needsReading(guide.text))
+        let state = FullSentenceReadings.state(text: original, language: "ar", reading: guide)
+        XCTAssertEqual(state.status, .available)
+        XCTAssertNil(state.failure)
+        let record = XCTAttachment(string: actualNative)
+        record.name = "actual-native-Arabic-guide-with-phonetic-modifiers"
+        record.lifetime = .keepAlways
+        add(record)
     }
+
 }

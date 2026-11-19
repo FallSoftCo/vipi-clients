@@ -12,6 +12,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.VolumeUp
+import androidx.compose.material.icons.outlined.VolumeOff
 import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.outlined.Lock
@@ -26,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.semantics.semantics
@@ -59,6 +62,16 @@ internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: a
     return kotlin.math.ceil(linePx).toDp()
 }
 
+internal val EmbeddedMessageVerticalPadding = 12.dp
+
+/** Keep opposing messages together on wide screens without narrowing the
+ * scrolling/gesture surface or changing the available width on phones. */
+@Composable internal fun ConversationTranscriptItem(content: @Composable () -> Unit) {
+    Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
+        Box(Modifier.widthIn(max = 644.dp).fillMaxWidth()) { content() }
+    }
+}
+
 @Composable internal fun ProfileSetupScreen(model: VipiModel) {
     val chat = model.chat ?: return
     var name by rememberSaveable { mutableStateOf("") }
@@ -89,13 +102,8 @@ internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: a
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en", target: String = "es",
-    density: Double = .25, onLanguages: (() -> Unit)? = null, onPlan: (() -> Unit)? = null,
-    qaReadingProducer: (suspend (String, String) -> FullReading?)? = null,
-    qaTranslator: LanguageTranslation? = null, qaContextualActions: Boolean = false,
-    qaModelsReady: Boolean? = null, back: () -> Unit) {
-    require(qaTranslator == null || BuildConfig.DEBUG)
-    require(!qaContextualActions || BuildConfig.DEBUG)
-    require(qaModelsReady == null || (BuildConfig.DEBUG && qaTranslator != null))
+    onLanguages: (() -> Unit)? = null, onPlan: (() -> Unit)? = null,
+    back: () -> Unit) {
     var messages by remember(peer) { mutableStateOf<List<ChatItem>>(emptyList()) }
     var text by remember(peer) { mutableStateOf("") }
     var error by remember(peer) { mutableStateOf<String?>(null) }
@@ -105,44 +113,49 @@ internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: a
     var options by remember(peer) { mutableStateOf(false) }
     var confirmBlock by remember(peer) { mutableStateOf(false) }
     var blockBusy by remember(peer) { mutableStateOf(false) }
+    var chooseReport by remember(peer) { mutableStateOf(false) }
+    var chooseCopy by remember(peer) { mutableStateOf(false) }
+    var copyOriginImeVisible by remember(peer) { mutableStateOf(false) }
+    var copyOriginComposerFocused by remember(peer) { mutableStateOf(false) }
     var reportedMessage by remember(peer) { mutableStateOf<ChatItem?>(null) }
     var reportReason by remember(peer) { mutableStateOf("") }
     var reporting by remember(peer) { mutableStateOf(false) }
     var showSecurityNumber by remember(peer) { mutableStateOf(false) }
     var showVoiceHelp by remember(peer) { mutableStateOf(false) }
-    var voiceSettingsError by remember { mutableStateOf<String?>(null) }
     var followingLatest by remember(peer) { mutableStateOf(true) }
     var jumpRevision by remember(peer) { mutableIntStateOf(0) }
     val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    val immersion = remember(chat, peer, source, target, density, qaReadingProducer, qaTranslator, qaModelsReady) {
-        ConversationImmersion(context, source, target, density, translator = qaTranslator ?: LocalTranslation(), qaReadingProducer = qaReadingProducer, qaModelsReady = qaModelsReady, familiarity = chat.familiarity)
-    }
-    val speech = remember(chat, peer, source, target) { SpeechPlayback(context, source, target, scope) }
-    val warmups = remember(source, target) {
-        val example = ConversationExamples.result(context, source, target)
-        mapOf(source to example.original, target to example.translation)
+    val focusManager = LocalFocusManager.current
+    val translation = chat.translations
+    val gestures = remember(chat, peer, source, target) { FullMessageGestures() }
+    LaunchedEffect(chat, source, target) { chat.configureTranslations(source, target) }
+    val speech = remember(chat, peer, source, target) { SpeechPlayback(context, target, scope) }
+    val warmups = remember(source, target) { mapOf(source to "1", target to "1") }
+    val audio = remember(translation, speech) { translation?.let { ConversationAutoplay(it, speech, scope) { showVoiceHelp = true } } }
+    DisposableEffect(audio, chat, peer) {
+        val source = java.lang.ref.WeakReference(chat)
+        if (audio != null) chat.observeNewMessages(audio, peer) { id, _ -> audio.offerStored(id) { source.get()?.messageOriginal(id) } }
+        onDispose { if (audio != null) { chat.removeNewMessageObserver(audio); audio.close() } }
     }
     val lifecycle = LocalLifecycleOwner.current
     var composing by remember { mutableStateOf(false) }
     var topBarHeightPx by remember { mutableIntStateOf(0) }
     val composerStatusScroll = rememberScrollState()
     LaunchedEffect(peer, error, chat.notice, speech.error) { composerStatusScroll.scrollTo(0) }
-    LaunchedEffect(immersion) { immersion.checkDownloads() }
     LaunchedEffect(speech) { speech.prepare(warmups) }
     LaunchedEffect(speech.state) { if (speech.state == SpeechState.READY) showVoiceHelp = false }
-    DisposableEffect(lifecycle, immersion, speech) {
+    DisposableEffect(lifecycle, speech, audio) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_STOP) speech.stop()
+            if (event == Lifecycle.Event.ON_STOP) { gestures.held = false; audio?.background(); speech.stop() }
             if (event == Lifecycle.Event.ON_RESUME) {
-                scope.launch { immersion.checkDownloads() }; speech.prepare(warmups)
+                translation?.preparePair(); speech.prepare(warmups)
             }
         }
         lifecycle.lifecycle.addObserver(observer)
         onDispose { lifecycle.lifecycle.removeObserver(observer) }
     }
-    DisposableEffect(immersion) { onDispose { immersion.close() } }
     DisposableEffect(speech) { onDispose { speech.close() } }
     val list = rememberLazyListState()
     val messageTextInset = with(LocalDensity.current) { EmbeddedMessageVerticalPadding.roundToPx() }
@@ -279,6 +292,7 @@ internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: a
     }
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val viewDensity = LocalDensity.current
+    val keyboardInsets = WindowInsets.ime
     val bottomInsets = with(viewDensity) { maxOf(WindowInsets.ime.getBottom(this), WindowInsets.navigationBars.getBottom(this)).toDp() }
     val composerPadding = OutlinedTextFieldDefaults.contentPadding()
     val minimumComposerHeight = maxOf(OutlinedTextFieldDefaults.MinHeight,
@@ -291,7 +305,7 @@ internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: a
     // reading-space preference is qualified by actual native ink, not assumed
     // to equal a Compose paragraph's measured line height.
     val messageLineHeight = with(viewDensity) { 28.sp.toDp() }
-    val hasStatus = (speech.state != SpeechState.UNAVAILABLE && speech.error != null) || error != null || chat.notice != null ||
+    val hasStatus = showVoiceHelp || speech.state == SpeechState.UNAVAILABLE || (speech.state != SpeechState.UNAVAILABLE && speech.error != null) || error != null || chat.notice != null ||
         (chat.needsPlan && onPlan != null) || chat.needsDeviceRecovery || peer in chat.peersNeedingRecovery
     // Reserve readable conversation space before a growing draft consumes it.
     // Three current scaled message lines is a preference, bounded by half the
@@ -320,12 +334,37 @@ internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: a
             modifier = Modifier.onSizeChanged { topBarHeightPx = it.height },
             expandedHeight = if (compact) compactBarHeight else TopAppBarDefaults.TopAppBarExpandedHeight, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
             actions = {
+                IconToggleButton(checked = audio?.enabled == true, onCheckedChange = { enabled ->
+                    val wasEnabled = audio?.enabled == true
+                    audio?.setAutoplayEnabled(enabled)
+                    if (!wasEnabled && audio?.enabled == true) android.widget.Toast.makeText(context, R.string.autoplay_on_notice, android.widget.Toast.LENGTH_SHORT).show()
+                }, modifier = Modifier.testTag("conversation-autoplay")) {
+                    Icon(if (audio?.enabled == true) Icons.Outlined.VolumeUp else Icons.Outlined.VolumeOff,
+                        stringResource(if (audio?.enabled == true) R.string.autoplay_turn_off else R.string.autoplay_turn_on))
+                }
                 Box {
-                    IconButton(onClick = { options = true }, enabled = !blockBusy, modifier = Modifier.testTag("conversation-options")) {
+                    IconButton(onClick = {
+                        copyOriginImeVisible = keyboardInsets.getBottom(viewDensity) > 0
+                        copyOriginComposerFocused = composing
+                        options = true
+                    }, enabled = !blockBusy, modifier = Modifier.testTag("conversation-options")) {
                         if (blockBusy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
                         else Icon(Icons.Outlined.MoreVert, stringResource(R.string.ui_af8a897d2feb))
                     }
                     DropdownMenu(options, onDismissRequest = { options = false }) {
+                        DropdownMenuItem(text = { Text(stringResource(R.string.full_translation_copy_original)) },
+                            enabled = messages.isNotEmpty(), modifier = Modifier.testTag("conversation-copy"),
+                            onClick = {
+                                audio?.setAutoplayEnabled(false)
+                                // A hidden keyboard must not reopen when the
+                                // modal returns focus to the composer. Keep its
+                                // text/selection; active typing restores normally.
+                                if (!copyOriginImeVisible && copyOriginComposerFocused) focusManager.clearFocus(force = true)
+                                options = false; chooseCopy = true
+                            })
+                        DropdownMenuItem(text = { Text(stringResource(R.string.report_message)) },
+                            enabled = messages.any { !it.outgoing && it.state != "imported" }, modifier = Modifier.testTag("conversation-report"),
+                            onClick = { options = false; chooseReport = true })
                         if (onLanguages != null) DropdownMenuItem(text = { Text(stringResource(R.string.ui_318655cea4bd)) }, onClick = { options = false; onLanguages() })
                         DropdownMenuItem(text = { Text(stringResource(R.string.ui_53b6cd2365c7)) }, onClick = { options = false; showSecurityNumber = true })
                         DropdownMenuItem(text = { Text(if (blocked) stringResource(R.string.ui_712da63171e0) else stringResource(R.string.ui_211d0bb8cf4f)) }, onClick = { options = false; confirmBlock = true })
@@ -337,6 +376,8 @@ internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: a
             // below the measured toolbar, even with a multiline draft and IME.
             Column(Modifier.heightIn(max = footerMaxHeight).background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
                 Column(Modifier.fillMaxWidth().weight(1f, fill = false).verticalScroll(composerStatusScroll)) {
+                if (showVoiceHelp || speech.state == SpeechState.UNAVAILABLE)
+                    SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
                 if (speech.state != SpeechState.UNAVAILABLE) speech.error?.let {
                     Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = if (compact) 0.dp else 8.dp))
                 }
@@ -356,20 +397,22 @@ internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: a
                 } else {
                 Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = if (compact) 0.dp else 8.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                     OutlinedTextField(text, { value ->
+                        if (!loaded) return@OutlinedTextField
                         text = value
                         try { chat.saveCompose(value, peer) }
                         catch (_: Exception) { error = context.getString(R.string.chat_draft_save_failed) }
-                    }, textStyle = MaterialTheme.typography.bodyLarge.copy(textDirection = androidx.compose.ui.text.style.TextDirection.Content),
+                    }, enabled = loaded, textStyle = MaterialTheme.typography.bodyLarge.copy(textDirection = androidx.compose.ui.text.style.TextDirection.Content),
                         placeholder = { Text(stringResource(R.string.message_hint)) }, maxLines = 6, shape = RoundedCornerShape(24.dp),
                         modifier = Modifier.weight(1f).heightIn(min = minimumComposerHeight, max = composerMaxHeight)
                             .onFocusChanged { composing = it.isFocused }.testTag("message-input"))
                     FilledIconButton(onClick = {
+                        if (!loaded) return@FilledIconButton
                         try {
                             chat.send(text, peer); text = ""; error = null
                             followingLatest = true; jumpRevision++; refresh()
                             scope.launch { chat.synchronize() }
                         } catch (failure: Exception) { error = ChatSession.explanation(context, failure) }
-                    }, enabled = chat.ready && peer !in chat.peersNeedingRecovery && text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768,
+                    }, enabled = loaded && chat.ready && peer !in chat.peersNeedingRecovery && text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768,
                         modifier = Modifier.size(48.dp).testTag("message-send")) { Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.send_message)) }
                 }
                 }
@@ -379,7 +422,9 @@ internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: a
             userRefreshing = true
             try { chat.synchronize(); refresh() } finally { userRefreshing = false }
         } }, modifier = Modifier.fillMaxSize().padding(padding)) {
-            LazyColumn(state = list, modifier = Modifier.fillMaxSize().testTag("conversation-timeline").semantics {
+            Column(Modifier.fillMaxSize()) {
+            Box(Modifier.weight(1f).fillMaxWidth()) {
+            LazyColumn(state = list, modifier = Modifier.fillMaxSize().fullMessageGestures(gestures).testTag("conversation-timeline").semantics {
                 scrollToIndex { index ->
                     if (index !in 0 until list.layoutInfo.totalItemsCount) false else {
                         // Accessibility jumps can complete within one frame,
@@ -393,31 +438,30 @@ internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: a
                 }
             }, contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 item(key = "history-header") {
-                    if (earlierAvailable) TextButton(onClick = { earlier() }) { Text(stringResource(R.string.ui_561a197a2807)) }
-                    if (messages.isEmpty()) Column(Modifier.fillMaxWidth().padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Icon(Icons.Outlined.Lock, null)
-                        Text(stringResource(R.string.ui_9bbf916f3af5), fontWeight = FontWeight.SemiBold)
-                        Text(stringResource(R.string.ui_48e35bc10280), fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    ConversationTranscriptItem {
+                        Column {
+                            if (earlierAvailable) TextButton(onClick = { earlier() }) { Text(stringResource(R.string.ui_561a197a2807)) }
+                            if (messages.isEmpty()) Column(Modifier.fillMaxWidth().padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                                Icon(Icons.Outlined.Lock, null)
+                                Text(stringResource(R.string.ui_9bbf916f3af5), fontWeight = FontWeight.SemiBold)
+                                Text(stringResource(R.string.ui_48e35bc10280), fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            }
+                        }
                     }
                 }
                 items(messages, key = { it.id }) { item ->
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = if (item.outgoing) Arrangement.End else Arrangement.Start) {
-                        if (item.outgoing) Spacer(Modifier.width(38.dp))
-                        Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).background(if (item.outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(18.dp)), verticalArrangement = Arrangement.spacedBy(7.dp)) {
-                            val time = remember(item.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(item.createdAt)) }
-                            ConversationImmersionText(item.text, item.id.toString(), immersion, speech,
-                                list.isScrollInProgress || (composing && text.isNotEmpty()) || reportedMessage != null,
-                                contextualActions = qaContextualActions,
-                                onVoiceHelp = { showVoiceHelp = true },
-                                onTranslationSetup = onLanguages,
-                                onReport = if (!item.outgoing && item.state != "imported") ({
-                                    speech.stop(); reportedMessage = item; reportReason = chat.reportReason(item) ?: ""
-                                }) else null) {
-                            Text(time + if (item.outgoing) " · " + deliveryLabel(item.state) else "", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.testTag("message-meta-${item.id}"))
+                    ConversationTranscriptItem {
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = if (item.outgoing) Arrangement.End else Arrangement.Start) {
+                            if (item.outgoing) Spacer(Modifier.width(38.dp))
+                            Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).background(if (item.outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(18.dp)), verticalArrangement = Arrangement.spacedBy(7.dp)) {
+                                val time = remember(item.createdAt) { DateFormat.getTimeInstance(DateFormat.SHORT).format(Date(item.createdAt)) }
+                                if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio) {
+                                Text(time + if (item.outgoing) " · " + deliveryLabel(item.state) else "", fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.testTag("message-meta-${item.id}"))
+                                }
                             }
+                            if (!item.outgoing) Spacer(Modifier.width(38.dp))
                         }
-                        if (!item.outgoing) Spacer(Modifier.width(38.dp))
                     }
                 }
                 item(key = "history-bottom") { Spacer(Modifier.height(1.dp)) }
@@ -428,24 +472,18 @@ internal fun androidx.compose.ui.unit.Density.resolvedComposeLineHeight(style: a
                     Icon(Icons.Outlined.ArrowDownward, stringResource(R.string.ui_ef32661fdda0))
                 }
             }
+            }
+            FullMessageGestureCue(gestures, composing, compact ||
+                androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE)
+            }
         }
     }
     }
     if (showSecurityNumber) SecurityNumberSheet(chat, peer, dismiss = { showSecurityNumber = false })
-    if (showVoiceHelp) AlertDialog(onDismissRequest = { showVoiceHelp = false },
-        title = { Text(stringResource(R.string.ui_b7c32ca74cb0)) },
-        text = { Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            Text(speech.error ?: stringResource(R.string.voices_prepare_offline))
-            voiceSettingsError?.let { Text(it) }
-            TextButton(onClick = {
-                voiceSettingsError = null
-                try { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }
-                catch (_: Exception) { voiceSettingsError = context.getString(R.string.speech_settings_help) }
-            }) { Text(stringResource(R.string.ui_8b3f05442c1b)) }
-            if (speech.state == SpeechState.PREPARING) CircularProgressIndicator(Modifier.size(24.dp))
-        } },
-        confirmButton = { TextButton(onClick = { speech.prepare(warmups) }, enabled = speech.state != SpeechState.PREPARING) { Text(stringResource(R.string.ui_ed783fa140ed)) } },
-        dismissButton = { TextButton(onClick = { showVoiceHelp = false }) { Text(stringResource(R.string.ui_11a6767d5674)) } })
+    if (chooseCopy) MessageOriginalChooser(messages.map { MessageChoice(it.id.toString(), it.text) }, dismiss = { chooseCopy = false })
+    if (chooseReport) MessageReportChooser(messages.filter { !it.outgoing && it.state != "imported" }.map { MessageChoice(it.id.toString(), it.text) },
+        select = { id -> reportedMessage = messages.single { it.id.toString() == id }; reportReason = ""; chooseReport = false },
+        dismiss = { chooseReport = false })
     reportedMessage?.let { selected -> AlertDialog(onDismissRequest = { if (!reporting) reportedMessage = null },
         title = { Text(stringResource(R.string.ui_56dd441b2ba6)) },
         text = { Column(Modifier.heightIn(max = 380.dp).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {

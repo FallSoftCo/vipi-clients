@@ -79,7 +79,7 @@
     <string name="ui_b47e6d6e77c8" formatted="false">Verschlüsselungsdetails konnten nicht geöffnet werden. Ihre Verifizierung hat sich nicht geändert.</string>
     <string name="ui_b68710eee013" formatted="false">Verbindung zu Ihren Chats</string>
     <string name="ui_b6ec9d55ae3b" formatted="false">Ich habe alle 12 Gruppen verglichen</string>
-    <string name="ui_b7c32ca74cb0" formatted="false">Beide Sprachen hören</string>
+    <string name="ui_b7c32ca74cb0" formatted="false">In deiner Lernsprache hören</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">Freund finden</string>
     <string name="ui_beb6c51b9bf6" formatted="false">Verlauf wiederherstellen</string>
     <string name="ui_c26d4e55137b" formatted="false">Ihr Vipi-Konto und die Chats auf diesem Gerät werden dauerhaft gelöscht. Das kann nicht rückgängig gemacht werden.</string>
@@ -207,7 +207,7 @@
     <string name="annual_price">%1$s pro Jahr</string>
     <string name="trial_then_annual">Ein Monat kostenlos, danach %1$s pro Jahr</string>
     <string name="subscribe_annual">Für %1$s pro Jahr abonnieren</string>
-    <string name="both_plans_total">Beide Abos: nach den Testzeiträumen %1$s pro Jahr, getrennt abgerechnet.</string>
+    <string name="both_plans_total">Beide Abos: %1$s pro Jahr, getrennt abgerechnet.</string>
     <string name="both_plans_separate">Vipi: %1$s pro Jahr. Bot mini: zusätzlich %2$s pro Jahr. Getrennte Abrechnung.</string>
     <string name="plan_active">%1$s ist aktiv</string>
     <string name="trial_end_date">Testzeitraum endet am %1$s.</string>
@@ -275,7 +275,7 @@
     <string name="ui_ff245b368781" formatted="false">Bot mini</string>
     <string name="ui_42f4f8b469bb" formatted="false">Chatten Sie mit Freunden.\nLernen Sie beim Lesen Wörter.</string>
     <string name="ui_47b7a66139f1" formatted="false">Beginnen Sie einen Chat\nmit einem Freund.</string>
-    <string name="ui_52c236be01ef" formatted="false">Diese Downloads dienen der optionalen Übersetzung ganzer Nachrichten. Für den Wortwechsel sind sie nicht nötig. Um eine ganze Nachricht zu übersetzen, wählen Sie in ihren Leseoptionen „Vollständige Übersetzung“. Nachrichten bleiben auf diesem Smartphone.</string>
+    <string name="ui_52c236be01ef" formatted="false">Vipi übersetzt ganze Nachrichten auf diesem Smartphone, auch offline.</string>
     <string name="ui_54c1159d80bf" formatted="false">Chatten Sie mit Freunden.\nLernen Sie neue Wörter.</string>
     <string name="ui_73bee38b06e8" formatted="false">Wie finden Ihre\nFreunde Sie?</string>
     <string name="ui_8ec4723d54ba" formatted="false">Vor der Offline-Übersetzung müssen Sie diese Sprachen erneut herunterladen. Ihre Unterhaltungen bleiben auf diesem Smartphone.</string>
@@ -398,7 +398,7 @@
     <string name="translation_timeout">Das hat zu lange gedauert. Wortwechsel ist weiterhin verfügbar.</string>
     <string name="translation_language_needed">Wählen Sie die Sprache dieser Nachricht und versuchen Sie es erneut.</string>
     <string name="translation_failed">Die vollständige Übersetzung konnte nicht vorbereitet werden. Wortwechsel ist weiterhin verfügbar.</string>
-    <string name="voices_prepare_offline">Bereiten Sie die Stimmen für beide Sprachen vor, um ohne Verbindung zuzuhören.</string>
+    <string name="voices_prepare_offline">Bereite die Stimme für deine Lernsprache vor, um offline zuzuhören.</string>
     <string name="ui_d55f942dbeea" formatted="false">Übersetzung von Google. Übersetzungen können ungenau sein.</string>
     <string name="backup_save_failed">Das Backup konnte nicht gespeichert werden. Ihre Gespräche sind immer noch hier. Bitte versuchen Sie es erneut.</string>
     <string name="access_switch_word">%1$s und %2$s wechseln</string>
@@ -406,8 +406,8 @@
     <string name="access_choose_word">Wählen Sie ein Wort zum Wechseln</string>
     <string name="access_message_actions">Nachrichtenaktionen</string>
     <string name="cardless_ended">Ihr kostenloser Vipi-Zugang endete am %1$s. Abonnieren Sie Vipi, um weiter zu chatten.</string>
-    <string name="welcome_title_concise">Chatte mit Freunden.\nLerne neue Wörter.</string>
-    <string name="welcome_detail_concise">Einige Wörter wechseln beim Chatten die Sprache.</string>
+    <string name="welcome_title_concise">Chatte mit Freunden.\nLerne eine Sprache.</string>
+    <string name="welcome_detail_concise">Jede Nachricht erscheint in der Sprache, die du lernst.</string>
     <string name="preview_spanish_title">Probiere etwas Spanisch</string>
     <string name="preview_tap_word">Tippe auf ein markiertes Wort, um es in der Sprache zu hören, die du lernst. Tippe im Chat auf eine Sprechblase zum Übersetzen.</string>
     <string name="languages_title_concise">Deine Sprachen</string>
@@ -439,4 +439,18 @@
     <string name="deletion_fallsoft_retained">Ihr Fallsoft-Zugang und Ihre Konten in anderen Fallsoft-Apps bleiben erhalten.</string>
     <string name="fallsoft_link_title">Fallsoft-Konto verwenden</string>
     <string name="fallsoft_link_detail">Melde dich erneut bei Vipi an und verknüpfe dann dein Fallsoft-Konto. Deine Chats, dein Profil und deine ursprüngliche Testphase bleiben erhalten.</string>
+    <string name="full_translation_preparing">Wird übersetzt…</string>
+    <string name="full_translation_failed">Übersetzung fehlgeschlagen. Zum Wiederholen tippen.</string>
+    <string name="full_translation_meaning">Bedeutung anzeigen</string>
+    <string name="full_translation_practice">Text in der Lernsprache anzeigen</string>
+    <string name="full_translation_script">Originalschrift anzeigen</string>
+    <string name="full_translation_reading">Umschrift anzeigen</string>
+    <string name="full_translation_play">In der Lernsprache anhören</string>
+    <string name="full_translation_copy_original">Originalnachricht kopieren</string>
+    <string name="full_translation_gestures">Tippen zum Anhören. Gedrückt halten für die Bedeutung. Doppeltippen zum Wechseln der Schrift.</string>
+    <string name="autoplay_turn_on">Automatische Wiedergabe einschalten</string>
+    <string name="autoplay_turn_off">Automatische Wiedergabe ausschalten</string>
+    <string name="autoplay_on_notice">Automatische Wiedergabe an. Neue Nachrichten werden vorgelesen.</string>
+    <string name="report_message">Nachricht melden</string>
+    <string name="full_translation_unavailable">Übersetzung nicht verfügbar</string>
 </resources>

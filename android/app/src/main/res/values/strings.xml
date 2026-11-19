@@ -35,8 +35,8 @@
     <string name="cardless_intro">Start with 30 days free, with no payment method. After that, choose whether to subscribe.</string>
     <string name="bot_verification_unavailable">Bot mini access can’t be verified right now. Try again.</string>
     <string name="plan_clock_unavailable">Your plan access couldn’t be checked. Try again.</string>
-    <string name="welcome_title_concise">Chat with friends.\nLearn new words.</string>
-    <string name="welcome_detail_concise">A few words switch languages as you chat.</string>
+    <string name="welcome_title_concise">Chat with friends.\nLearn a language.</string>
+    <string name="welcome_detail_concise">Every message appears in the language you’re learning.</string>
     <string name="preview_spanish_title">Try a little Spanish</string>
     <string name="preview_tap_word">Tap a highlighted word to hear it in your practice language. In chats, tap a bubble to translate.</string>
     <string name="languages_title_concise">Your languages</string>
@@ -67,4 +67,18 @@
     <string name="lookup_translate_message">Translate message</string>
     <string name="fallsoft_link_title">Use your Fallsoft login</string>
     <string name="fallsoft_link_detail">Sign in to Vipi again, then connect your Fallsoft login. Your chats, profile and original trial stay with you.</string>
+    <string name="full_translation_preparing">Translating…</string>
+    <string name="full_translation_failed">Translation failed. Tap to retry.</string>
+    <string name="full_translation_meaning">Show meanings</string>
+    <string name="full_translation_practice">Show practice text</string>
+    <string name="full_translation_script">Show native script</string>
+    <string name="full_translation_reading">Show transliteration</string>
+    <string name="full_translation_play">Play in practice language</string>
+    <string name="full_translation_copy_original">Copy original message</string>
+    <string name="full_translation_gestures">Tap to listen. Hold to see meanings. Double-tap to change script.</string>
+    <string name="autoplay_turn_on">Turn on autoplay</string>
+    <string name="autoplay_turn_off">Turn off autoplay</string>
+    <string name="autoplay_on_notice">Autoplay on. New messages play aloud.</string>
+    <string name="report_message">Report a message</string>
+    <string name="full_translation_unavailable">Translation unavailable</string>
 </resources>

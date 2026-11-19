@@ -34,9 +34,9 @@ class ElevenLanguageSpeechTest {
             shell("svc wifi disable"); shell("svc data disable")
             withTimeout(15_000) { while (network.activeNetwork != null) delay(100) }; assertNull(network.activeNetwork)
             val original = "水を飲みます。"
-            val rangesBefore = LocalImmersion.words(original, "ja")
+            val rangesBefore = NativeJapaneseTokenizer.tokens(original).map { it.position to it.surface }
             assertEquals("ミズヲノミマス。", JapaneseSpeechReading.convert(original))
-            assertEquals(rangesBefore, LocalImmersion.words(original, "ja"))
+            assertEquals(rangesBefore, NativeJapaneseTokenizer.tokens(original).map { it.position to it.surface })
             assertEquals("水を飲みます。", original)
             val controls = JSONArray()
             for (text in listOf("こんにちは。コーヒーをください。", original, "Vipi 123。")) {
@@ -53,16 +53,17 @@ class ElevenLanguageSpeechTest {
             withTimeout(480_000) {
                 for (language in initialLanguages.map { it.code }.filter { it != "en" }) {
                     assertNull(network.activeNetwork)
-                    val example = ConversationExamples.result(context, "en", language)
+                    val originalText = "Hello. Thank you."
+                    val translatedText = SpeechProviderFixtures.text.getValue(language)
                     val row = JSONObject().put("source", "en").put("target", language)
-                        .put("original", example.original).put("target_text", example.translation)
-                    if (language == "ja") row.put("spoken_kana", JapaneseSpeechReading.convert(example.translation))
+                        .put("original", originalText).put("target_text", translatedText)
+                    if (language == "ja") row.put("spoken_kana", JapaneseSpeechReading.convert(translatedText))
                     val pair = withContext(Dispatchers.Main) { LocalSpeechPair(context, "en", language) }
                     try {
                         var began = System.nanoTime()
-                        pair.prepare(mapOf("en" to example.original, language to example.translation))
+                        pair.prepare(mapOf("en" to originalText, language to translatedText))
                         row.put("prepare_ms", (System.nanoTime() - began) / 1e6)
-                        val spans = listOf(SpeechSpan(example.original + " ", "en"), SpeechSpan(example.translation, language))
+                        val spans = listOf(SpeechSpan(originalText + " ", "en"), SpeechSpan(translatedText, language))
                         began = System.nanoTime(); val rendered = pair.render(spans)
                         row.put("render_ms", (System.nanoTime() - began) / 1e6)
                         val wave = PcmWave.read(rendered.file)

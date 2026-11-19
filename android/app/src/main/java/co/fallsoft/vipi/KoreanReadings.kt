@@ -48,7 +48,7 @@ internal object KoreanReadings {
     }
 
     fun resolve(text: String): Result {
-        if (text.isEmpty() || text.length > 16_384)
+        if (text.isEmpty() || text.length > FullReadingLimits.MAX_TEXT_UTF16)
             return Result(null, text, emptyList(), setOf("input_length"))
         val mask = BooleanArray(text.length)
         for ((patternIndex, pattern) in opaque.withIndex()) for (match in
@@ -92,7 +92,7 @@ internal object KoreanReadings {
         }
         check(pieces.joinToString("") { it.source } == text)
         check(pieces.zipWithNext().all { (a, b) -> a.endUTF16 == b.startUTF16 })
-        if (output.length > 65_536) issues += "output_length"
+        if (output.length > FullReadingLimits.MAX_READING_UTF16) issues += "output_length"
         val inspection = output.toString()
         return Result(if (issues.isEmpty() && convertedAny) inspection else null,
             inspection, pieces.toList(), issues.toSet())

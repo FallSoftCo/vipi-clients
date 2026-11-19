@@ -1,4 +1,5 @@
 import SwiftUI
+import VipiCore
 
 struct HomeView: View {
     var chat: ChatSession? = nil
@@ -15,26 +16,28 @@ struct HomeView: View {
     @State private var query = ""
     @State private var path: [UUID] = []
     private var botDescription: String {
-        guard let subscriptions, let access = subscriptions.snapshot?.bot_mini else { return String(localized: "Chat with a chatbot.") }
+        guard let subscriptions, let access = subscriptions.snapshot?.bot_mini else { return String(localized: "Optional Bot mini plan") }
         if subscriptions.accessVerificationPending(.botMini) { return String(localized: "Chatbot access is being checked. Please try again later.") }
-        if access.isReviewAccess { return String(localized: "Chat with a chatbot. Review access is active.") }
-        if subscriptions.accessActive(.botMini) { return String(localized: "Chat with a chatbot. Bot mini access is active.") }
-        return String(localized: "Chat with a chatbot. Requires the separate Bot mini plan.")
+        if access.isReviewAccess { return String(localized: "Review access is active.") }
+        if subscriptions.accessActive(.botMini) { return String(localized: "Active") }
+        return String(localized: "Optional Bot mini plan")
     }
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
                 VipiDesign.canvas.ignoresSafeArea()
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 28) {
-                        HStack {
-                            Text("Chats").font(.largeTitle.weight(.bold))
-                            Spacer()
-                            Button { showingInvite = true } label: { Image(systemName: "square.and.pencil").font(.title3).frame(width: 44, height: 44) }.accessibilityLabel("New chat")
-                        }
+                    VStack(alignment: .leading, spacing: 24) {
                         if let chat, chat.needsReauthentication, let reauthenticate {
                             ReauthenticationNotice(busy: authenticationBusy || chat.busy, error: authenticationError, signIn: reauthenticate)
                         }
+                        if let subscriptions, subscriptions.snapshot?.base.active == false, !subscriptions.accessVerificationPending(.base) {
+                            Button { offerBase = true } label: {
+                                Text("See your Vipi subscription").font(.subheadline.weight(.semibold))
+                                    .frame(minHeight: 44, alignment: .leading).contentShape(Rectangle())
+                            }
+                        }
+                        if let notice = chat?.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary) }
                         if let chat, !chat.threads.isEmpty {
                             ForEach(chat.threads) { thread in
                                 NavigationLink(value: thread.peer) {
@@ -43,51 +46,57 @@ struct HomeView: View {
                                             .frame(width: 48, height: 48).background(VipiDesign.outgoing, in: Circle())
                                         VStack(alignment: .leading, spacing: 5) {
                                             Text(chat.name(thread.peer)).fontWeight(thread.unread > 0 ? .semibold : .medium).foregroundStyle(.primary)
-                                            Text(thread.latest.text).lineLimit(1).font(.body).foregroundStyle(VipiDesign.secondary)
+                                            HomeMessagePreview(owner:chat.translationOwner,message:thread.latest,expectedPair:.init(source:state.knownLanguage,target:state.targetLanguage))
                                         }
                                         Spacer(minLength: 4)
                                         if thread.unread > 0 { Text("\(thread.unread)").font(.caption.weight(.semibold)).padding(7).background(VipiDesign.outgoing, in: Circle()) }
                                     }.padding(.vertical, 8)
                                 }.buttonStyle(.plain)
+                                    .accessibilityIdentifier("chat-thread-"+thread.peer.uuidString.lowercased())
                             }
                         } else { VStack(alignment: .leading, spacing: 16) {
-                            VipiMark(size: 54)
-                            Text("Start a chat\nwith a friend.").font(.title.weight(.bold)).fixedSize(horizontal: false, vertical: true)
-                            Text("Find a friend by username and send a message. Supported words and phrases will switch into \(VipiLanguage.named(state.targetLanguage).localizedName) as you read.")
-                                .foregroundStyle(VipiDesign.secondary).lineSpacing(4)
-                            PrimaryButton(title: "Start a conversation") { showingInvite = true }
-                        }.padding(26).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 28)) }
-                        if let subscriptions, subscriptions.snapshot?.base.active == false, !subscriptions.accessVerificationPending(.base) {
-                            Button("See your Vipi subscription") { offerBase = true }
-                                .font(.subheadline.weight(.semibold))
-                        }
-                        if chat != nil && PushNotifications.shared.authorization == .notDetermined {
-                            Button("Notify me when friends reply") { Task { await PushNotifications.shared.enable() } }
-                                .font(.subheadline.weight(.semibold))
-                        }
-                        if let notice = chat?.notice { Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary) }
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Start a chat with a friend.").font(.title2.weight(.semibold)).fixedSize(horizontal: false, vertical: true)
+                                Text("Find a friend by username.").font(.body).foregroundStyle(VipiDesign.secondary)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                            PrimaryButton(title: "New chat") { showingInvite = true }
+                                .accessibilityIdentifier("home-start-conversation")
+                        } }
                         NavigationLink {
                             if let profile = chat?.profile, let subscriptions {
                                 BotConversationView(account: profile.id, subscriptions: subscriptions, owner: botOwner)
                             } else { BotIntroductionView(subscriptions: subscriptions) }
                         } label: {
-                            HStack(spacing: 16) {
-                                Image(systemName: "sparkle").font(.title2).frame(width: 50, height: 50).background(VipiDesign.outgoing, in: RoundedRectangle(cornerRadius: 18))
+                            HStack(spacing: 12) {
+                                Image(systemName: "sparkle").font(.title2).frame(width: 48, height: 48).background(VipiDesign.outgoing, in: Circle())
                                 VStack(alignment: .leading, spacing: 5) {
                                     Text("vBot").font(.body.weight(.semibold)).foregroundStyle(.primary)
-                                    Text(botDescription).font(.subheadline).foregroundStyle(VipiDesign.secondary).multilineTextAlignment(.leading)
+                                    Text(botDescription).font(.body).foregroundStyle(VipiDesign.secondary).multilineTextAlignment(.leading)
+                                        .fixedSize(horizontal: false, vertical: true)
                                 }
                                 Spacer(minLength: 0)
                                 Image(systemName: "chevron.right").font(.caption.weight(.semibold)).foregroundStyle(VipiDesign.secondary)
                             }.padding(.vertical, 12)
                         }.buttonStyle(.plain)
-                    }.padding(24).frame(maxWidth: 680).frame(maxWidth: .infinity)
+                        if let chat, chat.ready, !chat.threads.isEmpty, PushNotifications.shared.authorization == .notDetermined {
+                            Button { Task { await PushNotifications.shared.enable() } } label: {
+                                Text("Notify me when friends reply").font(.subheadline.weight(.semibold))
+                                    .frame(minHeight: 44, alignment: .leading).contentShape(Rectangle())
+                            }
+                        }
+                    }.padding(.horizontal, 20).padding(.vertical, 20).frame(maxWidth: 680).frame(maxWidth: .infinity)
                 }.clipped()
             }
+            .navigationTitle("Chats").navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) { VipiMark(size: 25).accessibilityLabel("Vipi") }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button { showingSettings = true } label: { Image(systemName: "person.crop.circle").font(.title3).frame(width: 44, height: 44) }
+                        .accessibilityLabel("Your profile and settings")
+                }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button { showingSettings = true } label: { Image(systemName: "person.crop.circle").font(.title3) }.accessibilityLabel("Your profile and settings")
+                    Button { showingInvite = true } label: { Image(systemName: "square.and.pencil").font(.title3).frame(width: 44, height: 44) }
+                        .accessibilityLabel("New chat")
                 }
             }
             .navigationDestination(isPresented: $showingSettings) { SettingsView(chat: chat, subscriptions: subscriptions, closeBot: botOwner.close) }
@@ -107,6 +116,66 @@ struct HomeView: View {
             }
             .refreshable { await chat?.synchronize(); await subscriptions?.refresh() }
         }
+    }
+}
+
+
+/// A list row displays the same account-owned completed message as its chat.
+/// Scroll visibility, rather than non-lazy VStack appearance, owns resident pins.
+struct HomeMessagePreview: View {
+    let owner: ConversationImmersion?
+    let message: ChatItem
+    let expectedPair: TranslationPair
+    var body: some View {
+        Group {
+            if let owner,owner.pair == expectedPair {
+                let identity = owner.identity(messageID:message.id.uuidString,text:message.text)
+                VisibleHomeMessagePreview(owner:owner,identity:identity).id(identity)
+            } else {
+                Text("Translating…")
+            }
+        }.lineLimit(1).font(.body).foregroundStyle(VipiDesign.secondary)
+            .accessibilityIdentifier("chat-preview-"+message.id.uuidString.lowercased())
+    }
+}
+
+private struct VisibleHomeMessagePreview: View {
+    let owner: ConversationImmersion
+    let identity: ImmersionRequestIdentity
+    @State private var visible = false
+    @State private var pinned = false
+    private var displayed:String {
+        if let value = owner.translation(for:identity) {
+            guard let readingState = value.readingState else { return String(localized:"Translating…") }
+            switch readingState.status {
+            case .available:
+                return owner.reading(for:value) ?? String(localized:"Reading guide unavailable.")
+            case .notNeeded:
+                return value.practiceText
+            case .unavailable:
+                return String(localized:"Reading guide unavailable.")
+            }
+        }
+        switch owner.phase(for:identity) {
+        case .translating,.ready: return String(localized:"Translating…")
+        case .needsDownload,.unsupported,.failed,.timedOut: return String(localized:"Translation unavailable")
+        }
+    }
+    private func releasePin() {
+        if pinned { owner.releaseVisible(identity); pinned = false }
+    }
+    var body: some View {
+        Text(displayed)
+            .onScrollVisibilityChange(threshold:0.01) { onScreen in
+                visible = onScreen
+                if onScreen,!pinned { owner.retainVisible(identity); pinned = true }
+                else if !onScreen { releasePin() }
+            }
+            .task(id:visible ? identity : nil) {
+                guard visible else { return }
+                _ = await owner.translatedMessage(for:identity)
+            }
+            .onDisappear { visible = false; releasePin() }
     }
 }
 
@@ -160,7 +229,7 @@ struct BotIntroductionView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: 28) {
                 Image(systemName: "sparkle").font(.system(size: 44)).foregroundStyle(VipiDesign.highlight)
-                IntroHeading(eyebrow: "Meet vBot", title: "Chat with\na chatbot.", detail: "Ask vBot a question or talk about your day. Supported words switch into your chosen language as you read. vBot can make mistakes; check important details.")
+                IntroHeading(eyebrow: "Meet vBot", title: "Chat with\na chatbot.", detail: "Ask vBot a question or talk about your day. Read and hear the replies in the language you’re learning. vBot can make mistakes; check important details.")
                 Text("vBot is powered by DeepSeek. Messages in this conversation are sent to Vipi and DeepSeek to generate replies. Your conversations with friends are never included automatically.")
                     .font(.footnote).foregroundStyle(VipiDesign.secondary).lineSpacing(4)
                 Text("Available with Bot mini").font(.subheadline.weight(.semibold))
@@ -183,39 +252,54 @@ struct SettingsView: View {
         @Bindable var state = state
         Form {
             if let profile = chat?.profile {
-                Section("Your profile") {
-                    LabeledContent("Name", value: profile.display_name)
-                    LabeledContent("Username", value: "@" + profile.username).textSelection(.enabled)
+                Section {
+                    LabeledContent("Name") { Text(profile.display_name).foregroundStyle(VipiDesign.secondary) }
+                    LabeledContent("Username") { Text("@" + profile.username).foregroundStyle(VipiDesign.secondary) }.textSelection(.enabled)
                     ShareLink(item: FriendInvitation.message(username: profile.username)) {
-                        Label("Invite a friend", systemImage: "square.and.arrow.up")
+                        HStack(alignment: .firstTextBaseline, spacing: 12) {
+                            Image(systemName: "square.and.arrow.up").accessibilityHidden(true)
+                            Text("Invite a friend").fixedSize(horizontal: false, vertical: true)
+                        }
+                        .font(.body).multilineTextAlignment(.leading)
+                        .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                        .contentShape(Rectangle())
+                    }.accessibilityIdentifier("settings-invite-friend")
+                } header: { Text("Your profile").foregroundStyle(VipiDesign.secondary) }
+            }
+            Section {
+                NavigationLink { LanguageDownloadView() } label: {
+                    LabeledContent("Languages") { Text(VipiLanguage.named(state.targetLanguage).localizedName).foregroundStyle(VipiDesign.secondary) }
+                }.accessibilityIdentifier("language-settings-link")
+            }
+            Section {
+                if chat != nil {
+                    NavigationLink { NotificationSettingsView() } label: {
+                        Text("Notifications").font(.body).fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text(LocalizedStringKey($0.title)).tag($0) } }
+            } header: { Text("Appearance and notifications").foregroundStyle(VipiDesign.secondary) }
+            if let subscriptions {
+                Section {
+                    NavigationLink { SubscriptionsView(store: subscriptions) } label: {
+                        Text("Subscriptions").font(.body).fixedSize(horizontal: false, vertical: true)
                     }
                 }
             }
-            Section("Words in your chats") {
-                NavigationLink { LanguageDownloadView() } label: {
-                    LabeledContent("Languages", value: VipiLanguage.named(state.targetLanguage).localizedName)
-                }.accessibilityIdentifier("language-settings-link")
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack { Text("New words"); Spacer(); Text("\(Int(state.density * 100))%").foregroundStyle(VipiDesign.secondary) }
-                    Slider(value: $state.density, in: 0...0.75, step: 0.05).accessibilityLabel("New words")
-                    Text("Choose how many new words appear. Words you’ve seen can keep appearing too, so the total can grow. Set to 0% to turn word switching off.").font(.footnote).foregroundStyle(VipiDesign.secondary)
-                }.padding(.vertical, 8)
-            }
-            Section("Appearance and notifications") {
-                if chat != nil { NavigationLink("Notifications") { NotificationSettingsView() } }
-                Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text(LocalizedStringKey($0.title)).tag($0) } }
-            }
-            if let subscriptions { Section { NavigationLink("Subscriptions") { SubscriptionsView(store: subscriptions) } } }
             if let chat { Section { NavigationLink("Chat backup") { HistoryBackupView(chat: chat) } } }
-            Section("About Vipi") {
+            Section {
                 Link("Privacy Policy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
                 Link("Terms of Service", destination: URL(string: "https://api.mambovipi.app/terms")!)
                 Link("Help and safety", destination: URL(string: "https://api.mambovipi.app/help")!)
                 NavigationLink("Licenses and notices") { NoticesView() }
-                LabeledContent("Made by", value: "FallSoft.Co")
-            }
+                LabeledContent("Made by") {
+                    Text(verbatim: "FallSoft.Co").foregroundStyle(VipiDesign.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityIdentifier("settings-maker-value")
+                }
+            } header: { Text("About Vipi").foregroundStyle(VipiDesign.secondary) }
             if let chat {
-                Section("Account") {
+                Section {
                     if authentication.canLinkFallsoft {
                         VStack(alignment: .leading, spacing: 8) {
                             Button("Use your Fallsoft login") {
@@ -232,9 +316,10 @@ struct SettingsView: View {
                         }
                     }
                     NavigationLink("Delete Vipi account") { DeleteAccountView(chat: chat, closeBot: closeBot) }.foregroundStyle(VipiDesign.destructive)
-                }
+                } header: { Text("Account").foregroundStyle(VipiDesign.secondary) }
             }
-        }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Settings").navigationBarTitleDisplayMode(.inline)
+        }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Settings")
+        .toolbarBackground(VipiDesign.canvas, for: .navigationBar).toolbarBackground(.visible, for: .navigationBar).navigationBarTitleDisplayMode(.inline)
     }
 }
 

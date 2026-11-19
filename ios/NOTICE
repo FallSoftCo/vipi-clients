@@ -3,17 +3,19 @@ Copyright (C) 2026 FallSoft.Co
 SPDX-License-Identifier: AGPL-3.0-only
 
 This native client is distributed under the GNU Affero General Public License,
-version 3 only. See LICENSE. Its release must include the corresponding source,
-build instructions, and third-party notices; no public release has been made.
+version 3 only. See LICENSE. Corresponding source releases, build instructions,
+and third-party notices are available at:
+https://github.com/FallSoftCo/vipi-clients/releases
 
 This client uses Signal Messenger LLC’s libsignal, version 0.105.0,
 under AGPL-3.0-only: https://github.com/signalapp/libsignal/tree/v0.105.0
 Vipi is an independent application and is not affiliated with Signal.
 
-Local language identification uses CLD2, from the pinned pycld2 0.42 source,
-under Apache License 2.0. Copyright 2013 Google Inc. The bundled license and
-NOTICE preserve attribution and describe Vipi's two defined-behavior fixes.
-Source, patches and file hashes are retained in vendor/cld2.
+Local language identification uses Apple's NaturalLanguage framework. Earlier
+client revisions included CLD2 from the pinned pycld2 0.42 source, under Apache
+License 2.0. Copyright 2013 Google Inc. Its bundled upstream license and NOTICE
+preserve attribution and Vipi's two defined-behavior fixes. Historical source,
+patches and file hashes are retained in vendor/cld2.
 
 Local Swahili speech uses eSpeak NG through the upstream Swift package,
 revision fd28f6460cc4cdf631528c8e2f7bd825747aac5c, under GPL version 3:
@@ -28,6 +30,6 @@ manifests remain applicable; this notice does not relicense that SDK.
 Complete dependency notice texts, including libsignal's Rust acknowledgments,
 are included in Vipi/ThirdPartyNotices and shown in Settings. CLIENT_SOURCE.md
 at the source archive root records the native preparation instructions. The
-complete public corresponding-source release and final dependency compatibility
-review remain required before distribution. This file does not relicense
+corresponding source and applicable dependency notices must accompany
+distributed releases. This file does not relicense
 third-party dependencies.

@@ -33,10 +33,10 @@ android {
     externalNativeBuild { cmake { path = file("src/main/cpp/CMakeLists.txt"); version = "3.22.1" } }
     defaultConfig {
         applicationId = "co.fallsoft.vipi"
-        minSdk = 28
+        minSdk = 29
         targetSdk = 36
-        versionCode = 8
-        versionName = "1.0.7"
+        versionCode = 11
+        versionName = "1.0.10"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild { cmake { arguments += "-DANDROID_STL=c++_static" } }
         buildConfigField("boolean", "FIREBASE_CONFIGURED", firebaseConfig.isNotEmpty().toString())
@@ -74,11 +74,8 @@ android {
             }
         }
     }
-    sourceSets.getByName("main").assets.srcDir("../../data/examples")
-    sourceSets.getByName("androidTest").assets.srcDir("../../qa/immersion/installer-fixture-assets")
-    sourceSets.getByName("androidTest").assets.srcDir("../../qa/immersion/source_lookup_experiment")
     sourceSets.getByName("androidTest").assets.srcDir("../../qa/backup")
-    sourceSets.getByName("main").assets.srcDir(layout.buildDirectory.dir("generated/immersionAssets"))
+    sourceSets.getByName("main").assets.srcDir(layout.buildDirectory.dir("generated/clientResources"))
     packaging {
         // Upstream ships JNI testing binaries and desktop natives alongside the
         // mobile implementation. They are not part of the Android runtime.
@@ -87,26 +84,18 @@ android {
         resources.merges += setOf("META-INF/LICENSE.md", "META-INF/NOTICE.md", "META-INF/CONTRIBUTORS.md")
         resources.merges += setOf("META-INF/LICENSE", "META-INF/NOTICE", "META-INF/DEPENDENCIES")
     }
-    sourceSets.getByName("main").assets.srcDir("vendor/source-context/assets")
 }
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) } }
-val checkBundledLexical = tasks.register<Exec>("checkBundledLexical") {
-    commandLine("python3", rootProject.file("../scripts/check-bundled-lexical.py").absolutePath)
-}
-val stageImmersionAssets = tasks.register<Sync>("stageImmersionAssets") {
-    dependsOn(checkBundledLexical)
-    from("../../data/immersion") { into("immersion") }
-    from("../../data/lexical") { into("lexical") }
+// Translation models are managed by ML Kit. Historical lookup catalogs and
+// authored examples must never enter the client package or its runtime path.
+val stageClientResources = tasks.register<Sync>("stageClientResources") {
+    // Live pinyin transliteration data, not a message translation catalog.
     from("../../data/readings") { include("chinese-ordinary.json"); into("readings") }
     from(rootProject.file("LICENSE")) { into("licenses/vipi") }
     from(rootProject.file("NOTICE")) { into("licenses/vipi") }
-    into(layout.buildDirectory.dir("generated/immersionAssets"))
+    into(layout.buildDirectory.dir("generated/clientResources"))
 }
-tasks.named("preBuild") { dependsOn(stageImmersionAssets) }
-val verifySourceContextAssets = tasks.register<Exec>("verifySourceContextAssets") {
-    commandLine("python3", rootProject.file("../scripts/check-source-context-assets.py").absolutePath)
-}
-tasks.named("preBuild") { dependsOn(verifySourceContextAssets) }
+tasks.named("preBuild") { dependsOn(stageClientResources) }
 val verifyProductionRelease = tasks.register("verifyProductionRelease") {
     group = "verification"
     description = "Reject production release builds without explicit auth and upload signing configuration."
@@ -137,10 +126,6 @@ val verifyProductionRelease = tasks.register("verifyProductionRelease") {
 }
 tasks.matching { it.name == "preReleaseBuild" }.configureEach { dependsOn(verifyProductionRelease) }
 dependencies {
-    // Retained publisher bytes and licenses, verified before every build. No
-    // runtime download or ambient Maven version selection for this provider.
-    implementation(files("vendor/source-context/libs/opennlp-tools-2.5.10.jar",
-        "vendor/source-context/libs/slf4j-api-2.0.18.jar"))
     implementation("com.google.firebase:firebase-messaging:26.0.1")
     implementation("androidx.work:work-runtime-ktx:2.12.0")
     implementation("androidx.lifecycle:lifecycle-process:2.10.0")

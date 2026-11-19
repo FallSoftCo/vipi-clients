@@ -4,16 +4,20 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 This native client is distributed under the GNU Affero General Public License,
 version 3 only. See LICENSE. Its release must include the corresponding source,
-build instructions, and third-party notices; no public release has been made.
+build instructions, and third-party notices. Corresponding-source previews and
+release manifests are available at:
+
+https://github.com/FallSoftCo/vipi-clients/releases
 
 This client uses Signal Messenger LLC’s libsignal, version 0.105.0,
 under AGPL-3.0-only: https://github.com/signalapp/libsignal/tree/v0.105.0
 Vipi is an independent application and is not affiliated with Signal.
 
-Local language identification uses CLD2, from the pinned pycld2 0.42 source,
-under Apache License 2.0. Copyright 2013 Google Inc. Its bundled license and
-NOTICE preserve attribution and describe Vipi's two defined-behavior fixes.
-Source, patches and file hashes are retained in vendor/cld2.
+On-device language identification and full-message translation use Google ML Kit.
+Its SDKs and platform-managed model preparation are governed by their respective
+terms; inference runs locally. Retained upstream CLD2 license copies describe
+historical source included in the corresponding-source archive, not the current
+runtime language identifier.
 
 Offline speech fallback uses eSpeak NG core 699e79690f23e2558d990a3a78b0050745b96932
 (GPL-3.0-or-later), its included Unicode/BSD/Apache components, and Sonic

@@ -12,16 +12,6 @@ struct SubscriptionOfferView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 24) {
-                VipiMark(size: 46)
-                IntroHeading(eyebrow: plan == .base ? "Vipi subscription" : "Optional chatbot subscription",
-                    title: plan == .base ? "Chat with friends.\nLearn words as you read." : "Chat with vBot.",
-                    detail: plan == .base
-                        ? "Chat with friends and see supported words and short phrases switch into your chosen language. Bot mini is a separate, optional plan."
-                        : "Bot mini adds chatbot conversations with vBot to your Vipi plan. Ask a question or talk about your day. Automated replies can be mistaken.")
-                if plan == .botMini {
-                    Text("vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.")
-                        .font(.subheadline).foregroundStyle(VipiDesign.secondary)
-                }
                 if plan == .base && !store.accessVerificationPending(.base) && !store.accessActive(.base) && access?.cardless_trial?.active == false {
                     Text("Your free Vipi access has ended. Subscribe to continue chatting.")
                         .font(.subheadline).foregroundStyle(VipiDesign.secondary)
@@ -64,31 +54,31 @@ struct SubscriptionOfferView: View {
                             Text("Then \(product.displayPrice) per year. Renews annually until you cancel.")
                             if let date = Calendar.current.date(byAdding: .month, value: 1, to: Date()) {
                                 Text("If you start today, your first annual charge is on \(date.formatted(date: .long, time: .omitted)). The App Store confirms your exact offer and dates.")
-                                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                                    .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                             }
                         } else {
                             Text("\(product.displayPrice) per year").font(.title2.weight(.semibold))
                             if plan == .base {
                                 Text("Renews annually until you cancel.")
-                                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                                    .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                             } else {
                                 Text("Renews annually until you cancel. Any available introductory offer is confirmed by the App Store.")
-                                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                                    .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                             }
                         }
                         if plan == .botMini {
-                            Text("This is a separate subscription, in addition to Vipi.")
                             if let allowance = store.botAllowance, allowance.service_ready {
                                 Text("Includes \(allowance.monthly_replies) vBot replies each calendar month. Unused replies don’t carry over.")
-                                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                                    .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                             }
                             if let base = store.products[.base], base.priceFormatStyle.currencyCode == product.priceFormatStyle.currencyCode {
                                 Text("At current App Store prices: Vipi \(base.displayPrice)/year + Bot mini \(product.displayPrice)/year = \((base.price + product.price).formatted(product.priceFormatStyle))/year. Each plan renews separately.")
-                                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                                    .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                             }
                         }
                     }.padding(22).frame(maxWidth: .infinity, alignment: .leading)
                         .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 22))
+                    benefit
                     if plan == .botMini && !store.baseActive {
                         NavigationLink("See Vipi subscription") { SubscriptionOfferView(store: store, plan: .base) }
                             .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight)
@@ -106,26 +96,52 @@ struct SubscriptionOfferView: View {
                             .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                     }
                 } else {
-                    ContentUnavailableView("Prices aren’t available", systemImage: "network", description: Text(LocalizedStringKey(plan == .base ? "Connect to the App Store to see your subscription price. You haven’t been enrolled." : "Connect to the App Store to see your price and any free trial. You haven’t been enrolled.")).foregroundStyle(VipiDesign.secondary))
-                    Button("Try again") { Task { await store.refresh() } }.disabled(store.loading)
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("Prices aren’t available").font(.headline)
+                        Text(LocalizedStringKey(plan == .base ? "Connect to the App Store to see your subscription price. You haven’t been enrolled." : "Connect to the App Store to see your price and any free trial. You haven’t been enrolled."))
+                            .font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal: false, vertical: true)
+                        HStack(spacing: 20) {
+                            Button { Task { await store.refresh() } } label: {
+                                Text("Try again").frame(minHeight: 44).contentShape(Rectangle())
+                            }.disabled(store.loading)
+                            Button { Task { await store.restore() } } label: {
+                                Text("Restore purchases").frame(minHeight: 44).contentShape(Rectangle())
+                            }.disabled(store.busy).accessibilityIdentifier("subscription-restore")
+                        }
+                    }.padding(18).frame(maxWidth: .infinity, alignment: .leading)
+                        .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
+                }
+                if store.accessVerificationPending(plan) || store.accessActive(plan) || product == nil { benefit }
+                if plan == .botMini {
+                    Text("This is a separate subscription, in addition to Vipi.").font(.body)
+                    Text("vBot is powered by DeepSeek. Messages you send to vBot go to Vipi and DeepSeek to generate replies. Your chats with friends are never included automatically.")
+                        .font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                    Text("Automated replies can be mistaken.").font(.subheadline).foregroundStyle(VipiDesign.secondary)
                 }
                 if let notice = store.notice { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("subscription-notice") }
                 if !store.accessVerificationPending(plan) && access?.isReviewAccess != true &&
                     ((store.accessActive(plan) && !(plan == .base && access?.access_source == "cardless_trial")) ||
                      (!store.accessActive(plan) && product != nil)) {
                     Text("Payment is charged to your Apple Account. Cancel in App Store subscriptions before renewal to avoid the next charge. Canceling does not erase your saved conversations.")
-                        .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                        .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                 }
-                Button("Restore purchases") { Task { await store.restore() } }.disabled(store.busy)
-                    .accessibilityIdentifier("subscription-restore")
-                Link("Manage App Store subscriptions", destination: URL(string: "https://apps.apple.com/account/subscriptions")!)
+                if store.accessVerificationPending(plan) || store.accessActive(plan) || product != nil {
+                    Button { Task { await store.restore() } } label: {
+                        Text("Restore purchases").frame(minHeight: 44).contentShape(Rectangle())
+                    }.disabled(store.busy).accessibilityIdentifier("subscription-restore")
+                }
+                Link(destination: URL(string: "https://apps.apple.com/account/subscriptions")!) { Text("Manage App Store subscriptions").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
                 HStack(spacing: 24) {
-                    Link("Terms", destination: URL(string: "https://api.mambovipi.app/terms")!)
-                    Link("Privacy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
-                }.font(.footnote)
-            }.padding(26).frame(maxWidth: 560).frame(maxWidth: .infinity)
+                    Link(destination: URL(string: "https://api.mambovipi.app/terms")!) { Text("Terms").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
+                    Link(destination: URL(string: "https://api.mambovipi.app/privacy")!) { Text("Privacy").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
+                }.font(.subheadline)
+            }.padding(20).frame(maxWidth: 560).frame(maxWidth: .infinity)
         }.clipped().background(VipiDesign.canvas).navigationTitle(plan.title).navigationBarTitleDisplayMode(.inline)
             .task { await store.refresh() }
+    }
+    private var benefit: some View {
+        Text(LocalizedStringKey(plan == .base ? "Private chats with friends" : "Chat with vBot."))
+            .font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal: false, vertical: true)
     }
     private static func date(_ value: String) -> Date? {
         let format = ISO8601DateFormatter()

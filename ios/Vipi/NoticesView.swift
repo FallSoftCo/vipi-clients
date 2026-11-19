@@ -18,7 +18,12 @@ struct NoticesView: View {
     private let entries = DependencyNotice.all
     var body: some View {
         List {
-            Section { Text("Vipi is made with open-source software and the native services listed here. Each component retains its own license.") }
+            Section {
+                Text("Vipi is made with open-source software and the native services listed here. Each component retains its own license.")
+                Link(destination:URL(string:"https://github.com/FallSoftCo/vipi-clients/releases")!) {
+                    Text(verbatim:"https://github.com/FallSoftCo/vipi-clients/releases")
+                }.accessibilityIdentifier("vipi-source-releases")
+            }
             if entries.isEmpty { Text("Notices could not be opened. Please reopen Vipi.") }
             ForEach(entries) { entry in
                 NavigationLink(entry.title) {
@@ -31,7 +36,7 @@ struct NoticesView: View {
 private struct NoticeTextView: UIViewRepresentable {
     let text: String
     func makeUIView(context: Context) -> UITextView {
-        let view = UITextView(); view.isEditable = false; view.isSelectable = true
+        let view = UITextView(); view.isEditable = false; view.isSelectable = true; view.dataDetectorTypes = [.link]
         view.adjustsFontForContentSizeCategory = true; view.font = .preferredFont(forTextStyle: .body)
         view.textColor = .label; view.backgroundColor = UIColor(VipiDesign.canvas)
         view.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)

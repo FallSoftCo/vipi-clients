@@ -5,7 +5,7 @@ internal object JapaneseSpeechReading {
     fun convert(original: String): String {
         val result = StringBuilder()
         var cursor = 0
-        for (token in LocalImmersion.japaneseTokens(original)) {
+        for (token in NativeJapaneseTokenizer.tokens(original)) {
             val start = token.position
             val end = start + token.surface.length
             check(start >= cursor && end <= original.length && original.substring(start, end) == token.surface)

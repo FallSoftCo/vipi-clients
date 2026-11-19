@@ -80,7 +80,7 @@
     <string name="delivery_stopped">Stopped</string>
     <string name="delivery_imported">Imported</string>
     <string name="delivery_waiting">Waiting to send</string>
-    <string name="voices_prepare_offline">Prepare the voices for both languages to listen without a connection.</string>
+    <string name="voices_prepare_offline">Prepare the voice for the language you’re learning to listen offline.</string>
     <string name="account_heading">Sign in to\nchat with friends.</string>
     <string name="account_description">Create an account or sign in to an existing one. Friends find you by username, not your email.</string>
     <string name="conversations_local">Your conversations stay on your device.</string>

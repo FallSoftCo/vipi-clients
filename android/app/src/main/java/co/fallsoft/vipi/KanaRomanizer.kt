@@ -77,7 +77,7 @@ internal object KanaRomanizer {
     /** Receives kana only; literals/punctuation belong to the caller's exact pieces.
      * Unknown symbols and unresolved geminates fail closed, never disappear. */
     fun romanize(original: String): String? {
-        if (original.isEmpty() || original.length > 16_384) return null
+        if (original.isEmpty() || original.length > FullReadingLimits.MAX_KANA_UTF16) return null
         val normalized = normalizeKana(original).text
         val kana = normalized.map { if (it in '\u3041'..'\u3096') (it.code + 0x60).toChar() else it }.joinToString("")
         val out = StringBuilder(); var i = 0

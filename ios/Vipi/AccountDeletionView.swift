@@ -48,7 +48,7 @@ struct AccountDeletionProgressView: View {
                 VStack(alignment: .leading, spacing: 24) {
                     Image(systemName: "person.crop.circle.badge.minus").font(.system(size: 38)).foregroundStyle(VipiDesign.secondary)
                     Text(LocalizedStringKey(finished ? "Vipi account deleted" : accepted ? "Deletion requested" : "Delete your Vipi account"))
-                        .font(.system(.largeTitle, design: .serif)).accessibilityAddTraits(.isHeader)
+                        .font(.largeTitle.weight(.bold)).accessibilityAddTraits(.isHeader)
                     Text(LocalizedStringKey(finished ? "Your Vipi account and chats on this device have been removed." : accepted ? "Vipi has accepted your request. We’re finishing deletion. You can close the app and check back later." : "We’ll confirm the request and remove your saved chats from this device. Vipi saves your progress if the connection drops."))
                         .foregroundStyle(VipiDesign.secondary)
                     if let notice = deletion.notice { Text(notice).font(.subheadline).accessibilityIdentifier("deletion-notice") }

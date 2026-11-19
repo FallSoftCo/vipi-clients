@@ -71,7 +71,7 @@
     <string name="ui_4b34e1b08868" formatted="false">Send to vBot</string>
     <string name="ui_4bc6d965deeb" formatted="false">Cancel full translation</string>
     <string name="ui_51fbe1dc8a73" formatted="false">Sign in again</string>
-    <string name="ui_52c236be01ef" formatted="false">These downloads are for optional full-message translation. Word switching does not need them. To translate a whole message, choose Full translation in its reading options. Messages stay on this phone.</string>
+    <string name="ui_52c236be01ef" formatted="false">Vipi translates full messages on this phone, even offline.</string>
     <string name="ui_5394002806ab" formatted="false">Use 3–24 letters, numbers or underscores, starting with a letter.</string>
     <string name="ui_53b6cd2365c7" formatted="false">Verify encryption</string>
     <string name="ui_541ecffcdb87" formatted="false">Your plan access couldn’t be checked.</string>
@@ -163,7 +163,7 @@
     <string name="ui_b47e6d6e77c8" formatted="false">Encryption details couldn’t be opened. Your verification hasn’t changed.</string>
     <string name="ui_b68710eee013" formatted="false">Connecting to your chats</string>
     <string name="ui_b6ec9d55ae3b" formatted="false">I compared all 12 groups</string>
-    <string name="ui_b7c32ca74cb0" formatted="false">Hear both languages</string>
+    <string name="ui_b7c32ca74cb0" formatted="false">Listen in your practice language</string>
     <string name="ui_b8173b954090" formatted="false">Remove translation downloads</string>
     <string name="ui_b8ed5279e897" formatted="false">Sending…</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">Find friend</string>

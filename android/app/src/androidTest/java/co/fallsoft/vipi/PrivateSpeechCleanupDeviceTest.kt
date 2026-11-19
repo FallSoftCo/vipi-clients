@@ -29,7 +29,7 @@ class PrivateSpeechCleanupDeviceTest {
         val (context, root) = isolated()
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
         val public = File(context.noBackupFilesDir, "speech/public-voice-control").apply { parentFile!!.mkdirs(); writeText("reusable") }
-        val speech = withContext(Dispatchers.Main) { SpeechPlayback(context, "en", "sw", scope).also {
+        val speech = withContext(Dispatchers.Main) { SpeechPlayback(context, "en", scope).also {
             it.prepare(mapOf("en" to "Hello.", "sw" to "Habari."))
         } }
         try {

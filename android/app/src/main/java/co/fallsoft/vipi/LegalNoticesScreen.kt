@@ -12,22 +12,25 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+
+private const val CLIENT_SOURCE_URL = "https://github.com/FallSoftCo/vipi-clients/releases"
 
 private data class LicenseEntry(val title: String, val assets: List<String>)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable internal fun LegalNoticesScreen(back: () -> Unit) {
     val context = LocalContext.current
+    val uri = LocalUriHandler.current
     var selected by remember { mutableStateOf<LicenseEntry?>(null) }
     var error by remember { mutableStateOf<String?>(null) }
     val entries by produceState<List<LicenseEntry>?>(null) {
         value = withContext(Dispatchers.IO) { runCatching {
-            val result = mutableListOf(LicenseEntry("Vipi client · AGPL-3.0-only", listOf("licenses/vipi/NOTICE", "licenses/vipi/LICENSE")),
-                LicenseEntry("Immersion data", listOf("immersion/NOTICE.txt")))
+            val result = mutableListOf(LicenseEntry("Vipi client · AGPL-3.0-only", listOf("licenses/vipi/NOTICE", "licenses/vipi/LICENSE")))
             val upstream = JSONObject(context.assets.open("legal/upstream/index.json").bufferedReader().use { it.readText() }).getJSONArray("licenses")
             for (index in 0 until upstream.length()) upstream.getJSONObject(index).let { row -> result.add(LicenseEntry(row.getString("coordinate"), listOf(row.getString("asset")))) }
             val bundled = JSONObject(context.assets.open("legal/third-party/index.json").bufferedReader().use { it.readText() }).getJSONArray("packages")
@@ -45,9 +48,9 @@ private data class LicenseEntry(val title: String, val assets: List<String>)
     val paragraphs by produceState<List<String>?>(null, selected) {
         value = selected?.let { entry -> withContext(Dispatchers.IO) {
             runCatching { entry.assets.flatMap { asset ->
-                require(asset.startsWith("legal/") || asset.startsWith("licenses/vipi/") || asset == "immersion/NOTICE.txt")
+                require(asset.startsWith("legal/") || asset.startsWith("licenses/vipi/"))
                 context.assets.open(asset).bufferedReader().use { it.readText() }.split("\n\n").flatMap { it.chunked(4000) }
-            } }.getOrElse { listOf("This license couldn’t be opened. Please try again.") }
+            } }.getOrElse { listOf(context.getString(R.string.licenses_open_failed)) }
         } }
     }
     fun goBack() { if (selected != null) selected = null else back() }
@@ -62,7 +65,15 @@ private data class LicenseEntry(val title: String, val assets: List<String>)
                 if (entries == null) item { CircularProgressIndicator() }
             } else {
                 item { Text(selected!!.title, style = MaterialTheme.typography.titleMedium) }
-                items(paragraphs.orEmpty()) { Text(it, style = MaterialTheme.typography.bodySmall) }
+                items(paragraphs.orEmpty()) { paragraph ->
+                    if (paragraph.trim() == CLIENT_SOURCE_URL) {
+                        TextButton(onClick = {
+                            runCatching { uri.openUri(CLIENT_SOURCE_URL) }
+                                .onFailure { error = context.getString(R.string.settings_page_open_failed) }
+                        }, modifier = Modifier.heightIn(min = 48.dp)) { Text(CLIENT_SOURCE_URL) }
+                    } else Text(paragraph, style = MaterialTheme.typography.bodySmall)
+                }
+                error?.let { item { Text(it) } }
                 if (paragraphs == null) item { CircularProgressIndicator() }
             }
         }

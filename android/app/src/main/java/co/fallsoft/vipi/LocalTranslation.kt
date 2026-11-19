@@ -34,7 +34,9 @@ class LocalTranslation : LanguageTranslation {
         client(source, target).downloadModelIfNeeded(conditions).await()
     }
     override suspend fun translate(text: String, source: String, target: String): String = mutex.withLock {
-        require(text.length <= 16_384)
+        // Message storage already bounds input bytes. Translate complete chat
+        // messages instead of applying the retired lookup pipeline's16KiB cap.
+        require(text.length <= 65_536)
         client(source, target).translate(text).await()
     }
     override fun close() { client?.close(); client = null; direction = null }

@@ -78,8 +78,14 @@ extension XCTestCase {
         }
         let choice = visible[0]
         XCTAssertTrue(choice.exists && choice.isHittable, file: file, line: line)
-        let point = choice.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
-        let witness = XCTAttachment(string: "native menu choice=\(title); frame=\(choice.frame); point=\(point.screenPoint)")
+        // Freeze the measured point before event delivery. Several native
+        // rows share an image identifier; an element-relative coordinate may
+        // rebind to a different row when XCTest synthesizes the actual tap.
+        let screenPoint = choice.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).screenPoint
+        let origin = app.frame.origin
+        let point = app.coordinate(withNormalizedOffset: .zero)
+            .withOffset(CGVector(dx: screenPoint.x - origin.x, dy: screenPoint.y - origin.y))
+        let witness = XCTAttachment(string: "native menu choice=\(title); frame=\(choice.frame); fixed_screen_point=\(screenPoint)")
         witness.name = "native-menu-choice-coordinate"; witness.lifetime = .keepAlways; add(witness)
         point.tap()
         return choice

@@ -30,6 +30,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -46,7 +48,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import co.fallsoft.vipi.core.ImmersionResult
 import co.fallsoft.vipi.core.SpeechSpan
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -173,7 +174,7 @@ class MainActivity : ComponentActivity() {
     if (model.screen == Screen.CONVERSATION) {
         val chat = model.chat; val peer = model.selectedPeer
         if (chat != null && peer != null) { FriendConversationScreen(chat, peer, model.knownLanguage, model.targetLanguage,
-            model.density, onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onPlan = { model.navigate(Screen.PLANS) }) { model.back() }; return }
+            onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onPlan = { model.navigate(Screen.PLANS) }) { model.back() }; return }
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->
@@ -253,25 +254,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable private fun Welcome(scrolling: Boolean) {
-    var mode by rememberSaveable { mutableStateOf(ReadingMode.IMMERSED) }
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
-    val speech = remember { SpeechPlayback(context, "en", "es", scope) }
-    val owner = LocalLifecycleOwner.current
-    val warmups = remember { mapOf("en" to "Hello.", "es" to "Hola.") }
-    LaunchedEffect(speech) { speech.prepare(warmups) }
-    DisposableEffect(speech, owner) {
-        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) speech.stop() }
-        owner.lifecycle.addObserver(observer)
-        onDispose { owner.lifecycle.removeObserver(observer); speech.close() }
-    }
     Heading("", stringResource(R.string.welcome_title_concise), stringResource(R.string.welcome_detail_concise))
-    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        Text(stringResource(R.string.preview_spanish_title), fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
-        ImmersionBubble(immersionPreview, mode, speech = speech, interactionPaused = scrolling)
-        SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
-        Text(stringResource(R.string.preview_tap_word), fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    }
+    ConversationPreview("en", "es", scrolling)
+    val gestureActions = fullMessageActionDescription()
+    Text(stringResource(R.string.full_translation_gestures), style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.clearAndSetSemantics { contentDescription = gestureActions })
 }
 
 @Composable private fun LanguageSelection(model: VipiModel, scrolling: Boolean) {
@@ -367,7 +355,7 @@ class MainActivity : ComponentActivity() {
                 Box(Modifier.size(48.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(24.dp)), contentAlignment = Alignment.Center) { Text(chat.name(thread.peer).take(1), fontSize = 24.sp) }
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
                     Text(chat.name(thread.peer), fontWeight = if (thread.unread > 0) FontWeight.SemiBold else FontWeight.Medium)
-                    Text(thread.latest.text, maxLines = 1, fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    HomeTranslationPreview(chat, thread.latest)
                 }
                 if (thread.unread > 0) Badge { Text(thread.unread.toString()) }
             }
@@ -385,6 +373,28 @@ class MainActivity : ComponentActivity() {
         Icon(Icons.Outlined.ChevronRight, null)
     }
     if (chat?.ready == true && chat.threads.isNotEmpty()) NotificationSetup()
+}
+
+/** Demand only previews intersecting the clipped window. Uses the account's
+ * existing owner and encrypted completion cache; opening Chats never waits. */
+@Composable private fun HomeTranslationPreview(chat: ChatSession, message: ChatItem) {
+    val owner = chat.translations
+    val id = message.id.toString()
+    var visible by remember(owner, id, message.text) { mutableStateOf(false) }
+    DisposableEffect(owner, id, message.text, visible) {
+        if (visible && owner != null) { owner.retain(id, message.text); owner.enqueue(id, message.text) }
+        onDispose { if (visible) owner?.release(id, message.text) }
+    }
+    val state = owner?.state(id, message.text)
+    val value = state?.value
+    val preview = value?.let { it.practiceReading ?: it.practiceText }
+        ?: stringResource(if (state?.phase == MessageTranslationPhase.FAILED) R.string.full_translation_unavailable else R.string.full_translation_preparing)
+    Text(preview, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+        fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
+        modifier = Modifier.testTag("home-message-preview-$id").onGloballyPositioned {
+            val bounds = it.boundsInWindow()
+            visible = bounds.width > 0f && bounds.height > 0f
+        })
 }
 
 @Composable private fun NewChatView(model: VipiModel) {
@@ -446,7 +456,6 @@ class MainActivity : ComponentActivity() {
     TextButton(onClick = { model.navigate(Screen.PLANS) }) { Text(stringResource(R.string.nav_plan)) }
     if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.BACKUP) }) { Text(stringResource(R.string.ui_24f13e3dc8e4)) }
     LanguageSettingsLink(languageName(model.targetLanguage)) { model.navigate(Screen.LANGUAGE_DOWNLOAD) }
-    NewWordsControl(model.density, model::changeDensity)
     Text(stringResource(R.string.ui_3907fa7f8072), fontWeight = FontWeight.SemiBold)
     Appearance.entries.forEach { appearance ->
         Row(Modifier.fillMaxWidth().clickable { model.changeAppearance(appearance) }.semantics { role = Role.RadioButton; selected = model.appearance == appearance }, verticalAlignment = Alignment.CenterVertically) {
@@ -482,15 +491,6 @@ class MainActivity : ComponentActivity() {
         Column(modifier) { Text(stringResource(R.string.ui_e7cde359a05e)); Text(language, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     } else {
         Row(modifier) { Text(stringResource(R.string.ui_e7cde359a05e)); Spacer(Modifier.weight(1f)); Text(language, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    }
-}
-
-@Composable internal fun NewWordsControl(density: Double, onChange: (Double) -> Unit) {
-    val amountDescription = stringResource(R.string.new_words_amount)
-    Column {
-        Row { Text(stringResource(R.string.new_words)); Spacer(Modifier.weight(1f)); Text("${(density * 100).toInt()}%") }
-        Slider(value = density.toFloat(), onValueChange = { onChange(it.toDouble()) }, valueRange = 0f..0.75f, steps = 14, modifier = Modifier.semantics { contentDescription = amountDescription })
-        Text(if (density == 0.0) stringResource(R.string.new_words_off) else stringResource(R.string.new_words_description), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 

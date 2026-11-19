@@ -34,7 +34,7 @@ internal fun MainActivityJourneyFixture.assertIncomingAboveComposer(
         val sample = JSONObject().put("frame", frames.get()).put("uptime_ms", android.os.SystemClock.uptimeMillis())
             .put("viewport", viewport.toShortString()).put("timeline", timeline.toString()).put("editor", editor.toString())
         instrumentation.runOnMainSync {
-            paragraphs().singleOrNull { it.displayedOriginal == original }?.let { paragraph ->
+            paragraphs().singleOrNull { it.originalMessage == original }?.let { paragraph ->
                 val screen = IntArray(2); val window = IntArray(2)
                 paragraph.getLocationOnScreen(screen); paragraph.getLocationInWindow(window)
                 val dx = screen[0] - window[0]; val dy = screen[1] - window[1]
@@ -44,7 +44,7 @@ internal fun MainActivityJourneyFixture.assertIncomingAboveComposer(
                 // The native and Compose origins may round a blank leading
                 // pixel differently. Measure every actually painted glyph/slot
                 // from THIS real TextView, with no geometry tolerance or text copy.
-                val before = listOf(paragraph.displayedOriginal, paragraph.visibleText(), paragraph.text.toString(),
+                val before = listOf(paragraph.originalMessage, paragraph.text.toString(), paragraph.text.toString(),
                     paragraph.selectionStart, paragraph.selectionEnd, paragraph.scrollX, paragraph.scrollY,
                     paragraph.width, paragraph.height, paragraph.layout)
                 val bitmap = android.graphics.Bitmap.createBitmap(paragraph.width, paragraph.height,
@@ -57,7 +57,7 @@ internal fun MainActivityJourneyFixture.assertIncomingAboveComposer(
                     val x = index % bitmap.width; val y = index / bitmap.width
                     left = minOf(left, x); top = minOf(top, y); right = maxOf(right, x); bottom = maxOf(bottom, y); paintedPixels++
                 } }
-                val after = listOf(paragraph.displayedOriginal, paragraph.visibleText(), paragraph.text.toString(),
+                val after = listOf(paragraph.originalMessage, paragraph.text.toString(), paragraph.text.toString(),
                     paragraph.selectionStart, paragraph.selectionEnd, paragraph.scrollX, paragraph.scrollY,
                     paragraph.width, paragraph.height, paragraph.layout)
                 check(before == after) { "Native bitmap draw changed actual paragraph state" }
@@ -70,15 +70,18 @@ internal fun MainActivityJourneyFixture.assertIncomingAboveComposer(
                     layout.getLineEnd(layout.lineCount - 1) == paragraph.text.length &&
                     (0 until layout.lineCount).all { layout.getEllipsisCount(it) == 0 } &&
                     paragraph.totalPaddingTop - paragraph.scrollY + layout.getLineBottom(layout.lineCount - 1) <= paragraph.height - paragraph.totalPaddingBottom
-                ok = completeLayout && fullyVisible(paragraph) && paragraph.alpha == 1f && viewport.contains(ink) &&
-                    list.contains(RectF(ink)) && ink.bottom <= input.top && paragraph.visibleText().isNotBlank()
-                geometry = "native=$full ink=$ink face=${paragraph.visibleText()} pixels=${pixels.contentHashCode()} timeline=$list editor=$input viewport=$viewport"
+                val reportedVisible = Rect()
+                val nativeInkVisible = paragraph.isShown && paragraph.hasWindowFocus() &&
+                    paragraph.getGlobalVisibleRect(reportedVisible) && reportedVisible.contains(ink)
+                ok = completeLayout && nativeInkVisible && paragraph.alpha == 1f && viewport.contains(ink) &&
+                    list.contains(RectF(ink)) && ink.bottom <= input.top && paragraph.text.toString().isNotBlank()
+                geometry = "native=$full ink=$ink face=${paragraph.text.toString()} pixels=${pixels.contentHashCode()} timeline=$list editor=$input viewport=$viewport"
                 val baselines = JSONArray()
                 paragraph.layout?.let { layout -> repeat(layout.lineCount) { line ->
                     baselines.put(screen[1] + paragraph.totalPaddingTop - paragraph.scrollY + layout.getLineBaseline(line))
                 } }
-                sample.put("original", original).put("drawn", paragraph.visibleText()).put("full_bounds", full.toShortString())
-                    .put("native_local_visible", fullyVisible(paragraph)).put("native_container_inside_timeline", list.contains(RectF(full)))
+                sample.put("original", original).put("drawn", paragraph.text.toString()).put("full_bounds", full.toShortString())
+                    .put("native_global_ink_visible", nativeInkVisible).put("native_container_inside_timeline", list.contains(RectF(full)))
                     .put("paint_local_bounds", localInk.toShortString()).put("paint_screen_bounds", ink.toShortString())
                     .put("painted_pixels", paintedPixels).put("paint_hash", pixels.contentHashCode()).put("native_baselines", baselines)
                     .put("native_draw_preserved_state", before == after).put("native_layout_complete_without_ellipsis_or_internal_bottom_clip", completeLayout)
@@ -245,20 +248,20 @@ internal fun MainActivityJourneyFixture.assertNativeBotMessageLineAboveComposer(
         val editor = compose.onNodeWithTag("bot-message-input").fetchSemanticsNode().boundsInWindow
         val viewport = unobscuredWindow()
         instrumentation.runOnMainSync {
-            paragraphs().singleOrNull { it.displayedOriginal == original }?.let { paragraph ->
+            paragraphs().singleOrNull { it.originalMessage == original }?.let { paragraph ->
                 val layout = paragraph.layout ?: return@let
                 val screen = IntArray(2); val window = IntArray(2)
                 paragraph.getLocationOnScreen(screen); paragraph.getLocationInWindow(window)
                 val dx = screen[0] - window[0]; val dy = screen[1] - window[1]
                 val actualList = RectF(timeline.left + dx, timeline.top + dy, timeline.right + dx, timeline.bottom + dy)
                 val inputTop = editor.top + dy
-                val before = listOf(paragraph.text.toString(), paragraph.visibleText(), paragraph.scrollY, paragraph.layout)
+                val before = listOf(paragraph.text.toString(), paragraph.text.toString(), paragraph.scrollY, paragraph.layout)
                 val bitmap = android.graphics.Bitmap.createBitmap(paragraph.width, paragraph.height, android.graphics.Bitmap.Config.ARGB_8888)
                 try {
                     paragraph.draw(android.graphics.Canvas(bitmap))
                     val pixels = IntArray(bitmap.width * bitmap.height)
                     bitmap.getPixels(pixels, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
-                    check(before == listOf(paragraph.text.toString(), paragraph.visibleText(), paragraph.scrollY, paragraph.layout))
+                    check(before == listOf(paragraph.text.toString(), paragraph.text.toString(), paragraph.scrollY, paragraph.layout))
                     val nativeVisible = Rect()
                     val shown = paragraph.isShown && paragraph.alpha == 1f && paragraph.getGlobalVisibleRect(nativeVisible)
                     for (line in 0 until layout.lineCount) {
@@ -275,7 +278,7 @@ internal fun MainActivityJourneyFixture.assertNativeBotMessageLineAboveComposer(
                             layout.getEllipsisCount(line) == 0) {
                             File(output, "$name-native-paint.png").outputStream().use { check(bitmap.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it)) }
                             evidence = JSONObject().put("method", "actual_native_paragraph_draw_one_complete_line_after_real_reading_scroll")
-                                .put("original", original).put("drawn", paragraph.visibleText()).put("line", line)
+                                .put("original", original).put("drawn", paragraph.text.toString()).put("line", line)
                                 .put("source_offsets", "${layout.getLineStart(line)}..${layout.getLineEnd(line)}")
                                 .put("native_line_paint", ink.toShortString()).put("timeline", actualList.toString())
                                 .put("editor_top", inputTop).put("unobscured_window", viewport.toShortString())
@@ -354,9 +357,9 @@ private fun MainActivityJourneyFixture.recordLayoutDiagnostics(
         }
         result.put("native_roots", roots)
         val bodies = JSONArray()
-        paragraphs().filter { original == null || it.displayedOriginal == original }.forEach { view ->
+        paragraphs().filter { original == null || it.originalMessage == original }.forEach { view ->
             val xy = IntArray(2); view.getLocationOnScreen(xy)
-            bodies.put(JSONObject().put("original", view.displayedOriginal).put("origin", "${xy[0]},${xy[1]}")
+            bodies.put(JSONObject().put("original", view.originalMessage).put("origin", "${xy[0]},${xy[1]}")
                 .put("size", "${view.width}x${view.height}").put("scroll_y", view.scrollY))
         }
         result.put("native_paragraphs", bodies)

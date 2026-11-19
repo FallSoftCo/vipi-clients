@@ -6,10 +6,9 @@ struct OnboardingView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.locale) private var locale
-    @State private var previewMode: ReadingMode = .immersed
+    @State private var preparation = LanguagePreparation()
     @State private var search = ""
     @State private var scrolling = false
-    @State private var acceptedTerms = false
     @State private var speech = SpeechPlayback()
     @Environment(\.scenePhase) private var scenePhase
 
@@ -58,27 +57,23 @@ struct OnboardingView: View {
                 }
             }
             .toolbarBackground(VipiDesign.canvas, for: .navigationBar)
+            .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(state.onboarding)") {
+                guard state.onboarding == .language else { preparation.invalidate(); return }
+                preparation.invalidate(); preparation = state.translationServices.makePreparation()
+                await preparation.refresh(.init(source:state.knownLanguage,target:state.targetLanguage))
+                if !Task.isCancelled { preparation.prepare() }
+            }
         }
     }
 
     private var welcome: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            IntroHeading(eyebrow: "", title: "Chat with friends.\nLearn new words.", detail: "A few words switch languages as you chat.")
-            VStack(alignment: .leading, spacing: 14) {
-                Text("Try a little Spanish").font(.body.weight(.semibold)).foregroundStyle(VipiDesign.ink)
-                ImmersionBubble(result: .complete(ImmersionPreview.result), mode: previewMode, speech: speech, interactionPaused: scrolling)
-                if let error = speech.error {
-                    Text(error).font(.subheadline).foregroundStyle(VipiDesign.secondary)
-                    if speech.state == .unavailable { Button("Retry voices") { preparePreviewVoices() }.font(.footnote) }
-                }
-                Text("Tap a highlighted word to hear it. In chats, tap a bubble to translate.").font(.subheadline).foregroundStyle(VipiDesign.secondary).lineSpacing(3)
-            }
-        }.onAppear { preparePreviewVoices() }
-            .onDisappear { speech.close() }
-            .onChange(of: scenePhase) { _, phase in if phase != .active { speech.stop() } }
+        VStack(alignment:.leading,spacing:24) {
+            IntroHeading(eyebrow:"",title:"Chat with friends.\nLearn a language.",detail:"Every message appears in the language you’re learning.")
+            Text("Tap to listen. Hold to see meanings. Double-tap to change script.")
+                .accessibilityLabel(Text(ChatReadingState.actionDescription()))
+                .font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
+        }
     }
-
-    private func preparePreviewVoices() { speech.prepare(source: "en", target: "es", warmups: ["en": "Hello.", "es": "Hola."]) }
 
     private var languages: some View {
         VStack(alignment: .leading, spacing: 24) {
@@ -109,8 +104,17 @@ struct OnboardingView: View {
                     .accessibilityLabel("I’m learning")
                     .accessibilityValue(VipiLanguage.named(state.targetLanguage).localizedName)
             }
-            ConversationPreview(source: state.knownLanguage, target: state.targetLanguage, scrolling: scrolling)
+            ConversationPreview(source:state.knownLanguage,target:state.targetLanguage,scrolling:scrolling,modelsReady:preparation.prepared)
                 .id("\(state.knownLanguage)-\(state.targetLanguage)")
+            if preparation.busy || preparation.availability == .checking {
+                HStack { ProgressView(); Text("Preparing translation downloads…").font(.subheadline) }.foregroundStyle(VipiDesign.secondary)
+            } else if !preparation.prepared {
+                Text(preparation.availability == .unsupported ? "Translation isn’t supported for this language pair on this device." : "Translation needs a language download.")
+                    .font(.subheadline).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
+                Button("Try again") { Task { await preparation.refresh(.init(source:state.knownLanguage,target:state.targetLanguage)); preparation.prepare() } }
+            }
+            if let message = preparation.message { Text(message).font(.subheadline).foregroundStyle(VipiDesign.secondary) }
+            if let request = preparation.request { LanguagePreparationTask(request:request,preparation:preparation).id(request.id) }
         }
     }
 
@@ -136,9 +140,6 @@ struct OnboardingView: View {
                 Text("30 days free. No card needed. Then choose whether to subscribe.")
                     .font(.body.weight(.medium))
             }
-            Toggle(isOn: $acceptedTerms) {
-                Text("I agree to the Terms of Service and have read the Privacy Policy.").font(.subheadline).foregroundStyle(VipiDesign.secondary)
-            }.tint(VipiDesign.highlight)
             legalLinks
             if let signInError = authentication.errorMessage { Text(signInError).font(.subheadline).foregroundStyle(VipiDesign.destructive).accessibilityIdentifier("signInError") }
         }
@@ -147,8 +148,8 @@ struct OnboardingView: View {
     private var legalLinks: some View {
         let layout = dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 20)) : AnyLayout(HStackLayout(spacing: 20))
         return layout {
-                Link("Terms of Service", destination: URL(string: "https://api.mambovipi.app/terms")!).frame(minHeight: 44)
-                Link("Privacy Policy", destination: URL(string: "https://api.mambovipi.app/privacy")!).frame(minHeight: 44)
+                Link(destination: URL(string: "https://api.mambovipi.app/terms")!) { Text("Terms of Service").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
+                Link(destination: URL(string: "https://api.mambovipi.app/privacy")!) { Text("Privacy Policy").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
             }.font(.subheadline)
     }
 
@@ -160,7 +161,7 @@ struct OnboardingView: View {
                 case .language: advance(.account)
                 case .account: authentication.signIn()
                 }
-            }.disabled(state.onboarding == .account && !acceptedTerms).opacity(state.onboarding == .account && !acceptedTerms ? 0.5 : 1)
+            }.disabled(state.onboarding == .language && !preparation.prepared)
         }.padding(.horizontal, dynamicTypeSize.isAccessibilitySize ? 0 : 26).padding(.top, 14).padding(.bottom, 12)
             .frame(maxWidth: 560).frame(maxWidth: .infinity).background(VipiDesign.canvas)
     }

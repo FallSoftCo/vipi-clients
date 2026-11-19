@@ -106,7 +106,7 @@
     <string name="ui_4b34e1b08868" formatted="false">Enviar a vBot</string>
     <string name="ui_4bc6d965deeb" formatted="false">Cancelar traducción completa</string>
     <string name="ui_51fbe1dc8a73" formatted="false">Iniciar sesión de nuevo</string>
-    <string name="ui_52c236be01ef" formatted="false">Estas descargas son para la traducción opcional de mensajes completos. El cambio de palabras no las necesita. Para traducir todo un mensaje, elige Traducción completa en sus opciones de lectura. Los mensajes permanecen en este teléfono.</string>
+    <string name="ui_52c236be01ef" formatted="false">Vipi traduce mensajes completos en este teléfono, incluso sin conexión.</string>
     <string name="ui_5394002806ab" formatted="false">Usa de 3 a 24 letras, números o guiones bajos, empezando por una letra.</string>
     <string name="ui_53b6cd2365c7" formatted="false">Verificar cifrado</string>
     <string name="ui_541ecffcdb87" formatted="false">No se pudo comprobar el acceso a tu plan.</string>
@@ -198,7 +198,7 @@
     <string name="ui_b47e6d6e77c8" formatted="false">No se pudieron abrir los detalles de cifrado. Tu verificación no ha cambiado.</string>
     <string name="ui_b68710eee013" formatted="false">Conectando con tus chats</string>
     <string name="ui_b6ec9d55ae3b" formatted="false">He comparado los 12 grupos</string>
-    <string name="ui_b7c32ca74cb0" formatted="false">Escucha ambos idiomas</string>
+    <string name="ui_b7c32ca74cb0" formatted="false">Escucha en el idioma que aprendes</string>
     <string name="ui_b8173b954090" formatted="false">Eliminar descargas de traducción</string>
     <string name="ui_b8ed5279e897" formatted="false">Enviando…</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">Buscar amigo</string>
@@ -269,7 +269,7 @@
     <string name="annual_price">%1$s al año</string>
     <string name="trial_then_annual">Un mes gratis y después %1$s al año</string>
     <string name="subscribe_annual">Suscribirse por %1$s al año</string>
-    <string name="both_plans_total">Ambos planes: %1$s al año después de las pruebas, con cobros separados.</string>
+    <string name="both_plans_total">Ambos planes: %1$s al año, con cobros separados.</string>
     <string name="both_plans_separate">Vipi: %1$s al año. Bot mini: %2$s adicionales al año. Se cobran por separado.</string>
     <string name="plan_active">%1$s está activo</string>
     <string name="trial_end_date">La prueba termina el %1$s.</string>
@@ -357,7 +357,7 @@
     <string name="delivery_stopped">Detenido</string>
     <string name="delivery_imported">Importado</string>
     <string name="delivery_waiting">Pendiente de envío</string>
-    <string name="voices_prepare_offline">Prepara las voces de ambos idiomas para escuchar sin conexión.</string>
+    <string name="voices_prepare_offline">Prepara la voz del idioma que aprendes para escuchar sin conexión.</string>
     <string name="account_heading">Inicia sesión para\nchatear con amigos.</string>
     <string name="account_description">Crea una cuenta o inicia sesión en una existente. Tus amigos te encuentran por tu nombre de usuario, no por tu correo electrónico.</string>
     <string name="conversations_local">Tus conversaciones permanecen en tu dispositivo.</string>
@@ -406,8 +406,8 @@
     <string name="access_choose_word">Elige una palabra para cambiar</string>
     <string name="access_message_actions">Acciones del mensaje</string>
     <string name="cardless_ended">Tu acceso gratuito a Vipi terminó el %1$s. Suscríbete para seguir chateando.</string>
-    <string name="welcome_title_concise">Chatea con amigos.\nAprende palabras nuevas.</string>
-    <string name="welcome_detail_concise">Algunas palabras cambian de idioma mientras chateas.</string>
+    <string name="welcome_title_concise">Habla con tus amigos.\nAprende un idioma.</string>
+    <string name="welcome_detail_concise">Todos los mensajes aparecen en el idioma que estás aprendiendo.</string>
     <string name="preview_spanish_title">Prueba un poco de español</string>
     <string name="preview_tap_word">Toca una palabra resaltada para oírla en el idioma que estás aprendiendo. En los chats, toca una burbuja para traducir.</string>
     <string name="languages_title_concise">Tus idiomas</string>
@@ -439,4 +439,18 @@
     <string name="deletion_fallsoft_retained">Tu acceso a Fallsoft y tus cuentas en otras apps de Fallsoft se conservarán.</string>
     <string name="fallsoft_link_title">Usa tu cuenta de Fallsoft</string>
     <string name="fallsoft_link_detail">Vuelve a iniciar sesión en Vipi y después conecta tu cuenta de Fallsoft. Conservarás tus chats, tu perfil y tu periodo de prueba original.</string>
+    <string name="full_translation_preparing">Traduciendo…</string>
+    <string name="full_translation_failed">No se pudo traducir. Toca para reintentar.</string>
+    <string name="full_translation_meaning">Mostrar significados</string>
+    <string name="full_translation_practice">Mostrar texto de práctica</string>
+    <string name="full_translation_script">Mostrar escritura original</string>
+    <string name="full_translation_reading">Mostrar transliteración</string>
+    <string name="full_translation_play">Escuchar en el idioma de práctica</string>
+    <string name="full_translation_copy_original">Copiar mensaje original</string>
+    <string name="full_translation_gestures">Toca para escuchar. Mantén pulsado para ver el significado. Toca dos veces para cambiar la escritura.</string>
+    <string name="autoplay_turn_on">Activar reproducción automática</string>
+    <string name="autoplay_turn_off">Desactivar reproducción automática</string>
+    <string name="autoplay_on_notice">Reproducción automática activada. Los mensajes nuevos se leen en voz alta.</string>
+    <string name="report_message">Denunciar un mensaje</string>
+    <string name="full_translation_unavailable">Traducción no disponible</string>
 </resources>

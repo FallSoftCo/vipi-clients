@@ -69,7 +69,7 @@ import XCTest
         }
         controller.prepare(source: "en", target: "es", warmups: ["en": "Hello.", "es": "Hola."])
         try await awaitState(.ready)
-        let spans = ImmersionPreview.result.speech(source: "en", target: "es").map { (text: $0.text, language: $0.language) }
+        let spans = [(text:"A new message.",language:"en"),(text:"Un mensaje nuevo.",language:"es")]
         var start = Date()
         controller.toggle(message: "mixed", spans: spans)
         try await awaitState(.playing)

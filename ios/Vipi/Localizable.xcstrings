@@ -1,6 +1,462 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Automated replies can be mistaken.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Las respuestas automáticas pueden contener errores."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Automatische Antworten können Fehler enthalten."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "自動生成された返信には誤りがある場合があります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "자동 생성된 답변에 오류가 있을 수 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "自动生成的回复可能有误。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "自動產生的回覆可能有誤。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "قد تتضمن الردود الآلية أخطاء."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Les réponses automatiques peuvent contenir des erreurs."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Majibu ya kiotomatiki yanaweza kuwa na makosa."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le risposte automatiche possono contenere errori."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As respostas automáticas podem conter erros."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As respostas automáticas podem conter erros."
+          }
+        }
+      }
+    },
+    "Replies reset on %@.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Las respuestas se restablecen el %@."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die Antworten werden am %@ zurückgesetzt."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "返信回数は%@にリセットされます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "답변 수가 %@에 초기화됩니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "回复次数将于 %@ 重置。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "回覆次數將於 %@ 重設。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "يُعاد تعيين عدد الردود في %@."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le nombre de réponses est réinitialisé le %@."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Idadi ya majibu inawekwa upya tarehe %@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Il numero di risposte si reimposta il %@."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O número de respostas é redefinido em %@."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O número de respostas é reposto em %@."
+          }
+        }
+      }
+    },
+    "Bot mini usage": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Uso de Bot mini"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot-mini-Nutzung"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot miniの使用状況"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini 사용량"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini 用量"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bot mini 用量"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "استخدام Bot mini"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utilisation de Bot mini"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Matumizi ya Bot mini"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utilizzo di Bot mini"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Uso do Bot mini"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utilização do Bot mini"
+          }
+        }
+      }
+    },
+    "Optional Bot mini plan": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Plan Bot mini opcional"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Optionaler Bot-mini-Tarif"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "任意のBot miniプラン"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "선택 가능한 Bot mini 요금제"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "可选的 Bot mini 方案"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "可選的 Bot mini 方案"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "خطة Bot mini اختيارية"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Formule Bot mini facultative"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mpango wa hiari wa Bot mini"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Piano Bot mini facoltativo"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Plano Bot mini opcional"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Plano Bot mini opcional"
+          }
+        }
+      }
+    },
+    "Find a friend by username.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Busca a un amigo por su nombre de usuario."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Finde einen Freund über seinen Benutzernamen."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ユーザー名で友達を見つけましょう。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "사용자 이름으로 친구를 찾아보세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "通过用户名找到朋友。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "透過使用者名稱找到朋友。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "اعثر على صديق باستخدام اسم المستخدم."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Trouvez un ami grâce à son nom d’utilisateur."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tafuta rafiki kwa jina la mtumiaji."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Trova un amico tramite il nome utente."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Encontre um amigo pelo nome de usuário."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Encontre um amigo pelo nome de utilizador."
+          }
+        }
+      }
+    },
+    "Start a chat with a friend.": {
+      "localizations": {
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Empieza un chat con un amigo."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Starte einen Chat mit einem Freund."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "友達とのチャットを始めましょう。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "친구와 채팅을 시작하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "与朋友开始聊天。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "與朋友開始聊天。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ابدأ محادثة مع صديق."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Commencez une discussion avec un ami."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Anza mazungumzo na rafiki."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Inizia una chat con un amico."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Inicie uma conversa com um amigo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Inicie uma conversa com um amigo."
+          }
+        }
+      }
+    },
     " · Saved history": {
       "localizations": {
         "es": {
@@ -863,85 +1319,85 @@
         }
       }
     },
-    "Ask vBot a question or talk about your day. Supported words switch into your chosen language as you read. vBot can make mistakes; check important details.": {
+    "Ask vBot a question or talk about your day. Read and hear the replies in the language you’re learning. vBot can make mistakes; check important details.": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ask vBot a question or talk about your day. Supported words switch into your chosen language as you read. vBot can make mistakes; check important details."
+            "value": "Ask vBot a question or talk about your day. Read and hear the replies in the language you’re learning. vBot can make mistakes; check important details."
           }
         },
         "es": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Hazle una pregunta a vBot o habla de tu día. Las palabras compatibles cambian al idioma que elegiste mientras lees. vBot puede equivocarse; comprueba los datos importantes."
+            "state": "translated",
+            "value": "Hazle una pregunta a vBot o habla de tu día. Lee y escucha las respuestas en el idioma que estás aprendiendo. vBot puede equivocarse; comprueba los datos importantes."
           }
         },
         "de": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Stellen Sie vBot eine Frage oder sprechen Sie über Ihren Tag. Unterstützte Wörter wechseln beim Lesen in die von Ihnen gewählte Sprache. vBot kann Fehler machen; überprüfen Sie wichtige Details."
+            "state": "translated",
+            "value": "Stellen Sie vBot eine Frage oder erzählen Sie von Ihrem Tag. Lesen und hören Sie die Antworten in der Sprache, die Sie lernen. vBot kann Fehler machen; überprüfen Sie wichtige Details."
           }
         },
         "ja": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "vBotに質問するか、あなたの一日について話してください。 サポートされている単語は、読むにつれて選択した言語に切り替わります。vBot はミスをすることがありますので、重要な詳細をご確認ください。"
+            "state": "translated",
+            "value": "vBotに質問したり、今日の出来事を話したりしてみましょう。学習中の言語で返事を読み、音声で聞くことができます。vBotは間違えることがあります。大切な情報は確認してください。"
           }
         },
         "ar": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "اسأل vBot سؤالا أو تحدث عن يومك. تتحول الكلمات المدعومة إلى اللغة التي اخترتها أثناء القراءة. يمكن أن يرتكب vBot أخطاء؛ تحقق من التفاصيل المهمة."
+            "state": "translated",
+            "value": "اسأل vBot سؤالًا أو تحدث عن يومك. اقرأ الردود واستمع إليها باللغة التي تتعلمها. قد يخطئ vBot؛ تحقق من المعلومات المهمة."
           }
         },
         "ko": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "vBot에게 질문을 하시거나 하루에 대해 이야기해 주세요. 지원되는 단어는 읽는 동안 선택한 언어로 전환됩니다. vBot은 실수를 할 수 있습니다; 중요한 세부 사항을 확인하십시오."
+            "state": "translated",
+            "value": "vBot에게 질문하거나 오늘 있었던 일을 이야기해 보세요. 배우는 언어로 답변을 읽고 들을 수 있습니다. vBot은 실수할 수 있으니 중요한 내용은 확인하세요."
           }
         },
         "zh-Hans": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "向vBot提问或谈论你的一天。 在您阅读时，支持的单词会切换到您选择的语言。vBot可能会出错；检查重要细节。"
+            "state": "translated",
+            "value": "向 vBot 提问，或聊聊你今天的经历。用你正在学习的语言阅读和收听回复。vBot 可能会出错，请核实重要信息。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "向vBot提問或談論你的一天。 在您閱讀時，支持的單詞會切換到您選擇的語言。vBot可能會出錯；檢查重要細節。"
+            "state": "translated",
+            "value": "向 vBot 提問，或聊聊你今天的經歷。用你正在學習的語言閱讀和收聽回覆。vBot 可能會出錯，請核實重要資訊。"
           }
         },
         "fr": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Posez une question à vBot ou racontez votre journée. Les mots pris en charge passent dans la langue choisie pendant votre lecture. vBot peut se tromper ; vérifiez les informations importantes."
+            "state": "translated",
+            "value": "Posez une question à vBot ou racontez votre journée. Lisez et écoutez les réponses dans la langue que vous apprenez. vBot peut se tromper ; vérifiez les informations importantes."
           }
         },
         "sw": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Muulize vBot swali au zungumza kuhusu siku yako. Maneno yanayopatikana hubadilika kwenda lugha uliyochagua unaposoma. vBot inaweza kukosea; hakiki taarifa muhimu."
+            "state": "translated",
+            "value": "Muulize vBot swali au zungumza kuhusu siku yako. Soma na usikilize majibu katika lugha unayojifunza. vBot inaweza kukosea; hakiki taarifa muhimu."
           }
         },
         "it": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Fai una domanda a vBot o racconta la tua giornata. Le parole supportate passano alla lingua scelta mentre leggi. vBot può sbagliare; verifica i dettagli importanti."
+            "state": "translated",
+            "value": "Fai una domanda a vBot o racconta la tua giornata. Leggi e ascolta le risposte nella lingua che stai imparando. vBot può sbagliare; verifica i dettagli importanti."
           }
         },
         "pt-BR": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Faça uma pergunta ao vBot ou conte como foi seu dia. As palavras compatíveis mudam para o idioma escolhido enquanto você lê. O vBot pode errar; confira informações importantes."
+            "state": "translated",
+            "value": "Faça uma pergunta ao vBot ou conte como foi seu dia. Leia e ouça as respostas no idioma que você está aprendendo. O vBot pode errar; confira informações importantes."
           }
         },
         "pt-PT": {
           "stringUnit": {
-            "state": "needs_review",
-            "value": "Faça uma pergunta ao vBot ou conte como foi seu dia. As palavras compatíveis mudam para o idioma escolhido enquanto você lê. O vBot pode errar; confira informações importantes."
+            "state": "translated",
+            "value": "Faça uma pergunta ao vBot ou conte como foi o seu dia. Leia e ouça as respostas na língua que está a aprender. O vBot pode errar; verifique as informações importantes."
           }
         }
       }
@@ -32332,6 +32788,82 @@
         }
       }
     },
+    "Switch %@ and %@, occurrence %lld": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "التبديل بين %@ و%@، الموضع %lld"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Zwischen %@ und %@ wechseln, Vorkommen %lld"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Alternar %@ y %@, aparición %lld"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Basculer entre %@ et %@, occurrence %lld"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Alterna %@ e %@, occorrenza %lld"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@ と %@ を切り替え、%lld 番目"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@ 및 %@ 전환, %lld번째"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Alternar %@ e %@, ocorrência %lld"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Alternar %@ e %@, ocorrência %lld"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Badili %@ na %@, tukio la %lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "切换 %@ 和 %@，第 %lld 处"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "切換 %@ 和 %@，第 %lld 處"
+          }
+        }
+      }
+    },
     "Copy displayed message": {
       "localizations": {
         "es": {
@@ -37070,84 +37602,84 @@
         }
       }
     },
-    "Tap a highlighted word to hear it. In chats, tap a bubble to translate.": {
+    "Tap a highlighted word to hear it in your practice language. In chats, tap a bubble to translate.": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Tap a highlighted word to hear it. In chats, tap a bubble to translate."
+            "value": "Tap a highlighted word to hear it in your practice language. In chats, tap a bubble to translate."
           }
         },
         "es": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Toca una palabra resaltada para oírla. En los chats, toca una burbuja para traducir."
+            "value": "Toca una palabra resaltada para oírla en el idioma que estás aprendiendo. En los chats, toca una burbuja para traducir."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Touchez un mot surligné pour l’entendre. Dans les chats, touchez une bulle pour traduire."
+            "value": "Touchez un mot surligné pour l’entendre dans la langue que vous apprenez. Dans les chats, touchez une bulle pour traduire."
           }
         },
         "de": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Tippe auf ein markiertes Wort, um es zu hören. Tippe im Chat auf eine Sprechblase zum Übersetzen."
+            "value": "Tippe auf ein markiertes Wort, um es in der Sprache zu hören, die du lernst. Tippe im Chat auf eine Sprechblase zum Übersetzen."
           }
         },
         "it": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Tocca una parola evidenziata per ascoltarla. Nelle chat, tocca un fumetto per tradurre."
+            "value": "Tocca una parola evidenziata per ascoltarla nella lingua che stai imparando. Nelle chat, tocca un fumetto per tradurre."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Toque em uma palavra destacada para ouvi-la. Nas conversas, toque em um balão para traduzir."
+            "value": "Toque em uma palavra destacada para ouvi-la no idioma que você está aprendendo. Nas conversas, toque em um balão para traduzir."
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Toca numa palavra destacada para a ouvires. Nas conversas, toca num balão para traduzir."
+            "value": "Toca numa palavra destacada para a ouvires na língua que estás a aprender. Nas conversas, toca num balão para traduzir."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "ハイライトされた単語をタップすると音声が流れます。チャットでは、吹き出しをタップすると翻訳されます。"
+            "value": "ハイライトされた単語をタップすると、学習中の言語での発音を聞けます。チャットでは、吹き出しをタップすると翻訳されます。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "강조된 단어를 누르면 소리를 들을 수 있어요. 채팅에서는 말풍선을 누르면 번역돼요."
+            "value": "강조된 단어를 누르면 학습 중인 언어로 발음을 들을 수 있어요. 채팅에서는 말풍선을 누르면 번역돼요."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "点按高亮单词即可听发音。在聊天中，点按气泡即可翻译。"
+            "value": "点按高亮单词，即可听到它在所学语言中的发音。在聊天中，点按气泡即可翻译。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "點一下反白單字即可聽發音。在聊天中，點一下對話氣泡即可翻譯。"
+            "value": "點一下反白單字，即可聽到它在所學語言中的發音。在聊天中，點一下對話氣泡即可翻譯。"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "اضغط على كلمة مميزة لسماعها. في الدردشات، اضغط على فقاعة للترجمة."
+            "value": "اضغط على كلمة مميزة لسماع نطقها باللغة التي تتعلمها. في الدردشات، اضغط على فقاعة للترجمة."
           }
         },
         "sw": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Gusa neno lililoangaziwa ili kulisikia. Kwenye mazungumzo, gusa kiputo ili kutafsiri."
+            "value": "Gusa neno lililoangaziwa ili kusikia matamshi yake katika lugha unayojifunza. Kwenye mazungumzo, gusa kiputo ili kutafsiri."
           }
         }
       }
@@ -37478,6 +38010,1417 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Ingia tena katika Vipi, kisha unganisha akaunti yako ya Fallsoft. Gumzo, wasifu na kipindi chako cha awali cha majaribio vitahifadhiwa."
+          }
+        }
+      }
+    },
+    "Translating…": {
+      "comment": "Full-message chat translation gesture/status; practice means the language the person is learning.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Translating…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traduciendo…"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traduction…"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wird übersetzt…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traduzione…"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traduzindo…"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A traduzir…"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "翻訳中…"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "번역 중…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在翻译…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在翻譯…"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جارٍ الترجمة…"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inatafsiri…"
+          }
+        }
+      }
+    },
+    "Translation failed. Tap to retry.": {
+      "comment": "Full-message chat translation gesture/status; practice means the language the person is learning.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Translation failed. Tap to retry."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo traducir. Toca para reintentar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Échec de la traduction. Touchez pour réessayer."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzung fehlgeschlagen. Zum Wiederholen tippen."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traduzione non riuscita. Tocca per riprovare."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível traduzir. Toque para tentar de novo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível traduzir. Toque para tentar novamente."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "翻訳できませんでした。タップして再試行してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "번역하지 못했어요. 탭해서 다시 시도하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "翻译失败。轻点重试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "翻譯失敗。點一下重試。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّرت الترجمة. اضغط للمحاولة مجددًا."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tafsiri imeshindikana. Gusa ili ujaribu tena."
+          }
+        }
+      }
+    },
+    "Show meanings": {
+      "comment": "Full-message chat translation gesture/status; practice means the language the person is learning.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show meanings"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar significados"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher le sens"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bedeutung anzeigen"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra il significato"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar o significado"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar o significado"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "意味を表示"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "뜻 보기"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示含义"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示意思"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إظهار المعاني"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onyesha maana"
+          }
+        }
+      }
+    },
+    "Show practice text": {
+      "comment": "Full-message chat translation gesture/status; practice means the language the person is learning.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show practice text"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar texto de práctica"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher le texte dans la langue apprise"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Text in der Lernsprache anzeigen"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra il testo nella lingua da imparare"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar o texto no idioma de prática"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar o texto no idioma de prática"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "学習言語の文を表示"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "학습 언어로 보기"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示学习语言"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示學習語言"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إظهار النص بلغة التعلّم"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onyesha maandishi ya lugha unayojifunza"
+          }
+        }
+      }
+    },
+    "Show native script": {
+      "comment": "Full-message chat translation gesture/status; practice means the language the person is learning.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show native script"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar escritura original"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher l’écriture d’origine"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Originalschrift anzeigen"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra la scrittura originale"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar a escrita original"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar a escrita original"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "元の文字で表示"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "원래 문자로 보기"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示原文文字"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示原文文字"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إظهار الحروف الأصلية"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onyesha herufi asilia"
+          }
+        }
+      }
+    },
+    "Show transliteration": {
+      "comment": "Full-message chat translation gesture/status; practice means the language the person is learning.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show transliteration"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar transliteración"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Afficher la translittération"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Umschrift anzeigen"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostra la traslitterazione"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar a transliteração"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar a transliteração"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ローマ字で表示"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "로마자 표기 보기"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示罗马字母转写"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示羅馬字母轉寫"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إظهار الكتابة بالحروف اللاتينية"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Onyesha maandishi kwa herufi za Kilatini"
+          }
+        }
+      }
+    },
+    "Play in practice language": {
+      "comment": "Full-message chat translation gesture/status; practice means the language the person is learning.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Play in practice language"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escuchar en el idioma de práctica"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écouter dans la langue apprise"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In der Lernsprache anhören"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ascolta nella lingua da imparare"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvir no idioma de prática"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvir no idioma de prática"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "学習言語で読み上げる"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "학습 언어로 듣기"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用学习语言朗读"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用學習語言朗讀"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الاستماع بلغة التعلّم"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sikiliza kwa lugha unayojifunza"
+          }
+        }
+      }
+    },
+    "Chat with friends.\nLearn a language.": {
+      "comment": "Full-message translation onboarding. Translate every message into the language the person is learning.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chat with friends.\nLearn a language."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Habla con tus amigos.\nAprende un idioma."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Discutez avec vos amis.\nApprenez une langue."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chatte mit Freunden.\nLerne eine Sprache."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chatta con gli amici.\nImpara una lingua."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Converse com amigos.\nAprenda um idioma."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Conversa com amigos.\nAprende uma língua."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "友だちと話そう。\n新しい言語で。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구와 대화하며\n새로운 언어를 배워요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "和朋友聊天。\n学一门语言。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "和朋友聊天。\n學一門語言。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دردش مع أصدقائك.\nوتعلّم لغة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zungumza na marafiki.\nJifunze lugha."
+          }
+        }
+      }
+    },
+    "Every message appears in the language you’re learning.": {
+      "comment": "Full-message translation onboarding. Translate every message into the language the person is learning.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Every message appears in the language you’re learning."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todos los mensajes aparecen en el idioma que estás aprendiendo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chaque message apparaît dans la langue que vous apprenez."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jede Nachricht erscheint in der Sprache, die du lernst."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ogni messaggio appare nella lingua che stai imparando."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas as mensagens aparecem no idioma que você está aprendendo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Todas as mensagens aparecem na língua que estás a aprender."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべてのメッセージが学習中の言語で表示されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모든 메시지가 배우고 있는 언어로 표시돼요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每条消息都会用你正在学习的语言显示。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "每則訊息都會用你正在學習的語言顯示。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تظهر كل رسالة باللغة التي تتعلّمها."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kila ujumbe unaonekana katika lugha unayojifunza."
+          }
+        }
+      }
+    },
+    "Tap to listen. Hold to see meanings. Double-tap to change script.": {
+      "comment": "Full-message chat translation gesture/status; practice means the language the person is learning.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap to listen. Hold to see meanings. Double-tap to change script."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toca para escuchar. Mantén pulsado para ver el significado. Toca dos veces para cambiar la escritura."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touchez pour écouter. Maintenez pour voir le sens. Touchez deux fois pour changer d’écriture."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippen zum Anhören. Gedrückt halten für die Bedeutung. Doppeltippen zum Wechseln der Schrift."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tocca per ascoltare. Tieni premuto per vedere il significato. Tocca due volte per cambiare scrittura."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque para ouvir. Mantenha pressionado para ver o significado. Toque duas vezes para mudar a escrita."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque para ouvir. Mantenha premido para ver o significado. Toque duas vezes para mudar a escrita."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "タップで読み上げ。長押しで意味を表示。ダブルタップで文字表記を切り替え。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "탭해서 들어 보세요. 길게 누르면 뜻이 보여요. 두 번 탭하면 문자 표기가 바뀌어요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轻点朗读，按住查看含义，轻点两下切换文字形式。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點一下朗讀，按住查看意思，點兩下切換文字形式。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اضغط للاستماع. اضغط مطولًا لرؤية المعاني. اضغط مرتين لتغيير طريقة الكتابة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gusa ili usikilize. Bonyeza na ushikilie ili uone maana. Gusa mara mbili ili ubadilishe herufi."
+          }
+        }
+      }
+    },
+    "Turn on autoplay": {
+      "comment": "Chat autoplay control. Reads only new messages in the language being learned.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn on autoplay"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activar reproducción automática"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activer la lecture automatique"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatische Wiedergabe einschalten"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attiva la riproduzione automatica"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ativar reprodução automática"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ativar reprodução automática"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動読み上げをオンにする"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "자동 재생 켜기"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开启自动朗读"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開啟自動朗讀"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تشغيل القراءة التلقائية"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Washa usomaji wa kiotomatiki"
+          }
+        }
+      }
+    },
+    "Turn off autoplay": {
+      "comment": "Chat autoplay control. Reads only new messages in the language being learned.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Turn off autoplay"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desactivar reproducción automática"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Désactiver la lecture automatique"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatische Wiedergabe ausschalten"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Disattiva la riproduzione automatica"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desativar reprodução automática"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desativar reprodução automática"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動読み上げをオフにする"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "자동 재생 끄기"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭自动朗读"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "關閉自動朗讀"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إيقاف القراءة التلقائية"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zima usomaji wa kiotomatiki"
+          }
+        }
+      }
+    },
+    "Autoplay on. New messages play aloud.": {
+      "comment": "Chat autoplay control. Reads only new messages in the language being learned.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autoplay on. New messages play aloud."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reproducción automática activada. Los mensajes nuevos se leen en voz alta."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lecture automatique activée. Les nouveaux messages sont lus à voix haute."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatische Wiedergabe an. Neue Nachrichten werden vorgelesen."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riproduzione automatica attiva. I nuovi messaggi vengono letti ad alta voce."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reprodução automática ativada. Novas mensagens serão lidas em voz alta."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reprodução automática ativada. As novas mensagens serão lidas em voz alta."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動読み上げはオンです。新しいメッセージを読み上げます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "자동 재생이 켜졌어요. 새 메시지를 소리 내어 읽어요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自动朗读已开启。新消息将自动朗读。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "自動朗讀已開啟。新訊息將自動朗讀。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "القراءة التلقائية مفعّلة. ستُقرأ الرسائل الجديدة بصوت عالٍ."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usomaji wa kiotomatiki umewashwa. Ujumbe mpya utasomwa kwa sauti."
+          }
+        }
+      }
+    },
+    "Report a message": {
+      "comment": "Chat reporting action or practice-language-only voice help.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Report a message"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Denunciar un mensaje"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Signaler un message"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nachricht melden"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Segnala un messaggio"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Denunciar uma mensagem"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Denunciar uma mensagem"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メッセージを報告"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "메시지 신고"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "举报消息"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢舉訊息"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإبلاغ عن رسالة"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ripoti ujumbe"
+          }
+        }
+      }
+    },
+    "Listen in your practice language": {
+      "comment": "Chat reporting action or practice-language-only voice help.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen in your practice language"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escucha en el idioma que aprendes"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écoutez dans la langue que vous apprenez"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In deiner Lernsprache hören"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ascolta nella lingua che stai imparando"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouça no idioma que está aprendendo"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouve no idioma que estás a aprender"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "学習中の言語で聞く"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "배우는 언어로 듣기"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "听你正在学习的语言"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "聆聽正在學習的語言"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استمع باللغة التي تتعلمها"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sikiliza kwa lugha unayojifunza"
+          }
+        }
+      }
+    },
+    "Prepare the voice for the language you’re learning to listen offline.": {
+      "comment": "Chat reporting action or practice-language-only voice help.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prepare the voice for the language you’re learning to listen offline."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prepara la voz del idioma que aprendes para escuchar sin conexión."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Préparez la voix de la langue que vous apprenez pour écouter hors ligne."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bereite die Stimme für deine Lernsprache vor, um offline zuzuhören."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prepara la voce della lingua che stai imparando per ascoltare senza connessione."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prepare a voz do idioma que está aprendendo para ouvir sem conexão."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prepara a voz do idioma que estás a aprender para ouvir sem ligação."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "オフラインで聞けるように、学習中の言語の音声を準備してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오프라인에서도 들을 수 있도록 배우는 언어의 음성을 준비하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "准备好所学语言的语音，即可离线收听。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "準備好所學語言的語音，即可離線收聽。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جهّز صوت اللغة التي تتعلمها للاستماع دون اتصال."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Andaa sauti ya lugha unayojifunza ili kusikiliza bila intaneti."
+          }
+        }
+      }
+    },
+    "Translation unavailable": {
+      "comment": "Neutral chat-list preview when translation failed. Opening this row opens the conversation; retry is available there.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Translation unavailable"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traducción no disponible"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traduction indisponible"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Übersetzung nicht verfügbar"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Traduzione non disponibile"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tradução indisponível"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tradução indisponível"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "翻訳を表示できません"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "번역을 사용할 수 없음"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "翻译暂不可用"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "翻譯暫時無法使用"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الترجمة غير متاحة"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tafsiri haipatikani"
           }
         }
       }

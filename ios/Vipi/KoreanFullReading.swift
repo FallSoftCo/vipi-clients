@@ -1,5 +1,6 @@
 // Native OS reading adapter. No model preparation or sound-change rules.
 import Foundation
+import VipiCore
 import CoreFoundation
 
 /// Retains Core Foundation's spelling-based Hangul transcription, including its
@@ -37,7 +38,7 @@ enum KoreanFullReading {
     }
     static func resolve(_ text: String) -> Result {
         let native = text as NSString
-        guard (1...16_384).contains(native.length) else {
+        guard (1...FullMessageBudget.recordBytes).contains(text.utf8.count) else {
             return .init(reading: nil, inspection: text, pieces: [], tokens: [], issues: ["input_length"])
         }
         var mask = [Bool](repeating: false, count: native.length)

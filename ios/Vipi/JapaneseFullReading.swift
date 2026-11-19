@@ -1,5 +1,6 @@
 // Native OS reading adapter. No model preparation or phrase overrides.
 import Foundation
+import VipiCore
 import CoreFoundation
 
 /// Core Foundation's lexical Latin readings, with exact source reconstruction.
@@ -50,7 +51,7 @@ enum JapaneseFullReading {
     }
     static func resolve(_ text: String) -> Result {
         let native = text as NSString
-        guard (1...16_384).contains(native.length) else {
+        guard (1...FullMessageBudget.recordBytes).contains(text.utf8.count) else {
             return .init(reading: nil, inspection: text, pieces: [], tokens: [], issues: ["input_length"])
         }
         var mask = [Bool](repeating: false, count: native.length)

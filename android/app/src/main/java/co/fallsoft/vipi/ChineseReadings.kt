@@ -115,7 +115,7 @@ internal class ChineseReadings(data: ByteArray) {
         return chosen
     }
     fun resolve(text: String, preserveOpaque: Boolean = true): Result {
-        require(text.length in 1..16_384)
+        require(text.length in 1..FullReadingLimits.MAX_TEXT_UTF16)
         val points = text.codePoints().toArray(); val offsets = IntArray(points.size + 1)
         for (i in points.indices) offsets[i + 1] = offsets[i] + Character.charCount(points[i])
         val mask = BooleanArray(text.length)

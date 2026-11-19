@@ -12,6 +12,9 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material.icons.outlined.VolumeUp
+import androidx.compose.material.icons.outlined.VolumeOff
 import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -22,6 +25,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.platform.testTag
@@ -41,16 +45,32 @@ import java.time.format.FormatStyle
 @Composable internal fun BotConversationScreen(model: VipiModel, bot: BotSession) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
     val owner = LocalLifecycleOwner.current
-    val immersion = remember(bot, model.knownLanguage, model.targetLanguage, model.density) { ConversationImmersion(context, model.knownLanguage, model.targetLanguage, model.density, familiarity = bot.familiarity) }
-    val speech = remember(bot, model.knownLanguage, model.targetLanguage) { SpeechPlayback(context, model.knownLanguage, model.targetLanguage, scope) }
-    val warmups = remember(immersion) {
-        val example = ConversationExamples.result(context, model.knownLanguage, model.targetLanguage)
-        mapOf(model.knownLanguage to example.original, model.targetLanguage to example.translation)
+    val translation = bot.translations
+    val gestures = remember(bot, model.knownLanguage, model.targetLanguage) { FullMessageGestures() }
+    LaunchedEffect(bot, model.knownLanguage, model.targetLanguage) {
+        bot.configureTranslations(model.knownLanguage, model.targetLanguage)
+    }
+    val speech = remember(bot, model.knownLanguage, model.targetLanguage) { SpeechPlayback(context, model.targetLanguage, scope) }
+    val warmups = remember(model.knownLanguage, model.targetLanguage) { mapOf(model.knownLanguage to "1", model.targetLanguage to "1") }
+    var showVoiceHelp by remember(bot) { mutableStateOf(false) }
+    val audio = remember(translation, speech) { translation?.let { ConversationAutoplay(it, speech, scope) {
+        showVoiceHelp = true
+    } } }
+    DisposableEffect(audio, bot) {
+        val source = java.lang.ref.WeakReference(bot)
+        if (audio != null) bot.observeNewMessages(audio) { id, _ -> audio.offerStored(id) { source.get()?.messageOriginal(id) } }
+        onDispose { if (audio != null) { bot.removeNewMessageObserver(audio); audio.close() } }
     }
     var composing by remember { mutableStateOf(false) }
     var consentChecked by remember { mutableStateOf(false) }
     var localError by remember { mutableStateOf<String?>(null) }
+    var reportOptions by remember { mutableStateOf(false) }
+    var chooseReport by remember { mutableStateOf(false) }
+    var chooseCopy by remember(bot) { mutableStateOf(false) }
+    var copyOriginImeVisible by remember(bot) { mutableStateOf(false) }
+    var copyOriginComposerFocused by remember(bot) { mutableStateOf(false) }
     var reportedMessage by remember { mutableStateOf<BotMessage?>(null) }
     var reportText by remember { mutableStateOf("") }
     var reportReason by remember { mutableStateOf("") }
@@ -60,8 +80,8 @@ import java.time.format.FormatStyle
     val subscriptions = model.subscriptions
     LaunchedEffect(subscriptions) { subscriptions?.refreshAccess(ifNeeded = true) }
     LaunchedEffect(bot) { bot.refreshAllowance() }
-    LaunchedEffect(immersion) { immersion.checkDownloads() }
     LaunchedEffect(speech) { speech.prepare(warmups) }
+    LaunchedEffect(speech.state) { if (speech.state == SpeechState.READY) showVoiceHelp = false }
     LaunchedEffect(list, bot) {
         snapshotFlow {
             val layout = list.layoutInfo
@@ -95,16 +115,17 @@ import java.time.format.FormatStyle
     LaunchedEffect(bot.messages.lastOrNull()?.id) {
         if (followingLatest && bot.messages.isNotEmpty()) list.scrollToItem(bot.messages.size + 1)
     }
-    DisposableEffect(owner, immersion, speech) {
+    DisposableEffect(owner, speech, audio) {
         val listener = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_STOP) speech.stop()
-            if (event == Lifecycle.Event.ON_RESUME) { scope.launch { bot.refreshAllowance(); immersion.checkDownloads() }; speech.prepare(warmups) }
+            if (event == Lifecycle.Event.ON_STOP) { gestures.held = false; audio?.background(); speech.stop() }
+            if (event == Lifecycle.Event.ON_RESUME) { scope.launch { bot.refreshAllowance(); translation?.preparePair() }; speech.prepare(warmups) }
         }
         owner.lifecycle.addObserver(listener)
-        onDispose { owner.lifecycle.removeObserver(listener); immersion.close(); speech.close() }
+        onDispose { owner.lifecycle.removeObserver(listener); speech.close() }
     }
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val density = LocalDensity.current
+    val keyboardInsets = WindowInsets.ime
     val statusNotice = localError ?: bot.notice
     var statusNoticeHeightPx by remember(statusNotice) { mutableIntStateOf(0) }
     val bottomInsets = with(density) { maxOf(WindowInsets.ime.getBottom(this), WindowInsets.navigationBars.getBottom(this)).toDp() }
@@ -162,7 +183,37 @@ import java.time.format.FormatStyle
         Box(Modifier.onSizeChanged { topBarHeightPx = it.height }) {
         TopAppBar(title = { Text(stringResource(R.string.ui_f173182378d0)) },
             expandedHeight = if (compact) compactBarHeight else TopAppBarDefaults.TopAppBarExpandedHeight, navigationIcon = { IconButton(onClick = { model.back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
-            actions = { TextButton(onClick = { model.navigate(Screen.BOT_PLAN) }) { Text(stringResource(R.string.ui_ff245b368781)) } })
+            actions = {
+                IconToggleButton(checked = audio?.enabled == true, onCheckedChange = { enabled ->
+                    val wasEnabled = audio?.enabled == true
+                    audio?.setAutoplayEnabled(enabled)
+                    if (!wasEnabled && audio?.enabled == true) android.widget.Toast.makeText(context, R.string.autoplay_on_notice, android.widget.Toast.LENGTH_SHORT).show()
+                }, modifier = Modifier.testTag("bot-autoplay")) {
+                    Icon(if (audio?.enabled == true) Icons.Outlined.VolumeUp else Icons.Outlined.VolumeOff,
+                        stringResource(if (audio?.enabled == true) R.string.autoplay_turn_off else R.string.autoplay_turn_on))
+                }
+                Box {
+                    IconButton(onClick = {
+                        copyOriginImeVisible = keyboardInsets.getBottom(density) > 0
+                        copyOriginComposerFocused = composing
+                        reportOptions = true
+                    }, modifier = Modifier.testTag("bot-options")) {
+                        Icon(Icons.Outlined.MoreVert, stringResource(R.string.ui_af8a897d2feb))
+                    }
+                    DropdownMenu(reportOptions, onDismissRequest = { reportOptions = false }) {
+                        DropdownMenuItem(text = { Text(stringResource(R.string.full_translation_copy_original)) },
+                            modifier = Modifier.testTag("bot-copy"), enabled = bot.messages.isNotEmpty(),
+                            onClick = {
+                                audio?.setAutoplayEnabled(false)
+                                if (!copyOriginImeVisible && copyOriginComposerFocused) focusManager.clearFocus(force = true)
+                                reportOptions = false; chooseCopy = true
+                            })
+                        DropdownMenuItem(text = { Text(stringResource(R.string.report_message)) }, modifier = Modifier.testTag("bot-report"),
+                            enabled = bot.messages.any { it.role == "assistant" && it.requestID != null },
+                            onClick = { reportOptions = false; chooseReport = true })
+                    }
+                }
+                TextButton(onClick = { model.navigate(Screen.BOT_PLAN) }) { Text(stringResource(R.string.ui_ff245b368781)) } })
         }
     }, bottomBar = {
         Column(Modifier.heightIn(max = footerMaxHeight).background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding().padding(horizontal = 12.dp)) {
@@ -183,6 +234,8 @@ import java.time.format.FormatStyle
                 pinRecoveryAction = pinRecoveryAction, onRecoveryActionHeight = { recoveryActionHeightPx = it },
                 statusKey = statusNotice,
                 statusContent = {
+                    if (showVoiceHelp || speech.state == SpeechState.UNAVAILABLE)
+                        SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
                     statusNotice?.let { Text(it, style = MaterialTheme.typography.bodySmall,
                         modifier = Modifier.onSizeChanged { measured -> statusNoticeHeightPx = measured.height }) }
                     // Keep informational quota out of the tiny IME status
@@ -193,43 +246,48 @@ import java.time.format.FormatStyle
                 })
         }
     }) { padding ->
-        BoxWithConstraints(Modifier.fillMaxSize().padding(padding)) {
+        Column(Modifier.fillMaxSize().padding(padding)) {
+        BoxWithConstraints(Modifier.weight(1f).fillMaxWidth()) {
         // Passive empty-state copy needs room for at least one complete scaled
         // line and the list's existing vertical padding. Do not render a glyph
         // strip in a landscape viewport temporarily owned by the IME.
         val minimumIntroHeight = with(density) { resolvedComposeLineHeight(MaterialTheme.typography.bodySmall) } + 32.dp
         val showEmptyIntro = maxHeight >= minimumIntroHeight
-        LazyColumn(state = list, modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        LazyColumn(state = list, modifier = Modifier.fillMaxSize().fullMessageGestures(gestures), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
-                if (bot.earlierAvailable) TextButton(onClick = { followingLatest = false; runCatching { bot.earlier() }.onFailure { localError = context.getString(R.string.bot_earlier_open_failed) } }) { Text(stringResource(R.string.ui_561a197a2807)) }
-                else if (bot.messages.isNotEmpty() || showEmptyIntro) Text(stringResource(if (bot.messages.isEmpty()) R.string.ui_cc39ebccb529 else R.string.bot_caution), style = MaterialTheme.typography.bodySmall)
+                ConversationTranscriptItem {
+                    if (bot.earlierAvailable) TextButton(onClick = { followingLatest = false; runCatching { bot.earlier() }.onFailure { localError = context.getString(R.string.bot_earlier_open_failed) } }) { Text(stringResource(R.string.ui_561a197a2807)) }
+                    else if (bot.messages.isNotEmpty() || showEmptyIntro) Text(stringResource(if (bot.messages.isEmpty()) R.string.ui_cc39ebccb529 else R.string.bot_caution), style = MaterialTheme.typography.bodySmall)
+                }
             }
             items(bot.messages, key = { it.id }) { message ->
                 val outgoing = message.role == "user"
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = if (outgoing) Arrangement.End else Arrangement.Start) {
-                    if (outgoing) Spacer(Modifier.width(38.dp))
-                    Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).background(if (outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp))) {
-                    ConversationImmersionText(message.text, message.id, immersion, speech, (composing && bot.draft.isNotEmpty()) || list.isScrollInProgress || reportedMessage != null,
-                        onVoiceHelp = { runCatching { context.startActivity(Intent("com.android.settings.TTS_SETTINGS")) }.onFailure { localError = context.getString(R.string.speech_settings_open_failed) } },
-                        onTranslationSetup = { model.navigate(Screen.LANGUAGE_DOWNLOAD) },
-                        onReport = if (message.role == "assistant" && message.requestID != null) ({
-                            speech.stop(); reportedMessage = message; reportReason = ""
-                            reportText = message.text
-                            while (reportText.toByteArray(Charsets.UTF_8).size > 4000) reportText = reportText.dropLast(Character.charCount(reportText.codePointBefore(reportText.length)))
-                        }) else null) {
-                        if (outgoing && message.status in setOf("unconfirmed", "rejected")) Text(
-                            stringResource(if (message.status == "unconfirmed") R.string.ui_c654d70db3ac else R.string.ui_e28ba924e405),
-                            style = MaterialTheme.typography.bodySmall)
+                ConversationTranscriptItem {
+                    Row(Modifier.fillMaxWidth(), horizontalArrangement = if (outgoing) Arrangement.End else Arrangement.Start) {
+                        if (outgoing) Spacer(Modifier.width(38.dp))
+                        Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).background(if (outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(20.dp))) {
+                        if (translation != null && audio != null) FullMessageBubble(message.text, message.id, translation, gestures, audio) {
+                            if (outgoing && message.status in setOf("unconfirmed", "rejected")) Text(
+                                stringResource(if (message.status == "unconfirmed") R.string.ui_c654d70db3ac else R.string.ui_e28ba924e405),
+                                style = MaterialTheme.typography.bodySmall)
+                        }
+                        }
+                        if (!outgoing) Spacer(Modifier.width(38.dp))
                     }
-                    }
-                    if (!outgoing) Spacer(Modifier.width(38.dp))
                 }
             }
             item(key = "bot-history-bottom") { Spacer(Modifier.height(1.dp)) }
         }
         }
+        FullMessageGestureCue(gestures, composing, compact ||
+            androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE)
+        }
     }
     }
+    if (chooseCopy) MessageOriginalChooser(bot.messages.map { MessageChoice(it.id, it.text) }, dismiss = { chooseCopy = false })
+    if (chooseReport) MessageReportChooser(bot.messages.filter { it.role == "assistant" && it.requestID != null }.map { MessageChoice(it.id, it.text) },
+        select = { id -> reportedMessage = bot.messages.single { it.id == id }; reportText = reportedMessage!!.text; reportReason = ""; chooseReport = false },
+        dismiss = { chooseReport = false })
     reportedMessage?.let { message -> AlertDialog(onDismissRequest = { if (!bot.reporting) reportedMessage = null },
         title = { Text(stringResource(R.string.ui_9e0f3ffbf015)) },
         text = { Column(Modifier.heightIn(max = 360.dp).verticalScroll(rememberScrollState())) {

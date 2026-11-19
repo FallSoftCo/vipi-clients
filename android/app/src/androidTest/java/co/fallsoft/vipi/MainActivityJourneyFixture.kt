@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Rect
+import android.graphics.RectF
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -121,18 +122,36 @@ internal class MainActivityJourneyFixture(
         requireNotNull(scenario).moveToState(androidx.lifecycle.Lifecycle.State.CREATED)
         requireNotNull(scenario).moveToState(androidx.lifecycle.Lifecycle.State.RESUMED)
     }
-    fun paragraphs(): List<StableImmersionText> {
-        fun collect(view: View): List<StableImmersionText> = when (view) {
-            is StableImmersionText -> listOf(view)
+    fun paragraphs(): List<FullMessageTextView> {
+        fun collect(view: View): List<FullMessageTextView> = when (view) {
+            is FullMessageTextView -> listOf(view)
             is ViewGroup -> (0 until view.childCount).flatMap { collect(view.getChildAt(it)) }
             else -> emptyList()
         }
         return activity?.window?.decorView?.let(::collect).orEmpty()
     }
-    fun fullyVisible(view: View): Boolean {
-        val visible = Rect()
-        return view.isShown && view.width > 0 && view.height > 0 && view.getLocalVisibleRect(visible) &&
-            visible.left <= 0 && visible.top <= 0 && visible.right >= view.width && visible.bottom >= view.height
+    private data class CaptureGeometry(val timeline: RectF, val editor: RectF)
+    private var captureGeometry: (() -> CaptureGeometry?)? = null
+    /** Read actual clipped Compose geometry outside runOnMainSync. A native
+     * AndroidView can report local visibility behind Compose siblings. */
+    fun bindConversationCapture(compose: androidx.compose.ui.test.junit4.ComposeTestRule, inputTag: String) {
+        captureGeometry = {
+            val timelines = compose.onAllNodes(androidx.compose.ui.test.SemanticsMatcher("Actual conversation LazyColumn") {
+                it.config.contains(androidx.compose.ui.semantics.SemanticsActions.ScrollToIndex)
+            }, useUnmergedTree = true).fetchSemanticsNodes().filter { it.boundsInWindow.width > 0 && it.boundsInWindow.height > 0 }
+            val editors = compose.onAllNodes(androidx.compose.ui.test.SemanticsMatcher.expectValue(
+                androidx.compose.ui.semantics.SemanticsProperties.TestTag, inputTag), useUnmergedTree = true).fetchSemanticsNodes()
+            if (timelines.size != 1 || editors.size != 1) null else {
+                val list = timelines.single().boundsInWindow; val editor = editors.single().boundsInWindow
+                CaptureGeometry(RectF(list.left, list.top, list.right, list.bottom), RectF(editor.left, editor.top, editor.right, editor.bottom))
+            }
+        }
+    }
+    private fun fullyVisible(view: View, full: Rect, viewport: RectF?, window: Rect): Boolean {
+        val reported = Rect()
+        return viewport != null && view.isShown && view.hasWindowFocus() && view.alpha == 1f &&
+            view.width > 0 && view.height > 0 && view.getGlobalVisibleRect(reported) && reported.contains(full) &&
+            viewport.contains(RectF(full)) && window.contains(full)
     }
     fun unobscuredWindow(): Rect {
         var visible: Rect? = null
@@ -151,6 +170,12 @@ internal class MainActivityJourneyFixture(
         check(device.takeScreenshot(File(output, "$name.png")))
         device.dumpWindowHierarchy(File(output, "$name.xml"))
         val snapshot = JSONObject()
+        val window = unobscuredWindow()
+        val geometry = runCatching { captureGeometry?.invoke() }.onFailure {
+            snapshot.put("visibility_geometry_error", it.toString())
+        }.getOrNull()
+        snapshot.put("visibility_qualification", if (geometry == null) "unqualified_no_unique_actual_compose_viewport" else "actual_compose_timeline_editor_window_IME_intersection")
+            .put("unobscured_window", window.toShortString())
         instrumentation.runOnMainSync {
             snapshot.put("screen", model.screen.name).put("known", model.knownLanguage).put("learning", model.targetLanguage)
                 .put("activity_injections", injectionCount).put("actual_activity", activity?.javaClass?.name)
@@ -162,8 +187,17 @@ internal class MainActivityJourneyFixture(
             val views = JSONArray()
             paragraphs().forEach { view ->
                 val rect = Rect(); view.getGlobalVisibleRect(rect)
-                views.put(JSONObject().put("original", view.displayedOriginal).put("drawn", view.visibleText())
-                    .put("fully_visible", fullyVisible(view)).put("bounds", rect.toShortString()))
+                val screen = IntArray(2); val localWindow = IntArray(2)
+                view.getLocationOnScreen(screen); view.getLocationInWindow(localWindow)
+                val full = Rect(screen[0], screen[1], screen[0] + view.width, screen[1] + view.height)
+                val viewport = geometry?.let {
+                    val dx = (screen[0] - localWindow[0]).toFloat(); val dy = (screen[1] - localWindow[1]).toFloat()
+                    RectF(maxOf(it.timeline.left + dx, window.left.toFloat()), maxOf(it.timeline.top + dy, window.top.toFloat()),
+                        minOf(it.timeline.right + dx, window.right.toFloat()), minOf(it.timeline.bottom + dy, it.editor.top + dy, window.bottom.toFloat()))
+                }
+                views.put(JSONObject().put("original", view.originalMessage).put("drawn", view.text.toString())
+                    .put("fully_visible", fullyVisible(view, full, viewport, window)).put("bounds", rect.toShortString())
+                    .put("native_full_bounds", full.toShortString()).put("actual_compose_content_viewport", viewport?.toString() ?: JSONObject.NULL))
             }
             snapshot.put("native_paragraphs", views)
         }

@@ -18,7 +18,7 @@ class JapaneseReadingsDeviceTest {
     @Test fun frozenDiagnosticAuthoredAndRetainedCorpus() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val args = InstrumentationRegistry.getArguments()
-        val input = File(context.filesDir, "japanese-reading-candidate-protocol-r03b.json").readBytes()
+        val input = readingRegressionFile(context, "japanese-reading-candidate-protocol-r03b.json").readBytes()
         val hash = MessageDigest.getInstance("SHA-256").digest(input).joinToString("") { "%02x".format(it) }
         assertEquals(args.getString("protocol_sha256"), hash)
         val protocol = JSONObject(input.toString(Charsets.UTF_8))
@@ -35,7 +35,7 @@ class JapaneseReadingsDeviceTest {
             .put("api28", "No ICU dependency in candidate; JVM8/source qualification only, no API28 device runtime")
             .put("translation_calls", 0).put("audio_renders", 0).put("new_models", false).put("memory_before", memory())
         val rows = JSONArray(); report.put("cases", rows)
-        val file = File(context.filesDir, "japanese-reading-candidate-003.json")
+        val file = readingRegressionFile(context, "japanese-reading-candidate-003.json")
         fun save() = file.writeText(report.toString(2))
         var controlsPassed = true
         for (index in 0 until cases.length()) {
@@ -58,7 +58,7 @@ class JapaneseReadingsDeviceTest {
                 row.put("warm_ms", (SystemClock.elapsedRealtimeNanos() - started) / 1e6).put("warm_identical", warm == result)
                 val analysis = KanaRomanizer.normalizeKana(text)
                 row.put("analysis_text", analysis.text).put("analysis_source_boundaries", JSONArray(analysis.sourceBoundaries))
-                val tokens = LocalImmersion.japaneseTokens(analysis.text)
+                val tokens = NativeJapaneseTokenizer.tokens(analysis.text)
                 row.put("native_tokens", JSONArray(tokens.map { token -> JSONObject().put("surface", token.surface)
                     .put("start_utf16", token.position).put("end_utf16", token.position + token.surface.length)
                     .put("coordinate_space", "normalized_analysis_utf16")

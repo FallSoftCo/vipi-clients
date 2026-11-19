@@ -79,7 +79,7 @@
     <string name="ui_b47e6d6e77c8" formatted="false">암호화 세부 정보를 열 수 없습니다. 귀하의 인증은 변경되지 않았습니다.</string>
     <string name="ui_b68710eee013" formatted="false">채팅에 연결 중</string>
     <string name="ui_b6ec9d55ae3b" formatted="false">저는 모든 12개 그룹을 비교했습니다.</string>
-    <string name="ui_b7c32ca74cb0" formatted="false">두 언어를 모두 들어보세요</string>
+    <string name="ui_b7c32ca74cb0" formatted="false">배우는 언어로 듣기</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">친구 찾기</string>
     <string name="ui_beb6c51b9bf6" formatted="false">기록 복원</string>
     <string name="ui_c26d4e55137b" formatted="false">Vipi 계정과 이 기기에 저장된 채팅이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.</string>
@@ -207,7 +207,7 @@
     <string name="annual_price">연간 %1$s</string>
     <string name="trial_then_annual">1개월 무료, 이후 연간 %1$s</string>
     <string name="subscribe_annual">연간 %1$s에 구독</string>
-    <string name="both_plans_total">체험 기간 이후 두 플랜 합계: 연간 %1$s, 각각 청구됩니다.</string>
+    <string name="both_plans_total">두 플랜 합계: 연간 %1$s, 각각 청구됩니다.</string>
     <string name="both_plans_separate">Vipi: 연간 %1$s. Bot mini: 추가로 연간 %2$s. 각각 청구됩니다.</string>
     <string name="plan_active">%1$s 활성화됨</string>
     <string name="trial_end_date">체험 종료일: %1$s.</string>
@@ -275,7 +275,7 @@
     <string name="ui_ff245b368781" formatted="false">Bot mini</string>
     <string name="ui_42f4f8b469bb" formatted="false">친구와 대화하세요.\n읽으면서 단어를 배우세요.</string>
     <string name="ui_47b7a66139f1" formatted="false">친구와 대화를\n시작하세요.</string>
-    <string name="ui_52c236be01ef" formatted="false">이 다운로드는 선택 사항인 전체 메시지 번역용입니다. 단어 전환에는 필요하지 않습니다. 전체 메시지를 번역하려면 읽기 옵션에서 전체 번역을 선택하세요. 메시지는 이 휴대전화에 유지됩니다.</string>
+    <string name="ui_52c236be01ef" formatted="false">Vipi는 이 휴대전화에서 메시지 전체를 번역합니다. 오프라인에서도 사용할 수 있습니다.</string>
     <string name="ui_54c1159d80bf" formatted="false">친구와 대화하세요.\n새 단어를 배우세요.</string>
     <string name="ui_73bee38b06e8" formatted="false">친구가 나를\n어떻게 찾을까요?</string>
     <string name="ui_8ec4723d54ba" formatted="false">오프라인 번역을 사용하려면 이 언어들을 다시 다운로드해야 합니다. 대화는 이 휴대전화에 유지됩니다.</string>
@@ -395,7 +395,7 @@
     <string name="translation_timeout">시간이 너무 오래 걸렸습니다. 단어 전환은 계속 사용할 수 있습니다.</string>
     <string name="translation_language_needed">이 메시지의 언어를 선택하고 다시 시도하세요.</string>
     <string name="translation_failed">전체 번역을 준비할 수 없습니다. 단어 전환은 계속 사용할 수 있습니다.</string>
-    <string name="voices_prepare_offline">연결 없이 들으려면 두 언어의 음성을 준비하세요.</string>
+    <string name="voices_prepare_offline">오프라인에서도 들을 수 있도록 배우는 언어의 음성을 준비하세요.</string>
     <string name="ui_d55f942dbeea" formatted="false">Google 번역. 번역이 부정확할 수 있습니다.</string>
     <string name="backup_save_failed">백업을 저장할 수 없습니다. 대화는 여기에 그대로 있습니다. 다시 시도해 주세요.</string>
     <string name="access_switch_word">%1$s 및 %2$s 전환</string>
@@ -403,8 +403,8 @@
     <string name="access_choose_word">전환할 단어 선택</string>
     <string name="access_message_actions">메시지 동작</string>
     <string name="cardless_ended">Vipi 무료 이용 기간이 %1$s에 종료되었습니다. 계속 대화하려면 구독하세요.</string>
-    <string name="welcome_title_concise">친구와 채팅하세요.\n새로운 단어를 배우세요.</string>
-    <string name="welcome_detail_concise">채팅하는 동안 일부 단어가 다른 언어로 바뀌어요.</string>
+    <string name="welcome_title_concise">친구와 대화하며\n새로운 언어를 배워요.</string>
+    <string name="welcome_detail_concise">모든 메시지가 배우고 있는 언어로 표시돼요.</string>
     <string name="preview_spanish_title">스페인어를 조금 만나 보세요</string>
     <string name="preview_tap_word">강조된 단어를 누르면 학습 중인 언어로 발음을 들을 수 있어요. 채팅에서는 말풍선을 누르면 번역돼요.</string>
     <string name="languages_title_concise">사용할 언어</string>
@@ -436,4 +436,18 @@
     <string name="deletion_fallsoft_retained">Fallsoft 로그인 계정과 다른 Fallsoft 앱의 계정은 그대로 유지됩니다.</string>
     <string name="fallsoft_link_title">Fallsoft 계정 사용</string>
     <string name="fallsoft_link_detail">Vipi에 다시 로그인한 다음 Fallsoft 계정을 연결하세요. 채팅, 프로필 및 기존 체험 기간은 그대로 유지됩니다.</string>
+    <string name="full_translation_preparing">번역 중…</string>
+    <string name="full_translation_failed">번역하지 못했어요. 탭해서 다시 시도하세요.</string>
+    <string name="full_translation_meaning">뜻 보기</string>
+    <string name="full_translation_practice">학습 언어로 보기</string>
+    <string name="full_translation_script">원래 문자로 보기</string>
+    <string name="full_translation_reading">로마자 표기 보기</string>
+    <string name="full_translation_play">학습 언어로 듣기</string>
+    <string name="full_translation_copy_original">원본 메시지 복사</string>
+    <string name="full_translation_gestures">탭해서 들어 보세요. 길게 누르면 뜻이 보여요. 두 번 탭하면 문자 표기가 바뀌어요.</string>
+    <string name="autoplay_turn_on">자동 재생 켜기</string>
+    <string name="autoplay_turn_off">자동 재생 끄기</string>
+    <string name="autoplay_on_notice">자동 재생이 켜졌어요. 새 메시지를 소리 내어 읽어요.</string>
+    <string name="report_message">메시지 신고</string>
+    <string name="full_translation_unavailable">번역을 사용할 수 없음</string>
 </resources>

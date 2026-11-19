@@ -15,14 +15,14 @@ import java.security.MessageDigest
 class KanaRomanizerDeviceTest {
     @Test fun frozenConverterAndCanonicalSourceMapping() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
-        val input = File(context.filesDir, "japanese-kana-converter-protocol-r04.json").readBytes()
+        val input = readingRegressionFile(context, "japanese-kana-converter-protocol-r04.json").readBytes()
         val hash = MessageDigest.getInstance("SHA-256").digest(input).joinToString("") { "%02x".format(it) }
         assertEquals(InstrumentationRegistry.getArguments().getString("converter_protocol_sha256"), hash)
         val protocol = JSONObject(input.toString(Charsets.UTF_8)); val cases = protocol.getJSONArray("rows")
         assertEquals(652, cases.length())
         val report = JSONObject().put("input_sha256", hash).put("complete", false).put("sdk", android.os.Build.VERSION.SDK_INT)
             .put("production_call_sites_changed", false).put("rows", JSONArray())
-        val output = File(context.filesDir, "japanese-kana-converter-001.json")
+        val output = readingRegressionFile(context, "japanese-kana-converter-001.json")
         fun save() = output.writeText(report.toString(2))
         var passed = true
         for (i in 0 until cases.length()) {

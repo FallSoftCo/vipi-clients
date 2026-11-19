@@ -1,86 +1,80 @@
 import Foundation
 import VipiCore
 
-/// Explicit readings of complete authored sentences. Unknown clauses, names or
-/// changed grammar never inherit a neighbouring sentence's reading.
-enum SentenceReadings {
-    private struct Index: Decodable {
-        struct Entry: Decodable { let language: String; let text: String; let latin: String }
-        let schema: String; let entries: [Entry]
-    }
-    private static let index: [String: [String: String]] = {
-        guard let url = Bundle.main.url(forResource: "sentence-readings", withExtension: "json"),
-              let bytes = try? Data(contentsOf: url), let value = try? JSONDecoder().decode(Index.self, from: bytes),
-              value.schema == "vipi-sentence-readings-1" else { return [:] }
-        var result: [String: [String: String]] = [:]
-        for entry in value.entries {
-            guard ["ar", "zh", "ja", "ko"].contains(entry.language), !entry.text.isEmpty, !entry.latin.isEmpty,
-                  result[entry.language]?[entry.text] == nil else { return [:] }
-            result[entry.language, default: [:]][entry.text] = entry.latin
-        }
-        return result
-    }()
-    static func reading(_ text: String, language: String) -> String? {
-        guard text.utf16.count <= 16_384, let values = index[language] else { return nil }
-        if let value = values[text] { return value }
-        let ranges = LocalImmersion.sentences(text, language: language)
-        guard !ranges.isEmpty else { return nil }
-        let native = text as NSString
-        var end = 0, result = ""
-        for range in ranges {
-            let gap = native.substring(with: NSRange(location: end, length: range.location-end))
-            guard gap.allSatisfy(\.isWhitespace), let reading = values[native.substring(with: range)] else { return nil }
-            // Written Japanese/Chinese need no inter-sentence space; Latin
-            // readings do. Preserve explicit whitespace when it is present.
-            result += gap.isEmpty && !result.isEmpty ? " " : gap
-            result += reading; end = NSMaxRange(range)
-        }
-        let tail = native.substring(from: end)
-        return tail.allSatisfy(\.isWhitespace) ? result + tail : nil
-    }
-}
-
-/// Full-text display metadata, resolved outside SwiftUI rendering. Reviewed
-/// authored readings always take precedence. The ordinary Chinese guide uses
-/// pinned bundled data; original-script audio remains pronunciation authority.
+/// Live full-text transliteration only. No authored sentence overrides or
+/// translation dictionaries participate; native-script audio is authoritative.
 struct FullSentenceReadings: Sendable {
     let chinese: ChineseFullReading?
-    func reading(_ text: String, language: String) -> FullReading? {
-        if let authored = SentenceReadings.reading(text, language: language) {
-            return .init(text: authored, provenance: .authored)
+    static let policy = "live-full-text-2-byte-contract:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256 + ":" + KoreanFullReading.policy + ":" + JapaneseFullReading.policy + ":cf-arabic-latin"
+    static let statePolicy = "reading-status-3:" + policy
+    /// Preserve the existing translation-cache namespace independently of reading
+    /// revisions. This exact historical suffix is compatibility, not reader policy.
+    static let translationCacheCompatibilitySuffix = "live-full-text-2-byte-contract:pinyin-pro-3.29.5-marked-native-2:ec2f31077ea4aa2f531e0711366bb3d07af495c8ab53f144f32a5b231ed3f35c:cf-hangul-orthographic-guard-1:cf-japanese-guard-sokuon-1:cf-arabic-latin"
+    static func state(text:String, language:String, reading:FullReading?, failure:FullReading.Failure? = nil) -> FullMessageReadingState {
+        guard text.utf8.count <= FullMessageBudget.recordBytes else {
+            return .init(status:.unavailable,failure:.inputLimit,policy:statePolicy)
         }
-        if language == "ko" { return Self.korean(text) }
-        if language == "ja" { return Self.japanese(text) }
-        guard language == "zh", let chinese,
-              let result = try? chinese.resolve(text), let reading = result.reading else { return nil }
-        return .init(text: reading, provenance: .localTransliteration)
+        guard FullReadingRequirement.needsReading(text) else { return .init(status:.notNeeded,policy:statePolicy) }
+        guard ["ar","zh","ja","ko"].contains(language) else {
+            return .init(status:.unavailable,failure:.unsupportedLanguage,policy:statePolicy)
+        }
+        if let reason = reading?.failure ?? failure {
+            return .init(status:.unavailable,failure:reason == .outputLimit ? .outputLimit : .unresolved,policy:statePolicy)
+        }
+        guard let reading else { return .init(status:.unavailable,failure:.producerUnavailable,policy:statePolicy) }
+        guard reading.text.utf8.count <= FullMessageBudget.recordBytes else {
+            return .init(status:.unavailable,failure:.outputLimit,policy:statePolicy)
+        }
+        guard !reading.text.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,
+              !FullReadingRequirement.needsReading(reading.text) else {
+            return .init(status:.unavailable,failure:.unresolved,policy:statePolicy)
+        }
+        return .init(status:.available,policy:statePolicy)
     }
-    static let policy = "authored-first:" + ChineseFullReading.policy + ":" + ChineseFullReading.dataSHA256 + ":" + KoreanFullReading.policy + ":" + JapaneseFullReading.policy
-    private static func korean(_ text: String) -> FullReading? {
-        guard let reading = KoreanFullReading.resolve(text).reading else { return nil }
-        return .init(text: reading, provenance: .localTransliteration)
+    /// Compatibility callers receive only a usable reading or nil. Detailed
+    /// failure metadata belongs to the conversation producer, never display text.
+    func reading(_ text:String, language:String) -> FullReading? {
+        guard let value = detailedReading(text,language:language),value.failure == nil else { return nil }
+        return value
     }
-    private static func japanese(_ text: String) -> FullReading? {
-        guard let reading = JapaneseFullReading.resolve(text).reading else { return nil }
-        return .init(text: reading, provenance: .localTransliteration)
+    func detailedReading(_ text:String, language:String) -> FullReading? {
+        guard (1...FullMessageBudget.recordBytes).contains(text.utf8.count) else { return nil }
+        func failed(_ reason:FullReading.Failure) -> FullReading {
+            .init(text:"",provenance:.localTransliteration,failure:reason)
+        }
+        let value:String?
+        switch language {
+        case "zh":
+            // Missing reader/throw is unavailable; explicit unresolved spans are
+            // known static output failure, not an endlessly retryable nil.
+            guard let chinese,let result = try? chinese.resolve(text) else { return nil }
+            if !result.unresolved.isEmpty { return failed(.unresolved) }
+            value = result.reading
+        case "ja":
+            let result = JapaneseFullReading.resolve(text)
+            if result.issues.contains("tokenizer_unavailable") { return nil }
+            if !result.issues.isEmpty { return failed(.unresolved) }
+            value = result.reading
+        case "ko":
+            let result = KoreanFullReading.resolve(text)
+            if result.issues.contains("tokenizer_unavailable") { return nil }
+            if !result.issues.isEmpty { return failed(.unresolved) }
+            value = result.reading
+        case "ar": value = text.applyingTransform(.toLatin,reverse:false)
+        default: value = nil
+        }
+        // Native failure never invokes a different reader or translation provider.
+        guard let value else { return nil }
+        guard value.utf8.count <= FullMessageBudget.recordBytes else { return failed(.outputLimit) }
+        guard !value.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty,
+              !FullReadingRequirement.needsReading(value) else { return failed(.unresolved) }
+        return .init(text:value,provenance:.localTransliteration)
     }
     private static let current: Self = {
-        // Static initialization runs once inside the off-render cache producer.
-        // Missing or changed data leaves authored readings usable.
-        if let file = Bundle.main.url(forResource: "chinese-ordinary", withExtension: "json"),
-           (try? file.resourceValues(forKeys: [.fileSizeKey]).fileSize) == 813_708,
-           let bytes = try? Data(contentsOf: file), let reader = try? ChineseFullReading(data: bytes) {
-            return .init(chinese: reader)
-        }
-        return .init(chinese: nil)
+        guard let file = Bundle.main.url(forResource:"chinese-ordinary",withExtension:"json"),
+              let bytes = try? Data(contentsOf:file), let reader = try? ChineseFullReading(data:bytes) else { return .init(chinese:nil) }
+        return .init(chinese:reader)
     }()
-    static func resolve(_ text: String, language: String) -> FullReading? {
-        if let authored = SentenceReadings.reading(text, language: language) {
-            return .init(text: authored, provenance: .authored)
-        }
-        if language == "ko" { return korean(text) }
-        if language == "ja" { return japanese(text) }
-        guard language == "zh" else { return nil }
-        return current.reading(text, language: language)
-    }
+    static func resolve(_ text: String, language: String) -> FullReading? { current.reading(text,language:language) }
+    static func resolveDetailed(_ text:String, language:String) -> FullReading? { current.detailedReading(text,language:language) }
 }

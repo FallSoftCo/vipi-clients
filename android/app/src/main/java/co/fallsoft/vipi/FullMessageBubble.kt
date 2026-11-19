@@ -1,0 +1,231 @@
+package co.fallsoft.vipi
+
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.os.Bundle
+import android.text.Layout
+import android.text.StaticLayout
+import android.view.MotionEvent
+import android.view.View
+import android.view.accessibility.AccessibilityNodeInfo
+import android.widget.TextView
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.core.view.ViewCompat
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.LayoutCoordinates
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import co.fallsoft.vipi.core.SpeechSpan
+import kotlin.math.ceil
+
+/** One state for the whole conversation content. Native inputs/navigation sit
+ * outside this gesture surface; moving/scrolling cancels the held reveal.
+ */
+internal class FullMessageGestures {
+    var interactions by mutableIntStateOf(0); private set
+    fun interacted() { interactions++ }
+    var held by mutableStateOf(false)
+    var accessibilityMeaning by mutableStateOf(false)
+    var nativeScript by mutableStateOf(false)
+    val meaning: Boolean get() = held || accessibilityMeaning
+    private data class Hit(val bounds: Rect, val play: () -> Unit)
+    private val messages = mutableMapOf<String, Hit>()
+    fun register(id: String, bounds: Rect, play: () -> Unit) { messages[id] = Hit(bounds, play) }
+    fun remove(id: String) { messages.remove(id) }
+    fun tap(position: Offset) { messages.values.lastOrNull { it.bounds.contains(position) }?.play?.invoke() }
+    fun toggleScript() { interacted(); nativeScript = !nativeScript }
+}
+
+@Composable internal fun Modifier.fullMessageGestures(state: FullMessageGestures): Modifier {
+    var coordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
+    val reveal = stringResource(R.string.full_translation_meaning)
+    val practice = stringResource(R.string.full_translation_practice)
+    val script = stringResource(R.string.full_translation_script)
+    val reading = stringResource(R.string.full_translation_reading)
+    DisposableEffect(state) { onDispose { state.held = false } }
+    return onGloballyPositioned { coordinates = it }.semantics {
+        customActions = listOf(
+            CustomAccessibilityAction(reveal) { state.interacted(); state.accessibilityMeaning = true; true },
+            CustomAccessibilityAction(practice) { state.accessibilityMeaning = false; state.held = false; true },
+            CustomAccessibilityAction(if (state.nativeScript) reading else script) { state.toggleScript(); true })
+    }.pointerInput(state) {
+        detectTapGestures(
+            onPress = { try { tryAwaitRelease() } finally { state.held = false } },
+            onLongPress = { state.interacted(); state.held = true },
+            onDoubleTap = { state.toggleScript() },
+            // detectTapGestures delays this until the double-tap window ends:
+            // double/long press never also dispatches practice audio.
+            onTap = { point -> coordinates?.takeIf { it.isAttached }?.let { state.tap(it.localToWindow(point)) } })
+    }
+}
+
+/** A complete native paragraph, never an inline word slot. Reserve the largest
+ * real text layout across meaning/script/reading so gestures do not move rows.
+ */
+internal class FullMessageTextView(context: Context) : TextView(context) {
+    private var faces = emptyList<String>()
+    private var rawOriginal = ""
+    var play: (() -> Unit)? = null
+    val originalMessage: String get() = rawOriginal
+    var playing = false
+    var showingNativeScript = false
+    var readingUnavailable = false
+        set(value) {
+            if (field != value) {
+                field = value
+                ViewCompat.setStateDescription(this, if (value) context.getString(R.string.lookup_reading_unavailable) else null)
+            }
+        }
+    var reveal: (() -> Unit)? = null
+    var practice: (() -> Unit)? = null
+    var script: (() -> Unit)? = null
+    init {
+        setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 18f)
+        includeFontPadding = false
+        setLineSpacing(5 * resources.displayMetrics.density, 1f)
+        setPadding(0, 0, 0, 0)
+        textDirection = View.TEXT_DIRECTION_FIRST_STRONG
+        setTextIsSelectable(false)
+        isClickable = false; isLongClickable = false
+        importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_YES
+        layoutParams = android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+            android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
+    }
+    fun bind(displayed: String, original: String, variants: List<String>, color: Int) {
+        rawOriginal = original
+        val next = variants.distinct()
+        if (faces != next) { faces = next; requestLayout() }
+        setTextColor(color)
+        if (text.toString() != displayed) { text = displayed; contentDescription = displayed; requestLayout() }
+    }
+    // The enclosing Compose surface owns all pointer arbitration, including
+    // blank background. Native accessibility actions remain available.
+    override fun onTouchEvent(event: MotionEvent): Boolean = false
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val available = (View.MeasureSpec.getSize(widthMeasureSpec) - totalPaddingLeft - totalPaddingRight).coerceAtLeast(1)
+        val desired = ceil(faces.maxOfOrNull { Layout.getDesiredWidth(it, paint).toDouble() } ?: 1.0).toInt().coerceAtLeast(1)
+        val width = if (View.MeasureSpec.getMode(widthMeasureSpec) == View.MeasureSpec.EXACTLY) available else minOf(available, desired)
+        super.onMeasure(View.MeasureSpec.makeMeasureSpec(width + totalPaddingLeft + totalPaddingRight, View.MeasureSpec.EXACTLY), heightMeasureSpec)
+        val contentWidth = (measuredWidth - totalPaddingLeft - totalPaddingRight).coerceAtLeast(1)
+        val maximum = faces.maxOfOrNull { value ->
+            StaticLayout.Builder.obtain(value, 0, value.length, paint, contentWidth).setIncludePad(false)
+                .setLineSpacing(lineSpacingExtra, lineSpacingMultiplier).setUseLineSpacingFromFallbacks(isFallbackLineSpacing)
+                .setBreakStrategy(breakStrategy).setHyphenationFrequency(hyphenationFrequency).build().height
+        } ?: measuredHeight
+        setMeasuredDimension(measuredWidth, maxOf(measuredHeight, maximum + totalPaddingTop + totalPaddingBottom))
+    }
+    override fun onInitializeAccessibilityNodeInfo(info: AccessibilityNodeInfo) {
+        super.onInitializeAccessibilityNodeInfo(info)
+        info.isClickable = play != null
+        if (play != null) info.addAction(AccessibilityNodeInfo.AccessibilityAction(AccessibilityNodeInfo.ACTION_CLICK,
+            context.getString(if (playing) R.string.ui_cae7d57bc067 else R.string.full_translation_play)))
+        info.addAction(AccessibilityNodeInfo.AccessibilityAction(REVEAL, context.getString(R.string.full_translation_meaning)))
+        info.addAction(AccessibilityNodeInfo.AccessibilityAction(PRACTICE, context.getString(R.string.full_translation_practice)))
+        info.addAction(AccessibilityNodeInfo.AccessibilityAction(SCRIPT, context.getString(if (showingNativeScript) R.string.full_translation_reading else R.string.full_translation_script)))
+        info.addAction(AccessibilityNodeInfo.AccessibilityAction(AccessibilityNodeInfo.ACTION_COPY, context.getString(R.string.full_translation_copy_original)))
+    }
+    override fun performAccessibilityAction(action: Int, arguments: Bundle?): Boolean {
+        when (action) {
+            AccessibilityNodeInfo.ACTION_CLICK -> { val callback = play ?: return false; callback(); return true }
+            REVEAL -> { reveal?.invoke(); return true }
+            PRACTICE -> { practice?.invoke(); return true }
+            SCRIPT -> { script?.invoke(); return true }
+            AccessibilityNodeInfo.ACTION_COPY -> {
+                context.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("", rawOriginal)); return true
+            }
+        }
+        return super.performAccessibilityAction(action, arguments)
+    }
+    companion object { private const val REVEAL = 0x02010001; private const val PRACTICE = 0x02010002; private const val SCRIPT = 0x02010003 }
+}
+
+@Composable internal fun FullMessageBubble(text: String, id: String, translation: ConversationTranslation,
+    gestures: FullMessageGestures, audio: ConversationAutoplay,
+    metadata: @Composable () -> Unit) {
+    val speech = audio.speech
+    val state = translation.state(id, text)
+    val value = state?.value
+    val readingUnavailable = value?.readingStatus == FullMessageReadingStatus.UNAVAILABLE
+    val showReadingFailure = readingUnavailable && !gestures.meaning && !gestures.nativeScript
+    val ink = MaterialTheme.colorScheme.onSurface.toArgb()
+    val activityColor = MaterialTheme.colorScheme.primary
+    LaunchedEffect(translation, id, text) { translation.enqueue(id, text) }
+    val play = { gestures.interacted(); audio.manual(id, text) }
+    DisposableEffect(gestures, translation, id, text) {
+        translation.retain(id, text)
+        onDispose { gestures.remove(id); translation.release(id, text) }
+    }
+    Column(Modifier.widthIn(max = 520.dp).onGloballyPositioned {
+        gestures.register(id, it.boundsInWindow(), play)
+    }.drawWithContent {
+        drawContent()
+        if (speech.activeMessage == id || audio.manualMessage == id) drawLine(activityColor,
+            Offset(15.dp.toPx(), size.height - 4.dp.toPx()), Offset(size.width - 15.dp.toPx(), size.height - 4.dp.toPx()), 2.dp.toPx())
+    }.padding(horizontal = 15.dp, vertical = EmbeddedMessageVerticalPadding), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        val displayed = when {
+            value == null -> text
+            gestures.meaning -> value.meaningText
+            gestures.nativeScript -> value.practiceText
+            else -> value.practiceReading ?: value.practiceText
+        }
+        val faces = value?.let { listOfNotNull(it.practiceText, it.meaningText, it.practiceReading) } ?: listOf(text)
+        AndroidView(factory = { FullMessageTextView(it) }, update = { view ->
+            view.play = play
+            view.showingNativeScript = gestures.nativeScript
+            view.readingUnavailable = showReadingFailure
+            view.playing = speech.activeMessage == id || audio.manualMessage == id
+            view.reveal = { gestures.interacted(); gestures.accessibilityMeaning = true }
+            view.practice = { gestures.accessibilityMeaning = false; gestures.held = false }
+            view.script = { gestures.toggleScript() }
+            view.bind(displayed, text, faces, ink)
+        })
+        if (value == null) {
+            if (state?.phase == MessageTranslationPhase.FAILED) {
+                Text(stringResource(R.string.full_translation_failed), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
+                TextButton(onClick = { translation.enqueue(id, text, retry = true) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.try_again)) }
+            } else {
+                Text(stringResource(if (state?.phase == MessageTranslationPhase.TRANSLATING) R.string.lookup_translating else R.string.full_translation_preparing),
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+        if (readingUnavailable) {
+            // Keep this failure-only footprint across held meaning/script so
+            // the row stays under the user's finger. Hidden copy has no AX.
+            val retryable = value?.readingFailure == FullMessageReadingFailure.PRODUCER_FAILURE
+            val retry = stringResource(R.string.try_again)
+            val unavailable = stringResource(R.string.lookup_reading_unavailable)
+            val feedbackLayout = if (retryable) Modifier.heightIn(min = 48.dp).wrapContentHeight() else Modifier
+            val feedback = if (!showReadingFailure) feedbackLayout.alpha(0f).clearAndSetSemantics { }
+                else if (retryable) Modifier.clickable(role = Role.Button, onClickLabel = retry) {
+                    gestures.interacted(); translation.enqueue(id, text, retry = true)
+                }.then(feedbackLayout) else feedbackLayout
+            Text(if (retryable) "$unavailable $retry" else unavailable, modifier = feedback,
+                style = MaterialTheme.typography.bodySmall,
+                color = if (retryable) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        audio.failures[id]?.let {
+            Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
+        }
+        metadata()
+    }
+}

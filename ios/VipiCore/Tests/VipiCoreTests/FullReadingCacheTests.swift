@@ -69,9 +69,25 @@ private actor ReadingProbe {
         XCTAssertEqual(cache.count, 128)
         XCTAssertNil(cache.cached(text: "é", language: "zh"))
         XCTAssertEqual(cache.cached(text: "row128", language: "zh")?.text, "row128zh")
-        let tooLong = await cache.resolve(text: String(repeating: "字", count: 16_385), language: "zh")
+        let tooLong = await cache.resolve(text: String(repeating: "x", count: FullMessageBudget.recordBytes + 1), language: "zh")
         let unsupported = await cache.resolve(text: "hello", language: "en")
         XCTAssertNil(tooLong); XCTAssertNil(unsupported); XCTAssertEqual(cache.count, 128)
         cache.removeAll(); XCTAssertEqual(cache.count, 0)
     }
+    func testDerivedReadingKeepsCompleteUnicodeTailAndBoundsResidentBytes() async {
+        let cache = FullReadingCache(policy:"long",byteLimit:900) { text,_ in
+            .init(text:text + " café\u{301} 👩🏽‍💻 tail",provenance:.localTransliteration)
+        }
+        for index in 0..<8 {
+            let original = String(repeating:"字",count:60) + "\(index)"
+            let value = await cache.resolve(text:original,language:"zh")
+            XCTAssertEqual(value?.text,original + " café\u{301} 👩🏽‍💻 tail")
+            XCTAssertLessThanOrEqual(cache.residentBytes,900)
+        }
+        let full = FullReadingCache(policy:"expanded") { text,_ in .init(text:String(repeating:"hàn ",count:text.count),provenance:.localTransliteration) }
+        let text = String(repeating:"汉",count:22_000)
+        let expanded = await full.resolve(text:text,language:"zh")
+        XCTAssertEqual(expanded?.text,String(repeating:"hàn ",count:22_000))
+    }
+
 }

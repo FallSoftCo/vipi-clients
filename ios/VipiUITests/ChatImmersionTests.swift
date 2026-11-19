@@ -154,7 +154,7 @@ final class ChatImmersionTests: XCTestCase {
         continueAfterFailure = false
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-timeline-qa", "-vipi-immersion-chat-qa", "-vipi-source-unit-routing-qa", "-vipi-timeline-audit",
-            "-vipi-source", "en", "-vipi-target", "sw", "-vipi-density", "0.25", "-vipi-appearance-dark", "-vipi-live-immersion-state", "016"]
+            "-vipi-source", "en", "-vipi-target", "sw", "-vipi-density", "0.25", "-vipi-appearance-dark", "-vipi-live-immersion-state", ProcessInfo.processInfo.environment["VIPI_MANUAL_TRACE_RUN"] ?? "016"]
         app.launchArguments += ["-readingPace", "balanced"]
         launchPortraitApp(app)
         defer { app.terminate(); app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]; app.launch() }
@@ -175,7 +175,7 @@ final class ChatImmersionTests: XCTestCase {
         for slot in slots { XCTAssertTrue(slot.waitForExistence(timeout: 5)) }
         let bounds = slots.map(\.frame)
         let panel = translateMessage(in: app, paragraph: paragraph)
-        XCTAssertTrue(panel.staticTexts["Translation isn’t supported for this language pair on this device."].waitForExistence(timeout: 10))
+        XCTAssertTrue(panel.staticTexts["Full-message translation isn’t available for this language pair on this device. Supported words can still switch."].waitForExistence(timeout: 10))
         XCTAssertFalse(panel.buttons["Try again"].exists)
         XCTAssertFalse(panel.buttons["Download languages"].exists)
         XCTAssertTrue(paragraph.label.contains("Did you finish the report?"))

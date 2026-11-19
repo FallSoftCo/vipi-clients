@@ -7,9 +7,18 @@ import SwiftUI
     @State private var deletion: AccountDeletion
     init() {
         #if DEBUG
+        precondition(!(ProcessInfo.processInfo.arguments.contains("-vipi-deletion-root-qa") &&
+            ProcessInfo.processInfo.arguments.contains("-vipi-first-month-root-qa")), "One owned root qualification at a time")
         ConnectedDeletionUIQualification.prepareIfRequested()
+        FirstMonthRootQualification.prepareIfRequested()
+        if let services = FirstMonthRootQualification.current?.fullTranslationServices {
+            _state = State(initialValue:AppState(translationServices:services))
+        }
         #endif
         let authentication = AuthenticationManager()
+        #if DEBUG
+        FirstMonthRootQualification.current?.bind(authentication)
+        #endif
         _authentication = State(initialValue: authentication)
         #if DEBUG
         if let qualification = ConnectedDeletionUIQualification.current {
@@ -38,12 +47,15 @@ import SwiftUI
                     Color.clear.accessibilityLabel("Native messaging qualification")
                 }
                 else if ProcessInfo.processInfo.arguments.contains("-vipi-timeline-qa") { TimelineQualificationView() }
-                else if ProcessInfo.processInfo.arguments.contains("-vipi-starter-route-qa") { StarterRouteQualificationView() }
+                else if ProcessInfo.processInfo.arguments.contains("-vipi-home-preview-display-qa"), Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" { HomePreviewDisplayQualificationView() }
+                else if ProcessInfo.processInfo.arguments.contains("-vipi-reading-status-ui-qa") {
+                    ReadingStatusUIQualificationView()
+                }
                 else if ProcessInfo.processInfo.arguments.contains("-vipi-full-reading-qa") { FullReadingQualificationView() }
                 else if ProcessInfo.processInfo.arguments.contains("-vipi-translation-matrix") { TranslationQualification() }
                 else if state.isAuthenticated {
                     if ProcessInfo.processInfo.arguments.contains("-vipi-preview-home") { HomeView() }
-                    else { ConnectedChatRoot(qualification: ConnectedDeletionUIQualification.current?.connection) }
+                    else { ConnectedChatRoot(qualification: ConnectedDeletionUIQualification.current?.connection ?? FirstMonthRootQualification.current?.connection) }
                 }
                 else { OnboardingView() }
                 #else
@@ -66,7 +78,23 @@ import SwiftUI
             .onOpenURL { url in Task { await authentication.complete(url) } }
             #if DEBUG
             .safeAreaInset(edge: .bottom, spacing: 0) {
-                if let qualification = ConnectedDeletionUIQualification.current {
+                if let qualification = FirstMonthRootQualification.current {
+                    if qualification.pendingPairEnabled {
+                        Button { qualification.releasePendingPair() } label: {
+                            Text("Release owned old-pair provider results")
+                                .foregroundStyle(VipiDesign.highlight).frame(minHeight:44).contentShape(Rectangle())
+                        }
+                            .accessibilityIdentifier("pending-pair-release")
+                            .disabled(qualification.pendingPairReleased)
+                    }
+                    TimelineView(.periodic(from: .now, by: 0.5)) { _ in
+                        Color.clear.frame(height: 1).accessibilityElement(children: .ignore)
+                            .accessibilityLabel("Local journey evidence")
+                            .accessibilityIdentifier("first-month-root-qa-proof|" + qualification.proof)
+                    }
+                } else if FirstMonthRootQualification.cleaned {
+                    Text("Owned first-month fixture removed").accessibilityIdentifier("first-month-root-cleaned")
+                } else if let qualification = ConnectedDeletionUIQualification.current {
                     TimelineView(.periodic(from: .now, by: 0.5)) { _ in
                         Text(qualification.proof).font(.caption2).lineLimit(1)
                             .accessibilityIdentifier("deletion-root-qa-proof")

@@ -11,11 +11,13 @@ struct ConnectedChatRoot: View {
     init(qualification: Qualification? = nil) {
         if qualification != nil {
             precondition(Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" &&
-                ProcessInfo.processInfo.arguments.contains("-vipi-deletion-root-qa"), "Owned root qualification only")
+                (ProcessInfo.processInfo.arguments.contains("-vipi-deletion-root-qa") ||
+                 ProcessInfo.processInfo.arguments.contains("-vipi-first-month-root-qa")), "Owned root qualification only")
         }
         self.qualification = qualification
     }
     #endif
+    @Environment(AppState.self) private var state
     @Environment(AuthenticationManager.self) private var authentication
     @Environment(\.scenePhase) private var scenePhase
     @State private var chat: ChatSession?
@@ -66,6 +68,10 @@ struct ConnectedChatRoot: View {
             } else { ProgressView("Connecting to your chats") }
         }
         .background(VipiDesign.canvas)
+        .background { if let owner = chat?.translationOwner { ConversationTranslationTask(immersion:owner) } }
+        .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(chat?.userID ?? "")") {
+            if let chat { await chat.configureTranslation(pair:.init(source:state.knownLanguage,target:state.targetLanguage),services:state.translationServices); botOwner.useTranslation(chat.translationOwner) }
+        }
         .sheet(isPresented: $showReplacement) {
             if let chat, let replacement { OwnDeviceReplacementView(chat: chat, candidate: replacement) }
         }
@@ -89,6 +95,7 @@ struct ConnectedChatRoot: View {
                 #else
                 let value = try ChatSession(authentication: authentication, userID: userID)
                 #endif
+                await value.configureTranslation(pair:.init(source:state.knownLanguage,target:state.targetLanguage),services:state.translationServices)
                 chat = value; await value.start()
             } catch { self.error = String(localized: "Your saved data is still here. Please close and reopen Vipi to try again.") }
         }
@@ -100,6 +107,7 @@ struct ConnectedChatRoot: View {
             #else
             botOwner = BotConversationOwner()
             #endif
+            botOwner.useTranslation(chat?.translationOwner)
             subscriptions?.close(); subscriptions = nil
             #if DEBUG
             guard let profile = chat?.profile, let userID = authentication.session?.userID else { return }
@@ -151,13 +159,13 @@ struct ProfileSetupView: View {
                         .textInputAutocapitalization(.never).autocorrectionDisabled().textContentType(.username).accessibilityIdentifier("profile-username") }
                 }.padding(20).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 20))
                 Text("Use 3–24 English letters, numbers or underscores. Start with a letter. Your phone number and contacts stay private.")
-                    .font(.footnote).foregroundStyle(VipiDesign.secondary)
+                    .font(.subheadline).foregroundStyle(VipiDesign.secondary)
                 Toggle("I agree to the Terms of Service and have read the Privacy Policy.", isOn: $acceptedTerms)
-                    .font(.footnote).tint(VipiDesign.accent).accessibilityIdentifier("profile-accept-terms")
+                    .font(.subheadline).tint(VipiDesign.accent).accessibilityIdentifier("profile-accept-terms")
                 HStack(spacing: 20) {
-                    Link("Terms", destination: URL(string: "https://api.mambovipi.app/terms")!)
-                    Link("Privacy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
-                }.font(.footnote)
+                    Link(destination: URL(string: "https://api.mambovipi.app/terms")!) { Text("Terms").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
+                    Link(destination: URL(string: "https://api.mambovipi.app/privacy")!) { Text("Privacy").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
+                }.font(.subheadline)
                 if let notice = chat.notice { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("profile-error") }
                 Button { Task { await chat.createProfile(username: username, name: name) } } label: {
                     HStack { Spacer(); if chat.busy { ProgressView().tint(VipiDesign.onHighlight) } else { Text("Start chatting").fontWeight(.semibold) }; Spacer() }.padding(.vertical, 12)
@@ -176,9 +184,11 @@ struct FriendConversationView: View {
     @Environment(\.dynamicTypeSize) private var typeSize
     @State private var immersion: ConversationImmersion
     @State private var speech = SpeechPlayback()
-    @ScaledMetric(relativeTo: .body) private var metadataSize = 14
+    @State private var autoplay = ChatAutoplay()
+    @State private var messageObserver: UUID?
     let chat: ChatSession
     let peer: UUID
+    private let usesAppTranslationServices: Bool
     @State private var messages: [ChatItem] = []
     @State private var text = ""
     @State private var error: String?
@@ -189,8 +199,12 @@ struct FriendConversationView: View {
     @State private var showSecurityNumber = false
     @State private var showVoiceHelp = false
     @State private var showTranslationHelp = false
+    @State private var translationHelpPair: TranslationPair?
     @State private var showMessageStatus = false
     @State private var reporting: HumanReportSelection?
+    @State private var choosingReport = false
+    @State private var copyOriginal = CopyOriginalContext(editorID:"message-input")
+    @State private var chosenReportMessage: ChatItem?
     @State private var followingLatest = true
     @State private var scrolling = false
     @State private var userScrolling = false
@@ -199,6 +213,8 @@ struct FriendConversationView: View {
     @State private var firstMessageFrame = CGRect.zero
     @State private var viewportHeight: CGFloat = 0
     @State private var viewportBottomInset: CGFloat = 0
+    @State private var viewportLeadingInset: CGFloat = 0
+    @State private var latestScrollY: CGFloat = 0
     @State private var scrollOffset: CGFloat = 0
     @State private var pageAnchorID: UUID?
     @State private var pageAnchorFrame = CGRect.zero
@@ -208,15 +224,36 @@ struct FriendConversationView: View {
     @State private var textSizeAnchorID: UUID?
     @State private var textSizeAnchorFrame = CGRect.zero
     private var blocked: Bool { chat.blockedPeers.contains(peer) }
-    private var messageNotice: String? { error ?? chat.notice }
-    private var canSend: Bool { !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && text.utf8.count <= 32768 }
+    private var messageNotice: String? {
+        let notices = [chat.notice, error].compactMap { $0 }.filter { !$0.isEmpty }
+        var distinct: [String] = []
+        for notice in notices where !distinct.contains(notice) { distinct.append(notice) }
+        return distinct.isEmpty ? nil : distinct.joined(separator: "\n\n")
+    }
+    private var canSend: Bool { loaded && !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && text.utf8.count <= 32768 }
     @FocusState private var composing: Bool
     init(chat: ChatSession, peer: UUID, immersion: ConversationImmersion? = nil) {
-        self.chat = chat; self.peer = peer
+        self.chat = chat; self.peer = peer; usesAppTranslationServices = immersion == nil
         _immersion = State(initialValue: immersion ?? ConversationImmersion())
     }
     private func cancelPageRestoration() {
         pageRestore?.cancel(); pageRestore = nil; pageAnchorID = nil
+    }
+    private func scrollVertically(to y: CGFloat) {
+        // Keyboard resizing can make the y-only overload choose x = 0 even
+        // while the measured scroll content still has a horizontal inset.
+        // Preserve that inset explicitly when restoring a vertical position.
+        position.scrollTo(x: -viewportLeadingInset, y: y)
+    }
+    private func scrollToLatest(_ reason: String) {
+        guard !copyOriginal.holdingLayout else { return }
+        #if DEBUG
+        LiveImmersionQualification.record(["event":"latest_scroll_command", "reason":reason,
+            "target_y":Double(latestScrollY), "target_x":Double(-viewportLeadingInset), "offset_y":Double(scrollOffset),
+            "viewport_height":Double(viewportHeight), "bottom_inset":Double(viewportBottomInset),
+            "following_latest":followingLatest, "scrolling":scrolling])
+        #endif
+        scrollVertically(to: latestScrollY)
     }
     private func refresh() {
         do {
@@ -251,7 +288,7 @@ struct FriendConversationView: View {
                         catch { return }
                         guard pageAnchorID == anchorID else { return }
                         let delta = pageAnchorFrame.minY - frame.minY
-                        if abs(delta) > 0.5 { position.scrollTo(y: scrollOffset + delta) }
+                        if abs(delta) > 0.5 { scrollVertically(to: scrollOffset + delta) }
                     }
                     pageAnchorID = nil
                     pageRestore = nil
@@ -320,17 +357,17 @@ struct FriendConversationView: View {
                             VStack(alignment: .leading, spacing: 7) {
                                 ConversationImmersionText(text: item.text, id: item.id.uuidString, immersion: immersion,
                                     speech: speech, paused: scrolling || (composing && !text.isEmpty), metadata: AnyView(
-                                messageMetadata(item).font(.system(size: metadataSize))
+                                messageMetadata(item).font(.subheadline)
                                     .fixedSize(horizontal: false, vertical: true).foregroundStyle(VipiDesign.secondary)
-                                    .accessibilityIdentifier("message-meta-" + item.id.uuidString)), onVoiceHelp: { showVoiceHelp = true }, onTranslationSetup: { showTranslationHelp = true }, onReport: !item.outgoing && item.state != "imported" ? { reporting = HumanReportSelection(message: item) } : nil)
+                                    .accessibilityIdentifier("message-meta-" + item.id.uuidString)), onVoiceHelp: { showVoiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; showTranslationHelp = true }, onReport: !item.outgoing && item.state != "imported" ? { reporting = HumanReportSelection(message: item) } : nil,playback:autoplay)
                             }.background(item.outgoing ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
                             if !item.outgoing { Spacer(minLength: 38) }
                         }.id(item.id)
-                            .accessibilityActions {
-                                if !item.outgoing && item.state != "imported" {
-                                    Button("Report message") { reporting = HumanReportSelection(message: item) }
-                                }
+                            #if DEBUG
+                            .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { value in
+                                LiveImmersionQualification.recordFullMessageGeometry(["event":"full_message_row_geometry","message_id":item.id.uuidString,"outgoing":item.outgoing,"frame":LiveImmersionQualification.frameFields(value)])
                             }
+                            #endif
                             .onGeometryChange(for: CGRect.self) { proxy in proxy.frame(in: .named("conversation-timeline")) } action: { frame in
                                 if item.id == messages.first?.id { firstMessageFrame = frame }
                                 if item.id == pageAnchorID { pageAnchorFrame = frame }
@@ -338,10 +375,17 @@ struct FriendConversationView: View {
                             }
                     }
                     Color.clear.frame(height: 1).id("bottom")
-                }.scrollTargetLayout().padding(18).frame(maxWidth: 680).frame(maxWidth: .infinity)
-            }.scrollDismissesKeyboard(.interactively)
+                }.scrollTargetLayout().padding(.vertical,18).frame(maxWidth:644).frame(maxWidth:.infinity)
+            }.contentMargins(.horizontal,18,for:.scrollContent)
+                .scrollDismissesKeyboard(.interactively)
                 .accessibilityIdentifier("conversation-timeline")
                 .coordinateSpace(name: "conversation-timeline")
+                #if DEBUG
+                .onScrollGeometryChange(for:FullMessageViewportGeometry.self) { FullMessageViewportGeometry($0) } action: { _,value in
+                    var fields = value.fields; fields["event"] = "full_message_scroll_geometry"; fields["composing"] = composing
+                    LiveImmersionQualification.recordFullMessageGeometry(fields)
+                }
+                #endif
                 .scrollPosition($position)
                 .defaultScrollAnchor(followingLatest ? .bottom : nil, for: .sizeChanges)
                 .onScrollPhaseChange { _, phase in
@@ -357,39 +401,47 @@ struct FriendConversationView: View {
                 .onScrollGeometryChange(for: ConversationViewport.self) { geometry in
                     ConversationViewport(offset: geometry.visibleRect.minY, height: geometry.visibleRect.height,
                                          content: geometry.contentSize.height,
-                                         bottomInset: geometry.contentInsets.bottom)
+                                         bottomInset: geometry.contentInsets.bottom, topInset: geometry.contentInsets.top,
+                                         leadingInset: geometry.contentInsets.leading)
                 } action: { old, new in
                     #if DEBUG
                     LiveImmersionQualification.record(["event": "viewport", "offset": Double(new.offset),
-                        "height": Double(new.height), "content": Double(new.content), "bottom_inset": Double(new.bottomInset),
+                        "height": Double(new.height), "content": Double(new.content), "bottom_inset": Double(new.bottomInset), "top_inset": Double(new.topInset),
                         "following_latest": followingLatest, "scrolling": scrolling, "user_scrolling": userScrolling,
                         "composing": composing, "draft_empty": text.isEmpty])
                     #endif
                     viewportHeight = new.height
                     viewportBottomInset = new.bottomInset
+                    viewportLeadingInset = new.leadingInset
                     scrollOffset = new.offset
+                    latestScrollY = new.latestScrollY
                     // Only a user's scroll changes reading intent. Lazy row
                     // estimates can briefly look like the bottom during a
                     // keyboard resize, even while reading much older messages.
                     if userScrolling { followingLatest = new.nearBottom }
-                    // Wait until a real viewport resize settles before moving
-                    // the scroll position. Mutating it during lazy layout can
-                    // invalidate the visible rows or feed another measurement.
-                    if followingLatest && !scrolling && textSizeRestore == nil && abs(old.height - new.height) > 0.5 {
+                    // Message changes arrive before lazy rows have their final
+                    // heights. Follow the current measured bottom after content
+                    // or viewport changes; offset-only changes never reschedule.
+                    let layoutChanged = abs(old.height - new.height) > 0.5 || abs(old.content - new.content) > 0.5
+                        || abs(old.bottomInset - new.bottomInset) > 0.5 || abs(old.topInset - new.topInset) > 0.5
+                        || abs(old.leadingInset - new.leadingInset) > 0.5
+                    if !copyOriginal.holdingLayout && followingLatest && !scrolling && textSizeRestore == nil && layoutChanged {
                         viewportRestore?.cancel()
                         viewportRestore = Task { @MainActor in
                             do { try await Task.sleep(for: .milliseconds(80)) }
                             catch { return }
                             guard followingLatest && !scrolling else { return }
-                            position.scrollTo(edge: .bottom)
+                            scrollToLatest("layout_settled")
                             viewportRestore = nil
                         }
                     }
                 }
                 .refreshable { await chat.synchronize(); refresh() }
-                .onChange(of: messages.last?.id) { _, _ in if followingLatest { position.scrollTo(edge: .bottom) } }
-                .onChange(of: jumpRevision) { _, _ in position.scrollTo(edge: .bottom) }
-                .onChange(of: composing) { _, focused in if focused && followingLatest { position.scrollTo(edge: .bottom) } }
+                .onChange(of: messages.last?.id) { _, _ in if followingLatest { scrollToLatest("newest_message") } }
+                .onChange(of: jumpRevision) { _, _ in scrollToLatest("send") }
+                .onChange(of: composing) { _, focused in
+                    if focused && followingLatest && !copyOriginal.holdingLayout { scrollToLatest("composer_focus") }
+                }
                 .onChange(of: typeSize) { _, _ in
                     // Font changes invalidate every lazy row's measured height.
                     // Restore a semantic message anchor after the new layout,
@@ -425,7 +477,7 @@ struct FriendConversationView: View {
                             #endif
                             if abs(delta) > 0.5 {
                                 settled = 0
-                                position.scrollTo(y: scrollOffset + delta)
+                                scrollVertically(to: scrollOffset + delta)
                             } else {
                                 settled += 1
                                 if settled >= 2 { break }
@@ -437,7 +489,7 @@ struct FriendConversationView: View {
                 }
                 .overlay(alignment: .bottomTrailing) {
                     if !followingLatest && !messages.isEmpty {
-                        Button { cancelPageRestoration(); followingLatest = true; position.scrollTo(edge: .bottom) } label: {
+                        Button { cancelPageRestoration(); followingLatest = true; scrollToLatest("explicit_latest") } label: {
                             Image(systemName: "arrow.down").font(.body.weight(.semibold)).frame(width: 48, height: 48)
                         }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).buttonBorderShape(.circle).padding(12)
                             .accessibilityLabel("Jump to latest messages").accessibilityIdentifier("conversation-latest")
@@ -447,13 +499,27 @@ struct FriendConversationView: View {
     }
     var body: some View {
         timeline
+        .safeAreaInset(edge:.top,spacing:0) { ChatGestureCue(reading:state.chatReading,composing:composing) }
         .background(VipiDesign.canvas)
-        .background { ConversationTranslationTask(immersion: immersion) }
+        .background { if !usesAppTranslationServices { ConversationTranslationTask(immersion:immersion) } }
+        .background { ChatReadingGestureSurface(reading:state.chatReading) }
+        .background { CopyOriginalAnchor(context:copyOriginal) }
+            #if DEBUG
+            .copyOriginalProof(context:copyOriginal,autoplay:autoplay,speech:speech)
+            .background { PendingPairRootBinding(autoplay:autoplay,speech:speech) }
+            #endif
+        .sheet(isPresented:$copyOriginal.presented,onDismiss:{ copyOriginal.restore() }) {
+            CopyOriginalPicker(choices:copyOriginal.choices)
+                #if DEBUG
+                .copyOriginalProof(context:copyOriginal,autoplay:autoplay,speech:speech)
+                #endif
+        }
         .sheet(isPresented: $showTranslationHelp) {
-            NavigationStack { LanguageDownloadView().toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showTranslationHelp = false } } } }
+            NavigationStack { LanguageDownloadView(requestedPair:translationHelpPair).toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showTranslationHelp = false } } } }
         }
         .navigationTitle(chat.name(peer)).navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement:.topBarTrailing) { autoplayButton }
             if #available(iOS 26.0, *) {
                 conversationOptions.sharedBackgroundVisibility(.hidden)
             } else { conversationOptions }
@@ -465,6 +531,13 @@ struct FriendConversationView: View {
             Text(LocalizedStringKey(blocked ? "You can exchange new messages again. Stopped messages won’t be resent." : "Messages between you will stop. Your chat stays on this device. You can unblock anytime."))
         }
         .sheet(isPresented: $showSecurityNumber) { SecurityNumberView(chat: chat, peer: peer) }
+        .sheet(isPresented:$choosingReport,onDismiss:{
+            if let selected = chosenReportMessage { chosenReportMessage = nil; reporting = HumanReportSelection(message:selected) }
+        }) {
+            ReportMessagePicker(choices:messages.filter{!$0.outgoing && $0.state != "imported"}.map{.init(id:$0.id.uuidString,original:$0.text)}) { id in
+                chosenReportMessage = messages.first{$0.id.uuidString == id && !$0.outgoing && $0.state != "imported"}
+            }
+        }
         .sheet(item: $reporting) { selection in HumanReportView(chat: chat, peer: peer, message: selection.message) }
         .sheet(isPresented: $showMessageStatus) {
             NavigationStack {
@@ -481,8 +554,8 @@ struct FriendConversationView: View {
             NavigationStack {
                 ScrollView {
                   VStack(alignment: .leading, spacing: 20) {
-                    Text("Hear both languages").font(.title2).fontWeight(.semibold)
-                    Text(speech.error ?? "Prepare the voices for both languages to listen without a connection.")
+                    Text("Listen in your practice language").font(.title2).fontWeight(.semibold)
+                    Text(speech.error ?? "Prepare the voice for the language you’re learning to listen offline.")
                     Button("Retry voices") { prepareVoices() }
                         .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight)
                         .disabled(speech.state == .preparing)
@@ -494,17 +567,37 @@ struct FriendConversationView: View {
             }.presentationDetents([.medium, .large])
         }
         .safeAreaInset(edge: .bottom) { composer }
-        .task(id: "\(state.knownLanguage)-\(state.targetLanguage)-\(state.density)") {
+        .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(chat.translationOwner.map{String(describing:ObjectIdentifier($0))} ?? "local")") {
+            copyOriginal.abandon()
             speech.close()
-            await immersion.configure(pair: .init(source: state.knownLanguage, target: state.targetLanguage), density: state.density, familiarity: chat.familiarity)
-            prepareVoices()
+            autoplay.stop(speech:speech)
+            if usesAppTranslationServices {
+                guard let owner = chat.translationOwner else { return }; immersion = owner
+            } else { await immersion.configure(pair:.init(source:state.knownLanguage,target:state.targetLanguage)) }
+            prepareVoices(); immersion.warm(messages.map{(id:$0.id.uuidString,text:$0.text)})
         }
-        .onDisappear { cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil; textSizeRestore?.cancel(); textSizeRestore = nil; textSizeAnchorID = nil; immersion.close(); speech.close() }
+        .onAppear {
+            state.chatReading.bindPlayback(owner:autoplay.ownerID) { identity in
+                autoplay.manual(identity,immersion:immersion,speech:speech,onModels:{translationHelpPair = $0; showTranslationHelp = true},onVoiceHelp:{showVoiceHelp = true})
+            }
+            if messageObserver == nil {
+                messageObserver = chat.observeNewMessages { event in
+                    guard event.peer == peer else { return }
+                    autoplay.arrived(.init(id:event.id,load:event.load),immersion:immersion,speech:speech,foreground:scenePhase == .active)
+                }
+            }
+        }
+        .onChange(of:messages.map(\.id),initial:true) { _,_ in
+            immersion.warm(messages.map{(id:$0.id.uuidString,text:$0.text)})
+        }
+        .onChange(of:immersion.revision) { _,_ in immersion.warm(messages.map{(id:$0.id.uuidString,text:$0.text)}); autoplay.resume(immersion:immersion,speech:speech,foreground:scenePhase == .active) }
+        .onDisappear { if let messageObserver { chat.removeMessageObserver(messageObserver) }; messageObserver = nil; state.chatReading.unbindPlayback(owner:autoplay.ownerID); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); copyOriginal.abandon(); cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil; textSizeRestore?.cancel(); textSizeRestore = nil; textSizeAnchorID = nil; if !usesAppTranslationServices { immersion.close() }; speech.close() }
         .onChange(of: scenePhase) { _, phase in
-            if phase != .active { cancelPageRestoration(); speech.stop() }
+            if phase != .active {
+                copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); cancelPageRestoration(); speech.stop() }
             else { Task { await immersion.refreshAvailability(); prepareVoices() } }
         }
-        .onChange(of: speech.state) { _, value in if value == .ready { showVoiceHelp = false } }
+        .onChange(of: speech.state) { _, value in if value == .ready { showVoiceHelp = false; autoplay.voicesReady() } }
         .task {
             refresh(); blockBusy = true
             do { try await chat.refreshBlock(peer) }
@@ -524,17 +617,34 @@ struct FriendConversationView: View {
             Menu {
                 NavigationLink { LanguageDownloadView() } label: { Label("Languages", systemImage: "globe") }
                     .accessibilityIdentifier("conversation-languages")
+                Button("Copy original message",systemImage:"doc.on.doc") {
+                    // Firm stop even when autoplay is already OFF with manual work pending.
+                    cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil
+                    textSizeRestore?.cancel(); textSizeRestore = nil
+                    copyOriginal.open(messages.map{.init(id:$0.id.uuidString,original:$0.text)},autoplay:autoplay,speech:speech,reading:state.chatReading,fromMenu:true)
+                }.disabled(messages.isEmpty).accessibilityIdentifier("copy-original-picker")
                 Button("Verify encryption", systemImage: "lock.shield") { showSecurityNumber = true }
+                if messages.contains(where:{!$0.outgoing && $0.state != "imported"}) {
+                    Button("Report a message",systemImage:"flag") { choosingReport = true }
+                        .accessibilityIdentifier("report-message-picker")
+                }
                 Button("Report person", systemImage: "flag") { reporting = HumanReportSelection(message: nil) }
                 Button(LocalizedStringKey(blocked ? "Unblock" : "Block"), role: blocked ? nil : .destructive) { confirmBlock = true }
             } label: {
                 if blockBusy { ProgressView() }
-                else { Image(systemName: "ellipsis").frame(width: 44, height: 44) }
+                else { Image(systemName: "ellipsis").frame(width: 44, height: 44)
+                    .background { CopyOriginalMenuCapture(context:copyOriginal) } }
             }.disabled(blockBusy).accessibilityLabel("Conversation options").accessibilityIdentifier("conversation-options")
         }
     }
     private var composer: some View {
             VStack(spacing: 9) {
+                if let notice = autoplay.voiceNotice {
+                    HStack(alignment:.top) {
+                        Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
+                        Button("Retry voices") { prepareVoices() }.frame(minHeight:44)
+                    }.padding(.horizontal,14).accessibilityIdentifier("chat-voice-recovery")
+                }
                 if blocked {
                     HStack {
                         Text("You blocked this person.").font(.subheadline)
@@ -542,7 +652,7 @@ struct FriendConversationView: View {
                     }.padding(16).accessibilityIdentifier("conversation-blocked")
                 } else {
                 HStack(alignment: .bottom, spacing: 10) {
-                    TextField("Message", text: $text, prompt: Text("Message").foregroundColor(VipiDesign.secondary), axis: .vertical).lineLimit(1...6).focused($composing)
+                    TextField("Message", text: $text, prompt: Text("Message").foregroundColor(VipiDesign.secondary), axis: .vertical).lineLimit(1...6).focused($composing).disabled(!loaded)
                         .fixedSize(horizontal: false, vertical: true)
                         .id(typeSize)
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
@@ -558,6 +668,11 @@ struct FriendConversationView: View {
                 }.padding(.horizontal, 14).padding(.bottom, 10)
                 }
             }.background(VipiDesign.canvas)
+            #if DEBUG
+            .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { value in
+                LiveImmersionQualification.recordFullMessageGeometry(["event":"full_message_composer_geometry","frame":LiveImmersionQualification.frameFields(value)])
+            }
+            #endif
     }
     @ViewBuilder private func statusLabel(_ title: LocalizedStringKey, symbol: String) -> some View {
         if typeSize.isAccessibilitySize {
@@ -566,12 +681,17 @@ struct FriendConversationView: View {
             Label(title, systemImage: symbol).fixedSize(horizontal: false, vertical: true).frame(minHeight: 44)
         }
     }
+    private var autoplayButton: some View {
+        Button { state.chatReading.cancelPendingPlayback(); autoplay.toggle(snapshot:messages.map{ChatAutoplay.Message(id:$0.id.uuidString,text:$0.text)},immersion:immersion,speech:speech) } label: {
+            Image(systemName:autoplay.enabled ? "speaker.wave.2.fill" : "speaker.slash")
+                .frame(minWidth:44,minHeight:44).contentShape(Rectangle())
+        }.accessibilityLabel(LocalizedStringKey(autoplay.enabled ? "Turn off autoplay" : "Turn on autoplay"))
+            .accessibilityValue(autoplay.enabled ? String(localized:"Autoplay on. New messages play aloud.") : "")
+            .accessibilityIdentifier("chat-autoplay-toggle")
+    }
     private func prepareVoices() {
-        if let source = ConversationExamples.examples?.languages[state.knownLanguage]?.text,
-           let target = ConversationExamples.examples?.languages[state.targetLanguage]?.text {
-            speech.prepare(source: state.knownLanguage, target: state.targetLanguage,
-                warmups: [state.knownLanguage: source, state.targetLanguage: target])
-        }
+        let language = state.targetLanguage
+        speech.prepare(source:language,target:language,warmups:[language:VipiLanguage.named(language).localName])
     }
     private func messageMetadata(_ item: ChatItem) -> Text {
         let time = Text(Date(timeIntervalSince1970: Double(item.createdAt) / 1000), style: .time)
@@ -595,6 +715,9 @@ private struct ConversationViewport: Equatable {
     let height: CGFloat
     let content: CGFloat
     let bottomInset: CGFloat
+    let topInset: CGFloat
+    let leadingInset: CGFloat
+    var latestScrollY: CGFloat { max(-topInset, content + bottomInset - height) }
     // visibleRect includes the area underneath the composer and keyboard.
     // A message hidden there must not count as being at the visible bottom.
     var nearBottom: Bool { content + bottomInset - offset - height <= 44 }

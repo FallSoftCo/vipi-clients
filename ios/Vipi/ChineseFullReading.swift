@@ -1,4 +1,5 @@
 import Foundation
+import VipiCore
 import CryptoKit
 
 /// Native ordinary-pinyin implementation of pinned pinyin-pro 3.29.5 data and
@@ -130,7 +131,7 @@ struct ChineseFullReading: Sendable {
         #"[\p{Latin}\p{M}\p{N}]+(?:[\-_'’./:][\p{Latin}\p{M}\p{N}]+)*"#
     ]
     func resolve(_ text: String, preserveOpaque: Bool = true) throws -> Result {
-        guard (1...16_384).contains(text.utf16.count) else { throw Invalid.input }
+        guard (1...FullMessageBudget.recordBytes).contains(text.utf8.count) else { throw Invalid.input }
         let scalars = Array(text.unicodeScalars), native = text as NSString
         var offsets = [0]
         // Each regex emits non-overlapping matches. A bounded UTF16 occupancy

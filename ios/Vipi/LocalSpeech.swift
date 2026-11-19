@@ -1,6 +1,7 @@
 import AVFoundation
 import CryptoKit
 import Foundation
+import VipiCore
 
 /// An erased generation is never recreated by a new account or voice pair.
 /// Late synthesis/join callbacks retain their old directory and cannot publish
@@ -132,7 +133,7 @@ private final class ConverterInput: @unchecked Sendable {
 
     func render(_ text: String, to url: URL) async throws -> RenderedSpeech {
         try Task.checkCancellation()
-        guard active == nil, swahiliJob == nil, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf16.count <= 16_384 else { throw LocalSpeechError.unavailable }
+        guard active == nil, swahiliJob == nil, !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= FullMessageBudget.recordBytes else { throw LocalSpeechError.unavailable }
         if language.components(separatedBy: "-")[0] == "sw" {
             let job = SwahiliSpeech.Job(); swahiliJob = job
             defer { swahiliJob = nil }
@@ -180,18 +181,25 @@ private final class ConverterInput: @unchecked Sendable {
     }
 }
 
-/// Initial full-buffer experiment. One output file means one playback instance.
-/// Streaming is selected only if measured first-play latency warrants it.
-@MainActor final class LocalSpeechPair {
+/// SDK seam retains the production native synthesizer/file pipeline. Tests can
+/// forward through a pair in their own directory without altering user audio.
+@MainActor protocol PreparedSpeechPair: AnyObject {
+    func prepare(warmups:[String:String]) async throws
+    func render(_ spans:[(text:String,language:String)]) async throws -> RenderedSpeech
+    func stop()
+}
+
+@MainActor final class LocalSpeechPair: PreparedSpeechPair {
     private let root: URL
     private let voices: [String: LocalVoice]
     private var prepared = false
     private var busy = false
 
     init(source: String, target: String, root: URL) throws {
-        guard source != target else { throw LocalSpeechError.unavailable }
         self.root = root
-        voices = [source: try LocalVoice(language: source), target: try LocalVoice(language: target)]
+        var selected = [source: try LocalVoice(language:source)]
+        if source != target { selected[target] = try LocalVoice(language:target) }
+        voices = selected
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
     }
     func prepare(warmups: [String: String]) async throws {
@@ -208,7 +216,7 @@ private final class ConverterInput: @unchecked Sendable {
     }
     func render(_ spans: [(text: String, language: String)]) async throws -> RenderedSpeech {
         guard prepared else { throw LocalSpeechError.notPrepared }
-        guard !busy, !spans.isEmpty, spans.reduce(0, { $0 + $1.text.utf16.count }) <= 16_384 else { throw LocalSpeechError.unavailable }
+        guard !busy, !spans.isEmpty, spans.reduce(0, { $0 + $1.text.utf8.count }) <= FullMessageBudget.recordBytes else { throw LocalSpeechError.unavailable }
         busy = true; defer { busy = false }
         for span in spans {
             guard voices[span.language] != nil else { throw LocalSpeechError.missingVoice(span.language) }

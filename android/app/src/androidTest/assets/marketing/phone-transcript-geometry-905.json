@@ -1,0 +1,86 @@
+{
+  "schema": "vipi-retained-phone-transcript-geometry-1",
+  "source_run": "905",
+  "viewport": "phone",
+  "source_head": "1a1161d12cf29d68daa8c0b93fc5e2011bcd30d7",
+  "captures": {
+    "friend-02-practice-reading": {
+      "sha256": "6541b1158ed33021e494715d0a92b8a2aa473480e3da72be6a635a80e7d4317c",
+      "screen_width_dp": 411,
+      "font_scale": 1,
+      "width_px": 1080,
+      "height_px": 1857,
+      "native_paragraphs": [
+        {
+          "original": "I'll see you at the café.",
+          "drawn": "wǒ huì zài kāfēi guǎn jiàn dào nǐ。",
+          "fully_visible": true,
+          "bounds": "[279,886][994,955]",
+          "native_full_bounds": "[279,886][994,955]",
+          "actual_compose_content_viewport": "RectF(0.0, 231.0, 1080.0, 1660.0)"
+        },
+        {
+          "original": "I'll bring my camera.",
+          "drawn": "wǒ huì dài wǒ de xiàng jī。",
+          "fully_visible": true,
+          "bounds": "[86,1138][644,1207]",
+          "native_full_bounds": "[86,1138][644,1207]",
+          "actual_compose_content_viewport": "RectF(0.0, 231.0, 1080.0, 1660.0)"
+        },
+        {
+          "original": "We can take a walk after coffee.",
+          "drawn": "wǒ men kě yǐ hē kāfēi hòu sàn bù。",
+          "fully_visible": true,
+          "bounds": "[255,1390][994,1459]",
+          "native_full_bounds": "[255,1390][994,1459]",
+          "actual_compose_content_viewport": "RectF(0.0, 231.0, 1080.0, 1660.0)"
+        },
+        {
+          "original": "Yes! Let's meet at ten.",
+          "drawn": "shì de！ ràng wǒ men shí diǎn jiàn miàn。",
+          "fully_visible": true,
+          "bounds": "[86,552][894,703]",
+          "native_full_bounds": "[86,552][894,703]",
+          "actual_compose_content_viewport": "RectF(0.0, 231.0, 1080.0, 1660.0)"
+        },
+        {
+          "original": "Would you like to get coffee tomorrow?",
+          "drawn": "nǐ xiǎng míngtiān hē kāfēi ma？",
+          "fully_visible": true,
+          "bounds": "[186,244][994,369]",
+          "native_full_bounds": "[186,244][994,369]",
+          "actual_compose_content_viewport": "RectF(0.0, 231.0, 1080.0, 1660.0)"
+        }
+      ],
+      "editor_native_bounds": "[32,1681][896,1836]",
+      "xml_sha256": "5f883e05dec387ad91861832b6ae8e6157a028ace262e092e922436f1d3675be"
+    },
+    "bot-06-practice-reading": {
+      "sha256": "5c7e83360b656b14fae6664fdcde7d364651f0bc2d667880db6c5adc365669ca",
+      "screen_width_dp": 411,
+      "font_scale": 1,
+      "width_px": 1080,
+      "height_px": 1857,
+      "native_paragraphs": [
+        {
+          "original": "Help me practice ordering lunch.",
+          "drawn": "bāng zhù wǒ liàn xí dìng gòu wǔ cān。",
+          "fully_visible": true,
+          "bounds": "[198,380][999,449]",
+          "native_full_bounds": "[198,380][999,449]",
+          "actual_compose_content_viewport": "RectF(0.0, 231.0, 1080.0, 1660.0)"
+        },
+        {
+          "original": "You can say: I would like a bowl of soup.",
+          "drawn": "nǐ kě yǐ shuō：wǒ xiǎng yào yī wǎn tāng。",
+          "fully_visible": true,
+          "bounds": "[81,545][899,696]",
+          "native_full_bounds": "[81,545][899,696]",
+          "actual_compose_content_viewport": "RectF(0.0, 231.0, 1080.0, 1660.0)"
+        }
+      ],
+      "editor_native_bounds": "[32,1681][901,1836]",
+      "xml_sha256": "6f8bc26445a6ecaef629821fb4fab1a3f21646cc3d8e2fe05e74b1ae4da865e8"
+    }
+  }
+}

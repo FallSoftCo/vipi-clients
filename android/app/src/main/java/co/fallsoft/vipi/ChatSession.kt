@@ -32,7 +32,25 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     private var vault: MessageVault? = null
     private var core: MessagingCore? = null
     private var history: ConversationHistory? = null
-    var familiarity: VocabularyFamiliarityStore? = null; private set
+    var translations by mutableStateOf<ConversationTranslation?>(null); private set
+    private var translationPair: Pair<String, String>? = null
+    private var translationFactory: (() -> LanguageTranslation)? = null
+    private val newMessageObservers = mutableMapOf<Any, Pair<UUID, (String, String) -> Unit>>()
+    internal fun observeNewMessages(owner: Any, peer: UUID, action: (String, String) -> Unit) {
+        newMessageObservers[owner] = peer to action
+        MessageAudioQualification.emit("observer_attached", fields = arrayOf("observers" to newMessageObservers.size))
+    }
+    internal fun removeNewMessageObserver(owner: Any) {
+        newMessageObservers.remove(owner)
+        MessageAudioQualification.emit("observer_detached", fields = arrayOf("observers" to newMessageObservers.size))
+    }
+    private fun newMessage(peer: UUID, id: String, text: String) {
+        val matches = newMessageObservers.values.toList().filter { it.first == peer }
+        MessageAudioQualification.emit("durable_message", id, "observer_matches" to matches.size)
+        matches.forEach { runCatching { it.second(id, text) }.onFailure {
+            MessageAudioQualification.emit("observer_failure", id, "failure" to it.javaClass.name)
+        } }
+    }
     var profile by mutableStateOf<ChatProfile?>(null); private set
     var needsProfile by mutableStateOf(false); private set
     var busy by mutableStateOf(false); private set
@@ -65,7 +83,10 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (vault == null) {
             val store = MessageVault(context, value.id); vault = store
             core = MessagingCore(store); history = ConversationHistory(store)
-            familiarity = VocabularyFamiliarityStore(store)
+            translationPair?.let { (source, target) ->
+                translations = ConversationTranslation(context, source, target, FullMessageTranslationStore(store),
+                    translator = translationFactory?.invoke() ?: LocalTranslation())
+            }
             ready = store.transaction { store.get("local", "registered-device")?.toString(Charsets.UTF_8) == core!!.device.id.toString() }
             contacts = store.transaction { store.ids("contact").associate { key ->
                 val contact = ChatProfile.parse(JSONObject(requireNotNull(store.get("contact", key)).toString(Charsets.UTF_8)))
@@ -74,7 +95,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             blockedPeers = store.transaction { store.ids("blocked").map(UUID::fromString).toSet() }
             peersNeedingRecovery = store.transaction { store.ids("peer-recovery-needed").map(UUID::fromString).toSet() }
         }
-        profile = value; needsProfile = false; records.write(cacheKey, value.json()); reload()
+        profile = value; needsProfile = false; records.write(cacheKey, value.json()); reload(); replaySavedTranslations()
     }
     private fun reload() {
         threads = history?.threads() ?: emptyList()
@@ -103,7 +124,8 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         }
     suspend fun exportHistory(file: java.io.File, password: String) = historyOperation { store, check -> store.export(file, password, check) }
     suspend fun inspectHistory(file: java.io.File, password: String) = historyOperation { store, check -> store.validate(file, password, check) }
-    suspend fun importHistory(file: java.io.File, password: String, confirmed: HistoryBackupCodec.Inspection) = historyOperation { store, check -> store.merge(file, password, confirmed, check) }
+    suspend fun importHistory(file: java.io.File, password: String, confirmed: HistoryBackupCodec.Inspection) =
+        historyOperation { store, check -> store.merge(file, password, confirmed, check) }.also { replaySavedTranslations() }
     suspend fun start() {
         if (busy || closed) return
         busy = true; notice = null; recoveryNeedsSignIn = false
@@ -206,7 +228,47 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         blockedPeers = if (blocked) blockedPeers + peer else blockedPeers - peer
         reload()
     }
+    internal fun configureTranslations(source: String, target: String, factory: (() -> LanguageTranslation)? = null) {
+        if (translationPair == source to target && translations != null) return
+        translations?.close(); translations = null
+        translationPair = source to target; translationFactory = factory
+        vault?.let { store ->
+            translations = ConversationTranslation(context, source, target, FullMessageTranslationStore(store),
+                translator = factory?.invoke() ?: LocalTranslation())
+            replaySavedTranslations()
+        }
+    }
+    internal fun messageOriginal(id: String): String? {
+        if (closed) return null
+        val store = vault ?: return null
+        return store.transaction {
+            store.get("incoming", id)?.let { StoredChat.parse(it).text }
+                ?: store.get("outgoing", id)?.let { StoredChat.parse(it).text }
+                ?: store.get("draft", id)?.let { DraftChat.parse(it).text }
+        }
+    }
+    private fun translateDurable(id: String) {
+        val owner = java.lang.ref.WeakReference(this)
+        translations?.enqueueStored(id) { owner.get()?.messageOriginal(id) }
+    }
     fun messages(peer: UUID, before: String? = null) = history?.messages(peer, before) ?: emptyList()
+    private fun replaySavedTranslations() {
+        val index = history ?: return
+        val peers = threads.map { it.peer }
+        translations?.replaySaved { sequence {
+            // Newest page of each thread first; only16 decrypted records are
+            // retained per page, and only one old model call runs at a time.
+            val cursors = peers.associateWith { null as String? }.toMutableMap()
+            while (cursors.isNotEmpty()) {
+                for (peer in peers) {
+                    if (peer !in cursors) continue
+                    val page = index.messages(peer, cursors[peer], limit = 16)
+                    if (page.size < 16) cursors.remove(peer) else cursors[peer] = page.last().cursor
+                    for (message in page) yield(ConversationTranslation.SavedMessage(message.id.toString(), message.text))
+                }
+            }
+        } }
+    }
     fun securityNumber(peer: UUID): SecurityNumber? = (core ?: throw ServiceFailure(0, "device_not_ready")).securityNumber(peer)
     fun setIdentityVerified(verified: Boolean, peer: UUID, compared: SecurityNumber) {
         (core ?: throw ServiceFailure(0, "device_not_ready")).setIdentityVerified(verified, peer, compared); revision++
@@ -270,7 +332,11 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         val now = System.currentTimeMillis()
         if (peer in blockedPeers) throw ServiceFailure(0, "contact_blocked")
         if (peer in peersNeedingRecovery) throw PeerIdentityChanged(peer)
-        core.journal.saveDraft(UUID.randomUUID(), peer, text, now, now, consumeCompose = true); reload()
+        val id = UUID.randomUUID()
+        core.journal.saveDraft(id, peer, text, now, now, consumeCompose = true)
+        translateDurable(id.toString())
+        newMessage(peer, id.toString(), text)
+        reload()
     }
     private suspend fun establish(peer: UUID) {
         val core = core ?: return; val vault = vault ?: return
@@ -313,7 +379,10 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                         try {
                             val item = RoutedMessage.received(inbox.getJSONObject(index), profile!!.id)
                             if (item.envelope.sender !in blockedPeers) {
-                                core.receive(item, System.currentTimeMillis())
+                                val duplicate = vault!!.transaction { vault!!.get("incoming", item.envelope.id.toString()) != null }
+                                val received = core.receive(item, System.currentTimeMillis())
+                                if (!duplicate) translateDurable(received.envelope.id.toString())
+                                if (!duplicate) newMessage(item.envelope.sender, received.envelope.id.toString(), received.text)
                                 if (item.envelope.sender !in contacts && unknownSenders.size < 20) unknownSenders.add(item.envelope.sender)
                             }
                         }
@@ -401,6 +470,8 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         notice = context.getString(R.string.ui_54a04d4e9955)
     }
     override fun close() {
+        newMessageObservers.clear()
+        translations?.close(); translations = null
         closed = true; ready = false; needsProfile = false; syncAgain = false
         syncDone?.cancel(); syncDone = null
         historyDone?.cancel(); historyDone = null

@@ -128,9 +128,10 @@ class LocalVoice(context: Context, val language: String) : AutoCloseable {
     }
 }
 
-/** A pair owns two generators; warm-up renders are silent, never played. */
+/** Owns the distinct requested voices; warm-up renders are silent, never played.
+ * A practice-only session passes the same language in both positions. */
 class LocalSpeechPair(context: Context, val source: String, val target: String) : AutoCloseable {
-    private val voices = mapOf(source to LocalVoice(context, source), target to LocalVoice(context, target))
+    private val voices = setOf(source, target).associateWith { LocalVoice(context, it) }
     private val mutex = Mutex()
     private var prepared = false
     private var voiceIDs = emptyMap<String, String>()
@@ -138,7 +139,6 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
 
     suspend fun prepare(warmups: Map<String, String>) = cache.track { mutex.withLock {
         if (prepared) return@withLock
-        require(source != target)
         voiceIDs = voices.mapValues { it.value.select() }
         for ((language, voice) in voices) {
             val temp = cache.access { File.createTempFile("warm-", ".wav", it) }
@@ -168,6 +168,17 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
         if (result.exists()) {
             val wave = withContext(Dispatchers.IO) { PcmWave.read(result) }
             return@withLock RenderedSpeech(result, wave.durationMs, wave.sampleRate, wave.channels)
+        }
+        // Chunk boundaries can isolate punctuation between spoken text. It is
+        // a separator, not a missing voice/render failure: retain a short PCM
+        // pause so streaming continues to the genuine following utterance.
+        if (normalized.isEmpty()) {
+            val temporary = cache.access { File.createTempFile("pause-", ".wav", it) }
+            try {
+                withContext(Dispatchers.IO) { PcmWave(24_000, 1, ByteArray(4_800)).write(temporary) }
+                cache.access { check(temporary.renameTo(result)) }
+            } finally { temporary.delete() }
+            return@withLock RenderedSpeech(result, 100.0, 24_000, 1)
         }
         val pieces = mutableListOf<File>()
         try {

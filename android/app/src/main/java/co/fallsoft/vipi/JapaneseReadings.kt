@@ -2,10 +2,46 @@ package co.fallsoft.vipi
 
 import android.os.Build
 import com.atilika.kuromoji.ipadic.Token
+import com.atilika.kuromoji.ipadic.Tokenizer
 
-/** Ordinary display readings; authored sentences take precedence. Never used as speech input. */
+/** The local morphological reader is used only for Japanese pronunciation. */
+internal object NativeJapaneseTokenizer {
+    private val tokenizer by lazy { Tokenizer() }
+    fun acceptsText(text: String): Boolean {
+        if (text.length > FullReadingLimits.MAX_TEXT_UTF16) return false
+        var start = 0
+        for (index in text.indices) if (text[index] == '。' || text[index] == '、') {
+            if (index + 1 - start > FullReadingLimits.MAX_JAPANESE_SEGMENT_UTF16) return false
+            start = index + 1
+        }
+        return text.length - start <= FullReadingLimits.MAX_JAPANESE_SEGMENT_UTF16
+    }
+    @Synchronized fun tokens(text: String): List<Token> {
+        require(text.length <= FullReadingLimits.MAX_JAPANESE_SEGMENT_UTF16)
+        return tokenizer.tokenize(text)
+    }
+    @Synchronized fun positionedTokens(text: String): List<Pair<Int,Token>> {
+        require(acceptsText(text)) { "Unqualified Kuromoji lattice span" }
+        val result = mutableListOf<Pair<Int,Token>>()
+        var start = 0
+        fun append(end: Int) {
+            if (start < end) {
+                val offset = start
+                result += tokenizer.tokenize(text.substring(start,end)).map { offset to it }
+            }
+            start = end
+        }
+        // These are exactly TokenizerBase 0.9's default boundaries, including
+        // the delimiter. Avoid its repeated searches for the absent alternative.
+        for (index in text.indices) if (text[index] == '。' || text[index] == '、') append(index+1)
+        append(text.length)
+        return result
+    }
+}
+
+/** Live pronunciation for display only. Never used as speech input. */
 internal object JapaneseReadings {
-    enum class Issue { UNSUPPORTED_API, INPUT_LIMIT, UNRESOLVED_JAPANESE, AMBIGUOUS_IDENTIFIER, CONVERSION, SOURCE_BOUNDS }
+    enum class Issue { UNSUPPORTED_API, INPUT_LIMIT, OUTPUT_LIMIT, UNRESOLVED_JAPANESE, AMBIGUOUS_IDENTIFIER, CONVERSION, SOURCE_BOUNDS }
     enum class Kind { READING, LITERAL, PUNCTUATION, WHITESPACE, UNRESOLVED }
     enum class Basis { NATIVE_PRONUNCIATION, NATIVE_READING, KANA_SURFACE, COPULAR_NAN }
     data class Piece(val start: Int, val end: Int, val original: String, val value: String, val kind: Kind,
@@ -16,7 +52,7 @@ internal object JapaneseReadings {
 
     fun read(original: String): Result {
         if (!supported(Build.VERSION.SDK_INT)) return Result(null, emptyList(), setOf(Issue.UNSUPPORTED_API))
-        if (original.isBlank() || original.length > 16_384) return Result(null, emptyList(), setOf(Issue.INPUT_LIMIT))
+        if (original.isBlank() || original.length > FullReadingLimits.MAX_TEXT_UTF16) return Result(null, emptyList(), setOf(Issue.INPUT_LIMIT))
         return Reader.read(original)
     }
 
@@ -31,7 +67,32 @@ internal object JapaneseReadings {
     private object Reader {
         // URI/IRI ends cannot be inferred from a grammatical-looking Japanese suffix.
         // Preserve that complete ambiguous token and decline its full reading.
-        private val opaque = Regex("```[\\s\\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\\.)[^\\s<>\\\"「」『』]+|[\\p{L}\\p{N}\\p{M}_.+-]+@[\\p{L}\\p{N}\\p{M}_.-]+\\.[\\p{L}\\p{M}]{2,}|[@#][\\p{L}\\p{N}\\p{M}_]+")
+        private val nonEmailOpaque = Regex("```[\\s\\S]*?(?:```|$)|`[^`]*(?:`|$)|(?i:https?://|www\\.)[^\\s<>\\\"「」『』]+|[@#][\\p{L}\\p{N}\\p{M}_]+")
+        private val emailOpaque = Regex("[\\p{L}\\p{N}\\p{M}_.+-]+@[\\p{L}\\p{N}\\p{M}_.-]+\\.[\\p{L}\\p{M}]{2,}")
+        private fun emailLocal(point: Int): Boolean = Character.isLetterOrDigit(point) ||
+            Character.getType(point) in setOf(Character.NON_SPACING_MARK.toInt(),
+                Character.COMBINING_SPACING_MARK.toInt(), Character.ENCLOSING_MARK.toInt(),
+                Character.LETTER_NUMBER.toInt(), Character.OTHER_NUMBER.toInt()) || point in "_.+-".map(Char::code)
+
+        // The old unanchored email alternative retried long no-@ literals at
+        // every position. Actual @ anchors bound scanning without word cuts.
+        private fun opaqueMatches(text: String): List<MatchResult> {
+            val candidates = nonEmailOpaque.findAll(text).map { it to 0 }.toMutableList()
+            for (at in text.indices) if (text[at] == '@') {
+                var start = at
+                while (start > 0) {
+                    val point = text.codePointBefore(start)
+                    if (!emailLocal(point)) break
+                    start -= Character.charCount(point)
+                }
+                if (start < at) emailOpaque.matchAt(text, start)?.let { candidates += it to 1 }
+            }
+            val selected = mutableListOf<MatchResult>(); var end = 0
+            for ((match, _) in candidates.sortedWith(compareBy<Pair<MatchResult,Int>>({ it.first.range.first }, { it.second }))) {
+                if (match.range.first >= end) { selected += match; end = match.range.last + 1 }
+            }
+            return selected
+        }
         private val sentencePunctuation = ".,!?;:。！？、，；：…"
         private data class Atom(val start: Int, val end: Int, val original: String, val kana: String?, val token: Token?, val basis: Basis? = null)
 
@@ -40,7 +101,7 @@ internal object JapaneseReadings {
             val issues = linkedSetOf<Issue>()
             try {
                 var cursor = 0
-                for (match in opaque.findAll(original)) {
+                for (match in opaqueMatches(original)) {
                     var end = match.range.last + 1
                     val isCode = match.value.startsWith('`')
                     if (!isCode) {
@@ -71,7 +132,9 @@ internal object JapaneseReadings {
                 plain(original, cursor, original.length, pieces, issues)
                 check(pieces.joinToString("") { it.original } == original)
                 check(pieces.zipWithNext().all { (a, b) -> a.end == b.start })
-                return Result(if (issues.isEmpty()) render(pieces) else null, pieces.toList(), issues.toSet())
+                val rendered = if (issues.isEmpty()) render(pieces) else null
+                if (rendered == null && issues.isEmpty()) issues += Issue.OUTPUT_LIMIT
+                return Result(rendered, pieces.toList(), issues.toSet())
             } catch (_: Exception) {
                 return Result(null, emptyList(), setOf(Issue.SOURCE_BOUNDS))
             }
@@ -81,12 +144,18 @@ internal object JapaneseReadings {
             if (start >= end) return
             val text = original.substring(start, end)
             val analysis = KanaRomanizer.normalizeKana(text)
+            if (!NativeJapaneseTokenizer.acceptsText(analysis.text)) {
+                pieces += Piece(start, end, text, text, Kind.UNRESOLVED)
+                issues += Issue.INPUT_LIMIT
+                return
+            }
             val atoms = mutableListOf<Atom>()
             var cursor = 0
-            for (token in LocalImmersion.japaneseTokens(analysis.text)) {
-                val range = checkNotNull(analysis.sourceRange(token.position, token.position + token.surface.length))
+            for ((segmentOffset, token) in NativeJapaneseTokenizer.positionedTokens(analysis.text)) {
+                val position = segmentOffset + token.position
+                val range = checkNotNull(analysis.sourceRange(position, position + token.surface.length))
                 val a = range.first; val b = range.last + 1
-                check(a >= cursor && b <= text.length && analysis.text.substring(token.position, token.position + token.surface.length) == token.surface)
+                check(a >= cursor && b <= text.length && analysis.text.substring(position, position + token.surface.length) == token.surface)
                 val source = text.substring(a, b)
                 if (a > cursor) atoms += Atom(start + cursor, start + a, text.substring(cursor, a), null, null)
                 val reading = if (!japanese(source)) null else when {
@@ -166,12 +235,14 @@ internal object JapaneseReadings {
             return previous.token?.partOfSpeechLevel1 == "接頭詞"
         }
 
-        private fun render(pieces: List<Piece>): String {
+        private fun render(pieces: List<Piece>): String? {
             val output = StringBuilder()
             var previous: Piece? = null
             val words = setOf(Kind.READING, Kind.LITERAL, Kind.UNRESOLVED)
             for (piece in pieces) {
-                if (previous?.kind in words && piece.kind in words) output.append(' ')
+                val separator = previous?.kind in words && piece.kind in words
+                if (output.length.toLong() + piece.value.length + (if (separator) 1 else 0) > FullReadingLimits.MAX_READING_UTF16) return null
+                if (separator) output.append(' ')
                 output.append(piece.value)
                 previous = piece
             }

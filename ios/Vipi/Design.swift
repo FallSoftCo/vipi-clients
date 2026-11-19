@@ -56,9 +56,10 @@ struct PrimaryButton: View {
         Button(action: action) {
             HStack(spacing: 10) {
                 if busy { ProgressView().tint(VipiDesign.onHighlight) }
-                Text(title).font(.body.weight(.semibold))
+                Text(title).font(.body.weight(.semibold)).fixedSize(horizontal: false, vertical: true)
                 if !busy { Image(systemName: "arrow.right").flipsForRightToLeftLayoutDirection(true).font(.body.weight(.medium)) }
             }.frame(maxWidth: .infinity).padding(.vertical, 17)
+                .frame(minHeight: 48).contentShape(Rectangle())
         }
         .buttonStyle(.plain).foregroundStyle(VipiDesign.onHighlight)
         .background(VipiDesign.highlight, in: RoundedRectangle(cornerRadius: 16))
