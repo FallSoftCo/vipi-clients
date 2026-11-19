@@ -29,13 +29,22 @@ experiments have stopped. Tests of Apple Intelligence API variants are research
 evidence; they do not establish that the shipping app uses an explicit strategy
 or that translations are consistently accurate.
 
-Android's targeted Friend and vBot journeys have passed on the existing emulator;
-pronunciation-cache migration and older-OS API compatibility still need closure.
-The short landscape capture proves a readable draft and Send control while chat
-history is clipped. iOS layout and playback lifecycle work remains in progress,
-including large-text settings. Neither platform has a fresh qualified signed
-release of the full-message design, and the user's requested phone delivery is
-pending that qualification.
+Android's targeted Friend and vBot journeys, pronunciation-cache migration and
+Copy original keyboard/audio regressions have passed on the existing API 34
+emulator. The application now requires Android 10/API 29 for the platform
+transliteration API; source and packaged-manifest checks do not establish an
+API 29 runtime result. The short landscape capture proves a readable draft and
+Send control while chat history is clipped. Long-reading limits and pronunciation
+quality still have explicit gaps.
+
+iOS normal and maximum-text chat layout checks passed. The subsequent owner,
+cache, playback and Settings packet compiled and completed with 39 passes and
+three failures: a Japanese reading assertion, the largest-text Invite share-sheet
+check, and standard Settings accessibility issues. Original failures are retained
+for diagnosis; neither the Settings flow nor that complete packet is qualified.
+Touch Copy original parity is also still being implemented. Neither platform has
+a fresh qualified signed release of the full-message design, and the user's
+requested phone delivery is pending that qualification.
 
 The public information pages now describe the full-message design in source.
 Their existing invitation and recovery tests pass; that source change has not
