@@ -13,10 +13,11 @@ not be submitted as production releases.
 
 ## Shared inputs
 
-Keep the directory structure intact. Both clients translate full messages through
-on-device provider APIs: Google ML Kit on Android and Apple Translation on iOS,
-with the existing iOS ML Kit adapter for Swahili. The providers manage their own
-language downloads. The source archive contains no separately distributed
+Keep the directory structure intact. Each eligible message can introduce one new word. Previously introduced words
+appear again when they occur in later messages. The original message stays intact,
+and the learning history belongs to the account and language pair on that device.
+Android uses Google ML Kit and iOS uses Apple Translation, with the existing iOS
+ML Kit adapter for Swahili. The providers manage language downloads. The source archive contains no separately distributed
 translation model or custom message-translation catalog.
 
 The shared `data/readings` directory supplies live Chinese pinyin data, with its
@@ -43,8 +44,8 @@ locks during an ordinary reproduction.
 
 ## Android
 
-The source pins Gradle 8.13, Android Gradle Plugin 8.13.2, Kotlin 2.4.0, SDK 36,
-minimum API 29, NDK 29.0.14206865 and CMake 3.22.1. Use Java 17 or newer (the release build used Java 21). Set `JAVA_HOME`
+The source pins Gradle 9.3.1, Android Gradle Plugin 9.1.1, Kotlin 2.4.0, compile SDK 37,
+target API 36, minimum API 29, NDK 29.0.14206865 and CMake 3.22.1. Use Java 17 or newer (the release build used Java 21). Set `JAVA_HOME`
 and `ANDROID_HOME` to compatible installed tools; `ANDROID_SDK_ROOT`, if present,
 must identify the same SDK. The helper defaults to two Gradle workers.
 
@@ -154,4 +155,4 @@ submission require the completed release qualification, not this candidate.
 The synthetic backup, speech and package-installer fixtures retained for native
 tests are not runtime translation data. Historical dictionary-based releases
 retain their original archives and source revisions; use those exact revisions
-to reproduce them. They do not qualify the full-message replacement.
+to reproduce them. The current incremental clients have their own qualification records.

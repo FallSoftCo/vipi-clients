@@ -463,7 +463,7 @@ struct StableImmersionText: UIViewRepresentable {
                 LiveImmersionQualification.record(["event":"full_message_native_face",
                     "showing_meaning":showingMeaning,"showing_native_script":showingNativeScript,
                     "original_sha256":SHA256.hash(data:Data((originalForCopy ?? result.original).utf8)).map{String(format:"%02x",$0)}.joined(),
-                    "displayed_sha256":SHA256.hash(data:Data(view.attributedText.string.utf8)).map{String(format:"%02x",$0)}.joined()])
+                    "displayed_sha256":SHA256.hash(data:Data(view.visibleText().utf8)).map{String(format:"%02x",$0)}.joined()])
             }
             #endif
             view.variants = reservedSentences.isEmpty ? [current] : reservedSentences.map { sentence in

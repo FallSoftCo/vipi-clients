@@ -11,7 +11,7 @@ Vipi: immersive chat with friends. Messages appear in the language you are learn
 - [Verification ledger](docs/VERIFICATION.md)
 - [Decisions and environment receipts](docs/DECISIONS.md)
 
-Swift/SwiftUI for iOS and Kotlin/Compose for Android. Each platform owns its full-message translation, live transliteration, speech, storage and navigation. Translation uses existing on-device provider APIs only. Shared artifacts are schemas, licensed transliteration data and behavioral fixtures; there is no custom shared application engine.
+Swift/SwiftUI for iOS and Kotlin/Compose for Android. Each platform owns word selection, local translation, live transliteration, speech, storage and navigation. An eligible message introduces at most one new word and can repeat earlier words. Translation uses existing on-device provider APIs only. Shared artifacts are schemas, licensed transliteration data and behavioral fixtures; there is no custom shared application engine.
 
 Current source authority (November 7, 2026): `/home/ai/Development/vipi-production-20261107`, branch `delivery/production-20261107`. Git history, previously uncommitted source and newer native changes were reconciled during recovery. The older `/home/ai/Development/vipi` directory is not authoritative. OZZZ-OS and the dedicated GPU host have been retired; do not use historical commands that reconnect to them.
 
