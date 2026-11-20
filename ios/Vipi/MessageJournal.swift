@@ -17,6 +17,7 @@ struct StoredChat: Codable {
     let envelope: ChatEnvelope
     let text: String
     var state: String
+    var seen: Bool? = nil
 }
 struct DraftChat: Codable, Equatable {
     let id: UUID
@@ -171,7 +172,7 @@ final class MessageJournal {
             guard ["accepted", "delivered", "failed", "expired"].contains(state) else { throw Failure.invalidMessage }
             guard let bytes = try vault.get("outgoing", key(id)) else { throw Failure.missingMessage }
             var saved = try decoder.decode(StoredChat.self, from: bytes)
-            if saved.state == "delivered" || (state != "delivered" && ["failed", "expired", "cancelled"].contains(saved.state)) { return }
+            if saved.state == "read" || saved.state == "delivered" || (state != "delivered" && ["failed", "expired", "cancelled"].contains(saved.state)) { return }
             saved.state = state
             try vault.put("outgoing", key(id), encoder.encode(saved))
             if state != "accepted" { try vault.remove("pending", key(id)) }

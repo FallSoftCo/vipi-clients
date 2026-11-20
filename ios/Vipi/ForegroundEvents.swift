@@ -5,8 +5,13 @@ import Foundation
 @MainActor protocol ForegroundEventSocket: AnyObject {
     var failureCode: Int { get }
     func receiveHint() async throws
+    func receiveEvent() async throws -> ChatForegroundEvent
     func refreshAuthorization() async throws
     func close()
+}
+
+extension ForegroundEventSocket {
+    func receiveEvent() async throws -> ChatForegroundEvent { try await receiveHint(); return .inbox }
 }
 
 @MainActor final class NativeEventSocket: ForegroundEventSocket {
@@ -40,11 +45,13 @@ import Foundation
             } catch { task.cancel(with: .goingAway, reason: nil) }
         }
     }
-    func receiveHint() async throws {
+    func receiveHint() async throws { _ = try await receiveEvent() }
+    func receiveEvent() async throws -> ChatForegroundEvent {
         let message = try await task.receive()
-        guard case let .string(text) = message, Self.validHint(text) else {
-            throw ServiceFailure(status: 0, code: "invalid_event")
+        guard case let .string(text) = message, let event = ChatForegroundEvent.decode(text) else {
+            throw ServiceFailure(status:0, code:"invalid_event")
         }
+        return event
     }
     static func validHint(_ text: String) -> Bool {
         guard text.utf8.count <= 512, let values = try? JSONSerialization.jsonObject(with: Data(text.utf8)) as? [String: String] else { return false }
@@ -60,6 +67,7 @@ import Foundation
     typealias Connect = @MainActor () async throws -> any ForegroundEventSocket
     private let connect: Connect
     private let hint: @MainActor () async -> Void
+    private let activity: @MainActor (ChatForegroundEvent) -> Void
     private let authorizationEnded: @MainActor () -> Void
     private let sleep: @MainActor (Double) async throws -> Void
     private let jitter: @MainActor () -> Double
@@ -68,10 +76,11 @@ import Foundation
     private var generation = UUID()
     private(set) var blocked = false
     init(connect: @escaping Connect, hint: @escaping @MainActor () async -> Void,
+         activity: @escaping @MainActor (ChatForegroundEvent) -> Void = { _ in },
          authorizationEnded: @escaping @MainActor () -> Void = {},
          sleep: @escaping @MainActor (Double) async throws -> Void = { try await Task.sleep(for: .seconds($0)) },
          jitter: @escaping @MainActor () -> Double = { Double.random(in: 0...0.2) }) {
-        self.connect = connect; self.hint = hint; self.authorizationEnded = authorizationEnded; self.sleep = sleep; self.jitter = jitter
+        self.connect = connect; self.hint = hint; self.activity = activity; self.authorizationEnded = authorizationEnded; self.sleep = sleep; self.jitter = jitter
     }
     func start() {
         guard work == nil, !blocked else { return }
@@ -91,12 +100,12 @@ import Foundation
             do {
                 let value = try await connect(); connection = value
                 guard generation == id, !Task.isCancelled else { value.close(); return }
-                socket = value
+                socket = value; activity(.inbox)
                 while generation == id && !Task.isCancelled {
-                    try await value.receiveHint()
+                    let event = try await value.receiveEvent()
                     guard generation == id, !Task.isCancelled else { return }
                     refreshed = false
-                    await hint()
+                    if event == .inbox { await hint() } else { activity(event) }
                 }
             } catch {
                 guard generation == id, !Task.isCancelled else { return }

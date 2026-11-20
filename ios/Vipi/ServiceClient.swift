@@ -84,6 +84,7 @@ extension ChatTransport {
         request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
         request.setValue(device.id.uuidString.lowercased(), forHTTPHeaderField: "X-Vipi-Device-ID")
         request.setValue(device.secret, forHTTPHeaderField: "X-Vipi-Device-Secret")
+        request.setValue("1", forHTTPHeaderField:"X-Vipi-Chat-Events")
         return NativeEventSocket(task: eventHTTP.webSocketTask(with: request)) { [authentication, userID] in
             _ = try await authentication.accessToken(for: userID, rejected: token)
         }

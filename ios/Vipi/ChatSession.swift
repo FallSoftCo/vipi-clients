@@ -39,6 +39,24 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     var notice: String?
     private var syncAgain = false
     private var events: ForegroundEvents?
+    private var activity: ChatActivityEvents?
+    func isPeerTyping(_ peer: UUID) -> Bool { activity?.isTyping(peer) == true }
+    func composerActivity(_ peer: UUID, active: Bool) { activity?.composer(peer, active:active) }
+    func visibleMessages(_ peer: UUID, incoming: [UUID], outgoing: [UUID]) { activity?.visible(peer, incoming:incoming, outgoing:outgoing) }
+    func peerActivityEvent(_ event: ChatForegroundEvent) { activity?.event(event) }
+    private func configureActivity(_ vault: MessageVault) {
+        activity = ChatActivityEvents(vault:vault, eligible:{ [weak self] peer in
+            guard let self else { return false }
+            return ready && !closed && !needsReauthentication && !blockedPeers.contains(peer) && !changedIdentities.contains(peer)
+        }, sendTyping:{ [weak self] peer, active in
+            guard let self, let device = core?.device else { return }
+            let _: PushResult = try await request("POST", "/v1/conversations/\(peer.uuidString.lowercased())/typing", body:body(["active":active]), device:device)
+        }, receipts:{ [weak self] peer, seen, check in
+            guard let self, let device = core?.device else { throw CancellationError() }
+            return try await request("POST", "/v1/conversations/\(peer.uuidString.lowercased())/receipts",
+                body:body(["seen":seen.map{$0.uuidString.lowercased()}, "check":check.map{$0.uuidString.lowercased()}]), device:device)
+        }, changed:{ [weak self] in try? self?.reload() })
+    }
     private var closed = false
     private(set) var translationOwner: ConversationImmersion?
     private var translationReplay: Task<Void,Never>?
@@ -129,6 +147,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         if vault == nil {
             let store = try MessageVault(account: value.id)
             vault = store; core = try MessagingCore(vault: store); history = try ConversationHistory(vault: store)
+            configureActivity(store)
             ready = try store.transaction { try store.get("local", "registered-device") == Data(core!.device.id.uuidString.lowercased().utf8) }
             hasPendingDeviceReplacement = try store.transaction { try store.get("local", "replacement-consent") == Data(core!.device.id.uuidString.lowercased().utf8) }
             contacts = try store.transaction {
@@ -454,7 +473,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         if events == nil {
             let device = core.device
             events = ForegroundEvents(connect: { try await api.openEvents(device: device) },
-                                      hint: { [weak self] in await self?.synchronize() }, authorizationEnded: { [weak self] in
+                                      hint: { [weak self] in await self?.synchronize() }, activity: { [weak self] in self?.peerActivityEvent($0) }, authorizationEnded: { [weak self] in
                 Task { @MainActor [weak self] in
                     guard let self, !self.closed, self.ready, self.core === core else { return }
                     do { let _: Inventory = try await self.request("GET", "/v1/keys", device: device) }
@@ -481,6 +500,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
 
     func close() throws {
         translationReplay?.cancel(); translationReplay = nil; translationOwner?.close(); translationOwner = nil
+        activity?.close(); activity = nil
         messageObservers.removeAll()
         events?.stop(); events = nil
         cancelHistoryWork?(); cancelHistoryWork = nil
