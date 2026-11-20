@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Light-mode chat bubbles · Vipi</title>
+  <style>
+    :root { color-scheme: light; font: 16px/1.4 system-ui,sans-serif; color: #352233; background: #fff8ef; }
+    body { max-width: 390px; margin: auto; padding: 12px 8px 24px; }
+    a { color: #873852; }
+    h1 { margin: 10px 0 12px; font-size: 1.35rem; }
+    fieldset { margin: 0; border: 0; padding: 0; min-width: 0; }
+    legend, input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    label { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-height: 44px; padding: 4px 20px; border-radius: 24px; border: 1px solid #bca69c; cursor: pointer; }
+    input:checked + label { background: #45233f; border-color: #45233f; color: #fff3de; }
+    input:focus-visible + label { outline: 3px solid #873852; outline-offset: 2px; }
+    figure { margin: 12px 0 0; border: 1px solid #e3d4c9; border-radius: 12px; overflow: hidden; }
+    img { display: none; width: 100%; height: auto; }
+    #before:checked ~ figure .before, #revised:checked ~ figure .revised { display: block; }
+  </style>
+</head>
+<body>
+  <a href="./#light-bubble-depth">Vipi gallery</a>
+  <h1>Light-mode chat bubbles</h1>
+  <fieldset>
+    <legend>Android conversation appearance</legend>
+    <input id="before" name="version" type="radio"><label for="before">Before</label>
+    <input id="revised" name="version" type="radio" checked><label for="revised">Revised</label>
+    <figure>
+      <img class="revised" src="light-bubble-depth/android-day-bubbles.png" width="1080" height="2400" alt="Revised native chat. The messages Café tonight? and Sí, 6:30 works! have a warm outline and short shadow.">
+      <img class="before" src="light-bubble-depth/01-friend-day.png" width="1080" height="2400" alt="Previous version of the same chat with a paler incoming bubble and a faint border.">
+    </figure>
+  </fieldset>
+</body>
+</html>

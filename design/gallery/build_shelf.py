@@ -80,6 +80,12 @@ for section_id,page,label,is_greeting in [
     for c in cards:
         if c['id']=='vipi-studio-'+section_id:c['interactivePreview']=key+'/'+page
     review=[(date,slug,article.replace('</p><ul>',f'</p><p><a href="{page}">{label}</a></p><ul>') if slug==section_id else article) for date,slug,article in review]
+for card in cards:
+    if card['id'] == 'vipi-studio-light-bubble-depth':
+        atomic(out/'bubbles.html', Path(__file__).with_name('bubble-review.html').read_bytes())
+        card['interactivePreview'] = key+'/bubbles.html'
+        review = [(date, slug, article.replace('</p><ul>', '</p><p><a href="bubbles.html">Switch between the two native captures</a></p><ul>') if slug == 'light-bubble-depth' else article)
+                  for date, slug, article in review]
 ordered=sorted(review,key=lambda v:v[0],reverse=True)
 intro='<!doctype html><html lang="en"><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><title>Vipi design gallery</title><style>:root{color-scheme:light dark;font:16px/1.5 system-ui,sans-serif}body{margin:0 auto;max-width:1080px;padding:24px}h1{font-size:2.2rem}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(315px,100%),1fr));gap:28px}article{min-width:0}article img{width:100%;height:245px;object-fit:contain;background:light-dark(#efede8,#171a28);border-radius:12px}h2{line-height:1.2;font-size:1.35rem}a{color:light-dark(#293fbc,#bac6ff)}ul{padding-left:20px}li{margin:.25rem 0}</style><header><a href="/8bar/">NextComp Gallery</a><h1>Vipi design gallery</h1><p>Native builds, design studies and editable logo artwork. <a href="https://mobbin.com/collections/c5a5bb7e-8d36-41e2-92e3-12605fc17cc6/mobile/screens">Private Mobbin references</a></p></header><main>'
 atomic(out/'index.html',(intro+''.join(x[2] for x in ordered)+'</main></html>').encode())
