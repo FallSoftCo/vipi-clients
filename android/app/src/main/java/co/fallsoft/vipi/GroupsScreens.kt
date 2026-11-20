@@ -27,8 +27,8 @@ import java.util.UUID
  * Translation/audio belong to the local account and are supplied by its owner. */
 @Composable internal fun GroupsNavigator(session: GroupsSession, people: List<ChatProfile>, translation: ConversationTranslation,
     audio: ConversationAutoplay, reviewIdentity: (UUID) -> Unit, onBack: () -> Unit) {
-    var route by remember { mutableStateOf("home") }
-    var selected by remember { mutableStateOf<UUID?>(null) }
+    var route by remember(session.account) { mutableStateOf("home") }
+    var selected by remember(session.account) { mutableStateOf<UUID?>(null) }
     val back = { route = if (route in setOf("info", "invite")) "conversation" else "home" }
     BackHandler { if (route == "home") onBack() else back() }
     when (route) {
@@ -139,8 +139,8 @@ import java.util.UUID
 @Composable internal fun GroupConversationScreen(session: GroupsSession, groupID: UUID, people: List<ChatProfile>, translation: ConversationTranslation,
     audio: ConversationAutoplay, onInfo: () -> Unit, onBack: () -> Unit) {
     val revision = session.revision; val group = session.group(groupID); val messages = session.messages(groupID)
-    var text by remember(groupID) { mutableStateOf(session.preferences(groupID).draft) }
-    val gestures = remember(groupID) { FullMessageGestures() }; val scope = rememberCoroutineScope(); val list = rememberLazyListState()
+    var text by remember(session.account, groupID) { mutableStateOf(session.preferences(groupID).draft) }
+    val gestures = remember(session.account, groupID) { FullMessageGestures() }; val scope = rememberCoroutineScope(); val list = rememberLazyListState()
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     var foreground by remember { mutableStateOf(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
     DisposableEffect(lifecycle, audio, session, groupID) {
@@ -165,7 +165,7 @@ import java.util.UUID
                     TextButton(onClick = { session.retryHeld(groupID) }) { Text("Try opening saved message") }
                 } }
                 items(messages, key = { it.id }) { message ->
-                    val name = if (message.sender == session.account) "You" else group?.members?.firstOrNull { it.id == message.sender }?.name ?: people.firstOrNull { it.id == message.sender }?.displayName ?: "Former member"
+                    val name = if (message.sender == session.account) "You" else group?.members?.firstOrNull { it.id == message.sender }?.name ?: people.firstOrNull { it.id == message.sender }?.displayName ?: session.savedSenderName(groupID, message.sender) ?: "Group member"
                     val status = groupDelivery(message)
                     Column(Modifier.fillMaxWidth().background(if (message.sender == session.account) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surfaceContainer, RoundedCornerShape(18.dp)).padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                         Text(name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })

@@ -11,7 +11,7 @@ import java.util.UUID
 /** Native main-thread coordinator; caller serializes it with ChatSession and
  * closes it before the shared account vault closes. */
 internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val store: GroupsStore, private val crypto: GroupsCrypto,
-    private val preparePeer: suspend (UUID) -> Unit, private val needsIdentityReview: (UUID) -> Boolean) {
+    private val preparePeer: suspend (UUID) -> Unit, private val needsIdentityReview: (UUID) -> Boolean, private val committed: (GroupMessage) -> Unit = {}) {
     private val cached = store.snapshots()
     private val activeIDs = store.activeIDs()
     var groups by mutableStateOf(cached.filter { activeIDs?.contains(it.id) != false }); private set
@@ -104,7 +104,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         val approved = membership.current(group.id)
         if (!isActive(group.id) || approved == null || !approved.matches(group)) { notice = "The people in this group haven’t been confirmed securely. Ask an existing admin to approve the change before sending."; return false }
         val message = GroupMessage(UUID.randomUUID(), group.id, group.epoch, approved.revision, account, text, System.currentTimeMillis(), GroupDelivery.QUEUED)
-        store.saveMessage(message); draft(group.id, ""); revision++; retry(message); return true
+        store.saveMessage(message); draft(group.id, ""); revision++; committed(message); retry(message); return true
     }
     suspend fun retry(message: GroupMessage) { perform {
         require(isActive(message.group) && group(message.group)?.role(account) != null) { "You’re no longer in this group. Your saved messages remain on this device." }
@@ -131,6 +131,17 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         }
         revision++; true
     } }
+    fun savedSenderName(group: UUID, person: UUID): String? = if (closed) null else store.cachedName(group, person)
+    fun messageOriginal(group: UUID, id: UUID): String? = if (closed) null else messages(group).firstOrNull { it.id == id && it.delivery != GroupDelivery.WITHHELD }?.text
+    fun historyForImmersion(): List<GroupMessage> = if (closed) emptyList() else (groups + departedGroups).flatMap { messages(it.id) }.filter { it.delivery != GroupDelivery.WITHHELD }.sortedWith(compareBy({ it.createdAt }, { it.renderID }))
+    fun pendingReceipts() = crypto.receipts()
+    fun receiptAccepted(id: UUID) = crypto.receiptAccepted(id)
+    suspend fun synchronize() {
+        refresh(); if (closed) return
+        groups.forEach { retryHeld(it.id) }
+        val queued = groups.flatMap { messages(it.id) }.filter { it.sender == account && it.delivery == GroupDelivery.QUEUED }.sortedBy { it.createdAt }.take(50)
+        queued.forEach { if (!closed) retry(it) }
+    }
     fun heldMessages(group: UUID): List<GroupIncoming> { val observed = revision; return if (closed) emptyList() else crypto.heldEnvelopes().filter { it.group == group } }
     fun heldControls(group: UUID): List<GroupIncoming> { val observed = revision; return if (closed) emptyList() else controls.heldEnvelopes().filter { it.group == group } }
     fun retryHeld(group: UUID) {
@@ -149,7 +160,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
     }
     fun pendingApprovals(group: UUID) = controls.pending().filter { it.group == group }
     fun canBootstrap(control: GroupPendingControl) = membership.current(control.group) == null && control.transition.action == GroupControlAction.ADD && control.transition.target == account
-    fun confirmBootstrap(control: GroupPendingControl) { try { controls.confirmBootstrap(control); crypto.releaseAuthorized(control.group); revision++ } catch (e: Exception) { notice = explanation(e) } }
+    fun confirmBootstrap(control: GroupPendingControl) { try { controls.confirmBootstrap(control); crypto.releaseAuthorized(control.group).forEach(committed); revision++ } catch (e: Exception) { notice = explanation(e) } }
     fun approved(group: UUID, person: UUID) = membership.current(group)?.contains(person) == true
     suspend fun approveJoin(group: GroupSnapshot, person: UUID) { perform {
         val scope = "${group.id}/$person"
@@ -165,11 +176,11 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         val fanout = controls.prepare(plan.id, plan.group, plan.change, System.currentTimeMillis()); controls.accepted(api.sendControl(fanout), fanout); controls.reconciled(fanout)
         store.vault.transaction { store.vault.remove("group-join-plan", scope) }; revision++; true
     } }
-    fun receiveControl(item: GroupIncoming) { check(!closed); controls.receive(item, System.currentTimeMillis()); crypto.releaseAuthorized(item.group); revision++ }
+    fun receiveControl(item: GroupIncoming) { check(!closed); controls.receive(item, System.currentTimeMillis()); crypto.releaseAuthorized(item.group).forEach(committed); revision++ }
     fun receive(item: GroupIncoming): GroupMessage? {
         check(!closed)
         val duplicate = store.messages(item.group).any { it.id == item.message }
-        return crypto.receive(item, System.currentTimeMillis()).also { message -> revision++; if (message != null && !duplicate && message.delivery == GroupDelivery.RECEIVED) arrivals.values.toList().forEach { it(message) }; if (message == null) notice = "A group message is held securely. Review the sender’s encryption identity before opening it." }
+        return crypto.receive(item, System.currentTimeMillis()).also { message -> revision++; if (message != null && !duplicate && message.delivery == GroupDelivery.RECEIVED) { committed(message); arrivals.values.toList().forEach { it(message) } }; if (message == null) notice = "A group message is held securely. Review the sender’s encryption identity before opening it." }
     }
     fun close() { closed = true; arrivals.clear(); groups = emptyList(); departedGroups = emptyList(); invitations = emptyList(); notice = null }
     companion object { fun explanation(error: Exception): String {

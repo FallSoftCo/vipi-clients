@@ -227,7 +227,7 @@ struct GroupConversationView: View {
     }
     private func sender(_ message: GroupMessage) -> String {
         if message.sender == groups.account { return "You" }
-        return group?.members.first { $0.id == message.sender }?.display_name ?? people.first { $0.id == message.sender }?.display_name ?? "Former member"
+        return group?.members.first { $0.id == message.sender }?.display_name ?? people.first { $0.id == message.sender }?.display_name ?? groups.savedSenderName(groupID, person: message.sender) ?? "Group member"
     }
     private func status(_ message: GroupMessage) -> String {
         switch message.delivery {

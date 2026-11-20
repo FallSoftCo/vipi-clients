@@ -88,18 +88,23 @@ These sources have not validated this implementation's actual native UX.
    Both source bases here predate that facade. Do not take old launch files from
    this branch as authority. The new UI supplies the current account's existing
    `ConversationImmersion` / `ConversationTranslation` and audio owner unchanged.
-2. Wire the native parent ChatSession to a single GroupsSession sharing its exact
-   account vault, core, transport and peer identity review. Route all four group
-   inbox fields together before direct receive, dispatch message/control strictly,
-   acknowledge committed group receipts, refresh groups on reconnect/wakeup, warm
-   namespaced immersion IDs and close GroupsSession before closing its vault.
-   Integrate mute preferences into actual group notification delivery; opaque push
-   wakeups must still synchronize muted groups. Current relay APNs uses a generic
-   alert, so merely storing a native mute preference cannot suppress it. A real
-   per-user relay mute policy or qualified notification-extension/silent-local
-   design is required before the UI promise is enabled. This is a substantive
-   missing implementation, not just a callback hookup. These hooks are not yet
-   installed.
+2. A separate dormant integration commit now wires native ChatSession to a
+   GroupsSession sharing its exact account vault, core, account-auth transport
+   and peer review state. It dispatches all four group metadata fields before
+   direct receive, rejects partial/unknown group contexts, commits group receipts,
+   refreshes/retries on the existing reconnect cycle, warms/replays namespaced
+   immersion IDs through the same local owner, and closes GroupsSession before
+   its vault. It also retains server-visible sender labels across departures.
+   These source hooks have not been compiled or exercised. Merge their hunks
+   into the frozen free facade; never overwrite current ChatSession with this
+   branch's older base. No launch navigation activates Groups. Native group
+   entry must be keyed to the account and supplied its existing local immersion
+   and audio owner. Routing-negative native tests were authored, not run.
+   Mute still requires actual notification delivery policy: current relay APNs
+   uses a generic alert, so storing a native mute preference cannot suppress it.
+   A real per-user relay mute policy or qualified extension/silent-local design
+   is required before the UI promise is enabled. This is substantive missing
+   behavior, not just a callback hookup.
 3. Build/typecheck against retained native dependency closures in a root-allocated
    isolated Mac directory. New source uses existing libsignal Swift0.105.0 calls,
    Swift6 Observation, iOS18 scroll visibility and existing immersion signatures.
@@ -121,6 +126,9 @@ These sources have not validated this implementation's actual native UX.
    the full approved roster matches. Concurrent contradictory admin approvals
    freeze visibly; resolving that fork/recreating safely needs real qualification.
    First-use member identity binding remains an explicit security review gate.
+   Control delivery and membership reconciliation when a member has no active
+   device, is suspended, or was already removed by block/deletion also needs an
+   explicit protocol/UI path; ordinary message admission remains fail closed.
    A departed/deleted/rekeyed original control author may be unable to resend an
    old pairwise proof; another admin cannot impersonate that proof. In that case
    offer explicit verified recovery or a new group, not endless retry. Current

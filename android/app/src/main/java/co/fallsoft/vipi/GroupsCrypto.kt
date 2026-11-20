@@ -19,7 +19,15 @@ internal data class GroupIncoming(val routed: RoutedMessage, val group: UUID, va
         val e = routed.envelope
         return JSONObject().put("id", e.id).put("sender_id", e.sender).put("sender_device_id", routed.senderDevice).put("recipient_device_id", routed.recipientDevice).put("created_at", Instant.ofEpochMilli(e.createdAt)).put("cipher_type", e.type).put("ciphertext", Base64.encodeToString(e.ciphertext, Base64.NO_WRAP)).put("group_id", group).put("group_epoch", epoch).put("group_message_id", message).put("group_kind", kind)
     }
-    companion object { fun parse(o: JSONObject, account: UUID) = GroupIncoming(RoutedMessage.received(o, account), o.uuid("group_id"), o.strictInt("group_epoch"), o.uuid("group_message_id"), o.getString("group_kind")) }
+    companion object {
+        private val fields = listOf("group_id", "group_epoch", "group_message_id", "group_kind")
+        fun hasContext(o: JSONObject) = fields.any { o.has(it) && !o.isNull(it) }
+        fun parse(o: JSONObject, account: UUID): GroupIncoming {
+            require(fields.all { o.has(it) && !o.isNull(it) }); val kind = o.getString("group_kind"); val epoch = o.strictInt("group_epoch")
+            require(kind in setOf("message", "control") && epoch > 0)
+            return GroupIncoming(RoutedMessage.received(o, account), o.uuid("group_id"), epoch, o.uuid("group_message_id"), kind)
+        }
+    }
 }
 /** All pairwise encryption + immutable fanout commit atomically. HTTP retries
  * use saved bytes; no new encryption after an uncertain result. */

@@ -13,7 +13,9 @@ internal class GroupsStore(val vault: MessageVault) {
     fun save(group: GroupSnapshot) { group.validate(); vault.transaction {
         vault.get("group-roster", group.id.toString())?.let { require(GroupSnapshot.parse(json(it)).epoch <= group.epoch) { "The group changed. Refresh and review the people." } }
         vault.put("group-roster", group.id.toString(), bytes(group.json()))
+        group.members.forEach { person -> vault.put("group-member", "${group.id}/${person.id}", bytes(JSONObject().put("id", person.id).put("name", person.name).put("username", person.username))) }
     } }
+    fun cachedName(group: UUID, person: UUID): String? = vault.transaction { vault.get("group-member", "$group/$person")?.let { json(it).getString("name") } }
     fun preferences(group: UUID) = vault.transaction { preferencesInTransaction(group) }
     private fun preferencesInTransaction(group: UUID): GroupPreferences = vault.get("group-preferences", group.toString())?.let { data ->
         val o = json(data); val read = o.getJSONArray("read")

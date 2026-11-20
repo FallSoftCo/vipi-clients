@@ -18,6 +18,10 @@ final class GroupsStore {
             guard value.epoch >= old.epoch else { throw GroupsFailure.membershipChanged }
         }
         try vault.put("group-roster", key(value.id), encoder.encode(value))
+        for person in value.members { try vault.put("group-member", key(value.id) + "/" + key(person.id), encoder.encode(person)) }
+    } }
+    func cachedMember(_ group: UUID, person: UUID) throws -> GroupMember? { try vault.transaction {
+        try vault.get("group-member", key(group) + "/" + key(person)).map { try decoder.decode(GroupMember.self, from: $0) }
     } }
     func preferences(_ id: UUID) throws -> GroupLocalPreferences { try vault.transaction {
         try vault.get("group-preferences", key(id)).map { try decoder.decode(GroupLocalPreferences.self, from: $0) } ?? .init()

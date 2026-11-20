@@ -10,6 +10,7 @@ import Observation
     private let controls: GroupsControlCrypto
     private let preparePeer: (UUID) async throws -> Void
     private let identityReview: (UUID) -> Bool
+    @ObservationIgnored private let committed: (GroupMessage) -> Void
     private(set) var groups: [GroupSnapshot] = []
     private(set) var departedGroups: [GroupSnapshot] = []
     private(set) var invitations: [GroupInvitation] = []
@@ -22,9 +23,9 @@ import Observation
     func observe(_ callback: @escaping (GroupMessage) -> Void) -> UUID { let id = UUID(); arrivals[id] = callback; return id }
     func removeObserver(_ id: UUID) { arrivals.removeValue(forKey: id) }
     init(account: UUID, api: GroupsAPI, store: GroupsStore, crypto: GroupsCrypto,
-         preparePeer: @escaping (UUID) async throws -> Void, identityReview: @escaping (UUID) -> Bool) throws {
+         preparePeer: @escaping (UUID) async throws -> Void, identityReview: @escaping (UUID) -> Bool, committed: @escaping (GroupMessage) -> Void = { _ in }) throws {
         self.account = account; self.api = api; self.store = store; self.crypto = crypto; membership = GroupsMembership(vault: store.vault)
-        self.preparePeer = preparePeer; self.identityReview = identityReview; controls = GroupsControlCrypto(vault: store.vault, core: crypto.messagingCore)
+        self.preparePeer = preparePeer; self.identityReview = identityReview; self.committed = committed; controls = GroupsControlCrypto(vault: store.vault, core: crypto.messagingCore)
         let cached = try store.snapshots(), active = try store.activeIDs()
         groups = cached.filter { active?.contains($0.id) ?? true }; departedGroups = cached.filter { active?.contains($0.id) == false }
     }
@@ -151,7 +152,7 @@ import Observation
         let value = GroupMessage(id: UUID(), groupID: group.id, epoch: group.epoch, membershipRevision: approved.revision, sender: account, text: text,
             createdAt: Int64(Date().timeIntervalSince1970 * 1000), delivery: .queued)
         guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= 32768 else { notice = Self.explanation(GroupsFailure.invalidMessage); return false }
-        do { try store.saveMessage(value); try store.updatePreferences(group.id) { $0.draft = "" }; revision += 1 }
+        do { try store.saveMessage(value); try store.updatePreferences(group.id) { $0.draft = "" }; revision += 1; committed(value) }
         catch { notice = Self.explanation(error); return false }
         await retry(value); return true // Queued locally, never implies delivered.
     }
@@ -184,6 +185,17 @@ import Observation
             revision += 1; return true
         }
     }
+    func savedSenderName(_ group: UUID, person: UUID) -> String? { guard !closed else { return nil }; return (try? store.cachedMember(group, person: person))?.display_name }
+    func messageOriginal(_ id: UUID, group: UUID) -> String? { guard !closed else { return nil }; return messages(group).first { $0.id == id && $0.delivery != .withheld }?.text }
+    func historyForImmersion() -> [GroupMessage] { guard !closed else { return [] }; return (groups + departedGroups).flatMap { messages($0.id) }.filter { $0.delivery != .withheld }.sorted { ($0.createdAt, $0.renderID) < ($1.createdAt, $1.renderID) } }
+    func pendingReceipts() throws -> [UUID] { try crypto.receipts() }
+    func receiptAccepted(_ id: UUID) throws { try crypto.receiptAccepted(id) }
+    func synchronize() async {
+        await refresh(); guard !closed else { return }
+        for group in groups { retryHeld(group.id) }
+        let queued = groups.flatMap { messages($0.id) }.filter { $0.sender == account && $0.delivery == .queued }.sorted { $0.createdAt < $1.createdAt }.prefix(50)
+        for message in queued { guard !closed, !Task.isCancelled else { return }; await retry(message) }
+    }
     func heldMessages(_ group: UUID) -> [GroupIncoming] { _ = revision; return ((try? crypto.heldEnvelopes()) ?? []).filter { $0.group_id == group } }
     func retryHeld(_ group: UUID) {
         do {
@@ -207,7 +219,7 @@ import Observation
     }
     func pendingApprovals(_ group: UUID) -> [GroupPendingControl] { _ = revision; return ((try? controls.pending()) ?? []).filter { $0.group == group } }
     func canBootstrap(_ control: GroupPendingControl) -> Bool { (try? membership.current(control.group)) == nil && control.transition.action == .add && control.transition.target_id == account }
-    func confirmBootstrap(_ control: GroupPendingControl) { do { try controls.confirmBootstrap(control); _ = try crypto.releaseAuthorized(control.group); revision += 1 } catch { notice = Self.explanation(error) } }
+    func confirmBootstrap(_ control: GroupPendingControl) { do { try controls.confirmBootstrap(control); for message in try crypto.releaseAuthorized(control.group) { committed(message) }; revision += 1 } catch { notice = Self.explanation(error) } }
     func approveJoin(_ group: GroupSnapshot, person: UUID) async {
         _ = await perform {
             let scope = group.id.uuidString.lowercased() + "/" + person.uuidString.lowercased()
@@ -228,12 +240,12 @@ import Observation
         }
     }
     func approved(_ group: UUID, person: UUID) -> Bool { _ = revision; return (try? membership.current(group))?.contains(person) == true }
-    func receivedControl(_ item: GroupIncoming) throws { guard !closed else { throw CancellationError() }; try controls.receive(item, now: Int64(Date().timeIntervalSince1970 * 1000)); _ = try crypto.releaseAuthorized(item.group_id); revision += 1 }
+    func receivedControl(_ item: GroupIncoming) throws { guard !closed else { throw CancellationError() }; try controls.receive(item, now: Int64(Date().timeIntervalSince1970 * 1000)); for message in try crypto.releaseAuthorized(item.group_id) { committed(message) }; revision += 1 }
     func received(_ item: GroupIncoming) throws -> GroupMessage? {
         guard !closed else { throw CancellationError() }
         let duplicate = try store.messages(item.group_id).contains { $0.id == item.group_message_id }
         let value = try crypto.receive(item, now: Int64(Date().timeIntervalSince1970 * 1000)); revision += 1
-        if let value, !duplicate, value.delivery == .received { for callback in Array(arrivals.values) { callback(value) } }
+        if let value, !duplicate, value.delivery == .received { committed(value); for callback in Array(arrivals.values) { callback(value) } }
         else if value == nil { notice = "A group message is held securely. Review the sender’s encryption identity before opening it." }
         return value
     }

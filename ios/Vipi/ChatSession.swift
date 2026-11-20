@@ -18,6 +18,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private var vault: MessageVault?
     private var core: MessagingCore?
     private var history: ConversationHistory?
+    private(set) var groups: GroupsSession?
     private(set) var profile: ChatProfile?
     private(set) var needsProfile = false
     private(set) var busy = false
@@ -66,6 +67,10 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                     }
                     before = page.count == 50 ? page.map(\.cursor).min() : nil
                 } while before != nil
+            }
+            for message in groups?.historyForImmersion() ?? [] {
+                guard !Task.isCancelled, !closed, translationOwner === owner else { return }
+                await owner.prepareStoredMessage(id: message.renderID, text: message.text); await Task.yield()
             }
         }
     }
@@ -120,12 +125,33 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         self.userID = userID; self.api = qualificationAPI; self.ready = ready; self.profile = profile
     }
     #endif
+    private final class GroupTransport: ChatTransport {
+        weak var owner: ChatSession?
+        init(_ owner: ChatSession) { self.owner = owner }
+        func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
+            guard let owner else { throw CancellationError() }
+            return try await owner.request(method, path, body: body, device: device, query: query)
+        }
+    }
+    private func openGroups(_ vault: MessageVault, core: MessagingCore) throws {
+        guard GroupsUpgrade.enabled else { return }
+        let store = GroupsStore(vault: vault)
+        groups = try GroupsSession(account: vault.account, api: GroupsAPI(transport: GroupTransport(self), device: core.device), store: store,
+            crypto: GroupsCrypto(vault: vault, core: core, store: store), preparePeer: { [weak self] peer in
+                guard let self, self.ready, !self.closed, !self.blockedPeers.contains(peer), !self.changedIdentities.contains(peer) else { throw GroupsFailure.identityChanged }
+                try await self.establish(peer)
+            }, identityReview: { [weak self] peer in self?.changedIdentities.contains(peer) ?? true }, committed: { [weak self] message in
+                guard let self, !self.closed else { return }
+                self.translationOwner?.warmStored(id: message.renderID) { [weak self] in self?.groups?.messageOriginal(message.id, group: message.groupID) }
+            })
+    }
     private func open(_ value: ChatProfile) throws {
         try ensureOpen()
         if let profile, profile.id != value.id { throw AuthenticationManager.SessionFailure.accountChanged }
         if vault == nil {
             let store = try MessageVault(account: value.id)
             vault = store; core = try MessagingCore(vault: store); history = try ConversationHistory(vault: store)
+            try openGroups(store, core: core!)
             ready = try store.transaction { try store.get("local", "registered-device") == Data(core!.device.id.uuidString.lowercased().utf8) }
             hasPendingDeviceReplacement = try store.transaction { try store.get("local", "replacement-consent") == Data(core!.device.id.uuidString.lowercased().utf8) }
             contacts = try store.transaction {
@@ -274,8 +300,9 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     /// follows a completed inbox sync; offline and deleted peers retain history.
     private func resolveUnknownNames() async throws {
         guard let core, let vault else { return }
-        let candidates = threads.map(\.peer).filter {
-            contacts[$0] == nil && !blockedPeers.contains($0) && (nameLookupAfter[$0] ?? .distantPast) <= Date()
+        let knownGroupPeers = groups?.groups.flatMap { $0.members.map(\.id) } ?? []
+        let candidates = Array(Set(threads.map(\.peer) + knownGroupPeers)).filter {
+            $0 != profile?.id && contacts[$0] == nil && !blockedPeers.contains($0) && (nameLookupAfter[$0] ?? .distantPast) <= Date()
         }.prefix(20)
         for peer in candidates {
             nameLookupAfter[peer] = Date().addingTimeInterval(300)
@@ -383,6 +410,20 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                 for _ in 0..<100 {
                     let inbox: Inbox = try await request("GET", "/v1/messages/pending", device: core.device, query: cursor.map { ["after": $0] } ?? [:])
                     for item in inbox.messages {
+                        if item.hasGroupContext {
+                            // Incomplete/unknown metadata can never fall through to direct chat.
+                            guard GroupsUpgrade.enabled, let groups else { continue }
+                            do {
+                                let incoming = try item.groupIncoming()
+                                guard let vault else { throw CancellationError() }
+                                let changedRoute = try vault.transaction { try vault.get("identity", item.sender_id.uuidString.lowercased() + "/1") != nil && vault.get("peer-device", item.sender_id.uuidString.lowercased()) != Data(item.sender_device_id.uuidString.lowercased().utf8) }
+                                if changedRoute { try recordIdentityChange(item.sender_id) }
+                                if incoming.group_kind == "control" { try groups.receivedControl(incoming) }
+                                else { _ = try groups.received(incoming) }
+                            } catch DurableSignalStore.Failure.identityChanged { try recordIdentityChange(item.sender_id); groups.notice = GroupsSession.explanation(GroupsFailure.identityChanged) }
+                            catch { groups.notice = GroupsSession.explanation(error) }
+                            continue
+                        }
                         if blockedPeers.contains(item.sender_id) { continue }
                         do {
                             let alreadyStored = try vault?.transaction { try vault?.get("incoming",item.id.uuidString.lowercased()) != nil } ?? false
@@ -434,6 +475,16 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                         notice = Self.explanation(error)
                     }
                 }
+                if let groups {
+                    await groups.synchronize()
+                    for id in try groups.pendingReceipts() {
+                        do {
+                            let status: Status = try await request("POST", "/v1/messages/\(id.uuidString.lowercased())/receipt", device: core.device)
+                            if ["delivered", "expired", "unavailable", "identity_changed"].contains(status.state) { try groups.receiptAccepted(id) }
+                        } catch let failure as ServiceFailure where failure.status == 404 && failure.code == "message_not_found" { try groups.receiptAccepted(id) }
+                        catch let failure as ServiceFailure where failure.status == 429 { break }
+                    }
+                }
             } catch is CancellationError { break }
             catch { notice = Self.explanation(error); break }
         } while syncAgain && !Task.isCancelled
@@ -482,6 +533,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         events?.stop(); events = nil
         cancelHistoryWork?(); cancelHistoryWork = nil
         closed = true; ready = false; needsProfile = false; syncAgain = false
+        groups?.close(); groups = nil
         try vault?.close(); vault = nil; core = nil; history = nil
         profile = nil; threads = []; contacts = [:]; importedPeers = [:]; blockedPeers = []
     }
