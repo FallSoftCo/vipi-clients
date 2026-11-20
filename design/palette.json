@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "Ultramarine / ink / hot apricot",
-  "color_space": "Opaque sRGB. Ink roles are context-specific. No opacity multiplication on body/time/status ink.",
+  "color_space": "Opaque sRGB",
   "light": {
     "canvas": "#F8F5EE",
     "surface": "#FFFFFF",
@@ -119,17 +119,15 @@
     "brand_background": "#3147D6",
     "brand_left_v": "#F8F5EE",
     "brand_right_v": "#FFC49E",
-    "geometry": "Retain existing committed V silhouette and path geometry. Recolor only.",
-    "placement": "Launcher uses ultramarine background, ivory left branch, apricot right branch. In-app/onboarding use the same blue badge beneath the two branches so ivory never disappears on warm paper. Same colorway in dark. Native OS monochrome mask geometry remains unchanged.",
-    "supersedes": "Exact evergreen/lime colors were superseded by the owner; preserve the V geometry, not the old colors."
+    "geometry": "Use the two paths from vipi-icon.svg.",
+    "placement": "Use the ultramarine badge behind both V strokes in the launcher and onboarding."
   },
   "state_rules": [
-    "Use outgoing_ink/outgoing_secondary/outgoing_read/outgoing_failed inside saturated own bubbles. Generic secondary/read/error is for canvas/surface/incoming only.",
-    "Unread count uses action/on_action; own bubble remains ultramarine in both themes.",
-    "Practice word = peach fill/rust ink; current spoken word = vivid amber fill/dark ink. Playback position remains distinct from learned-word selection.",
-    "Focus ring uses focus on canvas/surface/incoming and outgoing_focus on saturated own bubbles. Use outline for editable boundary; separators are decorative.",
-    "Read gold double-check tint supplements localized status/AX. Delivered/pending use outgoing_secondary on own bubble or secondary elsewhere. Keep clock/check/error shapes and localized text. Where read and delivered share a double-check shape, expose localized Read in visible metadata/status inspection so hue is not the sole cue.",
-    "Failure retains error icon and localized failure/retry wording; do not use warm brand accent as failure."
+    "Use outgoing_ink, outgoing_secondary and outgoing_read inside the authored message bubble in both appearances.",
+    "Use practice_fill with practice_ink for a word being learned. Use spoken_fill with spoken_ink for the word being spoken.",
+    "Use focus or outgoing_focus on the corresponding surface.",
+    "Keep the compact clock and check marks. Pair each with a localized accessibility label and expose its status in message details.",
+    "Show a localized explanation and the error icon in the appropriate failure color when sending fails."
   ],
   "benchmarks": [
     "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
