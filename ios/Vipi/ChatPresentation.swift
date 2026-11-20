@@ -125,11 +125,18 @@ enum ChatMessageVisibility {
 /// UIKit mixed/full text receive the same explicit message context.
 struct MessageBubbleSurface:ViewModifier {
     let outgoing:Bool
+    @Environment(\.colorScheme) private var colorScheme
     func body(content:Content) -> some View {
+        let shape = RoundedRectangle(cornerRadius:18,style:.continuous)
+        let dark = colorScheme == .dark
         content.environment(\.vipiOutgoingMessage,outgoing)
             .foregroundStyle(VipiDesign.messageInk(outgoing))
-            .background(outgoing ? VipiDesign.outgoingBubble:VipiDesign.incomingBubble,in:RoundedRectangle(cornerRadius:18))
-            .overlay(RoundedRectangle(cornerRadius:18).strokeBorder(VipiDesign.bubbleBorder,lineWidth:0.75))
-            .shadow(color:.black.opacity(0.035),radius:2,x:0,y:1)
+            .background {
+                shape.fill(outgoing ? VipiDesign.outgoingBubble:VipiDesign.incomingBubble)
+                    .shadow(color:dark ? .black.opacity(0.035):VipiLightBubbleDepth.shadowColor.opacity(VipiLightBubbleDepth.shadowOpacity),
+                            radius:dark ? 2:VipiLightBubbleDepth.shadowRadius,x:0,y:dark ? 1:VipiLightBubbleDepth.shadowY)
+            }
+            .overlay(shape.strokeBorder(dark ? VipiDesign.bubbleBorder:VipiPalette.color(outgoing ? .outgoingEdge:.incomingEdge),
+                                        lineWidth:dark ? 0.75:VipiLightBubbleDepth.strokeWidth))
     }
 }

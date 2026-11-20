@@ -33,12 +33,12 @@ enum VipiDesign {
 /// Shared approved wordmark artwork, rendered from the bundled original vector.
 struct VipiMark:View {
     var size:CGFloat = 42
-    var rich = false
     var body:some View {
-        Image(rich || size >= 48 ? "VipiMarkRich":"VipiMarkOptical")
+        Image("VipiWordmark")
             .resizable().renderingMode(.original).aspectRatio(contentMode:.fit)
             .environment(\.layoutDirection,.leftToRight)
-            .frame(width:size,height:size).accessibilityHidden(true)
+            .frame(width:size,height:size)
+            .accessibilityHidden(true)
     }
 }
 

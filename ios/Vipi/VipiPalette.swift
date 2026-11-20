@@ -85,3 +85,11 @@ extension EnvironmentValues {
         set { self[OutgoingMessageKey.self] = newValue }
     }
 }
+
+enum VipiLightBubbleDepth {
+    static let strokeWidth:CGFloat = 1
+    static let shadowColor = Color(red:72/255.0,green:47/255.0,blue:56/255.0)
+    static let shadowOpacity:Double = 0.12
+    static let shadowRadius:CGFloat = 2
+    static let shadowY:CGFloat = 1
+}

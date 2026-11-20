@@ -41,4 +41,11 @@ extension EnvironmentValues {
     }
 }
 '''
+depth=v['light_bubble_depth'];shadow=int(depth['shadow_color'][1:],16)
+s+='\nenum VipiLightBubbleDepth {\n'
+s+='    static let strokeWidth:CGFloat = '+str(depth['stroke_width'])+'\n'
+s+='    static let shadowColor = Color(red:'+str((shadow>>16)&255)+'/255.0,green:'+str((shadow>>8)&255)+'/255.0,blue:'+str(shadow&255)+'/255.0)\n'
+for field,name in [('shadow_opacity','shadowOpacity'),('shadow_radius','shadowRadius'),('shadow_y','shadowY')]:
+ s+='    static let '+name+':'+('Double'if field=='shadow_opacity'else'CGFloat')+' = '+str(depth[field])+'\n'
+s+='}\n'
 (root/'ios/Vipi/VipiPalette.swift').write_text(s)

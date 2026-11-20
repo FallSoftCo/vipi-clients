@@ -185,6 +185,7 @@ struct FriendConversationView: View {
     @State private var messageFrames:[UUID:CGRect] = [:]
     @State private var timelineFrame = CGRect.zero
     @State private var composerFrame = CGRect.zero
+    @State private var peerTypingFrame = CGRect.zero
     @State private var viewportTopInset:CGFloat = 0
     @State private var viewportContainerHeight:CGFloat = 0
     @State private var reportedIncoming = Set<UUID>()
@@ -221,6 +222,7 @@ struct FriendConversationView: View {
     private func reportVisibleMessages() {
         #if DEBUG
         LiveImmersionQualification.recordCurrentMessageViewport(visibleTimeline)
+        LiveImmersionQualification.recordCurrentMessageRows(messageFrames)
         #endif
         var incoming = Set<UUID>(),outgoing = Set<UUID>()
         if canReportVisible {
@@ -300,6 +302,23 @@ struct FriendConversationView: View {
         // Preserve that inset explicitly when restoring a vertical position.
         position.scrollTo(x: -viewportLeadingInset, y: y)
     }
+    private func settleMeasuredLatest() {
+        guard followingLatest,!scrolling,!copyOriginal.holdingLayout,textSizeRestore == nil else { return }
+        viewportRestore?.cancel()
+        viewportRestore = Task { @MainActor in
+            do { try await Task.sleep(for:.milliseconds(80)) } catch { return }
+            guard followingLatest,!scrolling,!copyOriginal.holdingLayout else { return }
+            scrollToLatest("measured_latest_row")
+            viewportRestore = nil
+        }
+    }
+    private var measuredLatestScrollY:CGFloat {
+        guard let last = messages.last,let frame = messageFrames[last.id],frame.height > 0,visibleTimeline.height > 0 else { return latestScrollY }
+        let bottom = chat.isPeerTyping(peer) && peerTypingFrame.height > 0 ? max(frame.maxY,peerTypingFrame.maxY):frame.maxY
+        // Match real clipped global coordinates, after lazy row measurement.
+        // A short conversation stays at its natural top rather than overscrolling.
+        return max(-viewportTopInset,scrollOffset + bottom - (visibleTimeline.maxY-18))
+    }
     private func scrollToLatest(_ reason: String) {
         guard !copyOriginal.holdingLayout else { return }
         #if DEBUG
@@ -308,7 +327,7 @@ struct FriendConversationView: View {
             "viewport_height":Double(viewportHeight), "bottom_inset":Double(viewportBottomInset),
             "following_latest":followingLatest, "scrolling":scrolling])
         #endif
-        scrollVertically(to:latestScrollY)
+        scrollVertically(to:measuredLatestScrollY)
     }
     private func refresh() {
         do {
@@ -429,6 +448,7 @@ struct FriendConversationView: View {
                         }.id(item.id)
                             .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { frame in
                                 messageFrames[item.id] = frame; reportVisibleMessages()
+                                if item.id == messages.last?.id { settleMeasuredLatest() }
                             }
                             .onDisappear { messageFrames.removeValue(forKey:item.id); reportVisibleMessages() }
                             #if DEBUG
@@ -442,7 +462,13 @@ struct FriendConversationView: View {
                                 if item.id == textSizeAnchorID { textSizeAnchorFrame = frame }
                             }
                     }
-                    if chat.isPeerTyping(peer),conversationActive { PeerTypingBubble().id("peer-typing") }
+                    if chat.isPeerTyping(peer),conversationActive {
+                        PeerTypingBubble().id("peer-typing")
+                            .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { frame in
+                                peerTypingFrame = frame;settleMeasuredLatest()
+                            }
+                            .onDisappear { peerTypingFrame = .zero;settleMeasuredLatest() }
+                    }
                     Color.clear.frame(height: 1).id("bottom")
                 }.scrollTargetLayout().padding(.vertical,18).frame(maxWidth:644).frame(maxWidth:.infinity)
             }.contentMargins(.horizontal,18,for:.scrollContent)
@@ -465,7 +491,7 @@ struct FriendConversationView: View {
                     // scroll. Its height change was intentionally not followed
                     // while moving; settle that new bottom once motion ends.
                     if phase == .idle,followingLatest,!copyOriginal.holdingLayout,textSizeRestore == nil,
-                       abs(scrollOffset-latestScrollY) > 0.5 {
+                       abs(scrollOffset-measuredLatestScrollY) > 0.5 {
                         viewportRestore?.cancel()
                         viewportRestore = Task { @MainActor in
                             do { try await Task.sleep(for:.milliseconds(80)) } catch { return }

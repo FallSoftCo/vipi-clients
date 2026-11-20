@@ -146,6 +146,11 @@ struct FullMessageViewportGeometry: Equatable {
             ProcessInfo.processInfo.arguments.contains("-vipi-full-translation-sdk-qa") && FirstMonthRootQualification.current != nil
     }
     private(set) static var currentMessageViewport:[String:Double] = [:]
+    private(set) static var currentMessageRows:[String:[String:Any]] = [:]
+    static func recordCurrentMessageRows(_ frames:[UUID:CGRect]) {
+        guard fullMessageGeometryEnabled else { return }
+        currentMessageRows = Dictionary(uniqueKeysWithValues:frames.map { ($0.key.uuidString.lowercased(),frameFields($0.value)) })
+    }
     static func recordCurrentMessageViewport(_ frame:CGRect) {
         guard fullMessageGeometryEnabled, [frame.minX,frame.minY,frame.width,frame.height].allSatisfy({$0.isFinite}) else { return }
         currentMessageViewport = ["x":Double(frame.minX),"y":Double(frame.minY),"width":Double(frame.width),"height":Double(frame.height)]
@@ -1632,6 +1637,7 @@ struct PendingPairRootBinding: View {
                 "controlled_native_faces":speechObservations.filter{$0["event"] as? String == "full_message_native_face"},
                 "composition_geometry":compositionGeometry,
                 "current_message_viewport":LiveImmersionQualification.currentMessageViewport,
+                "current_message_rows":LiveImmersionQualification.currentMessageRows,
                 "full_message_geometry":Array(speechObservations.filter{($0["event"] as? String ?? "").hasSuffix("_geometry")}.suffix(64)),
                 // Scroll/row callbacks can fill the recent event window while
                 // the composer stays still. Keep its actual latest measurement.
