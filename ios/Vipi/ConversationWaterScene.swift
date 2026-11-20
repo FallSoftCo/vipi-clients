@@ -5,6 +5,7 @@ import SwiftUI
 struct ConversationWaterScene: View {
     let mode: ImmersionMode
     let motionEnabled: Bool
+    var listSurface = false
     @Environment(\.colorScheme) private var scheme
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -17,6 +18,12 @@ struct ConversationWaterScene: View {
     private var dark: Bool { scheme == .dark }
     private var deep: Bool { mode == .fullMessages }
     private var water: [Color] {
+        if listSurface {
+            return (dark
+                ? (deep ? [0x221B22, 0x25212A, 0x24232D] : [0x221B22, 0x27212A, 0x292530])
+                : (deep ? [0xFFF8EF, 0xF4EEE6, 0xEDE8E0] : [0xFFF8EF, 0xF7EFE6, 0xF0E5DA])
+            ).map { sceneColor(UInt32($0)) }
+        }
         let colors: [UInt32] = dark
             ? (deep ? [0x24202C, 0x243542, 0x142C3A] : [0x221B22, 0x292934, 0x273C45])
             : (deep ? [0xF4F0E7, 0xDBE2DF, 0xC1D1D1] : [0xFFF8EF, 0xF3E9DF, 0xD5DEDB])
@@ -30,6 +37,20 @@ struct ConversationWaterScene: View {
                 context.fill(bounds, with: .color(sceneColor(dark ? 0x221B22 : 0xFFF8EF)))
                 guard !reduceTransparency else { return }
                 context.fill(bounds, with: .linearGradient(Gradient(colors: water), startPoint: .zero, endPoint: CGPoint(x: 0, y: size.height)))
+                if listSurface {
+                    let pigment = sceneColor(dark ? 0xC294A4 : 0x9A6370)
+                    for index in 0..<17 {
+                        let center = CGPoint(x: size.width * Double((index * 37 + 13) % 101) / 100, y: size.height * Double((index * 29 + 7) % 103) / 102)
+                        let radius = Double(70 + (index * 17 % 60))
+                        context.fill(Path(ellipseIn: CGRect(x: center.x-radius, y: center.y-radius, width: radius*2, height: radius*2)), with: .radialGradient(Gradient(colors: [pigment.opacity(0.055), .clear]), center: center, startRadius: 0, endRadius: radius))
+                    }
+                    for index in 0..<9 {
+                        let y = size.height * (Double(index) + 0.35) / 9
+                        var ripple = Path(); ripple.move(to: CGPoint(x: -size.width*0.1, y: y))
+                        ripple.addCurve(to: CGPoint(x:size.width*1.1,y:y-5), control1: CGPoint(x:size.width*0.24,y:y-18), control2: CGPoint(x:size.width*0.62,y:y+20))
+                        context.stroke(ripple, with: .color(pigment.opacity(0.10)), lineWidth: 0.7)
+                    }
+                }
                 for index in 0..<3 {
                     let x = size.width * (Double(index) * 0.43 - 0.3) + sin(seconds / 20) * size.width * 0.05
                     var ray = Path()
@@ -38,7 +59,7 @@ struct ConversationWaterScene: View {
                     ray.addLine(to: CGPoint(x: x + size.width * 0.38, y: size.height)); ray.closeSubpath()
                     context.fill(ray, with: .color(.white.opacity(dark ? 0.015 : 0.04)))
                 }
-                let opacity = deep ? 0.36 : dark ? 0.29 : 0.27
+                let opacity = listSurface ? (dark ? 0.17 : 0.12) : deep ? 0.36 : dark ? 0.29 : 0.27
                 let widths = [0.76, 0.51, 0.35]
                 let cycles = [39.0, 51.0, 62.0], offsets = [0.0, 23.0, 38.0], levels = [0.79, 0.36, 0.82]
                 for index in 0..<3 {
@@ -59,12 +80,12 @@ struct ConversationWaterScene: View {
                     context.stroke(bubble, with: .color(sceneColor(dark ? 0xBBD0D2 : 0x8B8A8C).opacity(max(0, sin(fraction * .pi) * 0.3))), lineWidth: 0.65)
                 }
                 // Deterministic fine grain. No per-frame random texture.
-                let step = 12.0
+                let step = listSurface ? 7.0 : 12.0
                 for row in 0...Int(size.height / step) {
                     for column in 0...Int(size.width / step) {
                         let jitter = Double((row * 31 + column * 17) % 13) / 13
                         let x = Double(column) * step + jitter * step, y = Double(row) * step + (1 - jitter) * step
-                        context.fill(Path(ellipseIn: CGRect(x: x, y: y, width: 0.44, height: 0.44)), with: .color(sceneColor(dark ? 0xF9ECE4 : 0x352233).opacity(0.025)))
+                        context.fill(Path(ellipseIn: CGRect(x: x, y: y, width: listSurface ? 0.64 : 0.44, height: listSurface ? 0.64 : 0.44)), with: .color(sceneColor(dark ? 0xF9ECE4 : 0x352233).opacity(listSurface ? 0.055 : 0.025)))
                     }
                 }
             }

@@ -2268,6 +2268,11 @@ final class ChatConversationTests: XCTestCase {
 
     func testPolishedFriendNightKeepsWholeSendAndModeWithKeyboard() throws { try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true) }
     func testPolishedFriendLargestKeepsWholeSendAndModeWithKeyboard() throws { try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true) }
+    func testWaterInboxDayHasStationaryReadableRows() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,immersionModes:true,inboxReview:"water-populated") }
+    func testWaterInboxNightHasStationaryReadableRows() throws { try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,immersionModes:true,inboxReview:"water-populated") }
+    func testWaterInboxEmptyDayKeepsOneAction() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"water-empty") }
+    func testWaterInboxEmptyNightKeepsOneAction() throws { try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,inboxReview:"water-empty") }
+    func testWaterInboxLargestKeepsNamesDatesAndNavigation() throws { try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,immersionModes:true,inboxReview:"water-populated") }
     func testNativeInboxEmptyHasOneActionAndProfile() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"empty") }
     func testNativeInboxRealisticRowsNavigateAndClearLocalUnread() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"populated") }
     func testNativeInboxLargestTextKeepsNamesAndDatesReadable() throws { try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,inboxReview:"populated") }
@@ -2342,7 +2347,7 @@ final class ChatConversationTests: XCTestCase {
                 arguments += ["-vipi-live-immersion-state",prefix+"1"]
             }
         }
-        if inboxReview == "populated" { arguments += ["-vipi-inbox-populated-qa"] }
+        if inboxReview?.hasSuffix("populated") == true { arguments += ["-vipi-inbox-populated-qa"] }
         if marketing {
             XCTAssertTrue(fullTranslation && reading == "en-zh" && !largest && !dark && !copyOriginal && !settingsInvite && !cueLifecycle && !pendingPair)
             arguments += ["-vipi-marketing-root-qa"]
@@ -2648,6 +2653,35 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(app.navigationBars["Chats"].exists)
             XCTAssertFalse(app.buttons["Notify me when friends reply"].exists)
             XCTAssertTrue(app.buttons["Your profile and settings"].exists)
+            if inboxReview.hasPrefix("water-") {
+                func captureWater(_ name:String) {
+                    let shot = XCTAttachment(screenshot:app.screenshot()); shot.name = name; shot.lifetime = .keepAlways; add(shot)
+                    let tree = XCTAttachment(string:app.debugDescription); tree.name = name+"-native-tree"; tree.lifetime = .keepAlways; add(tree)
+                }
+                if inboxReview == "water-empty" {
+                    let action = app.buttons["home-start-conversation"]
+                    XCTAssertTrue(action.waitForExistence(timeout:5)); XCTAssertTrue(action.isHittable)
+                    XCTAssertEqual(app.buttons.matching(NSPredicate(format:"label == 'New chat'")).count,1)
+                    captureWater("water-inbox-empty")
+                    action.tap(); XCTAssertTrue(app.textFields["Friend’s username"].waitForExistence(timeout:5))
+                    app.buttons["Cancel"].tap(); XCTAssertTrue(app.navigationBars["Chats"].exists)
+                } else {
+                    let row = app.descendants(matching:.any).matching(NSPredicate(format:"identifier BEGINSWITH 'chat-thread-' AND label CONTAINS 'Maya Johnson'")).firstMatch
+                    XCTAssertTrue(row.waitForExistence(timeout:8)); XCTAssertTrue(row.isHittable)
+                    let originalFrame = row.frame
+                    captureWater("water-inbox-shallow")
+                    Thread.sleep(forTimeInterval:0.9)
+                    XCTAssertEqual(row.frame,originalFrame,"Background motion must not move a row")
+                    captureWater("water-inbox-shallow-later")
+                    row.tap(); let toggle = app.buttons["conversation-immersion"]
+                    XCTAssertTrue(toggle.waitForExistence(timeout:8)); toggle.tap()
+                    XCTAssertEqual(toggle.value as? String,"Deep")
+                    app.navigationBars.buttons["BackButton"].firstMatch.tap()
+                    XCTAssertTrue(app.navigationBars["Chats"].waitForExistence(timeout:5))
+                    captureWater("water-inbox-deep")
+                }
+                return
+            }
             if inboxReview == "empty" || inboxReview == "surfaces" {
                 XCTAssertTrue(app.buttons["home-start-conversation"].waitForExistence(timeout:5))
                 XCTAssertEqual(app.buttons.matching(NSPredicate(format:"label == 'New chat'")).count,1)

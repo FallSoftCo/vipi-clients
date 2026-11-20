@@ -20,7 +20,8 @@ struct HomeView: View {
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
-                VipiDesign.canvas.ignoresSafeArea()
+                ConversationWaterScene(mode: state.immersionMode, motionEnabled: state.animateConversationBackground, listSurface: true)
+                    .ignoresSafeArea()
                 ScrollView {
                     VStack(alignment: .leading, spacing: 24) {
                         if let chat, chat.needsReauthentication, let reauthenticate {

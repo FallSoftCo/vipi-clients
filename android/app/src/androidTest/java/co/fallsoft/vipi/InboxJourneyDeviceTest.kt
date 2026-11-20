@@ -53,7 +53,10 @@ class InboxJourneyDeviceTest {
         }
         File(f.output,"$name-bounds.json").writeText(JSONObject().put("list",list.toString()).put("rows",bounds).toString(2))
     }
-    @Test fun emptyInboxHasOnePrimaryActionAndNativeLookupNavigation() {
+    @Test fun waterInboxEmptyHasTextureAndKeepsOneNewChatAction() = emptyInbox(waterReview = true)
+    @Test fun waterInboxRowsStayFixedOverMovingWaterAndNavigate() = populated(captureOnly = false, waterReview = true)
+    @Test fun emptyInboxHasOnePrimaryActionAndNativeLookupNavigation() = emptyInbox(waterReview = false)
+    private fun emptyInbox(waterReview: Boolean) {
         val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
         MainActivityJourneyFixture("inbox-empty", service::model).use { f ->
             try {
@@ -61,6 +64,16 @@ class InboxJourneyDeviceTest {
                 compose.onNodeWithTag("inbox-empty").assertIsDisplayed()
                 compose.onAllNodesWithTag("inbox-compose").assertCountEquals(1)
                 compose.onNodeWithTag("inbox-compose").assertIsEnabled().assertIsDisplayed()
+                if (waterReview) {
+                    for (appearance in listOf(Appearance.LIGHT, Appearance.DARK)) {
+                        compose.runOnIdle { f.model.changeAppearance(appearance); f.model.selectImmersionMode(ImmersionMode.FULL_MESSAGES) }
+                        paint(f, "water-empty-${appearance.name.lowercase()}")
+                    }
+                    compose.onNodeWithTag("inbox-compose").performClick(); screen(f, Screen.NEW_CHAT)
+                    f.device.pressBack(); screen(f, Screen.HOME)
+                    compose.onAllNodesWithTag("inbox-compose").assertCountEquals(1)
+                    service.assertNoPurchase(); return
+                }
                 paint(f,"01-empty")
                 compose.onNodeWithTag("inbox-compose").performClick(); screen(f,Screen.NEW_CHAT)
                 compose.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed()
@@ -89,7 +102,7 @@ class InboxJourneyDeviceTest {
     }
     @Test fun populatedInboxKeepsOriginalPendingPreviewsUnreadDatesAndRowNavigation() = populated(captureOnly = false)
     @Test fun decorativeAvatarsFitWithLargestText() = populated(captureOnly = true)
-    private fun populated(captureOnly: Boolean) {
+    private fun populated(captureOnly: Boolean, waterReview: Boolean = false) {
         val held = CompletableDeferred<Unit>()
         val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya", translationFactory = {
             object : LanguageTranslation {
@@ -122,6 +135,28 @@ class InboxJourneyDeviceTest {
                     if(row.unread>0) compose.onNodeWithTag("inbox-unread-${row.peer}",useUnmergedTree=true).assertIsDisplayed()
                 }
                 compose.onNodeWithTag("inbox-list").performScrollToIndex(0)
+                if (waterReview) {
+                    val originalBounds = compose.onNodeWithTag("inbox-row-${service.peer}").fetchSemanticsNode().boundsInWindow
+                    for (appearance in listOf(Appearance.LIGHT, Appearance.DARK)) {
+                        compose.runOnIdle { f.model.changeAppearance(appearance) }
+                        paint(f, "water-populated-${appearance.name.lowercase()}-deep")
+                        compose.runOnIdle { f.model.selectImmersionMode(ImmersionMode.NEW_WORD) }
+                        paint(f, "water-populated-${appearance.name.lowercase()}-shallow")
+                        assertEquals("Decoration must never change native row geometry", originalBounds,
+                            compose.onNodeWithTag("inbox-row-${service.peer}").fetchSemanticsNode().boundsInWindow)
+                        compose.runOnIdle { f.model.selectImmersionMode(ImmersionMode.FULL_MESSAGES) }
+                    }
+                    compose.runOnIdle { f.model.changeConversationAnimation(false) }
+                    paint(f, "water-paused-before"); Thread.sleep(900); paint(f, "water-paused-after")
+                    compose.onNodeWithTag("inbox-row-${service.peer}").performClick(); screen(f, Screen.CONVERSATION)
+                    assertEquals(service.peer, f.model.selectedPeer)
+                    f.device.pressBack(); screen(f, Screen.HOME)
+                    compose.onNodeWithTag("inbox-list").performScrollToIndex(rows.lastIndex)
+                    compose.onNodeWithTag("inbox-row-${rows.last().peer}").assertIsDisplayed()
+                    compose.onNodeWithTag("inbox-compose").performClick(); screen(f, Screen.NEW_CHAT)
+                    f.device.pressBack(); screen(f, Screen.HOME)
+                    service.assertNoPurchase(); return
+                }
                 geometry(f,"01-populated-day",rows.take(1)); paint(f,"01-populated-day")
                 compose.runOnIdle { f.model.changeAppearance(Appearance.DARK) }; paint(f,"02-populated-night")
                 compose.onAllNodesWithTag("inbox-compose").assertCountEquals(1)
