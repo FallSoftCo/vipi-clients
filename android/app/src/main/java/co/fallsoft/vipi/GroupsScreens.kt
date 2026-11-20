@@ -230,7 +230,8 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
                     Text("Saved group change", style = MaterialTheme.typography.titleLarge)
                     session.pendingDescriptions(groupID, people).forEach { Text(it, style = MaterialTheme.typography.titleMedium) }
                     Text("This change is waiting to be confirmed. Continue it before making another change or sending messages.", style = MaterialTheme.typography.bodyLarge)
-                    Button(onClick = { scope.launch { session.resumePending(groupID) } }, enabled = !session.busy) { Text("Resume saved group change") }
+                    Button(onClick = { scope.launch { session.resumePending(groupID) } }, enabled = !session.busy && !session.recoveryCancelled(groupID)) { Text("Resume saved group change") }
+                    GroupRecoveryCard(session, groupID)
                 } }
                 if (!session.isActive(groupID)) item { Text("You’re no longer in this group. These people and roles describe the last saved roster. Your messages remain available here.", style = MaterialTheme.typography.bodyLarge) }
                 if (session.hasMembershipConflict(groupID)) item { Text("Conflicting encrypted group approvals were received. New messages are held. Ask an admin to resolve the group history or create a new group with confirmed identities.", style = MaterialTheme.typography.bodyLarge) }

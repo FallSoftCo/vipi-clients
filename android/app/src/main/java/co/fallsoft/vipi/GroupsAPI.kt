@@ -4,6 +4,7 @@ import org.json.JSONObject
 import java.util.UUID
 
 internal class GroupsAPI(private val transport: ChatTransport, private val device: DeviceCredential) {
+    val originalDeviceID: UUID get() = device.id
     data class Listing(val groups: List<GroupSnapshot>, val invitations: List<GroupInvitation>)
     suspend fun list(): Listing { val o = transport.request("GET", "/v1/groups", device = device); return Listing(o.getJSONArray("groups").objects().map(GroupSnapshot::parse), o.getJSONArray("invitations").objects().map(GroupInvitation::parse)) }
     suspend fun detail(group: UUID) = GroupSnapshot.parse(transport.request("GET", "/v1/groups/$group", device = device))

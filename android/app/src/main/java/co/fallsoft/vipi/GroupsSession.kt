@@ -23,6 +23,8 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
     var notice by mutableStateOf<String?>(null); private set
     private val membership = GroupsMembership(store.vault)
     private val controls = GroupsControlCrypto(store.vault, crypto.messagingCore)
+    private val recovery = GroupsRecoveryJournal(store.vault)
+    var recoveryReview by mutableStateOf<GroupRecoveryReview?>(null); private set
     private var closed = false
     private val arrivals = mutableMapOf<Any, (GroupMessage) -> Unit>()
     fun observe(owner: Any, callback: (GroupMessage) -> Unit) { arrivals[owner] = callback }
@@ -69,16 +71,17 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
             require(store.vault.ids("group-mutation").none { it.contains(group.id.toString()) && it != scope } && store.vault.ids("group-join-plan").none { it.startsWith("${group.id}/") }) { "Resume the saved group change before making another." }
             val previous = membership.currentInTransaction(group.id)
             if (suffix.startsWith("/members/")) require(previous?.matches(group) == true) { "Authenticated group approval is needed before changing the people." }
-            GroupMutationPlan(group, UUID.randomUUID(), UUID.randomUUID(), method, suffix, fields, previous).also { store.vault.put("group-mutation", scope, GroupsStore.bytes(it.json())) }
+            GroupMutationPlan(group, UUID.randomUUID(), UUID.randomUUID(), method, suffix, fields, previous, api.originalDeviceID).also { store.vault.put("group-mutation", scope, GroupsStore.bytes(it.json())) }
         }
+        checkOriginalDevice(plan.originalDevice)
         var fanout: GroupFanout? = null
         plan.transition(account)?.let { change ->
             plan.group.members.filter { it.id != account && it.device != null }.forEach { if (needsIdentityReview(it.id)) throw PeerIdentityChanged(it.id); preparePeer(it.id) }
             val value = controls.prepare(plan.control, plan.group, change, System.currentTimeMillis()); fanout = value
         }
+        rememberMutation(plan, scope, fanout)
         val response = api.change(plan.group, plan.method, plan.suffix, plan.request, plan.fields, fanout)
-        fanout?.let { controls.accepted(requireNotNull(response.control), it) }
-        put(response.snapshot); fanout?.let(controls::reconciled); store.vault.transaction { store.vault.remove("group-mutation", scope) }; true
+        completeMutation(plan, scope, fanout, response.snapshot, response.control); true
     } ?: false
     suspend fun invite(group: GroupSnapshot, user: UUID) = change(group, "POST", "/invitations", mapOf("user_id" to user.toString()))
     suspend fun rename(group: GroupSnapshot, title: String): Boolean { return try { change(group, "PATCH", fields = mapOf("title" to GroupSelection.name(title))) } catch (error: Exception) { notice = explanation(error); false } }
@@ -93,13 +96,15 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
             require(store.vault.ids("group-mutation").none { it.contains(group.id.toString()) && it != scope } && store.vault.ids("group-join-plan").none { it.startsWith("${group.id}/") }) { "Resume the saved group change before making another." }
             val previous = requireNotNull(membership.currentInTransaction(group.id)); require(previous.matches(group))
             require(previous.members.firstOrNull { it.id == account }?.role != GroupRole.OWNER || previous.members.size == 1) { "Transfer ownership to another person before leaving." }
-            GroupMutationPlan(group, UUID.randomUUID(), UUID.randomUUID(), "POST", "/leave", emptyMap(), previous).also { store.vault.put("group-mutation", scope, GroupsStore.bytes(it.json())) }
+            GroupMutationPlan(group, UUID.randomUUID(), UUID.randomUUID(), "POST", "/leave", emptyMap(), previous, api.originalDeviceID).also { store.vault.put("group-mutation", scope, GroupsStore.bytes(it.json())) }
         }
+        checkOriginalDevice(plan.originalDevice)
         val change = requireNotNull(plan.transition(account))
         plan.group.members.filter { it.id != account && it.device != null }.forEach { if (needsIdentityReview(it.id)) throw PeerIdentityChanged(it.id); preparePeer(it.id) }
         val fanout = controls.prepare(plan.control, plan.group, change, System.currentTimeMillis())
-        controls.accepted(api.leave(plan.group, plan.request, fanout), fanout); controls.reconciled(fanout); store.vault.transaction { store.vault.remove("group-mutation", scope) }
-        groups = groups.filter { it.id != group.id }; departedGroups = departedGroups.filter { it.id != group.id } + plan.group; store.saveActiveIDs(groups.map { it.id }.toSet()); revision++; true
+        rememberMutation(plan, scope, fanout)
+        val accepted = api.leave(plan.group, plan.request, fanout)
+        completeMutation(plan, scope, fanout, null, accepted); true
     } ?: false
     suspend fun send(group: GroupSnapshot, text: String): Boolean {
         if (text.isBlank() || text.toByteArray(Charsets.UTF_8).size > 32768) { notice = "Write a message up to 32 KB before sending."; return false }
@@ -185,11 +190,13 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
             require(!previous.contains(person) && group.members.firstOrNull { it.id == person }?.role == GroupRole.MEMBER && group.members.map { GroupApprovedPerson(it.id, it.role) }.toSet().containsAll(previous.members))
             val change = GroupRosterTransition(account, GroupControlAction.ADD, person, previous.revision, previous.revision + 1, group.epoch, previous.members, previous.members + GroupApprovedPerson(person, GroupRole.MEMBER))
             change.validated(group.id, previous, account)
-            GroupJoinApprovalPlan(UUID.randomUUID(), group, change).also { store.vault.put("group-join-plan", scope, GroupsStore.bytes(it.json())) }
+            GroupJoinApprovalPlan(UUID.randomUUID(), group, change, api.originalDeviceID).also { store.vault.put("group-join-plan", scope, GroupsStore.bytes(it.json())) }
         }
+        checkOriginalDevice(plan.originalDevice)
         plan.group.members.filter { it.id != account && it.device != null }.forEach { if (needsIdentityReview(it.id)) throw PeerIdentityChanged(it.id); preparePeer(it.id) }
-        val fanout = controls.prepare(plan.id, plan.group, plan.change, System.currentTimeMillis()); controls.accepted(api.sendControl(fanout), fanout); controls.reconciled(fanout)
-        store.vault.transaction { store.vault.remove("group-join-plan", scope) }; revision++; true
+        val fanout = controls.prepare(plan.id, plan.group, plan.change, System.currentTimeMillis())
+        plan.originalDevice?.let { recovery.remember(PreparedGroupOperation.capture(plan.group.id, plan.id, "control", plan.group.epoch, it, originalControl = fanout), "group-join-plan", scope, fanout) }
+        completeJoin(plan, scope, fanout, api.sendControl(fanout)); true
     } }
     fun receiveControl(item: GroupIncoming) { check(!closed); controls.receive(item, System.currentTimeMillis()); crypto.releaseAuthorized(item.group).forEach(committed); revision++ }
     fun receive(item: GroupIncoming): GroupMessage? {
@@ -197,7 +204,101 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         val duplicate = store.messages(item.group).any { it.id == item.message }
         return crypto.receive(item, System.currentTimeMillis()).also { message -> revision++; if (message != null && !duplicate && message.delivery == GroupDelivery.RECEIVED) { committed(message); arrivals.values.toList().forEach { it(message) } }; if (message == null) notice = "A group message is held securely. Review the sender’s encryption identity before opening it." }
     }
-    fun close() { closed = true; arrivals.clear(); groups = emptyList(); departedGroups = emptyList(); invitations = emptyList(); notice = null }
+    private fun checkOriginalDevice(original: UUID?) {
+        require(original == null || original == api.originalDeviceID) { "Your device changed. Check the saved change before continuing; its original encryption is still retained." }
+    }
+    private fun rememberMutation(plan: GroupMutationPlan, scope: String, fanout: GroupFanout?) {
+        val device = plan.originalDevice ?: return // Legacy: exact retry only.
+        val (action, fields) = when {
+            plan.suffix == "/leave" -> "leave" to emptyMap()
+            plan.suffix.isEmpty() && plan.method == "PATCH" -> "rename" to mapOf("title" to plan.fields.getValue("title"))
+            plan.suffix == "/invitations" && plan.method == "POST" -> "invite" to mapOf("target_id" to plan.fields.getValue("user_id"))
+            plan.suffix.startsWith("/members/") && plan.method == "DELETE" -> "remove" to mapOf("target_id" to UUID.fromString(plan.suffix.removePrefix("/members/")).toString())
+            plan.suffix.startsWith("/members/") && plan.method == "PATCH" -> "role" to mapOf("target_id" to UUID.fromString(plan.suffix.removePrefix("/members/")).toString(), "role" to plan.fields.getValue("role"))
+            plan.suffix.startsWith("/invitations/") && plan.method == "DELETE" -> "cancel-invite" to mapOf("invite_id" to UUID.fromString(plan.suffix.removePrefix("/invitations/")).toString())
+            else -> error("This saved change cannot be cancelled safely. Retry its exact original operation.")
+        }
+        recovery.remember(PreparedGroupOperation.capture(plan.group.id, plan.request, action, plan.group.epoch, device, fields, fanout), "group-mutation", scope, fanout)
+    }
+    private fun reloadSavedGroups() {
+        val values = store.snapshots(); val active = store.activeIDs()
+        groups = values.filter { active?.contains(it.id) != false }
+        departedGroups = values.filter { active?.contains(it.id) == false }; revision++
+    }
+    /** Removing a prepared control and its parent plan is one commit. A crash
+     * cannot leave the old plan around to encrypt a new fanout under its old ID. */
+    private fun completeMutation(plan: GroupMutationPlan, scope: String, fanout: GroupFanout?, snapshot: GroupSnapshot?, accepted: JSONObject?) {
+        val active = groups.map { it.id }.toSet().let { if (plan.suffix == "/leave") it - plan.group.id else it }
+        store.vault.transaction {
+            fanout?.let { controls.acceptedInTransaction(requireNotNull(accepted), it) }
+            snapshot?.let { value ->
+                val saved = store.snapshotsInTransaction().firstOrNull { it.id == value.id }
+                if (saved == null || value.epoch >= saved.epoch) store.saveInTransaction(value)
+            }
+            store.saveActiveIDsInTransaction(active) // Never reactivate a departed group from an old saved result.
+            fanout?.let(controls::reconciledInTransaction)
+            store.vault.remove("group-mutation", scope)
+            recovery.completedInTransaction(plan.group.id, plan.request)
+        }
+        reloadSavedGroups()
+    }
+    private fun completeJoin(plan: GroupJoinApprovalPlan, scope: String, fanout: GroupFanout, accepted: JSONObject) {
+        store.vault.transaction {
+            controls.acceptedInTransaction(accepted, fanout); controls.reconciledInTransaction(fanout)
+            store.vault.remove("group-join-plan", scope); recovery.completedInTransaction(plan.group.id, plan.id)
+        }
+        revision++
+    }
+    fun recoveryAvailable(group: UUID): Boolean { val observed = revision; return !closed && recovery.entries(group).isNotEmpty() }
+    fun recoveryCancelled(group: UUID): Boolean { val observed = revision; return !closed && recovery.entries(group).any { it.cancelled } }
+    fun dismissRecoveryReview() { recoveryReview = null }
+    suspend fun checkSavedChange(group: UUID) { perform {
+        val entry = recovery.entries(group).singleOrNull() ?: error("This earlier change has no safely captured original device. Retry its exact operation; it cannot be discarded automatically.")
+        val outcome = entry.receipt?.let { entry.original.resolution(JSONObject(it)) } ?: api.resolve(entry.original)
+        recovery.record(entry, outcome); revision++
+        when (outcome) {
+            is GroupOperationResolution.Cancelled -> {
+                val current = api.detail(group)
+                if (!closed) recoveryReview = GroupRecoveryReview(recovery.entries(group).single(), current)
+            }
+            is GroupOperationResolution.Admitted -> {
+                val result = JSONObject(outcome.originalResult)
+                val link = entry.links.first()
+                when (link.kind) {
+                    "group-mutation" -> {
+                        val plan = store.vault.transaction { GroupMutationPlan.parse(GroupsStore.json(requireNotNull(store.vault.get(link.kind, link.id)))) }
+                        require(plan.group.id == group && plan.request == entry.original.request)
+                        val fanout = entry.links.firstOrNull { it.kind == "group-control-outgoing" }?.let { control -> store.vault.transaction { GroupFanout.parse(GroupsStore.json(requireNotNull(store.vault.get(control.kind, control.id)))) } }
+                        if (plan.suffix == "/leave") {
+                            require(result.getBoolean("left")); completeMutation(plan, link.id, fanout, null, result.optJSONObject("control_acceptance"))
+                        } else completeMutation(plan, link.id, fanout, GroupSnapshot.parse(result), result.optJSONObject("control_acceptance"))
+                    }
+                    "group-join-plan" -> {
+                        val plan = store.vault.transaction { GroupJoinApprovalPlan.parse(GroupsStore.json(requireNotNull(store.vault.get(link.kind, link.id)))) }
+                        require(plan.group.id == group && plan.id == entry.original.request)
+                        val control = entry.links.single { it.kind == "group-control-outgoing" }
+                        val fanout = store.vault.transaction { GroupFanout.parse(GroupsStore.json(requireNotNull(store.vault.get(control.kind, control.id)))) }
+                        completeJoin(plan, link.id, fanout, result)
+                    }
+                    else -> error("Unrecognized original group change. Its journal is retained.")
+                }
+                notice = "The service had already applied this exact saved change. Its original outcome is now reconciled."
+            }
+        }; true
+    } }
+    suspend fun confirmCancelledChange() { perform {
+        val review = requireNotNull(recoveryReview)
+        val current = api.detail(review.current.id)
+        if (current != review.current) {
+            recoveryReview = GroupRecoveryReview(review.entry, current)
+            error("The group changed again. Review the updated people before closing the saved change.")
+        }
+        recovery.archiveCancelled(review.entry, current) { store.saveInTransaction(current) }
+        recoveryReview = null; reloadSavedGroups()
+        notice = "The earlier change was cancelled and saved privately. You can now choose a new change with a new request."
+        true
+    } }
+    fun close() { closed = true; recoveryReview = null; arrivals.clear(); groups = emptyList(); departedGroups = emptyList(); invitations = emptyList(); notice = null }
     companion object { fun explanation(error: Exception): String {
         if (error is PeerIdentityChanged) return "Someone’s encryption identity changed. Review their encryption details before sending."
         if (error is ServiceFailure) return when (error.code) {

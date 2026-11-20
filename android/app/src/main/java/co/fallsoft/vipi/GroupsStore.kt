@@ -7,14 +7,17 @@ import java.util.UUID
 /** Account-bound encrypted storage. All calls execute on the native coordinator;
  * no network/suspension occurs inside vault transactions. */
 internal class GroupsStore(val vault: MessageVault) {
-    fun snapshots() = vault.transaction { vault.ids("group-roster").map { GroupSnapshot.parse(json(requireNotNull(vault.get("group-roster", it)))) } }
+    fun snapshots() = vault.transaction { snapshotsInTransaction() }
+    fun snapshotsInTransaction() = vault.ids("group-roster").map { GroupSnapshot.parse(json(requireNotNull(vault.get("group-roster", it)))) }
     fun activeIDs(): Set<UUID>? = vault.transaction { vault.get("group-active", "ids")?.let { bytes -> val values = JSONArray(bytes.toString(Charsets.UTF_8)); (0 until values.length()).map { UUID.fromString(values.getString(it)) }.toSet() } }
-    fun saveActiveIDs(ids: Set<UUID>) = vault.transaction { vault.put("group-active", "ids", JSONArray(ids.map(UUID::toString)).toString().toByteArray(Charsets.UTF_8)) }
-    fun save(group: GroupSnapshot) { group.validate(); vault.transaction {
+    fun saveActiveIDs(ids: Set<UUID>) = vault.transaction { saveActiveIDsInTransaction(ids) }
+    fun saveActiveIDsInTransaction(ids: Set<UUID>) { vault.put("group-active", "ids", JSONArray(ids.map(UUID::toString)).toString().toByteArray(Charsets.UTF_8)) }
+    fun save(group: GroupSnapshot) = vault.transaction { saveInTransaction(group) }
+    fun saveInTransaction(group: GroupSnapshot) { group.validate()
         vault.get("group-roster", group.id.toString())?.let { require(GroupSnapshot.parse(json(it)).epoch <= group.epoch) { "The group changed. Refresh and review the people." } }
         vault.put("group-roster", group.id.toString(), bytes(group.json()))
         group.members.forEach { person -> vault.put("group-member", "${group.id}/${person.id}", bytes(JSONObject().put("id", person.id).put("name", person.name).put("username", person.username))) }
-    } }
+    }
     fun cachedName(group: UUID, person: UUID): String? = vault.transaction { vault.get("group-member", "$group/$person")?.let { json(it).getString("name") } }
     fun preferences(group: UUID) = vault.transaction { preferencesInTransaction(group) }
     private fun preferencesInTransaction(group: UUID): GroupPreferences = vault.get("group-preferences", group.toString())?.let { data ->

@@ -44,17 +44,19 @@ internal class GroupsControlCrypto(private val vault: MessageVault, private val 
         val result = GroupFanout(roster.id, id, roster.epoch, body)
         vault.put("group-control-outgoing", key, GroupsStore.bytes(result.json())); vault.put("group-control-outgoing-change", key, GroupsStore.bytes(change.json())); result
     }
-    fun accepted(response: JSONObject, fanout: GroupFanout) {
+    fun accepted(response: JSONObject, fanout: GroupFanout) = vault.transaction { acceptedInTransaction(response, fanout) }
+    fun acceptedInTransaction(response: JSONObject, fanout: GroupFanout) {
         require(response.getBoolean("admitted") && response.uuid("id") == fanout.message && response.uuid("group_id") == fanout.group && response.strictInt("epoch") == fanout.epoch)
         val deliveries = response.getJSONArray("deliveries").objects()
         require(deliveries.map { it.uuid("id") }.toSet() == JSONObject(fanout.body).getJSONArray("envelopes").objects().map { it.uuid("id") }.toSet() && deliveries.all { it.getString("state") in setOf("accepted", "delivered", "expired", "failed", "unavailable", "identity_changed") })
-        vault.transaction {
+        run {
             val key = "${fanout.group}/${fanout.message}"; val bytes = requireNotNull(vault.get("group-control-outgoing-change", key)); val change = GroupRosterTransition.parse(GroupsStore.json(bytes))
             vault.get("group-control-logical", key)?.let { require(GroupRosterTransition.parse(GroupsStore.json(it)) == change) }
                 ?: run { membership.applyInTransaction(change, fanout.group, vault.account); vault.put("group-control-logical", key, bytes) }
         }
     }
-    fun reconciled(fanout: GroupFanout) = vault.transaction {
+    fun reconciled(fanout: GroupFanout) = vault.transaction { reconciledInTransaction(fanout) }
+    fun reconciledInTransaction(fanout: GroupFanout) {
         val key = "${fanout.group}/${fanout.message}"; vault.remove("group-control-outgoing", key); vault.remove("group-control-outgoing-change", key)
     }
 
