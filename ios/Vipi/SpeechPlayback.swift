@@ -39,7 +39,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                         self.activeWord = next
                         #if DEBUG
                         LiveImmersionQualification.recordFirstMonthSpeechOutput(["event":"speech_active_word","message_id":self.activeMessage ?? "",
-                            "source":"native_marker_and_player_sample_time","sample_time":sample,
+                            "source":"synthesis_metadata_and_player_sample_time","sample_time":sample,
                             "start":next?.range.location ?? -1,"length":next?.range.length ?? 0])
                         #endif
                     }
@@ -184,7 +184,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                         for buffer in UnsafeMutableAudioBufferListPointer(silence.mutableAudioBufferList) {
                             if let bytes = buffer.mData { memset(bytes,0,Int(buffer.mDataByteSize)) }
                         }
-                        node.scheduleBuffer(silence)
+                        node.scheduleBuffer(silence,completionHandler:nil)
                         self.scheduledFrames += Int64(silence.frameLength)
                     }
                     let bytesPerFrame = max(1,Int(file.processingFormat.streamDescription.pointee.mBytesPerFrame))

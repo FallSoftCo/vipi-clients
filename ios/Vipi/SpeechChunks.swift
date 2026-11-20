@@ -1,4 +1,5 @@
 import Foundation
+import NaturalLanguage
 
 enum SpeechChunks {
     /// Two adjacent immersion units may have no separator in the original
@@ -48,6 +49,32 @@ enum SpeechChunks {
         }
         if !current.isEmpty { chunks.append(current) }
         return chunks
+    }
+    static func wordRanges(_ text:String,language:String) -> [NSRange] {
+        let tokenizer = NLTokenizer(unit:.word)
+        tokenizer.string = text; tokenizer.setLanguage(NLLanguage(rawValue:language))
+        var ranges:[NSRange] = []
+        tokenizer.enumerateTokens(in:text.startIndex..<text.endIndex) { range,_ in
+            if hasSpokenContent(String(text[range])) { ranges.append(NSRange(range,in:text)) }
+            return true
+        }
+        return ranges
+    }
+    static func marksCoverWords(_ marks:[SpeechMark],text:String,language:String) -> Bool {
+        let words = wordRanges(text,language:language)
+        guard !words.isEmpty,!marks.isEmpty else { return false }
+        let offsets = marks.sorted{$0.start < $1.start}.map(\.byteSampleOffset)
+        guard zip(offsets,offsets.dropFirst()).allSatisfy({$0.0 < $0.1}) else { return false }
+        let ranges = marks.filter{$0.start >= 0 && $0.length > 0 && $0.start+$0.length <= text.utf16.count}.map{NSRange(location:$0.start,length:$0.length)}.sorted{$0.location < $1.location}
+        return words.allSatisfy { word in
+            var cursor = word.location
+            for range in ranges where NSIntersectionRange(range,word).length > 0 {
+                guard range.location <= cursor else { return false }
+                cursor = max(cursor,NSMaxRange(range))
+                if cursor >= NSMaxRange(word) { return true }
+            }
+            return false
+        }
     }
     /// Keep each native sentence intact for continuous prosody. The bounded
     /// source-message budget and synthesis timeout still apply to long sentences.

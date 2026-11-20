@@ -35,6 +35,7 @@ struct SpeechMark: Codable, Sendable {
     let start: Int
     let length: Int
     let byteSampleOffset: Int
+    var source:String? = nil
 }
 
 /// AVSpeechSynthesizer invokes buffer callbacks outside the main actor.
@@ -194,6 +195,11 @@ private final class ConverterInput: @unchecked Sendable {
     private let voices: [String: LocalVoice]
     private var prepared = false
     private var busy = false
+    #if DEBUG
+    /// Discard metadata after actual synthesis to exercise the measured native
+    /// fallback. No app preference or Release route can enable this seam.
+    var qualificationRetainNativeMarkers:Int?
+    #endif
 
     init(source: String, target: String, root: URL) throws {
         self.root = root
@@ -222,7 +228,7 @@ private final class ConverterInput: @unchecked Sendable {
             guard voices[span.language] != nil else { throw LocalSpeechError.missingVoice(span.language) }
         }
         let normalized = SpeechChunks.coalesced(spans)
-        let identity = normalized.map { $0.language + "\0" + voices[$0.language]!.identifier + "\0" + $0.text }.joined(separator: "\0")
+        let identity = "native-word-pcm-2\0" + normalized.map { $0.language + "\0" + voices[$0.language]!.identifier + "\0" + $0.text }.joined(separator: "\0")
         let hash = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         let output = root.appendingPathComponent(hash + ".caf")
         let metadata = output.appendingPathExtension("words.json")
@@ -233,18 +239,47 @@ private final class ConverterInput: @unchecked Sendable {
             var result = try Self.inspect(output); result.marks = marks; return result
         }
         try? FileManager.default.removeItem(at:output)
-        var parts: [URL] = []
-        var rendered: [RenderedSpeech] = []
-        defer { for part in parts { try? FileManager.default.removeItem(at: part) } }
+        var parts: [URL] = [], temporary:[URL] = []
+        var rendered: [RenderedSpeech] = [], lengths:[Int] = []
+        defer { for part in temporary { try? FileManager.default.removeItem(at: part) } }
         for span in normalized {
-            let part = root.appendingPathComponent("span-\(UUID()).caf")
-            parts.append(part)
-            rendered.append(try await voices[span.language]!.render(span.text, to: part))
+            let part = root.appendingPathComponent("span-\(UUID()).caf"); temporary.append(part)
+            var native = try await voices[span.language]!.render(span.text,to:part)
+            let nativeFile = try AVAudioFile(forReading:part)
+            let nativeBytesPerFrame = max(1,Int(nativeFile.processingFormat.streamDescription.pointee.mBytesPerFrame))
+            native.marks = native.marks.filter{$0.byteSampleOffset >= 0 && $0.byteSampleOffset/nativeBytesPerFrame < Int(nativeFile.length)}
+            #if DEBUG
+            if let count = qualificationRetainNativeMarkers { native.marks = Array(native.marks.prefix(count)) }
+            #endif
+            if SpeechChunks.marksCoverWords(native.marks,text:span.text,language:span.language) {
+                parts.append(part); rendered.append(native); lengths.append(span.text.utf16.count)
+                continue
+            }
+            // Use the OS tokenizer's complete lexical units, preserving each
+            // unit's punctuation and exact text. Each highlight boundary is a
+            // real rendered PCM boundary; never estimate time from character count.
+            let words = SpeechChunks.wordRanges(span.text,language:span.language),source = span.text as NSString
+            guard !words.isEmpty else { throw LocalSpeechError.invalidAudio }
+            var start = 0
+            for (index,word) in words.enumerated() {
+                try Task.checkCancellation()
+                let end = index+1 < words.count ? words[index+1].location : source.length
+                let text = source.substring(with:NSRange(location:start,length:end-start))
+                let file:URL
+                var audio:RenderedSpeech
+                if words.count == 1 { file = part; audio = native }
+                else {
+                    file = root.appendingPathComponent("unit-\(UUID()).caf"); temporary.append(file)
+                    audio = try await voices[span.language]!.render(text,to:file)
+                }
+                audio.marks = [.init(start:word.location-start,length:word.length,byteSampleOffset:0,source:"measured_lexical_pcm")]
+                parts.append(file); rendered.append(audio); lengths.append(text.utf16.count); start = end
+            }
         }
         // Disk IO and standard AVAudioConverter resampling happen off the UI actor.
-        let inputs = parts, timings = rendered, lengths = normalized.map{$0.text.utf16.count}
-        return try await Task.detached { [inputs, output, timings, lengths, metadata] in
-            let result = try Self.join(inputs, timings:timings, lengths:lengths, to: output)
+        let inputs = parts, timings = rendered, textLengths = lengths
+        return try await Task.detached { [inputs, output, timings, textLengths, metadata] in
+            let result = try Self.join(inputs, timings:timings, lengths:textLengths, to: output)
             try JSONEncoder().encode(result.marks).write(to:metadata,options:.atomic)
             Self.pruneCache(in: output.deletingLastPathComponent(), keeping: output)
             return result
@@ -299,7 +334,7 @@ private final class ConverterInput: @unchecked Sendable {
                 let localFrame = Double(mark.byteSampleOffset) / Double(bytesPerFrame)
                 let outputFrame = frames + Int((localFrame * format.sampleRate / input.processingFormat.sampleRate).rounded())
                 guard outputFrame >= frames,outputFrame < frames + Int(converted.frameLength) else { continue }
-                marks.append(.init(start:textOffset+mark.start,length:mark.length,byteSampleOffset:outputFrame * Int(format.streamDescription.pointee.mBytesPerFrame)))
+                marks.append(.init(start:textOffset+mark.start,length:mark.length,byteSampleOffset:outputFrame * Int(format.streamDescription.pointee.mBytesPerFrame),source:mark.source))
             }
             textOffset += lengths[index]
             try destination!.write(from: converted)
