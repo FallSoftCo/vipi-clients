@@ -66,6 +66,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         val scope = "${group.id}$suffix$method"
         val plan = store.vault.transaction {
             store.vault.get("group-mutation", scope)?.let { bytes -> return@transaction GroupMutationPlan.parse(GroupsStore.json(bytes)).also { require(it.method == method && it.suffix == suffix && it.fields == fields) { "An earlier change hasn’t been confirmed. Retry that exact change before making another." } } }
+            require(store.vault.ids("group-mutation").none { it.contains(group.id.toString()) && it != scope } && store.vault.ids("group-join-plan").none { it.startsWith("${group.id}/") }) { "Resume the saved group change before making another." }
             val previous = membership.currentInTransaction(group.id)
             if (suffix.startsWith("/members/")) require(previous?.matches(group) == true) { "Authenticated group approval is needed before changing the people." }
             GroupMutationPlan(group, UUID.randomUUID(), UUID.randomUUID(), method, suffix, fields, previous).also { store.vault.put("group-mutation", scope, GroupsStore.bytes(it.json())) }
@@ -89,6 +90,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         val scope = "leave/${group.id}"
         val plan = store.vault.transaction {
             store.vault.get("group-mutation", scope)?.let { return@transaction GroupMutationPlan.parse(GroupsStore.json(it)) }
+            require(store.vault.ids("group-mutation").none { it.contains(group.id.toString()) && it != scope } && store.vault.ids("group-join-plan").none { it.startsWith("${group.id}/") }) { "Resume the saved group change before making another." }
             val previous = requireNotNull(membership.currentInTransaction(group.id)); require(previous.matches(group))
             require(previous.members.firstOrNull { it.id == account }?.role != GroupRole.OWNER || previous.members.size == 1) { "Transfer ownership to another person before leaving." }
             GroupMutationPlan(group, UUID.randomUUID(), UUID.randomUUID(), "POST", "/leave", emptyMap(), previous).also { store.vault.put("group-mutation", scope, GroupsStore.bytes(it.json())) }
@@ -151,6 +153,18 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
     fun hasRejectedApproval(group: UUID): Boolean { val observed = revision; return store.vault.transaction { store.vault.get("group-last-rejection", group.toString()) != null } }
     fun dismissRejectedApproval(group: UUID) { store.vault.transaction { store.vault.remove("group-last-rejection", group.toString()) }; revision++ }
     fun pendingCreateTitle(): String? = store.vault.transaction { store.vault.get("group-operation", "create")?.let { GroupsStore.json(it).optString("title").takeIf(String::isNotEmpty) } }
+    fun pendingDescriptions(group: UUID, people: List<ChatProfile>): List<String> {
+        val plans = store.vault.transaction { store.vault.ids("group-mutation").map { GroupMutationPlan.parse(GroupsStore.json(requireNotNull(store.vault.get("group-mutation", it)))) }.filter { it.group.id == group } }
+        val joins = store.vault.transaction { store.vault.ids("group-join-plan").filter { it.startsWith("$group/") }.map { GroupJoinApprovalPlan.parse(GroupsStore.json(requireNotNull(store.vault.get("group-join-plan", it)))) } }
+        fun name(id: UUID) = people.firstOrNull { it.id == id }?.displayName ?: savedSenderName(group, id) ?: "this person"
+        return plans.map { plan -> when {
+            plan.suffix == "/leave" -> "Leave ${plan.group.title}"
+            "title" in plan.fields -> "Rename ${plan.group.title} to ${plan.fields["title"]}"
+            plan.suffix.startsWith("/members/") -> { val person = UUID.fromString(plan.suffix.removePrefix("/members/")); if (plan.method == "DELETE") "Remove ${name(person)} from the group" else if (plan.fields["role"] == "owner") "Make ${name(person)} the group owner" else "Change ${name(person)}’s admin role" }
+            "user_id" in plan.fields -> "Invite ${name(UUID.fromString(plan.fields.getValue("user_id")))} to the group"
+            else -> "Cancel a group invitation"
+        } } + joins.map { "Approve ${name(it.change.target)} joining the group" }
+    }
     fun pendingChanges(group: UUID): Int { val observed = revision; return store.vault.transaction { store.vault.ids("group-mutation").count { it.contains(group.toString()) } + store.vault.ids("group-join-plan").count { it.startsWith("$group/") } } }
     suspend fun resumePending(group: UUID) {
         val mutations = store.vault.transaction { store.vault.ids("group-mutation").map { GroupMutationPlan.parse(GroupsStore.json(requireNotNull(store.vault.get("group-mutation", it)))) }.filter { it.group.id == group } }
@@ -166,6 +180,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         val scope = "${group.id}/$person"
         val plan = store.vault.transaction {
             store.vault.get("group-join-plan", scope)?.let { return@transaction GroupJoinApprovalPlan.parse(GroupsStore.json(it)) }
+            require(store.vault.ids("group-mutation").none { it.contains(group.id.toString()) } && store.vault.ids("group-join-plan").none { it.startsWith("${group.id}/") && it != scope }) { "Resume the saved group change before making another." }
             val previous = requireNotNull(membership.currentInTransaction(group.id))
             require(!previous.contains(person) && group.members.firstOrNull { it.id == person }?.role == GroupRole.MEMBER && group.members.map { GroupApprovedPerson(it.id, it.role) }.toSet().containsAll(previous.members))
             val change = GroupRosterTransition(account, GroupControlAction.ADD, person, previous.revision, previous.revision + 1, group.epoch, previous.members, previous.members + GroupApprovedPerson(person, GroupRole.MEMBER))

@@ -36,7 +36,7 @@ struct GroupsHomeView: View {
                         GroupConversationView(groups: groups, groupID: group.id, people: people, immersion: immersion, reviewIdentity: reviewIdentity)
                     } label: {
                         VStack(alignment: .leading, spacing: 8) {
-                            HStack { Text(group.title).font(.headline); Spacer(); if groups.preferences(group.id).muted { Image(systemName: "bell.slash").accessibilityLabel("Muted") } }
+                            HStack { Text(group.title).font(.headline); Spacer(); if GroupsUpgrade.muteDeliveryQualified && groups.preferences(group.id).muted { Image(systemName: "bell.slash").accessibilityLabel("Muted") } }
                             HStack {
                                 Text("\(group.members.count) people").font(.body)
                                 if groups.unread(group.id) > 0 { Text("\(groups.unread(group.id)) unread").font(.body.bold()).foregroundStyle(VipiDesign.accent) }
@@ -264,7 +264,8 @@ struct GroupInfoView: View {
                     Button("Dismiss this notice") { groups.dismissRejectedApproval(groupID) }
                 } }
                 if groups.pendingChanges(groupID) > 0 { Section("Saved group change") {
-                    Text("A saved change is waiting to be confirmed. Resume it before making another change or sending messages.").font(.body)
+                    ForEach(groups.pendingDescriptions(groupID, people: people), id: \.self) { Text($0).font(.headline) }
+                    Text("This change is waiting to be confirmed. Continue it before making another change or sending messages.").font(.body)
                     Button("Resume saved group change") { Task { await groups.resumePending(groupID) } }.disabled(groups.busy)
                 } }
                 Section("Group name") {
@@ -274,8 +275,10 @@ struct GroupInfoView: View {
                     } else { Text(group.title).font(.title2.bold()) }
                 }
                 Section {
-                    Toggle("Mute this group", isOn: Binding(get: { groups.preferences(groupID).muted }, set: { groups.setMuted(groupID, $0) })).font(.body)
-                    Text("Muted groups keep unread counts. Your device won’t alert you about new messages from this group.").font(.body)
+                    if GroupsUpgrade.muteDeliveryQualified {
+                        Toggle("Mute this group", isOn: Binding(get: { groups.preferences(groupID).muted }, set: { groups.setMuted(groupID, $0) })).font(.body)
+                        Text("Muted groups keep unread counts. Your device won’t alert you about new messages from this group.").font(.body)
+                    }
                     Text("Your language practice settings apply to you alone. Other people can practise different languages in the same conversation.").font(.body)
                 }
                 ForEach(groups.heldControls(groupID), id: \.id) { item in

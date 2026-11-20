@@ -12,7 +12,8 @@ history, control fanout/decryption/bootstrap, durable immutable member mutation
 plans, native coordinators and native screens. Create/select/name/invite flows
 include the creator in the limit of16. Invites require acceptance. Group info
 covers admin roles, ownership transfer, removal, leave, invitation cancellation,
-local mute and unread state. Conversation rows attribute the sender and call the
+local mute preference storage and unread state. Mute controls/badges remain hidden
+behind `muteDeliveryQualified=false` because live alert suppression is not built. Conversation rows attribute the sender and call the
 existing immersion renderer with stable `group:<group UUID>:<logical UUID>` IDs,
 original text and the current user's existing translation/audio owners. No bot,
 subscription or payment API is introduced.
@@ -147,6 +148,16 @@ resend wording conflicted with this contract and was not adopted literally.
    loading, offline and destructive states. English copy is newly authored; full
    locale coverage remains a gate. Group conversation scroll following/history
    paging and autoplay controls still need parity with the qualified direct chat.
+
+## Frozen next-service design (not implemented)
+
+[GROUPS_RECOVERY_DESIGN_CHECKPOINT.md](GROUPS_RECOVERY_DESIGN_CHECKPOINT.md)
+records the coordinated future wire for durable request cancellation/admission,
+notification preference CAS/push filtering, and eligible control recipients.
+This is design-only commit281dc28f from the protocol owner. It added no migration03,
+endpoint or live behavior; client code does not issue those missing calls. Root
+redirected protocol capacity to initial-launch benchmarking, so these remain
+pending upgrade work. Never infer cancellation certainty from a volatile409.
 
 No world-class, production-ready, complete native UX or encryption qualification
 claim follows from this checkpoint. The initial one-to-one launch stays separate.

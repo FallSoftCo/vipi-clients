@@ -2,7 +2,7 @@ import Foundation
 
 /// Deliberately independent of launch navigation. Enabling requires the group
 /// protocol and native qualification gates documented in GROUPS_CLIENTS.md.
-enum GroupsUpgrade { static let enabled = false; static let maximumPeople = 16 }
+enum GroupsUpgrade { static let enabled = false; static let maximumPeople = 16; static let muteDeliveryQualified = false }
 enum GroupRole: String, Codable, Hashable { case owner, admin, member }
 struct GroupMember: Codable, Identifiable, Equatable {
     var id: UUID { user_id }

@@ -94,6 +94,8 @@ import Observation
                     guard saved.method == method, saved.suffix == suffix, saved.fields == fields else { throw GroupsFailure.retryRequiresReview }
                     return saved
                 }
+                guard try !store.vault.ids("group-mutation").contains(where: { $0.contains(group.id.uuidString.lowercased()) && $0 != scope }),
+                      try !store.vault.ids("group-join-plan").contains(where: { $0.hasPrefix(group.id.uuidString.lowercased() + "/") }) else { throw GroupsFailure.retryRequiresReview }
                 let old = try membership.currentInTransaction(group.id)
                 if suffix.hasPrefix("/members/") { guard old?.matches(group) == true else { throw GroupsFailure.unapprovedMembership } }
                 let value = GroupMutationPlan(group: group, request: UUID(), control: UUID(), method: method, suffix: suffix, fields: fields, previous: old)
@@ -134,6 +136,8 @@ import Observation
         let scope = "leave/" + group.id.uuidString.lowercased()
         let plan: GroupMutationPlan = try store.vault.transaction {
             if let data = try store.vault.get("group-mutation", scope) { return try JSONDecoder().decode(GroupMutationPlan.self, from: data) }
+            guard try !store.vault.ids("group-mutation").contains(where: { $0.contains(group.id.uuidString.lowercased()) && $0 != scope }),
+                  try !store.vault.ids("group-join-plan").contains(where: { $0.hasPrefix(group.id.uuidString.lowercased() + "/") }) else { throw GroupsFailure.retryRequiresReview }
             guard let previous = try membership.currentInTransaction(group.id), previous.matches(group),
                   previous.members.first(where: { $0.user_id == account })?.role != .owner || previous.members.count == 1 else { throw GroupsFailure.noPermission }
             let value = GroupMutationPlan(group: group, request: UUID(), control: UUID(), method: "POST", suffix: "/leave", fields: [:], previous: previous)
@@ -208,6 +212,23 @@ import Observation
     func hasRejectedApproval(_ group: UUID) -> Bool { _ = revision; return (try? store.vault.transaction { try store.vault.get("group-last-rejection", group.uuidString.lowercased()) != nil }) == true }
     func dismissRejectedApproval(_ group: UUID) { do { try store.vault.transaction { try store.vault.remove("group-last-rejection", group.uuidString.lowercased()) }; revision += 1 } catch { notice = Self.explanation(error) } }
     func pendingCreateTitle() -> String? { try? store.vault.transaction { guard let data = try store.vault.get("group-operation", "create") else { return nil }; return try JSONDecoder().decode([String: String].self, from: data)["title"] } }
+    func pendingDescriptions(_ group: UUID, people: [ChatProfile]) -> [String] {
+        do {
+            let plans: [GroupMutationPlan] = try store.vault.transaction { try store.vault.ids("group-mutation").compactMap { key in try store.vault.get("group-mutation", key).map { try JSONDecoder().decode(GroupMutationPlan.self, from: $0) } }.filter { $0.group.id == group } }
+            let joins: [GroupJoinApprovalPlan] = try store.vault.transaction { try store.vault.ids("group-join-plan").filter { $0.hasPrefix(group.uuidString.lowercased() + "/") }.compactMap { key in try store.vault.get("group-join-plan", key).map { try JSONDecoder().decode(GroupJoinApprovalPlan.self, from: $0) } } }
+            func name(_ id: UUID) -> String { people.first { $0.id == id }?.display_name ?? savedSenderName(group, person: id) ?? "this person" }
+            return plans.map { plan in
+                if plan.suffix == "/leave" { return "Leave \(plan.group.title)" }
+                if let title = plan.fields["title"] { return "Rename \(plan.group.title) to \(title)" }
+                if plan.suffix.hasPrefix("/members/"), let person = UUID(uuidString: String(plan.suffix.dropFirst("/members/".count))) {
+                    if plan.method == "DELETE" { return "Remove \(name(person)) from the group" }
+                    return plan.fields["role"] == "owner" ? "Make \(name(person)) the group owner" : "Change \(name(person))’s admin role"
+                }
+                if let person = plan.fields["user_id"].flatMap(UUID.init(uuidString:)) { return "Invite \(name(person)) to the group" }
+                return "Cancel a group invitation"
+            } + joins.map { "Approve \(name($0.change.target_id)) joining the group" }
+        } catch { return [] }
+    }
     func pendingChanges(_ group: UUID) -> Int { _ = revision; return (try? store.vault.transaction { try store.vault.ids("group-mutation").filter { $0.contains(group.uuidString.lowercased()) }.count + store.vault.ids("group-join-plan").filter { $0.hasPrefix(group.uuidString.lowercased() + "/") }.count }) ?? 0 }
     func resumePending(_ group: UUID) async {
         do {
@@ -225,6 +246,8 @@ import Observation
             let scope = group.id.uuidString.lowercased() + "/" + person.uuidString.lowercased()
             let plan: GroupJoinApprovalPlan = try store.vault.transaction {
                 if let data = try store.vault.get("group-join-plan", scope) { return try JSONDecoder().decode(GroupJoinApprovalPlan.self, from: data) }
+                guard try !store.vault.ids("group-mutation").contains(where: { $0.contains(group.id.uuidString.lowercased()) }),
+                      try !store.vault.ids("group-join-plan").contains(where: { $0.hasPrefix(group.id.uuidString.lowercased() + "/") && $0 != scope }) else { throw GroupsFailure.retryRequiresReview }
                 guard let previous = try membership.currentInTransaction(group.id), !previous.contains(person),
                       group.members.first(where: { $0.id == person })?.role == .member,
                       Set(previous.members).isSubset(of: Set(group.members.map { GroupApprovedPerson(user_id: $0.id, role: $0.role) })) else { throw GroupsFailure.unapprovedMembership }

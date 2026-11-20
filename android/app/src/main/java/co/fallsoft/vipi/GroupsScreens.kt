@@ -79,7 +79,7 @@ import java.util.UUID
             items(session.groups.sortedBy { it.title.lowercase() }, key = { it.id }) { group ->
                 Card(onClick = { onOpen(group.id) }, modifier = Modifier.fillMaxWidth()) { Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                     Text(group.title, style = MaterialTheme.typography.titleLarge)
-                    Text("${group.members.size} people${if (session.preferences(group.id).muted) " · Muted" else ""}", style = MaterialTheme.typography.bodyLarge)
+                    Text("${group.members.size} people${if (GroupsUpgrade.muteDeliveryQualified && session.preferences(group.id).muted) " · Muted" else ""}", style = MaterialTheme.typography.bodyLarge)
                     val unread = session.unread(group.id)
                     if (unread > 0) Text("$unread unread", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
                 } }
@@ -228,7 +228,8 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
                 } }
                 if (session.pendingChanges(groupID) > 0) item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                     Text("Saved group change", style = MaterialTheme.typography.titleLarge)
-                    Text("A saved change is waiting to be confirmed. Resume it before making another change or sending messages.", style = MaterialTheme.typography.bodyLarge)
+                    session.pendingDescriptions(groupID, people).forEach { Text(it, style = MaterialTheme.typography.titleMedium) }
+                    Text("This change is waiting to be confirmed. Continue it before making another change or sending messages.", style = MaterialTheme.typography.bodyLarge)
                     Button(onClick = { scope.launch { session.resumePending(groupID) } }, enabled = !session.busy) { Text("Resume saved group change") }
                 } }
                 if (!session.isActive(groupID)) item { Text("You’re no longer in this group. These people and roles describe the last saved roster. Your messages remain available here.", style = MaterialTheme.typography.bodyLarge) }
@@ -238,8 +239,10 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
                         OutlinedTextField(name, { name = it }, label = { Text("Group name") }, modifier = Modifier.fillMaxWidth())
                         Button(onClick = { scope.launch { session.rename(group, name) } }, enabled = !session.busy && name != group.title && runCatching { GroupSelection.name(name) }.isSuccess) { Text("Save name") }
                     } else Text(group.title, style = MaterialTheme.typography.headlineMedium)
-                    Row { Text("Mute this group", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f)); Switch(session.preferences(groupID).muted, { session.mute(groupID, it) }) }
-                    Text("Muted groups keep unread counts. Your device won’t alert you about new messages from this group.", style = MaterialTheme.typography.bodyLarge)
+                    if (GroupsUpgrade.muteDeliveryQualified) {
+                        Row { Text("Mute this group", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f)); Switch(session.preferences(groupID).muted, { session.mute(groupID, it) }) }
+                        Text("Muted groups keep unread counts. Your device won’t alert you about new messages from this group.", style = MaterialTheme.typography.bodyLarge)
+                    }
                     Text("Your language practice settings apply to you alone. Other people can practise different languages in the same conversation.", style = MaterialTheme.typography.bodyLarge)
                     Text("People · ${group.members.size} of 16", style = MaterialTheme.typography.titleLarge)
                 } }
