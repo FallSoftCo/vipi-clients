@@ -476,4 +476,8 @@
     <string name="immersion_mode_title">الترجمة في المحادثة</string>
     <string name="immersion_mode_full">رسائل كاملة</string>
     <string name="immersion_mode_words">كلمة جديدة في كل مرة</string>
+    <string name="welcome_detail_full">تظهر كل رسالة باللغة التي تتعلّمها.</string>
+    <string name="full_message_failed">تعذّرت الترجمة. اضغط للمحاولة مجددًا.</string>
+    <string name="full_message_show_translation">إظهار النص بلغة التعلّم</string>
+    <string name="full_message_context_hint">اضغط على الرسالة لسماعها. اضغط مطولًا لرؤية النص الأصلي.</string>
 </resources>

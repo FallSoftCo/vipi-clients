@@ -464,4 +464,8 @@
     <string name="immersion_mode_title">Imersão</string>
     <string name="immersion_mode_full">Mensagens inteiras</string>
     <string name="immersion_mode_words">Uma palavra nova de cada vez</string>
+    <string name="welcome_detail_full">Todas as mensagens aparecem na língua que estás a aprender.</string>
+    <string name="full_message_failed">Não foi possível traduzir. Toque para tentar novamente.</string>
+    <string name="full_message_show_translation">Mostrar o texto no idioma de prática</string>
+    <string name="full_message_context_hint">Toque numa mensagem para a ouvir. Mantenha premido para ver o original.</string>
 </resources>

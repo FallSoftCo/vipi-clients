@@ -464,4 +464,8 @@
     <string name="immersion_mode_title">Tafsiri kwenye gumzo</string>
     <string name="immersion_mode_full">Ujumbe mzima</string>
     <string name="immersion_mode_words">Neno moja jipya kwa wakati mmoja</string>
+    <string name="welcome_detail_full">Kila ujumbe unaonekana katika lugha unayojifunza.</string>
+    <string name="full_message_failed">Tafsiri imeshindikana. Gusa ili ujaribu tena.</string>
+    <string name="full_message_show_translation">Onyesha maandishi ya lugha unayojifunza</string>
+    <string name="full_message_context_hint">Gusa ujumbe ili uusikilize. Bonyeza kwa muda ili uone ujumbe wa awali.</string>
 </resources>

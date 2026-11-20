@@ -92,4 +92,8 @@
     <string name="immersion_mode_title">Immersion</string>
     <string name="immersion_mode_full">Full messages</string>
     <string name="immersion_mode_words">One new word at a time</string>
+    <string name="welcome_detail_full">Every message appears in the language you’re learning.</string>
+    <string name="full_message_failed">Translation failed. Tap to retry.</string>
+    <string name="full_message_show_translation">Show practice text</string>
+    <string name="full_message_context_hint">Tap a message to listen. Hold to see the original.</string>
 </resources>

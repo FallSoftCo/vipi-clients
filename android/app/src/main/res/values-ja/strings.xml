@@ -461,4 +461,8 @@
     <string name="immersion_mode_title">チャットの翻訳</string>
     <string name="immersion_mode_full">メッセージ全体</string>
     <string name="immersion_mode_words">新しい単語を1つずつ</string>
+    <string name="welcome_detail_full">すべてのメッセージが学習中の言語で表示されます。</string>
+    <string name="full_message_failed">翻訳できませんでした。タップして再試行してください。</string>
+    <string name="full_message_show_translation">学習言語の文を表示</string>
+    <string name="full_message_context_hint">メッセージをタップすると音声が流れます。長押しすると原文を読めます。</string>
 </resources>

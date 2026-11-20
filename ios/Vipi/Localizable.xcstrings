@@ -1,6 +1,88 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Tap a message to listen. Hold to see the original.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tap a message to listen. Hold to see the original."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "اضغط على الرسالة لسماعها. اضغط مطولًا لرؤية النص الأصلي."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tippe auf eine Nachricht, um sie anzuhören. Halte sie gedrückt, um das Original zu lesen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Toca un mensaje para escucharlo. Mantén pulsado para ver el original."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Touchez un message pour l’écouter. Appuyez longuement pour lire l’original."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tocca un messaggio per ascoltarlo. Tieni premuto per vedere l’originale."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "メッセージをタップすると音声が流れます。長押しすると原文を読めます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "메시지를 탭하면 소리 내어 읽어 줘요. 길게 누르면 원문이 보여요."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Toque em uma mensagem para ouvir. Mantenha pressionado para ver o original."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Toque numa mensagem para a ouvir. Mantenha premido para ver o original."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gusa ujumbe ili uusikilize. Bonyeza kwa muda ili uone ujumbe wa awali."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "轻点消息即可收听，长按即可查看原文。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "點一下訊息即可聆聽，長按即可查看原文。"
+          }
+        }
+      }
+    },
     "Immersion": {
       "localizations": {
         "en": {

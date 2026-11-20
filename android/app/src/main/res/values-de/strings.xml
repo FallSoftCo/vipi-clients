@@ -464,4 +464,8 @@
     <string name="immersion_mode_title">Übersetzung im Chat</string>
     <string name="immersion_mode_full">Ganze Nachrichten</string>
     <string name="immersion_mode_words">Ein neues Wort nach dem anderen</string>
+    <string name="welcome_detail_full">Jede Nachricht erscheint in der Sprache, die du lernst.</string>
+    <string name="full_message_failed">Übersetzung fehlgeschlagen. Zum Wiederholen tippen.</string>
+    <string name="full_message_show_translation">Text in der Lernsprache anzeigen</string>
+    <string name="full_message_context_hint">Tippe auf eine Nachricht, um sie anzuhören. Halte sie gedrückt, um das Original zu lesen.</string>
 </resources>
