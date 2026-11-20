@@ -33,12 +33,14 @@ enum VipiDesign {
 /// Shared approved wordmark artwork, rendered from the bundled original vector.
 struct VipiMark:View {
     var size:CGFloat = 42
+    var accessibleName: String?
     var body:some View {
         Image("VipiWordmark")
             .resizable().renderingMode(.original).aspectRatio(contentMode:.fit)
             .environment(\.layoutDirection,.leftToRight)
             .frame(width:size,height:size)
-            .accessibilityHidden(true)
+            .accessibilityLabel(Text(verbatim:accessibleName ?? ""))
+            .accessibilityHidden(accessibleName == nil)
     }
 }
 

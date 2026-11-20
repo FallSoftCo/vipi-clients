@@ -52,8 +52,13 @@ import java.time.temporal.ChronoUnit
             Column(Modifier.widthIn(max = 680.dp).fillMaxSize()) {
                 Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 12.dp).heightIn(min = 72.dp),
                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(stringResource(R.string.nav_chats), modifier = Modifier.weight(1f).semantics { heading() },
-                        fontSize = 32.sp, lineHeight = 38.sp, fontWeight = FontWeight.Bold, letterSpacing = (-.8).sp)
+                    val chatsLabel = stringResource(R.string.nav_chats)
+                    Box(Modifier.weight(1f).testTag("inbox-wordmark").semantics {
+                        contentDescription = "Vipi, $chatsLabel"
+                        heading()
+                    }, contentAlignment = Alignment.CenterStart) {
+                        VipiMark(size = 60)
+                    }
                     IconButton(onClick = { model.navigate(Screen.SETTINGS) },
                         modifier = Modifier.semantics { contentDescription = settingsLabel }) {
                         val profile = chat?.profile

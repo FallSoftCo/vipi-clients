@@ -85,14 +85,14 @@ import UIKit
             app.buttons["profile-submit"].tap()
         }
         let joined = app.navigationBars["Chats"].buttons["New chat"].waitForExistence(timeout: 30)
-            && app.staticTexts["Chats"].exists
+            && app.images["inbox-wordmark"].exists
             && !app.staticTexts["Chatting is paused"].exists
         guard joined else {
             // Keep diagnostics to route metadata. A full hierarchy/screenshot
             // while the provider is still open could retain private fields.
             let route = XCTAttachment(string: """
                 new_chat=\(app.navigationBars["Chats"].buttons["New chat"].exists)
-                chats=\(app.staticTexts["Chats"].exists)
+                chats=\(app.images["inbox-wordmark"].exists)
                 profile_required=\(app.textFields["profile-name"].exists)
                 profile_error=\(app.staticTexts["profile-error"].exists)
                 retry=\(app.buttons["Try again"].exists)

@@ -55,7 +55,7 @@ import ImageIO
         XCTAssertEqual(initial["starts"] as? Int, 1)
         XCTAssertEqual(initial["receipt_present"] as? Bool, false)
         XCTAssertEqual(initial["auth_signed_out"] as? Bool, false)
-        XCTAssertTrue(app.staticTexts["Chats"].exists)
+        XCTAssertTrue(app.images["inbox-wordmark"].exists)
         let botEntry = app.buttons.matching(NSPredicate(format: "label CONTAINS 'vBot'"))
         XCTAssertEqual(botEntry.count, 1); XCTAssertTrue(botEntry.firstMatch.isHittable); botEntry.firstMatch.tap()
         XCTAssertFalse(app.buttons["Agree and start chatting"].exists)
@@ -68,7 +68,7 @@ import ImageIO
         let held = observe("actual-native-bot-post-held") { $0["bot_posts"] as? Int == 1 && $0["bot_pending"] as? Bool == true }
         let originalRows = try XCTUnwrap(held["bot_row_ids"] as? [String]); XCTAssertEqual(originalRows.count, 1)
         app.navigationBars["vBot"].buttons["BackButton"].tap()
-        XCTAssertTrue(app.staticTexts["Chats"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.images["inbox-wordmark"].waitForExistence(timeout: 5))
         app.buttons["Your profile and settings"].tap()
         let deletionLink = app.buttons["Delete Vipi account"]
         for _ in 0..<5 {
@@ -119,7 +119,7 @@ import ImageIO
         XCTAssertEqual(recovered["seeded_bot_owners"] as? Int, initial["seeded_bot_owners"] as? Int)
         XCTAssertEqual(recovered["submissions"] as? Int, 1, "Recovery must check status without another DELETE")
         for key in ["own_key", "own_directory", "own_profile", "own_marker", "session_key_present"] { XCTAssertEqual(recovered[key] as? Bool, false, key) }
-        XCTAssertFalse(app.staticTexts["Chats"].exists); XCTAssertFalse(app.navigationBars["Chats"].buttons["New chat"].exists)
+        XCTAssertFalse(app.images["inbox-wordmark"].exists); XCTAssertFalse(app.navigationBars["Chats"].buttons["New chat"].exists)
         XCTAssertFalse(app.buttons["Your profile and settings"].exists)
         capture("fresh-process-deletion-only-other-account-preserved")
         let completedTitle = app.staticTexts["Vipi account deleted"]
@@ -196,7 +196,7 @@ final class ChatConversationTests: XCTestCase {
         attachment.name = "friend-lookup-keyboard-geometry"; attachment.lifetime = .keepAlways; add(attachment)
         cancel.tap()
         XCTAssertTrue(newChat.waitForExistence(timeout: 5)); XCTAssertTrue(newChat.isHittable)
-        XCTAssertTrue(app.staticTexts["Chats"].exists)
+        XCTAssertTrue(app.images["inbox-wordmark"].exists)
         XCTAssertFalse(username.exists); XCTAssertFalse(error.exists)
         capture("ios-preview-friend-lookup-cancel-restores-home")
     }
@@ -265,7 +265,7 @@ final class ChatConversationTests: XCTestCase {
         capture("ios-expired-base-real-message-status")
         app.navigationBars["Message status"].buttons["Done"].tap()
         app.navigationBars["Alex"].buttons["Back"].tap()
-        XCTAssertTrue(app.staticTexts["Chats"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.images["inbox-wordmark"].waitForExistence(timeout: 5))
         app.buttons["Your profile and settings"].tap()
         let subscriptions = app.buttons["Subscriptions"]
         for _ in 0..<4 where !subscriptions.isHittable { app.swipeUp() }
@@ -1844,7 +1844,7 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertEqual((evidence()["controlled_translation_inputs"] as? [String] ?? []).count,calls)
         capture("full-message-navigation-cache-reuse")
         app.terminate(); app.launchArguments = arguments; app.launch()
-        XCTAssertTrue(app.staticTexts["Chats"].waitForExistence(timeout:20))
+        XCTAssertTrue(app.images["inbox-wordmark"].waitForExistence(timeout:20))
         wait("Fresh Home reloads the encrypted complete practice preview") { preview.exists && preview.isHittable }
         XCTAssertEqual((evidence()["controlled_translation_inputs"] as? [String] ?? []).count,calls)
         capture("home-preview-encrypted-cache-reload")
@@ -2534,7 +2534,7 @@ final class ChatConversationTests: XCTestCase {
         _ = observe("native-profile-explicit-agreement-before-creation") { $0["profiles"] as? Int == 0 && $0["registrations"] as? Int == 0 }
         reveal(create); XCTAssertTrue(create.isEnabled); create.tap()
         if invitation { XCTAssertTrue(app.textFields["Friend’s username"].waitForExistence(timeout:20)) }
-        else { XCTAssertTrue(app.staticTexts["Chats"].waitForExistence(timeout: 20)) }
+        else { XCTAssertTrue(app.images["inbox-wordmark"].waitForExistence(timeout: 20)) }
         _ = observe("registered-once-without-paid-enrollment") {
             $0["exchanges"] as? Int == 1 && $0["profiles"] as? Int == 1 && $0["registrations"] as? Int == 1 &&
                 $0["pending_auth"] as? Bool == false && $0["session"] as? Bool == true &&
@@ -3284,7 +3284,7 @@ final class ChatConversationTests: XCTestCase {
         input.typeText(next)
         _ = observe("next-draft-durable-before-process-termination") { $0["draft"] as? String == next }
         app.terminate(); app.launchArguments = arguments; app.launch()
-        XCTAssertTrue(app.staticTexts["Chats"].waitForExistence(timeout: 20))
+        XCTAssertTrue(app.images["inbox-wordmark"].waitForExistence(timeout: 20))
         _ = observe("expired-base-still-receives-encrypted-reply-after-relaunch") {
             $0["receipts"] as? Int == 2 && $0["base_active"] as? Bool == false && $0["registrations"] as? Int == 1 &&
                 ($0["texts"] as? [String])?.contains("You can still read my reply.") == true && $0["draft"] as? String == next

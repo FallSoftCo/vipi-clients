@@ -190,7 +190,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable private fun VipiMark(size: Int = 36) {
+@Composable internal fun VipiMark(size: Int = 36) {
     val art = if (MaterialTheme.colorScheme.background.luminance() < .5f)
         R.drawable.vipi_mark_night else R.drawable.vipi_mark_day
     // Transparent optical artwork follows the selected app appearance. The

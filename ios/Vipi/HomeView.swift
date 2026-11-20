@@ -54,6 +54,12 @@ struct HomeView: View {
             }
             .navigationTitle("Chats").navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    VipiMark(size:44,accessibleName:"Vipi")
+                        .accessibilityValue(Text("Chats"))
+                        .accessibilityAddTraits(.isHeader)
+                        .accessibilityIdentifier("inbox-wordmark")
+                }
                 ToolbarItem(placement: .topBarLeading) {
                     Button { showingSettings = true } label: { Image(systemName: "person.crop.circle").font(.title3).frame(width: 44, height: 44) }
                         .accessibilityLabel("Your profile and settings")

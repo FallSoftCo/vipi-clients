@@ -21,7 +21,7 @@ struct OnboardingView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: state.onboarding == .language ? 16 : 24) {
                         HStack(spacing: 10) {
-                            VipiMark(size:64).accessibilityHidden(false).accessibilityLabel(Text(verbatim:"Vipi"))
+                            VipiMark(size:64,accessibleName:"Vipi")
                             Spacer()
                             if state.onboarding != .welcome {
                                 Text(dynamicTypeSize.isAccessibilitySize
