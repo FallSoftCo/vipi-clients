@@ -72,7 +72,7 @@ enum ReadingMode: String, CaseIterable, Identifiable {
         if let row = row(at:point) { activate(row.identity) }
     }
     func hold(at point: CGPoint) {
-        learnedGesture(); holding = true
+        learnedGesture(); pendingPlayback = nil; holding = true
     }
     func releaseHold() { holding = false }
     func cancelInteractions() { holding = false; accessibleMeaning = false; pendingPlayback = nil }

@@ -589,6 +589,9 @@ struct FriendConversationView: View {
                 copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); cancelPageRestoration(); speech.stop() }
             else { Task { await immersion.refreshAvailability(); prepareVoices() } }
         }
+        .onChange(of:state.chatReading.showingMeaning) { _,meaning in
+            if meaning { state.chatReading.cancelPendingPlayback(); autoplay.stop(speech:speech) }
+        }
         .onChange(of: speech.state) { _, value in if value == .ready { showVoiceHelp = false; autoplay.voicesReady() } }
         .task {
             refresh(); blockBusy = true

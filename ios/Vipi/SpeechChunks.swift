@@ -65,7 +65,7 @@ enum SpeechChunks {
         guard !words.isEmpty,!marks.isEmpty else { return false }
         let offsets = marks.sorted{$0.start < $1.start}.map(\.byteSampleOffset)
         guard zip(offsets,offsets.dropFirst()).allSatisfy({$0.0 < $0.1}) else { return false }
-        let ranges = marks.filter{$0.start >= 0 && $0.length > 0 && $0.start+$0.length <= text.utf16.count}.map{NSRange(location:$0.start,length:$0.length)}.sorted{$0.location < $1.location}
+        let ranges = marks.filter{$0.start >= 0 && $0.start <= text.utf16.count && $0.length > 0 && $0.length <= text.utf16.count-$0.start}.map{NSRange(location:$0.start,length:$0.length)}.sorted{$0.location < $1.location}
         return words.allSatisfy { word in
             var cursor = word.location
             for range in ranges where NSIntersectionRange(range,word).length > 0 {

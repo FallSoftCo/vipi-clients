@@ -330,7 +330,7 @@ private final class ConverterInput: @unchecked Sendable {
             guard status != .error, error == nil, converted.frameLength > 0 else { throw error ?? LocalSpeechError.invalidAudio as NSError }
             if frames > 0 { boundaries.append(frames) }
             let bytesPerFrame = max(1,Int(input.processingFormat.streamDescription.pointee.mBytesPerFrame))
-            for mark in timings[index].marks where mark.start >= 0 && mark.length > 0 && mark.start + mark.length <= lengths[index] {
+            for mark in timings[index].marks where mark.start >= 0 && mark.start <= lengths[index] && mark.length > 0 && mark.length <= lengths[index]-mark.start {
                 let localFrame = Double(mark.byteSampleOffset) / Double(bytesPerFrame)
                 let outputFrame = frames + Int((localFrame * format.sampleRate / input.processingFormat.sampleRate).rounded())
                 guard outputFrame >= frames,outputFrame < frames + Int(converted.frameLength) else { continue }

@@ -189,7 +189,9 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                     }
                     let bytesPerFrame = max(1,Int(file.processingFormat.streamDescription.pointee.mBytesPerFrame))
                     let ordered = audio.marks.sorted{$0.byteSampleOffset < $1.byteSampleOffset}
+                    let chunkLength = chunk.reduce(0){$0+$1.text.utf16.count}
                     for (index,mark) in ordered.enumerated() {
+                        guard mark.start >= 0,mark.start <= chunkLength,mark.length > 0,mark.length <= chunkLength-mark.start else { continue }
                         let range = NSRange(location:textOffset+mark.start,length:mark.length)
                         guard range.location >= 0,range.length > 0,NSMaxRange(range) <= spokenText.length else { continue }
                         let start = self.scheduledFrames + Int64(mark.byteSampleOffset / bytesPerFrame)
