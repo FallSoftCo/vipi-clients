@@ -14,6 +14,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
@@ -117,6 +118,9 @@ internal fun contactInitials(name: String): String {
 }
 
 @Composable internal fun ContactAvatar(name: String, peer: java.util.UUID, diameter: androidx.compose.ui.unit.Dp = 34.dp) {
+    // This is a decorative identity icon; the adjacent real name scales with
+    // text settings. Keep its glyph inside the fixed circle at every font size.
+    val glyphSize = with(LocalDensity.current) { (diameter.toPx() * .42f).toSp() }
     val dark = MaterialTheme.colorScheme.background.luminance() < .5f
     val slot = ((peer.mostSignificantBits xor peer.leastSignificantBits) and 3).toInt()
     val palette = if (dark) longArrayOf(0xFF533F2F, 0xFF263E53, 0xFF423754, 0xFF2C493A)
@@ -124,7 +128,7 @@ internal fun contactInitials(name: String): String {
     Surface(color = Color(palette[slot]), shape = androidx.compose.foundation.shape.CircleShape,
         modifier = Modifier.size(diameter).clearAndSetSemantics { }) {
         Box(contentAlignment = Alignment.Center) {
-            Text(contactInitials(name), fontSize = (diameter.value * .42f).sp, fontWeight = FontWeight.SemiBold,
+            Text(contactInitials(name), fontSize = glyphSize, lineHeight = glyphSize * 1.15f, fontWeight = FontWeight.SemiBold,
                 color = if (dark) Color(0xFFF0F0E7) else Color(0xFF18251D), maxLines = 1)
         }
     }
