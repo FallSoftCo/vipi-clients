@@ -668,11 +668,11 @@ struct FriendConversationView: View {
                     copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions()
                     state.immersionMode = state.immersionMode == .fullMessages ? .incremental:.fullMessages
                 } label: {
-                    Text(LocalizedStringKey(state.immersionMode == .fullMessages ? "Full messages":"One word"))
+                    Text(verbatim:state.immersionMode.title)
                         .font(.subheadline.weight(.medium)).lineLimit(2).multilineTextAlignment(.center).frame(minHeight:44)
                 }
                 .accessibilityLabel("Immersion").accessibilityValue(state.immersionMode.title)
-                .accessibilityHint(LocalizedStringKey(state.immersionMode == .fullMessages ? "Switch to one word":"Switch to full messages"))
+                .accessibilityHint(LocalizedStringKey(state.immersionMode == .fullMessages ? "Switch to single word":"Switch to full messages"))
                 .accessibilityIdentifier("chat-immersion-picker")
             }
             if #available(iOS 26.0, *) {

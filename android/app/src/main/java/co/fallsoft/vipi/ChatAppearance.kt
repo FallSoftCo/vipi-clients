@@ -71,9 +71,8 @@ import java.util.Locale
 @Composable internal fun ChatModeToggle(mode: ImmersionMode, onToggle: () -> Unit) {
     val full = mode == ImmersionMode.FULL_MESSAGES
     val title = stringResource(R.string.immersion_mode_title)
-    val state = stringResource(if (full) R.string.immersion_mode_full else R.string.immersion_mode_words)
-    val visible = stringResource(if (full) R.string.immersion_mode_full else R.string.immersion_mode_words_short)
-    val next = stringResource(if (full) R.string.immersion_mode_words else R.string.immersion_mode_full)
+    val state = stringResource(if (full) R.string.immersion_mode_full else R.string.immersion_mode_words_short)
+    val next = stringResource(if (full) R.string.immersion_mode_words_short else R.string.immersion_mode_full)
     val action = stringResource(R.string.chat_switch_mode, next)
     FilledTonalButton(onClick = onToggle, contentPadding = PaddingValues(horizontal = 12.dp),
         modifier = Modifier.heightIn(min = 48.dp).testTag("conversation-immersion").semantics {
@@ -82,7 +81,7 @@ import java.util.Locale
         }) {
         Icon(Icons.Outlined.Translate, null, modifier = Modifier.size(18.dp))
         Spacer(Modifier.width(6.dp))
-        Text(visible, maxLines = 2, fontWeight = FontWeight.SemiBold)
+        Text(state, maxLines = 2, fontWeight = FontWeight.SemiBold)
     }
 }
 

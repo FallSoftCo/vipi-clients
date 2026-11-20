@@ -460,7 +460,6 @@
     <string name="licenses_client_source">Vipi 소스 코드</string>
     <string name="immersion_mode_title">채팅 번역</string>
     <string name="immersion_mode_full">메시지 전체</string>
-    <string name="immersion_mode_words">새 단어 하나씩</string>
     <string name="welcome_detail_full">모든 메시지가 배우고 있는 언어로 표시돼요.</string>
     <string name="full_message_failed">번역하지 못했어요. 탭해서 다시 시도하세요.</string>
     <string name="full_message_show_translation">학습 언어로 보기</string>

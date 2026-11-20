@@ -45425,12 +45425,12 @@
         }
       }
     },
-    "One word": {
+    "Single word": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "One word"
+            "value": "Single word"
           }
         },
         "ar": {
@@ -45917,12 +45917,12 @@
         }
       }
     },
-    "Switch to one word": {
+    "Switch to single word": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Switch to one word"
+            "value": "Switch to single word"
           }
         },
         "ar": {

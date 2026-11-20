@@ -21,7 +21,7 @@ enum OnboardingStep: String { case welcome, language, account }
 enum ImmersionMode: String, CaseIterable, Identifiable {
     case incremental, fullMessages
     var id: String { rawValue }
-    var title: String { self == .fullMessages ? String(localized:"Full messages") : String(localized:"One new word at a time") }
+    var title: String { self == .fullMessages ? String(localized:"Full messages") : String(localized:"Single word") }
 }
 
 enum AppAppearance: String, CaseIterable, Identifiable {

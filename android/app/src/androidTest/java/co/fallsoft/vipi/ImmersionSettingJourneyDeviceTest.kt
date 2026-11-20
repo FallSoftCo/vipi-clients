@@ -26,7 +26,7 @@ class ImmersionSettingJourneyDeviceTest {
                 val draft = "Keep my unsent draft: café ☕."
                 compose.runOnIdle { f.model.chat!!.saveCompose(draft, services.peer) }
                 openSettings()
-                compose.onNodeWithText(f.base.getString(R.string.immersion_mode_words)).performTouchInput { click() }
+                compose.onNodeWithText(f.base.getString(R.string.immersion_mode_words_short)).performTouchInput { click() }
                 compose.waitUntil(8_000) { f.model.immersionMode == ImmersionMode.NEW_WORD && f.model.chat?.translations?.mode == ImmersionMode.NEW_WORD }
                 f.capture("01-explicit-one-word")
                 f.relaunch { app -> VipiModel(app, NoJourneyModelTranslation, services) }; screen(Screen.HOME)

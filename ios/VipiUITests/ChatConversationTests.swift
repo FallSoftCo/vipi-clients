@@ -2095,7 +2095,7 @@ final class ChatConversationTests: XCTestCase {
         try XCTUnwrap(visible("水和面包")).press(forDuration:0.8)
         XCTAssertTrue(practice.matching(NSPredicate(format:"label == %@","水和面包")).firstMatch.waitForExistence(timeout:5))
         picker.tap()
-        XCTAssertEqual(picker.value as? String,"One new word at a time")
+        XCTAssertEqual(picker.value as? String,"Single word")
         XCTAssertTrue(practice.matching(NSPredicate(format:"label == %@","水 and 面包")).firstMatch.waitForExistence(timeout:12))
         try XCTUnwrap(visible("水 and 面包")).doubleTap()
         XCTAssertTrue(practice.matching(NSPredicate(format:"label == %@","shuǐ and miàn bāo")).firstMatch.waitForExistence(timeout:5))

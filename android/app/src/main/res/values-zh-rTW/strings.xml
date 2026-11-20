@@ -460,7 +460,6 @@
     <string name="licenses_client_source">Vipi 原始碼</string>
     <string name="immersion_mode_title">沉浸模式</string>
     <string name="immersion_mode_full">整則訊息</string>
-    <string name="immersion_mode_words">每次一個新詞</string>
     <string name="welcome_detail_full">每則訊息都會用你正在學習的語言顯示。</string>
     <string name="full_message_failed">翻譯失敗。點一下重試。</string>
     <string name="full_message_show_translation">顯示學習語言</string>

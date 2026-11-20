@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
     Text(stringResource(R.string.immersion_mode_title), style = MaterialTheme.typography.titleLarge,
         modifier = Modifier.semantics { heading() })
     listOf(ImmersionMode.FULL_MESSAGES to R.string.immersion_mode_full,
-        ImmersionMode.NEW_WORD to R.string.immersion_mode_words).forEach { (mode, label) ->
+        ImmersionMode.NEW_WORD to R.string.immersion_mode_words_short).forEach { (mode, label) ->
         Row(Modifier.fillMaxWidth().heightIn(min = 48.dp)
             .selectable(selected = model.immersionMode == mode, role = Role.RadioButton,
                 onClick = { model.selectImmersionMode(mode) }).padding(horizontal = 12.dp, vertical = 8.dp),
