@@ -74,3 +74,68 @@ import XCTest
         }
     }
 }
+
+extension ForegroundEventsTests {
+    func testVisibleReadSurvivesOfflineAndAcceptRaceWithoutScrolling() async throws {
+        let account = UUID(), peer = UUID()
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("chat-activity-" + UUID().uuidString)
+        let vault = try MessageVault(account: account, directory: root)
+        defer {
+            try? vault.close()
+            try? FileManager.default.removeItem(at: root)
+            KeychainStore.delete(account: "messages-" + account.uuidString.lowercased())
+        }
+        func message(from sender: UUID, to recipient: UUID, state: String) -> StoredChat {
+            StoredChat(envelope: ChatEnvelope(id: UUID(), sender: sender, recipient: recipient, createdAt: 1,
+                type: 3, ciphertext: Data([3])), text: "fixture", state: state)
+        }
+        let incoming = message(from: peer, to: account, state: "delivered")
+        let hidden = message(from: peer, to: account, state: "delivered")
+        let outgoing = message(from: account, to: peer, state: "queued")
+        func put(_ bucket: String, _ item: StoredChat) throws {
+            try vault.put(bucket, item.envelope.id.uuidString.lowercased(), JSONEncoder().encode(item))
+        }
+        try vault.transaction {
+            try put("incoming", incoming)
+            try put("incoming", hidden)
+            try put("outgoing", outgoing)
+        }
+        var attempts = 0
+        let offline = ChatActivityEvents(vault: vault, eligible: { $0 == peer }, sendTyping: { _, _ in },
+            receipts: { _, _, _ in attempts += 1; throw URLError(.notConnectedToInternet) }, changed: {})
+        offline.visible(peer, incoming: [incoming.envelope.id], outgoing: [outgoing.envelope.id])
+        try await until { attempts == 1 }
+        offline.close()
+        var seen = [UUID](), checked = [UUID](), updates = 0
+        let restored = ChatActivityEvents(vault: vault, eligible: { $0 == peer }, sendTyping: { _, _ in },
+            receipts: { _, ids, queries in
+                seen.append(contentsOf: ids)
+                checked.append(contentsOf: queries)
+                return ChatReadReply(acknowledged: ids, read: queries)
+            }, changed: { updates += 1 })
+        defer { restored.close() }
+        restored.visible(peer, incoming: [incoming.envelope.id], outgoing: [outgoing.envelope.id])
+        try await until { seen == [incoming.envelope.id] }
+        XCTAssertTrue(checked.isEmpty)
+        let journal = MessageJournal(vault: vault)
+        try journal.applyStatus(outgoing.envelope.id, state: "accepted")
+        restored.outgoingAccepted(outgoing.envelope.id, peer: peer)
+        try await until { updates == 1 }
+        XCTAssertEqual(checked, [outgoing.envelope.id])
+        XCTAssertFalse(seen.contains(hidden.envelope.id))
+        try journal.applyStatus(outgoing.envelope.id, state: "delivered")
+        XCTAssertEqual(try journal.outgoing(outgoing.envelope.id)?.state, "read")
+    }
+    func testTypedEventDecoderAcceptsOnlyBoundedMetadata() {
+        let peer = UUID(), id = peer.uuidString.lowercased()
+        XCTAssertEqual(ChatForegroundEvent.decode(#"{"event":"typing","peer":"\#(id)","active":true}"#), .typing(peer, true))
+        XCTAssertEqual(ChatForegroundEvent.decode(#"{"event":"receipts_changed","peer":"\#(id)"}"#), .receipts(peer))
+        for invalid in [
+            #"{"event":"typing","peer":"\#(id)","active":1}"#,
+            #"{"event":"typing","peer":"\#(id)","active":"true"}"#,
+            #"{"event":"typing","peer":"\#(id)","active":true,"draft":"no"}"#,
+            #"{"event":"receipts_changed","peer":"not-a-uuid"}"#,
+            String(repeating: " ", count: 513) + #"{"event":"inbox_changed"}"#
+        ] { XCTAssertNil(ChatForegroundEvent.decode(invalid)) }
+    }
+}
