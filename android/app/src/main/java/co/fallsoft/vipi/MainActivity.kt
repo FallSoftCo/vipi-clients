@@ -70,6 +70,7 @@ class MainActivity : ComponentActivity() {
             when (intent.getStringExtra("vipi_screen")) {
                 "welcome" -> model.navigate(Screen.WELCOME)
                 "language" -> model.navigate(Screen.LANGUAGE)
+                "tutorial" -> { model.navigate(Screen.LANGUAGE); model.openTutorial() }
                 "home" -> model.navigate(Screen.HOME)
                 "translation" -> model.navigate(Screen.LANGUAGE_DOWNLOAD)
             }
@@ -155,7 +156,7 @@ class MainActivity : ComponentActivity() {
     }
     val scrollState = rememberScrollState()
     LaunchedEffect(model.screen) { scrollState.scrollTo(0) }
-    val onboarding = model.screen in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)
+    val onboarding = model.screen in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.TUTORIAL, Screen.ACCOUNT)
     val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
     val inboxScroll = key(model.authentication.userID) { androidx.compose.foundation.lazy.rememberLazyListState() }
@@ -165,7 +166,7 @@ class MainActivity : ComponentActivity() {
     if (model.screen == Screen.CONVERSATION) {
         val chat = model.chat; val peer = model.selectedPeer
         if (chat != null && peer != null) { FriendConversationScreen(chat, peer, model.knownLanguage, model.targetLanguage,
-            onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onImmersionMode = model::selectImmersionMode, notificationEducation = model.replyNotificationEducation, onNotificationPermission = model::notificationPermissionChanged) { model.back() }; return }
+            animateBackground = model.animateConversationBackground, onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onImmersionMode = model::selectImmersionMode, notificationEducation = model.replyNotificationEducation, onNotificationPermission = model::notificationPermissionChanged) { model.back() }; return }
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->
@@ -175,6 +176,9 @@ class MainActivity : ComponentActivity() {
             when (model.screen) {
                 Screen.WELCOME -> Welcome(scrollState.isScrollInProgress, model.immersionMode)
                 Screen.LANGUAGE -> LanguageSelection(model, scrollState.isScrollInProgress)
+                Screen.TUTORIAL -> ImmersionTutorialContent(model.knownLanguage, model.targetLanguage, model.immersionMode,
+                    onToggle = { model.selectImmersionMode(if (model.immersionMode == ImmersionMode.NEW_WORD) ImmersionMode.FULL_MESSAGES else ImmersionMode.NEW_WORD) },
+                    scrolling = scrollState.isScrollInProgress)
                 Screen.ACCOUNT -> AccountView()
                 Screen.SETTINGS -> SettingsView(model)
                 Screen.NEW_CHAT -> NewChatView(model)
@@ -268,7 +272,7 @@ class MainActivity : ComponentActivity() {
         }
     }
     }
-    key(model.knownLanguage, model.targetLanguage) { ConversationPreview(model.knownLanguage, model.targetLanguage, scrolling, model.immersionMode) }
+
 }
 
 @Composable private fun AccountView() {
@@ -304,8 +308,8 @@ class MainActivity : ComponentActivity() {
             else Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) { legalLinks() }
             model.authentication.error?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error) }
         }
-        PrimaryButton(when (model.screen) { Screen.WELCOME -> stringResource(R.string.choose_languages); Screen.LANGUAGE -> stringResource(R.string.continue_action); else -> stringResource(R.string.continue_signin) }, enabled = model.screen != Screen.ACCOUNT || accepted, busy = model.authentication.busy) {
-            when (model.screen) { Screen.WELCOME -> model.navigate(Screen.LANGUAGE); Screen.LANGUAGE -> model.navigate(Screen.ACCOUNT); else -> model.authentication.signIn(context) }
+        PrimaryButton(when (model.screen) { Screen.WELCOME -> stringResource(R.string.choose_languages); Screen.LANGUAGE, Screen.TUTORIAL -> stringResource(R.string.continue_action); else -> stringResource(R.string.continue_signin) }, enabled = model.screen != Screen.ACCOUNT || accepted, busy = model.authentication.busy) {
+            when (model.screen) { Screen.WELCOME -> model.navigate(Screen.LANGUAGE); Screen.LANGUAGE -> model.openTutorial(); Screen.TUTORIAL -> model.finishTutorial(); else -> model.authentication.signIn(context) }
         }
     }
     }
@@ -389,12 +393,18 @@ class MainActivity : ComponentActivity() {
     Text(stringResource(R.string.ui_339484dc1f78), fontWeight = FontWeight.SemiBold)
     if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.BACKUP) }) { Text(stringResource(R.string.ui_24f13e3dc8e4)) }
     if (model.chat?.ready == true) NotificationSetup()
+    TextButton(onClick = model::openTutorial, modifier = Modifier.testTag("tutorial-reentry")) { Text(stringResource(R.string.tutorial_reentry)) }
     LanguageSettingsLink(languageName(model.targetLanguage)) { model.navigate(Screen.LANGUAGE_DOWNLOAD) }
     Text(stringResource(R.string.ui_3907fa7f8072), fontWeight = FontWeight.SemiBold)
     Appearance.entries.forEach { appearance ->
         Row(Modifier.fillMaxWidth().clickable { model.changeAppearance(appearance) }.semantics { role = Role.RadioButton; selected = model.appearance == appearance }, verticalAlignment = Alignment.CenterVertically) {
             RadioButton(selected = model.appearance == appearance, onClick = { model.changeAppearance(appearance) }); Text(stringResource(when (appearance) { Appearance.SYSTEM -> R.string.appearance_system; Appearance.LIGHT -> R.string.appearance_light; Appearance.DARK -> R.string.appearance_dark }))
         }
+    }
+    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp), verticalAlignment = Alignment.CenterVertically) {
+        Text(stringResource(R.string.animate_conversation_background), modifier = Modifier.weight(1f))
+        Switch(checked = model.animateConversationBackground, onCheckedChange = model::changeConversationAnimation,
+            modifier = Modifier.testTag("settings-conversation-motion").semantics { contentDescription = context.getString(R.string.animate_conversation_background) })
     }
     Text(stringResource(R.string.ui_380f81884c22), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
     TextButton(onClick = { model.navigate(Screen.LICENSES) }) { Text(stringResource(R.string.ui_2a6b4d12ccfb)) }

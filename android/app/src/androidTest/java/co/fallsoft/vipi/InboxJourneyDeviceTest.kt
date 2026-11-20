@@ -113,14 +113,37 @@ class InboxJourneyDeviceTest {
                 f.launch(); screen(f,Screen.HOME)
                 compose.onNodeWithTag("inbox-empty").assertDoesNotExist()
                 compose.onNodeWithTag("inbox-compose").assertIsEnabled()
-                val visible = if (f.base.resources.configuration.fontScale >= 1.5f) rows.take(3) else rows
-                visible.forEach { row ->
+                // Check every real row by scrolling it into the actual viewport;
+                // compact landscape must not assume six rows fit at once.
+                rows.forEachIndexed { index, row ->
+                    compose.onNodeWithTag("inbox-list").performScrollToIndex(index)
                     compose.onNodeWithTag("inbox-row-${row.peer}").assertIsDisplayed()
                     compose.onNodeWithTag("home-message-preview-${row.id}", useUnmergedTree=true).assertTextEquals(row.text)
                     if(row.unread>0) compose.onNodeWithTag("inbox-unread-${row.peer}",useUnmergedTree=true).assertIsDisplayed()
                 }
-                geometry(f,"01-populated-day",visible); paint(f,"01-populated-day")
+                compose.onNodeWithTag("inbox-list").performScrollToIndex(0)
+                geometry(f,"01-populated-day",rows.take(1)); paint(f,"01-populated-day")
                 compose.runOnIdle { f.model.changeAppearance(Appearance.DARK) }; paint(f,"02-populated-night")
+                compose.onAllNodesWithTag("inbox-compose").assertCountEquals(1)
+                val fabNode=compose.onNodeWithTag("inbox-compose").assertIsEnabled().assertIsDisplayed().fetchSemanticsNode()
+                assertEquals(androidx.compose.ui.semantics.Role.Button,fabNode.config[SemanticsProperties.Role])
+                val fab=fabNode.boundsInWindow;val window=f.unobscuredWindow();val density=f.base.resources.displayMetrics.density
+                val rtl=f.base.resources.configuration.layoutDirection==android.view.View.LAYOUT_DIRECTION_RTL
+                assertTrue("FAB has a real >=48dp target",fab.width>=48*density&&fab.height>=48*density)
+                assertTrue("FAB stays inside safe gesture/window bounds",fab.left>=window.left&&fab.right<=window.right&&fab.top>=window.top&&fab.bottom<=window.bottom)
+                val paneWidth=minOf(window.width().toFloat(),680*density)
+                val paneLeft=window.exactCenterX()-paneWidth/2;val paneRight=paneLeft+paneWidth
+                if(rtl)assertTrue("RTL FAB is near the pane trailing left edge",fab.left>=paneLeft&&fab.left<=paneLeft+24*density)
+                else assertTrue("LTR FAB is near the pane trailing right edge",fab.right<=paneRight&&fab.right>=paneRight-24*density)
+                compose.onNodeWithTag("inbox-list").performScrollToIndex(rows.lastIndex)
+                val finalRow=compose.onNodeWithTag("inbox-row-${rows.last().peer}").assertIsDisplayed().fetchSemanticsNode().boundsInWindow
+                assertTrue("Final complete row scrolls above FAB with breathing room",finalRow.bottom<=fab.top-8*density)
+                File(f.output,"fab-geometry.json").writeText(JSONObject().put("fab",fab.toString()).put("last_row",finalRow.toString()).put("safe_window",window.toString()).put("rtl",rtl).put("font_scale",f.base.resources.configuration.fontScale).put("width_px",f.device.displayWidth).toString(2))
+                paint(f,"03-last-row-clear-fab")
+                compose.onNodeWithTag("inbox-compose").performClick();screen(f,Screen.NEW_CHAT)
+                compose.onNode(hasSetTextAction()).performScrollTo().assertIsDisplayed();paint(f,"04-fab-new-chat")
+                f.device.pressBack();screen(f,Screen.HOME)
+                compose.onNodeWithTag("inbox-row-${rows.last().peer}").assertIsDisplayed();paint(f,"05-fab-back-keeps-history-position")
                 if (captureOnly) {
                     check(f.base.resources.configuration.fontScale >= 1.5f)
                     service.assertNoPurchase(); return

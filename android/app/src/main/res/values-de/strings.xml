@@ -462,7 +462,7 @@
     <string name="backup_new_password">Neues Backup-Passwort</string>
     <string name="licenses_client_source">Vipi-Quellcode</string>
     <string name="immersion_mode_title">Übersetzung im Chat</string>
-    <string name="immersion_mode_full">Ganze Nachrichten</string>
+    <string name="immersion_mode_full">Tiefwasser</string>
     <string name="welcome_detail_full">Jede Nachricht erscheint in der Sprache, die du lernst.</string>
     <string name="full_message_failed">Übersetzung fehlgeschlagen. Zum Wiederholen tippen.</string>
     <string name="full_message_show_translation">Text in der Lernsprache anzeigen</string>

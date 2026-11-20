@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Authored drafts; independent linguistic review outstanding. -->
+<resources>
+    <string name="tutorial_reentry">沉浸模式指南</string>
+    <string name="tutorial_shallow_description">每次一个新词</string>
+    <string name="tutorial_deep_description">整条消息</string>
+    <string name="tutorial_tap">轻点听发音</string>
+    <string name="tutorial_hold">按住查看原文</string>
+    <string name="tutorial_script">轻点两下切换书写方式</string>
+    <string name="tutorial_preparing_translation">正在准备翻译…</string>
+    <string name="tutorial_preparing_voice">正在准备语音…</string>
+</resources>

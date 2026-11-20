@@ -32,7 +32,7 @@ internal class MainActivityJourneyFixture(
     val device: UiDevice = UiDevice.getInstance(instrumentation)
     private val application = base.applicationContext as Application
     private val prefix = retainedToken?.let { token ->
-        check(BuildConfig.DEBUG && BuildConfig.APPLICATION_ID in setOf("co.fallsoft.vipi.uxqa", "co.fallsoft.vipi.sourcecontextqa"))
+        check(BuildConfig.DEBUG && BuildConfig.APPLICATION_ID in setOf("co.fallsoft.vipi.uxqa", "co.fallsoft.vipi.sourcecontextqa", "co.fallsoft.vipi.tutorialqa"))
         require(token.matches(Regex("[a-f0-9]{32}")))
         "journey-persistent-$token-"
     } ?: "journey-${UUID.randomUUID()}-"
@@ -85,7 +85,7 @@ internal class MainActivityJourneyFixture(
     }
     init {
         check(BuildConfig.DEBUG && BuildConfig.APPLICATION_ID in setOf(
-            "co.fallsoft.vipi.uxqa", "co.fallsoft.vipi.sourcecontextqa"
+            "co.fallsoft.vipi.uxqa", "co.fallsoft.vipi.sourcecontextqa", "co.fallsoft.vipi.tutorialqa"
         )) { "Requires an explicitly isolated QA target; production is rejected" }
         check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
         val run = InstrumentationRegistry.getArguments().getString("vipiJourneyRun") ?: "001"

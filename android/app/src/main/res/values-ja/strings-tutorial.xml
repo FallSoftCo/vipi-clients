@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Authored drafts; independent linguistic review outstanding. -->
+<resources>
+    <string name="tutorial_reentry">イマージョンガイド</string>
+    <string name="tutorial_shallow_description">新しい単語を一つずつ</string>
+    <string name="tutorial_deep_description">メッセージ全体</string>
+    <string name="tutorial_tap">タップして聞く</string>
+    <string name="tutorial_hold">長押しして原文を表示</string>
+    <string name="tutorial_script">ダブルタップで表記を切り替える</string>
+    <string name="tutorial_preparing_translation">翻訳を準備中…</string>
+    <string name="tutorial_preparing_voice">音声を準備中…</string>
+</resources>

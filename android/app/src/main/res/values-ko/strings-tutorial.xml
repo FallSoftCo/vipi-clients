@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Authored drafts; independent linguistic review outstanding. -->
+<resources>
+    <string name="tutorial_reentry">몰입 모드 안내</string>
+    <string name="tutorial_shallow_description">새 단어를 하나씩</string>
+    <string name="tutorial_deep_description">메시지 전체</string>
+    <string name="tutorial_tap">탭해서 듣기</string>
+    <string name="tutorial_hold">길게 눌러 원문 보기</string>
+    <string name="tutorial_script">두 번 탭해 표기 방식 바꾸기</string>
+    <string name="tutorial_preparing_translation">번역 준비 중…</string>
+    <string name="tutorial_preparing_voice">음성 준비 중…</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Authored drafts; independent linguistic review outstanding. -->
+<resources>
+    <string name="tutorial_reentry">Guía de inmersión</string>
+    <string name="tutorial_shallow_description">Una palabra nueva cada vez</string>
+    <string name="tutorial_deep_description">Todo el mensaje</string>
+    <string name="tutorial_tap">Toca para escuchar</string>
+    <string name="tutorial_hold">Mantén pulsado para ver el original</string>
+    <string name="tutorial_script">Toca dos veces para cambiar de escritura</string>
+    <string name="tutorial_preparing_translation">Preparando la traducción…</string>
+    <string name="tutorial_preparing_voice">Preparando la voz…</string>
+</resources>

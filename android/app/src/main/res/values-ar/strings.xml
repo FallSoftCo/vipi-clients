@@ -474,7 +474,7 @@
     <string name="backup_new_password">كلمة مرور جديدة للنسخة الاحتياطية</string>
     <string name="licenses_client_source">شيفرة Vipi المصدرية</string>
     <string name="immersion_mode_title">الترجمة في المحادثة</string>
-    <string name="immersion_mode_full">رسائل كاملة</string>
+    <string name="immersion_mode_full">الأعماق</string>
     <string name="welcome_detail_full">تظهر كل رسالة باللغة التي تتعلّمها.</string>
     <string name="full_message_failed">تعذّرت الترجمة. اضغط للمحاولة مجددًا.</string>
     <string name="full_message_show_translation">إظهار النص بلغة التعلّم</string>

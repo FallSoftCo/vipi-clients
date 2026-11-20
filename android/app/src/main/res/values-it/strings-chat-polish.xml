@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="immersion_mode_words_short">Una parola</string>
+    <string name="immersion_mode_words_short">Superficie</string>
     <string name="chat_switch_mode">Passa a %1$s</string>
     <string name="chat_typing">%1$s sta scrivendo…</string>
     <string name="chat_new_messages">Nuovi messaggi</string>

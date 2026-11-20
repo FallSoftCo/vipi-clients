@@ -27,7 +27,7 @@ val initialLanguages = listOf(
 fun languageName(code: String): String = if (initialLanguages.any { it.code == code })
     java.util.Locale.forLanguageTag(code).getDisplayLanguage(java.util.Locale.getDefault()) else code
 enum class Appearance { SYSTEM, LIGHT, DARK }
-enum class Screen { WELCOME, LANGUAGE, ACCOUNT, HOME, SETTINGS, NEW_CHAT, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE, DELETE_ACCOUNT, BACKUP, LICENSES }
+enum class Screen { WELCOME, LANGUAGE, TUTORIAL, ACCOUNT, HOME, SETTINGS, NEW_CHAT, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE, DELETE_ACCOUNT, BACKUP, LICENSES }
 enum class ReadingMode(val label: String) { IMMERSED("Immersed"), ORIGINAL("Original"), TRANSLATION("Translation") }
 
 /** Constructor-only external boundaries for native workflow qualification. */
@@ -74,6 +74,12 @@ class VipiModel internal constructor(application: Application, private val trans
     }
     var appearance by mutableStateOf(runCatching { Appearance.valueOf(prefs.getString("appearance", "SYSTEM")!!) }.getOrDefault(Appearance.SYSTEM))
         private set
+    var animateConversationBackground by mutableStateOf(prefs.getBoolean("animateConversationBackground", true))
+        private set
+    fun changeConversationAnimation(value: Boolean) {
+        animateConversationBackground = value
+        prefs.edit().putBoolean("animateConversationBackground", value).apply()
+    }
     var density by mutableDoubleStateOf(prefs.getFloat("density", .25f).toDouble())
         private set
     var modelBusy by mutableStateOf(false)
@@ -83,6 +89,12 @@ class VipiModel internal constructor(application: Application, private val trans
     var translatedText by mutableStateOf<String?>(null)
         private set
     private var languageReturnScreen = Screen.SETTINGS
+    private var tutorialReturnScreen = Screen.ACCOUNT
+    fun openTutorial() {
+        tutorialReturnScreen = if (screen == Screen.LANGUAGE) Screen.ACCOUNT else Screen.SETTINGS
+        navigate(Screen.TUTORIAL)
+    }
+    fun finishTutorial() { navigate(tutorialReturnScreen) }
     private var selectionRevision = 0L
     private var translationRevision = 0L
     internal var chat by mutableStateOf<ChatSession?>(null)
@@ -169,7 +181,7 @@ class VipiModel internal constructor(application: Application, private val trans
         }
         if (value != screen && (value == Screen.LANGUAGE_DOWNLOAD || screen == Screen.LANGUAGE_DOWNLOAD)) sentenceChanged()
         screen = value
-        if (value in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)) prefs.edit().putString("onboardingStep", value.name).apply()
+        if (value in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT) || (value == Screen.TUTORIAL && tutorialReturnScreen == Screen.ACCOUNT)) prefs.edit().putString("onboardingStep", value.name).apply()
     }
     fun selectKnown(code: String) {
         if (knownLanguage != code) { selectionRevision++; sentenceChanged() }
@@ -203,7 +215,8 @@ class VipiModel internal constructor(application: Application, private val trans
         if (screen == Screen.NEW_CHAT) clearInvitation()
         navigate(when (screen) {
         Screen.LANGUAGE -> Screen.WELCOME
-        Screen.ACCOUNT -> Screen.LANGUAGE
+        Screen.ACCOUNT -> Screen.TUTORIAL
+        Screen.TUTORIAL -> if (tutorialReturnScreen == Screen.ACCOUNT) Screen.LANGUAGE else tutorialReturnScreen
         Screen.LANGUAGE_DOWNLOAD -> languageReturnScreen
         Screen.DELETE_ACCOUNT -> if (chat?.needsProfile == true) Screen.PROFILE else Screen.SETTINGS
         Screen.BACKUP, Screen.LICENSES -> Screen.SETTINGS

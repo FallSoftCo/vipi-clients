@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="immersion_mode_words_short">Neno moja</string>
+    <string name="immersion_mode_words_short">Kina kifupi</string>
     <string name="chat_switch_mode">Badilisha hadi %1$s</string>
     <string name="chat_typing">%1$s anaandika…</string>
     <string name="chat_new_messages">Ujumbe mpya</string>

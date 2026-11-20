@@ -35,8 +35,8 @@ android {
         applicationId = "co.fallsoft.vipi"
         minSdk = 29
         targetSdk = 36
-        versionCode = 15
-        versionName = "1.0.14"
+        versionCode = 16
+        versionName = "1.0.15"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild { cmake { arguments += "-DANDROID_STL=c++_static" } }
         buildConfigField("boolean", "FIREBASE_CONFIGURED", firebaseConfig.isNotEmpty().toString())
@@ -58,7 +58,7 @@ android {
     // The local debug certificate is never configured for a normal release.
     buildTypes {
         getByName("debug") {
-            if (qualifySourceContext) applicationIdSuffix = ".sourcecontextqa"
+            if (qualifySourceContext) applicationIdSuffix = if (providers.gradleProperty("vipiTutorialQualification").map { it.toBooleanStrict() }.getOrElse(false)) ".tutorialqa" else ".sourcecontextqa"
             buildConfigField("String", "WORKOS_CLIENT_ID", "\"${productionClientId.ifBlank { "client_01M5S2CDSQ8F7FEX26G3CY9VS1" }}\"")
             providers.gradleProperty("vipiQaAbi").orNull?.let { require(it in setOf("x86_64", "arm64-v8a")); ndk.abiFilters.add(it) }
         }

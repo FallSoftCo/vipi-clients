@@ -1,6 +1,7 @@
 package co.fallsoft.vipi
 
 import android.text.format.DateUtils
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -47,7 +48,23 @@ import java.time.temporal.ChronoUnit
     val newChat = { model.navigate(Screen.NEW_CHAT) }
     val newChatLabel = stringResource(R.string.nav_new_chat)
     val settingsLabel = stringResource(R.string.nav_settings)
-    Scaffold(containerColor = MaterialTheme.colorScheme.background) { insets ->
+    // The action belongs to the conversation pane on expanded/folded widths.
+    // The outer canvas still covers the complete edge-to-edge window.
+    Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), contentAlignment = Alignment.TopCenter) {
+    Scaffold(modifier = Modifier.widthIn(max = 680.dp).fillMaxSize(),
+        containerColor = MaterialTheme.colorScheme.background,
+        contentWindowInsets = WindowInsets.safeDrawing,
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+            if (threads.isNotEmpty()) FloatingActionButton(
+                onClick = { if (ready) newChat() },
+                containerColor = if (ready) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                contentColor = if (ready) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.testTag("inbox-compose").semantics {
+                    contentDescription = newChatLabel
+                    if (!ready) disabled()
+                }) { Icon(Icons.Outlined.Edit, null) }
+        }) { insets ->
         Box(Modifier.fillMaxSize().padding(insets), contentAlignment = Alignment.TopCenter) {
             Column(Modifier.widthIn(max = 680.dp).fillMaxSize()) {
                 Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 12.dp).heightIn(min = 72.dp),
@@ -65,13 +82,12 @@ import java.time.temporal.ChronoUnit
                         if (profile != null) ContactAvatar(profile.displayName.ifBlank { profile.username }, profile.id)
                         else Icon(Icons.Outlined.AccountCircle, null)
                     }
-                    if (threads.isNotEmpty()) FilledIconButton(onClick = newChat, enabled = ready,
-                        modifier = Modifier.testTag("inbox-compose")) {
-                        Icon(Icons.Outlined.Edit, newChatLabel, Modifier.size(20.dp))
-                    }
                 }
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .65f))
-                LazyColumn(Modifier.fillMaxSize().testTag("inbox-list"), state = listState) {
+                // Reserve the complete 56dp FAB +16dp placement gap +16dp
+                // breathing room, so the final row scrolls fully above it.
+                LazyColumn(Modifier.fillMaxSize().testTag("inbox-list"), state = listState,
+                    contentPadding = PaddingValues(bottom = if (threads.isNotEmpty()) 88.dp else 0.dp)) {
                     if (chat != null && needsRecovery) item("recovery") {
                         Box(Modifier.padding(20.dp)) { DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) } }
                     } else if (chat != null && needsSignIn) item("authorization") {
@@ -119,6 +135,7 @@ import java.time.temporal.ChronoUnit
                 }
             }
         }
+    }
     }
 }
 

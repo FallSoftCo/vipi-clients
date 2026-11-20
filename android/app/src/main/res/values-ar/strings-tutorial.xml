@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Authored drafts; independent linguistic review outstanding. -->
+<resources>
+    <string name="tutorial_reentry">دليل الانغماس اللغوي</string>
+    <string name="tutorial_shallow_description">كلمة جديدة في كل مرة</string>
+    <string name="tutorial_deep_description">الرسالة كاملة</string>
+    <string name="tutorial_tap">اضغط للاستماع</string>
+    <string name="tutorial_hold">اضغط مطولًا لرؤية النص الأصلي</string>
+    <string name="tutorial_script">اضغط مرتين لتبديل نظام الكتابة</string>
+    <string name="tutorial_preparing_translation">جارٍ تحضير الترجمة…</string>
+    <string name="tutorial_preparing_voice">جارٍ تحضير الصوت…</string>
+</resources>

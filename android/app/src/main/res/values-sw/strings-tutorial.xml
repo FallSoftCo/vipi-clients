@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Authored drafts; independent linguistic review outstanding. -->
+<resources>
+    <string name="tutorial_reentry">Mwongozo wa kujifunza kwa mazungumzo</string>
+    <string name="tutorial_shallow_description">Neno moja jipya kwa wakati mmoja</string>
+    <string name="tutorial_deep_description">Ujumbe mzima</string>
+    <string name="tutorial_tap">Gusa ili kusikiliza</string>
+    <string name="tutorial_hold">Gusa na ushikilie ili kuona ujumbe wa awali</string>
+    <string name="tutorial_script">Gusa mara mbili ili kubadili mfumo wa maandishi</string>
+    <string name="tutorial_preparing_translation">Tafsiri inaandaliwa…</string>
+    <string name="tutorial_preparing_voice">Sauti inaandaliwa…</string>
+</resources>

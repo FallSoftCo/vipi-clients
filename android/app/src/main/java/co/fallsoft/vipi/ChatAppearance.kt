@@ -79,7 +79,7 @@ import java.util.Locale
             role = Role.Switch; toggleableState = if (full) androidx.compose.ui.state.ToggleableState.On else androidx.compose.ui.state.ToggleableState.Off
             contentDescription = title; stateDescription = state; onClick(label = action, action = null)
         }) {
-        Icon(Icons.Outlined.Translate, null, modifier = Modifier.size(18.dp))
+        Icon(if (full) Icons.Outlined.Anchor else Icons.Outlined.Waves, null, modifier = Modifier.size(18.dp))
         Spacer(Modifier.width(6.dp))
         Text(state, maxLines = 2, fontWeight = FontWeight.SemiBold)
     }

@@ -459,7 +459,7 @@
     <string name="backup_new_password">新的备份密码</string>
     <string name="licenses_client_source">Vipi 源代码</string>
     <string name="immersion_mode_title">沉浸模式</string>
-    <string name="immersion_mode_full">整条消息</string>
+    <string name="immersion_mode_full">深水</string>
     <string name="welcome_detail_full">每条消息都会用你正在学习的语言显示。</string>
     <string name="full_message_failed">翻译失败。轻点重试。</string>
     <string name="full_message_show_translation">显示学习语言</string>

@@ -462,7 +462,7 @@
     <string name="backup_new_password">Nuova password del backup</string>
     <string name="licenses_client_source">Codice sorgente di Vipi</string>
     <string name="immersion_mode_title">Immersione</string>
-    <string name="immersion_mode_full">Messaggi interi</string>
+    <string name="immersion_mode_full">Profondità</string>
     <string name="welcome_detail_full">Ogni messaggio appare nella lingua che stai imparando.</string>
     <string name="full_message_failed">Traduzione non riuscita. Tocca per riprovare.</string>
     <string name="full_message_show_translation">Mostra il testo nella lingua da imparare</string>
