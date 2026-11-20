@@ -47,6 +47,8 @@ class EventQueue:
         return not self.pending
 
     def put_nowait(self, event):
+        if (None, None) in self.pending:
+            return
         if event is None:
             self.pending.clear()
             key = (None, None)
@@ -58,7 +60,12 @@ class EventQueue:
             key = (event, None)
         if key not in self.pending and len(self.pending) >= self.maxsize:
             # Typing is ephemeral; prefer keeping durable catch-up hints.
-            victim = next((k for k in self.pending if k[0] == "typing"), next(iter(self.pending)))
+            transient = next((k for k in self.pending if k[0] == "typing"), None)
+            if transient is None and key[0] == "typing":
+                return
+            victim = transient or next((k for k in self.pending if k[0] == "receipts_changed"), None)
+            if victim is None:
+                return
             del self.pending[victim]
         self.pending[key] = event
         self.available.set()

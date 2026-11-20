@@ -44,6 +44,11 @@ def test_coalescing_is_bounded_and_legacy_queue_ignores_chat_events():
         new.put_nowait({"event": "typing", "peer": str(uuid4()), "active": True})
     new.put_nowait("inbox_changed")
     assert len(new.pending) == 32 and "inbox_changed" in new.pending.values()
+    # A busy conversation cannot evict the durable inbox catch-up signal.
+    for _ in range(100):
+        new.put_nowait({"event": "receipts_changed", "peer": str(uuid4())})
+    new.put_nowait({"event": "typing", "peer": peer, "active": True})
+    assert "inbox_changed" in new.pending.values()
     new.put_nowait(None)
     assert new.get_nowait() is None and new.empty()
 
