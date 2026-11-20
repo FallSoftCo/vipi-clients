@@ -875,7 +875,8 @@ struct FriendConversationView: View {
     private func messageAccessibilityContext(_ item: ChatItem) -> String {
         let time = messageDate(item).formatted(date:.abbreviated,time:.shortened)
         if item.state == "imported" { return time + " · " + String(localized:"Saved history") }
-        return item.outgoing ? time + " · " + MessageDeliveryMark.localizedDescription(item.state) : time
+        let delivery = MessageDeliveryMark.localizedDescription(item.state)
+        return item.outgoing && !delivery.isEmpty ? time + " · " + delivery : time
     }
     @ViewBuilder private func messageMetadata(_ item: ChatItem) -> some View {
         let index = messages.firstIndex { $0.id == item.id } ?? 0

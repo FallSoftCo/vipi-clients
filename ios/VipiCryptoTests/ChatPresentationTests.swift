@@ -5,6 +5,20 @@ import VipiCore
 @testable import Vipi
 
 @MainActor final class ChatPresentationTests:XCTestCase {
+    func testRestoredAndUnknownDeliveryNeverClaimQueuedAndFailureCopyMatchesGlyph() {
+        XCTAssertEqual(MessageDeliveryMark.singleSymbol("imported"),"archivebox")
+        XCTAssertEqual(MessageDeliveryMark.localizedDescription("imported"),String(localized:"Saved history"))
+        XCTAssertNil(MessageDeliveryMark.singleSymbol("future-unknown-state"))
+        XCTAssertTrue(MessageDeliveryMark.localizedDescription("future-unknown-state").isEmpty)
+        for state in ["unavailable","identity_changed","failed"] {
+            XCTAssertEqual(MessageDeliveryMark.singleSymbol(state),"exclamationmark.circle")
+            XCTAssertEqual(MessageDeliveryMark.localizedDescription(state),String(localized:"Not delivered"))
+        }
+        for state in ["queued","pending"] { XCTAssertEqual(MessageDeliveryMark.singleSymbol(state),"clock") }
+        XCTAssertEqual(MessageDeliveryMark.localizedDescription("read"),String(localized:"Read"))
+        XCTAssertEqual(MessageDeliveryMark.localizedDescription("delivered"),String(localized:"Delivered"))
+    }
+
     func testInitialsPreserveRealUnicodeGraphemesAndNeverInventAPhoto() {
         for (name,initial) in [("  👩🏽‍🚀 Astronaut","👩🏽‍🚀A"),("👨‍👩‍👧‍👦 Family","👨‍👩‍👧‍👦F"),("e\u{301}lodie","e\u{301}"),("لُمى","لُ"),("朋子","朋"),("Ada María Lovelace","AL"),("   ","?")] {
             XCTAssertEqual(ContactMonogram.text(name),initial)

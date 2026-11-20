@@ -39,9 +39,21 @@ struct MessageDeliveryMark: View {
         case "delivered": String(localized: "Delivered")
         case "accepted": String(localized: "Sent")
         case "expired": String(localized: "Not delivered · 72 hours passed")
-        case "failed": String(localized: "Not delivered")
+        case "failed", "unavailable", "identity_changed": String(localized: "Not delivered")
         case "cancelled": String(localized: "Stopped")
-        default: String(localized: "Waiting to send")
+        case "queued", "pending": String(localized: "Waiting to send")
+        case "imported": String(localized:"Saved history")
+        default: ""
+        }
+    }
+    static func singleSymbol(_ value:String)->String? {
+        switch value {
+        case "accepted": "checkmark"
+        case "failed", "expired", "unavailable", "identity_changed": "exclamationmark.circle"
+        case "cancelled": "minus.circle"
+        case "queued", "pending": "clock"
+        case "imported": "archivebox"
+        default:nil
         }
     }
     @Environment(\.vipiOutgoingMessage) private var outgoing
@@ -54,9 +66,8 @@ struct MessageDeliveryMark: View {
                     Image(systemName:"checkmark").offset(x:-3)
                     Image(systemName:"checkmark").offset(x:3)
                 }.frame(width:22)
-            } else {
-                Image(systemName:state == "accepted" ? "checkmark" : failed ? "exclamationmark.circle" : state == "cancelled" ? "minus.circle" : "clock")
-                    .frame(minWidth:14)
+            } else if let symbol = Self.singleSymbol(state) {
+                Image(systemName:symbol).frame(minWidth:14)
             }
         }
         .font(.caption.weight(.semibold))
