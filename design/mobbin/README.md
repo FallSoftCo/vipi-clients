@@ -4,6 +4,8 @@ The private library covers 49 Vipi journeys with 233 distinct full-resolution sc
 
 Use the relevant screens when changing either client. Open the originals, compare the equivalent state on iOS and Android, and keep a native capture for the behavior under review. For a new feature, search Mobbin for its normal, empty, error, recovery and permission states as applicable. Add visually checked matches to this collection and index. Record an adjacent pattern or an uncovered behavior when a direct match is unavailable.
 
+The native Mac has the same private offline library at `/Users/Apple/Development/vipi-design-references/index.html`.
+
 The connected Mobbin search currently provides iOS and web results. These product examples inform Android design too. Capture Android itself to verify system controls, permission prompts, keyboard behavior and layout. Keep third-party images in the private reference library.
 
 When you add a feature, update the feature entries in [catalog.json](catalog.json) with the source IDs and ordered flow steps. Save the original images and their thumbnails to the private library. To place a native capture beside the matching feature, add its path and a descriptive label to the library’s `vipi/examples.json`. Rebuild the offline browser with `python3 design/mobbin/build_gallery.py /home/ai/Development/vipi-design-references`. The builder verifies image hashes and the local paths before writing the index.
