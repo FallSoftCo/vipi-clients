@@ -37,9 +37,6 @@ struct HomeView: View {
                                             expectedPair:.init(source:state.knownLanguage,target:state.targetLanguage))
                                     }.buttonStyle(.plain)
                                         .accessibilityIdentifier("chat-thread-"+thread.peer.uuidString.lowercased())
-                                    if thread.id != chat.threads.last?.id {
-                                        Divider().overlay(VipiDesign.separator).padding(.leading,60).accessibilityHidden(true)
-                                    }
                                 }
                             }
                         } else { VStack(alignment: .center, spacing: 20) {

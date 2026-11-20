@@ -6,7 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
@@ -112,10 +112,8 @@ import java.time.temporal.ChronoUnit
                             item("notice") { Text(notice, Modifier.padding(20.dp), color = MaterialTheme.colorScheme.onSurfaceVariant) }
                         }
                         if (threads.isNotEmpty() && chat != null) {
-                            itemsIndexed(threads, key = { _, thread -> thread.peer.toString() }) { index, thread ->
+                            items(threads, key = { thread -> thread.peer.toString() }) { thread ->
                                 InboxConversationRow(chat, thread) { model.openConversation(thread.peer) }
-                                if (index < threads.lastIndex) HorizontalDivider(Modifier.padding(start = 84.dp, end = 16.dp),
-                                    color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .55f))
                             }
                         } else if (!needsRecovery && !needsSignIn) item("empty") {
                             Column(Modifier.fillParentMaxSize().testTag("inbox-empty").padding(24.dp),
