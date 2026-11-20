@@ -25,7 +25,7 @@ internal class GroupsControlCrypto(private val vault: MessageVault, private val 
         val envelopes = org.json.JSONArray()
         roster.members.filter { it.id != vault.account }.forEach { member ->
             val device = requireNotNull(member.device)
-            if (vault.get("peer-device", member.id.toString())?.toString(Charsets.UTF_8) != device.toString() || vault.get("identity", "${member.id}/1") == null || vault.get("identity-change", member.id.toString()) != null || vault.get("blocked", member.id.toString()) != null) throw PeerIdentityChanged(member.id)
+            if (vault.get("peer-device", member.id.toString())?.toString(Charsets.UTF_8) != device.toString() || vault.get("identity", "${member.id}/1") == null || vault.get("peer-recovery-needed", member.id.toString()) != null || vault.get("blocked", member.id.toString()) != null) throw PeerIdentityChanged(member.id)
             val envelope = UUID.randomUUID()
             val body = change.json().put("version", 2).put("kind", "group-control").put("id", envelope).put("sender", vault.account).put("recipient", member.id).put("sender_device_id", core.device.id).put("createdAt", now).put("group_id", roster.id).put("group_epoch", roster.epoch).put("group_message_id", id)
             val cipher = SessionCipher(core.store, SignalProtocolAddress(vault.account.toString(), 1), SignalProtocolAddress(member.id.toString(), 1)).encrypt(GroupsStore.bytes(body))
@@ -56,7 +56,7 @@ internal class GroupsControlCrypto(private val vault: MessageVault, private val 
             var advanced = false
             for (id in vault.ids("group-control-pending").filter { it.startsWith("$group/") }) {
                 val bytes = vault.get("group-control-pending", id) ?: continue; val candidate = GroupPendingControl.parse(GroupsStore.json(bytes))
-                if (candidate.transition.fromRevision != current.revision || vault.get("identity", "${candidate.sender}/1")?.contentEquals(candidate.pinnedIdentity) != true || vault.get("identity-change", candidate.sender.toString()) != null || vault.get("blocked", candidate.sender.toString()) != null || vault.get("peer-device", candidate.sender.toString())?.toString(Charsets.UTF_8) != candidate.senderDevice.toString() || vault.get("retired-peer-device", "${candidate.sender}/${candidate.senderDevice}") != null) continue
+                if (candidate.transition.fromRevision != current.revision || vault.get("identity", "${candidate.sender}/1")?.contentEquals(candidate.pinnedIdentity) != true || vault.get("peer-recovery-needed", candidate.sender.toString()) != null || vault.get("blocked", candidate.sender.toString()) != null || vault.get("peer-device", candidate.sender.toString())?.toString(Charsets.UTF_8) != candidate.senderDevice.toString() || vault.get("retired-peer-device", "${candidate.sender}/${candidate.senderDevice}") != null) continue
                 if (runCatching { candidate.transition.validated(group, current, candidate.sender) }.isFailure) {
                     vault.put("group-last-rejection", group.toString(), GroupsStore.bytes(JSONObject().put("sender", candidate.sender).put("reason", "invalid_group_approval")))
                     vault.remove("group-control-pending", id); holdBudget.releaseInTransaction("approval", id); continue
@@ -82,7 +82,7 @@ internal class GroupsControlCrypto(private val vault: MessageVault, private val 
         require(e.createdAt >= 0 && e.createdAt <= Math.addExact(firstSeen, 300_000) && firstSeen < Math.addExact(e.createdAt, MessageJournal.TTL))
         require(vault.get("retired-peer-device", "${e.sender}/${route.senderDevice}") == null)
         val pinned = vault.get("identity", "${e.sender}/1")
-        if (pinned == null || vault.get("identity-change", e.sender.toString()) != null || vault.get("peer-device", e.sender.toString())?.toString(Charsets.UTF_8) != route.senderDevice.toString()) {
+        if (pinned == null || vault.get("peer-recovery-needed", e.sender.toString()) != null || vault.get("peer-device", e.sender.toString())?.toString(Charsets.UTF_8) != route.senderDevice.toString()) {
             if (held == null) {
                 val bytes = GroupsStore.bytes(JSONObject().put("item", item.json()).put("firstSeenAt", now).put("fingerprint", android.util.Base64.encodeToString(fingerprint, android.util.Base64.NO_WRAP)))
                 holdBudget.reserveInTransaction("control", e.id.toString(), item.group, bytes.size); vault.put("group-held-control", e.id.toString(), bytes)
@@ -120,7 +120,7 @@ internal class GroupsControlCrypto(private val vault: MessageVault, private val 
         val key = "${reviewed.group}/${reviewed.id}"
         val saved = GroupPendingControl.parse(GroupsStore.json(requireNotNull(vault.get("group-control-pending", key))))
         require(saved.id == reviewed.id && saved.group == reviewed.group && saved.sender == reviewed.sender && saved.senderDevice == reviewed.senderDevice && saved.transition == reviewed.transition && saved.pinnedIdentity.contentEquals(reviewed.pinnedIdentity))
-        if (vault.get("identity", "${saved.sender}/1")?.contentEquals(saved.pinnedIdentity) != true || vault.get("identity-change", saved.sender.toString()) != null || vault.get("blocked", saved.sender.toString()) != null || vault.get("peer-device", saved.sender.toString())?.toString(Charsets.UTF_8) != saved.senderDevice.toString() || vault.get("retired-peer-device", "${saved.sender}/${saved.senderDevice}") != null) throw PeerIdentityChanged(saved.sender)
+        if (vault.get("identity", "${saved.sender}/1")?.contentEquals(saved.pinnedIdentity) != true || vault.get("peer-recovery-needed", saved.sender.toString()) != null || vault.get("blocked", saved.sender.toString()) != null || vault.get("peer-device", saved.sender.toString())?.toString(Charsets.UTF_8) != saved.senderDevice.toString() || vault.get("retired-peer-device", "${saved.sender}/${saved.senderDevice}") != null) throw PeerIdentityChanged(saved.sender)
         membership.bootstrapInTransaction(saved.transition, saved.group, saved.sender, saved.sender)
         vault.put("group-control-logical", key, GroupsStore.bytes(saved.transition.json())); vault.remove("group-control-pending", key); holdBudget.releaseInTransaction("approval", key)
         drainInTransaction(saved.group)

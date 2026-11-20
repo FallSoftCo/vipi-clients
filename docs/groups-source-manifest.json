@@ -19,13 +19,13 @@
     },
     {
       "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsControlCrypto.kt",
-      "sha256": "2995406aa4592a37f1403bfdc78f0eabd28633c5c6b9b224090077a1401924da",
-      "bytes": 14036
+      "sha256": "49a7bb21e0ce36702554c674abda2a6a63a3a8cf89c2a0a7639e23c904e52885",
+      "bytes": 14056
     },
     {
       "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsCrypto.kt",
-      "sha256": "67823f10aef6a7706cd0912219fe3d37a48502bc686ece5c11ba06d817de4d6b",
-      "bytes": 13608
+      "sha256": "45aa45d80eb6ab583f01bb27b4192ea7202c88f780b7eae46ac8c59287dd0219",
+      "bytes": 13618
     },
     {
       "path": "android/app/src/main/java/co/fallsoft/vipi/GroupsHoldBudget.kt",

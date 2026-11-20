@@ -44,7 +44,7 @@ internal class GroupsCrypto(private val vault: MessageVault, private val core: M
             recipients.forEach { member ->
                 require(vault.get("blocked", member.id.toString()) == null) { "Review the people in this group before sending." }
                 val device = requireNotNull(member.device) { "Someone needs to reconnect their device before this message can be sent to everyone." }
-                if (vault.get("peer-device", member.id.toString())?.toString(Charsets.UTF_8) != device.toString() || vault.get("identity-change", member.id.toString()) != null) throw PeerIdentityChanged(member.id)
+                if (vault.get("peer-device", member.id.toString())?.toString(Charsets.UTF_8) != device.toString() || vault.get("peer-recovery-needed", member.id.toString()) != null) throw PeerIdentityChanged(member.id)
                 val id = UUID.randomUUID()
                 val payload = JSONObject().put("version", 2).put("kind", "group").put("id", id).put("sender", vault.account).put("recipient", member.id)
                     .put("sender_device_id", core.device.id).put("createdAt", message.createdAt).put("text", message.text)
@@ -93,7 +93,7 @@ internal class GroupsCrypto(private val vault: MessageVault, private val core: M
         require(envelope.createdAt >= 0 && envelope.createdAt <= Math.addExact(firstSeen, 300_000) && firstSeen < Math.addExact(envelope.createdAt, MessageJournal.TTL))
         require(vault.get("blocked", envelope.sender.toString()) == null && vault.get("retired-peer-device", "${envelope.sender}/${route.senderDevice}") == null)
         val pinned = vault.get("identity", "${envelope.sender}/1")
-        if (pinned == null || vault.get("peer-device", envelope.sender.toString())?.toString(Charsets.UTF_8) != route.senderDevice.toString() || vault.get("identity-change", envelope.sender.toString()) != null) {
+        if (pinned == null || vault.get("peer-device", envelope.sender.toString())?.toString(Charsets.UTF_8) != route.senderDevice.toString() || vault.get("peer-recovery-needed", envelope.sender.toString()) != null) {
             if (held == null) {
                 val bytes = GroupsStore.bytes(JSONObject().put("item", item.json()).put("firstSeenAt", now).put("fingerprint", Base64.encodeToString(fingerprint, Base64.NO_WRAP)))
                 holdBudget.reserveInTransaction("message", envelope.id.toString(), item.group, bytes.size); vault.put("group-held-envelope", envelope.id.toString(), bytes)
