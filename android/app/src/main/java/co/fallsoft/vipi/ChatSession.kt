@@ -32,6 +32,15 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     private var vault: MessageVault? = null
     private var core: MessagingCore? = null
     private var history: ConversationHistory? = null
+    private var activity: ChatActivityEvents? = null
+    fun isPeerTyping(peer: UUID) = activity?.isTyping(peer) == true
+    fun composerActivity(peer: UUID, active: Boolean) { activity?.composer(peer, active) }
+    fun visibleMessages(peer: UUID, incoming: List<UUID>, outgoing: List<UUID>) {
+        activity?.visible(peer, incoming, outgoing)
+    }
+    internal fun peerTypingEvent(peer: UUID, active: Boolean) { activity?.remoteTyping(peer, active) }
+    internal fun receiptEvent(peer: UUID) { activity?.receiptsChanged(peer) }
+    internal fun eventConnected() { activity?.reconnected() }
     var translations by mutableStateOf<ConversationTranslation?>(null); private set
     private var translationMode = ImmersionMode.NEW_WORD
     private var translationPair: Pair<String, String>? = null
@@ -83,6 +92,11 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (vault == null) {
             val store = MessageVault(context, value.id); vault = store
             core = MessagingCore(store); history = ConversationHistory(store)
+            activity = ChatActivityEvents(store, requireNotNull(core).journal,
+                { peer -> ready && !closed && !needsReauthentication && peer !in blockedPeers && peer !in peersNeedingRecovery },
+                { peer, action, value -> request("POST", "/v1/conversations/$peer/$action", value, requireNotNull(core).device) },
+                ::reload)
+
             translationPair?.let { (source, target) ->
                 translations = ConversationTranslation(context, source, target, FullMessageTranslationStore(store),
                     translator = translationFactory?.invoke() ?: LocalTranslation(), mode = translationMode)
@@ -471,6 +485,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         notice = context.getString(R.string.ui_54a04d4e9955)
     }
     override fun close() {
+        activity?.close(); activity = null
         newMessageObservers.clear()
         translations?.close(); translations = null
         closed = true; ready = false; needsProfile = false; syncAgain = false

@@ -11,9 +11,9 @@ internal data class ChatEnvelope(val id: UUID, val sender: UUID, val recipient: 
     fun fingerprint(): ByteArray = MessageDigest.getInstance("SHA-256").digest("$id\u0000$sender\u0000$recipient\u0000$createdAt\u0000$type\u0000".toByteArray() + ciphertext)
     companion object { fun parse(value: JSONObject) = ChatEnvelope(UUID.fromString(value.getString("id")), UUID.fromString(value.getString("sender")), UUID.fromString(value.getString("recipient")), value.getLong("createdAt"), value.getInt("type"), Base64.decode(value.getString("ciphertext"), Base64.NO_WRAP)) }
 }
-internal data class StoredChat(val envelope: ChatEnvelope, val text: String, val state: String) {
-    fun encode() = JSONObject().put("envelope", envelope.json()).put("text", text).put("state", state).toString().toByteArray(Charsets.UTF_8)
-    companion object { fun parse(bytes: ByteArray): StoredChat { val value = JSONObject(bytes.toString(Charsets.UTF_8)); return StoredChat(ChatEnvelope.parse(value.getJSONObject("envelope")), value.getString("text"), value.getString("state")) } }
+internal data class StoredChat(val envelope: ChatEnvelope, val text: String, val state: String, val seen: Boolean = false) {
+    fun encode() = JSONObject().put("envelope", envelope.json()).put("text", text).put("state", state).put("seen", seen).toString().toByteArray(Charsets.UTF_8)
+    companion object { fun parse(bytes: ByteArray): StoredChat { val value = JSONObject(bytes.toString(Charsets.UTF_8)); return StoredChat(ChatEnvelope.parse(value.getJSONObject("envelope")), value.getString("text"), value.getString("state"), value.optBoolean("seen")) } }
 }
 
 internal data class DraftChat(val id: UUID, val recipient: UUID, val text: String, val createdAt: Long, val state: String = "queued") {
@@ -128,10 +128,11 @@ internal class MessageJournal(private val vault: MessageVault) {
         }
     }
     fun applyStatus(id: UUID, state: String) = vault.transaction {
-        require(state in setOf("accepted", "delivered", "failed", "expired"))
+        require(state in setOf("accepted", "delivered", "read", "failed", "expired"))
         val saved = StoredChat.parse(requireNotNull(vault.get("outgoing", id.toString())))
         // Late/duplicate network responses cannot regress a committed terminal state.
-        if (saved.state == "delivered" || (state != "delivered" && saved.state in setOf("failed", "expired", "cancelled"))) return@transaction
+        if (saved.state == "read" || (saved.state == "delivered" && state != "read") ||
+            (state !in setOf("delivered", "read") && saved.state in setOf("failed", "expired", "cancelled"))) return@transaction
         vault.put("outgoing", id.toString(), saved.copy(state = state).encode())
         if (state != "accepted") vault.remove("pending", id.toString())
     }

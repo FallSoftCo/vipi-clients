@@ -19,6 +19,9 @@ internal class ForegroundInboxEvents(
     private val sockets: WebSocket.Factory = http,
     private val retryPause: suspend (Long) -> Unit = { delay(it) },
     private val onDeviceRevoked: () -> Unit = {},
+    private val onTyping: (java.util.UUID, Boolean) -> Unit = { _, _ -> },
+    private val onReceipts: (java.util.UUID) -> Unit = {},
+    private val onConnected: () -> Unit = {},
 ) : AutoCloseable {
     private val base = endpoint.toHttpUrl().also {
         require(it.encodedPath == "/" && it.query == null && it.fragment == null && it.username.isEmpty() && it.password.isEmpty())
@@ -59,7 +62,7 @@ internal class ForegroundInboxEvents(
                         val request = Request.Builder().url(base.newBuilder().encodedPath("/v1/events").build())
                             .header("Authorization", "Bearer $token")
                             .header("X-Vipi-Device-ID", currentDevice.id.toString())
-                            .header("X-Vipi-Device-Secret", currentDevice.secret).build()
+                            .header("X-Vipi-Device-Secret", currentDevice.secret).header("X-Vipi-Chat-Events", "1").build()
                         val ended = connection(request, signals)
                         if (ended.code in setOf(403, 4403)) { onDeviceRevoked(); break }
                         if (ended.code in setOf(1003, 1008)) break
@@ -79,14 +82,34 @@ internal class ForegroundInboxEvents(
         val socket = sockets.newWebSocket(request, object : WebSocketListener() {
             override fun onOpen(webSocket: WebSocket, response: Response) {
                 openedAt = System.nanoTime()
-                if (done.isActive) signals.trySend(Unit) // Catch up after every connection, including a reconnect.
+                if (done.isActive) {
+                    signals.trySend(Unit)
+                    scope.launch { if (done.isActive && job?.isActive == true) onConnected() }
+                }
             }
             override fun onMessage(webSocket: WebSocket, text: String) {
-                val valid = text.length <= 512 && runCatching {
-                    JSONObject(text).let { it.length() == 1 && it.getString("event") == "inbox_changed" }
-                }.getOrDefault(false)
-                if (!valid) { webSocket.close(1008, "Invalid event"); finish(1008) }
-                else if (done.isActive) signals.trySend(Unit)
+                if (!done.isActive) return
+                try {
+                    require(text.length <= 512)
+                    val value = JSONObject(text)
+                    when (value.getString("event")) {
+                        "inbox_changed" -> { require(value.length() == 1); signals.trySend(Unit) }
+                        "typing", "receipts_changed" -> {
+                            val raw = value.getString("peer")
+                            val peer = java.util.UUID.fromString(raw)
+                            require(peer.toString() == raw)
+                            if (value.getString("event") == "typing") {
+                                require(value.length() == 3 && value.get("active") is Boolean)
+                                val active = value.getBoolean("active")
+                                scope.launch { if (done.isActive && job?.isActive == true) onTyping(peer, active) }
+                            } else {
+                                require(value.length() == 2)
+                                scope.launch { if (done.isActive && job?.isActive == true) onReceipts(peer) }
+                            }
+                        }
+                        else -> throw IllegalArgumentException()
+                    }
+                } catch (_: Exception) { webSocket.close(1008, "Invalid event"); finish(1008) }
             }
             override fun onMessage(webSocket: WebSocket, bytes: ByteString) { webSocket.close(1003, "Text events required"); finish(1003) }
             override fun onClosing(webSocket: WebSocket, code: Int, reason: String) { webSocket.close(code, null); finish(code) }

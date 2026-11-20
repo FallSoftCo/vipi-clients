@@ -144,7 +144,8 @@ class VipiModel internal constructor(application: Application, private val trans
             { rejected -> authentication.accessToken(current.userID, rejected) }, current::eventDevice, {
                 current.synchronize()
                 if (!current.lastSyncComplete) throw java.io.IOException("Inbox synchronization incomplete")
-            }, onDeviceRevoked = current::noteDeviceRevoked)
+            }, onDeviceRevoked = current::noteDeviceRevoked, onTyping = current::peerTypingEvent,
+            onReceipts = current::receiptEvent, onConnected = current::eventConnected)
     internal fun beginDeletion() {
         val current = requireNotNull(chat)
         check(current.profile != null || current.needsProfile)
