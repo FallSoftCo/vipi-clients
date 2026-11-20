@@ -10,4 +10,7 @@
     <string name="notification_reply_prompt">%1$s回复时通知我？</string>
     <string name="notification_reply_allow">通知我</string>
     <string name="notification_reply_later">暂时不要</string>
+    <plurals name="inbox_unread">
+        <item quantity="other">%1$s条未读消息</item>
+    </plurals>
 </resources>

@@ -10,4 +10,12 @@
     <string name="notification_reply_prompt">هل تريد إشعارًا عندما يرد %1$s؟</string>
     <string name="notification_reply_allow">إشعاري</string>
     <string name="notification_reply_later">ليس الآن</string>
+    <plurals name="inbox_unread">
+        <item quantity="zero">لا رسائل غير مقروءة</item>
+        <item quantity="one">رسالة واحدة غير مقروءة</item>
+        <item quantity="two">رسالتان غير مقروءتين</item>
+        <item quantity="few">%1$s رسائل غير مقروءة</item>
+        <item quantity="many">%1$s رسالة غير مقروءة</item>
+        <item quantity="other">%1$s رسالة غير مقروءة</item>
+    </plurals>
 </resources>

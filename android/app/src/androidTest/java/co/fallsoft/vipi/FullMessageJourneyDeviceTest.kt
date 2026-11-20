@@ -735,7 +735,7 @@ class FullMessageJourneyDeviceTest {
                 compose.runOnIdle { uncached = services.queueAdditionalPeerReplyAndSignalInbox(previewText) }
                 compose.waitUntil(15_000) { previewCalls.get() == 1 && compose.onAllNodesWithTag("home-message-preview-${requireNotNull(uncached)}", useUnmergedTree = true).fetchSemanticsNodes().size == 1 }
                 compose.onNodeWithTag("home-message-preview-${requireNotNull(uncached)}", useUnmergedTree = true)
-                    .assertTextEquals(f.base.getString(R.string.full_translation_preparing)).assertIsDisplayed()
+                    .assertTextEquals(previewText).assertIsDisplayed()
                 f.capture("friend-08-home-pending-visible-preview")
                 compose.onNodeWithText("Journey Friend").performTouchInput { click() }
                 screen(f, Screen.CONVERSATION); compose.onNodeWithTag("message-input").assertIsDisplayed()

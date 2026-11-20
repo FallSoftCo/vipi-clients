@@ -10,4 +10,7 @@
     <string name="notification_reply_prompt">%1$sさんから返信が来たら通知しますか？</string>
     <string name="notification_reply_allow">通知する</string>
     <string name="notification_reply_later">今はしない</string>
+    <plurals name="inbox_unread">
+        <item quantity="other">未読メッセージ%1$s件</item>
+    </plurals>
 </resources>

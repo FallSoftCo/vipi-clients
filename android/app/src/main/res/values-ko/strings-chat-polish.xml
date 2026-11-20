@@ -10,4 +10,7 @@
     <string name="notification_reply_prompt">%1$s님이 답장하면 알림을 받을까요?</string>
     <string name="notification_reply_allow">알림 받기</string>
     <string name="notification_reply_later">나중에</string>
+    <plurals name="inbox_unread">
+        <item quantity="other">읽지 않은 메시지 %1$s개</item>
+    </plurals>
 </resources>

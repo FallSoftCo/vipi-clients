@@ -10,4 +10,8 @@
     <string name="notification_reply_prompt">Notify me when %1$s replies?</string>
     <string name="notification_reply_allow">Notify me</string>
     <string name="notification_reply_later">Not now</string>
+    <plurals name="inbox_unread">
+        <item quantity="one">%1$s unread message</item>
+        <item quantity="other">%1$s unread messages</item>
+    </plurals>
 </resources>

@@ -85,17 +85,23 @@ import java.util.Locale
         Text(time, fontSize = 12.sp, lineHeight = 16.sp, color = ink)
         if (item.outgoing) {
             Spacer(Modifier.width(4.dp))
-            Icon(when (item.state) {
-                "accepted" -> Icons.Outlined.Done
-                "delivered", "read" -> Icons.Outlined.DoneAll
-                "queued", "pending" -> Icons.Outlined.Schedule
-                "failed", "expired", "cancelled" -> Icons.Outlined.ErrorOutline
-                else -> Icons.Outlined.HelpOutline
-            }, null, modifier = Modifier.size(16.dp), tint = if (item.state == "read") {
-                if (MaterialTheme.colorScheme.background.luminance() < .5f) Color(0xFF79C8F5) else Color(0xFF236FA1)
-            } else ink)
+            ChatDeliveryIcon(item.state, null)
         }
     }
+}
+
+@Composable internal fun ChatDeliveryIcon(state: String, description: String?) {
+    val ink = if (state in setOf("failed", "expired", "cancelled")) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+    val icon = when (state) {
+        "accepted" -> Icons.Outlined.Done
+        "delivered", "read" -> Icons.Outlined.DoneAll
+        "queued", "pending" -> Icons.Outlined.Schedule
+        "failed", "expired", "cancelled" -> Icons.Outlined.ErrorOutline
+        else -> Icons.Outlined.HelpOutline
+    }
+    val tint = if (state != "read") ink
+        else if (MaterialTheme.colorScheme.background.luminance() < .5f) Color(0xFF79C8F5) else Color(0xFF236FA1)
+    Icon(icon, description, modifier = Modifier.size(16.dp), tint = tint)
 }
 
 /** Initials are derived from actual contact text, never fetched/invented photos. */
@@ -110,15 +116,15 @@ internal fun contactInitials(name: String): String {
     return when (words.size) { 0 -> ""; 1 -> first(words.first()); else -> first(words.first()) + first(words.last()) }.uppercase(Locale.ROOT)
 }
 
-@Composable internal fun ContactAvatar(name: String, peer: java.util.UUID) {
+@Composable internal fun ContactAvatar(name: String, peer: java.util.UUID, diameter: androidx.compose.ui.unit.Dp = 34.dp) {
     val dark = MaterialTheme.colorScheme.background.luminance() < .5f
     val slot = ((peer.mostSignificantBits xor peer.leastSignificantBits) and 3).toInt()
     val palette = if (dark) longArrayOf(0xFF533F2F, 0xFF263E53, 0xFF423754, 0xFF2C493A)
         else longArrayOf(0xFFF2D8BE, 0xFFCCDEEF, 0xFFDDD6EF, 0xFFD0E6D9)
     Surface(color = Color(palette[slot]), shape = androidx.compose.foundation.shape.CircleShape,
-        modifier = Modifier.size(34.dp).clearAndSetSemantics { }) {
+        modifier = Modifier.size(diameter).clearAndSetSemantics { }) {
         Box(contentAlignment = Alignment.Center) {
-            Text(contactInitials(name), fontSize = 14.sp, fontWeight = FontWeight.SemiBold,
+            Text(contactInitials(name), fontSize = (diameter.value * .42f).sp, fontWeight = FontWeight.SemiBold,
                 color = if (dark) Color(0xFFF0F0E7) else Color(0xFF18251D), maxLines = 1)
         }
     }

@@ -10,4 +10,8 @@
     <string name="notification_reply_prompt">Unijulishe %1$s akijibu?</string>
     <string name="notification_reply_allow">Nijulishe</string>
     <string name="notification_reply_later">Si sasa</string>
+    <plurals name="inbox_unread">
+        <item quantity="one">Ujumbe %1$s haujasomwa</item>
+        <item quantity="other">Jumbe %1$s hazijasomwa</item>
+    </plurals>
 </resources>

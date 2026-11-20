@@ -165,6 +165,8 @@ class MainActivity : ComponentActivity() {
     val onboarding = model.screen in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)
     val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
+    val inboxScroll = key(model.authentication.userID) { androidx.compose.foundation.lazy.rememberLazyListState() }
+    if (model.screen == Screen.HOME) { ChatsInbox(model, inboxScroll); return }
     if (model.screen == Screen.BACKUP && model.chat != null) { HistoryBackupScreen(model.chat!!) { model.back() }; return }
     if (model.screen == Screen.LICENSES) { LegalNoticesScreen { model.back() }; return }
     if (model.screen == Screen.CONVERSATION) {
@@ -175,19 +177,18 @@ class MainActivity : ComponentActivity() {
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->
         Box(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding(), contentAlignment = Alignment.TopCenter) {
-        Column(Modifier.fillMaxHeight().widthIn(max = 680.dp).fillMaxWidth().padding(horizontal = if (model.screen == Screen.HOME) 20.dp else 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(if (model.screen == Screen.LANGUAGE) 16.dp else 24.dp)) {
+        Column(Modifier.fillMaxHeight().widthIn(max = 680.dp).fillMaxWidth().padding(horizontal = 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(if (model.screen == Screen.LANGUAGE) 16.dp else 24.dp)) {
             TopBar(model)
             when (model.screen) {
                 Screen.WELCOME -> Welcome(scrollState.isScrollInProgress, model.immersionMode)
                 Screen.LANGUAGE -> LanguageSelection(model, scrollState.isScrollInProgress)
                 Screen.ACCOUNT -> AccountView()
-                Screen.HOME -> HomeView(model)
                 Screen.SETTINGS -> SettingsView(model)
                 Screen.NEW_CHAT -> NewChatView(model)
                 Screen.LANGUAGE_DOWNLOAD -> DownloadView(model)
                 Screen.PROFILE -> ProfileSetupScreen(model)
                 Screen.DELETE_ACCOUNT -> DeleteAccountScreen { model.beginDeletion() }
-                Screen.CONVERSATION, Screen.BACKUP, Screen.LICENSES -> Unit
+                Screen.HOME, Screen.CONVERSATION, Screen.BACKUP, Screen.LICENSES -> Unit
             }
             if (onboarding && largeText) OnboardingAction(model, inScroll = true)
             Spacer(Modifier.height(20.dp))
@@ -206,19 +207,14 @@ class MainActivity : ComponentActivity() {
 
 @Composable private fun TopBar(model: VipiModel) {
     Row(Modifier.fillMaxWidth().padding(top = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-        if (model.screen !in setOf(Screen.WELCOME, Screen.HOME)) {
+        if (model.screen != Screen.WELCOME) {
             IconButton(onClick = { model.back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) }
         } else if (model.screen == Screen.WELCOME) { VipiMark(34); Spacer(Modifier.width(10.dp)) }
         Text(stringResource(when (model.screen) {
-            Screen.HOME -> R.string.nav_chats
             Screen.NEW_CHAT -> R.string.nav_new_chat
             else -> R.string.ui_2f7e29fbc47d
         }), fontSize = 27.sp, letterSpacing = (-1).sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false)
         Spacer(Modifier.weight(1f))
-        if (model.screen == Screen.HOME) {
-            IconButton(onClick = { model.navigate(Screen.SETTINGS) }) { Icon(Icons.Outlined.AccountCircle, stringResource(R.string.nav_settings)) }
-            IconButton(onClick = { model.navigate(Screen.NEW_CHAT) }, enabled = model.chat?.ready == true) { Icon(Icons.Outlined.Edit, stringResource(R.string.nav_new_chat)) }
-        }
         if (model.screen in setOf(Screen.LANGUAGE, Screen.ACCOUNT)) {
             val fullStep = if (model.screen == Screen.LANGUAGE) stringResource(R.string.ui_00e255330e43) else stringResource(R.string.ui_de6e21a278c4)
             val shortStep = if (model.screen == Screen.LANGUAGE) "1 / 2" else "2 / 2"
@@ -321,45 +317,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable private fun HomeView(model: VipiModel) {
-    val chat = model.chat
-    val scope = rememberCoroutineScope()
-    val context = LocalContext.current
-    if (chat?.needsReauthentication == true && !chat.needsDeviceRecovery) ReauthenticationCard(chat, model.authentication.busy, model.authentication.error) { expected -> model.authentication.signIn(context, expectedUser = expected) }
-    if (chat?.needsDeviceRecovery == true) DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) }
-    if (model.authentication.userID != null && chat?.needsDeviceRecovery != true && chat?.needsReauthentication != true && (chat?.ready != true || model.chatError != null)) {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            if (chat?.busy == true) Text(stringResource(R.string.ui_b68710eee013), style = MaterialTheme.typography.titleMedium)
-            Text(model.chatError ?: chat?.notice ?: stringResource(R.string.conversations_local), color = MaterialTheme.colorScheme.onSurfaceVariant)
-            if (chat?.busy == true) CircularProgressIndicator(Modifier.size(24.dp))
-            else TextButton(onClick = { scope.launch { model.activateChats() } }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.ui_d8b8392e2c54)) }
-        }
-        return
-    }
-    if (chat != null && chat.threads.isNotEmpty()) {
-        chat.threads.forEach { thread ->
-            Row(Modifier.fillMaxWidth().clickable { model.openConversation(thread.peer) }.padding(vertical = 10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                Box(Modifier.size(48.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(24.dp)), contentAlignment = Alignment.Center) { Text(chat.name(thread.peer).take(1), fontSize = 24.sp) }
-                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                    Text(chat.name(thread.peer), fontWeight = if (thread.unread > 0) FontWeight.SemiBold else FontWeight.Medium)
-                    HomeTranslationPreview(chat, thread.latest)
-                }
-                if (thread.unread > 0) Badge { Text(thread.unread.toString()) }
-            }
-        }
-    } else Column(Modifier.fillMaxWidth().padding(top = 12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(stringResource(R.string.ui_47b7a66139f1).replace("\n", " "), fontSize = 24.sp, lineHeight = 30.sp, fontWeight = FontWeight.SemiBold)
-        Text(stringResource(R.string.home_find_friend), fontSize = 17.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        Spacer(Modifier.height(8.dp))
-        PrimaryButton(stringResource(R.string.ui_258150cb3ee4), enabled = chat?.ready == true) { model.navigate(Screen.NEW_CHAT) }
-    }
-    chat?.notice?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    if (chat?.ready == true && chat.threads.isNotEmpty()) NotificationSetup()
-}
-
 /** Demand only previews intersecting the clipped window. Uses the account's
  * existing owner and encrypted completion cache; opening Chats never waits. */
-@Composable private fun HomeTranslationPreview(chat: ChatSession, message: ChatItem) {
+@Composable internal fun HomeTranslationPreview(chat: ChatSession, message: ChatItem) {
     val owner = chat.translations
     val id = message.id.toString()
     var visible by remember(owner, id, message.text) { mutableStateOf(false) }
@@ -370,7 +330,7 @@ class MainActivity : ComponentActivity() {
     val state = owner?.state(id, message.text)
     val value = state?.value
     val preview = value?.let { it.practiceReading ?: it.practiceText }
-        ?: stringResource(if (state?.phase == MessageTranslationPhase.FAILED) R.string.full_translation_unavailable else R.string.full_translation_preparing)
+        ?: message.text
     Text(preview, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
         fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.testTag("home-message-preview-$id").onGloballyPositioned {
@@ -432,6 +392,7 @@ class MainActivity : ComponentActivity() {
     InviteFriendButton(model)
     Text(stringResource(R.string.ui_339484dc1f78), fontWeight = FontWeight.SemiBold)
     if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.BACKUP) }) { Text(stringResource(R.string.ui_24f13e3dc8e4)) }
+    if (model.chat?.ready == true) NotificationSetup()
     LanguageSettingsLink(languageName(model.targetLanguage)) { model.navigate(Screen.LANGUAGE_DOWNLOAD) }
     Text(stringResource(R.string.ui_3907fa7f8072), fontWeight = FontWeight.SemiBold)
     Appearance.entries.forEach { appearance ->
