@@ -144,6 +144,11 @@ final class GroupsCryptoTests: XCTestCase {
         try f.vaults[0].transaction { try owner.applyInTransaction(f.add(group, 1), group: group, authenticatedSender: f.accounts[0]) }
         let sendControl = GroupsControlCrypto(vault: f.vaults[0], core: f.cores[0])
         let receiveControl = GroupsControlCrypto(vault: f.vaults[2], core: f.cores[2])
+        let carol = f.person(2)
+        let unavailableJoiner = GroupMember(user_id: carol.id, display_name: carol.display_name, username: carol.username, role: carol.role, joined_epoch: carol.joined_epoch, device_id: nil)
+        let blockedBootstrap = GroupSnapshot(id: group, title: "Friends", epoch: 5, state: "active", members: [f.person(0), f.person(1), unavailableJoiner], invitations: [])
+        XCTAssertThrowsError(try sendControl.prepare(id: UUID(), roster: blockedBootstrap, change: f.add(group, 2), now: f.now))
+        XCTAssertTrue(try f.vaults[0].transaction { try f.vaults[0].ids("group-control-outgoing").isEmpty })
         let join = try sendControl.prepare(id: UUID(), roster: f.roster(group), change: f.add(group, 2), now: f.now)
         try receiveControl.receive(f.incoming(join, recipient: 2, kind: "control"), now: f.now)
         try receiveControl.confirmBootstrap(XCTUnwrap(receiveControl.pending().first))
@@ -166,8 +171,8 @@ final class GroupsCryptoTests: XCTestCase {
         let after = GroupSnapshot(id: group, title: "Friends", epoch: 6, state: "active", members: [f.person(0), f.person(2)], invitations: [])
         let fresh = GroupMessage(id: UUID(), groupID: group, epoch: 6, membershipRevision: 4, sender: f.accounts[0], text: "Only the approved remaining people", createdAt: f.now, delivery: .queued)
         let data = try sender.prepare(fresh, roster: after, now: f.now)
-        let carol = GroupsCrypto(vault: f.vaults[2], core: f.cores[2], store: GroupsStore(vault: f.vaults[2]))
-        XCTAssertEqual(try carol.receive(f.incoming(data, recipient: 2, kind: "message"), now: f.now)?.text, fresh.text)
+        let carolCrypto = GroupsCrypto(vault: f.vaults[2], core: f.cores[2], store: GroupsStore(vault: f.vaults[2]))
+        XCTAssertEqual(try carolCrypto.receive(f.incoming(data, recipient: 2, kind: "message"), now: f.now)?.text, fresh.text)
         XCTAssertNil(try sender.pending(group, before.id))
     }
 
