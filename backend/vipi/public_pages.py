@@ -11,12 +11,12 @@ COMPANY_PRIVACY = "https://fallsoft.co/privacy-policy"
 COMPANY_TERMS = "https://fallsoft.co/terms-of-service"
 
 PAGES = {
-    "/": ("Immersive chat with friends.", """
-        <p class="lead">Chat with your friends. Read and hear the conversation in the language you want to learn.</p>
-        <p>Choose your practice language. Start with one new word at a time, or tap the switch at the top of a chat to read whole messages in that language. Your friend can write as usual.</p>
-        <p>Tap a message to hear the practice language. Hold the chat to see the original. For supported scripts, you can read in Latin letters and double-tap to switch scripts. You may need to download the languages and voices first.</p>
-        <p>Messaging friends is free. Your chats are end-to-end encrypted, and translation and speech run on your device.</p>
-        <p><strong>Vipi is in testing.</strong> App downloads will appear here after store approval. Translations can be wrong; Vipi does not promise a particular level of fluency.</p>
+    "/": ("Wade or dive into another language, with your friends.", """
+        <p class="lead">Vipi is an immersive chat app. Text friends and family in your own language. Read and hear their messages in the language you’re learning.</p>
+        <p>In Shallow, a word changes. In Deep, you can read the whole message in your chosen language. Tap a message to hear it. Hold to see the original. Some languages and voices need a download first.</p>
+        <p>Your chats with friends are end-to-end encrypted using the Signal Protocol. Your friend’s phone encrypts the message. Yours opens it and translates it. Vipi can’t read what your friend wrote, and your words never go to a translation service.</p>
+        <p><a href="https://mambovipi.app/">Follow Maya’s message on the Vipi homepage</a>.</p>
+        <p><strong>Coming soon for iPhone and Android.</strong></p>
     """),
     "/privacy": ("Vipi privacy", """
         <p class="lead">Your conversations belong to you.</p>
@@ -126,7 +126,7 @@ def install(app):
                 status_code=404, private_link=True)
         return render("Chat with me on Vipi", f"""
             <p class="lead">Find your friend with the username <strong>@{escape(name)}</strong>.</p>
-            <p>Chat with your friend in your practice language. Switch between one word at a time and the whole message. Tap a message to hear it, or hold the chat to see the original.</p>
+            <p>Write in your own language. Your phone can translate a word or the whole message as you read. Tap a message to hear it, or hold to see the original.</p>
             <h2>Already have Vipi?</h2>
             <p><a class="button" href="co.fallsoft.vipi://invite/{escape(name)}">Open Vipi</a></p>
             <p>The invitation opens with your friend's username filled in. Tap Find friend to start your conversation.</p>
@@ -135,9 +135,9 @@ def install(app):
             <li>Enter <strong>{escape(name)}</strong> in the username field.</li>
             <li>Find your friend and send a message.</li></ol>
             <h2>New to Vipi?</h2>
-            <p>Vipi is in testing. App downloads will appear on the <a href="/">Vipi homepage</a> after store approval.</p>
+            <p>Vipi is in testing. Visit the <a href="https://mambovipi.app/">Vipi homepage</a> for availability.</p>
             <p>When the app is available, choose your languages, create your account, then use the username above to start chatting.</p>
-            <p>Conversations with friends are end-to-end encrypted. You don't need to upload your contacts or pay to chat.</p>
+            <p>Your chats with friends are end-to-end encrypted using the Signal Protocol. Translation happens on your phone. You can connect with a username instead of uploading your contacts.</p>
         """, private_link=True)
     for path, (title, body) in PAGES.items():
         # Factory keeps route signatures free of user-overridable default fields.
