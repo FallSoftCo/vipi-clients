@@ -178,7 +178,7 @@ struct ChatMessageArrival {
     }
     private var cachePolicy: String {
         let provider = nativeTranslation == nil ? "native-" : "controlled-sdk-"
-        return provider + (mode == .fullMessages ? "full-message-1:" : "incremental-word-1:") + FullSentenceReadings.translationCacheCompatibilitySuffix
+        return provider + (mode == .fullMessages ? "full-message-original-hold-2:" : "incremental-word-1:") + FullSentenceReadings.translationCacheCompatibilitySuffix
     }
     func attachCache(_ vault:MessageVault) { cacheVault = vault; introducedWords.vault = vault }
     private func durableKey(_ identity:ImmersionRequestIdentity) -> String {
@@ -496,8 +496,19 @@ struct ChatMessageArrival {
         guard valid() else { return nil }
         let supported = detected.map(LocalLanguageCatalog.canonicalCode).flatMap { LocalLanguageCatalog.codes.contains($0) ? $0 : nil }
         let input = supported ?? pair.source
-        let from = input, to = input == pair.target ? pair.source : pair.target
-        let requestedPair = TranslationPair(source: from,target: to); requiredPairs[identity] = requestedPair
+        // Practice text already in the selected language needs no translation.
+        // Hold always reveals the exact authored original, never a model paraphrase.
+        if input == pair.target {
+            let base = FullMessageTranslation(original:identity.text,practiceText:identity.text,meaningText:identity.text,
+                inputLanguage:input,practiceLanguage:pair.target,meaningLanguage:pair.source)
+            let value = await refreshReading(base,for:identity)
+            guard valid(),encodedTranslation(value,identity:identity) != nil else { return nil }
+            saveTranslation(value,identity:identity); remember(value,for:identity); readingRevision += 1
+            lastOutcome = .init(result:value.presentation,origin:.localFullContext,status:.ready,localTranslationCalls:0,
+                fallbackStatus:nil,modelReadinessCalls:0,resolvedInputLanguage:input)
+            return value
+        }
+        let requestedPair = TranslationPair(source:input,target:pair.target); requiredPairs[identity] = requestedPair
         readinessCalls += 1
         let observed = await modelStatus(requestedPair)
         guard valid() else { return nil }
@@ -509,23 +520,7 @@ struct ChatMessageArrival {
             let actual = try await enqueue(identity.text,pair:requestedPair,epoch:active,timeout:fullTranslationTimeout)
             guard valid() else { return nil }
             guard !actual.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty, actual.utf8.count <= FullMessageBudget.recordBytes else { return fail(.failed,status:.invalidResult,calls:1,input:input) }
-            let reversed = input == pair.target
-            var meaning = reversed ? actual : identity.text
-            if input != pair.source && !reversed {
-                // A third-language original is not the user's native-language meaning.
-                let meaningPair = TranslationPair(source: input, target: pair.source)
-                requiredPairs[identity] = meaningPair; readinessCalls += 1
-                let meaningAvailability = await modelStatus(meaningPair)
-                guard valid() else { return nil }
-                availability = meaningAvailability
-                guard meaningAvailability == .installed else { return fail(meaningAvailability == .unsupported ? .unsupported : .needsDownload,status:.modelNotReady,calls:providerCalls,input:input) }
-                providerCalls += 1
-                meaning = try await enqueue(identity.text,pair:meaningPair,epoch:active,timeout:fullTranslationTimeout)
-                guard valid() else { return nil }
-                guard !meaning.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty, meaning.utf8.count <= FullMessageBudget.recordBytes else { return fail(.failed,status:.invalidResult,calls:providerCalls,input:input) }
-            }
-            let practice = reversed ? identity.text : actual
-            let base = FullMessageTranslation(original:identity.text,practiceText:practice,meaningText:meaning,inputLanguage:input,
+            let base = FullMessageTranslation(original:identity.text,practiceText:actual,meaningText:identity.text,inputLanguage:input,
                 practiceLanguage:pair.target,meaningLanguage:pair.source)
             let value = await refreshReading(base,for:identity)
             guard valid() else { return nil }

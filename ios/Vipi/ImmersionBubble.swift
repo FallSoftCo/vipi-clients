@@ -343,12 +343,12 @@ struct ImmersionBubble: View {
                     guard found.location != NSNotFound else { break }
                     cursor = NSMaxRange(found)
                     guard NSIntersectionRange(found,word.range).length > 0 else { continue }
-                    view.playingWordID = span.id
                     let native = NSIntersectionRange(found,word.range)
                     let local = NSRange(location:native.location-found.location,length:native.length)
                     let face = controls.nativeScript ? span.translated : span.displayedTarget
                     view.playingWordRange = FullSentenceReadings.displayedRange(local,text:span.translated,reading:face,
                         alignment:FullSentenceReadings.alignment(text:span.translated,reading:face,language:targetLanguage))
+                    if view.playingWordRange != nil { view.playingWordID = span.id }
                     break
                 }
             } else {

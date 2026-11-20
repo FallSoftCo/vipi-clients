@@ -75,33 +75,27 @@ import VipiCore
         await owner.finish(nextRequest,translation:"De acuerdo")
         let other = await c.value; XCTAssertEqual(other?.practiceText,"De acuerdo")
     }
-    func testPracticeInputRemainsExactPracticeAndGetsNativeMeaning() async throws {
-        let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in "ja"})
+    func testPracticeInputRemainsExactAndNeedsNoTranslationOrReverseModel() async throws {
+        let owner = ConversationImmersion(modelStatus:{_ in XCTFail("Already-target text needs no translation model"); return .downloadable},identify:{_ in "ja"},nativeTranslation:{_,_ in XCTFail("No reverse translation"); throw ConversationImmersion.ProviderError.unavailable})
         await owner.configure(pair:.init(source:"en",target:"ja"),mode:.fullMessages); defer { owner.close() }
-        let original = "はい", identity = owner.identity(messageID:"incoming",text:"はい")
-        let task = Task { await owner.translatedMessage(for:identity) }
-        let request = try await next(owner)
-        XCTAssertEqual(request.pair,.init(source:"ja",target:"en")); await owner.finish(request,translation:"Yes")
-        let returned = await task.value
+        let original = "はい",identity = owner.identity(messageID:"incoming",text:"はい")
+        let returned = await owner.translatedMessage(for:identity)
         let value = try XCTUnwrap(returned)
-        XCTAssertEqual(value.original,original); XCTAssertEqual(value.practiceText,original); XCTAssertEqual(value.meaningText,"Yes")
-        XCTAssertEqual(value.inputLanguage,"ja"); XCTAssertEqual(value.meaningLanguage,"en")
+        XCTAssertEqual(value.original,original); XCTAssertEqual(value.practiceText,original); XCTAssertEqual(value.meaningText,original)
+        XCTAssertEqual(value.presentation.original,original); XCTAssertEqual(owner.lastOutcome?.localTranslationCalls,0)
     }
-    func testThirdLanguageGetsBothPracticeAndConfiguredNativeMeaning() async throws {
+    func testThirdLanguageGetsPracticeWithOneModelCallAndHoldKeepsExactAuthoredOriginal() async throws {
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in "es"})
         await owner.configure(pair:.init(source:"en",target:"ja"),mode:.fullMessages); defer { owner.close() }
-        let original = "¿Dónde está la estación?", identity = owner.identity(messageID:"received",text:"¿Dónde está la estación?")
+        let original = "¿Dónde está la estación?",identity = owner.identity(messageID:"received",text:"¿Dónde está la estación?")
         let task = Task { await owner.translatedMessage(for:identity) }
         let practice = try await next(owner); XCTAssertEqual(practice.pair,.init(source:"es",target:"ja"))
         await owner.finish(practice,translation:"駅はどこですか？")
-        let meaning = try await next(owner); XCTAssertEqual(meaning.pair,.init(source:"es",target:"en")); XCTAssertEqual(meaning.text,original)
-        XCTAssertNil(owner.translation(for:identity),"Incomplete native meaning is not a completed cache entry")
-        await owner.finish(meaning,translation:"Where is the station?")
         let returned = await task.value
         let value = try XCTUnwrap(returned)
         XCTAssertEqual(value.original,original); XCTAssertEqual(value.practiceText,"駅はどこですか？")
-        XCTAssertEqual(value.meaningText,"Where is the station?"); XCTAssertEqual(value.meaningLanguage,"en")
-        XCTAssertEqual(owner.lastOutcome?.localTranslationCalls,2)
+        XCTAssertEqual(value.meaningText,original); XCTAssertEqual(value.presentation.original,original)
+        XCTAssertEqual(owner.lastOutcome?.localTranslationCalls,1); XCTAssertNil(owner.request)
     }
     func testMissingModelsAndFailedProviderRemainExplicitAndRetryable() async throws {
         var installed = false
