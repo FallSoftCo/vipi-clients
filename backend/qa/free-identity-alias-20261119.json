@@ -24,9 +24,6 @@
     "historical trial aliases copied by additive migration; populated downgrade refused"
   ],
   "verification": {
-    "passed": 68,
-    "skipped": 3,
-    "skips": "Real PostgreSQL advisory-lock/event-listener cases; no PostgreSQL concurrency claimed",
     "suites": [
       "identity_linking",
       "global_deletion",
@@ -37,12 +34,33 @@
       "deletion"
     ],
     "native_test_execution": "pending resource handoff",
-    "external_actions": 0
+    "external_actions": 0,
+    "sqlite_passed": 68,
+    "sqlite_skipped": 3,
+    "postgresql_passed": 71,
+    "postgresql_skipped": 0,
+    "postgresql_runtime": "Native PostgreSQL16, disposable unprivileged NVMe cluster, socket-only, no TCP",
+    "postgresql_cleanup": "Both exact owned clusters verified stopped; regenerated database files retired, test logs/JUnit/receipts retained",
+    "initial_postgresql_failure": "70 passed/1 failed: health readiness expected previous schema. Corrected api.py schema floor to20261119_02; fresh full affected rerun71 passed.",
+    "receipts": [
+      "/mnt/extradrive1/vipi-builds/pair-postgres-r01/receipt.json",
+      "/mnt/extradrive1/vipi-builds/pair-postgres-r02/receipt.json"
+    ]
   },
   "integration": [
     "Apply additive migration before serving code that reads identity_authority_aliases",
     "Preserve existing backend encryption/service secret so lifecycle HMACs remain usable",
     "No automatic production deployment, global-deletion enablement or WorkOS mutation is implied",
-    "Public privacy page gains exact minimal identity-alias retention explanation"
-  ]
+    "Public privacy page gains exact minimal identity-alias retention explanation",
+    "API health readiness requires20261119_02, matching the new additive schema."
+  ],
+  "source_sha256": {
+    "backend/vipi/api.py": "adf91e9ac0f9378082047ee35570076bd6b4fa444e657e19be4ae9168fa0496b",
+    "backend/vipi/db.py": "54c3d75b63c64ebfc40f7356d3c40fe2dba33027474fe25126a93d8f513d37fc",
+    "backend/vipi/identity_linking.py": "78d8c153120f97e059bf13c990762e40ab4599bf6dc45dcb9f624a47b36e7aa4",
+    "backend/vipi/global_deletion.py": "2c7e6d38236b6132db8aa207bb9a6b303dfd1258bd15ca667029200c64da680f",
+    "backend/vipi/eligibility.py": "0d5366cf2ae8663105187f072ae853d2353d413463546f3d96f9c426f692b96e",
+    "backend/vipi/billing_identity.py": "80c6a357ccdec6181a4d87eee92225c84e370edfb6a31fc1d2059bd780ce0265",
+    "backend/migrations/versions/20261119_02_identity_authority_aliases.py": "27a4a159fed57db3083768652ef63a7f36219c509a4209611debab97d9dc92e2"
+  }
 }
