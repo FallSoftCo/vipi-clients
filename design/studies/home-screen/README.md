@@ -9,3 +9,5 @@ Both SVGs here are editable. The shipping launcher assets have their own platfor
 The selected direction uses the Vipi lettering. In the question-wrap treatment a single open curve embraces all four letters and ends in a separate dot. “Vipi?” is recorded as an informal Swahili greeting among peers. [Recorded greeting](https://www.langmedia.fivecolleges.edu/resources/tanzania/basic-communications/informal-greetings-among-youths)
 
 The two editable question-wrap files include the plum launcher treatment and a one-ink drawing. Compare the new wrap with the original signature in the same iPhone and Android launcher slots. [Question-wrap comparison](https://system76-pc.tailb77f2a.ts.net/8bar/vipi-studio-20261120/greeting.html)
+
+The current master in [design/vipi-icon.svg](../../vipi-icon.svg) incorporates the approved guava i dots. [Small-size comparison and editable exports](https://system76-pc.tailb77f2a.ts.net/8bar/vipi-studio-20261120/#guava-dots)
