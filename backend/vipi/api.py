@@ -1,6 +1,5 @@
 import base64
 import binascii
-import time
 import unicodedata
 from contextlib import asynccontextmanager
 from datetime import UTC, datetime
@@ -9,7 +8,7 @@ from uuid import UUID, uuid4
 
 from fastapi import Depends, FastAPI, Header, Query, Request
 from fastapi.exceptions import RequestValidationError
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, SecretStr, field_validator
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, SecretStr, StrictBool, field_validator
 from sqlalchemy import and_, delete, or_, select, text
 from sqlalchemy.exc import IntegrityError
 from starlette.responses import JSONResponse
@@ -17,7 +16,7 @@ from starlette.responses import JSONResponse
 from .accounts import active_device, normalize_username, register_device, set_block
 from .auth import AuthenticationError, FixedVerifierSet, Principal, WorkOSVerifier
 from .config import Settings
-from .db import Block, Database, Device, PendingMessage, PushOutbox, PushToken, User
+from .db import Block, Database, PendingMessage, PushOutbox, PushToken, User
 from .delivery import DeliveryError, Envelope, accept, acknowledge, utc
 from .rates import consume
 from .prekeys import PublishInput, claim, inventory, publish
@@ -95,6 +94,15 @@ class SendInput(Input):
     ciphertext: str = Field(min_length=44, max_length=87_384, repr=False)
 
 
+class TypingInput(Input):
+    active: StrictBool
+
+
+class ReceiptsInput(Input):
+    seen: list[UUID] = Field(default_factory=list, max_length=64)
+    check: list[UUID] = Field(default_factory=list, max_length=64)
+
+
 class BlockInput(Input):
     blocked: bool
 
@@ -156,7 +164,7 @@ def profile(user):
 
 
 def message_status(item):
-    return {"id": item.id, "state": item.state, "expires_at": utc(item.expires_at).isoformat()}
+    return {"id": item.id, "state": "delivered" if item.state == "read" else item.state, "expires_at": utc(item.expires_at).isoformat()}
 
 
 async def verified_principal(request: Request, authorization: Annotated[str | None, Header()] = None):
@@ -610,6 +618,28 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             device = await phone_for(session, request, user)
             state = await acknowledge(session, str(message_id), user.id, device.id, now=now())
             return {"id": str(message_id), "state": state}
+
+    @app.post("/v1/conversations/{peer_id}/typing")
+    async def typing_event(peer_id: UUID, body: TypingInput, request: Request,
+                           p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "chat-typing", 60)
+        from .chat_events import typing
+        async with db.sessions.begin() as session:
+            user = await user_for(session, p)
+            device = await phone_for(session, request, user)
+            await typing(session, user.id, device.id, str(peer_id), body.active, now=now())
+        return {"accepted": True}
+
+    @app.post("/v1/conversations/{peer_id}/receipts")
+    async def conversation_receipts(peer_id: UUID, body: ReceiptsInput, request: Request,
+                                    p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "chat-receipts", 240)
+        from .chat_events import receipts
+        async with db.sessions.begin() as session:
+            user = await user_for(session, p)
+            device = await phone_for(session, request, user)
+            return await receipts(session, user.id, device.id, str(peer_id),
+                [str(item) for item in body.seen], [str(item) for item in body.check], now=now())
 
     @app.get("/v1/blocks/{user_id}")
     async def block_status(user_id: UUID, request: Request, p: Annotated[Principal, Depends(principal)]):

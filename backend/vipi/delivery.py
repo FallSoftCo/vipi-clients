@@ -104,7 +104,7 @@ async def acknowledge(session: AsyncSession, message_id: str, recipient_id: str,
     item = (await session.execute(select(PendingMessage).where(PendingMessage.id == message_id).with_for_update())).scalar_one_or_none()
     if not item or item.recipient_id != recipient_id or item.recipient_device_id != device_id:
         raise DeliveryError("message_not_found", 404)
-    if item.state == "delivered":
+    if item.state in ("delivered", "read"):
         return "delivered"
     if item.state != "accepted":
         return item.state

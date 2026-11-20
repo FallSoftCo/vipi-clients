@@ -1,0 +1,73 @@
+{
+  "at": "2026-11-20T04:01:05.397030+00:00",
+  "base": "fa6a8f9b",
+  "scope": "Source-only foreground typing and explicit read receipts; no deployment or external sends",
+  "tests": [
+    {
+      "engine": "PostgreSQL16",
+      "cases": 47,
+      "result": "passed",
+      "log_sha256": "3588d842373646c047c455e46659fb052030803280c6c934895a44fc2cfec0ce",
+      "scope": "new chat events plus events/API/delivery/accounts/concurrent delivery regressions"
+    },
+    {
+      "engine": "PostgreSQL16",
+      "cases": 1,
+      "result": "passed",
+      "scope": "explicit seen racing ordinary delivery ACK"
+    },
+    {
+      "engine": "SQLite",
+      "cases": 1,
+      "result": "passed",
+      "scope": "typing60/min cap; no new message/push jobs"
+    },
+    {
+      "engine": "SQLite",
+      "cases": 1,
+      "result": "passed",
+      "scope": "latest typing and receipt hint coalescing; bounded backlog; legacy queue compatibility"
+    }
+  ],
+  "unique_passing_cases": 49,
+  "checks": [
+    "ruff check five changed Python files",
+    "git diff --check",
+    "compileall changed production modules"
+  ],
+  "source_sha256": {
+    "backend/vipi/api.py": "6c296cf1861bb1ba1e931f3179e4bbd5f599291554028e2e4efcb0f5d323c1e4",
+    "backend/vipi/delivery.py": "d6c41a3ad8eb514586949ab5b8678e5fbbe8556f753674dee1c8ce5ebd95c79c",
+    "backend/vipi/events.py": "0802a9764fb7b9808cd707f73b352c8de2d3c2b9b77a4dc6179720f2bdea13f2",
+    "backend/vipi/chat_events.py": "b6f622ed7bc9f70966618cc193e9db9eb982e17032a765d4096fec7943ba4772",
+    "backend/tests/test_chat_events.py": "1f00064bb21c41c9c1a5a1a245f0674679fcd0360212297b3177b9af96ca76e7",
+    "backend/CHAT_EVENTS.md": "78e04e956e09f26e912c4d99ff61a2140eb87a9f1aa4f98567222a131a750139"
+  },
+  "compatibility": {
+    "legacy_socket": "only inbox_changed; no opt-in event leakage",
+    "legacy_status_and_ack": "internal read appears delivered",
+    "new_socket_header": "X-Vipi-Chat-Events:1",
+    "typing_response": {
+      "accepted": true
+    },
+    "receipts_response": "acknowledged consumes all deduplicated seen IDs; read includes only matching own-device outgoing IDs",
+    "old_server": "new routes404; upgraded clients disable optional feature",
+    "schema_migration": false,
+    "typing_storage": "transactional NOTIFY only; existing rate-window counters; no typing rows/push",
+    "relationship_limit": "current-device ledger relationship, subject to existing delivery metadata retention"
+  },
+  "isolation": {
+    "cluster": "/mnt/extradrive1/vipi-builds/chat-events-pg-r01/data",
+    "socket_only": true,
+    "other_clients_before_stop": 0,
+    "test_schemas_remaining": 0,
+    "postmaster_stopped": true,
+    "production_touched": false
+  },
+  "live_peer_preserved": {
+    "device": "emulator5624 user0",
+    "identity": "vipiqa_peer1117",
+    "same_session": true,
+    "upgrade_pending_root_coordination": true
+  }
+}
