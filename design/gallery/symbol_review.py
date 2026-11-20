@@ -1,5 +1,7 @@
 """Build an actual-size comparison from the Vipi artwork available in the shelf."""
 from html import escape
+import os
+from PIL import Image
 
 CANDIDATES = (
     ("Borrowed Word", "speech-symbols", "borrowed", "A new piece completes a familiar message."),
@@ -66,8 +68,22 @@ def render_launchers(output):
                     for k in options)
     cards = []
     for prefix, title, width in scenes:
-        images = "".join(f'<img class="{k}" src="home-screen/{prefix}-{k}.png" '
-                         f'width="{width}" alt="{v} on the {title} launcher">' for k,v in options.items())
+        tags = []
+        for key, name in options.items():
+            original = output / "home-screen" / f"{prefix}-{key}.png"
+            preview = original.with_suffix(".webp")
+            with Image.open(original) as image:
+                height = round(width * image.height / image.width)
+                if not preview.exists() or preview.stat().st_mtime_ns < original.stat().st_mtime_ns:
+                    scaled = image.convert("RGB")
+                    scaled.thumbnail((width * 2, height * 2), Image.Resampling.LANCZOS)
+                    temporary = preview.with_suffix(".next")
+                    scaled.save(temporary, "WEBP", quality=92, method=5)
+                    temporary.chmod(0o644)
+                    os.replace(temporary, preview)
+            tags.append(f'<img class="{key}" src="home-screen/{preview.name}" width="{width}" '
+                        f'height="{height}" alt="{name} on the {title} launcher">')
+        images = "".join(tags)
         cards.append(f'<section><h2>{title}</h2>{images}</section>')
     return ('''<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vipi on your home screen</title><style>
 :root{font:16px/1.45 system-ui,sans-serif;color:#352233;background:#fff8ef;color-scheme:light}*{box-sizing:border-box}
