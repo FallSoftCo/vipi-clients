@@ -473,4 +473,7 @@
     <string name="full_translation_writing_hint">اضغط مرتين لرؤية الكتابة باللغة %1$s.</string>
     <string name="backup_new_password">كلمة مرور جديدة للنسخة الاحتياطية</string>
     <string name="licenses_client_source">شيفرة Vipi المصدرية</string>
+    <string name="immersion_mode_title">الترجمة في المحادثة</string>
+    <string name="immersion_mode_full">رسائل كاملة</string>
+    <string name="immersion_mode_words">كلمة جديدة في كل مرة</string>
 </resources>

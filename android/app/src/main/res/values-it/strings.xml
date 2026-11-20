@@ -461,4 +461,7 @@
     <string name="full_translation_writing_hint">Tocca due volte per vedere il testo in %1$s.</string>
     <string name="backup_new_password">Nuova password del backup</string>
     <string name="licenses_client_source">Codice sorgente di Vipi</string>
+    <string name="immersion_mode_title">Immersione</string>
+    <string name="immersion_mode_full">Messaggi interi</string>
+    <string name="immersion_mode_words">Una parola nuova alla volta</string>
 </resources>

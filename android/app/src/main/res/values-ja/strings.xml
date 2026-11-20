@@ -458,4 +458,7 @@
     <string name="full_translation_writing_hint">ダブルタップすると%1$sの文字を表示します。</string>
     <string name="backup_new_password">新しいバックアップのパスワード</string>
     <string name="licenses_client_source">Vipiのソースコード</string>
+    <string name="immersion_mode_title">チャットの翻訳</string>
+    <string name="immersion_mode_full">メッセージ全体</string>
+    <string name="immersion_mode_words">新しい単語を1つずつ</string>
 </resources>

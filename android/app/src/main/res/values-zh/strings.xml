@@ -458,4 +458,7 @@
     <string name="full_translation_writing_hint">双击可查看%1$s文字。</string>
     <string name="backup_new_password">新的备份密码</string>
     <string name="licenses_client_source">Vipi 源代码</string>
+    <string name="immersion_mode_title">沉浸模式</string>
+    <string name="immersion_mode_full">整条消息</string>
+    <string name="immersion_mode_words">每次一个新词</string>
 </resources>

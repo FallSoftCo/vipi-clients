@@ -458,4 +458,7 @@
     <string name="full_translation_writing_hint">두 번 탭하면 %1$s 표기를 볼 수 있어요.</string>
     <string name="backup_new_password">새 백업 비밀번호</string>
     <string name="licenses_client_source">Vipi 소스 코드</string>
+    <string name="immersion_mode_title">채팅 번역</string>
+    <string name="immersion_mode_full">메시지 전체</string>
+    <string name="immersion_mode_words">새 단어 하나씩</string>
 </resources>

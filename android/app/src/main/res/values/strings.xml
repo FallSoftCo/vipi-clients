@@ -89,4 +89,7 @@
     <string name="full_translation_writing_hint">Double-tap to see %1$s writing.</string>
     <string name="backup_new_password">New backup password</string>
     <string name="licenses_client_source">Vipi source code</string>
+    <string name="immersion_mode_title">Immersion</string>
+    <string name="immersion_mode_full">Full messages</string>
+    <string name="immersion_mode_words">One new word at a time</string>
 </resources>

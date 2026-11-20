@@ -458,4 +458,7 @@
     <string name="full_translation_writing_hint">點兩下即可顯示%1$s文字。</string>
     <string name="backup_new_password">新的備份密碼</string>
     <string name="licenses_client_source">Vipi 原始碼</string>
+    <string name="immersion_mode_title">沉浸模式</string>
+    <string name="immersion_mode_full">整則訊息</string>
+    <string name="immersion_mode_words">每次一個新詞</string>
 </resources>
