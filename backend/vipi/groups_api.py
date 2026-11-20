@@ -115,7 +115,7 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
             groups.member_for(roster, user.id)
             await user_for(session, p)
             await phone_for(session, request, user)
-            return await groups.snapshot(session, group, roster)
+            return await groups.snapshot(session, group, roster, actor_id=user.id)
 
     async def mutation(group_id, body, request, p, action, **extra):
         await rate(p, "groups-mutate", 60)

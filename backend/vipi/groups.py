@@ -78,18 +78,37 @@ async def blocked_pair(session, ids, *, target=None):
     return (await session.execute(query)).first() is not None
 
 
-async def snapshot(session, group, roster=None):
+async def blocked_with_actor(session, actor_id, ids):
+    """CONTROL may repair a roster; never route to a sender-blocked peer."""
+    if actor_id is None:
+        return set()
+    pairs = (await session.scalars(select(Block).where(or_(
+        and_(Block.blocker_id == actor_id, Block.blocked_id.in_(ids)),
+        and_(Block.blocked_id == actor_id, Block.blocker_id.in_(ids)))))).all()
+    return {b.blocked_id if b.blocker_id == actor_id else b.blocker_id for b in pairs}
+
+
+def single_devices(devices):
+    routes = {}
+    for device in devices:
+        if device.user_id in routes:
+            raise DeliveryError("group_device_state_invalid", 409)
+        routes[device.user_id] = device.id
+    return routes
+
+
+async def snapshot(session, group, roster=None, *, actor_id=None):
     roster = await members(session, group.id) if roster is None else roster
     ids = [m.user_id for m in roster]
     users = {u.id: u for u in (await session.scalars(select(User).where(User.id.in_(ids)))).all()}
     devices = (await session.scalars(select(Device).where(Device.user_id.in_(ids), Device.active.is_(True)).order_by(Device.id))).all()
-    routes = {}
-    for device in devices:
-        if device.user_id in routes:
-            # register_device serializes this invariant. Fail closed if legacy
-            # or manually corrupted data violates the single-device protocol.
-            raise DeliveryError("group_device_state_invalid", 409)
-        routes[device.user_id] = device.id
+    # Keep routing consistent with CONTROL eligibility. Missing/inactive,
+    # suspended/deleted and actor-blocked peers remain explicit roster members,
+    # but cannot be accidentally selected as encrypted control recipients.
+    routes = single_devices(devices)
+    blocked = await blocked_with_actor(session, actor_id, ids)
+    routes = {person: device for person, device in routes.items()
+        if person in users and not users[person].deleted and not users[person].suspended and person not in blocked}
     invitations = (await session.scalars(select(GroupInvitation).where(GroupInvitation.group_id == group.id,
         GroupInvitation.state == "pending").order_by(GroupInvitation.id))).all()
     return {"id": group.id, "title": group.title, "epoch": group.epoch, "state": group.state,
@@ -107,7 +126,7 @@ async def list_groups(session, actor_id, *, now):
         GroupInvitation.user_id == actor_id, GroupInvitation.state == "pending",
         GroupInvitation.expires_at > utc(now), ChatGroup.state == "active")
         .order_by(GroupInvitation.created_at.desc()))).all()
-    return {"groups": [await snapshot(session, group) for group in groups], "invitations": [
+    return {"groups": [await snapshot(session, group, actor_id=actor_id) for group in groups], "invitations": [
         {"id": i.id, "group_id": g.id, "title": g.title, "invited_by": i.invited_by,
          "expires_at": utc(i.expires_at).isoformat(), "epoch": g.epoch} for i, g in invitations]}
 
@@ -138,7 +157,7 @@ async def create(session, *, actor_id, group_id, title, now):
         if group.creator_id != actor_id or group.creation_fingerprint != stamp:
             raise DeliveryError("group_request_conflict", 409)
         member_for(await members(session, group_id), actor_id)
-        return await snapshot(session, group)
+        return await snapshot(session, group, actor_id=actor_id)
     # Bound metadata growth independently of message rate limits.
     from sqlalchemy import func
     count = await session.scalar(select(func.count()).select_from(GroupMember).where(GroupMember.user_id == actor_id))
@@ -150,7 +169,7 @@ async def create(session, *, actor_id, group_id, title, now):
     await session.flush()
     session.add(GroupMember(group_id=group_id, user_id=actor_id, role="owner", joined_epoch=1, joined_at=utc(now)))
     await session.flush()
-    return await snapshot(session, group)
+    return await snapshot(session, group, actor_id=actor_id)
 
 
 def operation_value(action, expected_epoch, target_id=None, title=None, role=None, invite_id=None, *, control_stamp=None):
@@ -258,7 +277,7 @@ async def _mutate(session, *, group_id, actor_id, request_id, expected_epoch, ac
         if action == "decline":
             return await remember({"declined": True})
         member_for(await members(session, group_id), actor_id)
-        return await result_with_control(await snapshot(session, group))
+        return await result_with_control(await snapshot(session, group, actor_id=actor_id))
     if control is not None:
         if await session.get(GroupMessage, (group_id, control.id)):
             raise DeliveryError("group_control_already_admitted", 409)
@@ -339,7 +358,7 @@ async def _mutate(session, *, group_id, actor_id, request_id, expected_epoch, ac
         return await result_with_control({"left": True})
     if action == "decline":
         return await remember({"declined": True})
-    return await result_with_control(await snapshot(session, group))
+    return await result_with_control(await snapshot(session, group, actor_id=actor_id))
 
 
 async def depart(session, group, roster, target, *, now, increment=True):
@@ -568,13 +587,23 @@ async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes
         raise DeliveryError("clock_ahead")
     if sent + timedelta(hours=72) <= now:
         raise DeliveryError("message_expired", 410)
-    if any(u.deleted or u.suspended for u in users):
-        raise DeliveryError("group_member_unavailable", 404)
-    if await blocked_pair(session, [m.user_id for m in roster]):
-        raise DeliveryError("group_member_unavailable", 404)
+    if fanout.kind == "message":
+        if any(u.deleted or u.suspended for u in users):
+            raise DeliveryError("group_member_unavailable", 404)
+        if await blocked_pair(session, [m.user_id for m in roster]):
+            raise DeliveryError("group_member_unavailable", 404)
     devices = (await session.scalars(select(Device).where(Device.user_id.in_([m.user_id for m in roster]),
         Device.active.is_(True)))).all()
-    routes = {(d.user_id, d.id) for d in devices if d.user_id != actor_id}
+    by_person = single_devices(devices)  # Multiple identities always fail closed.
+    if fanout.kind == "message":
+        if len(by_person) != len(roster):
+            raise DeliveryError("group_device_state_invalid", 409)
+        routes = {(person, device) for person, device in by_person.items() if person != actor_id}
+    else:
+        roster_ids = {m.user_id for m in roster}
+        blocked = await blocked_with_actor(session, actor_id, roster_ids)
+        eligible = {u.id for u in users if u.id in roster_ids and not u.deleted and not u.suspended and u.id not in blocked}
+        routes = {(person, device) for person, device in by_person.items() if person != actor_id and person in eligible}
     if fanout.invited_user_id:
         if fanout.kind != "control":
             raise DeliveryError("invalid_group_envelope")
@@ -584,6 +613,9 @@ async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes
             GroupInvitation.expires_at > now).limit(1))
         if not invite:
             raise DeliveryError("group_invitation_unavailable", 404)
+        invited = next((u for u in users if u.id == fanout.invited_user_id), None)
+        if not invited or invited.deleted or invited.suspended:
+            raise DeliveryError("group_member_unavailable", 404)
         if await blocked_pair(session, [m.user_id for m in roster] + [fanout.invited_user_id], target=fanout.invited_user_id):
             raise DeliveryError("group_member_unavailable", 404)
         invited_devices = (await session.scalars(select(Device).where(Device.user_id == fanout.invited_user_id,
@@ -591,8 +623,6 @@ async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes
         if len(invited_devices) != 1:
             raise DeliveryError("group_device_state_invalid", 409)
         routes.add((fanout.invited_user_id, invited_devices[0].id))
-    if len(devices) != len(roster) or len({d.user_id for d in devices}) != len(roster):
-        raise DeliveryError("group_device_state_invalid", 409)
     supplied = {(e.recipient_id, e.recipient_device_id) for e in fanout.envelopes}
     if routes != supplied or len(supplied) != len(fanout.envelopes):
         raise DeliveryError("group_recipients_changed", 409)
