@@ -1,0 +1,38 @@
+# Settings and private notification preview — handoff, November20
+
+Owner requested an immediate model handoff before implementation/build. This is a source audit and design checkpoint only. Branch core/settings-private-previews-20261120-r01 from integrated b0682432344f350ae53af5e5821003becf9c7100; source /mnt/extradrive1/vipi-builds/settings-private-previews-r01/source. NO PRODUCT CHANGE, COMPILE, NATIVE JOB, SIGNING, INSTALL OR PRODUCTION ACTION in this lane.
+
+## Existing shipped paths
+
+Android PushDelivery.kt: FCM receives exactly data {kind:inbox_changed}; InboxWorker acquires the existing main-thread DeliverySessions owner, calls normal ChatSession.synchronize(), then posts generic Vipi/new-message notification. DeliverySessions prevents concurrent UI/worker protocol owners. Notification channel and builder use PRIVATE visibility; current content is always generic. Background sync performs normal durable receive/transport acknowledgement, not visible-message/read acknowledgement. Check actual ChatActivityEvents foreground gating in the next implementation.
+
+iOS PushNotifications.swift: APNs generic alert + content-available; attached existing ChatSession synchronizes on inboxChanged. Foreground suppresses duplicate alert. No Notification Service Extension target, mutable-content flag, App Group or shared extension entitlements exists. Current Vipi.entitlements contains APNs and associated domains only. Vault/key protections must remain exactly as shipped. No generic-to-local notification replacement should be described as reliable: it can race APNs display and duplicate alerts.
+
+Android SettingsView is a flat private composable in MainActivity.kt: fixed34sp title, mixed implicit body/radio/link sizes,13sp manufacturer copy, inline notification prompt, appearance radios and unrelated links. iOS SettingsView is in HomeView.swift: native Form with profile, language link, immersion picker/guide, appearance mixed with notifications, backup/legal/account sections; many individual font modifiers and no preview control. Preserve all auth/link/delete/history/navigation semantics during extraction/refinement. Coordinate surgical MainActivity/HomeView hunks with journey's actual Chats-list work; never replace their whole files.
+
+## Recommended safe implementation
+
+Android: opt-in account-local preview preference defaults OFF. Construct preview from already committed incoming/unread local history through the existing DeliverySessions/ChatSession owner AFTER its normal sync. Do not create another vault/core or decrypt Signal again. Exclude blocked, identity-review, imported/restored, outgoing, unavailable or already-read records. Bound/control-safe display text; avoid logging. Generic PUBLIC version plus PRIVATE normal notification, respecting OS/channel/permission and device-locked protections; no background displayed/read receipt. Recheck account/preference at post time. Generic fallback for missing/unavailable content; cancel/refresh local posted previews after disable/signout/deletion. Test real Signal/journal duplicate wake/reopen, metadata and publicVersion, opt-out races, locked/first-unlock and restored-history exclusions. Real FCM/lockscreen still needs physical device qualification.
+
+iOS robust pre-display preview: add a separately qualified Notification Service Extension with mutable-content generic fallback and short timeout. Single-owner protocol strategy must be decided before extension access: preferable already-decrypted protected preview cache served read-only, or a genuinely cross-process locked vault/receive owner with atomic journal and no background read receipts. Current app sandbox/profiles lack shared app-group/keychain access. No extension should copy private credentials or weaken key/file protection to work around that. No profile/portal/store change is authorized in this task. Implement shared local policy/capability boundaries and improve Settings now; preserve honest generic fallback until extension/access + real APNs delivery qualify. Do not expose a working-preview promise on iOS without actual capability.
+
+Settings design: one native title, consistent body-sized rows, subdued support text, explicit sections for Your profile / Chats and immersion / Notifications / Appearance / About / Account. Keep destructive actions apart. Prefer concise navigation rows over a long mixture of giant headings/radios/links. Account header uses honest existing avatar/initials, name, username. Notification settings should show an explicitly fictional example and make generic/content privacy difference visible. Dynamic Type/font2/RTL and intact navigation/permission/recovery need actual before/after native captures. Do not make turning on previews trigger notification authorization automatically.
+
+## References actually inspected
+
+Mobbin WhatsApp settings screen fd2ef080-a856-4e23-b194-67b162b71479 (grouped consistent rows, profile header, separate Account/Privacy/Chats/Notifications): https://mobbin.com/screens/fd2ef080-a856-4e23-b194-67b162b71479
+Second returned WhatsApp settings0d8f5285-5ed9-4da5-87b1-02bda0c8f5d7 shows lower grouped Help/Invite and external account sections: https://mobbin.com/screens/0d8f5285-5ed9-4da5-87b1-02bda0c8f5d7
+BFM actual notification privacy example shows sender/body preview changing with choice: https://builtformars.com/ux-bites/privacy-settings-for-notifications
+Existing private reference library /home/ai/Development/vipi-design-references and design/mobbin catalog must be reused. These new search matches were visually inspected in MCP output but not downloaded/saved to collection before the immediate handoff; catalog/source-image maintenance remains pending. Do not publish third-party images to the Vipi gallery.
+Apple official NSE requirement: https://developer.apple.com/documentation/UserNotifications/modifying-content-in-newly-delivered-notifications
+Android official PRIVATE/publicVersion: https://developer.android.com/reference/android/app/Notification
+
+## Separate retained lanes and resource ownership
+
+Groups clients branch upgrade/groups-native-recovery-ui-20261120-r01 at d514886a in Q/groups-upgrade-20261119-r01/clients-worktree. UNCOMPILED Android recovery draft, documented in docs/GROUPS_RECOVERY_UI_WORKING_CHECKPOINT.md; Apple untouched, no new fixture/build/native job. Prior real8-stage Android/iOS relay,56PG and Android4/Apple7 control-route results remain original closed evidence in /mnt/extradrive1/vipi-builds/groups-native-three-r01. Groups OFF, never merge this draft into launch.
+
+Actual native Apple guide R06 PASS is closed and source restored; /mnt/extradrive1/vipi-builds/immersion-read-try-r01/ios-on-mac-guide-r06/HANDOFF.md. Its gallery/checker closed, no retained desktop lease.
+
+Android review delivery: root read-only14:42UTC metadata confirms owner Pixel versionCode16, closing the single original installer intent. DO NOT RESEND16. This lane was sole signer/deliverer; transfer authority to successor explicitly through root. Next distinct review awaits journey's actual Chats-list visual/behavior proof and root review confirmation. Preserve signer/data/normal auth; one fresh version/build/transfer/installer only after reconciliation. Push work must not unnecessarily delay that qualified list handoff.
+
+Current jobs/reservations: NONE in this lane. Journey owns next Mac+5630 Chats-list compiler/native priority; confirmed directly. Last Mac headroom about4.82GB; reuse existing caches and preserve owned Groups/source/products. Media explicitly released both devices earlier. No fixture/PG/tunnel/ADB reverse or phone action is active here.
