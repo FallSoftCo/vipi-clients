@@ -2673,7 +2673,7 @@ final class ChatConversationTests: XCTestCase {
                     Thread.sleep(forTimeInterval:0.9)
                     XCTAssertEqual(row.frame,originalFrame,"Background motion must not move a row")
                     captureWater("water-inbox-shallow-later")
-                    row.tap(); let toggle = app.buttons["conversation-immersion"]
+                    row.tap(); let toggle = app.buttons["chat-immersion-picker"]
                     XCTAssertTrue(toggle.waitForExistence(timeout:8)); toggle.tap()
                     XCTAssertEqual(toggle.value as? String,"Deep")
                     app.navigationBars.buttons["BackButton"].firstMatch.tap()
