@@ -70,6 +70,7 @@ class InboxJourneyDeviceTest {
                         paint(f, "water-empty-${appearance.name.lowercase()}")
                     }
                     compose.onNodeWithTag("inbox-compose").performClick(); screen(f, Screen.NEW_CHAT)
+                    compose.onNode(hasSetTextAction()).assertIsDisplayed(); paint(f,"water-new-chat-before-system-back")
                     f.device.pressBack(); screen(f, Screen.HOME)
                     compose.onAllNodesWithTag("inbox-compose").assertCountEquals(1)
                     service.assertNoPurchase(); return
@@ -150,10 +151,12 @@ class InboxJourneyDeviceTest {
                     paint(f, "water-paused-before"); Thread.sleep(900); paint(f, "water-paused-after")
                     compose.onNodeWithTag("inbox-row-${service.peer}").performClick(); screen(f, Screen.CONVERSATION)
                     assertEquals(service.peer, f.model.selectedPeer)
+                    compose.onNodeWithTag("message-input").assertIsDisplayed(); paint(f,"water-friend-before-system-back")
                     f.device.pressBack(); screen(f, Screen.HOME)
                     compose.onNodeWithTag("inbox-list").performScrollToIndex(rows.lastIndex)
                     compose.onNodeWithTag("inbox-row-${rows.last().peer}").assertIsDisplayed()
                     compose.onNodeWithTag("inbox-compose").performClick(); screen(f, Screen.NEW_CHAT)
+                    compose.onNode(hasSetTextAction()).assertIsDisplayed(); paint(f,"water-new-chat-before-system-back")
                     f.device.pressBack(); screen(f, Screen.HOME)
                     service.assertNoPurchase(); return
                 }
