@@ -49,12 +49,13 @@ class IncrementalWordProgressionDeviceTest {
             val provider = Provider { word, _, _ -> when (word.lowercase()) { "hello" -> "hola"; "friend" -> "buen amigo"; else -> error("Unexpected word") } }
             val owner = f.owner(provider)
             val first = owner.resolve("m1", "Hello, friend!")
-            assertEquals("hola, friend!", first.practiceText); assertEquals("Hello, friend!", first.meaningText)
-            assertEquals(listOf("hola"), first.words!!.map { it.target }); assertEquals(1, f.count("introduced-word"))
+            assertEquals("Hello, friend!", first.meaningText)
+            assertEquals(1, first.words!!.size); assertTrue(first.words.single().source in listOf("Hello", "friend"))
+            assertEquals(1, f.count("introduced-word"))
             val second = owner.resolve("m2", "HELLO, friend!")
             assertEquals("hola, buen amigo!", second.practiceText)
             assertEquals(listOf("hola", "buen amigo"), second.words!!.map { it.target })
-            assertEquals(2, f.count("introduced-word")); assertEquals(listOf("Hello", "friend"), provider.calls.map { it.first })
+            assertEquals(2, f.count("introduced-word")); assertEquals(listOf("friend", "hello"), provider.calls.map { it.first.lowercase() }.sorted())
             assertEquals(second, owner.resolve("m2", "HELLO, friend!"))
             assertEquals(2, f.count("introduced-word"))
         }
@@ -70,7 +71,7 @@ class IncrementalWordProgressionDeviceTest {
             val restored = reopened.resolve("m1", "Hello friend!")
             assertEquals(first.practiceText, restored.practiceText)
             assertEquals(first.words, restored.words)
-            assertEquals("hola friend!", restored.practiceText)
+            assertEquals(first.practiceText, restored.practiceText)
             assertTrue(never.calls.isEmpty()); assertEquals(2, f.count("introduced-word"))
             f.vault.transaction { f.vault.ids("word-message-plan").forEach { id ->
                 val json = f.vault.get("word-message-plan", id)!!.toString(Charsets.UTF_8)
@@ -81,12 +82,12 @@ class IncrementalWordProgressionDeviceTest {
     @Test fun corruptDerivativeRebuildsMarkerButMalformedReferenceCannotChooseAnotherWord(): Unit = runBlocking {
         Fixture().use { f ->
             val owner = f.owner(Provider { _, _, _ -> "hola" })
-            owner.resolve("m1", "Hello friend!"); owner.close()
+            val before = owner.resolve("m1", "Hello friend!"); owner.close()
             val key = FullMessageTranslation.key("m1", "Hello friend!", "en", "es")
             f.vault.transaction { f.vault.put("incremental-message", key, "malformed cache".toByteArray()) }
             val never = Provider { _, _, _ -> error("No new provider call") }
             val reopened = f.owner(never)
-            assertEquals("hola friend!", reopened.resolve("m1", "Hello friend!").practiceText)
+            assertEquals(before.practiceText, reopened.resolve("m1", "Hello friend!").practiceText)
             reopened.close(); f.clearDerivative()
             f.vault.transaction {
                 val id = f.vault.ids("word-message-plan").single()
@@ -163,7 +164,7 @@ class IncrementalWordProgressionDeviceTest {
     }
     @Test fun actualSourceLedgersStaySeparateAndForeignMissingModelsNeverDownload(): Unit = runBlocking {
         Fixture().use { f ->
-            val provider = Provider { word, source, _ -> check(word == "gift"); if (source == "de") "veneno" else "regalo" }
+            val provider = Provider { word, source, _ -> if (word != "gift") word else if (source == "de") "veneno" else "regalo" }
             val owner = f.owner(provider) { text -> if (text.contains("neben")) "de" else "en" }
             assertEquals("veneno neben dir", owner.resolve("de", "gift neben dir").practiceText)
             assertEquals("regalo for you", owner.resolve("en", "gift for you").practiceText)
@@ -195,4 +196,35 @@ class IncrementalWordProgressionDeviceTest {
         val span = WordReplacement(tokens.single().start, tokens.single().end-tokens.single().start, "Hello", "hola")
         assertEquals(text.replaceFirst("Hello", "hola"), WordReplacement.compose(text, listOf(span), false))
     }
+    @Test fun stableCanonicalMessageIDsSelectInitialMiddleAndFinalUnknowns(): Unit = runBlocking {
+        val cases = listOf("00000000-0000-4000-8000-000000000002" to 0,
+            "00000000-0000-4000-8000-00000000000b" to 1, "00000000-0000-4000-8000-000000000001" to 2)
+        val sources = listOf("Coffee", "after", "work")
+        for ((id, position) in cases) Fixture().use { f ->
+            assertEquals(position, IncrementalWords.candidateStart(id, 3))
+            assertEquals(position, IncrementalWords.candidateStart(id.uppercase(java.util.Locale.ROOT), 3))
+            val provider = Provider { word, _, _ -> when(word) { "Coffee" -> "café"; "after" -> "después"; "work" -> "trabajo"; else -> error("Unexpected eligible word") } }
+            val value = f.owner(provider).resolve(id, "Coffee after work?")
+            assertEquals(listOf(sources[position]), provider.calls.map { it.first })
+            assertEquals(listOf(sources[position]), value.words!!.map { it.source }); assertEquals(1, f.count("introduced-word"))
+            assertEquals("Coffee after work?", value.meaningText)
+        }
+        assertEquals(0, IncrementalWords.candidateStart("one", 1))
+    }
+    @Test fun rotationExcludesKnownWordsAndWalksIdenticalFallbackWithoutCountingIt(): Unit = runBlocking {
+        val id = "00000000-0000-4000-8000-00000000000b"
+        Fixture().use { f ->
+            val p = Provider { word, _, _ -> when(word) { "Coffee" -> "café"; "work" -> "trabajo"; else -> word } }
+            val value = f.owner(p).resolve(id, "Coffee after work?")
+            assertEquals(listOf("after", "work"), p.calls.map { it.first })
+            assertEquals("Coffee after trabajo?", value.practiceText); assertEquals(1, f.count("introduced-word"))
+        }
+        Fixture().use { f ->
+            val p = Provider { word, _, _ -> when(word) { "Coffee" -> "café"; "work" -> "trabajo"; else -> error("Known candidates must be removed before modulo") } }
+            val owner = f.owner(p); owner.resolve("learn-coffee", "Coffee")
+            assertEquals("café after trabajo?", owner.resolve(id, "Coffee after work?").practiceText)
+            assertEquals(listOf("Coffee", "work"), p.calls.map { it.first }); assertEquals(2, f.count("introduced-word"))
+        }
+    }
+
 }

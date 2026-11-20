@@ -60,8 +60,8 @@ class FreeFriendJourneyDeviceTest {
                 compose.waitUntil(15_000) { owner.state(row.id.toString(), exact)?.phase == MessageTranslationPhase.READY }
                 val value = requireNotNull(owner.state(row.id.toString(), exact)?.value)
                 assertEquals(exact, value.original); assertEquals(exact, value.meaningText)
-                assertEquals("hola, friend!", value.practiceText)
-                assertEquals(listOf("Hello"), value.words!!.map { it.source })
+                assertEquals(1, value.words!!.size)
+                assertTrue(value.words.single().source in listOf("Hello", "friend"))
                 assertEquals(exact, services.peerReceived)
                 services.assertNoPurchase()
                 f.capture("free-friend-original-and-one-practice-word")

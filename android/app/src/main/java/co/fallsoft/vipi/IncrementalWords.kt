@@ -10,6 +10,14 @@ import java.util.Locale
  * product vocabulary quota. Original UTF-16 ranges preserve punctuation. */
 internal object IncrementalWords {
     data class Token(val start: Int, val end: Int, val text: String, val key: String)
+    fun candidateStart(messageID: String, count: Int): Int {
+        require(count > 0)
+        val digest = java.security.MessageDigest.getInstance("SHA-256")
+            .digest(messageID.lowercase(Locale.ROOT).toByteArray(Charsets.UTF_8))
+        val value = ((digest[0].toLong() and 255) shl 24) or ((digest[1].toLong() and 255) shl 16) or
+            ((digest[2].toLong() and 255) shl 8) or (digest[3].toLong() and 255)
+        return (value % count).toInt()
+    }
     fun normalized(word: String, language: String): String =
         Normalizer.normalize(word, Normalizer.Form.NFC).lowercase(Locale.forLanguageTag(language))
     private val protectedLiterals = Regex(

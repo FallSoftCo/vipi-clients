@@ -19,6 +19,8 @@ import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.MoreVert
+import androidx.compose.material.icons.outlined.ExpandMore
+import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material3.*
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.*
@@ -34,6 +36,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.scrollToIndex
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -104,6 +107,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en", target: String = "es",
     onLanguages: (() -> Unit)? = null,
+    onImmersionMode: ((ImmersionMode) -> Unit)? = null,
     back: () -> Unit) {
     var messages by remember(peer) { mutableStateOf<List<ChatItem>>(emptyList()) }
     var text by remember(peer) { mutableStateOf("") }
@@ -114,6 +118,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     var loaded by remember(peer) { mutableStateOf(false) }
     var userRefreshing by remember(peer) { mutableStateOf(false) }
     var options by remember(peer) { mutableStateOf(false) }
+    var immersionMenu by remember(peer) { mutableStateOf(false) }
     var confirmBlock by remember(peer) { mutableStateOf(false) }
     var blockBusy by remember(peer) { mutableStateOf(false) }
     var chooseReport by remember(peer) { mutableStateOf(false) }
@@ -337,6 +342,25 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             modifier = Modifier.onSizeChanged { topBarHeightPx = it.height },
             expandedHeight = if (compact) compactBarHeight else TopAppBarDefaults.TopAppBarExpandedHeight, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
             actions = {
+                if (onImmersionMode != null) Box {
+                    TextButton(onClick = { immersionMenu = true }, modifier = Modifier.heightIn(min = 48.dp).testTag("conversation-immersion")) {
+                        Text(stringResource(R.string.immersion_mode_title))
+                        Icon(Icons.Outlined.ExpandMore, contentDescription = null)
+                    }
+                    DropdownMenu(expanded = immersionMenu, onDismissRequest = { immersionMenu = false }) {
+                        listOf(ImmersionMode.FULL_MESSAGES to R.string.immersion_mode_full,
+                            ImmersionMode.NEW_WORD to R.string.immersion_mode_words).forEach { (mode, label) ->
+                            val selected = translation?.mode == mode
+                            DropdownMenuItem(text = { Text(stringResource(label)) },
+                                leadingIcon = { if (selected) Icon(Icons.Outlined.Check, contentDescription = null) else Spacer(Modifier.size(24.dp)) },
+                                modifier = Modifier.semantics { this.selected = selected }, onClick = {
+                                    immersionMenu = false
+                                    if (!selected) audio?.close()
+                                    onImmersionMode(mode)
+                                })
+                        }
+                    }
+                }
                 IconToggleButton(checked = audio?.enabled == true, onCheckedChange = { enabled ->
                     val wasEnabled = audio?.enabled == true
                     audio?.setAutoplayEnabled(enabled)

@@ -245,12 +245,12 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         check(friendReplyId == null)
         friendReplyId = queueAdditionalPeerReplyAndSignalInbox(friendReply)
     }
-    fun queueAdditionalPeerReplyAndSignalInbox(text: String): UUID {
+    fun queueAdditionalPeerReplyAndSignalInbox(text: String, id: UUID = UUID.randomUUID()): UUID {
         check(android.os.Looper.myLooper() == android.os.Looper.getMainLooper())
         check(friendPosts.get() in 1..expectedFriendPosts && peerReceived != null && pendingPeerReply == null)
         val socket = requireNotNull(sockets.lastOrNull { it.active }) { "The actual foreground inbox event connection must be open" }
         val core = requireNotNull(peerCore)
-        val id = UUID.randomUUID(); val now = System.currentTimeMillis()
+        val now = System.currentTimeMillis()
         val encrypted = core.queue(id, account, text, now, now)
         check(encrypted.recipientDevice == requireNotNull(registered).id)
         val wire = encrypted.sendJSON().put("sender_id", peer).put("sender_device_id", core.device.id)

@@ -381,7 +381,7 @@ internal class ConversationTranslation(
                                 if (prior != null) restoreWordPlan(text, prior) else {
                                     check(cached == null) { "Derived word cache has no authoritative plan" }
                                     val mayIntroduce = store?.mayIntroduce(id, text) ?: true
-                                    val result = withTimeout(60_000) { incrementalMessage(text, key, mayIntroduce) }
+                                    val result = withTimeout(60_000) { incrementalMessage(id, text, key, mayIntroduce) }
                                     val snapshot = markerFor(result.first, result.second)
                                     currentCoroutineContext().ensureActive()
                                     withContext(Dispatchers.IO) { synchronized(lock) {
@@ -411,7 +411,7 @@ internal class ConversationTranslation(
                         currentCoroutineContext().ensureActive()
                         withContext(Dispatchers.IO) { synchronized(lock) {
                             if (closed) throw CancellationException("Translation owner closed")
-                            if (cached == null || cached != value) store?.write(key, value)
+                            if (resident == null || resident != value) store?.write(key, value)
                             completed.remove(key)?.let { completedBytes -= retainedBytes(it) }
                             completed[key] = value; completedBytes += retainedBytes(value)
                             while (completed.size > 128 || completedBytes > cacheByteLimit) {
@@ -502,7 +502,7 @@ internal class ConversationTranslation(
         require(practice.isNotBlank()) { "Empty local translation" }
         return FullMessageTranslation(text, practice, text, input, target, source, mode = ImmersionMode.FULL_MESSAGES)
     }
-    private suspend fun incrementalMessage(text: String, key: String, mayIntroduce: Boolean): Pair<FullMessageTranslation, IntroducedWord?> {
+    private suspend fun incrementalMessage(id: String, text: String, key: String, mayIntroduce: Boolean): Pair<FullMessageTranslation, IntroducedWord?> {
         val configured = IncrementalWords.tokens(text, source)
         val detected = if (configured.size >= 3) try { withTimeoutOrNull(2_000) { language.identify(text) } }
             catch (cancelled: CancellationException) { throw cancelled } catch (_: Exception) { null } else null
@@ -519,10 +519,13 @@ internal class ConversationTranslation(
             known[token.key] = it
         }
         var addition: IntroducedWord? = null
-        val attempted = mutableSetOf<String>()
-        for (token in tokens) {
+        // ICU supplies lexical boundaries, not POS. Randomize only the
+        // unfamiliar, literal-safe distinct candidates; old plans bypass this.
+        val candidates = tokens.distinctBy { it.key }.filterNot { it.key in known }
+        val start = if (candidates.isEmpty()) 0 else IncrementalWords.candidateStart(id, candidates.size)
+        for (offset in candidates.indices) {
             if (!mayIntroduce) break
-            if (token.key in known || !attempted.add(token.key)) continue
+            val token = candidates[(start + offset) % candidates.size]
             if (input == source) prepare(source, target)
             else check(translator.isReady(input, target)) { "Detected language models are not prepared; no download fallback" }
             publish(key, MessageTranslationState(MessageTranslationPhase.TRANSLATING))
