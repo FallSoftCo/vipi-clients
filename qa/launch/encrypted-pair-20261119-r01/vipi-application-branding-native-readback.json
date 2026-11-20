@@ -1,0 +1,73 @@
+{
+  "verified_at": "2026-11-20T01:23:40Z",
+  "method": "Native screen-only broker, connection.browser=false, retained desktop:main lease; no CDP/DOM",
+  "application": {
+    "environment": "Production",
+    "environment_id": "environment_01JPK69ZMKBJYK94G3G06FWGZA",
+    "name": "Vipi",
+    "application_id": "app_01M7N9Y2DGDVFNZBXCB3SAEFZX",
+    "client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4"
+  },
+  "actual_readback": {
+    "shared_environment_applications": [
+      "existing default application",
+      "Vipi"
+    ],
+    "branding_inheritance": "using environment branding",
+    "app_specific_editor_available": true,
+    "editor_scope_breadcrumb": "Production / Vipi",
+    "editor_application_id_matches": true,
+    "save_changes_disabled_before_edits": true,
+    "upgrade_or_charge_prompt_observed": false,
+    "inherited_display_name": "Fallible Software, Co.",
+    "inherited_sign_in_heading": "Sign in to your FallSoft.Co account",
+    "inherited_logo": "Fallsoft F icon",
+    "google_and_apple_preview_buttons": true,
+    "terms_of_service_field": "empty",
+    "privacy_policy_field": "empty",
+    "redirects": [
+      "co.fallsoft.vipi://auth/callback",
+      "https://api.mambovipi.app/delete-account/callback"
+    ],
+    "default_redirect": "co.fallsoft.vipi://auth/callback",
+    "post_inspection_inheritance_unchanged": true
+  },
+  "authentication": "One admin Google flow completed using existing company browser session; no password or keychain material read/exported",
+  "mutations": {
+    "field_edits": 0,
+    "settings_saves": 0,
+    "provider_configuration_changes": 0,
+    "user_create_delete_update": 0,
+    "charges": 0,
+    "callback_mutations": 0
+  },
+  "cleanup": {
+    "owned_window_closed": true,
+    "unrelated_windows_profiles_preserved": true,
+    "workspace_restored": 1,
+    "desktop_lease_released": true,
+    "lease_id": "vipi-pair-branding-20261119-r01"
+  },
+  "next_concrete_change": {
+    "scope": "existing Vipi application only",
+    "display_name": "Vipi",
+    "sign_in_heading": "Sign in to Vipi",
+    "logo": "existing original Vipi icon",
+    "terms": "https://api.mambovipi.app/terms",
+    "privacy": "https://api.mambovipi.app/privacy",
+    "constraint": "Preserve environment/default branding, users, provider connections, exact client and callbacks; review selected application diff before one save"
+  },
+  "screenshots": {
+    "/mnt/extradrive1/vipi-builds/vipi-branding-native-readback-r01/vipi-application-brand-editor.png": "591566f2e9993cb024330c69838d8b6a0f40d9f734eb6d3bbd5962b520f4fdf8",
+    "/mnt/extradrive1/vipi-builds/vipi-branding-native-readback-r01/vipi-application-page-settings.png": "97b433d300cb7fa154e9122c95bc82a594f00d520547f8fc7e9f49ba2cc610a0",
+    "/mnt/extradrive1/vipi-builds/vipi-branding-native-readback-r01/vipi-inheritance-unchanged.png": "b84a48448f5a8bc4d201d5295eab61554d3540348f849598943cd7a2528a83ea"
+  },
+  "broker_evidence_jobs": [
+    "vipi-pair-branding-vipi-app-r01",
+    "vipi-pair-branding-redirect-list-r01",
+    "vipi-pair-branding-editor-scope-r01",
+    "vipi-pair-branding-scope-evidence-r01",
+    "vipi-pair-branding-unchanged-readback-r01",
+    "vipi-pair-branding-cleanup-r01"
+  ]
+}
