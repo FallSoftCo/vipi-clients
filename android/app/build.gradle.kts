@@ -35,8 +35,8 @@ android {
         applicationId = "co.fallsoft.vipi"
         minSdk = 29
         targetSdk = 36
-        versionCode = 11
-        versionName = "1.0.10"
+        versionCode = 12
+        versionName = "1.0.11"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild { cmake { arguments += "-DANDROID_STL=c++_static" } }
         buildConfigField("boolean", "FIREBASE_CONFIGURED", firebaseConfig.isNotEmpty().toString())
@@ -62,6 +62,11 @@ android {
             providers.gradleProperty("vipiQaAbi").orNull?.let { require(it in setOf("x86_64", "arm64-v8a")); ndk.abiFilters.add(it) }
         }
         getByName("release") {
+            // Optional phone-delivery slice; normal release/store builds retain all ABIs.
+            providers.gradleProperty("vipiReleaseAbi").orNull?.let {
+                require(it == "arm64-v8a") { "Only the reviewed arm64 phone slice is supported." }
+                ndk.abiFilters.add(it)
+            }
             buildConfigField("String", "WORKOS_CLIENT_ID", "\"$productionClientId\"")
             isMinifyEnabled = true
             isShrinkResources = true
