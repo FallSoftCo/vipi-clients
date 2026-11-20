@@ -1,10 +1,10 @@
 {
   "homepage": "https://mambovipi.app/",
-  "release": "6f6c1ddc95ee8f8d",
+  "release": "aadb9420f24456d6",
   "headline": "Wade or dive into another language, with your friends.",
   "short_pitch": "Vipi is an immersive chat app. Text friends and family in your own language. Read and hear their messages in the language you’re learning.",
   "press": "Vipi is an immersive chat app for friends and family. Write in your own language. In Shallow, one word appears in the language you’re learning. In Deep, you can read the whole message in that language. Tap the message to hear the word or the sentence. Hold to see the original.",
-  "privacy": "Your chats with friends are end-to-end encrypted using the Signal Protocol. Your friend’s phone encrypts the message. Yours opens it and translates it. Vipi can’t read the message, and your words never go to a translation service.",
+  "privacy": "Only you and your friend can read the messages you send each other. Vipi encrypts messages end to end using the Signal Protocol. Your phone translates them.",
   "availability": "Coming soon for iPhone and Android.",
   "audio_note": "Playback depends on supported voices and language downloads.",
   "listing": {
@@ -12,8 +12,8 @@
     "google_short_description": "Chat with friends and family. Read and hear messages in the language you learn."
   },
   "example": {
-    "original": "No rush. Want a coffee?",
-    "shallow": "No rush. Want a café?",
-    "deep": "Sin prisa. ¿Quieres un café?"
+    "original": "Want a coffee?",
+    "shallow": "Want a café?",
+    "deep": "¿Quieres un café?"
   }
 }
