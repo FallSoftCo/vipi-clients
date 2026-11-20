@@ -445,10 +445,14 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 for (envelope in core.journal.pending(System.currentTimeMillis())) {
                     if (envelope.recipient in blockedPeers) continue
                     try {
-                        val routed = core.queue(envelope.id, envelope.recipient, requireNotNull(core.journal.outgoing(envelope.id)).text, envelope.createdAt, System.currentTimeMillis())
+                        val saved = requireNotNull(core.journal.outgoing(envelope.id))
+                        val routed = core.queue(envelope.id, envelope.recipient, saved.text, envelope.createdAt, System.currentTimeMillis())
                         val state = request("POST", "/v1/messages", routed.sendJSON(), core.device).getString("state")
                         if (state == "identity_changed") markPeerRecovery(envelope.recipient)
                         core.journal.applyStatus(envelope.id, if (state in setOf("unavailable", "identity_changed")) "failed" else state)
+                        if (saved.state !in setOf("accepted", "delivered", "read") && state in setOf("accepted", "delivered")) {
+                            activity?.outgoingAccepted(envelope.id, envelope.recipient)
+                        }
                     } catch (error: ServiceFailure) {
                         if (error.code == "recipient_identity_changed") markPeerRecovery(envelope.recipient)
                         val state = terminalSendState(error)

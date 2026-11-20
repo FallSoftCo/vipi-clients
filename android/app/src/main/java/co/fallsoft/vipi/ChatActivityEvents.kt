@@ -97,6 +97,9 @@ internal class ChatActivityEvents(
         }
     }
     fun receiptsChanged(peer: UUID) { if (viewed == peer) readWake.trySend(Unit) }
+    fun outgoingAccepted(id: UUID, peer: UUID) {
+        if (peer == viewed && id in outgoing) readWake.trySend(Unit)
+    }
     fun reconnected() { readWake.trySend(Unit) }
     private suspend fun flush() {
         var check = viewed?.takeIf(eligible)?.let { peer -> outgoing.filter { id ->

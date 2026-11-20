@@ -444,11 +444,15 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                 for envelope in try core.journal.pending(now: now) {
                     if blockedPeers.contains(envelope.recipient) { continue }
                     do {
-                        let routed = try core.queue(id: envelope.id, peer: envelope.recipient, text: core.journal.outgoing(envelope.id)!.text, createdAt: envelope.createdAt, now: now)
+                        guard let saved = try core.journal.outgoing(envelope.id) else { continue }
+                        let routed = try core.queue(id: envelope.id, peer: envelope.recipient, text: saved.text, createdAt: envelope.createdAt, now: now)
                         let status: Status = try await request("POST", "/v1/messages", body: routed.sendData(), device: core.device)
                         if status.state == "identity_changed" { try recordIdentityChange(envelope.recipient) }
                         let state = ["unavailable", "identity_changed"].contains(status.state) ? "failed" : status.state
                         try core.journal.applyStatus(envelope.id, state: state)
+                        if !["accepted", "delivered", "read"].contains(saved.state), ["accepted", "delivered"].contains(state) {
+                            activity?.outgoingAccepted(envelope.id, peer: envelope.recipient)
+                        }
                     } catch let error as ServiceFailure {
                         if error.code == "recipient_identity_changed" { try recordIdentityChange(envelope.recipient) }
                         if let state = Self.terminalSendState(error) { try core.journal.applyStatus(envelope.id, state: state) }

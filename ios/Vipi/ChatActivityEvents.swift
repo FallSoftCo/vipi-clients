@@ -147,6 +147,9 @@ private actor ChatReadLedger {
             do { try await ledger.note(ids.filter{!existing.contains($0)},peer:peer); wake() } catch {}
         }
     }
+    func outgoingAccepted(_ id: UUID, peer: UUID) {
+        if peer == currentPeer && checking.contains(id) { wake() }
+    }
     func wake() {
         guard !closed else { return }; dirty = true
         guard worker == nil else { return }
