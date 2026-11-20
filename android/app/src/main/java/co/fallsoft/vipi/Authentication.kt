@@ -467,5 +467,9 @@ class Authentication(context: Context) {
         val refresh = result.getString("refresh_token").also { require(it.isNotBlank() && it.length <= 16_384) }
         return authority.tag(JSONObject().put("userID", subject).put("accessToken", access).put("refreshToken", refresh))
     }
-    fun signOutLocally() { generation = UUID.randomUUID(); PrivateSpeechCache.erase(application); records.remove("session"); records.remove("pending-sign-in"); records.remove("pending-identity-link"); userID = null; signInRevision++ }
+    internal fun isCurrentAccount(expected: String): Boolean = runCatching {
+        records.read("session")?.let { IdentityAuthority.read(it); it.getString("userID") == expected } == true
+    }.getOrDefault(false)
+
+    fun signOutLocally() { PushDelivery.clearPosted(application); generation = UUID.randomUUID(); PrivateSpeechCache.erase(application); records.remove("session"); records.remove("pending-sign-in"); records.remove("pending-identity-link"); userID = null; signInRevision++ }
 }

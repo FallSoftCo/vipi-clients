@@ -11,6 +11,7 @@ struct HomeView: View {
     var authenticationBusy = false
     var authenticationError: String? = nil
     @Environment(AppState.self) private var state
+    @Environment(\.scenePhase) private var scenePhase
     @State private var showingSettings = false
     @State private var offerBase = false
     @State private var offeredBase = false
@@ -88,6 +89,33 @@ struct HomeView: View {
                 }
             }
             .refreshable { await chat?.synchronize() }
+        }
+        .overlay(alignment: .top) {
+            if scenePhase == .active, let chat, let preview = chat.incomingPreview,
+               chat.ready, !chat.needsReauthentication, !chat.changedIdentities.contains(preview.peer),
+               !chat.blockedPeers.contains(preview.peer), path.last != .friend(preview.peer) {
+                Button {
+                    chat.clearPreview()
+                    showingSettings = false
+                    showingInvite = false
+                    path = [.friend(preview.peer)]
+                } label: {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(chat.name(preview.peer)).font(.headline)
+                        Text(verbatim: preview.text).font(.body).lineLimit(2)
+                    }.frame(maxWidth: .infinity, alignment: .leading).padding(14)
+                }.buttonStyle(.plain)
+                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16))
+                    .padding(.horizontal, 12).privacySensitive()
+                    .accessibilityIdentifier("foreground-message-preview")
+            }
+        }
+        .onChange(of: scenePhase) { _, phase in if phase != .active { chat?.clearPreview() } }
+        .task(id: chat?.incomingPreview?.id) {
+            guard let chat, let preview = chat.incomingPreview else { return }
+            if path.last == .friend(preview.peer) { chat.clearPreview(); return }
+            try? await Task.sleep(for: .seconds(5))
+            if !Task.isCancelled, chat.incomingPreview?.id == preview.id { chat.clearPreview() }
         }
     }
     private func presentInvitationIfReady() {
@@ -285,8 +313,13 @@ struct SettingsView: View {
         Form {
             if let profile = chat?.profile {
                 Section {
-                    LabeledContent("Name") { Text(profile.display_name).foregroundStyle(VipiDesign.secondary) }
-                    LabeledContent("Username") { Text("@" + profile.username).foregroundStyle(VipiDesign.secondary) }.textSelection(.enabled)
+                    HStack(spacing: 14) {
+                        ContactAvatar(peer: profile.id, name: profile.display_name, size: 52)
+                        VStack(alignment: .leading, spacing: 3) {
+                            Text(profile.display_name).font(.headline)
+                            Text("@" + profile.username).font(.subheadline).foregroundStyle(VipiDesign.secondary).textSelection(.enabled)
+                        }
+                    }.padding(.vertical, 5)
                     ShareLink(item: FriendInvitation.message(username: profile.username)) {
                         HStack(alignment: .firstTextBaseline, spacing: 12) {
                             Image(systemName: "square.and.arrow.up").accessibilityHidden(true)
@@ -296,31 +329,28 @@ struct SettingsView: View {
                         .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                         .contentShape(Rectangle())
                     }.accessibilityIdentifier("settings-invite-friend")
-                } header: { Text("Your profile").foregroundStyle(VipiDesign.secondary) }
+                }
             }
             Section {
                 NavigationLink { LanguageDownloadView() } label: {
                     LabeledContent("Languages") { Text(VipiLanguage.named(state.targetLanguage).localizedName).foregroundStyle(VipiDesign.secondary) }
                 }.accessibilityIdentifier("language-settings-link")
-            }
-            Section {
                 NavigationLink("Immersion guide") { ImmersionTutorialView() }.accessibilityIdentifier("tutorial-reentry")
                 Picker("Immersion",selection:$state.immersionMode) {
                     ForEach(ImmersionMode.allCases) { Text($0.title).tag($0) }
                 }.accessibilityIdentifier("settings-immersion-picker")
-                Text(state.immersionMode == .fullMessages ? String(localized:"Every message appears in the language you’re learning.") : String(localized:"One new word at a time")).font(.footnote).foregroundStyle(VipiDesign.secondary)
-            }
+                if let chat { NavigationLink("Chat backup") { HistoryBackupView(chat: chat) } }
+            } header: { Text("Your chats") }
             Section {
-                if chat != nil {
-                    NavigationLink { NotificationSettingsView() } label: {
-                        Text("Notifications").font(.body).fixedSize(horizontal: false, vertical: true)
-                    }
-                }
-                Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text(LocalizedStringKey($0.title)).tag($0) } }
+                Picker("Theme", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text(LocalizedStringKey($0.title)).tag($0) } }
                 Toggle("Animate conversation background", isOn: $state.animateConversationBackground)
                     .accessibilityIdentifier("settings-conversation-motion")
-            } header: { Text("Appearance and notifications").foregroundStyle(VipiDesign.secondary) }
-            if let chat { Section { NavigationLink("Chat backup") { HistoryBackupView(chat: chat) } } }
+            } header: { Text("Appearance") }
+            if let chat {
+                Section {
+                    NavigationLink("Notifications") { NotificationSettingsView(chat: chat) }
+                }
+            }
             Section {
                 Link("Privacy Policy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
                 Link("Terms of Service", destination: URL(string: "https://api.mambovipi.app/terms")!)
@@ -345,7 +375,7 @@ struct SettingsView: View {
                             }.disabled(authentication.busy || !chat.ready || chat.needsReauthentication || chat.userID != authentication.session?.userID)
                                 .accessibilityIdentifier("fallsoft-link-start")
                             Text("Sign in to Vipi again, then connect your Fallsoft login. Your chats and profile stay with you.")
-                                .font(.body).foregroundStyle(VipiDesign.secondary)
+                                .font(.footnote).foregroundStyle(VipiDesign.secondary)
                             if let error = authentication.errorMessage { Text(error).font(.body).foregroundStyle(VipiDesign.secondary) }
                         }
                     }

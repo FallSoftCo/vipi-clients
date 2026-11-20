@@ -53,6 +53,49 @@ class InboxJourneyDeviceTest {
         }
         File(f.output,"$name-bounds.json").writeText(JSONObject().put("list",list.toString()).put("rows",bounds).toString(2))
     }
+    @Test fun settingsSelectsPrivateLocalPreviewsAndHonorsRedaction() {
+        val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
+        val incoming = Row(service.peer, "Maya", "Coffee at six?", System.currentTimeMillis(), unread = 1)
+        MainActivityJourneyFixture("settings-previews", { app -> seed(app, service, listOf(incoming)); service.model(app) }).use { f ->
+            try {
+                f.launch(); screen(f, Screen.HOME)
+                compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).performClick()
+                screen(f, Screen.SETTINGS)
+                compose.onAllNodesWithText(f.base.getString(R.string.settings_title)).assertCountEquals(1)
+                paint(f, "settings-profile-and-chats")
+                val toggle = compose.onNodeWithTag("settings-message-previews")
+                toggle.performScrollTo().assertIsOff()
+                val generic = f.base.getString(R.string.ui_3abeae7a3bed)
+                fun notification(unlocked: Boolean) = requireNotNull(PushDelivery.buildNotification(f.base, f.model.chat!!, unlocked))
+                fun body(note: android.app.Notification) = note.extras.getCharSequence(android.app.Notification.EXTRA_TEXT).toString()
+                compose.runOnIdle { assertEquals(generic, body(notification(true))) }
+                compose.onNodeWithText(generic).performScrollTo(); paint(f, "settings-preview-private")
+                toggle.performScrollTo().performClick().assertIsOn()
+                compose.onNodeWithText(f.base.getString(R.string.settings_sample_message)).performScrollTo(); paint(f, "settings-preview-content")
+                compose.runOnIdle {
+                    val privateNote = notification(true)
+                    assertEquals(incoming.text, body(privateNote)); assertEquals("Maya", privateNote.extras.getString(android.app.Notification.EXTRA_TITLE))
+                    assertEquals(android.app.Notification.VISIBILITY_PRIVATE, privateNote.visibility)
+                    assertEquals(generic, body(privateNote.publicVersion)); assertEquals(generic, body(notification(false)))
+                }
+                f.relaunch(service::model); screen(f, Screen.HOME)
+                compose.runOnIdle {
+                    assertTrue(f.model.chat!!.notificationPreviews)
+                    assertEquals(incoming.text, body(notification(true)))
+                    f.model.chat!!.markRead(service.peer)
+                    assertNull(PushDelivery.buildNotification(f.base, f.model.chat!!, true))
+                }
+                compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).performClick(); screen(f, Screen.SETTINGS)
+                toggle.performScrollTo().performClick().assertIsOff()
+                compose.onNodeWithText(f.base.getString(R.string.settings_theme)).performScrollTo().performClick()
+                compose.onNodeWithText(f.base.getString(R.string.appearance_dark)).performClick()
+                compose.onNodeWithText(f.base.getString(R.string.nav_help)).performScrollTo()
+                paint(f, "settings-dark-about")
+                service.assertNoPurchase()
+            } finally { f.stopActivity(); service.close() }
+        }
+    }
+
     @Test fun waterInboxEmptyHasTextureAndKeepsOneNewChatAction() = emptyInbox(waterReview = true)
     @Test fun waterInboxRowsStayFixedOverMovingWaterAndNavigate() = populated(captureOnly = false, waterReview = true)
     @Test fun emptyInboxHasOnePrimaryActionAndNativeLookupNavigation() = emptyInbox(waterReview = false)

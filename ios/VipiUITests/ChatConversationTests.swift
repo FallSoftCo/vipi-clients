@@ -2268,6 +2268,8 @@ final class ChatConversationTests: XCTestCase {
 
     func testPolishedFriendNightKeepsWholeSendAndModeWithKeyboard() throws { try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true) }
     func testPolishedFriendLargestKeepsWholeSendAndModeWithKeyboard() throws { try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true) }
+    func testSettingsPrivatePreviews() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"settings-previews") }
+    func testSettingsPrivatePreviewsLargest() throws { try checkJourney(largest:true,reading:"en-zh",dark:true,fullTranslation:true,inboxReview:"settings-previews") }
     func testWaterInboxDayHasStationaryReadableRows() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,immersionModes:true,inboxReview:"water-populated") }
     func testWaterInboxNightHasStationaryReadableRows() throws { try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,immersionModes:true,inboxReview:"water-populated") }
     func testWaterInboxEmptyDayKeepsOneAction() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"water-empty") }
@@ -2653,6 +2655,28 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(app.navigationBars["Chats"].exists)
             XCTAssertFalse(app.buttons["Notify me when friends reply"].exists)
             XCTAssertTrue(app.buttons["Your profile and settings"].exists)
+            if inboxReview == "settings-previews" {
+                func captureSettings(_ name: String) {
+                    let shot = XCTAttachment(screenshot: app.screenshot()); shot.name = name; shot.lifetime = .keepAlways; add(shot)
+                }
+                app.buttons["Your profile and settings"].tap()
+                XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 8))
+                captureSettings("settings-profile-and-chats")
+                let link = app.buttons["Notifications"]; reveal(link); link.tap()
+                XCTAssertTrue(app.navigationBars["Notifications"].waitForExistence(timeout: 5))
+                let toggle = app.switches["settings-message-previews"]
+                reveal(toggle); XCTAssertEqual(toggle.value as? String, "0")
+                captureSettings("settings-preview-private")
+                toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
+                XCTAssertEqual(toggle.value as? String, "1")
+                let sample = app.staticTexts["Coffee at six?"]; reveal(sample); XCTAssertTrue(sample.isHittable)
+                captureSettings("settings-preview-content")
+                app.navigationBars.buttons["BackButton"].firstMatch.tap()
+                reveal(link); link.tap(); reveal(toggle); XCTAssertEqual(toggle.value as? String, "1")
+                toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
+                XCTAssertEqual(toggle.value as? String, "0")
+                return
+            }
             if inboxReview.hasPrefix("water-") {
                 func captureWater(_ name:String) {
                     let shot = XCTAttachment(screenshot:app.screenshot()); shot.name = name; shot.lifetime = .keepAlways; add(shot)

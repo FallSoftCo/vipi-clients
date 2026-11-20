@@ -30,8 +30,7 @@ struct ConversationWaterScene: View {
         return colors.map(sceneColor)
     }
     var body: some View {
-        TimelineView(.animation(minimumInterval: 1.0 / 24, paused: !active)) { timeline in
-            let seconds = elapsed + (runningSince.map { max(0, timeline.date.timeIntervalSince($0)) } ?? 0)
+        ZStack {
             Canvas(opaque: true, rendersAsynchronously: true) { context, size in
                 let bounds = Path(CGRect(origin: .zero, size: size))
                 context.fill(bounds, with: .color(sceneColor(dark ? 0x221B22 : 0xFFF8EF)))
@@ -51,41 +50,50 @@ struct ConversationWaterScene: View {
                         context.stroke(ripple, with: .color(pigment.opacity(0.10)), lineWidth: 0.7)
                     }
                 }
-                for index in 0..<3 {
-                    let x = size.width * (Double(index) * 0.43 - 0.3) + sin(seconds / 20) * size.width * 0.05
-                    var ray = Path()
-                    ray.move(to: CGPoint(x: x, y: 0)); ray.addLine(to: CGPoint(x: x + size.width * 0.22, y: 0))
-                    ray.addLine(to: CGPoint(x: x + size.width * 0.7, y: size.height))
-                    ray.addLine(to: CGPoint(x: x + size.width * 0.38, y: size.height)); ray.closeSubpath()
-                    context.fill(ray, with: .color(.white.opacity(dark ? 0.015 : 0.04)))
+            }
+            if !reduceTransparency {
+                TimelineView(.animation(minimumInterval: 1.0 / 24, paused: !active)) { timeline in
+                    let seconds = elapsed + (runningSince.map { max(0, timeline.date.timeIntervalSince($0)) } ?? 0)
+                    Canvas(opaque: false, rendersAsynchronously: true) { context, size in
+                        for index in 0..<3 {
+                            let x = size.width * (Double(index) * 0.43 - 0.3) + sin(seconds / 20) * size.width * 0.05
+                            var ray = Path()
+                            ray.move(to: CGPoint(x: x, y: 0)); ray.addLine(to: CGPoint(x: x + size.width * 0.22, y: 0))
+                            ray.addLine(to: CGPoint(x: x + size.width * 0.7, y: size.height))
+                            ray.addLine(to: CGPoint(x: x + size.width * 0.38, y: size.height)); ray.closeSubpath()
+                            context.fill(ray, with: .color(.white.opacity(dark ? 0.015 : 0.04)))
+                        }
+                        let opacity = listSurface ? (dark ? 0.17 : 0.12) : deep ? 0.36 : dark ? 0.29 : 0.27
+                        let widths = [0.76, 0.51, 0.35]
+                        let cycles = [39.0, 51.0, 62.0], offsets = [0.0, 23.0, 38.0], levels = [0.79, 0.36, 0.82]
+                        for index in 0..<3 {
+                            let width = min(size.width * widths[index], 360)
+                            let fraction = (seconds + offsets[index]).truncatingRemainder(dividingBy: cycles[index]) / cycles[index]
+                            var fish = context
+                            fish.opacity = opacity * (index == 0 ? 1 : index == 1 ? 0.58 : 0.45)
+                            fish.translateBy(x: -width + fraction * (size.width + width), y: size.height * levels[index] + sin(seconds / 5 + Double(index)) * 5)
+                            fish.scaleBy(x: width / 640, y: width / 640)
+                            drawMackerel(in: &fish, seconds: seconds)
+                        }
+                        let bubbleX = [0.13, 0.86, 0.72, 0.41], durations = [17.0, 23.0, 27.0, 29.0], radii = [3.5, 2.5, 4.5, 2.0]
+                        for index in 0..<4 {
+                            let fraction = (seconds + Double(index * 7)).truncatingRemainder(dividingBy: durations[index]) / durations[index]
+                            let radius = radii[index]
+                            let point = CGPoint(x: size.width * bubbleX[index] + sin(fraction * 3) * 9, y: size.height * (1 - fraction))
+                            let bubble = Path(ellipseIn: CGRect(x: point.x - radius, y: point.y - radius, width: radius * 2, height: radius * 2))
+                            context.stroke(bubble, with: .color(sceneColor(dark ? 0xBBD0D2 : 0x8B8A8C).opacity(max(0, sin(fraction * .pi) * 0.3))), lineWidth: 0.65)
+                        }
+                    }
                 }
-                let opacity = listSurface ? (dark ? 0.17 : 0.12) : deep ? 0.36 : dark ? 0.29 : 0.27
-                let widths = [0.76, 0.51, 0.35]
-                let cycles = [39.0, 51.0, 62.0], offsets = [0.0, 23.0, 38.0], levels = [0.79, 0.36, 0.82]
-                for index in 0..<3 {
-                    let width = min(size.width * widths[index], 360)
-                    let fraction = (seconds + offsets[index]).truncatingRemainder(dividingBy: cycles[index]) / cycles[index]
-                    var fish = context
-                    fish.opacity = opacity * (index == 0 ? 1 : index == 1 ? 0.58 : 0.45)
-                    fish.translateBy(x: -width + fraction * (size.width + width), y: size.height * levels[index] + sin(seconds / 5 + Double(index)) * 5)
-                    fish.scaleBy(x: width / 640, y: width / 640)
-                    drawMackerel(in: &fish, seconds: seconds)
-                }
-                let bubbleX = [0.13, 0.86, 0.72, 0.41], durations = [17.0, 23.0, 27.0, 29.0], radii = [3.5, 2.5, 4.5, 2.0]
-                for index in 0..<4 {
-                    let fraction = (seconds + Double(index * 7)).truncatingRemainder(dividingBy: durations[index]) / durations[index]
-                    let radius = radii[index]
-                    let point = CGPoint(x: size.width * bubbleX[index] + sin(fraction * 3) * 9, y: size.height * (1 - fraction))
-                    let bubble = Path(ellipseIn: CGRect(x: point.x - radius, y: point.y - radius, width: radius * 2, height: radius * 2))
-                    context.stroke(bubble, with: .color(sceneColor(dark ? 0xBBD0D2 : 0x8B8A8C).opacity(max(0, sin(fraction * .pi) * 0.3))), lineWidth: 0.65)
-                }
-                // Deterministic fine grain. No per-frame random texture.
-                let step = listSurface ? 7.0 : 12.0
-                for row in 0...Int(size.height / step) {
-                    for column in 0...Int(size.width / step) {
-                        let jitter = Double((row * 31 + column * 17) % 13) / 13
-                        let x = Double(column) * step + jitter * step, y = Double(row) * step + (1 - jitter) * step
-                        context.fill(Path(ellipseIn: CGRect(x: x, y: y, width: listSurface ? 0.64 : 0.44, height: listSurface ? 0.64 : 0.44)), with: .color(sceneColor(dark ? 0xF9ECE4 : 0x352233).opacity(listSurface ? 0.055 : 0.025)))
+                Canvas(rendersAsynchronously: true) { context, size in
+                    // Deterministic fine grain. No per-frame random texture.
+                    let step = listSurface ? 7.0 : 12.0
+                    for row in 0...Int(size.height / step) {
+                        for column in 0...Int(size.width / step) {
+                            let jitter = Double((row * 31 + column * 17) % 13) / 13
+                            let x = Double(column) * step + jitter * step, y = Double(row) * step + (1 - jitter) * step
+                            context.fill(Path(ellipseIn: CGRect(x: x, y: y, width: listSurface ? 0.64 : 0.44, height: listSurface ? 0.64 : 0.44)), with: .color(sceneColor(dark ? 0xF9ECE4 : 0x352233).opacity(listSurface ? 0.055 : 0.025)))
+                        }
                     }
                 }
             }

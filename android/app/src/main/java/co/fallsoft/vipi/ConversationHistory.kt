@@ -54,7 +54,7 @@ internal class ConversationHistory(private val vault: MessageVault) {
     }
     fun markRead(peer: UUID) = vault.transaction {
         vault.get("thread", peer.toString())?.let { data ->
-            val value = JSONObject(data.toString(Charsets.UTF_8)).put("unread", 0)
+            val value = JSONObject(data.toString(Charsets.UTF_8)).put("unread", 0).apply { remove("notificationMessage") }
             vault.put("thread", peer.toString(), value.toString().toByteArray(Charsets.UTF_8))
         }
     }
@@ -75,7 +75,10 @@ internal class ConversationHistory(private val vault: MessageVault) {
             val summary = vault.get("thread", peer.toString())?.let { JSONObject(it.toString(Charsets.UTF_8)) }
                 ?: JSONObject().put("peer", peer.toString()).put("latest", index).put("unread", 0)
             if (index > summary.getString("latest")) summary.put("latest", index)
-            if (!exists && unread) summary.put("unread", Math.addExact(summary.getInt("unread"), 1))
+            if (!exists && unread) {
+                summary.put("unread", Math.addExact(summary.getInt("unread"), 1))
+                if (kind == "incoming") summary.put("notificationMessage", id.toString())
+            }
             vault.put("thread", peer.toString(), summary.toString().toByteArray(Charsets.UTF_8))
         }
     }

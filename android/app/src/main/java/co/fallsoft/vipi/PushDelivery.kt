@@ -66,18 +66,40 @@ internal object PushDelivery {
         ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
     fun allowed(context: Context) = permissionGranted(context) && NotificationManagerCompat.from(context).areNotificationsEnabled() &&
         context.getSystemService(NotificationManager::class.java).getNotificationChannel(CHANNEL)?.importance != NotificationManager.IMPORTANCE_NONE
+    fun clearPosted(context: Context) = NotificationManagerCompat.from(context).cancel(1)
+
+    fun previewLine(text: String): String? {
+        val line = text.replace(Regex("[\\p{Cc}\\p{Z}\\u061C\\u200E\\u200F\\u202A-\\u202E\\u2066-\\u2069]+"), " ").trim()
+        if (line.isEmpty()) return null
+        return if (line.codePointCount(0, line.length) <= 160) line
+        else line.substring(0, line.offsetByCodePoints(0, 159)).trimEnd() + "…"
+    }
     fun notify(context: Context, chat: ChatSession) {
         if (!allowed(context) || ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) return
+        val unlocked = !context.getSystemService(android.app.KeyguardManager::class.java).isDeviceLocked &&
+            context.getSystemService(android.os.UserManager::class.java).isUserUnlocked
+        val notification = buildNotification(context, chat, unlocked) ?: return
+        try { NotificationManagerCompat.from(context).notify(1, notification) } catch (_: SecurityException) { /* permission changed */ }
+    }
+
+    internal fun buildNotification(context: Context, chat: ChatSession, unlocked: Boolean): android.app.Notification? {
         val unread = chat.threads.filter { it.unread > 0 }
-        if (unread.isEmpty()) return
+        if (unread.isEmpty()) return null
         val intent = Intent(context, MainActivity::class.java).setAction(ACTION).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
         if (unread.size == 1) intent.putExtra("notification_peer", unread.single().peer.toString())
         val pending = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-        val notification = NotificationCompat.Builder(context, CHANNEL).setSmallIcon(R.drawable.vipi_notification)
+        val generic = NotificationCompat.Builder(context, CHANNEL).setSmallIcon(R.drawable.vipi_notification)
             .setContentTitle(context.getString(R.string.ui_0882ca640d5a)).setContentText(context.getString(R.string.ui_3abeae7a3bed)).setContentIntent(pending).setAutoCancel(true)
             .setOnlyAlertOnce(true)
             .setVisibility(NotificationCompat.VISIBILITY_PRIVATE).setCategory(NotificationCompat.CATEGORY_MESSAGE).build()
-        try { NotificationManagerCompat.from(context).notify(1, notification) } catch (_: SecurityException) { /* permission changed */ }
+        val peer = unread.singleOrNull()?.peer
+        val body = if (unlocked && peer != null) runCatching { chat.notificationPreview(peer) }.getOrNull() else null
+        return if (body == null) generic else NotificationCompat.Builder(context, CHANNEL)
+            .setSmallIcon(R.drawable.vipi_notification)
+            .setContentTitle(chat.contacts[peer]?.displayName?.let(::previewLine) ?: context.getString(R.string.ui_0882ca640d5a))
+            .setContentText(body).setContentIntent(pending).setAutoCancel(true).setOnlyAlertOnce(true)
+            .setVisibility(NotificationCompat.VISIBILITY_PRIVATE).setPublicVersion(generic)
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE).build()
     }
 }
 
@@ -109,7 +131,9 @@ class InboxWorker(context: Context, parameters: WorkerParameters) : CoroutineWor
                     active.registerPush(token)
                 } else {
                     active.synchronize()
-                    PushDelivery.notify(applicationContext, active)
+                    if (auth.isCurrentAccount(user) && PrivateDeletionStore(applicationContext).load() == null) {
+                        PushDelivery.notify(applicationContext, active)
+                    }
                     if (!active.lastSyncComplete) throw java.io.IOException("Delivery incomplete")
                 }
             }

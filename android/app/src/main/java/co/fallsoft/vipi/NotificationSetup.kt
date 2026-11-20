@@ -34,13 +34,15 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
         allowed = PushDelivery.allowed(context); if (allowed) PushDelivery.request(context, registration = true)
     }
-    if (!allowed) NotificationPrompt(asked, unavailable) {
+    SettingsAction(stringResource(R.string.settings_delivery), value = stringResource(if (allowed) R.string.settings_on else R.string.settings_off)) {
         if (Build.VERSION.SDK_INT >= 33 && !PushDelivery.permissionGranted(context) && !asked) {
             prefs.edit().putBoolean("notificationAsked", true).apply(); asked = true
             permission.launch(Manifest.permission.POST_NOTIFICATIONS)
         } else runCatching { context.startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)) }
             .onFailure { unavailable = true }
     }
+    if (unavailable) Text(stringResource(R.string.ui_d75c6cdd950a), style = MaterialTheme.typography.bodySmall)
+
 }
 
 @Composable internal fun NotificationPrompt(asked: Boolean, unavailable: Boolean, onClick: () -> Unit) {

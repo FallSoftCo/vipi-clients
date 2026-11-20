@@ -210,6 +210,7 @@ class MainActivity : ComponentActivity() {
         } else if (model.screen == Screen.WELCOME) { VipiMark(34); Spacer(Modifier.width(10.dp)) }
         Text(stringResource(when (model.screen) {
             Screen.NEW_CHAT -> R.string.nav_new_chat
+            Screen.SETTINGS -> R.string.settings_title
             else -> R.string.ui_2f7e29fbc47d
         }), fontSize = 27.sp, letterSpacing = (-1).sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false)
         Spacer(Modifier.weight(1f))
@@ -388,69 +389,141 @@ class MainActivity : ComponentActivity() {
     val context = LocalContext.current
     val uri = androidx.compose.ui.platform.LocalUriHandler.current
     var linkError by remember { mutableStateOf<String?>(null) }
-    Text(stringResource(R.string.settings_title), fontSize = 34.sp)
-    InviteFriendButton(model)
-    Text(stringResource(R.string.ui_339484dc1f78), fontWeight = FontWeight.SemiBold)
-    if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.BACKUP) }) { Text(stringResource(R.string.ui_24f13e3dc8e4)) }
-    if (model.chat?.ready == true) NotificationSetup()
-    TextButton(onClick = model::openTutorial, modifier = Modifier.testTag("tutorial-reentry")) { Text(stringResource(R.string.tutorial_reentry)) }
-    LanguageSettingsLink(languageName(model.targetLanguage)) { model.navigate(Screen.LANGUAGE_DOWNLOAD) }
-    Text(stringResource(R.string.ui_3907fa7f8072), fontWeight = FontWeight.SemiBold)
-    Appearance.entries.forEach { appearance ->
-        Row(Modifier.fillMaxWidth().clickable { model.changeAppearance(appearance) }.semantics { role = Role.RadioButton; selected = model.appearance == appearance }, verticalAlignment = Alignment.CenterVertically) {
-            RadioButton(selected = model.appearance == appearance, onClick = { model.changeAppearance(appearance) }); Text(stringResource(when (appearance) { Appearance.SYSTEM -> R.string.appearance_system; Appearance.LIGHT -> R.string.appearance_light; Appearance.DARK -> R.string.appearance_dark }))
+    val chat = model.chat
+    val profile = chat?.profile
+    val secondary = MaterialTheme.colorScheme.onSurfaceVariant
+    val appearanceTitle = when (model.appearance) {
+        Appearance.SYSTEM -> R.string.appearance_system
+        Appearance.LIGHT -> R.string.appearance_light
+        Appearance.DARK -> R.string.appearance_dark
+    }
+    var appearancePicker by rememberSaveable { mutableStateOf(false) }
+    if (profile != null) {
+        Column {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+                ContactAvatar(profile.displayName, profile.id, diameter = 52.dp)
+                Column {
+                    Text(profile.displayName, style = MaterialTheme.typography.titleLarge)
+                    Text("@" + profile.username, style = MaterialTheme.typography.bodyMedium, color = secondary)
+                }
+            }
+            InviteFriendButton(model, settings = true)
         }
     }
-    Row(Modifier.fillMaxWidth().heightIn(min = 48.dp), verticalAlignment = Alignment.CenterVertically) {
-        Text(stringResource(R.string.animate_conversation_background), modifier = Modifier.weight(1f))
-        Switch(checked = model.animateConversationBackground, onCheckedChange = model::changeConversationAnimation,
-            modifier = Modifier.testTag("settings-conversation-motion").semantics { contentDescription = context.getString(R.string.animate_conversation_background) })
+    SettingsGroup(stringResource(R.string.ui_339484dc1f78)) {
+        LanguageSettingsLink(languageName(model.targetLanguage)) { model.navigate(Screen.LANGUAGE_DOWNLOAD) }
+        SettingsAction(stringResource(R.string.tutorial_reentry), Modifier.testTag("tutorial-reentry"), action = model::openTutorial)
+        if (profile != null) SettingsAction(stringResource(R.string.ui_24f13e3dc8e4)) { model.navigate(Screen.BACKUP) }
     }
-    Text(stringResource(R.string.ui_380f81884c22), fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    TextButton(onClick = { model.navigate(Screen.LICENSES) }) { Text(stringResource(R.string.ui_2a6b4d12ccfb)) }
-    Row {
-        listOf(R.string.nav_terms to "terms", R.string.nav_privacy to "privacy", R.string.nav_help to "help").forEach { (title, path) ->
-            TextButton(onClick = { runCatching { uri.openUri("https://api.mambovipi.app/$path") }.onFailure { linkError = context.getString(R.string.settings_page_open_failed) } }) { Text(stringResource(title)) }
+    SettingsGroup(stringResource(R.string.ui_3907fa7f8072)) {
+        SettingsAction(stringResource(R.string.settings_theme), value = stringResource(appearanceTitle)) { appearancePicker = true }
+        SettingsSwitch(stringResource(R.string.animate_conversation_background), model.animateConversationBackground,
+            "settings-conversation-motion", model::changeConversationAnimation)
+    }
+    if (appearancePicker) AlertDialog(onDismissRequest = { appearancePicker = false },
+        title = { Text(stringResource(R.string.settings_theme)) }, text = {
+            Column { Appearance.entries.forEach { choice ->
+                val label = when (choice) { Appearance.SYSTEM -> R.string.appearance_system; Appearance.LIGHT -> R.string.appearance_light; Appearance.DARK -> R.string.appearance_dark }
+                Row(Modifier.fillMaxWidth().clickable(role = Role.RadioButton) { model.changeAppearance(choice); appearancePicker = false }
+                    .semantics { selected = model.appearance == choice }.heightIn(min = 52.dp), verticalAlignment = Alignment.CenterVertically) {
+                    RadioButton(model.appearance == choice, onClick = null)
+                    Spacer(Modifier.width(12.dp))
+                    Text(stringResource(label))
+                }
+            } }
+        }, confirmButton = { TextButton(onClick = { appearancePicker = false }) { Text(stringResource(android.R.string.cancel)) } })
+    if (chat?.ready == true) SettingsGroup(stringResource(R.string.settings_notifications)) {
+        NotificationSetup()
+        SettingsSwitch(stringResource(R.string.settings_message_previews), chat.notificationPreviews, "settings-message-previews", chat::setNotificationPreviews)
+        Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp)).padding(14.dp)) {
+            Text(stringResource(R.string.settings_example), style = MaterialTheme.typography.labelMedium, color = secondary)
+            Text(if (chat.notificationPreviews) stringResource(R.string.settings_sample_sender) else stringResource(R.string.ui_0882ca640d5a),
+                style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(if (chat.notificationPreviews) R.string.settings_sample_message else R.string.ui_3abeae7a3bed),
+                style = MaterialTheme.typography.bodyMedium)
         }
     }
-    linkError?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
-    if (model.chat?.profile != null && model.authentication.canLinkFallsoft) {
-        TextButton(onClick = { model.beginFallsoftLink(context) }, enabled = !model.authentication.busy && model.chat?.eventDevice() != null,
-            modifier = Modifier.testTag("fallsoft-link-start")) {
-            Text(stringResource(R.string.fallsoft_link_title))
+    SettingsGroup(stringResource(R.string.settings_about)) {
+        listOf(R.string.nav_help to "help", R.string.nav_privacy to "privacy", R.string.nav_terms to "terms").forEach { (title, path) ->
+            SettingsAction(stringResource(title)) {
+                runCatching { uri.openUri("https://api.mambovipi.app/$path") }.onFailure { linkError = context.getString(R.string.settings_page_open_failed) }
+            }
         }
-        Text(stringResource(R.string.fallsoft_link_detail), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-        model.authentication.error?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error) }
+        linkError?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+        SettingsAction(stringResource(R.string.ui_2a6b4d12ccfb)) { model.navigate(Screen.LICENSES) }
+        Text(stringResource(R.string.ui_380f81884c22), style = MaterialTheme.typography.bodySmall, color = secondary)
     }
-    if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.DELETE_ACCOUNT) }) {
-        Text(stringResource(R.string.ui_a2e20a335700), color = MaterialTheme.colorScheme.error)
+    if (profile != null) SettingsGroup(stringResource(R.string.settings_account)) {
+        if (model.authentication.canLinkFallsoft) {
+            SettingsAction(stringResource(R.string.fallsoft_link_title), Modifier.testTag("fallsoft-link-start"),
+                enabled = !model.authentication.busy && chat.eventDevice() != null) { model.beginFallsoftLink(context) }
+            Text(stringResource(R.string.fallsoft_link_detail), style = MaterialTheme.typography.bodySmall, color = secondary)
+            model.authentication.error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
+        }
+        SettingsAction(stringResource(R.string.ui_a2e20a335700), destructive = true) { model.navigate(Screen.DELETE_ACCOUNT) }
     }
+
 }
 
 @Composable private fun DownloadView(model: VipiModel) { LanguageDownloadsScreen(model) }
 
-@Composable internal fun LanguageSettingsLink(language: String, onClick: () -> Unit) {
-    val modifier = Modifier.fillMaxWidth().clickable(onClick = onClick).padding(vertical = 14.dp)
-    if (androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.3f) {
-        Column(modifier) { Text(stringResource(R.string.ui_e7cde359a05e)); Text(language, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    } else {
-        Row(modifier) { Text(stringResource(R.string.ui_e7cde359a05e)); Spacer(Modifier.weight(1f)); Text(language, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+@Composable private fun SettingsGroup(title: String, rows: @Composable ColumnScope.() -> Unit) {
+    Column(Modifier.fillMaxWidth()) {
+        Text(title, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(bottom = 4.dp).semantics { heading() })
+        HorizontalDivider()
+        rows()
     }
 }
 
-@Composable private fun InviteFriendButton(model: VipiModel) {
+@Composable internal fun SettingsAction(title: String, modifier: Modifier = Modifier, value: String? = null,
+    enabled: Boolean = true, destructive: Boolean = false, action: () -> Unit) {
+    val color = if (destructive) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
+    Row(modifier.fillMaxWidth().clickable(enabled = enabled, role = Role.Button, onClick = action)
+        .heightIn(min = 52.dp).padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        if (value != null && androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.3f) {
+            Column(Modifier.weight(1f)) {
+                Text(title, style = MaterialTheme.typography.bodyLarge, color = color)
+                Text(value, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        } else {
+            Text(title, Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge, color = color.copy(alpha = if (enabled) 1f else .55f))
+            value?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+        }
+        Icon(Icons.AutoMirrored.Outlined.ArrowForward, contentDescription = null, modifier = Modifier.size(16.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
+}
+
+@Composable private fun SettingsSwitch(title: String, checked: Boolean, tag: String, change: (Boolean) -> Unit) {
+    Row(Modifier.fillMaxWidth().testTag(tag).toggleable(checked, role = Role.Switch, onValueChange = change)
+        .heightIn(min = 52.dp).padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        Text(title, Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
+        Switch(checked, onCheckedChange = null)
+    }
+}
+
+@Composable internal fun LanguageSettingsLink(language: String, onClick: () -> Unit) =
+    SettingsAction(stringResource(R.string.ui_e7cde359a05e), value = language, action = onClick)
+
+@Composable private fun InviteFriendButton(model: VipiModel, settings: Boolean = false) {
     val username = model.chat?.profile?.username ?: return
     val context = LocalContext.current
     val inviteTitle = stringResource(R.string.nav_invite)
     var error by remember { mutableStateOf(false) }
-    TextButton(onClick = {
+    val share = {
         val invitation = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, context.getString(R.string.invite_share_text, username, "https://api.mambovipi.app/invite/$username"))
         }
         try { context.startActivity(Intent.createChooser(invitation, inviteTitle)); error = false }
         catch (_: android.content.ActivityNotFoundException) { error = true }
-    }) { Text(stringResource(R.string.nav_invite)) }
-    Text(stringResource(R.string.public_username, username), style = MaterialTheme.typography.bodySmall)
+    }
+    if (settings) SettingsAction(inviteTitle, action = share)
+    else {
+        TextButton(onClick = share) { Text(inviteTitle) }
+        Text(stringResource(R.string.public_username, username), style = MaterialTheme.typography.bodySmall)
+    }
     if (error) Text(stringResource(R.string.ui_e5bd91ac481d), style = MaterialTheme.typography.bodySmall)
 }

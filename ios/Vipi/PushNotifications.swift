@@ -139,17 +139,38 @@ import UserNotifications
 }
 
 struct NotificationSettingsView: View {
+    var chat: ChatSession? = nil
     let notifications = PushNotifications.shared
+    @State private var preferenceError = false
     var body: some View {
         Form {
             Section {
-                Text("Know when a friend replies. Notifications never include message text or a friend’s name.")
+                LabeledContent("Outside Vipi", value: String(localized: "New message"))
                 if notifications.enabled && notifications.authorization == .authorized {
                     Button("Turn off Vipi notifications") { Task { await notifications.disable() } }.disabled(notifications.busy)
                 } else {
                     Button("Enable notifications") { Task { await notifications.enable() } }.disabled(notifications.busy)
                 }
                 Link("Open notification settings", destination: URL(string: UIApplication.openNotificationSettingsURLString)!)
+            }
+            if let chat, chat.ready {
+                Section {
+                    Toggle("Preview messages while Vipi is open", isOn: Binding(
+                        get: { chat.previewsWhileOpen },
+                        set: { value in
+                            do { try chat.setPreviewsWhileOpen(value); preferenceError = false }
+                            catch { preferenceError = true }
+                        }))
+                    .accessibilityIdentifier("settings-message-previews")
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("Example").font(.caption).foregroundStyle(VipiDesign.secondary)
+                        if chat.previewsWhileOpen {
+                            Text(verbatim: "Maya").font(.headline)
+                            Text("Coffee at six?")
+                        } else { Text("No in-app banner") }
+                    }
+                    if preferenceError { Text("Couldn’t save this change. Try again.").foregroundStyle(VipiDesign.secondary) }
+                } footer: { Text("Outside Vipi, alerts show “New message.” Open Vipi to read it.") }
             }
             if let notice = notifications.notice { Section { Text(notice).foregroundStyle(VipiDesign.secondary) } }
         }.navigationTitle("Notifications").task { await notifications.refresh() }

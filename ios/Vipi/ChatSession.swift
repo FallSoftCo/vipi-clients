@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 import Observation
 
 struct ChatProfile: Codable, Identifiable, Hashable {
@@ -18,6 +18,34 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private var vault: MessageVault?
     private var core: MessagingCore?
     private var history: ConversationHistory?
+    struct IncomingPreview: Identifiable {
+        let id: UUID
+        let peer: UUID
+        let text: String
+    }
+    private(set) var previewsWhileOpen = false
+    private(set) var incomingPreview: IncomingPreview?
+    func setPreviewsWhileOpen(_ enabled: Bool) throws {
+        guard let vault else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        try vault.transaction {
+            if enabled { try vault.put("local", "foreground-previews", Data([1])) }
+            else { try vault.remove("local", "foreground-previews") }
+        }
+        previewsWhileOpen = enabled
+        if !enabled { incomingPreview = nil }
+    }
+    func clearPreview() { incomingPreview = nil }
+    private func offerPreview(id: UUID, peer: UUID, text: String) {
+        guard previewsWhileOpen, ready, !closed, !needsReauthentication,
+              !blockedPeers.contains(peer), !changedIdentities.contains(peer),
+              UIApplication.shared.applicationState == .active,
+              UIApplication.shared.isProtectedDataAvailable else { return }
+        let controls = CharacterSet.controlCharacters.union(.whitespacesAndNewlines)
+            .union(CharacterSet(charactersIn: "\u{061c}\u{200e}\u{200f}\u{202a}\u{202b}\u{202c}\u{202d}\u{202e}\u{2066}\u{2067}\u{2068}\u{2069}"))
+        let line = text.components(separatedBy: controls).filter { !$0.isEmpty }.joined(separator: " ")
+        guard !line.isEmpty else { return }
+        incomingPreview = IncomingPreview(id: id, peer: peer, text: line.count > 160 ? String(line.prefix(159)) + "…" : line)
+    }
     private(set) var profile: ChatProfile?
     private(set) var needsProfile = false
     private(set) var busy = false
@@ -148,6 +176,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             let store = try MessageVault(account: value.id)
             vault = store; core = try MessagingCore(vault: store); history = try ConversationHistory(vault: store)
             configureActivity(store)
+            previewsWhileOpen = try store.transaction { try store.get("local", "foreground-previews") == Data([1]) }
             ready = try store.transaction { try store.get("local", "registered-device") == Data(core!.device.id.uuidString.lowercased().utf8) }
             hasPendingDeviceReplacement = try store.transaction { try store.get("local", "replacement-consent") == Data(core!.device.id.uuidString.lowercased().utf8) }
             contacts = try store.transaction {
@@ -412,6 +441,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                             if !alreadyStored {
                                 activity?.event(.typing(item.sender_id,false))
                                 messageCommitted(.init(id:item.id.uuidString,text:received.text,peer:item.sender_id))
+                                offerPreview(id: item.id, peer: item.sender_id, text: received.text)
                             }
                         }
                         catch DurableSignalStore.Failure.retiredDevice { continue }
@@ -508,6 +538,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     func close() throws {
         translationReplay?.cancel(); translationReplay = nil; translationOwner?.close(); translationOwner = nil
         activity?.close(); activity = nil
+        clearPreview(); previewsWhileOpen = false
         messageObservers.removeAll()
         events?.stop(); events = nil
         cancelHistoryWork?(); cancelHistoryWork = nil
