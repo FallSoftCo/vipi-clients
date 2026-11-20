@@ -1,0 +1,13 @@
+<resources>
+    <string name="settings_theme">主題</string>
+    <string name="settings_notifications">通知</string>
+    <string name="settings_delivery">訊息提醒</string>
+    <string name="settings_on">開啟</string>
+    <string name="settings_off">關閉</string>
+    <string name="settings_message_previews">顯示訊息預覽</string>
+    <string name="settings_example">通知範例</string>
+    <string name="settings_sample_sender">瑪雅</string>
+    <string name="settings_sample_message">六點喝杯咖啡？</string>
+    <string name="settings_about">關於 Vipi</string>
+    <string name="settings_account">帳號</string>
+</resources>

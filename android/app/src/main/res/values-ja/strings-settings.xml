@@ -1,0 +1,13 @@
+<resources>
+    <string name="settings_theme">テーマ</string>
+    <string name="settings_notifications">通知</string>
+    <string name="settings_delivery">メッセージ通知</string>
+    <string name="settings_on">オン</string>
+    <string name="settings_off">オフ</string>
+    <string name="settings_message_previews">メッセージのプレビューを表示</string>
+    <string name="settings_example">通知の例</string>
+    <string name="settings_sample_sender">マヤ</string>
+    <string name="settings_sample_message">6時にコーヒーはどう？</string>
+    <string name="settings_about">Vipiについて</string>
+    <string name="settings_account">アカウント</string>
+</resources>

@@ -145,7 +145,7 @@ struct NotificationSettingsView: View {
     var body: some View {
         Form {
             Section {
-                LabeledContent("Outside Vipi", value: String(localized: "New message"))
+                LabeledContent("Outside Vipi", value: String(localized: "You have a new message."))
                 if notifications.enabled && notifications.authorization == .authorized {
                     Button("Turn off Vipi notifications") { Task { await notifications.disable() } }.disabled(notifications.busy)
                 } else {
@@ -170,7 +170,7 @@ struct NotificationSettingsView: View {
                         } else { Text("No in-app banner") }
                     }
                     if preferenceError { Text("Couldn’t save this change. Try again.").foregroundStyle(VipiDesign.secondary) }
-                } footer: { Text("Outside Vipi, alerts show “New message.” Open Vipi to read it.") }
+                } footer: { Text("Open Vipi to read the message.") }
             }
             if let notice = notifications.notice { Section { Text(notice).foregroundStyle(VipiDesign.secondary) } }
         }.navigationTitle("Notifications").task { await notifications.refresh() }

@@ -1,0 +1,13 @@
+<resources>
+    <string name="settings_theme">Mandhari</string>
+    <string name="settings_notifications">Arifa</string>
+    <string name="settings_delivery">Arifa za ujumbe</string>
+    <string name="settings_on">Zimewashwa</string>
+    <string name="settings_off">Zimezimwa</string>
+    <string name="settings_message_previews">Onyesha hakikisho la ujumbe</string>
+    <string name="settings_example">Mfano wa arifa</string>
+    <string name="settings_sample_sender">Maya</string>
+    <string name="settings_sample_message">Tunywe kahawa saa kumi na mbili?</string>
+    <string name="settings_about">Kuhusu Vipi</string>
+    <string name="settings_account">Akaunti</string>
+</resources>

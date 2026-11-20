@@ -1,0 +1,13 @@
+<resources>
+    <string name="settings_theme">المظهر</string>
+    <string name="settings_notifications">الإشعارات</string>
+    <string name="settings_delivery">تنبيهات الرسائل</string>
+    <string name="settings_on">مفعّلة</string>
+    <string name="settings_off">متوقفة</string>
+    <string name="settings_message_previews">عرض معاينات الرسائل</string>
+    <string name="settings_example">مثال لإشعار</string>
+    <string name="settings_sample_sender">مايا</string>
+    <string name="settings_sample_message">ما رأيك في قهوة عند السادسة؟</string>
+    <string name="settings_about">حول Vipi</string>
+    <string name="settings_account">الحساب</string>
+</resources>

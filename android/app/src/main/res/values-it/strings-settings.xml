@@ -1,0 +1,13 @@
+<resources>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_notifications">Notifiche</string>
+    <string name="settings_delivery">Avvisi dei messaggi</string>
+    <string name="settings_on">Attivi</string>
+    <string name="settings_off">Disattivati</string>
+    <string name="settings_message_previews">Mostra anteprime dei messaggi</string>
+    <string name="settings_example">Esempio di notifica</string>
+    <string name="settings_sample_sender">Maya</string>
+    <string name="settings_sample_message">Un caffè alle sei?</string>
+    <string name="settings_about">Informazioni su Vipi</string>
+    <string name="settings_account">Account</string>
+</resources>
