@@ -25,6 +25,8 @@ enum VipiColorRole:String,CaseIterable {
     case spokenFill = "spoken_fill"
     case spokenInk = "spoken_ink"
     case subdued
+    case incomingEdge = "incoming_edge"
+    case outgoingEdge = "outgoing_edge"
 }
 
 /// Opaque sRGB roles; native traits choose appearance and increased contrast.
@@ -32,7 +34,7 @@ enum VipiPalette {
     private static let roles:[VipiColorRole:[UInt32]] = [
         .canvas:[0xFFF8EF,0x221B22,0xFFF8EF,0x181317],
         .surface:[0xFFFDF8,0x30252C,0xFFFDF8,0x30252C],
-        .incoming:[0xF0E5DB,0x382B36,0xF0E5DB,0x382B36],
+        .incoming:[0xEBDDD2,0x382B36,0xEBDDD2,0x382B36],
         .outgoing:[0xF4BAAA,0x754756,0xF8C9B7,0x48252E],
         .ink:[0x352233,0xF9ECE4,0x2B1627,0xFFF9F1],
         .secondary:[0x6D5263,0xD2BDBF,0x493043,0xEFE0D2],
@@ -53,6 +55,8 @@ enum VipiPalette {
         .spokenFill:[0x64334E,0xF5BAA0,0x64334E,0xF5BAA0],
         .spokenInk:[0xFFF1DD,0x46232B,0xFFF1DD,0x46232B],
         .subdued:[0xEEDFD9,0x44323C,0xEEDFD9,0x44323C],
+        .incomingEdge:[0xBCA69C,0x54434C,0x947A6E,0x54434C],
+        .outgoingEdge:[0xC38779,0x54434C,0xA66B60,0x54434C],
     ]
     static func uiColor(_ role:VipiColorRole) -> UIColor {
         let values = roles[role]!

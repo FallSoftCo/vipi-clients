@@ -1,11 +1,11 @@
 {
-  "version": 3,
+  "version": 4,
   "name": "Guava & ink",
   "color_space": "Opaque sRGB",
   "light": {
     "canvas": "#FFF8EF",
     "surface": "#FFFDF8",
-    "incoming": "#F0E5DB",
+    "incoming": "#EBDDD2",
     "outgoing": "#F4BAAA",
     "ink": "#352233",
     "secondary": "#6D5263",
@@ -25,7 +25,9 @@
     "practice_ink": "#56380C",
     "spoken_fill": "#64334E",
     "spoken_ink": "#FFF1DD",
-    "subdued": "#EEDFD9"
+    "subdued": "#EEDFD9",
+    "incoming_edge": "#BCA69C",
+    "outgoing_edge": "#C38779"
   },
   "dark": {
     "canvas": "#221B22",
@@ -50,12 +52,14 @@
     "practice_ink": "#FFE5A6",
     "spoken_fill": "#F5BAA0",
     "spoken_ink": "#46232B",
-    "subdued": "#44323C"
+    "subdued": "#44323C",
+    "incoming_edge": "#54434C",
+    "outgoing_edge": "#54434C"
   },
   "increased_contrast_light": {
     "canvas": "#FFF8EF",
     "surface": "#FFFDF8",
-    "incoming": "#F0E5DB",
+    "incoming": "#EBDDD2",
     "outgoing": "#F8C9B7",
     "ink": "#2B1627",
     "secondary": "#493043",
@@ -75,7 +79,9 @@
     "practice_ink": "#56380C",
     "spoken_fill": "#64334E",
     "spoken_ink": "#FFF1DD",
-    "subdued": "#EEDFD9"
+    "subdued": "#EEDFD9",
+    "incoming_edge": "#947A6E",
+    "outgoing_edge": "#A66B60"
   },
   "increased_contrast_dark": {
     "canvas": "#181317",
@@ -100,7 +106,9 @@
     "practice_ink": "#FFE5A6",
     "spoken_fill": "#F5BAA0",
     "spoken_ink": "#46232B",
-    "subdued": "#44323C"
+    "subdued": "#44323C",
+    "incoming_edge": "#54434C",
+    "outgoing_edge": "#54434C"
   },
   "avatar_light": [
     "#FAD2AF",
@@ -121,7 +129,10 @@
     "question_curve": "#F1A998",
     "i_dots": "#F1A998",
     "question_dot": "#FFC958",
-    "geometry": "Use the custom lowercase signature and its open question wrap from vipi-icon.svg. Both i dots use the same guava as the curve."
+    "geometry": "Use the custom lowercase signature and its open question wrap from vipi-icon.svg. Both i dots use the same guava as the curve.",
+    "launcher": "vipi-icon.svg",
+    "in_app_light": "vipi-mark-light.svg",
+    "in_app_dark": "vipi-mark-dark.svg"
   },
   "state_rules": [
     "Use outgoing_ink, outgoing_secondary and outgoing_read inside the authored message bubble in both appearances.",
@@ -133,5 +144,12 @@
   "benchmarks": [
     "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
     "https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html"
-  ]
+  ],
+  "light_bubble_depth": {
+    "stroke_width": 1,
+    "shadow_color": "#482F38",
+    "shadow_opacity": 0.12,
+    "shadow_radius": 2,
+    "shadow_y": 1
+  }
 }
