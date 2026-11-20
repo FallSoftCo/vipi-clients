@@ -12,7 +12,7 @@ from datetime import timedelta
 from sqlalchemy import and_, delete, or_, select, update
 
 from .db import (Block, ChatGroup, Device, GroupInvitation, GroupMember,
-                 GroupMessage, GroupOperation, PendingMessage, User)
+                 GroupMessage, GroupOperation, GroupCancellation, PendingMessage, User)
 from .delivery import DeliveryError, Envelope, accept, fingerprint, utc
 
 CAP = 16
@@ -153,8 +153,24 @@ async def create(session, *, actor_id, group_id, title, now):
     return await snapshot(session, group)
 
 
-async def operation(session, group, actor_id, request_id, value, expected_epoch, *, now):
+def operation_value(action, expected_epoch, target_id=None, title=None, role=None, invite_id=None, *, control_stamp=None):
+    value = [action, expected_epoch, target_id, title, role, invite_id]
+    if control_stamp is not None:
+        value.append(["atomic-control", control_stamp])
+    return value
+
+
+async def cancellation_fence(session, group_id, actor_id, request_id, stamp, device_id):
+    cancellation = await session.get(GroupCancellation, (group_id, actor_id, request_id))
+    if cancellation:
+        if cancellation.fingerprint != stamp or cancellation.original_device_id != device_id:
+            raise DeliveryError("group_request_conflict", 409)
+        raise DeliveryError("group_operation_cancelled", 409)
+
+
+async def operation(session, group, actor_id, request_id, value, expected_epoch, *, now, device_id=None):
     stamp = digest(value)
+    await cancellation_fence(session, group.id, actor_id, request_id, stamp, device_id)
     old = await session.get(GroupOperation, (group.id, request_id))
     if old:
         if old.actor_id != actor_id or old.fingerprint != stamp:
@@ -162,7 +178,7 @@ async def operation(session, group, actor_id, request_id, value, expected_epoch,
         return False
     epoch_matches(group, expected_epoch)
     session.add(GroupOperation(group_id=group.id, request_id=request_id, actor_id=actor_id,
-        fingerprint=stamp, created_at=utc(now)))
+        fingerprint=stamp, created_at=utc(now),expected_epoch=expected_epoch,original_device_id=device_id))
     return True
 
 
@@ -192,15 +208,31 @@ async def _mutate(session, *, group_id, actor_id, request_id, expected_epoch, ac
             raise DeliveryError("invalid_atomic_group_control")
         value.append(["atomic-control", fanout_fingerprint(group_id, actor_id, device_id, control)])
 
+    await cancellation_fence(session,group_id,actor_id,request_id,digest(value),device_id)
+    previous = await session.get(GroupOperation, (group_id, request_id))
+    if previous:
+        if previous.actor_id != actor_id or previous.fingerprint != digest(value):
+            raise DeliveryError("group_request_conflict", 409)
+        if previous.admitted_result is None:
+            # Pre-extension receipts have no immutable snapshot. A current
+            # roster is not evidence of the original admitted outcome.
+            raise DeliveryError("group_operation_outcome_unavailable", 409)
+        return json.loads(previous.admitted_result)
+
+    async def remember(result):
+        record = await session.get(GroupOperation, (group_id, request_id))
+        record.admitted_result = json.dumps(result,sort_keys=True,separators=(",",":")).encode()
+        return result
+
     async def result_with_control(result):
         if control is None:
-            return result
+            return await remember(result)
         record = await session.get(GroupMessage, (group_id, control.id))
         if (not record or record.kind != "control" or record.sender_id != actor_id or
                 record.sender_device_id != device_id or
                 record.fingerprint != fanout_fingerprint(group_id, actor_id, device_id, control)):
             raise DeliveryError("group_request_conflict", 409)
-        return result | {"control_acceptance": await message_result(session, group_id, record, now=now)}
+        return await remember(result | {"control_acceptance": await message_result(session, group_id, record, now=now)})
     # Invitations are account capabilities; accepting/declining requires that
     # exact account, not existing group membership.
     invite = await session.get(GroupInvitation, invite_id) if invite_id else None
@@ -220,11 +252,11 @@ async def _mutate(session, *, group_id, actor_id, request_id, expected_epoch, ac
     else:
         admin_for(roster, actor_id)
     # Include expected_epoch in idempotency identity: retries are exact bytes.
-    if not await operation(session, group, actor_id, request_id, value, expected_epoch, now=now):
+    if not await operation(session, group, actor_id, request_id, value, expected_epoch, now=now, device_id=device_id):
         if action == "leave":
             return await result_with_control({"left": True})
         if action == "decline":
-            return {"declined": True}
+            return await remember({"declined": True})
         member_for(await members(session, group_id), actor_id)
         return await result_with_control(await snapshot(session, group))
     if control is not None:
@@ -306,7 +338,7 @@ async def _mutate(session, *, group_id, actor_id, request_id, expected_epoch, ac
     if action == "leave":
         return await result_with_control({"left": True})
     if action == "decline":
-        return {"declined": True}
+        return await remember({"declined": True})
     return await result_with_control(await snapshot(session, group))
 
 
@@ -372,6 +404,7 @@ async def revoke_memberships(session, user_id, *, now, shared_with=None, deletin
     if deleting:
         await session.execute(delete(GroupInvitation).where(invitation_filter))
         await session.execute(delete(GroupOperation).where(GroupOperation.actor_id == user_id))
+        await session.execute(delete(GroupCancellation).where(GroupCancellation.actor_id == user_id))
         await session.execute(delete(GroupMessage).where(GroupMessage.sender_id == user_id))
         await session.execute(update(ChatGroup).where(ChatGroup.creator_id == user_id).values(creator_id=None))
 
@@ -384,6 +417,103 @@ class Fanout:
     envelopes: tuple[Envelope, ...]
     kind: str = "message"
     invited_user_id: str | None = None
+
+
+async def cancel_operation(session, *, group_id, actor_id, request_id, action, expected_epoch,
+                           original_device_id, device_id, now, target_id=None, title=None,
+                           role=None, invite_id=None, control=None):
+    """Resolve one exact operation under admission's user/group locks.
+
+    Tombstones are actor-namespaced: one member cannot reserve another member's
+    request ID. Transport errors retain the client's original immutable journal.
+    """
+    async with session.begin_nested():
+        group, roster, _ = await lock_group(session,group_id,actor_id,
+            extra=[target_id] if target_id else [],allow_closed=True)
+        current_device = await session.get(Device,device_id,populate_existing=True)
+        original_device = await session.get(Device,original_device_id,populate_existing=True)
+        if not current_device or not current_device.active or current_device.user_id != actor_id:
+            raise DeliveryError("device_revoked",401)
+        # A revoked original device may still have an uncertain prepared request;
+        # a new authenticated device can reconcile it without remapping its ID.
+        if not original_device or original_device.user_id != actor_id:
+            raise DeliveryError("group_request_conflict",409)
+        actions = {"rename","invite","accept","decline","cancel-invite","role","remove","leave","control"}
+        if action not in actions or type(expected_epoch) is not int or expected_epoch < 1:
+            raise DeliveryError("invalid_group_operation_descriptor")
+        fields = {"target_id":target_id,"title":title,"role":role,"invite_id":invite_id}
+        needed = {"rename":{"title"},"invite":{"target_id"},"accept":{"invite_id"},
+            "decline":{"invite_id"},"cancel-invite":{"invite_id"},"role":{"target_id","role"},
+            "remove":{"target_id"},"leave":set(),"control":set()}[action]
+        if {key for key,value in fields.items() if value is not None} != needed:
+            raise DeliveryError("invalid_group_operation_descriptor")
+        if action == "rename": clean_title(title)
+        if action == "role" and role not in ("owner","admin","member"):
+            raise DeliveryError("invalid_group_operation_descriptor")
+        if control is not None and (control.kind != "control" or
+            (action != "control" and (action not in ("role","remove","leave") or control.invited_user_id))):
+            raise DeliveryError("invalid_group_operation_descriptor")
+        if action == "control" and (control is None or control.id != request_id or control.epoch != expected_epoch):
+            raise DeliveryError("invalid_group_operation_descriptor")
+        stamp = digest(operation_value(action,expected_epoch,target_id,title,role,invite_id,
+            control_stamp=fanout_fingerprint(group_id,actor_id,original_device_id,control) if control else None))
+        old = await session.get(GroupOperation,(group_id,request_id))
+        if old:
+            if old.actor_id != actor_id or old.fingerprint != stamp:
+                raise DeliveryError("group_request_conflict",409)
+            if old.admitted_result is None or old.original_device_id is None:
+                raise DeliveryError("group_operation_outcome_unavailable",409)
+            if old.original_device_id != original_device_id:
+                raise DeliveryError("group_request_conflict",409)
+            return {"status":"admitted","request_id":request_id,"group_id":group_id,
+                "result":json.loads(old.admitted_result)}
+        if action == "control":
+            record = await session.get(GroupMessage,(group_id,request_id))
+            if record:
+                if (record.kind != "control" or record.sender_id != actor_id or
+                    record.sender_device_id != original_device_id or
+                    record.fingerprint != fanout_fingerprint(group_id,actor_id,original_device_id,control)):
+                    raise DeliveryError("group_request_conflict",409)
+                if record.admitted_result is None:
+                    raise DeliveryError("group_operation_outcome_unavailable",409)
+                return {"status":"admitted","request_id":request_id,"group_id":group_id,
+                    "result":json.loads(record.admitted_result)}
+        tombstone = await session.get(GroupCancellation,(group_id,actor_id,request_id))
+        if tombstone:
+            if tombstone.fingerprint != stamp or tombstone.original_device_id != original_device_id:
+                raise DeliveryError("group_request_conflict",409)
+        else:
+            # Authorize against current authority for an unadmitted operation.
+            # Existing exact outcomes above need no new membership or roster.
+            if action in ("accept","decline"):
+                invite = await session.get(GroupInvitation,invite_id)
+                if not invite or invite.group_id != group_id or invite.user_id != actor_id:
+                    raise DeliveryError("group_invitation_unavailable",404)
+            elif group.state == "closed" and group.creator_id == actor_id:
+                pass  # A closed creator's late mutation can never be admitted.
+            elif action in ("leave","control"):
+                member_for(roster,actor_id)
+            else:
+                member = admin_for(roster,actor_id)
+                if action == "role" and member.role != "owner":
+                    raise DeliveryError("group_permission_denied",403)
+            # Only monotonic admission fences permit cleanup. A current/future
+            # expected epoch is never forgotten merely because days passed.
+            stale = [GroupCancellation.expected_epoch < group.epoch,
+                GroupCancellation.control_expires_at <= utc(now)]
+            if group.state != "active": stale.append(GroupCancellation.group_id == group_id)
+            await session.execute(delete(GroupCancellation).where(GroupCancellation.group_id == group_id,or_(*stale)))
+            from sqlalchemy import func
+            count = await session.scalar(select(func.count()).select_from(GroupCancellation).where(
+                GroupCancellation.group_id == group_id,GroupCancellation.actor_id == actor_id))
+            if count >= 256:
+                raise DeliveryError("group_cancellation_limit",429)
+            session.add(GroupCancellation(group_id=group_id,actor_id=actor_id,request_id=request_id,
+                fingerprint=stamp,expected_epoch=expected_epoch,original_device_id=original_device_id,
+                control_expires_at=utc(control.created_at)+timedelta(hours=72) if control else None,
+                created_at=utc(now)))
+            await session.flush()
+        return {"status":"cancelled","request_id":request_id,"group_id":group_id,"expected_epoch":expected_epoch}
 
 
 async def message_result(session, group_id, record, *, now):
@@ -419,6 +549,9 @@ async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes
         if old.sender_id != actor_id or old.sender_device_id != device_id or old.fingerprint != stamp:
             raise DeliveryError("group_request_conflict", 409)
         return await message_result(session, group_id, old, now=now)
+    if fanout.kind == "control":
+        cancellation_stamp = digest(operation_value("control",fanout.epoch,control_stamp=stamp))
+        await cancellation_fence(session,group_id,actor_id,fanout.id,cancellation_stamp,device_id)
     epoch_matches(group, fanout.epoch)
     if sent > now + timedelta(minutes=5):
         raise DeliveryError("clock_ahead")
@@ -474,10 +607,16 @@ async def send(session, *, group_id, actor_id, device_id, fanout, now, max_bytes
             expires_at=min(sent, now) + timedelta(hours=72))
         session.add(record)
         await session.flush()
-    return await message_result(session, group_id, record, now=now)
+    result = await message_result(session, group_id, record, now=now)
+    record.admitted_result = json.dumps(result,sort_keys=True,separators=(",",":")).encode()
+    return result
 
 
 async def expire(session, *, now):
+    obsolete = select(ChatGroup.id).where(ChatGroup.id == GroupCancellation.group_id,
+        or_(ChatGroup.state != "active",ChatGroup.epoch > GroupCancellation.expected_epoch)).exists()
+    await session.execute(delete(GroupCancellation).where(or_(obsolete,
+        GroupCancellation.control_expires_at <= utc(now))))
     await session.execute(delete(GroupMessage).where(or_(
         and_(GroupMessage.kind == "message", GroupMessage.expires_at < utc(now) - timedelta(days=7)),
         and_(GroupMessage.kind == "control", GroupMessage.expires_at < utc(now) - timedelta(days=27)))))

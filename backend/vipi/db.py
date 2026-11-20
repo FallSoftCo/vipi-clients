@@ -350,6 +350,21 @@ class GroupOperation(Base):
     actor_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
     fingerprint: Mapped[str] = mapped_column(String(64))
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    expected_epoch: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    original_device_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    admitted_result: Mapped[bytes | None] = mapped_column(LargeBinary, nullable=True)
+
+
+class GroupCancellation(Base):
+    __tablename__ = "group_cancellations"
+    group_id: Mapped[str] = mapped_column(ForeignKey("chat_groups.id"), primary_key=True)
+    actor_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True)
+    request_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    expected_epoch: Mapped[int] = mapped_column(Integer)
+    original_device_id: Mapped[str] = mapped_column(String(36))
+    control_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
 
 class GroupMessage(Base):
@@ -362,4 +377,5 @@ class GroupMessage(Base):
     epoch: Mapped[int] = mapped_column(Integer)
     fingerprint: Mapped[str] = mapped_column(String(64))
     envelope_ids: Mapped[bytes] = mapped_column(LargeBinary)
+    admitted_result: Mapped[bytes | None] = mapped_column(LargeBinary, nullable=True)
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)

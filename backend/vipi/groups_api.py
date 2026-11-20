@@ -62,6 +62,17 @@ class RoleInput(MutationInput):
 
 
 
+class CancelOperationInput(Input):
+    action: Literal["rename","invite","accept","decline","cancel-invite","role","remove","leave","control"]
+    expected_epoch: int = Field(ge=1)
+    original_device_id: UUID
+    target_id: UUID | None = None
+    title: str | None = Field(default=None,min_length=1,max_length=80)
+    role: Literal["owner","admin","member"] | None = None
+    invite_id: UUID | None = None
+    control: ControlInput | None = None
+
+
 def install(app, settings, db, now, principal, user_for, phone_for, rate):
     async def enabled():
         if not settings.groups_enabled:
@@ -131,6 +142,35 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                 return result
         except IntegrityError:
             raise DeliveryError("group_request_conflict", 409) from None
+
+    @router.post("/{group_id}/operations/{request_id}/cancel")
+    async def cancel_operation(group_id: UUID, request_id: UUID, body: CancelOperationInput,
+                               request: Request, p=Depends(principal)):
+        await rate(p,"groups-cancel-operation",30)
+        try:
+            async with db.sessions.begin() as session:
+                user = await user_for(session,p)
+                device = await phone_for(session,request,user)
+                control = None
+                if body.control is not None:
+                    try:
+                        envelopes = tuple(Envelope(str(e.id),user.id,str(body.original_device_id),
+                            str(e.recipient_id),str(e.recipient_device_id),body.control.created_at,
+                            base64.b64decode(e.ciphertext,validate=True),e.cipher_type) for e in body.control.envelopes)
+                    except (ValueError,binascii.Error):
+                        raise DeliveryError("invalid_ciphertext") from None
+                    control = groups.Fanout(str(body.control.id),body.control.epoch,body.control.created_at,
+                        envelopes,"control",str(body.control.invited_user_id) if body.control.invited_user_id else None)
+                result = await groups.cancel_operation(session,group_id=str(group_id),actor_id=user.id,
+                    request_id=str(request_id),action=body.action,expected_epoch=body.expected_epoch,
+                    original_device_id=str(body.original_device_id),device_id=device.id,now=now(),
+                    target_id=str(body.target_id) if body.target_id else None,title=body.title,role=body.role,
+                    invite_id=str(body.invite_id) if body.invite_id else None,control=control)
+                await user_for(session,p)
+                await phone_for(session,request,user)
+                return result
+        except IntegrityError:
+            raise DeliveryError("group_request_conflict",409) from None
 
     @router.patch("/{group_id}")
     async def rename(group_id: UUID, body: RenameInput, request: Request, p=Depends(principal)):

@@ -1,3 +1,5 @@
+Current implementation checkpoint: see [operation recovery wire](GROUPS_OPERATION_RECOVERY_WIRE.md). The dated design below records the original unimplemented handoff; native recovery/notification gaps remain explicit.
+
 # Pending recovery/notification contract — source handoff
 
 November 20 UTC. Root reprioritized the protocol owner to launch capacity before
