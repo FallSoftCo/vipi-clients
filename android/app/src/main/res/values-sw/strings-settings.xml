@@ -10,4 +10,5 @@
     <string name="settings_sample_message">Tunywe kahawa saa kumi na mbili?</string>
     <string name="settings_about">Kuhusu Vipi</string>
     <string name="settings_account">Akaunti</string>
+    <string name="settings_save_failed">Imeshindikana kuhifadhi mabadiliko. Jaribu tena.</string>
 </resources>

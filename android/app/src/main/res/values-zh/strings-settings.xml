@@ -10,4 +10,5 @@
     <string name="settings_sample_message">六点喝杯咖啡？</string>
     <string name="settings_about">关于 Vipi</string>
     <string name="settings_account">账户</string>
+    <string name="settings_save_failed">无法保存更改，请重试。</string>
 </resources>

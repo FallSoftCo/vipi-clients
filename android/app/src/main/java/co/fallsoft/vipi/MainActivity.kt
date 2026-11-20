@@ -434,7 +434,12 @@ class MainActivity : ComponentActivity() {
         }, confirmButton = { TextButton(onClick = { appearancePicker = false }) { Text(stringResource(android.R.string.cancel)) } })
     if (chat?.ready == true) SettingsGroup(stringResource(R.string.settings_notifications)) {
         NotificationSetup()
-        SettingsSwitch(stringResource(R.string.settings_message_previews), chat.notificationPreviews, "settings-message-previews", chat::changeNotificationPreviews)
+        var previewError by remember(chat) { mutableStateOf(false) }
+        SettingsSwitch(stringResource(R.string.settings_message_previews), chat.notificationPreviews, "settings-message-previews") { enabled ->
+            previewError = runCatching { chat.changeNotificationPreviews(enabled) }.isFailure
+        }
+        if (previewError) Text(stringResource(R.string.settings_save_failed), style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.error)
         Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp)).padding(14.dp)) {
             Text(stringResource(R.string.settings_example), style = MaterialTheme.typography.labelMedium, color = secondary)
             Text(if (chat.notificationPreviews) stringResource(R.string.settings_sample_sender) else stringResource(R.string.ui_0882ca640d5a),

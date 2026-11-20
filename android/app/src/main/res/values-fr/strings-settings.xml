@@ -10,4 +10,5 @@
     <string name="settings_sample_message">Un café à six heures ?</string>
     <string name="settings_about">À propos de Vipi</string>
     <string name="settings_account">Compte</string>
+    <string name="settings_save_failed">Impossible d’enregistrer ce changement. Réessayez.</string>
 </resources>
