@@ -1,0 +1,56 @@
+{
+  "status": "reviewable application-specific plan; no external settings mutation",
+  "existing_application": {
+    "name": "Vipi",
+    "application_id": "app_01M7N9Y2DGDVFNZBXCB3SAEFZX",
+    "client_id": "client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4",
+    "environment_id": "environment_01JPK69ZMKBJYK94G3G06FWGZA"
+  },
+  "proposed_branding": {
+    "display_name": "Vipi",
+    "logo_source": "release/store-assets/google-play/en-US/vipi-icon-512.png",
+    "logo_sha256": "3be776ca2d180c8d89b1fc7ff3484b969997acf21944416fc7415943654831b7",
+    "mark_provenance": "existing original two-voice Vipi mark; design/vipi-icon.svg and native clients",
+    "primary_button": "#2B6142",
+    "primary_button_text": "#FFFFFF",
+    "page_background": "#F9F7F2",
+    "terms_url": "https://api.mambovipi.app/terms",
+    "privacy_url": "https://api.mambovipi.app/privacy",
+    "sign_in_heading_if_supported": "Sign in to Vipi"
+  },
+  "native_user_flow": [
+    "Choose languages and retain pending friend invitation",
+    "Continue to sign in using existing Vipi application client audience",
+    "Hosted application-specific Vipi branding offers enabled existing authentication factors",
+    "Return through exact co.fallsoft.vipi://auth/callback with original PKCE/state validation",
+    "Fresh profile chooses username; existing profile/device/Signal keys remain attached to unchanged Vipi UUID",
+    "Pending invitation populates friend lookup; no automatic message or trust action"
+  ],
+  "preserve": [
+    "all existing WorkOS users and shared subject IDs",
+    "shared/default application/environment branding",
+    "environment login/custom domain",
+    "existing Google and Apple provider configurations",
+    "existing Vipi redirect URIs",
+    "saved native authority records and refresh tokens",
+    "explicit dual-proof legacy account migration",
+    "all other products and store submissions"
+  ],
+  "existing_redirects": [
+    "co.fallsoft.vipi://auth/callback",
+    "https://api.mambovipi.app/delete-account/callback"
+  ],
+  "scope_rules": [
+    "Select the existing Vipi application, then Customize branding; inspect selected scope and full diff before save",
+    "Do not create a separate environment or duplicate application",
+    "Do not reset settings/users, change secrets, enable providers or replace native sessions",
+    "No paid upgrade or new paid dependency is part of this plan",
+    "Validate existing-account sign-in, cancellation, recent same-account reauth and original invite retention with fresh owned QA flow; never reuse a completed authorization code"
+  ],
+  "references": [
+    "https://workos.com/docs/authkit/branding",
+    "https://workos.com/docs/authkit/applications",
+    "https://workos.com/changelog/custom-branding-per-application"
+  ],
+  "actual_settings_changes": 0
+}
