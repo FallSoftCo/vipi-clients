@@ -11,6 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.dropShadow
+import androidx.compose.ui.graphics.shadow.Shadow
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
@@ -43,16 +46,20 @@ import java.util.Locale
     }
 }
 
-@Composable internal fun ChatBubbleFrame(outgoing: Boolean, content: @Composable () -> Unit) {
+@Composable internal fun ChatBubbleFrame(outgoing: Boolean, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     val palette = vipiPalette()
     val context = if (outgoing) palette.onOutgoing() else palette
     val shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp,
         bottomStart = if (outgoing) 20.dp else 5.dp, bottomEnd = if (outgoing) 5.dp else 20.dp)
-    Surface(modifier = Modifier.widthIn(max = 520.dp), shape = shape,
+    val light = palette.canvas.luminance() > .5f
+    val frame = modifier.widthIn(max = 520.dp).then(if (light) Modifier.dropShadow(shape,
+        Shadow(radius = 2.dp, spread = 0.dp, color = palette.bubbleShadow,
+            offset = DpOffset(0.dp, 1.dp))) else Modifier)
+    Surface(modifier = frame, shape = shape,
         color = if (outgoing) palette.outgoing else palette.incoming,
         contentColor = context.ink,
-        shadowElevation = 1.dp,
-        border = BorderStroke(.5.dp, palette.separator)) {
+        shadowElevation = if (light) 0.dp else 1.dp,
+        border = BorderStroke(if (light) 1.dp else .5.dp, if (outgoing) palette.outgoingOutline else palette.incomingOutline)) {
         CompositionLocalProvider(LocalVipiPalette provides context) {
             MaterialTheme(colorScheme = MaterialTheme.colorScheme.copy(
                 onSurface = context.ink, onSurfaceVariant = context.secondary,

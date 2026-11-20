@@ -24,7 +24,7 @@ import java.io.File
  * Host controller owns the exact runtime-permission baseline/restoration. */
 class NotificationBrandDeviceTest {
     @get:Rule val compose=createComposeRule()
-    @Test fun actualStatusBarAndShadeRenderApprovedTinyVInBothSystemAppearances(){
+    @Test fun actualStatusBarAndShadeRenderApprovedTinyMarkInBothSystemAppearances(){
         val i=InstrumentationRegistry.getInstrumentation();val c=i.targetContext
         check(BuildConfig.DEBUG&&BuildConfig.APPLICATION_ID=="co.fallsoft.vipi.sourcecontextqa")
         check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator")=="true")
@@ -44,6 +44,8 @@ class NotificationBrandDeviceTest {
             for((mode,label)in listOf("no" to "light","yes" to "dark")){
                 device.executeShellCommand("cmd uimode night $mode");compose.mainClock.advanceTimeBy(400);compose.waitForIdle()
                 nm.notify(id,Notification.Builder(c,channel).setSmallIcon(R.drawable.vipi_notification).setContentTitle("Vipi").setContentText("Notification icon review").setOnlyAlertOnce(true).setShowWhen(false).build())
+                val deadline=android.os.SystemClock.uptimeMillis()+5_000
+                while(nm.activeNotifications.none{it.id==id&&it.notification.smallIcon.resId==R.drawable.vipi_notification}&&android.os.SystemClock.uptimeMillis()<deadline)android.os.SystemClock.sleep(50)
                 check(nm.activeNotifications.any{it.id==id&&it.notification.smallIcon.resId==R.drawable.vipi_notification})
                 device.waitForIdle();android.os.SystemClock.sleep(1000);capture("01-$label-statusbar")
                 check(device.openNotification());check(device.wait(Until.hasObject(By.text("Notification icon review")),5_000));device.waitForIdle();android.os.SystemClock.sleep(1000);capture("02-$label-shade")

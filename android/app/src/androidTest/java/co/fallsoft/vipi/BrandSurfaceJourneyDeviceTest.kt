@@ -28,7 +28,18 @@ class BrandSurfaceJourneyDeviceTest {
             val root=ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).single().window.decorView
             root.viewTreeObserver.registerFrameCommitCallback{latch.countDown()};root.invalidate()
         };check(latch.await(3,TimeUnit.SECONDS))}
+        // Compose's virtual clock does not drive SystemUI tint animation.
+        android.os.SystemClock.sleep(600)
+        var bars=0;var ime=false;var expectedLight=false
+        f.instrumentation.runOnMainSync{
+            val host=ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED).single()
+            bars=host.window.insetsController!!.systemBarsAppearance
+            ime=host.window.decorView.rootWindowInsets.isVisible(android.view.WindowInsets.Type.ime())
+            expectedLight=f.model.appearance==Appearance.LIGHT||(f.model.appearance==Appearance.SYSTEM&&(f.base.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK)!=android.content.res.Configuration.UI_MODE_NIGHT_YES)
+        }
+        File(f.output,"$name-system-bars.json").writeText(JSONObject().put("appearance_bits",bars).put("expected_light_bars",expectedLight).put("ime_visible",ime).put("native_settle_ms",600).toString(2))
         f.capture(name)
+        if(!ime)assertEquals("Actual settled activity navigation-bar appearance",expectedLight,bars and android.view.WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS!=0)
     }
     @Test fun approvedBrandAndGuavaWelcomeLanguageAndAccountRenderWithoutSignIn():Unit=runBlocking{
         MainActivityJourneyFixture("brand-onboarding").use{f->

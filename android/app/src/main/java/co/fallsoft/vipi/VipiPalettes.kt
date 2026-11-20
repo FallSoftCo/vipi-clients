@@ -8,7 +8,7 @@ internal object VipiPalettes {
     val Light = VipiPalette(
         canvas = Color(0xFFFFF8EF),
         surface = Color(0xFFFFFDF8),
-        incoming = Color(0xFFF0E5DB),
+        incoming = Color(0xFFEBDDD2),
         outgoing = Color(0xFFF4BAAA),
         ink = Color(0xFF352233),
         secondary = Color(0xFF6D5263),
@@ -30,7 +30,9 @@ internal object VipiPalettes {
         outgoingFailed = Color(0xFF73142D),
         outgoingFocus = Color(0xFF762843),
         avatars = listOf(Color(0xFFFAD2AF), Color(0xFFE4D4E6), Color(0xFFD8DCB4), Color(0xFFF3C3C3)),
-        avatarInk = Color(0xFF352233)
+        avatarInk = Color(0xFF352233),
+        incomingOutline = Color(0xFFBCA69C), outgoingOutline = Color(0xFFC38779),
+        bubbleShadow = Color(0xFF482F38).copy(alpha = .12f)
     )
     val Dark = VipiPalette(
         canvas = Color(0xFF221B22),
@@ -62,7 +64,7 @@ internal object VipiPalettes {
     val IncreasedContrastLight = VipiPalette(
         canvas = Color(0xFFFFF8EF),
         surface = Color(0xFFFFFDF8),
-        incoming = Color(0xFFF0E5DB),
+        incoming = Color(0xFFEBDDD2),
         outgoing = Color(0xFFF8C9B7),
         ink = Color(0xFF2B1627),
         secondary = Color(0xFF493043),
@@ -84,7 +86,9 @@ internal object VipiPalettes {
         outgoingFailed = Color(0xFF55151B),
         outgoingFocus = Color(0xFF552239),
         avatars = listOf(Color(0xFFFAD2AF), Color(0xFFE4D4E6), Color(0xFFD8DCB4), Color(0xFFF3C3C3)),
-        avatarInk = Color(0xFF2B1627)
+        avatarInk = Color(0xFF2B1627),
+        incomingOutline = Color(0xFF947A6E), outgoingOutline = Color(0xFFA66B60),
+        bubbleShadow = Color(0xFF482F38).copy(alpha = .12f)
     )
     val IncreasedContrastDark = VipiPalette(
         canvas = Color(0xFF181317),

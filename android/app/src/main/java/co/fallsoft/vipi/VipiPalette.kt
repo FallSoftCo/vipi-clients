@@ -23,7 +23,9 @@ internal data class VipiPalette(
     val avatars: List<Color>, val avatarInk: Color,
     val outgoingInk: Color = ink, val outgoingSecondary: Color = secondary,
     val outgoingRead: Color = read, val outgoingFailed: Color = failed,
-    val outgoingFocus: Color = focus
+    val outgoingFocus: Color = focus,
+    val incomingOutline: Color = separator, val outgoingOutline: Color = separator,
+    val bubbleShadow: Color = Color.Transparent
 )
 
 internal val LocalVipiPalette = staticCompositionLocalOf<VipiPalette?> { null }

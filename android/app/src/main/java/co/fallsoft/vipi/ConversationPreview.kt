@@ -106,8 +106,7 @@ internal object OnboardingPreviewSource {
     DisposableEffect(translation) { onDispose { translation.close() } }
     DisposableEffect(speech) { onDispose { speech.close() } }
     Column(Modifier.fillMaxWidth().fullMessageGestures(gestures), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Surface(shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surface,
-            modifier = Modifier.fillMaxWidth()) {
+        ChatBubbleFrame(false, Modifier.fillMaxWidth()) {
             FullMessageBubble(OnboardingPreviewSource.text(source), "language-preview-$source-$target", translation,
                 gestures, audio) {}
         }

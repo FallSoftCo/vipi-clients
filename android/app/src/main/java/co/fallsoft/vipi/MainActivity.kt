@@ -34,6 +34,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
@@ -190,11 +191,12 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable private fun VipiMark(size: Int = 36) {
-    Box(Modifier.size(size.dp).background(androidx.compose.ui.res.colorResource(R.color.vipi_icon_background), RoundedCornerShape((size * .28).dp))) {
-        androidx.compose.foundation.Image(
-            painter = androidx.compose.ui.res.painterResource(R.drawable.vipi_mark),
-            contentDescription = null, modifier = Modifier.fillMaxSize())
-    }
+    val art = if (MaterialTheme.colorScheme.background.luminance() < .5f)
+        R.drawable.vipi_mark_night else R.drawable.vipi_mark_day
+    // Transparent optical artwork follows the selected app appearance. The
+    // launcher owns its separate full-bleed asset; no in-app tile or clipping.
+    androidx.compose.foundation.Image(painter = androidx.compose.ui.res.painterResource(art),
+        contentDescription = null, modifier = Modifier.size(size.dp))
 }
 
 @Composable private fun TopBar(model: VipiModel) {
