@@ -149,3 +149,38 @@ promise that any current admin can resend every prior approval. Longer encrypted
 control retention or transferable membership proofs would be separate reviewed
 protocol changes. The current old-revision withheld/resend behavior remains an
 unresolved offline UX/security tradeoff before enablement.
+
+## Frozen native source follow-up reviewed
+
+Read-only inspection of clients commit
+`4f8988d25d071da09819d53a2ea5f76302a48c06` confirmed these source corrections:
+
+* `GroupsMembership.kt:73` / `GroupsMembership.swift:140` now preserve the
+  explicitly reviewed bootstrap's previous and next roster in one transaction,
+  supporting equivalent reissue without reconstructing trust from the relay.
+* `GroupsControlCrypto.kt:10,59,123` and Swift's corresponding pending model,
+  drain and bootstrap guards retain and recheck the authenticated sender device,
+  identity pin, current route, block and retired-device state before deferred
+  approval. Already applied history is not rewritten.
+* `GroupsSession.kt:36` / Swift `GroupsSession.swift:38` mark only displayed,
+  received incoming content read. Conversation visibility re-evaluates after
+  withheld content promotes; reading a placeholder does not consume unread.
+* Atomic mutation retry no longer compares a later current relay snapshot with
+  the historical intended result merely to clear its own committed journal.
+  Own transition authorization still validates historical revision/roster, and
+  fresh sends still require current approved membership to match the relay.
+
+The backend additionally rechecks principal minimum-auth-time/account admission
+and device state after acquiring membership locks, before commit. Fourteen
+API/atomic tests passed for that scoped hardening (`1a5e4a9a`); this includes a
+deterministic SQLite revocation simulation, not real PostgreSQL concurrency.
+
+This checkpoint is **not release qualification**. Still required: definitive
+no-admission conflict abort/rebuild, original-author history reissue or verified
+recreation, real group mute alert suppression, first-use member identity binding,
+paging/report UI, inbox/native notification integration and actual two-platform
+compiler, Signal, crash/restart, offline and accessibility validation. In
+particular, existing generic alert APNs pushes cannot honor a native-only mute
+preference. A group-aware relay preference/outbox policy or a qualified native
+notification-extension design must be implemented before claiming muted groups
+will not alert. Those changes must preserve one-to-one notification behavior.
