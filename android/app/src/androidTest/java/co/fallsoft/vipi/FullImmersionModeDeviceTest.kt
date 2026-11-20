@@ -43,7 +43,7 @@ class FullImmersionModeDeviceTest {
             assertEquals(ImmersionMode.FULL_MESSAGES, value.mode); assertEquals(listOf(value.practiceText), readerInputs)
             assertEquals(value, FullMessageTranslation.parse(value.json()))
             assertTrue(f.rows("introduced-word").isEmpty()); assertTrue(f.rows("word-message-plan").isEmpty())
-            assertEquals(1, f.rows("full-message-review-v1").size)
+            assertEquals(1, f.rows("full-message-review").size)
         }
     }
     @Test fun switchingModesAndReopenPreserveExactImmutableIncrementalPlans(): Unit = runBlocking {
@@ -69,7 +69,7 @@ class FullImmersionModeDeviceTest {
             val owner = f.owner(ImmersionMode.FULL_MESSAGES, Provider { entered.complete(Unit); withContext(NonCancellable) { release.await() }; "Texto completo" })
             val work = async { runCatching { owner.resolve("late", "A complete message.") } }
             entered.await(); owner.close(); release.complete(Unit)
-            assertTrue(work.await().isFailure); assertTrue(f.rows("full-message-review-v1").isEmpty())
+            assertTrue(work.await().isFailure); assertTrue(f.rows("full-message-review").isEmpty())
             assertTrue(f.rows("introduced-word").isEmpty()); assertTrue(f.rows("word-message-plan").isEmpty())
         }
     }

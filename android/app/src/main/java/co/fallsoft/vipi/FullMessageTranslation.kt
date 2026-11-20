@@ -114,10 +114,10 @@ internal class FullMessageTranslationStore(private val vault: MessageVault) {
         vault.put("incremental-message", key, value.json().toString().toByteArray(Charsets.UTF_8))
     }
     fun read(key: String, mode: ImmersionMode = ImmersionMode.NEW_WORD): FullMessageTranslation? = vault.transaction {
-        vault.get(if (mode == ImmersionMode.FULL_MESSAGES) "full-message-review-v1" else "incremental-message", key)?.let { FullMessageTranslation.parse(JSONObject(it.toString(Charsets.UTF_8))) }
+        vault.get(if (mode == ImmersionMode.FULL_MESSAGES) "full-message-review" else "incremental-message", key)?.let { FullMessageTranslation.parse(JSONObject(it.toString(Charsets.UTF_8))) }
     }
     fun write(key: String, value: FullMessageTranslation) = vault.transaction {
-        vault.put(if (value.mode == ImmersionMode.FULL_MESSAGES) "full-message-review-v1" else "incremental-message", key, value.json().toString().toByteArray(Charsets.UTF_8))
+        vault.put(if (value.mode == ImmersionMode.FULL_MESSAGES) "full-message-review" else "incremental-message", key, value.json().toString().toByteArray(Charsets.UTF_8))
     }
 }
 
