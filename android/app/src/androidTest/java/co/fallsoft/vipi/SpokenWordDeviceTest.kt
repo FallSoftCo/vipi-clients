@@ -100,10 +100,13 @@ class SpokenWordDeviceTest {
             compose.waitForIdle()
             for (native in listOf(false, true)) {
                 val expected = if (native) mandarin else reading
-                if (native) withContext(Dispatchers.Main) { gestures.toggleScript() }
-                withTimeout(8_000) {
-                    while (withContext(Dispatchers.Main) { paragraph().text.toString() } != expected) delay(12)
+                if (native) compose.runOnIdle {
+                    assertTrue("The visible Mandarin bubble must offer its script", gestures.canSwitchScript)
+                    gestures.toggleScript()
+                    assertTrue(gestures.nativeScript)
                 }
+                compose.waitForIdle()
+                compose.runOnIdle { assertEquals("Visible face before playback", expected, paragraph().text.toString()) }
                 withContext(Dispatchers.Main) { assertTrue(paragraph().performAccessibilityAction(
                     android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK, null)) }
                 val seen = linkedSetOf<IntRange>()
