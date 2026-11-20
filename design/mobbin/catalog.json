@@ -473,6 +473,24 @@
       ]
     },
     {
+      "title": "Conversation colors, contrast and message direction",
+      "area": "Appearance",
+      "note": "Signal and Messages use saturated outgoing bubbles and quiet incoming bubbles to establish authorship. Discord isolates unread activity on a dark surface. Compare how Strava and SoundCloud reserve orange for actions, then inspect practice-word ink and delivery information inside Vipi’s real bubbles.",
+      "screens": [
+        "a3af7969-157a-41b7-a553-bca6e767c9b0",
+        "0ad7f30d-b41f-4e34-a4a7-e07438fdbe98",
+        "3bcb959e-56f5-4f88-84f4-d466e657bc8a",
+        "7c34a9e9-6777-4713-9875-2d0d5ce32605",
+        "04b8b581-4439-4532-94ca-c4991077eae3",
+        "a4708b67-37de-471e-8b24-268d66750595",
+        "1caeb35c-cf5d-4574-a3e3-27ce3040bb40",
+        "4317df7c-ee78-4696-bbd9-e88af979b904",
+        "694a2582-131e-4bc2-8f8a-f7086e3a1cff",
+        "8933ab71-8b6b-4633-b736-83d04a2f1bcf"
+      ],
+      "flows": []
+    },
+    {
       "area": "Appearance",
       "title": "Larger text and reading controls",
       "note": "Preview larger text using actual messages. Confirm sender identity, mode action, keyboard and jump remain reachable at large text sizes.",
@@ -3294,6 +3312,116 @@
       "width": 1179,
       "height": 2676,
       "sha256": "c9bfadf254765182e4176959afeb6224c337bf26d6d84675c67b2b872f469d80"
+    },
+    "a3af7969-157a-41b7-a553-bca6e767c9b0": {
+      "id": "a3af7969-157a-41b7-a553-bca6e767c9b0",
+      "app": "Signal",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/a3af7969-157a-41b7-a553-bca6e767c9b0?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/a3af7969-157a-41b7-a553-bca6e767c9b0.webp",
+      "thumbnail": "previews/a3af7969-157a-41b7-a553-bca6e767c9b0.webp",
+      "width": 1125,
+      "height": 2556,
+      "sha256": "e4ec5f607e072fa55122d43a15f7f4e87caa1d3023a45d762eb0cfa20bab8e38"
+    },
+    "0ad7f30d-b41f-4e34-a4a7-e07438fdbe98": {
+      "id": "0ad7f30d-b41f-4e34-a4a7-e07438fdbe98",
+      "app": "Signal",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/0ad7f30d-b41f-4e34-a4a7-e07438fdbe98?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/0ad7f30d-b41f-4e34-a4a7-e07438fdbe98.webp",
+      "thumbnail": "previews/0ad7f30d-b41f-4e34-a4a7-e07438fdbe98.webp",
+      "width": 1125,
+      "height": 2556,
+      "sha256": "c9083fd70e9631fa26d8e729036f8a06c1c98fdc75802425deb63dd845e3a6e0"
+    },
+    "3bcb959e-56f5-4f88-84f4-d466e657bc8a": {
+      "id": "3bcb959e-56f5-4f88-84f4-d466e657bc8a",
+      "app": "Signal",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/3bcb959e-56f5-4f88-84f4-d466e657bc8a?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/3bcb959e-56f5-4f88-84f4-d466e657bc8a.webp",
+      "thumbnail": "previews/3bcb959e-56f5-4f88-84f4-d466e657bc8a.webp",
+      "width": 1125,
+      "height": 2556,
+      "sha256": "21b2c1e3c07b5da6c09ac65c9135fff7278d5bf63f61c23a7412bbc53416bec8"
+    },
+    "7c34a9e9-6777-4713-9875-2d0d5ce32605": {
+      "id": "7c34a9e9-6777-4713-9875-2d0d5ce32605",
+      "app": "Discord",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/7c34a9e9-6777-4713-9875-2d0d5ce32605?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/7c34a9e9-6777-4713-9875-2d0d5ce32605.webp",
+      "thumbnail": "previews/7c34a9e9-6777-4713-9875-2d0d5ce32605.webp",
+      "width": 1179,
+      "height": 2676,
+      "sha256": "af981da03ad904333acce9604df95eeede4341ce8fbf87ccbe82a7eae871d923"
+    },
+    "04b8b581-4439-4532-94ca-c4991077eae3": {
+      "id": "04b8b581-4439-4532-94ca-c4991077eae3",
+      "app": "Discord",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/04b8b581-4439-4532-94ca-c4991077eae3?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/04b8b581-4439-4532-94ca-c4991077eae3.webp",
+      "thumbnail": "previews/04b8b581-4439-4532-94ca-c4991077eae3.webp",
+      "width": 1179,
+      "height": 2676,
+      "sha256": "4aacec99584341cf7563f6715585f653d588e075d401a25c8f5487f036c856bf"
+    },
+    "a4708b67-37de-471e-8b24-268d66750595": {
+      "id": "a4708b67-37de-471e-8b24-268d66750595",
+      "app": "Messages",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/a4708b67-37de-471e-8b24-268d66750595?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/a4708b67-37de-471e-8b24-268d66750595.webp",
+      "thumbnail": "previews/a4708b67-37de-471e-8b24-268d66750595.webp",
+      "width": 1180,
+      "height": 2676,
+      "sha256": "5d95505114668cea9bf8c0f876df04b387cfdb6d1fe8b292d8b6e9635025fe73"
+    },
+    "1caeb35c-cf5d-4574-a3e3-27ce3040bb40": {
+      "id": "1caeb35c-cf5d-4574-a3e3-27ce3040bb40",
+      "app": "Strava",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/1caeb35c-cf5d-4574-a3e3-27ce3040bb40?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/1caeb35c-cf5d-4574-a3e3-27ce3040bb40.webp",
+      "thumbnail": "previews/1caeb35c-cf5d-4574-a3e3-27ce3040bb40.webp",
+      "width": 1179,
+      "height": 2676,
+      "sha256": "797f0066f32f30620a8b9cbd5bd420912fc79d831d741c422b65b3ccdfe1367d"
+    },
+    "4317df7c-ee78-4696-bbd9-e88af979b904": {
+      "id": "4317df7c-ee78-4696-bbd9-e88af979b904",
+      "app": "Headspace",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/4317df7c-ee78-4696-bbd9-e88af979b904?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/4317df7c-ee78-4696-bbd9-e88af979b904.webp",
+      "thumbnail": "previews/4317df7c-ee78-4696-bbd9-e88af979b904.webp",
+      "width": 1180,
+      "height": 2676,
+      "sha256": "a224d7199a6c76c2c1d0be6849fd39bd7ce3799ff043fb80c0ef7665aae02fa8"
+    },
+    "694a2582-131e-4bc2-8f8a-f7086e3a1cff": {
+      "id": "694a2582-131e-4bc2-8f8a-f7086e3a1cff",
+      "app": "SoundCloud",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/694a2582-131e-4bc2-8f8a-f7086e3a1cff?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/694a2582-131e-4bc2-8f8a-f7086e3a1cff.webp",
+      "thumbnail": "previews/694a2582-131e-4bc2-8f8a-f7086e3a1cff.webp",
+      "width": 1179,
+      "height": 2676,
+      "sha256": "f45c072303e78d8b11869f584e667336293cadce6bee8aef78f477622b62e367"
+    },
+    "8933ab71-8b6b-4633-b736-83d04a2f1bcf": {
+      "id": "8933ab71-8b6b-4633-b736-83d04a2f1bcf",
+      "app": "Telegram",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/8933ab71-8b6b-4633-b736-83d04a2f1bcf?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/8933ab71-8b6b-4633-b736-83d04a2f1bcf.webp",
+      "thumbnail": "previews/8933ab71-8b6b-4633-b736-83d04a2f1bcf.webp",
+      "width": 1179,
+      "height": 2676,
+      "sha256": "8f143b546b49cb92b4fecd47c6bda8c8136ae979172f27412a9b405539442db4"
     }
   },
   "flows": {
