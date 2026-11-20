@@ -2121,7 +2121,7 @@ final class ChatConversationTests: XCTestCase {
         }
         if fullTranslation { arguments += ["-vipi-full-translation-sdk-qa"] }
         if draftBoundary { arguments += ["-vipi-draft-boundary-root-qa"] }
-        if invitation { arguments += ["-vipi-invitation-root-qa"] }
+        if invitation { arguments += ["-vipi-invitation-root-qa","-vipi-incremental-invitation-qa"] }
         if marketing {
             XCTAssertTrue(fullTranslation && reading == "en-zh" && !largest && !dark && !copyOriginal && !settingsInvite && !cueLifecycle && !pendingPair)
             arguments += ["-vipi-marketing-root-qa"]
@@ -2366,7 +2366,7 @@ final class ChatConversationTests: XCTestCase {
         let ready = XCTNSPredicateExpectation(predicate:NSPredicate(format:"enabled == true"),object:proceed)
         XCTAssertEqual(XCTWaiter.wait(for:[ready],timeout:35),.completed,"Onboarding must prepare practice audio as well as translation before continuing")
         proceed.tap()
-        XCTAssertTrue(app.staticTexts["30 days free. No card needed. Then choose whether to subscribe."].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.staticTexts["Free to use. No subscription."].waitForExistence(timeout: 10))
         XCTAssertFalse(app.switches.firstMatch.exists, "The one required agreement belongs to first Vipi profile creation, not every sign-in")
         // XCUI frame subtraction can represent an exact44pt target as
         // 43.99999999999994. One millionth of a point absorbs only numeric
@@ -2413,14 +2413,11 @@ final class ChatConversationTests: XCTestCase {
         reveal(create); XCTAssertTrue(create.isEnabled); create.tap()
         if invitation { XCTAssertTrue(app.textFields["Friend’s username"].waitForExistence(timeout:20)) }
         else { XCTAssertTrue(app.staticTexts["Chats"].waitForExistence(timeout: 20)) }
-        let access = observe("native-profile-one-registration-free-month") {
+        _ = observe("registered-once-without-paid-enrollment") {
             $0["exchanges"] as? Int == 1 && $0["profiles"] as? Int == 1 && $0["registrations"] as? Int == 1 &&
-                $0["base_active"] as? Bool == true && $0["pending_auth"] as? Bool == false && $0["session"] as? Bool == true
+                $0["pending_auth"] as? Bool == false && $0["session"] as? Bool == true &&
+                $0["purchase_ready"] as? Bool == false && $0["trial_started"] as? String == ""
         }
-        let clock = ISO8601DateFormatter()
-        let begins = try XCTUnwrap(clock.date(from: try XCTUnwrap(access["trial_started"] as? String)))
-        let ends = try XCTUnwrap(clock.date(from: try XCTUnwrap(access["trial_ends"] as? String)))
-        XCTAssertEqual(ends.timeIntervalSince(begins), 30 * 86400, accuracy: 0.001)
         if invitation {
             let friend = app.textFields["Friend’s username"]
             XCTAssertTrue(friend.waitForExistence(timeout:10)); XCTAssertEqual(friend.value as? String,"alex")
@@ -2444,6 +2441,32 @@ final class ChatConversationTests: XCTestCase {
             invitationImage.name = "invitation-real-conversation-without-send"
             invitationImage.lifetime = .keepAlways
             add(invitationImage)
+            let input = app.descendants(matching:.any).matching(identifier:"message-input").firstMatch
+            input.tap()
+            XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout:8))
+            input.typeText("Water, water!")
+            let send = app.buttons["message-send"]
+            XCTAssertTrue(send.isEnabled && send.isHittable)
+            send.tap()
+            _ = observe("peer-decrypted-original") { $0["peer_decryptions"] as? Int == 1 }
+            XCUIDevice.shared.press(.home)
+            app.activate()
+            _ = observe("peer-reply-durably-received") {
+                $0["receipts"] as? Int == 1 && Set($0["texts"] as? [String] ?? []) == ["Water, water!", "water and bread"]
+            }
+            let practice = app.descendants(matching:.any).matching(identifier:"immersionText")
+            func visible(_ text:String) -> XCUIElement {
+                practice.matching(NSPredicate(format:"label == %@",text)).firstMatch
+            }
+            XCTAssertTrue(visible("shuǐ, shuǐ!").waitForExistence(timeout:15))
+            XCTAssertTrue(visible("shuǐ and miànbāo").waitForExistence(timeout:15))
+            visible("shuǐ and miànbāo").doubleTap()
+            XCTAssertTrue(visible("水 and 面包").waitForExistence(timeout:5))
+            XCTAssertTrue(visible("水, 水!").exists)
+            let practiceImage = XCTAttachment(screenshot: app.screenshot())
+            practiceImage.name = "free-chat-cumulative-words"
+            practiceImage.lifetime = .keepAlways
+            add(practiceImage)
             return
         }
         if largest {
@@ -2502,8 +2525,8 @@ final class ChatConversationTests: XCTestCase {
                 "Native interactive keyboard dismissal must restore the first cue")
             XCTAssertEqual(input.value as? String,firstText,"Deferral preserves actual draft")
             XCTAssertEqual(proof()["gesture_policy_seen"] as? Bool,false)
-            XCTAssertTrue(cue.label.contains("Play in practice language"))
-            XCTAssertTrue(cue.label.contains("Show meanings"))
+            XCTAssertTrue(cue.label.contains("Play practice words"))
+            XCTAssertTrue(cue.label.contains("Show original message"))
             XCTAssertFalse(cue.label.contains("Show native script"),"An empty conversation must not teach a script action before an alternate reading exists")
             XCTAssertFalse(cue.label.contains("Double-tap"),"Actual native AX cue uses named actions")
             let png = XCTAttachment(screenshot:app.screenshot()); png.name = "first-cue-restored-after-real-IME"; png.lifetime = .keepAlways; add(png)

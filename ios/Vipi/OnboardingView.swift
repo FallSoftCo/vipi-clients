@@ -107,7 +107,7 @@ struct OnboardingView: View {
             } else if preparation.prepared && voiceState == .preparing {
                 HStack { ProgressView(); Text("Preparing voices") }.font(.body).foregroundStyle(VipiDesign.secondary)
             }
-            Text(ChatReadingState.gestureDescription(source:state.knownLanguage,target:state.targetLanguage,hasAlternateScript:state.chatReading.hasAlternateScript && !state.chatReading.nativeScript))
+            Text(ChatReadingState.gestureDescription(target:state.targetLanguage,hasAlternateScript:state.chatReading.hasAlternateScript && !state.chatReading.nativeScript))
                 .font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
                 .accessibilityLabel(Text(ChatReadingState.actionDescription(showingMeaning:state.chatReading.showingMeaning,nativeScript:state.chatReading.nativeScript,hasAlternateScript:state.chatReading.hasAlternateScript)))
                 .accessibilityIdentifier("language-preview-gesture-hint")

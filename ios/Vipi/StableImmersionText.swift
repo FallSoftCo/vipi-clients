@@ -502,7 +502,7 @@ struct StableImmersionText: UIViewRepresentable {
             })
         }
         if let onMeaning {
-            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name:showingMeaning ? String(localized:"Show practice text") : String(localized:"Show meanings")) { _ in onMeaning(); return true })
+            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name:showingMeaning ? String(localized:"Show practice words") : String(localized:"Show original message")) { _ in onMeaning(); return true })
         }
         if let onScript {
             view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name:showingNativeScript ? String(localized:"Show transliteration") : String(localized:"Show native script")) { _ in onScript(); return true })
@@ -511,7 +511,7 @@ struct StableImmersionText: UIViewRepresentable {
             view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name:String(localized:"Copy original message")) { _ in UIPasteboard.general.string = originalForCopy; return true })
         }
         if let onPlayMessage {
-            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: fullMessage ? String(localized:"Play in practice language") : String(localized:"Play message")) { _ in onPlayMessage(); return true })
+            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: fullMessage ? String(localized:"Play practice words") : String(localized:"Play message")) { _ in onPlayMessage(); return true })
         }
         if let onReport {
             view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: String(localized: "Report message")) { _ in onReport(); return true })

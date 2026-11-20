@@ -449,6 +449,19 @@ struct ChatMessageArrival {
             localTranslationCalls:0,fallbackStatus:nil,cacheHit:true,resolvedInputLanguage:saved.inputLanguage)
         return saved
     }
+    /// A history file contains original messages only. Reading one may repeat a
+    /// known word, but restoring the archive must not count as new exposure.
+    private func restoredFromHistory(_ identity: ImmersionRequestIdentity) throws -> Bool {
+        guard let vault = cacheVault, let id = UUID(uuidString: identity.messageID) else { return false }
+        return try vault.transaction {
+            guard let data = try vault.get("imported", id.uuidString.lowercased()) else { return false }
+            let message = try JSONDecoder().decode(HistoryBackupMessage.self, from: data)
+            guard message.id == id, message.text.utf8.elementsEqual(identity.text.utf8) else {
+                throw MessageVault.Failure.invalidRecord
+            }
+            return true
+        }
+    }
     private func translateMessage(_ identity: ImmersionRequestIdentity) async -> FullMessageTranslation? {
         let active = epoch
         func valid() -> Bool { !closed && active == epoch && !Task.isCancelled && identity == self.identity(messageID:identity.messageID,text:identity.text) }
@@ -486,7 +499,7 @@ struct ChatMessageArrival {
             for token in tokens where known[token.key] == nil {
                 if let word = try introducedWords.word(source:input,target:pair.target,key:token.key) { known[token.key] = word }
             }
-            let unknown = tokens.filter { known[$0.key] == nil }
+            let unknown = try restoredFromHistory(identity) ? [] : tokens.filter { known[$0.key] == nil }
             var attempted = Set<String>()
             let candidates = (unknown.filter(\.preferred)+unknown.filter{!$0.preferred}).filter{attempted.insert($0.key).inserted}
             var introduced: IntroducedWord?
@@ -739,7 +752,7 @@ struct ConversationImmersionText: View {
         case .needsDownload: String(localized:"Translation needs a language download.")
         case .unsupported: String(localized:"Translation isn’t supported for this language pair on this device.")
         case .timedOut: String(localized:"Translation took too long. Try again.")
-        default: String(localized:"Translation failed. Tap to retry.")
+        default: String(localized:"Couldn’t add a practice word. Tap to retry.")
         }
     }
     var body: some View {

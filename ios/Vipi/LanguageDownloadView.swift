@@ -119,7 +119,7 @@ struct LanguageDownloadView: View {
             Section {
                 if let requestedPair {
                     LabeledContent("Message language",value:VipiLanguage.named(requestedPair.source).localizedName)
-                    LabeledContent("Full translation",value:VipiLanguage.named(requestedPair.target).localizedName)
+                    LabeledContent("I’m learning",value:VipiLanguage.named(requestedPair.target).localizedName)
                 } else {
                 languagePicker("I already speak", selection: Binding(get: { state.knownLanguage }, set: { state.selectKnownLanguage($0) }),
                              choices: VipiLanguage.initial, localName: false)
@@ -134,16 +134,14 @@ struct LanguageDownloadView: View {
                     Image(systemName: preparation.availability == .installed ? "checkmark.circle" : "arrow.down.circle")
                         .foregroundStyle(VipiDesign.highlight)
                         .accessibilityLabel(preparation.availability == .installed ? "Languages downloaded" : "Language download")
-                    (Text("Full-message translation\n").font(.headline) +
-                     Text(statusText).foregroundColor(VipiDesign.secondary))
-                        .lineSpacing(6).fixedSize(horizontal: false, vertical: true)
-                        .accessibilityLabel("Full-message translation. \(statusText)")
+                    Text(statusText)
+                        .font(.body).fixedSize(horizontal: false, vertical: true)
                         .accessibilityIdentifier("language-download-status")
                     if preparation.busy || preparation.availability == .checking { Spacer(); ProgressView().accessibilityLabel(statusText) }
                 }.padding(.vertical, 5)
                 if preparation.availability == .downloadable && !preparation.busy {
                     Button { preparation.prepare() } label: {
-                        Text("Download for full translation").foregroundStyle(VipiDesign.highlight)
+                        Text("Download languages").foregroundStyle(VipiDesign.highlight)
                             .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                     }.accessibilityIdentifier("language-download-start")
                 }
@@ -215,8 +213,8 @@ struct LanguageDownloadView: View {
         if preparation.busy { return preparation.request == nil ? String(localized: "Removing downloads…") : String(localized: "Preparing translation downloads…") }
         switch preparation.availability {
         case .checking: return String(localized: "Checking this device…")
-        case .downloadable: return String(localized: "Download \(VipiLanguage.named(pair.source).localizedName) and \(VipiLanguage.named(pair.target).localizedName) for full-message translation offline.")
-        case .installed: return String(localized: "\(VipiLanguage.named(pair.source).localizedName) and \(VipiLanguage.named(pair.target).localizedName) are ready for full-message translation offline.")
+        case .downloadable: return String(localized: "Translation needs a language download.")
+        case .installed: return String(localized: "Languages downloaded")
         case .unsupported: return String(localized:"Translation isn’t supported for this language pair on this device.")
         }
     }

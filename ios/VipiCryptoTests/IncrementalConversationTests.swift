@@ -188,4 +188,26 @@ import VipiCore
         XCTAssertEqual(try vault.transaction{try vault.ids("full-message-translation").count},1)
     }
 
+    func testRestoredHistoryRepeatsKnownWordsWithoutIntroducingUnseenOnes() async throws {
+        let vault = try store()
+        var calls: [String] = []
+        let value = await owner(vault) { word,_ in calls.append(word); return "agua" }
+        defer { value.close() }
+        let empty = UUID(), repeatOnly = UUID()
+        func importMessage(_ id: UUID) throws {
+            let record = HistoryBackupMessage(id:id, peer:UUID(), outgoing:false, createdAt:0, text:"water bread")
+            try vault.transaction { try vault.put("imported",id.uuidString.lowercased(),JSONEncoder().encode(record)) }
+        }
+        try importMessage(empty)
+        let restored = try await message(value,empty.uuidString,"water bread")
+        XCTAssertEqual(restored.practiceText,"water bread")
+        XCTAssertTrue(calls.isEmpty)
+        _ = try await message(value,"new","water")
+        try importMessage(repeatOnly)
+        let repeated = try await message(value,repeatOnly.uuidString,"water bread")
+        XCTAssertEqual(repeated.practiceText,"agua bread")
+        let collision = await value.translatedMessage(for:value.identity(messageID:empty.uuidString,text:"wrong text"))
+        XCTAssertNil(collision)
+        XCTAssertEqual(calls,["water"])
+    }
 }

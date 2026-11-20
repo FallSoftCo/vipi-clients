@@ -149,8 +149,8 @@ import VipiCore
         XCTAssertEqual(paragraph.accessibilityLabel,"Mañana.")
         XCTAssertTrue(paragraph.accessibilityHint?.contains(context) == true,"Exact time/state remains accessible when grouped visually")
         let actions = paragraph.accessibilityCustomActions?.map(\.name) ?? []
-        XCTAssertTrue(actions.contains(String(localized:"Play in practice language")))
-        XCTAssertTrue(actions.contains(String(localized:"Show meanings")))
+        XCTAssertTrue(actions.contains(String(localized:"Play practice words")))
+        XCTAssertTrue(actions.contains(String(localized:"Show original message")))
         XCTAssertFalse(actions.contains(String(localized:"Show native script")))
         XCTAssertFalse(actions.contains(String(localized:"Show transliteration")))
         XCTAssertFalse(reading.hasAlternateScript)
@@ -213,9 +213,9 @@ import VipiCore
             let container = try XCTUnwrap(find(host.view)), paragraph = try XCTUnwrap(container.accessibilityElements?.first as? UIAccessibilityElement)
             XCTAssertEqual(paragraph.accessibilityLabel,face)
             let hint = try XCTUnwrap(paragraph.accessibilityHint)
-            let meaningAction = index == 2 ? String(localized:"Show practice text") : String(localized:"Show meanings")
+            let meaningAction = index == 2 ? String(localized:"Show practice words") : String(localized:"Show original message")
             let scriptAction = index == 0 ? String(localized:"Show native script") : String(localized:"Show transliteration")
-            let playAction = String(localized:"Play in practice language")
+            let playAction = String(localized:"Play practice words")
             XCTAssertTrue(hint.contains(playAction)); XCTAssertTrue(hint.contains(meaningAction)); XCTAssertTrue(hint.contains(scriptAction))
             XCTAssertNotEqual(hint,String(localized:"Tap to listen. Hold to see meanings. Double-tap to change script."))
             let nativeActions = paragraph.accessibilityCustomActions?.map(\.name) ?? []

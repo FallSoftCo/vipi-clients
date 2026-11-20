@@ -80,13 +80,13 @@ enum ReadingMode: String, CaseIterable, Identifiable {
     func toggleMeaning() { learnedGesture(); accessibleMeaning.toggle() }
     /// Assistive activation uses native actions, not the physical touch grammar.
     static func actionDescription(showingMeaning:Bool = false,nativeScript:Bool = false,hasAlternateScript:Bool = true) -> String {
-        var actions = [String(localized:"Play in practice language"),
-                       showingMeaning ? String(localized:"Show practice text") : String(localized:"Show meanings")]
+        var actions = [String(localized:"Play practice words"),
+                       showingMeaning ? String(localized:"Show practice words") : String(localized:"Show original message")]
         if hasAlternateScript { actions.append(nativeScript ? String(localized:"Show transliteration") : String(localized:"Show native script")) }
         return actions.joined(separator:". ")
     }
-    static func gestureDescription(source:String,target:String,hasAlternateScript:Bool) -> String {
-        let basic = String(format:String(localized:"Tap to hear %1$@. Hold to read in %2$@."),VipiLanguage.named(target).localizedName,VipiLanguage.named(source).localizedName)
+    static func gestureDescription(target:String,hasAlternateScript:Bool) -> String {
+        let basic = String(format:String(localized:"Tap to hear %1$@ words. Hold to see the original message."),VipiLanguage.named(target).localizedName)
         return hasAlternateScript ? basic + " " + String(format:String(localized:"Double-tap to see %1$@ writing."),VipiLanguage.named(target).localizedName) : basic
     }
 }
@@ -106,7 +106,7 @@ struct ChatGestureCue: View {
     var body:some View {
         // The interactive preview teaches all three gestures. In a live chat,
         // remind the reader how to understand a message without a pinned lesson.
-        let description = String(format:String(localized:"Hold to read in %1$@."),VipiLanguage.named(state.knownLanguage).localizedName)
+        let description = String(localized:"Hold to see the original message.")
         VStack(spacing:0) {
             if reservesHint && !composing {
                 InertTextReservation(text:description,

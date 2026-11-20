@@ -135,21 +135,9 @@ private struct VisibleHomeMessagePreview: View {
     @State private var visible = false
     @State private var pinned = false
     private var displayed:String {
-        if let value = owner.translation(for:identity) {
-            guard let readingState = value.readingState else { return String(localized:"Translating…") }
-            switch readingState.status {
-            case .available:
-                return owner.reading(for:value) ?? String(localized:"Reading guide unavailable.")
-            case .notNeeded:
-                return value.practiceText
-            case .unavailable:
-                return String(localized:"Reading guide unavailable.")
-            }
-        }
-        switch owner.phase(for:identity) {
-        case .translating,.ready: return identity.text
-        case .needsDownload,.unsupported,.failed,.timedOut: return String(localized:"Translation unavailable")
-        }
+        guard let value = owner.translation(for:identity) else { return identity.text }
+        if let guide = owner.reading(for:value) { return guide }
+        return value.readingState?.status == .notNeeded ? value.practiceText : identity.text
     }
     private func releasePin() {
         if pinned { owner.releaseVisible(identity); pinned = false }

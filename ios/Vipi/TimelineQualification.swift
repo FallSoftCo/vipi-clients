@@ -1107,7 +1107,9 @@ struct PendingPairRootBinding: View {
     private(set) static var cleaned = false
     private static let access = "synthetic-first-month-access-never-transmitted"
     private static let refresh = "synthetic-first-month-refresh-never-transmitted"
+    static var incrementalJourney: Bool { ProcessInfo.processInfo.arguments.contains("-vipi-incremental-invitation-qa") }
     static var outgoing: String {
+        if incrementalJourney { return "Water, water!" }
         if marketingEnabled { return marketingTurns[0].text }
         let arguments = ProcessInfo.processInfo.arguments
         guard let index = arguments.firstIndex(of: "-vipi-first-month-reading-probe") else {
@@ -1120,7 +1122,7 @@ struct PendingPairRootBinding: View {
         default: preconditionFailure("Unknown first-month reading fixture")
         }
     }
-    static var firstReply: String { marketingEnabled ? marketingTurns[1].text : "Your private message arrived." }
+    static var firstReply: String { incrementalJourney ? "water and bread" : marketingEnabled ? marketingTurns[1].text : "Your private message arrived." }
     static let expiredReply = "You can still read my reply."
     private static func hash(_ data: Data) -> String { SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined() }
     private func save() throws { try JSONEncoder().encode(ledger).write(to: Self.file, options: .atomic) }
@@ -1256,6 +1258,16 @@ struct PendingPairRootBinding: View {
             guard pair == TranslationPair(source:"en",target:"zh") else { throw ServiceFailure(status:0,code:"controlled_sdk_pair_not_supplied") }
             self.ledger.controlledTranslations.append(Self.hash(Data(text.utf8)))
             try self.save()
+            if Self.incrementalJourney {
+                // These controlled word equivalents make the progression observable
+                // through the real signed-in chat UI on a simulator without models.
+                switch text.lowercased() {
+                case "hello": return "你好"
+                case "water": return "水"
+                case "bread": return "面包"
+                default: return text
+                }
+            }
             if Self.marketingEnabled {
                 if text == "Hello! How are you?" { return "你好！你好吗？" }
                 guard let turn = Self.marketingTurns.first(where:{$0.text == text}) else {

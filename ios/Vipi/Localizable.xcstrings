@@ -25572,7 +25572,7 @@
         "sw": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "Onyesha ujumbe wa awali"
+            "value": "Onyesha ujumbe asilia"
           }
         },
         "es": {
@@ -25602,7 +25602,7 @@
         "ko": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "원본 메시지 표시"
+            "value": "원래 메시지 보기"
           }
         },
         "zh-Hans": {
@@ -25614,7 +25614,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "顯示原始消息"
+            "value": "顯示原始訊息"
           }
         },
         "fr": {
@@ -44191,6 +44191,826 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Parar a resposta do vBot"
+          }
+        }
+      }
+    },
+    "Learn a new word with each message. Familiar words keep appearing as you chat.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Learn a new word with each message. Familiar words keep appearing as you chat."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Aprende una palabra nueva con cada mensaje. Las palabras conocidas siguen apareciendo mientras chateas."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apprenez un nouveau mot à chaque message. Les mots déjà rencontrés reviennent au fil des discussions."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Lerne mit jeder Nachricht ein neues Wort. Bekannte Wörter tauchen beim Chatten immer wieder auf."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impara una nuova parola con ogni messaggio. Le parole già incontrate continuano a comparire mentre chatti."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Aprenda uma palavra nova a cada mensagem. As palavras conhecidas continuam aparecendo enquanto você conversa."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Aprenda uma palavra nova com cada mensagem. As palavras conhecidas continuam a aparecer enquanto conversa."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "メッセージごとに新しい単語を学びましょう。一度出会った単語は、チャットの中で繰り返し登場します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "메시지마다 새 단어를 배워 보세요. 익숙해진 단어는 대화 중에 계속 다시 나타납니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "每条消息学习一个新词。聊天下去，熟悉的词会不断重现。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "每則訊息學習一個新詞。聊天下去，熟悉的詞會不斷重現。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعلّم كلمة جديدة مع كل رسالة. تتكرر الكلمات المألوفة أثناء الدردشة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Jifunze neno jipya kwa kila ujumbe. Maneno unayoyafahamu yanaendelea kujitokeza unapochati."
+          }
+        }
+      }
+    },
+    "Free to use. No subscription.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Free to use. No subscription."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gratis. Sin suscripción."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gratuit. Sans abonnement."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Kostenlos. Ohne Abo."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gratis. Nessun abbonamento."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Grátis. Sem assinatura."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Grátis. Sem subscrição."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "無料。サブスクリプションは不要です。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "무료로 이용하세요. 구독은 필요하지 않습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "免费使用，无需订阅。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "免費使用，無需訂閱。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "مجاني. دون اشتراك."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tumia bila malipo. Hakuna usajili wa kulipia."
+          }
+        }
+      }
+    },
+    "Your messaging identity and unsent messages stay on this device.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Your messaging identity and unsent messages stay on this device."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tu identidad de mensajería y los mensajes sin enviar permanecen en este dispositivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Votre identité de messagerie et vos messages non envoyés restent sur cet appareil."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Deine Nachrichtenidentität und ungesendete Nachrichten bleiben auf diesem Gerät."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La tua identità di messaggistica e i messaggi non inviati restano su questo dispositivo."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sua identidade de mensagens e as mensagens não enviadas ficam neste dispositivo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A sua identidade de mensagens e as mensagens não enviadas ficam neste dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "メッセージの識別情報と未送信メッセージは、この端末に残ります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "메시징 신원 정보와 보내지 않은 메시지는 이 기기에 남습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你的消息身份信息和未发送的消息会留在此设备上。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你的訊息身分資訊和未傳送的訊息會留在此裝置上。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تبقى هوية المراسلة والرسائل غير المرسلة على هذا الجهاز."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Utambulisho wako wa kutuma ujumbe na ujumbe ambao haujatumwa vinabaki kwenye kifaa hiki."
+          }
+        }
+      }
+    },
+    "Friends’ copies and backups saved elsewhere remain.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Friends’ copies and backups saved elsewhere remain."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Las copias de tus amigos y las copias de seguridad guardadas en otros lugares se conservan."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Les copies de vos amis et les sauvegardes enregistrées ailleurs sont conservées."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Kopien bei Freunden und anderswo gespeicherte Backups bleiben erhalten."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le copie dei tuoi amici e i backup salvati altrove rimangono."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As cópias dos seus amigos e os backups salvos em outros lugares permanecem."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As cópias dos seus amigos e as cópias de segurança guardadas noutros locais permanecem."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "友達側のコピーや、ほかの場所に保存したバックアップは残ります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "친구의 사본과 다른 곳에 저장한 백업은 남아 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "朋友保存的副本和其他位置的备份仍会保留。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "朋友保留的副本和其他位置的備份仍會保留。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تبقى نسخ الأصدقاء والنسخ الاحتياطية المحفوظة في أماكن أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Nakala za marafiki na nakala rudufu zilizohifadhiwa kwingine zinabaki."
+          }
+        }
+      }
+    },
+    "Learn new words as you chat. Translation happens on this device, even offline.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Learn new words as you chat. Translation happens on this device, even offline."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Aprende palabras mientras chateas. La traducción se realiza en este dispositivo, incluso sin conexión."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Apprenez des mots en discutant. La traduction se fait sur cet appareil, même hors connexion."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Lerne beim Chatten neue Wörter. Die Übersetzung erfolgt auf diesem Gerät, auch offline."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impara parole mentre chatti. La traduzione avviene su questo dispositivo, anche offline."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Aprenda palavras enquanto conversa. A tradução acontece neste dispositivo, mesmo offline."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Aprenda palavras enquanto conversa. A tradução é feita neste dispositivo, mesmo sem ligação."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "チャットしながら単語を学べます。翻訳はオフラインでもこの端末上で行われます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "대화하며 단어를 배우세요. 오프라인에서도 이 기기에서 번역합니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "边聊天边学新词。翻译在此设备上完成，离线也能使用。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "邊聊天邊學新詞。翻譯在此裝置上完成，離線也能使用。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعلّم كلمات أثناء الدردشة. تتم الترجمة على هذا الجهاز، حتى دون اتصال."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Jifunze maneno unapochati. Tafsiri hufanyika kwenye kifaa hiki, hata bila intaneti."
+          }
+        }
+      }
+    },
+    "Couldn’t add a practice word. Tap to retry.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Couldn’t add a practice word. Tap to retry."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "No se pudo añadir una palabra para practicar. Toca para reintentar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossible d’ajouter un mot à pratiquer. Touchez pour réessayer."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ein Übungswort konnte nicht hinzugefügt werden. Zum Wiederholen tippen."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Impossibile aggiungere una parola da esercitare. Tocca per riprovare."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível adicionar uma palavra para praticar. Toque para tentar novamente."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Não foi possível adicionar uma palavra para praticar. Toque para tentar novamente."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "練習する単語を追加できませんでした。タップして再試行してください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "연습할 단어를 추가하지 못했습니다. 탭하여 다시 시도하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "无法添加练习词。轻点重试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "無法新增練習詞。點一下重試。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تعذّرت إضافة كلمة للتدريب. اضغط لإعادة المحاولة."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Imeshindikana kuongeza neno la kufanya mazoezi. Gusa ili ujaribu tena."
+          }
+        }
+      }
+    },
+    "Hold to see the original message.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Hold to see the original message."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mantén pulsado para ver el mensaje original."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Maintenez pour voir le message original."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gedrückt halten, um die Originalnachricht zu sehen."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tieni premuto per vedere il messaggio originale."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mantenha pressionado para ver a mensagem original."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mantenha premido para ver a mensagem original."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "長押しして元のメッセージを表示します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "길게 눌러 원래 메시지를 확인하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "长按查看原始消息。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "長按查看原始訊息。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "اضغط مطولًا لرؤية الرسالة الأصلية."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Bonyeza na ushikilie ili kuona ujumbe asilia."
+          }
+        }
+      }
+    },
+    "Tap to hear %1$@ words. Hold to see the original message.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tap to hear %1$@ words. Hold to see the original message."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Toca para escuchar palabras en %1$@. Mantén pulsado para ver el mensaje original."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Touchez pour écouter les mots en %1$@. Maintenez pour voir le message original."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tippe, um Wörter auf %1$@ zu hören. Halte gedrückt, um die Originalnachricht zu sehen."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Tocca per ascoltare parole in %1$@. Tieni premuto per vedere il messaggio originale."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Toque para ouvir palavras em %1$@. Mantenha pressionado para ver a mensagem original."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Toque para ouvir palavras em %1$@. Mantenha premido para ver a mensagem original."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "タップして%1$@の単語を聞きます。長押しして元のメッセージを表示します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "탭하여 %1$@ 단어를 들으세요. 길게 눌러 원래 메시지를 확인하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "轻点收听%1$@词语。长按查看原始消息。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "點一下聆聽%1$@詞語。長按查看原始訊息。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "اضغط لسماع الكلمات باللغة %1$@. اضغط مطولًا لرؤية الرسالة الأصلية."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Gusa ili kusikia maneno ya %1$@. Bonyeza na ushikilie ili kuona ujumbe asilia."
+          }
+        }
+      }
+    },
+    "Show practice words": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Show practice words"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mostrar palabras para practicar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Afficher les mots à pratiquer"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Übungswörter anzeigen"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mostra parole da esercitare"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mostrar palavras para praticar"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mostrar palavras para praticar"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "練習する単語を表示"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "연습할 단어 보기"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "显示练习词"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "顯示練習詞"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "عرض كلمات التدريب"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Onyesha maneno ya mazoezi"
+          }
+        }
+      }
+    },
+    "Play practice words": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Play practice words"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Reproducir palabras para practicar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Écouter les mots à pratiquer"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Übungswörter abspielen"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ascolta parole da esercitare"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ouvir palavras para praticar"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Ouvir palavras para praticar"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "練習する単語を再生"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "연습할 단어 재생"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "播放练习词"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "播放練習詞"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تشغيل كلمات التدريب"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sikiliza maneno ya mazoezi"
           }
         }
       }
