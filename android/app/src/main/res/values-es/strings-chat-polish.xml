@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="immersion_mode_words_short">Una palabra</string>
+    <string name="chat_switch_mode">Cambiar a %1$s</string>
+    <string name="chat_typing">%1$s está escribiendo…</string>
+    <string name="chat_new_messages">Mensajes nuevos</string>
+    <string name="delivery_read">Leído</string>
+    <string name="delivery_unknown">Estado desconocido</string>
+    <string name="delivery_received">Recibido</string>
+    <string name="notification_reply_prompt">¿Avisarme cuando %1$s responda?</string>
+    <string name="notification_reply_allow">Avisarme</string>
+    <string name="notification_reply_later">Ahora no</string>
+</resources>

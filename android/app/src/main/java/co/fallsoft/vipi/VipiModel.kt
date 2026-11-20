@@ -68,6 +68,10 @@ class VipiModel internal constructor(application: Application, private val trans
         immersionMode = value
         chat?.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient }, value)
     }
+    internal val replyNotificationEducation by lazy { ReplyNotificationEducation(getApplication()) }
+    internal fun notificationPermissionChanged() {
+        if (PushDelivery.allowed(getApplication())) requestPush(registration = true)
+    }
     var appearance by mutableStateOf(runCatching { Appearance.valueOf(prefs.getString("appearance", "SYSTEM")!!) }.getOrDefault(Appearance.SYSTEM))
         private set
     var density by mutableDoubleStateOf(prefs.getFloat("density", .25f).toDouble())

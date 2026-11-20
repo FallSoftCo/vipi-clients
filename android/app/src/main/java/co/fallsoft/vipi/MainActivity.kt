@@ -170,7 +170,7 @@ class MainActivity : ComponentActivity() {
     if (model.screen == Screen.CONVERSATION) {
         val chat = model.chat; val peer = model.selectedPeer
         if (chat != null && peer != null) { FriendConversationScreen(chat, peer, model.knownLanguage, model.targetLanguage,
-            onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onImmersionMode = model::selectImmersionMode) { model.back() }; return }
+            onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onImmersionMode = model::selectImmersionMode, notificationEducation = model.replyNotificationEducation, onNotificationPermission = model::notificationPermissionChanged) { model.back() }; return }
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->

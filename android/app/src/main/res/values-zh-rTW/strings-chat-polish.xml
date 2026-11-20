@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="immersion_mode_words_short">一個新詞</string>
+    <string name="chat_switch_mode">切換為%1$s</string>
+    <string name="chat_typing">%1$s正在輸入…</string>
+    <string name="chat_new_messages">新訊息</string>
+    <string name="delivery_read">已讀</string>
+    <string name="delivery_unknown">狀態未知</string>
+    <string name="delivery_received">已接收</string>
+    <string name="notification_reply_prompt">%1$s回覆時通知我？</string>
+    <string name="notification_reply_allow">通知我</string>
+    <string name="notification_reply_later">暫時不要</string>
+</resources>

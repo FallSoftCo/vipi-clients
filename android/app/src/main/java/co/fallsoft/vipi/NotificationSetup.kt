@@ -32,10 +32,10 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
         onDispose { lifecycle.removeObserver(observer) }
     }
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) {
-        allowed = PushDelivery.allowed(context); PushDelivery.request(context, registration = true)
+        allowed = PushDelivery.allowed(context); if (allowed) PushDelivery.request(context, registration = true)
     }
     if (!allowed) NotificationPrompt(asked, unavailable) {
-        if (Build.VERSION.SDK_INT >= 33 && !asked) {
+        if (Build.VERSION.SDK_INT >= 33 && !PushDelivery.permissionGranted(context) && !asked) {
             prefs.edit().putBoolean("notificationAsked", true).apply(); asked = true
             permission.launch(Manifest.permission.POST_NOTIFICATIONS)
         } else runCatching { context.startActivity(Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)) }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="immersion_mode_words_short">ひと単語</string>
+    <string name="chat_switch_mode">%1$sに切り替え</string>
+    <string name="chat_typing">%1$sさんが入力中…</string>
+    <string name="chat_new_messages">新しいメッセージ</string>
+    <string name="delivery_read">既読</string>
+    <string name="delivery_unknown">状態不明</string>
+    <string name="delivery_received">受信済み</string>
+    <string name="notification_reply_prompt">%1$sさんから返信が来たら通知しますか？</string>
+    <string name="notification_reply_allow">通知する</string>
+    <string name="notification_reply_later">今はしない</string>
+</resources>

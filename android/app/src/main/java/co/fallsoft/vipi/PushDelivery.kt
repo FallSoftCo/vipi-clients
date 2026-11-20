@@ -62,7 +62,10 @@ internal object PushDelivery {
             ExistingWorkPolicy.APPEND_OR_REPLACE, request)
     }
     fun cancel(context: Context) { WorkManager.getInstance(context).cancelAllWorkByTag(GROUP); NotificationManagerCompat.from(context).cancel(1) }
-    fun allowed(context: Context) = (Build.VERSION.SDK_INT < 33 || ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) && NotificationManagerCompat.from(context).areNotificationsEnabled()
+    fun permissionGranted(context: Context) = Build.VERSION.SDK_INT < 33 ||
+        ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+    fun allowed(context: Context) = permissionGranted(context) && NotificationManagerCompat.from(context).areNotificationsEnabled() &&
+        context.getSystemService(NotificationManager::class.java).getNotificationChannel(CHANNEL)?.importance != NotificationManager.IMPORTANCE_NONE
     fun notify(context: Context, chat: ChatSession) {
         if (!allowed(context) || ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) return
         val unread = chat.threads.filter { it.unread > 0 }

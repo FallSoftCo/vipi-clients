@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="immersion_mode_words_short">كلمة واحدة</string>
+    <string name="chat_switch_mode">التبديل إلى %1$s</string>
+    <string name="chat_typing">%1$s يكتب…</string>
+    <string name="chat_new_messages">رسائل جديدة</string>
+    <string name="delivery_read">مقروءة</string>
+    <string name="delivery_unknown">الحالة غير معروفة</string>
+    <string name="delivery_received">تم الاستلام</string>
+    <string name="notification_reply_prompt">هل تريد إشعارًا عندما يرد %1$s؟</string>
+    <string name="notification_reply_allow">إشعاري</string>
+    <string name="notification_reply_later">ليس الآن</string>
+</resources>

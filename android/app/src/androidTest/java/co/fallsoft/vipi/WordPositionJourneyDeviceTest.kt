@@ -43,8 +43,6 @@ class WordPositionJourneyDeviceTest {
                     compose.onNodeWithTag("message-input").performTextInput(draft)
                     val caret = compose.onNodeWithTag("message-input").fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.TextSelectionRange]
                     compose.onNodeWithTag("conversation-immersion").performTouchInput { click() }
-                    compose.onNodeWithText(f.base.getString(R.string.immersion_mode_full)).assertIsDisplayed()
-                    compose.onNodeWithText(f.base.getString(R.string.immersion_mode_words)).performTouchInput { click() }
                     compose.waitUntil(8_000) { f.model.immersionMode == ImmersionMode.NEW_WORD && chat.translations?.mode == ImmersionMode.NEW_WORD }
                     assertEquals(draft, chat.compose(services.peer)); compose.onNodeWithTag("message-input").assertTextEquals(draft)
                     assertEquals(caret, compose.onNodeWithTag("message-input").fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.TextSelectionRange])

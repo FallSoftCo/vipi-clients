@@ -1,6 +1,7 @@
 package co.fallsoft.vipi
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.stopScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.*
@@ -37,6 +38,8 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.toggleableState
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.scrollToIndex
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -108,6 +111,8 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
 @Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en", target: String = "es",
     onLanguages: (() -> Unit)? = null,
     onImmersionMode: ((ImmersionMode) -> Unit)? = null,
+    notificationEducation: ReplyNotificationEducation? = null,
+    onNotificationPermission: () -> Unit = {},
     back: () -> Unit) {
     var messages by remember(peer) { mutableStateOf<List<ChatItem>>(emptyList()) }
     var text by remember(peer) { mutableStateOf("") }
@@ -118,7 +123,6 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     var loaded by remember(peer) { mutableStateOf(false) }
     var userRefreshing by remember(peer) { mutableStateOf(false) }
     var options by remember(peer) { mutableStateOf(false) }
-    var immersionMenu by remember(peer) { mutableStateOf(false) }
     var confirmBlock by remember(peer) { mutableStateOf(false) }
     var blockBusy by remember(peer) { mutableStateOf(false) }
     var chooseReport by remember(peer) { mutableStateOf(false) }
@@ -131,6 +135,8 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     var showSecurityNumber by remember(peer) { mutableStateOf(false) }
     var showVoiceHelp by remember(peer) { mutableStateOf(false) }
     var followingLatest by rememberSaveable(peer) { mutableStateOf(true) }
+    var positioningLatest by remember(peer) { mutableStateOf(false) }
+    var newMessagesBelow by remember(peer) { mutableIntStateOf(0) }
     var jumpRevision by remember(peer) { mutableIntStateOf(0) }
     val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
@@ -148,6 +154,8 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
         onDispose { if (audio != null) { chat.removeNewMessageObserver(audio); audio.close() } }
     }
     val lifecycle = LocalLifecycleOwner.current
+    var foreground by remember(lifecycle) { mutableStateOf(lifecycle.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
+    val peerTyping = foreground && chat.isPeerTyping(peer)
     var composing by remember { mutableStateOf(false) }
     var topBarHeightPx by remember { mutableIntStateOf(0) }
     val composerStatusScroll = rememberScrollState()
@@ -156,15 +164,17 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     LaunchedEffect(speech.state) { if (speech.state == SpeechState.READY) showVoiceHelp = false }
     DisposableEffect(lifecycle, speech, audio) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_STOP) { gestures.held = false; audio?.background(); speech.stop() }
+            if (event == Lifecycle.Event.ON_STOP) { foreground = false; chat.composerActivity(peer, false); chat.visibleMessages(peer, emptyList(), emptyList()); gestures.held = false; audio?.background(); speech.stop() }
             if (event == Lifecycle.Event.ON_RESUME) {
+                foreground = true
                 translation?.preparePair(); speech.prepare(warmups)
             }
         }
         lifecycle.lifecycle.addObserver(observer)
-        onDispose { lifecycle.lifecycle.removeObserver(observer) }
+        onDispose { lifecycle.lifecycle.removeObserver(observer); chat.composerActivity(peer, false); chat.visibleMessages(peer, emptyList(), emptyList()) }
     }
     DisposableEffect(speech) { onDispose { speech.close() } }
+    DisposableEffect(notificationEducation, peer) { onDispose { notificationEducation?.dismiss() } }
     val list = rememberLazyListState()
     val messageTextInset = with(LocalDensity.current) { EmbeddedMessageVerticalPadding.roundToPx() }
     suspend fun revealNewestMessage() {
@@ -189,24 +199,26 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             list.requestScrollToItem(row.index, layout.beforeContentPadding + messageTextInset)
             return true
         }
+        positioningLatest = true
+        try {
         // Reuse a measured oversized row directly on IME/paragraph resize;
         // do not bounce it to the bottom on every layout observation.
-        if (showLeadingEdgeIfOversized()) return
-        list.scrollToItem(messages.size + 1)
+        if (showLeadingEdgeIfOversized()) { withFrameNanos { }; return }
+        list.scrollToItem((list.layoutInfo.totalItemsCount - 1).coerceAtLeast(0))
         withFrameNanos { }
         if (followingLatest && !list.isScrollInProgress && messages.lastOrNull()?.id == newest.id) {
             showLeadingEdgeIfOversized()
         }
+        } finally { positioningLatest = false }
     }
     LaunchedEffect(list, peer) {
         snapshotFlow {
             val layout = list.layoutInfo
             val last = layout.visibleItemsInfo.lastOrNull()
-            val nearBottom = last != null && last.index == layout.totalItemsCount - 1 &&
-                last.offset + last.size <= layout.viewportEndOffset
+            val nearBottom = last != null && layout.viewportSize.height > 0 && !list.canScrollForward
             // scrollToItem updates requested state before the next measure.
             // An old bottom layout must not undo an explicit jump to history.
-            Triple(list.isScrollInProgress, nearBottom,
+            Triple(list.isScrollInProgress && !positioningLatest, nearBottom,
                 layout.visibleItemsInfo.firstOrNull()?.index == list.firstVisibleItemIndex)
         }.collect { (scrolling, nearBottom, measuredPosition) ->
             // Content insertion alone must not revoke the reader's choice to
@@ -268,9 +280,10 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     fun refresh() {
         try {
             val current = chat.messages(peer); val ids = current.map { it.id }.toSet()
+            if (loaded && !followingLatest) newMessagesBelow += current.count { incoming -> !incoming.outgoing && messages.none { it.id == incoming.id } }
             messages = (current + messages.filter { it.id !in ids }).sortedBy { it.cursor }
             if (!loaded) { text = chat.compose(peer); earlierAvailable = current.size == 50; loaded = true }
-            chat.markRead(peer)
+            if (followingLatest) chat.markRead(peer)
         } catch (_: Exception) { error = context.getString(R.string.chat_saved_open_failed) }
     }
     fun earlier() {
@@ -295,8 +308,31 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
         chat.synchronize()
     }
     LaunchedEffect(chat.revision) { refresh() }
-    LaunchedEffect(messages.lastOrNull()?.id, jumpRevision) {
+    LaunchedEffect(messages.lastOrNull()?.id, jumpRevision, peerTyping) {
+        // Let appended rows and IME constraints measure before choosing the tail.
+        withFrameNanos { }
         if (followingLatest && messages.isNotEmpty()) revealNewestMessage()
+    }
+    LaunchedEffect(followingLatest) {
+        if (followingLatest) { newMessagesBelow = 0; chat.markRead(peer) }
+    }
+    LaunchedEffect(chat, peer, foreground, options, chooseCopy, chooseReport, showSecurityNumber, confirmBlock, reportedMessage) {
+        try {
+            snapshotFlow {
+                val layout = list.layoutInfo
+                val clear = foreground && !options && !chooseCopy && !chooseReport && !showSecurityNumber && !confirmBlock && reportedMessage == null
+                if (!clear) emptyList<ChatItem>() else {
+                    val visibleKeys = layout.visibleItemsInfo.filter { row ->
+                        val overlap = minOf(row.offset + row.size, layout.viewportEndOffset) - maxOf(row.offset, layout.viewportStartOffset)
+                        overlap >= minOf(row.size, messageTextInset * 2 + 24)
+                    }.map { it.key }.toSet()
+                    messages.filter { it.id in visibleKeys && it.state != "imported" }
+                }
+            }.collect { visible ->
+                chat.visibleMessages(peer, visible.filter { !it.outgoing }.take(64).map { it.id },
+                    visible.filter { it.outgoing && it.state in setOf("accepted", "delivered", "read") }.take(64).map { it.id })
+            }
+        } finally { chat.visibleMessages(peer, emptyList(), emptyList()) }
     }
     BoxWithConstraints(Modifier.fillMaxSize()) {
     val viewDensity = LocalDensity.current
@@ -306,14 +342,16 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     val minimumComposerHeight = maxOf(OutlinedTextFieldDefaults.MinHeight,
         with(viewDensity) { resolvedComposeLineHeight(MaterialTheme.typography.bodyLarge) } +
             composerPadding.calculateTopPadding() + composerPadding.calculateBottomPadding())
-    val normalTopBarHeight = TopAppBarDefaults.TopAppBarExpandedHeight +
+    val separateModeControl = viewDensity.fontScale >= 1.3f || maxWidth < 360.dp
+    val normalTopBarHeight = (if (separateModeControl && onImmersionMode != null) 48.dp else 0.dp) + TopAppBarDefaults.TopAppBarExpandedHeight +
         with(viewDensity) { TopAppBarDefaults.windowInsets.getTop(this).toDp() }
     val availableHeight = (maxHeight - with(viewDensity) { topBarHeightPx.toDp() } - bottomInsets).coerceAtLeast(0.dp)
     // Native StableImmersionText has its own font/slot metrics. This scaled
     // reading-space preference is qualified by actual native ink, not assumed
     // to equal a Compose paragraph's measured line height.
     val messageLineHeight = with(viewDensity) { 28.sp.toDp() }
-    val hasStatus = rejectedDraftEdit || messageTooLong || showVoiceHelp || speech.state == SpeechState.UNAVAILABLE || (speech.state != SpeechState.UNAVAILABLE && speech.error != null) || error != null || chat.notice != null ||
+    val hasReplyInvitation = notificationEducation?.let { it.friend != null || it.settingsUnavailable } == true
+    val hasStatus = hasReplyInvitation || rejectedDraftEdit || messageTooLong || showVoiceHelp || speech.state == SpeechState.UNAVAILABLE || (speech.state != SpeechState.UNAVAILABLE && speech.error != null) || error != null || chat.notice != null ||
         chat.needsDeviceRecovery || peer in chat.peersNeedingRecovery
     // Reserve readable conversation space before a growing draft consumes it.
     // Three current scaled message lines is a preference, bounded by half the
@@ -321,7 +359,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     // prioritize the native editable line when both cannot fit.
     val preferredHistoryHeight = if (messages.isNotEmpty())
         minOf(availableHeight * .5f, messageLineHeight * 3 + EmbeddedMessageVerticalPadding * 2) else 0.dp
-    val statusLineHeight = if (hasStatus) maxOf(48.dp,
+    val statusLineHeight = if (hasReplyInvitation) 128.dp else if (hasStatus) maxOf(48.dp,
         with(viewDensity) { resolvedComposeLineHeight(MaterialTheme.typography.bodyLarge.copy(fontSize = 14.sp)) }) else 0.dp
     val compact = maxHeight - bottomInsets - normalTopBarHeight - preferredHistoryHeight <
         minimumComposerHeight + statusLineHeight + 16.dp
@@ -338,36 +376,16 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     // editor instead of collapsing the timeline or moving controls under IME.
     val composerMaxHeight = maxOf(minimumComposerHeight, footerContentHeight - statusLineHeight - composerOuterPadding)
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
-        topBar = { TopAppBar(title = { Text(chat.name(peer), maxLines = 1) },
-            modifier = Modifier.onSizeChanged { topBarHeightPx = it.height },
+        topBar = { Column(Modifier.onSizeChanged { topBarHeightPx = it.height }.background(MaterialTheme.colorScheme.background)) {
+            TopAppBar(title = { Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(9.dp)) {
+                ContactAvatar(chat.name(peer), peer)
+                Text(chat.name(peer), maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
+            } },
             expandedHeight = if (compact) compactBarHeight else TopAppBarDefaults.TopAppBarExpandedHeight, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
             actions = {
-                if (onImmersionMode != null) Box {
-                    TextButton(onClick = { immersionMenu = true }, modifier = Modifier.heightIn(min = 48.dp).testTag("conversation-immersion")) {
-                        Text(stringResource(R.string.immersion_mode_title))
-                        Icon(Icons.Outlined.ExpandMore, contentDescription = null)
-                    }
-                    DropdownMenu(expanded = immersionMenu, onDismissRequest = { immersionMenu = false }) {
-                        listOf(ImmersionMode.FULL_MESSAGES to R.string.immersion_mode_full,
-                            ImmersionMode.NEW_WORD to R.string.immersion_mode_words).forEach { (mode, label) ->
-                            val selected = translation?.mode == mode
-                            DropdownMenuItem(text = { Text(stringResource(label)) },
-                                leadingIcon = { if (selected) Icon(Icons.Outlined.Check, contentDescription = null) else Spacer(Modifier.size(24.dp)) },
-                                modifier = Modifier.semantics { this.selected = selected }, onClick = {
-                                    immersionMenu = false
-                                    if (!selected) audio?.close()
-                                    onImmersionMode(mode)
-                                })
-                        }
-                    }
-                }
-                IconToggleButton(checked = audio?.enabled == true, onCheckedChange = { enabled ->
-                    val wasEnabled = audio?.enabled == true
-                    audio?.setAutoplayEnabled(enabled)
-                    if (!wasEnabled && audio?.enabled == true) android.widget.Toast.makeText(context, R.string.autoplay_on_notice, android.widget.Toast.LENGTH_SHORT).show()
-                }, modifier = Modifier.testTag("conversation-autoplay")) {
-                    Icon(if (audio?.enabled == true) Icons.Outlined.VolumeUp else Icons.Outlined.VolumeOff,
-                        stringResource(if (audio?.enabled == true) R.string.autoplay_turn_off else R.string.autoplay_turn_on))
+                if (onImmersionMode != null && !separateModeControl) ChatModeToggle(translation?.mode ?: ImmersionMode.NEW_WORD) {
+                    audio?.close()
+                    onImmersionMode(if (translation?.mode == ImmersionMode.FULL_MESSAGES) ImmersionMode.NEW_WORD else ImmersionMode.FULL_MESSAGES)
                 }
                 Box {
                     IconButton(onClick = {
@@ -379,6 +397,15 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                         else Icon(Icons.Outlined.MoreVert, stringResource(R.string.ui_af8a897d2feb))
                     }
                     DropdownMenu(options, onDismissRequest = { options = false }) {
+                        DropdownMenuItem(text = { Text(stringResource(if (audio?.enabled == true) R.string.autoplay_turn_off else R.string.autoplay_turn_on)) },
+                            leadingIcon = { Icon(if (audio?.enabled == true) Icons.Outlined.VolumeUp else Icons.Outlined.VolumeOff, null) },
+                            modifier = Modifier.testTag("conversation-autoplay").semantics { toggleableState = if (audio?.enabled == true) androidx.compose.ui.state.ToggleableState.On else androidx.compose.ui.state.ToggleableState.Off },
+                            onClick = {
+                                options = false
+                                val enable = audio?.enabled != true
+                                audio?.setAutoplayEnabled(enable)
+                                if (enable) android.widget.Toast.makeText(context, R.string.autoplay_on_notice, android.widget.Toast.LENGTH_SHORT).show()
+                            })
                         DropdownMenuItem(text = { Text(stringResource(R.string.full_translation_copy_original)) },
                             enabled = messages.isNotEmpty(), modifier = Modifier.testTag("conversation-copy"),
                             onClick = {
@@ -397,12 +424,20 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                         DropdownMenuItem(text = { Text(if (blocked) stringResource(R.string.ui_712da63171e0) else stringResource(R.string.ui_211d0bb8cf4f)) }, onClick = { options = false; confirmBlock = true })
                     }
                 }
-            }) },
+            })
+            if (onImmersionMode != null && separateModeControl) Row(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 2.dp), horizontalArrangement = Arrangement.End) {
+                ChatModeToggle(translation?.mode ?: ImmersionMode.NEW_WORD) {
+                    audio?.close()
+                    onImmersionMode(if (translation?.mode == ImmersionMode.FULL_MESSAGES) ImmersionMode.NEW_WORD else ImmersionMode.FULL_MESSAGES)
+                }
+            }
+        } },
         bottomBar = {
             // Scaffold measures bars independently. Keep the complete footer
             // below the measured toolbar, even with a multiline draft and IME.
             Column(Modifier.heightIn(max = footerMaxHeight).background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
                 Column(Modifier.fillMaxWidth().weight(1f, fill = false).verticalScroll(composerStatusScroll)) {
+                if (notificationEducation != null) ReplyNotificationCard(notificationEducation, onNotificationPermission)
                 if (rejectedDraftEdit || messageTooLong) Text(
                     stringResource(if (rejectedDraftEdit) R.string.draft_edit_too_large else R.string.bot_message_too_long),
                     color = MaterialTheme.colorScheme.error, fontSize = 14.sp,
@@ -435,6 +470,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                         // after a rejected paste. Keep its reason until an
                         // accepted content change actually replaces that draft.
                         if (value != text) rejectedDraftEdit = false
+                        if (value != text) chat.composerActivity(peer, value.isNotBlank())
                         text = value
                         try { chat.saveCompose(value, peer) }
                         catch (_: Exception) { error = context.getString(R.string.chat_draft_save_failed) }
@@ -445,9 +481,9 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                     FilledIconButton(onClick = {
                         if (!loaded) return@FilledIconButton
                         try {
-                            chat.send(text, peer); text = ""; error = null
-                            followingLatest = true; jumpRevision++; refresh()
-                            scope.launch { chat.synchronize() }
+                            chat.send(text, peer); notificationEducation?.committedUserSend(chat.name(peer)); chat.composerActivity(peer, false); text = ""; error = null
+                            followingLatest = true; newMessagesBelow = 0; jumpRevision++; refresh()
+                            scope.launch { list.stopScroll(); withFrameNanos { }; revealNewestMessage(); chat.synchronize() }
                         } catch (failure: Exception) { error = ChatSession.explanation(context, failure) }
                     }, enabled = loaded && chat.ready && peer !in chat.peersNeedingRecovery && text.isNotBlank() && !messageTooLong,
                         modifier = Modifier.size(48.dp).testTag("message-send")) { Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.send_message)) }
@@ -472,6 +508,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             if (showTranscript && !loaded && error == null)
                 CircularProgressIndicator(Modifier.align(Alignment.Center))
             if (showTranscript && loaded) {
+            ChatCanvas(Modifier.matchParentSize())
             LazyColumn(state = list, modifier = Modifier.fillMaxSize().fullMessageGestures(gestures).testTag("conversation-timeline").semantics {
                 scrollToIndex { index ->
                     if (index !in 0 until list.layoutInfo.totalItemsCount) false else {
@@ -484,7 +521,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                         true
                     }
                 }
-            }, contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+            }, contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 item(key = "history-header") {
                     ConversationTranscriptItem {
                         Column {
@@ -499,33 +536,46 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                 }
                 itemsIndexed(messages, key = { _, item -> item.id }) { index, item ->
                     ConversationTranscriptItem {
-                        Row(Modifier.fillMaxWidth(), horizontalArrangement = if (item.outgoing) Arrangement.End else Arrangement.Start) {
-                            if (item.outgoing) Spacer(Modifier.width(38.dp))
-                            Column(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).background(if (item.outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface, RoundedCornerShape(18.dp)), verticalArrangement = Arrangement.spacedBy(7.dp)) {
-                                val locale = androidx.compose.ui.platform.LocalConfiguration.current.locales[0]
-                                val status = deliveryLabel(item.state)
-                                val time = if (MessageTimelineMetadata.showTime(item.createdAt, messages.getOrNull(index-1)?.createdAt))
-                                    MessageTimelineMetadata.label(item.createdAt, locale) else null
-                                val showStatus = MessageTimelineMetadata.showDelivery(item.outgoing, item.state,
-                                    item.id == messages.lastOrNull { it.outgoing }?.id)
-                                val metadata = listOfNotNull(time, status.takeIf { showStatus }).joinToString(" · ")
-                                val accessible = MessageTimelineMetadata.exactTime(item.createdAt, locale) + " · " + status
-                                if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio,
-                                    accessibilityContext = accessible) {
-                                    if (metadata.isNotEmpty()) Text(metadata, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.testTag("message-meta-${item.id}").clearAndSetSemantics { })
-                                }
+                        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                            val locale = androidx.compose.ui.platform.LocalConfiguration.current.locales[0]
+                            if (index == 0 || java.time.Instant.ofEpochMilli(item.createdAt).atZone(java.time.ZoneId.systemDefault()).toLocalDate() !=
+                                java.time.Instant.ofEpochMilli(messages[index-1].createdAt).atZone(java.time.ZoneId.systemDefault()).toLocalDate()) {
+                                Text(DateFormat.getDateInstance(DateFormat.MEDIUM, locale).format(Date(item.createdAt)),
+                                    modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 6.dp),
+                                    fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
-                            if (!item.outgoing) Spacer(Modifier.width(38.dp))
+                            Row(Modifier.fillMaxWidth(), horizontalArrangement = if (item.outgoing) Arrangement.End else Arrangement.Start) {
+                                if (item.outgoing) Spacer(Modifier.width(32.dp))
+                                Box(Modifier.weight(1f, fill = false).widthIn(max = 520.dp).testTag("message-row-${item.id}")) {
+                                    ChatBubbleFrame(item.outgoing) {
+                                        val status = deliveryLabel(item.state, item.outgoing)
+                                        val accessible = MessageTimelineMetadata.exactTime(item.createdAt, locale) + " · " + status
+                                        if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio,
+                                            accessibilityContext = accessible) { ChatMessageMetadata(item, locale) }
+                                    }
+                                }
+                                if (!item.outgoing) Spacer(Modifier.width(32.dp))
+                            }
+                        }
+                    }
+                }
+                if (peerTyping) item(key = "peer-typing") {
+                    ConversationTranscriptItem {
+                        ChatBubbleFrame(false) {
+                            Text(stringResource(R.string.chat_typing, chat.name(peer)),
+                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp).testTag("conversation-typing").semantics { liveRegion = androidx.compose.ui.semantics.LiveRegionMode.Polite },
+                                fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                         }
                     }
                 }
                 item(key = "history-bottom") { Spacer(Modifier.height(1.dp)) }
             }
             if (!followingLatest && messages.isNotEmpty()) {
-                FilledTonalIconButton(onClick = { followingLatest = true; jumpRevision++ },
-                    modifier = Modifier.align(Alignment.BottomEnd).padding(12.dp).size(48.dp).testTag("conversation-latest")) {
-                    Icon(Icons.Outlined.ArrowDownward, stringResource(R.string.ui_ef32661fdda0))
+                FilledTonalButton(onClick = { followingLatest = true; newMessagesBelow = 0; jumpRevision++ },
+                    modifier = Modifier.align(Alignment.BottomEnd).padding(12.dp).heightIn(min = 48.dp).testTag("conversation-latest"),
+                    contentPadding = PaddingValues(horizontal = 14.dp)) {
+                    Icon(Icons.Outlined.ArrowDownward, stringResource(R.string.ui_ef32661fdda0), modifier = Modifier.size(20.dp))
+                    if (newMessagesBelow > 0) { Spacer(Modifier.width(6.dp)); Text(stringResource(R.string.chat_new_messages)) }
                 }
             }
             }
@@ -581,12 +631,14 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
         }) { Text(if (blocked) stringResource(R.string.ui_712da63171e0) else stringResource(R.string.ui_211d0bb8cf4f)) } })
 }
 
-@Composable private fun deliveryLabel(state: String) = stringResource(when (state) {
-    "delivered" -> R.string.delivery_delivered
+@Composable internal fun deliveryLabel(state: String, outgoing: Boolean = true) = stringResource(when (state) {
+    "read" -> if (outgoing) R.string.delivery_read else R.string.delivery_received
+    "delivered" -> if (outgoing) R.string.delivery_delivered else R.string.delivery_received
     "accepted" -> R.string.delivery_sent
     "expired" -> R.string.delivery_expired
     "failed" -> R.string.delivery_failed
     "cancelled" -> R.string.delivery_stopped
     "imported" -> R.string.delivery_imported
-    else -> R.string.delivery_waiting
+    "queued", "pending" -> R.string.delivery_waiting
+    else -> R.string.delivery_unknown
 })

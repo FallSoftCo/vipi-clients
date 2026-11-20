@@ -286,6 +286,6 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         audio.failures[id]?.let {
             Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
         }
-        metadata()
+        Box(Modifier.align(androidx.compose.ui.Alignment.End)) { metadata() }
     }
 }

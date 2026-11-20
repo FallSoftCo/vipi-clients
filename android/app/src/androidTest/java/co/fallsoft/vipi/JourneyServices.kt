@@ -50,6 +50,9 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
     val profileUnavailable = AtomicBoolean(false)
     val profileWrites = AtomicInteger()
     val deviceRegistrations = AtomicInteger()
+    val typingPosts = mutableListOf<Boolean>()
+    val seenMessages = linkedSetOf<UUID>()
+    val remotelyRead = linkedSetOf<UUID>()
     val friendPosts = AtomicInteger()
     val reportPosts = AtomicInteger()
     val baseExpired = AtomicBoolean(false)
@@ -124,6 +127,19 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
                     error("No report submit is authorized in the cancel journey")
                 }
                 return when {
+                    method == "POST" && path == "/v1/conversations/$peer/typing" -> {
+                        check(device == registered); typingPosts += requireNotNull(body).getBoolean("active")
+                        check(body.length() == 1); JSONObject().put("accepted", true)
+                    }
+                    method == "POST" && path == "/v1/conversations/$peer/receipts" -> {
+                        check(device == registered); val request = requireNotNull(body)
+                        val seen = request.getJSONArray("seen"); val checking = request.getJSONArray("check")
+                        check(seen.length() <= 64 && checking.length() <= 64)
+                        for (i in 0 until seen.length()) { val id = UUID.fromString(seen.getString(i)); check(id in generatedPeerReplies); seenMessages += id }
+                        val read = JSONArray()
+                        for (i in 0 until checking.length()) { val id = UUID.fromString(checking.getString(i)); if (id in remotelyRead) read.put(id.toString()) }
+                        JSONObject().put("acknowledged", seen).put("read", read)
+                    }
                     method == "GET" && path == "/v1/me" -> {
                         if (profileUnavailable.get()) throw java.io.IOException("Controlled profile service unavailable")
                         if (!created) throw ServiceFailure(404, "profile_required")
@@ -260,6 +276,8 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         socket.inboxChanged()
         return id
     }
+    fun peerTyping(active: Boolean) { requireNotNull(sockets.lastOrNull { it.active }).event(JSONObject().put("event", "typing").put("peer", peer).put("active", active)) }
+    fun markOutgoingRead(id: UUID) { remotelyRead += id; requireNotNull(sockets.lastOrNull { it.active }).event(JSONObject().put("event", "receipts_changed").put("peer", peer)) }
     private fun allowance() = JSONObject().put("available", true).put("service_ready", true)
         .put("remaining_replies", remaining).put("monthly_replies", 150).put("period", "2098-12")
         .put("resets_at", "2099-01-01T00:00:00Z").put("max_context_bytes", 8192)
@@ -268,7 +286,8 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
     override fun deletionTransport(authentication: Authentication) = deletionService
     override fun foregroundEvents(scope: CoroutineScope, authentication: Authentication, chat: ChatSession): ForegroundInboxEvents =
         ForegroundInboxEvents(scope, { "synthetic-inert-access" }, chat::eventDevice, { chat.synchronize() },
-            sockets = WebSocket.Factory { request, listener -> JourneySocket(request, listener).also { sockets += it; it.open() } })
+            sockets = WebSocket.Factory { request, listener -> JourneySocket(request, listener).also { sockets += it; it.open() } },
+            onTyping = chat::peerTypingEvent, onReceipts = chat::receiptEvent, onConnected = chat::eventConnected)
     /** HTTP boundary only; absence of Billing SDK is checked in package proof. */
     fun assertNoPurchase() { assertEquals(0, commerceRequests.get()) }
     override fun close() {
@@ -288,6 +307,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         override fun send(bytes: ByteString) = error("No application content may use the fake event socket")
         override fun close(code: Int, reason: String?): Boolean { active = false; return true }
         override fun cancel() { active = false }
+        fun event(value: JSONObject) { check(active); listener.onMessage(this, value.toString()) }
         fun inboxChanged() { check(active); listener.onMessage(this, "{\"event\":\"inbox_changed\"}") }
         fun open() = listener.onOpen(this, Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(101).message("Switching Protocols").build())
     }

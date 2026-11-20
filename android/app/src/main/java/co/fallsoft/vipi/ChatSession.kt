@@ -396,6 +396,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                             if (item.envelope.sender !in blockedPeers) {
                                 val duplicate = vault!!.transaction { vault!!.get("incoming", item.envelope.id.toString()) != null }
                                 val received = core.receive(item, System.currentTimeMillis())
+                                if (!duplicate) activity?.remoteTyping(item.envelope.sender, false)
                                 if (!duplicate) translateDurable(received.envelope.id.toString())
                                 if (!duplicate) newMessage(item.envelope.sender, received.envelope.id.toString(), received.text)
                                 if (item.envelope.sender !in contacts && unknownSenders.size < 20) unknownSenders.add(item.envelope.sender)
