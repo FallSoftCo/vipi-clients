@@ -3,7 +3,7 @@
     <string name="ui_04d7b4833927" formatted="false">الرسائل</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
     <string name="ui_0c42f5497c0b" formatted="false">أظهر الكلمات الأصلية الآن</string>
-    <string name="ui_0cd8734d2fcd" formatted="false">تتم إدارة الاشتراكات بشكل منفصل. تبقى نسخ الأصدقاء والنسخ الاحتياطية المحفوظة في مكان آخر.</string>
+    <string name="ui_0cd8734d2fcd" formatted="false">تبقى نسخ الأصدقاء والنسخ الاحتياطية المحفوظة في أماكن أخرى.</string>
     <string name="ui_0fac2fda13a5" formatted="false">هذا الحساب نشط بالفعل على جهاز آخر. يحتاج نقل حسابك إلى تأكيد منفصل.</string>
     <string name="ui_11a6767d5674" formatted="false">تم</string>
     <string name="ui_12feaf099b55" formatted="false">محادثات الأصدقاء مشفّرة من طرف إلى طرف.</string>
@@ -21,7 +21,7 @@
     <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
     <string name="ui_318655cea4bd" formatted="false">اللغات</string>
     <string name="ui_33875a9b79e5" formatted="false">استخدم من 3 إلى 24 حرفًا إنجليزيًا أو رقمًا أو شرطة سفلية. ابدأ بحرف إنجليزي. يظل رقم هاتفك وجهات اتصالك خاصّين.</string>
-    <string name="ui_339484dc1f78" formatted="false">كلمات في دردشاتك</string>
+    <string name="ui_339484dc1f78" formatted="false">محادثاتك</string>
     <string name="ui_33a2ae335a6b" formatted="false">تم طلب الحذف</string>
     <string name="ui_3446735cfdee" formatted="false">مسح حالة التحقق</string>
     <string name="ui_3907fa7f8072" formatted="false">المظهر</string>
@@ -275,7 +275,7 @@
     <string name="ui_ff245b368781" formatted="false">Bot mini</string>
     <string name="ui_42f4f8b469bb" formatted="false">تحدث مع أصدقائك.\nتعلّم الكلمات أثناء القراءة.</string>
     <string name="ui_47b7a66139f1" formatted="false">ابدأ محادثة\nمع صديق.</string>
-    <string name="ui_52c236be01ef" formatted="false">يترجم Vipi الرسائل كاملةً على هذا الهاتف، حتى دون اتصال بالإنترنت.</string>
+    <string name="ui_52c236be01ef" formatted="false">تعلّم كلمات أثناء الدردشة. تتم الترجمة على هذا الجهاز، حتى دون اتصال.</string>
     <string name="ui_54c1159d80bf" formatted="false">تحدث مع أصدقائك.\nتعلّم كلمات جديدة.</string>
     <string name="ui_73bee38b06e8" formatted="false">كيف سيعثر\nعليك أصدقاؤك؟</string>
     <string name="ui_8ec4723d54ba" formatted="false">ستحتاج إلى تنزيل هذه اللغات مجددًا قبل الترجمة دون اتصال. تبقى محادثاتك على هذا الهاتف.</string>
@@ -369,7 +369,7 @@
     <string name="ui_42ed79b95da1" formatted="false">تُرسل الرسائل التي ترسلها هنا وسياق محادثات vBot الأخيرة إلى Vipi وDeepSeek لإنشاء الردود. هذه محادثة خدمة وليست محادثة مشفّرة من طرف إلى طرف مع صديق. لا تُضمَّن محادثات الأصدقاء مطلقًا.</string>
     <string name="ui_967b3ede020c" formatted="false">ستُرسل الرسالة الأصلية أدناه ومرسلها وسببك إلى Fallible Software للمراجعة. يبقى باقي محادثتك خاصًا. تُحفظ البلاغات لمدة تصل إلى 30 يومًا.</string>
     <string name="ui_c48de4e830a9" formatted="false">يُرسل نص الرد المحدد والسبب فقط إلى Fallible Software للمراجعة. لا تُضمَّن محادثات الأصدقاء. تُحفظ البلاغات لمدة تصل إلى 30 يومًا.</string>
-    <string name="ui_bb1fe2470e72" formatted="false">احفظ سجل محادثاتك مع الأصدقاء في ملف مشفّر. اختر مكان حفظه. لا تتضمن النسخة الاحتياطية هوية المراسلة أو الرسائل غير المرسلة أو سجل vBot.</string>
+    <string name="ui_bb1fe2470e72" formatted="false">تبقى الكلمات التي تعلمتها وهوية المراسلة والرسائل التي لم ترسلها على هذا الجهاز.</string>
     <string name="ui_c3297f5bde81" formatted="false">لن يؤدي حذف حسابك إلى إلغاء اشتراك Google Play. يمكنك إلغاؤه بشكل منفصل لإيقاف التجديدات المستقبلية.</string>
     <string name="ui_57225bd8b984" formatted="false">يمكنك دائمًا قراءة المحادثات المحفوظة وحذف حسابك، حتى دون خطة نشطة.</string>
     <string name="ui_cc39ebccb529" formatted="false">اطرح سؤالًا على vBot أو تحدث عن يومك. vBot روبوت محادثة وقد يخطئ؛ تحقّق من التفاصيل المهمة.</string>
@@ -419,7 +419,7 @@
     <string name="access_message_actions">إجراءات الرسالة</string>
     <string name="cardless_ended">انتهى وصولك المجاني إلى Vipi في %1$s. اشترك لمواصلة المحادثة.</string>
     <string name="welcome_title_concise">دردش مع أصدقائك.\nوتعلّم لغة.</string>
-    <string name="welcome_detail_concise">تظهر كل رسالة باللغة التي تتعلّمها.</string>
+    <string name="welcome_detail_concise">يستبدل Vipi كلمة جديدة واحدة في كل مرة. وتظهر الكلمات التي سبق أن رأيتها مجددًا في محادثاتك.</string>
     <string name="preview_spanish_title">جرّب قليلًا من الإسبانية</string>
     <string name="preview_tap_word">اضغط على كلمة مميزة لسماع نطقها باللغة التي تتعلمها. في الدردشات، اضغط على فقاعة للترجمة.</string>
     <string name="languages_title_concise">لغاتك</string>
@@ -429,7 +429,7 @@
     <string name="account_detail_concise">سجّل الدخول واختر اسم مستخدم واعثر على أصدقائك.</string>
     <string name="account_private_title">دردشات خاصة مع الأصدقاء</string>
     <string name="account_private_detail">دردشاتك مع الأصدقاء مشفّرة من طرف إلى طرف. يرى أصدقاؤك اسم المستخدم فقط، ولا يرون بريدك الإلكتروني.</string>
-    <string name="account_trial_concise">30 يومًا مجانًا. لا حاجة إلى بطاقة. بعد ذلك، تختار ما إذا كنت تريد الاشتراك.</string>
+    <string name="account_trial_concise">مجاني. دون اشتراك.</string>
     <string name="preview_message_title">لمحة عن دردشاتك</string>
     <string name="speak_concise">أتحدث</string>
     <string name="learn_concise">أتعلّم</string>
@@ -452,12 +452,12 @@
     <string name="fallsoft_link_title">استخدم حساب Fallsoft</string>
     <string name="fallsoft_link_detail">سجّل دخولك إلى Vipi مجددًا، ثم اربط حساب Fallsoft. ستبقى محادثاتك وملفك الشخصي وفترة التجربة الأصلية كما هي.</string>
     <string name="full_translation_preparing">جارٍ الترجمة…</string>
-    <string name="full_translation_failed">تعذّرت الترجمة. اضغط للمحاولة مجددًا.</string>
-    <string name="full_translation_meaning">إظهار المعاني</string>
-    <string name="full_translation_practice">إظهار النص بلغة التعلّم</string>
+    <string name="full_translation_failed">تعذّرت إضافة كلمة للتدريب. اضغط لإعادة المحاولة.</string>
+    <string name="full_translation_meaning">عرض الرسالة الأصلية</string>
+    <string name="full_translation_practice">عرض كلمات التدريب</string>
     <string name="full_translation_script">إظهار الحروف الأصلية</string>
     <string name="full_translation_reading">إظهار الكتابة بالحروف اللاتينية</string>
-    <string name="full_translation_play">الاستماع بلغة التعلّم</string>
+    <string name="full_translation_play">تشغيل كلمات التدريب</string>
     <string name="full_translation_copy_original">نسخ الرسالة الأصلية</string>
     <string name="full_translation_gestures">اضغط للاستماع. اضغط مطولًا لرؤية المعاني. اضغط مرتين لتغيير طريقة الكتابة.</string>
     <string name="autoplay_turn_on">تشغيل القراءة التلقائية</string>
@@ -469,7 +469,7 @@
     <string name="backup_password_too_short">استخدم 12 حرفًا على الأقل.</string>
     <string name="backup_password_too_long">كلمة المرور هذه طويلة جدًا.</string>
     <string name="backup_password_mismatch">كلمتا المرور غير متطابقتين.</string>
-    <string name="full_translation_context_hint">اضغط للاستماع باللغة %1$s. اضغط مطولًا للقراءة باللغة %2$s.</string>
+    <string name="full_translation_context_hint">اضغط لسماع الكلمات باللغة %1$s. اضغط مطولًا لرؤية الرسالة الأصلية.</string>
     <string name="full_translation_writing_hint">اضغط مرتين لرؤية الكتابة باللغة %1$s.</string>
     <string name="backup_new_password">كلمة مرور جديدة للنسخة الاحتياطية</string>
     <string name="licenses_client_source">شيفرة Vipi المصدرية</string>

@@ -6,6 +6,9 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Layout
 import android.text.StaticLayout
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
 import android.view.MotionEvent
 import android.view.View
 import android.view.accessibility.AccessibilityNodeInfo
@@ -85,12 +88,14 @@ internal class FullMessageGestures {
     }
 }
 
-/** A complete native paragraph, never an inline word slot. Reserve the largest
- * real text layout across meaning/script/reading so gestures do not move rows.
+/** One native paragraph with inline practice ranges. Reserve the largest real
+ * source/script/reading layout so gestures do not move rows.
  */
 internal class FullMessageTextView(context: Context) : TextView(context) {
     private var faces = emptyList<String>()
     private var rawOriginal = ""
+    private var paintedRanges = emptyList<IntRange>()
+    private var paintedColor = 0
     var play: (() -> Unit)? = null
     val originalMessage: String get() = rawOriginal
     var playing = false
@@ -117,12 +122,22 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         layoutParams = android.view.ViewGroup.LayoutParams(android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
             android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
     }
-    fun bind(displayed: String, original: String, variants: List<String>, color: Int, accessibilityContext: String? = null) {
+    fun bind(displayed: String, original: String, variants: List<String>, color: Int, accessibilityContext: String? = null,
+        highlights: List<IntRange> = emptyList(), highlightColor: Int = 0) {
         rawOriginal = original
         val next = variants.distinct()
         if (faces != next) { faces = next; requestLayout() }
         setTextColor(color)
-        if (text.toString() != displayed) { text = displayed; requestLayout() }
+        if (text.toString() != displayed || paintedRanges != highlights || paintedColor != highlightColor) {
+            paintedRanges = highlights; paintedColor = highlightColor
+            text = SpannableString(displayed).apply {
+                highlights.forEach { range ->
+                    require(range.first >= 0 && range.last < length)
+                    setSpan(BackgroundColorSpan(highlightColor), range.first, range.last+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
+            }
+            requestLayout()
+        }
         contentDescription = listOfNotNull(displayed, accessibilityContext?.takeIf { it.isNotBlank() }).joinToString(". ")
     }
     // The enclosing Compose surface owns all pointer arbitration, including
@@ -177,8 +192,11 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     val alternateReading = value?.practiceReading?.let { it.isNotBlank() && it != value.practiceText } == true
     val ink = MaterialTheme.colorScheme.onSurface.toArgb()
     val activityColor = MaterialTheme.colorScheme.primary
+    val wordColor = MaterialTheme.colorScheme.secondaryContainer.toArgb()
     LaunchedEffect(translation, id, text) { translation.enqueue(id, text) }
-    val play = { gestures.interacted(); audio.manual(id, text) }
+    val play = {
+        if (value?.words?.isEmpty() != true) { gestures.interacted(); audio.manual(id, text) }
+    }
     // Readings complete independently of stable paragraph geometry. Bounds
     // registration must never be the only trigger for action availability.
     SideEffect { gestures.readingAvailable(id, alternateReading) }
@@ -201,22 +219,22 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         }
         val faces = value?.let { listOfNotNull(it.practiceText, it.meaningText, it.practiceReading) } ?: listOf(text)
         AndroidView(factory = { FullMessageTextView(it) }, update = { view ->
-            view.play = play
+            view.play = play.takeIf { value?.words?.isEmpty() != true }
             view.showingNativeScript = gestures.nativeScript
             view.readingUnavailable = showReadingFailure
             view.playing = speech.activeMessage == id || audio.manualMessage == id
             view.reveal = { gestures.interacted(); gestures.accessibilityMeaning = true }
             view.practice = { gestures.accessibilityMeaning = false; gestures.held = false }
             view.script = if (alternateReading) ({ gestures.toggleScript() }) else null
-            view.bind(displayed, text, faces, ink, accessibilityContext)
+            val highlights = if (gestures.meaning) emptyList() else value?.words?.let {
+                WordReplacement.ranges(it, reading = !gestures.nativeScript && value.practiceReading != null)
+            }.orEmpty()
+            view.bind(displayed, text, faces, ink, accessibilityContext, highlights, wordColor)
         })
         if (value == null) {
             if (state?.phase == MessageTranslationPhase.FAILED) {
                 Text(stringResource(R.string.full_translation_failed), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
                 TextButton(onClick = { translation.enqueue(id, text, retry = true) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.try_again)) }
-            } else {
-                Text(stringResource(if (state?.phase == MessageTranslationPhase.TRANSLATING) R.string.lookup_translating else R.string.full_translation_preparing),
-                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
         if (readingUnavailable) {

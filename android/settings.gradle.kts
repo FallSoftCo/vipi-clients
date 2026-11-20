@@ -1,5 +1,5 @@
 pluginManagement {
-    // Kotlin 2.4 needs newer D8/R8 than AGP 8.13 bundles. Use Google's documented override.
+    // Retain the reviewed Kotlin 2.4-compatible D8/R8 override during this migration.
     buildscript {
         repositories { google(); mavenCentral() }
         dependencies { classpath("com.android.tools:r8:9.5.28") }

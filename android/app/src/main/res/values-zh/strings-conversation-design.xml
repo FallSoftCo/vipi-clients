@@ -5,4 +5,7 @@
     <string name="bot_caution">vBot 可能出错。请核实重要信息。</string>
     <string name="lookup_whole_unsupported">此设备不支持这两种语言之间的整条消息翻译。</string>
     <string name="base_plan_summary">你的消息会在此设备上翻译为%1$s并显示。Bot mini为可选方案，单独计费。</string>
+    <string name="full_translation_hold_hint">长按查看原始消息。</string>
+    <string name="plan_prices_loading">正在加载价格…</string>
+    <string name="backup_intent">将与好友的聊天记录备份到加密文件。</string>
 </resources>

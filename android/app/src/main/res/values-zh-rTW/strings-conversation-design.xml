@@ -5,4 +5,7 @@
     <string name="bot_caution">vBot 可能出錯。請查證重要資訊。</string>
     <string name="lookup_whole_unsupported">此裝置不支援這兩種語言之間的整則訊息翻譯。</string>
     <string name="base_plan_summary">你的訊息會在此裝置上翻譯為%1$s並顯示。Bot mini為選用方案，單獨計費。</string>
+    <string name="full_translation_hold_hint">長按查看原始訊息。</string>
+    <string name="plan_prices_loading">正在載入價格…</string>
+    <string name="backup_intent">將與好友的聊天記錄備份到加密檔案。</string>
 </resources>

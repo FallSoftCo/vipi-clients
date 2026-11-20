@@ -98,8 +98,8 @@ class FullMessageReadingStatusUiDeviceTest {
         val gestures = FullMessageGestures(); val mounted = androidx.compose.runtime.mutableStateOf(true)
         val expected = listOf(context.getString(R.string.full_translation_play), context.getString(R.string.full_translation_meaning)).joinToString(". ")
         val locale = context.resources.configuration.locales[0]
-        val physical = context.getString(R.string.full_translation_context_hint,
-            java.util.Locale.forLanguageTag("es").getDisplayLanguage(locale), java.util.Locale.forLanguageTag("en").getDisplayLanguage(locale))
+        val physical = context.getString(R.string.full_translation_hold_hint,
+            java.util.Locale.forLanguageTag("en").getDisplayLanguage(locale))
         try {
             check(preferences.edit().remove(key).commit())
             compose.setContent { if (mounted.value) VipiTheme(Appearance.LIGHT) {

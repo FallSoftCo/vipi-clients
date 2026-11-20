@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.google.mlkit.nl.languageid.LanguageIdentification
+import com.google.mlkit.nl.languageid.LanguageIdentificationOptions
 import com.google.mlkit.nl.translate.TranslateLanguage
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
@@ -31,21 +32,24 @@ import kotlinx.coroutines.withTimeoutOrNull
 import org.json.JSONObject
 import java.security.MessageDigest
 
-/** Actual complete local model output. Raw original is never rewritten by the
- * display or persisted in place of the authenticated message. No word mappings.
+/** Immutable mixed-message snapshot. Raw original is never rewritten by the
+ * display or persisted in place of the authenticated message. Word snapshots
+ * record only complete native equivalents at exact source ranges.
  */
 internal data class FullMessageTranslation(
     val original: String, val practiceText: String, val meaningText: String,
     val inputLanguage: String, val practiceLanguage: String, val meaningLanguage: String,
     val practiceReading: String? = null, val readingPolicy: String? = null,
-    val readingStatus: FullMessageReadingStatus? = null, val readingFailure: FullMessageReadingFailure? = null
+    val readingStatus: FullMessageReadingStatus? = null, val readingFailure: FullMessageReadingFailure? = null,
+    val words: List<WordReplacement>? = null
 ) {
     fun json() = JSONObject().put("original", original).put("practice", practiceText).put("meaning", meaningText)
         .put("input_language", inputLanguage).put("practice_language", practiceLanguage).put("meaning_language", meaningLanguage)
         .put("reading", practiceReading ?: JSONObject.NULL).put("reading_policy", readingPolicy ?: JSONObject.NULL)
+        .put("words", words?.let { list -> org.json.JSONArray().apply { list.forEach { put(it.json()) } } } ?: JSONObject.NULL)
         .put("reading_status", readingStatus?.name ?: JSONObject.NULL).put("reading_failure", readingFailure?.name ?: JSONObject.NULL).put("policy", POLICY)
     companion object {
-        const val POLICY = "full-local-message-gesture-1"
+        const val POLICY = "incremental-word-growth-1"
         fun parse(value: JSONObject): FullMessageTranslation {
             require(value.getString("policy") == POLICY)
             val guide = value.opt("reading") as? String
@@ -61,8 +65,13 @@ internal data class FullMessageTranslation(
             // it must not invalidate an otherwise complete model translation.
             return FullMessageTranslation(value.getString("original"), value.getString("practice"), value.getString("meaning"),
                 value.getString("input_language"), value.getString("practice_language"), value.getString("meaning_language"),
-                guide, value.opt("reading_policy") as? String, status, failure.takeIf { status != null })
-                .also { require(it.practiceText.isNotBlank() && it.meaningText.isNotBlank()) }
+                guide, value.opt("reading_policy") as? String, status, failure.takeIf { status != null },
+                (value.opt("words") as? org.json.JSONArray)?.let { WordReplacement.parse(it) })
+                .also {
+                    require(it.practiceText.isNotBlank() && it.meaningText == it.original)
+                    if (it.words != null) require(WordReplacement.compose(it.original, it.words, reading = false) == it.practiceText)
+                    else require(it.inputLanguage == it.practiceLanguage && it.practiceText == it.original)
+                }
         }
         fun key(id: String, original: String, source: String, target: String): String =
             MessageDigest.getInstance("SHA-256").digest(listOf(POLICY, id, original, source, target)
@@ -74,11 +83,35 @@ internal data class FullMessageTranslation(
  * No source text or model output is placed in preferences/public caches.
  */
 internal class FullMessageTranslationStore(private val vault: MessageVault) {
+    fun vocabulary() = IntroducedWords(vault)
+    /** History backups carry originals, not vocabulary/index keys. Imported
+     * history can reuse words already learned here but never manufacture new
+     * progress. A collision/corrupt import must fail before model selection. */
+    fun mayIntroduce(id: String, text: String): Boolean {
+        val uuid = runCatching { java.util.UUID.fromString(id) }.getOrNull() ?: return true
+        require(uuid.toString() == id)
+        return vault.transaction {
+            val bytes = vault.get("imported", id) ?: return@transaction true
+            val row = JSONObject(bytes.toString(Charsets.UTF_8))
+            require(row.getString("id") == id && row.getString("text") == text) { "Imported history identity conflicts with message" }
+            false
+        }
+    }
+    fun plan(key: String): WordMessagePlan? = vault.transaction {
+        vault.get("word-message-plan", key)?.let { WordMessagePlan.parse(JSONObject(it.toString(Charsets.UTF_8))) }
+    }
+    fun commit(key: String, planKey: String, value: FullMessageTranslation, marker: WordMessagePlan,
+        addition: IntroducedWord?, words: IntroducedWords) = vault.transaction {
+        check(vault.get("word-message-plan", planKey) == null) { "Immutable progression plan already committed" }
+        if (addition != null) words.commit(addition)
+        vault.put("word-message-plan", planKey, marker.json().toString().toByteArray(Charsets.UTF_8))
+        vault.put("incremental-message", key, value.json().toString().toByteArray(Charsets.UTF_8))
+    }
     fun read(key: String): FullMessageTranslation? = vault.transaction {
-        vault.get("full-message-translation", key)?.let { FullMessageTranslation.parse(JSONObject(it.toString(Charsets.UTF_8))) }
+        vault.get("incremental-message", key)?.let { FullMessageTranslation.parse(JSONObject(it.toString(Charsets.UTF_8))) }
     }
     fun write(key: String, value: FullMessageTranslation) = vault.transaction {
-        vault.put("full-message-translation", key, value.json().toString().toByteArray(Charsets.UTF_8))
+        vault.put("incremental-message", key, value.json().toString().toByteArray(Charsets.UTF_8))
     }
 }
 
@@ -93,7 +126,7 @@ internal interface MessageTranslationLanguage : AutoCloseable {
     suspend fun identify(text: String): String?
 }
 private class NativeMessageTranslationLanguage : MessageTranslationLanguage {
-    private val client = LanguageIdentification.getClient()
+    private val client = LanguageIdentification.getClient(LanguageIdentificationOptions.Builder().setConfidenceThreshold(.8f).build())
     override suspend fun identify(text: String): String? {
         val code = client.identifyLanguage(text).await()
         return TranslateLanguage.fromLanguageTag(code)
@@ -103,7 +136,8 @@ private class NativeMessageTranslationLanguage : MessageTranslationLanguage {
 
 /** Session-owned single-flight local translation; view disappearance does not
  * duplicate work. Closing/replacing the account or pair cancels pending work.
- * Cache contains only complete practice+meaning output, never lookup partials.
+ * One successful new source word is committed with its immutable message plan;
+ * previously introduced words reuse encrypted native equivalents.
  */
 internal class ConversationTranslation(
     context: Context, val source: String, val target: String,
@@ -115,6 +149,7 @@ internal class ConversationTranslation(
 ) : AutoCloseable {
     private val lock = Any()
     private val readingPolicy = FullMessageReadings.policy(target)
+    private val vocabulary = store?.vocabulary() ?: IntroducedWords(null)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private val preparation = Mutex()
     private val modelExecution = Mutex()
@@ -133,7 +168,8 @@ internal class ConversationTranslation(
         (value.original.length.toLong() + value.practiceText.length + value.meaningText.length +
             (value.practiceReading?.length ?: 0) + (value.readingPolicy?.length ?: 0) +
             (value.readingStatus?.name?.length ?: 0) + (value.readingFailure?.name?.length ?: 0) +
-            value.inputLanguage.length + value.practiceLanguage.length + value.meaningLanguage.length)
+            value.inputLanguage.length + value.practiceLanguage.length + value.meaningLanguage.length) +
+            (value.words?.sumOf { 96L + 2L * (it.source.length + it.target.length + (it.reading?.length ?: 0)) } ?: 0L)
     val cachedBytes: Long get() = synchronized(lock) { completedBytes }
     val states = mutableStateMapOf<String, MessageTranslationState>()
     private var closed = false
@@ -291,6 +327,7 @@ internal class ConversationTranslation(
     }
     private suspend fun resolveTask(id: String, text: String, retry: Boolean): FullMessageTranslation {
         val key = key(id, text)
+        val planKey = vocabulary.planKey(id, text, source, target)
         val task = synchronized(lock) {
             if (closed) throw CancellationException("Translation owner closed")
             val resident = completed[key] ?: states[key]?.value
@@ -308,38 +345,53 @@ internal class ConversationTranslation(
                         // This is derived cache, never authenticated source.
                         // A damaged/old entry is replaced by fresh model output;
                         // retry must not loop forever on the same bad cache row.
+                        val marker = store?.let { withContext(Dispatchers.IO) { it.plan(planKey) } } ?: vocabulary.transientPlan(planKey)
+                        val markerWords = marker?.let { withContext(Dispatchers.IO) { referencedWords(text, it) } }
                         val cached = resident ?: try { store?.let { withContext(Dispatchers.IO) { it.read(key) } }
-                            ?.takeIf { it.original == text && it.practiceLanguage == target && it.meaningLanguage == source } }
+                            ?.also { value ->
+                                require(value.original == text && value.practiceLanguage == target && value.meaningLanguage == source)
+                                if (marker != null) {
+                                    require(value.inputLanguage == marker.input)
+                                    require(value.words?.map { Triple(it.start, it.length, it.target) } == markerWords?.map { Triple(it.start, it.length, it.target) })
+                                }
+                            } }
                         catch (cancelled: CancellationException) { throw cancelled }
-                        catch (_: Exception) { null }
+                        catch (failure: Exception) { if (marker == null) throw failure else null }
                         currentCoroutineContext().ensureActive()
-                        val translated = if (cached != null) cached else modelExecution.withLock {
-                            currentCoroutineContext().ensureActive()
-                            val detected = try { withTimeoutOrNull(2_000) { language.identify(text) } } catch (cancelled: CancellationException) { throw cancelled } catch (_: Exception) { null }
-                            val input = detected?.takeIf { it in TranslateLanguage.getAllLanguages() } ?: source
-                            val practice = if (input == target) text else {
-                                prepare(input, target)
-                                publish(key, MessageTranslationState(MessageTranslationPhase.TRANSLATING))
-                                withTimeout(60_000) { translator.translate(text, input, target) }
+                        val translated = if (cached != null && marker != null) cached else vocabulary.progression.withLock {
+                            modelExecution.withLock {
+                                currentCoroutineContext().ensureActive()
+                                // A cache may disappear; the immutable progression
+                                // snapshot is authoritative and never allocates twice.
+                                val prior = store?.plan(planKey) ?: vocabulary.transientPlan(planKey)
+                                if (prior != null) restoreWordPlan(text, prior) else {
+                                    check(cached == null) { "Derived word cache has no authoritative plan" }
+                                    val mayIntroduce = store?.mayIntroduce(id, text) ?: true
+                                    val result = withTimeout(60_000) { incrementalMessage(text, key, mayIntroduce) }
+                                    val snapshot = markerFor(result.first, result.second)
+                                    currentCoroutineContext().ensureActive()
+                                    withContext(Dispatchers.IO) { synchronized(lock) {
+                                        if (closed) throw CancellationException("Translation owner closed")
+                                        if (store != null) store.commit(key, planKey, result.first, snapshot, result.second, vocabulary)
+                                        else {
+                                            result.second?.let(vocabulary::commit)
+                                            vocabulary.commitTransientPlan(planKey, snapshot)
+                                        }
+                                    } }
+                                    result.first
+                                }
                             }
-                            val meaning = if (input == source) text else {
-                                prepare(input, source)
-                                publish(key, MessageTranslationState(MessageTranslationPhase.TRANSLATING))
-                                withTimeout(60_000) { translator.translate(text, input, source) }
-                            }
-                            require(practice.isNotBlank() && meaning.isNotBlank()) { "Empty local translation" }
-                            FullMessageTranslation(text, practice, meaning, input, target, source)
                         }
                         // Old translation output remains valid when a reading
                         // producer changes. Regenerate only this derived face,
                         // never the authenticated source or model translation.
                         val retryReading = retry && translated.readingStatus == FullMessageReadingStatus.UNAVAILABLE
                         val value = if (translated.readingPolicy == readingPolicy && translated.readingStatus != null && !retryReading) translated else {
-                            val current = try { reading(translated.practiceText, target) }
-                            catch (cancelled: CancellationException) { throw cancelled }
-                            catch (_: Exception) { FullMessageReading.unavailable(FullMessageReadingFailure.PRODUCER_FAILURE) }
-                            translated.copy(practiceReading = current.text, readingPolicy = readingPolicy,
-                                readingStatus = current.status, readingFailure = current.failure)
+                            if (translated.words != null) refreshWordReading(translated) else {
+                                val current = safeReading(translated.practiceText)
+                                translated.copy(practiceReading = current.text, readingPolicy = readingPolicy,
+                                    readingStatus = current.status, readingFailure = current.failure)
+                            }
                         }
                         currentCoroutineContext().ensureActive()
                         withContext(Dispatchers.IO) { synchronized(lock) {
@@ -370,9 +422,102 @@ internal class ConversationTranslation(
         task.start()
         return task.await()
     }
+    private suspend fun safeReading(text: String): FullMessageReading = try { reading(text, target) }
+        catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { FullMessageReading.unavailable(FullMessageReadingFailure.PRODUCER_FAILURE) }
+
+    private suspend fun refreshWordReading(value: FullMessageTranslation): FullMessageTranslation {
+        val results = mutableMapOf<String, FullMessageReading>()
+        val words = requireNotNull(value.words).map { word ->
+            val guide = results[word.target] ?: safeReading(word.target).also { results[word.target] = it }
+            word.copy(reading = guide.text)
+        }
+        val failure = results.values.firstOrNull { it.status == FullMessageReadingStatus.UNAVAILABLE }?.failure
+        val hasGuide = words.any { it.reading != null }
+        return value.copy(words = words, practiceReading = if (failure == null && hasGuide)
+            WordReplacement.compose(value.original, words, reading = true) else null,
+            readingPolicy = readingPolicy,
+            readingStatus = if (failure != null) FullMessageReadingStatus.UNAVAILABLE else if (hasGuide)
+                FullMessageReadingStatus.AVAILABLE else FullMessageReadingStatus.NOT_NEEDED,
+            readingFailure = failure)
+    }
+    private fun markerFor(value: FullMessageTranslation, addition: IntroducedWord?): WordMessagePlan = WordMessagePlan(
+        WordMessagePlan.hash(value.original), value.inputLanguage, target, source,
+        value.words?.map { word -> WordPlanReference(word.start, word.length,
+            vocabulary.reference(value.inputLanguage, target, IncrementalWords.normalized(word.source, value.inputLanguage))) },
+        addition?.let { vocabulary.reference(it.source, it.target, it.key) })
+
+    private fun referencedWords(text: String, plan: WordMessagePlan): List<WordReplacement>? {
+        require(plan.originalHash == WordMessagePlan.hash(text) && plan.target == target && plan.meaningLanguage == source)
+        if (plan.words == null) {
+            require(plan.input == target && plan.introducedID == null)
+            return null
+        }
+        var end = 0
+        val spans = plan.words.map { ref ->
+            require(ref.start >= end && ref.length > 0 && ref.start + ref.length <= text.length)
+            val original = text.substring(ref.start, ref.start + ref.length)
+            val word = vocabulary.referenced(ref.wordID, plan.input, target)
+            require(word.key == IncrementalWords.normalized(original, plan.input))
+            end = ref.start + ref.length
+            WordReplacement(ref.start, ref.length, original, word.translation, word.reading)
+        }
+        if (plan.introducedID != null) require(plan.words.any { it.wordID == plan.introducedID })
+        return spans
+    }
+    private suspend fun restoreWordPlan(text: String, plan: WordMessagePlan): FullMessageTranslation {
+        val spans = referencedWords(text, plan) ?: return FullMessageTranslation(text, text, text, target, target, source)
+        return refreshWordReading(FullMessageTranslation(text, WordReplacement.compose(text, spans, false), text,
+            plan.input, target, source, words = spans))
+    }
+    private suspend fun incrementalMessage(text: String, key: String, mayIntroduce: Boolean): Pair<FullMessageTranslation, IntroducedWord?> {
+        val configured = IncrementalWords.tokens(text, source)
+        val detected = if (configured.size >= 3) try { withTimeoutOrNull(2_000) { language.identify(text) } }
+            catch (cancelled: CancellationException) { throw cancelled } catch (_: Exception) { null } else null
+        currentCoroutineContext().ensureActive()
+        val input = detected?.takeIf { it in TranslateLanguage.getAllLanguages() } ?: source
+        if (input == target) return FullMessageTranslation(text, text, text, input, target, source) to null
+        val tokens = IncrementalWords.tokens(text, input)
+        val known = mutableMapOf<String, IntroducedWord>()
+        var targetCharacters = 0L
+        var guideCharacters = 0L
+        for (token in tokens) if (token.key !in known) vocabulary.word(input, target, token.key)?.let {
+            targetCharacters += it.translation.length; guideCharacters += (it.reading ?: it.translation).length
+            check(targetCharacters <= 2_097_152L && guideCharacters <= 2_097_152L) { "Word snapshot exceeds message record capacity" }
+            known[token.key] = it
+        }
+        var addition: IntroducedWord? = null
+        val attempted = mutableSetOf<String>()
+        for (token in tokens) {
+            if (!mayIntroduce) break
+            if (token.key in known || !attempted.add(token.key)) continue
+            if (input == source) prepare(source, target)
+            else check(translator.isReady(input, target)) { "Detected language models are not prepared; no download fallback" }
+            publish(key, MessageTranslationState(MessageTranslationPhase.TRANSLATING))
+            val translated = translator.translate(token.text, input, target).trim()
+            currentCoroutineContext().ensureActive()
+            require(translated.toByteArray(Charsets.UTF_8).size <= 2_097_152) { "Word equivalent exceeds record capacity" }
+            if (translated.isBlank() || IncrementalWords.normalized(translated, input) == token.key) continue
+            val guide = safeReading(translated)
+            check(guide.status != FullMessageReadingStatus.UNAVAILABLE) { "Required word reading unavailable" }
+            val word = IntroducedWord(input, target, token.key, translated, guide.text, readingPolicy)
+            known[token.key] = word; addition = word
+            break
+        }
+        val spans = tokens.mapNotNull { token -> known[token.key]?.let { word ->
+            WordReplacement(token.start, token.end-token.start, token.text, word.translation, word.reading)
+        } }
+        var value = FullMessageTranslation(text, WordReplacement.compose(text, spans, reading = false), text,
+            input, target, source, words = spans)
+        // Only inserted practice text is transliterated; source words and all
+        // punctuation remain exactly authored. A policy refresh cannot add words.
+        value = refreshWordReading(value)
+        check(value.readingStatus != FullMessageReadingStatus.UNAVAILABLE) { "Required word reading unavailable" }
+        return value to addition
+    }
     override fun close() {
         synchronized(lock) { if (closed) return; closed = true; tasks.clear(); completed.clear(); completedBytes = 0; states.clear(); stateOrder.clear(); visible.clear(); foreground.clear(); replaySource = null; durablePending.clear(); durableInFlight = null; durableGeneration++ }
         scope.cancel()
-        translator.close(); language.close()
+        translator.close(); language.close(); vocabulary.close()
     }
 }

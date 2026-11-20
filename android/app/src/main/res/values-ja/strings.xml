@@ -3,7 +3,7 @@
     <string name="ui_04d7b4833927" formatted="false">メッセージ</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
     <string name="ui_0c42f5497c0b" formatted="false">元の単語を今すぐ表示してください</string>
-    <string name="ui_0cd8734d2fcd" formatted="false">サブスクリプションは個別に管理されます。 友人のコピーやバックアップは、他の場所に保存されたままです。</string>
+    <string name="ui_0cd8734d2fcd" formatted="false">友達側のコピーや、ほかの場所に保存したバックアップは残ります。</string>
     <string name="ui_0fac2fda13a5" formatted="false">このアカウントはすでに別のデバイスで有効です。 アカウントの移行には別途確認が必要です。</string>
     <string name="ui_11a6767d5674" formatted="false">完了</string>
     <string name="ui_12feaf099b55" formatted="false">友だちとのチャットはエンドツーエンドで暗号化されます。</string>
@@ -21,7 +21,7 @@
     <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
     <string name="ui_318655cea4bd" formatted="false">言語</string>
     <string name="ui_33875a9b79e5" formatted="false">英字、数字、アンダースコアを3〜24文字使い、英字から始めてください。電話番号と連絡先は非公開です。</string>
-    <string name="ui_339484dc1f78" formatted="false">チャット内の単語</string>
+    <string name="ui_339484dc1f78" formatted="false">チャット</string>
     <string name="ui_33a2ae335a6b" formatted="false">削除を申請しました</string>
     <string name="ui_3446735cfdee" formatted="false">検証状態を解除</string>
     <string name="ui_3907fa7f8072" formatted="false">外観</string>
@@ -275,7 +275,7 @@
     <string name="ui_ff245b368781" formatted="false">Bot mini</string>
     <string name="ui_42f4f8b469bb" formatted="false">友達とチャット。\n読みながら言葉を学ぶ。</string>
     <string name="ui_47b7a66139f1" formatted="false">友達とのチャットを\n始めましょう。</string>
-    <string name="ui_52c236be01ef" formatted="false">Vipiはメッセージ全体をこの端末で翻訳します。オフラインでも使えます。</string>
+    <string name="ui_52c236be01ef" formatted="false">チャットしながら単語を学べます。翻訳はオフラインでもこの端末上で行われます。</string>
     <string name="ui_54c1159d80bf" formatted="false">友達と話そう。\n新しい言葉を学ぶ。</string>
     <string name="ui_73bee38b06e8" formatted="false">友達はどうやって\nあなたを探せる？</string>
     <string name="ui_8ec4723d54ba" formatted="false">オフライン翻訳の前にこれらの言語を再ダウンロードする必要があります。会話はこの端末に残ります。</string>
@@ -354,7 +354,7 @@
     <string name="ui_42ed79b95da1" formatted="false">ここで送信するメッセージと最近のvBot会話の文脈は、返信生成のためVipiとDeepSeekに送られます。これはサービスとのチャットであり、友達とのエンドツーエンド暗号化された会話ではありません。友達とのチャットは含まれません。</string>
     <string name="ui_967b3ede020c" formatted="false">下の元のメッセージ、その送信者、理由が確認のためFallible Softwareに送信されます。会話の残りは非公開のままです。報告は最長30日間保存されます。</string>
     <string name="ui_c48de4e830a9" formatted="false">選択した返信のテキストと理由のみが確認のためFallible Softwareに送信されます。友達との会話は含まれません。報告は最長30日間保存されます。</string>
-    <string name="ui_bb1fe2470e72" formatted="false">友達とのチャット履歴を暗号化ファイルに保存します。保存先は選べます。メッセージID、未送信メッセージ、vBot履歴はバックアップに含まれません。</string>
+    <string name="ui_bb1fe2470e72" formatted="false">学習した単語、メッセージ用の識別情報、未送信のメッセージはこの端末に残ります。</string>
     <string name="ui_c3297f5bde81" formatted="false">アカウントを削除してもGoogle Playのサブスクリプションは解約されません。今後の更新を止めるには別途解約できます。</string>
     <string name="ui_57225bd8b984" formatted="false">有効なプランがなくても、保存済みの会話の閲覧とアカウントの削除はいつでもできます。</string>
     <string name="ui_cc39ebccb529" formatted="false">vBotに質問したり、今日の出来事を話したりできます。vBotはチャットボットで、間違えることがあります。重要な内容は確認してください。</string>
@@ -404,7 +404,7 @@
     <string name="access_message_actions">メッセージのアクション</string>
     <string name="cardless_ended">Vipiの無料アクセスは%1$sに終了しました。チャットを続けるには登録してください。</string>
     <string name="welcome_title_concise">友だちと話そう。\n新しい言語で。</string>
-    <string name="welcome_detail_concise">すべてのメッセージが学習中の言語で表示されます。</string>
+    <string name="welcome_detail_concise">Vipiは単語を一つずつ学習中の言語に置き換えます。一度見た単語は、その後の会話にも登場します。</string>
     <string name="preview_spanish_title">スペイン語を少し体験</string>
     <string name="preview_tap_word">ハイライトされた単語をタップすると、学習中の言語での発音を聞けます。チャットでは、吹き出しをタップすると翻訳されます。</string>
     <string name="languages_title_concise">使う言語</string>
@@ -414,7 +414,7 @@
     <string name="account_detail_concise">サインインしてユーザー名を選び、友達を見つけましょう。</string>
     <string name="account_private_title">友達とのプライベートなチャット</string>
     <string name="account_private_detail">友達とのチャットはエンドツーエンドで暗号化されます。友達に表示されるのはユーザー名だけで、メールアドレスは表示されません。</string>
-    <string name="account_trial_concise">30日間無料。カードは不要です。その後、有料プランに加入するか選べます。</string>
+    <string name="account_trial_concise">無料。サブスクリプションは不要です。</string>
     <string name="preview_message_title">チャットのイメージ</string>
     <string name="speak_concise">話せる言語</string>
     <string name="learn_concise">学びたい言語</string>
@@ -437,12 +437,12 @@
     <string name="fallsoft_link_title">Fallsoftのアカウントを使う</string>
     <string name="fallsoft_link_detail">Vipiにもう一度ログインしてから、Fallsoftのアカウントを連携します。チャット、プロフィール、元の試用期間はそのまま引き継がれます。</string>
     <string name="full_translation_preparing">翻訳中…</string>
-    <string name="full_translation_failed">翻訳できませんでした。タップして再試行してください。</string>
-    <string name="full_translation_meaning">意味を表示</string>
-    <string name="full_translation_practice">学習言語の文を表示</string>
+    <string name="full_translation_failed">練習する単語を追加できませんでした。タップして再試行してください。</string>
+    <string name="full_translation_meaning">元のメッセージを表示</string>
+    <string name="full_translation_practice">練習する単語を表示</string>
     <string name="full_translation_script">元の文字で表示</string>
     <string name="full_translation_reading">ローマ字で表示</string>
-    <string name="full_translation_play">学習言語で読み上げる</string>
+    <string name="full_translation_play">練習する単語を再生</string>
     <string name="full_translation_copy_original">元のメッセージをコピー</string>
     <string name="full_translation_gestures">タップで読み上げ。長押しで意味を表示。ダブルタップで文字表記を切り替え。</string>
     <string name="autoplay_turn_on">自動読み上げをオンにする</string>
@@ -454,7 +454,7 @@
     <string name="backup_password_too_short">12文字以上を使用してください。</string>
     <string name="backup_password_too_long">このパスワードは長すぎます。</string>
     <string name="backup_password_mismatch">パスワードが一致しません。</string>
-    <string name="full_translation_context_hint">タップすると%1$sの音声を聞けます。長押しすると%2$sで読めます。</string>
+    <string name="full_translation_context_hint">タップして%1$sの単語を聞きます。長押しして元のメッセージを表示します。</string>
     <string name="full_translation_writing_hint">ダブルタップすると%1$sの文字を表示します。</string>
     <string name="backup_new_password">新しいバックアップのパスワード</string>
     <string name="licenses_client_source">Vipiのソースコード</string>

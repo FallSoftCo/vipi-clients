@@ -5,4 +5,7 @@
     <string name="bot_caution">vBot은 실수할 수 있습니다. 중요한 정보는 확인하세요.</string>
     <string name="lookup_whole_unsupported">이 기기에서는 이 언어 쌍의 전체 메시지 번역을 지원하지 않습니다.</string>
     <string name="base_plan_summary">메시지는 이 기기에서 %1$s로 번역되어 표시됩니다. Bot mini는 선택 사항이며 별도로 청구됩니다.</string>
+    <string name="full_translation_hold_hint">길게 눌러 원래 메시지를 확인하세요.</string>
+    <string name="plan_prices_loading">가격을 불러오는 중…</string>
+    <string name="backup_intent">친구와의 채팅을 암호화된 파일로 백업하세요.</string>
 </resources>

@@ -5,4 +5,7 @@
     <string name="bot_caution">vBotは間違えることがあります。重要な情報は確認してください。</string>
     <string name="lookup_whole_unsupported">このデバイスでは、この言語の組み合わせでメッセージ全体を翻訳できません。</string>
     <string name="base_plan_summary">メッセージはこのデバイス上で%1$sに翻訳されて表示されます。Bot miniは任意の追加プランで、別途請求されます。</string>
+    <string name="full_translation_hold_hint">長押しして元のメッセージを表示します。</string>
+    <string name="plan_prices_loading">価格を読み込み中…</string>
+    <string name="backup_intent">友だちとのチャットを暗号化されたファイルにバックアップします。</string>
 </resources>

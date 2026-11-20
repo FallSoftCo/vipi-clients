@@ -139,15 +139,10 @@ class MainActivity : ComponentActivity() {
     if (model.deletion.active) { AccountDeletionProgress(model.deletion, model.authentication) { model.navigate(Screen.WELCOME) }; return }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val syncScope = rememberCoroutineScope()
-    LaunchedEffect(model.subscriptions) { model.subscriptions?.refresh() }
-    LaunchedEffect(model.subscriptions?.access?.base?.usable()) {
-        if (model.subscriptions?.access?.base?.usable() == true) model.chat?.synchronize()
-    }
-    DisposableEffect(lifecycle, model.chat, model.subscriptions) {
+    DisposableEffect(lifecycle, model.chat) {
         val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_RESUME) {
             androidx.core.app.NotificationManagerCompat.from(model.getApplication()).cancel(1)
             syncScope.launch { model.chat?.synchronize() }
-            syncScope.launch { model.subscriptions?.refresh() }
         } }
         lifecycle.addObserver(observer); onDispose { lifecycle.removeObserver(observer) }
     }
@@ -170,13 +165,12 @@ class MainActivity : ComponentActivity() {
     val onboarding = model.screen in setOf(Screen.WELCOME, Screen.LANGUAGE, Screen.ACCOUNT)
     val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
-    if (model.screen == Screen.BOT && model.bot != null) { BotConversationScreen(model, model.bot!!); return }
     if (model.screen == Screen.BACKUP && model.chat != null) { HistoryBackupScreen(model.chat!!) { model.back() }; return }
     if (model.screen == Screen.LICENSES) { LegalNoticesScreen { model.back() }; return }
     if (model.screen == Screen.CONVERSATION) {
         val chat = model.chat; val peer = model.selectedPeer
         if (chat != null && peer != null) { FriendConversationScreen(chat, peer, model.knownLanguage, model.targetLanguage,
-            onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onPlan = { model.navigate(Screen.PLANS) }) { model.back() }; return }
+            onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }) { model.back() }; return }
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->
@@ -190,9 +184,6 @@ class MainActivity : ComponentActivity() {
                 Screen.HOME -> HomeView(model)
                 Screen.SETTINGS -> SettingsView(model)
                 Screen.NEW_CHAT -> NewChatView(model)
-                Screen.BOT -> BotView(model)
-                Screen.BOT_PLAN -> BotView(model)
-                Screen.PLANS -> SubscriptionScreen(model)
                 Screen.LANGUAGE_DOWNLOAD -> DownloadView(model)
                 Screen.PROFILE -> ProfileSetupScreen(model)
                 Screen.DELETE_ACCOUNT -> DeleteAccountScreen { model.beginDeletion() }
@@ -221,8 +212,6 @@ class MainActivity : ComponentActivity() {
         Text(stringResource(when (model.screen) {
             Screen.HOME -> R.string.nav_chats
             Screen.NEW_CHAT -> R.string.nav_new_chat
-            Screen.PLANS -> R.string.nav_plan
-            Screen.BOT_PLAN -> R.string.ui_ff245b368781
             else -> R.string.ui_2f7e29fbc47d
         }), fontSize = 27.sp, letterSpacing = (-1).sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false)
         Spacer(Modifier.weight(1f))
@@ -365,11 +354,6 @@ class MainActivity : ComponentActivity() {
         PrimaryButton(stringResource(R.string.ui_258150cb3ee4), enabled = chat?.ready == true) { model.navigate(Screen.NEW_CHAT) }
     }
     chat?.notice?.let { Text(it, fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    Row(Modifier.fillMaxWidth().clickable { model.openBot() }.padding(vertical = 12.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-        Icon(Icons.Outlined.AutoAwesome, null, Modifier.size(48.dp).background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(24.dp)).padding(12.dp), tint = MaterialTheme.colorScheme.primary)
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(5.dp)) { Text(stringResource(R.string.ui_f173182378d0), fontWeight = FontWeight.SemiBold); Text(stringResource(R.string.home_bot_description), fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-        Icon(Icons.Outlined.ChevronRight, null)
-    }
     if (chat?.ready == true && chat.threads.isNotEmpty()) NotificationSetup()
 }
 
@@ -440,10 +424,6 @@ class MainActivity : ComponentActivity() {
     InviteFriendButton(model)
 }
 
-@Composable private fun BotView(model: VipiModel) {
-    SubscriptionScreen(model, SubscriptionPlan.BOT_MINI)
-}
-
 @Composable private fun SettingsView(model: VipiModel) {
     val context = LocalContext.current
     val uri = androidx.compose.ui.platform.LocalUriHandler.current
@@ -451,7 +431,6 @@ class MainActivity : ComponentActivity() {
     Text(stringResource(R.string.settings_title), fontSize = 34.sp)
     InviteFriendButton(model)
     Text(stringResource(R.string.ui_339484dc1f78), fontWeight = FontWeight.SemiBold)
-    TextButton(onClick = { model.navigate(Screen.PLANS) }) { Text(stringResource(R.string.nav_plan)) }
     if (model.chat?.profile != null) TextButton(onClick = { model.navigate(Screen.BACKUP) }) { Text(stringResource(R.string.ui_24f13e3dc8e4)) }
     LanguageSettingsLink(languageName(model.targetLanguage)) { model.navigate(Screen.LANGUAGE_DOWNLOAD) }
     Text(stringResource(R.string.ui_3907fa7f8072), fontWeight = FontWeight.SemiBold)

@@ -62,7 +62,6 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     var peersNeedingRecovery by mutableStateOf<Set<UUID>>(emptySet()); private set
     var revision by mutableStateOf(0); private set
     var notice by mutableStateOf<String?>(null)
-    var needsPlan by mutableStateOf(false); private set
     var needsReauthentication by mutableStateOf(false); private set
     var needsDeviceRecovery by mutableStateOf(false); private set
     var recoveryNeedsSignIn by mutableStateOf(false); private set
@@ -484,10 +483,9 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         ensureOpen(); currentCoroutineContext().ensureActive()
         return try {
             val result = api.request(method, path, body, device, query)
-            if (method == "POST" && path == "/v1/messages") { needsPlan = false; notice = null }
+            if (method == "POST" && path == "/v1/messages") notice = null
             ensureOpen(); currentCoroutineContext().ensureActive(); result
         } catch (error: Exception) {
-            if (error is ServiceFailure && error.code == "base_subscription_required") needsPlan = true
             if (error is ServiceFailure && error.code in setOf("device_revoked", "device_replacement_confirmation_required")) {
                 needsDeviceRecovery = true; needsReauthentication = false; ready = false
             }
@@ -514,7 +512,6 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                     "invalid_username" -> return context.getString(R.string.ui_5394002806ab)
                     "own_username" -> return context.getString(R.string.ui_901dc3311d68)
                     "service_not_available" -> return context.getString(R.string.ui_e1e68ee1cefa)
-                    "base_subscription_required" -> return context.getString(R.string.ui_f1af503686b6)
                     "device_replacement_confirmation_required" -> return context.getString(R.string.ui_0fac2fda13a5)
                     "recent_sign_in_required", "sign_in_required", "device_revoked" -> return context.getString(R.string.ui_77d4347c1125)
                     "recipient_keys_unavailable" -> return context.getString(R.string.ui_965e47e6fb9e)

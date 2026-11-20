@@ -1,4 +1,4 @@
-plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id("org.jetbrains.kotlin.plugin.compose") }
+plugins { id("com.android.application"); id("org.jetbrains.kotlin.plugin.compose") }
 val qualifyRelease = providers.gradleProperty("vipiReleaseQualification").map { it.toBooleanStrict() }.getOrElse(false)
 val qualifySourceContext = providers.gradleProperty("vipiSourceContextQualification").map { it.toBooleanStrict() }.getOrElse(false)
 // Public auth configuration and private upload-key inputs are supplied by the release environment.
@@ -28,7 +28,7 @@ require(productionClientId.isEmpty() || productionClientId.matches(Regex("client
 }
 android {
     namespace = "co.fallsoft.vipi"
-    compileSdk = 36
+    compileSdk { version = release(37) { minorApiLevel = 0 } }
     ndkVersion = "29.0.14206865"
     externalNativeBuild { cmake { path = file("src/main/cpp/CMakeLists.txt"); version = "3.22.1" } }
     defaultConfig {
@@ -75,7 +75,6 @@ android {
         }
     }
     sourceSets.getByName("androidTest").assets.srcDir("../../qa/backup")
-    sourceSets.getByName("main").assets.srcDir(layout.buildDirectory.dir("generated/clientResources"))
     packaging {
         // Upstream ships JNI testing binaries and desktop natives alongside the
         // mobile implementation. They are not part of the Android runtime.
@@ -88,12 +87,18 @@ android {
 kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17) } }
 // Translation models are managed by ML Kit. Historical lookup catalogs and
 // authored examples must never enter the client package or its runtime path.
+val clientResourceOutput = objects.directoryProperty().apply {
+    set(layout.buildDirectory.dir("generated/clientResources"))
+}
 val stageClientResources = tasks.register<Sync>("stageClientResources") {
     // Live pinyin transliteration data, not a message translation catalog.
     from("../../data/readings") { include("chinese-ordinary.json"); into("readings") }
     from(rootProject.file("LICENSE")) { into("licenses/vipi") }
     from(rootProject.file("NOTICE")) { into("licenses/vipi") }
-    into(layout.buildDirectory.dir("generated/clientResources"))
+    into(clientResourceOutput)
+}
+androidComponents.onVariants { variant ->
+    variant.sources.assets?.addGeneratedSourceDirectory(stageClientResources) { clientResourceOutput }
 }
 tasks.named("preBuild") { dependsOn(stageClientResources) }
 val verifyProductionRelease = tasks.register("verifyProductionRelease") {
@@ -129,15 +134,14 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging:26.0.1")
     implementation("androidx.work:work-runtime-ktx:2.12.0")
     implementation("androidx.lifecycle:lifecycle-process:2.10.0")
-    implementation("com.android.billingclient:billing:9.1.0")
     implementation("com.atilika.kuromoji:kuromoji-ipadic:0.9.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     implementation(project(":core"))
-    implementation(platform("androidx.compose:compose-bom:2025.10.00"))
+    implementation(platform("androidx.compose:compose-bom:2026.11.01"))
     implementation("androidx.activity:activity-compose:1.12.4")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.foundation:foundation")
-    implementation("androidx.compose.material3:material3:1.4.0")
+    implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended:1.6.7")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0")
@@ -152,7 +156,7 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.6.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.uiautomator:uiautomator:2.3.0")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2025.10.00"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2026.11.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("org.signal:libsignal-android:0.105.0")

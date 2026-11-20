@@ -19,6 +19,7 @@ import androidx.compose.material.icons.outlined.VolumeOff
 import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -30,6 +31,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.scrollToIndex
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.Dp
@@ -79,7 +82,7 @@ import java.time.format.FormatStyle
     var reportText by remember { mutableStateOf("") }
     var reportReason by remember { mutableStateOf("") }
     var topBarHeightPx by remember { mutableIntStateOf(0) }
-    var followingLatest by remember(bot) { mutableStateOf(true) }
+    var followingLatest by rememberSaveable(bot) { mutableStateOf(true) }
     val list = rememberLazyListState()
     val subscriptions = model.subscriptions
     LaunchedEffect(subscriptions) { subscriptions?.refreshAccess(ifNeeded = true) }
@@ -269,7 +272,19 @@ import java.time.format.FormatStyle
             maxHeight >= minimumReadableHistory + 32.dp
         if (!showTranscript) Box(Modifier.fillMaxSize().testTag("conversation-compact-composing"))
         if (showTranscript) {
-        LazyColumn(state = list, modifier = Modifier.fillMaxSize().fullMessageGestures(gestures), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        LazyColumn(state = list, modifier = Modifier.fillMaxSize().fullMessageGestures(gestures).semantics {
+            scrollToIndex { index ->
+                if (index !in 0 until list.layoutInfo.totalItemsCount) false else {
+                    // Like Friend, retain an explicit accessibility history
+                    // choice even when its scroll completes within one frame.
+                    scope.launch(start = kotlinx.coroutines.CoroutineStart.UNDISPATCHED) {
+                        followingLatest = index == list.layoutInfo.totalItemsCount - 1
+                        list.scrollToItem(index)
+                    }
+                    true
+                }
+            }
+        }, contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             item {
                 ConversationTranscriptItem {
                     if (bot.earlierAvailable) TextButton(onClick = { followingLatest = false; runCatching { bot.earlier() }.onFailure { localError = context.getString(R.string.bot_earlier_open_failed) } }) { Text(stringResource(R.string.ui_561a197a2807)) }

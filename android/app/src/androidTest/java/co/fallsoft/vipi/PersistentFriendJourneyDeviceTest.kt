@@ -8,8 +8,6 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.core.view.WindowInsetsCompat
 import androidx.test.platform.app.InstrumentationRegistry
-import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.PurchasesUpdatedListener
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.*
@@ -75,25 +73,11 @@ class PersistentFriendJourneyDeviceTest {
         f.capture("00-actual-profile-readable-username-requirements")
         compose.onNodeWithTag("profile-submit").performTouchInput { click() }
         screen(f, Screen.HOME)
-        compose.waitUntil(10_000) { f.model.subscriptions?.accessCheckState == AccessCheckState.LOADED }
         compose.runOnIdle {
-            val access = requireNotNull(f.model.subscriptions?.access)
-            assertTrue(access.active(SubscriptionPlan.BASE)); assertFalse(access.active(SubscriptionPlan.BOT_MINI))
-            assertEquals("cardless_trial", access.base.accessSource)
-            assertEquals(Duration.ofDays(30), Duration.between(access.base.cardlessTrial!!.startedAt, access.base.cardlessTrial!!.endsAt))
             assertEquals(1, services.state().getInt("profile_writes")); assertEquals(1, services.state().getInt("registrations"))
+            services.assertNoPurchase()
         }
-        compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).performTouchInput { click() }
-        screen(f, Screen.SETTINGS)
-        compose.onNodeWithText(f.base.getString(R.string.nav_plan)).performScrollTo().performTouchInput { click() }
-        screen(f, Screen.PLANS)
-        val end = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.SHORT)
-            .withZone(ZoneId.systemDefault()).format(Instant.parse(services.state().getString("trial_ends")))
-        compose.onNodeWithText(f.base.getString(R.string.cardless_ends, end)).performScrollTo().assertIsDisplayed()
-        compose.onNodeWithText(f.base.getString(R.string.cardless_no_autocharge)).performScrollTo().assertIsDisplayed()
-        services.assertNoPurchase()
-        f.capture("01-actual-created-profile-thirty-day-cardless-plan")
-        f.device.pressBack(); screen(f, Screen.HOME)
+        f.capture("01-created-profile-free-chat-without-commerce")
         compose.onNodeWithContentDescription(f.base.getString(R.string.nav_new_chat)).performTouchInput { click() }
         screen(f, Screen.NEW_CHAT)
         compose.onNode(hasSetTextAction()).performScrollTo().performTouchInput { click() }
@@ -227,7 +211,7 @@ private class PersistentJourneyRelay(private val token: String, create: Boolean)
     private val directory = File(base.filesDir, "controlled-process-$token")
     private val file = AtomicFile(File(directory, "relay.json"))
     private val reconnect = CompletableDeferred<Unit>()
-    private val clients = mutableListOf<WorkflowBillingClient>()
+    private var commerceRequests = 0
     private val sockets = mutableListOf<Socket>()
     private var peerVault: MessageVault? = null
     private var peerCore: MessagingCore? = null
@@ -373,16 +357,8 @@ private class PersistentJourneyRelay(private val token: String, create: Boolean)
                         change { it.remove("pending_reply"); it.put("reply_receipts", 1) }
                         JSONObject().put("state", "delivered")
                     }
-                    method == "GET" && path == "/v1/entitlements" -> {
-                        if (!current.getBoolean("created")) throw ServiceFailure(404, "profile_required")
-                        val start = current.getString("trial_started"); val end = current.getString("trial_ends")
-                        val base = JSONObject().put("active", true).put("review_access", false).put("access_source", "cardless_trial")
-                            .put("expires_at", end).put("trial_ends_at", end)
-                            .put("cardless_trial", JSONObject().put("started_at", start).put("ends_at", end).put("active", true))
-                        JSONObject().put("base", base).put("bot_mini", JSONObject().put("active", false).put("available", false)
-                            .put("expires_at", JSONObject.NULL).put("trial_ends_at", JSONObject.NULL))
-                            .put("server_time", Instant.now().toString()).put("billing_account_id", "c".repeat(64))
-                            .put("purchases_ready", JSONObject().put("google", true))
+                    path == "/v1/entitlements" || path.startsWith("/v1/billing/") || path.startsWith("/v1/bot/") -> {
+                        commerceRequests++; error("Free friend chat must not request commerce or Bot")
                     }
                     else -> error("Unlisted controlled journey boundary: $method $path")
                 }
@@ -396,7 +372,6 @@ private class PersistentJourneyRelay(private val token: String, create: Boolean)
                 if (state().getBoolean("offline")) listener.onFailure(it, IOException("Controlled offline"), null)
                 else listener.onOpen(it, Response.Builder().request(request).protocol(Protocol.HTTP_1_1).code(101).message("Controlled").build())
             } }, retryPause = { reconnect.await() })
-    override fun billingClient(context: Context, listener: PurchasesUpdatedListener): BillingClient = WorkflowBillingClient(listener).also { clients += it }
     override fun requestPush(context: Context, registration: Boolean) = Unit
     override fun cancelPush(context: Context) = Unit
     override fun deletionTransport(authentication: Authentication) = object : DeletionTransport {
@@ -404,7 +379,7 @@ private class PersistentJourneyRelay(private val token: String, create: Boolean)
         override suspend fun status(record: DeletionRecord): JSONObject = error("Deletion is not part of this local journey")
     }
     fun restoreNetwork() { check(state().getBoolean("offline")); change { it.put("offline", false) }; reconnect.complete(Unit) }
-    fun assertNoPurchase() { assertTrue(clients.all { it.launches == 0 }) }
+    fun assertNoPurchase() { assertEquals(0, commerceRequests) }
     fun assertDurableQueued(context: Context) {
         val saved = state(); val id = UUID.fromString(saved.getString("queued_id"))
         MessageVault(context, account).use { vault ->

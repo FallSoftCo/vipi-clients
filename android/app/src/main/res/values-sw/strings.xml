@@ -48,7 +48,7 @@
     <string name="ui_0c574552109f" formatted="false">Chagua lugha unayotaka kujifunza</string>
     <string name="ui_0c86126aea39" formatted="false">Inasubiri Google Play…</string>
     <string name="ui_0cb9c0cf3bb1" formatted="false">Ingia tena ili kuunganisha upya. Mazungumzo uliyohifadhi yanabaki kwenye kifaa hiki.</string>
-    <string name="ui_0cd8734d2fcd" formatted="false">Usajili wa kulipia unasimamiwa kando. Nakala za marafiki na nakala rudufu zilizohifadhiwa kwingine zinabaki.</string>
+    <string name="ui_0cd8734d2fcd" formatted="false">Nakala za marafiki na nakala rudufu zilizohifadhiwa kwingine zinabaki.</string>
     <string name="ui_0fac2fda13a5" formatted="false">Akaunti hii tayari inatumika kwenye kifaa kingine. Kuhamisha akaunti yako kunahitaji uthibitisho tofauti.</string>
     <string name="ui_115f6d951109" formatted="false">Ruhusu data ya simu</string>
     <string name="ui_11a6767d5674" formatted="false">Nimemaliza</string>
@@ -81,7 +81,7 @@
     <string name="ui_318655cea4bd" formatted="false">Lugha</string>
     <string name="ui_3370146d6d46" formatted="false">Chagua maandishi</string>
     <string name="ui_33875a9b79e5" formatted="false">Tumia vibambo 3–24: herufi za Kiingereza, nambari au alama ya mstari wa chini. Anza kwa herufi ya Kiingereza. Nambari yako ya simu na anwani zako hubaki kuwa za faragha.</string>
-    <string name="ui_339484dc1f78" formatted="false">Maneno kwenye mazungumzo yako</string>
+    <string name="ui_339484dc1f78" formatted="false">Mazungumzo yako</string>
     <string name="ui_33a2ae335a6b" formatted="false">Ombi la kufuta limetumwa</string>
     <string name="ui_33a6e5e20062" formatted="false">Anza jaribio la mwezi mmoja bila malipo</string>
     <string name="ui_3446735cfdee" formatted="false">Ondoa uthibitisho</string>
@@ -106,7 +106,7 @@
     <string name="ui_4b34e1b08868" formatted="false">Tuma kwa vBot</string>
     <string name="ui_4bc6d965deeb" formatted="false">Ghairi tafsiri kamili</string>
     <string name="ui_51fbe1dc8a73" formatted="false">Ingia tena</string>
-    <string name="ui_52c236be01ef" formatted="false">Vipi hutafsiri ujumbe mzima kwenye simu hii, hata bila intaneti.</string>
+    <string name="ui_52c236be01ef" formatted="false">Jifunze maneno unapochati. Tafsiri hufanyika kwenye kifaa hiki, hata bila intaneti.</string>
     <string name="ui_5394002806ab" formatted="false">Tumia herufi, nambari au mistari ya chini 3–24, ukianza na herufi.</string>
     <string name="ui_53b6cd2365c7" formatted="false">Thibitisha usimbaji fiche</string>
     <string name="ui_541ecffcdb87" formatted="false">Hatukuweza kukagua kama mpango wako unatumika.</string>
@@ -202,7 +202,7 @@
     <string name="ui_b8173b954090" formatted="false">Ondoa vipakuliwa vya tafsiri</string>
     <string name="ui_b8ed5279e897" formatted="false">Inatuma…</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">Tafuta rafiki</string>
-    <string name="ui_bb1fe2470e72" formatted="false">Hifadhi historia ya mazungumzo na marafiki katika faili iliyosimbwa fiche. Unachagua pa kuihifadhi. Utambulisho wako wa kutuma ujumbe, ujumbe ambao haujatumwa na historia ya vBot havijumuishwi kwenye nakala rudufu.</string>
+    <string name="ui_bb1fe2470e72" formatted="false">Maneno uliyojifunza, utambulisho wako wa kutuma ujumbe na ujumbe ambao hujatuma hubaki kwenye kifaa hiki.</string>
     <string name="ui_bbd30d6992ff" formatted="false">Hatukuweza kuonyesha mipango yako upya. Kagua muunganisho wako na ujaribu tena.</string>
     <string name="ui_beb6c51b9bf6" formatted="false">Rejesha historia</string>
     <string name="ui_c011d6097bfb" formatted="false">Leseni</string>
@@ -407,7 +407,7 @@
     <string name="access_message_actions">Vitendo vya ujumbe</string>
     <string name="cardless_ended">Ufikiaji wako wa Vipi bila malipo uliisha %1$s. Jisajili ili kuendelea kuzungumza.</string>
     <string name="welcome_title_concise">Zungumza na marafiki.\nJifunze lugha.</string>
-    <string name="welcome_detail_concise">Kila ujumbe unaonekana katika lugha unayojifunza.</string>
+    <string name="welcome_detail_concise">Vipi hubadilisha neno moja jipya kwa wakati mmoja. Maneno uliyoyaona hujitokeza tena unapochati.</string>
     <string name="preview_spanish_title">Jaribu Kihispania kidogo</string>
     <string name="preview_tap_word">Gusa neno lililoangaziwa ili kusikia matamshi yake katika lugha unayojifunza. Kwenye mazungumzo, gusa kiputo ili kutafsiri.</string>
     <string name="languages_title_concise">Lugha zako</string>
@@ -417,7 +417,7 @@
     <string name="account_detail_concise">Ingia, chagua jina la mtumiaji, kisha utafute marafiki zako.</string>
     <string name="account_private_title">Mazungumzo ya faragha na marafiki</string>
     <string name="account_private_detail">Mazungumzo yako na marafiki yamesimbwa kwa njia fiche kutoka mwisho hadi mwisho. Marafiki wanaona jina lako la mtumiaji, si barua pepe yako.</string>
-    <string name="account_trial_concise">Siku 30 bure. Huhitaji kadi. Baadaye, unaamua kama utajiunga na mpango wa kulipia.</string>
+    <string name="account_trial_concise">Tumia bila malipo. Hakuna usajili wa kulipia.</string>
     <string name="preview_message_title">Mfano wa mazungumzo yako</string>
     <string name="speak_concise">Ninazungumza</string>
     <string name="learn_concise">Ninajifunza</string>
@@ -440,12 +440,12 @@
     <string name="fallsoft_link_title">Tumia akaunti yako ya Fallsoft</string>
     <string name="fallsoft_link_detail">Ingia tena katika Vipi, kisha unganisha akaunti yako ya Fallsoft. Gumzo, wasifu na kipindi chako cha awali cha majaribio vitahifadhiwa.</string>
     <string name="full_translation_preparing">Inatafsiri…</string>
-    <string name="full_translation_failed">Tafsiri imeshindikana. Gusa ili ujaribu tena.</string>
-    <string name="full_translation_meaning">Onyesha maana</string>
-    <string name="full_translation_practice">Onyesha maandishi ya lugha unayojifunza</string>
+    <string name="full_translation_failed">Imeshindikana kuongeza neno la kufanya mazoezi. Gusa ili ujaribu tena.</string>
+    <string name="full_translation_meaning">Onyesha ujumbe asilia</string>
+    <string name="full_translation_practice">Onyesha maneno ya mazoezi</string>
     <string name="full_translation_script">Onyesha herufi asilia</string>
     <string name="full_translation_reading">Onyesha maandishi kwa herufi za Kilatini</string>
-    <string name="full_translation_play">Sikiliza kwa lugha unayojifunza</string>
+    <string name="full_translation_play">Sikiliza maneno ya mazoezi</string>
     <string name="full_translation_copy_original">Nakili ujumbe wa asili</string>
     <string name="full_translation_gestures">Gusa ili usikilize. Bonyeza na ushikilie ili uone maana. Gusa mara mbili ili ubadilishe herufi.</string>
     <string name="autoplay_turn_on">Washa usomaji wa kiotomatiki</string>
@@ -457,7 +457,7 @@
     <string name="backup_password_too_short">Tumia angalau vibambo 12.</string>
     <string name="backup_password_too_long">Nenosiri hili ni refu mno.</string>
     <string name="backup_password_mismatch">Manenosiri hayalingani.</string>
-    <string name="full_translation_context_hint">Gusa ili usikie %1$s. Shikilia ili usome kwa %2$s.</string>
+    <string name="full_translation_context_hint">Gusa ili kusikia maneno ya %1$s. Bonyeza na ushikilie ili kuona ujumbe asilia.</string>
     <string name="full_translation_writing_hint">Gusa mara mbili ili uone maandishi ya %1$s.</string>
     <string name="backup_new_password">Nenosiri jipya la nakala rudufu</string>
     <string name="licenses_client_source">Msimbo chanzo wa Vipi</string>

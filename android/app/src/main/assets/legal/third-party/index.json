@@ -66,10 +66,10 @@
       "notices": []
     },
     {
-      "coordinate": "androidx.annotation:annotation-jvm:1.9.1",
+      "coordinate": "androidx.annotation:annotation-jvm:1.10.0",
       "classifier": null,
       "type": "jar",
-      "artifact_sha256": "1e343917ebf27ba96fe4dc52b1cad7fd32b738fbc6355bb6cd5b3b305d7212d0",
+      "artifact_sha256": "ddd072ddbb553178e205517ce777b2f05aa9e412982d9ecb4eedc74f1212f697",
       "notices": [
         {
           "original_path": "META-INF/androidx/annotation/annotation/LICENSE.txt",
@@ -129,10 +129,10 @@
       ]
     },
     {
-      "coordinate": "androidx.collection:collection-jvm:1.5.0",
+      "coordinate": "androidx.collection:collection-jvm:1.6.0",
       "classifier": null,
       "type": "jar",
-      "artifact_sha256": "70b35924e4babcdffa37d0e575ee039c56a2d97123342624c48b603233704341",
+      "artifact_sha256": "839fcec147704611a222159fa84e3e062f68eee80caa549ddd1222d5210a13df",
       "notices": [
         {
           "original_path": "META-INF/androidx/collection/collection/LICENSE.txt",
@@ -143,7 +143,7 @@
       ]
     },
     {
-      "coordinate": "androidx.collection:collection-ktx:1.5.0",
+      "coordinate": "androidx.collection:collection-ktx:1.6.0",
       "classifier": null,
       "type": "jar",
       "artifact_sha256": "939b4a8697640e77d83e4e8b4c4a9d18f8130198c5961194af8dd9db9dc7c353",
@@ -157,10 +157,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.animation:animation-android:1.9.3",
+      "coordinate": "androidx.compose.animation:animation-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "15ed4f6df7b8dca8217912ee70334a439856351d2855fea15a4b2ec5ffcfd229",
+      "artifact_sha256": "2ee220773b320285f19ae6234c01912e46aaf10eda55a7099875e4f9f22ce873",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/animation/animation/LICENSE.txt",
@@ -171,10 +171,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.animation:animation-core-android:1.9.3",
+      "coordinate": "androidx.compose.animation:animation-core-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "f8ce7879e4984ea5da3deb44a2886bc7163f8e6c3150f610b503bb9f2855ae74",
+      "artifact_sha256": "2b8fc2beedd30bff72faeb44515110ad5c0b651304dcf5b25fc61f251d589b79",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/animation/animation-core/LICENSE.txt",
@@ -185,10 +185,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.foundation:foundation-android:1.9.3",
+      "coordinate": "androidx.compose.foundation:foundation-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "1bb3ab0bab65ac9a18640009293e171bdd32b8a23a4fb042521cbd0e47bf31e6",
+      "artifact_sha256": "9c97dbb937321607311a081ac095551f160293b78624df51129e17b25b627f2c",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/foundation/foundation/LICENSE.txt",
@@ -199,10 +199,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.foundation:foundation-layout-android:1.9.3",
+      "coordinate": "androidx.compose.foundation:foundation-layout-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "6dee097fcc27e0d9281f4df27c3c8f92716155a0df229835cd5a38d30fbbd165",
+      "artifact_sha256": "32d2dd25683e8b18fd88370241072acab1cf275646e37cfb6b7677f52e107975",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/foundation/foundation-layout/LICENSE.txt",
@@ -213,13 +213,27 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.material3:material3-android:1.4.0",
+      "coordinate": "androidx.compose.material3:material3-android:1.5.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "3a37e8b36df3822fe1e6059f0f9fafda8800388860477624ac1b9422c418a36e",
+      "artifact_sha256": "dd17540643810cd13007f64c85091fd98c6f7e7619437d2fd18e0c2e41155ee1",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/material3/material3/LICENSE.txt",
+          "asset": "legal/third-party/texts/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+          "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+          "bytes": 10175
+        }
+      ]
+    },
+    {
+      "coordinate": "androidx.compose.material3:material3-ripple-android:1.5.0",
+      "classifier": null,
+      "type": "aar",
+      "artifact_sha256": "8d947b02b21f6af335dbb92332a09d3029955cc5f62d8e3116b4474b04f30848",
+      "notices": [
+        {
+          "original_path": "META-INF/androidx/compose/material3/material3-ripple/LICENSE.txt",
           "asset": "legal/third-party/texts/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
           "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
           "bytes": 10175
@@ -241,10 +255,10 @@
       "notices": []
     },
     {
-      "coordinate": "androidx.compose.material:material-ripple-android:1.9.3",
+      "coordinate": "androidx.compose.material:material-ripple-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "8161fe3ebef7ecf3f40a53b7b69308507bb10b023b3fdc7b58efb31713688479",
+      "artifact_sha256": "c031c2416a283f8a7f58a969149c4247250237a194218fee4a9ff56cbd250cc2",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/material/material-ripple/LICENSE.txt",
@@ -255,10 +269,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.runtime:runtime-android:1.9.3",
+      "coordinate": "androidx.compose.runtime:runtime-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "dc7a8a161d6dfff96801a2d89b1f5d4adb61c0dfa16cb5970215e70aa1d83407",
+      "artifact_sha256": "39caa686185abd9b3366c04eb4691eb38828af9469d5df1cd6455b89d3b43bd3",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/runtime/runtime/LICENSE.txt",
@@ -269,10 +283,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.runtime:runtime-annotation-android:1.9.3",
+      "coordinate": "androidx.compose.runtime:runtime-annotation-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "d2b2110f1443a905c02907853aee11544683feb5f4b9aad63d02eb9eddb1efd4",
+      "artifact_sha256": "e2a54a464a34924dd824d54c4208cc69b3765adc981ad773bdc11297b1ce0781",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/runtime/runtime-annotation/LICENSE.txt",
@@ -283,10 +297,24 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.runtime:runtime-saveable-android:1.9.3",
+      "coordinate": "androidx.compose.runtime:runtime-retain-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "e9f5564d3cd69355592d800b385811b49088abf889b4c75087e9dab56c3a84de",
+      "artifact_sha256": "cdd5001eaf098540aa7bf8d8b0b52c6d0f34deb116cdbd1eb6ef5bb02fa95c0b",
+      "notices": [
+        {
+          "original_path": "META-INF/androidx/compose/runtime/runtime-retain/LICENSE.txt",
+          "asset": "legal/third-party/texts/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+          "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+          "bytes": 10175
+        }
+      ]
+    },
+    {
+      "coordinate": "androidx.compose.runtime:runtime-saveable-android:1.13.0",
+      "classifier": null,
+      "type": "aar",
+      "artifact_sha256": "b4adce846e4c5c5f557cb727897a329a46b8293d772b9f2f1be6e860b016ae49",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/runtime/runtime-saveable/LICENSE.txt",
@@ -297,10 +325,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.ui:ui-android:1.9.3",
+      "coordinate": "androidx.compose.ui:ui-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "2cf779d488786bf37382a889a9721dcdfe5aac3f6421278a237bbe2a094bc288",
+      "artifact_sha256": "b5d23c05886f9c441e3cb004f8ac4614f96e9c1901795742bd9ddb5b8bad1b61",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/ui/ui/LICENSE.txt",
@@ -311,10 +339,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.ui:ui-geometry-android:1.9.3",
+      "coordinate": "androidx.compose.ui:ui-geometry-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "8c43be256cfa463f53bb9f92801dd548c79f11ed6a27dcd79560133b8e1a0b68",
+      "artifact_sha256": "d86f77f8f78b27c50755753d3e68bf4215c7071f9ee9ce6d3335f30b91eb0b18",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/ui/ui-geometry/LICENSE.txt",
@@ -325,10 +353,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.ui:ui-graphics-android:1.9.3",
+      "coordinate": "androidx.compose.ui:ui-graphics-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "9d1669205fcf93f02784201dae8dab6e1dab01a8832baac64abe0d9cde119d92",
+      "artifact_sha256": "4b0db977082ad677338f471a2b97776162e7fcbf578c74a55af712c843cc5917",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/ui/ui-graphics/LICENSE.txt",
@@ -339,10 +367,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.ui:ui-text-android:1.9.3",
+      "coordinate": "androidx.compose.ui:ui-text-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "efffa77d037b680950c02fce5bbc4bcc285bd09cc7f333944213ae1ed724412a",
+      "artifact_sha256": "da7a21ac01fde97c5377926719e8731ee4035e30a9bde77fae8ec56d1a09d115",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/ui/ui-text/LICENSE.txt",
@@ -353,10 +381,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.ui:ui-unit-android:1.9.3",
+      "coordinate": "androidx.compose.ui:ui-unit-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "b500ac2363d28e059758d5652aa99f7fdf6a4688d45b6153a45479b856ae496a",
+      "artifact_sha256": "51dbb2719c5ffca99fb96afc7531b22225a69d2c455677558a4c6a89f40fe70e",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/ui/ui-unit/LICENSE.txt",
@@ -367,10 +395,10 @@
       ]
     },
     {
-      "coordinate": "androidx.compose.ui:ui-util-android:1.9.3",
+      "coordinate": "androidx.compose.ui:ui-util-android:1.13.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "1db903283bbc5090bd6e67741724e28ea3502ea164911abcbb330f66887ac0b3",
+      "artifact_sha256": "ef6862049e8eafc4e478e295aee38e015e11f6e35e3026c5ff45cdd626879f34",
       "notices": [
         {
           "original_path": "META-INF/androidx/compose/ui/ui-util/LICENSE.txt",
@@ -395,10 +423,10 @@
       "notices": []
     },
     {
-      "coordinate": "androidx.core:core-ktx:1.16.0",
+      "coordinate": "androidx.core:core-ktx:1.19.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "1766dbd82f64a12dcd359ecb6f15f3cf35db4d66d22961a7c51b2ffc6468314c",
+      "artifact_sha256": "db1ae24b15c36358ad46497d561b19c325642565432d56479ebe47ee3baa0d7e",
       "notices": [
         {
           "original_path": "META-INF/androidx/core/core-ktx/LICENSE.txt",
@@ -423,10 +451,10 @@
       ]
     },
     {
-      "coordinate": "androidx.core:core:1.16.0",
+      "coordinate": "androidx.core:core:1.19.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "6bf03d39dbe3744acce227d3b697374c3625aae1025fbec8ad9fd7bd58bce431",
+      "artifact_sha256": "55445ad0ff025963929892569a0bfc6b4c68e60d8b7c965dcffba09048c36c8e",
       "notices": [
         {
           "original_path": "META-INF/androidx/core/core/LICENSE.txt",
@@ -437,10 +465,10 @@
       ]
     },
     {
-      "coordinate": "androidx.core:core:1.16.0",
+      "coordinate": "androidx.core:core:1.19.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "6bf03d39dbe3744acce227d3b697374c3625aae1025fbec8ad9fd7bd58bce431",
+      "artifact_sha256": "55445ad0ff025963929892569a0bfc6b4c68e60d8b7c965dcffba09048c36c8e",
       "notices": [
         {
           "original_path": "META-INF/androidx/core/core/LICENSE.txt",
@@ -535,18 +563,32 @@
       "notices": []
     },
     {
-      "coordinate": "androidx.emoji2:emoji2-views-helper:1.4.0",
+      "coordinate": "androidx.emoji2:emoji2-views-helper:1.7.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "ed5d3ed772a5fbf0d570f7526f585cd61a180e60f9372584c328a68e2cff3375",
-      "notices": []
+      "artifact_sha256": "351637d4ac71ddb3efb9ff25fe2017169311e10aeb3c73148883e132a57841cc",
+      "notices": [
+        {
+          "original_path": "META-INF/androidx/emoji2/emoji2-views-helper/LICENSE.txt",
+          "asset": "legal/third-party/texts/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+          "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+          "bytes": 10175
+        }
+      ]
     },
     {
-      "coordinate": "androidx.emoji2:emoji2:1.4.0",
+      "coordinate": "androidx.emoji2:emoji2:1.7.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "433febd3434a45667176c76a64f3f205ca6335a6b544c5b5d57f25a38a375242",
-      "notices": []
+      "artifact_sha256": "121738bd60060c7bb3742f10c034edc93f2a38b6de8ca8648bc799eda65b1bbf",
+      "notices": [
+        {
+          "original_path": "META-INF/androidx/emoji2/emoji2/LICENSE.txt",
+          "asset": "legal/third-party/texts/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+          "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+          "bytes": 10175
+        }
+      ]
     },
     {
       "coordinate": "androidx.fragment:fragment:1.3.6",
@@ -563,11 +605,32 @@
       "notices": []
     },
     {
-      "coordinate": "androidx.graphics:graphics-path:1.0.1",
+      "coordinate": "androidx.graphics:graphics-path:1.1.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "8ca4032b6d79b351f0b59ad4b580eddbb9423e1652f7c958830687f1eee2ec03",
-      "notices": []
+      "artifact_sha256": "d031370d45ba4129a175fe9de913328a512b01a3c267e0eaf6b9b759f35842ae",
+      "notices": [
+        {
+          "original_path": "META-INF/androidx/graphics/graphics-path/LICENSE.txt",
+          "asset": "legal/third-party/texts/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+          "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+          "bytes": 10175
+        }
+      ]
+    },
+    {
+      "coordinate": "androidx.graphics:graphics-shapes-android:1.0.1",
+      "classifier": null,
+      "type": "aar",
+      "artifact_sha256": "7171269a4122feabb071768df46d10b362e47ac75fd0aa8dbcafa1f44f61b40c",
+      "notices": [
+        {
+          "original_path": "META-INF/androidx/graphics/graphics-shapes/LICENSE.txt",
+          "asset": "legal/third-party/texts/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+          "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+          "bytes": 10175
+        }
+      ]
     },
     {
       "coordinate": "androidx.interpolator:interpolator:1.0.0",
@@ -822,10 +885,10 @@
       "notices": []
     },
     {
-      "coordinate": "androidx.navigationevent:navigationevent-android:1.0.2",
+      "coordinate": "androidx.navigationevent:navigationevent-android:1.1.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "3fa191e3da2f6b601e944fb03a09a12278e49418dd1a9b22cd6b99f66e4283fd",
+      "artifact_sha256": "ea7943bc61d52b42a7a2cbcbde14c9b10e7baf9e09a8fe54d8cb17d3bb5dbfd9",
       "notices": [
         {
           "original_path": "META-INF/androidx/navigationevent/navigationevent/LICENSE.txt",
@@ -836,10 +899,10 @@
       ]
     },
     {
-      "coordinate": "androidx.navigationevent:navigationevent-compose-android:1.0.2",
+      "coordinate": "androidx.navigationevent:navigationevent-compose-android:1.1.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "6064ee738c2f3c99e1754f6aa380aabb57bf1ba973a4566276a3ecbbd2eaa3d0",
+      "artifact_sha256": "487fd434793393f4c6d2ceac0a9f5fc6d23b682f508ff6ff18793907b5882032",
       "notices": [
         {
           "original_path": "META-INF/androidx/navigationevent/navigationevent-compose/LICENSE.txt",
@@ -906,10 +969,10 @@
       ]
     },
     {
-      "coordinate": "androidx.savedstate:savedstate-android:1.4.0",
+      "coordinate": "androidx.savedstate:savedstate-android:1.5.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "1656ce62cd233d488bdbbd42e533b80b22435b7a690acae6dbe7302392512c14",
+      "artifact_sha256": "c191b2b0d3ed2f765743e634f213c0e8150825547810789fc13487332bfc9cd3",
       "notices": [
         {
           "original_path": "META-INF/androidx/savedstate/savedstate/LICENSE.txt",
@@ -920,10 +983,10 @@
       ]
     },
     {
-      "coordinate": "androidx.savedstate:savedstate-compose-android:1.4.0",
+      "coordinate": "androidx.savedstate:savedstate-compose-android:1.5.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "0f0ae3032d6c6eea834ee22179c8976160d09d841d30e47f53f56b1b3438774b",
+      "artifact_sha256": "01682c0de6796d31f9c7863bb18e65443e512e4dc95a13cc8c3d0d4931c2c10b",
       "notices": [
         {
           "original_path": "META-INF/androidx/savedstate/savedstate-compose/LICENSE.txt",
@@ -934,10 +997,10 @@
       ]
     },
     {
-      "coordinate": "androidx.savedstate:savedstate-ktx:1.4.0",
+      "coordinate": "androidx.savedstate:savedstate-ktx:1.5.0",
       "classifier": null,
       "type": "aar",
-      "artifact_sha256": "23593939446bc5a154a1e35fddd87b82f19e2adf072207f115bf29a8b431c1d3",
+      "artifact_sha256": "1de99f31e90d55828e1f00f856274410e6e3e997605a40d478e7065c38b3252e",
       "notices": [
         {
           "original_path": "META-INF/androidx/savedstate/savedstate-ktx/LICENSE.txt",
@@ -1023,6 +1086,34 @@
       "type": "aar",
       "artifact_sha256": "147af4e14a1984010d8f155e5e19d781f03c1d70dfed02a8e0d18428b8fc8682",
       "notices": []
+    },
+    {
+      "coordinate": "androidx.window:window-core-android:1.5.0",
+      "classifier": null,
+      "type": "aar",
+      "artifact_sha256": "d0d50db0756194a6d49a66ad8dafd17b24b4c5fbd8379375056e2eb9bdfeaf22",
+      "notices": [
+        {
+          "original_path": "META-INF/androidx/window/window-core/LICENSE.txt",
+          "asset": "legal/third-party/texts/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+          "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+          "bytes": 10175
+        }
+      ]
+    },
+    {
+      "coordinate": "androidx.window:window:1.5.0",
+      "classifier": null,
+      "type": "aar",
+      "artifact_sha256": "5de2d48aa578402f46deb5294a955cee62f0c7d8c1840ef626fc7afb8abe22f9",
+      "notices": [
+        {
+          "original_path": "META-INF/androidx/window/window/LICENSE.txt",
+          "asset": "legal/third-party/texts/809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0.txt",
+          "sha256": "809fa1ed21450f59827d1e9aec720bbc4b687434fa22283c6cb5dd82a47ab9c0",
+          "bytes": 10175
+        }
+      ]
     },
     {
       "coordinate": "androidx.work:work-runtime-ktx:2.12.0",

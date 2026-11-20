@@ -13,7 +13,7 @@
     <string name="ui_0c574552109f" formatted="false">Choose the language you want to learn</string>
     <string name="ui_0c86126aea39" formatted="false">Waiting for Google Play…</string>
     <string name="ui_0cb9c0cf3bb1" formatted="false">Sign in again to reconnect. Your saved conversations stay on this device.</string>
-    <string name="ui_0cd8734d2fcd" formatted="false">Subscriptions are managed separately. Friends’ copies and backups saved elsewhere remain.</string>
+    <string name="ui_0cd8734d2fcd" formatted="false">Friends’ copies and backups saved elsewhere remain.</string>
     <string name="ui_0fac2fda13a5" formatted="false">This account is already active on another device. Moving your account needs a separate confirmation.</string>
     <string name="ui_115f6d951109" formatted="false">Allow mobile data</string>
     <string name="ui_11a6767d5674" formatted="false">Done</string>
@@ -46,7 +46,7 @@
     <string name="ui_318655cea4bd" formatted="false">Languages</string>
     <string name="ui_3370146d6d46" formatted="false">Select text</string>
     <string name="ui_33875a9b79e5" formatted="false">Use 3–24 English letters, numbers or underscores. Start with a letter. Your phone number and contacts stay private.</string>
-    <string name="ui_339484dc1f78" formatted="false">Words in your chats</string>
+    <string name="ui_339484dc1f78" formatted="false">Your chats</string>
     <string name="ui_33a2ae335a6b" formatted="false">Deletion requested</string>
     <string name="ui_33a6e5e20062" formatted="false">Start one-month free trial</string>
     <string name="ui_3446735cfdee" formatted="false">Clear verification</string>
@@ -71,7 +71,7 @@
     <string name="ui_4b34e1b08868" formatted="false">Send to vBot</string>
     <string name="ui_4bc6d965deeb" formatted="false">Cancel full translation</string>
     <string name="ui_51fbe1dc8a73" formatted="false">Sign in again</string>
-    <string name="ui_52c236be01ef" formatted="false">Vipi translates full messages on this phone, even offline.</string>
+    <string name="ui_52c236be01ef" formatted="false">Learn new words as you chat. Translation happens on this device, even offline.</string>
     <string name="ui_5394002806ab" formatted="false">Use 3–24 letters, numbers or underscores, starting with a letter.</string>
     <string name="ui_53b6cd2365c7" formatted="false">Verify encryption</string>
     <string name="ui_541ecffcdb87" formatted="false">Your plan access couldn’t be checked.</string>
@@ -167,7 +167,7 @@
     <string name="ui_b8173b954090" formatted="false">Remove translation downloads</string>
     <string name="ui_b8ed5279e897" formatted="false">Sending…</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">Find friend</string>
-    <string name="ui_bb1fe2470e72" formatted="false">Save your friend chat history in an encrypted file. You choose where to keep it. Your messaging identity, unsent messages and vBot history stay out of the backup.</string>
+    <string name="ui_bb1fe2470e72" formatted="false">Your learned words, messaging identity and unsent messages stay on this device.</string>
     <string name="ui_bbd30d6992ff" formatted="false">We couldn’t refresh your plans. Check your connection and try again.</string>
     <string name="ui_beb6c51b9bf6" formatted="false">Restore history</string>
     <string name="ui_c011d6097bfb" formatted="false">License</string>

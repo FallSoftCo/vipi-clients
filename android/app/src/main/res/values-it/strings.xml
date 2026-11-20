@@ -48,7 +48,7 @@
     <string name="ui_0c574552109f" formatted="false">Scegli la lingua che vuoi imparare</string>
     <string name="ui_0c86126aea39" formatted="false">In attesa di Google Play…</string>
     <string name="ui_0cb9c0cf3bb1" formatted="false">Accedi di nuovo per riconnetterti. Le conversazioni salvate restano su questo dispositivo.</string>
-    <string name="ui_0cd8734d2fcd" formatted="false">Gli abbonamenti sono gestiti separatamente. Le copie degli amici e i backup salvati altrove rimangono.</string>
+    <string name="ui_0cd8734d2fcd" formatted="false">Le copie dei tuoi amici e i backup salvati altrove rimangono.</string>
     <string name="ui_0fac2fda13a5" formatted="false">Questo account è già attivo su un altro dispositivo. Il trasferimento richiede una conferma separata.</string>
     <string name="ui_115f6d951109" formatted="false">Consenti dati mobili</string>
     <string name="ui_11a6767d5674" formatted="false">Fine</string>
@@ -81,7 +81,7 @@
     <string name="ui_318655cea4bd" formatted="false">Lingue</string>
     <string name="ui_3370146d6d46" formatted="false">Seleziona testo</string>
     <string name="ui_33875a9b79e5" formatted="false">Usa da 3 a 24 lettere inglesi, numeri o trattini bassi. Inizia con una lettera. Il numero di telefono e i contatti restano privati.</string>
-    <string name="ui_339484dc1f78" formatted="false">Parole nelle tue chat</string>
+    <string name="ui_339484dc1f78" formatted="false">Le tue chat</string>
     <string name="ui_33a2ae335a6b" formatted="false">Eliminazione richiesta</string>
     <string name="ui_33a6e5e20062" formatted="false">Inizia la prova gratuita di un mese</string>
     <string name="ui_3446735cfdee" formatted="false">Cancella verifica</string>
@@ -106,7 +106,7 @@
     <string name="ui_4b34e1b08868" formatted="false">Invia a vBot</string>
     <string name="ui_4bc6d965deeb" formatted="false">Annulla traduzione completa</string>
     <string name="ui_51fbe1dc8a73" formatted="false">Accedi di nuovo</string>
-    <string name="ui_52c236be01ef" formatted="false">Vipi traduce i messaggi interi su questo telefono, anche senza connessione.</string>
+    <string name="ui_52c236be01ef" formatted="false">Impara parole mentre chatti. La traduzione avviene su questo dispositivo, anche offline.</string>
     <string name="ui_5394002806ab" formatted="false">Usa da 3 a 24 lettere, numeri o trattini bassi, iniziando con una lettera.</string>
     <string name="ui_53b6cd2365c7" formatted="false">Verifica cifratura</string>
     <string name="ui_541ecffcdb87" formatted="false">Impossibile controllare l’accesso al piano.</string>
@@ -202,7 +202,7 @@
     <string name="ui_b8173b954090" formatted="false">Rimuovi download di traduzione</string>
     <string name="ui_b8ed5279e897" formatted="false">Invio…</string>
     <string name="ui_ba6e8c9b0c3e" formatted="false">Trova un amico</string>
-    <string name="ui_bb1fe2470e72" formatted="false">Salva la cronologia delle chat con gli amici in un file cifrato, dove preferisci. La tua identità di messaggistica, i messaggi non inviati e la cronologia vBot non sono inclusi nel backup.</string>
+    <string name="ui_bb1fe2470e72" formatted="false">Le parole imparate, la tua identità di messaggistica e i messaggi non inviati rimangono su questo dispositivo.</string>
     <string name="ui_bbd30d6992ff" formatted="false">Impossibile aggiornare i piani. Controlla la connessione e riprova.</string>
     <string name="ui_beb6c51b9bf6" formatted="false">Ripristina cronologia</string>
     <string name="ui_c011d6097bfb" formatted="false">Licenza</string>
@@ -407,7 +407,7 @@
     <string name="access_message_actions">Azioni del messaggio</string>
     <string name="cardless_ended">Il tuo accesso gratuito a Vipi è terminato il %1$s. Abbonati per continuare a chattare.</string>
     <string name="welcome_title_concise">Chatta con gli amici.\nImpara una lingua.</string>
-    <string name="welcome_detail_concise">Ogni messaggio appare nella lingua che stai imparando.</string>
+    <string name="welcome_detail_concise">Vipi sostituisce una parola alla volta. Le parole che hai già visto ricompaiono nei messaggi.</string>
     <string name="preview_spanish_title">Prova un po’ di spagnolo</string>
     <string name="preview_tap_word">Tocca una parola evidenziata per ascoltarla nella lingua che stai imparando. Nelle chat, tocca un fumetto per tradurre.</string>
     <string name="languages_title_concise">Le tue lingue</string>
@@ -417,7 +417,7 @@
     <string name="account_detail_concise">Accedi, scegli un nome utente e trova i tuoi amici.</string>
     <string name="account_private_title">Chat private con gli amici</string>
     <string name="account_private_detail">Le chat con gli amici sono crittografate end-to-end. Gli amici vedono il tuo nome utente, mai la tua email.</string>
-    <string name="account_trial_concise">30 giorni gratis. Nessuna carta richiesta. Poi scegli se abbonarti.</string>
+    <string name="account_trial_concise">Gratis. Nessun abbonamento.</string>
     <string name="preview_message_title">Un’anteprima delle tue chat</string>
     <string name="speak_concise">Parlo</string>
     <string name="learn_concise">Sto imparando</string>
@@ -440,12 +440,12 @@
     <string name="fallsoft_link_title">Usa il tuo account Fallsoft</string>
     <string name="fallsoft_link_detail">Accedi di nuovo a Vipi, poi collega il tuo account Fallsoft. Le chat, il profilo e il periodo di prova originale resteranno con te.</string>
     <string name="full_translation_preparing">Traduzione…</string>
-    <string name="full_translation_failed">Traduzione non riuscita. Tocca per riprovare.</string>
-    <string name="full_translation_meaning">Mostra il significato</string>
-    <string name="full_translation_practice">Mostra il testo nella lingua da imparare</string>
+    <string name="full_translation_failed">Impossibile aggiungere una parola da esercitare. Tocca per riprovare.</string>
+    <string name="full_translation_meaning">Mostra messaggio originale</string>
+    <string name="full_translation_practice">Mostra parole da esercitare</string>
     <string name="full_translation_script">Mostra la scrittura originale</string>
     <string name="full_translation_reading">Mostra la traslitterazione</string>
-    <string name="full_translation_play">Ascolta nella lingua da imparare</string>
+    <string name="full_translation_play">Ascolta parole da esercitare</string>
     <string name="full_translation_copy_original">Copia il messaggio originale</string>
     <string name="full_translation_gestures">Tocca per ascoltare. Tieni premuto per vedere il significato. Tocca due volte per cambiare scrittura.</string>
     <string name="autoplay_turn_on">Attiva la riproduzione automatica</string>
@@ -457,7 +457,7 @@
     <string name="backup_password_too_short">Usa almeno 12 caratteri.</string>
     <string name="backup_password_too_long">Questa password è troppo lunga.</string>
     <string name="backup_password_mismatch">Le password non corrispondono.</string>
-    <string name="full_translation_context_hint">Tocca per ascoltare in %1$s. Tieni premuto per leggere in %2$s.</string>
+    <string name="full_translation_context_hint">Tocca per ascoltare parole in %1$s. Tieni premuto per vedere il messaggio originale.</string>
     <string name="full_translation_writing_hint">Tocca due volte per vedere il testo in %1$s.</string>
     <string name="backup_new_password">Nuova password del backup</string>
     <string name="licenses_client_source">Codice sorgente di Vipi</string>

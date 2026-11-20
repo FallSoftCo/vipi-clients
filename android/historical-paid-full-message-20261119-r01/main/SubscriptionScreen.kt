@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
@@ -91,7 +94,9 @@ import kotlinx.coroutines.delay
     val endedTrial = access?.cardlessTrial?.takeIf { !it.active && !it.endsAt.isAfter(now) }
     if (!accessUnknown && plan == SubscriptionPlan.BASE && access?.usable(now) != true && endedTrial != null) {
         val end = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withZone(ZoneId.systemDefault()).format(endedTrial.endsAt)
-        Text(stringResource(R.string.cardless_ended, end), style = MaterialTheme.typography.bodyMedium)
+        Text(stringResource(R.string.cardless_ended, end), style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.SemiBold)
+        Text(stringResource(R.string.ui_233a70befbdc), style = MaterialTheme.typography.bodyMedium)
     }
     if (access?.usable(now) == true && !accessUnknown) {
         PlanAccessSummary(plan, access, now)
@@ -127,15 +132,20 @@ import kotlinx.coroutines.delay
             Text(if (subscriptions.purchasing) stringResource(R.string.ui_0c86126aea39) else if (offer.oneMonthTrial) stringResource(R.string.ui_33a6e5e20062) else stringResource(R.string.subscribe_annual, offer.annualPrice))
         }
     }
-    if (subscriptions.busy) CircularProgressIndicator(Modifier.size(24.dp))
+    if (subscriptions.busy) {
+        CircularProgressIndicator(Modifier.size(24.dp))
+        if (!accessUnknown && offer == null) Text(stringResource(R.string.plan_prices_loading),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
+    }
     if (snapshot != null && !snapshot.purchasesReady) Text(stringResource(R.string.ui_825bf52ce678), style = MaterialTheme.typography.bodySmall)
     subscriptions.notice?.takeUnless { it == statusMessage }?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+    if (accessUnknown || access?.usable(now) == true || offer == null) benefits()
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         TextButton(onClick = { scope.launch { subscriptions.refresh() } }, enabled = !subscriptions.busy && !subscriptions.purchasing,
             modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.ui_3ceeccf6b3ff)) }
         TextButton(onClick = { open("https://play.google.com/store/account/subscriptions") }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.ui_02d207068808)) }
     }
-    if (accessUnknown || access?.usable(now) == true || offer == null) benefits()
     Text(stringResource(R.string.ui_57225bd8b984), style = MaterialTheme.typography.bodySmall)
     Row {
         TextButton(onClick = { open("https://api.mambovipi.app/terms") }) { Text(stringResource(R.string.nav_terms)) }

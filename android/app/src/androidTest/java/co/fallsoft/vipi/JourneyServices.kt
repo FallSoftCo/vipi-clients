@@ -11,8 +11,6 @@ import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.core.view.WindowInsetsCompat
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.BySelector
-import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.PurchasesUpdatedListener
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.Request
@@ -43,6 +41,8 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
     private val accountDisplayName: String = "Journey Tester",
     private val peerDisplayName: String = "Journey Friend",
     private val botReplyText: String = "The local lifecycle reply arrived.",
+    private val cardlessStartedAt: Instant? = null,
+    private val holdPriceCatalog: Boolean = false,
     private val translationFactory: () -> LanguageTranslation = { NoJourneyModelTranslation }) : VipiWorkflowBoundary, AutoCloseable {
     val account = UUID.randomUUID()
     val peer = UUID.randomUUID()
@@ -56,7 +56,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
     val baseRestored = AtomicBoolean(false)
     val refusedFriendIDs = mutableListOf<UUID>()
     val refusedFriendCiphertexts = mutableListOf<String>()
-    val cardlessStarted: Instant = Instant.now().minusSeconds(29 * 86_400L)
+    val cardlessStarted: Instant = cardlessStartedAt ?: Instant.now().minusSeconds(29 * 86_400L)
     val cardlessEnds: Instant = cardlessStarted.plusSeconds(30 * 86_400L)
     val friendReplyReceipts = AtomicInteger()
     val inboxWakeups = AtomicInteger()
@@ -84,7 +84,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
     private var peerVault: MessageVault? = null
     private var peerCore: MessagingCore? = null
     private var peerPublication: JSONObject? = null
-    private val catalogs = mutableListOf<WorkflowBillingClient>()
+    val commerceRequests = AtomicInteger(0)
     private val sockets = mutableListOf<JourneySocket>()
     fun model(application: Application): VipiModel {
         PrivateRecords(application).write("session", IdentityAuthority.FALLSOFT_VIPI_PRODUCTION.tag(JSONObject()
@@ -94,9 +94,12 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
                 history.put("bot-settings", "consent", "deepseek-v1".toByteArray())
                 val start = System.currentTimeMillis() - 60_000
                 repeat(seedBotMessages) { index ->
-                    val message = BotMessage("m%019d-seeded-%03d".format(java.util.Locale.ROOT, start + index, index),
-                        if (index % 2 == 0) "user" else "assistant", "Earlier local Bot message $index.", "confirmed", null)
-                    history.put("bot-message", message.id, message.json().toString().toByteArray())
+                    // Historical encrypted data remains part of account erasure
+                    // coverage; it does not recreate a Bot runtime feature.
+                    val id = "m%019d-seeded-%03d".format(java.util.Locale.ROOT, start + index, index)
+                    val message = JSONObject().put("id", id).put("role", if (index % 2 == 0) "user" else "assistant")
+                        .put("content", "Earlier historical message $index.").put("status", "confirmed").put("request_id", JSONObject.NULL)
+                    history.put("bot-message", id, message.toString().toByteArray())
                 }
             }
         }
@@ -112,6 +115,10 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         check(userID == subject)
         return object : ChatTransport {
             override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>): JSONObject {
+                if (path == "/v1/entitlements" || path.startsWith("/v1/billing/") || path.startsWith("/v1/bot/")) {
+                    commerceRequests.incrementAndGet()
+                    error("Removed commerce/Bot endpoint requested by free friend chat")
+                }
                 if (method == "POST" && path in setOf("/v1/reports", "/v1/bot/reports")) {
                     reportPosts.incrementAndGet()
                     error("No report submit is authorized in the cancel journey")
@@ -259,11 +266,11 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
     override fun requestPush(context: Context, registration: Boolean) = Unit
     override fun cancelPush(context: Context) = Unit
     override fun deletionTransport(authentication: Authentication) = deletionService
-    override fun billingClient(context: Context, listener: PurchasesUpdatedListener): BillingClient = WorkflowBillingClient(listener).also { if (emptyPriceCatalog) it.catalog = emptyList(); catalogs += it }
     override fun foregroundEvents(scope: CoroutineScope, authentication: Authentication, chat: ChatSession): ForegroundInboxEvents =
         ForegroundInboxEvents(scope, { "synthetic-inert-access" }, chat::eventDevice, { chat.synchronize() },
             sockets = WebSocket.Factory { request, listener -> JourneySocket(request, listener).also { sockets += it; it.open() } })
-    fun assertNoPurchase() { assertTrue(catalogs.isNotEmpty()); assertTrue(catalogs.all { it.launches == 0 }) }
+    /** HTTP boundary only; absence of Billing SDK is checked in package proof. */
+    fun assertNoPurchase() { assertEquals(0, commerceRequests.get()) }
     override fun close() {
         sockets.forEach { it.cancel() }
         peerVault?.close()

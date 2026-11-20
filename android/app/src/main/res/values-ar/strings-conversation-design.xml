@@ -5,4 +5,7 @@
     <string name="bot_caution">قد يخطئ vBot. تحقّق من المعلومات المهمة.</string>
     <string name="lookup_whole_unsupported">لا يدعم هذا الجهاز ترجمة الرسالة كاملةً بين هاتين اللغتين.</string>
     <string name="base_plan_summary">تظهر رسائلك باللغة %1$s، وتُترجم على هذا الجهاز. Bot mini اختياري وتُدفع رسومه بشكل منفصل.</string>
+    <string name="full_translation_hold_hint">اضغط مطولًا لرؤية الرسالة الأصلية.</string>
+    <string name="plan_prices_loading">جارٍ تحميل الأسعار…</string>
+    <string name="backup_intent">احتفظ بنسخة احتياطية من محادثاتك مع الأصدقاء في ملف مشفّر.</string>
 </resources>

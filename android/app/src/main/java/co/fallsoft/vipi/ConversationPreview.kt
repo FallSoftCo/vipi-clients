@@ -1,6 +1,7 @@
 package co.fallsoft.vipi
 
 import android.content.Intent
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.*
@@ -12,10 +13,87 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/** Authored onboarding UI inputs, selected by the language the user speaks.
+ * These are not practice translations; the normal local engine produces those. */
+internal object OnboardingPreviewSource {
+    private val greetings = mapOf(
+        "en" to "Hello! How are you?",
+        "es" to "¡Hola! ¿Cómo estás?",
+        "fr" to "Bonjour ! Comment vas-tu ?",
+        "de" to "Hallo! Wie geht es dir?",
+        "it" to "Ciao! Come stai?",
+        "pt" to "Olá! Como você está?",
+        "ja" to "こんにちは！元気ですか？",
+        "ko" to "안녕하세요! 잘 지내세요?",
+        "zh" to "你好！你好吗？",
+        "ar" to "مرحبًا! كيف حالك؟",
+        "sw" to "Habari! Unaendeleaje?",
+        "af" to "Hallo!",
+        "be" to "Прывітанне!",
+        "bg" to "Здравей!",
+        "bn" to "নমস্কার!",
+        "ca" to "Hola!",
+        "cs" to "Ahoj!",
+        "cy" to "Helo!",
+        "da" to "Hej!",
+        "el" to "Γεια σου!",
+        "eo" to "Saluton!",
+        "et" to "Tere!",
+        "fa" to "سلام!",
+        "fi" to "Hei!",
+        "ga" to "Dia duit!",
+        "gl" to "Ola!",
+        "gu" to "નમસ્તે!",
+        "he" to "שלום!",
+        "hi" to "नमस्ते!",
+        "hr" to "Bok!",
+        "ht" to "Bonjou!",
+        "hu" to "Szia!",
+        "id" to "Halo!",
+        "is" to "Halló!",
+        "ka" to "გამარჯობა!",
+        "kn" to "ನಮಸ್ಕಾರ!",
+        "lt" to "Labas!",
+        "lv" to "Sveiki!",
+        "mk" to "Здраво!",
+        "mr" to "नमस्कार!",
+        "ms" to "Apa khabar?",
+        "mt" to "Bongu!",
+        "nl" to "Hallo!",
+        "no" to "Hei!",
+        "pl" to "Cześć!",
+        "ro" to "Bună!",
+        "ru" to "Привет!",
+        "sk" to "Ahoj!",
+        "sl" to "Živjo!",
+        "sq" to "Përshëndetje!",
+        "sv" to "Hej!",
+        "ta" to "வணக்கம்!",
+        "te" to "నమస్కారం!",
+        "th" to "สวัสดี!",
+        "tl" to "Kumusta!",
+        "tr" to "Merhaba!",
+        "uk" to "Привіт!",
+        "ur" to "سلام!",
+        "vi" to "Xin chào!"
+    )
+    val languages: Set<String> get() = greetings.keys
+    fun text(source: String): String = greetings.getValue(source)
+    fun translation(context: Context, source: String, target: String,
+        translator: LanguageTranslation = LocalTranslation()): ConversationTranslation {
+        require(source in greetings)
+        return ConversationTranslation(context, source, target, translator = translator,
+            language = object : MessageTranslationLanguage {
+                override suspend fun identify(text: String): String = source
+                override fun close() = Unit
+            })
+    }
+}
+
 /** Preview is a real local translation request, not a lookup/example catalog. */
 @Composable internal fun ConversationPreview(source: String, target: String, scrolling: Boolean = false) {
     val context = LocalContext.current
-    val translation = remember(source, target) { ConversationTranslation(context, source, target) }
+    val translation = remember(source, target) { OnboardingPreviewSource.translation(context, source, target) }
     val gestures = remember(source, target) { FullMessageGestures() }
     val scope = rememberCoroutineScope()
     val speech = remember(source, target) { SpeechPlayback(context, target, scope) }
@@ -27,7 +105,7 @@ import androidx.compose.ui.unit.sp
     Column(Modifier.fillMaxWidth().fullMessageGestures(gestures), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Surface(shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surface,
             modifier = Modifier.fillMaxWidth()) {
-            FullMessageBubble("Let's meet tomorrow after work.", "language-preview-$source-$target", translation,
+            FullMessageBubble(OnboardingPreviewSource.text(source), "language-preview-$source-$target", translation,
                 gestures, audio) {}
         }
         FullMessageContextHint(gestures, source, target)

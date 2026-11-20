@@ -5,4 +5,7 @@
     <string name="bot_caution">vBot inaweza kukosea. Hakiki taarifa muhimu.</string>
     <string name="lookup_whole_unsupported">Kifaa hiki hakitumii tafsiri ya ujumbe mzima kati ya lugha hizi.</string>
     <string name="base_plan_summary">Ujumbe wako unaonekana kwa %1$s, ukitafsiriwa kwenye kifaa hiki. Bot mini ni ya hiari na inalipiwa kando.</string>
+    <string name="full_translation_hold_hint">Bonyeza na ushikilie ili kuona ujumbe asilia.</string>
+    <string name="plan_prices_loading">Bei zinapakiwa…</string>
+    <string name="backup_intent">Hifadhi nakala ya mazungumzo na marafiki katika faili lililosimbwa kwa njia fiche.</string>
 </resources>

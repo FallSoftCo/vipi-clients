@@ -7,6 +7,7 @@ import org.json.JSONObject
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import kotlinx.coroutines.*
 import java.io.File
 import java.io.IOException
 import java.security.KeyStore
@@ -24,6 +25,19 @@ class RootDeletionJourneyDeviceTest {
         var submitted: DeletionRecord? = null
         val submits = AtomicInteger(); val statuses = AtomicInteger()
         val complete = AtomicBoolean(false)
+        val entered = CompletableDeferred<Unit>(); val release = CompletableDeferred<Unit>()
+        val cancelled = AtomicBoolean(false)
+        val workScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+        var pending: Deferred<*>? = null
+        val translation = object : LanguageTranslation {
+            override suspend fun prepare(source: String, target: String, cellularAllowed: Boolean) = Unit
+            override suspend fun translate(text: String, source: String, target: String): String {
+                entered.complete(Unit)
+                try { withContext(NonCancellable) { release.await() }; currentCoroutineContext().ensureActive(); return "hola" }
+                catch (failure: CancellationException) { cancelled.set(true); throw failure }
+            }
+            override fun close() = Unit
+        }
         val api = object : DeletionTransport {
             override suspend fun submit(record: DeletionRecord): JSONObject {
                 assertEquals(1, submits.incrementAndGet())
@@ -39,7 +53,7 @@ class RootDeletionJourneyDeviceTest {
                 return JSONObject().put("account_id", record.account).put("status", "deleted")
             }
         }
-        services = JourneyServices(profileRequired = false, seedBotMessages = 70, deletionService = api)
+        services = JourneyServices(profileRequired = false, seedBotMessages = 70, deletionService = api, translationFactory = { translation })
         MainActivityJourneyFixture("root-deletion", services::model).use { f ->
             val other = UUID.randomUUID()
             fun screen(value: Screen) = compose.waitUntil(10_000) { f.model.screen == value }
@@ -60,17 +74,9 @@ class RootDeletionJourneyDeviceTest {
             try {
                 MessageVault(f.isolated, other).use { vault -> vault.transaction { vault.put("test", "preserved", "other-account".toByteArray()) } }
                 f.launch(); screen(Screen.HOME)
-                compose.onNodeWithText(f.base.getString(R.string.ui_f173182378d0)).performScrollTo().performTouchInput { click() }
-                screen(Screen.BOT)
-                compose.waitUntil(10_000) { f.model.subscriptions?.accessCheckState == AccessCheckState.LOADED && f.model.bot?.allowance != null }
-                compose.onNodeWithTag("bot-message-input").performTouchInput { click() }
-                compose.waitUntil(8_000) { ime() }
-                compose.onNodeWithTag("bot-message-input").performTextInput("A synthetic pending reply before account deletion.")
-                compose.onNodeWithTag("bot-message-send").assertIsEnabled().performTouchInput { click() }
-                compose.waitUntil(8_000) { services.botPosts.get() == 1 && f.model.bot?.busy == true }
-                if (ime()) f.device.pressBack()
-                compose.waitUntil(5_000) { !ime() }
-                f.device.pressBack(); screen(Screen.HOME)
+                val owner = requireNotNull(f.model.chat?.translations)
+                pending = workScope.async { owner.resolve("deletion-owned-pending", "Hello") }
+                compose.waitUntil(8_000) { entered.isCompleted }
                 compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).performTouchInput { click() }
                 screen(Screen.SETTINGS)
                 deleteButton().performScrollTo().performTouchInput { click() }; screen(Screen.DELETE_ACCOUNT)
@@ -81,18 +87,18 @@ class RootDeletionJourneyDeviceTest {
                 compose.onNodeWithTag("delete-confirm").assertDoesNotExist()
                 compose.runOnIdle {
                     assertEquals(0, submits.get()); assertEquals(0, statuses.get())
-                    assertFalse(f.model.deletion.active); assertTrue(f.model.bot?.busy == true)
+                    assertFalse(f.model.deletion.active); assertFalse(requireNotNull(pending).isCompleted)
                     assertTrue(ownedDirectory.exists()); assertTrue(keyExists(services.account)); assertTrue(keyExists(other))
                 }
                 f.capture("01-cancel-does-not-close-or-delete")
                 deleteButton().performScrollTo().performTouchInput { click() }
                 compose.onNodeWithTag("delete-confirm").performTouchInput { click() }
                 compose.waitUntil(10_000) {
-                    submits.get() == 1 && services.cancelledBotPosts.get() == 1 &&
+                    submits.get() == 1 &&
                         f.model.deletion.notice == R.string.deletion_request_unconfirmed && !f.model.deletion.busy
                 }
                 compose.runOnIdle {
-                    assertNull(f.model.chat); assertNull(f.model.bot); assertNull(f.model.subscriptions)
+                    assertNull(f.model.chat)
                     assertTrue(f.model.deletion.active); assertTrue(ownedDirectory.exists())
                     assertEquals(DeletionRecord.Phase.PREPARED, PrivateDeletionStore(f.isolated).load()?.phase)
                 }
@@ -106,7 +112,7 @@ class RootDeletionJourneyDeviceTest {
                 }
                 compose.runOnIdle {
                     assertEquals(submitted, f.model.deletion.pending)
-                    assertNull(f.model.chat); assertNull(f.model.bot); assertNull(f.model.subscriptions)
+                    assertNull(f.model.chat)
                     assertEquals(1, services.deviceRegistrations.get()); assertEquals(1, submits.get())
                 }
                 compose.onNodeWithContentDescription(f.base.getString(R.string.nav_new_chat)).assertDoesNotExist()
@@ -126,10 +132,10 @@ class RootDeletionJourneyDeviceTest {
                         assertEquals("other-account", vault.get("test", "preserved")?.toString(Charsets.UTF_8))
                     }
                 }
-                services.botReplyGate.complete(Unit)
-                compose.waitForIdle()
-                assertFalse("Cancelled Bot work cannot recreate the erased account", ownedDirectory.exists())
-                assertEquals(1, services.cancelledBotPosts.get())
+                release.complete(Unit)
+                compose.waitUntil(8_000) { requireNotNull(pending).isCompleted && cancelled.get() }
+                assertTrue(requireNotNull(pending).isCancelled)
+                assertFalse("Closed word translation cannot recreate the erased account", ownedDirectory.exists())
                 f.capture("04-confirmed-account-erased-other-account-preserved")
                 compose.onNodeWithText(f.base.getString(R.string.ui_11a6767d5674)).performScrollTo().performTouchInput { click() }
                 screen(Screen.WELCOME)
@@ -144,14 +150,14 @@ class RootDeletionJourneyDeviceTest {
                 File(f.output, "receipt.json").writeText(JSONObject().put("actual_settings_and_root", true)
                     .put("fresh_models_over_same_private_disk", 2).put("cancel_deletion_requests", 0)
                     .put("submit_count", submits.get()).put("status_count", statuses.get())
-                    .put("pending_bot_request_cancelled", 1).put("real_owned_vault_and_key_erased", true)
+                    .put("pending_word_translation_cancelled_after_late_release", true).put("real_owned_vault_and_key_erased", true)
                     .put("unrelated_account_preserved", true).put("recovery_used_original_receipt", true)
                     .put("done_signed_out_after_relaunch", true).put("live_account_or_global_deletion", false).toString(2))
             } catch (failure: Throwable) {
                 runCatching { f.capture("failure") }.onFailure { failure.addSuppressed(it) }
                 throw failure
             } finally {
-                f.stopActivity(); services.botReplyGate.complete(Unit); services.close()
+                release.complete(Unit); workScope.cancel(); f.stopActivity(); services.close()
                 KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry("co.fallsoft.vipi.messages.$other") }
             }
         }

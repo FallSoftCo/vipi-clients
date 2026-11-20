@@ -101,7 +101,7 @@ class FullMessageJourneyDeviceTest {
     private fun touchCopyOriginals(f: MainActivityJourneyFixture, prefix: String, input: String,
         rows: Map<String, String>, audioEvents: List<JSONObject>, expectImeVisible: Boolean, stopPlayingManual: Boolean = true) {
         val proofName = "$prefix-copy-original-${if (expectImeVisible) "typing" else "keyboard-hidden"}"
-        val translation = requireNotNull(if (prefix == "bot") f.model.bot?.translations else f.model.chat?.translations)
+        val translation = requireNotNull(f.model.chat?.translations)
         compose.waitUntil(180_000) { rows.all { (id, text) -> translation.state(id, text)?.phase == MessageTranslationPhase.READY } }
         compose.waitUntil(8_000) { nativeImeVisible(f) == expectImeVisible }
         fun timeline() = if (prefix == "bot") compose.onNode(SemanticsMatcher.keyIsDefined(androidx.compose.ui.semantics.SemanticsActions.ScrollToIndex))
@@ -304,7 +304,6 @@ class FullMessageJourneyDeviceTest {
     /** Actual screen/edit/save/recreate/send boundary. Controlled translations
      * isolate layout; these methods make no SDK quality or provider claims. */
     @Test fun actualFriendOversizedDraftAndCompactTypingRetainExactEditableText() = draftBoundaryAtRoot(false)
-    @Test fun actualBotOversizedDraftAndCompactTypingRetainExactEditableText() = draftBoundaryAtRoot(true)
     @Test fun actualComposerNativePasteClockAndSavedText() = draftBoundaryAtRoot(false, menuOnly = true)
     @Test fun restoredLongDraftNativeSelectionAndPaste() = draftBoundaryAtRoot(false, restoredMenuOnly = true)
     private fun draftBoundaryAtRoot(bot: Boolean, menuOnly:Boolean = false, restoredMenuOnly:Boolean = false) {
@@ -367,7 +366,7 @@ class FullMessageJourneyDeviceTest {
                 }
                 val before = android.graphics.Rect(owner().visibleBounds)
                 val file = "native-menu-"+(pasteIndex++)
-                File(f.output,file+".json").writeText(JSONObject().put("label",label).put("click_owner",before.toShortString()).put("density",f.base.resources.displayMetrics.density).put("gesture_route","Native UiAutomator focus/long press/action; no Compose virtual-time long press").toString(2))
+                File(f.output,file+".json").writeText(JSONObject().put("label",label).put("click_owner",before.toShortString()).put("density",f.base.resources.displayMetrics.density).put("gesture_route","Native pointer focus/hold/action; explicit Compose test-clock deadline while physically held").toString(2))
                 f.capture(file+"-before-tap")
                 val button = owner()
                 assertEquals("Do not tap a moving native toolbar",before,button.visibleBounds)
@@ -390,8 +389,6 @@ class FullMessageJourneyDeviceTest {
                     if (android.os.Build.VERSION.SDK_INT >= 33) clip.description.extras = android.os.PersistableBundle().apply { putBoolean(android.content.ClipDescription.EXTRA_IS_SENSITIVE,true) }
                     clipboard.setPrimaryClip(clip)
                 }
-                val focused = f.device.findObjects(androidx.test.uiautomator.By.clazz("android.widget.EditText").pkg(f.base.packageName).focused(true))
-                assertEquals(1,focused.size)
                 // Focus can begin an IME resize after recreation. A pointer
                 // anchored to the pre-IME rectangle lands on the keyboard once
                 // it opens; require the actual editable rectangle to settle.
@@ -408,6 +405,8 @@ class FullMessageJourneyDeviceTest {
                         settledBounds = android.graphics.Rect(current); stableSince = SystemClock.uptimeMillis(); false
                     } else SystemClock.uptimeMillis()-stableSince >= 160
                 }
+                val focused = f.device.findObjects(androidx.test.uiautomator.By.clazz("android.widget.EditText").pkg(f.base.packageName).focused(true))
+                assertEquals("Native focus must be unique after its bounded IME/layout settlement",1,focused.size)
                 val bounds = requireNotNull(settledBounds)
                 val began = SystemClock.uptimeMillis(); val clockBefore = compose.mainClock.currentTime
                 val selector = androidx.test.uiautomator.By.res("android","floating_toolbar_menu_item_text").text(f.base.getString(android.R.string.paste)).pkg(f.base.packageName)
@@ -474,18 +473,11 @@ class FullMessageJourneyDeviceTest {
             }
             try {
                 f.launch(); screen(f,Screen.HOME)
-                if (bot) {
-                    compose.onNodeWithText(f.base.getString(R.string.ui_f173182378d0)).performScrollTo().performTouchInput { click() }
-                    screen(f,Screen.BOT)
-                    compose.waitUntil(15_000) { f.model.bot?.allowance != null && f.model.subscriptions?.accessCheckState == AccessCheckState.LOADED }
-                    compose.onNodeWithTag("bot-consent-choice").performScrollTo().performTouchInput { click() }
-                    compose.onNodeWithTag("bot-consent-continue").performScrollTo().performTouchInput { click() }
-                } else {
-                    compose.onNodeWithContentDescription(f.base.getString(R.string.nav_new_chat)).performTouchInput { click() }
-                    screen(f,Screen.NEW_CHAT)
-                    compose.onNode(hasSetTextAction()).performScrollTo().performTextInput("journey_friend")
-                    compose.onNode(hasSetTextAction()).performImeAction(); screen(f,Screen.CONVERSATION)
-                }
+                check(!bot) // Removed Bot contract; Friend editor assertions remain unchanged.
+                compose.onNodeWithContentDescription(f.base.getString(R.string.nav_new_chat)).performTouchInput { click() }
+                screen(f,Screen.NEW_CHAT)
+                compose.onNode(hasSetTextAction()).performScrollTo().performTextInput("journey_friend")
+                compose.onNode(hasSetTextAction()).performImeAction(); screen(f,Screen.CONVERSATION)
                 if (menuOnly) {
                     val value = "Native paste café ☕."
                     pasteThroughNativeMenu(value); assertNativeEditor(value,"short-native-clock-probe")
@@ -501,10 +493,10 @@ class FullMessageJourneyDeviceTest {
                 compose.onNodeWithTag(notice).assertIsDisplayed()
                 compose.onNodeWithTag(send).assertIsNotEnabled()
                 compose.onNodeWithTag(input).assertTextEquals(pasted)
-                fun saved() = if (bot) f.model.bot?.draft else f.model.chat?.compose(services.peer)
+                fun saved() = f.model.chat?.compose(services.peer)
                 assertEquals(pasted,saved())
                 f.capture("01-over-send-limit-draft-retained")
-                f.recreate(); screen(f,if (bot) Screen.BOT else Screen.CONVERSATION)
+                f.recreate(); screen(f,Screen.CONVERSATION)
                 compose.waitUntil(15_000) { compose.onNodeWithTag(input).fetchSemanticsNode().config[SemanticsProperties.EditableText].text == pasted }
                 if (restoredMenuOnly) {
                     val short = "A restored draft can be edited."
@@ -532,15 +524,13 @@ class FullMessageJourneyDeviceTest {
                 assertNativeEditor("A short message to keep.","shortened")
                 compose.onNodeWithTag(notice).assertDoesNotExist()
                 compose.onNodeWithTag(send).assertIsEnabled().performTouchInput { click() }
-                if (bot) { services.botReplyGate.complete(Unit); compose.waitUntil(15_000) { f.model.bot?.messages?.size == 22 } }
-                else compose.waitUntil(15_000) { services.friendPosts.get() == 1 }
+                compose.waitUntil(15_000) { services.friendPosts.get() == 1 }
                 compose.waitUntil(15_000) { faces(f,setOf("A short message to keep.")).isNotEmpty() }
                 if (!bot) repeat(20) { index ->
                     compose.runOnIdle { services.queueAdditionalPeerReplyAndSignalInbox("A saved history message number $index stays in place while I type.") }
                     compose.waitUntil(15_000) { services.friendReplyReceipts.get() == index+1 }
                 }
-                val originals = if (bot) requireNotNull(f.model.bot).messages.map { it.text }.toSet()
-                    else requireNotNull(f.model.chat).messages(services.peer).map { it.text }.toSet()
+                val originals = requireNotNull(f.model.chat).messages(services.peer).map { it.text }.toSet()
                 val draft = "Keep this exact draft: café ☕.\nThe final line remains editable."
                 compose.onNodeWithTag(input).performTextReplacement(draft)
                 f.device.pressBack()
@@ -1046,49 +1036,6 @@ class FullMessageJourneyDeviceTest {
                     MessageAudioQualification.attach(null); f.stopActivity(); services.close()
                 }
             }
-        }
-    }
-    @Test fun actualBotConsentSendResponseAndFullMessageGestures() {
-        runBlocking { cachedLocalTranslation().use { it.prepare("en", practice, cellularAllowed = false) } }
-        val audioEvents = java.util.concurrent.CopyOnWriteArrayList<JSONObject>()
-        MessageAudioQualification.attach { audioEvents += it }
-        val services = JourneyServices(profileRequired = false, expectedFriendPosts = 0, translationFactory = { cachedLocalTranslation() })
-        MainActivityJourneyFixture("full-message-bot", { app -> services.model(app).apply { selectTarget(practice) } }).use { f ->
-            f.bindConversationCapture(compose, "bot-message-input")
-            try {
-                f.launch(); screen(f, Screen.HOME)
-                compose.onNodeWithText(f.base.getString(R.string.ui_f173182378d0)).performScrollTo().performTouchInput { click() }
-                screen(f, Screen.BOT)
-                compose.waitUntil(15_000) { f.model.subscriptions?.accessCheckState == AccessCheckState.LOADED && f.model.bot?.allowance != null }
-                compose.onNodeWithTag("bot-consent-choice").performScrollTo().performTouchInput { click() }
-                compose.onNodeWithTag("bot-consent-continue").performScrollTo().performTouchInput { click() }
-                val prompt = "My blue notebook is still beside the kitchen window."
-                compose.onNodeWithTag("bot-message-input").performTouchInput { click() }.performTextInput(prompt)
-                compose.onNodeWithTag("bot-message-send").assertIsEnabled().performTouchInput { click() }
-                compose.waitUntil(15_000) { services.botPosts.get() == 1 }
-                services.botReplyGate.complete(Unit)
-                compose.waitUntil(15_000) { f.model.bot?.messages?.size == 2 && f.model.bot?.busy == false }
-                f.device.pressBack()
-                val bot = requireNotNull(f.model.bot)
-                nativeMeaningsAndScriptAndAudio(f, requireNotNull(bot.translations), bot.messages.associate { it.id to it.text }, "bot")
-                assertEquals(prompt, bot.messages.first().text)
-                assertEquals(services.botReply, bot.messages.last().text)
-                compose.onNodeWithTag("bot-options").performTouchInput { click() }
-                compose.onNodeWithTag("bot-report").performTouchInput { click() }
-                compose.onNodeWithTag("report-choice-${bot.messages.last().id}").performScrollTo().performTouchInput { click() }
-                compose.onNodeWithText(services.botReply).assertIsDisplayed()
-                f.capture("bot-report-original-review")
-                compose.onNodeWithText(f.base.getString(R.string.cancel_action)).performTouchInput { click() }
-                assertEquals(0, services.reportPosts.get())
-                val copyDraft = "An unsent original-copy draft: café ☕."
-                compose.onNodeWithTag("bot-message-input").performTouchInput { click() }.performTextInput(copyDraft)
-                touchCopyOriginals(f, "bot", "bot-message-input", bot.messages.associate { it.id to it.text }, audioEvents, expectImeVisible = true)
-                f.device.pressBack()
-                touchCopyOriginals(f, "bot", "bot-message-input", bot.messages.associate { it.id to it.text }, audioEvents, expectImeVisible = false, stopPlayingManual = false)
-                assertEquals(copyDraft, bot.draft); assertEquals(0, services.reportPosts.get())
-                assertEquals(1, services.botPosts.get()); services.assertNoPurchase()
-            } catch (failure: Throwable) { runCatching { f.capture("failure") }; throw failure }
-            finally { MessageAudioQualification.attach(null); services.botReplyGate.complete(Unit); f.stopActivity(); services.close() }
         }
     }
 }

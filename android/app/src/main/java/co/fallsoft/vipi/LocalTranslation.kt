@@ -1,6 +1,8 @@
 package co.fallsoft.vipi
 
 import com.google.mlkit.common.model.DownloadConditions
+import com.google.mlkit.common.model.RemoteModelManager
+import com.google.mlkit.nl.translate.TranslateRemoteModel
 import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.Translator
@@ -13,6 +15,9 @@ import kotlinx.coroutines.sync.withLock
 interface LanguageTranslation : AutoCloseable {
     suspend fun prepare(source: String, target: String, cellularAllowed: Boolean)
     suspend fun translate(text: String, source: String, target: String): String
+    // Controlled boundaries must declare their readiness. A message itself
+    // never authorizes downloading a newly detected third-language model.
+    suspend fun isReady(source: String, target: String): Boolean = source == target
 }
 
 class LocalTranslation : LanguageTranslation {
@@ -33,9 +38,14 @@ class LocalTranslation : LanguageTranslation {
         val conditions = DownloadConditions.Builder().apply { if (!cellularAllowed) requireWifi() }.build()
         client(source, target).downloadModelIfNeeded(conditions).await()
     }
+    override suspend fun isReady(source: String, target: String): Boolean {
+        if (source == target) return true
+        val installed = RemoteModelManager.getInstance().getDownloadedModels(TranslateRemoteModel::class.java).await().map { it.language }.toSet()
+        return (source == "en" || source in installed) && (target == "en" || target in installed)
+    }
     override suspend fun translate(text: String, source: String, target: String): String = mutex.withLock {
-        // Message storage already bounds input bytes. Translate complete chat
-        // messages instead of applying the retired lookup pipeline's16KiB cap.
+        // Callers pass complete selected lexical units. The SDK output is
+        // preserved intact; no word/phrase dictionary or truncation is used.
         require(text.length <= 65_536)
         client(source, target).translate(text).await()
     }

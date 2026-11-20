@@ -38,7 +38,7 @@ import kotlinx.coroutines.delay
 @Composable internal fun FullMessageContextHint(gestures: FullMessageGestures, source: String, target: String,
     modifier: Modifier = Modifier) {
     val practice = messageLanguageName(target)
-    val basic = stringResource(R.string.full_translation_context_hint, practice, messageLanguageName(source))
+    val basic = stringResource(R.string.full_translation_context_hint, practice)
     val writing = stringResource(R.string.full_translation_writing_hint, practice)
     val nativeName = initialLanguages.firstOrNull { it.code == target }?.localName.orEmpty()
     val reserveWriting = nativeName.codePoints().anyMatch { Character.isLetter(it) &&
@@ -94,6 +94,11 @@ import kotlinx.coroutines.delay
                     shown = true
                     preferences.edit().putBoolean("hold-script-policy-1", true).apply()
                 }
-            }) { FullMessageContextHint(gestures, source, target) }
+            }) {
+                // Full teaching stays beside the interactive preview. This
+                // live reminder keeps the comprehension escape within reach.
+                Text(stringResource(R.string.full_translation_hold_hint),
+                    style = MaterialTheme.typography.bodyMedium)
+            }
     }
 }

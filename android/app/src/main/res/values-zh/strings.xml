@@ -3,7 +3,7 @@
     <string name="ui_04d7b4833927" formatted="false">消息</string>
     <string name="ui_0882ca640d5a" formatted="false">Vipi</string>
     <string name="ui_0c42f5497c0b" formatted="false">现在显示原始单词</string>
-    <string name="ui_0cd8734d2fcd" formatted="false">订阅是单独管理的。 朋友的副本和保存在其他地方的备份仍然存在。</string>
+    <string name="ui_0cd8734d2fcd" formatted="false">朋友保存的副本和其他位置的备份仍会保留。</string>
     <string name="ui_0fac2fda13a5" formatted="false">该帐户已在另一台设备上处于活动状态。 移动您的帐户需要单独确认。</string>
     <string name="ui_11a6767d5674" formatted="false">完成</string>
     <string name="ui_12feaf099b55" formatted="false">与朋友的聊天采用端到端加密。</string>
@@ -21,7 +21,7 @@
     <string name="ui_2f7e29fbc47d" formatted="false">vipi</string>
     <string name="ui_318655cea4bd" formatted="false">语言</string>
     <string name="ui_33875a9b79e5" formatted="false">使用3至24个英文字母、数字或下划线，并以英文字母开头。您的电话号码和联系人保持私密。</string>
-    <string name="ui_339484dc1f78" formatted="false">你聊天中的单词</string>
+    <string name="ui_339484dc1f78" formatted="false">你的聊天</string>
     <string name="ui_33a2ae335a6b" formatted="false">已请求删除</string>
     <string name="ui_3446735cfdee" formatted="false">清除验证状态</string>
     <string name="ui_3907fa7f8072" formatted="false">外观</string>
@@ -275,7 +275,7 @@
     <string name="ui_ff245b368781" formatted="false">Bot mini</string>
     <string name="ui_42f4f8b469bb" formatted="false">与好友聊天。\n边阅读边学单词。</string>
     <string name="ui_47b7a66139f1" formatted="false">与好友\n开始聊天。</string>
-    <string name="ui_52c236be01ef" formatted="false">Vipi 在这部手机上翻译整条消息，离线也能使用。</string>
+    <string name="ui_52c236be01ef" formatted="false">边聊天边学新词。翻译在此设备上完成，离线也能使用。</string>
     <string name="ui_54c1159d80bf" formatted="false">与好友聊天。\n学习新单词。</string>
     <string name="ui_73bee38b06e8" formatted="false">好友如何\n找到您？</string>
     <string name="ui_8ec4723d54ba" formatted="false">离线翻译前需要重新下载这些语言。您的对话会保留在此手机上。</string>
@@ -354,7 +354,7 @@
     <string name="ui_42ed79b95da1" formatted="false">您在此发送的消息和近期 vBot 对话上下文会发送给 Vipi 和 DeepSeek 以生成回复。这是服务聊天，不是与好友的端到端加密对话。好友聊天绝不会包含在内。</string>
     <string name="ui_967b3ede020c" formatted="false">下方原始消息、发送者及您的理由会发送给 Fallible Software 进行审核。对话的其余部分保持私密。举报最多保留30天。</string>
     <string name="ui_c48de4e830a9" formatted="false">只有选中的回复文本和理由会发送给 Fallible Software 进行审核，不包括好友对话。举报最多保留30天。</string>
-    <string name="ui_bb1fe2470e72" formatted="false">将与好友的聊天记录保存为加密文件，存储位置由您选择。消息身份、未发送消息和 vBot 历史记录不包含在备份中。</string>
+    <string name="ui_bb1fe2470e72" formatted="false">学过的词、聊天身份信息和未发送的消息保留在这台设备上。</string>
     <string name="ui_c3297f5bde81" formatted="false">删除账户不会取消 Google Play 订阅。您可以单独取消订阅以停止将来续订。</string>
     <string name="ui_57225bd8b984" formatted="false">即使没有有效计划，您也可以随时阅读保存的对话并删除账户。</string>
     <string name="ui_cc39ebccb529" formatted="false">向 vBot 提问或聊聊您的一天。vBot 是聊天机器人，可能出错；请核实重要信息。</string>
@@ -404,7 +404,7 @@
     <string name="access_message_actions">消息操作</string>
     <string name="cardless_ended">您的 Vipi 免费使用期已于 %1$s 结束。订阅后可继续聊天。</string>
     <string name="welcome_title_concise">和朋友聊天。\n学一门语言。</string>
-    <string name="welcome_detail_concise">每条消息都会用你正在学习的语言显示。</string>
+    <string name="welcome_detail_concise">Vipi 每次替换一个新词。见过的词会在后面的聊天中再次出现。</string>
     <string name="preview_spanish_title">体验一点西班牙语</string>
     <string name="preview_tap_word">点按高亮单词，即可听到它在所学语言中的发音。在聊天中，点按气泡即可翻译。</string>
     <string name="languages_title_concise">你的语言</string>
@@ -414,7 +414,7 @@
     <string name="account_detail_concise">登录后，选择用户名，找到你的朋友。</string>
     <string name="account_private_title">与朋友私密聊天</string>
     <string name="account_private_detail">与朋友的聊天采用端到端加密。朋友只能看到你的用户名，看不到邮箱。</string>
-    <string name="account_trial_concise">30 天免费，无需银行卡。之后是否订阅由你决定。</string>
+    <string name="account_trial_concise">免费使用，无需订阅。</string>
     <string name="preview_message_title">看看聊天的样子</string>
     <string name="speak_concise">我会说</string>
     <string name="learn_concise">我在学</string>
@@ -437,12 +437,12 @@
     <string name="fallsoft_link_title">使用 Fallsoft 账号登录</string>
     <string name="fallsoft_link_detail">请先重新登录 Vipi，再关联 Fallsoft 账号。你的聊天、个人资料和原有试用期都会保留。</string>
     <string name="full_translation_preparing">正在翻译…</string>
-    <string name="full_translation_failed">翻译失败。轻点重试。</string>
-    <string name="full_translation_meaning">显示含义</string>
-    <string name="full_translation_practice">显示学习语言</string>
+    <string name="full_translation_failed">无法添加练习词。轻点重试。</string>
+    <string name="full_translation_meaning">显示原始消息</string>
+    <string name="full_translation_practice">显示练习词</string>
     <string name="full_translation_script">显示原文文字</string>
     <string name="full_translation_reading">显示罗马字母转写</string>
-    <string name="full_translation_play">用学习语言朗读</string>
+    <string name="full_translation_play">播放练习词</string>
     <string name="full_translation_copy_original">复制原始消息</string>
     <string name="full_translation_gestures">轻点朗读，按住查看含义，轻点两下切换文字形式。</string>
     <string name="autoplay_turn_on">开启自动朗读</string>
@@ -454,7 +454,7 @@
     <string name="backup_password_too_short">请使用至少12个字符。</string>
     <string name="backup_password_too_long">此密码过长。</string>
     <string name="backup_password_mismatch">两次输入的密码不一致。</string>
-    <string name="full_translation_context_hint">轻点即可听%1$s，长按可阅读%2$s释义。</string>
+    <string name="full_translation_context_hint">轻点收听%1$s词语。长按查看原始消息。</string>
     <string name="full_translation_writing_hint">双击可查看%1$s文字。</string>
     <string name="backup_new_password">新的备份密码</string>
     <string name="licenses_client_source">Vipi 源代码</string>

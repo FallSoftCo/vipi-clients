@@ -13,13 +13,23 @@ internal class WorkflowBillingClient(private val listener: PurchasesUpdatedListe
     var productQueries = 0; private set
     var purchaseQueries = 0; private set
     private var connected = false
+    var holdProductQueries = false
+    private val heldProductQueries = mutableListOf<() -> Unit>()
+    val heldProductQueryCount: Int get() = heldProductQueries.size
+    fun releaseProductQueries() {
+        holdProductQueries = false
+        val pending = heldProductQueries.toList(); heldProductQueries.clear()
+        pending.forEach { it() }
+    }
     private val ok get() = BillingResult.newBuilder().setResponseCode(BillingResponseCode.OK).build()
     override fun isReady() = connected
     override fun getConnectionState() = if (connected) ConnectionState.CONNECTED else ConnectionState.DISCONNECTED
     override fun startConnection(listener: BillingClientStateListener) { connected = true; listener.onBillingSetupFinished(ok) }
-    override fun endConnection() { connected = false }
+    override fun endConnection() { connected = false; heldProductQueries.clear() }
     override fun queryProductDetailsAsync(params: QueryProductDetailsParams, listener: ProductDetailsResponseListener) {
-        productQueries++; listener.onProductDetailsResponse(ok, QueryProductDetailsResult.create(catalog, emptyList()))
+        productQueries++
+        val respond = { listener.onProductDetailsResponse(ok, QueryProductDetailsResult.create(catalog, emptyList())) }
+        if (holdProductQueries) heldProductQueries += respond else respond()
     }
     override fun queryPurchasesAsync(params: QueryPurchasesParams, listener: PurchasesResponseListener) {
         purchaseQueries++; listener.onQueryPurchasesResponse(ok, purchases)

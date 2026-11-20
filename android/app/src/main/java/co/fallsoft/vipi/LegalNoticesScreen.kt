@@ -4,6 +4,8 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
@@ -28,6 +30,8 @@ private data class LicenseEntry(val title: String, val assets: List<String>)
     val context = LocalContext.current
     val uri = LocalUriHandler.current
     var selected by remember { mutableStateOf<LicenseEntry?>(null) }
+    val catalogScroll = rememberLazyListState()
+    val documentScroll = remember(selected) { LazyListState() }
     var error by remember { mutableStateOf<String?>(null) }
     val entries by produceState<List<LicenseEntry>?>(null) {
         value = withContext(Dispatchers.IO) { runCatching {
@@ -58,7 +62,7 @@ private data class LicenseEntry(val title: String, val assets: List<String>)
     BackHandler { goBack() }
     Scaffold(topBar = { TopAppBar(title = { Text(if (selected == null) stringResource(R.string.ui_2a6b4d12ccfb) else stringResource(R.string.ui_c011d6097bfb)) },
         navigationIcon = { IconButton(onClick = ::goBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } }) }) { padding ->
-        LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        LazyColumn(Modifier.fillMaxSize().padding(padding), state = if (selected == null) catalogScroll else documentScroll, contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
             if (selected == null) {
                 item { Text(stringResource(R.string.ui_cc9317e2ab2e)) }
                 error?.let { item { Text(it) } }

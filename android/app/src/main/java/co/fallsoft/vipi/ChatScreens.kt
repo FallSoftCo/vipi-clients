@@ -92,7 +92,6 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
         chat.createProfile(username, name)
         if (chat.ready) {
             model.navigate(Screen.HOME)
-            model.subscriptions?.refresh()
         }
     } }, enabled = !chat.busy && name.isNotBlank() && name.length <= 80 && username.matches(Regex("[a-zA-Z][a-zA-Z0-9_]{2,23}")),
         shape = RoundedCornerShape(18.dp), modifier = Modifier.fillMaxWidth().testTag("profile-submit"), contentPadding = PaddingValues(20.dp)) {
@@ -104,7 +103,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en", target: String = "es",
-    onLanguages: (() -> Unit)? = null, onPlan: (() -> Unit)? = null,
+    onLanguages: (() -> Unit)? = null,
     back: () -> Unit) {
     var messages by remember(peer) { mutableStateOf<List<ChatItem>>(emptyList()) }
     var text by remember(peer) { mutableStateOf("") }
@@ -126,7 +125,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     var reporting by remember(peer) { mutableStateOf(false) }
     var showSecurityNumber by remember(peer) { mutableStateOf(false) }
     var showVoiceHelp by remember(peer) { mutableStateOf(false) }
-    var followingLatest by remember(peer) { mutableStateOf(true) }
+    var followingLatest by rememberSaveable(peer) { mutableStateOf(true) }
     var jumpRevision by remember(peer) { mutableIntStateOf(0) }
     val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
@@ -310,7 +309,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     // to equal a Compose paragraph's measured line height.
     val messageLineHeight = with(viewDensity) { 28.sp.toDp() }
     val hasStatus = rejectedDraftEdit || messageTooLong || showVoiceHelp || speech.state == SpeechState.UNAVAILABLE || (speech.state != SpeechState.UNAVAILABLE && speech.error != null) || error != null || chat.notice != null ||
-        (chat.needsPlan && onPlan != null) || chat.needsDeviceRecovery || peer in chat.peersNeedingRecovery
+        chat.needsDeviceRecovery || peer in chat.peersNeedingRecovery
     // Reserve readable conversation space before a growing draft consumes it.
     // Three current scaled message lines is a preference, bounded by half the
     // actual viewport and the minimum editable/status lines. Tiny landscapes
@@ -395,7 +394,6 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                 listOfNotNull(chat.notice, error).distinct().forEach {
                     Text(it, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(horizontal = 18.dp, vertical = if (compact) 0.dp else 8.dp))
                 }
-                if (chat.needsPlan && onPlan != null) TextButton(onClick = onPlan, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_b30a48ba0b99)) }
                 if (chat.needsDeviceRecovery) TextButton(onClick = back, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_fa3d530cf72d)) }
                 if (peer in chat.peersNeedingRecovery) TextButton(onClick = { showSecurityNumber = true }, modifier = Modifier.padding(horizontal = 8.dp)) { Text(stringResource(R.string.ui_38d5b00c27da)) }
                 }
@@ -445,7 +443,11 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             val showTranscript = keyboardInsets.getBottom(viewDensity) == 0 ||
                 maxHeight >= messageLineHeight + 36.dp + EmbeddedMessageVerticalPadding * 2
             if (!showTranscript) Box(Modifier.fillMaxSize().testTag("conversation-compact-composing"))
-            if (showTranscript) {
+            // A saved history index must not be measured against a temporary
+            // empty list while the encrypted rows hydrate after recreation.
+            if (showTranscript && !loaded && error == null)
+                CircularProgressIndicator(Modifier.align(Alignment.Center))
+            if (showTranscript && loaded) {
             LazyColumn(state = list, modifier = Modifier.fillMaxSize().fullMessageGestures(gestures).testTag("conversation-timeline").semantics {
                 scrollToIndex { index ->
                     if (index !in 0 until list.layoutInfo.totalItemsCount) false else {

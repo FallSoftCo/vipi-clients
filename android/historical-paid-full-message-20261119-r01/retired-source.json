@@ -1,0 +1,124 @@
+{
+  "reason": "Explicit user scope replacement. Paid/Bot/full-paragraph contracts are historical only. Mixed Friend/privacy files retain active adapted counterparts; no active Friend assertion is retired merely because it shared a file.",
+  "base": "4fb4885aebdabd872b5a8d5a88d29f92a83ca4ca",
+  "records": [
+    {
+      "from": "android/app/src/main/java/co/fallsoft/vipi/BotSession.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/main/BotSession.kt",
+      "sha256": "aa4c958d9534741af545c95c270d2e3b8b77c9fcb35274cf812108100b86b2ae"
+    },
+    {
+      "from": "android/app/src/main/java/co/fallsoft/vipi/BotConversationScreen.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/main/BotConversationScreen.kt",
+      "sha256": "7933be5ee80247c31219d9a383a4f7e2dbe903c69540d085fb8899b0e8d1a1ba"
+    },
+    {
+      "from": "android/app/src/main/java/co/fallsoft/vipi/SubscriptionScreen.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/main/SubscriptionScreen.kt",
+      "sha256": "ceed37810a39eddf7c6e924614bf8c87d85f9233b9896306d5c161d0602d971c"
+    },
+    {
+      "from": "android/app/src/main/java/co/fallsoft/vipi/Subscriptions.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/main/Subscriptions.kt",
+      "sha256": "a1ed4d15369bfadf1485d7e6f6ca417df685694ed6ac0322d3adfb83886fd795"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/BotComposerInputDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/BotComposerInputDeviceTest.kt",
+      "sha256": "fbe1a6b64f1e2434df6b6923f354db65c3bfe12b3d0f0ec9a01701bfce9be455"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/SubscriptionWorkflowDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/SubscriptionWorkflowDeviceTest.kt",
+      "sha256": "709e06786742c1f590960c262717f4a4a07861e4577cee663a4bcdc8b604ae9f"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/FullMessageJourneyDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/FullMessageJourneyDeviceTest.kt",
+      "sha256": "45473eaf7699fb2b64bc8f92c6adaf35ae505ab589cec5f7df9d27a6908f271f",
+      "status": "Historical mixed-contract source copy; active Friend/privacy counterpart retained and adapted separately"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/VisualHierarchyJourneyDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/VisualHierarchyJourneyDeviceTest.kt",
+      "sha256": "c3ec42049c6e07e8f4b1b78da4343cca12a322f6c469d96dafa0237a0624ebf7"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/RootDeletionJourneyDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/RootDeletionJourneyDeviceTest.kt",
+      "sha256": "41b3c6ac7e8caa2f4ba5cf15a6c716209062f8103dbe3deb6ffa16b1c50749f0",
+      "status": "Historical mixed-contract source copy; active Friend/privacy counterpart retained and adapted separately"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/BotEntryRoutingDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/BotEntryRoutingDeviceTest.kt",
+      "sha256": "e1b3c5997502e0584ce14354c129a78c7dd18e57a5bed13f70353f0619f10c61"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/BotAccessLoadingDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/BotAccessLoadingDeviceTest.kt",
+      "sha256": "e950b0ede21253057b7051ce4bbf27742f189528d171d4282fdae83510c3b8fd"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/OfflineFlowScreensDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/OfflineFlowScreensDeviceTest.kt",
+      "sha256": "1faf6b8347e079e2ab8c40d0f6a8dad2496f5e99603edee6d45701c509f03b50"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/BotWorkflowStateDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/BotWorkflowStateDeviceTest.kt",
+      "sha256": "625c8bffad5851a3124f5e260fda435f02c1835498e754372b34b2830620550e"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/BotSessionDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/BotSessionDeviceTest.kt",
+      "sha256": "cd00793306f1bf4ce210425d27d1fad9bfd081b388ef3cd8ab141c851906d061"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/FirstMonthExpiryJourneyDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/FirstMonthExpiryJourneyDeviceTest.kt",
+      "sha256": "efa4d645063b128bed4f65753436e9743ff1a057aade9220743bc58d233a89e3"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/SubscriptionAccessDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/SubscriptionAccessDeviceTest.kt",
+      "sha256": "7cb7326c1973bfba2425780b0dcbf31aa4e9d2e1d3e7960e749e39b144ce7894"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/FullMessageMarketingDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/FullMessageMarketingDeviceTest.kt",
+      "sha256": "e946289bb6fd5bb2422f1e0b9688b9623cbfa0e243857304664ed2a451739d11"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/WorkflowBillingClient.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/WorkflowBillingClient.kt",
+      "sha256": "80d0a9d232508c79cb71c1b8f7d4400b84b8c24bf5436bc3ff19340fd4754ef0"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/ProfileCardlessFlowDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/ProfileCardlessFlowDeviceTest.kt",
+      "sha256": "829db8d26988594e6ed136e5b9d2d2929d0cb4e1a17735104bda4711994197b2"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/ReviewPlanAccessDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/ReviewPlanAccessDeviceTest.kt",
+      "sha256": "a2b22fb350bfbc632e74ed46eeb2b31b27513b15aa96dad9e08b15e859659136"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/ModelWorkflowDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/ModelWorkflowDeviceTest.kt",
+      "sha256": "ab71871d2e641e50c066af45459b7982cc5616903330f733cd6692aef801f31f"
+    },
+    {
+      "from": "android/app/src/androidTest/java/co/fallsoft/vipi/PersistentFriendJourneyDeviceTest.kt",
+      "to": "android/historical-paid-full-message-20261119-r01/androidTest/PersistentFriendJourneyDeviceTest.kt",
+      "sha256": "404c71837be72236fe5841cc714a262b23d3d494c4c827e4772966b80b14be44",
+      "status": "Historical mixed-contract source copy; active Friend/privacy counterpart retained and adapted separately"
+    }
+  ],
+  "active_adapted_counterparts": [
+    "android/app/src/androidTest/java/co/fallsoft/vipi/FullMessageJourneyDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/PersistentFriendJourneyDeviceTest.kt",
+    "android/app/src/androidTest/java/co/fallsoft/vipi/RootDeletionJourneyDeviceTest.kt"
+  ]
+}

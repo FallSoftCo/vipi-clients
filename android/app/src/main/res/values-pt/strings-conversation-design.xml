@@ -5,4 +5,7 @@
     <string name="bot_caution">O vBot pode errar. Confira informações importantes.</string>
     <string name="lookup_whole_unsupported">Este dispositivo não oferece tradução de mensagens completas entre esses idiomas.</string>
     <string name="base_plan_summary">Suas mensagens aparecem em %1$s, traduzidas neste dispositivo. O Bot mini é opcional e cobrado separadamente.</string>
+    <string name="full_translation_hold_hint">Mantenha pressionado para ver a mensagem original.</string>
+    <string name="plan_prices_loading">Carregando preços…</string>
+    <string name="backup_intent">Faça backup das conversas com amigos em um arquivo criptografado.</string>
 </resources>

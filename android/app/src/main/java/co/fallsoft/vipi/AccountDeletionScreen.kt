@@ -9,7 +9,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -25,8 +24,6 @@ import kotlinx.coroutines.launch
     Text(stringResource(R.string.ui_8def6a81a73d))
     Text(stringResource(R.string.deletion_fallsoft_retained))
     Text(stringResource(R.string.ui_fd5e205fa654))
-    Text(stringResource(R.string.ui_c3297f5bde81))
-    SubscriptionManagement()
     Button(onClick = { confirm = true }, colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)) { Text(stringResource(R.string.ui_a2e20a335700)) }
     error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
     if (confirm) AlertDialog(onDismissRequest = { confirm = false }, title = { Text(stringResource(R.string.ui_03fdb0dfc1b8)) },
@@ -63,13 +60,6 @@ import kotlinx.coroutines.launch
             }
             Text(stringResource(R.string.deletion_fallsoft_retained), style = MaterialTheme.typography.bodySmall)
             Text(stringResource(R.string.ui_0cd8734d2fcd), style = MaterialTheme.typography.bodySmall)
-            SubscriptionManagement()
-        }
+                }
     }
-}
-@Composable private fun SubscriptionManagement() {
-    val uri = LocalUriHandler.current
-    var unavailable by remember { mutableStateOf(false) }
-    TextButton(onClick = { try { uri.openUri("https://play.google.com/store/account/subscriptions") } catch (_: Exception) { unavailable = true } }) { Text(stringResource(R.string.ui_24a3f4314e5c)) }
-    if (unavailable) Text(stringResource(R.string.ui_273afa09966b), style = MaterialTheme.typography.bodySmall)
 }

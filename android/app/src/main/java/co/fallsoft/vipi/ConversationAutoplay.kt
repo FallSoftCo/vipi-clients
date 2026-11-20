@@ -82,6 +82,10 @@ internal class ConversationAutoplay(
         message.loadedText = text
         val value = translation.resolve(message.id, text,
             retry = !automatic && translation.state(message.id, text)?.phase == MessageTranslationPhase.FAILED)
+        val practiceSpeech = value.words?.joinToString(" ") { it.target } ?: value.practiceText
+        // No inserted practice spans means no artificial audio. Source text is
+        // never sent to a voice labelled as the practice language.
+        if (practiceSpeech.isBlank()) return
         MessageAudioQualification.emit("translation_ready", message.id, "automatic" to automatic, "practice_language" to value.practiceLanguage)
         MessageAudioQualification.emit("voice_wait", message.id, "state" to speech.state.name)
         if (speech.state == SpeechState.PREPARING) snapshotFlow { speech.state }.first { it != SpeechState.PREPARING }
@@ -97,7 +101,7 @@ internal class ConversationAutoplay(
         consumeInterruption()
         kotlinx.coroutines.currentCoroutineContext().ensureActive()
         if (!automatic) speech.showMutedVolumeControl()
-        speech.toggle(message.id, listOf(SpeechSpan(value.practiceText, value.practiceLanguage)))
+        speech.toggle(message.id, listOf(SpeechSpan(practiceSpeech, value.practiceLanguage)))
         snapshotFlow { speech.activeMessage }.first { it != message.id }
         speech.error?.let { failures[message.id] = it } ?: if (!automatic) failures.remove(message.id) else Unit
     }

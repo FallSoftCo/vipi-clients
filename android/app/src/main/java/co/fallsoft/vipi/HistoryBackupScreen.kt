@@ -210,9 +210,7 @@ internal class HistoryBackupModel : ViewModel() {
         IconButton(onClick = { job?.cancel(); back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) }
     }) }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).imePadding().verticalScroll(rememberScrollState()).padding(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            Text(stringResource(R.string.ui_0541b2d9f69b), style = MaterialTheme.typography.headlineMedium)
-            Text(stringResource(R.string.ui_bb1fe2470e72))
-            Text(stringResource(R.string.ui_233a70befbdc), style = MaterialTheme.typography.bodyMedium)
+            Text(stringResource(R.string.backup_intent), style = MaterialTheme.typography.bodyLarge)
             listOf(false to stringResource(R.string.ui_6a6965bcf571), true to stringResource(R.string.ui_beb6c51b9bf6)).forEach { (restore, label) ->
                 Row(Modifier.fillMaxWidth().selectable(selected = restoring == restore, enabled = !busy, role = Role.RadioButton, onClick = {
                     if (restoring != restore) { clearImport(); confirmation = ""; message = null; invalidPassword = false; mismatchedConfirmation = false; restoring = restore }
@@ -225,13 +223,13 @@ internal class HistoryBackupModel : ViewModel() {
                 if (HistoryBackupCodec.validPassword(it)) invalidPassword = false
                 if (it == confirmation) mismatchedConfirmation = false
             }, isError = invalidPassword, label = { Text(stringResource(if (restoring) R.string.ui_3e39703b6e87 else R.string.backup_new_password)) },
-                supportingText = { Text(stringResource(passwordFeedback)) },
+                supportingText = { Text(stringResource(passwordFeedback), style = MaterialTheme.typography.bodyMedium) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
                 singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth().focusRequester(passwordFocus).bringIntoViewRequester(passwordIntoView).testTag("backup-password"))
             if (!restoring) OutlinedTextField(confirmation, { confirmation = it
                 if (password == it) mismatchedConfirmation = false
             }, isError = mismatchedConfirmation,
-                supportingText = { if (mismatchedConfirmation) Text(stringResource(R.string.backup_password_mismatch)) }, label = { Text(stringResource(R.string.ui_d63cd658184e)) },
+                supportingText = { if (mismatchedConfirmation) Text(stringResource(R.string.backup_password_mismatch), style = MaterialTheme.typography.bodyMedium) }, label = { Text(stringResource(R.string.ui_d63cd658184e)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
                 singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth().focusRequester(confirmationFocus).bringIntoViewRequester(confirmationIntoView).testTag("backup-confirmation"))
             if (!restoring) Button(onClick = {
@@ -252,6 +250,10 @@ internal class HistoryBackupModel : ViewModel() {
             }, enabled = !busy, modifier = Modifier.fillMaxWidth().testTag("backup-open")) { Text(stringResource(R.string.ui_a67f154bcb16)) }
             if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
             message?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text(stringResource(R.string.ui_bb1fe2470e72), style = MaterialTheme.typography.bodyMedium)
+                Text(stringResource(R.string.ui_233a70befbdc), style = MaterialTheme.typography.bodyMedium)
+            }
         }
     }
     summary?.let { counts -> AlertDialog(onDismissRequest = { clearImport() }, title = { Text(stringResource(R.string.ui_d42ff6022f50)) },
