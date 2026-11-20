@@ -434,7 +434,7 @@ class MainActivity : ComponentActivity() {
         }, confirmButton = { TextButton(onClick = { appearancePicker = false }) { Text(stringResource(android.R.string.cancel)) } })
     if (chat?.ready == true) SettingsGroup(stringResource(R.string.settings_notifications)) {
         NotificationSetup()
-        SettingsSwitch(stringResource(R.string.settings_message_previews), chat.notificationPreviews, "settings-message-previews", chat::setNotificationPreviews)
+        SettingsSwitch(stringResource(R.string.settings_message_previews), chat.notificationPreviews, "settings-message-previews", chat::changeNotificationPreviews)
         Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp)).padding(14.dp)) {
             Text(stringResource(R.string.settings_example), style = MaterialTheme.typography.labelMedium, color = secondary)
             Text(if (chat.notificationPreviews) stringResource(R.string.settings_sample_sender) else stringResource(R.string.ui_0882ca640d5a),

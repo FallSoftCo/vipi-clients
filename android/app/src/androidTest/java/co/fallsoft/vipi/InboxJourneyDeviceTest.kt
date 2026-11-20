@@ -72,16 +72,26 @@ class InboxJourneyDeviceTest {
                 compose.onNodeWithText(generic).performScrollTo(); paint(f, "settings-preview-private")
                 toggle.performScrollTo().performClick().assertIsOn()
                 compose.onNodeWithText(f.base.getString(R.string.settings_sample_message)).performScrollTo(); paint(f, "settings-preview-content")
+                compose.runOnIdle { assertEquals("Opting in does not reveal older history", generic, body(notification(true))) }
+                kotlinx.coroutines.runBlocking(kotlinx.coroutines.Dispatchers.Main) {
+                    val chat = requireNotNull(f.model.chat)
+                    chat.send("I am reading a book now.", service.peer)
+                    chat.synchronize()
+                    require(service.peerReceived == "I am reading a book now.")
+                    service.queueAdditionalPeerReplyAndSignalInbox("New reply after consent")
+                }
+                compose.waitUntil(15_000) { service.friendReplyReceipts.get() == 1 }
                 compose.runOnIdle {
+                    assertTrue("A preview never marked the message read", service.seenMessages.isEmpty())
                     val privateNote = notification(true)
-                    assertEquals(incoming.text, body(privateNote)); assertEquals("Maya", privateNote.extras.getString(android.app.Notification.EXTRA_TITLE))
+                    assertEquals("New reply after consent", body(privateNote)); assertEquals("Maya", privateNote.extras.getString(android.app.Notification.EXTRA_TITLE))
                     assertEquals(android.app.Notification.VISIBILITY_PRIVATE, privateNote.visibility)
                     assertEquals(generic, body(privateNote.publicVersion)); assertEquals(generic, body(notification(false)))
                 }
                 f.relaunch(service::model); screen(f, Screen.HOME)
                 compose.runOnIdle {
                     assertTrue(f.model.chat!!.notificationPreviews)
-                    assertEquals(incoming.text, body(notification(true)))
+                    assertEquals("New reply after consent", body(notification(true)))
                     f.model.chat!!.markRead(service.peer)
                     assertNull(PushDelivery.buildNotification(f.base, f.model.chat!!, true))
                 }

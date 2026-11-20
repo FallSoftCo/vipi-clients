@@ -76,13 +76,12 @@ internal object PushDelivery {
     }
     fun notify(context: Context, chat: ChatSession) {
         if (!allowed(context) || ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) return
-        val unlocked = !context.getSystemService(android.app.KeyguardManager::class.java).isDeviceLocked &&
-            context.getSystemService(android.os.UserManager::class.java).isUserUnlocked
-        val notification = buildNotification(context, chat, unlocked) ?: return
+        val protectedStorageAvailable = context.getSystemService(android.os.UserManager::class.java).isUserUnlocked
+        val notification = buildNotification(context, chat, protectedStorageAvailable) ?: return
         try { NotificationManagerCompat.from(context).notify(1, notification) } catch (_: SecurityException) { /* permission changed */ }
     }
 
-    internal fun buildNotification(context: Context, chat: ChatSession, unlocked: Boolean): android.app.Notification? {
+    internal fun buildNotification(context: Context, chat: ChatSession, protectedStorageAvailable: Boolean): android.app.Notification? {
         val unread = chat.threads.filter { it.unread > 0 }
         if (unread.isEmpty()) return null
         val intent = Intent(context, MainActivity::class.java).setAction(ACTION).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -93,7 +92,7 @@ internal object PushDelivery {
             .setOnlyAlertOnce(true)
             .setVisibility(NotificationCompat.VISIBILITY_PRIVATE).setCategory(NotificationCompat.CATEGORY_MESSAGE).build()
         val peer = unread.singleOrNull()?.peer
-        val body = if (unlocked && peer != null) runCatching { chat.notificationPreview(peer) }.getOrNull() else null
+        val body = if (protectedStorageAvailable && peer != null) runCatching { chat.notificationPreview(peer) }.getOrNull() else null
         return if (body == null) generic else NotificationCompat.Builder(context, CHANNEL)
             .setSmallIcon(R.drawable.vipi_notification)
             .setContentTitle(chat.contacts[peer]?.displayName?.let(::previewLine) ?: context.getString(R.string.ui_0882ca640d5a))

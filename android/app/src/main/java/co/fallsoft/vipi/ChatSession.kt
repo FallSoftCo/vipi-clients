@@ -64,10 +64,10 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     var notificationPreviews by mutableStateOf(false)
         private set
 
-    fun setNotificationPreviews(enabled: Boolean) {
+    fun changeNotificationPreviews(enabled: Boolean) {
         val store = vault ?: return
         store.transaction {
-            if (enabled) store.put("local", "notification-previews", byteArrayOf(1))
+            if (enabled) store.put("local", "notification-previews", UUID.randomUUID().toString().toByteArray())
             else store.remove("local", "notification-previews")
         }
         notificationPreviews = enabled
@@ -82,6 +82,8 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             val thread = store.get("thread", peer.toString()) ?: return@transaction null
             val summary = JSONObject(thread.toString(Charsets.UTF_8))
             if (summary.optInt("unread") <= 0 || !summary.has("notificationMessage")) return@transaction null
+            val consent = store.get("local", "notification-previews")?.toString(Charsets.UTF_8) ?: return@transaction null
+            if (summary.optString("notificationConsent") != consent) return@transaction null
             val id = summary.getString("notificationMessage")
             val message = store.get("incoming", id)?.let(StoredChat::parse) ?: return@transaction null
             if (message.seen || message.state != "delivered" || message.envelope.sender != peer ||
@@ -121,7 +123,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (vault == null) {
             val store = MessageVault(context, value.id); vault = store
             core = MessagingCore(store); history = ConversationHistory(store)
-            notificationPreviews = store.transaction { store.get("local", "notification-previews")?.contentEquals(byteArrayOf(1)) == true }
+            notificationPreviews = store.transaction { store.get("local", "notification-previews") != null }
             activity = ChatActivityEvents(store, requireNotNull(core).journal,
                 { peer -> ready && !closed && !needsReauthentication && peer !in blockedPeers && peer !in peersNeedingRecovery },
                 { peer, action, value -> request("POST", "/v1/conversations/$peer/$action", value, requireNotNull(core).device) },
