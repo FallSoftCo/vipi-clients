@@ -64,7 +64,7 @@ for slug,title,desc,items in sections:
     # Static poster is displayed at moderate size. All originals stay available.
     ImageOps.contain(img.convert('RGB'),(960,800)).save(thumb,'WEBP',quality=85);thumb.chmod(0o644)
     links=''.join('<li><a href="'+escape(str(f.relative_to(out)),quote=True)+'">'+escape(n)+'</a></li>' for n,f in items)
-    review.append((updated,slug, '<article id="'+slug+'"><a href="'+escape(str(poster.relative_to(out)))+'"><img alt="'+escape(title)+'" src="'+escape(str(thumb.relative_to(out)))+'"></a><h2>'+escape(title)+'</h2><p>'+escape(desc)+'</p><ul>'+links+'</ul></article>'))
+    review.append((updated,slug, '<article id="'+slug+'"><a href="'+escape(str(poster.relative_to(out)))+'"><img loading="lazy" decoding="async" alt="'+escape(title)+'" src="'+escape(str(thumb.relative_to(out)))+'"></a><h2>'+escape(title)+'</h2><p>'+escape(desc)+'</p><ul>'+links+'</ul></article>'))
 symbol_review=render_symbols(out)
 if symbol_review is not None:
     atomic(out/'symbols.html',symbol_review)
