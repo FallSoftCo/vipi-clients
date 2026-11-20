@@ -65,11 +65,10 @@ class SpokenWordDeviceTest {
     @Test fun tappingFullMessageHighlightsTheAudibleWordsInPinyinAndScriptAndClearsOnStop(): Unit = runBlocking {
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
         val original = "Where are we meeting tomorrow?"
-        val target = "明天我们在哪里见面？"
+        val mandarin = "明天我们在哪里见面？"
         val model = object : LanguageTranslation {
             override suspend fun prepare(source: String, target: String, cellularAllowed: Boolean) = Unit
-            override suspend fun translate(text: String, source: String, target: String) = if (text == original) targetText() else error("Unexpected input")
-            private fun targetText() = target
+            override suspend fun translate(text: String, source: String, target: String) = if (text == original) mandarin else error("Unexpected input")
             override fun close() = Unit
         }
         val translation = ConversationTranslation(context, "en", "zh", translator = model,
@@ -85,7 +84,7 @@ class SpokenWordDeviceTest {
                 FullMessageBubble(original, "sample", translation, gestures, audio) {}
             } }
             val snapshot = translation.resolve("sample", original)
-            assertEquals(target, snapshot.practiceText)
+            assertEquals(mandarin, snapshot.practiceText)
             val reading = requireNotNull(snapshot.practiceReading)
             withTimeout(90_000) { while (speech.state == SpeechState.PREPARING) delay(10) }
             assertEquals(SpeechState.READY, speech.state)
@@ -100,7 +99,13 @@ class SpokenWordDeviceTest {
             }
             compose.waitForIdle()
             for (native in listOf(false, true)) {
-                withContext(Dispatchers.Main) { gestures.nativeScript = native; paragraph().play!!.invoke() }
+                val expected = if (native) mandarin else reading
+                if (native) withContext(Dispatchers.Main) { gestures.toggleScript() }
+                withTimeout(8_000) {
+                    while (withContext(Dispatchers.Main) { paragraph().text.toString() } != expected) delay(12)
+                }
+                withContext(Dispatchers.Main) { assertTrue(paragraph().performAccessibilityAction(
+                    android.view.accessibility.AccessibilityNodeInfo.ACTION_CLICK, null)) }
                 val seen = linkedSetOf<IntRange>()
                 withTimeout(30_000) {
                     while (seen.size < 2) {
@@ -110,7 +115,7 @@ class SpokenWordDeviceTest {
                             val highlight = styled.getSpans(0, styled.length, ForegroundColorSpan::class.java).singleOrNull()
                             if (highlight != null) {
                                 val visible = styled.getSpanStart(highlight) until styled.getSpanEnd(highlight)
-                                assertEquals(if (native) target else reading, styled.toString())
+                                assertEquals(expected, styled.toString())
                                 assertEquals(view.highlightedWord, visible)
                                 assertTrue(styled.substring(visible).isNotBlank())
                                 seen.add(visible)

@@ -236,27 +236,29 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         if (speech.activeMessage == id || audio.manualMessage == id) drawLine(activityColor,
             Offset(15.dp.toPx(), size.height - 4.dp.toPx()), Offset(size.width - 15.dp.toPx(), size.height - 4.dp.toPx()), 2.dp.toPx())
     }.padding(horizontal = 15.dp, vertical = EmbeddedMessageVerticalPadding), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        val showingMeaning = gestures.meaning
+        val showingScript = gestures.nativeScript
         val displayed = when {
             value == null -> text
-            gestures.meaning -> value.meaningText
-            gestures.nativeScript -> value.practiceText
+            showingMeaning -> value.meaningText
+            showingScript -> value.practiceText
             else -> value.practiceReading ?: value.practiceText
         }
         val faces = value?.let { listOfNotNull(it.practiceText, it.meaningText, it.practiceReading) } ?: listOf(text)
         AndroidView(factory = { FullMessageTextView(it) }, update = { view ->
             view.play = play.takeIf { value?.words?.isEmpty() != true }
             view.fullMode = translation.mode == ImmersionMode.FULL_MESSAGES
-            view.showingNativeScript = gestures.nativeScript
+            view.showingNativeScript = showingScript
             view.readingUnavailable = showReadingFailure
             view.playing = speech.activeMessage == id || audio.manualMessage == id
             view.reveal = { gestures.interacted(); gestures.accessibilityMeaning = true }
             view.practice = { gestures.accessibilityMeaning = false; gestures.held = false }
             view.script = if (alternateReading) ({ gestures.toggleScript() }) else null
-            val highlights = if (gestures.meaning) emptyList() else value?.words?.let {
-                WordReplacement.ranges(it, reading = !gestures.nativeScript && value.practiceReading != null)
+            val highlights = if (showingMeaning) emptyList() else value?.words?.let {
+                WordReplacement.ranges(it, reading = !showingScript && value.practiceReading != null)
             }.orEmpty()
-            val word = if (!gestures.meaning && speech.activeMessage == id) speech.playingWord else null
-            val spoken = if (gestures.nativeScript || !alternateReading) word?.script else word?.reading
+            val word = if (!showingMeaning && speech.activeMessage == id) speech.playingWord else null
+            val spoken = if (showingScript || !alternateReading) word?.script else word?.reading
             view.bind(displayed, text, faces, ink, accessibilityContext, highlights, wordColor, spoken,
                 activityColor.toArgb(), spokenInk)
         })
