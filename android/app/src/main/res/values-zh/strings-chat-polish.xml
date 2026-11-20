@@ -13,4 +13,5 @@
     <plurals name="inbox_unread">
         <item quantity="other">%1$s条未读消息</item>
     </plurals>
+    <string name="inbox_find_or_invite">通过用户名查找好友，或向对方发送邀请。</string>
 </resources>

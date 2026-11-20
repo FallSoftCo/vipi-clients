@@ -13,4 +13,5 @@
     <plurals name="inbox_unread">
         <item quantity="other">읽지 않은 메시지 %1$s개</item>
     </plurals>
+    <string name="inbox_find_or_invite">사용자 이름으로 친구를 찾거나 초대장을 보내세요.</string>
 </resources>

@@ -14,4 +14,5 @@
         <item quantity="one">%1$s ungelesene Nachricht</item>
         <item quantity="other">%1$s ungelesene Nachrichten</item>
     </plurals>
+    <string name="inbox_find_or_invite">Finde Freunde über ihren Benutzernamen oder schick ihnen eine Einladung.</string>
 </resources>

@@ -14,4 +14,5 @@
         <item quantity="one">%1$s message non lu</item>
         <item quantity="other">%1$s messages non lus</item>
     </plurals>
+    <string name="inbox_find_or_invite">Recherchez un ami par son nom d’utilisateur ou envoyez-lui une invitation.</string>
 </resources>

@@ -14,4 +14,5 @@
         <item quantity="one">%1$s unread message</item>
         <item quantity="other">%1$s unread messages</item>
     </plurals>
+    <string name="inbox_find_or_invite">Find a friend by username or send them an invite.</string>
 </resources>

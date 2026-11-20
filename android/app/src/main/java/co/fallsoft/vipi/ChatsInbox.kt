@@ -106,7 +106,7 @@ import java.time.temporal.ChronoUnit
                                     Icon(Icons.Outlined.Forum, null, Modifier.padding(18.dp).size(32.dp), tint = MaterialTheme.colorScheme.primary)
                                 }
                                 Spacer(Modifier.height(18.dp))
-                                Text(stringResource(R.string.ui_47b7a66139f1).replace("\n", " "), textAlign = TextAlign.Center,
+                                Text(stringResource(R.string.inbox_find_or_invite), textAlign = TextAlign.Center,
                                     fontSize = 23.sp, lineHeight = 29.sp, fontWeight = FontWeight.SemiBold)
                                 Spacer(Modifier.height(16.dp))
                                 Button(onClick = newChat, enabled = ready,

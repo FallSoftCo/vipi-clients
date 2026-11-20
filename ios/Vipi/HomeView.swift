@@ -43,7 +43,7 @@ struct HomeView: View {
                         } else { VStack(alignment: .center, spacing: 20) {
                             Image(systemName:"bubble.left.and.bubble.right").font(.system(size:40)).foregroundStyle(VipiDesign.secondary).accessibilityHidden(true)
                             VStack(alignment: .center, spacing: 8) {
-                                Text("Start a chat with a friend.").font(.title2.weight(.semibold)).fixedSize(horizontal: false, vertical: true)
+                                Text("Find a friend by username or send them an invite.").font(.title2.weight(.semibold)).fixedSize(horizontal: false, vertical: true)
                             }
                             PrimaryButton(title: "New chat") { showingInvite = true }
                                 .accessibilityIdentifier("home-start-conversation")

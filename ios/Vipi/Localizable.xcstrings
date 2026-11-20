@@ -873,6 +873,88 @@
         }
       }
     },
+    "Find a friend by username or send them an invite.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Find a friend by username or send them an invite."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Busca a un amigo por su nombre de usuario o envíale una invitación."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recherchez un ami par son nom d’utilisateur ou envoyez-lui une invitation."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Finde Freunde über ihren Benutzernamen oder schick ihnen eine Einladung."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerca un amico per nome utente o inviagli un invito."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابحث عن صديق باسم المستخدم أو أرسل إليه دعوة."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ユーザー名で友だちを探すか、招待を送りましょう。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "사용자 이름으로 친구를 찾거나 초대장을 보내세요."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tafuta rafiki kwa jina la mtumiaji au umtumie mwaliko."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encontre um amigo pelo nome de usuário ou envie um convite."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Procure um amigo pelo nome de utilizador ou envie-lhe um convite."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通过用户名查找好友，或向对方发送邀请。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "透過使用者名稱尋找好友，或傳送邀請給對方。"
+          }
+        }
+      }
+    },
     "Start a chat with a friend.": {
       "localizations": {
         "es": {

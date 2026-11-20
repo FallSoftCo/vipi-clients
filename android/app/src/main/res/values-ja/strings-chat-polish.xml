@@ -13,4 +13,5 @@
     <plurals name="inbox_unread">
         <item quantity="other">未読メッセージ%1$s件</item>
     </plurals>
+    <string name="inbox_find_or_invite">ユーザー名で友だちを探すか、招待を送りましょう。</string>
 </resources>

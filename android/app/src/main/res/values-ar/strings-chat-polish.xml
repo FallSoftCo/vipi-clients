@@ -18,4 +18,5 @@
         <item quantity="many">%1$s رسالة غير مقروءة</item>
         <item quantity="other">%1$s رسالة غير مقروءة</item>
     </plurals>
+    <string name="inbox_find_or_invite">ابحث عن صديق باسم المستخدم أو أرسل إليه دعوة.</string>
 </resources>

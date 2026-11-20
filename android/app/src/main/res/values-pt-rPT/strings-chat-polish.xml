@@ -14,4 +14,5 @@
         <item quantity="one">%1$s mensagem por ler</item>
         <item quantity="other">%1$s mensagens por ler</item>
     </plurals>
+    <string name="inbox_find_or_invite">Procure um amigo pelo nome de utilizador ou envie-lhe um convite.</string>
 </resources>
