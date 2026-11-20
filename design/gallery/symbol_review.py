@@ -47,3 +47,37 @@ figcaption{font-size:14px;margin-top:6px;color:#6d5263}.chat{display:inline-bloc
             '<p class="chat">See you <mark>mañana</mark>.</p><fieldset><legend>Icon color</legend>' + modes +
             '<div class="choices">' + labels + '</div><div class="cards">' + "".join(cards) +
             '</div></fieldset></body></html>').encode()
+
+
+def render_launchers(output):
+    options = {"signature": "Vipi signature", "voice": "Songbird", "corner": "Speech mark"}
+    scenes = (("iphone-grid", "iPhone", 277), ("pixel-home", "Pixel dock", 393), ("pixel-drawer", "Pixel app drawer", 393))
+    newer = output / "home-screen/iphone-home-signature.png"
+    if newer.is_file():
+        scenes = (("iphone-home", "iPhone", 402), *scenes[1:])
+    if not all((output / "home-screen" / f"{prefix}-{symbol}.png").is_file() for prefix, _, _ in scenes for symbol in options):
+        return None
+    radios = "".join(f'<input id="{k}" type="radio" name="symbol" value="{k}" aria-label="{v}" '
+                     f'{"checked" if k=="signature" else ""}>' for k,v in options.items())
+    buttons = "".join(f'<label for="{k}">{v}</label>' for k,v in options.items())
+    style = "".join(f'#{k}:checked ~ .options label[for={k}]{{background:#45233f;color:#fff3de}}'
+                    f'#{k}:checked ~ .scenes .{k}{{display:block}}'
+                    f'#{k}:focus-visible ~ .options label[for={k}]{{outline:3px solid #91602D;outline-offset:3px}}'
+                    for k in options)
+    cards = []
+    for prefix, title, width in scenes:
+        images = "".join(f'<img class="{k}" src="home-screen/{prefix}-{k}.png" '
+                         f'width="{width}" alt="{v} on the {title} launcher">' for k,v in options.items())
+        cards.append(f'<section><h2>{title}</h2>{images}</section>')
+    return ('''<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vipi on your home screen</title><style>
+:root{font:16px/1.45 system-ui,sans-serif;color:#352233;background:#fff8ef;color-scheme:light}*{box-sizing:border-box}
+body{max-width:1340px;margin:auto;padding:20px clamp(12px,2.4vw,36px) 32px}a{color:#714059;text-underline-offset:3px}
+h1{font-size:clamp(28px,4vw,42px);letter-spacing:-.04em;line-height:1.1;margin:25px 0 6px}p{margin:0;color:#65475b}
+fieldset{min-width:0;border:0;margin:20px 0;padding:0}input,legend{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+.options{display:flex;gap:6px;flex-wrap:wrap}label{border:1px solid #947f88;padding:9px 13px;border-radius:22px;cursor:pointer;font-weight:600}
+.scenes{display:flex;gap:clamp(14px,3vw,42px);align-items:flex-start;flex-wrap:wrap}section{max-width:100%}h2{font-size:20px;letter-spacing:-.015em;margin:22px 0 8px}
+img{display:none;max-width:100%;height:auto;border-radius:8px}''' + style +
+            '</style></head><body><a href="review.html#home-screen">Vipi gallery</a><h1>Vipi on the home screen</h1>'
+            '<p>Choose a mark to see it in the same spot on each launcher.</p><fieldset><legend>Vipi mark</legend>' +
+            radios + '<div class="options">' + buttons + '</div><div class="scenes">' + "".join(cards) +
+            '</div></fieldset><p>Design studies placed on native simulator screenshots.</p></body></html>').encode()

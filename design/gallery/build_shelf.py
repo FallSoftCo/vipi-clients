@@ -2,7 +2,7 @@ from pathlib import Path
 from html import escape
 import datetime,hashlib,json,os,re,shutil
 from PIL import Image,ImageOps
-from symbol_review import render as render_symbols
+from symbol_review import render as render_symbols, render_launchers
 root=Path('/home/ai/Development/8bar-houdini/output');key='vipi-studio-20261120'
 out=root/key;out.mkdir(exist_ok=True,mode=0o755)
 lib=Path('/home/ai/Development/vipi-design-references/vipi');build=Path('/mnt/extradrive1/vipi-builds')
@@ -71,6 +71,12 @@ if symbol_review is not None:
     for c in cards:
         if c['id']=='vipi-studio-speech-symbols':c['interactivePreview']=key+'/symbols.html'
     review=[(date,slug,article.replace('</p><ul>','</p><p><a href="symbols.html">Compare icons at actual size</a></p><ul>') if slug=='speech-symbols' else article) for date,slug,article in review]
+launcher_review=render_launchers(out)
+if launcher_review is not None:
+    atomic(out/'launcher.html',launcher_review)
+    for c in cards:
+        if c['id']=='vipi-studio-home-screen':c['interactivePreview']=key+'/launcher.html'
+    review=[(date,slug,article.replace('</p><ul>','</p><p><a href="launcher.html">Switch marks on the home screen</a></p><ul>') if slug=='home-screen' else article) for date,slug,article in review]
 ordered=sorted(review,key=lambda v:v[0],reverse=True)
 intro='<!doctype html><html lang="en"><meta name="viewport" content="width=device-width, initial-scale=1"><meta charset="utf-8"><title>Vipi design gallery</title><style>:root{color-scheme:light dark;font:16px/1.5 system-ui,sans-serif}body{margin:0 auto;max-width:1080px;padding:24px}h1{font-size:2.2rem}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(315px,100%),1fr));gap:28px}article{min-width:0}article img{width:100%;height:245px;object-fit:contain;background:light-dark(#efede8,#171a28);border-radius:12px}h2{line-height:1.2;font-size:1.35rem}a{color:light-dark(#293fbc,#bac6ff)}ul{padding-left:20px}li{margin:.25rem 0}</style><header><a href="/8bar/">NextComp Gallery</a><h1>Vipi design gallery</h1><p>Native builds, design studies and editable logo artwork. <a href="https://mobbin.com/collections/c5a5bb7e-8d36-41e2-92e3-12605fc17cc6/mobile/screens">Private Mobbin references</a></p></header><main>'
 atomic(out/'index.html',(intro+''.join(x[2] for x in ordered)+'</main></html>').encode())
