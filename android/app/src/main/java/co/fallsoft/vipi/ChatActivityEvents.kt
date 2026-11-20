@@ -120,8 +120,8 @@ internal class ChatActivityEvents(
                 require(ack.all { it in seen } && read.all { it in checking })
                 store.transaction {
                     for (id in ack) store.remove("read-pending", "q.$id")
-                    for (id in read) journal.applyStatus(id, "read")
                 }
+                for (id in read) journal.applyStatus(id, "read")
                 if (read.isNotEmpty()) changed()
             }
             check = null
