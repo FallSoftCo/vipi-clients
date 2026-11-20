@@ -29,19 +29,24 @@ enum class SpeechState { PREPARING, READY, RENDERING, PLAYING, UNAVAILABLE }
 
 /** Small playback boundary for ownership/error tests; production always uses
  * SpeechPlayback with the actual local voice and PCM player. */
-interface ConversationSpeech {
+internal interface ConversationSpeech {
     val state: SpeechState
     val error: String?
     val activeMessage: String?
     val interruption: Long
+    val playingWord: PlayingWord? get() = null
     fun toggle(message: String, spans: List<SpeechSpan>)
+    fun toggleTranslation(message: String, value: FullMessageTranslation) {
+        val text = value.words?.joinToString(" ") { it.target } ?: value.practiceText
+        toggle(message, listOf(SpeechSpan(text, value.practiceLanguage)))
+    }
     fun stop()
     fun showMutedVolumeControl()
     fun failureMessage(): String
 }
 
 /** Conversation-scoped: one prepared pair, one player, never a player per word. */
-class SpeechPlayback(context: Context, private val target: String, private val scope: CoroutineScope) : AutoCloseable, ConversationSpeech {
+internal class SpeechPlayback(context: Context, private val target: String, private val scope: CoroutineScope) : AutoCloseable, ConversationSpeech {
     private val context = context.applicationContext
     private var pair = LocalSpeechPair(context, target, target)
     private val audio = context.getSystemService(AudioManager::class.java)
@@ -98,7 +103,17 @@ class SpeechPlayback(context: Context, private val target: String, private val s
         if (audio.getStreamVolume(AudioManager.STREAM_MUSIC) == 0)
             audio.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI)
     }
-    override fun toggle(message: String, spans: List<SpeechSpan>) {
+    override var playingWord by mutableStateOf<PlayingWord?>(null)
+        private set
+
+    override fun toggleTranslation(message: String, value: FullMessageTranslation) {
+        val text = value.words?.joinToString(" ") { it.target } ?: value.practiceText
+        play(message, listOf(SpeechSpan(text, value.practiceLanguage)), value)
+    }
+
+    override fun toggle(message: String, spans: List<SpeechSpan>) = play(message, spans, null)
+
+    private fun play(message: String, spans: List<SpeechSpan>, value: FullMessageTranslation?) {
         check(Looper.myLooper() == Looper.getMainLooper())
         require(spans.all { it.language == target }) { "Message playback uses only the practice language" }
         MessageAudioQualification.emit("speech_request", message, "closed" to closed, "ready" to ready,
@@ -111,37 +126,55 @@ class SpeechPlayback(context: Context, private val target: String, private val s
         activeMessage = message; state = SpeechState.RENDERING; error = null
         rendering = scope.launch(Dispatchers.Main.immediate) {
             try {
-                val chunks = withContext(Dispatchers.Default) { SpeechChunks.plan(spans) }
-                require(chunks.isNotEmpty())
-                val rendered = pair.render(chunks.first())
-                val first = withContext(Dispatchers.IO) { PcmWave.read(rendered.file) }
-                MessageAudioQualification.emit("speech_rendered", message, "path" to rendered.file.absolutePath,
-                    "sample_rate" to first.sampleRate, "channels" to first.channels, "duration_ms" to rendered.milliseconds)
-                if (closed || request != epoch) return@launch
-                if (audio.requestAudioFocus(focus) != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    stop(); error = context.getString(R.string.audio_busy); return@launch
-                }
-                val next = PcmSpeechPlayer(first.sampleRate, first.channels, attributes)
-                player = next
-                outputUnderruns = 0; endOfStreamUnderruns = 0
                 coroutineScope {
-                    val queue = Channel<PcmWave>(capacity = 2)
+                    val queue = Channel<TimedPcm>(capacity = 2)
                     launch(Dispatchers.IO) {
                         try {
-                            for (chunk in chunks.drop(1)) {
-                                val piece = pair.render(chunk)
-                                queue.send(PcmWave.read(piece.file))
+                            val projection = value?.let { SpeechProjection.build(context, it) }
+                            val renderer = TimedSpeech(pair, target, projection) { rendered ->
+                                MessageAudioQualification.emit("speech_rendered", message, "path" to rendered.file.absolutePath,
+                                    "sample_rate" to rendered.sampleRate, "channels" to rendered.channels, "duration_ms" to rendered.milliseconds)
                             }
+                            val chunks = if (value != null) MessageSpeech.pieces(value) else SpeechChunks.plan(spans).map { chunk ->
+                                SpeechPiece(chunk.joinToString("") { it.text }, 0)
+                            }
+                            for (chunk in chunks) renderer.enqueue(chunk, queue)
                         } finally { queue.close() }
                     }
-                    withContext(Dispatchers.IO) {
-                        next.append(first) { withContext(Dispatchers.Main.immediate) { if (request == epoch) { state = SpeechState.PLAYING; MessageAudioQualification.emit("pcm_started", message) } } }
-                        for (wave in queue) next.append(wave) { }
-                        withContext(Dispatchers.Main.immediate) { if (request == epoch) outputUnderruns = next.underruns }
-                        next.finish()
+                    val first = queue.receive()
+                    if (closed || request != epoch) throw CancellationException("Playback stopped")
+                    if (audio.requestAudioFocus(focus) != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                        stop(); error = context.getString(R.string.audio_busy); return@coroutineScope
                     }
+                    val next = PcmSpeechPlayer(first.wave.sampleRate, first.wave.channels, attributes)
+                    player = next
+                    outputUnderruns = 0; endOfStreamUnderruns = 0
+                    val timeline = PlaybackWords()
+                    val observe = launch {
+                        while (request == epoch) {
+                            playingWord = timeline.at(next.playedFrames)
+                            kotlinx.coroutines.delay(16)
+                        }
+                    }
+                    try {
+                        withContext(Dispatchers.IO) {
+                            timeline.append(first)
+                            next.append(first.wave) {
+                                withContext(Dispatchers.Main.immediate) {
+                                    if (request == epoch) { state = SpeechState.PLAYING; MessageAudioQualification.emit("pcm_started", message) }
+                                }
+                            }
+                            for (piece in queue) {
+                                timeline.append(piece)
+                                next.append(piece.wave) { }
+                            }
+                            withContext(Dispatchers.Main.immediate) { if (request == epoch) outputUnderruns = next.underruns }
+                            next.finish()
+                            if (request == epoch) endOfStreamUnderruns = next.underruns - outputUnderruns
+                        }
+                    } finally { observe.cancel() }
                 }
-                if (request == epoch) { endOfStreamUnderruns = next.underruns - outputUnderruns; MessageAudioQualification.emit("pcm_completed", message); stop() }
+                if (request == epoch) { MessageAudioQualification.emit("pcm_completed", message); stop() }
             } catch (_: TimeoutCancellationException) {
                 if (request == epoch) { stop(); error = context.getString(R.string.audio_play_failed) }
             } catch (cancelled: CancellationException) { throw cancelled }
@@ -160,6 +193,7 @@ class SpeechPlayback(context: Context, private val target: String, private val s
         player?.close()
         player = null
         audio.abandonAudioFocusRequest(focus)
+        playingWord = null
         activeMessage = null
         if (ready) state = SpeechState.READY
     }

@@ -97,6 +97,11 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     private var rawOriginal = ""
     private var paintedRanges = emptyList<IntRange>()
     private var paintedColor = 0
+    private var activePaint: BackgroundColorSpan? = null
+    private var activeInk: android.text.style.ForegroundColorSpan? = null
+    var highlightedWord: IntRange? = null
+        private set
+    private var activeColors: Pair<Int, Int>? = null
     var play: (() -> Unit)? = null
     val originalMessage: String get() = rawOriginal
     var playing = false
@@ -125,20 +130,37 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             android.view.ViewGroup.LayoutParams.WRAP_CONTENT)
     }
     fun bind(displayed: String, original: String, variants: List<String>, color: Int, accessibilityContext: String? = null,
-        highlights: List<IntRange> = emptyList(), highlightColor: Int = 0) {
+        highlights: List<IntRange> = emptyList(), highlightColor: Int = 0, spoken: IntRange? = null,
+        spokenColor: Int = 0, spokenInk: Int = color) {
         rawOriginal = original
         val next = variants.distinct()
         if (faces != next) { faces = next; requestLayout() }
         setTextColor(color)
         if (text.toString() != displayed || paintedRanges != highlights || paintedColor != highlightColor) {
             paintedRanges = highlights; paintedColor = highlightColor
-            text = SpannableString(displayed).apply {
+            activePaint = null
+            activeInk = null
+            highlightedWord = null
+            setText(SpannableString(displayed).apply {
                 highlights.forEach { range ->
                     require(range.first >= 0 && range.last < length)
                     setSpan(BackgroundColorSpan(highlightColor), range.first, range.last+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 }
-            }
+            }, BufferType.SPANNABLE)
             requestLayout()
+        }
+        val visible = spoken?.takeIf { !it.isEmpty() && it.first >= 0 && it.last < displayed.length }
+        if (visible != highlightedWord || activeColors != (spokenColor to spokenInk)) {
+            val styled = text as? Spannable
+            activePaint?.let { styled?.removeSpan(it) }
+            activeInk?.let { styled?.removeSpan(it) }
+            highlightedWord = visible
+            activeColors = spokenColor to spokenInk
+            if (visible != null && styled != null) {
+                activePaint = BackgroundColorSpan(spokenColor).also { styled.setSpan(it, visible.first, visible.last + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+                activeInk = android.text.style.ForegroundColorSpan(spokenInk).also { styled.setSpan(it, visible.first, visible.last + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE) }
+            }
+            invalidate()
         }
         contentDescription = listOfNotNull(displayed, accessibilityContext?.takeIf { it.isNotBlank() }).joinToString(". ")
     }
@@ -194,6 +216,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     val alternateReading = value?.practiceReading?.let { it.isNotBlank() && it != value.practiceText } == true
     val ink = MaterialTheme.colorScheme.onSurface.toArgb()
     val activityColor = MaterialTheme.colorScheme.primary
+    val spokenInk = MaterialTheme.colorScheme.onPrimary.toArgb()
     val wordColor = MaterialTheme.colorScheme.secondaryContainer.toArgb()
     LaunchedEffect(translation, id, text) { translation.enqueue(id, text) }
     val play = {
@@ -232,7 +255,10 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             val highlights = if (gestures.meaning) emptyList() else value?.words?.let {
                 WordReplacement.ranges(it, reading = !gestures.nativeScript && value.practiceReading != null)
             }.orEmpty()
-            view.bind(displayed, text, faces, ink, accessibilityContext, highlights, wordColor)
+            val word = if (!gestures.meaning && speech.activeMessage == id) speech.playingWord else null
+            val spoken = if (gestures.nativeScript || !alternateReading) word?.script else word?.reading
+            view.bind(displayed, text, faces, ink, accessibilityContext, highlights, wordColor, spoken,
+                activityColor.toArgb(), spokenInk)
         })
         if (value == null) {
             if (state?.phase == MessageTranslationPhase.FAILED) {

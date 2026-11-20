@@ -10,6 +10,7 @@ bool initialized = false; // Calls are serialized by SwahiliSpeech's coroutine m
 struct Output {
     JNIEnv *env; jobject job; jmethodID cancelled; jmethodID progress;
     FILE *file; uint32_t frames = 0; bool failed = false;
+    std::vector<jint> words;
 };
 void fail(JNIEnv *env) {
     if (!env->ExceptionCheck()) env->ThrowNew(env->FindClass("java/io/IOException"), "Local speech could not be rendered");
@@ -18,6 +19,11 @@ int accept(short *samples, int count, espeak_EVENT *events) {
     if (!events || !events[0].user_data) return 0;
     auto *out = static_cast<Output *>(events[0].user_data);
     if (out->env->CallBooleanMethod(out->job, out->cancelled) || out->env->ExceptionCheck()) return 1;
+    for (const auto *event = events; event->type != espeakEVENT_LIST_TERMINATED; ++event) {
+        if (event->type == espeakEVENT_WORD && event->text_position > 0 && event->length > 0) {
+            out->words.insert(out->words.end(), {event->text_position - 1, event->length, event->sample});
+        }
+    }
     if (!samples || count <= 0) return 0;
     out->env->CallVoidMethod(out->job, out->progress, count);
     if (out->env->CallBooleanMethod(out->job, out->cancelled) || out->env->ExceptionCheck()) return 1;
@@ -87,6 +93,9 @@ extern "C" JNIEXPORT jintArray JNICALL Java_co_fallsoft_vipi_SwahiliSpeech_rende
     }
     if (std::fclose(file) != 0) ok = false;
     if (!ok) { fail(env); return nullptr; }
-    const jint values[] = {rate, static_cast<jint>(out.frames)};
-    jintArray result = env->NewIntArray(2); if (result) env->SetIntArrayRegion(result, 0, 2, values); return result;
+    std::vector<jint> values{rate, static_cast<jint>(out.frames)};
+    values.insert(values.end(), out.words.begin(), out.words.end());
+    jintArray result = env->NewIntArray(values.size());
+    if (result) env->SetIntArrayRegion(result, 0, values.size(), values.data());
+    return result;
 }

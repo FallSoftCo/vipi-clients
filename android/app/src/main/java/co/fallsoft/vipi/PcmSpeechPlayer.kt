@@ -19,6 +19,7 @@ internal class PcmSpeechPlayer(rate: Int, private val channels: Int, attributes:
     private val closed = AtomicBoolean(false)
     private var started = false
     private var frames = 0L
+    val playedFrames get() = if (closed.get()) 0L else track.playbackHeadPosition.toLong() and 0xffffffffL
     val underruns get() = if (closed.get()) 0 else track.underrunCount
     init { check(track.state == AudioTrack.STATE_INITIALIZED) }
 

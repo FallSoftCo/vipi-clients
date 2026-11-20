@@ -97,6 +97,39 @@ internal object FullMessageReadings {
         needsReading(text, protectedRanges(text)) -> FullMessageReading.unavailable(FullMessageReadingFailure.UNRESOLVED)
         else -> FullMessageReading.available(text)
     }
+    fun spokenAlignment(context: Context, text: String, displayed: String, language: String): List<PlayingWord> {
+        if (text == displayed) return MessageSpeech.lexicalRanges(text, language).map { PlayingWord(it, it) }
+        val pieces: List<Pair<IntRange, String>> = when (language) {
+            "zh" -> chinese(context)?.resolve(text)?.pieces.orEmpty().map { (it.startUTF16 until it.endUTF16) to it.reading }
+            "ja" -> JapaneseReadings.read(text).pieces.map { (it.start until it.end) to it.value }
+            "ko" -> KoreanReadings.resolve(text).pieces.map { (it.startUTF16 until it.endUTF16) to it.rendered }
+            else -> {
+                val iterator = android.icu.text.BreakIterator.getWordInstance(java.util.Locale.forLanguageTag(language))
+                iterator.setText(text)
+                buildList {
+                    var start = iterator.first()
+                    var end = iterator.next()
+                    while (end != android.icu.text.BreakIterator.DONE) {
+                        val fragment = text.substring(start, end)
+                        add((start until end) to (read(context, fragment, language).text ?: fragment))
+                        start = end
+                        end = iterator.next()
+                    }
+                }
+            }
+        }
+        val result = mutableListOf<PlayingWord>()
+        var cursor = 0
+        for ((source, spelling) in pieces) {
+            if (spelling.isEmpty()) continue
+            while (!displayed.startsWith(spelling, cursor) && cursor < displayed.length &&
+                (displayed[cursor] == ' ' || displayed[cursor] == '\'')) cursor++
+            if (!displayed.startsWith(spelling, cursor)) return emptyList()
+            result += PlayingWord(source, cursor until cursor + spelling.length)
+            cursor += spelling.length
+        }
+        return if (cursor == displayed.length) result else emptyList()
+    }
     fun read(context: Context, text: String, language: String): FullMessageReading {
         val protected = protectedRanges(text)
         if (!needsReading(text, protected)) return FullMessageReading.notNeeded()

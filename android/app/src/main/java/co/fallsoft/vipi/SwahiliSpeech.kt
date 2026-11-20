@@ -81,11 +81,24 @@ import kotlin.coroutines.resumeWithException
                 suspendCancellableCoroutine { continuation ->
                     continuation.invokeOnCancellation { job.cancel() }
                     try {
-                        val spoken = if (language == "ja") JapaneseSpeechReading.convert(text) else text
+                        val japanese = if (language == "ja") JapaneseSpeechReading.pronunciation(text) else null
+                        val spoken = japanese?.first ?: text
                         ensureActive()
                         val result = renderNative(spoken.toByteArray(Charsets.UTF_8), destination.path, job, voiceNames.getValue(language))
                         if (job.isCancelled()) throw CancellationException("Speech cancelled")
-                        val speech = RenderedSpeech(destination, result[1] * 1000.0 / result[0], result[0], 1)
+                        val count = spoken.codePointCount(0, spoken.length)
+                        val marks = buildList {
+                            for (i in 2 until result.size step 3) {
+                                val start = result[i]
+                                val length = result[i + 1]
+                                if (start !in 0 until count || length !in 1..(count - start)) continue
+                                val range = spoken.offsetByCodePoints(0, start) until spoken.offsetByCodePoints(0, start + length)
+                                val surface = if (japanese == null) range else japanese.second.word(range).reading ?: continue
+                                val frame = result[i + 2]
+                                if (frame in 0 until result[1]) add(SpeechMark(surface.first, surface.last + 1, frame))
+                            }
+                        }
+                        val speech = RenderedSpeech(destination, result[1] * 1000.0 / result[0], result[0], 1, marks)
                         if (continuation.isActive) continuation.resume(speech) else destination.delete()
                     } catch (error: Throwable) {
                         destination.delete()

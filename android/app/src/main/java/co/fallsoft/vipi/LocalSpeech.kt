@@ -162,12 +162,12 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
                 normalized[normalized.lastIndex] = normalized.last().copy(text = normalized.last().text + span.text)
             } else normalized += span
         }
-        val identity = "pcm24-mono-v1\u0000" + normalized.joinToString("\u0000") { it.language + "\u0000" + voiceIDs[it.language] + "\u0000" + it.text }
+        val identity = "pcm24-mono-words-v2\u0000" + normalized.joinToString("\u0000") { it.language + "\u0000" + voiceIDs[it.language] + "\u0000" + it.text }
         val hash = MessageDigest.getInstance("SHA-256").digest(identity.toByteArray()).joinToString("") { "%02x".format(it) }
         val result = cache.access { File(it, "$hash.wav") }
         if (result.exists()) {
             val wave = withContext(Dispatchers.IO) { PcmWave.read(result) }
-            return@withLock RenderedSpeech(result, wave.durationMs, wave.sampleRate, wave.channels)
+            return@withLock RenderedSpeech(result, wave.durationMs, wave.sampleRate, wave.channels, wave.marks)
         }
         // Chunk boundaries can isolate punctuation between spoken text. It is
         // a separator, not a missing voice/render failure: retain a short PCM
@@ -181,11 +181,12 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
             return@withLock RenderedSpeech(result, 100.0, 24_000, 1)
         }
         val pieces = mutableListOf<File>()
+        val rendered = mutableListOf<RenderedSpeech>()
         try {
             for (span in normalized) {
                 val temp = cache.access { File.createTempFile("span-", ".wav", it) }
                 pieces += temp
-                voices.getValue(span.language).render(span.text, temp)
+                rendered += voices.getValue(span.language).render(span.text, temp)
             }
             withContext(Dispatchers.IO) {
                 val waves = pieces.map { PcmNormalization.normalize(PcmWave.read(it)) { ensureActive() } }
@@ -196,7 +197,17 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
                 var offset = 0
                 val boundaries = mutableListOf<Int>()
                 for (wave in waves) { if (offset > 0) boundaries += offset / (wave.channels * 2); wave.samples.copyInto(bytes, offset); offset += wave.samples.size }
-                val joined = PcmWave(waves.first().sampleRate, waves.first().channels, bytes)
+                val marks = mutableListOf<SpeechMark>()
+                var textOffset = 0
+                var frameOffset = 0
+                for ((index, part) in rendered.withIndex()) {
+                    val wave = waves[index]
+                    for (mark in part.marks) marks += SpeechMark(textOffset + mark.start, textOffset + mark.end,
+                        frameOffset + (mark.frame.toLong() * wave.sampleRate / part.sampleRate).toInt())
+                    textOffset += normalized[index].text.length
+                    frameOffset += wave.samples.size / (wave.channels * 2)
+                }
+                val joined = PcmWave(waves.first().sampleRate, waves.first().channels, bytes, marks)
                 val temporary = cache.access { File.createTempFile("joined-", ".wav", it) }
                 try { joined.write(temporary); cache.access { check(temporary.renameTo(result)) } } finally { temporary.delete() }
                 // Only disposable synthesized audio, never original messages.
@@ -207,21 +218,27 @@ class LocalSpeechPair(context: Context, val source: String, val target: String) 
                     val length = old.length(); if (old.delete()) size -= length
                   }
                 }
-                RenderedSpeech(result, joined.durationMs, joined.sampleRate, joined.channels, boundaryFrames = boundaries)
+                RenderedSpeech(result, joined.durationMs, joined.sampleRate, joined.channels, marks, boundaryFrames = boundaries)
             }
         } finally { pieces.forEach { it.delete() } }
     } }
     override fun close() { cache.close() }
 }
 
-internal data class PcmWave(val sampleRate: Int, val channels: Int, val samples: ByteArray) {
+internal data class PcmWave(val sampleRate: Int, val channels: Int, val samples: ByteArray, val marks: List<SpeechMark> = emptyList()) {
     val durationMs get() = samples.size * 1000.0 / (sampleRate * channels * 2)
     fun write(file: File) {
         val header = ByteBuffer.allocate(44).order(ByteOrder.LITTLE_ENDIAN)
-        header.put("RIFF".toByteArray()).putInt(36 + samples.size).put("WAVEfmt ".toByteArray()).putInt(16)
+        // An optional private RIFF chunk stores offsets only, atomically with its PCM.
+        val cues = ByteBuffer.allocate(if (marks.isEmpty()) 0 else 8 + marks.size * 12).order(ByteOrder.LITTLE_ENDIAN)
+        if (marks.isNotEmpty()) {
+            cues.put("vwr1".toByteArray()).putInt(marks.size * 12)
+            marks.forEach { cues.putInt(it.start).putInt(it.end).putInt(it.frame) }
+        }
+        header.put("RIFF".toByteArray()).putInt(36 + samples.size + cues.capacity()).put("WAVEfmt ".toByteArray()).putInt(16)
             .putShort(1).putShort(channels.toShort()).putInt(sampleRate).putInt(sampleRate * channels * 2)
             .putShort((channels * 2).toShort()).putShort(16).put("data".toByteArray()).putInt(samples.size)
-        file.outputStream().use { it.write(header.array()); it.write(samples); it.fd.sync() }
+        file.outputStream().use { it.write(header.array()); it.write(samples); it.write(cues.array()); it.fd.sync() }
     }
     companion object {
         fun read(file: File): PcmWave {
@@ -229,6 +246,7 @@ internal data class PcmWave(val sampleRate: Int, val channels: Int, val samples:
             val bytes = file.readBytes()
             val b = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN)
             require(String(bytes, 0, 4) == "RIFF" && String(bytes, 8, 4) == "WAVE")
+            val marks = mutableListOf<SpeechMark>()
             var offset = 12; var rate = 0; var channels = 0; var data: ByteArray? = null
             while (offset + 8 <= bytes.size) {
                 val kind = String(bytes, offset, 4)
@@ -239,10 +257,13 @@ internal data class PcmWave(val sampleRate: Int, val channels: Int, val samples:
                     channels = b.getShort(offset + 10).toInt(); rate = b.getInt(offset + 12)
                     require(channels in 1..2 && rate in 8_000..96_000)
                 } else if (kind == "data") data = bytes.copyOfRange(offset + 8, offset + 8 + size)
+                else if (kind == "vwr1" && size % 12 == 0 && size <= 12 * 65_536) {
+                    for (at in offset + 8 until offset + 8 + size step 12) marks += SpeechMark(b.getInt(at), b.getInt(at + 4), b.getInt(at + 8))
+                }
                 offset += 8 + size + size % 2
             }
             require(rate > 0 && channels > 0 && data != null && data.isNotEmpty() && data.size % (channels * 2) == 0)
-            return PcmWave(rate, channels, data)
+            return PcmWave(rate, channels, data, marks)
         }
     }
 }
