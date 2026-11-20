@@ -53,6 +53,11 @@ async def test_explicit_link_preserves_account_device_purchase_and_original_tria
     async with client(db) as api:
         account, device, headers = await identity(api, "alice")
         async with db.sessions.begin() as session:
+            # A pre-free profile must be seeded explicitly; new profile creation
+            # now has zero-length dates and creates no trial identity.
+            historical = await session.get(User, account["id"])
+            historical.cardless_trial_started_at = NOW - timedelta(days=30)
+            historical.cardless_trial_ends_at = NOW
             before = (await session.get(Device, device)).credential_hash
             session.add(Entitlement(id="link-purchase", user_id=account["id"], product="base", store="test",
                 transaction_id="link-fixture", environment="Unknown", expires_at=NOW+timedelta(days=10)))
@@ -123,6 +128,10 @@ async def test_link_receipt_rejects_changed_target_and_second_request_without_re
 async def test_app_delete_retains_only_trial_hmac_links_and_global_hook_erases_linked_eligibility(db):
     async with client(db) as api:
         account, _, headers = await identity(api, "alice")
+        async with db.sessions.begin() as session:
+            historical = await session.get(User, account["id"])
+            historical.cardless_trial_started_at = NOW - timedelta(days=30)
+            historical.cardless_trial_ends_at = NOW
         body = {"request_id": str(uuid4()), "expected_account_id": account["id"], "fallsoft_access_token": "shared-alice"}
         assert (await api.post("/v1/identity-links/fallsoft", headers=headers, json=body)).status_code == 200
     target = canonical_shared_subject("user_shared_alice")
@@ -226,3 +235,17 @@ async def test_concurrent_exact_link_retry_has_one_receipt_and_one_account(db):
         assert replies[0].json() == replies[1].json()
     async with db.sessions() as session:
         assert len((await session.scalars(select(IdentityLinkReceipt))).all()) == 1
+
+
+async def test_free_link_does_not_create_trial_eligibility_or_grant_paid_access(db):
+    async with client(db) as api:
+        account, _, headers = await identity(api, "alice")
+        body = {"request_id": str(uuid4()), "expected_account_id": account["id"], "fallsoft_access_token": "shared-alice"}
+        assert (await api.post("/v1/identity-links/fallsoft", headers=headers, json=body)).status_code == 200
+        assert (await api.get("/v1/me", headers={"Authorization": "Bearer shared-alice"})).json() == account
+        async with db.sessions() as session:
+            user = await session.get(User, account["id"])
+            assert user.cardless_trial_started_at == user.cardless_trial_ends_at
+            assert not (await session.scalars(select(VipiTrialEligibility))).all()
+            assert not (await session.scalars(select(VipiTrialEligibilityLink))).all()
+            assert not (await session.scalars(select(Entitlement).where(Entitlement.user_id == user.id))).all()

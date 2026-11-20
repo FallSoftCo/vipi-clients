@@ -20,7 +20,15 @@ class NetworkMessagingDeviceTest {
     private fun file(name: String) = File(context.filesDir, name)
     private fun configuration(): JSONObject {
         assumeTrue(InstrumentationRegistry.getArguments().getString("vipiLiveNetwork") == "true")
-        return JSONObject(file("network-config.json").readText()).also { require(it.getString("username").startsWith("vqa_")) }
+        return JSONObject(file("network-config.json").readText()).also {
+            require(it.getString("username").startsWith("vqa_"))
+            if (it.optBoolean("isolated_fresh_profile")) {
+                val endpoint = java.net.URI(it.getString("endpoint"))
+                require(endpoint.scheme == "http" && endpoint.host == "127.0.0.1" && endpoint.port > 0)
+                require(InstrumentationRegistry.getArguments().getString("vipiUseNativeSession") == "true")
+                require(it.getString("expected_subject").startsWith("user_"))
+            }
+        }
     }
     private fun client(config: JSONObject): ServiceClient {
         val authentication = Authentication(context)
@@ -46,16 +54,17 @@ class NetworkMessagingDeviceTest {
         fixture.put("accessToken", "expired-native-qa-token")
         records.write("session", fixture)
         val api = client(config)
-        val profile = if (nativeSession) api.request("GET", "/v1/me")
+        val fresh = config.optBoolean("isolated_fresh_profile")
+        val profile = if (nativeSession && !fresh) api.request("GET", "/v1/me")
             else api.request("PUT", "/v1/me", JSONObject().put("username", config.getString("username")).put("display_name", "Vipi Android QA"))
         assertEquals(config.getString("username"), profile.getString("username"))
         val account = UUID.fromString(profile.getString("id"))
         MessageVault(context, account).use { vault ->
             val core = MessagingCore(vault)
-            if (!nativeSession) api.request("POST", "/v1/devices", JSONObject().put("device_id", core.device.id).put("secret", core.device.secret))
+            if (!nativeSession || fresh) api.request("POST", "/v1/devices", JSONObject().put("device_id", core.device.id).put("secret", core.device.secret))
             else assertEquals(core.device.id.toString(), vault.transaction { vault.get("local", "registered-device")?.toString(Charsets.UTF_8) })
             val inventory = api.request("GET", "/v1/keys", device = core.device)
-            if (!nativeSession || inventory.getInt("remaining") < 10) {
+            if (!nativeSession || fresh || inventory.getInt("remaining") < 10) {
                 val publication = core.keys.publication(System.currentTimeMillis())
                 val result = api.request("PUT", "/v1/keys", publication, core.device)
                 core.keys.published(result.getInt("revision")); assertTrue(result.getInt("remaining") >= 20)
@@ -79,11 +88,23 @@ class NetworkMessagingDeviceTest {
             assertEquals(received.text, core.receive(routed, System.currentTimeMillis()).text)
             assertTrue(runCatching { core.receive(routed.copy(senderDevice = UUID.randomUUID()), System.currentTimeMillis()) }.isFailure)
             assertEquals("delivered", api.request("POST", "/v1/messages/${routed.envelope.id}/receipt", device = core.device).getString("state"))
+            assertEquals(config.getString("peer"), FriendInvitationLink.username("https://api.mambovipi.app/invite/${config.getString("peer")}"))
+            val peer = api.request("GET", "/v1/people/${config.getString("peer")}", device = core.device)
+            assertEquals(routed.envelope.sender.toString(), peer.getString("id"))
             val outgoing = JSONArray()
             for (index in 0..2) {
                 val now = System.currentTimeMillis(); val id = UUID.randomUUID()
                 val message = core.queue(id, routed.envelope.sender, "Android HTTP reply $index — río ☕", now, now)
-                val status = api.request("POST", "/v1/messages", message.sendJSON(), core.device)
+                // Reopen durable state before first transport dispatch. Retrying the
+                // queued original must neither re-encrypt nor allocate a new ID.
+                val retry = MessageVault(context, account).use { reopened ->
+                    val reopenedCore = MessagingCore(reopened)
+                    assertTrue(reopenedCore.journal.pending(now).any { it.id == id })
+                    reopenedCore.queue(id, routed.envelope.sender, "Android HTTP reply $index — río ☕", now, now)
+                }
+                assertEquals(message.envelope.id, retry.envelope.id)
+                assertArrayEquals(message.envelope.ciphertext, retry.envelope.ciphertext)
+                val status = api.request("POST", "/v1/messages", retry.sendJSON(), core.device)
                 assertEquals("accepted", status.getString("state")); core.journal.applyStatus(id, "accepted")
                 outgoing.put(message.sendJSON())
             }
@@ -111,6 +132,6 @@ class NetworkMessagingDeviceTest {
             records.remove("qa-session-backup")
         } else assertEquals(config.getString("expected_subject"), records.read("session")!!.getString("userID"))
         file("network-config.json").delete()
-        file("network-complete.json").writeText(JSONObject().put("run", config.getString("run")).put("delivered", 3).put("duplicate_send_preserved_delivery", true).toString())
+        file("network-complete.json").writeText(JSONObject().put("run", config.getString("run")).put("delivered", 3).put("duplicate_send_preserved_delivery", true).put("offline_queue_reopened", true).put("stable_id_and_ciphertext", true).put("invitation_username_preserved", true).put("scope", "native libsignal/durable stores/real HTTP; existing sign-in, no sign-up UI or FCM").toString())
     }
 }
