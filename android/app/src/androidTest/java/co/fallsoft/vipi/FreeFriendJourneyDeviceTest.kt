@@ -30,6 +30,20 @@ class FreeFriendJourneyDeviceTest {
                 compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).performClick()
                 screen(Screen.SETTINGS)
                 compose.onNodeWithText(f.base.getString(R.string.nav_plan)).assertDoesNotExist()
+                fun imeVisible(): Boolean {
+                    var visible = false
+                    f.instrumentation.runOnMainSync {
+                        visible = android.view.inspector.WindowInspector.getGlobalWindowViews().any { view ->
+                            view.rootWindowInsets?.let { androidx.core.view.WindowInsetsCompat.toWindowInsetsCompat(it)
+                                .isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) } == true
+                        }
+                    }
+                    return visible
+                }
+                f.capture("settings-before-system-back")
+                if (imeVisible()) { f.device.pressBack(); compose.waitUntil(8_000) { !imeVisible() } }
+                assertFalse("System Back navigation starts with an actually hidden IME", imeVisible())
+                f.capture("settings-hidden-ime-before-system-back")
                 f.device.pressBack(); screen(Screen.HOME)
                 compose.onNodeWithContentDescription(f.base.getString(R.string.nav_new_chat)).performClick()
                 screen(Screen.NEW_CHAT)
