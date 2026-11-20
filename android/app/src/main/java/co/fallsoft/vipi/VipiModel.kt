@@ -58,6 +58,16 @@ class VipiModel internal constructor(application: Application, private val trans
         private set
     var targetLanguage by mutableStateOf(prefs.getString("targetLanguage", "es")!!)
         private set
+    var immersionMode by mutableStateOf(runCatching { ImmersionMode.valueOf(prefs.getString("immersionMode",
+        if (BuildConfig.DEFAULT_FULL_IMMERSION) ImmersionMode.FULL_MESSAGES.name else ImmersionMode.NEW_WORD.name)!!) }
+        .getOrDefault(if (BuildConfig.DEFAULT_FULL_IMMERSION) ImmersionMode.FULL_MESSAGES else ImmersionMode.NEW_WORD))
+        private set
+    fun selectImmersionMode(value: ImmersionMode) {
+        prefs.edit().putString("immersionMode", value.name).apply()
+        if (immersionMode == value) return
+        immersionMode = value
+        chat?.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient }, value)
+    }
     var appearance by mutableStateOf(runCatching { Appearance.valueOf(prefs.getString("appearance", "SYSTEM")!!) }.getOrDefault(Appearance.SYSTEM))
         private set
     var density by mutableDoubleStateOf(prefs.getFloat("density", .25f).toDouble())
@@ -88,7 +98,7 @@ class VipiModel internal constructor(application: Application, private val trans
             // The retained model is activated again after activity recreation
             // and reauthentication. Keep this account's current conversation.
             if (openingAccount) navigate(Screen.HOME)
-            chat!!.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient })
+            chat!!.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient }, immersionMode)
             chat!!.start()
             if (!deletion.active && chat?.needsProfile == true) navigate(Screen.PROFILE)
             else if (chat?.ready == true && screen == Screen.ACCOUNT) navigate(Screen.HOME)
@@ -171,7 +181,7 @@ class VipiModel internal constructor(application: Application, private val trans
     private var pairPreparation: Job? = null
     private fun prepareSelectedPair() {
         if (knownLanguage == targetLanguage) return
-        chat?.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient })
+        chat?.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient }, immersionMode)
         pairPreparation?.cancel()
         pairPreparation = viewModelScope.launch {
             modelBusy = true; modelMessage = null

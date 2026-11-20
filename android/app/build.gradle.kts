@@ -35,11 +35,12 @@ android {
         applicationId = "co.fallsoft.vipi"
         minSdk = 29
         targetSdk = 36
-        versionCode = 12
-        versionName = "1.0.11"
+        versionCode = 13
+        versionName = "1.0.12"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild { cmake { arguments += "-DANDROID_STL=c++_static" } }
         buildConfigField("boolean", "FIREBASE_CONFIGURED", firebaseConfig.isNotEmpty().toString())
+        buildConfigField("boolean", "DEFAULT_FULL_IMMERSION", providers.gradleProperty("vipiFullImmersionReview").map { it.toBooleanStrict() }.getOrElse(false).toString())
         for (key in listOf("PROJECT_ID", "SENDER_ID", "APP_ID", "API_KEY"))
             buildConfigField("String", "FIREBASE_$key", "\"${firebaseConfig[key].orEmpty()}\"")
     }

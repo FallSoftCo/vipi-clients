@@ -25,9 +25,9 @@ import kotlinx.coroutines.delay
 
 /** Names match the actual native message actions, independent of touch grammar. */
 @Composable internal fun fullMessageActionDescription(showingMeaning: Boolean = false, nativeScript: Boolean = false,
-    canSwitchScript: Boolean = false): String = buildList {
-    add(stringResource(R.string.full_translation_play))
-    add(stringResource(if (showingMeaning) R.string.full_translation_practice else R.string.full_translation_meaning))
+    canSwitchScript: Boolean = false, mode: ImmersionMode = ImmersionMode.NEW_WORD): String = buildList {
+    add(stringResource(if (mode == ImmersionMode.FULL_MESSAGES) R.string.lookup_play_message else R.string.full_translation_play))
+    add(stringResource(if (showingMeaning) { if (mode == ImmersionMode.FULL_MESSAGES) R.string.full_message_show_translation else R.string.full_translation_practice } else R.string.full_translation_meaning))
     if (canSwitchScript) add(stringResource(if (nativeScript) R.string.full_translation_reading else R.string.full_translation_script))
 }.joinToString(". ")
 
@@ -38,12 +38,13 @@ import kotlinx.coroutines.delay
 @Composable internal fun FullMessageContextHint(gestures: FullMessageGestures, source: String, target: String,
     modifier: Modifier = Modifier) {
     val practice = messageLanguageName(target)
-    val basic = stringResource(R.string.full_translation_context_hint, practice)
+    val basic = if (gestures.mode == ImmersionMode.FULL_MESSAGES) stringResource(R.string.full_message_context_hint)
+        else stringResource(R.string.full_translation_context_hint, practice)
     val writing = stringResource(R.string.full_translation_writing_hint, practice)
     val nativeName = initialLanguages.firstOrNull { it.code == target }?.localName.orEmpty()
     val reserveWriting = nativeName.codePoints().anyMatch { Character.isLetter(it) &&
         Character.UnicodeScript.of(it) != Character.UnicodeScript.LATIN }
-    val actions = fullMessageActionDescription(gestures.meaning, gestures.nativeScript, gestures.canSwitchScript)
+    val actions = fullMessageActionDescription(gestures.meaning, gestures.nativeScript, gestures.canSwitchScript, gestures.mode)
     Box(modifier.clearAndSetSemantics { this[SemanticsProperties.ContentDescription] = listOf(actions) }) {
         // Capacity only: never teach/announce an unavailable script action.
         // The async Chinese reading cannot move a held message when it arrives.
@@ -64,7 +65,7 @@ import kotlinx.coroutines.delay
     var reserved by remember(gestures) { mutableStateOf(!preferences.getBoolean("hold-script-policy-1", false)) }
     var shown by remember(gestures) { mutableStateOf(false) }
     var showing by remember(gestures) { mutableStateOf(true) }
-    val actionDescription = fullMessageActionDescription(gestures.meaning, gestures.nativeScript, gestures.canSwitchScript)
+    val actionDescription = fullMessageActionDescription(gestures.meaning, gestures.nativeScript, gestures.canSwitchScript, gestures.mode)
     val keyboard = WindowInsets.ime.getBottom(LocalDensity.current) > 0
     val accessibility = LocalAccessibilityManager.current
     LaunchedEffect(gestures, gestures.interactions) {

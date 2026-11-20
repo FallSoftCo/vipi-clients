@@ -178,7 +178,7 @@ class MainActivity : ComponentActivity() {
         Column(Modifier.fillMaxHeight().widthIn(max = 680.dp).fillMaxWidth().padding(horizontal = if (model.screen == Screen.HOME) 20.dp else 26.dp).verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(if (model.screen == Screen.LANGUAGE) 16.dp else 24.dp)) {
             TopBar(model)
             when (model.screen) {
-                Screen.WELCOME -> Welcome(scrollState.isScrollInProgress)
+                Screen.WELCOME -> Welcome(scrollState.isScrollInProgress, model.immersionMode)
                 Screen.LANGUAGE -> LanguageSelection(model, scrollState.isScrollInProgress)
                 Screen.ACCOUNT -> AccountView()
                 Screen.HOME -> HomeView(model)
@@ -244,9 +244,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable private fun Welcome(scrolling: Boolean) {
-    Heading("", stringResource(R.string.welcome_title_concise), stringResource(R.string.welcome_detail_concise))
-    ConversationPreview("en", "es", scrolling)
+@Composable private fun Welcome(scrolling: Boolean, mode: ImmersionMode) {
+    Heading("", stringResource(R.string.welcome_title_concise), stringResource(if (mode == ImmersionMode.FULL_MESSAGES) R.string.welcome_detail_full else R.string.welcome_detail_concise))
+    ConversationPreview("en", "es", scrolling, mode)
 }
 
 @Composable private fun LanguageSelection(model: VipiModel, scrolling: Boolean) {
@@ -278,7 +278,7 @@ class MainActivity : ComponentActivity() {
         }
     }
     }
-    key(model.knownLanguage, model.targetLanguage) { ConversationPreview(model.knownLanguage, model.targetLanguage, scrolling) }
+    key(model.knownLanguage, model.targetLanguage) { ConversationPreview(model.knownLanguage, model.targetLanguage, scrolling, model.immersionMode) }
 }
 
 @Composable private fun AccountView() {

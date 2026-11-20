@@ -80,20 +80,21 @@ internal object OnboardingPreviewSource {
     val languages: Set<String> get() = greetings.keys
     fun text(source: String): String = greetings.getValue(source)
     fun translation(context: Context, source: String, target: String,
-        translator: LanguageTranslation = LocalTranslation()): ConversationTranslation {
+        translator: LanguageTranslation = LocalTranslation(), mode: ImmersionMode = ImmersionMode.NEW_WORD): ConversationTranslation {
         require(source in greetings)
         return ConversationTranslation(context, source, target, translator = translator,
             language = object : MessageTranslationLanguage {
                 override suspend fun identify(text: String): String = source
                 override fun close() = Unit
-            })
+            }, mode = mode)
     }
 }
 
 /** Preview is a real local translation request, not a lookup/example catalog. */
-@Composable internal fun ConversationPreview(source: String, target: String, scrolling: Boolean = false) {
+@Composable internal fun ConversationPreview(source: String, target: String, scrolling: Boolean = false,
+    mode: ImmersionMode = if (BuildConfig.DEFAULT_FULL_IMMERSION) ImmersionMode.FULL_MESSAGES else ImmersionMode.NEW_WORD) {
     val context = LocalContext.current
-    val translation = remember(source, target) { OnboardingPreviewSource.translation(context, source, target) }
+    val translation = remember(source, target, mode) { OnboardingPreviewSource.translation(context, source, target, mode = mode) }
     val gestures = remember(source, target) { FullMessageGestures() }
     val scope = rememberCoroutineScope()
     val speech = remember(source, target) { SpeechPlayback(context, target, scope) }

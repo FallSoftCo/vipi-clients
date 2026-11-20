@@ -1,6 +1,9 @@
 package co.fallsoft.vipi
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.res.stringResource
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckCircle
@@ -23,6 +26,18 @@ import kotlinx.coroutines.launch
 @Composable internal fun LanguageDownloadsScreen(model: VipiModel) {
     val downloads = remember { LanguageDownloads() }
     DisposableEffect(downloads) { onDispose { downloads.close() } }
+    Text(stringResource(R.string.immersion_mode_title), style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.semantics { heading() })
+    listOf(ImmersionMode.FULL_MESSAGES to R.string.immersion_mode_full,
+        ImmersionMode.NEW_WORD to R.string.immersion_mode_words).forEach { (mode, label) ->
+        Row(Modifier.fillMaxWidth().heightIn(min = 48.dp)
+            .selectable(selected = model.immersionMode == mode, role = Role.RadioButton,
+                onClick = { model.selectImmersionMode(mode) }).padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            RadioButton(selected = model.immersionMode == mode, onClick = null)
+            Text(stringResource(label), style = MaterialTheme.typography.bodyLarge)
+        }
+    }
     LanguageDownloadsContent(model.knownLanguage, model.targetLanguage, model::selectKnown, model::selectTarget, downloads)
 }
 

@@ -36,22 +36,27 @@ import java.security.MessageDigest
  * display or persisted in place of the authenticated message. Word snapshots
  * record only complete native equivalents at exact source ranges.
  */
+enum class ImmersionMode { NEW_WORD, FULL_MESSAGES }
+
 internal data class FullMessageTranslation(
     val original: String, val practiceText: String, val meaningText: String,
     val inputLanguage: String, val practiceLanguage: String, val meaningLanguage: String,
     val practiceReading: String? = null, val readingPolicy: String? = null,
     val readingStatus: FullMessageReadingStatus? = null, val readingFailure: FullMessageReadingFailure? = null,
-    val words: List<WordReplacement>? = null
+    val words: List<WordReplacement>? = null,
+    val mode: ImmersionMode = ImmersionMode.NEW_WORD
 ) {
     fun json() = JSONObject().put("original", original).put("practice", practiceText).put("meaning", meaningText)
         .put("input_language", inputLanguage).put("practice_language", practiceLanguage).put("meaning_language", meaningLanguage)
         .put("reading", practiceReading ?: JSONObject.NULL).put("reading_policy", readingPolicy ?: JSONObject.NULL)
         .put("words", words?.let { list -> org.json.JSONArray().apply { list.forEach { put(it.json()) } } } ?: JSONObject.NULL)
-        .put("reading_status", readingStatus?.name ?: JSONObject.NULL).put("reading_failure", readingFailure?.name ?: JSONObject.NULL).put("policy", POLICY)
+        .put("reading_status", readingStatus?.name ?: JSONObject.NULL).put("reading_failure", readingFailure?.name ?: JSONObject.NULL).put("mode", mode.name).put("policy", if (mode == ImmersionMode.FULL_MESSAGES) FULL_POLICY else POLICY)
     companion object {
         const val POLICY = "incremental-word-growth-1"
+        const val FULL_POLICY = "full-message-original-hold-1"
         fun parse(value: JSONObject): FullMessageTranslation {
-            require(value.getString("policy") == POLICY)
+            val mode = ImmersionMode.valueOf(value.optString("mode", ImmersionMode.NEW_WORD.name))
+            require(value.getString("policy") == if (mode == ImmersionMode.FULL_MESSAGES) FULL_POLICY else POLICY)
             val guide = value.opt("reading") as? String
             val failure = FullMessageReadingFailure.entries.firstOrNull { it.name == value.optString("reading_failure") }
             val status = FullMessageReadingStatus.entries.firstOrNull { it.name == value.optString("reading_status") }?.takeIf {
@@ -66,15 +71,16 @@ internal data class FullMessageTranslation(
             return FullMessageTranslation(value.getString("original"), value.getString("practice"), value.getString("meaning"),
                 value.getString("input_language"), value.getString("practice_language"), value.getString("meaning_language"),
                 guide, value.opt("reading_policy") as? String, status, failure.takeIf { status != null },
-                (value.opt("words") as? org.json.JSONArray)?.let { WordReplacement.parse(it) })
+                (value.opt("words") as? org.json.JSONArray)?.let { WordReplacement.parse(it) }, mode)
                 .also {
                     require(it.practiceText.isNotBlank() && it.meaningText == it.original)
+                    require(it.mode != ImmersionMode.FULL_MESSAGES || it.words == null)
                     if (it.words != null) require(WordReplacement.compose(it.original, it.words, reading = false) == it.practiceText)
-                    else require(it.inputLanguage == it.practiceLanguage && it.practiceText == it.original)
+                    else require(it.mode == ImmersionMode.FULL_MESSAGES || (it.inputLanguage == it.practiceLanguage && it.practiceText == it.original))
                 }
         }
-        fun key(id: String, original: String, source: String, target: String): String =
-            MessageDigest.getInstance("SHA-256").digest(listOf(POLICY, id, original, source, target)
+        fun key(id: String, original: String, source: String, target: String, mode: ImmersionMode = ImmersionMode.NEW_WORD): String =
+            MessageDigest.getInstance("SHA-256").digest(listOf(if (mode == ImmersionMode.FULL_MESSAGES) FULL_POLICY else POLICY, id, original, source, target)
                 .joinToString("\u0000").toByteArray(Charsets.UTF_8)).joinToString("") { "%02x".format(it) }
     }
 }
@@ -107,11 +113,11 @@ internal class FullMessageTranslationStore(private val vault: MessageVault) {
         vault.put("word-message-plan", planKey, marker.json().toString().toByteArray(Charsets.UTF_8))
         vault.put("incremental-message", key, value.json().toString().toByteArray(Charsets.UTF_8))
     }
-    fun read(key: String): FullMessageTranslation? = vault.transaction {
-        vault.get("incremental-message", key)?.let { FullMessageTranslation.parse(JSONObject(it.toString(Charsets.UTF_8))) }
+    fun read(key: String, mode: ImmersionMode = ImmersionMode.NEW_WORD): FullMessageTranslation? = vault.transaction {
+        vault.get(if (mode == ImmersionMode.FULL_MESSAGES) "full-message-review-v1" else "incremental-message", key)?.let { FullMessageTranslation.parse(JSONObject(it.toString(Charsets.UTF_8))) }
     }
     fun write(key: String, value: FullMessageTranslation) = vault.transaction {
-        vault.put("incremental-message", key, value.json().toString().toByteArray(Charsets.UTF_8))
+        vault.put(if (value.mode == ImmersionMode.FULL_MESSAGES) "full-message-review-v1" else "incremental-message", key, value.json().toString().toByteArray(Charsets.UTF_8))
     }
 }
 
@@ -145,7 +151,8 @@ internal class ConversationTranslation(
     private val translator: LanguageTranslation = LocalTranslation(),
     private val language: MessageTranslationLanguage = NativeMessageTranslationLanguage(),
     private val reading: suspend (String, String) -> FullMessageReading = { text, code -> FullMessageReadings.read(context.applicationContext, text, code) },
-    private val cacheByteLimit: Long = 8L * 1024 * 1024
+    private val cacheByteLimit: Long = 8L * 1024 * 1024,
+    val mode: ImmersionMode = ImmersionMode.NEW_WORD
 ) : AutoCloseable {
     private val lock = Any()
     private val readingPolicy = FullMessageReadings.policy(target)
@@ -255,7 +262,7 @@ internal class ConversationTranslation(
         require(source != target && source in TranslateLanguage.getAllLanguages() && target in TranslateLanguage.getAllLanguages())
         preparePair()
     }
-    fun key(id: String, text: String) = FullMessageTranslation.key(id, text, source, target)
+    fun key(id: String, text: String) = FullMessageTranslation.key(id, text, source, target, mode)
     fun state(id: String, text: String): MessageTranslationState? {
         val key = key(id, text)
         val state = states[key]
@@ -345,6 +352,13 @@ internal class ConversationTranslation(
                         // This is derived cache, never authenticated source.
                         // A damaged/old entry is replaced by fresh model output;
                         // retry must not loop forever on the same bad cache row.
+                        val translated = if (mode == ImmersionMode.FULL_MESSAGES) {
+                            val cached = resident ?: try { store?.let { withContext(Dispatchers.IO) { it.read(key, mode) } } }
+                                catch (cancelled: CancellationException) { throw cancelled }
+                                catch (_: Exception) { null }
+                            cached?.also { require(it.mode == mode && it.original == text && it.practiceLanguage == target && it.meaningLanguage == source) }
+                                ?: modelExecution.withLock { withTimeout(60_000) { fullMessage(text, key) } }
+                        } else {
                         val marker = store?.let { withContext(Dispatchers.IO) { it.plan(planKey) } } ?: vocabulary.transientPlan(planKey)
                         val markerWords = marker?.let { withContext(Dispatchers.IO) { referencedWords(text, it) } }
                         val cached = resident ?: try { store?.let { withContext(Dispatchers.IO) { it.read(key) } }
@@ -358,7 +372,7 @@ internal class ConversationTranslation(
                         catch (cancelled: CancellationException) { throw cancelled }
                         catch (failure: Exception) { if (marker == null) throw failure else null }
                         currentCoroutineContext().ensureActive()
-                        val translated = if (cached != null && marker != null) cached else vocabulary.progression.withLock {
+                        if (cached != null && marker != null) cached else vocabulary.progression.withLock {
                             modelExecution.withLock {
                                 currentCoroutineContext().ensureActive()
                                 // A cache may disappear; the immutable progression
@@ -381,6 +395,7 @@ internal class ConversationTranslation(
                                     result.first
                                 }
                             }
+                        }
                         }
                         // Old translation output remains valid when a reading
                         // producer changes. Regenerate only this derived face,
@@ -469,6 +484,23 @@ internal class ConversationTranslation(
         val spans = referencedWords(text, plan) ?: return FullMessageTranslation(text, text, text, target, target, source)
         return refreshWordReading(FullMessageTranslation(text, WordReplacement.compose(text, spans, false), text,
             plan.input, target, source, words = spans))
+    }
+    /** Reuses the pre-incremental local whole-message route, with exact
+     * authored original as the held face. No vocabulary selection/commit. */
+    private suspend fun fullMessage(text: String, key: String): FullMessageTranslation {
+        val detected = try { withTimeoutOrNull(2_000) { language.identify(text) } }
+            catch (cancelled: CancellationException) { throw cancelled } catch (_: Exception) { null }
+        currentCoroutineContext().ensureActive()
+        val input = detected?.takeIf { it in TranslateLanguage.getAllLanguages() } ?: source
+        val practice = if (input == target) text else {
+            if (input == source) prepare(source, target)
+            else check(translator.isReady(input, target)) { "Detected language models are not prepared" }
+            publish(key, MessageTranslationState(MessageTranslationPhase.TRANSLATING))
+            translator.translate(text, input, target)
+        }
+        currentCoroutineContext().ensureActive()
+        require(practice.isNotBlank()) { "Empty local translation" }
+        return FullMessageTranslation(text, practice, text, input, target, source, mode = ImmersionMode.FULL_MESSAGES)
     }
     private suspend fun incrementalMessage(text: String, key: String, mayIntroduce: Boolean): Pair<FullMessageTranslation, IntroducedWord?> {
         val configured = IncrementalWords.tokens(text, source)

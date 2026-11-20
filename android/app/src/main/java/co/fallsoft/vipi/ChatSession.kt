@@ -33,6 +33,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     private var core: MessagingCore? = null
     private var history: ConversationHistory? = null
     var translations by mutableStateOf<ConversationTranslation?>(null); private set
+    private var translationMode = ImmersionMode.NEW_WORD
     private var translationPair: Pair<String, String>? = null
     private var translationFactory: (() -> LanguageTranslation)? = null
     private val newMessageObservers = mutableMapOf<Any, Pair<UUID, (String, String) -> Unit>>()
@@ -84,7 +85,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             core = MessagingCore(store); history = ConversationHistory(store)
             translationPair?.let { (source, target) ->
                 translations = ConversationTranslation(context, source, target, FullMessageTranslationStore(store),
-                    translator = translationFactory?.invoke() ?: LocalTranslation())
+                    translator = translationFactory?.invoke() ?: LocalTranslation(), mode = translationMode)
             }
             ready = store.transaction { store.get("local", "registered-device")?.toString(Charsets.UTF_8) == core!!.device.id.toString() }
             contacts = store.transaction { store.ids("contact").associate { key ->
@@ -227,13 +228,14 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         blockedPeers = if (blocked) blockedPeers + peer else blockedPeers - peer
         reload()
     }
-    internal fun configureTranslations(source: String, target: String, factory: (() -> LanguageTranslation)? = null) {
-        if (translationPair == source to target && translations != null) return
+    internal fun configureTranslations(source: String, target: String, factory: (() -> LanguageTranslation)? = null,
+        mode: ImmersionMode = translationMode) {
+        if (translationPair == source to target && translationMode == mode && translations != null) return
         translations?.close(); translations = null
-        translationPair = source to target; translationFactory = factory
+        translationPair = source to target; translationFactory = factory; translationMode = mode
         vault?.let { store ->
             translations = ConversationTranslation(context, source, target, FullMessageTranslationStore(store),
-                translator = factory?.invoke() ?: LocalTranslation())
+                translator = factory?.invoke() ?: LocalTranslation(), mode = mode)
             replaySavedTranslations()
         }
     }

@@ -45,6 +45,7 @@ import kotlin.math.ceil
  * outside this gesture surface; moving/scrolling cancels the held reveal.
  */
 internal class FullMessageGestures {
+    var mode by mutableStateOf(ImmersionMode.NEW_WORD)
     var interactions by mutableIntStateOf(0); private set
     fun interacted() { interactions++ }
     var held by mutableStateOf(false)
@@ -67,7 +68,7 @@ internal class FullMessageGestures {
 @Composable internal fun Modifier.fullMessageGestures(state: FullMessageGestures): Modifier {
     var coordinates by remember { mutableStateOf<LayoutCoordinates?>(null) }
     val reveal = stringResource(R.string.full_translation_meaning)
-    val practice = stringResource(R.string.full_translation_practice)
+    val practice = stringResource(if (state.mode == ImmersionMode.FULL_MESSAGES) R.string.full_message_show_translation else R.string.full_translation_practice)
     val script = stringResource(R.string.full_translation_script)
     val reading = stringResource(R.string.full_translation_reading)
     DisposableEffect(state) { onDispose { state.held = false } }
@@ -99,6 +100,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     var play: (() -> Unit)? = null
     val originalMessage: String get() = rawOriginal
     var playing = false
+    var fullMode = false
     var showingNativeScript = false
     var readingUnavailable = false
         set(value) {
@@ -160,9 +162,9 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         super.onInitializeAccessibilityNodeInfo(info)
         info.isClickable = play != null
         if (play != null) info.addAction(AccessibilityNodeInfo.AccessibilityAction(AccessibilityNodeInfo.ACTION_CLICK,
-            context.getString(if (playing) R.string.ui_cae7d57bc067 else R.string.full_translation_play)))
+            context.getString(if (playing) R.string.ui_cae7d57bc067 else if (fullMode) R.string.lookup_play_message else R.string.full_translation_play)))
         info.addAction(AccessibilityNodeInfo.AccessibilityAction(REVEAL, context.getString(R.string.full_translation_meaning)))
-        info.addAction(AccessibilityNodeInfo.AccessibilityAction(PRACTICE, context.getString(R.string.full_translation_practice)))
+        info.addAction(AccessibilityNodeInfo.AccessibilityAction(PRACTICE, context.getString(if (fullMode) R.string.full_message_show_translation else R.string.full_translation_practice)))
         if (script != null) info.addAction(AccessibilityNodeInfo.AccessibilityAction(SCRIPT, context.getString(if (showingNativeScript) R.string.full_translation_reading else R.string.full_translation_script)))
         info.addAction(AccessibilityNodeInfo.AccessibilityAction(AccessibilityNodeInfo.ACTION_COPY, context.getString(R.string.full_translation_copy_original)))
     }
@@ -199,7 +201,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     }
     // Readings complete independently of stable paragraph geometry. Bounds
     // registration must never be the only trigger for action availability.
-    SideEffect { gestures.readingAvailable(id, alternateReading) }
+    SideEffect { gestures.mode = translation.mode; gestures.readingAvailable(id, alternateReading) }
     DisposableEffect(gestures, translation, id, text) {
         translation.retain(id, text)
         onDispose { gestures.remove(id); translation.release(id, text) }
@@ -220,6 +222,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         val faces = value?.let { listOfNotNull(it.practiceText, it.meaningText, it.practiceReading) } ?: listOf(text)
         AndroidView(factory = { FullMessageTextView(it) }, update = { view ->
             view.play = play.takeIf { value?.words?.isEmpty() != true }
+            view.fullMode = translation.mode == ImmersionMode.FULL_MESSAGES
             view.showingNativeScript = gestures.nativeScript
             view.readingUnavailable = showReadingFailure
             view.playing = speech.activeMessage == id || audio.manualMessage == id
@@ -233,7 +236,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         })
         if (value == null) {
             if (state?.phase == MessageTranslationPhase.FAILED) {
-                Text(stringResource(R.string.full_translation_failed), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
+                Text(stringResource(if (translation.mode == ImmersionMode.FULL_MESSAGES) R.string.full_message_failed else R.string.full_translation_failed), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
                 TextButton(onClick = { translation.enqueue(id, text, retry = true) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.try_again)) }
             }
         }
