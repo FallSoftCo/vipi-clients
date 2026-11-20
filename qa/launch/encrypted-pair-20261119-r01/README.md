@@ -5,7 +5,10 @@ is still pending the existing Android and Mac owners' resource handoff.
 
 Run `scripts/serve-isolated-native-pair.py` with the existing backend Python
 interpreter, a NEW NVMe run directory, and a private JSON array of the two
-canonical shared QA subjects (`fallsoft-vipi-production:user_…`). The service
+verified QA subjects (raw legacy `user_…` or canonical shared
+`fallsoft-vipi-production:user_…`). The existing pinned dual-authority verifier
+accepts both; using a legacy fixture does not migrate it or establish new shared
+user sign-in proof. The service
 uses current real WorkOS JWT verification, an exact two-subject allowlist and
 fresh SQLite storage, binds only 127.0.0.1:48944, and stops after at most 30 min.
 It never reads provider admin, push, store or AI credentials from VIPI_* env.

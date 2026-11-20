@@ -9,6 +9,7 @@ import argparse
 import asyncio
 import json
 import os
+import re
 from pathlib import Path
 import secrets
 import signal
@@ -48,7 +49,7 @@ async def serve(args):
     directory.mkdir(mode=0o700)
     subjects = json.loads(args.subjects_file.read_text())
     assert isinstance(subjects, list) and len(subjects) == 2 and len(set(subjects)) == 2
-    assert all(isinstance(s, str) and s.startswith("fallsoft-vipi-production:user_") for s in subjects)
+    assert all(isinstance(s, str) and re.fullmatch(r"(?:fallsoft-vipi-production:)?user_[A-Za-z0-9_]{1,123}", s) for s in subjects)
     settings = settings_for(directory, subjects)
     db = Database(settings.database_url)
     await db.create_for_test()
@@ -89,7 +90,7 @@ async def serve(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-directory", type=Path, required=True)
-    parser.add_argument("--subjects-file", type=Path, required=True, help="Private JSON array of two canonical verified QA subjects; no tokens")
+    parser.add_argument("--subjects-file", type=Path, required=True, help="Private JSON array of two verified QA subjects, raw legacy or canonical shared; no tokens")
     parser.add_argument("--source-revision", required=True)
     parser.add_argument("--port", type=int, default=48944)
     parser.add_argument("--seconds", type=int, default=1800)
