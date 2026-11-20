@@ -100,35 +100,27 @@ class MainActivity : ComponentActivity() {
             isAppearanceLightStatusBars = !dark; isAppearanceLightNavigationBars = !dark
         } }
     }
-    val colors = if (dark) darkColorScheme(
-        primary = Color(0xFFB0D9A3), onPrimary = Color(0xFF132D22), background = Color(0xFF111412),
-        surface = Color(0xFF1F2420), surfaceVariant = Color(0xFF2E4233), onSurface = Color(0xFFF0F0E7),
-        onBackground = Color(0xFFF0F0E7), onSurfaceVariant = Color(0xFFB8BFB6),
-        primaryContainer = Color(0xFF2E4233), onPrimaryContainer = Color(0xFFDEEFBE),
-        secondary = Color(0xFFB8CBB2), onSecondary = Color(0xFF233526), secondaryContainer = Color(0xFF324536), onSecondaryContainer = Color(0xFFD5E8CE),
-        tertiary = Color(0xFFC0CCA5), onTertiary = Color(0xFF2C351E), tertiaryContainer = Color(0xFF424C33), onTertiaryContainer = Color(0xFFDDE9C0),
-        surfaceContainerLowest = Color(0xFF0B100C), surfaceContainerLow = Color(0xFF171D18), surfaceContainer = Color(0xFF1D231E),
-        surfaceContainerHigh = Color(0xFF272E28), surfaceContainerHighest = Color(0xFF323A33), surfaceTint = Color(0xFFB0D9A3),
-        outline = Color(0xFF8A958B), outlineVariant = Color(0xFF404A41), inversePrimary = Color(0xFF2B6142),
-        inverseSurface = Color(0xFFE6EAE0), inverseOnSurface = Color(0xFF2B322B)
-    ) else lightColorScheme(
-        primary = Color(0xFF2B6142), onPrimary = Color.White, background = Color(0xFFF9F7F2),
-        surface = Color.White, surfaceVariant = Color(0xFFE0EDD4), onSurface = Color(0xFF18251D),
-        onBackground = Color(0xFF18251D), onSurfaceVariant = Color(0xFF5D655D),
-        primaryContainer = Color(0xFFE0EDD4), onPrimaryContainer = Color(0xFF18351F),
-        secondary = Color(0xFF50644D), onSecondary = Color.White, secondaryContainer = Color(0xFFD3E8CE), onSecondaryContainer = Color(0xFF142311),
-        tertiary = Color(0xFF5B6447), onTertiary = Color.White, tertiaryContainer = Color(0xFFDFE9C7), onTertiaryContainer = Color(0xFF1A230A),
-        surfaceContainerLowest = Color.White, surfaceContainerLow = Color(0xFFF4F4EC), surfaceContainer = Color(0xFFEEEEE5),
-        surfaceContainerHigh = Color(0xFFE8E9DF), surfaceContainerHighest = Color(0xFFE2E3D9), surfaceTint = Color(0xFF2B6142),
-        outline = Color(0xFF737E73), outlineVariant = Color(0xFFC3CCBF), inversePrimary = Color(0xFFB0D9A3),
-        inverseSurface = Color(0xFF2B322B), inverseOnSurface = Color(0xFFF0F0E7)
-    )
+    val increased = prefersIncreasedContrast()
+    val palette = when {
+        dark && increased -> VipiPalettes.IncreasedContrastDark
+        dark -> VipiPalettes.Dark
+        increased -> VipiPalettes.IncreasedContrastLight
+        else -> VipiPalettes.Light
+    }
+    val colors = palette.materialColors(dark)
     MaterialTheme(colorScheme = colors, typography = Typography(
         bodyLarge = androidx.compose.ui.text.TextStyle(fontSize = 18.sp, lineHeight = 27.sp),
         bodyMedium = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, lineHeight = 24.sp),
         bodySmall = androidx.compose.ui.text.TextStyle(fontSize = 14.sp, lineHeight = 20.sp),
         labelLarge = androidx.compose.ui.text.TextStyle(fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.SemiBold)
-    ), content = content)
+    )) {
+        CompositionLocalProvider(LocalVipiPalette provides palette,
+            androidx.compose.material3.LocalContentColor provides palette.ink,
+            androidx.compose.foundation.text.selection.LocalTextSelectionColors provides
+                androidx.compose.foundation.text.selection.TextSelectionColors(palette.focus, palette.practiceFill)) {
+            content()
+        }
+    }
 }
 
 @Composable private fun VipiApp(model: VipiModel) {
@@ -198,7 +190,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable private fun VipiMark(size: Int = 36) {
-    Box(Modifier.size(size.dp).background(Color(0xFF234E3D), RoundedCornerShape((size * .28).dp))) {
+    Box(Modifier.size(size.dp).background(androidx.compose.ui.res.colorResource(R.color.vipi_icon_background), RoundedCornerShape((size * .28).dp))) {
         androidx.compose.foundation.Image(
             painter = androidx.compose.ui.res.painterResource(R.drawable.vipi_icon_foreground),
             contentDescription = null, modifier = Modifier.fillMaxSize())
@@ -374,7 +366,7 @@ class MainActivity : ComponentActivity() {
     }
     Text(stringResource(R.string.ui_e131c9a64a5b), style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
     Column(Modifier.fillMaxWidth().bringIntoViewRequester(form), verticalArrangement = Arrangement.spacedBy(24.dp)) {
-    OutlinedTextField(value = username, onValueChange = { username = it }, label = { Text(stringResource(R.string.ui_8a74ed1b7a84)) }, singleLine = true,
+    OutlinedTextField(value = username, onValueChange = { username = it }, colors = vipiTextFieldColors(), label = { Text(stringResource(R.string.ui_8a74ed1b7a84)) }, singleLine = true,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false, imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = { findFriend() }),
         modifier = Modifier.fillMaxWidth().bringIntoViewRequester(usernameField).onFocusChanged { usernameFocused = it.isFocused }, shape = RoundedCornerShape(16.dp))

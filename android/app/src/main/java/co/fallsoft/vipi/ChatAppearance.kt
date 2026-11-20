@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -43,13 +44,21 @@ import java.util.Locale
 }
 
 @Composable internal fun ChatBubbleFrame(outgoing: Boolean, content: @Composable () -> Unit) {
+    val palette = vipiPalette()
+    val context = if (outgoing) palette.onOutgoing() else palette
     val shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp,
         bottomStart = if (outgoing) 20.dp else 5.dp, bottomEnd = if (outgoing) 5.dp else 20.dp)
     Surface(modifier = Modifier.widthIn(max = 520.dp), shape = shape,
-        color = if (outgoing) MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.surface,
-        contentColor = MaterialTheme.colorScheme.onSurface,
+        color = if (outgoing) palette.outgoing else palette.incoming,
+        contentColor = context.ink,
         shadowElevation = 1.dp,
-        border = BorderStroke(.5.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = .07f))) { content() }
+        border = BorderStroke(.5.dp, palette.separator)) {
+        CompositionLocalProvider(LocalVipiPalette provides context) {
+            MaterialTheme(colorScheme = MaterialTheme.colorScheme.copy(
+                onSurface = context.ink, onSurfaceVariant = context.secondary,
+                primary = context.action, onPrimary = context.onAction, error = context.failed)) { content() }
+        }
+    }
 }
 
 @Composable internal fun ChatModeToggle(mode: ImmersionMode, onToggle: () -> Unit) {
@@ -75,7 +84,8 @@ import java.util.Locale
     val status = deliveryLabel(item.state, item.outgoing)
     val time = DateFormat.getTimeInstance(DateFormat.SHORT, locale).format(Date(item.createdAt))
     val error = item.state in setOf("failed", "expired", "cancelled")
-    val ink = if (error) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+    val palette = vipiPalette()
+    val ink = if (error) palette.failed else palette.secondary
     Row(Modifier.testTag("message-meta-${item.id}").clearAndSetSemantics { },
         horizontalArrangement = Arrangement.End, verticalAlignment = Alignment.CenterVertically) {
         // Nonroutine failures/imports/unknowns keep a readable explanation, never an unexplained glyph.
@@ -92,7 +102,8 @@ import java.util.Locale
 }
 
 @Composable internal fun ChatDeliveryIcon(state: String, description: String?) {
-    val ink = if (state in setOf("failed", "expired", "cancelled")) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+    val palette = vipiPalette()
+    val ink = if (state in setOf("failed", "expired", "cancelled")) palette.failed else palette.secondary
     val icon = when (state) {
         "accepted" -> Icons.Outlined.Done
         "delivered", "read" -> Icons.Outlined.DoneAll
@@ -100,8 +111,7 @@ import java.util.Locale
         "failed", "expired", "cancelled" -> Icons.Outlined.ErrorOutline
         else -> Icons.Outlined.HelpOutline
     }
-    val tint = if (state != "read") ink
-        else if (MaterialTheme.colorScheme.background.luminance() < .5f) Color(0xFF79C8F5) else Color(0xFF236FA1)
+    val tint = if (state != "read") ink else palette.read
     Icon(icon, description, modifier = Modifier.size(16.dp), tint = tint)
 }
 
@@ -121,15 +131,13 @@ internal fun contactInitials(name: String): String {
     // This is a decorative identity icon; the adjacent real name scales with
     // text settings. Keep its glyph inside the fixed circle at every font size.
     val glyphSize = with(LocalDensity.current) { (diameter.toPx() * .42f).toSp() }
-    val dark = MaterialTheme.colorScheme.background.luminance() < .5f
+    val palette = vipiPalette()
     val slot = ((peer.mostSignificantBits xor peer.leastSignificantBits) and 3).toInt()
-    val palette = if (dark) longArrayOf(0xFF533F2F, 0xFF263E53, 0xFF423754, 0xFF2C493A)
-        else longArrayOf(0xFFF2D8BE, 0xFFCCDEEF, 0xFFDDD6EF, 0xFFD0E6D9)
-    Surface(color = Color(palette[slot]), shape = androidx.compose.foundation.shape.CircleShape,
+    Surface(color = palette.avatars[slot], shape = androidx.compose.foundation.shape.CircleShape,
         modifier = Modifier.size(diameter).clearAndSetSemantics { }) {
         Box(contentAlignment = Alignment.Center) {
             Text(contactInitials(name), fontSize = glyphSize, lineHeight = glyphSize * 1.15f, fontWeight = FontWeight.SemiBold,
-                color = if (dark) Color(0xFFF0F0E7) else Color(0xFF18251D), maxLines = 1)
+                color = palette.avatarInk, maxLines = 1)
         }
     }
 }

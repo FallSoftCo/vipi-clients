@@ -97,6 +97,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     private var rawOriginal = ""
     private var paintedRanges = emptyList<IntRange>()
     private var paintedColor = 0
+    private var paintedInk = 0
     private var activePaint: BackgroundColorSpan? = null
     private var activeInk: android.text.style.ForegroundColorSpan? = null
     var highlightedWord: IntRange? = null
@@ -131,13 +132,13 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     }
     fun bind(displayed: String, original: String, variants: List<String>, color: Int, accessibilityContext: String? = null,
         highlights: List<IntRange> = emptyList(), highlightColor: Int = 0, spoken: IntRange? = null,
-        spokenColor: Int = 0, spokenInk: Int = color) {
+        spokenColor: Int = 0, spokenInk: Int = color, highlightInk: Int = color) {
         rawOriginal = original
         val next = variants.distinct()
         if (faces != next) { faces = next; requestLayout() }
         setTextColor(color)
-        if (text.toString() != displayed || paintedRanges != highlights || paintedColor != highlightColor) {
-            paintedRanges = highlights; paintedColor = highlightColor
+        if (text.toString() != displayed || paintedRanges != highlights || paintedColor != highlightColor || paintedInk != highlightInk) {
+            paintedRanges = highlights; paintedColor = highlightColor; paintedInk = highlightInk
             activePaint = null
             activeInk = null
             highlightedWord = null
@@ -145,6 +146,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
                 highlights.forEach { range ->
                     require(range.first >= 0 && range.last < length)
                     setSpan(BackgroundColorSpan(highlightColor), range.first, range.last+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    setSpan(android.text.style.ForegroundColorSpan(highlightInk), range.first, range.last+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
                 }
             }, BufferType.SPANNABLE)
             requestLayout()
@@ -214,10 +216,12 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     val readingUnavailable = value?.readingStatus == FullMessageReadingStatus.UNAVAILABLE
     val showReadingFailure = readingUnavailable && !gestures.meaning && !gestures.nativeScript
     val alternateReading = value?.practiceReading?.let { it.isNotBlank() && it != value.practiceText } == true
-    val ink = MaterialTheme.colorScheme.onSurface.toArgb()
-    val activityColor = MaterialTheme.colorScheme.primary
-    val spokenInk = MaterialTheme.colorScheme.onPrimary.toArgb()
-    val wordColor = MaterialTheme.colorScheme.secondaryContainer.toArgb()
+    val palette = vipiPalette()
+    val ink = palette.ink.toArgb()
+    val activityColor = palette.spokenFill
+    val spokenInk = palette.spokenInk.toArgb()
+    val wordColor = palette.practiceFill.toArgb()
+    val wordInk = palette.practiceInk.toArgb()
     LaunchedEffect(translation, id, text) { translation.enqueue(id, text) }
     val play = {
         if (value?.words?.isEmpty() != true) { gestures.interacted(); audio.manual(id, text) }
@@ -260,7 +264,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             val word = if (!showingMeaning && speech.activeMessage == id) speech.playingWord else null
             val spoken = if (showingScript || !alternateReading) word?.script else word?.reading
             view.bind(displayed, text, faces, ink, accessibilityContext, highlights, wordColor, spoken,
-                activityColor.toArgb(), spokenInk)
+                activityColor.toArgb(), spokenInk, wordInk)
         })
         if (value == null) {
             if (state?.phase == MessageTranslationPhase.FAILED) {

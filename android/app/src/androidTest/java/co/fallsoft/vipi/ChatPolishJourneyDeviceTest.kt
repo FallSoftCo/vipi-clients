@@ -188,6 +188,52 @@ class ChatPolishJourneyDeviceTest {
             finally { f.stopActivity(); service.close() }
         }
     }
+    /** Palette-only actual-root sample. Supplied translations, real paragraph
+     * reader/metadata, no native MT or acoustic-quality certification. */
+    @Test fun themeReviewKeepsNaturalConversationReadableAndFollowsSystem() {
+        val service = services(); peer = service.peer
+        MainActivityJourneyFixture("chat-theme", service::model).use { f ->
+            var priorNight: String? = null
+            fun frame(name: String) {
+                compose.mainClock.advanceTimeBy(400); compose.waitForIdle()
+                committedNativeFrames(); f.capture(name)
+            }
+            try {
+                open(f, Appearance.LIGHT)
+                send(f, originals[0])
+                if (!PushDelivery.allowed(f.base)) compose.onNodeWithTag("reply-notification-later").performClick()
+                val first = f.model.chat!!.messages(service.peer).single { it.outgoing }.id
+                compose.runOnIdle { service.markOutgoingRead(first) }
+                compose.waitUntil(8_000) { f.model.chat!!.messages(service.peer).single { it.id == first }.state == "read" }
+                receive(f, service, originals[1]); send(f, originals[2]); receive(f, service, originals[3]); send(f, originals[4])
+                if (ime()) { f.device.pressBack(); compose.waitUntil(5_000) { !ime() } }
+                compose.onNodeWithTag("conversation-immersion").assertIsDisplayed()
+                frame("01-natural-day")
+                compose.runOnIdle { f.model.changeAppearance(Appearance.DARK) }; frame("02-natural-night")
+                if (f.base.resources.configuration.fontScale < 1.5f) {
+                    priorNight = f.device.executeShellCommand("cmd uimode night").trim().removePrefix("Night mode: ")
+                    check(priorNight in setOf("yes", "no", "auto", "custom_schedule", "custom_bedtime"))
+                    compose.runOnIdle { f.model.changeAppearance(Appearance.SYSTEM) }
+                    for ((night, mask, name) in listOf(
+                        Triple("yes", android.content.res.Configuration.UI_MODE_NIGHT_YES, "03-system-night"),
+                        Triple("no", android.content.res.Configuration.UI_MODE_NIGHT_NO, "04-system-day"))) {
+                        f.device.executeShellCommand("cmd uimode night $night")
+                        compose.waitUntil(8_000) { f.base.resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK == mask }
+                        frame(name)
+                        assertEquals(Appearance.SYSTEM, f.model.appearance)
+                    }
+                }
+                service.assertNoPurchase()
+            } catch (failure: Throwable) { runCatching { f.capture("failure") }; throw failure }
+            finally {
+                priorNight?.let { previous ->
+                    f.device.executeShellCommand("cmd uimode night $previous")
+                    check(f.device.executeShellCommand("cmd uimode night").trim() == "Night mode: $previous")
+                }
+                f.stopActivity(); service.close()
+            }
+        }
+    }
     @Test fun firstSendNotificationOptInIsExplicitAndNotRepeatedAfterReopen() {
         val service = services(); peer = service.peer
         MainActivityJourneyFixture("chat-notification-opt-in", service::model).use { f ->

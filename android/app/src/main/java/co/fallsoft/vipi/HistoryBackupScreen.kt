@@ -222,13 +222,13 @@ internal class HistoryBackupModel : ViewModel() {
             OutlinedTextField(password, { password = it; clearImport(); message = null
                 if (HistoryBackupCodec.validPassword(it)) invalidPassword = false
                 if (it == confirmation) mismatchedConfirmation = false
-            }, isError = invalidPassword, label = { Text(stringResource(if (restoring) R.string.ui_3e39703b6e87 else R.string.backup_new_password)) },
+            }, colors = vipiTextFieldColors(), isError = invalidPassword, label = { Text(stringResource(if (restoring) R.string.ui_3e39703b6e87 else R.string.backup_new_password)) },
                 supportingText = { Text(stringResource(passwordFeedback), style = MaterialTheme.typography.bodyMedium) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
                 singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth().focusRequester(passwordFocus).bringIntoViewRequester(passwordIntoView).testTag("backup-password"))
             if (!restoring) OutlinedTextField(confirmation, { confirmation = it
                 if (password == it) mismatchedConfirmation = false
-            }, isError = mismatchedConfirmation,
+            }, colors = vipiTextFieldColors(), isError = mismatchedConfirmation,
                 supportingText = { if (mismatchedConfirmation) Text(stringResource(R.string.backup_password_mismatch), style = MaterialTheme.typography.bodyMedium) }, label = { Text(stringResource(R.string.ui_d63cd658184e)) },
                 visualTransformation = PasswordVisualTransformation(), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password, autoCorrectEnabled = false),
                 singleLine = true, enabled = !busy, modifier = Modifier.fillMaxWidth().focusRequester(confirmationFocus).bringIntoViewRequester(confirmationIntoView).testTag("backup-confirmation"))

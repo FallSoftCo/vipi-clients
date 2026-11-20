@@ -87,9 +87,9 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     val scope = rememberCoroutineScope()
     Text(stringResource(R.string.ui_73bee38b06e8), fontSize = 34.sp, lineHeight = 40.sp)
     Text(stringResource(R.string.ui_956d8b926f8d), color = MaterialTheme.colorScheme.onSurfaceVariant)
-    OutlinedTextField(name, { name = it }, label = { Text(stringResource(R.string.ui_2c6b2e253c01)) }, singleLine = true,
+    OutlinedTextField(name, { name = it }, colors = vipiTextFieldColors(), label = { Text(stringResource(R.string.ui_2c6b2e253c01)) }, singleLine = true,
         modifier = Modifier.fillMaxWidth().testTag("profile-name"), shape = RoundedCornerShape(16.dp))
-    OutlinedTextField(username, { username = it }, label = { Text(stringResource(R.string.ui_e3b89e9d33f8)) }, prefix = { Text("@") }, singleLine = true,
+    OutlinedTextField(username, { username = it }, colors = vipiTextFieldColors(), label = { Text(stringResource(R.string.ui_e3b89e9d33f8)) }, prefix = { Text("@") }, singleLine = true,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false),
         modifier = Modifier.fillMaxWidth().testTag("profile-username"), shape = RoundedCornerShape(16.dp))
     Text(stringResource(R.string.ui_33875a9b79e5), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -474,7 +474,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                         text = value
                         try { chat.saveCompose(value, peer) }
                         catch (_: Exception) { error = context.getString(R.string.chat_draft_save_failed) }
-                    }, enabled = loaded, textStyle = MaterialTheme.typography.bodyLarge.copy(textDirection = androidx.compose.ui.text.style.TextDirection.Content),
+                    }, colors = vipiTextFieldColors(), enabled = loaded, textStyle = MaterialTheme.typography.bodyLarge.copy(textDirection = androidx.compose.ui.text.style.TextDirection.Content),
                         placeholder = { Text(stringResource(R.string.message_hint)) }, maxLines = 6, shape = RoundedCornerShape(24.dp),
                         modifier = Modifier.weight(1f).heightIn(min = minimumComposerHeight, max = composerMaxHeight)
                             .onFocusChanged { composing = it.isFocused }.testTag("message-input"))
