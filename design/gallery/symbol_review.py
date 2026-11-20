@@ -56,11 +56,15 @@ def render_launchers(output, *, greeting=False):
     folder = "wrapped-greeting" if greeting else "home-screen"
     if greeting:
         options = {"wrap": "Question wrap", "signature": "Original signature"}
+    sources = {key: folder for key in options}
+    if greeting and (output / "guava-dots/iphone-home-guava.png").is_file():
+        options = {"guava": "Guava i dots", "wrap": "Cream i dots", "signature": "Original signature"}
+        sources["guava"] = "guava-dots"
     scenes = (("iphone-grid", "iPhone", 277), ("pixel-home", "Pixel dock", 393), ("pixel-drawer", "Pixel app drawer", 393))
     newer = output / folder / "iphone-home-signature.png"
     if newer.is_file():
         scenes = (("iphone-home", "iPhone", 402), *scenes[1:])
-    if not all((output / folder / f"{prefix}-{symbol}.png").is_file() for prefix, _, _ in scenes for symbol in options):
+    if not all((output / sources[symbol] / f"{prefix}-{symbol}.png").is_file() for prefix, _, _ in scenes for symbol in options):
         return None
     radios = "".join(f'<input id="{k}" type="radio" name="symbol" value="{k}" aria-label="{v}" '
                      f'{"checked" if k==next(iter(options)) else ""}>' for k,v in options.items())
@@ -73,7 +77,7 @@ def render_launchers(output, *, greeting=False):
     for prefix, title, width in scenes:
         tags = []
         for key, name in options.items():
-            original = output / folder / f"{prefix}-{key}.png"
+            original = output / sources[key] / f"{prefix}-{key}.png"
             preview = original.with_suffix(".webp")
             with Image.open(original) as image:
                 height = round(width * image.height / image.width)
@@ -84,7 +88,7 @@ def render_launchers(output, *, greeting=False):
                     scaled.save(temporary, "WEBP", quality=92, method=5)
                     temporary.chmod(0o644)
                     os.replace(temporary, preview)
-            tags.append(f'<img class="{key}" src="{folder}/{preview.name}" width="{width}" '
+            tags.append(f'<img class="{key}" src="{sources[key]}/{preview.name}" width="{width}" '
                         f'height="{height}" alt="{name} on the {title} launcher">')
         images = "".join(tags)
         cards.append(f'<section><h2>{title}</h2>{images}</section>')
