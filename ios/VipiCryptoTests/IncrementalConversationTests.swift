@@ -111,7 +111,7 @@ import VipiCore
         let vault = try store(); var calls: [String] = []
         let value = await owner(vault) { text,_ in calls.append(text); return text == "taxi" ? "taxi" : "pan" }
         defer { value.close() }
-        let result = try await message(value,"loanword","taxi bread")
+        let result = try await message(value,"fallback-1","taxi bread")
         XCTAssertEqual(calls,["taxi","bread"]); XCTAssertEqual(result.practiceText,"taxi pan")
         XCTAssertEqual(try vault.transaction{try vault.ids("introduced-word").count},1)
     }

@@ -74,6 +74,57 @@ struct FullSentenceReadings: Sendable {
               !FullReadingRequirement.needsReading(value), !value.contains("◌") else { return failed(.unresolved) }
         return .init(text:value,provenance:.localTransliteration)
     }
+    struct Alignment: Sendable {
+        let source:NSRange, displayed:NSRange
+    }
+    /// The same complete reader that produced the visible face supplies its
+    /// alignment. Never divide romanization proportionally or guess syllables.
+    static func alignment(text:String,reading:String,language:String) -> [Alignment] {
+        if text.utf8.elementsEqual(reading.utf8) { return [.init(source:NSRange(location:0,length:text.utf16.count),displayed:NSRange(location:0,length:reading.utf16.count))] }
+        var pieces:[(NSRange,String)] = []
+        switch language {
+        case "ja":
+            let result = JapaneseFullReading.resolve(text)
+            guard result.reading?.utf8.elementsEqual(reading.utf8) == true else { return [] }
+            pieces = result.pieces.map{(NSRange(location:$0.startUTF16,length:$0.endUTF16-$0.startUTF16),$0.rendered)}
+        case "ko":
+            let result = KoreanFullReading.resolve(text)
+            guard result.reading?.utf8.elementsEqual(reading.utf8) == true else { return [] }
+            pieces = result.pieces.map{(NSRange(location:$0.startUTF16,length:$0.endUTF16-$0.startUTF16),$0.rendered)}
+        case "zh":
+            guard let result = try? current.chinese?.resolve(text),result.reading?.utf8.elementsEqual(reading.utf8) == true else { return [] }
+            pieces = result.pieces.map{(NSRange(location:$0.startUTF16,length:$0.endUTF16-$0.startUTF16),$0.reading)}
+        default:
+            let source = text as NSString
+            var cursor = 0
+            text.enumerateSubstrings(in:text.startIndex..<text.endIndex,options:.byWords) { _,range,_,_ in
+                let native = NSRange(range,in:text)
+                if native.location > cursor { let gap = NSRange(location:cursor,length:native.location-cursor); pieces.append((gap,source.substring(with:gap))) }
+                let word = source.substring(with:native)
+                pieces.append((native,word.applyingTransform(.toLatin,reverse:false) ?? word)); cursor = NSMaxRange(native)
+            }
+            if cursor < source.length { let gap = NSRange(location:cursor,length:source.length-cursor); pieces.append((gap,source.substring(with:gap))) }
+        }
+        let display = reading as NSString
+        var cursor = 0, result:[Alignment] = []
+        for (source,value) in pieces {
+            guard !value.isEmpty else { continue }
+            let found = display.range(of:value,options:.literal,range:NSRange(location:cursor,length:display.length-cursor))
+            guard found.location != NSNotFound else { return [] }
+            let separator = display.substring(with:NSRange(location:cursor,length:found.location-cursor))
+            guard separator.allSatisfy({$0 == " " || $0 == "'"}) else { return [] }
+            result.append(.init(source:source,displayed:found)); cursor = NSMaxRange(found)
+        }
+        guard cursor == display.length else { return [] }
+        return result
+    }
+    static func displayedRange(_ native:NSRange,text:String,reading:String,alignment:[Alignment]) -> NSRange? {
+        guard native.location >= 0,native.length > 0,NSMaxRange(native) <= text.utf16.count else { return nil }
+        if text.utf8.elementsEqual(reading.utf8) { return native }
+        let matches = alignment.filter{NSIntersectionRange($0.source,native).length > 0}
+        guard let first = matches.first,let last = matches.last else { return nil }
+        return NSRange(location:first.displayed.location,length:NSMaxRange(last.displayed)-first.displayed.location)
+    }
     private static let current: Self = {
         guard let file = Bundle.main.url(forResource:"chinese-ordinary",withExtension:"json"),
               let bytes = try? Data(contentsOf:file), let reader = try? ChineseFullReading(data:bytes) else { return .init(chinese:nil) }

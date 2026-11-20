@@ -42,11 +42,14 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     private var closed = false
     private(set) var translationOwner: ConversationImmersion?
     private var translationReplay: Task<Void,Never>?
-    func configureTranslation(pair:TranslationPair,services:MessageTranslationServices) async {
+    func configureTranslation(pair:TranslationPair,mode:ImmersionMode = .incremental,services:MessageTranslationServices) async {
         guard !closed else { return }
-        if let owner = translationOwner,owner.pair == pair { return }
+        if let owner = translationOwner,owner.pair == pair {
+            guard owner.mode != mode else { return }
+            translationReplay?.cancel(); await owner.configure(pair:pair,mode:mode); replayTranslations(); return
+        }
         translationReplay?.cancel(); translationOwner?.close()
-        let owner = services.makeOwner(); await owner.configure(pair:pair)
+        let owner = services.makeOwner(); await owner.configure(pair:pair,mode:mode)
         if let vault { owner.attachCache(vault) }
         translationOwner = owner; replayTranslations()
     }

@@ -225,18 +225,27 @@ private final class ConverterInput: @unchecked Sendable {
         let identity = normalized.map { $0.language + "\0" + voices[$0.language]!.identifier + "\0" + $0.text }.joined(separator: "\0")
         let hash = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         let output = root.appendingPathComponent(hash + ".caf")
-        if FileManager.default.fileExists(atPath: output.path) { return try Self.inspect(output) }
+        let metadata = output.appendingPathExtension("words.json")
+        // Older audio has no native timing metadata. Regenerate instead of
+        // guessing word timing or showing a whole-message highlight.
+        if FileManager.default.fileExists(atPath: output.path),
+           let bytes = try? Data(contentsOf:metadata),let marks = try? JSONDecoder().decode([SpeechMark].self,from:bytes) {
+            var result = try Self.inspect(output); result.marks = marks; return result
+        }
+        try? FileManager.default.removeItem(at:output)
         var parts: [URL] = []
+        var rendered: [RenderedSpeech] = []
         defer { for part in parts { try? FileManager.default.removeItem(at: part) } }
         for span in normalized {
             let part = root.appendingPathComponent("span-\(UUID()).caf")
             parts.append(part)
-            _ = try await voices[span.language]!.render(span.text, to: part)
+            rendered.append(try await voices[span.language]!.render(span.text, to: part))
         }
         // Disk IO and standard AVAudioConverter resampling happen off the UI actor.
-        let inputs = parts
-        return try await Task.detached { [inputs, output] in
-            let result = try Self.join(inputs, to: output)
+        let inputs = parts, timings = rendered, lengths = normalized.map{$0.text.utf16.count}
+        return try await Task.detached { [inputs, output, timings, lengths, metadata] in
+            let result = try Self.join(inputs, timings:timings, lengths:lengths, to: output)
+            try JSONEncoder().encode(result.marks).write(to:metadata,options:.atomic)
             Self.pruneCache(in: output.deletingLastPathComponent(), keeping: output)
             return result
         }.value
@@ -254,7 +263,7 @@ private final class ConverterInput: @unchecked Sendable {
         var total = cached.reduce(0) { $0 + $1.bytes }
         for file in cached where file.url != output {
             guard total > 64 * 1024 * 1024 else { break }
-            do { try FileManager.default.removeItem(at: file.url); total -= file.bytes } catch { }
+            do { try FileManager.default.removeItem(at: file.url); try? FileManager.default.removeItem(at:file.url.appendingPathExtension("words.json")); total -= file.bytes } catch { }
         }
     }
 
@@ -264,14 +273,14 @@ private final class ConverterInput: @unchecked Sendable {
         return RenderedSpeech(file: url, milliseconds: Double(file.length) * 1000 / file.processingFormat.sampleRate,
             sampleRate: file.processingFormat.sampleRate, channels: file.processingFormat.channelCount)
     }
-    private nonisolated static func join(_ parts: [URL], to output: URL) throws -> RenderedSpeech {
+    private nonisolated static func join(_ parts: [URL], timings:[RenderedSpeech], lengths:[Int], to output: URL) throws -> RenderedSpeech {
         let temporary = output.deletingLastPathComponent().appendingPathComponent("joined-\(UUID()).caf")
         defer { try? FileManager.default.removeItem(at: temporary) }
         let format = AVAudioFormat(standardFormatWithSampleRate: 24_000, channels: 1)!
         var destination: AVAudioFile? = try AVAudioFile(forWriting: temporary, settings: format.settings)
         var frames = 0
-        var boundaries: [Int] = []
-        for part in parts {
+        var boundaries: [Int] = [], marks: [SpeechMark] = [], textOffset = 0
+        for (index,part) in parts.enumerated() {
             let input = try AVAudioFile(forReading: part)
             guard input.length > 0, input.length < 10_000_000,
                   let buffer = AVAudioPCMBuffer(pcmFormat: input.processingFormat, frameCapacity: AVAudioFrameCount(input.length)) else { throw LocalSpeechError.invalidAudio }
@@ -285,13 +294,21 @@ private final class ConverterInput: @unchecked Sendable {
             }
             guard status != .error, error == nil, converted.frameLength > 0 else { throw error ?? LocalSpeechError.invalidAudio as NSError }
             if frames > 0 { boundaries.append(frames) }
+            let bytesPerFrame = max(1,Int(input.processingFormat.streamDescription.pointee.mBytesPerFrame))
+            for mark in timings[index].marks where mark.start >= 0 && mark.length > 0 && mark.start + mark.length <= lengths[index] {
+                let localFrame = Double(mark.byteSampleOffset) / Double(bytesPerFrame)
+                let outputFrame = frames + Int((localFrame * format.sampleRate / input.processingFormat.sampleRate).rounded())
+                guard outputFrame >= frames,outputFrame < frames + Int(converted.frameLength) else { continue }
+                marks.append(.init(start:textOffset+mark.start,length:mark.length,byteSampleOffset:outputFrame * Int(format.streamDescription.pointee.mBytesPerFrame)))
+            }
+            textOffset += lengths[index]
             try destination!.write(from: converted)
             frames += Int(converted.frameLength)
         }
         destination = nil
         try FileManager.default.moveItem(at: temporary, to: output)
         var result = try inspect(output)
-        result.boundaryFrames = boundaries
+        result.boundaryFrames = boundaries; result.marks = marks
         return result
     }
 }

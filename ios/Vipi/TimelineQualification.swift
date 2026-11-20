@@ -918,6 +918,8 @@ struct PendingPairRootBinding: View {
         var cuePriorSeen:Bool?
         var invitationCaptured: Bool?
         var priorInvitation: String?
+        var immersionCaptured:Bool?
+        var priorImmersionMode:String?
         var friendUsernameLookups: Int?
         var pendingHash: String?, verifierHash: String?, callback: String?
         var device: DeviceCredential?
@@ -1172,6 +1174,12 @@ struct PendingPairRootBinding: View {
                     "Copy QA requires owned simulator clipboard isolation")
             }
             current = try FirstMonthRootQualification()
+            if ProcessInfo.processInfo.arguments.contains("-vipi-immersion-mode-qa"),let current,current.ledger.immersionCaptured != true {
+                let prior = UserDefaults.standard.object(forKey:"immersionMode")
+                guard prior == nil || prior is String else { throw ServiceFailure(status:0,code:"preserve_unknown_immersion_mode") }
+                current.ledger.priorImmersionMode = prior as? String; current.ledger.immersionCaptured = true; try current.save()
+                UserDefaults.standard.removeObject(forKey:"immersionMode")
+            }
             if ProcessInfo.processInfo.arguments.contains("-vipi-invitation-root-qa"), let current,
                current.ledger.invitationCaptured != true {
                 precondition(ProcessInfo.processInfo.arguments.contains("-vipi-full-translation-sdk-qa"))
@@ -1262,6 +1270,8 @@ struct PendingPairRootBinding: View {
                 // These controlled word equivalents make the progression observable
                 // through the real signed-in chat UI on a simulator without models.
                 switch text.lowercased() {
+                case "water, water!": return "水，水！"
+                case "water and bread": return "水和面包"
                 case "hello": return "你好"
                 case "water": return "水"
                 case "bread": return "面包"
@@ -1605,6 +1615,10 @@ struct PendingPairRootBinding: View {
         if ledger.cueCaptured == true {
             if let prior = ledger.cuePriorSeen { UserDefaults.standard.set(prior,forKey:"full-message-gestures-v1-seen") }
             else { UserDefaults.standard.removeObject(forKey:"full-message-gestures-v1-seen") }
+        }
+        if ledger.immersionCaptured == true {
+            if let prior = ledger.priorImmersionMode { UserDefaults.standard.set(prior,forKey:"immersionMode") }
+            else { UserDefaults.standard.removeObject(forKey:"immersionMode") }
         }
         if ledger.invitationCaptured == true {
             if let prior = ledger.priorInvitation { UserDefaults.standard.set(prior, forKey: "invitationUsername") }

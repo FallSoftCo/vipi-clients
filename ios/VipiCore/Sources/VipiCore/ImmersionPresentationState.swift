@@ -150,7 +150,19 @@ public struct FullMessageTranslation: Sendable, Equatable, Codable {
         return .complete(.init(original: meaningText, translation: practiceText, spans: spans))
     }
     public var practiceSpeech: [SpeechSpan] {
-        if let words { return words.map{.init(text:$0.target,language:practiceLanguage)} }
+        if let words {
+            var spans:[SpeechSpan] = [], end:Int?
+            let source = original as NSString
+            for word in words {
+                let gap = end.map{NSRange(location:$0,length:max(0,word.start-$0))}
+                if let gap,NSMaxRange(gap) <= source.length,
+                   source.substring(with:gap).allSatisfy({$0.isWhitespace || $0.isPunctuation}),let last = spans.last {
+                    spans[spans.count-1] = .init(text:last.text+source.substring(with:gap)+word.target,language:practiceLanguage)
+                } else { spans.append(.init(text:word.target,language:practiceLanguage)) }
+                end = word.start+word.length
+            }
+            return spans
+        }
         return [.init(text:practiceText,language:practiceLanguage)]
     }
 }

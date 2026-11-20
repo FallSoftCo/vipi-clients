@@ -19,6 +19,7 @@ final class ImmersionWordAttachment: NSTextAttachment {
     let copySlotID: Int?
     let copyShowsOriginal: Bool
     let copyRun: ImmersionCopyRun
+    var playingRange:NSRange?
     @MainActor init(displayed: String, forms: [String], font: UIFont, ink: UIColor, trailingWidth: CGFloat = 0, copySlotID: Int? = nil, copyShowsOriginal: Bool = true, copyRun: ImmersionCopyRun? = nil) {
         self.displayed = displayed; self.forms = forms; self.font = font; self.ink = ink
         self.trailingWidth = trailingWidth
@@ -46,7 +47,11 @@ final class ImmersionWordAttachment: NSTextAttachment {
         return UIGraphicsImageRenderer(size: bounds.size).image { _ in
             ink.withAlphaComponent(0.11).setFill()
             UIBezierPath(roundedRect: CGRect(origin: .zero, size: bounds.size), cornerRadius: 2.5).fill()
-            (displayed as NSString).draw(with: CGRect(x: 4, y: 2, width: max(1, bounds.width - 8), height: bounds.height - 4), options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: attributes, context: nil)
+            let text = NSMutableAttributedString(string:displayed,attributes:attributes)
+            if let range = playingRange,range.location >= 0,range.length > 0,NSMaxRange(range) <= text.length {
+                text.addAttributes([.backgroundColor:ink.withAlphaComponent(0.30),.foregroundColor:UIColor.label],range:range)
+            }
+            text.draw(with:CGRect(x:4,y:2,width:max(1,bounds.width-8),height:bounds.height-4),options:[.usesLineFragmentOrigin,.usesFontLeading],context:nil)
         }
     }
 }
@@ -391,6 +396,10 @@ struct StableImmersionText: UIViewRepresentable {
     var reservedSentences: [String] = []
     var sentenceIdentity: String? = nil
     var fullMessage = false
+    var incremental = false
+    var playingRange:NSRange?
+    var playingWordID:Int?
+    var playingWordRange:NSRange?
     var onMeaning: (() -> Void)? = nil
     var showingMeaning = false
     var onScript: (() -> Void)? = nil
@@ -449,10 +458,13 @@ struct StableImmersionText: UIViewRepresentable {
         view.originalMessage = result.original
         view.isSelectable = !fullMessage
         view.contentIdentity = sentenceIdentity ?? String(describing: result)
-        let identity = "\(view.contentIdentity)|\(revealed.sorted())|\(script)|\(font.pointSize)|\(scheme)|" + Data(result.original.utf8).base64EncodedString()
+        let identity = "\(view.contentIdentity)|\(revealed.sorted())|\(script)|\(font.pointSize)|\(scheme)|\(String(describing:playingRange))|\(String(describing:playingWordID))|\(String(describing:playingWordRange))|" + Data(result.original.utf8).base64EncodedString()
         if view.renderingIdentity != identity {
             view.renderingIdentity = identity
-            let current = render(revealed: revealed, script: script, font: font, color: color)
+            let current = NSMutableAttributedString(attributedString:render(revealed: revealed, script: script, font: font, color: color))
+            if let range = playingRange,range.location >= 0,range.length > 0,NSMaxRange(range) <= current.length {
+                current.addAttribute(.backgroundColor,value:color.withAlphaComponent(0.28),range:range)
+            }
             let selection = view.selectedRange
             let sameText = view.attributedText.string == current.string
             view.attributedText = current
@@ -476,7 +488,7 @@ struct StableImmersionText: UIViewRepresentable {
         view.accessibilityLabel = view.visibleText()
         view.accessibilityValue = view.visibleText()
         if fullMessage {
-            let actions = ChatReadingState.actionDescription(showingMeaning:showingMeaning,nativeScript:showingNativeScript,hasAlternateScript:onScript != nil)
+            let actions = ChatReadingState.actionDescription(showingMeaning:showingMeaning,nativeScript:showingNativeScript,hasAlternateScript:onScript != nil,incremental:incremental)
             view.accessibilityHint = [accessibilityMessageContext,actions].compactMap { $0 }.joined(separator:". ")
         } else { view.accessibilityHint = voiceOver
             ? String(localized: "Automatic switching pauses while VoiceOver is on. Use the word actions to switch meanings. Reading options changes the language or script.")
@@ -502,7 +514,7 @@ struct StableImmersionText: UIViewRepresentable {
             })
         }
         if let onMeaning {
-            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name:showingMeaning ? String(localized:"Show practice words") : String(localized:"Show original message")) { _ in onMeaning(); return true })
+            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name:showingMeaning ? (incremental ? String(localized:"Show practice words") : String(localized:"Show practice text")) : String(localized:"Show original message")) { _ in onMeaning(); return true })
         }
         if let onScript {
             view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name:showingNativeScript ? String(localized:"Show transliteration") : String(localized:"Show native script")) { _ in onScript(); return true })
@@ -511,7 +523,7 @@ struct StableImmersionText: UIViewRepresentable {
             view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name:String(localized:"Copy original message")) { _ in UIPasteboard.general.string = originalForCopy; return true })
         }
         if let onPlayMessage {
-            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: fullMessage ? String(localized:"Play practice words") : String(localized:"Play message")) { _ in onPlayMessage(); return true })
+            view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: incremental ? String(localized:"Play practice words") : String(localized:"Play message")) { _ in onPlayMessage(); return true })
         }
         if let onReport {
             view.accessibilityCustomActions?.append(UIAccessibilityCustomAction(name: String(localized: "Report message")) { _ in onReport(); return true })
@@ -549,6 +561,7 @@ struct StableImmersionText: UIViewRepresentable {
             let trailing = suffix.isEmpty ? 0 : ceil((String(suffix) as NSString).size(withAttributes: [.font: font]).width) + 1
             let attachment = ImmersionWordAttachment(displayed: value, forms: [word.original, word.displayedTarget, word.translated], font: emphasis, ink: color, trailingWidth: trailing,
                 copySlotID: word.id, copyShowsOriginal: revealed.contains(word.id), copyRun: copyRun)
+            if playingWordID == word.id { attachment.playingRange = playingWordRange ?? NSRange(location:0,length:value.utf16.count) }
             let token = NSMutableAttributedString(attachment: attachment)
             token.addAttributes(style, range: NSRange(location: 0, length: token.length))
             text.append(token)

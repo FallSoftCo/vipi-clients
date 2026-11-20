@@ -792,6 +792,9 @@ final class ChatConversationTests: XCTestCase {
 /// Real app routing and controls; only auth exchange and server are local. The
 /// test never supplies a session/profile/message directly to the app model.
 @MainActor final class FirstMonthRootTests: XCTestCase {
+    func testVisibleImmersionPickerReversesFullAndIncrementalInOrdinaryFriendChat() throws {
+        try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true)
+    }
     /// Native marketing pixels from controlled screenshot data, never model proof.
     func testInvitationSurvivesInterruptedEnrollmentAndRequiresExplicitFindAtActualRoot() throws {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true)
@@ -2059,7 +2062,7 @@ final class ChatConversationTests: XCTestCase {
         try capture("marketing-coffee-03-practice-script")
     }
 
-    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false,securityReview:Bool = false) throws {
+    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false,securityReview:Bool = false,immersionModes:Bool = false) throws {
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated first-month root only") }
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -2122,6 +2125,7 @@ final class ChatConversationTests: XCTestCase {
         if fullTranslation { arguments += ["-vipi-full-translation-sdk-qa"] }
         if draftBoundary { arguments += ["-vipi-draft-boundary-root-qa"] }
         if invitation { arguments += ["-vipi-invitation-root-qa","-vipi-incremental-invitation-qa"] }
+        if immersionModes { arguments += ["-vipi-immersion-mode-qa"] }
         if marketing {
             XCTAssertTrue(fullTranslation && reading == "en-zh" && !largest && !dark && !copyOriginal && !settingsInvite && !cueLifecycle && !pendingPair)
             arguments += ["-vipi-marketing-root-qa"]
@@ -2492,6 +2496,29 @@ final class ChatConversationTests: XCTestCase {
                 }
             }
             XCTAssertTrue(visible("水 and 面包").exists && visible("水, 水!").exists)
+            if immersionModes {
+                let picker = app.buttons["chat-immersion-picker"]
+                XCTAssertTrue(picker.exists && picker.isHittable)
+                picker.tap(); app.buttons["Full messages"].tap()
+                XCTAssertTrue(visible("水和面包").waitForExistence(timeout:15))
+                XCTAssertTrue(visible("水，水！").waitForExistence(timeout:15))
+                let full = XCTAttachment(screenshot:app.screenshot()); full.name = "ordinary-chat-full-messages-native-script"; full.lifetime = .keepAlways; add(full)
+                visible("水和面包").doubleTap()
+                let fullReading = practice.matching(NSPredicate(format:"label BEGINSWITH %@ AND label CONTAINS %@","shuǐ","hé")).firstMatch
+                XCTAssertTrue(fullReading.waitForExistence(timeout:8))
+                let reading = XCTAttachment(screenshot:app.screenshot()); reading.name = "ordinary-chat-full-messages-default-reading"; reading.lifetime = .keepAlways; add(reading)
+                fullReading.tap()
+                _ = observe("full-message-speaks-continuous-native-sentence") { evidence in
+                    guard let last = evidence["speech_last_input"] as? [String:Any],let inputs = last["inputs"] as? [[String:Any]] else { return false }
+                    return inputs.count == 1 && inputs.first?["sha256"] as? String == digest("水和面包")
+                }
+                picker.tap(); app.buttons["One new word at a time"].tap()
+                XCTAssertTrue(visible("shuǐ and miàn bāo").waitForExistence(timeout:15))
+                XCTAssertTrue(visible("shuǐ, shuǐ!").waitForExistence(timeout:15))
+                _ = observe("mode-toggle-keeps-exact-chat-originals") { Set($0["texts"] as? [String] ?? []) == ["Water, water!","water and bread"] }
+                let restored = XCTAttachment(screenshot:app.screenshot()); restored.name = "ordinary-chat-restored-incremental-plan"; restored.lifetime = .keepAlways; add(restored)
+                return
+            }
             visible("水 and 面包").tap()
             _ = observe("single-tap-speaks-only-practice-words") { evidence in
                 guard let last = evidence["speech_last_input"] as? [String:Any],

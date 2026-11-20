@@ -17,6 +17,22 @@ final class SwahiliSpeech: @unchecked Sendable {
         var file: AVAudioFile?
         var frames: AVAudioFramePosition = 0
         var error: Error?
+        var scalarOffsets:[Int] = []
+        var marks:[SpeechMark] = []
+        var sampleRate:Double = 0
+        func acceptEvents(_ events:UnsafeMutablePointer<espeak_EVENT>?) {
+            guard let events else { return }
+            var index = 0
+            while events[index].type != espeakEVENT_LIST_TERMINATED {
+                let event = events[index]; index += 1
+                guard event.type == espeakEVENT_WORD,event.text_position > 0,event.length > 0 else { continue }
+                let start = Int(event.text_position)-1,end = start+Int(event.length)
+                guard start >= 0,end < scalarOffsets.count else { continue }
+                let range = NSRange(location:scalarOffsets[start],length:scalarOffsets[end]-scalarOffsets[start])
+                let frame = Int((Double(event.audio_position) * sampleRate / 1000).rounded())
+                marks.append(.init(start:range.location,length:range.length,byteSampleOffset:frame*4))
+            }
+        }
         func cancel() { lock.lock(); cancelled = true; lock.unlock() }
         var isCancelled: Bool { lock.lock(); defer { lock.unlock() }; return cancelled }
         func accept(_ samples: UnsafeMutablePointer<Int16>?, count: Int32) -> Int32 {
@@ -67,7 +83,9 @@ final class SwahiliSpeech: @unchecked Sendable {
             }
             espeak_SetSynthCallback { samples, count, events in
                 guard let pointer = events?.pointee.user_data else { return 1 }
-                return Unmanaged<Job>.fromOpaque(pointer).takeUnretainedValue().accept(samples, count: count)
+                let job = Unmanaged<Job>.fromOpaque(pointer).takeUnretainedValue()
+                job.acceptEvents(events)
+                return job.accept(samples, count: count)
             }
             initialized = true
         }
@@ -78,6 +96,9 @@ final class SwahiliSpeech: @unchecked Sendable {
         guard rate > 0, let format = AVAudioFormat(standardFormatWithSampleRate: rate, channels: 1) else {
             throw LocalSpeechError.invalidAudio
         }
+        job.scalarOffsets = [0]
+        for scalar in text.unicodeScalars { job.scalarOffsets.append(job.scalarOffsets.last! + String(scalar).utf16.count) }
+        job.marks = []; job.sampleRate = rate
         job.file = try AVAudioFile(forWriting: url, settings: format.settings)
         defer { job.file = nil }
         let pointer = Unmanaged.passUnretained(job).toOpaque()
@@ -91,6 +112,6 @@ final class SwahiliSpeech: @unchecked Sendable {
         if job.isCancelled { throw CancellationError() }
         if let error = job.error { throw error }
         guard status == ENS_OK, job.frames > 0 else { throw LocalSpeechError.invalidAudio }
-        return RenderedSpeech(file: url, milliseconds: Double(job.frames)*1000/rate, sampleRate: rate, channels: 1)
+        return RenderedSpeech(file: url, milliseconds: Double(job.frames)*1000/rate, sampleRate: rate, channels: 1,marks:job.marks)
     }
 }

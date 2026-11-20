@@ -25,7 +25,7 @@ import VipiCore
                     XCTFail("An authored example has a known source language; classification must not request a different pair")
                     return "en"
                 })
-                await ConversationPreview.configure(owner,pair:pair)
+                await ConversationPreview.configure(owner,pair:pair,mode:.fullMessages)
                 let identity = owner.identity(messageID:"language-preview",text:source.exampleGreeting)
                 let work = Task { await owner.translatedMessage(for:identity) }
                 let request = try await next(owner)
@@ -42,7 +42,7 @@ import VipiCore
     }
     func testEveryMessageRequestsFullTranslationIncludingShortAndFormerReferenceHits() async throws {
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es"))
+        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages)
         defer { owner.close() }
         for (index,text) in ["yes","OK","Coffee tomorrow?","A completely new sentence about the purple umbrella."].enumerated() {
             let id = "message-\(index)", identity = owner.identity(messageID:"message-\(index)",text:text)
@@ -63,7 +63,7 @@ import VipiCore
     }
     func testDistinctIdenticalMessagesTranslateSeparatelyAndConcurrentSameMessageCoalesces() async throws {
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es")); defer { owner.close() }
+        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); defer { owner.close() }
         let first = owner.identity(messageID:"first",text:"OK")
         let a = Task { await owner.translatedMessage(for:first) }, b = Task { await owner.translatedMessage(for:first) }
         let request = try await next(owner); await owner.finish(request,translation:"Vale")
@@ -77,7 +77,7 @@ import VipiCore
     }
     func testPracticeInputRemainsExactPracticeAndGetsNativeMeaning() async throws {
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in "ja"})
-        await owner.configure(pair:.init(source:"en",target:"ja")); defer { owner.close() }
+        await owner.configure(pair:.init(source:"en",target:"ja"),mode:.fullMessages); defer { owner.close() }
         let original = "はい", identity = owner.identity(messageID:"incoming",text:"はい")
         let task = Task { await owner.translatedMessage(for:identity) }
         let request = try await next(owner)
@@ -89,7 +89,7 @@ import VipiCore
     }
     func testThirdLanguageGetsBothPracticeAndConfiguredNativeMeaning() async throws {
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in "es"})
-        await owner.configure(pair:.init(source:"en",target:"ja")); defer { owner.close() }
+        await owner.configure(pair:.init(source:"en",target:"ja"),mode:.fullMessages); defer { owner.close() }
         let original = "¿Dónde está la estación?", identity = owner.identity(messageID:"received",text:"¿Dónde está la estación?")
         let task = Task { await owner.translatedMessage(for:identity) }
         let practice = try await next(owner); XCTAssertEqual(practice.pair,.init(source:"es",target:"ja"))
@@ -106,7 +106,7 @@ import VipiCore
     func testMissingModelsAndFailedProviderRemainExplicitAndRetryable() async throws {
         var installed = false
         let owner = ConversationImmersion(modelStatus:{_ in installed ? .installed : .downloadable},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es")); defer { owner.close() }
+        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); defer { owner.close() }
         let identity = owner.identity(messageID:"sent",text:"A new message")
         let missing = await owner.translatedMessage(for:identity); XCTAssertNil(missing); XCTAssertEqual(owner.phase(for:identity),.needsDownload); XCTAssertNil(owner.cached(identity.text,messageID:identity.messageID))
         installed = true; owner.retry(identity)
@@ -120,7 +120,7 @@ import VipiCore
     }
     func testCloseCancelsPendingAndLateResultCannotPublishOrPlay() async throws {
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es"))
+        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages)
         let identity = owner.identity(messageID:"late",text:"Please translate this")
         let task = Task { await owner.translatedMessage(for:identity) }
         let request = try await next(owner); owner.close()
@@ -130,7 +130,7 @@ import VipiCore
     }
     func testUnchangedModelOutputIsRetainedAfterRealRequestRatherThanHeuristicallyRejected() async throws {
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es")); defer { owner.close() }
+        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); defer { owner.close() }
         let original = "Ada 42 🙂", identity = owner.identity(messageID:"literal",text:"Ada 42 🙂")
         let task = Task { await owner.translatedMessage(for:identity) }
         let request = try await next(owner); await owner.finish(request,translation:original)
@@ -138,7 +138,7 @@ import VipiCore
     }
     func testForegroundAndHistoryWaitersDoNotSilentlyRetryFailedMessage() async throws {
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await owner.configure(pair:.init(source:"en",target:"es")); defer { owner.close() }
+        await owner.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); defer { owner.close() }
         let identity = owner.identity(messageID:"retry-required",text:"Keep this failure actionable.")
         let task = Task { await owner.translatedMessage(for:identity) }
         await owner.finish(try await next(owner),translation:nil)

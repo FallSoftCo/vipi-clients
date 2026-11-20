@@ -251,6 +251,12 @@ struct SettingsView: View {
                 }.accessibilityIdentifier("language-settings-link")
             }
             Section {
+                Picker("Immersion",selection:$state.immersionMode) {
+                    ForEach(ImmersionMode.allCases) { Text($0.title).tag($0) }
+                }.accessibilityIdentifier("settings-immersion-picker")
+                Text(state.immersionMode == .fullMessages ? String(localized:"Every message appears in the language you’re learning.") : String(localized:"One new word at a time")).font(.footnote).foregroundStyle(VipiDesign.secondary)
+            }
+            Section {
                 if chat != nil {
                     NavigationLink { NotificationSettingsView() } label: {
                         Text("Notifications").font(.body).fixedSize(horizontal: false, vertical: true)

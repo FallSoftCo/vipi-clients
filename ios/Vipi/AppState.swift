@@ -18,6 +18,12 @@ struct VipiLanguage: Identifiable, Hashable {
 }
 
 enum OnboardingStep: String { case welcome, language, account }
+enum ImmersionMode: String, CaseIterable, Identifiable {
+    case incremental, fullMessages
+    var id: String { rawValue }
+    var title: String { self == .fullMessages ? String(localized:"Full messages") : String(localized:"One new word at a time") }
+}
+
 enum AppAppearance: String, CaseIterable, Identifiable {
     case system, light, dark
     var id: String { rawValue }
@@ -29,6 +35,7 @@ enum AppAppearance: String, CaseIterable, Identifiable {
     var onboarding: OnboardingStep { didSet { defaults.set(onboarding.rawValue, forKey: "onboardingStep") } }
     var knownLanguage: String { didSet { defaults.set(knownLanguage, forKey: "knownLanguage") } }
     var targetLanguage: String { didSet { defaults.set(targetLanguage, forKey: "targetLanguage") } }
+    var immersionMode: ImmersionMode { didSet { defaults.set(immersionMode.rawValue, forKey: "immersionMode") } }
     var appearance: AppAppearance { didSet { defaults.set(appearance.rawValue, forKey: "appearance") } }
     let chatReading: ChatReadingState
     let translationServices: MessageTranslationServices
@@ -62,6 +69,7 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         onboarding = OnboardingStep(rawValue: defaults.string(forKey: "onboardingStep") ?? "") ?? .welcome
         knownLanguage = defaults.string(forKey: "knownLanguage") ?? "en"
         targetLanguage = defaults.string(forKey: "targetLanguage") ?? "es"
+        immersionMode = ImmersionMode(rawValue: defaults.string(forKey: "immersionMode") ?? "") ?? .incremental
         appearance = AppAppearance(rawValue: defaults.string(forKey: "appearance") ?? "") ?? .system
         #if DEBUG
         let args = ProcessInfo.processInfo.arguments

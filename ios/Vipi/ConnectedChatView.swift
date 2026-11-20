@@ -69,8 +69,8 @@ struct ConnectedChatRoot: View {
         }
         .background(VipiDesign.canvas)
         .background { if let owner = chat?.translationOwner { ConversationTranslationTask(immersion:owner) } }
-        .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(chat?.userID ?? "")") {
-            if let chat { await chat.configureTranslation(pair:.init(source:state.knownLanguage,target:state.targetLanguage),services:state.translationServices); botOwner.useTranslation(chat.translationOwner) }
+        .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(state.immersionMode.rawValue)-\(chat?.userID ?? "")") {
+            if let chat { await chat.configureTranslation(pair:.init(source:state.knownLanguage,target:state.targetLanguage),mode:state.immersionMode,services:state.translationServices); botOwner.useTranslation(chat.translationOwner) }
         }
         .sheet(isPresented: $showReplacement) {
             if let chat, let replacement { OwnDeviceReplacementView(chat: chat, candidate: replacement) }
@@ -95,7 +95,7 @@ struct ConnectedChatRoot: View {
                 #else
                 let value = try ChatSession(authentication: authentication, userID: userID)
                 #endif
-                await value.configureTranslation(pair:.init(source:state.knownLanguage,target:state.targetLanguage),services:state.translationServices)
+                await value.configureTranslation(pair:.init(source:state.knownLanguage,target:state.targetLanguage),mode:state.immersionMode,services:state.translationServices)
                 chat = value; await value.start()
             } catch { self.error = String(localized: "Your saved data is still here. Please close and reopen Vipi to try again.") }
         }
@@ -500,6 +500,17 @@ struct FriendConversationView: View {
         }
         .navigationTitle(chat.name(peer)).navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement:.topBarTrailing) {
+                Menu {
+                    Picker("Immersion",selection:Binding(get:{state.immersionMode},set:{ mode in
+                        copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions()
+                        state.immersionMode = mode
+                    })) {
+                        ForEach(ImmersionMode.allCases) { Text($0.title).tag($0) }
+                    }
+                } label: { Text("Immersion") }
+                .accessibilityIdentifier("chat-immersion-picker")
+            }
             ToolbarItem(placement:.topBarTrailing) { autoplayButton }
             if #available(iOS 26.0, *) {
                 conversationOptions.sharedBackgroundVisibility(.hidden)
@@ -548,13 +559,13 @@ struct FriendConversationView: View {
             }.presentationDetents([.medium, .large])
         }
         .safeAreaInset(edge: .bottom) { composer }
-        .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(chat.translationOwner.map{String(describing:ObjectIdentifier($0))} ?? "local")") {
+        .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(state.immersionMode.rawValue)-\(chat.translationOwner.map{String(describing:ObjectIdentifier($0))} ?? "local")") {
             copyOriginal.abandon()
             speech.close()
             autoplay.stop(speech:speech)
             if usesAppTranslationServices {
                 guard let owner = chat.translationOwner else { return }; immersion = owner
-            } else { await immersion.configure(pair:.init(source:state.knownLanguage,target:state.targetLanguage)) }
+            } else { await immersion.configure(pair:.init(source:state.knownLanguage,target:state.targetLanguage),mode:state.immersionMode) }
             prepareVoices(); immersion.warm(messages.map{(id:$0.id.uuidString,text:$0.text)})
         }
         .onAppear {

@@ -19,7 +19,7 @@ import VipiCore
     }
     private func owner(_ store:MessageVault, target:String = "es") async -> ConversationImmersion {
         let value = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await value.configure(pair:.init(source:"en",target:target)); value.attachCache(store)
+        await value.configure(pair:.init(source:"en",target:target),mode:.fullMessages); value.attachCache(store)
         return value
     }
     private func request(_ owner:ConversationImmersion) async throws -> ConversationImmersion.Request {
@@ -92,7 +92,7 @@ import VipiCore
             let old = current.identity(messageID:"late",text:"Do not save after logout.")
             let task = Task { await current.translatedMessage(for:old) }
             let pending = try await request(current)
-            if changePair { await current.configure(pair:.init(source:"en",target:"fr")); current.attachCache(store) }
+            if changePair { await current.configure(pair:.init(source:"en",target:"fr"),mode:.fullMessages); current.attachCache(store) }
             else { current.close() }
             await current.finish(pending,translation:"No guardar después de salir.")
             let result = await task.value
@@ -150,7 +150,7 @@ import VipiCore
         }
         writer.close()
         let reader = ConversationImmersion(modelStatus:{_ in .installed},memoryCacheLimit:2,identify:{_ in nil})
-        await reader.configure(pair:.init(source:"en",target:"es")); reader.attachCache(store)
+        await reader.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); reader.attachCache(store)
         defer { reader.close() }
         let visible = reader.identity(messageID:"history-0",text:"Stored source 0")
         reader.retainVisible(visible)
@@ -181,7 +181,7 @@ import VipiCore
         writer.close()
         let reader = ConversationImmersion(modelStatus:{_ in .installed},memoryCacheLimit:128,
             memoryCacheByteLimit:800,identify:{_ in nil})
-        await reader.configure(pair:.init(source:"en",target:"es")); reader.attachCache(vault)
+        await reader.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); reader.attachCache(vault)
         defer { reader.close() }
         let pinned = reader.identity(messageID:"bytes-0",text:"Source 0")
         reader.retainVisible(pinned)
@@ -199,7 +199,7 @@ import VipiCore
     func testFailedStatesAreBoundedAndRequireExplicitRetryAfterOwnerReopen() async throws {
         let vault = try store()
         let first = ConversationImmersion(modelStatus:{_ in .installed},memoryCacheLimit:2,identify:{_ in nil})
-        await first.configure(pair:.init(source:"en",target:"es")); first.attachCache(vault)
+        await first.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); first.attachCache(vault)
         for index in 0..<5 {
             let identity = first.identity(messageID:"failed-\(index)",text:"Private failed source \(index)")
             let work = Task { await first.translatedMessage(for:identity) }
@@ -249,13 +249,13 @@ import VipiCore
         let writer = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},fullReadingProducer:{_,_ in
             .init(text:reading,provenance:.localTransliteration)
         })
-        await writer.configure(pair:.init(source:"en",target:"zh")); writer.attachCache(vault)
+        await writer.configure(pair:.init(source:"en",target:"zh"),mode:.fullMessages); writer.attachCache(vault)
         let value = try await complete(writer,id:"expanded",text:source,target:practice)
         XCTAssertTrue(value.original.utf8.elementsEqual(source.utf8))
         XCTAssertEqual(value.practiceText,practice); XCTAssertEqual(value.practiceReading,reading)
         writer.close()
         let reader = ConversationImmersion(modelStatus:{_ in XCTFail("Complete encrypted hit must not reprepare models"); return .unsupported},identify:{_ in nil})
-        await reader.configure(pair:.init(source:"en",target:"zh")); reader.attachCache(vault)
+        await reader.configure(pair:.init(source:"en",target:"zh"),mode:.fullMessages); reader.attachCache(vault)
         defer { reader.close() }
         let saved = await reader.translatedMessage(for:reader.identity(messageID:"expanded",text:source))
         XCTAssertEqual(saved,value); XCTAssertNil(reader.request)
@@ -264,7 +264,7 @@ import VipiCore
 
     func testDurableWarmReferencesLoadOnlyWhenReachedAndForgetRejectsQueuedWork() async throws {
         let current = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil})
-        await current.configure(pair:.init(source:"en",target:"es")); defer { current.close() }
+        await current.configure(pair:.init(source:"en",target:"es"),mode:.fullMessages); defer { current.close() }
         var loaded:[String] = []
         current.warmStored(id:"first") { loaded.append("first"); return "First committed source." }
         let first = try await request(current)
@@ -295,7 +295,7 @@ import VipiCore
         func make() async -> ConversationImmersion {
             let current = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},
                 fullReadingProducer:{text,language in await probe.read(text,language)})
-            await current.configure(pair:.init(source:"en",target:"zh")); current.attachCache(vault)
+            await current.configure(pair:.init(source:"en",target:"zh"),mode:.fullMessages); current.attachCache(vault)
             return current
         }
         let first = await make()
@@ -340,7 +340,7 @@ import VipiCore
         let probe = ReadingStatusProbe([.init(text:"míngtiān",provenance:.localTransliteration)])
         let current = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},
             fullReadingProducer:{text,language in await probe.read(text,language)})
-        await current.configure(pair:.init(source:"en",target:"zh")); current.attachCache(vault); defer { current.close() }
+        await current.configure(pair:.init(source:"en",target:"zh"),mode:.fullMessages); current.attachCache(vault); defer { current.close() }
         let updated = await current.translatedMessage(for:current.identity(messageID:"old-guide",text:"Tomorrow"))
         XCTAssertEqual(updated?.practiceReading,"míngtiān"); XCTAssertEqual(updated?.readingState?.status,.available)
         XCTAssertEqual(updated?.original,"Tomorrow"); XCTAssertEqual(updated?.practiceText,"明天")
@@ -364,7 +364,7 @@ import VipiCore
         let probe = ReadingStatusProbe([.init(text:"míngtiān",provenance:.localTransliteration)])
         let current = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},
             fullReadingProducer:{text,language in await probe.read(text,language)})
-        await current.configure(pair:.init(source:"en",target:"zh")); current.attachCache(vault); defer { current.close() }
+        await current.configure(pair:.init(source:"en",target:"zh"),mode:.fullMessages); current.attachCache(vault); defer { current.close() }
         let updated = await current.translatedMessage(for:current.identity(messageID:"invalid-guide",text:"Tomorrow"))
         XCTAssertEqual(updated?.practiceReading,"míngtiān"); XCTAssertEqual(updated?.readingState?.status,.available)
         XCTAssertEqual(updated?.original,"Tomorrow"); XCTAssertEqual(updated?.practiceText,"明天")
@@ -377,7 +377,7 @@ import VipiCore
         let vault = try store(), probe = ReadingStatusProbe([])
         let current = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},
             fullReadingProducer:{text,language in await probe.read(text,language)})
-        await current.configure(pair:.init(source:"en",target:"ja")); current.attachCache(vault); defer { current.close() }
+        await current.configure(pair:.init(source:"en",target:"ja"),mode:.fullMessages); current.attachCache(vault); defer { current.close() }
         let value = try await complete(current,id:"literal-guide",text:"Keep the link",target:"cafe\u{301} `日本語` https://example.com/日本 42 👩🏽‍💻")
         XCTAssertEqual(value.readingState?.status,.notNeeded); XCTAssertNil(value.practiceReading)
         let calls = await probe.count; XCTAssertEqual(calls,0)
@@ -387,7 +387,7 @@ import VipiCore
         let vault = try store(), probe = ReadingStatusProbe([.init(text:"míng 天",provenance:.localTransliteration)])
         let current = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},
             fullReadingProducer:{text,language in await probe.read(text,language)})
-        await current.configure(pair:.init(source:"en",target:"zh")); current.attachCache(vault); defer { current.close() }
+        await current.configure(pair:.init(source:"en",target:"zh"),mode:.fullMessages); current.attachCache(vault); defer { current.close() }
         let value = try await complete(current,id:"partial-guide",text:"Tomorrow",target:"明天")
         XCTAssertEqual(value.readingState?.status,.unavailable); XCTAssertNil(value.practiceReading)
         XCTAssertEqual(value.readingState?.failure,.unresolved); XCTAssertFalse(value.readingState?.canRetry ?? true)
@@ -408,7 +408,7 @@ import VipiCore
             func make() async -> ConversationImmersion {
                 let value = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},
                     fullReadingProducer:{text,language in await probe.read(text,language)})
-                await value.configure(pair:.init(source:"en",target:"zh")); value.attachCache(vault)
+                await value.configure(pair:.init(source:"en",target:"zh"),mode:.fullMessages); value.attachCache(vault)
                 return value
             }
             let first = await make(), identity = first.identity(messageID:id,text:"Tomorrow")
@@ -432,7 +432,7 @@ import VipiCore
         let probe = ThrowingReadingStatusProbe(), vault = try store()
         let current = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},
             fullReadingProducer:{_,_ in try? await probe.read()})
-        await current.configure(pair:.init(source:"en",target:"zh")); current.attachCache(vault); defer { current.close() }
+        await current.configure(pair:.init(source:"en",target:"zh"),mode:.fullMessages); current.attachCache(vault); defer { current.close() }
         let value = try await complete(current,id:"throw-guide",text:"Tomorrow",target:"明天")
         let identity = current.identity(messageID:"throw-guide",text:"Tomorrow")
         XCTAssertEqual(value.readingState?.failure,.producerUnavailable); XCTAssertTrue(value.readingState?.canRetry == true)
@@ -461,7 +461,7 @@ import VipiCore
         let writer = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},fullReadingProducer:{text,_ in
             .init(text:text == "明天" ? "míngtiān" : "nǐ hǎo",provenance:.localTransliteration)
         })
-        await writer.configure(pair:.init(source:"en",target:"zh")); writer.attachCache(vault)
+        await writer.configure(pair:.init(source:"en",target:"zh"),mode:.fullMessages); writer.attachCache(vault)
         _ = try await complete(writer,id:removedID,text:"Tomorrow",target:"明天")
         let removedKey = try XCTUnwrap(vault.transaction { try vault.ids("full-message-translation").first })
         let retained = try await complete(writer,id:retainedID,text:"Hello",target:"你好")
@@ -477,7 +477,7 @@ import VipiCore
         try vault.transaction { try vault.put("full-message-translation",removedKey,JSONSerialization.data(withJSONObject:record)) }
         let gate = LegacyWarmReadingGate()
         let current = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},fullReadingProducer:{_,_ in await gate.read()})
-        await current.configure(pair:.init(source:"en",target:"zh")); current.attachCache(vault); defer { current.close() }
+        await current.configure(pair:.init(source:"en",target:"zh"),mode:.fullMessages); current.attachCache(vault); defer { current.close() }
         let retainedIdentity = current.identity(messageID:retainedID,text:"Hello")
         let restored = await current.translatedMessage(for:retainedIdentity)
         XCTAssertEqual(restored,retained); XCTAssertNil(current.request)
@@ -516,7 +516,7 @@ import VipiCore
         let vault = try store(), gate = ReadingStatusGate()
         let current = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},
             fullReadingProducer:{_,_ in await gate.read()})
-        await current.configure(pair:.init(source:"en",target:"zh")); current.attachCache(vault)
+        await current.configure(pair:.init(source:"en",target:"zh"),mode:.fullMessages); current.attachCache(vault)
         let original = try await complete(current,id:"close-guide",text:"Tomorrow",target:"明天")
         let key = try XCTUnwrap(vault.transaction { try vault.ids("full-message-translation").first })
         let before = try vault.transaction { try vault.get("full-message-translation",key) }

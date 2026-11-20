@@ -20,6 +20,34 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
     private var preparation: Task<Void, Never>?
     private var preparationID = UUID()
     private var rendering: Task<Void, Never>?
+    struct ActiveWord: Equatable { let range:NSRange; let text:String }
+    private(set) var activeWord: ActiveWord?
+    private struct TimedWord { let range:NSRange; let text:String; let start:Int64; var end:Int64 }
+    private var timedWords:[TimedWord] = []
+    private var wordTracking:Task<Void,Never>?
+    private var scheduledFrames:Int64 = 0
+    private func trackWords(request:Int) {
+        guard wordTracking == nil else { return }
+        wordTracking = Task { @MainActor [weak self] in
+            while !Task.isCancelled {
+                guard let self,request == self.epoch,let node = self.player else { return }
+                if let time = node.lastRenderTime.flatMap({node.playerTime(forNodeTime:$0)}) {
+                    let sample = time.sampleTime
+                    let word = self.timedWords.first{sample >= $0.start && sample < $0.end}
+                    let next = word.map{ActiveWord(range:$0.range,text:$0.text)}
+                    if self.activeWord != next {
+                        self.activeWord = next
+                        #if DEBUG
+                        LiveImmersionQualification.recordFirstMonthSpeechOutput(["event":"speech_active_word","message_id":self.activeMessage ?? "",
+                            "source":"native_marker_and_player_sample_time","sample_time":sample,
+                            "start":next?.range.location ?? -1,"length":next?.range.length ?? 0])
+                        #endif
+                    }
+                }
+                do { try await Task.sleep(for:.milliseconds(20)) } catch { return }
+            }
+        }
+    }
     private var observers: [NSObjectProtocol] = []
     private var epoch = 0
     private var ready = false
@@ -94,13 +122,13 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
     }
 
     /// Start or replace practice playback without toggling the selected item off.
-    func start(message: String, spans: [(text: String, language: String)], autoplay: Bool = false) {
+    func start(message: String, spans: [(text: String, language: String)], autoplay: Bool = false, pauseBetweenSpans: Bool = false) {
         if activeMessage == message { stop() }
-        toggle(message:message,spans:spans)
+        toggle(message:message,spans:spans,pauseBetweenSpans:pauseBetweenSpans)
         if activeMessage == message { autoplayOwned = autoplay }
     }
 
-    func toggle(message: String, spans: [(text: String, language: String)]) {
+    func toggle(message: String, spans: [(text: String, language: String)], pauseBetweenSpans: Bool = false) {
         guard ready, let pair else { return }
         if activeMessage == message { stop(); return }
         #if DEBUG
@@ -118,17 +146,22 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
             do {
                 guard spans.reduce(0, { $0 + $1.text.utf8.count }) <= FullMessageBudget.recordBytes else { throw LocalSpeechError.unavailable }
                 let planning = Task.detached(priority:.userInitiated) {
-                    try SpeechChunks.plan(spans,checkCancellation:{ try Task.checkCancellation() })
+                    if pauseBetweenSpans { return try spans.flatMap{try SpeechChunks.plan([$0],checkCancellation:{try Task.checkCancellation()})} }
+                    try Task.checkCancellation()
+                    return SpeechChunks.sentencePlan(spans)
                 }
                 let chunks = try await withTaskCancellationHandler { try await planning.value } onCancel: { planning.cancel() }
                 try Task.checkCancellation()
                 guard !chunks.isEmpty else { throw LocalSpeechError.unavailable }
                 self.schedulingFinished = false; self.outputUnderruns = 0
-                var renderedAny = false
+                var renderedAny = false, textOffset = 0
+                let spokenText = spans.map(\.text).joined() as NSString
+                var boundary = 0
+                let pauseOffsets = Set(spans.dropLast().map{span -> Int in boundary += span.text.utf16.count; return boundary})
                 for chunk in chunks {
                     // A punctuation-only native utterance can return zero PCM.
                     // Treat it as silence; do not abort later pronounceable text.
-                    guard chunk.contains(where:{SpeechChunks.hasSpokenContent($0.text)}) else { continue }
+                    guard chunk.contains(where:{SpeechChunks.hasSpokenContent($0.text)}) else { textOffset += chunk.reduce(0){$0+$1.text.utf16.count}; continue }
                     renderedAny = true
                     while self.scheduled.count >= 3 { try await Task.sleep(for: .milliseconds(20)) }
                     let audio = try await pair.render(chunk)
@@ -145,6 +178,27 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                         engine.prepare(); try engine.start()
                     }
                     guard let node = self.player else { throw LocalSpeechError.unavailable }
+                    if pauseBetweenSpans,pauseOffsets.contains(textOffset),
+                       let silence = AVAudioPCMBuffer(pcmFormat:file.processingFormat,frameCapacity:AVAudioFrameCount(file.processingFormat.sampleRate * 0.16)) {
+                        silence.frameLength = silence.frameCapacity
+                        for buffer in UnsafeMutableAudioBufferListPointer(silence.mutableAudioBufferList) {
+                            if let bytes = buffer.mData { memset(bytes,0,Int(buffer.mDataByteSize)) }
+                        }
+                        node.scheduleBuffer(silence)
+                        self.scheduledFrames += Int64(silence.frameLength)
+                    }
+                    let bytesPerFrame = max(1,Int(file.processingFormat.streamDescription.pointee.mBytesPerFrame))
+                    let ordered = audio.marks.sorted{$0.byteSampleOffset < $1.byteSampleOffset}
+                    for (index,mark) in ordered.enumerated() {
+                        let range = NSRange(location:textOffset+mark.start,length:mark.length)
+                        guard range.location >= 0,range.length > 0,NSMaxRange(range) <= spokenText.length else { continue }
+                        let start = self.scheduledFrames + Int64(mark.byteSampleOffset / bytesPerFrame)
+                        let end = self.scheduledFrames + (index+1 < ordered.count ? Int64(ordered[index+1].byteSampleOffset / bytesPerFrame) : file.length)
+                        guard end > start else { continue }
+                        self.timedWords.append(.init(range:range,text:spokenText.substring(with:range),start:start,end:end))
+                    }
+                    textOffset += chunk.reduce(0){$0+$1.text.utf16.count}
+                    self.scheduledFrames += file.length
                     let id = UUID()
                     self.scheduled[id] = file
                     #if DEBUG
@@ -172,7 +226,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                             }
                         }
                     }
-                    if !node.isPlaying { node.play(); self.state = .playing }
+                    if !node.isPlaying { node.play(); self.state = .playing; self.trackWords(request:request) }
                 }
                 guard renderedAny else { throw LocalSpeechError.invalidAudio }
                 self.schedulingFinished = true
@@ -185,6 +239,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
     }
     func stop() {
         epoch += 1
+        wordTracking?.cancel(); wordTracking = nil; activeWord = nil; timedWords.removeAll(); scheduledFrames = 0
         rendering?.cancel()
         // Keep the task reference until the next request has awaited its cleanup.
         player?.stop(); engine?.stop(); player = nil; engine = nil; scheduled.removeAll()

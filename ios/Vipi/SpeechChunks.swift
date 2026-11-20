@@ -49,6 +49,21 @@ enum SpeechChunks {
         if !current.isEmpty { chunks.append(current) }
         return chunks
     }
+    /// Keep each native sentence intact for continuous prosody. The bounded
+    /// source-message budget and synthesis timeout still apply to long sentences.
+    static func sentencePlan(_ spans:[(text:String,language:String)]) -> [[(text:String,language:String)]] {
+        var result:[[(text:String,language:String)]] = []
+        for span in spans {
+            var cursor = span.text.startIndex
+            span.text.enumerateSubstrings(in:span.text.startIndex..<span.text.endIndex,options:.bySentences) { _,_,enclosing,_ in
+                guard enclosing.upperBound > cursor else { return }
+                result.append([(String(span.text[cursor..<enclosing.upperBound]),span.language)])
+                cursor = enclosing.upperBound
+            }
+            if cursor < span.text.endIndex { result.append([(String(span.text[cursor...]),span.language)]) }
+        }
+        return result
+    }
     static func hasSpokenContent(_ text:String) -> Bool {
         text.unicodeScalars.contains { CharacterSet.alphanumerics.contains($0) }
     }

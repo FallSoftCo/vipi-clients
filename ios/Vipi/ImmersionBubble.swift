@@ -79,14 +79,14 @@ enum ReadingMode: String, CaseIterable, Identifiable {
     func toggleScript() { learnedGesture(); nativeScript.toggle() }
     func toggleMeaning() { learnedGesture(); accessibleMeaning.toggle() }
     /// Assistive activation uses native actions, not the physical touch grammar.
-    static func actionDescription(showingMeaning:Bool = false,nativeScript:Bool = false,hasAlternateScript:Bool = true) -> String {
-        var actions = [String(localized:"Play practice words"),
-                       showingMeaning ? String(localized:"Show practice words") : String(localized:"Show original message")]
+    static func actionDescription(showingMeaning:Bool = false,nativeScript:Bool = false,hasAlternateScript:Bool = true,incremental:Bool = true) -> String {
+        var actions = [incremental ? String(localized:"Play practice words") : String(localized:"Play message"),
+                       showingMeaning ? (incremental ? String(localized:"Show practice words") : String(localized:"Show practice text")) : String(localized:"Show original message")]
         if hasAlternateScript { actions.append(nativeScript ? String(localized:"Show transliteration") : String(localized:"Show native script")) }
         return actions.joined(separator:". ")
     }
-    static func gestureDescription(target:String,hasAlternateScript:Bool) -> String {
-        let basic = String(format:String(localized:"Tap to hear %1$@ words. Hold to see the original message."),VipiLanguage.named(target).localizedName)
+    static func gestureDescription(target:String,hasAlternateScript:Bool,incremental:Bool = true) -> String {
+        let basic = incremental ? String(format:String(localized:"Tap to hear %1$@ words. Hold to see the original message."),VipiLanguage.named(target).localizedName) : String(localized:"Tap a message to listen. Hold to see the original.")
         return hasAlternateScript ? basic + " " + String(format:String(localized:"Double-tap to see %1$@ writing."),VipiLanguage.named(target).localizedName) : basic
     }
 }
@@ -280,6 +280,7 @@ struct ImmersionBubble: View {
     var incremental = false
     @State private var localReading = ChatReadingState()
     @State private var frame = CGRect.zero
+    @State private var playbackAlignment:[FullSentenceReadings.Alignment] = []
     @Environment(\.scenePhase) private var scenePhase
     private var controls: ChatReadingState { reading ?? localReading }
     private var binding: ImmersionRequestIdentity { identity ?? .init(messageID:messageID,text:originalMessage ?? result.original,source:sourceLanguage,target:targetLanguage,inputLanguage:inputLanguage,generation:UUID(uuidString:"00000000-0000-0000-0000-000000000000")!) }
@@ -291,12 +292,32 @@ struct ImmersionBubble: View {
     }
     private func play(start: Bool) -> Bool {
         guard scenePhase == .active, let speech else { return false }
-        let span = incremental ? result.spans.map{(text:$0.translated,language:targetLanguage)} : [(text:practice,language:targetLanguage)]
+        let span = playbackSpans
         guard !span.isEmpty else { return true }
         if speech.state == .unavailable { onVoiceHelp?(); return true }
         guard speech.state != .preparing else { return false }
-        if start { speech.start(message:messageID,spans:span) } else { speech.toggle(message:messageID,spans:span) }
+        if start { speech.start(message:messageID,spans:span,pauseBetweenSpans:incremental) } else { speech.toggle(message:messageID,spans:span,pauseBetweenSpans:incremental) }
         return true
+    }
+    private var playbackSpans:[(text:String,language:String)] {
+        if !incremental { return [(practice,targetLanguage)] }
+        // Preserve natural adjacent target phrases; pause only across source
+        // words omitted from practice speech.
+        var spans:[(text:String,language:String)] = [], end:Int?
+        let source = result.original as NSString
+        for word in result.spans {
+            let gap = end.map{NSRange(location:$0,length:max(0,word.range.location-$0))}
+            if let gap,NSMaxRange(gap) <= source.length,
+               source.substring(with:gap).allSatisfy({$0.isWhitespace || $0.isPunctuation}),!spans.isEmpty {
+                spans[spans.count-1].text += source.substring(with:gap)+word.translated
+            } else { spans.append((word.translated,targetLanguage)) }
+            end = NSMaxRange(word.range)
+        }
+        return spans
+    }
+    private var playing:SpeechPlayback.ActiveWord? {
+        guard !controls.showingMeaning,mode != .original,speech?.activeMessage == messageID else { return nil }
+        return speech?.activeWord
     }
     private var hasAlternateScript: Bool { fullReading.map { !$0.isEmpty && $0 != practice } ?? false }
     private func register() { controls.register(.init(identity:binding,frame:frame,activate:play,hasAlternateScript:hasAlternateScript)) }
@@ -310,7 +331,30 @@ struct ImmersionBubble: View {
         view.fitsContentWidth = embedded
         view.reservedSentences = incremental ? [] : faces
         view.sentenceIdentity = String(describing:binding)+"|"+faces.joined(separator:"\u{0}")
-        view.fullMessage = true
+        view.fullMessage = true; view.incremental = incremental
+        if let word = playing {
+            if incremental {
+                // Map the PCM marker through the exact practice speech spans
+                // and the immutable replacement. Highlight the whole native word.
+                let spoken = playbackSpans.map(\.text).joined() as NSString
+                var cursor = 0
+                for span in result.spans {
+                    let found = spoken.range(of:span.translated,options:.literal,range:NSRange(location:cursor,length:spoken.length-cursor))
+                    guard found.location != NSNotFound else { break }
+                    cursor = NSMaxRange(found)
+                    guard NSIntersectionRange(found,word.range).length > 0 else { continue }
+                    view.playingWordID = span.id
+                    let native = NSIntersectionRange(found,word.range)
+                    let local = NSRange(location:native.location-found.location,length:native.length)
+                    let face = controls.nativeScript ? span.translated : span.displayedTarget
+                    view.playingWordRange = FullSentenceReadings.displayedRange(local,text:span.translated,reading:face,
+                        alignment:FullSentenceReadings.alignment(text:span.translated,reading:face,language:targetLanguage))
+                    break
+                }
+            } else {
+                view.playingRange = FullSentenceReadings.displayedRange(word.range,text:practice,reading:displayed,alignment:playbackAlignment)
+            }
+        }
         view.onPlayMessage = { controls.activate(binding) }
         view.onMeaning = { controls.toggleMeaning() }
         view.showingMeaning = controls.showingMeaning
@@ -352,6 +396,12 @@ struct ImmersionBubble: View {
         .background(embedded ? Color.clear : VipiDesign.surface,in:RoundedRectangle(cornerRadius:18))
         .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { frame = $0; register() }
         .onAppear { register() }
+        .task(id:practice+"\u{0}"+displayed+"\u{0}"+targetLanguage) {
+            let text = practice, face = displayed, language = targetLanguage
+            let value = await Task.detached{FullSentenceReadings.alignment(text:text,reading:face,language:language)}.value
+            guard !Task.isCancelled else { return }; playbackAlignment = value
+        }
+        .onChange(of:controls.showingMeaning) { _,meaning in if meaning { speech?.stop() } }
         .onChange(of:result) { register() }
         .onChange(of:fullReading) { register() }
         .onChange(of:speech?.state) { register() }
@@ -453,7 +503,7 @@ struct ImmersionBubble: View {
                 do { try await Task.sleep(for:.milliseconds(30)) } catch { return }
             }
             guard speech.state != .unavailable else { onVoiceHelp(); return }
-            speech.start(message:identity.messageID,spans:value.practiceSpeech.map{($0.text,$0.language)})
+            speech.start(message:identity.messageID,spans:value.practiceSpeech.map{($0.text,$0.language)},pauseBetweenSpans:value.words != nil)
             let serial = speech.playbackSerial
             while speech.activeMessage == identity.messageID {
                 guard !Task.isCancelled,active == epoch,selected == manualEpoch else { return }
@@ -489,7 +539,7 @@ struct ImmersionBubble: View {
                 guard !Task.isCancelled,epoch == active else { return }
                 if consumed.contains(next.id) { if queue.first?.id == next.id { queue.removeFirst() }; continue }
                 if speech.state == .unavailable { missingVoice(speech); return }
-                speech.start(message:next.id,spans:value.practiceSpeech.map{($0.text,$0.language)},autoplay:true)
+                speech.start(message:next.id,spans:value.practiceSpeech.map{($0.text,$0.language)},autoplay:true,pauseBetweenSpans:value.words != nil)
                 let serial = speech.playbackSerial
                 while speech.activeMessage == next.id {
                     guard !Task.isCancelled,epoch == active else { return }
