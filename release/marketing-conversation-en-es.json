@@ -1,0 +1,1147 @@
+{
+  "release": "3db5705a2500fd2d",
+  "english_locale": "en-US",
+  "practice_language": "es",
+  "walkthrough": [
+    {
+      "id": "compose",
+      "heading": "Compose",
+      "body": "Maya finds a set of keys under the table you shared. She writes to you in English.",
+      "sample": "found-keys",
+      "display": "original",
+      "speaker": "Maya"
+    },
+    {
+      "id": "send",
+      "heading": "Send",
+      "body": "Maya’s phone encrypts her message before sending it. Vipi uses the Signal Protocol for end-to-end encryption.",
+      "sample": "found-keys",
+      "display": "ciphertext-in-transit",
+      "speaker": "Maya"
+    },
+    {
+      "id": "receive",
+      "heading": "Receive",
+      "body": "Your phone uses the Signal Protocol to decrypt Maya’s message. Only you and Maya can read it.",
+      "sample": "found-keys",
+      "display": "original",
+      "speaker": "You"
+    },
+    {
+      "id": "immerse",
+      "heading": "Immerse",
+      "body": "In Shallow, “keys” becomes “llaves”. In Deep, the whole message is in Spanish. Tap to hear the word or the sentence. Translation and speech run on your phone.",
+      "sample": "found-keys",
+      "display": [
+        "shallow",
+        "deep"
+      ],
+      "speaker": "You"
+    }
+  ],
+  "passive_messages": [
+    {
+      "id": "found-keys",
+      "sender": "Maya",
+      "day": "Friday",
+      "time": "12:18",
+      "clock": "12:18 PM",
+      "original": "Found some keys under our table.",
+      "sourceWord": "keys",
+      "shallow": [
+        "Found some ",
+        "llaves",
+        " under our table."
+      ],
+      "deep": "Encontré unas llaves debajo de nuestra mesa.",
+      "audioText": {
+        "word": "llaves",
+        "full": "Encontré unas llaves debajo de nuestra mesa."
+      },
+      "order": 1,
+      "scene": "Found keys"
+    },
+    {
+      "id": "bike-keyring",
+      "sender": "You",
+      "day": "Friday",
+      "time": "12:19",
+      "clock": "12:19 PM",
+      "original": "Little red bike on the keyring?",
+      "sourceWord": "bike",
+      "shallow": [
+        "Little red ",
+        "bici",
+        " on the keyring?"
+      ],
+      "deep": "¿Hay una bici roja en el llavero?",
+      "audioText": {
+        "word": "bici",
+        "full": "¿Hay una bici roja en el llavero?"
+      },
+      "order": 2,
+      "scene": "Found keys"
+    },
+    {
+      "id": "in-my-pocket",
+      "sender": "Maya",
+      "day": "Friday",
+      "time": "12:20",
+      "clock": "12:20 PM",
+      "original": "Yep, the one your dad made. They’re in my pocket.",
+      "sourceWord": "pocket",
+      "shallow": [
+        "Yep, the one your dad made. They’re in my ",
+        "bolsillo",
+        "."
+      ],
+      "deep": "Sí, la que hizo tu papá. Las tengo en el bolsillo.",
+      "audioText": {
+        "word": "bolsillo",
+        "full": "Sí, la que hizo tu papá. Las tengo en el bolsillo."
+      },
+      "order": 3,
+      "scene": "Found keys"
+    },
+    {
+      "id": "coming-back",
+      "sender": "You",
+      "day": "Friday",
+      "time": "12:20",
+      "clock": "12:20 PM",
+      "original": "I’m by the bakery. Coming back now.",
+      "sourceWord": "bakery",
+      "shallow": [
+        "I’m by the ",
+        "panadería",
+        ". Coming back now."
+      ],
+      "deep": "Estoy junto a la panadería. Ya vuelvo.",
+      "audioText": {
+        "word": "panadería",
+        "full": "Estoy junto a la panadería. Ya vuelvo."
+      },
+      "order": 4,
+      "scene": "Found keys"
+    },
+    {
+      "id": "by-the-window",
+      "sender": "Maya",
+      "day": "Friday",
+      "time": "12:21",
+      "clock": "12:21 PM",
+      "original": "I’ll wait by the window.",
+      "sourceWord": "window",
+      "shallow": [
+        "I’ll wait by the ",
+        "ventana",
+        "."
+      ],
+      "deep": "Te espero junto a la ventana.",
+      "audioText": {
+        "word": "ventana",
+        "full": "Te espero junto a la ventana."
+      },
+      "order": 5,
+      "scene": "Found keys"
+    },
+    {
+      "id": "home-again",
+      "sender": "You",
+      "day": "Friday",
+      "time": "18:04",
+      "clock": "6:04 PM",
+      "original": "Home. Keys are back on their hook.",
+      "sourceWord": "hook",
+      "shallow": [
+        "Home. Keys are back on their ",
+        "gancho",
+        "."
+      ],
+      "deep": "Ya estoy en casa. Volví a colgar las llaves en el gancho.",
+      "audioText": {
+        "word": "gancho",
+        "full": "Ya estoy en casa. Volví a colgar las llaves en el gancho."
+      },
+      "order": 6,
+      "scene": "The green bike"
+    },
+    {
+      "id": "recognition",
+      "sender": "Maya",
+      "day": "Friday",
+      "time": "18:05",
+      "clock": "6:05 PM",
+      "original": "I remember your dad making those out of wire.",
+      "sourceWord": "wire",
+      "shallow": [
+        "I remember your dad making those out of ",
+        "alambre",
+        "."
+      ],
+      "deep": "Me acuerdo de cómo los hacía tu papá con alambre.",
+      "audioText": {
+        "word": "alambre",
+        "full": "Me acuerdo de cómo los hacía tu papá con alambre."
+      },
+      "order": 7,
+      "scene": "The green bike"
+    },
+    {
+      "id": "green-bike",
+      "sender": "You",
+      "day": "Friday",
+      "time": "18:07",
+      "clock": "6:07 PM",
+      "original": "I sent him a photo. He asked about your green bike.",
+      "sourceWord": "photo",
+      "shallow": [
+        "I sent him a ",
+        "foto",
+        ". He asked about your green bike."
+      ],
+      "deep": "Le mandé una foto. Me preguntó por tu bici verde.",
+      "audioText": {
+        "word": "foto",
+        "full": "Le mandé una foto. Me preguntó por tu bici verde."
+      },
+      "order": 8,
+      "scene": "The green bike"
+    },
+    {
+      "id": "squeaky-brakes",
+      "sender": "Maya",
+      "day": "Friday",
+      "time": "18:08",
+      "clock": "6:08 PM",
+      "original": "Still gets me to work. You can hear the brakes a block away.",
+      "sourceWord": "brakes",
+      "shallow": [
+        "Still gets me to work. You can hear the ",
+        "frenos",
+        " a block away."
+      ],
+      "deep": "Todavía voy al trabajo en ella. Los frenos se oyen a una cuadra.",
+      "audioText": {
+        "word": "frenos",
+        "full": "Todavía voy al trabajo en ella. Los frenos se oyen a una cuadra."
+      },
+      "order": 9,
+      "scene": "The green bike"
+    },
+    {
+      "id": "saturday-repair",
+      "sender": "You",
+      "day": "Friday",
+      "time": "18:09",
+      "clock": "6:09 PM",
+      "original": "He says he can take a look on Saturday.",
+      "sourceWord": "Saturday",
+      "shallow": [
+        "He says he can take a look on ",
+        "sábado",
+        "."
+      ],
+      "deep": "Dice que el sábado le puede echar un vistazo.",
+      "audioText": {
+        "word": "sábado",
+        "full": "Dice que el sábado le puede echar un vistazo."
+      },
+      "order": 10,
+      "scene": "The green bike"
+    },
+    {
+      "id": "old-shop",
+      "sender": "Maya",
+      "day": "Friday",
+      "time": "18:10",
+      "clock": "6:10 PM",
+      "original": "Is his shop still behind the bakery?",
+      "sourceWord": "shop",
+      "shallow": [
+        "Is his ",
+        "taller",
+        " still behind the bakery?"
+      ],
+      "deep": "¿Su taller sigue detrás de la panadería?",
+      "audioText": {
+        "word": "taller",
+        "full": "¿Su taller sigue detrás de la panadería?"
+      },
+      "order": 11,
+      "scene": "The green bike"
+    },
+    {
+      "id": "garage",
+      "sender": "You",
+      "day": "Friday",
+      "time": "18:11",
+      "clock": "6:11 PM",
+      "original": "He works in our garage now.",
+      "sourceWord": "garage",
+      "shallow": [
+        "He works in our ",
+        "garaje",
+        " now."
+      ],
+      "deep": "Ahora trabaja en nuestro garaje.",
+      "audioText": {
+        "word": "garaje",
+        "full": "Ahora trabaja en nuestro garaje."
+      },
+      "order": 12,
+      "scene": "The green bike"
+    },
+    {
+      "id": "what-time",
+      "sender": "Maya",
+      "day": "Friday",
+      "time": "18:12",
+      "clock": "6:12 PM",
+      "original": "What time should I come by?",
+      "sourceWord": "time",
+      "shallow": [
+        "What ",
+        "hora",
+        " should I come by?"
+      ],
+      "deep": "¿A qué hora paso?",
+      "audioText": {
+        "word": "hora",
+        "full": "¿A qué hora paso?"
+      },
+      "order": 13,
+      "scene": "The green bike"
+    },
+    {
+      "id": "side-door",
+      "sender": "You",
+      "day": "Friday",
+      "time": "18:13",
+      "clock": "6:13 PM",
+      "original": "Ten works. Use the side door.",
+      "sourceWord": "door",
+      "shallow": [
+        "Ten works. Use the side ",
+        "puerta",
+        "."
+      ],
+      "deep": "A las diez está bien. Entra por la puerta lateral.",
+      "audioText": {
+        "word": "puerta",
+        "full": "A las diez está bien. Entra por la puerta lateral."
+      },
+      "order": 14,
+      "scene": "The green bike"
+    },
+    {
+      "id": "cinnamon-rolls",
+      "sender": "Maya",
+      "day": "Friday",
+      "time": "18:14",
+      "clock": "6:14 PM",
+      "original": "I’ll bring those cinnamon rolls he likes.",
+      "sourceWord": "cinnamon",
+      "shallow": [
+        "I’ll bring those ",
+        "canela",
+        " rolls he likes."
+      ],
+      "deep": "Llevo esos rollos de canela que le gustan.",
+      "audioText": {
+        "word": "canela",
+        "full": "Llevo esos rollos de canela que le gustan."
+      },
+      "order": 15,
+      "scene": "The green bike"
+    },
+    {
+      "id": "middle-roll",
+      "sender": "You",
+      "day": "Friday",
+      "time": "18:15",
+      "clock": "6:15 PM",
+      "original": "Save me the middle one. It gets all the icing.",
+      "sourceWord": "icing",
+      "shallow": [
+        "Save me the middle one. It gets all the ",
+        "glaseado",
+        "."
+      ],
+      "deep": "Guárdame el del medio. Es el que lleva más glaseado.",
+      "audioText": {
+        "word": "glaseado",
+        "full": "Guárdame el del medio. Es el que lleva más glaseado."
+      },
+      "order": 16,
+      "scene": "The green bike"
+    },
+    {
+      "id": "tray",
+      "sender": "Maya",
+      "day": "Friday",
+      "time": "18:16",
+      "clock": "6:16 PM",
+      "original": "I remember. You used to scrape the tray.",
+      "sourceWord": "tray",
+      "shallow": [
+        "I remember. You used to scrape the ",
+        "bandeja",
+        "."
+      ],
+      "deep": "Me acuerdo. Antes raspabas la bandeja.",
+      "audioText": {
+        "word": "bandeja",
+        "full": "Me acuerdo. Antes raspabas la bandeja."
+      },
+      "order": 17,
+      "scene": "The green bike"
+    },
+    {
+      "id": "sold-out",
+      "sender": "Maya",
+      "day": "Saturday",
+      "time": "09:43",
+      "clock": "9:43 AM",
+      "original": "The bakery is out of cinnamon rolls.",
+      "sourceWord": "bakery",
+      "shallow": [
+        "The ",
+        "panadería",
+        " is out of cinnamon rolls."
+      ],
+      "deep": "En la panadería ya no quedan rollos de canela.",
+      "audioText": {
+        "word": "panadería",
+        "full": "En la panadería ya no quedan rollos de canela."
+      },
+      "order": 18,
+      "scene": "Saturday at the garage"
+    },
+    {
+      "id": "bread",
+      "sender": "You",
+      "day": "Saturday",
+      "time": "09:44",
+      "clock": "9:44 AM",
+      "original": "Dad would love some bread. He’s already made coffee.",
+      "sourceWord": "bread",
+      "shallow": [
+        "Dad would love some ",
+        "pan",
+        ". He’s already made coffee."
+      ],
+      "deep": "A mi papá le encantaría un poco de pan. Ya hizo café.",
+      "audioText": {
+        "word": "pan",
+        "full": "A mi papá le encantaría un poco de pan. Ya hizo café."
+      },
+      "order": 19,
+      "scene": "Saturday at the garage"
+    },
+    {
+      "id": "warm-loaf",
+      "sender": "Maya",
+      "day": "Saturday",
+      "time": "09:45",
+      "clock": "9:45 AM",
+      "original": "They’ve got a warm loaf. I’ll take it.",
+      "sourceWord": "loaf",
+      "shallow": [
+        "They’ve got a warm ",
+        "hogaza",
+        ". I’ll take it."
+      ],
+      "deep": "Tienen una hogaza calentita. Me la llevo.",
+      "audioText": {
+        "word": "hogaza",
+        "full": "Tienen una hogaza calentita. Me la llevo."
+      },
+      "order": 20,
+      "scene": "Saturday at the garage"
+    },
+    {
+      "id": "corner",
+      "sender": "You",
+      "day": "Saturday",
+      "time": "09:48",
+      "clock": "9:48 AM",
+      "original": "Want me to meet you at the corner?",
+      "sourceWord": "corner",
+      "shallow": [
+        "Want me to meet you at the ",
+        "esquina",
+        "?"
+      ],
+      "deep": "¿Quieres que te espere en la esquina?",
+      "audioText": {
+        "word": "esquina",
+        "full": "¿Quieres que te espere en la esquina?"
+      },
+      "order": 21,
+      "scene": "Saturday at the garage"
+    },
+    {
+      "id": "blue-gate",
+      "sender": "Maya",
+      "day": "Saturday",
+      "time": "09:49",
+      "clock": "9:49 AM",
+      "original": "I remember the blue gate.",
+      "sourceWord": "gate",
+      "shallow": [
+        "I remember the blue ",
+        "portón",
+        "."
+      ],
+      "deep": "Me acuerdo del portón azul.",
+      "audioText": {
+        "word": "portón",
+        "full": "Me acuerdo del portón azul."
+      },
+      "order": 22,
+      "scene": "Saturday at the garage"
+    },
+    {
+      "id": "repainted",
+      "sender": "You",
+      "day": "Saturday",
+      "time": "09:50",
+      "clock": "9:50 AM",
+      "original": "It’s green now. Dad finally painted it.",
+      "sourceWord": "green",
+      "shallow": [
+        "It’s ",
+        "verde",
+        " now. Dad finally painted it."
+      ],
+      "deep": "Ahora es verde. Mi papá por fin lo pintó.",
+      "audioText": {
+        "word": "verde",
+        "full": "Ahora es verde. Mi papá por fin lo pintó."
+      },
+      "order": 23,
+      "scene": "Saturday at the garage"
+    },
+    {
+      "id": "wrong-bell",
+      "sender": "Maya",
+      "day": "Saturday",
+      "time": "09:54",
+      "clock": "9:54 AM",
+      "original": "Good thing you said that. I nearly rang the wrong bell.",
+      "sourceWord": "bell",
+      "shallow": [
+        "Good thing you said that. I nearly rang the wrong ",
+        "timbre",
+        "."
+      ],
+      "deep": "Menos mal que me avisaste. Casi toco el timbre equivocado.",
+      "audioText": {
+        "word": "timbre",
+        "full": "Menos mal que me avisaste. Casi toco el timbre equivocado."
+      },
+      "order": 24,
+      "scene": "Saturday at the garage"
+    },
+    {
+      "id": "mugs",
+      "sender": "You",
+      "day": "Saturday",
+      "time": "09:55",
+      "clock": "9:55 AM",
+      "original": "I’m outside with two mugs.",
+      "sourceWord": "mugs",
+      "shallow": [
+        "I’m outside with two ",
+        "tazas",
+        "."
+      ],
+      "deep": "Estoy afuera con dos tazas.",
+      "audioText": {
+        "word": "tazas",
+        "full": "Estoy afuera con dos tazas."
+      },
+      "order": 25,
+      "scene": "Saturday at the garage"
+    },
+    {
+      "id": "ride-home",
+      "sender": "You",
+      "day": "Saturday",
+      "time": "12:16",
+      "clock": "12:16 PM",
+      "original": "How are the brakes on the ride home?",
+      "sourceWord": "brakes",
+      "shallow": [
+        "How are the ",
+        "frenos",
+        " on the ride home?"
+      ],
+      "deep": "¿Qué tal van los frenos de camino a casa?",
+      "audioText": {
+        "word": "frenos",
+        "full": "¿Qué tal van los frenos de camino a casa?"
+      },
+      "order": 26,
+      "scene": "The ride home"
+    },
+    {
+      "id": "birds",
+      "sender": "Maya",
+      "day": "Saturday",
+      "time": "12:24",
+      "clock": "12:24 PM",
+      "original": "Quiet. I can actually hear the birds now.",
+      "sourceWord": "birds",
+      "shallow": [
+        "Quiet. I can actually hear the ",
+        "pájaros",
+        " now."
+      ],
+      "deep": "Ya no hacen ruido. Ahora hasta oigo los pájaros.",
+      "audioText": {
+        "word": "pájaros",
+        "full": "Ya no hacen ruido. Ahora hasta oigo los pájaros."
+      },
+      "order": 27,
+      "scene": "The ride home"
+    },
+    {
+      "id": "test-hill",
+      "sender": "You",
+      "day": "Saturday",
+      "time": "12:25",
+      "clock": "12:25 PM",
+      "original": "Dad wants to know if you tried the hill by the park.",
+      "sourceWord": "hill",
+      "shallow": [
+        "Dad wants to know if you tried the ",
+        "cuesta",
+        " by the park."
+      ],
+      "deep": "Mi papá pregunta si probaste la cuesta que hay junto al parque.",
+      "audioText": {
+        "word": "cuesta",
+        "full": "Mi papá pregunta si probaste la cuesta que hay junto al parque."
+      },
+      "order": 28,
+      "scene": "The ride home"
+    },
+    {
+      "id": "crossing",
+      "sender": "Maya",
+      "day": "Saturday",
+      "time": "12:26",
+      "clock": "12:26 PM",
+      "original": "Just did. Stopped right at the crossing.",
+      "sourceWord": "crossing",
+      "shallow": [
+        "Just did. Stopped right at the ",
+        "cruce",
+        "."
+      ],
+      "deep": "La acabo de probar. Frené justo en el cruce.",
+      "audioText": {
+        "word": "cruce",
+        "full": "La acabo de probar. Frené justo en el cruce."
+      },
+      "order": 29,
+      "scene": "The ride home"
+    },
+    {
+      "id": "repair-report",
+      "sender": "You",
+      "day": "Saturday",
+      "time": "12:28",
+      "clock": "12:28 PM",
+      "original": "I read him your message. He’s smiling.",
+      "sourceWord": "message",
+      "shallow": [
+        "I read him your ",
+        "mensaje",
+        ". He’s smiling."
+      ],
+      "deep": "Le leí tu mensaje. Está sonriendo.",
+      "audioText": {
+        "word": "mensaje",
+        "full": "Le leí tu mensaje. Está sonriendo."
+      },
+      "order": 30,
+      "scene": "The ride home"
+    },
+    {
+      "id": "plum-jam",
+      "sender": "Maya",
+      "day": "Saturday",
+      "time": "12:31",
+      "clock": "12:31 PM",
+      "original": "Who made the plum jam we had with the bread?",
+      "sourceWord": "jam",
+      "shallow": [
+        "Who made the plum ",
+        "mermelada",
+        " we had with the bread?"
+      ],
+      "deep": "¿Quién hizo la mermelada de ciruela que comimos con el pan?",
+      "audioText": {
+        "word": "mermelada",
+        "full": "¿Quién hizo la mermelada de ciruela que comimos con el pan?"
+      },
+      "order": 31,
+      "scene": "The ride home"
+    },
+    {
+      "id": "envelope",
+      "sender": "You",
+      "day": "Saturday",
+      "time": "12:32",
+      "clock": "12:32 PM",
+      "original": "Dad did. His recipe’s on the back of an envelope.",
+      "sourceWord": "envelope",
+      "shallow": [
+        "Dad did. His recipe’s on the back of an ",
+        "sobre",
+        "."
+      ],
+      "deep": "Mi papá. Tiene la receta escrita en el dorso de un sobre.",
+      "audioText": {
+        "word": "sobre",
+        "full": "Mi papá. Tiene la receta escrita en el dorso de un sobre."
+      },
+      "order": 32,
+      "scene": "The ride home"
+    },
+    {
+      "id": "recipe-photo",
+      "sender": "Maya",
+      "day": "Saturday",
+      "time": "12:33",
+      "clock": "12:33 PM",
+      "original": "Could you take a picture of it for me?",
+      "sourceWord": "picture",
+      "shallow": [
+        "Could you take a ",
+        "foto",
+        " of it for me?"
+      ],
+      "deep": "¿Me mandas una foto?",
+      "audioText": {
+        "word": "foto",
+        "full": "¿Me mandas una foto?"
+      },
+      "order": 33,
+      "scene": "The ride home"
+    },
+    {
+      "id": "ingredients",
+      "sender": "You",
+      "day": "Saturday",
+      "time": "12:35",
+      "clock": "12:35 PM",
+      "original": "It just says plums, sugar, lemon.",
+      "sourceWord": "sugar",
+      "shallow": [
+        "It just says plums, ",
+        "azúcar",
+        ", lemon."
+      ],
+      "deep": "Solo dice ciruelas, azúcar y limón.",
+      "audioText": {
+        "word": "azúcar",
+        "full": "Solo dice ciruelas, azúcar y limón."
+      },
+      "order": 34,
+      "scene": "The ride home"
+    },
+    {
+      "id": "amounts",
+      "sender": "Maya",
+      "day": "Saturday",
+      "time": "12:36",
+      "clock": "12:36 PM",
+      "original": "No amounts? That sounds like him.",
+      "sourceWord": "amounts",
+      "shallow": [
+        "No ",
+        "cantidades",
+        "? That sounds like him."
+      ],
+      "deep": "¿Sin cantidades? Muy típico de él.",
+      "audioText": {
+        "word": "cantidades",
+        "full": "¿Sin cantidades? Muy típico de él."
+      },
+      "order": 35,
+      "scene": "The ride home"
+    },
+    {
+      "id": "batch",
+      "sender": "You",
+      "day": "Saturday",
+      "time": "12:38",
+      "clock": "12:38 PM",
+      "original": "I’ll make a batch with him tomorrow and weigh everything.",
+      "sourceWord": "batch",
+      "shallow": [
+        "I’ll make a ",
+        "tanda",
+        " with him tomorrow and weigh everything."
+      ],
+      "deep": "Mañana hago una tanda con él y lo peso todo.",
+      "audioText": {
+        "word": "tanda",
+        "full": "Mañana hago una tanda con él y lo peso todo."
+      },
+      "order": 36,
+      "scene": "The ride home"
+    },
+    {
+      "id": "two-kilos",
+      "sender": "You",
+      "day": "Sunday",
+      "time": "10:06",
+      "clock": "10:06 AM",
+      "original": "Two kilos of plums. That’s what we started with.",
+      "sourceWord": "plums",
+      "shallow": [
+        "Two kilos of ",
+        "ciruelas",
+        ". That’s what we started with."
+      ],
+      "deep": "Empezamos con dos kilos de ciruelas.",
+      "audioText": {
+        "word": "ciruelas",
+        "full": "Empezamos con dos kilos de ciruelas."
+      },
+      "order": 37,
+      "scene": "The plum jam"
+    },
+    {
+      "id": "noted",
+      "sender": "Maya",
+      "day": "Sunday",
+      "time": "10:08",
+      "clock": "10:08 AM",
+      "original": "Got it. How much sugar?",
+      "sourceWord": "sugar",
+      "shallow": [
+        "Got it. How much ",
+        "azúcar",
+        "?"
+      ],
+      "deep": "Anotado. ¿Cuánto azúcar?",
+      "audioText": {
+        "word": "azúcar",
+        "full": "Anotado. ¿Cuánto azúcar?"
+      },
+      "order": 38,
+      "scene": "The plum jam"
+    },
+    {
+      "id": "one-lemon",
+      "sender": "You",
+      "day": "Sunday",
+      "time": "10:09",
+      "clock": "10:09 AM",
+      "original": "A kilo. Plus the juice of one lemon.",
+      "sourceWord": "lemon",
+      "shallow": [
+        "A kilo. Plus the juice of one ",
+        "limón",
+        "."
+      ],
+      "deep": "Un kilo. Y el jugo de un limón.",
+      "audioText": {
+        "word": "limón",
+        "full": "Un kilo. Y el jugo de un limón."
+      },
+      "order": 39,
+      "scene": "The plum jam"
+    },
+    {
+      "id": "skin",
+      "sender": "Maya",
+      "day": "Sunday",
+      "time": "10:10",
+      "clock": "10:10 AM",
+      "original": "Does he leave the skin on?",
+      "sourceWord": "skin",
+      "shallow": [
+        "Does he leave the ",
+        "piel",
+        " on?"
+      ],
+      "deep": "¿Les deja la piel?",
+      "audioText": {
+        "word": "piel",
+        "full": "¿Les deja la piel?"
+      },
+      "order": 40,
+      "scene": "The plum jam"
+    },
+    {
+      "id": "purple",
+      "sender": "You",
+      "day": "Sunday",
+      "time": "10:11",
+      "clock": "10:11 AM",
+      "original": "Yep. The jam turns purple as it cooks.",
+      "sourceWord": "purple",
+      "shallow": [
+        "Yep. The jam turns ",
+        "morada",
+        " as it cooks."
+      ],
+      "deep": "Sí. La mermelada se pone morada al cocinarse.",
+      "audioText": {
+        "word": "morada",
+        "full": "Sí. La mermelada se pone morada al cocinarse."
+      },
+      "order": 41,
+      "scene": "The plum jam"
+    },
+    {
+      "id": "doneness",
+      "sender": "Maya",
+      "day": "Sunday",
+      "time": "10:13",
+      "clock": "10:13 AM",
+      "original": "How do you know when it’s ready?",
+      "sourceWord": "ready",
+      "shallow": [
+        "How do you know when it’s ",
+        "lista",
+        "?"
+      ],
+      "deep": "¿Cómo sabes cuándo está lista?",
+      "audioText": {
+        "word": "lista",
+        "full": "¿Cómo sabes cuándo está lista?"
+      },
+      "order": 42,
+      "scene": "The plum jam"
+    },
+    {
+      "id": "cold-plate",
+      "sender": "You",
+      "day": "Sunday",
+      "time": "10:42",
+      "clock": "10:42 AM",
+      "original": "He puts a spoonful on a cold plate.",
+      "sourceWord": "plate",
+      "shallow": [
+        "He puts a spoonful on a cold ",
+        "plato",
+        "."
+      ],
+      "deep": "Pone una cucharada en un plato frío.",
+      "audioText": {
+        "word": "plato",
+        "full": "Pone una cucharada en un plato frío."
+      },
+      "order": 43,
+      "scene": "The plum jam"
+    },
+    {
+      "id": "wrinkle",
+      "sender": "You",
+      "day": "Sunday",
+      "time": "10:43",
+      "clock": "10:43 AM",
+      "original": "Push it with your finger. Look for a wrinkle.",
+      "sourceWord": "wrinkle",
+      "shallow": [
+        "Push it with your finger. Look for a ",
+        "arruga",
+        "."
+      ],
+      "deep": "Empújala con el dedo. Fíjate si se forma una arruga.",
+      "audioText": {
+        "word": "arruga",
+        "full": "Empújala con el dedo. Fíjate si se forma una arruga."
+      },
+      "order": 44,
+      "scene": "The plum jam"
+    },
+    {
+      "id": "missing-step",
+      "sender": "Maya",
+      "day": "Sunday",
+      "time": "10:45",
+      "clock": "10:45 AM",
+      "original": "That part wasn’t on the envelope.",
+      "sourceWord": "envelope",
+      "shallow": [
+        "That part wasn’t on the ",
+        "sobre",
+        "."
+      ],
+      "deep": "Esa parte no estaba en el sobre.",
+      "audioText": {
+        "word": "sobre",
+        "full": "Esa parte no estaba en el sobre."
+      },
+      "order": 45,
+      "scene": "The plum jam"
+    },
+    {
+      "id": "recipe-card",
+      "sender": "You",
+      "day": "Sunday",
+      "time": "10:46",
+      "clock": "10:46 AM",
+      "original": "I wrote it all on a card this time.",
+      "sourceWord": "card",
+      "shallow": [
+        "I wrote it all on a ",
+        "tarjeta",
+        " this time."
+      ],
+      "deep": "Esta vez lo anoté todo en una tarjeta.",
+      "audioText": {
+        "word": "tarjeta",
+        "full": "Esta vez lo anoté todo en una tarjeta."
+      },
+      "order": 46,
+      "scene": "The plum jam"
+    },
+    {
+      "id": "market",
+      "sender": "Maya",
+      "day": "Sunday",
+      "time": "16:20",
+      "clock": "4:20 PM",
+      "original": "I’m at the market. Guess what’s on sale.",
+      "sourceWord": "market",
+      "shallow": [
+        "I’m at the ",
+        "mercado",
+        ". Guess what’s on sale."
+      ],
+      "deep": "Estoy en el mercado. Adivina qué está de oferta.",
+      "audioText": {
+        "word": "mercado",
+        "full": "Estoy en el mercado. Adivina qué está de oferta."
+      },
+      "order": 47,
+      "scene": "At the market"
+    },
+    {
+      "id": "empty-jars",
+      "sender": "You",
+      "day": "Sunday",
+      "time": "16:22",
+      "clock": "4:22 PM",
+      "original": "Plums? I’ve got empty jars if you need them.",
+      "sourceWord": "jars",
+      "shallow": [
+        "Plums? I’ve got empty ",
+        "frascos",
+        " if you need them."
+      ],
+      "deep": "¿Ciruelas? Tengo frascos vacíos por si los necesitas.",
+      "audioText": {
+        "word": "frascos",
+        "full": "¿Ciruelas? Tengo frascos vacíos por si los necesitas."
+      },
+      "order": 48,
+      "scene": "At the market"
+    },
+    {
+      "id": "enough-fruit",
+      "sender": "Maya",
+      "day": "Sunday",
+      "time": "16:23",
+      "clock": "4:23 PM",
+      "original": "Please. I bought enough fruit to share.",
+      "sourceWord": "fruit",
+      "shallow": [
+        "Please. I bought enough ",
+        "fruta",
+        " to share."
+      ],
+      "deep": "Sí, por favor. Compré suficiente fruta para compartir contigo.",
+      "audioText": {
+        "word": "fruta",
+        "full": "Sí, por favor. Compré suficiente fruta para compartir contigo."
+      },
+      "order": 49,
+      "scene": "At the market"
+    },
+    {
+      "id": "recipe-return",
+      "sender": "You",
+      "day": "Sunday",
+      "time": "16:25",
+      "clock": "4:25 PM",
+      "original": "I’ll drop them off tonight, with the recipe.",
+      "sourceWord": "recipe",
+      "shallow": [
+        "I’ll drop them off tonight, with the ",
+        "receta",
+        "."
+      ],
+      "deep": "Te los llevo esta noche, con la receta.",
+      "audioText": {
+        "word": "receta",
+        "full": "Te los llevo esta noche, con la receta."
+      },
+      "order": 50,
+      "scene": "At the market"
+    }
+  ],
+  "optional_replies": [
+    {
+      "id": "back-in-five",
+      "sender": "You",
+      "day": "Friday",
+      "time": "12:21",
+      "clock": "12:21 PM",
+      "original": "I’ll be back in five minutes.",
+      "sourceWord": "minutes",
+      "shallow": [
+        "I’ll be back in five ",
+        "minutos",
+        "."
+      ],
+      "deep": "Vuelvo en cinco minutos.",
+      "audioText": {
+        "word": "minutos",
+        "full": "Vuelvo en cinco minutos."
+      },
+      "replyAfter": "in-my-pocket",
+      "returnsTo": "unbranched recap after this optional reply",
+      "passive": false
+    },
+    {
+      "id": "leave-at-counter",
+      "sender": "You",
+      "day": "Friday",
+      "time": "12:21",
+      "clock": "12:21 PM",
+      "original": "Can you leave them at the counter?",
+      "sourceWord": "counter",
+      "shallow": [
+        "Can you leave them at the ",
+        "barra",
+        "?"
+      ],
+      "deep": "¿Las puedes dejar en la barra?",
+      "audioText": {
+        "word": "barra",
+        "full": "¿Las puedes dejar en la barra?"
+      },
+      "replyAfter": "in-my-pocket",
+      "returnsTo": "unbranched recap after this optional reply",
+      "passive": false
+    }
+  ],
+  "chinese_script_example": {
+    "story_message_id": "by-the-window",
+    "characters": "我在窗边等你。",
+    "native_reading": "wǒ zài chuāng biān děng nǐ。",
+    "meaning": "I’ll wait for you by the window.",
+    "caption": "In a Chinese chat, double-tap a message to switch between characters and pinyin."
+  }
+}
