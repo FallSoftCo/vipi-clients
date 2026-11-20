@@ -51,16 +51,19 @@ figcaption{font-size:14px;margin-top:6px;color:#6d5263}.chat{display:inline-bloc
             '</div></fieldset></body></html>').encode()
 
 
-def render_launchers(output):
+def render_launchers(output, *, greeting=False):
     options = {"signature": "Vipi signature", "voice": "Songbird", "corner": "Speech mark"}
+    folder = "wrapped-greeting" if greeting else "home-screen"
+    if greeting:
+        options = {"wrap": "Question wrap", "signature": "Original signature"}
     scenes = (("iphone-grid", "iPhone", 277), ("pixel-home", "Pixel dock", 393), ("pixel-drawer", "Pixel app drawer", 393))
-    newer = output / "home-screen/iphone-home-signature.png"
+    newer = output / folder / "iphone-home-signature.png"
     if newer.is_file():
         scenes = (("iphone-home", "iPhone", 402), *scenes[1:])
-    if not all((output / "home-screen" / f"{prefix}-{symbol}.png").is_file() for prefix, _, _ in scenes for symbol in options):
+    if not all((output / folder / f"{prefix}-{symbol}.png").is_file() for prefix, _, _ in scenes for symbol in options):
         return None
     radios = "".join(f'<input id="{k}" type="radio" name="symbol" value="{k}" aria-label="{v}" '
-                     f'{"checked" if k=="signature" else ""}>' for k,v in options.items())
+                     f'{"checked" if k==next(iter(options)) else ""}>' for k,v in options.items())
     buttons = "".join(f'<label for="{k}">{v}</label>' for k,v in options.items())
     style = "".join(f'#{k}:checked ~ .options label[for={k}]{{background:#45233f;color:#fff3de}}'
                     f'#{k}:checked ~ .scenes .{k}{{display:block}}'
@@ -70,7 +73,7 @@ def render_launchers(output):
     for prefix, title, width in scenes:
         tags = []
         for key, name in options.items():
-            original = output / "home-screen" / f"{prefix}-{key}.png"
+            original = output / folder / f"{prefix}-{key}.png"
             preview = original.with_suffix(".webp")
             with Image.open(original) as image:
                 height = round(width * image.height / image.width)
@@ -81,7 +84,7 @@ def render_launchers(output):
                     scaled.save(temporary, "WEBP", quality=92, method=5)
                     temporary.chmod(0o644)
                     os.replace(temporary, preview)
-            tags.append(f'<img class="{key}" src="home-screen/{preview.name}" width="{width}" '
+            tags.append(f'<img class="{key}" src="{folder}/{preview.name}" width="{width}" '
                         f'height="{height}" alt="{name} on the {title} launcher">')
         images = "".join(tags)
         cards.append(f'<section><h2>{title}</h2>{images}</section>')
@@ -93,7 +96,7 @@ fieldset{min-width:0;border:0;margin:20px 0;padding:0}input,legend{position:abso
 .options{display:flex;gap:6px;flex-wrap:wrap}label{border:1px solid #947f88;padding:9px 13px;border-radius:22px;cursor:pointer;font-weight:600}
 .scenes{display:flex;gap:clamp(14px,3vw,42px);align-items:flex-start;flex-wrap:wrap}section{max-width:100%}h2{font-size:20px;letter-spacing:-.015em;margin:22px 0 8px}
 img{display:none;max-width:100%;height:auto;border-radius:8px}''' + style +
-            '</style></head><body><a href="review.html#home-screen">Vipi gallery</a><h1>Vipi on the home screen</h1>'
+            f'</style></head><body><a href="review.html#{folder}">Vipi gallery</a><h1>{"Vipi as a greeting" if greeting else "Vipi on the home screen"}</h1>'
             '<p>Choose a mark to see it in the same spot on each launcher.</p><fieldset><legend>Vipi mark</legend>' +
             radios + '<div class="options">' + buttons + '</div><div class="scenes">' + "".join(cards) +
             '</div></fieldset><p>Design studies placed on native simulator screenshots.</p></body></html>').encode()
