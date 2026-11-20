@@ -1,0 +1,102 @@
+import SwiftUI
+
+/// An optional real local preview. It has no ChatSession, MessageVault or send
+/// boundary; same-pair toggles keep only this transient owner's word plans.
+struct ImmersionTutorialContent: View {
+    var scrolling = false
+    @Environment(AppState.self) private var state
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var immersion = ConversationImmersion()
+    @State private var configuredPair: TranslationPair?
+    @State private var speech = SpeechPlayback()
+    @State private var preparation = LanguagePreparation()
+    private var pair: TranslationPair { .init(source:state.knownLanguage,target:state.targetLanguage) }
+    private var text: String { ImmersionTutorialSource.text(pair.source) }
+    private var messageID: String { ImmersionTutorialSource.messageID(source:pair.source,target:pair.target) }
+    var body: some View {
+        VStack(alignment:.leading,spacing:20) {
+            Text("Immersion").font(.largeTitle.bold()).accessibilityAddTraits(.isHeader)
+                .accessibilityIdentifier("tutorial-title")
+            VStack(alignment:.leading,spacing:8) {
+                ImmersionModeChoices(mode:state.immersionMode) { choice in
+                    guard choice != state.immersionMode else { return }
+                    speech.stop(); state.chatReading.cancelInteractions(); state.immersionMode = choice
+                }
+                Text(state.immersionMode == .incremental ? String(localized:"One new word at a time") : String(localized:"The whole message"))
+                    .foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
+            }
+            Group {
+                if configuredPair == pair && immersion.inputLanguage(for:messageID) == pair.source {
+                    ConversationImmersionText(text:text,id:messageID,immersion:immersion,speech:speech,
+                        paused:scrolling,metadata:AnyView(EmptyView()),onVoiceHelp:prepareVoice,
+                        onTranslationSetup:{ _ in preparation.prepare() })
+                } else { ProgressView().frame(maxWidth:.infinity,minHeight:64) }
+            }
+            .background(VipiDesign.incomingBubble,in:RoundedRectangle(cornerRadius:18))
+            .accessibilityIdentifier("tutorial-message")
+            .background { ConversationTranslationTask(immersion:immersion) }
+            .background { ChatReadingGestureSurface(reading:state.chatReading) }
+            if immersion.translation(for:immersion.identity(messageID:messageID,text:text)) != nil {
+            VStack(alignment:.leading,spacing:6) {
+                if speech.state == .ready || speech.state == .rendering || speech.state == .playing { Text("Tap to hear it") }
+                Text("Hold to see the original")
+                if state.chatReading.hasAlternateScript { Text("Double-tap to change script") }
+            }.font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
+            }
+            if preparation.busy || preparation.availability == .checking {
+                HStack(spacing:8) { ProgressView(); Text("Preparing translation…") }
+                    .font(.subheadline).foregroundStyle(VipiDesign.secondary)
+            }
+            if let request = preparation.request { LanguagePreparationTask(request:request,preparation:preparation).id(request.id) }
+            if speech.state == .preparing {
+                Text("Preparing voice…").font(.subheadline).foregroundStyle(VipiDesign.secondary)
+            } else if speech.state == .unavailable {
+                if let error = speech.error { Text(error).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true) }
+                Button("Try again",action:prepareVoice).frame(minHeight:44)
+            }
+        }
+        .foregroundStyle(VipiDesign.ink)
+        .task(id:pair) {
+            immersion.close(); immersion = state.translationServices.makeOwner()
+            preparation.invalidate(); preparation = state.translationServices.makePreparation()
+            await immersion.configure(pair:pair,mode:state.immersionMode)
+            immersion.selectInputLanguage(pair.source,for:messageID); configuredPair = pair
+            prepareVoice()
+            await preparation.refresh(pair)
+            if !Task.isCancelled { preparation.prepare() }
+        }
+        .task(id:"\(configuredPair?.source ?? "")-\(configuredPair?.target ?? "")-\(state.immersionMode.rawValue)") {
+            guard configuredPair == pair else { return }
+            await immersion.configure(pair:pair,mode:state.immersionMode)
+            immersion.selectInputLanguage(pair.source,for:messageID)
+        }
+        .onChange(of:preparation.prepared) { _,ready in if ready { immersion.retry(immersion.identity(messageID:messageID,text:text)) } }
+        .onChange(of:state.chatReading.showingMeaning) { _,held in if held { speech.stop() } }
+        .onChange(of:scrolling) { _,moving in if moving { speech.stop(); state.chatReading.cancelInteractions() } }
+        .onChange(of:scenePhase) { _,phase in if phase != .active { speech.stop(); state.chatReading.cancelInteractions() } }
+        .onDisappear { immersion.close(); configuredPair = nil; preparation.invalidate(); speech.close(); state.chatReading.cancelInteractions() }
+    }
+    private func prepareVoice() {
+        speech.prepare(source:pair.target,target:pair.target,warmups:[pair.target:VipiLanguage.named(pair.target).localName])
+    }
+}
+
+/// Existing users can revisit without navigating away from their account/chat.
+struct ImmersionTutorialView: View {
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @State private var scrolling = false
+    var body: some View {
+        ScrollView {
+            VStack(alignment:.leading,spacing:24) {
+                ImmersionTutorialContent(scrolling:scrolling)
+                if dynamicTypeSize.isAccessibilitySize { finish }
+            }.padding(26).frame(maxWidth:560).frame(maxWidth:.infinity)
+        }
+        .clipped().background(VipiDesign.canvas)
+        .onScrollPhaseChange { _,phase in scrolling = phase != .idle }
+        .safeAreaInset(edge:.bottom) { if !dynamicTypeSize.isAccessibilitySize { finish.padding(26).background(VipiDesign.canvas) } }
+        .navigationBarTitleDisplayMode(.inline)
+    }
+    private var finish: some View { PrimaryButton(title:"Continue") { dismiss() }.accessibilityIdentifier("tutorial-continue") }
+}

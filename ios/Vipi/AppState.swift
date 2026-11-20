@@ -17,11 +17,13 @@ struct VipiLanguage: Identifiable, Hashable {
     static func named(_ code: String) -> Self { initial.first { $0.id == code } ?? initial[0] }
 }
 
-enum OnboardingStep: String { case welcome, language, account }
+enum OnboardingStep: String { case welcome, language, tutorial, account }
 enum ImmersionMode: String, CaseIterable, Identifiable {
     case incremental, fullMessages
     var id: String { rawValue }
-    var title: String { self == .fullMessages ? String(localized:"Full messages") : String(localized:"Single word") }
+    var title: String { self == .fullMessages ? String(localized:"Deep") : String(localized:"Shallow") }
+    var symbolName: String { self == .fullMessages ? "anchor" : "water.waves" }
+    var next: Self { self == .fullMessages ? .incremental : .fullMessages }
 }
 
 enum AppAppearance: String, CaseIterable, Identifiable {
@@ -37,6 +39,9 @@ enum AppAppearance: String, CaseIterable, Identifiable {
     var targetLanguage: String { didSet { defaults.set(targetLanguage, forKey: "targetLanguage") } }
     var immersionMode: ImmersionMode { didSet { defaults.set(immersionMode.rawValue, forKey: "immersionMode") } }
     var appearance: AppAppearance { didSet { defaults.set(appearance.rawValue, forKey: "appearance") } }
+    var animateConversationBackground: Bool {
+        didSet { defaults.set(animateConversationBackground, forKey: "animateConversationBackground") }
+    }
     let chatReading: ChatReadingState
     let translationServices: MessageTranslationServices
     var isAuthenticated = false
@@ -70,11 +75,13 @@ enum AppAppearance: String, CaseIterable, Identifiable {
         knownLanguage = defaults.string(forKey: "knownLanguage") ?? "en"
         targetLanguage = defaults.string(forKey: "targetLanguage") ?? "es"
         immersionMode = ImmersionMode(rawValue: defaults.string(forKey: "immersionMode") ?? "") ?? .incremental
+        animateConversationBackground = defaults.object(forKey: "animateConversationBackground") == nil ? true : defaults.bool(forKey: "animateConversationBackground")
         appearance = AppAppearance(rawValue: defaults.string(forKey: "appearance") ?? "") ?? .system
         #if DEBUG
         let args = ProcessInfo.processInfo.arguments
         if args.contains("-vipi-welcome") { onboarding = .welcome }
         if args.contains("-vipi-language") { onboarding = .language }
+        if args.contains("-vipi-tutorial") { onboarding = .tutorial }
         if let index = args.firstIndex(of: "-vipi-source"), args.indices.contains(index + 1), VipiLanguage.initial.contains(where: { $0.id == args[index + 1] }) { knownLanguage = args[index + 1] }
         if let index = args.firstIndex(of: "-vipi-target"), args.indices.contains(index + 1), VipiLanguage.initial.contains(where: { $0.id == args[index + 1] }), args[index + 1] != knownLanguage { targetLanguage = args[index + 1] }
         if args.contains("-vipi-preview-home") { isAuthenticated = true }

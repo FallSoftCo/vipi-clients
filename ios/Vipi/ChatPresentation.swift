@@ -57,15 +57,17 @@ struct MessageDeliveryMark: View {
         }
     }
     @Environment(\.vipiOutgoingMessage) private var outgoing
+    @ScaledMetric(relativeTo:.caption) private var doubleCheckWidth:CGFloat = 22
+    @ScaledMetric(relativeTo:.caption) private var doubleCheckOffset:CGFloat = 3
     private var doubleCheck:Bool { state == "delivered" || state == "read" }
     private var failed:Bool { ["failed","expired","unavailable","identity_changed"].contains(state) }
     var body:some View {
         Group {
             if doubleCheck {
                 ZStack {
-                    Image(systemName:"checkmark").offset(x:-3)
-                    Image(systemName:"checkmark").offset(x:3)
-                }.frame(width:22)
+                    Image(systemName:"checkmark").offset(x:-doubleCheckOffset)
+                    Image(systemName:"checkmark").offset(x:doubleCheckOffset)
+                }.frame(width:doubleCheckWidth)
             } else if let symbol = Self.singleSymbol(state) {
                 Image(systemName:symbol).frame(minWidth:14)
             }
@@ -101,15 +103,19 @@ struct ReplyNotificationInvitation: View {
     let busy:Bool
     let notify:()->Void
     let dismiss:()->Void
+    @Environment(\.dynamicTypeSize) private var textSize
     var body:some View {
+        let actions = textSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment:.leading,spacing:2)) : AnyLayout(HStackLayout(spacing:16))
         HStack(alignment:.top,spacing:10) {
-            Image(systemName:"bell.badge").font(.body).foregroundStyle(VipiDesign.highlight).padding(.top,3).accessibilityHidden(true)
+            if !textSize.isAccessibilitySize {
+                Image(systemName:"bell.badge").font(.body).foregroundStyle(VipiDesign.highlight).padding(.top,3).accessibilityHidden(true)
+            }
             VStack(alignment:.leading,spacing:2) {
                 Text("Get notified when your friend replies.").foregroundStyle(VipiDesign.ink).font(.subheadline).fixedSize(horizontal:false,vertical:true)
-                HStack(spacing:16) {
-                    Button(action:notify) { Text(LocalizedStringKey(denied ? "Open Settings":"Notify me")).font(.subheadline.weight(.semibold)).frame(minHeight:44) }
+                actions {
+                    Button(action:notify) { Text(LocalizedStringKey(denied ? "Open Settings":"Notify me")).font(.subheadline.weight(.semibold)).fixedSize(horizontal:false,vertical:true).frame(minHeight:44,alignment:.leading) }
                         .disabled(busy).accessibilityIdentifier("reply-notification-enable")
-                    Button(action:dismiss) { Text("Not now").font(.subheadline).frame(minHeight:44) }
+                    Button(action:dismiss) { Text("Not now").font(.subheadline).fixedSize(horizontal:false,vertical:true).frame(minHeight:44,alignment:.leading) }
                         .accessibilityIdentifier("reply-notification-defer")
                 }
             }

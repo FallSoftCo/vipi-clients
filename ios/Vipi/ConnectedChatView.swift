@@ -300,7 +300,9 @@ struct FriendConversationView: View {
         // Keyboard resizing can make the y-only overload choose x = 0 even
         // while the measured scroll content still has a horizontal inset.
         // Preserve that inset explicitly when restoring a vertical position.
-        position.scrollTo(x: -viewportLeadingInset, y: y)
+        // ScrollPosition points start at content origin, while UIKit geometry
+        // reports contentOffset with the top inset subtracted. Convert once.
+        position.scrollTo(x: -viewportLeadingInset, y: y + viewportTopInset)
     }
     private func settleMeasuredLatest() {
         guard followingLatest,!scrolling,!copyOriginal.holdingLayout,textSizeRestore == nil else { return }
@@ -317,17 +319,22 @@ struct FriendConversationView: View {
         let bottom = chat.isPeerTyping(peer) && peerTypingFrame.height > 0 ? max(frame.maxY,peerTypingFrame.maxY):frame.maxY
         // Match real clipped global coordinates, after lazy row measurement.
         // A short conversation stays at its natural top rather than overscrolling.
-        return max(-viewportTopInset,scrollOffset + bottom - (visibleTimeline.maxY-18))
+        // Lazy rows can briefly report a global frame outside the current
+        // content extent. Never command an impossible offset from that estimate.
+        let desired = scrollOffset + bottom - (visibleTimeline.maxY-18)
+        return min(latestScrollY,max(-viewportTopInset,desired))
     }
     private func scrollToLatest(_ reason: String) {
         guard !copyOriginal.holdingLayout else { return }
+        let target = measuredLatestScrollY
+        guard abs(scrollOffset-target) > 0.5 else { return }
         #if DEBUG
         LiveImmersionQualification.record(["event":"latest_scroll_command", "reason":reason,
-            "target_y":Double(latestScrollY), "target_x":Double(-viewportLeadingInset), "offset_y":Double(scrollOffset),
+            "target_y":Double(target), "command_y":Double(target+viewportTopInset), "fallback_y":Double(latestScrollY), "target_x":Double(-viewportLeadingInset), "offset_y":Double(scrollOffset),
             "viewport_height":Double(viewportHeight), "bottom_inset":Double(viewportBottomInset),
             "following_latest":followingLatest, "scrolling":scrolling])
         #endif
-        scrollVertically(to:measuredLatestScrollY)
+        scrollVertically(to:target)
     }
     private func refresh() {
         do {
@@ -424,14 +431,14 @@ struct FriendConversationView: View {
             }.font(.subheadline).padding(.horizontal, 18)
             ScrollView {
                 LazyVStack(spacing: 14) {
-                    if earlierAvailable { Button("Earlier messages", action: earlier).font(.footnote).padding(8) }
+                    if earlierAvailable { Button("Earlier messages", action: earlier).font(.footnote).padding(8).background(VipiDesign.canvas,in:Capsule()) }
                     if messages.isEmpty {
                         VStack(spacing: 12) {
                             Image(systemName: "lock.shield").font(.title2)
                             Text("Just between you two").font(.headline)
                             Text("Say hello. Your messages are end-to-end encrypted.")
                                 .font(.subheadline).multilineTextAlignment(.center)
-                        }.foregroundStyle(VipiDesign.secondary).padding(30)
+                        }.foregroundStyle(VipiDesign.secondary).padding(30).background(VipiDesign.canvas,in:RoundedRectangle(cornerRadius:20))
                     }
                     ForEach(messages) { item in
                         HStack {
@@ -508,13 +515,13 @@ struct FriendConversationView: View {
                     }
                 }
                 .onScrollGeometryChange(for: ConversationViewport.self) { geometry in
-                    ConversationViewport(offset: geometry.visibleRect.minY, height: geometry.visibleRect.height,containerHeight:geometry.containerSize.height,
+                    ConversationViewport(offset: geometry.contentOffset.y, visibleOffset: geometry.visibleRect.minY, height: geometry.visibleRect.height,containerHeight:geometry.containerSize.height,
                                          content: geometry.contentSize.height,
                                          bottomInset: geometry.contentInsets.bottom, topInset: geometry.contentInsets.top,
                                          leadingInset: geometry.contentInsets.leading)
                 } action: { old, new in
                     #if DEBUG
-                    LiveImmersionQualification.record(["event": "viewport", "offset": Double(new.offset),
+                    LiveImmersionQualification.record(["event": "viewport", "offset": Double(new.offset), "visible_offset":Double(new.visibleOffset),
                         "height": Double(new.height), "content": Double(new.content), "bottom_inset": Double(new.bottomInset), "top_inset": Double(new.topInset),
                         "following_latest": followingLatest, "scrolling": scrolling, "user_scrolling": userScrolling,
                         "composing": composing, "draft_empty": text.isEmpty])
@@ -637,7 +644,7 @@ struct FriendConversationView: View {
     var body: some View {
         timeline
         .safeAreaInset(edge:.top,spacing:0) { ChatGestureCue(reading:state.chatReading,composing:composing) }
-        .background(VipiDesign.canvas)
+        .background { ConversationWaterScene(mode: state.immersionMode, motionEnabled: state.animateConversationBackground) }
         .background { if !usesAppTranslationServices { ConversationTranslationTask(immersion:immersion) } }
         .background { ChatReadingGestureSurface(reading:state.chatReading) }
         .background { CopyOriginalAnchor(context:copyOriginal) }
@@ -664,16 +671,10 @@ struct FriendConversationView: View {
                     .accessibilityIdentifier("conversation-contact-identity")
             }
             ToolbarItem(placement:.topBarTrailing) {
-                Button {
+                ImmersionModeToggle(mode:state.immersionMode) {
                     copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions()
-                    state.immersionMode = state.immersionMode == .fullMessages ? .incremental:.fullMessages
-                } label: {
-                    Text(verbatim:state.immersionMode.title)
-                        .font(.subheadline.weight(.medium)).lineLimit(2).multilineTextAlignment(.center).frame(minHeight:44)
+                    state.immersionMode = state.immersionMode.next
                 }
-                .accessibilityLabel("Immersion").accessibilityValue(state.immersionMode.title)
-                .accessibilityHint(LocalizedStringKey(state.immersionMode == .fullMessages ? "Switch to single word":"Switch to full messages"))
-                .accessibilityIdentifier("chat-immersion-picker")
             }
             if #available(iOS 26.0, *) {
                 conversationOptions.sharedBackgroundVisibility(.hidden)
@@ -806,7 +807,10 @@ struct FriendConversationView: View {
     }
     private var composer: some View {
             VStack(spacing: 9) {
-                if notificationInvitation {
+                // A large optional card must not consume the transcript while
+                // an accessibility-size keyboard is open. Keep the invitation
+                // pending in this conversation and show it after focus leaves.
+                if notificationInvitation && !(typeSize.isAccessibilitySize && composing) {
                     ReplyNotificationInvitation(denied:PushNotifications.shared.authorization == .denied,busy:PushNotifications.shared.busy,
                         notify:enableReplyNotifications,dismiss:{ notificationInvitation = false })
                 }
@@ -883,11 +887,17 @@ struct FriendConversationView: View {
         let previous = index > 0 ? messageDate(messages[index-1]) : nil
         let time = MessageTimelineMetadata.timeLabel(for:messageDate(item),previous:previous)
         let displayedTime = time ?? messageDate(item).formatted(date:.omitted,time:.shortened)
-        HStack(spacing:4) {
-            Text(displayedTime).monospacedDigit()
-            if item.state == "imported" { Text("Saved history") }
-            else if item.outgoing {
-                MessageDeliveryMark(state:item.state)
+        ViewThatFits(in:.horizontal) {
+            HStack(spacing:4) {
+                Text(displayedTime).monospacedDigit().accessibilityIdentifier("message-time-"+item.id.uuidString)
+                if item.state == "imported" { Text("Saved history") }
+                else if item.outgoing { MessageDeliveryMark(state:item.state) }
+            }.fixedSize(horizontal:true,vertical:false)
+            VStack(alignment:.leading,spacing:2) {
+                Text(displayedTime).monospacedDigit().fixedSize(horizontal:false,vertical:true)
+                    .accessibilityIdentifier("message-time-"+item.id.uuidString)
+                if item.state == "imported" { Text("Saved history") }
+                else if item.outgoing { MessageDeliveryMark(state:item.state) }
             }
         }.font(.caption2)
     }
@@ -895,16 +905,20 @@ struct FriendConversationView: View {
 }
 
 private struct ConversationViewport: Equatable {
+    // Point scroll commands use native contentOffset; visibleRect has a
+    // different origin after content/safe-area/keyboard insets are applied.
     let offset: CGFloat
+    let visibleOffset: CGFloat
     let height: CGFloat
     let containerHeight: CGFloat
     let content: CGFloat
     let bottomInset: CGFloat
     let topInset: CGFloat
     let leadingInset: CGFloat
+    // ScrollGeometry's visible height includes safe-area/keyboard insets on
+    // this native path; containerHeight is the already clipped field.
+    // Substituting that clipped height counts those insets twice.
     var latestScrollY: CGFloat { max(-topInset, content + bottomInset - height) }
-    // visibleRect includes the area underneath the composer and keyboard.
-    // A message hidden there must not count as being at the visible bottom.
     var nearBottom: Bool { content + bottomInset - offset - height <= 44 }
 }
 

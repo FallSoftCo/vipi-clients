@@ -2076,7 +2076,7 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertTrue(picker.exists && picker.isHittable)
         let ids = Set(evidence()["ids"] as? [String] ?? [])
         picker.tap()
-        XCTAssertEqual(picker.value as? String,"Full messages")
+        XCTAssertEqual(picker.value as? String,"Deep")
         let ready = practice.matching(NSPredicate(format:"label CONTAINS %@","hé")).firstMatch
         XCTAssertTrue(ready.waitForExistence(timeout:15))
         func fullyVisible(_ row:XCUIElement)->Bool {
@@ -2095,7 +2095,7 @@ final class ChatConversationTests: XCTestCase {
         try XCTUnwrap(visible("水和面包")).press(forDuration:0.8)
         XCTAssertTrue(practice.matching(NSPredicate(format:"label == %@","水和面包")).firstMatch.waitForExistence(timeout:5))
         picker.tap()
-        XCTAssertEqual(picker.value as? String,"Single word")
+        XCTAssertEqual(picker.value as? String,"Shallow")
         XCTAssertTrue(practice.matching(NSPredicate(format:"label == %@","水 and 面包")).firstMatch.waitForExistence(timeout:12))
         try XCTUnwrap(visible("水 and 面包")).doubleTap()
         XCTAssertTrue(practice.matching(NSPredicate(format:"label == %@","shuǐ and miàn bāo")).firstMatch.waitForExistence(timeout:5))
@@ -2135,7 +2135,6 @@ final class ChatConversationTests: XCTestCase {
         app.buttons["message-send"].tap()
         let sent = app.descendants(matching:.any).matching(identifier:"immersionText").matching(NSPredicate(format:"label == %@","Local send from older messages.")).firstMatch
         XCTAssertTrue(sent.waitForExistence(timeout:15))
-        XCTAssertTrue(sent.frame.maxY <= input.frame.minY+1 && sent.frame.minY >= bar.frame.maxY)
         let settled = XCTNSPredicateExpectation(predicate:NSPredicate { _,_ in
             let value = evidence(),texts = value["texts"] as? [String] ?? [],ids = value["ids"] as? [String] ?? []
             guard let index = texts.firstIndex(of:"Local send from older messages."),ids.indices.contains(index),
@@ -2146,15 +2145,36 @@ final class ChatConversationTests: XCTestCase {
             return y >= vy && y+h <= vy+vh-8
         },object:nil)
         XCTAssertEqual(XCTWaiter.wait(for:[settled],timeout:8),.completed,"The entire newly sent row, including timestamp and state, must clear the measured composer")
+        XCTAssertTrue(sent.frame.maxY <= input.frame.minY+1 && sent.frame.minY >= bar.frame.maxY)
         XCTAssertFalse(jump.exists,"A genuine own send follows the measured latest row")
         XCTAssertFalse(app.buttons["reply-notification-defer"].exists,"Not now is durable and new sends never repeat it")
         if typing.exists {
             let typingSettled = XCTNSPredicateExpectation(predicate:NSPredicate { _,_ in
-                typing.exists && typing.frame.minY >= bar.frame.maxY && typing.frame.maxY <= input.frame.minY-8
+                guard let viewport=evidence()["current_message_viewport"] as? [String:Double],
+                      let top=viewport["y"],let height=viewport["height"] else { return false }
+                return typing.exists && typing.frame.minY >= top && typing.frame.maxY <= top+height-8
             },object:nil)
             XCTAssertEqual(XCTWaiter.wait(for:[typingSettled],timeout:4),.completed,"Following latest keeps the entire real typing indicator above the composer")
         }
+        // The earlier case sampled one transient success, then captured the
+        // row behind the composer. Require sustained real app geometry and
+        // check again AFTER the actual native screenshot/AX capture.
+        func wholeOwnSendVisible() -> Bool {
+            let value=evidence(),texts=value["texts"] as? [String] ?? [],ids=value["ids"] as? [String] ?? []
+            guard let index=texts.firstIndex(of:"Local send from older messages."),ids.indices.contains(index),
+                  let frames=value["current_message_rows"] as? [String:[String:Double]],let row=frames[ids[index].lowercased()],
+                  let viewport=value["current_message_viewport"] as? [String:Double],
+                  let y=row["y"],let height=row["height"],let top=viewport["y"],let visibleHeight=viewport["height"] else { return false }
+            return y>=top && y+height<=top+visibleHeight-8
+        }
+        for _ in 0..<6 {
+            XCTAssertTrue(wholeOwnSendVisible(),"The complete committed row must remain visible through settled keyboard/typing layout")
+            Thread.sleep(forTimeInterval:0.18)
+        }
         capture("chat-polish-own-send-follows-with-keyboard")
+        XCTAssertTrue(app.keyboards.firstMatch.exists,"Sending retains the actual native keyboard while the full committed row remains visible")
+        XCTAssertTrue(wholeOwnSendVisible(),"Native capture must not hide a late viewport regression")
+        if ProcessInfo.processInfo.environment["VIPI_OWN_SEND_FOCUSED"] == "true" { return }
         // The fixture peer queued one new real Signal envelope on that send.
         // Load it while upthread without changing the user's scroll intent.
         origin.withOffset(CGVector(dx:app.frame.midX,dy:top)).press(forDuration:0.05,
@@ -2172,11 +2192,86 @@ final class ChatConversationTests: XCTestCase {
     func testNativeOwnedSurfacesAndPrivateInviteAtDay() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"surfaces") }
     func testNativeOwnedSurfacesAndPrivateInviteAtNight() throws { try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,inboxReview:"surfaces") }
     func testNativeInboxNightHasReadableOriginalPreviewsAndUnread() throws { try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,inboxReview:"populated") }
+    func testConversationWaterSceneDayKeepsMessagesStillAndHasAppearancePause() throws {
+        try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true,motionReview:true)
+    }
+    func testConversationWaterSceneNightKeepsMessagesStillAndHasAppearancePause() throws {
+        try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true,motionReview:true)
+    }
+    func testConversationWaterSceneLargestKeepsMessagesStillAndHasAppearancePause() throws {
+        try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true,motionReview:true)
+    }
+    private func checkConversationWaterScene(in app:XCUIApplication,evidence:@escaping()->[String:Any],revealControl:(XCUIElement)->Void) throws {
+        let mode = app.buttons["chat-immersion-picker"]
+        let paragraphs = app.descendants(matching:.any).matching(identifier:"immersionText")
+        let input = app.descendants(matching:.any).matching(identifier:"message-input").firstMatch
+        func wait(_ reason:String,_ body:@escaping()->Bool) {
+            XCTAssertEqual(XCTWaiter.wait(for:[XCTNSPredicateExpectation(predicate:NSPredicate{_,_ in body()},object:app)],timeout:15),.completed,reason)
+        }
+        func capture(_ name:String) {
+            let shot = XCTAttachment(screenshot:app.screenshot());shot.name = name;shot.lifetime = .keepAlways;add(shot)
+            let tree = XCTAttachment(string:app.debugDescription);tree.name = name+"-native-tree";tree.lifetime = .keepAlways;add(tree)
+            let proof = XCTAttachment(data:(try? JSONSerialization.data(withJSONObject:evidence(),options:.sortedKeys)) ?? Data(),uniformTypeIdentifier:"public.json")
+            proof.name = name+"-proof";proof.lifetime = .keepAlways;add(proof)
+        }
+        func visible(_ row:XCUIElement)->Bool {
+            row.exists && row.isHittable && row.frame.minY >= app.navigationBars.firstMatch.frame.maxY+8 && row.frame.maxY <= input.frame.minY-8
+        }
+        func target(_ deep:Bool)->XCUIElement {
+            paragraphs.matching(NSPredicate(format:"label == %@",deep ? "shuǐ hé miàn bāo":"shuǐ and miàn bāo")).allElementsBoundByIndex.first(where:visible) ?? paragraphs.matching(NSPredicate(format:"label == %@",deep ? "shuǐ hé miàn bāo":"shuǐ and miàn bāo")).firstMatch
+        }
+        if !visibleKeyboardFrame(in:app).isEmpty { try dismissKeyboardByNativeDrag(in:app,phase:"motion-before-captures") }
+        XCTAssertTrue(mode.waitForExistence(timeout:10)); XCTAssertEqual(mode.value as? String,"Shallow")
+        wait("Shallow native paragraph is wholly visible") { visible(target(false)) }
+        Thread.sleep(forTimeInterval:0.35);capture("motion-01-shallow")
+        mode.tap();wait("Deep current state and actual native practice face") { mode.value as? String == "Deep" && visible(target(true)) }
+        Thread.sleep(forTimeInterval:0.35);capture("motion-02-deep")
+        mode.tap();wait("Shallow mode restores the same word plan") { mode.value as? String == "Shallow" && visible(target(false)) }
+        Thread.sleep(forTimeInterval:0.35)
+        let row = target(false), frame = row.frame.insetBy(dx:1,dy:1), label = row.label
+        let before = app.screenshot(); Thread.sleep(forTimeInterval:0.9); let after = app.screenshot()
+        XCTAssertEqual(row.label,label);XCTAssertEqual(row.frame.insetBy(dx:1,dy:1),frame)
+        func pixels(_ screenshot:XCUIScreenshot,_ rectangle:CGRect)throws->Data {
+            let image = try XCTUnwrap(screenshot.image.cgImage)
+            let scale = CGFloat(image.width)/app.frame.width
+            let crop = CGRect(x:(rectangle.minX-app.frame.minX)*scale,y:(rectangle.minY-app.frame.minY)*scale,width:rectangle.width*scale,height:rectangle.height*scale).integral
+            let result = try XCTUnwrap(image.cropping(to:crop));return try XCTUnwrap(result.dataProvider?.data) as Data
+        }
+        XCTAssertEqual(try pixels(before,frame),try pixels(after,frame),"Opaque actual native paragraph pixels stay fixed while water moves")
+        let viewport = CGRect(x:4,y:app.navigationBars.firstMatch.frame.maxY+8,width:app.frame.width-8,height:input.frame.minY-app.navigationBars.firstMatch.frame.maxY-16)
+        XCTAssertGreaterThan(viewport.height,0)
+        XCTAssertNotEqual(try pixels(before,viewport),try pixels(after,viewport),"Actual decorative scene moves")
+        let sample = XCTAttachment(screenshot:after);sample.name = "motion-03-stationary-foreground-moving-water";sample.lifetime = .keepAlways;add(sample)
+        // Actual Appearance control, rather than a test-only preference write.
+        app.navigationBars.firstMatch.buttons.firstMatch.tap()
+        let settings = app.buttons["Your profile and settings"];XCTAssertTrue(settings.waitForExistence(timeout:10));settings.tap()
+        let toggle = app.switches["settings-conversation-motion"]
+        revealControl(toggle)
+        XCTAssertTrue(toggle.exists && toggle.isHittable);XCTAssertEqual(toggle.value as? String,"1")
+        toggle.coordinate(withNormalizedOffset:CGVector(dx:0.9,dy:0.5)).tap();wait("Actual Appearance switch turns off") { toggle.value as? String == "0" };capture("motion-04-appearance-pause")
+        func reopenFriend() {
+            app.navigationBars.firstMatch.buttons.firstMatch.tap()
+            let thread = app.buttons.matching(NSPredicate(format:"identifier BEGINSWITH %@","chat-thread-")).firstMatch
+            XCTAssertTrue(thread.waitForExistence(timeout:10));thread.tap()
+        }
+        reopenFriend();wait("The native paragraph returns after Appearance change") { visible(target(false)) }
+        Thread.sleep(forTimeInterval:0.35)
+        let stillBefore = app.screenshot();Thread.sleep(forTimeInterval:0.9);let stillAfter = app.screenshot()
+        let pausedViewport = CGRect(x:4,y:app.navigationBars.firstMatch.frame.maxY+8,width:app.frame.width-8,height:input.frame.minY-app.navigationBars.firstMatch.frame.maxY-16)
+        XCTAssertEqual(try pixels(stillBefore,pausedViewport),try pixels(stillAfter,pausedViewport),"Appearance pause freezes native scene pixels")
+        capture("motion-05-paused-after-reopen")
+        // Restore this fresh QA namespace's default before fixture cleanup.
+        app.navigationBars.firstMatch.buttons.firstMatch.tap();settings.tap()
+        revealControl(toggle)
+        XCTAssertEqual(toggle.value as? String,"0");toggle.coordinate(withNormalizedOffset:CGVector(dx:0.9,dy:0.5)).tap();wait("Actual Appearance switch restores on") { toggle.value as? String == "1" }
+    }
+
     func testPolishedFriendNightKeepsWholeSendAndModeWithKeyboard() throws { try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true) }
+    func testPolishedFriendLargestKeepsWholeSendAndModeWithKeyboard() throws { try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true) }
     func testNativeInboxEmptyHasOneActionAndProfile() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"empty") }
     func testNativeInboxRealisticRowsNavigateAndClearLocalUnread() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"populated") }
     func testNativeInboxLargestTextKeepsNamesAndDatesReadable() throws { try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,inboxReview:"populated") }
-    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false,securityReview:Bool = false,immersionModes:Bool = false,chatPolish:Bool = false,notificationOptIn:Bool = false,inboxReview:String? = nil) throws {
+    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false,securityReview:Bool = false,immersionModes:Bool = false,chatPolish:Bool = false,notificationOptIn:Bool = false,inboxReview:String? = nil,motionReview:Bool = false) throws {
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated first-month root only") }
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -2240,7 +2335,13 @@ final class ChatConversationTests: XCTestCase {
         if draftBoundary { arguments += ["-vipi-draft-boundary-root-qa"] }
         if invitation { arguments += ["-vipi-invitation-root-qa","-vipi-incremental-invitation-qa"] }
         if immersionModes { arguments += ["-vipi-immersion-mode-qa"] }
-        if chatPolish { arguments += ["-vipi-chat-polish-qa"] }
+        if chatPolish {
+            arguments += ["-vipi-chat-polish-qa"]
+            if reading == nil,let prefix=ProcessInfo.processInfo.environment["VIPI_READING_TRACE_PREFIX"] {
+                XCTAssertTrue(prefix.count==2 && prefix.allSatisfy(\.isNumber))
+                arguments += ["-vipi-live-immersion-state",prefix+"1"]
+            }
+        }
         if inboxReview == "populated" { arguments += ["-vipi-inbox-populated-qa"] }
         if marketing {
             XCTAssertTrue(fullTranslation && reading == "en-zh" && !largest && !dark && !copyOriginal && !settingsInvite && !cueLifecycle && !pendingPair)
@@ -2488,6 +2589,9 @@ final class ChatConversationTests: XCTestCase {
         let ready = XCTNSPredicateExpectation(predicate:NSPredicate(format:"enabled == true"),object:proceed)
         XCTAssertEqual(XCTWaiter.wait(for:[ready],timeout:35),.completed,"Onboarding must prepare practice audio as well as translation before continuing")
         proceed.tap()
+        let tutorialContinue = app.buttons["tutorial-continue"]
+        XCTAssertTrue(tutorialContinue.waitForExistence(timeout:10),"The optional real guide appears after language selection and before account/invite")
+        reveal(tutorialContinue);XCTAssertTrue(tutorialContinue.isEnabled);tutorialContinue.tap()
         XCTAssertTrue(app.staticTexts["Free to use. No subscription."].waitForExistence(timeout: 10))
         XCTAssertFalse(app.switches.firstMatch.exists, "The one required agreement belongs to first Vipi profile creation, not every sign-in")
         // XCUI frame subtraction can represent an exact44pt target as
@@ -2638,6 +2742,11 @@ final class ChatConversationTests: XCTestCase {
                 XCTAssertTrue(typing.waitForExistence(timeout:5),"Explicit supplied peer event must reach actual production chat UI")
                 let readMark = app.descendants(matching:.any).matching(identifier:"message-state-read").firstMatch
                 XCTAssertTrue(readMark.waitForExistence(timeout:8))
+                let accepted = try XCTUnwrap((proof()["accepted_ids"] as? [String])?.first)
+                let time = app.descendants(matching:.any).matching(identifier:"message-time-"+accepted.uppercased()).firstMatch
+                XCTAssertTrue(time.exists)
+                let overlap = time.frame.intersection(readMark.frame)
+                XCTAssertTrue(overlap.isNull || overlap.width < 0.5 || overlap.height < 0.5,"Native timestamp and scaled delivery mark occupy separate readable rectangles")
                 let shot = XCTAttachment(screenshot:app.screenshot()); shot.name = "chat-polish-scripted-peer-typing-and-confirmed-read"; shot.lifetime = .keepAlways; add(shot)
                 XCTAssertTrue(app.otherElements["conversation-contact-identity"].exists || app.descendants(matching:.any).matching(identifier:"conversation-contact-identity").firstMatch.exists)
             }
@@ -2662,17 +2771,31 @@ final class ChatConversationTests: XCTestCase {
             if chatPolish {
                 let authorization = try XCTUnwrap(proof()["notifications_authorization"] as? Int)
                 if authorization == 0 || authorization == 1 {
+                    if largest {
+                        XCTAssertTrue(app.keyboards.firstMatch.exists)
+                        XCTAssertFalse(app.buttons["reply-notification-defer"].exists,"The optional invitation cannot consume the transcript above an accessibility-size keyboard")
+                        try dismissKeyboardByNativeDrag(in:app,phase:"large-reply-invitation-after-editing")
+                    }
                     XCTAssertTrue(app.buttons["reply-notification-defer"].waitForExistence(timeout:5))
                     let offer = app.descendants(matching:.any).matching(identifier:"reply-notification-invitation").firstMatch
                     XCTAssertTrue(offer.frame.maxY <= input.frame.minY+1)
                 } else { XCTAssertFalse(app.buttons["reply-notification-defer"].exists) }
             }
             if app.buttons["reply-notification-defer"].waitForExistence(timeout:2) {
-                XCTAssertTrue(app.keyboards.firstMatch.exists)
-                let contextual = XCTAttachment(screenshot:app.screenshot()); contextual.name = "contextual-reply-notification-before-native-request"; contextual.lifetime = .keepAlways; add(contextual)
+                if !largest { XCTAssertTrue(app.keyboards.firstMatch.exists) }
+                let offer = app.descendants(matching:.any).matching(identifier:"reply-notification-invitation").firstMatch
+                for id in ["reply-notification-enable","reply-notification-defer"] {
+                    let action = app.buttons[id]
+                    XCTAssertTrue(action.isHittable)
+                    XCTAssertGreaterThanOrEqual(action.frame.height,44-0.000001)
+                    XCTAssertGreaterThanOrEqual(action.frame.minY,offer.frame.minY)
+                    XCTAssertLessThanOrEqual(action.frame.maxY,offer.frame.maxY)
+                }
+                let contextual = XCTAttachment(screenshot:app.screenshot()); contextual.name = largest ? "contextual-reply-notification-largest-after-keyboard":"contextual-reply-notification-before-native-request"; contextual.lifetime = .keepAlways; add(contextual)
                 app.buttons["reply-notification-defer"].tap()
                 XCTAssertFalse(app.otherElements["reply-notification-invitation"].exists)
-                XCTAssertTrue(app.keyboards.firstMatch.exists)
+                if largest { input.tap() }
+                XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout:8))
             }
             XCUIDevice.shared.press(.home)
             app.activate()
@@ -2680,6 +2803,10 @@ final class ChatConversationTests: XCTestCase {
                 $0["receipts"] as? Int == (chatPolish ? 28:1) && Set($0["texts"] as? [String] ?? []) == ["Water, water!", "water and bread"]
             }
             try assertVisibleComposerPrompt()
+            if motionReview {
+                try checkConversationWaterScene(in:app,evidence:proof,revealControl:{ reveal($0,navigationBar:app.navigationBars.firstMatch) })
+                return
+            }
             if chatPolish {
                 try checkPolishedChatModes(in:app,evidence:proof)
                 try checkPolishedChatViewport(in:app,evidence:proof)

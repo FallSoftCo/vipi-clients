@@ -303,6 +303,7 @@ struct SettingsView: View {
                 }.accessibilityIdentifier("language-settings-link")
             }
             Section {
+                NavigationLink("Immersion guide") { ImmersionTutorialView() }.accessibilityIdentifier("tutorial-reentry")
                 Picker("Immersion",selection:$state.immersionMode) {
                     ForEach(ImmersionMode.allCases) { Text($0.title).tag($0) }
                 }.accessibilityIdentifier("settings-immersion-picker")
@@ -315,6 +316,8 @@ struct SettingsView: View {
                     }
                 }
                 Picker("Appearance", selection: $state.appearance) { ForEach(AppAppearance.allCases) { Text(LocalizedStringKey($0.title)).tag($0) } }
+                Toggle("Animate conversation background", isOn: $state.animateConversationBackground)
+                    .accessibilityIdentifier("settings-conversation-motion")
             } header: { Text("Appearance and notifications").foregroundStyle(VipiDesign.secondary) }
             if let chat { Section { NavigationLink("Chat backup") { HistoryBackupView(chat: chat) } } }
             Section {

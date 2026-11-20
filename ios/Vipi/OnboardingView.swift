@@ -9,9 +9,6 @@ struct OnboardingView: View {
     @State private var preparation = LanguagePreparation()
     @State private var search = ""
     @State private var scrolling = false
-    @State private var voiceState = SpeechState.preparing
-    @State private var voiceProblem: String?
-    @State private var voiceRetry = 0
     @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
@@ -23,7 +20,7 @@ struct OnboardingView: View {
                         HStack(spacing: 10) {
                             VipiMark(size:64,accessibleName:"Vipi")
                             Spacer()
-                            if state.onboarding != .welcome {
+                            if state.onboarding == .language || state.onboarding == .account {
                                 Text(dynamicTypeSize.isAccessibilitySize
                                      ? (state.onboarding == .language ? "1 of 2" : "2 of 2")
                                      : (state.onboarding == .language ? "Language · 1 of 2" : "Account · 2 of 2"))
@@ -34,6 +31,7 @@ struct OnboardingView: View {
                         switch state.onboarding {
                         case .welcome: welcome
                         case .language: languages
+                        case .tutorial: ImmersionTutorialContent(scrolling:scrolling)
                         case .account: account
                         }
                         // Large controls belong in the scroll flow, so they cannot cover the form.
@@ -52,7 +50,7 @@ struct OnboardingView: View {
             .toolbar {
                 if state.onboarding != .welcome {
                     ToolbarItem(placement: .topBarLeading) {
-                        Button { advance(state.onboarding == .account ? .language : .welcome) } label: { Image(systemName: "chevron.left") }
+                        Button { advance(state.onboarding == .account ? .tutorial : state.onboarding == .tutorial ? .language : .welcome) } label: { Image(systemName: "chevron.left") }
                             .accessibilityLabel("Back")
                     }
                 }
@@ -96,20 +94,6 @@ struct OnboardingView: View {
                     .accessibilityLabel("I’m learning")
                     .accessibilityValue(VipiLanguage.named(state.targetLanguage).localizedName)
             }
-            ConversationPreview(source:state.knownLanguage,target:state.targetLanguage,scrolling:scrolling,modelsReady:preparation.prepared,
-                onVoiceState: { voiceState = $0; voiceProblem = $1 })
-                .id("\(state.knownLanguage)-\(state.targetLanguage)-\(voiceRetry)")
-            if voiceState == .unavailable, let voiceProblem {
-                Text(voiceProblem).font(.body).foregroundStyle(VipiDesign.secondary)
-                    .fixedSize(horizontal: false, vertical: true).accessibilityIdentifier("language-voice-problem")
-                Button("Try again") { voiceRetry += 1 }.accessibilityIdentifier("language-voice-retry")
-            } else if preparation.prepared && voiceState == .preparing {
-                HStack { ProgressView(); Text("Preparing voices") }.font(.body).foregroundStyle(VipiDesign.secondary)
-            }
-            Text(ChatReadingState.gestureDescription(target:state.targetLanguage,hasAlternateScript:state.chatReading.hasAlternateScript && !state.chatReading.nativeScript,incremental:state.immersionMode == .incremental))
-                .font(.body).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
-                .accessibilityLabel(Text(ChatReadingState.actionDescription(showingMeaning:state.chatReading.showingMeaning,nativeScript:state.chatReading.nativeScript,hasAlternateScript:state.chatReading.hasAlternateScript,incremental:state.immersionMode == .incremental)))
-                .accessibilityIdentifier("language-preview-gesture-hint")
             if preparation.busy || preparation.availability == .checking {
                 HStack { ProgressView(); Text("Preparing translation downloads…").font(.subheadline) }.foregroundStyle(VipiDesign.secondary)
             } else if !preparation.prepared {
@@ -159,13 +143,14 @@ struct OnboardingView: View {
 
     private var bottomAction: some View {
         VStack(spacing: 12) {
-            PrimaryButton(title: state.onboarding == .welcome ? "Choose languages" : state.onboarding == .language ? "Continue" : "Continue to sign in", busy: authentication.busy) {
+            PrimaryButton(title: state.onboarding == .welcome ? "Choose languages" : state.onboarding != .account ? "Continue" : "Continue to sign in", busy: authentication.busy) {
                 switch state.onboarding {
                 case .welcome: advance(.language)
-                case .language: advance(.account)
+                case .language: advance(.tutorial)
+                case .tutorial: advance(.account)
                 case .account: authentication.signIn()
                 }
-            }.disabled(state.onboarding == .language && (!preparation.prepared || voiceState == .preparing || voiceState == .unavailable))
+            }.accessibilityIdentifier(state.onboarding == .tutorial ? "tutorial-continue":"onboarding-continue")
         }.padding(.horizontal, dynamicTypeSize.isAccessibilitySize ? 0 : 26).padding(.top, 14).padding(.bottom, 12)
             .frame(maxWidth: 560).frame(maxWidth: .infinity).background(VipiDesign.canvas)
     }
