@@ -33,7 +33,17 @@ struct ContactAvatar: View {
 
 struct MessageDeliveryMark: View {
     let state:String
-    let description:String
+    static func localizedDescription(_ value: String) -> String {
+        switch value {
+        case "read": String(localized:"Read")
+        case "delivered": String(localized: "Delivered")
+        case "accepted": String(localized: "Sent")
+        case "expired": String(localized: "Not delivered · 72 hours passed")
+        case "failed": String(localized: "Not delivered")
+        case "cancelled": String(localized: "Stopped")
+        default: String(localized: "Waiting to send")
+        }
+    }
     @Environment(\.vipiOutgoingMessage) private var outgoing
     private var doubleCheck:Bool { state == "delivered" || state == "read" }
     private var failed:Bool { ["failed","expired","unavailable","identity_changed"].contains(state) }
@@ -51,7 +61,7 @@ struct MessageDeliveryMark: View {
         }
         .font(.caption.weight(.semibold))
         .foregroundStyle(state == "read" ? VipiDesign.messageRead(outgoing) : failed ? VipiDesign.messageFailure(outgoing) : VipiDesign.messageSecondary(outgoing))
-        .accessibilityElement(children:.ignore).accessibilityLabel(description)
+        .accessibilityElement(children:.ignore).accessibilityLabel(Self.localizedDescription(state))
         .accessibilityIdentifier("message-state-"+state)
     }
 }

@@ -325,8 +325,8 @@ class MainActivity : ComponentActivity() {
     val value = state?.value
     val preview = value?.let { it.practiceReading ?: it.practiceText }
         ?: message.text
-    Text(preview, maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
-        fontSize = 16.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
+    Text(preview, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+        fontSize = 16.sp, lineHeight = 21.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.testTag("home-message-preview-$id").onGloballyPositioned {
             val bounds = it.boundsInWindow()
             visible = bounds.width > 0f && bounds.height > 0f

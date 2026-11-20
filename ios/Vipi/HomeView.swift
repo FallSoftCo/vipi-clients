@@ -140,7 +140,10 @@ struct HomeConversationRow:View {
                     if !textSize.isAccessibilitySize { timestamp.fixedSize(horizontal:true,vertical:false) }
                 }
                 if textSize.isAccessibilitySize { timestamp }
-                HStack(alignment:.top,spacing:10) {
+                HStack(alignment:.top,spacing:6) {
+                    if thread.latest.outgoing {
+                        MessageDeliveryMark(state:thread.latest.state)
+                    }
                     HomeMessagePreview(owner:owner,message:thread.latest,expectedPair:expectedPair)
                         .frame(maxWidth:.infinity,alignment:.leading)
                     if thread.unread > 0 {

@@ -875,7 +875,7 @@ struct FriendConversationView: View {
     private func messageAccessibilityContext(_ item: ChatItem) -> String {
         let time = messageDate(item).formatted(date:.abbreviated,time:.shortened)
         if item.state == "imported" { return time + " · " + String(localized:"Saved history") }
-        return item.outgoing ? time + " · " + status(item.state) : time
+        return item.outgoing ? time + " · " + MessageDeliveryMark.localizedDescription(item.state) : time
     }
     @ViewBuilder private func messageMetadata(_ item: ChatItem) -> some View {
         let index = messages.firstIndex { $0.id == item.id } ?? 0
@@ -886,21 +886,11 @@ struct FriendConversationView: View {
             Text(displayedTime).monospacedDigit()
             if item.state == "imported" { Text("Saved history") }
             else if item.outgoing {
-                MessageDeliveryMark(state:item.state,description:status(item.state))
+                MessageDeliveryMark(state:item.state)
             }
         }.font(.caption2)
     }
-    private func status(_ value: String) -> String {
-        switch value {
-        case "read": String(localized:"Read")
-        case "delivered": String(localized: "Delivered")
-        case "accepted": String(localized: "Sent")
-        case "expired": String(localized: "Not delivered · 72 hours passed")
-        case "failed": String(localized: "Not delivered")
-        case "cancelled": String(localized: "Stopped")
-        default: String(localized: "Waiting to send")
-        }
-    }
+
 }
 
 private struct ConversationViewport: Equatable {

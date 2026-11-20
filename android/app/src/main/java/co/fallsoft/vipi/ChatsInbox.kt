@@ -151,7 +151,7 @@ import java.time.temporal.ChronoUnit
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(name, Modifier.weight(1f), fontSize = 18.sp, lineHeight = 23.sp,
-                    fontWeight = if (unread) FontWeight.Bold else FontWeight.SemiBold,
+                    fontWeight = if (unread) FontWeight.Bold else FontWeight.Medium,
                     maxLines = if (largeText) 2 else 1, overflow = TextOverflow.Ellipsis)
                 if (!largeText) timestamp()
             }
