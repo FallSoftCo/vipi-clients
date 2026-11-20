@@ -6,23 +6,24 @@ from starlette.responses import HTMLResponse, JSONResponse
 from .accounts import normalize_username
 from .delivery import DeliveryError
 
-VERSION = "2026-11-19"
+VERSION = "2026-11-20"
 COMPANY_PRIVACY = "https://fallsoft.co/privacy-policy"
 COMPANY_TERMS = "https://fallsoft.co/terms-of-service"
 
 PAGES = {
     "/": ("Immersive chat with friends.", """
         <p class="lead">Chat with your friends. Read and hear the conversation in the language you want to learn.</p>
-        <p>Choose the language you know and the one you want to learn. Vipi introduces a new word in your practice language with each message, when there is a new word to translate. Familiar words keep appearing as you chat. Your friends can keep writing as usual; they do not need to learn the same language.</p>
-        <p>Tap a message to hear its practice words. Hold the chat to see the original words, then release to continue. For supported non-Latin scripts, a reading in Latin letters appears by default. Double-tap the chat to switch scripts. You may need to download your selected languages and voices first.</p>
-        <p>Chats with friends are end-to-end encrypted. Translation and speech run on your device. Vipi is free to use, with no subscription, in-app purchases or chatbot.</p>
+        <p>Choose your practice language. Start with one new word at a time, or tap the switch at the top of a chat to read whole messages in that language. Your friend can write as usual.</p>
+        <p>Tap a message to hear the practice language. Hold the chat to see the original. For supported scripts, you can read in Latin letters and double-tap to switch scripts. You may need to download the languages and voices first.</p>
+        <p>Messaging friends is free. Your chats are end-to-end encrypted, and translation and speech run on your device.</p>
         <p><strong>Vipi is in testing.</strong> App downloads will appear here after store approval. Translations can be wrong; Vipi does not promise a particular level of fluency.</p>
     """),
     "/privacy": ("Vipi privacy", """
         <p class="lead">Your conversations belong to you.</p>
-        <p>This product notice explains Vipi's data handling alongside the <a href="https://fallsoft.co/privacy-policy">Fallible Software, Co. privacy policy</a>. Updated November 19, 2026.</p>
+        <p>This product notice explains Vipi's data handling alongside the <a href="https://fallsoft.co/privacy-policy">Fallible Software, Co. privacy policy</a>. Updated November 20, 2026.</p>
         <h2>Conversations with friends</h2>
         <p>Human messages are encrypted on the sender's device and decrypted on the recipient's device using the Signal protocol. Vipi's relay does not have the keys to read their content. Account identifiers, device identifiers, message identifiers, routing, timing, delivery state, and public encryption keys are visible to the service. End-to-end encryption does not hide that metadata.</p>
+        <p>While you write to a friend, Vipi can share a temporary typing indicator. The service receives a start or stop signal without your draft. When a message appears on screen, your device can tell its sender that you have seen it. Read status follows the same retention window as delivery status.</p>
         <p>Undelivered ciphertext has a 72-hour delivery window measured from the message's creation time. Ciphertext is cleared after a delivery receipt, cancellation, or expiry cleanup. Delivery metadata is removed seven days after that delivery window ends. Cleanup normally runs each minute; an outage can delay cleanup. Your device and your friend's device keep their own history until it is removed there.</p>
         <h2>Language and audio</h2>
         <p>Word translations and reading guides are prepared locally. Downloads fetch language data, not translations of your conversations. Speech uses the app's local speech engines or supported device voices. Downloaded data, learning preferences, and chat history remain on your device.</p>
@@ -51,7 +52,7 @@ PAGES = {
     """),
     "/terms": ("Using Vipi", """
         <p class="lead">Real conversations. Respect for the people in them.</p>
-        <p>These product terms supplement the <a href="https://fallsoft.co/terms-of-service">Fallible Software, Co. terms of service</a>. Updated November 19, 2026. The separate license supplied with software and language data governs rights to that software and data.</p>
+        <p>These product terms supplement the <a href="https://fallsoft.co/terms-of-service">Fallible Software, Co. terms of service</a>. Updated November 20, 2026. The separate license supplied with software and language data governs rights to that software and data.</p>
         <h2>Your account and conversations</h2>
         <p>Use your own account, protect your device, and keep any backup password safe. Vipi supports one active messaging device per account. Replacing it changes the device's encryption identity; friends may need to verify the new identity. Vipi does not maintain a cloud copy of your complete chat history.</p>
         <p>Do not use Vipi for threats, harassment, hate, scams, spam, exploitation, sexual content involving minors, nonconsensual intimate material, or other unlawful activity. Do not impersonate others, distribute malware, attack the service, or evade account restrictions. You must have the right to share what you send. Vipi is not for children under 13.</p>
@@ -65,11 +66,12 @@ PAGES = {
     """),
     "/help": ("Vipi help", """
         <h2>Start a conversation</h2><p>Try the example, choose the language you know and the one you want to learn, then sign in. Share your exact username with a friend or search for theirs. No address-book upload is needed.</p>
-        <h2>Read and listen</h2><p>Vipi introduces one new word from each message, alongside words you have already seen. A word can need more than one word in translation; its complete meaning stays together. Repeated messages may have no new word. Tap a message to hear its practice words; tap again to stop. Hold the chat to see the original wording, then release to continue. Reading guides in Latin letters appear by default for supported scripts. Double-tap the chat to switch between the reading guide and the language's own script.</p>
-        <p>Turn on the speaker in the chat header to hear new messages automatically. Turn it off to stop playback. Earlier messages do not start playing when you turn it on. Autoplay also stops when you leave the chat or put Vipi in the background.</p>
+        <h2>Read and listen</h2><p>The switch at the top of a chat changes between one word and the full message. In one-word mode, words you have already seen can appear again. Tap a message to hear the practice wording. Hold the chat to see the original. Double-tap to switch between a reading in Latin letters and the original script where available.</p>
+        <p>Open the conversation options to turn autoplay on or off. Earlier messages do not start playing when you turn it on. Autoplay stops when you leave the chat or put Vipi in the background.</p>
         <p>Your selected languages and voices may need a download before first use. If a translation or voice is unavailable, follow the message shown in the app to prepare it or try again. Translation quality varies by language and context.</p>
         <h2>Sign in again</h2><p>If Vipi asks you to sign in again, use the same account to reconnect. Conversations saved on this device stay here. Signing in again does not move your account to a different device.</p>
         <h2>Change your active device</h2><p>Vipi uses one active messaging device at a time. Choosing Use this device is a separate action: it disconnects the other active device and changes your encryption keys. Messages still waiting for delivery cannot move between devices. Review the confirmation before continuing, then compare the new security number with your friends.</p>
+        <h2>Message status</h2><p>One check means Vipi accepted your message. Two checks mean it reached your friend’s device. The checks change color when a compatible version of Vipi confirms that the message appeared on your friend's screen.</p>
         <h2>Missing messages</h2><p>Check connectivity and notification permission, then reopen the conversation to refresh. If a message expires after 72 hours, send a new message when it is still relevant. Replacing your active device can require your friend to verify its new identity.</p>
         <h2>Free chat</h2><p>No subscription, trial deadline or payment details. Invite a friend and keep chatting.</p>
         <h2>History and your account</h2><p>Use History backup in Settings to save an encrypted file. Keep the password separately; it cannot be reset by Vipi. Restore under the same Vipi account. Backups do not restore live encryption keys or unsent messages.</p><p><a href="/delete-account">Delete your account</a>. This does not remove copies kept by friends or in your own backup storage.</p>
@@ -124,7 +126,7 @@ def install(app):
                 status_code=404, private_link=True)
         return render("Chat with me on Vipi", f"""
             <p class="lead">Find your friend with the username <strong>@{escape(name)}</strong>.</p>
-            <p>Chat with your friend while reading the conversation in the language you want to learn. Vipi introduces a new word in your practice language with each message, when there is a new word to translate. Familiar words keep appearing as you chat. Tap a message to hear it, or hold the chat to read in the language you know.</p>
+            <p>Chat with your friend in your practice language. Switch between one word at a time and the whole message. Tap a message to hear it, or hold the chat to see the original.</p>
             <h2>Already have Vipi?</h2>
             <p><a class="button" href="co.fallsoft.vipi://invite/{escape(name)}">Open Vipi</a></p>
             <p>The invitation opens with your friend's username filled in. Tap Find friend to start your conversation.</p>
