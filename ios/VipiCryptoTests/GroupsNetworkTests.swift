@@ -82,7 +82,7 @@ import XCTest
         let bob: Profile = try await http.request("GET", "/v1/people/\(c.bob.username)", device: core.device)
         try await greet(alice.id, text: "Carol to Alice — native Apple keys", core: core, http: http)
         try await greet(bob.id, text: "Carol to Bob — native Apple keys", core: core, http: http)
-        try save(.init(run: c.run, account: profile.id)); try receipt(c, "apple-published", values: ["sent_direct": 2, "carol": profile.id.uuidString.lowercased()])
+        try save(.init(run: c.run, account: profile.id, group: nil)); try receipt(c, "apple-published", values: ["sent_direct": 2, "carol": profile.id.uuidString.lowercased()])
     }
     func testReceiveGreetingsAndAcceptGroup() async throws {
         let c = try configuration(); var s = try state(c); let http = try transport(c)
