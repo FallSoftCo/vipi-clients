@@ -51,8 +51,10 @@ import java.time.temporal.ChronoUnit
     // The action belongs to the conversation pane on expanded/folded widths.
     // The outer canvas still covers the complete edge-to-edge window.
     Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), contentAlignment = Alignment.TopCenter) {
+    ConversationWaterScene(model.immersionMode, model.animateConversationBackground,
+        Modifier.matchParentSize(), plainBackground = prefersIncreasedContrast(), listSurface = true)
     Scaffold(modifier = Modifier.widthIn(max = 680.dp).fillMaxSize(),
-        containerColor = MaterialTheme.colorScheme.background,
+        containerColor = androidx.compose.ui.graphics.Color.Transparent,
         contentWindowInsets = WindowInsets.safeDrawing,
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {

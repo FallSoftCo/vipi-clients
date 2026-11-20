@@ -527,8 +527,8 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                 item(key = "history-header") {
                     ConversationTranscriptItem {
                         Column {
-                            if (earlierAvailable) TextButton(onClick = { earlier() }) { Text(stringResource(R.string.ui_561a197a2807)) }
-                            if (messages.isEmpty()) Column(Modifier.fillMaxWidth().padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                            if (earlierAvailable) TextButton(onClick = { earlier() }, colors = ButtonDefaults.textButtonColors(containerColor = MaterialTheme.colorScheme.background)) { Text(stringResource(R.string.ui_561a197a2807)) }
+                            if (messages.isEmpty()) Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp)).padding(30.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
                                 Icon(Icons.Outlined.Lock, null)
                                 Text(stringResource(R.string.ui_9bbf916f3af5), fontWeight = FontWeight.SemiBold)
                                 Text(stringResource(R.string.ui_48e35bc10280), fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
@@ -543,7 +543,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                             if (index == 0 || java.time.Instant.ofEpochMilli(item.createdAt).atZone(java.time.ZoneId.systemDefault()).toLocalDate() !=
                                 java.time.Instant.ofEpochMilli(messages[index-1].createdAt).atZone(java.time.ZoneId.systemDefault()).toLocalDate()) {
                                 Text(DateFormat.getDateInstance(DateFormat.MEDIUM, locale).format(Date(item.createdAt)),
-                                    modifier = Modifier.align(Alignment.CenterHorizontally).padding(vertical = 6.dp),
+                                    modifier = Modifier.align(Alignment.CenterHorizontally).background(MaterialTheme.colorScheme.background, RoundedCornerShape(20.dp)).padding(horizontal = 10.dp, vertical = 6.dp),
                                     fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                             Row(Modifier.fillMaxWidth(), horizontalArrangement = if (item.outgoing) Arrangement.End else Arrangement.Start) {

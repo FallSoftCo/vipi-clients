@@ -31,6 +31,7 @@ import kotlin.math.sin
     motionEnabled: Boolean,
     modifier: Modifier = Modifier,
     plainBackground: Boolean = false,
+    listSurface: Boolean = false,
 ) {
     val palette = vipiPalette()
     val dark = palette.canvas.luminance() < .5f
@@ -66,6 +67,10 @@ import kotlin.math.sin
         }
     }
     val water = when {
+        listSurface && dark && deep -> listOf(Color(0xFF221B22), Color(0xFF25212A), Color(0xFF24232D))
+        listSurface && dark -> listOf(Color(0xFF221B22), Color(0xFF27212A), Color(0xFF292530))
+        listSurface && deep -> listOf(Color(0xFFFFF8EF), Color(0xFFF4EEE6), Color(0xFFEDE8E0))
+        listSurface -> listOf(Color(0xFFFFF8EF), Color(0xFFF7EFE6), Color(0xFFF0E5DA))
         dark && deep -> listOf(Color(0xFF24202C), Color(0xFF243542), Color(0xFF142C3A))
         dark -> listOf(Color(0xFF221B22), Color(0xFF292934), Color(0xFF273C45))
         deep -> listOf(Color(0xFFF4F0E7), Color(0xFFDBE2DF), Color(0xFFC1D1D1))
@@ -75,6 +80,24 @@ import kotlin.math.sin
         drawRect(palette.canvas)
         if (plainBackground) return@Canvas
         drawRect(Brush.verticalGradient(water))
+        if (listSurface) {
+            // A single continuous print/water texture, including the first rows.
+            // Fixed geometry keeps the texture tactile even with motion paused.
+            val pigment = if (dark) Color(0xFFC294A4) else Color(0xFF9A6370)
+            repeat(17) { i ->
+                val center = Offset(size.width * (((i * 37 + 13) % 101) / 100f), size.height * (((i * 29 + 7) % 103) / 102f))
+                val radius = (70 + (i * 17 % 60)).dp.toPx()
+                drawCircle(Brush.radialGradient(listOf(pigment.copy(alpha = .055f), Color.Transparent), center, radius), radius, center)
+            }
+            repeat(9) { i ->
+                val y = size.height * (i + .35f) / 9f
+                val ripple = Path().apply {
+                    moveTo(-size.width * .1f, y)
+                    cubicTo(size.width * .24f, y - 18.dp.toPx(), size.width * .62f, y + 20.dp.toPx(), size.width * 1.1f, y - 5.dp.toPx())
+                }
+                drawPath(ripple, pigment.copy(alpha = .10f), style = Stroke(.7.dp.toPx()))
+            }
+        }
         val ray = (sin(seconds / 20f) * size.width * .05f)
         repeat(3) { i ->
             val x = size.width * (i * .43f - .3f) + ray
@@ -84,7 +107,9 @@ import kotlin.math.sin
             }
             drawPath(p, Color.White.copy(alpha = if (dark) .015f else .04f))
         }
-        val opacity = if (deep) .36f else if (dark) .29f else .27f
+        // Inbox text has no bubble backplate: constrain the scene's luminance
+        // rather than placing opaque cards over the shared conversation canvas.
+        val opacity = if (listSurface) { if (dark) .17f else .12f } else if (deep) .36f else if (dark) .29f else .27f
         val fishWidths = listOf(size.width * .76f, size.width * .51f, size.width * .35f)
         val cycles = listOf(39f, 51f, 62f)
         val offsets = listOf(0f, 23f, 38f)
@@ -105,17 +130,17 @@ import kotlin.math.sin
             val fraction = ((seconds + i * 7) % duration) / duration
             val radius = listOf(3.5f, 2.5f, 4.5f, 2f)[i].dp.toPx()
             val center = Offset(size.width * x + sin(fraction * 3f) * 9.dp.toPx(), size.height * (1f - fraction))
-            val alpha = (sin(fraction * Math.PI).toFloat() * .3f).coerceIn(0f, .3f)
+            val alpha = (sin(fraction * Math.PI).toFloat() * (if (listSurface) .12f else .3f)).coerceIn(0f, .3f)
             drawCircle(bubbleColor.copy(alpha = alpha), radius, center, style = Stroke(.65.dp.toPx()))
         }
         // Fixed deterministic grain, independent of the animation clock.
-        val step = 12.dp.toPx()
+        val step = (if (listSurface) 7 else 12).dp.toPx()
         var row = 0; var y = 0f
         while (y < size.height) {
             var column = 0; var x = 0f
             while (x < size.width) {
                 val jitter = ((row * 31 + column * 17) % 13) / 13f
-                drawCircle(palette.ink.copy(alpha = .025f), .22.dp.toPx(), Offset(x + jitter * step, y + (1f - jitter) * step))
+                drawCircle(palette.ink.copy(alpha = if (listSurface) .055f else .025f), (if (listSurface) .32f else .22f).dp.toPx(), Offset(x + jitter * step, y + (1f - jitter) * step))
                 column++; x += step
             }
             row++; y += step
