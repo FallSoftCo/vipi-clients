@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vipi design references</title>
+<style>
+:root { color-scheme: light dark; font: 16px/1.5 system-ui,sans-serif }
+body { margin: 0 auto; padding: 1.25rem 1.25rem 5rem; max-width: 86rem }
+header { max-width: 58rem }
+h1 { font-size: 2.1rem; line-height: 1.15; margin-bottom: .5rem }
+h2 { font-size: 1.35rem; margin: .2rem 0 }
+label { display: inline-flex; flex-direction: column; gap: .25rem; margin: 0 .8rem .5rem 0 }
+input, select { font: inherit; max-width: 100%; padding: .4rem }
+section { padding: 1.5rem 0; border-bottom: 1px solid #828282 }
+section p { max-width: 60rem; margin: .4rem 0 .9rem }
+p:empty, [hidden] { display: none !important }
+.refs { display: flex; gap: 12px; flex-wrap: wrap }
+figure { margin: 0; width: 136px }
+img { object-fit: contain; width: 100%; height: 225px }
+figcaption { font-size: .9rem }
+a { color: light-dark(#155c51,#8bdfca) }
+</style>
+<header>
+<h1>Vipi design references</h1>
+<p>@SUMMARY@</p>
+<p>Open a screen for the full-size image or its app name for the original Mobbin entry.
+Features with Vipi captures link to the native app for comparison.</p>
+<p><a href="@COLLECTION@">Open the private Mobbin collection</a></p>
+</header>
+<label>Find a feature or app<input id="query" type="search" placeholder="Typing, WhatsApp, recovery…"></label>
+<label>Area<select id="area"><option value="">All areas</option>@AREAS@</select></label>
+<main>@FEATURES@</main>
+<p id="empty" role="status" hidden>No matching features.</p>
+<script>
+const sections = [...document.querySelectorAll("section")];
+const query = document.getElementById("query");
+const area = document.getElementById("area");
+function filter() {
+    const term = query.value.trim().toLowerCase();
+    let count = 0;
+    for (const section of sections) {
+        section.hidden = (area.value && section.dataset.area !== area.value)
+            || !section.textContent.toLowerCase().includes(term);
+        if (!section.hidden) count++;
+    }
+    document.getElementById("empty").hidden = count > 0;
+}
+query.addEventListener("input", filter);
+area.addEventListener("change", filter);
+</script>
+</html>

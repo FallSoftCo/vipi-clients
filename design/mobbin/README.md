@@ -6,6 +6,8 @@ Use the relevant screens when changing either client. Open the originals, compar
 
 The connected Mobbin search currently provides iOS and web results. These product examples inform Android design too. Capture Android itself to verify system controls, permission prompts, keyboard behavior and layout. Keep third-party images in the private reference library.
 
+When you add a feature, update the feature entries in [catalog.json](catalog.json) with the source IDs and ordered flow steps. Save the original images and their thumbnails to the private library. To place a native capture beside the matching feature, add its path and a descriptive label to the library’s `vipi/examples.json`. Rebuild the offline browser with `python3 design/mobbin/build_gallery.py /home/ai/Development/vipi-design-references`. The builder verifies image hashes and the local paths before writing the index.
+
 ### First-reply notification invitation
 
 Mobbin’s settings flows show how people return to notification controls later. For the initial invitation, use the first successful local send as the moment a reply becomes relevant. Keep the composer available, allow dismissal and open the system prompt only after the person asks for notifications. Compare the real keyboard and permission transitions on both platforms. [Built for Mars · Asking for notifications well](https://builtformars.com/ux-bites/asking-for-notifications-well) · [Built for Mars · Turn on notifications](https://builtformars.com/ux-bites/turn-on-notifications)
