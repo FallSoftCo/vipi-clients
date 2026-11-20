@@ -14,6 +14,10 @@ When you add a feature, update the feature entries in [catalog.json](catalog.jso
 
 Mobbin’s settings flows show how people return to notification controls later. For the initial invitation, use the first successful local send as the moment a reply becomes relevant. Keep the composer available, allow dismissal and open the system prompt only after the person asks for notifications. Compare the real keyboard and permission transitions on both platforms. [Built for Mars · Asking for notifications well](https://builtformars.com/ux-bites/asking-for-notifications-well) · [Built for Mars · Turn on notifications](https://builtformars.com/ux-bites/turn-on-notifications)
 
+### Chats list
+
+Use a real conversation to judge each row. Check a friend with unread messages, a long name, an outgoing message, and a message still waiting for a local translation. Keep the latest message readable, preserve its place when returning from the conversation, and make the empty screen lead directly into finding or inviting a friend. Recheck the name, time and unread count at large text sizes. [WhatsApp inbox](https://mobbin.com/screens/f5304ab1-cd5e-4c68-b363-3900431ca4a5) · [Signal inbox](https://mobbin.com/screens/ec829d11-10b1-404b-8dea-ba563fdcbc36) · [Built for Mars · A useful empty state](https://builtformars.com/ux-bites/a-useful-empty-state)
+
 ## First launch
 
 | Feature | Interaction to review | Sources |
