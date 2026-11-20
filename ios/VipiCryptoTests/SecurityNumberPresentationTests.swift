@@ -4,6 +4,7 @@ import XCTest
 @testable import Vipi
 
 @MainActor final class SecurityNumberPresentationTests: XCTestCase {
+    private enum OutputReceiptError:Error { case invalid }
     private final class Transport: ChatTransport {
         let owner = UUID(), peer = UUID()
         var revoked = false
@@ -31,9 +32,9 @@ import XCTest
         let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let config = documents.appendingPathComponent("security-ui-run.txt")
         let run = FileManager.default.fileExists(atPath: config.path) ? try String(contentsOf: config, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines) : "001"
-        guard run.range(of: "^[0-9]{3}$", options: .regularExpression) != nil else { throw VocabularyPackError.invalid }
+        guard run.range(of: "^[0-9]{3}$", options: .regularExpression) != nil else { throw OutputReceiptError.invalid }
         let output = documents.appendingPathComponent("security-ui-" + run)
-        guard !FileManager.default.fileExists(atPath: output.path) else { throw VocabularyPackError.invalid }
+        guard !FileManager.default.fileExists(atPath: output.path) else { throw OutputReceiptError.invalid }
         try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
         let ownerID = transport.owner.uuidString.lowercased()
         addTeardownBlock { @MainActor in

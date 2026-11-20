@@ -3,6 +3,7 @@ import XCTest
 @testable import Vipi
 
 @MainActor final class AccountDeletionPresentationTests: XCTestCase {
+    private enum OutputReceiptError:Error { case invalid }
     private final class Store: DeletionStore {
         var record: DeletionRecord?
         func load() -> DeletionRecord? { record }
@@ -36,9 +37,9 @@ import XCTest
         let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let config = documents.appendingPathComponent("deletion-ui-run.txt")
         let run = FileManager.default.fileExists(atPath: config.path) ? try String(contentsOf: config, encoding: .utf8).trimmingCharacters(in: .whitespacesAndNewlines) : "001"
-        guard run.range(of: "^[0-9]{3}$", options: .regularExpression) != nil else { throw VocabularyPackError.invalid }
+        guard run.range(of: "^[0-9]{3}$", options: .regularExpression) != nil else { throw OutputReceiptError.invalid }
         let output = documents.appendingPathComponent("deletion-ui-" + run)
-        guard !FileManager.default.fileExists(atPath: output.path) else { throw VocabularyPackError.invalid }
+        guard !FileManager.default.fileExists(atPath: output.path) else { throw OutputReceiptError.invalid }
         try FileManager.default.createDirectory(at: output, withIntermediateDirectories: true)
         let api = Transport(), store = Store(), user = "delete-ui-" + UUID().uuidString
         let authentication = AuthenticationManager()
