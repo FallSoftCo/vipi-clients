@@ -1,5 +1,7 @@
 # Android store review handoff — version 1.0.4 (5)
 
+For the free friend-chat candidate, use the [current review instructions](free-launch-review-en-US.md). This document records the earlier version 5 submission.
+
 Google production **1.0.4 (5)** was sent for review once at **00:29:54 UTC**
 on November 18. The result reported **24 changes sent for review** and
 **Changes in review** persisted after a fresh reload. At 00:37 UTC, preliminary

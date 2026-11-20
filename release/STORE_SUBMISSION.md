@@ -1,5 +1,7 @@
 # Store submission handoff
 
+The [free-launch candidate](store-metadata-en-US.json) and [review notes](free-launch-review-en-US.md) supersede the submission copy below. The dated records document earlier releases.
+
 ## Current release boundary — November 17 / November 18 UTC
 
 Google production **1.0.4 (5)** was sent for review once at **00:29:54 UTC**

@@ -1,13 +1,13 @@
 {
   "schema": "vipi-store-metadata-draft-1",
-  "status": "draft_cardless_flow_pending_release_qualification",
+  "status": "free_launch_english_candidate",
   "locale": "en-US",
   "application_id": "co.fallsoft.vipi",
   "seller": "Fallible Software, Co.",
   "app_store": {
     "name": "Vipi: Immersive Chat",
     "subtitle": "Learn from your everyday chats",
-    "promotional_text": "Chat with friends. Translate full messages on your device. Tap to listen, hold for meanings, double-tap to change script.",
+    "promotional_text": "Text a friend. Pick up a Spanish word in an English message, or switch to Deep to read the whole conversation in Spanish. Tap a message to hear it.",
     "keywords": "chat,language,immersion,messaging,vocabulary,translation,conversation",
     "primary_category": "Social Networking",
     "secondary_category": "Education",
@@ -15,23 +15,20 @@
   },
   "google_play": {
     "title": "Vipi: Immersive Chat",
-    "short_description": "Immersive chat with friends. Learn a language through your everyday messages.",
+    "short_description": "Chat with friends in two languages, one word or a whole message at a time.",
     "category": "Communication"
   },
-  "description": "Chat with your friends. Read the conversation in the language you’re learning. Vipi automatically translates messages you send and receive, so your friends can write as usual.\n\nFor supported non-Latin scripts, Latin-letter reading guides appear by default. Tap a message to hear it in full in the language you are learning. Press and hold the message area to reveal meanings in your own language; release to return. Double-tap to switch between the reading guide and the language’s native script.\n\nWant to hear new messages automatically? Turn on autoplay with the speaker control at the top of the chat. New sent and received messages play in the language you are learning. Turn it off to stop.\n\nTranslation requires downloaded language models and runs on your device, not through an online translation service. Available languages, reading guides and voices depend on your device and downloads. Translations can be wrong.\n\nKeep your conversations private\nConnect through usernames and invitations. Chats with friends are end-to-end encrypted. You can save an encrypted history backup to a location you choose.\n\nTalk with vBot\nBot mini is an optional additional plan for chatting with vBot, a chatbot. Messages you send to vBot go to our response provider, and automated replies can be mistaken. You see the monthly reply allowance before subscribing.\n\nStart with 30 days free\nYour first 30 days of Vipi are free, without starting a subscription or providing payment details. After that, choose whether to subscribe. There is no automatic charge when the free period ends. In the US, Vipi is $12 per year. Bot mini is a separate optional $48-per-year subscription and requires active Vipi access. Bot mini offers its own one-month free trial for eligible subscribers. Your store shows the local price and renewal date before purchase. Subscriptions you choose renew automatically unless canceled through your store. You can still read and export your existing local history after access ends.\n\nPrivacy: https://api.mambovipi.app/privacy\nTerms: https://api.mambovipi.app/terms",
+  "description": "Learn a language in the conversations you already want to have. Write to a friend in your own language and choose how you read the chat on your phone.\n\nIn Shallow, a message can introduce one new word. Words you’ve seen before can show up again. In Deep, read the whole message in your practice language. You can switch between the two as you chat.\n\nTap a message to hear the practice word or sentence. Press and hold the chat to see the original. For supported scripts, double-tap to switch between a reading in Latin letters and the native script.\n\nConnect by username or invitation. Vipi uses the Signal Protocol to encrypt your messages end to end. Translation and speech run on your device. Some languages and voices need a download, and translations can make mistakes.\n\nChatting with friends is free. You can save an encrypted history backup and choose where to keep it.\n\nPrivacy: https://api.mambovipi.app/privacy\nTerms: https://api.mambovipi.app/terms",
   "urls": {
-    "marketing": "https://api.mambovipi.app/",
+    "marketing": "https://mambovipi.app/",
     "support": "https://api.mambovipi.app/help",
     "privacy": "https://api.mambovipi.app/privacy",
     "terms": "https://api.mambovipi.app/terms",
     "account_deletion": "https://api.mambovipi.app/delete-account"
   },
   "publication_conditions": [
-    "Use only after the listed behavior is qualified in the submitted release builds.",
-    "Verify company account, name availability, categories, storefront prices and trial offers in the actual consoles.",
-    "The current API origin serves working policy/help routes. The apex domain is not assumed configured.",
-    "Do not advertise an unsupported language count, measured fluency outcome, perfect accuracy or untested scale.",
-    "Bot mini text requires actual response-provider and store qualification. Do not list an unavailable plan.",
-    "Google and Apple Base introductory offers were removed and reload-verified on 2026-11-17; Bot mini retains its independent eligible one-month store trial. Restricted staging is historical: cardless Base production activation completed once on 2026-11-17, followed by the later shared-identity cutover; see docs/DELIVERY_STATUS.md and release/production-settings-20261117-r03/executed-reconciliation.json. Historical no-charge Google license purchase/renewal/cancellation/lapse and Apple TestFlight 1.0 (2) Sandbox Base/Bot mini purchases plus same-device Base restore were verified. These do not qualify current full-message release builds, clean-device restore or every store lifecycle event. Both store reviews were withdrawn at the verified November 18 checkpoint; do not resubmit or release until full-message behavior is qualified. Reviewer access is separate. Do not repeat completed purchases or activations."
+    "Bind the final store-signed binaries, matching client source and screenshots to this free friend-chat release.",
+    "Use only reviewed free-launch localizations. The other languages in the historical store field set need review.",
+    "Keep the existing storefront exclusions and manual publishing settings."
   ]
 }

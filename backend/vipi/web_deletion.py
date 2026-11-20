@@ -82,7 +82,7 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
         return (f'<form method="post" action="/delete-account/{action}"><input type="hidden" name="csrf" value="{escape(csrf, quote=True)}">'
             f'<button class="{"danger" if danger else "primary"}" type="submit">{escape(label)}</button></form>')
 
-    subscription = ('<details><summary>Subscriptions and copies of messages</summary><p>Deleting your account does not cancel a store subscription. '
+    subscription = ('<details><summary>Message copies and earlier subscriptions</summary><p>If you subscribed in an earlier version, deleting your Vipi account does not cancel that subscription. '
         'You can cancel it in <a href="https://apps.apple.com/account/subscriptions" rel="noreferrer">Apple subscriptions</a> or '
         '<a href="https://play.google.com/store/account/subscriptions" rel="noreferrer">Google Play subscriptions</a>. '
         'You do not need to cancel first.</p><p>Friends’ copies of messages and backups you saved outside Vipi remain. '
@@ -140,7 +140,7 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
         if job.finished_at:
             response = page("Vipi account deleted", '<p class="lead">Your Vipi account has been deleted. Your shared Fallsoft sign-in and accounts in other apps remain.</p>'
                 '<p>You can close this page.</p><p><a href="/delete-account/sign-in">Sign in to review your current Vipi profile</a></p>'+subscription+
-                '<p class="small">A minimal deletion receipt is retained for seven days to let you check completion. A keyed identity hash and original free-trial dates remain to prevent a new free period after rejoining.</p>')
+                '<p class="small">Vipi keeps a deletion receipt for seven days so you can check completion. If you used an earlier trial, Vipi may also retain a keyed identity hash and its original dates. Free chat has no trial deadline. See the <a href="/privacy">Vipi privacy notice</a> for other retained records.</p>')
         else:
             response = page("Deletion in progress", '<p class="lead">Your Vipi account data has been removed. An earlier identity-cleanup request awaits verification.</p>'
                 '<p>You can close this page. This Vipi service will not dispatch further identity-provider deletion requests.</p>'
@@ -184,7 +184,7 @@ def install(app, settings, db, verifier, clock, *, provider_transport=None):
             if auth:
                 return page("Delete your Vipi account?", f'<p class="identity">{escape(auth["label"])}</p>'
                     '<p class="lead">Permanently delete your Vipi profile, device registrations and messages waiting for delivery. Your shared Fallsoft sign-in and accounts in other apps remain.</p>'
-                    '<p>This cannot be undone. A keyed identity hash and original free-trial dates remain so rejoining does not restart the free period.</p>'+subscription+
+                    '<p>This cannot be undone. If you used an earlier trial, Vipi may retain a keyed identity hash and its original dates. See the <a href="/privacy">Vipi privacy notice</a> for details.</p>'+subscription+
                     '<div class="actions">'+form("confirm", auth["csrf"], "Delete Vipi account", danger=True)+form("cancel", auth["csrf"], "Cancel")+'</div>')
         response = page("Delete your Vipi account", '<p class="lead">Sign in to confirm which account you want to delete. You’ll review the details before anything is deleted.</p>'
             +'<a class="button" href="/delete-account/sign-in">Sign in to continue</a>'+subscription)
