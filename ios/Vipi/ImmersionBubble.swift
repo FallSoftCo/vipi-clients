@@ -118,7 +118,7 @@ struct ChatGestureCue: View {
                                 .font(.subheadline).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
                                 .padding(12)
                                 .padding(.horizontal,18).padding(.top,6).frame(maxWidth:560)
-                                .accessibilityLabel(Text(ChatReadingState.actionDescription(showingMeaning:reading.showingMeaning,nativeScript:reading.nativeScript,hasAlternateScript:reading.hasAlternateScript)))
+                                .accessibilityLabel(Text(ChatReadingState.actionDescription(showingMeaning:reading.showingMeaning,nativeScript:reading.nativeScript,hasAlternateScript:reading.hasAlternateScript,incremental:state.immersionMode == .incremental)))
                                 .accessibilityIdentifier("chat-gesture-hint").allowsHitTesting(false)
                         }
                     }
