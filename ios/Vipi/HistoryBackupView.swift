@@ -114,9 +114,7 @@ struct HistoryBackupView: View {
             Section {
                 Text("Save your friend chat history in an encrypted file, wherever you choose to keep it.")
                     .font(.body).foregroundStyle(VipiDesign.secondary)
-                Text("Your messaging identity and unsent messages stay on this device.")
-                    .font(.body).foregroundStyle(VipiDesign.secondary)
-                Text("Your saved history is yours to keep, back up and restore.")
+                Text("Your learned words, messaging identity and unsent messages stay on this device.")
                     .font(.body).foregroundStyle(VipiDesign.secondary)
             }
         }

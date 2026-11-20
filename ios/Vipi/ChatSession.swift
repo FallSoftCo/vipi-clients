@@ -558,7 +558,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             case "invalid_username": return String(localized: "Use 3–24 letters, numbers or underscores, starting with a letter.")
             case "own_username": return String(localized: "That’s your username. Enter your friend’s username to start a conversation.")
             case "service_not_available": return String(localized: "Vipi is being prepared for launch. This account isn’t in the preview yet.")
-            case "base_subscription_required": return String(localized: "Start or restore your Vipi plan in Settings → Subscriptions to send messages. Your saved chats and drafts remain available.")
+            case "base_subscription_required": return String(localized: "Can’t connect. Messages are saved here.")
             case "device_replacement_confirmation_required": return String(localized: "This account is already active on another device. Moving your account needs a separate confirmation.")
             case "recent_sign_in_required", "sign_in_required", "device_revoked": return String(localized: "Please sign in again to reconnect your account. Your saved conversations are still on this device.")
             case "recipient_keys_unavailable": return String(localized: "Your friend needs to open Vipi before this first message can be sent. Your message is saved.")

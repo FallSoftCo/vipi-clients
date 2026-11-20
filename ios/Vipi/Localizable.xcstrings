@@ -44195,88 +44195,6 @@
         }
       }
     },
-    "Learn a new word with each message. Familiar words keep appearing as you chat.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Learn a new word with each message. Familiar words keep appearing as you chat."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Aprende una palabra nueva con cada mensaje. Las palabras conocidas siguen apareciendo mientras chateas."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Apprenez un nouveau mot à chaque message. Les mots déjà rencontrés reviennent au fil des discussions."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Lerne mit jeder Nachricht ein neues Wort. Bekannte Wörter tauchen beim Chatten immer wieder auf."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Impara una nuova parola con ogni messaggio. Le parole già incontrate continuano a comparire mentre chatti."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Aprenda uma palavra nova a cada mensagem. As palavras conhecidas continuam aparecendo enquanto você conversa."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Aprenda uma palavra nova com cada mensagem. As palavras conhecidas continuam a aparecer enquanto conversa."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "メッセージごとに新しい単語を学びましょう。一度出会った単語は、チャットの中で繰り返し登場します。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "메시지마다 새 단어를 배워 보세요. 익숙해진 단어는 대화 중에 계속 다시 나타납니다."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "每条消息学习一个新词。聊天下去，熟悉的词会不断重现。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "每則訊息學習一個新詞。聊天下去，熟悉的詞會不斷重現。"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "تعلّم كلمة جديدة مع كل رسالة. تتكرر الكلمات المألوفة أثناء الدردشة."
-          }
-        },
-        "sw": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Jifunze neno jipya kwa kila ujumbe. Maneno unayoyafahamu yanaendelea kujitokeza unapochati."
-          }
-        }
-      }
-    },
     "Free to use. No subscription.": {
       "localizations": {
         "en": {
@@ -44355,88 +44273,6 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Tumia bila malipo. Hakuna usajili wa kulipia."
-          }
-        }
-      }
-    },
-    "Your messaging identity and unsent messages stay on this device.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Your messaging identity and unsent messages stay on this device."
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Tu identidad de mensajería y los mensajes sin enviar permanecen en este dispositivo."
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Votre identité de messagerie et vos messages non envoyés restent sur cet appareil."
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Deine Nachrichtenidentität und ungesendete Nachrichten bleiben auf diesem Gerät."
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "La tua identità di messaggistica e i messaggi non inviati restano su questo dispositivo."
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Sua identidade de mensagens e as mensagens não enviadas ficam neste dispositivo."
-          }
-        },
-        "pt-PT": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "A sua identidade de mensagens e as mensagens não enviadas ficam neste dispositivo."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "メッセージの識別情報と未送信メッセージは、この端末に残ります。"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "메시징 신원 정보와 보내지 않은 메시지는 이 기기에 남습니다."
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "你的消息身份信息和未发送的消息会留在此设备上。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "你的訊息身分資訊和未傳送的訊息會留在此裝置上。"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "تبقى هوية المراسلة والرسائل غير المرسلة على هذا الجهاز."
-          }
-        },
-        "sw": {
-          "stringUnit": {
-            "state": "needs_review",
-            "value": "Utambulisho wako wa kutuma ujumbe na ujumbe ambao haujatumwa vinabaki kwenye kifaa hiki."
           }
         }
       }
@@ -45011,6 +44847,252 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Sikiliza maneno ya mazoezi"
+          }
+        }
+      }
+    },
+    "Vipi swaps in one new word at a time. Words you’ve seen show up again.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi swaps in one new word at a time. Words you’ve seen show up again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi cambia una palabra cada vez. Las palabras que ya has visto vuelven a aparecer."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi remplace un mot à la fois. Les mots déjà vus reviennent au fil des messages."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi ersetzt nach und nach einzelne Wörter. Wörter, die du schon gesehen hast, tauchen wieder auf."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi sostituisce una parola alla volta. Le parole che hai già visto ricompaiono nei messaggi."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O Vipi troca uma palavra por vez. As palavras que você já viu aparecem de novo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "O Vipi troca uma palavra de cada vez. As palavras que já viste voltam a aparecer."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipiは単語を一つずつ学習中の言語に置き換えます。一度見た単語は、その後の会話にも登場します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi는 한 번에 단어 하나씩 바꿔 줘요. 전에 본 단어는 다음 대화에도 다시 나와요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi 每次替换一个新词。见过的词会在后面的聊天中再次出现。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi 每次替換一個新詞。看過的詞會在之後的聊天中再次出現。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "يستبدل Vipi كلمة جديدة واحدة في كل مرة. وتظهر الكلمات التي سبق أن رأيتها مجددًا في محادثاتك."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Vipi hubadilisha neno moja jipya kwa wakati mmoja. Maneno uliyoyaona hujitokeza tena unapochati."
+          }
+        }
+      }
+    },
+    "Your learned words, messaging identity and unsent messages stay on this device.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Your learned words, messaging identity and unsent messages stay on this device."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Las palabras que has aprendido, tu identidad de mensajería y los mensajes sin enviar se quedan en este dispositivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Les mots appris, votre identité de messagerie et les messages non envoyés restent sur cet appareil."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Deine gelernten Wörter, deine Chat-Identität und ungesendete Nachrichten bleiben auf diesem Gerät."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Le parole imparate, la tua identità di messaggistica e i messaggi non inviati rimangono su questo dispositivo."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As palavras que você aprendeu, sua identidade no chat e as mensagens não enviadas ficam neste dispositivo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "As palavras que aprendeste, a tua identidade no chat e as mensagens por enviar ficam neste dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "学習した単語、メッセージ用の識別情報、未送信のメッセージはこの端末に残ります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "배운 단어와 메시징 식별 정보, 보내지 않은 메시지는 이 기기에 남아요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "学过的词、聊天身份信息和未发送的消息保留在这台设备上。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "學過的詞、聊天身分資訊和未傳送的訊息會保留在這部裝置上。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تبقى الكلمات التي تعلمتها وهوية المراسلة والرسائل التي لم ترسلها على هذا الجهاز."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Maneno uliyojifunza, utambulisho wako wa kutuma ujumbe na ujumbe ambao hujatuma hubaki kwenye kifaa hiki."
+          }
+        }
+      }
+    },
+    "Languages downloaded": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Languages downloaded"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Idiomas descargados"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Langues téléchargées"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sprachen heruntergeladen"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Lingue scaricate"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Idiomas baixados"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Idiomas descarregados"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "言語をダウンロード済み"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "언어 다운로드 완료"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "语言已下载"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "語言已下載"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "تم تنزيل اللغات"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Lugha zimepakuliwa"
           }
         }
       }

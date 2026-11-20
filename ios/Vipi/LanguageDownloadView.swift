@@ -133,7 +133,7 @@ struct LanguageDownloadView: View {
                 HStack(alignment: .top, spacing: 12) {
                     Image(systemName: preparation.availability == .installed ? "checkmark.circle" : "arrow.down.circle")
                         .foregroundStyle(VipiDesign.highlight)
-                        .accessibilityLabel(preparation.availability == .installed ? "Languages downloaded" : "Language download")
+                        .accessibilityHidden(true)
                     Text(statusText)
                         .font(.body).fixedSize(horizontal: false, vertical: true)
                         .accessibilityIdentifier("language-download-status")

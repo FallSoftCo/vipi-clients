@@ -70,7 +70,7 @@ struct OnboardingView: View {
 
     private var welcome: some View {
         VStack(alignment:.leading,spacing:24) {
-            IntroHeading(eyebrow:"",title:"Chat with friends.\nLearn a language.",detail:"Learn a new word with each message. Familiar words keep appearing as you chat.")
+            IntroHeading(eyebrow:"",title:"Chat with friends.\nLearn a language.",detail:"Vipi swaps in one new word at a time. Words you’ve seen show up again.")
         }
     }
 

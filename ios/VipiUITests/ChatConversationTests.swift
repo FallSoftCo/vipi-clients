@@ -2459,14 +2459,34 @@ final class ChatConversationTests: XCTestCase {
                 practice.matching(NSPredicate(format:"label == %@",text)).firstMatch
             }
             XCTAssertTrue(visible("shuǐ, shuǐ!").waitForExistence(timeout:15))
-            XCTAssertTrue(visible("shuǐ and miànbāo").waitForExistence(timeout:15))
-            visible("shuǐ and miànbāo").doubleTap()
+            XCTAssertTrue(visible("shuǐ and miàn bāo").waitForExistence(timeout:15))
+            visible("shuǐ and miàn bāo").doubleTap()
             XCTAssertTrue(visible("水 and 面包").waitForExistence(timeout:5))
             XCTAssertTrue(visible("水, 水!").exists)
             let practiceImage = XCTAttachment(screenshot: app.screenshot())
             practiceImage.name = "free-chat-cumulative-words"
             practiceImage.lifetime = .keepAlways
             add(practiceImage)
+            func digest(_ text: String) -> String {
+                SHA256.hash(data: Data(text.utf8)).map { String(format: "%02x", $0) }.joined()
+            }
+            visible("水 and 面包").press(forDuration: 0.8)
+            _ = observe("hold-reveals-both-exact-originals") { evidence in
+                let faces = evidence["controlled_native_faces"] as? [[String:Any]] ?? []
+                return ["Water, water!", "water and bread"].allSatisfy { text in
+                    faces.contains { face in
+                        face["showing_meaning"] as? Bool == true && face["displayed_sha256"] as? String == digest(text)
+                    }
+                }
+            }
+            XCTAssertTrue(visible("水 and 面包").exists && visible("水, 水!").exists)
+            visible("水 and 面包").tap()
+            _ = observe("single-tap-speaks-only-practice-words") { evidence in
+                guard let last = evidence["speech_last_input"] as? [String:Any],
+                      let inputs = last["inputs"] as? [[String:Any]] else { return false }
+                return inputs.compactMap { $0["language"] as? String } == ["zh", "zh"] &&
+                    inputs.compactMap { $0["sha256"] as? String } == ["水", "面包"].map(digest)
+            }
             return
         }
         if largest {
