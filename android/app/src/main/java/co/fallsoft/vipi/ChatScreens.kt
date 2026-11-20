@@ -137,7 +137,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
     val translation = chat.translations
-    val gestures = remember(chat, peer, source, target) { FullMessageGestures() }
+    val gestures = remember(chat, peer, source, target) { FullMessageGestures().also { it.mode = translation?.mode ?: ImmersionMode.NEW_WORD } }
     LaunchedEffect(chat, source, target) { chat.configureTranslations(source, target) }
     val speech = remember(chat, peer, source, target) { SpeechPlayback(context, target, scope) }
     val warmups = remember(source, target) { mapOf(source to "1", target to "1") }

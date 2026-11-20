@@ -95,14 +95,16 @@ internal object OnboardingPreviewSource {
     mode: ImmersionMode = if (BuildConfig.DEFAULT_FULL_IMMERSION) ImmersionMode.FULL_MESSAGES else ImmersionMode.NEW_WORD) {
     val context = LocalContext.current
     val translation = remember(source, target, mode) { OnboardingPreviewSource.translation(context, source, target, mode = mode) }
-    val gestures = remember(source, target) { FullMessageGestures() }
+    val gestures = remember(source, target, mode) { FullMessageGestures().also { it.mode = mode } }
     val scope = rememberCoroutineScope()
     val speech = remember(source, target) { SpeechPlayback(context, target, scope) }
     val warmups = remember(source, target) { mapOf(source to "1", target to "1") }
     val audio = remember(translation, speech) { ConversationAutoplay(translation, speech, scope) {} }
     LaunchedEffect(speech) { speech.prepare(warmups) }
     LaunchedEffect(scrolling) { if (scrolling) gestures.held = false }
-    DisposableEffect(translation, speech) { onDispose { audio.close(); translation.close(); speech.close() } }
+    DisposableEffect(audio) { onDispose { audio.close() } }
+    DisposableEffect(translation) { onDispose { translation.close() } }
+    DisposableEffect(speech) { onDispose { speech.close() } }
     Column(Modifier.fillMaxWidth().fullMessageGestures(gestures), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Surface(shape = RoundedCornerShape(18.dp), color = MaterialTheme.colorScheme.surface,
             modifier = Modifier.fillMaxWidth()) {
