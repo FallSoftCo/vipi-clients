@@ -11,9 +11,13 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.File
 import java.util.UUID
+import okhttp3.HttpUrl.Companion.toHttpUrl
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 
-/** Explicitly invoked against the isolated real-WorkOS HTTP harness. Never
- * accepts a test verifier, server private key, or plaintext relay. */
+/** Two explicitly separate lanes: real owned WorkOS sessions, or fresh signed
+ * local test authentication over loopback. Both use the normal API and native
+ * libsignal; the synthetic lane never accesses native sessions or WorkOS. */
 @RunWith(AndroidJUnit4::class)
 class NetworkMessagingDeviceTest {
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
@@ -22,6 +26,14 @@ class NetworkMessagingDeviceTest {
         assumeTrue(InstrumentationRegistry.getArguments().getString("vipiLiveNetwork") == "true")
         return JSONObject(file("network-config.json").readText()).also {
             require(it.getString("username").startsWith("vqa_"))
+            if (it.optBoolean("isolated_signed_authentication")) {
+                val endpoint = java.net.URI(it.getString("endpoint"))
+                require(endpoint.scheme == "http" && endpoint.host == "127.0.0.1" && endpoint.port > 0)
+                require(InstrumentationRegistry.getArguments().getString("vipiIsolatedSignedAuthentication") == "true")
+                require(!it.optBoolean("isolated_fresh_profile"))
+                require(it.getString("expected_subject").startsWith("user_localpair_"))
+                require(it.getString("access_token").length > 100)
+            }
             if (it.optBoolean("isolated_fresh_profile")) {
                 val endpoint = java.net.URI(it.getString("endpoint"))
                 require(endpoint.scheme == "http" && endpoint.host == "127.0.0.1" && endpoint.port > 0)
@@ -30,7 +42,8 @@ class NetworkMessagingDeviceTest {
             }
         }
     }
-    private fun client(config: JSONObject): ServiceClient {
+    private fun client(config: JSONObject): ChatTransport {
+        if (config.optBoolean("isolated_signed_authentication")) return SignedLoopbackPairTransport(config.getString("endpoint"), config.getString("access_token"))
         val authentication = Authentication(context)
         return ServiceClient(authentication, requireNotNull(authentication.userID), config.getString("endpoint"))
     }
@@ -47,9 +60,10 @@ class NetworkMessagingDeviceTest {
     }
     @Test fun publishAndroidKeys() = runBlocking {
         val config = configuration(); val records = PrivateRecords(context)
-        val original = records.read("session")
+        val synthetic = config.optBoolean("isolated_signed_authentication")
+        val original = if (synthetic) null else records.read("session")
         val nativeSession = InstrumentationRegistry.getArguments().getString("vipiUseNativeSession") == "true"
-        val fixture = if (nativeSession) {
+        val fixture = if (synthetic) JSONObject() else if (nativeSession) {
             // A real hosted PKCE login remains in encrypted app storage. Bind
             // this opt-in probe to the dedicated account, never a real user.
             requireNotNull(original).also {
@@ -62,8 +76,10 @@ class NetworkMessagingDeviceTest {
             JSONObject(file("network-session.json").readText()).also { file("network-session.json").delete() }
         }
         // The first API call must go through a real public refresh-token exchange.
-        fixture.put("accessToken", "expired-native-qa-token")
-        records.write("session", fixture)
+        if (!synthetic) {
+            fixture.put("accessToken", "expired-native-qa-token")
+            records.write("session", fixture)
+        }
         val api = client(config)
         val fresh = config.optBoolean("isolated_fresh_profile")
         val profile = if (nativeSession && !fresh) api.request("GET", "/v1/me")
@@ -138,11 +154,37 @@ class NetworkMessagingDeviceTest {
             assertTrue(core.journal.pending(System.currentTimeMillis()).isEmpty())
         }
         val records = PrivateRecords(context)
-        if (!config.optBoolean("native_session", false)) {
+        if (config.optBoolean("isolated_signed_authentication")) {
+            // Native session storage remains untouched in this explicit lane.
+        } else if (!config.optBoolean("native_session", false)) {
             records.read("qa-session-backup")?.let { records.write("session", it) } ?: records.remove("session")
             records.remove("qa-session-backup")
         } else assertEquals(config.getString("expected_subject"), records.read("session")!!.getString("userID"))
         file("network-config.json").delete()
-        file("network-complete.json").writeText(JSONObject().put("run", config.getString("run")).put("delivered", 3).put("duplicate_send_preserved_delivery", true).put("offline_queue_reopened", true).put("stable_id_and_ciphertext", true).put("invitation_username_preserved", true).put("scope", "native libsignal/durable stores/real HTTP; existing sign-in, no sign-up UI or FCM").toString())
+        file("network-complete.json").writeText(JSONObject().put("run", config.getString("run")).put("delivered", 3).put("duplicate_send_preserved_delivery", true).put("offline_queue_reopened", true).put("stable_id_and_ciphertext", true).put("invitation_username_preserved", true).put("authentication_lane", if (config.optBoolean("isolated_signed_authentication")) "explicit local signed test authentication" else "real WorkOS")
+            .put("scope", "native libsignal/durable stores/real HTTP; no hosted sign-up UI or FCM").toString())
+    }
+}
+
+
+/** Explicit test lane; no native session/token refresh or production endpoint. */
+private class SignedLoopbackPairTransport(endpoint: String, private val token: String) : ChatTransport {
+    private val base = endpoint.toHttpUrl()
+    private val http = okhttp3.OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
+        .retryOnConnectionFailure(false).callTimeout(25, java.util.concurrent.TimeUnit.SECONDS).build()
+    init { require(base.scheme == "http" && base.host == "127.0.0.1" && base.encodedPath == "/" && base.query == null && base.fragment == null && base.username.isEmpty() && base.password.isEmpty()) }
+    override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>): JSONObject = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+        require(path.startsWith("/v1/") && !path.contains("..") && !path.contains('?') && !path.contains('#'))
+        val content = body?.toString()?.let { it.toRequestBody("application/json".toMediaType()) }
+            ?: if (method in setOf("POST", "PUT")) ByteArray(0).toRequestBody(null) else null
+        val url = base.newBuilder().encodedPath(path).apply { query.forEach { (key,value) -> addQueryParameter(key,value) } }.build()
+        val request = okhttp3.Request.Builder().url(url).method(method, content).header("Authorization", "Bearer $token")
+        device?.let { request.header("X-Vipi-Device-ID", it.id.toString()).header("X-Vipi-Device-Secret", it.secret) }
+        http.newCall(request.build()).execute().use { response ->
+            check(response.isSuccessful) { "Local fixture HTTP ${response.code}" }
+            val source = requireNotNull(response.body).source(); source.request(12_000_001)
+            check(source.buffer.size <= 12_000_000)
+            JSONObject(source.readUtf8())
+        }
     }
 }

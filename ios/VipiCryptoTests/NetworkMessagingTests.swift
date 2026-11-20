@@ -3,7 +3,7 @@ import XCTest
 @testable import Vipi
 
 @MainActor final class NetworkMessagingTests: XCTestCase {
-    private struct Configuration: Decodable { let run: String; let username: String; let peer: String; let endpoint: URL; let use_existing_session: Bool?; let isolated_fresh_profile: Bool?; let expected_subject: String? }
+    private struct Configuration: Decodable { let run: String; let username: String; let peer: String; let endpoint: URL; let use_existing_session: Bool?; let isolated_fresh_profile: Bool?; let expected_subject: String?; let isolated_signed_authentication: Bool?; let access_token: String? }
     private struct Profile: Codable { let id: UUID; let username: String; let display_name: String }
     private struct Status: Decodable { let state: String }
     private struct Inventory: Decodable { let revision: UInt32; let remaining: Int }
@@ -15,6 +15,14 @@ import XCTest
         guard FileManager.default.fileExists(atPath: file("network-config.json").path) else { throw XCTSkip("Requires explicitly prepared native HTTP QA harness") }
         let value = try JSONDecoder().decode(Configuration.self, from: Data(contentsOf: file("network-config.json")))
         guard value.username.hasPrefix("vqa_"), value.peer.hasPrefix("vqa_") else { throw ServiceFailure(status: 0, code: "owned_qa_configuration_required") }
+        if value.isolated_signed_authentication == true {
+            guard value.endpoint.scheme == "http", value.endpoint.host == "127.0.0.1", value.endpoint.port != nil,
+                  value.use_existing_session != true, value.isolated_fresh_profile != true,
+                  value.expected_subject?.hasPrefix("user_localpair_") == true,
+                  (value.access_token?.count ?? 0) > 100 else {
+                throw ServiceFailure(status: 0, code: "signed_local_fixture_required")
+            }
+        }
         if value.isolated_fresh_profile == true {
             guard value.endpoint.scheme == "http", value.endpoint.host == "127.0.0.1", value.endpoint.port != nil,
                   value.use_existing_session == true, value.expected_subject?.hasPrefix("user_") == true else {
@@ -37,10 +45,20 @@ import XCTest
                   "authority": session?.authority.rawValue ?? "absent",
                   "credentials_exported": false]).write(to: file("network-session-readiness.json"), options: .atomic)
     }
+    private func transport(_ config: Configuration, userID: String) throws -> any ChatTransport {
+        if config.isolated_signed_authentication == true {
+            return try SignedLoopbackPairTransport(endpoint: config.endpoint, token: XCTUnwrap(config.access_token))
+        }
+        return try ServiceClient(authentication: AuthenticationManager(), userID: userID, endpoint: config.endpoint)
+    }
     func testPublishAndSendToAndroid() async throws {
         let config = try configuration()
         let original: VipiSession
-        if config.use_existing_session == true {
+        if config.isolated_signed_authentication == true {
+            // Fresh local RS256 token only; the test-only transport never reads
+            // or writes a native session and cannot contact production auth.
+            original = VipiSession(userID: try XCTUnwrap(config.expected_subject), accessToken: try XCTUnwrap(config.access_token), refreshToken: "local-fixture-no-refresh")
+        } else if config.use_existing_session == true {
             // Genuine hosted PKCE has already established this simulator's
             // session. No token fixture or replacement is used in this mode.
             original = try XCTUnwrap(AuthenticationManager().session)
@@ -52,7 +70,7 @@ import XCTest
             let forced = VipiSession(userID: original.userID, accessToken: "expired-native-qa-token", refreshToken: original.refreshToken, authority: original.authority)
             try KeychainStore.save(JSONEncoder().encode(forced), account: "session")
         }
-        let auth = AuthenticationManager(), api = try ServiceClient(authentication: auth, userID: original.userID, endpoint: config.endpoint)
+        let api = try transport(config, userID: original.userID)
         if config.use_existing_session == true && config.isolated_fresh_profile != true {
             let existing: Profile = try await api.request("GET", "/v1/me")
             XCTAssertEqual(existing.username, config.username)
@@ -107,7 +125,10 @@ import XCTest
     func testReceiveAndroidOutOfOrderAndRestoreSession() async throws {
         let config = try configuration(), state = try JSONDecoder().decode(State.self, from: Data(contentsOf: file("network-state.json")))
         XCTAssertEqual(state.run, config.run)
-        let auth = AuthenticationManager(), api = try ServiceClient(authentication: auth, userID: XCTUnwrap(auth.session?.userID), endpoint: config.endpoint)
+        let userID: String
+        if config.isolated_signed_authentication == true { userID = try XCTUnwrap(config.expected_subject) }
+        else { userID = try XCTUnwrap(AuthenticationManager().session?.userID) }
+        let api = try transport(config, userID: userID)
         let core = try MessagingCore(vault: MessageVault(account: state.account))
         let delivered: Status = try await api.request("GET", "/v1/messages/\(state.message.uuidString.lowercased())", device: core.device)
         XCTAssertEqual(delivered.state, "delivered"); try core.journal.applyStatus(state.message, state: delivered.state)
@@ -124,12 +145,49 @@ import XCTest
         }
         let empty: Inbox = try await api.request("GET", "/v1/messages/pending", device: core.device)
         XCTAssertTrue(empty.messages.isEmpty)
-        if config.use_existing_session != true {
+        if config.use_existing_session != true && config.isolated_signed_authentication != true {
             if let old = try KeychainStore.read(account: "qa-session-backup") { try KeychainStore.save(old, account: "session") }
             else { KeychainStore.delete(account: "session") }
             KeychainStore.delete(account: "qa-session-backup")
         }
         try FileManager.default.removeItem(at: file("network-config.json"))
-        try body(["run": config.run, "received_out_of_order": 3, "inbox_empty_after_receipts": true, "scope": "native libsignal and durable storage over real HTTP; existing sign-in, not sign-up UI or APNs/FCM"]).write(to: file("network-complete.json"), options: .atomic)
+        try body(["run": config.run, "received_out_of_order": 3, "inbox_empty_after_receipts": true, "authentication_lane": config.isolated_signed_authentication == true ? "explicit local signed test authentication" : "real WorkOS",
+                  "scope": "native libsignal and durable storage over real HTTP; not hosted sign-up UI or APNs/FCM"]).write(to: file("network-complete.json"), options: .atomic)
+    }
+}
+
+
+private final class NoPairRedirects: NSObject, URLSessionTaskDelegate, Sendable {
+    func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse,
+                    newRequest request: URLRequest, completionHandler: @escaping @Sendable (URLRequest?) -> Void) { completionHandler(nil) }
+}
+
+/// Explicit fixture lane only. Real HTTP + bearer signature verification at the
+/// normal API; no native/customer credential access and no production refresh.
+@MainActor private final class SignedLoopbackPairTransport: ChatTransport {
+    private let endpoint: URL, token: String
+    private let http = URLSession(configuration: .ephemeral, delegate: NoPairRedirects(), delegateQueue: nil)
+    init(endpoint: URL, token: String) throws {
+        guard endpoint.scheme == "http", endpoint.host == "127.0.0.1", endpoint.port != nil,
+              endpoint.user == nil, endpoint.password == nil, endpoint.query == nil, endpoint.fragment == nil,
+              endpoint.path.isEmpty || endpoint.path == "/" else { throw ServiceFailure(status: 0, code: "loopback_only") }
+        self.endpoint = endpoint; self.token = token
+    }
+    deinit { http.invalidateAndCancel() }
+    func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
+        guard path.hasPrefix("/v1/"), !path.contains(".."), !path.contains("?"), !path.contains("#") else { throw ServiceFailure(status: 0, code: "invalid_path") }
+        var url = URLComponents(url: endpoint, resolvingAgainstBaseURL: false)!
+        url.path = path; url.queryItems = query.sorted(by: { $0.key < $1.key }).map { URLQueryItem(name: $0.key, value: $0.value) }
+        var request = URLRequest(url: url.url!); request.httpMethod = method; request.httpBody = body
+        request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if let device {
+            request.setValue(device.id.uuidString.lowercased(), forHTTPHeaderField: "X-Vipi-Device-ID")
+            request.setValue(device.secret, forHTTPHeaderField: "X-Vipi-Device-Secret")
+        }
+        let (data, response) = try await http.data(for: request)
+        let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+        guard data.count <= 12_000_000, (200...299).contains(status) else { throw ServiceFailure(status: status, code: "local_fixture_request_failed") }
+        return try JSONDecoder().decode(T.self, from: data)
     }
 }

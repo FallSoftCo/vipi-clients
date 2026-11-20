@@ -95,3 +95,18 @@ application-specific diff precede any save; no settings were changed here.
 See https://workos.com/docs/authkit/branding,
 https://workos.com/docs/authkit/applications and
 https://workos.com/changelog/custom-branding-per-application.
+
+The separate explicit signed-local authentication lane uses
+`scripts/serve-signed-native-pair.py`: two new in-memory QA identities, local
+password-to-JWT exchanges, an ephemeral RSA key and the unchanged production
+WorkOSVerifier class pinned to that test-only loopback issuer/JWKS. No provider
+or customer credential is read, and production auth configuration is untouched.
+`isolated_signed_authentication:true` in the private native config requires an
+explicit127.0.0.1:port endpoint, a user_localpair_ expected subject, fresh
+access_token, no existing-session mode and no isolated_fresh_profile flag.
+Android also requires `vipiIsolatedSignedAuthentication=true`. This lane uses
+a test-only real-HTTP transport so native session persistence/refresh cannot
+contact WorkOS or overwrite an existing session. The normal API, routing,
+prekeys, libsignal, MessagingCore and durable queue are exercised. Production
+ServiceClient refresh/WorkOS login and the owner's actual chat are separate
+proofs, never inferred from this synthetic lane.
