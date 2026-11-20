@@ -1,0 +1,91 @@
+{
+  "status": "passed_and_cleaned",
+  "run": "pair-91a413bb8b7c2c7db419c96b",
+  "at": 1795143767.5457914,
+  "authentication": "Explicit fresh local signed-RS256 test lane; existing native sessions absent, no WorkOS/customer credentials",
+  "normal_backend": "Real Vipi API + SQLite; unchanged production WorkOSVerifier class pinned to ephemeral loopback test issuer/JWKS",
+  "native_crypto": "Actual production MessagingCore/MessageJournal/DurableSignalStore and libsignal0.105.0 on both platforms",
+  "native_results": {
+    "exchange_tests_passed": 5,
+    "metadata_tests_passed": 4,
+    "failed": 0,
+    "skipped": 0
+  },
+  "checks": {
+    "swift_original_received_exactly_by_android": true,
+    "three_android_originals_received_exactly_by_swift": true,
+    "swift_arrival_order": [
+      2,
+      0,
+      1
+    ],
+    "invitation_username_lookup_bound_to_peer": true,
+    "durable_queue_reopened_before_first_transport": true,
+    "retry_id_and_ciphertext_unchanged": true,
+    "duplicate_receive_does_not_redecrypt": true,
+    "changed_sender_device_rejected": true,
+    "duplicate_send_preserves_delivered": true,
+    "message_ids_exactly_match_native_and_backend": true,
+    "backend_delivered_messages": 4,
+    "backend_retained_ciphertexts": 0,
+    "inboxes_empty_after_receipts": true,
+    "native_sessions_remain_absent_after": true
+  },
+  "backend_counts": {
+    "users": 2,
+    "devices": 2,
+    "entitlements": 0,
+    "vipi_trial_eligibility": 0,
+    "billing_account_bindings": 0,
+    "push_tokens": 0
+  },
+  "tested_builds": {
+    "android_source": "f4712eab + test-only6a959b05",
+    "android_apk": {
+      "sha256": "44b7a90e746e4a5c3c929f19326cbc7c54a73d44a03d2c27553fcf6754b222ba",
+      "bytes": 131088930,
+      "result": "Performing Streamed Install\nSuccess"
+    },
+    "android_test_apk": {
+      "sha256": "6564e12966508d5951f504d2d1575a04c1198daecd2661912b1059ef406b52c9",
+      "bytes": 6861761,
+      "result": "Performing Streamed Install\nSuccess"
+    },
+    "ios_app_source": "b6d87eb9/build35",
+    "ios_test_overlay": "61cf2375",
+    "ios_binary_sha256": {
+      "Vipi": "e8d96c8520350bf0af4a099ffccaa84601347f0ced75c0ea3900ed043c125e29",
+      "Vipi.debug.dylib": "a39bff7b1bce80430ada4e549a4833d756737b2eac1a529099ae58996a7491fa",
+      "PlugIns/VipiCryptoTests.xctest/VipiCryptoTests": "b041206d0db16d172914b09fe859689787f168e63402c6c347153913f9c802a5"
+    }
+  },
+  "cleanup": {
+    "local_listener_closed": true,
+    "server_exited_gracefully": true,
+    "private_ssh_tunnel_closed": true,
+    "only_fresh_local_test_credentials_retired": true,
+    "at": 1795143709.6990917,
+    "mac_forward_closed": true,
+    "mac_own_test_host_stopped": true,
+    "android_reverse_removed": true,
+    "android_own_test_app_stopped": true,
+    "android5630_handed_running_to_journey_owner": true,
+    "gamma5624_and_phone_untouched": true
+  },
+  "boundaries": [
+    "Fresh local test authentication, separate from genuine WorkOS signup/sign-in and owner live conversation",
+    "Test-only real HTTP adapter; production ServiceClient refresh not exercised",
+    "Queued without transport then durable reopen; no disabled-radio or abrupt-OS-kill claim",
+    "No APNs/FCM/background notification, productionTLS, physicalPixel, groups or translation quality claim"
+  ],
+  "original_observations": [
+    "Mac first build dispatch stopped before effects because transfer incomplete; original preflight retained then verified inputs before successful build",
+    "First iOS metadata test passed; Xcode changed data-containerUUID, collector re-resolved exact device/bundle and recovered original marker without test replay"
+  ],
+  "evidence": {
+    "local": "/mnt/extradrive1/vipi-builds/signed-pair-e2e-r01",
+    "mac_native": "/Users/Apple/Development/vipi-translation-reset-20261118-r01/pair-signed-e2e-r01",
+    "mac_build": "/Users/Apple/Development/vipi-translation-reset-20261118-r01/pair-signed-test-build-r01",
+    "local_jwt_negative_controls": "/mnt/extradrive1/vipi-builds/signed-pair-auth-smoke-r01/receipt.json"
+  }
+}
