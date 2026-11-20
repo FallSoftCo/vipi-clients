@@ -14,7 +14,7 @@ from uuid import UUID, uuid4
 from fastapi import Request
 from sqlalchemy import delete, select
 
-from .db import AccountDeletion, GlobalDeletionHold, GlobalDeletionReceipt, User, VipiTrialEligibilityLink
+from .db import AccountDeletion, GlobalDeletionHold, GlobalDeletionReceipt, IdentityAuthorityAlias, User, VipiTrialEligibilityLink
 from .deletion import lock_account_lifecycle, lock_lifecycle_hash, request_deletion, subject_hash
 from .delivery import DeliveryError, utc
 from .eligibility import eligibility_hash, erase_for_global_fallsoft_deletion
@@ -97,7 +97,9 @@ async def erase(session, operation, service_secret, now):
     digest = eligibility_hash(subject, service_secret)
     aliases = (await session.scalars(select(VipiTrialEligibilityLink.source_hash).where(
         VipiTrialEligibilityLink.target_hash == digest))).all()
-    for key in sorted(set(aliases)):
+    aliases = set(aliases) | set((await session.scalars(select(IdentityAuthorityAlias.source_hash).where(
+        IdentityAuthorityAlias.target_hash == digest))).all())
+    for key in sorted(aliases):
         await lock_lifecycle_hash(session, key)
     for key in {digest, *aliases}:
         if await session.get(GlobalDeletionHold, key) is None:

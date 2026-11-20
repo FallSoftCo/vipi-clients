@@ -95,7 +95,13 @@ async def test_same_shared_identity_restores_after_receipt_expiry_without_retain
     fixture = Store(store, old)
     service = Subscriptions(settings(), db, {store:fixture.provider}, lambda:NOW)
     try:
-        if paid_before_delete: await service.sync(old, store, credential(store))
+        if paid_before_delete:
+            await service.sync(old, store, credential(store))
+        else:
+            # Historical store approval could precede verification in an old
+            # paid client. Current free accounts never issue these bindings.
+            async with db.sessions.begin() as session:
+                await retain_account(session, subject=SUBJECT, user_id=old, service_secret=SECRET)
         await remove(db, old)
         async with db.sessions.begin() as session:
             await expire_deletion_receipts(session, NOW+timedelta(days=8))
@@ -245,7 +251,7 @@ async def test_worker_noop_cannot_acknowledge_or_replace_fresher_state(db, cause
         else: assert row.revoked
 
 
-async def test_api_fresh_rejoin_restores_same_identity_and_stale_session_never_reaches_store(db):
+async def test_free_api_rejoin_keeps_purchase_route_retired_and_never_reaches_store(db):
     from vipi.api import create_app
     from vipi.auth import Principal
     current = [NOW]
@@ -261,7 +267,10 @@ async def test_api_fresh_rejoin_restores_same_identity_and_stale_session_never_r
         old = (await api.put('/v1/me', headers=old_headers, json={'username':'paid_api','display_name':'QA'})).json()['id']
         fixture = Store('google', old); providers['google'] = fixture.provider
         try:
-            assert (await api.post('/v1/purchases/google', headers=old_headers, json={'purchase_token':credential('google')})).status_code == 200
+            # Only the historical reconciliation worker can inspect old store
+            # receipts; current API purchase/restore entry points stay retired.
+            historical = Subscriptions(settings(), db, providers, lambda:NOW)
+            await historical.sync(old, 'google', credential('google'))
             current[0] += timedelta(seconds=1)
             deleted = await api.request('DELETE','/v1/me',headers=old_headers,json={
                 'account_id':old,'receipt_secret':secrets.token_urlsafe(32)})
@@ -273,11 +282,11 @@ async def test_api_fresh_rejoin_restores_same_identity_and_stale_session_never_r
             new = rejoined.json()['id'];assert new != old
             before = fixture.reads
             stale = await api.post('/v1/purchases/google',headers=old_headers,json={'purchase_token':credential('google')})
-            assert stale.status_code == 401 and fixture.reads == before
+            assert stale.status_code == 410 and fixture.reads == before
             restored = await api.post('/v1/purchases/google',headers=fresh_headers,json={'purchase_token':credential('google')})
-            assert restored.status_code == 200,restored.text
-            assert restored.json()['app_account_token'] == new
-            assert restored.json()['base']['access_source'] == 'store'
+            assert restored.status_code == 410 and fixture.reads == before
+            access = await api.get('/v1/entitlements', headers=fresh_headers)
+            assert access.json()['base']['access_source'] == 'free'
         finally: await fixture.close()
 
 

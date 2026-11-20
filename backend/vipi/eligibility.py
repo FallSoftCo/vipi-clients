@@ -34,7 +34,11 @@ async def erase_for_global_fallsoft_deletion(session, *, subject: str, service_s
     key = eligibility_hash(subject, service_secret)
     aliases = (await session.scalars(select(VipiTrialEligibilityLink).where(
         VipiTrialEligibilityLink.target_hash == key))).all()
-    keys = {key, *(alias.source_hash for alias in aliases)}
+    from .db import IdentityAuthorityAlias
+    identity_aliases = (await session.scalars(select(IdentityAuthorityAlias.source_hash).where(
+        IdentityAuthorityAlias.target_hash == key))).all()
+    keys = {key, *identity_aliases, *(alias.source_hash for alias in aliases)}
+    await session.execute(delete(IdentityAuthorityAlias).where(IdentityAuthorityAlias.target_hash == key))
     await session.execute(delete(VipiTrialEligibilityLink).where(VipiTrialEligibilityLink.target_hash == key))
     await session.execute(delete(VipiTrialEligibility).where(VipiTrialEligibility.subject_hash.in_(keys)))
 

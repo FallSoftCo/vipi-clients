@@ -13,7 +13,7 @@ from test_auth import signing, claims
 from vipi.api import create_app
 from vipi.auth import AuthenticationError, Principal, WorkOSVerifier
 from vipi.config import Settings
-from vipi.db import Device, Entitlement, IdentityLinkReceipt, User, VipiTrialEligibility, VipiTrialEligibilityLink
+from vipi.db import BillingAccountBinding, Device, Entitlement, IdentityAuthorityAlias, IdentityLinkReceipt, User, VipiTrialEligibility, VipiTrialEligibilityLink
 from vipi.deletion import request_deletion
 from vipi.eligibility import eligibility_hash, erase_for_global_fallsoft_deletion, original_trial
 from vipi.identity_authorities import FALLSOFT_VIPI, LEGACY_VIPI, canonical_shared_subject
@@ -249,3 +249,30 @@ async def test_free_link_does_not_create_trial_eligibility_or_grant_paid_access(
             assert not (await session.scalars(select(VipiTrialEligibility))).all()
             assert not (await session.scalars(select(VipiTrialEligibilityLink))).all()
             assert not (await session.scalars(select(Entitlement).where(Entitlement.user_id == user.id))).all()
+            assert not (await session.scalars(select(BillingAccountBinding))).all()
+
+
+async def test_deleted_free_link_blocks_former_identity_without_creating_trial_records(db):
+    target = canonical_shared_subject("user_shared_alice")
+    async with client(db) as api:
+        account, _, headers = await identity(api, "alice")
+        body = {"request_id": str(uuid4()), "expected_account_id": account["id"], "fallsoft_access_token": "shared-alice"}
+        assert (await api.post("/v1/identity-links/fallsoft", headers=headers, json=body)).status_code == 200
+        async with db.sessions.begin() as session:
+            await request_deletion(session, subject=target, account_id=account["id"],
+                receipt_secret=secrets.token_urlsafe(32), service_secret=SECRET, now=NOW)
+        response = await api.put("/v1/me", headers={"Authorization":"Bearer alice"},
+            json={"username":"parallel_free", "display_name":"Wrong"})
+        assert response.status_code == 409 and response.json() == {"error":"fallsoft_sign_in_required"}
+        async with db.sessions() as session:
+            assert await session.get(IdentityLinkReceipt, body["request_id"]) is None
+            alias = await session.get(IdentityAuthorityAlias, eligibility_hash("user_qa_alice", SECRET))
+            assert alias.target_hash == eligibility_hash(target, SECRET)
+            assert set(alias.__table__.columns.keys()) == {"source_hash", "target_hash"}
+            assert not (await session.scalars(select(VipiTrialEligibility))).all()
+            assert not (await session.scalars(select(VipiTrialEligibilityLink))).all()
+        # The separately confirmed global erasure also removes generic aliases.
+        async with db.sessions.begin() as session:
+            await erase_for_global_fallsoft_deletion(session, subject=target, service_secret=SECRET)
+        async with db.sessions() as session:
+            assert not (await session.scalars(select(IdentityAuthorityAlias))).all()

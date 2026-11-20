@@ -13,7 +13,7 @@ from conftest import NOW
 from test_identity_linking import LegacyVerifier, SharedVerifier, SECRET, settings
 from test_api import identity
 from vipi.api import create_app
-from vipi.db import GlobalDeletionHold, GlobalDeletionReceipt, User, VipiTrialEligibility, VipiTrialEligibilityLink
+from vipi.db import IdentityAuthorityAlias, GlobalDeletionHold, GlobalDeletionReceipt, User, VipiTrialEligibility, VipiTrialEligibilityLink
 from vipi.delivery import DeliveryError
 from vipi.eligibility import eligibility_hash, original_trial
 from vipi.global_deletion import CONTRACT, PATH, erase, expire_receipts
@@ -65,6 +65,7 @@ async def test_global_erasure_atomic_receipt_retry_and_legacy_alias_hold(db):
         assert len((await session.scalars(select(GlobalDeletionHold))).all()) == 2
         assert not (await session.scalars(select(VipiTrialEligibility))).all()
         assert not (await session.scalars(select(VipiTrialEligibilityLink))).all()
+        assert not (await session.scalars(select(IdentityAuthorityAlias))).all()
         receipt = await session.get(GlobalDeletionReceipt, value["requestId"])
         assert receipt.subject_hash != value["subject"]
 

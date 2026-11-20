@@ -1,0 +1,48 @@
+{
+  "change": "Retain linked sign-in identity hashes independently of discontinued trials",
+  "source_base": "6f1cf0a3",
+  "status": "source-only, not deployed",
+  "migration": "20261119_02",
+  "data_retained": [
+    "source lifecycle HMAC",
+    "target lifecycle HMAC"
+  ],
+  "data_excluded": [
+    "raw identity",
+    "account UUID",
+    "device ID",
+    "tokens",
+    "message content",
+    "trial dates",
+    "paid grant"
+  ],
+  "behavior": [
+    "fresh free link creates no trial eligibility or billing ownership records",
+    "Vipi-only deletion removes exact retry receipt but retains generic keyed alias",
+    "former legacy identity cannot silently reprovision a parallel profile",
+    "separately confirmed global erasure locks both identities, removes alias, and creates both reprovision holds",
+    "historical trial aliases copied by additive migration; populated downgrade refused"
+  ],
+  "verification": {
+    "passed": 68,
+    "skipped": 3,
+    "skips": "Real PostgreSQL advisory-lock/event-listener cases; no PostgreSQL concurrency claimed",
+    "suites": [
+      "identity_linking",
+      "global_deletion",
+      "migrations",
+      "billing_identity",
+      "invitation",
+      "free_chat",
+      "deletion"
+    ],
+    "native_test_execution": "pending resource handoff",
+    "external_actions": 0
+  },
+  "integration": [
+    "Apply additive migration before serving code that reads identity_authority_aliases",
+    "Preserve existing backend encryption/service secret so lifecycle HMACs remain usable",
+    "No automatic production deployment, global-deletion enablement or WorkOS mutation is implied",
+    "Public privacy page gains exact minimal identity-alias retention explanation"
+  ]
+}

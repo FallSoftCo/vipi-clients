@@ -236,6 +236,13 @@ class VipiTrialEligibilityLink(Base):
     target_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
 
 
+class IdentityAuthorityAlias(Base):
+    """Keyed source/target identities only; no trial or retained account data."""
+    __tablename__ = "identity_authority_aliases"
+    source_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    target_hash: Mapped[str] = mapped_column(String(64), index=True)
+
+
 class BillingAccountBinding(Base):
     """Only keyed ownership identifiers survive app-only deletion, never grants."""
     __tablename__ = "billing_account_bindings"

@@ -3,9 +3,9 @@ import hashlib
 import hmac
 from uuid import UUID
 
-from sqlalchemy import delete, update
+from sqlalchemy import delete, select, update
 
-from .db import BillingAccountBinding
+from .db import BillingAccountBinding, Entitlement
 from .delivery import DeliveryError
 from .eligibility import eligibility_hash
 
@@ -58,6 +58,14 @@ async def matches_account(session, *, subject, user_id, store, identifier, servi
 
 
 async def transfer_account(session, *, source, target, user_id, service_secret):
+    # A free profile link does not create purchase-ownership records. Preserve
+    # existing historical ownership even when no paid grant remains active.
+    source_owner = eligibility_hash(source, service_secret)
+    prior_binding = await session.scalar(select(BillingAccountBinding.binding_hash).where(
+        BillingAccountBinding.owner_hash == source_owner).limit(1))
+    prior_purchase = await session.scalar(select(Entitlement.id).where(Entitlement.user_id == user_id).limit(1))
+    if prior_binding is None and prior_purchase is None:
+        return
     await retain_account(session, subject=source, user_id=user_id, service_secret=service_secret)
     await session.execute(update(BillingAccountBinding).where(
         BillingAccountBinding.owner_hash == eligibility_hash(source, service_secret)).values(

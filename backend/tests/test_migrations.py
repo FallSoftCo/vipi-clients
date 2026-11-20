@@ -19,7 +19,7 @@ async def test_initial_migration_matches_models_and_preserves_data_on_repeat(db)
             command.upgrade(config, "head")
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(upgrade)
-        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261119_01"
+        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261119_02"
     async with db.sessions.begin() as s:
         s.add(User(id="migration-fixture", subject="user_migration", username="migration", display_name="Migration QA", created_at=NOW))
     async with db.engine.begin() as connection:
@@ -200,3 +200,29 @@ async def test_billing_binding_migration_cycle_and_refuse_loss(db):
             command.upgrade(config, 'head')
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(cycle)
+
+
+async def test_identity_alias_migration_preserves_historical_links_and_refuses_loss(db):
+    import pytest
+    config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
+    async with db.engine.begin() as connection:
+        await connection.run_sync(Base.metadata.drop_all)
+        def historical(sync):
+            config.attributes["connection"] = sync
+            command.upgrade(config, "20261119_01")
+        await connection.run_sync(historical)
+        await connection.execute(text("INSERT INTO vipi_trial_eligibility_links (source_hash,target_hash) VALUES (:source,:target)"), {"source":"a"*64,"target":"b"*64})
+    async with db.engine.begin() as connection:
+        def upgrade(sync):
+            config.attributes["connection"] = sync
+            command.upgrade(config, "head")
+            assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
+        await connection.run_sync(upgrade)
+        assert (await connection.execute(text("SELECT source_hash,target_hash FROM identity_authority_aliases"))).all() == [("a"*64,"b"*64)]
+        await connection.run_sync(upgrade)
+    with pytest.raises(RuntimeError, match="Identity aliases must be preserved"):
+        async with db.engine.begin() as connection:
+            def downgrade(sync):
+                config.attributes["connection"] = sync
+                command.downgrade(config, "20261119_01")
+            await connection.run_sync(downgrade)

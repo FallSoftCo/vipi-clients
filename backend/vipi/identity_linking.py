@@ -6,7 +6,7 @@ from uuid import UUID
 from sqlalchemy import select
 
 from .accounts import active_device
-from .db import IdentityLinkReceipt, User, VipiTrialEligibilityLink
+from .db import IdentityAuthorityAlias, IdentityLinkReceipt, User, VipiTrialEligibilityLink
 from .deletion import deletion_for, lock_account_lifecycle
 from .delivery import DeliveryError, utc
 from .eligibility import eligibility_hash, transfer_original_trial
@@ -21,9 +21,11 @@ async def source_was_linked(session, subject: str, service_secret: str) -> bool:
     if await session.scalar(select(IdentityLinkReceipt.request_id).where(
             IdentityLinkReceipt.source_hash == link_hash(subject, service_secret))) is not None:
         return True
-    # App-only deletion discards retry/account/device metadata, but these two
-    # eligibility HMACs remain. An old pre-deletion legacy token cannot recreate
-    # a parallel Vipi profile under its former identity.
+    # Free linked profiles have no trial ledger. Retain only the source/target
+    # lifecycle HMACs so app-only deletion cannot revive the old login identity.
+    if await session.get(IdentityAuthorityAlias, eligibility_hash(subject, service_secret)) is not None:
+        return True
+    # Historical trial links remain a compatibility fallback during upgrade.
     return await session.scalar(select(VipiTrialEligibilityLink.source_hash).where(
         VipiTrialEligibilityLink.source_hash == eligibility_hash(subject, service_secret))) is not None
 
@@ -74,6 +76,13 @@ async def link_identity(session, *, source, target, request_id: str, account_id:
                 raise DeliveryError("account_deletion_pending", 409)
             if deletion and proof.authenticated_at <= utc(deletion.created_at).timestamp():
                 raise DeliveryError("recent_sign_in_required", 401)
+        source_lifecycle_hash = eligibility_hash(source.subject, service_secret)
+        target_lifecycle_hash = eligibility_hash(target.subject, service_secret)
+        alias = await session.get(IdentityAuthorityAlias, source_lifecycle_hash)
+        if alias is not None and not hmac.compare_digest(alias.target_hash, target_lifecycle_hash):
+            raise DeliveryError("identity_link_conflict", 409)
+        if alias is None:
+            session.add(IdentityAuthorityAlias(source_hash=source_lifecycle_hash, target_hash=target_lifecycle_hash))
         await transfer_original_trial(session, source=source.subject, target=target.subject,
             user=user, service_secret=service_secret)
         from .billing_identity import transfer_account
