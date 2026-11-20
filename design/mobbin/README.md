@@ -6,6 +6,10 @@ Use the relevant screens when changing either client. Open the originals, compar
 
 The connected Mobbin search currently provides iOS and web results. These product examples inform Android design too. Capture Android itself to verify system controls, permission prompts, keyboard behavior and layout. Keep third-party images in the private reference library.
 
+### First-reply notification invitation
+
+Mobbin’s settings flows show how people return to notification controls later. For the initial invitation, use the first successful local send as the moment a reply becomes relevant. Keep the composer available, allow dismissal and open the system prompt only after the person asks for notifications. Compare the real keyboard and permission transitions on both platforms. [Built for Mars · Asking for notifications well](https://builtformars.com/ux-bites/asking-for-notifications-well) · [Built for Mars · Turn on notifications](https://builtformars.com/ux-bites/turn-on-notifications)
+
 ## First launch
 
 | Feature | Interaction to review | Sources |
