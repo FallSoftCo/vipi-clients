@@ -2444,6 +2444,17 @@ final class ChatConversationTests: XCTestCase {
             let input = app.descendants(matching:.any).matching(identifier:"message-input").firstMatch
             input.tap()
             XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout:8))
+            func assertVisibleComposerPrompt() throws {
+                let image = try XCTUnwrap(input.screenshot().image.cgImage)
+                let request = VNRecognizeTextRequest()
+                request.recognitionLevel = .accurate
+                request.recognitionLanguages = ["en-US"]
+                try VNImageRequestHandler(cgImage: image, options: [:]).perform([request])
+                let words = request.results?.compactMap { $0.topCandidates(1).first?.string } ?? []
+                XCTAssertTrue(words.joined().contains("Message"),
+                              "The empty composer must visibly show its prompt with the keyboard open")
+            }
+            try assertVisibleComposerPrompt()
             input.typeText("Water, water!")
             let send = app.buttons["message-send"]
             XCTAssertTrue(send.isEnabled && send.isHittable)
@@ -2454,6 +2465,7 @@ final class ChatConversationTests: XCTestCase {
             _ = observe("peer-reply-durably-received") {
                 $0["receipts"] as? Int == 1 && Set($0["texts"] as? [String] ?? []) == ["Water, water!", "water and bread"]
             }
+            try assertVisibleComposerPrompt()
             let practice = app.descendants(matching:.any).matching(identifier:"immersionText")
             func visible(_ text:String) -> XCUIElement {
                 practice.matching(NSPredicate(format:"label == %@",text)).firstMatch

@@ -65,7 +65,7 @@ import VipiCore
         let host = UIViewController(); window.rootViewController = host; window.makeKeyAndVisible()
         defer { window.rootViewController = nil; window.isHidden = true; previous?.makeKeyAndVisible() }
         var draft = "", rejected = 0
-        let wrapper = MessageEditor(text: Binding(get: { draft }, set: { draft = $0 }), placeholder: "Message",
+        let wrapper = NativeMessageEditor(text: Binding(get: { draft }, set: { draft = $0 }), placeholder: "Message",
             focus: .constant(false), maximumBytes: 128 * 1024, rejected: { rejected += 1 })
         let coordinator = wrapper.makeCoordinator(), editor = DraftTextView.messageEditor()
         editor.delegate = coordinator; editor.font = .systemFont(ofSize: 24)

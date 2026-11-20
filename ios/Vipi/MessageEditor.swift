@@ -1,10 +1,31 @@
 import SwiftUI
 import UIKit
 
+/// Keep the empty-state prompt in the same SwiftUI layer as the composer.
+struct MessageEditor: View {
+    @Binding var text: String
+    let placeholder: String
+    let focus: Binding<Bool>
+    let maximumBytes: Int
+    let rejected: () -> Void
+
+    var body: some View {
+        NativeMessageEditor(text: $text, placeholder: placeholder, focus: focus,
+                            maximumBytes: maximumBytes, rejected: rejected)
+            .overlay(alignment: .topLeading) {
+                if text.isEmpty {
+                    Text(verbatim: placeholder)
+                        .font(.body).foregroundStyle(VipiDesign.secondary)
+                        .lineLimit(1).allowsHitTesting(false).accessibilityHidden(true)
+                }
+            }
+    }
+}
+
 /// Keep rejected pastes out of the native editor as well as the saved draft.
 /// Rejecting only a SwiftUI Binding write leaves the field's editing buffer
 /// showing text that was never accepted by the model.
-struct MessageEditor: UIViewRepresentable {
+struct NativeMessageEditor: UIViewRepresentable {
     @Binding var text: String
     let placeholder: String
     let focus: Binding<Bool>
@@ -32,15 +53,11 @@ struct MessageEditor: UIViewRepresentable {
         view.font = .preferredFont(forTextStyle: .body)
         view.textColor = .label
         view.tintColor = UIColor(VipiDesign.highlight)
-        view.placeholder.text = placeholder
-        view.placeholder.font = view.font
-        view.placeholder.textColor = UIColor(VipiDesign.secondary)
         view.accessibilityLabel = placeholder
         view.isEditable = enabled
         if view.text != text, view.markedTextRange == nil {
             view.text = text
         }
-        view.updatePlaceholder()
         if focus.wrappedValue && enabled && !view.isFirstResponder { view.becomeFirstResponder() }
         else if !focus.wrappedValue && view.isFirstResponder { view.resignFirstResponder() }
     }
@@ -60,8 +77,8 @@ struct MessageEditor: UIViewRepresentable {
     }
 
     @MainActor final class Coordinator: NSObject, UITextViewDelegate {
-        var parent: MessageEditor
-        init(_ parent: MessageEditor) { self.parent = parent }
+        var parent: NativeMessageEditor
+        init(_ parent: NativeMessageEditor) { self.parent = parent }
         func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
             let current = textView.text ?? ""
             guard let range = Range(range, in: current) else { return false }
@@ -74,7 +91,6 @@ struct MessageEditor: UIViewRepresentable {
         }
         func textViewDidChange(_ textView: UITextView) {
             parent.text = textView.text
-            (textView as? DraftTextView)?.updatePlaceholder()
             textView.invalidateIntrinsicContentSize()
         }
         func textViewDidBeginEditing(_ textView: UITextView) { parent.focus.wrappedValue = true }
@@ -83,7 +99,6 @@ struct MessageEditor: UIViewRepresentable {
 }
 
 @MainActor final class DraftTextView: UITextView {
-    let placeholder = UILabel()
     static func messageEditor() -> DraftTextView {
         // UIKit's TextKit 2 viewport renders a long single paragraph blank at
         // large text sizes, even with a valid caret and retained native text.
@@ -91,19 +106,5 @@ struct MessageEditor: UIViewRepresentable {
         // visible and editable. Do not trigger an implicit engine switch by
         // accessing layoutManager after editing has begun.
         DraftTextView(usingTextLayoutManager: false)
-    }
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
-        super.init(frame: frame, textContainer: textContainer)
-        placeholder.isUserInteractionEnabled = false
-        placeholder.isAccessibilityElement = false
-        addSubview(placeholder)
-    }
-    required init?(coder: NSCoder) { fatalError("Use the native message editor initializer") }
-    func updatePlaceholder() { placeholder.isHidden = !text.isEmpty; setNeedsLayout() }
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        placeholder.frame = CGRect(x: textContainerInset.left, y: textContainerInset.top,
-            width: bounds.width - textContainerInset.left - textContainerInset.right,
-            height: font?.lineHeight ?? 22)
     }
 }
