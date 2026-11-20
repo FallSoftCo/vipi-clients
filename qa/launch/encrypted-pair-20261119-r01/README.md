@@ -22,6 +22,14 @@ requires `vipiLiveNetwork=true` and `vipiUseNativeSession=true` instrumentation
 arguments. These new profile/device registrations affect the isolated database
 and newly allocated local account vaults only.
 
+First invoke `testInspectOwnedSessionWithoutExportingCredentials` on iOS and
+`inspectOwnedSessionWithoutExportingCredentials` on Android. Read only their
+network-session-readiness.json artifacts: presence, expected-subject match and
+saved authority; no credentials or keychain bytes are exported. A mismatched or
+absent session requires an owned-account sign-in, not token transplantation.
+Fresh profile creation also requires real authentication within ten minutes;
+a refresh of an old session does not satisfy this server policy.
+
 Invoke these existing native stages individually, once each:
 
 1. Android `publishAndroidKeys`.

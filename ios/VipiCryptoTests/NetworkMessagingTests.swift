@@ -24,6 +24,19 @@ import XCTest
         return value
     }
     private func body(_ values: [String: Any]) throws -> Data { try JSONSerialization.data(withJSONObject: values) }
+    func testInspectOwnedSessionWithoutExportingCredentials() throws {
+        let config = try configuration()
+        guard config.use_existing_session == true, let expected = config.expected_subject else {
+            throw XCTSkip("Requires an explicitly bound owned native session")
+        }
+        let session = AuthenticationManager().session
+        // Inspect only native metadata. No access token, refresh token, device
+        // secret, or keychain bytes are written to the diagnostics artifact.
+        try body(["run": config.run, "session_present": session != nil,
+                  "matches_expected_subject": session?.userID == expected,
+                  "authority": session?.authority.rawValue ?? "absent",
+                  "credentials_exported": false]).write(to: file("network-session-readiness.json"), options: .atomic)
+    }
     func testPublishAndSendToAndroid() async throws {
         let config = try configuration()
         let original: VipiSession

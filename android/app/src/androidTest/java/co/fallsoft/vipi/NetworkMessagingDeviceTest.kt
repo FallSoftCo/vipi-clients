@@ -34,6 +34,17 @@ class NetworkMessagingDeviceTest {
         val authentication = Authentication(context)
         return ServiceClient(authentication, requireNotNull(authentication.userID), config.getString("endpoint"))
     }
+    @Test fun inspectOwnedSessionWithoutExportingCredentials() {
+        val config = configuration()
+        require(InstrumentationRegistry.getArguments().getString("vipiUseNativeSession") == "true")
+        val expected = config.getString("expected_subject")
+        val session = PrivateRecords(context).read("session")
+        // Export native metadata only, never encrypted records or token bytes.
+        file("network-session-readiness.json").writeText(JSONObject().put("run", config.getString("run"))
+            .put("session_present", session != null).put("matches_expected_subject", session?.getString("userID") == expected)
+            .put("authority", session?.let { IdentityAuthority.read(it).recordID } ?: "absent")
+            .put("credentials_exported", false).toString())
+    }
     @Test fun publishAndroidKeys() = runBlocking {
         val config = configuration(); val records = PrivateRecords(context)
         val original = records.read("session")
