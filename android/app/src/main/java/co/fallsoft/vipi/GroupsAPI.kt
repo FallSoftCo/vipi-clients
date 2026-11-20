@@ -25,4 +25,8 @@ internal class GroupsAPI(private val transport: ChatTransport, private val devic
     }
     suspend fun sendControl(fanout: GroupFanout) = transport.request("POST", "/v1/groups/${fanout.group}/controls", JSONObject(fanout.body), device)
     suspend fun send(fanout: GroupFanout) = transport.request("POST", "/v1/groups/${fanout.group}/messages", JSONObject(fanout.body), device)
+    suspend fun resolve(original: PreparedGroupOperation): GroupOperationResolution {
+        val result = transport.request("POST", "/v1/groups/${original.group}/operations/${original.request}/cancel", JSONObject(original.body), device)
+        return original.resolution(result)
+    }
 }
