@@ -152,7 +152,7 @@ internal class SpeechPlayback(context: Context, private val target: String, priv
                     val timeline = PlaybackWords()
                     val observe = launch {
                         while (request == epoch) {
-                            playingWord = timeline.at(next.playedFrames)
+                            if (state == SpeechState.PLAYING) playingWord = timeline.at(next.playedFrames)
                             kotlinx.coroutines.delay(16)
                         }
                     }
