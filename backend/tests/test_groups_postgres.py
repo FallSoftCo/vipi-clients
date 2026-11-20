@@ -106,3 +106,73 @@ async def test_atomic_control_never_escapes_losing_epoch_race(db):
             assert record and queued and member.role == "admin"
         else:
             assert record is None and queued is None and member.role == "member"
+
+
+async def test_cancel_and_late_mutation_serialize_to_exactly_one_durable_outcome(db):
+    if db.engine.dialect.name != "postgresql":
+        pytest.skip("requires disposable PostgreSQL row locks")
+    from test_groups_operation_recovery import cancel
+    from vipi.db import GroupCancellation,GroupOperation
+    gid,request=await create(db),str(uuid4())
+    async def admit():
+        try:
+            return await change(db,gid,"rename",request_id=request,epoch=1,title="Prepared",device_id="alice-phone")
+        except DeliveryError as error:return error.code
+    result=await asyncio.wait_for(asyncio.gather(cancel(db,gid,request,title="Prepared"),admit()),10)
+    async with db.sessions() as session:
+        fence=await session.get(GroupCancellation,(gid,"alice",request))
+        receipt=await session.get(GroupOperation,(gid,request))
+        if result[0]["status"]=="cancelled":
+            assert result[1]=="group_operation_cancelled" and fence and receipt is None
+            assert (await current(db,gid))["epoch"]==1
+        else:
+            assert result[0]["result"]==result[1] and receipt and fence is None
+            assert (await current(db,gid))["epoch"]==2
+
+
+async def test_cancel_and_atomic_control_race_never_leaks_losing_envelopes(db):
+    if db.engine.dialect.name != "postgresql":
+        pytest.skip("requires disposable PostgreSQL row locks")
+    from dataclasses import replace
+    from test_groups_operation_recovery import cancel
+    from test_groups_atomic import atomic
+    from vipi.db import GroupMessage
+    gid=await create(db);await join(db,gid,"bob")
+    body=replace(fanout(await current(db,gid),("bob",)),kind="control");request=str(uuid4())
+    async def admit():
+        try:return await atomic(db,gid,"role",body,request_id=request,target_id="bob",role="admin")
+        except DeliveryError as error:return error.code
+    result=await asyncio.wait_for(asyncio.gather(cancel(db,gid,request,action="role",epoch=body.epoch,
+        target_id="bob",role="admin",control=body),admit()),10)
+    async with db.sessions() as session:
+        queued=await session.get(PendingMessage,body.envelopes[0].id)
+        control=await session.get(GroupMessage,(gid,body.id))
+        member=await session.get(GroupMember,(gid,"bob"))
+        if result[0]["status"]=="cancelled":
+            assert result[1]=="group_operation_cancelled" and queued is None and control is None
+            assert member.role=="member"
+        else:
+            assert result[0]["result"]==result[1] and queued and control and member.role=="admin"
+
+
+async def test_cancel_and_standalone_control_admission_share_the_same_lock_fence(db):
+    if db.engine.dialect.name != "postgresql":
+        pytest.skip("requires disposable PostgreSQL row locks")
+    from dataclasses import replace
+    from test_groups_operation_recovery import cancel
+    from vipi.db import GroupMessage
+    gid=await create(db);await join(db,gid,"bob")
+    body=replace(fanout(await current(db,gid),("bob",)),kind="control")
+    async def admit():
+        try:
+            async with db.sessions.begin() as session:
+                return await groups.send(session,group_id=gid,actor_id="alice",device_id="alice-phone",fanout=body,now=NOW)
+        except DeliveryError as error:return error.code
+    result=await asyncio.wait_for(asyncio.gather(cancel(db,gid,body.id,action="control",epoch=body.epoch,control=body),admit()),10)
+    async with db.sessions() as session:
+        queued=await session.get(PendingMessage,body.envelopes[0].id)
+        control=await session.get(GroupMessage,(gid,body.id))
+        if result[0]["status"]=="cancelled":
+            assert result[1]=="group_operation_cancelled" and queued is None and control is None
+        else:
+            assert result[0]["result"]==result[1] and queued and control

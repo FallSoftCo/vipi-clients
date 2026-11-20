@@ -86,3 +86,41 @@ async def test_unrelated_actor_cannot_cancel_or_read_someone_elses_outcome(db):
         await cancel(db,gid,request,actor="eve",title="Private outcome")
     with pytest.raises(DeliveryError,match="group_unavailable"):
         await cancel(db,gid,uid(),actor="eve",action="leave",epoch=2)
+
+
+async def test_expired_control_fence_cleans_only_after_immutable_expiry_prevents_late_send(db):
+    gid=await create(db);await join(db,gid,"bob")
+    body=replace(fanout(await current(db,gid),("bob",)),kind="control")
+    await cancel(db,gid,body.id,action="control",epoch=body.epoch,control=body)
+    at=NOW+timedelta(hours=72)
+    async with db.sessions.begin() as session:
+        await groups.expire(session,now=at)
+        assert await session.get(GroupCancellation,(gid,"alice",body.id)) is None
+    with pytest.raises(DeliveryError,match="message_expired"):
+        async with db.sessions.begin() as session:
+            await groups.send(session,group_id=gid,actor_id="alice",device_id="alice-phone",fanout=body,now=at)
+
+
+async def test_actor_bound_fence_does_not_prevent_another_members_own_operation(db):
+    gid=await create(db);await join(db,gid,"bob")
+    epoch=(await current(db,gid))["epoch"];request=uid()
+    original=await cancel(db,gid,request,action="leave",epoch=epoch)
+    assert await change(db,gid,"leave",actor="bob",request_id=request,epoch=epoch,device_id="bob-phone")=={"left":True}
+    assert await cancel(db,gid,request,action="leave",epoch=epoch)==original
+
+
+async def test_bounded_current_epoch_fences_exhaust_explicitly_without_forgetting_old_requests(db):
+    gid=await create(db);requests=[uid() for _ in range(256)]
+    async with db.sessions.begin() as session:
+        for request in requests:
+            session.add(GroupCancellation(group_id=gid,actor_id="alice",request_id=request,
+                fingerprint=groups.digest(["rename",1,None,"Prepared",None,None]),expected_epoch=1,
+                original_device_id="alice-phone",created_at=NOW))
+    with pytest.raises(DeliveryError,match="group_cancellation_limit"):
+        await cancel(db,gid,uid(),title="More")
+    with pytest.raises(DeliveryError,match="group_operation_cancelled"):
+        await change(db,gid,"rename",request_id=requests[0],epoch=1,title="Prepared",device_id="alice-phone")
+    async with db.sessions.begin() as session:
+        await groups.revoke_memberships(session,"alice",now=NOW,deleting=True)
+        from sqlalchemy import select,func
+        assert await session.scalar(select(func.count()).select_from(GroupCancellation).where(GroupCancellation.actor_id=="alice"))==0

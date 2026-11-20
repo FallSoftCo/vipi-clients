@@ -358,7 +358,7 @@ class GroupOperation(Base):
 class GroupCancellation(Base):
     __tablename__ = "group_cancellations"
     group_id: Mapped[str] = mapped_column(ForeignKey("chat_groups.id"), primary_key=True)
-    actor_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True)
+    actor_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True, index=True)
     request_id: Mapped[str] = mapped_column(String(36), primary_key=True)
     fingerprint: Mapped[str] = mapped_column(String(64))
     expected_epoch: Mapped[int] = mapped_column(Integer)

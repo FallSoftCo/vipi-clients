@@ -457,6 +457,17 @@ async def cancel_operation(session, *, group_id, actor_id, request_id, action, e
             raise DeliveryError("invalid_group_operation_descriptor")
         stamp = digest(operation_value(action,expected_epoch,target_id,title,role,invite_id,
             control_stamp=fanout_fingerprint(group_id,actor_id,original_device_id,control) if control else None))
+        prior_cancel = await session.get(GroupCancellation,(group_id,actor_id,request_id))
+        if prior_cancel:
+            if prior_cancel.fingerprint != stamp or prior_cancel.original_device_id != original_device_id:
+                raise DeliveryError("group_request_conflict",409)
+            # A different actor's globally colliding operation ID cannot change
+            # this actor's already durable cancellation receipt.
+            admitted = await session.get(GroupOperation,(group_id,request_id))
+            sent = await session.get(GroupMessage,(group_id,request_id)) if action == "control" else None
+            if (admitted and admitted.actor_id == actor_id) or (sent and sent.sender_id == actor_id):
+                raise DeliveryError("group_request_conflict",409)
+            return {"status":"cancelled","request_id":request_id,"group_id":group_id,"expected_epoch":expected_epoch}
         old = await session.get(GroupOperation,(group_id,request_id))
         if old:
             if old.actor_id != actor_id or old.fingerprint != stamp:

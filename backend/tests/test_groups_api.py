@@ -168,3 +168,33 @@ async def test_principal_revocation_is_rechecked_after_group_lock(api,db,monkeyp
         json={"request_id":uid(),"expected_epoch":1,"title":"Must roll back"})
     assert result.status_code == 401 and result.json() == {"error":"recent_sign_in_required"}
     assert (await api.get('/v1/groups/'+group["id"],headers=ah)).json()["title"] == "Friends"
+
+
+async def test_exact_http_cancellation_fences_delayed_original_and_rejects_wrong_device(api):
+    alice,ad,ah=await identity(api,"alice")
+    bob,bd,bh=await identity(api,"bob")
+    group=await create(api,ah);request=uid()
+    path=f'/v1/groups/{group["id"]}/operations/{request}/cancel'
+    body={"action":"rename","expected_epoch":group["epoch"],"original_device_id":ad,"title":"Prepared"}
+    wrong=await api.post(path,headers=ah,json=body|{"original_device_id":bd})
+    assert wrong.status_code==409 and wrong.json()=={"error":"group_request_conflict"}
+    result=await api.post(path,headers=ah,json=body)
+    assert result.status_code==200 and result.json()["status"]=="cancelled"
+    late=await api.patch('/v1/groups/'+group["id"],headers=ah,
+        json={"request_id":request,"expected_epoch":group["epoch"],"title":"Prepared"})
+    assert late.status_code==409 and late.json()=={"error":"group_operation_cancelled"}
+    assert (await api.post(path,headers=ah,json=body|{"extra":True})).status_code==422
+    assert (await api.get('/v1/groups/'+group["id"],headers=ah)).json()["title"]=="Friends"
+
+
+async def test_http_admitted_resolution_keeps_original_snapshot_after_new_member(api):
+    alice,ad,ah=await identity(api,"alice");bob,bd,bh=await identity(api,"bob")
+    group=await create(api,ah);request=uid()
+    result=await api.patch('/v1/groups/'+group["id"],headers=ah,
+        json={"request_id":request,"expected_epoch":group["epoch"],"title":"First"})
+    assert result.status_code==200;original=result.json()
+    await invite_join(api,original,ah,bob,bh)
+    resolved=await api.post(f'/v1/groups/{group["id"]}/operations/{request}/cancel',headers=ah,
+        json={"action":"rename","expected_epoch":group["epoch"],"original_device_id":ad,"title":"First"})
+    assert resolved.status_code==200 and resolved.json()["status"]=="admitted"
+    assert resolved.json()["result"]==original and len(original["members"])==1
