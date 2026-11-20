@@ -1,0 +1,35 @@
+--- a/deps/vipi/public_pages.py
++++ b/deps/vipi/public_pages.py
+@@ -1,7 +1,7 @@
+ """Product information served without trackers, external assets, or browser JS."""
+ from html import escape
+ 
+-from starlette.responses import HTMLResponse
++from starlette.responses import HTMLResponse, JSONResponse
+ 
+ from .accounts import normalize_username
+ from .delivery import DeliveryError
+@@ -89,6 +89,23 @@
+ 
+ 
+ def install(app):
++    @app.get("/.well-known/apple-app-site-association", include_in_schema=False)
++    async def apple_app_links():
++        return JSONResponse({"applinks": {"details": [{
++            "appIDs": ["3TNL2455JT.co.fallsoft.vipi"],
++            "components": [{"/": "/invite/*", "comment": "Open a friend invitation in Vipi"}],
++        }]}}, headers={"Cache-Control": "public, max-age=3600"})
++
++    @app.get("/.well-known/assetlinks.json", include_in_schema=False)
++    async def android_app_links():
++        # Play app-signing certificate independently verified from the retained
++        # Play-generated APK. The upload/debug certificates do not authorize links.
++        return JSONResponse([{
++            "relation": ["delegate_permission/common.handle_all_urls"],
++            "target": {"namespace": "android_app", "package_name": "co.fallsoft.vipi",
++                "sha256_cert_fingerprints": ["42:58:FE:AF:D4:BF:C9:EE:88:5D:A6:F1:FF:CE:AE:6A:BF:98:C0:03:93:04:C2:29:1F:D3:E6:23:0A:DB:EF:82"]},
++        }], headers={"Cache-Control": "public, max-age=3600"})
++
+     def render(title, body, *, status_code=200, private_link=False):
+         html = ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
+             '<meta name="viewport" content="width=device-width,initial-scale=1">'

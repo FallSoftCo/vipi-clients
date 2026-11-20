@@ -1,0 +1,31 @@
+{
+  "status": "prepared_and_validated_not_deployed",
+  "active_release": "/opt/vipi/releases/full-message-pages-20261119-r01",
+  "active_module": "deps/vipi/public_pages.py",
+  "required_preimage_sha256": "328722fe4e4314db7fd5ca3c4a10da132ef106049bba3a223b3aa2c4f5277095",
+  "candidate_sha256": "67aa871a2c663b3c0feed7eecf97236e3ca02ca79c2443c47da2ff89d6f8836d",
+  "patch_sha256": "f9f594854f9e57019f58000d78827beb1ed118e3fe3ee0c3cb81c1dda9b24b9f",
+  "adds_only": [
+    "Apple app association GET",
+    "Android asset links GET",
+    "JSONResponse import"
+  ],
+  "unchanged_exact_bodies_and_headers": [
+    "/",
+    "/privacy",
+    "/terms",
+    "/help",
+    "/invite/vqa_native_pair"
+  ],
+  "native_fingerprint_scope": "Apple team+production bundle; Android Play signing certificate only",
+  "production_backend_direct_association_status": 404,
+  "local_association_status": 200,
+  "deployment_requirements": [
+    "Reconcile current active release and expected preimage before preparing immutable candidate",
+    "Refresh source manifest/distribution RECORD when packaging",
+    "Activate through existing reviewed API deployment path; no nginx change is required to fix missing backend route",
+    "Verify public HTTPS200 application/json with no redirect and exact associations",
+    "OS universal/app link routing still needs native qualification"
+  ],
+  "production_mutations": 0
+}

@@ -65,9 +65,16 @@ Candidate public_pages.py already serves correct scoped association JSON,
 validated through real local HTTP. Candidate nginx forwards all / paths to the
 API. Production requires those exact routes delivered by the active backend
 release (or scoped static nginx aliases); no client-only change fixes 404.
-A fresh live nginx/upstream read remains unknown because the bounded SSH
-inventory has not returned. Reconcile its receipt before another action. No
-production deployment, reload or duplicate external submission occurred.
+Live readback confirms /opt/vipi/current resolves to
+/opt/vipi/releases/full-message-pages-20261119-r01. Its exact module at
+deps/vipi/public_pages.py has SHA256
+328722fe4e4314db7fd5ca3c4a10da132ef106049bba3a223b3aa2c4f5277095
+and lacks both routes; direct loopback upstream returns 404. The minimal
+association-only.patch changes just the JSONResponse import and two GET routes,
+with no schema dependency. Reconcile that exact preimage before packaging a
+new immutable release and manifest/RECORD. Local comparison confirms the root,
+privacy, terms, help and invitation responses retain exact bodies AND headers.
+No production deployment, reload or duplicate external submission occurred.
 
 Authentication: public discovery reconfirms the existing shared Vipi client
 client_01M7N9Y2DGSJJVT1ZV6TY7DTZ4 uses the Fallsoft environment key authority
