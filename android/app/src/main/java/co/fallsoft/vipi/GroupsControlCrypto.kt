@@ -25,8 +25,13 @@ internal class GroupsControlCrypto(private val vault: MessageVault, private val 
         val previous = requireNotNull(membership.currentInTransaction(roster.id)) { "Authenticated group membership is missing." }
         require(change.actor == vault.account && (previous.matches(roster) || (change.action == GroupControlAction.ADD && roster.members.map { GroupApprovedPerson(it.id, it.role) }.toSet().containsAll(change.members))))
         change.validated(roster.id, previous, vault.account)
+        if (change.action == GroupControlAction.ADD) require(roster.members.singleOrNull { it.id == change.target }?.device != null) {
+            "The joining person needs to reconnect their device before approval."
+        }
         val envelopes = org.json.JSONArray()
-        roster.members.filter { it.id != vault.account }.forEach { member ->
+        // The FULL approved roster still authenticates the intended delta.
+        // Only CONTROL omits routes the relay marks nil; DATA stays strict.
+        roster.members.filter { it.id != vault.account && it.device != null }.forEach { member ->
             val device = requireNotNull(member.device)
             if (vault.get("peer-device", member.id.toString())?.toString(Charsets.UTF_8) != device.toString() || vault.get("identity", "${member.id}/1") == null || vault.get("peer-recovery-needed", member.id.toString()) != null || vault.get("blocked", member.id.toString()) != null) throw PeerIdentityChanged(member.id)
             val envelope = UUID.randomUUID()

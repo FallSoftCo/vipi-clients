@@ -39,7 +39,12 @@ final class GroupsControlCrypto {
             _ = try change.validated(group: roster.id, previous: previous, authenticatedSender: vault.account)
             let local = try ProtocolAddress(name: vault.account.uuidString.lowercased(), deviceId: 1)
             var envelopes: [[String: Any]] = []
-            for member in roster.members where member.id != vault.account {
+            if change.action == .add, roster.members.first(where: { $0.id == change.target_id })?.device_id == nil {
+                throw GroupsFailure.identityChanged
+            }
+            // The complete approved roster/delta remains authenticated. Only
+            // CONTROL omits nil routes; ordinary DATA requires every member.
+            for member in roster.members where member.id != vault.account && member.device_id != nil {
                 guard let device = member.device_id,
                       try vault.get("peer-device", member.id.uuidString.lowercased()) == Data(device.uuidString.lowercased().utf8),
                       try vault.get("identity", member.id.uuidString.lowercased() + "/1") != nil,

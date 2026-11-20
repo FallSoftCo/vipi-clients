@@ -136,4 +136,39 @@ final class GroupsCryptoTests: XCTestCase {
         XCTAssertTrue(try f.vaults[1].transaction { try f.vaults[1].ids("group-hold-budget").isEmpty })
     }
 
+    func testInactiveDeviceCanBeRemovedWithoutRelaxingDataOrBootstrap() throws {
+        let f = try Fixture(3), group = UUID(), owner = GroupsMembership(vault: f.vaults[0])
+        try owner.createdLocally(f.owner(group), expectedID: group)
+        // Known authenticated history is the policy fixture. The new approval
+        // and removal below use actual pinned Signal ciphertext and bootstrap.
+        try f.vaults[0].transaction { try owner.applyInTransaction(f.add(group, 1), group: group, authenticatedSender: f.accounts[0]) }
+        let sendControl = GroupsControlCrypto(vault: f.vaults[0], core: f.cores[0])
+        let receiveControl = GroupsControlCrypto(vault: f.vaults[2], core: f.cores[2])
+        let join = try sendControl.prepare(id: UUID(), roster: f.roster(group), change: f.add(group, 2), now: f.now)
+        try receiveControl.receive(f.incoming(join, recipient: 2, kind: "control"), now: f.now)
+        try receiveControl.confirmBootstrap(XCTUnwrap(receiveControl.pending().first))
+        try sendControl.accepted(f.admitted(join), fanout: join); try sendControl.reconciled(join)
+        let bob = f.person(1)
+        let inactive = GroupMember(user_id: bob.id, display_name: bob.display_name, username: bob.username, role: bob.role, joined_epoch: bob.joined_epoch, device_id: nil)
+        let proposal = GroupSnapshot(id: group, title: "Friends", epoch: 5, state: "active", members: [f.person(0), inactive, f.person(2)], invitations: [])
+        let sender = GroupsCrypto(vault: f.vaults[0], core: f.cores[0], store: GroupsStore(vault: f.vaults[0]))
+        let before = GroupMessage(id: UUID(), groupID: group, epoch: 5, membershipRevision: 3, sender: f.accounts[0], text: "Everyone must receive ordinary data", createdAt: f.now, delivery: .queued)
+        XCTAssertThrowsError(try sender.prepare(before, roster: proposal, now: f.now))
+        let approved = try XCTUnwrap(owner.current(group))
+        let remove = GroupRosterTransition(actor_id: f.accounts[0], action: .remove, target_id: f.accounts[1], from_revision: 3, to_revision: 4,
+            server_epoch: 6, previous_members: approved.members, members: approved.members.filter { $0.user_id != f.accounts[1] })
+        let removal = try sendControl.prepare(id: UUID(), roster: proposal, change: remove, now: f.now)
+        let wire = try JSONSerialization.jsonObject(with: removal.body) as! [String: Any]
+        XCTAssertEqual((wire["envelopes"] as! [[String: Any]]).map { $0["recipient_id"] as! String }, [f.accounts[2].uuidString.lowercased()])
+        try receiveControl.receive(f.incoming(removal, recipient: 2, kind: "control"), now: f.now)
+        try sendControl.accepted(f.admitted(removal), fanout: removal); try sendControl.reconciled(removal)
+        XCTAssertFalse(try XCTUnwrap(GroupsMembership(vault: f.vaults[2]).current(group)).contains(f.accounts[1]))
+        let after = GroupSnapshot(id: group, title: "Friends", epoch: 6, state: "active", members: [f.person(0), f.person(2)], invitations: [])
+        let fresh = GroupMessage(id: UUID(), groupID: group, epoch: 6, membershipRevision: 4, sender: f.accounts[0], text: "Only the approved remaining people", createdAt: f.now, delivery: .queued)
+        let data = try sender.prepare(fresh, roster: after, now: f.now)
+        let carol = GroupsCrypto(vault: f.vaults[2], core: f.cores[2], store: GroupsStore(vault: f.vaults[2]))
+        XCTAssertEqual(try carol.receive(f.incoming(data, recipient: 2, kind: "message"), now: f.now)?.text, fresh.text)
+        XCTAssertNil(try sender.pending(group, before.id))
+    }
+
 }

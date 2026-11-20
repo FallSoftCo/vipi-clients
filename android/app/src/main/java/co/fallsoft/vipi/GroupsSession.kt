@@ -73,7 +73,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         }
         var fanout: GroupFanout? = null
         plan.transition(account)?.let { change ->
-            plan.group.members.filter { it.id != account }.forEach { if (needsIdentityReview(it.id)) throw PeerIdentityChanged(it.id); preparePeer(it.id) }
+            plan.group.members.filter { it.id != account && it.device != null }.forEach { if (needsIdentityReview(it.id)) throw PeerIdentityChanged(it.id); preparePeer(it.id) }
             val value = controls.prepare(plan.control, plan.group, change, System.currentTimeMillis()); fanout = value
         }
         val response = api.change(plan.group, plan.method, plan.suffix, plan.request, plan.fields, fanout)
@@ -96,7 +96,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
             GroupMutationPlan(group, UUID.randomUUID(), UUID.randomUUID(), "POST", "/leave", emptyMap(), previous).also { store.vault.put("group-mutation", scope, GroupsStore.bytes(it.json())) }
         }
         val change = requireNotNull(plan.transition(account))
-        plan.group.members.filter { it.id != account }.forEach { if (needsIdentityReview(it.id)) throw PeerIdentityChanged(it.id); preparePeer(it.id) }
+        plan.group.members.filter { it.id != account && it.device != null }.forEach { if (needsIdentityReview(it.id)) throw PeerIdentityChanged(it.id); preparePeer(it.id) }
         val fanout = controls.prepare(plan.control, plan.group, change, System.currentTimeMillis())
         controls.accepted(api.leave(plan.group, plan.request, fanout), fanout); controls.reconciled(fanout); store.vault.transaction { store.vault.remove("group-mutation", scope) }
         groups = groups.filter { it.id != group.id }; departedGroups = departedGroups.filter { it.id != group.id } + plan.group; store.saveActiveIDs(groups.map { it.id }.toSet()); revision++; true
@@ -187,7 +187,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
             change.validated(group.id, previous, account)
             GroupJoinApprovalPlan(UUID.randomUUID(), group, change).also { store.vault.put("group-join-plan", scope, GroupsStore.bytes(it.json())) }
         }
-        plan.group.members.filter { it.id != account }.forEach { if (needsIdentityReview(it.id)) throw PeerIdentityChanged(it.id); preparePeer(it.id) }
+        plan.group.members.filter { it.id != account && it.device != null }.forEach { if (needsIdentityReview(it.id)) throw PeerIdentityChanged(it.id); preparePeer(it.id) }
         val fanout = controls.prepare(plan.id, plan.group, plan.change, System.currentTimeMillis()); controls.accepted(api.sendControl(fanout), fanout); controls.reconciled(fanout)
         store.vault.transaction { store.vault.remove("group-join-plan", scope) }; revision++; true
     } }

@@ -103,7 +103,7 @@ import Observation
             }
             var fanout: GroupFanout?
             if let change = try plan.transition(actor: account) {
-                for person in plan.group.members where person.id != account { guard !identityReview(person.id) else { throw GroupsFailure.identityChanged }; try await preparePeer(person.id) }
+                for person in plan.group.members where person.id != account && person.device_id != nil { guard !identityReview(person.id) else { throw GroupsFailure.identityChanged }; try await preparePeer(person.id) }
                 let value = try controls.prepare(id: plan.control, roster: plan.group, change: change, now: Int64(Date().timeIntervalSince1970 * 1000))
                 fanout = value
             }
@@ -144,7 +144,7 @@ import Observation
             try store.vault.put("group-mutation", scope, JSONEncoder().encode(value)); return value
         }
         guard let change = try plan.transition(actor: account) else { throw GroupsFailure.unapprovedMembership }
-        for member in plan.group.members where member.id != account { guard !identityReview(member.id) else { throw GroupsFailure.identityChanged }; try await preparePeer(member.id) }
+        for member in plan.group.members where member.id != account && member.device_id != nil { guard !identityReview(member.id) else { throw GroupsFailure.identityChanged }; try await preparePeer(member.id) }
         let fanout = try controls.prepare(id: plan.control, roster: plan.group, change: change, now: Int64(Date().timeIntervalSince1970 * 1000))
         let accepted = try await api.leave(plan.group, request: plan.request, control: fanout)
         try controls.accepted(accepted, fanout: fanout); try controls.reconciled(fanout)
@@ -256,7 +256,7 @@ import Observation
                 let value = GroupJoinApprovalPlan(id: UUID(), group: group, change: change)
                 try store.vault.put("group-join-plan", scope, JSONEncoder().encode(value)); return value
             }
-            for member in plan.group.members where member.id != account { guard !identityReview(member.id) else { throw GroupsFailure.identityChanged }; try await preparePeer(member.id) }
+            for member in plan.group.members where member.id != account && member.device_id != nil { guard !identityReview(member.id) else { throw GroupsFailure.identityChanged }; try await preparePeer(member.id) }
             let fanout = try controls.prepare(id: plan.id, roster: plan.group, change: plan.change, now: Int64(Date().timeIntervalSince1970 * 1000))
             try controls.accepted(try await api.sendControl(fanout), fanout: fanout); try controls.reconciled(fanout)
             try store.vault.transaction { try store.vault.remove("group-join-plan", scope) }; revision += 1; return true
