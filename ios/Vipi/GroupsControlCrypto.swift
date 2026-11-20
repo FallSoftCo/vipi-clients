@@ -30,7 +30,10 @@ final class GroupsControlCrypto {
     func prepare(id: UUID, roster: GroupSnapshot, change: GroupRosterTransition, now: Int64) throws -> GroupFanout {
         try vault.transaction {
             let recordKey = key(roster.id, id)
-            if let bytes = try vault.get("group-control-outgoing", recordKey) { return try decoder.decode(GroupFanout.self, from: bytes) }
+            if let bytes = try vault.get("group-control-outgoing", recordKey) {
+                guard let prior = try vault.get("group-control-outgoing-change", recordKey), try decoder.decode(GroupRosterTransition.self, from: prior) == change else { throw MessageJournal.Failure.conflict }
+                return try decoder.decode(GroupFanout.self, from: bytes)
+            }
             guard let previous = try membership.currentInTransaction(roster.id), change.actor_id == vault.account,
                   previous.matches(roster) || (change.action == .add && Set(change.members).isSubset(of: Set(roster.members.map { GroupApprovedPerson(user_id: $0.id, role: $0.role) }))) else { throw GroupsFailure.unapprovedMembership }
             _ = try change.validated(group: roster.id, previous: previous, authenticatedSender: vault.account)

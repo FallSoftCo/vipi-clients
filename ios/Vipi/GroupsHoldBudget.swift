@@ -1,6 +1,6 @@
 import Foundation
 
-/// Bounded recovery inbox, measured from actual encoded encrypted-vault values.
+/// Bounded recovery inbox, measured from encoded recovery payload sizes (not total SQLite/WAL disk).
 /// Admission failure keeps existing holds and leaves the new relay item unacked.
 final class GroupsHoldBudget {
     private struct Entry: Codable { let group: UUID; let bytes: Int }

@@ -3,7 +3,7 @@ package co.fallsoft.vipi
 import org.json.JSONObject
 import java.util.UUID
 
-/** Counts actual encoded vault values; never evicts existing recovery messages. */
+/** Counts encoded recovery payloads, not total SQLite/WAL disk; never evicts existing recovery messages. */
 internal class GroupsHoldBudget(private val vault: MessageVault) {
     fun reserveInTransaction(kind: String, id: String, group: UUID, bytes: Int) {
         val key = "$kind/$id"; if (vault.get("group-hold-budget", key) != null) return

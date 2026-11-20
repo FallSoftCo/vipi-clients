@@ -40,7 +40,10 @@ internal class GroupsCrypto(private val vault: MessageVault, private val core: M
         roster.validate()
         return vault.transaction {
             val key = "${message.group}/${message.id}"
-            vault.get("group-fanout", key)?.let { return@transaction GroupFanout.parse(GroupsStore.json(it)).also { saved -> require(saved.group == message.group && saved.message == message.id && saved.epoch == message.epoch) } }
+            vault.get("group-fanout", key)?.let { return@transaction GroupFanout.parse(GroupsStore.json(it)).also { saved ->
+                require(saved.group == message.group && saved.message == message.id && saved.epoch == message.epoch)
+                val original = storage.messagesInTransaction(message.group).single { it.id == message.id }
+                require(original.sender == message.sender && original.membershipRevision == message.membershipRevision && original.text == message.text && original.createdAt == message.createdAt) { "Group fanout retry changed its message" } } }
             require(message.group == roster.id && message.epoch == roster.epoch && message.sender == vault.account && roster.role(vault.account) != null)
             require(message.text.isNotBlank() && message.text.toByteArray(Charsets.UTF_8).size <= 32768 && message.createdAt >= 0 && message.createdAt <= Math.addExact(now, 300_000) && now < Math.addExact(message.createdAt, MessageJournal.TTL))
             require(vault.ids("group-control-outgoing").none { it.startsWith("${roster.id}/") } && vault.ids("group-mutation").none { it.contains(roster.id.toString()) } && vault.ids("group-join-plan").none { it.startsWith("${roster.id}/") }) { "A group change is waiting to be confirmed. Retry it before sending." }
@@ -119,9 +122,14 @@ internal class GroupsCrypto(private val vault: MessageVault, private val core: M
         val revision = payload.strictInt("group_revision"); require(revision > 0)
         val approved = membership.currentInTransaction(item.group)
         val authorized = vault.get("group-membership-conflict", item.group.toString()) == null && approved != null && approved.revision == revision && approved.contains(envelope.sender) && approved.contains(vault.account)
-        val message = GroupMessage(item.message, item.group, item.epoch, revision, envelope.sender, text, envelope.createdAt, if (authorized) GroupDelivery.RECEIVED else GroupDelivery.WITHHELD, if (authorized) null else if (approved == null || revision > approved.revision) "approval" else "changed")
+        var message = GroupMessage(item.message, item.group, item.epoch, revision, envelope.sender, text, envelope.createdAt, if (authorized) GroupDelivery.RECEIVED else GroupDelivery.WITHHELD, if (authorized) null else if (approved == null || revision > approved.revision) "approval" else "changed")
+        if (storage.messagesInTransaction(message.group).any { it.id == message.id && it.delivery == GroupDelivery.RECEIVED }) message = message.copy(delivery = GroupDelivery.RECEIVED, withheldReason = null)
+        val quarantineKey = "${message.group}/${message.id}"
         holdBudget.releaseInTransaction("message", envelope.id.toString())
-        if (message.delivery == GroupDelivery.WITHHELD) holdBudget.reserveInTransaction("quarantine", "${message.group}/${message.id}", message.group, GroupsStore.bytes(message.json()).size)
+        if (message.delivery == GroupDelivery.WITHHELD) {
+            val proof = GroupsStore.bytes(JSONObject().put("identity", Base64.encodeToString(pinned, Base64.NO_WRAP)).put("device", route.senderDevice))
+            holdBudget.reserveInTransaction("quarantine", quarantineKey, message.group, GroupsStore.bytes(message.json()).size + proof.size); vault.put("group-quarantine-proof", quarantineKey, proof)
+        } else { holdBudget.releaseInTransaction("quarantine", quarantineKey); vault.remove("group-quarantine-proof", quarantineKey) }
         storage.saveMessageInTransaction(message)
         vault.put("peer-device", envelope.sender.toString(), route.senderDevice.toString().toByteArray(Charsets.UTF_8))
         vault.put("group-envelope", envelope.id.toString(), fingerprint); vault.put("group-receipt", envelope.id.toString(), byteArrayOf(1)); vault.remove("group-held-envelope", envelope.id.toString()); message
@@ -130,7 +138,15 @@ internal class GroupsCrypto(private val vault: MessageVault, private val core: M
     fun releaseAuthorized(group: UUID): List<GroupMessage> = vault.transaction {
         if (vault.get("group-membership-conflict", group.toString()) != null) return@transaction emptyList()
         val approved = membership.currentInTransaction(group) ?: return@transaction emptyList()
-        storage.messagesInTransaction(group).filter { it.delivery == GroupDelivery.WITHHELD && it.membershipRevision == approved.revision && approved.contains(it.sender) && approved.contains(vault.account) }.map { message -> message.copy(delivery = GroupDelivery.RECEIVED, withheldReason = null).also { storage.saveMessageInTransaction(it); holdBudget.releaseInTransaction("quarantine", "${it.group}/${it.id}") } }
+        storage.messagesInTransaction(group).filter { message ->
+            if (message.delivery != GroupDelivery.WITHHELD || message.membershipRevision != approved.revision || !approved.contains(message.sender) || !approved.contains(vault.account)) false
+            else vault.get("group-quarantine-proof", "${message.group}/${message.id}")?.let { bytes ->
+                val proof = GroupsStore.json(bytes); val device = proof.uuid("device")
+                vault.get("identity", "${message.sender}/1")?.contentEquals(Base64.decode(proof.getString("identity"), Base64.NO_WRAP)) == true &&
+                    vault.get("peer-device", message.sender.toString())?.toString(Charsets.UTF_8) == device.toString() && vault.get("blocked", message.sender.toString()) == null &&
+                    vault.get("peer-recovery-needed", message.sender.toString()) == null && vault.get("retired-peer-device", "${message.sender}/$device") == null
+            } == true
+        }.map { message -> message.copy(delivery = GroupDelivery.RECEIVED, withheldReason = null).also { storage.saveMessageInTransaction(it); holdBudget.releaseInTransaction("quarantine", "${it.group}/${it.id}"); vault.remove("group-quarantine-proof", "${it.group}/${it.id}") } }
     }
     fun receipts() = vault.transaction { vault.ids("group-receipt").map(UUID::fromString) }
     fun receiptAccepted(id: UUID) = vault.transaction { vault.remove("group-receipt", id.toString()) }

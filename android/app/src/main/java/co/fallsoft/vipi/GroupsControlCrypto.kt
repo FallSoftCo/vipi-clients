@@ -18,7 +18,10 @@ internal class GroupsControlCrypto(private val vault: MessageVault, private val 
     private val membership = GroupsMembership(vault)
     fun prepare(id: UUID, roster: GroupSnapshot, change: GroupRosterTransition, now: Long): GroupFanout = vault.transaction {
         val key = "${roster.id}/$id"
-        vault.get("group-control-outgoing", key)?.let { return@transaction GroupFanout.parse(GroupsStore.json(it)) }
+        vault.get("group-control-outgoing", key)?.let {
+            require(GroupRosterTransition.parse(GroupsStore.json(requireNotNull(vault.get("group-control-outgoing-change", key)))) == change) { "Group control retry changed its intended people or roles" }
+            return@transaction GroupFanout.parse(GroupsStore.json(it))
+        }
         val previous = requireNotNull(membership.currentInTransaction(roster.id)) { "Authenticated group membership is missing." }
         require(change.actor == vault.account && (previous.matches(roster) || (change.action == GroupControlAction.ADD && roster.members.map { GroupApprovedPerson(it.id, it.role) }.toSet().containsAll(change.members))))
         change.validated(roster.id, previous, vault.account)

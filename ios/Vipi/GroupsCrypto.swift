@@ -23,6 +23,7 @@ struct GroupIncoming: Codable {
     let group_id: UUID; let group_epoch: Int; let group_message_id: UUID; let group_kind: String
 }
 
+private struct GroupQuarantineProof: Codable { let pinnedIdentity: Data; let senderDevice: UUID }
 private struct GroupHeldCiphertext: Codable { let item: GroupIncoming; let firstSeenAt: Int64; let fingerprint: Data }
 
 /// Pairwise Signal ratchets and the COMPLETE durable fanout commit together.
@@ -45,7 +46,10 @@ final class GroupsCrypto {
             let recordID = index(message.groupID, message.id)
             if let saved = try vault.get("group-fanout", recordID) {
                 let fanout = try decoder.decode(GroupFanout.self, from: saved)
-                guard fanout.groupID == message.groupID, fanout.messageID == message.id, fanout.epoch == message.epoch else { throw MessageJournal.Failure.conflict }
+                guard fanout.groupID == message.groupID, fanout.messageID == message.id, fanout.epoch == message.epoch,
+                      let saved = try localStore.messagesInTransaction(message.groupID).first(where: { $0.id == message.id }),
+                      saved.sender == message.sender, saved.membershipRevision == message.membershipRevision,
+                      saved.text == message.text, saved.createdAt == message.createdAt else { throw MessageJournal.Failure.conflict }
                 return fanout
             }
             guard message.groupID == roster.id, message.epoch == roster.epoch, message.sender == vault.account,
@@ -154,8 +158,18 @@ final class GroupsCrypto {
             var value = GroupMessage(id: item.group_message_id, groupID: item.group_id, epoch: item.group_epoch, membershipRevision: payload.group_revision, sender: item.sender_id,
                 text: payload.text, createdAt: created, delivery: authorized ? .received : .withheld)
             if !authorized { value.withheldReason = approved == nil || payload.group_revision > (approved?.revision ?? 0) ? "approval" : "changed" }
+            if let prior = try localStore.messagesInTransaction(value.groupID).first(where: { $0.id == value.id }), prior.delivery == .received {
+                // saveMessage still rejects changed immutable context. A new
+                // envelope cannot hide already committed legitimate history.
+                value.delivery = .received; value.withheldReason = nil
+            }
+            let quarantineKey = index(value.groupID, value.id)
             try holdBudget.releaseInTransaction(kind: "message", id: key(item.id))
-            if value.delivery == .withheld { try holdBudget.reserveInTransaction(kind: "quarantine", id: index(value.groupID, value.id), group: value.groupID, bytes: encoder.encode(value).count) }
+            if value.delivery == .withheld {
+                let proof = try encoder.encode(GroupQuarantineProof(pinnedIdentity: pinned, senderDevice: item.sender_device_id))
+                try holdBudget.reserveInTransaction(kind: "quarantine", id: quarantineKey, group: value.groupID, bytes: encoder.encode(value).count + proof.count)
+                try vault.put("group-quarantine-proof", quarantineKey, proof)
+            } else { try holdBudget.releaseInTransaction(kind: "quarantine", id: quarantineKey); try vault.remove("group-quarantine-proof", quarantineKey) }
             try localStore.saveMessageInTransaction(value)
             try vault.put("peer-device", key(item.sender_id), Data(key(item.sender_device_id).utf8))
             try vault.put("group-envelope", key(item.id), fingerprint)
@@ -171,8 +185,15 @@ final class GroupsCrypto {
         guard try vault.get("group-membership-conflict", key(group)) == nil, let approved = try membership.currentInTransaction(group) else { return [] }
         var released: [GroupMessage] = []
         for var message in try localStore.messagesInTransaction(group) where message.delivery == .withheld {
-            guard message.membershipRevision == approved.revision, approved.contains(message.sender), approved.contains(vault.account) else { continue }
-            message.delivery = .received; message.withheldReason = nil; try localStore.saveMessageInTransaction(message); try holdBudget.releaseInTransaction(kind: "quarantine", id: index(message.groupID, message.id)); released.append(message)
+            guard message.membershipRevision == approved.revision, approved.contains(message.sender), approved.contains(vault.account),
+                  let proofBytes = try vault.get("group-quarantine-proof", index(message.groupID, message.id)) else { continue }
+            let proof = try decoder.decode(GroupQuarantineProof.self, from: proofBytes)
+            guard try vault.get("identity", key(message.sender) + "/1") == proof.pinnedIdentity,
+                  try vault.get("peer-device", key(message.sender)) == Data(key(proof.senderDevice).utf8),
+                  try vault.get("blocked", key(message.sender)) == nil,
+                  try vault.get("identity-change", key(message.sender)) == nil,
+                  try vault.get("retired-peer-device", key(message.sender) + "/" + key(proof.senderDevice)) == nil else { continue }
+            message.delivery = .received; message.withheldReason = nil; try localStore.saveMessageInTransaction(message); try holdBudget.releaseInTransaction(kind: "quarantine", id: index(message.groupID, message.id)); try vault.remove("group-quarantine-proof", index(message.groupID, message.id)); released.append(message)
         }
         return released
     } }

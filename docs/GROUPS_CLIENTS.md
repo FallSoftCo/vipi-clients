@@ -46,7 +46,10 @@ is released. Explicit bootstrap also stores its reviewed prior roster as an
 historical anchor so equivalent fresh-transport reissue can be recognized.
 Recovery admission is bounded to1024 records/32MiB per account and128/8MiB per
 group using actual encoded sizes; existing holds are never silently evicted.
-Held first-seen time preserves originally timely recovery after relay expiry. Missing controls are retained and
+Held first-seen time preserves originally timely recovery after relay expiry.
+Decrypted quarantine retains the exact authenticated sender key/device proof and
+rechecks current unblocked/unretired continuity before promotion. A fresh
+ciphertext cannot downgrade already displayed immutable logical history. Missing controls are retained and
 valid consecutive controls drain atomically. Equivalent historical controls can
 be recognized without rewinding the roster, and conflicting authenticated rosters
 freeze fresh data. A returning control ID with altered content conflicts. Local owner departure requires prior ownership transfer;
@@ -70,6 +73,9 @@ informed explicit role/consequence context and recognizable names.
 [Intentional Friction](https://builtformars.com/ux-glossary/intentional-friction)
 informed targeted confirmations for removal, leaving, ownership and trust.
 These sources have not validated this implementation's actual native UX.
+A later BFM MCP written-flow critique reinforced specific pending actions,
+visible join state and contextual recovery. Its example ownership and receiver
+resend wording conflicted with this contract and was not adopted literally.
 
 ## Validation so far
 
@@ -78,7 +84,10 @@ These sources have not validated this implementation's actual native UX.
   fixture. This runs the protocol owner's Python reference, not the native code.
 - Fixture SHA256: `25c7dead55d9dd88956bebaeac321c39d6735e395a613d867ff08a7b52aeb2d3`.
 - Native Swift and Android tests authored for those same22 cases, creator-inclusive
-  selection and relay-only membership changes. Native tests have not run.
+  selection and relay-only membership changes. Routing tests cover partial and
+  unknown metadata. Three additional iOS sources exercise genuine pairwise
+  control/bootstrap/text, all-recipient ratchet rollback, and delayed identity
+  hold/promotion continuity. None of these native tests have run.
 - No SDK/dependency install, native build, simulator, emulator, phone, iPad,
   desktop interaction, auth mutation, release build or production action performed.
 
