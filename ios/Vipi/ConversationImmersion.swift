@@ -495,7 +495,18 @@ struct ChatMessageArrival {
         else { detected = try? await identify(identity.text) }
         guard valid() else { return nil }
         let supported = detected.map(LocalLanguageCatalog.canonicalCode).flatMap { LocalLanguageCatalog.codes.contains($0) ? $0 : nil }
-        let input = supported ?? pair.source
+        let tokens = IncrementalWords.tokens(identity.text,language:pair.source)
+        let distinctScript = identity.text.unicodeScalars.contains {
+            CharacterSet.letters.contains($0) && String($0).range(of:#"\p{Latin}"#,options:.regularExpression) == nil
+        }
+        // A short Latin utterance can be shared by several languages (English
+        // “Water, water!” is also Dutch). Prefer the chosen source over an
+        // ambiguous third-language route. Native target/distinct-script detection
+        // still handles short incoming text without a word-count veto.
+        let inferred = supported.flatMap { code in
+            code == pair.source || code == pair.target || tokens.count >= 3 || distinctScript ? code : nil
+        }
+        let input = identity.inputLanguage ?? inferred ?? pair.source
         // Practice text already in the selected language needs no translation.
         // Hold always reveals the exact authored original, never a model paraphrase.
         if input == pair.target {

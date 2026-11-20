@@ -64,6 +64,21 @@ import VipiCore
         XCTAssertEqual(try vault.transaction{try vault.ids("introduced-word").count},0)
         XCTAssertEqual(try vault.transaction{try vault.ids("message-word-plan").count},0); delayed.close()
     }
+    func testAmbiguousShortLatinKeepsChosenSourceWithActualNativeDetection() async throws {
+        let text = "Water, water!"
+        let detected = try await MessageLanguage().identify(text)
+        let note = XCTAttachment(string:"Native NLLanguageRecognizer for synthetic English input: "+(detected ?? "unidentified")); note.name = "short-ambiguous-native-detection"; note.lifetime = .keepAlways; add(note)
+        var directions:[TranslationPair] = []
+        let owner = ConversationImmersion(modelStatus:{_ in .installed},nativeTranslation:{_,pair in directions.append(pair); return "agua, agua!"})
+        await owner.configure(pair:pair,mode:.fullMessages)
+        let value = await owner.translatedMessage(for:owner.identity(messageID:"short-ambiguous",text:text))
+        XCTAssertEqual(value?.practiceText,"agua, agua!"); XCTAssertEqual(value?.meaningText,text); XCTAssertEqual(directions,[pair]); owner.close()
+        // Deterministically exercise the advisory third-language branch as well.
+        let controlled = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in "nl"},nativeTranslation:{_,direction in XCTAssertEqual(direction,self.pair); return "agua, agua!"})
+        await controlled.configure(pair:pair,mode:.fullMessages)
+        let result = await controlled.translatedMessage(for:controlled.identity(messageID:"shared-latin",text:text))
+        XCTAssertEqual(result?.practiceText,"agua, agua!"); controlled.close()
+    }
     func testStableMessageIDSeedCoversEveryEligiblePositionAndPreservesContentPriority() async throws {
         let text = "water bread coffee"
         var seen = Set<String>()
