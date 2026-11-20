@@ -792,6 +792,12 @@ final class ChatConversationTests: XCTestCase {
 /// Real app routing and controls; only auth exchange and server are local. The
 /// test never supplies a session/profile/message directly to the app model.
 @MainActor final class FirstMonthRootTests: XCTestCase {
+    func testPolishedFriendChatKeepsViewportAndHasAccessibleOneTapModeAndStates() throws {
+        try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true)
+    }
+    func testReplyNotificationNativeOptInPreservesKeyboard() throws {
+        try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true,notificationOptIn:true)
+    }
     func testVisibleImmersionPickerReversesFullAndIncrementalInOrdinaryFriendChat() throws {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true)
     }
@@ -1506,6 +1512,9 @@ final class ChatConversationTests: XCTestCase {
     func testFullMessageSettingsInviteAtStandardType() throws {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,settingsInvite:true)
     }
+    func testFullMessageSettingsInviteAtNight() throws {
+        try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,settingsInvite:true)
+    }
     func testFullMessageSettingsInviteAtLargestType() throws {
         try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,settingsInvite:true)
     }
@@ -2062,7 +2071,98 @@ final class ChatConversationTests: XCTestCase {
         try capture("marketing-coffee-03-practice-script")
     }
 
-    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false,securityReview:Bool = false,immersionModes:Bool = false) throws {
+    private func checkPolishedChatModes(in app:XCUIApplication,evidence:@escaping()->[String:Any]) throws {
+        let picker = app.buttons["chat-immersion-picker"],practice = app.descendants(matching:.any).matching(identifier:"immersionText")
+        XCTAssertTrue(picker.exists && picker.isHittable)
+        let ids = Set(evidence()["ids"] as? [String] ?? [])
+        picker.tap()
+        XCTAssertEqual(picker.value as? String,"Full messages")
+        let ready = practice.matching(NSPredicate(format:"label CONTAINS %@","hé")).firstMatch
+        XCTAssertTrue(ready.waitForExistence(timeout:15))
+        func visible(_ label:String) -> XCUIElement? {
+            practice.matching(NSPredicate(format:"label == %@",label)).allElementsBoundByIndex.first{$0.isHittable}
+        }
+        let target = try XCTUnwrap(practice.matching(NSPredicate(format:"label CONTAINS %@","hé")).allElementsBoundByIndex.first{$0.isHittable})
+        target.doubleTap()
+        XCTAssertTrue(practice.matching(NSPredicate(format:"label == %@","水和面包")).firstMatch.waitForExistence(timeout:8))
+        let native = XCTAttachment(screenshot:app.screenshot()); native.name = "chat-polish-visible-full-mode-native-script"; native.lifetime = .keepAlways; add(native)
+        try XCTUnwrap(visible("水和面包")).press(forDuration:0.8)
+        XCTAssertTrue(practice.matching(NSPredicate(format:"label == %@","水和面包")).firstMatch.waitForExistence(timeout:5))
+        picker.tap()
+        XCTAssertEqual(picker.value as? String,"One new word at a time")
+        XCTAssertTrue(practice.matching(NSPredicate(format:"label == %@","水 and 面包")).firstMatch.waitForExistence(timeout:12))
+        try XCTUnwrap(visible("水 and 面包")).doubleTap()
+        XCTAssertTrue(practice.matching(NSPredicate(format:"label == %@","shuǐ and miàn bāo")).firstMatch.waitForExistence(timeout:5))
+        XCTAssertEqual(Set(evidence()["ids"] as? [String] ?? []),ids)
+        let restored = XCTAttachment(screenshot:app.screenshot()); restored.name = "chat-polish-one-tap-restores-word-plans"; restored.lifetime = .keepAlways; add(restored)
+    }
+
+    private func checkPolishedChatViewport(in app:XCUIApplication,evidence:@escaping()->[String:Any]) throws {
+        let timeline = app.scrollViews["conversation-timeline"]
+        let input = app.descendants(matching:.any).matching(identifier:"message-input").firstMatch
+        let typing = app.descendants(matching:.any).matching(identifier:"peer-typing-indicator").firstMatch
+        XCTAssertFalse(typing.exists,"A newly committed incoming reply must clear transient peer typing")
+        func capture(_ name:String) {
+            let identity = app.descendants(matching:.any).matching(identifier:"conversation-contact-identity").firstMatch
+            XCTAssertTrue(identity.exists);XCTAssertTrue(identity.label.contains("Alex"))
+            XCTAssertGreaterThan(identity.frame.intersection(app.navigationBars.firstMatch.frame).width,30)
+            let tree = XCTAttachment(string:app.debugDescription);tree.name = name+"-native-tree";tree.lifetime = .keepAlways;add(tree)
+            let shot = XCTAttachment(screenshot:app.screenshot()); shot.name = name; shot.lifetime = .keepAlways; add(shot)
+            let json = XCTAttachment(data:(try? JSONSerialization.data(withJSONObject:evidence(),options:.sortedKeys)) ?? Data(),uniformTypeIdentifier:"public.json")
+            json.name = name+"-proof"; json.lifetime = .keepAlways; add(json)
+        }
+        capture("chat-polish-read-tint-and-compact-contact")
+        let origin = app.coordinate(withNormalizedOffset:.zero)
+        // Drag through the measured chat field, away from the editor and toolbar.
+        let bar = app.navigationBars["Alex"]
+        let visible = try XCTUnwrap(evidence()["current_message_viewport"] as? [String:Double])
+        let viewportY = CGFloat(try XCTUnwrap(visible["y"])),viewportHeight = CGFloat(try XCTUnwrap(visible["height"]))
+        let top = max(bar.frame.maxY+24,viewportY+24)
+        let bottom = min(input.frame.minY-24,viewportY+viewportHeight-24)
+        XCTAssertGreaterThan(bottom-top,100)
+        origin.withOffset(CGVector(dx:app.frame.midX,dy:top)).press(forDuration:0.05,
+            thenDragTo:origin.withOffset(CGVector(dx:app.frame.midX,dy:bottom)),withVelocity:.slow,thenHoldForDuration:0)
+        let jump = app.buttons["conversation-latest"]
+        XCTAssertTrue(jump.waitForExistence(timeout:8)); capture("chat-polish-upthread-before-own-send")
+        input.tap(); input.typeText("Local send from older messages.")
+        XCTAssertTrue(app.keyboards.firstMatch.exists)
+        app.buttons["message-send"].tap()
+        let sent = app.descendants(matching:.any).matching(identifier:"immersionText").matching(NSPredicate(format:"label == %@","Local send from older messages.")).firstMatch
+        XCTAssertTrue(sent.waitForExistence(timeout:15))
+        XCTAssertTrue(sent.frame.maxY <= input.frame.minY+1 && sent.frame.minY >= bar.frame.maxY)
+        let settled = XCTNSPredicateExpectation(predicate:NSPredicate { _,_ in
+            let value = evidence(),texts = value["texts"] as? [String] ?? [],ids = value["ids"] as? [String] ?? []
+            guard let index = texts.firstIndex(of:"Local send from older messages."),ids.indices.contains(index),
+                  let records = value["full_message_geometry"] as? [[String:Any]],
+                  let frame = records.last(where:{ ($0["message_id"] as? String)?.lowercased() == ids[index].lowercased() && $0["event"] as? String == "full_message_row_geometry" })?["frame"] as? [String:Double],
+                  let viewport = value["current_message_viewport"] as? [String:Double],
+                  let y = frame["y"],let h = frame["height"],let vy = viewport["y"],let vh = viewport["height"] else { return false }
+            return y >= vy && y+h <= vy+vh-8
+        },object:nil)
+        XCTAssertEqual(XCTWaiter.wait(for:[settled],timeout:8),.completed,"The entire newly sent row, including timestamp and state, must clear the measured composer")
+        XCTAssertFalse(jump.exists,"A genuine own send follows the measured latest row")
+        XCTAssertFalse(app.buttons["reply-notification-defer"].exists,"Not now is durable and new sends never repeat it")
+        capture("chat-polish-own-send-follows-with-keyboard")
+        // The fixture peer queued one new real Signal envelope on that send.
+        // Load it while upthread without changing the user's scroll intent.
+        origin.withOffset(CGVector(dx:app.frame.midX,dy:top)).press(forDuration:0.05,
+            thenDragTo:origin.withOffset(CGVector(dx:app.frame.midX,dy:bottom)),withVelocity:.slow,thenHoldForDuration:0)
+        XCTAssertTrue(jump.waitForExistence(timeout:8))
+        XCUIDevice.shared.press(.home); app.activate()
+        let arrived = XCTNSPredicateExpectation(predicate:NSPredicate { _,_ in (evidence()["receipts"] as? Int ?? 0) == 29 },object:nil)
+        XCTAssertEqual(XCTWaiter.wait(for:[arrived],timeout:15),.completed)
+        XCTAssertTrue(jump.exists,"Receiving while upthread must preserve reading intent")
+        capture("chat-polish-new-messages-jump-without-scroll-theft")
+        jump.tap(); XCTAssertFalse(jump.exists)
+        capture("chat-polish-explicit-jump-to-latest")
+    }
+
+    func testNativeInboxNightHasReadableOriginalPreviewsAndUnread() throws { try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,inboxReview:"populated") }
+    func testPolishedFriendNightKeepsWholeSendAndModeWithKeyboard() throws { try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true) }
+    func testNativeInboxEmptyHasOneActionAndProfile() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"empty") }
+    func testNativeInboxRealisticRowsNavigateAndClearLocalUnread() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"populated") }
+    func testNativeInboxLargestTextKeepsNamesAndDatesReadable() throws { try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,inboxReview:"populated") }
+    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false,securityReview:Bool = false,immersionModes:Bool = false,chatPolish:Bool = false,notificationOptIn:Bool = false,inboxReview:String? = nil) throws {
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated first-month root only") }
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -2126,6 +2226,8 @@ final class ChatConversationTests: XCTestCase {
         if draftBoundary { arguments += ["-vipi-draft-boundary-root-qa"] }
         if invitation { arguments += ["-vipi-invitation-root-qa","-vipi-incremental-invitation-qa"] }
         if immersionModes { arguments += ["-vipi-immersion-mode-qa"] }
+        if chatPolish { arguments += ["-vipi-chat-polish-qa"] }
+        if inboxReview == "populated" { arguments += ["-vipi-inbox-populated-qa"] }
         if marketing {
             XCTAssertTrue(fullTranslation && reading == "en-zh" && !largest && !dark && !copyOriginal && !settingsInvite && !cueLifecycle && !pendingPair)
             arguments += ["-vipi-marketing-root-qa"]
@@ -2351,6 +2453,8 @@ final class ChatConversationTests: XCTestCase {
             _ = observe("invitation-retained-at-welcome-before-auth") { $0["invitation_username"] as? String == "alex" && $0["friend_username_lookups"] as? Int == 0 }
         }
         let start = app.buttons["Choose languages"]
+        XCTAssertTrue(start.waitForExistence(timeout:10))
+        let brand = XCTAttachment(screenshot:app.screenshot());brand.name = "native-approved-wordmark-onboarding-"+(dark ? "dark":"light");brand.lifetime = .keepAlways;add(brand)
         reveal(start); start.tap()
         let speaking = app.buttons["I speak"]
         XCTAssertTrue(speaking.waitForExistence(timeout: 10)); reveal(speaking); speaking.tap()
@@ -2422,6 +2526,37 @@ final class ChatConversationTests: XCTestCase {
                 $0["pending_auth"] as? Bool == false && $0["session"] as? Bool == true &&
                 $0["purchase_ready"] as? Bool == false && $0["trial_started"] as? String == ""
         }
+        if let inboxReview {
+            XCTAssertTrue(app.navigationBars["Chats"].exists)
+            XCTAssertFalse(app.buttons["Notify me when friends reply"].exists)
+            XCTAssertTrue(app.buttons["Your profile and settings"].exists)
+            if inboxReview == "empty" {
+                XCTAssertTrue(app.buttons["home-start-conversation"].waitForExistence(timeout:5))
+                XCTAssertEqual(app.buttons.matching(NSPredicate(format:"label == 'New chat'")).count,1)
+                XCTAssertFalse(app.staticTexts["Find a friend by username."].exists)
+                let image = XCTAttachment(screenshot:app.screenshot()); image.name = "native-inbox-empty-one-action"; image.lifetime = .keepAlways; add(image)
+                app.buttons["home-start-conversation"].tap()
+                XCTAssertTrue(app.textFields["Friend’s username"].waitForExistence(timeout:5))
+                XCTAssertTrue(app.buttons["new-chat-invite-friend"].exists)
+                let find = XCTAttachment(screenshot:app.screenshot());find.name = "native-first-friend-exact-username-and-private-invite";find.lifetime = .keepAlways;add(find)
+                app.buttons["Cancel"].tap();XCTAssertTrue(app.navigationBars["Chats"].exists)
+            } else {
+                let row = app.descendants(matching:.any).matching(NSPredicate(format:"identifier BEGINSWITH 'chat-thread-' AND label CONTAINS 'Maya Johnson'")).firstMatch
+                XCTAssertTrue(row.waitForExistence(timeout:8)); XCTAssertTrue(row.label.contains("See you at the café")); XCTAssertTrue(row.label.contains("1 unread message"))
+                let image = XCTAttachment(screenshot:app.screenshot()); image.name = largest ? "native-inbox-largest-type":"native-inbox-populated"; image.lifetime = .keepAlways; add(image)
+                XCTAssertTrue(row.isHittable); row.tap()
+                XCTAssertTrue(app.descendants(matching:.any).matching(identifier:"message-input").firstMatch.waitForExistence(timeout:8))
+                let imported = observe("inbox-imported-messages-never-send-receipts") { value in
+                    (value["inbox_rows"] as? [[String:Any]])?.contains(where:{$0["name"] as? String == "Maya Johnson" && $0["text"] as? String == "See you at the café at ten ☕" && $0["state"] as? String == "imported" && $0["unread"] as? Int == 0}) == true
+                }
+                XCTAssertTrue(app.descendants(matching:.any).matching(identifier:"immersionText").matching(NSPredicate(format:"label CONTAINS %@","See you at the café")).firstMatch.waitForExistence(timeout:8))
+                XCTAssertEqual(imported["visible_receipt_requests"] as? Int ?? 0,0)
+                app.navigationBars.buttons["BackButton"].firstMatch.tap()
+                XCTAssertTrue(app.navigationBars["Chats"].waitForExistence(timeout:5)); XCTAssertFalse(row.label.contains("unread message"))
+                let restored = XCTAttachment(screenshot:app.screenshot()); restored.name = "native-inbox-conversation-back-local-read"; restored.lifetime = .keepAlways; add(restored)
+            }
+            return
+        }
         if invitation {
             let friend = app.textFields["Friend’s username"]
             XCTAssertTrue(friend.waitForExistence(timeout:10)); XCTAssertEqual(friend.value as? String,"alex")
@@ -2464,12 +2599,58 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(send.isEnabled && send.isHittable)
             send.tap()
             _ = observe("peer-decrypted-original") { $0["peer_decryptions"] as? Int == 1 }
+            if chatPolish {
+                let typing = app.descendants(matching:.any).matching(identifier:"peer-typing-indicator").firstMatch
+                XCTAssertTrue(typing.waitForExistence(timeout:5),"Explicit supplied peer event must reach actual production chat UI")
+                let readMark = app.descendants(matching:.any).matching(identifier:"message-state-read").firstMatch
+                XCTAssertTrue(readMark.waitForExistence(timeout:8))
+                let shot = XCTAttachment(screenshot:app.screenshot()); shot.name = "chat-polish-scripted-peer-typing-and-confirmed-read"; shot.lifetime = .keepAlways; add(shot)
+                XCTAssertTrue(app.otherElements["conversation-contact-identity"].exists || app.descendants(matching:.any).matching(identifier:"conversation-contact-identity").firstMatch.exists)
+            }
+            if notificationOptIn {
+                guard proof()["notifications_authorization"] as? Int == 0 else {
+                    throw XCTSkip("Preserve the owned simulator's existing system permission; a native first opt-in requires notDetermined")
+                }
+                let enable = app.buttons["reply-notification-enable"]
+                XCTAssertTrue(enable.waitForExistence(timeout:5)); XCTAssertTrue(app.keyboards.firstMatch.exists)
+                enable.tap()
+                let springboard = XCUIApplication(bundleIdentifier:"com.apple.springboard")
+                let alert = springboard.alerts.firstMatch
+                XCTAssertTrue(alert.waitForExistence(timeout:8))
+                XCTAssertTrue(alert.label.contains("Vipi") || alert.staticTexts.matching(NSPredicate(format:"label CONTAINS %@","Vipi")).firstMatch.exists)
+                let native = XCTAttachment(screenshot:XCUIScreen.main.screenshot()); native.name = "reply-notification-actual-native-opt-in"; native.lifetime = .keepAlways; add(native)
+                let allow = alert.buttons["Allow"]; XCTAssertTrue(allow.exists); allow.tap()
+                _ = observe("notification-system-authorized-after-deliberate-opt-in") { $0["notifications_authorization"] as? Int == 2 }
+                XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout:8))
+                let restored = XCTAttachment(screenshot:app.screenshot()); restored.name = "reply-notification-authorized-keyboard-retained"; restored.lifetime = .keepAlways; add(restored)
+                return
+            }
+            if chatPolish {
+                let authorization = try XCTUnwrap(proof()["notifications_authorization"] as? Int)
+                if authorization == 0 || authorization == 1 {
+                    XCTAssertTrue(app.buttons["reply-notification-defer"].waitForExistence(timeout:5))
+                    let offer = app.descendants(matching:.any).matching(identifier:"reply-notification-invitation").firstMatch
+                    XCTAssertTrue(offer.frame.maxY <= input.frame.minY+1)
+                } else { XCTAssertFalse(app.buttons["reply-notification-defer"].exists) }
+            }
+            if app.buttons["reply-notification-defer"].waitForExistence(timeout:2) {
+                XCTAssertTrue(app.keyboards.firstMatch.exists)
+                let contextual = XCTAttachment(screenshot:app.screenshot()); contextual.name = "contextual-reply-notification-before-native-request"; contextual.lifetime = .keepAlways; add(contextual)
+                app.buttons["reply-notification-defer"].tap()
+                XCTAssertFalse(app.otherElements["reply-notification-invitation"].exists)
+                XCTAssertTrue(app.keyboards.firstMatch.exists)
+            }
             XCUIDevice.shared.press(.home)
             app.activate()
             _ = observe("peer-reply-durably-received") {
-                $0["receipts"] as? Int == 1 && Set($0["texts"] as? [String] ?? []) == ["Water, water!", "water and bread"]
+                $0["receipts"] as? Int == (chatPolish ? 28:1) && Set($0["texts"] as? [String] ?? []) == ["Water, water!", "water and bread"]
             }
             try assertVisibleComposerPrompt()
+            if chatPolish {
+                try checkPolishedChatModes(in:app,evidence:proof)
+                try checkPolishedChatViewport(in:app,evidence:proof)
+                return
+            }
             let practice = app.descendants(matching:.any).matching(identifier:"immersionText")
             func visible(_ text:String) -> XCUIElement {
                 practice.matching(NSPredicate(format:"label == %@",text)).firstMatch
@@ -2499,7 +2680,7 @@ final class ChatConversationTests: XCTestCase {
             if immersionModes {
                 let picker = app.buttons["chat-immersion-picker"]
                 XCTAssertTrue(picker.exists && picker.isHittable)
-                picker.tap(); app.buttons["Full messages"].tap()
+                picker.tap()
                 XCTAssertTrue(visible("水和面包").waitForExistence(timeout:15))
                 XCTAssertTrue(visible("水，水！").waitForExistence(timeout:15))
                 let full = XCTAttachment(screenshot:app.screenshot()); full.name = "ordinary-chat-full-messages-native-script"; full.lifetime = .keepAlways; add(full)
@@ -2512,11 +2693,12 @@ final class ChatConversationTests: XCTestCase {
                     guard let last = evidence["speech_last_input"] as? [String:Any],let inputs = last["inputs"] as? [[String:Any]] else { return false }
                     return inputs.count == 1 && inputs.first?["sha256"] as? String == digest("水和面包")
                 }
-                picker.tap(); app.buttons["One new word at a time"].tap()
+                picker.tap()
                 XCTAssertTrue(visible("shuǐ and miàn bāo").waitForExistence(timeout:15))
                 XCTAssertTrue(visible("shuǐ, shuǐ!").waitForExistence(timeout:15))
                 _ = observe("mode-toggle-keeps-exact-chat-originals") { Set($0["texts"] as? [String] ?? []) == ["Water, water!","water and bread"] }
                 let restored = XCTAttachment(screenshot:app.screenshot()); restored.name = "ordinary-chat-restored-incremental-plan"; restored.lifetime = .keepAlways; add(restored)
+                if chatPolish { try checkPolishedChatViewport(in:app,evidence:proof) }
                 return
             }
             visible("水 and 面包").tap()
@@ -3502,5 +3684,99 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertEqual(proof()["old_calls"] as? Int,1); XCTAssertEqual(proof()["new_calls"] as? Int,1)
         XCTAssertFalse(app.staticTexts["Original account message."].exists); XCTAssertFalse(app.staticTexts["Resultado anterior del mensaje."].exists)
         try capture("late-old-account-completion-rejected")
+    }
+}
+
+/// Independently authenticated loopback accounts, production HTTP/Signal/vault
+/// and the actual Home/Friend viewport. No scripted receipt response is used.
+@MainActor final class NativeVisibleReadTests:XCTestCase {
+    func testActualVisibleReplyBecomesReadWhileNewUpthreadReplyRemainsUnread() throws {
+        guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Explicit fresh local read setup required") }
+        continueAfterFailure = false
+        let app = XCUIApplication();app.launchArguments = ["-vipi-real-visible-read-qa","-vipi-appearance-light"]
+        launchPortraitApp(app)
+        addTeardownBlock { @MainActor in
+            let shot = XCTAttachment(screenshot:app.screenshot());shot.name = "real-visible-read-before-cleanup";shot.lifetime = .keepAlways;self.add(shot)
+            let tree = XCTAttachment(string:app.debugDescription);tree.name = "real-visible-read-tree";tree.lifetime = .keepAlways;self.add(tree)
+            app.terminate();app.launchArguments = ["-vipi-real-visible-read-qa","-vipi-real-visible-read-cleanup"]
+            app.launch();XCTAssertTrue(app.staticTexts["native-read-cleaned"].waitForExistence(timeout:10));app.terminate()
+        }
+        func proof()->[String:Any] {
+            let prefix = "native-read-proof|",element = app.descendants(matching:.any).matching(NSPredicate(format:"identifier BEGINSWITH %@",prefix)).firstMatch
+            guard element.exists,let bytes = String(element.identifier.dropFirst(prefix.count)).data(using:.utf8) else { return [:] }
+            return (try? JSONSerialization.jsonObject(with:bytes) as? [String:Any]) ?? [:]
+        }
+        func wait(_ name:String,_ body:@escaping()->Bool) {
+            XCTAssertEqual(XCTWaiter.wait(for:[XCTNSPredicateExpectation(predicate:NSPredicate{_,_ in body()},object:nil)],timeout:20),.completed,name)
+        }
+        func capture(_ name:String) {
+            let image = XCTAttachment(screenshot:app.screenshot());image.name = name;image.lifetime = .keepAlways;add(image)
+            let item = XCTAttachment(data:(try? JSONSerialization.data(withJSONObject:proof(),options:.sortedKeys)) ?? Data(),uniformTypeIdentifier:"public.json");item.name = name+"-proof";item.lifetime = .keepAlways;add(item)
+        }
+        wait("Fresh independently authenticated peers are ready") { proof()["phase"] as? String == "ready" }
+        XCTAssertEqual(proof()["error"] as? String,"");XCTAssertEqual(proof()["read"] as? [String],[])
+        XCTAssertEqual((proof()["outgoing"] as? [String])?.count,1)
+        capture("real-read-inbox-does-not-imply-remote-view")
+        let thread = app.descendants(matching:.any).matching(NSPredicate(format:"identifier BEGINSWITH 'chat-thread-' AND label CONTAINS 'Reachable Local Peer'")).firstMatch
+        XCTAssertTrue(thread.waitForExistence(timeout:10));thread.tap()
+        let input = app.descendants(matching:.any).matching(identifier:"message-input").firstMatch
+        XCTAssertTrue(input.waitForExistence(timeout:10))
+        let firstID = try XCTUnwrap((proof()["outgoing"] as? [String])?.first)
+        let first = app.descendants(matching:.any).matching(identifier:"message-meta-"+firstID.uppercased()).firstMatch
+        XCTAssertTrue(first.waitForExistence(timeout:15));XCTAssertTrue(first.isHittable)
+        app.buttons["native-read-probe"].tap()
+        wait("Actually visible incoming reply advances normal backend read state") { (proof()["read"] as? [String])?.count == 1 }
+        capture("real-read-actual-visible-reply-acknowledged")
+        app.buttons["native-read-backlog"].tap()
+        wait("Backlog arrived through real Signal and backend") { (proof()["outgoing"] as? [String])?.count == 25 }
+        input.tap();XCTAssertTrue(app.keyboards.firstMatch.waitForExistence(timeout:8))
+        let bar = app.navigationBars.firstMatch,origin = app.coordinate(withNormalizedOffset:.zero)
+        let top = bar.frame.maxY+30,bottom = input.frame.minY-30
+        XCTAssertGreaterThan(bottom-top,100)
+        origin.withOffset(CGVector(dx:app.frame.midX,dy:top)).press(forDuration:0.05,thenDragTo:origin.withOffset(CGVector(dx:app.frame.midX,dy:bottom)),withVelocity:.slow,thenHoldForDuration:0)
+        let jump = app.buttons["conversation-latest"];XCTAssertTrue(jump.waitForExistence(timeout:8))
+        app.buttons["native-read-new"].tap()
+        wait("Fresh reply has actually arrived while reading upthread") { !(proof()["hidden_id"] as? String ?? "").isEmpty }
+        XCTAssertTrue(jump.exists,"Receiving cannot steal the reader's position")
+        let hidden = try XCTUnwrap(proof()["hidden_id"] as? String)
+        app.buttons["native-read-probe"].tap()
+        wait("Normal backend check contains the new encrypted reply") { (proof()["outgoing"] as? [String])?.contains(hidden) == true }
+        XCTAssertFalse((proof()["read"] as? [String] ?? []).contains(hidden),"The clipped new reply must remain unread")
+        capture("real-read-clipped-upthread-reply-remains-unread-with-keyboard")
+        jump.tap()
+        let latest = app.descendants(matching:.any).matching(identifier:"message-meta-"+hidden.uppercased()).firstMatch
+        XCTAssertTrue(latest.waitForExistence(timeout:8));XCTAssertTrue(latest.isHittable)
+        app.buttons["native-read-probe"].tap()
+        wait("Deliberate jump exposes reply and advances actual backend state") { (proof()["read"] as? [String])?.contains(hidden) == true }
+        capture("real-read-deliberate-jump-advances-same-reply")
+    }
+}
+
+@MainActor final class NativeBrandScaleTests:XCTestCase {
+    func testStockHomeAndOwnedLauncherIconWithoutMovingIcons() throws {
+        guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned simulator brand capture only") }
+        continueAfterFailure = false
+        let app = XCUIApplication();app.launchArguments = ["-vipi-welcome","-vipi-appearance-light"]
+        launchPortraitApp(app);defer { app.terminate() }
+        XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout:15))
+        XCUIDevice.shared.press(.home)
+        let board = XCUIApplication(bundleIdentifier:"com.apple.springboard")
+        let photos = board.icons["Photos"].firstMatch
+        for _ in 0..<4 { if photos.exists && photos.isHittable { break };board.swipeRight() }
+        XCTAssertTrue(photos.exists && photos.isHittable)
+        func capture(_ name:String) {
+            let image = XCTAttachment(screenshot:XCUIScreen.main.screenshot());image.name = name;image.lifetime = .keepAlways;add(image)
+        }
+        capture("native-stock-first-springboard-page-no-icon-moves")
+        let icon = board.icons["Vipi QA"].firstMatch
+        for _ in 0..<5 { if icon.exists && icon.isHittable { break };board.swipeLeft() }
+        XCTAssertTrue(icon.exists && icon.isHittable)
+        capture("native-approved-wordmark-qa-icon-among-stock-apps")
+        let value:[String:Any] = ["viewport_points":["x":board.frame.minX,"y":board.frame.minY,"width":board.frame.width,"height":board.frame.height],
+            "icon_accessibility_frame_points":["x":icon.frame.minX,"y":icon.frame.minY,"width":icon.frame.width,"height":icon.frame.height],
+            "no_icon_move":true,"no_uninstall":true,"owner_device":false,"qa_label":"Vipi QA"]
+        let proof = XCTAttachment(data:try JSONSerialization.data(withJSONObject:value,options:.sortedKeys),uniformTypeIdentifier:"public.json");proof.name = "native-launcher-stock-context-bounds";proof.lifetime = .keepAlways;add(proof)
+        app.activate();XCTAssertTrue(app.buttons["Choose languages"].waitForExistence(timeout:8))
+        capture("native-approved-wordmark-onboarding-at-native-scale")
     }
 }

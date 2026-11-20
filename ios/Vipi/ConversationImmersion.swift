@@ -831,6 +831,7 @@ struct ConversationImmersionText: View {
     var playback: ChatAutoplay? = nil
     var accessibilityMessageContext: String? = nil
     @Environment(AppState.self) private var state
+    @Environment(\.vipiOutgoingMessage) private var outgoingMessage
     @Environment(\.scenePhase) private var scenePhase
     @State private var frame = CGRect.zero
     @State private var retainedIdentity: ImmersionRequestIdentity?
@@ -876,7 +877,7 @@ struct ConversationImmersionText: View {
                     onReport:onReport,reading:state.chatReading,identity:identity,incremental:value.words != nil)
                 if let failure = playback?.failure(for:id) {
                     Button { state.chatReading.activate(identity) } label: {
-                        Text(failure).font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                        Text(failure).font(.subheadline).foregroundStyle(VipiDesign.messageSecondary(outgoingMessage))
                             .fixedSize(horizontal:false,vertical:true).frame(minHeight:44,alignment:.leading).contentShape(Rectangle())
                     }.buttonStyle(.plain).padding(.horizontal,15).accessibilityIdentifier("message-playback-retry")
                 }
@@ -888,7 +889,7 @@ struct ConversationImmersionText: View {
                         Button { state.chatReading.activate(identity) } label: {
                             Text(failureText).font(.subheadline).fixedSize(horizontal:false,vertical:true)
                                 .frame(minHeight:44,alignment:.leading).contentShape(Rectangle())
-                        }.buttonStyle(.plain).foregroundStyle(VipiDesign.secondary)
+                        }.buttonStyle(.plain).foregroundStyle(VipiDesign.messageSecondary(outgoingMessage))
                             .accessibilityIdentifier("message-translation-retry")
                     }
                     metadata

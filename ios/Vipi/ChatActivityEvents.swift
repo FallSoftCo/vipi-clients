@@ -84,12 +84,17 @@ private actor ChatReadLedger {
     private let receipts: (UUID, [UUID], [UUID]) async throws -> ChatReadReply
     private let changed: () -> Void
     private var remote: [UUID: Task<Void,Never>] = [:]
-    private var currentPeer: UUID?
-    private var seen: [UUID] = [], checking: [UUID] = []
-    private var typingPeer: UUID?, activeAt = Date.distantPast
-    private var idle: Task<Void,Never>?, sender: Task<Void,Never>?, worker: Task<Void,Never>?
-    private var typing: [UUID:Bool] = [:]
-    private var dirty = false, closed = false
+    @ObservationIgnored private var currentPeer: UUID?
+    @ObservationIgnored private var seen: [UUID] = []
+    @ObservationIgnored private var checking: [UUID] = []
+    @ObservationIgnored private var typingPeer: UUID?
+    @ObservationIgnored private var activeAt = Date.distantPast
+    @ObservationIgnored private var idle: Task<Void,Never>?
+    @ObservationIgnored private var sender: Task<Void,Never>?
+    @ObservationIgnored private var worker: Task<Void,Never>?
+    @ObservationIgnored private var typing: [UUID:Bool] = [:]
+    @ObservationIgnored private var dirty = false
+    @ObservationIgnored private var closed = false
     init(vault: MessageVault, eligible: @escaping (UUID) -> Bool,
          sendTyping: @escaping (UUID,Bool) async throws -> Void,
          receipts: @escaping (UUID,[UUID],[UUID]) async throws -> ChatReadReply, changed: @escaping () -> Void) {

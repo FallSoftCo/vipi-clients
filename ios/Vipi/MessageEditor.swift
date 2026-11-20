@@ -51,8 +51,8 @@ struct NativeMessageEditor: UIViewRepresentable {
     func updateUIView(_ view: DraftTextView, context: Context) {
         context.coordinator.parent = self
         view.font = .preferredFont(forTextStyle: .body)
-        view.textColor = .label
-        view.tintColor = UIColor(VipiDesign.highlight)
+        view.textColor = VipiPalette.uiColor(.ink)
+        view.tintColor = VipiPalette.uiColor(.focus)
         view.accessibilityLabel = placeholder
         view.isEditable = enabled
         if view.text != text, view.markedTextRange == nil {

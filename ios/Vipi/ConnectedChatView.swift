@@ -180,6 +180,19 @@ struct FriendConversationView: View {
     @State private var copyOriginal = CopyOriginalContext(editorID:"message-input")
     @State private var chosenReportMessage: ChatItem?
     @State private var followingLatest = true
+    @State private var conversationActive = false
+    @State private var unseenIncoming = Set<UUID>()
+    @State private var messageFrames:[UUID:CGRect] = [:]
+    @State private var timelineFrame = CGRect.zero
+    @State private var composerFrame = CGRect.zero
+    @State private var viewportTopInset:CGFloat = 0
+    @State private var viewportContainerHeight:CGFloat = 0
+    @State private var reportedIncoming = Set<UUID>()
+    @State private var reportedOutgoing = Set<UUID>()
+    @State private var notificationInvitation = false
+    @State private var notificationTask:Task<Void,Never>?
+    @State private var restoreNotificationFocus = false
+    @Environment(\.openURL) private var openURL
     @State private var scrolling = false
     @State private var userScrolling = false
     @State private var position = ScrollPosition(idType: UUID.self, edge: .bottom)
@@ -198,6 +211,65 @@ struct FriendConversationView: View {
     @State private var textSizeAnchorID: UUID?
     @State private var textSizeAnchorFrame = CGRect.zero
     private var blocked: Bool { chat.blockedPeers.contains(peer) }
+    private var canReportVisible:Bool {
+        conversationActive && scenePhase == .active && !copyOriginal.presented && !showSecurityNumber && !showVoiceHelp && !showTranslationHelp && !showMessageStatus && !choosingReport && reporting == nil && !confirmBlock
+    }
+    private var visibleTimeline:CGRect {
+        ChatMessageVisibility.viewport(frame:timelineFrame,containerHeight:viewportContainerHeight,
+            topInset:viewportTopInset,bottomInset:viewportBottomInset,composer:composerFrame)
+    }
+    private func reportVisibleMessages() {
+        #if DEBUG
+        LiveImmersionQualification.recordCurrentMessageViewport(visibleTimeline)
+        #endif
+        var incoming = Set<UUID>(),outgoing = Set<UUID>()
+        if canReportVisible {
+            let viewport = visibleTimeline
+            for item in messages where item.state != "imported" {
+                guard let frame = messageFrames[item.id],frame.height > 0 else { continue }
+                guard ChatMessageVisibility.containsReadableMessage(frame,in:viewport) else { continue }
+                if item.outgoing { outgoing.insert(item.id) } else { incoming.insert(item.id) }
+            }
+        }
+        guard incoming != reportedIncoming || outgoing != reportedOutgoing else { return }
+        reportedIncoming = incoming; reportedOutgoing = outgoing
+        chat.visibleMessages(peer,incoming:incoming.sorted{$0.uuidString < $1.uuidString},outgoing:outgoing.sorted{$0.uuidString < $1.uuidString})
+        #if DEBUG
+        LiveImmersionQualification.recordFullMessageGeometry(["event":"full_message_visible_geometry","viewport":LiveImmersionQualification.frameFields(visibleTimeline),
+            "incoming":incoming.map{$0.uuidString.lowercased()}.sorted(),"outgoing":outgoing.map{$0.uuidString.lowercased()}.sorted(),"foreground":canReportVisible])
+        #endif
+    }
+    private func clearConversationActivity() {
+        chat.composerActivity(peer,active:false)
+        reportedIncoming.removeAll(); reportedOutgoing.removeAll()
+        chat.visibleMessages(peer,incoming:[],outgoing:[])
+    }
+    private func offerReplyNotificationsAfterSend() {
+        notificationTask?.cancel()
+        notificationTask = Task { @MainActor in
+            await PushNotifications.shared.refresh()
+            guard !Task.isCancelled,conversationActive,scenePhase == .active,chat.claimReplyNotificationInvitation() else { return }
+            let notifications = PushNotifications.shared
+            // An existing grant or an explicit app-level opt-out consumes this
+            // one account invitation quietly; neither gets another solicitation.
+            guard notifications.enabled,notifications.authorization == .notDetermined || notifications.authorization == .denied else { return }
+            notificationInvitation = true
+        }
+    }
+    private func enableReplyNotifications() {
+        let notifications = PushNotifications.shared
+        notificationInvitation = false
+        if notifications.authorization == .denied {
+            if let url = URL(string:UIApplication.openNotificationSettingsURLString) { openURL(url) }
+        } else {
+            restoreNotificationFocus = composing
+            notificationTask = Task { @MainActor in
+                await notifications.enable()
+                guard !Task.isCancelled,conversationActive else { return }
+                if scenePhase == .active,restoreNotificationFocus { composing = true; restoreNotificationFocus = false }
+            }
+        }
+    }
     private var messageNotice: String? {
         let notices = [chat.notice, error].compactMap { $0 }.filter { !$0.isEmpty }
         var distinct: [String] = []
@@ -209,7 +281,9 @@ struct FriendConversationView: View {
     private var editableDraft: Binding<String> { Binding(get: { text }, set: { value in
         guard loaded else { return }
         guard value.utf8.count <= ConversationHistory.maximumDraftBytes else { rejectedDraftEdit = true; return }
+        guard value != text else { return }
         rejectedDraftEdit = false; text = value
+        chat.composerActivity(peer,active:composing && scenePhase == .active && !value.trimmingCharacters(in:.whitespacesAndNewlines).isEmpty)
     }) }
     private var canSend: Bool { loaded && !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && text.utf8.count <= 32768 }
     @State private var composing = false
@@ -234,14 +308,19 @@ struct FriendConversationView: View {
             "viewport_height":Double(viewportHeight), "bottom_inset":Double(viewportBottomInset),
             "following_latest":followingLatest, "scrolling":scrolling])
         #endif
-        scrollVertically(to: latestScrollY)
+        scrollVertically(to:latestScrollY)
     }
     private func refresh() {
         do {
+            let previousIDs = Set(messages.map(\.id))
             let current = try chat.messages(peer), ids = Set(current.map(\.id))
+            if loaded && !followingLatest {
+                unseenIncoming.formUnion(current.filter{!$0.outgoing && $0.state != "imported" && !previousIDs.contains($0.id)}.map(\.id))
+            }
             messages = (current + messages.filter { !ids.contains($0.id) }).sorted { a, b in a.cursor < b.cursor }
             if !loaded { text = try chat.compose(peer); earlierAvailable = current.count == 50; loaded = true }
-            try chat.markRead(peer)
+            if followingLatest && scenePhase == .active { try chat.markRead(peer) }
+            reportVisibleMessages()
         } catch { self.error = String(localized: "Your saved messages couldn’t be opened. Please try again.") }
     }
     private func earlier() {
@@ -281,7 +360,10 @@ struct FriendConversationView: View {
         do {
             cancelPageRestoration()
             try chat.send(text, peer: peer); text = ""; error = nil
-            followingLatest = true; jumpRevision += 1; refresh()
+            chat.composerActivity(peer,active:false)
+            viewportRestore?.cancel(); viewportRestore = nil; textSizeRestore?.cancel(); textSizeRestore = nil; textSizeAnchorID = nil
+            followingLatest = true; unseenIncoming.removeAll(); jumpRevision += 1; refresh()
+            offerReplyNotificationsAfterSend()
             Task { await chat.synchronize() }
         } catch { self.error = ChatSession.explanation(error) }
     }
@@ -338,12 +420,17 @@ struct FriendConversationView: View {
                             VStack(alignment: .leading, spacing: 7) {
                                 ConversationImmersionText(text: item.text, id: item.id.uuidString, immersion: immersion,
                                     speech: speech, paused: scrolling || (composing && !text.isEmpty), metadata: AnyView(
-                                messageMetadata(item).font(.subheadline)
-                                    .fixedSize(horizontal: false, vertical: true).foregroundStyle(VipiDesign.secondary)
+                                messageMetadata(item).font(.caption2)
+                                    .fixedSize(horizontal: false, vertical: true).foregroundStyle(VipiDesign.messageSecondary(item.outgoing))
+                                    .accessibilityElement(children:.contain)
                                     .accessibilityIdentifier("message-meta-" + item.id.uuidString)), onVoiceHelp: { showVoiceHelp = true }, onTranslationSetup: { translationHelpPair = $0; showTranslationHelp = true }, onReport: !item.outgoing && item.state != "imported" ? { reporting = HumanReportSelection(message: item) } : nil,playback:autoplay,accessibilityMessageContext:messageAccessibilityContext(item))
-                            }.background(item.outgoing ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
+                            }.modifier(MessageBubbleSurface(outgoing:item.outgoing))
                             if !item.outgoing { Spacer(minLength: 38) }
                         }.id(item.id)
+                            .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { frame in
+                                messageFrames[item.id] = frame; reportVisibleMessages()
+                            }
+                            .onDisappear { messageFrames.removeValue(forKey:item.id); reportVisibleMessages() }
                             #if DEBUG
                             .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { value in
                                 LiveImmersionQualification.recordFullMessageGeometry(["event":"full_message_row_geometry","message_id":item.id.uuidString,"outgoing":item.outgoing,"frame":LiveImmersionQualification.frameFields(value)])
@@ -355,12 +442,14 @@ struct FriendConversationView: View {
                                 if item.id == textSizeAnchorID { textSizeAnchorFrame = frame }
                             }
                     }
+                    if chat.isPeerTyping(peer),conversationActive { PeerTypingBubble().id("peer-typing") }
                     Color.clear.frame(height: 1).id("bottom")
                 }.scrollTargetLayout().padding(.vertical,18).frame(maxWidth:644).frame(maxWidth:.infinity)
             }.contentMargins(.horizontal,18,for:.scrollContent)
                 .scrollDismissesKeyboard(.interactively)
                 .accessibilityIdentifier("conversation-timeline")
                 .coordinateSpace(name: "conversation-timeline")
+                .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { frame in timelineFrame = frame; reportVisibleMessages() }
                 #if DEBUG
                 .onScrollGeometryChange(for:FullMessageViewportGeometry.self) { FullMessageViewportGeometry($0) } action: { _,value in
                     var fields = value.fields; fields["event"] = "full_message_scroll_geometry"; fields["composing"] = composing
@@ -372,6 +461,19 @@ struct FriendConversationView: View {
                 .onScrollPhaseChange { _, phase in
                     scrolling = phase.isScrolling
                     userScrolling = phase == .interacting || phase == .decelerating
+                    // A lazy row may finish measuring during a programmatic
+                    // scroll. Its height change was intentionally not followed
+                    // while moving; settle that new bottom once motion ends.
+                    if phase == .idle,followingLatest,!copyOriginal.holdingLayout,textSizeRestore == nil,
+                       abs(scrollOffset-latestScrollY) > 0.5 {
+                        viewportRestore?.cancel()
+                        viewportRestore = Task { @MainActor in
+                            do { try await Task.sleep(for:.milliseconds(80)) } catch { return }
+                            guard followingLatest,!scrolling,!copyOriginal.holdingLayout else { return }
+                            scrollToLatest("idle_after_lazy_layout")
+                            viewportRestore = nil
+                        }
+                    }
                     if phase == .tracking || phase == .interacting {
                         cancelPageRestoration()
                         viewportRestore?.cancel(); viewportRestore = nil
@@ -380,7 +482,7 @@ struct FriendConversationView: View {
                     }
                 }
                 .onScrollGeometryChange(for: ConversationViewport.self) { geometry in
-                    ConversationViewport(offset: geometry.visibleRect.minY, height: geometry.visibleRect.height,
+                    ConversationViewport(offset: geometry.visibleRect.minY, height: geometry.visibleRect.height,containerHeight:geometry.containerSize.height,
                                          content: geometry.contentSize.height,
                                          bottomInset: geometry.contentInsets.bottom, topInset: geometry.contentInsets.top,
                                          leadingInset: geometry.contentInsets.leading)
@@ -392,6 +494,8 @@ struct FriendConversationView: View {
                         "composing": composing, "draft_empty": text.isEmpty])
                     #endif
                     viewportHeight = new.height
+                    viewportContainerHeight = new.containerHeight
+                    viewportTopInset = new.topInset
                     viewportBottomInset = new.bottomInset
                     viewportLeadingInset = new.leadingInset
                     scrollOffset = new.offset
@@ -399,7 +503,11 @@ struct FriendConversationView: View {
                     // Only a user's scroll changes reading intent. Lazy row
                     // estimates can briefly look like the bottom during a
                     // keyboard resize, even while reading much older messages.
-                    if userScrolling { followingLatest = new.nearBottom }
+                    if userScrolling {
+                        followingLatest = new.nearBottom
+                        if followingLatest { unseenIncoming.removeAll(); try? chat.markRead(peer) }
+                    }
+                    reportVisibleMessages()
                     // Message changes arrive before lazy rows have their final
                     // heights. Follow the current measured bottom after content
                     // or viewport changes; offset-only changes never reschedule.
@@ -468,12 +576,34 @@ struct FriendConversationView: View {
                         textSizeRestore = nil
                     }
                 }
-                .overlay(alignment: .bottomTrailing) {
-                    if !followingLatest && !messages.isEmpty {
-                        Button { cancelPageRestoration(); followingLatest = true; scrollToLatest("explicit_latest") } label: {
-                            Image(systemName: "arrow.down").font(.body.weight(.semibold)).frame(width: 48, height: 48)
-                        }.buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).buttonBorderShape(.circle).padding(12)
-                            .accessibilityLabel("Jump to latest messages").accessibilityIdentifier("conversation-latest")
+                .overlay {
+                    GeometryReader { proxy in
+                        if !followingLatest && !messages.isEmpty {
+                            VStack {
+                                Spacer(minLength:0)
+                                HStack {
+                                    Spacer(minLength:0)
+                                    Button {
+                                        cancelPageRestoration(); followingLatest = true; unseenIncoming.removeAll(); try? chat.markRead(peer); scrollToLatest("explicit_latest")
+                                    } label: {
+                                        HStack(spacing:6) {
+                                            Image(systemName:"arrow.down").font(.body.weight(.semibold))
+                                            if !unseenIncoming.isEmpty {
+                                                Text("New messages").font(.subheadline.weight(.medium))
+                                                Text(unseenIncoming.count,format:.number).font(.caption.weight(.semibold)).monospacedDigit()
+                                            }
+                                        }.frame(minWidth:24,minHeight:24).padding(12)
+                                    }
+                                    .buttonStyle(.borderedProminent).foregroundStyle(VipiDesign.onHighlight).buttonBorderShape(.capsule)
+                                    .accessibilityLabel("Jump to latest messages").accessibilityIdentifier("conversation-latest")
+                                }
+                                .padding(.trailing,12)
+                                // The actual overlay frame can include the keyboard
+                                // while ScrollView uses content insets. Anchor the
+                                // action to the measured readable viewport in either case.
+                                .padding(.bottom,max(12,proxy.frame(in:.global).maxY-visibleTimeline.maxY+12))
+                            }
+                        }
                     }
                 }
         }
@@ -500,18 +630,25 @@ struct FriendConversationView: View {
         }
         .navigationTitle(chat.name(peer)).navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement:.principal) {
+                HStack(spacing:7) {
+                    ContactAvatar(peer:peer,name:chat.name(peer),size:28)
+                    Text(chat.name(peer)).foregroundStyle(VipiDesign.ink).font(.headline).lineLimit(1).minimumScaleFactor(0.9).layoutPriority(2)
+                }.accessibilityElement(children:.combine).accessibilityAddTraits(.isHeader)
+                    .accessibilityIdentifier("conversation-contact-identity")
+            }
             ToolbarItem(placement:.topBarTrailing) {
-                Menu {
-                    Picker("Immersion",selection:Binding(get:{state.immersionMode},set:{ mode in
-                        copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions()
-                        state.immersionMode = mode
-                    })) {
-                        ForEach(ImmersionMode.allCases) { Text($0.title).tag($0) }
-                    }
-                } label: { Text("Immersion") }
+                Button {
+                    copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions()
+                    state.immersionMode = state.immersionMode == .fullMessages ? .incremental:.fullMessages
+                } label: {
+                    Text(LocalizedStringKey(state.immersionMode == .fullMessages ? "Full messages":"One word"))
+                        .font(.subheadline.weight(.medium)).lineLimit(2).multilineTextAlignment(.center).frame(minHeight:44)
+                }
+                .accessibilityLabel("Immersion").accessibilityValue(state.immersionMode.title)
+                .accessibilityHint(LocalizedStringKey(state.immersionMode == .fullMessages ? "Switch to one word":"Switch to full messages"))
                 .accessibilityIdentifier("chat-immersion-picker")
             }
-            ToolbarItem(placement:.topBarTrailing) { autoplayButton }
             if #available(iOS 26.0, *) {
                 conversationOptions.sharedBackgroundVisibility(.hidden)
             } else { conversationOptions }
@@ -569,6 +706,9 @@ struct FriendConversationView: View {
             prepareVoices(); immersion.warm(messages.map{(id:$0.id.uuidString,text:$0.text)})
         }
         .onAppear {
+            conversationActive = true
+            chat.visibleMessages(peer,incoming:[],outgoing:[])
+            reportVisibleMessages()
             state.chatReading.bindPlayback(owner:autoplay.ownerID) { identity in
                 autoplay.manual(identity,immersion:immersion,speech:speech,onModels:{translationHelpPair = $0; showTranslationHelp = true},onVoiceHelp:{showVoiceHelp = true})
             }
@@ -583,12 +723,17 @@ struct FriendConversationView: View {
             immersion.warm(messages.map{(id:$0.id.uuidString,text:$0.text)})
         }
         .onChange(of:immersion.revision) { _,_ in immersion.warm(messages.map{(id:$0.id.uuidString,text:$0.text)}); autoplay.resume(immersion:immersion,speech:speech,foreground:scenePhase == .active) }
-        .onDisappear { if let messageObserver { chat.removeMessageObserver(messageObserver) }; messageObserver = nil; state.chatReading.unbindPlayback(owner:autoplay.ownerID); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); copyOriginal.abandon(); cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil; textSizeRestore?.cancel(); textSizeRestore = nil; textSizeAnchorID = nil; if !usesAppTranslationServices { immersion.close() }; speech.close() }
+        .onDisappear { conversationActive = false; clearConversationActivity(); notificationTask?.cancel(); notificationTask = nil; notificationInvitation = false; restoreNotificationFocus = false; if let messageObserver { chat.removeMessageObserver(messageObserver) }; messageObserver = nil; state.chatReading.unbindPlayback(owner:autoplay.ownerID); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); copyOriginal.abandon(); cancelPageRestoration(); viewportRestore?.cancel(); viewportRestore = nil; textSizeRestore?.cancel(); textSizeRestore = nil; textSizeAnchorID = nil; if !usesAppTranslationServices { immersion.close() }; speech.close() }
         .onChange(of: scenePhase) { _, phase in
             if phase != .active {
-                copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); cancelPageRestoration(); speech.stop() }
-            else { Task { await immersion.refreshAvailability(); prepareVoices() } }
+                clearConversationActivity(); copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions(); cancelPageRestoration(); speech.stop() }
+            else {
+                if restoreNotificationFocus { composing = true; restoreNotificationFocus = false }
+                reportVisibleMessages(); Task { await immersion.refreshAvailability(); prepareVoices() }
+            }
         }
+        .onChange(of:canReportVisible) { _,_ in reportVisibleMessages() }
+        .onChange(of:composing) { _,focused in if !focused { chat.composerActivity(peer,active:false) } }
         .onChange(of:state.chatReading.showingMeaning) { _,meaning in
             if meaning { state.chatReading.cancelPendingPlayback(); autoplay.stop(speech:speech) }
         }
@@ -610,6 +755,7 @@ struct FriendConversationView: View {
     private var conversationOptions: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Menu {
+                autoplayButton
                 NavigationLink { LanguageDownloadView() } label: { Label("Languages", systemImage: "globe") }
                     .accessibilityIdentifier("conversation-languages")
                 Button("Copy original message",systemImage:"doc.on.doc") {
@@ -634,6 +780,10 @@ struct FriendConversationView: View {
     }
     private var composer: some View {
             VStack(spacing: 9) {
+                if notificationInvitation {
+                    ReplyNotificationInvitation(denied:PushNotifications.shared.authorization == .denied,busy:PushNotifications.shared.busy,
+                        notify:enableReplyNotifications,dismiss:{ notificationInvitation = false })
+                }
                 if rejectedDraftEdit || messageTooLong {
                     Text(LocalizedStringKey(rejectedDraftEdit ? "That text is too long. Your previous draft is still here." : "This message is too long. Send a shorter message."))
                         .font(.subheadline).foregroundStyle(VipiDesign.destructive).fixedSize(horizontal: false, vertical: true)
@@ -656,23 +806,25 @@ struct FriendConversationView: View {
                         maximumBytes: ConversationHistory.maximumDraftBytes, rejected: { rejectedDraftEdit = true }).disabled(!loaded)
                         .id(typeSize)
                         .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
+                        .overlay(RoundedRectangle(cornerRadius:23).strokeBorder(composing ? VipiDesign.focus:VipiDesign.outline,lineWidth:composing ? 1.5:1))
                         .accessibilityIdentifier("message-input")
                     Button(action: send) {
                         Image(systemName: "arrow.up").font(.body.weight(.semibold))
                             .frame(minWidth: 46, minHeight: 46).padding(6)
                             .foregroundStyle(canSend ? VipiDesign.onHighlight : VipiDesign.secondary)
-                            .background(canSend ? VipiDesign.highlight : VipiDesign.secondary.opacity(0.12), in: Circle())
+                            .background(canSend ? VipiDesign.highlight : VipiDesign.subdued, in: Circle())
                     }.buttonStyle(.plain).accessibilityLabel("Send message")
                         .accessibilityIdentifier("message-send")
                         .disabled(!canSend)
                 }.padding(.horizontal, 14).padding(.bottom, 10)
                 }
             }.background(VipiDesign.canvas)
-            #if DEBUG
             .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { value in
+                composerFrame = value; reportVisibleMessages()
+                #if DEBUG
                 LiveImmersionQualification.recordFullMessageGeometry(["event":"full_message_composer_geometry","frame":LiveImmersionQualification.frameFields(value)])
+                #endif
             }
-            #endif
     }
     @ViewBuilder private func statusLabel(_ title: LocalizedStringKey, symbol: String) -> some View {
         if typeSize.isAccessibilitySize {
@@ -683,8 +835,8 @@ struct FriendConversationView: View {
     }
     private var autoplayButton: some View {
         Button { state.chatReading.cancelPendingPlayback(); autoplay.toggle(snapshot:messages.map{ChatAutoplay.Message(id:$0.id.uuidString,text:$0.text)},immersion:immersion,speech:speech) } label: {
-            Image(systemName:autoplay.enabled ? "speaker.wave.2.fill" : "speaker.slash")
-                .frame(minWidth:44,minHeight:44).contentShape(Rectangle())
+            Label(LocalizedStringKey(autoplay.enabled ? "Turn off autoplay":"Turn on autoplay"),systemImage:autoplay.enabled ? "speaker.wave.2.fill":"speaker.slash")
+                .frame(minHeight:44).contentShape(Rectangle())
         }.accessibilityLabel(LocalizedStringKey(autoplay.enabled ? "Turn off autoplay" : "Turn on autoplay"))
             .accessibilityValue(autoplay.enabled ? String(localized:"Autoplay on. New messages play aloud.") : "")
             .accessibilityIdentifier("chat-autoplay-toggle")
@@ -703,14 +855,18 @@ struct FriendConversationView: View {
         let index = messages.firstIndex { $0.id == item.id } ?? 0
         let previous = index > 0 ? messageDate(messages[index-1]) : nil
         let time = MessageTimelineMetadata.timeLabel(for:messageDate(item),previous:previous)
-        let showState = MessageTimelineMetadata.showsFriendState(item.state,outgoing:item.outgoing,latestOutgoing:messages.last(where: { $0.outgoing })?.id == item.id)
-        let delivery = showState ? (item.state == "imported" ? String(localized:"Saved history") : status(item.state)) : nil
-        if time != nil || delivery != nil {
-            Text([time,delivery].compactMap { $0 }.joined(separator:" · "))
-        }
+        let displayedTime = time ?? messageDate(item).formatted(date:.omitted,time:.shortened)
+        HStack(spacing:4) {
+            Text(displayedTime).monospacedDigit()
+            if item.state == "imported" { Text("Saved history") }
+            else if item.outgoing {
+                MessageDeliveryMark(state:item.state,description:status(item.state))
+            }
+        }.font(.caption2)
     }
     private func status(_ value: String) -> String {
         switch value {
+        case "read": String(localized:"Read")
         case "delivered": String(localized: "Delivered")
         case "accepted": String(localized: "Sent")
         case "expired": String(localized: "Not delivered · 72 hours passed")
@@ -724,6 +880,7 @@ struct FriendConversationView: View {
 private struct ConversationViewport: Equatable {
     let offset: CGFloat
     let height: CGFloat
+    let containerHeight: CGFloat
     let content: CGFloat
     let bottomInset: CGFloat
     let topInset: CGFloat

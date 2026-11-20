@@ -409,7 +409,10 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                         do {
                             let alreadyStored = try vault?.transaction { try vault?.get("incoming",item.id.uuidString.lowercased()) != nil } ?? false
                             let received = try core.receive(item.routed(account:profile!.id),now:now)
-                            if !alreadyStored { messageCommitted(.init(id:item.id.uuidString,text:received.text,peer:item.sender_id)) }
+                            if !alreadyStored {
+                                activity?.event(.typing(item.sender_id,false))
+                                messageCommitted(.init(id:item.id.uuidString,text:received.text,peer:item.sender_id))
+                            }
                         }
                         catch DurableSignalStore.Failure.retiredDevice { continue }
                         catch DurableSignalStore.Failure.identityChanged {
@@ -630,3 +633,53 @@ enum FriendLookupUsername {
         return value
     }
 }
+
+/// Account-scoped optional education, stored with the encrypted local account.
+/// Call only after a genuinely new message has committed locally; queue retries,
+/// imported history and peer receipts never claim this invitation.
+extension ChatSession {
+    func claimReplyNotificationInvitation() -> Bool {
+        guard !closed,let vault,profile != nil else { return false }
+        return (try? vault.transaction {
+            let key = "reply-notification-invitation-v1"
+            guard try vault.get("local",key) == nil else { return false }
+            try vault.put("local",key,Data([1]))
+            return true
+        }) ?? false
+    }
+}
+
+#if DEBUG
+extension ChatSession {
+    /// Explicitly authored inbox visuals in an owned simulator vault. Imported
+    /// rows cannot send receipt events and are never network-delivery evidence.
+    func seedOwnedInboxPresentation() throws {
+        guard Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa",
+              ProcessInfo.processInfo.arguments.contains("-vipi-inbox-populated-qa"),
+              userID.hasPrefix("first-month-root-ui-"),let vault else { return }
+        guard try vault.transaction({ try vault.get("local","inbox-presentation-seeded") }) == nil else { return }
+        let rows:[(String,String,Int,Int)] = [
+            ("Maya Johnson","See you at the café at ten ☕",1,0),
+            ("Alexandria María Hernández-Wong","I've saved the directions. Shall we meet outside the station?",12,1),
+            ("👩🏽‍🚀 Noor","The view is incredible. I'll tell you everything when I'm home.",0,3),
+            ("朋子 佐藤","明日、駅で会いましょう。",2,12),
+            ("لُمى حداد","سأصل بعد قليل. أراك قريبًا!",0,40),
+            ("Élodie Martin","The recipe worked beautifully. Thank you!",0,400)]
+        try vault.transaction {
+            for (index,row) in rows.enumerated() {
+                let peer = UUID(),contact = ChatProfile(id:peer,username:"inbox_qa_\(index)",display_name:row.0)
+                try vault.put("contact",peer.uuidString.lowercased(),JSONEncoder().encode(contact)); contacts[peer] = contact
+                for offset in 0..<max(1,row.2) {
+                    let date = Calendar.current.date(byAdding:.day,value:-row.3,to:Date())!
+                    let created = Int64(date.timeIntervalSince1970*1000)-Int64(max(1,row.2)-offset)*1000
+                    let value = HistoryBackupMessage(id:UUID(),peer:peer,outgoing:false,createdAt:created,text:row.1)
+                    try vault.put("imported",value.id.uuidString.lowercased(),JSONEncoder().encode(value))
+                    try ConversationHistory.record(vault,kind:"imported",id:value.id,peer:peer,createdAt:created,unread:row.2 > 0)
+                }
+            }
+            try vault.put("local","inbox-presentation-seeded",Data([1]))
+        }
+        try reload()
+    }
+}
+#endif

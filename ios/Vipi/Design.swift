@@ -1,50 +1,44 @@
 import SwiftUI
 
 enum VipiDesign {
-    static let accent = Color(red: 0.20, green: 0.39, blue: 0.31)
-    static let ink = Color(uiColor: .label)
-    static let secondary = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.72, green: 0.75, blue: 0.71, alpha: 1) : UIColor(red: 0.34, green: 0.37, blue: 0.34, alpha: 1) })
-    static let canvas = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.065, green: 0.078, blue: 0.071, alpha: 1) : UIColor(red: 0.976, green: 0.969, blue: 0.949, alpha: 1) })
-    static let surface = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.12, green: 0.14, blue: 0.125, alpha: 1) : .white })
-    static let highlight = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.69, green: 0.85, blue: 0.64, alpha: 1) : UIColor(red: 0.17, green: 0.38, blue: 0.26, alpha: 1) })
-    static let destructive = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 1, green: 0.706, blue: 0.671, alpha: 1) : UIColor(red: 0.72, green: 0.11, blue: 0.11, alpha: 1) })
-    static let onHighlight = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.065, green: 0.078, blue: 0.071, alpha: 1) : .white })
-    static let outgoing = Color(uiColor: UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 0.18, green: 0.26, blue: 0.20, alpha: 1) : UIColor(red: 0.88, green: 0.93, blue: 0.83, alpha: 1) })
+    static let accent = VipiPalette.color(.action)
+    static let ink = VipiPalette.color(.ink)
+    static let secondary = VipiPalette.color(.secondary)
+    static let canvas = VipiPalette.color(.canvas)
+    static let surface = VipiPalette.color(.surface)
+    static let highlight = VipiPalette.color(.action)
+    static let destructive = VipiPalette.color(.failed)
+    static let onHighlight = VipiPalette.color(.onAction)
+    static let outgoing = VipiPalette.color(.outgoing)
+    static let incomingBubble = VipiPalette.color(.incoming)
+    static let outgoingBubble = VipiPalette.color(.outgoing)
+    static let readIndicator = VipiPalette.color(.outgoingRead)
+    static let outline = VipiPalette.color(.outline)
+    static let focus = VipiPalette.color(.focus)
+    static let subdued = VipiPalette.color(.subdued)
+    static let separator = VipiPalette.color(.separator)
+    static let practiceInk = VipiPalette.color(.practiceInk)
+    static let practiceFill = VipiPalette.color(.practiceFill)
+    static let spokenInk = VipiPalette.color(.spokenInk)
+    static let spokenFill = VipiPalette.color(.spokenFill)
+    static let bubbleBorder = Color(uiColor:UIColor { traits in
+        VipiPalette.uiColor(traits.accessibilityContrast == .high ? .outline:.separator).resolvedColor(with:traits)
+    })
+    static func messageInk(_ outgoing:Bool) -> Color { VipiPalette.color(outgoing ? .outgoingInk:.ink) }
+    static func messageSecondary(_ outgoing:Bool) -> Color { VipiPalette.color(outgoing ? .outgoingSecondary:.secondary) }
+    static func messageRead(_ outgoing:Bool) -> Color { VipiPalette.color(outgoing ? .outgoingRead:.read) }
+    static func messageFailure(_ outgoing:Bool) -> Color { VipiPalette.color(outgoing ? .outgoingFailed:.failed) }
 }
 
-// Original two-voice mark; geometry matches design/vipi-icon.svg and Android.
-struct VipiMark: View {
-    var size: CGFloat = 42
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: size * 0.28).fill(Color(red: 35/255, green: 78/255, blue: 61/255))
-            VipiVoiceShape(right: false).fill(Color(red: 249/255, green: 247/255, blue: 242/255))
-            VipiVoiceShape(right: true).fill(Color(red: 221/255, green: 243/255, blue: 166/255))
-        }.environment(\.layoutDirection, .leftToRight).frame(width: size, height: size).accessibilityHidden(true)
-    }
-}
-
-private struct VipiVoiceShape: Shape {
-    var right: Bool
-    func path(in rect: CGRect) -> Path {
-        var p = Path()
-        if right {
-            p.move(to: CGPoint(x: 68, y: 29))
-            p.addQuadCurve(to: CGPoint(x: 63, y: 32), control: CGPoint(x: 64.5, y: 29))
-            p.addLine(to: CGPoint(x: 48, y: 62)); p.addLine(to: CGPoint(x: 57, y: 80))
-            p.addLine(to: CGPoint(x: 81, y: 32))
-            p.addQuadCurve(to: CGPoint(x: 79, y: 29), control: CGPoint(x: 82.5, y: 29))
-        } else {
-            p.move(to: CGPoint(x: 27, y: 29))
-            p.addQuadCurve(to: CGPoint(x: 25.5, y: 32), control: CGPoint(x: 24, y: 29))
-            p.addLine(to: CGPoint(x: 45, y: 70))
-            p.addQuadCurve(to: CGPoint(x: 51, y: 74), control: CGPoint(x: 47, y: 74))
-            p.addLine(to: CGPoint(x: 56, y: 74)); p.addLine(to: CGPoint(x: 45, y: 52))
-            p.addLine(to: CGPoint(x: 35, y: 32))
-            p.addQuadCurve(to: CGPoint(x: 30, y: 29), control: CGPoint(x: 33.5, y: 29))
-        }
-        p.closeSubpath()
-        return p.applying(CGAffineTransform(scaleX: rect.width / 108, y: rect.height / 108))
+/// Shared approved wordmark artwork, rendered from the bundled original vector.
+struct VipiMark:View {
+    var size:CGFloat = 42
+    var rich = false
+    var body:some View {
+        Image(rich || size >= 48 ? "VipiMarkRich":"VipiMarkOptical")
+            .resizable().renderingMode(.original).aspectRatio(contentMode:.fit)
+            .environment(\.layoutDirection,.leftToRight)
+            .frame(width:size,height:size).accessibilityHidden(true)
     }
 }
 

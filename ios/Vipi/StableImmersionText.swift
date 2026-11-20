@@ -15,13 +15,19 @@ final class ImmersionWordAttachment: NSTextAttachment {
     let forms: [String]
     let font: UIFont
     let ink: UIColor
+    let fill: UIColor
+    let spokenFill: UIColor
+    let spokenInk: UIColor
     let trailingWidth: CGFloat
     let copySlotID: Int?
     let copyShowsOriginal: Bool
     let copyRun: ImmersionCopyRun
     var playingRange:NSRange?
-    @MainActor init(displayed: String, forms: [String], font: UIFont, ink: UIColor, trailingWidth: CGFloat = 0, copySlotID: Int? = nil, copyShowsOriginal: Bool = true, copyRun: ImmersionCopyRun? = nil) {
+    @MainActor init(displayed: String, forms: [String], font: UIFont, ink: UIColor, trailingWidth: CGFloat = 0, copySlotID: Int? = nil, copyShowsOriginal: Bool = true, copyRun: ImmersionCopyRun? = nil, fill:UIColor? = nil, spokenFill:UIColor? = nil, spokenInk:UIColor? = nil) {
         self.displayed = displayed; self.forms = forms; self.font = font; self.ink = ink
+        self.fill = fill ?? VipiPalette.uiColor(.practiceFill)
+        self.spokenFill = spokenFill ?? VipiPalette.uiColor(.spokenFill)
+        self.spokenInk = spokenInk ?? VipiPalette.uiColor(.spokenInk)
         self.trailingWidth = trailingWidth
         self.copySlotID = copySlotID; self.copyShowsOriginal = copyShowsOriginal
         self.copyRun = copyRun ?? .init(text: displayed, slotID: copySlotID, showsOriginal: copyShowsOriginal)
@@ -45,11 +51,11 @@ final class ImmersionWordAttachment: NSTextAttachment {
     override func image(forBounds bounds: CGRect, textContainer: NSTextContainer?, characterIndex charIndex: Int) -> UIImage? {
         guard bounds.width > 0, bounds.height > 0 else { return nil }
         return UIGraphicsImageRenderer(size: bounds.size).image { _ in
-            ink.withAlphaComponent(0.11).setFill()
+            fill.setFill()
             UIBezierPath(roundedRect: CGRect(origin: .zero, size: bounds.size), cornerRadius: 2.5).fill()
             let text = NSMutableAttributedString(string:displayed,attributes:attributes)
             if let range = playingRange,range.location >= 0,range.length > 0,NSMaxRange(range) <= text.length {
-                text.addAttributes([.backgroundColor:ink.withAlphaComponent(0.30),.foregroundColor:UIColor.label],range:range)
+                text.addAttributes([.backgroundColor:spokenFill,.foregroundColor:spokenInk],range:range)
             }
             text.draw(with:CGRect(x:4,y:2,width:max(1,bounds.width-8),height:bounds.height-4),options:[.usesLineFragmentOrigin,.usesFontLeading],context:nil)
         }
@@ -408,6 +414,8 @@ struct StableImmersionText: UIViewRepresentable {
     var accessibilityMessageContext: String? = nil
     @Environment(\.dynamicTypeSize) private var typeSize
     @Environment(\.colorScheme) private var scheme
+    @Environment(\.colorSchemeContrast) private var contrast
+    @Environment(\.vipiOutgoingMessage) private var outgoingMessage
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
     func makeCoordinator() -> Coordinator { Coordinator() }
     func makeUIView(context: Context) -> ImmersionTextContainer {
@@ -454,16 +462,21 @@ struct StableImmersionText: UIViewRepresentable {
         default: category = .accessibilityExtraExtraExtraLarge
         }
         let font = UIFont.preferredFont(forTextStyle: .body, compatibleWith: UITraitCollection(preferredContentSizeCategory: category))
-        let color = UIColor(VipiDesign.highlight).resolvedColor(with: view.traitCollection)
+        let color = VipiPalette.uiColor(.practiceInk).resolvedColor(with:view.traitCollection)
+        let bodyInk = VipiPalette.uiColor(outgoingMessage ? .outgoingInk:.ink).resolvedColor(with:view.traitCollection)
+        let practiceFill = VipiPalette.uiColor(.practiceFill).resolvedColor(with:view.traitCollection)
+        let spokenFill = VipiPalette.uiColor(.spokenFill).resolvedColor(with:view.traitCollection)
+        let spokenInk = VipiPalette.uiColor(.spokenInk).resolvedColor(with:view.traitCollection)
+        view.tintColor = VipiPalette.uiColor(outgoingMessage ? .outgoingFocus:.focus)
         view.originalMessage = result.original
         view.isSelectable = !fullMessage
         view.contentIdentity = sentenceIdentity ?? String(describing: result)
-        let identity = "\(view.contentIdentity)|\(revealed.sorted())|\(script)|\(font.pointSize)|\(scheme)|\(String(describing:playingRange))|\(String(describing:playingWordID))|\(String(describing:playingWordRange))|" + Data(result.original.utf8).base64EncodedString()
+        let identity = "\(view.contentIdentity)|\(revealed.sorted())|\(script)|\(font.pointSize)|\(scheme)|\(contrast)|\(outgoingMessage)|\(String(describing:playingRange))|\(String(describing:playingWordID))|\(String(describing:playingWordRange))|" + Data(result.original.utf8).base64EncodedString()
         if view.renderingIdentity != identity {
             view.renderingIdentity = identity
-            let current = NSMutableAttributedString(attributedString:render(revealed: revealed, script: script, font: font, color: color))
+            let current = NSMutableAttributedString(attributedString:render(revealed:revealed,script:script,font:font,color:color,bodyInk:bodyInk,practiceFill:practiceFill,spokenFill:spokenFill,spokenInk:spokenInk))
             if let range = playingRange,range.location >= 0,range.length > 0,NSMaxRange(range) <= current.length {
-                current.addAttribute(.backgroundColor,value:color.withAlphaComponent(0.28),range:range)
+                current.addAttributes([.backgroundColor:spokenFill,.foregroundColor:spokenInk],range:range)
             }
             let selection = view.selectedRange
             let sameText = view.attributedText.string == current.string
@@ -480,7 +493,7 @@ struct StableImmersionText: UIViewRepresentable {
             #endif
             view.variants = reservedSentences.isEmpty ? [current] : reservedSentences.map { sentence in
                 let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 5; paragraph.baseWritingDirection = .natural
-                return NSAttributedString(string:sentence,attributes:[.font:font,.foregroundColor:UIColor.label,.paragraphStyle:paragraph])
+                return NSAttributedString(string:sentence,attributes:[.font:font,.foregroundColor:bodyInk,.paragraphStyle:paragraph])
             }
             view.reserveKey = ""
             if sameText && NSMaxRange(selection) <= current.length { view.selectedRange = selection }
@@ -536,9 +549,9 @@ struct StableImmersionText: UIViewRepresentable {
             ? container.textView.preferredContentWidth(maximumWidth: width) : width
         return container.textView.reservedSize(width: fitted)
     }
-    private func render(revealed: Set<Int>, script: Bool, font: UIFont, color: UIColor) -> NSAttributedString {
+    private func render(revealed:Set<Int>,script:Bool,font:UIFont,color:UIColor,bodyInk:UIColor,practiceFill:UIColor,spokenFill:UIColor,spokenInk:UIColor) -> NSAttributedString {
         let paragraph = NSMutableParagraphStyle(); paragraph.lineSpacing = 5; paragraph.baseWritingDirection = .natural
-        let attributes: [NSAttributedString.Key: Any] = [.font: font, .foregroundColor: UIColor.label, .paragraphStyle: paragraph]
+        let attributes: [NSAttributedString.Key: Any] = [.font:font,.foregroundColor:bodyInk,.paragraphStyle:paragraph]
         let descriptor = font.fontDescriptor.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: UIFont.Weight.semibold]])
         let emphasis = UIFont(descriptor: descriptor, size: font.pointSize)
         let text = NSMutableAttributedString(string: "")
@@ -560,7 +573,7 @@ struct StableImmersionText: UIViewRepresentable {
             let suffix = original.substring(from: NSMaxRange(word.range)).prefix { ".,!?;:…؟。！？；，、)]}’”\"".contains($0) }.prefix(8)
             let trailing = suffix.isEmpty ? 0 : ceil((String(suffix) as NSString).size(withAttributes: [.font: font]).width) + 1
             let attachment = ImmersionWordAttachment(displayed: value, forms: [word.original, word.displayedTarget, word.translated], font: emphasis, ink: color, trailingWidth: trailing,
-                copySlotID: word.id, copyShowsOriginal: revealed.contains(word.id), copyRun: copyRun)
+                copySlotID:word.id,copyShowsOriginal:revealed.contains(word.id),copyRun:copyRun,fill:practiceFill,spokenFill:spokenFill,spokenInk:spokenInk)
             if playingWordID == word.id { attachment.playingRange = playingWordRange ?? NSRange(location:0,length:value.utf16.count) }
             let token = NSMutableAttributedString(attachment: attachment)
             token.addAttributes(style, range: NSRange(location: 0, length: token.length))

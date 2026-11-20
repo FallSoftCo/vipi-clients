@@ -38,7 +38,8 @@ import SwiftUI
                 if deletion.active { AccountDeletionProgressView() }
                 else {
                 #if DEBUG
-                if ProcessInfo.processInfo.arguments.contains("-vipi-bot-ui-qa"), Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" { BotUIQualificationView() }
+                if ProcessInfo.processInfo.arguments.contains("-vipi-real-visible-read-qa"), Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" { NativeReadQualificationView() }
+                else if ProcessInfo.processInfo.arguments.contains("-vipi-bot-ui-qa"), Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" { BotUIQualificationView() }
                 else if ProcessInfo.processInfo.arguments.contains("-vipi-reauth-qa") { ReauthenticationQualificationView() }
                 else if ProcessInfo.processInfo.arguments.contains("-vipi-network-qa") {
                     // The explicit native HTTP harness owns inbox ordering.

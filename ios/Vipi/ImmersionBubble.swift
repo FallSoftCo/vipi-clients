@@ -282,6 +282,7 @@ struct ImmersionBubble: View {
     @State private var frame = CGRect.zero
     @State private var playbackAlignment:[FullSentenceReadings.Alignment] = []
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.vipiOutgoingMessage) private var outgoingMessage
     private var controls: ChatReadingState { reading ?? localReading }
     private var binding: ImmersionRequestIdentity { identity ?? .init(messageID:messageID,text:originalMessage ?? result.original,source:sourceLanguage,target:targetLanguage,inputLanguage:inputLanguage,generation:UUID(uuidString:"00000000-0000-0000-0000-000000000000")!) }
     private var practice: String { result.translation ?? result.original }
@@ -382,7 +383,7 @@ struct ImmersionBubble: View {
                                     }.buttonStyle(.plain).disabled(readingRetryPending)
                                 } else { Text("Reading guide unavailable.") }
                             }
-                            .font(.subheadline).foregroundStyle(VipiDesign.secondary)
+                            .font(.subheadline).foregroundStyle(VipiDesign.messageSecondary(outgoingMessage))
                             .fixedSize(horizontal:false,vertical:true)
                             .frame(maxWidth:.infinity,alignment:.leading)
                             .accessibilityIdentifier("message-reading-unavailable")

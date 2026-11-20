@@ -28,36 +28,27 @@ struct HomeView: View {
                         }
                         if let notice = chat?.notice { Text(notice).font(.body).foregroundStyle(VipiDesign.secondary) }
                         if let chat, !chat.threads.isEmpty {
-                            ForEach(chat.threads) { thread in
-                                NavigationLink(value: HomeDestination.friend(thread.peer)) {
-                                    HStack(spacing: 14) {
-                                        Text(String(chat.name(thread.peer).prefix(1))).font(.title2)
-                                            .frame(width: 48, height: 48).background(VipiDesign.outgoing, in: Circle())
-                                        VStack(alignment: .leading, spacing: 5) {
-                                            Text(chat.name(thread.peer)).fontWeight(thread.unread > 0 ? .semibold : .medium).foregroundStyle(.primary)
-                                            HomeMessagePreview(owner:chat.translationOwner,message:thread.latest,expectedPair:.init(source:state.knownLanguage,target:state.targetLanguage))
-                                        }
-                                        Spacer(minLength: 4)
-                                        if thread.unread > 0 { Text("\(thread.unread)").font(.caption.weight(.semibold)).padding(7).background(VipiDesign.outgoing, in: Circle()) }
-                                    }.padding(.vertical, 8)
-                                }.buttonStyle(.plain)
-                                    .accessibilityIdentifier("chat-thread-"+thread.peer.uuidString.lowercased())
+                            LazyVStack(spacing:0) {
+                                ForEach(chat.threads) { thread in
+                                    NavigationLink(value: HomeDestination.friend(thread.peer)) {
+                                        HomeConversationRow(name:chat.name(thread.peer),thread:thread,owner:chat.translationOwner,
+                                            expectedPair:.init(source:state.knownLanguage,target:state.targetLanguage))
+                                    }.buttonStyle(.plain)
+                                        .accessibilityIdentifier("chat-thread-"+thread.peer.uuidString.lowercased())
+                                    if thread.id != chat.threads.last?.id {
+                                        Divider().overlay(VipiDesign.separator).padding(.leading,60).accessibilityHidden(true)
+                                    }
+                                }
                             }
-                        } else { VStack(alignment: .leading, spacing: 16) {
-                            VStack(alignment: .leading, spacing: 8) {
+                        } else { VStack(alignment: .center, spacing: 20) {
+                            Image(systemName:"bubble.left.and.bubble.right").font(.system(size:40)).foregroundStyle(VipiDesign.secondary).accessibilityHidden(true)
+                            VStack(alignment: .center, spacing: 8) {
                                 Text("Start a chat with a friend.").font(.title2.weight(.semibold)).fixedSize(horizontal: false, vertical: true)
-                                Text("Find a friend by username.").font(.body).foregroundStyle(VipiDesign.secondary)
-                                    .fixedSize(horizontal: false, vertical: true)
                             }
                             PrimaryButton(title: "New chat") { showingInvite = true }
                                 .accessibilityIdentifier("home-start-conversation")
-                        } }
-                        if let chat, chat.ready, !chat.threads.isEmpty, PushNotifications.shared.authorization == .notDetermined {
-                            Button { Task { await PushNotifications.shared.enable() } } label: {
-                                Text("Notify me when friends reply").font(.subheadline.weight(.semibold))
-                                    .frame(minHeight: 44, alignment: .leading).contentShape(Rectangle())
-                            }
-                        }
+                        }.multilineTextAlignment(.center).frame(maxWidth:.infinity).padding(.vertical,60) }
+
                     }.padding(.horizontal, 20).padding(.vertical, 20).frame(maxWidth: 680).frame(maxWidth: .infinity)
                 }.clipped()
             }
@@ -67,9 +58,11 @@ struct HomeView: View {
                     Button { showingSettings = true } label: { Image(systemName: "person.crop.circle").font(.title3).frame(width: 44, height: 44) }
                         .accessibilityLabel("Your profile and settings")
                 }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button { showingInvite = true } label: { Image(systemName: "square.and.pencil").font(.title3).frame(width: 44, height: 44) }
-                        .accessibilityLabel("New chat")
+                if chat?.threads.isEmpty == false {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button { showingInvite = true } label: { Image(systemName: "square.and.pencil").font(.title3).frame(width: 44, height: 44) }
+                            .accessibilityLabel("New chat")
+                    }
                 }
             }
             .navigationDestination(isPresented: $showingSettings) { SettingsView(chat: chat, subscriptions: subscriptions, closeBot: botOwner.close) }
@@ -110,6 +103,54 @@ struct HomeView: View {
 }
 
 
+struct HomeConversationRow:View {
+    let name:String
+    let thread:ChatThread
+    let owner:ConversationImmersion?
+    let expectedPair:TranslationPair
+    @Environment(\.dynamicTypeSize) private var textSize
+    private var date:Date { Date(timeIntervalSince1970:Double(thread.latest.createdAt)/1000) }
+    private var dateText:String {
+        if Calendar.current.isDateInToday(date) { return date.formatted(date:.omitted,time:.shortened) }
+        if let days = Calendar.current.dateComponents([.day],from:Calendar.current.startOfDay(for:date),to:Calendar.current.startOfDay(for:Date())).day,(1...6).contains(days) {
+            return date.formatted(.dateTime.weekday(.abbreviated))
+        }
+        if Calendar.current.component(.year,from:date) != Calendar.current.component(.year,from:Date()) { return date.formatted(.dateTime.year().month(.abbreviated).day()) }
+        return date.formatted(.dateTime.month(.abbreviated).day())
+    }
+    private var timestamp:some View {
+        Text(dateText).font(.caption).foregroundStyle(thread.unread > 0 ? VipiDesign.highlight:VipiDesign.secondary)
+            .lineLimit(1).accessibilityLabel(date.formatted(date:.complete,time:.shortened))
+    }
+    var body:some View {
+        HStack(alignment:.center,spacing:14) {
+            ContactAvatar(peer:thread.peer,name:name,size:46)
+            VStack(alignment:.leading,spacing:5) {
+                HStack(alignment:.firstTextBaseline,spacing:8) {
+                    Text(name).font(.body.weight(thread.unread > 0 ? .semibold:.medium))
+                        .foregroundStyle(VipiDesign.ink).lineLimit(textSize.isAccessibilitySize ? 2:1)
+                        .layoutPriority(1)
+                    Spacer(minLength:0)
+                    if !textSize.isAccessibilitySize { timestamp.fixedSize(horizontal:true,vertical:false) }
+                }
+                if textSize.isAccessibilitySize { timestamp }
+                HStack(alignment:.top,spacing:10) {
+                    HomeMessagePreview(owner:owner,message:thread.latest,expectedPair:expectedPair)
+                        .frame(maxWidth:.infinity,alignment:.leading)
+                    if thread.unread > 0 {
+                        Text(thread.unread.formatted()).font(.caption.weight(.semibold)).monospacedDigit()
+                            .foregroundStyle(VipiDesign.onHighlight).padding(.horizontal,7).frame(minWidth:24,minHeight:24)
+                            .background(VipiDesign.highlight,in:Capsule())
+                            .accessibilityLabel(String(localized:"\(thread.unread) unread messages"))
+                    }
+                }
+            }
+        }.padding(.vertical,14).contentShape(Rectangle())
+            .accessibilityElement(children:.combine)
+    }
+}
+
+
 /// A list row displays the same account-owned completed message as its chat.
 /// Scroll visibility, rather than non-lazy VStack appearance, owns resident pins.
 struct HomeMessagePreview: View {
@@ -124,7 +165,7 @@ struct HomeMessagePreview: View {
             } else {
                 Text(message.text)
             }
-        }.lineLimit(1).font(.body).foregroundStyle(VipiDesign.secondary)
+        }.lineLimit(2).font(.subheadline).foregroundStyle(VipiDesign.secondary)
             .accessibilityIdentifier("chat-preview-"+message.id.uuidString.lowercased())
     }
 }

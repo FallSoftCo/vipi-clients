@@ -145,6 +145,11 @@ struct FullMessageViewportGeometry: Equatable {
         Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" &&
             ProcessInfo.processInfo.arguments.contains("-vipi-full-translation-sdk-qa") && FirstMonthRootQualification.current != nil
     }
+    private(set) static var currentMessageViewport:[String:Double] = [:]
+    static func recordCurrentMessageViewport(_ frame:CGRect) {
+        guard fullMessageGeometryEnabled, [frame.minX,frame.minY,frame.width,frame.height].allSatisfy({$0.isFinite}) else { return }
+        currentMessageViewport = ["x":Double(frame.minX),"y":Double(frame.minY),"width":Double(frame.width),"height":Double(frame.height)]
+    }
     static func recordFullMessageGeometry(_ fields:[String:Any]) {
         guard fullMessageGeometryEnabled else { return }
         record(fields)
@@ -921,6 +926,9 @@ struct PendingPairRootBinding: View {
         var immersionCaptured:Bool?
         var priorImmersionMode:String?
         var friendUsernameLookups: Int?
+        var typingUpdates:[Bool]?
+        var visibleReadRequests:Int?
+        var polishBacklogSeeded:Bool?
         var pendingHash: String?, verifierHash: String?, callback: String?
         var device: DeviceCredential?
         var acceptedIDs = Set<String>(), expiredIDs = Set<String>(), receipts = Set<String>()
@@ -1348,6 +1356,9 @@ struct PendingPairRootBinding: View {
         var value = try JSONSerialization.jsonObject(with: routed.sendData()) as! [String: Any]
         value["sender_id"] = ledger.peer.uuidString; value["sender_device_id"] = peerCore.device.id.uuidString
         ledger.inbox.append(try JSONSerialization.data(withJSONObject: value))
+        if ProcessInfo.processInfo.arguments.contains("-vipi-chat-polish-qa") {
+            for chat in chats { chat.peerActivityEvent(.typing(ledger.peer,true)) }
+        }
     }
     func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
         try Self.validate(ledger)
@@ -1373,6 +1384,8 @@ struct PendingPairRootBinding: View {
             value = ["id": ledger.peer.uuidString, "username": Self.marketingEnabled ? "maya" : "alex", "display_name": Self.marketingEnabled ? "Maya" : "Alex"]
         case ("GET", "/v1/people/maya") where Self.marketingEnabled:
             value = ["id": ledger.peer.uuidString, "username": "maya", "display_name": "Maya"]
+        case ("GET",let candidate) where ProcessInfo.processInfo.arguments.contains("-vipi-inbox-populated-qa") && candidate.hasPrefix("/v1/blocks/") && chats.contains(where: { chat in chat.threads.contains(where: { candidate == "/v1/blocks/"+$0.peer.uuidString.lowercased() }) }):
+            value = ["blocked":false]
         case ("GET", "/v1/blocks/" + ledger.peer.uuidString.lowercased()):
             // Only after the real expired-send queue survives process restart:
             // exercise a distinct local block warning beside transport recovery.
@@ -1403,6 +1416,22 @@ struct PendingPairRootBinding: View {
                     if index < 2 { try reply(Self.marketingTurns[index * 2 + 1].text) }
                     value = ["state":"delivered"]
                 }
+            } else if ProcessInfo.processInfo.arguments.contains("-vipi-chat-polish-qa") {
+                if ledger.acceptedIDs.contains(id) { value = ["state":"delivered"] }
+                else {
+                    var routed = try JSONSerialization.jsonObject(with:body) as! [String:Any]
+                    routed["sender_id"] = ledger.account.uuidString; routed["sender_device_id"] = device!.id.uuidString
+                    let received = try JSONDecoder().decode(RoutedMessage.Received.self,from:JSONSerialization.data(withJSONObject:routed))
+                    let opened = try peerCore.receive(received.routed(account:ledger.peer),now:Int64(Date().timeIntervalSince1970*1000))
+                    guard [Self.outgoing,"Local send from older messages."].contains(opened.text) else { throw ServiceFailure(status:0,code:"unowned_polish_original") }
+                    ledger.decrypted += 1; ledger.acceptedIDs.insert(id)
+                    try reply(Self.firstReply)
+                    if ledger.polishBacklogSeeded != true {
+                        for _ in 0..<27 { try reply(Self.firstReply) }
+                        ledger.polishBacklogSeeded = true
+                    }
+                    value = ["state":"delivered"]
+                }
             } else if ledger.acceptedIDs.isEmpty {
                 var routed = try JSONSerialization.jsonObject(with: body) as! [String: Any]
                 routed["sender_id"] = ledger.account.uuidString; routed["sender_device_id"] = device!.id.uuidString
@@ -1417,6 +1446,7 @@ struct PendingPairRootBinding: View {
                 try save(); throw ServiceFailure(status: 402, code: "base_subscription_required")
             }
         case ("GET", "/v1/messages/pending"):
+            for chat in chats { try chat.seedOwnedInboxPresentation() }
             try seedCopyImported()
             let messages = try ledger.inbox.map { try JSONSerialization.jsonObject(with: $0) as! [String: Any] }
                 .filter { !ledger.receipts.contains(($0["id"] as? String ?? "").lowercased()) }
@@ -1439,6 +1469,24 @@ struct PendingPairRootBinding: View {
                 }
             }
             value = copyAllowance
+        case ("POST", let path) where path == "/v1/conversations/"+ledger.peer.uuidString.lowercased()+"/typing":
+            guard device?.id == ledger.device?.id,Set(input.keys) == ["active"],let active = input["active"] as? Bool else {
+                throw ServiceFailure(status:0,code:"invalid_owned_typing_request")
+            }
+            ledger.typingUpdates = (ledger.typingUpdates ?? []) + [active]
+            value = [:]
+        case ("POST", let path) where path == "/v1/conversations/"+ledger.peer.uuidString.lowercased()+"/receipts":
+            guard device?.id == ledger.device?.id,Set(input.keys) == ["seen","check"],let seen = input["seen"] as? [String],let check = input["check"] as? [String],seen.count <= 64,check.count <= 64 else {
+                throw ServiceFailure(status:0,code:"invalid_owned_visible_receipt_request")
+            }
+            let incoming = Set(try ledger.inbox.map { try JSONDecoder().decode(RoutedMessage.Received.self,from:$0).id.uuidString.lowercased() })
+            guard Set(seen).isSubset(of:incoming) else { throw ServiceFailure(status:0,code:"unowned_visible_receipt") }
+            ledger.visibleReadRequests = (ledger.visibleReadRequests ?? 0)+1
+            // SDK-boundary UI fixture only. No remote reading is invented by
+            // the default journey. The explicit polish test opts into a supplied
+            // peer-view acknowledgement, separately from backend E2E evidence.
+            let reads = ProcessInfo.processInfo.arguments.contains("-vipi-chat-polish-qa") ? check.filter{ledger.acceptedIDs.contains($0)}:[]
+            value = ["acknowledged":seen,"read":reads]
         case ("PUT", "/v1/devices/push"), ("DELETE", "/v1/devices/push"): value = [:]
         default:
             if method == "POST", path.hasPrefix("/v1/messages/"), path.hasSuffix("/receipt") {
@@ -1569,12 +1617,21 @@ struct PendingPairRootBinding: View {
                 "purchase_ready": stores.last?.purchaseReady ?? false, "unexpected": ledger.unexpected,
                 "invitation_username": ledger.invitationCaptured == true ? UserDefaults.standard.string(forKey: "invitationUsername") ?? "" : "",
                 "friend_username_lookups": ledger.friendUsernameLookups ?? 0,
+                "composer_activity_requests":ledger.typingUpdates ?? [],
+                "visible_receipt_requests":ledger.visibleReadRequests ?? 0,
+                "inbox_rows":ProcessInfo.processInfo.arguments.contains("-vipi-inbox-populated-qa") ? (chats.last?.threads.map { thread -> [String:Any] in
+                    ["peer":thread.peer.uuidString.lowercased(),"name":chats.last?.name(thread.peer) ?? "","text":thread.latest.text,"unread":thread.unread,"state":thread.latest.state]
+                } ?? []) : [],
+                "controlled_peer_read_acknowledgement":ProcessInfo.processInfo.arguments.contains("-vipi-chat-polish-qa"),
+                "notifications_authorization":PushNotifications.shared.authorization.rawValue,
+                "notifications_enabled":PushNotifications.shared.enabled,
                 "controlled_sdk_translation": ProcessInfo.processInfo.arguments.contains("-vipi-full-translation-sdk-qa"),
                 "controlled_translation_inputs":ledger.controlledTranslations,
                 "controlled_translation_failures":ledger.controlledTranslationFailures,
                 "gesture_policy_seen":UserDefaults.standard.bool(forKey:"full-message-gestures-v1-seen"),
                 "controlled_native_faces":speechObservations.filter{$0["event"] as? String == "full_message_native_face"},
                 "composition_geometry":compositionGeometry,
+                "current_message_viewport":LiveImmersionQualification.currentMessageViewport,
                 "full_message_geometry":Array(speechObservations.filter{($0["event"] as? String ?? "").hasSuffix("_geometry")}.suffix(64)),
                 // Scroll/row callbacks can fill the recent event window while
                 // the composer stays still. Keep its actual latest measurement.
