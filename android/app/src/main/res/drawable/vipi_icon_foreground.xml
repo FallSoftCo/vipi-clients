@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
-    <path android:fillColor="#F9F7F2" android:pathData="M 27 29 Q 24 29 25.5 32 L 45 70 Q 47 74 51 74 L 56 74 L 45 52 L 35 32 Q 33.5 29 30 29 Z" />
-    <path android:fillColor="#DDF3A6" android:pathData="M 68 29 Q 64.5 29 63 32 L 48 62 L 57 80 L 81 32 Q 82.5 29 79 29 Z" />
-</vector>
+<!-- Finished approved tile. One 108-to-72 adaptive-layer compensation only;
+     no additional optical inset or shape/path change. -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android" android:inset="16.666667%">
+    <bitmap android:src="@drawable/vipi_mark" android:gravity="fill" android:filter="true" />
+</inset>

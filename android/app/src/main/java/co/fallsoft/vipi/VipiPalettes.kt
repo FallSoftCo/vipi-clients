@@ -2,7 +2,7 @@ package co.fallsoft.vipi
 
 import androidx.compose.ui.graphics.Color
 
-/** QA-only Guava candidate, not a release decision.
+/** Guava & ink semantic palette, bound to design/palette.json.
  * Input SHA256 289c91ee5e04b8d49890c0798265fa965b89b0300e61e237d30b489e64fc61fb. */
 internal object VipiPalettes {
     val Light = VipiPalette(

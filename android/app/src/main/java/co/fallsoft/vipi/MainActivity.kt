@@ -192,7 +192,7 @@ class MainActivity : ComponentActivity() {
 @Composable private fun VipiMark(size: Int = 36) {
     Box(Modifier.size(size.dp).background(androidx.compose.ui.res.colorResource(R.color.vipi_icon_background), RoundedCornerShape((size * .28).dp))) {
         androidx.compose.foundation.Image(
-            painter = androidx.compose.ui.res.painterResource(R.drawable.vipi_icon_foreground),
+            painter = androidx.compose.ui.res.painterResource(R.drawable.vipi_mark),
             contentDescription = null, modifier = Modifier.fillMaxSize())
     }
 }

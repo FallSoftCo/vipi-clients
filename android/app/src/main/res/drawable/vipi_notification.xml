@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="108" android:viewportHeight="108">
-    <path android:fillColor="#FFFFFF" android:fillType="evenOdd" android:pathData="M34,27 H74 Q83,27 83,36 V65 Q83,74 74,74 H50 L35,85 L38,74 H34 Q25,74 25,65 V36 Q25,27 34,27 Z M39,42 H46 L54,56 L62,42 H69 L57,65 H51 Z" />
+<?xml version='1.0' encoding='utf-8'?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="56" android:viewportHeight="56">
+  <group android:translateX="2" android:translateY="-36">
+    <path android:name="vipi_optical_notification_v" android:fillColor="#FFFFFFFF" android:pathData="M6 58C6 53 11 49 17 48C18 55 18.5 64.5 20.5 72.5C26 65.5 31.3 55.8 33.9 49.1C34.5 46.8 34 44.6 33 43C38 40 46 41 45 48C43 58 30.5 76.8 21 85.2L18.2 87C15.2 86.2 12.8 84.8 11.4 81.9C8.6 75 7 66.1 6 58Z" />
+  </group>
 </vector>
