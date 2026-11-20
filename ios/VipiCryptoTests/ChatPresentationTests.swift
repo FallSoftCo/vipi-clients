@@ -108,7 +108,7 @@ import VipiCore
                 let controls = ChatReadingState()
                 let metadata = AnyView(HStack(spacing:4) {
                     Text("12:34 PM").monospacedDigit()
-                    if outgoing { MessageDeliveryMark(state:"read",description:String(localized:"Read")) }
+                    if outgoing { MessageDeliveryMark(state:"read") }
                 }.font(.caption2).foregroundStyle(VipiDesign.messageSecondary(outgoing)))
                 let host = UIHostingController(rootView:VStack(alignment:.leading,spacing:24) {
                     Text("Native renderer · supplied water → agua").font(.caption).foregroundStyle(VipiDesign.secondary)

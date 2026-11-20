@@ -313,7 +313,7 @@ class MainActivity : ComponentActivity() {
 
 /** Demand only previews intersecting the clipped window. Uses the account's
  * existing owner and encrypted completion cache; opening Chats never waits. */
-@Composable internal fun HomeTranslationPreview(chat: ChatSession, message: ChatItem) {
+@Composable internal fun HomeTranslationPreview(chat: ChatSession, message: ChatItem, unread: Boolean) {
     val owner = chat.translations
     val id = message.id.toString()
     var visible by remember(owner, id, message.text) { mutableStateOf(false) }
@@ -326,7 +326,9 @@ class MainActivity : ComponentActivity() {
     val preview = value?.let { it.practiceReading ?: it.practiceText }
         ?: message.text
     Text(preview, maxLines = 2, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
-        fontSize = 16.sp, lineHeight = 21.sp, color = MaterialTheme.colorScheme.onSurfaceVariant,
+        fontSize = 16.sp, lineHeight = 21.sp,
+        fontWeight = if (unread) FontWeight.Medium else FontWeight.Normal,
+        color = if (unread) vipiPalette().ink else vipiPalette().secondary,
         modifier = Modifier.testTag("home-message-preview-$id").onGloballyPositioned {
             val bounds = it.boundsInWindow()
             visible = bounds.width > 0f && bounds.height > 0f

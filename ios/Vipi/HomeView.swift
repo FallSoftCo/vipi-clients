@@ -144,7 +144,7 @@ struct HomeConversationRow:View {
                     if thread.latest.outgoing {
                         MessageDeliveryMark(state:thread.latest.state)
                     }
-                    HomeMessagePreview(owner:owner,message:thread.latest,expectedPair:expectedPair)
+                    HomeMessagePreview(owner:owner,message:thread.latest,expectedPair:expectedPair,unread:thread.unread > 0)
                         .frame(maxWidth:.infinity,alignment:.leading)
                     if thread.unread > 0 {
                         Text(thread.unread.formatted()).font(.caption.weight(.semibold)).monospacedDigit()
@@ -166,6 +166,7 @@ struct HomeMessagePreview: View {
     let owner: ConversationImmersion?
     let message: ChatItem
     let expectedPair: TranslationPair
+    var unread = false
     var body: some View {
         Group {
             if let owner,owner.pair == expectedPair {
@@ -174,7 +175,8 @@ struct HomeMessagePreview: View {
             } else {
                 Text(message.text)
             }
-        }.lineLimit(2).font(.subheadline).foregroundStyle(VipiDesign.secondary)
+        }.lineLimit(2).font(.subheadline.weight(unread ? .medium:.regular))
+            .foregroundStyle(unread ? VipiDesign.ink:VipiDesign.secondary)
             .accessibilityIdentifier("chat-preview-"+message.id.uuidString.lowercased())
     }
 }

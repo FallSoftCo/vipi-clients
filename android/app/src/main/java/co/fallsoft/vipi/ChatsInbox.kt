@@ -157,7 +157,7 @@ import java.time.temporal.ChronoUnit
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                 if (thread.latest.outgoing) ChatDeliveryIcon(thread.latest.state, deliveryLabel(thread.latest.state))
-                Box(Modifier.weight(1f)) { HomeTranslationPreview(chat, thread.latest) }
+                Box(Modifier.weight(1f)) { HomeTranslationPreview(chat, thread.latest, unread) }
                 if (unread) {
                     val count = NumberFormat.getIntegerInstance(locale).format(thread.unread)
                     val spoken = pluralStringResource(R.plurals.inbox_unread, thread.unread, count)
