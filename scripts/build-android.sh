@@ -4,7 +4,7 @@ set -euo pipefail
 # This script never chooses a host, provisions an SDK or resurrects retired paths.
 : "${ANDROID_HOME:?Set ANDROID_HOME to the existing Android SDK}"
 : "${JAVA_HOME:?Set JAVA_HOME to the existing JDK (17 or newer)}"
-test -d "$ANDROID_HOME/platforms/android-36"
+test -d "$ANDROID_HOME/platforms/android-37"
 test -d "$ANDROID_HOME/ndk/29.0.14206865"
 test -x "$ANDROID_HOME/cmake/3.22.1/bin/cmake"
 test -x "$JAVA_HOME/bin/java"

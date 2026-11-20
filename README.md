@@ -1,11 +1,11 @@
 # Vipi
 
-Vipi: immersive chat with friends. Messages appear in the language you are learning; hold to see the meaning and tap to listen.
+Vipi is free, encrypted chat with friends. A word from your conversation appears in the language you’re learning. Tap the message to hear the practice words, or hold to read the original.
 
-**Status: the full-message immersion update is in qualification; both store reviews are withdrawn.** Vipi uses the shared Fallsoft sign-in with its own app data, subscriptions and encrypted messages. Vipi-only deletion preserves the shared account; global Fallsoft deletion remains disabled until all affected apps are covered. Preserve the databases and services of Enterprise OZZZ and Osmos. See [current delivery status](docs/DELIVERY_STATUS.md) for qualified behavior and remaining work.
+**The incremental chat release is in testing.** Both store reviews were withdrawn. Vipi uses the shared Fallsoft sign-in. Deleting a Vipi profile preserves the shared account. The global Fallsoft deletion flow remains disabled pending coverage of all affected apps.
 
 - [Product and experience](docs/PRODUCT.md)
-- [Current full-message immersion contract](docs/FULL_MESSAGE_IMMERSION.md)
+- [Incremental immersion and free chat](docs/INCREMENTAL_IMMERSION.md)
 - [Architecture](docs/ARCHITECTURE.md)
 - [Implementation and release gates](docs/IMPLEMENTATION.md)
 - [Verification ledger](docs/VERIFICATION.md)
