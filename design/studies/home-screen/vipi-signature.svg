@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+<title id="title">Vipi, a four-letter brush signature</title>
+<defs>
+ <path id="v" d="M6 58C6 53 11 49 17 48C18 54 18 65 20 71C25 66 32 55 34 49C34 47 34 45 33 43C38 40 46 41 45 48C43 58 30 76 21 84C18 87 12 85 11 82C8 75 7 66 6 58Z"/>
+ <path id="i" d="M41 58C44 54 49 52 54 52C51 62 48 74 49 77C51 77 54 75 57 72L59 76C53 83 47 87 42 85C36 83 36 77 38 70Z"/>
+ <path id="p" fill-rule="evenodd" d="M58 59C59 54 63 50 69 49L68 55C72 51 76 49 82 49C91 49 96 56 93 66C90 77 80 84 69 83L62 81L58 97C56 105 51 110 43 112C47 96 52 79 58 59Z M65 73C71 78 80 74 83 66C85 61 83 58 79 58C73 58 68 64 65 73Z"/>
+ <path id="ii" d="M99 57C102 53 107 51 112 52C108 62 105 72 105 75C106 79 113 75 119 71L121 76C114 84 106 89 99 87C91 85 92 77 94 70Z"/>
+ <path id="first-dot" d="M46 45C43 41 46 34 50 32C54 30 59 31 59 35C60 39 56 44 52 46C49 47 48 47 46 45Z"/>
+ <path id="last-dot" d="M103 45C100 42 102 35 107 32C111 30 116 30 117 35C118 39 113 45 109 46C106 47 104 47 103 45Z"/>
+</defs>
+<path fill="#45233F" d="M0 0H128V128H0Z"/>
+<g transform="translate(3 -1) rotate(-9 64 64) translate(3 1) scale(.92)">
+ <g fill="#251522" transform="translate(.3 1.8)"><use href="#v"/><use href="#i"/><use href="#p"/><use href="#ii"/><use href="#first-dot"/><use href="#last-dot"/></g>
+ <g fill="#FFF3DE"><use href="#v"/><use href="#i"/><use href="#p"/><use href="#ii"/><use href="#first-dot"/></g>
+ <use href="#last-dot" fill="#FFC958"/>
+</g></svg>
