@@ -2268,6 +2268,7 @@ final class ChatConversationTests: XCTestCase {
 
     func testPolishedFriendNightKeepsWholeSendAndModeWithKeyboard() throws { try checkJourney(largest:false,reading:"en-zh",dark:true,fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true) }
     func testPolishedFriendLargestKeepsWholeSendAndModeWithKeyboard() throws { try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true) }
+    func testForegroundPreviewOfNewSignalReply() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,whileOpenPreview:true) }
     func testSettingsPrivatePreviews() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"settings-previews") }
     func testSettingsPrivatePreviewsLargest() throws { try checkJourney(largest:true,reading:"en-zh",dark:true,fullTranslation:true,inboxReview:"settings-previews") }
     func testWaterInboxDayHasStationaryReadableRows() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,immersionModes:true,inboxReview:"water-populated") }
@@ -2278,7 +2279,7 @@ final class ChatConversationTests: XCTestCase {
     func testNativeInboxEmptyHasOneActionAndProfile() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"empty") }
     func testNativeInboxRealisticRowsNavigateAndClearLocalUnread() throws { try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,inboxReview:"populated") }
     func testNativeInboxLargestTextKeepsNamesAndDatesReadable() throws { try checkJourney(largest:true,reading:"en-zh",fullTranslation:true,inboxReview:"populated") }
-    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false,securityReview:Bool = false,immersionModes:Bool = false,chatPolish:Bool = false,notificationOptIn:Bool = false,inboxReview:String? = nil,motionReview:Bool = false) throws {
+    private func checkJourney(largest: Bool, reading: String? = nil, dark: Bool = false, fullTranslation:Bool = false, settingsInvite:Bool = false, copyOriginal:Bool = false, copyBot:Bool = false,cueLifecycle:Bool = false,pendingPair:Bool = false,marketing:Bool = false,draftBoundary:Bool = false,invitation:Bool = false,backupValidation:Bool = false,notificationNavigation:Bool = false,plansReview:Bool = false,securityReview:Bool = false,immersionModes:Bool = false,chatPolish:Bool = false,notificationOptIn:Bool = false,inboxReview:String? = nil,motionReview:Bool = false,whileOpenPreview:Bool = false) throws {
         guard ProcessInfo.processInfo.environment["VIPI_STARTER_ROUTE_UI"] == "true" else { throw XCTSkip("Owned isolated first-month root only") }
         continueAfterFailure = false
         let app = XCUIApplication()
@@ -2651,6 +2652,17 @@ final class ChatConversationTests: XCTestCase {
                 $0["pending_auth"] as? Bool == false && $0["session"] as? Bool == true &&
                 $0["purchase_ready"] as? Bool == false && $0["trial_started"] as? String == ""
         }
+        if whileOpenPreview {
+            app.buttons["Your profile and settings"].tap()
+            let notifications = app.buttons["Notifications"]; reveal(notifications); notifications.tap()
+            let preview = app.switches["settings-message-previews"]; reveal(preview)
+            XCTAssertEqual(preview.value as? String, "0")
+            preview.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
+            XCTAssertEqual(preview.value as? String, "1")
+            app.navigationBars.buttons["BackButton"].firstMatch.tap()
+            app.navigationBars.buttons["BackButton"].firstMatch.tap()
+            XCTAssertTrue(app.navigationBars["Chats"].waitForExistence(timeout: 5))
+        }
         if let inboxReview {
             XCTAssertTrue(app.navigationBars["Chats"].exists)
             XCTAssertFalse(app.buttons["Notify me when friends reply"].exists)
@@ -2994,6 +3006,20 @@ final class ChatConversationTests: XCTestCase {
         app.buttons["message-send"].tap()
         let first = observe("signal-peer-accepted-exact-first-message") { $0["peer_decryptions"] as? Int == 1 && ($0["accepted_ids"] as? [String])?.count == 1 }
         let outgoingID = try XCTUnwrap((first["accepted_ids"] as? [String])?.first)
+        if whileOpenPreview {
+            app.navigationBars.buttons["BackButton"].firstMatch.tap()
+            XCTAssertTrue(app.navigationBars["Chats"].waitForExistence(timeout: 5))
+            XCUIDevice.shared.press(.home); app.activate()
+            let banner = app.buttons["foreground-message-preview"]
+            XCTAssertTrue(banner.waitForExistence(timeout: 6))
+            XCTAssertTrue(banner.label.contains("Your private message arrived."))
+            let shot = XCTAttachment(screenshot: app.screenshot()); shot.name = "settings-live-foreground-preview"; shot.lifetime = .keepAlways; add(shot)
+            banner.tap()
+            XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "message-input").firstMatch.waitForExistence(timeout: 5))
+            XCTAssertFalse(banner.exists)
+            _ = observe("one-committed-peer-reply-opened") { $0["receipts"] as? Int == 1 && $0["peer_decryptions"] as? Int == 1 }
+            return
+        }
         // Real foreground transition invokes ConnectedChatRoot synchronization.
         if pendingPair {
             _ = observe("pending-pair-outgoing-held-before-native-refresh") {
