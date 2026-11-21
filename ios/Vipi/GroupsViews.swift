@@ -54,7 +54,7 @@ struct GroupsHomeView: View {
                 }
             } }
         }.navigationTitle("Groups")
-            .toolbar { ToolbarItem(placement: .primaryAction) { Button("Create group", systemImage: "plus") { creating = true } } }
+            .toolbar { ToolbarItem(placement: .primaryAction) { Button("New group", systemImage: "plus") { creating = true } } }
             .refreshable { await groups.refresh() }.task { await groups.refresh() }
             .sheet(isPresented: $creating) { NavigationStack { GroupCreateView(groups: groups, people: people, onCreated: openCreatedGroup) } }
     }
