@@ -119,7 +119,8 @@ async def test_free_profiles_exchange_encrypted_envelopes_and_report(db, account
                     await app.state.subscriptions.apply(alice[0]['id'], purchase(product, transaction_id=product), NOW)
             state = (await client.get('/v1/entitlements', headers=alice[2])).json()
             assert state['base']['active'] and state['base']['access_source'] == 'free'
-            assert not state['bot_mini']['available'] and not any(state['purchases_ready'].values())
+            assert state['bot_mini']['available'] is (account_state == 'existing_subscriber')
+            assert not any(state['purchases_ready'].values())
 
             # The relay transports opaque bytes. Client-side AEAD exercises actual
             # ciphertext integrity independently of the native Signal protocol.

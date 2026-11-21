@@ -209,7 +209,7 @@ class Subscriptions:
             matches = [r for r in rows if r.product == name and not r.revoked and not r.superseded
                        and r.verified_at and utc(r.verified_at) > cutoff and utc(r.expires_at) > now]
             latest = max(matches, key=lambda r: utc(r.expires_at), default=None)
-            if reviewer:
+            if reviewer and not free_base:
                 result[name] = {"active": True, "expires_at": None, "trial_ends_at": None,
                     "access_source": "review_complimentary", "review_access": True}
                 continue
