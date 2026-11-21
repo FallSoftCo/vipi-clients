@@ -6,6 +6,9 @@ After=postgresql.service network-online.target
 Type=oneshot
 User=vipi
 Group=vipi
+StateDirectory=vipi-media
+StateDirectoryMode=0700
+UMask=0077
 WorkingDirectory=/opt/vipi/current
 EnvironmentFile=/etc/vipi/service.env
 Environment=PYTHONPATH=/opt/vipi/current/deps
