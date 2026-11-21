@@ -1,0 +1,20 @@
+<resources>
+    <string name="new_chat_search">Name or @username</string>
+    <string name="new_chat_lookup">Find @%1$s on Vipi</string>
+    <string name="new_chat_privacy">Invite by text or email. Your address book stays on this phone.</string>
+    <string name="new_chat_saved">Vipi friends</string>
+    <string name="new_chat_empty">Find someone by username or invite a friend to Vipi.</string>
+    <string name="new_chat_no_matches">No saved friends match. Try an exact @username or send an invite.</string>
+    <string name="new_chat_unavailable">This person is unavailable.</string>
+    <string name="new_chat_phone_contacts">Use phone contacts</string>
+    <string name="phone_contacts_title">Use your phone contacts?</string>
+    <string name="phone_contacts_explain">Vipi doesn’t keep or share your address book. Choose someone on this phone to invite by text or email. You decide whether to send.</string>
+    <string name="phone_contacts_denied">Contacts access is off</string>
+    <string name="phone_contacts_denied_detail">You can still open your Vipi chats or share an invite without contacts access.</string>
+    <string name="phone_contacts_search">Search phone contacts</string>
+    <string name="phone_contacts_empty">No matching phone contacts with a number or email.</string>
+    <string name="phone_contacts_read_error">Phone contacts couldn’t be loaded.</string>
+    <string name="phone_no_draft">No app could open this draft.</string>
+    <string name="phone_email_to">Email %1$s</string>
+    <string name="phone_text_to">Text %1$s</string>
+</resources>
