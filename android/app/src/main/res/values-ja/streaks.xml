@@ -1,0 +1,5 @@
+<resources>
+    <string name="streak_days">連続日数：%1$s日</string>
+    <string name="streak_direct_rule">お互いにメッセージを送り、両方のメッセージが届くと、その日がカウントされます。日付は協定世界時（UTC）の午前0時に変わります。</string>
+    <string name="streak_group_rule">グループの異なる2人以上がメッセージを送ると、その日がカウントされます。日付は協定世界時（UTC）の午前0時に変わります。</string>
+</resources>

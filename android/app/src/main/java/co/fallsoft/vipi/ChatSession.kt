@@ -33,6 +33,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     constructor(context: Context, authentication: Authentication, userID: String) : this(context, ServiceClient(authentication, userID), userID)
     private val records = PrivateRecords(context)
     private var vault: MessageVault? = null
+    val streakVault get() = vault
     private val mediaScope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.SupervisorJob() + kotlinx.coroutines.Dispatchers.Main.immediate)
     private var registeredMediaDevice: UUID? = null
     private var registeringMedia = false

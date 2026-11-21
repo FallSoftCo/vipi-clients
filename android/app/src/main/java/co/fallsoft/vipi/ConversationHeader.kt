@@ -38,7 +38,7 @@ private val nameGap = 8.dp
 
 @Composable internal fun ConversationHeader(name: String, peer: UUID, autoplay: Boolean, audioAvailable: Boolean,
     onAutoplay: () -> Unit, mode: ImmersionMode, onMode: (() -> Unit)?, minHeight: Dp, modifier: Modifier,
-    back: @Composable () -> Unit, overflow: @Composable () -> Unit) {
+    streak: Int = 0, groupStreak: Boolean = false, back: @Composable () -> Unit, overflow: @Composable () -> Unit) {
     val autoplayLabel = stringResource(R.string.autoplay_label)
     val shallow = stringResource(R.string.immersion_mode_words_short)
     val deep = stringResource(R.string.immersion_mode_full)
@@ -53,10 +53,12 @@ private val nameGap = 8.dp
     val modeWidth = maxOf(width(shallow, labelStyle), width(deep, labelStyle))
     fun chipWidth(label: Dp) = maxOf(48.dp, chipPadding * 2 + iconSize + labelGap + label)
     val nameWidth = width(name, nameStyle)
+    val streakWidth = if (streak < 2) 0.dp else nameGap + maxOf(48.dp,
+        25.dp + width(streakNumeral(streak), MaterialTheme.typography.titleSmall.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold, fontFeatureSettings = "tnum")))
     val full = mode == ImmersionMode.FULL_MESSAGES
     BoxWithConstraints(modifier) {
         val centerWidth = maxWidth - 48.dp * 2 // Back and overflow each own one 48dp target.
-        val identity = avatarSize + nameGap + headerGap
+        val identity = avatarSize + nameGap + headerGap + streakWidth
         val modeGap = if (onMode == null) 0.dp else headerGap
         val labels = centerWidth >= identity + nameWidth + chipWidth(autoplayWidth) + modeGap +
             (if (onMode == null) 0.dp else chipWidth(modeWidth))
@@ -86,8 +88,9 @@ private val nameGap = 8.dp
                 Row(Modifier.weight(1f), horizontalArrangement = Arrangement.spacedBy(nameGap),
                     verticalAlignment = Alignment.CenterVertically) {
                     ContactAvatar(name, peer, avatarSize)
-                    Text(name, Modifier.testTag("conversation-contact"), style = nameStyle,
+                    Text(name, Modifier.weight(1f, fill = false).testTag("conversation-contact"), style = nameStyle,
                         maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    ChatStreakBadge(streak, groupStreak, explain = true)
                 }
                 if (!secondRow) {
                     Spacer(Modifier.width(headerGap))

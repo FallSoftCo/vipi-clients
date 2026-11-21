@@ -1,0 +1,5 @@
+<resources>
+    <string name="streak_days">Jours consécutifs : %1$s</string>
+    <string name="streak_direct_rule">Une journée compte lorsque chacun envoie un message à l’autre et que les deux messages sont remis. La journée commence à minuit UTC.</string>
+    <string name="streak_group_rule">Une journée compte lorsqu’au moins deux membres différents du groupe envoient un message. La journée commence à minuit UTC.</string>
+</resources>

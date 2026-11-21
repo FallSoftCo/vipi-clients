@@ -1,0 +1,5 @@
+<resources>
+    <string name="streak_days">Days in a row: %1$s</string>
+    <string name="streak_direct_rule">A day counts when you both send a message to each other and both messages are delivered. Days start at midnight UTC.</string>
+    <string name="streak_group_rule">A day counts when at least two different group members send a message. Days start at midnight UTC.</string>
+</resources>

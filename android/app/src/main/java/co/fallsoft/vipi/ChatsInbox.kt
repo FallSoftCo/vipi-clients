@@ -44,6 +44,7 @@ import java.time.temporal.ChronoUnit
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val threads = chat?.threads.orEmpty()
+    val streaks = streakCounts(chat?.streakVault, false, threads.map { it.peer }, chat?.revision ?: 0)
     val ready = chat?.ready == true
     val needsRecovery = chat?.needsDeviceRecovery == true
     val needsSignIn = chat?.needsReauthentication == true
@@ -104,7 +105,7 @@ import java.time.temporal.ChronoUnit
                         }
                         if (threads.isNotEmpty() && chat != null) {
                             items(threads, key = { thread -> thread.peer.toString() }) { thread ->
-                                InboxConversationRow(chat, thread) { model.openConversation(thread.peer) }
+                                InboxConversationRow(chat, thread, streaks[thread.peer] ?: 0) { model.openConversation(thread.peer) }
                             }
                         } else if (!needsRecovery && !needsSignIn) item("empty") {
                             Column(Modifier.fillParentMaxSize().testTag("inbox-empty").padding(24.dp),
@@ -189,7 +190,7 @@ import java.time.temporal.ChronoUnit
     }
 }
 
-@Composable private fun InboxConversationRow(chat: ChatSession, thread: ChatThread, open: () -> Unit) {
+@Composable private fun InboxConversationRow(chat: ChatSession, thread: ChatThread, streak: Int, open: () -> Unit) {
     val name = chat.name(thread.peer)
     val unread = thread.unread > 0
     val locale = LocalConfiguration.current.locales[0]
@@ -217,9 +218,13 @@ import java.time.temporal.ChronoUnit
                     color = if (unread) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(name, Modifier.weight(1f), fontSize = 18.sp, lineHeight = 23.sp,
-                    fontWeight = if (unread) FontWeight.Bold else FontWeight.Medium,
-                    maxLines = if (largeText) 2 else 1, overflow = TextOverflow.Ellipsis)
+                Row(Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Text(name, Modifier.weight(1f, fill = false), fontSize = 18.sp, lineHeight = 23.sp,
+                        fontWeight = if (unread) FontWeight.Bold else FontWeight.Medium,
+                        maxLines = if (largeText) 2 else 1, overflow = TextOverflow.Ellipsis)
+                    ChatStreakBadge(streak)
+                }
                 if (!largeText) timestamp()
             }
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {

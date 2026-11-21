@@ -1,0 +1,5 @@
+<resources>
+    <string name="streak_days">Tage in Folge: %1$s</string>
+    <string name="streak_direct_rule">Ein Tag zählt, wenn ihr einander jeweils eine Nachricht sendet und beide zugestellt werden. Der Tag beginnt um Mitternacht UTC.</string>
+    <string name="streak_group_rule">Ein Tag zählt, wenn mindestens zwei verschiedene Gruppenmitglieder eine Nachricht senden. Der Tag beginnt um Mitternacht UTC.</string>
+</resources>

@@ -73,6 +73,7 @@ internal class HistoryBackupStore(private val vault: MessageVault) {
                         ConversationHistory.record(vault, "imported", UUID.fromString(id), UUID.fromString(row.getString("peer_id")), row.getLong("sent_at_ms"))
                         added++
                     }
+                    ConversationStreaks.imported(vault, row)
                 }
             }
         }

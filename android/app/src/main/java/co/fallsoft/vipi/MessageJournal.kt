@@ -106,6 +106,7 @@ internal class MessageJournal(private val vault: MessageVault) {
             payload.optJSONObject("profile_avatar")?.let(ProfileAvatar::parse)?.let { update ->
                 if (update.revision > (vault.avatar(envelope.sender)?.revision ?: 0)) vault.storeAvatar(envelope.sender, update)
             }
+            ConversationStreaks.direct(vault, envelope.sender, false, envelope.createdAt)
             vault.put("incoming", envelope.id.toString(), it.encode())
             ConversationHistory.record(vault, "incoming", envelope.id, envelope.sender, envelope.createdAt, unread = true)
             vault.put("receipt", envelope.id.toString(), byteArrayOf(1))
@@ -150,7 +151,9 @@ internal class MessageJournal(private val vault: MessageVault) {
         if (state in setOf("accepted", "delivered", "read") && saved.envelope.sender == vault.account)
             LaunchFeedback.directAccepted(vault, id.toString(), saved.envelope.createdAt)
         vault.avatarStatus(id, state)
-        vault.put("outgoing", id.toString(), saved.copy(state = state).encode())
+        val updated = saved.copy(state = state)
+        ConversationStreaks.outgoing(vault, updated)
+        vault.put("outgoing", id.toString(), updated.encode())
         if (state != "accepted") vault.remove("pending", id.toString())
     }
     companion object { const val TTL = 72 * 60 * 60 * 1000L }

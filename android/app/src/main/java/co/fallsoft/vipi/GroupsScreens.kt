@@ -76,8 +76,16 @@ import java.util.UUID
         TextButton(onClick = { scope.launch { session.refresh() } }, enabled = !session.busy) { Text("Refresh group") }
     } }
 }
+@Composable private fun GroupStreakTitle(title: String, streak: Int) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(title, Modifier.weight(1f, fill = false), style = MaterialTheme.typography.titleLarge)
+        ChatStreakBadge(streak, group = true)
+    }
+}
+
 @Composable internal fun GroupsHomeScreen(session: GroupsSession, onCreate: () -> Unit, onOpen: (UUID) -> Unit, onBack: () -> Unit) {
     val scope = rememberCoroutineScope(); val revision = session.revision
+    val streaks = streakCounts(session.store.vault, true, (session.groups + session.departedGroups).map { it.id }, revision)
     LaunchedEffect(session) { session.refresh() }
     GroupFrame(stringResource(R.string.groups_title), onBack) { padding ->
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
@@ -100,7 +108,7 @@ import java.util.UUID
             }
             items(session.groups.sortedBy { it.title.lowercase() }, key = { it.id }) { group ->
                 Card(onClick = { onOpen(group.id) }, modifier = Modifier.fillMaxWidth()) { Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text(group.title, style = MaterialTheme.typography.titleLarge)
+                    GroupStreakTitle(group.title, streaks[group.id] ?: 0)
                     Text("${group.members.size} people${if (GroupsUpgrade.muteDeliveryQualified && session.preferences(group.id).muted) " · Muted" else ""}", style = MaterialTheme.typography.bodyLarge)
                     val unread = session.unread(group.id)
                     if (unread > 0) Text("$unread unread", style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Bold)
@@ -108,7 +116,7 @@ import java.util.UUID
             }
             if (session.departedGroups.isNotEmpty()) item { Text("Past groups", style = MaterialTheme.typography.titleLarge) }
             items(session.departedGroups, key = { "past:${it.id}" }) { group -> Card(onClick = { onOpen(group.id) }, modifier = Modifier.fillMaxWidth()) {
-                Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) { Text(group.title, style = MaterialTheme.typography.titleLarge); Text("Left group · Messages saved here", style = MaterialTheme.typography.bodyLarge) }
+                Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) { GroupStreakTitle(group.title, streaks[group.id] ?: 0); Text("Left group · Messages saved here", style = MaterialTheme.typography.bodyLarge) }
             } }
             item { TextButton(onClick = { scope.launch { session.refresh() } }, enabled = !session.busy) { Text("Refresh groups") } }
         }
@@ -234,6 +242,7 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
     LaunchedEffect(groupID) { session.refresh() }
     Scaffold(topBar = {
         ConversationHeader(group?.title ?: "Group", groupID, audio.enabled, true,
+            streak = streakCounts(session.store.vault, true, listOf(groupID), session.revision)[groupID] ?: 0, groupStreak = true,
             onAutoplay = { audio.setAutoplayEnabled(!audio.enabled) },
             mode = translation.mode,
             onMode = {

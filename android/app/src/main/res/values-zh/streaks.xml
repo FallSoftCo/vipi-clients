@@ -1,0 +1,5 @@
+<resources>
+    <string name="streak_days">连续天数：%1$s 天</string>
+    <string name="streak_direct_rule">当你们互相发送消息且双方的消息均已送达时，即可计入一天。每天从协调世界时（UTC）零点开始。</string>
+    <string name="streak_group_rule">当至少两位不同的群成员发送消息时，即可计入一天。每天从协调世界时（UTC）零点开始。</string>
+</resources>

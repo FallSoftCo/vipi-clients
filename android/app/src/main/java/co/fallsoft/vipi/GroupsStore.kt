@@ -52,6 +52,7 @@ internal class GroupsStore(val vault: MessageVault) {
     fun saveMessageInTransaction(value: GroupMessage) {
         val key = "${value.group}/${value.id}"
         vault.get("group-message", key)?.let { bytes -> val old = GroupMessage.parse(json(bytes)); require(old.copy(delivery = value.delivery, withheldReason = value.withheldReason) == value) { "Group message context changed" } }
+        ConversationStreaks.group(vault, value)
         vault.put("group-message", key, bytes(value.json()))
     }
     fun unread(group: UUID, account: UUID): Int { val read = preferences(group).read; return messages(group).count { it.sender != account && it.delivery == GroupDelivery.RECEIVED && it.id !in read } }

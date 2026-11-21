@@ -398,6 +398,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
         topBar = {
             val mode = translation?.mode ?: ImmersionMode.NEW_WORD
             ConversationHeader(chat.name(peer), peer, audio?.enabled == true, audio != null,
+                    streak = streakCounts(chat.streakVault, false, listOf(peer), chat.revision)[peer] ?: 0,
                     onAutoplay = {
                         val enable = audio?.enabled != true
                         audio?.setAutoplayEnabled(enable)

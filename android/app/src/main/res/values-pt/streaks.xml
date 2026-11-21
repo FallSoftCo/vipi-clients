@@ -1,0 +1,5 @@
+<resources>
+    <string name="streak_days">Dias consecutivos: %1$s</string>
+    <string name="streak_direct_rule">Um dia conta quando cada pessoa envia uma mensagem à outra e ambas as mensagens são entregues. O dia começa à meia-noite UTC.</string>
+    <string name="streak_group_rule">Um dia conta quando pelo menos duas pessoas diferentes do grupo enviam uma mensagem. O dia começa à meia-noite UTC.</string>
+</resources>

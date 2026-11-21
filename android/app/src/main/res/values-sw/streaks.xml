@@ -1,0 +1,5 @@
+<resources>
+    <string name="streak_days">Siku mfululizo: %1$s</string>
+    <string name="streak_direct_rule">Siku inahesabiwa ikiwa kila mmoja wenu anamtumia mwenzake ujumbe na jumbe zote mbili zinafika. Siku huanza usiku wa manane kwa saa za UTC.</string>
+    <string name="streak_group_rule">Siku inahesabiwa ikiwa angalau watu wawili tofauti katika kikundi wanatuma ujumbe. Siku huanza usiku wa manane kwa saa za UTC.</string>
+</resources>
