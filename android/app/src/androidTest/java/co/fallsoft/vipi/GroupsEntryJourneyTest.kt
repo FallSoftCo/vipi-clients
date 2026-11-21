@@ -54,6 +54,7 @@ class GroupsEntryJourneyTest {
                 compose.onNodeWithTag("open-groups").performScrollTo().performClick()
                 compose.waitUntil(10_000) { fixture.model.chat?.groups?.loaded == true }
                 compose.onAllNodesWithText("Create group").onFirst().performClick()
+                compose.onNodeWithText("Maximum 16 people").assertIsDisplayed()
                 compose.onNodeWithText("Group name").performTextInput("Saturday practice")
                 compose.onNodeWithText("Maya").performScrollTo().performClick()
                 compose.onNodeWithText("2 of 16 people selected, including you").assertExists()

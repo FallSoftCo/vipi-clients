@@ -72,7 +72,7 @@ struct GroupCreateView: View {
         List {
             Section("Group name") { TextField("For example, Weekend friends", text: $title).font(.body).disabled(created != nil).accessibilityIdentifier("group-name") }
             Section {
-                Text("Choose up to 15 people. You make 16. Each person gets an invitation and chooses whether to join.").font(.body)
+                Text("Maximum 16 people").font(.body)
                 Text("\(selected.count + 1) of 16 people selected, including you").font(.headline).accessibilityIdentifier("group-selection-count")
             }
             GroupPeoplePicker(people: people, account: groups.account, selected: $selected, notice: $selectionNotice)

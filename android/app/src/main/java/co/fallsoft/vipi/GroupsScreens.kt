@@ -124,7 +124,7 @@ import java.util.UUID
     GroupFrame("New group", onBack) { padding ->
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
             item { OutlinedTextField(name, { name = it }, label = { Text("Group name") }, placeholder = { Text("For example, Weekend friends") }, enabled = created == null && !session.busy, modifier = Modifier.fillMaxWidth()) }
-            item { Text("Choose up to 15 people. You make 16. Each person gets an invitation and chooses whether to join.", style = MaterialTheme.typography.bodyLarge) }
+            item { Text("Maximum 16 people", style = MaterialTheme.typography.bodyLarge) }
             item { Text("${selected.size + 1} of 16 people selected, including you", style = MaterialTheme.typography.titleMedium) }
             item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) { GroupPeoplePicker(people, session.account, emptySet(), selected, { selected = it; error = null }, { error = it }) } }
             item { (error ?: session.notice)?.let { Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.error) } }
