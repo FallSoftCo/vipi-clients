@@ -85,6 +85,13 @@ struct MediaPlaybackButton: View {
     @State private var attempt = 0
     @Environment(\.scenePhase) private var scenePhase
     var body: some View {
+        if manifest.kind == .voice {
+            InlineVoiceNote(manifest: manifest, available: available, load: load)
+        } else {
+            videoButton
+        }
+    }
+    private var videoButton: some View {
         Button { showing = true } label: {
             Label {
                 if let ms = manifest.durationMillis {
@@ -96,10 +103,10 @@ struct MediaPlaybackButton: View {
         .sheet(isPresented: $showing, onDismiss: clear) {
             NavigationStack {
                 Group {
-                    if let file { LocalMediaPlayer(url: file, video: manifest.kind == .video) }
+                    if let file { LocalMediaPlayer(url: file, video: true) }
                     else if failed { VStack { Text("Couldn’t open this attachment."); Button("Try again") { attempt += 1 } } }
                     else { ProgressView("Opening attachment…") }
-                }.padding().navigationTitle(manifest.kind == .voice ? "Voice message" : "Video")
+                }.padding().navigationTitle("Video")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Close") { showing = false } } }
                 .task(id: attempt) {

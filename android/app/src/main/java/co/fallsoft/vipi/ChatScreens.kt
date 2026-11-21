@@ -573,8 +573,13 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                                                 for (attachment in item.attachments) {
                                                     key(chat, photoOwner, peer, attachment.id) {
                                                         if (attachment.kind in setOf(AttachmentKind.VIDEO, AttachmentKind.VOICE)) {
-                                                            if (chat.ready && !blocked && peer !in chat.peersNeedingRecovery && !chat.needsReauthentication)
-                                                                PrivateMediaPlayback(attachment.kind) { chat.openMedia(peer, attachment, photoRepository) }
+                                                            if (chat.ready && !blocked && peer !in chat.peersNeedingRecovery && !chat.needsReauthentication) {
+                                                                if (attachment.kind == AttachmentKind.VOICE) InlineVoicePlayer(attachment.durationMillis ?: 0L) {
+                                                                    val opened = chat.openMedia(peer, attachment, photoRepository)
+                                                                    try { android.os.ParcelFileDescriptor.open(opened, android.os.ParcelFileDescriptor.MODE_READ_ONLY) }
+                                                                    finally { opened.delete() }
+                                                                } else PrivateMediaPlayback(attachment.kind) { chat.openMedia(peer, attachment, photoRepository) }
+                                                            }
                                                         } else if (attachment.kind == AttachmentKind.PHOTO) ConversationPhoto(photoRepository, attachment, chat.ready && !blocked &&
                                                             !chat.needsReauthentication && peer !in chat.peersNeedingRecovery) {
                                                             chat.viewPhoto(peer, attachment, photoRepository)
