@@ -14,8 +14,12 @@ struct ChosenMedia: Identifiable, Sendable {
     static func copy(_ source: URL, kind: AttachmentKind, type: UTType) throws -> Self {
         let size = try source.resourceValues(forKeys: [.fileSizeKey]).fileSize ?? 0
         guard (1...MediaCryptography.maxBytes).contains(size) else { throw MediaCryptography.Failure.tooLarge }
+        let sourceType = UTType(filenameExtension: source.pathExtension)
+        let expected: UTType = kind == .video ? .movie : .image
+        let hint = sourceType.flatMap { $0.conforms(to: expected) ? $0.preferredFilenameExtension : nil }
+            ?? type.preferredFilenameExtension ?? (kind == .video ? "mp4" : "jpg")
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-            .appendingPathExtension(type.preferredFilenameExtension ?? "bin")
+            .appendingPathExtension(hint)
         try FileManager.default.copyItem(at: source, to: url)
         do { try FileManager.default.setAttributes([.protectionKey: FileProtectionType.complete], ofItemAtPath: url.path) }
         catch { try? FileManager.default.removeItem(at: url); throw error }

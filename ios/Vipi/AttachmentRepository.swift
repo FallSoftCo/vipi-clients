@@ -69,7 +69,11 @@ final class AttachmentRepository: Sendable {
         let scoped = source.startAccessingSecurityScopedResource()
         defer { if scoped { source.stopAccessingSecurityScopedResource() } }
         let id = UUID().uuidString.lowercased(), key = MediaCryptography.freshKey()
-        let clear = verified.appendingPathComponent("inspect-\(UUID()).private")
+        // AVFoundation selects a demuxer from the local URL's type hint.
+        // Keep only a short native type extension, never a sender path/name.
+        let sourceType = UTType(filenameExtension: source.pathExtension)
+        let hint = sourceType?.preferredFilenameExtension ?? (kind == .voice ? "m4a" : kind == .video ? "mp4" : "img")
+        let clear = verified.appendingPathComponent("inspect-\(UUID())").appendingPathExtension(hint)
         let thumb = verified.appendingPathComponent("thumbnail-\(UUID()).jpg")
         var created: [URL] = []
         defer { try? FileManager.default.removeItem(at: clear); try? FileManager.default.removeItem(at: thumb) }
