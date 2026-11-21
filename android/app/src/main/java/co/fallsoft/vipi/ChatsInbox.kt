@@ -137,7 +137,7 @@ import java.time.temporal.ChronoUnit
     val textStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
     val measurer = rememberTextMeasurer()
     val textWidth = with(LocalDensity.current) {
-        measurer.measure(practice, textStyle, softWrap = false).size.width.toDp()
+        (measurer.measure(practice, textStyle, softWrap = false).size.width + 1).toDp()
     }
     val capsulePadding = 14.dp
     val chevron = 18.dp
@@ -154,7 +154,7 @@ import java.time.temporal.ChronoUnit
                     .semantics { contentDescription = changeLanguage; stateDescription = practice }
                     .heightIn(min = 48.dp).padding(horizontal = capsulePadding, vertical = 6.dp),
                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(gap)) {
-                    Text(practice, Modifier.weight(1f, fill = false).testTag("inbox-practice-text"),
+                    Text(practice, Modifier.weight(1f, fill = false).width(textWidth).testTag("inbox-practice-text"),
                         style = textStyle, textAlign = TextAlign.Center)
                     Icon(Icons.Outlined.ExpandMore, null, Modifier.size(chevron))
                 }
