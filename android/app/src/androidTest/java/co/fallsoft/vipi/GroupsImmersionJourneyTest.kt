@@ -99,7 +99,6 @@ class GroupsImmersionJourneyTest {
             try {
                 f.launch()
                 compose.waitUntil(15_000) { f.model.chat?.ready == true }
-                compose.onNodeWithTag("inbox-compose").performClick()
                 compose.onNodeWithTag("open-groups").performScrollTo().performClick()
                 compose.waitUntil(10_000) { f.model.chat?.groups?.loaded == true }
                 compose.onNodeWithText(roster.title).performClick()

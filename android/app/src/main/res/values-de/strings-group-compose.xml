@@ -1,0 +1,5 @@
+<resources>
+    <string name="new_group_action">Neue Gruppe</string>
+    <string name="groups_and_invitations">Gruppen und Einladungen</string>
+    <string name="groups_none_yet">Noch keine Gruppen</string>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="new_group_action">Kikundi kipya</string>
+    <string name="groups_and_invitations">Vikundi na mialiko</string>
+    <string name="groups_none_yet">Bado hakuna vikundi</string>
+</resources>

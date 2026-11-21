@@ -170,7 +170,8 @@ class MainActivity : ComponentActivity() {
         if (groups != null && translation != null && chat.ready && !chat.needsReauthentication &&
             chat.userID == model.authentication.userID) {
             GroupsNavigator(groups, chat.contacts.values.filter { it.id !in chat.blockedPeers }, translation,
-                model.knownLanguage, model.targetLanguage, model::selectImmersionMode, reviewIdentity = model::openConversation, onBack = model::back)
+                model.knownLanguage, model.targetLanguage, model::selectImmersionMode, reviewIdentity = model::openConversation, onBack = model::back,
+                startWithCreate = model.createGroupOnEntry)
         } else LaunchedEffect(Unit) { model.navigate(Screen.HOME) }
         return
     }

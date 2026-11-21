@@ -50,6 +50,7 @@ import java.time.temporal.ChronoUnit
     val loading = model.authentication.userID != null && !needsRecovery && !needsSignIn &&
         (!ready || model.chatError != null)
     val newChat = { model.navigate(Screen.NEW_CHAT) }
+    val groupActions = ready && chat?.groups != null && !needsRecovery && !needsSignIn && chat.userID == model.authentication.userID
     val newChatLabel = stringResource(R.string.nav_new_chat)
     // The action belongs to the conversation pane on expanded/folded widths.
     // The outer canvas still covers the complete edge-to-edge window.
@@ -61,7 +62,7 @@ import java.time.temporal.ChronoUnit
         contentWindowInsets = WindowInsets.safeDrawing,
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
-            if (threads.isNotEmpty()) FloatingActionButton(
+            if (threads.isNotEmpty() && !groupActions) FloatingActionButton(
                 onClick = { if (ready) newChat() },
                 containerColor = if (ready) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
                 contentColor = if (ready) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -77,7 +78,10 @@ import java.time.temporal.ChronoUnit
                 // Reserve the complete 56dp FAB +16dp placement gap +16dp
                 // breathing room, so the final row scrolls fully above it.
                 LazyColumn(Modifier.fillMaxSize().testTag("inbox-list"), state = listState,
-                    contentPadding = PaddingValues(bottom = if (threads.isNotEmpty()) 88.dp else 0.dp)) {
+                    contentPadding = PaddingValues(bottom = if (threads.isNotEmpty() && !groupActions) 88.dp else 0.dp)) {
+                    if (groupActions) item("compose-actions") {
+                        ChatCreationActions(model)
+                    }
                     if (chat != null && needsRecovery) item("recovery") {
                         Box(Modifier.padding(20.dp)) { DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) } }
                     } else if (chat != null && needsSignIn) item("authorization") {
@@ -103,7 +107,7 @@ import java.time.temporal.ChronoUnit
                             items(threads, key = { thread -> thread.peer.toString() }) { thread ->
                                 InboxConversationRow(chat, thread) { model.openConversation(thread.peer) }
                             }
-                        } else if (!needsRecovery && !needsSignIn) item("empty") {
+                        } else if (!groupActions && !needsRecovery && !needsSignIn) item("empty") {
                             Column(Modifier.fillParentMaxSize().testTag("inbox-empty").padding(24.dp),
                                 verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
                                 Surface(shape = CircleShape, color = MaterialTheme.colorScheme.primaryContainer) {

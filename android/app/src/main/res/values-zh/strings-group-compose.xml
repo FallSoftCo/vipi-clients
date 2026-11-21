@@ -1,0 +1,5 @@
+<resources>
+    <string name="new_group_action">新建群组</string>
+    <string name="groups_and_invitations">群组和邀请</string>
+    <string name="groups_none_yet">暂无群组</string>
+</resources>

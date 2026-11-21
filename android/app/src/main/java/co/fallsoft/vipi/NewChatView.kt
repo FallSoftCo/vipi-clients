@@ -74,6 +74,9 @@ internal data class SavedFriend(val id: UUID, val name: String, val username: St
                         colors = vipiTextFieldColors(), keyboardOptions = KeyboardOptions(autoCorrectEnabled = false, imeAction = ImeAction.Search),
                         keyboardActions = KeyboardActions(onSearch = { submit() }), modifier = Modifier.fillMaxWidth().onFocusChanged { editing = it.isFocused }.testTag("new-chat-search"))
                 }
+                if (chat?.groups != null) item {
+                    NewGroupAction { if (current()) model.openGroups(create = true) }
+                }
                 if (chat == null) item { Text(stringResource(R.string.friends_sign_in_required)) }
                 else {
                     if (exact != null && friends.none { it.username.equals(exact, true) }) item {
@@ -88,12 +91,6 @@ internal data class SavedFriend(val id: UUID, val name: String, val username: St
                                 TextButton(onClick = { keyboard?.hide(); contactsOpen = true }) { Text(stringResource(R.string.new_chat_phone_contacts)) }
                             }
                             Text(stringResource(R.string.new_chat_privacy), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        }
-                    }
-                    if (chat.groups != null) item {
-                        OutlinedButton(onClick = { if (current()) model.navigate(Screen.GROUPS) },
-                            modifier = Modifier.fillMaxWidth().testTag("open-groups")) {
-                            Text(stringResource(R.string.groups_title))
                         }
                     }
                     item { HorizontalDivider(); Text(stringResource(R.string.new_chat_saved), style = MaterialTheme.typography.titleSmall,

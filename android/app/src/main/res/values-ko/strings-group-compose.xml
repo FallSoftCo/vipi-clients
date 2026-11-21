@@ -1,0 +1,5 @@
+<resources>
+    <string name="new_group_action">새 그룹</string>
+    <string name="groups_and_invitations">그룹 및 초대</string>
+    <string name="groups_none_yet">아직 그룹이 없어요</string>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="new_group_action">新しいグループ</string>
+    <string name="groups_and_invitations">グループと招待</string>
+    <string name="groups_none_yet">まだグループはありません</string>
+</resources>

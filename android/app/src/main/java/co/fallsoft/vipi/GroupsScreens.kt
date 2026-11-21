@@ -3,6 +3,7 @@ package co.fallsoft.vipi
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -13,6 +14,7 @@ import androidx.compose.material.icons.outlined.Groups
 import androidx.compose.ui.res.stringResource
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,13 +34,21 @@ import java.util.UUID
 
 /** The opt-in debug build opens this route with the signed-in account’s immersion owner. */
 @Composable internal fun GroupsNavigator(session: GroupsSession, people: List<ChatProfile>, translation: ConversationTranslation,
-    source: String, target: String, changeMode: (ImmersionMode) -> Unit, reviewIdentity: (UUID) -> Unit, onBack: () -> Unit) {
-    var route by remember(session.account) { mutableStateOf("home") }
+    source: String, target: String, changeMode: (ImmersionMode) -> Unit, reviewIdentity: (UUID) -> Unit, onBack: () -> Unit,
+    startWithCreate: Boolean = false) {
+    var route by remember(session.account) { mutableStateOf(if (startWithCreate) "direct-create" else "home") }
     var selected by remember(session.account) { mutableStateOf<UUID?>(null) }
-    val back = { route = if (route in setOf("info", "invite")) "conversation" else "home" }
-    BackHandler { if (route == "home") onBack() else back() }
+    val back: () -> Unit = {
+        when (route) {
+            "home", "direct-create" -> onBack()
+            "invite" -> route = "info"
+            "info" -> route = "conversation"
+            else -> route = "home"
+        }
+    }
+    BackHandler(onBack = back)
     when (route) {
-        "create" -> GroupCreateScreen(session, people, onBack = { route = "home" }, onCreated = { selected = it; route = "conversation" })
+        "direct-create", "create" -> GroupCreateScreen(session, people, onBack = back, onCreated = { selected = it; route = "conversation" })
         "conversation" -> selected?.let { GroupConversationScreen(session, it, people, translation, source, target, changeMode, onInfo = { route = "info" }, onBack = { route = "home" }) }
         "info" -> selected?.let { GroupInfoScreen(session, it, people, reviewIdentity, onInvite = { route = "invite" }, onLeft = { route = "home" }, onBack = { route = "conversation" }) }
         "invite" -> selected?.let { GroupInviteScreen(session, it, people, onBack = { route = "info" }) }
@@ -47,7 +57,7 @@ import java.util.UUID
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Composable private fun GroupFrame(title: String, onBack: () -> Unit, action: (@Composable () -> Unit)? = null, titleArt: (@Composable () -> Unit)? = null, content: @Composable (PaddingValues) -> Unit) {
+@Composable private fun GroupFrame(title: String, onBack: () -> Unit, titleArt: (@Composable () -> Unit)? = null, content: @Composable (PaddingValues) -> Unit) {
     Scaffold(topBar = { TopAppBar(title = {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text(title, style = MaterialTheme.typography.titleLarge)
@@ -55,7 +65,7 @@ import java.util.UUID
                 if (maxWidth >= 92.dp) titleArt()
             }
         }
-    }, navigationIcon = { TextButton(onClick = onBack) { Text("Back") } }, actions = { action?.invoke() }) }, content = content)
+    }, navigationIcon = { TextButton(onClick = onBack) { Text("Back") } }) }, content = content)
 }
 @Composable private fun GroupNotice(session: GroupsSession) {
     val scope = rememberCoroutineScope()
@@ -67,8 +77,9 @@ import java.util.UUID
 @Composable internal fun GroupsHomeScreen(session: GroupsSession, onCreate: () -> Unit, onOpen: (UUID) -> Unit, onBack: () -> Unit) {
     val scope = rememberCoroutineScope(); val revision = session.revision
     LaunchedEffect(session) { session.refresh() }
-    GroupFrame("Groups", onBack, action = { TextButton(onClick = onCreate) { Text("Create group") } }) { padding ->
+    GroupFrame(stringResource(R.string.groups_title), onBack) { padding ->
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
+            item { NewGroupAction(onClick = onCreate) }
             item { GroupNotice(session) }
             if (session.busy && !session.loaded) item { Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) { CircularProgressIndicator(); Text("Loading groups", style = MaterialTheme.typography.bodyLarge) } }
             if (session.invitations.isNotEmpty()) item { Text("Invitations", style = MaterialTheme.typography.titleLarge) }
@@ -83,11 +94,7 @@ import java.util.UUID
                 } }
             }
             if (session.groups.isEmpty() && !session.busy) item {
-                Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                    Text("Bring your people together", style = MaterialTheme.typography.headlineMedium)
-                    Text("Create a group for up to 16 people, including you. Everyone keeps their own language practice settings.", style = MaterialTheme.typography.bodyLarge)
-                    Button(onClick = onCreate) { Text("Create group") }
-                }
+                Text(stringResource(R.string.groups_none_yet), style = MaterialTheme.typography.bodyLarge)
             }
             items(session.groups.sortedBy { it.title.lowercase() }, key = { it.id }) { group ->
                 Card(onClick = { onOpen(group.id) }, modifier = Modifier.fillMaxWidth()) { Column(Modifier.padding(18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
@@ -106,12 +113,12 @@ import java.util.UUID
     }
 }
 
-@Composable private fun GroupPeoplePicker(people: List<ChatProfile>, account: UUID, occupied: Set<UUID>, selected: Set<UUID>, onChange: (Set<UUID>) -> Unit, onError: (String) -> Unit) {
-    var search by remember { mutableStateOf("") }
-    OutlinedTextField(search, { search = it }, label = { Text("Search names or usernames") }, modifier = Modifier.fillMaxWidth(), singleLine = true)
+private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: UUID, occupied: Set<UUID>, selected: Set<UUID>,
+    search: String, onSearch: (String) -> Unit, onChange: (Set<UUID>) -> Unit, onError: (String) -> Unit) {
+    item { OutlinedTextField(search, onSearch, label = { Text("Search names or usernames") }, modifier = Modifier.fillMaxWidth(), singleLine = true) }
     val matches = people.filter { it.id != account && it.id !in occupied && (search.isEmpty() || it.displayName.contains(search, true) || it.username.contains(search, true)) }.sortedBy { it.displayName.lowercase() }
-    if (matches.isEmpty()) Text(if (people.isEmpty()) "Add a friend before creating a group." else "No matching people. Try another name or username.", style = MaterialTheme.typography.bodyLarge)
-    matches.forEach { person ->
+    if (matches.isEmpty()) item { Text(if (people.isEmpty()) "Add a friend before creating a group." else "No matching people. Try another name or username.", style = MaterialTheme.typography.bodyLarge) }
+    items(matches, key = { it.id }) { person ->
         Surface(onClick = {
             try { onChange(GroupSelection.toggle(person.id, selected, account, occupied)) }
             catch (e: IllegalArgumentException) { onError(e.message ?: "You can choose up to 15 other people.") }
@@ -128,32 +135,46 @@ import java.util.UUID
 }
 @Composable internal fun GroupCreateScreen(session: GroupsSession, people: List<ChatProfile>, onBack: () -> Unit, onCreated: (UUID) -> Unit) {
     var name by remember { mutableStateOf(session.pendingCreateTitle() ?: "") }; var selected by remember { mutableStateOf(emptySet<UUID>()) }
+    var search by remember { mutableStateOf("") }
     var editingName by remember { mutableStateOf(false) }
     var created by remember { mutableStateOf<UUID?>(null) }; var error by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
-    GroupFrame("New group", onBack, titleArt = { ScreenSpot(R.drawable.vipi_spot_new_group, editingName) }) { padding ->
-        LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            item {
-                OutlinedTextField(name, { name = it }, label = { Text("Group name") },
-                    placeholder = { Text("For example, Weekend friends") }, enabled = created == null && !session.busy,
-                    modifier = Modifier.fillMaxWidth().onFocusChanged { editingName = it.isFocused })
+    GroupFrame(stringResource(R.string.new_group_action), onBack, titleArt = { ScreenSpot(R.drawable.vipi_spot_new_group, editingName) }) { padding ->
+        Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()) {
+            LazyColumn(Modifier.weight(1f).fillMaxWidth().testTag("new-group-roster"),
+                contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                item {
+                    OutlinedTextField(name, { name = it }, label = { Text("Group name") },
+                        placeholder = { Text("For example, Weekend friends") }, enabled = created == null && !session.busy,
+                        modifier = Modifier.fillMaxWidth().onFocusChanged { editingName = it.isFocused })
+                }
+                item { Text("Maximum 16 people", style = MaterialTheme.typography.bodyLarge) }
+                item { Text("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.",
+                    style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                item { Text("${selected.size + 1} of 16 people selected, including you", style = MaterialTheme.typography.titleMedium) }
+                groupPeoplePicker(people, session.account, emptySet(), selected, search, { search = it },
+                    { selected = it; error = null }, { error = it })
             }
-            item { Text("Maximum 16 people", style = MaterialTheme.typography.bodyLarge) }
-            item { Text("${selected.size + 1} of 16 people selected, including you", style = MaterialTheme.typography.titleMedium) }
-            item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) { GroupPeoplePicker(people, session.account, emptySet(), selected, { selected = it; error = null }, { error = it }) } }
-            item { (error ?: session.notice)?.let { Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.error) } }
-            item { Button(onClick = { scope.launch {
-                var current = created?.let(session::group) ?: session.create(name)?.also { created = it.id } ?: return@launch
-                for (id in selected.sortedBy(UUID::toString)) {
-                    if (!session.invite(current, id)) return@launch
-                    selected = selected - id; current = session.group(current.id) ?: return@launch
-                }; onCreated(current.id)
-            } }, enabled = !session.busy && selected.isNotEmpty() && runCatching { GroupSelection.name(name) }.isSuccess, modifier = Modifier.fillMaxWidth()) { Text(when {
-                created != null -> "Retry remaining invitations"
-                selected.isEmpty() -> "Create group"
-                else -> "Create group and invite ${selected.size}"
-            }) } }
-            item { Text("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.", style = MaterialTheme.typography.bodyLarge) }
+            Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 6.dp)) {
+                (error ?: session.notice)?.let { Text(it, style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.error, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }) }
+                Button(onClick = { scope.launch {
+                    var current = created?.let(session::group) ?: session.create(name)?.also { created = it.id } ?: return@launch
+                    for (id in selected.sortedBy(UUID::toString)) {
+                        if (!session.invite(current, id)) return@launch
+                        selected = selected - id
+                        current = session.group(current.id) ?: return@launch
+                    }
+                    onCreated(current.id)
+                } }, enabled = !session.busy && selected.isNotEmpty() && runCatching { GroupSelection.name(name) }.isSuccess,
+                    modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                    Text(when {
+                        created != null -> "Retry remaining invitations"
+                        selected.isEmpty() -> "Create group"
+                        else -> "Create group and invite ${selected.size}"
+                    })
+                }
+            }
         }
     }
 }
@@ -353,11 +374,12 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
 }
 @Composable internal fun GroupInviteScreen(session: GroupsSession, groupID: UUID, people: List<ChatProfile>, onBack: () -> Unit) {
     var selected by remember { mutableStateOf(emptySet<UUID>()) }; var notice by remember { mutableStateOf<String?>(null) }; val scope = rememberCoroutineScope()
+    var search by remember { mutableStateOf("") }
     GroupFrame("Invite people", onBack) { padding ->
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
             item { Text("People choose whether to join. They’ll only receive messages sent after they accept.", style = MaterialTheme.typography.bodyLarge) }
             session.group(groupID)?.let { group ->
-                item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) { GroupPeoplePicker(people, session.account, (group.members.filter { it.id != session.account }.map { it.id } + group.invitations.map { it.user }).toSet(), selected, { selected = it; notice = null }, { notice = it }) } }
+                groupPeoplePicker(people, session.account, (group.members.filter { it.id != session.account }.map { it.id } + group.invitations.map { it.user }).toSet(), selected, search, { search = it }, { selected = it; notice = null }, { notice = it })
                 item { (notice ?: session.notice)?.let { Text(it, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.error) } }
                 item { Button(onClick = { scope.launch {
                     for (id in selected.sortedBy(UUID::toString)) { val current = session.group(groupID) ?: return@launch; if (!session.invite(current, id)) return@launch; selected = selected - id }; onBack()

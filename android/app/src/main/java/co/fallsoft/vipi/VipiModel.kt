@@ -88,6 +88,18 @@ class VipiModel internal constructor(application: Application, private val trans
         private set
     var translatedText by mutableStateOf<String?>(null)
         private set
+    private var groupsReturnScreen = Screen.HOME
+    internal var createGroupOnEntry = false
+        private set
+
+    internal fun openGroups(create: Boolean) {
+        val active = chat ?: return
+        if (active.groups == null || !active.ready || active.needsReauthentication || active.userID != authentication.userID) return
+        groupsReturnScreen = screen
+        createGroupOnEntry = create
+        navigate(Screen.GROUPS)
+    }
+
     private var languageReturnScreen = Screen.SETTINGS
     private var tutorialReturnScreen = Screen.ACCOUNT
     fun openTutorial() {
@@ -228,7 +240,7 @@ class VipiModel internal constructor(application: Application, private val trans
         Screen.TUTORIAL -> if (tutorialReturnScreen == Screen.ACCOUNT) Screen.LANGUAGE else tutorialReturnScreen
         Screen.LANGUAGE_DOWNLOAD -> languageReturnScreen
         Screen.DELETE_ACCOUNT -> if (chat?.needsProfile == true) Screen.PROFILE else Screen.SETTINGS
-        Screen.GROUPS -> Screen.NEW_CHAT
+        Screen.GROUPS -> groupsReturnScreen
         Screen.BACKUP, Screen.LICENSES -> Screen.SETTINGS
         else -> Screen.HOME
     }) }
