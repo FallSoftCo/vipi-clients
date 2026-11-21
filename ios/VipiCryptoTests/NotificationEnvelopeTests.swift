@@ -57,6 +57,26 @@ final class NotificationEnvelopeTests: XCTestCase {
         XCTAssertThrowsError(try match.preview(grant: grant, vault: extensionVault, device: receiver.device) { grant })
     }
 
+    func testOnlyInterruptedFirstCreationMayRecoverAnAbsentCanonicalDatabase() throws {
+        let id = UUID(), name = id.uuidString.lowercased()
+        defer {
+            for prefix in ["messages-", "messages-initializing-", "notification-store-location-"] { KeychainStore.delete(account: prefix + name) }
+            for root in [NotificationAccess.legacyRoot, NotificationAccess.root].compactMap({ $0 }) {
+                try? FileManager.default.removeItem(at: root.appendingPathComponent(name))
+            }
+        }
+        try KeychainStore.save(Data(repeating: 7, count: 32), account: "messages-" + name)
+        XCTAssertThrowsError(try MessageVault(account: id))
+        try KeychainStore.save(Data([1]), account: "messages-initializing-" + name)
+        let created = try MessageVault(account: id)
+        XCTAssertNotNil(try created.transaction { try created.notificationConsent() })
+        XCTAssertNil(try KeychainStore.read(account: "messages-initializing-" + name))
+        let folder = created.url.deletingLastPathComponent()
+        try created.close()
+        try FileManager.default.removeItem(at: folder)
+        XCTAssertThrowsError(try MessageVault(account: id))
+    }
+
     func testPinnedVaultLocationSurvivesRestartAndMissingEntitlement() throws {
         let id = UUID(), root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         let legacy = root.appendingPathComponent("legacy"), shared = root.appendingPathComponent("shared")

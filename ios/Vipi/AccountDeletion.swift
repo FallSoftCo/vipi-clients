@@ -88,6 +88,7 @@ private final class NoDeletionRedirects: NSObject, URLSessionTaskDelegate, Senda
             let folder = root.appendingPathComponent(record.account.uuidString.lowercased())
             if FileManager.default.fileExists(atPath: folder.path) { try FileManager.default.removeItem(at: folder) }
         }
+        try KeychainStore.deleteChecked(account: "messages-initializing-" + record.account.uuidString.lowercased())
         try KeychainStore.deleteChecked(account: "notification-store-location-" + record.account.uuidString.lowercased())
         // These are private, temporary encrypted copies, not files the user
         // chose to save through Files. The coordinator is already closed.
