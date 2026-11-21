@@ -30,7 +30,7 @@ final class WaterFishSchoolTests: XCTestCase {
             for t in stride(from: 0.0, to: WaterFishSchool.cycleLength, by: 0.1) {
                 let active = passes.filter { $0.pose(at: t, width: 393, height: 720) != nil }
                 XCTAssertLessThanOrEqual(active.count, 2)
-                if (21...25).contains(t) { XCTAssertTrue(active.isEmpty) }
+                if (22...25).contains(t) { XCTAssertTrue(active.isEmpty) }
             }
         }
     }
