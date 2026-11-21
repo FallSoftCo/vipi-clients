@@ -2736,21 +2736,25 @@ final class ChatConversationTests: XCTestCase {
                 let systemAlert = springboard.alerts.firstMatch
                 XCTAssertTrue(systemAlert.waitForExistence(timeout: 8))
                 if ProcessInfo.processInfo.environment["VIPI_INVITE_LIMITED"] == "1" {
-                    let select = systemAlert.buttons.containing(NSPredicate(format: "label CONTAINS[c] 'select'")).firstMatch
-                    XCTAssertTrue(select.waitForExistence(timeout: 6), springboard.debugDescription)
+                    func action(_ predicate: NSPredicate) -> XCUIElement {
+                        let system = springboard.buttons.containing(predicate).firstMatch
+                        return system.exists ? system : app.buttons.containing(predicate).firstMatch
+                    }
+                    let next = systemAlert.buttons["Continue"]
+                    if next.exists { next.tap() }
+                    let select = action(NSPredicate(format: "label BEGINSWITH[c] 'select' AND label CONTAINS[c] 'contact'"))
+                    XCTAssertTrue(select.waitForExistence(timeout: 7), springboard.debugDescription + app.debugDescription)
                     select.tap()
+                    let search = springboard.searchFields.firstMatch.exists ? springboard.searchFields.firstMatch : app.searchFields.firstMatch
+                    if search.waitForExistence(timeout: 3) { search.tap(); search.typeText("Vipi Cedar") }
                     let cedar = NSPredicate(format: "label CONTAINS[c] %@", "Vipi Cedar Fixture")
                     let inApp = app.descendants(matching: .any).matching(cedar).firstMatch
                     let inSystem = springboard.descendants(matching: .any).matching(cedar).firstMatch
-                    func pickerButton(_ title: String) -> XCUIElement {
-                        let owner = inApp.exists ? app : springboard
-                        return owner.buttons.containing(NSPredicate(format: "label BEGINSWITH[c] %@", title)).firstMatch
-                    }
-                    if inApp.waitForExistence(timeout: 3) { inApp.tap() }
-                    else { XCTAssertTrue(inSystem.waitForExistence(timeout: 4), springboard.debugDescription + app.debugDescription); inSystem.tap() }
-                    let done = pickerButton("Done"), proceed = pickerButton("Continue")
-                    if done.exists { done.tap() } else { XCTAssertTrue(proceed.exists); proceed.tap() }
-                    let share = app.buttons.containing(NSPredicate(format: "label BEGINSWITH[c] 'share' AND label CONTAINS[c] 'contact'")).firstMatch
+                    if inSystem.waitForExistence(timeout: 2) { inSystem.tap() }
+                    else { XCTAssertTrue(inApp.waitForExistence(timeout: 5), app.debugDescription + springboard.debugDescription); inApp.tap() }
+                    let confirm = action(NSPredicate(format: "label ==[c] 'Done' OR label ==[c] 'Continue' OR (label BEGINSWITH[c] 'Share' AND label CONTAINS[c] 'Contact')"))
+                    XCTAssertTrue(confirm.waitForExistence(timeout: 3)); confirm.tap()
+                    let share = action(NSPredicate(format: "label BEGINSWITH[c] 'Share' AND label CONTAINS[c] 'Contact'"))
                     if share.waitForExistence(timeout: 2) { share.tap() }
                     XCTAssertTrue(app.buttons["Manage selected contacts"].waitForExistence(timeout: 7), app.debugDescription)
                     let field = app.textFields["Search phone contacts"]; field.tap(); field.typeText("Vipi")
