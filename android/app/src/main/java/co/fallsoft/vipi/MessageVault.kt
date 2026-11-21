@@ -41,7 +41,12 @@ internal class MessageVault(context: Context, val account: UUID) : Closeable {
         }
         try { transaction {
             val version = get("metadata", "schema")
-            if (version == null) put("metadata", "schema", byteArrayOf(1))
+            if (version == null) {
+                put("metadata", "schema", byteArrayOf(1))
+                // A new local account store can preview newly delivered messages.
+                // Existing stores with an absent consent token stay private.
+                put("local", "notification-previews", UUID.randomUUID().toString().toByteArray())
+            }
             else check(version.contentEquals(byteArrayOf(1))) { "Unsupported message storage version" }
         } } catch (error: Exception) { database.close(); throw error }
     }

@@ -134,6 +134,7 @@ internal class AccountDeletion(private val store: DeletionStore, private val ser
     }
     companion object {
         fun eraseLocal(context: Context, record: DeletionRecord) {
+            PushDelivery.clearPosted(context)
             PrivateSpeechCache.erase(context)
             HistoryTransferFiles.erase(context, record.account)
             KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry("co.fallsoft.vipi.messages.${record.account}") }

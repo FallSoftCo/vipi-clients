@@ -56,7 +56,11 @@ class InboxJourneyDeviceTest {
     @Test fun settingsSelectsPrivateLocalPreviewsAndHonorsRedaction() {
         val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
         val incoming = Row(service.peer, "Maya", "Coffee at six?", System.currentTimeMillis(), unread = 1)
-        MainActivityJourneyFixture("settings-previews", { app -> seed(app, service, listOf(incoming)); service.model(app) }).use { f ->
+        MainActivityJourneyFixture("settings-previews", { app ->
+            // Earlier versions stored both “off” and “never set” as an absent token.
+            MessageVault(app, service.account).use { it.transaction { it.remove("local", "notification-previews") } }
+            seed(app, service, listOf(incoming)); service.model(app)
+        }).use { f ->
             try {
                 f.launch(); screen(f, Screen.HOME)
                 compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).performClick()
@@ -66,7 +70,7 @@ class InboxJourneyDeviceTest {
                 val toggle = compose.onNodeWithTag("settings-message-previews")
                 toggle.performScrollTo().assertIsOff()
                 val generic = f.base.getString(R.string.ui_3abeae7a3bed)
-                fun notification(unlocked: Boolean) = requireNotNull(PushDelivery.buildNotification(f.base, f.model.chat!!, unlocked))
+                fun notification(unlocked: Boolean) = PushDelivery.buildNotifications(f.base, f.model.chat!!, unlocked).single().notification
                 fun body(note: android.app.Notification) = note.extras.getCharSequence(android.app.Notification.EXTRA_TEXT).toString()
                 compose.runOnIdle { assertEquals(generic, body(notification(true))) }
                 compose.onNodeWithText(generic).performScrollTo(); paint(f, "settings-preview-private")
@@ -93,7 +97,7 @@ class InboxJourneyDeviceTest {
                     assertTrue(f.model.chat!!.notificationPreviews)
                     assertEquals("New reply after consent", body(notification(true)))
                     f.model.chat!!.markRead(service.peer)
-                    assertNull(PushDelivery.buildNotification(f.base, f.model.chat!!, true))
+                    assertTrue(PushDelivery.buildNotifications(f.base, f.model.chat!!, true).isEmpty())
                 }
                 compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).performClick(); screen(f, Screen.SETTINGS)
                 toggle.performScrollTo().performClick().assertIsOff()
@@ -329,6 +333,224 @@ class InboxJourneyDeviceTest {
                 editor.assertTextContains("See you soon"); mode.assertIsOn()
                 File(f.output, "speech-events.json").writeText(JSONArray(events).toString(2))
             } finally { MessageAudioQualification.attach(null); f.stopActivity(); service.close() }
+        }
+    }
+
+    @Test fun realShadeShowsSeparatePrivateRepliesAndEachTapOpensItsFriend() {
+        val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
+        val second = UUID.randomUUID()
+        val firstText = "The train leaves at six."
+        val nextText = "I'll meet you at the station."
+        val otherText = "Dinner is ready."
+        val freshMaya = "I’ll bring the tickets."
+        val now = System.currentTimeMillis()
+        MainActivityJourneyFixture("notification-shade", { app ->
+            seed(app, service, listOf(Row(service.peer, "Maya", firstText, now, unread = 1),
+                Row(second, "Sam", "See you soon", now - 30_000)))
+            service.model(app)
+        }).use { f ->
+            val manager = f.base.getSystemService(android.app.NotificationManager::class.java)
+            val device = f.device
+            fun notes() = manager.activeNotifications.filter { it.notification.channelId == PushDelivery.CHANNEL }
+            fun show(text: String) = check(device.wait(androidx.test.uiautomator.Until.hasObject(androidx.test.uiautomator.By.text(text)), 8_000))
+            fun capture(name: String) {
+                device.waitForIdle()
+                check(device.takeScreenshot(File(f.output, "$name.png")))
+                device.dumpWindowHierarchy(File(f.output, "$name.xml"))
+            }
+            fun home() {
+                check(device.pressHome())
+                compose.waitUntil(8_000) { !androidx.lifecycle.ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.STARTED) }
+            }
+            fun notify() = f.instrumentation.runOnMainSync { PushDelivery.notify(f.base, requireNotNull(f.model.chat)) }
+            try {
+                device.executeShellCommand("pm grant ${f.base.packageName} android.permission.POST_NOTIFICATIONS")
+                f.launch(); screen(f, Screen.HOME)
+                val chat = requireNotNull(f.model.chat)
+                assertTrue(chat.notificationPreviews); assertFalse(chat.offerNotificationPreviews)
+                kotlinx.coroutines.runBlocking(kotlinx.coroutines.Dispatchers.Main) {
+                    chat.send("See you there.", service.peer); chat.synchronize()
+                    check(service.peerReceived == "See you there.")
+                }
+                home()
+                kotlinx.coroutines.runBlocking(kotlinx.coroutines.Dispatchers.Main) {
+                    service.queueAdditionalPeerReplyAndSignalInbox(nextText, wakeForeground = false)
+                    chat.synchronize()
+                }
+                assertEquals(1, service.friendReplyReceipts.get())
+                notify()
+                compose.waitUntil(8_000) { notes().size == 1 }
+                check(device.openNotification()); show(nextText); capture("01-one-friend")
+                device.pressBack()
+                notes().single().let { manager.cancel(it.tag, it.id) }
+                compose.waitUntil(5_000) { notes().isEmpty() }
+                notify(); android.os.SystemClock.sleep(250)
+                assertTrue("Duplicate notification wake must respect dismissal", notes().isEmpty())
+                f.instrumentation.runOnMainSync {
+                    seed(f.model.getApplication(), service, listOf(Row(second, "Sam", otherText, now + 10_000, unread = 1)))
+                }
+                kotlinx.coroutines.runBlocking(kotlinx.coroutines.Dispatchers.Main) { chat.synchronize() }
+                notify(); compose.waitUntil(8_000) { notes().size == 1 }
+                assertEquals(otherText, notes().single().notification.extras.getCharSequence(android.app.Notification.EXTRA_TEXT))
+                kotlinx.coroutines.runBlocking(kotlinx.coroutines.Dispatchers.Main) {
+                    service.queueAdditionalPeerReplyAndSignalInbox(freshMaya, wakeForeground = false); chat.synchronize()
+                }
+                notify(); compose.waitUntil(8_000) { notes().size == 2 }
+                check(device.openNotification()); show(freshMaya); show(otherText); capture("02-two-friends")
+                val generic = f.base.getString(R.string.ui_3abeae7a3bed)
+                f.instrumentation.runOnMainSync {
+                    for (note in PushDelivery.buildNotifications(f.base, chat, true)) {
+                        assertEquals(android.app.Notification.VISIBILITY_PRIVATE, note.notification.visibility)
+                        assertEquals(generic, note.notification.publicVersion.extras.getCharSequence(android.app.Notification.EXTRA_TEXT))
+                    }
+                    assertEquals(generic, PushDelivery.buildNotifications(f.base, chat, false).single().notification.extras.getCharSequence(android.app.Notification.EXTRA_TEXT))
+                }
+                val expand = device.findObject(androidx.test.uiautomator.By.res("com.android.systemui", "expand_button"))
+                if (device.hasObject(androidx.test.uiautomator.By.text("2")) && expand != null) {
+                    expand.click(); show(otherText); capture("02b-two-friends-expanded")
+                }
+                device.findObject(androidx.test.uiautomator.By.text(otherText)).click()
+                screen(f, Screen.CONVERSATION); assertEquals(second, f.model.selectedPeer)
+                compose.waitUntil(5_000) { notes().size == 1 }
+                f.capture("03-sam-opened")
+                check(device.openNotification()); show(freshMaya)
+                device.findObject(androidx.test.uiautomator.By.text(freshMaya)).click()
+                compose.waitUntil(8_000) { f.model.selectedPeer == service.peer }
+                compose.waitUntil(5_000) { notes().isEmpty() }
+                f.capture("04-maya-opened")
+                // An explicit OFF must redact even future deliveries and cancel
+                // existing shade content without reusing the previous consent.
+                f.instrumentation.runOnMainSync { chat.changeNotificationPreviews(false) }
+                home()
+                kotlinx.coroutines.runBlocking(kotlinx.coroutines.Dispatchers.Main) {
+                    service.queueAdditionalPeerReplyAndSignalInbox("Hidden after opting out.", wakeForeground = false); chat.synchronize()
+                }
+                notify(); compose.waitUntil(8_000) { notes().size == 1 }
+                check(device.openNotification()); show(generic); capture("05-previews-off")
+                assertFalse(device.hasObject(androidx.test.uiautomator.By.text("Hidden after opting out.")))
+                device.pressBack()
+                f.instrumentation.runOnMainSync { f.model.authentication.signOutLocally() }
+                compose.waitUntil(5_000) { notes().isEmpty() }
+                File(f.output, "verified.json").writeText(JSONObject().put("actualSystemShade", true)
+                    .put("singleAndMultiTap", true).put("opaqueExternalPushTransportSimulated", true)
+                    .put("privatePublicVersion", true).put("signoutCleared", true).toString())
+            } finally { PushDelivery.clearPosted(f.base); f.finishAfterExternalIntent(); service.close() }
+        }
+    }
+
+    @Test fun legacyPreviewChoiceOnlyAppliesToFutureArrivals() {
+        val service = JourneyServices(profileRequired = false)
+        MainActivityJourneyFixture("legacy-preview-choice", { app ->
+            MessageVault(app, service.account).use { it.transaction { it.remove("local", "notification-previews") } }
+            seed(app, service, listOf(Row(service.peer, "Maya", "Earlier private history", System.currentTimeMillis(), unread = 1)))
+            service.model(app)
+        }).use { f ->
+            try {
+                f.launch(); screen(f, Screen.HOME)
+                val action = compose.onNodeWithTag("inbox-enable-previews")
+                action.assertIsDisplayed(); paint(f, "01-legacy-choice")
+                action.performClick(); action.assertDoesNotExist()
+                compose.runOnIdle {
+                    assertTrue(f.model.chat!!.notificationPreviews)
+                    assertNull(f.model.chat!!.notificationDelivery(service.peer, true)?.preview)
+                    f.model.chat!!.changeNotificationPreviews(false)
+                }
+                f.relaunch(service::model); screen(f, Screen.HOME)
+                action.assertDoesNotExist(); assertFalse(f.model.chat!!.notificationPreviews)
+            } finally { f.stopActivity(); service.close() }
+        }
+    }
+
+    @Test fun lockedEmulatorRedactsPostedReplyAndSignoutRemovesIt() {
+        val service = JourneyServices(profileRequired = false)
+        val body = "A private message for the unlocked screen."
+        MainActivityJourneyFixture("notification-lock", { app ->
+            seed(app, service, listOf(Row(service.peer, "Maya", body, System.currentTimeMillis(), unread = 1)))
+            service.model(app)
+        }).use { f ->
+            val device = f.device
+            val keyguard = f.base.getSystemService(android.app.KeyguardManager::class.java)
+            val manager = f.base.getSystemService(android.app.NotificationManager::class.java)
+            check(!keyguard.isDeviceSecure)
+            val settings = listOf("lock_screen_show_notifications", "lock_screen_allow_private_notifications", "lock_screen_lock_after_timeout")
+            val original = settings.associateWith { device.executeShellCommand("settings get secure $it").trim() }
+            val wasDisabled = device.executeShellCommand("locksettings get-disabled").trim()
+            val pin = "781534" // ephemeral owned emulator only
+            try {
+                device.executeShellCommand("pm grant ${f.base.packageName} android.permission.POST_NOTIFICATIONS")
+                check(device.executeShellCommand("locksettings set-pin $pin").contains("set to"))
+                device.executeShellCommand("settings put secure lock_screen_show_notifications 1")
+                device.executeShellCommand("settings put secure lock_screen_allow_private_notifications 0")
+                device.executeShellCommand("settings put secure lock_screen_lock_after_timeout 0")
+                f.launch(); screen(f, Screen.HOME)
+                device.pressHome()
+                compose.waitUntil(8_000) { !androidx.lifecycle.ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.STARTED) }
+                f.instrumentation.runOnMainSync { PushDelivery.notify(f.base, f.model.chat!!) }
+                compose.waitUntil(8_000) { manager.activeNotifications.any { it.notification.extras.getCharSequence(android.app.Notification.EXTRA_TEXT) == body } }
+                device.sleep(); android.os.SystemClock.sleep(750); device.wakeUp()
+                compose.waitUntil(8_000) { keyguard.isDeviceLocked }
+                device.openNotification(); device.waitForIdle()
+                check(device.takeScreenshot(File(f.output, "01-secure-keyguard.png")))
+                device.dumpWindowHierarchy(File(f.output, "01-secure-keyguard.xml"))
+                assertFalse(device.hasObject(androidx.test.uiautomator.By.text(body)))
+                assertFalse(device.hasObject(androidx.test.uiautomator.By.text("Maya")))
+                f.instrumentation.runOnMainSync { f.model.authentication.signOutLocally() }
+                compose.waitUntil(5_000) { manager.activeNotifications.none { it.notification.channelId == PushDelivery.CHANNEL } }
+                File(f.output, "verified.json").writeText(JSONObject().put("isDeviceLocked", keyguard.isDeviceLocked)
+                    .put("hideSensitiveContent", true).put("noSenderOrMessageInLockscreen", true).put("signoutRemovedAlert", true).toString())
+            } finally {
+                device.executeShellCommand("locksettings clear --old $pin")
+                device.executeShellCommand("wm dismiss-keyguard")
+                if (wasDisabled in setOf("true", "false")) device.executeShellCommand("locksettings set-disabled $wasDisabled")
+                original.forEach { (key, value) -> device.executeShellCommand(if (value == "null") "settings delete secure $key" else "settings put secure $key $value") }
+                device.sleep(); android.os.SystemClock.sleep(400); device.wakeUp()
+                device.executeShellCommand("wm dismiss-keyguard")
+                PushDelivery.clearPosted(f.base); f.stopActivity(); service.close()
+            }
+        }
+    }
+
+    @Test fun suppressesUnsafeAndHistoricalAlertsAndErasesThePostedCard() {
+        val service = JourneyServices(profileRequired = false)
+        val now = System.currentTimeMillis()
+        val peers = (0..4).map { UUID.randomUUID() }
+        val rows = peers.mapIndexed { i, peer -> Row(peer, "Contact $i", "Private fixture $i", now - i * 1000L, unread = 1) }
+        MainActivityJourneyFixture("notification-eligibility", { app ->
+            seed(app, service, rows)
+            MessageVault(app, service.account).use { v -> v.transaction {
+                v.put("blocked", peers[1].toString(), byteArrayOf(1))
+                v.put("peer-recovery-needed", peers[2].toString(), byteArrayOf(1))
+                val k = peers[3].toString()
+                val summary = JSONObject(requireNotNull(v.get("thread", k)).toString(Charsets.UTF_8))
+                summary.remove("notificationDeliveryTracked")
+                v.put("thread", k, summary.toString().toByteArray())
+            } }
+            service.model(app)
+        }).use { f ->
+            val manager = f.base.getSystemService(android.app.NotificationManager::class.java)
+            try {
+                f.device.executeShellCommand("pm grant ${f.base.packageName} android.permission.POST_NOTIFICATIONS")
+                f.launch(); screen(f, Screen.HOME)
+                val chat = requireNotNull(f.model.chat)
+                compose.runOnIdle {
+                    MessageVault(f.model.getApplication(), service.account).use { v -> v.transaction {
+                        v.remove("incoming", rows[4].id.toString())
+                    } }
+                    val alerts = PushDelivery.buildNotifications(f.base, chat, true)
+                    assertEquals(listOf(rows[0].text), alerts.map { it.notification.extras.getCharSequence(android.app.Notification.EXTRA_TEXT) })
+                    f.model.openNotification(peers[0].toString(), "different-account")
+                    assertEquals(Screen.HOME, f.model.screen)
+                }
+                f.device.pressHome()
+                compose.waitUntil(5_000) { !androidx.lifecycle.ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(androidx.lifecycle.Lifecycle.State.STARTED) }
+                f.instrumentation.runOnMainSync { PushDelivery.notify(f.base, chat) }
+                compose.waitUntil(5_000) { manager.activeNotifications.any { it.notification.channelId == PushDelivery.CHANNEL } }
+                val app: Application = f.model.getApplication()
+                f.stopActivity()
+                AccountDeletion.eraseLocal(app, DeletionRecord(service.account, chat.userID, "synthetic", now))
+                compose.waitUntil(5_000) { manager.activeNotifications.none { it.notification.channelId == PushDelivery.CHANNEL } }
+                assertFalse(File(app.noBackupFilesDir, "messages/${service.account}").exists())
+            } finally { PushDelivery.clearPosted(f.base); f.stopActivity(); service.close() }
         }
     }
 
