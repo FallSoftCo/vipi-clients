@@ -42,14 +42,15 @@ final class NotificationService: UNNotificationServiceExtension, @unchecked Send
                 let (data, response) = try await session.data(for: lookup)
                 guard (response as? HTTPURLResponse)?.statusCode == 200, data.count < 800_000 else { finish(); return }
                 let match = try JSONDecoder().decode(NotificationEnvelope.self, from: data)
-                let (sender, body) = try match.preview(grant: grant, vault: vault, device: device) {
+                let card = try match.preview(grant: grant, vault: vault, device: device) {
                     try Task.checkCancellation()
                     return try NotificationAccess.grant()
                 }
                 guard let display = request.content.mutableCopy() as? UNMutableNotificationContent,
                       try NotificationAccess.grant() == grant else { finish(); return }
-                display.title = sender
-                display.body = body
+                display.title = card.sender
+                display.body = card.body
+                if card.repeated { display.sound = nil }
                 display.userInfo = ["kind": "inbox_changed", "local_account": grant.account.uuidString,
                                     "local_peer": match.peer.uuidString, "local_message": match.id.uuidString]
                 // The OS retains control of lock screen redaction and presentation.
