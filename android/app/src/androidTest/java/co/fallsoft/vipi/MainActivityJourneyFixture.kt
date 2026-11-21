@@ -153,6 +153,9 @@ internal class MainActivityJourneyFixture(
             view.width > 0 && view.height > 0 && view.getGlobalVisibleRect(reported) && reported.contains(full) &&
             viewport.contains(RectF(full)) && window.contains(full)
     }
+    fun hideKeyboard() {
+        instrumentation.runOnMainSync { requireNotNull(activity).window.insetsController?.hide(android.view.WindowInsets.Type.ime()) }
+    }
     fun unobscuredWindow(): Rect {
         var visible: Rect? = null
         instrumentation.runOnMainSync {

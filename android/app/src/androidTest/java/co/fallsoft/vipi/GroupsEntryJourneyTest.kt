@@ -58,7 +58,10 @@ class GroupsEntryJourneyTest {
                 compose.onNodeWithText("Group name").performTextInput("Saturday practice")
                 compose.onNodeWithText("Maya").performScrollTo().performClick()
                 compose.onNodeWithText("2 of 16 people selected, including you").assertExists()
-                compose.onNodeWithText("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.").assertExists()
+                fixture.hideKeyboard()
+                compose.waitForIdle()
+                android.os.SystemClock.sleep(500)
+                compose.onNodeWithText("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.").assertIsDisplayed()
                 fixture.capture("01-group-member-selection")
                 compose.onNodeWithText("Create group and invite 1").performScrollTo().performClick()
                 compose.waitUntil(15_000) { inviteCalls == 1 && fixture.model.chat?.groups?.busy == false }
