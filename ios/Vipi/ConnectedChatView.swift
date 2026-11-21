@@ -303,7 +303,17 @@ struct FriendConversationView: View {
     }
     private func captureModeAnchor(for mode: ImmersionMode) {
         modeAnchorTask?.cancel(); modeAnchorTask = nil; modeAnchor = nil
-        guard !followingLatest, !scrolling, pageRestore == nil, textSizeRestore == nil else { return }
+        #if DEBUG
+        LiveImmersionQualification.record(["event":"mode_switch","next":mode.rawValue,
+            "following_latest":followingLatest,"composing":composing,"count":messages.count,
+            "offset":Double(scrollOffset),"bottom_inset":Double(viewportBottomInset)])
+        #endif
+        if followingLatest {
+            viewportRestore?.cancel(); viewportRestore = nil
+            scrollToLatest("mode_change")
+            return
+        }
+        guard !scrolling, pageRestore == nil, textSizeRestore == nil else { return }
         let viewport = visibleTimeline
         let visible = messageFrames.filter { $0.value.intersects(viewport) }
         guard let first = visible.min(by:{ $0.value.minY < $1.value.minY }) else { return }
@@ -350,27 +360,18 @@ struct FriendConversationView: View {
             viewportRestore = nil
         }
     }
-    private var measuredLatestScrollY:CGFloat {
-        guard let last = messages.last,let frame = messageFrames[last.id],frame.height > 0,visibleTimeline.height > 0 else { return latestScrollY }
-        let bottom = chat.isPeerTyping(peer) && peerTypingFrame.height > 0 ? max(frame.maxY,peerTypingFrame.maxY):frame.maxY
-        // Match real clipped global coordinates, after lazy row measurement.
-        // A short conversation stays at its natural top rather than overscrolling.
-        // Lazy rows can briefly report a global frame outside the current
-        // content extent. Never command an impossible offset from that estimate.
-        let desired = scrollOffset + bottom - (visibleTimeline.maxY-18)
-        return min(latestScrollY,max(-viewportTopInset,desired))
-    }
     private func scrollToLatest(_ reason: String) {
-        guard !copyOriginal.holdingLayout else { return }
-        let target = measuredLatestScrollY
-        guard abs(scrollOffset-target) > 0.5 else { return }
+        guard followingLatest, !copyOriginal.holdingLayout else { return }
+        guard position.edge != .bottom || abs(scrollOffset-latestScrollY) > 0.5 else { return }
         #if DEBUG
-        LiveImmersionQualification.record(["event":"latest_scroll_command", "reason":reason,
-            "target_y":Double(target), "command_y":Double(target+viewportTopInset), "fallback_y":Double(latestScrollY), "target_x":Double(-viewportLeadingInset), "offset_y":Double(scrollOffset),
-            "viewport_height":Double(viewportHeight), "bottom_inset":Double(viewportBottomInset),
-            "following_latest":followingLatest, "scrolling":scrolling])
+        LiveImmersionQualification.record(["event":"latest_scroll_command","reason":reason,
+            "edge":"bottom","target_y":Double(latestScrollY),"offset_y":Double(scrollOffset),
+            "viewport_height":Double(viewportHeight),"bottom_inset":Double(viewportBottomInset),
+            "following_latest":followingLatest,"scrolling":scrolling])
         #endif
-        scrollVertically(to:target)
+        // Keep the intent as an edge. A saved point based on a partially laid
+        // out row can reapply the old keyboard inset on the next lazy update.
+        position.scrollTo(edge:.bottom)
     }
     private func refresh() {
         do {
@@ -526,7 +527,6 @@ struct FriendConversationView: View {
                 }
                 #endif
                 .scrollPosition($position)
-                .defaultScrollAnchor(followingLatest ? .bottom : nil, for: .sizeChanges)
                 .onScrollPhaseChange { _, phase in
                     scrolling = phase.isScrolling
                     userScrolling = phase == .interacting || phase == .decelerating
@@ -534,7 +534,7 @@ struct FriendConversationView: View {
                     // scroll. Its height change was intentionally not followed
                     // while moving; settle that new bottom once motion ends.
                     if phase == .idle,followingLatest,!copyOriginal.holdingLayout,textSizeRestore == nil,
-                       abs(scrollOffset-measuredLatestScrollY) > 0.5 {
+                       abs(scrollOffset-latestScrollY) > 0.5 {
                         viewportRestore?.cancel()
                         viewportRestore = Task { @MainActor in
                             do { try await Task.sleep(for:.milliseconds(80)) } catch { return }
