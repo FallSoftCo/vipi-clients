@@ -3,6 +3,7 @@ package co.fallsoft.vipi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.res.stringResource
 import androidx.compose.material.icons.Icons
@@ -122,10 +123,20 @@ import kotlinx.coroutines.launch
                 .semantics { contentDescription = label }) {
                 Text(languageName(selected), Modifier.weight(1f)); Icon(Icons.Outlined.ExpandMore, null)
             }
-            DropdownMenu(expanded = expanded && enabled, onDismissRequest = { expanded = false }) {
-                options.forEach { language -> DropdownMenuItem(text = { Text("${languageName(language.code)} · ${language.localName}") },
-                    onClick = { expanded = false; onSelect(language.code) }) }
-            }
+            LanguageChoiceMenu(expanded && enabled, selected, options, { expanded = false }, onSelect)
+        }
+    }
+}
+
+@Composable internal fun LanguageChoiceMenu(expanded: Boolean, current: String, options: List<VipiLanguage>,
+    onDismiss: () -> Unit, onSelect: (String) -> Unit) {
+    DropdownMenu(expanded = expanded, onDismissRequest = onDismiss) {
+        options.forEach { language ->
+            val active = language.code == current
+            DropdownMenuItem(text = { Text("${languageName(language.code)} · ${language.localName}") },
+                modifier = Modifier.semantics { selected = active },
+                trailingIcon = if (active) {{ Icon(Icons.Outlined.CheckCircle, null) }} else null,
+                onClick = { onDismiss(); if (!active) onSelect(language.code) })
         }
     }
 }

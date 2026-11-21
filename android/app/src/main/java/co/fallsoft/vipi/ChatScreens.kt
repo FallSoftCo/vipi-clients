@@ -107,6 +107,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable internal fun FriendConversationScreen(chat: ChatSession, peer: UUID, source: String = "en", target: String = "es",
     animateBackground: Boolean = true,
+    waterClock: WaterClock = rememberWaterClock(),
     onLanguages: (() -> Unit)? = null,
     onImmersionMode: ((ImmersionMode) -> Unit)? = null,
     notificationEducation: ReplyNotificationEducation? = null,
@@ -497,7 +498,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                 CircularProgressIndicator(Modifier.align(Alignment.Center))
             if (showTranscript && loaded) {
             ConversationWaterScene(translation?.mode ?: ImmersionMode.NEW_WORD, animateBackground,
-                Modifier.matchParentSize(), plainBackground = prefersIncreasedContrast())
+                Modifier.matchParentSize(), waterClock, plainBackground = prefersIncreasedContrast())
             LazyColumn(state = list, modifier = Modifier.fillMaxSize().fullMessageGestures(gestures).testTag("conversation-timeline").semantics {
                 scrollToIndex { index ->
                     if (index !in 0 until list.layoutInfo.totalItemsCount) false else {

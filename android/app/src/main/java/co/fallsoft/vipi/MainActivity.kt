@@ -160,13 +160,14 @@ class MainActivity : ComponentActivity() {
     val largeText = androidx.compose.ui.platform.LocalDensity.current.fontScale >= 1.5f
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
     val inboxScroll = key(model.authentication.userID) { androidx.compose.foundation.lazy.rememberLazyListState() }
-    if (model.screen == Screen.HOME) { ChatsInbox(model, inboxScroll); return }
+    val waterClock = rememberWaterClock()
+    if (model.screen == Screen.HOME) { ChatsInbox(model, inboxScroll, waterClock); return }
     if (model.screen == Screen.BACKUP && model.chat != null) { HistoryBackupScreen(model.chat!!) { model.back() }; return }
     if (model.screen == Screen.LICENSES) { LegalNoticesScreen { model.back() }; return }
     if (model.screen == Screen.CONVERSATION) {
         val chat = model.chat; val peer = model.selectedPeer
         if (chat != null && peer != null) { FriendConversationScreen(chat, peer, model.knownLanguage, model.targetLanguage,
-            animateBackground = model.animateConversationBackground, onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onImmersionMode = model::selectImmersionMode, notificationEducation = model.replyNotificationEducation, onNotificationPermission = model::notificationPermissionChanged) { model.back() }; return }
+            animateBackground = model.animateConversationBackground, waterClock = waterClock, onLanguages = { model.navigate(Screen.LANGUAGE_DOWNLOAD) }, onImmersionMode = model::selectImmersionMode, notificationEducation = model.replyNotificationEducation, onNotificationPermission = model::notificationPermissionChanged) { model.back() }; return }
     }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         bottomBar = { if (onboarding && !largeText) OnboardingAction(model) }) { padding ->

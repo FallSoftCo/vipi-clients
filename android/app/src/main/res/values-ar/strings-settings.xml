@@ -12,4 +12,5 @@
     <string name="settings_about">حول Vipi</string>
     <string name="settings_account">الحساب</string>
     <string name="settings_save_failed">تعذّر حفظ التغيير. حاول مرة أخرى.</string>
+    <string name="chats_practice_language">تغيير لغة التدرّب</string>
 </resources>

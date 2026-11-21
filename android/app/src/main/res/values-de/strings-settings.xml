@@ -12,4 +12,5 @@
     <string name="settings_about">Über Vipi</string>
     <string name="settings_account">Konto</string>
     <string name="settings_save_failed">Die Änderung konnte nicht gespeichert werden. Versuche es erneut.</string>
+    <string name="chats_practice_language">Übungssprache ändern</string>
 </resources>
