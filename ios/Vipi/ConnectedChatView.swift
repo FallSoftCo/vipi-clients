@@ -691,7 +691,18 @@ struct FriendConversationView: View {
     }
     var body: some View {
         timeline
-        .safeAreaInset(edge:.top,spacing:0) { ChatGestureCue(reading:state.chatReading,composing:composing) }
+        .safeAreaInset(edge:.top,spacing:0) {
+            VStack(spacing:0) {
+                if separateHeaderControls {
+                    ViewThatFits(in:.horizontal) {
+                        HStack(spacing:18) { modeButton; autoplayButton }.fixedSize(horizontal:true,vertical:false)
+                        VStack(alignment:.leading,spacing:0) { modeButton; autoplayButton }
+                    }
+                    .frame(maxWidth:.infinity,alignment:.leading).padding(.horizontal,18)
+                }
+                ChatGestureCue(reading:state.chatReading,composing:composing)
+            }
+        }
         .background { ConversationWaterScene(mode: state.immersionMode, motionEnabled: state.animateConversationBackground) }
         .background { if !usesAppTranslationServices { ConversationTranslationTask(immersion:immersion) } }
         .background { ChatReadingGestureSurface(reading:state.chatReading) }
@@ -718,12 +729,9 @@ struct FriendConversationView: View {
                 }.accessibilityElement(children:.combine).accessibilityAddTraits(.isHeader)
                     .accessibilityIdentifier("conversation-contact-identity")
             }
-            ToolbarItem(placement:.topBarTrailing) {
-                ImmersionModeToggle(mode:state.immersionMode) {
-                    copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions()
-                    captureModeAnchor(for:state.immersionMode.next)
-                    state.immersionMode = state.immersionMode.next
-                }
+            if !separateHeaderControls {
+                ToolbarItem(placement:.topBarTrailing) { modeButton }
+                ToolbarItem(placement:.topBarTrailing) { autoplayButton }
             }
             if #available(iOS 26.0, *) {
                 conversationOptions.sharedBackgroundVisibility(.hidden)
@@ -831,7 +839,6 @@ struct FriendConversationView: View {
     private var conversationOptions: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Menu {
-                autoplayButton
                 NavigationLink { LanguageDownloadView() } label: { Label("Languages", systemImage: "globe") }
                     .accessibilityIdentifier("conversation-languages")
                 Button("Copy original message",systemImage:"doc.on.doc") {
@@ -912,13 +919,23 @@ struct FriendConversationView: View {
             Label(title, systemImage: symbol).fixedSize(horizontal: false, vertical: true).frame(minHeight: 44)
         }
     }
+    private var separateHeaderControls: Bool {
+        typeSize > .large || (timelineFrame.width > 0 && timelineFrame.width < 420) || chat.name(peer).count > 12
+    }
+    private var modeButton: some View {
+        ImmersionModeToggle(mode:state.immersionMode) {
+            copyOriginal.abandon()
+            autoplay.stop(speech:speech)
+            state.chatReading.cancelInteractions()
+            captureModeAnchor(for:state.immersionMode.next)
+            state.immersionMode = state.immersionMode.next
+        }
+    }
     private var autoplayButton: some View {
-        Button { state.chatReading.cancelPendingPlayback(); autoplay.toggle(snapshot:messages.map{ChatAutoplay.Message(id:$0.id.uuidString,text:$0.text)},immersion:immersion,speech:speech) } label: {
-            Label(LocalizedStringKey(autoplay.enabled ? "Turn off autoplay":"Turn on autoplay"),systemImage:autoplay.enabled ? "speaker.wave.2.fill":"speaker.slash")
-                .frame(minHeight:44).contentShape(Rectangle())
-        }.accessibilityLabel(LocalizedStringKey(autoplay.enabled ? "Turn off autoplay" : "Turn on autoplay"))
-            .accessibilityValue(autoplay.enabled ? String(localized:"Autoplay on. New messages play aloud.") : "")
-            .accessibilityIdentifier("chat-autoplay-toggle")
+        ChatAutoplayButton(enabled:autoplay.enabled) {
+            state.chatReading.cancelPendingPlayback()
+            autoplay.toggle(snapshot:messages.map { .init(id:$0.id.uuidString,text:$0.text) },immersion:immersion,speech:speech)
+        }
     }
     private func prepareVoices() {
         let language = state.targetLanguage

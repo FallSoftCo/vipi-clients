@@ -514,11 +514,10 @@ struct BotConversationView: View {
         return Text("Message vBot")
     }
     private var autoplayButton: some View {
-        Button { state.chatReading.cancelPendingPlayback(); autoplay.toggle(snapshot:(session?.messages ?? []).map{.init(id:"bot-"+$0.id.uuidString,text:$0.text)},immersion:immersion,speech:speech) } label: {
-            Image(systemName:autoplay.enabled ? "speaker.wave.2.fill" : "speaker.slash").frame(minWidth:44,minHeight:44).contentShape(Rectangle())
-        }.accessibilityLabel(LocalizedStringKey(autoplay.enabled ? "Turn off autoplay" : "Turn on autoplay"))
-            .accessibilityValue(autoplay.enabled ? String(localized:"Autoplay on. New messages play aloud.") : "")
-            .accessibilityIdentifier("chat-autoplay-toggle")
+        ChatAutoplayButton(enabled:autoplay.enabled) {
+            state.chatReading.cancelPendingPlayback()
+            autoplay.toggle(snapshot:(session?.messages ?? []).map { .init(id:"bot-"+$0.id.uuidString,text:$0.text) },immersion:immersion,speech:speech)
+        }
     }
     private func prepareVoices() {
         let language = state.targetLanguage

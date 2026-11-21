@@ -12,12 +12,27 @@ struct HomeView: View {
     var authenticationError: String? = nil
     @Environment(AppState.self) private var state
     @Environment(\.scenePhase) private var scenePhase
+    @Environment(\.dynamicTypeSize) private var typeSize
     @State private var showingSettings = false
     @State private var offerBase = false
     @State private var offeredBase = false
     @State private var showingInvite = false
     @State private var query = ""
     @State private var path: [HomeDestination] = []
+    private var inboxHeading: some View {
+        let language = VipiLanguage.initial.first { $0.id == state.targetLanguage }
+        let endonym = language?.localName ?? Locale(identifier:state.targetLanguage).localizedString(forLanguageCode:state.targetLanguage) ?? state.targetLanguage
+        HStack(spacing:7) {
+            VipiMark(size:44,accessibleName:"Vipi")
+                .accessibilityValue(Text("Chats")).accessibilityAddTraits(.isHeader)
+                .accessibilityIdentifier("inbox-wordmark")
+            Text(verbatim:endonym).font(.subheadline.weight(.semibold)).foregroundStyle(VipiDesign.ink)
+                .fixedSize(horizontal:false,vertical:true)
+                .accessibilityLabel(Text("I’m learning"))
+                .accessibilityValue(Text(verbatim:language?.localizedName ?? endonym))
+                .accessibilityIdentifier("inbox-practice-language")
+        }
+    }
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
@@ -51,13 +66,15 @@ struct HomeView: View {
                     }.padding(.horizontal, 20).padding(.vertical, 20).frame(maxWidth: 680).frame(maxWidth: .infinity)
                 }.clipped()
             }
+            .safeAreaInset(edge:.top,spacing:0) {
+                if typeSize.isAccessibilitySize {
+                    inboxHeading.frame(maxWidth:.infinity,alignment:.leading).padding(.horizontal,20)
+                }
+            }
             .navigationTitle("Chats").navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    VipiMark(size:44,accessibleName:"Vipi")
-                        .accessibilityValue(Text("Chats"))
-                        .accessibilityAddTraits(.isHeader)
-                        .accessibilityIdentifier("inbox-wordmark")
+                    if !typeSize.isAccessibilitySize { inboxHeading }
                 }
                 ToolbarItem(placement: .topBarLeading) {
                     Button { showingSettings = true } label: { Image(systemName: "person.crop.circle").font(.title3).frame(width: 44, height: 44) }

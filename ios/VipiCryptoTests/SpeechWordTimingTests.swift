@@ -24,21 +24,22 @@ import VipiCore
         XCTAssertTrue(first.marks.contains{ text.substring(with:NSRange(location:$0.start,length:$0.length)).lowercased().contains("water") })
         XCTAssertTrue(first.marks.contains{ text.substring(with:NSRange(location:$0.start,length:$0.length)).lowercased().contains("rafiki") })
     }
-    func testMissingAndIncompleteMarksUseRealLexicalPCMBoundariesWithoutInsertedSilence() async throws {
+    func testMissingAndIncompleteMarksPreserveContinuousNativeSpeech() async throws {
+        let text = "Don't forget, we're leaving soon. Shall we meet by the window?"
         for retained in [0,1] {
-            let root = FileManager.default.temporaryDirectory.appendingPathComponent("missing-marks-"+UUID().uuidString)
+            let root = FileManager.default.temporaryDirectory.appendingPathComponent("phrase-geometry-"+UUID().uuidString)
             defer { try? FileManager.default.removeItem(at:root) }
-            let pair = try LocalSpeechPair(source:"en",target:"en",root:root); defer { pair.stop() }
-            try await pair.prepare(warmups:["en":"Hello."]); pair.qualificationRetainNativeMarkers = retained
-            let text = "Water bread coffee."
+            let pair = try LocalSpeechPair(source:"en",target:"en",root:root)
+            defer { pair.stop() }
+            try await pair.prepare(warmups:["en":"Hello."])
+            pair.qualificationRetainNativeMarkers = retained
             let audio = try await pair.render([(text,"en")])
-            XCTAssertEqual(audio.marks.count,3); XCTAssertEqual(audio.boundaryFrames.count,2)
-            XCTAssertTrue(audio.marks.allSatisfy{$0.source == "measured_lexical_pcm"})
-            XCTAssertTrue(SpeechChunks.marksCoverWords(audio.marks,text:text,language:"en"))
-            let file = try AVAudioFile(forReading:audio.file)
-            let bytesPerFrame = Int(file.processingFormat.streamDescription.pointee.mBytesPerFrame)
-            XCTAssertEqual(audio.marks.dropFirst().map{$0.byteSampleOffset/bytesPerFrame},audio.boundaryFrames,
-                "Fallback words start exactly at real joined PCM boundaries, with no synthetic spacing")
+            XCTAssertTrue(audio.marks.isEmpty)
+            XCTAssertTrue(audio.boundaryFrames.isEmpty,"Native sentence audio is never spliced at words")
+            XCTAssertGreaterThan(audio.milliseconds,1000)
+            let cached = try await pair.render([(text,"en")])
+            XCTAssertEqual(cached.file,audio.file)
+            XCTAssertTrue(cached.marks.isEmpty)
         }
     }
     func testPlayerSampleClockHighlightsActualWordsAndClearsOnStopAndReplacement() async throws {

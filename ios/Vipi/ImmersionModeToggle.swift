@@ -24,6 +24,32 @@ struct ImmersionModeToggle: View {
     }
 }
 
+/// Toggles automatic playback of future messages. Tapping a message remains
+/// an independent, one-message action.
+struct ChatAutoplayButton: View {
+    let enabled: Bool
+    let toggle: () -> Void
+
+    var body: some View {
+        Button(action:toggle) {
+            HStack(spacing:5) {
+                Image(systemName:enabled ? "speaker.wave.2.fill" : "speaker.slash")
+                Text("Autoplay").fixedSize(horizontal:false,vertical:true)
+            }
+            .font(.subheadline.weight(.semibold))
+            .padding(.horizontal,8).padding(.vertical,5)
+            .foregroundStyle(enabled ? VipiDesign.onHighlight : VipiDesign.ink)
+            .background(enabled ? VipiDesign.highlight : .clear,in:Capsule())
+            .frame(minWidth:44,minHeight:44).contentShape(Rectangle())
+        }
+        .accessibilityLabel("Autoplay")
+        .accessibilityValue(enabled ? Text("On") : Text("Off"))
+        .accessibilityHint("Play new messages aloud")
+        .accessibilityAddTraits(enabled ? .isSelected : [])
+        .accessibilityIdentifier("chat-autoplay-toggle")
+    }
+}
+
 /// Both destinations are visible while learning the two modes. Real chats keep
 /// their compact single-action control and the same preference/enum metadata.
 struct ImmersionModeChoices: View {

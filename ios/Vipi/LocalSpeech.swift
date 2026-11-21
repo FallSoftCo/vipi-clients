@@ -221,8 +221,7 @@ private final class ConverterInput: @unchecked Sendable {
     private var prepared = false
     private var busy = false
     #if DEBUG
-    /// Discard metadata after actual synthesis to exercise the measured native
-    /// fallback. No app preference or Release route can enable this seam.
+    /// Simulate incomplete OS marker coverage without altering synthesized audio.
     var qualificationRetainNativeMarkers:Int?
     #endif
 
@@ -256,7 +255,7 @@ private final class ConverterInput: @unchecked Sendable {
             guard voices[span.language] != nil else { throw LocalSpeechError.missingVoice(span.language) }
         }
         let normalized = SpeechChunks.coalesced(spans)
-        let identity = "native-word-pcm-2\0" + normalized.map { $0.language + "\0" + voices[$0.language]!.identifier + "\0" + $0.text }.joined(separator: "\0")
+        let identity = "native-phrase-pcm-3\0" + normalized.map { $0.language + "\0" + voices[$0.language]!.identifier + "\0" + $0.text }.joined(separator: "\0")
         let hash = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         let output = root.appendingPathComponent(hash + ".caf")
         let metadata = output.appendingPathExtension("words.json")
@@ -279,30 +278,16 @@ private final class ConverterInput: @unchecked Sendable {
             #if DEBUG
             if let count = qualificationRetainNativeMarkers { native.marks = Array(native.marks.prefix(count)) }
             #endif
-            if SpeechChunks.marksCoverWords(native.marks,text:span.text,language:span.language) {
-                parts.append(part); rendered.append(native); lengths.append(span.text.utf16.count)
-                continue
+            // Word callbacks are optional. Resynthesizing words one at a time
+            // changes the speaker’s cadence and loses punctuation context.
+            // A start-only partial mark could stay highlighted throughout the
+            // rest of the phrase, so use word highlights only for complete timing.
+            if !SpeechChunks.marksCoverWords(native.marks,text:span.text,language:span.language) {
+                native.marks.removeAll()
             }
-            // Use the OS tokenizer's complete lexical units, preserving each
-            // unit's punctuation and exact text. Each highlight boundary is a
-            // real rendered PCM boundary; never estimate time from character count.
-            let words = SpeechChunks.wordRanges(span.text,language:span.language),source = span.text as NSString
-            guard !words.isEmpty else { throw LocalSpeechError.invalidAudio }
-            var start = 0
-            for (index,word) in words.enumerated() {
-                try Task.checkCancellation()
-                let end = index+1 < words.count ? words[index+1].location : source.length
-                let text = source.substring(with:NSRange(location:start,length:end-start))
-                let file:URL
-                var audio:RenderedSpeech
-                if words.count == 1 { file = part; audio = native }
-                else {
-                    file = root.appendingPathComponent("unit-\(UUID()).caf"); temporary.append(file)
-                    audio = try await voices[span.language]!.render(text,to:file)
-                }
-                audio.marks = [.init(start:word.location-start,length:word.length,byteSampleOffset:0,source:"measured_lexical_pcm")]
-                parts.append(file); rendered.append(audio); lengths.append(text.utf16.count); start = end
-            }
+            parts.append(part)
+            rendered.append(native)
+            lengths.append(span.text.utf16.count)
         }
         // Disk IO and standard AVAudioConverter resampling happen off the UI actor.
         let inputs = parts, timings = rendered, textLengths = lengths
