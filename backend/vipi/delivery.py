@@ -40,7 +40,7 @@ def fingerprint(envelope: Envelope) -> str:
     return hashlib.sha256(metadata + b"\0" + envelope.ciphertext).hexdigest()
 
 
-async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, max_bytes: int = 65536, max_pending: int = 10000) -> PendingMessage:
+async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, max_bytes: int = 65536, max_pending: int = 10000, media_draining: bool = False) -> PendingMessage:
     """Caller owns the transaction. Lock recipient before checking its queue cap."""
     now, sent = utc(now), utc(envelope.created_at)
     if type(envelope.cipher_type) is not int or envelope.cipher_type not in (2, 3):
@@ -70,6 +70,8 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
         if utc(existing.expires_at) <= now and existing.state == "accepted":
             existing.state, existing.ciphertext = "expired", None
         return existing
+    if envelope.attachment_ids and media_draining:
+        raise DeliveryError("media_draining", 503)
     if sent + timedelta(hours=72) <= now:
         raise DeliveryError("message_expired", 410)
     device = await session.get(Device, envelope.recipient_device_id, populate_existing=True)

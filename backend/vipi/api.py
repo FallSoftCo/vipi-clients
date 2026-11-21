@@ -645,8 +645,9 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             value = await accept(session, Envelope(str(body.id), user.id, device.id, str(body.recipient_id),
                 str(body.recipient_device_id), body.created_at, ciphertext, body.cipher_type,
                 tuple(str(ident) for ident in body.attachment_ids)), now=now(),
-                max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient)
-            if value.state == "accepted":
+                max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient,
+                media_draining=settings.media_draining)
+            if value.state == "accepted" and not (body.attachment_ids and settings.media_draining):
                 from .push import enqueue
                 await enqueue(session, value.recipient_device_id, now(), value.expires_at)
             return message_status(value)

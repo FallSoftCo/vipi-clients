@@ -315,7 +315,7 @@ def install(app, settings, db, principal, user_for, phone_for, rate, now):
             if blocked:
                 raise DeliveryError("recipient_unavailable", 404)
             device = await session.scalar(select(Device).where(Device.user_id == peer.id, Device.active.is_(True)))
-            return {"version": device.media_version if device else 0, "device_id": device.id if device else None}
+            return {"version": device.media_version if device and not settings.media_draining else 0, "device_id": device.id if device else None}
 
     @app.post('/v1/media/uploads')
     async def create_upload(body: UploadInput,request: Request,p: Annotated[Principal,Depends(principal)]):
@@ -336,6 +336,8 @@ def install(app, settings, db, principal, user_for, phone_for, rate, now):
                 if existing.state in {'cancelled','expired'} or utc(existing.expires_at)<=now():
                     raise DeliveryError('media_unavailable',404)
                 return metadata(existing)
+            if settings.media_draining:
+                raise DeliveryError("media_draining", 503)
             used=await session.scalar(select(func.coalesce(func.sum(MediaBlob.ciphertext_bytes),0)).where(
                 MediaBlob.owner_id==user.id,MediaBlob.expires_at>now(),MediaBlob.state.in_(['uploading','ready'])))
             count=await session.scalar(select(func.count()).select_from(MediaBlob).where(
