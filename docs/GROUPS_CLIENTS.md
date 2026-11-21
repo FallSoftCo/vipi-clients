@@ -1,8 +1,9 @@
 # Groups native upgrade — source checkpoint
 
-This branch is isolated from the free one-to-one launch. `GroupsUpgrade.enabled`
-is false on both platforms and neither launch home calls the new group entry
-point. Do not enable it based on source checks or relay tests.
+The first-release builds keep groups disabled. Isolated Android and iOS
+qualification builds can open Groups from Chats → New chat. See the
+[integrated qualification checkpoint](GROUPS_INTEGRATED_QUALIFICATION.md)
+for opt-in settings, measured coverage and rollout status.
 
 ## Implemented source
 
