@@ -68,6 +68,7 @@ class GroupsEntryJourneyTest {
                 compose.waitUntil(10_000) { fixture.model.chat?.groups?.loaded == true }
                 compose.onAllNodesWithText("Create group").onFirst().performClick()
                 compose.onNodeWithText("Maximum 16 people").assertIsDisplayed()
+                compose.onNodeWithText("Create group").assertIsNotEnabled()
                 val config = fixture.base.resources.configuration
                 val spot = compose.onNodeWithTag("screen-spot", useUnmergedTree = true)
                 if (config.fontScale < 1.5f && config.screenWidthDp >= 360 && config.screenHeightDp >= 480)
@@ -84,7 +85,7 @@ class GroupsEntryJourneyTest {
                 android.os.SystemClock.sleep(500)
                 compose.onNodeWithText("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.").assertIsDisplayed()
                 fixture.capture("01-group-member-selection")
-                compose.onNodeWithText("Create group and invite 1").performScrollTo().performClick()
+                compose.onNodeWithText("Create group and invite 1").assertIsEnabled().performScrollTo().performClick()
                 compose.waitUntil(15_000) { inviteCalls == 1 && fixture.model.chat?.groups?.busy == false }
                 compose.onNodeWithText("Message the group").assertExists()
                 compose.onNodeWithTag("conversation-immersion").performClick()

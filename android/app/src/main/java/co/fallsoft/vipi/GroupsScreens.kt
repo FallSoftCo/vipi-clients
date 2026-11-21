@@ -148,7 +148,11 @@ import java.util.UUID
                     if (!session.invite(current, id)) return@launch
                     selected = selected - id; current = session.group(current.id) ?: return@launch
                 }; onCreated(current.id)
-            } }, enabled = !session.busy && selected.isNotEmpty() && runCatching { GroupSelection.name(name) }.isSuccess, modifier = Modifier.fillMaxWidth()) { Text(if (created == null) "Create group and invite ${selected.size}" else "Retry remaining invitations") } }
+            } }, enabled = !session.busy && selected.isNotEmpty() && runCatching { GroupSelection.name(name) }.isSuccess, modifier = Modifier.fillMaxWidth()) { Text(when {
+                created != null -> "Retry remaining invitations"
+                selected.isEmpty() -> "Create group"
+                else -> "Create group and invite ${selected.size}"
+            }) } }
             item { Text("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.", style = MaterialTheme.typography.bodyLarge) }
         }
     }
