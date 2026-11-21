@@ -831,6 +831,14 @@
         }
       ],
       "result": "New familiarity counters stay in existing encrypted local account vault; no upload code introduced. Automatic word selection still uses accepted local mappings; diagnostic machine translations remain inactive. Existing chat-backup exclusions are explicit."
+    },
+    {
+      "date": "2026-11-21",
+      "scope": "Candidate New chat contacts and invitation flow on both platforms. Dated store responses below describe earlier releases.",
+      "vipi_peers": "Vipi account IDs, profiles and conversation history remain in the account-scoped encrypted local store. Returning peers can be selected directly.",
+      "device_contacts": "Optional in-context OS permission after the Vipi explainer. Granted display names, phone numbers and email addresses are read on device for searching and composing invitations. No persistent address-book copy, contact uploads, contact hashes, discovery endpoint, analytics fields or backup export.",
+      "user_directed_invitation": "Only the selected number or email address is passed to an operating-system composer with the inviter’s Vipi link. The person reviews and sends using the chosen messaging or mail provider.",
+      "release_verification": "Inspect the final signed permission declarations, purpose text, revocation behavior and invitation drafts on both platforms. No new store-form submission in this review."
     }
   ],
   "candidate_language_detection_20261117": {
