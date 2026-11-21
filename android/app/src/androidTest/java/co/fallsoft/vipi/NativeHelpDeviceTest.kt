@@ -23,10 +23,10 @@ class NativeHelpDeviceTest {
                 row.performScrollTo().performClick()
                 val detail = compose.onNodeWithTag("help-detail-$topic")
                 detail.performScrollTo().assertIsDisplayed()
-                if (topic == "FRIENDS") {
+                if (topic == "FRIENDS" || topic == "VOICE") {
                     compose.waitForIdle()
                     SystemClock.sleep(350)
-                    f.capture("android-native-help-friends")
+                    f.capture(if (topic == "FRIENDS") "android-native-help-friends" else "android-native-help-voice")
                 }
                 row.performScrollTo().performClick()
                 detail.assertDoesNotExist()

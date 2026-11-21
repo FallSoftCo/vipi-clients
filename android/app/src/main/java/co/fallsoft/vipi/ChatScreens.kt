@@ -565,7 +565,9 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                                         val status = deliveryLabel(item.state, item.outgoing)
                                         val accessible = MessageTimelineMetadata.exactTime(item.createdAt, locale) + " · " + status
                                         val messageContent: @Composable () -> Unit = {
-                                            if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio,
+                                            if (item.hasVoiceOnlyPlaceholder) {
+                                                Box(Modifier.padding(start = 12.dp, end = 12.dp, bottom = 6.dp)) { ChatMessageMetadata(item, locale) }
+                                            } else if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio,
                                                 accessibilityContext = accessible) { ChatMessageMetadata(item, locale) }
                                         }
                                         if (photoRepository != null && item.attachments.isNotEmpty()) {

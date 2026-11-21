@@ -6,6 +6,14 @@ import java.util.UUID
 
 internal data class ChatItem(val id: UUID, val peer: UUID, val text: String, val createdAt: Long,
     val outgoing: Boolean, val state: String, val cursor: String, val attachments: List<AttachmentManifest> = emptyList())
+// Historical wire values inserted by either client when a voice recording had no caption.
+private val generatedVoiceTitles = setOf(
+    "Voice message", "Mensaje de voz", "Message vocal", "Sprachnachricht", "Messaggio vocale",
+    "Mensagem de voz", "音声メッセージ", "ボイスメッセージ", "음성 메시지", "语音消息", "語音訊息", "رسالة صوتية", "Ujumbe wa sauti"
+)
+internal val ChatItem.hasVoiceOnlyPlaceholder: Boolean
+    get() = attachments.singleOrNull()?.kind == AttachmentKind.VOICE && text in generatedVoiceTitles
+
 internal data class ChatThread(val peer: UUID, val latest: ChatItem, val unread: Int)
 
 /** Keyset-paged opaque message references. All text, input drafts, contacts and
