@@ -59,6 +59,7 @@ import Observation
             for subject in owner.subjects { try KeychainStore.deleteChecked(account:"profile-"+subject) }
             for id in owner.accounts {
                 try KeychainStore.deleteChecked(account:"messages-"+id.uuidString.lowercased())
+                try KeychainStore.deleteChecked(account:"messages-initializing-"+id.uuidString.lowercased())
                 try KeychainStore.deleteChecked(account:"notification-store-location-"+id.uuidString.lowercased())
                 for root in [NotificationAccess.legacyRoot, NotificationAccess.root].compactMap({ $0 }) {
                     let folder = root.appendingPathComponent(id.uuidString.lowercased())
