@@ -748,6 +748,19 @@
         "d5ff7e9c-035f-4f5a-85bf-8e6b11174a97"
       ],
       "flows": []
+    },
+    {
+      "area": "Friends and invitations",
+      "title": "Choose whether to share phone contacts",
+      "note": "Luma explains contact access at the point of choice. Vipi explains its on-device address book before the system permission prompt and still offers a manual invite.",
+      "screens": [
+        "157eb5f9-b10c-4b19-b170-7eaef5b28efd",
+        "14cc8f7b-ba7a-474c-ae10-e2428e659eab",
+        "c5b816f3-8fa7-4105-ab33-caf4d887a1cd"
+      ],
+      "flows": [
+        "70fb813d-410c-4932-a4e9-daa49581978f"
+      ]
     }
   ],
   "screens": {
@@ -3434,6 +3447,39 @@
       "width": 1179,
       "height": 2676,
       "sha256": "1cad29ac410a9285f8561f790b15ad2fda9d3beebab8d362459caaf96868cf14"
+    },
+    "157eb5f9-b10c-4b19-b170-7eaef5b28efd": {
+      "id": "157eb5f9-b10c-4b19-b170-7eaef5b28efd",
+      "app": "Luma",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/157eb5f9-b10c-4b19-b170-7eaef5b28efd",
+      "file": "screens/157eb5f9-b10c-4b19-b170-7eaef5b28efd.webp",
+      "thumbnail": "previews/157eb5f9-b10c-4b19-b170-7eaef5b28efd.webp",
+      "width": 1179,
+      "height": 2676,
+      "sha256": "ceb2acbc24fbaf14dd8c44fdc1a3675f2d3b55340668f25c4f1d5af0b0c9fc23"
+    },
+    "14cc8f7b-ba7a-474c-ae10-e2428e659eab": {
+      "id": "14cc8f7b-ba7a-474c-ae10-e2428e659eab",
+      "app": "Luma",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/14cc8f7b-ba7a-474c-ae10-e2428e659eab",
+      "file": "screens/14cc8f7b-ba7a-474c-ae10-e2428e659eab.webp",
+      "thumbnail": "previews/14cc8f7b-ba7a-474c-ae10-e2428e659eab.webp",
+      "width": 1179,
+      "height": 2676,
+      "sha256": "f882405289845eaae93a468b44c59a2f88db27a5c5384b4167539f5da51829f9"
+    },
+    "c5b816f3-8fa7-4105-ab33-caf4d887a1cd": {
+      "id": "c5b816f3-8fa7-4105-ab33-caf4d887a1cd",
+      "app": "Luma",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/c5b816f3-8fa7-4105-ab33-caf4d887a1cd",
+      "file": "screens/c5b816f3-8fa7-4105-ab33-caf4d887a1cd.webp",
+      "thumbnail": "previews/c5b816f3-8fa7-4105-ab33-caf4d887a1cd.webp",
+      "width": 1179,
+      "height": 2676,
+      "sha256": "96878270fbdbab894ed34dcbdb7a21320bbd3448d8c0fbf923db061d9012d75c"
     }
   },
   "flows": {
@@ -3678,6 +3724,17 @@
         "a772213a-3c36-43e5-8131-d33c5b73121a",
         "e8481d02-9018-46d3-8b54-bb8cfa56abea",
         "00a86904-2292-4448-9453-a8ad053bdfca"
+      ]
+    },
+    "70fb813d-410c-4932-a4e9-daa49581978f": {
+      "id": "70fb813d-410c-4932-a4e9-daa49581978f",
+      "app": "Luma",
+      "name": "Enabling contacts syncing",
+      "url": "https://mobbin.com/flows/70fb813d-410c-4932-a4e9-daa49581978f?tab=screens",
+      "screens": [
+        "157eb5f9-b10c-4b19-b170-7eaef5b28efd",
+        "14cc8f7b-ba7a-474c-ae10-e2428e659eab",
+        "c5b816f3-8fa7-4105-ab33-caf4d887a1cd"
       ]
     }
   }

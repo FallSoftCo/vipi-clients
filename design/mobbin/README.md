@@ -1,6 +1,6 @@
 # Vipi design references
 
-The private library covers 50 Vipi journeys with 243 distinct full-resolution screens and 18 complete flows. The collection is available to the owner and teammates. [Mobbin collection](https://mobbin.com/collections/c5a5bb7e-8d36-41e2-92e3-12605fc17cc6/mobile/screens?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp) · [Offline image browser](/home/ai/Development/vipi-design-references/index.html) · [Source and image checksums](catalog.json)
+The private library covers 51 Vipi journeys with 247 distinct full-resolution screens and 19 complete flows. The collection is available to the owner and teammates. [Mobbin collection](https://mobbin.com/collections/c5a5bb7e-8d36-41e2-92e3-12605fc17cc6/mobile/screens?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp) · [Offline image browser](/home/ai/Development/vipi-design-references/index.html) · [Source and image checksums](catalog.json)
 
 Use the relevant screens when changing either client. Open the originals, compare the equivalent state on iOS and Android, and keep a native capture for the behavior under review. For a new feature, search Mobbin for its normal, empty, error, recovery and permission states as applicable. Add visually checked matches to this collection and index. Record an adjacent pattern or an uncovered behavior when a direct match is unavailable.
 
@@ -9,6 +9,10 @@ The native Mac has the same private offline library at `/Users/Apple/Development
 The connected Mobbin search currently provides iOS and web results. These product examples inform Android design too. Capture Android itself to verify system controls, permission prompts, keyboard behavior and layout. Keep third-party images in the private reference library.
 
 When you add a feature, update the feature entries in [catalog.json](catalog.json) with the source IDs and ordered flow steps. Save the original images and their thumbnails to the private library. To place a native capture beside the matching feature, add its path and a descriptive label to the library’s `vipi/examples.json`. Rebuild the offline browser with `python3 design/mobbin/build_gallery.py /home/ai/Development/vipi-design-references`. The builder verifies image hashes and the local paths before writing the index.
+
+### Choosing a friend and granting contact access
+
+One **New** action opens the friend picker. Place the illustrated **New group** action above the saved contacts so either conversation can start there. Show FallSoft’s privacy promise on the existing phone-contact explanation before the system prompt. The manual invite remains available. [WhatsApp group creation](https://mobbin.com/flows/d6030e01-8122-4405-bb10-a279c976fb56?tab=screens) · [Luma contact permissions](https://mobbin.com/flows/70fb813d-410c-4932-a4e9-daa49581978f?tab=screens) · [Built for Mars permission example](https://builtformars.com/ux-bites/permission-to-do-list)
 
 ### First-reply notification invitation
 
