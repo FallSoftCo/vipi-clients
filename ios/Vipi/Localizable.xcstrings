@@ -41081,6 +41081,170 @@
         }
       }
     },
+    "See your friend’s name and reply in a notification. Lock Screen previews follow your device settings.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "See your friend’s name and reply in a notification. Lock Screen previews follow your device settings."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اطّلع على اسم صديقك وردّه في الإشعار. تتبع معاينات شاشة القفل إعدادات جهازك."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sieh den Namen und die Antwort deines Freundes in einer Mitteilung. Für Vorschauen auf dem Sperrbildschirm gelten deine Geräteeinstellungen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ve el nombre de tu amigo y su respuesta en una notificación. Las vistas previas en la pantalla bloqueada dependen de los ajustes del dispositivo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voyez le nom de votre ami et sa réponse dans une notification. Les aperçus sur l’écran verrouillé dépendent des réglages de votre appareil."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vedi il nome e la risposta di chi ti scrive in una notifica. Le anteprime nella schermata di blocco seguono le impostazioni del dispositivo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "友達の名前と返信を通知に表示します。ロック画面のプレビューにはデバイスの設定が適用されます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "알림에서 친구의 이름과 답장을 볼 수 있어요. 잠금 화면 미리보기는 기기 설정을 따릅니다."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja o nome e a resposta do seu amigo na notificação. As prévias na tela bloqueada seguem os ajustes do dispositivo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja o nome e a resposta do seu amigo na notificação. As pré-visualizações no ecrã bloqueado seguem as definições do dispositivo."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ona jina la rafiki yako na jibu lake kwenye arifa. Hakikisho kwenye skrini iliyofungwa hufuata mipangilio ya kifaa chako."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在通知中查看好友的姓名和回复。锁定屏幕预览遵循设备设置。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在通知中查看好友的姓名和回覆。鎖定畫面的預覽依照裝置設定。"
+          }
+        }
+      }
+    },
+    "Get an alert when your friend replies. Their name and message stay hidden.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get an alert when your friend replies. Their name and message stay hidden."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تلقَّ إشعارًا عندما يردّ صديقك. سيظلّ اسمه ورسالته مخفيين."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erhalte eine Mitteilung, wenn dein Freund antwortet. Name und Nachricht bleiben verborgen."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recibe un aviso cuando tu amigo responda. Su nombre y su mensaje quedan ocultos."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recevez une alerte quand votre ami répond. Son nom et son message restent masqués."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ricevi un avviso quando un amico risponde. Il suo nome e il messaggio restano nascosti."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "友達が返信したときに通知します。名前とメッセージは表示されません。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구가 답장하면 알림을 받아요. 이름과 메시지는 숨겨집니다."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Receba um alerta quando seu amigo responder. O nome e a mensagem ficam ocultos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Receba um aviso quando o seu amigo responder. O nome e a mensagem ficam ocultos."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokea arifa rafiki yako anapojibu. Jina na ujumbe wake vitafichwa."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "好友回复时接收提醒。好友的姓名和消息将保持隐藏。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "好友回覆時接收提醒。好友的姓名和訊息將保持隱藏。"
+          }
+        }
+      }
+    },
     "Open notification settings": {
       "comment": "Opens system notification settings on any supported device, including iPad.",
       "localizations": {

@@ -2686,9 +2686,13 @@ final class ChatConversationTests: XCTestCase {
                 captureSettings("settings-profile-and-chats")
                 let link = app.buttons["Notifications"]; reveal(link); link.tap()
                 XCTAssertTrue(app.navigationBars["Notifications"].waitForExistence(timeout: 5))
-                let toggle = app.switches["settings-message-previews"]
-                reveal(toggle); XCTAssertEqual(toggle.value as? String, "0")
-                captureSettings("settings-preview-private")
+                let toggle = app.switches["settings-notification-content"]
+                reveal(toggle); XCTAssertEqual(toggle.value as? String, "1")
+                XCTAssertTrue(app.staticTexts["Coffee at six?"].exists)
+                toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
+                XCTAssertEqual(toggle.value as? String, "0")
+                XCTAssertTrue(app.staticTexts["You have a new message."].exists)
+                captureSettings("settings-preview-generic")
                 toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()
                 XCTAssertEqual(toggle.value as? String, "1")
                 let sample = app.staticTexts["Coffee at six?"]; reveal(sample); XCTAssertTrue(sample.isHittable)
