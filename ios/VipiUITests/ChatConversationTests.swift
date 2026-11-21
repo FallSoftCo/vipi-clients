@@ -820,6 +820,10 @@ final class ChatConversationTests: XCTestCase {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true)
     }
     /// Native marketing pixels from controlled screenshot data, never model proof.
+    func testScreenSpotsAtStandardType() throws { try checkJourney(largest: false, inboxReview: "spots-populated") }
+    func testScreenSpotsAtNight() throws { try checkJourney(largest: false, dark: true, inboxReview: "spots-populated") }
+    func testScreenSpotsAtAccessibilityType() throws { try checkJourney(largest: true, inboxReview: "spots-populated") }
+
     func testSavedFriendSearchAndVoluntaryPhoneInvitationAtActualRoot() throws {
         try checkJourney(largest: false, inboxReview: "friends-populated")
     }
@@ -2701,6 +2705,56 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(app.navigationBars["Chats"].exists)
             XCTAssertFalse(app.buttons["Notify me when friends reply"].exists)
             XCTAssertTrue(app.buttons["Your profile and settings"].exists)
+            if inboxReview == "spots-populated" {
+                func capture(_ screen: String) {
+                    let screenshot = XCTAttachment(screenshot: app.screenshot())
+                    screenshot.name = "spot-" + (largest ? "accessible-" : (dark ? "night-" : "day-")) + screen
+                    screenshot.lifetime = .keepAlways
+                    add(screenshot)
+                }
+                app.buttons["Your profile and settings"].tap()
+                XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 6))
+                XCTAssertTrue(app.buttons["settings-invite-friend"].exists)
+                XCTAssertFalse(app.images["SpotSettings"].exists)
+                capture("settings")
+                app.navigationBars.buttons["BackButton"].firstMatch.tap()
+                app.buttons["New chat"].firstMatch.tap()
+                let field = app.textFields["Friend’s username"]
+                XCTAssertTrue(field.waitForExistence(timeout: 6))
+                XCTAssertFalse(app.images["SpotNewChat"].exists)
+                capture("new-chat")
+                field.tap(); field.typeText("Maya")
+                XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label CONTAINS[c] 'Maya'")).firstMatch.exists)
+                capture("new-chat-editing")
+                app.buttons["Cancel"].firstMatch.tap()
+                app.buttons["New chat"].firstMatch.tap()
+                let groups = app.buttons["open-groups"]
+                reveal(groups); groups.tap()
+                let createGroup = app.buttons["Create group"].firstMatch
+                XCTAssertTrue(createGroup.waitForExistence(timeout: 6)); createGroup.tap()
+                let name = app.textFields["group-name"]
+                XCTAssertTrue(name.waitForExistence(timeout: 6))
+                XCTAssertFalse(app.images["SpotNewGroup"].exists)
+                capture("new-group")
+                name.tap(); name.typeText("Weekend friends")
+                XCTAssertEqual(name.value as? String, "Weekend friends")
+                capture("new-group-editing")
+                if !largest {
+                    name.typeText("\n")
+                    let scroll = app.collectionViews.firstMatch
+                    let action = app.buttons["group-create"]
+                    for _ in 0..<5 where !action.exists { scroll.swipeUp() }
+                    XCTAssertEqual(action.label, "Create group")
+                    XCTAssertFalse(action.isEnabled)
+                    let maya = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Maya Johnson,'")).firstMatch
+                    for _ in 0..<5 where !maya.isHittable { scroll.swipeDown() }
+                    maya.tap()
+                    for _ in 0..<5 where !action.exists { scroll.swipeUp() }
+                    XCTAssertEqual(action.label, "Create group and invite 1")
+                    XCTAssertTrue(action.isEnabled)
+                }
+                return
+            }
             if inboxReview == "friends-populated" {
                 let existing = app.descendants(matching: .any).matching(
                     NSPredicate(format: "identifier BEGINSWITH 'chat-thread-' AND label CONTAINS 'Maya Johnson'")).firstMatch

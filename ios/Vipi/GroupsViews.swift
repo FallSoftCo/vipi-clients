@@ -64,13 +64,25 @@ struct GroupCreateView: View {
     let people: [ChatProfile]
     @Environment(\.dismiss) private var dismiss
     @State private var title = ""
+    @FocusState private var editingName: Bool
     @State private var selected = Set<UUID>()
     @State private var created: UUID?
     @State private var selectionNotice: String?
     private var canCreate: Bool { (try? GroupSelection.name(title)) != nil && !selected.isEmpty && !groups.busy }
+    private var actionTitle: LocalizedStringKey {
+        if selected.isEmpty { return "Create group" }
+        if created != nil { return "Retry remaining invitations" }
+        return "Create group and invite \(selected.count)"
+    }
     var body: some View {
         List {
-            Section("Group name") { TextField("For example, Weekend friends", text: $title).font(.body).disabled(created != nil).accessibilityIdentifier("group-name") }
+            Section {
+                TextField("For example, Weekend friends", text: $title)
+                    .font(.body).disabled(created != nil).accessibilityIdentifier("group-name")
+                    .focused($editingName)
+            } header: {
+                Text("Group name").modifier(ScreenSpot(asset: "SpotNewGroup", editing: editingName))
+            }
             Section {
                 Text("Maximum 16 people").font(.body)
                 Text("\(selected.count + 1) of 16 people selected, including you").font(.headline).accessibilityIdentifier("group-selection-count")
@@ -78,7 +90,7 @@ struct GroupCreateView: View {
             GroupPeoplePicker(people: people, account: groups.account, selected: $selected, notice: $selectionNotice)
             if let notice = selectionNotice ?? groups.notice { Section { Text(notice).font(.body).foregroundStyle(VipiDesign.destructive) } }
             Section {
-                Button(created == nil ? "Create group and invite \(selected.count)" : "Retry remaining invitations") {
+                Button(actionTitle) {
                     Task {
                         var group = created.flatMap { groups.snapshot($0) }
                         if group == nil { group = await groups.create(title: title); created = group?.id }

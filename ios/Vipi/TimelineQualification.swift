@@ -1370,6 +1370,8 @@ struct PendingPairRootBinding: View {
         let input = try body.map { try JSONSerialization.jsonObject(with: $0) as? [String: Any] ?? [:] } ?? [:]
         let value: [String: Any]
         switch (method, path) {
+        case ("GET", "/v1/groups") where GroupsUpgrade.enabled && ProcessInfo.processInfo.arguments.contains("-vipi-inbox-populated-qa"):
+            value = ["groups": [], "invitations": []]
         case ("GET", "/v1/me"):
             guard ledger.profiles == 1 else { throw ServiceFailure(status: 404, code: "profile_required") }
             value = profile
