@@ -100,6 +100,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     }
     fun notificationPosted(deliveries: Map<UUID, String>) { history?.notificationPosted(deliveries) }
 
+    var groups by mutableStateOf<GroupsSession?>(null); private set
     var profile by mutableStateOf<ChatProfile?>(null); private set
     var needsProfile by mutableStateOf(false); private set
     var busy by mutableStateOf(false); private set
@@ -137,6 +138,15 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 { peer, action, value -> request("POST", "/v1/conversations/$peer/$action", value, requireNotNull(core).device) },
                 ::reload)
 
+            if (GroupsUpgrade.enabled) {
+                val currentCore = requireNotNull(core); val local = GroupsStore(store)
+                val transport = object : ChatTransport {
+                    override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>) = this@ChatSession.request(method, path, body, device, query)
+                }
+                groups = GroupsSession(value.id, GroupsAPI(transport, currentCore.device), local, GroupsCrypto(store, currentCore, local),
+                    preparePeer = { peer -> ensureOpen(); check(ready && peer !in blockedPeers && peer !in peersNeedingRecovery); establish(peer) },
+                    needsIdentityReview = { it in peersNeedingRecovery }, committed = { message -> translateDurable(message.renderID) })
+            }
             translationPair?.let { (source, target) ->
                 translations = ConversationTranslation(context, source, target, FullMessageTranslationStore(store),
                     translator = translationFactory?.invoke() ?: LocalTranslation(), mode = translationMode)
@@ -297,6 +307,10 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     internal fun messageOriginal(id: String): String? {
         if (closed) return null
         val store = vault ?: return null
+        if (id.startsWith("group:")) {
+            val parts = id.split(':'); if (parts.size != 3) return null
+            return runCatching { groups?.messageOriginal(UUID.fromString(parts[1]), UUID.fromString(parts[2])) }.getOrNull()
+        }
         return store.transaction {
             store.get("incoming", id)?.let { StoredChat.parse(it).text }
                 ?: store.get("outgoing", id)?.let { StoredChat.parse(it).text }
@@ -323,6 +337,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                     for (message in page) yield(ConversationTranslation.SavedMessage(message.id.toString(), message.text))
                 }
             }
+            for (message in groups?.historyForImmersion().orEmpty()) yield(ConversationTranslation.SavedMessage(message.renderID, message.text))
         } }
     }
     fun securityNumber(peer: UUID): SecurityNumber? = (core ?: throw ServiceFailure(0, "device_not_ready")).securityNumber(peer)
@@ -433,7 +448,22 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                     val inbox = result.getJSONArray("messages")
                     repeat(inbox.length()) { index ->
                         try {
-                            val item = RoutedMessage.received(inbox.getJSONObject(index), profile!!.id)
+                            val raw = inbox.getJSONObject(index)
+                            if (GroupIncoming.hasContext(raw)) {
+                                // A group packet never falls through to the direct journal.
+                                if (GroupsUpgrade.enabled) {
+                                    val incoming = GroupIncoming.parse(raw, profile!!.id)
+                                    require(incoming.kind in setOf("message", "control"))
+                                    val controller = requireNotNull(groups)
+                                    val sender = incoming.routed.envelope.sender
+                                    val changedRoute = requireNotNull(vault).transaction { requireNotNull(vault).get("identity", "$sender/1") != null && requireNotNull(vault).get("peer-device", sender.toString())?.toString(Charsets.UTF_8) != incoming.routed.senderDevice.toString() }
+                                    if (changedRoute) markPeerRecovery(sender)
+                                    if (incoming.kind == "control") controller.receiveControl(incoming) else controller.receive(incoming)
+                                    if (sender !in contacts && unknownSenders.size < 20) unknownSenders.add(sender)
+                                }
+                                return@repeat
+                            }
+                            val item = RoutedMessage.received(raw, profile!!.id)
                             if (item.envelope.sender !in blockedPeers) {
                                 val duplicate = vault!!.transaction { vault!!.get("incoming", item.envelope.id.toString()) != null }
                                 val received = core.receive(item, System.currentTimeMillis())
@@ -504,6 +534,17 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                         notice = explanation(context, error)
                     }
                 }
+                groups?.let { controller ->
+                    controller.synchronize()
+                    for (id in controller.pendingReceipts()) {
+                        try {
+                            val state = request("POST", "/v1/messages/$id/receipt", device = core.device).getString("state")
+                            if (state in setOf("delivered", "expired", "unavailable", "identity_changed")) controller.receiptAccepted(id)
+                        } catch (failure: ServiceFailure) {
+                            if (failure.status == 404 && failure.code == "message_not_found") controller.receiptAccepted(id) else if (failure.status == 429) break else throw failure
+                        }
+                    }
+                }
             } while (syncAgain)
             lastSyncComplete = completed
         } catch (error: CancellationException) { throw error }
@@ -539,6 +580,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         closed = true; ready = false; needsProfile = false; syncAgain = false
         syncDone?.cancel(); syncDone = null
         historyDone?.cancel(); historyDone = null
+        groups?.close(); groups = null
         vault?.close(); vault = null; core = null; history = null
         profile = null; threads = emptyList(); contacts = emptyMap(); blockedPeers = emptySet(); peersNeedingRecovery = emptySet()
     }

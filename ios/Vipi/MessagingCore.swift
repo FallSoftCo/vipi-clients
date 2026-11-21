@@ -12,6 +12,12 @@ struct RoutedMessage {
     struct Received: Decodable {
         let id: UUID; let sender_id: UUID; let sender_device_id: UUID; let recipient_device_id: UUID
         let created_at: String; let cipher_type: Int; let ciphertext: Data
+        let group_id: UUID?; let group_epoch: Int?; let group_message_id: UUID?; let group_kind: String?
+        var hasGroupContext: Bool { group_id != nil || group_epoch != nil || group_message_id != nil || group_kind != nil }
+        func groupIncoming() throws -> GroupIncoming {
+            guard let group_id, let group_epoch, group_epoch > 0, let group_message_id, let group_kind, ["message", "control"].contains(group_kind) else { throw GroupsFailure.invalidResponse }
+            return GroupIncoming(id: id, sender_id: sender_id, sender_device_id: sender_device_id, recipient_device_id: recipient_device_id, created_at: created_at, cipher_type: cipher_type, ciphertext: ciphertext, group_id: group_id, group_epoch: group_epoch, group_message_id: group_message_id, group_kind: group_kind)
+        }
         func routed(account: UUID) throws -> RoutedMessage {
             let parser = ISO8601DateFormatter(); parser.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
             var date = parser.date(from: created_at)

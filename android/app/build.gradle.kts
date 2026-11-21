@@ -1,6 +1,8 @@
 plugins { id("com.android.application"); id("org.jetbrains.kotlin.plugin.compose") }
 val qualifyRelease = providers.gradleProperty("vipiReleaseQualification").map { it.toBooleanStrict() }.getOrElse(false)
 val qualifySourceContext = providers.gradleProperty("vipiSourceContextQualification").map { it.toBooleanStrict() }.getOrElse(false)
+val qualifyGroups = providers.gradleProperty("vipiGroupsQualification").map { it.toBooleanStrict() }.getOrElse(false)
+require(!qualifyGroups || qualifySourceContext) { "Groups qualification requires isolated debug configuration." }
 // Public auth configuration and private upload-key inputs are supplied by the release environment.
 // Missing production inputs must never produce an apparently distributable blank-auth build.
 fun releaseInput(property: String, environment: String) =
@@ -58,7 +60,11 @@ android {
     // The local debug certificate is never configured for a normal release.
     buildTypes {
         getByName("debug") {
-            if (qualifySourceContext) applicationIdSuffix = if (providers.gradleProperty("vipiTutorialQualification").map { it.toBooleanStrict() }.getOrElse(false)) ".tutorialqa" else ".sourcecontextqa"
+            if (qualifySourceContext) applicationIdSuffix = when {
+                qualifyGroups -> ".groupsqa"
+                providers.gradleProperty("vipiTutorialQualification").map { it.toBooleanStrict() }.getOrElse(false) -> ".tutorialqa"
+                else -> ".sourcecontextqa"
+            }
             buildConfigField("String", "WORKOS_CLIENT_ID", "\"${productionClientId.ifBlank { "client_01M5S2CDSQ8F7FEX26G3CY9VS1" }}\"")
             providers.gradleProperty("vipiQaAbi").orNull?.let { require(it in setOf("x86_64", "arm64-v8a")); ndk.abiFilters.add(it) }
         }
@@ -112,6 +118,7 @@ val verifyProductionRelease = tasks.register("verifyProductionRelease") {
     description = "Reject production release builds without explicit auth and upload signing configuration."
     doLast {
         check(!qualifySourceContext) { "Source-context qualification is a debug-only isolated package." }
+        check(!qualifyGroups) { "Groups qualification is never a release configuration." }
         if (qualifyRelease) return@doLast
         check(productionClientId.isNotBlank()) {
             "Set VIPI_WORKOS_CLIENT_ID (or vipiWorkosClientId) to the production public WorkOS client ID."
