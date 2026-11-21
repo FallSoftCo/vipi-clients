@@ -114,14 +114,24 @@ private final class ConverterInput: @unchecked Sendable {
     var qualificationStallTimeout: Duration?
     #endif
 
+    private static var availableVoices: [AVSpeechSynthesisVoice] {
+        AVSpeechSynthesisVoice.speechVoices().filter { !$0.voiceTraits.contains(.isNoveltyVoice) }
+    }
+    static var availableLanguageCodes: Set<String> {
+        var codes = Set(availableVoices.map { LocalLanguageCatalog.canonicalCode($0.language) })
+        // The renderer uses the bundled voice exclusively for Swahili.
+        if SwahiliSpeech.packagedRoot != nil { codes.insert("sw") } else { codes.remove("sw") }
+        return codes
+    }
+
     init(language: String) throws {
         self.language = language
         let code = language.components(separatedBy: "-")[0]
         if code == "sw" { voice = nil; return }
         let preferred = ["en": "en-US", "es": "es-ES", "fr": "fr-FR", "de": "de-DE", "it": "it-IT", "pt": "pt-BR",
             "ar": "ar-001", "zh": "zh-CN", "ja": "ja-JP", "ko": "ko-KR"][language] ?? language
-        let available = AVSpeechSynthesisVoice.speechVoices().filter {
-            LocalLanguageCatalog.canonicalCode($0.language) == code && !$0.voiceTraits.contains(.isNoveltyVoice)
+        let available = Self.availableVoices.filter {
+            LocalLanguageCatalog.canonicalCode($0.language) == code
         }.sorted {
             if ($0.language == preferred) != ($1.language == preferred) { return $0.language == preferred }
             if $0.quality != $1.quality { return $0.quality.rawValue > $1.quality.rawValue }

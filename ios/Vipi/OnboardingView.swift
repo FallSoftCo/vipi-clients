@@ -7,6 +7,7 @@ struct OnboardingView: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.locale) private var locale
     @State private var preparation = LanguagePreparation()
+    @State private var availableVoices: Set<String>?
     @State private var search = ""
     @State private var scrolling = false
     @Environment(\.scenePhase) private var scenePhase
@@ -56,6 +57,7 @@ struct OnboardingView: View {
                 }
             }
             .toolbarBackground(VipiDesign.canvas, for: .navigationBar)
+            .task(id: scenePhase) { if scenePhase == .active { availableVoices = LocalVoice.availableLanguageCodes } }
             .task(id:"\(state.knownLanguage)-\(state.targetLanguage)-\(state.onboarding)") {
                 guard state.onboarding == .language else { preparation.invalidate(); return }
                 preparation.invalidate(); preparation = state.translationServices.makePreparation()
@@ -89,11 +91,12 @@ struct OnboardingView: View {
                 Text("I’m learning").font(.body.weight(.semibold))
                 NavigationLink {
                     LanguageSelectionView(title: "I’m learning", selection: $state.targetLanguage,
-                        choices: VipiLanguage.initial.filter { $0.id != state.knownLanguage }, localName: true)
+                        choices: VipiLanguage.initial, localName: true, practiceSource: state.knownLanguage)
                 } label: { languageLabel(state.targetLanguage) }
                     .accessibilityLabel("I’m learning")
                     .accessibilityValue(VipiLanguage.named(state.targetLanguage).localizedName)
             }
+            PracticeLanguageNotice(target: state.targetLanguage, availableVoices: availableVoices)
             if preparation.busy || preparation.availability == .checking {
                 HStack { ProgressView(); Text("Preparing translation downloads…").font(.subheadline) }.foregroundStyle(VipiDesign.secondary)
             } else if !preparation.prepared {

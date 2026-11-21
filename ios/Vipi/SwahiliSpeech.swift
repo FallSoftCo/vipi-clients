@@ -7,6 +7,12 @@ import libespeak_ng
 final class SwahiliSpeech: @unchecked Sendable {
     static let shared = SwahiliSpeech()
     static let identifier = "espeak-ng-fd28f646-sw"
+    static var packagedRoot: URL? {
+        guard let root = Bundle.main.resourceURL?.appendingPathComponent("vipi-speech-699e7969", isDirectory: true) else { return nil }
+        let data = root.appendingPathComponent("espeak-ng-data", isDirectory: true)
+        let required = ["sw_dict","phondata","phonindex","phontab","intonations","lang/bnt/sw"]
+        return required.allSatisfy { FileManager.default.isReadableFile(atPath: data.appendingPathComponent($0).path) } ? root : nil
+    }
     private let queue = DispatchQueue(label: "co.fallsoft.vipi.swahili-speech", qos: .userInitiated)
     private var initialized = false
 
@@ -68,14 +74,7 @@ final class SwahiliSpeech: @unchecked Sendable {
             // This resource is compiled from the exact eSpeak revision linked by
             // the app and verified during every build. It is read-only in the app
             // bundle, avoiding stale or incomplete installed-data caches.
-            guard let resources = Bundle.main.resourceURL else { throw LocalSpeechError.unavailable }
-            let root = resources.appendingPathComponent("vipi-speech-699e7969", isDirectory: true)
-            let data = root.appendingPathComponent("espeak-ng-data", isDirectory: true)
-            for path in ["sw_dict", "phondata", "phonindex", "phontab", "intonations", "lang/bnt/sw"] {
-                guard FileManager.default.isReadableFile(atPath: data.appendingPathComponent(path).path) else {
-                    throw LocalSpeechError.unavailable
-                }
-            }
+            guard let root = Self.packagedRoot else { throw LocalSpeechError.unavailable }
             root.path.withCString { espeak_ng_InitializePath($0) }
             guard espeak_ng_Initialize(nil) == ENS_OK,
                   espeak_ng_InitializeOutput(ENOUTPUT_MODE_SYNCHRONOUS, 0, nil) == ENS_OK else {

@@ -6,6 +6,14 @@ This is the durable record to consult before expanding the language picker or ma
 
 The owner requires translation and local speech support to match one to one, with transliteration for non-Latin text. Verify those features directly in the app and record the result here. Unit and integration tests protect routing, cancellation, caching, and state transitions; they do not certify speech or transliteration quality. The prepared native capability-inventory test was never run and has been removed.
 
+## Practice picker on the free mobile candidate, November 20
+
+The common practice choices are Arabic, Chinese, English, French, German, Italian, Japanese, Korean, Portuguese, Spanish and Swahili. On Android these eleven have a packaged offline voice fallback. On Apple, Swahili uses its packaged eSpeak resources and the other ten use installed system voices. Both apps check translation models separately. The Apple picker and download screen now show a missing-target-voice notice before setup finishes. The in-app tutorial still checks real synthesis and lets the person continue to friend chat.
+
+Apple retains its 59 source-language identifiers for speech-independent input, message history and existing download routes. It offers up to 30 additional Latin-script practice languages when the device lists a regular target voice and the pair has an Apple or bundled ML Kit translation route. An uninstalled translation model can be downloaded through the existing setup. Other writing systems retain their saved selections and translation routes. Offering them as new practice targets requires direct review of their reading guides. A previously saved target remains visible even if its voice is subsequently removed. No selection is rewritten by this filter.
+
+An installed voice and supported translation direction indicate available device services. Offline synthesis, the accuracy of a particular translation and the quality of a reading require separate evidence. The earlier [110-direction lexical floor](../qa/immersion/all-direction-floor-20261116/README.md) and [Swahili integration checks](VERIFICATION.md) concern earlier builds. Recent native review covers English–Mandarin guide gestures and playback, plus selected Chinese, Japanese and Korean reading samples and Spanish, Chinese and Swahili speech paths. Physical listening and final-candidate coverage across the 110 ordered common pairs remain open.
+
 ## What the platform documentation establishes
 
 - [ML Kit translation languages](https://developers.google.com/ml-kit/language/translation/translation-language-support) lists the 59 candidates below. [Translation guidance](https://developers.google.com/ml-kit/language/translation) describes an on-device translator intended for simple/casual text; translation availability is not a quality guarantee.
