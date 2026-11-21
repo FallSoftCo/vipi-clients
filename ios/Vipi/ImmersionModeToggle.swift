@@ -1,22 +1,57 @@
 import SwiftUI
 
-/// One action and the current depth, shared by chat and the optional preview.
+/// The navigation bar proposes the width left by its real Back and options
+/// items. Keep the complete contact name and both titles whenever they fit.
+/// A long name can use the space released by both compact actions.
+struct ConversationHeaderActions<Identity: View>: View {
+    let mode: ImmersionMode
+    let autoplay: Bool
+    let toggleMode: () -> Void
+    let toggleAutoplay: () -> Void
+    @ViewBuilder let identity: () -> Identity
+
+    var body: some View {
+        ViewThatFits(in: .horizontal) {
+            row(showTitles: true).fixedSize(horizontal: true, vertical: false)
+            row(showTitles: false)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func row(showTitles: Bool) -> some View {
+        HStack(spacing: 6) {
+            identity()
+            ImmersionModeToggle(mode: mode, showTitle: showTitles, onToggle: toggleMode)
+            ChatAutoplayButton(enabled: autoplay, showTitle: showTitles, toggle: toggleAutoplay)
+        }
+    }
+}
+
 struct ImmersionModeToggle: View {
     let mode: ImmersionMode
+    var showTitle = true
     let onToggle: () -> Void
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
     var body: some View {
-        Button(action:onToggle) {
-            // A toolbar can adapt Label into icon-only or title-only forms.
-            // These are two named modes, so keep their symbol and title together.
-            HStack(spacing:5) {
-                ImmersionModeSymbol(mode:mode)
-                Text(mode.title).fixedSize(horizontal:false,vertical:true)
+        Button(action: onToggle) {
+            HStack(spacing: 5) {
+                ImmersionModeSymbol(mode: mode)
+                    .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                if showTitle {
+                    // Reserve both localized titles. Toggling never changes which
+                    // layout fits or moves the adjacent Autoplay button.
+                    ZStack(alignment: .leading) {
+                        ForEach(ImmersionMode.allCases) { choice in
+                            Text(choice.title).hidden().accessibilityHidden(true)
+                        }
+                        Text(mode.title)
+                    }
+                }
             }
-            .animation(reduceMotion ? nil : .easeOut(duration:0.20),value:mode)
-            .font(.subheadline.weight(.medium)).lineLimit(2)
-            .multilineTextAlignment(.leading).fixedSize(horizontal:true,vertical:false)
-            .frame(minHeight:44)
+            .font(.subheadline.weight(.medium))
+            .fixedSize()
+            .frame(minWidth: 44, minHeight: 44)
+            .contentShape(Rectangle())
         }
         .accessibilityLabel("Immersion").accessibilityValue(mode.title)
         .accessibilityHint(LocalizedStringKey(mode == .fullMessages ? "Switch to Shallow":"Switch to Deep"))
@@ -28,19 +63,24 @@ struct ImmersionModeToggle: View {
 /// an independent, one-message action.
 struct ChatAutoplayButton: View {
     let enabled: Bool
+    var showTitle = true
     let toggle: () -> Void
+    @ScaledMetric(relativeTo: .subheadline) private var speakerWidth: CGFloat = 22
 
     var body: some View {
-        Button(action:toggle) {
-            HStack(spacing:5) {
-                Image(systemName:enabled ? "speaker.wave.2.fill" : "speaker.slash")
-                Text("Autoplay").fixedSize(horizontal:false,vertical:true)
+        Button(action: toggle) {
+            HStack(spacing: 5) {
+                Image(systemName: enabled ? "speaker.wave.2.fill" : "speaker.slash")
+                    .dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                    .frame(width: min(32, speakerWidth))
+                if showTitle { Text("Autoplay") }
             }
             .font(.subheadline.weight(.semibold))
-            .padding(.horizontal,8).padding(.vertical,5)
+            .fixedSize()
+            .padding(.horizontal, 8).padding(.vertical, 5)
             .foregroundStyle(enabled ? VipiDesign.onHighlight : VipiDesign.ink)
-            .background(enabled ? VipiDesign.highlight : .clear,in:Capsule())
-            .frame(minWidth:44,minHeight:44).contentShape(Rectangle())
+            .background(enabled ? VipiDesign.highlight : .clear, in: Capsule())
+            .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
         }
         .accessibilityLabel("Autoplay")
         .accessibilityValue(enabled ? Text("On") : Text("Off"))

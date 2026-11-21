@@ -1386,7 +1386,7 @@ struct PendingPairRootBinding: View {
                 ledger.friendUsernameLookups = (ledger.friendUsernameLookups ?? 0) + 1
                 try save()
             }
-            value = ["id": ledger.peer.uuidString, "username": Self.marketingEnabled ? "maya" : "alex", "display_name": Self.marketingEnabled ? "Maya" : "Alex"]
+            value = ["id": ledger.peer.uuidString, "username": Self.marketingEnabled ? "maya" : "alex", "display_name": Self.marketingEnabled ? "Maya" : (ProcessInfo.processInfo.arguments.contains("-vipi-long-header-contact-qa") ? "Alexandria Rivera Hernández" : "Alex")]
         case ("GET", "/v1/people/maya") where Self.marketingEnabled:
             value = ["id": ledger.peer.uuidString, "username": "maya", "display_name": "Maya"]
         case ("GET",let candidate) where ProcessInfo.processInfo.arguments.contains("-vipi-inbox-populated-qa") && candidate.hasPrefix("/v1/blocks/") && chats.contains(where: { chat in chat.threads.contains(where: { candidate == "/v1/blocks/"+$0.peer.uuidString.lowercased() }) }):
