@@ -78,6 +78,8 @@ async def request_deletion(session, *, subject: str, account_id: str, receipt_se
     from .groups import revoke_memberships
     await revoke_memberships(session, account_id, now=now, deleting=True)
     devices = select(Device.id).where(Device.user_id == account_id)
+    from .media import erase_account_media
+    await erase_account_media(session, account_id, now)
     await session.execute(delete(PushOutbox).where(PushOutbox.device_id.in_(devices)))
     await session.execute(delete(PushToken).where(PushToken.device_id.in_(devices)))
     await session.execute(delete(KeyClaim).where(or_(KeyClaim.requester_device_id.in_(devices),

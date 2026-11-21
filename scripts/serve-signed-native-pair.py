@@ -53,6 +53,8 @@ async def serve(args):
     origin = f"http://127.0.0.1:{args.port}"
     authority = IdentityAuthority("local-native-pair-test", "client_local_native_pair", origin + "/qa-auth", origin + "/qa-auth/jwks")
     settings = load_settings(directory, [c["subject"] for c in credentials.values()]).model_copy(update={"workos_issuer": authority.issuer})
+    if args.media:
+        settings = settings.model_copy(update={"media_enabled": True, "media_storage_path": str(directory / "opaque-media")})
     db = Database(settings.database_url)
     await db.create_for_test()
     verifier = WorkOSVerifier(settings, authority=authority)
@@ -86,7 +88,7 @@ async def serve(args):
         signal.signal(signum, lambda *_: setattr(server, "should_exit", True))
     receipt = {"purpose": "explicit synthetic authentication; not WorkOS or owner conversation proof", "started_at": datetime.now(UTC).isoformat(),
         "pid": os.getpid(), "source_revision": args.source_revision, "endpoint": origin, "database": "new isolated SQLite",
-        "normal_api": True, "verifier": "production WorkOSVerifier class with explicit test-only loopback authority and ephemeral RS256 key",
+        "normal_api": True, "media": args.media, "verifier": "production WorkOSVerifier class with explicit test-only loopback authority and ephemeral RS256 key",
         "jwks_public_sha256": hashlib.sha256(json.dumps(jwk, sort_keys=True).encode()).hexdigest(),
         "production_auth_modified": False, "paid_or_push_provider_credentials": False, "deadline_seconds": args.seconds}
     path = directory / "server-receipt.json"
@@ -113,6 +115,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-directory", type=Path, required=True)
     parser.add_argument("--source-revision", required=True)
+    parser.add_argument("--media", action="store_true", help="Enable encrypted media in this private fixture")
     parser.add_argument("--port", type=int, default=48944)
     parser.add_argument("--seconds", type=int, default=1800)
     args = parser.parse_args()

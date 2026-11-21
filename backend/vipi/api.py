@@ -27,12 +27,31 @@ from .deletion import deletion_for, deletion_status, request_deletion, subject_h
 
 
 class BodyLimit:
-    def __init__(self, app, limit=100_000, groups_enabled=False):
-        self.app, self.limit, self.groups_enabled = app, limit, groups_enabled
+    def __init__(self, app, limit=100_000, *, groups_enabled=False, media_limit=0):
+        self.app = app
+        self.limit = limit
+        self.groups_enabled = groups_enabled
+        self.media_limit = media_limit
 
     async def __call__(self, scope, receive, send):
         if scope["type"] != "http":
             return await self.app(scope, receive, send)
+        if self.media_limit and scope.get("method") == "PUT":
+            parts = scope.get("path", "").split("/")
+            if len(parts) == 5 and parts[1:3] == ["v1", "media"] and parts[4] == "ciphertext":
+                try:
+                    canonical = str(UUID(parts[3])) == parts[3]
+                except ValueError:
+                    canonical = False
+                if canonical:
+                    total = 0
+                    async def bounded():
+                        nonlocal total
+                        event = await receive(); total += len(event.get("body", b""))
+                        if total > self.media_limit:
+                            raise DeliveryError("media_too_large", 413)
+                        return event
+                    return await self.app(scope, bounded, send)
         limit = 1_500_000 if self.groups_enabled and scope.get("path", "").startswith("/v1/groups/") else self.limit
         data = bytearray()
         while True:
@@ -95,6 +114,7 @@ class SendInput(Input):
     created_at: AwareDatetime
     cipher_type: Literal[2, 3]
     ciphertext: str = Field(min_length=44, max_length=87_384, repr=False)
+    attachment_ids: list[UUID] = Field(default_factory=list, max_length=8)
 
 
 class TypingInput(Input):
@@ -252,7 +272,11 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 await db.close()
 
     app = FastAPI(title="Vipi service", docs_url=None, redoc_url=None, openapi_url=None, lifespan=lifespan)
-    app.add_middleware(BodyLimit, groups_enabled=settings.groups_enabled)
+    app.add_middleware(
+        BodyLimit,
+        groups_enabled=settings.groups_enabled,
+        media_limit=settings.media_max_bytes if settings.media_enabled else 0,
+    )
     app.state.verifier = token_verifier
     app.state.allowed_subjects = settings.allowed_subjects
     app.state.subscriptions = subscriptions
@@ -309,6 +333,9 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         async with db.sessions.begin() as session:
             await consume(session, subject=p.subject, scope=scope, now=now().timestamp(), limit=limit)
 
+    from .media import install as install_media
+    install_media(app, settings, db, principal, user_for, phone_for, rate, now)
+
     @app.get("/health/live")
     async def live():
         return {"status": "ok"}
@@ -320,8 +347,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             if settings.environment in {"staging", "production"}:
                 if not events.ready.is_set():
                     return JSONResponse({"status": "events_unavailable"}, status_code=503)
-                revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261121_03":
+                revisions = (await session.scalars(text("SELECT version_num FROM alembic_version"))).all()
+                if revisions != ["20261121_04"]:
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -601,6 +628,10 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
 
     @app.post("/v1/messages")
     async def send(body: SendInput, request: Request, p: Annotated[Principal, Depends(principal)]):
+        if body.attachment_ids and not settings.media_enabled:
+            raise DeliveryError("media_unavailable", 404)
+        if len(set(body.attachment_ids)) != len(body.attachment_ids):
+            raise DeliveryError("invalid_media_references")
         await rate(p, "send", 120)
         # Every authenticated, unrestricted account can send. No trial clock,
         # receipt, purchase provider or billing outage participates in delivery.
@@ -612,7 +643,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             user = await user_for(session, p)
             device = await phone_for(session, request, user)
             value = await accept(session, Envelope(str(body.id), user.id, device.id, str(body.recipient_id),
-                str(body.recipient_device_id), body.created_at, ciphertext, body.cipher_type), now=now(),
+                str(body.recipient_device_id), body.created_at, ciphertext, body.cipher_type,
+                tuple(str(ident) for ident in body.attachment_ids)), now=now(),
                 max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient)
             if value.state == "accepted":
                 from .push import enqueue

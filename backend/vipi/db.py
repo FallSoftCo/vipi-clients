@@ -38,6 +38,7 @@ class Device(Base):
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
     credential_hash: Mapped[str] = mapped_column(String(64))
+    media_version: Mapped[int] = mapped_column(Integer, server_default="0")
     active: Mapped[bool] = mapped_column(Boolean, default=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
 
@@ -79,6 +80,36 @@ class Block(Base):
     __tablename__ = "blocks"
     blocker_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True)
     blocked_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True)
+
+
+class MediaBlob(Base):
+    __tablename__ = "media_blobs"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    owner_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
+    owner_device_id: Mapped[str] = mapped_column(String(36))
+    ciphertext_bytes: Mapped[int] = mapped_column(BigInteger)
+    ciphertext_sha256: Mapped[str] = mapped_column(String(64))
+    state: Mapped[str] = mapped_column(String(16), default="uploading")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+    upload_token: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    lease_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class MediaGrant(Base):
+    __tablename__ = "media_grants"
+    blob_id: Mapped[str] = mapped_column(ForeignKey("media_blobs.id", ondelete="CASCADE"), primary_key=True)
+    message_id: Mapped[str] = mapped_column(ForeignKey("pending_messages.id", ondelete="CASCADE"), primary_key=True)
+    recipient_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    recipient_device_id: Mapped[str] = mapped_column(String(36), index=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+
+
+class MediaCleanup(Base):
+    """Committed opaque file removals, independent of deleted account rows."""
+    __tablename__ = "media_cleanup"
+    blob_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
 
 
 class PublicBundle(Base):

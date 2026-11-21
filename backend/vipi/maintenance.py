@@ -34,6 +34,13 @@ async def main():
             await session.execute(delete(LocalBotReport).where(LocalBotReport.expires_at <= now))
             await session.execute(delete(UserReport).where(UserReport.expires_at <= now))
             await session.execute(delete(BillingNotification).where(BillingNotification.created_at < now - timedelta(days=30)))
+            if settings.media_enabled:
+                from .media import CiphertextStore, expire_media
+                store = CiphertextStore(settings.media_storage_path)
+                await expire_media(session, store, now)
+        if settings.media_enabled:
+            from .media import drain_cleanup
+            await drain_cleanup(db, store)
         # Vipi deletion completes in its own transaction. Never drain historical
         # provider-user jobs using whichever shared identity environment is live.
 

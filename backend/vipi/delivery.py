@@ -29,11 +29,14 @@ class Envelope:
     created_at: datetime
     ciphertext: bytes
     cipher_type: int = 2
+    attachment_ids: tuple[str, ...] = ()
 
 
 def fingerprint(envelope: Envelope) -> str:
     metadata = json.dumps([envelope.id, envelope.sender_id, envelope.sender_device_id,
         envelope.recipient_id, envelope.recipient_device_id, utc(envelope.created_at).isoformat(), envelope.cipher_type], separators=(",", ":")).encode()
+    if envelope.attachment_ids:
+        metadata += b"\0media-v1\0" + json.dumps(sorted(envelope.attachment_ids), separators=(",", ":")).encode()
     return hashlib.sha256(metadata + b"\0" + envelope.ciphertext).hexdigest()
 
 
@@ -78,6 +81,8 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
     )))).first()
     if block:
         raise DeliveryError("recipient_unavailable", 404)
+    if envelope.attachment_ids and device.media_version < 1:
+        raise DeliveryError("recipient_media_unsupported", 409)
     # The recipient row serializes admissions, avoiding a count/insert race.
     from sqlalchemy import func
     count = (await session.execute(select(func.count()).select_from(PendingMessage).where(
@@ -91,6 +96,9 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
         fingerprint=digest, state="accepted", cipher_type=envelope.cipher_type)
     session.add(item)
     await session.flush()
+    if envelope.attachment_ids:
+        from .media import grant_attachments
+        await grant_attachments(session, envelope, now)
     from .events import notify
     await notify(session, envelope.recipient_device_id)
     return item

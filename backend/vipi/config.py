@@ -80,6 +80,15 @@ class Settings(BaseSettings):
     apns_sandbox_private_key_path: str | None = None
     apns_bundle_id: str = "co.fallsoft.vipi"
     foreground_connections_per_worker: int = Field(default=200, ge=1, le=10000)
+    # Independent upgrade, disabled in the text launch. Storage holds only
+    # authenticated client ciphertext; attachment keys never enter these APIs.
+    media_enabled: bool = False
+    media_storage_path: str | None = None
+    media_max_bytes: int = Field(default=33_554_460, ge=1024, le=67_108_892)
+    media_owner_bytes: int = Field(default=134_217_840, ge=1024)
+    media_upload_timeout_seconds: float = Field(default=120, ge=0.05, le=120)
+    media_transfer_timeout_seconds: float = Field(default=120, ge=0.05, le=120)
+    media_transfers_per_worker: int = Field(default=8, ge=1, le=32)
 
     @model_validator(mode="after")
     def shared_identity_configuration(self):
