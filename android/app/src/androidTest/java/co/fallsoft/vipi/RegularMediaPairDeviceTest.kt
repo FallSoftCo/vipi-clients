@@ -124,10 +124,30 @@ class RegularMediaPairDeviceTest {
         check(f.model.screen == Screen.CONVERSATION)
         val after = chat.messages(peer).filter { it.attachments.any { a -> a.kind == AttachmentKind.VOICE } }.map { it.id }.toSet()
         check(after == voiceIDs)
+        val arguments = InstrumentationRegistry.getArguments()
+        val incomingID = arguments.getString("incomingVoiceID")?.let(UUID::fromString)
+        val expectedHash = arguments.getString("incomingVoiceSHA256")
+        var incomingHash: String? = null
+        if (incomingID != null) {
+            require(expectedHash != null && expectedHash.matches(Regex("[a-f0-9]{64}")))
+            val incoming = chat.messages(peer).single { it.id == incomingID && !it.outgoing }
+            val manifest = incoming.attachments.single { it.kind == AttachmentKind.VOICE }
+            compose.onNodeWithTag("conversation-timeline").performScrollToNode(hasTestTag("message-row-$incomingID"))
+            button(incomingID, play).performClick()
+            compose.waitUntil(8_000) { runCatching { button(incomingID, pause).assertExists(); true }.getOrDefault(false) }
+            capture(f, "03-incoming-iPhone-note-inline")
+            compose.waitUntil(24_000) { runCatching { button(incomingID, play).assertExists(); true }.getOrDefault(false) }
+            check(seconds(incomingID) > 0)
+            val clear = runBlocking { chat.openMedia(peer, manifest, AttachmentRepository(app, requireNotNull(chat.profile).id)) }
+            incomingHash = try { java.security.MessageDigest.getInstance("SHA-256").digest(clear.readBytes()).joinToString("") { "%02x".format(it) } }
+            finally { clear.delete() }
+            check(incomingHash == expectedHash)
+        }
         File(f.output, "playback.json").writeText(JSONObject().put("sourceRun", runID)
             .put("first", first).put("second", second).put("pausedSeconds", paused)
             .put("secondCompletedSeconds", seconds(second)).put("exactNoteIDsPreserved", true)
-            .put("otherNotePaused", true).put("fixtureSubmittedMessages", 0).toString(2))
+            .put("otherNotePaused", true).put("incomingVoiceID", incomingID).put("incomingOpenedSHA256", incomingHash)
+            .put("fixtureSubmittedMessages", 0).toString(2))
     }
 
     @Test fun register() = stage("register") { f ->
