@@ -204,6 +204,18 @@ internal class MainActivityJourneyFixture(
         }
         File(output, "$name.json").writeText(snapshot.toString(2))
     }
+    /** ActivityScenario identifies its activity by its original Intent. A real
+     * notification tap changes that Intent via MainActivity.onNewIntent. Finish
+     * the captured activity itself and verify destruction before releasing it. */
+    fun finishAfterExternalIntent() {
+        val current = activity ?: return stopActivity()
+        instrumentation.runOnMainSync { if (!current.isDestroyed) current.finishAndRemoveTask() }
+        val until = android.os.SystemClock.elapsedRealtime() + 8_000
+        while (!current.isDestroyed && android.os.SystemClock.elapsedRealtime() < until) android.os.SystemClock.sleep(30)
+        check(current.isDestroyed)
+        scenario = null
+    }
+
     fun stopActivity() {
         scenario?.close()
         scenario = null

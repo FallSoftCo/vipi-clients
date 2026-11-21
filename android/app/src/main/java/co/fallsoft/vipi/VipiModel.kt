@@ -104,6 +104,8 @@ class VipiModel internal constructor(application: Application, private val trans
     var selectedPeer by mutableStateOf<UUID?>(null)
         private set
     private var notificationPeer: UUID? = null
+    private var notificationRequested = false
+    private var notificationAccount: String? = null
     internal suspend fun activateChats() {
         if (deletion.active) { chat?.let(DeliverySessions::delete); chat = null; return }
         val userID = authentication.userID ?: return
@@ -129,7 +131,7 @@ class VipiModel internal constructor(application: Application, private val trans
     internal fun acceptInvitation(url: String): Boolean {
         val username = FriendInvitationLink.username(url) ?: return false
         if (deletion.active) return true
-        notificationPeer = null
+        notificationPeer = null; notificationRequested = false
         invitationUsername = username
         prefs.edit().putString("invitationUsername", username).apply()
         if (chat?.ready == true && chat?.userID == authentication.userID) navigate(Screen.NEW_CHAT)
@@ -140,14 +142,21 @@ class VipiModel internal constructor(application: Application, private val trans
         prefs.edit().remove("invitationUsername").apply()
     }
     internal fun openConversation(peer: UUID) { clearInvitation(); selectedPeer = peer; navigate(Screen.CONVERSATION) }
-    internal fun openNotification(peer: String?) {
+    internal fun openNotification(peer: String?, account: String? = null) {
+        if (deletion.active || (account != null && account != authentication.userID)) return
+        notificationRequested = true; notificationAccount = account
         notificationPeer = peer?.let { runCatching { UUID.fromString(it) }.getOrNull() }
-        if (notificationPeer != null) clearInvitation()
+        clearInvitation()
         if (chat?.ready == true) openPendingNotification()
     }
     private fun openPendingNotification() {
+        if (!notificationRequested) return
+        notificationRequested = false
         val peer = notificationPeer; notificationPeer = null
-        if (peer != null && chat?.threads?.any { it.peer == peer } == true) openConversation(peer)
+        val session = chat ?: return
+        if (notificationAccount != null && notificationAccount != session.userID) return
+        if (peer != null && peer !in session.blockedPeers && peer !in session.peersNeedingRecovery &&
+            session.threads.any { it.peer == peer }) openConversation(peer) else navigate(Screen.HOME)
     }
     internal fun service(userID: String): ChatTransport = workflow?.transport(authentication, userID)
         ?: ServiceClient(authentication, userID)

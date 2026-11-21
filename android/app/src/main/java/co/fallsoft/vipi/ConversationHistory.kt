@@ -63,6 +63,10 @@ internal class ConversationHistory(private val vault: MessageVault) {
         require(text.toByteArray(Charsets.UTF_8).size <= MAX_DRAFT_BYTES)
         vault.transaction { vault.put("compose", peer.toString(), text.toByteArray(Charsets.UTF_8)) }
     }
+    fun notificationPosted(deliveries: Map<UUID, String>) = vault.transaction {
+        for ((peer, id) in deliveries) vault.put("posted-notification", peer.toString(), id.toByteArray())
+    }
+
     companion object {
         // Editable drafts may exceed the 32 KiB send limit. Bound them at
         // 128 KiB (well within the vault’s 2 MiB record limit); never truncate.
@@ -80,6 +84,7 @@ internal class ConversationHistory(private val vault: MessageVault) {
                 if (kind == "incoming") {
                     val consent = vault.get("local", "notification-previews")?.toString(Charsets.UTF_8)
                     summary.put("notificationMessage", id.toString()).put("notificationConsent", consent)
+                        .put("notificationDeliveryTracked", true)
                 }
             }
             vault.put("thread", peer.toString(), summary.toString().toByteArray(Charsets.UTF_8))

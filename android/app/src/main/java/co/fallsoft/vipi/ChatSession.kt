@@ -64,33 +64,46 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     var notificationPreviews by mutableStateOf(false)
         private set
 
+    var offerNotificationPreviews by mutableStateOf(false)
+        private set
+
     fun changeNotificationPreviews(enabled: Boolean) {
         val store = vault ?: return
         store.transaction {
             if (enabled) store.put("local", "notification-previews", UUID.randomUUID().toString().toByteArray())
             else store.remove("local", "notification-previews")
+            store.put("local", "notification-preview-choice", byteArrayOf(1))
         }
         notificationPreviews = enabled
+        offerNotificationPreviews = false
         if (!enabled) PushDelivery.clearPosted(context)
     }
 
-    fun notificationPreview(peer: UUID): String? {
-        if (!notificationPreviews || !ready || closed || needsReauthentication ||
+    data class NotificationDelivery(val id: String, val pending: Boolean, val preview: String?)
+
+    fun notificationDelivery(peer: UUID, protectedStorageAvailable: Boolean): NotificationDelivery? {
+        if (!ready || closed || needsReauthentication || needsDeviceRecovery ||
             peer in blockedPeers || peer in peersNeedingRecovery) return null
         val store = vault ?: return null
         return store.transaction {
             val thread = store.get("thread", peer.toString()) ?: return@transaction null
             val summary = JSONObject(thread.toString(Charsets.UTF_8))
-            if (summary.optInt("unread") <= 0 || !summary.has("notificationMessage")) return@transaction null
-            val consent = store.get("local", "notification-previews")?.toString(Charsets.UTF_8) ?: return@transaction null
-            if (summary.optString("notificationConsent") != consent) return@transaction null
-            val id = summary.getString("notificationMessage")
+            // Old receipts predate dismissal tracking. Wait for a genuine new
+            // arrival instead of reconstructing an alert on upgrade.
+            if (summary.optInt("unread") <= 0 || !summary.optBoolean("notificationDeliveryTracked")) return@transaction null
+            val id = summary.optString("notificationMessage").takeIf { it.isNotEmpty() } ?: return@transaction null
+            val pending = store.get("posted-notification", peer.toString())?.toString(Charsets.UTF_8) != id
+            if (!protectedStorageAvailable) return@transaction NotificationDelivery(id, pending, null)
             val message = store.get("incoming", id)?.let(StoredChat::parse) ?: return@transaction null
             if (message.seen || message.state != "delivered" || message.envelope.sender != peer ||
                 message.envelope.recipient != store.account || message.envelope.id.toString() != id) return@transaction null
-            PushDelivery.previewLine(message.text)
+            val consent = store.get("local", "notification-previews")?.toString(Charsets.UTF_8)
+            val preview = if (notificationPreviews && consent != null && consent == summary.optString("notificationConsent"))
+                PushDelivery.previewLine(message.text) else null
+            NotificationDelivery(id, pending, preview)
         }
     }
+    fun notificationPosted(deliveries: Map<UUID, String>) { history?.notificationPosted(deliveries) }
 
     var profile by mutableStateOf<ChatProfile?>(null); private set
     var needsProfile by mutableStateOf(false); private set
@@ -123,7 +136,10 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (vault == null) {
             val store = MessageVault(context, value.id); vault = store
             core = MessagingCore(store); history = ConversationHistory(store)
-            notificationPreviews = store.transaction { store.get("local", "notification-previews") != null }
+            store.transaction {
+                notificationPreviews = store.get("local", "notification-previews") != null
+                offerNotificationPreviews = !notificationPreviews && store.get("local", "notification-preview-choice") == null
+            }
             activity = ChatActivityEvents(store, requireNotNull(core).journal,
                 { peer -> ready && !closed && !needsReauthentication && peer !in blockedPeers && peer !in peersNeedingRecovery },
                 { peer, action, value -> request("POST", "/v1/conversations/$peer/$action", value, requireNotNull(core).device) },
@@ -271,6 +287,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     private fun recordBlock(blocked: Boolean, peer: UUID) {
         val core = core ?: return
         core.journal.setBlocked(blocked, peer)
+        if (blocked) PushDelivery.clearPeer(context, userID, peer)
         blockedPeers = if (blocked) blockedPeers + peer else blockedPeers - peer
         reload()
     }
@@ -349,7 +366,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         notice = context.getString(R.string.ui_5f0f1b251f45)
         reload(); synchronize()
     }
-    fun markRead(peer: UUID) { if (threads.any { it.peer == peer && it.unread > 0 }) { history?.markRead(peer); reload() } }
+    fun markRead(peer: UUID) { if (threads.any { it.peer == peer && it.unread > 0 }) { history?.markRead(peer); PushDelivery.clearPeer(context, userID, peer); reload() } }
     fun compose(peer: UUID) = history?.composeDraft(peer) ?: ""
     fun saveCompose(text: String, peer: UUID) { history?.saveComposeDraft(text, peer) }
     fun reportReason(item: ChatItem): String? = vault?.transaction {
@@ -514,10 +531,12 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     internal fun eventDevice(): DeviceCredential? = if (ready && !closed && !needsReauthentication) core?.device else null
     private fun markPeerRecovery(peer: UUID) {
         vault?.transaction { vault?.put("peer-recovery-needed", peer.toString(), byteArrayOf(1)) }
+        PushDelivery.clearPeer(context, userID, peer)
         peersNeedingRecovery = peersNeedingRecovery + peer
     }
     internal fun noteDeviceRevoked() {
         if (closed) return
+        PushDelivery.clearPosted(context)
         ready = false; needsDeviceRecovery = true; needsReauthentication = false
         notice = context.getString(R.string.ui_54a04d4e9955)
     }
@@ -541,9 +560,11 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             ensureOpen(); currentCoroutineContext().ensureActive(); result
         } catch (error: Exception) {
             if (error is ServiceFailure && error.code in setOf("device_revoked", "device_replacement_confirmation_required")) {
+                PushDelivery.clearPosted(context)
                 needsDeviceRecovery = true; needsReauthentication = false; ready = false
             }
             if (error is Authentication.SignInRequired || error is ServiceFailure && error.code in setOf("sign_in_required", "recent_sign_in_required")) {
+                PushDelivery.clearPosted(context)
                 if (needsDeviceRecovery) recoveryNeedsSignIn = true else needsReauthentication = true
             }
             ensureOpen(); throw error

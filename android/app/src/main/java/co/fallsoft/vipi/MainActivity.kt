@@ -88,7 +88,7 @@ class MainActivity : ComponentActivity() {
         if (intent.action == Intent.ACTION_VIEW) intent.data?.let { uri ->
             if (!model.acceptInvitation(uri.toString())) lifecycleScope.launch { model.authentication.complete(uri) }
         }
-        if (intent.action == PushDelivery.ACTION) model.openNotification(intent.getStringExtra("notification_peer"))
+        if (intent.action == PushDelivery.ACTION) model.openNotification(intent.getStringExtra("notification_peer"), intent.getStringExtra("notification_account"))
     }
 }
 

@@ -261,10 +261,9 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         check(friendReplyId == null)
         friendReplyId = queueAdditionalPeerReplyAndSignalInbox(friendReply)
     }
-    fun queueAdditionalPeerReplyAndSignalInbox(text: String, id: UUID = UUID.randomUUID()): UUID {
+    fun queueAdditionalPeerReplyAndSignalInbox(text: String, id: UUID = UUID.randomUUID(), wakeForeground: Boolean = true): UUID {
         check(android.os.Looper.myLooper() == android.os.Looper.getMainLooper())
         check(friendPosts.get() in 1..expectedFriendPosts && peerReceived != null && pendingPeerReply == null)
-        val socket = requireNotNull(sockets.lastOrNull { it.active }) { "The actual foreground inbox event connection must be open" }
         val core = requireNotNull(peerCore)
         val now = System.currentTimeMillis()
         val encrypted = core.queue(id, account, text, now, now)
@@ -273,7 +272,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         check(!wire.toString().contains(text))
         generatedPeerReplies[id] = text; pendingPeerReply = wire
         inboxWakeups.incrementAndGet()
-        socket.inboxChanged()
+        if (wakeForeground) requireNotNull(sockets.lastOrNull { it.active }).inboxChanged()
         return id
     }
     fun peerTyping(active: Boolean) { requireNotNull(sockets.lastOrNull { it.active }).event(JSONObject().put("event", "typing").put("peer", peer).put("active", active)) }

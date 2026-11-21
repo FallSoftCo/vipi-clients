@@ -61,12 +61,29 @@ internal object PushDelivery {
         WorkManager.getInstance(context).enqueueUniqueWork(if (registration) REGISTER_WORK else INBOX_WORK,
             ExistingWorkPolicy.APPEND_OR_REPLACE, request)
     }
-    fun cancel(context: Context) { WorkManager.getInstance(context).cancelAllWorkByTag(GROUP); NotificationManagerCompat.from(context).cancel(1) }
+    fun cancel(context: Context) { WorkManager.getInstance(context).cancelAllWorkByTag(GROUP); clearPosted(context) }
     fun permissionGranted(context: Context) = Build.VERSION.SDK_INT < 33 ||
         ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
     fun allowed(context: Context) = permissionGranted(context) && NotificationManagerCompat.from(context).areNotificationsEnabled() &&
         context.getSystemService(NotificationManager::class.java).getNotificationChannel(CHANNEL)?.importance != NotificationManager.IMPORTANCE_NONE
-    fun clearPosted(context: Context) = NotificationManagerCompat.from(context).cancel(1)
+    private const val ALERT_ID = 1
+    private const val TAG_PREFIX = "vipi-message-"
+    internal data class Alert(val tag: String?, val notification: android.app.Notification, val deliveries: Map<UUID, String>)
+
+    private fun tag(account: String, peer: UUID): String =
+        TAG_PREFIX + UUID.nameUUIDFromBytes("$account/$peer".toByteArray())
+
+    private fun posted(context: Context) = context.getSystemService(NotificationManager::class.java)
+        .activeNotifications.filter { it.id == ALERT_ID && (it.tag == null || it.tag.startsWith(TAG_PREFIX)) }
+
+    fun clearPosted(context: Context) {
+        val manager = NotificationManagerCompat.from(context)
+        posted(context).forEach { manager.cancel(it.tag, it.id) }
+    }
+
+    fun clearPeer(context: Context, account: String, peer: UUID) {
+        NotificationManagerCompat.from(context).cancel(tag(account, peer), ALERT_ID)
+    }
 
     fun previewLine(text: String): String? {
         val line = text.replace(Regex("[\\p{Cc}\\p{Z}\\u061C\\u200E\\u200F\\u202A-\\u202E\\u2066-\\u2069]+"), " ").trim()
@@ -77,28 +94,53 @@ internal object PushDelivery {
     fun notify(context: Context, chat: ChatSession) {
         if (!allowed(context) || ProcessLifecycleOwner.get().lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) return
         val protectedStorageAvailable = context.getSystemService(android.os.UserManager::class.java).isUserUnlocked
-        val notification = buildNotification(context, chat, protectedStorageAvailable) ?: return
-        try { NotificationManagerCompat.from(context).notify(1, notification) } catch (_: SecurityException) { /* permission changed */ }
+        val alerts = buildNotifications(context, chat, protectedStorageAvailable)
+        val manager = NotificationManagerCompat.from(context)
+        val current = alerts.map { it.tag }.toSet()
+        posted(context).filter { it.tag !in current }.forEach { manager.cancel(it.tag, it.id) }
+        // Empty deliveries describe the desired shade state but have already
+        // been posted. A duplicate wake or a new peer must respect dismissal.
+        try { for (alert in alerts) if (alert.deliveries.isNotEmpty()) {
+            manager.notify(alert.tag, ALERT_ID, alert.notification)
+            chat.notificationPosted(alert.deliveries)
+        } }
+        catch (_: SecurityException) { /* permission changed */ }
     }
 
-    internal fun buildNotification(context: Context, chat: ChatSession, protectedStorageAvailable: Boolean): android.app.Notification? {
-        val unread = chat.threads.filter { it.unread > 0 }
-        if (unread.isEmpty()) return null
-        val intent = Intent(context, MainActivity::class.java).setAction(ACTION).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        if (unread.size == 1) intent.putExtra("notification_peer", unread.single().peer.toString())
-        val pending = PendingIntent.getActivity(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-        val generic = NotificationCompat.Builder(context, CHANNEL).setSmallIcon(R.drawable.vipi_notification)
-            .setContentTitle(context.getString(R.string.ui_0882ca640d5a)).setContentText(context.getString(R.string.ui_3abeae7a3bed)).setContentIntent(pending).setAutoCancel(true)
-            .setOnlyAlertOnce(true)
-            .setVisibility(NotificationCompat.VISIBILITY_PRIVATE).setCategory(NotificationCompat.CATEGORY_MESSAGE).build()
-        val peer = unread.singleOrNull()?.peer
-        val body = if (protectedStorageAvailable && peer != null) runCatching { chat.notificationPreview(peer) }.getOrNull() else null
-        return if (body == null) generic else NotificationCompat.Builder(context, CHANNEL)
-            .setSmallIcon(R.drawable.vipi_notification)
-            .setContentTitle(chat.contacts[peer]?.displayName?.let(::previewLine) ?: context.getString(R.string.ui_0882ca640d5a))
-            .setContentText(body).setContentIntent(pending).setAutoCancel(true).setOnlyAlertOnce(true)
-            .setVisibility(NotificationCompat.VISIBILITY_PRIVATE).setPublicVersion(generic)
-            .setCategory(NotificationCompat.CATEGORY_MESSAGE).build()
+    internal fun buildNotifications(context: Context, chat: ChatSession, protectedStorageAvailable: Boolean): List<Alert> {
+        if (!chat.ready || chat.needsReauthentication || chat.needsDeviceRecovery) return emptyList()
+        val unread = chat.threads.filter { it.unread > 0 && it.peer !in chat.blockedPeers && it.peer !in chat.peersNeedingRecovery }
+        if (unread.isEmpty()) return emptyList()
+        fun build(peer: UUID?, sender: String? = null, body: String? = null): android.app.Notification {
+            val intent = Intent(context, MainActivity::class.java).setAction(ACTION)
+                .setIdentifier(peer?.let { tag(chat.userID, it) } ?: "vipi-inbox-" + UUID.nameUUIDFromBytes(chat.userID.toByteArray()))
+                .putExtra("notification_account", chat.userID)
+                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            if (peer != null) intent.putExtra("notification_peer", peer.toString())
+            val pending = PendingIntent.getActivity(context, ALERT_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+            val builder = NotificationCompat.Builder(context, CHANNEL).setSmallIcon(R.drawable.vipi_notification)
+                .setContentTitle(sender ?: context.getString(R.string.ui_0882ca640d5a))
+                .setContentText(body ?: context.getString(R.string.ui_3abeae7a3bed))
+                .setContentIntent(pending).setAutoCancel(true).setOnlyAlertOnce(true)
+                .setVisibility(NotificationCompat.VISIBILITY_PRIVATE).setCategory(NotificationCompat.CATEGORY_MESSAGE)
+            if (body != null && peer != null) builder.setGroup(tag(chat.userID, peer))
+                .setStyle(NotificationCompat.BigTextStyle().bigText(body)).setPublicVersion(build(null))
+            return builder.build()
+        }
+        val alerts = mutableListOf<Alert>()
+        val hidden = mutableListOf<UUID>()
+        val hiddenDeliveries = mutableMapOf<UUID, String>()
+        for (thread in unread) {
+            val peer = thread.peer
+            val name = chat.contacts[peer]?.let { previewLine(it.displayName) ?: previewLine(it.username) }
+            val receipt = runCatching { chat.notificationDelivery(peer, protectedStorageAvailable) }.getOrNull() ?: continue
+            val body = if (name != null) receipt.preview else null
+            val newDelivery = if (receipt.pending) mapOf(peer to receipt.id) else emptyMap()
+            if (body != null) alerts += Alert(tag(chat.userID, peer), build(peer, name, body), newDelivery)
+            else { hidden += peer; hiddenDeliveries.putAll(newDelivery) }
+        }
+        if (hidden.isNotEmpty()) alerts += Alert(null, build(hidden.singleOrNull()), hiddenDeliveries)
+        return alerts
     }
 }
 
