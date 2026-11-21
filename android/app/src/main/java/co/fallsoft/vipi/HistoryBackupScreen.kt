@@ -252,7 +252,6 @@ internal class HistoryBackupModel : ViewModel() {
             message?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(stringResource(R.string.ui_bb1fe2470e72), style = MaterialTheme.typography.bodyMedium)
-                Text(stringResource(R.string.ui_233a70befbdc), style = MaterialTheme.typography.bodyMedium)
             }
         }
     }
