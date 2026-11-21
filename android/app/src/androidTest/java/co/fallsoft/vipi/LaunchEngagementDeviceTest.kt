@@ -293,6 +293,7 @@ class LaunchEngagementDeviceTest {
                 if (args.getString("guide") == "true") {
                     val reduced = args.getString("reduced") == "true"
                     compose.onNodeWithContentDescription(context.getString(R.string.nav_settings)).performClick()
+                    compose.onNodeWithTag("settings-help").performScrollTo().performClick()
                     compose.onNodeWithTag("tutorial-reentry").performScrollTo().performClick()
                     compose.onNodeWithTag("tutorial-message").performScrollTo()
                     val sourceText = ImmersionTutorialSource.text("en")
@@ -310,7 +311,7 @@ class LaunchEngagementDeviceTest {
                     compose.onNodeWithTag("tutorial-message").performTouchInput { up() }
                     compose.waitUntil(5_000) { drawn(practiceText) }
                     compose.onNodeWithText(context.getString(R.string.continue_action)).performClick()
-                    compose.waitUntil(5_000) { f.model.screen == Screen.SETTINGS }
+                    compose.waitUntil(5_000) { f.model.screen == Screen.HELP }
                     val after = MessageVault(f.isolated, service.account).use { vault -> vault.transaction {
                         vault.get("local", "hold-original-days-v1")!!.toString(Charsets.UTF_8)
                     } }

@@ -144,8 +144,8 @@ struct OnboardingView: View {
     private var legalLinks: some View {
         let layout = dynamicTypeSize.isAccessibilitySize ? AnyLayout(VStackLayout(alignment: .leading, spacing: 20)) : AnyLayout(HStackLayout(spacing: 20))
         return layout {
-                Link(destination: URL(string: "https://api.mambovipi.app/terms")!) { Text("Terms of Service").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
-                Link(destination: URL(string: "https://api.mambovipi.app/privacy")!) { Text("Privacy Policy").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
+                Link(destination: URL(string: "https://mambovipi.app/terms.html")!) { Text("Terms of Service").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
+                Link(destination: URL(string: "https://mambovipi.app/privacy.html")!) { Text("Privacy Policy").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
             }.font(.subheadline)
     }
 

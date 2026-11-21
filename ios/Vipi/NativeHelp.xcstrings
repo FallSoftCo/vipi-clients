@@ -1,0 +1,2765 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "help_guide_intro": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try Shallow and Deep on a sample message. Hold to see what your friend wrote."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prueba los dos modos de inmersión con un mensaje de ejemplo. Mantén pulsado para ver el original."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Probiere beide Immersionsmodi mit einer Beispielnachricht aus. Halte sie gedrückt, um das Original zu sehen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Essayez les deux modes d’immersion sur un message. Maintenez le doigt dessus pour voir le texte original."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prova le due modalità di immersione con un messaggio di esempio. Tieni premuto per leggere l’originale."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Experimente os dois modos de imersão em uma mensagem de exemplo. Toque e segure para ver o original."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Experimente os dois modos de imersão numa mensagem de exemplo. Mantenha o dedo na mensagem para ver o original."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Experimente os dois modos de imersão numa mensagem de exemplo. Mantenha o dedo na mensagem para ver o original."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用一条示例消息试试两种沉浸模式。按住即可查看朋友写的原文。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "예시 메시지로 두 가지 몰입 모드를 체험해 보세요. 길게 누르면 친구가 쓴 원문을 볼 수 있습니다."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用一則範例訊息試試兩種沉浸模式。按住即可查看朋友寫的原文。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "例文で2つの没入モードを試せます。長押しすると相手が書いた原文が表示されます。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jaribu aina zote mbili za mazoezi kwa kutumia ujumbe wa mfano. Bonyeza na ushikilie ili kuona ujumbe asilia wa rafiki yako."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جرّب نمطَي الانغماس باستخدام رسالة نموذجية. اضغط مطولًا لرؤية النص الذي كتبه صديقك."
+          }
+        }
+      }
+    },
+    "help_guides": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "More guides"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más guías"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weitere Anleitungen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Autres guides"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altre guide"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais guias"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais guias"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mais guias"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更多指南"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "더 많은 안내"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更多指南"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "その他のガイド"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Miongozo zaidi"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أدلة أخرى"
+          }
+        }
+      }
+    },
+    "help_friends_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Find and invite friends"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Buscar e invitar a tus amigos"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Freunde finden und einladen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trouver et inviter des amis"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trovare e invitare amici"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encontrar e convidar amigos"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encontrar e convidar amigos"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encontrar e convidar amigos"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查找并邀请朋友"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구 찾기 및 초대"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "尋找並邀請朋友"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "友達を探す・招待する"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tafuta na ualike marafiki"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "العثور على الأصدقاء ودعوتهم"
+          }
+        }
+      }
+    },
+    "help_friends_step1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Chats and start a new conversation. Choose a saved friend or enter their exact Vipi username."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En Chats, inicia una conversación. Elige un amigo guardado o introduce su nombre de usuario exacto de Vipi."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beginne unter Chats eine Unterhaltung. Wähle einen gespeicherten Kontakt oder gib dessen genauen Vipi-Benutzernamen ein."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dans Discussions, lancez une conversation. Choisissez un ami enregistré ou saisissez son nom d’utilisateur Vipi exact."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Chat avvia una conversazione. Scegli un amico salvato o inserisci il suo nome utente Vipi esatto."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Em Conversas, inicie uma conversa. Escolha um amigo salvo ou digite o nome de usuário exato da pessoa no Vipi."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Em Conversas, inicie uma conversa. Escolha um amigo ou introduza o nome de utilizador exato dessa pessoa no Vipi."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Em Conversas, inicie uma conversa. Escolha um amigo ou introduza o nome de utilizador exato dessa pessoa no Vipi."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在聊天中发起新对话。选择已保存的朋友，或输入对方完整、准确的 Vipi 用户名。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "채팅에서 새 대화를 시작하세요. 저장된 친구를 선택하거나 친구의 정확한 Vipi 사용자 이름을 입력하세요."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在聊天中開始新對話。選擇已儲存的朋友，或輸入對方完整、正確的 Vipi 使用者名稱。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チャットから新しい会話を始めます。登録済みの友達を選ぶか、相手のVipiユーザー名を正確に入力します。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Katika Gumzo, anza mazungumzo mapya. Chagua rafiki uliyemhifadhi au andika jina lake la mtumiaji wa Vipi kwa usahihi."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ابدأ محادثة جديدة من قائمة الدردشات. اختر صديقًا محفوظًا أو أدخل اسم مستخدم Vipi الخاص به بدقة."
+          }
+        }
+      }
+    },
+    "help_friends_step2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To invite someone who hasn’t joined, choose Invite a friend. Review the invitation before sending it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para invitar a alguien que aún no usa Vipi, elige Invitar a un amigo. Revisa la invitación antes de enviarla."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutze „Freund einladen“, wenn jemand Vipi noch nicht verwendet. Prüfe die Einladung vor dem Senden."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pour inviter une personne qui n’utilise pas encore Vipi, choisissez Inviter un ami. Relisez l’invitation avant de l’envoyer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Per invitare chi non usa ancora Vipi, scegli Invita un amico. Rileggi l’invito prima di inviarlo."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para convidar alguém que ainda não usa o Vipi, escolha Convidar um amigo. Revise o convite antes de enviar."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para convidar alguém que ainda não usa o Vipi, escolha Convidar um amigo. Reveja o convite antes de o enviar."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para convidar alguém que ainda não usa o Vipi, escolha Convidar um amigo. Reveja o convite antes de o enviar."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "如果对方还没有使用 Vipi，请选择“邀请朋友”，检查邀请内容后再发送。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 Vipi를 사용하지 않는 사람은 친구 초대로 초대할 수 있습니다. 보내기 전에 초대 내용을 확인하세요."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "如果對方還沒使用 Vipi，請選擇「邀請朋友」，檢查邀請內容後再傳送。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "まだVipiを使っていない人には「友達を招待」を選び、内容を確認してから招待を送ります。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mtu ambaye bado hatumii Vipi anaweza kualikwa kupitia Alika rafiki. Soma mwaliko kabla ya kuutuma."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لدعوة شخص لم ينضم بعد، اختر دعوة صديق. راجع الدعوة قبل إرسالها."
+          }
+        }
+      }
+    },
+    "help_languages_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a practice language"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elegir un idioma de práctica"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Übungssprache wählen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choisir une langue à pratiquer"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegliere una lingua da praticare"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolher um idioma para praticar"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolher um idioma para praticar"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escolher um idioma para praticar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择练习语言"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "연습할 언어 선택"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇練習語言"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "練習する言語を選ぶ"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chagua lugha ya kufanya mazoezi"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اختيار لغة للتدرّب"
+          }
+        }
+      }
+    },
+    "help_languages_step1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap the language at the top of Chats. Choose the language you want to practice."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toca el idioma que aparece arriba en Chats y elige el que quieras practicar."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe oben in Chats auf die Sprache und wähle die Sprache, die du üben möchtest."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touchez la langue en haut des discussions et choisissez celle que vous souhaitez pratiquer."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tocca la lingua in alto in Chat e scegli quella che vuoi esercitare."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque no idioma no topo de Conversas e escolha qual você quer praticar."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque no idioma no topo de Conversas e escolha o que pretende praticar."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque no idioma no topo de Conversas e escolha o que pretende praticar."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轻点聊天顶部的语言，选择想练习的语言。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "채팅 상단의 언어를 눌러 연습할 언어를 선택하세요."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點一下聊天頂端的語言，選擇想練習的語言。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チャットの上部にある言語をタップして、練習したい言語を選びます。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gusa lugha iliyo juu ya orodha ya gumzo kisha uchague lugha unayotaka kufanyia mazoezi."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اضغط على اللغة أعلى قائمة الدردشات واختر اللغة التي تريد التدرّب عليها."
+          }
+        }
+      }
+    },
+    "help_languages_step2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Languages in Settings to manage the downloads for your language pair. Tap a practice message to hear it when a voice is available."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En Ajustes, abre Idiomas para gestionar las descargas. Toca un mensaje de práctica para escucharlo si hay una voz disponible."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unter Einstellungen → Sprachen verwaltest du die Downloads. Tippe auf eine Übungsnachricht, um sie anzuhören, wenn eine Stimme verfügbar ist."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dans Réglages, ouvrez Langues pour gérer les téléchargements. Touchez un message pour l’écouter si une voix est disponible."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Impostazioni apri Lingue per gestire i download. Tocca un messaggio per ascoltarlo quando è disponibile una voce."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nas Configurações, abra Idiomas para gerenciar os downloads. Toque em uma mensagem para ouvi-la quando houver uma voz disponível."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nas Definições, abra Idiomas para gerir os ficheiros de idioma. Toque numa mensagem para a ouvir quando houver uma voz disponível."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nas Definições, abra Idiomas para gerir os ficheiros de idioma. Toque numa mensagem para a ouvir quando houver uma voz disponível."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在设置中打开语言选项，管理所需的语言下载。语音可用时，轻点练习消息即可收听。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설정의 언어에서 필요한 언어 파일을 관리하세요. 음성을 사용할 수 있으면 연습 메시지를 눌러 들을 수 있습니다."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在設定中打開語言選項，管理需要下載的語言。語音可用時，點一下練習訊息即可聆聽。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定の「言語」で必要なデータを管理できます。音声が利用できる場合、練習メッセージをタップすると読み上げます。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fungua Lugha katika Mipangilio ili kudhibiti vipakuliwa. Gusa ujumbe wa mazoezi ili kuusikiliza ikiwa sauti inapatikana."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "افتح اللغات في الإعدادات لإدارة التنزيلات. اضغط على رسالة التدريب للاستماع إليها عند توفر صوت."
+          }
+        }
+      }
+    },
+    "help_notifications_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep previews private"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar el contenido de los avisos"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nachrichtenvorschauen schützen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Masquer le contenu des notifications"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proteggere le anteprime"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar o conteúdo das notificações"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar o conteúdo das notificações"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ocultar o conteúdo das notificações"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隐藏通知预览"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "알림 내용 숨기기"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "隱藏通知預覽"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "通知の内容を隠す"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ficha maudhui ya arifa"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إخفاء محتوى الإشعارات"
+          }
+        }
+      }
+    },
+    "help_notifications_step1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Notifications in Settings. Turn off Show sender and message to keep the contents of alerts private."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En Ajustes, abre Notificaciones y desactiva la opción de mostrar el remitente y el mensaje."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffne die Benachrichtigungen in den Einstellungen und schalte die Anzeige von Absender und Nachricht aus."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dans Réglages, ouvrez Notifications et désactivez l’affichage de l’expéditeur et du message."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Impostazioni apri Notifiche e disattiva la visualizzazione del mittente e del messaggio."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nas Configurações, abra Notificações e desative a exibição do remetente e da mensagem."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nas Definições, abra Notificações e desative a apresentação do remetente e da mensagem."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nas Definições, abra Notificações e desative a apresentação do remetente e da mensagem."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在设置中打开通知，关闭显示发件人和消息的选项。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설정에서 알림을 열고 발신자와 메시지 표시를 끄세요."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在設定中打開通知，關閉顯示傳送者和訊息的選項。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定の「通知」で、送信者とメッセージの表示をオフにします。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fungua Arifa katika Mipangilio na uzime chaguo la kuonyesha mtumaji na ujumbe."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "افتح الإشعارات في الإعدادات وأوقف عرض المرسل والرسالة."
+          }
+        }
+      }
+    },
+    "help_notifications_step2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check the example and your phone’s lock-screen settings. On iPhone, in-app previews have their own switch."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consulta el ejemplo y los ajustes de la pantalla de bloqueo del teléfono. En el iPhone, las vistas previas dentro de Vipi tienen un control independiente."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prüfe das Beispiel und die Einstellungen für den Sperrbildschirm. Auf dem iPhone haben Vorschauen innerhalb von Vipi einen eigenen Schalter."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consultez l’exemple et les réglages de l’écran verrouillé. Sur iPhone, les aperçus à l’intérieur de Vipi ont leur propre réglage."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Controlla l’esempio e le impostazioni della schermata di blocco. Su iPhone le anteprime dentro Vipi hanno un controllo separato."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja o exemplo e as configurações da tela de bloqueio. No iPhone, as prévias dentro do Vipi têm um controle separado."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja o exemplo e as definições do ecrã bloqueado. No iPhone, as pré-visualizações dentro do Vipi têm um controlo próprio."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veja o exemplo e as definições do ecrã bloqueado. No iPhone, as pré-visualizações dentro do Vipi têm um controlo próprio."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查显示示例和手机的锁屏设置。在 iPhone 上，Vipi 内的预览有单独的开关。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "표시 예시와 휴대전화의 잠금 화면 설정을 확인하세요. iPhone에서는 Vipi를 열어 둔 동안의 미리보기를 따로 설정할 수 있습니다."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看顯示範例與手機的鎖定畫面設定。在 iPhone 上，Vipi 內的預覽有獨立的開關。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "表示例と端末のロック画面の設定を確認してください。iPhoneでは、Vipiを開いている間のプレビューを別に設定できます。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angalia mfano na mipangilio ya skrini iliyofungwa ya simu yako. Kwenye iPhone, hakikisho ndani ya Vipi lina swichi yake."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "راجع المثال وإعدادات شاشة القفل في هاتفك. على iPhone يوجد خيار مستقل للمعاينات داخل Vipi."
+          }
+        }
+      }
+    },
+    "help_safety_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check who you’re talking to"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verificar con quién hablas"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Die Identität eines Kontakts prüfen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifier l’identité de votre contact"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verificare con chi parli"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verificar com quem você está falando"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verificar a identidade de um amigo"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verificar a identidade de um amigo"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "确认聊天对象"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "대화 상대 확인"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確認聊天對象"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "会話相手を確認する"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Thibitisha unayezungumza naye"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التحقق من هوية من تتحدث معه"
+          }
+        }
+      }
+    },
+    "help_safety_step1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In a friend’s conversation, open the security number. Compare all 12 groups in person or over a trusted call."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En la conversación con tu amigo, abre el número de seguridad. Comparad los 12 grupos en persona o mediante una llamada de confianza."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffne die Sicherheitsnummer im Chat. Vergleicht alle zwölf Zahlengruppen persönlich oder in einem vertrauenswürdigen Anruf."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dans la conversation, ouvrez le numéro de sécurité. Comparez les 12 groupes en personne ou lors d’un appel de confiance."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apri il numero di sicurezza nella chat con il tuo amico. Confrontate tutti i 12 gruppi di cifre di persona o durante una chiamata fidata."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abra o número de segurança na conversa. Comparem os 12 grupos de dígitos pessoalmente ou em uma ligação confiável."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abra o número de segurança na conversa. Comparem os 12 grupos de algarismos pessoalmente ou numa chamada de confiança."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abra o número de segurança na conversa. Comparem os 12 grupos de algarismos pessoalmente ou numa chamada de confiança."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在与朋友的对话中打开安全号码。当面或通过可信的通话核对全部 12 组数字。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구와의 대화에서 보안 번호를 여세요. 직접 만나거나 신뢰할 수 있는 통화로 숫자 12묶음을 모두 비교하세요."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在與朋友的對話中打開安全號碼。當面或透過可信任的通話核對全部 12 組數字。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "友達との会話でセキュリティ番号を開きます。対面か信頼できる通話で、12組の数字をすべて照合します。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Katika mazungumzo na rafiki yako, fungua namba ya usalama. Linganisheni makundi yote 12 ya tarakimu ana kwa ana au kupitia simu mnayoiamini."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "افتح رقم الأمان في محادثتك مع صديقك. قارنا مجموعات الأرقام الاثنتي عشرة وجهًا لوجه أو عبر مكالمة موثوقة."
+          }
+        }
+      }
+    },
+    "help_safety_step2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mark it as verified only if every group matches. To block or report someone, open their conversation options. Review exactly what you’re sharing before submitting a report."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marca el número como verificado solo si coinciden todos los grupos. Puedes bloquear o denunciar desde las opciones de la conversación. Revisa qué vas a compartir antes de enviar una denuncia."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bestätige die Nummer nur, wenn alle Gruppen übereinstimmen. In den Chatoptionen kannst du Personen blockieren oder melden. Prüfe vor einer Meldung, was du übermittelst."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ne validez que si tous les groupes concordent. Pour bloquer ou signaler quelqu’un, ouvrez les options de la conversation. Vérifiez les informations partagées avant d’envoyer un signalement."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Contrassegna il numero come verificato solo se coincide ogni gruppo. Per bloccare o segnalare una persona, apri le opzioni della chat. Controlla cosa condividi prima di inviare la segnalazione."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marque como verificado só se todos os grupos coincidirem. Nas opções da conversa, você pode bloquear ou denunciar alguém. Confira o que será compartilhado antes de enviar a denúncia."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marque como verificado apenas se todos os grupos coincidirem. Nas opções da conversa pode bloquear ou denunciar alguém. Confira o conteúdo antes de enviar uma denúncia."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marque como verificado apenas se todos os grupos coincidirem. Nas opções da conversa pode bloquear ou denunciar alguém. Confira o conteúdo antes de enviar uma denúncia."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "只有全部一致时才标记为已验证。通过对话选项可以屏蔽或举报对方。提交举报前请核对将要分享的内容。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "모두 일치할 때만 확인됨으로 표시하세요. 대화 옵션에서 상대를 차단하거나 신고할 수 있습니다. 신고하기 전에 공유할 내용을 확인하세요."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "只有全部相符時才標示為已驗證。從對話選項可以封鎖或檢舉對方。送出檢舉前請確認將分享的內容。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべて一致した場合だけ確認済みにします。ブロックや報告は会話のオプションから行えます。報告を送る前に共有内容を確認してください。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Weka alama ya kuthibitisha ikiwa makundi yote yanafanana. Unaweza kumzuia au kumripoti mtu kupitia chaguo za mazungumzo. Hakiki taarifa utakazoshiriki kabla ya kutuma ripoti."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لا تضع علامة التحقق إلا إذا تطابقت جميع المجموعات. يمكنك حظر شخص أو الإبلاغ عنه من خيارات المحادثة. راجع ما ستشاركه قبل إرسال البلاغ."
+          }
+        }
+      }
+    },
+    "help_backup_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save and restore chats"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar y restaurar chats"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chats sichern und wiederherstellen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sauvegarder et restaurer vos discussions"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvare e ripristinare le chat"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Salvar e restaurar conversas"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar e restaurar conversas"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar e restaurar conversas"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存和恢复聊天"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "채팅 저장 및 복원"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存與還原聊天"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チャットを保存・復元する"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hifadhi na urejeshe mazungumzo"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حفظ الدردشات واستعادتها"
+          }
+        }
+      }
+    },
+    "help_backup_step1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Chat backup in Settings. Create an encrypted backup, confirm a new password and choose where to save the file. Keep the password separately."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre Copia de seguridad en Ajustes. Crea una copia cifrada, confirma una contraseña nueva y elige dónde guardar el archivo. Guarda la contraseña por separado."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Öffne die Chatsicherung in den Einstellungen. Erstelle eine verschlüsselte Sicherung, bestätige ein neues Passwort und wähle einen Speicherort. Bewahre das Passwort getrennt auf."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrez Sauvegarde des discussions dans Réglages. Créez une sauvegarde chiffrée, confirmez un nouveau mot de passe et choisissez un emplacement. Conservez le mot de passe séparément."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In Impostazioni apri Backup delle chat. Crea un backup cifrato, conferma una nuova password e scegli dove salvare il file. Conserva la password separatamente."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abra Backup das conversas nas Configurações. Crie um backup criptografado, confirme uma nova senha e escolha onde salvar o arquivo. Guarde a senha separadamente."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abra Cópia de segurança nas Definições. Crie uma cópia cifrada, confirme uma nova palavra-passe e escolha onde guardar o ficheiro. Guarde a palavra-passe em separado."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abra Cópia de segurança nas Definições. Crie uma cópia cifrada, confirme uma nova palavra-passe e escolha onde guardar o ficheiro. Guarde a palavra-passe em separado."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在设置中打开聊天备份，创建加密备份，确认新密码，然后选择文件的保存位置。请将密码单独保管。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "설정에서 채팅 백업을 여세요. 암호화된 백업을 만들고 새 비밀번호를 확인한 다음 파일을 저장할 위치를 고르세요. 비밀번호는 따로 보관하세요."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在設定中打開聊天備份，建立加密備份，確認新密碼，然後選擇檔案的儲存位置。請將密碼另外保管。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "設定のチャットバックアップを開きます。暗号化バックアップを作成し、新しいパスワードを確認して保存先を選びます。パスワードは別に保管してください。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fungua nakala rudufu ya gumzo katika Mipangilio. Tengeneza nakala iliyosimbwa kwa njia fiche, thibitisha nenosiri jipya na uchague mahali pa kuhifadhi faili. Weka nenosiri kando."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "افتح النسخ الاحتياطي للدردشات في الإعدادات. أنشئ نسخة مشفّرة، وأكّد كلمة مرور جديدة، واختر مكان حفظ الملف. احتفظ بكلمة المرور في مكان منفصل."
+          }
+        }
+      }
+    },
+    "help_backup_step2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "To restore, sign in to the same account, choose the file and enter its password. Review the summary before confirming. Your backup contains friend chat history. It excludes unsent messages and messaging keys."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para restaurar, entra con la misma cuenta, elige el archivo, introduce la contraseña y revisa el resumen. La copia guarda el historial con amigos. No incluye mensajes sin enviar ni claves de mensajería."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Melde dich zur Wiederherstellung mit demselben Konto an. Wähle die Datei, gib das Passwort ein und prüfe die Zusammenfassung. Gesichert werden Chats mit Freunden. Nicht gesendete Nachrichten und Nachrichtenschlüssel sind ausgenommen."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pour restaurer, connectez-vous au même compte, choisissez le fichier, saisissez son mot de passe et vérifiez le récapitulatif. La sauvegarde contient l’historique avec vos amis. Les messages non envoyés et les clés de messagerie en sont exclus."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Per ripristinare, accedi allo stesso account, seleziona il file, inserisci la password e controlla il riepilogo. Il backup contiene le chat con gli amici. Non include i messaggi non inviati né le chiavi di messaggistica."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para restaurar, entre na mesma conta, escolha o arquivo, digite a senha e confira o resumo. O backup inclui o histórico com amigos. Não inclui mensagens não enviadas nem chaves de mensagens."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para restaurar, entre na mesma conta, selecione o ficheiro, introduza a palavra-passe e reveja o resumo. A cópia inclui o histórico com amigos. Exclui mensagens por enviar e chaves de mensagens."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Para restaurar, entre na mesma conta, selecione o ficheiro, introduza a palavra-passe e reveja o resumo. A cópia inclui o histórico com amigos. Exclui mensagens por enviar e chaves de mensagens."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复时请登录同一账户，选择文件，输入密码，核对摘要后再确认。备份包含与朋友的聊天记录，不含未发送的消息和消息加密密钥。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "복원하려면 같은 계정으로 로그인하고 파일을 선택한 뒤 비밀번호를 입력하세요. 요약을 확인한 후 진행하세요. 백업에는 친구와의 대화 기록이 들어가며, 보내지 않은 메시지와 메시징 키는 제외됩니다."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "還原時請登入同一帳號，選擇檔案、輸入密碼，核對摘要後再確認。備份含有與朋友的聊天記錄，不含未傳送的訊息和通訊金鑰。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "復元するには同じアカウントでログインし、ファイルを選んでパスワードを入力します。概要を確認してから確定します。友達との履歴が対象で、未送信メッセージや暗号鍵は含まれません。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ili kurejesha, ingia kwenye akaunti ileile, chagua faili na uandike nenosiri lake. Soma muhtasari kabla ya kuthibitisha. Nakala ina historia ya mazungumzo na marafiki. Haina ujumbe ambao haujatumwa wala funguo za mawasiliano."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "للاستعادة، سجّل الدخول إلى الحساب نفسه واختر الملف وأدخل كلمة مروره. راجع الملخص قبل التأكيد. تتضمن النسخة سجل الدردشة مع أصدقائك، وتستثني الرسائل التي لم تُرسل ومفاتيح المراسلة."
+          }
+        }
+      }
+    },
+    "help_groups_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start a group"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear un grupo"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Eine Gruppe erstellen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Créer un groupe"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Creare un gruppo"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Criar um grupo"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Criar um grupo"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Criar um grupo"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建群组"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그룹 만들기"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立群組"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "グループを作成する"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anzisha kikundi"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إنشاء مجموعة"
+          }
+        }
+      }
+    },
+    "help_groups_step1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open New chat and choose New group. Give the group a name and select the friends you want to invite."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abre Nuevo chat y elige Nuevo grupo. Ponle un nombre y selecciona los amigos a los que quieras invitar."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wähle Neuer Chat und dann Neue Gruppe. Gib der Gruppe einen Namen und wähle die Freunde aus, die du einladen möchtest."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvrez Nouvelle discussion puis Nouveau groupe. Nommez le groupe et sélectionnez les amis à inviter."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli Nuova chat e poi Nuovo gruppo. Dai un nome al gruppo e seleziona gli amici da invitare."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abra Nova conversa e escolha Novo grupo. Dê um nome ao grupo e selecione os amigos que quer convidar."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abra Nova conversa e escolha Novo grupo. Dê um nome ao grupo e selecione os amigos a convidar."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Abra Nova conversa e escolha Novo grupo. Dê um nome ao grupo e selecione os amigos a convidar."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在新建聊天中选择新建群组。输入群名，选择要邀请的朋友。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새 채팅에서 새 그룹을 선택하세요. 그룹 이름을 정하고 초대할 친구를 선택하세요."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在新聊天中選擇新增群組。輸入群組名稱，選擇要邀請的朋友。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新しいチャットから「新しいグループ」を選びます。グループ名を入力し、招待する友達を選びます。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fungua gumzo jipya na uchague kikundi kipya. Kipe kikundi jina na uchague marafiki unaotaka kuwaalika."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "افتح محادثة جديدة واختر مجموعة جديدة. أعطِ المجموعة اسمًا وحدّد الأصدقاء الذين تريد دعوتهم."
+          }
+        }
+      }
+    },
+    "help_groups_step2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Review your selection before sending invitations. Open Groups and invitations to see requests and choose which groups to join."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Revisa la selección antes de invitar. En Grupos e invitaciones puedes ver las solicitudes y elegir a qué grupos unirte."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prüfe die Auswahl vor dem Einladen. Unter Gruppen und Einladungen kannst du Anfragen ansehen und Gruppen beitreten."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vérifiez la sélection avant d’envoyer les invitations. Dans Groupes et invitations, consultez les demandes et choisissez les groupes à rejoindre."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Controlla la selezione prima di invitare. In Gruppi e inviti trovi le richieste e puoi scegliere a quali gruppi unirti."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confira a seleção antes de enviar os convites. Em Grupos e convites, veja as solicitações e escolha de quais grupos participar."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reveja a seleção antes de enviar os convites. Em Grupos e convites, veja os pedidos e escolha os grupos a que pretende aderir."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reveja a seleção antes de enviar os convites. Em Grupos e convites, veja os pedidos e escolha os grupos a que pretende aderir."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "发送邀请前请核对名单。在“群组和邀请”中查看请求，选择要加入的群组。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "초대하기 전에 명단을 확인하세요. 그룹 및 초대에서 요청을 보고 참여할 그룹을 고를 수 있습니다."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "傳送邀請前請核對名單。在「群組與邀請」中查看邀請，選擇要加入的群組。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選んだ相手を確認してから招待を送ります。「グループと招待」で届いた招待を見て、参加するか選べます。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hakiki orodha kabla ya kutuma mialiko. Katika Vikundi na mialiko unaweza kuona maombi na kuchagua vikundi vya kujiunga navyo."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "راجع الأسماء قبل إرسال الدعوات. افتح المجموعات والدعوات للاطلاع على الطلبات واختيار المجموعات التي تريد الانضمام إليها."
+          }
+        }
+      }
+    },
+    "help_reading_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Listen and change the script"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escuchar y cambiar de escritura"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Anhören und die Schrift wechseln"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Écouter et changer d’écriture"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ascoltare e cambiare scrittura"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvir e mudar a escrita"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvir e mudar de escrita"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ouvir e mudar de escrita"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "收听和切换文字"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "듣기 및 문자 전환"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "聆聽及切換文字"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "読み上げと文字の切り替え"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sikiliza na ubadili mfumo wa maandishi"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الاستماع وتبديل طريقة الكتابة"
+          }
+        }
+      }
+    },
+    "help_reading_step1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap a practice message to hear it. Double-tap to switch between the native script and its reading when both are available."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toca un mensaje de práctica para escucharlo. Tócalo dos veces para alternar entre la escritura original y su lectura cuando ambas estén disponibles."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe auf eine Übungsnachricht, um sie anzuhören. Tippe zweimal, um zwischen der ursprünglichen Schrift und der Lesehilfe zu wechseln, sofern beide verfügbar sind."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Touchez un message pour l’écouter. Touchez-le deux fois pour alterner entre l’écriture d’origine et sa transcription lorsque les deux sont disponibles."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tocca un messaggio per ascoltarlo. Toccalo due volte per passare dalla scrittura originale alla trascrizione quando entrambe sono disponibili."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque em uma mensagem para ouvi-la. Toque duas vezes para alternar entre a escrita original e sua leitura quando ambas estiverem disponíveis."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque numa mensagem para a ouvir. Toque duas vezes para alternar entre a escrita original e a sua leitura quando ambas estiverem disponíveis."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque numa mensagem para a ouvir. Toque duas vezes para alternar entre a escrita original e a sua leitura quando ambas estiverem disponíveis."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "轻点练习消息即可收听。如果同时提供原文字形和读音，轻点两次可以切换显示方式。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "연습 메시지를 누르면 읽어 줍니다. 두 번 누르면 원래 문자와 읽는 방법 사이를 전환할 수 있습니다. 두 가지가 모두 제공되는 경우에만 가능합니다."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "點一下練習訊息即可聆聽。同時提供原文文字與讀音時，點兩下即可切換顯示方式。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "練習メッセージをタップすると読み上げます。原文の文字と読み方の両方がある場合は、ダブルタップで表示を切り替えられます。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gusa ujumbe wa mazoezi ili kuusikiliza. Gusa mara mbili ili kubadili kati ya maandishi asilia na namna ya kuyasoma ikiwa zote zinapatikana."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اضغط على رسالة التدريب لسماعها. اضغط مرتين للتبديل بين الكتابة الأصلية وطريقة قراءتها عند توفرهما."
+          }
+        }
+      }
+    },
+    "help_reading_step2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In conversation options, turn autoplay on to hear new messages. It stops when you leave the conversation. If a voice or language is missing, follow the download prompt."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activa la reproducción automática en las opciones de la conversación para oír los mensajes nuevos. Se detiene al salir. Si falta una voz o un idioma, sigue las indicaciones de descarga."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktiviere die automatische Wiedergabe in den Chatoptionen, um neue Nachrichten zu hören. Sie endet beim Verlassen des Chats. Fehlt eine Stimme oder Sprache, folge dem Downloadhinweis."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Activez la lecture automatique dans les options pour entendre les nouveaux messages. Elle s’arrête lorsque vous quittez la conversation. Si une voix ou une langue manque, suivez les indications de téléchargement."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attiva la riproduzione automatica nelle opzioni della chat per ascoltare i nuovi messaggi. Si interrompe quando esci. Se manca una voce o una lingua, segui le indicazioni per il download."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ative a reprodução automática nas opções para ouvir as novas mensagens. Ela para quando você sai da conversa. Se faltar uma voz ou um idioma, siga as instruções de download."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ative a reprodução automática nas opções para ouvir as novas mensagens. A reprodução para ao sair da conversa. Se faltar uma voz ou um idioma, siga as instruções de transferência."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ative a reprodução automática nas opções para ouvir as novas mensagens. A reprodução para ao sair da conversa. Se faltar uma voz ou um idioma, siga as instruções de transferência."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在对话选项中开启自动播放，即可收听新消息。离开对话后会停止播放。如果缺少语音或语言，请按提示下载。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "대화 옵션에서 자동 재생을 켜면 새 메시지를 읽어 줍니다. 대화를 나가면 멈춥니다. 음성이나 언어가 없으면 다운로드 안내를 따르세요."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在對話選項中開啟自動播放，即可聆聽新訊息。離開對話後會停止播放。如果缺少語音或語言，請依提示下載。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "会話のオプションで自動再生をオンにすると、新着メッセージを読み上げます。会話を閉じると止まります。音声や言語データが必要な場合はダウンロードの案内に従ってください。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Washa uchezaji wa kiotomatiki katika chaguo za mazungumzo ili kusikia ujumbe mpya. Uchezaji hukoma ukiondoka. Ikiwa sauti au lugha haipo, fuata maelekezo ya kuipakua."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فعّل التشغيل التلقائي من خيارات المحادثة لسماع الرسائل الجديدة. يتوقف التشغيل عند مغادرة المحادثة. إذا لم يتوفر صوت أو لغة، اتبع إرشادات التنزيل."
+          }
+        }
+      }
+    },
+    "help_status_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Understand delivery checks"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entender las marcas de entrega"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zustellhäkchen verstehen"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprendre les coches de livraison"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Capire le spunte di consegna"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entender as marcas de entrega"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entender as marcas de entrega"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Entender as marcas de entrega"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "了解送达标记"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "전송 확인 표시 이해하기"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "了解送達標記"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "配信チェックの意味"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elewa alama za uwasilishaji"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فهم علامات التسليم"
+          }
+        }
+      }
+    },
+    "help_status_step1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "One check means Vipi accepted the message. Two checks mean it reached your friend’s device. The checks change color when their app confirms the message was shown."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una marca indica que Vipi aceptó el mensaje. Dos indican que llegó al dispositivo de tu amigo. Cambian de color cuando su aplicación confirma que el mensaje se mostró."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Häkchen bedeutet, dass Vipi die Nachricht angenommen hat. Zwei bedeuten, dass sie auf dem Gerät deines Kontakts angekommen ist. Sie wechseln die Farbe, wenn dessen App die Anzeige bestätigt."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une coche signifie que Vipi a accepté le message. Deux coches indiquent qu’il est arrivé sur l’appareil de votre ami. Leur couleur change quand son application confirme l’affichage du message."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Una spunta indica che Vipi ha accettato il messaggio. Due indicano che è arrivato al dispositivo del tuo amico. Cambiano colore quando la sua app ne conferma la visualizzazione."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma marca indica que o Vipi aceitou a mensagem. Duas indicam que ela chegou ao aparelho do seu amigo. Elas mudam de cor quando o aplicativo do seu amigo confirma a exibição da mensagem."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma marca indica que o Vipi aceitou a mensagem. Duas indicam que chegou ao dispositivo do seu amigo. Mudam de cor quando a aplicação do seu amigo confirma a apresentação da mensagem."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uma marca indica que o Vipi aceitou a mensagem. Duas indicam que chegou ao dispositivo do seu amigo. Mudam de cor quando a aplicação do seu amigo confirma a apresentação da mensagem."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一个勾表示 Vipi 已接受消息，两个勾表示已送达朋友的设备。对方的应用确认已显示消息后，勾的颜色会改变。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "표시 한 개는 Vipi가 메시지를 접수했다는 뜻이고, 두 개는 친구의 기기에 도착했다는 뜻입니다. 친구의 앱에서 메시지가 표시되었다고 확인하면 색이 바뀝니다."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "一個勾表示 Vipi 已受理訊息，兩個勾表示已送達朋友的裝置。對方的 App 確認已顯示訊息後，勾的顏色會改變。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "チェック1つはVipiがメッセージを受け付けたこと、2つは相手の端末に届いたことを示します。相手のアプリが表示を確認すると色が変わります。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alama moja inaonyesha Vipi imepokea ujumbe. Mbili zinaonyesha umefika kwenye kifaa cha rafiki yako. Rangi hubadilika programu yake inapothibitisha kuwa ujumbe ulionyeshwa."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعني علامة واحدة أن Vipi قبل الرسالة. وتعني علامتان أنها وصلت إلى جهاز صديقك. يتغير اللون حين يؤكد تطبيقه عرض الرسالة."
+          }
+        }
+      }
+    },
+    "help_status_step2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If a message is missing, reconnect and reopen the conversation. Undelivered messages expire after 72 hours. Send a new message if it is still relevant."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si falta un mensaje, vuelve a conectarte y abre la conversación. Los mensajes no entregados caducan a las 72 horas. Envía uno nuevo si sigue siendo relevante."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fehlt eine Nachricht, stelle die Verbindung wieder her und öffne den Chat erneut. Nicht zugestellte Nachrichten verfallen nach 72 Stunden. Sende bei Bedarf eine neue Nachricht."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "S’il manque un message, reconnectez-vous et rouvrez la discussion. Les messages non livrés expirent après 72 heures. Envoyez un nouveau message si nécessaire."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se manca un messaggio, riconnettiti e riapri la conversazione. I messaggi non consegnati scadono dopo 72 ore. Se serve, inviane uno nuovo."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se faltar uma mensagem, reconecte e abra a conversa novamente. Mensagens não entregues expiram após 72 horas. Envie outra se ainda for relevante."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se faltar uma mensagem, volte a estabelecer ligação e reabra a conversa. As mensagens não entregues expiram após 72 horas. Envie uma nova se ainda fizer sentido."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se faltar uma mensagem, volte a estabelecer ligação e reabra a conversa. As mensagens não entregues expiram após 72 horas. Envie uma nova se ainda fizer sentido."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "如果找不到消息，请重新连接并打开对话。未送达的消息会在 72 小时后过期。如果仍有需要，请发送一条新消息。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "메시지가 보이지 않으면 다시 연결하고 대화를 다시 여세요. 전달되지 않은 메시지는 72시간 후 만료됩니다. 여전히 필요하면 새 메시지를 보내세요."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "如果找不到訊息，請重新連線並開啟對話。未送達的訊息會在 72 小時後過期。如果仍有需要，請傳送新訊息。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "メッセージが見当たらないときは、接続し直して会話を開き直します。未配信メッセージは72時間で期限切れになります。必要なら新しいメッセージを送ってください。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ujumbe ukikosekana, unganisha tena na ufungue mazungumzo. Ujumbe ambao haujawasilishwa huisha baada ya saa 72. Tuma ujumbe mpya ikiwa bado unahitajika."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إذا كانت هناك رسالة مفقودة، أعد الاتصال وافتح المحادثة مجددًا. تنتهي صلاحية الرسائل غير المسلّمة بعد 72 ساعة. أرسل رسالة جديدة إذا بقيت ذات صلة."
+          }
+        }
+      }
+    },
+    "help_account_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconnect or change phones"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver a conectarte o cambiar de teléfono"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Erneut anmelden oder das Telefon wechseln"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se reconnecter ou changer de téléphone"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ricollegarsi o cambiare telefono"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconectar ou trocar de celular"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voltar a entrar ou mudar de telemóvel"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Voltar a entrar ou mudar de telemóvel"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新连接或更换手机"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다시 연결하거나 휴대전화 변경"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重新連線或更換手機"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再ログイン・機種変更"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unganisha tena au badili simu"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إعادة الاتصال أو تغيير الهاتف"
+          }
+        }
+      }
+    },
+    "help_account_step1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "If Vipi asks you to sign in again, use the same account. Your saved chats stay on this device."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si Vipi te pide iniciar sesión de nuevo, utiliza la misma cuenta. Los chats guardados permanecen en este dispositivo."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wenn Vipi dich zur erneuten Anmeldung auffordert, verwende dasselbe Konto. Gespeicherte Chats bleiben auf diesem Gerät."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Si Vipi vous demande de vous reconnecter, utilisez le même compte. Les discussions enregistrées restent sur cet appareil."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se Vipi chiede di accedere di nuovo, usa lo stesso account. Le chat salvate rimangono su questo dispositivo."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se o Vipi pedir um novo login, use a mesma conta. As conversas salvas ficam neste aparelho."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se o Vipi pedir para iniciar sessão novamente, use a mesma conta. As conversas guardadas ficam neste dispositivo."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se o Vipi pedir para iniciar sessão novamente, use a mesma conta. As conversas guardadas ficam neste dispositivo."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "如果 Vipi 要求重新登录，请使用同一账户。已保存的聊天仍在本设备上。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vipi에서 다시 로그인을 요청하면 같은 계정을 사용하세요. 저장된 대화는 이 기기에 남습니다."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "如果 Vipi 要求重新登入，請使用同一帳號。已儲存的聊天仍在這部裝置上。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ログインを求められたら、同じアカウントを使います。保存済みのチャットはこの端末に残ります。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ikiwa Vipi inakuomba uingie tena, tumia akaunti ileile. Gumzo zilizohifadhiwa hubaki kwenye kifaa hiki."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إذا طلب Vipi تسجيل الدخول مجددًا، فاستخدم الحساب نفسه. تبقى الدردشات المحفوظة على هذا الجهاز."
+          }
+        }
+      }
+    },
+    "help_account_step2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choosing Use this device activates the new phone and disconnects the previous one. Pending deliveries cannot move to the new device. Compare the new security number with your friends."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar este dispositivo activa el teléfono nuevo y desconecta el anterior. Las entregas pendientes no se transfieren. Compara el nuevo número de seguridad con tus amigos."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "„Dieses Gerät verwenden“ aktiviert das neue Telefon und trennt das vorherige. Ausstehende Nachrichten lassen sich nicht übertragen. Vergleiche die neue Sicherheitsnummer mit deinen Freunden."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Utiliser cet appareil active le nouveau téléphone et déconnecte l’ancien. Les envois en attente ne sont pas transférés. Comparez le nouveau numéro de sécurité avec vos amis."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa questo dispositivo attiva il nuovo telefono e scollega il precedente. Le consegne in sospeso non vengono trasferite. Confronta il nuovo numero di sicurezza con i tuoi amici."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar este dispositivo ativa o novo celular e desconecta o anterior. As entregas pendentes não são transferidas. Compare o novo número de segurança com seus amigos."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar este dispositivo ativa o novo telemóvel e desliga o anterior. As entregas pendentes não passam para o novo dispositivo. Compare o novo número de segurança com os seus amigos."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar este dispositivo ativa o novo telemóvel e desliga o anterior. As entregas pendentes não passam para o novo dispositivo. Compare o novo número de segurança com os seus amigos."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择“使用此设备”会激活新手机，并断开旧设备。等待送达的消息无法转移。请和朋友核对新的安全号码。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 기기 사용을 선택하면 새 휴대전화가 활성화되고 이전 기기의 연결은 끊깁니다. 전달 대기 중인 메시지는 옮길 수 없습니다. 친구와 새 보안 번호를 비교하세요."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇「使用這部裝置」會啟用新手機並中斷舊裝置的連線。等待送達的訊息無法轉移。請與朋友核對新的安全號碼。"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「この端末を使用」を選ぶと新しい端末が有効になり、以前の端末は切断されます。配信待ちのメッセージは移行できません。新しいセキュリティ番号を友達と照合してください。"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ukichagua Tumia kifaa hiki, simu mpya itaanza kutumika na ya awali itatenganishwa. Ujumbe unaosubiri kuwasilishwa hauhamishwi. Linganisha namba mpya ya usalama na marafiki zako."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يؤدي اختيار استخدام هذا الجهاز إلى تفعيل الهاتف الجديد وفصل الهاتف السابق. لا يمكن نقل الرسائل التي تنتظر التسليم. قارن رقم الأمان الجديد مع أصدقائك."
+          }
+        }
+      }
+    },
+    "help_email": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Email support"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribir a soporte"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Support per E-Mail kontaktieren"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Envoyer un e-mail à l’assistance"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scrivi all’assistenza"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar e-mail ao suporte"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar e-mail ao apoio"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enviar e-mail ao apoio"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "给支持团队发邮件"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "지원팀에 이메일 보내기"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "傳送電子郵件給支援團隊"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "サポートにメールする"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuma barua pepe kwa usaidizi"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مراسلة الدعم عبر البريد الإلكتروني"
+          }
+        }
+      }
+    },
+    "help_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Help"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayuda"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hilfe"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aide"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aiuto"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajuda"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajuda"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ajuda"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帮助"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "도움말"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "說明"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ヘルプ"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Msaada"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "المساعدة"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

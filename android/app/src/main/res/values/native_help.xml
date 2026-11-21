@@ -1,0 +1,32 @@
+<resources>
+    <string name="help_guide_intro">Try Shallow and Deep on a sample message. Hold to see what your friend wrote.</string>
+    <string name="help_guides">More guides</string>
+    <string name="help_friends_title">Find and invite friends</string>
+    <string name="help_friends_step1">Open Chats and start a new conversation. Choose a saved friend or enter their exact Vipi username.</string>
+    <string name="help_friends_step2">To invite someone who hasn’t joined, choose Invite a friend. Review the invitation before sending it.</string>
+    <string name="help_languages_title">Choose a practice language</string>
+    <string name="help_languages_step1">Tap the language at the top of Chats. Choose the language you want to practice.</string>
+    <string name="help_languages_step2">Open Languages in Settings to manage the downloads for your language pair. Tap a practice message to hear it when a voice is available.</string>
+    <string name="help_notifications_title">Keep previews private</string>
+    <string name="help_notifications_step1">Open Notifications in Settings. Turn off Show sender and message to keep the contents of alerts private.</string>
+    <string name="help_notifications_step2">Check the example and your phone’s lock-screen settings. On iPhone, in-app previews have their own switch.</string>
+    <string name="help_safety_title">Check who you’re talking to</string>
+    <string name="help_safety_step1">In a friend’s conversation, open the security number. Compare all 12 groups in person or over a trusted call.</string>
+    <string name="help_safety_step2">Mark it as verified only if every group matches. To block or report someone, open their conversation options. Review exactly what you’re sharing before submitting a report.</string>
+    <string name="help_backup_title">Save and restore chats</string>
+    <string name="help_backup_step1">Open Chat backup in Settings. Create an encrypted backup, confirm a new password and choose where to save the file. Keep the password separately.</string>
+    <string name="help_backup_step2">To restore, sign in to the same account, choose the file and enter its password. Review the summary before confirming. Your backup contains friend chat history. It excludes unsent messages and messaging keys.</string>
+    <string name="help_groups_title">Start a group</string>
+    <string name="help_groups_step1">Open New chat and choose New group. Give the group a name and select the friends you want to invite.</string>
+    <string name="help_groups_step2">Review your selection before sending invitations. Open Groups and invitations to see requests and choose which groups to join.</string>
+    <string name="help_reading_title">Listen and change the script</string>
+    <string name="help_reading_step1">Tap a practice message to hear it. Double-tap to switch between the native script and its reading when both are available.</string>
+    <string name="help_reading_step2">In conversation options, turn autoplay on to hear new messages. It stops when you leave the conversation. If a voice or language is missing, follow the download prompt.</string>
+    <string name="help_status_title">Understand delivery checks</string>
+    <string name="help_status_step1">One check means Vipi accepted the message. Two checks mean it reached your friend’s device. The checks change color when their app confirms the message was shown.</string>
+    <string name="help_status_step2">If a message is missing, reconnect and reopen the conversation. Undelivered messages expire after 72 hours. Send a new message if it is still relevant.</string>
+    <string name="help_account_title">Reconnect or change phones</string>
+    <string name="help_account_step1">If Vipi asks you to sign in again, use the same account. Your saved chats stay on this device.</string>
+    <string name="help_account_step2">Choosing Use this device activates the new phone and disconnects the previous one. Pending deliveries cannot move to the new device. Compare the new security number with your friends.</string>
+    <string name="help_email">Email support</string>
+</resources>

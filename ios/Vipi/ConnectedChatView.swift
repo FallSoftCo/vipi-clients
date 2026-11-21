@@ -137,8 +137,8 @@ struct ProfileSetupView: View {
                 Toggle("I agree to the Terms of Service and have read the Privacy Policy.", isOn: $acceptedTerms)
                     .font(.subheadline).tint(VipiDesign.accent).accessibilityIdentifier("profile-accept-terms")
                 HStack(spacing: 20) {
-                    Link(destination: URL(string: "https://api.mambovipi.app/terms")!) { Text("Terms").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
-                    Link(destination: URL(string: "https://api.mambovipi.app/privacy")!) { Text("Privacy").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
+                    Link(destination: URL(string: "https://mambovipi.app/terms.html")!) { Text("Terms").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
+                    Link(destination: URL(string: "https://mambovipi.app/privacy.html")!) { Text("Privacy").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
                 }.font(.subheadline)
                 if let notice = chat.notice { Text(notice).font(.subheadline).foregroundStyle(VipiDesign.secondary).accessibilityIdentifier("profile-error") }
                 Button { Task { await chat.createProfile(username: username, name: name) } } label: {

@@ -1,0 +1,32 @@
+<resources>
+    <string name="help_guide_intro">Prueba los dos modos de inmersión con un mensaje de ejemplo. Mantén pulsado para ver el original.</string>
+    <string name="help_guides">Más guías</string>
+    <string name="help_friends_title">Buscar e invitar a tus amigos</string>
+    <string name="help_friends_step1">En Chats, inicia una conversación. Elige un amigo guardado o introduce su nombre de usuario exacto de Vipi.</string>
+    <string name="help_friends_step2">Para invitar a alguien que aún no usa Vipi, elige Invitar a un amigo. Revisa la invitación antes de enviarla.</string>
+    <string name="help_languages_title">Elegir un idioma de práctica</string>
+    <string name="help_languages_step1">Toca el idioma que aparece arriba en Chats y elige el que quieras practicar.</string>
+    <string name="help_languages_step2">En Ajustes, abre Idiomas para gestionar las descargas. Toca un mensaje de práctica para escucharlo si hay una voz disponible.</string>
+    <string name="help_notifications_title">Ocultar el contenido de los avisos</string>
+    <string name="help_notifications_step1">En Ajustes, abre Notificaciones y desactiva la opción de mostrar el remitente y el mensaje.</string>
+    <string name="help_notifications_step2">Consulta el ejemplo y los ajustes de la pantalla de bloqueo del teléfono. En el iPhone, las vistas previas dentro de Vipi tienen un control independiente.</string>
+    <string name="help_safety_title">Verificar con quién hablas</string>
+    <string name="help_safety_step1">En la conversación con tu amigo, abre el número de seguridad. Comparad los 12 grupos en persona o mediante una llamada de confianza.</string>
+    <string name="help_safety_step2">Marca el número como verificado solo si coinciden todos los grupos. Puedes bloquear o denunciar desde las opciones de la conversación. Revisa qué vas a compartir antes de enviar una denuncia.</string>
+    <string name="help_backup_title">Guardar y restaurar chats</string>
+    <string name="help_backup_step1">Abre Copia de seguridad en Ajustes. Crea una copia cifrada, confirma una contraseña nueva y elige dónde guardar el archivo. Guarda la contraseña por separado.</string>
+    <string name="help_backup_step2">Para restaurar, entra con la misma cuenta, elige el archivo, introduce la contraseña y revisa el resumen. La copia guarda el historial con amigos. No incluye mensajes sin enviar ni claves de mensajería.</string>
+    <string name="help_groups_title">Crear un grupo</string>
+    <string name="help_groups_step1">Abre Nuevo chat y elige Nuevo grupo. Ponle un nombre y selecciona los amigos a los que quieras invitar.</string>
+    <string name="help_groups_step2">Revisa la selección antes de invitar. En Grupos e invitaciones puedes ver las solicitudes y elegir a qué grupos unirte.</string>
+    <string name="help_reading_title">Escuchar y cambiar de escritura</string>
+    <string name="help_reading_step1">Toca un mensaje de práctica para escucharlo. Tócalo dos veces para alternar entre la escritura original y su lectura cuando ambas estén disponibles.</string>
+    <string name="help_reading_step2">Activa la reproducción automática en las opciones de la conversación para oír los mensajes nuevos. Se detiene al salir. Si falta una voz o un idioma, sigue las indicaciones de descarga.</string>
+    <string name="help_status_title">Entender las marcas de entrega</string>
+    <string name="help_status_step1">Una marca indica que Vipi aceptó el mensaje. Dos indican que llegó al dispositivo de tu amigo. Cambian de color cuando su aplicación confirma que el mensaje se mostró.</string>
+    <string name="help_status_step2">Si falta un mensaje, vuelve a conectarte y abre la conversación. Los mensajes no entregados caducan a las 72 horas. Envía uno nuevo si sigue siendo relevante.</string>
+    <string name="help_account_title">Volver a conectarte o cambiar de teléfono</string>
+    <string name="help_account_step1">Si Vipi te pide iniciar sesión de nuevo, utiliza la misma cuenta. Los chats guardados permanecen en este dispositivo.</string>
+    <string name="help_account_step2">Usar este dispositivo activa el teléfono nuevo y desconecta el anterior. Las entregas pendientes no se transfieren. Compara el nuevo número de seguridad con tus amigos.</string>
+    <string name="help_email">Escribir a soporte</string>
+</resources>

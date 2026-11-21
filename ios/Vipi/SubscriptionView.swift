@@ -155,8 +155,8 @@ struct SubscriptionOfferView: View {
                 }
                 Link(destination: URL(string: "https://apps.apple.com/account/subscriptions")!) { Text("Manage App Store subscriptions").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
                 HStack(spacing: 24) {
-                    Link(destination: URL(string: "https://api.mambovipi.app/terms")!) { Text("Terms").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
-                    Link(destination: URL(string: "https://api.mambovipi.app/privacy")!) { Text("Privacy").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
+                    Link(destination: URL(string: "https://mambovipi.app/terms.html")!) { Text("Terms").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
+                    Link(destination: URL(string: "https://mambovipi.app/privacy.html")!) { Text("Privacy").frame(minWidth: 44, minHeight: 44).contentShape(Rectangle()) }
                 }.font(.subheadline)
             }.padding(20).frame(maxWidth: 560).frame(maxWidth: .infinity)
         }.clipped().background(VipiDesign.canvas).navigationTitle(plan.title).navigationBarTitleDisplayMode(.inline)

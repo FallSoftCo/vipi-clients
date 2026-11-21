@@ -1,0 +1,32 @@
+<resources>
+    <string name="help_guide_intro">Essayez les deux modes d’immersion sur un message. Maintenez le doigt dessus pour voir le texte original.</string>
+    <string name="help_guides">Autres guides</string>
+    <string name="help_friends_title">Trouver et inviter des amis</string>
+    <string name="help_friends_step1">Dans Discussions, lancez une conversation. Choisissez un ami enregistré ou saisissez son nom d’utilisateur Vipi exact.</string>
+    <string name="help_friends_step2">Pour inviter une personne qui n’utilise pas encore Vipi, choisissez Inviter un ami. Relisez l’invitation avant de l’envoyer.</string>
+    <string name="help_languages_title">Choisir une langue à pratiquer</string>
+    <string name="help_languages_step1">Touchez la langue en haut des discussions et choisissez celle que vous souhaitez pratiquer.</string>
+    <string name="help_languages_step2">Dans Réglages, ouvrez Langues pour gérer les téléchargements. Touchez un message pour l’écouter si une voix est disponible.</string>
+    <string name="help_notifications_title">Masquer le contenu des notifications</string>
+    <string name="help_notifications_step1">Dans Réglages, ouvrez Notifications et désactivez l’affichage de l’expéditeur et du message.</string>
+    <string name="help_notifications_step2">Consultez l’exemple et les réglages de l’écran verrouillé. Sur iPhone, les aperçus à l’intérieur de Vipi ont leur propre réglage.</string>
+    <string name="help_safety_title">Vérifier l’identité de votre contact</string>
+    <string name="help_safety_step1">Dans la conversation, ouvrez le numéro de sécurité. Comparez les 12 groupes en personne ou lors d’un appel de confiance.</string>
+    <string name="help_safety_step2">Ne validez que si tous les groupes concordent. Pour bloquer ou signaler quelqu’un, ouvrez les options de la conversation. Vérifiez les informations partagées avant d’envoyer un signalement.</string>
+    <string name="help_backup_title">Sauvegarder et restaurer vos discussions</string>
+    <string name="help_backup_step1">Ouvrez Sauvegarde des discussions dans Réglages. Créez une sauvegarde chiffrée, confirmez un nouveau mot de passe et choisissez un emplacement. Conservez le mot de passe séparément.</string>
+    <string name="help_backup_step2">Pour restaurer, connectez-vous au même compte, choisissez le fichier, saisissez son mot de passe et vérifiez le récapitulatif. La sauvegarde contient l’historique avec vos amis. Les messages non envoyés et les clés de messagerie en sont exclus.</string>
+    <string name="help_groups_title">Créer un groupe</string>
+    <string name="help_groups_step1">Ouvrez Nouvelle discussion puis Nouveau groupe. Nommez le groupe et sélectionnez les amis à inviter.</string>
+    <string name="help_groups_step2">Vérifiez la sélection avant d’envoyer les invitations. Dans Groupes et invitations, consultez les demandes et choisissez les groupes à rejoindre.</string>
+    <string name="help_reading_title">Écouter et changer d’écriture</string>
+    <string name="help_reading_step1">Touchez un message pour l’écouter. Touchez-le deux fois pour alterner entre l’écriture d’origine et sa transcription lorsque les deux sont disponibles.</string>
+    <string name="help_reading_step2">Activez la lecture automatique dans les options pour entendre les nouveaux messages. Elle s’arrête lorsque vous quittez la conversation. Si une voix ou une langue manque, suivez les indications de téléchargement.</string>
+    <string name="help_status_title">Comprendre les coches de livraison</string>
+    <string name="help_status_step1">Une coche signifie que Vipi a accepté le message. Deux coches indiquent qu’il est arrivé sur l’appareil de votre ami. Leur couleur change quand son application confirme l’affichage du message.</string>
+    <string name="help_status_step2">S’il manque un message, reconnectez-vous et rouvrez la discussion. Les messages non livrés expirent après 72 heures. Envoyez un nouveau message si nécessaire.</string>
+    <string name="help_account_title">Se reconnecter ou changer de téléphone</string>
+    <string name="help_account_step1">Si Vipi vous demande de vous reconnecter, utilisez le même compte. Les discussions enregistrées restent sur cet appareil.</string>
+    <string name="help_account_step2">Utiliser cet appareil active le nouveau téléphone et déconnecte l’ancien. Les envois en attente ne sont pas transférés. Comparez le nouveau numéro de sécurité avec vos amis.</string>
+    <string name="help_email">Envoyer un e-mail à l’assistance</string>
+</resources>

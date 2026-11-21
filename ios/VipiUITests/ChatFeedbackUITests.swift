@@ -35,6 +35,9 @@ final class ChatFeedbackUITests: XCTestCase {
         app.launch(); defer { app.terminate() }
         let settings = app.buttons["Your profile and settings"]
         XCTAssertTrue(settings.waitForExistence(timeout: 20)); settings.tap()
+        let help = app.buttons["settings-help"]
+        for _ in 0..<10 where !help.isHittable { app.swipeUp() }
+        XCTAssertTrue(help.isHittable); help.tap()
         let guide = app.buttons["tutorial-reentry"]
         for _ in 0..<12 where !guide.isHittable { app.swipeUp() }
         XCTAssertTrue(guide.isHittable); guide.tap()
@@ -50,6 +53,40 @@ final class ChatFeedbackUITests: XCTestCase {
         XCTAssertFalse(app.staticTexts["chat-gesture-hint"].exists)
         app.buttons["tutorial-continue"].tap()
         XCTAssertTrue(guide.waitForExistence(timeout: 5))
+    }
+
+    @MainActor func testSettingsHelpOpensVisualGuidesAndReturnsToSettings() {
+        continueAfterFailure = false
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-source", "en", "-vipi-target", "es"]
+        app.launch(); defer { app.terminate() }
+        let settings = app.buttons["Your profile and settings"]
+        XCTAssertTrue(settings.waitForExistence(timeout: 20)); settings.tap()
+        let help = app.buttons["settings-help"]
+        for _ in 0..<8 where !help.isHittable { app.swipeUp() }
+        XCTAssertTrue(help.isHittable); help.tap()
+        XCTAssertTrue(app.buttons["tutorial-reentry"].waitForExistence(timeout: 5))
+        func capture(_ name: String) {
+            let shot = XCTAttachment(screenshot: app.screenshot())
+            shot.name = name; shot.lifetime = .keepAlways; add(shot)
+        }
+        capture("ios-native-help")
+        for (key, prefix) in [("friends", "Open Chats"), ("groups", "Open New chat"), ("reading", "Tap a practice"), ("status", "One check"), ("languages", "Tap the language"),
+                              ("notifications", "Open Notifications"), ("safety", "In a friend"),
+                              ("backup", "Open Chat backup"), ("account", "If Vipi asks")] {
+            let row = app.buttons["help-topic-" + key]
+            for _ in 0..<8 where !row.isHittable { app.swipeUp() }
+            XCTAssertTrue(row.isHittable, key); row.tap()
+            let step = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", prefix)).firstMatch
+            XCTAssertTrue(step.waitForExistence(timeout: 5), key)
+            if key == "friends" {
+                capture("ios-native-help-friends")
+            }
+            if !row.isHittable { app.swipeDown() }
+            XCTAssertTrue(row.isHittable); row.tap()
+        }
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5))
     }
 
     @MainActor func testEligibleReturnToChatsShowsOptionalFundingSurvey() throws {

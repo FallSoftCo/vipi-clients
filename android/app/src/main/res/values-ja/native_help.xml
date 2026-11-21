@@ -1,0 +1,32 @@
+<resources>
+    <string name="help_guide_intro">例文で2つの没入モードを試せます。長押しすると相手が書いた原文が表示されます。</string>
+    <string name="help_guides">その他のガイド</string>
+    <string name="help_friends_title">友達を探す・招待する</string>
+    <string name="help_friends_step1">チャットから新しい会話を始めます。登録済みの友達を選ぶか、相手のVipiユーザー名を正確に入力します。</string>
+    <string name="help_friends_step2">まだVipiを使っていない人には「友達を招待」を選び、内容を確認してから招待を送ります。</string>
+    <string name="help_languages_title">練習する言語を選ぶ</string>
+    <string name="help_languages_step1">チャットの上部にある言語をタップして、練習したい言語を選びます。</string>
+    <string name="help_languages_step2">設定の「言語」で必要なデータを管理できます。音声が利用できる場合、練習メッセージをタップすると読み上げます。</string>
+    <string name="help_notifications_title">通知の内容を隠す</string>
+    <string name="help_notifications_step1">設定の「通知」で、送信者とメッセージの表示をオフにします。</string>
+    <string name="help_notifications_step2">表示例と端末のロック画面の設定を確認してください。iPhoneでは、Vipiを開いている間のプレビューを別に設定できます。</string>
+    <string name="help_safety_title">会話相手を確認する</string>
+    <string name="help_safety_step1">友達との会話でセキュリティ番号を開きます。対面か信頼できる通話で、12組の数字をすべて照合します。</string>
+    <string name="help_safety_step2">すべて一致した場合だけ確認済みにします。ブロックや報告は会話のオプションから行えます。報告を送る前に共有内容を確認してください。</string>
+    <string name="help_backup_title">チャットを保存・復元する</string>
+    <string name="help_backup_step1">設定のチャットバックアップを開きます。暗号化バックアップを作成し、新しいパスワードを確認して保存先を選びます。パスワードは別に保管してください。</string>
+    <string name="help_backup_step2">復元するには同じアカウントでログインし、ファイルを選んでパスワードを入力します。概要を確認してから確定します。友達との履歴が対象で、未送信メッセージや暗号鍵は含まれません。</string>
+    <string name="help_groups_title">グループを作成する</string>
+    <string name="help_groups_step1">新しいチャットから「新しいグループ」を選びます。グループ名を入力し、招待する友達を選びます。</string>
+    <string name="help_groups_step2">選んだ相手を確認してから招待を送ります。「グループと招待」で届いた招待を見て、参加するか選べます。</string>
+    <string name="help_reading_title">読み上げと文字の切り替え</string>
+    <string name="help_reading_step1">練習メッセージをタップすると読み上げます。原文の文字と読み方の両方がある場合は、ダブルタップで表示を切り替えられます。</string>
+    <string name="help_reading_step2">会話のオプションで自動再生をオンにすると、新着メッセージを読み上げます。会話を閉じると止まります。音声や言語データが必要な場合はダウンロードの案内に従ってください。</string>
+    <string name="help_status_title">配信チェックの意味</string>
+    <string name="help_status_step1">チェック1つはVipiがメッセージを受け付けたこと、2つは相手の端末に届いたことを示します。相手のアプリが表示を確認すると色が変わります。</string>
+    <string name="help_status_step2">メッセージが見当たらないときは、接続し直して会話を開き直します。未配信メッセージは72時間で期限切れになります。必要なら新しいメッセージを送ってください。</string>
+    <string name="help_account_title">再ログイン・機種変更</string>
+    <string name="help_account_step1">ログインを求められたら、同じアカウントを使います。保存済みのチャットはこの端末に残ります。</string>
+    <string name="help_account_step2">「この端末を使用」を選ぶと新しい端末が有効になり、以前の端末は切断されます。配信待ちのメッセージは移行できません。新しいセキュリティ番号を友達と照合してください。</string>
+    <string name="help_email">サポートにメールする</string>
+</resources>

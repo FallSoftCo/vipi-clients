@@ -27,7 +27,7 @@ val initialLanguages = listOf(
 fun languageName(code: String): String = if (initialLanguages.any { it.code == code })
     java.util.Locale.forLanguageTag(code).getDisplayLanguage(java.util.Locale.getDefault()) else code
 enum class Appearance { SYSTEM, LIGHT, DARK }
-enum class Screen { WELCOME, LANGUAGE, TUTORIAL, ACCOUNT, HOME, SETTINGS, NEW_CHAT, GROUPS, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE, DELETE_ACCOUNT, BACKUP, LICENSES }
+enum class Screen { WELCOME, LANGUAGE, TUTORIAL, ACCOUNT, HOME, SETTINGS, NEW_CHAT, GROUPS, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE, DELETE_ACCOUNT, BACKUP, LICENSES, HELP }
 enum class ReadingMode(val label: String) { IMMERSED("Immersed"), ORIGINAL("Original"), TRANSLATION("Translation") }
 
 /** Constructor-only external boundaries for native workflow qualification. */
@@ -108,7 +108,11 @@ class VipiModel internal constructor(application: Application, private val trans
     private var languageReturnScreen = Screen.SETTINGS
     private var tutorialReturnScreen = Screen.ACCOUNT
     fun openTutorial() {
-        tutorialReturnScreen = if (screen == Screen.LANGUAGE) Screen.ACCOUNT else Screen.SETTINGS
+        tutorialReturnScreen = when (screen) {
+            Screen.LANGUAGE -> Screen.ACCOUNT
+            Screen.HELP -> Screen.HELP
+            else -> Screen.SETTINGS
+        }
         navigate(Screen.TUTORIAL)
     }
     fun finishTutorial() { navigate(tutorialReturnScreen) }
@@ -251,7 +255,7 @@ class VipiModel internal constructor(application: Application, private val trans
         Screen.LANGUAGE_DOWNLOAD -> languageReturnScreen
         Screen.DELETE_ACCOUNT -> if (chat?.needsProfile == true) Screen.PROFILE else Screen.SETTINGS
         Screen.GROUPS -> Screen.NEW_CHAT
-        Screen.BACKUP, Screen.LICENSES -> Screen.SETTINGS
+        Screen.BACKUP, Screen.LICENSES, Screen.HELP -> Screen.SETTINGS
         else -> Screen.HOME
     }) }
     internal fun beginFallsoftLink(context: android.content.Context) {

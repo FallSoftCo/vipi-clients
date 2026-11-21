@@ -109,7 +109,7 @@ struct HumanReportView: View {
                             : "Send only the original message shown above, the account identifiers and your reason to Fallible Software, Co. (FallSoft) for review. This shares the selected text outside your encrypted chat."))
                         Text("Reports are stored encrypted for up to 30 days. A report does not automatically block anyone or guarantee a response.")
                             .font(.footnote).foregroundStyle(VipiDesign.secondary)
-                        Link("Privacy and reporting", destination: URL(string: "https://api.mambovipi.app/privacy")!)
+                        Link("Privacy and reporting", destination: URL(string: "https://mambovipi.app/privacy.html")!)
                         Button(LocalizedStringKey(attempted ? "Retry this report" : "Send report to FallSoft")) { submit() }
                             .disabled(busy).accessibilityIdentifier("human-report-submit")
                         if busy { ProgressView("Sending report") }

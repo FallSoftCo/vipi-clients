@@ -1,0 +1,32 @@
+<resources>
+    <string name="help_guide_intro">Jaribu aina zote mbili za mazoezi kwa kutumia ujumbe wa mfano. Bonyeza na ushikilie ili kuona ujumbe asilia wa rafiki yako.</string>
+    <string name="help_guides">Miongozo zaidi</string>
+    <string name="help_friends_title">Tafuta na ualike marafiki</string>
+    <string name="help_friends_step1">Katika Gumzo, anza mazungumzo mapya. Chagua rafiki uliyemhifadhi au andika jina lake la mtumiaji wa Vipi kwa usahihi.</string>
+    <string name="help_friends_step2">Mtu ambaye bado hatumii Vipi anaweza kualikwa kupitia Alika rafiki. Soma mwaliko kabla ya kuutuma.</string>
+    <string name="help_languages_title">Chagua lugha ya kufanya mazoezi</string>
+    <string name="help_languages_step1">Gusa lugha iliyo juu ya orodha ya gumzo kisha uchague lugha unayotaka kufanyia mazoezi.</string>
+    <string name="help_languages_step2">Fungua Lugha katika Mipangilio ili kudhibiti vipakuliwa. Gusa ujumbe wa mazoezi ili kuusikiliza ikiwa sauti inapatikana.</string>
+    <string name="help_notifications_title">Ficha maudhui ya arifa</string>
+    <string name="help_notifications_step1">Fungua Arifa katika Mipangilio na uzime chaguo la kuonyesha mtumaji na ujumbe.</string>
+    <string name="help_notifications_step2">Angalia mfano na mipangilio ya skrini iliyofungwa ya simu yako. Kwenye iPhone, hakikisho ndani ya Vipi lina swichi yake.</string>
+    <string name="help_safety_title">Thibitisha unayezungumza naye</string>
+    <string name="help_safety_step1">Katika mazungumzo na rafiki yako, fungua namba ya usalama. Linganisheni makundi yote 12 ya tarakimu ana kwa ana au kupitia simu mnayoiamini.</string>
+    <string name="help_safety_step2">Weka alama ya kuthibitisha ikiwa makundi yote yanafanana. Unaweza kumzuia au kumripoti mtu kupitia chaguo za mazungumzo. Hakiki taarifa utakazoshiriki kabla ya kutuma ripoti.</string>
+    <string name="help_backup_title">Hifadhi na urejeshe mazungumzo</string>
+    <string name="help_backup_step1">Fungua nakala rudufu ya gumzo katika Mipangilio. Tengeneza nakala iliyosimbwa kwa njia fiche, thibitisha nenosiri jipya na uchague mahali pa kuhifadhi faili. Weka nenosiri kando.</string>
+    <string name="help_backup_step2">Ili kurejesha, ingia kwenye akaunti ileile, chagua faili na uandike nenosiri lake. Soma muhtasari kabla ya kuthibitisha. Nakala ina historia ya mazungumzo na marafiki. Haina ujumbe ambao haujatumwa wala funguo za mawasiliano.</string>
+    <string name="help_groups_title">Anzisha kikundi</string>
+    <string name="help_groups_step1">Fungua gumzo jipya na uchague kikundi kipya. Kipe kikundi jina na uchague marafiki unaotaka kuwaalika.</string>
+    <string name="help_groups_step2">Hakiki orodha kabla ya kutuma mialiko. Katika Vikundi na mialiko unaweza kuona maombi na kuchagua vikundi vya kujiunga navyo.</string>
+    <string name="help_reading_title">Sikiliza na ubadili mfumo wa maandishi</string>
+    <string name="help_reading_step1">Gusa ujumbe wa mazoezi ili kuusikiliza. Gusa mara mbili ili kubadili kati ya maandishi asilia na namna ya kuyasoma ikiwa zote zinapatikana.</string>
+    <string name="help_reading_step2">Washa uchezaji wa kiotomatiki katika chaguo za mazungumzo ili kusikia ujumbe mpya. Uchezaji hukoma ukiondoka. Ikiwa sauti au lugha haipo, fuata maelekezo ya kuipakua.</string>
+    <string name="help_status_title">Elewa alama za uwasilishaji</string>
+    <string name="help_status_step1">Alama moja inaonyesha Vipi imepokea ujumbe. Mbili zinaonyesha umefika kwenye kifaa cha rafiki yako. Rangi hubadilika programu yake inapothibitisha kuwa ujumbe ulionyeshwa.</string>
+    <string name="help_status_step2">Ujumbe ukikosekana, unganisha tena na ufungue mazungumzo. Ujumbe ambao haujawasilishwa huisha baada ya saa 72. Tuma ujumbe mpya ikiwa bado unahitajika.</string>
+    <string name="help_account_title">Unganisha tena au badili simu</string>
+    <string name="help_account_step1">Ikiwa Vipi inakuomba uingie tena, tumia akaunti ileile. Gumzo zilizohifadhiwa hubaki kwenye kifaa hiki.</string>
+    <string name="help_account_step2">Ukichagua Tumia kifaa hiki, simu mpya itaanza kutumika na ya awali itatenganishwa. Ujumbe unaosubiri kuwasilishwa hauhamishwi. Linganisha namba mpya ya usalama na marafiki zako.</string>
+    <string name="help_email">Tuma barua pepe kwa usaidizi</string>
+</resources>

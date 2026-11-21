@@ -545,7 +545,7 @@ private struct PrivacyPromiseMark: View {
 }
 
 struct PrivacyPromiseView: View {
-    static let policy = URL(string: "https://api.mambovipi.app/privacy")!
+    static let policy = URL(string: "https://mambovipi.app/privacy.html")!
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
@@ -602,7 +602,7 @@ struct SettingsView: View {
                 NavigationLink { LanguageDownloadView() } label: {
                     LabeledContent("Languages") { Text(VipiLanguage.named(state.targetLanguage).localizedName).foregroundStyle(VipiDesign.secondary) }
                 }.accessibilityIdentifier("language-settings-link")
-                NavigationLink("Immersion guide") { ImmersionTutorialView() }.accessibilityIdentifier("tutorial-reentry")
+                NavigationLink { NativeHelpView() } label: { Text("help_title", tableName: "NativeHelp") }.accessibilityIdentifier("settings-help")
                 Picker("Immersion",selection:$state.immersionMode) {
                     ForEach(ImmersionMode.allCases) { Text($0.title).tag($0) }
                 }.accessibilityIdentifier("settings-immersion-picker")
@@ -641,8 +641,7 @@ struct SettingsView: View {
                 .accessibilityIdentifier("settings-privacy-promise")
             }
             Section {
-                Link("Terms of Service", destination: URL(string: "https://api.mambovipi.app/terms")!)
-                Link("Help and safety", destination: URL(string: "https://api.mambovipi.app/help")!)
+                Link("Terms of Service", destination: URL(string: "https://mambovipi.app/terms.html")!)
                 NavigationLink("Licenses and notices") { NoticesView() }
                 LabeledContent("Made by") {
                     Text(verbatim: "FallSoft.Co").foregroundStyle(VipiDesign.secondary)

@@ -1,0 +1,32 @@
+<resources>
+    <string name="help_guide_intro">Experimente os dois modos de imersão numa mensagem de exemplo. Mantenha o dedo na mensagem para ver o original.</string>
+    <string name="help_guides">Mais guias</string>
+    <string name="help_friends_title">Encontrar e convidar amigos</string>
+    <string name="help_friends_step1">Em Conversas, inicie uma conversa. Escolha um amigo ou introduza o nome de utilizador exato dessa pessoa no Vipi.</string>
+    <string name="help_friends_step2">Para convidar alguém que ainda não usa o Vipi, escolha Convidar um amigo. Reveja o convite antes de o enviar.</string>
+    <string name="help_languages_title">Escolher um idioma para praticar</string>
+    <string name="help_languages_step1">Toque no idioma no topo de Conversas e escolha o que pretende praticar.</string>
+    <string name="help_languages_step2">Nas Definições, abra Idiomas para gerir os ficheiros de idioma. Toque numa mensagem para a ouvir quando houver uma voz disponível.</string>
+    <string name="help_notifications_title">Ocultar o conteúdo das notificações</string>
+    <string name="help_notifications_step1">Nas Definições, abra Notificações e desative a apresentação do remetente e da mensagem.</string>
+    <string name="help_notifications_step2">Veja o exemplo e as definições do ecrã bloqueado. No iPhone, as pré-visualizações dentro do Vipi têm um controlo próprio.</string>
+    <string name="help_safety_title">Verificar a identidade de um amigo</string>
+    <string name="help_safety_step1">Abra o número de segurança na conversa. Comparem os 12 grupos de algarismos pessoalmente ou numa chamada de confiança.</string>
+    <string name="help_safety_step2">Marque como verificado apenas se todos os grupos coincidirem. Nas opções da conversa pode bloquear ou denunciar alguém. Confira o conteúdo antes de enviar uma denúncia.</string>
+    <string name="help_backup_title">Guardar e restaurar conversas</string>
+    <string name="help_backup_step1">Abra Cópia de segurança nas Definições. Crie uma cópia cifrada, confirme uma nova palavra-passe e escolha onde guardar o ficheiro. Guarde a palavra-passe em separado.</string>
+    <string name="help_backup_step2">Para restaurar, entre na mesma conta, selecione o ficheiro, introduza a palavra-passe e reveja o resumo. A cópia inclui o histórico com amigos. Exclui mensagens por enviar e chaves de mensagens.</string>
+    <string name="help_groups_title">Criar um grupo</string>
+    <string name="help_groups_step1">Abra Nova conversa e escolha Novo grupo. Dê um nome ao grupo e selecione os amigos a convidar.</string>
+    <string name="help_groups_step2">Reveja a seleção antes de enviar os convites. Em Grupos e convites, veja os pedidos e escolha os grupos a que pretende aderir.</string>
+    <string name="help_reading_title">Ouvir e mudar de escrita</string>
+    <string name="help_reading_step1">Toque numa mensagem para a ouvir. Toque duas vezes para alternar entre a escrita original e a sua leitura quando ambas estiverem disponíveis.</string>
+    <string name="help_reading_step2">Ative a reprodução automática nas opções para ouvir as novas mensagens. A reprodução para ao sair da conversa. Se faltar uma voz ou um idioma, siga as instruções de transferência.</string>
+    <string name="help_status_title">Entender as marcas de entrega</string>
+    <string name="help_status_step1">Uma marca indica que o Vipi aceitou a mensagem. Duas indicam que chegou ao dispositivo do seu amigo. Mudam de cor quando a aplicação do seu amigo confirma a apresentação da mensagem.</string>
+    <string name="help_status_step2">Se faltar uma mensagem, volte a estabelecer ligação e reabra a conversa. As mensagens não entregues expiram após 72 horas. Envie uma nova se ainda fizer sentido.</string>
+    <string name="help_account_title">Voltar a entrar ou mudar de telemóvel</string>
+    <string name="help_account_step1">Se o Vipi pedir para iniciar sessão novamente, use a mesma conta. As conversas guardadas ficam neste dispositivo.</string>
+    <string name="help_account_step2">Usar este dispositivo ativa o novo telemóvel e desliga o anterior. As entregas pendentes não passam para o novo dispositivo. Compare o novo número de segurança com os seus amigos.</string>
+    <string name="help_email">Enviar e-mail ao apoio</string>
+</resources>

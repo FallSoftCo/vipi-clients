@@ -1,0 +1,32 @@
+<resources>
+    <string name="help_guide_intro">用一則範例訊息試試兩種沉浸模式。按住即可查看朋友寫的原文。</string>
+    <string name="help_guides">更多指南</string>
+    <string name="help_friends_title">尋找並邀請朋友</string>
+    <string name="help_friends_step1">在聊天中開始新對話。選擇已儲存的朋友，或輸入對方完整、正確的 Vipi 使用者名稱。</string>
+    <string name="help_friends_step2">如果對方還沒使用 Vipi，請選擇「邀請朋友」，檢查邀請內容後再傳送。</string>
+    <string name="help_languages_title">選擇練習語言</string>
+    <string name="help_languages_step1">點一下聊天頂端的語言，選擇想練習的語言。</string>
+    <string name="help_languages_step2">在設定中打開語言選項，管理需要下載的語言。語音可用時，點一下練習訊息即可聆聽。</string>
+    <string name="help_notifications_title">隱藏通知預覽</string>
+    <string name="help_notifications_step1">在設定中打開通知，關閉顯示傳送者和訊息的選項。</string>
+    <string name="help_notifications_step2">查看顯示範例與手機的鎖定畫面設定。在 iPhone 上，Vipi 內的預覽有獨立的開關。</string>
+    <string name="help_safety_title">確認聊天對象</string>
+    <string name="help_safety_step1">在與朋友的對話中打開安全號碼。當面或透過可信任的通話核對全部 12 組數字。</string>
+    <string name="help_safety_step2">只有全部相符時才標示為已驗證。從對話選項可以封鎖或檢舉對方。送出檢舉前請確認將分享的內容。</string>
+    <string name="help_backup_title">儲存與還原聊天</string>
+    <string name="help_backup_step1">在設定中打開聊天備份，建立加密備份，確認新密碼，然後選擇檔案的儲存位置。請將密碼另外保管。</string>
+    <string name="help_backup_step2">還原時請登入同一帳號，選擇檔案、輸入密碼，核對摘要後再確認。備份含有與朋友的聊天記錄，不含未傳送的訊息和通訊金鑰。</string>
+    <string name="help_groups_title">建立群組</string>
+    <string name="help_groups_step1">在新聊天中選擇新增群組。輸入群組名稱，選擇要邀請的朋友。</string>
+    <string name="help_groups_step2">傳送邀請前請核對名單。在「群組與邀請」中查看邀請，選擇要加入的群組。</string>
+    <string name="help_reading_title">聆聽及切換文字</string>
+    <string name="help_reading_step1">點一下練習訊息即可聆聽。同時提供原文文字與讀音時，點兩下即可切換顯示方式。</string>
+    <string name="help_reading_step2">在對話選項中開啟自動播放，即可聆聽新訊息。離開對話後會停止播放。如果缺少語音或語言，請依提示下載。</string>
+    <string name="help_status_title">了解送達標記</string>
+    <string name="help_status_step1">一個勾表示 Vipi 已受理訊息，兩個勾表示已送達朋友的裝置。對方的 App 確認已顯示訊息後，勾的顏色會改變。</string>
+    <string name="help_status_step2">如果找不到訊息，請重新連線並開啟對話。未送達的訊息會在 72 小時後過期。如果仍有需要，請傳送新訊息。</string>
+    <string name="help_account_title">重新連線或更換手機</string>
+    <string name="help_account_step1">如果 Vipi 要求重新登入，請使用同一帳號。已儲存的聊天仍在這部裝置上。</string>
+    <string name="help_account_step2">選擇「使用這部裝置」會啟用新手機並中斷舊裝置的連線。等待送達的訊息無法轉移。請與朋友核對新的安全號碼。</string>
+    <string name="help_email">傳送電子郵件給支援團隊</string>
+</resources>

@@ -1,0 +1,32 @@
+<resources>
+    <string name="help_guide_intro">用一条示例消息试试两种沉浸模式。按住即可查看朋友写的原文。</string>
+    <string name="help_guides">更多指南</string>
+    <string name="help_friends_title">查找并邀请朋友</string>
+    <string name="help_friends_step1">在聊天中发起新对话。选择已保存的朋友，或输入对方完整、准确的 Vipi 用户名。</string>
+    <string name="help_friends_step2">如果对方还没有使用 Vipi，请选择“邀请朋友”，检查邀请内容后再发送。</string>
+    <string name="help_languages_title">选择练习语言</string>
+    <string name="help_languages_step1">轻点聊天顶部的语言，选择想练习的语言。</string>
+    <string name="help_languages_step2">在设置中打开语言选项，管理所需的语言下载。语音可用时，轻点练习消息即可收听。</string>
+    <string name="help_notifications_title">隐藏通知预览</string>
+    <string name="help_notifications_step1">在设置中打开通知，关闭显示发件人和消息的选项。</string>
+    <string name="help_notifications_step2">检查显示示例和手机的锁屏设置。在 iPhone 上，Vipi 内的预览有单独的开关。</string>
+    <string name="help_safety_title">确认聊天对象</string>
+    <string name="help_safety_step1">在与朋友的对话中打开安全号码。当面或通过可信的通话核对全部 12 组数字。</string>
+    <string name="help_safety_step2">只有全部一致时才标记为已验证。通过对话选项可以屏蔽或举报对方。提交举报前请核对将要分享的内容。</string>
+    <string name="help_backup_title">保存和恢复聊天</string>
+    <string name="help_backup_step1">在设置中打开聊天备份，创建加密备份，确认新密码，然后选择文件的保存位置。请将密码单独保管。</string>
+    <string name="help_backup_step2">恢复时请登录同一账户，选择文件，输入密码，核对摘要后再确认。备份包含与朋友的聊天记录，不含未发送的消息和消息加密密钥。</string>
+    <string name="help_groups_title">创建群组</string>
+    <string name="help_groups_step1">在新建聊天中选择新建群组。输入群名，选择要邀请的朋友。</string>
+    <string name="help_groups_step2">发送邀请前请核对名单。在“群组和邀请”中查看请求，选择要加入的群组。</string>
+    <string name="help_reading_title">收听和切换文字</string>
+    <string name="help_reading_step1">轻点练习消息即可收听。如果同时提供原文字形和读音，轻点两次可以切换显示方式。</string>
+    <string name="help_reading_step2">在对话选项中开启自动播放，即可收听新消息。离开对话后会停止播放。如果缺少语音或语言，请按提示下载。</string>
+    <string name="help_status_title">了解送达标记</string>
+    <string name="help_status_step1">一个勾表示 Vipi 已接受消息，两个勾表示已送达朋友的设备。对方的应用确认已显示消息后，勾的颜色会改变。</string>
+    <string name="help_status_step2">如果找不到消息，请重新连接并打开对话。未送达的消息会在 72 小时后过期。如果仍有需要，请发送一条新消息。</string>
+    <string name="help_account_title">重新连接或更换手机</string>
+    <string name="help_account_step1">如果 Vipi 要求重新登录，请使用同一账户。已保存的聊天仍在本设备上。</string>
+    <string name="help_account_step2">选择“使用此设备”会激活新手机，并断开旧设备。等待送达的消息无法转移。请和朋友核对新的安全号码。</string>
+    <string name="help_email">给支持团队发邮件</string>
+</resources>

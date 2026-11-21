@@ -201,6 +201,7 @@ class MainActivity : ComponentActivity() {
                     scrolling = scrollState.isScrollInProgress, translatorFactory = model.translationFactory)
                 Screen.ACCOUNT -> AccountView()
                 Screen.SETTINGS -> SettingsView(model)
+                Screen.HELP -> NativeHelpContent(model::openTutorial)
                 Screen.NEW_CHAT -> Unit
                 Screen.LANGUAGE_DOWNLOAD -> DownloadView(model)
                 Screen.PROFILE -> ProfileSetupScreen(model)
@@ -231,6 +232,7 @@ class MainActivity : ComponentActivity() {
         Text(stringResource(when (model.screen) {
             Screen.NEW_CHAT -> R.string.nav_new_chat
             Screen.SETTINGS -> R.string.settings_title
+            Screen.HELP -> R.string.nav_help
             else -> R.string.ui_2f7e29fbc47d
         }), fontSize = 27.sp, letterSpacing = (-1).sp, fontWeight = FontWeight.SemiBold, maxLines = 1, softWrap = false)
         if (trailing == null) Spacer(Modifier.weight(1f))
@@ -325,8 +327,8 @@ class MainActivity : ComponentActivity() {
                 Text(stringResource(R.string.ui_9ed65d7add5f), fontSize = 16.sp, lineHeight = 24.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             val legalLinks: @Composable () -> Unit = {
-                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/terms"))) }) { Text(stringResource(R.string.terms_service), fontSize = 15.sp) }
-                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://api.mambovipi.app/privacy"))) }) { Text(stringResource(R.string.privacy_policy), fontSize = 15.sp) }
+                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://mambovipi.app/terms.html"))) }) { Text(stringResource(R.string.terms_service), fontSize = 15.sp) }
+                TextButton(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://mambovipi.app/privacy.html"))) }) { Text(stringResource(R.string.privacy_policy), fontSize = 15.sp) }
             }
             if (largeText) Column(verticalArrangement = Arrangement.spacedBy(4.dp)) { legalLinks() }
             else Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) { legalLinks() }
@@ -391,7 +393,7 @@ class MainActivity : ComponentActivity() {
     }
     SettingsGroup(stringResource(R.string.ui_339484dc1f78)) {
         LanguageSettingsLink(languageName(model.targetLanguage)) { model.navigate(Screen.LANGUAGE_DOWNLOAD) }
-        SettingsAction(stringResource(R.string.tutorial_reentry), Modifier.testTag("tutorial-reentry"), action = model::openTutorial)
+        SettingsAction(stringResource(R.string.nav_help), Modifier.testTag("settings-help")) { model.navigate(Screen.HELP) }
         if (profile != null) SettingsAction(stringResource(R.string.ui_24f13e3dc8e4)) { model.navigate(Screen.BACKUP) }
     }
     SettingsGroup(stringResource(R.string.ui_3907fa7f8072)) {
@@ -430,10 +432,10 @@ class MainActivity : ComponentActivity() {
         Text(stringResource(R.string.settings_preview_lockscreen), style = MaterialTheme.typography.bodySmall, color = secondary)
     }
     SettingsGroup(stringResource(R.string.settings_about)) {
-        listOf(R.string.nav_help to "help", R.string.nav_privacy to "privacy", R.string.nav_terms to "terms").forEach { (title, path) ->
+        listOf(R.string.nav_privacy to "privacy", R.string.nav_terms to "terms").forEach { (title, path) ->
             if (title == R.string.nav_privacy) SettingsPrivacyPromise()
             SettingsAction(stringResource(title)) {
-                runCatching { uri.openUri("https://api.mambovipi.app/$path") }.onFailure { linkError = context.getString(R.string.settings_page_open_failed) }
+                runCatching { uri.openUri("https://mambovipi.app/$path.html") }.onFailure { linkError = context.getString(R.string.settings_page_open_failed) }
             }
         }
         linkError?.let { Text(it, color = MaterialTheme.colorScheme.error) }

@@ -82,10 +82,11 @@ class ImmersionTutorialDeviceTest {
                 assertEquals(ImmersionMode.NEW_WORD, f.model.immersionMode)
                 assertEquals("qa_friend", f.model.invitationUsername); assertNull(f.model.chat)
                 compose.runOnIdle { f.model.navigate(Screen.SETTINGS) }
+                compose.onNodeWithTag("settings-help").performScrollTo().performClick()
                 compose.onNodeWithTag("tutorial-reentry").performScrollTo().performClick()
                 compose.waitUntil { f.model.screen == Screen.TUTORIAL }
                 compose.onNodeWithText(f.base.getString(R.string.continue_action)).performClick()
-                compose.waitUntil { f.model.screen == Screen.SETTINGS }
+                compose.waitUntil { f.model.screen == Screen.HELP }
                 File(f.output,"result.json").writeText(JSONObject().put("real_local_translation",true).put("actual_voice_started",actualPlayback)
                     .put("source",source).put("shallow",shallow).put("deep",deep).put("same_shallow_plan",true)
                     .put("invitation_preserved",true).put("account_or_transport_created",false).toString(2))
