@@ -393,9 +393,17 @@ class InboxJourneyDeviceTest {
                 // The chip owns the accessibility value; inspect its real drawn label separately.
                 val textLayout = compose.onNodeWithTag("inbox-practice-text", useUnmergedTree = true)
                 textLayout.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(layout) }
-                assertEquals(state, layout.single().layoutInput.text.text)
-                assertFalse(layout.single().hasVisualOverflow)
-                assertEquals(androidx.compose.ui.text.font.FontWeight.Bold, layout.single().layoutInput.style.fontWeight)
+                val drawn = layout.single()
+                assertEquals(state, drawn.layoutInput.text.text)
+                assertEquals(state.length, drawn.getLineEnd(drawn.lineCount - 1))
+                for (line in 0 until drawn.lineCount) {
+                    assertFalse(drawn.isLineEllipsized(line))
+                    // Glyph metrics are fractional pixels; the measured view bounds are integers.
+                    assertTrue("Glyphs fit inside text area: ${drawn.getLineLeft(line)}..${drawn.getLineRight(line)} of ${drawn.size}",
+                        drawn.getLineLeft(line) >= -1f && drawn.getLineRight(line) <= drawn.size.width + 1f)
+                }
+                assertTrue(drawn.getLineBottom(drawn.lineCount - 1) <= drawn.size.height + 1f)
+                assertEquals(androidx.compose.ui.text.font.FontWeight.Bold, drawn.layoutInput.style.fontWeight)
                 File(f.output, "practice-geometry.json").writeText(JSONObject()
                     .put("locale", f.base.resources.configuration.locales[0].toLanguageTag())
                     .put("font_scale", f.base.resources.configuration.fontScale)
