@@ -14,8 +14,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.outlined.VolumeUp
-import androidx.compose.material.icons.outlined.VolumeOff
 import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.outlined.Lock
@@ -36,11 +34,8 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.semantics.onClick
-import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.selected
-import androidx.compose.ui.semantics.toggleableState
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.scrollToIndex
 import androidx.compose.ui.text.font.FontFamily
@@ -345,8 +340,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     val minimumComposerHeight = maxOf(OutlinedTextFieldDefaults.MinHeight,
         with(viewDensity) { resolvedComposeLineHeight(MaterialTheme.typography.bodyLarge) } +
             composerPadding.calculateTopPadding() + composerPadding.calculateBottomPadding())
-    val separateControls = viewDensity.fontScale >= 1.3f || maxWidth < 600.dp
-    val normalTopBarHeight = (if (separateControls) 48.dp else 0.dp) + TopAppBarDefaults.TopAppBarExpandedHeight +
+    val normalTopBarHeight = TopAppBarDefaults.TopAppBarExpandedHeight +
         with(viewDensity) { TopAppBarDefaults.windowInsets.getTop(this).toDp() }
     val availableHeight = (maxHeight - with(viewDensity) { topBarHeightPx.toDp() } - bottomInsets).coerceAtLeast(0.dp)
     // Native StableImmersionText has its own font/slot metrics. This scaled
@@ -378,41 +372,30 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     // Keep normal expansion when it fits; longer drafts scroll inside the real
     // editor instead of collapsing the timeline or moving controls under IME.
     val composerMaxHeight = maxOf(minimumComposerHeight, footerContentHeight - statusLineHeight - composerOuterPadding)
-    val controls: @Composable () -> Unit = {
-        val enabled = audio?.enabled == true
-        val action = stringResource(if (enabled) R.string.autoplay_turn_off else R.string.autoplay_turn_on)
-        FilterChip(selected = enabled, enabled = audio != null, onClick = {
-            audio?.setAutoplayEnabled(!enabled)
-            if (!enabled && audio?.enabled == true)
-                android.widget.Toast.makeText(context, R.string.autoplay_on_notice, android.widget.Toast.LENGTH_SHORT).show()
-        }, label = { Text(stringResource(R.string.autoplay_label)) },
-            leadingIcon = { Icon(if (enabled) Icons.Outlined.VolumeUp else Icons.Outlined.VolumeOff, null, Modifier.size(18.dp)) },
-            modifier = Modifier.heightIn(min = 48.dp).testTag("conversation-autoplay").semantics {
-                role = androidx.compose.ui.semantics.Role.Switch
-                toggleableState = if (enabled) androidx.compose.ui.state.ToggleableState.On else androidx.compose.ui.state.ToggleableState.Off
-                onClick(label = action, action = null)
-            })
-        if (onImmersionMode != null) ChatModeToggle(translation?.mode ?: ImmersionMode.NEW_WORD) {
-            audio?.close()
-            onImmersionMode(if (translation?.mode == ImmersionMode.FULL_MESSAGES) ImmersionMode.NEW_WORD else ImmersionMode.FULL_MESSAGES)
-        }
-    }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
-        topBar = { Column(Modifier.onSizeChanged { topBarHeightPx = it.height }.background(MaterialTheme.colorScheme.background)) {
-            TopAppBar(title = { Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(9.dp)) {
-                ContactAvatar(chat.name(peer), peer)
-                Text(chat.name(peer), maxLines = 1, overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis)
-            } },
-            expandedHeight = if (compact) compactBarHeight else TopAppBarDefaults.TopAppBarExpandedHeight, colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background), navigationIcon = { IconButton(back) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
-            actions = {
-                if (!separateControls) Row(verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)) { controls() }
+        topBar = {
+            val mode = translation?.mode ?: ImmersionMode.NEW_WORD
+            ConversationHeader(chat.name(peer), peer, audio?.enabled == true, audio != null,
+                    onAutoplay = {
+                        val enable = audio?.enabled != true
+                        audio?.setAutoplayEnabled(enable)
+                        if (enable && audio?.enabled == true)
+                            android.widget.Toast.makeText(context, R.string.autoplay_on_notice, android.widget.Toast.LENGTH_SHORT).show()
+                    }, mode = mode, onMode = onImmersionMode?.let { change -> {
+                        audio?.close()
+                        change(if (mode == ImmersionMode.FULL_MESSAGES) ImmersionMode.NEW_WORD else ImmersionMode.FULL_MESSAGES)
+                    } }, minHeight = if (compact) compactBarHeight else TopAppBarDefaults.TopAppBarExpandedHeight,
+                modifier = Modifier.fillMaxWidth().onSizeChanged { topBarHeightPx = it.height }
+                    .background(MaterialTheme.colorScheme.background).windowInsetsPadding(TopAppBarDefaults.windowInsets)
+                    .padding(horizontal = 4.dp), back = {
+                    IconButton(back, Modifier.size(48.dp)) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) }
+                }) {
                 Box {
                     IconButton(onClick = {
                         copyOriginImeVisible = keyboardInsets.getBottom(viewDensity) > 0
                         copyOriginComposerFocused = composing
                         options = true
-                    }, enabled = !blockBusy, modifier = Modifier.testTag("conversation-options")) {
+                    }, enabled = !blockBusy, modifier = Modifier.size(48.dp).testTag("conversation-options")) {
                         if (blockBusy) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
                         else Icon(Icons.Outlined.MoreVert, stringResource(R.string.ui_af8a897d2feb))
                     }
@@ -435,17 +418,14 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                         DropdownMenuItem(text = { Text(if (blocked) stringResource(R.string.ui_712da63171e0) else stringResource(R.string.ui_211d0bb8cf4f)) }, onClick = { options = false; confirmBlock = true })
                     }
                 }
-            })
-            if (separateControls) FlowRow(Modifier.fillMaxWidth().padding(horizontal = 12.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
-                itemVerticalAlignment = Alignment.CenterVertically) { controls() }
-        } },
+            }
+        },
         bottomBar = {
             // Scaffold measures bars independently. Keep the complete footer
             // below the measured toolbar, even with a multiline draft and IME.
             Column(Modifier.heightIn(max = footerMaxHeight).background(MaterialTheme.colorScheme.background).navigationBarsPadding().imePadding()) {
                 Column(Modifier.fillMaxWidth().weight(1f, fill = false).verticalScroll(composerStatusScroll)) {
-                if (notificationEducation != null) ReplyNotificationCard(notificationEducation, onNotificationPermission)
+                if (notificationEducation != null) ReplyNotificationCard(notificationEducation, chat.notificationPreviews, onNotificationPermission)
                 if (rejectedDraftEdit || messageTooLong) Text(
                     stringResource(if (rejectedDraftEdit) R.string.draft_edit_too_large else R.string.bot_message_too_long),
                     color = MaterialTheme.colorScheme.error, fontSize = 14.sp,

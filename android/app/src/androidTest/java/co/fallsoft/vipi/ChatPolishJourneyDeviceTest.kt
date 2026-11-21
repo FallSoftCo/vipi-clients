@@ -234,13 +234,40 @@ class ChatPolishJourneyDeviceTest {
             }
         }
     }
+    @Test fun privateFirstReplyInvitationKeepsPreviewsOff() {
+        val service = services(); peer = service.peer
+        MainActivityJourneyFixture("private-first-reply", service::model).use { f ->
+            try {
+                check(!PushDelivery.allowed(f.base))
+                open(f, Appearance.LIGHT)
+                compose.runOnIdle { f.model.chat!!.changeNotificationPreviews(false) }
+                compose.onNodeWithTag("reply-notification-card").assertDoesNotExist()
+                send(f, originals[0])
+                compose.onNodeWithText(f.base.getString(R.string.notification_reply_prompt_private, "Maya")).assertIsDisplayed()
+                compose.onNodeWithTag("reply-notification-allow").assertIsDisplayed()
+                f.capture("first-reply-preview-off")
+                compose.onNodeWithTag("reply-notification-later").performClick()
+                compose.onNodeWithTag("reply-notification-card").assertDoesNotExist()
+                assertFalse(f.model.chat!!.notificationPreviews)
+                assertFalse(PushDelivery.allowed(f.base))
+                f.relaunch(service::model); screen(f, Screen.HOME)
+                assertTrue(f.model.replyNotificationEducation.shownOrHandled)
+                assertFalse(f.model.chat!!.notificationPreviews)
+            } finally { f.stopActivity(); service.close() }
+        }
+    }
     @Test fun firstSendNotificationOptInIsExplicitAndNotRepeatedAfterReopen() {
         val service = services(); peer = service.peer
         MainActivityJourneyFixture("chat-notification-opt-in", service::model).use { f ->
             try {
                 check(!PushDelivery.allowed(f.base)) { "Requires externally preserved, denied QA notification permission" }
-                open(f, Appearance.LIGHT); send(f, originals[0])
+                open(f, Appearance.LIGHT)
+                compose.onNodeWithTag("reply-notification-card").assertDoesNotExist()
+                assertTrue(f.model.chat!!.notificationPreviews)
+                send(f, originals[0])
+                compose.onNodeWithText(f.base.getString(R.string.notification_reply_prompt, "Maya")).assertIsDisplayed()
                 compose.onNodeWithTag("reply-notification-card").assertIsDisplayed()
+                f.capture("first-reply-preview-on")
                 assertFalse(PushDelivery.allowed(f.base))
                 compose.onNodeWithTag("reply-notification-allow").performClick()
                 val allow = f.device.wait(Until.findObject(By.res(Pattern.compile(".*:id/permission_allow_button"))), 8_000)

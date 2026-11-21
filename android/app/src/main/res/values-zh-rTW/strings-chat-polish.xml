@@ -7,7 +7,8 @@
     <string name="delivery_read">已讀</string>
     <string name="delivery_unknown">狀態未知</string>
     <string name="delivery_received">已接收</string>
-    <string name="notification_reply_prompt">%1$s回覆時通知我？</string>
+    <string name="notification_reply_prompt">要在通知中顯示%1$s的回覆嗎？</string>
+    <string name="notification_reply_prompt_private">要在%1$s回覆時通知我，但隱藏訊息內容嗎？</string>
     <string name="notification_reply_allow">通知我</string>
     <string name="notification_reply_later">暫時不要</string>
     <plurals name="inbox_unread">

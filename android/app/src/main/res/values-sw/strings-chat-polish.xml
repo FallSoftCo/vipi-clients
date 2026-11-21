@@ -7,7 +7,8 @@
     <string name="delivery_read">Umesomwa</string>
     <string name="delivery_unknown">Hali haijulikani</string>
     <string name="delivery_received">Umepokelewa</string>
-    <string name="notification_reply_prompt">Unijulishe %1$s akijibu?</string>
+    <string name="notification_reply_prompt">Uonyeshwe jibu la %1$s kwenye arifa?</string>
+    <string name="notification_reply_prompt_private">Uarifiwe %1$s akijibu bila kuonyesha ujumbe?</string>
     <string name="notification_reply_allow">Nijulishe</string>
     <string name="notification_reply_later">Si sasa</string>
     <plurals name="inbox_unread">

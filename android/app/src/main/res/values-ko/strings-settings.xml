@@ -4,7 +4,8 @@
     <string name="settings_delivery">메시지 알림</string>
     <string name="settings_on">켜짐</string>
     <string name="settings_off">꺼짐</string>
-    <string name="settings_message_previews">메시지 미리보기 표시</string>
+    <string name="settings_message_previews">보낸 사람과 메시지 표시</string>
+    <string name="settings_preview_lockscreen">잠금 화면에 표시되는 내용은 Android 설정을 따릅니다.</string>
     <string name="settings_example">알림 예시</string>
     <string name="settings_sample_sender">마야</string>
     <string name="settings_sample_message">여섯 시에 커피 마실래?</string>

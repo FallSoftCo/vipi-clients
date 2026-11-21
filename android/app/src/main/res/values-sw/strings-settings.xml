@@ -4,7 +4,8 @@
     <string name="settings_delivery">Arifa za ujumbe</string>
     <string name="settings_on">Zimewashwa</string>
     <string name="settings_off">Zimezimwa</string>
-    <string name="settings_message_previews">Onyesha hakikisho la ujumbe</string>
+    <string name="settings_message_previews">Onyesha mtumaji na ujumbe</string>
+    <string name="settings_preview_lockscreen">Android hudhibiti kinachoonekana kwenye skrini iliyofungwa.</string>
     <string name="settings_example">Mfano wa arifa</string>
     <string name="settings_sample_sender">Maya</string>
     <string name="settings_sample_message">Tunywe kahawa saa kumi na mbili?</string>

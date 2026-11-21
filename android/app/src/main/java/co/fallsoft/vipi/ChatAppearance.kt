@@ -1,7 +1,5 @@
 package co.fallsoft.vipi
 
-import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -17,7 +15,6 @@ import androidx.compose.ui.draw.dropShadow
 import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.platform.testTag
@@ -67,36 +64,6 @@ import java.util.Locale
             MaterialTheme(colorScheme = MaterialTheme.colorScheme.copy(
                 onSurface = context.ink, onSurfaceVariant = context.secondary,
                 primary = context.action, onPrimary = context.onAction, error = context.failed)) { content() }
-        }
-    }
-}
-
-@Composable internal fun ChatModeToggle(mode: ImmersionMode, onToggle: () -> Unit) {
-    val full = mode == ImmersionMode.FULL_MESSAGES
-    val title = stringResource(R.string.immersion_mode_title)
-    val state = stringResource(if (full) R.string.immersion_mode_full else R.string.immersion_mode_words_short)
-    val next = stringResource(if (full) R.string.immersion_mode_words_short else R.string.immersion_mode_full)
-    val action = stringResource(R.string.chat_switch_mode, next)
-    FilledTonalButton(onClick = onToggle, contentPadding = PaddingValues(horizontal = 12.dp),
-        modifier = Modifier.heightIn(min = 48.dp).testTag("conversation-immersion").semantics {
-            role = Role.Switch; toggleableState = if (full) androidx.compose.ui.state.ToggleableState.On else androidx.compose.ui.state.ToggleableState.Off
-            contentDescription = title; stateDescription = state; onClick(label = action, action = null)
-        }) {
-        val depth = animateFloatAsState(if (full) 1f else 0f, tween(200), label = "Immersion control")
-        // Both labels set the intrinsic width, including in translated layouts.
-        // The switch owns the accessible name and current value.
-        Box(contentAlignment = Alignment.Center, modifier = Modifier.clearAndSetSemantics { }) {
-            for (deepLabel in listOf(false, true)) {
-                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.graphicsLayer {
-                    val progress = depth.value
-                    alpha = if (deepLabel == (progress >= .5f)) .78f + .22f * kotlin.math.abs(2f * progress - 1f) else 0f
-                }) {
-                    Icon(if (deepLabel) Icons.Outlined.Anchor else Icons.Outlined.Waves, null, Modifier.size(18.dp))
-                    Spacer(Modifier.width(6.dp))
-                    Text(stringResource(if (deepLabel) R.string.immersion_mode_full else R.string.immersion_mode_words_short),
-                        maxLines = 2, fontWeight = FontWeight.SemiBold)
-                }
-            }
         }
     }
 }

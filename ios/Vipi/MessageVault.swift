@@ -35,6 +35,9 @@ final class MessageVault: @unchecked Sendable {
         var folder = root.appendingPathComponent(account.uuidString.lowercased(), isDirectory: true)
         url = folder.appendingPathComponent("messages.sqlite")
         var newAccount = false
+        #if !VIPI_NOTIFICATION_EXTENSION
+        let initializationKey = "messages-initializing-" + account.uuidString.lowercased()
+        #endif
         if let previewKey {
             guard previewKey.count == 32, FileManager.default.fileExists(atPath: url.path) else { throw Failure.missingKey }
             key = SymmetricKey(data: previewKey)
@@ -43,11 +46,15 @@ final class MessageVault: @unchecked Sendable {
             throw Failure.missingKey
             #else
             let keyName = "messages-\(account.uuidString.lowercased())"
+            if directory == nil { newAccount = try KeychainStore.read(account: initializationKey) == Data([1]) }
             if let data = try KeychainStore.read(account: keyName) {
-                guard data.count == 32, directory != nil || FileManager.default.fileExists(atPath: url.path) else { throw Failure.missingKey }
+                guard data.count == 32, directory != nil || newAccount || FileManager.default.fileExists(atPath: url.path) else { throw Failure.missingKey }
                 key = SymmetricKey(data: data)
             } else {
                 guard !FileManager.default.fileExists(atPath: url.path) else { throw Failure.missingKey }
+                // A first launch can end after writing its key but before creating SQLite.
+                // Only this explicit initialization may recover a missing production database.
+                if directory == nil { try KeychainStore.save(Data([1]), account: initializationKey) }
                 let created = SymmetricKey(size: .bits256)
                 try KeychainStore.save(created.withUnsafeBytes { Data($0) }, account: keyName)
                 key = created
@@ -77,6 +84,11 @@ final class MessageVault: @unchecked Sendable {
                     }
                 }
             }
+            #if !VIPI_NOTIFICATION_EXTENSION
+            if previewKey == nil, directory == nil, newAccount {
+                try KeychainStore.deleteChecked(account: initializationKey)
+            }
+            #endif
         } catch { sqlite3_close(database); database = nil; throw error }
     }
     func notificationConsent() throws -> NotificationConsent? {

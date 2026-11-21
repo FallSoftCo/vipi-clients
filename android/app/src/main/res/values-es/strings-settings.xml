@@ -4,7 +4,8 @@
     <string name="settings_delivery">Avisos de mensajes</string>
     <string name="settings_on">Activados</string>
     <string name="settings_off">Desactivados</string>
-    <string name="settings_message_previews">Mostrar vistas previas</string>
+    <string name="settings_message_previews">Mostrar remitente y mensaje</string>
+    <string name="settings_preview_lockscreen">Android controla lo que aparece en la pantalla de bloqueo.</string>
     <string name="settings_example">Ejemplo de notificación</string>
     <string name="settings_sample_sender">Maya</string>
     <string name="settings_sample_message">¿Tomamos un café a las seis?</string>

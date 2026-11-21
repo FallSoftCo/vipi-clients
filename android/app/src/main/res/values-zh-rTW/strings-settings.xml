@@ -4,7 +4,8 @@
     <string name="settings_delivery">訊息提醒</string>
     <string name="settings_on">開啟</string>
     <string name="settings_off">關閉</string>
-    <string name="settings_message_previews">顯示訊息預覽</string>
+    <string name="settings_message_previews">顯示寄件者和訊息</string>
+    <string name="settings_preview_lockscreen">鎖定畫面上顯示的內容由 Android 設定決定。</string>
     <string name="settings_example">通知範例</string>
     <string name="settings_sample_sender">瑪雅</string>
     <string name="settings_sample_message">六點喝杯咖啡？</string>
