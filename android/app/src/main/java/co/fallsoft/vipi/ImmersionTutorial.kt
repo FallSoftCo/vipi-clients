@@ -1,11 +1,11 @@
 package co.fallsoft.vipi
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
@@ -46,6 +46,8 @@ internal class ImmersionTutorialTranslations(context: android.content.Context, s
     val audio = remember(translation, speech) { ConversationAutoplay(translation, speech, scope) {} }
     val warmups = remember(target) { mapOf(target to "1") }
     val state = translation.state(id, text)
+    var hasPresentedExample by remember(owners) { mutableStateOf(false) }
+    SideEffect { if (state?.value != null) hasPresentedExample = true }
     LaunchedEffect(speech) { speech.prepare(warmups) }
     LaunchedEffect(mode) { gestures.mode = mode; gestures.held = false; gestures.accessibilityMeaning = false; speech.stop() }
     LaunchedEffect(gestures.meaning, scrolling) {
@@ -79,8 +81,15 @@ internal class ImmersionTutorialTranslations(context: android.content.Context, s
                 else OutlinedButton(onClick = choose, modifier = item, content = { label() })
             }
         }
-        Text(stringResource(if (mode == ImmersionMode.NEW_WORD) R.string.tutorial_shallow_description else R.string.tutorial_deep_description),
-            modifier = Modifier.animateContentSize(tween(220)), color = MaterialTheme.colorScheme.onSurfaceVariant)
+        // Reserve the taller localized description at this font size. Each
+        // sentence draws in full, and the example keeps its place below it.
+        Box(Modifier.fillMaxWidth()) {
+            ImmersionMode.entries.forEach { choice ->
+                val resource = if (choice == ImmersionMode.NEW_WORD) R.string.tutorial_shallow_description else R.string.tutorial_deep_description
+                Text(stringResource(resource), color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = if (mode == choice) Modifier else Modifier.alpha(0f).clearAndSetSemantics { })
+            }
+        }
     }
     // The same source/id stays in place; the normal local translator generates
     // the selected pair. No lookup outputs or example audio are supplied.
@@ -89,7 +98,7 @@ internal class ImmersionTutorialTranslations(context: android.content.Context, s
             FullMessageBubble(text, id, translation, gestures, audio) {}
         }
     }
-    if (state?.value != null) Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+    if (hasPresentedExample || state?.value != null) Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         if (speech.state in setOf(SpeechState.READY, SpeechState.RENDERING, SpeechState.PLAYING)) Text(stringResource(R.string.tutorial_tap), color = MaterialTheme.colorScheme.onSurfaceVariant)
         Text(stringResource(R.string.tutorial_hold), color = MaterialTheme.colorScheme.onSurfaceVariant)
         if (gestures.canSwitchScript) Text(stringResource(R.string.tutorial_script), color = MaterialTheme.colorScheme.onSurfaceVariant)
