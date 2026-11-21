@@ -761,6 +761,18 @@
       "flows": [
         "70fb813d-410c-4932-a4e9-daa49581978f"
       ]
+    },
+    {
+      "area": "Chats",
+      "title": "Conversation streaks in direct and group chats",
+      "note": "Snapchat shows a small streak count in conversation metadata. Duolingo pairs a friend-specific total with each identity. WhatsApp and Signal keep time and unread state at the trailing edge. Vipi places its twin waves and day count with the conversation identity, with the rule available inside the chat.",
+      "screens": [
+        "16a0e1d7-8c9b-4d6f-8ce3-ad3feaada03c",
+        "e570e5bb-54f0-4621-adac-5cd9171c9e58",
+        "a9840503-a573-48d2-8d8f-21006b99bff5",
+        "7ba770a9-3994-466f-933e-5aa5ec1cd20c"
+      ],
+      "flows": []
     }
   ],
   "screens": {
@@ -3480,6 +3492,50 @@
       "width": 1179,
       "height": 2676,
       "sha256": "96878270fbdbab894ed34dcbdb7a21320bbd3448d8c0fbf923db061d9012d75c"
+    },
+    "16a0e1d7-8c9b-4d6f-8ce3-ad3feaada03c": {
+      "id": "16a0e1d7-8c9b-4d6f-8ce3-ad3feaada03c",
+      "app": "Snapchat",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/16a0e1d7-8c9b-4d6f-8ce3-ad3feaada03c?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/16a0e1d7-8c9b-4d6f-8ce3-ad3feaada03c.webp",
+      "thumbnail": "previews/16a0e1d7-8c9b-4d6f-8ce3-ad3feaada03c.webp",
+      "width": 1179,
+      "height": 2676,
+      "sha256": "53b5be4a872e5d2113ddb9563cebfa7742857dfe14a9ea096621c158b059ff55"
+    },
+    "e570e5bb-54f0-4621-adac-5cd9171c9e58": {
+      "id": "e570e5bb-54f0-4621-adac-5cd9171c9e58",
+      "app": "Duolingo",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/e570e5bb-54f0-4621-adac-5cd9171c9e58?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/e570e5bb-54f0-4621-adac-5cd9171c9e58.webp",
+      "thumbnail": "previews/e570e5bb-54f0-4621-adac-5cd9171c9e58.webp",
+      "width": 1179,
+      "height": 2676,
+      "sha256": "f14e8dd61469149736db26f1ca62c8b19bb42da46981f5f3951d4caa9438ad73"
+    },
+    "a9840503-a573-48d2-8d8f-21006b99bff5": {
+      "id": "a9840503-a573-48d2-8d8f-21006b99bff5",
+      "app": "WhatsApp",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/a9840503-a573-48d2-8d8f-21006b99bff5?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/a9840503-a573-48d2-8d8f-21006b99bff5.webp",
+      "thumbnail": "previews/a9840503-a573-48d2-8d8f-21006b99bff5.webp",
+      "width": 1179,
+      "height": 2676,
+      "sha256": "b4661703aaa910d62677492c5b659a96b83657a3c012ccab6f45258a2c1699e9"
+    },
+    "7ba770a9-3994-466f-933e-5aa5ec1cd20c": {
+      "id": "7ba770a9-3994-466f-933e-5aa5ec1cd20c",
+      "app": "Signal",
+      "platform": "ios",
+      "url": "https://mobbin.com/screens/7ba770a9-3994-466f-933e-5aa5ec1cd20c?utm_source=codex&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "file": "screens/7ba770a9-3994-466f-933e-5aa5ec1cd20c.webp",
+      "thumbnail": "previews/7ba770a9-3994-466f-933e-5aa5ec1cd20c.webp",
+      "width": 1125,
+      "height": 2556,
+      "sha256": "671a04707c7dbd05d644715170f38e98dfa1ab9580bcb64aa4a1d6def1ae814c"
     }
   },
   "flows": {
