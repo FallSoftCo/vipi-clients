@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="96" viewBox="0 0 160 96">
+  <path fill="#352233" d="M34 24 111 11Q119 10 123 17L142 57Q146 65 136 69L54 86Q48 87 45 82L24 39Q21 30 34 24Z"/>
+  <path fill="#F4BAAA" stroke="#352233" stroke-width="3" stroke-linejoin="round" d="M30 24 109 10Q116 9 120 16L138 54Q141 61 134 64L52 81Q46 82 43 77L23 36Q19 27 30 24Z"/>
+  <path fill="#FFF1DD" d="M31 28 110 15Q114 14 116 19L119 24 34 39 30 32Q29 29 31 28Z"/>
+  <path fill="none" stroke="#64334E" stroke-width="5" stroke-linecap="round" d="M48 35 61 66M72 30 86 61M96 25 110 56"/>
+  <path fill="#352233" d="M41 44 54 41Q57 41 59 45L61 49Q62 52 59 53L46 56Q43 56 42 53L39 47Q38 45 41 44ZM73 57 88 54 92 62 77 66ZM92 32 106 29 111 38 96 42Z"/>
+  <path fill="#873852" stroke="#352233" stroke-width="2.6" stroke-linejoin="round" d="M39 42 53 39Q56 39 57 42L59 46Q60 48 57 49L43 52Q41 52 40 49L37 45Q37 43 39 42Z"/>
+  <path fill="#F6DB8D" stroke="#352233" stroke-width="2.6" stroke-linejoin="round" d="M73 54 86 51Q89 50 90 53L92 58Q93 60 90 61L77 64Q75 64 74 62L71 57Q71 55 73 54Z"/>
+  <path fill="#FFF1DD" stroke="#352233" stroke-width="2.6" stroke-linejoin="round" d="M91 29 105 26Q108 25 109 29L111 33Q112 35 109 36L96 39Q93 39 92 36L90 32Q89 30 91 29Z"/>
+  <path fill="none" stroke="#FFF1DD" stroke-width="2" stroke-linecap="round" d="M42 45 49 43"/>
+</svg>
