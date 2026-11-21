@@ -5,16 +5,20 @@ these records. The filesystem backend is the isolated vertical-slice store.
 """
 import asyncio
 from datetime import timedelta
+import errno
+import fcntl
 import hashlib
 import os
+from contextlib import ExitStack, contextmanager
 from pathlib import Path
 from uuid import UUID, uuid4
 
 from fastapi import Request
 from pydantic import BaseModel, ConfigDict, Field
-from sqlalchemy import and_, delete, func, or_, select
+from sqlalchemy import and_, case, delete, func, or_, select, text, true
 from starlette.responses import JSONResponse, StreamingResponse
 
+from .config import MAX_CIPHERTEXT_BYTES
 from .db import Block, Device, MediaBlob, MediaCleanup, MediaGrant, PendingMessage, User
 from .delivery import DeliveryError, utc
 
@@ -93,11 +97,49 @@ def metadata(blob):
 
 
 class CiphertextStore:
-    def __init__(self, root):
+    def __init__(self, root, *, volume_id=None, require_existing=False):
         self.root = Path(root)
+        self.volume_id = str(volume_id) if volume_id is not None else None
+        self.identity = None
         if not self.root.is_absolute() or self.root.is_symlink():
             raise ValueError("Media storage needs an explicit owned absolute directory")
-        self.root.mkdir(mode=0o700, parents=True, exist_ok=True)
+        if require_existing and (not self.root.is_dir() or not self.volume_id):
+            raise ValueError("The provisioned media directory and volume ID are required")
+        if not require_existing:
+            self.root.mkdir(mode=0o700, parents=True, exist_ok=True)
+        with self.directory() as directory:
+            st = os.fstat(directory)
+            self.identity = st.st_dev, st.st_ino
+
+    @classmethod
+    def configured(cls, settings):
+        return cls(settings.media_storage_path, volume_id=settings.media_volume_id,
+                   require_existing=settings.environment in {"staging", "production"})
+
+    @contextmanager
+    def directory(self):
+        try:
+            fd = os.open(self.root, os.O_DIRECTORY | os.O_NOFOLLOW)
+        except OSError as exc:
+            raise DeliveryError("media_storage_unavailable", 507) from exc
+        try:
+            st = os.fstat(fd)
+            if self.identity is not None and (st.st_dev, st.st_ino) != self.identity:
+                raise DeliveryError("media_storage_unavailable", 507)
+            if self.volume_id is not None:
+                try:
+                    marker = os.open(".vipi-volume-id", os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=fd)
+                    try:
+                        value = os.read(marker, 64)
+                    finally:
+                        os.close(marker)
+                except OSError as exc:
+                    raise DeliveryError("media_storage_unavailable", 507) from exc
+                if value not in (self.volume_id.encode(), (self.volume_id + "\n").encode()):
+                    raise DeliveryError("media_storage_unavailable", 507)
+            yield fd
+        finally:
+            os.close(fd)
 
     def path(self, ident):
         assert str(UUID(ident)) == ident
@@ -109,21 +151,36 @@ class CiphertextStore:
         return self.root / (ident + "." + token + ".part")
 
     def remove(self, ident):
-        self.path(ident).unlink(missing_ok=True)
-        for part in self.root.glob(ident + ".*.part"):
-            part.unlink(missing_ok=True)
-        descriptor = os.open(self.root, os.O_RDONLY)
-        try:
-            os.fsync(descriptor)
-        finally:
-            os.close(descriptor)
-
+        # An unlinked but open inode still consumes disk. Keep its SQL cleanup
+        # intent charged while a download or an interrupted PUT owns the file.
+        final_name = self.path(ident).name
+        with self.directory() as directory:
+            names = [final_name]
+            with os.scandir(directory) as entries:
+                names.extend(e.name for e in entries if e.name.startswith(ident + ".") and e.name.endswith(".part"))
+            for name in names:
+                try:
+                    fd = os.open(name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=directory)
+                except FileNotFoundError:
+                    continue
+                with os.fdopen(fd, "rb") as stream:
+                    try:
+                        fcntl.flock(stream, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    except BlockingIOError:
+                        return False
+                    try:
+                        os.unlink(name, dir_fd=directory)
+                    except FileNotFoundError:
+                        pass
+            os.fsync(directory)
+        return True
 
     def finalized_matches(self, ident, expected_size, expected_hash):
         """Verify opaque finalized bytes without ever loading the whole file."""
         path = self.path(ident)
         try:
-            descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW)
+            with self.directory() as directory:
+                descriptor = os.open(path.name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=directory)
         except FileNotFoundError:
             return False
         digest = hashlib.sha256()
@@ -137,6 +194,68 @@ class CiphertextStore:
                     return False
                 digest.update(chunk)
         return count == expected_size and digest.hexdigest() == expected_hash
+
+
+async def storage_operation(function, *args):
+    """Finish an outstanding filesystem operation before relinquishing its DB lock."""
+    work = asyncio.create_task(asyncio.to_thread(function, *args))
+    try:
+        return await asyncio.shield(work)
+    except asyncio.CancelledError:
+        while not work.done():
+            try:
+                await asyncio.shield(work)
+            except asyncio.CancelledError:
+                continue
+        if not work.cancelled():
+            work.exception()
+        raise
+
+
+async def lock_capacity(session):
+    # All API workers use the same transaction-scoped PostgreSQL lock.
+    # SQLite has one writer; taking it before reading avoids a stale snapshot.
+    if session.get_bind().dialect.name == "postgresql":
+        await session.execute(text("SELECT pg_advisory_xact_lock(1447645257, 1)"))
+    else:
+        await session.execute(text("UPDATE media_blobs SET id=id WHERE 0=1"))
+
+
+async def check_capacity(session, store, settings, *, new_bytes=None):
+    # One SQL snapshot. Revoked rows count until the cleanup worker has
+    # unlinked AND fsynced the directory. Account deletion removes the owner
+    # row and its original length, leaving an independent cleanup intent.
+    # Charge the historical per-object ceiling for each size-unknown intent.
+    live = MediaBlob.state.in_(["uploading", "ready"])
+    uploading = MediaBlob.state == "uploading"
+    reservations = select(
+        func.coalesce(func.sum(MediaBlob.ciphertext_bytes), 0).label("used"),
+        func.count().label("blobs"),
+        func.coalesce(func.sum(case((uploading, MediaBlob.ciphertext_bytes), else_=0)), 0).label("pending"),
+        func.count(case((uploading, 1))).label("pending_count"),
+    ).where(live).subquery()
+    revoked = select(
+        func.coalesce(func.sum(func.coalesce(MediaBlob.ciphertext_bytes, MAX_CIPHERTEXT_BYTES)), 0).label("used"),
+        func.count().label("blobs"),
+    ).select_from(MediaCleanup).outerjoin(MediaBlob, MediaBlob.id == MediaCleanup.blob_id
+    ).where(or_(MediaBlob.id.is_(None), ~live)).subquery()
+    totals = select(reservations.c.used + revoked.c.used, reservations.c.blobs + revoked.c.blobs,
+                    reservations.c.pending, reservations.c.pending_count).select_from(reservations.join(revoked, true()))
+    used, count, outstanding, outstanding_count = (await session.execute(totals)).one()
+    added = int(new_bytes is not None)
+    requested = new_bytes or 0
+    if used + requested > settings.media_global_bytes or count + added > settings.media_global_blobs:
+        raise DeliveryError("media_storage_full", 429)
+
+    with store.directory() as directory:
+        space = os.fstatvfs(directory)
+    # Charge full unwritten declarations, even when another PUT has already
+    # allocated part of its file. Round conservatively for filesystem blocks.
+    outstanding_count += added
+    headroom = space.f_bavail * space.f_frsize - settings.media_min_free_bytes
+    required = outstanding + requested + outstanding_count * (space.f_frsize - 1)
+    if headroom < required or space.f_favail - outstanding_count < settings.media_min_free_inodes:
+        raise DeliveryError("media_storage_unavailable", 507)
 
 
 async def recover_finalized(blob, store):
@@ -205,7 +324,7 @@ async def cancel_owned_blob(session, ident, user_id, device_id, now):
 
 
 async def download_blob(session, ident, user_id, device_id, now):
-    blob = await session.get(MediaBlob, ident)
+    blob = await session.get(MediaBlob, ident, with_for_update={"read": True})
     if blob is None or blob.state != "ready" or utc(blob.expires_at) <= utc(now):
         raise DeliveryError("media_unavailable", 404)
     owner = await session.get(User, blob.owner_id)
@@ -265,14 +384,15 @@ async def drain_cleanup(db, store, limit=100, *, ident=None):
             query = query.where(MediaCleanup.blob_id == ident)
         rows = (await session.scalars(query.with_for_update(skip_locked=True))).all()
         for row in rows:
-            await asyncio.to_thread(store.remove, row.blob_id)
+            if not await storage_operation(store.remove, row.blob_id):
+                continue
             await session.delete(row)
             removed += 1
     return removed
 
 
 def install(app, settings, db, principal, user_for, phone_for, rate, now):
-    store = CiphertextStore(settings.media_storage_path) if settings.media_enabled else None
+    store = CiphertextStore.configured(settings) if settings.media_enabled else None
     if store is not None:
         app.add_middleware(MediaTransferLimits, seconds=settings.media_transfer_timeout_seconds,
                            connections=settings.media_transfers_per_worker)
@@ -324,6 +444,7 @@ def install(app, settings, db, principal, user_for, phone_for, rate, now):
             raise DeliveryError('media_too_large',413)
         async with db.sessions.begin() as session:
             user,device=await identity(session,request,p)
+            await lock_capacity(session)
             await session.execute(select(User).where(User.id==user.id).with_for_update())
             existing=await session.get(MediaBlob,str(body.id))
             if await session.get(MediaCleanup, str(body.id)) is not None:
@@ -344,6 +465,7 @@ def install(app, settings, db, principal, user_for, phone_for, rate, now):
                 MediaBlob.owner_id==user.id,MediaBlob.expires_at>now(),MediaBlob.state.in_(['uploading','ready'])))
             if count>=32 or used+body.ciphertext_bytes>settings.media_owner_bytes:
                 raise DeliveryError('media_storage_full',429)
+            await check_capacity(session, store, settings, new_bytes=body.ciphertext_bytes)
             blob=MediaBlob(id=str(body.id),owner_id=user.id,owner_device_id=device.id,
                 ciphertext_bytes=body.ciphertext_bytes,ciphertext_sha256=body.ciphertext_sha256,
                 created_at=now(),expires_at=now()+timedelta(hours=72),state='uploading')
@@ -361,51 +483,81 @@ def install(app, settings, db, principal, user_for, phone_for, rate, now):
     @app.put('/v1/media/{ident}/ciphertext')
     async def upload(ident: UUID,request: Request,p: Annotated[Principal,Depends(principal)]):
         enabled();await rate(p,'media-upload',30);ident=str(ident);token=str(uuid4())
-        async with db.sessions.begin() as session:
-            user,device=await identity(session,request,p)
-            blob=await owner_blob(session,ident,user.id,device.id,now(),lock=True)
-            await recover_finalized(blob, store)
-            if blob.state=='ready':return metadata(blob)
-            if blob.upload_token and blob.lease_until and utc(blob.lease_until)>now():
-                raise DeliveryError('media_upload_in_progress',409)
-            blob.upload_token,blob.lease_until=token,now()+timedelta(minutes=15)
-            expected_size,expected_hash=blob.ciphertext_bytes,blob.ciphertext_sha256
-        temporary=store.temporary(ident,token);digest=hashlib.sha256();size=0
-        try:
-            with temporary.open('xb') as target:
-                os.chmod(temporary,0o600)
+        temporary = store.temporary(ident, token)
+        target = None
+        with ExitStack() as files:
+            try:
+                async with db.sessions.begin() as session:
+                    user, device = await identity(session, request, p)
+                    await lock_capacity(session)
+                    blob = await owner_blob(session, ident, user.id, device.id, now(), lock=True)
+                    if await recover_finalized(blob, store) or blob.state == "ready":
+                        return metadata(blob)
+                    if blob.upload_token and blob.lease_until and utc(blob.lease_until) > now():
+                        raise DeliveryError("media_upload_in_progress", 409)
+                    expected_size, expected_hash = blob.ciphertext_bytes, blob.ciphertext_sha256
+                    if not await storage_operation(store.remove, ident):
+                        raise DeliveryError("media_upload_in_progress", 409)
+                    await check_capacity(session, store, settings)
+                    directory = files.enter_context(store.directory())
+                    fd = os.open(temporary.name, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600, dir_fd=directory)
+                    def discard_partial():
+                        try:
+                            os.unlink(temporary.name, dir_fd=directory)
+                        except FileNotFoundError:
+                            pass
+                    files.callback(discard_partial)
+                    target = files.enter_context(os.fdopen(fd, "wb"))
+                    fcntl.flock(target, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    # Finish the kernel reservation before releasing its file or
+                    # DB lock, including when the HTTP request is cancelled.
+                    allocate = getattr(os, "posix_fallocate", None)
+                    if allocate is None:
+                        raise DeliveryError("media_storage_unavailable", 507)
+                    await storage_operation(allocate, fd, 0, expected_size)
+                    blob.upload_token, blob.lease_until = token, now() + timedelta(minutes=15)
+
+                digest = hashlib.sha256()
+                size = 0
                 try:
                     async with asyncio.timeout(settings.media_upload_timeout_seconds):
                         async for chunk in request.stream():
                             size += len(chunk)
                             if size > expected_size:
-                                raise DeliveryError('media_upload_invalid', 413)
+                                raise DeliveryError("media_upload_invalid", 413)
                             digest.update(chunk)
                             target.write(chunk)
                 except TimeoutError:
-                    raise DeliveryError('media_upload_timeout', 408) from None
-                target.flush();os.fsync(target.fileno())
-            if size!=expected_size or digest.hexdigest()!=expected_hash:
-                raise DeliveryError('media_upload_incomplete',409)
-            async with db.sessions.begin() as session:
-                user,device=await identity(session,request,p)
-                blob=await owner_blob(session,ident,user.id,device.id,now(),lock=True)
-                if blob.upload_token!=token:raise DeliveryError('media_upload_cancelled',409)
-                os.replace(temporary,store.path(ident))
-                directory=os.open(store.root,os.O_RDONLY)
-                try:os.fsync(directory)
-                finally:os.close(directory)
-                blob.state,blob.upload_token,blob.lease_until='ready',None,None
-                result=metadata(blob)
-            return result
-        finally:
-            temporary.unlink(missing_ok=True)
-            async def release():
+                    raise DeliveryError("media_upload_timeout", 408) from None
+                if size != expected_size or digest.hexdigest() != expected_hash:
+                    raise DeliveryError("media_upload_incomplete", 409)
+                target.flush()
+                os.fsync(target.fileno())
                 async with db.sessions.begin() as session:
-                    blob=await session.get(MediaBlob,ident,with_for_update=True)
-                    if blob and blob.upload_token==token:
-                        blob.upload_token,blob.lease_until=None,None
-            await asyncio.shield(release())
+                    user, device = await identity(session, request, p)
+                    blob = await owner_blob(session, ident, user.id, device.id, now(), lock=True)
+                    if blob.upload_token != token:
+                        raise DeliveryError("media_upload_cancelled", 409)
+                    os.replace(temporary.name, store.path(ident).name, src_dir_fd=directory, dst_dir_fd=directory)
+                    os.fsync(directory)
+                    files.close()
+                    blob.state, blob.upload_token, blob.lease_until = "ready", None, None
+                    return metadata(blob)
+            except OSError as exc:
+                if exc.errno in (errno.ENOSPC, errno.EDQUOT, errno.EOPNOTSUPP, errno.ENOSYS):
+                    raise DeliveryError("media_storage_unavailable", 507) from None
+                raise
+            finally:
+                # Close the descriptor before unlink so no invisible allocated
+                # storage outlives the cleanup intent. Release only our token.
+                files.close()
+                if target is not None:
+                    async def release():
+                        async with db.sessions.begin() as session:
+                            blob = await session.get(MediaBlob, ident, with_for_update=True)
+                            if blob and blob.upload_token == token:
+                                blob.upload_token, blob.lease_until = None, None
+                    await asyncio.shield(release())
 
     @app.delete('/v1/media/uploads/{ident}')
     async def cancel(ident: UUID,request: Request,p: Annotated[Principal,Depends(principal)]):
@@ -425,8 +577,16 @@ def install(app, settings, db, principal, user_for, phone_for, rate, now):
             user,device=await identity(session,request,p)
             blob=await download_blob(session,ident,user.id,device.id,now())
             expected_size,expected_hash=blob.ciphertext_bytes,blob.ciphertext_sha256
-        path=store.path(ident)
-        try:stream=path.open('rb')
-        except FileNotFoundError:raise DeliveryError('media_unavailable',404) from None
+            try:
+                with store.directory() as directory:
+                    fd = os.open(store.path(ident).name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=directory)
+                stream = os.fdopen(fd, 'rb')
+            except FileNotFoundError:
+                raise DeliveryError('media_unavailable',404) from None
+            try:
+                fcntl.flock(stream, fcntl.LOCK_SH | fcntl.LOCK_NB)
+            except BaseException:
+                stream.close()
+                raise
         return CiphertextResponse(stream,headers={
             'Content-Length':str(expected_size),'X-Ciphertext-SHA256':expected_hash,'Cache-Control':'no-store'})

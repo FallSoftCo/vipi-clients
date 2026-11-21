@@ -6,6 +6,9 @@ from pydantic import Field, SecretStr, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+MAX_CIPHERTEXT_BYTES = 67_108_892
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="VIPI_", env_file=None, hide_input_in_errors=True)
     database_url: str
@@ -85,14 +88,23 @@ class Settings(BaseSettings):
     media_enabled: bool = False
     media_draining: bool = False
     media_storage_path: str | None = None
-    media_max_bytes: int = Field(default=33_554_460, ge=1024, le=67_108_892)
+    media_volume_id: UUID | None = None
+    media_max_bytes: int = Field(default=33_554_460, ge=1024, le=MAX_CIPHERTEXT_BYTES)
     media_owner_bytes: int = Field(default=134_217_840, ge=1024)
+    media_global_bytes: int = Field(default=1 << 30, ge=1024)
+    media_global_blobs: int = Field(default=8192, ge=1)
+    media_min_free_bytes: int = Field(default=1 << 30, ge=1)
+    media_min_free_inodes: int = Field(default=1024, ge=1)
     media_upload_timeout_seconds: float = Field(default=120, ge=0.05, le=120)
     media_transfer_timeout_seconds: float = Field(default=120, ge=0.05, le=120)
     media_transfers_per_worker: int = Field(default=8, ge=1, le=32)
 
     @model_validator(mode="after")
     def media_drain_configuration(self):
+        if self.media_enabled and not self.media_storage_path:
+            raise ValueError("Enabled media requires its explicit storage path")
+        if self.media_enabled and self.environment in {"staging", "production"} and self.media_volume_id is None:
+            raise ValueError("Enabled deployed media requires its provisioned volume ID")
         if self.media_draining and not self.media_enabled:
             raise ValueError("Media drain requires the enabled media store")
         return self

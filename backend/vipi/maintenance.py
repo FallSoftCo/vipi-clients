@@ -36,7 +36,7 @@ async def main():
             await session.execute(delete(BillingNotification).where(BillingNotification.created_at < now - timedelta(days=30)))
             if settings.media_enabled:
                 from .media import CiphertextStore, expire_media
-                store = CiphertextStore(settings.media_storage_path)
+                store = CiphertextStore.configured(settings)
                 await expire_media(session, store, now)
         if settings.media_enabled:
             from .media import drain_cleanup
