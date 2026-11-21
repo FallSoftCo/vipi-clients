@@ -90,6 +90,13 @@ class RegularMediaPairDeviceTest {
         f.launch()
         compose.waitUntil(25_000) { f.model.chat?.ready == true && f.model.screen == Screen.HOME }
         val chat = requireNotNull(f.model.chat)
+        val arguments = InstrumentationRegistry.getArguments()
+        val incomingID = arguments.getString("incomingVoiceID")?.let(UUID::fromString)
+        val expectedHash = arguments.getString("incomingVoiceSHA256")
+        if (incomingID != null) {
+            require(expectedHash != null && expectedHash.matches(Regex("[a-f0-9]{64}")))
+            compose.waitUntil(25_000) { chat.messages(peer).any { it.id == incomingID && !it.outgoing } }
+        }
         val voiceIDs = chat.messages(peer).filter { it.attachments.any { a -> a.kind == AttachmentKind.VOICE } }.map { it.id }.toSet()
         check(ids.all { it in voiceIDs })
         compose.onNodeWithTag("inbox-row-$peer").performClick()
@@ -124,12 +131,8 @@ class RegularMediaPairDeviceTest {
         check(f.model.screen == Screen.CONVERSATION)
         val after = chat.messages(peer).filter { it.attachments.any { a -> a.kind == AttachmentKind.VOICE } }.map { it.id }.toSet()
         check(after == voiceIDs)
-        val arguments = InstrumentationRegistry.getArguments()
-        val incomingID = arguments.getString("incomingVoiceID")?.let(UUID::fromString)
-        val expectedHash = arguments.getString("incomingVoiceSHA256")
         var incomingHash: String? = null
         if (incomingID != null) {
-            require(expectedHash != null && expectedHash.matches(Regex("[a-f0-9]{64}")))
             val incoming = chat.messages(peer).single { it.id == incomingID && !it.outgoing }
             val manifest = incoming.attachments.single { it.kind == AttachmentKind.VOICE }
             compose.onNodeWithTag("conversation-timeline").performScrollToNode(hasTestTag("message-row-$incomingID"))
