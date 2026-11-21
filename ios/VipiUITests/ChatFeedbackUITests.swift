@@ -81,8 +81,20 @@ final class ChatFeedbackUITests: XCTestCase {
             // SwiftUI materializes expanded List content as it enters the viewport.
             for _ in 0..<4 where !step.exists { app.swipeUp() }
             XCTAssertTrue(step.waitForExistence(timeout: 3), key)
-            if key == "friends" || key == "voice" {
-                capture("ios-native-help-" + key)
+            if key == "voice" {
+                let locked = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", "When recording is locked")).firstMatch
+                let visibleBottom = app.frame.maxY - 36
+                let from = app.coordinate(withNormalizedOffset: .init(dx: 0.75, dy: 0.72))
+                let to = app.coordinate(withNormalizedOffset: .init(dx: 0.75, dy: 0.50))
+                for _ in 0..<6 {
+                    if locked.exists && locked.isHittable && locked.frame.maxY < visibleBottom { break }
+                    from.press(forDuration: 0.12, thenDragTo: to, withVelocity: .slow, thenHoldForDuration: 0.15)
+                }
+                XCTAssertTrue(locked.isHittable)
+                XCTAssertLessThan(locked.frame.maxY, visibleBottom)
+                capture("ios-native-help-voice")
+            } else if key == "friends" {
+                capture("ios-native-help-friends")
             }
             for _ in 0..<4 where !row.isHittable { app.swipeDown() }
             XCTAssertTrue(row.isHittable); row.tap()
