@@ -58,7 +58,7 @@ import XCTest
                 "advertised": AVSpeechSynthesisVoice.speechVoices().filter { $0.language.components(separatedBy: "-")[0] == language }
                     .map { ["identifier": $0.identifier, "language": $0.language, "quality": $0.quality.rawValue] as [String: Any] }]
             do {
-                let voice = try LocalVoice(language: language); defer { voice.stop() }
+                let voice = try await LocalVoice(language: language); defer { voice.stop() }
                 row["selected"] = voice.identifier
                 let output = try await voice.render(text, to: root.appendingPathComponent(language + ".caf"))
                 row["single"] = try inspect(output); row["status"] = "rendered"

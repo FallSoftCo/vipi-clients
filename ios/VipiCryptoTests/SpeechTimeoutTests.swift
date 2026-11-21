@@ -6,7 +6,7 @@ import XCTest
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("vipi-timeout-" + UUID().uuidString)
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
         defer { try? FileManager.default.removeItem(at: root) }
-        let voice = try LocalVoice(language: "en")
+        let voice = try await LocalVoice(language: "en")
         defer { voice.stop() }
         voice.qualificationStallTimeout = .milliseconds(40)
         let start = ProcessInfo.processInfo.systemUptime

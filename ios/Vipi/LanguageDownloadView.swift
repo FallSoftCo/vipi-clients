@@ -189,7 +189,12 @@ struct LanguageDownloadView: View {
         .frame(maxWidth: 760).frame(maxWidth: .infinity).background(VipiDesign.canvas)
         .navigationTitle("Your languages").navigationBarTitleDisplayMode(.inline)
         .task(id: pair) { await preparation.refresh(pair) }
-        .task(id: scenePhase) { if scenePhase == .active { availableVoices = LocalVoice.availableLanguageCodes } }
+        .task(id: scenePhase) {
+            guard scenePhase == .active else { return }
+            let voices = await LocalVoice.availableLanguageCodes()
+            guard !Task.isCancelled else { return }
+            availableVoices = voices
+        }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active && !preparation.busy { Task { await preparation.refresh(pair) } }
         }
@@ -319,7 +324,8 @@ struct LanguageSelectionView: View {
         .task(id: "\(practiceSource ?? ""):\(scenePhase == .active)") {
             checkedSource = nil
             guard let source = practiceSource, scenePhase == .active else { return }
-            let voices = LocalVoice.availableLanguageCodes
+            let voices = await LocalVoice.availableLanguageCodes()
+            guard !Task.isCancelled else { return }
             var available = Set<String>()
             for target in LocalLanguageCatalog.additionalLatinPractice.intersection(voices) where target != source {
                 let pair = TranslationPair(source: source, target: target)
