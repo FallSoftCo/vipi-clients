@@ -162,7 +162,7 @@ struct NotificationSettingsView: View {
     @State private var preferenceError = false
     var body: some View {
         Form {
-            Section {
+            Section("Outside Vipi") {
                 if let chat, chat.ready {
                     Toggle("Show sender and message", isOn: Binding(get: { chat.previewsOutsideApp }, set: { value in
                         do { try chat.setOutsidePreviews(value); preferenceError = false }
@@ -192,13 +192,6 @@ struct NotificationSettingsView: View {
                             catch { preferenceError = true }
                         }))
                     .accessibilityIdentifier("settings-message-previews")
-                    VStack(alignment: .leading, spacing: 3) {
-                        Text("Example").font(.caption).foregroundStyle(VipiDesign.secondary)
-                        if chat.previewsWhileOpen {
-                            Text(verbatim: "Maya").font(.headline)
-                            Text("Coffee at six?")
-                        } else { Text("No in-app banner") }
-                    }
                     if preferenceError { Text("Couldn’t save this change. Try again.").foregroundStyle(VipiDesign.secondary) }
                 } footer: { Text("This setting controls banners inside Vipi.") }
             }

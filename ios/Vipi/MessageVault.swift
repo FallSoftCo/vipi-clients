@@ -74,7 +74,6 @@ final class MessageVault: @unchecked Sendable {
                     try put("metadata", "schema", Data([1]))
                     if newAccount {
                         try put("local", "outside-previews", JSONEncoder().encode(NotificationConsent()))
-                        try put("local", "foreground-previews", Data([1]))
                     }
                 }
             }

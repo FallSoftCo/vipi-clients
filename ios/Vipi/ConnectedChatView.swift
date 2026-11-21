@@ -863,7 +863,7 @@ struct FriendConversationView: View {
                 // an accessibility-size keyboard is open. Keep the invitation
                 // pending in this conversation and show it after focus leaves.
                 if notificationInvitation && !(typeSize.isAccessibilitySize && composing) {
-                    ReplyNotificationInvitation(denied:PushNotifications.shared.authorization == .denied,busy:PushNotifications.shared.busy,
+                    ReplyNotificationInvitation(previews:chat.previewsOutsideApp, denied:PushNotifications.shared.authorization == .denied,busy:PushNotifications.shared.busy,
                         notify:enableReplyNotifications,dismiss:{ notificationInvitation = false })
                 }
                 if rejectedDraftEdit || messageTooLong {
