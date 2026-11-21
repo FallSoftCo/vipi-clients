@@ -333,7 +333,8 @@ class InboxJourneyDeviceTest {
 
     @Test fun headerPracticeChooserStaysAccessibleWithLocalizedLargeText() {
         val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
-        MainActivityJourneyFixture("localized-practice", service::model).use { f ->
+        val recent = Row(service.peer, "Maya", "Coffee tomorrow?", System.currentTimeMillis() - 60_000)
+        MainActivityJourneyFixture("localized-practice", { app -> seed(app, service, listOf(recent)); service.model(app) }).use { f ->
             try {
                 compose.runOnIdle { f.model.selectTarget("zh") }
                 f.launch(); screen(f, Screen.HOME)
@@ -351,6 +352,29 @@ class InboxJourneyDeviceTest {
                 paint(f, "02-chats-retargeted")
                 val state = practice.fetchSemanticsNode().config[SemanticsProperties.StateDescription]
                 assertTrue(java.util.Locale.forLanguageTag("pt").getDisplayLanguage(f.base.resources.configuration.locales[0]).equals(state, ignoreCase = true))
+                val mark = compose.onNodeWithTag("inbox-wordmark").fetchSemanticsNode().boundsInWindow
+                val settings = compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).fetchSemanticsNode().boundsInWindow
+                val chip = practice.fetchSemanticsNode().boundsInWindow
+                val window = f.unobscuredWindow()
+                assertEquals("Practice selector is centered on the window", window.exactCenterX(), chip.center.x, 1f)
+                assertFalse("Wordmark and selector do not overlap", chip.overlaps(mark))
+                assertFalse("Profile and selector do not overlap", chip.overlaps(settings))
+                val layout = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+                // The chip owns the accessibility value; inspect its real drawn label separately.
+                val textLayout = compose.onNodeWithTag("inbox-practice-text", useUnmergedTree = true)
+                textLayout.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(layout) }
+                assertEquals(state, layout.single().layoutInput.text.text)
+                assertFalse(layout.single().hasVisualOverflow)
+                assertEquals(androidx.compose.ui.text.font.FontWeight.Bold, layout.single().layoutInput.style.fontWeight)
+                File(f.output, "practice-geometry.json").writeText(JSONObject()
+                    .put("locale", f.base.resources.configuration.locales[0].toLanguageTag())
+                    .put("font_scale", f.base.resources.configuration.fontScale)
+                    .put("window", window.toString()).put("chip",chip.toString()).put("wordmark",mark.toString())
+                    .put("profile",settings.toString()).put("label",state).put("separate_row",chip.top >= mark.bottom).toString(2))
+                f.relaunch { VipiModel(it, NoJourneyModelTranslation, service) }
+                screen(f, Screen.HOME)
+                assertEquals("pt", f.model.targetLanguage)
+                assertEquals(state, practice.fetchSemanticsNode().config[SemanticsProperties.StateDescription])
             } finally { f.stopActivity(); service.close() }
         }
     }

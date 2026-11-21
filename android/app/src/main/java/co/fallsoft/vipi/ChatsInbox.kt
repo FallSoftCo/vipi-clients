@@ -1,6 +1,7 @@
 package co.fallsoft.vipi
 
 import android.text.format.DateUtils
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -24,6 +25,8 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.*
+import androidx.compose.ui.graphics.compositeOver
+import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -48,7 +51,6 @@ import java.time.temporal.ChronoUnit
         (!ready || model.chatError != null)
     val newChat = { model.navigate(Screen.NEW_CHAT) }
     val newChatLabel = stringResource(R.string.nav_new_chat)
-    val settingsLabel = stringResource(R.string.nav_settings)
     // The action belongs to the conversation pane on expanded/folded widths.
     // The outer canvas still covers the complete edge-to-edge window.
     Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), contentAlignment = Alignment.TopCenter) {
@@ -70,38 +72,7 @@ import java.time.temporal.ChronoUnit
         }) { insets ->
         Box(Modifier.fillMaxSize().padding(insets), contentAlignment = Alignment.TopCenter) {
             Column(Modifier.widthIn(max = 680.dp).fillMaxSize()) {
-                Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 12.dp).heightIn(min = 72.dp),
-                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    val chatsLabel = stringResource(R.string.nav_chats)
-                    val locale = LocalConfiguration.current.locales[0]
-                    val practice = java.util.Locale.forLanguageTag(model.targetLanguage)
-                        .getDisplayLanguage(locale).replaceFirstChar { it.titlecase(locale) }
-                    Box(Modifier.testTag("inbox-wordmark").clearAndSetSemantics {
-                        contentDescription = "Vipi, $chatsLabel"; heading()
-                    }) { VipiMark(size = 60) }
-                    var choosingLanguage by remember { mutableStateOf(false) }
-                    val changeLanguage = stringResource(R.string.chats_practice_language)
-                    Box(Modifier.weight(1f)) {
-                        Row(Modifier.heightIn(min = 48.dp).testTag("inbox-practice-language")
-                            .clickable(role = Role.Button, onClickLabel = changeLanguage) { choosingLanguage = true }
-                            .semantics { contentDescription = changeLanguage; stateDescription = practice }
-                            .padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(practice, Modifier.weight(1f, fill = false).clearAndSetSemantics { },
-                                style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                maxLines = 1, overflow = TextOverflow.Ellipsis)
-                            Icon(Icons.Outlined.ExpandMore, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
-                        }
-                        LanguageChoiceMenu(choosingLanguage, model.targetLanguage, initialLanguages.filter { it.code != model.knownLanguage },
-                            { choosingLanguage = false }, model::selectTarget)
-                    }
-                    IconButton(onClick = { model.navigate(Screen.SETTINGS) },
-                        modifier = Modifier.semantics { contentDescription = settingsLabel }) {
-                        val profile = chat?.profile
-                        if (profile != null) ContactAvatar(profile.displayName.ifBlank { profile.username }, profile.id)
-                        else Icon(Icons.Outlined.AccountCircle, null)
-                    }
-                }
+                ChatsHeader(model)
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .65f))
                 // Reserve the complete 56dp FAB +16dp placement gap +16dp
                 // breathing room, so the final row scrolls fully above it.
@@ -153,6 +124,65 @@ import java.time.temporal.ChronoUnit
             }
         }
     }
+    }
+}
+
+@Composable private fun ChatsHeader(model: VipiModel) {
+    val locale = LocalConfiguration.current.locales[0]
+    val practice = java.util.Locale.forLanguageTag(model.targetLanguage)
+        .getDisplayLanguage(locale).replaceFirstChar { it.titlecase(locale) }
+    val chatsLabel = stringResource(R.string.nav_chats)
+    val settingsLabel = stringResource(R.string.nav_settings)
+    val changeLanguage = stringResource(R.string.chats_practice_language)
+    val textStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+    val measurer = rememberTextMeasurer()
+    val textWidth = with(LocalDensity.current) {
+        measurer.measure(practice, textStyle, softWrap = false).size.width.toDp()
+    }
+    val capsulePadding = 14.dp
+    val chevron = 18.dp
+    val gap = 4.dp
+    val labelWidth = textWidth + capsulePadding * 2 + gap + chevron
+    var choosingLanguage by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+    val colors = MaterialTheme.colorScheme
+    val languageControl: @Composable () -> Unit = {
+        Box(contentAlignment = Alignment.Center) {
+            Surface(shape = CircleShape, color = colors.primary.copy(alpha = .10f).compositeOver(colors.surface),
+                contentColor = colors.primary, border = BorderStroke(1.dp, colors.primary.copy(alpha = .32f))) {
+                Row(Modifier.testTag("inbox-practice-language")
+                    .clickable(role = Role.Button, onClickLabel = changeLanguage) { choosingLanguage = true }
+                    .semantics { contentDescription = changeLanguage; stateDescription = practice }
+                    .heightIn(min = 48.dp).padding(horizontal = capsulePadding, vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(gap)) {
+                    Text(practice, Modifier.weight(1f, fill = false).testTag("inbox-practice-text"),
+                        style = textStyle, textAlign = TextAlign.Center)
+                    Icon(Icons.Outlined.ExpandMore, null, Modifier.size(chevron))
+                }
+            }
+            LanguageChoiceMenu(choosingLanguage, model.targetLanguage,
+                initialLanguages.filter { it.code != model.knownLanguage }, { choosingLanguage = false }, model::selectTarget)
+        }
+    }
+    BoxWithConstraints(Modifier.fillMaxWidth().padding(horizontal = 16.dp)) {
+        // Reserve the larger flank on both sides of the actual center, including the gap.
+        val flank = 60.dp + 8.dp
+        val inlineWidth = maxWidth - flank * 2
+        val inline = labelWidth <= inlineWidth
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Box(Modifier.fillMaxWidth().heightIn(min = if (inline) 72.dp else 60.dp)) {
+                Box(Modifier.align(Alignment.CenterStart).testTag("inbox-wordmark").clearAndSetSemantics {
+                    contentDescription = "Vipi, $chatsLabel"; heading()
+                }) { VipiMark(size = 60) }
+                IconButton(onClick = { model.navigate(Screen.SETTINGS) },
+                    modifier = Modifier.align(Alignment.CenterEnd).semantics { contentDescription = settingsLabel }) {
+                    val profile = model.chat?.profile
+                    if (profile != null) ContactAvatar(profile.displayName.ifBlank { profile.username }, profile.id)
+                    else Icon(Icons.Outlined.AccountCircle, null)
+                }
+                if (inline) Box(Modifier.align(Alignment.Center).widthIn(max = inlineWidth)) { languageControl() }
+            }
+            if (!inline) Box(Modifier.padding(bottom = 8.dp)) { languageControl() }
+        }
     }
 }
 
