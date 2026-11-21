@@ -795,6 +795,12 @@ final class ChatConversationTests: XCTestCase {
     func testPolishedFriendChatKeepsViewportAndHasAccessibleOneTapModeAndStates() throws {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true,chatPolish:true)
     }
+    func testChangePracticeLanguageFromChatsPersistsAndKeepsDraft() throws {
+        try checkJourney(largest: false, reading: "en-zh", inboxReview: "language-populated")
+    }
+    func testLargestInboxLanguageCanChangeAndCancel() throws {
+        try checkJourney(largest: true, reading: "en-zh", inboxReview: "language-populated")
+    }
     func testWideChatHeaderKeepsBothTitlesAndKeyboard() throws {
         try checkJourney(largest: false, reading: "en-zh", fullTranslation: true,
                          invitation: true, immersionModes: true, headerReview: true)
@@ -2691,6 +2697,57 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(app.navigationBars["Chats"].exists)
             XCTAssertFalse(app.buttons["Notify me when friends reply"].exists)
             XCTAssertTrue(app.buttons["Your profile and settings"].exists)
+            if inboxReview == "language-populated" {
+                let picker = app.buttons["inbox-practice-language"]
+                let row = app.descendants(matching: .any).matching(
+                    NSPredicate(format: "identifier BEGINSWITH 'chat-thread-' AND label CONTAINS 'Maya Johnson'")).firstMatch
+                let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch
+                let back = app.navigationBars.buttons["BackButton"].firstMatch
+                let draft = "Meet me for tea"
+                func capture(_ suffix: String) {
+                    let image = XCTAttachment(screenshot: app.screenshot())
+                    image.name = "inbox-language-" + (largest ? "large-" : "normal-") + suffix
+                    image.lifetime = .keepAlways
+                    add(image)
+                }
+                XCTAssertTrue(picker.waitForExistence(timeout: 8))
+                XCTAssertEqual(picker.value as? String, "Chinese")
+                XCTAssertTrue(row.waitForExistence(timeout: 8))
+                row.tap()
+                XCTAssertTrue(input.waitForExistence(timeout: 5))
+                input.tap(); input.typeText(draft)
+                back.tap()
+                XCTAssertTrue(picker.isHittable)
+                capture("initial")
+                picker.tap()
+                XCTAssertTrue(app.navigationBars["I want to learn"].waitForExistence(timeout: 5))
+                capture("picker")
+                app.buttons["Cancel"].tap()
+                XCTAssertEqual(picker.value as? String, "Chinese")
+                picker.tap()
+                let search = app.searchFields.firstMatch
+                search.tap(); search.typeText("Portuguese")
+                let choice = app.buttons["language-choice-pt"]
+                XCTAssertTrue(choice.waitForExistence(timeout: 5))
+                choice.tap()
+                XCTAssertTrue(picker.waitForExistence(timeout: 8))
+                XCTAssertEqual(picker.value as? String, "Portuguese")
+                _ = observe("practice-language-refreshed-from-inbox") { $0["inbox_target"] as? String == "pt" }
+                capture("changed")
+                app.terminate(); app.launchArguments = arguments; app.launch()
+                XCTAssertTrue(picker.waitForExistence(timeout: 12))
+                XCTAssertEqual(picker.value as? String, "Portuguese")
+                _ = observe("persisted-translation-language") { $0["inbox_target"] as? String == "pt" }
+                XCTAssertTrue(row.waitForExistence(timeout: 8))
+                row.tap()
+                XCTAssertTrue(input.waitForExistence(timeout: 8))
+                XCTAssertEqual(input.value as? String, draft)
+                let history = app.descendants(matching: .any).matching(identifier: "immersionText")
+                    .matching(NSPredicate(format: "label CONTAINS %@", "See you at the café")).firstMatch
+                XCTAssertTrue(history.waitForExistence(timeout: 5))
+                back.tap(); XCTAssertTrue(picker.exists)
+                return
+            }
             if inboxReview == "settings-previews" {
                 func captureSettings(_ name: String) {
                     let shot = XCTAttachment(screenshot: app.screenshot()); shot.name = name; shot.lifetime = .keepAlways; add(shot)
