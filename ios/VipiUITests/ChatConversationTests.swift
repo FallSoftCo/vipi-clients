@@ -2148,13 +2148,23 @@ final class ChatConversationTests: XCTestCase {
         XCTAssertTrue(sent.frame.maxY <= input.frame.minY+1 && sent.frame.minY >= bar.frame.maxY)
         XCTAssertFalse(jump.exists,"A genuine own send follows the measured latest row")
         XCTAssertFalse(app.buttons["reply-notification-defer"].exists,"Not now is durable and new sends never repeat it")
-        if typing.exists {
-            let typingSettled = XCTNSPredicateExpectation(predicate:NSPredicate { _,_ in
-                guard let viewport=evidence()["current_message_viewport"] as? [String:Double],
-                      let top=viewport["y"],let height=viewport["height"] else { return false }
-                return typing.exists && typing.frame.minY >= top && typing.frame.maxY <= top+height-8
-            },object:nil)
-            XCTAssertEqual(XCTWaiter.wait(for:[typingSettled],timeout:4),.completed,"Following latest keeps the entire real typing indicator above the composer")
+        // A peer may stop typing between XCTest queries. Read the indicator
+        // and viewport from one immutable accessibility snapshot.
+        let proofPrefix = "first-month-root-qa-proof|"
+        var nodes = [try app.snapshot()], typingFrame: CGRect?, viewportProof: String?
+        while let node = nodes.popLast() {
+            if node.identifier == "peer-typing-indicator" { typingFrame = node.frame }
+            if node.identifier.hasPrefix(proofPrefix) { viewportProof = String(node.identifier.dropFirst(proofPrefix.count)) }
+            nodes.append(contentsOf:node.children)
+        }
+        if let typingFrame {
+            let proof = try XCTUnwrap(viewportProof)
+            let value = try XCTUnwrap(JSONSerialization.jsonObject(with:Data(proof.utf8)) as? [String:Any])
+            let viewport = try XCTUnwrap(value["current_message_viewport"] as? [String:Double])
+            let top = try XCTUnwrap(viewport["y"]), height = try XCTUnwrap(viewport["height"])
+            XCTAssertGreaterThan(typingFrame.height,0)
+            XCTAssertGreaterThanOrEqual(typingFrame.minY,top)
+            XCTAssertLessThanOrEqual(typingFrame.maxY,top+height-8,"Following latest keeps the typing indicator above the composer")
         }
         // The earlier case sampled one transient success, then captured the
         // row behind the composer. Require sustained real app geometry and
