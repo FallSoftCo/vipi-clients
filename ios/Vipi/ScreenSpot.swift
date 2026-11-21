@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Keeps the illustration in unused row space so the control retains its full width while editing.
+/// Keeps the illustration in the introduction or profile row and out of the way while editing.
 struct ScreenSpot: ViewModifier {
     let asset: String
     var editing = false

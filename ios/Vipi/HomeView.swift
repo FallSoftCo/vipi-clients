@@ -297,11 +297,14 @@ struct NewChatView: View {
                         .textInputAutocapitalization(.never).autocorrectionDisabled()
                         .onSubmit { findFriend() }
                         .focused($editingName)
-                        .modifier(ScreenSpot(asset: "SpotNewChat", editing: editingName))
                     Button(action: findFriend) {
                         if busy { ProgressView("Finding your friend") } else { Text("Find friend") }
                     }.disabled(FriendLookupUsername.normalize(username) == nil || busy)
-                } footer: { Text("Find friend looks up an exact Vipi username.") }
+                } header: {
+                    Text("Find friend looks up an exact Vipi username.")
+                        .font(.footnote).textCase(nil).fixedSize(horizontal: false, vertical: true)
+                        .modifier(ScreenSpot(asset: "SpotNewChat", editing: editingName))
+                }
                 if let chat, !chat.needsReauthentication, let account = chat.profile?.id {
                     let friends = chat.savedFriends(matching: username)
                     if !friends.isEmpty {
