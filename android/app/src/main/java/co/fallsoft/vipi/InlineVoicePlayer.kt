@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
@@ -160,7 +161,10 @@ private class NotePlayback(context: Context, private val scope: CoroutineScope) 
             IconButton(onClick = {
                 if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) note.activate { latestOpen() }
             }, enabled = note.state != NoteState.LOADING) {
-                if (note.state == NoteState.LOADING) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
+                if (note.state == NoteState.LOADING) {
+                    val label = stringResource(R.string.media_voice)
+                    CircularProgressIndicator(Modifier.size(20.dp).semantics { contentDescription = label }, strokeWidth = 2.dp)
+                }
                 else Icon(when (note.state) {
                     NoteState.PLAYING -> Icons.Outlined.Pause
                     NoteState.FAILED -> Icons.Outlined.Refresh

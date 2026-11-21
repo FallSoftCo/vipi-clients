@@ -26,6 +26,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.platform.testTag
@@ -575,7 +576,8 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                                         val accessible = MessageTimelineMetadata.exactTime(item.createdAt, locale) + " · " + status
                                         val messageContent: @Composable () -> Unit = {
                                             if (item.hasVoiceOnlyPlaceholder) {
-                                                Box(Modifier.padding(start = 12.dp, end = 12.dp, bottom = 6.dp)) { ChatMessageMetadata(item, locale) }
+                                                Box(Modifier.padding(start = 12.dp, end = 12.dp, bottom = 6.dp)
+                                                    .semantics { contentDescription = accessible }) { ChatMessageMetadata(item, locale) }
                                             } else if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio,
                                                 accessibilityContext = accessible) { ChatMessageMetadata(item, locale) }
                                         }
