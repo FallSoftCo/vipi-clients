@@ -7,7 +7,7 @@ import org.json.JSONObject
  * attach or emit; this is never product telemetry or persistent logging. */
 internal object MessageAudioQualification {
     private val allowed: Boolean get() = BuildConfig.DEBUG && BuildConfig.APPLICATION_ID in
-        setOf("co.fallsoft.vipi.sourcecontextqa", "co.fallsoft.vipi.uxqa", "co.fallsoft.vipi.tutorialqa")
+        setOf("co.fallsoft.vipi.sourcecontextqa", "co.fallsoft.vipi.uxqa", "co.fallsoft.vipi.tutorialqa", "co.fallsoft.vipi.groupsqa")
     @Volatile private var observer: ((JSONObject) -> Unit)? = null
     fun attach(value: ((JSONObject) -> Unit)?) { check(allowed); observer = value }
     fun emit(stage: String, id: String? = null, vararg fields: Pair<String, Any?>) {

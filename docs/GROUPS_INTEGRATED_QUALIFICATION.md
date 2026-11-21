@@ -19,10 +19,14 @@ roles and routing metadata.
 Both conversation screens use the account's existing immersion renderer and
 language settings. Shallow and Deep, reveal-original, tap-to-listen and
 Autoplay are available through the same translation and speech owners as a
-direct conversation. On-device language and voice availability still apply.
-The Android walkthrough checked mode changes against the live model and
-found Autoplay in the accessible interface. A translated incoming group
-sentence and audible playback on both platforms still need native evidence.
+direct conversation. An offline Android run used two independently keyed
+synthetic accounts and the production group receive path. Maya’s English
+text opened in Shallow, then switched to a Spanish Deep translation. Holding
+showed the English original. Tapping submitted the entire Spanish sentence
+to the local voice in one render, played 5.046 seconds through AudioTrack
+and highlighted 15 word ranges in the native paragraph. The muted emulator
+did not test acoustic quality. iOS group translation and speech still need
+runtime qualification. [Screens and native audio](https://system76-pc.tailb77f2a.ts.net/8bar/vipi-studio-20261120/#groups-spanish-immersion-android-20261121-r01)
 
 Group APNs wakeups omit direct-message preview tickets. The direct preview
 route rejects a ratchet chain containing group text or group controls, including

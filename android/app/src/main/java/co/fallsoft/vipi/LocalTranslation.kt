@@ -35,6 +35,9 @@ class LocalTranslation : LanguageTranslation {
         return checkNotNull(client)
     }
     override suspend fun prepare(source: String, target: String, cellularAllowed: Boolean): Unit = mutex.withLock {
+        // A locally installed pair can translate offline without starting the
+        // SDK download workflow or waiting for its remote configuration.
+        if (isReady(source, target)) return@withLock
         val conditions = DownloadConditions.Builder().apply { if (!cellularAllowed) requireWifi() }.build()
         client(source, target).downloadModelIfNeeded(conditions).await()
     }
