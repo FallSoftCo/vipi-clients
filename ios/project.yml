@@ -167,6 +167,8 @@ targets:
       path: VipiNotificationService/Info.plist
       properties:
         CFBundleDisplayName: Vipi Notifications
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         VipiNotificationKeyGroup: $(AppIdentifierPrefix)co.fallsoft.vipi.notification-access
         NSExtension:
           NSExtensionPointIdentifier: com.apple.usernotifications.service
