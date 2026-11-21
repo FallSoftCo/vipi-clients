@@ -355,7 +355,7 @@ class InboxJourneyDeviceTest {
                 search.performTouchInput { click() }.performTextInput("may")
                 spot.assertDoesNotExist()
                 val after = search.fetchSemanticsNode().boundsInWindow.width
-                if (spacious) assertTrue("The focused field uses the illustration space", after > before)
+                assertEquals("Focusing search never changes the full-width field", before, after, 1f)
                 search.assertIsFocused().assertTextContains("may")
                 paint(f, "03-editing")
             } finally { f.stopActivity(); service.close() }
