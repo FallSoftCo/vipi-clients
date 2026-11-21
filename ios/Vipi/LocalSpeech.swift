@@ -130,7 +130,7 @@ private final class ConverterInput: @unchecked Sendable {
     }
     static func availableLanguageCodes() async -> Set<String> {
         let voices = await installedVoices()
-        var codes = Set(voices.map { LocalLanguageCatalog.canonicalCode($0.language) })
+        var codes = Set(voices.compactMap { LocalLanguageCatalog.practiceVoiceCode($0.language) })
         if SwahiliSpeech.packagedRoot != nil { codes.insert("sw") } else { codes.remove("sw") }
         return codes
     }
@@ -146,7 +146,7 @@ private final class ConverterInput: @unchecked Sendable {
         let preferred = ["en": "en-US", "es": "es-ES", "fr": "fr-FR", "de": "de-DE", "it": "it-IT", "pt": "pt-BR",
             "ar": "ar-001", "zh": "zh-CN", "ja": "ja-JP", "ko": "ko-KR"][language] ?? language
         let matching = available.filter {
-            LocalLanguageCatalog.canonicalCode($0.language) == code
+            LocalLanguageCatalog.practiceVoiceCode($0.language) == code
         }.sorted {
             // An explicitly selected dialect takes precedence. For a language
             // without a region, prefer its best installed natural voice.

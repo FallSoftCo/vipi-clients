@@ -55,6 +55,16 @@ import XCTest
         XCTAssertEqual(model.pair,japanese); XCTAssertEqual(model.provider,.apple)
         model.prepare(); XCTAssertEqual(model.request?.provider,.apple)
     }
+    func testMandarinVoiceLocaleMatchesTheDisplayedPinyin() {
+        for tag in ["cmn", "cmn-HK", "zh-cmn-Hans-CN", "zh-CN", "zh-Hans-SG", "zh_TW", "zh-Hant-TW"] {
+            XCTAssertEqual(LocalLanguageCatalog.practiceVoiceCode(tag), "zh", tag)
+        }
+        for tag in ["zh", "zh-Hant", "zh-Hans", "zh-HK", "zh-Hant-HK", "zh-MO",
+                    "yue", "zh-yue-CN", "wuu-CN", "zh-gan-CN", "zh-CN-x-regional"] {
+            XCTAssertNotEqual(LocalLanguageCatalog.practiceVoiceCode(tag), "zh", tag)
+        }
+        XCTAssertEqual(LocalLanguageCatalog.practiceVoiceCode("nb-NO"), "no")
+    }
     func testPlatformLanguageAliasesKeepTheSameUserSelection() {
         for (native, canonical) in [("nb-NO","no"),("iw-IL","he"),("in-ID","id"),("fil-PH","tl"),("zh-Hant","zh")] {
             XCTAssertEqual(LocalLanguageCatalog.canonicalCode(native),canonical)
