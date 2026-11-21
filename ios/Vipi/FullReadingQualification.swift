@@ -154,7 +154,7 @@ private actor ReadingStatusUIGate {
     func start() async {
         guard !cleaned,!configured else { return }; configured = true
         await immersion.configure(pair:.init(source:"en",target:"ja"))
-        state.chatReading.bindPlayback(owner:playbackOwner) { [weak self] identity in
+        state.chatReading.bindPlayback(owner:playbackOwner) { [weak self] identity,_ in
             guard let self,let value = immersion.translation(for:identity) else { return }
             // Observes production ChatReadingState command routing only. No
             // SpeechPlayback.prepare/start and no claim of synthesized audio.

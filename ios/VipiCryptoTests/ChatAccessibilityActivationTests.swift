@@ -103,7 +103,7 @@ import VipiCore
         let reading = ChatReadingState(defaults:defaults), playback = UUID(), hint = UUID()
         let identity = ImmersionRequestIdentity(messageID:"obscured",text:"Tomorrow.",source:"en",target:"es",inputLanguage:"en",generation:UUID())
         var selected:[ImmersionRequestIdentity] = []
-        reading.bindPlayback(owner:playback) { selected.append($0) }
+        reading.bindPlayback(owner:playback) { identity,_ in selected.append(identity) }
         defer { reading.unbindPlayback(owner:playback) }
         reading.register(.init(identity:identity,frame:CGRect(x:0,y:0,width:300,height:200),activate:{_ in true}))
         reading.setHintFrame(CGRect(x:0,y:0,width:300,height:80),owner:hint)
@@ -126,7 +126,7 @@ import VipiCore
         let reading = ChatReadingState(defaults:defaults), owner = UUID()
         let identity = ImmersionRequestIdentity(messageID:"latin-message",text:"Tomorrow.",source:"en",target:"es",inputLanguage:"en",generation:UUID())
         var selected:[ImmersionRequestIdentity] = []
-        reading.bindPlayback(owner:owner) { selected.append($0) }
+        reading.bindPlayback(owner:owner) { identity,_ in selected.append(identity) }
         defer { reading.unbindPlayback(owner:owner) }
         let result = FullMessageTranslation(original:"Tomorrow.",practiceText:"Mañana.",meaningText:"Tomorrow.",inputLanguage:"en",practiceLanguage:"es",meaningLanguage:"en")
         let scene = try XCTUnwrap(UIApplication.shared.connectedScenes.compactMap{$0 as? UIWindowScene}.first)
@@ -187,7 +187,7 @@ import VipiCore
         defer { defaults.removePersistentDomain(forName:suite) }
         let reading = ChatReadingState(defaults:defaults), playbackOwner = UUID()
         var selected:[ImmersionRequestIdentity] = []
-        reading.bindPlayback(owner:playbackOwner) { selected.append($0) }
+        reading.bindPlayback(owner:playbackOwner) { identity,_ in selected.append(identity) }
         defer { reading.unbindPlayback(owner:playbackOwner) }
         let identity = ImmersionRequestIdentity(messageID:"native-accessibility-message",text:"Tomorrow.",source:"en",target:"zh",inputLanguage:"en",generation:UUID())
         let result = FullMessageTranslation(original:"Tomorrow.",practiceText:"明天。",meaningText:"Tomorrow.",inputLanguage:"en",practiceLanguage:"zh",meaningLanguage:"en",practiceReading:"míngtiān.")

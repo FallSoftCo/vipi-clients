@@ -889,7 +889,8 @@ struct ConversationImmersionText: View {
         }
     }
     private func registerPending() {
-        guard immersion.translation(for:identity) == nil else { return }
+        guard immersion.translation(for:identity) == nil,
+              immersion.phase(for:identity) != .translating || immersion.previousModeTranslation(for:identity) == nil else { return }
         state.chatReading.register(.init(identity:identity,frame:frame,activate:pendingActivation))
     }
     private var failureText: String {
@@ -914,8 +915,7 @@ struct ConversationImmersionText: View {
                     onReadingRetry:{ _ = immersion.retryReading(identity) },embedded:true,metadata:metadata,accessibilityMessageContext:accessibilityMessageContext,
                     onVoiceHelp:onVoiceHelp,originalMessage:value.original,inputLanguage:value.inputLanguage,
                     onReport:onReport,reading:state.chatReading,identity:identity,incremental:value.words != nil,
-                    transitionFace:.init(scope:immersion.displayGeneration, message:id, mode:ready == nil ? immersion.mode.next : immersion.mode),
-                    awaitingMode:ready == nil)
+                    transitionFace:.init(scope:immersion.displayGeneration, message:id, mode:ready == nil ? immersion.mode.next : immersion.mode))
                 if let failure = playback?.failure(for:id) {
                     Button { state.chatReading.activate(identity) } label: {
                         Text(failure).font(.subheadline).foregroundStyle(VipiDesign.messageSecondary(outgoingMessage))

@@ -343,8 +343,8 @@ struct BotConversationView: View {
                 prepareVoices(); immersion.warm((session?.messages ?? []).map{(id:"bot-"+$0.id.uuidString,text:$0.text)})
             }
             .onAppear {
-                state.chatReading.bindPlayback(owner:autoplay.ownerID) { identity in
-                    autoplay.manual(identity,immersion:immersion,speech:speech,onModels:{translationHelpPair = $0; translationHelp = true},onVoiceHelp:{voiceHelp = true})
+                state.chatReading.bindPlayback(owner:autoplay.ownerID) { identity,displayed in
+                    autoplay.manual(identity,displayed:displayed,immersion:immersion,speech:speech,onModels:{translationHelpPair = $0; translationHelp = true},onVoiceHelp:{voiceHelp = true})
                 }
             }
             .onDisappear {
