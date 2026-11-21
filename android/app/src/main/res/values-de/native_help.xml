@@ -9,7 +9,7 @@
     <string name="help_languages_step2">Unter Einstellungen → Sprachen verwaltest du die Downloads. Tippe auf eine Übungsnachricht, um sie anzuhören, wenn eine Stimme verfügbar ist.</string>
     <string name="help_notifications_title">Nachrichtenvorschauen schützen</string>
     <string name="help_notifications_step1">Öffne die Benachrichtigungen in den Einstellungen und schalte die Anzeige von Absender und Nachricht aus.</string>
-    <string name="help_notifications_step2">Prüfe das Beispiel und die Einstellungen für den Sperrbildschirm. Auf dem iPhone haben Vorschauen innerhalb von Vipi einen eigenen Schalter.</string>
+    <string name="help_notifications_step2">Prüfe das Beispiel und die Einstellungen für den Sperrbildschirm.</string>
     <string name="help_safety_title">Die Identität eines Kontakts prüfen</string>
     <string name="help_safety_step1">Öffne die Sicherheitsnummer im Chat. Vergleicht alle zwölf Zahlengruppen persönlich oder in einem vertrauenswürdigen Anruf.</string>
     <string name="help_safety_step2">Bestätige die Nummer nur, wenn alle Gruppen übereinstimmen. In den Chatoptionen kannst du Personen blockieren oder melden. Prüfe vor einer Meldung, was du übermittelst.</string>

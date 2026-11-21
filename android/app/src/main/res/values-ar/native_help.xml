@@ -9,7 +9,7 @@
     <string name="help_languages_step2">افتح اللغات في الإعدادات لإدارة التنزيلات. اضغط على رسالة التدريب للاستماع إليها عند توفر صوت.</string>
     <string name="help_notifications_title">إخفاء محتوى الإشعارات</string>
     <string name="help_notifications_step1">افتح الإشعارات في الإعدادات وأوقف عرض المرسل والرسالة.</string>
-    <string name="help_notifications_step2">راجع المثال وإعدادات شاشة القفل في هاتفك. على iPhone يوجد خيار مستقل للمعاينات داخل Vipi.</string>
+    <string name="help_notifications_step2">راجع المثال وإعدادات شاشة القفل في هاتفك.</string>
     <string name="help_safety_title">التحقق من هوية من تتحدث معه</string>
     <string name="help_safety_step1">افتح رقم الأمان في محادثتك مع صديقك. قارنا مجموعات الأرقام الاثنتي عشرة وجهًا لوجه أو عبر مكالمة موثوقة.</string>
     <string name="help_safety_step2">لا تضع علامة التحقق إلا إذا تطابقت جميع المجموعات. يمكنك حظر شخص أو الإبلاغ عنه من خيارات المحادثة. راجع ما ستشاركه قبل إرسال البلاغ.</string>

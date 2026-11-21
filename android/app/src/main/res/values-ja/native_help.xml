@@ -9,7 +9,7 @@
     <string name="help_languages_step2">設定の「言語」で必要なデータを管理できます。音声が利用できる場合、練習メッセージをタップすると読み上げます。</string>
     <string name="help_notifications_title">通知の内容を隠す</string>
     <string name="help_notifications_step1">設定の「通知」で、送信者とメッセージの表示をオフにします。</string>
-    <string name="help_notifications_step2">表示例と端末のロック画面の設定を確認してください。iPhoneでは、Vipiを開いている間のプレビューを別に設定できます。</string>
+    <string name="help_notifications_step2">表示例と端末のロック画面の設定を確認してください。</string>
     <string name="help_safety_title">会話相手を確認する</string>
     <string name="help_safety_step1">友達との会話でセキュリティ番号を開きます。対面か信頼できる通話で、12組の数字をすべて照合します。</string>
     <string name="help_safety_step2">すべて一致した場合だけ確認済みにします。ブロックや報告は会話のオプションから行えます。報告を送る前に共有内容を確認してください。</string>

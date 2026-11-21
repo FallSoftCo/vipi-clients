@@ -17,6 +17,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.collapse
+import androidx.compose.ui.semantics.expand
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -57,6 +59,10 @@ private enum class HelpTopic(val title: Int, val picture: Int?, val first: Int, 
         for (topic in HelpTopic.entries) {
             val open = expanded == topic
             Row(Modifier.fillMaxWidth().testTag("help-topic-${topic.name}")
+                .semantics {
+                    if (open) collapse { expanded = null; true }
+                    else expand { expanded = topic; true }
+                }
                 .clickable(role = Role.Button) { expanded = if (open) null else topic }
                 .heightIn(min = 56.dp).padding(vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically) {

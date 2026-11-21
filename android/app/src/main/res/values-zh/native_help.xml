@@ -9,7 +9,7 @@
     <string name="help_languages_step2">在设置中打开语言选项，管理所需的语言下载。语音可用时，轻点练习消息即可收听。</string>
     <string name="help_notifications_title">隐藏通知预览</string>
     <string name="help_notifications_step1">在设置中打开通知，关闭显示发件人和消息的选项。</string>
-    <string name="help_notifications_step2">检查显示示例和手机的锁屏设置。在 iPhone 上，Vipi 内的预览有单独的开关。</string>
+    <string name="help_notifications_step2">检查显示示例和手机的锁屏设置。</string>
     <string name="help_safety_title">确认聊天对象</string>
     <string name="help_safety_step1">在与朋友的对话中打开安全号码。当面或通过可信的通话核对全部 12 组数字。</string>
     <string name="help_safety_step2">只有全部一致时才标记为已验证。通过对话选项可以屏蔽或举报对方。提交举报前请核对将要分享的内容。</string>

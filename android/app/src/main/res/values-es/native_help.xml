@@ -9,7 +9,7 @@
     <string name="help_languages_step2">En Ajustes, abre Idiomas para gestionar las descargas. Toca un mensaje de práctica para escucharlo si hay una voz disponible.</string>
     <string name="help_notifications_title">Ocultar el contenido de los avisos</string>
     <string name="help_notifications_step1">En Ajustes, abre Notificaciones y desactiva la opción de mostrar el remitente y el mensaje.</string>
-    <string name="help_notifications_step2">Consulta el ejemplo y los ajustes de la pantalla de bloqueo del teléfono. En el iPhone, las vistas previas dentro de Vipi tienen un control independiente.</string>
+    <string name="help_notifications_step2">Consulta el ejemplo y los ajustes de la pantalla de bloqueo del teléfono.</string>
     <string name="help_safety_title">Verificar con quién hablas</string>
     <string name="help_safety_step1">En la conversación con tu amigo, abre el número de seguridad. Comparad los 12 grupos en persona o mediante una llamada de confianza.</string>
     <string name="help_safety_step2">Marca el número como verificado solo si coinciden todos los grupos. Puedes bloquear o denunciar desde las opciones de la conversación. Revisa qué vas a compartir antes de enviar una denuncia.</string>

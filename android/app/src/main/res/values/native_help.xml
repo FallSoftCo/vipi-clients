@@ -9,7 +9,7 @@
     <string name="help_languages_step2">Open Languages in Settings to manage the downloads for your language pair. Tap a practice message to hear it when a voice is available.</string>
     <string name="help_notifications_title">Keep previews private</string>
     <string name="help_notifications_step1">Open Notifications in Settings. Turn off Show sender and message to keep the contents of alerts private.</string>
-    <string name="help_notifications_step2">Check the example and your phone’s lock-screen settings. On iPhone, in-app previews have their own switch.</string>
+    <string name="help_notifications_step2">Check the example and your phone’s lock-screen settings.</string>
     <string name="help_safety_title">Check who you’re talking to</string>
     <string name="help_safety_step1">In a friend’s conversation, open the security number. Compare all 12 groups in person or over a trusted call.</string>
     <string name="help_safety_step2">Mark it as verified only if every group matches. To block or report someone, open their conversation options. Review exactly what you’re sharing before submitting a report.</string>

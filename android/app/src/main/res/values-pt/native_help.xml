@@ -9,7 +9,7 @@
     <string name="help_languages_step2">Nas Definições, abra Idiomas para gerir os ficheiros de idioma. Toque numa mensagem para a ouvir quando houver uma voz disponível.</string>
     <string name="help_notifications_title">Ocultar o conteúdo das notificações</string>
     <string name="help_notifications_step1">Nas Definições, abra Notificações e desative a apresentação do remetente e da mensagem.</string>
-    <string name="help_notifications_step2">Veja o exemplo e as definições do ecrã bloqueado. No iPhone, as pré-visualizações dentro do Vipi têm um controlo próprio.</string>
+    <string name="help_notifications_step2">Veja o exemplo e as definições do ecrã bloqueado.</string>
     <string name="help_safety_title">Verificar a identidade de um amigo</string>
     <string name="help_safety_step1">Abra o número de segurança na conversa. Comparem os 12 grupos de algarismos pessoalmente ou numa chamada de confiança.</string>
     <string name="help_safety_step2">Marque como verificado apenas se todos os grupos coincidirem. Nas opções da conversa pode bloquear ou denunciar alguém. Confira o conteúdo antes de enviar uma denúncia.</string>

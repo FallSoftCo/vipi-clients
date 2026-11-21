@@ -9,7 +9,7 @@
     <string name="help_languages_step2">In Impostazioni apri Lingue per gestire i download. Tocca un messaggio per ascoltarlo quando è disponibile una voce.</string>
     <string name="help_notifications_title">Proteggere le anteprime</string>
     <string name="help_notifications_step1">In Impostazioni apri Notifiche e disattiva la visualizzazione del mittente e del messaggio.</string>
-    <string name="help_notifications_step2">Controlla l’esempio e le impostazioni della schermata di blocco. Su iPhone le anteprime dentro Vipi hanno un controllo separato.</string>
+    <string name="help_notifications_step2">Controlla l’esempio e le impostazioni della schermata di blocco.</string>
     <string name="help_safety_title">Verificare con chi parli</string>
     <string name="help_safety_step1">Apri il numero di sicurezza nella chat con il tuo amico. Confrontate tutti i 12 gruppi di cifre di persona o durante una chiamata fidata.</string>
     <string name="help_safety_step2">Contrassegna il numero come verificato solo se coincide ogni gruppo. Per bloccare o segnalare una persona, apri le opzioni della chat. Controlla cosa condividi prima di inviare la segnalazione.</string>
