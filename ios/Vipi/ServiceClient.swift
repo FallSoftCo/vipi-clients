@@ -1,6 +1,7 @@
 import Foundation
 import Security
 
+struct NoContentResponse: Decodable {}
 private struct ServiceErrorBody: Decodable { let error: String }
 private final class NoServiceRedirects: NSObject, URLSessionTaskDelegate, Sendable {
     func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse,
@@ -88,6 +89,7 @@ extension AuthenticationManager: ChatAccessTokenSource {}
                 guard data.count < 12_000_000 else { throw ServiceFailure(status: 0, code: "response_too_large") }
                 data.append(byte)
             }
+            if response.statusCode == 204, data.isEmpty, let noContent = NoContentResponse() as? T { return noContent }
             if (200...299).contains(response.statusCode) { return try JSONDecoder().decode(T.self, from: data) }
             let code = (try? JSONDecoder().decode(ServiceErrorBody.self, from: data).error) ?? "service_unavailable"
             if attempt == 0, response.statusCode == 401, code == "sign_in_required" { token = try await authentication.accessToken(for: userID, rejected: token) }

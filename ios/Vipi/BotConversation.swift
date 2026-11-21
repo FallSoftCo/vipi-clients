@@ -17,7 +17,7 @@ struct BotMessage: Codable, Identifiable {
 /// The friend-message journal is never an input to response generation.
 @MainActor @Observable final class BotSession {
     private let api: any ChatTransport
-    private let vault: MessageVault
+    let vault: MessageVault
     private let now: () -> Date
     private let generator: any LocalBotGenerating
     private var generation: Task<String, Error>?
@@ -307,10 +307,11 @@ struct BotConversationView: View {
     @State private var rejectedDraftEdit = false
     @State private var composing = false
     var body: some View {
-        Group {
+        VStack(spacing: 0) {
+            ChatRevealCue(reading: state.chatReading, vault: session?.vault, composing: composing)
             if let session { conversation(session) }
             else { ContentUnavailableView("Your vBot conversation", systemImage: "bubble.left", description: Text(error ?? String(localized: "Opening your saved conversation…"))) }
-        }.safeAreaInset(edge:.top,spacing:0) { ChatGestureCue(reading:state.chatReading,composing:composing) }.background(VipiDesign.canvas).navigationTitle("vBot").navigationBarTitleDisplayMode(.inline)
+        }.background(VipiDesign.canvas).navigationTitle("vBot").navigationBarTitleDisplayMode(.inline)
             .background { if owner.translationOwner == nil { ConversationTranslationTask(immersion:immersion) } }
             .background { ChatReadingGestureSurface(reading:state.chatReading) }
             .background { CopyOriginalAnchor(context:copyOriginal) }

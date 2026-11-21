@@ -133,6 +133,75 @@ struct AuthenticatedChatProfile: Decodable {
         }, changed:{ [weak self] in try? self?.reload() })
     }
     private var closed = false
+    private var feedbackSession = UUID()
+    private var surveyUnavailable = false
+    private var uploadingFundingChoice = false
+    private(set) var showingFundingSurvey = false
+
+    func dismissFundingCard() { showingFundingSurvey = false }
+    func leftForeground() {
+        feedbackSession = UUID(); surveyUnavailable = false; showingFundingSurvey = false
+    }
+    var feedbackVault: MessageVault? {
+        guard ready, !closed, !needsReauthentication, !needsDeviceReplacement, !needsProfile,
+              profile?.id == vault?.account else { return nil }
+        return vault
+    }
+    func considerChatIntervention(whileIdle: () -> Bool) async -> ChatIntervention? {
+        guard let vault = feedbackVault, whileIdle(), !showingFundingSurvey,
+              let usage = try? vault.transaction({ try ChatFeedback.load(vault) }) else { return nil }
+        let session = feedbackSession
+        func claim(_ kind: ChatIntervention) -> Bool {
+            guard !Task.isCancelled, feedbackVault === vault, session == feedbackSession, whileIdle() else { return false }
+            return (try? vault.transaction {
+                var current = try ChatFeedback.load(vault)
+                guard current.claim(kind, now: Date(), session: session) else { return false }
+                try current.save(vault); return true
+            }) == true
+        }
+        if !surveyUnavailable, usage.eligible(.survey, now: Date(), session: session) {
+            struct Availability: Decodable { let available: Bool }
+            let result: Availability? = try? await api.request("GET", ChatFeedback.route)
+            if session == feedbackSession, result?.available == false { surveyUnavailable = true }
+            if result?.available == true, claim(.survey) { showingFundingSurvey = true; return .survey }
+        }
+        if usage.eligible(.review, now: Date(), session: session), claim(.review) { return .review }
+        return nil
+    }
+    func chooseFundingResponse(_ choice: FundingChoice) {
+        guard showingFundingSurvey, let vault = feedbackVault else { return }
+        do {
+            try vault.transaction {
+                var record = try ChatFeedback.load(vault)
+                record.choose(choice); try record.save(vault)
+            }
+            showingFundingSurvey = false
+            Task { await retryFundingResponse() }
+        } catch { return }
+    }
+    func reconcileFeedbackHistory() async {
+        guard let vault = feedbackVault else { return }
+        for _ in 0..<4 {
+            guard !Task.isCancelled, feedbackVault === vault, (try? ChatFeedback.backfillPage(vault)) == true else { return }
+            await Task.yield()
+        }
+    }
+    func retryFundingResponse() async {
+        guard !uploadingFundingChoice, let vault = feedbackVault,
+              let choice = try? vault.transaction({ try ChatFeedback.load(vault).pending }) else { return }
+        uploadingFundingChoice = true
+        defer { uploadingFundingChoice = false }
+        do {
+            let _: NoContentResponse = try await api.request("PUT", ChatFeedback.route, body: JSONEncoder().encode(["choice": choice.rawValue]))
+            guard feedbackVault === vault else { return }
+            try vault.transaction {
+                var record = try ChatFeedback.load(vault)
+                guard record.pending == choice else { return }
+                record.acknowledged(); try record.save(vault)
+            }
+        } catch { /* A later foreground or return to Chats retries the same account's explicit choice. */ }
+    }
+
     private(set) var translationOwner: ConversationImmersion?
     private var translationReplay: Task<Void,Never>?
     func configureTranslation(pair:TranslationPair,mode:ImmersionMode = .incremental,services:MessageTranslationServices) async {
@@ -216,8 +285,8 @@ struct AuthenticatedChatProfile: Decodable {
     }
     #if DEBUG
     /// Isolated transport qualification: no account/keychain/vault is opened.
-    init(qualificationAPI: any ChatTransport, userID: String, ready: Bool = false, profile: ChatProfile? = nil) {
-        self.userID = userID; self.api = qualificationAPI; self.ready = ready; self.profile = profile
+    init(qualificationAPI: any ChatTransport, userID: String, ready: Bool = false, profile: ChatProfile? = nil, vault: MessageVault? = nil) {
+        self.userID = userID; self.api = qualificationAPI; self.ready = ready; self.profile = profile; self.vault = vault
     }
     #endif
     private final class GroupTransport: ChatTransport {

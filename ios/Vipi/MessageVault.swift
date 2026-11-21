@@ -192,7 +192,7 @@ final class MessageVault: @unchecked Sendable {
     /// Indexed keyset pagination. Prefixes contain only opaque conversation IDs.
     func pageIDs(_ kind: String, prefix: String, before: String? = nil, limit: Int = 50) throws -> [String] {
         lock.lock(); defer { lock.unlock() }
-        _ = try aad(kind, prefix)
+        _ = try aad(kind, prefix.isEmpty ? "enumerate" : prefix)
         guard (1...100).contains(limit) else { throw Failure.invalidRecord }
         let upper = prefix + "\u{FFFF}"
         return try statement("SELECT id FROM records WHERE kind=? AND id>=? AND id<? AND id<? ORDER BY id DESC LIMIT ?", kind, prefix) { raw in

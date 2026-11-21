@@ -19,12 +19,18 @@ struct DisplayedPracticeAudio {
 
 /// Shared by visible and subsequently loaded rows, never by private message storage.
 @MainActor @Observable final class ChatReadingState {
+    #if DEBUG
+    // Historical QA evidence only. Production coaching uses the account vault.
     private let defaults:UserDefaults
     private(set) var needsGestureHint:Bool
     init(defaults:UserDefaults = .standard) {
         self.defaults = defaults; needsGestureHint = !defaults.bool(forKey:"full-message-gestures-v1-seen")
     }
     private func learnedGesture() { if needsGestureHint { needsGestureHint = false; defaults.set(true,forKey:"full-message-gestures-v1-seen") } }
+    #else
+    init(defaults: UserDefaults = .standard) {}
+    private func learnedGesture() {}
+    #endif
     var nativeScript = false
     var accessibleMeaning = false
     private(set) var holding = false
@@ -35,7 +41,10 @@ struct DisplayedPracticeAudio {
         let activate: (Bool) -> Bool
         var hasAlternateScript = false
         var audio: DisplayedPracticeAudio? = nil
+        var visibleTranslation = false
     }
+    @ObservationIgnored weak var revealVisit: RevealHintVisit?
+    private(set) var hasVisibleTranslation = false
     private(set) var hasAlternateScript = false
     @ObservationIgnored private var rows: [String:Row] = [:]
     @ObservationIgnored private var pendingPlayback: ImmersionRequestIdentity?
@@ -46,6 +55,7 @@ struct DisplayedPracticeAudio {
         if frame.isNull || frame.isEmpty { hintFrames.removeValue(forKey:owner) }
         else { hintFrames[owner] = frame }
     }
+    func pointInHint(_ point: CGPoint) -> Bool { hintFrames.values.contains { $0.contains(point) } }
     func removeHintFrame(owner:UUID) { hintFrames.removeValue(forKey:owner) }
     func bindPlayback(owner:UUID,play:@escaping(ImmersionRequestIdentity, DisplayedPracticeAudio?)->Void) { playbackOwner = owner; manualPlayback = play; pendingPlayback = nil }
     func unbindPlayback(owner:UUID) { if playbackOwner == owner { playbackOwner = nil; manualPlayback = nil; pendingPlayback = nil } }
@@ -61,6 +71,8 @@ struct DisplayedPracticeAudio {
         if pendingPlayback == identity { pendingPlayback = nil }
     }
     private func refreshScriptAvailability() {
+        let translated = rows.values.contains { $0.visibleTranslation }
+        if translated != hasVisibleTranslation { hasVisibleTranslation = translated }
         let available = rows.values.contains { $0.hasAlternateScript }
         if available != hasAlternateScript { hasAlternateScript = available }
     }
@@ -88,16 +100,20 @@ struct DisplayedPracticeAudio {
     func tap(at point: CGPoint) {
         // A scrolled row may extend behind the first-chat hint. Only visible
         // message content should respond to a playback tap in that area.
-        guard !hintFrames.values.contains(where:{$0.contains(point)}) else { return }
+        guard !pointInHint(point) else { return }
         if let row = row(at:point) { activate(row.identity) }
     }
     func hold(at point: CGPoint) {
+        if hasVisibleTranslation && !showingMeaning { revealVisit?.revealed(keepSpace: true) }
         learnedGesture(); pendingPlayback = nil; holding = true
     }
-    func releaseHold() { holding = false }
+    func releaseHold() { holding = false; revealVisit?.released() }
     func cancelInteractions() { holding = false; accessibleMeaning = false; pendingPlayback = nil }
     func toggleScript() { learnedGesture(); nativeScript.toggle() }
-    func toggleMeaning() { learnedGesture(); accessibleMeaning.toggle() }
+    func toggleMeaning() {
+        if hasVisibleTranslation && !showingMeaning { revealVisit?.revealed(keepSpace: false) }
+        learnedGesture(); accessibleMeaning.toggle()
+    }
     /// Assistive activation uses native actions, not the physical touch grammar.
     static func actionDescription(showingMeaning:Bool = false,nativeScript:Bool = false,hasAlternateScript:Bool = true,incremental:Bool = true) -> String {
         var actions = [incremental ? String(localized:"Play practice words") : String(localized:"Play message"),
@@ -108,47 +124,6 @@ struct DisplayedPracticeAudio {
     static func gestureDescription(target:String,hasAlternateScript:Bool,incremental:Bool = true) -> String {
         let basic = incremental ? String(format:String(localized:"Tap to hear %1$@ words. Hold to see the original message."),VipiLanguage.named(target).localizedName) : String(localized:"Tap a message to listen. Hold to see the original.")
         return hasAlternateScript ? basic + " " + String(format:String(localized:"Double-tap to see %1$@ writing."),VipiLanguage.named(target).localizedName) : basic
-    }
-}
-
-/// Reserve the cue's current wrapped inset for this first open-chat lifetime.
-/// Learning hides its ink/AX content without moving the held message; leaving
-/// the conversation releases the inset. Subsequent chats need no cue.
-struct ChatGestureCue: View {
-    @Environment(AppState.self) private var state
-    let reading:ChatReadingState
-    let composing:Bool
-    @State private var reservesHint:Bool
-    @State private var hintOwner = UUID()
-    init(reading:ChatReadingState,composing:Bool = false) {
-        self.reading = reading; self.composing = composing; _reservesHint = State(initialValue:reading.needsGestureHint)
-    }
-    var body:some View {
-        // The interactive preview teaches all three gestures. In a live chat,
-        // remind the reader how to understand a message without a pinned lesson.
-        let description = String(localized:"Hold to see the original message.")
-        VStack(spacing:0) {
-            if reservesHint && !composing {
-                InertTextReservation(text:description,
-                    minimumHeight:0,insets:UIEdgeInsets(top:18,left:30,bottom:12,right:30),fillsWidth:true)
-                    .frame(maxWidth:560)
-                    .overlay(alignment:.top) {
-                        if reading.needsGestureHint {
-                            Text(description)
-                                .font(.subheadline).foregroundStyle(VipiDesign.secondary).fixedSize(horizontal:false,vertical:true)
-                                .padding(12)
-                                .padding(.horizontal,18).padding(.top,6).frame(maxWidth:560)
-                                .accessibilityLabel(Text(ChatReadingState.actionDescription(showingMeaning:reading.showingMeaning,nativeScript:reading.nativeScript,hasAlternateScript:reading.hasAlternateScript,incremental:state.immersionMode == .incremental)))
-                                .accessibilityIdentifier("chat-gesture-hint").allowsHitTesting(false)
-                        }
-                    }
-            }
-        }
-        .frame(maxWidth:.infinity).background(VipiDesign.canvas)
-        .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { reading.setHintFrame($0,owner:hintOwner) }
-        // Reset only when the whole cue host leaves. Hiding its conditional
-        // text for the editor must not consume the first-chat reservation.
-        .onDisappear { reservesHint = false; reading.removeHintFrame(owner:hintOwner) }
     }
 }
 
@@ -218,11 +193,13 @@ private struct InertTextReservation: UIViewRepresentable {
 /// tap/double-tap/hold before playback; native scrolling and editable controls win.
 struct ChatReadingGestureSurface: UIViewRepresentable {
     let reading: ChatReadingState
+    var onTouch: (() -> Void)? = nil
     func makeUIView(context: Context) -> Capture { Capture(reading:reading) }
-    func updateUIView(_ view: Capture, context: Context) { view.reading = reading }
+    func updateUIView(_ view: Capture, context: Context) { view.reading = reading; view.onTouch = onTouch }
     static func dismantleUIView(_ view: Capture, coordinator: ()) { view.detach() }
     @MainActor final class Capture: UIView, UIGestureRecognizerDelegate {
         var reading: ChatReadingState
+        var onTouch: (() -> Void)?
         private weak var installedWindow: UIWindow?
         private lazy var single = UITapGestureRecognizer(target:self,action:#selector(tapped(_:)))
         private lazy var double = UITapGestureRecognizer(target:self,action:#selector(doubleTapped(_:)))
@@ -244,8 +221,9 @@ struct ChatReadingGestureSurface: UIViewRepresentable {
         func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
             guard let window, !isHidden, alpha > 0, bounds.width > 0, bounds.height > 0,
                   convert(bounds,to:window).contains(touch.location(in:window)) else { return false }
+            onTouch?()
             // VoiceOver owns its double tap. Equivalent named native actions remain available.
-            if UIAccessibility.isVoiceOverRunning { return false }
+            if UIAccessibility.isVoiceOverRunning || reading.pointInHint(touch.location(in: window)) { return false }
             var view = touch.view
             while let candidate = view {
                 if candidate is UIControl || (candidate.isAccessibilityElement && candidate.accessibilityTraits.contains(.button)) || candidate is UINavigationBar || candidate is UIToolbar ||
@@ -301,17 +279,19 @@ struct ImmersionBubble: View {
     var transitionFace: ImmersionTextFace?
     @State private var localReading = ChatReadingState()
     @State private var frame = CGRect.zero
+    @State private var visibleInScroll = false
     @State private var playbackAlignment:[FullSentenceReadings.Alignment] = []
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.vipiOutgoingMessage) private var outgoingMessage
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.tutorialShowsOriginal) private var tutorialShowsOriginal
     @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
     private var controls: ChatReadingState { reading ?? localReading }
     private var binding: ImmersionRequestIdentity { identity ?? .init(messageID:messageID,text:originalMessage ?? result.original,source:sourceLanguage,target:targetLanguage,inputLanguage:inputLanguage,generation:UUID(uuidString:"00000000-0000-0000-0000-000000000000")!) }
     private var practice: String { result.translation ?? result.original }
     private var faces: [String] { [result.original,practice]+(fullReading.map { [$0] } ?? []) }
     private var displayed: String {
-        if controls.showingMeaning || mode == .original { return result.original }
+        if tutorialShowsOriginal || controls.showingMeaning || mode == .original { return result.original }
         return controls.nativeScript ? practice : (fullReading ?? practice)
     }
     private func play(start: Bool) -> Bool {
@@ -345,9 +325,10 @@ struct ImmersionBubble: View {
     }
     private var hasAlternateScript: Bool { fullReading.map { !$0.isEmpty && $0 != practice } ?? false }
     private func register() { controls.register(.init(identity:binding,frame:frame,activate:play,hasAlternateScript:hasAlternateScript,
-        audio:.init(face:transitionFace,spans:playbackSpans,incremental:incremental))) }
+        audio:.init(face:transitionFace,spans:playbackSpans,incremental:incremental),
+        visibleTranslation: visibleInScroll && mode != .original && (incremental ? result.spans.contains { $0.original != $0.translated } : practice != result.original))) }
     private var native: StableImmersionText {
-        let revealed = controls.showingMeaning || mode == .original ? Set(result.spans.map(\.id)) : Set<Int>()
+        let revealed = tutorialShowsOriginal || controls.showingMeaning || mode == .original ? Set(result.spans.map(\.id)) : Set<Int>()
         var view = StableImmersionText(result:incremental ? result : .sourceOnly(original:displayed,target:targetLanguage),
             revealed:revealed,script:incremental ? controls.nativeScript : true,onWord:{ id in
                 guard UIAccessibility.isVoiceOverRunning,let word = result.spans.first(where:{$0.id == id}) else { return }
@@ -427,6 +408,7 @@ struct ImmersionBubble: View {
         .background(embedded ? Color.clear : VipiDesign.surface,in:RoundedRectangle(cornerRadius:18))
         .animation(reduceMotion || voiceOver ? nil : .easeOut(duration:0.22),value:transitionFace)
         .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { frame = $0; register() }
+        .onScrollVisibilityChange(threshold: 0.1) { visible in visibleInScroll = visible; register() }
         .onAppear { register() }
         .task(id:practice+"\u{0}"+displayed+"\u{0}"+targetLanguage) {
             let text = practice, face = displayed, language = targetLanguage

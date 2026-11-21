@@ -11,7 +11,9 @@ import SwiftUI
             ProcessInfo.processInfo.arguments.contains("-vipi-first-month-root-qa")), "One owned root qualification at a time")
         ConnectedDeletionUIQualification.prepareIfRequested()
         FirstMonthRootQualification.prepareIfRequested()
-        if let services = FirstMonthRootQualification.current?.fullTranslationServices {
+        if ProcessInfo.processInfo.arguments.contains("-vipi-timeline-qa"), ProcessInfo.processInfo.arguments.contains("-vipi-funding-qa") {
+            _state = State(initialValue: AppState(translationServices: TimelineQualificationView.fundingServices))
+        } else if let services = FirstMonthRootQualification.current?.fullTranslationServices {
             _state = State(initialValue:AppState(translationServices:services))
         }
         #endif

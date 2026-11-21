@@ -100,7 +100,12 @@ final class GroupsCrypto {
               response.deliveries.allSatisfy({ ["accepted", "delivered", "expired", "failed", "unavailable", "identity_changed"].contains($0.state) }) else { throw GroupsFailure.invalidResponse }
         try vault.transaction {
             guard var message = try localStore.messagesInTransaction(fanout.groupID).first(where: { $0.id == fanout.messageID }) else { throw GroupsFailure.invalidResponse }
-            if response.deliveries.allSatisfy({ ["accepted", "delivered"].contains($0.state) }) { message.delivery = .accepted }
+            if response.deliveries.allSatisfy({ ["accepted", "delivered"].contains($0.state) }) {
+                if message.delivery != .accepted, message.sender == vault.account, !response.deliveries.isEmpty {
+                    try? recordSuccessfulChatSend(vault, key: "group-message/" + index(message.groupID, message.id), authoredAt: message.createdAt)
+                }
+                message.delivery = .accepted
+            }
             else if response.deliveries.contains(where: { $0.state == "identity_changed" }) { message.delivery = .identityChanged }
             else if response.deliveries.contains(where: { $0.state == "unavailable" }) { message.delivery = .membershipChanged }
             else if response.deliveries.contains(where: { $0.state == "expired" }) { message.delivery = .expired }

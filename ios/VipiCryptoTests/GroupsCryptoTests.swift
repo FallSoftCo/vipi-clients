@@ -84,6 +84,11 @@ final class GroupsCryptoTests: XCTestCase {
         XCTAssertEqual(try bob.receive(incoming, now: f.now), received)
         XCTAssertEqual(try bob.receipts().filter { $0 == incoming.id }.count, 1)
         XCTAssertFalse(try f.cores[1].journal.pendingReceipts().contains(incoming.id))
+        XCTAssertEqual(try f.vaults[0].transaction { try ChatFeedback.load(f.vaults[0]).sends }, 0)
+        try alice.accepted(f.admitted(first), fanout: first)
+        try alice.accepted(f.admitted(first), fanout: first)
+        XCTAssertEqual(try f.vaults[0].transaction { try ChatFeedback.load(f.vaults[0]).sends }, 1)
+        XCTAssertEqual(try f.vaults[1].transaction { try ChatFeedback.load(f.vaults[1]).sends }, 0)
         let altered = GroupMessage(id: message.id, groupID: group, epoch: 3, membershipRevision: 2, sender: message.sender, text: "Different original text", createdAt: f.now, delivery: .queued)
         XCTAssertThrowsError(try alice.prepare(altered, roster: f.roster(group), now: f.now))
     }

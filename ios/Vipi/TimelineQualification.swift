@@ -224,6 +224,18 @@ private actor TimelineReadingGate {
 }
 
 struct TimelineQualificationView: View {
+    static let fundingServices = MessageTranslationServices(status: { _ in .installed }, translate: { text, pair in
+        guard pair == TranslationPair(source: "en", target: "es") else { throw MessageVault.Failure.invalidRecord }
+        switch text.lowercased() {
+        case "water, water!": return "¡Agua, agua!"
+        case "water": return "agua"
+        case "coffee tomorrow?": return "¿Café mañana?"
+        case "coffee": return "café"
+        case "tomorrow": return "mañana"
+        default: throw MessageVault.Failure.invalidRecord
+        }
+    })
+    @Environment(AppState.self) private var appState
     @State private var chat: ChatSession?
     @State private var owner = UUID()
     @State private var peer = UUID()
@@ -237,6 +249,8 @@ struct TimelineQualificationView: View {
     var body: some View {
         if ProcessInfo.processInfo.arguments.contains("-vipi-base-expiry-qa") {
             BaseExpiryQualificationView()
+        } else if ProcessInfo.processInfo.arguments.contains("-vipi-funding-qa"), let chat {
+            HomeView(chat: chat)
         } else { timeline }
     }
     private var timeline: some View {
@@ -272,6 +286,25 @@ struct TimelineQualificationView: View {
                 await value.start()
                 guard value.ready else { throw ServiceFailure(status: 0, code: "fixture_not_ready") }
                 _ = try await value.find("alex")
+                if ProcessInfo.processInfo.arguments.contains("-vipi-funding-qa"), let vault = value.feedbackVault {
+                    try vault.transaction {
+                        var usage = ChatFeedback()
+                        for i in 0..<20 { usage.accepted(authoredAt: Int64(i % 7) * 86_400_000) }
+                        try usage.save(vault)
+                    }
+                    await value.configureTranslation(pair: .init(source: "en", target: "es"), mode: appState.immersionMode,
+                                                     services: Self.fundingServices)
+                    let journal = MessageJournal(vault: vault)
+                    let now = Int64(Date().timeIntervalSince1970 * 1_000)
+                    let id = UUID()
+                    _ = try journal.queue(id: id, recipient: peer, text: "Water, water!", createdAt: now, now: now) { _ in
+                        (2, Data(repeating: 1, count: 64))
+                    }
+                    try journal.applyStatus(id, state: "delivered")
+                    await value.synchronize()
+                    value.notice = nil
+                    chat = value; return
+                }
                 if delayedReading {
                     let gate = readingGate
                     readingOwner = ConversationImmersion(modelStatus: { _ in .unsupported }, fullReadingProducer: { text, language in
@@ -886,6 +919,12 @@ private final class TimelineTransport: ChatTransport {
     func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
         var value: [String: Any]
         switch path {
+        case ChatFeedback.route where method == "GET": value = ["available": true]
+        case ChatFeedback.route where method == "PUT":
+            guard let body, let choice = try JSONDecoder().decode([String: String].self, from: body)["choice"],
+                  FundingChoice(rawValue: choice) != nil, let ack = NoContentResponse() as? T else { throw MessageVault.Failure.invalidRecord }
+            return ack
+
         case "/v1/me": value = ["id": owner.uuidString, "username": "timeline_qa", "display_name": "Timeline QA"]
         case "/v1/people/alex": value = ["id": peer.uuidString, "username": "alex", "display_name": "Alex"]
         case "/v1/devices":
@@ -1387,6 +1426,7 @@ struct PendingPairRootBinding: View {
         if path.hasPrefix("/v1/groups") { ledger.groupRequests = (ledger.groupRequests ?? 0) + 1; try save() }
         let value: [String: Any]
         switch (method, path) {
+
         case ("GET", "/v1/groups") where directoryFixtureEnabled:
             let peer: [String: Any] = ["user_id": ledger.peer.uuidString, "display_name": "Maya",
                 "username": "inbox_qa_0", "role": "member", "joined_epoch": 1]

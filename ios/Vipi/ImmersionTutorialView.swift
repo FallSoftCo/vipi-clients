@@ -1,9 +1,20 @@
 import SwiftUI
 
+extension EnvironmentValues {
+    @Entry var tutorialShowsOriginal = false
+}
+
 /// An optional real local preview. It has no ChatSession, MessageVault or send
 /// boundary; same-pair toggles keep only this transient owner's word plans.
 struct ImmersionTutorialContent: View {
     var scrolling = false
+    var demonstratesHold = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
+    private enum Finger { case hidden, approach, hold }
+    @State private var finger: Finger = .hidden
+    @State private var demonstrationEnded = false
+    @State private var exampleVisible = false
     @Environment(AppState.self) private var state
     @Environment(\.scenePhase) private var scenePhase
     @State private var immersion = ConversationImmersion()
@@ -13,12 +24,37 @@ struct ImmersionTutorialContent: View {
     private var pair: TranslationPair { .init(source:state.knownLanguage,target:state.targetLanguage) }
     private var text: String { ImmersionTutorialSource.text(pair.source) }
     private var messageID: String { ImmersionTutorialSource.messageID(source:pair.source,target:pair.target) }
+    private var translatedExample: Bool {
+        let identity = immersion.identity(messageID: messageID, text: text)
+        guard let translation = immersion.translation(for: identity) else { return false }
+        return translation.practiceText != translation.meaningText
+    }
+    private var canDemonstrate: Bool {
+        demonstratesHold && exampleVisible && !scrolling && !voiceOver && scenePhase == .active && translatedExample
+    }
+    private func stopDemonstrating() {
+        if demonstratesHold { demonstrationEnded = true; finger = .hidden }
+    }
+    private func demonstrate() async {
+        guard canDemonstrate, !demonstrationEnded, !reduceMotion else { return }
+        do {
+            try await Task.sleep(for: .milliseconds(450))
+            guard !demonstrationEnded else { return }
+            finger = .approach
+            try await Task.sleep(for: .milliseconds(450))
+            guard !demonstrationEnded else { return }
+            finger = .hold
+            try await Task.sleep(for: .milliseconds(1250))
+            stopDemonstrating()
+        } catch { finger = .hidden }
+    }
     var body: some View {
         VStack(alignment:.leading,spacing:20) {
             Text("Immersion").font(.largeTitle.bold()).accessibilityAddTraits(.isHeader)
                 .accessibilityIdentifier("tutorial-title")
             VStack(alignment:.leading,spacing:8) {
                 ImmersionModeChoices(mode:state.immersionMode) { choice in
+                    stopDemonstrating()
                     guard choice != state.immersionMode else { return }
                     speech.stop(); state.chatReading.cancelInteractions(); state.immersionMode = choice
                 }
@@ -32,10 +68,27 @@ struct ImmersionTutorialContent: View {
                         onTranslationSetup:{ _ in preparation.prepare() })
                 } else { ProgressView().frame(maxWidth:.infinity,minHeight:64) }
             }
-            .background(VipiDesign.incomingBubble,in:RoundedRectangle(cornerRadius:18))
+            .environment(\.tutorialShowsOriginal, demonstratesHold && !reduceMotion && finger == .hold)
+            .padding(.trailing, demonstratesHold ? 32 : 0)
+            .overlay(alignment: .trailing) {
+                if canDemonstrate, !demonstrationEnded, reduceMotion || finger != .hidden {
+                    ZStack {
+                        Circle().stroke(VipiDesign.highlight, lineWidth: 1.5)
+                            .frame(width: 17, height: 17).offset(x: -4, y: -6)
+                        Image(systemName: "hand.point.up.left.fill")
+                            .font(.body).foregroundStyle(VipiDesign.highlight)
+                    }.padding(.trailing, 8)
+                    .scaleEffect(finger == .approach ? 1.1 : 1)
+                    .animation(reduceMotion ? nil : .easeInOut(duration: 0.18), value: finger)
+                    .allowsHitTesting(false).accessibilityHidden(true)
+                }
+            }
+            .onScrollVisibilityChange(threshold: 0.3) { exampleVisible = $0 }
+            .task(id: canDemonstrate && !reduceMotion) { await demonstrate() }
+            .background { RoundedRectangle(cornerRadius: 18).fill(VipiDesign.incomingBubble) }
             .accessibilityIdentifier("tutorial-message")
             .background { ConversationTranslationTask(immersion:immersion) }
-            .background { ChatReadingGestureSurface(reading:state.chatReading) }
+            .background { ChatReadingGestureSurface(reading:state.chatReading, onTouch: { stopDemonstrating() }) }
             let preview = immersion.identity(messageID:messageID,text:text)
             if immersion.translation(for:preview) != nil || (immersion.phase(for:preview) == .translating && immersion.previousModeTranslation(for:preview) != nil) {
             VStack(alignment:.leading,spacing:6) {
@@ -90,7 +143,7 @@ struct ImmersionTutorialView: View {
     var body: some View {
         ScrollView {
             VStack(alignment:.leading,spacing:24) {
-                ImmersionTutorialContent(scrolling:scrolling)
+                ImmersionTutorialContent(scrolling:scrolling, demonstratesHold:true)
                 if dynamicTypeSize.isAccessibilitySize { finish }
             }.padding(26).frame(maxWidth:560).frame(maxWidth:.infinity)
         }

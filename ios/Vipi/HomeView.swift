@@ -1,4 +1,5 @@
 import SwiftUI
+import StoreKit
 import VipiCore
 
 private enum HomeDestination: Hashable { case friend(UUID), group(UUID) }
@@ -11,6 +12,9 @@ struct HomeView: View {
     var authenticationBusy = false
     var authenticationError: String? = nil
     @Environment(AppState.self) private var state
+    @Environment(\.requestReview) private var requestReview
+    @State private var breakAfterConversation = UUID()
+    @State private var returnedToChats = false
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.dynamicTypeSize) private var typeSize
     @State private var choosingLanguage = false
@@ -78,6 +82,9 @@ struct HomeView: View {
                             ReauthenticationNotice(busy: authenticationBusy || chat.busy, error: authenticationError, signIn: reauthenticate)
                         }
                         if let notice = chat?.notice { Text(notice).font(.body).foregroundStyle(VipiDesign.secondary) }
+                        if let chat, chat.showingFundingSurvey, chat.feedbackVault != nil {
+                            FundingSurveyCard(choose: chat.chooseFundingResponse)
+                        }
                         if let chat, !chat.threads.isEmpty {
                             LazyVStack(spacing:0) {
                                 ForEach(chat.threads) { thread in
@@ -196,13 +203,43 @@ struct HomeView: View {
                     .accessibilityIdentifier("foreground-message-preview")
             }
         }
-        .onChange(of: scenePhase) { _, phase in if phase != .active { chat?.clearPreview() } }
+        .onChange(of: path) { old, new in
+            if !new.isEmpty { chat?.dismissFundingCard() }
+            returnedToChats = !old.isEmpty && new.isEmpty
+            breakAfterConversation = UUID()
+        }
+        .onChange(of: showingInvite || showingSettings || choosingLanguage) { _, covering in
+            if covering { chat?.dismissFundingCard() }
+        }
+        .task(id: breakAfterConversation) {
+            guard returnedToChats, let chat else { return }
+            try? await Task.sleep(for: .milliseconds(700))
+            guard !Task.isCancelled, idleInChats else { return }
+            await chat.reconcileFeedbackHistory()
+            let intervention = await chat.considerChatIntervention { idleInChats }
+            if intervention == .review { requestReview() }
+            await chat.retryFundingResponse()
+        }
+        .task(id: chat?.ready) {
+            await chat?.reconcileFeedbackHistory()
+            await chat?.retryFundingResponse()
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase != .active { chat?.clearPreview() }
+            if phase == .background { returnedToChats = false; breakAfterConversation = UUID(); chat?.leftForeground() }
+            if phase == .active { Task { await chat?.retryFundingResponse() } }
+        }
         .task(id: chat?.incomingPreview?.id) {
             guard let chat, let preview = chat.incomingPreview else { return }
             if path.last == .friend(preview.peer) { chat.clearPreview(); return }
             try? await Task.sleep(for: .seconds(5))
             if !Task.isCancelled, chat.incomingPreview?.id == preview.id { chat.clearPreview() }
         }
+    }
+    private var idleInChats: Bool {
+        returnedToChats && path.isEmpty && scenePhase == .active && !showingSettings && !showingInvite && !choosingLanguage
+            && !offerBase && !authenticationBusy && chat?.busy == false && chat?.notice == nil && chat?.incomingPreview == nil
+            && state.invitationUsername == nil && PushNotifications.shared.inboxPresentation == nil
     }
     private func openCreatedGroup(_ id: UUID) {
         showingInvite = false

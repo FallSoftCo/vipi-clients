@@ -1967,15 +1967,15 @@ final class ChatConversationTests: XCTestCase {
         let inputs = evidence()["speech_inputs"] as? Int ?? 0
         rows[0].doubleTap()
         let native = ["明天下班后我们能一起喝咖啡吗？","你的私人消息已送达。"]
-        wait { native.allSatisfy{paragraph($0).exists} && !cue.exists && evidence()["gesture_policy_seen"] as? Bool == true }
+        wait { native.allSatisfy{paragraph($0).exists} && cue.exists }
         for value in native {
             let frame = paragraph(value).frame
-            XCTAssertTrue(prior.contains{ abs($0.minY-frame.minY)<=1 && abs($0.height-frame.height)<=1 },"Learning hides cue ink/AX without displacing a real message")
+            XCTAssertTrue(prior.contains{ abs($0.minY-frame.minY)<=1 && abs($0.height-frame.height)<=1 },"Toggling script preserves the visible hold cue and message layout")
         }
         XCTAssertEqual(timeline.frame.minY,viewport.minY,accuracy:1)
         XCTAssertEqual(timeline.frame.height,viewport.height,accuracy:1)
         XCTAssertEqual(evidence()["speech_inputs"] as? Int,inputs,"Physical double tap is silent")
-        let image = XCTAttachment(screenshot:app.screenshot()); image.name = "first-cue-learned-reserved-layout"; image.lifetime = .keepAlways; add(image)
+        let image = XCTAttachment(screenshot:app.screenshot()); image.name = "hold-cue-remains-after-script-toggle"; image.lifetime = .keepAlways; add(image)
         let data:[String:Any] = ["cue_before":NSCoder.string(for:cueFrame),"timeline_before":NSCoder.string(for:viewport),
             "timeline_after":NSCoder.string(for:timeline.frame),"message_before":prior.map{NSCoder.string(for:$0)},
             "message_after":native.map{NSCoder.string(for:paragraph($0).frame)},"native_ax_tree":app.debugDescription]
@@ -2090,6 +2090,7 @@ final class ChatConversationTests: XCTestCase {
             let rows = faces()
             return rows.count == 5 && rows.allSatisfy{$0.isHittable && $0.label.range(of:"[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ]",options:.regularExpression) != nil}
         }
+        if app.buttons["Dismiss hint"].isHittable { app.buttons["Dismiss hint"].tap() }
         XCTAssertFalse(app.staticTexts["chat-gesture-hint"].exists)
         let before = faces().map{($0.label,$0.frame)}
         for (_,frame) in before {
@@ -3442,7 +3443,7 @@ final class ChatConversationTests: XCTestCase {
             : reading == "ar-en" ? "هل يمكن أن نشرب القهوة معًا بعد العمل غدًا؟" : "Hello Alex. This is my first private message."
         XCTAssertTrue(input.waitForExistence(timeout: 10))
         if cueLifecycle {
-            XCTAssertTrue(app.staticTexts["chat-gesture-hint"].waitForExistence(timeout:5))
+            XCTAssertFalse(app.staticTexts["chat-gesture-hint"].exists, "Empty conversations have no translated message to reveal")
             XCTAssertEqual(proof()["gesture_policy_seen"] as? Bool,false)
         }
         if pendingPair {
@@ -3473,15 +3474,9 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertFalse(cue.exists,"Actual focused editor defers cue accessibility")
             XCTAssertEqual(proof()["gesture_policy_seen"] as? Bool,false,"Typing is not learning a message gesture")
             try dismissKeyboardByNativeDrag(in:app,phase:"before-first-send")
-            XCTAssertEqual(XCTWaiter.wait(for:[XCTNSPredicateExpectation(predicate:NSPredicate{_,_ in self.visibleKeyboardFrame(in:app).isEmpty && cue.exists},object:app)],timeout:5),.completed,
-                "Native interactive keyboard dismissal must restore the first cue")
-            XCTAssertEqual(input.value as? String,firstText,"Deferral preserves actual draft")
-            XCTAssertEqual(proof()["gesture_policy_seen"] as? Bool,false)
-            XCTAssertTrue(cue.label.contains("Play practice words"))
-            XCTAssertTrue(cue.label.contains("Show original message"))
-            XCTAssertFalse(cue.label.contains("Show native script"),"An empty conversation must not teach a script action before an alternate reading exists")
-            XCTAssertFalse(cue.label.contains("Double-tap"),"Actual native AX cue uses named actions")
-            let png = XCTAttachment(screenshot:app.screenshot()); png.name = "first-cue-restored-after-real-IME"; png.lifetime = .keepAlways; add(png)
+            XCTAssertTrue(visibleKeyboardFrame(in: app).isEmpty)
+            XCTAssertFalse(cue.exists, "Dismissing the keyboard cannot make an empty conversation eligible")
+            XCTAssertEqual(input.value as? String, firstText)
         }
         app.buttons["message-send"].tap()
         let first = observe("signal-peer-accepted-exact-first-message") { $0["peer_decryptions"] as? Int == 1 && ($0["accepted_ids"] as? [String])?.count == 1 }

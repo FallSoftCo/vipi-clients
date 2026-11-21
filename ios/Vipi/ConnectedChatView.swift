@@ -691,8 +691,10 @@ struct FriendConversationView: View {
         }
     }
     var body: some View {
-        timeline
-        .safeAreaInset(edge:.top,spacing:0) { ChatGestureCue(reading:state.chatReading,composing:composing) }
+        VStack(spacing: 0) {
+            ChatRevealCue(reading: state.chatReading, vault: chat.feedbackVault, composing: composing)
+            timeline
+        }
         .background { ConversationWaterScene(mode: state.immersionMode, motionEnabled: state.animateConversationBackground) }
         .background { if !usesAppTranslationServices { ConversationTranslationTask(immersion:immersion) } }
         .background { ChatReadingGestureSurface(reading:state.chatReading) }

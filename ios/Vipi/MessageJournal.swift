@@ -178,6 +178,11 @@ final class MessageJournal {
             guard let bytes = try vault.get("outgoing", key(id)) else { throw Failure.missingMessage }
             var saved = try decoder.decode(StoredChat.self, from: bytes)
             if saved.state == "read" || saved.state == "delivered" || (state != "delivered" && ["failed", "expired", "cancelled"].contains(saved.state)) { return }
+            #if !VIPI_NOTIFICATION_EXTENSION
+            if !["accepted", "delivered", "read"].contains(saved.state), ["accepted", "delivered"].contains(state) {
+                try? recordSuccessfulChatSend(vault, key: "outgoing/" + key(id), authoredAt: saved.envelope.createdAt)
+            }
+            #endif
             saved.state = state
             try vault.put("outgoing", key(id), encoder.encode(saved))
             if state != "accepted" { try vault.remove("pending", key(id)) }

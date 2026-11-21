@@ -197,6 +197,7 @@ struct GroupConversationView: View {
     @Environment(AppState.self) private var state
     @Environment(\.scenePhase) private var scenePhase
     @State private var text = ""
+    @FocusState private var composing: Bool
     @State private var speech = SpeechPlayback()
     @State private var autoplay = ChatAutoplay()
     @State private var showInfo = false
@@ -208,6 +209,7 @@ struct GroupConversationView: View {
     private var messages: [GroupMessage] { groups.messages(groupID) }
     var body: some View {
         VStack(spacing: 0) {
+            ChatRevealCue(reading: state.chatReading, vault: groups.store.vault, composing: composing)
             if let notice = groups.notice { VStack(alignment: .leading, spacing: 10) { Text(notice).font(.body); Button("Refresh group") { Task { await groups.refresh() } } }.padding().frame(maxWidth: .infinity, alignment: .leading).background(VipiDesign.surface) }
             ScrollViewReader { proxy in
                 ScrollView {
@@ -233,12 +235,13 @@ struct GroupConversationView: View {
             }
             if groups.isActive(groupID), group?.role(for: groups.account) != nil {
                 HStack(alignment: .bottom, spacing: 12) {
-                    TextField("Message the group", text: $text, axis: .vertical).font(.body).lineLimit(1...6).padding(12).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 14)).accessibilityIdentifier("group-message-input")
+                    TextField("Message the group", text: $text, axis: .vertical).focused($composing).font(.body).lineLimit(1...6).padding(12).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 14)).accessibilityIdentifier("group-message-input")
                     Button("Send") { Task { guard let group else { return }; let draft = text; if await groups.send(group, text: draft), text == draft { text = "" } } }
                         .font(.headline).frame(minWidth: 52, minHeight: 48).disabled(groups.busy || text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }.padding().background(VipiDesign.canvas)
             } else { Text("You’re no longer in this group. Saved messages remain on this device.").font(.body).padding() }
-        }.background(VipiDesign.canvas).navigationTitle(group?.title ?? "Group")
+        }
+        .background(VipiDesign.canvas).navigationTitle(group?.title ?? "Group")
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     ConversationHeaderActions(mode: state.immersionMode, autoplay: autoplay.enabled,
