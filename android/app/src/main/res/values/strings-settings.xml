@@ -4,7 +4,8 @@
     <string name="settings_delivery">Message alerts</string>
     <string name="settings_on">On</string>
     <string name="settings_off">Off</string>
-    <string name="settings_message_previews">Show message previews</string>
+    <string name="settings_message_previews">Show sender and message</string>
+    <string name="settings_preview_lockscreen">Android controls what appears on your lock screen.</string>
     <string name="settings_example">Example notification</string>
     <string name="settings_sample_sender">Maya</string>
     <string name="settings_sample_message">Coffee at six?</string>

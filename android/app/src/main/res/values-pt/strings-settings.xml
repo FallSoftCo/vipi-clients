@@ -4,7 +4,8 @@
     <string name="settings_delivery">Alertas de mensagens</string>
     <string name="settings_on">Ativados</string>
     <string name="settings_off">Desativados</string>
-    <string name="settings_message_previews">Mostrar prévias de mensagens</string>
+    <string name="settings_message_previews">Mostrar remetente e mensagem</string>
+    <string name="settings_preview_lockscreen">O Android controla o que aparece na tela de bloqueio.</string>
     <string name="settings_example">Exemplo de notificação</string>
     <string name="settings_sample_sender">Maya</string>
     <string name="settings_sample_message">Um café às seis?</string>

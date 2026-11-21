@@ -7,7 +7,8 @@
     <string name="delivery_read">مقروءة</string>
     <string name="delivery_unknown">الحالة غير معروفة</string>
     <string name="delivery_received">تم الاستلام</string>
-    <string name="notification_reply_prompt">هل تريد إشعارًا عندما يرد %1$s؟</string>
+    <string name="notification_reply_prompt">هل تريد إشعارًا يعرض رد %1$s؟</string>
+    <string name="notification_reply_prompt_private">هل تريد إشعارًا عند رد %1$s مع إخفاء الرسالة؟</string>
     <string name="notification_reply_allow">إشعاري</string>
     <string name="notification_reply_later">ليس الآن</string>
     <plurals name="inbox_unread">

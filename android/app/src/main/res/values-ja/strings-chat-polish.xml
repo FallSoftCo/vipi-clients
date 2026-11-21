@@ -7,7 +7,8 @@
     <string name="delivery_read">既読</string>
     <string name="delivery_unknown">状態不明</string>
     <string name="delivery_received">受信済み</string>
-    <string name="notification_reply_prompt">%1$sさんから返信が来たら通知しますか？</string>
+    <string name="notification_reply_prompt">%1$s さんの返信を通知に表示しますか？</string>
+    <string name="notification_reply_prompt_private">%1$s さんから返信が来たら、本文を隠して通知しますか？</string>
     <string name="notification_reply_allow">通知する</string>
     <string name="notification_reply_later">今はしない</string>
     <plurals name="inbox_unread">

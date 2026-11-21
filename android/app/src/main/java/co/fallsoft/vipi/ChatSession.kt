@@ -64,18 +64,13 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     var notificationPreviews by mutableStateOf(false)
         private set
 
-    var offerNotificationPreviews by mutableStateOf(false)
-        private set
-
     fun changeNotificationPreviews(enabled: Boolean) {
         val store = vault ?: return
         store.transaction {
             if (enabled) store.put("local", "notification-previews", UUID.randomUUID().toString().toByteArray())
             else store.remove("local", "notification-previews")
-            store.put("local", "notification-preview-choice", byteArrayOf(1))
         }
         notificationPreviews = enabled
-        offerNotificationPreviews = false
         if (!enabled) PushDelivery.clearPosted(context)
     }
 
@@ -136,10 +131,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (vault == null) {
             val store = MessageVault(context, value.id); vault = store
             core = MessagingCore(store); history = ConversationHistory(store)
-            store.transaction {
-                notificationPreviews = store.get("local", "notification-previews") != null
-                offerNotificationPreviews = !notificationPreviews && store.get("local", "notification-preview-choice") == null
-            }
+            notificationPreviews = store.transaction { store.get("local", "notification-previews") != null }
             activity = ChatActivityEvents(store, requireNotNull(core).journal,
                 { peer -> ready && !closed && !needsReauthentication && peer !in blockedPeers && peer !in peersNeedingRecovery },
                 { peer, action, value -> request("POST", "/v1/conversations/$peer/$action", value, requireNotNull(core).device) },
