@@ -122,6 +122,23 @@ class IndependentAutoplayContractDeviceTest {
         } finally { onMain { h.close() } }
     }
 
+    @Test fun manualTapDuringModeChangeSpeaksTheVisiblePreparedFace() = runBlocking {
+        val h = makeHarness()
+        try {
+            val visible = FullMessageTranslation("Coffee tonight?", "¿Café esta noche?", "Coffee tonight?",
+                "en", "es", "en", mode = ImmersionMode.FULL_MESSAGES)
+            onMain { h.audio.manual("a", visible.original, visible) }
+            awaitMain { h.speech.activeMessage == "a" }
+            onMain {
+                assertEquals(visible, h.audio.speakingFace)
+                assertEquals(listOf(SpeechSpan(visible.practiceText, "es")), h.speech.starts.single().second)
+                assertTrue(h.provider.calls.isEmpty())
+                h.audio.manual("a", visible.original, visible)
+                assertNull(h.speech.activeMessage)
+            }
+        } finally { onMain { h.close() } }
+    }
+
     @Test fun manualQueuedSelectionConsumesItAndTapStopDisablesAutoplay() = runBlocking {
         val h = makeHarness()
         try {

@@ -41,6 +41,7 @@ internal class ConversationAutoplay(
         }
     }
     var enabled by mutableStateOf(false); private set
+    var speakingFace by mutableStateOf<FullMessageTranslation?>(null); private set
     var manualMessage by mutableStateOf<String?>(null); private set
     private val voiceObservation = scope.launch(Dispatchers.Main.immediate) {
         snapshotFlow { speech.state to enabled }.collect { (state, _) ->
@@ -74,12 +75,12 @@ internal class ConversationAutoplay(
         queue.addLast(Message(id, load))
         drain()
     }
-    private suspend fun play(message: Message, automatic: Boolean) {
+    private suspend fun play(message: Message, automatic: Boolean, presented: FullMessageTranslation? = null) {
         MessageAudioQualification.emit("translation_wait", message.id, "automatic" to automatic)
         val text = kotlinx.coroutines.withContext(Dispatchers.IO) { message.load() } ?: return
         kotlinx.coroutines.currentCoroutineContext().ensureActive()
         message.loadedText = text
-        val value = translation.resolve(message.id, text,
+        val value = presented ?: translation.resolve(message.id, text,
             retry = !automatic && translation.state(message.id, text)?.phase == MessageTranslationPhase.FAILED)
         if (value.words?.isEmpty() == true || value.practiceText.isBlank()) return
         MessageAudioQualification.emit("translation_ready", message.id, "automatic" to automatic, "practice_language" to value.practiceLanguage)
@@ -97,6 +98,7 @@ internal class ConversationAutoplay(
         consumeInterruption()
         kotlinx.coroutines.currentCoroutineContext().ensureActive()
         if (!automatic) speech.showMutedVolumeControl()
+        speakingFace = value
         speech.toggleTranslation(message.id, value)
         snapshotFlow { speech.activeMessage }.first { it != message.id }
         speech.error?.let { failures[message.id] = it } ?: if (!automatic) failures.remove(message.id) else Unit
@@ -121,7 +123,8 @@ internal class ConversationAutoplay(
     }
     /** Manual intent wins over current automatic playback; the interrupted
      * queue item is consumed, so it cannot replay after the manual request. */
-    fun manual(id: String, text: String) {
+    fun manual(id: String, text: String, presented: FullMessageTranslation? = null) {
+        require(presented == null || presented.original == text)
         consumeInterruption()
         if (closed) return
         val stop = speech.activeMessage == id || (manual?.isActive == true && manualMessage == id) ||
@@ -133,7 +136,7 @@ internal class ConversationAutoplay(
         queue.removeAll { it.id == id }
         manualMessage = id
         manual = scope.launch(Dispatchers.Main.immediate) {
-            try { play(Message(id, load = { text }), automatic = false) }
+            try { play(Message(id, load = { text }), automatic = false, presented = presented) }
             catch (cancelled: CancellationException) { throw cancelled }
             catch (failure: Exception) {
                 MessageAudioQualification.emit("manual_failure", id, "failure" to failure.javaClass.name)

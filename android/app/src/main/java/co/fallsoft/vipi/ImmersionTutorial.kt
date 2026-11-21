@@ -1,5 +1,7 @@
 package co.fallsoft.vipi
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -78,7 +80,7 @@ internal class ImmersionTutorialTranslations(context: android.content.Context, s
             }
         }
         Text(stringResource(if (mode == ImmersionMode.NEW_WORD) R.string.tutorial_shallow_description else R.string.tutorial_deep_description),
-            color = MaterialTheme.colorScheme.onSurfaceVariant)
+            modifier = Modifier.animateContentSize(tween(220)), color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
     // The same source/id stays in place; the normal local translator generates
     // the selected pair. No lookup outputs or example audio are supplied.

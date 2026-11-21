@@ -13,6 +13,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.TextView
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.tween
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -213,9 +219,20 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     val speech = audio.speech
     val state = translation.state(id, text)
     val value = state?.value
+    // Mounted rows remember the two prepared faces. Nothing here schedules
+    // translation or audio, and disposing the row releases its presentation.
+    val prepared = remember(gestures, id, text, translation.source, translation.target) {
+        mutableStateMapOf<ImmersionMode, FullMessageTranslation>()
+    }
+    var lastReadyMode by remember(gestures, id, text, translation.source, translation.target) { mutableStateOf(translation.mode) }
+    SideEffect {
+        if (value != null) {
+            prepared[value.mode] = value
+            lastReadyMode = value.mode
+        }
+    }
     val readingUnavailable = value?.readingStatus == FullMessageReadingStatus.UNAVAILABLE
     val showReadingFailure = readingUnavailable && !gestures.meaning && !gestures.nativeScript
-    val alternateReading = value?.practiceReading?.let { it.isNotBlank() && it != value.practiceText } == true
     val palette = vipiPalette()
     val ink = palette.ink.toArgb()
     val activityColor = palette.spokenFill
@@ -223,18 +240,34 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     val wordColor = palette.practiceFill.toArgb()
     val wordInk = palette.practiceInk.toArgb()
     LaunchedEffect(translation, id, text) { translation.enqueue(id, text) }
-    val play = {
-        if (value?.words?.isEmpty() != true) { gestures.interacted(); audio.manual(id, text) }
+    val targetMode = if (value != null || translation.mode in prepared) translation.mode else lastReadyMode
+    val shallow = value?.takeIf { it.mode == ImmersionMode.NEW_WORD } ?: prepared[ImmersionMode.NEW_WORD]
+    val deep = value?.takeIf { it.mode == ImmersionMode.FULL_MESSAGES } ?: prepared[ImmersionMode.FULL_MESSAGES]
+    val paired = shallow != null && deep != null
+    val animateMode = paired && android.animation.ValueAnimator.areAnimatorsEnabled()
+    val targetDepth = if (targetMode == ImmersionMode.FULL_MESSAGES) 1f else 0f
+    val depth = animateFloatAsState(targetDepth,
+        animationSpec = if (animateMode) tween(240, easing = LinearEasing) else snap(),
+        label = "Immersion paragraph")
+    val showDeep by remember { derivedStateOf { depth.value >= .5f } }
+    val travelling by remember(animateMode, targetDepth) { derivedStateOf { animateMode && depth.value != targetDepth } }
+    val face = if (paired) { if (showDeep) deep else shallow } else value ?: prepared[targetMode]
+    val alternateReading = face?.practiceReading?.let { it.isNotBlank() && it != face.practiceText } == true
+    val play by rememberUpdatedState {
+        if (face?.words?.isEmpty() != true) { gestures.interacted(); audio.manual(id, text, face) }
     }
     // Readings complete independently of stable paragraph geometry. Bounds
     // registration must never be the only trigger for action availability.
     SideEffect { gestures.mode = translation.mode; gestures.readingAvailable(id, alternateReading) }
     DisposableEffect(gestures, translation, id, text) {
         translation.retain(id, text)
-        onDispose { gestures.remove(id); translation.release(id, text) }
+        onDispose { translation.release(id, text) }
+    }
+    DisposableEffect(gestures, id) {
+        onDispose { gestures.remove(id) }
     }
     Column(Modifier.widthIn(max = 520.dp).onGloballyPositioned {
-        gestures.register(id, it.boundsInWindow(), play)
+        gestures.register(id, it.boundsInWindow()) { play() }
     }.drawWithContent {
         drawContent()
         if (speech.activeMessage == id || audio.manualMessage == id) drawLine(activityColor,
@@ -243,29 +276,39 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         val showingMeaning = gestures.meaning
         val showingScript = gestures.nativeScript
         val displayed = when {
-            value == null -> text
-            showingMeaning -> value.meaningText
-            showingScript -> value.practiceText
-            else -> value.practiceReading ?: value.practiceText
+            face == null -> text
+            showingMeaning -> face.meaningText
+            showingScript -> face.practiceText
+            else -> face.practiceReading ?: face.practiceText
         }
-        val faces = value?.let { listOfNotNull(it.practiceText, it.meaningText, it.practiceReading) } ?: listOf(text)
-        AndroidView(factory = { FullMessageTextView(it) }, update = { view ->
-            view.play = play.takeIf { value?.words?.isEmpty() != true }
-            view.fullMode = translation.mode == ImmersionMode.FULL_MESSAGES
+        val faces = remember(face, travelling, shallow, deep) {
+            // Grow before swapping in a longer paragraph; shrink once a shorter
+            // face is readable. Use actual script and reading metrics in both.
+            val candidates = if (travelling) listOfNotNull(shallow, deep) else listOfNotNull(face)
+            candidates.flatMap { listOfNotNull(it.practiceText, it.meaningText, it.practiceReading) }.distinct().ifEmpty { listOf(text) }
+        }
+        AndroidView(factory = { FullMessageTextView(it) }, modifier = Modifier
+            .animateContentSize(animationSpec = if (animateMode) tween(100) else snap())
+            .graphicsLayer {
+                alpha = if (animateMode && !showingMeaning) .72f + .28f * kotlin.math.abs(2f * depth.value - 1f) else 1f
+            }, update = { view ->
+            view.play = play.takeIf { face?.words?.isEmpty() != true }
+            view.fullMode = (face?.mode ?: translation.mode) == ImmersionMode.FULL_MESSAGES
             view.showingNativeScript = showingScript
             view.readingUnavailable = showReadingFailure
             view.playing = speech.activeMessage == id || audio.manualMessage == id
             view.reveal = { gestures.interacted(); gestures.accessibilityMeaning = true }
             view.practice = { gestures.accessibilityMeaning = false; gestures.held = false }
             view.script = if (alternateReading) ({ gestures.toggleScript() }) else null
-            val highlights = if (showingMeaning) emptyList() else value?.words?.let {
-                WordReplacement.ranges(it, reading = !showingScript && value.practiceReading != null)
+            val highlights = if (showingMeaning) emptyList() else face?.words?.let {
+                WordReplacement.ranges(it, reading = !showingScript && face.practiceReading != null)
             }.orEmpty()
-            val word = if (!showingMeaning && speech.activeMessage == id) speech.playingWord else null
+            val word = if (!showingMeaning && speech.activeMessage == id && audio.speakingFace == face) speech.playingWord else null
             val spoken = if (showingScript || !alternateReading) word?.script else word?.reading
             view.bind(displayed, text, faces, ink, accessibilityContext, highlights, wordColor, spoken,
                 activityColor.toArgb(), spokenInk, wordInk)
         })
+
         if (value == null) {
             if (state?.phase == MessageTranslationPhase.FAILED) {
                 Text(stringResource(if (translation.mode == ImmersionMode.FULL_MESSAGES) R.string.full_message_failed else R.string.full_translation_failed), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error)
