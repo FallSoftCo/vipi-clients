@@ -48,7 +48,10 @@ final class NotificationEnvelopeTests: XCTestCase {
         XCTAssertEqual(Set(try receiver.journal.pendingReceipts()), Set(wire.map(\.id)))
         XCTAssertEqual(try history.threads().first?.unread, 2)
         XCTAssertEqual(try history.messages(peer: friend).map(\.text), ["Coffee at six?", "See you outside."])
-        XCTAssertThrowsError(try match.preview(grant: grant, vault: extensionVault, device: receiver.device) { grant })
+        let duplicate = try match.preview(grant: grant, vault: extensionVault, device: receiver.device) { grant }
+        XCTAssertTrue(duplicate.repeated)
+        XCTAssertEqual(duplicate.body, preview.body)
+        XCTAssertEqual(try history.threads().first?.unread, 2)
         try history.markRead(friend)
         try appVault.transaction { try appVault.remove("notification-shown", friend.uuidString.lowercased()) }
         XCTAssertThrowsError(try match.preview(grant: grant, vault: extensionVault, device: receiver.device) { grant })

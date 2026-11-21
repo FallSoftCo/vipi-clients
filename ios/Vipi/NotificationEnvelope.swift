@@ -8,7 +8,7 @@ struct NotificationEnvelope: Decodable {
     let messages: [RoutedMessage.Received]
 
     func preview(grant: NotificationGrant, vault: MessageVault, device: DeviceCredential,
-                 checkGrant: () throws -> NotificationGrant?) throws -> (String, String) {
+                 checkGrant: () throws -> NotificationGrant?) throws -> (sender: String, body: String, repeated: Bool) {
         let name = NotificationAccess.line(display_name, limit: 80)
         guard !name.isEmpty, grant.account == vault.account, peer != grant.account,
               messages.count <= 8 else { throw MessageVault.Failure.invalidRecord }
@@ -43,9 +43,10 @@ struct NotificationEnvelope: Decodable {
             let text = NotificationAccess.line(saved.text)
             guard !text.isEmpty else { throw MessageVault.Failure.invalidRecord }
             // One bounded marker per conversation. Older messages fail the latest-unread check.
-            guard try vault.get("notification-shown", peerKey) != Data(idKey.utf8) else { throw MessageVault.Failure.invalidRecord }
-            try vault.put("notification-shown", peerKey, Data(idKey.utf8))
-            return (name, text)
+            let fingerprint = Data(idKey.utf8)
+            let repeated = try vault.get("notification-shown", peerKey) == fingerprint
+            if !repeated { try vault.put("notification-shown", peerKey, fingerprint) }
+            return (name, text, repeated)
         }
     }
 }
