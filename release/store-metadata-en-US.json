@@ -28,7 +28,7 @@
   },
   "publication_conditions": [
     "Bind the final store-signed binaries, matching client source and screenshots to this free friend-chat release.",
-    "Use only reviewed free-launch localizations. The other languages in the historical store field set need review.",
+    "The 14 storefront variants are free-launch drafts. Verify editorial approval, final on-device labels and the exact fields saved in each store.",
     "Keep the existing storefront exclusions and manual publishing settings."
   ]
 }

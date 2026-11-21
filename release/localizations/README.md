@@ -1,13 +1,24 @@
-# Vipi localized store copy — drafts
+# Free friend-chat store listings
 
-**Free friend-chat release.** Use [the English listing](en-US.json) and [review notes](../free-launch-review-en-US.md) for the current candidate. The remaining 13 locale files and the dated submission records describe previous builds. The historical platform field export below includes paid features and cannot be used for the free launch.
+Each locale’s JSON file contains the store fields for the free-launch candidate. Use `description_without_subscription_terms` as the complete description. It includes both policy links. The separate historical subscription paragraph is empty. The default English description also appears in [store metadata](../store-metadata-en-US.json). [App review instructions](../free-launch-review-en-US.md) are separate.
 
-These files translate the factual feature copy from `release/store-metadata-en-US.json` into the eleven requested languages. They are review drafts, not published listings. The owner selected a cardless first 30 days, followed by an optional annual Base subscription. `subscription_paragraph` describes that approved flow, separate Bot mini eligibility and renewal, and US prices distinguished from each store's local price. Both Base store introductory offers were removed and verified on 2026-11-17; Bot mini retains its separate eligible one-month offer. Do not publish these claims until release behavior is qualified, including the Apple runtime and sandbox purchase. Final linguistic and in-context review remains; no human native-speaker review is claimed. The English source's named feature controls are rendered as ordinary language; verify final labels against each localized app before publication.
+| Source file | App Store locale | Google Play locale |
+| --- | --- | --- |
+| ar.json | ar | ar |
+| de-DE.json | de-DE | de-DE |
+| en-US.json | en-US | en-US |
+| es-ES.json | es-ES | es-ES |
+| es-MX.json | es-MX | es-419 |
+| fr-FR.json | fr-FR | fr-FR |
+| it-IT.json | it | it-IT |
+| ja-JP.json | ja | ja-JP |
+| ko-KR.json | ko | ko-KR |
+| pt-BR.json | pt-BR | pt-BR |
+| pt-PT.json | pt-PT | pt-PT |
+| sw.json | — | sw |
+| zh-Hans.json | zh-Hans | zh-CN |
+| zh-Hant.json | zh-Hant | zh-TW |
 
-Fourteen locale variants cover English, Spanish (Spain and Mexico/Latin America), French, German, Italian, Portuguese (Brazil and Portugal), Japanese, Korean, Simplified and Traditional Chinese, Arabic and Swahili. The Spanish draft is shared between Spain and Mexico for initial review. Apple lists all represented languages except Swahili as App Store metadata localizations. Google lists Swahili and Arabic for custom store translations. Apple and Google select localized listings according to their own storefront and user settings; a copy file does not create a localization or guarantee its display. Confirm exact locale selection in each console before use.
+App names and subtitles retain the earlier localized wording. The new descriptions use each platform’s native names for Shallow and Deep. Regional Spanish, Portuguese, and Chinese have their own wording. Swahili has Google Play fields only. French and Chinese listings can serve readers outside the excluded initial storefronts.
 
-Each draft has an app name, Apple subtitle and promotional text, Google short description, and shared feature description. Apple name/subtitle are limited to 30 characters and promotional text to 170; Google name/short description/full description are limited to 30/80/4,000. Both Unicode code-point and UTF-16-unit counts were checked against these bounds, including line breaks; final console validation still applies. Apple keywords and translated screenshots are not supplied. Links in these drafts point to the existing English policy pages; translated legal pages are not represented by this work.
-
-Sources: [Apple metadata locales](https://developer.apple.com/help/app-store-connect/reference/app-information/app-store-localizations/), [Apple name and subtitle limits](https://developer.apple.com/help/app-store-connect/reference/app-information/app-and-compliance-information), [Apple promotional text](https://developer.apple.com/app-store/product-page/), [Google custom listing locales](https://support.google.com/googleplay/android-developer/answer/9844778), and [Google listing limits](https://support.google.com/googleplay/android-developer/answer/9859152).
-
-`reviewed-platform-fields.json` assembles the reviewed fields for each platform and records source hashes, count limits, and the three provider/response wording corrections. It remains unpublished; console locale and price verification still applies.
+Independent native-language editorial review, checks against the final store builds and authenticated console readback remain open. The linked legal pages are in English. The dated records and `reviewed-platform-fields.json` preserve the earlier paid release and do not supply copy for this release.
