@@ -50,7 +50,7 @@ import java.time.temporal.ChronoUnit
     val loading = model.authentication.userID != null && !needsRecovery && !needsSignIn &&
         (!ready || model.chatError != null)
     val newChat = { model.navigate(Screen.NEW_CHAT) }
-    val groupActions = ready && chat?.groups != null && !needsRecovery && !needsSignIn && chat.userID == model.authentication.userID
+    val canCompose = ready && !needsRecovery && !needsSignIn && chat.userID == model.authentication.userID
     val newChatLabel = stringResource(R.string.nav_new_chat)
     // The action belongs to the conversation pane on expanded/folded widths.
     // The outer canvas still covers the complete edge-to-edge window.
@@ -62,7 +62,8 @@ import java.time.temporal.ChronoUnit
         contentWindowInsets = WindowInsets.safeDrawing,
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
-            if (threads.isNotEmpty() && !groupActions) FloatingActionButton(
+            if (canCompose) NewChatFab(newChat)
+            else if (threads.isNotEmpty()) FloatingActionButton(
                 onClick = { if (ready) newChat() },
                 containerColor = if (ready) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
                 contentColor = if (ready) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -78,10 +79,7 @@ import java.time.temporal.ChronoUnit
                 // Reserve the complete 56dp FAB +16dp placement gap +16dp
                 // breathing room, so the final row scrolls fully above it.
                 LazyColumn(Modifier.fillMaxSize().testTag("inbox-list"), state = listState,
-                    contentPadding = PaddingValues(bottom = if (threads.isNotEmpty() && !groupActions) 88.dp else 0.dp)) {
-                    if (groupActions) item("compose-actions") {
-                        ChatCreationActions(model)
-                    }
+                    contentPadding = PaddingValues(bottom = if (threads.isNotEmpty() || canCompose) 88.dp else 0.dp)) {
                     if (chat != null && needsRecovery) item("recovery") {
                         Box(Modifier.padding(20.dp)) { DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) } }
                     } else if (chat != null && needsSignIn) item("authorization") {
@@ -107,7 +105,7 @@ import java.time.temporal.ChronoUnit
                             items(threads, key = { thread -> thread.peer.toString() }) { thread ->
                                 InboxConversationRow(chat, thread) { model.openConversation(thread.peer) }
                             }
-                        } else if (!groupActions && !needsRecovery && !needsSignIn) item("empty") {
+                        } else if (!needsRecovery && !needsSignIn) item("empty") {
                             Column(Modifier.fillParentMaxSize().testTag("inbox-empty").padding(24.dp),
                                 verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
                                 Surface(shape = CircleShape, color = MaterialTheme.colorScheme.primaryContainer) {
@@ -116,8 +114,8 @@ import java.time.temporal.ChronoUnit
                                 Spacer(Modifier.height(18.dp))
                                 Text(stringResource(R.string.inbox_find_or_invite), textAlign = TextAlign.Center,
                                     fontSize = 23.sp, lineHeight = 29.sp, fontWeight = FontWeight.SemiBold)
-                                Spacer(Modifier.height(16.dp))
-                                Button(onClick = newChat, enabled = ready,
+                                if (!canCompose) Spacer(Modifier.height(16.dp))
+                                if (!canCompose) Button(onClick = newChat, enabled = ready,
                                     modifier = Modifier.heightIn(min = 48.dp).testTag("inbox-compose").semantics { contentDescription = newChatLabel }) {
                                     Text(newChatLabel, style = MaterialTheme.typography.titleMedium)
                                 }

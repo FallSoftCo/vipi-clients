@@ -2,4 +2,10 @@
     <string name="new_group_action">Nouveau groupe</string>
     <string name="groups_and_invitations">Groupes et invitations</string>
     <string name="groups_none_yet">Aucun groupe pour le moment</string>
+    <string name="compose_new_action">Nouveau</string>
+    <string name="privacy_promise_fallsoft">L’engagement de FallSoft pour la confidentialité</string>
+    <string name="group_draft_save">Enregistrer le brouillon</string>
+    <string name="group_draft_offline">Les discussions de groupe seront bientôt disponibles. Vous pouvez enregistrer un brouillon sur ce téléphone.</string>
+    <string name="group_draft_saved">Brouillon enregistré sur ce téléphone.</string>
+    <string name="privacy_claim_chat_sale">Nous ne vendons pas le contenu de vos discussions.</string>
 </resources>

@@ -171,6 +171,7 @@ class InboxWorker(context: Context, parameters: WorkerParameters) : CoroutineWor
                     val token = messaging.token.await()
                     active.registerPush(token)
                 } else {
+                    active.checkInboxProtocol()
                     active.synchronize()
                     if (auth.isCurrentAccount(user) && PrivateDeletionStore(applicationContext).load() == null) {
                         PushDelivery.notify(applicationContext, active)

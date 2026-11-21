@@ -37,8 +37,8 @@ android {
         applicationId = "co.fallsoft.vipi"
         minSdk = 29
         targetSdk = 36
-        versionCode = 23
-        versionName = "1.0.22"
+        versionCode = 24
+        versionName = "1.0.23"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild { cmake { arguments += "-DANDROID_STL=c++_static" } }
         buildConfigField("boolean", "GROUPS_QUALIFICATION", "false")

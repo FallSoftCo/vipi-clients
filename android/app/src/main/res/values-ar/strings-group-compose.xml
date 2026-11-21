@@ -2,4 +2,10 @@
     <string name="new_group_action">مجموعة جديدة</string>
     <string name="groups_and_invitations">المجموعات والدعوات</string>
     <string name="groups_none_yet">لا توجد مجموعات بعد</string>
+    <string name="compose_new_action">جديد</string>
+    <string name="privacy_promise_fallsoft">التزام FallSoft بالخصوصية</string>
+    <string name="group_draft_save">حفظ المسودة</string>
+    <string name="group_draft_offline">ستتوفر المحادثات الجماعية قريبًا. يمكنك حفظ مسودة على هذا الهاتف.</string>
+    <string name="group_draft_saved">حُفظت المسودة على هذا الهاتف.</string>
+    <string name="privacy_claim_chat_sale">لا نبيع محتوى محادثاتك.</string>
 </resources>

@@ -16,14 +16,19 @@ extension ChatTransport {
     }
 }
 
+@MainActor protocol ChatAccessTokenSource {
+    func accessToken(for userID: String, rejected: String?) async throws -> String
+}
+extension AuthenticationManager: ChatAccessTokenSource {}
+
 @MainActor final class ServiceClient: ChatTransport {
-    private let authentication: AuthenticationManager
+    private let authentication: any ChatAccessTokenSource
     let userID: String
     var acceptsGroupEnvelopes = false
     private let endpoint: URL
     private let http: URLSession
     private let eventHTTP: URLSession
-    init(authentication: AuthenticationManager, userID: String, endpoint: URL = URL(string: "https://api.mambovipi.app")!, responseTimeout: TimeInterval = 30) throws {
+    init(authentication: any ChatAccessTokenSource, userID: String, endpoint: URL = URL(string: "https://api.mambovipi.app")!, responseTimeout: TimeInterval = 30) throws {
         var permitted = endpoint.scheme == "https"
         #if DEBUG
         permitted = permitted || (endpoint.scheme == "http" && endpoint.host == "127.0.0.1")
@@ -47,7 +52,7 @@ extension ChatTransport {
         var components = URLComponents(url: endpoint, resolvingAgainstBaseURL: false)!
         components.scheme = endpoint.scheme == "https" ? "wss" : "ws"
         components.path = "/v1/events"
-        let token = try await authentication.accessToken(for: userID)
+        let token = try await authentication.accessToken(for: userID, rejected: nil)
         try Task.checkCancellation()
         var request = URLRequest(url: components.url!)
         request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization")
@@ -63,7 +68,7 @@ extension ChatTransport {
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
         components.queryItems = query.isEmpty ? nil : query.sorted(by: { $0.key < $1.key }).map { URLQueryItem(name: $0.key, value: $0.value) }
         guard let requestURL = components.url else { throw ServiceFailure(status: 0, code: "invalid_request") }
-        var token = try await authentication.accessToken(for: userID)
+        var token = try await authentication.accessToken(for: userID, rejected: nil)
         for attempt in 0...1 {
             var request = URLRequest(url: requestURL); request.httpMethod = method; request.httpBody = body
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

@@ -22,7 +22,6 @@ class GroupsThreeNativeDeviceTest {
     private val context get() = InstrumentationRegistry.getInstrumentation().targetContext
     @Test fun threeNativeMembersBootstrapOfflineReopenAndRemovalFence() {
         require(BuildConfig.APPLICATION_ID == "co.fallsoft.vipi.groupsqa")
-        assertTrue(GroupsUpgrade.enabled)
         val ids = List(3) { UUID.randomUUID() }
         val parties = mutableListOf<Party>()
         val now = System.currentTimeMillis()

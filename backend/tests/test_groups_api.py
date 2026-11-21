@@ -72,12 +72,12 @@ async def test_http_member_inbox_context_receipts_and_nonmember_access(api):
     result = await api.post(path,headers=ah,json=body)
     assert result.status_code == 200,result.text
     assert (await api.post(path,headers=ah,json=body)).json() == result.json()
-    inbox = (await api.get('/v1/messages/pending',headers=bh)).json()["messages"]
+    inbox = (await api.get('/v1/messages/pending',headers=bh | {'X-Vipi-Group-Protocol': '1'})).json()["messages"]
     assert len(inbox) == 1
     assert {key:inbox[0][key] for key in ("group_id","group_epoch","group_message_id")} == {
         "group_id":group["id"],"group_epoch":group["epoch"],"group_message_id":body["id"]}
     assert inbox[0]["sender_device_id"] == ad and inbox[0]["sender_id"] == alice["id"]
-    assert (await api.post('/v1/messages/'+inbox[0]["id"]+'/receipt',headers=bh)).json()["state"] == "delivered"
+    assert (await api.post('/v1/messages/'+inbox[0]["id"]+'/receipt',headers=bh | {'X-Vipi-Group-Protocol': '1'})).json()["state"] == "delivered"
     assert (await api.post(path,headers=ah,json=body)).json()["deliveries"][0]["state"] == "delivered"
     assert (await api.get('/v1/groups',headers=bh)).json()["groups"][0]["id"] == group["id"]
 
@@ -109,7 +109,7 @@ async def test_http_control_route_has_explicit_kind_and_invitee_binding(api):
             "ciphertext":base64.b64encode(b"opaque authenticated control fixture"*2).decode()}]}
     result = await api.post('/v1/groups/'+group["id"]+'/controls',headers=ah,json=body)
     assert result.status_code == 200,result.text
-    inbox = (await api.get('/v1/messages/pending',headers=bh)).json()["messages"]
+    inbox = (await api.get('/v1/messages/pending',headers=bh | {'X-Vipi-Group-Protocol': '1'})).json()["messages"]
     assert len(inbox) == 1 and inbox[0]["group_kind"] == "control"
     assert inbox[0]["group_message_id"] == body["id"]
 
@@ -198,3 +198,60 @@ async def test_http_admitted_resolution_keeps_original_snapshot_after_new_member
         json={"action":"rename","expected_epoch":group["epoch"],"original_device_id":ad,"title":"First"})
     assert resolved.status_code==200 and resolved.json()["status"]=="admitted"
     assert resolved.json()["result"]==original and len(original["members"])==1
+
+
+async def test_profile_and_group_admission_use_same_account_cohort(db):
+    bootstrap = create_app(settings(), database=db, verifier=TestVerifier(), clock=lambda: NOW)
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=bootstrap), base_url="https://vipi.test") as client:
+        alice, _, ah = await identity(client, "alice")
+        bob, _, bh = await identity(client, "bob")
+        assert "group_protocol_version" not in alice and "group_protocol_version" not in bob
+
+    pilot = settings(groups_enabled=True, groups_user_ids=[alice["id"]])
+    app = create_app(pilot, database=db, verifier=TestVerifier(), clock=lambda: NOW)
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="https://vipi.test") as client:
+        assert (await client.get("/v1/me")).status_code == 401
+        for who, headers, included in ((alice, ah, True), (bob, bh, False)):
+            payload = {key: who[key] for key in ("username", "display_name")}
+            for result in (await client.get("/v1/me", headers=headers), await client.put("/v1/me", headers=headers, json=payload)):
+                assert result.status_code == 200 and "no-store" in result.headers["cache-control"]
+                assert result.json() == (who | {"group_protocol_version": 1} if included else who)
+        assert (await client.get("/v1/people/qa_alice", headers=bh)).json() == alice
+        assert (await client.get("/v1/groups", headers=bh)).status_code == 404
+        assert (await client.post("/v1/groups", headers=bh, json={"id": uid(), "title": "Closed"})).status_code == 404
+        group = await create(client, ah)
+        denied = await client.post(f"/v1/groups/{group['id']}/invitations", headers=ah,
+            json={"request_id": uid(), "expected_epoch": group["epoch"], "user_id": bob["id"]})
+        assert denied.status_code == 404
+        assert (await client.get(f"/v1/groups/{group['id']}", headers=ah)).json()["invitations"] == []
+        assert settings(groups_enabled=True, groups_user_ids=[]).group_protocol_for(alice["id"]) is None
+        assert settings(groups_enabled=False, groups_user_ids=[alice["id"]]).group_protocol_for(alice["id"]) is None
+
+
+async def test_legacy_device_cannot_fetch_or_clear_group_envelopes(api, db):
+    alice, _, ah = await identity(api, "alice")
+    bob, bd, bh = await identity(api, "bob")
+    group = await invite_join(api, await create(api, ah), ah, bob, bh)
+    eid = uid()
+    encrypted = base64.b64encode(b"x" * 64).decode()
+    message = {"id": uid(), "epoch": group["epoch"], "created_at": NOW.isoformat(),
+        "envelopes": [{"id": eid, "recipient_id": bob["id"], "recipient_device_id": bd,
+                       "cipher_type": 3, "ciphertext": encrypted}]}
+    assert (await api.post(f"/v1/groups/{group['id']}/messages", headers=ah, json=message)).status_code == 200
+    direct = {"id": uid(), "recipient_id": bob["id"], "recipient_device_id": bd, "created_at": NOW.isoformat(),
+              "cipher_type": 3, "ciphertext": encrypted}
+    assert (await api.post("/v1/messages", headers=ah, json=direct)).status_code == 200
+    for version in ({}, {"X-Vipi-Group-Protocol": "2"}):
+        result = await api.get("/v1/messages/pending", headers=bh | version)
+        assert "no-store" in result.headers["cache-control"]
+        assert [item["id"] for item in result.json()["messages"]] == [direct["id"]]
+        assert (await api.get(f"/v1/messages/{eid}", headers=ah | version)).status_code == 404
+        assert (await api.post(f"/v1/messages/{eid}/receipt", headers=bh | version)).status_code == 404
+    header = {"X-Vipi-Group-Protocol": "1"}
+    denied = create_app(settings(groups_enabled=True, groups_user_ids=[alice["id"]]), database=db,
+                        verifier=TestVerifier(), clock=lambda: NOW)
+    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=denied), base_url="https://vipi.test") as client:
+        assert [item["id"] for item in (await client.get("/v1/messages/pending", headers=bh | header)).json()["messages"]] == [direct["id"]]
+        assert (await client.post(f"/v1/messages/{eid}/receipt", headers=bh | header)).status_code == 404
+    assert {item["id"] for item in (await api.get("/v1/messages/pending", headers=bh | header)).json()["messages"]} == {eid, direct["id"]}
+    assert (await api.post(f"/v1/messages/{eid}/receipt", headers=bh | header)).json()["state"] == "delivered"

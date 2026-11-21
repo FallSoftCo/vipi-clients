@@ -2,4 +2,10 @@
     <string name="new_group_action">新建群组</string>
     <string name="groups_and_invitations">群组和邀请</string>
     <string name="groups_none_yet">暂无群组</string>
+    <string name="compose_new_action">新建</string>
+    <string name="privacy_promise_fallsoft">FallSoft 的隐私承诺</string>
+    <string name="group_draft_save">保存草稿</string>
+    <string name="group_draft_offline">群聊即将推出。你可以先在这部手机上保存草稿。</string>
+    <string name="group_draft_saved">草稿已保存在这部手机上。</string>
+    <string name="privacy_claim_chat_sale">我们不会出售你的聊天内容。</string>
 </resources>

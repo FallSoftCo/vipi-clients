@@ -2,4 +2,10 @@
     <string name="new_group_action">新しいグループ</string>
     <string name="groups_and_invitations">グループと招待</string>
     <string name="groups_none_yet">まだグループはありません</string>
+    <string name="compose_new_action">新規</string>
+    <string name="privacy_promise_fallsoft">プライバシーに関するFallSoftの約束</string>
+    <string name="group_draft_save">下書きを保存</string>
+    <string name="group_draft_offline">グループチャットは近日中に利用できるようになります。この端末に下書きを保存できます。</string>
+    <string name="group_draft_saved">この端末に下書きを保存しました。</string>
+    <string name="privacy_claim_chat_sale">チャットの内容を販売することはありません。</string>
 </resources>

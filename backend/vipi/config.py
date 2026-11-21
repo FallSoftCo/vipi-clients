@@ -1,4 +1,5 @@
 from typing import Literal
+from uuid import UUID
 from sqlalchemy.engine import make_url
 from sqlalchemy.exc import ArgumentError
 from pydantic import Field, SecretStr, model_validator
@@ -26,6 +27,14 @@ class Settings(BaseSettings):
     store_sandbox_user_ids: frozenset[str] = Field(default=frozenset(), max_length=32)
     store_sandbox_restricted: bool = False
     groups_enabled: bool = False
+    # None keeps the global switch's original behavior. An explicit empty cohort grants nobody.
+    groups_user_ids: frozenset[UUID] | None = None
+
+    def group_protocol_for(self, user_id: str) -> int | None:
+        if self.groups_enabled and (self.groups_user_ids is None or UUID(user_id) in self.groups_user_ids):
+            return 1
+        return None
+
     max_message_bytes: int = 65_536
     max_pending_per_recipient: int = 10_000
     delivery_seconds: int = 259_200

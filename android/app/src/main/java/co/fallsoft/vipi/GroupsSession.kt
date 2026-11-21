@@ -12,6 +12,7 @@ import java.util.UUID
  * closes it before the shared account vault closes. */
 internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val store: GroupsStore, private val crypto: GroupsCrypto,
     private val preparePeer: suspend (UUID) -> Unit, private val needsIdentityReview: (UUID) -> Boolean, private val committed: (GroupMessage) -> Unit = {}) {
+    var remoteAvailable by mutableStateOf(false); internal set
     private val cached = store.snapshots()
     private val activeIDs = store.activeIDs()
     var groups by mutableStateOf(cached.filter { activeIDs?.contains(it.id) != false }); private set
@@ -60,9 +61,16 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
         if (closed || busy) return null; busy = true; notice = null
         return try { action().takeUnless { closed } } catch (error: CancellationException) { throw error } catch (error: Exception) { notice = explanation(error); null } finally { busy = false }
     }
-    suspend fun create(title: String): GroupSnapshot? = perform {
+    suspend fun create(title: String, invites: Set<UUID>? = null): GroupSnapshot? = perform {
         val name = GroupSelection.name(title); val id = operation("create", mapOf("title" to name))
-        api.create(id, name).also { membership.createdLocally(it, id); put(it); completed("create") }
+        api.create(id, name).also { snapshot ->
+            membership.createdLocally(snapshot, id)
+            put(snapshot)
+            store.vault.transaction {
+                if (invites != null) store.saveCreationDraftInTransaction(GroupCreationDraft(name, invites, snapshot.id))
+                store.vault.remove("group-operation", "create")
+            }
+        }
     }
     suspend fun change(group: GroupSnapshot, method: String, suffix: String = "", fields: Map<String, String> = emptyMap()): Boolean = perform {
         val scope = "${group.id}$suffix$method"

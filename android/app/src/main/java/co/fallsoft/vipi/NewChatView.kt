@@ -30,7 +30,7 @@ internal data class SavedFriend(val id: UUID, val name: String, val username: St
         val context = LocalContext.current
         val keyboard = LocalSoftwareKeyboardController.current
         val scope = rememberCoroutineScope()
-        var query by remember { mutableStateOf(model.invitationUsername.orEmpty()) }
+        var query by remember { mutableStateOf(model.initialFriendQuery(chat)) }
         var editing by remember { mutableStateOf(false) }
         var busy by remember { mutableStateOf(false) }
         var error by remember { mutableStateOf<String?>(null) }
@@ -75,7 +75,12 @@ internal data class SavedFriend(val id: UUID, val name: String, val username: St
                         keyboardActions = KeyboardActions(onSearch = { submit() }), modifier = Modifier.fillMaxWidth().onFocusChanged { editing = it.isFocused }.testTag("new-chat-search"))
                 }
                 if (chat?.groups != null) item {
-                    NewGroupAction { if (current()) model.openGroups(create = true) }
+                    Column {
+                        NewGroupAction { if (current()) model.openGroups(create = true, query = query) }
+                        if (chat.groups?.remoteAvailable == true) TextButton(onClick = { if (current()) model.openGroups(create = false, query = query) }, modifier = Modifier.testTag("open-groups")) {
+                            Text(stringResource(R.string.groups_and_invitations))
+                        }
+                    }
                 }
                 if (chat == null) item { Text(stringResource(R.string.friends_sign_in_required)) }
                 else {

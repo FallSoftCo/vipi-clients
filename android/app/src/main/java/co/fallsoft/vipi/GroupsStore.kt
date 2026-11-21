@@ -4,9 +4,27 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.UUID
 
+internal data class GroupCreationDraft(val title: String, val people: Set<UUID>, val createdGroup: UUID? = null)
+
 /** Account-bound encrypted storage. All calls execute on the native coordinator;
  * no network/suspension occurs inside vault transactions. */
 internal class GroupsStore(val vault: MessageVault) {
+    fun creationDraft(): GroupCreationDraft? = vault.transaction {
+        vault.get("group-compose", "draft")?.let { data ->
+            val fields = json(data)
+            val people = fields.getJSONArray("people")
+            GroupCreationDraft(fields.getString("title"), (0 until people.length()).map { UUID.fromString(people.getString(it)) }.toSet(),
+                fields.optString("created_group").takeIf(String::isNotEmpty)?.let(UUID::fromString))
+        }
+    }
+    fun saveCreationDraft(draft: GroupCreationDraft) = vault.transaction { saveCreationDraftInTransaction(draft) }
+    fun saveCreationDraftInTransaction(draft: GroupCreationDraft) {
+        require(draft.people.size <= 15 && vault.account !in draft.people)
+        val fields = JSONObject().put("title", draft.title).put("people", JSONArray(draft.people.map(UUID::toString)))
+        draft.createdGroup?.let { fields.put("created_group", it) }
+        vault.put("group-compose", "draft", bytes(fields))
+    }
+    fun clearCreationDraft() = vault.transaction { vault.remove("group-compose", "draft") }
     fun snapshots() = vault.transaction { snapshotsInTransaction() }
     fun snapshotsInTransaction() = vault.ids("group-roster").map { GroupSnapshot.parse(json(requireNotNull(vault.get("group-roster", it)))) }
     fun activeIDs(): Set<UUID>? = vault.transaction { vault.get("group-active", "ids")?.let { bytes -> val values = JSONArray(bytes.toString(Charsets.UTF_8)); (0 until values.length()).map { UUID.fromString(values.getString(it)) }.toSet() } }

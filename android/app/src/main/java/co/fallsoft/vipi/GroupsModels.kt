@@ -4,7 +4,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.UUID
 
-internal object GroupsUpgrade { val enabled = BuildConfig.GROUPS_QUALIFICATION; const val maximumPeople = 16; const val muteDeliveryQualified = false }
+internal object GroupsUpgrade { const val maximumPeople = 16; const val muteDeliveryQualified = false }
 internal enum class GroupRole(val wire: String) { OWNER("owner"), ADMIN("admin"), MEMBER("member"); companion object { fun parse(value: String) = entries.single { it.wire == value } } }
 internal data class GroupMember(val id: UUID, val name: String, val username: String, val role: GroupRole, val joinedEpoch: Int, val device: UUID?)
 internal data class GroupPendingInvitation(val id: UUID, val user: UUID, val invitedBy: UUID, val expiresAt: String, val state: String)

@@ -2753,7 +2753,7 @@ final class ChatConversationTests: XCTestCase {
                 name.tap(); name.typeText("Weekend friends\n")
                 XCTAssertTrue(save.isEnabled, "A named draft may be saved before choosing anyone")
                 let form = try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last)
-                let alex = form.buttons["Alex, @alex"]; reveal(alex, scrollContainer: form); alex.tap()
+                let friend = form.buttons["Maya Johnson, @inbox_qa_0"]; reveal(friend, scrollContainer: form); friend.tap()
                 capture("draft-selected"); save.tap()
                 XCTAssertTrue(app.staticTexts["group-draft-saved"].waitForExistence(timeout: 5))
                 XCTAssertEqual(proof()["group_requests"] as? Int, 0)
@@ -2850,8 +2850,8 @@ final class ChatConversationTests: XCTestCase {
                 let form = try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last)
                 XCTAssertTrue(create.isHittable)
                 let pinnedY = create.frame.midY
-                let alex = form.buttons["Alex, @alex"]
-                reveal(alex, scrollContainer: form); alex.tap()
+                let friend = form.buttons["Maya Johnson, @inbox_qa_0"]
+                reveal(friend, scrollContainer: form); friend.tap()
                 XCTAssertTrue(create.isHittable && create.isEnabled)
                 XCTAssertEqual(create.frame.midY, pinnedY, accuracy: 2)
                 XCTAssertEqual(create.label, "Create group and invite 1")

@@ -132,21 +132,13 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (vault == null) {
             val store = MessageVault(context, value.id); vault = store
             core = MessagingCore(store); history = ConversationHistory(store)
+            groups = groupSession(value.id, store, requireNotNull(core))
             notificationPreviews = store.transaction { store.get("local", "notification-previews") != null }
             activity = ChatActivityEvents(store, requireNotNull(core).journal,
                 { peer -> ready && !closed && !needsReauthentication && peer !in blockedPeers && peer !in peersNeedingRecovery },
                 { peer, action, value -> request("POST", "/v1/conversations/$peer/$action", value, requireNotNull(core).device) },
                 ::reload)
 
-            if (GroupsUpgrade.enabled) {
-                val currentCore = requireNotNull(core); val local = GroupsStore(store)
-                val transport = object : ChatTransport {
-                    override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>) = this@ChatSession.request(method, path, body, device, query)
-                }
-                groups = GroupsSession(value.id, GroupsAPI(transport, currentCore.device), local, GroupsCrypto(store, currentCore, local),
-                    preparePeer = { peer -> ensureOpen(); check(ready && peer !in blockedPeers && peer !in peersNeedingRecovery); establish(peer) },
-                    needsIdentityReview = { it in peersNeedingRecovery }, committed = { message -> translateDurable(message.renderID) })
-            }
             translationPair?.let { (source, target) ->
                 translations = ConversationTranslation(context, source, target, FullMessageTranslationStore(store),
                     translator = translationFactory?.invoke() ?: LocalTranslation(), mode = translationMode)
@@ -161,6 +153,41 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         }
         profile = value; needsProfile = false; records.write(cacheKey, value.json()); reload(); replaySavedTranslations()
     }
+    private var groupProtocolChecked = false
+
+    private fun applyServerProfile(response: JSONObject) {
+        val account = ChatProfile.parse(response)
+        open(account)
+        groupProtocolChecked = true
+        // A cached contact/profile or a lenient JSON string conversion cannot negotiate the wire protocol.
+        val protocol = response.opt("group_protocol_version")
+        requireNotNull(groups).remoteAvailable = protocol == 1 || protocol == 1L
+    }
+
+    private fun groupSession(account: UUID, store: MessageVault, currentCore: MessagingCore): GroupsSession {
+        val local = GroupsStore(store)
+        val transport = object : ChatTransport {
+            override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>): JSONObject {
+                check(groups?.remoteAvailable == true)
+                return this@ChatSession.request(method, path, body, device, query)
+            }
+        }
+        return GroupsSession(account, GroupsAPI(transport, currentCore.device), local, GroupsCrypto(store, currentCore, local),
+            preparePeer = { peer -> ensureOpen(); check(ready && peer !in blockedPeers && peer !in peersNeedingRecovery); establish(peer) },
+            needsIdentityReview = { it in peersNeedingRecovery }, committed = { message -> translateDurable(message.renderID) })
+    }
+
+    internal suspend fun checkInboxProtocol() {
+        if (groupProtocolChecked || !ready || closed) return
+        try {
+            applyServerProfile(request("GET", "/v1/me"))
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (error: java.io.IOException) {
+            if (needsReauthentication || needsDeviceRecovery) throw error
+            // An unavailable capability read still permits a direct-only inbox fetch.
+        }
+    }
+
     private fun reload() {
         threads = history?.threads() ?: emptyList()
         importedNames = vault?.let { store -> store.transaction { store.ids("imported-peer").mapNotNull { id ->
@@ -194,9 +221,9 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (busy || closed) return
         busy = true; notice = null; recoveryNeedsSignIn = false
         try {
-            val currentProfile = ChatProfile.parse(request("GET", "/v1/me"))
+            val currentProfile = request("GET", "/v1/me")
             needsReauthentication = false
-            open(currentProfile); provision()
+            applyServerProfile(currentProfile); provision()
         }
         catch (error: CancellationException) { throw error }
         catch (error: ServiceFailure) { if (error.code == "profile_required") needsProfile = true else notice = explanation(context, error) }
@@ -208,7 +235,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (busy || closed) return
         busy = true; notice = null
         try {
-            open(ChatProfile.parse(request("PUT", "/v1/me", JSONObject().put("username", username.trim().lowercase()).put("display_name", name))))
+            applyServerProfile(request("PUT", "/v1/me", JSONObject().put("username", username.trim().lowercase()).put("display_name", name)))
             provision()
         } catch (error: CancellationException) { throw error }
         catch (error: Exception) { notice = explanation(context, error) }
@@ -243,7 +270,9 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             val result = request("POST", "/v1/devices", JSONObject().put("device_id", next.id).put("secret", next.secret).put("replace_active", true))
             check(result.getBoolean("active") && UUID.fromString(result.getString("id")) == next.id)
             DeviceRecovery.commit(store, old.device, next)
-            core = MessagingCore(store); ready = true; needsDeviceRecovery = false
+            groups?.close(); groups = null; groupProtocolChecked = false
+            core = MessagingCore(store); groups = groupSession(store.account, store, requireNotNull(core)); ready = true; needsDeviceRecovery = false
+            checkInboxProtocol()
             provision(); reload()
             notice = context.getString(R.string.ui_ea1029db5e5d)
         } catch (error: CancellationException) { throw error }
@@ -460,10 +489,9 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                             val raw = inbox.getJSONObject(index)
                             if (GroupIncoming.hasContext(raw)) {
                                 // A group packet never falls through to the direct journal.
-                                if (GroupsUpgrade.enabled) {
+                                groups?.takeIf { it.remoteAvailable }?.let { controller ->
                                     val incoming = GroupIncoming.parse(raw, profile!!.id)
                                     require(incoming.kind in setOf("message", "control"))
-                                    val controller = requireNotNull(groups)
                                     val sender = incoming.routed.envelope.sender
                                     val changedRoute = requireNotNull(vault).transaction { requireNotNull(vault).get("identity", "$sender/1") != null && requireNotNull(vault).get("peer-device", sender.toString())?.toString(Charsets.UTF_8) != incoming.routed.senderDevice.toString() }
                                     if (changedRoute) markPeerRecovery(sender)
@@ -543,7 +571,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                         notice = explanation(context, error)
                     }
                 }
-                groups?.let { controller ->
+                groups?.takeIf { it.remoteAvailable }?.let { controller ->
                     controller.synchronize()
                     for (id in controller.pendingReceipts()) {
                         try {
@@ -598,7 +626,9 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                                 device: DeviceCredential? = null, query: Map<String, String> = emptyMap()): JSONObject {
         ensureOpen(); currentCoroutineContext().ensureActive()
         return try {
-            val result = api.request(method, path, body, device, query)
+            val result = if (groups?.remoteAvailable == true && device != null && GroupInboxProtocol.supports(method, path)) {
+                api.groupInboxRequest(method, path, body, device, query)
+            } else api.request(method, path, body, device, query)
             if (method == "POST" && path == "/v1/messages") notice = null
             ensureOpen(); currentCoroutineContext().ensureActive(); result
         } catch (error: Exception) {
@@ -608,6 +638,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             }
             if (error is Authentication.SignInRequired || error is ServiceFailure && error.code in setOf("sign_in_required", "recent_sign_in_required")) {
                 PushDelivery.clearPosted(context)
+                groupProtocolChecked = false; groups?.remoteAvailable = false
                 if (needsDeviceRecovery) recoveryNeedsSignIn = true else needsReauthentication = true
             }
             ensureOpen(); throw error

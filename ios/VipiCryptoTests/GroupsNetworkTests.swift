@@ -49,6 +49,63 @@ import XCTest
             ("POST", "/v1/notifications/envelope", false), ("GET", "/v1/me", false), ("GET", "/v1/messages/new", false)
         ] { XCTAssertEqual(GroupsUpgrade.isEnvelopeRequest(method: method, path: path), enabled) }
     }
+    private struct RelayAccount: Decodable, ChatAccessTokenSource {
+        let subject: String
+        let username: String
+        let display_name: String
+        let access_token: String
+        func accessToken(for userID: String, rejected: String?) async throws -> String {
+            guard userID == subject, rejected == nil else { throw AuthenticationManager.SessionFailure.signInRequired }
+            return access_token
+        }
+    }
+    private struct RelayFixture: Decodable {
+        let endpoint: URL
+        let accounts: [RelayAccount]
+    }
+    func testRegularClientCreatesAndInvitesUsingIsolatedRelay() async throws {
+        let input = file("regular-relay")
+        guard FileManager.default.fileExists(atPath: input.path) else { throw XCTSkip("Dedicated private loopback relay required") }
+        let fixture = try JSONDecoder().decode(RelayFixture.self, from: Data(contentsOf: input))
+        guard fixture.endpoint.scheme == "http", fixture.endpoint.host == "127.0.0.1", fixture.accounts.count == 2,
+              Set(fixture.accounts.map(\.subject)).count == 2 else { throw GroupsFailure.invalidResponse }
+        var clients: [ChatSession] = []
+        defer { for chat in clients { try? chat.close() } }
+        for account in fixture.accounts {
+            let api = try ServiceClient(authentication: account, userID: account.subject, endpoint: fixture.endpoint)
+            let chat = try ChatSession(api: api, userID: account.subject)
+            clients.append(chat)
+            await chat.start()
+            // Each fixture identity is reserved for this test. An existing profile must never be replaced.
+            guard chat.needsProfile else { throw XCTSkip("Reconcile the already-provisioned isolated identity before another relay run") }
+            await chat.createProfile(username: account.username, name: account.display_name)
+            XCTAssertTrue(chat.ready); XCTAssertEqual(chat.profile?.username, account.username)
+            XCTAssertNotNil(chat.groups); XCTAssertTrue(api.acceptsGroupEnvelopes)
+        }
+        let owner = clients[0], invited = clients[1]
+        let person = try await owner.find(fixture.accounts[1].username)
+        XCTAssertEqual(person.id, invited.profile?.id)
+        let drafts = try XCTUnwrap(owner.groupDraftStore)
+        let groups = try XCTUnwrap(owner.groups)
+        let group = await groups.create(title: "Weekend friends", invitees: [person.id], expected: nil)
+        let actual = try XCTUnwrap(group)
+        let issued = await groups.invite(actual, person: person.id)
+        XCTAssertTrue(issued)
+        try drafts.clearCreationDraft(for: actual.id)
+        let receiver = try XCTUnwrap(invited.groups)
+        await receiver.refresh()
+        XCTAssertTrue(receiver.invitations.contains { $0.group_id == actual.id && $0.title == "Weekend friends" })
+        XCTAssertNil(try drafts.creationDraft())
+        for chat in clients {
+            let accountID = try XCTUnwrap(chat.profile?.id)
+            try chat.close()
+            KeychainStore.delete(account: "profile-" + chat.userID)
+            KeychainStore.delete(account: "messages-" + accountID.uuidString.lowercased())
+            let folder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+                .appendingPathComponent("Messages").appendingPathComponent(accountID.uuidString.lowercased())
+            if FileManager.default.fileExists(atPath: folder.path) { try FileManager.default.removeItem(at: folder) }
+        }
+    }
     private func configuration() throws -> Configuration {
         guard FileManager.default.fileExists(atPath: file("config").path) else { throw XCTSkip("Explicit isolated three-member local fixture required") }
         let c = try JSONDecoder().decode(Configuration.self, from: Data(contentsOf: file("config")))

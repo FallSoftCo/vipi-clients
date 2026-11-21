@@ -126,7 +126,7 @@ async def test_exact_fanout_idempotency_and_receipts(db):
     with pytest.raises(DeliveryError,match="group_request_conflict"):
         await send(db,gid,changed)
     async with db.sessions.begin() as s:
-        await acknowledge(s,body.envelopes[0].id,"bob","bob-phone",now=NOW)
+        await acknowledge(s,body.envelopes[0].id,"bob","bob-phone",now=NOW,allow_groups=True)
     assert (await send(db,gid,body))["deliveries"][0]["state"] == "delivered"
     async with db.sessions() as s:
         items = (await s.scalars(select(PendingMessage))).all()

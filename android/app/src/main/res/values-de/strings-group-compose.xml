@@ -2,4 +2,10 @@
     <string name="new_group_action">Neue Gruppe</string>
     <string name="groups_and_invitations">Gruppen und Einladungen</string>
     <string name="groups_none_yet">Noch keine Gruppen</string>
+    <string name="compose_new_action">Neu</string>
+    <string name="privacy_promise_fallsoft">FallSofts Datenschutzversprechen</string>
+    <string name="group_draft_save">Entwurf speichern</string>
+    <string name="group_draft_offline">Gruppenchats sind bald verfügbar. Du kannst einen Entwurf auf diesem Gerät speichern.</string>
+    <string name="group_draft_saved">Entwurf auf diesem Gerät gespeichert.</string>
+    <string name="privacy_claim_chat_sale">Wir verkaufen deine Chatinhalte nicht.</string>
 </resources>

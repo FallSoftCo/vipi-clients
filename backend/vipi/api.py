@@ -11,7 +11,7 @@ from fastapi.exceptions import RequestValidationError
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, SecretStr, StrictBool, field_validator
 from sqlalchemy import and_, delete, or_, select, text
 from sqlalchemy.exc import IntegrityError
-from starlette.responses import JSONResponse
+from starlette.responses import JSONResponse, Response
 
 from .accounts import active_device, normalize_username, register_device, set_block
 from .auth import AuthenticationError, FixedVerifierSet, Principal, WorkOSVerifier
@@ -316,11 +316,21 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
+    def own_profile(user):
+        response = profile(user)
+        version = settings.group_protocol_for(user.id)
+        if version is not None:
+            response["group_protocol_version"] = version
+        return JSONResponse(response, headers={"Cache-Control": "private, no-store"})
+
+    def reads_groups(request, user):
+        return request.headers.get("X-Vipi-Group-Protocol") == "1" and settings.group_protocol_for(user.id) == 1
+
     @app.get("/v1/me")
     async def me(p: Annotated[Principal, Depends(principal)]):
         await rate(p, "profile", 60)
         async with db.sessions() as session:
-            return profile(await user_for(session, p))
+            return own_profile(await user_for(session, p))
 
     @app.get("/v1/entitlements")
     async def entitlements(p: Annotated[Principal, Depends(principal)]):
@@ -418,7 +428,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                         cardless_trial_started_at=created, cardless_trial_ends_at=created)
                     session.add(user)
                     await session.flush()
-                return profile(user)
+                return own_profile(user)
         except IntegrityError:
             raise DeliveryError("username_unavailable", 409)
 
@@ -592,7 +602,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             return JSONResponse(item, headers={"Cache-Control": "no-store"})
 
     @app.get("/v1/messages/pending")
-    async def pending(request: Request, p: Annotated[Principal, Depends(principal)], after: Annotated[str | None, Query(max_length=512)] = None):
+    async def pending(request: Request, response: Response, p: Annotated[Principal, Depends(principal)], after: Annotated[str | None, Query(max_length=512)] = None):
+        response.headers["Cache-Control"] = "private, no-store"
         await rate(p, "inbox", 120)
         async with db.sessions.begin() as session:
             user = await user_for(session, p)
@@ -600,6 +611,8 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             device = await phone_for(session, request, user)
             query = select(PendingMessage).where(PendingMessage.recipient_device_id == device.id,
                 PendingMessage.state == "accepted", PendingMessage.expires_at > now())
+            if not reads_groups(request, user):
+                query = query.where(PendingMessage.is_direct)
             if after:
                 accepted, message_id = decode_cursor(after, device.id, settings.service_secret)
                 query = query.where(or_(PendingMessage.accepted_at > accepted,
@@ -619,7 +632,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
             user = await user_for(session, p)
             device = await phone_for(session, request, user)
             item = await session.get(PendingMessage, str(message_id))
-            if not item or item.sender_id != user.id or item.sender_device_id != device.id:
+            if not item or item.sender_id != user.id or item.sender_device_id != device.id or (not item.is_direct and not reads_groups(request, user)):
                 raise DeliveryError("message_not_found", 404)
             result = message_status(item)
             if item.state == "accepted" and utc(item.expires_at) <= now():
@@ -632,7 +645,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         async with db.sessions.begin() as session:
             user = await user_for(session, p)
             device = await phone_for(session, request, user)
-            state = await acknowledge(session, str(message_id), user.id, device.id, now=now())
+            state = await acknowledge(session, str(message_id), user.id, device.id, now=now(), allow_groups=reads_groups(request, user))
             return {"id": str(message_id), "state": state}
 
     @app.post("/v1/conversations/{peer_id}/typing")

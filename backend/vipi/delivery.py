@@ -96,13 +96,13 @@ async def accept(session: AsyncSession, envelope: Envelope, *, now: datetime, ma
     return item
 
 
-async def acknowledge(session: AsyncSession, message_id: str, recipient_id: str, device_id: str, *, now: datetime) -> str:
+async def acknowledge(session: AsyncSession, message_id: str, recipient_id: str, device_id: str, *, now: datetime, allow_groups: bool = False) -> str:
     user = (await session.execute(select(User).where(User.id == recipient_id, User.deleted.is_(False)).with_for_update())).scalar_one_or_none()
     device = await session.get(Device, device_id, populate_existing=True)
     if not user or not device or not device.active or device.user_id != recipient_id:
         raise DeliveryError("device_revoked", 401)
     item = (await session.execute(select(PendingMessage).where(PendingMessage.id == message_id).with_for_update())).scalar_one_or_none()
-    if not item or item.recipient_id != recipient_id or item.recipient_device_id != device_id:
+    if not item or item.recipient_id != recipient_id or item.recipient_device_id != device_id or (not allow_groups and not item.is_direct):
         raise DeliveryError("message_not_found", 404)
     if item.state in ("delivered", "read"):
         return "delivered"

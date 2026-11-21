@@ -225,7 +225,13 @@ struct AuthenticatedChatProfile: Decodable {
         init(_ owner: ChatSession) { self.owner = owner }
         func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
             guard let owner, owner.groups != nil, !owner.needsReauthentication else { throw CancellationError() }
-            return try await owner.request(method, path, body: body, device: device, query: query)
+            do { return try await owner.request(method, path, body: body, device: device, query: query) }
+            catch let error as ServiceFailure {
+                if error.status == 404 && (error.code == "groups_not_available" || (method == "GET" && path == "/v1/groups")) {
+                    owner.closeGroups()
+                }
+                throw error
+            }
         }
     }
     private func openGroups(_ vault: MessageVault, core: MessagingCore) throws {

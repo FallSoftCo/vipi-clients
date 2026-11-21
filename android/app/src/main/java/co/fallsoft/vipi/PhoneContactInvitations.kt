@@ -116,6 +116,7 @@ private fun readInvitees(context: Context): List<PhoneInvitee> {
             title = { Text(stringResource(if (denied) R.string.phone_contacts_denied else R.string.phone_contacts_title)) },
             text = { Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(stringResource(R.string.phone_contacts_explain))
+                PrivacyPromise()
                 if (denied) Text(stringResource(R.string.phone_contacts_denied_detail))
             } },
             confirmButton = { TextButton(onClick = {

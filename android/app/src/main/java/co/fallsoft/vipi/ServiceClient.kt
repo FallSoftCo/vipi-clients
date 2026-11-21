@@ -40,7 +40,15 @@ internal class ServiceFailure(val status: Int, val code: String) : IOException(c
 
 /** HTTPS only in production, no redirects, response cache or plaintext logs.
  * The caller's immutable account binding prevents cross-account retry. */
+internal object GroupInboxProtocol {
+    private val message = Regex("/v1/messages/[0-9a-fA-F-]{36}")
+    private val receipt = Regex("/v1/messages/[0-9a-fA-F-]{36}/receipt")
+    fun supports(method: String, path: String) = method == "GET" && (path == "/v1/messages/pending" || message.matches(path)) ||
+        method == "POST" && receipt.matches(path)
+}
 internal interface ChatTransport {
+    suspend fun groupInboxRequest(method: String, path: String, body: JSONObject?, device: DeviceCredential, query: Map<String, String>): JSONObject =
+        request(method, path, body, device, query)
     suspend fun request(method: String, path: String, body: JSONObject? = null, device: DeviceCredential? = null, query: Map<String, String> = emptyMap()): JSONObject
 }
 internal class ServiceClient(private val authentication: Authentication, val userID: String,
@@ -52,7 +60,15 @@ internal class ServiceClient(private val authentication: Authentication, val use
         require(base.encodedPath == "/" && base.query == null && base.fragment == null && base.username.isEmpty() && base.password.isEmpty())
         require(base.isHttps || (BuildConfig.DEBUG && base.scheme == "http" && base.host == "127.0.0.1"))
     }
-    override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>): JSONObject {
+    override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>) =
+        exchange(method, path, body, device, query, groupProtocol = false)
+
+    override suspend fun groupInboxRequest(method: String, path: String, body: JSONObject?, device: DeviceCredential, query: Map<String, String>): JSONObject {
+        require(GroupInboxProtocol.supports(method, path))
+        return exchange(method, path, body, device, query, groupProtocol = true)
+    }
+
+    private suspend fun exchange(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>, groupProtocol: Boolean): JSONObject {
         require(path.startsWith("/v1/") && !path.contains("..") && !path.contains('?') && !path.contains('#'))
         var token = authentication.accessToken(userID)
         for (attempt in 0..1) {
@@ -62,6 +78,7 @@ internal class ServiceClient(private val authentication: Authentication, val use
                 val url = base.newBuilder().encodedPath(path).apply { query.forEach { (key, value) -> addQueryParameter(key, value) } }.build()
                 val builder = Request.Builder().url(url).method(method, content)
                     .header("Authorization", "Bearer $token").header("Accept", "application/json")
+                if (groupProtocol) builder.header("X-Vipi-Group-Protocol", "1")
                 device?.let { builder.header("X-Vipi-Device-ID", it.id.toString()).header("X-Vipi-Device-Secret", it.secret) }
                 http.newCall(builder.build()).execute().use { response ->
                     val source = requireNotNull(response.body).source()

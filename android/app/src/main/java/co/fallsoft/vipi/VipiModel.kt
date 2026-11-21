@@ -88,14 +88,18 @@ class VipiModel internal constructor(application: Application, private val trans
         private set
     var translatedText by mutableStateOf<String?>(null)
         private set
-    private var groupsReturnScreen = Screen.HOME
+    private var groupPickerState: Pair<ChatSession, String>? = null
+    internal fun initialFriendQuery(session: ChatSession?): String =
+        groupPickerState?.takeIf { it.first === session }?.second ?: invitationUsername.orEmpty()
+
     internal var createGroupOnEntry = false
         private set
 
-    internal fun openGroups(create: Boolean) {
+    internal fun openGroups(create: Boolean, query: String) {
         val active = chat ?: return
         if (active.groups == null || !active.ready || active.needsReauthentication || active.userID != authentication.userID) return
-        groupsReturnScreen = screen
+        if (screen != Screen.NEW_CHAT || (!create && active.groups?.remoteAvailable != true)) return
+        groupPickerState = active to query
         createGroupOnEntry = create
         navigate(Screen.GROUPS)
     }
@@ -197,6 +201,7 @@ class VipiModel internal constructor(application: Application, private val trans
     fun navigate(requested: Screen) {
         val value = if (requested == Screen.HOME && screen in setOf(Screen.PROFILE, Screen.ACCOUNT) &&
             chat?.ready == true && invitationUsername != null) Screen.NEW_CHAT else requested
+        if (value != Screen.GROUPS && !(screen == Screen.GROUPS && value == Screen.NEW_CHAT)) groupPickerState = null
         if (value == Screen.LANGUAGE_DOWNLOAD && screen != value) {
             languageReturnScreen = if (screen == Screen.CONVERSATION) screen else Screen.SETTINGS
         }
@@ -240,7 +245,7 @@ class VipiModel internal constructor(application: Application, private val trans
         Screen.TUTORIAL -> if (tutorialReturnScreen == Screen.ACCOUNT) Screen.LANGUAGE else tutorialReturnScreen
         Screen.LANGUAGE_DOWNLOAD -> languageReturnScreen
         Screen.DELETE_ACCOUNT -> if (chat?.needsProfile == true) Screen.PROFILE else Screen.SETTINGS
-        Screen.GROUPS -> groupsReturnScreen
+        Screen.GROUPS -> Screen.NEW_CHAT
         Screen.BACKUP, Screen.LICENSES -> Screen.SETTINGS
         else -> Screen.HOME
     }) }

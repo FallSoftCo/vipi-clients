@@ -134,17 +134,20 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
     }
 }
 @Composable internal fun GroupCreateScreen(session: GroupsSession, people: List<ChatProfile>, onBack: () -> Unit, onCreated: (UUID) -> Unit) {
-    var name by remember { mutableStateOf(session.pendingCreateTitle() ?: "") }; var selected by remember { mutableStateOf(emptySet<UUID>()) }
+    val draft = remember(session) { session.store.creationDraft() }
+    var name by remember(session) { mutableStateOf(session.pendingCreateTitle() ?: draft?.title.orEmpty()) }
+    var selected by remember(session) { mutableStateOf(draft?.people.orEmpty().intersect(people.map { it.id }.toSet())) }
+    var saved by remember(session) { mutableStateOf(false) }
     var search by remember { mutableStateOf("") }
     var editingName by remember { mutableStateOf(false) }
-    var created by remember { mutableStateOf<UUID?>(null) }; var error by remember { mutableStateOf<String?>(null) }
+    var created by remember(session) { mutableStateOf(draft?.createdGroup) }; var error by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
     GroupFrame(stringResource(R.string.new_group_action), onBack, titleArt = { ScreenSpot(R.drawable.vipi_spot_new_group, editingName) }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding()) {
             LazyColumn(Modifier.weight(1f).fillMaxWidth().testTag("new-group-roster"),
                 contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
                 item {
-                    OutlinedTextField(name, { name = it }, label = { Text("Group name") },
+                    OutlinedTextField(name, { name = it; saved = false }, label = { Text("Group name") },
                         placeholder = { Text("For example, Weekend friends") }, enabled = created == null && !session.busy,
                         modifier = Modifier.fillMaxWidth().onFocusChanged { editingName = it.isFocused })
                 }
@@ -153,20 +156,36 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
                     style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant) }
                 item { Text("${selected.size + 1} of 16 people selected, including you", style = MaterialTheme.typography.titleMedium) }
                 groupPeoplePicker(people, session.account, emptySet(), selected, search, { search = it },
-                    { selected = it; error = null }, { error = it })
+                    { selected = it; error = null; saved = false }, { error = it })
             }
             Column(Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 6.dp)) {
                 (error ?: session.notice)?.let { Text(it, style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.error, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite }) }
-                Button(onClick = { scope.launch {
-                    var current = created?.let(session::group) ?: session.create(name)?.also { created = it.id } ?: return@launch
-                    for (id in selected.sortedBy(UUID::toString)) {
-                        if (!session.invite(current, id)) return@launch
-                        selected = selected - id
-                        current = session.group(current.id) ?: return@launch
+                if (!session.remoteAvailable) {
+                    Text(stringResource(if (saved) R.string.group_draft_saved else R.string.group_draft_offline),
+                        style = MaterialTheme.typography.bodyMedium, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
+                    Button(onClick = {
+                        session.store.saveCreationDraft(GroupCreationDraft(name, selected, created))
+                        saved = true
+                    }, enabled = !saved && (name.isNotBlank() || selected.isNotEmpty()),
+                        modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+                        Text(stringResource(R.string.group_draft_save))
                     }
+                } else Button(onClick = { scope.launch {
+                    session.store.saveCreationDraft(GroupCreationDraft(name, selected, created))
+                    var current = if (created != null) session.group(requireNotNull(created)) ?: return@launch
+                        else session.create(name, selected)?.also { created = it.id } ?: return@launch
+                    for (id in selected.sortedBy(UUID::toString)) {
+                        if (current.members.none { it.id == id } && current.invitations.none { it.user == id }) {
+                            if (!session.invite(current, id)) return@launch
+                            current = session.group(current.id) ?: return@launch
+                        }
+                        selected = selected - id
+                        if (selected.isNotEmpty()) session.store.saveCreationDraft(GroupCreationDraft(name, selected, current.id))
+                    }
+                    session.store.clearCreationDraft()
                     onCreated(current.id)
-                } }, enabled = !session.busy && selected.isNotEmpty() && runCatching { GroupSelection.name(name) }.isSuccess,
+                } }, enabled = !session.busy && (created != null || selected.isNotEmpty()) && runCatching { GroupSelection.name(name) }.isSuccess,
                     modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
                     Text(when {
                         created != null -> "Retry remaining invitations"

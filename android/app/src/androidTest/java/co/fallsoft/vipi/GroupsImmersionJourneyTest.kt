@@ -39,6 +39,7 @@ class GroupsImmersionJourneyTest {
         lateinit var roster: GroupSnapshot
         lateinit var sealedControl: GroupIncoming
         lateinit var sealedText: GroupIncoming
+        service.groupProtocolVersion = 1
         service.groupsRequest = { method, path, _, _ ->
             check(method == "GET")
             when (path) {
@@ -99,6 +100,7 @@ class GroupsImmersionJourneyTest {
             try {
                 f.launch()
                 compose.waitUntil(15_000) { f.model.chat?.ready == true }
+                compose.onNodeWithTag("inbox-compose").performClick()
                 compose.onNodeWithTag("open-groups").performScrollTo().performClick()
                 compose.waitUntil(10_000) { f.model.chat?.groups?.loaded == true }
                 compose.onNodeWithText(roster.title).performClick()

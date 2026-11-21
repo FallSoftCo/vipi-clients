@@ -113,6 +113,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         requireNotNull(peerCore).keys.published(1)
         return VipiModel(application, translationFactory(), this)
     }
+    var groupProtocolVersion: Any? = null
     var groupsRequest: ((String, String, JSONObject?, DeviceCredential) -> JSONObject)? = null
 
     override fun translationClient(): LanguageTranslation = translationFactory()
@@ -149,14 +150,14 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
                     method == "GET" && path == "/v1/me" -> {
                         if (profileUnavailable.get()) throw java.io.IOException("Controlled profile service unavailable")
                         if (!created) throw ServiceFailure(404, "profile_required")
-                        ChatProfile(account, "journey_tester", accountDisplayName).json()
+                        ChatProfile(account, "journey_tester", accountDisplayName).json().put("group_protocol_version", groupProtocolVersion)
                     }
                     method == "PUT" && path == "/v1/me" -> {
                         val fields = requireNotNull(body)
                         check(!created && fields.getString("username") == "journey_tester")
                         check(fields.getString("display_name") == "Journey Tester")
                         created = true; profileWrites.incrementAndGet()
-                        ChatProfile(account, "journey_tester", accountDisplayName).json()
+                        ChatProfile(account, "journey_tester", accountDisplayName).json().put("group_protocol_version", groupProtocolVersion)
                     }
                     method == "POST" && path == "/v1/devices" -> {
                         check(deviceRegistrations.incrementAndGet() == 1)

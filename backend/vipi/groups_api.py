@@ -78,16 +78,29 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
         if not settings.groups_enabled:
             raise DeliveryError("groups_not_available", 404)
 
+    def require_group_account(user_id):
+        if settings.group_protocol_for(str(user_id)) is None:
+            raise DeliveryError("groups_not_available", 404)
+
+    async def group_user_for(session, p):
+        user = await user_for(session, p)
+        require_group_account(user.id)
+        return user
+
+    def check_recipients(message):
+        for envelope in message.envelopes:
+            require_group_account(envelope.recipient_id)
+
     router = APIRouter(prefix="/v1/groups", dependencies=[Depends(enabled)])
 
     @router.get("")
     async def listing(request: Request, p=Depends(principal)):
         await rate(p, "groups-list", 60)
         async with db.sessions.begin() as session:
-            user = await user_for(session, p)
+            user = await group_user_for(session, p)
             await session.execute(select(User).where(User.id == user.id).with_for_update()
                 .execution_options(populate_existing=True))
-            user = await user_for(session, p)
+            user = await group_user_for(session, p)
             await phone_for(session, request, user)
             return await groups.list_groups(session, user.id, now=now())
 
@@ -96,10 +109,10 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
         await rate(p, "groups-create", 10)
         try:
             async with db.sessions.begin() as session:
-                user = await user_for(session, p)
+                user = await group_user_for(session, p)
                 await phone_for(session, request, user)
                 result = await groups.create(session, actor_id=user.id, group_id=str(body.id), title=body.title, now=now())
-                await user_for(session, p)
+                await group_user_for(session, p)
                 await phone_for(session, request, user)
                 return result
         except IntegrityError:
@@ -109,11 +122,11 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
     async def detail(group_id: UUID, request: Request, p=Depends(principal)):
         await rate(p, "groups-detail", 120)
         async with db.sessions.begin() as session:
-            user = await user_for(session, p)
+            user = await group_user_for(session, p)
             await phone_for(session, request, user)
             group, roster, _ = await groups.lock_group(session, str(group_id), user.id)
             groups.member_for(roster, user.id)
-            await user_for(session, p)
+            await group_user_for(session, p)
             await phone_for(session, request, user)
             return await groups.snapshot(session, group, roster, actor_id=user.id)
 
@@ -121,10 +134,13 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
         await rate(p, "groups-mutate", 60)
         try:
             async with db.sessions.begin() as session:
-                user = await user_for(session, p)
+                user = await group_user_for(session, p)
                 device = await phone_for(session, request, user)
+                if action == "invite":
+                    require_group_account(extra["target_id"])
                 control = None
                 if body.control is not None:
+                    check_recipients(body.control)
                     try:
                         envelopes = tuple(Envelope(str(e.id), user.id, device.id, str(e.recipient_id),
                             str(e.recipient_device_id), body.control.created_at,
@@ -137,7 +153,7 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                     request_id=str(body.request_id), expected_epoch=body.expected_epoch,
                     action=action, now=now(), control=control, device_id=device.id,
                     max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient, **extra)
-                await user_for(session, p)
+                await group_user_for(session, p)
                 await phone_for(session, request, user)
                 return result
         except IntegrityError:
@@ -149,7 +165,7 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
         await rate(p,"groups-cancel-operation",30)
         try:
             async with db.sessions.begin() as session:
-                user = await user_for(session,p)
+                user = await group_user_for(session,p)
                 device = await phone_for(session,request,user)
                 control = None
                 if body.control is not None:
@@ -166,7 +182,7 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                     original_device_id=str(body.original_device_id),device_id=device.id,now=now(),
                     target_id=str(body.target_id) if body.target_id else None,title=body.title,role=body.role,
                     invite_id=str(body.invite_id) if body.invite_id else None,control=control)
-                await user_for(session,p)
+                await group_user_for(session,p)
                 await phone_for(session,request,user)
                 return result
         except IntegrityError:
@@ -212,8 +228,11 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
             raise DeliveryError("invalid_ciphertext") from None
         try:
             async with db.sessions.begin() as session:
-                user = await user_for(session, p)
+                user = await group_user_for(session, p)
                 device = await phone_for(session, request, user)
+                check_recipients(body)
+                if isinstance(body, ControlInput) and body.invited_user_id is not None:
+                    require_group_account(body.invited_user_id)
                 envelopes = tuple(Envelope(str(e.id), user.id, device.id, str(e.recipient_id),
                     str(e.recipient_device_id), body.created_at, raw, e.cipher_type)
                     for e, raw in zip(body.envelopes, decoded, strict=True))
@@ -221,7 +240,7 @@ def install(app, settings, db, now, principal, user_for, phone_for, rate):
                     fanout=groups.Fanout(str(body.id), body.epoch, body.created_at, envelopes, kind,
                         str(body.invited_user_id) if isinstance(body, ControlInput) and body.invited_user_id else None), now=now(),
                     max_bytes=settings.max_message_bytes, max_pending=settings.max_pending_per_recipient)
-                await user_for(session, p)
+                await group_user_for(session, p)
                 await phone_for(session, request, user)
                 return result
         except IntegrityError:

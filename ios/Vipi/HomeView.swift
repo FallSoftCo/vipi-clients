@@ -431,6 +431,9 @@ struct NewChatView: View {
                     error = nil
                 }
             }
+            .onChange(of: chat?.groupComposeSession?.account) { _, current in
+                if current == nil, path.contains(.directory) { path.removeAll() }
+            }
             .onChange(of: username) { _, _ in lookup?.cancel(); busy = false; error = nil }
             .onChange(of: chat?.profile?.id) { _, _ in lookup?.cancel(); showingInvitation = false; dismiss() }
             .onChange(of: chat?.needsReauthentication) { _, expired in

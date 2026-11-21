@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Existing group conversations and invitations in the opt-in build.
+/// Existing group conversations and invitations when the authenticated relay supports them.
 struct GroupsHomeView: View {
     let groups: GroupsSession
     let people: [ChatProfile]
