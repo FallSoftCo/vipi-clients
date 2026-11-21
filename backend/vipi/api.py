@@ -392,13 +392,10 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         await rate(p, "entitlements", 30)
         async with db.sessions() as session:
             user = await user_for(session, p, allow_restricted=True)
-        from .billing_identity import billing_account_id
-        return {"billing_account_id": billing_account_id(user.id), "base": {"active": True, "expires_at": None, "trial_ends_at": None,
-                         "access_source": "free"},
-                "bot_mini": {"active": False, "available": False, "expires_at": None,
-                             "trial_ends_at": None},
-                "server_time": now().isoformat(), "app_account_token": user.id,
-                "purchases_ready": {"apple": False, "google": False}}
+        # Ordinary chat stays free. Previously verified add-ons keep their
+        # original verification and expiry rules without initiating a store call.
+        state = await subscriptions.snapshot(user.id, free_base=True)
+        return JSONResponse(state, headers={"Cache-Control": "private, no-store", "Vary": "Authorization"})
 
     async def purchase_sync(p, store, credential):
         raise DeliveryError("purchases_unavailable", 410)

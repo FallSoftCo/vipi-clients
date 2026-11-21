@@ -48,3 +48,28 @@ def test_production_free_configuration_does_not_require_billing():
     settings = Settings(environment="production",database_url="postgresql+asyncpg://fixture.invalid/test",
         workos_client_id="client_fixture",workos_issuer="https://api.workos.com",service_secret="a"*43)
     assert not settings.enforce_subscriptions
+
+async def test_free_profile_keeps_previously_verified_paid_right(db):
+    from vipi.db import Entitlement
+    clock=[NOW]
+    settings=Settings(database_url="sqlite+aiosqlite://",workos_client_id="client_fixture",
+        workos_issuer="https://api.workos.com",service_secret="a"*43,enforce_subscriptions=True)
+    app=create_app(settings,database=db,verifier=TestVerifier(),clock=lambda:clock[0],store_providers={})
+    try:
+        async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app),base_url="https://vipi.test") as client:
+            user,_,headers=await identity(client,"alice")
+            async with db.sessions.begin() as session:
+                for product in ("base","bot_mini"):
+                    session.add(Entitlement(id=str(uuid4()),user_id=user["id"],product=product,
+                        environment="Production",store="apple",transaction_id="prior-"+product,
+                        verified_at=NOW,expires_at=NOW+timedelta(days=30),revoked=False,superseded=False))
+            active=await client.get("/v1/entitlements",headers=headers)
+            assert active.json()["base"]["access_source"]=="free"
+            assert active.json()["bot_mini"]["available"] and not any(active.json()["purchases_ready"].values())
+            clock[0]+=timedelta(seconds=settings.purchase_outage_seconds+1)
+            aged=(await client.get("/v1/entitlements",headers=headers)).json()
+            assert aged["base"]["active"] and aged["bot_mini"]["verification_unavailable"]
+            assert not aged["bot_mini"]["available"]
+    finally:
+        await app.state.bot.close()
+        await app.state.pubsub_verifier.close()

@@ -182,7 +182,7 @@ class Subscriptions:
                         row.next_attempt_at = self.clock() + timedelta(seconds=min(3600, 30 * 2 ** min(row.attempts, 7)))
         return True
 
-    async def snapshot(self, user_id):
+    async def snapshot(self, user_id, *, free_base=False):
         # Only the durable worker and explicit purchase/restore perform remote
         # reads. Chat cannot repeat a store call or reset provider backoff.
         now = self.clock()
@@ -201,7 +201,7 @@ class Subscriptions:
             rows = [r for r in rows if r.environment in allowed]
         stale_products = {r.product for r in rows if not r.revoked and not r.superseded and r.verified_at
                           and utc(r.verified_at) <= cutoff and utc(r.expires_at) > now}
-        if not reviewer and not trial_active and stale_products:
+        if not free_base and not reviewer and not trial_active and stale_products:
             # Do not turn a store outage into an invitation to buy a second time.
             raise DeliveryError("purchase_verification_unavailable", 503)
         result = {}
@@ -226,6 +226,10 @@ class Subscriptions:
         result["billing_account_id"] = billing_account_id(user_id)
         result["app_account_token"] = user_id
         result["purchases_ready"] = {"apple": "apple" in self.providers, "google": "google" in self.providers}
+        if free_base:
+            # Existing add-on availability comes from its own verified record.
+            result["base"] = {"active": True, "expires_at": None, "trial_ends_at": None, "access_source": "free"}
+            result["purchases_ready"] = {"apple": False, "google": False}
         return result
 
     async def require(self, user_id, *, bot=False):
