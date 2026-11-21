@@ -2750,16 +2750,18 @@ final class ChatConversationTests: XCTestCase {
                 capture("new-group-editing")
                 if !largest {
                     name.typeText("\n")
-                    let scroll = app.collectionViews.firstMatch
+                    let people = app.textFields["Search names or usernames"]
+                    let scroll = try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last)
+                    reveal(people, scrollContainer: scroll)
+                    people.tap(); people.typeText("Maya\n")
                     let action = app.buttons["group-create"]
-                    for _ in 0..<5 where !action.exists { scroll.swipeUp() }
+                    reveal(action, scrollContainer: scroll)
                     XCTAssertEqual(action.label, "Create group")
                     XCTAssertFalse(action.isEnabled)
                     capture("new-group-zero-invitees")
-                    let maya = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Maya Johnson,'")).firstMatch
-                    for _ in 0..<5 where !maya.isHittable { scroll.swipeDown() }
-                    maya.tap()
-                    for _ in 0..<5 where !action.exists { scroll.swipeUp() }
+                    let maya = app.buttons["Maya Johnson, @inbox_qa_0"]
+                    reveal(maya, scrollContainer: scroll); maya.tap()
+                    reveal(action, scrollContainer: scroll)
                     XCTAssertEqual(action.label, "Create group and invite 1")
                     XCTAssertTrue(action.isEnabled)
                     capture("new-group-one-invitee")
