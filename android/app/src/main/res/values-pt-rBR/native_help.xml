@@ -31,7 +31,7 @@
     <string name="help_email">Enviar e-mail ao suporte</string>
     <string name="help_voice_title">Gravar e ouvir mensagens de voz</string>
     <string name="help_voice_step1">Na conversa com um amigo, toque e segure o microfone para gravar. Solte para enviar. Sem tirar o dedo, deslize em direção a Cancelar para descartar ou para cima para travar a gravação.</string>
-    <string name="help_voice_step2">Com a gravação travada, toque em Parar para ouvir. Você pode enviar ou descartar ali mesmo. Toque em uma mensagem de voz na conversa para ouvir ou pausar.</string>
+    <string name="help_voice_step2">Com a gravação travada, toque em Enviar para enviá-la na hora ou em Parar para ouvir primeiro. Toque na lixeira para descartar. Na conversa, toque em uma mensagem de voz para ouvir ou pausar.</string>
     <string name="help_voice_hold">Toque e segure para gravar</string>
     <string name="help_voice_cancel">Deslize para cancelar</string>
     <string name="help_voice_lock">Deslize para cima para travar</string>

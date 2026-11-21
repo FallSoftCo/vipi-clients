@@ -31,7 +31,7 @@
     <string name="help_email">Email support</string>
     <string name="help_voice_title">Record and play voice messages</string>
     <string name="help_voice_step1">In a friend’s chat, hold the microphone to record. Release to send. While holding, slide toward Cancel to discard, or slide up to lock recording.</string>
-    <string name="help_voice_step2">When locked, tap Stop to preview. You can listen, send or discard right there. Tap a voice message in the chat to play or pause it.</string>
+    <string name="help_voice_step2">When recording is locked, tap Send to send it now or Stop to listen first. Tap the trash can to discard it. In the chat, tap a voice message to play or pause.</string>
     <string name="help_voice_hold">Hold to record</string>
     <string name="help_voice_cancel">Slide to cancel</string>
     <string name="help_voice_lock">Slide up to lock</string>

@@ -31,7 +31,7 @@
     <string name="help_email">Support per E-Mail kontaktieren</string>
     <string name="help_voice_title">Sprachnachrichten aufnehmen und anhören</string>
     <string name="help_voice_step1">Halte in einem Chat mit einem Freund das Mikrofon gedrückt. Lass los, um zu senden. Wische beim Halten in Richtung Abbrechen, um die Aufnahme zu verwerfen, oder nach oben, um sie zu fixieren.</string>
-    <string name="help_voice_step2">Tippe bei fixierter Aufnahme auf Stopp, um sie anzuhören. Du kannst sie dort senden oder verwerfen. Tippe auf eine Sprachnachricht im Chat, um sie abzuspielen oder zu pausieren.</string>
+    <string name="help_voice_step2">Wenn die Aufnahme fixiert ist, tippe auf Senden, um sie sofort zu senden, oder auf Stopp, um sie zuerst anzuhören. Mit dem Papierkorb verwirfst du sie. Tippe im Chat auf eine Sprachnachricht, um sie abzuspielen oder zu pausieren.</string>
     <string name="help_voice_hold">Zum Aufnehmen gedrückt halten</string>
     <string name="help_voice_cancel">Zum Abbrechen wischen</string>
     <string name="help_voice_lock">Zum Fixieren nach oben wischen</string>

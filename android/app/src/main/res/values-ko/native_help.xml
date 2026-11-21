@@ -31,7 +31,7 @@
     <string name="help_email">지원팀에 이메일 보내기</string>
     <string name="help_voice_title">음성 메시지 녹음 및 재생</string>
     <string name="help_voice_step1">친구와의 채팅에서 마이크를 길게 눌러 녹음하고 손을 떼면 전송합니다. 누른 채로 취소 쪽으로 밀면 삭제되고 위로 밀면 녹음이 고정됩니다.</string>
-    <string name="help_voice_step2">녹음을 고정한 후 정지를 누르면 미리 들을 수 있습니다. 그 자리에서 전송하거나 삭제하세요. 채팅의 음성 메시지를 누르면 재생하거나 일시 정지할 수 있습니다.</string>
+    <string name="help_voice_step2">녹음이 고정된 상태에서 전송을 누르면 바로 보내고, 정지를 누르면 먼저 들어볼 수 있습니다. 삭제하려면 휴지통을 누르세요. 채팅에서 음성 메시지를 누르면 재생하거나 일시 정지할 수 있습니다.</string>
     <string name="help_voice_hold">길게 눌러 녹음</string>
     <string name="help_voice_cancel">밀어서 취소</string>
     <string name="help_voice_lock">위로 밀어 고정</string>

@@ -46,6 +46,13 @@ struct NativeHelpView: View {
                                     .clipShape(RoundedRectangle(cornerRadius: 12)).accessibilityHidden(true)
                             }
                             Text(topic.first, tableName: "NativeHelp")
+                            if topic == .voice {
+                                HStack(spacing: 26) {
+                                    Image(systemName: "trash")
+                                    Image(systemName: "stop.circle")
+                                    Image(systemName: "arrow.up.circle.fill").foregroundStyle(VipiDesign.highlight)
+                                }.font(.title2).accessibilityHidden(true)
+                            }
                             Text(topic.second, tableName: "NativeHelp")
                         }.font(.body).fixedSize(horizontal: false, vertical: true)
                             .padding(.vertical, 10)

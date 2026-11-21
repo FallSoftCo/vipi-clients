@@ -31,7 +31,7 @@
     <string name="help_email">给支持团队发邮件</string>
     <string name="help_voice_title">录制和播放语音消息</string>
     <string name="help_voice_step1">在与朋友的聊天中，按住麦克风录音，松开发送。按住时向取消提示滑动可丢弃录音，向上滑动可锁定录音。</string>
-    <string name="help_voice_step2">锁定后，轻点停止即可试听。你可以直接在聊天中发送或丢弃录音。轻点语音消息即可播放或暂停。</string>
+    <string name="help_voice_step2">锁定录音后，轻点发送即可立即发出，或轻点停止先试听。轻点垃圾桶可丢弃录音。在聊天中轻点语音消息即可播放或暂停。</string>
     <string name="help_voice_hold">按住录音</string>
     <string name="help_voice_cancel">滑动取消</string>
     <string name="help_voice_lock">向上滑动锁定</string>

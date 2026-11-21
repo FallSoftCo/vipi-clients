@@ -31,7 +31,7 @@
     <string name="help_email">サポートにメールする</string>
     <string name="help_voice_title">ボイスメッセージを録音・再生する</string>
     <string name="help_voice_step1">友達とのチャットでマイクを長押しして録音し、指を離すと送信します。押したままキャンセルの方向にスライドすると破棄、上にスライドすると録音を固定できます。</string>
-    <string name="help_voice_step2">録音を固定したら停止をタップして確認します。その場で聴いたり、送信したり、破棄したりできます。チャット内のボイスメッセージをタップすると再生または一時停止します。</string>
+    <string name="help_voice_step2">録音を固定したら、送信をタップするとすぐに送れます。先に聴くには停止を、破棄するにはゴミ箱をタップします。チャットのボイスメッセージをタップすると再生または一時停止します。</string>
     <string name="help_voice_hold">長押しして録音</string>
     <string name="help_voice_cancel">スライドしてキャンセル</string>
     <string name="help_voice_lock">上にスライドして固定</string>

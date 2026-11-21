@@ -2944,85 +2944,85 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "When locked, tap Stop to preview. You can listen, send or discard right there. Tap a voice message in the chat to play or pause it."
+            "value": "When recording is locked, tap Send to send it now or Stop to listen first. Tap the trash can to discard it. In the chat, tap a voice message to play or pause."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Con la grabación fijada, toca Detener para escucharla. Puedes enviarla o descartarla ahí mismo. Toca un mensaje de voz en el chat para reproducirlo o pausarlo."
+            "value": "Con la grabación fijada, toca Enviar para mandarla en el momento o Detener para escucharla primero. Toca la papelera para descartarla. En el chat, toca un mensaje de voz para reproducirlo o pausarlo."
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "Une fois l’enregistrement verrouillé, touchez Arrêter pour l’écouter. Vous pouvez l’envoyer ou l’effacer sur place. Touchez un message vocal dans la discussion pour le lire ou le mettre en pause."
+            "value": "Une fois l’enregistrement verrouillé, touchez Envoyer pour l’envoyer immédiatement ou Arrêter pour l’écouter d’abord. Touchez la corbeille pour l’effacer. Dans la discussion, touchez un message vocal pour le lire ou le mettre en pause."
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "Tippe bei fixierter Aufnahme auf Stopp, um sie anzuhören. Du kannst sie dort senden oder verwerfen. Tippe auf eine Sprachnachricht im Chat, um sie abzuspielen oder zu pausieren."
+            "value": "Wenn die Aufnahme fixiert ist, tippe auf Senden, um sie sofort zu senden, oder auf Stopp, um sie zuerst anzuhören. Mit dem Papierkorb verwirfst du sie. Tippe im Chat auf eine Sprachnachricht, um sie abzuspielen oder zu pausieren."
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Quando la registrazione è bloccata, tocca Stop per ascoltarla. Puoi inviarla o scartarla senza uscire dalla chat. Tocca un messaggio vocale per riprodurlo o metterlo in pausa."
+            "value": "Quando la registrazione è bloccata, tocca Invia per inviarla subito oppure Stop per ascoltarla prima. Tocca il cestino per scartarla. Nella chat, tocca un messaggio vocale per riprodurlo o metterlo in pausa."
           }
         },
         "pt": {
           "stringUnit": {
             "state": "translated",
-            "value": "Com a gravação fixa, toque em Parar para a ouvir. Pode enviá-la ou descartá-la na própria conversa. Toque numa mensagem de voz para a ouvir ou colocar em pausa."
+            "value": "Com a gravação fixa, toque em Enviar para a enviar já ou em Parar para a ouvir primeiro. Toque no caixote do lixo para a descartar. Na conversa, toque numa mensagem de voz para a reproduzir ou colocar em pausa."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Com a gravação travada, toque em Parar para ouvir. Você pode enviar ou descartar ali mesmo. Toque em uma mensagem de voz na conversa para ouvir ou pausar."
+            "value": "Com a gravação travada, toque em Enviar para enviá-la na hora ou em Parar para ouvir primeiro. Toque na lixeira para descartar. Na conversa, toque em uma mensagem de voz para ouvir ou pausar."
           }
         },
         "sw": {
           "stringUnit": {
             "state": "translated",
-            "value": "Ukiwa unarekodi bila kushikilia, gusa Simamisha ili usikilize. Unaweza kutuma au kufuta hapo hapo. Gusa ujumbe wa sauti katika gumzo ili uusikilize au uusitishe."
+            "value": "Unaporekodi bila kushikilia, gusa Tuma ili kutuma mara moja au Simamisha ili usikilize kwanza. Gusa aikoni ya pipa la taka ili kufuta. Katika gumzo, gusa ujumbe wa sauti ili uusikilize au uusitishe."
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "بعد تثبيت التسجيل، اضغط على إيقاف لمعاينته. يمكنك الاستماع إليه أو إرساله أو تجاهله في المحادثة نفسها. اضغط على رسالة صوتية لتشغيلها أو إيقافها مؤقتًا."
+            "value": "بعد تثبيت التسجيل، اضغط على إرسال لإرساله فورًا، أو على إيقاف للاستماع إليه أولًا. اضغط على سلة المهملات لتجاهله. في المحادثة، اضغط على الرسالة الصوتية لتشغيلها أو إيقافها مؤقتًا."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "録音を固定したら停止をタップして確認します。その場で聴いたり、送信したり、破棄したりできます。チャット内のボイスメッセージをタップすると再生または一時停止します。"
+            "value": "録音を固定したら、送信をタップするとすぐに送れます。先に聴くには停止を、破棄するにはゴミ箱をタップします。チャットのボイスメッセージをタップすると再生または一時停止します。"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "녹음을 고정한 후 정지를 누르면 미리 들을 수 있습니다. 그 자리에서 전송하거나 삭제하세요. 채팅의 음성 메시지를 누르면 재생하거나 일시 정지할 수 있습니다."
+            "value": "녹음이 고정된 상태에서 전송을 누르면 바로 보내고, 정지를 누르면 먼저 들어볼 수 있습니다. 삭제하려면 휴지통을 누르세요. 채팅에서 음성 메시지를 누르면 재생하거나 일시 정지할 수 있습니다."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "锁定后，轻点停止即可试听。你可以直接在聊天中发送或丢弃录音。轻点语音消息即可播放或暂停。"
+            "value": "锁定录音后，轻点发送即可立即发出，或轻点停止先试听。轻点垃圾桶可丢弃录音。在聊天中轻点语音消息即可播放或暂停。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "鎖定後，點一下停止即可試聽。你可以直接在對話中傳送或捨棄錄音。點一下語音訊息即可播放或暫停。"
+            "value": "鎖定錄音後，點一下傳送即可立即送出，或點一下停止先試聽。點一下垃圾桶即可捨棄錄音。在對話中點一下語音訊息即可播放或暫停。"
           }
         },
         "pt-PT": {
           "stringUnit": {
             "state": "translated",
-            "value": "Com a gravação fixa, toque em Parar para a ouvir. Pode enviá-la ou descartá-la na própria conversa. Toque numa mensagem de voz para a ouvir ou colocar em pausa."
+            "value": "Com a gravação fixa, toque em Enviar para a enviar já ou em Parar para a ouvir primeiro. Toque no caixote do lixo para a descartar. Na conversa, toque numa mensagem de voz para a reproduzir ou colocar em pausa."
           }
         }
       }

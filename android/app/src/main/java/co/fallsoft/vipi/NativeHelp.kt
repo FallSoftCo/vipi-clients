@@ -8,6 +8,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.ArrowUpward
 import androidx.compose.material.icons.outlined.Mic
+import androidx.compose.material.icons.outlined.DeleteOutline
+import androidx.compose.material.icons.outlined.StopCircle
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
@@ -101,6 +103,13 @@ private enum class HelpTopic(val title: Int, val picture: Int?, val first: Int, 
                             .clip(RoundedCornerShape(12.dp)))
                     }
                     Text(stringResource(topic.first), style = MaterialTheme.typography.bodyLarge)
+                    if (topic == HelpTopic.VOICE) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(26.dp)) {
+                            Icon(Icons.Outlined.DeleteOutline, null)
+                            Icon(Icons.Outlined.StopCircle, null)
+                            Icon(Icons.Outlined.ArrowUpward, null, tint = MaterialTheme.colorScheme.primary)
+                        }
+                    }
                     Text(stringResource(topic.second), style = MaterialTheme.typography.bodyLarge)
                 }
             }
