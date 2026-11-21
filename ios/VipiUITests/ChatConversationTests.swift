@@ -2737,7 +2737,17 @@ final class ChatConversationTests: XCTestCase {
                 app.buttons["Cancel"].firstMatch.tap()
                 app.buttons["New chat"].firstMatch.tap()
                 let groups = app.buttons["open-groups"]
-                reveal(groups); groups.tap()
+                if compact {
+                    let conversationForm = try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last)
+                    for _ in 0..<8 {
+                        if groups.exists && groups.isHittable { break }
+                        conversationForm.swipeUp()
+                    }
+                    XCTAssertTrue(groups.isHittable, "Groups must be reachable by scrolling the visible New conversation form.")
+                } else {
+                    reveal(groups)
+                }
+                groups.tap()
                 let createGroup = app.buttons["Create group"].firstMatch
                 XCTAssertTrue(createGroup.waitForExistence(timeout: 6)); createGroup.tap()
                 let name = app.textFields["group-name"]
