@@ -117,9 +117,9 @@ if __name__ == "__main__":
     parser.add_argument("--source-revision", required=True)
     parser.add_argument("--media", action="store_true", help="Enable encrypted media in this private fixture")
     parser.add_argument("--port", type=int, default=48944)
-    parser.add_argument("--seconds", type=int, default=1800)
+    parser.add_argument("--seconds", type=int, default=1800, help="Maximum lifetime of this private fixture, up to two hours for interactive media checks")
     args = parser.parse_args()
-    assert 1024 <= args.port <= 65535 and 30 <= args.seconds <= 1800
+    assert 1024 <= args.port <= 65535 and 30 <= args.seconds <= 7200
     os.umask(0o077)
     with socket.socket() as probe:
         probe.bind(("127.0.0.1", args.port))
