@@ -148,24 +148,47 @@ class RegularMediaPairDeviceTest {
         val after = chat.messages(peer).filter { it.attachments.any { a -> a.kind == AttachmentKind.VOICE } }.map { it.id }.toSet()
         check(after == voiceIDs)
         var incomingHash: String? = null
+        var incomingRetried = false
         if (incomingID != null) {
             val incoming = chat.messages(peer).single { it.id == incomingID && !it.outgoing }
             val manifest = incoming.attachments.single { it.kind == AttachmentKind.VOICE }
+            val repo = AttachmentRepository(app, requireNotNull(chat.profile).id)
+            fun authenticatedHash(): String {
+                val clear = runBlocking { chat.openMedia(peer, manifest, repo) }
+                return try { java.security.MessageDigest.getInstance("SHA-256").digest(clear.readBytes()).joinToString("") { "%02x".format(it) } }
+                finally { clear.delete() }
+            }
+            fun exists(action: String) = runCatching { button(incomingID, action).assertExists(); true }.getOrDefault(false)
+            val retry = app.getString(R.string.try_again)
             compose.onNodeWithTag("conversation-timeline").performScrollToNode(hasTestTag("message-row-$incomingID"))
             button(incomingID, play).performClick()
-            compose.waitUntil(8_000) { runCatching { button(incomingID, pause).assertExists(); true }.getOrDefault(false) }
+            compose.waitUntil(20_000) { exists(pause) || exists(retry) }
+            if (exists(retry)) {
+                incomingRetried = true
+                capture(f, "03-incoming-open-error")
+                button(incomingID, retry).performClick()
+                compose.waitUntil(20_000) { exists(pause) || exists(retry) }
+                if (exists(retry)) {
+                    try { authenticatedHash() }
+                    catch (failure: Exception) {
+                        val diagnostic = JSONObject().put("exceptionTypes", org.json.JSONArray(
+                            generateSequence<Throwable>(failure) { it.cause }.map { it.javaClass.name }.take(8).toList()))
+                        if (failure is ServiceFailure) diagnostic.put("status", failure.status).put("code", failure.code)
+                        File(f.output, "incoming-open-diagnostic.json").writeText(diagnostic.toString(2))
+                        throw AssertionError("The native incoming attachment read failed after explicit Retry")
+                    }
+                }
+            }
+            compose.waitUntil(8_000) { exists(pause) || seconds(incomingID) > 0 }
             capture(f, "03-incoming-iPhone-note-inline")
-            compose.waitUntil(24_000) { runCatching { button(incomingID, play).assertExists(); true }.getOrDefault(false) }
-            check(seconds(incomingID) > 0)
-            val clear = runBlocking { chat.openMedia(peer, manifest, AttachmentRepository(app, requireNotNull(chat.profile).id)) }
-            incomingHash = try { java.security.MessageDigest.getInstance("SHA-256").digest(clear.readBytes()).joinToString("") { "%02x".format(it) } }
-            finally { clear.delete() }
+            compose.waitUntil(24_000) { exists(play) && seconds(incomingID) > 0 }
+            incomingHash = authenticatedHash()
             check(incomingHash == expectedHash)
         }
         File(f.output, "playback.json").writeText(JSONObject().put("sourceRun", config.getString("run"))
             .put("first", first).put("second", second).put("pausedSeconds", paused)
             .put("secondCompletedSeconds", secondCompletedSeconds).put("exactNoteIDsPreserved", true)
-            .put("otherNotePaused", true).put("incomingVoiceID", incomingID).put("incomingOpenedSHA256", incomingHash)
+            .put("otherNotePaused", true).put("incomingRetried", incomingRetried).put("incomingVoiceID", incomingID).put("incomingOpenedSHA256", incomingHash)
             .put("fixtureSubmittedMessages", 0).toString(2))
     }
 
