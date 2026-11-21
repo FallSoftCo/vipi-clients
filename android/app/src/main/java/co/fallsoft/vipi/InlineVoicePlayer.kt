@@ -32,11 +32,17 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/** Stop speech from the active note before a new microphone capture starts. */
+internal fun stopInlineVoicePlayback() { NotePlayback.stopCurrent() }
+
 private enum class NoteState { IDLE, LOADING, PLAYING, PAUSED, FINISHED, FAILED }
 
 /** Only the current row owns a decoder or requests audio focus. All callbacks run on main. */
 private class NotePlayback(context: Context, private val scope: CoroutineScope) {
-    companion object { private var active: NotePlayback? = null }
+    companion object {
+        private var active: NotePlayback? = null
+        fun stopCurrent() { active?.yieldPlayback() }
+    }
     var state by mutableStateOf(NoteState.IDLE)
         private set
     var position by mutableLongStateOf(0L)

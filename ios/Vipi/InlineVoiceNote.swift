@@ -1,10 +1,33 @@
 import SwiftUI
 import AVFAudio
 
+/// Voice recording and draft previews can share the same in-process audio handoff.
+@MainActor enum VoiceAudioHandoff {
+    private static weak var owner: AnyObject?
+    private static var yieldCurrent: (() -> Void)?
+
+    static func owns(_ candidate: AnyObject) -> Bool { owner === candidate }
+    static func claim(_ candidate: AnyObject, onYield: @escaping () -> Void) {
+        if !owns(candidate) { stopCurrent() }
+        owner = candidate
+        yieldCurrent = onYield
+    }
+    static func release(_ candidate: AnyObject) {
+        guard owns(candidate) else { return }
+        owner = nil
+        yieldCurrent = nil
+    }
+    static func stopCurrent() {
+        let previous = yieldCurrent
+        owner = nil
+        yieldCurrent = nil
+        previous?()
+    }
+}
+
 /// Owns one decoded note and its temporary plaintext file only while that row is in use.
 @MainActor private final class VoiceNotePlayer: NSObject, ObservableObject, @preconcurrency AVAudioPlayerDelegate {
     enum State { case idle, loading, playing, paused, finished, failed }
-    private static weak var active: VoiceNotePlayer?
     @Published private(set) var state = State.idle
     @Published private(set) var duration = 0.0
     private var savedPosition = 0.0
@@ -17,15 +40,14 @@ import AVFAudio
     func toggle(load: @escaping @MainActor () async throws -> URL) {
         if state == .playing { pause(); return }
         guard state != .loading else { return }
-        if let previous = Self.active, previous !== self { previous.yieldPlayback() }
-        Self.active = self
+        VoiceAudioHandoff.claim(self) { [weak self] in self?.yieldPlayback() }
         if state == .finished { savedPosition = 0 }
         if player != nil { start(); return }
         state = .loading
         opening = Task { [weak self] in
             do {
                 let url = try await load()
-                guard let self, !Task.isCancelled, Self.active === self else {
+                guard let self, !Task.isCancelled, VoiceAudioHandoff.owns(self) else {
                     try? FileManager.default.removeItem(at: url); return
                 }
                 self.file = url
@@ -69,7 +91,7 @@ import AVFAudio
         player?.delegate = nil; player?.stop(); player = nil
         if let file { try? FileManager.default.removeItem(at: file); self.file = nil }
         releaseAudio()
-        if Self.active === self { Self.active = nil }
+        VoiceAudioHandoff.release(self)
     }
     func yieldPlayback() {
         if state == .playing { pause() }
