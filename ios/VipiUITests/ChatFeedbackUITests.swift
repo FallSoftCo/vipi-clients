@@ -78,11 +78,13 @@ final class ChatFeedbackUITests: XCTestCase {
             for _ in 0..<8 where !row.isHittable { app.swipeUp() }
             XCTAssertTrue(row.isHittable, key); row.tap()
             let step = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", prefix)).firstMatch
-            XCTAssertTrue(step.waitForExistence(timeout: 5), key)
+            // SwiftUI materializes expanded List content as it enters the viewport.
+            for _ in 0..<4 where !step.exists { app.swipeUp() }
+            XCTAssertTrue(step.waitForExistence(timeout: 3), key)
             if key == "friends" {
                 capture("ios-native-help-friends")
             }
-            if !row.isHittable { app.swipeDown() }
+            for _ in 0..<4 where !row.isHittable { app.swipeDown() }
             XCTAssertTrue(row.isHittable); row.tap()
         }
         app.navigationBars.buttons.element(boundBy: 0).tap()
