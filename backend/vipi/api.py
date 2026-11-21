@@ -11,12 +11,14 @@ from fastapi.exceptions import RequestValidationError
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, SecretStr, StrictBool, field_validator
 from sqlalchemy import and_, delete, or_, select, text
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.dialects.postgresql import insert as pg_insert
+from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 from starlette.responses import JSONResponse, Response
 
 from .accounts import active_device, normalize_username, register_device, set_block
 from .auth import AuthenticationError, FixedVerifierSet, Principal, WorkOSVerifier
 from .config import Settings
-from .db import Block, Database, PendingMessage, PushOutbox, PushToken, User
+from .db import Block, Database, PendingMessage, PushOutbox, PushToken, SurveyDecision, User
 from .delivery import DeliveryError, Envelope, accept, acknowledge, utc
 from .rates import consume
 from .prekeys import PublishInput, claim, inventory, publish
@@ -97,6 +99,13 @@ class SendInput(Input):
 
 class TypingInput(Input):
     active: StrictBool
+
+
+PRICE_SURVEY = "private-chat-usd1-v1"
+
+
+class SurveyInput(Input):
+    choice: Literal["yes", "maybe", "no", "skip"]
 
 
 class ReceiptsInput(Input):
@@ -312,7 +321,7 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 if not events.ready.is_set():
                     return JSONResponse({"status": "events_unavailable"}, status_code=503)
                 revision = (await session.execute(text("SELECT version_num FROM alembic_version"))).scalar_one()
-                if revision != "20261121_02":
+                if revision != "20261121_03":
                     return JSONResponse({"status": "schema_unavailable"}, status_code=503)
         return {"status": "ok"}
 
@@ -331,6 +340,25 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
         await rate(p, "profile", 60)
         async with db.sessions() as session:
             return own_profile(await user_for(session, p))
+
+    @app.get(f"/v1/me/surveys/{PRICE_SURVEY}")
+    async def survey_availability(p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "survey", 30)
+        async with db.sessions() as session:
+            user = await user_for(session, p)
+            decision = await session.get(SurveyDecision, (user.id, PRICE_SURVEY))
+        return JSONResponse({"available": decision is None}, headers={"Cache-Control": "private, no-store"})
+
+    @app.put(f"/v1/me/surveys/{PRICE_SURVEY}", status_code=204)
+    async def survey_decide(body: SurveyInput, p: Annotated[Principal, Depends(principal)]):
+        await rate(p, "survey", 30)
+        async with db.sessions.begin() as session:
+            await lock_account_lifecycle(session, p.subject, settings.service_secret)
+            user = await user_for(session, p)
+            insert = pg_insert if session.get_bind().dialect.name == "postgresql" else sqlite_insert
+            statement = insert(SurveyDecision).values(user_id=user.id, campaign=PRICE_SURVEY, choice=body.choice)
+            await session.execute(statement.on_conflict_do_nothing(index_elements=["user_id", "campaign"]))
+        return Response(status_code=204, headers={"Cache-Control": "private, no-store"})
 
     @app.get("/v1/entitlements")
     async def entitlements(p: Annotated[Principal, Depends(principal)]):

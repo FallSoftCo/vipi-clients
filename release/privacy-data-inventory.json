@@ -842,6 +842,14 @@
       "release_verification": "Inspect the final signed permission declarations, purpose text, revocation behavior and invitation drafts on both platforms. No new store-form submission in this review."
     }
   ],
+  "candidate_voluntary_pricing_question_20261121": {
+    "scope": "Free native clients and candidate API. Final store forms and production deployment are separate.",
+    "purpose": "Optional product research into funding private chat.",
+    "server_data": "The campaign, Vipi account ID and a single choice (yes, maybe, no or skip). First choice retained until account deletion. No charge, subscription, public rating, advertising use or cross-app tracking.",
+    "local_only": "Eligible chat days, sent-message counts, hint learning, survey and native review prompt timing. No message content, counts or hold history is included in a survey request.",
+    "store_review": "Apple and Google control whether their system review prompt appears. Vipi does not collect a star rating or result or condition the request on any survey answer.",
+    "release_check": "Declare optional, linked account feedback on the privacy and data safety questionnaires for the final shipped builds, and verify the deployed privacy notice before enabling the server endpoint."
+  },
   "candidate_language_detection_20261117": {
     "state": "android_v3_uploaded_as_draft_apple_build2_unsigned",
     "android": "Bundled com.google.mlkit:language-id:17.0.6; protected text masked before local identification. No model download required. Existing translation SDK remains.",

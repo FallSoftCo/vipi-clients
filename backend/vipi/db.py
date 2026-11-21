@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from sqlalchemy import Boolean, DateTime, ForeignKey, Index, Integer, LargeBinary, String, BigInteger, UniqueConstraint
+from sqlalchemy import Boolean, CheckConstraint, DateTime, ForeignKey, Index, Integer, LargeBinary, String, BigInteger, UniqueConstraint
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -23,6 +23,14 @@ class User(Base):
     cardless_trial_ends_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda ctx: ctx.get_current_parameters()["created_at"])
     deleted: Mapped[bool] = mapped_column(Boolean, default=False)
     suspended: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
+
+
+class SurveyDecision(Base):
+    __tablename__ = "survey_decisions"
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    campaign: Mapped[str] = mapped_column(String(48), primary_key=True)
+    choice: Mapped[str] = mapped_column(String(8))
+    __table_args__ = (CheckConstraint("choice IN ('yes','maybe','no','skip')", name="ck_survey_choice"),)
 
 
 class Device(Base):
