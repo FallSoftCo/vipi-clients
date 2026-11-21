@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.PhotoCamera
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -66,7 +66,7 @@ import kotlinx.coroutines.launch
     Box {
         IconButton(enabled = available, onClick = { menu = true }) {
             if (busy) CircularProgressIndicator(Modifier.size(24.dp), strokeWidth = 2.dp)
-            else Icon(Icons.Outlined.Add, stringResource(R.string.media_attach))
+            else Icon(Icons.Outlined.PhotoCamera, stringResource(R.string.media_attach))
         }
         DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
             DropdownMenuItem(text = { Text(stringResource(R.string.media_camera)) }, onClick = {
