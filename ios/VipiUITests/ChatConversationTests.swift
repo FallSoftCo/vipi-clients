@@ -798,6 +798,28 @@ final class ChatConversationTests: XCTestCase {
     func testChangePracticeLanguageFromChatsPersistsAndKeepsDraft() throws {
         try checkJourney(largest: false, reading: "en-zh", inboxReview: "language-populated")
     }
+    func testArabicInboxCentersTheLanguageAndMirrorsTheWordmark() throws {
+        let app = XCUIApplication()
+        app.launchArguments = ["-vipi-preview-home", "-vipi-target", "pt", "-AppleLanguages", "(ar)", "-AppleLocale", "ar_SA"]
+        app.launch()
+        defer { app.terminate() }
+        let picker = app.buttons["inbox-practice-language"]
+        XCTAssertTrue(picker.waitForExistence(timeout: 12))
+        let bar = app.navigationBars.firstMatch
+        let mark = app.images["inbox-wordmark"]
+        let language = Locale(identifier: "ar").localizedString(forLanguageCode: "pt")
+        XCTAssertEqual(picker.value as? String, language)
+        XCTAssertEqual(picker.frame.midX, bar.frame.midX, accuracy: 2)
+        XCTAssertGreaterThan(mark.frame.midX, picker.frame.midX)
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.name = "inbox-language-rtl"; screenshot.lifetime = .keepAlways; add(screenshot)
+        print("VIPI_INBOX_LANGUAGE rtl viewport=\(bar.frame) picker=\(picker.frame) mark=\(mark.frame)")
+        picker.tap()
+        XCTAssertTrue(app.searchFields.firstMatch.waitForExistence(timeout: 6))
+    }
+    func testCompactInboxLanguageCanChangeAndCancel() throws {
+        try checkJourney(largest: false, reading: "en-zh", inboxReview: "language-populated", constrainedHeader: true)
+    }
     func testLargestInboxLanguageCanChangeAndCancel() throws {
         try checkJourney(largest: true, reading: "en-zh", inboxReview: "language-populated")
     }
@@ -2824,8 +2846,25 @@ final class ChatConversationTests: XCTestCase {
                 let back = app.navigationBars.buttons["BackButton"].firstMatch
                 let draft = "Meet me for tea"
                 func capture(_ suffix: String) {
+                    let size = largest ? "large" : constrainedHeader ? "compact" : "normal"
+                    if suffix != "picker" {
+                        let bar = app.navigationBars["Chats"]
+                        let mark = app.images["inbox-wordmark"]
+                        let profile = app.buttons["Your profile and settings"]
+                        let compose = bar.buttons["New chat"]
+                        print("VIPI_INBOX_LANGUAGE \(size) \(suffix) viewport=\(bar.frame) picker=\(picker.frame) mark=\(mark.frame) compose=\(compose.frame) profile=\(profile.frame)")
+                        XCTAssertTrue(mark.exists && profile.isHittable && compose.isHittable)
+                        XCTAssertTrue(picker.isHittable)
+                        XCTAssertGreaterThanOrEqual(picker.frame.height, 44)
+                        XCTAssertEqual(picker.frame.midX, bar.frame.midX, accuracy: 2)
+                        if constrainedHeader { XCTAssertEqual(bar.frame.width, 375, accuracy: 1) }
+                        if largest { XCTAssertGreaterThanOrEqual(picker.frame.minY, mark.frame.maxY) }
+                        for item in [mark, profile, compose] {
+                            XCTAssertFalse(picker.frame.intersects(item.frame))
+                        }
+                    }
                     let image = XCTAttachment(screenshot: app.screenshot())
-                    image.name = "inbox-language-" + (largest ? "large-" : "normal-") + suffix
+                    image.name = "inbox-language-" + size + "-" + suffix
                     image.lifetime = .keepAlways
                     add(image)
                 }
