@@ -95,15 +95,6 @@ import java.time.temporal.ChronoUnit
                 // breathing room, so the final row scrolls fully above it.
                 LazyColumn(Modifier.fillMaxSize().testTag("inbox-list"), state = listState,
                     contentPadding = PaddingValues(bottom = if (threads.isNotEmpty()) 88.dp else 0.dp)) {
-                    if (ready && chat?.offerNotificationPreviews == true) item("preview-choice") {
-                        FlowRow(Modifier.fillMaxWidth().padding(horizontal = 12.dp),
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            TextButton({ chat.changeNotificationPreviews(true) }, Modifier.testTag("inbox-enable-previews")) {
-                                Text(stringResource(R.string.settings_message_previews))
-                            }
-                            TextButton({ chat.changeNotificationPreviews(false) }) { Text(stringResource(R.string.notification_reply_later)) }
-                        }
-                    }
                     if (chat != null && needsRecovery) item("recovery") {
                         Box(Modifier.padding(20.dp)) { DeviceRecoveryCard(chat) { model.authentication.signIn(context, expectedUser = chat.userID) } }
                     } else if (chat != null && needsSignIn) item("authorization") {

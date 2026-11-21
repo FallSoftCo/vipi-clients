@@ -7,7 +7,8 @@
     <string name="delivery_read">Letto</string>
     <string name="delivery_unknown">Stato sconosciuto</string>
     <string name="delivery_received">Ricevuto</string>
-    <string name="notification_reply_prompt">Avvisami quando %1$s risponde?</string>
+    <string name="notification_reply_prompt">Mostrare la risposta di %1$s in una notifica?</string>
+    <string name="notification_reply_prompt_private">Avvisarmi quando %1$s risponde, senza mostrare il messaggio?</string>
     <string name="notification_reply_allow">Avvisami</string>
     <string name="notification_reply_later">Non ora</string>
     <plurals name="inbox_unread">

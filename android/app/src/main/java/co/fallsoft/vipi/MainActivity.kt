@@ -440,13 +440,15 @@ class MainActivity : ComponentActivity() {
         }
         if (previewError) Text(stringResource(R.string.settings_save_failed), style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.error)
-        Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp)).padding(14.dp)) {
+        Column(Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(12.dp))
+            .semantics(mergeDescendants = true) { liveRegion = LiveRegionMode.Polite }.padding(14.dp)) {
             Text(stringResource(R.string.settings_example), style = MaterialTheme.typography.labelMedium, color = secondary)
             Text(if (chat.notificationPreviews) stringResource(R.string.settings_sample_sender) else stringResource(R.string.ui_0882ca640d5a),
                 style = MaterialTheme.typography.titleMedium)
             Text(stringResource(if (chat.notificationPreviews) R.string.settings_sample_message else R.string.ui_3abeae7a3bed),
                 style = MaterialTheme.typography.bodyMedium)
         }
+        Text(stringResource(R.string.settings_preview_lockscreen), style = MaterialTheme.typography.bodySmall, color = secondary)
     }
     SettingsGroup(stringResource(R.string.settings_about)) {
         listOf(R.string.nav_help to "help", R.string.nav_privacy to "privacy", R.string.nav_terms to "terms").forEach { (title, path) ->

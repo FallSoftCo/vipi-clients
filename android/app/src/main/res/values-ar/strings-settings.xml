@@ -4,7 +4,8 @@
     <string name="settings_delivery">تنبيهات الرسائل</string>
     <string name="settings_on">مفعّلة</string>
     <string name="settings_off">متوقفة</string>
-    <string name="settings_message_previews">عرض معاينات الرسائل</string>
+    <string name="settings_message_previews">إظهار المرسل والرسالة</string>
+    <string name="settings_preview_lockscreen">يتحكم Android فيما يظهر على شاشة القفل.</string>
     <string name="settings_example">مثال لإشعار</string>
     <string name="settings_sample_sender">مايا</string>
     <string name="settings_sample_message">ما رأيك في قهوة عند السادسة؟</string>

@@ -4,7 +4,8 @@
     <string name="settings_delivery">Alertes de messages</string>
     <string name="settings_on">Activées</string>
     <string name="settings_off">Désactivées</string>
-    <string name="settings_message_previews">Afficher un aperçu des messages</string>
+    <string name="settings_message_previews">Afficher le nom et le message</string>
+    <string name="settings_preview_lockscreen">Android gère ce qui apparaît sur l’écran de verrouillage.</string>
     <string name="settings_example">Exemple de notification</string>
     <string name="settings_sample_sender">Maya</string>
     <string name="settings_sample_message">Un café à six heures ?</string>

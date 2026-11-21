@@ -36,7 +36,7 @@ internal class ReplyNotificationEducation(val context: Context) {
     fun markPermissionAsked() { permissionAsked = true }
 }
 
-@Composable internal fun ReplyNotificationCard(education: ReplyNotificationEducation, permissionChanged: () -> Unit) {
+@Composable internal fun ReplyNotificationCard(education: ReplyNotificationEducation, showSenderAndMessage: Boolean, permissionChanged: () -> Unit) {
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { permissionChanged() }
     val friend = education.friend
     if (friend == null) {
@@ -46,7 +46,8 @@ internal class ReplyNotificationEducation(val context: Context) {
     Surface(color = MaterialTheme.colorScheme.surfaceContainer, shape = MaterialTheme.shapes.medium,
         modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 6.dp).testTag("reply-notification-card")) {
         Column(Modifier.padding(horizontal = 14.dp, vertical = 8.dp)) {
-            Text(stringResource(R.string.notification_reply_prompt, friend), style = MaterialTheme.typography.bodyLarge)
+            val prompt = if (showSenderAndMessage) R.string.notification_reply_prompt else R.string.notification_reply_prompt_private
+            Text(stringResource(prompt, friend), style = MaterialTheme.typography.bodyLarge)
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
                 TextButton(onClick = { education.dismiss() }, modifier = Modifier.heightIn(min = 48.dp).testTag("reply-notification-later")) {
                     Text(stringResource(R.string.notification_reply_later))

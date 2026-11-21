@@ -63,12 +63,16 @@ class InboxJourneyDeviceTest {
         }).use { f ->
             try {
                 f.launch(); screen(f, Screen.HOME)
+                compose.onNodeWithTag("inbox-enable-previews").assertDoesNotExist()
+                compose.onNodeWithText(f.base.getString(R.string.settings_message_previews)).assertDoesNotExist()
+                compose.onNodeWithText(f.base.getString(R.string.notification_reply_later)).assertDoesNotExist()
+                paint(f, "inbox-without-preview-offer")
                 compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).performClick()
                 screen(f, Screen.SETTINGS)
                 compose.onAllNodesWithText(f.base.getString(R.string.settings_title)).assertCountEquals(1)
                 paint(f, "settings-profile-and-chats")
                 val toggle = compose.onNodeWithTag("settings-message-previews")
-                toggle.performScrollTo().assertIsOff()
+                toggle.performScrollTo().assertIsOff().assertTextContains(f.base.getString(R.string.settings_message_previews))
                 val generic = f.base.getString(R.string.ui_3abeae7a3bed)
                 fun notification(unlocked: Boolean) = PushDelivery.buildNotifications(f.base, f.model.chat!!, unlocked).single().notification
                 fun body(note: android.app.Notification) = note.extras.getCharSequence(android.app.Notification.EXTRA_TEXT).toString()
@@ -262,6 +266,71 @@ class InboxJourneyDeviceTest {
             finally { f.stopActivity(); held.cancel(); service.close() }
         }
     }
+    @Test fun headerActionsFitTogetherAndKeepTheirStateAndIdentity() {
+        val args = androidx.test.platform.app.InstrumentationRegistry.getArguments()
+        val longName = args.getString("vipiLongName") == "true"
+        val name = if (longName) "Alexandra del Castillo Fernández" else "Maya"
+        val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = name,
+            translationFactory = { object : LanguageTranslation {
+                override suspend fun prepare(source: String, target: String, cellularAllowed: Boolean) = Unit
+                override suspend fun isReady(source: String, target: String) = true
+                override suspend fun translate(text: String, source: String, target: String) = when (text) {
+                    "See you at six?" -> "¿Nos vemos a las seis?"
+                    else -> text
+                }
+                override fun close() = Unit
+            } })
+        val incoming = Row(service.peer, name, "See you at six?", System.currentTimeMillis())
+        MainActivityJourneyFixture("adaptive-header", { app -> seed(app, service, listOf(incoming)); service.model(app) }).use { f ->
+            try {
+                compose.runOnIdle { f.model.selectTarget("es"); f.model.selectImmersionMode(ImmersionMode.FULL_MESSAGES) }
+                f.launch(); screen(f, Screen.HOME)
+                compose.onNodeWithTag("inbox-row-${service.peer}").performClick(); screen(f, Screen.CONVERSATION)
+                val autoplay = compose.onNodeWithTag("conversation-autoplay")
+                val mode = compose.onNodeWithTag("conversation-immersion")
+                val contact = compose.onNodeWithTag("conversation-contact")
+                val options = compose.onNodeWithTag("conversation-options")
+                val originalMode = f.model.immersionMode
+                fun bounds(node: SemanticsNodeInteraction) = node.fetchSemanticsNode().boundsInWindow
+                val before = listOf(contact, autoplay, mode, options).map(::bounds)
+                val density = f.base.resources.displayMetrics.density
+                val labelled = args.getString("vipiHeaderLabels")?.toBooleanStrictOrNull()
+                for (node in listOf(autoplay, mode)) {
+                    val rect = bounds(node)
+                    assertTrue("48dp minimum target on both axes", minOf(rect.width, rect.height) >= 48 * density - .5f)
+                    if (labelled != null) assertEquals("Both labels fit or both use icons", labelled, rect.width > 48 * density + 1)
+                    val semantics = node.fetchSemanticsNode().config
+                    assertEquals(androidx.compose.ui.semantics.Role.Switch, semantics[SemanticsProperties.Role])
+                    assertTrue(semantics[SemanticsProperties.StateDescription].isNotBlank())
+                    assertFalse(semantics[androidx.compose.ui.semantics.SemanticsActions.OnClick].label.isNullOrBlank())
+                }
+                assertEquals(before[1].center.y, before[2].center.y, 1f)
+                contact.assertTextEquals(name)
+                autoplay.assertContentDescriptionEquals(f.base.getString(R.string.autoplay_label)).assertIsOff()
+                mode.assertContentDescriptionEquals(f.base.getString(R.string.immersion_mode_title))
+                compose.waitUntil(12_000) {
+                    f.model.chat!!.translations?.state(incoming.id.toString(), incoming.text)?.phase == MessageTranslationPhase.READY
+                }
+                paint(f, "01-friend-header")
+                val editor = compose.onNodeWithTag("message-input")
+                editor.performTouchInput { click() }.performTextInput("My draft")
+                autoplay.performTouchInput { click() }.assertIsOn()
+                paint(f, "02-autoplay-on")
+                mode.performTouchInput { click() }
+                compose.waitUntil { f.model.immersionMode != originalMode }
+                editor.assertIsFocused().assertTextEquals("My draft")
+                paint(f, "03-friend-other-mode")
+                assertEquals("Control and contact bounds stable across modes", before.map { it.left to it.right },
+                    listOf(contact, autoplay, mode, options).map { bounds(it).let { r -> r.left to r.right } })
+                compose.waitUntil(5_000) { f.unobscuredWindow().bottom < f.base.resources.displayMetrics.heightPixels * .86f }
+                val geometry = JSONObject().put("locale", f.base.resources.configuration.locales[0].toLanguageTag())
+                    .put("fontScale", f.base.resources.configuration.fontScale).put("density", density)
+                    .put("longName", longName).put("bounds", JSONArray(before.map { it.toString() }))
+                File(f.output, "geometry.json").writeText(geometry.toString(2))
+            } finally { f.stopActivity(); service.close() }
+        }
+    }
+
     @Test fun practiceLanguageAndAutoplayFollowTheirActualOwners() {
         val prompt = "Can we meet at six?"
         val spanish = "¿Nos vemos a las seis?"
@@ -367,7 +436,7 @@ class InboxJourneyDeviceTest {
                 device.executeShellCommand("pm grant ${f.base.packageName} android.permission.POST_NOTIFICATIONS")
                 f.launch(); screen(f, Screen.HOME)
                 val chat = requireNotNull(f.model.chat)
-                assertTrue(chat.notificationPreviews); assertFalse(chat.offerNotificationPreviews)
+                assertTrue(chat.notificationPreviews)
                 kotlinx.coroutines.runBlocking(kotlinx.coroutines.Dispatchers.Main) {
                     chat.send("See you there.", service.peer); chat.synchronize()
                     check(service.peerReceived == "See you there.")
@@ -435,29 +504,6 @@ class InboxJourneyDeviceTest {
                     .put("singleAndMultiTap", true).put("opaqueExternalPushTransportSimulated", true)
                     .put("privatePublicVersion", true).put("signoutCleared", true).toString())
             } finally { PushDelivery.clearPosted(f.base); f.finishAfterExternalIntent(); service.close() }
-        }
-    }
-
-    @Test fun legacyPreviewChoiceOnlyAppliesToFutureArrivals() {
-        val service = JourneyServices(profileRequired = false)
-        MainActivityJourneyFixture("legacy-preview-choice", { app ->
-            MessageVault(app, service.account).use { it.transaction { it.remove("local", "notification-previews") } }
-            seed(app, service, listOf(Row(service.peer, "Maya", "Earlier private history", System.currentTimeMillis(), unread = 1)))
-            service.model(app)
-        }).use { f ->
-            try {
-                f.launch(); screen(f, Screen.HOME)
-                val action = compose.onNodeWithTag("inbox-enable-previews")
-                action.assertIsDisplayed(); paint(f, "01-legacy-choice")
-                action.performClick(); action.assertDoesNotExist()
-                compose.runOnIdle {
-                    assertTrue(f.model.chat!!.notificationPreviews)
-                    assertNull(f.model.chat!!.notificationDelivery(service.peer, true)?.preview)
-                    f.model.chat!!.changeNotificationPreviews(false)
-                }
-                f.relaunch(service::model); screen(f, Screen.HOME)
-                action.assertDoesNotExist(); assertFalse(f.model.chat!!.notificationPreviews)
-            } finally { f.stopActivity(); service.close() }
         }
     }
 
