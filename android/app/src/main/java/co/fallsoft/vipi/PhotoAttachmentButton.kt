@@ -89,8 +89,6 @@ import kotlinx.coroutines.launch
             })
         }
     }
-    if (caption.isBlank()) VoiceRecorderButton(repository.account, available, { path -> preview(android.net.Uri.fromFile(path), AttachmentKind.VOICE, path) },
-        { errorLatest(MediaActionFailure(it)) })
     chosen?.let { item ->
         val thumb by produceState<Bitmap?>(null, item) { value = staging.localPhotoThumbnail(item) }
         AlertDialog(onDismissRequest = { if (!busy) discard() },

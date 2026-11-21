@@ -41,4 +41,10 @@
     <string name="photo_too_large">写真が大きすぎて開けません。</string>
     <string name="media_recording">録音中…</string>
     <string name="media_invalid">対応する32 MiB以下のファイルを選択してください。動画とボイスメッセージは3分以内です。</string>
+    <string name="voice_send_recording">ボイスメッセージを送信</string>
+    <string name="voice_handsfree">ハンズフリーで録音</string>
+    <string name="voice_discard">録音を破棄</string>
+    <string name="voice_locked">ハンズフリー録音中</string>
+    <string name="voice_gestures">スライドでキャンセル・上にスライドでロック</string>
+    <string name="voice_tap_hint">長押しして録音し、離して送信します。鍵をタップするとハンズフリーで録音できます。</string>
 </resources>

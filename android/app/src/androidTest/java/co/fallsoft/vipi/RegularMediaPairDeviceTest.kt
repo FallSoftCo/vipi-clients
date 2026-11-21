@@ -26,7 +26,8 @@ class RegularMediaPairDeviceTest {
     private val inst get() = InstrumentationRegistry.getInstrumentation()
     private val app get() = inst.targetContext.applicationContext as Application
     private val config get() = JSONObject(File(app.filesDir, "media-ui-config.json").readText())
-    private val stateFile get() = File(app.filesDir, "regular-media-ui-state.json")
+    private val runID get() = config.getString("run").also { require(it.matches(Regex("[a-zA-Z0-9-]{1,96}"))) }
+    private val stateFile get() = File(app.filesDir, "regular-media-ui-$runID-state.json")
     private fun readState() = JSONObject(stateFile.readText())
     private fun model(): VipiModel {
         val c = config
@@ -59,7 +60,7 @@ class RegularMediaPairDeviceTest {
         val c = config
         if (!c.getString("username").startsWith("vma")) error("Dedicated media identity required")
         val owner = PrivateRecords(app)
-        val marker = File(app.filesDir, "regular-media-ui-${label}.json")
+        val marker = File(app.filesDir, "regular-media-ui-$runID-${label}.json")
         check(!marker.exists() && owner.read("session") == null)
         try {
             MainActivityJourneyFixture("regular-media-ui-$label", { model() }).use { f ->
@@ -348,13 +349,32 @@ class RegularMediaPairDeviceTest {
         check(chat.messages(peer).filter { it.outgoing }.map { it.id }.toSet() == before)
         capture(f, "10-mic-denied-text-available")
     }
-    @Test fun sendRecordedVoice() = stage("voice") { f ->
-        val peer = UUID.fromString(readState().getString("peer"))
+    @Test fun sendRecordedVoice() = sendInlineVoice("voice", locked = false)
+    @Test fun sendLockedVoice() = sendInlineVoice("locked", locked = true)
+
+    private fun sendInlineVoice(stageName: String, locked: Boolean) = stage(stageName) { f ->
         f.launch()
         compose.waitUntil(25_000) { f.model.chat?.ready == true && f.model.screen == Screen.HOME }
-        compose.onNodeWithTag("inbox-row-$peer").performClick()
+        val state = readState()
         val chat = requireNotNull(f.model.chat)
-        check(chat.messages(peer).none { it.outgoing && it.attachments.any { a -> a.kind == AttachmentKind.VOICE } })
+        val peer = if (state.has("peer")) {
+            val known = UUID.fromString(state.getString("peer"))
+            if (compose.onAllNodesWithTag("inbox-row-$known").fetchSemanticsNodes().isNotEmpty())
+                compose.onNodeWithTag("inbox-row-$known").performClick()
+            else { compose.runOnIdle { f.model.openConversation(known) } }
+            known
+        } else {
+            compose.onNodeWithTag("inbox-compose").performClick()
+            val lookup = compose.onNodeWithTag("new-chat-search")
+            lookup.performTextInput(config.getString("peer_username"))
+            lookup.performImeAction()
+            compose.waitUntil(12_000) { f.model.screen == Screen.CONVERSATION && f.model.selectedPeer != null }
+            requireNotNull(f.model.selectedPeer)
+        }
+        val idField = "sent_${stageName}"
+        check(!state.has(idField))
+        val existing = chat.messages(peer).filter { it.outgoing && it.attachments.any { a -> a.kind == AttachmentKind.VOICE } }.map { it.id }.toSet()
+        runBlocking(Dispatchers.Main) { chat.requirePeerMedia(peer) }
         if (app.checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
             compose.onNodeWithContentDescription("Hold to record a voice message").performClick()
             val allow = By.res(java.util.regex.Pattern.compile(".*:id/permission_allow_foreground_only_button"))
@@ -362,19 +382,46 @@ class RegularMediaPairDeviceTest {
             compose.waitUntil(5000) { app.checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) == android.content.pm.PackageManager.PERMISSION_GRANTED }
         }
         val mic = requireNotNull(f.device.wait(Until.findObject(By.desc("Hold to record a voice message")), 6000)).visibleCenter
-        f.device.executeShellCommand("input swipe ${mic.x} ${mic.y} ${mic.x} ${mic.y} 2100")
-        compose.waitUntil(12_000) { compose.onAllNodesWithText("Send", useUnmergedTree = true).fetchSemanticsNodes().isNotEmpty() }
-        capture(f, "03-real-voice-review")
-        compose.onNodeWithText("Send").performClick()
-        compose.waitUntil(30_000) { chat.messages(peer).any { row -> row.outgoing && row.attachments.any { it.kind == AttachmentKind.VOICE } && row.state in setOf("accepted","delivered","read") } }
-        val row = chat.messages(peer).single { it.outgoing && it.attachments.any { a -> a.kind == AttachmentKind.VOICE } }
+        val down = SystemClock.uptimeMillis()
+        fun pointer(action: Int, y: Float) {
+            val event = android.view.MotionEvent.obtain(down, SystemClock.uptimeMillis(), action, mic.x.toFloat(), y, 0)
+            try { check(inst.uiAutomation.injectInputEvent(event, true)) } finally { event.recycle() }
+        }
+        val holdMillis = InstrumentationRegistry.getArguments().getString("voiceHoldMillis")?.toLongOrNull()?.coerceIn(1700L,12_000L) ?: 4500L
+        pointer(android.view.MotionEvent.ACTION_DOWN, mic.y.toFloat())
+        var released = false
+        try {
+            SystemClock.sleep(1000)
+            check(f.device.takeScreenshot(File(f.output, "01-${stageName}-live.png")))
+            val y = if (locked) mic.y - 90 * app.resources.displayMetrics.density else mic.y.toFloat()
+            if (locked) { pointer(android.view.MotionEvent.ACTION_MOVE, y); SystemClock.sleep(200) }
+            SystemClock.sleep(holdMillis - 1000)
+            pointer(android.view.MotionEvent.ACTION_UP, y)
+            released = true
+        } finally { if (!released) runCatching { pointer(android.view.MotionEvent.ACTION_CANCEL, mic.y.toFloat()) } }
+        if (locked) {
+            compose.onNodeWithContentDescription("Finish recording").performClick()
+            compose.waitUntil(6000) { compose.onAllNodesWithContentDescription("Send voice message").fetchSemanticsNodes().isNotEmpty() }
+            check(chat.messages(peer).none { it.outgoing && it.id !in existing && it.attachments.any { a -> a.kind == AttachmentKind.VOICE } })
+            val draft = hasAnyAncestor(hasTestTag("voice-composer-active"))
+            compose.onNode(hasContentDescription("Play voice message") and draft).performClick()
+            compose.waitUntil(4000) { compose.onAllNodes(hasContentDescription("Pause") and draft).fetchSemanticsNodes().isNotEmpty() }
+            compose.onNode(hasContentDescription("Pause") and draft).performClick()
+            capture(f, "02-locked-inline-review")
+            compose.onNodeWithContentDescription("Send voice message").performClick()
+        }
+        compose.waitUntil(35_000) { chat.messages(peer).any { row -> row.outgoing && row.id !in existing &&
+            row.attachments.any { it.kind == AttachmentKind.VOICE } && row.state in setOf("accepted","delivered","read") } }
+        val row = chat.messages(peer).single { it.outgoing && it.id !in existing && it.attachments.any { a -> a.kind == AttachmentKind.VOICE } }
         val voice = row.attachments.single()
-        check((voice.durationMillis ?: 0L) in 500L..6000L)
+        check((voice.durationMillis ?: 0L) in 500L..20_000L)
         val clear = runBlocking { AttachmentRepository(app, requireNotNull(chat.profile).id).openLocal(voice) }
-        val hash = try { clear.copyTo(File(app.filesDir, "regular-media-recorded-proof.m4a"), overwrite=true); java.security.MessageDigest.getInstance("SHA-256").digest(clear.readBytes()).joinToString("") { "%02x".format(it) } }
-            finally { clear.delete() }
-        stateFile.writeText(readState().put("sent_voice", row.id).put("voice_sha256", hash).put("mime", voice.contentType)
-            .put("duration_ms", voice.durationMillis).put("state", row.state).toString())
-        capture(f, "04-voice-sent")
+        val hash = try {
+            clear.copyTo(File(app.filesDir, "regular-media-$runID-${stageName}.m4a"), overwrite = false)
+            java.security.MessageDigest.getInstance("SHA-256").digest(clear.readBytes()).joinToString("") { "%02x".format(it) }
+        } finally { clear.delete() }
+        stateFile.writeText(state.put("peer",peer).put(idField, row.id).put("${stageName}_sha256", hash)
+            .put("${stageName}_duration_ms", voice.durationMillis).put("${stageName}_state", row.state).toString())
+        capture(f, "03-${stageName}-sent")
     }
 }

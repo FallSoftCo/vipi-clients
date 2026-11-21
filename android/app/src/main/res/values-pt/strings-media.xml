@@ -41,4 +41,10 @@
     <string name="photo_too_large">Esta foto é grande demais para abrir.</string>
     <string name="media_recording">Gravando…</string>
     <string name="media_invalid">Escolha um arquivo compatível de até 32 MiB. Vídeos e mensagens de voz podem durar até três minutos.</string>
+    <string name="voice_send_recording">Enviar mensagem de voz</string>
+    <string name="voice_handsfree">Gravar sem segurar</string>
+    <string name="voice_discard">Descartar gravação</string>
+    <string name="voice_locked">Gravando sem segurar</string>
+    <string name="voice_gestures">Deslize para cancelar · Para cima para travar</string>
+    <string name="voice_tap_hint">Segure para gravar e solte para enviar, ou toque no cadeado para gravar sem segurar.</string>
 </resources>

@@ -41,4 +41,10 @@
     <string name="photo_too_large">هذه الصورة كبيرة جدًا ولا يمكن فتحها.</string>
     <string name="media_recording">جارٍ التسجيل…</string>
     <string name="media_invalid">اختر ملفًا مدعومًا لا يتجاوز 32 ميبيبايت. الحد الأقصى لمدة الفيديو والرسائل الصوتية ثلاث دقائق.</string>
+    <string name="voice_send_recording">إرسال الرسالة الصوتية</string>
+    <string name="voice_handsfree">التسجيل دون ضغط مستمر</string>
+    <string name="voice_discard">حذف التسجيل</string>
+    <string name="voice_locked">تسجيل دون ضغط مستمر</string>
+    <string name="voice_gestures">اسحب للإلغاء · اسحب للأعلى للتثبيت</string>
+    <string name="voice_tap_hint">اضغط باستمرار للتسجيل وارفع إصبعك للإرسال، أو اضغط على القفل للتسجيل دون ضغط مستمر.</string>
 </resources>

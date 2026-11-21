@@ -378,6 +378,18 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     // Keep normal expansion when it fits; longer drafts scroll inside the real
     // editor instead of collapsing the timeline or moving controls under IME.
     val composerMaxHeight = maxOf(minimumComposerHeight, footerContentHeight - statusLineHeight - composerOuterPadding)
+    val sendMedia: suspend (AttachmentManifest, () -> Unit) -> Unit = { manifest, closePreview ->
+        chat.sendAttachments(text.ifBlank { context.getString(manifest.kind.mediaLabel()) }, peer, listOf(manifest)) {
+            closePreview()
+            text = ""
+        }
+        notificationEducation?.committedUserSend(chat.name(peer))
+        chat.composerActivity(peer, false)
+        error = null
+        followingLatest = true; newMessagesBelow = 0; jumpRevision++; refresh()
+        list.stopScroll(); withFrameNanos { }; revealNewestMessage(); chat.synchronize()
+    }
+    var voiceActive by remember(chat, peer) { mutableStateOf(false) }
     Scaffold(containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             val mode = translation?.mode ?: ImmersionMode.NEW_WORD
@@ -455,51 +467,48 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                     TextButton(onClick = { confirmBlock = true }, enabled = !blockBusy) { Text(stringResource(R.string.ui_712da63171e0)) }
                 } else {
                 Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = if (compact) 0.dp else 8.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    if (photoRepository != null) {
-                        key(chat, photoOwner, peer) {
-                            MediaComposer(photoRepository, chat.name(peer), text,
-                                loaded && chat.ready && peer !in chat.peersNeedingRecovery && !messageTooLong,
-                                checkPeer = { chat.requirePeerMedia(peer) },
-                                send = { manifest, closePreview ->
-                                    chat.sendAttachments(text.ifBlank { context.getString(manifest.kind.mediaLabel()) }, peer, listOf(manifest)) {
-                                        closePreview()
-                                        text = ""
-                                    }
-                                    notificationEducation?.committedUserSend(chat.name(peer))
-                                    chat.composerActivity(peer, false)
-                                    error = null
-                                    followingLatest = true; newMessagesBelow = 0; jumpRevision++; refresh()
-                                    list.stopScroll(); withFrameNanos { }; revealNewestMessage(); chat.synchronize()
-                                },
-                                onError = { error = ChatSession.explanation(context, it) })
+                    if (!voiceActive) {
+                        if (photoRepository != null) {
+                            key(chat, photoOwner, peer) {
+                                MediaComposer(photoRepository, chat.name(peer), text,
+                                    loaded && chat.ready && peer !in chat.peersNeedingRecovery && !messageTooLong,
+                                    checkPeer = { chat.requirePeerMedia(peer) },
+                                    send = sendMedia,
+                                    onError = { error = ChatSession.explanation(context, it) })
+                            }
                         }
+                        OutlinedTextField(text, { value ->
+                            if (!loaded) return@OutlinedTextField
+                            if (value.toByteArray(Charsets.UTF_8).size > ConversationHistory.MAX_DRAFT_BYTES) {
+                                rejectedDraftEdit = true; return@OutlinedTextField
+                            }
+                            // Selection/restoration can echo the unchanged value
+                            // after a rejected paste. Keep its reason until an
+                            // accepted content change actually replaces that draft.
+                            if (value != text) rejectedDraftEdit = false
+                            if (value != text) chat.composerActivity(peer, value.isNotBlank())
+                            text = value
+                            try { chat.saveCompose(value, peer) }
+                            catch (_: Exception) { error = context.getString(R.string.chat_draft_save_failed) }
+                        }, colors = vipiTextFieldColors(), enabled = loaded, textStyle = MaterialTheme.typography.bodyLarge.copy(textDirection = androidx.compose.ui.text.style.TextDirection.Content),
+                            placeholder = { Text(stringResource(R.string.message_hint)) }, maxLines = 6, shape = RoundedCornerShape(24.dp),
+                            modifier = Modifier.weight(1f).heightIn(min = minimumComposerHeight, max = composerMaxHeight)
+                                .onFocusChanged { composing = it.isFocused }.testTag("message-input"))
+                        if (text.isNotBlank() || photoRepository == null) FilledIconButton(onClick = {
+                            if (!loaded) return@FilledIconButton
+                            try {
+                                chat.send(text, peer); notificationEducation?.committedUserSend(chat.name(peer)); chat.composerActivity(peer, false); text = ""; error = null
+                                followingLatest = true; newMessagesBelow = 0; jumpRevision++; refresh()
+                                scope.launch { list.stopScroll(); withFrameNanos { }; revealNewestMessage(); chat.synchronize() }
+                            } catch (failure: Exception) { error = ChatSession.explanation(context, failure) }
+                        }, enabled = loaded && chat.ready && peer !in chat.peersNeedingRecovery && text.isNotBlank() && !messageTooLong,
+                            modifier = Modifier.size(48.dp).testTag("message-send")) { Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.send_message)) }
                     }
-                    OutlinedTextField(text, { value ->
-                        if (!loaded) return@OutlinedTextField
-                        if (value.toByteArray(Charsets.UTF_8).size > ConversationHistory.MAX_DRAFT_BYTES) {
-                            rejectedDraftEdit = true; return@OutlinedTextField
-                        }
-                        // Selection/restoration can echo the unchanged value
-                        // after a rejected paste. Keep its reason until an
-                        // accepted content change actually replaces that draft.
-                        if (value != text) rejectedDraftEdit = false
-                        if (value != text) chat.composerActivity(peer, value.isNotBlank())
-                        text = value
-                        try { chat.saveCompose(value, peer) }
-                        catch (_: Exception) { error = context.getString(R.string.chat_draft_save_failed) }
-                    }, colors = vipiTextFieldColors(), enabled = loaded, textStyle = MaterialTheme.typography.bodyLarge.copy(textDirection = androidx.compose.ui.text.style.TextDirection.Content),
-                        placeholder = { Text(stringResource(R.string.message_hint)) }, maxLines = 6, shape = RoundedCornerShape(24.dp),
-                        modifier = Modifier.weight(1f).heightIn(min = minimumComposerHeight, max = composerMaxHeight)
-                            .onFocusChanged { composing = it.isFocused }.testTag("message-input"))
-                    FilledIconButton(onClick = {
-                        if (!loaded) return@FilledIconButton
-                        try {
-                            chat.send(text, peer); notificationEducation?.committedUserSend(chat.name(peer)); chat.composerActivity(peer, false); text = ""; error = null
-                            followingLatest = true; newMessagesBelow = 0; jumpRevision++; refresh()
-                            scope.launch { list.stopScroll(); withFrameNanos { }; revealNewestMessage(); chat.synchronize() }
-                        } catch (failure: Exception) { error = ChatSession.explanation(context, failure) }
-                    }, enabled = loaded && chat.ready && peer !in chat.peersNeedingRecovery && text.isNotBlank() && !messageTooLong,
-                        modifier = Modifier.size(48.dp).testTag("message-send")) { Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.send_message)) }
+                    if (text.isBlank() && photoRepository != null) key(chat, photoOwner, peer) {
+                        VoiceComposer(photoRepository, loaded && chat.ready && peer !in chat.peersNeedingRecovery && !chat.needsReauthentication,
+                            checkPeer = { chat.requirePeerMedia(peer) }, send = sendMedia,
+                            onActive = { voiceActive = it }, onError = { error = ChatSession.explanation(context, it) })
+                    }
                 }
                 }
             }

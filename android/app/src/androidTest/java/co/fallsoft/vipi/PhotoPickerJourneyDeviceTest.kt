@@ -127,6 +127,22 @@ class PhotoPickerJourneyDeviceTest {
                 }
             }
             compose.waitUntil(8000) { compose.onAllNodesWithContentDescription("Attach media").fetchSemanticsNodes().any() }
+            compose.onNodeWithContentDescription("Attach media").performClick()
+            compose.onNodeWithText("Take a photo").performClick()
+            val shutter = requireNotNull(device.wait(Until.findObject(By.res("com.android.camera2", "shutter_button")), 12_000)) {
+                device.dumpWindowHierarchy(File(evidence, "camera-before.xml")); "Dedicated virtual camera shutter unavailable"
+            }
+            capture("00a-system-camera")
+            shutter.click()
+            val done = requireNotNull(device.wait(Until.findObject(By.res(Pattern.compile("com.android.camera2:id/(btn_done|done_button)"))), 12_000)) {
+                device.dumpWindowHierarchy(File(evidence, "camera-after.xml")); "Dedicated virtual camera result unavailable"
+            }
+            done.click()
+            compose.waitUntil(12_000) { compose.onAllNodesWithText("Photo for Maya").fetchSemanticsNodes().isNotEmpty() }
+            capture("00b-camera-preview")
+            compose.onNodeWithText("Cancel", ignoreCase = true).performClick()
+            compose.waitForIdle()
+            assertTrue(posts.isEmpty())
             choose()
             capture("02-photo-preview")
             val cipherDir = File(context.noBackupFilesDir,"attachments/$alice")

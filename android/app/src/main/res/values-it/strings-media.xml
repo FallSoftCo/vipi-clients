@@ -41,4 +41,10 @@
     <string name="photo_too_large">Questa foto è troppo grande per essere aperta.</string>
     <string name="media_recording">Registrazione…</string>
     <string name="media_invalid">Scegli un file supportato fino a 32 MiB. Video e messaggi vocali possono durare fino a tre minuti.</string>
+    <string name="voice_send_recording">Invia messaggio vocale</string>
+    <string name="voice_handsfree">Registra a mani libere</string>
+    <string name="voice_discard">Elimina registrazione</string>
+    <string name="voice_locked">Registrazione a mani libere</string>
+    <string name="voice_gestures">Scorri per annullare · In alto per bloccare</string>
+    <string name="voice_tap_hint">Tieni premuto per registrare e rilascia per inviare, oppure tocca il lucchetto per registrare a mani libere.</string>
 </resources>

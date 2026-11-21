@@ -41,4 +41,10 @@
     <string name="photo_too_large">Dieses Foto ist zu groß zum Öffnen.</string>
     <string name="media_recording">Aufnahme läuft…</string>
     <string name="media_invalid">Wähle eine unterstützte Datei mit höchstens 32 MiB. Videos und Sprachnachrichten dürfen bis zu drei Minuten dauern.</string>
+    <string name="voice_send_recording">Sprachnachricht senden</string>
+    <string name="voice_handsfree">Freihändig aufnehmen</string>
+    <string name="voice_discard">Aufnahme verwerfen</string>
+    <string name="voice_locked">Freihändige Aufnahme</string>
+    <string name="voice_gestures">Wischen zum Abbrechen · Nach oben zum Sperren</string>
+    <string name="voice_tap_hint">Zum Aufnehmen gedrückt halten und zum Senden loslassen. Für freihändige Aufnahme auf das Schloss tippen.</string>
 </resources>

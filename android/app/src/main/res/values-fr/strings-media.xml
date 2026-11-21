@@ -41,4 +41,10 @@
     <string name="photo_too_large">Cette photo est trop grande pour être ouverte.</string>
     <string name="media_recording">Enregistrement…</string>
     <string name="media_invalid">Choisissez un fichier compatible de 32 Mio maximum. Les vidéos et messages vocaux peuvent durer trois minutes au maximum.</string>
+    <string name="voice_send_recording">Envoyer le message vocal</string>
+    <string name="voice_handsfree">Enregistrer en mains libres</string>
+    <string name="voice_discard">Supprimer l’enregistrement</string>
+    <string name="voice_locked">Enregistrement mains libres</string>
+    <string name="voice_gestures">Glissez pour annuler · Montez pour verrouiller</string>
+    <string name="voice_tap_hint">Maintenez pour enregistrer et relâchez pour envoyer, ou touchez le cadenas pour enregistrer en mains libres.</string>
 </resources>

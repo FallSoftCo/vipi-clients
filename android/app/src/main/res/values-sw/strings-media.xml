@@ -41,4 +41,10 @@
     <string name="photo_too_large">Picha hii ni kubwa sana kufunguliwa.</string>
     <string name="media_recording">Inarekodi…</string>
     <string name="media_invalid">Chagua faili inayotumika yenye ukubwa usiozidi MiB 32. Video na ujumbe wa sauti vinaweza kudumu hadi dakika tatu.</string>
+    <string name="voice_send_recording">Tuma ujumbe wa sauti</string>
+    <string name="voice_handsfree">Rekodi bila kushikilia</string>
+    <string name="voice_discard">Futa rekodi</string>
+    <string name="voice_locked">Inarekodi bila kushikilia</string>
+    <string name="voice_gestures">Telezesha ili kughairi · Juu ili kufunga</string>
+    <string name="voice_tap_hint">Shikilia ili kurekodi kisha achia ili kutuma, au gusa kufuli ili kurekodi bila kushikilia.</string>
 </resources>

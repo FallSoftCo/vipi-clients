@@ -41,4 +41,10 @@
     <string name="photo_too_large">사진이 너무 커서 열 수 없습니다.</string>
     <string name="media_recording">녹음 중…</string>
     <string name="media_invalid">지원되는 32 MiB 이하의 파일을 선택하세요. 동영상과 음성 메시지는 최대 3분입니다.</string>
+    <string name="voice_send_recording">음성 메시지 보내기</string>
+    <string name="voice_handsfree">손 떼고 녹음</string>
+    <string name="voice_discard">녹음 삭제</string>
+    <string name="voice_locked">손 떼고 녹음 중</string>
+    <string name="voice_gestures">밀어서 취소 · 위로 밀어서 잠금</string>
+    <string name="voice_tap_hint">길게 눌러 녹음하고 손을 떼서 보내세요. 자물쇠를 누르면 손을 떼고 녹음할 수 있습니다.</string>
 </resources>

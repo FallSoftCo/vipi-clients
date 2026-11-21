@@ -41,4 +41,10 @@
     <string name="photo_too_large">照片太大，無法開啟。</string>
     <string name="media_recording">錄音中…</string>
     <string name="media_invalid">請選擇支援的檔案，最大為32 MiB。影片和語音訊息最長為三分鐘。</string>
+    <string name="voice_send_recording">傳送語音訊息</string>
+    <string name="voice_handsfree">免按住錄音</string>
+    <string name="voice_discard">捨棄錄音</string>
+    <string name="voice_locked">免按住錄音中</string>
+    <string name="voice_gestures">滑動取消 · 上滑鎖定</string>
+    <string name="voice_tap_hint">按住錄音，放開傳送；也可點一下鎖頭，免按住錄音。</string>
 </resources>
