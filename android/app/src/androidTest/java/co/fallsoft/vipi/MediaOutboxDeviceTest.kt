@@ -50,12 +50,19 @@ class MediaOutboxDeviceTest {
             val manifest = repository.prepare(Uri.fromFile(image), AttachmentKind.PHOTO)
             var uploadsReady = false; var loseAdmissionResult = true; var reservations = 0
             val sent = mutableListOf<JSONObject>()
+            val unknownPeer = UUID.randomUUID()
+            var capabilityOnline = false
             val api = object : ChatTransport {
                 override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>): JSONObject = when {
                     path == "/v1/me" -> ChatProfile(alice, "media_outbox_qa", "Media outbox QA").json()
                     path == "/v1/devices" -> JSONObject().put("id", requireNotNull(body).getString("device_id")).put("active", true)
                     path == "/v1/keys" -> JSONObject().put("revision", 1).put("remaining", 20)
                     path == "/v1/messages/pending" -> JSONObject().put("messages", JSONArray()).put("next_cursor", JSONObject.NULL)
+                    path == "/v1/media/capability" -> JSONObject().put("version", 1)
+                    path == "/v1/media/capability/$bob" || path == "/v1/media/capability/$unknownPeer" -> {
+                        if (!capabilityOnline) throw IOException("Synthetic offline capability")
+                        JSONObject().put("version", 1).put("device_id", receiver.device.id)
+                    }
                     path == "/v1/media/uploads" -> {
                         reservations++
                         if (!uploadsReady) throw ServiceFailure(503, "synthetic_upload_offline")
@@ -71,6 +78,18 @@ class MediaOutboxDeviceTest {
             }
             val bytes = CiphertextTransport("http://127.0.0.1:1") { "unused-explicit-fixture-token" }
             chat = ChatSession(context, api, subject, bytes); chat!!.start(); assertTrue(chat!!.ready)
+            assertTrue(runCatching { chat!!.requirePeerMedia(unknownPeer) }.exceptionOrNull() is IOException)
+            assertTrue(runCatching { chat!!.requirePeerMedia(bob) }.exceptionOrNull() is IOException)
+            capabilityOnline = true
+            chat!!.requirePeerMedia(bob)
+            capabilityOnline = false
+            chat!!.requirePeerMedia(bob)
+            // A stale grant for another device may never qualify this peer offline.
+            aliceVault.transaction { aliceVault.put("peer-media-device", bob.toString(), UUID.randomUUID().toString().toByteArray()) }
+            assertTrue(runCatching { chat!!.requirePeerMedia(bob) }.exceptionOrNull() is IOException)
+            capabilityOnline = true
+            chat!!.requirePeerMedia(bob)
+            assertEquals(0, reservations)
             val id = chat!!.sendAttachments("Photo", bob, listOf(manifest))
             chat!!.synchronize()
             assertTrue(sent.isEmpty()); assertNull(sender.journal.outgoing(id))

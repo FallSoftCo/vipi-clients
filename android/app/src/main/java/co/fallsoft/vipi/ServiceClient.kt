@@ -2,9 +2,12 @@ package co.fallsoft.vipi
 
 import android.util.Base64
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -57,6 +60,8 @@ internal class ServiceClient(private val authentication: Authentication, val use
     private val base = endpoint.toHttpUrl()
     private val http = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
         .retryOnConnectionFailure(false).callTimeout(25, TimeUnit.SECONDS).build()
+    // A peer capability lookup is read-only. Reconnect once on a fresh socket if its transport breaks.
+    private val capabilityPath = Regex("/v1/media/capability/[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}")
     init {
         require(base.encodedPath == "/" && base.query == null && base.fragment == null && base.username.isEmpty() && base.password.isEmpty())
         require(base.isHttps || (BuildConfig.DEBUG && base.scheme == "http" && base.host == "127.0.0.1"))
@@ -71,6 +76,7 @@ internal class ServiceClient(private val authentication: Authentication, val use
 
     private suspend fun exchange(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>, groupProtocol: Boolean): JSONObject {
         require(path.startsWith("/v1/") && !path.contains("..") && !path.contains('?') && !path.contains('#'))
+        var canReconnect = method == "GET" && body == null && query.isEmpty() && device != null && capabilityPath.matches(path)
         var token = authentication.accessToken(userID)
         for (attempt in 0..1) {
             val result = withContext(Dispatchers.IO) {
@@ -81,10 +87,22 @@ internal class ServiceClient(private val authentication: Authentication, val use
                     .header("Authorization", "Bearer $token").header("Accept", "application/json")
                 if (groupProtocol) builder.header("X-Vipi-Group-Protocol", "1")
                 device?.let { builder.header("X-Vipi-Device-ID", it.id.toString()).header("X-Vipi-Device-Secret", it.secret) }
-                http.newCall(builder.build()).execute().use { response ->
+                val request = builder.build()
+                fun read(client: OkHttpClient) = client.newCall(request).execute().use { response ->
                     val source = requireNotNull(response.body).source()
                     source.request(12_000_001); if (source.buffer.size > 12_000_000) throw IOException("Response too large")
                     response.code to if (response.code == 204) JSONObject() else JSONObject(source.readUtf8())
+                }
+                try {
+                    read(http)
+                } catch (failure: IOException) {
+                    if (!canReconnect || generateSequence<Throwable>(failure) { it.cause }.none {
+                        it is java.io.EOFException || it is java.net.SocketException || it is java.net.SocketTimeoutException
+                    }) throw failure
+                    currentCoroutineContext().ensureActive()
+                    canReconnect = false
+                    val fresh = http.newBuilder().connectionPool(ConnectionPool(0, 1, TimeUnit.SECONDS)).build()
+                    read(fresh)
                 }
             }
             if (result.first in 200..299) return result.second

@@ -246,8 +246,7 @@ private class MicCapture(private val context: Context, private val account: UUID
     }
     val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
     val anchor = when (phase) {
-        RecordingPhase.LOCKED -> R.string.media_stop
-        RecordingPhase.PREVIEW -> R.string.voice_send_recording
+        RecordingPhase.LOCKED, RecordingPhase.PREVIEW -> R.string.voice_send_recording
         RecordingPhase.TIP -> R.string.voice_handsfree
         else -> R.string.media_record
     }
@@ -255,7 +254,7 @@ private class MicCapture(private val context: Context, private val account: UUID
     fun activate() {
         when (phase) {
             RecordingPhase.IDLE, RecordingPhase.TIP -> begin(true)
-            RecordingPhase.LOCKED -> stop(false)
+            RecordingPhase.LOCKED -> stop(true)
             RecordingPhase.PREVIEW -> dispatch()
             else -> Unit
         }
@@ -289,9 +288,15 @@ private class MicCapture(private val context: Context, private val account: UUID
                 }
             }
         }
+        if (phase == RecordingPhase.LOCKED) {
+            IconButton(onClick = { stop(false) }, modifier = Modifier.size(48.dp).testTag("voice-stop")) {
+                Icon(Icons.Outlined.Stop, stringResource(R.string.media_stop))
+            }
+        }
         val actionEnabled = enabled && phase != RecordingPhase.SENDING
-        val activeColor = if (phase == RecordingPhase.PREVIEW) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer
-        val iconColor = if (phase == RecordingPhase.PREVIEW) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSecondaryContainer
+        val sendAction = phase == RecordingPhase.LOCKED || phase == RecordingPhase.PREVIEW
+        val activeColor = if (sendAction) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer
+        val iconColor = if (sendAction) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSecondaryContainer
         Box(Modifier.size(48.dp).clip(CircleShape).background(activeColor).testTag("voice-action")
             .semantics {
                 role = Role.Button; contentDescription = label
@@ -348,8 +353,7 @@ private class MicCapture(private val context: Context, private val account: UUID
             }, contentAlignment = Alignment.Center) {
             if (phase == RecordingPhase.SENDING) CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
             else Icon(when (phase) {
-                RecordingPhase.PREVIEW -> Icons.AutoMirrored.Outlined.Send
-                RecordingPhase.LOCKED -> Icons.Outlined.Stop
+                RecordingPhase.LOCKED, RecordingPhase.PREVIEW -> Icons.AutoMirrored.Outlined.Send
                 RecordingPhase.TIP -> Icons.Outlined.Lock
                 else -> Icons.Outlined.Mic
             }, null, tint = iconColor)

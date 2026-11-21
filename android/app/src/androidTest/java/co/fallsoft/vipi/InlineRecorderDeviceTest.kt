@@ -36,13 +36,16 @@ class InlineRecorderDeviceTest {
         val accepted = java.util.concurrent.CopyOnWriteArrayList<AttachmentManifest>()
         val errors = java.util.concurrent.CopyOnWriteArrayList<Exception>()
         val visible = mutableStateOf(true)
+        val offline = java.util.concurrent.atomic.AtomicBoolean(false)
         compose.setContent {
             var active by remember { mutableStateOf(false) }
             VipiTheme(Appearance.LIGHT) {
                 Box(Modifier.fillMaxSize().safeDrawingPadding().padding(16.dp), contentAlignment = Alignment.BottomCenter) {
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     if (!active) Spacer(Modifier.weight(1f))
-                    if (visible.value) VoiceComposer(repo, true, {}, { manifest, commit ->
+                    if (visible.value) VoiceComposer(repo, true, {
+                        if (offline.get()) throw java.io.IOException("Synthetic capability route offline")
+                    }, { manifest, commit ->
                         check(manifest.kind == AttachmentKind.VOICE && repo.ciphertext(manifest.original).isFile)
                         accepted.add(manifest); commit()
                     }, { active = it }, errors::add)
@@ -90,7 +93,7 @@ class InlineRecorderDeviceTest {
             ax()
             waitFor("Finish recording")
             SystemClock.sleep(1000)
-            ax()
+            compose.onNodeWithTag("voice-stop").performSemanticsAction(SemanticsActions.OnClick)
             waitFor("Send voice message")
             compose.onNodeWithTag("inline-voice-player").assertExists()
             compose.onNodeWithContentDescription("Play voice message").performClick()
@@ -119,9 +122,33 @@ class InlineRecorderDeviceTest {
             press()
             compose.waitUntil(8000) { accepted.size == 2 }
             idle()
+            // Lifting the finger after locking must not activate the Send button now under it.
+            press(dy = -84f)
+            waitFor("Finish recording")
+            SystemClock.sleep(600)
+            assertEquals(2, accepted.size)
+            val send = requireNotNull(device.findObject(By.desc("Send voice message"))).visibleCenter
+            assertTrue(device.click(send.x, send.y))
+            compose.waitUntil(8000) { accepted.size == 3 }
+            idle()
             SystemClock.sleep(450)
-            assertEquals(2, accepted.map { it.id }.distinct().size)
+            assertEquals(3, accepted.size)
+            assertEquals(3, accepted.map { it.id }.distinct().size)
             assertTrue(errors.toString(), errors.isEmpty())
+            offline.set(true)
+            ax()
+            waitFor("Finish recording")
+            SystemClock.sleep(750)
+            compose.onNodeWithContentDescription("Send voice message").performClick()
+            compose.waitUntil(5000) { errors.size == 1 }
+            compose.onNodeWithTag("inline-voice-player").assertIsDisplayed()
+            assertEquals(3, accepted.size)
+            offline.set(false)
+            compose.onNodeWithContentDescription("Send voice message").performClick()
+            compose.waitUntil(8000) { accepted.size == 4 }
+            idle()
+            assertEquals(4, accepted.map { it.id }.distinct().size)
+            assertEquals("Synthetic capability route offline", errors.single().message)
         } finally {
             compose.runOnIdle { visible.value = false }
             accepted.forEach(repo::discard)
