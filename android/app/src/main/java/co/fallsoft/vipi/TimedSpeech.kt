@@ -46,19 +46,7 @@ internal class TimedSpeech(private val pair: LocalSpeechPair, private val langua
         val frames = wave.samples.size / (wave.channels * 2)
         val marks = wave.marks.filter { it.frame in 0 until frames && it.start >= 0 && it.end <= piece.text.length && it.start < it.end }
         if (fullUtterance) {
-            // Native segmentation can differ from ICU, especially in Mandarin.
-            // Accept only ordered marks covering all lexical content. Unmarked
-            // punctuation/space may fall between marks.
-            var end = 0
-            var frame = -1
-            val complete = marks.size == wave.marks.size && marks.isNotEmpty() && marks.all { mark ->
-                val valid = mark.frame > frame && mark.start >= end &&
-                    !piece.text.substring(end, mark.start).codePoints().anyMatch(Character::isLetterOrDigit)
-                end = mark.end; frame = mark.frame
-                valid
-            } && !piece.text.substring(end).codePoints().anyMatch(Character::isLetterOrDigit)
-            val cues = if (complete) marks.map { WordCue(it.frame, word(it.start until it.end)) }
-                else listOf(WordCue(0, word(words.first().first..words.last().last)))
+            val cues = DeepSpeechTiming.cues(piece.text, words, wave).map { WordCue(it.frame, it.range?.let(::word)) }
             output.send(TimedPcm(wave, cues))
             return
         }

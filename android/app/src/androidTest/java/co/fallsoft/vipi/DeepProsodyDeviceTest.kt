@@ -12,6 +12,7 @@ import org.junit.Assert.*
 import org.junit.Test
 import java.io.ByteArrayOutputStream
 import java.io.File
+import kotlin.math.abs
 
 class DeepProsodyDeviceTest {
     @Test fun realOfflinePcmWithNativeAndMissingMarks(): Unit = runBlocking {
@@ -45,18 +46,34 @@ class DeepProsodyDeviceTest {
                 val native = pair.render(listOf(SpeechSpan(text, language)))
                 val wave = PcmWave.read(native.file)
                 assertArrayEquals(wave.samples, cold.single().wave.samples)
-                for (withoutMarks in listOf(false, true)) {
-                    val label = if (withoutMarks) "missing" else "native"
-                    if (withoutMarks) wave.copy(marks = emptyList()).write(native.file)
+                val words = MessageSpeech.lexicalRanges(text, language)
+                for (label in listOf("native", "partial", "missing")) {
+                    val marks = when (label) {
+                        "partial" -> wave.marks.filterIndexed { i, _ -> i % 2 == 0 }
+                        "missing" -> emptyList()
+                        else -> wave.marks
+                    }
+                    val input = wave.copy(marks = marks)
+                    input.write(native.file)
+                    val cues = DeepSpeechTiming.cues(text, words, input)
+                    val highlights = cues.filter { it.range != null }
+                    assertTrue(highlights.size > 1 && cues.last().range == null)
+                    assertTrue(cues.zipWithNext().all { (a, b) -> a.frame <= b.frame })
+                    val errors = highlights.filter { !it.native }.mapNotNull { cue ->
+                        wave.marks.singleOrNull { it.start == cue.range!!.first }?.let {
+                            abs(cue.frame - it.frame) * 1000.0 / wave.sampleRate
+                        }
+                    }.sorted()
                     val packets = play()
                     val pcm = ByteArrayOutputStream()
                     packets.forEach { pcm.write(it.wave.samples) }
                     val result = wave.copy(samples = pcm.toByteArray(), marks = emptyList())
                     result.write(File(output, "$language-$label.wav"))
                     report.put(JSONObject().put("language", language).put("voice", voiceId)
-                        .put("marks", if (withoutMarks) 0 else wave.marks.size).put("type", label)
+                        .put("marks", marks.size).put("type", label)
                         .put("pieces", packets.size).put("cues", packets.sumOf { it.cues.size })
-                        .put("coldPackets", cold.size).put("cacheFile", native.file.name)
+                        .put("nativeOnsets", highlights.count { it.native }).put("estimatedOnsets", highlights.count { !it.native })
+                        .put("estimatedOnsetErrorsMs", JSONArray(errors)).put("coldPackets", cold.size).put("cacheFile", native.file.name)
                         .put("originalMs", wave.durationMs).put("playedMs", result.durationMs)
                         .put("originalPcm", wave.samples.contentEquals(result.samples)))
                     assertArrayEquals("Use the actual full-utterance PCM even with incomplete timings", wave.samples, result.samples)

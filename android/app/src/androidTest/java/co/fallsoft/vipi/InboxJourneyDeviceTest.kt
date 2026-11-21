@@ -316,8 +316,10 @@ class InboxJourneyDeviceTest {
                 compose.onNodeWithText(f.base.getString(R.string.ui_e7cde359a05e)).performScrollTo().performClick()
                 compose.onNodeWithContentDescription(f.base.getString(R.string.want_learn)).performScrollTo().performClick()
                 compose.onNodeWithText("Portuguese · Português").performScrollTo().performClick()
-                f.device.pressBack(); screen(f, Screen.SETTINGS)
-                f.device.pressBack(); screen(f, Screen.HOME)
+                compose.waitUntil { f.model.targetLanguage == "pt" }
+                val back = compose.onNodeWithContentDescription(f.base.getString(R.string.nav_back))
+                back.performScrollTo().performClick(); screen(f, Screen.SETTINGS)
+                back.performScrollTo().performClick(); screen(f, Screen.HOME)
                 wordmark.assertContentDescriptionContains("Portuguese", substring = true)
                 paint(f, "04-inbox-portuguese")
                 f.relaunch(service::model); screen(f, Screen.HOME)
