@@ -590,7 +590,10 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                                                     key(chat, photoOwner, peer, attachment.id) {
                                                         if (attachment.kind in setOf(AttachmentKind.VIDEO, AttachmentKind.VOICE)) {
                                                             if (chat.ready && !blocked && peer !in chat.peersNeedingRecovery && !chat.needsReauthentication) {
-                                                                if (attachment.kind == AttachmentKind.VOICE) InlineVoicePlayer(attachment.durationMillis ?: 0L) {
+                                                                if (attachment.kind == AttachmentKind.VOICE) InlineVoicePlayer(
+                                                                    attachment.durationMillis ?: 0L,
+                                                                    Modifier.padding(start = 12.dp, end = 12.dp, top = 4.dp)
+                                                                ) {
                                                                     val opened = chat.openMedia(peer, attachment, photoRepository)
                                                                     try { android.os.ParcelFileDescriptor.open(opened, android.os.ParcelFileDescriptor.MODE_READ_ONLY) }
                                                                     finally { opened.delete() }

@@ -136,7 +136,7 @@ private class NotePlayback(context: Context, private val scope: CoroutineScope) 
     }
 }
 
-@Composable internal fun InlineVoicePlayer(duration: Long, open: suspend () -> ParcelFileDescriptor) {
+@Composable internal fun InlineVoicePlayer(duration: Long, modifier: Modifier = Modifier, open: suspend () -> ParcelFileDescriptor) {
     val context = LocalContext.current
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val scope = rememberCoroutineScope()
@@ -156,11 +156,11 @@ private class NotePlayback(context: Context, private val scope: CoroutineScope) 
         NoteState.FAILED -> R.string.try_again
         else -> R.string.media_open_voice
     }
-    Column(Modifier.widthIn(min = 150.dp, max = 216.dp).testTag("inline-voice-player")) {
+    Column(modifier.widthIn(min = 150.dp, max = 216.dp).testTag("inline-voice-player")) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             IconButton(onClick = {
                 if (lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) note.activate { latestOpen() }
-            }, enabled = note.state != NoteState.LOADING) {
+            }, modifier = Modifier.size(48.dp), enabled = note.state != NoteState.LOADING) {
                 if (note.state == NoteState.LOADING) {
                     val label = stringResource(R.string.media_voice)
                     CircularProgressIndicator(Modifier.size(20.dp).semantics { contentDescription = label }, strokeWidth = 2.dp)
@@ -173,7 +173,8 @@ private class NotePlayback(context: Context, private val scope: CoroutineScope) 
             }
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 LinearProgressIndicator(progress = { if (total > 0) (note.position.toFloat() / total).coerceIn(0f, 1f) else 0f },
-                    modifier = Modifier.fillMaxWidth())
+                    modifier = Modifier.fillMaxWidth().testTag("voice-playback-track"),
+                    trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = .18f))
                 Text(DateUtils.formatElapsedTime(note.position / 1000) + " / " + DateUtils.formatElapsedTime(total / 1000),
                     modifier = Modifier.testTag("voice-playback-position"), style = MaterialTheme.typography.labelSmall)
             }
