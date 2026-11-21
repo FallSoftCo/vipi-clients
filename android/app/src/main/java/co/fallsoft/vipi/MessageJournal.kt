@@ -11,28 +11,29 @@ internal data class ChatEnvelope(val id: UUID, val sender: UUID, val recipient: 
     fun fingerprint(): ByteArray = MessageDigest.getInstance("SHA-256").digest("$id\u0000$sender\u0000$recipient\u0000$createdAt\u0000$type\u0000".toByteArray() + ciphertext)
     companion object { fun parse(value: JSONObject) = ChatEnvelope(UUID.fromString(value.getString("id")), UUID.fromString(value.getString("sender")), UUID.fromString(value.getString("recipient")), value.getLong("createdAt"), value.getInt("type"), Base64.decode(value.getString("ciphertext"), Base64.NO_WRAP)) }
 }
-internal data class StoredChat(val envelope: ChatEnvelope, val text: String, val state: String, val seen: Boolean = false) {
-    fun encode() = JSONObject().put("envelope", envelope.json()).put("text", text).put("state", state).put("seen", seen).toString().toByteArray(Charsets.UTF_8)
-    companion object { fun parse(bytes: ByteArray): StoredChat { val value = JSONObject(bytes.toString(Charsets.UTF_8)); return StoredChat(ChatEnvelope.parse(value.getJSONObject("envelope")), value.getString("text"), value.getString("state"), value.optBoolean("seen")) } }
+internal data class StoredChat(val envelope: ChatEnvelope, val text: String, val state: String, val seen: Boolean = false, val attachments: List<AttachmentManifest> = emptyList()) {
+    fun encode() = JSONObject().put("envelope", envelope.json()).put("text", text).put("state", state).put("seen", seen).also { if (attachments.isNotEmpty()) it.put("attachments", MessageAttachments.json(attachments)) }.toString().toByteArray(Charsets.UTF_8)
+    companion object { fun parse(bytes: ByteArray): StoredChat { val value = JSONObject(bytes.toString(Charsets.UTF_8)); return StoredChat(ChatEnvelope.parse(value.getJSONObject("envelope")), value.getString("text"), value.getString("state"), value.optBoolean("seen"), MessageAttachments.parse(value)) } }
 }
 
-internal data class DraftChat(val id: UUID, val recipient: UUID, val text: String, val createdAt: Long, val state: String = "queued") {
-    fun encode() = JSONObject().put("id", id.toString()).put("recipient", recipient.toString()).put("text", text).put("createdAt", createdAt).put("state", state).toString().toByteArray(Charsets.UTF_8)
-    companion object { fun parse(data: ByteArray): DraftChat { val v = JSONObject(data.toString(Charsets.UTF_8)); return DraftChat(UUID.fromString(v.getString("id")), UUID.fromString(v.getString("recipient")), v.getString("text"), v.getLong("createdAt"), v.getString("state")) } }
+internal data class DraftChat(val id: UUID, val recipient: UUID, val text: String, val createdAt: Long, val state: String = "queued", val attachments: List<AttachmentManifest> = emptyList()) {
+    fun encode() = JSONObject().put("id", id.toString()).put("recipient", recipient.toString()).put("text", text).put("createdAt", createdAt).put("state", state).also { if (attachments.isNotEmpty()) it.put("attachments", MessageAttachments.json(attachments)) }.toString().toByteArray(Charsets.UTF_8)
+    companion object { fun parse(data: ByteArray): DraftChat { val v = JSONObject(data.toString(Charsets.UTF_8)); return DraftChat(UUID.fromString(v.getString("id")), UUID.fromString(v.getString("recipient")), v.getString("text"), v.getLong("createdAt"), v.getString("state"), MessageAttachments.parse(v)) } }
 }
 
 /** Transport-independent journal: retry returns the exact saved ciphertext; a
  * receipt is permissible only after receive() has returned from its commit. */
 internal class MessageJournal(private val vault: MessageVault) {
-    fun saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Long, now: Long, consumeCompose: Boolean = false) = vault.transaction {
+    fun saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Long, now: Long, consumeCompose: Boolean = false, attachments: List<AttachmentManifest> = emptyList()) = vault.transaction {
+        MessageAttachments.validate(attachments)
         require(now >= 0 && createdAt >= 0 && createdAt <= Math.addExact(now, 300_000) && now < Math.addExact(createdAt, TTL))
         require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768)
         vault.get("outgoing", id.toString())?.let {
             val saved = StoredChat.parse(it)
-            require(saved.text == text && saved.envelope.recipient == recipient && saved.envelope.createdAt == createdAt) { "Message ID conflict" }
+            require(saved.text == text && saved.attachments == attachments && saved.envelope.recipient == recipient && saved.envelope.createdAt == createdAt) { "Message ID conflict" }
             return@transaction
         }
-        val draft = DraftChat(id, recipient, text, createdAt)
+        val draft = DraftChat(id, recipient, text, createdAt, attachments = attachments)
         vault.get("draft", id.toString())?.let { require(DraftChat.parse(it) == draft) { "Message ID conflict" } }
         vault.put("draft", id.toString(), draft.encode())
         ConversationHistory.record(vault, "draft", id, recipient, createdAt)
@@ -47,25 +48,27 @@ internal class MessageJournal(private val vault: MessageVault) {
             else if (saved.state == "queued") saved else null
         }
     }
-    fun queue(id: UUID, recipient: UUID, text: String, createdAt: Long, now: Long, encrypt: (ByteArray) -> Pair<Int, ByteArray>): ChatEnvelope {
+    fun queue(id: UUID, recipient: UUID, text: String, createdAt: Long, now: Long, attachments: List<AttachmentManifest> = emptyList(), encrypt: (ByteArray) -> Pair<Int, ByteArray>): ChatEnvelope {
         // Save the user's text before attempting session establishment/encryption.
-        saveDraft(id, recipient, text, createdAt, now)
+        saveDraft(id, recipient, text, createdAt, now, attachments = attachments)
         return vault.transaction {
         require(now >= 0)
         vault.get("outgoing", id.toString())?.let { saved ->
             val existing = StoredChat.parse(saved)
-            require(existing.text == text && existing.envelope.recipient == recipient && existing.envelope.createdAt == createdAt) { "Message ID conflict" }
+            require(existing.text == text && existing.attachments == attachments && existing.envelope.recipient == recipient && existing.envelope.createdAt == createdAt) { "Message ID conflict" }
             check(existing.state in setOf("queued", "accepted") && now < Math.addExact(createdAt, TTL)) { "Message is terminal" }
             return@transaction existing.envelope
         }
         require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768)
         require(createdAt >= 0 && createdAt <= Math.addExact(now, 300_000) && now < Math.addExact(createdAt, TTL))
         val payload = JSONObject().put("version", 1).put("id", id.toString()).put("sender", vault.account.toString())
-            .put("recipient", recipient.toString()).put("createdAt", createdAt).put("text", text).toString().toByteArray(Charsets.UTF_8)
+            .put("recipient", recipient.toString()).put("createdAt", createdAt).put("text", text).also { if (attachments.isNotEmpty()) it.put("attachments", MessageAttachments.json(attachments))
+                vault.attachOwnAvatar(it, recipient, id)
+            }.toString().toByteArray(Charsets.UTF_8)
         val (type, ciphertext) = encrypt(payload)
         require(type in setOf(2, 3) && ciphertext.size in 32..65536)
         val envelope = ChatEnvelope(id, vault.account, recipient, createdAt, type, ciphertext)
-        vault.put("outgoing", id.toString(), StoredChat(envelope, text, "queued").encode())
+        vault.put("outgoing", id.toString(), StoredChat(envelope, text, "queued", attachments = attachments).encode())
         vault.put("pending", id.toString(), byteArrayOf(1))
         vault.remove("draft", id.toString())
         ConversationHistory.record(vault, "outgoing", id, recipient, createdAt)
@@ -91,7 +94,10 @@ internal class MessageJournal(private val vault: MessageVault) {
             && payload.getString("recipient") == vault.account.toString() && payload.getLong("createdAt") == envelope.createdAt) { "Authenticated message metadata mismatch" }
         val text = payload.getString("text")
         require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768)
-        StoredChat(envelope, text, "delivered").also {
+        StoredChat(envelope, text, "delivered", attachments = MessageAttachments.parse(payload)).also {
+            payload.optJSONObject("profile_avatar")?.let(ProfileAvatar::parse)?.let { update ->
+                if (update.revision > (vault.avatar(envelope.sender)?.revision ?: 0)) vault.storeAvatar(envelope.sender, update)
+            }
             vault.put("incoming", envelope.id.toString(), it.encode())
             ConversationHistory.record(vault, "incoming", envelope.id, envelope.sender, envelope.createdAt, unread = true)
             vault.put("receipt", envelope.id.toString(), byteArrayOf(1))
@@ -135,6 +141,7 @@ internal class MessageJournal(private val vault: MessageVault) {
             (state !in setOf("delivered", "read") && saved.state in setOf("failed", "expired", "cancelled"))) return@transaction
         if (state in setOf("accepted", "delivered", "read") && saved.envelope.sender == vault.account)
             LaunchFeedback.directAccepted(vault, id.toString(), saved.envelope.createdAt)
+        vault.avatarStatus(id, state)
         vault.put("outgoing", id.toString(), saved.copy(state = state).encode())
         if (state != "accepted") vault.remove("pending", id.toString())
     }

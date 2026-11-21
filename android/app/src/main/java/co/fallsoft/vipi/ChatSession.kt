@@ -1,5 +1,7 @@
 package co.fallsoft.vipi
 
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import android.content.Context
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,10 +28,70 @@ internal fun normalizeLookupUsername(input: String): String {
 
 /** Main-thread coordinator; transport events, lifecycle and explicit refresh
  * share one synchronization. Durable journal commits always precede receipts. */
-internal class ChatSession(private val context: Context, private val api: ChatTransport, val userID: String) : Closeable {
+internal class ChatSession(private val context: Context, private val api: ChatTransport, val userID: String,
+                           private val mediaTransport: CiphertextTransport? = (api as? ServiceClient)?.media) : Closeable {
     constructor(context: Context, authentication: Authentication, userID: String) : this(context, ServiceClient(authentication, userID), userID)
     private val records = PrivateRecords(context)
     private var vault: MessageVault? = null
+    private val mediaScope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.SupervisorJob() + kotlinx.coroutines.Dispatchers.Main.immediate)
+    private var registeredMediaDevice: UUID? = null
+    private var registeringMedia = false
+    fun avatar(peer: UUID): ProfileAvatar? = vault?.let { it.transaction { it.avatar(peer) } }
+    fun setOwnAvatar(jpeg: ByteArray?) {
+        val store = requireNotNull(vault)
+        store.transaction {
+            val previous = store.avatar(store.account)?.revision ?: 0
+            store.storeAvatar(store.account, ProfileAvatar(maxOf(previous + 1, System.currentTimeMillis()), jpeg))
+        }
+        revision++
+    }
+    private fun registerMedia() {
+        val device = eventDevice() ?: return
+        if (mediaTransport == null || registeringMedia || registeredMediaDevice == device.id) return
+        registeringMedia = true
+        mediaScope.launch {
+            try {
+                val result = request("PUT", "/v1/media/capability", JSONObject().put("version", 1), device)
+                if (result.optInt("version") == 1 && eventDevice() == device) registeredMediaDevice = device.id
+            } catch (cancel: CancellationException) { throw cancel }
+            catch (_: Exception) { /* Older services support text. Retry on the next session start. */ }
+            finally { registeringMedia = false }
+        }
+    }
+    suspend fun requirePeerMedia(peer: UUID) {
+        val device = eventDevice() ?: throw ServiceFailure(0, "device_not_ready")
+        val store = requireNotNull(vault)
+        val known = store.transaction { store.get("peer-device", peer.toString())?.toString(Charsets.UTF_8) }
+        val result = try { request("GET", "/v1/media/capability/$peer", device = device) }
+        catch (cancel: CancellationException) { throw cancel }
+        catch (failure: java.io.IOException) {
+            if (failure is ServiceFailure && failure.status == 404) {
+                store.transaction { store.remove("peer-media-device", peer.toString()) }
+                throw ServiceFailure(0, "media_peer_unavailable")
+            }
+            // Only a previously observed capability for this exact Signal device can qualify an offline draft.
+            val transient = failure !is ServiceFailure || failure.status >= 500
+            val cached = store.transaction { store.get("peer-media-device", peer.toString())?.toString(Charsets.UTF_8) }
+            if (transient && known != null && known == cached && eventDevice() == device && peer !in peersNeedingRecovery && peer !in blockedPeers) return
+            throw failure
+        }
+        check(device == eventDevice() && !closed && peer !in blockedPeers && peer !in peersNeedingRecovery)
+        if (result.optInt("version") != 1 || result.isNull("device_id")) {
+            store.transaction { store.remove("peer-media-device", peer.toString()) }
+            throw ServiceFailure(0, "media_peer_unavailable")
+        }
+        val target = UUID.fromString(result.getString("device_id"))
+        if (known != null && known != target.toString()) throw PeerIdentityChanged(peer)
+        store.transaction { store.put("peer-media-device", peer.toString(), target.toString().toByteArray()) }
+    }
+    suspend fun openMedia(peer: UUID, attachment: AttachmentManifest, repository: AttachmentRepository): java.io.File {
+        val device = eventDevice() ?: throw ServiceFailure(0, "device_not_ready")
+        fun valid() = profile?.id == repository.account && device == eventDevice() && peer !in blockedPeers && peer !in peersNeedingRecovery
+        check(valid())
+        val file = repository.open(attachment, false, requireNotNull(mediaTransport), device)
+        if (!valid()) { file.delete(); throw CancellationException("Chat changed") }
+        return file
+    }
     var holdEducation: HoldEducation? = null
         private set
     var feedback: LaunchFeedback? = null
@@ -277,6 +339,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             vault.transaction { vault.put("local", "registered-device", core.device.id.toString().toByteArray(Charsets.UTF_8)) }
             ready = true
         }
+        registerMedia()
         val inventory = request("GET", "/v1/keys", device = core.device)
         val hasPending = vault.transaction { vault.get("key-directory", "pending") != null }
         if (hasPending || inventory.getInt("remaining") < 10) {
@@ -464,17 +527,51 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         check(result.getBoolean("reported") && result.getString("report_id") == body.getString("report_id"))
         store.transaction { store.put("human-report", item.id.toString(), report.put("state", "reported").toString().toByteArray(Charsets.UTF_8)) }
     }
-    fun send(text: String, peer: UUID) {
+    fun send(text: String, peer: UUID) { enqueue(text, peer, emptyList()) }
+    /** Prepared originals are already private durable ciphertext. Persist their
+     * manifests before any network operation; lifecycle sync owns all retries. */
+    fun sendAttachments(text: String, peer: UUID, attachments: List<AttachmentManifest>, onCommitted: () -> Unit = {}): UUID {
+        require(attachments.isNotEmpty())
+        if (mediaTransport == null) throw ServiceFailure(0, "media_not_enabled")
+        return enqueue(text, peer, attachments, onCommitted)
+    }
+    private fun enqueue(text: String, peer: UUID, attachments: List<AttachmentManifest>, onCommitted: () -> Unit = {}): UUID {
+        ensureOpen()
         val core = core
         if (!ready || core == null) throw ServiceFailure(0, "device_not_ready")
         val now = System.currentTimeMillis()
         if (peer in blockedPeers) throw ServiceFailure(0, "contact_blocked")
         if (peer in peersNeedingRecovery) throw PeerIdentityChanged(peer)
         val id = UUID.randomUUID()
-        core.journal.saveDraft(id, peer, text, now, now, consumeCompose = true)
+        core.journal.saveDraft(id, peer, text, now, now, consumeCompose = true, attachments = attachments)
+        onCommitted()
         translateDurable(id.toString())
         newMessage(peer, id.toString(), text)
         reload()
+        return id
+    }
+    suspend fun viewPhoto(peer: UUID, manifest: AttachmentManifest, repository: AttachmentRepository): android.graphics.Bitmap {
+        fun currentDevice(): DeviceCredential {
+            ensureOpen()
+            require(profile?.id == repository.account && peer !in blockedPeers && peer !in peersNeedingRecovery)
+            return eventDevice() ?: throw ServiceFailure(0, "device_not_ready")
+        }
+        val device = currentDevice()
+        val image = repository.viewPhoto(manifest, mediaTransport ?: throw ServiceFailure(0, "media_not_enabled"), device)
+        check(currentDevice() == device)
+        return image
+    }
+
+    private suspend fun uploadAttachments(core: MessagingCore, attachments: List<AttachmentManifest>) {
+        if (attachments.isEmpty()) return
+        ensureOpen()
+        val bytes = mediaTransport ?: throw ServiceFailure(0, "media_not_enabled")
+        val repository = AttachmentRepository(context, requireNotNull(profile).id)
+        for (manifest in attachments) {
+            repository.ensureUploaded(manifest, api, bytes, core.device)
+            ensureOpen()
+            if (this.core !== core) throw CancellationException("Account changed")
+        }
     }
     private suspend fun establish(peer: UUID) {
         val core = core ?: return; val vault = vault ?: return
@@ -574,9 +671,11 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                 for (draft in core.journal.pendingDrafts(System.currentTimeMillis()).sortedBy { it.createdAt }) {
                     try {
                         if (draft.recipient in blockedPeers || draft.recipient in peersNeedingRecovery) continue
+                        uploadAttachments(core, draft.attachments)
+                        if (draft.recipient in blockedPeers || draft.recipient in peersNeedingRecovery) continue
                         establish(draft.recipient)
                         if (draft.recipient in blockedPeers) continue
-                        core.queue(draft.id, draft.recipient, draft.text, draft.createdAt, System.currentTimeMillis())
+                        core.queue(draft.id, draft.recipient, draft.text, draft.createdAt, System.currentTimeMillis(), draft.attachments)
                     } catch (error: CancellationException) { throw error }
                     catch (error: Exception) { if (error is PeerIdentityChanged) markPeerRecovery(error.peer); completed = false; notice = explanation(context, error) }
                 }
@@ -584,7 +683,9 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
                     if (envelope.recipient in blockedPeers) continue
                     try {
                         val saved = requireNotNull(core.journal.outgoing(envelope.id))
-                        val routed = core.queue(envelope.id, envelope.recipient, saved.text, envelope.createdAt, System.currentTimeMillis())
+                        if (saved.state == "queued") uploadAttachments(core, saved.attachments)
+                        if (envelope.recipient in blockedPeers || envelope.recipient in peersNeedingRecovery) continue
+                        val routed = core.queue(envelope.id, envelope.recipient, saved.text, envelope.createdAt, System.currentTimeMillis(), saved.attachments)
                         val state = request("POST", "/v1/messages", routed.sendJSON(), core.device).getString("state")
                         if (state == "identity_changed") markPeerRecovery(envelope.recipient)
                         core.journal.applyStatus(envelope.id, if (state in setOf("unavailable", "identity_changed")) "failed" else state)
@@ -640,6 +741,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         notice = context.getString(R.string.ui_54a04d4e9955)
     }
     override fun close() {
+        mediaScope.cancel()
         activity?.close(); activity = null
         newMessageObservers.clear()
         translations?.close(); translations = null
@@ -678,11 +780,14 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         private fun terminalSendState(error: ServiceFailure): String? = when {
             error.status == 410 && error.code == "message_expired" -> "expired"
             error.status == 404 && error.code == "recipient_unavailable" -> "failed"
-            error.status == 409 && error.code in setOf("recipient_identity_changed", "message_id_conflict") -> "failed"
+            error.status == 409 && error.code in setOf("recipient_identity_changed", "message_id_conflict", "recipient_media_unsupported") -> "failed"
             error.status == 400 && error.code in setOf("invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type") -> "failed"
             else -> null
         }
         fun explanation(context: Context, error: Exception): String {
+            if (error is ServiceFailure && error.code in setOf("media_peer_unavailable", "media_not_enabled", "recipient_media_unsupported")) return context.getString(R.string.media_peer_unavailable)
+            if (error is MediaActionFailure) return context.getString(error.label)
+            if (error is PhotoTooLarge) return context.getString(R.string.photo_too_large)
             if (error is PeerIdentityChanged) return context.getString(R.string.ui_2e03fab81b5f)
             if (error is ServiceFailure) {
                 when (error.code) {

@@ -53,6 +53,7 @@ internal interface ChatTransport {
 }
 internal class ServiceClient(private val authentication: Authentication, val userID: String,
                              endpoint: String = "https://api.mambovipi.app") : ChatTransport {
+    val media = CiphertextTransport(endpoint) { rejected -> authentication.accessToken(userID, rejected) }
     private val base = endpoint.toHttpUrl()
     private val http = OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
         .retryOnConnectionFailure(false).callTimeout(25, TimeUnit.SECONDS).build()

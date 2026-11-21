@@ -12,10 +12,11 @@ import java.util.UUID
 internal class PeerIdentityChanged(val peer: UUID) : Exception("Peer encryption identity changed")
 internal class RetiredPeerMessage : Exception("Message belongs to a retired peer device")
 
-internal data class RoutedMessage(val envelope: ChatEnvelope, val senderDevice: UUID, val recipientDevice: UUID) {
+internal data class RoutedMessage(val envelope: ChatEnvelope, val senderDevice: UUID, val recipientDevice: UUID, val attachmentIds: List<UUID> = emptyList()) {
     fun sendJSON() = JSONObject().put("id", envelope.id).put("recipient_id", envelope.recipient)
         .put("recipient_device_id", recipientDevice).put("created_at", Instant.ofEpochMilli(envelope.createdAt).toString())
         .put("cipher_type", envelope.type).put("ciphertext", Base64.encodeToString(envelope.ciphertext, Base64.NO_WRAP))
+        .also { body -> if (attachmentIds.isNotEmpty()) body.put("attachment_ids", org.json.JSONArray(attachmentIds.map(UUID::toString))) }
     companion object {
         fun received(value: JSONObject, account: UUID) = RoutedMessage(ChatEnvelope(UUID.fromString(value.getString("id")),
             UUID.fromString(value.getString("sender_id")), account, Instant.parse(value.getString("created_at")).toEpochMilli(),
@@ -44,15 +45,16 @@ internal class MessagingCore(private val vault: MessageVault) {
         if (verified) vault.put("identity-verification", peer.toString(), current.binding.toByteArray(Charsets.UTF_8))
         else vault.remove("identity-verification", peer.toString())
     }
-    fun queue(id: UUID, peer: UUID, text: String, createdAt: Long, now: Long): RoutedMessage {
-        val envelope = journal.queue(id, peer, text, createdAt, now) { clear ->
+    fun queue(id: UUID, peer: UUID, text: String, createdAt: Long, now: Long, attachments: List<AttachmentManifest> = emptyList()): RoutedMessage {
+        val envelope = journal.queue(id, peer, text, createdAt, now, attachments) { clear ->
             val target = requireNotNull(vault.get("peer-device", peer.toString())) { "Recipient keys required" }
             val cipher = SessionCipher(store, local, SignalProtocolAddress(peer.toString(), 1)).encrypt(clear)
             vault.put("outgoing-route", id.toString(), target)
             cipher.type to cipher.serialize()
         }
         val target = vault.transaction { UUID.fromString(requireNotNull(vault.get("outgoing-route", id.toString())).toString(Charsets.UTF_8)) }
-        return RoutedMessage(envelope, device.id, target)
+        val saved = requireNotNull(journal.outgoing(id))
+        return RoutedMessage(envelope, device.id, target, saved.attachments.flatMap { it.blobIds })
     }
     fun receive(value: RoutedMessage, now: Long): StoredChat {
         require(value.recipientDevice == device.id)

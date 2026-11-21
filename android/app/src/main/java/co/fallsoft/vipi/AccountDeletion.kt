@@ -137,6 +137,10 @@ internal class AccountDeletion(private val store: DeletionStore, private val ser
             PushDelivery.clearPosted(context)
             PrivateSpeechCache.erase(context)
             HistoryTransferFiles.erase(context, record.account)
+            listOf(File(context.noBackupFilesDir, "attachments/${record.account}"), File(context.cacheDir, "attachments/${record.account}"),
+                File(context.cacheDir, "attachment-previews/${record.account}"), File(context.cacheDir, "media-capture/${record.account}")).forEach {
+                check(!it.exists() || it.deleteRecursively()) { "Media cleanup incomplete" }
+            }
             KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry("co.fallsoft.vipi.messages.${record.account}") }
             val folder = File(context.noBackupFilesDir, "messages/${record.account}")
             check(!folder.exists() || folder.deleteRecursively()) { "Local cleanup incomplete" }

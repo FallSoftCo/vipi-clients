@@ -81,7 +81,7 @@ class MainActivity : ComponentActivity() {
             if (source in initialLanguages.map { it.code }) model.selectKnown(source!!)
             if (target in initialLanguages.map { it.code } && target != model.knownLanguage) model.selectTarget(target!!)
         }
-        setContent { VipiTheme(model.appearance) { VipiApp(model) } }
+        setContent { VipiTheme(model.appearance) { androidx.compose.runtime.CompositionLocalProvider(LocalAvatarChat provides model.chat) { VipiApp(model) } } }
     }
     override fun onNewIntent(intent: Intent) { super.onNewIntent(intent); setIntent(intent); handleCallback(intent) }
     private fun handleCallback(intent: Intent) {
@@ -388,6 +388,7 @@ class MainActivity : ComponentActivity() {
                 }
                 ScreenSpot(R.drawable.vipi_spot_settings)
             }
+            ProfileAvatarEditor(chat, profile.id)
             InviteFriendButton(model, settings = true)
         }
     }

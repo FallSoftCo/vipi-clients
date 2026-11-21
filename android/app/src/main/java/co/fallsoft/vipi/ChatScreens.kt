@@ -141,6 +141,10 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    val photoOwner = chat.profile?.id
+    val photoRepository = remember(photoOwner) {
+        if (photoOwner != null) AttachmentRepository(context.applicationContext, photoOwner) else null
+    }
     val focusManager = LocalFocusManager.current
     val translation = chat.translations
     val gestures = remember(chat, peer, source, target) { FullMessageGestures().also { it.mode = translation?.mode ?: ImmersionMode.NEW_WORD } }
@@ -451,6 +455,25 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                     TextButton(onClick = { confirmBlock = true }, enabled = !blockBusy) { Text(stringResource(R.string.ui_712da63171e0)) }
                 } else {
                 Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = if (compact) 0.dp else 8.dp), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    if (photoRepository != null) {
+                        key(chat, photoOwner, peer) {
+                            MediaComposer(photoRepository, chat.name(peer), text,
+                                loaded && chat.ready && peer !in chat.peersNeedingRecovery && !messageTooLong,
+                                checkPeer = { chat.requirePeerMedia(peer) },
+                                send = { manifest, closePreview ->
+                                    chat.sendAttachments(text.ifBlank { context.getString(manifest.kind.mediaLabel()) }, peer, listOf(manifest)) {
+                                        closePreview()
+                                        text = ""
+                                    }
+                                    notificationEducation?.committedUserSend(chat.name(peer))
+                                    chat.composerActivity(peer, false)
+                                    error = null
+                                    followingLatest = true; newMessagesBelow = 0; jumpRevision++; refresh()
+                                    list.stopScroll(); withFrameNanos { }; revealNewestMessage(); chat.synchronize()
+                                },
+                                onError = { error = ChatSession.explanation(context, it) })
+                        }
+                    }
                     OutlinedTextField(text, { value ->
                         if (!loaded) return@OutlinedTextField
                         if (value.toByteArray(Charsets.UTF_8).size > ConversationHistory.MAX_DRAFT_BYTES) {
@@ -541,8 +564,26 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                                     ChatBubbleFrame(item.outgoing) {
                                         val status = deliveryLabel(item.state, item.outgoing)
                                         val accessible = MessageTimelineMetadata.exactTime(item.createdAt, locale) + " · " + status
-                                        if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio,
-                                            accessibilityContext = accessible) { ChatMessageMetadata(item, locale) }
+                                        val messageContent: @Composable () -> Unit = {
+                                            if (translation != null && audio != null) FullMessageBubble(item.text, item.id.toString(), translation, gestures, audio,
+                                                accessibilityContext = accessible) { ChatMessageMetadata(item, locale) }
+                                        }
+                                        if (photoRepository != null && item.attachments.isNotEmpty()) {
+                                            Column {
+                                                for (attachment in item.attachments) {
+                                                    key(chat, photoOwner, peer, attachment.id) {
+                                                        if (attachment.kind in setOf(AttachmentKind.VIDEO, AttachmentKind.VOICE)) {
+                                                            if (chat.ready && !blocked && peer !in chat.peersNeedingRecovery && !chat.needsReauthentication)
+                                                                PrivateMediaPlayback(attachment.kind) { chat.openMedia(peer, attachment, photoRepository) }
+                                                        } else if (attachment.kind == AttachmentKind.PHOTO) ConversationPhoto(photoRepository, attachment, chat.ready && !blocked &&
+                                                            !chat.needsReauthentication && peer !in chat.peersNeedingRecovery) {
+                                                            chat.viewPhoto(peer, attachment, photoRepository)
+                                                        }
+                                                    }
+                                                }
+                                                messageContent()
+                                            }
+                                        } else messageContent()
                                     }
                                 }
                                 if (!item.outgoing) Spacer(Modifier.width(32.dp))

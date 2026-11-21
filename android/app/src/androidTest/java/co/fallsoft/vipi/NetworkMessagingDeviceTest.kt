@@ -168,7 +168,7 @@ class NetworkMessagingDeviceTest {
 
 
 /** Explicit test lane; no native session/token refresh or production endpoint. */
-private class SignedLoopbackPairTransport(endpoint: String, private val token: String) : ChatTransport {
+internal class SignedLoopbackPairTransport(endpoint: String, private val token: String) : ChatTransport {
     private val base = endpoint.toHttpUrl()
     private val http = okhttp3.OkHttpClient.Builder().followRedirects(false).followSslRedirects(false)
         .retryOnConnectionFailure(false).callTimeout(25, java.util.concurrent.TimeUnit.SECONDS).build()

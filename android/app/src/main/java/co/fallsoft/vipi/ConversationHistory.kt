@@ -5,7 +5,7 @@ import java.util.Locale
 import java.util.UUID
 
 internal data class ChatItem(val id: UUID, val peer: UUID, val text: String, val createdAt: Long,
-    val outgoing: Boolean, val state: String, val cursor: String)
+    val outgoing: Boolean, val state: String, val cursor: String, val attachments: List<AttachmentManifest> = emptyList())
 internal data class ChatThread(val peer: UUID, val latest: ChatItem, val unread: Int)
 
 /** Keyset-paged opaque message references. All text, input drafts, contacts and
@@ -37,11 +37,11 @@ internal class ConversationHistory(private val vault: MessageVault) {
         if (kind == "imported") return HistoryBackupStore.item(JSONObject(bytes.toString(Charsets.UTF_8)), cursor)
         if (kind == "draft") {
             val value = DraftChat.parse(bytes)
-            return ChatItem(value.id, value.recipient, value.text, value.createdAt, true, value.state, cursor)
+            return ChatItem(value.id, value.recipient, value.text, value.createdAt, true, value.state, cursor, value.attachments)
         }
         val value = StoredChat.parse(bytes); val outgoing = kind == "outgoing"
         return ChatItem(value.envelope.id, if (outgoing) value.envelope.recipient else value.envelope.sender,
-            value.text, value.envelope.createdAt, outgoing, value.state, cursor)
+            value.text, value.envelope.createdAt, outgoing, value.state, cursor, value.attachments)
     }
     fun messages(peer: UUID, before: String? = null, limit: Int = 50): List<ChatItem> = vault.transaction {
         vault.pageIDs("history", "$peer/", before, limit).map(::item)

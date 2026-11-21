@@ -4,12 +4,17 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature android:name="android.hardware.microphone" android:required="false" />
     <queries><intent><action android:name="android.intent.action.TTS_SERVICE" /></intent></queries>
     <application android:name=".VipiApplication" android:allowBackup="false" android:fullBackupContent="false" android:label="Vipi" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher" android:theme="@style/Theme.Vipi" android:usesCleartextTraffic="false" android:supportsRtl="true">
         <meta-data android:name="firebase_messaging_auto_init_enabled" android:value="false" />
         <!-- The deployed FCM HTTP v1 contract addresses registration tokens. -->
         <meta-data android:name="firebase_messaging_installation_id_enabled" android:value="false" />
         <meta-data android:name="firebase_analytics_collection_enabled" android:value="false" />
+        <provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.captures" android:exported="false" android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/media_capture_paths" />
+        </provider>
         <service android:name=".VipiMessagingService" android:exported="false">
             <intent-filter><action android:name="com.google.firebase.MESSAGING_EVENT" /></intent-filter>
         </service>

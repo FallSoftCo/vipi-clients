@@ -1,5 +1,6 @@
 package co.fallsoft.vipi
 
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -119,13 +120,16 @@ internal fun contactInitials(name: String): String {
 @Composable internal fun ContactAvatar(name: String, peer: java.util.UUID, diameter: androidx.compose.ui.unit.Dp = 34.dp) {
     // This is a decorative identity icon; the adjacent real name scales with
     // text settings. Keep its glyph inside the fixed circle at every font size.
+    val avatars = LocalAvatarChat.current
+    val bitmap = androidx.compose.runtime.remember(avatars, avatars?.revision, peer) { avatars?.avatar(peer)?.jpeg?.let { android.graphics.BitmapFactory.decodeByteArray(it, 0, it.size) } }
     val glyphSize = with(LocalDensity.current) { (diameter.toPx() * .42f).toSp() }
     val palette = vipiPalette()
     val slot = ((peer.mostSignificantBits xor peer.leastSignificantBits) and 3).toInt()
     Surface(color = palette.avatars[slot], shape = androidx.compose.foundation.shape.CircleShape,
         modifier = Modifier.size(diameter).clearAndSetSemantics { }) {
         Box(contentAlignment = Alignment.Center) {
-            Text(contactInitials(name), fontSize = glyphSize, lineHeight = glyphSize * 1.15f, fontWeight = FontWeight.SemiBold,
+            if (bitmap != null) androidx.compose.foundation.Image(bitmap.asImageBitmap(), null, Modifier.size(diameter))
+            else Text(contactInitials(name), fontSize = glyphSize, lineHeight = glyphSize * 1.15f, fontWeight = FontWeight.SemiBold,
                 color = palette.avatarInk, maxLines = 1)
         }
     }
