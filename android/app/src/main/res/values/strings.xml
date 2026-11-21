@@ -96,4 +96,5 @@
     <string name="full_message_show_translation">Show practice text</string>
     <string name="full_message_context_hint">Tap a message to listen. Hold to see the original.</string>
     <string name="autoplay_label">Autoplay</string>
+    <string name="groups_title">Groups</string>
 </resources>

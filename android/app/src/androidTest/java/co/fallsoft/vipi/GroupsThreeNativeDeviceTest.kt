@@ -48,7 +48,7 @@ class GroupsThreeNativeDeviceTest {
     }
     @Test fun threeNativeMembersBootstrapOfflineReopenAndRemovalFence() {
         require(BuildConfig.APPLICATION_ID == "co.fallsoft.vipi.groupsqa")
-        assertFalse(GroupsUpgrade.enabled)
+        assertTrue(GroupsUpgrade.enabled)
         val ids = List(3) { UUID.randomUUID() }
         val parties = mutableListOf<Party>()
         val now = System.currentTimeMillis()
@@ -118,6 +118,56 @@ class GroupsThreeNativeDeviceTest {
             }
         }
     }
+    @Test fun sixteenPeopleAuthorizeTheSameRosterAndOpenAllFifteenCopies() {
+        require(BuildConfig.APPLICATION_ID == "co.fallsoft.vipi.groupsqa")
+        val ids = List(GroupsUpgrade.maximumPeople) { UUID.randomUUID() }
+        val parties = mutableListOf<Party>()
+        val now = System.currentTimeMillis()
+        val group = UUID.randomUUID()
+        try {
+            ids.forEach { parties += Party(MessageVault(context, it)) }
+            val owner = parties.first()
+            fun roster(count: Int) = GroupSnapshot(group, "Language practice", count * 2 - 1, "active",
+                parties.take(count).mapIndexed { index, party -> person(party, index == 0) }, emptyList())
+            owner.membership.createdLocally(roster(1), group)
+            for (index in 1 until ids.size) {
+                establish(owner, parties[index], now)
+                val before = requireNotNull(owner.membership.current(group))
+                val proposal = roster(index + 1)
+                val add = GroupRosterTransition(ids.first(), GroupControlAction.ADD, ids[index], before.revision,
+                    before.revision + 1, proposal.epoch, before.members, before.members + GroupApprovedPerson(ids[index], GroupRole.MEMBER))
+                val control = owner.controls.prepare(UUID.randomUUID(), proposal, add, now)
+                for (recipient in parties.subList(1, index + 1)) {
+                    recipient.controls.receive(incoming(control, owner, recipient, "control"), now)
+                    if (recipient === parties[index]) recipient.controls.confirmBootstrap(recipient.controls.pending().single())
+                    assertEquals(add.members.toSet(), recipient.membership.current(group)?.members?.toSet())
+                }
+                owner.controls.accepted(admitted(control), control)
+                owner.controls.reconciled(control)
+            }
+            val full = roster(ids.size)
+            val message = GroupMessage(UUID.randomUUID(), group, full.epoch, ids.size, ids.first(),
+                "Are we still meeting at six?", now, GroupDelivery.QUEUED)
+            val batch = owner.crypto.prepare(message, full, now)
+            val packets = JSONObject(batch.body).getJSONArray("envelopes").objects()
+            assertEquals(ids.drop(1).toSet(), packets.map { it.uuid("recipient_id") }.toSet())
+            assertEquals(15, packets.map { it.getString("ciphertext") }.distinct().size)
+            for (receiver in parties.drop(1)) {
+                val delivered = requireNotNull(receiver.crypto.receive(incoming(batch, owner, receiver, "message"), now))
+                assertEquals(message.id, delivered.id)
+                assertEquals(message.text, delivered.text)
+                assertEquals(1, receiver.store.messages(group).size)
+            }
+        } finally {
+            parties.forEach { runCatching { it.close() } }
+            val keys = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
+            ids.forEach { id ->
+                java.io.File(context.noBackupFilesDir, "messages/$id").deleteRecursively()
+                keys.deleteEntry("co.fallsoft.vipi.messages.$id")
+            }
+        }
+    }
+
     @Test fun inactiveDeviceRemovalPreservesStrictDataAndReachableBootstrap() {
         require(BuildConfig.APPLICATION_ID == "co.fallsoft.vipi.groupsqa")
         val ids = List(3) { UUID.randomUUID() }; val parties = mutableListOf<Party>(); val now = System.currentTimeMillis()

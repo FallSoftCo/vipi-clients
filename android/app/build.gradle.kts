@@ -41,6 +41,7 @@ android {
         versionName = "1.0.20"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild { cmake { arguments += "-DANDROID_STL=c++_static" } }
+        buildConfigField("boolean", "GROUPS_QUALIFICATION", "false")
         buildConfigField("boolean", "FIREBASE_CONFIGURED", firebaseConfig.isNotEmpty().toString())
         buildConfigField("boolean", "DEFAULT_FULL_IMMERSION", providers.gradleProperty("vipiFullImmersionReview").map { it.toBooleanStrict() }.getOrElse(false).toString())
         for (key in listOf("PROJECT_ID", "SENDER_ID", "APP_ID", "API_KEY"))
@@ -60,6 +61,7 @@ android {
     // The local debug certificate is never configured for a normal release.
     buildTypes {
         getByName("debug") {
+            buildConfigField("boolean", "GROUPS_QUALIFICATION", qualifyGroups.toString())
             if (qualifySourceContext) applicationIdSuffix = when {
                 qualifyGroups -> ".groupsqa"
                 providers.gradleProperty("vipiTutorialQualification").map { it.toBooleanStrict() }.getOrElse(false) -> ".tutorialqa"

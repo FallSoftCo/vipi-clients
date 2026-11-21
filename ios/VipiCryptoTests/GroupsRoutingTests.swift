@@ -17,6 +17,7 @@ final class GroupsRoutingTests: XCTestCase {
             let incoming = try packet(fields.filter { $0.key != omitted })
             XCTAssertTrue(incoming.hasGroupContext)
             XCTAssertThrowsError(try incoming.groupIncoming())
+            XCTAssertThrowsError(try incoming.routed(account: UUID()))
         }
         XCTAssertThrowsError(try packet(["group_kind": "other"]).groupIncoming())
     }

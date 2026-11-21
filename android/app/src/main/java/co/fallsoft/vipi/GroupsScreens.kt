@@ -7,8 +7,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.Groups
+import androidx.compose.ui.res.stringResource
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.semantics.*
@@ -23,17 +28,16 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 
-/** Dormant upgrade navigator. Launch MainActivity does not call this composable.
- * Translation/audio belong to the local account and are supplied by its owner. */
+/** The opt-in debug build opens this route with the signed-in account’s immersion owner. */
 @Composable internal fun GroupsNavigator(session: GroupsSession, people: List<ChatProfile>, translation: ConversationTranslation,
-    audio: ConversationAutoplay, reviewIdentity: (UUID) -> Unit, onBack: () -> Unit) {
+    source: String, target: String, changeMode: (ImmersionMode) -> Unit, reviewIdentity: (UUID) -> Unit, onBack: () -> Unit) {
     var route by remember(session.account) { mutableStateOf("home") }
     var selected by remember(session.account) { mutableStateOf<UUID?>(null) }
     val back = { route = if (route in setOf("info", "invite")) "conversation" else "home" }
     BackHandler { if (route == "home") onBack() else back() }
     when (route) {
         "create" -> GroupCreateScreen(session, people, onBack = { route = "home" }, onCreated = { selected = it; route = "conversation" })
-        "conversation" -> selected?.let { GroupConversationScreen(session, it, people, translation, audio, onInfo = { route = "info" }, onBack = { route = "home" }) }
+        "conversation" -> selected?.let { GroupConversationScreen(session, it, people, translation, source, target, changeMode, onInfo = { route = "info" }, onBack = { route = "home" }) }
         "info" -> selected?.let { GroupInfoScreen(session, it, people, reviewIdentity, onInvite = { route = "invite" }, onLeft = { route = "home" }, onBack = { route = "conversation" }) }
         "invite" -> selected?.let { GroupInviteScreen(session, it, people, onBack = { route = "info" }) }
         else -> GroupsHomeScreen(session, onCreate = { route = "create" }, onOpen = { selected = it; route = "conversation" }, onBack = onBack)
@@ -137,20 +141,46 @@ import java.util.UUID
 }
 
 @Composable internal fun GroupConversationScreen(session: GroupsSession, groupID: UUID, people: List<ChatProfile>, translation: ConversationTranslation,
-    audio: ConversationAutoplay, onInfo: () -> Unit, onBack: () -> Unit) {
+    source: String, target: String, changeMode: (ImmersionMode) -> Unit, onInfo: () -> Unit, onBack: () -> Unit) {
     val revision = session.revision; val group = session.group(groupID); val messages = session.messages(groupID)
     var text by remember(session.account, groupID) { mutableStateOf(session.preferences(groupID).draft) }
-    val gestures = remember(session.account, groupID) { FullMessageGestures() }; val scope = rememberCoroutineScope(); val list = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+    val list = rememberLazyListState()
+    val context = LocalContext.current
+    val speech = remember(session, groupID, source, target) { SpeechPlayback(context, target, scope) }
+    var voiceHelp by remember(speech) { mutableStateOf(false) }
+    val audio = remember(translation, speech) { ConversationAutoplay(translation, speech, scope) { voiceHelp = true } }
+    val gestures = remember(session, groupID, translation.mode) { FullMessageGestures().also { it.mode = translation.mode } }
+    val warmups = remember(source, target) { mapOf(source to "1", target to "1") }
+    LaunchedEffect(speech) { speech.prepare(warmups) }
+    LaunchedEffect(speech.state) { if (speech.state == SpeechState.READY) voiceHelp = false }
+    DisposableEffect(audio) { onDispose { audio.close() } }
+    DisposableEffect(speech) { onDispose { speech.close() } }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     var foreground by remember { mutableStateOf(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
     DisposableEffect(lifecycle, audio, session, groupID) {
         val owner = Any()
-        session.observe(owner) { if (it.group == groupID && foreground) audio.offer(it.renderID, it.text) }
-        val observer = LifecycleEventObserver { _, event -> foreground = lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED); if (event == Lifecycle.Event.ON_STOP) audio.setAutoplayEnabled(false) }
+        session.observe(owner) { message ->
+            if (message.group == groupID && foreground) {
+                val id = message.id
+                audio.offerStored(message.renderID) { session.messageOriginal(groupID, id) }
+            }
+        }
+        val observer = LifecycleEventObserver { _, event -> foreground = lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED); if (event == Lifecycle.Event.ON_STOP) { audio.background(); speech.stop(); gestures.held = false } }
         lifecycle.addObserver(observer); onDispose { session.removeObserver(owner); lifecycle.removeObserver(observer); audio.setAutoplayEnabled(false) }
     }
     LaunchedEffect(groupID) { session.refresh() }
-    GroupFrame(group?.title ?: "Group", onBack, action = { TextButton(onClick = onInfo) { Text("Group info") } }) { padding ->
+    Scaffold(topBar = {
+        ConversationHeader(group?.title ?: "Group", groupID, audio.enabled, true,
+            onAutoplay = { audio.setAutoplayEnabled(!audio.enabled) },
+            mode = translation.mode,
+            onMode = {
+                audio.background()
+                changeMode(if (translation.mode == ImmersionMode.FULL_MESSAGES) ImmersionMode.NEW_WORD else ImmersionMode.FULL_MESSAGES)
+            }, minHeight = 56.dp, modifier = Modifier.fillMaxWidth().statusBarsPadding(),
+            back = { IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) } },
+            overflow = { IconButton(onClick = onInfo) { Icon(Icons.Outlined.Groups, "Group info") } })
+    }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).imePadding()) {
             GroupNotice(session)
             LazyColumn(Modifier.weight(1f).fillMaxWidth().fullMessageGestures(gestures), state = list, contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
@@ -193,6 +223,8 @@ import java.util.UUID
                     if (foreground && visible.isNotEmpty()) session.markRead(groupID, visible)
                 }
             }
+            if (voiceHelp || speech.state == SpeechState.UNAVAILABLE)
+                SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
             if (session.isActive(groupID) && group?.role(session.account) != null) Row(Modifier.fillMaxWidth().padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(text, { text = it; session.draft(groupID, it) }, label = { Text("Message the group") }, maxLines = 6, modifier = Modifier.weight(1f))
                 Button(onClick = { val draft = text; scope.launch { if (session.send(group, draft) && text == draft) text = "" } }, enabled = !session.busy && text.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp)) { Text("Send") }

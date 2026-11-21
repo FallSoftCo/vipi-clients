@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from sqlalchemy import Boolean, DateTime, ForeignKey, Index, Integer, LargeBinary, String, BigInteger, UniqueConstraint
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
@@ -51,6 +52,18 @@ class PendingMessage(Base):
     group_epoch: Mapped[int | None] = mapped_column(Integer, nullable=True)
     group_message_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
     group_kind: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    @hybrid_property
+    def is_direct(self) -> bool:
+        return all(value is None for value in (
+            self.group_id, self.group_epoch, self.group_message_id, self.group_kind
+        ))
+
+    @is_direct.inplace.expression
+    @classmethod
+    def _is_direct_expression(cls):
+        return (cls.group_id.is_(None) & cls.group_epoch.is_(None)
+                & cls.group_message_id.is_(None) & cls.group_kind.is_(None))
+
     __table_args__ = (Index("inbox_pending", "recipient_device_id", "state", "accepted_at"),)
 
 

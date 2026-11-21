@@ -162,6 +162,17 @@ class MainActivity : ComponentActivity() {
     val inboxScroll = key(model.authentication.userID) { androidx.compose.foundation.lazy.rememberLazyListState() }
     val waterClock = rememberWaterClock()
     if (model.screen == Screen.HOME) { ChatsInbox(model, inboxScroll, waterClock); return }
+    if (model.screen == Screen.GROUPS) {
+        val chat = model.chat
+        val groups = chat?.groups
+        val translation = chat?.translations
+        if (groups != null && translation != null && chat.ready && !chat.needsReauthentication &&
+            chat.userID == model.authentication.userID) {
+            GroupsNavigator(groups, chat.contacts.values.filter { it.id !in chat.blockedPeers }, translation,
+                model.knownLanguage, model.targetLanguage, model::selectImmersionMode, reviewIdentity = model::openConversation, onBack = model::back)
+        } else LaunchedEffect(Unit) { model.navigate(Screen.HOME) }
+        return
+    }
     if (model.screen == Screen.BACKUP && model.chat != null) { HistoryBackupScreen(model.chat!!) { model.back() }; return }
     if (model.screen == Screen.LICENSES) { LegalNoticesScreen { model.back() }; return }
     if (model.screen == Screen.CONVERSATION) {
@@ -186,7 +197,7 @@ class MainActivity : ComponentActivity() {
                 Screen.LANGUAGE_DOWNLOAD -> DownloadView(model)
                 Screen.PROFILE -> ProfileSetupScreen(model)
                 Screen.DELETE_ACCOUNT -> DeleteAccountScreen { model.beginDeletion() }
-                Screen.HOME, Screen.CONVERSATION, Screen.BACKUP, Screen.LICENSES -> Unit
+                Screen.HOME, Screen.GROUPS, Screen.CONVERSATION, Screen.BACKUP, Screen.LICENSES -> Unit
             }
             if (onboarding && largeText) OnboardingAction(model, inScroll = true)
             Spacer(Modifier.height(20.dp))
@@ -384,6 +395,11 @@ class MainActivity : ComponentActivity() {
     error?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
     }
     InviteFriendButton(model)
+    if (model.chat?.groups != null && model.chat?.ready == true && model.chat?.needsReauthentication == false) {
+        OutlinedButton(onClick = { model.navigate(Screen.GROUPS) }, modifier = Modifier.fillMaxWidth().testTag("open-groups")) {
+            Text(stringResource(R.string.groups_title))
+        }
+    }
 }
 
 @Composable private fun SettingsView(model: VipiModel) {

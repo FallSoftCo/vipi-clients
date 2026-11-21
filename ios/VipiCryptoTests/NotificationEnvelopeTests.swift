@@ -37,7 +37,8 @@ final class NotificationEnvelopeTests: XCTestCase {
             RoutedMessage.Received(id: routed.envelope.id, sender_id: friend, sender_device_id: sender.device.id,
                                    recipient_device_id: receiver.device.id,
                                    created_at: date.string(from: Date(timeIntervalSince1970: Double(routed.envelope.createdAt) / 1000)),
-                                   cipher_type: routed.envelope.type, ciphertext: routed.envelope.ciphertext)
+                                   cipher_type: routed.envelope.type, ciphertext: routed.envelope.ciphertext,
+                                   group_id: nil, group_epoch: nil, group_message_id: nil, group_kind: nil)
         }
         let match = NotificationEnvelope(id: wire[1].id, peer: friend, display_name: "Sam", accepted_at: Double(now) / 1000, messages: wire)
         XCTAssertThrowsError(try match.preview(grant: grant, vault: extensionVault, device: receiver.device) { nil })

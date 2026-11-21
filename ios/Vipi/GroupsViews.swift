@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Upgrade entry point is intentionally not installed in launch HomeView.
+/// Opened from New conversation in the opt-in simulator build.
 struct GroupsHomeView: View {
     let groups: GroupsSession
     let people: [ChatProfile]
@@ -164,38 +164,7 @@ struct GroupConversationView: View {
                                 Button("Try opening saved message") { groups.retryHeld(groupID) }
                             }.padding(16).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
                         }
-                        ForEach(messages) { message in
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(sender(message)).font(.headline).accessibilityAddTraits(.isHeader)
-                                if message.delivery == .withheld {
-                                    if message.withheldReason == "changed" {
-                                        Text("The people in this group changed before this message arrived. Ask \(sender(message)) to send it again.").font(.body)
-                                        Button("Ask sender to resend") { text = "\(sender(message)), could you send your last message again?"; groups.saveDraft(groupID, text) }
-                                    } else {
-                                        Text("An admin needs to confirm who’s in this group before this message can open. It is saved securely on this device.").font(.body)
-                                        Button("Review group approval") { showInfo = true }
-                                    }
-                                } else {
-                                ConversationImmersionText(text: message.text, id: message.renderID, immersion: immersion, speech: speech,
-                                    paused: scenePhase != .active, metadata: AnyView(Text(status(message)).font(.body).foregroundStyle(VipiDesign.secondary)),
-                                    onVoiceHelp: { voiceHelp = true }, onTranslationSetup: { translationHelp = $0 }, playback: autoplay,
-                                    accessibilityMessageContext: sender(message) + ". " + status(message))
-                                }
-                                if message.sender == groups.account && [.queued, .failed].contains(message.delivery) {
-                                    Button("Retry sending to everyone") { Task { await groups.retry(message) } }.font(.body).disabled(groups.busy)
-                                }
-                                if [.membershipChanged, .identityChanged].contains(message.delivery) {
-                                    Text("This message wasn’t sent. Review Group info, then copy it into a new message when you’re ready.").font(.body)
-                                    Button("Copy to draft") { text = message.text; groups.saveDraft(groupID, text) }
-                                }
-                            }.padding(14).frame(maxWidth: 600, alignment: .leading)
-                                .background(message.sender == groups.account ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
-                                .id(message.id)
-                                .onScrollVisibilityChange(threshold: 0.5) { visible in
-                                    if visible { visibleMessages.insert(message.id) } else { visibleMessages.remove(message.id) }
-                                    if visible && scenePhase == .active { groups.markRead(groupID, visible: [message.id]) }
-                                }
-                        }
+                        ForEach(messages, content: messageRow)
                     }.padding(18).frame(maxWidth: 644).frame(maxWidth: .infinity)
                 }.scrollDismissesKeyboard(.interactively).background { ChatReadingGestureSurface(reading: state.chatReading) }
                     .onChange(of: messages.count) { old, new in if old == 0, let id = messages.last?.id { proxy.scrollTo(id, anchor: .bottom) } }
@@ -208,15 +177,32 @@ struct GroupConversationView: View {
                 }.padding().background(VipiDesign.canvas)
             } else { Text("You’re no longer in this group. Saved messages remain on this device.").font(.body).padding() }
         }.background(VipiDesign.canvas).navigationTitle(group?.title ?? "Group")
-            .toolbar { ToolbarItem(placement: .primaryAction) { Button("Group info", systemImage: "person.3") { showInfo = true } } }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    ConversationHeaderActions(mode: state.immersionMode, autoplay: autoplay.enabled,
+                        toggleMode: {
+                            autoplay.stop(speech: speech)
+                            state.chatReading.cancelInteractions()
+                            state.immersionMode = state.immersionMode.next
+                        }, toggleAutoplay: {
+                            state.chatReading.cancelPendingPlayback()
+                            autoplay.toggle(snapshot: messages.map { .init(id: $0.renderID, text: $0.text) },
+                                immersion: immersion, speech: speech)
+                        }) { Text(group?.title ?? "Group").font(.headline).lineLimit(1) }
+                }
+                ToolbarItem(placement: .primaryAction) { Button("Group info", systemImage: "person.3") { showInfo = true } }
+            }
             .sheet(isPresented: $showInfo) { if let group { NavigationStack { GroupInfoView(groups: groups, groupID: group.id, people: people, reviewIdentity: reviewIdentity) } } }
             .alert("Speech isn’t available", isPresented: $voiceHelp) { Button("OK", role: .cancel) {} } message: { Text("Check the voice for your practice language in language settings.") }
             .alert("Language download needed", isPresented: Binding(get: { translationHelp != nil }, set: { if !$0 { translationHelp = nil } })) { Button("OK", role: .cancel) { translationHelp = nil } } message: { Text("Open language settings to download the language used in this message.") }
             .task {
+                let language = state.targetLanguage
+                speech.prepare(source: language, target: language, warmups: [language: VipiLanguage.named(language).localName])
                 text = groups.preferences(groupID).draft
                 arrivalObserver = groups.observe { message in
                     guard message.groupID == groupID else { return }
-                    autoplay.arrived(.init(id: message.renderID, text: message.text), immersion: immersion, speech: speech, foreground: scenePhase == .active)
+                    let id = message.id
+                    autoplay.arrived(.init(id: message.renderID, load: { groups.messageOriginal(id, group: groupID) }), immersion: immersion, speech: speech, foreground: scenePhase == .active)
                 }
                 await groups.refresh()
             }
@@ -224,6 +210,38 @@ struct GroupConversationView: View {
             .onChange(of: messages) { _, _ in if scenePhase == .active { groups.markRead(groupID, visible: visibleMessages) } }
             .onChange(of: scenePhase) { _, phase in if phase != .active { autoplay.stop(speech: speech); speech.stop() } else { groups.markRead(groupID, visible: visibleMessages) } }
             .onDisappear { if let arrivalObserver { groups.removeObserver(arrivalObserver) }; arrivalObserver = nil; autoplay.stop(speech: speech); speech.stop() }
+    }
+    private func messageRow(_ message: GroupMessage) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(sender(message)).font(.headline).accessibilityAddTraits(.isHeader)
+            if message.delivery == .withheld {
+                if message.withheldReason == "changed" {
+                    Text("The people in this group changed before this message arrived. Ask \(sender(message)) to send it again.").font(.body)
+                    Button("Ask sender to resend") { text = "\(sender(message)), could you send your last message again?"; groups.saveDraft(groupID, text) }
+                } else {
+                    Text("An admin needs to confirm who’s in this group before this message can open. It is saved securely on this device.").font(.body)
+                    Button("Review group approval") { showInfo = true }
+                }
+            } else {
+            ConversationImmersionText(text: message.text, id: message.renderID, immersion: immersion, speech: speech,
+                paused: scenePhase != .active, metadata: AnyView(Text(status(message)).font(.body).foregroundStyle(VipiDesign.secondary)),
+                onVoiceHelp: { voiceHelp = true }, onTranslationSetup: { translationHelp = $0 }, playback: autoplay,
+                accessibilityMessageContext: sender(message) + ". " + status(message))
+            }
+            if message.sender == groups.account && [.queued, .failed].contains(message.delivery) {
+                Button("Retry sending to everyone") { Task { await groups.retry(message) } }.font(.body).disabled(groups.busy)
+            }
+            if [.membershipChanged, .identityChanged].contains(message.delivery) {
+                Text("This message wasn’t sent. Review Group info, then copy it into a new message when you’re ready.").font(.body)
+                Button("Copy to draft") { text = message.text; groups.saveDraft(groupID, text) }
+            }
+        }.padding(14).frame(maxWidth: 600, alignment: .leading)
+            .background(message.sender == groups.account ? VipiDesign.outgoing : VipiDesign.surface, in: RoundedRectangle(cornerRadius: 18))
+            .id(message.id)
+            .onScrollVisibilityChange(threshold: 0.5) { visible in
+                if visible { visibleMessages.insert(message.id) } else { visibleMessages.remove(message.id) }
+                if visible && scenePhase == .active { groups.markRead(groupID, visible: [message.id]) }
+            }
     }
     private func sender(_ message: GroupMessage) -> String {
         if message.sender == groups.account { return "You" }

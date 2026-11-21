@@ -300,3 +300,36 @@ def test_privacy_notice_describes_device_preview_settings():
     for wording in ("decrypts it locally", "Existing installations keep previous privacy choices",
                     "banners inside Vipi have a separate setting", "generic alert"):
         assert wording in notice
+
+
+@pytest.mark.parametrize("kind", ["message", "control"])
+async def test_group_bytes_stay_in_the_membership_aware_inbox(db, kind):
+    from dataclasses import replace
+    from vipi.accounts import credential_hash
+    from vipi.db import Device
+    from vipi.delivery import DeliveryError
+    from vipi.push import preview_envelope, preview_ticket
+
+    secret, proof = "s" * 43, "p" * 43
+    async with db.sessions.begin() as session:
+        phone = await session.get(Device, "bob-phone")
+        phone.credential_hash = credential_hash(proof, secret)
+        await register(session, user_id="bob", device_id=phone.id, provider="apns", environment="sandbox",
+                       token="ab" * 32, secret=secret, now=NOW)
+        group = await accept(session, message(), now=NOW)
+        group.group_id, group.group_epoch, group.group_message_id, group.group_kind = "g", 1, "m", kind
+        await enqueue(session, phone.id, NOW, group.expires_at)
+        registration = await session.get(PushToken, phone.id)
+        group_ticket = preview_ticket(secret, registration, group.id, NOW)
+    # A group-only push remains a generic wakeup even without group-event coalescing.
+    assert (await process_pushes(db, Provider(), secret=secret, now=NOW))["sent"] == 1
+    async with db.sessions.begin() as session:
+        later = NOW + timedelta(seconds=1)
+        direct = await accept(session, replace(message(), created_at=later), now=later)
+        registration = await session.get(PushToken, "bob-phone")
+        direct_ticket = preview_ticket(secret, registration, direct.id, later)
+        for ticket in (group_ticket, direct_ticket):
+            with pytest.raises(DeliveryError, match="notification_unavailable"):
+                await preview_envelope(session, ticket=ticket, device_id="bob-phone", device_secret=proof,
+                                       secret=secret, now=later)
+        assert direct.state == "accepted"

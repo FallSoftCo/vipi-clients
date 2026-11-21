@@ -85,7 +85,7 @@ internal class MainActivityJourneyFixture(
     }
     init {
         check(BuildConfig.DEBUG && BuildConfig.APPLICATION_ID in setOf(
-            "co.fallsoft.vipi.uxqa", "co.fallsoft.vipi.sourcecontextqa", "co.fallsoft.vipi.tutorialqa"
+            "co.fallsoft.vipi.uxqa", "co.fallsoft.vipi.sourcecontextqa", "co.fallsoft.vipi.tutorialqa", "co.fallsoft.vipi.groupsqa"
         )) { "Requires an explicitly isolated QA target; production is rejected" }
         check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
         val run = InstrumentationRegistry.getArguments().getString("vipiJourneyRun") ?: "001"

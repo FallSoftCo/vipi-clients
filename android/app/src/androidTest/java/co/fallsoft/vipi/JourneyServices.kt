@@ -113,6 +113,8 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         requireNotNull(peerCore).keys.published(1)
         return VipiModel(application, translationFactory(), this)
     }
+    var groupsRequest: ((String, String, JSONObject?, DeviceCredential) -> JSONObject)? = null
+
     override fun translationClient(): LanguageTranslation = translationFactory()
     override fun transport(authentication: Authentication, userID: String): ChatTransport {
         check(userID == subject)
@@ -125,6 +127,10 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
                 if (method == "POST" && path in setOf("/v1/reports", "/v1/bot/reports")) {
                     reportPosts.incrementAndGet()
                     error("No report submit is authorized in the cancel journey")
+                }
+                if (path == "/v1/groups" || path.startsWith("/v1/groups/")) {
+                    check(BuildConfig.GROUPS_QUALIFICATION && device == registered)
+                    return requireNotNull(groupsRequest)(method, path, body, requireNotNull(device))
                 }
                 return when {
                     method == "POST" && path == "/v1/conversations/$peer/typing" -> {

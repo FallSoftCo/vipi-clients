@@ -27,7 +27,7 @@ val initialLanguages = listOf(
 fun languageName(code: String): String = if (initialLanguages.any { it.code == code })
     java.util.Locale.forLanguageTag(code).getDisplayLanguage(java.util.Locale.getDefault()) else code
 enum class Appearance { SYSTEM, LIGHT, DARK }
-enum class Screen { WELCOME, LANGUAGE, TUTORIAL, ACCOUNT, HOME, SETTINGS, NEW_CHAT, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE, DELETE_ACCOUNT, BACKUP, LICENSES }
+enum class Screen { WELCOME, LANGUAGE, TUTORIAL, ACCOUNT, HOME, SETTINGS, NEW_CHAT, GROUPS, LANGUAGE_DOWNLOAD, CONVERSATION, PROFILE, DELETE_ACCOUNT, BACKUP, LICENSES }
 enum class ReadingMode(val label: String) { IMMERSED("Immersed"), ORIGINAL("Original"), TRANSLATION("Translation") }
 
 /** Constructor-only external boundaries for native workflow qualification. */
@@ -228,6 +228,7 @@ class VipiModel internal constructor(application: Application, private val trans
         Screen.TUTORIAL -> if (tutorialReturnScreen == Screen.ACCOUNT) Screen.LANGUAGE else tutorialReturnScreen
         Screen.LANGUAGE_DOWNLOAD -> languageReturnScreen
         Screen.DELETE_ACCOUNT -> if (chat?.needsProfile == true) Screen.PROFILE else Screen.SETTINGS
+        Screen.GROUPS -> Screen.NEW_CHAT
         Screen.BACKUP, Screen.LICENSES -> Screen.SETTINGS
         else -> Screen.HOME
     }) }

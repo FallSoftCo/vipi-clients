@@ -52,7 +52,7 @@ async def preview_envelope(session, *, ticket, device_id, device_secret, secret,
     registration = await session.get(PushToken, device_id)
     message = await session.get(PendingMessage, message_id)
     if (not registration or registration.provider != "apns" or registration.fingerprint != fingerprint or
-            not message or message.recipient_device_id != device_id or message.state not in ("accepted", "delivered") or
+            not message or not message.is_direct or message.recipient_device_id != device_id or message.state not in ("accepted", "delivered") or
             utc(message.expires_at) <= now):
         raise DeliveryError("notification_unavailable", 404)
     await active_device(session, message.recipient_id, device_id, device_secret, service_secret=secret)
@@ -72,7 +72,10 @@ async def preview_envelope(session, *, ticket, device_id, device_secret, secret,
         or_(PendingMessage.accepted_at < message.accepted_at,
             and_(PendingMessage.accepted_at == message.accepted_at, PendingMessage.id <= message.id)))
     rows = (await session.execute(ordered.order_by(PendingMessage.accepted_at, PendingMessage.id).limit(9))).scalars().all()
-    if len(rows) > 8:
+    # The extension can open only direct messages. If a group control or
+    # group text precedes this message on the same Signal session, the full
+    # client must handle the chain with its authenticated roster and vault.
+    if len(rows) > 8 or any(not item.is_direct for item in rows):
         raise DeliveryError("notification_unavailable", 404)
     return {"id": message.id, "peer": sender.id, "display_name": sender.display_name,
             "accepted_at": utc(message.accepted_at).timestamp(), "messages": [
@@ -219,7 +222,7 @@ async def process_pushes(db, providers, *, secret, now, limit=100, clock=None, d
                 break
             device = await session.get(Device, job.device_id)
             registration = await session.get(PushToken, job.device_id)
-            pending = (await session.execute(select(PendingMessage.id).where(PendingMessage.recipient_device_id == job.device_id,
+            pending = (await session.execute(select(PendingMessage).where(PendingMessage.recipient_device_id == job.device_id,
                 PendingMessage.state == "accepted", PendingMessage.expires_at > now).order_by(PendingMessage.accepted_at.desc(), PendingMessage.id.desc()).limit(1))).scalar_one_or_none()
             if utc(job.expires_at) <= now or not device or not device.active or not registration or not (pending or job.group_event):
                 await session.delete(job); counts["discarded"] += 1
@@ -227,9 +230,10 @@ async def process_pushes(db, providers, *, secret, now, limit=100, clock=None, d
             job.lease_token, job.lease_until = lease, now + timedelta(minutes=2)
             job.attempts += 1
             device_id, generation, expires_at = job.device_id, job.generation, job.expires_at
+            preview_id = pending.id if pending and pending.is_direct and not job.group_event else None
         try:
             token = cipher.decrypt(registration.token).decode()
-            options = {"preview": preview_ticket(secret, registration, pending, now)} if registration.provider == "apns" and pending else {}
+            options = {"preview": preview_ticket(secret, registration, preview_id, now)} if registration.provider == "apns" and preview_id else {}
             outcome = await providers.send(registration, token, now, expires_at, **options)
         except Exception:
             outcome = "retry"

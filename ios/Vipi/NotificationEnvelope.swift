@@ -11,7 +11,7 @@ struct NotificationEnvelope: Decodable {
                  checkGrant: () throws -> NotificationGrant?) throws -> (sender: String, body: String, repeated: Bool) {
         let name = NotificationAccess.line(display_name, limit: 80)
         guard !name.isEmpty, grant.account == vault.account, peer != grant.account,
-              messages.count <= 8 else { throw MessageVault.Failure.invalidRecord }
+              messages.count <= 8, messages.allSatisfy({ !$0.hasGroupContext }) else { throw MessageVault.Failure.invalidRecord }
         let peerKey = peer.uuidString.lowercased()
         let idKey = id.uuidString.lowercased()
         func check() throws {

@@ -304,6 +304,18 @@ struct NewChatView: View {
                         }.accessibilityIdentifier("new-chat-invite-friend")
                     }
                 }
+                if let chat, chat.ready, !chat.needsReauthentication,
+                   let groups = chat.groups, let immersion = chat.translationOwner {
+                    Section {
+                        NavigationLink {
+                            GroupsHomeView(groups: groups,
+                                people: chat.contacts.values.filter { !chat.blockedPeers.contains($0.id) },
+                                immersion: immersion, reviewIdentity: { peer in selected(peer); dismiss() })
+                        } label: {
+                            Label("Groups", systemImage: "person.3")
+                        }.accessibilityIdentifier("open-groups")
+                    }
+                }
                 if let error { Section { Text(error).foregroundStyle(VipiDesign.secondary) } }
             }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("New conversation").navigationBarTitleDisplayMode(.inline)
                 .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } } }

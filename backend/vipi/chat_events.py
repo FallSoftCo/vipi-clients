@@ -58,6 +58,7 @@ async def established(session, user_id, device_id, peer_id, peer_device_id, now)
         await session.scalar(
             select(PendingMessage.id)
             .where(
+                PendingMessage.is_direct,
                 or_(
                     and_(
                         PendingMessage.sender_id == user_id,
@@ -112,6 +113,7 @@ async def receipts(session, user_id, device_id, peer_id, seen, check, *, now):
             await session.scalars(
                 select(PendingMessage)
                 .where(
+                    PendingMessage.is_direct,
                     PendingMessage.id.in_(seen),
                     PendingMessage.sender_id == peer_id,
                     PendingMessage.recipient_id == user_id,
@@ -149,6 +151,7 @@ async def receipts(session, user_id, device_id, peer_id, seen, check, *, now):
             (
                 await session.scalars(
                     select(PendingMessage.id).where(
+                        PendingMessage.is_direct,
                         PendingMessage.id.in_(check),
                         PendingMessage.sender_id == user_id,
                         PendingMessage.sender_device_id == device_id,

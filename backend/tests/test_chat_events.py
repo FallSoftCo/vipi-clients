@@ -421,3 +421,23 @@ async def test_explicit_seen_races_ordinary_ack_without_losing_read_state(db):
             assert len(rows) == 5 and all(
                 row.state == "read" and row.ciphertext is None for row in rows
             )
+
+
+async def test_group_copies_do_not_establish_direct_typing_or_consume_direct_seen(db):
+    from test_delivery import message
+    from vipi import chat_events
+    from vipi.delivery import accept, DeliveryError
+
+    async with db.sessions.begin() as session:
+        row = await accept(session, message(), now=NOW)
+        row.group_id, row.group_epoch, row.group_message_id, row.group_kind = "g", 1, "m", "message"
+        await session.flush()
+        with pytest.raises(DeliveryError, match="conversation_unavailable"):
+            await chat_events.typing(session, "bob", "bob-phone", "alice", True, now=NOW)
+        result = await chat_events.receipts(session, "bob", "bob-phone", "alice", [row.id], [], now=NOW)
+        assert result == {"acknowledged": [row.id], "read": []}
+        assert row.state == "accepted" and row.ciphertext
+        row.state = "read"
+        await session.flush()
+        result = await chat_events.receipts(session, "alice", "alice-phone", "bob", [], [row.id], now=NOW)
+        assert result["read"] == []

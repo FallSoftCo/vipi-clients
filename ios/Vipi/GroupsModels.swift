@@ -1,8 +1,14 @@
 import Foundation
 
-/// Deliberately independent of launch navigation. Enabling requires the group
-/// protocol and native qualification gates documented in GROUPS_CLIENTS.md.
-enum GroupsUpgrade { static let enabled = false; static let maximumPeople = 16; static let muteDeliveryQualified = false }
+enum GroupsUpgrade {
+    #if VIPI_GROUPS_QUALIFICATION && targetEnvironment(simulator)
+    static let enabled = true
+    #else
+    static let enabled = false
+    #endif
+    static let maximumPeople = 16
+    static let muteDeliveryQualified = false
+}
 enum GroupRole: String, Codable, Hashable { case owner, admin, member }
 struct GroupMember: Codable, Identifiable, Equatable {
     var id: UUID { user_id }
@@ -78,5 +84,12 @@ enum GroupSelection {
         let value = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !value.isEmpty, value.unicodeScalars.count <= 80, !value.unicodeScalars.contains(where: { CharacterSet.controlCharacters.contains($0) }) else { throw GroupsFailure.invalidName }
         return value
+    }
+}
+
+extension RoutedMessage.Received {
+    func groupIncoming() throws -> GroupIncoming {
+        guard let group_id, let group_epoch, group_epoch > 0, let group_message_id, let group_kind, ["message", "control"].contains(group_kind) else { throw GroupsFailure.invalidResponse }
+        return GroupIncoming(id: id, sender_id: sender_id, sender_device_id: sender_device_id, recipient_device_id: recipient_device_id, created_at: created_at, cipher_type: cipher_type, ciphertext: ciphertext, group_id: group_id, group_epoch: group_epoch, group_message_id: group_message_id, group_kind: group_kind)
     }
 }
