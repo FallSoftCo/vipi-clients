@@ -36,6 +36,7 @@ struct SpeechMark: Codable, Sendable {
     let length: Int
     let byteSampleOffset: Int
     var source:String? = nil
+    var endByteSampleOffset:Int? = nil
 }
 
 /// AVSpeechSynthesizer invokes buffer callbacks outside the main actor.
@@ -214,7 +215,14 @@ private final class ConverterInput: @unchecked Sendable {
 @MainActor protocol PreparedSpeechPair: AnyObject {
     func prepare(warmups:[String:String]) async throws
     func render(_ spans:[(text:String,language:String)]) async throws -> RenderedSpeech
+    func render(_ spans:[(text:String,language:String)], estimateWordTiming:Bool) async throws -> RenderedSpeech
     func stop()
+}
+
+extension PreparedSpeechPair {
+    func render(_ spans:[(text:String,language:String)], estimateWordTiming:Bool) async throws -> RenderedSpeech {
+        try await render(spans)
+    }
 }
 
 @MainActor final class LocalSpeechPair: PreparedSpeechPair {
@@ -251,6 +259,9 @@ private final class ConverterInput: @unchecked Sendable {
         prepared = true
     }
     func render(_ spans: [(text: String, language: String)]) async throws -> RenderedSpeech {
+        try await render(spans,estimateWordTiming:true)
+    }
+    func render(_ spans: [(text: String, language: String)], estimateWordTiming:Bool) async throws -> RenderedSpeech {
         guard prepared else { throw LocalSpeechError.notPrepared }
         guard !busy, !spans.isEmpty, spans.reduce(0, { $0 + $1.text.utf8.count }) <= FullMessageBudget.recordBytes else { throw LocalSpeechError.unavailable }
         busy = true; defer { busy = false }
@@ -258,7 +269,7 @@ private final class ConverterInput: @unchecked Sendable {
             guard voices[span.language] != nil else { throw LocalSpeechError.missingVoice(span.language) }
         }
         let normalized = SpeechChunks.coalesced(spans)
-        let identity = "native-phrase-pcm-3\0" + normalized.map { $0.language + "\0" + voices[$0.language]!.identifier + "\0" + $0.text }.joined(separator: "\0")
+        let identity = "native-phrase-pcm-4\0" + (estimateWordTiming ? "guided\0" : "native\0") + normalized.map { $0.language + "\0" + voices[$0.language]!.identifier + "\0" + $0.text }.joined(separator: "\0")
         let hash = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         let output = root.appendingPathComponent(hash + ".caf")
         let metadata = output.appendingPathExtension("words.json")
@@ -283,14 +294,18 @@ private final class ConverterInput: @unchecked Sendable {
             #endif
             // Word callbacks are optional. Resynthesizing words one at a time
             // changes the speaker’s cadence and loses punctuation context.
-            // A start-only partial mark could stay highlighted throughout the
-            // rest of the phrase, so use word highlights only for complete timing.
+            // Derive missing visual timing from this same recording.
             if !SpeechChunks.marksCoverWords(native.marks,text:span.text,language:span.language) {
                 let words = SpeechChunks.wordRanges(span.text,language:span.language)
                 if words.count == 1, let word = words.first {
                     // This entire rendered file belongs to one practice word.
                     // Its measured start is sufficient even without a callback.
                     native.marks = [.init(start:word.location,length:word.length,byteSampleOffset:0,source:"measured_single_word_pcm")]
+                } else if estimateWordTiming {
+                    let marks=native.marks
+                    native.marks=try await Task.detached(priority:.userInitiated) {
+                        try Self.guidedMarks(file:part,text:span.text,language:span.language,marks:marks)
+                    }.value
                 } else {
                     native.marks.removeAll()
                 }
@@ -310,6 +325,26 @@ private final class ConverterInput: @unchecked Sendable {
     }
     func stop() { for voice in voices.values { voice.stop() } }
 
+    private nonisolated static func guidedMarks(file url:URL,text:String,language:String,marks:[SpeechMark]) throws -> [SpeechMark] {
+        let file=try AVAudioFile(forReading:url),format=file.processingFormat
+        let frames=Int(file.length),window=max(1,Int(format.sampleRate*0.01))
+        guard frames>0,frames<10_000_000,let buffer=AVAudioPCMBuffer(pcmFormat:format,frameCapacity:AVAudioFrameCount(window*40)) else { throw LocalSpeechError.invalidAudio }
+        var energy:[Float]=[]
+        while file.framePosition<file.length {
+            try Task.checkCancellation()
+            try file.read(into:buffer)
+            guard buffer.frameLength>0,let pcm=buffer.floatChannelData else { break }
+            for start in stride(from:0,to:Int(buffer.frameLength),by:window) {
+                let end=min(Int(buffer.frameLength),start+window)
+                var sum:Float=0
+                for i in start..<end { let value=pcm[0][i];sum+=value*value }
+                energy.append(sqrt(sum/Float(end-start)))
+            }
+        }
+        let voiced=SpeechWordTiming.regions(energy:energy,window:window,frames:frames,sampleRate:format.sampleRate)
+        return SpeechWordTiming.interpolate(text:text,language:language,marks:marks,regions:voiced,
+            frames:frames,bytesPerFrame:Int(format.streamDescription.pointee.mBytesPerFrame),sampleRate:format.sampleRate)
+    }
     private nonisolated static func pruneCache(in root: URL, keeping output: URL) {
         let keys: Set<URLResourceKey> = [.fileSizeKey, .contentModificationDateKey]
         guard let files = try? FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: Array(keys)) else { return }
@@ -357,7 +392,12 @@ private final class ConverterInput: @unchecked Sendable {
                 let localFrame = Double(mark.byteSampleOffset) / Double(bytesPerFrame)
                 let outputFrame = frames + Int((localFrame * format.sampleRate / input.processingFormat.sampleRate).rounded())
                 guard outputFrame >= frames,outputFrame < frames + Int(converted.frameLength) else { continue }
-                marks.append(.init(start:textOffset+mark.start,length:mark.length,byteSampleOffset:outputFrame * Int(format.streamDescription.pointee.mBytesPerFrame),source:mark.source))
+                let outputBytes=Int(format.streamDescription.pointee.mBytesPerFrame)
+                let end=mark.endByteSampleOffset.map { offset in
+                    let local=Double(offset)/Double(bytesPerFrame)
+                    return min(frames+Int(converted.frameLength),frames+Int((local*format.sampleRate/input.processingFormat.sampleRate).rounded()))*outputBytes
+                }
+                marks.append(.init(start:textOffset+mark.start,length:mark.length,byteSampleOffset:outputFrame*outputBytes,source:mark.source,endByteSampleOffset:end))
             }
             textOffset += lengths[index]
             try destination!.write(from: converted)

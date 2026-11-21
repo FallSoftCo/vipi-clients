@@ -95,3 +95,78 @@ enum SpeechChunks {
         text.unicodeScalars.contains { CharacterSet.alphanumerics.contains($0) }
     }
 }
+
+/// Maps the native script onto the actual audio. Missing timestamps affect only
+/// visual highlighting. PCM is never split or resynthesized for this purpose.
+enum SpeechWordTiming {
+    struct VoicedRegion { let start: Int; let end: Int }
+    static func regions(energy:[Float], window:Int, frames:Int, sampleRate:Double) -> [VoicedRegion] {
+        guard frames > 0,window > 0,sampleRate > 0,let peak=energy.max(),peak > 0 else { return [] }
+        let floor = peak * 0.012
+        let pause = Int(sampleRate * 0.15)
+        var result:[VoicedRegion] = [], start:Int?,end=0
+        for (i,value) in energy.enumerated() where value > floor {
+            let frame=i*window
+            if let previous=start,frame-end >= pause {
+                result.append(.init(start:previous,end:end)); start=nil
+            }
+            if start == nil { start=frame }
+            end=min(frames,frame+window)
+        }
+        if let start,end>start { result.append(.init(start:start,end:end)) }
+        return result
+    }
+
+    static func interpolate(text:String,language:String,marks:[SpeechMark],regions:[VoicedRegion],
+                            frames:Int,bytesPerFrame:Int,sampleRate:Double) -> [SpeechMark] {
+        let words=SpeechChunks.wordRanges(text,language:language)
+        guard !words.isEmpty,let first=regions.first,let last=regions.last,bytesPerFrame>0,frames>=words.count else { return [] }
+        let ns=text as NSString
+        let weights=words.map { range in 0.55 + sqrt(Double(ns.substring(with:range).count)) }
+        let byStart=Dictionary(uniqueKeysWithValues:words.enumerated().map { ($0.element.location,$0.offset) })
+        var anchors:[Int:Int]=[:],native:[Int:SpeechMark]=[:],previousIndex = -1,previousFrame = -1
+        for mark in marks.sorted(by:{$0.byteSampleOffset < $1.byteSampleOffset}) {
+            guard let i=byStart[mark.start],mark.length>0,mark.length<=ns.length-mark.start,
+                  i>previousIndex,mark.byteSampleOffset>=0 else { continue }
+            let frame=mark.byteSampleOffset/bytesPerFrame
+            guard frame>=previousFrame+(i-previousIndex),frame<frames-(words.count-1-i) else { continue }
+            anchors[i]=frame;native[i]=mark;previousFrame=frame;previousIndex=i
+        }
+        if anchors[0]==nil { anchors[0]=min(first.start,anchors.map{$0.value-$0.key}.min() ?? first.start) }
+        anchors[words.count]=max(last.end,(anchors.map{$0.value+words.count-$0.key}.max() ?? 0))
+        let sorted=anchors.keys.sorted()
+        var starts=anchors
+        for (left,right) in zip(sorted,sorted.dropFirst()) where right>left+1 {
+            let lo=anchors[left]!,hi=anchors[right]!
+            let audible=regions.compactMap { r -> VoicedRegion? in
+                let a=max(lo,r.start),b=min(hi,r.end)
+                return a<b ? .init(start:a,end:b) : nil
+            }
+            let duration=audible.reduce(0){$0+$1.end-$1.start}
+            let total=weights[left..<right].reduce(0,+)
+            var weight=0.0,prev=lo
+            for i in (left+1)..<right {
+                weight+=weights[i-1]
+                var target=lo+Int(Double(hi-lo)*weight/total)
+                var offset=Int(Double(duration)*weight/total)
+                for region in audible {
+                    if offset<region.end-region.start { target=region.start+offset;break }
+                    offset-=region.end-region.start
+                }
+                let tail=NSMaxRange(words[i-1]),gap=NSRange(location:tail,length:words[i].location-tail)
+                if ns.substring(with:gap).rangeOfCharacter(from:CharacterSet(charactersIn:",;:.!?，；：。！？،؛؟…")) != nil,
+                   let pause=audible.dropFirst().min(by:{abs($0.start-target)<abs($1.start-target)}),
+                   Double(abs(pause.start-target)) <= sampleRate*0.24 { target=pause.start }
+                target=max(prev+1,min(hi-(right-i),target));starts[i]=target;prev=target
+            }
+        }
+        return words.indices.compactMap { i in
+            guard let begin=starts[i],let next=starts[i+1],begin>=0,next>begin else{return nil}
+            // Drop the highlight across a material pause even when a later word
+            // begins at an OS timestamp rather than an interpolated one.
+            let end=regions.first(where:{$0.start<next && $0.end>begin}).map{min(next,$0.end)} ?? next
+            return .init(start:words[i].location,length:words[i].length,byteSampleOffset:begin*bytesPerFrame,
+                         source:native[i] == nil ? "interpolated_pcm" : "native_anchor",endByteSampleOffset:max(begin+1,end)*bytesPerFrame)
+        }
+    }
+}
