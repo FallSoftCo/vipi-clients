@@ -2734,28 +2734,36 @@ final class ChatConversationTests: XCTestCase {
                 XCTAssertFalse(springboard.alerts.firstMatch.exists)
                 explanation.buttons["Continue"].tap()
                 let systemAlert = springboard.alerts.firstMatch
-                XCTAssertTrue(systemAlert.waitForExistence(timeout: 8))
                 if ProcessInfo.processInfo.environment["VIPI_INVITE_LIMITED"] == "1" {
-                    func action(_ predicate: NSPredicate) -> XCUIElement {
-                        let system = springboard.buttons.containing(predicate).firstMatch
-                        return system.exists ? system : app.buttons.containing(predicate).firstMatch
+                    // iOS may go directly to its remote selection sheet after the first system explanation.
+                    let chooser = XCUIApplication(bundleIdentifier: "com.apple.ContactsUI.LimitedAccessPromptView")
+                    if systemAlert.waitForExistence(timeout: 5) {
+                        let next = systemAlert.buttons["Continue"]
+                        if next.exists { next.tap() }
                     }
-                    let next = systemAlert.buttons["Continue"]
-                    if next.exists { next.tap() }
-                    let select = action(NSPredicate(format: "label BEGINSWITH[c] 'select' AND label CONTAINS[c] 'contact'"))
-                    XCTAssertTrue(select.waitForExistence(timeout: 7), springboard.debugDescription + app.debugDescription)
+                    let select = chooser.buttons["Select Contacts"].firstMatch
+                    XCTAssertTrue(select.waitForExistence(timeout: 40), chooser.debugDescription)
                     select.tap()
-                    let search = springboard.searchFields.firstMatch.exists ? springboard.searchFields.firstMatch : app.searchFields.firstMatch
-                    if search.waitForExistence(timeout: 3) { search.tap(); search.typeText("Vipi Cedar") }
                     let cedar = NSPredicate(format: "label CONTAINS[c] %@", "Vipi Cedar Fixture")
-                    let inApp = app.descendants(matching: .any).matching(cedar).firstMatch
-                    let inSystem = springboard.descendants(matching: .any).matching(cedar).firstMatch
-                    if inSystem.waitForExistence(timeout: 2) { inSystem.tap() }
-                    else { XCTAssertTrue(inApp.waitForExistence(timeout: 5), app.debugDescription + springboard.debugDescription); inApp.tap() }
-                    let confirm = action(NSPredicate(format: "label ==[c] 'Done' OR label ==[c] 'Continue' OR (label BEGINSWITH[c] 'Share' AND label CONTAINS[c] 'Contact')"))
-                    XCTAssertTrue(confirm.waitForExistence(timeout: 3)); confirm.tap()
-                    let share = action(NSPredicate(format: "label BEGINSWITH[c] 'Share' AND label CONTAINS[c] 'Contact'"))
-                    if share.waitForExistence(timeout: 2) { share.tap() }
+                    let pickerSearch = chooser.searchFields.firstMatch
+                    if pickerSearch.waitForExistence(timeout: 3) {
+                        pickerSearch.tap()
+                        pickerSearch.typeText("Vipi Cedar")
+                    }
+                    // ContactsUI keeps the underlying unfiltered table in the AX tree while searching.
+                    let rows = chooser.cells.matching(NSPredicate(format: "label == %@", "Vipi Cedar Fixture"))
+                    XCTAssertTrue(rows.firstMatch.waitForExistence(timeout: 5), chooser.debugDescription)
+                    let row = try XCTUnwrap(rows.allElementsBoundByIndex.first(where: { $0.isHittable }))
+                    row.tap()
+                    let closeSearch = chooser.buttons["Close"].firstMatch
+                    if closeSearch.exists && closeSearch.isHittable { closeSearch.tap() }
+                    let confirm = chooser.buttons.matching(NSPredicate(
+                        format: "label ==[c] 'Done' OR label ==[c] 'Continue' OR label MATCHES[c] 'Share (1|One) Contact(s)?'")).firstMatch
+                    XCTAssertTrue(confirm.waitForExistence(timeout: 4), chooser.debugDescription)
+                    confirm.tap()
+                    let allow = chooser.buttons["Allow Selected Contact"].firstMatch
+                    XCTAssertTrue(allow.waitForExistence(timeout: 5), chooser.debugDescription)
+                    allow.tap()
                     XCTAssertTrue(app.buttons["Manage selected contacts"].waitForExistence(timeout: 7), app.debugDescription)
                     let field = app.textFields["Search phone contacts"]; field.tap(); field.typeText("Vipi")
                     let chosen = app.buttons.containing(cedar).firstMatch
@@ -2769,6 +2777,7 @@ final class ChatConversationTests: XCTestCase {
                     XCTAssertTrue(app.buttons["Manage selected contacts"].waitForExistence(timeout: 5))
                     return
                 }
+                XCTAssertTrue(systemAlert.waitForExistence(timeout: 8))
                 let deny = systemAlert.buttons.containing(NSPredicate(format: "label CONTAINS[c] 'allow' AND (label CONTAINS[c] 'don' OR label CONTAINS[c] 'not')")).firstMatch
                 if deny.exists { deny.tap() } else { systemAlert.buttons["Continue"].tap(); springboard.buttons["Don’t Allow"].firstMatch.tap() }
                 XCTAssertTrue(app.staticTexts["Phone contacts are unavailable. You can still share an invite."].waitForExistence(timeout: 5))
