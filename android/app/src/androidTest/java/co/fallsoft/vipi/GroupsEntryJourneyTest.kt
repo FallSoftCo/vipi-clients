@@ -68,7 +68,15 @@ class GroupsEntryJourneyTest {
                 compose.waitUntil(10_000) { fixture.model.chat?.groups?.loaded == true }
                 compose.onAllNodesWithText("Create group").onFirst().performClick()
                 compose.onNodeWithText("Maximum 16 people").assertIsDisplayed()
+                val config = fixture.base.resources.configuration
+                val spot = compose.onNodeWithTag("screen-spot", useUnmergedTree = true)
+                if (config.fontScale < 1.5f && config.screenWidthDp >= 360 && config.screenHeightDp >= 480)
+                    spot.assertIsDisplayed().assertHasNoClickAction()
+                else spot.assertDoesNotExist()
+                fixture.device.waitForIdle()
+                fixture.capture("00b-new-group-illustration")
                 compose.onNodeWithText("Group name").performTextInput("Saturday practice")
+                spot.assertDoesNotExist()
                 compose.onNodeWithText("Maya").performScrollTo().performClick()
                 compose.onNodeWithText("2 of 16 people selected, including you").assertExists()
                 fixture.hideKeyboard()

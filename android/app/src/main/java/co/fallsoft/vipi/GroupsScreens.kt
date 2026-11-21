@@ -14,7 +14,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.compose.ui.semantics.*
 import androidx.compose.ui.text.font.FontWeight
@@ -119,11 +121,19 @@ import java.util.UUID
 }
 @Composable internal fun GroupCreateScreen(session: GroupsSession, people: List<ChatProfile>, onBack: () -> Unit, onCreated: (UUID) -> Unit) {
     var name by remember { mutableStateOf(session.pendingCreateTitle() ?: "") }; var selected by remember { mutableStateOf(emptySet<UUID>()) }
+    var editingName by remember { mutableStateOf(false) }
     var created by remember { mutableStateOf<UUID?>(null) }; var error by remember { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
     GroupFrame("New group", onBack) { padding ->
         LazyColumn(Modifier.fillMaxSize().padding(padding), contentPadding = PaddingValues(18.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            item { OutlinedTextField(name, { name = it }, label = { Text("Group name") }, placeholder = { Text("For example, Weekend friends") }, enabled = created == null && !session.busy, modifier = Modifier.fillMaxWidth()) }
+            item {
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    OutlinedTextField(name, { name = it }, label = { Text("Group name") },
+                        placeholder = { Text("For example, Weekend friends") }, enabled = created == null && !session.busy,
+                        modifier = Modifier.weight(1f).onFocusChanged { editingName = it.isFocused })
+                    ScreenSpot(R.drawable.vipi_spot_new_group, editingName)
+                }
+            }
             item { Text("Maximum 16 people", style = MaterialTheme.typography.bodyLarge) }
             item { Text("${selected.size + 1} of 16 people selected, including you", style = MaterialTheme.typography.titleMedium) }
             item { Column(verticalArrangement = Arrangement.spacedBy(12.dp)) { GroupPeoplePicker(people, session.account, emptySet(), selected, { selected = it; error = null }, { error = it }) } }
