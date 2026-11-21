@@ -481,8 +481,10 @@ struct BotConversationView: View {
                 }
             }.padding(14).background(VipiDesign.canvas)
         }
+        .safeAreaInset(edge:.top,spacing:0) {
+            autoplayButton.buttonStyle(.plain).frame(maxWidth:.infinity,alignment:.leading).padding(.horizontal,18)
+        }
         .toolbar {
-            ToolbarItem(placement:.topBarTrailing) { autoplayButton }
             ToolbarItem(placement: .topBarTrailing) {
             Menu {
                 Button("Copy original message",systemImage:"doc.on.doc") {
