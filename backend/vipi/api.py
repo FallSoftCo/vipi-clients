@@ -130,6 +130,10 @@ class BotInput(Input):
     messages: list[BotMessageInput] = Field(min_length=1, max_length=12)
 
 
+class NotificationEnvelopeInput(Input):
+    ticket: str = Field(min_length=80, max_length=1024)
+
+
 class PushInput(Input):
     provider: Literal["fcm", "apns"]
     environment: Literal["production", "sandbox"]
@@ -575,6 +579,16 @@ def create_app(settings: Settings, *, database=None, verifier=None, clock=None, 
                 from .push import enqueue
                 await enqueue(session, value.recipient_device_id, now(), value.expires_at)
             return message_status(value)
+
+    @app.post("/v1/notifications/envelope")
+    async def notification_envelope(body: NotificationEnvelopeInput, request: Request):
+        from .push import preview_envelope
+        async with db.sessions.begin() as session:
+            item = await preview_envelope(session, ticket=body.ticket,
+                device_id=request.headers.get("X-Vipi-Device-ID", ""),
+                device_secret=request.headers.get("X-Vipi-Device-Secret", ""), secret=settings.service_secret, now=now())
+            await consume(session, subject=request.headers["X-Vipi-Device-ID"], scope="notification-envelope", now=now().timestamp(), limit=120)
+            return JSONResponse(item, headers={"Cache-Control": "no-store"})
 
     @app.get("/v1/messages/pending")
     async def pending(request: Request, p: Annotated[Principal, Depends(principal)], after: Annotated[str | None, Query(max_length=512)] = None):

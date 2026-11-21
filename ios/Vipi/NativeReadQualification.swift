@@ -59,8 +59,11 @@ import Observation
             for subject in owner.subjects { try KeychainStore.deleteChecked(account:"profile-"+subject) }
             for id in owner.accounts {
                 try KeychainStore.deleteChecked(account:"messages-"+id.uuidString.lowercased())
-                let root = FileManager.default.urls(for:.applicationSupportDirectory,in:.userDomainMask)[0].appendingPathComponent("Messages").appendingPathComponent(id.uuidString.lowercased())
-                if FileManager.default.fileExists(atPath:root.path) { try FileManager.default.removeItem(at:root) }
+                try KeychainStore.deleteChecked(account:"notification-store-location-"+id.uuidString.lowercased())
+                for root in [NotificationAccess.legacyRoot, NotificationAccess.root].compactMap({ $0 }) {
+                    let folder = root.appendingPathComponent(id.uuidString.lowercased())
+                    if FileManager.default.fileExists(atPath:folder.path) { try FileManager.default.removeItem(at:folder) }
+                }
             }
             try FileManager.default.removeItem(at:ownerFile)
         }

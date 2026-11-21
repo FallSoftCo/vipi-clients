@@ -49,6 +49,7 @@ targets:
       - path: ../data/readings/chinese-ordinary.json
         buildPhase: resources
     dependencies:
+      - target: VipiNotificationService
       - sdk: libz.tbd
       - package: ESpeakNG
         product: libespeak-ng
@@ -106,6 +107,7 @@ targets:
         CFBundleURLTypes:
           - CFBundleURLSchemes: [co.fallsoft.vipi]
             CFBundleURLName: co.fallsoft.vipi.auth
+        VipiNotificationKeyGroup: $(AppIdentifierPrefix)co.fallsoft.vipi.notification-access
         WorkOSClientID: $(WORKOS_CLIENT_ID)
         VipiPushEnvironment: $(VIPI_PUSH_ENVIRONMENT)
         UIBackgroundModes: [remote-notification]
@@ -137,6 +139,43 @@ targets:
         Release:
           WORKOS_CLIENT_ID: ''
           VIPI_PUSH_ENVIRONMENT: production
+  VipiNotificationService:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: VipiNotificationService
+        excludes: [Info.plist, VipiNotificationService.entitlements]
+      - path: Vipi/NotificationAccess.swift
+      - path: Vipi/NotificationEnvelope.swift
+      - path: Vipi/MessageVault.swift
+      - path: Vipi/MessageJournal.swift
+      - path: Vipi/MessagingCore.swift
+      - path: Vipi/SignalKeys.swift
+      - path: Vipi/DurableSignalStore.swift
+      - path: Vipi/DeviceCredential.swift
+      - path: Vipi/SecurityNumber.swift
+      - path: Vipi/ConversationHistory.swift
+      - path: Vipi/HistoryBackupCodec.swift
+    dependencies:
+      - package: LibSignalClient
+    info:
+      path: VipiNotificationService/Info.plist
+      properties:
+        CFBundleDisplayName: Vipi Notifications
+        VipiNotificationKeyGroup: $(AppIdentifierPrefix)co.fallsoft.vipi.notification-access
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.usernotifications.service
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).NotificationService
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: co.fallsoft.vipi.NotificationService
+        CODE_SIGN_ENTITLEMENTS: VipiNotificationService/VipiNotificationService.entitlements
+        APPLICATION_EXTENSION_API_ONLY: YES
+        SKIP_INSTALL: YES
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited) VIPI_NOTIFICATION_EXTENSION
+        OTHER_LDFLAGS: $(inherited) -lsqlite3 -lc++
+        'LIBRARY_SEARCH_PATHS[sdk=iphonesimulator*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios-sim/release
+        'LIBRARY_SEARCH_PATHS[sdk=iphoneos*]': $(inherited) $(SRCROOT)/../vendor/libsignal/target/aarch64-apple-ios/release
   VipiCryptoTests:
     type: bundle.unit-test
     platform: iOS

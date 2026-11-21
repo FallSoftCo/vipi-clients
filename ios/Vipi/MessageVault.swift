@@ -21,40 +21,75 @@ final class MessageVault: @unchecked Sendable {
             .map{String(format:"%02x",$0)}.joined()
     }
 
-    init(account: UUID, directory: URL? = nil) throws {
+    init(account: UUID, directory: URL? = nil, previewKey: Data? = nil) throws {
         self.account = account
-        let root = directory ?? FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Messages")
-        var folder = root.appendingPathComponent(account.uuidString.lowercased(), isDirectory: true)
-        url = folder.appendingPathComponent("messages.sqlite")
         Self.keyLock.lock()
         defer { Self.keyLock.unlock() }
-        let keyName = "messages-\(account.uuidString.lowercased())"
-        if let data = try KeychainStore.read(account: keyName) {
-            guard data.count == 32 else { throw Failure.missingKey }
-            key = SymmetricKey(data: data)
+        let root: URL
+        #if VIPI_NOTIFICATION_EXTENSION
+        guard let directory, previewKey != nil else { throw Failure.missingKey }
+        root = directory
+        #else
+        root = try directory ?? NotificationAccess.storageRoot(for: account)
+        #endif
+        var folder = root.appendingPathComponent(account.uuidString.lowercased(), isDirectory: true)
+        url = folder.appendingPathComponent("messages.sqlite")
+        var newAccount = false
+        if let previewKey {
+            guard previewKey.count == 32, FileManager.default.fileExists(atPath: url.path) else { throw Failure.missingKey }
+            key = SymmetricKey(data: previewKey)
         } else {
-            guard !FileManager.default.fileExists(atPath: url.path) else { throw Failure.missingKey }
-            let created = SymmetricKey(size: .bits256)
-            try KeychainStore.save(created.withUnsafeBytes { Data($0) }, account: keyName)
-            key = created
+            #if VIPI_NOTIFICATION_EXTENSION
+            throw Failure.missingKey
+            #else
+            let keyName = "messages-\(account.uuidString.lowercased())"
+            if let data = try KeychainStore.read(account: keyName) {
+                guard data.count == 32, directory != nil || FileManager.default.fileExists(atPath: url.path) else { throw Failure.missingKey }
+                key = SymmetricKey(data: data)
+            } else {
+                guard !FileManager.default.fileExists(atPath: url.path) else { throw Failure.missingKey }
+                let created = SymmetricKey(size: .bits256)
+                try KeychainStore.save(created.withUnsafeBytes { Data($0) }, account: keyName)
+                key = created
+                newAccount = true
+            }
+            try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true, attributes: [.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication])
+            var values = URLResourceValues(); values.isExcludedFromBackup = true
+            try folder.setResourceValues(values)
+            #endif
         }
-        try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true, attributes: [.protectionKey: FileProtectionType.completeUntilFirstUserAuthentication])
-        var values = URLResourceValues(); values.isExcludedFromBackup = true
-        try folder.setResourceValues(values)
-        let code = sqlite3_open_v2(url.path, &database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_FULLMUTEX, nil)
+        let flags = SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX | (previewKey == nil ? SQLITE_OPEN_CREATE : 0)
+        let code = sqlite3_open_v2(url.path, &database, flags, nil)
         guard code == SQLITE_OK else { if let database { sqlite3_close(database) }; database = nil; throw Failure.database(code) }
         do {
             sqlite3_busy_timeout(database, 5000)
             try execute("PRAGMA journal_mode=WAL")
             try execute("PRAGMA synchronous=FULL")
-            try execute("CREATE TABLE IF NOT EXISTS records (kind TEXT NOT NULL, id TEXT NOT NULL, value BLOB NOT NULL, PRIMARY KEY(kind,id))")
+            if previewKey == nil { try execute("CREATE TABLE IF NOT EXISTS records (kind TEXT NOT NULL, id TEXT NOT NULL, value BLOB NOT NULL, PRIMARY KEY(kind,id))") }
             try transaction {
                 if let version = try get("metadata", "schema") {
                     guard version == Data([1]) else { throw Failure.incompatible }
-                } else { try put("metadata", "schema", Data([1])) }
+                } else {
+                    guard previewKey == nil else { throw Failure.incompatible }
+                    try put("metadata", "schema", Data([1]))
+                    if newAccount {
+                        try put("local", "outside-previews", JSONEncoder().encode(NotificationConsent()))
+                        try put("local", "foreground-previews", Data([1]))
+                    }
+                }
             }
         } catch { sqlite3_close(database); database = nil; throw error }
     }
+    func notificationConsent() throws -> NotificationConsent? {
+        guard let data = try get("local", "outside-previews"), data != Data([0]) else { return nil }
+        return try JSONDecoder().decode(NotificationConsent.self, from: data)
+    }
+    #if !VIPI_NOTIFICATION_EXTENSION
+    func authorizeNotifications(_ consent: NotificationConsent) throws {
+        guard url.deletingLastPathComponent().deletingLastPathComponent().standardizedFileURL == NotificationAccess.root?.standardizedFileURL else { return }
+        try NotificationAccess.authorize(.init(account: account, epoch: consent.epoch, key: key.withUnsafeBytes { Data($0) }))
+    }
+    #endif
     deinit { if let database { sqlite3_close(database) } }
     func close() throws {
         lock.lock(); defer { lock.unlock() }

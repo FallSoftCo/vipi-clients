@@ -115,10 +115,11 @@ final class MessagingCore {
         }
         return RoutedMessage(envelope: envelope, senderDevice: device.id, recipientDevice: target)
     }
-    func receive(_ value: RoutedMessage, now: Int64) throws -> StoredChat {
+    func receive(_ value: RoutedMessage, now: Int64, validate: () throws -> Void = {}, onNew: () -> Void = {}, commitMetadata: () throws -> Void = {}) throws -> StoredChat {
         guard value.recipientDevice == device.id else { throw MessageJournal.Failure.invalidMessage }
         let peer = value.envelope.sender.uuidString.lowercased(), sender = Data(value.senderDevice.uuidString.lowercased().utf8)
-        return try journal.receive(value.envelope, now: now, validateRoute: {
+        return try journal.receive(value.envelope, now: now, onNew: onNew, commitMetadata: commitMetadata, validateRoute: {
+            try validate()
             if let stored = try vault.get("incoming-route", value.envelope.id.uuidString.lowercased()) {
                 guard stored == sender, try vault.get("incoming", value.envelope.id.uuidString.lowercased()) != nil else { throw MessageJournal.Failure.conflict }
                 return // Journal still checks the exact committed envelope hash.
