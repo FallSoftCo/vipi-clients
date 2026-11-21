@@ -59,6 +59,9 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
     }
     private(set) var error: String?
     private(set) var activeMessage: String?
+    private(set) var activeFace: ImmersionTextFace?
+    private(set) var activePracticeWordID: Int?
+    func matchesDisplayedFace(_ face: ImmersionTextFace?) -> Bool { activeFace == face }
     private(set) var autoplayOwned = false
     struct Completion: Equatable { let serial:UInt64; let message:String; let succeeded:Bool }
     private(set) var playbackSerial: UInt64 = 0
@@ -122,13 +125,13 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
     }
 
     /// Start or replace practice playback without toggling the selected item off.
-    func start(message: String, spans: [(text: String, language: String)], autoplay: Bool = false, pauseBetweenSpans: Bool = false) {
+    func start(message: String, spans: [(text: String, language: String)], autoplay: Bool = false, pauseBetweenSpans: Bool = false, face: ImmersionTextFace? = nil, wordID: Int? = nil) {
         if activeMessage == message { stop() }
-        toggle(message:message,spans:spans,pauseBetweenSpans:pauseBetweenSpans)
+        toggle(message:message,spans:spans,pauseBetweenSpans:pauseBetweenSpans,face:face,wordID:wordID)
         if activeMessage == message { autoplayOwned = autoplay }
     }
 
-    func toggle(message: String, spans: [(text: String, language: String)], pauseBetweenSpans: Bool = false) {
+    func toggle(message: String, spans: [(text: String, language: String)], pauseBetweenSpans: Bool = false, face: ImmersionTextFace? = nil, wordID: Int? = nil) {
         guard ready, let pair else { return }
         if activeMessage == message { stop(); return }
         #if DEBUG
@@ -138,7 +141,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
         stop()
         let request = epoch
         playbackSerial &+= 1
-        activeMessage = message; state = .rendering; error = nil
+        activeMessage = message; activeFace = face; activePracticeWordID = wordID; state = .rendering; error = nil
         rendering = Task { [weak self] in
             // Await cancellation cleanup before reusing AVSpeechSynthesizer.
             await previous?.value
@@ -246,7 +249,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
         // Keep the task reference until the next request has awaited its cleanup.
         player?.stop(); engine?.stop(); player = nil; engine = nil; scheduled.removeAll()
         if sessionActive { try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation); sessionActive = false }
-        activeMessage = nil; autoplayOwned = false
+        activeMessage = nil; activeFace = nil; activePracticeWordID = nil; autoplayOwned = false
         if ready { state = .ready }
     }
     func close() {

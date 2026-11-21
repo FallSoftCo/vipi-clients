@@ -9,6 +9,14 @@ enum ReadingMode: String, CaseIterable, Identifiable {
     var label: String { self == .original ? String(localized:"Original message") : String(localized:"Full translation") }
 }
 
+/// The speech requested by a gesture belongs to the text the reader touched.
+struct DisplayedPracticeAudio {
+    let face: ImmersionTextFace?
+    let spans: [(text:String, language:String)]
+    let incremental: Bool
+    var wordID: Int? = nil
+}
+
 /// Shared by visible and subsequently loaded rows, never by private message storage.
 @MainActor @Observable final class ChatReadingState {
     private let defaults:UserDefaults
@@ -26,19 +34,20 @@ enum ReadingMode: String, CaseIterable, Identifiable {
         var frame: CGRect
         let activate: (Bool) -> Bool
         var hasAlternateScript = false
+        var audio: DisplayedPracticeAudio? = nil
     }
     private(set) var hasAlternateScript = false
     @ObservationIgnored private var rows: [String:Row] = [:]
     @ObservationIgnored private var pendingPlayback: ImmersionRequestIdentity?
     @ObservationIgnored private var playbackOwner: UUID?
-    @ObservationIgnored private var manualPlayback: ((ImmersionRequestIdentity)->Void)?
+    @ObservationIgnored private var manualPlayback: ((ImmersionRequestIdentity, DisplayedPracticeAudio?)->Void)?
     @ObservationIgnored private var hintFrames:[UUID:CGRect] = [:]
     func setHintFrame(_ frame:CGRect,owner:UUID) {
         if frame.isNull || frame.isEmpty { hintFrames.removeValue(forKey:owner) }
         else { hintFrames[owner] = frame }
     }
     func removeHintFrame(owner:UUID) { hintFrames.removeValue(forKey:owner) }
-    func bindPlayback(owner:UUID,play:@escaping(ImmersionRequestIdentity)->Void) { playbackOwner = owner; manualPlayback = play; pendingPlayback = nil }
+    func bindPlayback(owner:UUID,play:@escaping(ImmersionRequestIdentity, DisplayedPracticeAudio?)->Void) { playbackOwner = owner; manualPlayback = play; pendingPlayback = nil }
     func unbindPlayback(owner:UUID) { if playbackOwner == owner { playbackOwner = nil; manualPlayback = nil; pendingPlayback = nil } }
     func cancelPendingPlayback() { pendingPlayback = nil }
     func register(_ row: Row) {
@@ -55,9 +64,15 @@ enum ReadingMode: String, CaseIterable, Identifiable {
         let available = rows.values.contains { $0.hasAlternateScript }
         if available != hasAlternateScript { hasAlternateScript = available }
     }
-    func activate(_ identity: ImmersionRequestIdentity, start: Bool = false) {
+    func activate(_ identity: ImmersionRequestIdentity, start: Bool = false, audio requested: DisplayedPracticeAudio? = nil) {
         learnedGesture()
-        if let manualPlayback { pendingPlayback = nil; manualPlayback(identity); return }
+        let row = rows[identity.messageID]
+        if let requested, row?.identity != identity || row?.audio?.face != requested.face { return }
+        if let manualPlayback {
+            pendingPlayback = nil
+            manualPlayback(identity,requested ?? (row?.identity == identity ? row?.audio : nil))
+            return
+        }
         guard let row = rows[identity.messageID], row.identity == identity else { return }
         if pendingPlayback == identity && !start { pendingPlayback = nil; return }
         if row.activate(start) { pendingPlayback = nil } else { pendingPlayback = identity }
@@ -279,7 +294,6 @@ struct ImmersionBubble: View {
     var identity: ImmersionRequestIdentity? = nil
     var incremental = false
     var transitionFace: ImmersionTextFace?
-    var awaitingMode = false
     @State private var localReading = ChatReadingState()
     @State private var frame = CGRect.zero
     @State private var playbackAlignment:[FullSentenceReadings.Alignment] = []
@@ -294,12 +308,12 @@ struct ImmersionBubble: View {
         return controls.nativeScript ? practice : (fullReading ?? practice)
     }
     private func play(start: Bool) -> Bool {
-        guard !awaitingMode, scenePhase == .active, let speech else { return false }
+        guard scenePhase == .active, let speech else { return false }
         let span = playbackSpans
         guard !span.isEmpty else { return true }
         if speech.state == .unavailable { onVoiceHelp?(); return true }
         guard speech.state != .preparing else { return false }
-        if start { speech.start(message:messageID,spans:span,pauseBetweenSpans:incremental) } else { speech.toggle(message:messageID,spans:span,pauseBetweenSpans:incremental) }
+        if start { speech.start(message:messageID,spans:span,pauseBetweenSpans:incremental,face:transitionFace) } else { speech.toggle(message:messageID,spans:span,pauseBetweenSpans:incremental,face:transitionFace) }
         return true
     }
     private var playbackSpans:[(text:String,language:String)] {
@@ -319,20 +333,22 @@ struct ImmersionBubble: View {
         return spans
     }
     private var playing:SpeechPlayback.ActiveWord? {
-        guard !controls.showingMeaning,mode != .original,speech?.activeMessage == messageID else { return nil }
+        guard !controls.showingMeaning,mode != .original,speech?.activeMessage == messageID, speech?.matchesDisplayedFace(transitionFace) == true else { return nil }
         return speech?.activeWord
     }
     private var hasAlternateScript: Bool { fullReading.map { !$0.isEmpty && $0 != practice } ?? false }
-    private func register() { controls.register(.init(identity:binding,frame:frame,activate:play,hasAlternateScript:hasAlternateScript)) }
+    private func register() { controls.register(.init(identity:binding,frame:frame,activate:play,hasAlternateScript:hasAlternateScript,
+        audio:.init(face:transitionFace,spans:playbackSpans,incremental:incremental))) }
     private var native: StableImmersionText {
         let revealed = controls.showingMeaning || mode == .original ? Set(result.spans.map(\.id)) : Set<Int>()
         var view = StableImmersionText(result:incremental ? result : .sourceOnly(original:displayed,target:targetLanguage),
             revealed:revealed,script:incremental ? controls.nativeScript : true,onWord:{ id in
-                guard !awaitingMode,UIAccessibility.isVoiceOverRunning,let word = result.spans.first(where:{$0.id == id}) else { return }
-                speech?.toggle(message:messageID,spans:[(word.translated,targetLanguage)])
+                guard UIAccessibility.isVoiceOverRunning,let word = result.spans.first(where:{$0.id == id}) else { return }
+                let audio = DisplayedPracticeAudio(face:transitionFace,spans:[(word.translated,targetLanguage)],incremental:true,wordID:id)
+                if reading != nil { controls.activate(binding,audio:audio) }
+                else { speech?.toggle(message:messageID,spans:audio.spans,face:transitionFace,wordID:id) }
             },onSelection:{_ in})
         view.transitionFace = transitionFace
-        view.practiceWordActionsEnabled = !awaitingMode
         view.fitsContentWidth = embedded
         view.reservedSentences = incremental ? [] : faces
         view.sentenceIdentity = String(describing:binding)+"|"+faces.joined(separator:"\u{0}")
@@ -341,9 +357,11 @@ struct ImmersionBubble: View {
             if incremental {
                 // Map the PCM marker through the exact practice speech spans
                 // and the immutable replacement. Highlight the whole native word.
-                let spoken = playbackSpans.map(\.text).joined() as NSString
+                let selected = speech?.activePracticeWordID
+                let words = result.spans.filter { selected == nil || selected == $0.id }
+                let spoken = (selected == nil ? playbackSpans.map(\.text) : words.map(\.translated)).joined() as NSString
                 var cursor = 0
-                for span in result.spans {
+                for span in words {
                     let found = spoken.range(of:span.translated,options:.literal,range:NSRange(location:cursor,length:spoken.length-cursor))
                     guard found.location != NSNotFound else { break }
                     cursor = NSMaxRange(found)
@@ -408,7 +426,7 @@ struct ImmersionBubble: View {
         }
         .onChange(of:controls.showingMeaning) { _,meaning in if meaning { speech?.stop() } }
         .onChange(of:binding) { old,_ in controls.remove(old); register() }
-        .onChange(of:awaitingMode) { register() }
+        .onChange(of:transitionFace) { register() }
         .onChange(of:result) { register() }
         .onChange(of:fullReading) { register() }
         .onChange(of:speech?.state) { register() }
@@ -484,9 +502,10 @@ struct ImmersionBubble: View {
         guard enabled,foreground,message.eligible else { return }
         queue.append(message); resume(immersion:immersion,speech:speech,foreground:foreground)
     }
-    func manual(_ identity:ImmersionRequestIdentity,immersion:ConversationImmersion,speech:SpeechPlayback,
+    func manual(_ identity:ImmersionRequestIdentity,displayed:DisplayedPracticeAudio? = nil,immersion:ConversationImmersion,speech:SpeechPlayback,
                 onModels:@escaping(TranslationPair)->Void,onVoiceHelp:@escaping()->Void) {
         bind(speech)
+        guard identity == immersion.identity(messageID:identity.messageID,text:identity.text) else { return }
         let sameAutomatic = currentAutomaticID == identity.messageID && pendingManualID == nil && (speech.activeMessage == nil || speech.activeMessage == identity.messageID)
         if speech.activeMessage == identity.messageID || pendingManualID == identity.messageID || sameAutomatic { stop(speech:speech); return }
         if let currentAutomaticID { consumed.insert(currentAutomaticID); queue.removeAll{$0.id == currentAutomaticID}; self.currentAutomaticID = nil }
@@ -497,20 +516,27 @@ struct ImmersionBubble: View {
         manualTask = Task { @MainActor [weak self,weak immersion,weak speech] in
             guard let self,let immersion,let speech else { return }
             defer { if manualEpoch == selected { manualTask = nil; pendingManualID = nil } }
-            switch immersion.phase(for:identity) {
-            case .failed,.timedOut: immersion.retry(identity)
-            case .needsDownload,.unsupported: onModels(immersion.requiredPair(for:identity)); return
-            default: break
+            let audio: DisplayedPracticeAudio
+            if let displayed { audio = displayed }
+            else {
+                switch immersion.phase(for:identity) {
+                case .failed,.timedOut: immersion.retry(identity)
+                case .needsDownload,.unsupported: onModels(immersion.requiredPair(for:identity)); return
+                default: break
+                }
+                guard let value = await immersion.translatedMessage(for:identity) else { return }
+                audio = .init(face:.init(scope:immersion.displayGeneration,message:identity.messageID,mode:immersion.mode),
+                    spans:value.practiceSpeech.map{($0.text,$0.language)},incremental:value.words != nil)
             }
-            guard let value = await immersion.translatedMessage(for:identity),!Task.isCancelled,
-                  active == epoch,selected == manualEpoch else { return }
-            guard !value.practiceSpeech.isEmpty else { return }
+            guard !audio.spans.isEmpty else { return }
             while speech.state == .preparing {
                 guard !Task.isCancelled,active == epoch,selected == manualEpoch else { return }
                 do { try await Task.sleep(for:.milliseconds(30)) } catch { return }
             }
             guard speech.state != .unavailable else { onVoiceHelp(); return }
-            speech.start(message:identity.messageID,spans:value.practiceSpeech.map{($0.text,$0.language)},pauseBetweenSpans:value.words != nil)
+            guard !Task.isCancelled,active == epoch,selected == manualEpoch,
+                  identity == immersion.identity(messageID:identity.messageID,text:identity.text) else { return }
+            speech.start(message:identity.messageID,spans:audio.spans,pauseBetweenSpans:audio.incremental,face:audio.face,wordID:audio.wordID)
             let serial = speech.playbackSerial
             while speech.activeMessage == identity.messageID {
                 guard !Task.isCancelled,active == epoch,selected == manualEpoch else { return }
@@ -546,7 +572,8 @@ struct ImmersionBubble: View {
                 guard !Task.isCancelled,epoch == active else { return }
                 if consumed.contains(next.id) { if queue.first?.id == next.id { queue.removeFirst() }; continue }
                 if speech.state == .unavailable { missingVoice(speech); return }
-                speech.start(message:next.id,spans:value.practiceSpeech.map{($0.text,$0.language)},autoplay:true,pauseBetweenSpans:value.words != nil)
+                speech.start(message:next.id,spans:value.practiceSpeech.map{($0.text,$0.language)},autoplay:true,pauseBetweenSpans:value.words != nil,
+                    face:.init(scope:immersion.displayGeneration,message:next.id,mode:immersion.mode))
                 let serial = speech.playbackSerial
                 while speech.activeMessage == next.id {
                     guard !Task.isCancelled,epoch == active else { return }

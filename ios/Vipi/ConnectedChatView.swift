@@ -774,8 +774,8 @@ struct FriendConversationView: View {
             conversationActive = true
             chat.visibleMessages(peer,incoming:[],outgoing:[])
             reportVisibleMessages()
-            state.chatReading.bindPlayback(owner:autoplay.ownerID) { identity in
-                autoplay.manual(identity,immersion:immersion,speech:speech,onModels:{translationHelpPair = $0; showTranslationHelp = true},onVoiceHelp:{showVoiceHelp = true})
+            state.chatReading.bindPlayback(owner:autoplay.ownerID) { identity,displayed in
+                autoplay.manual(identity,displayed:displayed,immersion:immersion,speech:speech,onModels:{translationHelpPair = $0; showTranslationHelp = true},onVoiceHelp:{showVoiceHelp = true})
             }
             if messageObserver == nil {
                 messageObserver = chat.observeNewMessages { event in

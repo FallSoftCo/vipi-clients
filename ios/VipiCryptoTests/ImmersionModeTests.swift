@@ -75,6 +75,54 @@ import VipiCore
         XCTAssertNil(owner.translation(for:deleted)); XCTAssertNil(owner.previousModeTranslation(for:deleted))
         owner.close()
     }
+    @MainActor private final class PendingFaceVoice: PreparedSpeechPair {
+        var words: [String] = []
+        func prepare(warmups:[String:String]) async throws {}
+        func render(_ spans:[(text:String,language:String)]) async throws -> RenderedSpeech {
+            words += spans.map(\.text)
+            try await Task.sleep(for:.seconds(10))
+            throw CancellationError()
+        }
+        func stop() {}
+    }
+    func testTapDuringPendingDeepPlaysVisibleShallowFaceAndNeverHighlightsDeep() async throws {
+        let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in "en"},
+            nativeTranslation:{text,_ in text == "water bread" ? "agua y pan" : "agua"})
+        let voice = PendingFaceVoice(), playback = ChatAutoplay(), reading = ChatReadingState()
+        let speech = SpeechPlayback(pairFactory:{_,_,_ in voice})
+        defer { reading.unbindPlayback(owner:playback.ownerID); playback.stop(speech:speech); speech.close(); owner.close() }
+        await owner.configure(pair:pair)
+        let original = owner.identity(messageID:"row",text:"water bread")
+        let resolved = await owner.translatedMessage(for:original)
+        let shallow = try XCTUnwrap(resolved)
+        await owner.configure(pair:pair,mode:.fullMessages)
+        let pending = owner.identity(messageID:"row",text:original.text)
+        XCTAssertNil(owner.translation(for:pending))
+        let shallowFace = ImmersionTextFace(scope:owner.displayGeneration,message:"row",mode:.incremental)
+        let deepFace = ImmersionTextFace(scope:owner.displayGeneration,message:"row",mode:.fullMessages)
+        let audio = DisplayedPracticeAudio(face:shallowFace,spans:shallow.practiceSpeech.map{($0.text,$0.language)},incremental:true)
+        reading.bindPlayback(owner:playback.ownerID) { key,displayed in
+            playback.manual(key,displayed:displayed,immersion:owner,speech:speech,onModels:{_ in XCTFail()},onVoiceHelp:{XCTFail()})
+        }
+        let frame = CGRect(x:0,y:0,width:180,height:60)
+        reading.register(.init(identity:pending,frame:frame,activate:{_ in XCTFail(); return false},audio:audio))
+        speech.prepare(source:"en",target:"es",warmups:[:])
+        let deadline = ContinuousClock.now.advanced(by:.seconds(4))
+        while speech.state == .preparing && ContinuousClock.now < deadline { await Task.yield() }
+        XCTAssertEqual(speech.state,.ready)
+        playback.toggle(snapshot:[],immersion:owner,speech:speech)
+        reading.tap(at:.init(x:20,y:20))
+        while voice.words.isEmpty && ContinuousClock.now < deadline { await Task.yield() }
+        XCTAssertEqual(voice.words,["agua"]); XCTAssertEqual(speech.activeMessage,"row")
+        XCTAssertFalse(speech.autoplayOwned); XCTAssertTrue(playback.enabled)
+        XCTAssertTrue(speech.matchesDisplayedFace(shallowFace))
+        let deep = await owner.translatedMessage(for:pending)
+        XCTAssertEqual(deep?.practiceText,"agua y pan")
+        XCTAssertFalse(speech.matchesDisplayedFace(deepFace))
+        XCTAssertEqual(speech.playbackSerial,1)
+        playback.manual(original,displayed:audio,immersion:owner,speech:speech,onModels:{_ in XCTFail()},onVoiceHelp:{XCTFail()})
+        XCTAssertEqual(speech.activeMessage,"row","A stale identity cannot stop or start current playback.")
+    }
     func testTransientIncrementalPlanSurvivesFullModeAndLateOldResultCannotCommit() async throws {
         var calls = 0
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in nil},nativeTranslation:{text,_ in calls += 1; return "translated "+text})

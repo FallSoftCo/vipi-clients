@@ -412,7 +412,6 @@ struct StableImmersionText: UIViewRepresentable {
     var reservedSentences: [String] = []
     var sentenceIdentity: String? = nil
     var transitionFace: ImmersionTextFace?
-    var practiceWordActionsEnabled = true
     var fullMessage = false
     var incremental = false
     var playingRange:NSRange?
@@ -545,7 +544,7 @@ struct StableImmersionText: UIViewRepresentable {
             ? String(localized: "Automatic switching pauses while VoiceOver is on. Use the word actions to switch meanings. Reading options changes the language or script.")
             : String(localized: "Words switch automatically. Pause holds the current words. Reading options changes the pace or script.")
         }
-        view.accessibilityCustomActions = (practiceWordActionsEnabled ? result.spans : []).map { word in
+        view.accessibilityCustomActions = result.spans.map { word in
             let repeated = result.spans.filter { $0.original == word.original && $0.displayedTarget == word.displayedTarget }
             let name: String
             if fullMessage {
