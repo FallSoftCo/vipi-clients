@@ -29,7 +29,10 @@ class RegularMediaPairDeviceTest {
     private val runID get() = config.getString("run").also { require(it.matches(Regex("[a-zA-Z0-9-]{1,96}"))) }
     private val stateFile get() = File(app.filesDir, "regular-media-ui-$runID-state.json")
     private fun readState() = JSONObject(stateFile.readText())
-    private fun model(): VipiModel {
+    private fun exactFixtureSession(session: JSONObject, expected: JSONObject): Boolean =
+        session.length() == expected.length() && expected.keys().asSequence().all { key -> session.opt(key) == expected.get(key) }
+
+    private fun model(useRetainedSession: Boolean): VipiModel {
         val c = config
         require(c.getBoolean("isolated_signed_authentication"))
         val endpoint = c.getString("endpoint")
@@ -37,9 +40,14 @@ class RegularMediaPairDeviceTest {
         val subject = c.getString("expected_subject")
         require(subject.startsWith("user_localpair_"))
         val records = PrivateRecords(app)
-        check(records.read("session") == null)
-        records.write("session", IdentityAuthority.FALLSOFT_VIPI_PRODUCTION.tag(JSONObject()
-            .put("userID", subject).put("accessToken", c.getString("access_token")).put("refreshToken", "inert-local-no-refresh")))
+        val expectedSession = IdentityAuthority.FALLSOFT_VIPI_PRODUCTION.tag(JSONObject()
+            .put("userID", subject).put("accessToken", c.getString("access_token")).put("refreshToken", "inert-local-no-refresh"))
+        if (useRetainedSession) {
+            check(exactFixtureSession(requireNotNull(records.read("session")), expectedSession))
+        } else {
+            check(records.read("session") == null)
+            records.write("session", expectedSession)
+        }
         val boundary = object : VipiWorkflowBoundary {
             override fun transport(authentication: Authentication, userID: String): ChatTransport {
                 check(userID == subject)
@@ -61,16 +69,19 @@ class RegularMediaPairDeviceTest {
         if (!c.getString("username").startsWith("vma")) error("Dedicated media identity required")
         val owner = PrivateRecords(app)
         val marker = File(app.filesDir, "regular-media-ui-$runID-${label}.json")
-        check(!marker.exists() && owner.read("session") == null)
+        val retained = owner.read("session")
+        check(!marker.exists() && (retained == null || label == "voice-playback"))
         try {
-            MainActivityJourneyFixture("regular-media-ui-$label", { model() }).use { f ->
+            MainActivityJourneyFixture("regular-media-ui-$label", { model(retained != null) }).use { f ->
                 action(f)
                 marker.writeText(JSONObject().put("run", c.getString("run")).put("stage", label)
                     .put("pid", android.os.Process.myPid()).put("terminal", "passed").toString())
             }
         } finally {
             val current = owner.read("session")
-            if (current != null) {
+            if (retained != null) {
+                check(current != null && exactFixtureSession(current, retained))
+            } else if (current != null) {
                 check(current.getString("userID") == c.getString("expected_subject"))
                 owner.remove("session")
             }
