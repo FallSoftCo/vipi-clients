@@ -425,10 +425,7 @@ class MainActivity : ComponentActivity() {
     }
     SettingsGroup(stringResource(R.string.settings_about)) {
         listOf(R.string.nav_help to "help", R.string.nav_privacy to "privacy", R.string.nav_terms to "terms").forEach { (title, path) ->
-            if (title == R.string.nav_privacy) {
-                PrivacyPromise()
-                Text(stringResource(R.string.privacy_claim_chat_sale), style = MaterialTheme.typography.bodyMedium, color = secondary)
-            }
+            if (title == R.string.nav_privacy) SettingsPrivacyPromise()
             SettingsAction(stringResource(title)) {
                 runCatching { uri.openUri("https://api.mambovipi.app/$path") }.onFailure { linkError = context.getString(R.string.settings_page_open_failed) }
             }

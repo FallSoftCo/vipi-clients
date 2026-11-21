@@ -8629,6 +8629,89 @@
         }
       }
     },
+    "Certified Zucker Free, FallSoft’s privacy mark": {
+      "comment": "Accessible name of FallSoft’s own privacy mark. Keep the name Certified Zucker Free in English.",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free, FallSoft’s privacy mark"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free, el sello de privacidad de FallSoft"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free, le label de confidentialité de FallSoft"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free, das Datenschutzzeichen von FallSoft"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free, il marchio di FallSoft per la privacy"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free, o selo de privacidade da FallSoft"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free, o selo de privacidade da FallSoft"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free、FallSoftのプライバシーマーク"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free, FallSoft의 개인정보 보호 마크"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free，FallSoft 的隐私标志"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free，FallSoft 的隱私標誌"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free، علامة الخصوصية الخاصة بـ FallSoft"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Certified Zucker Free, alama ya faragha ya FallSoft"
+          }
+        }
+      }
+    },
     "FallSoft’s privacy promise": {
       "comment": "FallSoft is the issuer of the promise shown beside its Certified Zucker Free sticker.",
       "localizations": {

@@ -496,27 +496,42 @@ struct BotIntroductionView: View {
     }
 }
 
+private struct PrivacyPromiseMark: View {
+    let maxWidth: CGFloat
+    var body: some View {
+        Image("PrivacyMarkFull")
+            .resizable().scaledToFit()
+            .frame(maxWidth: maxWidth)
+            .accessibilityLabel("Certified Zucker Free, FallSoft’s privacy mark")
+            .frame(maxWidth: .infinity)
+    }
+}
+
 struct PrivacyPromiseView: View {
     static let policy = URL(string: "https://api.mambovipi.app/privacy")!
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                Image("PrivacyMarkFull").resizable().scaledToFit().frame(maxWidth: 192)
-                    .accessibilityLabel(Text(verbatim: "Certified Zucker Free"))
-                Text("We don’t sell your chat content.").font(.title2.bold())
+            VStack(alignment: .leading, spacing: 22) {
+                VStack(spacing: 6) {
+                    PrivacyPromiseMark(maxWidth: 392)
+                    Text("FallSoft’s privacy promise").font(.subheadline.weight(.semibold))
+                        .foregroundStyle(VipiDesign.secondary).multilineTextAlignment(.center)
+                }
+                Text("We don’t sell your chat content.")
+                    .font(.title2.bold()).accessibilityAddTraits(.isHeader)
                 Text("Phone contacts stay on this device. Vipi saves your Vipi friends separately.")
-                Link("Privacy Policy", destination: Self.policy)
-                    .frame(minHeight: 44)
+                Link("Privacy Policy", destination: Self.policy).frame(minHeight: 44)
             }
             .frame(maxWidth: 560, alignment: .leading).padding(24)
-            .frame(maxWidth: .infinity, alignment: .center)
+            .frame(maxWidth: .infinity)
         }
         .background(VipiDesign.canvas).foregroundStyle(VipiDesign.ink)
-        .navigationTitle("FallSoft’s privacy promise").navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Privacy").navigationBarTitleDisplayMode(.inline)
     }
 }
 
 struct SettingsView: View {
+    @State private var showingPrivacy = false
     var chat: ChatSession? = nil
     var subscriptions: SubscriptionStore? = nil
     var closeBot: () throws -> Void = {}
@@ -570,9 +585,25 @@ struct SettingsView: View {
                     NavigationLink("Notifications") { NotificationSettingsView(chat: chat) }
                 }
             }
+            Section("Privacy") {
+                Button { showingPrivacy = true } label: {
+                    VStack(spacing: 8) {
+                        PrivacyPromiseMark(maxWidth: 304).accessibilityHidden(true)
+                        HStack(spacing: 6) {
+                            Text("FallSoft’s privacy promise").font(.headline)
+                                .multilineTextAlignment(.center)
+                            Image(systemName: "chevron.forward").font(.caption.bold())
+                                .dynamicTypeSize(...DynamicTypeSize.xxxLarge).accessibilityHidden(true)
+                        }
+                    }
+                    .padding(.vertical, 10).frame(maxWidth: .infinity)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityValue("Certified Zucker Free, FallSoft’s privacy mark")
+                .accessibilityIdentifier("settings-privacy-promise")
+            }
             Section {
-                NavigationLink("FallSoft’s privacy promise") { PrivacyPromiseView() }
-                    .accessibilityIdentifier("settings-privacy-promise")
                 Link("Terms of Service", destination: URL(string: "https://api.mambovipi.app/terms")!)
                 Link("Help and safety", destination: URL(string: "https://api.mambovipi.app/help")!)
                 NavigationLink("Licenses and notices") { NoticesView() }
@@ -603,6 +634,7 @@ struct SettingsView: View {
                 } header: { Text("Account").foregroundStyle(VipiDesign.secondary) }
             }
         }.scrollContentBackground(.hidden).background(VipiDesign.canvas).navigationTitle("Settings")
+        .navigationDestination(isPresented: $showingPrivacy) { PrivacyPromiseView() }
         .toolbarBackground(VipiDesign.canvas, for: .navigationBar).toolbarBackground(.visible, for: .navigationBar).navigationBarTitleDisplayMode(.inline)
     }
 }
