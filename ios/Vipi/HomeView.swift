@@ -23,7 +23,7 @@ struct HomeView: View {
         let language = VipiLanguage.initial.first { $0.id == state.targetLanguage }
         let locale = Bundle.main.preferredLocalizations.first.map { Locale(identifier:$0) } ?? .current
         let name = language?.localizedName ?? locale.localizedString(forLanguageCode:state.targetLanguage) ?? state.targetLanguage
-        HStack(spacing:7) {
+        return HStack(spacing:7) {
             VipiMark(size:44,accessibleName:"Vipi")
                 .accessibilityValue(Text("Chats")).accessibilityAddTraits(.isHeader)
                 .accessibilityIdentifier("inbox-wordmark")
