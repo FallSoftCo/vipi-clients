@@ -204,6 +204,14 @@ struct FriendConversationView: View {
     @State private var viewportLeadingInset: CGFloat = 0
     @State private var latestScrollY: CGFloat = 0
     @State private var scrollOffset: CGFloat = 0
+    private struct ModeReadingAnchor {
+        let message: UUID
+        let top: CGFloat
+        let mode: ImmersionMode
+        let visibleIDs: Set<UUID>
+    }
+    @State private var modeAnchor: ModeReadingAnchor?
+    @State private var modeAnchorTask: Task<Void,Never>?
     @State private var pageAnchorID: UUID?
     @State private var pageAnchorFrame = CGRect.zero
     @State private var pageRestore: Task<Void, Never>?
@@ -293,7 +301,35 @@ struct FriendConversationView: View {
         self.chat = chat; self.peer = peer; usesAppTranslationServices = immersion == nil
         _immersion = State(initialValue: immersion ?? ConversationImmersion())
     }
+    private func captureModeAnchor(for mode: ImmersionMode) {
+        modeAnchorTask?.cancel(); modeAnchorTask = nil; modeAnchor = nil
+        guard !followingLatest, !scrolling, pageRestore == nil, textSizeRestore == nil else { return }
+        let viewport = visibleTimeline
+        let visible = messageFrames.filter { $0.value.intersects(viewport) }
+        guard let first = visible.min(by:{ $0.value.minY < $1.value.minY }) else { return }
+        modeAnchor = .init(message:first.key, top:first.value.minY - viewport.minY,
+                           mode:mode, visibleIDs:Set(visible.keys))
+    }
+    private func settleModeAnchor() {
+        guard modeAnchor != nil, modeAnchorTask == nil else { return }
+        modeAnchorTask = Task { @MainActor in
+            // Read all updated lazy-row frames from the same layout pass.
+            do { try await Task.sleep(for:.milliseconds(16)) } catch { return }
+            modeAnchorTask = nil
+            guard let anchor = modeAnchor, !followingLatest, !userScrolling, !copyOriginal.holdingLayout,
+                  immersion.mode == anchor.mode, let row = messageFrames[anchor.message] else { return }
+            let delta = row.minY - visibleTimeline.minY - anchor.top
+            if abs(delta) > 0.5 {
+                scrollVertically(to:scrollOffset + delta)
+            } else if messages.lazy.filter({ anchor.visibleIDs.contains($0.id) }).allSatisfy({
+                immersion.phase(for:immersion.identity(messageID:$0.id.uuidString,text:$0.text)) != .translating
+            }) {
+                modeAnchor = nil
+            }
+        }
+    }
     private func cancelPageRestoration() {
+        modeAnchorTask?.cancel(); modeAnchorTask = nil; modeAnchor = nil
         pageRestore?.cancel(); pageRestore = nil; pageAnchorID = nil
     }
     private func scrollVertically(to y: CGFloat) {
@@ -454,7 +490,7 @@ struct FriendConversationView: View {
                             if !item.outgoing { Spacer(minLength: 38) }
                         }.id(item.id)
                             .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { frame in
-                                messageFrames[item.id] = frame; reportVisibleMessages()
+                                messageFrames[item.id] = frame; reportVisibleMessages(); settleModeAnchor()
                                 if item.id == messages.last?.id { settleMeasuredLatest() }
                             }
                             .onDisappear { messageFrames.removeValue(forKey:item.id); reportVisibleMessages() }
@@ -562,6 +598,7 @@ struct FriendConversationView: View {
                 .onChange(of: messages.last?.id) { _, _ in if followingLatest { scrollToLatest("newest_message") } }
                 .onChange(of: jumpRevision) { _, _ in scrollToLatest("send") }
                 .onChange(of: composing) { _, focused in
+                    modeAnchorTask?.cancel(); modeAnchorTask = nil; modeAnchor = nil
                     if focused && followingLatest && !copyOriginal.holdingLayout { scrollToLatest("composer_focus") }
                 }
                 .onChange(of: typeSize) { _, _ in
@@ -673,6 +710,7 @@ struct FriendConversationView: View {
             ToolbarItem(placement:.topBarTrailing) {
                 ImmersionModeToggle(mode:state.immersionMode) {
                     copyOriginal.abandon(); autoplay.stop(speech:speech); state.chatReading.cancelInteractions()
+                    captureModeAnchor(for:state.immersionMode.next)
                     state.immersionMode = state.immersionMode.next
                 }
             }

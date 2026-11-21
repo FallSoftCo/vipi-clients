@@ -340,7 +340,7 @@ struct ChatMessageArrival {
         guard !closed, language == nil || [pair.source,pair.target].contains(language!), inputLanguages[id] != language else { return }
         inputLanguages[id] = language; invalidateOutstanding(); revision += 1
     }
-    func resolvedInputLanguage(for identity: ImmersionRequestIdentity) -> String? { translations[identity]?.inputLanguage }
+    func resolvedInputLanguage(for identity: ImmersionRequestIdentity) -> String? { translation(for:identity)?.inputLanguage }
     func translation(for identity: ImmersionRequestIdentity) -> FullMessageTranslation? {
         guard !closed, identity == self.identity(messageID: identity.messageID, text: identity.text) else { return nil }
         return translations[identity]
