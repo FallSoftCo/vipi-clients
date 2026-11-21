@@ -21,15 +21,16 @@ struct HomeView: View {
     @State private var path: [HomeDestination] = []
     private var inboxHeading: some View {
         let language = VipiLanguage.initial.first { $0.id == state.targetLanguage }
-        let endonym = language?.localName ?? Locale(identifier:state.targetLanguage).localizedString(forLanguageCode:state.targetLanguage) ?? state.targetLanguage
+        let locale = Bundle.main.preferredLocalizations.first.map { Locale(identifier:$0) } ?? .current
+        let name = language?.localizedName ?? locale.localizedString(forLanguageCode:state.targetLanguage) ?? state.targetLanguage
         HStack(spacing:7) {
             VipiMark(size:44,accessibleName:"Vipi")
                 .accessibilityValue(Text("Chats")).accessibilityAddTraits(.isHeader)
                 .accessibilityIdentifier("inbox-wordmark")
-            Text(verbatim:endonym).font(.subheadline.weight(.semibold)).foregroundStyle(VipiDesign.ink)
+            Text(verbatim:name).font(.subheadline.weight(.semibold)).foregroundStyle(VipiDesign.ink)
                 .fixedSize(horizontal:false,vertical:true)
                 .accessibilityLabel(Text("I’m learning"))
-                .accessibilityValue(Text(verbatim:language?.localizedName ?? endonym))
+                .accessibilityValue(Text(verbatim:name))
                 .accessibilityIdentifier("inbox-practice-language")
         }
     }
