@@ -135,7 +135,7 @@ import java.util.UUID
                     selected = selected - id; current = session.group(current.id) ?: return@launch
                 }; onCreated(current.id)
             } }, enabled = !session.busy && selected.isNotEmpty() && runCatching { GroupSelection.name(name) }.isSuccess, modifier = Modifier.fillMaxWidth()) { Text(if (created == null) "Create group and invite ${selected.size}" else "Retry remaining invitations") } }
-            item { Text("Message text is end-to-end encrypted. The service can see the group name, people and invitations.", style = MaterialTheme.typography.bodyLarge) }
+            item { Text("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.", style = MaterialTheme.typography.bodyLarge) }
         }
     }
 }
@@ -320,7 +320,7 @@ private data class GroupConfirmation(val title: String, val detail: String, val 
                     if (session.isActive(groupID) && group.manages(session.account)) TextButton(onClick = { confirmation = GroupConfirmation("Cancel this invitation?", "This person won’t be able to join using this invitation.", "Cancel invitation", "/invitations/${invitation.id}", "DELETE") }) { Text("Cancel invitation") }
                 } }
                 item { Column(verticalArrangement = Arrangement.spacedBy(18.dp)) {
-                    Text("Message text is end-to-end encrypted between current devices. The service can see the group name, people, roles and invitations. New members don’t receive earlier messages.", style = MaterialTheme.typography.bodyLarge)
+                    Text("Message text is end-to-end encrypted between current devices. Vipi can see the group name, people, roles and invitations. New members don’t receive earlier messages.", style = MaterialTheme.typography.bodyLarge)
                     Text("Removing someone or leaving can’t erase copies already delivered. Blocking a person also leaves groups you share.", style = MaterialTheme.typography.bodyLarge)
                     OutlinedButton(enabled = session.isActive(groupID), onClick = { confirmation = GroupConfirmation("Leave ${group.title}?", (if (session.isActive(groupID) && group.role(session.account) == GroupRole.OWNER) "Transfer ownership to another person before leaving. " else "") + "You’ll stop receiving new messages. Your saved messages remain on this device.", "Leave group", "/leave", "POST") }) { Text("Leave group", color = MaterialTheme.colorScheme.error) }
                 } }

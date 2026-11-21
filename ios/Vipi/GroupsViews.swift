@@ -90,7 +90,7 @@ struct GroupCreateView: View {
                         dismiss()
                     }
                 }.font(.headline).disabled(!canCreate).accessibilityIdentifier("group-create")
-            } footer: { Text("Message text is end-to-end encrypted. The service can see the group name, people and invitations.").font(.body) }
+            } footer: { Text("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.").font(.body) }
         }.navigationTitle("New group").task { if let pending = groups.pendingCreateTitle() { title = pending } }.toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() }.disabled(groups.busy) } }
     }
 }
@@ -352,7 +352,7 @@ struct GroupInfoView: View {
                     }
                 } }
                 Section {
-                    Text("Message text is end-to-end encrypted between current devices. The service can see the group name, people, roles and invitations. New members don’t receive earlier messages.").font(.body)
+                    Text("Message text is end-to-end encrypted between current devices. Vipi can see the group name, people, roles and invitations. New members don’t receive earlier messages.").font(.body)
                     Text("Removing someone or leaving can’t erase copies already delivered. Blocking a person also leaves groups you share.").font(.body)
                     Button("Leave group", role: .destructive) { confirmation = .init(title: "Leave \(group.title)?", detail: group.role(for: groups.account) == .owner ? "Transfer ownership to another person first. After that, you can leave while keeping your saved messages on this device." : "You’ll stop receiving new messages. Your saved messages remain on this device.", action: "Leave group", suffix: "/leave", method: "POST", fields: [:]) }.disabled(!groups.isActive(groupID))
                 }
