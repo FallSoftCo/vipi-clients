@@ -154,7 +154,7 @@ class FriendDiscoveryDeviceTest {
                 assertEquals(Intent.ACTION_SENDTO, draft.action); assertEquals("mailto", draft.data?.scheme)
                 assertTrue(draft.data.toString().contains(email)); assertTrue(draft.getStringExtra(Intent.EXTRA_TEXT)!!.contains("/invite/alex"))
             } finally {
-                f.stopActivity(); service.close()
+                f.finishAfterExternalIntent(); service.close()
                 contactsSetup { resolver.delete(ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI, id), null, null) }
             }
         }
