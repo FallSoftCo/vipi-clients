@@ -331,6 +331,29 @@ class InboxJourneyDeviceTest {
         }
     }
 
+    @Test fun headerPracticeChooserStaysAccessibleWithLocalizedLargeText() {
+        val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
+        MainActivityJourneyFixture("localized-practice", service::model).use { f ->
+            try {
+                compose.runOnIdle { f.model.selectTarget("zh") }
+                f.launch(); screen(f, Screen.HOME)
+                val practice = compose.onNodeWithTag("inbox-practice-language")
+                practice.assertIsDisplayed().assertContentDescriptionEquals(f.base.getString(R.string.chats_practice_language))
+                val bounds = practice.fetchSemanticsNode().boundsInWindow
+                assertTrue(minOf(bounds.width, bounds.height) >= 48 * f.base.resources.displayMetrics.density - 1)
+                practice.performTouchInput { click() }
+                val same = compose.onNodeWithText("中文", substring = true)
+                same.assertIsSelected()
+                paint(f, "01-open-selected")
+                compose.onNodeWithText("Português", substring = true).performScrollTo().performClick()
+                compose.waitUntil { f.model.targetLanguage == "pt" }
+                assertEquals("en", f.model.knownLanguage)
+                paint(f, "02-chats-retargeted")
+                val state = practice.fetchSemanticsNode().config[SemanticsProperties.StateDescription]
+                assertTrue(java.util.Locale.forLanguageTag("pt").getDisplayLanguage(f.base.resources.configuration.locales[0]).equals(state, ignoreCase = true))
+            } finally { f.stopActivity(); service.close() }
+        }
+    }
     @Test fun practiceLanguageAndAutoplayFollowTheirActualOwners() {
         val prompt = "Can we meet at six?"
         val spanish = "¿Nos vemos a las seis?"
@@ -347,10 +370,25 @@ class InboxJourneyDeviceTest {
         MainActivityJourneyFixture("chat-header", { app -> seed(app, service, listOf(initial)); service.model(app) }).use { f ->
             MessageAudioQualification.attach { events += it }
             try {
-                compose.runOnIdle { f.model.selectTarget("es"); f.model.selectImmersionMode(ImmersionMode.FULL_MESSAGES) }
+                compose.runOnIdle { f.model.selectTarget("zh"); f.model.selectImmersionMode(ImmersionMode.FULL_MESSAGES) }
                 f.launch(); screen(f, Screen.HOME)
-                val wordmark = compose.onNodeWithTag("inbox-wordmark")
-                wordmark.assertContentDescriptionContains("Spanish", substring = true)
+                val practice = compose.onNodeWithTag("inbox-practice-language")
+                fun assertLanguage(name: String) {
+                    practice.assertContentDescriptionEquals(f.base.getString(R.string.chats_practice_language))
+                    assertEquals(name, practice.fetchSemanticsNode().config[SemanticsProperties.StateDescription])
+                }
+                assertLanguage("Chinese")
+                practice.performClick()
+                compose.onNodeWithText("Chinese · 中文").assertIsSelected()
+                compose.onNodeWithText("English · English").assertDoesNotExist()
+                paint(f, "00-language-chooser")
+                f.device.pressBack()
+                assertEquals("zh", f.model.targetLanguage); assertLanguage("Chinese")
+                practice.performClick()
+                compose.onNodeWithText("Spanish · Español").performClick()
+                compose.waitUntil { f.model.targetLanguage == "es" }
+                assertEquals("en", f.model.knownLanguage)
+                assertLanguage("Spanish")
                 paint(f, "01-inbox-spanish")
                 compose.onNodeWithTag("inbox-row-${service.peer}").performClick()
                 screen(f, Screen.CONVERSATION)
@@ -377,6 +415,7 @@ class InboxJourneyDeviceTest {
                 var arrival: UUID? = null
                 compose.runOnIdle { arrival = service.queueAdditionalPeerReplyAndSignalInbox(prompt) }
                 compose.waitUntil(45_000) { completed(requireNotNull(arrival).toString()) }
+                assertTrue(events.filter { it.optString("stage") == "translation_ready" }.all { it.getString("practice_language") == "es" })
                 assertEquals(listOf(false, true), events.filter { it.optString("stage") == "translation_ready" }.map { it.getBoolean("automatic") })
                 assertTrue(events.filter { it.optString("stage") == "speech_request" }.all { it.getString("practice_text") == spanish })
                 paint(f, "03-autoplay-on-typing")
@@ -393,10 +432,10 @@ class InboxJourneyDeviceTest {
                 val back = compose.onNodeWithContentDescription(f.base.getString(R.string.nav_back))
                 back.performScrollTo().performClick(); screen(f, Screen.SETTINGS)
                 back.performScrollTo().performClick(); screen(f, Screen.HOME)
-                wordmark.assertContentDescriptionContains("Portuguese", substring = true)
+                assertLanguage("Portuguese")
                 paint(f, "04-inbox-portuguese")
                 f.relaunch(service::model); screen(f, Screen.HOME)
-                wordmark.assertContentDescriptionContains("Portuguese", substring = true)
+                assertLanguage("Portuguese")
                 compose.onNodeWithTag("inbox-row-${service.peer}").performClick()
                 screen(f, Screen.CONVERSATION); autoplay.assertIsOff()
                 editor.assertTextContains("See you soon"); mode.assertIsOn()

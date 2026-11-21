@@ -12,4 +12,5 @@
     <string name="settings_about">About Vipi</string>
     <string name="settings_account">Account</string>
     <string name="settings_save_failed">Couldn’t save this change. Try again.</string>
+    <string name="chats_practice_language">Change practice language</string>
 </resources>

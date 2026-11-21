@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.Forum
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -35,7 +36,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.temporal.ChronoUnit
 
-@Composable internal fun ChatsInbox(model: VipiModel, listState: LazyListState) {
+@Composable internal fun ChatsInbox(model: VipiModel, listState: LazyListState, waterClock: WaterClock) {
     val chat = model.chat
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -52,7 +53,7 @@ import java.time.temporal.ChronoUnit
     // The outer canvas still covers the complete edge-to-edge window.
     Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background), contentAlignment = Alignment.TopCenter) {
     ConversationWaterScene(model.immersionMode, model.animateConversationBackground,
-        Modifier.matchParentSize(), plainBackground = prefersIncreasedContrast(), listSurface = true)
+        Modifier.matchParentSize(), waterClock, plainBackground = prefersIncreasedContrast(), listSurface = true)
     Scaffold(modifier = Modifier.widthIn(max = 680.dp).fillMaxSize(),
         containerColor = androidx.compose.ui.graphics.Color.Transparent,
         contentWindowInsets = WindowInsets.safeDrawing,
@@ -75,13 +76,24 @@ import java.time.temporal.ChronoUnit
                     val locale = LocalConfiguration.current.locales[0]
                     val practice = java.util.Locale.forLanguageTag(model.targetLanguage)
                         .getDisplayLanguage(locale).replaceFirstChar { it.titlecase(locale) }
-                    Row(Modifier.weight(1f).testTag("inbox-wordmark").clearAndSetSemantics {
-                        contentDescription = "Vipi, $chatsLabel, $practice"
-                        heading()
-                    }, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        VipiMark(size = 60)
-                        Text(practice, Modifier.testTag("inbox-practice-language"),
-                            style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Box(Modifier.testTag("inbox-wordmark").clearAndSetSemantics {
+                        contentDescription = "Vipi, $chatsLabel"; heading()
+                    }) { VipiMark(size = 60) }
+                    var choosingLanguage by remember { mutableStateOf(false) }
+                    val changeLanguage = stringResource(R.string.chats_practice_language)
+                    Box(Modifier.weight(1f)) {
+                        Row(Modifier.heightIn(min = 48.dp).testTag("inbox-practice-language")
+                            .clickable(role = Role.Button, onClickLabel = changeLanguage) { choosingLanguage = true }
+                            .semantics { contentDescription = changeLanguage; stateDescription = practice }
+                            .padding(horizontal = 8.dp), verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(practice, Modifier.weight(1f, fill = false).clearAndSetSemantics { },
+                                style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Icon(Icons.Outlined.ExpandMore, null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                        LanguageChoiceMenu(choosingLanguage, model.targetLanguage, initialLanguages.filter { it.code != model.knownLanguage },
+                            { choosingLanguage = false }, model::selectTarget)
                     }
                     IconButton(onClick = { model.navigate(Screen.SETTINGS) },
                         modifier = Modifier.semantics { contentDescription = settingsLabel }) {

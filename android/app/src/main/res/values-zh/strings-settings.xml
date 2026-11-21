@@ -12,4 +12,5 @@
     <string name="settings_about">关于 Vipi</string>
     <string name="settings_account">账户</string>
     <string name="settings_save_failed">无法保存更改，请重试。</string>
+    <string name="chats_practice_language">更改练习语言</string>
 </resources>

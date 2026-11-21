@@ -1,9 +1,14 @@
 package co.fallsoft.vipi
 
 import android.animation.ValueAnimator
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.database.ContentObserver
 import android.os.Handler
 import android.os.Looper
+import android.os.PowerManager
 import android.provider.Settings
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.snap
@@ -11,6 +16,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.*
+import androidx.core.content.ContextCompat
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
@@ -18,6 +24,7 @@ import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.*
 import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -33,7 +40,8 @@ import kotlin.math.sin
 @Composable internal fun ConversationWaterScene(
     mode: ImmersionMode,
     motionEnabled: Boolean,
-    modifier: Modifier = Modifier,
+    modifier: Modifier,
+    clock: WaterClock,
     plainBackground: Boolean = false,
     listSurface: Boolean = false,
 ) {
@@ -43,27 +51,43 @@ import kotlin.math.sin
     val context = LocalContext.current
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     var foreground by remember(lifecycle) { mutableStateOf(lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) }
-    var systemMotion by remember { mutableStateOf(ValueAnimator.areAnimatorsEnabled()) }
+    val power = remember(context) { context.getSystemService(PowerManager::class.java) }
+    var powerSaver by remember { mutableStateOf(power.isPowerSaveMode) }
+    // The animator process cache can update after the Settings observer fires.
+    fun allowsSystemMotion() = Settings.Global.getString(context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE)
+        ?.toFloatOrNull()?.let { it > 0f } ?: ValueAnimator.areAnimatorsEnabled()
+    var systemMotion by remember { mutableStateOf(allowsSystemMotion()) }
     DisposableEffect(lifecycle, context) {
         val observer = LifecycleEventObserver { _, _ ->
             foreground = lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)
+            if (foreground) { powerSaver = power.isPowerSaveMode; systemMotion = allowsSystemMotion() }
         }
         val settingsObserver = object : ContentObserver(Handler(Looper.getMainLooper())) {
-            override fun onChange(selfChange: Boolean) { systemMotion = ValueAnimator.areAnimatorsEnabled() }
+            override fun onChange(selfChange: Boolean) { systemMotion = allowsSystemMotion() }
         }
+        val batteryObserver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) { powerSaver = power.isPowerSaveMode }
+        }
+        ContextCompat.registerReceiver(context, batteryObserver, IntentFilter(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED),
+            ContextCompat.RECEIVER_NOT_EXPORTED)
         lifecycle.addObserver(observer)
         context.contentResolver.registerContentObserver(
             Settings.Global.getUriFor(Settings.Global.ANIMATOR_DURATION_SCALE), false, settingsObserver)
-        onDispose { lifecycle.removeObserver(observer); context.contentResolver.unregisterContentObserver(settingsObserver) }
+        onDispose {
+            lifecycle.removeObserver(observer)
+            context.contentResolver.unregisterContentObserver(settingsObserver)
+            context.unregisterReceiver(batteryObserver)
+        }
     }
-    var seconds by remember { mutableFloatStateOf(18f) }
-    val running = foreground && motionEnabled && systemMotion && !plainBackground
+    val cycle by remember(clock) { derivedStateOf { (clock.seconds / 92f).toInt() } }
+    val passes = remember(clock.seed, cycle) { mackerelSchool(clock.seed, cycle) }
+    val running = foreground && motionEnabled && systemMotion && !powerSaver && !plainBackground
     LaunchedEffect(running) {
         if (!running) return@LaunchedEffect
         var prior = 0L
         while (isActive) {
             withFrameNanos { now ->
-                if (prior != 0L) seconds += ((now - prior) / 1_000_000_000f).coerceIn(0f, .1f)
+                if (prior != 0L) clock.seconds += (now - prior).coerceAtLeast(0L) / 1_000_000_000f
                 prior = now
             }
             // Slow decorative movement does not need display-refresh-rate updates.
@@ -83,6 +107,24 @@ import kotlin.math.sin
             else -> listOf(Color(0xFFFFF8EF), Color(0xFFF3E9DF), Color(0xFFD5DEDB)) to
                 listOf(Color(0xFFF4F0E7), Color(0xFFDBE2DF), Color(0xFFC1D1D1))
         }
+    }
+    // The grain repeats every 13 cells. Rasterize one transparent tile when density
+    // or colors change, instead of sending thousands of circles to the GPU per scene.
+    val density = LocalDensity.current
+    val grain = remember(density.density, palette.ink, listSurface) {
+        val stepPx = with(density) { (if (listSurface) 7 else 12).dp.toPx() }
+        val side = kotlin.math.ceil(13 * stepPx).toInt().coerceAtLeast(1)
+        val cell = side / 13f
+        val image = ImageBitmap(side, side)
+        val tile = androidx.compose.ui.graphics.Canvas(image)
+        val paint = Paint().apply { color = palette.ink.copy(alpha = if (listSurface) .055f else .025f) }
+        val radius = with(density) { (if (listSurface) .32f else .22f).dp.toPx() }
+        // Adjacent cells can straddle either edge. Include their wrapped ink on the tile.
+        for (row in -1..13) for (column in -1..13) {
+            val jitter = Math.floorMod(row * 31 + column * 17, 13) / 13f
+            tile.drawCircle(Offset((column + jitter) * cell, (row + 1f - jitter) * cell), radius, paint)
+        }
+        ShaderBrush(ImageShader(image, TileMode.Repeated, TileMode.Repeated))
     }
     // Each layer has its own display list. Only the middle layer reads the clock.
     Box(modifier.clipToBounds()) {
@@ -111,6 +153,7 @@ import kotlin.math.sin
         }
         if (!plainBackground) {
             Canvas(Modifier.matchParentSize().graphicsLayer()) {
+                val seconds = clock.seconds
                 val ray = (sin(seconds / 20f) * size.width * .05f)
                 repeat(3) { i ->
                     val x = size.width * (i * .43f - .3f) + ray
@@ -123,18 +166,23 @@ import kotlin.math.sin
                 // Inbox text has no bubble backplate: constrain the scene's luminance
                 // rather than placing opaque cards over the shared conversation canvas.
                 val opacity = if (listSurface) { if (dark) .17f else .12f } else androidx.compose.ui.util.lerp(if (dark) .29f else .27f, .36f, depth)
-                val fishWidths = listOf(size.width * .76f, size.width * .51f, size.width * .35f)
-                val cycles = listOf(39f, 51f, 62f)
-                val offsets = listOf(0f, 23f, 38f)
-                val levels = listOf(.79f, .36f, .82f)
-                fishWidths.forEachIndexed { i, rawWidth ->
-                    val width = rawWidth.coerceAtMost(360.dp.toPx())
-                    val progress = ((seconds + offsets[i]) % cycles[i]) / cycles[i]
-                    val x = -width + progress * (size.width + width)
-                    val y = size.height * levels[i] + sin(seconds / 5f + i) * 5.dp.toPx()
+                val time = seconds % 92f
+                for (pass in passes) {
+                    val progress = (time - pass.start) / pass.duration
+                    if (progress !in 0f..1f) continue
+                    val width = (size.width * pass.width).coerceAtMost(360.dp.toPx())
                     val scale = width / 640f
-                    withTransform({ translate(x, y); scale(scale, scale, Offset.Zero) }) {
-                        drawKingMackerel(opacity * if (i == 0) 1f else if (i == 1) .58f else .45f, seconds)
+                    val glide = progress + .018f * sin(progress * 6.283185f)
+                    val distance = glide * (size.width + width)
+                    val x = if (pass.right) distance - width else size.width + width - distance
+                    val phase = progress * 6.28f + pass.lane * 7f
+                    val y = size.height * (pass.lane + pass.sway * sin(phase)) - 84f * scale
+                    withTransform({
+                        translate(x, y)
+                        scale(if (pass.right) scale else -scale, scale, Offset.Zero)
+                        rotate(1.8f * sin(phase + .8f), Offset(320f, 84f))
+                    }) {
+                        drawKingMackerel(opacity * pass.opacity, (time - pass.start) * pass.tailRate + pass.tailPhase)
                     }
                 }
                 val bubbleColor = if (dark) Color(0xFFBBD0D2) else Color(0xFF8B8A8C)
@@ -148,18 +196,7 @@ import kotlin.math.sin
                 }
             }
             Canvas(Modifier.matchParentSize().graphicsLayer()) {
-                // Fixed deterministic grain, independent of the animation clock.
-                val step = (if (listSurface) 7 else 12).dp.toPx()
-                var row = 0; var y = 0f
-                while (y < size.height) {
-                    var column = 0; var x = 0f
-                    while (x < size.width) {
-                        val jitter = ((row * 31 + column * 17) % 13) / 13f
-                        drawCircle(palette.ink.copy(alpha = if (listSurface) .055f else .025f), (if (listSurface) .32f else .22f).dp.toPx(), Offset(x + jitter * step, y + (1f - jitter) * step))
-                        column++; x += step
-                    }
-                    row++; y += step
-                }
+                drawRect(grain)
             }
         }
     }
@@ -183,14 +220,14 @@ FishPart(path("M533 78C491 71 461 70 430 70C411 69 405 72 391 75C378 79 368 78 3
 FishPart(path("M453 51L462 41L472 55M427 48L435 39L444 50M404 47L412 38L421 49M438 122L447 132L456 119M411 126L419 136L429 124M385 126L392 135L401 125"), color = Color(0xFF647F89), alpha = 1.0f, tail = false),
 FishPart(path("M572 93L600 89"), color = Color(0xFF526D77), stroke = 2f, alpha = 1.0f, tail = false),
 )
-private fun DrawScope.drawKingMackerel(alpha: Float, seconds: Float) {
+private fun DrawScope.drawKingMackerel(alpha: Float, tailPhase: Float) {
     fishParts.forEach { part ->
         fun DrawScope.paint() {
             val style = if (part.stroke > 0) Stroke(part.stroke, cap = StrokeCap.Round) else Fill
             if (part.brush != null) drawPath(part.path, part.brush, alpha = alpha * part.alpha, style = style)
             else drawPath(part.path, part.color, alpha = alpha * part.alpha, style = style)
         }
-        if (part.tail) withTransform({ scale(.91f + sin(seconds * 3.7f) * .09f, 1f, Offset(138f, 88f)) }) { paint() }
+        if (part.tail) withTransform({ scale(.91f + sin(tailPhase) * .09f, 1f, Offset(138f, 88f)) }) { paint() }
         else paint()
     }
     drawCircle(Color(0xFF243E4B), 5f, Offset(560f, 79f), alpha = alpha)
