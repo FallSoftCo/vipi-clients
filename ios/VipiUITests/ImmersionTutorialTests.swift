@@ -17,7 +17,12 @@ final class ImmersionTutorialTests: XCTestCase {
         let finish = app.buttons["tutorial-continue"]
         XCTAssertTrue(finish.isEnabled)
         capture("ios-tutorial-shallow-real-provider",app:app)
+        let preparing = app.staticTexts["Preparing voice…"]
+        let preparingBeforeAction = preparing.exists
+        let started = ProcessInfo.processInfo.systemUptime
         deep.tap(); XCTAssertTrue(deep.isSelected)
+        let elapsed = ProcessInfo.processInfo.systemUptime - started
+        print("VIPI_TUTORIAL_ACTION preparingBefore=\(preparingBeforeAction) preparingAfter=\(preparing.exists) modeChangeSeconds=\(elapsed)")
         XCTAssertTrue(app.staticTexts["The whole message"].exists)
         capture("ios-tutorial-deep-real-provider",app:app)
         // Do not require any gesture, model download or working voice to leave.

@@ -368,12 +368,13 @@ class MainActivity : ComponentActivity() {
     var appearancePicker by rememberSaveable { mutableStateOf(false) }
     if (profile != null) {
         Column {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
                 ContactAvatar(profile.displayName, profile.id, diameter = 52.dp)
-                Column {
+                Column(Modifier.weight(1f)) {
                     Text(profile.displayName, style = MaterialTheme.typography.titleLarge)
                     Text("@" + profile.username, style = MaterialTheme.typography.bodyMedium, color = secondary)
                 }
+                ScreenSpot(R.drawable.vipi_spot_settings)
             }
             InviteFriendButton(model, settings = true)
         }

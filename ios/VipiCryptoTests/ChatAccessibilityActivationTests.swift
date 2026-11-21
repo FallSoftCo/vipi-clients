@@ -149,7 +149,7 @@ import VipiCore
         XCTAssertEqual(paragraph.accessibilityLabel,"Mañana.")
         XCTAssertTrue(paragraph.accessibilityHint?.contains(context) == true,"Exact time/state remains accessible when grouped visually")
         let actions = paragraph.accessibilityCustomActions?.map(\.name) ?? []
-        XCTAssertTrue(actions.contains(String(localized:"Play practice words")))
+        XCTAssertTrue(actions.contains(String(localized:"Play message")))
         XCTAssertTrue(actions.contains(String(localized:"Show original message")))
         XCTAssertFalse(actions.contains(String(localized:"Show native script")))
         XCTAssertFalse(actions.contains(String(localized:"Show transliteration")))
@@ -213,9 +213,9 @@ import VipiCore
             let container = try XCTUnwrap(find(host.view)), paragraph = try XCTUnwrap(container.accessibilityElements?.first as? UIAccessibilityElement)
             XCTAssertEqual(paragraph.accessibilityLabel,face)
             let hint = try XCTUnwrap(paragraph.accessibilityHint)
-            let meaningAction = index == 2 ? String(localized:"Show practice words") : String(localized:"Show original message")
+            let meaningAction = index == 2 ? String(localized:"Show practice text") : String(localized:"Show original message")
             let scriptAction = index == 0 ? String(localized:"Show native script") : String(localized:"Show transliteration")
-            let playAction = String(localized:"Play practice words")
+            let playAction = String(localized:"Play message")
             XCTAssertTrue(hint.contains(playAction)); XCTAssertTrue(hint.contains(meaningAction)); XCTAssertTrue(hint.contains(scriptAction))
             XCTAssertNotEqual(hint,String(localized:"Tap to listen. Hold to see meanings. Double-tap to change script."))
             let nativeActions = paragraph.accessibilityCustomActions?.map(\.name) ?? []
