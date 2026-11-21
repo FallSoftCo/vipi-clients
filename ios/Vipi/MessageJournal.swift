@@ -18,6 +18,8 @@ struct StoredChat: Codable {
     let text: String
     var state: String
     var seen: Bool? = nil
+    var includedAvatarRevision: Int64? = nil
+    var attachments: [AttachmentManifest]? = nil
 }
 struct DraftChat: Codable, Equatable {
     let id: UUID
@@ -25,6 +27,13 @@ struct DraftChat: Codable, Equatable {
     let text: String
     let createdAt: Int64
     var state = "queued"
+    var attachments: [AttachmentManifest]? = nil
+}
+private struct EncodedProfileAvatar: Codable {
+    let value: PrivateProfileAvatar?
+    init(_ avatar: PrivateProfileAvatar) { value = avatar }
+    init(from decoder: Decoder) throws { value = try? PrivateProfileAvatar(from: decoder) }
+    func encode(to encoder: Encoder) throws { try value?.encode(to: encoder) }
 }
 private struct ChatPayload: Codable {
     let version: Int
@@ -33,6 +42,10 @@ private struct ChatPayload: Codable {
     let recipient: String
     let createdAt: Int64
     let text: String
+    var attachments: [AttachmentManifest]? = nil
+    // Decode the optional profile field independently. A malformed auxiliary
+    // field must never discard an otherwise valid authenticated chat message.
+    var profile_avatar: EncodedProfileAvatar? = nil
 }
 
 /// Transport-independent persistence. Only a returned, committed receive() may
@@ -47,15 +60,33 @@ final class MessageJournal {
     private func validTime(_ created: Int64, _ now: Int64) -> Bool {
         created >= 0 && now >= 0 && created <= Int64.max - Self.ttl && now <= Int64.max - 300_000 && created <= now + 300_000 && now < created + Self.ttl
     }
-    func saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Int64, now: Int64, consumeCompose: Bool = false) throws {
+    func avatar(_ account: UUID) throws -> PrivateProfileAvatar? {
+        try vault.transaction { try avatarInTransaction(account) }
+    }
+    private func avatarInTransaction(_ account: UUID) throws -> PrivateProfileAvatar? {
+        try vault.get("private-avatar", key(account)).map { try decoder.decode(PrivateProfileAvatar.self, from: $0) }
+    }
+    private func updateAvatar(_ value: PrivateProfileAvatar, for account: UUID) throws {
+        guard value.revision > (try avatarInTransaction(account)?.revision ?? 0) else { return }
+        try vault.put("private-avatar", key(account), encoder.encode(value))
+    }
+    func setOwnAvatar(_ jpeg: Data?, now: Int64) throws {
+        try vault.transaction {
+            let old = try avatarInTransaction(vault.account)?.revision ?? 0
+            guard old < Int64.max else { throw Failure.invalidMessage }
+            try updateAvatar(PrivateProfileAvatar(revision: max(old + 1, now), jpeg: jpeg), for: vault.account)
+        }
+    }
+    func saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Int64, now: Int64, consumeCompose: Bool = false, attachments: [AttachmentManifest] = []) throws {
+        try MessageAttachments.validate(attachments)
         try vault.transaction {
             guard validTime(createdAt, now), !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= 32768 else { throw Failure.invalidMessage }
             if let bytes = try vault.get("outgoing", key(id)) {
                 let saved = try decoder.decode(StoredChat.self, from: bytes)
-                guard saved.text == text, saved.envelope.recipient == recipient, saved.envelope.createdAt == createdAt else { throw Failure.conflict }
+                guard saved.text == text, (saved.attachments ?? []) == attachments, saved.envelope.recipient == recipient, saved.envelope.createdAt == createdAt else { throw Failure.conflict }
                 return
             }
-            let draft = DraftChat(id: id, recipient: recipient, text: text, createdAt: createdAt)
+            let draft = DraftChat(id: id, recipient: recipient, text: text, createdAt: createdAt, attachments: attachments.isEmpty ? nil : attachments)
             if let bytes = try vault.get("draft", key(id)), try decoder.decode(DraftChat.self, from: bytes) != draft { throw Failure.conflict }
             try vault.put("draft", key(id), encoder.encode(draft))
             try ConversationHistory.record(vault, kind: "draft", id: id, peer: recipient, createdAt: createdAt)
@@ -76,21 +107,31 @@ final class MessageJournal {
             return result
         }
     }
-    func queue(id: UUID, recipient: UUID, text: String, createdAt: Int64, now: Int64, encrypt: (Data) throws -> (Int, Data)) throws -> ChatEnvelope {
-        try saveDraft(id: id, recipient: recipient, text: text, createdAt: createdAt, now: now)
+    func queue(id: UUID, recipient: UUID, text: String, createdAt: Int64, now: Int64, attachments: [AttachmentManifest] = [], encrypt: (Data) throws -> (Int, Data)) throws -> ChatEnvelope {
+        try saveDraft(id: id, recipient: recipient, text: text, createdAt: createdAt, now: now, attachments: attachments)
         return try vault.transaction {
             if let bytes = try vault.get("outgoing", key(id)) {
                 let saved = try decoder.decode(StoredChat.self, from: bytes)
-                guard saved.text == text, saved.envelope.recipient == recipient, saved.envelope.createdAt == createdAt else { throw Failure.conflict }
+                guard saved.text == text, (saved.attachments ?? []) == attachments, saved.envelope.recipient == recipient, saved.envelope.createdAt == createdAt else { throw Failure.conflict }
                 guard ["queued", "accepted"].contains(saved.state), validTime(createdAt, now) else { throw Failure.terminal }
                 return saved.envelope
             }
             guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= 32768, validTime(createdAt, now) else { throw Failure.invalidMessage }
-            let payload = ChatPayload(version: 1, id: key(id), sender: key(vault.account), recipient: key(recipient), createdAt: createdAt, text: text)
-            let (type, ciphertext) = try encrypt(encoder.encode(payload))
+            var payload = ChatPayload(version: 1, id: key(id), sender: key(vault.account), recipient: key(recipient), createdAt: createdAt, text: text, attachments: attachments.isEmpty ? nil : attachments)
+            var clear = try encoder.encode(payload)
+            let target = try vault.get("peer-device", key(recipient))
+            let lastAvatar = try target.flatMap { try vault.get("sent-avatar", key(recipient) + "/" + String(decoding: $0, as: UTF8.self)) }
+            let lastRevision = lastAvatar.flatMap { Int64(String(decoding: $0, as: UTF8.self)) } ?? 0
+            var included: Int64?
+            if let own = try avatarInTransaction(vault.account), own.revision > lastRevision {
+                payload.profile_avatar = EncodedProfileAvatar(own)
+                let decorated = try encoder.encode(payload)
+                if decorated.count <= 60 * 1024 { clear = decorated; included = own.revision }
+            }
+            let (type, ciphertext) = try encrypt(clear)
             guard [2, 3].contains(type), (32...65536).contains(ciphertext.count) else { throw Failure.invalidMessage }
             let envelope = ChatEnvelope(id: id, sender: vault.account, recipient: recipient, createdAt: createdAt, type: type, ciphertext: ciphertext)
-            try vault.put("outgoing", key(id), encoder.encode(StoredChat(envelope: envelope, text: text, state: "queued")))
+            try vault.put("outgoing", key(id), encoder.encode(StoredChat(envelope: envelope, text: text, state: "queued", includedAvatarRevision: included, attachments: attachments.isEmpty ? nil : attachments)))
             try vault.put("pending", key(id), Data([1]))
             try vault.remove("draft", key(id))
             try ConversationHistory.record(vault, kind: "outgoing", id: id, peer: recipient, createdAt: createdAt)
@@ -114,7 +155,11 @@ final class MessageJournal {
             let payload = try decoder.decode(ChatPayload.self, from: clear)
             guard payload.version == 1, payload.id == key(envelope.id), payload.sender == key(envelope.sender), payload.recipient == key(vault.account), payload.createdAt == envelope.createdAt,
                   !payload.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, payload.text.utf8.count <= 32768 else { throw Failure.invalidMessage }
-            let saved = StoredChat(envelope: envelope, text: payload.text, state: "delivered")
+            if let avatar = payload.profile_avatar?.value {
+                try updateAvatar(avatar, for: envelope.sender)
+            }
+            try MessageAttachments.validate(payload.attachments ?? [])
+            let saved = StoredChat(envelope: envelope, text: payload.text, state: "delivered", attachments: payload.attachments)
             try vault.put("incoming", key(envelope.id), encoder.encode(saved))
             try ConversationHistory.record(vault, kind: "incoming", id: envelope.id, peer: envelope.sender, createdAt: envelope.createdAt, unread: true)
             try vault.put("receipt", key(envelope.id), Data([1]))
@@ -183,6 +228,12 @@ final class MessageJournal {
                 try? recordSuccessfulChatSend(vault, key: "outgoing/" + key(id), authoredAt: saved.envelope.createdAt)
             }
             #endif
+            if ["accepted", "delivered"].contains(state), let revision = saved.includedAvatarRevision,
+               let target = try vault.get("outgoing-route", key(id)) {
+                let receipt = key(saved.envelope.recipient) + "/" + String(decoding: target, as: UTF8.self)
+                let previous = try vault.get("sent-avatar", receipt).flatMap { Int64(String(decoding: $0, as: UTF8.self)) } ?? 0
+                if revision > previous { try vault.put("sent-avatar", receipt, Data(String(revision).utf8)) }
+            }
             saved.state = state
             try vault.put("outgoing", key(id), encoder.encode(saved))
             if state != "accepted" { try vault.remove("pending", key(id)) }

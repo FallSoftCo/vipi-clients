@@ -3,6 +3,7 @@ import Foundation
 struct ChatItem: Identifiable {
     let id: UUID; let peer: UUID; let text: String; let createdAt: Int64
     let outgoing: Bool; let state: String; let cursor: String
+    var attachments: [AttachmentManifest] = []
 }
 struct ChatThread: Identifiable {
     var id: UUID { peer }
@@ -63,11 +64,11 @@ final class ConversationHistory {
         }
         if ref.kind == "draft" {
             let value = try JSONDecoder().decode(DraftChat.self, from: bytes)
-            return ChatItem(id: value.id, peer: value.recipient, text: value.text, createdAt: value.createdAt, outgoing: true, state: value.state, cursor: cursor)
+            return ChatItem(id: value.id, peer: value.recipient, text: value.text, createdAt: value.createdAt, outgoing: true, state: value.state, cursor: cursor, attachments: value.attachments ?? [])
         }
         let value = try JSONDecoder().decode(StoredChat.self, from: bytes), outgoing = ref.kind == "outgoing"
         return ChatItem(id: value.envelope.id, peer: outgoing ? value.envelope.recipient : value.envelope.sender,
-            text: value.text, createdAt: value.envelope.createdAt, outgoing: outgoing, state: value.state, cursor: cursor)
+            text: value.text, createdAt: value.envelope.createdAt, outgoing: outgoing, state: value.state, cursor: cursor, attachments: value.attachments ?? [])
     }
     func messages(peer: UUID, before: String? = nil, limit: Int = 50) throws -> [ChatItem] {
         try vault.transaction {

@@ -27,6 +27,10 @@ struct AuthenticatedChatProfile: Decodable {
     private struct BlockStatus: Decodable { let blocked: Bool }
     let userID: String
     private let api: any ChatTransport
+    private var advertisedMediaDevice: UUID?
+    private var mediaRegistration: Task<Bool, Never>?
+    private var mediaOverride: CiphertextTransport?
+    private var mediaTransport: CiphertextTransport? { mediaOverride ?? (api as? ServiceClient)?.media }
     private var vault: MessageVault?
     private var core: MessagingCore?
     private var history: ConversationHistory?
@@ -276,8 +280,8 @@ struct AuthenticatedChatProfile: Decodable {
     convenience init(authentication: AuthenticationManager, userID: String) throws {
         try self.init(api: ServiceClient(authentication: authentication, userID: userID), userID: userID)
     }
-    init(api: any ChatTransport, userID: String) throws {
-        self.userID = userID; self.api = api
+    init(api: any ChatTransport, userID: String, media: CiphertextTransport? = nil) throws {
+        self.userID = userID; self.api = api; mediaOverride = media
         if let data = try KeychainStore.read(account: cacheKey) {
             let value = try JSONDecoder().decode(ChatProfile.self, from: data)
             try open(value)
@@ -393,6 +397,18 @@ struct AuthenticatedChatProfile: Decodable {
             guard value.active, value.id == core.device.id else { throw MessageJournal.Failure.invalidMessage }
             try vault.transaction { try vault.put("local", "registered-device", Data(core.device.id.uuidString.lowercased().utf8)); try vault.remove("local", "replacement-consent") }
             ready = true; needsDeviceReplacement = false; needsRecentSignIn = false; hasPendingDeviceReplacement = false
+        }
+        if mediaTransport != nil, advertisedMediaDevice != core.device.id, mediaRegistration == nil {
+            mediaRegistration = Task { [weak self] in
+                guard let self else { return false }
+                defer { self.mediaRegistration = nil }
+                do {
+                    let result: MediaCapability = try await self.request("PUT", "/v1/media/capability", body: self.body(["version": 1]), device: core.device)
+                    guard self.core === core, result.version == 1 else { return false }
+                    self.advertisedMediaDevice = core.device.id
+                    return true
+                } catch { return false }
+            }
         }
         try await replenish()
     }
@@ -571,14 +587,77 @@ struct AuthenticatedChatProfile: Decodable {
     func saveCompose(_ text: String, peer: UUID) throws { try history?.saveComposeDraft(text, peer: peer) }
     /// Returns only after the user's text and timeline row have committed locally.
     func send(_ text: String, peer: UUID) throws {
+        _ = try enqueue(text, peer: peer, attachments: [])
+    }
+    /// Commit authenticated manifests before the lifecycle outbox uploads or
+    /// encrypts an envelope. A retry never prepares a new key or blob ID.
+    func sendAttachments(_ text: String, peer: UUID, attachments: [AttachmentManifest]) throws -> UUID {
+        guard !attachments.isEmpty, mediaTransport != nil else { throw ServiceFailure(status: 0, code: "media_not_enabled") }
+        return try enqueue(text, peer: peer, attachments: attachments)
+    }
+    private struct MediaCapability: Decodable { let version: Int; let device_id: UUID? }
+    func confirmMediaCapability(_ peer: UUID) async throws {
+        guard canViewPhoto(peer: peer), let core, mediaTransport != nil else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        if let mediaRegistration { _ = await mediaRegistration.value }
+        let value: MediaCapability = try await request("GET", "/v1/media/capability/" + peer.uuidString.lowercased(), device: core.device)
+        guard canViewPhoto(peer: peer), self.core === core, value.version == 1, value.device_id != nil else {
+            throw ServiceFailure(status: 0, code: "peer_media_unavailable")
+        }
+    }
+    func avatar(_ peer: UUID) -> Data? {
+        _ = revision
+        return try? core?.journal.avatar(peer)?.jpeg
+    }
+    func setAvatar(_ jpeg: Data?) throws {
+        try ensureOpen()
+        guard let core else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        try core.journal.setOwnAvatar(jpeg, now: now)
+        revision += 1
+    }
+    func openMedia(_ manifest: AttachmentManifest, peer: UUID) async throws -> URL {
+        guard canViewPhoto(peer: peer), let account = profile?.id, let device = core?.device, let bytes = mediaTransport else { throw CancellationError() }
+        let url = try await AttachmentRepository(account: account).open(manifest, thumbnail: false, bytes: bytes, device: device)
+        guard !Task.isCancelled, canViewPhoto(peer: peer), profile?.id == account, core?.device.id == device.id else {
+            try? FileManager.default.removeItem(at: url)
+            throw CancellationError()
+        }
+        return url
+    }
+    func canViewPhoto(peer: UUID) -> Bool {
+        ready && !closed && !needsReauthentication && !needsDeviceReplacement &&
+            !blockedPeers.contains(peer) && !changedIdentities.contains(peer)
+    }
+    func viewPhoto(_ manifest: AttachmentManifest, peer: UUID) async throws -> CGImage {
+        guard canViewPhoto(peer: peer), let account = profile?.id, let device = core?.device,
+              let bytes = mediaTransport else { throw ServiceFailure(status: 0, code: "device_not_ready") }
+        let repository = try AttachmentRepository(account: account)
+        let image = try await repository.viewPhoto(manifest, bytes: bytes, device: device)
+        try Task.checkCancellation()
+        guard canViewPhoto(peer: peer), profile?.id == account, core?.device.id == device.id else { throw CancellationError() }
+        return image
+    }
+    private func enqueue(_ text: String, peer: UUID, attachments: [AttachmentManifest]) throws -> UUID {
+        try ensureOpen()
         guard !historyBusy else { throw ServiceFailure(status: 0, code: "history_busy") }
         guard let core, ready else { throw ServiceFailure(status: 0, code: "device_not_ready") }
         guard !blockedPeers.contains(peer) else { throw ServiceFailure(status: 0, code: "contact_blocked") }
         guard !changedIdentities.contains(peer) else { throw ServiceFailure(status: 0, code: "peer_identity_review_required") }
         let id = UUID()
-        try core.journal.saveDraft(id:id,recipient:peer,text:text,createdAt:now,now:now,consumeCompose:true)
+        try core.journal.saveDraft(id:id,recipient:peer,text:text,createdAt:now,now:now,consumeCompose:true,attachments:attachments)
         messageCommitted(.init(id:id.uuidString,text:text,peer:peer))
         try reload()
+        return id
+    }
+    private func uploadAttachments(_ attachments: [AttachmentManifest], core: MessagingCore) async throws {
+        if attachments.isEmpty { return }
+        try ensureOpen()
+        guard let bytes = mediaTransport, let profile else { throw ServiceFailure(status: 0, code: "media_not_enabled") }
+        let repository = try AttachmentRepository(account: profile.id)
+        for manifest in attachments {
+            try await repository.ensureUploaded(manifest, api: api, bytes: bytes, device: core.device)
+            try ensureOpen()
+            guard self.core === core else { throw CancellationError() }
+        }
     }
     private func establish(_ peer: UUID) async throws {
         guard let core, let vault else { return }
@@ -668,9 +747,11 @@ struct AuthenticatedChatProfile: Decodable {
                 for draft in try core.journal.pendingDrafts(now: now).sorted(by: { $0.createdAt < $1.createdAt }) {
                     do {
                         if blockedPeers.contains(draft.recipient) || changedIdentities.contains(draft.recipient) { continue }
+                        try await uploadAttachments(draft.attachments ?? [], core: core)
+                        if blockedPeers.contains(draft.recipient) || changedIdentities.contains(draft.recipient) { continue }
                         try await establish(draft.recipient)
                         if blockedPeers.contains(draft.recipient) || changedIdentities.contains(draft.recipient) { continue }
-                        _ = try core.queue(id: draft.id, peer: draft.recipient, text: draft.text, createdAt: draft.createdAt, now: now)
+                        _ = try core.queue(id: draft.id, peer: draft.recipient, text: draft.text, createdAt: draft.createdAt, now: now, attachments: draft.attachments ?? [])
                     } catch is CancellationError { throw CancellationError() }
                     catch { notice = Self.explanation(error) }
                 }
@@ -678,7 +759,9 @@ struct AuthenticatedChatProfile: Decodable {
                     if blockedPeers.contains(envelope.recipient) { continue }
                     do {
                         guard let saved = try core.journal.outgoing(envelope.id) else { continue }
-                        let routed = try core.queue(id: envelope.id, peer: envelope.recipient, text: saved.text, createdAt: envelope.createdAt, now: now)
+                        if saved.state == "queued" { try await uploadAttachments(saved.attachments ?? [], core: core) }
+                        if blockedPeers.contains(envelope.recipient) || changedIdentities.contains(envelope.recipient) { continue }
+                        let routed = try core.queue(id: envelope.id, peer: envelope.recipient, text: saved.text, createdAt: envelope.createdAt, now: now, attachments: saved.attachments ?? [])
                         let status: Status = try await request("POST", "/v1/messages", body: routed.sendData(), device: core.device)
                         if status.state == "identity_changed" { try recordIdentityChange(envelope.recipient) }
                         let state = ["unavailable", "identity_changed"].contains(status.state) ? "failed" : status.state
@@ -746,6 +829,7 @@ struct AuthenticatedChatProfile: Decodable {
     }
 
     func close() throws {
+        mediaRegistration?.cancel(); mediaRegistration = nil; advertisedMediaDevice = nil
         translationReplay?.cancel(); translationReplay = nil; translationOwner?.close(); translationOwner = nil
         activity?.close(); activity = nil
         clearPreview(); previewsWhileOpen = false; previewsOutsideApp = false
@@ -834,6 +918,7 @@ struct AuthenticatedChatProfile: Decodable {
             case "base_subscription_required": return String(localized: "Can’t connect. Messages are saved here.")
             case "device_replacement_confirmation_required": return String(localized: "This account is already active on another device. Moving your account needs a separate confirmation.")
             case "recent_sign_in_required", "sign_in_required", "device_revoked": return String(localized: "Please sign in again to reconnect your account. Your saved conversations are still on this device.")
+            case "recipient_media_unsupported", "peer_media_unavailable": return String(localized: "Attachments aren’t available for this chat right now.")
             case "recipient_keys_unavailable": return String(localized: "Your friend needs to open Vipi before this first message can be sent. Your message is saved.")
             case "peer_identity_review_required": return String(localized: "Review this friend’s changed encryption keys before sending another message.")
             case "device_not_ready": return String(localized: "Connect once to finish setting up this device.")
@@ -848,7 +933,7 @@ struct AuthenticatedChatProfile: Decodable {
     private static func terminalSendState(_ failure: ServiceFailure) -> String? {
         if failure.status == 410 && failure.code == "message_expired" { return "expired" }
         if failure.status == 404 && failure.code == "recipient_unavailable" { return "failed" }
-        if failure.status == 409 && ["recipient_identity_changed", "message_id_conflict"].contains(failure.code) { return "failed" }
+        if failure.status == 409 && ["recipient_identity_changed", "message_id_conflict", "recipient_media_unsupported"].contains(failure.code) { return "failed" }
         if failure.status == 400 && ["invalid_ciphertext", "invalid_ciphertext_size", "invalid_cipher_type"].contains(failure.code) { return "failed" }
         return nil
     }

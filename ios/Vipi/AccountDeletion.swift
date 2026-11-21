@@ -93,6 +93,7 @@ private final class NoDeletionRedirects: NSObject, URLSessionTaskDelegate, Senda
         // These are private, temporary encrypted copies, not files the user
         // chose to save through Files. The coordinator is already closed.
         try HistoryBackupStore.erasePrivateFiles(account: record.account)
+        try AttachmentRepository.eraseFiles(account: record.account)
         // Rendered message audio contains the same private conversation content
         // as the vault. Public downloaded voices and language packs are separate.
         try MessageSpeechCache.erase()

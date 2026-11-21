@@ -492,6 +492,17 @@ struct FriendConversationView: View {
                         HStack {
                             if item.outgoing { Spacer(minLength: 38) }
                             VStack(alignment: .leading, spacing: 7) {
+                                ForEach(item.attachments.filter { $0.kind == .photo }, id: \.id) { photo in
+                                    ConversationPhotoButton(available: chat.canViewPhoto(peer: peer)) {
+                                        try await chat.viewPhoto(photo, peer: peer)
+                                    }
+                                }
+                                ForEach(item.attachments.filter { $0.kind == .voice || $0.kind == .video }, id: \.id) { attachment in
+                                    MediaPlaybackButton(manifest: attachment, available: chat.canViewPhoto(peer: peer)) {
+                                        speech.stop()
+                                        return try await chat.openMedia(attachment, peer: peer)
+                                    }
+                                }
                                 ConversationImmersionText(text: item.text, id: item.id.uuidString, immersion: immersion,
                                     speech: speech, paused: scrolling || (composing && !text.isEmpty), metadata: AnyView(
                                 messageMetadata(item).font(.caption2)
@@ -718,7 +729,7 @@ struct FriendConversationView: View {
                 ConversationHeaderActions(mode: state.immersionMode, autoplay: autoplay.enabled,
                     toggleMode: toggleMode, toggleAutoplay: toggleAutoplay) {
                     HStack(spacing: 6) {
-                        ContactAvatar(peer: peer, name: chat.name(peer), size: 28)
+                        ContactAvatar(peer: peer, name: chat.name(peer), size: 28, jpeg: chat.avatar(peer))
                         Text(chat.name(peer)).foregroundStyle(VipiDesign.ink)
                             .font(.headline).lineLimit(1)
                     }
@@ -882,6 +893,13 @@ struct FriendConversationView: View {
                     }.padding(16).accessibilityIdentifier("conversation-blocked")
                 } else {
                 HStack(alignment: .bottom, spacing: 10) {
+                    AttachmentComposeButton(chat: chat, peer: peer) {
+                        composing = false
+                        speech.stop()
+                    } onCommitted: {
+                        followingLatest = true; refresh()
+                        Task { await chat.synchronize() }
+                    }
                     MessageEditor(text: editableDraft, placeholder: String(localized: "Message"), focus: $composing,
                         maximumBytes: ConversationHistory.maximumDraftBytes, rejected: { rejectedDraftEdit = true }).disabled(!loaded)
                         .id(typeSize)

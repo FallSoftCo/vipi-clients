@@ -108,6 +108,8 @@ targets:
           - CFBundleURLSchemes: [co.fallsoft.vipi]
             CFBundleURLName: co.fallsoft.vipi.auth
         VipiNotificationKeyGroup: $(AppIdentifierPrefix)co.fallsoft.vipi.notification-access
+        NSCameraUsageDescription: Take a photo or video to share with a friend.
+        NSMicrophoneUsageDescription: Record audio for a voice message or video.
         NSContactsUsageDescription: Choose a phone contact to invite. Names, numbers and email addresses stay on this device.
         WorkOSClientID: $(WORKOS_CLIENT_ID)
         VipiPushEnvironment: $(VIPI_PUSH_ENVIRONMENT)
@@ -150,6 +152,8 @@ targets:
       - path: Vipi/NotificationEnvelope.swift
       - path: Vipi/MessageVault.swift
       - path: Vipi/MessageJournal.swift
+      - path: Vipi/PrivateProfileAvatar.swift
+      - path: Vipi/MediaCryptography.swift
       - path: Vipi/MessagingCore.swift
       - path: Vipi/SignalKeys.swift
       - path: Vipi/DurableSignalStore.swift

@@ -89,7 +89,7 @@ struct HomeView: View {
                             LazyVStack(spacing:0) {
                                 ForEach(chat.threads) { thread in
                                     NavigationLink(value: HomeDestination.friend(thread.peer)) {
-                                        HomeConversationRow(name:chat.name(thread.peer),thread:thread,owner:chat.translationOwner,
+                                        HomeConversationRow(jpeg:chat.avatar(thread.peer),name:chat.name(thread.peer),thread:thread,owner:chat.translationOwner,
                                             expectedPair:.init(source:state.knownLanguage,target:state.targetLanguage))
                                     }.buttonStyle(.plain)
                                         .accessibilityIdentifier("chat-thread-"+thread.peer.uuidString.lowercased())
@@ -268,6 +268,7 @@ struct HomeView: View {
 
 
 struct HomeConversationRow:View {
+    var jpeg: Data? = nil
     let name:String
     let thread:ChatThread
     let owner:ConversationImmersion?
@@ -288,7 +289,7 @@ struct HomeConversationRow:View {
     }
     var body:some View {
         HStack(alignment:.center,spacing:14) {
-            ContactAvatar(peer:thread.peer,name:name,size:46)
+            ContactAvatar(peer:thread.peer,name:name,size:46,jpeg:jpeg)
             VStack(alignment:.leading,spacing:5) {
                 HStack(alignment:.firstTextBaseline,spacing:8) {
                     Text(name).font(.body.weight(thread.unread > 0 ? .semibold:.medium))
@@ -439,7 +440,7 @@ struct NewChatView: View {
                                     selected(valid.id); dismiss()
                                 } label: {
                                     HStack {
-                                        ContactAvatar(peer: friend.id, name: friend.display_name, size: 38)
+                                        ContactAvatar(peer: friend.id, name: friend.display_name, size: 38, jpeg: chat.avatar(friend.id))
                                         VStack(alignment: .leading) {
                                             Text(verbatim: friend.display_name).font(.headline)
                                             Text(verbatim: "@" + friend.username).font(.subheadline).foregroundStyle(.secondary)
@@ -580,13 +581,14 @@ struct SettingsView: View {
             if let profile = chat?.profile {
                 Section {
                     HStack(spacing: 14) {
-                        ContactAvatar(peer: profile.id, name: profile.display_name, size: 52)
+                        ContactAvatar(peer: profile.id, name: profile.display_name, size: 52, jpeg: chat?.avatar(profile.id))
                         VStack(alignment: .leading, spacing: 3) {
                             Text(profile.display_name).font(.headline)
                             Text("@" + profile.username).font(.subheadline).foregroundStyle(VipiDesign.secondary).textSelection(.enabled)
                         }
                     }.padding(.vertical, 5)
                     .modifier(ScreenSpot(asset: "SpotSettings"))
+                    if let chat { AvatarEditor(chat: chat, account: profile.id) }
                     ShareLink(item: FriendInvitation.message(username: profile.username)) {
                         HStack(alignment: .firstTextBaseline, spacing: 12) {
                             Image(systemName: "square.and.arrow.up").accessibilityHidden(true)

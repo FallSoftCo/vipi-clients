@@ -3,11 +3,14 @@ import LibSignalClient
 
 struct RoutedMessage {
     let envelope: ChatEnvelope; let senderDevice: UUID; let recipientDevice: UUID
+    var attachmentIDs: [String] = []
     func sendData() throws -> Data {
         let date = ISO8601DateFormatter(); date.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        return try JSONSerialization.data(withJSONObject: ["id": envelope.id.uuidString.lowercased(), "recipient_id": envelope.recipient.uuidString.lowercased(),
+        var body: [String: Any] = ["id": envelope.id.uuidString.lowercased(), "recipient_id": envelope.recipient.uuidString.lowercased(),
             "recipient_device_id": recipientDevice.uuidString.lowercased(), "created_at": date.string(from: Date(timeIntervalSince1970: Double(envelope.createdAt) / 1000)),
-            "cipher_type": envelope.type, "ciphertext": envelope.ciphertext.base64EncodedString()])
+            "cipher_type": envelope.type, "ciphertext": envelope.ciphertext.base64EncodedString()]
+        if !attachmentIDs.isEmpty { body["attachment_ids"] = attachmentIDs }
+        return try JSONSerialization.data(withJSONObject: body)
     }
     struct Received: Decodable {
         let id: UUID; let sender_id: UUID; let sender_device_id: UUID; let recipient_device_id: UUID
@@ -105,8 +108,8 @@ final class MessagingCore {
             else { try vault.remove("identity-verification", peer.uuidString.lowercased()) }
         }
     }
-    func queue(id: UUID, peer: UUID, text: String, createdAt: Int64, now: Int64) throws -> RoutedMessage {
-        let envelope = try journal.queue(id: id, recipient: peer, text: text, createdAt: createdAt, now: now) { clear in
+    func queue(id: UUID, peer: UUID, text: String, createdAt: Int64, now: Int64, attachments: [AttachmentManifest] = []) throws -> RoutedMessage {
+        let envelope = try journal.queue(id: id, recipient: peer, text: text, createdAt: createdAt, now: now, attachments: attachments) { clear in
             guard let target = try vault.get("peer-device", peer.uuidString.lowercased()) else { throw SignalKeys.Failure.invalidBundle }
             let encrypted = try signalEncrypt(message: clear, for: ProtocolAddress(name: peer.uuidString.lowercased(), deviceId: 1), localAddress: local, sessionStore: store, identityStore: store, context: context)
             try vault.put("outgoing-route", id.uuidString.lowercased(), target)
@@ -116,7 +119,8 @@ final class MessagingCore {
             guard let data = try vault.get("outgoing-route", id.uuidString.lowercased()), let uuid = UUID(uuidString: String(decoding: data, as: UTF8.self)) else { throw MessageJournal.Failure.invalidMessage }
             return uuid
         }
-        return RoutedMessage(envelope: envelope, senderDevice: device.id, recipientDevice: target)
+        guard let saved = try journal.outgoing(id) else { throw MessageJournal.Failure.missingMessage }
+        return RoutedMessage(envelope: envelope, senderDevice: device.id, recipientDevice: target, attachmentIDs: (saved.attachments ?? []).flatMap(\.blobIDs))
     }
     func receive(_ value: RoutedMessage, now: Int64, validate: () throws -> Void = {}, onNew: () -> Void = {}, commitMetadata: () throws -> Void = {}) throws -> StoredChat {
         guard value.recipientDevice == device.id else { throw MessageJournal.Failure.invalidMessage }

@@ -17,15 +17,20 @@ struct ContactAvatar: View {
     let peer:UUID
     let name:String
     var size:CGFloat = 30
+    var jpeg:Data? = nil
     @ScaledMetric(relativeTo:.headline) private var scale:CGFloat = 1
     private var diameter:CGFloat { min(size * scale,size * 1.45) }
     private var tint:Color { VipiPalette.avatar(ContactMonogram.colorIndex(peer)) }
     var body:some View {
-        Text(ContactMonogram.text(name))
+        Group {
+            if let jpeg, let photo = UIImage(data: jpeg) {
+                Image(uiImage: photo).resizable().scaledToFill()
+            } else { Text(ContactMonogram.text(name)) }
+        }
             .font(.system(size:diameter * 0.36,weight:.semibold,design:.rounded))
             .foregroundStyle(VipiDesign.ink)
             .frame(width:diameter,height:diameter)
-            .background(tint,in:Circle())
+            .clipShape(Circle()).background(tint,in:Circle())
             .overlay(Circle().strokeBorder(VipiDesign.bubbleBorder,lineWidth:0.75))
             .accessibilityHidden(true)
     }

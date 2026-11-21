@@ -6,7 +6,18 @@ import UIKit
 import WorkOS
 
 enum KeychainStore {
+    #if VIPI_MEDIA_QUALIFICATION
+    private static let service = (Bundle.main.bundleIdentifier ?? "co.fallsoft.vipi.mediaqa") + ".private"
+    #else
     private static let service = "co.fallsoft.vipi.private"
+    #endif
+    static var isMediaQualification: Bool {
+        #if VIPI_MEDIA_QUALIFICATION
+        return ["co.fallsoft.vipi.mediaqa", "co.fallsoft.vipi.mediaqa.viewer"].contains(Bundle.main.bundleIdentifier ?? "")
+        #else
+        return false
+        #endif
+    }
     static func save(_ data: Data, account: String) throws {
         let query: [String: Any] = [kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: service, kSecAttrAccount as String: account]
         let status = SecItemUpdate(query as CFDictionary, [kSecValueData as String: data] as CFDictionary)

@@ -29,6 +29,7 @@ extension AuthenticationManager: ChatAccessTokenSource {}
     private let endpoint: URL
     private let http: URLSession
     private let eventHTTP: URLSession
+    let media: CiphertextTransport
     init(authentication: any ChatAccessTokenSource, userID: String, endpoint: URL = URL(string: "https://api.mambovipi.app")!, responseTimeout: TimeInterval = 30) throws {
         var permitted = endpoint.scheme == "https"
         #if DEBUG
@@ -37,6 +38,9 @@ extension AuthenticationManager: ChatAccessTokenSource {}
         guard permitted, endpoint.user == nil, endpoint.password == nil, endpoint.query == nil, endpoint.fragment == nil,
             endpoint.path.isEmpty || endpoint.path == "/" else { throw ServiceFailure(status: 0, code: "invalid_service_address") }
         self.authentication = authentication; self.userID = userID; self.endpoint = endpoint
+        media = try CiphertextTransport(endpoint: endpoint) { [authentication, userID] rejected in
+            try await authentication.accessToken(for: userID, rejected: rejected)
+        }
         let config = URLSessionConfiguration.ephemeral
         config.urlCache = nil; config.httpCookieStorage = nil
         config.timeoutIntervalForRequest = max(25, min(90, responseTimeout))

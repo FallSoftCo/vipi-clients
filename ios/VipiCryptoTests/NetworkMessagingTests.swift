@@ -164,7 +164,7 @@ private final class NoPairRedirects: NSObject, URLSessionTaskDelegate, Sendable 
 
 /// Explicit fixture lane only. Real HTTP + bearer signature verification at the
 /// normal API; no native/customer credential access and no production refresh.
-@MainActor private final class SignedLoopbackPairTransport: ChatTransport {
+@MainActor final class SignedLoopbackPairTransport: ChatTransport {
     private let endpoint: URL, token: String
     private let http = URLSession(configuration: .ephemeral, delegate: NoPairRedirects(), delegateQueue: nil)
     init(endpoint: URL, token: String) throws {
