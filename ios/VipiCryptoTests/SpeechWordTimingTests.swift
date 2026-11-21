@@ -40,6 +40,14 @@ import VipiCore
             let cached = try await pair.render([(text,"en")])
             XCTAssertEqual(cached.file,audio.file)
             XCTAssertTrue(cached.marks.isEmpty)
+            let single = try await pair.render([("Water!","en")])
+            XCTAssertEqual(single.marks.count,1)
+            XCTAssertEqual(single.marks.first?.start,0)
+            XCTAssertEqual(single.marks.first?.length,5)
+            if retained == 0 {
+                XCTAssertEqual(single.marks.first?.byteSampleOffset,0)
+                XCTAssertEqual(single.marks.first?.source,"measured_single_word_pcm")
+            }
         }
     }
     func testPlayerSampleClockHighlightsActualWordsAndClearsOnStopAndReplacement() async throws {

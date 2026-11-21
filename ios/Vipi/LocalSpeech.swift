@@ -286,7 +286,14 @@ private final class ConverterInput: @unchecked Sendable {
             // A start-only partial mark could stay highlighted throughout the
             // rest of the phrase, so use word highlights only for complete timing.
             if !SpeechChunks.marksCoverWords(native.marks,text:span.text,language:span.language) {
-                native.marks.removeAll()
+                let words = SpeechChunks.wordRanges(span.text,language:span.language)
+                if words.count == 1, let word = words.first {
+                    // This entire rendered file belongs to one practice word.
+                    // Its measured start is sufficient even without a callback.
+                    native.marks = [.init(start:word.location,length:word.length,byteSampleOffset:0,source:"measured_single_word_pcm")]
+                } else {
+                    native.marks.removeAll()
+                }
             }
             parts.append(part)
             rendered.append(native)
