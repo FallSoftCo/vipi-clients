@@ -1,4 +1,5 @@
 import SwiftUI
+import AVFoundation
 
 struct ConnectedChatRoot: View {
     #if DEBUG
@@ -158,6 +159,7 @@ struct FriendConversationView: View {
     @Environment(\.dynamicTypeSize) private var typeSize
     @State private var immersion: ConversationImmersion
     @State private var speech = SpeechPlayback()
+    @State private var voice = InlineVoiceComposer()
     @State private var autoplay = ChatAutoplay()
     @State private var messageObserver: UUID?
     let chat: ChatSession
@@ -866,6 +868,12 @@ struct FriendConversationView: View {
             }.disabled(blockBusy).accessibilityLabel("Conversation options").accessibilityIdentifier("conversation-options")
         }
     }
+    @ViewBuilder private var recordingHint: some View {
+        Text("Hold to record. Release to send.").font(.footnote).foregroundStyle(VipiDesign.secondary)
+        Button("Record hands-free") {
+            composing = false; speech.stop(); voice.begin(lock: true)
+        }.font(.footnote.weight(.semibold)).frame(minHeight: 44).accessibilityIdentifier("voice-hands-free")
+    }
     private var composer: some View {
             VStack(spacing: 9) {
                 // A large optional card must not consume the transcript while
@@ -892,31 +900,67 @@ struct FriendConversationView: View {
                         Button("Unblock") { confirmBlock = true }.disabled(blockBusy)
                     }.padding(16).accessibilityIdentifier("conversation-blocked")
                 } else {
-                HStack(alignment: .bottom, spacing: 10) {
-                    AttachmentComposeButton(chat: chat, peer: peer) {
-                        composing = false
-                        speech.stop()
-                    } onCommitted: {
-                        followingLatest = true; refresh()
-                        Task { await chat.synchronize() }
+                if voice.showHandsFree {
+                    ViewThatFits(in: .horizontal) {
+                        HStack(spacing: 10) { recordingHint }
+                        VStack(alignment: .leading, spacing: 2) { recordingHint }
+                    }.padding(.horizontal, 14)
+                }
+                if let notice = voice.notice {
+                    HStack {
+                        Text(notice).font(.footnote).foregroundStyle(VipiDesign.secondary)
+                        if voice.denied { Link("Open Settings", destination: URL(string: UIApplication.openSettingsURLString)!) }
+                    }.padding(.horizontal, 14)
+                }
+                HStack(alignment: .bottom, spacing: 6) {
+                    if voice.active {
+                        InlineVoiceStatus(voice: voice)
+                    } else {
+                        AttachmentComposeButton(chat: chat, peer: peer) {
+                            composing = false
+                            speech.stop()
+                        } onCommitted: {
+                            followingLatest = true
+                            refresh()
+                            Task { await chat.synchronize() }
+                        }
+                        MessageEditor(text: editableDraft, placeholder: String(localized: "Message"), focus: $composing,
+                            maximumBytes: ConversationHistory.maximumDraftBytes, rejected: { rejectedDraftEdit = true })
+                            .disabled(!loaded)
+                            .id(typeSize)
+                            .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
+                            .overlay(RoundedRectangle(cornerRadius: 23).strokeBorder(
+                                composing ? VipiDesign.focus : VipiDesign.outline, lineWidth: composing ? 1.5 : 1))
+                            .accessibilityIdentifier("message-input")
+                        if !text.isEmpty {
+                            Button(action: send) {
+                                Image(systemName: "arrow.up").font(.body.weight(.semibold))
+                                    .frame(minWidth: 46, minHeight: 46).padding(6)
+                                    .foregroundStyle(canSend ? VipiDesign.onHighlight : VipiDesign.secondary)
+                                    .background(canSend ? VipiDesign.highlight : VipiDesign.subdued, in: Circle())
+                            }
+                            .buttonStyle(.plain).accessibilityLabel("Send message")
+                            .accessibilityIdentifier("message-send").disabled(!canSend)
+                        }
                     }
-                    MessageEditor(text: editableDraft, placeholder: String(localized: "Message"), focus: $composing,
-                        maximumBytes: ConversationHistory.maximumDraftBytes, rejected: { rejectedDraftEdit = true }).disabled(!loaded)
-                        .id(typeSize)
-                        .padding(13).background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 23))
-                        .overlay(RoundedRectangle(cornerRadius:23).strokeBorder(composing ? VipiDesign.focus:VipiDesign.outline,lineWidth:composing ? 1.5:1))
-                        .accessibilityIdentifier("message-input")
-                    Button(action: send) {
-                        Image(systemName: "arrow.up").font(.body.weight(.semibold))
-                            .frame(minWidth: 46, minHeight: 46).padding(6)
-                            .foregroundStyle(canSend ? VipiDesign.onHighlight : VipiDesign.secondary)
-                            .background(canSend ? VipiDesign.highlight : VipiDesign.subdued, in: Circle())
-                    }.buttonStyle(.plain).accessibilityLabel("Send message")
-                        .accessibilityIdentifier("message-send")
-                        .disabled(!canSend)
+                    InlineMicButton(voice: voice, enabled: loaded && chat.canViewPhoto(peer: peer)) {
+                        composing = false; speech.stop()
+                    }
                 }.padding(.horizontal, 14).padding(.bottom, 10)
                 }
             }.background(VipiDesign.canvas)
+            .onAppear {
+                voice.bind(chat, peer: peer) {
+                    followingLatest = true; refresh()
+                    Task { await chat.synchronize() }
+                }
+            }
+            .onChange(of: voice.recorder.phase) { _,_ in voice.recorderChanged() }
+            .onDisappear { voice.interruption(leaving: true) }
+            .onReceive(NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification)) { note in
+                if (note.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt) == AVAudioSession.InterruptionType.began.rawValue { voice.interruption() }
+            }
+            .onChange(of: scenePhase) { _,value in if value == .background { voice.interruption() } }
             .onGeometryChange(for:CGRect.self) { $0.frame(in:.global) } action: { value in
                 composerFrame = value; reportVisibleMessages()
                 #if DEBUG

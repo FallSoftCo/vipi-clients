@@ -77,7 +77,7 @@ final class MessageJournal {
             try updateAvatar(PrivateProfileAvatar(revision: max(old + 1, now), jpeg: jpeg), for: vault.account)
         }
     }
-    func saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Int64, now: Int64, consumeCompose: Bool = false, attachments: [AttachmentManifest] = []) throws {
+    func saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Int64, now: Int64, consumeCompose: Bool = false, consumeVoice: String? = nil, attachments: [AttachmentManifest] = []) throws {
         try MessageAttachments.validate(attachments)
         try vault.transaction {
             guard validTime(createdAt, now), !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, text.utf8.count <= 32768 else { throw Failure.invalidMessage }
@@ -91,6 +91,11 @@ final class MessageJournal {
             try vault.put("draft", key(id), encoder.encode(draft))
             try ConversationHistory.record(vault, kind: "draft", id: id, peer: recipient, createdAt: createdAt)
             if consumeCompose, try vault.get("compose", key(recipient)) == Data(text.utf8) { try vault.remove("compose", key(recipient)) }
+            if let consumeVoice {
+                guard let data = try vault.get("voice-compose", key(recipient)),
+                      try decoder.decode(AttachmentManifest.self, from: data).id == consumeVoice else { throw Failure.conflict }
+                try vault.remove("voice-compose", key(recipient))
+            }
         }
     }
     func draft(_ id: UUID) throws -> DraftChat? { try vault.transaction { try vault.get("draft", key(id)).map { try decoder.decode(DraftChat.self, from: $0) } } }

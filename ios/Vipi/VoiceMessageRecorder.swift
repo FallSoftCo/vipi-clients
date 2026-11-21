@@ -2,7 +2,7 @@ import SwiftUI
 import AVFoundation
 
 @MainActor @Observable final class VoiceMessageRecorder: NSObject, AVAudioRecorderDelegate {
-    enum Phase { case idle, asking, recording, review, denied, failed }
+    enum Phase { case idle, asking, permissionReady, recording, review, denied, failed }
     private(set) var phase = Phase.idle
     private(set) var seconds = 0.0
     private var recorder: AVAudioRecorder?
@@ -13,9 +13,14 @@ import AVFoundation
         cancel()
         let attempt = generation
         phase = .asking
+        let firstPermissionPrompt = AVAudioApplication.shared.recordPermission == .undetermined
         let allowed = await AVAudioApplication.requestRecordPermission()
         guard generation == attempt else { return }
         guard allowed else { phase = .denied; return }
+        // A permission dialog interrupts the original touch. A fresh user
+        // gesture starts capture after the dialog goes away.
+        if firstPermissionPrompt { phase = .permissionReady; return }
+        VoiceAudioHandoff.stopCurrent()
         do {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .mixWithOthers])
@@ -25,6 +30,7 @@ import AVFoundation
             url = file
             let capture = try AVAudioRecorder(url: file, settings: [
                 AVFormatIDKey: kAudioFormatMPEG4AAC, AVSampleRateKey: 24_000, AVNumberOfChannelsKey: 1, AVEncoderBitRateKey: 48_000])
+            capture.isMeteringEnabled = true
             recorder = capture
             capture.delegate = self
             guard capture.record(forDuration: 175) else { throw MediaCryptography.Failure.invalidFile }
@@ -33,10 +39,20 @@ import AVFoundation
         } catch { cancel(); phase = .failed }
     }
     var currentTime: Double { recorder?.currentTime ?? seconds }
+    var level: Double {
+        guard let recorder, recorder.isRecording else { return 0 }
+        recorder.updateMeters()
+        return max(0, min(1, (Double(recorder.averagePower(forChannel: 0)) + 55) / 55))
+    }
     func stop() {
         guard phase == .recording, let recorder else { return }
         seconds = recorder.currentTime
         recorder.stop()
+        // Interruption can reset the recorder clock before the delegate fires.
+        // The finished file retains the duration of the samples already recorded.
+        if seconds <= 0.1, let audio = try? AVAudioPlayer(contentsOf: recorder.url) {
+            seconds = min(175, audio.duration)
+        }
         finish(success: seconds > 0.1)
     }
     nonisolated func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
@@ -72,42 +88,5 @@ import AVFoundation
         if let url { try? FileManager.default.removeItem(at: url) }
         url = nil; seconds = 0; phase = .idle
         deactivate()
-    }
-}
-struct VoiceCaptureView: View {
-    var finished: (ChosenMedia?) -> Void
-    @State private var recorder = VoiceMessageRecorder()
-    @Environment(\.scenePhase) private var scenePhase
-    var body: some View {
-        NavigationStack {
-            VStack(spacing: 20) {
-                switch recorder.phase {
-                case .recording:
-                    TimelineView(.periodic(from: .now, by: 0.5)) { _ in
-                        Text(Duration.seconds(recorder.currentTime).formatted(.time(pattern: .minuteSecond)))
-                            .font(.largeTitle.monospacedDigit()).accessibilityLabel("Recording duration")
-                    }
-                    Button("Stop recording", systemImage: "stop.fill") { recorder.stop() }.buttonStyle(.borderedProminent)
-                case .review:
-                    Text(Duration.seconds(recorder.seconds).formatted(.time(pattern: .minuteSecond))).font(.title.monospacedDigit())
-                    Button("Use recording", systemImage: "checkmark") { finished(recorder.take()) }.buttonStyle(.borderedProminent)
-                    Button("Record again") { Task { await recorder.begin() } }
-                case .asking: ProgressView()
-                case .denied:
-                    Text("Allow microphone access in Settings to record a voice message.").multilineTextAlignment(.center)
-                    Link("Open Settings", destination: URL(string: UIApplication.openSettingsURLString)!)
-                case .failed, .idle:
-                    if recorder.phase == .failed { Text("Couldn’t record that message.") }
-                    Button("Record voice message", systemImage: "mic") { Task { await recorder.begin() } }.buttonStyle(.borderedProminent)
-                }
-            }.padding().navigationTitle("Voice message").navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { finished(nil) } } }
-            .onDisappear { recorder.cancel() }
-            .onChange(of: scenePhase) { _, phase in if phase == .background { recorder.cancel() } }
-            .onReceive(NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification)) { note in
-                if (note.userInfo?[AVAudioSessionInterruptionTypeKey] as? UInt) == AVAudioSession.InterruptionType.began.rawValue,
-                   recorder.phase == .recording { recorder.stop() }
-            }
-        }
     }
 }

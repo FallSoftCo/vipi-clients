@@ -7,7 +7,7 @@ struct AttachmentComposeButton: View {
     let peer: UUID
     let onOpen: () -> Void
     let onCommitted: () -> Void
-    private enum Sheet: String, Identifiable { case library, camera, voice; var id: Self { self } }
+    private enum Sheet: String, Identifiable { case library, camera; var id: Self { self } }
     @State private var sheet: Sheet?
     @State private var picked: ChosenMedia?
     @State private var selected: ChosenMedia?
@@ -18,16 +18,14 @@ struct AttachmentComposeButton: View {
         Menu {
             Button("Choose photo or video", systemImage: "photo.on.rectangle") { choose(.library) }
             Button("Camera", systemImage: "camera") { choose(.camera) }
-            Button("Voice message", systemImage: "mic") { choose(.voice) }
         } label: {
-            Image(systemName: "plus.circle").font(.title2).frame(minWidth: 44, minHeight: 44)
-        }.accessibilityLabel("Add attachment").accessibilityIdentifier("chat-attach")
+            Image(systemName: "camera").font(.title2).frame(minWidth: 44, minHeight: 44)
+        }.accessibilityLabel("Camera and photo library").accessibilityIdentifier("chat-attach")
         .disabled(busy || !chat.canViewPhoto(peer: peer))
         .sheet(item: $sheet, onDismiss: {
             if let picked { selected = picked; self.picked = nil }
         }) { source in
-            if source == .voice { VoiceCaptureView { handle(.success($0)) } }
-            else { NativeMediaPicker(camera: source == .camera, photosOnly: false, finished: handle) }
+            NativeMediaPicker(camera: source == .camera, photosOnly: false, finished: handle)
         }
         .sheet(item: $selected, onDismiss: { work?.cancel(); busy = false }) { file in
             NavigationStack {

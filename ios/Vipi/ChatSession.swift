@@ -623,6 +623,38 @@ struct AuthenticatedChatProfile: Decodable {
         }
         return url
     }
+    func voiceDraft(peer: UUID) throws -> AttachmentManifest? {
+        guard let vault else { return nil }
+        return try vault.transaction {
+            try vault.get("voice-compose", peer.uuidString.lowercased()).map { try JSONDecoder().decode(AttachmentManifest.self, from: $0) }
+        }
+    }
+    func saveVoiceDraft(_ manifest: AttachmentManifest, peer: UUID) throws {
+        try ensureOpen()
+        guard let vault, manifest.kind == .voice else { throw MessageJournal.Failure.invalidMessage }
+        try manifest.validate()
+        let key = peer.uuidString.lowercased()
+        try vault.transaction {
+            if let existing = try vault.get("voice-compose", key) {
+                guard try JSONDecoder().decode(AttachmentManifest.self, from: existing).id == manifest.id else { throw MessageJournal.Failure.conflict }
+            }
+            try vault.put("voice-compose", key, JSONEncoder().encode(manifest))
+        }
+    }
+    func discardVoiceDraft(_ manifest: AttachmentManifest, peer: UUID) throws {
+        try ensureOpen()
+        guard let vault else { return }
+        let key = peer.uuidString.lowercased()
+        let removed = try vault.transaction {
+            guard let data = try vault.get("voice-compose", key),
+                  try JSONDecoder().decode(AttachmentManifest.self, from: data).id == manifest.id else { return false }
+            try vault.remove("voice-compose", key); return true
+        }
+        if removed { try AttachmentRepository(account: vault.account).discardPrepared(manifest) }
+    }
+    func sendVoiceDraft(_ manifest: AttachmentManifest, peer: UUID) throws {
+        _ = try enqueue(String(localized: "Voice message"), peer: peer, attachments: [manifest], consumeVoice: manifest.id)
+    }
     func canViewPhoto(peer: UUID) -> Bool {
         ready && !closed && !needsReauthentication && !needsDeviceReplacement &&
             !blockedPeers.contains(peer) && !changedIdentities.contains(peer)
@@ -636,14 +668,14 @@ struct AuthenticatedChatProfile: Decodable {
         guard canViewPhoto(peer: peer), profile?.id == account, core?.device.id == device.id else { throw CancellationError() }
         return image
     }
-    private func enqueue(_ text: String, peer: UUID, attachments: [AttachmentManifest]) throws -> UUID {
+    private func enqueue(_ text: String, peer: UUID, attachments: [AttachmentManifest], consumeVoice: String? = nil) throws -> UUID {
         try ensureOpen()
         guard !historyBusy else { throw ServiceFailure(status: 0, code: "history_busy") }
         guard let core, ready else { throw ServiceFailure(status: 0, code: "device_not_ready") }
         guard !blockedPeers.contains(peer) else { throw ServiceFailure(status: 0, code: "contact_blocked") }
         guard !changedIdentities.contains(peer) else { throw ServiceFailure(status: 0, code: "peer_identity_review_required") }
         let id = UUID()
-        try core.journal.saveDraft(id:id,recipient:peer,text:text,createdAt:now,now:now,consumeCompose:true,attachments:attachments)
+        try core.journal.saveDraft(id:id,recipient:peer,text:text,createdAt:now,now:now,consumeCompose:attachments.isEmpty,consumeVoice:consumeVoice,attachments:attachments)
         messageCommitted(.init(id:id.uuidString,text:text,peer:peer))
         try reload()
         return id

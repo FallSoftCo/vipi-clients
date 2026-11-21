@@ -46,6 +46,38 @@ final class ConversationHistoryTests: XCTestCase {
         XCTAssertEqual(try history.composeDraft(peer),"Shortened café ☕")
     }
 
+    func testVoiceDraftIsConsumedExactlyOnceAndKeepsTextDraft() throws {
+        let account = UUID(), peer = UUID(), now: Int64 = 1_800_000_000_000
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let vault = try MessageVault(account: account, directory: root)
+        defer {
+            try? vault.close()
+            try? FileManager.default.removeItem(at: root)
+            KeychainStore.delete(account: "messages-" + account.uuidString.lowercased())
+        }
+        let history = try ConversationHistory(vault: vault)
+        let journal = MessageJournal(vault: vault)
+        let original = MediaPart(blobID: UUID().uuidString.lowercased(), role: "original", plaintextBytes: 40,
+                                 ciphertextBytes: 68, ciphertextSHA256: String(repeating: "a", count: 64))
+        let manifest = AttachmentManifest(version: 1, id: UUID().uuidString.lowercased(), kind: .voice,
+                                          key: MediaCryptography.freshKey(), original: original, thumbnail: nil,
+                                          filename: "Voice.m4a", contentType: "audio/mp4", width: nil, height: nil, durationMillis: 1300)
+        try history.saveComposeDraft("Keep typing here", peer: peer)
+        let key = peer.uuidString.lowercased()
+        try vault.transaction { try vault.put("voice-compose", key, JSONEncoder().encode(manifest)) }
+        func send(_ expected: String) throws {
+            try journal.saveDraft(id: UUID(), recipient: peer, text: "Voice message", createdAt: now, now: now,
+                                  consumeVoice: expected, attachments: [manifest])
+        }
+        XCTAssertThrowsError(try send("stale draft"))
+        XCTAssertTrue(try history.messages(peer: peer).isEmpty)
+        try send(manifest.id)
+        XCTAssertThrowsError(try send(manifest.id))
+        XCTAssertEqual(try history.messages(peer: peer).count, 1)
+        XCTAssertEqual(try history.composeDraft(peer), "Keep typing here")
+        XCTAssertNil(try vault.transaction { try vault.get("voice-compose", key) })
+    }
+
     func testHistoryPaginationDraftsUnreadAndReceiptRecovery() throws {
         let account = UUID(), peer = UUID(), other = UUID(), now: Int64 = 1_800_000_000_000
         let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("HistoryQA/\(UUID())")
