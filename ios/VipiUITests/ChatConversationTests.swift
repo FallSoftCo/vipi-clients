@@ -844,7 +844,7 @@ final class ChatConversationTests: XCTestCase {
     /// Native marketing pixels from controlled screenshot data, never model proof.
     #if VIPI_GROUPS_QUALIFICATION
     func testComposeRoutesFromChats() throws { try checkJourney(largest: false, inboxReview: "compose-routes-populated") }
-    func testCreatedGroupOpensFromBothChatsAndPicker() throws { try checkJourney(largest: false, inboxReview: "compose-finish-populated") }
+    func testSingleComposeActionFromEmptyChats() throws { try checkJourney(largest: false, inboxReview: "compose-routes-empty") }
     func testComposeRoutesFromChatsAtAccessibilityType() throws { try checkJourney(largest: true, inboxReview: "compose-routes-populated") }
     #endif
     func testScreenSpotsAtStandardType() throws { try checkJourney(largest: false, inboxReview: "spots-populated") }
@@ -2734,90 +2734,85 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(app.navigationBars["Chats"].exists)
             XCTAssertFalse(app.buttons["Notify me when friends reply"].exists)
             XCTAssertTrue(app.buttons["Your profile and settings"].exists)
-            if inboxReview == "compose-finish-populated" {
-                for (entry, title) in [("home-new-group", "Weekend friends"), ("new-chat-new-group", "Coffee crew")] {
-                    if entry == "new-chat-new-group" { app.buttons["home-start-conversation"].tap() }
-                    app.buttons[entry].tap()
-                    let name = app.textFields["group-name"]
-                    XCTAssertTrue(name.waitForExistence(timeout: 6)); name.tap(); name.typeText(title + "\n")
-                    let form = try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last)
-                    let create = app.buttons["group-create"]
-                    XCTAssertTrue(create.isHittable)
-                    let pinnedY = create.frame.midY
-                    let friend: XCUIElement
-                    if entry == "home-new-group" {
-                        friend = form.buttons["Alex, @alex"]
-                    } else {
-                        let search = app.textFields["Search names or usernames"]
-                        reveal(search, scrollContainer: form); search.tap(); search.typeText("Maya\n")
-                        friend = form.buttons["Maya Johnson, @inbox_qa_0"]
-                    }
-                    reveal(friend, scrollContainer: form); friend.tap()
-                    XCTAssertTrue(create.isHittable)
-                    XCTAssertEqual(create.frame.midY, pinnedY, accuracy: 2)
-                    XCTAssertEqual(create.label, "Create group and invite 1"); XCTAssertTrue(create.isEnabled)
-                    if entry == "home-new-group" {
-                        let selected = XCTAttachment(screenshot: app.screenshot())
-                        selected.name = "compose-group-selected"; selected.lifetime = .keepAlways; add(selected)
-                    }
-                    create.tap()
-                    XCTAssertTrue(app.navigationBars[title].waitForExistence(timeout: 8))
-                    XCTAssertTrue(app.buttons["Group info"].exists)
-                    let shot = XCTAttachment(screenshot: app.screenshot())
-                    shot.name = "compose-created-" + entry; shot.lifetime = .keepAlways; add(shot)
-                    app.navigationBars.buttons["BackButton"].firstMatch.tap()
-                    XCTAssertTrue(app.buttons["home-new-group"].waitForExistence(timeout: 5))
-                }
-                return
-            }
-            if inboxReview == "compose-routes-populated" {
+            if inboxReview.hasPrefix("compose-routes-") {
+                let empty = inboxReview.hasSuffix("empty")
                 func capture(_ screen: String) {
                     let shot = XCTAttachment(screenshot: app.screenshot())
-                    shot.name = (largest ? "compose-accessible-" : "compose-") + screen
-                    shot.lifetime = .keepAlways
-                    add(shot)
+                    shot.name = (empty ? "new-empty-" : (largest ? "new-accessible-" : "new-")) + screen
+                    shot.lifetime = .keepAlways; add(shot)
                 }
-                let newChat = app.buttons["home-start-conversation"]
-                let newGroup = app.buttons["home-new-group"]
+                let new = app.buttons["home-compose"]
+                let shortcut = app.buttons["new-chat-new-group"]
                 let groups = app.buttons["open-groups"]
-                for (button, label) in [(newChat, "New chat"), (newGroup, "New group")] {
-                    XCTAssertTrue(button.waitForExistence(timeout: 8))
-                    XCTAssertTrue(button.isHittable)
-                    XCTAssertEqual(button.label, label)
-                    XCTAssertGreaterThanOrEqual(button.frame.height, 44)
-                }
-                capture("chats")
-                newGroup.tap()
                 let name = app.textFields["group-name"]
-                XCTAssertTrue(name.waitForExistence(timeout: 5))
-                XCTAssertTrue(app.navigationBars["New group"].exists)
-                XCTAssertTrue(app.buttons["group-create"].isHittable)
-                capture("group-form")
+                let find = app.textFields["Friend’s username"]
                 let cancel = app.buttons["Cancel"].firstMatch
-                cancel.tap()
-                XCTAssertTrue(newChat.waitForExistence(timeout: 5))
-                newChat.tap()
-                XCTAssertTrue(app.textFields["Friend’s username"].waitForExistence(timeout: 5))
+                XCTAssertTrue(new.waitForExistence(timeout: 8) && new.isHittable)
+                XCTAssertEqual(new.label, "New")
+                XCTAssertGreaterThanOrEqual(new.frame.height, 44)
+                XCTAssertEqual(app.buttons.matching(NSPredicate(format: "label == 'New'")).count, 1)
+                XCTAssertFalse(app.buttons["New chat"].exists || shortcut.exists || groups.exists)
+                capture("chats")
+                new.tap()
+                XCTAssertTrue(find.waitForExistence(timeout: 6))
+                XCTAssertTrue(app.navigationBars["New chat"].exists)
+                XCTAssertTrue(shortcut.isHittable)
+                if !empty && !largest {
+                    XCTAssertTrue(app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'saved-vipi-friend-'")).firstMatch.exists)
+                }
                 capture("contact-picker")
-                app.buttons["new-chat-new-group"].tap()
-                XCTAssertTrue(name.waitForExistence(timeout: 5))
+                shortcut.tap()
+                XCTAssertTrue(name.waitForExistence(timeout: 6))
+                let create = app.buttons["group-create"]
+                XCTAssertTrue(app.navigationBars["New group"].exists && create.isHittable)
+                capture("group-form")
                 cancel.tap()
-                XCTAssertTrue(app.textFields["Friend’s username"].waitForExistence(timeout: 5))
+                XCTAssertTrue(find.waitForExistence(timeout: 6))
                 cancel.tap()
-                XCTAssertTrue(groups.waitForExistence(timeout: 5))
-                groups.tap()
+                XCTAssertTrue(new.waitForExistence(timeout: 6))
+                if empty || largest { return }
+
+                new.tap(); groups.tap()
                 XCTAssertTrue(app.staticTexts["Weekend plans"].waitForExistence(timeout: 8))
                 XCTAssertTrue(app.buttons["Join group"].exists)
                 let thread = app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Book club")).firstMatch
-                let scroll = try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last)
-                reveal(thread, scrollContainer: scroll)
+                let directory = try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last)
+                reveal(thread, scrollContainer: directory)
                 capture("groups-and-invitations")
                 thread.tap()
                 XCTAssertTrue(app.navigationBars["Book club"].waitForExistence(timeout: 5))
-                app.navigationBars.buttons["BackButton"].firstMatch.tap()
-                XCTAssertTrue(app.navigationBars["Groups"].waitForExistence(timeout: 5))
-                app.navigationBars.buttons["BackButton"].firstMatch.tap()
-                XCTAssertTrue(newGroup.waitForExistence(timeout: 5))
+                let back = app.navigationBars.buttons["BackButton"].firstMatch
+                back.tap(); XCTAssertTrue(app.navigationBars["Groups"].waitForExistence(timeout: 5))
+                back.tap(); XCTAssertTrue(find.waitForExistence(timeout: 5))
+                shortcut.tap(); XCTAssertTrue(name.waitForExistence(timeout: 5))
+                app.open(try XCTUnwrap(URL(string: "co.fallsoft.vipi://invite/alex")))
+                XCTAssertTrue(find.waitForExistence(timeout: 8))
+                XCTAssertEqual(find.value as? String, "alex")
+                cancel.tap(); XCTAssertTrue(new.waitForExistence(timeout: 5))
+                new.tap()
+                find.tap(); find.typeText("Maya")
+                let maya = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'saved-vipi-friend-' AND label CONTAINS 'Maya'")).firstMatch
+                let picker = try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last)
+                reveal(maya, scrollContainer: picker); maya.tap()
+                XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "message-input").firstMatch.waitForExistence(timeout: 8))
+                back.tap(); XCTAssertTrue(new.waitForExistence(timeout: 5))
+
+                new.tap(); shortcut.tap()
+                XCTAssertTrue(name.waitForExistence(timeout: 6)); name.tap(); name.typeText("Weekend friends\n")
+                let form = try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last)
+                XCTAssertTrue(create.isHittable)
+                let pinnedY = create.frame.midY
+                let alex = form.buttons["Alex, @alex"]
+                reveal(alex, scrollContainer: form); alex.tap()
+                XCTAssertTrue(create.isHittable && create.isEnabled)
+                XCTAssertEqual(create.frame.midY, pinnedY, accuracy: 2)
+                XCTAssertEqual(create.label, "Create group and invite 1")
+                capture("group-selected")
+                create.tap()
+                XCTAssertTrue(app.navigationBars["Weekend friends"].waitForExistence(timeout: 8))
+                XCTAssertTrue(app.buttons["Group info"].exists)
+                capture("group-conversation")
+                back.tap(); XCTAssertTrue(new.waitForExistence(timeout: 5))
                 return
             }
             if inboxReview == "spots-populated" || inboxReview == "spots-compact-populated" {
@@ -2840,7 +2835,7 @@ final class ChatConversationTests: XCTestCase {
                 XCTAssertFalse(app.images["SpotSettings"].exists)
                 capture("settings")
                 app.navigationBars.buttons["BackButton"].firstMatch.tap()
-                app.buttons["New chat"].firstMatch.tap()
+                app.buttons["home-compose"].tap()
                 let field = app.textFields["Friend’s username"]
                 XCTAssertTrue(field.waitForExistence(timeout: 6))
                 XCTAssertFalse(app.images["SpotNewChat"].exists)
@@ -2849,7 +2844,8 @@ final class ChatConversationTests: XCTestCase {
                 XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label CONTAINS[c] 'Maya'")).firstMatch.exists)
                 capture("new-chat-editing")
                 app.buttons["Cancel"].firstMatch.tap()
-                app.buttons["home-new-group"].tap()
+                app.buttons["home-compose"].tap()
+                app.buttons["new-chat-new-group"].tap()
                 let name = app.textFields["group-name"]
                 XCTAssertTrue(name.waitForExistence(timeout: 6))
                 XCTAssertFalse(app.images["SpotNewGroup"].exists)
