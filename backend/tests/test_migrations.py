@@ -19,7 +19,7 @@ async def test_initial_migration_matches_models_and_preserves_data_on_repeat(db)
             command.upgrade(config, "head")
             assert compare_metadata(MigrationContext.configure(sync), Base.metadata) == []
         await connection.run_sync(upgrade)
-        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261119_02"
+        assert (await connection.execute(text("SELECT version_num FROM alembic_version"))).scalar_one() == "20261121_02"
     async with db.sessions.begin() as s:
         s.add(User(id="migration-fixture", subject="user_migration", username="migration", display_name="Migration QA", created_at=NOW))
     async with db.engine.begin() as connection:
@@ -226,3 +226,56 @@ async def test_identity_alias_migration_preserves_historical_links_and_refuses_l
                 config.attributes["connection"] = sync
                 command.downgrade(config, "20261119_01")
             await connection.run_sync(downgrade)
+
+
+async def test_group_migration_refuses_losing_membership_authority(db):
+    import pytest
+    from vipi.db import ChatGroup
+    config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
+    async with db.engine.begin() as connection:
+        await connection.run_sync(Base.metadata.drop_all)
+        def upgrade(sync):
+            config.attributes["connection"] = sync
+            command.upgrade(config,"head")
+        await connection.run_sync(upgrade)
+    async with db.sessions.begin() as session:
+        session.add(ChatGroup(id="group-preserve",creator_id=None,creation_fingerprint="f"*64,
+            title="Retained group",epoch=1,state="closed",created_at=NOW))
+    with pytest.raises(RuntimeError,match="Preserve group authority"):
+        async with db.engine.begin() as connection:
+            def downgrade(sync):
+                config.attributes["connection"] = sync
+                command.downgrade(config,"20261119_01")
+            await connection.run_sync(downgrade)
+    async with db.sessions() as session:
+        assert (await session.get(ChatGroup,"group-preserve")).title == "Retained group"
+
+
+async def test_group_recovery_migration_keeps_legacy_outcome_unknown_and_guards_live_fences(db):
+    import pytest
+    from vipi.db import GroupCancellation
+    config=Config(str(Path(__file__).resolve().parents[1]/"alembic.ini"))
+    async with db.engine.begin() as connection:
+        await connection.run_sync(Base.metadata.drop_all)
+        def old(sync):
+            config.attributes['connection']=sync;command.upgrade(config,'20261121_01')
+        await connection.run_sync(old)
+        await connection.execute(text("INSERT INTO users (id,subject,username,display_name,created_at,deleted,cardless_trial_started_at,cardless_trial_ends_at) VALUES ('u','s','u','u',:now,false,:now,:now)"),{'now':NOW})
+        await connection.execute(text("INSERT INTO chat_groups (id,creator_id,creation_fingerprint,title,epoch,state,created_at) VALUES ('g','u',:fp,'Legacy',1,'active',:now)"),{'fp':'a'*64,'now':NOW})
+        await connection.execute(text("INSERT INTO group_operations (group_id,request_id,actor_id,fingerprint,created_at) VALUES ('g','r','u',:fp,:now)"),{'fp':'b'*64,'now':NOW})
+        def upgrade(sync):
+            config.attributes['connection']=sync;command.upgrade(config,'head')
+            assert compare_metadata(MigrationContext.configure(sync),Base.metadata)==[]
+        await connection.run_sync(upgrade)
+        values=(await connection.execute(text("SELECT actor_id,admitted_result,original_device_id,expected_epoch FROM group_operations WHERE group_id='g'"))).one()
+        assert tuple(values)==('u',None,None,None)
+    async with db.sessions.begin() as session:
+        session.add(GroupCancellation(group_id='g',actor_id='u',request_id='cancel',fingerprint='c'*64,
+            expected_epoch=1,original_device_id='original-device',created_at=NOW))
+    with pytest.raises(RuntimeError,match='Preserve durable group recovery'):
+        async with db.engine.begin() as connection:
+            def down(sync):
+                config.attributes['connection']=sync;command.downgrade(config,'20261121_01')
+            await connection.run_sync(down)
+    async with db.sessions() as session:
+        assert await session.get(GroupCancellation,('g','u','cancel'))

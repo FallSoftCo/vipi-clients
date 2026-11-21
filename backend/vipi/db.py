@@ -47,6 +47,10 @@ class PendingMessage(Base):
     cipher_type: Mapped[int] = mapped_column(Integer)
     fingerprint: Mapped[str] = mapped_column(String(64))
     state: Mapped[str] = mapped_column(String(16), default="accepted")
+    group_id: Mapped[str | None] = mapped_column(String(36), nullable=True, index=True)
+    group_epoch: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    group_message_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    group_kind: Mapped[str | None] = mapped_column(String(16), nullable=True)
     __table_args__ = (Index("inbox_pending", "recipient_device_id", "state", "accepted_at"),)
 
 
@@ -206,6 +210,7 @@ class PushOutbox(Base):
     __tablename__ = "push_outbox"
     device_id: Mapped[str] = mapped_column(ForeignKey("devices.id"), primary_key=True)
     generation: Mapped[int] = mapped_column(BigInteger)
+    group_event: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
     next_attempt_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
     expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     attempts: Mapped[int] = mapped_column(Integer, default=0)
@@ -312,3 +317,72 @@ class Database:
 
     async def close(self):
         await self.engine.dispose()
+
+
+class ChatGroup(Base):
+    __tablename__ = "chat_groups"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    creator_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    creation_fingerprint: Mapped[str] = mapped_column(String(64))
+    title: Mapped[str] = mapped_column(String(80))
+    epoch: Mapped[int] = mapped_column(Integer)
+    state: Mapped[str] = mapped_column(String(16))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class GroupMember(Base):
+    __tablename__ = "group_members"
+    group_id: Mapped[str] = mapped_column(ForeignKey("chat_groups.id"), primary_key=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True, index=True)
+    role: Mapped[str] = mapped_column(String(16))
+    joined_epoch: Mapped[int] = mapped_column(Integer)
+    joined_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class GroupInvitation(Base):
+    __tablename__ = "group_invitations"
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    group_id: Mapped[str] = mapped_column(ForeignKey("chat_groups.id"), index=True)
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
+    invited_by: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    state: Mapped[str] = mapped_column(String(16))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)
+
+
+class GroupOperation(Base):
+    __tablename__ = "group_operations"
+    group_id: Mapped[str] = mapped_column(ForeignKey("chat_groups.id"), primary_key=True)
+    request_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    actor_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    expected_epoch: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    original_device_id: Mapped[str | None] = mapped_column(String(36), nullable=True)
+    admitted_result: Mapped[bytes | None] = mapped_column(LargeBinary, nullable=True)
+
+
+class GroupCancellation(Base):
+    __tablename__ = "group_cancellations"
+    group_id: Mapped[str] = mapped_column(ForeignKey("chat_groups.id"), primary_key=True)
+    actor_id: Mapped[str] = mapped_column(ForeignKey("users.id"), primary_key=True, index=True)
+    request_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    expected_epoch: Mapped[int] = mapped_column(Integer)
+    original_device_id: Mapped[str] = mapped_column(String(36))
+    control_expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+
+class GroupMessage(Base):
+    __tablename__ = "group_messages"
+    group_id: Mapped[str] = mapped_column(ForeignKey("chat_groups.id"), primary_key=True)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    sender_id: Mapped[str] = mapped_column(ForeignKey("users.id"), index=True)
+    sender_device_id: Mapped[str] = mapped_column(String(36))
+    kind: Mapped[str] = mapped_column(String(16))
+    epoch: Mapped[int] = mapped_column(Integer)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    envelope_ids: Mapped[bytes] = mapped_column(LargeBinary)
+    admitted_result: Mapped[bytes | None] = mapped_column(LargeBinary, nullable=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True)

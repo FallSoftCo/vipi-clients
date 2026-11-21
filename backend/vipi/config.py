@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     reviewer_identity_subjects: frozenset[str] = Field(default=frozenset(), max_length=32)
     store_sandbox_user_ids: frozenset[str] = Field(default=frozenset(), max_length=32)
     store_sandbox_restricted: bool = False
+    groups_enabled: bool = False
     max_message_bytes: int = 65_536
     max_pending_per_recipient: int = 10_000
     delivery_seconds: int = 259_200

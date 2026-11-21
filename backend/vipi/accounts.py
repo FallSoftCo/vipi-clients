@@ -1,7 +1,7 @@
 import hashlib
 import hmac
 import re
-from datetime import datetime
+from datetime import UTC, datetime
 
 from sqlalchemy import delete, or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -28,7 +28,7 @@ def credential_hash(secret: str, service_secret: str) -> str:
 
 async def active_device(session: AsyncSession, user_id: str, device_id: str, secret: str, *, service_secret: str) -> Device:
     digest = credential_hash(secret, service_secret)
-    device = await session.get(Device, device_id)
+    device = await session.get(Device, device_id, populate_existing=True)
     if not device or device.user_id != user_id or not device.active or not hmac.compare_digest(device.credential_hash, digest):
         raise DeliveryError("device_revoked", 401)
     return device
@@ -64,7 +64,7 @@ async def register_device(session: AsyncSession, *, user_id: str, device_id: str
     return device
 
 
-async def set_block(session: AsyncSession, *, blocker_id: str, blocked_id: str, blocked: bool):
+async def set_block(session: AsyncSession, *, blocker_id: str, blocked_id: str, blocked: bool, now=None):
     if blocker_id == blocked_id:
         raise DeliveryError("invalid_recipient")
     users = (await session.execute(select(User).where(User.id.in_([blocker_id, blocked_id]),
@@ -77,6 +77,8 @@ async def set_block(session: AsyncSession, *, blocker_id: str, blocked_id: str, 
     elif not blocked and entry is not None:
         await session.delete(entry)
     if blocked:
+        from .groups import revoke_memberships
+        await revoke_memberships(session, blocker_id, now=now or datetime.now(UTC), shared_with=blocked_id)
         await session.execute(update(PendingMessage).where(PendingMessage.state == "accepted", or_(
             (PendingMessage.sender_id == blocked_id) & (PendingMessage.recipient_id == blocker_id),
             (PendingMessage.sender_id == blocker_id) & (PendingMessage.recipient_id == blocked_id)

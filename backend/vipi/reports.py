@@ -79,6 +79,8 @@ async def restrict(session, *, user_id, suspended, operator, reason, now):
         return False
     user.suspended = suspended
     if suspended:
+        from .groups import revoke_memberships
+        await revoke_memberships(session, user_id, now=now)
         await session.execute(update(PendingMessage).where(
             or_(PendingMessage.sender_id == user_id, PendingMessage.recipient_id == user_id),
             PendingMessage.state == "accepted").values(state="cancelled", ciphertext=None))
