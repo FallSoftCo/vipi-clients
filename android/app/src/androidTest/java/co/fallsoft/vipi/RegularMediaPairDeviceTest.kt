@@ -387,6 +387,30 @@ class RegularMediaPairDeviceTest {
         check(chat.messages(peer).filter { it.outgoing }.map { it.id }.toSet() == before)
         capture(f, "10-mic-denied-text-available")
     }
+    /** Capture final controls in the real paired conversation without admitting another message. */
+    @Test fun inspectLockedControlsWithoutSending() = stage("locked-controls") { f ->
+        val peer = UUID.fromString(readState().getString("peer"))
+        f.launch()
+        compose.waitUntil(25_000) { f.model.chat?.ready == true && f.model.screen == Screen.HOME }
+        val chat = requireNotNull(f.model.chat)
+        compose.onNodeWithTag("inbox-row-$peer").performClick()
+        compose.waitUntil { f.model.screen == Screen.CONVERSATION }
+        fun outgoingIDs() = chat.messages(peer).filter { it.outgoing }.map { it.id }.toSet()
+        val before = outgoingIDs()
+        check(app.checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) == android.content.pm.PackageManager.PERMISSION_GRANTED)
+        compose.onNodeWithTag("voice-action").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick)
+        compose.onNodeWithTag("voice-stop").assertIsDisplayed()
+        compose.onNodeWithContentDescription("Send voice message").assertIsDisplayed()
+        SystemClock.sleep(1700)
+        capture(f, "01-handsfree-stop-and-send")
+        compose.onNodeWithTag("voice-stop").performClick()
+        compose.onNode(hasTestTag("inline-voice-player") and hasAnyAncestor(hasTestTag("voice-composer-active"))).assertIsDisplayed()
+        capture(f, "02-optional-inline-review")
+        compose.onNodeWithTag("voice-discard").performClick()
+        compose.onNodeWithTag("message-input").assertIsDisplayed()
+        check(outgoingIDs() == before)
+    }
+
     @Test fun sendRecordedVoice() = sendInlineVoice("voice", locked = false)
     @Test fun sendLockedVoice() = sendInlineVoice("locked", locked = true)
 
@@ -412,13 +436,19 @@ class RegularMediaPairDeviceTest {
         val idField = "sent_${stageName}"
         check(!state.has(idField))
         val existing = chat.messages(peer).filter { it.outgoing && it.attachments.any { a -> a.kind == AttachmentKind.VOICE } }.map { it.id }.toSet()
-        runBlocking(Dispatchers.Main) { chat.requirePeerMedia(peer) }
+        check(chat.profile?.id.toString() == state.getString("account"))
+        val expected = if (locked) setOf(UUID.fromString(state.getString("sent_voice"))) else emptySet()
+        check(existing == expected) { "Reconcile existing outgoing voice IDs before dispatch" }
+        File(f.output, "before-touch.json").writeText(JSONObject().put("stage", stageName)
+            .put("account", state.getString("account")).put("peer", peer).put("existingOutgoingVoices", existing.size).toString())
         if (app.checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
             compose.onNodeWithContentDescription("Hold to record a voice message").performClick()
             val allow = By.res(java.util.regex.Pattern.compile(".*:id/permission_allow_foreground_only_button"))
             requireNotNull(f.device.wait(Until.findObject(allow), 8000)).click()
             compose.waitUntil(5000) { app.checkSelfPermission(android.Manifest.permission.RECORD_AUDIO) == android.content.pm.PackageManager.PERMISSION_GRANTED }
         }
+        f.hideKeyboard()
+        capture(f, "00-${stageName}-composer")
         val mic = requireNotNull(f.device.wait(Until.findObject(By.desc("Hold to record a voice message")), 6000)).visibleCenter
         val down = SystemClock.uptimeMillis()
         fun pointer(action: Int, y: Float) {
@@ -430,6 +460,9 @@ class RegularMediaPairDeviceTest {
         var released = false
         try {
             SystemClock.sleep(1000)
+            compose.onNodeWithText(app.getString(R.string.voice_gestures)).assertIsDisplayed()
+            compose.mainClock.advanceTimeBy(96)
+            SystemClock.sleep(180)
             check(f.device.takeScreenshot(File(f.output, "01-${stageName}-live.png")))
             val y = if (locked) mic.y - 90 * app.resources.displayMetrics.density else mic.y.toFloat()
             if (locked) { pointer(android.view.MotionEvent.ACTION_MOVE, y); SystemClock.sleep(200) }

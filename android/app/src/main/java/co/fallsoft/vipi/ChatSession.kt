@@ -92,6 +92,8 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (!valid()) { file.delete(); throw CancellationException("Chat changed") }
         return file
     }
+    var voiceDrafts: VoiceDrafts? = null
+        private set
     var holdEducation: HoldEducation? = null
         private set
     var feedback: LaunchFeedback? = null
@@ -218,6 +220,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         check(profile == null || profile!!.id == value.id) { "Account changed" }
         if (vault == null) {
             val store = MessageVault(context, value.id); vault = store
+            voiceDrafts = VoiceDrafts(store, AttachmentRepository(context, value.id))
             feedback = LaunchFeedback(store)
             holdEducation = HoldEducation(store)
             core = MessagingCore(store); history = ConversationHistory(store)
@@ -535,7 +538,13 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (mediaTransport == null) throw ServiceFailure(0, "media_not_enabled")
         return enqueue(text, peer, attachments, onCommitted)
     }
-    private fun enqueue(text: String, peer: UUID, attachments: List<AttachmentManifest>, onCommitted: () -> Unit = {}): UUID {
+    fun sendVoiceDraft(text: String, peer: UUID, manifest: AttachmentManifest, onCommitted: () -> Unit): UUID {
+        require(manifest.kind == AttachmentKind.VOICE)
+        if (mediaTransport == null) throw ServiceFailure(0, "media_not_enabled")
+        return enqueue(text, peer, listOf(manifest), onCommitted, consumeVoiceDraft = true)
+    }
+    private fun enqueue(text: String, peer: UUID, attachments: List<AttachmentManifest>, onCommitted: () -> Unit = {},
+                        consumeVoiceDraft: Boolean = false): UUID {
         ensureOpen()
         val core = core
         if (!ready || core == null) throw ServiceFailure(0, "device_not_ready")
@@ -543,7 +552,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         if (peer in blockedPeers) throw ServiceFailure(0, "contact_blocked")
         if (peer in peersNeedingRecovery) throw PeerIdentityChanged(peer)
         val id = UUID.randomUUID()
-        core.journal.saveDraft(id, peer, text, now, now, consumeCompose = true, attachments = attachments)
+        core.journal.saveDraft(id, peer, text, now, now, consumeCompose = true, attachments = attachments, consumeVoiceDraft = consumeVoiceDraft)
         onCommitted()
         translateDurable(id.toString())
         newMessage(peer, id.toString(), text)
@@ -750,6 +759,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         historyDone?.cancel(); historyDone = null
         groups?.close(); groups = null
         feedback = null; holdEducation = null; visitedConversation = false
+        voiceDrafts?.finishPending(); voiceDrafts = null
         vault?.close(); vault = null; core = null; history = null
         profile = null; threads = emptyList(); contacts = emptyMap(); blockedPeers = emptySet(); peersNeedingRecovery = emptySet()
     }

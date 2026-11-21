@@ -24,7 +24,7 @@ internal data class DraftChat(val id: UUID, val recipient: UUID, val text: Strin
 /** Transport-independent journal: retry returns the exact saved ciphertext; a
  * receipt is permissible only after receive() has returned from its commit. */
 internal class MessageJournal(private val vault: MessageVault) {
-    fun saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Long, now: Long, consumeCompose: Boolean = false, attachments: List<AttachmentManifest> = emptyList()) = vault.transaction {
+    fun saveDraft(id: UUID, recipient: UUID, text: String, createdAt: Long, now: Long, consumeCompose: Boolean = false, attachments: List<AttachmentManifest> = emptyList(), consumeVoiceDraft: Boolean = false) = vault.transaction {
         MessageAttachments.validate(attachments)
         require(now >= 0 && createdAt >= 0 && createdAt <= Math.addExact(now, 300_000) && now < Math.addExact(createdAt, TTL))
         require(text.isNotBlank() && text.toByteArray(Charsets.UTF_8).size <= 32768)
@@ -34,7 +34,15 @@ internal class MessageJournal(private val vault: MessageVault) {
             return@transaction
         }
         val draft = DraftChat(id, recipient, text, createdAt, attachments = attachments)
-        vault.get("draft", id.toString())?.let { require(DraftChat.parse(it) == draft) { "Message ID conflict" } }
+        val existing = vault.get("draft", id.toString())
+        if (existing != null) require(DraftChat.parse(existing) == draft) { "Message ID conflict" }
+        if (consumeVoiceDraft && existing == null) {
+            val expected = attachments.single()
+            require(expected.kind == AttachmentKind.VOICE)
+            val bytes = requireNotNull(vault.get(VoiceDrafts.RECORD, recipient.toString()))
+            check(AttachmentManifest.parse(JSONObject(bytes.toString(Charsets.UTF_8))) == expected)
+            vault.remove(VoiceDrafts.RECORD, recipient.toString())
+        }
         vault.put("draft", id.toString(), draft.encode())
         ConversationHistory.record(vault, "draft", id, recipient, createdAt)
         if (consumeCompose && vault.get("compose", recipient.toString())?.contentEquals(text.toByteArray(Charsets.UTF_8)) == true) vault.remove("compose", recipient.toString())

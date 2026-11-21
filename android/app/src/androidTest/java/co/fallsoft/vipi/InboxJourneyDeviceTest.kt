@@ -331,6 +331,63 @@ class InboxJourneyDeviceTest {
         }
     }
 
+    @Test fun lockedRecorderKeepsSendStopAndDiscardInTheConversation() {
+        val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
+        val recent = Row(service.peer, "Maya", "Coffee tomorrow?", System.currentTimeMillis() - 60_000)
+        MainActivityJourneyFixture("voice-composer", { app -> seed(app, service, listOf(recent)); service.model(app) }).use { f ->
+            try {
+                f.instrumentation.uiAutomation.grantRuntimePermission(f.base.packageName, android.Manifest.permission.RECORD_AUDIO)
+                f.launch()
+                screen(f, Screen.HOME)
+                compose.onNodeWithTag("inbox-row-${service.peer}").performClick()
+                screen(f, Screen.CONVERSATION)
+                val before = requireNotNull(f.model.chat).messages(service.peer).map { it.id }
+                paint(f, "01-conversation-composer")
+                val mic = requireNotNull(f.device.findObject(androidx.test.uiautomator.By.desc(
+                    f.base.getString(R.string.media_record)))).visibleCenter
+                val down = android.os.SystemClock.uptimeMillis()
+                fun pointer(kind: Int, x: Float) {
+                    val event = android.view.MotionEvent.obtain(down, android.os.SystemClock.uptimeMillis(),
+                        kind, x, mic.y.toFloat(), 0)
+                    try { check(f.instrumentation.uiAutomation.injectInputEvent(event, true)) } finally { event.recycle() }
+                }
+                pointer(android.view.MotionEvent.ACTION_DOWN, mic.x.toFloat())
+                var released = false
+                try {
+                    android.os.SystemClock.sleep(1250)
+                    compose.onNodeWithText(f.base.getString(R.string.voice_gestures)).assertIsDisplayed()
+                    paint(f, "02-held-recording")
+                    val cancelX = mic.x - 86 * f.base.resources.displayMetrics.density
+                    pointer(android.view.MotionEvent.ACTION_MOVE, cancelX)
+                    pointer(android.view.MotionEvent.ACTION_UP, cancelX)
+                    released = true
+                } finally {
+                    // If an assertion interrupts a real held touch, discard the fixture gesture.
+                    if (!released) runCatching { pointer(android.view.MotionEvent.ACTION_CANCEL, mic.x.toFloat()) }
+                }
+                compose.onNodeWithTag("message-input").assertIsDisplayed()
+                compose.onNodeWithTag("voice-action").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick)
+                compose.onNodeWithContentDescription(f.base.getString(R.string.voice_send_recording)).assertIsDisplayed()
+                compose.onNodeWithTag("voice-stop").assertIsDisplayed()
+                android.os.SystemClock.sleep(1600)
+                paint(f, "03-handsfree-recording")
+                compose.onNodeWithTag("voice-stop").performClick()
+                compose.onNodeWithTag("inline-voice-player").assertIsDisplayed()
+                paint(f, "04-optional-inline-preview")
+                val saved = requireNotNull(f.model.chat?.voiceDrafts?.current(service.peer))
+                f.backgroundAndResume()
+                compose.onNodeWithTag("inline-voice-player").assertIsDisplayed()
+                f.recreate()
+                if (f.model.screen == Screen.HOME) compose.onNodeWithTag("inbox-row-${service.peer}").performClick()
+                screen(f, Screen.CONVERSATION)
+                compose.onNodeWithTag("inline-voice-player").assertIsDisplayed()
+                assertEquals(saved, f.model.chat?.voiceDrafts?.current(service.peer))
+                compose.onNodeWithTag("voice-discard").performClick()
+                compose.onNodeWithTag("message-input").assertIsDisplayed()
+                assertEquals(before, requireNotNull(f.model.chat).messages(service.peer).map { it.id })
+            } finally { f.stopActivity(); service.close() }
+        }
+    }
     @Test fun screenArtworkGivesWayToTheSearchAndLargeText() {
         val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
         val recent = Row(service.peer, "Maya", "Coffee tomorrow?", System.currentTimeMillis())

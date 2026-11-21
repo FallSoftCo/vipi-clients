@@ -380,10 +380,13 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     // editor instead of collapsing the timeline or moving controls under IME.
     val composerMaxHeight = maxOf(minimumComposerHeight, footerContentHeight - statusLineHeight - composerOuterPadding)
     val sendMedia: suspend (AttachmentManifest, () -> Unit) -> Unit = { manifest, closePreview ->
-        chat.sendAttachments(text.ifBlank { context.getString(manifest.kind.mediaLabel()) }, peer, listOf(manifest)) {
+        val caption = text.ifBlank { context.getString(manifest.kind.mediaLabel()) }
+        val committed = {
             closePreview()
             text = ""
         }
+        if (manifest.kind == AttachmentKind.VOICE) chat.sendVoiceDraft(caption, peer, manifest, committed)
+        else chat.sendAttachments(caption, peer, listOf(manifest), committed)
         notificationEducation?.committedUserSend(chat.name(peer))
         chat.composerActivity(peer, false)
         error = null
@@ -506,7 +509,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
                             modifier = Modifier.size(48.dp).testTag("message-send")) { Icon(Icons.Outlined.ArrowUpward, stringResource(R.string.send_message)) }
                     }
                     if (text.isBlank() && photoRepository != null) key(chat, photoOwner, peer) {
-                        VoiceComposer(photoRepository, loaded && chat.ready && peer !in chat.peersNeedingRecovery && !chat.needsReauthentication,
+                        VoiceComposer(requireNotNull(chat.voiceDrafts), peer, loaded && chat.ready && peer !in chat.peersNeedingRecovery && !chat.needsReauthentication,
                             checkPeer = { chat.requirePeerMedia(peer) }, send = sendMedia,
                             onActive = { voiceActive = it }, onError = { error = ChatSession.explanation(context, it) })
                     }

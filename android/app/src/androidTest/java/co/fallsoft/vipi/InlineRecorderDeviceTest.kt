@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.*
-import androidx.compose.ui.test.junit4.v2.createComposeRule
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
+import androidx.activity.ComponentActivity
+import androidx.lifecycle.Lifecycle
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
@@ -24,7 +26,7 @@ import java.util.UUID
 
 /** Real framework pointer and recorder events. The paired lane separately verifies HTTP, Signal and recipient playback. */
 class InlineRecorderDeviceTest {
-    @get:Rule val compose = createComposeRule()
+    @get:Rule val compose = createAndroidComposeRule<ComponentActivity>()
     @Test fun holdCancelLockPreviewDiscardReleaseAndAccessibleControls() {
         val inst = InstrumentationRegistry.getInstrumentation()
         val context = inst.targetContext
@@ -33,21 +35,41 @@ class InlineRecorderDeviceTest {
         val device = UiDevice.getInstance(inst)
         val account = UUID.randomUUID()
         val repo = AttachmentRepository(context, account)
+        val vault = MessageVault(context, account)
+        val peer = UUID.randomUUID()
+        val local = object : ChatTransport {
+            override suspend fun request(method: String, path: String, body: org.json.JSONObject?, device: DeviceCredential?,
+                                         query: Map<String, String>): org.json.JSONObject = when (path) {
+                "/v1/me" -> ChatProfile(account, "voice_local", "Alex").json()
+                "/v1/devices" -> org.json.JSONObject().put("id", requireNotNull(body).getString("device_id")).put("active", true)
+                "/v1/keys" -> org.json.JSONObject().put("revision", 1).put("remaining", 20)
+                "/v1/media/capability" -> org.json.JSONObject().put("version", 1)
+                "/v1/messages/pending" -> org.json.JSONObject().put("messages", org.json.JSONArray()).put("next_cursor", org.json.JSONObject.NULL)
+                else -> throw ServiceFailure(404, "fixture_route")
+            }
+        }
+        val chat = ChatSession(context, local, "user_localmedia_voice_$account", CiphertextTransport("http://127.0.0.1:1") { "unused" })
+        kotlinx.coroutines.runBlocking(kotlinx.coroutines.Dispatchers.Main) { chat.start(); check(chat.ready) }
+        val drafts = requireNotNull(chat.voiceDrafts)
         val accepted = java.util.concurrent.CopyOnWriteArrayList<AttachmentManifest>()
         val errors = java.util.concurrent.CopyOnWriteArrayList<Exception>()
         val visible = mutableStateOf(true)
         val offline = java.util.concurrent.atomic.AtomicBoolean(false)
+        val slowCheck = java.util.concurrent.atomic.AtomicReference<kotlinx.coroutines.CompletableDeferred<Unit>?>(null)
+        val checking = java.util.concurrent.atomic.AtomicBoolean(false)
         compose.setContent {
             var active by remember { mutableStateOf(false) }
             VipiTheme(Appearance.LIGHT) {
                 Box(Modifier.fillMaxSize().safeDrawingPadding().padding(16.dp), contentAlignment = Alignment.BottomCenter) {
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     if (!active) Spacer(Modifier.weight(1f))
-                    if (visible.value) VoiceComposer(repo, true, {
+                    if (visible.value) VoiceComposer(drafts, peer, true, {
+                        slowCheck.get()?.let { checking.set(true); it.await() }
                         if (offline.get()) throw java.io.IOException("Synthetic capability route offline")
                     }, { manifest, commit ->
                         check(manifest.kind == AttachmentKind.VOICE && repo.ciphertext(manifest.original).isFile)
-                        accepted.add(manifest); commit()
+                        chat.sendVoiceDraft("Voice message", peer, manifest, commit)
+                        accepted.add(manifest)
                     }, { active = it }, errors::add)
                 }
                 }
@@ -104,13 +126,38 @@ class InlineRecorderDeviceTest {
             assertTrue(accepted.isEmpty())
             ax()
             waitFor("Finish recording")
+            SystemClock.sleep(800)
             device.pressBack()
+            waitFor("Send voice message")
+            assertNotNull(drafts.current(peer))
+            compose.onNodeWithTag("voice-discard").performClick()
             idle()
             assertTrue(accepted.isEmpty())
             press(interrupt = true)
+            compose.waitUntil(6000) { drafts.current(peer) != null }
+            drafts.finishPending()
+            val interrupted = requireNotNull(drafts.current(peer))
+            assertTrue(repo.ciphertext(interrupted.original).isFile)
+            assertNull(drafts.current(UUID.randomUUID()))
+            MessageVault(context, account).use { reopened ->
+                assertEquals(interrupted, VoiceDrafts(reopened, repo).current(peer))
+            }
+            val otherAccount = UUID.randomUUID()
+            MessageVault(context, otherAccount).use { other ->
+                assertNull(VoiceDrafts(other, AttachmentRepository(context, otherAccount)).current(peer))
+            }
+            java.io.File(context.noBackupFilesDir, "messages/$otherAccount").deleteRecursively()
+            java.security.KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry("co.fallsoft.vipi.messages.$otherAccount") }
+            assertTrue(java.io.File(context.cacheDir, "media-capture/$account").listFiles().orEmpty().isEmpty())
             compose.runOnIdle { visible.value = true }
-            idle()
+            waitFor("Send voice message")
             assertTrue(accepted.isEmpty())
+            compose.onNodeWithContentDescription("Play voice message").performClick()
+            waitFor("Pause")
+            compose.onNodeWithTag("voice-discard").performClick()
+            idle()
+            assertNull(drafts.current(peer))
+            assertFalse(repo.ciphertext(interrupted.original).exists())
             press(dy = -84f)
             waitFor("Finish recording")
             SystemClock.sleep(450)
@@ -149,9 +196,39 @@ class InlineRecorderDeviceTest {
             idle()
             assertEquals(4, accepted.map { it.id }.distinct().size)
             assertEquals("Synthetic capability route offline", errors.single().message)
+            assertNull(drafts.current(peer))
+            val count = vault.transaction { vault.ids("draft").size }
+            assertEquals(4, count)
+            val now = System.currentTimeMillis()
+            assertTrue(runCatching { MessageJournal(vault).saveDraft(UUID.randomUUID(), peer, "Voice message", now, now,
+                attachments = listOf(accepted.last()), consumeVoiceDraft = true) }.isFailure)
+            assertEquals(count, vault.transaction { vault.ids("draft").size })
+            val previous = vault.transaction { DraftChat.parse(requireNotNull(vault.get("draft", vault.ids("draft").first()))) }
+            MessageJournal(vault).saveDraft(previous.id, peer, previous.text, previous.createdAt, now,
+                attachments = previous.attachments, consumeVoiceDraft = true)
+            assertEquals(count, vault.transaction { vault.ids("draft").size })
+            val gate = kotlinx.coroutines.CompletableDeferred<Unit>()
+            slowCheck.set(gate)
+            press()
+            compose.waitUntil(6000) { checking.get() }
+            compose.activityRule.scenario.moveToState(Lifecycle.State.STARTED)
+            gate.complete(Unit)
+            SystemClock.sleep(300)
+            assertEquals(4, accepted.size)
+            compose.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
+            waitFor("Send voice message")
+            assertNotNull(drafts.current(peer))
+            compose.onNodeWithTag("voice-discard").performClick()
+            assertNull(drafts.current(peer))
         } finally {
             compose.runOnIdle { visible.value = false }
+            compose.waitForIdle()
+            drafts.finishPending()
             accepted.forEach(repo::discard)
+            kotlinx.coroutines.runBlocking(kotlinx.coroutines.Dispatchers.Main) { chat.close() }
+            vault.close()
+            java.io.File(context.noBackupFilesDir, "messages/$account").deleteRecursively()
+            java.security.KeyStore.getInstance("AndroidKeyStore").apply { load(null); deleteEntry("co.fallsoft.vipi.messages.$account") }
         }
     }
 }

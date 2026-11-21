@@ -6,8 +6,6 @@ import android.content.pm.PackageManager
 import android.media.AudioManager
 import android.media.AudioRecordingConfiguration
 import android.media.MediaRecorder
-import android.net.Uri
-import android.os.ParcelFileDescriptor
 import android.os.SystemClock
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -49,6 +47,8 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
@@ -62,7 +62,7 @@ internal fun captureFile(context: Context, account: UUID, suffix: String): File 
     return File.createTempFile("capture-", suffix, dir)
 }
 
-private enum class RecordingPhase { IDLE, TIP, HELD, LOCKED, PREVIEW, SENDING }
+private enum class RecordingPhase { IDLE, TIP, HELD, LOCKED, SAVING, PREVIEW, SENDING }
 
 private class MicCapture(private val context: Context, private val account: UUID) {
     private var recorder: MediaRecorder? = null
@@ -132,7 +132,7 @@ private class MicCapture(private val context: Context, private val account: UUID
     }
 }
 
-@Composable internal fun VoiceComposer(repository: AttachmentRepository, enabled: Boolean,
+@Composable internal fun VoiceComposer(drafts: VoiceDrafts, peer: UUID, enabled: Boolean,
                                       checkPeer: suspend () -> Unit, send: suspend (AttachmentManifest, () -> Unit) -> Unit,
                                       onActive: (Boolean) -> Unit, onError: (Exception) -> Unit) {
     val context = LocalContext.current
@@ -144,63 +144,94 @@ private class MicCapture(private val context: Context, private val account: UUID
     val report by rememberUpdatedState(onError)
     val checkLatest by rememberUpdatedState(checkPeer)
     val sendLatest by rememberUpdatedState(send)
-    val mic = remember(repository) { MicCapture(context, repository.account) }
-    val staging = remember(repository) { repository.newPreview() }
-    var phase by remember { mutableStateOf(RecordingPhase.IDLE) }
+    val mic = remember(drafts, peer) { MicCapture(context, drafts.repository.account) }
+    val restoring = remember(drafts, peer) { drafts.pending(peer) }
+    var clip by remember(drafts, peer) { mutableStateOf(drafts.current(peer)) }
+    var phase by remember(drafts, peer) { mutableStateOf(when {
+        clip != null -> RecordingPhase.PREVIEW
+        restoring != null -> RecordingPhase.SAVING
+        else -> RecordingPhase.IDLE
+    }) }
     var gestureGeneration by remember { mutableIntStateOf(0) }
-    var clip by remember { mutableStateOf<File?>(null) }
-    var duration by remember { mutableLongStateOf(0) }
+    var duration by remember { mutableLongStateOf(clip?.durationMillis ?: 0L) }
     var sending by remember { mutableStateOf<Job?>(null) }
     val levels = remember { mutableStateListOf<Float>() }
     fun show(next: RecordingPhase) { phase = next; activeChanged(next != RecordingPhase.IDLE) }
+    fun review(item: AttachmentManifest) {
+        clip = item
+        duration = requireNotNull(item.durationMillis)
+        show(RecordingPhase.PREVIEW)
+    }
+    LaunchedEffect(drafts, peer) {
+        activeChanged(phase != RecordingPhase.IDLE)
+        try { restoring?.let { review(it.await()) } }
+        catch (cancel: CancellationException) { throw cancel }
+        catch (error: Exception) { show(RecordingPhase.IDLE); report(error) }
+    }
     fun discard() {
+        if (phase == RecordingPhase.SAVING) return
         gestureGeneration++
         sending?.cancel(); sending = null
         mic.finish(false)
-        clip?.delete(); clip = null
-        levels.clear()
-        show(RecordingPhase.IDLE)
+        try {
+            clip?.let { drafts.discard(peer, it) }
+            clip = null
+            levels.clear()
+            show(RecordingPhase.IDLE)
+        } catch (error: Exception) { report(error) }
     }
     fun dispatch() {
-        val path = clip ?: return
+        val item = clip ?: return
         if (phase != RecordingPhase.PREVIEW || !enabled) return
+        val issued = gestureGeneration
         show(RecordingPhase.SENDING)
         sending = scope.launch(Dispatchers.Main.immediate) {
-            var manifest: AttachmentManifest? = null
             try {
                 checkLatest()
-                val item = staging.prepare(Uri.fromFile(path), AttachmentKind.VOICE)
-                manifest = item
-                repository.adopt(staging, item) { committed ->
-                    check(phase == RecordingPhase.SENDING && clip === path && lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))
-                    sendLatest(item) {
-                        committed()
-                        path.delete(); clip = null
-                        sending = null
-                        show(RecordingPhase.IDLE)
-                    }
+                currentCoroutineContext().ensureActive()
+                check(gestureGeneration == issued && phase == RecordingPhase.SENDING && clip == item &&
+                    view.hasWindowFocus() && lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))
+                sendLatest(item) {
+                    clip = null
+                    sending = null
+                    show(RecordingPhase.IDLE)
                 }
             } catch (cancel: CancellationException) { throw cancel }
             catch (error: Exception) {
-                if (clip === path) {
-                    show(RecordingPhase.PREVIEW)
-                    report(error)
-                }
+                if (clip == item) { show(RecordingPhase.PREVIEW); report(error) }
             }
-            finally { manifest?.let(staging::discard) }
         }
     }
     fun stop(sendImmediately: Boolean) {
-        if (phase !in setOf(RecordingPhase.HELD, RecordingPhase.LOCKED)) return
+        if (phase != RecordingPhase.HELD && phase != RecordingPhase.LOCKED) return
         duration = SystemClock.elapsedRealtime() - mic.startedAt
-        clip = mic.finish(duration >= 350)
-        if (clip == null) {
-            discard()
-            if (duration < 350) show(RecordingPhase.TIP) else report(MediaActionFailure(R.string.media_recorder_error))
-        } else {
-            show(RecordingPhase.PREVIEW)
-            if (sendImmediately) dispatch()
+        val path = mic.finish(duration >= 350)
+        if (path == null) {
+            show(if (duration < 350 && sendImmediately) RecordingPhase.TIP else RecordingPhase.IDLE)
+            if (duration >= 350) report(MediaActionFailure(R.string.media_recorder_error))
+            return
         }
+        val generation = gestureGeneration
+        show(RecordingPhase.SAVING)
+        val save = try { drafts.save(peer, path) } catch (error: Exception) {
+            path.delete(); show(RecordingPhase.IDLE); report(error); return
+        }
+        scope.launch {
+            try {
+                review(save.await())
+                if (sendImmediately && gestureGeneration == generation && view.hasWindowFocus() &&
+                    lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) dispatch()
+            } catch (cancel: CancellationException) { throw cancel }
+            catch (error: Exception) { show(RecordingPhase.IDLE); report(error) }
+        }
+    }
+    fun interrupt() {
+        gestureGeneration++
+        if (phase == RecordingPhase.HELD || phase == RecordingPhase.LOCKED) stop(false)
+        else if (phase == RecordingPhase.SENDING) {
+            sending?.cancel(); sending = null
+            if (clip != null) show(RecordingPhase.PREVIEW)
+        } else if (phase == RecordingPhase.TIP) show(RecordingPhase.IDLE)
     }
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         if (!granted) report(MediaActionFailure(R.string.media_permission))
@@ -215,7 +246,7 @@ private class MicCapture(private val context: Context, private val account: UUID
         if (phase !in setOf(RecordingPhase.IDLE, RecordingPhase.TIP) || !permitted()) return
         try {
             stopInlineVoicePlayback()
-            mic.start(onLimit = { stop(false) }, onFailure = { discard(); report(MediaActionFailure(R.string.media_recorder_error)) })
+            mic.start(onLimit = { stop(false) }, onFailure = { interrupt(); report(MediaActionFailure(R.string.media_recorder_error)) })
             duration = 0
             levels.clear()
             haptic.performHapticFeedback(HapticFeedbackType.LongPress)
@@ -223,18 +254,18 @@ private class MicCapture(private val context: Context, private val account: UUID
         } catch (_: Exception) { discard(); report(MediaActionFailure(R.string.media_recorder_error)) }
     }
     DisposableEffect(lifecycle, view, enabled) {
-        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_PAUSE) discard() }
-        val focus = android.view.ViewTreeObserver.OnWindowFocusChangeListener { focused -> if (!focused) discard() }
+        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_PAUSE) interrupt() }
+        val focus = android.view.ViewTreeObserver.OnWindowFocusChangeListener { focused -> if (!focused) interrupt() }
         view.viewTreeObserver.addOnWindowFocusChangeListener(focus)
         lifecycle.addObserver(observer)
         onDispose {
             lifecycle.removeObserver(observer)
             if (view.viewTreeObserver.isAlive) view.viewTreeObserver.removeOnWindowFocusChangeListener(focus)
-            discard()
+            interrupt()
+            activeChanged(false)
         }
     }
-    DisposableEffect(staging) { onDispose { staging.closePreview() } }
-    BackHandler(enabled = phase != RecordingPhase.IDLE) { discard() }
+    BackHandler(enabled = phase == RecordingPhase.HELD || phase == RecordingPhase.LOCKED || phase == RecordingPhase.TIP) { interrupt() }
     val live = phase == RecordingPhase.HELD || phase == RecordingPhase.LOCKED
     LaunchedEffect(live) {
         while (live) {
@@ -263,7 +294,7 @@ private class MicCapture(private val context: Context, private val account: UUID
     Row(if (phase == RecordingPhase.IDLE) Modifier else Modifier.fillMaxWidth().testTag("voice-composer-active"),
         verticalAlignment = Alignment.CenterVertically) {
         if (phase != RecordingPhase.IDLE) {
-            IconButton(onClick = ::discard, modifier = Modifier.testTag("voice-discard")) {
+            IconButton(onClick = ::discard, enabled = phase != RecordingPhase.SAVING, modifier = Modifier.testTag("voice-discard")) {
                 Icon(if (phase == RecordingPhase.TIP) Icons.Outlined.Close else Icons.Outlined.DeleteOutline,
                     stringResource(if (phase == RecordingPhase.TIP) R.string.photo_close else R.string.voice_discard))
             }
@@ -280,9 +311,10 @@ private class MicCapture(private val context: Context, private val account: UUID
                             style = MaterialTheme.typography.labelSmall)
                     }
                     RecordingPhase.TIP -> Text(stringResource(R.string.voice_tap_hint), style = MaterialTheme.typography.bodySmall)
-                    RecordingPhase.PREVIEW -> clip?.let { path ->
-                        key(path) { InlineVoicePlayer(duration) { ParcelFileDescriptor.open(path, ParcelFileDescriptor.MODE_READ_ONLY) } }
+                    RecordingPhase.PREVIEW -> clip?.let { item ->
+                        key(item.id) { InlineVoicePlayer(duration) { drafts.open(item) } }
                     }
+                    RecordingPhase.SAVING -> CircularProgressIndicator(Modifier.size(20.dp), strokeWidth = 2.dp)
                     RecordingPhase.SENDING -> Text(stringResource(R.string.photo_sending), style = MaterialTheme.typography.bodySmall)
                     else -> Unit
                 }
@@ -293,7 +325,7 @@ private class MicCapture(private val context: Context, private val account: UUID
                 Icon(Icons.Outlined.Stop, stringResource(R.string.media_stop))
             }
         }
-        val actionEnabled = enabled && phase != RecordingPhase.SENDING
+        val actionEnabled = enabled && phase != RecordingPhase.SAVING && phase != RecordingPhase.SENDING
         val sendAction = phase == RecordingPhase.LOCKED || phase == RecordingPhase.PREVIEW
         val activeColor = if (sendAction) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondaryContainer
         val iconColor = if (sendAction) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSecondaryContainer
@@ -327,7 +359,7 @@ private class MicCapture(private val context: Context, private val account: UUID
                             val event = awaitPointerEvent()
                             if (generation != gestureGeneration) break
                             val change = event.changes.singleOrNull { it.id == down.id }
-                            if (change == null || change.isConsumed || event.changes.size > 1) { discard(); break }
+                            if (change == null || change.isConsumed || event.changes.size > 1) { interrupt(); break }
                             val horizontal = (change.position.x - down.position.x) * (if (rtl) -1 else 1)
                             val upward = down.position.y - change.position.y
                             change.consume()
@@ -347,7 +379,7 @@ private class MicCapture(private val context: Context, private val account: UUID
                         }
                     } finally {
                         view.removeCallbacks(startRecording)
-                        if (phase == RecordingPhase.HELD) discard()
+                        if (phase == RecordingPhase.HELD) interrupt()
                     }
                 }
             }, contentAlignment = Alignment.Center) {
