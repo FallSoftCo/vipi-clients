@@ -71,11 +71,12 @@ struct GroupCreateView: View {
     private var canCreate: Bool { (try? GroupSelection.name(title)) != nil && !selected.isEmpty && !groups.busy }
     var body: some View {
         List {
-            Section("Group name") {
+            Section {
                 TextField("For example, Weekend friends", text: $title)
                     .font(.body).disabled(created != nil).accessibilityIdentifier("group-name")
                     .focused($editingName)
-                    .modifier(ScreenSpot(asset: "SpotNewGroup", editing: editingName))
+            } header: {
+                Text("Group name").modifier(ScreenSpot(asset: "SpotNewGroup", editing: editingName))
             }
             Section {
                 Text("Maximum 16 people").font(.body)
