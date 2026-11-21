@@ -112,7 +112,7 @@ struct ReplyNotificationInvitation: View {
                 Image(systemName:"bell.badge").font(.body).foregroundStyle(VipiDesign.highlight).padding(.top,3).accessibilityHidden(true)
             }
             VStack(alignment:.leading,spacing:2) {
-                Text(previews ? String(localized: "See your friend’s name and reply in a notification. Lock Screen previews follow your device settings.") : String(localized: "Get an alert when your friend replies. Their name and message stay hidden.")).foregroundStyle(VipiDesign.ink).font(.subheadline).fixedSize(horizontal:false,vertical:true)
+                Text(previews ? String(localized: "See your friend’s reply in a notification.") : String(localized: "Get notified when your friend replies. The message stays hidden.")).foregroundStyle(VipiDesign.ink).font(.subheadline).fixedSize(horizontal:false,vertical:true)
                 actions {
                     Button(action:notify) { Text(LocalizedStringKey(denied ? "Open Settings":"Notify me")).font(.subheadline.weight(.semibold)).fixedSize(horizontal:false,vertical:true).frame(minHeight:44,alignment:.leading) }
                         .disabled(busy).accessibilityIdentifier("reply-notification-enable")
