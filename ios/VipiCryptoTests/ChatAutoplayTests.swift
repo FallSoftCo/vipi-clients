@@ -120,16 +120,23 @@ import VipiCore
         await owner.configure(pair:.init(source:"fr",target:"en")); return owner
     }
     func testNewDurableFIFOIgnoresDuplicateAndHistoryThenCompletesActualNativePlayback() async throws {
-        let owner = await immediateModel(), (speech,pair) = try nativeSpeech(), autoplay = ChatAutoplay()
+        let translations = ["On se retrouve au café ?": "Meet me at the cafe?", "À six heures.": "At six."]
+        let owner = ConversationImmersion(modelStatus: { _ in .installed }, identify: { _ in "fr" }, nativeTranslation: { text, languagePair in
+            XCTAssertEqual(languagePair.source, "fr")
+            XCTAssertEqual(languagePair.target, "en")
+            return try XCTUnwrap(translations[text], "Only new messages may reach the translator")
+        })
+        await owner.configure(pair: .init(source: "fr", target: "en"), mode: .fullMessages)
+        let (speech,pair) = try nativeSpeech(), autoplay = ChatAutoplay()
         defer { autoplay.stop(speech:speech); speech.close(); owner.close() }
         try await wait("Actual native voice prepared",until:{speech.state == .ready || speech.state == .unavailable})
         XCTAssertEqual(speech.state,.ready)
-        autoplay.toggle(snapshot:[.init(id:"history",text:"Never play history.")],immersion:owner,speech:speech)
-        for message in [ChatAutoplay.Message(id:"one",text:"First message."),.init(id:"one",text:"First message."),.init(id:"two",text:"Second message.")] {
+        autoplay.toggle(snapshot:[.init(id:"history",text:"À demain.")],immersion:owner,speech:speech)
+        for message in [ChatAutoplay.Message(id:"one",text:"On se retrouve au café ?"),.init(id:"one",text:"On se retrouve au café ?"),.init(id:"two",text:"À six heures.")] {
             autoplay.arrived(message,immersion:owner,speech:speech,foreground:true)
         }
         try await wait("Both actual native audio completions",seconds:25,until:{speech.lastCompletion?.message == "two" && speech.activeMessage == nil})
-        XCTAssertEqual(pair.requests,["First message.","Second message."])
+        XCTAssertEqual(pair.requests,["Meet me at the cafe?","At six."])
         XCTAssertEqual(speech.playbackSerial,2); XCTAssertTrue(speech.lastCompletion?.succeeded == true)
         XCTAssertTrue(autoplay.enabled); XCTAssertNil(autoplay.failure(for:"one")); XCTAssertNil(autoplay.failure(for:"two"))
     }
