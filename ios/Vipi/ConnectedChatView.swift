@@ -453,6 +453,16 @@ struct FriendConversationView: View {
     }
     private var timeline: some View {
         VStack(spacing: 0) {
+            // Reserve real layout space. Scroll views can paint through a
+            // transparent safe-area inset when accessibility text grows.
+            ViewThatFits(in:.horizontal) {
+                HStack(spacing:18) { modeButton; autoplayButton }.fixedSize(horizontal:true,vertical:false)
+                VStack(alignment:.leading,spacing:0) { modeButton; autoplayButton }
+            }
+            .buttonStyle(.plain)
+            .frame(maxWidth:.infinity,alignment:.leading).padding(.horizontal,18)
+            .background(VipiDesign.canvas)
+
             // At accessibility sizes, labelled controls expose the same details
             // without pinning several paragraphs above the composer.
             HStack(spacing: 12) {
@@ -527,6 +537,7 @@ struct FriendConversationView: View {
                     Color.clear.frame(height: 1).id("bottom")
                 }.scrollTargetLayout().padding(.vertical,18).frame(maxWidth:644).frame(maxWidth:.infinity)
             }.contentMargins(.horizontal,18,for:.scrollContent)
+                .clipped()
                 .scrollDismissesKeyboard(.interactively)
                 .accessibilityIdentifier("conversation-timeline")
                 .coordinateSpace(name: "conversation-timeline")
@@ -691,20 +702,7 @@ struct FriendConversationView: View {
     }
     var body: some View {
         timeline
-        .safeAreaInset(edge:.top,spacing:0) {
-            VStack(spacing:0) {
-                // A native navigation-bar item may cap its accessible frame at
-                // 36 pt on iPhone. Keep these frequent controls in the chat
-                // header below contact identity, with their full touch area.
-                ViewThatFits(in:.horizontal) {
-                    HStack(spacing:18) { modeButton; autoplayButton }.fixedSize(horizontal:true,vertical:false)
-                    VStack(alignment:.leading,spacing:0) { modeButton; autoplayButton }
-                }
-                .buttonStyle(.plain)
-                .frame(maxWidth:.infinity,alignment:.leading).padding(.horizontal,18)
-                ChatGestureCue(reading:state.chatReading,composing:composing)
-            }
-        }
+        .safeAreaInset(edge:.top,spacing:0) { ChatGestureCue(reading:state.chatReading,composing:composing) }
         .background { ConversationWaterScene(mode: state.immersionMode, motionEnabled: state.animateConversationBackground) }
         .background { if !usesAppTranslationServices { ConversationTranslationTask(immersion:immersion) } }
         .background { ChatReadingGestureSurface(reading:state.chatReading) }
