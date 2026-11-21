@@ -24,7 +24,7 @@ import VipiCore
     }
     private func model() async -> ConversationImmersion {
         let value = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in "fr"})
-        await value.configure(pair:.init(source:"fr",target:"en")); return value
+        await value.configure(pair:.init(source:"fr",target:"en"), mode:.fullMessages); return value
     }
     func testIdleVoicePreparationFailureTurnsAutoplayOffAndKeepsNonmodalHelp() async throws {
         let owner = await model(), speech = SpeechPlayback(), autoplay = ChatAutoplay(), gate = PreparationGate()
@@ -76,8 +76,7 @@ import VipiCore
         let owner = await model(), speech = SpeechPlayback(), autoplay = ChatAutoplay()
         defer { autoplay.stop(speech:speech); speech.close(); owner.close() }
         speech.prepare(source:"en",target:"en",warmups:["en":"Hello."])
-        try await wait("Actual native practice voice must prepare",until:{speech.state == .ready || speech.state == .unavailable})
-        XCTAssertEqual(speech.state,.ready)
+        try await waitForNativeVoicePreparation(speech)
         let identity = owner.identity(messageID:"manual-pending",text:"Un message en attente.")
         autoplay.manual(identity,immersion:owner,speech:speech,onModels:{_ in XCTFail("Models controlled installed")},onVoiceHelp:{XCTFail("Actual prepared native voice required")})
         try await wait("Translation must remain pending before header OFF",until:{owner.request != nil})
@@ -117,7 +116,7 @@ import VipiCore
     }
     private func immediateModel() async -> ConversationImmersion {
         let owner = ConversationImmersion(modelStatus:{_ in .installed},identify:{_ in "fr"},nativeTranslation:{text,_ in text})
-        await owner.configure(pair:.init(source:"fr",target:"en")); return owner
+        await owner.configure(pair:.init(source:"fr",target:"en"), mode:.fullMessages); return owner
     }
     func testNewDurableFIFOIgnoresDuplicateAndHistoryThenCompletesActualNativePlayback() async throws {
         let translations = ["On se retrouve au café ?": "Meet me at the cafe?", "À six heures.": "At six."]
@@ -129,8 +128,7 @@ import VipiCore
         await owner.configure(pair: .init(source: "fr", target: "en"), mode: .fullMessages)
         let (speech,pair) = try nativeSpeech(), autoplay = ChatAutoplay()
         defer { autoplay.stop(speech:speech); speech.close(); owner.close() }
-        try await wait("Actual native voice prepared",until:{speech.state == .ready || speech.state == .unavailable})
-        XCTAssertEqual(speech.state,.ready)
+        try await waitForNativeVoicePreparation(speech)
         autoplay.toggle(snapshot:[.init(id:"history",text:"À demain.")],immersion:owner,speech:speech)
         for message in [ChatAutoplay.Message(id:"one",text:"On se retrouve au café ?"),.init(id:"one",text:"On se retrouve au café ?"),.init(id:"two",text:"À six heures.")] {
             autoplay.arrived(message,immersion:owner,speech:speech,foreground:true)
@@ -143,7 +141,7 @@ import VipiCore
     func testManualQueuedItemPlaysOnceThenRemainingFIFOResumes() async throws {
         let owner = await immediateModel(), (speech,pair) = try nativeSpeech(), autoplay = ChatAutoplay()
         defer { autoplay.stop(speech:speech); speech.close(); owner.close() }
-        try await wait("Actual native voice prepared",until:{speech.state == .ready})
+        try await waitForNativeVoicePreparation(speech)
         autoplay.toggle(snapshot:[],immersion:owner,speech:speech)
         let first = "First message continues for a moment before manual interruption."
         for message in [ChatAutoplay.Message(id:"one",text:first),.init(id:"two",text:"Selected second."),.init(id:"three",text:"Remaining third.")] {
@@ -159,7 +157,7 @@ import VipiCore
     func testNativeRenderFailureKeepsRowRetryableWhileNextNewItemPlays() async throws {
         let owner = await immediateModel(), (speech,pair) = try nativeSpeech(), autoplay = ChatAutoplay()
         defer { autoplay.stop(speech:speech); speech.close(); owner.close() }
-        try await wait("Actual native voice prepared",until:{speech.state == .ready})
+        try await waitForNativeVoicePreparation(speech)
         pair.failText = "Failed native file."
         autoplay.toggle(snapshot:[],immersion:owner,speech:speech)
         autoplay.arrived(.init(id:"failed",text:"Failed native file."),immersion:owner,speech:speech,foreground:true)
@@ -176,7 +174,7 @@ import VipiCore
     func testLongPunctuationCannotAbortNativeAudioBeforePronounceableTail() async throws {
         let (speech,pair) = try nativeSpeech()
         defer { speech.close() }
-        try await wait("Actual native voice prepared",until:{speech.state == .ready})
+        try await waitForNativeVoicePreparation(speech)
         let original = "Beginning. " + String(repeating:". ",count:400) + "Final audible tail."
         speech.start(message:"punctuation-tail",spans:[(original,"en")])
         try await wait("Actual player reaches and completes tail",seconds:25,until:{speech.lastCompletion?.message == "punctuation-tail"})
@@ -191,7 +189,7 @@ import VipiCore
         let defaults = try XCTUnwrap(UserDefaults(suiteName:suite))
         let reading = ChatReadingState(defaults:defaults), copy = CopyOriginalContext(editorID:"message-input")
         defer { defaults.removePersistentDomain(forName:suite); autoplay.stop(speech:speech); speech.close(); owner.close() }
-        try await wait("Real native voice prepared before pending translation",until:{speech.state == .ready})
+        try await waitForNativeVoicePreparation(speech)
         let identity = owner.identity(messageID:"copy-pending-translation",text:"Un message en attente.")
         reading.register(.init(identity:identity,frame:.zero,activate:{_ in false}))
         reading.activate(identity) // Actual fallback surface pending intent.
@@ -240,8 +238,7 @@ import VipiCore
         XCTAssertEqual(speech.state,.preparing); XCTAssertFalse(autoplay.enabled)
         copy.open([],autoplay:autoplay,speech:speech,reading:reading)
         gate.release()
-        try await wait("Gated real native voice genuinely prepares",until:{speech.state == .ready || speech.state == .unavailable})
-        XCTAssertEqual(speech.state,.ready)
+        try await waitForNativeVoicePreparation(speech)
         try await Task.sleep(for:.milliseconds(80)) // Only after the explicit preparation gate and real completion.
         XCTAssertEqual(speech.playbackSerial,0); XCTAssertNil(speech.activeMessage)
         XCTAssertTrue(pair.requests.isEmpty,"Cancelled manual work must not render after voices become ready")

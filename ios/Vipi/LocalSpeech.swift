@@ -116,17 +116,22 @@ private final class ConverterInput: @unchecked Sendable {
     #endif
 
     private static var voiceInventory: Task<[AVSpeechSynthesisVoice],Never>?
+    private static let voiceChangeObserver = NotificationCenter.default.addObserver(
+        forName: AVSpeechSynthesizer.availableVoicesDidChangeNotification, object: nil, queue: .main
+    ) { _ in
+        MainActor.assumeIsolated { voiceInventory = nil }
+    }
+
     fileprivate static func installedVoices() async -> [AVSpeechSynthesisVoice] {
+        _ = voiceChangeObserver
         if let voiceInventory { return await voiceInventory.value }
-        // First use can wait on the OS speech catalog for minutes. Share only
-        // the in-flight query so a later foreground visit sees newly added voices.
-        let task = Task.detached(priority:.userInitiated) {
+        // Reuse the in-flight or completed inventory until the OS reports a
+        // change. Opening another chat shouldn't repeat a cold catalog query.
+        let task = Task.detached(priority: .userInitiated) {
             AVSpeechSynthesisVoice.speechVoices().filter { !$0.voiceTraits.contains(.isNoveltyVoice) }
         }
         voiceInventory = task
-        let voices = await task.value
-        voiceInventory = nil
-        return voices
+        return await task.value
     }
     static func availableLanguageCodes() async -> Set<String> {
         let voices = await installedVoices()
@@ -215,14 +220,7 @@ private final class ConverterInput: @unchecked Sendable {
 @MainActor protocol PreparedSpeechPair: AnyObject {
     func prepare(warmups:[String:String]) async throws
     func render(_ spans:[(text:String,language:String)]) async throws -> RenderedSpeech
-    func render(_ spans:[(text:String,language:String)], estimateWordTiming:Bool) async throws -> RenderedSpeech
     func stop()
-}
-
-extension PreparedSpeechPair {
-    func render(_ spans:[(text:String,language:String)], estimateWordTiming:Bool) async throws -> RenderedSpeech {
-        try await render(spans)
-    }
 }
 
 @MainActor final class LocalSpeechPair: PreparedSpeechPair {
@@ -259,9 +257,6 @@ extension PreparedSpeechPair {
         prepared = true
     }
     func render(_ spans: [(text: String, language: String)]) async throws -> RenderedSpeech {
-        try await render(spans,estimateWordTiming:true)
-    }
-    func render(_ spans: [(text: String, language: String)], estimateWordTiming:Bool) async throws -> RenderedSpeech {
         guard prepared else { throw LocalSpeechError.notPrepared }
         guard !busy, !spans.isEmpty, spans.reduce(0, { $0 + $1.text.utf8.count }) <= FullMessageBudget.recordBytes else { throw LocalSpeechError.unavailable }
         busy = true; defer { busy = false }
@@ -269,7 +264,7 @@ extension PreparedSpeechPair {
             guard voices[span.language] != nil else { throw LocalSpeechError.missingVoice(span.language) }
         }
         let normalized = SpeechChunks.coalesced(spans)
-        let identity = "native-phrase-pcm-4\0" + (estimateWordTiming ? "guided\0" : "native\0") + normalized.map { $0.language + "\0" + voices[$0.language]!.identifier + "\0" + $0.text }.joined(separator: "\0")
+        let identity = "native-phrase-pcm-4\0guided\0" + normalized.map { $0.language + "\0" + voices[$0.language]!.identifier + "\0" + $0.text }.joined(separator: "\0")
         let hash = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         let output = root.appendingPathComponent(hash + ".caf")
         let metadata = output.appendingPathExtension("words.json")
@@ -301,13 +296,11 @@ extension PreparedSpeechPair {
                     // This entire rendered file belongs to one practice word.
                     // Its measured start is sufficient even without a callback.
                     native.marks = [.init(start:word.location,length:word.length,byteSampleOffset:0,source:"measured_single_word_pcm")]
-                } else if estimateWordTiming {
+                } else {
                     let marks=native.marks
                     native.marks=try await Task.detached(priority:.userInitiated) {
                         try Self.guidedMarks(file:part,text:span.text,language:span.language,marks:marks)
                     }.value
-                } else {
-                    native.marks.removeAll()
                 }
             }
             parts.append(part)

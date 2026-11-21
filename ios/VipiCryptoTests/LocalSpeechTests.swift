@@ -1,6 +1,21 @@
 import XCTest
 @testable import Vipi
 
+/// Apple’s voice catalog can cold-start before synthesis is available. Measure
+/// that separately from render, playback, and cancellation deadlines.
+@MainActor func waitForNativeVoicePreparation(_ player: SpeechPlayback,
+    file: StaticString = #filePath, line: UInt = #line) async throws {
+    let start = ProcessInfo.processInfo.systemUptime
+    while player.state == .preparing && ProcessInfo.processInfo.systemUptime - start < 150 {
+        try await Task.sleep(for: .milliseconds(20))
+    }
+    print("VIPI_NATIVE_VOICE_PREPARATION seconds=\(ProcessInfo.processInfo.systemUptime - start) state=\(player.state)")
+    guard player.state == .ready else {
+        XCTFail(player.error ?? "Native speech preparation remained \(player.state)", file: file, line: line)
+        throw LocalSpeechError.unavailable
+    }
+}
+
 @MainActor final class LocalSpeechTests: XCTestCase {
     func testProgressiveParagraphCompletesWithoutUnderruns() async throws {
         let fixture = try JSONSerialization.jsonObject(with: Data(contentsOf: Bundle(for: Self.self).url(forResource: "speech-lengths", withExtension: "json")!)) as! [String: Any]
@@ -16,7 +31,7 @@ import XCTest
             }
         }
         controller.prepare(source: "en", target: "es", warmups: ["en": "Hello.", "es": "Hola."])
-        try await awaitState(.ready)
+        try await waitForNativeVoicePreparation(controller)
         let start = Date()
         controller.toggle(message: "paragraph", spans: spans)
         try await awaitState(.playing)
@@ -68,7 +83,7 @@ import XCTest
             }
         }
         controller.prepare(source: "en", target: "es", warmups: ["en": "Hello.", "es": "Hola."])
-        try await awaitState(.ready)
+        try await waitForNativeVoicePreparation(controller)
         let spans = [(text:"A new message.",language:"en"),(text:"Un mensaje nuevo.",language:"es")]
         var start = Date()
         controller.toggle(message: "mixed", spans: spans)
@@ -140,6 +155,8 @@ import XCTest
             XCTAssertEqual(audio.file, replay.file)
         } catch { pairReport["status"] = "failed"; pairReport["error"] = String(describing: error) }
         report["en_es_pair"] = pairReport; try save()
-        XCTAssertEqual(rows.count, 10)
+        XCTAssertEqual(rows.count, languages.count)
+        XCTAssertEqual(rows.filter { $0["status"] as? String == "synthesized" }.count, languages.count)
+        XCTAssertEqual(pairReport["status"] as? String, "single_pcm_file_rendered")
     }
 }
