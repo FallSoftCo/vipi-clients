@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.*
@@ -54,6 +55,7 @@ class InlineRecorderDeviceTest {
         val accepted = java.util.concurrent.CopyOnWriteArrayList<AttachmentManifest>()
         val errors = java.util.concurrent.CopyOnWriteArrayList<Exception>()
         val visible = mutableStateOf(true)
+        val transportAvailable = mutableStateOf(true)
         val offline = java.util.concurrent.atomic.AtomicBoolean(false)
         val slowCheck = java.util.concurrent.atomic.AtomicReference<kotlinx.coroutines.CompletableDeferred<Unit>?>(null)
         val checking = java.util.concurrent.atomic.AtomicBoolean(false)
@@ -62,8 +64,8 @@ class InlineRecorderDeviceTest {
             VipiTheme(Appearance.LIGHT) {
                 Box(Modifier.fillMaxSize().safeDrawingPadding().padding(16.dp), contentAlignment = Alignment.BottomCenter) {
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    if (!active) Spacer(Modifier.weight(1f))
-                    if (visible.value) VoiceComposer(drafts, peer, true, {
+                    if (!active) Spacer(Modifier.weight(1f).testTag("idle-composer"))
+                    if (visible.value) VoiceComposer(drafts, peer, transportAvailable.value, {
                         slowCheck.get()?.let { checking.set(true); it.await() }
                         if (offline.get()) throw java.io.IOException("Synthetic capability route offline")
                     }, { manifest, commit ->
@@ -130,6 +132,11 @@ class InlineRecorderDeviceTest {
             device.pressBack()
             waitFor("Send voice message")
             assertNotNull(drafts.current(peer))
+            compose.runOnIdle { transportAvailable.value = false }
+            compose.waitForIdle()
+            compose.runOnIdle { transportAvailable.value = true }
+            compose.waitForIdle()
+            compose.onNodeWithTag("idle-composer").assertDoesNotExist()
             compose.onNodeWithTag("voice-discard").performClick()
             idle()
             assertTrue(accepted.isEmpty())

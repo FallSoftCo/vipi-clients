@@ -253,7 +253,8 @@ private class MicCapture(private val context: Context, private val account: UUID
             show(if (locked) RecordingPhase.LOCKED else RecordingPhase.HELD)
         } catch (_: Exception) { discard(); report(MediaActionFailure(R.string.media_recorder_error)) }
     }
-    DisposableEffect(lifecycle, view, enabled) {
+    LaunchedEffect(enabled) { if (!enabled) interrupt() }
+    DisposableEffect(lifecycle, view) {
         val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_PAUSE) interrupt() }
         val focus = android.view.ViewTreeObserver.OnWindowFocusChangeListener { focused -> if (!focused) interrupt() }
         view.viewTreeObserver.addOnWindowFocusChangeListener(focus)

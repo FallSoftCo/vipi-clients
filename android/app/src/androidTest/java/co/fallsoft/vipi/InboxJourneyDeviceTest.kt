@@ -382,6 +382,8 @@ class InboxJourneyDeviceTest {
                 screen(f, Screen.CONVERSATION)
                 compose.onNodeWithTag("inline-voice-player").assertIsDisplayed()
                 assertEquals(saved, f.model.chat?.voiceDrafts?.current(service.peer))
+                compose.onNodeWithTag("message-input").assertDoesNotExist()
+                compose.onNodeWithContentDescription(f.base.getString(R.string.media_attach)).assertDoesNotExist()
                 compose.onNodeWithTag("voice-discard").performClick()
                 compose.onNodeWithTag("message-input").assertIsDisplayed()
                 assertEquals(before, requireNotNull(f.model.chat).messages(service.peer).map { it.id })
