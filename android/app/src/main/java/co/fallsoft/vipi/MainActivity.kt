@@ -133,6 +133,12 @@ class MainActivity : ComponentActivity() {
     if (model.deletion.active) { AccountDeletionProgress(model.deletion, model.authentication) { model.navigate(Screen.WELCOME) }; return }
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val syncScope = rememberCoroutineScope()
+    DisposableEffect(model) {
+        val process = androidx.lifecycle.ProcessLifecycleOwner.get().lifecycle
+        val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_STOP) model.newForegroundSession() }
+        process.addObserver(observer)
+        onDispose { process.removeObserver(observer) }
+    }
     DisposableEffect(lifecycle, model.chat) {
         val observer = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_RESUME) {
             androidx.core.app.NotificationManagerCompat.from(model.getApplication()).cancel(1)
@@ -171,7 +177,7 @@ class MainActivity : ComponentActivity() {
             chat.userID == model.authentication.userID) {
             GroupsNavigator(groups, chat.contacts.values.filter { it.id !in chat.blockedPeers }, translation,
                 model.knownLanguage, model.targetLanguage, model::selectImmersionMode, reviewIdentity = model::openConversation, onBack = model::back,
-                startWithCreate = model.createGroupOnEntry)
+                startWithCreate = model.createGroupOnEntry, onVisitConversation = { chat.visitedConversation = true })
         } else LaunchedEffect(Unit) { model.navigate(Screen.HOME) }
         return
     }
@@ -192,7 +198,7 @@ class MainActivity : ComponentActivity() {
                 Screen.LANGUAGE -> LanguageSelection(model, scrollState.isScrollInProgress)
                 Screen.TUTORIAL -> ImmersionTutorialContent(model.knownLanguage, model.targetLanguage, model.immersionMode,
                     onToggle = { model.selectImmersionMode(if (model.immersionMode == ImmersionMode.NEW_WORD) ImmersionMode.FULL_MESSAGES else ImmersionMode.NEW_WORD) },
-                    scrolling = scrollState.isScrollInProgress)
+                    scrolling = scrollState.isScrollInProgress, translatorFactory = model.translationFactory)
                 Screen.ACCOUNT -> AccountView()
                 Screen.SETTINGS -> SettingsView(model)
                 Screen.NEW_CHAT -> Unit

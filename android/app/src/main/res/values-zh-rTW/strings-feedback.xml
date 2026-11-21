@@ -1,0 +1,10 @@
+<resources>
+    <string name="funding_question">你願意每月為 Vipi 支付 1 美元嗎？</string>
+    <string name="funding_context">我們正在探索如何籌措私人聊天的營運經費。目前 Vipi 免費。</string>
+    <string name="funding_yes">願意</string>
+    <string name="funding_maybe">不確定</string>
+    <string name="funding_no">不願意</string>
+    <string name="funding_skip">略過</string>
+    <string name="hold_original_hint">長按查看原文</string>
+    <string name="hold_hint_dismiss">隱藏提示</string>
+</resources>

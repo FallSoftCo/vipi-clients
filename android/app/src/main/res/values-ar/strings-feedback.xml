@@ -1,0 +1,10 @@
+<resources>
+    <string name="funding_question">هل تدفع دولارًا أمريكيًا واحدًا شهريًا مقابل Vipi؟</string>
+    <string name="funding_context">ندرس طرقًا لتمويل المحادثات الخاصة. Vipi مجاني حاليًا.</string>
+    <string name="funding_yes">نعم</string>
+    <string name="funding_maybe">غير متأكد</string>
+    <string name="funding_no">لا</string>
+    <string name="funding_skip">تخطي</string>
+    <string name="hold_original_hint">اضغط مطولًا لرؤية النص الأصلي</string>
+    <string name="hold_hint_dismiss">إخفاء التلميح</string>
+</resources>

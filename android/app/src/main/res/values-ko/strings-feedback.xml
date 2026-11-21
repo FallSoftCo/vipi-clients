@@ -1,0 +1,10 @@
+<resources>
+    <string name="funding_question">Vipi에 매달 미화 1달러를 지불할 의향이 있으신가요?</string>
+    <string name="funding_context">비공개 채팅 운영비를 마련할 방법을 알아보고 있어요. 현재 Vipi는 무료예요.</string>
+    <string name="funding_yes">예</string>
+    <string name="funding_maybe">잘 모르겠어요</string>
+    <string name="funding_no">아니요</string>
+    <string name="funding_skip">건너뛰기</string>
+    <string name="hold_original_hint">길게 눌러 원문 보기</string>
+    <string name="hold_hint_dismiss">힌트 숨기기</string>
+</resources>

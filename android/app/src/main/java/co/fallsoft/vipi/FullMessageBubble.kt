@@ -52,12 +52,24 @@ import kotlin.math.ceil
  */
 internal class FullMessageGestures {
     var mode by mutableStateOf(ImmersionMode.NEW_WORD)
-    var interactions by mutableIntStateOf(0); private set
-    fun interacted() { interactions++ }
+    var reveals by mutableIntStateOf(0); private set
+    fun showOriginal(byTouch: Boolean) {
+        if (!meaning && hasVisibleTranslation) reveals++
+        if (byTouch) held = true else accessibilityMeaning = true
+    }
     var held by mutableStateOf(false)
     var accessibilityMeaning by mutableStateOf(false)
     var nativeScript by mutableStateOf(false)
     val meaning: Boolean get() = held || accessibilityMeaning
+    private val translated = mutableStateMapOf<String, Boolean>()
+    private val onscreen = mutableStateMapOf<String, Boolean>()
+    val hasVisibleTranslation get() = translated.keys.any { onscreen[it] == true }
+    fun translated(id: String, available: Boolean) {
+        if (available) translated[id] = true else translated.remove(id)
+    }
+    fun visible(id: String, available: Boolean) {
+        if (available) onscreen[id] = true else onscreen.remove(id)
+    }
     private data class Hit(val bounds: Rect, val play: () -> Unit)
     private val messages = mutableMapOf<String, Hit>()
     private val alternateReadings = mutableStateMapOf<String, Boolean>()
@@ -66,9 +78,9 @@ internal class FullMessageGestures {
     fun readingAvailable(id: String, available: Boolean) {
         if (alternateReadings[id] != available) alternateReadings[id] = available
     }
-    fun remove(id: String) { messages.remove(id); alternateReadings.remove(id) }
+    fun remove(id: String) { messages.remove(id); alternateReadings.remove(id); translated.remove(id); onscreen.remove(id) }
     fun tap(position: Offset) { messages.values.lastOrNull { it.bounds.contains(position) }?.play?.invoke() }
-    fun toggleScript() { if (canSwitchScript) { interacted(); nativeScript = !nativeScript } }
+    fun toggleScript() { if (canSwitchScript) { nativeScript = !nativeScript } }
 }
 
 @Composable internal fun Modifier.fullMessageGestures(state: FullMessageGestures): Modifier {
@@ -80,14 +92,14 @@ internal class FullMessageGestures {
     DisposableEffect(state) { onDispose { state.held = false } }
     return onGloballyPositioned { coordinates = it }.semantics {
         customActions = buildList {
-            add(CustomAccessibilityAction(reveal) { state.interacted(); state.accessibilityMeaning = true; true })
+            add(CustomAccessibilityAction(reveal) { state.showOriginal(byTouch = false); true })
             add(CustomAccessibilityAction(practice) { state.accessibilityMeaning = false; state.held = false; true })
             if (state.canSwitchScript) add(CustomAccessibilityAction(if (state.nativeScript) reading else script) { state.toggleScript(); true })
         }
     }.pointerInput(state) {
         detectTapGestures(
             onPress = { try { tryAwaitRelease() } finally { state.held = false } },
-            onLongPress = { state.interacted(); state.held = true },
+            onLongPress = { state.showOriginal(byTouch = true) },
             onDoubleTap = { state.toggleScript() },
             // detectTapGestures delays this until the double-tap window ends:
             // double/long press never also dispatches practice audio.
@@ -215,7 +227,8 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
 
 @Composable internal fun FullMessageBubble(text: String, id: String, translation: ConversationTranslation,
     gestures: FullMessageGestures, audio: ConversationAutoplay, accessibilityContext: String? = null,
-    metadata: @Composable () -> Unit) {
+    previewOriginal: Boolean = false, metadata: @Composable () -> Unit) {
+    val visibleTextPx = with(androidx.compose.ui.platform.LocalDensity.current) { 12.dp.toPx() }
     val speech = audio.speech
     val state = translation.state(id, text)
     val value = state?.value
@@ -254,11 +267,16 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
     val face = if (paired) { if (showDeep) deep else shallow } else value ?: prepared[targetMode]
     val alternateReading = face?.practiceReading?.let { it.isNotBlank() && it != face.practiceText } == true
     val play by rememberUpdatedState {
-        if (face?.words?.isEmpty() != true) { gestures.interacted(); audio.manual(id, text, face) }
+        if (face?.words?.isEmpty() != true) { audio.manual(id, text, face) }
     }
     // Readings complete independently of stable paragraph geometry. Bounds
     // registration must never be the only trigger for action availability.
-    SideEffect { gestures.mode = translation.mode; gestures.readingAvailable(id, alternateReading) }
+    SideEffect {
+        gestures.mode = translation.mode
+        gestures.readingAvailable(id, alternateReading)
+        gestures.translated(id, face != null &&
+            (if (gestures.nativeScript) face.practiceText else face.practiceReading ?: face.practiceText) != face.meaningText)
+    }
     DisposableEffect(gestures, translation, id, text) {
         translation.retain(id, text)
         onDispose { translation.release(id, text) }
@@ -273,7 +291,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
         if (speech.activeMessage == id || audio.manualMessage == id) drawLine(activityColor,
             Offset(15.dp.toPx(), size.height - 4.dp.toPx()), Offset(size.width - 15.dp.toPx(), size.height - 4.dp.toPx()), 2.dp.toPx())
     }.padding(horizontal = 15.dp, vertical = EmbeddedMessageVerticalPadding), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        val showingMeaning = gestures.meaning
+        val showingMeaning = gestures.meaning || previewOriginal
         val showingScript = gestures.nativeScript
         val displayed = when {
             face == null -> text
@@ -287,7 +305,10 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             val candidates = if (travelling) listOfNotNull(shallow, deep) else listOfNotNull(face)
             candidates.flatMap { listOfNotNull(it.practiceText, it.meaningText, it.practiceReading) }.distinct().ifEmpty { listOf(text) }
         }
-        AndroidView(factory = { FullMessageTextView(it) }, modifier = Modifier
+        AndroidView(factory = { FullMessageTextView(it) }, modifier = Modifier.onGloballyPositioned {
+            val clipped = it.boundsInWindow()
+            gestures.visible(id, clipped.width > 0 && clipped.height > 0 && clipped.height >= minOf(it.size.height.toFloat(), visibleTextPx))
+        }
             .animateContentSize(animationSpec = if (animateMode) tween(100) else snap())
             .graphicsLayer {
                 alpha = if (animateMode && !showingMeaning) .72f + .28f * kotlin.math.abs(2f * depth.value - 1f) else 1f
@@ -297,7 +318,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             view.showingNativeScript = showingScript
             view.readingUnavailable = showReadingFailure
             view.playing = speech.activeMessage == id || audio.manualMessage == id
-            view.reveal = { gestures.interacted(); gestures.accessibilityMeaning = true }
+            view.reveal = { gestures.showOriginal(byTouch = false) }
             view.practice = { gestures.accessibilityMeaning = false; gestures.held = false }
             view.script = if (alternateReading) ({ gestures.toggleScript() }) else null
             val highlights = if (showingMeaning) emptyList() else face?.words?.let {
@@ -324,7 +345,7 @@ internal class FullMessageTextView(context: Context) : TextView(context) {
             val feedbackLayout = if (retryable) Modifier.heightIn(min = 48.dp).wrapContentHeight() else Modifier
             val feedback = if (!showReadingFailure) feedbackLayout.alpha(0f).clearAndSetSemantics { }
                 else if (retryable) Modifier.clickable(role = Role.Button, onClickLabel = retry) {
-                    gestures.interacted(); translation.enqueue(id, text, retry = true)
+                    translation.enqueue(id, text, retry = true)
                 }.then(feedbackLayout) else feedbackLayout
             Text(if (retryable) "$unavailable $retry" else unavailable, modifier = feedback,
                 style = MaterialTheme.typography.bodySmall,

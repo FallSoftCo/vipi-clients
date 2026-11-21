@@ -137,6 +137,7 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
     var positioningLatest by remember(peer) { mutableStateOf(false) }
     var newMessagesBelow by remember(peer) { mutableIntStateOf(0) }
     var jumpRevision by remember(peer) { mutableIntStateOf(0) }
+    LaunchedEffect(chat, peer) { chat.visitedConversation = true }
     val blocked = peer in chat.blockedPeers
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -570,9 +571,8 @@ internal val EmbeddedMessageVerticalPadding = 12.dp
             }
             }
             }
-            FullMessageGestureCue(gestures, composing, compact ||
-                androidx.compose.ui.platform.LocalConfiguration.current.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE,
-                source = source, target = target)
+            FullMessageGestureCue(gestures, chat.holdEducation, composing, list.isScrollInProgress || compact,
+                foreground = foreground && !options && !chooseCopy && !chooseReport && !showSecurityNumber && !confirmBlock && reportedMessage == null)
             }
         }
     }

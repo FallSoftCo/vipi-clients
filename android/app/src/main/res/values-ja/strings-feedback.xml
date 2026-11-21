@@ -1,0 +1,10 @@
+<resources>
+    <string name="funding_question">Vipiに月額1米ドルを支払ってもよいと思いますか？</string>
+    <string name="funding_context">プライベートチャットの運営費をまかなう方法を検討しています。現在Vipiは無料です。</string>
+    <string name="funding_yes">はい</string>
+    <string name="funding_maybe">わからない</string>
+    <string name="funding_no">いいえ</string>
+    <string name="funding_skip">スキップ</string>
+    <string name="hold_original_hint">長押しして原文を表示</string>
+    <string name="hold_hint_dismiss">ヒントを閉じる</string>
+</resources>

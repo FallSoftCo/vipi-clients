@@ -85,6 +85,7 @@ internal class GroupsCrypto(private val vault: MessageVault, private val core: M
                 deliveries.any { it.getString("state") == "expired" } -> GroupDelivery.EXPIRED
                 else -> GroupDelivery.FAILED
             }
+            if (state == GroupDelivery.ACCEPTED) LaunchFeedback.groupAccepted(vault, message.id.toString(), message.createdAt)
             storage.saveMessageInTransaction(message.copy(delivery = state))
             if (deliveries.all { it.getString("state") in setOf("accepted", "delivered") }) vault.remove("group-fanout", "${fanout.group}/${fanout.message}")
         }

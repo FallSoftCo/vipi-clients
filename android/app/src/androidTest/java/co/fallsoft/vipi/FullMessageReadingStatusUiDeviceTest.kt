@@ -93,17 +93,12 @@ class FullMessageReadingStatusUiDeviceTest {
     @Test fun gestureCueExposesNativeActionNamesInsteadOfPhysicalScreenReaderInstructions() {
         check(BuildConfig.DEBUG && BuildConfig.APPLICATION_ID == "co.fallsoft.vipi.sourcecontextqa")
         check(InstrumentationRegistry.getArguments().getString("vipiDedicatedEmulator") == "true")
-        val preferences = context.getSharedPreferences("full-message-gestures", android.content.Context.MODE_PRIVATE)
-        val key = "hold-script-policy-1"; val present = preferences.contains(key); val seen = preferences.getBoolean(key, false)
         val gestures = FullMessageGestures(); val mounted = androidx.compose.runtime.mutableStateOf(true)
         val expected = listOf(context.getString(R.string.full_translation_play), context.getString(R.string.full_translation_meaning)).joinToString(". ")
-        val locale = context.resources.configuration.locales[0]
-        val physical = context.getString(R.string.full_translation_hold_hint,
-            java.util.Locale.forLanguageTag("en").getDisplayLanguage(locale))
+        val physical = context.getString(R.string.hold_original_hint)
         try {
-            check(preferences.edit().remove(key).commit())
             compose.setContent { if (mounted.value) VipiTheme(Appearance.LIGHT) {
-                FullMessageGestureCue(gestures, composing = false, deferred = false)
+                HoldHintRow(gestures) {}
             } }
             compose.onNodeWithTag("full-message-gesture-cue").assertContentDescriptionEquals(expected)
             compose.onNodeWithText(physical).assertDoesNotExist() // visual ink is replaced only in the AX tree
@@ -123,8 +118,6 @@ class FullMessageReadingStatusUiDeviceTest {
             assertFalse("Native AX must not claim the screen-reader double tap changes script", spoken.contains(physical))
         } finally {
             compose.runOnIdle { mounted.value = false }
-            val editor = preferences.edit(); if (present) editor.putBoolean(key, seen) else editor.remove(key)
-            check(editor.commit())
         }
     }
 

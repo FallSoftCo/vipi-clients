@@ -83,7 +83,7 @@ internal class ServiceClient(private val authentication: Authentication, val use
                 http.newCall(builder.build()).execute().use { response ->
                     val source = requireNotNull(response.body).source()
                     source.request(12_000_001); if (source.buffer.size > 12_000_000) throw IOException("Response too large")
-                    response.code to JSONObject(source.readUtf8())
+                    response.code to if (response.code == 204) JSONObject() else JSONObject(source.readUtf8())
                 }
             }
             if (result.first in 200..299) return result.second

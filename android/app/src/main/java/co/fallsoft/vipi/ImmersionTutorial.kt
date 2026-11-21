@@ -1,6 +1,15 @@
 package co.fallsoft.vipi
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.awaitEachGesture
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.input.pointer.PointerEventPass
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.lifecycle.compose.currentStateAsState
+import kotlinx.coroutines.delay
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -24,9 +33,10 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 
 /** Two transient owners preserve the shallow plan when trying Deep and back.
  * No FullMessageTranslationStore, MessageVault, chat, account or send boundary. */
-internal class ImmersionTutorialTranslations(context: android.content.Context, source: String, target: String) : AutoCloseable {
+internal class ImmersionTutorialTranslations(context: android.content.Context, source: String, target: String,
+    factory: (() -> LanguageTranslation)? = null) : AutoCloseable {
     private val owners = ImmersionMode.entries.associateWith { mode ->
-        OnboardingPreviewSource.translation(context, source, target, mode = mode)
+        OnboardingPreviewSource.translation(context, source, target, translator = factory?.invoke() ?: LocalTranslation(), mode = mode)
     }
     operator fun get(mode: ImmersionMode) = owners.getValue(mode)
     override fun close() { owners.values.forEach { it.close() } }
@@ -34,9 +44,9 @@ internal class ImmersionTutorialTranslations(context: android.content.Context, s
 
 /** The real message view supplies touch and native accessibility actions. */
 @Composable internal fun ImmersionTutorialContent(source: String, target: String, mode: ImmersionMode,
-    onToggle: () -> Unit, scrolling: Boolean = false) {
+    onToggle: () -> Unit, scrolling: Boolean = false, translatorFactory: (() -> LanguageTranslation)? = null) {
     val context = LocalContext.current
-    val owners = remember(source, target) { ImmersionTutorialTranslations(context, source, target) }
+    val owners = remember(source, target, translatorFactory) { ImmersionTutorialTranslations(context, source, target, translatorFactory) }
     val translation = owners[mode]
     val text = ImmersionTutorialSource.text(source)
     val id = ImmersionTutorialSource.messageID(source, target)
@@ -93,9 +103,43 @@ internal class ImmersionTutorialTranslations(context: android.content.Context, s
     }
     // The same source/id stays in place; the normal local translator generates
     // the selected pair. No lookup outputs or example audio are supplied.
-    Column(Modifier.fillMaxWidth().testTag("tutorial-message").fullMessageGestures(gestures)) {
+    val ready = gestures.hasVisibleTranslation
+    val resumed = lifecycle.currentStateAsState().value == Lifecycle.State.RESUMED
+    val animate = android.animation.ValueAnimator.areAnimatorsEnabled() &&
+        !context.getSystemService(android.view.accessibility.AccessibilityManager::class.java).isTouchExplorationEnabled
+    var used by remember(owners) { mutableStateOf(false) }
+    var touched by remember(owners) { mutableStateOf(false) }
+    var ring by remember(owners) { mutableStateOf(false) }
+    var demonstration by remember(owners) { mutableStateOf(false) }
+    LaunchedEffect(ready, resumed, animate, scrolling, touched, mode, gestures.meaning, gestures.nativeScript) {
+        if (!animate || !ready || !resumed || scrolling || touched || used || gestures.meaning || gestures.nativeScript)
+            return@LaunchedEffect
+        used = true
+        try {
+            delay(750)
+            ring = true
+            delay(450)
+            demonstration = true
+            delay(1_500)
+        } finally {
+            demonstration = false
+            ring = false
+        }
+    }
+    Box(Modifier.fillMaxWidth().testTag("tutorial-message").pointerInput(owners) {
+        awaitEachGesture {
+            awaitFirstDown(requireUnconsumed = false, pass = PointerEventPass.Initial)
+            touched = true
+        }
+    }.fullMessageGestures(gestures)) {
         ChatBubbleFrame(false, Modifier.fillMaxWidth()) {
-            FullMessageBubble(text, id, translation, gestures, audio) {}
+            FullMessageBubble(text, id, translation, gestures, audio, previewOriginal = demonstration && !touched) {}
+        }
+        if (!touched && ready && (ring || !animate)) {
+            val ink = MaterialTheme.colorScheme.primary
+            Box(Modifier.align(Alignment.BottomEnd).padding(end = 12.dp, bottom = 6.dp)
+                .size(if (demonstration) 18.dp else 22.dp).border(2.dp, ink, CircleShape)
+                .testTag("tutorial-hold-ring"))
         }
     }
     if (hasPresentedExample || state?.value != null) Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {

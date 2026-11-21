@@ -93,7 +93,7 @@ internal class MessageVault(context: Context, val account: UUID) : Closeable {
         }
     }
     fun pageIDs(kind: String, prefix: String, before: String? = null, limit: Int = 50): List<String> {
-        address(kind, prefix); require(limit in 1..100)
+        address(kind, prefix.ifEmpty { "enumerate" }); require(limit in 1..100)
         val upper = prefix + '\uFFFF'
         return database.rawQuery("SELECT id FROM records WHERE kind=? AND id>=? AND id<? AND id<? ORDER BY id DESC LIMIT ?",
             arrayOf(kind, prefix, upper, before ?: upper, limit.toString())).use { cursor ->

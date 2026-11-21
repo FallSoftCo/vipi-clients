@@ -30,6 +30,31 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
     constructor(context: Context, authentication: Authentication, userID: String) : this(context, ServiceClient(authentication, userID), userID)
     private val records = PrivateRecords(context)
     private var vault: MessageVault? = null
+    var holdEducation: HoldEducation? = null
+        private set
+    var feedback: LaunchFeedback? = null
+        private set
+    var visitedConversation = false
+    fun takeFeedbackReturn(): Boolean = visitedConversation.also { visitedConversation = false }
+    private var checkedSurveySession: String? = null
+    suspend fun fundingSurveyAvailable(session: String): Boolean {
+        if (checkedSurveySession == session) return false
+        checkedSurveySession = session
+        return try {
+            eventDevice()?.let { request("GET", LaunchFeedback.PATH, device = it).get("available") == true } ?: false
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { false }
+    }
+    suspend fun retryFundingChoice() {
+        val ledger = feedback ?: return
+        val choice = ledger.pending() ?: return
+        val device = eventDevice() ?: return
+        try {
+            request("PUT", LaunchFeedback.PATH, JSONObject().put("choice", choice), device)
+            ledger.submitted(choice)
+        } catch (cancelled: CancellationException) { throw cancelled }
+        catch (_: Exception) { /* The encrypted pending answer survives offline and process death. */ }
+    }
     private var core: MessagingCore? = null
     private var history: ConversationHistory? = null
     private var activity: ChatActivityEvents? = null
@@ -131,6 +156,8 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         check(profile == null || profile!!.id == value.id) { "Account changed" }
         if (vault == null) {
             val store = MessageVault(context, value.id); vault = store
+            feedback = LaunchFeedback(store)
+            holdEducation = HoldEducation(store)
             core = MessagingCore(store); history = ConversationHistory(store)
             groups = groupSession(value.id, store, requireNotNull(core))
             notificationPreviews = store.transaction { store.get("local", "notification-previews") != null }
@@ -271,6 +298,8 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
             check(result.getBoolean("active") && UUID.fromString(result.getString("id")) == next.id)
             DeviceRecovery.commit(store, old.device, next)
             groups?.close(); groups = null; groupProtocolChecked = false
+            feedback = LaunchFeedback(store)
+            holdEducation = HoldEducation(store)
             core = MessagingCore(store); groups = groupSession(store.account, store, requireNotNull(core)); ready = true; needsDeviceRecovery = false
             checkInboxProtocol()
             provision(); reload()
@@ -618,6 +647,7 @@ internal class ChatSession(private val context: Context, private val api: ChatTr
         syncDone?.cancel(); syncDone = null
         historyDone?.cancel(); historyDone = null
         groups?.close(); groups = null
+        feedback = null; holdEducation = null; visitedConversation = false
         vault?.close(); vault = null; core = null; history = null
         profile = null; threads = emptyList(); contacts = emptyMap(); blockedPeers = emptySet(); peersNeedingRecovery = emptySet()
     }

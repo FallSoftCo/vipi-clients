@@ -146,6 +146,7 @@ val verifyProductionRelease = tasks.register("verifyProductionRelease") {
 }
 tasks.matching { it.name == "preReleaseBuild" }.configureEach { dependsOn(verifyProductionRelease) }
 dependencies {
+    implementation("com.google.android.play:review:2.0.2")
     implementation("com.google.firebase:firebase-messaging:26.0.1")
     implementation("androidx.work:work-runtime-ktx:2.12.0")
     implementation("androidx.lifecycle:lifecycle-process:2.10.0")

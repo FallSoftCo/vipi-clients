@@ -1,20 +1,18 @@
 package co.fallsoft.vipi
 
-import android.content.Context
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.ime
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.Snackbar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalAccessibilityManager
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.SemanticsProperties
@@ -55,51 +53,62 @@ import kotlinx.coroutines.delay
     }
 }
 
-/** Intrinsic first-policy slot, outside the weighted timeline. Once shown, its
- * space survives acknowledgement/timeout until this chat leaves or the user
- * focuses the composer; hiding the cue never moves a message under a finger. */
-@Composable internal fun FullMessageGestureCue(gestures: FullMessageGestures, composing: Boolean,
-    deferred: Boolean, modifier: Modifier = Modifier, source: String = "en", target: String = "es") {
-    val context = LocalContext.current
-    val preferences = remember(context) { context.getSharedPreferences("full-message-gestures", Context.MODE_PRIVATE) }
-    var reserved by remember(gestures) { mutableStateOf(!preferences.getBoolean("hold-script-policy-1", false)) }
-    var shown by remember(gestures) { mutableStateOf(false) }
-    var showing by remember(gestures) { mutableStateOf(true) }
-    val actionDescription = fullMessageActionDescription(gestures.meaning, gestures.nativeScript, gestures.canSwitchScript, gestures.mode)
-    val keyboard = WindowInsets.ime.getBottom(LocalDensity.current) > 0
+/** A visit that has shown a hint never counts toward independent learning. */
+@Composable internal fun FullMessageGestureCue(gestures: FullMessageGestures, education: HoldEducation?,
+    composing: Boolean, deferred: Boolean, foreground: Boolean) {
+    val density = LocalDensity.current
+    val keyboard = WindowInsets.ime.getBottom(density) > 0
+    val day = java.time.LocalDate.now()
+    var observedReveals by remember(gestures) { mutableIntStateOf(gestures.reveals) }
+    var independentlyRevealed by remember(gestures) { mutableStateOf(false) }
+    var promptedThisVisit by remember(gestures) { mutableStateOf(false) }
+    var visible by remember(gestures) { mutableStateOf(false) }
+    var reserved by remember(gestures) { mutableStateOf(false) }
+    var cueHeight by remember(gestures) { mutableStateOf(0.dp) }
+    val eligible = education != null && gestures.hasVisibleTranslation && foreground && !deferred && !keyboard && !composing
     val accessibility = LocalAccessibilityManager.current
-    LaunchedEffect(gestures, gestures.interactions) {
-        if (gestures.interactions > 0) {
-            preferences.edit().putBoolean("hold-script-policy-1", true).apply()
-            showing = false
-            if (!shown) reserved = false
-        }
-    }
-    LaunchedEffect(composing) { if (composing) { reserved = false; showing = false } }
-    LaunchedEffect(shown) {
-        if (shown) {
-            delay(accessibility?.calculateRecommendedTimeoutMillis(4_000L, containsIcons = false,
-                containsText = true, containsControls = false) ?: 4_000L)
-            showing = false
-        }
-    }
-    if (reserved && !deferred && !keyboard && !composing) {
-        val opacity by animateFloatAsState(if (showing) 1f else 0f, label = "gesture cue")
-        Snackbar(modifier.padding(horizontal = 12.dp, vertical = 8.dp).alpha(opacity)
-            .then(if (!showing) Modifier.clearAndSetSemantics { } else Modifier.clearAndSetSemantics {
-                this[SemanticsProperties.TestTag] = "full-message-gesture-cue"
-                this[SemanticsProperties.ContentDescription] = listOf(actionDescription)
-            })
-            .onGloballyPositioned {
-                if (!shown && showing && it.size.height > 0) {
-                    shown = true
-                    preferences.edit().putBoolean("hold-script-policy-1", true).apply()
-                }
-            }) {
-                // Full teaching stays beside the interactive preview. This
-                // live reminder keeps the comprehension escape within reach.
-                Text(stringResource(R.string.full_translation_hold_hint),
-                    style = MaterialTheme.typography.bodyMedium)
+    LaunchedEffect(gestures, eligible, day, gestures.reveals, gestures.meaning) {
+        val revealed = gestures.reveals != observedReveals
+        observedReveals = gestures.reveals
+        if (!eligible) { visible = false; reserved = false; return@LaunchedEffect }
+        if (revealed) {
+            visible = false
+            if (!promptedThisVisit && !independentlyRevealed) {
+                independentlyRevealed = true
+                education.independentReveal(day)
             }
+        } else if (!gestures.meaning && !promptedThisVisit && !independentlyRevealed) {
+            if (education.hasPreviousImpression()) delay(4_000)
+            if (education.claim(day)) {
+                promptedThisVisit = true; reserved = true; visible = true
+            }
+        }
+    }
+    LaunchedEffect(visible, gestures.held) {
+        if (!visible && !gestures.held) reserved = false
+    }
+    LaunchedEffect(visible) {
+        if (visible) {
+            delay(accessibility?.calculateRecommendedTimeoutMillis(8_000, containsText = true, containsControls = true) ?: 8_000)
+            visible = false
+        }
+    }
+    if (reserved && eligible && (visible || gestures.held)) {
+        // Keep the row's footprint while a held message changes face.
+        if (visible) Box(Modifier.onSizeChanged { cueHeight = with(density) { it.height.toDp() } }) {
+            HoldHintRow(gestures) { education.dismiss(); visible = false; reserved = false }
+        } else androidx.compose.foundation.layout.Spacer(Modifier.height(cueHeight))
+    }
+}
+
+@Composable internal fun HoldHintRow(gestures: FullMessageGestures, dismiss: () -> Unit) {
+    val description = fullMessageActionDescription(gestures.meaning, gestures.nativeScript, gestures.canSwitchScript, gestures.mode)
+    androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth().padding(horizontal = 14.dp),
+        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+        Text(stringResource(R.string.hold_original_hint), Modifier.weight(1f).clearAndSetSemantics {
+            this[SemanticsProperties.TestTag] = "full-message-gesture-cue"
+            this[SemanticsProperties.ContentDescription] = listOf(description)
+        }, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        androidx.compose.material3.TextButton(onClick = dismiss) { Text(stringResource(R.string.hold_hint_dismiss)) }
     }
 }

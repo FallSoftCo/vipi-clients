@@ -1,0 +1,10 @@
+<resources>
+    <string name="funding_question">Would you pay US$1 a month for Vipi?</string>
+    <string name="funding_context">We’re exploring how to fund private chats. Vipi is free today.</string>
+    <string name="funding_yes">Yes</string>
+    <string name="funding_maybe">Not sure</string>
+    <string name="funding_no">No</string>
+    <string name="funding_skip">Skip</string>
+    <string name="hold_original_hint">Hold to see the original</string>
+    <string name="hold_hint_dismiss">Dismiss hint</string>
+</resources>

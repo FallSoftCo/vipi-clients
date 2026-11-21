@@ -62,11 +62,12 @@ class VipiModel internal constructor(application: Application, private val trans
         if (BuildConfig.DEFAULT_FULL_IMMERSION) ImmersionMode.FULL_MESSAGES.name else ImmersionMode.NEW_WORD.name)!!) }
         .getOrDefault(if (BuildConfig.DEFAULT_FULL_IMMERSION) ImmersionMode.FULL_MESSAGES else ImmersionMode.NEW_WORD))
         private set
+    internal val translationFactory: (() -> LanguageTranslation)? = workflow?.let { it::translationClient }
     fun selectImmersionMode(value: ImmersionMode) {
         prefs.edit().putString("immersionMode", value.name).apply()
         if (immersionMode == value) return
         immersionMode = value
-        chat?.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient }, value)
+        chat?.configureTranslations(knownLanguage, targetLanguage, translationFactory, value)
     }
     internal val replyNotificationEducation by lazy { ReplyNotificationEducation(getApplication()) }
     internal fun notificationPermissionChanged() {
@@ -132,7 +133,7 @@ class VipiModel internal constructor(application: Application, private val trans
             // The retained model is activated again after activity recreation
             // and reauthentication. Keep this account's current conversation.
             if (openingAccount) navigate(Screen.HOME)
-            chat!!.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient }, immersionMode)
+            chat!!.configureTranslations(knownLanguage, targetLanguage, translationFactory, immersionMode)
             chat!!.start()
             if (!deletion.active && chat?.needsProfile == true) navigate(Screen.PROFILE)
             else if (chat?.ready == true && screen == Screen.ACCOUNT) navigate(Screen.HOME)
@@ -198,6 +199,10 @@ class VipiModel internal constructor(application: Application, private val trans
         }
     }
 
+    internal var feedbackSession = java.util.UUID.randomUUID().toString()
+        private set
+    internal fun newForegroundSession() { feedbackSession = java.util.UUID.randomUUID().toString() }
+
     fun navigate(requested: Screen) {
         val value = if (requested == Screen.HOME && screen in setOf(Screen.PROFILE, Screen.ACCOUNT) &&
             chat?.ready == true && invitationUsername != null) Screen.NEW_CHAT else requested
@@ -224,7 +229,7 @@ class VipiModel internal constructor(application: Application, private val trans
     private var pairPreparation: Job? = null
     private fun prepareSelectedPair() {
         if (knownLanguage == targetLanguage) return
-        chat?.configureTranslations(knownLanguage, targetLanguage, workflow?.let { boundary -> boundary::translationClient }, immersionMode)
+        chat?.configureTranslations(knownLanguage, targetLanguage, translationFactory, immersionMode)
         pairPreparation?.cancel()
         pairPreparation = viewModelScope.launch {
             modelBusy = true; modelMessage = null

@@ -1,0 +1,10 @@
+<resources>
+    <string name="funding_question">Je, ungelipia Vipi dola moja ya Marekani kwa mwezi?</string>
+    <string name="funding_context">Tunachunguza jinsi ya kugharamia mazungumzo ya faragha. Kwa sasa Vipi ni bure.</string>
+    <string name="funding_yes">Ndiyo</string>
+    <string name="funding_maybe">Sina uhakika</string>
+    <string name="funding_no">Hapana</string>
+    <string name="funding_skip">Ruka</string>
+    <string name="hold_original_hint">Bonyeza kwa muda ili kuona ujumbe wa awali</string>
+    <string name="hold_hint_dismiss">Ficha kidokezo</string>
+</resources>

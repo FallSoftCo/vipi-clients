@@ -75,6 +75,7 @@ import java.time.temporal.ChronoUnit
         Box(Modifier.fillMaxSize().padding(insets), contentAlignment = Alignment.TopCenter) {
             Column(Modifier.widthIn(max = 680.dp).fillMaxSize()) {
                 ChatsHeader(model)
+                if (canCompose && chat != null) FeedbackInvitation(chat, model.feedbackSession)
                 HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = .65f))
                 // Reserve the complete 56dp FAB +16dp placement gap +16dp
                 // breathing room, so the final row scrolls fully above it.

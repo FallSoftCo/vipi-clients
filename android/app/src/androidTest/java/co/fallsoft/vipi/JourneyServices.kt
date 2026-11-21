@@ -113,6 +113,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         requireNotNull(peerCore).keys.published(1)
         return VipiModel(application, translationFactory(), this)
     }
+    var fundingRequest: ((String, JSONObject?, DeviceCredential) -> JSONObject)? = null
     var groupProtocolVersion: Any? = null
     var groupsRequest: ((String, String, JSONObject?, DeviceCredential) -> JSONObject)? = null
 
@@ -121,6 +122,7 @@ internal class JourneyServices(profileRequired: Boolean, private val seedBotMess
         check(userID == subject)
         return object : ChatTransport {
             override suspend fun request(method: String, path: String, body: JSONObject?, device: DeviceCredential?, query: Map<String, String>): JSONObject {
+                if (path == LaunchFeedback.PATH) return requireNotNull(fundingRequest)(method, body, requireNotNull(device))
                 if (path == "/v1/entitlements" || path.startsWith("/v1/billing/") || path.startsWith("/v1/bot/")) {
                     commerceRequests.incrementAndGet()
                     error("Removed commerce/Bot endpoint requested by free friend chat")

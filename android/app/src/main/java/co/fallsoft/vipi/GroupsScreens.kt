@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.compose.ui.focus.onFocusChanged
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import java.time.Instant
@@ -35,7 +36,7 @@ import java.util.UUID
 /** The opt-in debug build opens this route with the signed-in account’s immersion owner. */
 @Composable internal fun GroupsNavigator(session: GroupsSession, people: List<ChatProfile>, translation: ConversationTranslation,
     source: String, target: String, changeMode: (ImmersionMode) -> Unit, reviewIdentity: (UUID) -> Unit, onBack: () -> Unit,
-    startWithCreate: Boolean = false) {
+    startWithCreate: Boolean = false, onVisitConversation: () -> Unit = {}) {
     var route by remember(session.account) { mutableStateOf(if (startWithCreate) "direct-create" else "home") }
     var selected by remember(session.account) { mutableStateOf<UUID?>(null) }
     val back: () -> Unit = {
@@ -46,6 +47,7 @@ import java.util.UUID
             else -> route = "home"
         }
     }
+    LaunchedEffect(route) { if (route == "conversation") onVisitConversation() }
     BackHandler(onBack = back)
     when (route) {
         "direct-create", "create" -> GroupCreateScreen(session, people, onBack = back, onCreated = { selected = it; route = "conversation" })
@@ -204,6 +206,8 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
     var text by remember(session.account, groupID) { mutableStateOf(session.preferences(groupID).draft) }
     val scope = rememberCoroutineScope()
     val list = rememberLazyListState()
+    var composerFocused by remember(groupID) { mutableStateOf(false) }
+    val holdEducation = remember(session) { HoldEducation(session.store.vault) }
     val context = LocalContext.current
     val speech = remember(session, groupID, source, target) { SpeechPlayback(context, target, scope) }
     var voiceHelp by remember(speech) { mutableStateOf(false) }
@@ -281,10 +285,11 @@ private fun LazyListScope.groupPeoplePicker(people: List<ChatProfile>, account: 
                     if (foreground && visible.isNotEmpty()) session.markRead(groupID, visible)
                 }
             }
+            FullMessageGestureCue(gestures, holdEducation, composerFocused, deferred = list.isScrollInProgress, foreground = foreground)
             if (voiceHelp || speech.state == SpeechState.UNAVAILABLE)
                 SpeechPreparationHelp(speech.state, speech.error) { speech.prepare(warmups) }
             if (session.isActive(groupID) && group?.role(session.account) != null) Row(Modifier.fillMaxWidth().padding(12.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                OutlinedTextField(text, { text = it; session.draft(groupID, it) }, label = { Text("Message the group") }, maxLines = 6, modifier = Modifier.weight(1f))
+                OutlinedTextField(text, { text = it; session.draft(groupID, it) }, label = { Text("Message the group") }, maxLines = 6, modifier = Modifier.weight(1f).onFocusChanged { composerFocused = it.isFocused })
                 Button(onClick = { val draft = text; scope.launch { if (session.send(group, draft) && text == draft) text = "" } }, enabled = !session.busy && text.isNotBlank(), modifier = Modifier.heightIn(min = 48.dp)) { Text("Send") }
             } else Text("You’re no longer in this group. Saved messages remain on this device.", style = MaterialTheme.typography.bodyLarge, modifier = Modifier.padding(18.dp))
         }

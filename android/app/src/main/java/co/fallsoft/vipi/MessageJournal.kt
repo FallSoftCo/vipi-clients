@@ -133,6 +133,8 @@ internal class MessageJournal(private val vault: MessageVault) {
         // Late/duplicate network responses cannot regress a committed terminal state.
         if (saved.state == "read" || (saved.state == "delivered" && state != "read") ||
             (state !in setOf("delivered", "read") && saved.state in setOf("failed", "expired", "cancelled"))) return@transaction
+        if (state in setOf("accepted", "delivered", "read") && saved.envelope.sender == vault.account)
+            LaunchFeedback.directAccepted(vault, id.toString(), saved.envelope.createdAt)
         vault.put("outgoing", id.toString(), saved.copy(state = state).encode())
         if (state != "accepted") vault.remove("pending", id.toString())
     }
