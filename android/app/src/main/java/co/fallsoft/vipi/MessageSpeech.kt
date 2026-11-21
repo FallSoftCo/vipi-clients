@@ -14,13 +14,14 @@ internal object MessageSpeech {
     fun pieces(value: FullMessageTranslation): List<SpeechPiece> {
         val words = value.words
         val text = value.practiceText
-        val runs = if (words == null) listOf(0 until text.length) else buildList<IntRange> {
+        if (words == null) return fullMessagePieces(text, value.practiceLanguage)
+        val runs = buildList<IntRange> {
             val ranges = WordReplacement.ranges(words, reading = false)
             for (range in ranges) {
                 val previous = lastOrNull()
                 val separate = previous == null || text.substring(previous.last + 1, range.first)
                     .codePoints().anyMatch { Character.isLetterOrDigit(it) || Character.getType(it) == Character.OTHER_SYMBOL.toInt() }
-                if (separate) add(range) else this[lastIndex] = previous!!.first..range.last
+                if (separate) add(range) else this[lastIndex] = previous.first..range.last
             }
         }
         return runs.flatMapIndexed { index, run ->
@@ -32,6 +33,31 @@ internal object MessageSpeech {
                 val start = part.indexOf(chunk, offset)
                 offset = start + chunk.length
                 SpeechPiece(chunk, run.first + start, index > 0 && start == 0)
+            }
+        }
+    }
+
+    private fun fullMessagePieces(text: String, language: String): List<SpeechPiece> {
+        require(text.length <= SpeechChunks.MAX_MESSAGE_UTF16)
+        // Bound buffering, cancellation latency and PCM memory on long posts.
+        // Ordinary chat turns fit in one render, including their punctuation.
+        val limit = 480
+        if (text.length <= limit) return listOf(SpeechPiece(text, 0))
+        val sentences = BreakIterator.getSentenceInstance(Locale.forLanguageTag(language)).apply { setText(text) }
+        val words = BreakIterator.getWordInstance(Locale.forLanguageTag(language)).apply { setText(text) }
+        return buildList {
+            var start = 0
+            while (start < text.length) {
+                var end = minOf(start + limit, text.length)
+                if (end < text.length) {
+                    val sentenceEnd = sentences.preceding(end + 1)
+                    val wordEnd = if (sentenceEnd > start) sentenceEnd else words.preceding(end + 1)
+                    if (wordEnd > start) end = wordEnd
+                    else if (Character.isHighSurrogate(text[end - 1])) end--
+                }
+                val piece = text.substring(start, end)
+                if (piece.isNotBlank()) add(SpeechPiece(piece, start))
+                start = end
             }
         }
     }

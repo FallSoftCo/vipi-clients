@@ -22,10 +22,11 @@ internal class PlaybackWords {
     }
 }
 
-/** Preserve sentence prosody when the voice supplies usable word timing.
- * Otherwise obtain exact boundaries from individually rendered lexical units. */
+/** The same PCM heard by the listener owns its highlights. Deep never renders
+ * individual words to manufacture timings missing from a sentence. */
 internal class TimedSpeech(private val pair: LocalSpeechPair, private val language: String,
-    private val projection: SpeechProjection?, private val onFirstRender: (RenderedSpeech) -> Unit = {}) {
+    private val projection: SpeechProjection?, private val fullUtterance: Boolean = false,
+    private val onFirstRender: (RenderedSpeech) -> Unit = {}) {
     private var first = true
     private suspend fun render(text: String): PcmWave {
         val rendered = pair.render(listOf(SpeechSpan(text, language)))
@@ -44,6 +45,23 @@ internal class TimedSpeech(private val pair: LocalSpeechPair, private val langua
         fun word(range: IntRange) = projection!!.word(piece.start + range.first..piece.start + range.last)
         val frames = wave.samples.size / (wave.channels * 2)
         val marks = wave.marks.filter { it.frame in 0 until frames && it.start >= 0 && it.end <= piece.text.length && it.start < it.end }
+        if (fullUtterance) {
+            // Native segmentation can differ from ICU, especially in Mandarin.
+            // Accept only ordered marks covering all lexical content. Unmarked
+            // punctuation/space may fall between marks.
+            var end = 0
+            var frame = -1
+            val complete = marks.size == wave.marks.size && marks.isNotEmpty() && marks.all { mark ->
+                val valid = mark.frame > frame && mark.start >= end &&
+                    !piece.text.substring(end, mark.start).codePoints().anyMatch(Character::isLetterOrDigit)
+                end = mark.end; frame = mark.frame
+                valid
+            } && !piece.text.substring(end).codePoints().anyMatch(Character::isLetterOrDigit)
+            val cues = if (complete) marks.map { WordCue(it.frame, word(it.start until it.end)) }
+                else listOf(WordCue(0, word(words.first().first..words.last().last)))
+            output.send(TimedPcm(wave, cues))
+            return
+        }
         val firstFrames = words.map { range ->
             marks.firstOrNull { it.start in range || range.first in it.start until it.end }?.frame
         }

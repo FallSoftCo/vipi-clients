@@ -467,4 +467,5 @@
     <string name="full_message_failed">Tafsiri imeshindikana. Gusa ili ujaribu tena.</string>
     <string name="full_message_show_translation">Onyesha maandishi ya lugha unayojifunza</string>
     <string name="full_message_context_hint">Gusa ujumbe ili uusikilize. Bonyeza kwa muda ili uone ujumbe wa awali.</string>
+    <string name="autoplay_label">Usomaji otomatiki</string>
 </resources>

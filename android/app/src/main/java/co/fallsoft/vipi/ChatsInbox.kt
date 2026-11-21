@@ -72,11 +72,16 @@ import java.time.temporal.ChronoUnit
                 Row(Modifier.fillMaxWidth().padding(start = 20.dp, end = 12.dp).heightIn(min = 72.dp),
                     verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                     val chatsLabel = stringResource(R.string.nav_chats)
-                    Box(Modifier.weight(1f).testTag("inbox-wordmark").semantics {
-                        contentDescription = "Vipi, $chatsLabel"
+                    val locale = LocalConfiguration.current.locales[0]
+                    val practice = java.util.Locale.forLanguageTag(model.targetLanguage)
+                        .getDisplayLanguage(locale).replaceFirstChar { it.titlecase(locale) }
+                    Row(Modifier.weight(1f).testTag("inbox-wordmark").clearAndSetSemantics {
+                        contentDescription = "Vipi, $chatsLabel, $practice"
                         heading()
-                    }, contentAlignment = Alignment.CenterStart) {
+                    }, verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         VipiMark(size = 60)
+                        Text(practice, Modifier.testTag("inbox-practice-language"),
+                            style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     IconButton(onClick = { model.navigate(Screen.SETTINGS) },
                         modifier = Modifier.semantics { contentDescription = settingsLabel }) {
