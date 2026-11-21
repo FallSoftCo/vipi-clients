@@ -34,12 +34,13 @@ import VipiCore
             try await pair.prepare(warmups:["en":"Hello."])
             pair.qualificationRetainNativeMarkers = retained
             let audio = try await pair.render([(text,"en")])
-            XCTAssertTrue(audio.marks.isEmpty)
+            XCTAssertTrue(SpeechChunks.marksCoverWords(audio.marks,text:text,language:"en"))
+            XCTAssertTrue(audio.marks.contains { $0.source == "interpolated_pcm" })
             XCTAssertTrue(audio.boundaryFrames.isEmpty,"Native sentence audio is never spliced at words")
             XCTAssertGreaterThan(audio.milliseconds,1000)
             let cached = try await pair.render([(text,"en")])
             XCTAssertEqual(cached.file,audio.file)
-            XCTAssertTrue(cached.marks.isEmpty)
+            XCTAssertEqual(cached.marks.map(\.byteSampleOffset),audio.marks.map(\.byteSampleOffset))
             let single = try await pair.render([("Water!","en")])
             XCTAssertEqual(single.marks.count,1)
             XCTAssertEqual(single.marks.first?.start,0)
@@ -47,6 +48,30 @@ import VipiCore
             if retained == 0 {
                 XCTAssertEqual(single.marks.first?.byteSampleOffset,0)
                 XCTAssertEqual(single.marks.first?.source,"measured_single_word_pcm")
+            }
+        }
+    }
+    func testInterpolationFollowsPartialAnchorsVoicedBoundsAndMaterialPause() {
+        let text="Don't rush, we're here.", words=SpeechChunks.wordRanges(text,language:"en")
+        XCTAssertEqual(words.count,4)
+        guard words.count == 4 else { return }
+        let anchor=SpeechMark(start:words[2].location,length:words[2].length,byteSampleOffset:6592)
+        let regions=SpeechWordTiming.regions(energy:[0,1,1,1,1,0,0,0,1,1,1,1,0],window:100,
+                                           frames:1300,sampleRate:1000)
+        let marks=SpeechWordTiming.interpolate(text:text,language:"en",marks:[anchor],regions:regions,
+                                              frames:1300,bytesPerFrame:8,sampleRate:1000)
+        XCTAssertTrue(SpeechChunks.marksCoverWords(marks,text:text,language:"en"))
+        XCTAssertEqual(marks.first?.byteSampleOffset,800)
+        XCTAssertEqual(marks.last?.endByteSampleOffset,9600)
+        XCTAssertEqual(marks[2].byteSampleOffset,6592)
+        XCTAssertEqual(marks[2].source,"native_anchor")
+        XCTAssertLessThanOrEqual(marks[1].endByteSampleOffset ?? Int.max,4000)
+        for (language,phrase) in [("zh","我们可以喝咖啡吗？"),("ar","هل نشرب القهوة غدًا؟")] {
+            let projected=SpeechWordTiming.interpolate(text:phrase,language:language,marks:[],regions:regions,frames:1300,bytesPerFrame:2,sampleRate:1000)
+            XCTAssertTrue(SpeechChunks.marksCoverWords(projected,text:phrase,language:language))
+            for mark in projected {
+                XCTAssertLessThanOrEqual(mark.start+mark.length,phrase.utf16.count)
+                XCTAssertGreaterThan(mark.endByteSampleOffset ?? 0,mark.byteSampleOffset)
             }
         }
     }

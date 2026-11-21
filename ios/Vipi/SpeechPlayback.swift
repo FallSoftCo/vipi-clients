@@ -167,7 +167,7 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                     guard chunk.contains(where:{SpeechChunks.hasSpokenContent($0.text)}) else { textOffset += chunk.reduce(0){$0+$1.text.utf16.count}; continue }
                     renderedAny = true
                     while self.scheduled.count >= 3 { try await Task.sleep(for: .milliseconds(20)) }
-                    let audio = try await pair.render(chunk)
+                    let audio = try await pair.render(chunk,estimateWordTiming:!pauseBetweenSpans)
                     try Task.checkCancellation()
                     guard request == self.epoch else { return }
                     let file = try AVAudioFile(forReading: audio.file)
@@ -198,7 +198,8 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                         let range = NSRange(location:textOffset+mark.start,length:mark.length)
                         guard range.location >= 0,range.length > 0,NSMaxRange(range) <= spokenText.length else { continue }
                         let start = self.scheduledFrames + Int64(mark.byteSampleOffset / bytesPerFrame)
-                        let end = self.scheduledFrames + (index+1 < ordered.count ? Int64(ordered[index+1].byteSampleOffset / bytesPerFrame) : file.length)
+                        let nextFrame = index+1 < ordered.count ? Int64(ordered[index+1].byteSampleOffset / bytesPerFrame) : file.length
+                        let end = self.scheduledFrames + min(nextFrame,mark.endByteSampleOffset.map{Int64($0/bytesPerFrame)} ?? nextFrame)
                         guard end > start else { continue }
                         self.timedWords.append(.init(range:range,text:spokenText.substring(with:range),start:start,end:end))
                     }
