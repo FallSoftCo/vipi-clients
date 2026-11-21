@@ -24,7 +24,7 @@ final class ConversationHistory {
     // Editing allowance, separate from the unchanged 32 KiB send limit.
     // 128 KiB stays well within the vault’s 2 MiB authenticated-record bound.
     static let maximumDraftBytes = 128 * 1024
-    private struct Reference: Codable { let kind: String; let id: UUID }
+    struct Reference: Codable { let kind: String; let id: UUID }
     private struct Summary: Codable { let peer: UUID; var latest: String; var unread: Int }
     private let vault: MessageVault
     init(vault: MessageVault) throws {
@@ -54,6 +54,7 @@ final class ConversationHistory {
     /// Called inside the SAME transaction as draft/ratchet/decryption changes.
     static func record(_ vault: MessageVault, kind: String, id: UUID, peer: UUID, createdAt: Int64, unread: Bool = false) throws {
         let key = index(peer: peer, createdAt: createdAt, id: id), peerKey = peer.uuidString.lowercased()
+        if kind == "incoming" { try ConversationStreak.observe(vault, scope: .direct, id: peer, sender: peer, at: createdAt) }
         let existing = try vault.get("history", key)
         try vault.put("history", key, JSONEncoder().encode(Reference(kind: kind, id: id)))
         var summary = try vault.get("thread", peerKey).map { try JSONDecoder().decode(Summary.self, from: $0) }

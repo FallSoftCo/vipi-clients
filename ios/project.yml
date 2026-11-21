@@ -160,6 +160,7 @@ targets:
       - path: Vipi/DeviceCredential.swift
       - path: Vipi/SecurityNumber.swift
       - path: Vipi/ConversationHistory.swift
+      - path: Vipi/ConversationStreak.swift
       - path: Vipi/HistoryBackupCodec.swift
     dependencies:
       - package: LibSignalClient

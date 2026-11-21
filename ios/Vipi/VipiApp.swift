@@ -70,8 +70,9 @@ import SwiftUI
             }
             #if DEBUG
             .frame(width: FirstMonthRootQualification.current != nil &&
-                    ProcessInfo.processInfo.arguments.contains("-vipi-compact-header-window-qa") ? 375 : nil)
+                    ProcessInfo.processInfo.arguments.contains("-vipi-compact-header-window-qa") ? 375 : (ProcessInfo.processInfo.arguments.contains("-vipi-streaks-compact-qa") ? 320 : nil))
             #endif
+            .modifier(ConversationStreakClock())
             .environment(state)
             .environment(authentication)
             .environment(deletion)

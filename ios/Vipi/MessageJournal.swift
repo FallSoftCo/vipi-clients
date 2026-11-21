@@ -239,6 +239,7 @@ final class MessageJournal {
                 let previous = try vault.get("sent-avatar", receipt).flatMap { Int64(String(decoding: $0, as: UTF8.self)) } ?? 0
                 if revision > previous { try vault.put("sent-avatar", receipt, Data(String(revision).utf8)) }
             }
+            if state == "delivered" { try ConversationStreak.observe(vault, scope: .direct, id: saved.envelope.recipient, sender: vault.account, at: saved.envelope.createdAt) }
             saved.state = state
             try vault.put("outgoing", key(id), encoder.encode(saved))
             if state != "accepted" { try vault.remove("pending", key(id)) }

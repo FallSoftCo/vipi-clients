@@ -1,0 +1,273 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "Days in a row: %@": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أيام متتالية: %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tage in Folge: %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Days in a row: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Días seguidos: %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jours de suite : %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giorni consecutivi: %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連続日数：%@日"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "연속 일수: %@일"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dias seguidos: %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dias seguidos: %@"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dias seguidos: %@"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siku mfululizo: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "连续天数：%@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連續天數：%@"
+          }
+        }
+      }
+    },
+    "A day counts when you both send a message to each other and both messages are delivered. Days start at midnight UTC.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يُحتسب اليوم عندما يرسل كل منكما رسالة إلى الآخر وتصل الرسالتان. تبدأ الأيام عند منتصف الليل بالتوقيت العالمي المنسق (UTC)."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Tag zählt, wenn ihr euch beide eine Nachricht schickt und beide Nachrichten zugestellt werden. Ein neuer Tag beginnt um Mitternacht UTC."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A day counts when you both send a message to each other and both messages are delivered. Days start at midnight UTC."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un día cuenta cuando ambos se envían un mensaje y los dos mensajes se entregan. Los días empiezan a medianoche UTC."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un jour compte si vous vous envoyez chacun un message et que les deux messages sont remis. Les jours commencent à minuit UTC."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un giorno conta se vi scrivete a vicenda ed entrambi i messaggi vengono consegnati. I giorni iniziano a mezzanotte UTC."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "お互いにメッセージを送り、両方が相手に届いた日を数えます。日付は協定世界時（UTC）の午前0時に切り替わります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "서로 메시지를 보내고 두 메시지가 모두 전달되면 하루로 계산해요. 날짜는 협정 세계시(UTC) 자정에 바뀌어요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um dia conta quando enviam uma mensagem um ao outro e ambas as mensagens são entregues. Os dias começam à meia-noite UTC."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um dia conta quando vocês enviam uma mensagem um ao outro e as duas mensagens são entregues. Os dias começam à meia-noite UTC."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um dia conta quando enviam uma mensagem um ao outro e ambas as mensagens são entregues. Os dias começam à meia-noite UTC."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siku huhesabiwa ikiwa kila mmoja wenu amemtumia mwenzake ujumbe na ujumbe wote miwili imefika. Siku huanza saa sita usiku kwa saa za UTC."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当天你们互相发送消息，且双方的消息均已送达，就计为一天。每天从协调世界时（UTC）零点开始。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "當天你們互相傳送訊息，而且雙方的訊息都已送達，就算一天。每天從世界協調時間（UTC）零時開始。"
+          }
+        }
+      }
+    },
+    "A day counts when at least two different group members send a message. Days start at midnight UTC.": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يُحتسب اليوم عندما يرسل عضوان مختلفان على الأقل في المجموعة رسالة. تبدأ الأيام عند منتصف الليل بالتوقيت العالمي المنسق (UTC)."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ein Tag zählt, wenn mindestens zwei verschiedene Gruppenmitglieder eine Nachricht senden. Ein neuer Tag beginnt um Mitternacht UTC."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A day counts when at least two different group members send a message. Days start at midnight UTC."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un día cuenta cuando al menos dos integrantes distintos del grupo envían un mensaje. Los días empiezan a medianoche UTC."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un jour compte si au moins deux membres différents du groupe envoient un message. Les jours commencent à minuit UTC."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Un giorno conta se almeno due membri diversi del gruppo inviano un messaggio. I giorni iniziano a mezzanotte UTC."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "グループの異なるメンバーが2人以上メッセージを送った日を数えます。日付は協定世界時（UTC）の午前0時に切り替わります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "서로 다른 그룹 멤버 두 명 이상이 메시지를 보내면 하루로 계산해요. 날짜는 협정 세계시(UTC) 자정에 바뀌어요."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um dia conta quando pelo menos dois membros diferentes do grupo enviam uma mensagem. Os dias começam à meia-noite UTC."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um dia conta quando pelo menos dois membros diferentes do grupo enviam uma mensagem. Os dias começam à meia-noite UTC."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Um dia conta quando pelo menos dois membros diferentes do grupo enviam uma mensagem. Os dias começam à meia-noite UTC."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siku huhesabiwa ikiwa angalau washiriki wawili tofauti wa kikundi wametuma ujumbe. Siku huanza saa sita usiku kwa saa za UTC."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当天至少有两位不同的群成员发送消息，就计为一天。每天从协调世界时（UTC）零点开始。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "當天至少有兩位不同的群組成員傳送訊息，就算一天。每天從世界協調時間（UTC）零時開始。"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}

@@ -70,6 +70,7 @@ final class GroupsStore {
             guard saved.id == value.id, saved.groupID == value.groupID, saved.epoch == value.epoch, saved.membershipRevision == value.membershipRevision,
                   saved.sender == value.sender, saved.text == value.text, saved.createdAt == value.createdAt else { throw MessageJournal.Failure.conflict }
         }
+        try ConversationStreak.observeGroup(vault, value)
         try vault.put("group-message", id, encoder.encode(value))
     }
     func saveMessage(_ value: GroupMessage) throws { try vault.transaction { try saveMessageInTransaction(value) } }

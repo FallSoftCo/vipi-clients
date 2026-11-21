@@ -250,7 +250,7 @@ struct TimelineQualificationView: View {
     var body: some View {
         if ProcessInfo.processInfo.arguments.contains("-vipi-base-expiry-qa") {
             BaseExpiryQualificationView()
-        } else if ProcessInfo.processInfo.arguments.contains("-vipi-funding-qa"), let chat {
+        } else if (ProcessInfo.processInfo.arguments.contains("-vipi-funding-qa") || ProcessInfo.processInfo.arguments.contains("-vipi-streaks-qa")), let chat {
             HomeView(chat: chat)
         } else { timeline }
     }
@@ -294,6 +294,16 @@ struct TimelineQualificationView: View {
                 await value.start()
                 guard value.ready else { throw ServiceFailure(status: 0, code: "fixture_not_ready") }
                 _ = try await value.find("alex")
+                if ProcessInfo.processInfo.arguments.contains("-vipi-streaks-qa"), let vault = value.feedbackVault {
+                    for friend in TimelineTransport.streakFriends { _ = try await value.find(friend.name.lowercased()) }
+                    try seedStreaks(vault)
+                    await value.configureTranslation(pair: .init(source: "en", target: "es"),
+                        services: .init(status: { _ in .unsupported }, translate: { _,_ in throw CancellationError() }))
+                    await value.synchronize()
+                    value.notice = nil
+                    chat = value
+                    return
+                }
                 if voiceLayout, let vault = value.feedbackVault {
                     try await seedVoiceLayout(vault)
                     await value.synchronize()
@@ -354,6 +364,34 @@ struct TimelineQualificationView: View {
                 chat = value
             } catch { status = "Fixture failed: \(error.localizedDescription)" }
         }.onDisappear { Task { await readingGate.release() } }
+    }
+    private func seedStreaks(_ vault: MessageVault) throws {
+        let today = ConversationStreak.today()
+        let group = TimelineTransport.streakGroup
+        let other = TimelineTransport.streakMember
+        let store = GroupsStore(vault: vault)
+        try vault.transaction {
+            let threads = [(id: peer, name: "Alex", days: 105)] + TimelineTransport.streakFriends
+            for (order, friend) in threads.enumerated() {
+              for offset in 0..<friend.days {
+                let start = (today - Int64(offset)) * ConversationStreak.millisecondsPerDay
+                for (index, sender) in [friend.id, owner].enumerated() {
+                    let outgoing = sender == owner, id = UUID(), kind = outgoing ? "outgoing" : "incoming"
+                    let at = start + Int64(10 - order) * 1_000 + Int64(index)
+                    let envelope = ChatEnvelope(id: id, sender: sender, recipient: outgoing ? friend.id : owner, createdAt: at, type: 3, ciphertext: Data([1]))
+                    let row = StoredChat(envelope: envelope, text: outgoing ? "See you at the café!" : "Coffee tomorrow?", state: "delivered", seen: true)
+                    try vault.put(kind, id.uuidString.lowercased(), JSONEncoder().encode(row))
+                    try ConversationHistory.record(vault, kind: kind, id: id, peer: friend.id, createdAt: at)
+                }
+                if order == 0 && offset < 7 {
+                    for sender in [peer, other] {
+                        try store.saveMessageInTransaction(.init(id: UUID(), groupID: group, epoch: 1, membershipRevision: 1, sender: sender,
+                            text: sender == peer ? "Which book is next?" : "I have a suggestion.", createdAt: start + 2_000, delivery: .received))
+                    }
+                }
+              }
+            }
+        }
     }
     private func seedVoiceLayout(_ vault: MessageVault) async throws {
         let repository = try AttachmentRepository(account: vault.account)
@@ -959,6 +997,11 @@ private func removeAbandonedBaseExpiryFixtures() throws {
 }
 
 private final class TimelineTransport: ChatTransport {
+    static let streakFriends: [(id: UUID, name: String, days: Int)] = [
+        (UUID(), "Maya", 2), (UUID(), "Sam", 7), (UUID(), "Lina", 30), (UUID(), "Amir", 1024)
+    ]
+    static let streakGroup = UUID(uuidString: "83872d1c-e5d1-4ae0-934a-0a16edec6075")!
+    static let streakMember = UUID(uuidString: "910a1a95-723e-4060-9b31-91a724881981")!
     let owner: UUID, peer: UUID
     init(owner: UUID, peer: UUID) { self.owner = owner; self.peer = peer }
     func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
@@ -971,7 +1014,17 @@ private final class TimelineTransport: ChatTransport {
             return ack
 
         case "/v1/me": value = ["id": owner.uuidString, "username": "timeline_qa", "display_name": "Timeline QA"]
+            if ProcessInfo.processInfo.arguments.contains("-vipi-streaks-qa") { value["group_protocol_version"] = 1 }
+        case "/v1/groups" where ProcessInfo.processInfo.arguments.contains("-vipi-streaks-qa"):
+            let members: [[String: Any]] = [(owner,"Me","owner"), (peer,"Alex","member"), (Self.streakMember,"Maya","member")].map { person, name, role in
+                ["user_id": person.uuidString, "display_name": name, "username": name.lowercased(), "role": role, "joined_epoch": 1]
+            }
+            let group: [String: Any] = ["id": Self.streakGroup.uuidString, "title": "Book club", "epoch": 1, "state": "active", "members": members, "invitations": []]
+            value = ["groups": [group], "invitations": []]
         case "/v1/people/alex": value = ["id": peer.uuidString, "username": "alex", "display_name": "Alex"]
+        case _ where ProcessInfo.processInfo.arguments.contains("-vipi-streaks-qa") && path.hasPrefix("/v1/people/"):
+            guard let friend = Self.streakFriends.first(where: { path == "/v1/people/" + $0.name.lowercased() }) else { throw MessageVault.Failure.invalidRecord }
+            value = ["id": friend.id.uuidString, "username": friend.name.lowercased(), "display_name": friend.name]
         case "/v1/devices":
             guard let body, let input = try JSONSerialization.jsonObject(with: body) as? [String: Any], let id = input["device_id"] else { throw ServiceFailure(status: 0, code: "invalid_fixture") }
             value = ["id": id, "active": true]

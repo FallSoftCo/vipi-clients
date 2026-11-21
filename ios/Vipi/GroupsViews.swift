@@ -37,7 +37,7 @@ struct GroupsHomeView: View {
                         GroupConversationView(groups: groups, groupID: group.id, people: people, immersion: immersion, reviewIdentity: reviewIdentity)
                     } label: {
                         VStack(alignment: .leading, spacing: 8) {
-                            HStack { Text(group.title).font(.headline); Spacer(); if GroupsUpgrade.muteDeliveryQualified && groups.preferences(group.id).muted { Image(systemName: "bell.slash").accessibilityLabel("Muted") } }
+                            HStack { Text(group.title).font(.headline); ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: group.id, revision: groups.revision); Spacer(); if GroupsUpgrade.muteDeliveryQualified && groups.preferences(group.id).muted { Image(systemName: "bell.slash").accessibilityLabel("Muted") } }
                             HStack {
                                 Text("\(group.members.count) people").font(.body)
                                 if groups.unread(group.id) > 0 { Text("\(groups.unread(group.id)) unread").font(.body.bold()).foregroundStyle(VipiDesign.accent) }
@@ -49,7 +49,7 @@ struct GroupsHomeView: View {
             if !groups.departedGroups.isEmpty { Section("Past groups") {
                 ForEach(groups.departedGroups) { group in
                     NavigationLink { GroupConversationView(groups: groups, groupID: group.id, people: people, immersion: immersion, reviewIdentity: reviewIdentity) } label: {
-                        VStack(alignment: .leading, spacing: 8) { Text(group.title).font(.headline); Text("Left group · Messages saved here").font(.body) }
+                        VStack(alignment: .leading, spacing: 8) { HStack { Text(group.title).font(.headline); ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: group.id, revision: groups.revision) }; Text("Left group · Messages saved here").font(.body) }
                     }
                 }
             } }
@@ -253,7 +253,10 @@ struct GroupConversationView: View {
                             state.chatReading.cancelPendingPlayback()
                             autoplay.toggle(snapshot: messages.map { .init(id: $0.renderID, text: $0.text) },
                                 immersion: immersion, speech: speech)
-                        }) { Text(group?.title ?? "Group").font(.headline).lineLimit(1) }
+                        }) {
+                            ConversationStreakBadge(vault: groups.store.vault, scope: .group, id: groupID, revision: groups.revision,
+                                headerName: group?.title ?? String(localized: "Group"))
+                        }
                 }
                 ToolbarItem(placement: .primaryAction) { Button("Group info", systemImage: "person.3") { showInfo = true } }
             }

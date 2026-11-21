@@ -731,14 +731,8 @@ struct FriendConversationView: View {
             ToolbarItem(placement:.principal) {
                 ConversationHeaderActions(mode: state.immersionMode, autoplay: autoplay.enabled,
                     toggleMode: toggleMode, toggleAutoplay: toggleAutoplay) {
-                    HStack(spacing: 6) {
-                        ContactAvatar(peer: peer, name: chat.name(peer), size: 28, jpeg: chat.avatar(peer))
-                        Text(chat.name(peer)).foregroundStyle(VipiDesign.ink)
-                            .font(.headline).lineLimit(1)
-                    }
-                    .accessibilityElement(children: .ignore)
-                    .accessibilityLabel(Text(verbatim: chat.name(peer))).accessibilityAddTraits(.isHeader)
-                    .accessibilityIdentifier("conversation-contact-identity")
+                    ConversationStreakBadge(vault: chat.feedbackVault, scope: .direct, id: peer, revision: chat.revision,
+                        headerName: chat.name(peer), avatar: ContactAvatar(peer: peer, name: chat.name(peer), size: 28, jpeg: chat.avatar(peer)))
                 }
             }
             if #available(iOS 26.0, *) {

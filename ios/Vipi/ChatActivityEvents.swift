@@ -67,6 +67,7 @@ private actor ChatReadLedger {
                 guard let bytes = try vault.get("outgoing", key) else { continue }
                 var message = try JSONDecoder().decode(StoredChat.self, from:bytes)
                 guard message.envelope.recipient == peer, ["delivered","accepted"].contains(message.state) else { continue }
+                try ConversationStreak.observe(vault, scope: .direct, id: peer, sender: vault.account, at: message.envelope.createdAt)
                 message.state = "read"
                 try vault.put("outgoing", key, JSONEncoder().encode(message))
                 try vault.remove("pending", key)

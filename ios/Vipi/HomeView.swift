@@ -89,7 +89,7 @@ struct HomeView: View {
                             LazyVStack(spacing:0) {
                                 ForEach(chat.threads) { thread in
                                     NavigationLink(value: HomeDestination.friend(thread.peer)) {
-                                        HomeConversationRow(jpeg:chat.avatar(thread.peer),name:chat.name(thread.peer),thread:thread,owner:chat.translationOwner,
+                                        HomeConversationRow(vault:chat.feedbackVault, revision:chat.revision, jpeg:chat.avatar(thread.peer),name:chat.name(thread.peer),thread:thread,owner:chat.translationOwner,
                                             expectedPair:.init(source:state.knownLanguage,target:state.targetLanguage))
                                     }.buttonStyle(.plain)
                                         .accessibilityIdentifier("chat-thread-"+thread.peer.uuidString.lowercased())
@@ -268,6 +268,8 @@ struct HomeView: View {
 
 
 struct HomeConversationRow:View {
+    var vault: MessageVault? = nil
+    var revision = 0
     var jpeg: Data? = nil
     let name:String
     let thread:ChatThread
@@ -295,6 +297,7 @@ struct HomeConversationRow:View {
                     Text(name).font(.body.weight(thread.unread > 0 ? .semibold:.medium))
                         .foregroundStyle(VipiDesign.ink).lineLimit(textSize.isAccessibilitySize ? 2:1)
                         .layoutPriority(1)
+                    ConversationStreakBadge(vault: vault, scope: .direct, id: thread.peer, revision: revision)
                     Spacer(minLength:0)
                     if !textSize.isAccessibilitySize { timestamp.fixedSize(horizontal:true,vertical:false) }
                 }

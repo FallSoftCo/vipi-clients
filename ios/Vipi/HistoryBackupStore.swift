@@ -165,6 +165,7 @@ enum HistoryBackupStore {
                     if try contains(vault: vault, message: message) { existing += 1 }
                     else {
                         try vault.put("imported", message.id.uuidString.lowercased(), JSONEncoder().encode(message))
+                        if !message.outgoing { try ConversationStreak.observe(vault, scope: .direct, id: message.peer, sender: message.peer, at: message.createdAt) }
                         try ConversationHistory.record(vault, kind: "imported", id: message.id, peer: message.peer, createdAt: message.createdAt)
                         added += 1
                     }
