@@ -140,15 +140,18 @@ private final class ConverterInput: @unchecked Sendable {
     }
     fileprivate init(language: String, available: [AVSpeechSynthesisVoice]) throws {
         self.language = language
-        let code = language.components(separatedBy: "-")[0]
+        let code = LocalLanguageCatalog.canonicalCode(language)
         if code == "sw" { voice = nil; return }
         let preferred = ["en": "en-US", "es": "es-ES", "fr": "fr-FR", "de": "de-DE", "it": "it-IT", "pt": "pt-BR",
             "ar": "ar-001", "zh": "zh-CN", "ja": "ja-JP", "ko": "ko-KR"][language] ?? language
         let matching = available.filter {
             LocalLanguageCatalog.canonicalCode($0.language) == code
         }.sorted {
-            if ($0.language == preferred) != ($1.language == preferred) { return $0.language == preferred }
+            // An explicitly selected dialect takes precedence. For a language
+            // without a region, prefer its best installed natural voice.
+            if language.contains("-"), ($0.language == preferred) != ($1.language == preferred) { return $0.language == preferred }
             if $0.quality != $1.quality { return $0.quality.rawValue > $1.quality.rawValue }
+            if ($0.language == preferred) != ($1.language == preferred) { return $0.language == preferred }
             if $0.identifier.hasPrefix("com.apple.voice.") != $1.identifier.hasPrefix("com.apple.voice.") { return $0.identifier.hasPrefix("com.apple.voice.") }
             return $0.identifier < $1.identifier
         }

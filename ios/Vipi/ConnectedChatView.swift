@@ -920,7 +920,7 @@ struct FriendConversationView: View {
         }
     }
     private var separateHeaderControls: Bool {
-        typeSize > .large || (timelineFrame.width > 0 && timelineFrame.width < 420) 
+        typeSize > .large || (timelineFrame.width > 0 && timelineFrame.width < 420)
             || chat.name(peer).count > 12 || String(localized:"Autoplay").count > 11
     }
     private var modeButton: some View {
