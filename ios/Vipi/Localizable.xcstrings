@@ -1,6 +1,252 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "The built-in voice is unavailable. You can keep reading or choose another practice language.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "The built-in voice is unavailable. You can keep reading or choose another practice language."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La voz integrada no está disponible. Puedes seguir leyendo o elegir otro idioma de práctica."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La voix intégrée est indisponible. Vous pouvez continuer à lire ou choisir une autre langue à pratiquer."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die integrierte Stimme ist nicht verfügbar. Du kannst weiterlesen oder eine andere Sprache zum Üben wählen."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La voce integrata non è disponibile. Puoi continuare a leggere o scegliere un’altra lingua da praticare."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A voz integrada está indisponível. Você pode continuar lendo ou escolher outro idioma para praticar."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A voz integrada está indisponível. Pode continuar a ler ou escolher outra língua para praticar."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "内蔵音声を使用できません。そのまま読むか、別の練習用言語を選んでください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "내장 음성을 사용할 수 없어요. 계속 읽거나 연습할 다른 언어를 선택하세요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "内置语音暂不可用。你可以继续阅读，或选择其他练习语言。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "內建語音暫時無法使用。你可以繼續閱讀，或選擇其他練習語言。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "الصوت المضمّن غير متاح. يمكنك مواصلة القراءة أو اختيار لغة أخرى للتدرّب."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Sauti iliyojumuishwa haipatikani. Unaweza kuendelea kusoma au kuchagua lugha nyingine ya kujifunza."
+          }
+        }
+      }
+    },
+    "More languages on this device": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "More languages on this device"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Otros idiomas en este dispositivo"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Autres langues sur cet appareil"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Weitere Sprachen auf diesem Gerät"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Altre lingue su questo dispositivo"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Outros idiomas neste dispositivo"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Outras línguas neste dispositivo"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このデバイスのほかの言語"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "이 기기의 다른 언어"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此设备上的其他语言"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "此裝置上的其他語言"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "لغات أخرى على هذا الجهاز"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Lugha nyingine kwenye kifaa hiki"
+          }
+        }
+      }
+    },
+    "Reading guides can vary by message.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Reading guides can vary by message."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La guía de lectura puede variar según el mensaje."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "L’aide à la lecture peut varier selon le message."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Die Lesehilfe kann je nach Nachricht variieren."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "La guida alla lettura può variare a seconda del messaggio."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A ajuda de leitura pode variar conforme a mensagem."
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "A ajuda à leitura pode variar consoante a mensagem."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "読み方の表示はメッセージによって異なる場合があります。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "메시지에 따라 읽기 안내가 달라질 수 있어요."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "不同消息的读音提示可能有所不同。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "不同訊息的讀音提示可能有所不同。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "قد تختلف مساعدة القراءة من رسالة إلى أخرى."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "Mwongozo wa kusoma unaweza kutofautiana kulingana na ujumbe."
+          }
+        }
+      }
+    },
     "Tap a message to listen. Hold to see the original.": {
       "localizations": {
         "en": {

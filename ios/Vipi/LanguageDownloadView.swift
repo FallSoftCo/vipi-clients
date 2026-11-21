@@ -110,6 +110,7 @@ struct LanguageDownloadView: View {
     @Environment(AppState.self) private var state
     @Environment(\.scenePhase) private var scenePhase
     @State private var preparation = LanguagePreparation()
+    @State private var availableVoices: Set<String>?
     @State private var confirmRemoval = false
     private var pair: TranslationPair { requestedPair ?? .init(source:state.knownLanguage,target:state.targetLanguage) }
 
@@ -139,6 +140,7 @@ struct LanguageDownloadView: View {
                         .accessibilityIdentifier("language-download-status")
                     if preparation.busy || preparation.availability == .checking { Spacer(); ProgressView().accessibilityLabel(statusText) }
                 }.padding(.vertical, 5)
+                PracticeLanguageNotice(target: pair.target, availableVoices: availableVoices)
                 if preparation.availability == .downloadable && !preparation.busy {
                     Button { preparation.prepare() } label: {
                         Text("Download languages").foregroundStyle(VipiDesign.highlight)
@@ -187,6 +189,7 @@ struct LanguageDownloadView: View {
         .frame(maxWidth: 760).frame(maxWidth: .infinity).background(VipiDesign.canvas)
         .navigationTitle("Your languages").navigationBarTitleDisplayMode(.inline)
         .task(id: pair) { await preparation.refresh(pair) }
+        .task(id: scenePhase) { if scenePhase == .active { availableVoices = LocalVoice.availableLanguageCodes } }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active && !preparation.busy { Task { await preparation.refresh(pair) } }
         }
@@ -200,7 +203,8 @@ struct LanguageDownloadView: View {
     }
     private func languagePicker(_ title: LocalizedStringKey, selection: Binding<String>, choices: [VipiLanguage], localName: Bool) -> some View {
         NavigationLink {
-            LanguageSelectionView(title: title, selection: selection, choices: choices, localName: localName)
+            LanguageSelectionView(title: title, selection: selection, choices: choices, localName: localName,
+                                  practiceSource: localName ? state.knownLanguage : nil)
         } label: {
             VStack(alignment: .leading, spacing: 6) {
                 Text(title).font(.callout).foregroundStyle(VipiDesign.secondary)
@@ -220,47 +224,118 @@ struct LanguageDownloadView: View {
     }
 }
 
+/// Device inventory is read without loading a synthesizer, downloading a model,
+/// or changing the person's selection. The tutorial exercises real synthesis.
+struct PracticeLanguageNotice: View {
+    let target: String
+    let availableVoices: Set<String>?
+    var body: some View {
+        Group {
+            if let availableVoices, !availableVoices.contains(target) {
+                if target == "sw" {
+                    Text("The built-in voice is unavailable. You can keep reading or choose another practice language.")
+                } else {
+                    Text("Add a \(VipiLanguage.named(target).localizedName) voice in Settings → Accessibility → Spoken Content → Voices, then retry.")
+                }
+            }
+            if target == "ar" || (!LocalLanguageCatalog.commonPractice.contains(target) && !LocalLanguageCatalog.additionalLatinPractice.contains(target)) {
+                Text("Reading guides can vary by message.")
+            }
+        }
+        .font(.subheadline).foregroundStyle(VipiDesign.secondary)
+        .fixedSize(horizontal: false, vertical: true)
+    }
+}
+
 struct LanguageSelectionView: View {
     let title: LocalizedStringKey
     @Binding var selection: String
     let choices: [VipiLanguage]
     let localName: Bool
+    var practiceSource: String? = nil
+    @Environment(\.scenePhase) private var scenePhase
+    @State private var deviceOptions: Set<String> = []
+    @State private var checkedSource: String?
     @Environment(\.dismiss) private var dismiss
     @State private var search = ""
     private var visibleChoices: [VipiLanguage] {
         choices.filter { language in
-            search.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
+            if let practiceSource, !LocalLanguageCatalog.offersPractice(language.id, source: practiceSource, saved: selection, deviceOptions: checkedSource == practiceSource ? deviceOptions : []) { return false }
+            return search.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ||
                 [language.localizedName, language.localName, language.name, language.id].contains {
                     $0.localizedStandardContains(search.trimmingCharacters(in: .whitespacesAndNewlines))
                 }
-        }.sorted { $0.localizedName.localizedStandardCompare($1.localizedName) == .orderedAscending }
+        }.sorted {
+            if practiceSource != nil {
+                let firstCommon = LocalLanguageCatalog.commonPractice.contains($0.id)
+                let secondCommon = LocalLanguageCatalog.commonPractice.contains($1.id)
+                if firstCommon != secondCommon { return firstCommon }
+            }
+            return $0.localizedName.localizedStandardCompare($1.localizedName) == .orderedAscending
+        }
     }
+    private func choiceRow(_ language: VipiLanguage) -> some View {
+        Button {
+            selection = language.id; dismiss()
+        } label: {
+            HStack(spacing: 16) {
+                Text(localName ? "\(language.localizedName) · \(language.localName)" : language.localizedName)
+                    .font(.body).foregroundStyle(.primary)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer(minLength: 0)
+                if selection == language.id {
+                    Image(systemName: "checkmark").foregroundStyle(VipiDesign.highlight).accessibilityHidden(true)
+                }
+            }
+            .frame(minHeight: 44).padding(.horizontal, 18).padding(.vertical, 6)
+            .contentShape(Rectangle()).accessibilityElement(children: .combine)
+        }.buttonStyle(.plain).accessibilityAddTraits(selection == language.id ? .isSelected : [])
+    }
+
+    private var additionalHeading: some View {
+        Text("More languages on this device")
+            .font(.subheadline.weight(.semibold)).foregroundStyle(VipiDesign.secondary)
+            .frame(maxWidth: .infinity, alignment: .leading).padding(16)
+            .accessibilityAddTraits(.isHeader)
+    }
+
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                ForEach(visibleChoices) { language in
-                    Button {
-                        selection = language.id; dismiss()
-                    } label: {
-                        HStack(spacing: 16) {
-                            Text(localName ? "\(language.localizedName) · \(language.localName)" : language.localizedName)
-                                .font(.body).foregroundStyle(.primary)
-                                .fixedSize(horizontal: false, vertical: true)
-                            Spacer(minLength: 0)
-                            if selection == language.id {
-                                Image(systemName: "checkmark").foregroundStyle(VipiDesign.highlight).accessibilityHidden(true)
-                            }
-                        }
-                        .frame(minHeight: 44).padding(.horizontal, 18).padding(.vertical, 6)
-                        .contentShape(Rectangle()).accessibilityElement(children: .combine)
-                    }.buttonStyle(.plain).accessibilityAddTraits(selection == language.id ? .isSelected : [])
-                    if language.id != visibleChoices.last?.id { Divider().padding(.leading, 18) }
+                let options = visibleChoices
+                let firstAdditional = options.first { !LocalLanguageCatalog.commonPractice.contains($0.id) }
+                ForEach(options) { language in
+                    if practiceSource != nil && language.id == firstAdditional?.id {
+                        additionalHeading
+                    }
+                    choiceRow(language)
+                    if language.id != options.last?.id { Divider().padding(.leading, 18) }
                 }
             }
             .background(Color(uiColor: .secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 12))
             .padding(20).frame(maxWidth: 760).frame(maxWidth: .infinity)
         }
         .background(VipiDesign.canvas)
+        .task(id: "\(practiceSource ?? ""):\(scenePhase == .active)") {
+            checkedSource = nil
+            guard let source = practiceSource, scenePhase == .active else { return }
+            let voices = LocalVoice.availableLanguageCodes
+            var available = Set<String>()
+            for target in LocalLanguageCatalog.additionalLatinPractice.intersection(voices) where target != source {
+                let pair = TranslationPair(source: source, target: target)
+                // The bundled provider supports all of its SDK pairs, including
+                // downloadable models. Apple-only builds check actual OS support.
+                if SwahiliTranslation.supports(pair) {
+                    available.insert(target)
+                } else if await LocalTranslationCapability.resolve(pair).availability != .unsupported {
+                    available.insert(target)
+                }
+                if Task.isCancelled { return }
+            }
+            guard !Task.isCancelled else { return }
+            deviceOptions = available
+            checkedSource = source
+        }
         .navigationTitle(title).navigationBarTitleDisplayMode(.inline)
         .searchable(text: $search, placement: .navigationBarDrawer(displayMode: .always))
         .overlay { if visibleChoices.isEmpty { ContentUnavailableView.search(text: search) } }

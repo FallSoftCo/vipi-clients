@@ -65,6 +65,23 @@ enum LocalLanguageCatalog {
         .init(id: "ur", name: "Urdu", localName: "اردو", exampleGreeting: "سلام!"),
         .init(id: "vi", name: "Vietnamese", localName: "Tiếng Việt", exampleGreeting: "Xin chào!"),
     ]
+    // The shared mobile picker. Device-specific options do not change saved IDs
+    // or the catalog used to validate a message, download, or translation pair.
+    static let commonPractice: Set<String> = ["en","es","fr","de","it","pt","ja","ko","zh","ar","sw"]
+
+    // Current reviewed script inventory (docs/local-language-support.json).
+    // New script-reading routes require direct review before offering them.
+    static let additionalLatinPractice: Set<String> = [
+        "af","ca","cs","cy","da","eo","et","fi","ga","gl","hr","ht","hu",
+        "id","is","lt","lv","ms","mt","nl","no","pl","ro","sk","sl","sq","sv","tl","tr","vi"
+    ]
+
+    static func offersPractice(_ target: String, source: String, saved: String,
+                               deviceOptions: Set<String>) -> Bool {
+        guard codes.contains(target), target != source else { return false }
+        return target == saved || commonPractice.contains(target) ||
+            (additionalLatinPractice.contains(target) && deviceOptions.contains(target))
+    }
     static let codes = Set(languages.map(\.id))
     static func canonicalCode(_ identifier: String) -> String {
         let code = identifier.replacingOccurrences(of: "_", with: "-").split(separator: "-").first.map(String.init) ?? identifier

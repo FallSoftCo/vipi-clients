@@ -8,6 +8,18 @@ import XCTest
 @MainActor final class LanguagePreparationTests: XCTestCase {
     private let spanish = TranslationPair(source: "en", target: "es")
     private let japanese = TranslationPair(source: "en", target: "ja")
+    func testPracticePickerSeparatesDeviceOptionsFromSavedLanguageValidity() {
+        let common: Set<String> = ["en","es","fr","de","it","pt","ja","ko","zh","ar","sw"]
+        XCTAssertEqual(LocalLanguageCatalog.commonPractice, common)
+        XCTAssertEqual(LocalLanguageCatalog.codes.count, 59)
+        XCTAssertTrue(LocalLanguageCatalog.offersPractice("sw", source:"en", saved:"es", deviceOptions:[]))
+        XCTAssertFalse(LocalLanguageCatalog.offersPractice("nl", source:"en", saved:"es", deviceOptions:[]))
+        XCTAssertTrue(LocalLanguageCatalog.offersPractice("nl", source:"en", saved:"es", deviceOptions:["nl"]))
+        XCTAssertFalse(LocalLanguageCatalog.offersPractice("ur", source:"en", saved:"es", deviceOptions:["ur"]))
+        XCTAssertTrue(LocalLanguageCatalog.offersPractice("ur", source:"en", saved:"ur", deviceOptions:[]))
+        XCTAssertFalse(LocalLanguageCatalog.offersPractice("en", source:"en", saved:"en", deviceOptions:["en"]))
+        XCTAssertTrue(TranslationPair(source:"hi",target:"ur").valid)
+    }
     func testInstalledSDKCatalogMatchesInternalTranslationCandidates() throws {
         #if !targetEnvironment(simulator)
         XCTAssertEqual(Set(TranslateLanguage.allLanguages().map(\.rawValue)),LocalLanguageCatalog.codes)
