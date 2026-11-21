@@ -77,6 +77,11 @@ struct DisplayedPracticeAudio {
         if pendingPlayback == identity && !start { pendingPlayback = nil; return }
         if row.activate(start) { pendingPlayback = nil } else { pendingPlayback = identity }
     }
+    func activateWord(_ identity: ImmersionRequestIdentity, audio: DisplayedPracticeAudio, local: () -> Void) {
+        guard let row = rows[identity.messageID], row.identity == identity, row.audio?.face == audio.face else { return }
+        if manualPlayback != nil { activate(identity,audio:audio) }
+        else { learnedGesture(); local() }
+    }
     private func row(at point: CGPoint) -> Row? {
         rows.values.filter { $0.frame.contains(point) }.min { $0.frame.width*$0.frame.height < $1.frame.width*$1.frame.height }
     }
@@ -345,8 +350,9 @@ struct ImmersionBubble: View {
             revealed:revealed,script:incremental ? controls.nativeScript : true,onWord:{ id in
                 guard UIAccessibility.isVoiceOverRunning,let word = result.spans.first(where:{$0.id == id}) else { return }
                 let audio = DisplayedPracticeAudio(face:transitionFace,spans:[(word.translated,targetLanguage)],incremental:true,wordID:id)
-                if reading != nil { controls.activate(binding,audio:audio) }
-                else { speech?.toggle(message:messageID,spans:audio.spans,face:transitionFace,wordID:id) }
+                controls.activateWord(binding,audio:audio) {
+                    speech?.toggle(message:messageID,spans:audio.spans,face:transitionFace,wordID:id)
+                }
             },onSelection:{_ in})
         view.transitionFace = transitionFace
         view.fitsContentWidth = embedded
