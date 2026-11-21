@@ -24,7 +24,7 @@ import java.util.UUID
     val available = session.recoveryAvailable(group)
     val cancelled = session.recoveryCancelled(group)
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(if (cancelled) "The service confirmed this change was cancelled. Review the current people before closing it." else "If the saved change was already applied, checking will recover its original result. Otherwise, the service will cancel that exact change.", style = MaterialTheme.typography.bodyLarge)
+        Text(if (cancelled) "Vipi confirmed this change was cancelled. Review the current people before closing it." else "If the saved change was already applied, checking will recover its original result. Otherwise, Vipi will cancel that exact change.", style = MaterialTheme.typography.bodyLarge)
         TextButton(enabled = available && !session.busy, modifier = Modifier.testTag("group-check-saved-change"), onClick = { scope.launch { session.checkSavedChange(group) } }) {
             Text(if (cancelled) "Review current people" else "Check or cancel saved change")
         }

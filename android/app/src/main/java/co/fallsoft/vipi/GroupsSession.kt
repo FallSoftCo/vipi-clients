@@ -282,7 +282,7 @@ internal class GroupsSession(val account: UUID, private val api: GroupsAPI, val 
                     }
                     else -> error("Unrecognized original group change. Its journal is retained.")
                 }
-                notice = "The service had already applied this exact saved change. Its original outcome is now reconciled."
+                notice = "Vipi had already applied this exact saved change. Its original outcome is now reconciled."
             }
         }; true
     } }
