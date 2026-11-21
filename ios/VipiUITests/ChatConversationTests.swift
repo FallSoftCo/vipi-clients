@@ -102,7 +102,7 @@ import ImageIO
         XCTAssertEqual(uncertain["session_key_present"] as? Bool, true)
         XCTAssertEqual(uncertain["local_erased"] as? Bool, false)
         XCTAssertTrue(app.buttons["Continue deletion"].exists)
-        XCTAssertFalse(app.navigationBars["Chats"].buttons["New chat"].exists)
+        XCTAssertFalse(app.navigationBars["Chats"].buttons["home-compose"].exists)
         capture("lost-response-actual-deletion-root")
 
         // Real process relaunch: same keychain capability, vaults and fake
@@ -119,7 +119,7 @@ import ImageIO
         XCTAssertEqual(recovered["seeded_bot_owners"] as? Int, initial["seeded_bot_owners"] as? Int)
         XCTAssertEqual(recovered["submissions"] as? Int, 1, "Recovery must check status without another DELETE")
         for key in ["own_key", "own_directory", "own_profile", "own_marker", "session_key_present"] { XCTAssertEqual(recovered[key] as? Bool, false, key) }
-        XCTAssertFalse(app.images["inbox-wordmark"].exists); XCTAssertFalse(app.navigationBars["Chats"].buttons["New chat"].exists)
+        XCTAssertFalse(app.images["inbox-wordmark"].exists); XCTAssertFalse(app.navigationBars["Chats"].buttons["home-compose"].exists)
         XCTAssertFalse(app.buttons["Your profile and settings"].exists)
         capture("fresh-process-deletion-only-other-account-preserved")
         let completedTitle = app.staticTexts["Vipi account deleted"]
@@ -165,14 +165,14 @@ final class ChatConversationTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["-vipi-preview-home", "-vipi-appearance-light", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryL"]
         app.launch(); defer { app.terminate() }
-        let newChat = app.navigationBars["Chats"].buttons["New chat"]
+        let newChat = app.navigationBars["Chats"].buttons["home-compose"]
         XCTAssertTrue(newChat.waitForExistence(timeout: 15)); newChat.tap()
         let username = app.textFields["Friend’s username"]
         XCTAssertTrue(username.waitForExistence(timeout: 5)); username.tap(); username.typeText("vqa_keyboard_probe")
         let keyboard = app.keyboards.firstMatch
         XCTAssertTrue(keyboard.waitForExistence(timeout: 5), "A hardware-keyboard-only run cannot prove software keyboard clearance")
         let find = app.buttons["Find friend"], cancel = app.buttons["Cancel"]
-        let navigation = app.navigationBars["New conversation"]
+        let navigation = app.navigationBars["New chat"]
         XCTAssertTrue(navigation.exists); XCTAssertGreaterThan(navigation.frame.height, 0)
         func requireVisible(_ control: XCUIElement, belowNavigation: Bool = true) {
             XCTAssertTrue(control.exists); XCTAssertTrue(control.isHittable)
@@ -532,7 +532,7 @@ final class ChatConversationTests: XCTestCase {
         guard ProcessInfo.processInfo.environment["VIPI_QA_PEER"]?.hasPrefix("vqa_") == true else { throw XCTSkip("Controlled staging accounts must be explicitly prepared") }
         let app = XCUIApplication(); app.launchArguments = ["-vipi-appearance-light", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryL"]; app.launch()
         dismissOptionalOffer(app)
-        XCTAssertTrue(app.navigationBars["Chats"].buttons["New chat"].waitForExistence(timeout: 30))
+        XCTAssertTrue(app.navigationBars["Chats"].buttons["home-compose"].waitForExistence(timeout: 30))
         capture("ios-chat-list-light")
     }
     func testFindFriendComposeAndSend() throws {
@@ -540,9 +540,9 @@ final class ChatConversationTests: XCTestCase {
         continueAfterFailure = false
         let app = XCUIApplication(); app.launchArguments = ["-vipi-appearance-light", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryL"]; app.launch()
         dismissOptionalOffer(app)
-        XCTAssertTrue(app.navigationBars["Chats"].buttons["New chat"].waitForExistence(timeout: 30))
+        XCTAssertTrue(app.navigationBars["Chats"].buttons["home-compose"].waitForExistence(timeout: 30))
         capture("ios-chat-list-light")
-        app.navigationBars["Chats"].buttons["New chat"].tap()
+        app.navigationBars["Chats"].buttons["home-compose"].tap()
         let username = app.textFields["Friend’s username"]
         XCTAssertTrue(username.waitForExistence(timeout: 5)); username.tap(); username.typeText(peer)
         capture("ios-find-friend-light")
@@ -842,11 +842,10 @@ final class ChatConversationTests: XCTestCase {
         try checkJourney(largest:false,reading:"en-zh",fullTranslation:true,invitation:true,immersionModes:true)
     }
     /// Native marketing pixels from controlled screenshot data, never model proof.
-    #if VIPI_GROUPS_QUALIFICATION
     func testComposeRoutesFromChats() throws { try checkJourney(largest: false, inboxReview: "compose-routes-populated") }
+    func testLegacyRelaySavesLocalDraftAndExplainsContactPrivacy() throws { try checkJourney(largest: false, inboxReview: "compose-draft-populated") }
     func testSingleComposeActionFromEmptyChats() throws { try checkJourney(largest: false, inboxReview: "compose-routes-empty") }
     func testComposeRoutesFromChatsAtAccessibilityType() throws { try checkJourney(largest: true, inboxReview: "compose-routes-populated") }
-    #endif
     func testScreenSpotsAtStandardType() throws { try checkJourney(largest: false, inboxReview: "spots-populated") }
     func testScreenSpotsAtCompactHeight() throws { try checkJourney(largest: false, inboxReview: "spots-compact-populated") }
     func testScreenSpotsAtNight() throws { try checkJourney(largest: false, dark: true, inboxReview: "spots-populated") }
@@ -2417,7 +2416,8 @@ final class ChatConversationTests: XCTestCase {
             }
         }
         if inboxReview?.hasSuffix("populated") == true { arguments += ["-vipi-inbox-populated-qa"] }
-        if inboxReview?.hasPrefix("compose-") == true { arguments += ["-vipi-group-directory-qa"] }
+        if inboxReview?.hasPrefix("compose-routes-") == true { arguments += ["-vipi-group-directory-qa"] }
+        if inboxReview?.hasPrefix("spots-") == true { arguments += ["-vipi-illustration-groups-qa"] }
         if marketing {
             XCTAssertTrue(fullTranslation && reading == "en-zh" && !largest && !dark && !copyOriginal && !settingsInvite && !cueLifecycle && !pendingPair)
             arguments += ["-vipi-marketing-root-qa"]
@@ -2559,8 +2559,8 @@ final class ChatConversationTests: XCTestCase {
             let png = XCTAttachment(screenshot: app.screenshot()); png.name = "first-month-audit-" + phase; png.lifetime = .keepAlways; add(png)
             let tree = XCTAttachment(string: app.debugDescription); tree.name = "first-month-native-tree-" + phase; tree.lifetime = .keepAlways; add(tree)
             var rectangles: [String: [String: Double]] = [:]
-            for (key, element) in [("primary_label", app.buttons["home-start-conversation"].staticTexts["New chat"].firstMatch),
-                ("primary_button", app.buttons["home-start-conversation"].firstMatch),
+            for (key, element) in [("primary_label", app.buttons["home-compose"].staticTexts["New"].firstMatch),
+                ("primary_button", app.buttons["home-compose"].firstMatch),
                 ("notification", app.buttons["Notify me when friends reply"].firstMatch)] where element.exists {
                 let frame = element.frame
                 rectangles[key] = ["x": frame.minX, "y": frame.minY, "width": frame.width, "height": frame.height]
@@ -2734,6 +2734,54 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(app.navigationBars["Chats"].exists)
             XCTAssertFalse(app.buttons["Notify me when friends reply"].exists)
             XCTAssertTrue(app.buttons["Your profile and settings"].exists)
+            if inboxReview == "compose-draft-populated" {
+                func capture(_ name: String) {
+                    let shot = XCTAttachment(screenshot: app.screenshot())
+                    shot.name = "regular-" + name; shot.lifetime = .keepAlways; add(shot)
+                }
+                let new = app.buttons["home-compose"], group = app.buttons["new-chat-new-group"]
+                let name = app.textFields["group-name"], save = app.buttons["group-create"]
+                let cancel = app.buttons["Cancel"].firstMatch
+                XCTAssertTrue(new.waitForExistence(timeout: 8))
+                capture("chats"); new.tap()
+                XCTAssertTrue(group.waitForExistence(timeout: 6))
+                XCTAssertFalse(app.buttons["open-groups"].exists)
+                capture("picker"); group.tap()
+                XCTAssertTrue(name.waitForExistence(timeout: 5))
+                XCTAssertEqual(save.label, "Save draft"); XCTAssertFalse(save.isEnabled)
+                capture("draft-form")
+                name.tap(); name.typeText("Weekend friends\n")
+                XCTAssertTrue(save.isEnabled, "A named draft may be saved before choosing anyone")
+                let form = try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last)
+                let alex = form.buttons["Alex, @alex"]; reveal(alex, scrollContainer: form); alex.tap()
+                capture("draft-selected"); save.tap()
+                XCTAssertTrue(app.staticTexts["group-draft-saved"].waitForExistence(timeout: 5))
+                XCTAssertEqual(proof()["group_requests"] as? Int, 0)
+                app.terminate(); app.launchArguments = arguments; app.launch()
+                XCTAssertTrue(new.waitForExistence(timeout: 15)); new.tap(); group.tap()
+                XCTAssertTrue(name.waitForExistence(timeout: 5))
+                XCTAssertEqual(name.value as? String, "Weekend friends")
+                XCTAssertTrue(app.staticTexts["group-selection-count"].label.contains("2 of 16"))
+                capture("draft-reopened")
+                cancel.tap(); XCTAssertTrue(app.navigationBars["New chat"].waitForExistence(timeout: 5))
+                let invite = app.buttons["new-chat-invite-friend"]
+                reveal(invite, scrollContainer: try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last))
+                invite.tap(); app.buttons["invite-use-phone-contacts"].tap()
+                let contacts = app.navigationBars["Use phone contacts"]
+                XCTAssertTrue(contacts.waitForExistence(timeout: 5))
+                XCTAssertFalse(XCUIApplication(bundleIdentifier: "com.apple.springboard").alerts.firstMatch.exists)
+                capture("contacts-explanation"); contacts.buttons["Cancel"].tap()
+                app.navigationBars["Invite a friend"].buttons["Cancel"].tap()
+                app.navigationBars["New chat"].buttons["Cancel"].tap()
+                app.buttons["Your profile and settings"].tap()
+                let privacy = app.buttons["settings-privacy-promise"]
+                reveal(privacy, scrollContainer: try XCTUnwrap(app.collectionViews.allElementsBoundByIndex.last))
+                privacy.tap()
+                XCTAssertTrue(app.staticTexts["We don’t sell your chat content."].waitForExistence(timeout: 5))
+                capture("privacy-promise")
+                XCTAssertEqual(proof()["group_requests"] as? Int, 0)
+                return
+            }
             if inboxReview.hasPrefix("compose-routes-") {
                 let empty = inboxReview.hasSuffix("empty")
                 func capture(_ screen: String) {
@@ -2880,7 +2928,7 @@ final class ChatConversationTests: XCTestCase {
                 XCTAssertTrue(existing.waitForExistence(timeout: 5))
                 let peer = String(existing.identifier.dropFirst("chat-thread-".count))
                 let previousLookups = proof()["friend_username_lookups"] as? Int
-                app.buttons["New chat"].firstMatch.tap()
+                app.buttons["home-compose"].tap()
                 let search = app.textFields["Friend’s username"]
                 XCTAssertTrue(search.waitForExistence(timeout: 5))
                 let friend = app.buttons["saved-vipi-friend-" + peer]
@@ -2892,20 +2940,20 @@ final class ChatConversationTests: XCTestCase {
                 app.navigationBars.buttons["BackButton"].firstMatch.tap()
                 XCTAssertTrue(existing.waitForExistence(timeout: 5))
                 XCTAssertEqual(proof()["friend_username_lookups"] as? Int, previousLookups)
-                app.buttons["New chat"].firstMatch.tap()
+                app.buttons["home-compose"].tap()
                 app.buttons["new-chat-invite-friend"].tap()
                 let useContacts = app.buttons["invite-use-phone-contacts"]
                 XCTAssertTrue(useContacts.waitForExistence(timeout: 5))
                 let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
                 XCTAssertFalse(springboard.alerts.firstMatch.exists)
                 useContacts.tap()
-                let explanation = app.alerts["Use phone contacts"]
+                let explanation = app.navigationBars["Use phone contacts"]
                 XCTAssertTrue(explanation.waitForExistence(timeout: 5))
-                XCTAssertTrue(explanation.staticTexts.containing(NSPredicate(format: "label BEGINSWITH %@", "Vipi doesn’t keep or share your address book.")).firstMatch.exists)
+                XCTAssertTrue(app.staticTexts.containing(NSPredicate(format: "label BEGINSWITH %@", "Vipi doesn’t keep or share your address book.")).firstMatch.exists)
                 let screenshot = XCTAttachment(screenshot: app.screenshot())
                 screenshot.name = "voluntary-contacts-explanation"; screenshot.lifetime = .keepAlways; add(screenshot)
                 XCTAssertFalse(springboard.alerts.firstMatch.exists)
-                explanation.buttons["Continue"].tap()
+                app.buttons["Continue"].tap()
                 let systemAlert = springboard.alerts.firstMatch
                 if ProcessInfo.processInfo.environment["VIPI_INVITE_LIMITED"] == "1" {
                     // iOS may go directly to its remote selection sheet after the first system explanation.
@@ -2975,7 +3023,7 @@ final class ChatConversationTests: XCTestCase {
                         let bar = app.navigationBars["Chats"]
                         let mark = app.images["inbox-wordmark"]
                         let profile = app.buttons["Your profile and settings"]
-                        let compose = bar.buttons["New chat"]
+                        let compose = bar.buttons["home-compose"]
                         print("VIPI_INBOX_LANGUAGE \(size) \(suffix) viewport=\(bar.frame) picker=\(picker.frame) mark=\(mark.frame) compose=\(compose.frame) profile=\(profile.frame)")
                         XCTAssertTrue(mark.exists && profile.isHittable && compose.isHittable)
                         XCTAssertTrue(picker.isHittable)
@@ -3062,9 +3110,9 @@ final class ChatConversationTests: XCTestCase {
                     let tree = XCTAttachment(string:app.debugDescription); tree.name = name+"-native-tree"; tree.lifetime = .keepAlways; add(tree)
                 }
                 if inboxReview == "water-empty" {
-                    let action = app.buttons["home-start-conversation"]
+                    let action = app.buttons["home-compose"]
                     XCTAssertTrue(action.waitForExistence(timeout:5)); XCTAssertTrue(action.isHittable)
-                    XCTAssertEqual(app.buttons.matching(NSPredicate(format:"label == 'New chat'")).count,1)
+                    XCTAssertEqual(app.buttons.matching(NSPredicate(format:"label == 'New'")).count,1)
                     captureWater("water-inbox-empty")
                     action.tap(); XCTAssertTrue(app.textFields["Friend’s username"].waitForExistence(timeout:5))
                     app.buttons["Cancel"].tap(); XCTAssertTrue(app.navigationBars["Chats"].exists)
@@ -3086,11 +3134,11 @@ final class ChatConversationTests: XCTestCase {
                 return
             }
             if inboxReview == "empty" || inboxReview == "surfaces" {
-                XCTAssertTrue(app.buttons["home-start-conversation"].waitForExistence(timeout:5))
-                XCTAssertEqual(app.buttons.matching(NSPredicate(format:"label == 'New chat'")).count,1)
+                XCTAssertTrue(app.buttons["home-compose"].waitForExistence(timeout:5))
+                XCTAssertEqual(app.buttons.matching(NSPredicate(format:"label == 'New'")).count,1)
                 XCTAssertFalse(app.staticTexts["Find a friend by username."].exists)
                 let image = XCTAttachment(screenshot:app.screenshot()); image.name = "native-inbox-empty-one-action"; image.lifetime = .keepAlways; add(image)
-                app.buttons["home-start-conversation"].tap()
+                app.buttons["home-compose"].tap()
                 XCTAssertTrue(app.textFields["Friend’s username"].waitForExistence(timeout:5))
                 XCTAssertTrue(app.buttons["new-chat-invite-friend"].exists)
                 let find = XCTAttachment(screenshot:app.screenshot());find.name = "native-first-friend-exact-username-and-private-invite";find.lifetime = .keepAlways;add(find)
@@ -3374,7 +3422,7 @@ final class ChatConversationTests: XCTestCase {
             return
         }
         if largest {
-            let primary = app.buttons["home-start-conversation"].firstMatch
+            let primary = app.buttons["home-compose"].firstMatch
             let scroll = app.scrollViews.firstMatch
             for _ in 0..<16 {
                 let frame = primary.frame, viewport = scroll.frame
@@ -3385,8 +3433,8 @@ final class ChatConversationTests: XCTestCase {
             XCTAssertTrue(primary.exists && primary.isHittable)
         }
         if !marketing && !draftBoundary { try audit("free-month-home") }
-        if app.buttons["home-start-conversation"].exists { app.buttons["home-start-conversation"].tap() }
-        else { app.navigationBars["Chats"].buttons["New chat"].tap() }
+        if app.buttons["home-compose"].exists { app.buttons["home-compose"].tap() }
+        else { app.navigationBars["Chats"].buttons["home-compose"].tap() }
         let friend = app.textFields["Friend’s username"]
         XCTAssertTrue(friend.waitForExistence(timeout: 5)); friend.tap(); friend.typeText(marketing ? "maya" : "alex"); app.buttons["Find friend"].tap()
         let input = app.descendants(matching: .any).matching(identifier: "message-input").firstMatch

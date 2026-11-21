@@ -7,6 +7,31 @@ final class GroupsStore {
     private let encoder = JSONEncoder(), decoder = JSONDecoder()
     init(vault: MessageVault) { self.vault = vault }
     private func key(_ id: UUID) -> String { id.uuidString.lowercased() }
+    struct CreationDraft: Codable {
+        let title: String
+        let selected: Set<UUID>
+        var groupID: UUID?
+    }
+    func creationDraft() throws -> CreationDraft? {
+        try vault.transaction { try vault.get("group-composer", "draft").map { try decoder.decode(CreationDraft.self, from: $0) } }
+    }
+    func saveCreationDraft(_ draft: CreationDraft) throws {
+        try vault.transaction {
+            if let bytes = try vault.get("group-composer", "draft"),
+               let pending = try decoder.decode(CreationDraft.self, from: bytes).groupID, pending != draft.groupID {
+                throw GroupsFailure.retryRequiresReview
+            }
+            try vault.put("group-composer", "draft", encoder.encode(draft))
+        }
+    }
+    func clearCreationDraft(for groupID: UUID) throws {
+        try vault.transaction {
+            if let bytes = try vault.get("group-composer", "draft"),
+               try decoder.decode(CreationDraft.self, from: bytes).groupID == groupID {
+                try vault.remove("group-composer", "draft")
+            }
+        }
+    }
     func snapshots() throws -> [GroupSnapshot] { try vault.transaction {
         try vault.ids("group-roster").compactMap { id in try vault.get("group-roster", id).map { try decoder.decode(GroupSnapshot.self, from: $0) } }
     } }

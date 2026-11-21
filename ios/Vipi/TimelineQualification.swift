@@ -930,6 +930,7 @@ struct PendingPairRootBinding: View {
         var priorInvitation: String?
         var immersionCaptured:Bool?
         var priorImmersionMode:String?
+        var groupRequests: Int?
         var friendUsernameLookups: Int?
         var typingUpdates:[Bool]?
         var visibleReadRequests:Int?
@@ -951,7 +952,7 @@ struct PendingPairRootBinding: View {
     private var chats: [ChatSession] = []
     private var createdGroups: [String: [String: Any]] = [:]
     private var directoryFixtureEnabled: Bool {
-        GroupsUpgrade.enabled && ProcessInfo.processInfo.arguments.contains("-vipi-group-directory-qa")
+        ProcessInfo.processInfo.arguments.contains("-vipi-group-directory-qa")
     }
     private var directoryOwner: [String: Any] {
         ["user_id": ledger.account.uuidString, "display_name": "Alex",
@@ -1362,7 +1363,14 @@ struct PendingPairRootBinding: View {
             return owner
         })
     }
-    private var profile: [String: Any] { ["id": ledger.account.uuidString, "username": "firstmonth_qa", "display_name": Self.marketingEnabled ? "Alex" : "First Month QA"] }
+    private static var illustrationGroupsFixture: Bool {
+        ProcessInfo.processInfo.arguments.contains("-vipi-illustration-groups-qa")
+    }
+    private var profile: [String: Any] {
+        var value: [String: Any] = ["id": ledger.account.uuidString, "username": "firstmonth_qa", "display_name": Self.marketingEnabled ? "Alex" : "First Month QA"]
+        if directoryFixtureEnabled || Self.illustrationGroupsFixture { value["group_protocol_version"] = 1 }
+        return value
+    }
     private func reply(_ text: String) throws {
         let now = Int64(Date().timeIntervalSince1970 * 1000)
         let routed = try peerCore.queue(id: UUID(), peer: ledger.account, text: text, createdAt: now, now: now)
@@ -1376,6 +1384,7 @@ struct PendingPairRootBinding: View {
     func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
         try Self.validate(ledger)
         let input = try body.map { try JSONSerialization.jsonObject(with: $0) as? [String: Any] ?? [:] } ?? [:]
+        if path.hasPrefix("/v1/groups") { ledger.groupRequests = (ledger.groupRequests ?? 0) + 1; try save() }
         let value: [String: Any]
         switch (method, path) {
         case ("GET", "/v1/groups") where directoryFixtureEnabled:
@@ -1401,7 +1410,7 @@ struct PendingPairRootBinding: View {
             group["invitations"] = (group["invitations"] as? [[String: String]] ?? []) + [pending]
             createdGroups[String(parts[2])] = group
             value = group
-        case ("GET", "/v1/groups") where GroupsUpgrade.enabled && ProcessInfo.processInfo.arguments.contains("-vipi-inbox-populated-qa"):
+        case ("GET", "/v1/groups") where Self.illustrationGroupsFixture && ProcessInfo.processInfo.arguments.contains("-vipi-inbox-populated-qa"):
             value = ["groups": [], "invitations": []]
         case ("GET", "/v1/me"):
             guard ledger.profiles == 1 else { throw ServiceFailure(status: 404, code: "profile_required") }
@@ -1657,7 +1666,7 @@ struct PendingPairRootBinding: View {
                 "trial_ends": stores.last?.snapshot?.base.cardless_trial?.ends_at ?? "",
                 "purchase_ready": stores.last?.purchaseReady ?? false, "unexpected": ledger.unexpected,
                 "invitation_username": ledger.invitationCaptured == true ? UserDefaults.standard.string(forKey: "invitationUsername") ?? "" : "",
-                "friend_username_lookups": ledger.friendUsernameLookups ?? 0,
+                "friend_username_lookups": ledger.friendUsernameLookups ?? 0, "group_requests": ledger.groupRequests ?? 0,
                 "composer_activity_requests":ledger.typingUpdates ?? [],
                 "visible_receipt_requests":ledger.visibleReadRequests ?? 0,
                 "inbox_rows":ProcessInfo.processInfo.arguments.contains("-vipi-inbox-populated-qa") ? (chats.last?.threads.map { thread -> [String:Any] in

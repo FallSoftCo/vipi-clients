@@ -31,11 +31,10 @@ struct HomeView: View {
         return language?.localizedName ?? locale.localizedString(forLanguageCode: state.targetLanguage) ?? state.targetLanguage
     }
     private var groupSession: GroupsSession? { chat?.groupComposeSession }
-    private var hasComposeAction: Bool { groupSession == nil && chat?.threads.isEmpty == false }
     private var languageFitsToolbar: Bool {
         guard !typeSize.isAccessibilitySize else { return false }
         // Balance both sides of the center against the widest set of actions.
-        let flank: CGFloat = groupSession != nil ? (64 + composeLabelWidth) : (hasComposeAction ? 116 : 74)
+        let flank: CGFloat = 64 + composeLabelWidth
         return inboxWidth == 0 || languageLabelWidth <= inboxWidth - 2 * flank
     }
     private var languageLabel: some View {
@@ -94,10 +93,6 @@ struct HomeView: View {
                             VStack(alignment: .center, spacing: 8) {
                                 Text("Find a friend by username or send them an invite.").font(.title2.weight(.semibold)).fixedSize(horizontal: false, vertical: true)
                             }
-                            if groupSession == nil {
-                                PrimaryButton(title: "New chat") { showingInvite = true }
-                                    .accessibilityIdentifier("home-start-conversation")
-                            }
                         }.multilineTextAlignment(.center).frame(maxWidth:.infinity).padding(.vertical,60) }
 
                     }.padding(.horizontal, 20).padding(.vertical, 20).frame(maxWidth: 680).frame(maxWidth: .infinity)
@@ -122,19 +117,13 @@ struct HomeView: View {
                                 .accessibilityValue(Text("Chats")).accessibilityAddTraits(.isHeader)
                                 .accessibilityIdentifier("inbox-wordmark")
                             Spacer(minLength: 0)
-                            if groupSession != nil {
-                                Button { showingInvite = true } label: {
-                                    Text("New").font(.headline).dynamicTypeSize(...DynamicTypeSize.xxxLarge)
-                                        .fixedSize().padding(.horizontal, 5)
-                                        .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
-                                }
-                                .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { composeLabelWidth = $0 }
-                                .accessibilityIdentifier("home-compose")
-                            } else if hasComposeAction {
-                                Button { showingInvite = true } label: {
-                                    Image(systemName: "square.and.pencil").frame(width: 44, height: 44)
-                                }.accessibilityLabel("New chat")
+                            Button { showingInvite = true } label: {
+                                Text("New").font(.headline).dynamicTypeSize(...DynamicTypeSize.xxxLarge)
+                                    .fixedSize().padding(.horizontal, 5)
+                                    .frame(minWidth: 44, minHeight: 44).contentShape(Rectangle())
                             }
+                            .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { composeLabelWidth = $0 }
+                            .accessibilityIdentifier("home-compose")
                             Button { showingSettings = true } label: {
                                 Image(systemName: "person.crop.circle").frame(width: 44, height: 44)
                             }.accessibilityLabel("Your profile and settings")
@@ -363,26 +352,30 @@ struct NewChatView: View {
     @State private var lookup: Task<Void, Never>?
     @State private var showingInvitation = false
     @State private var path: [NewChatDestination] = []
+    @State private var savedDraft = false
     @FocusState private var editingName: Bool
 
     var body: some View {
         NavigationStack(path: $path) {
             Form {
-                if chat?.groupComposeSession != nil {
+                if chat?.groupDraftStore != nil {
                     Section {
-                        Button { path.append(.groupForm) } label: {
+                        Button { savedDraft = false; path.append(.groupForm) } label: {
                             HStack(spacing: 12) {
                                 Image(decorative: "SpotNewGroup").resizable().scaledToFit().frame(width: 44, height: 30)
                                 Text("New group").font(.headline)
                             }.frame(minHeight: 44)
                         }.accessibilityIdentifier("new-chat-new-group")
                     } footer: {
-                        Button { path.append(.directory) } label: {
-                            HStack(spacing: 5) {
-                                Text("Groups and invitations")
-                                Image(systemName: "chevron.forward").font(.caption.bold()).accessibilityHidden(true)
-                            }.font(.subheadline.weight(.medium)).frame(minHeight: 44)
-                        }.buttonStyle(.plain).foregroundStyle(VipiDesign.accent).accessibilityIdentifier("open-groups")
+                        if savedDraft { Text("Draft saved on this phone.").accessibilityIdentifier("group-draft-saved") }
+                        if chat?.groupComposeSession != nil {
+                            Button { path.append(.directory) } label: {
+                                HStack(spacing: 5) {
+                                    Text("Groups and invitations")
+                                    Image(systemName: "chevron.forward").font(.caption.bold()).accessibilityHidden(true)
+                                }.font(.subheadline.weight(.medium)).frame(minHeight: 44)
+                            }.buttonStyle(.plain).foregroundStyle(VipiDesign.accent).accessibilityIdentifier("open-groups")
+                        }
                     }
                 }
                 Section {
@@ -427,7 +420,7 @@ struct NewChatView: View {
                 if let error { Section { Text(error).foregroundStyle(VipiDesign.secondary) } }
             }
             .scrollContentBackground(.hidden).background(VipiDesign.canvas)
-            .navigationTitle(chat?.groupComposeSession == nil ? Text("New conversation") : Text("New chat"))
+            .navigationTitle("New chat")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } } }
             .onChange(of: invitationUsername, initial: true) { _, value in
@@ -445,12 +438,15 @@ struct NewChatView: View {
             }
             .onDisappear { lookup?.cancel() }
             .navigationDestination(for: NewChatDestination.self) { destination in
-                if let chat, let groups = chat.groupComposeSession, let immersion = chat.translationOwner {
-                    switch destination {
-                    case .groupForm:
-                        GroupCreateView(groups: groups, people: chat.groupCandidates, onCreated: groupCreated)
+                switch destination {
+                case .groupForm:
+                    if let chat, let drafts = chat.groupDraftStore {
+                        GroupCreateView(groups: chat.groupComposeSession, drafts: drafts, people: chat.groupCandidates,
+                                        onSaved: { savedDraft = true }, onCreated: groupCreated)
                             .navigationBarBackButtonHidden()
-                    case .directory:
+                    }
+                case .directory:
+                    if let chat, let groups = chat.groupComposeSession, let immersion = chat.translationOwner {
                         GroupsHomeView(groups: groups, people: chat.groupCandidates, immersion: immersion, openCreatedGroup: groupCreated) { peer in selected(peer); dismiss() }
                     }
                 }
@@ -494,6 +490,26 @@ struct BotIntroductionView: View {
                     .font(.body).foregroundStyle(VipiDesign.secondary)
             }.padding(28).frame(maxWidth: 560).frame(maxWidth: .infinity)
         }.clipped().background(VipiDesign.canvas).navigationTitle("vBot").navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct PrivacyPromiseView: View {
+    static let policy = URL(string: "https://api.mambovipi.app/privacy")!
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                Image("PrivacyMarkFull").resizable().scaledToFit().frame(maxWidth: 192)
+                    .accessibilityLabel(Text(verbatim: "Certified Zucker Free"))
+                Text("We don’t sell your chat content.").font(.title2.bold())
+                Text("Phone contacts stay on this device. Vipi saves your Vipi friends separately.")
+                Link("Privacy Policy", destination: Self.policy)
+                    .frame(minHeight: 44)
+            }
+            .frame(maxWidth: 560, alignment: .leading).padding(24)
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
+        .background(VipiDesign.canvas).foregroundStyle(VipiDesign.ink)
+        .navigationTitle("FallSoft’s privacy promise").navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -552,7 +568,8 @@ struct SettingsView: View {
                 }
             }
             Section {
-                Link("Privacy Policy", destination: URL(string: "https://api.mambovipi.app/privacy")!)
+                NavigationLink("FallSoft’s privacy promise") { PrivacyPromiseView() }
+                    .accessibilityIdentifier("settings-privacy-promise")
                 Link("Terms of Service", destination: URL(string: "https://api.mambovipi.app/terms")!)
                 Link("Help and safety", destination: URL(string: "https://api.mambovipi.app/help")!)
                 NavigationLink("Licenses and notices") { NoticesView() }

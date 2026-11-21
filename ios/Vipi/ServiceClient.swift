@@ -19,6 +19,7 @@ extension ChatTransport {
 @MainActor final class ServiceClient: ChatTransport {
     private let authentication: AuthenticationManager
     let userID: String
+    var acceptsGroupEnvelopes = false
     private let endpoint: URL
     private let http: URLSession
     private let eventHTTP: URLSession
@@ -67,6 +68,9 @@ extension ChatTransport {
             var request = URLRequest(url: requestURL); request.httpMethod = method; request.httpBody = body
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             request.setValue("application/json", forHTTPHeaderField: "Accept")
+            if device != nil, acceptsGroupEnvelopes, GroupsUpgrade.isEnvelopeRequest(method: method, path: path) {
+                request.setValue(String(GroupsUpgrade.protocolVersion), forHTTPHeaderField: "X-Vipi-Group-Protocol")
+            }
             if body != nil { request.setValue("application/json", forHTTPHeaderField: "Content-Type") }
             if let device {
                 request.setValue(device.id.uuidString.lowercased(), forHTTPHeaderField: "X-Vipi-Device-ID")

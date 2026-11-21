@@ -1,11 +1,13 @@
 import Foundation
 
 enum GroupsUpgrade {
-    #if VIPI_GROUPS_QUALIFICATION && targetEnvironment(simulator)
-    static let enabled = true
-    #else
-    static let enabled = false
-    #endif
+    static let protocolVersion = 1
+    static func isEnvelopeRequest(method: String, path: String) -> Bool {
+        if method == "GET", path == "/v1/messages/pending" { return true }
+        let parts = path.split(separator: "/")
+        guard parts.count >= 3, parts[0] == "v1", parts[1] == "messages", UUID(uuidString: String(parts[2])) != nil else { return false }
+        return (method == "GET" && parts.count == 3) || (method == "POST" && parts.count == 4 && parts[3] == "receipt")
+    }
     static let maximumPeople = 16
     static let muteDeliveryQualified = false
 }

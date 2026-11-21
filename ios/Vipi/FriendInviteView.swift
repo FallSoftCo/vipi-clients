@@ -143,6 +143,7 @@ struct FriendInviteView: View {
     @State private var selection: Task<Void, Never>?
     @State private var choosingLimited = false
     @State private var explainingContacts = false
+    @State private var requestContactsAfterExplanation = false
     private var message: String { FriendInvitation.message(username: username) }
 
     var body: some View {
@@ -206,13 +207,32 @@ struct FriendInviteView: View {
             }
             .navigationTitle("Invite a friend").navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() } } }
-            .alert("Use phone contacts", isPresented: $explainingContacts) {
-                Button("Continue") {
+            .sheet(isPresented: $explainingContacts, onDismiss: {
+                if requestContactsAfterExplanation {
+                    requestContactsAfterExplanation = false
                     contacts.enabled = true
                     contacts.refresh(requestPermission: true)
                 }
-            } message: {
-                Text("Vipi doesn’t keep or share your address book. Choose someone on this phone to invite by text or email. You decide whether to send.")
+            }) {
+                NavigationStack {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 14) {
+                            Image("PrivacyMarkCompact").resizable().scaledToFit().frame(width: 136)
+                                .accessibilityLabel(Text(verbatim: "Certified Zucker Free"))
+                            Text("Vipi doesn’t keep or share your address book. Choose someone on this phone to invite by text or email. You decide whether to send.")
+                            Link("Privacy Policy", destination: PrivacyPromiseView.policy)
+                                .frame(minHeight: 44)
+                        }.frame(maxWidth: 520, alignment: .leading).padding(24)
+                    }
+                    .safeAreaInset(edge: .bottom) {
+                        PrimaryButton(title: "Continue") {
+                            requestContactsAfterExplanation = true
+                            explainingContacts = false
+                        }.padding(.horizontal, 24).padding(.bottom, 8)
+                    }
+                    .navigationTitle("Use phone contacts").navigationBarTitleDisplayMode(.inline)
+                    .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { explainingContacts = false } } }
+                }.presentationDetents([.medium, .large])
             }
             .sheet(item: $draft) { SystemInviteComposer(draft: $0) }
             .contactAccessPicker(isPresented: $choosingLimited) { _ in contacts.refresh() }

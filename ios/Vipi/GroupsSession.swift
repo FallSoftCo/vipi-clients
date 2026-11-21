@@ -62,14 +62,14 @@ import Observation
         groups.removeAll { $0.id == value.id }; groups.append(value); departedGroups.removeAll { $0.id == value.id }; try store.saveActiveIDs(Set(groups.map(\.id))); revision += 1
     }
     /// Durable immutable admission identity survives uncertain network outcomes.
-    private func operation(_ scope: String, body: [String: String]) throws -> UUID {
+    private func operation(_ scope: String, body: [String: String], preferred: UUID? = nil) throws -> UUID {
         try store.vault.transaction {
             if let bytes = try store.vault.get("group-operation", scope) {
                 let value = try JSONDecoder().decode([String: String].self, from: bytes)
                 guard value.filter({ $0.key != "request_id" }) == body, let id = value["request_id"].flatMap(UUID.init(uuidString:)) else { throw GroupsFailure.retryRequiresReview }
                 return id
             }
-            let id = UUID(); var value = body; value["request_id"] = id.uuidString.lowercased()
+            let id = preferred ?? UUID(); var value = body; value["request_id"] = id.uuidString.lowercased()
             try store.vault.put("group-operation", scope, JSONEncoder().encode(value)); return id
         }
     }
@@ -80,9 +80,11 @@ import Observation
         catch is CancellationError { return nil }
         catch { notice = Self.explanation(error); return nil }
     }
-    func create(title: String) async -> GroupSnapshot? { await perform {
+    func create(title: String, invitees: Set<UUID>, expected: UUID?) async -> GroupSnapshot? { await perform {
         let name = try GroupSelection.name(title), scope = "create"
-        let id = try operation(scope, body: ["title": name])
+        let id = try operation(scope, body: ["title": name], preferred: expected)
+        guard expected == nil || expected == id else { throw GroupsFailure.retryRequiresReview }
+        try store.saveCreationDraft(.init(title: name, selected: invitees, groupID: id))
         let value = try await api.create(id, title: name); try membership.createdLocally(value, expectedID: id); try put(value); try completed(scope); return value
     } }
     @discardableResult func change(_ group: GroupSnapshot, method: String, suffix: String = "", fields: [String: String] = [:]) async -> Bool {

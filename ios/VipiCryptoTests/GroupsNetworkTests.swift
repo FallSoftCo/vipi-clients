@@ -31,13 +31,30 @@ import XCTest
     }
     struct Inbox: Decodable { let messages: [Packet] }
     private func file(_ name: String) -> URL { FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("groups-" + name + ".json") }
+    func testProtocolNegotiatesOnlyExactSelfProfileVersionAndScopedEnvelopeRequests() throws {
+        let id = UUID().uuidString.lowercased()
+        let cases: [(Any?, Bool)] = [(nil, false), (NSNull(), false), (0, false), (1, true), (2, false), ("1", false), (true, false)]
+        for (version, expected) in cases {
+            var response: [String: Any] = ["id": id, "username": "friend", "display_name": "Friend"]
+            response["group_protocol_version"] = version
+            let data = try JSONSerialization.data(withJSONObject: response)
+            let authenticated = try JSONDecoder().decode(AuthenticatedChatProfile.self, from: data)
+            XCTAssertEqual(authenticated.supportsGroups, expected)
+            let cached = try JSONEncoder().encode(authenticated.profile)
+            XCTAssertFalse(try JSONDecoder().decode(AuthenticatedChatProfile.self, from: cached).supportsGroups)
+        }
+        for (method, path, enabled) in [
+            ("GET", "/v1/messages/pending", true), ("GET", "/v1/messages/" + id, true),
+            ("POST", "/v1/messages/" + id + "/receipt", true), ("POST", "/v1/messages", false),
+            ("POST", "/v1/notifications/envelope", false), ("GET", "/v1/me", false), ("GET", "/v1/messages/new", false)
+        ] { XCTAssertEqual(GroupsUpgrade.isEnvelopeRequest(method: method, path: path), enabled) }
+    }
     private func configuration() throws -> Configuration {
         guard FileManager.default.fileExists(atPath: file("config").path) else { throw XCTSkip("Explicit isolated three-member local fixture required") }
         let c = try JSONDecoder().decode(Configuration.self, from: Data(contentsOf: file("config")))
         XCTAssertTrue(c.run.hasPrefix("groupsqa_")); XCTAssertTrue(c.isolated_signed_authentication)
         XCTAssertEqual(c.endpoint.scheme, "http"); XCTAssertEqual(c.endpoint.host, "127.0.0.1")
         XCTAssertTrue(c.carol.username.hasPrefix("vqa_")); XCTAssertTrue(c.alice.username.hasPrefix("vqa_")); XCTAssertTrue(c.bob.username.hasPrefix("vqa_"))
-        XCTAssertFalse(GroupsUpgrade.enabled)
         guard Bundle.main.bundleIdentifier?.hasPrefix("co.fallsoft.vipi.groupsqa") == true else { throw GroupsFailure.invalidResponse }
         return c
     }
@@ -176,6 +193,9 @@ private final class GroupsNoRedirects: NSObject, URLSessionTaskDelegate, @unchec
         c.queryItems = query.isEmpty ? nil : query.sorted { $0.key < $1.key }.map { URLQueryItem(name: $0.key, value: $0.value) }
         var request = URLRequest(url: try XCTUnwrap(c.url)); request.httpMethod = method; request.httpBody = body
         request.setValue("Bearer " + token, forHTTPHeaderField: "Authorization"); request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        if device != nil, GroupsUpgrade.isEnvelopeRequest(method: method, path: path) {
+            request.setValue("1", forHTTPHeaderField: "X-Vipi-Group-Protocol")
+        }
         if let device { request.setValue(device.id.uuidString.lowercased(), forHTTPHeaderField: "X-Vipi-Device-ID"); request.setValue(device.secret, forHTTPHeaderField: "X-Vipi-Device-Secret") }
         let (bytes, response) = try await session.data(for: request)
         guard bytes.count <= 2_000_000, let response = response as? HTTPURLResponse else { throw GroupsFailure.invalidResponse }

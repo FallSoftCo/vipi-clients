@@ -5,6 +5,18 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     let id: UUID; let username: String; let display_name: String
 }
 
+/// Only an authenticated self-profile response can negotiate the groups protocol.
+struct AuthenticatedChatProfile: Decodable {
+    let profile: ChatProfile
+    let supportsGroups: Bool
+    private enum CodingKeys: String, CodingKey { case group_protocol_version }
+    init(from decoder: Decoder) throws {
+        profile = try ChatProfile(from: decoder)
+        let fields = try decoder.container(keyedBy: CodingKeys.self)
+        supportsGroups = (try? fields.decode(Int.self, forKey: .group_protocol_version)) == GroupsUpgrade.protocolVersion
+    }
+}
+
 /// Native application coordinator. Lifecycle, send, explicit refresh and
 /// contentless relay/push events all enter the same serialized synchronization.
 @MainActor @Observable final class ChatSession {
@@ -74,7 +86,13 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         guard !line.isEmpty else { return }
         incomingPreview = IncomingPreview(id: id, peer: peer, text: line)
     }
-    private(set) var groups: GroupsSession?
+    var groupDraftStore: GroupsStore? {
+        guard ready, !needsReauthentication, !closed, let vault else { return nil }
+        return GroupsStore(vault: vault)
+    }
+    private(set) var groups: GroupsSession? {
+        didSet { (api as? ServiceClient)?.acceptsGroupEnvelopes = groups != nil }
+    }
     private(set) var profile: ChatProfile?
     private(set) var needsProfile = false
     private(set) var busy = false
@@ -206,12 +224,12 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         weak var owner: ChatSession?
         init(_ owner: ChatSession) { self.owner = owner }
         func request<T: Decodable>(_ method: String, _ path: String, body: Data?, device: DeviceCredential?, query: [String: String], as type: T.Type) async throws -> T {
-            guard let owner else { throw CancellationError() }
+            guard let owner, owner.groups != nil, !owner.needsReauthentication else { throw CancellationError() }
             return try await owner.request(method, path, body: body, device: device, query: query)
         }
     }
     private func openGroups(_ vault: MessageVault, core: MessagingCore) throws {
-        guard GroupsUpgrade.enabled else { return }
+        guard groups == nil else { return }
         let store = GroupsStore(vault: vault)
         groups = try GroupsSession(account: vault.account, api: GroupsAPI(transport: GroupTransport(self), device: core.device), store: store,
             crypto: GroupsCrypto(vault: vault, core: core, store: store), preparePeer: { [weak self] peer in
@@ -231,7 +249,6 @@ struct ChatProfile: Codable, Identifiable, Hashable {
             configureActivity(store)
             previewsOutsideApp = try store.transaction { try store.notificationConsent() != nil }
             previewsWhileOpen = try store.transaction { try store.get("local", "foreground-previews") == Data([1]) }
-            try openGroups(store, core: core!)
             ready = try store.transaction { try store.get("local", "registered-device") == Data(core!.device.id.uuidString.lowercased().utf8) }
             hasPendingDeviceReplacement = try store.transaction { try store.get("local", "replacement-consent") == Data(core!.device.id.uuidString.lowercased().utf8) }
             contacts = try store.transaction {
@@ -258,6 +275,15 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         try KeychainStore.save(JSONEncoder().encode(value), account: cacheKey)
         try reload(); replayTranslations()
     }
+    private func openAuthenticatedProfile(_ response: AuthenticatedChatProfile) throws {
+        try open(response.profile)
+        if response.supportsGroups, let vault, let core {
+            try openGroups(vault, core: core)
+        } else {
+            closeGroups()
+        }
+    }
+    private func closeGroups() { groups?.close(); groups = nil }
     private func reload() throws { threads = try history?.threads() ?? []; revision += 1 }
     private func body(_ values: [String: Any]) throws -> Data { try JSONSerialization.data(withJSONObject: values) }
     private var now: Int64 { Int64(Date().timeIntervalSince1970 * 1000) }
@@ -265,9 +291,9 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     func start() async {
         guard !busy, !closed else { return }; busy = true; notice = nil
         do {
-            let value: ChatProfile = try await request("GET", "/v1/me")
-            try open(value); authenticationRecovery.authenticated(); try await provision()
-        } catch let error as ServiceFailure where error.code == "profile_required" { needsProfile = true }
+            let value: AuthenticatedChatProfile = try await request("GET", "/v1/me")
+            try openAuthenticatedProfile(value); authenticationRecovery.authenticated(); try await provision()
+        } catch let error as ServiceFailure where error.code == "profile_required" { closeGroups(); needsProfile = true }
         catch is CancellationError {}
         catch { notice = Self.explanation(error) }
         busy = false
@@ -276,8 +302,8 @@ struct ChatProfile: Codable, Identifiable, Hashable {
     func createProfile(username: String, name: String) async {
         guard !busy, !closed else { return }; busy = true; notice = nil
         do {
-            let value: ChatProfile = try await request("PUT", "/v1/me", body: body(["username": username.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(), "display_name": name]))
-            try open(value); try await provision()
+            let value: AuthenticatedChatProfile = try await request("PUT", "/v1/me", body: body(["username": username.trimmingCharacters(in: .whitespacesAndNewlines).lowercased(), "display_name": name]))
+            try openAuthenticatedProfile(value); try await provision()
         } catch is CancellationError {}
         catch { notice = Self.explanation(error) }
         busy = false
@@ -515,7 +541,7 @@ struct ChatProfile: Codable, Identifiable, Hashable {
                     for item in inbox.messages {
                         if item.hasGroupContext {
                             // Incomplete/unknown metadata can never fall through to direct chat.
-                            guard GroupsUpgrade.enabled, let groups else { continue }
+                            guard let groups else { continue }
                             do {
                                 let incoming = try item.groupIncoming()
                                 guard let vault else { throw CancellationError() }
@@ -708,12 +734,12 @@ struct ChatProfile: Codable, Identifiable, Hashable {
         } catch {
             try ensureOpen()
             authenticationRecovery.failed(error, deviceRecovery: needsDeviceReplacement || hasPendingDeviceReplacement)
-            if needsReauthentication { PushNotifications.shared.clearOutsidePreviews(); events?.stop(); events = nil }
+            if needsReauthentication { closeGroups(); PushNotifications.shared.clearOutsidePreviews(); events?.stop(); events = nil }
             if let failure = error as? ServiceFailure,
                ["device_revoked", "device_registration_conflict", "device_replacement_confirmation_required"].contains(failure.code) {
                 authenticationRecovery.authenticated()
                 PushNotifications.shared.clearOutsidePreviews()
-                ready = false; needsDeviceReplacement = true; hasPendingDeviceReplacement = false; needsRecentSignIn = false; events?.stop(); events = nil
+                closeGroups(); ready = false; needsDeviceReplacement = true; hasPendingDeviceReplacement = false; needsRecentSignIn = false; events?.stop(); events = nil
                 if let vault { try vault.transaction { try vault.remove("local", "replacement-consent") } }
             }
             if let failure = error as? ServiceFailure, ["recent_sign_in_required", "sign_in_required"].contains(failure.code), needsDeviceReplacement || hasPendingDeviceReplacement {

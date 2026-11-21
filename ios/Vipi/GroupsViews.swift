@@ -56,13 +56,15 @@ struct GroupsHomeView: View {
         }.navigationTitle("Groups")
             .toolbar { ToolbarItem(placement: .primaryAction) { Button("New group", systemImage: "plus") { creating = true } } }
             .refreshable { await groups.refresh() }.task { await groups.refresh() }
-            .sheet(isPresented: $creating) { NavigationStack { GroupCreateView(groups: groups, people: people, onCreated: openCreatedGroup) } }
+            .sheet(isPresented: $creating) { NavigationStack { GroupCreateView(groups: groups, drafts: groups.store, people: people, onCreated: openCreatedGroup) } }
     }
 }
 
 struct GroupCreateView: View {
-    let groups: GroupsSession
+    let groups: GroupsSession?
+    let drafts: GroupsStore
     let people: [ChatProfile]
+    var onSaved: () -> Void = {}
     let onCreated: (UUID) -> Void
     @Environment(\.dismiss) private var dismiss
     @State private var title = ""
@@ -70,8 +72,15 @@ struct GroupCreateView: View {
     @State private var selected = Set<UUID>()
     @State private var created: UUID?
     @State private var selectionNotice: String?
-    private var canCreate: Bool { (try? GroupSelection.name(title)) != nil && !selected.isEmpty && !groups.busy }
+    @State private var submitting = false
+    @State private var loaded = false
+    private var candidates: Set<UUID> { Set(people.map(\.id)).subtracting([drafts.vault.account]) }
+    private var canCreate: Bool {
+        loaded && !submitting && groups?.busy != true && (try? GroupSelection.name(title)) != nil
+            && (groups == nil || !selected.isEmpty)
+    }
     private var actionTitle: LocalizedStringKey {
+        if groups == nil { return "Save draft" }
         if selected.isEmpty { return "Create group" }
         if created != nil { return "Retry remaining invitations" }
         return "Create group and invite \(selected.count)"
@@ -86,13 +95,14 @@ struct GroupCreateView: View {
                 Text("Group name").modifier(ScreenSpot(asset: "SpotNewGroup", editing: editingName))
             }
             Section {
+                if groups == nil { Text("Group chats are coming soon. You can save a draft on this phone.") }
                 Text("Maximum 16 people").font(.body)
                 Text("\(selected.count + 1) of 16 people selected, including you").font(.headline).accessibilityIdentifier("group-selection-count")
             } footer: {
-                Text("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.")
+                if groups != nil { Text("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.") }
             }
-            GroupPeoplePicker(people: people, account: groups.account, selected: $selected, notice: $selectionNotice)
-            if let notice = selectionNotice ?? groups.notice { Section { Text(notice).font(.body).foregroundStyle(VipiDesign.destructive) } }
+            GroupPeoplePicker(people: people, account: drafts.vault.account, selected: $selected, notice: $selectionNotice)
+            if let notice = selectionNotice ?? groups?.notice { Section { Text(notice).font(.body).foregroundStyle(VipiDesign.destructive) } }
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Button { Task { await submit() } } label: {
@@ -105,20 +115,45 @@ struct GroupCreateView: View {
             .background(.bar)
         }
         .navigationTitle("New group")
-        .task { if let pending = groups.pendingCreateTitle() { title = pending } }
-        .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() }.disabled(groups.busy) } }
+        .task(id: drafts.vault.account) {
+            do {
+                if let draft = try drafts.creationDraft() {
+                    title = draft.title; selected = draft.selected.intersection(candidates); created = draft.groupID
+                } else if let pending = groups?.pendingCreateTitle() { title = pending }
+                loaded = true
+            } catch { selectionNotice = GroupsSession.explanation(error) }
+        }
+        .onChange(of: candidates) { _, allowed in selected.formIntersection(allowed) }
+        .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() }.disabled(submitting || groups?.busy == true) } }
     }
     private func submit() async {
-        var group = created.flatMap { groups.snapshot($0) }
-        if group == nil { group = await groups.create(title: title); created = group?.id }
-        guard var current = group else { return }
-        for id in selected.sorted(by: { $0.uuidString < $1.uuidString }) {
-            guard await groups.invite(current, person: id) else { return }
-            selected.remove(id)
-            current = groups.snapshot(current.id) ?? current
-        }
-        dismiss()
-        onCreated(current.id)
+        guard canCreate else { return }
+        submitting = true
+        defer { submitting = false }
+        do {
+            let name = try GroupSelection.name(title)
+            let invitees = selected.intersection(candidates)
+            guard let groups else {
+                try drafts.saveCreationDraft(.init(title: name, selected: invitees, groupID: created))
+                dismiss(); onSaved()
+                return
+            }
+            guard !invitees.isEmpty else { return }
+            var group = created.flatMap { groups.snapshot($0) }
+            if group == nil { group = await groups.create(title: name, invitees: invitees, expected: created) }
+            guard var current = group else { created = try drafts.creationDraft()?.groupID; return }
+            created = current.id
+            var remaining = invitees
+            for id in invitees.sorted(by: { $0.uuidString < $1.uuidString }) {
+                if !current.members.contains(where: { $0.id == id }) && !current.invitations.contains(where: { $0.user_id == id }) {
+                    guard await groups.invite(current, person: id) else { selected = remaining; return }
+                    current = groups.snapshot(current.id) ?? current
+                }
+                remaining.remove(id)
+            }
+            try drafts.clearCreationDraft(for: current.id)
+            dismiss(); onCreated(current.id)
+        } catch { selectionNotice = GroupsSession.explanation(error) }
     }
 }
 
