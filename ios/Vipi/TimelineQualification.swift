@@ -1474,7 +1474,10 @@ struct PendingPairRootBinding: View {
                 }
             }
             value = copyAllowance
-        case ("POST", let path) where path == "/v1/conversations/"+ledger.peer.uuidString.lowercased()+"/typing":
+        case ("POST", let path) where path == "/v1/conversations/"+ledger.peer.uuidString.lowercased()+"/typing" ||
+            (ProcessInfo.processInfo.arguments.contains("-vipi-inbox-populated-qa") && chats.contains { chat in
+                chat.threads.contains { path == "/v1/conversations/"+$0.peer.uuidString.lowercased()+"/typing" }
+            }):
             guard device?.id == ledger.device?.id,Set(input.keys) == ["active"],let active = input["active"] as? Bool else {
                 throw ServiceFailure(status:0,code:"invalid_owned_typing_request")
             }
