@@ -10,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
@@ -30,6 +31,7 @@ internal data class SavedFriend(val id: UUID, val name: String, val username: St
         val keyboard = LocalSoftwareKeyboardController.current
         val scope = rememberCoroutineScope()
         var query by remember { mutableStateOf(model.invitationUsername.orEmpty()) }
+        var editing by remember { mutableStateOf(false) }
         var busy by remember { mutableStateOf(false) }
         var error by remember { mutableStateOf<String?>(null) }
         var contactsOpen by remember { mutableStateOf(false) }
@@ -65,12 +67,12 @@ internal data class SavedFriend(val id: UUID, val name: String, val username: St
         Scaffold { padding ->
             LazyColumn(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).imePadding().testTag("new-chat-list"),
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                item { TopBar(model) }
+                item { TopBar(model, trailing = { ScreenSpot(R.drawable.vipi_spot_new_chat, editing) }) }
                 item {
                     OutlinedTextField(value = query, onValueChange = { query = it; error = null }, enabled = !busy,
                         label = { Text(stringResource(R.string.new_chat_search)) }, singleLine = true,
                         colors = vipiTextFieldColors(), keyboardOptions = KeyboardOptions(autoCorrectEnabled = false, imeAction = ImeAction.Search),
-                        keyboardActions = KeyboardActions(onSearch = { submit() }), modifier = Modifier.fillMaxWidth().testTag("new-chat-search"))
+                        keyboardActions = KeyboardActions(onSearch = { submit() }), modifier = Modifier.fillMaxWidth().onFocusChanged { editing = it.isFocused }.testTag("new-chat-search"))
                 }
                 if (chat == null) item { Text(stringResource(R.string.friends_sign_in_required)) }
                 else {

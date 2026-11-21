@@ -331,9 +331,40 @@ class InboxJourneyDeviceTest {
         }
     }
 
+    @Test fun screenArtworkGivesWayToTheSearchAndLargeText() {
+        val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
+        val recent = Row(service.peer, "Maya", "Coffee tomorrow?", System.currentTimeMillis())
+        MainActivityJourneyFixture("screen-spots", { app -> seed(app, service, listOf(recent)); service.model(app) }).use { f ->
+            val config = f.base.resources.configuration
+            val spacious = config.screenWidthDp >= 360 && config.screenHeightDp >= 480 && config.fontScale < 1.5f
+            val spot = compose.onNodeWithTag("screen-spot", useUnmergedTree = true)
+            fun checkSpace() {
+                if (spacious) spot.assertIsDisplayed().assertHasNoClickAction() else spot.assertDoesNotExist()
+            }
+            try {
+                f.launch(); screen(f, Screen.HOME)
+                compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).performClick()
+                screen(f, Screen.SETTINGS); checkSpace()
+                paint(f, "01-settings")
+                f.device.pressBack(); screen(f, Screen.HOME)
+                compose.onNodeWithTag("inbox-compose").performClick()
+                screen(f, Screen.NEW_CHAT); checkSpace()
+                paint(f, "02-new-chat")
+                val search = compose.onNodeWithTag("new-chat-search")
+                val before = search.fetchSemanticsNode().boundsInWindow.width
+                search.performTouchInput { click() }.performTextInput("may")
+                spot.assertDoesNotExist()
+                val after = search.fetchSemanticsNode().boundsInWindow.width
+                assertEquals("Focusing search never changes the full-width field", before, after, 1f)
+                search.assertIsFocused().assertTextContains("may")
+                paint(f, "03-editing")
+            } finally { f.stopActivity(); service.close() }
+        }
+    }
     @Test fun headerPracticeChooserStaysAccessibleWithLocalizedLargeText() {
         val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
-        MainActivityJourneyFixture("localized-practice", service::model).use { f ->
+        val recent = Row(service.peer, "Maya", "Coffee tomorrow?", System.currentTimeMillis() - 60_000)
+        MainActivityJourneyFixture("localized-practice", { app -> seed(app, service, listOf(recent)); service.model(app) }).use { f ->
             try {
                 compose.runOnIdle { f.model.selectTarget("zh") }
                 f.launch(); screen(f, Screen.HOME)
@@ -351,6 +382,37 @@ class InboxJourneyDeviceTest {
                 paint(f, "02-chats-retargeted")
                 val state = practice.fetchSemanticsNode().config[SemanticsProperties.StateDescription]
                 assertTrue(java.util.Locale.forLanguageTag("pt").getDisplayLanguage(f.base.resources.configuration.locales[0]).equals(state, ignoreCase = true))
+                val mark = compose.onNodeWithTag("inbox-wordmark").fetchSemanticsNode().boundsInWindow
+                val settings = compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).fetchSemanticsNode().boundsInWindow
+                val chip = practice.fetchSemanticsNode().boundsInWindow
+                val window = f.unobscuredWindow()
+                assertEquals("Practice selector is centered on the window", window.exactCenterX(), chip.center.x, 1f)
+                assertFalse("Wordmark and selector do not overlap", chip.overlaps(mark))
+                assertFalse("Profile and selector do not overlap", chip.overlaps(settings))
+                val layout = mutableListOf<androidx.compose.ui.text.TextLayoutResult>()
+                // The chip owns the accessibility value; inspect its real drawn label separately.
+                val textLayout = compose.onNodeWithTag("inbox-practice-text", useUnmergedTree = true)
+                textLayout.performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.GetTextLayoutResult) { it(layout) }
+                val drawn = layout.single()
+                assertEquals(state, drawn.layoutInput.text.text)
+                assertEquals(state.length, drawn.getLineEnd(drawn.lineCount - 1))
+                for (line in 0 until drawn.lineCount) {
+                    assertFalse(drawn.isLineEllipsized(line))
+                    // Glyph metrics are fractional pixels; the measured view bounds are integers.
+                    assertTrue("Glyphs fit inside text area: ${drawn.getLineLeft(line)}..${drawn.getLineRight(line)} of ${drawn.size}",
+                        drawn.getLineLeft(line) >= -1f && drawn.getLineRight(line) <= drawn.size.width + 1f)
+                }
+                assertTrue(drawn.getLineBottom(drawn.lineCount - 1) <= drawn.size.height + 1f)
+                assertEquals(androidx.compose.ui.text.font.FontWeight.Bold, drawn.layoutInput.style.fontWeight)
+                File(f.output, "practice-geometry.json").writeText(JSONObject()
+                    .put("locale", f.base.resources.configuration.locales[0].toLanguageTag())
+                    .put("font_scale", f.base.resources.configuration.fontScale)
+                    .put("window", window.toString()).put("chip",chip.toString()).put("wordmark",mark.toString())
+                    .put("profile",settings.toString()).put("label",state).put("separate_row",chip.top >= mark.bottom).toString(2))
+                f.relaunch { VipiModel(it, NoJourneyModelTranslation, service) }
+                screen(f, Screen.HOME)
+                assertEquals("pt", f.model.targetLanguage)
+                assertEquals(state, practice.fetchSemanticsNode().config[SemanticsProperties.StateDescription])
             } finally { f.stopActivity(); service.close() }
         }
     }
