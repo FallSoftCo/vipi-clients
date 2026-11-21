@@ -1,5 +1,6 @@
 #if DEBUG
 import SwiftUI
+import AVFAudio
 import UIKit
 import Security
 import CryptoKit
@@ -256,7 +257,10 @@ struct TimelineQualificationView: View {
     private var timeline: some View {
         NavigationStack {
             Group {
-                if let chat { FriendConversationView(chat: chat, peer: peer, immersion: readingOwner) }
+                if let chat {
+                    FriendConversationView(chat: chat, peer: peer, immersion: readingOwner)
+                        .frame(maxWidth: ProcessInfo.processInfo.arguments.contains("-vipi-voice-narrow-qa") ? 245 : .infinity)
+                }
                 else { Text(status).accessibilityIdentifier("timeline-qa-status") }
             }.toolbar {
                 if delayedReading && !readingReleased {
@@ -282,10 +286,21 @@ struct TimelineQualificationView: View {
                 if ProcessInfo.processInfo.arguments.contains("-vipi-timeline-cleanup") {
                     finished = true; status = "Synthetic conversation removed"; return
                 }
-                let value = try ChatSession(api: TimelineTransport(owner: owner, peer: peer), userID: user)
+                let voiceLayout = ProcessInfo.processInfo.arguments.contains("-vipi-voice-layout-qa")
+                let offlineMedia = voiceLayout ? try CiphertextTransport(endpoint: URL(string: "https://fixture.invalid")!) { _ in
+                    throw CancellationError()
+                } : nil
+                let value = try ChatSession(api: TimelineTransport(owner: owner, peer: peer), userID: user, media: offlineMedia)
                 await value.start()
                 guard value.ready else { throw ServiceFailure(status: 0, code: "fixture_not_ready") }
                 _ = try await value.find("alex")
+                if voiceLayout, let vault = value.feedbackVault {
+                    try await seedVoiceLayout(vault)
+                    await value.synchronize()
+                    value.notice = nil
+                    chat = value
+                    return
+                }
                 if ProcessInfo.processInfo.arguments.contains("-vipi-funding-qa"), let vault = value.feedbackVault {
                     try vault.transaction {
                         var usage = ChatFeedback()
@@ -340,6 +355,35 @@ struct TimelineQualificationView: View {
             } catch { status = "Fixture failed: \(error.localizedDescription)" }
         }.onDisappear { Task { await readingGate.release() } }
     }
+    private func seedVoiceLayout(_ vault: MessageVault) async throws {
+        let repository = try AttachmentRepository(account: vault.account)
+        let now = Int64(Date().timeIntervalSince1970 * 1_000)
+        for (index, seconds) in [180, 8].enumerated() {
+            let url = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".wav")
+            defer { try? FileManager.default.removeItem(at: url) }
+            let format = AVAudioFormat(standardFormatWithSampleRate: 8_000, channels: 1)!
+            let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: 8_000)!
+            buffer.frameLength = 8_000
+            buffer.floatChannelData![0].update(repeating: 0, count: 8_000)
+            do {
+                let file = try AVAudioFile(forWriting: url, settings: format.settings)
+                for _ in 0..<seconds { try file.write(from: buffer) }
+            }
+            let manifest = try await repository.prepare(source: url, kind: .voice)
+            let outgoing = index == 0
+            let kind = outgoing ? "outgoing" : "incoming"
+            let id = UUID()
+            let created = now - Int64(2 - index) * 60_000
+            let envelope = ChatEnvelope(id: id, sender: outgoing ? vault.account : peer, recipient: outgoing ? peer : vault.account,
+                                        createdAt: created, type: 3, ciphertext: Data(repeating: 1, count: 64))
+            let record = StoredChat(envelope: envelope, text: "Voice message", state: outgoing ? "read" : "received",
+                                    seen: true, attachments: [manifest])
+            try vault.transaction {
+                try vault.put(kind, id.uuidString.lowercased(), JSONEncoder().encode(record))
+                try ConversationHistory.record(vault, kind: kind, id: id, peer: peer, createdAt: created)
+            }
+        }
+    }
     private func finish() {
         do {
             try chat?.close(); chat = nil
@@ -371,6 +415,7 @@ private func removeAbandonedTimelineFixtures() throws {
               let profile = try? JSONDecoder().decode(ChatProfile.self, from: data), profile.username == "timeline_qa" else { continue }
         let root = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Messages")
         let directory = root.appendingPathComponent(profile.id.uuidString.lowercased())
+        try AttachmentRepository.eraseFiles(account: profile.id)
         if FileManager.default.fileExists(atPath: directory.path) { try FileManager.default.removeItem(at: directory) }
         try KeychainStore.deleteChecked(account: "messages-" + profile.id.uuidString.lowercased())
         try KeychainStore.deleteChecked(account: key)

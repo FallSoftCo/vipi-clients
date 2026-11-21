@@ -132,25 +132,29 @@ struct InlineVoiceNote: View {
         VStack(alignment: .leading, spacing: 4) {
             TimelineView(.periodic(from: .now, by: playback.state == .playing ? 0.2 : 3600)) { _ in
                 let elapsed = min(max(0, playback.elapsed), duration)
-                HStack(spacing: 10) {
-                    Button { playback.toggle(load: load) } label: {
-                        Group {
-                            if playback.state == .loading { ProgressView() }
-                            else { Image(systemName: playback.state == .playing ? "pause.fill" : playback.state == .failed ? "arrow.clockwise" : "play.fill") }
-                        }.frame(width: 44, height: 44)
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: 8) {
+                        playButton
+                        VStack(alignment: .leading, spacing: 5) {
+                            track(elapsed: elapsed, duration: duration)
+                            position(elapsed: elapsed, duration: duration)
+                                .fixedSize(horizontal: true, vertical: true)
+                        }
                     }
-                    .buttonStyle(.plain).accessibilityLabel(Text(action))
-                    .accessibilityIdentifier("voice-note-control-" + manifest.id)
-                    .disabled(!available || playback.state == .loading)
-                    VStack(alignment: .leading, spacing: 4) {
-                        ProgressView(value: duration > 0 ? elapsed / duration : 0).accessibilityHidden(true)
-                        Text(verbatim: time(elapsed) + " / " + time(duration))
-                            .font(.caption.monospacedDigit()).accessibilityIdentifier("voice-playback-position")
+                    VStack(alignment: .leading, spacing: 6) {
+                        playButton
+                        track(elapsed: elapsed, duration: duration)
+                        position(elapsed: elapsed, duration: duration)
                     }
-                }.frame(minWidth: 155, maxWidth: 225)
+                }
             }
             if playback.state == .failed { Text("Couldn’t play this attachment.").font(.footnote) }
         }
+        // Include the inset in the width offered to the bubble. The track
+        // and its final cap must stay clear of its curved trailing edge.
+        .padding(.horizontal, 12)
+        .padding(.top, 6)
+        .frame(maxWidth: 225, alignment: .leading)
         .onChange(of: available) { _, allowed in if !allowed { playback.clear() } }
         .onChange(of: scenePhase) { _, phase in if phase != .active { playback.yieldPlayback() } }
         .onReceive(NotificationCenter.default.publisher(for: AVAudioSession.interruptionNotification)) { note in
@@ -158,4 +162,30 @@ struct InlineVoiceNote: View {
         }
         .onDisappear { playback.clear() }
     }
+    private var playButton: some View {
+        Button { playback.toggle(load: load) } label: {
+            Group {
+                if playback.state == .loading { ProgressView() }
+                else { Image(systemName: playback.state == .playing ? "pause.fill" : playback.state == .failed ? "arrow.clockwise" : "play.fill") }
+            }.frame(width: 44, height: 44).contentShape(Rectangle())
+        }
+        .buttonStyle(.plain).accessibilityLabel(Text(action))
+        .accessibilityIdentifier("voice-note-control-" + manifest.id)
+        .disabled(!available || playback.state == .loading)
+    }
+
+    private func track(elapsed: Double, duration: Double) -> some View {
+        ProgressView(value: duration > 0 ? elapsed / duration : 0)
+            .progressViewStyle(.linear)
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .accessibilityHidden(true)
+    }
+
+    private func position(elapsed: Double, duration: Double) -> some View {
+        Text(verbatim: time(elapsed) + " / " + time(duration))
+            .font(.caption.monospacedDigit())
+            .fixedSize(horizontal: false, vertical: true)
+            .accessibilityIdentifier("voice-playback-position")
+    }
+
 }

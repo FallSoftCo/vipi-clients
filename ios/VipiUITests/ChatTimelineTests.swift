@@ -1,6 +1,74 @@
 import XCTest
 
 final class ChatTimelineTests: XCTestCase {
+    @MainActor func testVoicePlayerFitsIncomingAndOutgoingBubbles() throws {
+        let app = XCUIApplication()
+        for scenario in ["normal", "compact", "rtl"] {
+            app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-audit", "-vipi-voice-layout-qa", "-vipi-appearance-light"]
+            if scenario != "normal" {
+                app.launchArguments += ["-vipi-voice-narrow-qa", "-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"]
+            }
+            if scenario == "rtl" { app.launchArguments += ["-AppleLanguages", "(ar)", "-AppleLocale", "ar"] }
+            app.launch()
+            let controls = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'voice-note-control-'"))
+            XCTAssertTrue(controls.element(boundBy: 1).waitForExistence(timeout: 15), app.debugDescription)
+            let positions = app.staticTexts.matching(identifier: "voice-playback-position")
+            XCTAssertEqual(positions.count, 2)
+            let labels = positions.allElementsBoundByIndex.map(\.label)
+            let durations = XCTAttachment(string: labels.joined(separator: "\n"))
+            durations.name = "voice-times-" + scenario; durations.lifetime = .keepAlways; add(durations)
+            let first = controls.element(boundBy: 0), second = controls.element(boundBy: 1)
+            for button in [first, second] {
+                XCTAssertGreaterThanOrEqual(button.frame.width + 0.001, 44)
+                XCTAssertGreaterThanOrEqual(button.frame.height + 0.001, 44)
+                XCTAssertTrue(app.frame.contains(button.frame), "Playback button outside the window")
+            }
+            for index in 0..<2 {
+                let button = controls.element(boundBy: index).frame
+                let timer = positions.element(boundBy: index).frame
+                if scenario == "normal" {
+                    XCTAssertGreaterThan(timer.minX, button.maxX)
+                    XCTAssertLessThan(timer.minY, button.maxY)
+                } else {
+                    XCTAssertGreaterThan(timer.minY, button.maxY, "Long elapsed and total should reflow below the control")
+                }
+            }
+            func capture(_ name: String) throws {
+                let shot = XCTAttachment(screenshot: app.screenshot())
+                shot.name = "voice-bounds-" + scenario + "-" + name; shot.lifetime = .keepAlways; add(shot)
+                let times = app.staticTexts.matching(NSPredicate(format: "identifier BEGINSWITH 'message-time-'"))
+                let frames = (controls.allElementsBoundByIndex + positions.allElementsBoundByIndex + times.allElementsBoundByIndex)
+                    .map { item in
+                        ["id": item.identifier, "label": item.label, "x": item.frame.minX, "y": item.frame.minY,
+                         "width": item.frame.width, "height": item.frame.height] as [String: Any]
+                    }
+                let bounds = XCTAttachment(data: try JSONSerialization.data(withJSONObject: frames), uniformTypeIdentifier: "public.json")
+                bounds.name = "voice-frames-" + scenario + "-" + name; bounds.lifetime = .keepAlways; add(bounds)
+            }
+            try capture("idle")
+            let play = second.label
+            let incomingPosition = positions.element(boundBy: 1)
+            let start = incomingPosition.label
+            second.tap()
+            let advanced = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label != %@", start), object: incomingPosition)
+            XCTAssertEqual(XCTWaiter.wait(for: [advanced], timeout: 5), .completed)
+            try capture("playing")
+            second.tap()
+            XCTAssertEqual(second.label, play)
+            try capture("paused")
+            if scenario == "normal" {
+                second.tap()
+                let finished = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@", play), object: second)
+                XCTAssertEqual(XCTWaiter.wait(for: [finished], timeout: 12), .completed)
+                try capture("completed")
+            }
+            XCTAssertFalse(app.sheets.firstMatch.exists)
+            app.terminate()
+        }
+        app.launchArguments = ["-vipi-timeline-qa", "-vipi-timeline-cleanup"]
+        app.launch()
+    }
+
     @MainActor func testConversationRespondsToLiveSystemTextSize() throws {
         guard ProcessInfo.processInfo.environment["VIPI_QA_LIVE_TEXT_SIZE"] == "restore-system-setting-r01" else {
             throw XCTSkip("Requires coordinated system text-size change and restoration")
