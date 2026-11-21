@@ -64,13 +64,19 @@ struct GroupCreateView: View {
     let people: [ChatProfile]
     @Environment(\.dismiss) private var dismiss
     @State private var title = ""
+    @FocusState private var editingName: Bool
     @State private var selected = Set<UUID>()
     @State private var created: UUID?
     @State private var selectionNotice: String?
     private var canCreate: Bool { (try? GroupSelection.name(title)) != nil && !selected.isEmpty && !groups.busy }
     var body: some View {
         List {
-            Section("Group name") { TextField("For example, Weekend friends", text: $title).font(.body).disabled(created != nil).accessibilityIdentifier("group-name") }
+            Section("Group name") {
+                TextField("For example, Weekend friends", text: $title)
+                    .font(.body).disabled(created != nil).accessibilityIdentifier("group-name")
+                    .focused($editingName)
+                    .modifier(ScreenSpot(asset: "SpotNewGroup", editing: editingName))
+            }
             Section {
                 Text("Maximum 16 people").font(.body)
                 Text("\(selected.count + 1) of 16 people selected, including you").font(.headline).accessibilityIdentifier("group-selection-count")
