@@ -71,7 +71,7 @@ final class ChatFeedbackUITests: XCTestCase {
             shot.name = name; shot.lifetime = .keepAlways; add(shot)
         }
         capture("ios-native-help")
-        for (key, prefix) in [("friends", "Open Chats"), ("groups", "Open New chat"), ("reading", "Tap a practice"), ("status", "One check"), ("languages", "Tap the language"),
+        for (key, prefix) in [("friends", "Open Chats"), ("groups", "Open New chat"), ("reading", "Tap a practice"), ("voice", "In a friend’s chat"), ("status", "One check"), ("languages", "Tap the language"),
                               ("notifications", "Open Notifications"), ("safety", "In a friend"),
                               ("backup", "Open Chat backup"), ("account", "If Vipi asks")] {
             let row = app.buttons["help-topic-" + key]

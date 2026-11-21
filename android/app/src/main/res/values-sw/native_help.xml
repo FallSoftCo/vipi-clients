@@ -29,4 +29,10 @@
     <string name="help_account_step1">Ikiwa Vipi inakuomba uingie tena, tumia akaunti ileile. Gumzo zilizohifadhiwa hubaki kwenye kifaa hiki.</string>
     <string name="help_account_step2">Ukichagua Tumia kifaa hiki, simu mpya itaanza kutumika na ya awali itatenganishwa. Ujumbe unaosubiri kuwasilishwa hauhamishwi. Linganisha namba mpya ya usalama na marafiki zako.</string>
     <string name="help_email">Tuma barua pepe kwa usaidizi</string>
+    <string name="help_voice_title">Rekodi na usikilize ujumbe wa sauti</string>
+    <string name="help_voice_step1">Katika gumzo na rafiki, bonyeza na ushikilie maikrofoni ili kurekodi. Achia ili kutuma. Ukiwa bado umeshikilia, telezesha kuelekea Ghairi ili kufuta, au juu ili kuendelea kurekodi bila kushikilia.</string>
+    <string name="help_voice_step2">Ukiwa unarekodi bila kushikilia, gusa Simamisha ili usikilize. Unaweza kutuma au kufuta hapo hapo. Gusa ujumbe wa sauti katika gumzo ili uusikilize au uusitishe.</string>
+    <string name="help_voice_hold">Shikilia ili kurekodi</string>
+    <string name="help_voice_cancel">Telezesha ili kughairi</string>
+    <string name="help_voice_lock">Telezesha juu ili kurekodi bila kushikilia</string>
 </resources>

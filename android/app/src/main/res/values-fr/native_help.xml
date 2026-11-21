@@ -29,4 +29,10 @@
     <string name="help_account_step1">Si Vipi vous demande de vous reconnecter, utilisez le même compte. Les discussions enregistrées restent sur cet appareil.</string>
     <string name="help_account_step2">Utiliser cet appareil active le nouveau téléphone et déconnecte l’ancien. Les envois en attente ne sont pas transférés. Comparez le nouveau numéro de sécurité avec vos amis.</string>
     <string name="help_email">Envoyer un e-mail à l’assistance</string>
+    <string name="help_voice_title">Enregistrer et écouter des messages vocaux</string>
+    <string name="help_voice_step1">Dans une discussion, maintenez le micro pour enregistrer. Relâchez pour envoyer. Sans lever le doigt, glissez vers Annuler pour effacer ou vers le haut pour verrouiller.</string>
+    <string name="help_voice_step2">Une fois l’enregistrement verrouillé, touchez Arrêter pour l’écouter. Vous pouvez l’envoyer ou l’effacer sur place. Touchez un message vocal dans la discussion pour le lire ou le mettre en pause.</string>
+    <string name="help_voice_hold">Maintenir pour enregistrer</string>
+    <string name="help_voice_cancel">Glisser pour annuler</string>
+    <string name="help_voice_lock">Glisser vers le haut pour verrouiller</string>
 </resources>

@@ -29,4 +29,10 @@
     <string name="help_account_step1">ログインを求められたら、同じアカウントを使います。保存済みのチャットはこの端末に残ります。</string>
     <string name="help_account_step2">「この端末を使用」を選ぶと新しい端末が有効になり、以前の端末は切断されます。配信待ちのメッセージは移行できません。新しいセキュリティ番号を友達と照合してください。</string>
     <string name="help_email">サポートにメールする</string>
+    <string name="help_voice_title">ボイスメッセージを録音・再生する</string>
+    <string name="help_voice_step1">友達とのチャットでマイクを長押しして録音し、指を離すと送信します。押したままキャンセルの方向にスライドすると破棄、上にスライドすると録音を固定できます。</string>
+    <string name="help_voice_step2">録音を固定したら停止をタップして確認します。その場で聴いたり、送信したり、破棄したりできます。チャット内のボイスメッセージをタップすると再生または一時停止します。</string>
+    <string name="help_voice_hold">長押しして録音</string>
+    <string name="help_voice_cancel">スライドしてキャンセル</string>
+    <string name="help_voice_lock">上にスライドして固定</string>
 </resources>

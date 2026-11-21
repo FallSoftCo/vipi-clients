@@ -29,4 +29,10 @@
     <string name="help_account_step1">Se Vipi chiede di accedere di nuovo, usa lo stesso account. Le chat salvate rimangono su questo dispositivo.</string>
     <string name="help_account_step2">Usa questo dispositivo attiva il nuovo telefono e scollega il precedente. Le consegne in sospeso non vengono trasferite. Confronta il nuovo numero di sicurezza con i tuoi amici.</string>
     <string name="help_email">Scrivi all’assistenza</string>
+    <string name="help_voice_title">Registrare e ascoltare messaggi vocali</string>
+    <string name="help_voice_step1">Nella chat con un amico, tieni premuto il microfono per registrare. Rilascia per inviare. Senza alzare il dito, scorri verso Annulla per scartare o verso l’alto per bloccare la registrazione.</string>
+    <string name="help_voice_step2">Quando la registrazione è bloccata, tocca Stop per ascoltarla. Puoi inviarla o scartarla senza uscire dalla chat. Tocca un messaggio vocale per riprodurlo o metterlo in pausa.</string>
+    <string name="help_voice_hold">Tieni premuto per registrare</string>
+    <string name="help_voice_cancel">Scorri per annullare</string>
+    <string name="help_voice_lock">Scorri in alto per bloccare</string>
 </resources>

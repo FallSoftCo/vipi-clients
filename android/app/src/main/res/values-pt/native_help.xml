@@ -29,4 +29,10 @@
     <string name="help_account_step1">Se o Vipi pedir para iniciar sessão novamente, use a mesma conta. As conversas guardadas ficam neste dispositivo.</string>
     <string name="help_account_step2">Usar este dispositivo ativa o novo telemóvel e desliga o anterior. As entregas pendentes não passam para o novo dispositivo. Compare o novo número de segurança com os seus amigos.</string>
     <string name="help_email">Enviar e-mail ao apoio</string>
+    <string name="help_voice_title">Gravar e ouvir mensagens de voz</string>
+    <string name="help_voice_step1">Numa conversa com um amigo, mantenha o microfone premido para gravar. Solte para enviar. Sem levantar o dedo, deslize para Cancelar para descartar ou para cima para fixar a gravação.</string>
+    <string name="help_voice_step2">Com a gravação fixa, toque em Parar para a ouvir. Pode enviá-la ou descartá-la na própria conversa. Toque numa mensagem de voz para a ouvir ou colocar em pausa.</string>
+    <string name="help_voice_hold">Mantenha premido para gravar</string>
+    <string name="help_voice_cancel">Deslize para cancelar</string>
+    <string name="help_voice_lock">Deslize para cima para fixar</string>
 </resources>

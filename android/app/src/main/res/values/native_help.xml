@@ -29,4 +29,10 @@
     <string name="help_account_step1">If Vipi asks you to sign in again, use the same account. Your saved chats stay on this device.</string>
     <string name="help_account_step2">Choosing Use this device activates the new phone and disconnects the previous one. Pending deliveries cannot move to the new device. Compare the new security number with your friends.</string>
     <string name="help_email">Email support</string>
+    <string name="help_voice_title">Record and play voice messages</string>
+    <string name="help_voice_step1">In a friend’s chat, hold the microphone to record. Release to send. While holding, slide toward Cancel to discard, or slide up to lock recording.</string>
+    <string name="help_voice_step2">When locked, tap Stop to preview. You can listen, send or discard right there. Tap a voice message in the chat to play or pause it.</string>
+    <string name="help_voice_hold">Hold to record</string>
+    <string name="help_voice_cancel">Slide to cancel</string>
+    <string name="help_voice_lock">Slide up to lock</string>
 </resources>

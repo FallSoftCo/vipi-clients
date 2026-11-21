@@ -18,7 +18,7 @@ class NativeHelpDeviceTest {
             compose.waitForIdle()
             SystemClock.sleep(350)
             f.capture("android-native-help")
-            for (topic in listOf("FRIENDS", "GROUPS", "LANGUAGES", "READING", "STATUS", "NOTIFICATIONS", "SAFETY", "BACKUP", "ACCOUNT")) {
+            for (topic in listOf("FRIENDS", "GROUPS", "LANGUAGES", "READING", "VOICE", "STATUS", "NOTIFICATIONS", "SAFETY", "BACKUP", "ACCOUNT")) {
                 val row = compose.onNodeWithTag("help-topic-$topic")
                 row.performScrollTo().performClick()
                 val detail = compose.onNodeWithTag("help-detail-$topic")

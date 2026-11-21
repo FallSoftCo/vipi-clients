@@ -2759,6 +2759,540 @@
           }
         }
       }
+    },
+    "help_voice_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record and play voice messages"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grabar y escuchar mensajes de voz"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enregistrer et écouter des messages vocaux"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprachnachrichten aufnehmen und anhören"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrare e ascoltare messaggi vocali"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gravar e ouvir mensagens de voz"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gravar e ouvir mensagens de voz"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rekodi na usikilize ujumbe wa sauti"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تسجيل الرسائل الصوتية وتشغيلها"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ボイスメッセージを録音・再生する"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "음성 메시지 녹음 및 재생"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "录制和播放语音消息"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "錄製與播放語音訊息"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gravar e ouvir mensagens de voz"
+          }
+        }
+      }
+    },
+    "help_voice_step1": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "In a friend’s chat, hold the microphone to record. Release to send. While holding, slide toward Cancel to discard, or slide up to lock recording."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En un chat con un amigo, mantén pulsado el micrófono para grabar. Suelta para enviar. Sin levantar el dedo, desliza hacia Cancelar para descartar o hacia arriba para fijar la grabación."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dans une discussion, maintenez le micro pour enregistrer. Relâchez pour envoyer. Sans lever le doigt, glissez vers Annuler pour effacer ou vers le haut pour verrouiller."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Halte in einem Chat mit einem Freund das Mikrofon gedrückt. Lass los, um zu senden. Wische beim Halten in Richtung Abbrechen, um die Aufnahme zu verwerfen, oder nach oben, um sie zu fixieren."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nella chat con un amico, tieni premuto il microfono per registrare. Rilascia per inviare. Senza alzare il dito, scorri verso Annulla per scartare o verso l’alto per bloccare la registrazione."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Numa conversa com um amigo, mantenha o microfone premido para gravar. Solte para enviar. Sem levantar o dedo, deslize para Cancelar para descartar ou para cima para fixar a gravação."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Na conversa com um amigo, toque e segure o microfone para gravar. Solte para enviar. Sem tirar o dedo, deslize em direção a Cancelar para descartar ou para cima para travar a gravação."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Katika gumzo na rafiki, bonyeza na ushikilie maikrofoni ili kurekodi. Achia ili kutuma. Ukiwa bado umeshikilia, telezesha kuelekea Ghairi ili kufuta, au juu ili kuendelea kurekodi bila kushikilia."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "في محادثة مع صديق، اضغط مطولًا على الميكروفون للتسجيل وارفع إصبعك للإرسال. أثناء الضغط، اسحب باتجاه إلغاء لتجاهل التسجيل أو إلى الأعلى لتثبيت التسجيل."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "友達とのチャットでマイクを長押しして録音し、指を離すと送信します。押したままキャンセルの方向にスライドすると破棄、上にスライドすると録音を固定できます。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구와의 채팅에서 마이크를 길게 눌러 녹음하고 손을 떼면 전송합니다. 누른 채로 취소 쪽으로 밀면 삭제되고 위로 밀면 녹음이 고정됩니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在与朋友的聊天中，按住麦克风录音，松开发送。按住时向取消提示滑动可丢弃录音，向上滑动可锁定录音。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在與朋友的聊天中，按住麥克風錄音，放開即可傳送。按住時朝取消提示滑動可捨棄錄音，向上滑動可鎖定錄音。"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Numa conversa com um amigo, mantenha o microfone premido para gravar. Solte para enviar. Sem levantar o dedo, deslize para Cancelar para descartar ou para cima para fixar a gravação."
+          }
+        }
+      }
+    },
+    "help_voice_step2": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "When locked, tap Stop to preview. You can listen, send or discard right there. Tap a voice message in the chat to play or pause it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Con la grabación fijada, toca Detener para escucharla. Puedes enviarla o descartarla ahí mismo. Toca un mensaje de voz en el chat para reproducirlo o pausarlo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Une fois l’enregistrement verrouillé, touchez Arrêter pour l’écouter. Vous pouvez l’envoyer ou l’effacer sur place. Touchez un message vocal dans la discussion pour le lire ou le mettre en pause."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tippe bei fixierter Aufnahme auf Stopp, um sie anzuhören. Du kannst sie dort senden oder verwerfen. Tippe auf eine Sprachnachricht im Chat, um sie abzuspielen oder zu pausieren."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quando la registrazione è bloccata, tocca Stop per ascoltarla. Puoi inviarla o scartarla senza uscire dalla chat. Tocca un messaggio vocale per riprodurlo o metterlo in pausa."
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com a gravação fixa, toque em Parar para a ouvir. Pode enviá-la ou descartá-la na própria conversa. Toque numa mensagem de voz para a ouvir ou colocar em pausa."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com a gravação travada, toque em Parar para ouvir. Você pode enviar ou descartar ali mesmo. Toque em uma mensagem de voz na conversa para ouvir ou pausar."
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ukiwa unarekodi bila kushikilia, gusa Simamisha ili usikilize. Unaweza kutuma au kufuta hapo hapo. Gusa ujumbe wa sauti katika gumzo ili uusikilize au uusitishe."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بعد تثبيت التسجيل، اضغط على إيقاف لمعاينته. يمكنك الاستماع إليه أو إرساله أو تجاهله في المحادثة نفسها. اضغط على رسالة صوتية لتشغيلها أو إيقافها مؤقتًا."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "録音を固定したら停止をタップして確認します。その場で聴いたり、送信したり、破棄したりできます。チャット内のボイスメッセージをタップすると再生または一時停止します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "녹음을 고정한 후 정지를 누르면 미리 들을 수 있습니다. 그 자리에서 전송하거나 삭제하세요. 채팅의 음성 메시지를 누르면 재생하거나 일시 정지할 수 있습니다."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "锁定后，轻点停止即可试听。你可以直接在聊天中发送或丢弃录音。轻点语音消息即可播放或暂停。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "鎖定後，點一下停止即可試聽。你可以直接在對話中傳送或捨棄錄音。點一下語音訊息即可播放或暫停。"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Com a gravação fixa, toque em Parar para a ouvir. Pode enviá-la ou descartá-la na própria conversa. Toque numa mensagem de voz para a ouvir ou colocar em pausa."
+          }
+        }
+      }
+    },
+    "help_voice_hold": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hold to record"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantén pulsado para grabar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Maintenir pour enregistrer"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zum Aufnehmen gedrückt halten"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tieni premuto per registrare"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantenha premido para gravar"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toque e segure para gravar"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Shikilia ili kurekodi"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اضغط مطولًا للتسجيل"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "長押しして録音"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "길게 눌러 녹음"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按住录音"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "按住錄音"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantenha premido para gravar"
+          }
+        }
+      }
+    },
+    "help_voice_cancel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide to cancel"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desliza para cancelar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glisser pour annuler"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zum Abbrechen wischen"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scorri per annullare"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deslize para cancelar"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deslize para cancelar"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telezesha ili kughairi"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسحب للإلغاء"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "スライドしてキャンセル"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "밀어서 취소"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "滑动取消"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "滑動取消"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deslize para cancelar"
+          }
+        }
+      }
+    },
+    "help_voice_lock": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slide up to lock"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desliza hacia arriba para fijar"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Glisser vers le haut pour verrouiller"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zum Fixieren nach oben wischen"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scorri in alto per bloccare"
+          }
+        },
+        "pt": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deslize para cima para fixar"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deslize para cima para travar"
+          }
+        },
+        "sw": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Telezesha juu ili kurekodi bila kushikilia"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسحب إلى الأعلى لتثبيت التسجيل"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "上にスライドして固定"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "위로 밀어 고정"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "向上滑动锁定"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "向上滑動鎖定"
+          }
+        },
+        "pt-PT": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deslize para cima para fixar"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

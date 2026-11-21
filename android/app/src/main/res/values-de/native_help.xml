@@ -29,4 +29,10 @@
     <string name="help_account_step1">Wenn Vipi dich zur erneuten Anmeldung auffordert, verwende dasselbe Konto. Gespeicherte Chats bleiben auf diesem Gerät.</string>
     <string name="help_account_step2">„Dieses Gerät verwenden“ aktiviert das neue Telefon und trennt das vorherige. Ausstehende Nachrichten lassen sich nicht übertragen. Vergleiche die neue Sicherheitsnummer mit deinen Freunden.</string>
     <string name="help_email">Support per E-Mail kontaktieren</string>
+    <string name="help_voice_title">Sprachnachrichten aufnehmen und anhören</string>
+    <string name="help_voice_step1">Halte in einem Chat mit einem Freund das Mikrofon gedrückt. Lass los, um zu senden. Wische beim Halten in Richtung Abbrechen, um die Aufnahme zu verwerfen, oder nach oben, um sie zu fixieren.</string>
+    <string name="help_voice_step2">Tippe bei fixierter Aufnahme auf Stopp, um sie anzuhören. Du kannst sie dort senden oder verwerfen. Tippe auf eine Sprachnachricht im Chat, um sie abzuspielen oder zu pausieren.</string>
+    <string name="help_voice_hold">Zum Aufnehmen gedrückt halten</string>
+    <string name="help_voice_cancel">Zum Abbrechen wischen</string>
+    <string name="help_voice_lock">Zum Fixieren nach oben wischen</string>
 </resources>

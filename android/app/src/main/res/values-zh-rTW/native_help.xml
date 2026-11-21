@@ -29,4 +29,10 @@
     <string name="help_account_step1">如果 Vipi 要求重新登入，請使用同一帳號。已儲存的聊天仍在這部裝置上。</string>
     <string name="help_account_step2">選擇「使用這部裝置」會啟用新手機並中斷舊裝置的連線。等待送達的訊息無法轉移。請與朋友核對新的安全號碼。</string>
     <string name="help_email">傳送電子郵件給支援團隊</string>
+    <string name="help_voice_title">錄製與播放語音訊息</string>
+    <string name="help_voice_step1">在與朋友的聊天中，按住麥克風錄音，放開即可傳送。按住時朝取消提示滑動可捨棄錄音，向上滑動可鎖定錄音。</string>
+    <string name="help_voice_step2">鎖定後，點一下停止即可試聽。你可以直接在對話中傳送或捨棄錄音。點一下語音訊息即可播放或暫停。</string>
+    <string name="help_voice_hold">按住錄音</string>
+    <string name="help_voice_cancel">滑動取消</string>
+    <string name="help_voice_lock">向上滑動鎖定</string>
 </resources>

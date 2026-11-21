@@ -1,7 +1,7 @@
 import SwiftUI
 
 private enum HelpTopic: String, CaseIterable, Identifiable {
-    case friends, groups, languages, reading, status, notifications, safety, backup, account
+    case friends, groups, languages, reading, voice, status, notifications, safety, backup, account
     var id: Self { self }
     var title: LocalizedStringKey { LocalizedStringKey("help_" + rawValue + "_title") }
     var first: LocalizedStringKey { LocalizedStringKey("help_" + rawValue + "_step1") }
@@ -30,7 +30,11 @@ struct NativeHelpView: View {
                         set: { expanded = $0 ? topic : nil }
                     )) {
                         VStack(alignment: .leading, spacing: 14) {
-                            if topic == .status {
+                            if topic == .voice {
+                                Label { Text("help_voice_hold", tableName: "NativeHelp") } icon: { Image(systemName: "mic.fill") }
+                                Label { Text("help_voice_cancel", tableName: "NativeHelp") } icon: { Image(systemName: "arrow.backward") }
+                                Label { Text("help_voice_lock", tableName: "NativeHelp") } icon: { Image(systemName: "arrow.up") }
+                            } else if topic == .status {
                                 ForEach(["accepted", "delivered", "read"], id: \.self) { state in
                                     HStack {
                                         MessageDeliveryMark(state: state).accessibilityHidden(true)

@@ -29,4 +29,10 @@
     <string name="help_account_step1">Si Vipi te pide iniciar sesión de nuevo, utiliza la misma cuenta. Los chats guardados permanecen en este dispositivo.</string>
     <string name="help_account_step2">Usar este dispositivo activa el teléfono nuevo y desconecta el anterior. Las entregas pendientes no se transfieren. Compara el nuevo número de seguridad con tus amigos.</string>
     <string name="help_email">Escribir a soporte</string>
+    <string name="help_voice_title">Grabar y escuchar mensajes de voz</string>
+    <string name="help_voice_step1">En un chat con un amigo, mantén pulsado el micrófono para grabar. Suelta para enviar. Sin levantar el dedo, desliza hacia Cancelar para descartar o hacia arriba para fijar la grabación.</string>
+    <string name="help_voice_step2">Con la grabación fijada, toca Detener para escucharla. Puedes enviarla o descartarla ahí mismo. Toca un mensaje de voz en el chat para reproducirlo o pausarlo.</string>
+    <string name="help_voice_hold">Mantén pulsado para grabar</string>
+    <string name="help_voice_cancel">Desliza para cancelar</string>
+    <string name="help_voice_lock">Desliza hacia arriba para fijar</string>
 </resources>
