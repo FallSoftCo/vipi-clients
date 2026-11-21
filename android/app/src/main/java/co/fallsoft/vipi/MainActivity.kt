@@ -161,6 +161,7 @@ class MainActivity : ComponentActivity() {
     BackHandler(enabled = model.screen != Screen.WELCOME && model.screen != Screen.HOME) { model.back() }
     val inboxScroll = key(model.authentication.userID) { androidx.compose.foundation.lazy.rememberLazyListState() }
     val waterClock = rememberWaterClock()
+    if (model.screen == Screen.NEW_CHAT) { NewChatView(model); return }
     if (model.screen == Screen.HOME) { ChatsInbox(model, inboxScroll, waterClock); return }
     if (model.screen == Screen.BACKUP && model.chat != null) { HistoryBackupScreen(model.chat!!) { model.back() }; return }
     if (model.screen == Screen.LICENSES) { LegalNoticesScreen { model.back() }; return }
@@ -182,7 +183,7 @@ class MainActivity : ComponentActivity() {
                     scrolling = scrollState.isScrollInProgress)
                 Screen.ACCOUNT -> AccountView()
                 Screen.SETTINGS -> SettingsView(model)
-                Screen.NEW_CHAT -> NewChatView(model)
+                Screen.NEW_CHAT -> Unit
                 Screen.LANGUAGE_DOWNLOAD -> DownloadView(model)
                 Screen.PROFILE -> ProfileSetupScreen(model)
                 Screen.DELETE_ACCOUNT -> DeleteAccountScreen { model.beginDeletion() }
@@ -204,7 +205,7 @@ class MainActivity : ComponentActivity() {
         contentDescription = null, modifier = Modifier.size(size.dp))
 }
 
-@Composable private fun TopBar(model: VipiModel) {
+@Composable internal fun TopBar(model: VipiModel) {
     Row(Modifier.fillMaxWidth().padding(top = 12.dp), verticalAlignment = Alignment.CenterVertically) {
         if (model.screen != Screen.WELCOME) {
             IconButton(onClick = { model.back() }) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.nav_back)) }
@@ -341,51 +342,6 @@ class MainActivity : ComponentActivity() {
         })
 }
 
-@Composable private fun NewChatView(model: VipiModel) {
-    val context = LocalContext.current
-    val keyboard = LocalSoftwareKeyboardController.current
-    val form = remember { BringIntoViewRequester() }
-    val usernameField = remember { BringIntoViewRequester() }
-    var usernameFocused by remember { mutableStateOf(false) }
-    val imeBottom = WindowInsets.ime.getBottom(androidx.compose.ui.platform.LocalDensity.current)
-    var username by rememberSaveable(model.invitationUsername) { mutableStateOf(model.invitationUsername.orEmpty()) }
-    var error by remember { mutableStateOf<String?>(null) }
-    var busy by remember { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
-    LaunchedEffect(error) {
-        if (error != null) { withFrameNanos { }; form.bringIntoView() }
-    }
-    LaunchedEffect(usernameFocused, imeBottom) {
-        if (usernameFocused && imeBottom > 0) { withFrameNanos { }; usernameField.bringIntoView() }
-    }
-    fun findFriend() {
-        if (username.isBlank() || busy) return
-        val requestedUsername = username
-        keyboard?.hide()
-        val chat = model.chat
-        if (chat == null) error = context.getString(R.string.friends_sign_in_required)
-        else {
-            busy = true; error = null
-            scope.launch {
-                try { model.openConversation(chat.find(requestedUsername).id) }
-                catch (failure: kotlinx.coroutines.CancellationException) { throw failure }
-                catch (failure: Exception) { error = ChatSession.explanation(context, failure) }
-                finally { busy = false }
-            }
-        }
-    }
-    Text(stringResource(R.string.ui_e131c9a64a5b), style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
-    Column(Modifier.fillMaxWidth().bringIntoViewRequester(form), verticalArrangement = Arrangement.spacedBy(24.dp)) {
-    OutlinedTextField(value = username, onValueChange = { username = it }, colors = vipiTextFieldColors(), label = { Text(stringResource(R.string.ui_8a74ed1b7a84)) }, singleLine = true,
-        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None, autoCorrectEnabled = false, imeAction = ImeAction.Search),
-        keyboardActions = KeyboardActions(onSearch = { findFriend() }),
-        modifier = Modifier.fillMaxWidth().bringIntoViewRequester(usernameField).onFocusChanged { usernameFocused = it.isFocused }, shape = RoundedCornerShape(16.dp))
-    PrimaryButton(stringResource(R.string.ui_ba6e8c9b0c3e), enabled = username.isNotBlank(), busy = busy, onClick = ::findFriend)
-    error?.let { Text(it, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-    }
-    InviteFriendButton(model)
-}
-
 @Composable private fun SettingsView(model: VipiModel) {
     val context = LocalContext.current
     val uri = androidx.compose.ui.platform.LocalUriHandler.current
@@ -515,7 +471,7 @@ class MainActivity : ComponentActivity() {
 @Composable internal fun LanguageSettingsLink(language: String, onClick: () -> Unit) =
     SettingsAction(stringResource(R.string.ui_e7cde359a05e), value = language, action = onClick)
 
-@Composable private fun InviteFriendButton(model: VipiModel, settings: Boolean = false) {
+@Composable internal fun InviteFriendButton(model: VipiModel, settings: Boolean = false) {
     val username = model.chat?.profile?.username ?: return
     val context = LocalContext.current
     val inviteTitle = stringResource(R.string.nav_invite)
@@ -523,7 +479,7 @@ class MainActivity : ComponentActivity() {
     val share = {
         val invitation = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, context.getString(R.string.invite_share_text, username, "https://api.mambovipi.app/invite/$username"))
+            putExtra(Intent.EXTRA_TEXT, friendInviteText(context, username))
         }
         try { context.startActivity(Intent.createChooser(invitation, inviteTitle)); error = false }
         catch (_: android.content.ActivityNotFoundException) { error = true }
@@ -531,7 +487,6 @@ class MainActivity : ComponentActivity() {
     if (settings) SettingsAction(inviteTitle, action = share)
     else {
         TextButton(onClick = share) { Text(inviteTitle) }
-        Text(stringResource(R.string.public_username, username), style = MaterialTheme.typography.bodySmall)
     }
     if (error) Text(stringResource(R.string.ui_e5bd91ac481d), style = MaterialTheme.typography.bodySmall)
 }

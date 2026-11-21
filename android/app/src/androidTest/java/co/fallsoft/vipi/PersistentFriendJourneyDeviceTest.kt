@@ -82,7 +82,7 @@ class PersistentFriendJourneyDeviceTest {
         screen(f, Screen.NEW_CHAT)
         compose.onNode(hasSetTextAction()).performScrollTo().performTouchInput { click() }
         compose.onNode(hasSetTextAction()).performTextInput("@Process_Friend")
-        compose.onNodeWithText(f.base.getString(R.string.ui_ba6e8c9b0c3e)).performScrollTo().performTouchInput { click() }
+        compose.onNodeWithText(f.base.getString(R.string.new_chat_lookup, "process_friend")).performScrollTo().performTouchInput { click() }
         screen(f, Screen.CONVERSATION)
         compose.onNodeWithTag("message-input").performTouchInput { click() }
         compose.waitUntil(8_000) { ime(f) }

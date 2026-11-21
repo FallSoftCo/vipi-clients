@@ -1,0 +1,20 @@
+<resources>
+    <string name="new_chat_search">Nome o @nomeutente</string>
+    <string name="new_chat_lookup">Cerca @%1$s su Vipi</string>
+    <string name="new_chat_privacy">Invita con SMS o email. La rubrica resta su questo telefono.</string>
+    <string name="new_chat_saved">Amici su Vipi</string>
+    <string name="new_chat_empty">Cerca un nome utente o invita un amico.</string>
+    <string name="new_chat_no_matches">Nessun amico salvato corrisponde. Prova il @nomeutente esatto o invia un invito.</string>
+    <string name="new_chat_unavailable">Questa persona non è disponibile.</string>
+    <string name="new_chat_phone_contacts">Usa i contatti</string>
+    <string name="phone_contacts_title">Usare i contatti del telefono?</string>
+    <string name="phone_contacts_explain">Vipi non conserva né condivide la rubrica. Scegli chi invitare con SMS o email. Decidi tu se inviare.</string>
+    <string name="phone_contacts_denied">Accesso ai contatti disattivato</string>
+    <string name="phone_contacts_denied_detail">Puoi aprire le chat o condividere un invito senza accedere ai contatti.</string>
+    <string name="phone_contacts_search">Cerca nei contatti</string>
+    <string name="phone_contacts_empty">Nessun contatto corrispondente con numero o email.</string>
+    <string name="phone_contacts_read_error">Impossibile caricare i contatti.</string>
+    <string name="phone_no_draft">Nessuna app ha aperto la bozza.</string>
+    <string name="phone_email_to">Email a %1$s</string>
+    <string name="phone_text_to">SMS a %1$s</string>
+</resources>

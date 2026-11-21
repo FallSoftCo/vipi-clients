@@ -1,0 +1,20 @@
+<resources>
+    <string name="new_chat_search">姓名或@用户名</string>
+    <string name="new_chat_lookup">在 Vipi 上查找 @%1$s</string>
+    <string name="new_chat_privacy">通过短信或电子邮件邀请。通讯录保留在此手机上。</string>
+    <string name="new_chat_saved">Vipi 好友</string>
+    <string name="new_chat_empty">按用户名查找，或邀请朋友加入。</string>
+    <string name="new_chat_no_matches">没有匹配的已保存好友。请输入完整的 @用户名或发送邀请。</string>
+    <string name="new_chat_unavailable">此用户不可用。</string>
+    <string name="new_chat_phone_contacts">使用手机通讯录</string>
+    <string name="phone_contacts_title">使用手机通讯录？</string>
+    <string name="phone_contacts_explain">Vipi 不会保存或分享你的通讯录。在此手机上选择要通过短信或电子邮件邀请的人。是否发送由你决定。</string>
+    <string name="phone_contacts_denied">通讯录权限已关闭</string>
+    <string name="phone_contacts_denied_detail">无需通讯录权限也可以打开聊天或分享邀请。</string>
+    <string name="phone_contacts_search">搜索手机联系人</string>
+    <string name="phone_contacts_empty">没有匹配且包含号码或电子邮件的联系人。</string>
+    <string name="phone_contacts_read_error">无法加载联系人。</string>
+    <string name="phone_no_draft">没有应用可以打开此草稿。</string>
+    <string name="phone_email_to">发送邮件至 %1$s</string>
+    <string name="phone_text_to">发送短信至 %1$s</string>
+</resources>

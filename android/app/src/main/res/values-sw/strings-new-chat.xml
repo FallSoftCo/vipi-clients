@@ -1,0 +1,20 @@
+<resources>
+    <string name="new_chat_search">Jina au @jinalamtumiaji</string>
+    <string name="new_chat_lookup">Tafuta @%1$s kwenye Vipi</string>
+    <string name="new_chat_privacy">Alika kwa SMS au barua pepe. Orodha yako ya anwani inabaki kwenye simu hii.</string>
+    <string name="new_chat_saved">Marafiki wa Vipi</string>
+    <string name="new_chat_empty">Tafuta kwa jina la mtumiaji au mwalike rafiki.</string>
+    <string name="new_chat_no_matches">Hakuna rafiki aliyehifadhiwa anayelingana. Jaribu @jinalamtumiaji kamili au tuma mwaliko.</string>
+    <string name="new_chat_unavailable">Mtu huyu hapatikani.</string>
+    <string name="new_chat_phone_contacts">Tumia anwani za simu</string>
+    <string name="phone_contacts_title">Utumie anwani za simu yako?</string>
+    <string name="phone_contacts_explain">Vipi haihifadhi wala kushiriki orodha yako ya anwani. Chagua mtu kwenye simu hii umwalike kwa SMS au barua pepe. Unaamua kama utatuma.</string>
+    <string name="phone_contacts_denied">Ruhusa ya anwani imezimwa</string>
+    <string name="phone_contacts_denied_detail">Bado unaweza kufungua gumzo au kushiriki mwaliko bila ruhusa ya anwani.</string>
+    <string name="phone_contacts_search">Tafuta anwani za simu</string>
+    <string name="phone_contacts_empty">Hakuna anwani inayolingana yenye namba au barua pepe.</string>
+    <string name="phone_contacts_read_error">Imeshindikana kupakia anwani.</string>
+    <string name="phone_no_draft">Hakuna programu iliyoweza kufungua rasimu hii.</string>
+    <string name="phone_email_to">Barua pepe kwa %1$s</string>
+    <string name="phone_text_to">SMS kwa %1$s</string>
+</resources>

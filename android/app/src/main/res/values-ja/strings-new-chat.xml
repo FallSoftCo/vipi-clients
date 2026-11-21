@@ -1,0 +1,20 @@
+<resources>
+    <string name="new_chat_search">名前または@ユーザー名</string>
+    <string name="new_chat_lookup">Vipiで@%1$sを検索</string>
+    <string name="new_chat_privacy">SMSかメールで招待できます。連絡先はこの端末内に留まります。</string>
+    <string name="new_chat_saved">Vipiの友だち</string>
+    <string name="new_chat_empty">ユーザー名で探すか、友だちを招待しましょう。</string>
+    <string name="new_chat_no_matches">保存済みの友だちに一致しません。正確な@ユーザー名で検索するか招待してください。</string>
+    <string name="new_chat_unavailable">このユーザーは利用できません。</string>
+    <string name="new_chat_phone_contacts">端末の連絡先を使う</string>
+    <string name="phone_contacts_title">端末の連絡先を使いますか？</string>
+    <string name="phone_contacts_explain">Vipiは連絡先を保存したり共有したりしません。端末から相手を選んでSMSかメールで招待できます。送信するかは自分で決められます。</string>
+    <string name="phone_contacts_denied">連絡先へのアクセスはオフです</string>
+    <string name="phone_contacts_denied_detail">連絡先へのアクセスがなくても、チャットを開いたり招待を共有したりできます。</string>
+    <string name="phone_contacts_search">端末の連絡先を検索</string>
+    <string name="phone_contacts_empty">電話番号かメールアドレスのある連絡先が見つかりません。</string>
+    <string name="phone_contacts_read_error">連絡先を読み込めませんでした。</string>
+    <string name="phone_no_draft">下書きを開けるアプリがありません。</string>
+    <string name="phone_email_to">%1$s にメール</string>
+    <string name="phone_text_to">%1$s にSMS</string>
+</resources>

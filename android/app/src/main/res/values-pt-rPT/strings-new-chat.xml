@@ -1,0 +1,20 @@
+<resources>
+    <string name="new_chat_search">Nome ou @utilizador</string>
+    <string name="new_chat_lookup">Procurar @%1$s no Vipi</string>
+    <string name="new_chat_privacy">Convide por SMS ou e-mail. A agenda fica neste telemóvel.</string>
+    <string name="new_chat_saved">Amigos no Vipi</string>
+    <string name="new_chat_empty">Procure um nome de utilizador ou convide alguém.</string>
+    <string name="new_chat_no_matches">Nenhum amigo guardado corresponde. Tente o @utilizador exato ou envie um convite.</string>
+    <string name="new_chat_unavailable">Pessoa indisponível.</string>
+    <string name="new_chat_phone_contacts">Usar contactos do telemóvel</string>
+    <string name="phone_contacts_title">Usar os contactos do telemóvel?</string>
+    <string name="phone_contacts_explain">O Vipi não guarda nem partilha a sua agenda. Escolha alguém neste telemóvel para convidar por SMS ou e-mail. Decide se quer enviar.</string>
+    <string name="phone_contacts_denied">Acesso aos contactos desativado</string>
+    <string name="phone_contacts_denied_detail">Pode abrir as conversas ou partilhar um convite sem aceder aos contactos.</string>
+    <string name="phone_contacts_search">Procurar contactos</string>
+    <string name="phone_contacts_empty">Nenhum contacto correspondente com número ou e-mail.</string>
+    <string name="phone_contacts_read_error">Não foi possível carregar os contactos.</string>
+    <string name="phone_no_draft">Nenhuma aplicação conseguiu abrir o rascunho.</string>
+    <string name="phone_email_to">E-mail para %1$s</string>
+    <string name="phone_text_to">SMS para %1$s</string>
+</resources>
