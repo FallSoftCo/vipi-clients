@@ -69,6 +69,11 @@ struct GroupCreateView: View {
     @State private var created: UUID?
     @State private var selectionNotice: String?
     private var canCreate: Bool { (try? GroupSelection.name(title)) != nil && !selected.isEmpty && !groups.busy }
+    private var actionTitle: LocalizedStringKey {
+        if selected.isEmpty { return "Create group" }
+        if created != nil { return "Retry remaining invitations" }
+        return "Create group and invite \(selected.count)"
+    }
     var body: some View {
         List {
             Section {
@@ -85,7 +90,7 @@ struct GroupCreateView: View {
             GroupPeoplePicker(people: people, account: groups.account, selected: $selected, notice: $selectionNotice)
             if let notice = selectionNotice ?? groups.notice { Section { Text(notice).font(.body).foregroundStyle(VipiDesign.destructive) } }
             Section {
-                Button(created == nil ? "Create group and invite \(selected.count)" : "Retry remaining invitations") {
+                Button(actionTitle) {
                     Task {
                         var group = created.flatMap { groups.snapshot($0) }
                         if group == nil { group = await groups.create(title: title); created = group?.id }

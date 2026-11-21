@@ -2739,6 +2739,20 @@ final class ChatConversationTests: XCTestCase {
                 name.tap(); name.typeText("Weekend friends")
                 XCTAssertEqual(name.value as? String, "Weekend friends")
                 capture("new-group-editing")
+                if !largest {
+                    name.typeText("\n")
+                    let scroll = app.collectionViews.firstMatch
+                    let action = app.buttons["group-create"]
+                    for _ in 0..<5 where !action.exists { scroll.swipeUp() }
+                    XCTAssertEqual(action.label, "Create group")
+                    XCTAssertFalse(action.isEnabled)
+                    let maya = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Maya Johnson,'")).firstMatch
+                    for _ in 0..<5 where !maya.isHittable { scroll.swipeDown() }
+                    maya.tap()
+                    for _ in 0..<5 where !action.exists { scroll.swipeUp() }
+                    XCTAssertEqual(action.label, "Create group and invite 1")
+                    XCTAssertTrue(action.isEnabled)
+                }
                 return
             }
             if inboxReview == "friends-populated" {
