@@ -26,7 +26,7 @@ import AVFAudio
 }
 
 /// Owns one decoded note and its temporary plaintext file only while that row is in use.
-@MainActor private final class VoiceNotePlayer: NSObject, ObservableObject, @preconcurrency AVAudioPlayerDelegate {
+@MainActor final class VoiceNotePlayer: NSObject, ObservableObject, @preconcurrency AVAudioPlayerDelegate {
     enum State { case idle, loading, playing, paused, finished, failed }
     @Published private(set) var state = State.idle
     @Published private(set) var duration = 0.0
