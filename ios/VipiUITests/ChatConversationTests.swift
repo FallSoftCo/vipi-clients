@@ -2896,6 +2896,15 @@ final class ChatConversationTests: XCTestCase {
                 let autoplay = app.buttons["chat-autoplay-toggle"]
                 let options = app.buttons["conversation-options"]
                 let back = bar.buttons["BackButton"].firstMatch
+                func capture(_ state: String) {
+                    let shot = XCTAttachment(screenshot: app.screenshot())
+                    shot.name = "compact-header-" + (largest ? "large-long-" : constrainedHeader ? "375pt-" : "wide-") + state
+                    shot.lifetime = .keepAlways
+                    add(shot)
+                    print("VIPI_COMPACT_HEADER", shot.name ?? "", app.frame, back.frame, identity.frame, modesGeometry(), options.frame, app.keyboards.firstMatch.frame)
+                }
+                func modesGeometry() -> [CGRect] { [mode.frame, autoplay.frame] }
+                capture("initial")
                 XCTAssertTrue(bar.exists && back.isHittable && options.isHittable)
                 XCTAssertEqual(identity.label, name)
                 XCTAssertEqual(mode.label, "Immersion")
@@ -2921,15 +2930,6 @@ final class ChatConversationTests: XCTestCase {
                     XCTAssertGreaterThan(mode.frame.width, 62)
                 }
 
-                func capture(_ state: String) {
-                    let shot = XCTAttachment(screenshot: app.screenshot())
-                    shot.name = "compact-header-" + (largest ? "large-long-" : constrainedHeader ? "375pt-" : "wide-") + state
-                    shot.lifetime = .keepAlways
-                    add(shot)
-                    print("VIPI_COMPACT_HEADER", shot.name ?? "", app.frame, back.frame, identity.frame, modesGeometry(), options.frame, app.keyboards.firstMatch.frame)
-                }
-                func modesGeometry() -> [CGRect] { [mode.frame, autoplay.frame] }
-                capture("initial")
                 mode.tap()
                 XCTAssertNotEqual(mode.value as? String, originalMode)
                 autoplay.tap()
