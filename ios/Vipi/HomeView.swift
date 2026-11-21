@@ -1,7 +1,12 @@
 import SwiftUI
 import VipiCore
 
-private enum HomeDestination: Hashable { case friend(UUID) }
+private enum HomeDestination: Hashable { case friend(UUID), groups, group(UUID) }
+
+private enum HomeCompose: Hashable, Identifiable {
+    case chat, group
+    var id: Self { self }
+}
 
 struct HomeView: View {
     var chat: ChatSession? = nil
@@ -17,7 +22,7 @@ struct HomeView: View {
     @State private var showingSettings = false
     @State private var offerBase = false
     @State private var offeredBase = false
-    @State private var showingInvite = false
+    @State private var compose: HomeCompose?
     @State private var query = ""
     @State private var path: [HomeDestination] = []
     @State private var inboxWidth: CGFloat = 0
@@ -29,7 +34,38 @@ struct HomeView: View {
         let locale = Bundle.main.preferredLocalizations.first.map { Locale(identifier: $0) } ?? .current
         return language?.localizedName ?? locale.localizedString(forLanguageCode: state.targetLanguage) ?? state.targetLanguage
     }
-    private var hasComposeAction: Bool { chat?.threads.isEmpty == false }
+    private var groupSession: GroupsSession? { chat?.groupComposeSession }
+    private var hasComposeAction: Bool { groupSession == nil && chat?.threads.isEmpty == false }
+    private func composeAction(_ title: LocalizedStringKey, art: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                Image(decorative: art).resizable().scaledToFit().frame(width: 44, height: 30)
+                Text(title).font(.headline).fixedSize(horizontal: false, vertical: true)
+            }
+            .padding(.horizontal, 8).padding(.vertical, 4)
+            .frame(maxWidth: .infinity, minHeight: 48)
+            .background(VipiDesign.surface, in: RoundedRectangle(cornerRadius: 16))
+            .overlay { RoundedRectangle(cornerRadius: 16).strokeBorder(VipiDesign.bubbleBorder) }
+            .contentShape(Rectangle())
+        }.buttonStyle(.plain).foregroundStyle(VipiDesign.ink)
+    }
+    private var composeActions: some View {
+        VStack(alignment: .trailing, spacing: 0) {
+            let layout = typeSize >= .xxxLarge ? AnyLayout(VStackLayout(spacing: 8)) : AnyLayout(HStackLayout(spacing: 8))
+            layout {
+                composeAction("New chat", art: "SpotNewChat") { compose = .chat }
+                    .accessibilityIdentifier("home-start-conversation")
+                composeAction("New group", art: "SpotNewGroup") { compose = .group }
+                    .accessibilityIdentifier("home-new-group")
+            }
+            NavigationLink(value: HomeDestination.groups) {
+                HStack(spacing: 5) {
+                    Text("Groups and invitations")
+                    Image(systemName: "chevron.forward").font(.caption.bold()).accessibilityHidden(true)
+                }.font(.subheadline.weight(.semibold)).frame(minHeight: 44)
+            }.accessibilityIdentifier("open-groups")
+        }
+    }
     private var languageFitsToolbar: Bool {
         guard !typeSize.isAccessibilitySize else { return false }
         // Balance both sides of the center against the widest set of actions.
@@ -77,6 +113,7 @@ struct HomeView: View {
                             ReauthenticationNotice(busy: authenticationBusy || chat.busy, error: authenticationError, signIn: reauthenticate)
                         }
                         if let notice = chat?.notice { Text(notice).font(.body).foregroundStyle(VipiDesign.secondary) }
+                        if groupSession != nil { composeActions }
                         if let chat, !chat.threads.isEmpty {
                             LazyVStack(spacing:0) {
                                 ForEach(chat.threads) { thread in
@@ -92,8 +129,10 @@ struct HomeView: View {
                             VStack(alignment: .center, spacing: 8) {
                                 Text("Find a friend by username or send them an invite.").font(.title2.weight(.semibold)).fixedSize(horizontal: false, vertical: true)
                             }
-                            PrimaryButton(title: "New chat") { showingInvite = true }
-                                .accessibilityIdentifier("home-start-conversation")
+                            if groupSession == nil {
+                                PrimaryButton(title: "New chat") { compose = .chat }
+                                    .accessibilityIdentifier("home-start-conversation")
+                            }
                         }.multilineTextAlignment(.center).frame(maxWidth:.infinity).padding(.vertical,60) }
 
                     }.padding(.horizontal, 20).padding(.vertical, 20).frame(maxWidth: 680).frame(maxWidth: .infinity)
@@ -119,7 +158,7 @@ struct HomeView: View {
                                 .accessibilityIdentifier("inbox-wordmark")
                             Spacer(minLength: 0)
                             if hasComposeAction {
-                                Button { showingInvite = true } label: {
+                                Button { compose = .chat } label: {
                                     Image(systemName: "square.and.pencil").frame(width: 44, height: 44)
                                 }.accessibilityLabel("New chat")
                             }
@@ -144,8 +183,23 @@ struct HomeView: View {
                         }
                 }
             }
-            .sheet(isPresented: $showingInvite, onDismiss: { state.invitationUsername = nil }) {
-                NewChatView(chat: chat, invitationUsername: state.invitationUsername) { peer in path.append(.friend(peer)) }
+            .sheet(item: $compose, onDismiss: { if compose == nil { state.invitationUsername = nil } }) { destination in
+                switch destination {
+                case .chat:
+                    NewChatView(chat: chat, invitationUsername: state.invitationUsername, groupCreated: openCreatedGroup) { peer in
+                        path.append(.friend(peer))
+                    }
+                case .group:
+                    if let groups = groupSession, let chat {
+                        NavigationStack { GroupCreateView(groups: groups, people: chat.groupCandidates, onCreated: openCreatedGroup) }
+                    }
+                }
+            }
+            .onChange(of: groupSession?.account) { _, _ in
+                if compose == .group { compose = nil }
+                if let index = path.firstIndex(where: { destination in
+                    switch destination { case .groups, .group: true; case .friend: false }
+                }) { path.removeSubrange(index...) }
             }
             .onChange(of: state.invitationUsername, initial: true) { _, _ in presentInvitationIfReady() }
             .onChange(of: chat?.ready) { _, _ in
@@ -156,6 +210,18 @@ struct HomeView: View {
             .navigationDestination(for: HomeDestination.self) { destination in
                 switch destination {
                 case .friend(let peer): if let chat { FriendConversationView(chat: chat, peer: peer) }
+                case .groups:
+                    if let chat, let groups = groupSession, let immersion = chat.translationOwner {
+                        GroupsHomeView(groups: groups, people: chat.groupCandidates, immersion: immersion, openCreatedGroup: openCreatedGroup) { peer in
+                            path.append(.friend(peer))
+                        }
+                    }
+                case .group(let id):
+                    if let chat, let groups = groupSession, let immersion = chat.translationOwner {
+                        GroupConversationView(groups: groups, groupID: id, people: chat.groupCandidates, immersion: immersion) { peer in
+                            path.append(.friend(peer))
+                        }
+                    }
                 }
             }
             .refreshable { await chat?.synchronize() }
@@ -168,7 +234,7 @@ struct HomeView: View {
                     chat.clearPreview()
                     choosingLanguage = false
                     showingSettings = false
-                    showingInvite = false
+                    compose = nil
                     path = [.friend(preview.peer)]
                 } label: {
                     VStack(alignment: .leading, spacing: 2) {
@@ -189,18 +255,22 @@ struct HomeView: View {
             if !Task.isCancelled, chat.incomingPreview?.id == preview.id { chat.clearPreview() }
         }
     }
+    private func openCreatedGroup(_ id: UUID) {
+        compose = nil
+        path.append(.group(id))
+    }
     private func presentInvitationIfReady() {
         guard state.invitationUsername != nil, chat?.ready == true else { return }
         choosingLanguage = false
         showingSettings = false
         offerBase = false
         path.removeAll()
-        showingInvite = true
+        compose = .chat
     }
     private func presentInboxIfReady() {
         guard chat?.ready == true, let request = PushNotifications.shared.inboxPresentation else { return }
         state.invitationUsername = nil
-        showingInvite = false
+        compose = nil
         choosingLanguage = false
         showingSettings = false
         offerBase = false
@@ -311,9 +381,18 @@ private struct VisibleHomeMessagePreview: View {
     }
 }
 
+private extension ChatSession {
+    var groupComposeSession: GroupsSession? {
+        guard ready, !needsReauthentication, translationOwner != nil else { return nil }
+        return groups
+    }
+    var groupCandidates: [ChatProfile] { contacts.values.filter { !blockedPeers.contains($0.id) } }
+}
+
 struct NewChatView: View {
     var chat: ChatSession? = nil
     var invitationUsername: String? = nil
+    var groupCreated: (UUID) -> Void
     var selected: (UUID) -> Void = { _ in }
     @Environment(\.dismiss) private var dismiss
     @State private var username = ""
@@ -321,11 +400,22 @@ struct NewChatView: View {
     @State private var busy = false
     @State private var lookup: Task<Void, Never>?
     @State private var showingInvitation = false
+    @State private var showingGroupForm = false
     @FocusState private var editingName: Bool
 
     var body: some View {
         NavigationStack {
             Form {
+                if chat?.groupComposeSession != nil {
+                    Section {
+                        Button { showingGroupForm = true } label: {
+                            HStack(spacing: 12) {
+                                Image(decorative: "SpotNewGroup").resizable().scaledToFit().frame(width: 44, height: 30)
+                                Text("New group").font(.headline)
+                            }.frame(minHeight: 44)
+                        }.accessibilityIdentifier("new-chat-new-group")
+                    }
+                }
                 Section {
                     TextField("Name or @username", text: $username)
                         .accessibilityIdentifier("Friend’s username")
@@ -365,18 +455,6 @@ struct NewChatView: View {
                             .accessibilityIdentifier("new-chat-invite-friend")
                     }
                 }
-                if let chat, chat.ready, !chat.needsReauthentication,
-                   let groups = chat.groups, let immersion = chat.translationOwner {
-                    Section {
-                        NavigationLink {
-                            GroupsHomeView(groups: groups,
-                                people: chat.contacts.values.filter { !chat.blockedPeers.contains($0.id) },
-                                immersion: immersion, reviewIdentity: { peer in selected(peer); dismiss() })
-                        } label: {
-                            Label("Groups", systemImage: "person.3")
-                        }.accessibilityIdentifier("open-groups")
-                    }
-                }
                 if let error { Section { Text(error).foregroundStyle(VipiDesign.secondary) } }
             }
             .scrollContentBackground(.hidden).background(VipiDesign.canvas)
@@ -391,6 +469,11 @@ struct NewChatView: View {
                 if expired == true { lookup?.cancel(); showingInvitation = false; dismiss() }
             }
             .onDisappear { lookup?.cancel() }
+            .sheet(isPresented: $showingGroupForm) {
+                if let chat, let groups = chat.groupComposeSession {
+                    NavigationStack { GroupCreateView(groups: groups, people: chat.groupCandidates, onCreated: groupCreated) }
+                }
+            }
             .sheet(isPresented: $showingInvitation) {
                 if let profile = chat?.profile {
                     FriendInviteView(username: profile.username).id(profile.id)

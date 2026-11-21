@@ -1,10 +1,11 @@
 import SwiftUI
 
-/// Opened from New conversation in the opt-in simulator build.
+/// Existing group conversations and invitations in the opt-in build.
 struct GroupsHomeView: View {
     let groups: GroupsSession
     let people: [ChatProfile]
     let immersion: ConversationImmersion
+    let openCreatedGroup: (UUID) -> Void
     let reviewIdentity: (UUID) -> Void
     @State private var creating = false
     var body: some View {
@@ -26,9 +27,9 @@ struct GroupsHomeView: View {
                 if groups.busy && !groups.loaded { ProgressView("Loading groups") }
                 if groups.groups.isEmpty && !groups.busy {
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("Bring your people together").font(.title2.bold())
+                        Text("No groups yet").font(.title2.bold())
+                            .modifier(ScreenSpot(asset: "SpotNewGroup"))
                         Text("Create a group for up to 16 people, including you. Everyone keeps their own language practice settings.").font(.body)
-                        Button("Create group") { creating = true }.buttonStyle(.borderedProminent)
                     }.padding(.vertical, 18)
                 }
                 ForEach(groups.groups.sorted(by: { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending })) { group in
@@ -55,13 +56,14 @@ struct GroupsHomeView: View {
         }.navigationTitle("Groups")
             .toolbar { ToolbarItem(placement: .primaryAction) { Button("Create group", systemImage: "plus") { creating = true } } }
             .refreshable { await groups.refresh() }.task { await groups.refresh() }
-            .sheet(isPresented: $creating) { NavigationStack { GroupCreateView(groups: groups, people: people) } }
+            .sheet(isPresented: $creating) { NavigationStack { GroupCreateView(groups: groups, people: people, onCreated: openCreatedGroup) } }
     }
 }
 
 struct GroupCreateView: View {
     let groups: GroupsSession
     let people: [ChatProfile]
+    let onCreated: (UUID) -> Void
     @Environment(\.dismiss) private var dismiss
     @State private var title = ""
     @FocusState private var editingName: Bool
@@ -86,24 +88,37 @@ struct GroupCreateView: View {
             Section {
                 Text("Maximum 16 people").font(.body)
                 Text("\(selected.count + 1) of 16 people selected, including you").font(.headline).accessibilityIdentifier("group-selection-count")
+            } footer: {
+                Text("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.")
             }
             GroupPeoplePicker(people: people, account: groups.account, selected: $selected, notice: $selectionNotice)
             if let notice = selectionNotice ?? groups.notice { Section { Text(notice).font(.body).foregroundStyle(VipiDesign.destructive) } }
-            Section {
-                Button(actionTitle) {
-                    Task {
-                        var group = created.flatMap { groups.snapshot($0) }
-                        if group == nil { group = await groups.create(title: title); created = group?.id }
-                        guard var current = group else { return }
-                        for id in selected.sorted(by: { $0.uuidString < $1.uuidString }) {
-                            guard await groups.invite(current, person: id) else { return }
-                            selected.remove(id); current = groups.snapshot(current.id) ?? current
-                        }
-                        dismiss()
-                    }
-                }.font(.headline).disabled(!canCreate).accessibilityIdentifier("group-create")
-            } footer: { Text("Message text is end-to-end encrypted. Vipi can see the group name, people and invitations.").font(.body) }
-        }.navigationTitle("New group").task { if let pending = groups.pendingCreateTitle() { title = pending } }.toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() }.disabled(groups.busy) } }
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            Button { Task { await submit() } } label: {
+                Text(actionTitle).font(.headline).fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, minHeight: 30)
+            }
+            .buttonStyle(.borderedProminent).controlSize(.large)
+            .disabled(!canCreate).accessibilityIdentifier("group-create")
+            .padding(.horizontal, 20).padding(.vertical, 8)
+            .background(.bar)
+        }
+        .navigationTitle("New group")
+        .task { if let pending = groups.pendingCreateTitle() { title = pending } }
+        .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Cancel") { dismiss() }.disabled(groups.busy) } }
+    }
+    private func submit() async {
+        var group = created.flatMap { groups.snapshot($0) }
+        if group == nil { group = await groups.create(title: title); created = group?.id }
+        guard var current = group else { return }
+        for id in selected.sorted(by: { $0.uuidString < $1.uuidString }) {
+            guard await groups.invite(current, person: id) else { return }
+            selected.remove(id)
+            current = groups.snapshot(current.id) ?? current
+        }
+        dismiss()
+        onCreated(current.id)
     }
 }
 

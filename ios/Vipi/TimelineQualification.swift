@@ -949,6 +949,14 @@ struct PendingPairRootBinding: View {
     private let peerCore: MessagingCore
     private let publication: KeyPublication
     private var chats: [ChatSession] = []
+    private var createdGroups: [String: [String: Any]] = [:]
+    private var directoryFixtureEnabled: Bool {
+        GroupsUpgrade.enabled && ProcessInfo.processInfo.arguments.contains("-vipi-group-directory-qa")
+    }
+    private var directoryOwner: [String: Any] {
+        ["user_id": ledger.account.uuidString, "display_name": "Alex",
+         "username": "firstmonth_qa", "role": "owner", "joined_epoch": 1]
+    }
     /// Screenshot-only data, not evidence of Apple Translation inference.
     private static var marketingEnabled: Bool {
         Bundle.main.bundleIdentifier == "co.fallsoft.vipi.uxqa" &&
@@ -1370,6 +1378,29 @@ struct PendingPairRootBinding: View {
         let input = try body.map { try JSONSerialization.jsonObject(with: $0) as? [String: Any] ?? [:] } ?? [:]
         let value: [String: Any]
         switch (method, path) {
+        case ("GET", "/v1/groups") where directoryFixtureEnabled:
+            let peer: [String: Any] = ["user_id": ledger.peer.uuidString, "display_name": "Maya",
+                "username": "inbox_qa_0", "role": "member", "joined_epoch": 1]
+            let group: [String: Any] = ["id": "80b02690-c1eb-4922-a2ab-8c5fe9c4b2f1", "title": "Book club",
+                "epoch": 1, "state": "active", "members": [directoryOwner, peer], "invitations": []]
+            let invitation: [String: Any] = ["id": "2da68340-02e0-4c55-b278-b2ed81713464",
+                "group_id": "9fec7471-ee13-4f41-90bd-7d037c226a15", "title": "Weekend plans",
+                "invited_by": ledger.peer.uuidString, "epoch": 1, "expires_at": "2099-01-01T00:00:00Z"]
+            value = ["groups": [group] + Array(createdGroups.values), "invitations": [invitation]]
+        case ("POST", "/v1/groups") where directoryFixtureEnabled:
+            guard let id = input["id"] as? String, UUID(uuidString: id) != nil,
+                  createdGroups[id] == nil, let title = input["title"] as? String else { throw GroupsFailure.invalidResponse }
+            value = ["id": id, "title": title, "epoch": 1, "state": "active", "members": [directoryOwner], "invitations": []]
+            createdGroups[id] = value
+        case ("POST", _) where directoryFixtureEnabled && path.hasPrefix("/v1/groups/") && path.hasSuffix("/invitations"):
+            let parts = path.split(separator: "/")
+            guard parts.count == 4, var group = createdGroups[String(parts[2])], let person = input["user_id"] as? String,
+                  let request = input["request_id"] as? String else { throw GroupsFailure.invalidResponse }
+            let pending = ["id": request, "user_id": person, "invited_by": ledger.account.uuidString,
+                           "expires_at": "2099-01-01T00:00:00Z", "state": "pending"]
+            group["invitations"] = (group["invitations"] as? [[String: String]] ?? []) + [pending]
+            createdGroups[String(parts[2])] = group
+            value = group
         case ("GET", "/v1/groups") where GroupsUpgrade.enabled && ProcessInfo.processInfo.arguments.contains("-vipi-inbox-populated-qa"):
             value = ["groups": [], "invitations": []]
         case ("GET", "/v1/me"):
