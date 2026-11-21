@@ -1,3 +1,4 @@
+import AVFoundation
 import XCTest
 @testable import Vipi
 
@@ -105,6 +106,74 @@ import XCTest
         let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("speech-qa")
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
         try JSONSerialization.data(withJSONObject: report, options: [.prettyPrinted, .sortedKeys]).write(to: directory.appendingPathComponent("player-001.json"), options: .atomic)
+    }
+
+    func testTemporaryDuckingAcrossCompletionStopSwitchAndRendererFailures() async throws {
+        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let pair = try LocalSpeechPair(source: "en", target: "en", root: directory)
+        let renderer = FailingAfterFirstChunk(pair)
+        let speaker = SpeechPlayback { _, _, _ in renderer }
+        defer { speaker.close(); try? FileManager.default.removeItem(at: directory) }
+        func mark(_ phase: String) { print("VIPI_DUCK \(Date().timeIntervalSince1970) \(phase)") }
+        func awaitState(_ state: SpeechState) async throws {
+            let deadline = Date().addingTimeInterval(12)
+            while speaker.state != state {
+                guard Date() < deadline else { XCTFail("Speech did not reach the expected state"); throw LocalSpeechError.timedOut }
+                try await Task.sleep(for: .milliseconds(20))
+            }
+        }
+        let phrase = [(text: "The train to Cambridge leaves at seven.", language: "en")]
+        speaker.prepare(source: "en", target: "en", warmups: ["en": "Ready."])
+        try await waitForNativeVoicePreparation(speaker)
+        mark("ready")
+        speaker.start(message: "finish", spans: phrase)
+        try await awaitState(.playing); mark("playing")
+        let session = AVAudioSession.sharedInstance()
+        XCTAssertEqual(session.category, .playback)
+        XCTAssertTrue(session.categoryOptions.contains(.duckOthers))
+        XCTAssertFalse(session.categoryOptions.contains(.interruptSpokenAudioAndMixWithOthers))
+        try await awaitState(.ready)
+        XCTAssertEqual(speaker.lastCompletion?.succeeded, true); mark("finished")
+        speaker.start(message: "first", spans: phrase)
+        try await awaitState(.playing)
+        speaker.start(message: "replacement", spans: phrase)
+        try await awaitState(.playing)
+        XCTAssertEqual(speaker.activeMessage, "replacement")
+        mark("replaced")
+        speaker.stop()
+        XCTAssertEqual(speaker.state, .ready); mark("stopped")
+        for cancellation in [false, true] {
+            renderer.failOnNextChunk = false
+            renderer.nextError = cancellation ? CancellationError() : LocalSpeechError.invalidAudio
+            speaker.start(message: cancellation ? "cancel" : "failure", spans: phrase + phrase, pauseBetweenSpans: true)
+            try await awaitState(.playing)
+            renderer.failOnNextChunk = true
+            try await awaitState(.ready)
+            XCTAssertEqual(speaker.lastCompletion?.succeeded, false)
+            XCTAssertNil(speaker.activeMessage)
+            mark(cancellation ? "cancelled" : "failed")
+        }
+    }
+
+    @MainActor private final class FailingAfterFirstChunk: PreparedSpeechPair {
+        let pair: LocalSpeechPair
+        var nextError: Error?
+        var failOnNextChunk = false
+        private var firstChunk = true
+        init(_ pair: LocalSpeechPair) { self.pair = pair }
+        func prepare(warmups: [String: String]) async throws { try await pair.prepare(warmups: warmups) }
+        func render(_ spans: [(text: String, language: String)]) async throws -> RenderedSpeech {
+            if let nextError {
+                if firstChunk { firstChunk = false }
+                else {
+                    while !failOnNextChunk { try await Task.sleep(for: .milliseconds(10)) }
+                    self.nextError = nil; firstChunk = true
+                    throw nextError
+                }
+            }
+            return try await pair.render(spans)
+        }
+        func stop() { pair.stop() }
     }
 
     func testRecordNativeVoicesAndPreparedPair() async throws {

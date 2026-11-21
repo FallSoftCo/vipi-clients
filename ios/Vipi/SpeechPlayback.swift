@@ -51,7 +51,8 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
     private var observers: [NSObjectProtocol] = []
     private var epoch = 0
     private var ready = false
-    private var sessionActive = false
+    // AVAudioSession is shared by every conversation and the tutorial.
+    private static weak var sessionOwner: SpeechPlayback?
     @ObservationIgnored var onUnavailable: (() -> Void)?
     @ObservationIgnored var onInterruption: (() -> Void)?
     private(set) var state: SpeechState = .preparing {
@@ -173,8 +174,10 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                     let file = try AVAudioFile(forReading: audio.file)
                     if self.player == nil {
                         let session = AVAudioSession.sharedInstance()
-                        try session.setCategory(.playback, mode: .spokenAudio)
-                        try session.setActive(true); self.sessionActive = true
+                        Self.sessionOwner?.stop()
+                        try session.setCategory(.playback, mode: .spokenAudio, options: .duckOthers)
+                        try session.setActive(true)
+                        Self.sessionOwner = self
                         let engine = AVAudioEngine(); let node = AVAudioPlayerNode()
                         engine.attach(node); engine.connect(node, to: engine.mainMixerNode, format: file.processingFormat)
                         self.engine = engine; self.player = node
@@ -237,8 +240,9 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
                 guard renderedAny else { throw LocalSpeechError.invalidAudio }
                 self.schedulingFinished = true
                 if self.scheduled.isEmpty { self.completed(message,succeeded:true) }
-            } catch is CancellationError { }
-            catch {
+            } catch is CancellationError {
+                if request == self.epoch { self.completed(message,succeeded:false) }
+            } catch {
                 if request == self.epoch { self.completed(message,succeeded:false); self.error = String(localized: "This message couldn’t play. Try again.") }
             }
         }
@@ -249,7 +253,10 @@ enum SpeechState { case preparing, ready, rendering, playing, unavailable }
         rendering?.cancel()
         // Keep the task reference until the next request has awaited its cleanup.
         player?.stop(); engine?.stop(); player = nil; engine = nil; scheduled.removeAll()
-        if sessionActive { try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation); sessionActive = false }
+        if Self.sessionOwner === self {
+            try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+            Self.sessionOwner = nil
+        }
         activeMessage = nil; activeFace = nil; activePracticeWordID = nil; autoplayOwned = false
         if ready { state = .ready }
     }

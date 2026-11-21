@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 
 /** Authored onboarding UI inputs, selected by the language the user speaks.
  * These are not practice translations; the normal local engine produces those. */
@@ -102,6 +104,7 @@ internal object OnboardingPreviewSource {
     val audio = remember(translation, speech) { ConversationAutoplay(translation, speech, scope) {} }
     LaunchedEffect(speech) { speech.prepare(warmups) }
     LaunchedEffect(scrolling) { if (scrolling) gestures.held = false }
+    LifecycleEventEffect(Lifecycle.Event.ON_STOP) { audio.background() }
     DisposableEffect(audio) { onDispose { audio.close() } }
     DisposableEffect(translation) { onDispose { translation.close() } }
     DisposableEffect(speech) { onDispose { speech.close() } }

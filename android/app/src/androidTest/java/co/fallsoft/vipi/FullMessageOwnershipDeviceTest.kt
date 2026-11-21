@@ -35,7 +35,8 @@ class FullMessageOwnershipDeviceTest {
         override fun close() = Unit
     }
     private fun owner(model: Model, language: MessageTranslationLanguage = language("en"), store: FullMessageTranslationStore? = null) =
-        ConversationTranslation(context, "en", "es", store, model, language, reading = { _, _ -> FullMessageReading.notNeeded() })
+        ConversationTranslation(context, "en", "es", store, model, language, reading = { _, _ -> FullMessageReading.notNeeded() },
+            mode = ImmersionMode.FULL_MESSAGES)
     private suspend fun until(predicate: () -> Boolean) = withTimeout(8_000) {
         while (!withContext(Dispatchers.Main.immediate) {
             androidx.compose.runtime.snapshots.Snapshot.sendApplyNotifications(); predicate()

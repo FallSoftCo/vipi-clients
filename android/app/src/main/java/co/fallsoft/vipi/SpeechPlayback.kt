@@ -52,9 +52,20 @@ internal class SpeechPlayback(context: Context, private val target: String, priv
     private val audio = context.getSystemService(AudioManager::class.java)
     private val attributes = AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)
         .setContentType(AudioAttributes.CONTENT_TYPE_SPEECH).build()
-    private val focus = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
-        .setAudioAttributes(attributes).setWillPauseWhenDucked(true)
-        .setOnAudioFocusChangeListener({ change -> if (change != AudioManager.AUDIOFOCUS_GAIN) interrupted() }, Handler(Looper.getMainLooper())).build()
+    private var focusRequest: AudioFocusRequest? = null
+
+    private fun requestFocus(request: Int): Boolean {
+        val focus = AudioFocusRequest.Builder(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+            .setAudioAttributes(attributes)
+            .setWillPauseWhenDucked(true)
+            .setOnAudioFocusChangeListener({ change ->
+                if (request == epoch && change != AudioManager.AUDIOFOCUS_GAIN) interrupted()
+            }, Handler(Looper.getMainLooper()))
+            .build()
+        // AudioManager registers the listener before deciding whether to grant focus.
+        focusRequest = focus
+        return audio.requestAudioFocus(focus) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED
+    }
     private val noisy = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) { if (intent?.action == AudioManager.ACTION_AUDIO_BECOMING_NOISY) interrupted() }
     }
@@ -143,7 +154,7 @@ internal class SpeechPlayback(context: Context, private val target: String, priv
                     }
                     val first = queue.receive()
                     if (closed || request != epoch) throw CancellationException("Playback stopped")
-                    if (audio.requestAudioFocus(focus) != AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    if (!requestFocus(request)) {
                         stop(); error = context.getString(R.string.audio_busy); return@coroutineScope
                     }
                     val next = PcmSpeechPlayer(first.wave.sampleRate, first.wave.channels, attributes)
@@ -177,8 +188,10 @@ internal class SpeechPlayback(context: Context, private val target: String, priv
                 if (request == epoch) { MessageAudioQualification.emit("pcm_completed", message); stop() }
             } catch (_: TimeoutCancellationException) {
                 if (request == epoch) { stop(); error = context.getString(R.string.audio_play_failed) }
-            } catch (cancelled: CancellationException) { throw cancelled }
-            catch (failure: Exception) {
+            } catch (cancelled: CancellationException) {
+                if (request == epoch) stop()
+                throw cancelled
+            } catch (failure: Exception) {
                 MessageAudioQualification.emit("speech_failure", message, "failure" to failure.javaClass.name)
                 if (request == epoch) { stop(); error = context.getString(R.string.audio_play_failed) }
             }
@@ -190,9 +203,13 @@ internal class SpeechPlayback(context: Context, private val target: String, priv
         activeMessage?.let { MessageAudioQualification.emit("speech_stopped", it, "state" to state.name) }
         epoch++
         rendering?.cancel(); rendering = null
-        player?.close()
-        player = null
-        audio.abandonAudioFocusRequest(focus)
+        try {
+            player?.close()
+        } finally {
+            player = null
+            focusRequest?.let { audio.abandonAudioFocusRequest(it) }
+            focusRequest = null
+        }
         playingWord = null
         activeMessage = null
         if (ready) state = SpeechState.READY
