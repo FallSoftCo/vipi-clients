@@ -331,6 +331,36 @@ class InboxJourneyDeviceTest {
         }
     }
 
+    @Test fun screenArtworkGivesWayToTheSearchAndLargeText() {
+        val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
+        val recent = Row(service.peer, "Maya", "Coffee tomorrow?", System.currentTimeMillis())
+        MainActivityJourneyFixture("screen-spots", { app -> seed(app, service, listOf(recent)); service.model(app) }).use { f ->
+            val config = f.base.resources.configuration
+            val spacious = config.screenWidthDp >= 360 && config.screenHeightDp >= 480 && config.fontScale < 1.5f
+            val spot = compose.onNodeWithTag("screen-spot", useUnmergedTree = true)
+            fun checkSpace() {
+                if (spacious) spot.assertIsDisplayed().assertHasNoClickAction() else spot.assertDoesNotExist()
+            }
+            try {
+                f.launch(); screen(f, Screen.HOME)
+                compose.onNodeWithContentDescription(f.base.getString(R.string.nav_settings)).performClick()
+                screen(f, Screen.SETTINGS); checkSpace()
+                paint(f, "01-settings")
+                f.device.pressBack(); screen(f, Screen.HOME)
+                compose.onNodeWithTag("inbox-compose").performClick()
+                screen(f, Screen.NEW_CHAT); checkSpace()
+                paint(f, "02-new-chat")
+                val search = compose.onNodeWithTag("new-chat-search")
+                val before = search.fetchSemanticsNode().boundsInWindow.width
+                search.performTouchInput { click() }.performTextInput("may")
+                spot.assertDoesNotExist()
+                val after = search.fetchSemanticsNode().boundsInWindow.width
+                if (spacious) assertTrue("The focused field uses the illustration space", after > before)
+                search.assertIsFocused().assertTextContains("may")
+                paint(f, "03-editing")
+            } finally { f.stopActivity(); service.close() }
+        }
+    }
     @Test fun headerPracticeChooserStaysAccessibleWithLocalizedLargeText() {
         val service = JourneyServices(profileRequired = false, accountDisplayName = "Alex", peerDisplayName = "Maya")
         val recent = Row(service.peer, "Maya", "Coffee tomorrow?", System.currentTimeMillis() - 60_000)
